@@ -119,6 +119,13 @@ function builder() {
     sl("  const XW_ENTRIES =", "  PAGES.crossword = function"),
     sl("  const WY_EVENTS = 5", "  PAGES.whatyear = function"),
     sl("  function dayPick(key, arr, n) {", "\n  PAGES.challenge"),
+    // the three that draw through dayPick in the page itself (the 400-day sweep below)
+    sl("  const WS_ROUNDS = 5;", "  PAGES.whosaid = function"),
+    sl("  function truefalsePool() {", "  PAGES.truefalse = function"),
+    sl("  function cardQuestions(c) {", "  // the \u2039 1 / 3 \u203a phrasing chevrons"),
+    sl("  function answerType(card) {", "  /* ---------- ONE PLAY A DAY"),
+    // the spelling pass's text half, so the sweep can name every quotation it would rewrite
+    sl("  const SPELL_PAIRS = [", "  function spellSkip(p, foreign) {"),
   ].join("\n");
   /* `gameCardIdSet` is shimmed to the REAL rule — the available cards at or below GAME_MAX_DIFFICULTY,
      with the bar read out of app.js rather than written down here — because the whole value of the
@@ -138,8 +145,15 @@ function builder() {
     const GAME_MAX_DIFFICULTY = ${GAME_MAX};
     const availableCardIdSet = () => new Set(CARDS.map((c) => c.id));
     const difficultyOK = (c) => typeof (c && c.difficulty) === "number" && c.difficulty >= 1 && c.difficulty <= GAME_MAX_DIFFICULTY;
-    const gameCardIdSet = () => new Set(CARDS.filter((c) => difficultyOK(c) && !cardMapSpec(c)).map((c) => c.id));
+    // an artwork, flag or draw-the-flag card is out of the cold games too (its question IS the picture, so
+    // 'question' is empty) — read off the flag fields; the real specs also demand a usable 'src', which
+    // only ever excludes MORE, so this errs towards sweeping a card the page might not deal
+    const gameCardIdSet = () => new Set(CARDS.filter((c) => difficultyOK(c) && !cardMapSpec(c) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true).map((c) => c.id));
     const cardMapSpec = (c) => (c && c.map && c.map.layer && c.map.key ? c.map : null);
+    const CARD_BY_ID = Object.fromEntries(CARDS.map((c) => [c.id, c]));
+    const ALL_CARD_IDS = CARDS.map((c) => c.id);
+    const quoteLocalized = (x) => x, tfLocalized = (x) => x;
+    const S = { settings: {} };
     const localStorage = { getItem: () => null, setItem: () => {} };
     const chronoYear = (c) => { const y = cardStartYear(c); return y ? y : null; };
     const chronoPool = () => CARDS.filter(difficultyOK).map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter((x) => x.year != null && x.name);
@@ -149,8 +163,10 @@ function builder() {
   if (!global.window.WHATYEAR) require(path.join(ROOT, "whatyear.js"));
   // …and the crossword's own bank, which since Sep 2026 is where its clues come from rather than the cards
   if (!global.window.CROSSWORD) require(path.join(ROOT, "crossword.js"));
+  if (!global.window.QUOTEGAME) require(path.join(ROOT, "quotes.js"));
+  if (!global.window.TRUEFALSE) require(path.join(ROOT, "truefalse.js"));
   const CARDS = global.window.CARD_DATA;
-  const make = new Function("CARDS", "todayStr", "window", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear, dayPick};})()");
+  const make = new Function("CARDS", "todayStr", "window", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear, dayPick, buildWhoSaidRounds, whoSaidPool, truefalsePool, buildChallengeQuestions, spellText};})()");
   return (day) => make(CARDS, () => day, global.window);
 }
 function simulate(days) {
@@ -278,6 +294,94 @@ function crosswordForPage(cells) {
     const counts = Object.values(hits);
     check("[sim] …and every answer taking roughly its share", Math.max(...counts) - Math.min(...counts) <= 2,
       Math.min(...counts) + "–" + Math.max(...counts) + " turns each");
+  }
+
+  /* ============================ 0b. four hundred days of the dealt games ============================
+     (Oct 2026.) On 2026-10-19 this suite went red on every commit, including ones that had passed the day
+     before: nothing in the code had changed, the DATE had — the day's Who said it? deal reached a
+     quotation (King's "colour of their skin") that the page's spelling pass rewrote, so the round on
+     screen no longer matched its own entry. The 730-day sweep above only covers the two puzzle builders;
+     the three games that deal through `dayPick` were looked at on one day each, which is how a fault
+     that depends on WHICH quotation comes up could sit unseen until the draw reached it.
+     So every day of the window is dealt in Node, from the shipped builders, and each round is asserted to
+     be a playable round. A failure names the DAY NUMBER and the date, because "a round was broken" is
+     useless when the fault lives on one date in four hundred. */
+  const SWEEP_FROM = Date.UTC(2026, 9, 1), SWEEP_DAYS = 400;
+  const sweepDay = (i) => new Date(SWEEP_FROM + i * 86400000).toISOString().slice(0, 10);
+  /* Every pool quotation the shipped spelling pass would rewrite, each with the first day on which it is
+     dealt as ROUND ONE. Round one is the one that matters: the pass runs when the PAGE is rendered, and
+     rounds two to five are painted afterwards by the game itself, outside `render()`, where a British
+     reader's pass is not watching — so a rewritten quotation reached the reader only on the days it led,
+     which is why this took a date change to show. */
+  const spelledQuotes = new Map();
+  {
+    const build = builder();
+    const pool = build(sweepDay(0)).whoSaidPool();
+    const want = new Set(pool.filter((x) => build(sweepDay(0)).spellText(x.q, false) !== x.q).map((x) => x.q));
+    for (let i = 0; i < 3000 && spelledQuotes.size < want.size; i++) {
+      const first = build(sweepDay(i)).buildWhoSaidRounds()[0].it.q;
+      if (want.has(first) && !spelledQuotes.has(first)) spelledQuotes.set(first, { day: sweepDay(i), round: 0, i });
+    }
+    want.forEach((q) => { if (!spelledQuotes.has(q)) spelledQuotes.set(q, { day: null, round: 0, i: -1 }); });
+  }
+  {
+    const build = builder();
+    const bad = { ws: [], tf: [], mc: [], xw: [], wy: [] };
+    const note = (list, i, why) => { if (list.length < 5) list.push("day " + i + " (" + sweepDay(i) + "): " + why); else if (list.length === 5) list.push("…"); };
+    let wsRounds = 0;
+    for (let i = 0; i < SWEEP_DAYS; i++) {
+      const day = sweepDay(i), M = build(day);
+
+      // ---- Who said it? ----
+      const POOL = M.whoSaidPool();
+      const meta = new Map();
+      POOL.forEach((x) => { if (!meta.has(x.who)) meta.set(x.who, { cat: x.cat || "", era: x.era || "" }); });
+      let rounds = [];
+      try { rounds = M.buildWhoSaidRounds(); } catch (e) { note(bad.ws, i, "threw " + e.message); }
+      if (rounds.length !== 5) note(bad.ws, i, rounds.length + " rounds");
+      rounds.forEach((rd, k) => {
+        wsRounds++;
+        const it = rd.it, o = rd.options || [];
+        if (!it || !String(it.q || "").trim() || !String(it.who || "").trim()) return note(bad.ws, i, "round " + (k + 1) + " has no question or speaker");
+        if (o.length !== 4 || new Set(o).size !== 4 || o.some((x) => !String(x || "").trim())) return note(bad.ws, i, "round " + (k + 1) + " (" + it.who + ") options " + JSON.stringify(o));
+        if (!o.includes(it.who)) return note(bad.ws, i, "round " + (k + 1) + " has no answer among " + JSON.stringify(o));
+        const mine = meta.get(it.who);
+        const tier = (w) => { const m = meta.get(w) || { cat: "", era: "" }; const c = !!mine.cat && m.cat === mine.cat, e = !!mine.era && m.era === mine.era; return c && e ? 0 : c ? 1 : e ? 2 : 3; };
+        const counts = [0, 0, 0, 0];
+        [...meta.keys()].forEach((w) => { if (w !== it.who) counts[tier(w)]++; });
+        let need = 0, run = 0;
+        while (need < 3 && run + counts[need] < 3) { run += counts[need]; need++; }
+        const worst = Math.max(...o.filter((x) => x !== it.who).map(tier));
+        if (worst > need) note(bad.ws, i, "round " + (k + 1) + " (" + it.who + ") has a tier-" + worst + " decoy where tier " + need + " would do");
+      });
+
+      // ---- True or False: five distinct, answerable statements ----
+      const tf = M.truefalsePool(), idx = M.dayPick("truefalse", tf.map((_, j) => j), 5).map((j) => tf[j]);
+      if (idx.length !== 5 || new Set(idx).size !== 5 || idx.some((x) => !x || !String(x.q || "").trim() || typeof x.a !== "boolean"))
+        note(bad.tf, i, "five answerable statements were not dealt");
+
+      // ---- Multiple Choice: five cards, four distinct options holding the answer ----
+      let mc = [];
+      try { mc = M.buildChallengeQuestions(); } catch (e) { note(bad.mc, i, "threw " + e.message); }
+      if (mc.length !== 5) note(bad.mc, i, mc.length + " questions");
+      mc.forEach((q, k) => {
+        if (!q.card || !String(q.card.question || "").trim() || !q.correct) return note(bad.mc, i, "question " + (k + 1) + " has no question or answer");
+        if (q.options.length !== 4 || new Set(q.options).size !== 4 || !q.options.includes(q.correct)) note(bad.mc, i, "question " + (k + 1) + " options " + JSON.stringify(q.options));
+      });
+
+      // ---- the two puzzle builders, over this same window ----
+      const xw = M.dailyCrossword();
+      if (!xw || !xw.entries || xw.entries.length < 5) note(bad.xw, i, "no full crossword");
+      const wy = M.dailyWhatYear();
+      if (!wy || !wy.events || wy.events.length !== 5 || wy.from + wy.at * wy.step !== wy.year) note(bad.wy, i, "What year? unplayable");
+    }
+    check("[sweep] Who said it? deals " + SWEEP_DAYS + " days of five playable rounds, the answer among four and the ladder obeyed",
+      bad.ws.length === 0, bad.ws.join("\n         "));
+    check("[sweep] …that is " + SWEEP_DAYS * 5 + " rounds", wsRounds === SWEEP_DAYS * 5, String(wsRounds));
+    check("[sweep] True or False deals " + SWEEP_DAYS + " days of five answerable statements", bad.tf.length === 0, bad.tf.join("\n         "));
+    check("[sweep] Multiple Choice deals " + SWEEP_DAYS + " days of five questions with four options and the answer among them", bad.mc.length === 0, bad.mc.join("\n         "));
+    check("[sweep] the crossword deals a full grid on each of the " + SWEEP_DAYS + " days", bad.xw.length === 0, bad.xw.join("\n         "));
+    check("[sweep] What year? deals a winnable puzzle on each of the " + SWEEP_DAYS + " days", bad.wy.length === 0, bad.wy.join("\n         "));
   }
 
   /* ============================ 1. the registry ============================ */
@@ -1062,6 +1166,39 @@ function crosswordForPage(cells) {
     check("[ws] …and the closing line counts the same five",
       /^Five fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
     await ctx.close();
+
+    /* A QUOTATION REACHES THE READER AS IT IS STORED. The spelling pass turns American spellings into
+       British ones across the page, and a quotation is not Folio's prose: King never said "colour". It is
+       checked on the real page, on a day it LEADS (see spelledQuotes) rather than on the day this suite
+       runs, which is how the fault was found a day late. The list is derived (every pool quotation the
+       shipped `spellText` would change), so a new quotation with an American spelling is covered the day it is added. */
+    const shown = [];
+    for (const [q, at] of spelledQuotes) {
+      if (!at.day) { shown.push({ q: q.slice(0, 50), ok: false, on: "never dealt as round one in 3000 days" }); continue; }
+      const c2 = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+      const p2 = await c2.newPage();
+      watch(p2, "ws-verbatim");
+      await p2.clock.setFixedTime(new Date(at.day + "T12:00:00"));
+      await p2.goto(base + "#whosaid", { waitUntil: "load" });
+      await p2.waitForSelector(".ws-quote");
+      for (let k = 0; k < at.round; k++) {
+        await p2.evaluate(() => document.querySelector("#opts .opt").click());
+        await p2.evaluate(() => document.querySelector("#ws-next").click());
+        await p2.waitForTimeout(80);
+      }
+      const on = await p2.evaluate(() => (document.querySelector(".ws-quote") || {}).textContent);
+      /* …and on the results screen, which prints every quotation again */
+      for (let k = at.round; k < 5; k++) {
+        await p2.evaluate(() => document.querySelector("#opts .opt").click());
+        await p2.evaluate(() => document.querySelector("#ws-next").click());
+        await p2.waitForTimeout(80);
+      }
+      const sum = await p2.evaluate(() => [...document.querySelectorAll(".tf-sum-q")].map((e) => e.textContent.replace(/^\u201c|\u201d$/g, "")));
+      shown.push({ day: at.day, round: at.round + 1, ok: (on || "").trim() === q && sum.includes(q), on: (on || "").slice(0, 90) });
+      await c2.close();
+    }
+    check("[ws] …and a quotation with an American spelling is shown exactly as it is stored (" + spelledQuotes.size + " in the pool)",
+      spelledQuotes.size > 0 && shown.every((x) => x.ok), JSON.stringify(shown.filter((x) => !x.ok)));
   }
 
 

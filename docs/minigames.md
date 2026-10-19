@@ -480,6 +480,21 @@ The failure is silent from every angle — each reader's game works perfectly, d
 and scores them correctly — so nothing but two people talking to each other could have found it, and
 nothing but a check that the same date twice yields the same set can keep it fixed.
 
+**A QUOTATION IS SHOWN AS IT IS STORED, AND THE 400-DAY SWEEP (Oct 2026, on a red `test-minigames`).**
+`spellTree` rewrites American spellings into British ones across the page, and it skips `.notranslate` and
+`.bk-page`; it did not skip Who said it?'s quotations, so King's "colour of their skin" and Du Bois's "colour
+line" reached a British reader in a spelling neither man used. **Only on the days one of them LED**: the pass
+runs when the page is rendered, and rounds two to five (and the results) are painted by the game itself
+afterwards, outside `render()`, where a British reader has no observer (`applySpelling` returns early for
+`en-GB`). So nothing was wrong for most of the year, and on 2026-10-19 the draw put King first. The quotation
+(`.ws-quote`) and its row on the results screen now carry **`.verbatim`**, which `spellSkip` leaves alone —
+use the class for any other text that must reach the reader exactly as stored. `test-minigames.js` section
+`[sweep]` deals 400 days from 2026-10-01 in Node from the shipped builders (Who said it?, True or False,
+Multiple Choice, the crossword, What year?), names the failing DAY NUMBER and date, and the `[ws]` block
+plays, on the real page and a fixed clock, every pool quotation the spelling pass would change on a day it
+leads (derived, so a new one is covered). Its `gameCardIdSet` shim now leaves out artwork, flag and draw
+cards as the real rule does; before that a Multiple Choice sweep dealt an `art-` card with no question.
+
 ## Find it: a tap selects, a button commits (Aug 2026, on request)
 
 > "In the Find It minigame, clicking a country shouldn't immediately guess, but only selected before the

@@ -16323,6 +16323,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (p.isContentEditable) return true;
     if (!p.closest) return false;
     if (p.closest(".notranslate, .bk-page")) return true;
+    /* A QUOTATION IS THE SPEAKER'S WORDS, NOT FOLIO'S PROSE (Oct 2026, on a failing test). The pass is
+       for text Folio authored; Who said it?'s quotations are verbatim, so King's "colour of their skin"
+       and Du Bois's "colour line" were being printed in a spelling neither man used. `.verbatim` marks
+       text that must reach the reader exactly as it is stored. */
+    if (p.closest(".verbatim")) return true;
     if (!foreign) return false;
     /* THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH (Sep 2026, on request).
        A language deck's card wrapper carries the deck's own `speechLang`, so the guard above rightly
@@ -37543,7 +37548,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${pips()}
           <div class="dc-q">
             <div class="dc-meta"><span>Famous words</span><span>Who said it?</span></div>
-            <blockquote class="ws-quote">${esc(it.q)}</blockquote>
+            <blockquote class="ws-quote verbatim">${esc(it.q)}</blockquote>
             <div class="opts" id="opts"></div>
             <div class="tf-reveal" id="reveal" hidden></div>
           </div>
@@ -37601,7 +37606,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${sanitizeHTML(String(rd.it.context || ""))}</p>${sourcesHTML(rd.it.src, { compact: true })}</div>
+              <div><p class="tf-sum-q verbatim">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${sanitizeHTML(String(rd.it.context || ""))}</p>${sourcesHTML(rd.it.src, { compact: true })}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
