@@ -13,10 +13,35 @@
      siblings and the collection's home square with their names, and the place's name after the reveal. Nothing about the card's content moved. */
 (function (W) {
   "use strict";
+  /* THE WAR WINDOW'S TIMELINE (2026-10-19; docs/atlas-v2-card-windows.md "The war window's timeline"). A war whose data has a front line or a picture that changes in two or more dated steps gets a slim rail under its
+     window: a pin, play and pause, step buttons, the war's own years at its two ends and, under the pin, the step's month and year ("Mar 1943") where the step's date has a month, else the year. The steps come from the
+     engine (`hub.warTimeline`): the years in which the faces of the war's two sides change, or — for the war that owns the front line — the front's plate dates. THE FRONT LINE IS IN THE WHOLE HISTORY FILE ONLY (the
+     war slice carries none: 40 % of history.bin's vertices are the front's): `WAR_FRONT_CARDS` are the cards whose window reads the whole file (9.1 MB) instead of the slice (1.8 MB), except on file:// where the whole file's
+     twin is the pilot. `.claude/test-war-timeline.js` proves the list equals the front entities' `cards` in history.bin. */
+  const WAR_FRONT_CARDS = new Set(["ww2-001"]);
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const yearText = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y < 1000 ? y + " CE" : String(y));   // a CE year is bare from 1000 on; a short one keeps its era so "632" is never a number
+  const dateFrac = (d) => { const y = Math.floor(d / 10000), m = Math.floor(d / 100) % 100, dd = d % 100; return y + (Date.UTC(y, m - 1, dd) - Date.UTC(y, 0, 1)) / (365.25 * 86400000); };
+  const stepText = (st) => (st.month ? MONTHS[st.month - 1] + " " + yearText(st.year) : yearText(st.year));
+  /* the steps of a timeline from the engine's answer: the front's plates (each with a month) when the war owns them, else the change years; fewer than two is no timeline */
+  function timelineSteps(tl) {
+    if (!tl) return [];
+    const out = [];
+    if (tl.front && tl.plates && tl.plates.length) for (const d of tl.plates) out.push({ year: Math.floor(d / 10000), month: Math.floor(d / 100) % 100, day: d % 100, date: d, t: dateFrac(d), front: true });
+    else for (const y of tl.years || []) out.push({ year: y, month: null, day: null, date: null, t: y, front: false });
+    return out.length >= 2 ? out : [];
+  }
+  /* where the pin opens: the step nearest the card's own date when the card's date line names ONE year inside the war, else the war's last step */
+  function startStep(steps, span, years) {
+    const set = new Set((years || []).filter((y) => isFinite(y)));
+    if (set.size === 1) { const y = [...set][0]; if (y >= span[0] && y <= span[1]) { let best = 0; steps.forEach((st, i) => { if (Math.abs(st.t - (y + 0.5)) < Math.abs(steps[best].t - (y + 0.5))) best = i; }); return best; } }
+    return steps.length - 1;
+  }
   const mark = (n) => { try { performance.mark(n); } catch (e) {} };   // Phase 4b: named marks (a2:*) so a trace shows where a first window's time went
   function startCardWindow(host, X) {
     mark("a2:window-start");
     if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
+    let tlStop = () => {};   // removes the war timeline and stops its play (a war window only)
     let unhold = () => {};   // the hub is held while this window is pending (see AtlasEmbed.hold); let go at the first of: the window is mounted, it fell back to V1, it failed, it was stopped
     if (W.AtlasEmbed && W.AtlasEmbed.hold) { const let0 = W.AtlasEmbed.hold(); unhold = () => { unhold = () => {}; let0(); }; }   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
     const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon } = X, S = X.S;
@@ -25,7 +50,7 @@
     const def = CARD_MAP_LAYERS[layerName];
     /* THE WINDOW THE ENGINE COULD NOT DRAW (Phase 5, decision 3): a plain sentence in the window's place and the card's own text around it. Nothing else the card offers depends on the map. */
     const plain = (why) => {
-      stopped = true; unhold(); host.classList.remove("mc-loading"); host.classList.add("mc-plain"); host.setAttribute("data-map-engine", "none");
+      stopped = true; unhold(); tlStop(); host.classList.remove("mc-loading"); host.classList.add("mc-plain"); host.setAttribute("data-map-engine", "none");
       host._folioMap = { stop() { host._folioMap = null; }, reveal() {}, ready() { return true; }, settled() { return true; }, names() { return []; }, boxes() { return { names: [], marks: [], dropped: [], controls: null }; }, labels() { return []; }, probe() { return null; }, view() { return { lon: 0, lat: 0, zoom: 1, home: [0, 0, 1] }; }, pan() {} };
       if (cv) cv.hidden = true; host.querySelectorAll(".mc-zoom").forEach((z) => { z.hidden = true; });
       if (!host.querySelector(".mc-plain-note")) { const n = document.createElement("p"); n.className = "mc-plain-note"; n.setAttribute("role", "note"); n.textContent = why; host.insertBefore(n, host.firstChild); }
@@ -35,7 +60,7 @@
     if (!def) { plain(SORRY); return; }
     stopped = false;
     host._folioMap = {
-      stop() { stopped = true; unhold(); if (win) win.stop(); host._folioMap = null; },
+      stop() { stopped = true; unhold(); tlStop(); if (win) win.stop(); host._folioMap = null; },
       reveal() { revealed = true; if (win) win.schedule(); },
       ready() { return isReady; },
       settled() { return !!(win && win.isSettled()); },
@@ -87,6 +112,10 @@
     let FACES = null, targets = [], dot = null, ownLines = null, ownName = "";
     let ownRiverDone = false;
     const hubOptions = { host: {} };
+    const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard) && typeof location !== "undefined" && location.protocol !== "file:";   // the war that owns the front line reads the whole history (see WAR_FRONT_CARDS)
+    if (wantsFront) hubOptions.needHistory = "full";
+    let tlSteps = [], tlIdx = -1, tlSpan = null;   // the timeline's steps (none: no timeline), the step the pin stands on, the war's own years
+    const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
       FACES = window.ATLAS_CARD_FACES; const L = FACES && FACES.layers[layerName]; if (!L) return false;
       if (key) for (const k of key.split("|")) { const t = L[k]; if (!t) return false; targets.push({ n: k, id: t[0], c: [t[1], t[2]], b: [t[3], t[4], t[5], t[6]] }); }
@@ -168,7 +197,7 @@
        Until the first answer (a worker round trip after the first full frame) the window is not settled and draws no names; if the worker never answers the old centroid stands. `labels()` is what the suites read. */
     let warSides = null, lastNames = [], lastLabels = [], warHub = null, lastBoxes = { names: [], marks: [], dropped: [], ctl: null };
     const anch = { asked: "", key: "", rows: null, state: "none", timer: 0 };   // state: none | wait | have | failed
-    const viewKey = (st, cw, ch, level) => [st.lon.toFixed(4), st.lat.toFixed(4), st.zoom.toFixed(4), cw, ch, level].join();   // the level is in it: the faces are asked for at the level the view draws
+    const viewKey = (st, cw, ch, level) => [st.lon.toFixed(4), st.lat.toFixed(4), st.zoom.toFixed(4), cw, ch, level, tlStep() ? tlStep().date || tlStep().year : ""].join();   // the level is in it: the faces are asked for at the level the view draws
     const anchorsCurrent = (st, o) => !isWar || !warSides || !warHub || anch.state === "failed" || (anch.state === "have" && anch.key === viewKey(st, o.cw, o.ch, o.level));
     function askAnchors(st, api) {
       const key = viewKey(st, api.cw, api.ch, api.level); if (anch.asked === key) return; anch.asked = key;
@@ -345,6 +374,76 @@
       for (const n of plan) { ctx.font = n.font; ctx.textAlign = n.align; ctx.lineWidth = n.lw; ctx.strokeStyle = halo; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y); }
       ctx.restore();
     }
+    /* THE TIMELINE UNDER A WAR WINDOW (2026-10-19): a slim rail spanning only the war's own years, a pin that snaps to the steps, play and pause, step buttons; the label under the pin is the step's month and year, else its year.
+       Moving the pin changes the SAME window's year (and, for the front line, its date): the spec is read at every draw, so it is a `schedule()`, not a reload. It is a slider for assistive technology (value = the step's number,
+       text = its date, with the day where the plate has one), keyboard-operable (arrows, Home, End, Page Up and Down), follows Text size (`--fs`) and wraps to 360 px. */
+    function mountTimeline(hub) {
+      const n = tlSteps.length, t0 = tlSpan[0], t1 = tlSpan[1] + 1;
+      const frac = (st) => Math.max(0, Math.min(1, (st.t - t0) / Math.max(1e-9, t1 - t0)));
+      const el = document.createElement("div"); el.className = "war-tl"; el.setAttribute("role", "group"); el.setAttribute("aria-label", "Timeline of the war: " + n + " steps, from " + stepText(tlSteps[0]) + " to " + stepText(tlSteps[n - 1]));
+      el.innerHTML = '<div class="wtl-bar"><div class="wtl-ctl">' +
+        '<button type="button" class="wtl-btn wtl-prev" aria-label="Previous step" title="Previous step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+        '<button type="button" class="wtl-btn wtl-play" aria-label="Play the steps" aria-pressed="false" title="Play"><svg class="wtl-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg><svg class="wtl-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></button>' +
+        '<button type="button" class="wtl-btn wtl-next" aria-label="Next step" title="Next step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>' +
+        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-ticks" aria-hidden="true"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="War timeline" aria-orientation="horizontal"></div></div>' +
+        '<div class="wtl-now" aria-hidden="true"></div><div class="wtl-ends"><span class="wtl-start"></span><span class="wtl-end"></span></div></div></div>';
+      const q = (c) => el.querySelector(c), track = q(".wtl-track"), pin = q(".wtl-pin"), now = q(".wtl-now"), prev = q(".wtl-prev"), next = q(".wtl-next"), play = q(".wtl-play");
+      q(".wtl-start").textContent = yearText(tlSpan[0]); q(".wtl-end").textContent = yearText(tlSpan[1]);
+      q(".wtl-ticks").innerHTML = tlSteps.map((st) => '<i style="left:' + (frac(st) * 100).toFixed(2) + '%"></i>').join("");
+      pin.setAttribute("aria-valuemin", "1"); pin.setAttribute("aria-valuemax", String(n));
+      let playing = false, playTimer = 0;
+      const stopPlay = () => { playing = false; clearTimeout(playTimer); playTimer = 0; play.setAttribute("aria-pressed", "false"); play.setAttribute("aria-label", "Play the steps"); play.title = "Play"; el.classList.remove("wtl-playing"); };
+      function reflect() {
+        const st = tlSteps[tlIdx], f = frac(st) * 100, txt = stepText(st);
+        pin.style.left = f + "%"; pin.setAttribute("aria-valuenow", String(tlIdx + 1));
+        pin.setAttribute("aria-valuetext", (st.day ? st.day + " " : "") + txt + ", step " + (tlIdx + 1) + " of " + n);
+        now.textContent = txt;
+        el.setAttribute("data-step", String(tlIdx)); el.setAttribute("data-date", String(st.date || st.year)); el.setAttribute("data-label", txt);
+        prev.disabled = tlIdx <= 0; next.disabled = tlIdx >= n - 1;
+        const tw = track.clientWidth || 200, nw = now.offsetWidth || 50, px = Math.max(nw / 2, Math.min(tw - nw / 2, (f / 100) * tw));
+        now.style.left = px + "px";   // under the pin, held inside the rail's two ends
+      }
+      function go(i) {
+        i = Math.max(0, Math.min(n - 1, i)); if (i === tlIdx) return false;
+        tlIdx = i; const st = tlSteps[i];
+        host.setAttribute("data-map-year", String(st.year));
+        try { warSides = hub.warSides(sibCard, st.year); } catch (e) { /* the old sides stand */ }
+        reflect(); if (win) win.schedule(); return true;
+      }
+      const tick = () => {
+        playTimer = 0; if (!playing || stopped) return;
+        if (win && !win.isSettled() && (tick.waited = (tick.waited || 0) + 150) < 4000) { playTimer = setTimeout(tick, 150); return; }
+        tick.waited = 0;
+        if (!go(tlIdx + 1) || tlIdx >= n - 1) { if (tlIdx >= n - 1) { stopPlay(); return; } }
+        playTimer = setTimeout(tick, n > 60 ? 380 : 800);
+      };
+      play.addEventListener("click", () => {
+        if (playing) { stopPlay(); return; }
+        if (tlIdx >= n - 1) go(0);
+        playing = true; play.setAttribute("aria-pressed", "true"); play.setAttribute("aria-label", "Pause"); play.title = "Pause"; el.classList.add("wtl-playing");
+        playTimer = setTimeout(tick, n > 60 ? 380 : 800);
+      });
+      prev.addEventListener("click", () => { stopPlay(); go(tlIdx - 1); });
+      next.addEventListener("click", () => { stopPlay(); go(tlIdx + 1); });
+      pin.addEventListener("keydown", (e) => {
+        const big = Math.max(2, Math.round(n / 10)); let to = null;
+        if (e.key === "ArrowLeft" || e.key === "ArrowDown") to = tlIdx - 1; else if (e.key === "ArrowRight" || e.key === "ArrowUp") to = tlIdx + 1;
+        else if (e.key === "Home") to = 0; else if (e.key === "End") to = n - 1; else if (e.key === "PageDown") to = tlIdx - big; else if (e.key === "PageUp") to = tlIdx + big;
+        if (to == null) return; e.preventDefault(); stopPlay(); go(to);
+      });
+      // the pointer: a press on the rail or the pin snaps to the nearest step and follows the drag
+      const nearest = (clientX) => { const r = track.getBoundingClientRect(), t = t0 + Math.max(0, Math.min(1, (clientX - r.left) / Math.max(1, r.width))) * (t1 - t0); let b = 0; tlSteps.forEach((st, i) => { if (Math.abs(st.t - t) < Math.abs(tlSteps[b].t - t)) b = i; }); return b; };
+      let dragging = false;
+      track.addEventListener("pointerdown", (e) => { if (e.button) return; dragging = true; stopPlay(); try { track.setPointerCapture(e.pointerId); } catch (er) {} go(nearest(e.clientX)); pin.focus({ preventScroll: true }); e.preventDefault(); });
+      track.addEventListener("pointermove", (e) => { if (dragging) go(nearest(e.clientX)); });
+      const up = () => { dragging = false; };
+      track.addEventListener("pointerup", up); track.addEventListener("pointercancel", up);
+      host.insertAdjacentElement("afterend", el);
+      reflect();
+      if (typeof ResizeObserver !== "undefined") { try { const ro = new ResizeObserver(() => reflect()); ro.observe(track); const old = tlStop; tlStop = () => { ro.disconnect(); old(); }; } catch (e) { /* the label is placed at the next step */ } }
+      const base = tlStop; tlStop = () => { stopPlay(); try { el.remove(); } catch (e) {} tlStop = () => {}; base(); };
+      host._folioTimeline = { el, steps: tlSteps.slice(), index: () => tlIdx, go, playing: () => playing };   // for the suites
+    }
     /* the hub is created as soon as the engine's two bundles are in — in parallel with the card-faces join and the rest, not after them (Phase 4b: it was 45 ms of a warm first window) */
     const hubP = Promise.all([need[0], need[1]]).then((ok) => (ok.every(Boolean) && window.AtlasEmbed ? window.AtlasEmbed.ensure(hubOptions) : null));
     hubP.then((hub) => { if (hub && stopped && window.AtlasEmbed) window.AtlasEmbed.release(); }).catch(() => {});   // the card was left before its window mounted: the hub it asked for must not outlive the idle time
@@ -363,12 +462,16 @@
           const WT = window.ATLAS_WARS && window.ATLAS_WARS.wars && window.ATLAS_WARS.wars[sibCard];
           if (!WT) { plain(SORRY); return; }   // a war the table does not carry
           warYear = Math.round((WT.y[0] + WT.y[1]) / 2); host.setAttribute("data-map-year", String(warYear));
-          hub.startHistory("wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB)
+          hub.startHistory(wantsFront ? "full" : "wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB) — except the card that owns the front line (WAR_FRONT_CARDS)
           return new Promise((res) => {
             let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); res(ok); };
             const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
             if (hub.historyOK()) fin(true);
-          }).then((ok) => { if (stopped) return; if (!ok) { plain(SORRY); return; } { const sd = hub.warSides(sibCard); if (!sd || (!sd.v && !sd.l)) { plain(SORRY); return; } } mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
+          }).then((ok) => { if (stopped) return; if (!ok) { plain(SORRY); return; } { const sd = hub.warSides(sibCard); if (!sd || (!sd.v && !sd.l)) { plain(SORRY); return; } }
+            /* the timeline's steps and where the pin opens (2026-10-19): the step nearest the card's own date when it names one year inside the war, else the war's last step; the window's year is that step's */
+            try { tlSteps = timelineSteps(hub.warTimeline(sibCard)); } catch (e) { tlSteps = []; }
+            if (tlSteps.length) { tlSpan = WT.y.slice(); const c0 = CARD_BY_ID[sibCard]; tlIdx = startStep(tlSteps, tlSpan, X.cardSpanYears && c0 ? X.cardSpanYears(c0) : []); warYear = tlSteps[tlIdx].year; host.setAttribute("data-map-year", String(warYear)); }
+            mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         mountWindow(hub, null);
       });
@@ -397,7 +500,7 @@
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
             layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject() }, reliefNow()),
-            year: warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined,
+            year: tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
@@ -406,6 +509,7 @@
         mark("a2:window-mounted");
         win.setHome(home.lon, home.lat, home.zoom); win.setView(home.lon, home.lat, home.zoom);
         unhold();   // the window is in AtlasEmbed's `windows` now: it holds the hub itself
+        if (tlSteps.length) mountTimeline(hub);
         host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
           e.stopPropagation(); const w = b.getAttribute("data-mc");
           if (w === "home") win.goHome(); else if (w === "in") win.zoomBy(1.45); else if (w === "out") win.zoomBy(1 / 1.45);
@@ -735,5 +839,5 @@
     }
     run(rootEl);
   }
-  W.AtlasWindows = { startCardWindow, findIt };
+  W.AtlasWindows = { startCardWindow, findIt, warFrontCards: () => [...WAR_FRONT_CARDS], timelineSteps, startStep, stepText };
 })(window);

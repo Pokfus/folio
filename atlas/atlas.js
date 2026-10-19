@@ -1580,7 +1580,7 @@
           time.aliveArcs = arcFlags(time.onScreenAlive);
           time.pOnScreen = pVis.filter((a) => faceOnScreen(a.face, va));
           // the crossfade: when stepping or playing, never while the pin is dragged, never under reduced motion
-          if (!o.drag && !EMBED && !reducedNow() && prevFaces.length + alive.length + prevP.length + time.pOnScreen.length && o.why !== "meta" && o.why !== "ready" && o.why !== "peoples") { time.fade = { from: prevFaces, fromP: prevP, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
+          if (!o.drag && !reducedNow() && prevFaces.length + alive.length + prevP.length + time.pOnScreen.length && o.why !== "meta" && o.why !== "ready" && o.why !== "peoples") { time.fade = { from: prevFaces, fromP: prevP, fromArcs: time.prevArcs || null, t0: performance.now() }; } else time.fade = null;
           time.prevArcs = time.aliveArcs;
           wantMeshes(time.onScreenAlive.map((a) => a.face).concat(time.pOnScreen.map((a) => a.face)), true);
           if (!o.drag) lookAhead();
@@ -2566,6 +2566,7 @@
     function focusWar(id) {
       if (id && !(time.wars && time.wars[id])) return false;
       time.warFocus = id || null; computeWarShown();
+      if (!id) { time.frontOn = false; time.frontDate = null; }   // letting the war go lets the front go with it (the hub is shared with the next window)
       if (id) {
         const w = time.wars[id];
         if (time.year < w.y[0] || time.year > w.y[1]) setYear(w.y[0]);
@@ -2613,6 +2614,24 @@
       if (!faces || !faces.length || disposed) { cb([], null); return; }
       rotation(); const q = { rot: Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, level: Math.min(2, view.level) }, seq = ++faceAnchorSeq;
       faceAnchorWait.set(seq, { cb, q }); postToWorker(Object.assign({ type: "face-anchors", seq, faces, near: near || [] }, q));
+    }
+    /* A WAR WINDOW'S TIMELINE STEPS (2026-10-19; atlas-windows.js): the dated steps at which the war's own picture changes, from the loaded history and the wars table. `years`: the years of the war at which the faces
+       of its two sides (each member inside its own window, and the authored extent) differ from the year before — the first year a side stands is the first step; a year in which no side has a face is no step.
+       `plates`: when the war owns the front line (the Second World War's: the front entities' `cards`) and the loaded file carries it (the whole history, not the war slice), the front's plate dates (YYYYMMDD, never
+       interpolated), which then are the steps. `span`: the war's own years. null before the history and the table are in. */
+    function warTimeline(id) {
+      const w = time.wars && time.wars[id]; if (!w || !time.hist || !time.hist.ready) return null;
+      const A = AS2(), ys = new Set(), members = [];
+      for (const k of ["v", "l"]) { for (const m of w[k].m) members.push(m); if (w[k].x) members.push([w[k].x, w.y[0], w.y[1]]); }
+      const inWar = (y) => y >= w.y[0] && y <= w.y[1];
+      ys.add(w.y[0]);
+      const stepsOfMember = members.map(([eid]) => { const ei = entityIndexOfId(eid); return ei >= 0 ? time.stepsOf.get(ei) || [] : []; });
+      members.forEach(([, a, b], i) => { for (const y of [a, b + 1]) if (inWar(y)) ys.add(y); for (const st of stepsOfMember[i]) for (const y of [st[0], st[1] + 1]) if (inWar(y)) ys.add(y); });
+      const sig = (y) => members.map(([, a, b], i) => { if (y < a || y > b) return "-"; const st = stepsOfMember[i].find((t) => t[0] <= y && y <= t[1]); return st ? String(st[2]) : "."; }).join(",");
+      const years = []; let prev = null;
+      for (const y of [...ys].sort((p, q) => p - q)) { const g = sig(y); if (g === prev) continue; prev = g; if (/\d/.test(g)) years.push(y); }
+      const owns = time.frontEnts.length && time.frontPlates.length && time.frontEnts.some((i) => ((time.ents[i] && time.ents[i].cards) || []).indexOf(id) >= 0);
+      return { years, front: !!owns, plates: owns && A ? A.plateDates(time.frontPlates) : [], span: w.y.slice() };
     }
     /* A WAR WINDOW'S FRONT LINE (2026-10-19; the window's timeline, atlas-windows.js): `on` draws the front entities of the war's year at `date` (YYYYMMDD; null: the last plate of the year), without a reload —
        the year and the date are applied once, so a pin that moves from one plate to the next is one `applyYear`. The front needs the whole history file (the war slice carries none: build-war-slice.js). */
@@ -3128,7 +3147,7 @@
           if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(p); add(e.id); } else add(e.id); } }
           else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(ent.id); if (ent.parent) add(ent.parent); } }
           return out;
-        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), frontPlates: () => time.frontPlates, frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), warTimeline: (id) => warTimeline(id), frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), facesOfId: (id) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) if (faceEntity[f] === i) out.push(f); return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,

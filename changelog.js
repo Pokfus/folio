@@ -46,6 +46,7 @@ window.CHANGELOG = [
       "<b>Atlas legend</b>: turning off Cities, Places or Physical now hides their icons as well as their names, and the legend says which switch hides which.",
       "<b>Atlas capitals</b>: a capital's ring of places (Rome, Athens) keeps its own name beside it, nudging aside from the small sites that crowd it.",
       "<b>Atlas</b>: wars are no longer drawn on the Atlas page — no green and red tints, no front line and no Wars switch; a war now shows only in its own card\u2019s map window.",
+      "<b>War cards</b>: each war\u2019s map now has a timeline under it \u2014 step or play through the war\u2019s own years (and months, for the Second World War) to watch the front change.",
       "<b>Atlas rivers</b>: in a dark theme rivers are a little darker (about a fifth less bright), still clearly readable against the land and the sea.",
       "<b>Who said it?</b>: an American speaker\u2019s quotation is no longer respelled into British English, so \u201ccolor of their skin\u201d reads as King said it.",
     ],

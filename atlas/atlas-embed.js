@@ -74,6 +74,7 @@
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id, year) => E.warSides(id, year),
+        warTimeline: (id) => E.warTimeline(id),   // the war's dated steps (years of change; the front's plate dates when the file has them): a war window's timeline
         /* a point inside each of the faces, on the visible part of the view the hub is in now (the worker's label anchor; `near`, [{ face, lon, lat }], searches a face in the piece nearest that point — a war window passes each side's principal's capital): Promise of [{ face, v: unit vector | null (the best point), pts: [{ v, clear }] (up to twelve, best first), clear (px of the view it was asked in), vis, km2 }] — a point on the sphere, not a screen
            point, so a window can carry it through its next pan or pinch and ask again at rest */
         faceAnchors: (faces, near) => new Promise((res) => E.faceAnchors(faces, (rows, q) => res(q ? rows.map((r) => ({ face: r.face, vis: r.vis, km2: r.km2, clear: r.clear, v: r.anchor ? unitAt(q, r.anchor[0], r.anchor[1]) : null, pts: (r.pts || []).map((p) => ({ v: unitAt(q, p[0], p[1]), clear: p[2] })).filter((p) => p.v), piece: !!r.piece })) : []), near)),
@@ -151,12 +152,14 @@
   function yearAndWar(h, spec) {
     const E = h.E, ctl = h.ctl, want = spec.year == null ? null : spec.year, war = spec.war || null;
     if (h.canvas2d) return;   // the still renderer draws no history: every window is today's map
-    if (want == null) { if (h.year != null || h.war) { if (h.war) { E.focusWarNow(null); h.war = null; } E.setYearNow(E.TODAY); h.year = null; } return; }
+    if (want == null) { if (h.year != null || h.war) { if (h.war) { E.focusWarNow(null); h.war = null; h.frontDate = null; } E.setYearNow(E.TODAY); h.year = null; } return; }
     if (!war && E.historyKind() === "wars") return;   // the slice holds the states of the wars' years only: a window of any other year draws today's map until it is given the whole history
     E.startHistory(war ? "wars" : "full");
     if (!E.historyOK()) return;   // not yet: the window draws today's map and is told (onChange) when the history lands
-    if (war !== h.war) { E.focusWarNow(war); h.war = war; h.year = null; }
+    if (war !== h.war) { E.focusWarNow(war); h.war = war; h.year = null; if (!war) h.frontDate = null; }
     if (h.year !== want) { E.setYearNow(want); h.year = want; }
+    /* a war window's timeline (2026-10-19): `spec.front` draws the front line standing on `spec.frontDate` (YYYYMMDD) in the war's year; moving the pin changes the year and the date of the SAME window, no reload */
+    if (war) { const fd = spec.front && spec.frontDate != null ? spec.frontDate : null; if (h.frontDate !== fd) { E.setWindowFront(fd != null, fd); h.frontDate = fd; } }
     void ctl;
   }
   /* the unit vector under a screen point of an orthographic view { rot, radius, cx, cy } (the inverse of `project`; the rotation's rows are the view's axes in world coordinates) */
@@ -211,7 +214,7 @@
     else if (o.rims) for (const g of groups) if (g.hl.line) drawRim(h, g, ctx, spec, dpr, o.rims, rot);
     const pr = project(rot, v.radius, v.cx, v.cy);
     h.last = { rot, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
-    const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled() && (spec.year == null || (E.historyOK() && h.year === spec.year));
+    const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled() && (spec.year == null || (E.historyOK() && h.year === spec.year && (!spec.war || (h.frontDate == null ? null : h.frontDate) === (spec.front && spec.frontDate != null ? spec.frontDate : null))));
     const projectV = (X, Y, Z) => [v.cx + v.radius * (rot[0] * X + rot[1] * Y + rot[2] * Z), v.cy - v.radius * (rot[3] * X + rot[4] * Y + rot[5] * Z), rot[6] * X + rot[7] * Y + rot[8] * Z];   // a point on the sphere (a unit vector) → the window's CSS px and its depth
     return { settled, landMask: (water) => landMask(h, spec, water), project: pr, projectV, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
   }

@@ -85,7 +85,7 @@ pair corrected by `polity-qids.json` (`docs/atlas-v2-polity-qids.md`); rebuild `
 ## 5. Card windows and Find it
 
 `docs/atlas-v2-card-windows.md` is the whole contract. In short: a map card, a locator and a war card each draw into a 2D canvas the **hub** (one WebGL2 context for the page, disposed after the idle
-time) paints; a card's key is joined to an engine entity by `card-faces.js`; a war window is drawn at the war's middle year on the history; Find it deals the SAME five rounds a day it always did
+time) paints; a card's key is joined to an engine entity by `card-faces.js`; a war window is drawn at its timeline's step on the history (the last, unless the card names one year inside the war; the Atlas page draws no war since 2026-10-19); Find it deals the SAME five rounds a day it always did
 (a copy of the pool builder moved into `atlas-windows.js`, its deal proven equal on 60 dates by `.claude/compare-findit-deal.js`) and scores a country or a state by the ID pass. Nothing a reader does
 to a window's map opens the Atlas; only the window's globe button does (a map card has none).
 
