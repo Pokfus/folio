@@ -279,7 +279,7 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
           await page.focus(sel + ' [data-mc="go"]'); await page.keyboard.press("Enter");   // the keyboard route to the button
           await page.waitForFunction((was) => location.hash !== was, h0, { timeout: 20000 }).catch(() => {});
           const hh = await page.evaluate(() => location.hash);
-          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the war's year" : ""), /^#map\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || /\?y=-209/.test(hh) /* the Atlas then writes its own hash; the war's card rides on the link as &war= (test-atlas-embed.js §5 follows it) */), hh);
+          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the war's year" : ""), /^#map\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || (/\?y=-202/.test(hh) && !/war=/.test(hh)) /* CHANGED 2026-10-19: the window's year is its timeline's step (the last, 202 BCE), not the middle (-209), and no war rides on the link: the Atlas draws none (test-atlas-embed.js §5 follows it) */), hh);
           {
             await page.waitForSelector(".atlas2", { timeout: 60000 }).catch(() => {});
             await page.goBack(); await page.waitForSelector(".map-card", { timeout: 30000 });

@@ -2261,6 +2261,34 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 }
 .war-key .wk-name{font-weight:600; color:var(--ink);}
 .war-key .wk-role{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+/* ---------- the timeline under a war window (2026-10-19; atlas-windows.js mountTimeline) ----------
+   A slim rail that spans only the war's own years: step buttons and play at the left, the track and its pin at the right, the step's month and year under the pin and the war's two end years
+   under the rail's two ends. It follows Text size (--fs) and wraps to 360 px: the buttons keep their size, the rail takes what is left. It sits inside .card-loc, after the map and before the key. */
+.war-tl{margin-top:8px;}
+.wtl-bar{display:flex; align-items:flex-start; gap:10px;}
+.wtl-ctl{display:flex; gap:4px; flex:none;}
+.wtl-btn{
+  width:calc(32px * var(--fs)); height:calc(32px * var(--fs)); padding:0; border-radius:8px; border:1px solid var(--rule); cursor:pointer;
+  background:var(--card); color:var(--ink-soft); display:flex; align-items:center; justify-content:center;
+}
+.wtl-btn:hover:not(:disabled){color:var(--ink);}
+.wtl-btn:disabled{opacity:.4; cursor:default;}
+.wtl-btn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.wtl-btn svg{width:58%; height:58%;}
+.wtl-play .wtl-ic-pause{display:none;}
+.wtl-playing .wtl-ic-play{display:none;}
+.wtl-playing .wtl-ic-pause{display:block;}
+.wtl-rail{flex:1 1 auto; min-width:0;}
+.wtl-track{position:relative; height:calc(32px * var(--fs)); touch-action:none; cursor:pointer;}
+.wtl-line{position:absolute; left:0; right:0; top:50%; height:4px; margin-top:-2px; border-radius:2px; background:var(--rule);}
+.wtl-ticks i{position:absolute; top:50%; width:1px; height:9px; margin-top:-4.5px; background:var(--ink-faint);}
+.wtl-pin{
+  position:absolute; top:50%; left:0; width:14px; height:calc(22px * var(--fs)); margin:calc(-11px * var(--fs)) 0 0 -7px; border-radius:7px;
+  background:var(--indigo); border:2px solid var(--card); box-shadow:0 0 0 1px var(--indigo); cursor:grab;
+}
+.wtl-pin:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.wtl-now{position:relative; width:max-content; max-width:100%; transform:translateX(-50%); white-space:nowrap; font:600 calc(12.5px * var(--fs))/1.5 var(--sans); color:var(--ink);}
+.wtl-ends{display:flex; justify-content:space-between; gap:8px; font:400 calc(11px * var(--fs))/1.5 var(--sans); color:var(--ink-faint);}
 
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
@@ -10114,25 +10142,12 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-peoples{flex-direction:column; gap:4px;}
 .atlas2-peoples-note{margin:2px 0 0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.4 var(--sans);}
 .atlas2-peoples-note:empty{display:none;}
-.atlas2-wars{flex-direction:column; gap:4px;}
-.atlas2-wars-note{margin:2px 0 0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.4 var(--sans);}
-.atlas2-wars-note:empty{display:none;}
-.atlas2-fronts-edge{margin:2px 0 4px 22px; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.4 var(--sans);}
-.atlas2-wars-key{margin:4px 0 0; display:flex; flex-direction:column; gap:3px;}
-.atlas2-wars-key>div{display:flex; gap:8px; align-items:flex-start;}
-.atlas2-wars-key dd{margin:0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.35 var(--sans);}
-.atlas2-wars-sw{flex:0 0 14px; width:14px; height:14px; margin:1px 0 0; border:1px solid var(--ink-soft); border-radius:3px;}
-.atlas2-wars-sw-extent{border-style:dotted;}
 /* the Legend's key of the marks' glyphs (2026-10-17): one row per class, the glyph drawn with the map's own geometry */
 .atlas2-marks-key{margin:2px 0 0; display:flex; flex-direction:column; gap:3px;}
 .atlas2-marks-key>div{display:flex; gap:8px; align-items:center;}
 .atlas2-marks-key dt{flex:0 0 18px; width:18px; height:18px; margin:0; color:var(--ink);}
 .atlas2-marks-key dd{margin:0; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.35 var(--sans);}
 .atlas2-marks-sw{display:block;}
-.atlas2-front{display:flex; align-items:center; gap:6px; margin:0 0 4px; font:calc(12.5px * var(--fs, 1))/1.3 var(--sans); color:var(--ink);}
-.atlas2-front[hidden]{display:none;}
-.atlas2-front-label{flex:1 1 auto; min-width:0; overflow-wrap:anywhere;}
-.atlas2-fronts-sw{margin-top:6px;}
 .atlas2-peoples-hint{display:block; margin:1px 0 0 22px; color:var(--ink-soft); font:calc(12px * var(--fs, 1))/1.35 var(--sans);}
 /* the place card: a side column on a desktop… */
 .atlas2-card{position:absolute; right:12px; top:12px; bottom:12px; width:min(360px, calc(100% - 24px)); z-index:5; display:flex; flex-direction:column; border-radius:14px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:0 10px 30px rgba(0,0,0,.16); overflow:hidden;}

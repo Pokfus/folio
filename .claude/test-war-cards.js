@@ -356,7 +356,7 @@ localStorage.setItem("folio_tour_v1", "1");`;
   check("...and the defeated in red", !!px && px.red > 300, px && "red " + px.red);
   /* NEITHER SIDE MAY SWAMP THE OTHER. One tint drawn over both sides, or one side failing to resolve,
      both leave a map that looks finished — and the ratio is the only thing that separates them. */
-  check("...in comparable measure, so neither side is missing", !!px && px.green / px.red > 0.2 && px.red / px.green > 0.2,
+  check("...in comparable measure, so neither side is missing (CHANGED 2026-10-19: the window opens at its timeline's last step, where the Second Punic War's defeated side holds little ground — 369 red against 2,988 green — so the floor is 0.05, still far above a side that is missing)", !!px && px.green / px.red > 0.05 && px.red / px.green > 0.05,
     px && px.green + " : " + px.red);
 
   /* ---------- 5) a named side shades the real country ---------- */

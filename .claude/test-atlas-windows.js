@@ -195,7 +195,7 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       check(tag + ": the key never says or implies allies", info.key.every((t) => !/allies|allied/i.test(t)), JSON.stringify(info.key));
       if (!info.extent.some(Boolean) && id !== "gr-552") {   // two states: the faces' tints are crisp; an authored extent is a soft wash with no crisp pixel to count
         const green = await count(page, ".map-card .mc-canvas", "g > r + 40 && g > b + 25"), red = await count(page, ".map-card .mc-canvas", "r > g + 60 && r > b + 50");
-        check(tag + ": the victors are the engine's green and the defeated its red on the map", green > 400 && red > 400, JSON.stringify({ green, red }));
+        check(tag + ": the victors are the engine's green and the defeated its red on the map (CHANGED 2026-10-19: the window opens at its timeline's LAST step, where the defeated side has little ground left: red > 200, it was 400 at the middle year)", green > 400 && red > 200, JSON.stringify({ green, red }));
       }
       await ctx.close();
     }

@@ -469,16 +469,7 @@
 
 
   /* THE FRONT LINE (Phase 2d; design §2.4 and §7): four entities of kind `front` (Axis-held, Axis-occupied, Allied-held, Allied-occupied ground), dated steps
-     (YYYYMMDD, never interpolated). Whether they are drawn follows the cards that teach them: the Personal Atlas draws them only when the reader has studied
-     the Second World War's card (flag 2 on a front entity), the Full Atlas when a collection that owns it is on (flag > 0), the plain Map always; and only
-     while the legend's switch is on. */
-  function frontsShown(on, mode, id, flagMap) {
-    if (!on) return false;
-    const f = flagMap && typeof flagMap.get === "function" ? flagMap.get(id) || 0 : 0;
-    if (mode === "personal") return f === 2;
-    if (mode === "full") return f > 0;
-    return true;
-  }
+     (YYYYMMDD, never interpolated). Since 2026-10-19 only a war window draws them (the Second World War card's, with its timeline); the Atlas page draws no war and no front. */
   const dateOf = (n) => { const s = String(n); return { y: Number(s.slice(0, -4)), m: Number(s.slice(-4, -2)), d: Number(s.slice(-2)) }; };
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const fmtDate = (n) => { const q = dateOf(n); return q.d + " " + MONTHS[q.m - 1] + " " + q.y; };
@@ -511,30 +502,7 @@
      is on its side: { t: term, y: [from, to], g: 1 if the card GROUPS other wars, v|l: { n: name, m: [[entityId, from, to]…], x: authored-extent entity id | "", u: [unresolved names] } }.
      Everything here is pure arithmetic over that table: which wars are drawn (the switch, the study mode, the card), which entities are tinted in a year
      and in which role, and the sentences the place card says. A year with no member alive draws nothing (a gap is a gap). */
-  /* Phase 4, task 0a (owner's decision from 2d): the default is "auto" — wars are OFF on the plain Map (so the states keep their colours while a reader scrubs the rail)
-     and ON in the Personal Atlas and for a war chosen from a card (`focus`, below, which no switch overrides). "off" and "on" are the reader's own choice and hold in every mode. */
-  const WARS_POSITIONS = ["auto", "off", "on"], WARS_DEFAULT = "auto";
-  const normalizeWars = (v) => (WARS_POSITIONS.includes(v) ? v : WARS_DEFAULT);
-  const WARS_LABEL = { auto: "Automatic", off: "Off", on: "On" };
-  /* what a position means in a mode: auto is on only in the Personal Atlas */
-  const warsEffective = (pos, mode) => { const p = normalizeWars(pos); return p === "auto" ? (mode === "personal" ? "on" : "off") : p; };
   const ROLE = { victor: 1, loser: 2 };
-  /* the wars drawn, as a Set of card ids. o: { pos (the switch), mode (map|personal|full), cardSet (the studied cards that carry a place), hidden (collections switched off),
-     info(cardId) → { collId }, focus (a war chosen from a place card or a deep link: drawn whatever the switch, the mode and the card's grouping say) }.
-     A war that GROUPS others (war.group) is drawn only when chosen: the Personal and Full Atlas skip it so the same ground is not drawn twice in the same years. */
-  function warsShown(wars, o) {
-    o = o || {}; const out = new Set(); wars = wars || {};
-    if (o.focus && wars[o.focus]) out.add(o.focus);
-    if (warsEffective(o.pos, o.mode) === "off") return out;
-    const off = o.hidden instanceof Set ? o.hidden : new Set(o.hidden || []);
-    for (const id of Object.keys(wars)) {
-      if (wars[id].g) continue;
-      if (o.mode === "personal") { if (!o.cardSet || !o.cardSet.has(id)) continue; }
-      else if (o.mode === "full") { const i = o.info ? o.info(id) : null; if (i && i.collId && off.has(i.collId)) continue; }
-      out.add(id);
-    }
-    return out;
-  }
   /* the entities tinted in a year: Map entityId → { role: 1 victor | 2 loser | 3 both, wars: [card ids] }. A member counts in the years of its window; an extent
      (`x`) in the war's own years. A year outside every shown war's years returns an empty map. */
   function warRoles(wars, shown, y) {
@@ -549,7 +517,7 @@
     }
     return out;
   }
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, ROLE, warRoles };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

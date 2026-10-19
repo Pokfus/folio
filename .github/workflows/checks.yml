@@ -508,3 +508,16 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: node .claude/test-card-windows-fixes.js
+
+      # 2026-10-19 (wars left the Atlas page; every war window has a timeline): two suites that would not fit the four shards (which had 0.1 minute of room each) ride here, one step apiece so a red one is named.
+      - name: test-war-timeline
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-war-timeline.js
+
+      - name: test-atlas-no-wars
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-atlas-no-wars.js

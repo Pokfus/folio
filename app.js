@@ -34587,7 +34587,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
 
   /* Phase 4: a window drawn by the engine opens the Atlas (#map) at the window's view and year — "Open in the Atlas at <year>" — as a deep link the page already reads
-     (#map/<lon>/<lat>/<zoom level>?y=<year>). A war window carries the war's year and the card (`&war=<id>`), so the Atlas opens on that war in its years. Used by the window's globe button ONLY
+     (#map/<lon>/<lat>/<zoom level>?y=<year>). A war window carries the year its timeline stands at; the Atlas draws no war since 2026-10-19, so the address has no war in it. Used by the window's globe button ONLY
      (the owner's decision, Oct 2026): nothing a reader does to the map itself — a tap, a double tap, a click, a drag, a pinch, the wheel — leaves the card. A map card has no globe button (the Atlas would name its answer). */
   function atlas2OpenFromWindow(host, id) {
     if (!host || !host._folioMap || !/^v2/.test(host.getAttribute("data-map-engine") || "")) return false;
@@ -34595,7 +34595,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const kmpp = 6371.0088 / (Math.max(1, base0) * v.zoom), zl = Math.max(0, Math.min(18, Math.log2(156.543 / kmpp)));
     const yr = host.getAttribute("data-map-year");
     atlasHold = readStudySession();   // the study session (card, queue, whether the answer was showing) is captured BEFORE routing, which clears it — exactly as the v1 go button does
-    route("map", { hash: "map/" + v.lon.toFixed(2) + "/" + v.lat.toFixed(2) + "/" + zl.toFixed(2) + (yr ? "?y=" + encodeURIComponent(yr) + (id && host.classList.contains("map-war") ? "&war=" + encodeURIComponent(id) : "") : "") });
+    route("map", { hash: "map/" + v.lon.toFixed(2) + "/" + v.lat.toFixed(2) + "/" + zl.toFixed(2) + (yr ? "?y=" + encodeURIComponent(yr) : "") });
     return true;
   }
   /* ---------- CARD WINDOWS AND FIND IT ON THE ATLAS v2 ENGINE (Oct 2026, Atlas v2 Phase 4; docs/atlas-v2-card-windows.md) ----------

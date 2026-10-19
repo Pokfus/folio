@@ -85,7 +85,7 @@ pair corrected by `polity-qids.json` (`docs/atlas-v2-polity-qids.md`); rebuild `
 ## 5. Card windows and Find it
 
 `docs/atlas-v2-card-windows.md` is the whole contract. In short: a map card, a locator and a war card each draw into a 2D canvas the **hub** (one WebGL2 context for the page, disposed after the idle
-time) paints; a card's key is joined to an engine entity by `card-faces.js`; a war window is drawn at the war's middle year on the history; Find it deals the SAME five rounds a day it always did
+time) paints; a card's key is joined to an engine entity by `card-faces.js`; a war window is drawn at its timeline's step on the history (the last, unless the card names one year inside the war; the Atlas page draws no war since 2026-10-19); Find it deals the SAME five rounds a day it always did
 (a copy of the pool builder moved into `atlas-windows.js`, its deal proven equal on 60 dates by `.claude/compare-findit-deal.js`) and scores a country or a state by the ID pass. Nothing a reader does
 to a window's map opens the Atlas; only the window's globe button does (a map card has none).
 
@@ -125,7 +125,7 @@ every old spelling and proves it.
 | you touched | re-run |
 |---|---|
 | `atlas.js`, `atlas-gl.js`, `atlas-canvas.js` (render, labels, picking) | `test-atlas-render.js`, `test-atlas-labels.js`, then `test-atlas-perf.js` (the frame gate) |
-| the rail, the year, the history | `test-atlas-time.js`, `test-atlas-stages.js`, `test-peoples.js`, `test-war-sides.js`; the rail's plain track (no ticks, 2026-10-18) `test-atlas-review.js` §2 |
+| the rail, the year, the history | `test-atlas-time.js`, `test-atlas-stages.js`, `test-peoples.js`, `test-war-sides.js`, `test-atlas-no-wars.js` (the page draws no war, 2026-10-19); the rail's plain track (no ticks, 2026-10-18) `test-atlas-review.js` §2 |
 | the place card, the search, the address | `test-atlas-card.js`, `test-atlas-search.js`, `test-atlas-redirects.js`, `test-layout.js` (the deep-link smoke) |
 | the keyboard and screen-reader path | `test-atlas-a11y.js` |
 | phones | `test-atlas-phone.js`, `test-card-windows-fixes.js` |
@@ -145,7 +145,7 @@ every old spelling and proves it.
 | Find it's pick (`flash`, the fast frame and the full frame's outline) | `test-findit-pick.js` at `FOLIO_SLOW_FRAMES=0`, `60` and `120` (the sample point is beyond the glow's reach) |
 | the fallbacks (no WebGL2, context loss, `file://`) | `test-atlas-fallbacks.js`, `test-window-fallbacks.js` |
 | the land-change layer (`landChangesAlive`, the worker's `handleLandChanges`, the draw after the lakes in `atlas-gl.js` / `atlas-canvas.js`, `build-land-changes.js`, `land-changes.json`), the hole winding in `build-water.js` | `test-land-changes.js` (WebGL2 and Canvas 2D: the polders at 1900, 1950 and today; Manitoulin), `build-land-changes.js --check`, `check-water.js`; `check-core-cache.js --install` after the worker edit |
-| a card window or Find it | `test-atlas-embed.js`, `test-atlas-windows.js`, `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`, `test-findit-learn.js`, `test-panels.js` |
+| a card window or Find it | `test-atlas-embed.js`, `test-atlas-windows.js`, `test-war-timeline.js` (the war window's timeline), `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`, `test-findit-learn.js`, `test-panels.js` |
 | the worker, the format reader, earcut, `topology.bin` | `check-core-cache.js --install`, then the render suites |
 | a data file | its builder's `--check` / its checker (the table in §3), then `check-credits.js` |
 | progress or `placesSeen` | `test-progress-registers.js`, `test-discovery.js` |
