@@ -470,25 +470,19 @@ async function requireTerm(page) {
   await bare.close();
 
   /* ================= 4. the Atlas place card =================
-     v1's #countryPop and its #cpSrcSec are gone (Phase 5); the v2 country card carries the same apparatus as `.atlas2-srcnote` (atlas/atlas.js renderCountryProse), fed by COUNTRY_SOURCES through the host's
-     sourceListHTML. country-sources.js only Object.assigns onto whatever is already there, so a seed placed before the lazy bundle lands survives it. The per-YEAR list (COUNTRY_YEAR_SOURCES) is v1's:
-     the card shows the general list only, and a shared work must still be listed once. */
+     CHANGED 2026-10-19 (the owner's phone: a popup is its name and the cards set there). v2's country card used to carry the sources apparatus as `.atlas2-srcnote` (fed by COUNTRY_SOURCES through the
+     host's sourceListHTML); the popup no longer shows prose, footnotes or a Sources fold, and country-sources.js is not loaded by it. What is asserted now: the deep link still opens the card, and it has
+     no Sources fold and fetched no country files. (The apparatus's own rules — folding a shared work into one entry, listing it once — are guarded on the card side, above.) */
   await page.goto(base, { waitUntil: "load" });
   await page.waitForTimeout(500);
-  await page.evaluate((src) => {
-    window.COUNTRY_SOURCES = { france: [src[0], src[1], src[1]] };   // [1] twice — it must fold into one entry
-    try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {}
-  }, SRC);
+  await page.evaluate(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_mine_tour_v1", "1"); } catch (e) {} });
   await page.goto(base + "#map/2026/france", { waitUntil: "load" });
-  await page.waitForFunction(() => { const c = document.querySelector(".atlas2-card"); return c && !c.hidden && c.querySelector(".atlas2-card-desc"); }, null, { timeout: 60000 }).catch(() => {});
+  await page.waitForFunction(() => { const c = document.querySelector(".atlas2-card"); return c && !c.hidden; }, null, { timeout: 60000 }).catch(() => {});
   const opened = await page.evaluate(() => { const c = document.querySelector(".atlas2-card"); return !!c && !c.hidden; });
   check("selecting a place (the #map/<year>/<slug> deep link) opens its card", opened);
   if (opened) {
-    check("the card has a Sources section", await page.locator(".atlas2-srcnote").count() === 1);
-    const n = await page.locator(".atlas2-srcnote .src-item").count();
-    check("the general sources are listed", n >= 2, String(n));
-    const texts = await page.evaluate(() => [...document.querySelectorAll(".atlas2-srcnote .src-item")].map((i) => i.textContent));
-    check("no citation appears twice", new Set(texts).size === texts.length, texts.join(" | "));
+    check("the card has no Sources section (CHANGED: it had one)", await page.locator(".atlas2-srcnote, .atlas2-card-sources").count() === 0);
+    check("…and no country prose or source file was fetched for it", await page.evaluate(() => typeof window.COUNTRY_SOURCES === "undefined" && typeof window.COUNTRY_STATS === "undefined"));
   }
 
   /* ================= 5. a stranger's deck is sanitized on ingest ================= */

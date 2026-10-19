@@ -519,8 +519,6 @@
   /* what a position means in a mode: auto is on only in the Personal Atlas */
   const warsEffective = (pos, mode) => { const p = normalizeWars(pos); return p === "auto" ? (mode === "personal" ? "on" : "off") : p; };
   const ROLE = { victor: 1, loser: 2 };
-  const fmtY = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");
-  const fmtSpan = (a, b) => (a === b ? fmtY(a) : fmtY(a) + " – " + fmtY(b));
   /* the wars drawn, as a Set of card ids. o: { pos (the switch), mode (map|personal|full), cardSet (the studied cards that carry a place), hidden (collections switched off),
      info(cardId) → { collId }, focus (a war chosen from a place card or a deep link: drawn whatever the switch, the mode and the card's grouping say) }.
      A war that GROUPS others (war.group) is drawn only when chosen: the Personal and Full Atlas skip it so the same ground is not drawn twice in the same years. */
@@ -551,38 +549,7 @@
     }
     return out;
   }
-  const roleWord = (role) => (role === 3 ? "both sides" : role === 2 ? "loser" : role === 1 ? "victor" : "");
-  /* the wars an entity fought in, for its place card: [{ id, term, y, role: "victor"|"loser", own, against: [names], mates: [names], authored }]. `authored`: the entity IS an
-     authored extent (Folio's own approximation); `side.authored` below tells the card which of a war's two sides is one. */
-  function warsOfEntity(wars, entityId) {
-    const out = [];
-    for (const id of Object.keys(wars || {}).sort()) {
-      const w = wars[id];
-      for (const [k, other, role] of [["v", "l", "victor"], ["l", "v", "loser"]]) {
-        const side = w[k]; if (!side) continue;
-        const win = side.m.filter((m) => m[0] === entityId).map((m) => [m[1], m[2]]);
-        if (side.x === entityId) win.push(w.y.slice());
-        if (!win.length) continue;
-        out.push({ id, term: w.t, y: w.y.slice(), group: !!w.g, role, own: side.n, against: w[other].n, window: win, authored: side.x === entityId });
-      }
-    }
-    return out;
-  }
-  /* the sentence a war says about itself, for a place card or a screen reader: who fought on which side, the years, which sides are authored extents.
-     `nameOf(entityId)` is optional (the entity's own name); the side's `n` is the card's own name for it. */
-  function warSentence(w) {
-    if (!w) return "";
-    const side = (s, word) => {
-      const bits = [s.n + " (" + word + ")"];
-      const ext = s.x ? " — drawn as an authored extent: Folio’s own approximation, not a surveyed border" : "";
-      const part = s.m.length && s.m.some((m) => m[1] > w.y[0] || m[2] < w.y[1]) ? " (" + s.m.filter((m) => m[1] > w.y[0] || m[2] < w.y[1]).map((m) => m[0].replace(/^pol:/, "") + " " + fmtSpan(m[1], m[2])).join(", ") + ")" : "";
-      const un = s.u && s.u.length ? "; not on the map, no entity for: " + s.u.join(", ") : "";
-      return bits[0] + part + ext + un;
-    };
-    return (w.t || "") + " · " + fmtSpan(w.y[0], w.y[1]) + " · " + side(w.v, "victors") + " against " + side(w.l, "losers");
-  }
-
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles, warsOfEntity, warSentence, roleWord, fmtSpan };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, frontsShown, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, WARS_POSITIONS, WARS_DEFAULT, WARS_LABEL, warsEffective, ROLE, normalizeWars, warsShown, warRoles };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);
