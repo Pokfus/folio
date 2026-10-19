@@ -29,12 +29,13 @@ const fs = require("fs"), path = require("path"), crypto = require("crypto");
 const F = require("./lib/format.js");
 const { fromRead } = require("./lib/history-model.js");
 const Tw = require("./lib/twin.js");
+const { cutModel } = require("./lib/history-cut.js");
 
 const HERE = __dirname, ROOT = path.join(HERE, "..", ".."), DATA = path.join(ROOT, "atlas", "data"), OUT = path.join(HERE, "out");
 const argv = process.argv.slice(2), has = (f) => argv.includes(f);
 const FULL = path.join(DATA, "history.bin"), SLICE = path.join(DATA, "history-wars.bin"), CORE = path.join(DATA, "topology.bin");
 const BUDGET_BYTES = 2.5e6;   // the slice file; its twin is the base64 of its gzip
-const TWINS_MAX = 12e6;   // every twin together (topology, water, this slice) — the owner's rule of Phase 5
+const TWINS_MAX = 12e6;   // every twin together (topology, water, this slice, the Second World War slice) — the owner's rule of Phase 5
 const sha = (b) => crypto.createHash("sha256").update(b).digest("hex");
 const say = (m) => console.log(m);
 const NOT_DRAWN = new Set(["people", "culture", "front", "extent"]);
@@ -67,42 +68,18 @@ function cut(fullBytes, wars) {
     if (!NOT_DRAWN.has(ents[ei].kind) && yearList.some((y) => from <= y && y <= to)) stepKeep[i] = true;
     for (const s of sides) if (s.ei === ei && to >= s.y0 && from <= s.y1) stepKeep[i] = true;
   });
-  const keptSteps = M.steps.filter((_, i) => stepKeep[i]);
-  const faceKeep = new Set(keptSteps.map((st) => st[3]));
-  const arcKeep = new Set();
-  M.faces.forEach((f, i) => { if (faceKeep.has(i)) for (const r of f.rings) for (const ref of r) arcKeep.add(Math.abs(ref) - 1); });
-  // the junctions of own arcs' endpoints: the full file's table by position, last writer wins as in historyJunctions; keep the arc that wrote each one a kept own arc's endpoint needs
-  const junctionArc = new Map();
-  for (let i = 0; i < nA; i++) { if (R.coreArc[i] < 0) continue; const s = R.arcOffset[i], e = R.arcOffset[i + 1]; if (R.coreSegA && R.coreSegA[i]) junctionArc.set(R.lon[s] + "," + R.lat[s], i); if (R.coreSegB && R.coreSegB[i]) junctionArc.set(R.lon[e - 1] + "," + R.lat[e - 1], i); }
-  let junctionArcs = 0;
-  for (const a of [...arcKeep]) { if (R.coreArc[a] >= 0) continue; const s = R.arcOffset[a], e = R.arcOffset[a + 1]; for (const v of [s, e - 1]) { const j = junctionArc.get(R.lon[v] + "," + R.lat[v]); if (j != null && !arcKeep.has(j)) { arcKeep.add(j); junctionArcs++; } } }
-  // entities: those the kept steps and faces name, and their partners (a contested or nested face names the entities it is made of)
-  const entKeep = new Set(keptSteps.map((st) => st[0]));
-  M.faces.forEach((f, i) => { if (faceKeep.has(i)) entKeep.add(f.entity); });
-  for (const e of [...entKeep]) for (const p of ents[e].partners || []) if (entIx.has(p)) entKeep.add(entIx.get(p));
-  const entMap = new Map(), entities = []; ents.forEach((e, i) => { if (entKeep.has(i)) { entMap.set(i, entities.length); entities.push(e); } });
-  const faceMap = new Map(), faces = [], faceOld = []; M.faces.forEach((f, i) => { if (faceKeep.has(i)) { faceMap.set(i, faces.length); faceOld.push(i); faces.push(f); } });
-  const arcMap = new Map(), arcOld = []; for (let i = 0; i < nA; i++) if (arcKeep.has(i)) { arcMap.set(i, arcOld.length); arcOld.push(i); }
-  let nV = 0; for (const i of arcOld) nV += M.arcs[i].count;
-  const lon = new Int32Array(nV), lat = new Int32Array(nV), rank = new Uint8Array(nV), arcs = [], coreRef = [], jpos = M.jpos ? [] : null;
-  let off = 0;
-  for (const i of arcOld) { const a = M.arcs[i]; for (let k = 0; k < a.count; k++) { lon[off + k] = M.vertices.lon[a.offset + k]; lat[off + k] = M.vertices.lat[a.offset + k]; rank[off + k] = M.rank[a.offset + k]; } arcs.push(Object.assign({}, a, { offset: off })); off += a.count; coreRef.push(M.coreRef[i]); if (jpos) jpos.push(M.jpos[i]); }
-  const stepsOut = keptSteps.map((st) => [entMap.get(st[0]), st[1], st[2], faceMap.get(st[3])]);
-  const facesOut = faces.map((f) => ({ entity: entMap.get(f.entity), source: f.source, rings: f.rings.map((r) => Int32Array.from(r, (ref) => { const j = arcMap.get(Math.abs(ref) - 1); return ref > 0 ? j + 1 : -(j + 1); })) }));
-  const keptIds = new Set(entities.map((e) => e.id));
-  const extra = Object.assign({}, H);
-  delete extra.fronts;   // the Second World War front is not drawn in a window; its plates are the largest block of the header
-  extra.history = Object.assign({}, H.history, {
-    slice: "wars",
-    sliceNote: "This is the war-window slice of atlas/data/history.bin: the states alive in each war's display year (the middle of its years) and the sides of each war in the war's years — what a card window needs, not the whole history. The Atlas page reads the full file.",
-    sliceOf: { file: "atlas/data/history.bin", sha256: sha(fullBytes), bytes: fullBytes.length, steps: M.steps.length, faces: M.faces.length, arcs: nA }, wars: Object.keys(wars.wars).length, warYears: yearList.sort((a, b) => a - b),
+  const { bytes, report } = cutModel(R, M, stepKeep, {
+    generator: "folio atlas-build: build-war-slice.js (" + require("./package.json").version + ")",
+    header: (extra) => {
+      delete extra.fronts;   // the Second World War front is not drawn in a war window of the slice; its plates are the largest block of the header
+      extra.history = Object.assign({}, H.history, {
+        slice: "wars",
+        sliceNote: "This is the war-window slice of atlas/data/history.bin: the states alive in each war's display year (the middle of its years) and the sides of each war in the war's years — what a card window needs, not the whole history. The Atlas page reads the full file.",
+        sliceOf: { file: "atlas/data/history.bin", sha256: sha(fullBytes), bytes: fullBytes.length, steps: M.steps.length, faces: M.faces.length, arcs: nA }, wars: Object.keys(wars.wars).length, warYears: yearList.sort((a, b) => a - b),
+      });
+    },
   });
-  extra.faceClass = faceOld.map((i) => H.faceClass[i]); extra.faceKm2 = faceOld.map((i) => H.faceKm2[i]); extra.faceAnchor = faceOld.map((i) => H.faceAnchor[i]);
-  extra.arcClass = arcOld.map((i) => H.arcClass[i]); extra.arcEmpty = arcOld.map((i) => H.arcEmpty[i]);
-  extra.cities = H.cities.filter((c) => keptIds.has(c.entity));
-  const model = { quantum: M.quantum, lod: M.lod, generated: null, generator: "folio atlas-build: build-war-slice.js (" + require("./package.json").version + ")", sources: M.sources, entities, steps: stepsOut, faceDelta: M.faceDelta, vertices: { lon, lat }, rank, arcs, faces: facesOut, coreRef, jpos, extra };
-  const bytes = F.write(model);
-  return { bytes, report: { steps: stepsOut.length, of: M.steps.length, faces: faces.length, facesOf: M.faces.length, arcs: arcOld.length, arcsOf: nA, vertices: nV, verticesOf: M.vertices.lon.length, entities: entities.length, entitiesOf: ents.length, junctionArcs, years: yearList.length, wars: Object.keys(wars.wars).length } };
+  return { bytes, report: Object.assign(report, { years: yearList.length, wars: Object.keys(wars.wars).length }) };
 }
 
 /* the faithful-subset proof */
@@ -176,9 +153,9 @@ function writeAll(bytes) {
     else if (sha(fs.readFileSync(SLICE)) !== sha(bytes)) problems.push("atlas/data/history-wars.bin lags history.bin or wars.js — run: node .claude/atlas-build/build-war-slice.js --install");
     const t = Tw.checkTwin(SLICE); if (!t.ok) problems.push("the twin of the slice: " + t.reason);
     else say(`  twin: ${t.twinBytes} bytes, identical to the slice`);
-    const full = ["topology.bin.js", "water.bin.js", "history-wars.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((a, b) => a + b, 0);
+    const full = ["topology.bin.js", "water.bin.js", "history-wars.bin.js", "history-ww2.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((a, b) => a + b, 0);
     say(`  the file:// twins together: ${(full / 1e6).toFixed(2)} MB (the owner's rule: at most ${TWINS_MAX / 1e6} MB)`);
-    if (full > TWINS_MAX) problems.push(`the three twins together are ${(full / 1e6).toFixed(2)} MB, over ${TWINS_MAX / 1e6} MB`);
+    if (full > TWINS_MAX) problems.push(`the four twins together are ${(full / 1e6).toFixed(2)} MB, over ${TWINS_MAX / 1e6} MB`);
     if (problems.length) { for (const m of problems) console.error("FAIL " + m); process.exit(1); }
     say("ok"); return;
   }

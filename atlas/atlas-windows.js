@@ -15,9 +15,9 @@
   "use strict";
   /* THE WAR WINDOW'S TIMELINE (2026-10-19; docs/atlas-v2-card-windows.md "The war window's timeline"). A war whose data has a front line or a picture that changes in two or more dated steps gets a slim rail under its
      window: a pin, play and pause, step buttons, the war's own years at its two ends and, under the pin, the step's month and year ("Mar 1943") where the step's date has a month, else the year. The steps come from the
-     engine (`hub.warTimeline`): the years in which the faces of the war's two sides change, or — for the war that owns the front line — the front's plate dates. THE FRONT LINE IS IN THE WHOLE HISTORY FILE ONLY (the
-     war slice carries none: 40 % of history.bin's vertices are the front's): `WAR_FRONT_CARDS` are the cards whose window reads the whole file (9.1 MB) instead of the slice (1.8 MB), except on file:// where the whole file's
-     twin is the pilot. `.claude/test-war-timeline.js` proves the list equals the front entities' `cards` in history.bin. */
+     engine (`hub.warTimeline`): the years in which the faces of the war's two sides change, or — for the war that owns the front line — the front's plate dates. THE WAR SLICE CARRIES NO FRONT LINE (40 % of history.bin's
+     vertices are the front's): `WAR_FRONT_CARDS` are the cards whose window reads the Second World War slice (atlas/data/history-ww2.bin, 4.7 MB, `build-ww2-slice.js`: every plate, the states of the plates' years and the war's sides,
+     on file:// through its twin) instead of the war slice (1.8 MB) — and never the whole history (9.1 MB; it did until 2026-10-19). `.claude/test-war-timeline.js` proves the list equals the front entities' `cards` in history.bin. */
   const WAR_FRONT_CARDS = new Set(["ww2-001"]);
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const yearText = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y < 1000 ? y + " CE" : String(y));   // a CE year is bare from 1000 on; a short one keeps its era so "632" is never a number
@@ -112,8 +112,8 @@
     let FACES = null, targets = [], dot = null, ownLines = null, ownName = "";
     let ownRiverDone = false;
     const hubOptions = { host: {} };
-    const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard) && typeof location !== "undefined" && location.protocol !== "file:";   // the war that owns the front line reads the whole history (see WAR_FRONT_CARDS)
-    if (wantsFront) hubOptions.needHistory = "full";
+    const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard);   // the war that owns the front line reads the Second World War slice (see WAR_FRONT_CARDS), on file:// too
+    if (isWar) { hubOptions.needHistory = wantsFront ? "ww2" : "wars"; hubOptions.ownHolds = 1; }   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
     let tlSteps = [], tlIdx = -1, tlSpan = null;   // the timeline's steps (none: no timeline), the step the pin stands on, the war's own years
     const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
@@ -462,7 +462,7 @@
           const WT = window.ATLAS_WARS && window.ATLAS_WARS.wars && window.ATLAS_WARS.wars[sibCard];
           if (!WT) { plain(SORRY); return; }   // a war the table does not carry
           warYear = Math.round((WT.y[0] + WT.y[1]) / 2); host.setAttribute("data-map-year", String(warYear));
-          hub.startHistory(wantsFront ? "full" : "wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB) — except the card that owns the front line (WAR_FRONT_CARDS)
+          hub.startHistory(wantsFront ? "ww2" : "wars");   // Phase 4c: the war-window slice (1.8 MB), not the whole history (9.1 MB); the card that owns the front line (WAR_FRONT_CARDS) reads its own slice (4.7 MB)
           return new Promise((res) => {
             let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); res(ok); };
             const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
@@ -500,7 +500,7 @@
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
             layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject() }, reliefNow()),
-            year: tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
+            year: tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
             highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),

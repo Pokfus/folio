@@ -39,13 +39,14 @@ const SITE = path.join(HERE, "..", "..", "atlas", "data");
 const argv = process.argv.slice(2);
 /* the file:// twin of water.bin (lib/twin.js, Phase 1d) — written at --install, or alone with --twin from the committed file. The
    owner's rule: the two twins together stay within 12 MB (decimal); water.bin is twinned only while they do, else rivers and lakes
-   are absent on file:// and atlas.js says so. */
+   are absent on file:// and atlas.js says so. 2026-10-19: the twin is the base64 of the GZIP of the file (lib/twin.js `gzip`, decoded by atlas.js loadTwin as the war slices' twins are): 5.81 → 4.01 MB, which is
+   the room the Second World War slice's twin (history-ww2.bin.js) needs inside the four-twin 12 MB (build-war-slice.js, build-ww2-slice.js). */
 const TWIN_BUDGET = 12e6;
 function writeWaterTwin() {
   const T = require("./lib/twin.js"), fs2 = require("fs");
   const site = path.join(__dirname, "..", "..", "atlas", "data");
   const land = path.join(site, "topology.bin.js"), landBytes = fs2.existsSync(land) ? fs2.statSync(land).size : 0;
-  const r = T.writeTwin(path.join(site, "water.bin"));
+  const r = T.writeTwin(path.join(site, "water.bin"), { gzip: true });
   if (landBytes + r.twinBytes > TWIN_BUDGET) { fs2.rmSync(r.file, { force: true }); console.log(`water twin NOT written: ${(landBytes / 1e6).toFixed(2)} + ${(r.twinBytes / 1e6).toFixed(2)} MB would pass the ${TWIN_BUDGET / 1e6} MB twin budget — rivers and lakes are absent on file://`); return null; }
   console.log(`twin for file://: ${r.file} (${(r.twinBytes / 1e6).toFixed(2)} MB; both twins ${((landBytes + r.twinBytes) / 1e6).toFixed(2)} MB of ${TWIN_BUDGET / 1e6})`);
   require("./build-credits.js").build({ install: true });

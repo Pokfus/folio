@@ -250,6 +250,10 @@ jobs:
       - name: build-war-slice --check (Atlas v2, the war windows' slice of the history file)
         if: ${{ !cancelled() }}
         run: node --max-old-space-size=4000 .claude/atlas-build/build-war-slice.js --check
+      # THE SECOND WORLD WAR SLICE (2026-10-19): atlas/data/history-ww2.bin is a cut of history.bin (every plate of the front, the states of the plates' years, the war's sides; the front's soft arcs simplified to half a pixel at the window's closest zoom); --check rebuilds it, fails when the file or its twin lags and proves it equal to the full file.
+      - name: build-ww2-slice --check (Atlas v2, the Second World War window's slice of the history file)
+        if: ${{ !cancelled() }}
+        run: node --max-old-space-size=4000 .claude/atlas-build/build-ww2-slice.js --check
       - name: test-war-sides (Atlas v2, the war sides on the built topology)
         if: ${{ !cancelled() }}
         run: node --max-old-space-size=4000 .claude/test-war-sides.js
@@ -515,6 +519,12 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: node .claude/test-war-timeline.js
+
+      - name: test-ww2-slice
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-ww2-slice.js
 
       - name: test-atlas-no-wars
         if: ${{ !cancelled() }}

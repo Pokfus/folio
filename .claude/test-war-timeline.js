@@ -5,7 +5,7 @@
 
    WHAT IT PROVES
      1  (Node) THE INVENTORY: .claude/war-timeline-inventory.js says which of the 56 wars have two or more dated steps (a timeline) and which do not (no timeline: one static extent, or a picture that never
-        changes in the war's years); the Second World War's steps are the front's plate dates, each with a month; the card list the window reads the whole history for equals the front entities' `cards`
+        changes in the war's years); the Second World War's steps are the front's plate dates, each with a month; the card list the window reads the Second World War slice for equals the front entities' `cards`
      2  a war window with several steps (the Second Punic War, rm-209): a slim rail under the window, inside the card's location block, a slider (role, min, max, now, text) with a play button and two step buttons;
         it opens at the war's LAST step (the card's date line names several years, none one), the label under the pin is the year ("202 BCE": the data has no month), the rail's two ends are the war's own years;
         Home, End, the arrows and the page keys move the pin; the same window redraws (the sides' tint pixels change; the engine's hub is not recreated and the window is the same object); the step
@@ -82,7 +82,7 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
     const has = !!w.AtlasWindows && ["warFrontCards", "timelineSteps", "startStep", "stepText"].every((k) => typeof w.AtlasWindows[k] === "function");
     check("the window code carries the timeline's helpers (warFrontCards, timelineSteps, startStep, stepText)", has);
     if (has) { const mine = w.AtlasWindows.warFrontCards().sort().join(","), theirs = inv.frontCards.join(",");
-    check("the cards whose window reads the whole history (WAR_FRONT_CARDS) are exactly the front entities' `cards` in history.bin", mine === theirs, `${mine} / ${theirs}`);
+    check("the cards whose window reads the Second World War slice (WAR_FRONT_CARDS) are exactly the front entities' `cards` in history.bin", mine === theirs, `${mine} / ${theirs}`);
     check("a month and a year read \"Mar 1943\"; a year-only step reads \"202 BCE\"", w.AtlasWindows.stepText({ year: 1943, month: 3 }) === "Mar 1943" && w.AtlasWindows.stepText({ year: -202, month: null }) === "202 BCE" && w.AtlasWindows.stepText({ year: 1356, month: null }) === "1356" && w.AtlasWindows.stepText({ year: 632, month: null }) === "632 CE");
     const st = w.AtlasWindows.timelineSteps({ front: false, years: [-218, -216, -202], plates: [] });
     check("the pin opens at the last step, or at the step nearest the one year the card names inside the war", w.AtlasWindows.startStep(st, [-218, -201], [-218, -201, -209]) === 2 && w.AtlasWindows.startStep(st, [-218, -201], [-217]) === 1 && w.AtlasWindows.startStep(st, [-218, -201], [-300]) === 2 && w.AtlasWindows.startStep(st, [-218, -201], []) === 2);
@@ -178,7 +178,7 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
     await openCard(page, "ww2-001");
     let t = await tl(page);
     const ww = by.get("ww2-001");
-    check(`the window reads the whole history and the rail has the front's ${ww.steps} plate dates, opening at the last`, !!t && t.n === ww.steps && t.idx === ww.steps - 1 && (await page.evaluate(() => AtlasEmbed.hub().historyKind())) === "full", JSON.stringify(t && [t.n, t.idx]));
+    check(`the window reads the Second World War slice (not the whole history) and the rail has the front's ${ww.steps} plate dates, opening at the last`, !!t && t.n === ww.steps && t.idx === ww.steps - 1 && (await page.evaluate(() => AtlasEmbed.hub().historyKind())) === "ww2", JSON.stringify(t && [t.n, t.idx]));
     check("the label under the pin is a month and a year (\"Aug 1945\"); the rail's ends are 1937 and 1945", t && /^[A-Z][a-z]{2} \d{4}$/.test(t.label) && t.label === "Aug 1945" && t.start === "1937" && t.end === "1945", JSON.stringify(t && [t.label, t.start, t.end]));
     const at = (date) => ww.list.indexOf(date);
     const goTo = async (i) => { const d0 = await draws(page); await page.evaluate((k) => document.querySelector(".map-card")._folioTimeline.go(k), i); await afterMove(page, d0); };
