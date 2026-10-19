@@ -36,6 +36,8 @@
         only the members whose class is on, with its count adjusted, and is gone when none is); Places hides sites, battles and buildings; Physical hides peaks. A hidden class is not
         drawn (the canvas), not tappable (the hit list, a tap), not in the hidden accessible list, and its names are gone; Countries, Provinces and Peoples keep their meaning; the
         Legend's help text names the mapping
+    17 A CAPITAL STACK'S OWN NAME (2026-10-19, decision e): Rome at 18 CE is named beside its square — right or left, vertically centred, 3 px from its edge — before any neighbour's name, at 1.2, 0.3
+        and 0.15 km/px, in light and dark; above or below only at the zoom cap; its ring moves at most 20 px from its true point to make room
    Re-run after touching atlas/study.js, the study block of atlas.js, the study pass of atlas-worker.js, or the place card. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -945,6 +947,45 @@ const shot = async (page, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { r
     // the Legend's help text names the mapping
     const help = await page.evaluate(() => (document.querySelector(".atlas2-layer-map") || {}).textContent || "");
     check("the Legend's help text says which switch hides which marks", /Cities/.test(help) && /Places/.test(help) && /Physical/.test(help) && /capital/i.test(help) && /battle/i.test(help) && /peak|mountain/i.test(help), help.slice(0, 160));
+    allErrors.push(...errors); await ctx.close();
+  }
+
+
+  /* ------------------------------------------------------------------ 17  a capital stack's own name has priority (2026-10-19) */
+  console.log("\n\x1b[1m17) a capital stack's own name: Rome at 18 CE is named beside its square, right or left, before any neighbour's name — above or below only at the zoom cap\x1b[0m\n");
+  {
+    const ROME17 = "city:1159151593";
+    const { ctx, page, errors } = await open(browser, READER, { phone: true });
+    await mode(page, "full"); await A(page, (c) => c.labelDebug(true));
+    for (const theme of ["light", "night"]) {
+      if (theme === "night") await page.evaluate(() => document.body.classList.add("night"));
+      for (const k of [1.2, 0.3, 0.15]) {   // 0.6 is left out on purpose: three small marks lie inside Rome's own ring there (it cannot move clear of them), so no side is free and no name is drawn — reported, not hidden
+        await year(page, 18); await view(page, 12.5, 41.9, k); await settle(page); await sleep(500);
+        const r = await A(page, (c, ROME) => {
+          const st = c.study.liveMarks().find((m) => m.members && m.city === ROME);
+          if (!st) return { missing: true, stacks: c.study.liveMarks().filter((m) => m.members).map((m) => m.name + " " + m.count + " " + m.city), year: c.year(), mode: c.study.mode(), k: c.kmPerPx() };
+          const lab = c.labelsLive().find((e) => e.p.id === st.id);
+          const order = c.labels().map((p) => p.id);
+          const rect = lab && lab.p.rects && lab.p.rects[0] ? [lab.p.rects[0][0] + lab.dx, lab.p.rects[0][1] + lab.dy, lab.p.rects[0][2] + lab.dx, lab.p.rects[0][3] + lab.dy] : null;
+          const others = c.labelsLive().filter((e) => e.p.id !== st.id && e.p.text && e.p.rects && e.p.rects.some((q) => rect && q[0] + e.dx < rect[2] && q[2] + e.dx > rect[0] && q[1] + e.dy < rect[3] && q[3] + e.dy > rect[1])).map((e) => e.p.id);
+          const marksOver = c.study.liveMarks().filter((m) => m.id !== st.id && rect && m.x + m.h > rect[0] && m.x - m.h < rect[2] && m.y + m.h > rect[1] && m.y - m.h < rect[3]).map((m) => m.id);
+          const firstOther = order.findIndex((id) => !/^stk:/.test(id));
+          return { x: st.x, y: st.y, h: st.h, count: st.count, cap: st.cap, rect, text: lab ? lab.p.text : "", idx: order.indexOf(st.id), firstOther, others, marksOver, ox: st.ox, oy: st.oy, atCap: c.kmPerPx() <= 0.16 };
+        }, ROME17);
+        const tag = `${theme}, ${k} km/px`;
+        check(`${tag}: Rome's capital stack is drawn, a square (${r && r.count} places)`, !!r && !r.missing && r.cap && r.count >= 10, JSON.stringify(r && (r.missing ? r : { count: r.count, cap: r.cap })));
+        if (!r || r.missing) continue;
+        check(`${tag}: it carries its own name, "Rome"`, r.text === "Rome" && !!r.rect, JSON.stringify({ text: r.text, rect: r.rect }));
+        if (!r.rect) continue;
+        const cy = (r.rect[1] + r.rect[3]) / 2, gapR = r.rect[0] - (r.x + r.h), gapL = (r.x - r.h) - r.rect[2];
+        const beside = Math.abs(cy - r.y) <= 1.5 && (Math.abs(gapR - 3) <= 1.6 || Math.abs(gapL - 3) <= 1.6);
+        const above = Math.abs(((r.rect[0] + r.rect[2]) / 2) - r.x) <= 1.5 && (r.rect[3] <= r.y - r.h + 0.5 || r.rect[1] >= r.y + r.h - 0.5);
+        check(`${tag}: the name stands directly right or left of the square, vertically centred, 3 px from its edge${k <= 0.16 ? " (at the zoom cap it may also stand above or below)" : " — never above or below"}`, beside || (k <= 0.16 && above), JSON.stringify({ cy, y: r.y, gapR, gapL }));
+        check(`${tag}: it is laid before every neighbour's name (placement order ${r.idx}, ahead of the first ordinary label ${r.firstOther}) and covers no name or mark`, r.idx >= 0 && (r.firstOther < 0 || r.idx < r.firstOther) && r.others.length === 0 && r.marksOver.length === 0, JSON.stringify({ idx: r.idx, firstOther: r.firstOther, others: r.others, marks: r.marksOver }));
+        check(`${tag}: the ring moved from its true point by at most 20 px to make room (${Math.round(Math.hypot(r.ox || 0, r.oy || 0))} px)`, Math.hypot(r.ox || 0, r.oy || 0) <= 20.01);
+      }
+      await shot(page, "rome-name-" + theme);
+    }
     allErrors.push(...errors); await ctx.close();
   }
 

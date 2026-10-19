@@ -44,6 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>Atlas popups</b> now hold only the place's name and the cards set there — one tidy row per card with its deck and a DUE badge — and no longer the facts, description or Wikipedia link.",
       "<b>Atlas legend</b>: turning off Cities, Places or Physical now hides their icons as well as their names, and the legend says which switch hides which.",
+      "<b>Atlas capitals</b>: a capital's ring of places (Rome, Athens) keeps its own name beside it, nudging aside from the small sites that crowd it.",
     ],
   },
   {
