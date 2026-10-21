@@ -164,9 +164,9 @@ in plan order unless the user says otherwise.
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | **done 2026-10-15** |
 | B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | **done 2026-10-15** |
 | B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | **done 2026-10-15** |
-| B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | open |
-| B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | open |
-| B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | open |
+| B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | **done 2026-10-21** |
+| B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | **done 2026-10-21** |
+| B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | **done 2026-10-21** |
 | B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | open |
 | B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | open |
 | B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | open |
@@ -2015,6 +2015,73 @@ bare. *Confusability:* `wh-492`/`wh-493` the movement and its Rule, Antony and P
 **Glossary.** Nine terms rewritten (*Sutton Hoo*, *Christian monasticism*, *Rule of Saint Benedict*, *Medieval papacy*,
 *Charlemagne*, *Carolingian Renaissance*, *Holy Roman Empire*, *Vikings*, *Alfred the Great*; *Lindisfarne raid* kept as it stood).
 
+### B51 — `wh-501`–`wh-510`, Medieval Europe (2026-10-21)
+
+Run as B50, from a new thread: **`wh-501`–`wh-600` are this thread's range** (Medieval Europe's last twenty, then East Asia, South and Southeast Asia, Africa and the
+Steppe). Pictures skipped (Commons answered "too many requests" to the one call tried). Checks: `wh-audit.js --range=wh-501:wh-510` clean but for
+`L.missing` on `wh-509` (a type of building: the agent's Beaumaris pin was removed as a misleading mark for the whole type); `check-cards` all pass;
+`check-citations --card` 0 mismatched on all ten; of 80 distinct URLs none was non-2xx. archive.org was unreachable to every agent, so no old archive.org
+book was re-read: each source it carried was replaced or the claim dropped.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-501` Vinland | 7 | 5 → 7 | **"Reached c. 1000" and "Last voyage 1121" were wrong in kind.** The one measured date is the wood felled in 1021 (Kuitems et al.); c. 1000 is the sagas' reckoning; 1121 is only the annals' note that Bishop Eric went to look for Vinland, his fate unknown. The sagas are no longer both "13th century" (Wallace dates the Greenlanders' Saga after 1310); Vinland's location is argued. |
+| `wh-502` feudalism | 9 | 6 → 9 | **A modern construct was written as a medieval system, and the three date rows were three other events** (Fulbert's letter, a 1970s decade, a span for "institutions"). `""` and `undatable`; Brown, Reynolds, Hyams and Cheyette are named in prose, never in a question; John of Toul's "four lords" corrected and an unsourced kneeling dropped. |
+| `wh-503` manorialism | 7 | 5 → 7 | **England's specifics were stated as the rule** (three days' week-work, eight-ox teams, virgates) from Seebohm (1890). Court rolls 1246 – 49 and a manumission of 1278 were single documents, not dates for the system: `""` and `undatable`. Variation by region and the east–west split at the Elbe now carry the card. |
+| `wh-504` Norman Conquest | 9 | 5 → 9 | **Question 1 carried "1066" and "twenty more years", and a row was Domesday's (`wh-505`).** Landed 28 September, Hastings 14 October, crowned 25 December; army sizes hedged; Harold's death shown as disputed; the murder-fine law corrected (the killer's lord pays first, then the hundred); the elite's replacement backed by 44 English tenants-in-chief. |
+| `wh-505` Domesday Book | 8 | 5 → 8 | **"Finished within the year" and "called Domesday by 1179" had no source I could open.** The National Archives say the scribe's work was halted, perhaps by William's death in 1087; the name is "by the 12th century". Ordered at Christmas 1085 (the Chronicle's Gloucester council), surveyed 1086; purpose argued. Question 2 reworded off its own answer. |
+| `wh-506` Crusades | 10 | 6 → 10 | **A row was the First Crusade's (1099) and question 1 gave "popes" for decrees of kings** (1188, 1270). One "usual span" row; the word *cruciata* is not found before the 13th century; Egypt, the Baltic and Languedoc added; the 70,000 casualty figure is Ibn Muyassar's, via Hillenbrand. |
+| `wh-507` First Crusade | 8 | 6 → 8 | **"The only expedition that took the city it was called to take" was unsourced, and the Rhineland communities were not "destroyed".** Speyer, Worms and Mainz attacked, with the Encyclopaedia Judaica's figures attributed; the Clermont speech survives only in chronicles written after 1099; motives, Piacenza and the Arabic sources attributed. |
+| `wh-508` Knights Templar | 9 | 5 → 9 | **"The council of Vienne abolished the order" was wrong**: Clement V suppressed it by *Vox in excelso* (22 March 1312) without condemning it. Founded 1118 (William of Tyre) or 1119 (Barber); the 13 October 1307 arrests, torture and the 1314 burning; the Friday-13th and treasure legends marked as later. |
+| `wh-509` castle | 9 | 5 → 9 | **Century-only rows ("12th", "13th century") and "built in England from 1066" made a type into an English event**: `""` and `undatable`. "The Normans introduced the motte-and-bailey" is hedged (four Herefordshire castles before 1066); defence against status is a modern debate; the unsourced "300 arrow loops" dropped. |
+| `wh-510` Gothic architecture | 9 | 5 → 9 | **The three devices were treated as the style's definition**: that is Viollet-le-Duc's 19th-century one, and none began at Saint-Denis. Consecrated 11 June 1144 (two sources); "Gothic" is Vasari's insult; Suger's light theory a modern interpretation; "Notre-Dame iron mid-12th century" dropped. |
+
+**Read by eye.** *Article:* "the Norman Conquest", "the Crusades", "the First Crusade", "the Knights Templar", "the Domesday Book" (questions use "Domesday" as printed); "Vinland", "feudalism", "manorialism", "castle" bare. *Confusability:* `wh-504`/`wh-505` the invasion and its survey, Domesday only on `wh-505`; `wh-506`/`wh-507`/`wh-508` the movement, its first expedition and the order, Clermont only on `wh-507`, the Friday arrests only on `wh-508`; `wh-502`/`wh-503` the lord–vassal tie and the estate. *Against other cards:* `wh-495` (Charlemagne) and `wh-490` (England) unchanged; `ru-` and `cnh-` none touched.
+
+**Glossary.** Ten terms rewritten (*Vinland*, *feudalism* and *manorialism* kept to their general sense, *Norman Conquest*, *Domesday Book*, *Crusades*, *First Crusade*, *Knights Templar*, *castle*, *Gothic architecture*).
+
+### B52 — `wh-511`–`wh-520`, Medieval Europe (2026-10-21)
+
+Run as B51. Pictures skipped. Checks: `wh-audit.js --range=wh-511:wh-520` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on all ten; of 86 distinct URLs two were non-2xx (an AEA journal page that answers 000 and one more).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-511` medieval university | 8 | 5 → 8 | **Bologna's 1088 and an unsourced "Orléans walkout 1316" stood as fact.** 1088 is a convention fixed for the 800th anniversary of 1888; "universitas" meant any corporation; Paris statutes 1215 and *Parens scientiarum* 1231; women: only a hedged point, no source for "formally excluded". |
+| `wh-512` Thomas Aquinas | 8 | 5 → 8 | **The Summa's start is two dates** (1265, Torrell; 1267, the Stanford Encyclopedia), both stated. Born 1224 or 1225 at Roccasecca; the "straw" remark is Reginald's, reported at the 1319 inquiry; 1277, canonised 1323, doctor 1567; "official Thomism" (1879) shown as a modern revival. |
+| `wh-513` Magna Carta | 9 | 5 → 9 | **The jury, habeas corpus and "root of democracy" reading was stated as a 1215 fact**; it is attributed to Coke and the 17th century. The numbering (the old "chapter 61") is Davis's; sealed 15 June, annulled 24 August 1215, confirmed 1297; three chapters are still in force, not two. |
+| `wh-514` guild | 9 | 5 → 9 | **Three date rows were three other things**: London c. 930 is a peace gild against cattle theft, Ipswich 1201 and Stendal 1233 single documents. `""` and `undatable`; the 884 capitulary against villeins' gilds added; the Epstein–Ogilvie dispute attributed. |
+| `wh-515` Hanseatic League | 8 | 5 → 8 | **The "charter of 17 September 1188" is dated 19 September in its own text, and the surviving text is probably a Lübeck falsification of Frederick II's time**; the "named Hansa 1241" claim dropped. 72 towns in the 1469 list against "more than 200"; first diet 1356 – 58; Stralsund terms from Zimmern 1889 only. |
+| `wh-516` Black Death | 9 | 5 → 9 | **The death toll was one flat figure**; now a dispute (a quarter to a third, 40 per cent, up to 60) with whose each is. The Chüy origin and the Caffa tale (one manuscript) marked as argued; the Pistoia day dropped (the page title and text differ); flagellants and China dropped, no source. |
+| `wh-517` peasant revolt | 9 | 5 → 9 | **"Peasant" used without caveat**: the rebels of 1381 included craftsmen and local officials, and "Peasants' Revolt" replaced rival names in the 1880s. The 1380 poll tax and the 1349 ordinance as causes; Ball's sermon and Smithfield attributed to Walsingham and the *Anonimalle*; "rustics you are" and the Ciompi left out, no source. |
+| `wh-518` Hundred Years' War | 10 | 5 → 10 | **The date row ran from Crécy, a year sat in question 2, and the chroniclers' army figures stood.** Now 1337 – 1453, Brétigny 1360, Troyes 1420; the name is later; Gascony against the dynastic claim; the Salic Law a later justification; the longbow debated. "French historians of the early 19th century" dropped (one blog). |
+| `wh-519` Joan of Arc | 9 | 5 → 9 | **"Handed over 14 July 1430" was the bishop of Beauvais's demand in the Burgundian camp**; the English had her after mid-November. Born c. 1412 (the Epiphany birthday uncertain); the voices are her own report; Alençon held command, not Joan; verdict annulled 7 July 1456. |
+| `wh-520` Reconquista | 8 | 5 → 8 | **The name is 19th-century, in the Royal Academy's dictionary in this sense only in 1936**; a continuous eight-century project is a later national story. The Cid serving both sides, the taifas and Barbastro added; Covadonga left undated (nothing sourced); the Alfonso III chronicle mislabelled and fixed. |
+
+**Read by eye.** *Article:* "the medieval university" is "the _____" in every phrasing; "the Hanseatic League", "the Black Death", "the Hundred Years' War", "the Reconquista", "the Magna Carta" printed as "Magna Carta" bare; "Thomas Aquinas" and "Joan of Arc" bare. *Confusability:* `wh-516`/`wh-517` the plague and the risings after it, the Ordinance of Labourers only on `wh-517`; `wh-518`/`wh-519` the war and the Maid, Troyes only on `wh-518`, Orléans only on `wh-519`; `wh-513`/`wh-514`/`wh-515` charter, guild and league. *Against other cards:* `wh-486` (Middle Ages) and `wh-499` agree; none edited.
+
+**Glossary.** Ten terms rewritten (*Medieval university*, *Thomas Aquinas*, *Magna Carta*, *Guild*, *Hanseatic League*, *Black Death*, *Peasant revolt*, *Hundred Years' War*, *Joan of Arc*, *Reconquista*).
+
+### B53 — `wh-521`–`wh-530`, East Asia (2026-10-21)
+
+Run as B51, first of East Asia. Pictures skipped. Checks: `wh-audit.js --range=wh-521:wh-530` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on nine and one on `wh-522` that is Crossref's name order, not the cited work: Frontiers' article prints "Hongda Tian" while Crossref has "Tian Hongda" (the article's own copyright line reads "Hongda and Yonghu"); left as cited. Of 65 distinct URLs none was non-2xx. A new locator: `wh-522` (the Grand Canal, marked at Hangzhou). Wikisource, ctext and archive.org were unreachable, so no primary text was re-read for the Chinese cards.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-521` Sui dynasty | 7 | 5 → 7 | **"Took the throne from his grandson" and "Daxing from 583" were loose**: the Northern Zhou emperor was a child; the edict was July 582 and the works done by February 583. The "two million a month" labour claim and the granary levy dropped; the *Book of Sui* was written under the Tang (629 – 636). |
+| `wh-522` Grand Canal | 8 | 5 → 8 | **The Shanyang cut is 587, not 595**; "close on 3,000 li" and "Huitong 1289 – 92" had no source (length about 1,794 km; Yuan works 1276 – 1291). Labour figures are given as reported; the 2014 listing cited to papers, not UNESCO. |
+| `wh-523` Tang dynasty | 8 | 6 → 8 | **Question stems carried years.** The 754 and 764 register figures belong to `wh-527`; Li Yuan "King of Tang", not "Duke"; the 626 coup, the 690 – 705 Zhou interregnum, the 845 persecution and the Diamond Sutra of 868 added. |
+| `wh-524` Chang'an | 9 | 5 → 9 | **"Taken 18 July 756" has no source for the day** (the *Zizhi tongjian* dates the fall unclearly): rows are now 756 (rebels) and 763 (Tibetan sack). The DNA burials lie in the eastern suburbs; the 84 km² and one-million figures are one reconstruction's. |
+| `wh-525` imperial examination | 7 | 5 → 7 | **"Already in use by 601", the "1044 edict" and "1870 at Hangzhou" were unsourced or another event.** The start is disputed (605 under the Sui, the Tang, or the late Tang); the Han system is separate (a written test only in 132); Ming form 1384; abolished 2 September 1905; the card's own "one in a hundred" was a calculation. |
+| `wh-526` woodblock printing | 8 | 5 → 8 | **"Nothing certainly earlier survives" was wrong**: Japan's Hyakumantō Darani (764 – 770) and the Korean sutra (before 751, argued) are earlier; the Diamond Sutra is the oldest dated *complete* printed book. The origin is unknown; a Sui decree of 593 (Cordier) and "Dunhuang rolls of 947 and 980" dropped. |
+| `wh-527` An Lushan Rebellion | 8 | 5 → 8 | **The fall from 52.9 to 16.9 million is a count of registered households (755 and 764, Deng), not of deaths.** The day-level dates for Chang'an (13 and 18 July) rest on sexagenary days and are dropped; Shi Chaoyi's end is 762 (Theobald) or 763. |
+| `wh-528` Song dynasty | 8 | 6 → 8 | **The card is now the state alone**: the coinage debate, the Grand Canal and unsourced 1279 details are gone. "Over 100 million" is attributed (and Deng's 115 million is households × 5.77); the Northern Song ends 1127 (Lorge) or 1126 (Theobald); the 1005 payments cited. |
+| `wh-529` paper money | 9 | 5 → 9 | **A "1032 cap" and "1068 forgery law" were misdated**: the state office is 1023 and the first series 1024; the 1,256,340 strings is each term's quota with no date; the forgery law belongs to the early Xining years. Private notes from the 990s; huizi 1161; Yuan notes 1260; Marco Polo's wonder attributed. |
+| `wh-530` gunpowder | 9 | 5 → 9 | **The old rows implied an invention date.** None is known: earliest surviving recipes 1044, the fire lance 1132, the iron bombs at Kaifeng 1232; a Daoist warning of uncertain date; the "fireworks only" story and the Schwarz legend refuted; the 1221 Qizhou bomb unsourced and left out. |
+
+**Read by eye.** *Article:* "the Sui dynasty", "the Grand Canal", "the Tang dynasty", "the imperial examination", "the An Lushan Rebellion", "the Song dynasty" (question 1 supplies "the" before the blank), "woodblock printing" inside "in _____"; "Chang'an", "paper money", "gunpowder" bare. *Confusability:* `wh-521`/`wh-522` the dynasty and its canal, Yang Di's wars only on `wh-521`; `wh-523`/`wh-524`/`wh-527` the dynasty, its capital and the rebellion, Mawei only on `wh-527`, Zhu Wen's 904 move only on `wh-524`; `wh-525`/`wh-526` examinations and printing, the Diamond Sutra on `wh-523` and `wh-526`; `wh-529`/`wh-530` two Song-era inventions. *Against other cards:* `cnh-343` (Sui, 581 – 618, 589), `cnh-329`/`cnh-339` agree, and `cnh-350` dates the Shanyang cut 587 as here; `jp-088`'s Heian-kyō plan is not repeated; none edited.
+
+**Glossary.** Ten terms rewritten (*Sui dynasty*, *Grand Canal*, *Tang dynasty*, *Chang'an*, *Imperial examination*, *Woodblock printing*, *An Lushan Rebellion*, *Song dynasty*, *Paper money*, *Gunpowder*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2223,3 +2290,13 @@ pass once it answers. Filled batch by batch.
 | `wh-492` | one monk at a monastery gate, a person and not the movement |
 | `wh-496` | one manuscript leaf; its description carries a shelfmark |
 | `wh-491`, `wh-493`, `wh-497`–`wh-500` | judged from title and description only |
+| `wh-501`–`wh-512`, `wh-516`–`wh-520`, `wh-522`, `wh-526`, `wh-527`, `wh-529`, `wh-530` | kept as they stand after B51 – B53: judged from title and description only, not re-viewed |
+| `wh-509` | one Beaumaris view for a whole type; **locator** left out by design (a type of building) |
+| `wh-513` | the 1297 confirmation, not the 1215 charter; its description says it was "sent to the sheriffs" (unsourced) |
+| `wh-514` | one Nuremberg brewer from a charity's house-book, not a guild |
+| `wh-515` | a 19th-century engraving of one episode (Stralsund) |
+| `wh-521` | the Anji Bridge, one Sui structure |
+| `wh-523` | a portrait of Taizong, not the dynasty |
+| `wh-524` | the Daming Palace platform, one part of the city |
+| `wh-525` | a print file named "drunk in cell" showing examination cells only |
+| `wh-528` | a portrait of the founder, not the state (the glossary's Qingming scroll detail fits better) |

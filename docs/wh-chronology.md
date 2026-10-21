@@ -485,6 +485,32 @@ Filled batch by batch, from the source each row names.
 | Vikings: Viking Age / also dated | 793 – 1066 CE / c. 750 – 1050 CE | Ashby; Heen-Pettersen (`wh-498`) |
 | Lindisfarne raid | 793 CE (Chronicle's 8 January is a miscount; 8 June by Simeon of Durham and modern accounts) | Anglo-Saxon Chronicle; Simeon; English Heritage (`wh-499`) |
 | Alfred the Great: born (Asser) / reigned / Edington | 849 / 871 – 899 / 878 CE | Asser; Anglo-Saxon Chronicle (`wh-500`) |
+| Vinland: wood felled / sagas date it / bishop's voyage | 1021 / c. 1000 / 1121 CE | Kuitems et al.; Wallace (`wh-501`; `wh-502` and `wh-503` are `undatable`) |
+| Norman Conquest: landed / Hastings / crowned | 28 September / 14 October / 25 December 1066 CE | Coad; Bayeux Museum (`wh-504`) |
+| Domesday Book: ordered / surveyed | Christmas 1085 / 1086 CE | The National Archives (`wh-505`) |
+| Crusades: usual span | 1095 – 1291 CE | Encyclopedia of Religion (`wh-506`) |
+| First Crusade: Clermont / Antioch / Jerusalem | 18 – 28 November 1095 / 3 June 1098 / 15 July 1099 CE | Fordham Sourcebook; Riley-Smith (`wh-507`) |
+| Knights Templar: founded / rule / arrests / suppressed | 1118 – 1119 / January 1129 / 13 October 1307 / 22 March 1312 CE | William of Tyre; Barber (`wh-508`; `wh-509` is `undatable`) |
+| Gothic architecture: St-Denis choir / Canterbury fire | 11 June 1144 / 1174 CE | Suger; Canterbury Cathedral (`wh-510`) |
+| medieval university: Bologna by custom / Paris statutes / Gregory IX | 1088 / 1215 / 13 April 1231 CE | University of Bologna; Courçon; Gregory IX (`wh-511`) |
+| Thomas Aquinas: born / Summa / died / canonised | c. 1224 – 1225 / c. 1265 – 1273 / 7 March 1274 / 18 July 1323 CE | Torrell (Marquette); Pasnau (`wh-512`) |
+| Magna Carta: sealed / annulled / confirmed | 15 June 1215 / 24 August 1215 / 1297 CE | Phillips; British Library (`wh-513`; `wh-514` is `undatable`) |
+| Hanseatic League: first diet / Stralsund / last diet | c. 1356 – 1358 / 1370 / 1669 CE | Landesmuseum MV; Ewert and Selzer (`wh-515`) |
+| Black Death: pandemic / Chüy tombstones | 1346 – 1353 / 1338 – 1339 CE | Spyrou et al. (`wh-516`) |
+| peasant revolt: ordinance / Jacquerie / English rising | 1349 / 1358 / 1381 CE | McGlynn; London Museum (`wh-517`) |
+| Hundred Years' War: usual dating / Brétigny / Troyes | 1337 – 1453 / 1360 / 1420 CE | Runyan; IHR (`wh-518`) |
+| Joan of Arc: lived / Orléans / captured / annulled | c. 1412 – 30 May 1431 / 8 May 1429 / 23 May 1430 / 7 July 1456 CE (the 14 July 1430 summons was not the handover) | Murray; Barrett (`wh-519`) |
+| Reconquista: conquest to Granada / Las Navas / dictionary sense | 711 – 2 January 1492 / 16 July 1212 / 1936 CE | Drayson; García Sanjuán (`wh-520`) |
+| Sui dynasty: ruled / reunified / Daxing / Goguryeo wars | 581 – 618 / 589 / 582 – 583 / 612 – 614 CE | Theobald; Xiong (`wh-521`) |
+| Grand Canal: Sui works / oldest section / Yuan works / World Heritage | 587 – 610 CE / 486 BCE / 1276 – 1291 CE / 2014 | Theobald; Dong (`wh-522`) |
+| Tang dynasty: ruled / Zhou interregnum / revolt / dated print | 618 – 907 / 690 – 705 / 755 / 868 CE | Theobald; Linda Hall Library (`wh-523`) |
+| Chang'an: Daxing / capital / rebels / Tibetan sack | 582 / 583 – 904 / 756 / 763 CE | Hsueh; Theobald; Kempf et al. (`wh-524`) |
+| imperial examination: often dated / Ming form / abolished | c. 605 CE / 1384 CE / 2 September 1905 | Bai and Jia; Theobald; Nylan (`wh-525`) |
+| woodblock printing: Japanese dharani / dated book / classics cut | 764 – 770 / 868 / 932 – 953 CE | Kornicki; Wolfson-Ford (`wh-526`) |
+| An Lushan Rebellion: fought / began / Chang'an lost / retaken | 755 – 763 / December 755 / 756 / 757 CE | Larson; Theobald; Deng (`wh-527`) |
+| Song dynasty: ruled / Northern Song / Southern Song | 960 – 1279 / 960 – 1127 (or 1126) / 1127 – 1279 CE | Lorge; Theobald (`wh-528`) |
+| paper money: private notes / state office / huizi / Yuan notes | c. 990 – 1023 / 1023 / 1161 / 1260 CE | von Glahn; Theobald (`wh-529`) |
+| gunpowder: earliest recipes / fire lance / Kaifeng bombs | 1044 / 1132 / 1232 CE | Lorge; Andrade (`wh-530`) |
 
 ## Chronology pins
 
@@ -954,4 +980,30 @@ wh-497: 962; 800; 1806
 wh-498: 793; 1066; 750; 1050
 wh-499: 793
 wh-500: 849; 871; 899; 878
+wh-501: 1021; 1000; 1121
+wh-504: 28; 1066; 14; 25
+wh-505: 1085; 1086
+wh-506: 1095; 1291
+wh-507: 18; 28; 1095; 3; 1098; 15; 1099
+wh-508: 1118; 1119; 1129; 13; 1307; 22; 1312
+wh-510: 1144; 1174
+wh-511: 1088; 1215; 13 April 1231
+wh-512: 1224; 1225; 1265; 1273; 1274; 1323
+wh-513: 15 June 1215; 24 August 1215; 1297
+wh-515: 1356; 1358; 1370; 1669
+wh-516: 1346; 1353; 1338; 1339
+wh-517: 1349; 1358; 1381
+wh-518: 1337; 1453; 1360; 1420
+wh-519: 1412; 30; 1431; 8; 1429; 23; 1430; 7; 1456
+wh-520: 711; 2; 1492; 16; 1212; 1482; 1936
+wh-521: 581; 618; 589; 582; 583; 612; 614
+wh-522: 587; 610; 486; 1276; 1291; 2014
+wh-523: 618; 907; 690; 705; 755; 868
+wh-524: 582; 583; 904; 756; 763
+wh-525: 605; 1384; 2 September 1905
+wh-526: 764; 770; 868; 932; 953
+wh-527: 755; 763; 756; 757
+wh-528: 960; 1279; 1127
+wh-529: 990; 1023; 1161; 1260
+wh-530: 1044; 1132; 1232
 ```
