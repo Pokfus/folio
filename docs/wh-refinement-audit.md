@@ -172,7 +172,7 @@ in plan order unless the user says otherwise.
 | B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | **done 2026-10-22** |
 | B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | **done 2026-10-22** |
 | B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | **done 2026-10-22** |
-| B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | open |
+| B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | **done 2026-10-22** |
 | B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | open |
 | B61 | The Americas before Columbus (`wh-americas`) | `wh-601`–`wh-610` | 10 | 69 | open |
 | B62 | The Americas before Columbus (`wh-americas`) | `wh-611`–`wh-620` | 10 | 68 | open |
@@ -2201,6 +2201,28 @@ Five of the ten cards rest on Cambridge or other abstract pages for some sources
 
 **Glossary.** Ten terms rewritten (*Timbuktu*, *Songhai Empire*, *Kanem–Bornu Empire*, *Hausa Kingdoms*, *Kingdom of Benin*, *Benin Bronzes*, *Swahili coast*, *Kilwa Kisiwani*, *Great Zimbabwe*, *Kingdom of Kongo*).
 
+### B59 — `wh-581`–`wh-590`, Africa and the Steppe empires and the Mongols (2026-10-22)
+
+Run as B58. Pictures skipped. Checks: `wh-audit.js --range=wh-581:wh-590` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on all ten; none of 64 distinct URLs was non-2xx.
+Several of the cards lean on abstract pages for some sources (named in each draft's notes). archive.org was unreachable to every agent.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-581` Zagwe dynasty | 6 | 5 → 6 | **The start is three scholars' three dates**: about 1137 (Piovanelli, after the standard account), the 11th century (Derat), the 12th (Muehlbauer); the abstract says whose. The *Kebra Nagast* (edited in the early 14th century) is the Zagwe's rival tradition; the saints' lives are late; Abu Salih's work confuses Nubia with Abyssinia; "alone ordained" and the Ark-and-Solomon claims were not in the cited text and are dropped. |
+| `wh-582` Lalibela | 8 | 5 → 8 | **"c. 1180 – c. 1230" is not a source's figure** (Bosc-Tiessé gives "the late 12th century and the first third of the 13th"); occupation from c. 900 – 1000; the "24 years" and "white men" of Alvarez are hearsay; the "New Jerusalem" idea is Heldman's, via Muehlbauer, with Phillipson's caution; the 1978 listing from UNESCO. The Saladin link and angelic help are not asserted. |
+| `wh-583` griot | 7 | 5 → 9 | **"Recorded 1795 – 1797" was Park's journey, not a start for the office**: `""` and `undatable`. The refusal of burial is Mollien's 1818 report about the Wolof; Ibn Battuta's account of Mali (1352 – 53) and the *nyamakala* added; castes by 1300 (Tamari) with the "caste" label disputed; the unsourced etymology dropped. |
+| `wh-584` Ajami | 5 | 5 → 6 | **The oldest Swahili manuscript is the *Hamziyyah* of 1652, not the *Utendi wa Tambuka* (1728).** The sources disagree on a start (the 11th century, or not common before the 19th), so the line stays `""`; "no writing before colonisation" is a myth, attributed to Ngom; the old Americas-plantation phrasing dropped. |
+| `wh-585` Makuria | 5 | 6 → 6 | **John of Ephesus tells of the Nobadae (Julian) and the Alodians (Longinus), and Makuria is only the hostile kingdom between them**; the old card put that story on Makuria. Royal tombs c. 450 – 550, the baqt 651 – 652, the throne hall made a mosque on 29 May 1317; the "six or seven centuries" lines dropped; the 1200 Arabic text is Abu al-Makarim's, not Abu Salih's. |
+| `wh-586` composite bow | 7 | 5 → 7 | **The origin is disputed by about two millennia** (4th millennium BCE theories; the first half of the 2nd millennium BCE, Šaffa 2025), so `""` and `undatable`; the oldest dated bows are from Thebes, c. 1600 BCE. The Bronze Age steppe-grave claim and "the weapon mounted archery depended on" dropped; no range or draw weight stated. |
+| `wh-587` yurt | 8 | 5 → 8 | **"Described 1253 – 1255" was Rubruck's report, not a date for the tent**: `""` and `undatable`. *Yurt* is a Russian word for the Mongolian *ger* (National Geographic); the "insulates well" claim contradicts the ger studies; the archaeology claim in the old card is not in its cited paper. |
+| `wh-588` Yuezhi | 6 | 5 → 6 | **"Zhang Qian sent 140 – 134" was Hirth's bracket for the reign era**, not the mission: now c. 138 BCE left and 126 BCE back, the first defeat c. 176 and the king's death c. 165 BCE, all Hirth's. The Kushan link is the *Hou Hanshu*'s (Hill); the Tocharian link left out, no source read. |
+| `wh-589` Huns | 9 | 5 → 9 | **The unsourced claims that Ammianus "never met them" and meant them "barely human" are replaced by Maenchen-Helfen's findings** (hatred and fear, Gothic informants). The Xiongnu origin is attributed; the language is known only from personal names; "c. 370 – 376" is a range built from two sources; the isotope and DNA phrasings (already on `ru-012`) dropped. |
+| `wh-590` Attila | 9 | 5 → 9 | **433 as the start was Mierow's sidenote**: now c. 434 – 439 with both views; the envoy's year is 449; the Aquileia row dropped; the battle at the Catalaunian Plains, Leo's embassy and the nosebleed death are attributed to their sources; "Scourge of God" is a later tag. Agrees with `rm-620`, `rm-630` and `rm-631`. |
+
+**Read by eye.** *Article:* "the Zagwe dynasty" with "the" before the blank, "Lalibela", "Ajami", "Makuria" bare; "the Huns" and "the yurt" with "the" where the phrasing needs it; "composite bow" in "the _____" phrasings; "Attila" bare. *Confusability:* `wh-585` (Makuria) against `wh-581`/`wh-582` by the Nile and the highlands; `wh-583`/`wh-584` the singer and the script, Park on `wh-583` only; `wh-587`/`wh-586` the tent and the bow; `wh-588`/`wh-589`/`wh-590` three steppe subjects, the Xiongnu on `wh-588` and `wh-589`, Priscus on `wh-590`. *Against other cards:* `wh-409` agrees on Zhang Qian's return in 126; `wh-487`/`wh-488` (Migration Period, Goths) agree on the 370s; `rm-` agrees on Attila; `ru-012` carries the Huns' isotope and DNA findings, so those phrasings left `wh-589`; none edited.
+
+**Glossary.** Ten terms rewritten (*Zagwe dynasty*, *Lalibela*, *Griot*, *Ajami*, *Makuria*, *Composite bow*, *Yurt*, *Yuezhi*, *Huns*, *Attila*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2445,3 +2467,7 @@ pass once it answers. Filled batch by batch.
 | `wh-578` | a Kilwa view whose description gives "11th – 18th centuries" from the file title (Horton et al. date the earliest mosque stage to the late 10th) |
 | `wh-579` | a close view of wall coursing, not the whole site |
 | `wh-571`, `wh-574`, `wh-576`, `wh-577`, `wh-580` | kept: judged from title and description only (`wh-571`'s description says the mosque was "rebuilt many times since the 14th century": unsourced) |
+| `wh-584` | a Harari legal manuscript (*Kitab al-Fara'id*), an Ethiopian Arabic book, not West African Ajami; the description calls it Harari without a source |
+| `wh-588` | a Tillya Tepe crown: "first-century" is stated as fact, and that these burials are Yuezhi is an inference |
+| `wh-581` | Yemrehanna Krestos; one small unsourced phrase in its description |
+| `wh-582`, `wh-583`, `wh-585`–`wh-587`, `wh-589`, `wh-590` | kept: judged from title and description only |

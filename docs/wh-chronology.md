@@ -554,6 +554,12 @@ Filled batch by batch, from the source each row names.
 | Kilwa Kisiwani: first settled / first coins / Ibn Battuta / Portuguese fort | c. 800 – 900 / c. 980 – 1000 / 1331 / 1505 – 1507 CE | Horton et al.; Barbosa (`wh-578`) |
 | Great Zimbabwe: occupied / walls begun / older peak view | c. 1000 – 1800 / c. 1200 / 1300 – 1450 CE | Chirikure (`wh-579`) |
 | Kingdom of Kongo: founding story / Portuguese come / king baptised / Afonso | c. 1350 / 1482 – 1483 / 1491 / 1506 – 1543 CE | Thornton (`wh-580`) |
+| Zagwe dynasty: ruled (Piovanelli) | c. 1137 – 1270 CE (Derat: from the 11th century; Muehlbauer: 12th) | Piovanelli; Derat; Muehlbauer (`wh-581`) |
+| Lalibela: occupied from / UNESCO listing | c. 900 – 1000 CE / 1978 | Bosc-Tiessé et al.; UNESCO (`wh-582`; `wh-583`, `wh-584` are `undatable`) |
+| Makuria: royal tombs / baqt / throne hall a mosque | c. 450 – 550 / 651 – 652 / 29 May 1317 CE | Then-Obłuska; Khan (`wh-585`; `wh-586` and `wh-587` are `undatable`) |
+| Yuezhi: first defeat / king killed / Zhang Qian left / returned | c. 176 / c. 165 / c. 138 / 126 BCE | Hirth (`wh-588`; `wh-409` also gives 126) |
+| Huns: reached Europe / Nedao | c. 370 – 376 / 454 CE | Gnecchi-Ruscone et al.; Maenchen-Helfen (`wh-589`) |
+| Attila: joint rule began / Bleda killed / Gaul / died | c. 434 – 439 / 445 / 451 / 453 CE | Maenchen-Helfen (`wh-590`) |
 
 ## Chronology pins
 
@@ -1092,4 +1098,10 @@ wh-577: 600; 700; 1000; 1100; 1500; 1600
 wh-578: 800; 900; 980; 1000; 1331; 1505; 1507
 wh-579: 1000; 1800; 1200; 1300; 1450
 wh-580: 1350; 1482; 1483; 1491; 1506; 1543
+wh-581: 1137; 1270
+wh-582: 900; 1000; 1978
+wh-585: 450; 550; 651; 652; 1317
+wh-588: 176; 165; 138; 126
+wh-589: 370; 376; 454
+wh-590: 434; 439; 445; 451; 453
 ```
