@@ -164,16 +164,16 @@ in plan order unless the user says otherwise.
 | B48 | The Islamic world (`wh-islam`) | `wh-471`–`wh-480` | 10 | 98 | **done 2026-10-15** |
 | B49 | The Islamic world (`wh-islam`) / Medieval Europe (`wh-medieval-europe`) | `wh-481`–`wh-490` | 10 | 99 | **done 2026-10-15** |
 | B50 | Medieval Europe (`wh-medieval-europe`) | `wh-491`–`wh-500` | 10 | 99 | **done 2026-10-15** |
-| B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | open |
-| B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | open |
-| B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | open |
-| B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | open |
-| B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | open |
-| B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | open |
-| B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | open |
-| B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | open |
-| B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | open |
-| B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | open |
+| B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | **done 2026-10-21** |
+| B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | **done 2026-10-21** |
+| B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | **done 2026-10-21** |
+| B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | **done 2026-10-22** |
+| B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | **done 2026-10-22** |
+| B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | **done 2026-10-22** |
+| B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | **done 2026-10-22** |
+| B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | **done 2026-10-22** |
+| B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | **done 2026-10-22** |
+| B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | **done 2026-10-22** |
 | B61 | The Americas before Columbus (`wh-americas`) | `wh-601`–`wh-610` | 10 | 69 | open |
 | B62 | The Americas before Columbus (`wh-americas`) | `wh-611`–`wh-620` | 10 | 68 | open |
 | B63 | Renaissance, Reformation and the new science (`wh-renaissance`) | `wh-621`–`wh-630` | 10 | 81 | open |
@@ -2015,6 +2015,237 @@ bare. *Confusability:* `wh-492`/`wh-493` the movement and its Rule, Antony and P
 **Glossary.** Nine terms rewritten (*Sutton Hoo*, *Christian monasticism*, *Rule of Saint Benedict*, *Medieval papacy*,
 *Charlemagne*, *Carolingian Renaissance*, *Holy Roman Empire*, *Vikings*, *Alfred the Great*; *Lindisfarne raid* kept as it stood).
 
+### B51 — `wh-501`–`wh-510`, Medieval Europe (2026-10-21)
+
+Run as B50, from a new thread: **`wh-501`–`wh-600` are this thread's range** (Medieval Europe's last twenty, then East Asia, South and Southeast Asia, Africa and the
+Steppe). Pictures skipped (Commons answered "too many requests" to the one call tried). Checks: `wh-audit.js --range=wh-501:wh-510` clean but for
+`L.missing` on `wh-509` (a type of building: the agent's Beaumaris pin was removed as a misleading mark for the whole type); `check-cards` all pass;
+`check-citations --card` 0 mismatched on all ten; of 80 distinct URLs none was non-2xx. archive.org was unreachable to every agent, so no old archive.org
+book was re-read: each source it carried was replaced or the claim dropped.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-501` Vinland | 7 | 5 → 7 | **"Reached c. 1000" and "Last voyage 1121" were wrong in kind.** The one measured date is the wood felled in 1021 (Kuitems et al.); c. 1000 is the sagas' reckoning; 1121 is only the annals' note that Bishop Eric went to look for Vinland, his fate unknown. The sagas are no longer both "13th century" (Wallace dates the Greenlanders' Saga after 1310); Vinland's location is argued. |
+| `wh-502` feudalism | 9 | 6 → 9 | **A modern construct was written as a medieval system, and the three date rows were three other events** (Fulbert's letter, a 1970s decade, a span for "institutions"). `""` and `undatable`; Brown, Reynolds, Hyams and Cheyette are named in prose, never in a question; John of Toul's "four lords" corrected and an unsourced kneeling dropped. |
+| `wh-503` manorialism | 7 | 5 → 7 | **England's specifics were stated as the rule** (three days' week-work, eight-ox teams, virgates) from Seebohm (1890). Court rolls 1246 – 49 and a manumission of 1278 were single documents, not dates for the system: `""` and `undatable`. Variation by region and the east–west split at the Elbe now carry the card. |
+| `wh-504` Norman Conquest | 9 | 5 → 9 | **Question 1 carried "1066" and "twenty more years", and a row was Domesday's (`wh-505`).** Landed 28 September, Hastings 14 October, crowned 25 December; army sizes hedged; Harold's death shown as disputed; the murder-fine law corrected (the killer's lord pays first, then the hundred); the elite's replacement backed by 44 English tenants-in-chief. |
+| `wh-505` Domesday Book | 8 | 5 → 8 | **"Finished within the year" and "called Domesday by 1179" had no source I could open.** The National Archives say the scribe's work was halted, perhaps by William's death in 1087; the name is "by the 12th century". Ordered at Christmas 1085 (the Chronicle's Gloucester council), surveyed 1086; purpose argued. Question 2 reworded off its own answer. |
+| `wh-506` Crusades | 10 | 6 → 10 | **A row was the First Crusade's (1099) and question 1 gave "popes" for decrees of kings** (1188, 1270). One "usual span" row; the word *cruciata* is not found before the 13th century; Egypt, the Baltic and Languedoc added; the 70,000 casualty figure is Ibn Muyassar's, via Hillenbrand. |
+| `wh-507` First Crusade | 8 | 6 → 8 | **"The only expedition that took the city it was called to take" was unsourced, and the Rhineland communities were not "destroyed".** Speyer, Worms and Mainz attacked, with the Encyclopaedia Judaica's figures attributed; the Clermont speech survives only in chronicles written after 1099; motives, Piacenza and the Arabic sources attributed. |
+| `wh-508` Knights Templar | 9 | 5 → 9 | **"The council of Vienne abolished the order" was wrong**: Clement V suppressed it by *Vox in excelso* (22 March 1312) without condemning it. Founded 1118 (William of Tyre) or 1119 (Barber); the 13 October 1307 arrests, torture and the 1314 burning; the Friday-13th and treasure legends marked as later. |
+| `wh-509` castle | 9 | 5 → 9 | **Century-only rows ("12th", "13th century") and "built in England from 1066" made a type into an English event**: `""` and `undatable`. "The Normans introduced the motte-and-bailey" is hedged (four Herefordshire castles before 1066); defence against status is a modern debate; the unsourced "300 arrow loops" dropped. |
+| `wh-510` Gothic architecture | 9 | 5 → 9 | **The three devices were treated as the style's definition**: that is Viollet-le-Duc's 19th-century one, and none began at Saint-Denis. Consecrated 11 June 1144 (two sources); "Gothic" is Vasari's insult; Suger's light theory a modern interpretation; "Notre-Dame iron mid-12th century" dropped. |
+
+**Read by eye.** *Article:* "the Norman Conquest", "the Crusades", "the First Crusade", "the Knights Templar", "the Domesday Book" (questions use "Domesday" as printed); "Vinland", "feudalism", "manorialism", "castle" bare. *Confusability:* `wh-504`/`wh-505` the invasion and its survey, Domesday only on `wh-505`; `wh-506`/`wh-507`/`wh-508` the movement, its first expedition and the order, Clermont only on `wh-507`, the Friday arrests only on `wh-508`; `wh-502`/`wh-503` the lord–vassal tie and the estate. *Against other cards:* `wh-495` (Charlemagne) and `wh-490` (England) unchanged; `ru-` and `cnh-` none touched.
+
+**Glossary.** Ten terms rewritten (*Vinland*, *feudalism* and *manorialism* kept to their general sense, *Norman Conquest*, *Domesday Book*, *Crusades*, *First Crusade*, *Knights Templar*, *castle*, *Gothic architecture*).
+
+### B52 — `wh-511`–`wh-520`, Medieval Europe (2026-10-21)
+
+Run as B51. Pictures skipped. Checks: `wh-audit.js --range=wh-511:wh-520` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on all ten; of 86 distinct URLs two were non-2xx (an AEA journal page that answers 000 and one more).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-511` medieval university | 8 | 5 → 8 | **Bologna's 1088 and an unsourced "Orléans walkout 1316" stood as fact.** 1088 is a convention fixed for the 800th anniversary of 1888; "universitas" meant any corporation; Paris statutes 1215 and *Parens scientiarum* 1231; women: only a hedged point, no source for "formally excluded". |
+| `wh-512` Thomas Aquinas | 8 | 5 → 8 | **The Summa's start is two dates** (1265, Torrell; 1267, the Stanford Encyclopedia), both stated. Born 1224 or 1225 at Roccasecca; the "straw" remark is Reginald's, reported at the 1319 inquiry; 1277, canonised 1323, doctor 1567; "official Thomism" (1879) shown as a modern revival. |
+| `wh-513` Magna Carta | 9 | 5 → 9 | **The jury, habeas corpus and "root of democracy" reading was stated as a 1215 fact**; it is attributed to Coke and the 17th century. The numbering (the old "chapter 61") is Davis's; sealed 15 June, annulled 24 August 1215, confirmed 1297; three chapters are still in force, not two. |
+| `wh-514` guild | 9 | 5 → 9 | **Three date rows were three other things**: London c. 930 is a peace gild against cattle theft, Ipswich 1201 and Stendal 1233 single documents. `""` and `undatable`; the 884 capitulary against villeins' gilds added; the Epstein–Ogilvie dispute attributed. |
+| `wh-515` Hanseatic League | 8 | 5 → 8 | **The "charter of 17 September 1188" is dated 19 September in its own text, and the surviving text is probably a Lübeck falsification of Frederick II's time**; the "named Hansa 1241" claim dropped. 72 towns in the 1469 list against "more than 200"; first diet 1356 – 58; Stralsund terms from Zimmern 1889 only. |
+| `wh-516` Black Death | 9 | 5 → 9 | **The death toll was one flat figure**; now a dispute (a quarter to a third, 40 per cent, up to 60) with whose each is. The Chüy origin and the Caffa tale (one manuscript) marked as argued; the Pistoia day dropped (the page title and text differ); flagellants and China dropped, no source. |
+| `wh-517` peasant revolt | 9 | 5 → 9 | **"Peasant" used without caveat**: the rebels of 1381 included craftsmen and local officials, and "Peasants' Revolt" replaced rival names in the 1880s. The 1380 poll tax and the 1349 ordinance as causes; Ball's sermon and Smithfield attributed to Walsingham and the *Anonimalle*; "rustics you are" and the Ciompi left out, no source. |
+| `wh-518` Hundred Years' War | 10 | 5 → 10 | **The date row ran from Crécy, a year sat in question 2, and the chroniclers' army figures stood.** Now 1337 – 1453, Brétigny 1360, Troyes 1420; the name is later; Gascony against the dynastic claim; the Salic Law a later justification; the longbow debated. "French historians of the early 19th century" dropped (one blog). |
+| `wh-519` Joan of Arc | 9 | 5 → 9 | **"Handed over 14 July 1430" was the bishop of Beauvais's demand in the Burgundian camp**; the English had her after mid-November. Born c. 1412 (the Epiphany birthday uncertain); the voices are her own report; Alençon held command, not Joan; verdict annulled 7 July 1456. |
+| `wh-520` Reconquista | 8 | 5 → 8 | **The name is 19th-century, in the Royal Academy's dictionary in this sense only in 1936**; a continuous eight-century project is a later national story. The Cid serving both sides, the taifas and Barbastro added; Covadonga left undated (nothing sourced); the Alfonso III chronicle mislabelled and fixed. |
+
+**Read by eye.** *Article:* "the medieval university" is "the _____" in every phrasing; "the Hanseatic League", "the Black Death", "the Hundred Years' War", "the Reconquista", "the Magna Carta" printed as "Magna Carta" bare; "Thomas Aquinas" and "Joan of Arc" bare. *Confusability:* `wh-516`/`wh-517` the plague and the risings after it, the Ordinance of Labourers only on `wh-517`; `wh-518`/`wh-519` the war and the Maid, Troyes only on `wh-518`, Orléans only on `wh-519`; `wh-513`/`wh-514`/`wh-515` charter, guild and league. *Against other cards:* `wh-486` (Middle Ages) and `wh-499` agree; none edited.
+
+**Glossary.** Ten terms rewritten (*Medieval university*, *Thomas Aquinas*, *Magna Carta*, *Guild*, *Hanseatic League*, *Black Death*, *Peasant revolt*, *Hundred Years' War*, *Joan of Arc*, *Reconquista*).
+
+### B53 — `wh-521`–`wh-530`, East Asia (2026-10-21)
+
+Run as B51, first of East Asia. Pictures skipped. Checks: `wh-audit.js --range=wh-521:wh-530` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on nine and one on `wh-522` that is Crossref's name order, not the cited work: Frontiers' article prints "Hongda Tian" while Crossref has "Tian Hongda" (the article's own copyright line reads "Hongda and Yonghu"); left as cited. Of 65 distinct URLs none was non-2xx. A new locator: `wh-522` (the Grand Canal, marked at Hangzhou). Wikisource, ctext and archive.org were unreachable, so no primary text was re-read for the Chinese cards.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-521` Sui dynasty | 7 | 5 → 7 | **"Took the throne from his grandson" and "Daxing from 583" were loose**: the Northern Zhou emperor was a child; the edict was July 582 and the works done by February 583. The "two million a month" labour claim and the granary levy dropped; the *Book of Sui* was written under the Tang (629 – 636). |
+| `wh-522` Grand Canal | 8 | 5 → 8 | **The Shanyang cut is 587, not 595**; "close on 3,000 li" and "Huitong 1289 – 92" had no source (length about 1,794 km; Yuan works 1276 – 1291). Labour figures are given as reported; the 2014 listing cited to papers, not UNESCO. |
+| `wh-523` Tang dynasty | 8 | 6 → 8 | **Question stems carried years.** The 754 and 764 register figures belong to `wh-527`; Li Yuan "King of Tang", not "Duke"; the 626 coup, the 690 – 705 Zhou interregnum, the 845 persecution and the Diamond Sutra of 868 added. |
+| `wh-524` Chang'an | 9 | 5 → 9 | **"Taken 18 July 756" has no source for the day** (the *Zizhi tongjian* dates the fall unclearly): rows are now 756 (rebels) and 763 (Tibetan sack). The DNA burials lie in the eastern suburbs; the 84 km² and one-million figures are one reconstruction's. |
+| `wh-525` imperial examination | 7 | 5 → 7 | **"Already in use by 601", the "1044 edict" and "1870 at Hangzhou" were unsourced or another event.** The start is disputed (605 under the Sui, the Tang, or the late Tang); the Han system is separate (a written test only in 132); Ming form 1384; abolished 2 September 1905; the card's own "one in a hundred" was a calculation. |
+| `wh-526` woodblock printing | 8 | 5 → 8 | **"Nothing certainly earlier survives" was wrong**: Japan's Hyakumantō Darani (764 – 770) and the Korean sutra (before 751, argued) are earlier; the Diamond Sutra is the oldest dated *complete* printed book. The origin is unknown; a Sui decree of 593 (Cordier) and "Dunhuang rolls of 947 and 980" dropped. |
+| `wh-527` An Lushan Rebellion | 8 | 5 → 8 | **The fall from 52.9 to 16.9 million is a count of registered households (755 and 764, Deng), not of deaths.** The day-level dates for Chang'an (13 and 18 July) rest on sexagenary days and are dropped; Shi Chaoyi's end is 762 (Theobald) or 763. |
+| `wh-528` Song dynasty | 8 | 6 → 8 | **The card is now the state alone**: the coinage debate, the Grand Canal and unsourced 1279 details are gone. "Over 100 million" is attributed (and Deng's 115 million is households × 5.77); the Northern Song ends 1127 (Lorge) or 1126 (Theobald); the 1005 payments cited. |
+| `wh-529` paper money | 9 | 5 → 9 | **A "1032 cap" and "1068 forgery law" were misdated**: the state office is 1023 and the first series 1024; the 1,256,340 strings is each term's quota with no date; the forgery law belongs to the early Xining years. Private notes from the 990s; huizi 1161; Yuan notes 1260; Marco Polo's wonder attributed. |
+| `wh-530` gunpowder | 9 | 5 → 9 | **The old rows implied an invention date.** None is known: earliest surviving recipes 1044, the fire lance 1132, the iron bombs at Kaifeng 1232; a Daoist warning of uncertain date; the "fireworks only" story and the Schwarz legend refuted; the 1221 Qizhou bomb unsourced and left out. |
+
+**Read by eye.** *Article:* "the Sui dynasty", "the Grand Canal", "the Tang dynasty", "the imperial examination", "the An Lushan Rebellion", "the Song dynasty" (question 1 supplies "the" before the blank), "woodblock printing" inside "in _____"; "Chang'an", "paper money", "gunpowder" bare. *Confusability:* `wh-521`/`wh-522` the dynasty and its canal, Yang Di's wars only on `wh-521`; `wh-523`/`wh-524`/`wh-527` the dynasty, its capital and the rebellion, Mawei only on `wh-527`, Zhu Wen's 904 move only on `wh-524`; `wh-525`/`wh-526` examinations and printing, the Diamond Sutra on `wh-523` and `wh-526`; `wh-529`/`wh-530` two Song-era inventions. *Against other cards:* `cnh-343` (Sui, 581 – 618, 589), `cnh-329`/`cnh-339` agree, and `cnh-350` dates the Shanyang cut 587 as here; `jp-088`'s Heian-kyō plan is not repeated; none edited.
+
+**Glossary.** Ten terms rewritten (*Sui dynasty*, *Grand Canal*, *Tang dynasty*, *Chang'an*, *Imperial examination*, *Woodblock printing*, *An Lushan Rebellion*, *Song dynasty*, *Paper money*, *Gunpowder*).
+
+### B54 — `wh-531`–`wh-540`, East Asia (2026-10-22)
+
+Run as B53. Pictures skipped. Four of the five agents were cut off by a usage limit and resumed by id the next morning; the saved pages and drafts survived. Checks:
+`wh-audit.js --range=wh-531:wh-540` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on eight and one each on `wh-531` and `wh-537`, both a name-order case, not a wrong citation:
+Crossref prints "Xing Huang" and "Ikeda Yoshifumi" where the works print "Huang Xing" and "Yoshifumi Ikeda", so the citations follow the works; 9 of 81 distinct URLs were non-2xx, all
+Japanese or Korean repository and journal downloads (`otani.repo.nii.ac.jp`, `nirc.nanzan-u.ac.jp`) that the agents read through other copies. The markers in the Think-it-through answers of `wh-519`, `wh-541` and `wh-542`
+sat before the full stop; moved after it (`wh-519` re-applied).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-531` compass | 9 | 5 → 10 | **Shen Kuo was no longer "the oldest description", and "Europe c. 1190" named the wrong poet.** A Song military manual already floats an iron fish that points south; Neckam (c. 1187, Price) is earlier than Guyot (c. 1208). "At sea by 1119" is written use, from Zhu Yu's notebook; the Han "spoon" is a 1940s reconstruction. |
+| `wh-532` movable type | 8 | 5 → 8 | **"60,000 wooden pieces" was the length of the gazetteer Wang Zhen printed, not his type** (his postscript says about 30,000). Bi Sheng's "invented 1041 – 1049" is Shen Kuo's report alone; Wang Zhen c. 1297, not 1298; type never displacing blocks is a modern explanation. |
+| `wh-533` Neo-Confucianism | 7 | 5 → 7 | **The name is a Western label for Daoxue and Lixue**, traced to a Latin phrase in Paris in 1687; "school formed c. 1050 – 1200" is replaced by Shao Yong's birth to Zhu Xi's death, the 1196 ban and the 1313 Yuan examination decree. Modern blame for East Asian rigidity is attributed. |
+| `wh-534` porcelain | 9 | 6 → 9 | **"Process published 1856, in French" and "named c. 1470 in Venice" were other events.** "True porcelain" is a Western definition (Chinese does not separate it from stoneware); Marco Polo's cowrie *porcellani* attributed; Meissen (1709 – 10) came before the Jesuit's letters; the Belitung wreck is mostly Changsha stoneware. |
+| `wh-535` Yuan dynasty | 8 | 5 → 8 | **"Capital Dadu from 1264" was loose**: Khubilai took the old city in 1264, began the new one in 1267, and the Annals date the renaming to 1272. The four-class system is a disputed modern reading; the Yaishan story and "broke with every dynasty" dropped. |
+| `wh-536` Marco Polo | 9 | 5 → 9 | **Whether he reached China is attributed by view** (Wood's case, via Jackson; Rossabi; Vogel). The "Millioni" name is three accounts, a 1305 record already naming him; the Yangzhou and Xiangyang claims flagged; the deathbed "not half" story is d'Acqui's report; question 1 lost a numeral. |
+| `wh-537` Mongol invasions of Japan | 8 | 5 → 9 | **"Only 13,500 returned" was backwards** (up to 13,500 lost). Khubilai's letter is dated 1266 and reached Hakata in 1268; exact days dropped (calendars differ); fleet sizes attributed; the kamikaze is Japanese tradition; Suenaga's scroll shows no typhoon; the Hakata wall and Takashima wrecks added. |
+| `wh-538` Muromachi period | 7 | 5 → 8 | **The name comes from a district that held the Ashikaga offices only after 1378**; "first overseas trade" was wrong (Ming relations resumed in 1401, the investiture a study's reading); the eight-lords and "180,000 families" figures dropped; the Sengoku usually starts in 1493 (see `wh-721`). |
+| `wh-539` Zen | 9 | 5 → 9 | **c. 520 for Bodhidharma was a legend's date.** `""` and `undatable`; the patriarch line is attributed to tradition, Eisai 1191 and Dōgen 1223 – 27 to Sōtō sources, and "the religion of the samurai" to the 20th century. |
+| `wh-540` Goryeo | 9 | 5 → 9 | **"Capital Songdo" was Gaegyeong (919).** The Yuan shi's "27 kings" is not the whole dynasty; the Khitan wars, the Ganghwa move in 1232 and celadon are sourced; the Japan-fleet figures dropped; the Tripitaka years and "Korea" from Goryeo are not stated (no readable source). |
+
+**Read by eye.** *Article:* "the Yuan dynasty", "the Mongol invasions of Japan", "the Muromachi period" bare of the article in phrasings that supply it, "the _____" kept for "the kingdom of" in `wh-540`; "compass", "movable type", "porcelain", "Zen" with "the" only where the phrasing needs it. *Confusability:* `wh-531`/`wh-532` the compass and movable type are told apart by Shen Kuo's two reports; `wh-532` against `wh-541` (Korea's metal type, Cheongju); `wh-535`/`wh-536` the dynasty and the traveller; `wh-537`/`wh-538` the invasions and the period that followed. *Against other cards:* `cnh-459`/`cnh-460` (Neo-Confucianism, 1196) and `cnh-980` (Shen Kuo c. 1088 against this card's c. 1087, one source's figure) agree to within a year; `ko-016` and `ko-087` agree on Goryeo; `jp-` has no card for the Mongol invasions or Muromachi; none edited.
+
+**Glossary.** Ten terms rewritten (*Compass*, *Movable type*, *Neo-Confucianism*, *Porcelain*, *Yuan dynasty*, *Marco Polo*, *Mongol invasions of Japan*, *Muromachi period*, *Zen*, *Goryeo*).
+
+### B55 — `wh-541`–`wh-550`, East Asia and South and Southeast Asia (2026-10-22)
+
+Run as B54, with all ten agents cut off by the usage limit in turn and resumed by id; a second agent rebuilt `wh-547` and `wh-548` from scratch because the first left no usable pages. Pictures skipped.
+Checks: `wh-audit.js --range=wh-541:wh-550` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on eight and one each on `wh-541` and `wh-547`, both Crossref's
+given-name-first against the works' family-name-first ("Jae-jeong Lee", "Ky Phuong Tran"), so the citations follow the works; 4 of 74 distinct URLs were non-2xx (the IEP's Ramanuja page answers 500 to the bot but opened for the agent).
+archive.org was unreachable to every agent, so the old Murdoch, Smith, Juzjani, Barani and similar sources are replaced or the claim dropped.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-541` Korean metal movable type | 7 | 5 → 7 | **A Joseon king's 1403 type had been made "the first".** It is a Goryeo invention: 1234 is the earliest record (the *Sangjeong yemun*, a report, not a surviving book); the *Jikji* (Cheongju, 1377) is the oldest surviving, and only its second volume is known. The Joseon dates (1403, the 1434 fount) follow; the Gutenberg link is not claimed. |
+| `wh-542` Heian period | 8 | 5 → 8 | **"Kamakura 1192" was another card's row.** The period runs 794 – 1185 and ends with the Genpei War (1180 – 1185); 1192 and 1180 are alternative endings. The Fujiwara regency, the end of the missions to China (838, 894) with the "turned inward" reading hedged, kana, Tendai and Shingon, and the warrior side set against the "peaceful" label. |
+| `wh-543` Genji Monogatari | 8 | 5 → 9 | **"Written c. 1004" had no source.** The date line is the 1008 diary (it reads a passage of the tale) and the 1020 *Sarashina* diary's copy. Authorship, order, "the first novel" and the later scroll are attributed or hedged; the two text lines (Teika, Kawachi) are stated. |
+| `wh-544` samurai | 9 | 5 → 9 | **A tax-exemption thesis and a "streets of Kyoto" claim had no source.** *Saburau* 'to serve': the word named palace attendants before it named the class; the levies ended in 792; the Gempei War; bushidō as a later construction (Nitobe attributed); abolition in 1871, swords banned 1876, Satsuma 1877. |
+| `wh-545` Kamakura shogunate | 7 | 5 → 7 | **1185 was stated as the founding year and sat in a question.** The line is 1180 – 1192 with whose date each is in prose (Yoritomo's base 1180, the appointments of constables and stewards 1185, *shōgun* 1192); Jōkyū 1221, Jōei Code 1232, the end in 1333; the cost of the invasions argued, not stated. |
+| `wh-546` Harsha | 7 | 5 → 7 | **Troop figures, the Prayāga distribution and his age were unsourced.** The Madhuban plate on the brother's death; the Aihole poem read as a rival's praise (it names the Vindhya, not the Narmada, and carries no battle date); the Harsha era (year 8 = 614 – 15); his faith read from sources that disagree. |
+| `wh-547` Chola dynasty | 7 | 5 → 7 | **"Imperial period 985 – 1279" and "overseas campaign 1025 – 1027" had no firm source.** Named in Ashoka's edicts, then all but forgotten; the medieval revival with Vijayalaya (the 9th century by one editor's reckoning, no firm year); the Kadaram raid c. 1025 placed at Kedah, its motive marked as debated; the Tanjore record of 1030 – 31. |
+| `wh-548` Delhi Sultanate | 7 | 5 → 7 | **Barani, Ibn Battuta and Afif claims were stated flat**, and "five dynasties" had no source that counts them. Aibak was only a *malik* in 1206; Razia; Alauddin Khalji 1296 – 1316 replaces "price regulations 1290s – 1310s", with Barani attributed against other contemporaries' motives; "theocracy" attributed to one study. Sources 5 and 6 are weak (course slides, a student journal). |
+| `wh-549` Vijayanagara Empire | 7 | 5 → 7 | **The foundation stories were stated as fact.** c. 1336 is traditional; the Vidyāraṇya and the Delhi-captive stories are Sewell's rival tales; Razzaq's and Paes's accounts are visitors' reports; the "Hindu bulwark" frame set against sultans who fought one another; Talikota (1565) did not end the state (a rump at Penukonda). Three modern sources are read from abstracts. |
+| `wh-550` bhakti | 7 | 5 → 7 | **"Northern poets 15th – 16th centuries" was a century alone.** `""` and `undatable`; "the Bhakti movement" is attributed to Hawley and others as a modern gathering; Ramanuja is 1017 – 1137 by tradition, 1077 – 1157 recently; the unsourced "travelling between shrines" dropped. |
+
+**Read by eye.** *Article:* "the Heian period", "the Kamakura shogunate", "the Chola dynasty", "the Delhi Sultanate", "the Vijayanagara Empire" (the three phrasings of `wh-549` were missing "the" before the blank and were mended), "the samurai"; "Harsha", "bhakti", "Genji Monogatari" bare. *Confusability:* `wh-542`/`wh-544`/`wh-545` the age, the warriors and the first warrior government, the Gempei War on `wh-542` and `wh-544` only as a boundary; `wh-543` against `wh-542` the tale only; `wh-547`/`wh-548`/`wh-549` three southern or northern states told apart by Tanjavur, Delhi and Hampi; `wh-541` against `wh-532` Korea's type against Bi Sheng's. *Against other cards:* `jp-` has no card for these (the Japan deck stops at `jp-092`); `in-` is empty; `cnh-` none contradicted; none edited.
+
+**Glossary.** Nine terms rewritten (*Metal movable type*, *Genji Monogatari*, *Samurai*, *Kamakura shogunate*, *Harsha*, *Chola dynasty*, *Delhi Sultanate*, *Vijayanagara Empire*, *Bhakti*); *Heian period* kept as it stood.
+
+### B56 — `wh-551`–`wh-560`, South and Southeast Asia (2026-10-22)
+
+Run as B55 (five agents cut off by the usage limit and resumed by id). Pictures skipped. Checks: `wh-audit.js --range=wh-551:wh-560` clean but for `L.missing` on `wh-552` until its locator
+was written on a retry (the first `add-locators` run was rate-limited); `check-cards` first flagged `wh-560` question 3 ("Oc Eo" read as a scholar's name; the place is now "a port in the Mekong delta"), then all pass;
+`check-citations --card` first reported `wh-551` (Cambridge prints 2010, Crossref dates the chapter 2000: now "2010; published online 2000") and `wh-558` (the 1971 issue Crossref dates 1972: now "1971, published 1972"),
+both now 0 mismatched; 6 of 71 distinct URLs were non-2xx. archive.org was unreachable to every agent. The Think-it-through markers on this batch were all after the full stop.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-551` Islam in India | 8 | 7 → 8 | **"Sind conquered 712" is one count of 711 – 713** (Lapidus; Arnold has 714); the Chachnama is a 13th-century Persian text claiming to translate an Arabic one, some read it as political thought; the Cheraman Perumal mosque is tradition only; Tarain 1191 and 1192; how far conquest, preaching and social advantage explain conversion is attributed by view. The old "zimmi terms" claim dropped. |
+| `wh-552` Indo-Islamic architecture | 7 | 5 → 7 | **"Never built an arch" was a Fergusson (1891) view stated as fact**; now attributed. The Quwwat-ul-Islam mosque is dated 1191 – 1196 and the Alai Darwaza 1310 – 1311, with whose figure is whose; the Taj Mahal row dropped (a Mughal building); Indo-Saracenic is a different, colonial style. New locator (the Qutb complex). |
+| `wh-553` Indian Ocean trade | 8 | 5 → 9 | **"Classical period 300 BCE – 400 CE" was one study's own definition and "14th century" a century alone**: `""` and `undatable`. The Hippalus story is the *Periplus*'s, Pliny's 550 million sesterces is his claim; the Cairo Geniza letters and Zheng He added; the "one ocean world" framing is carried by named authors, not stated. |
+| `wh-554` Srivijaya | 6 | 5 → 7 | **Yijing's "more than 1,000 priests" is from his *Record* of about 691 – 692, not the visit of 671.** The stones are 682 – 686 (Kedukan Bukit 682 or 23 April 683); the capital at Palembang is disputed (Muara Takus, Jambi); Sanfoqi = Srivijaya rests on convention; the "15th century" and 1178 rows dropped; the Chola raid of 1025. |
+| `wh-555` Majapahit | 6 | 5 → 7 | **"Chinese account 1416" and "Islam c. 1475" had no source.** The *Yuan shi*, the *Nagarakretagama* (1365) and the *Pararaton* (c. 1500, with Gajah Mada's oath) are attributed to their sources; the empire's reach and its end (1478 once read as the end; a Demak attack in 1519 by one account) are argued. |
+| `wh-556` Khmer Empire | 7 | 5 → 7 | **Jayavarman VII's "1162 – 1201" was wrong: 1181 – 1218.** 802 is a "reported start", from an inscription of the 11th century; the 700,000 – 900,000 population is Klassen's model; the droughts are the tree-ring study's; the Yuan envoy's account attributed. |
+| `wh-557` Angkor Wat | 8 | 5 → 8 | **"Largest religious monument", a 220 m moat and 18 – 20,000 figures had no source** (the moat is about 200 m). Built under Suryavarman II (reign from 1113, died about 1150); the astronomical reading is "one scholar's"; Buddhist monks tended it and pilgrims left texts 1541 – 1747, so it was never lost to Mouhot. |
+| `wh-558` Pagan Kingdom | 7 | 5 → 8 | **"The Mongols occupied Pagan in 1287" and a three-month siege had no source.** 1044 and 1287 are usual dates; 1057 is the chronicle's date for Thaton (whose remains are Hindu, not Buddhist); 1284 the annals' date for the king's flight; the Lokananda and Ananda dates dropped. |
+| `wh-559` Đại Việt | 6 | 5 → 7 | **"Independence 940" is 938 (the Bạch Đằng victory) and 939 (Ngô Quyền's kingship).** Đại Cồ Việt 968; Đại Việt named in 1054 by the annals, doubted by one Vietnamese historian; Ming rule 1407 – 1428; Toda's numismatic book and "Annam 502" dropped. The glossary's end year (1804) has no source and is left out. |
+| `wh-560` Indianisation | 6 | 5 → 6 | **A modern concept was treated as a process**: Coedès's word, criticised by Wolters, Mabbett and Vickery as casting the region as a passive recipient. `""` and `undatable`; the "earliest gold" row (a literary Suvarnabhumi) dropped; Oc Eo evidence kept. |
+
+**Read by eye.** *Article:* "the Pagan Kingdom", "the Khmer Empire", "the Indo-Islamic architecture" bare where a phrasing supplies none; "the Srivijaya" avoided; "Majapahit" and "Angkor Wat" bare with "the temple of _____"; "Islam in India" and "Indianisation" bare. *Confusability:* `wh-554`/`wh-555`/`wh-556` three states by their sources (inscriptions of Sumatra, the Pararaton, Zhou Daguan); `wh-556`/`wh-557` the state and its temple, lidar dropped from `wh-556`; `wh-553` against `wh-563`/`wh-564` the ocean's trade, spices and the ship; `wh-551`/`wh-552` the faith and its buildings. *Against other cards:* `in-` is empty, `cnh-` none contradicted; none edited.
+
+**Glossary.** Ten terms rewritten (*Islam in India*, *Indo-Islamic architecture*, *Indian Ocean trade*, *Srivijaya*, *Majapahit*, *Khmer Empire*, *Angkor Wat*, *Pagan Kingdom*, *Đại Việt*, *Indianisation*).
+
+### B57 — `wh-561`–`wh-570`, South and Southeast Asia and Africa (2026-10-22)
+
+Run as B56. Pictures skipped. Checks: `wh-audit.js --range=wh-561:wh-570` clean but for `S.chip?` on `wh-570` (a false positive: Aradeon's article is in English, and the heuristic trips on "des" in the *Journal des africanistes*);
+`check-cards` first flagged `wh-565`'s mended question (it ended on the blank, then ran over 34 words; now 34); `check-citations --card` 0 mismatched on all ten; of 67 distinct URLs one was non-2xx (a Wiley DOI that answers 403 to the bot; the agent read the abstract through OpenAlex and cites the DOI).
+The Think-it-through markers of all ten sat after the full stop. Sources that archive.org carried were replaced or the claim dropped.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-561` Borobudur | 8 | 6 → 8 | **The 1814 clearing was cited to Raffles, who never mentions it**: now Krom (1927), Cornelius and more than 200 workers, with the hill's name already in a 1709 – 10 report. The hidden foot was buried by the builders, not sealed in 1907 – 11. The "c. 780 – 850" span is attributed (c. 780 start; 750 – 850 in a 2024 study; Krom's reading of the base inscriptions). Unsourced 504, 2,672, 1.6 million and the mandala reading dropped. |
+| `wh-562` Anuradhapura | 7 | 5 → 7 | **"Capital c. 437 BCE" is the chronicle's reckoning and no source prints it.** The line starts at the archaeological village (8th century BCE); Geiger's table uses 483 BCE and Deeg begins the period in 377 BCE; the end is 993 (Rajaraja, Sastri) to 1017 (Geiger), with a slow decline in excavation; Fa-Hien's visit has no date of its own (the journey 399 – 414). |
+| `wh-563` spice trade | 8 | 7 → 8 | **Barbosa's account and the fall of Malacca were other cards' rows**: `""` and `undatable`. Pliny's prices are his report, set against a modern price study; the "spices hid rotten meat" story is rebutted; the Terqa cloves are the excavators' report; "Venice held a monopoly" has no source and is dropped; the Age of Discovery is a debate. |
+| `wh-564` dhow | 8 | 6 → 8 | **"Sewn hulls recorded c. 50 CE" and "seen at Hormuz c. 1290" were two reports made into dates**: `""` and `undatable`. The lateen is unsettled (one team calls an ancient Indian Ocean lateen a myth; Mediterranean pictures show it by late antiquity); Polo's account is his own; the Belitung ship is 9th-century with a disputed origin. |
+| `wh-565` Malacca Sultanate | 7 | 6 → 9 | **"Chinese recognition 1409" is Ma Huan's version of the seals alone**: the *Shilu* has Yin Qing sent in 1403 and the ruler made king in 1405. The Malay Annals (which one scholar dates to 1536), Ming records and Pires disagree on the beginning; conversion and Parameswara = Iskandar Shah are disputed; the day of the 1511 capture is not given. |
+| `wh-566` Ghana Empire | 7 | 6 → 7 | **The Almoravid conquest of 1076 is a claim, not an event**: Masonen and Fisher call it a myth, and Conrad and Fisher find the dating source dubious. The line is Awdaghust 1054, al-Bakri c. 1067 and the claim marked disputed; "Ghana" was the king's title (Wagadu is the oral name, linked in the late 19th century); Koumbi Saleh is unproven. |
+| `wh-567` Sijilmasa | 6 | 5 → 6 | **The "910 – 934 dinars" row was al-Mahdi's reign, and "deserted by c. 1526" was wrong** (building continues into the 18th century): now the revolt c. 1393 and Leo seeing ruins c. 1510. Ibn Battuta left 14 February 1352 (Beckingham's footnote; Villar has 18); the Taghaza crossing is ten days, not twenty; the 64 km wall is Leo's; the coin study does not show West African isotopes. |
+| `wh-568` Mali Empire | 8 | 5 → 8 | **Wali's pilgrimage "under Baybars" and a Musa row had no source**; "under Songhai by the early 16th century" is Timbuktu lost c. 1433 and Gambia still held in 1594. The Kirina date (c. 1235) and the Manden Charter are attributed; Ibn Battuta's gift was beef, not fish. The Almoravid capture of Ghana (see `wh-566`) left out of the abstract. |
+| `wh-569` Sundiata Keita | 7 | 5 → 7 | **"Reconstructed c. 1230 – 1255", "son's pilgrimage 1259 – 1276" and "the 1390s" had no source**: `""`. Ibn Khaldun is cited for what he reports (the name Mari Jata, a lion-prince); the epic is oral tradition, Niane's French text partly its editor's creation, set against Jansen's nearer-to-performance edition. |
+| `wh-570` Mansa Musa | 8 | 5 → 8 | **"Met al-Sahili at Mecca" and a PLOS isotope source were unsupported.** Reigned c. 1312 – 1337, pilgrimage 1324 – 1325; the gold and entourage figures are attributed ranges (80 or 100 loads; 12,000 or "more than 10,000" followers); the fall in the price of gold is al-Umari's; al-Sahili's role is a later tradition one architectural historian calls a myth. |
+
+**Read by eye.** *Article:* "the spice trade" (all three phrasings supply "the"), "the Malacca Sultanate" and "the Mali Empire" with "the" before the blank; "Borobudur", "Anuradhapura", "Sijilmasa", "Sundiata Keita", "Mansa Musa" bare; "dhow" after "a" or "the" as the phrasing needs. *Confusability:* `wh-566`/`wh-568`/`wh-569`/`wh-570` the earlier state, the later one, its founder-hero and its famous king, told apart by al-Bakri, Ibn Battuta, the epic and the Cairo pilgrimage; `wh-563`/`wh-564` goods and ship; `wh-561`/`wh-562` a Buddhist monument in Java and a Buddhist capital in Sri Lanka. *Against other cards:* `wh-481` (Ibn Battuta) dates his departure from Sijilmasa as here ("February 1352"); `wh-482` (Ibn Khaldun) agrees on what he reports of Sundiata; `wh-566` and `wh-568` now agree that the 1076 conquest is not asserted; none edited.
+
+**Glossary.** Ten terms rewritten (*Borobudur*, *Anuradhapura*, *Spice trade*, *Dhow*, *Malacca Sultanate*, *Ghana Empire*, *Sijilmasa*, *Mali Empire*, *Sundiata Keita*, *Mansa Musa*).
+
+### B58 — `wh-571`–`wh-580`, Africa (2026-10-22)
+
+Run as B57. Pictures skipped. Checks: `wh-audit.js --range=wh-571:wh-580` clean but for `W.not-why` on `wh-580` (question 3 opens on Afonso's letter, not "Why", as `wh-487` and `wh-488` did);
+`check-cards` all pass; `check-citations --card` 0 mismatched on all ten; of 65 distinct URLs none was non-2xx. No locator needed (all ten kept theirs). archive.org was unreachable to every agent.
+Five of the ten cards rest on Cambridge or other abstract pages for some sources (named in each draft's notes), so their "Open access" tags are fewer than the bar's usual half.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-571` Timbuktu | 9 | 5 → 9 | **"Under Mali from 1336" was a chronicle's count, and the Tarikh has Musa taking the town c. 1325 on his way home.** The founding about 1100 is al-Sa'di's story (labelled "said founded"); "university" and "golden age" are attributed; no 700,000 or 25,000 figure, only the inventoried and estimated manuscript counts; the Ibn Battuta source had no Timbuktu passage and is cut. |
+| `wh-572` Songhai Empire | 8 | 7 → 8 | **Sonni Ali is 1464 – 1492, not 1468 (when he took Timbuktu).** Tondibi is March 1591 (every source but the *Tarikh es-Soudan*, which has 12 April); the *Tarikh al-fattash*'s authenticity is debated (a why answer); troop figures and a claim about Moroccan guns dropped, no source read. |
+| `wh-573` Kanem–Bornu | 6 | 5 → 7 | **The 1391 letter to Cairo is al-Qalqashandi's (794 AH), not al-Umari's**, and "1242 – 1252 Cairo college" is only a translator's footnote citing al-Maqrizi: dropped. Hume's conversion (1086 – 97) and Idris Alooma (1571 – 1603) are Barth's dates, followed by Palmer; "a thousand years" and Leo "c. 1515" dropped. |
+| `wh-574` Hausa Kingdoms | 7 | 5 → 7 | **The Kano Chronicle gives reign lengths only: 1349 – 1385, 1438 and 1463 – 1499 are Palmer's reckoning back from 1807**, from a manuscript of the 1880s, and the snake story is Palmer's introduction. "Fulani next reign" was wrong; the 1513 Songhai raid is a translator's note, not Leo's date. |
+| `wh-575` Kingdom of Benin | 8 | 5 → 10 | **The capture day of the city (17 February 1897) is the 18th in the diary Roth reprints**: now "February 1897". The Iya earthworks claim is attributed to NASA's report of the Guinness listing; Dapper never went (his picture is imagined); an earlier Ogiso line is tradition; the date line starts c. 1200, rounded from one estimate. |
+| `wh-576` Benin Bronzes | 8 | 5 → 8 | **"Taken to Britain" is "looted"**; "mostly cast c. 1500 – 1700" is the Cleveland Museum's plaque dates; the metal is brass or leaded brass (700 objects analysed), the manilla source in the Rhineland "the main source, perhaps not the only one"; the racist doubt that Africans made them is documented from Pitt-Rivers (1900); Germany's 2022 returns sourced. |
+| `wh-577` Swahili coast | 7 | 5 → 7 | **"First described c. 50 CE" described Azania and Rhapta, not the Swahili.** The culture dates from the 7th century (ancient DNA, Brielle et al.); the Shirazi story is the Kilwa Chronicle's (16th century); the African-rooted account (Wynne-Jones, Fleisher) is added; Ibn Battuta and Barbosa attributed. |
+| `wh-578` Kilwa Kisiwani | 6 | 7 → 6 | **"Settled from c. 800" is now radiocarbon**: first settlement in the early 9th century, the first coral building and the coins at the end of the 10th (Horton et al. 2022). The Shirazi story is attributed; the Portuguese fort is 1505 – 1507; "leading power 13th – 15th centuries" had no source. Source 1 is an author's accepted version. |
+| `wh-579` Great Zimbabwe | 9 | 5 → 9 | **"Largest ancient structure south of the Sahara" and "walls built c. 1250 – 1450" had no source.** Occupied c. 1000 – 1800; walls begun c. 1200 (a 2013 Bayesian chronology) against the older 1300 – 1450 peak; wall 11 m and 252 m (an ICCROM study); the Bent and Rhodesian episodes attributed to *Antiquity*'s editorials of 1971 and 1974. |
+| `wh-580` Kingdom of Kongo | 7 | 5 → 8 | **The lord of Soyo was baptised before the king**; Thornton himself gives 1482 (2025) and 1483 (1981) for the Portuguese arrival; Afonso 1506 – 1543. The founding story (c. 1350) is tradition; Mbwila and Kimpa Vita dropped, no source; question 3 now quotes Afonso's letter of 1526 on the kidnapping of young nobles. |
+
+**Read by eye.** *Article:* "the Songhai Empire" and "the Hausa Kingdoms" with "the" before the blank; "Timbuktu", "Kilwa Kisiwani", "Great Zimbabwe" bare; "the Kingdom of Kongo" and "the Kingdom of Benin" with "the"; "the Benin Bronzes" (plural verbs). *Confusability:* `wh-575`/`wh-576` the kingdom and its metalwork, told apart by the Dutch visitor and the Iya on one, the lost wax and the Rhineland isotopes on the other; `wh-571`/`wh-572` the town and the empire, Leo's book on `wh-571` only; `wh-577`/`wh-578` the coast and its island town, Azania only on `wh-577`; `wh-568`–`wh-570` not repeated. *Against other cards:* `wh-566`–`wh-570` agree on the Songhai takeover and Timbuktu; none edited. Note for `wh-721`: the Sengoku start is usually 1493, not the Ōnin War (found in `wh-538`).
+
+**Glossary.** Ten terms rewritten (*Timbuktu*, *Songhai Empire*, *Kanem–Bornu Empire*, *Hausa Kingdoms*, *Kingdom of Benin*, *Benin Bronzes*, *Swahili coast*, *Kilwa Kisiwani*, *Great Zimbabwe*, *Kingdom of Kongo*).
+
+### B59 — `wh-581`–`wh-590`, Africa and the Steppe empires and the Mongols (2026-10-22)
+
+Run as B58. Pictures skipped. Checks: `wh-audit.js --range=wh-581:wh-590` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on all ten; none of 64 distinct URLs was non-2xx.
+Several of the cards lean on abstract pages for some sources (named in each draft's notes). archive.org was unreachable to every agent.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-581` Zagwe dynasty | 6 | 5 → 6 | **The start is three scholars' three dates**: about 1137 (Piovanelli, after the standard account), the 11th century (Derat), the 12th (Muehlbauer); the abstract says whose. The *Kebra Nagast* (edited in the early 14th century) is the Zagwe's rival tradition; the saints' lives are late; Abu Salih's work confuses Nubia with Abyssinia; "alone ordained" and the Ark-and-Solomon claims were not in the cited text and are dropped. |
+| `wh-582` Lalibela | 8 | 5 → 8 | **"c. 1180 – c. 1230" is not a source's figure** (Bosc-Tiessé gives "the late 12th century and the first third of the 13th"); occupation from c. 900 – 1000; the "24 years" and "white men" of Alvarez are hearsay; the "New Jerusalem" idea is Heldman's, via Muehlbauer, with Phillipson's caution; the 1978 listing from UNESCO. The Saladin link and angelic help are not asserted. |
+| `wh-583` griot | 7 | 5 → 9 | **"Recorded 1795 – 1797" was Park's journey, not a start for the office**: `""` and `undatable`. The refusal of burial is Mollien's 1818 report about the Wolof; Ibn Battuta's account of Mali (1352 – 53) and the *nyamakala* added; castes by 1300 (Tamari) with the "caste" label disputed; the unsourced etymology dropped. |
+| `wh-584` Ajami | 5 | 5 → 6 | **The oldest Swahili manuscript is the *Hamziyyah* of 1652, not the *Utendi wa Tambuka* (1728).** The sources disagree on a start (the 11th century, or not common before the 19th), so the line stays `""`; "no writing before colonisation" is a myth, attributed to Ngom; the old Americas-plantation phrasing dropped. |
+| `wh-585` Makuria | 5 | 6 → 6 | **John of Ephesus tells of the Nobadae (Julian) and the Alodians (Longinus), and Makuria is only the hostile kingdom between them**; the old card put that story on Makuria. Royal tombs c. 450 – 550, the baqt 651 – 652, the throne hall made a mosque on 29 May 1317; the "six or seven centuries" lines dropped; the 1200 Arabic text is Abu al-Makarim's, not Abu Salih's. |
+| `wh-586` composite bow | 7 | 5 → 7 | **The origin is disputed by about two millennia** (4th millennium BCE theories; the first half of the 2nd millennium BCE, Šaffa 2025), so `""` and `undatable`; the oldest dated bows are from Thebes, c. 1600 BCE. The Bronze Age steppe-grave claim and "the weapon mounted archery depended on" dropped; no range or draw weight stated. |
+| `wh-587` yurt | 8 | 5 → 8 | **"Described 1253 – 1255" was Rubruck's report, not a date for the tent**: `""` and `undatable`. *Yurt* is a Russian word for the Mongolian *ger* (National Geographic); the "insulates well" claim contradicts the ger studies; the archaeology claim in the old card is not in its cited paper. |
+| `wh-588` Yuezhi | 6 | 5 → 6 | **"Zhang Qian sent 140 – 134" was Hirth's bracket for the reign era**, not the mission: now c. 138 BCE left and 126 BCE back, the first defeat c. 176 and the king's death c. 165 BCE, all Hirth's. The Kushan link is the *Hou Hanshu*'s (Hill); the Tocharian link left out, no source read. |
+| `wh-589` Huns | 9 | 5 → 9 | **The unsourced claims that Ammianus "never met them" and meant them "barely human" are replaced by Maenchen-Helfen's findings** (hatred and fear, Gothic informants). The Xiongnu origin is attributed; the language is known only from personal names; "c. 370 – 376" is a range built from two sources; the isotope and DNA phrasings (already on `ru-012`) dropped. |
+| `wh-590` Attila | 9 | 5 → 9 | **433 as the start was Mierow's sidenote**: now c. 434 – 439 with both views; the envoy's year is 449; the Aquileia row dropped; the battle at the Catalaunian Plains, Leo's embassy and the nosebleed death are attributed to their sources; "Scourge of God" is a later tag. Agrees with `rm-620`, `rm-630` and `rm-631`. |
+
+**Read by eye.** *Article:* "the Zagwe dynasty" with "the" before the blank, "Lalibela", "Ajami", "Makuria" bare; "the Huns" and "the yurt" with "the" where the phrasing needs it; "composite bow" in "the _____" phrasings; "Attila" bare. *Confusability:* `wh-585` (Makuria) against `wh-581`/`wh-582` by the Nile and the highlands; `wh-583`/`wh-584` the singer and the script, Park on `wh-583` only; `wh-587`/`wh-586` the tent and the bow; `wh-588`/`wh-589`/`wh-590` three steppe subjects, the Xiongnu on `wh-588` and `wh-589`, Priscus on `wh-590`. *Against other cards:* `wh-409` agrees on Zhang Qian's return in 126; `wh-487`/`wh-488` (Migration Period, Goths) agree on the 370s; `rm-` agrees on Attila; `ru-012` carries the Huns' isotope and DNA findings, so those phrasings left `wh-589`; none edited.
+
+**Glossary.** Ten terms rewritten (*Zagwe dynasty*, *Lalibela*, *Griot*, *Ajami*, *Makuria*, *Composite bow*, *Yurt*, *Yuezhi*, *Huns*, *Attila*).
+
+### B60 — `wh-591`–`wh-600`, Steppe empires and the Mongols (2026-10-22)
+
+Run as B59, which ends this thread's range: **`wh-501`–`wh-600` are done, and the audit continues at `wh-601` (B61, The Americas before Columbus)**. Pictures skipped (Commons still answers with an error page).
+Checks: `wh-audit.js --range=wh-591:wh-600` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on nine and, first, one on `wh-598` (a *Crossroads* issue labelled 2023 that Crossref dates 2024: now "2023, published 2024"), then 0;
+of 74 distinct URLs one was non-2xx (a Scientific Reports DOI that answers 429 under load). Locators retried once: `wh-041`, `wh-268` and `wh-425` still have no primary coordinate on Wikipedia, so they stay unwritten along with `wh-337`, `wh-376` and `wh-422`.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-591` Göktürks | 6 | 5 → 7 | **"The earliest writing in any Turkic language" was an unsourced superlative**: now a 2026 Turkish study's claim. 552, the split of 583, the second khaganate c. 682 – 745 (687 in another history) and the stones of 732 and 735 (Ross; Thomsen's 1893 notice read the Chinese date as 733); Tujue is the Chinese name, Göktürk a modern one; the 744 end had no source. |
+| `wh-592` Khazars | 7 | 5 → 9 | **"Letters found 16th century" was Akrish's find, printed at Constantinople in 1577** (Schechter's Geniza letter of 1912 is another document). The khaganate runs c. 660 – 965 (Ibn Hawqal has 968 – 69, Dunlop favours 965), not 969; the conversion is dated by Halevi to c. 740 and by Mas'udi to al-Rashid's time; "is said to have adopted Judaism" in question 1; Sarkel c. 833. |
+| `wh-593` Genghis Khan | 9 | 5 → 9 | **The birth year is uncertain**: Mongol tradition 1162, Columbia probably 1167. The 1206 title and the fall from a horse are the *Secret History*'s, the incurable illness Juvayni's; the *Secret History*'s date is 1228 in one scholar's reckoning and 1240 in the Russian; the Yassa is doubted; Zerjal's study is stated only as its authors state it; no "40 million". |
+| `wh-594` Mongol Empire | 9 | 5 → 9 | **"Widest extent c. 1279" and any km² figure had no source.** "Divided after 1260" is Möngke's death in 1259 and the civil war of 1260 – 64; the largest land-based empire is "a recent Cambridge history's" phrase; the yam, the Great Khans and Karakorum re-sourced; question 1 no longer states the superlative. |
+| `wh-595` Mongol conquests | 8 | 5 → 9 | **"Campaigns 1206 – 1279" is a convention**, labelled "Frame". Ryazan fell in December 1237 (the translation's "1238" heading was wrong); Kyiv December 1240 only; Legnica and Mohi 9 and 11 April 1241; the turn back from Hungary on Ögedei's death is a long-held explanation now challenged (Batu never returned); casualties are Juvayni's own claims. |
+| `wh-596` Pax Mongolica | 7 | 5 → 7 | **"c. 1250 – 1350" was unsourced** (Di Cosmo gives about 1280 – 1360, hedged with "seemingly") and "Polo 1275 – 1291" belongs to `wh-536`: `""` and `undatable`. Pegolotti's "perfectly safe" is a merchant's claim, Rubruck the counterweight; the Black Death link is a hypothesis; the "by analogy with Pax Romana" origin had no source. |
+| `wh-597` Siege of Baghdad | 7 | 5 → 8 | **The old dating source never mentions Baghdad**, and the "minaret 1279" rested on a source giving 1270 and 1279. The siege began in January 1258 (Le Strange) and Rashid al-Din dates the caliph's death to 20 February 1258; the carpet, starvation and gold versions are attributed; death tolls are attributed ranges; Polo's own date for the capture (1255) is wrong. |
+| `wh-598` Golden Horde | 8 | 5 → 8 | **"State 1242 – 1502" rests on a Russian-language source alone**; the English survey (Favereau and Pochekaev) gives c. 1260 – 1502, so the line does; this disagrees with `ru-100` (from 1242, citing Gorsky) and is left to that card's pass. The name is a Muscovite coinage of the 16th century (Ulus of Jochi in its day); the "Tatar yoke" is contested (Halperin 2025). |
+| `wh-599` Timur | 8 | 5 → 8 | **Russian-language and off-topic papers had been cited for claims they do not make.** Born 8 April 1336 by one 19th-century edition of Clavijo; an emir under a puppet khan who held the title *güregen*; Ibn Khaldun met him in 1401 (agrees with `wh-482`); the iron cage is a disputed tale; skull towers, casualty figures and the 1941 exhumation left out, no readable source. |
+| `wh-600` Chinggisids | 7 | 5 → 9 | **The card was rebuilt on the principle itself**, with loose rows ("Four khanates after 1260", "last khanate to the 18th century") replaced by 1206, the Time of Troubles 1359 – 80, the Crimean Khanate 1441 – 1783 and the Kazakh charter of 1822. The Manghit and Khiva claims are not stated (no readable source). Agrees with `ru-091` and `cnh-485`. |
+
+**Read by eye.** *Article:* "the Göktürks" and "the Khazars" with "the" before the blank, "the Mongol Empire" and "the Mongol conquests" with "the" or "During the _____" as the phrasing needs, "the Siege of Baghdad", "the Golden Horde", "the Chinggisids"; "Genghis Khan", "Timur" bare. *Confusability:* `wh-593`/`wh-594`/`wh-595` the man, his state and its wars (the Secret History and the 1206 assembly on `wh-593`; the quriltai and yam on `wh-594`; Ryazan and Mohi on `wh-595`); `wh-595`/`wh-596` the wars and the peace; `wh-598`/`wh-599`/`wh-600` the western khanate, the conqueror who was not a khan and the lineage that could be; the Baghdad siege only on `wh-597`. *Against other cards:* `ru-091` and `cnh-485` agree; `ru-100` dates the Golden Horde from 1242, this card c. 1260 (see `wh-598`); `wh-469` and `wh-470` (Baghdad: "from 1261", the forty days of sack) are consistent with `wh-597`; none edited.
+
+**Glossary.** Ten terms rewritten (*Göktürks*, *Khazars*, *Genghis Khan*, *Mongol Empire*, *Mongol conquests*, *Pax Mongolica*, *Siege of Baghdad*, *Golden Horde*, *Timur*, *Chinggisids*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2223,3 +2454,50 @@ pass once it answers. Filled batch by batch.
 | `wh-492` | one monk at a monastery gate, a person and not the movement |
 | `wh-496` | one manuscript leaf; its description carries a shelfmark |
 | `wh-491`, `wh-493`, `wh-497`–`wh-500` | judged from title and description only |
+| `wh-501`–`wh-512`, `wh-516`–`wh-520`, `wh-522`, `wh-526`, `wh-527`, `wh-529`, `wh-530` | kept as they stand after B51 – B53: judged from title and description only, not re-viewed |
+| `wh-509` | one Beaumaris view for a whole type; **locator** left out by design (a type of building) |
+| `wh-513` | the 1297 confirmation, not the 1215 charter; its description says it was "sent to the sheriffs" (unsourced) |
+| `wh-514` | one Nuremberg brewer from a charity's house-book, not a guild |
+| `wh-515` | a 19th-century engraving of one episode (Stralsund) |
+| `wh-521` | the Anji Bridge, one Sui structure |
+| `wh-523` | a portrait of Taizong, not the dynasty |
+| `wh-524` | the Daming Palace platform, one part of the city |
+| `wh-525` | a print file named "drunk in cell" showing examination cells only |
+| `wh-528` | a portrait of the founder, not the state (the glossary's Qingming scroll detail fits better) |
+| `wh-531` | a luopan (a geomancer's compass), not a floating or hung needle |
+| `wh-532` | a 1313 woodcut of Wang Zhen's table; its description gives "60,000" wooden types (his postscript says about 30,000) |
+| `wh-534` | picture fine, but its description says the glaze "gave the ware its name" (wrong) |
+| `wh-536` | a generic caravan from the Catalan Atlas, not Marco Polo |
+| `wh-538` | Kinkaku-ji: description says the third Ashikaga shogun "built" it; he took it over |
+| `wh-533`, `wh-535`, `wh-537`, `wh-539`, `wh-540` | kept: judged from title and description only (`wh-535` shows the founder, not the dynasty) |
+| `wh-541` | a typeset forme in a case; its description says "reproducing a work of 1447" and names Song Hyon's arrangement, neither sourced |
+| `wh-545` | a portrait of one man (identification disputed), not the regime |
+| `wh-549` | a stone chariot at Hampi; its description says the wheels turn (no source) |
+| `wh-541`–`wh-550` (others) | kept: judged from title and description only |
+| `wh-551` | the Bhambore foundations; its description says "earliest known mosque in the subcontinent" and ties the site to a conquest in 712 |
+| `wh-552` | a corbelled screen; its description says the masons "had never made a true arch" as fact |
+| `wh-554` | the Bukit Seguntang Buddha; "the best surviving sculpture" is unsourced |
+| `wh-559` | the north gate of the Hồ-dynasty citadel, one dynasty's building |
+| `wh-560` | Harihara; "within a few centuries of the first Indian forms" is unsourced |
+| `wh-553`, `wh-555`–`wh-558` | kept: judged from title and description only |
+| `wh-561` | a row of stupas on the upper terrace, not the whole monument |
+| `wh-568` | the Great Mosque of Djenné, a 20th-century rebuilding in one Sahel town |
+| `wh-566` | an inscribed plaque from Koumbi Saleh, one find from the proposed capital |
+| `wh-562`–`wh-567`, `wh-569`, `wh-570` (others) | kept: judged from title and description only |
+| `wh-573` | a colonial-era photograph of one Bornu horseman |
+| `wh-575` | a 1668 Dutch view after Dapper, who never went to Benin: an imagined picture |
+| `wh-572` | the Tomb of Askia, one monument |
+| `wh-578` | a Kilwa view whose description gives "11th – 18th centuries" from the file title (Horton et al. date the earliest mosque stage to the late 10th) |
+| `wh-579` | a close view of wall coursing, not the whole site |
+| `wh-571`, `wh-574`, `wh-576`, `wh-577`, `wh-580` | kept: judged from title and description only (`wh-571`'s description says the mosque was "rebuilt many times since the 14th century": unsourced) |
+| `wh-584` | a Harari legal manuscript (*Kitab al-Fara'id*), an Ethiopian Arabic book, not West African Ajami; the description calls it Harari without a source |
+| `wh-588` | a Tillya Tepe crown: "first-century" is stated as fact, and that these burials are Yuezhi is an inference |
+| `wh-581` | Yemrehanna Krestos; one small unsourced phrase in its description |
+| `wh-582`, `wh-583`, `wh-585`–`wh-587`, `wh-589`, `wh-590` | kept: judged from title and description only |
+| `wh-591` | the Bilge Khagan stele; its description says "the oldest surviving writing in a Turkic language" (unsourced) |
+| `wh-592` | Sarkel: one fortress, not the khaganate; the description (a 1930s aerial photograph) is unchecked |
+| `wh-594` | a 14th-century drawing of warriors, not the empire |
+| `wh-595` | one episode (the taking of Suzdal) with Cyrillic text burned in; the credit string carries stray text |
+| `wh-596` | a Catalan Atlas caravan with an inscription burned in; the description is an inference |
+| `wh-597` | a Persian miniature of the siege whose credit line ("Sayf al-vâhidî et al.") looks wrong |
+| `wh-593`, `wh-598`–`wh-600` | kept: judged from title and description only (`wh-599` shows Timur's tomb) |

@@ -485,6 +485,90 @@ Filled batch by batch, from the source each row names.
 | Vikings: Viking Age / also dated | 793 – 1066 CE / c. 750 – 1050 CE | Ashby; Heen-Pettersen (`wh-498`) |
 | Lindisfarne raid | 793 CE (Chronicle's 8 January is a miscount; 8 June by Simeon of Durham and modern accounts) | Anglo-Saxon Chronicle; Simeon; English Heritage (`wh-499`) |
 | Alfred the Great: born (Asser) / reigned / Edington | 849 / 871 – 899 / 878 CE | Asser; Anglo-Saxon Chronicle (`wh-500`) |
+| Vinland: wood felled / sagas date it / bishop's voyage | 1021 / c. 1000 / 1121 CE | Kuitems et al.; Wallace (`wh-501`; `wh-502` and `wh-503` are `undatable`) |
+| Norman Conquest: landed / Hastings / crowned | 28 September / 14 October / 25 December 1066 CE | Coad; Bayeux Museum (`wh-504`) |
+| Domesday Book: ordered / surveyed | Christmas 1085 / 1086 CE | The National Archives (`wh-505`) |
+| Crusades: usual span | 1095 – 1291 CE | Encyclopedia of Religion (`wh-506`) |
+| First Crusade: Clermont / Antioch / Jerusalem | 18 – 28 November 1095 / 3 June 1098 / 15 July 1099 CE | Fordham Sourcebook; Riley-Smith (`wh-507`) |
+| Knights Templar: founded / rule / arrests / suppressed | 1118 – 1119 / January 1129 / 13 October 1307 / 22 March 1312 CE | William of Tyre; Barber (`wh-508`; `wh-509` is `undatable`) |
+| Gothic architecture: St-Denis choir / Canterbury fire | 11 June 1144 / 1174 CE | Suger; Canterbury Cathedral (`wh-510`) |
+| medieval university: Bologna by custom / Paris statutes / Gregory IX | 1088 / 1215 / 13 April 1231 CE | University of Bologna; Courçon; Gregory IX (`wh-511`) |
+| Thomas Aquinas: born / Summa / died / canonised | c. 1224 – 1225 / c. 1265 – 1273 / 7 March 1274 / 18 July 1323 CE | Torrell (Marquette); Pasnau (`wh-512`) |
+| Magna Carta: sealed / annulled / confirmed | 15 June 1215 / 24 August 1215 / 1297 CE | Phillips; British Library (`wh-513`; `wh-514` is `undatable`) |
+| Hanseatic League: first diet / Stralsund / last diet | c. 1356 – 1358 / 1370 / 1669 CE | Landesmuseum MV; Ewert and Selzer (`wh-515`) |
+| Black Death: pandemic / Chüy tombstones | 1346 – 1353 / 1338 – 1339 CE | Spyrou et al. (`wh-516`) |
+| peasant revolt: ordinance / Jacquerie / English rising | 1349 / 1358 / 1381 CE | McGlynn; London Museum (`wh-517`) |
+| Hundred Years' War: usual dating / Brétigny / Troyes | 1337 – 1453 / 1360 / 1420 CE | Runyan; IHR (`wh-518`) |
+| Joan of Arc: lived / Orléans / captured / annulled | c. 1412 – 30 May 1431 / 8 May 1429 / 23 May 1430 / 7 July 1456 CE (the 14 July 1430 summons was not the handover) | Murray; Barrett (`wh-519`) |
+| Reconquista: conquest to Granada / Las Navas / dictionary sense | 711 – 2 January 1492 / 16 July 1212 / 1936 CE | Drayson; García Sanjuán (`wh-520`) |
+| Sui dynasty: ruled / reunified / Daxing / Goguryeo wars | 581 – 618 / 589 / 582 – 583 / 612 – 614 CE | Theobald; Xiong (`wh-521`) |
+| Grand Canal: Sui works / oldest section / Yuan works / World Heritage | 587 – 610 CE / 486 BCE / 1276 – 1291 CE / 2014 | Theobald; Dong (`wh-522`) |
+| Tang dynasty: ruled / Zhou interregnum / revolt / dated print | 618 – 907 / 690 – 705 / 755 / 868 CE | Theobald; Linda Hall Library (`wh-523`) |
+| Chang'an: Daxing / capital / rebels / Tibetan sack | 582 / 583 – 904 / 756 / 763 CE | Hsueh; Theobald; Kempf et al. (`wh-524`) |
+| imperial examination: often dated / Ming form / abolished | c. 605 CE / 1384 CE / 2 September 1905 | Bai and Jia; Theobald; Nylan (`wh-525`) |
+| woodblock printing: Japanese dharani / dated book / classics cut | 764 – 770 / 868 / 932 – 953 CE | Kornicki; Wolfson-Ford (`wh-526`) |
+| An Lushan Rebellion: fought / began / Chang'an lost / retaken | 755 – 763 / December 755 / 756 / 757 CE | Larson; Theobald; Deng (`wh-527`) |
+| Song dynasty: ruled / Northern Song / Southern Song | 960 – 1279 / 960 – 1127 (or 1126) / 1127 – 1279 CE | Lorge; Theobald (`wh-528`) |
+| paper money: private notes / state office / huizi / Yuan notes | c. 990 – 1023 / 1023 / 1161 / 1260 CE | von Glahn; Theobald (`wh-529`) |
+| gunpowder: earliest recipes / fire lance / Kaifeng bombs | 1044 / 1132 / 1232 CE | Lorge; Andrade (`wh-530`) |
+| compass: needle / sea use written / Europe | c. 1087 / c. 1119 / c. 1187 | Di Domenico et al.; Price (`wh-531`) |
+| movable type: reported made / wooden type | 1041 – 1048 / c. 1297 | Di Domenico et al.; Asia for Educators (`wh-532`) |
+| Neo-Confucianism: masters lived / ban / exam text | 1011 – 1200 / 1196 / 1313 | Berthrong; Gordley (`wh-533`) |
+| porcelain: Tang white ware / Meissen / Jesuit letters | 618 – 907 CE / 1710 / 1712 and 1722 | Krahl; Finlay (`wh-534`) |
+| Yuan dynasty: dynasty / all China / Dadu begun | 1271 – 1368 / 1279 – 1368 / 1267 | Theobald (`wh-535`) |
+| Marco Polo: born / in Asia / book dictated / will | c. 1254 / c. 1271 – 1295 / 1298 / 1324 | Yule; Andreose (`wh-536`) |
+| Mongol invasions of Japan: letter dated / reached / fleets | 1266 / 1268 / 1274 and 1281 | Chase; Delgado; Ikeda (`wh-537`) |
+| Muromachi period: period / courts reunited / Ōnin War | 1338 – 1573 / 1392 / 1467 – 1477 | Conlan; Segal (`wh-538`; `wh-539` is `undatable`) |
+| Goryeo: kingdom / Gaegyeong / peninsula united | 918 – 1392 / 919 / 936 CE | Heo; Shin; Song (`wh-540`) |
+| metal movable type: earliest record / oldest surviving / Joseon foundry / Gabin fount | 1234 / 1377 / 1403 / 1434 | Lee Jae-jeong; BnF; Chon (`wh-541`) |
+| Heian period: capital moved / period / Genpei War | 794 / 794 – 1185 / 1180 – 1185 CE | Princeton University Art Museum; Asia for Educators (`wh-542`) |
+| Genji Monogatari: diary covers / copy received | 1008 / 1020 CE | Tyler; McCormick (`wh-543`) |
+| samurai: levies ended / Gempei War / swords banned | 792 / 1180 – 1185 / 1876 CE | Friday; Culeddu; Yamada (`wh-544`) |
+| Kamakura shogunate: founded (by whose count) / Jōkyū / Jōei Code / ended | 1180 – 1192 / 1221 / 1232 / 1333 CE | Kamakura Citizen Net; Brinkley (`wh-545`) |
+| Harsha: reigned / Kanauj assembly | 606 – 647 / 643 CE | Lee (`wh-546`) |
+| Chola dynasty: Rajaraja I / Kadaram raid / Tanjore record | 985 / c. 1025 / 1030 – 1031 CE | Venkayya; Tran and Nguyen (`wh-547`) |
+| Delhi Sultanate: sultanate / Iltutmish / Alauddin Khalji / Timur | 1206 – 1526 / 1211 – 1236 / 1296 – 1316 / 1398 – 1399 CE | Hambly (`wh-548`) |
+| Vijayanagara Empire: founded (traditional) / Talikota | c. 1336 / 1565 CE | Sewell; Piotter (`wh-549`; `wh-550` is `undatable`) |
+| Islam in India: Sind / second Tarain | 711 – 713 / 1192 CE | Lapidus; Datta (`wh-551`) |
+| Indo-Islamic architecture: mosque dated / Alai Darwaza | 1191 – 1196 / 1310 – 1311 CE (sources differ) | Khan and Bila (`wh-552`; `wh-553` is `undatable`) |
+| Srivijaya: earliest stones / Chola raid | 682 – 686 / 1025 CE | Alnoza; Kulke (`wh-554`) |
+| Majapahit: founded / once read as end | c. 1293 / 1478 CE | Hall; Tjahjono (`wh-555`) |
+| Khmer Empire: reported start / Jayavarman VII / conventional end | 802 / 1181 – 1218 / 1431 CE | Carter (`wh-556`) |
+| Angkor Wat: built / pilgrim texts | c. 1113 – 1150 / 1541 – 1747 CE | Univ. of Chicago DSAL; Carter (`wh-557`) |
+| Pagan Kingdom: usual dates / Thaton / king flees | 1044 – 1287 / 1057 / 1284 CE | Mezzino; Quaritch Wales (`wh-558`) |
+| Đại Việt: Đại Cồ Việt / named (annals) / Ming rule | 968 / 1054 / 1407 – 1428 CE (Bạch Đằng 938, kingship 939) | Ku; Đinh (`wh-559`; `wh-560` is `undatable`) |
+| Borobudur: built / cleared / van Erp / UNESCO project | c. 780 – 850 / 1814 / 1907 – 1911 / 1973 – 1983 CE | Iwamoto; Krom (`wh-561`) |
+| Anuradhapura: village / Chola conquest | c. 800 – 700 BCE / 993 – 1017 CE | Coningham et al.; Sastri; Geiger (`wh-562`; `wh-563` and `wh-564` are `undatable`) |
+| Malacca Sultanate: first recorded / ruler made king / Portuguese took | 1403 / 1405 / 1511 CE | Wade (Ming Shilu); Pires (`wh-565`) |
+| Ghana Empire: Awdaghust / al-Bakri wrote / conquest claim | 1054 / c. 1067 / 1076 (disputed) CE | Masonen and Fisher; Conrad and Fisher (`wh-566`) |
+| Sijilmasa: founded (tradition) / Ibn Battuta leaves / revolt / Leo sees ruins | c. 757 – 758 / 14 February 1352 / c. 1393 / c. 1510 CE | Villar; Gibb and Beckingham (`wh-567`) |
+| Mali Empire: Kirina (one reckoning) / Ibn Battuta at Mali / Timbuktu lost / Gambia held | c. 1235 / 1352 – 1353 / c. 1433 / 1594 CE | Niane; Gibb and Beckingham; Ly-Tall (`wh-568`; `wh-569` is `""`) |
+| Mansa Musa: reigned / pilgrimage | c. 1312 – 1337 / 1324 – 1325 CE | British Library; Northwestern University (`wh-570`) |
+| Timbuktu: said founded (al-Sa'di) / Musa's visit / Songhai takes / Moroccans take | c. 1100 / c. 1325 / 1468 / 1591 CE | al-Sa'di; Cissoko (`wh-571`) |
+| Songhai Empire: Sonni Ali / Askia Muhammad / Tondibi | 1464 – 1492 / 1493 – 1528 / March 1591 CE (12 April in the *Tarikh es-Soudan*) | Cissoko; Kaba (`wh-572`) |
+| Kanem–Bornu: first Muslim mai / letter to Cairo / court to Bornu | c. 1086 – 1097 / 1391 – 1392 / c. 1400 CE (Barth, Palmer; al-Qalqashandi) | Barth; Palmer; Fisher (`wh-573`) |
+| Hausa Kingdoms: Yaji / Rumfa / Askia's raid | c. 1349 – 1385 / c. 1463 – 1499 / c. 1513 CE (Palmer's reckoning; Brown's note) | Palmer (`wh-574`) |
+| Kingdom of Benin: independent / Portuguese reach / Nyendael | c. 1200 – 1897 / c. 1486 / 1702 CE | Bondarenko and Roese; Roth (`wh-575`) |
+| Benin Bronzes: plaques made / looted / returns began | c. 1500 – 1700 / 1897 / 2022 CE | Cleveland Museum of Art; Staatliche Museen zu Berlin (`wh-576`) |
+| Swahili coast: culture begins / stone towns / autonomy wanes | c. 600 – 700 / c. 1000 – 1100 / c. 1500 – 1600 CE | Brielle et al. (`wh-577`) |
+| Kilwa Kisiwani: first settled / first coins / Ibn Battuta / Portuguese fort | c. 800 – 900 / c. 980 – 1000 / 1331 / 1505 – 1507 CE | Horton et al.; Barbosa (`wh-578`) |
+| Great Zimbabwe: occupied / walls begun / older peak view | c. 1000 – 1800 / c. 1200 / 1300 – 1450 CE | Chirikure (`wh-579`) |
+| Kingdom of Kongo: founding story / Portuguese come / king baptised / Afonso | c. 1350 / 1482 – 1483 / 1491 / 1506 – 1543 CE | Thornton (`wh-580`) |
+| Zagwe dynasty: ruled (Piovanelli) | c. 1137 – 1270 CE (Derat: from the 11th century; Muehlbauer: 12th) | Piovanelli; Derat; Muehlbauer (`wh-581`) |
+| Lalibela: occupied from / UNESCO listing | c. 900 – 1000 CE / 1978 | Bosc-Tiessé et al.; UNESCO (`wh-582`; `wh-583`, `wh-584` are `undatable`) |
+| Makuria: royal tombs / baqt / throne hall a mosque | c. 450 – 550 / 651 – 652 / 29 May 1317 CE | Then-Obłuska; Khan (`wh-585`; `wh-586` and `wh-587` are `undatable`) |
+| Yuezhi: first defeat / king killed / Zhang Qian left / returned | c. 176 / c. 165 / c. 138 / 126 BCE | Hirth (`wh-588`; `wh-409` also gives 126) |
+| Huns: reached Europe / Nedao | c. 370 – 376 / 454 CE | Gnecchi-Ruscone et al.; Maenchen-Helfen (`wh-589`) |
+| Attila: joint rule began / Bleda killed / Gaul / died | c. 434 – 439 / 445 / 451 / 453 CE | Maenchen-Helfen (`wh-590`) |
+| Göktürks: founded / divided / second khaganate / Orkhon stones | 552 / 583 / c. 682 – 745 / 732 and 735 CE | Erkoç; Chen; Ross (`wh-591`) |
+| Khazars: khaganate / Sarkel / letters printed | c. 660 – 965 / c. 833 / 1577 CE | Howard-Johnston; Bury; Dunlop (`wh-592`) |
+| Genghis Khan: born (tradition) / proclaimed khan / died | c. 1162 / 1206 / 1227 CE | Asia for Educators; Cleaves (`wh-593`) |
+| Mongol Empire: founded / civil war | 1206 / 1260 – 1264 CE | Rashid al-Din; Cambridge History of the Mongol Empire (`wh-594`) |
+| Mongol conquests: frame / Jin war / Kalka / Rus' | 1206 – 1279 / 1211 – 1234 / 31 May 1223 / 1237 – 1240 CE | Büntgen and Di Cosmo; Theobald (`wh-595`; `wh-596` is `undatable`) |
+| Siege of Baghdad: siege began / caliph killed / Cairo caliphs | January 1258 / 20 February 1258 / from 1261 CE | Le Strange; Rashid al-Din via Yule (`wh-597`) |
+| Golden Horde: state / Özbeg Khan / breakup | c. 1260 – 1502 / 1313 – 1341 / 1359 CE (`ru-100` has 1242) | Favereau and Pochekaev; Hautala; Schamiloglu (`wh-598`) |
+| Timur: born / ruled / Clavijo's visit | 1336 / 1370 – 1405 / 1404 CE | Clavijo; Milwright and Baboula (`wh-599`) |
+| Chinggisids: enthroned / Time of Troubles / Crimean Khanate / Kazakh charter | 1206 / 1359 – 1380 / 1441 – 1783 / 1822 CE | Munkh-Erdene; Landa; Başer (`wh-600`) |
 
 ## Chronology pins
 
@@ -954,4 +1038,88 @@ wh-497: 962; 800; 1806
 wh-498: 793; 1066; 750; 1050
 wh-499: 793
 wh-500: 849; 871; 899; 878
+wh-501: 1021; 1000; 1121
+wh-504: 28; 1066; 14; 25
+wh-505: 1085; 1086
+wh-506: 1095; 1291
+wh-507: 18; 28; 1095; 3; 1098; 15; 1099
+wh-508: 1118; 1119; 1129; 13; 1307; 22; 1312
+wh-510: 1144; 1174
+wh-511: 1088; 1215; 13 April 1231
+wh-512: 1224; 1225; 1265; 1273; 1274; 1323
+wh-513: 15 June 1215; 24 August 1215; 1297
+wh-515: 1356; 1358; 1370; 1669
+wh-516: 1346; 1353; 1338; 1339
+wh-517: 1349; 1358; 1381
+wh-518: 1337; 1453; 1360; 1420
+wh-519: 1412; 30; 1431; 8; 1429; 23; 1430; 7; 1456
+wh-520: 711; 2; 1492; 16; 1212; 1482; 1936
+wh-521: 581; 618; 589; 582; 583; 612; 614
+wh-522: 587; 610; 486; 1276; 1291; 2014
+wh-523: 618; 907; 690; 705; 755; 868
+wh-524: 582; 583; 904; 756; 763
+wh-525: 605; 1384; 2 September 1905
+wh-526: 764; 770; 868; 932; 953
+wh-527: 755; 763; 756; 757
+wh-528: 960; 1279; 1127
+wh-529: 990; 1023; 1161; 1260
+wh-530: 1044; 1132; 1232
+wh-531: 1087; 1119; 1187
+wh-532: 1041; 1048; 1297
+wh-533: 1011; 1200; 1196; 1313
+wh-534: 618; 907; 1710; 1712; 1722
+wh-535: 1271; 1368; 1279; 1267
+wh-536: 1254; 1271; 1295; 1298; 1324
+wh-537: 1266; 1268; 1274; 1281
+wh-538: 1338; 1573; 1392; 1467; 1477
+wh-540: 918; 1392; 919; 936
+wh-541: 1234; 1377; 1403; 1434
+wh-542: 794; 1185; 1180
+wh-543: 1008; 1020
+wh-544: 792; 1180; 1185; 1876
+wh-545: 1180; 1192; 1221; 1232; 1333
+wh-546: 606; 647; 643
+wh-547: 985; 1025; 1030; 1031
+wh-548: 1206; 1526; 1211; 1236; 1296; 1316; 1398; 1399
+wh-549: 1336; 1565
+wh-551: 711; 713; 1192
+wh-552: 1191; 1196; 1310; 1311
+wh-554: 682; 686; 1025
+wh-555: 1293; 1478
+wh-556: 802; 1181 – 1218; 1431
+wh-557: 1113; 1150; 1541; 1747
+wh-558: 1044; 1287; 1057; 1284
+wh-559: 968; 1054; 1407; 1428
+wh-561: 780; 850; 1814; 1907; 1911; 1973; 1983
+wh-562: 800; 700; 993; 1017
+wh-565: 1403; 1405; 1511
+wh-566: 1054; 1067; 1076
+wh-567: 757; 758; 1352; 1393; 1510
+wh-568: 1235; 1352; 1353; 1433; 1594
+wh-570: 1312; 1337; 1324; 1325
+wh-571: 1100; 1325; 1468; 1591
+wh-572: 1464; 1492; 1493; 1528; 1591
+wh-573: 1086; 1097; 1391; 1392; 1400
+wh-574: 1349; 1385; 1463; 1499; 1513
+wh-575: 1200; 1897; 1486; 1702
+wh-576: 1500; 1700; 1897; 2022
+wh-577: 600; 700; 1000; 1100; 1500; 1600
+wh-578: 800; 900; 980; 1000; 1331; 1505; 1507
+wh-579: 1000; 1800; 1200; 1300; 1450
+wh-580: 1350; 1482; 1483; 1491; 1506; 1543
+wh-581: 1137; 1270
+wh-582: 900; 1000; 1978
+wh-585: 450; 550; 651; 652; 1317
+wh-588: 176; 165; 138; 126
+wh-589: 370; 376; 454
+wh-590: 434; 439; 445; 451; 453
+wh-591: 552; 583; 682; 745; 732; 735
+wh-592: 660; 965; 833; 1577
+wh-593: 1162; 1206; 1227
+wh-594: 1206; 1260; 1264
+wh-595: 1206; 1279; 1211; 1234; 31 May 1223; 1237; 1240
+wh-597: 1258; 20; 1261
+wh-598: 1260; 1502; 1313; 1341; 1359
+wh-599: 1336; 1370; 1405; 1404
+wh-600: 1206; 1359; 1380; 1441; 1783; 1822
 ```
