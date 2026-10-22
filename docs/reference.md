@@ -5652,6 +5652,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its own `<!-- QUESTION -->` / `<!-- QUESTION 2 -->` … section. Extras ride through export/publish/install
   and are sanitized on ingest (`uCardSanitize`, capped at 9 extras). The admin card search matches every
   phrasing. Backfill existing cards with `.claude/add-questions.js` (see "Generating cards").
+- **Card timeline (Oct 2026, on request: "a timeline section showing the card on a timeline next to the nearest four
+  events (2 before, two after) in the same collection … periods a continuous coloured bar, single events a dash …
+  only events and periods, such as wars, battles or treaties, never abstract or general terms like 'medicus' or
+  'Polish Corridor'"):** the LIGHT field `card.timeline` — `{ at: "1919-06-28" }` an event, `{ from: "1937-07-07",
+  to: "1945-09-02" }` a period; YYYY, YYYY-MM or YYYY-MM-DD, a leading "-" for BCE, the precision kept ("1925" runs
+  to the end of 1925). It is the ONE switch: a card that carries it gets the Timeline section on its answer side
+  (`cardTimelineHTML`, emitted by `buildBack` above the causal strip) AND is a candidate neighbour on every card of
+  its collection; a card without it is neither. NOTHING IS INFERRED FROM THE DATE LINE: its rows describe several
+  dated things (a treaty's signing and its coming into force, a war's two beginnings and its end) and no rule tells
+  a period from an event among them — the first draft tried "the basis row holds a range" and called the Second
+  World War a single event. So the span is authored, with `.claude/set-timeline.js`, from the card's own rows
+  wherever they give one, and the helper refuses a card whose kind (first tag) is not `event`, `era`, `battle` or
+  `war` (`--force` overrides and says so). The neighbours are the two before and the two after among the field-
+  carrying cards of `cardCollectionRoot`, by start date then id (`cardTimelineItems`); a card with no neighbour
+  draws nothing. Two designs, chosen by the 640 px phone query at layout: the RAIL (one axis, marks packed into
+  lanes, each name with its date behind it on a desktop and UNDER it on a tablet, 641 – 1024 px, the `.two` class the layout sets) and the LEDGER (time down a spine, a bar a column, names
+  pushed apart with leader lines) — six were mocked in `docs/timeline-designs.html` and these two chosen. The
+  window is the span of the five starts and the card's own end; a neighbour's end widens it only by less than the
+  spread of the five starts, else its bar runs off the edge with an arrowhead. The markup is a plain `<ol>` of the
+  five items (`.tl-list`), laid out in place by `mountCardTimelines` (called beside every `mountCardMaps` that
+  follows `buildBack`) and re-laid by a ResizeObserver; names are measured in the DOM so Text size is honoured. A
+  neighbour's name is a `data-kin` button, so the existing rail wiring opens it (a peek on a card back, a route on
+  the card page). The rollout began with the first 20 cards of The Second World War (11 carry the field).
+  Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
+  `mountCardTimelines` / `set-timeline.js` / the `.tl-` rules: `node .claude/test-card-timeline.js`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as
   a **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens
   the **fullscreen viewer** (`openImageViewer`: wheel and pinch zoom 1–8×, tap toggles 1↔2.5×, drag pans
