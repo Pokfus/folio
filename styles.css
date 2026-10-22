@@ -2281,7 +2281,6 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 .wtl-rail{flex:1 1 auto; min-width:0;}
 .wtl-track{position:relative; height:calc(32px * var(--fs)); touch-action:none; cursor:pointer;}
 .wtl-line{position:absolute; left:0; right:0; top:50%; height:4px; margin-top:-2px; border-radius:2px; background:var(--rule);}
-.wtl-ticks i{position:absolute; top:50%; width:1px; height:9px; margin-top:-4.5px; background:var(--ink-faint);}
 .wtl-pin{
   position:absolute; top:50%; left:0; width:14px; height:calc(22px * var(--fs)); margin:calc(-11px * var(--fs)) 0 0 -7px; border-radius:7px;
   background:var(--indigo); border:2px solid var(--card); box-shadow:0 0 0 1px var(--indigo); cursor:grab;
