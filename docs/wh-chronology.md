@@ -591,6 +591,24 @@ Filled batch by batch, from the source each row names.
 | Michelangelo: lived (1474 in his father's notebook) / ceiling / Last Judgement | 6 March 1475 – 18 February 1564 / 1508 – 1512 / 1536 – 1541 CE | Condivi; Symonds; Vatican (`wh-628`) |
 | Linear perspective: reported start / Alberti's treatise | c. 1413 / 1435 – 1436 CE | Hertzmann citing Kemp; Sinisgalli; Horton (`wh-629`) |
 | Printing press: press at Mainz / 42-line Bible / Subiaco book | c. 1450 / c. 1454 – 1455 / 1465 CE | Mainz city site; Library of Congress (`wh-630`) |
+| Gutenberg: born (Mainz / another summary) / Strasbourg suit / 42-line Bible / died | c. 1397 – 1406 (1394 – 1399) / 1439 / c. 1455 / early February 1468 CE | Mainz city site; Gould (`wh-631`; `wh-632` is `undatable`) |
+| Erasmus: born (disputed) / ordained / Greek New Testament / died | c. 1466 – 1469 / 1492 / 1516 / 11 or 12 July 1536 CE | Stanford Encyclopedia; Historisches Lexikon der Schweiz (`wh-633`) |
+| Machiavelli: born / Chancery / *The Prince* drafted (printed 1532) / died | 3 May 1469 / 1498 – 1512 / 1513 / 21 June 1527 CE | Black; Stanford Encyclopedia; the letter of 10 December 1513 (`wh-634`) |
+| Reformation: usual start / Zwingli at Zurich / Augsburg peace / usual end | 1517 / 1519 / 25 September 1555 / 1648 CE | Schaff (`wh-635`) |
+| Luther: born / entered the Erfurt friary / Worms / died | 10 November 1483 / 1505 / 1521 / 18 February 1546 CE | Melanchthon via the Stanford Encyclopedia (`wh-636`) |
+| Ninety-five Theses: letter to Albrecht dated | 31 October 1517 CE (the door story is Melanchthon's of 1546) | Jacobs; Leppin and Wengert (`wh-637`) |
+| Protestantism: name arose (Protestation at Speyer) | 19 – 25 April 1529 CE | Pollard; Helmer (`wh-638`) |
+| Calvin: born / *Institutes* / returned to Geneva / died | 10 July 1509 / 1536 / 1541 / 27 May 1564 CE | Walker; Calvin's own preface (`wh-639`) |
+| English Reformation: Appeals Act / Supremacy Act / first Prayer Book / settlement | 1533 / 1534 / 1549 / 1559 CE | Gee and Hardy; Maitland (`wh-640`) |
+| Henry VIII: born / reigned / died | 28 June 1491 / 1509 – 1547 / 28 January 1547 CE | royal.uk; British Library (`wh-641`) |
+| Jesuits: Montmartre vow / papal approval / suppressed / restored | 15 August 1534 / 27 September 1540 / 1773 / 1814 CE | Jesuits Global; Formula of the Institute (`wh-643`; `wh-642` is `undatable`) |
+| Wars of religion: Germany / France / Netherlands (conventions) | 1546 – 1555 / 1562 – 1598 / 1568 – 1648 CE | Benedict; Leiden (`wh-644`) |
+| St Bartholomew's Day massacre: Coligny shot / massacre | 22 / 24 August 1572 CE | Thompson; EBSCO (`wh-645`) |
+| Thirty Years' War: began / White Mountain / treaties signed | 23 May 1618 / 8 November 1620 / 24 October 1648 CE | GHDI; Wilson (`wh-646`) |
+| Peace of Westphalia: signed | 24 October 1648 CE | GHDI; Gardiner (`wh-647`) |
+| Witch trials: whole period (one historian's) / Great Hunt | c. 1450 – 1750 / 1560 – 1630 CE | Leeson and Russ (`wh-648`) |
+| Scientific Revolution: conventional frame | 1543 – 1687 CE | Harvard Library (`wh-649`) |
+| Copernicus: born / died / book printed / on the Index | 19 February 1473 / 24 May 1543 / 1543 / 1616 – 1835 CE | Stanford Encyclopedia (`wh-650`; 1835 rests on that article alone) |
 
 ## Chronology pins
 
@@ -1166,4 +1184,22 @@ wh-627: 1452; 1519; 1503
 wh-628: 1475; 1564; 1508; 1512; 1536; 1541
 wh-629: 1413; 1435; 1436
 wh-630: 1450; 1454; 1455; 1465
+wh-631: 1397; 1406; 1439; 1455; 1468
+wh-633: 1466; 1469; 1492; 1516; 1536
+wh-634: 3; 1469; 1498; 1512; 1513; 21; 1527
+wh-635: 1517; 1519; 25 September 1555; 1648
+wh-636: 10 November 1483; 1505; 1521; 18 February 1546
+wh-637: 31; 1517
+wh-638: 19; 25; 1529
+wh-639: 10; 1509; 1536; 1541; 27; 1564
+wh-640: 1533; 1534; 1549; 1559
+wh-641: 1491; 1509; 1547
+wh-643: 1540; 1534; 1773; 1814
+wh-644: 1546; 1555; 1562; 1598; 1568; 1648
+wh-645: 24; 1572; 22
+wh-646: 23; 1618; 8; 1620; 24; 1648
+wh-647: 24; 1648
+wh-648: 1450; 1750; 1560; 1630
+wh-649: 1543; 1687
+wh-650: 1473; 1543; 1616; 1835
 ```
