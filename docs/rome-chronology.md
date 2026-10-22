@@ -250,6 +250,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Hamilcar Barca: at Hercte / at Eryx / landed in Iberia / died | c. 247 – 244 BCE (Scullard, Frank; Polybius gives only durations) / c. 244 – 241 BCE / 237 BCE (Schulten) / 229 – 228 BCE (disputed: Schulten 229/8; Frank 229) | `rm-198` |
 | the Battle of the Aegates Islands | 10 March 241 BCE (the day from Eutropius, accepted by Walbank and Morgan; the Egadi survey prints it) | `rm-199` |
 | the Treaty of Lutatius | 241 BCE (the first draft; the commissioners' revision the same year) | `rm-200` |
+| the annexation of Sicily: the peace / the first resident praetor | 241 BCE / 227 BCE (Frank, the only source read that prints it; no ancient source gives a year for the first province) | `rm-201`, `rm-202` |
+| the Mercenary War | 241 – 237 BCE (Mulligan and Hoyos's title; Polybius gives only 3 years 4 months) | `rm-203` |
+| the seizure of Sardinia and Corsica / its own praetor | 237 BCE (Hoyos, via Drogula's review) or 238 BCE (Enciclopedia Italiana; Bouchier) / 227 BCE (Frank, Bouchier; the Enciclopedia Italiana says 226) | `rm-204` |
+| the Barcid conquest of Spain: landed / Hamilcar died / Hasdrubal in command | 237 BCE / 229 BCE (Lendering) / 228 – 221 BCE | `rm-205` |
+| New Carthage: founded / Hasdrubal killed / taken by Rome | c. 229 – 227 BCE (the spread of modern dates) / 221 BCE / 209 BCE | `rm-206` |
+| the Ebro treaty / the Roman embassy at Carthage | c. 226 BCE (Schulten; Hallward 226 or 225; Polybius gives no year) / 218 BCE | `rm-207` |
+| Saguntum: besieged / retaken by Rome | 219 BCE (Polybius's eight months; Livy gives it only as "some writers") / 212 BCE (Hallward) | `rm-208` |
+| the Second Punic War | 218 – 201 BCE (the siege of Saguntum 219 BCE) | `rm-209` |
+| Hannibal: born / to Spain / exiled / died | c. 247 BCE / 237 BCE / 195 BCE / 183 – 181 BCE (Atticus 183, Polybius 182, Sulpicius Blitho 181, in Nepos 13) | `rm-210` |
 
 ## The middle and late Republic
 
@@ -460,4 +469,14 @@ rm-197: 250; 241; 249
 rm-198: 247; 244; 241; 237; 229; 228
 rm-199: 241; 264
 rm-200: 241
+rm-201: 241
+rm-202: 227
+rm-203: 241; 237
+rm-204: 237; 238; 227
+rm-205: 237; 229; 228; 221
+rm-206: 229; 227; 221; 209
+rm-207: 226; 218
+rm-208: 219; 212
+rm-209: 218; 201; 219
+rm-210: 247; 237; 195; 183; 181
 ```
