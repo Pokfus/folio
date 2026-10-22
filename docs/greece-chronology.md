@@ -743,6 +743,47 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | battle of Chaeronea: Chaeronea | 338 BCE | Jona Lendering, “Chaeronea (338 BCE),” Livius.org, accessed 15 October 2026 (`gr-699`) |
 | League of Corinth | 337 BCE | Ian Worthington, review of Stephen Usher, Demosthenes, On the Crown (Warminster: Aris &… (`gr-700`) |
 
+## Alexander the Great, accession to the Persian heartland (confirmed by B74–B76, `gr-701` – `gr-730`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Alexander the Great: Alexander III born | 356 BCE | Joshua J. Mark, “Alexander the Great,” World History Encyclopedia, published 14… (`gr-701`) |
+| Alexander the Great: Alexander III reigned | 336 – 323 BCE | Joshua J. Mark, “Alexander the Great,” World History Encyclopedia, published 14… (`gr-701`) |
+| Olympias: Married Philip | 357 BCE | Jona Lendering, “Olympias,” Livius.org, last modified 23 September 2020, (`gr-702`) |
+| Olympias: Killed | 316 BCE | Jona Lendering, “Olympias,” Livius.org, last modified 23 September 2020, (`gr-702`) |
+| assassination of Philip II | 336 BCE | Donald L. Wasson, “Philip II of Macedon,” World History Encyclopedia, published 31… (`gr-703`) |
+| accession of Alexander | 336 BCE | Jona Lendering, “Alexander 2.2,” Livius.org, last modified 21 April 2020, (`gr-704`) |
+| destruction of Thebes | 335 BCE | Jona Lendering, “Alexander 2.2,” Livius.org, last modified 21 April 2020, (`gr-705`) |
+| Alexander's army | 334 – 323 BCE | Joshua J. Mark, “Alexander the Great,” World History Encyclopedia, published 14… (`gr-706`) |
+| Companion cavalry: Crossed to Asia | 334 BCE | Johannes Engels, review of The Greek World in the 4th and 3rd Centuries BC, ed.… (`gr-707`) |
+| Companion cavalry: At Gaugamela | 331 BCE | Jona Lendering, “Philotas,” Livius.org, last modified 13 March 2019, (`gr-707`) |
+| Companion cavalry: Command split | 330 BCE | Robert Lock, “The Army of Alexander the Great” (PhD diss., University of Leeds,… (`gr-707`) |
+| pezhetairoi | 334 BCE | Robert Lock, “The Army of Alexander the Great” (PhD diss., University of Leeds,… (`gr-708`) |
+| Parmenion: Sent to Asia | 336 BCE | Jona Lendering, “Parmenion,” Livius.org, last modified 28 April 2020, (`gr-709`) |
+| Parmenion: Killed | 330 BCE | “Parmenion,” The Columbia Encyclopedia, 6th ed., Encyclopedia.com, accessed 22… (`gr-709`) |
+| crossing of the Hellespont | 334 BCE | G. E. Bean, “Abydos (Nağara Point), Turkey,” in The Princeton Encyclopedia of… (`gr-710`) |
+| battle of the Granicus | 334 BCE | Jona Lendering, “Granicus (334 BCE),” Livius.org, last modified 10 August 2020,… (`gr-711`) |
+| siege of Miletus | 334 BCE | Jona Lendering, “Miletus,” Livius.org, last modified 10 August 2020, accessed 22… (`gr-712`) |
+| siege of Halicarnassus | 334 BCE | Jona Lendering, “Halicarnassus (Bodrum),” Livius.org, accessed 22 October 2026, (`gr-713`) |
+| Gordian Knot | 333 BCE | Penn Museum, “The Gordian Knot,” Digital Gordion, accessed 22 October 2026, (`gr-714`) |
+| battle of Issus | 333 BCE | Jona Lendering, “Issus (333 BCE),” Livius.org, last modified 13 April 2020, accessed… (`gr-715`) |
+| Darius III | 336 – 330 BCE | Jona Lendering, “Darius III Codomannus,” Livius.org, last modified 10 August 2020,… (`gr-716`) |
+| siege of Tyre | 332 BCE | Nick Marriner, Christophe Morhange, and Samuel Meulé, “Holocene Morphogenesis of… (`gr-717`) |
+| siege of Gaza | 332 BCE | Jona Lendering, “Alexander the Great 2.7: The Levant,” Livius.org, accessed 22… (`gr-718`) |
+| Memphis | 332 BCE | Jona Lendering, “Alexander the Great 2.8: Egypt,” Livius.org, accessed 22 October… (`gr-719`) |
+| founding of Alexandria | 331 BCE | Luisa Ferro and Giulio Magli, “The Astronomical Orientation of the Urban Plan of… (`gr-720`) |
+| oracle of Ammon | 331 BCE | Evangelia Anagnostou-Laoutides, review of Claude Mossé, Alexander: Destiny and Myth,… (`gr-721`) |
+| Battle of Gaugamela | 1 October 331 BCE | Gregory Crane, review of Laetitia Graslin-Thomé, Philippe Clancier and Julien… (`gr-722`) |
+| surrender of Babylon | October 331 BCE | Jona Lendering, “Mazaeus,” Livius.org, last modified 2020, (`gr-723`) |
+| Susa: Settled | c. 5000 BCE | Jona Lendering, “Susa,” Livius.org, last modified 2020, (`gr-724`) |
+| Susa: Surrendered | December 331 BCE | Jona Lendering, “Alexander the Great (2.9: Gaugamela and Babylon),” Livius.org, last… (`gr-724`) |
+| Persepolis: Begun | c. 515 BCE | Roger Matthews and Hassan Fazeli Nashli, The Archaeology of Iran from the… (`gr-725`) |
+| Persepolis: Taken | 330 BCE | Jona Lendering, “Persepolis,” Livius.org, last modified 2020, (`gr-725`) |
+| burning of Persepolis | 330 BCE | Jona Lendering, “Persepolis,” Livius.org, last modified 24 September 2020, (`gr-726`) |
+| death of Darius III | July 330 BCE | Jona Lendering, “Artaxerxes V Bessus,” Livius.org, last modified 27 April 2019, (`gr-727`) |
+| Bessus | 330 – 329 BCE | Jona Lendering, “Artaxerxes V Bessus,” Livius.org, last modified 27 April 2019, (`gr-728`) |
+| Persian dress | 330 BCE | Plutarch, Life of Alexander 45, trans. Bernadotte Perrin, Loeb Classical Library… (`gr-729`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -774,7 +815,9 @@ sources when its batch comes round, and a disputed one given as a range.
 | Leuctra | 371 BCE (confirmed by B70, `gr-671`; `gr-668` – `gr-672` agree) |
 | Philip II | 359 – 336 BCE (confirmed by B72–B73, `gr-695` – `gr-700`) |
 | Chaeronea | 338 BCE (confirmed by B73, `gr-699`; `gr-670`, `gr-692` – `gr-695` agree) |
-| Alexander III | born 356 BCE; reigned 336 – 323 BCE |
+| Alexander III | born 356 BCE; reigned 336 – 323 BCE (confirmed by B74 – B76, `gr-701`, `gr-704`, `gr-706`) |
+| Granicus, Issus, Gaugamela | 334, 333 and 1 October 331 BCE (confirmed by B75, `gr-711`, `gr-715`, `gr-722`) |
+| Tyre and Gaza | 332 BCE (confirmed by B75, `gr-717`, `gr-718`) |
 | Ipsus | 301 BCE |
 | Sack of Corinth | 146 BCE |
 | Actium | 31 BCE |
@@ -1395,4 +1438,33 @@ gr-697: 359; 336
 gr-698: 356; 346; 353; 352
 gr-699: 338
 gr-700: 337; 334; 324
+gr-701: 356; 336; 323
+gr-702: 357; 316
+gr-703: 336
+gr-704: 336
+gr-705: 335
+gr-706: 334; 323
+gr-707: 334; 331; 330
+gr-708: 334
+gr-709: 336; 330
+gr-710: 334
+gr-711: 334
+gr-712: 334
+gr-713: 334
+gr-714: 333
+gr-715: 333
+gr-716: 336; 330
+gr-717: 332
+gr-718: 332
+gr-719: 332
+gr-720: 331
+gr-721: 331
+gr-722: 331
+gr-723: 331
+gr-724: 5000; 331
+gr-725: 515; 330
+gr-726: 330
+gr-727: 330
+gr-728: 330; 329
+gr-729: 330
 ```

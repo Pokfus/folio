@@ -243,9 +243,9 @@ one changelog line and a version bump; commit and push.
 | B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | **done 2026-10-15** |
 | B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | **done 2026-10-15** |
 | B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | **gr-696–700 done 2026-10-15** |
-| B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | open |
-| B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | open |
-| B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | open |
+| B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | **done 2026-10-22** |
+| B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | **done 2026-10-22** |
+| B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | **done 2026-10-22** |
 | B77 | Alexander the Great (`gr-alexander`) | `gr-731`–`gr-740` | 10 | open |
 | B78 | Alexander the Great (`gr-alexander`) | `gr-741`–`gr-750` | 10 | open |
 | B79 | Successor kingdoms (`gr-successors`) | `gr-751`–`gr-760` | 10 | open |
@@ -2369,3 +2369,71 @@ The new titles Battle of Coronea (394 BC), Battle of Sardis (395 BC) and Social 
 `gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` was fetched on a later try; `gr-683`'s
 coordinate (23.7435, 37.9741) was read from the `wgCoordinates` of the English Wikipedia article "Lyceum (classical)" itself
 after the coordinate service refused the shared address five times, and written through `add-card.js`.
+
+### B74–B76 (`gr-701`–`gr-730`) — Alexander the Great: the man, the army, the first campaigns, the Persian heartland (2026-10-22)
+
+Thirty cards of `gr-alexander`: Alexander, Olympias, Philip's murder, the accession, the destruction of Thebes, the army,
+the Companion cavalry, the pezhetairoi, Parmenion, the Hellespont, the Granicus, Miletus, Halicarnassus, the Gordian Knot,
+Issus, Darius III, Tyre, Gaza, Memphis, Alexandria, the oracle of Ammon, Gaugamela, the surrender of Babylon, Susa,
+Persepolis, its burning, the death of Darius, Bessus, Persian dress and proskynesis. Method as before (drafts by research
+agents, every claim re-sourced from the page, every draft read and re-checked here). The Alexander cards are the
+legend-prone ones, so each says whose account a tale rests on (Arrian, Plutarch, Curtius, Diodorus, Justin) and where
+they part: the Granicus (axe or scimitar, the night crossing), Miletus (Arrian's 300 mercenaries spared, Diodorus' sale),
+Halicarnassus (the drunken pair or the old Macedonians), Tyre (Diodorus' bridge, Arrian's ships), Gaza (two months or four),
+Alexandria (barley and birds), Gaugamela (Arrian's Darius flees first, the Babylonian diary's troops desert him),
+Persepolis (vengeance or a drinking party), Darius's death (Arrian's Nabarzanes and Barsaentes, Diodorus' Bessus).
+
+Checks: `greece-audit.js` finds only `I.none` on the cards with no picture and `Q.sibling` on `gr-724` (47 % against `gr-386`,
+both about Susa as a place); `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `test-card-plans`,
+`check-docs`, `apply-wiki-links --check` pass; `check-style` adds nothing to main's alarms (the "BC" titles of the Tyre and
+Gaza articles are known); `check-citations --card` finds no mismatch on any of the 30; every cited URL answers 2xx
+(Wikisource answered 429 on two links on `gr-727`, a rate limit, not a dead page).
+
+**Date lines:** empty and `undatable` for `gr-730` (proskynesis: the greeting is far older than the attempt of 327 BCE,
+which stays in the prose). No estimated life dates: `gr-702` drops the old "c. 375" birth and keeps the marriage (357 BCE)
+and her death (316 BCE); `gr-701` keeps only the born-356 and reigned 336 – 323 BCE rows of the chronology table;
+`gr-709` carries Philip's advance party (336 BCE) and the killing (330 BCE); `gr-728` carries Livius' reign of Artaxerxes V
+(330 – 329 BCE). Months are left out where the sources part: Philip's murder (`gr-703`: summer or October), Parmenion's
+death (`gr-709`: October or December), the Gordian Knot (`gr-714`: Penn's page says 333 BCE, its own Expedition article
+334/3 BCE, Livius has Alexander join Parmenion in winter), Issus (`gr-715`: 5 or 6 November).
+
+**Corrected in the old cards:** Diodorus' own cavalry figures add up to 5,100, not the 4,500 he states (`gr-706`); the old
+`gr-709` and its glossary entry said Diodorus puts "the whole infantry" under Parmenion (he gives 24,000 of the 32,000);
+the glossary entry for the pezhetairoi said 16 – 20 ranks deep, Livius says 8 – 16 before Philip and 20 under him
+(`gr-708`); the Granicus card put Diodorus' figures in Arrian's mouth (`gr-711`); "greatest harbour of Ionia" had no source
+(`gr-712`); the Gordian Knot card cited the Penn home page for a 2023 listing it does not carry (`gr-714`); "half the
+empire" was never in Arrian's letters of Darius (`gr-716`); the Carthage evacuation of Tyre is Diodorus 17.46 against 17.41
+(dropped, `gr-717`); Alexander did not sail up the Nile to Memphis, his ships did and he marched by Heliopolis (`gr-719`);
+the old Alexandria card said Arrian found the barley story unworthy of belief, Chinnock's Arrian says "not unworthy of
+belief" (`gr-720`); the oasis width of 8 km at Siwa had no cited page (`gr-721`); Diodorus' Book 17 translator was named
+Oldfather by the Perseus boilerplate and is no longer named (`gr-706`, `gr-723`, `gr-724`); the Apadana's "72 columns, 25 m"
+counted the porticoes, the excavators' figure is six rows of six columns about 19 m high (`gr-725`); Arrian says the
+officers wounded Darius, not "stabbed" him, and the date is July 330 BCE (`gr-727`); Alexander left out the trousers,
+sleeved garment and tiara (`gr-729`); "failed to impose" proskynesis is dropped, the Persians went on performing it
+(`gr-730`). **Glossary entries redrafted:** `Alexander_the_Great`, `Olympias` (date 357 – 316 BCE), `Assassination_of_Philip_II`,
+`Pezhetairoi`, `Parmenion`, `Darius_III`, `Death_of_Darius_III`, `Bessus`, `Persian_dress`, `Proskynesis`.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Pausanias` (the travel writer, `gr-703`), `Thebes`, `Cleopatra`
+(Cleopatra VII) and `Thermopylae` (`gr-704`, `gr-705`), `Lade` and `Mycale` (`gr-712`), `Arses` (opens Saguntum, `gr-716`),
+`Menes` (the pharaoh, `gr-724`) and `midway` (`gr-729`).
+
+**Answer terms kept:** `gr-719` is answered by Memphis although its plan line reads "Alexander in Egypt" (an earlier batch's
+choice; the Egypt landing is its subject), and `gr-729` by Persian dress although its plan line reads "Alexander's
+Persianising policy" (the policy is the last half of the background).
+
+**Chronology.** A new section, "Alexander the Great, accession to the Persian heartland", holds rows and pins; the Events
+and reigns rows for Alexander III (born 356, reigned 336 – 323 BCE) are confirmed, and rows for the three great battles and
+Tyre and Gaza are added.
+
+**Pictures for `gr-701`–`gr-730`** (applied with the text). Replaced (4): `gr-703`
+the theatre site at Aigai for a Vergina tomb facade whose identification with Philip is uncertain, `gr-715` the whole Alexander
+Mosaic for a crop of Alexander alone, `gr-722` a clean 17th-century painting (imagined) for a gallery photo of a framed
+painting, `gr-726` Rochegrosse's imagined burning of Persepolis (1890) for a ruin photo that does not show the fire.
+Reformatted to standard thumbnails with the subject kept (6): `gr-701`, `gr-702`, `gr-716`, `gr-724`, `gr-727` (which now says
+"imagined") and `gr-728`. Kept (14): `gr-704`–`gr-706`, `gr-710`, `gr-711`, `gr-714`, `gr-717`, `gr-719`–`gr-721`, `gr-723`,
+`gr-725`, `gr-729`, `gr-730`. Removed (4): `gr-707` (a 1920s copy-drawing of an uncertain unit), `gr-708` (a 507-pixel photo),
+`gr-712` (a silted harbour with a later monument), `gr-713` (the Mausoleum, not the siege). No picture and none before
+(`gr-709`, `gr-718`). `gr-716` is still a detail of the Issus mosaic (the only likeness of Darius) and `gr-728` shows the
+citadel mound at Balkh.
+
+**Locators:** none new; every battle, siege, city and site among these cards already carried one.
