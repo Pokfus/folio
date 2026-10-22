@@ -544,6 +544,16 @@ Filled batch by batch, from the source each row names.
 | Sijilmasa: founded (tradition) / Ibn Battuta leaves / revolt / Leo sees ruins | c. 757 – 758 / 14 February 1352 / c. 1393 / c. 1510 CE | Villar; Gibb and Beckingham (`wh-567`) |
 | Mali Empire: Kirina (one reckoning) / Ibn Battuta at Mali / Timbuktu lost / Gambia held | c. 1235 / 1352 – 1353 / c. 1433 / 1594 CE | Niane; Gibb and Beckingham; Ly-Tall (`wh-568`; `wh-569` is `""`) |
 | Mansa Musa: reigned / pilgrimage | c. 1312 – 1337 / 1324 – 1325 CE | British Library; Northwestern University (`wh-570`) |
+| Timbuktu: said founded (al-Sa'di) / Musa's visit / Songhai takes / Moroccans take | c. 1100 / c. 1325 / 1468 / 1591 CE | al-Sa'di; Cissoko (`wh-571`) |
+| Songhai Empire: Sonni Ali / Askia Muhammad / Tondibi | 1464 – 1492 / 1493 – 1528 / March 1591 CE (12 April in the *Tarikh es-Soudan*) | Cissoko; Kaba (`wh-572`) |
+| Kanem–Bornu: first Muslim mai / letter to Cairo / court to Bornu | c. 1086 – 1097 / 1391 – 1392 / c. 1400 CE (Barth, Palmer; al-Qalqashandi) | Barth; Palmer; Fisher (`wh-573`) |
+| Hausa Kingdoms: Yaji / Rumfa / Askia's raid | c. 1349 – 1385 / c. 1463 – 1499 / c. 1513 CE (Palmer's reckoning; Brown's note) | Palmer (`wh-574`) |
+| Kingdom of Benin: independent / Portuguese reach / Nyendael | c. 1200 – 1897 / c. 1486 / 1702 CE | Bondarenko and Roese; Roth (`wh-575`) |
+| Benin Bronzes: plaques made / looted / returns began | c. 1500 – 1700 / 1897 / 2022 CE | Cleveland Museum of Art; Staatliche Museen zu Berlin (`wh-576`) |
+| Swahili coast: culture begins / stone towns / autonomy wanes | c. 600 – 700 / c. 1000 – 1100 / c. 1500 – 1600 CE | Brielle et al. (`wh-577`) |
+| Kilwa Kisiwani: first settled / first coins / Ibn Battuta / Portuguese fort | c. 800 – 900 / c. 980 – 1000 / 1331 / 1505 – 1507 CE | Horton et al.; Barbosa (`wh-578`) |
+| Great Zimbabwe: occupied / walls begun / older peak view | c. 1000 – 1800 / c. 1200 / 1300 – 1450 CE | Chirikure (`wh-579`) |
+| Kingdom of Kongo: founding story / Portuguese come / king baptised / Afonso | c. 1350 / 1482 – 1483 / 1491 / 1506 – 1543 CE | Thornton (`wh-580`) |
 
 ## Chronology pins
 
@@ -1072,4 +1082,14 @@ wh-566: 1054; 1067; 1076
 wh-567: 757; 758; 1352; 1393; 1510
 wh-568: 1235; 1352; 1353; 1433; 1594
 wh-570: 1312; 1337; 1324; 1325
+wh-571: 1100; 1325; 1468; 1591
+wh-572: 1464; 1492; 1493; 1528; 1591
+wh-573: 1086; 1097; 1391; 1392; 1400
+wh-574: 1349; 1385; 1463; 1499; 1513
+wh-575: 1200; 1897; 1486; 1702
+wh-576: 1500; 1700; 1897; 2022
+wh-577: 600; 700; 1000; 1100; 1500; 1600
+wh-578: 800; 900; 980; 1000; 1331; 1505; 1507
+wh-579: 1000; 1800; 1200; 1300; 1450
+wh-580: 1350; 1482; 1483; 1491; 1506; 1543
 ```

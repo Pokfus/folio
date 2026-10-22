@@ -171,7 +171,7 @@ in plan order unless the user says otherwise.
 | B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | **done 2026-10-22** |
 | B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | **done 2026-10-22** |
 | B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | **done 2026-10-22** |
-| B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | open |
+| B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | **done 2026-10-22** |
 | B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | open |
 | B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | open |
 | B61 | The Americas before Columbus (`wh-americas`) | `wh-601`–`wh-610` | 10 | 69 | open |
@@ -2178,6 +2178,29 @@ The Think-it-through markers of all ten sat after the full stop. Sources that ar
 
 **Glossary.** Ten terms rewritten (*Borobudur*, *Anuradhapura*, *Spice trade*, *Dhow*, *Malacca Sultanate*, *Ghana Empire*, *Sijilmasa*, *Mali Empire*, *Sundiata Keita*, *Mansa Musa*).
 
+### B58 — `wh-571`–`wh-580`, Africa (2026-10-22)
+
+Run as B57. Pictures skipped. Checks: `wh-audit.js --range=wh-571:wh-580` clean but for `W.not-why` on `wh-580` (question 3 opens on Afonso's letter, not "Why", as `wh-487` and `wh-488` did);
+`check-cards` all pass; `check-citations --card` 0 mismatched on all ten; of 65 distinct URLs none was non-2xx. No locator needed (all ten kept theirs). archive.org was unreachable to every agent.
+Five of the ten cards rest on Cambridge or other abstract pages for some sources (named in each draft's notes), so their "Open access" tags are fewer than the bar's usual half.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-571` Timbuktu | 9 | 5 → 9 | **"Under Mali from 1336" was a chronicle's count, and the Tarikh has Musa taking the town c. 1325 on his way home.** The founding about 1100 is al-Sa'di's story (labelled "said founded"); "university" and "golden age" are attributed; no 700,000 or 25,000 figure, only the inventoried and estimated manuscript counts; the Ibn Battuta source had no Timbuktu passage and is cut. |
+| `wh-572` Songhai Empire | 8 | 7 → 8 | **Sonni Ali is 1464 – 1492, not 1468 (when he took Timbuktu).** Tondibi is March 1591 (every source but the *Tarikh es-Soudan*, which has 12 April); the *Tarikh al-fattash*'s authenticity is debated (a why answer); troop figures and a claim about Moroccan guns dropped, no source read. |
+| `wh-573` Kanem–Bornu | 6 | 5 → 7 | **The 1391 letter to Cairo is al-Qalqashandi's (794 AH), not al-Umari's**, and "1242 – 1252 Cairo college" is only a translator's footnote citing al-Maqrizi: dropped. Hume's conversion (1086 – 97) and Idris Alooma (1571 – 1603) are Barth's dates, followed by Palmer; "a thousand years" and Leo "c. 1515" dropped. |
+| `wh-574` Hausa Kingdoms | 7 | 5 → 7 | **The Kano Chronicle gives reign lengths only: 1349 – 1385, 1438 and 1463 – 1499 are Palmer's reckoning back from 1807**, from a manuscript of the 1880s, and the snake story is Palmer's introduction. "Fulani next reign" was wrong; the 1513 Songhai raid is a translator's note, not Leo's date. |
+| `wh-575` Kingdom of Benin | 8 | 5 → 10 | **The capture day of the city (17 February 1897) is the 18th in the diary Roth reprints**: now "February 1897". The Iya earthworks claim is attributed to NASA's report of the Guinness listing; Dapper never went (his picture is imagined); an earlier Ogiso line is tradition; the date line starts c. 1200, rounded from one estimate. |
+| `wh-576` Benin Bronzes | 8 | 5 → 8 | **"Taken to Britain" is "looted"**; "mostly cast c. 1500 – 1700" is the Cleveland Museum's plaque dates; the metal is brass or leaded brass (700 objects analysed), the manilla source in the Rhineland "the main source, perhaps not the only one"; the racist doubt that Africans made them is documented from Pitt-Rivers (1900); Germany's 2022 returns sourced. |
+| `wh-577` Swahili coast | 7 | 5 → 7 | **"First described c. 50 CE" described Azania and Rhapta, not the Swahili.** The culture dates from the 7th century (ancient DNA, Brielle et al.); the Shirazi story is the Kilwa Chronicle's (16th century); the African-rooted account (Wynne-Jones, Fleisher) is added; Ibn Battuta and Barbosa attributed. |
+| `wh-578` Kilwa Kisiwani | 6 | 7 → 6 | **"Settled from c. 800" is now radiocarbon**: first settlement in the early 9th century, the first coral building and the coins at the end of the 10th (Horton et al. 2022). The Shirazi story is attributed; the Portuguese fort is 1505 – 1507; "leading power 13th – 15th centuries" had no source. Source 1 is an author's accepted version. |
+| `wh-579` Great Zimbabwe | 9 | 5 → 9 | **"Largest ancient structure south of the Sahara" and "walls built c. 1250 – 1450" had no source.** Occupied c. 1000 – 1800; walls begun c. 1200 (a 2013 Bayesian chronology) against the older 1300 – 1450 peak; wall 11 m and 252 m (an ICCROM study); the Bent and Rhodesian episodes attributed to *Antiquity*'s editorials of 1971 and 1974. |
+| `wh-580` Kingdom of Kongo | 7 | 5 → 8 | **The lord of Soyo was baptised before the king**; Thornton himself gives 1482 (2025) and 1483 (1981) for the Portuguese arrival; Afonso 1506 – 1543. The founding story (c. 1350) is tradition; Mbwila and Kimpa Vita dropped, no source; question 3 now quotes Afonso's letter of 1526 on the kidnapping of young nobles. |
+
+**Read by eye.** *Article:* "the Songhai Empire" and "the Hausa Kingdoms" with "the" before the blank; "Timbuktu", "Kilwa Kisiwani", "Great Zimbabwe" bare; "the Kingdom of Kongo" and "the Kingdom of Benin" with "the"; "the Benin Bronzes" (plural verbs). *Confusability:* `wh-575`/`wh-576` the kingdom and its metalwork, told apart by the Dutch visitor and the Iya on one, the lost wax and the Rhineland isotopes on the other; `wh-571`/`wh-572` the town and the empire, Leo's book on `wh-571` only; `wh-577`/`wh-578` the coast and its island town, Azania only on `wh-577`; `wh-568`–`wh-570` not repeated. *Against other cards:* `wh-566`–`wh-570` agree on the Songhai takeover and Timbuktu; none edited. Note for `wh-721`: the Sengoku start is usually 1493, not the Ōnin War (found in `wh-538`).
+
+**Glossary.** Ten terms rewritten (*Timbuktu*, *Songhai Empire*, *Kanem–Bornu Empire*, *Hausa Kingdoms*, *Kingdom of Benin*, *Benin Bronzes*, *Swahili coast*, *Kilwa Kisiwani*, *Great Zimbabwe*, *Kingdom of Kongo*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2416,3 +2439,9 @@ pass once it answers. Filled batch by batch.
 | `wh-568` | the Great Mosque of Djenné, a 20th-century rebuilding in one Sahel town |
 | `wh-566` | an inscribed plaque from Koumbi Saleh, one find from the proposed capital |
 | `wh-562`–`wh-567`, `wh-569`, `wh-570` (others) | kept: judged from title and description only |
+| `wh-573` | a colonial-era photograph of one Bornu horseman |
+| `wh-575` | a 1668 Dutch view after Dapper, who never went to Benin: an imagined picture |
+| `wh-572` | the Tomb of Askia, one monument |
+| `wh-578` | a Kilwa view whose description gives "11th – 18th centuries" from the file title (Horton et al. date the earliest mosque stage to the late 10th) |
+| `wh-579` | a close view of wall coursing, not the whole site |
+| `wh-571`, `wh-574`, `wh-576`, `wh-577`, `wh-580` | kept: judged from title and description only (`wh-571`'s description says the mosque was "rebuilt many times since the 14th century": unsourced) |
