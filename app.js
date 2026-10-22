@@ -4509,8 +4509,10 @@
      That is why this writes an explicit `data-new` rather than styling `:not([data-seen])`. */
   function markTtipNew(el) {
     const k = el.dataset.k;
-    if (k && !isDeckGlossKey(k) && !(S.glossSeen && S.glossSeen[k])) el.setAttribute("data-new", "1");
-    else el.removeAttribute("data-new");
+    // data-new: a curated term not yet opened; data-seen: one the reader has opened (a visited-link purple). A deck term is neither.
+    const curated = k && !isDeckGlossKey(k), seen = !!(curated && S.glossSeen && S.glossSeen[k]);
+    if (curated && !seen) el.setAttribute("data-new", "1"); else el.removeAttribute("data-new");
+    if (seen) el.setAttribute("data-seen", "1"); else el.removeAttribute("data-seen");
   }
   // every .ttip currently on the page that points at this term — the prose behind a popup must lose its
   // gold the moment the term is read, not on the next render (which for a study card is the next card)
@@ -18332,12 +18334,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     },
     {
       title: "Your first card",
-      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL: a walkthrough naming a
+      /* The button says "Reveal answer" and the undiscovered-term mark is BLUE: a walkthrough naming a
          control by a label the page has not got is worse than one that names no control at all. */
       body: "A card asks for one missing name, date or term. Think of the answer, or type it into the blank, " +
         "then press <b>Reveal answer</b>. The space bar does the same.<p>Behind the answer sits a page of " +
-        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
-        "entries you have not opened yet; a tap defines them.</p>",
+        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">blue</b> are glossary " +
+        "entries you have not opened yet; a tap defines them, and ones you have read turn <b class=\"tour-seenterm\">purple</b>.</p>",
       target: [".cardwrap", ".study-card"],
       wait: "reveal", live: true, pos: "corner", noBack: true,
     },

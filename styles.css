@@ -52,6 +52,8 @@
      is none of them, far enough round the wheel from --good's forest green (hue ~186 against ~152) to
      read as another thing rather than as a shade of the same one. */
   --newterm:#1E7A85;
+  /* A glossary term the reader HAS opened (Oct 2026, on request): a visited-link purple, like a followed link on Wikipedia. Undiscovered terms wear the ordinary glossary blue (--indigo). 7.2 on white, 6.2 on --paper-2. */
+  --seenterm:#6F3FA3;
   /* An ADMIN-ONLY tab in the nav (Aug 2026, on request: "make it so that pages that are visible to admin
      only appear with a different color in the menu bar than public pages"). A magenta-purple at hue ~305,
      which is the quarter of the wheel nothing else here holds — --indigo is ~258, --newterm ~186, --good
@@ -93,7 +95,7 @@ body.night{
      lacked was red, sitting at hue ~320 where the light value is ~345. This is that hue at the
      same weight: 8.89:1 on --card, so it reads as a red and is a shade clearer than before. */
   --zh:#EFA8B8; --zh-wash:#32202A; --geo:#7FCACD; --good:#75C6A4;
-  --newterm:#5FC2CE; --admin:#CF93DC;
+  --newterm:#5FC2CE; --admin:#CF93DC; --seenterm:#C4A6F0;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -149,7 +151,7 @@ body.night .btn:not(.ghost):hover{color:var(--paper);}
    contrast). Each is its own hue scaled toward the ink until it clears 4.6:1 on --paper-2, the darkest
    of the three papers: ink-faint 4.65, ochre 4.84, geo 4.80, zh 6.05, good 4.89, newterm 6.18. */
 body.hc:not(.night){
-  --ink-faint:#69657E; --ochre:#7A6142; --geo:#3A6E71; --zh:#9E2B49; --good:#376F58; --newterm:#155E68;
+  --ink-faint:#69657E; --ochre:#7A6142; --geo:#3A6E71; --zh:#9E2B49; --good:#376F58; --newterm:#155E68; --seenterm:#5B2C8F;
 }
 body.hc.night{ --ink-faint:#8C87A8; }   /* 4.98:1 on the new night --card */
 /* …and the borders, which are not text and so are not in the table above, but are what tells one card from
@@ -1264,7 +1266,8 @@ body.night .game-tile{ --gt-gold:#D8B355; }
    an undiscovered glossary term wears (see .ttip[data-new]); it was --ochre until Aug 2026, when the
    Library's note markers gave the teal up and the two roles were swapped, and this said "gold" for a
    fortnight after the mark had stopped being gold. Read the token, never a remembered hue. */
-.tour-body b.tour-newterm{color:var(--newterm);}
+.tour-body b.tour-newterm{color:var(--indigo);}
+.tour-body b.tour-seenterm{color:var(--seenterm);}
 .tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .tour-x:hover{background:var(--rule); color:var(--ink);}
 .tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
@@ -6179,28 +6182,22 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   transition:color .15s var(--ease), text-decoration-color .15s var(--ease), background .15s var(--ease);
   border-radius:3px;
 }
-/* An UNDISCOVERED term wears --newterm, a teal of its own (Aug 2026, on request — it wore --ochre, the
-   gold of the blank in a card's question, until the Library books gave that teal up). A term already
-   read carries no attribute and keeps the ordinary glossary-link styling above, unchanged — the mark is
-   the invitation, not a record of what is finished. (markTtipNew sets data-new; deck terms never get it.) */
-.ttip[data-new]{
-  color:var(--newterm);
-  text-decoration-color:color-mix(in srgb,var(--newterm) 55%,transparent);
-}
 .ttip:hover,.ttip:focus-visible{
   color:var(--indigo-bright); text-decoration-color:var(--indigo-bright);
   background:var(--indigo-wash); outline:none;
 }
 .night .ttip:hover,.night .ttip:focus-visible{ color:var(--indigo); background:color-mix(in srgb,var(--indigo) 16%,transparent); }
-/* An undiscovered term keeps its own colour under the cursor — jumping to the indigo hover would read as
-   the term changing state before it has been opened. These sit AFTER the rules above: equal specificity,
-   so source order decides (and the .night pair below outranks .night .ttip:hover outright). */
-.ttip[data-new]:hover,.ttip[data-new]:focus-visible{
-  color:var(--newterm); text-decoration-color:var(--newterm);
-  background:color-mix(in srgb,var(--newterm) 13%,transparent); outline:none;
+/* A term already READ is a visited link (Oct 2026, on request): --seenterm, a purple, like a followed link on Wikipedia. An
+   UNDISCOVERED term — and any deck term, which never counts as read — keeps the ordinary glossary blue above (it wore a teal,
+   --newterm, from Aug 2026 until this swap). `markTtipNew` sets data-seen on a curated term the reader has opened and
+   data-new on one they have not. */
+.ttip[data-seen]{
+  color:var(--seenterm);
+  text-decoration-color:color-mix(in srgb,var(--seenterm) 55%,transparent);
 }
-.night .ttip[data-new]:hover,.night .ttip[data-new]:focus-visible{
-  color:var(--newterm); background:color-mix(in srgb,var(--newterm) 18%,transparent);
+.ttip[data-seen]:hover,.ttip[data-seen]:focus-visible,.night .ttip[data-seen]:hover,.night .ttip[data-seen]:focus-visible{
+  color:var(--seenterm); text-decoration-color:var(--seenterm);
+  background:color-mix(in srgb,var(--seenterm) 14%,transparent); outline:none;
 }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
 /* THE DAILY QUOTE'S AUTHOR AND WORK ARE LINKED WITHOUT AN UNDERLINE (Sep 2026, on request). The caption

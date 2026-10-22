@@ -131,17 +131,17 @@ function syntheticPool() {
     check("a book's note marker is the card's citation vermilion", bookFn.marker === cardZh, bookFn.marker);
     check("…and so is the entry number it jumps back from", bookFn.back === cardZh, bookFn.back);
 
-    // An UNDISCOVERED term is --newterm and must NOT be --ochre, which is what a card's blank wears.
+    // An UNDISCOVERED term wears the ordinary glossary blue (--indigo) since Oct 2026 and must NOT be --ochre, which is what a card's blank wears; a term already read is --seenterm, a visited-link purple.
     const t = await page.evaluate(() => {
       const cs = getComputedStyle(document.documentElement);
       const p = document.createElement("p");
-      p.innerHTML = '<span class="ttip" data-k="x" data-new="1">term</span><span class="ttip" data-k="y">seen</span><span class="blank">_____</span>';
+      p.innerHTML = '<span class="ttip" data-k="x" data-new="1">term</span><span class="ttip" data-k="y" data-seen="1">seen</span><span class="blank">_____</span>';
       document.body.appendChild(p);
       const out = {
         nw: getComputedStyle(p.children[0]).color,
         seen: getComputedStyle(p.children[1]).color,
         blank: getComputedStyle(p.children[2]).color,
-        tokNew: cs.getPropertyValue("--newterm").trim(),
+        tokNew: cs.getPropertyValue("--newterm").trim(), tokSeen: cs.getPropertyValue("--seenterm").trim(), indigo: getComputedStyle(document.body).getPropertyValue("--indigo").trim(),
         tokOchre: cs.getPropertyValue("--ochre").trim(),
         hasBknote: !!cs.getPropertyValue("--bknote").trim(),
       };
@@ -151,6 +151,7 @@ function syntheticPool() {
     check("--bknote is retired, not left beside it", !t.hasBknote);
     check("an undiscovered term is no longer the blank's ochre", t.nw !== t.blank, t.nw + " vs " + t.blank);
     check("…and is still told apart from a term already read", t.nw !== t.seen, t.nw + " vs " + t.seen);
+    check("--seenterm (the visited-link purple) is declared", !!t.tokSeen, t.tokSeen);
   }
 
   /* ================= 2. the collection banners ================= */
