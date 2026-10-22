@@ -511,6 +511,15 @@ Filled batch by batch, from the source each row names.
 | Song dynasty: ruled / Northern Song / Southern Song | 960 – 1279 / 960 – 1127 (or 1126) / 1127 – 1279 CE | Lorge; Theobald (`wh-528`) |
 | paper money: private notes / state office / huizi / Yuan notes | c. 990 – 1023 / 1023 / 1161 / 1260 CE | von Glahn; Theobald (`wh-529`) |
 | gunpowder: earliest recipes / fire lance / Kaifeng bombs | 1044 / 1132 / 1232 CE | Lorge; Andrade (`wh-530`) |
+| compass: needle / sea use written / Europe | c. 1087 / c. 1119 / c. 1187 | Di Domenico et al.; Price (`wh-531`) |
+| movable type: reported made / wooden type | 1041 – 1048 / c. 1297 | Di Domenico et al.; Asia for Educators (`wh-532`) |
+| Neo-Confucianism: masters lived / ban / exam text | 1011 – 1200 / 1196 / 1313 | Berthrong; Gordley (`wh-533`) |
+| porcelain: Tang white ware / Meissen / Jesuit letters | 618 – 907 CE / 1710 / 1712 and 1722 | Krahl; Finlay (`wh-534`) |
+| Yuan dynasty: dynasty / all China / Dadu begun | 1271 – 1368 / 1279 – 1368 / 1267 | Theobald (`wh-535`) |
+| Marco Polo: born / in Asia / book dictated / will | c. 1254 / c. 1271 – 1295 / 1298 / 1324 | Yule; Andreose (`wh-536`) |
+| Mongol invasions of Japan: letter dated / reached / fleets | 1266 / 1268 / 1274 and 1281 | Chase; Delgado; Ikeda (`wh-537`) |
+| Muromachi period: period / courts reunited / Ōnin War | 1338 – 1573 / 1392 / 1467 – 1477 | Conlan; Segal (`wh-538`; `wh-539` is `undatable`) |
+| Goryeo: kingdom / Gaegyeong / peninsula united | 918 – 1392 / 919 / 936 CE | Heo; Shin; Song (`wh-540`) |
 
 ## Chronology pins
 
@@ -1006,4 +1015,13 @@ wh-527: 755; 763; 756; 757
 wh-528: 960; 1279; 1127
 wh-529: 990; 1023; 1161; 1260
 wh-530: 1044; 1132; 1232
+wh-531: 1087; 1119; 1187
+wh-532: 1041; 1048; 1297
+wh-533: 1011; 1200; 1196; 1313
+wh-534: 618; 907; 1710; 1712; 1722
+wh-535: 1271; 1368; 1279; 1267
+wh-536: 1254; 1271; 1295; 1298; 1324
+wh-537: 1266; 1268; 1274; 1281
+wh-538: 1338; 1573; 1392; 1467; 1477
+wh-540: 918; 1392; 919; 936
 ```

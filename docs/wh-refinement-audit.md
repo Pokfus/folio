@@ -167,7 +167,7 @@ in plan order unless the user says otherwise.
 | B51 | Medieval Europe (`wh-medieval-europe`) | `wh-501`–`wh-510` | 10 | 65 | **done 2026-10-21** |
 | B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | **done 2026-10-21** |
 | B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | **done 2026-10-21** |
-| B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | open |
+| B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | **done 2026-10-22** |
 | B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | open |
 | B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | open |
 | B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | open |
@@ -2082,6 +2082,31 @@ Run as B51, first of East Asia. Pictures skipped. Checks: `wh-audit.js --range=w
 
 **Glossary.** Ten terms rewritten (*Sui dynasty*, *Grand Canal*, *Tang dynasty*, *Chang'an*, *Imperial examination*, *Woodblock printing*, *An Lushan Rebellion*, *Song dynasty*, *Paper money*, *Gunpowder*).
 
+### B54 — `wh-531`–`wh-540`, East Asia (2026-10-22)
+
+Run as B53. Pictures skipped. Four of the five agents were cut off by a usage limit and resumed by id the next morning; the saved pages and drafts survived. Checks:
+`wh-audit.js --range=wh-531:wh-540` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on eight and one each on `wh-531` and `wh-537`, both a name-order case, not a wrong citation:
+Crossref prints "Xing Huang" and "Ikeda Yoshifumi" where the works print "Huang Xing" and "Yoshifumi Ikeda", so the citations follow the works; 9 of 81 distinct URLs were non-2xx, all
+Japanese or Korean repository and journal downloads (`otani.repo.nii.ac.jp`, `nirc.nanzan-u.ac.jp`) that the agents read through other copies. The markers in the Think-it-through answers of `wh-519`, `wh-541` and `wh-542`
+sat before the full stop; moved after it (`wh-519` re-applied).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-531` compass | 9 | 5 → 10 | **Shen Kuo was no longer "the oldest description", and "Europe c. 1190" named the wrong poet.** A Song military manual already floats an iron fish that points south; Neckam (c. 1187, Price) is earlier than Guyot (c. 1208). "At sea by 1119" is written use, from Zhu Yu's notebook; the Han "spoon" is a 1940s reconstruction. |
+| `wh-532` movable type | 8 | 5 → 8 | **"60,000 wooden pieces" was the length of the gazetteer Wang Zhen printed, not his type** (his postscript says about 30,000). Bi Sheng's "invented 1041 – 1049" is Shen Kuo's report alone; Wang Zhen c. 1297, not 1298; type never displacing blocks is a modern explanation. |
+| `wh-533` Neo-Confucianism | 7 | 5 → 7 | **The name is a Western label for Daoxue and Lixue**, traced to a Latin phrase in Paris in 1687; "school formed c. 1050 – 1200" is replaced by Shao Yong's birth to Zhu Xi's death, the 1196 ban and the 1313 Yuan examination decree. Modern blame for East Asian rigidity is attributed. |
+| `wh-534` porcelain | 9 | 6 → 9 | **"Process published 1856, in French" and "named c. 1470 in Venice" were other events.** "True porcelain" is a Western definition (Chinese does not separate it from stoneware); Marco Polo's cowrie *porcellani* attributed; Meissen (1709 – 10) came before the Jesuit's letters; the Belitung wreck is mostly Changsha stoneware. |
+| `wh-535` Yuan dynasty | 8 | 5 → 8 | **"Capital Dadu from 1264" was loose**: Khubilai took the old city in 1264, began the new one in 1267, and the Annals date the renaming to 1272. The four-class system is a disputed modern reading; the Yaishan story and "broke with every dynasty" dropped. |
+| `wh-536` Marco Polo | 9 | 5 → 9 | **Whether he reached China is attributed by view** (Wood's case, via Jackson; Rossabi; Vogel). The "Millioni" name is three accounts, a 1305 record already naming him; the Yangzhou and Xiangyang claims flagged; the deathbed "not half" story is d'Acqui's report; question 1 lost a numeral. |
+| `wh-537` Mongol invasions of Japan | 8 | 5 → 9 | **"Only 13,500 returned" was backwards** (up to 13,500 lost). Khubilai's letter is dated 1266 and reached Hakata in 1268; exact days dropped (calendars differ); fleet sizes attributed; the kamikaze is Japanese tradition; Suenaga's scroll shows no typhoon; the Hakata wall and Takashima wrecks added. |
+| `wh-538` Muromachi period | 7 | 5 → 8 | **The name comes from a district that held the Ashikaga offices only after 1378**; "first overseas trade" was wrong (Ming relations resumed in 1401, the investiture a study's reading); the eight-lords and "180,000 families" figures dropped; the Sengoku usually starts in 1493 (see `wh-721`). |
+| `wh-539` Zen | 9 | 5 → 9 | **c. 520 for Bodhidharma was a legend's date.** `""` and `undatable`; the patriarch line is attributed to tradition, Eisai 1191 and Dōgen 1223 – 27 to Sōtō sources, and "the religion of the samurai" to the 20th century. |
+| `wh-540` Goryeo | 9 | 5 → 9 | **"Capital Songdo" was Gaegyeong (919).** The Yuan shi's "27 kings" is not the whole dynasty; the Khitan wars, the Ganghwa move in 1232 and celadon are sourced; the Japan-fleet figures dropped; the Tripitaka years and "Korea" from Goryeo are not stated (no readable source). |
+
+**Read by eye.** *Article:* "the Yuan dynasty", "the Mongol invasions of Japan", "the Muromachi period" bare of the article in phrasings that supply it, "the _____" kept for "the kingdom of" in `wh-540`; "compass", "movable type", "porcelain", "Zen" with "the" only where the phrasing needs it. *Confusability:* `wh-531`/`wh-532` the compass and movable type are told apart by Shen Kuo's two reports; `wh-532` against `wh-541` (Korea's metal type, Cheongju); `wh-535`/`wh-536` the dynasty and the traveller; `wh-537`/`wh-538` the invasions and the period that followed. *Against other cards:* `cnh-459`/`cnh-460` (Neo-Confucianism, 1196) and `cnh-980` (Shen Kuo c. 1088 against this card's c. 1087, one source's figure) agree to within a year; `ko-016` and `ko-087` agree on Goryeo; `jp-` has no card for the Mongol invasions or Muromachi; none edited.
+
+**Glossary.** Ten terms rewritten (*Compass*, *Movable type*, *Neo-Confucianism*, *Porcelain*, *Yuan dynasty*, *Marco Polo*, *Mongol invasions of Japan*, *Muromachi period*, *Zen*, *Goryeo*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2300,3 +2325,9 @@ pass once it answers. Filled batch by batch.
 | `wh-524` | the Daming Palace platform, one part of the city |
 | `wh-525` | a print file named "drunk in cell" showing examination cells only |
 | `wh-528` | a portrait of the founder, not the state (the glossary's Qingming scroll detail fits better) |
+| `wh-531` | a luopan (a geomancer's compass), not a floating or hung needle |
+| `wh-532` | a 1313 woodcut of Wang Zhen's table; its description gives "60,000" wooden types (his postscript says about 30,000) |
+| `wh-534` | picture fine, but its description says the glaze "gave the ware its name" (wrong) |
+| `wh-536` | a generic caravan from the Catalan Atlas, not Marco Polo |
+| `wh-538` | Kinkaku-ji: description says the third Ashikaga shogun "built" it; he took it over |
+| `wh-533`, `wh-535`, `wh-537`, `wh-539`, `wh-540` | kept: judged from title and description only (`wh-535` shows the founder, not the dynasty) |
