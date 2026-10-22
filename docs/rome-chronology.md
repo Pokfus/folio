@@ -266,6 +266,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Quintus Fabius Maximus: first consul / dictator / died | 233 BCE / 217 BCE / 203 BCE (Feig Vishnia) | `rm-216` |
 | the Fabian strategy / the Fabian Society founded | 217 BCE (the dictatorship) / 1884 | `rm-217` |
 | the Battle of Cannae / Rome's response | 216 BCE (Polybius prints no day; a calendar day is a modern deduction and not printed) | `rm-218`, `rm-220` |
+| the defection of Capua / its recapture | 216 BCE / 211 BCE (Lendering) | `rm-221` |
+| the siege of Syracuse / Hieronymus died | 213 – 212 BCE (Rorres, Hallward; Polybius's eight months, Hallward's two and a half years) / 214 BCE (`rm-271` says 211 BCE for the capture: to reconcile when that card is reached) | `rm-222` |
+| the Spanish campaigns of the Scipios / the Ebro battle | 218 – 211 BCE / 215 BCE (each year from a modern source) | `rm-223` |
+| Scipio Africanus: elected aedile / in command | 213 BCE / 210 – 201 BCE (Hallward) | `rm-224` |
+| the capture of New Carthage | 209 BCE (Richardson, Hallward, Goldsworthy, Hornblower; Polybius prints no year) | `rm-225` |
+| the Battle of Ilipa | 206 BCE (Scullard, Goldsworthy, Hornblower) or 207 BCE (Hallward) | `rm-226` |
+| Hasdrubal's march: Baecula / the Alps | 208 BCE / 207 BCE | `rm-227` |
+| the Battle of the Metaurus | 207 BCE | `rm-228` |
+| Scipio's African campaign: landed / the camps burnt / the Great Plains | 204 BCE / 203 BCE / 203 BCE | `rm-229` |
+| Masinissa: joined Scipio / Syphax taken / died | 204 BCE / 203 BCE / 148 BCE ("ninety" is Polybius's word, not a printed birth year) | `rm-230` |
 
 ## The middle and late Republic
 
@@ -495,4 +505,14 @@ rm-216: 233; 217; 203
 rm-217: 217; 1884
 rm-218: 216
 rm-220: 216
+rm-221: 216; 211
+rm-222: 213; 212; 214
+rm-223: 218; 211; 215
+rm-224: 213; 210; 201
+rm-225: 209
+rm-226: 206; 207
+rm-227: 208; 207
+rm-228: 207
+rm-229: 204; 203
+rm-230: 204; 203; 148
 ```

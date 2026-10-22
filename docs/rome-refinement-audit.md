@@ -154,7 +154,7 @@ order unless the user says otherwise.
 | B20 | The Punic Wars (`rm-punic-wars`) | `rm-191`–`rm-200` | 10 | 127 | **done 2026-10-15** |
 | B21 | The Punic Wars (`rm-punic-wars`) | `rm-201`–`rm-210` | 10 | 128 | **done 2026-10-22** |
 | B22 | The Punic Wars (`rm-punic-wars`) | `rm-211`–`rm-220` | 10 | 115 | **done 2026-10-22** |
-| B23 | The Punic Wars (`rm-punic-wars`) | `rm-221`–`rm-230` | 10 | 113 | open |
+| B23 | The Punic Wars (`rm-punic-wars`) | `rm-221`–`rm-230` | 10 | 113 | **done 2026-10-22** |
 | B24 | The Punic Wars (`rm-punic-wars`) / Rome and the Mediterranean (`rm-mediterranean`) | `rm-231`–`rm-240` | 10 | 120 | open |
 | B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | open |
 | B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | open |
@@ -490,6 +490,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-218` Battle of Cannae | the field of Cannae, an 1885 engraving | weak: a drawing of the plain; a photograph from Cannae hill would serve. **No locator: Cannae is wanted** |
 | `rm-219` double envelopment | the closing of the trap at Cannae, a military-academy diagram | wrong: burned-in map text and it is `rm-218`'s subject, not the concept |
 | `rm-220` Rome after Cannae | Roman women mourning, an 1885 engraving | wrong: an imagined drawing; the description names its own file name |
+| `rm-221` defection of Capua | a tufa votive from ancient Capua | weak: a sanctuary votive, not the revolt; the description claims the treaty kept Capua's "gods", which Livy does not say |
+| `rm-222` siege of Syracuse | the Euryalus fortress | acceptable as terrain, though it shows one fort and the description's "built before the siege" needs checking; the glossary painting is weak |
+| `rm-223` Spanish campaigns of the Scipios | the bay at Empúries | weak: one bay for a war across Spain; the description names Polybius; also on `gr-217` |
+| `rm-224` Scipio Africanus | the Herculaneum bronze bust "long called Scipio" | questionable: not Scipio, and the description names the museum's dating |
+| `rm-225` capture of New Carthage | the Punic rampart at Cartagena from above | weak, not wrong: a place, not the capture |
+| `rm-226` Battle of Ilipa | a modern diagram of the pre-battle array | wrong: burned-in key; shows only the array. **No locator: Alcalá del Río is the usual identification** |
+| `rm-227` Hasdrubal's march into Italy | the valley below the Little St Bernard | ok but weak: the pass is not recorded and the description says so |
+| `rm-228` Battle of the Metaurus | Hannibal shown his brother's head, an 1818 engraving | wrong: an imagined scene staged indoors, where Livy has the head thrown before the outposts. **No locator: the site is uncertain** |
+| `rm-229` Scipio's African campaign | the ruins of Utica | wrong: the description says Scipio besieged it through the whole campaign, but the siege lasted about forty days and was abandoned |
+| `rm-230` Masinissa | a Numidian bronze catalogued as Masinissa's | partly wrong: "not a portrait from life" is unsourced |
 
 ## Glossary candidates
 
@@ -1155,3 +1165,22 @@ Run as B21. Checks: `rm-audit.js --range=rm-211:rm-220` reads clean on six cards
 | `rm-220` Rome after Cannae | 8 | 6 → 8 | Five Livy chapters as five sources are now Livy once with Polybius, Hallward, Stern and Kadleck. **Livy admits his authorities disagree about the prisoners**; the volones, the burial alive and the Delphic mission are his, and "most of the Greek coast" was Livy's claim alone. The counts leave the date line, which is one row, 216. |
 
 **Read by eye.** *Confusability:* `rm-211`/`rm-212` are the march and the weapon; `rm-213`–`rm-215` three battles told by their own clues (cavalry skirmish and the rescue, the ambush in the brambles, the lake and the omens); `rm-216`/`rm-217` the man and the strategy, with the Washington, Fabian Society and oxen clues kept to the strategy; `rm-218`/`rm-219`/`rm-220` the battle, the concept and the aftermath. *Legend:* Livy's vinegar, omens, the slave rescuer, the burial alive and the severed rings are each Livy's. *Chronology:* the Ticinus and Trebia years are Dodge's, the Cannae year a convention. *Overlap:* `wh-347` says Quintus Claudius, quoted by Gellius, gives 2 August for Cannae; not read here and not printed.
+
+### B23 — `rm-221`–`rm-230`, the Punic Wars: Capua and Syracuse to Masinissa (2026-10-22)
+
+Run as B22. Checks: `rm-audit.js --range=rm-221:rm-230` reads clean on eight cards; the rest are `L.missing` on `rm-226` and `rm-228` (their locators could not be added; both are in "Pictures to redo"). `check-questions`, `check-cards` and `check-citations --card` (0 mismatched on every card) pass; every citation URL answers 2xx but one archive.org scan of the Cambridge Ancient History that answered 504 and is kept (it answered earlier). From `rm-221` on, the narrative source is Livy as often as Polybius, so the faults are **Livy's scenes told as events** (Vibius Virrius's banquet, the Capuan consulship demand, Sophonisba's cup, the severed head), **army sizes** (Livy's 56,000 at the Metaurus against Polybius's 10,000, Polybius's 70,000 at Ilipa) and **old modern scholarship**: Hallward in the 1930 Cambridge Ancient History, Dodge, Ihne and Arnold are what archive.org yields, so the modern half is dated; where a recent source was read (Rorres, Richardson, Ridley) it is used.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-221` defection of Capua | 7 | 7 → 7 | Seven Livy citations are now two Livy with Hallward, Dodge, Lendering and two BMCR reviews. **Livy's "Capua ruined Hannibal's army" is moralising that Hallward calls an "annalistic fable" and Dodge "purely hypothetical"**; Vibius Virrius's banquet is Livy's speech. The counts leave the date line (revolted 216, retaken 211). |
+| `rm-222` siege of Syracuse | 7 | 7 → 7 | **The siege's length is three authors' three figures** (Polybius eight months, Livy's "third year" for Marcellus, Hallward two and a half years); the burning mirror is a late legend (Rorres). Hieronymus died 214 (Rorres, Hallward). Counts leave the date line. |
+| `rm-223` Spanish campaigns of the Scipios | 6 | 6 → 8 | **Livy's 20,000 Celtiberians is his figure, which Hallward doubts**; Hallward calls Livy's order sending Hasdrubal to Italy in 215 clearly false and Marcius's exploits plain fictions. Appian's version of Publius's death added. "For eight years" is out of the question. |
+| `rm-224` Scipio Africanus | 8 | 6 → 8 | **"About 24, in 210 BCE" converted an age into a year.** The Ticinus rescue is the Scipio family's tradition (Hallward), against Livy's rival Ligurian slave; the serpent and Capitol stories are legend voice; Polybius's "calculator, not a favourite of fortune" is his argument. The trials are hedged through Glew's review. |
+| `rm-225` capture of New Carthage | 6 | 8 → 7 | **Neptune, the lagoon ebb and the captive girl are each an author's** (Polybius's ebb, Livy's midday ebb with a north wind, a sailing guide's "no tides" against both); Livy admits the numbers differ wildly. The date line is 209 only. |
+| `rm-226` Battle of Ilipa | 6 | 6 → 6 | **Polybius prints no year**; 206 (Scullard, Goldsworthy, Hornblower) or 207 (Hallward, because Livy's order leaves 207 nearly empty). Polybius's 70,000 and Livy's 50,000 for Hasdrubal are theirs; the congratulation anecdote is dropped. |
+| `rm-227` Hasdrubal's march into Italy | 6 | 6 → 7 | Six Livy chapters are now Livy and Polybius with five moderns, **all but one of them 1898–1930**. The council's reasoning is Livy's reconstruction; the Arverni, the roads and Placentia are his; the pass is not named by any source. |
+| `rm-228` Battle of the Metaurus | 7 | 8 → 7 | **Nero took 6,000 foot and 1,000 horse (Livy 27.43), not "6,000 men"**; the "250 miles" was Dodge's own conversion and is dropped. Ten elephants and the flank march are Polybius's; Livy's 56,000 and Polybius's 10,000 are each given; the severed head is Livy's story. |
+| `rm-229` Scipio's African campaign | 6 | 8 → 6 | Polybius 14.1 – 14.8 were eight sources. **The old Q2 misquoted Polybius's "most splendid" remark** (14.5.15); Livy's 40,000 dead is his, against Gsell's view that neither army was destroyed. The siege of Utica was abandoned, not kept through the campaign. |
+| `rm-230` Masinissa | 6 | 6 → 7 | **Polybius says "nine other sons", not "nine grown sons"**, and "ninety" is his word, not a printed year. Sophonisba is Livy's story, with Appian's variant and Gsell's caution. The old four Livy citations are now one. |
+
+**Read by eye.** *Confusability:* `rm-221`/`rm-222` are the revolt and the siege; `rm-223`/`rm-224` the campaigns and the man; `rm-225`/`rm-226` the city's capture and the set-piece battle; `rm-227`/`rm-228` the march and the battle; `rm-229`/`rm-230` the campaign and the king. *Legend:* every Livy set piece named above is told as Livy's. *Chronology:* the Ilipa year is split (206 or 207) and says whose each is. *Overlap:* no `gr-` or `wh-` card disagrees; `rm-223`'s picture is also on `gr-217`; `rm-271` gives 211 BCE for Syracuse's fall and should be reconciled with `rm-222` when it is reached.
