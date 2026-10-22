@@ -6560,7 +6560,18 @@ window.GLOSSARY = {
 "Konso": "",
 "Movius_Line": "",
 "South_Asia": "",
-"Tektite": ""
+"Tektite": "",
+"Einkorn_wheat": "",
+"Lentil": "",
+"Pea": "",
+"Chickpea": "",
+"Southwest_Asia": "",
+"Bitter_vetch": "",
+"Flax": "",
+"Cereal": "",
+"Core_area_hypothesis": "",
+"Karaca_Dağ": "",
+"Pulse_(legume)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14199,7 +14210,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Konso": ["Konso-Gardula","Konso Formation"],
 "Movius_Line": ["Movius Divide"],
 "South_Asia": ["Southern Asia","South Asian","South Asians"],
-"Tektite": ["Muong Nong tektite"]
+"Tektite": ["Muong Nong tektite"],
+"Einkorn_wheat": ["einkorn","Triticum monococcum"],
+"Lentil": ["lentils","Lens culinaris"],
+"Pea": ["peas","Pisum sativum"],
+"Chickpea": ["chickpeas","Cicer arietinum"],
+"Bitter_vetch": ["Vicia ervilia"],
+"Flax": ["Linum usitatissimum","linseed"],
+"Cereal": ["cereals","cereal grain","cereal grains"],
+"Core_area_hypothesis": ["core area hypothesis","core-area hypothesis"],
+"Karaca_Dağ": ["Karacadağ","Karacadag","Karacadağ mountains"],
+"Pulse_(legume)": ["pulses","grain legume","grain legumes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20885,7 +20906,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Konso": ["place","archaeology","prehistory","ethiopia"],
 "Movius_Line": ["concept","archaeology","prehistory","asia"],
 "South_Asia": ["place","geography","history","asia"],
-"Tektite": ["object","geology","science","impact"]
+"Tektite": ["object","geology","science","impact"],
+"Einkorn_wheat": ["plant","agriculture","archaeology","prehistory","turkey"],
+"Lentil": ["plant","agriculture","archaeology","prehistory"],
+"Pea": ["plant","agriculture","archaeology","prehistory"],
+"Chickpea": ["plant","agriculture","archaeology","prehistory","turkey"],
+"Southwest_Asia": ["place","geography","archaeology","prehistory"],
+"Bitter_vetch": ["plant","agriculture","archaeology","prehistory"],
+"Flax": ["plant","agriculture","archaeology","prehistory"],
+"Cereal": ["plant","agriculture","science","prehistory"],
+"Core_area_hypothesis": ["theory","agriculture","archaeology","prehistory","science"],
+"Karaca_Dağ": ["place","mountain","geography","archaeology","prehistory","turkey"],
+"Pulse_(legume)": ["plant","agriculture","science","prehistory"]
 });
 
 /* ============================================================================

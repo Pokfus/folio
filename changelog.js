@@ -40,9 +40,9 @@ window.FOLIO_VERSION = { v: "1.1055", released: "2026-10-22T23:00Z" };
 window.CHANGELOG = [
   {
     d: "2026-10-22",
-    t: "Glossary: new terms on early stone-tool sites and regions",
+    t: "Glossary: new terms on early stone tools and early farming",
     items: [
-      "<b>Nine new glossary terms</b> on early stone-tool sites, regions, a classification and the people behind it."
+      "<b>Twenty new glossary terms</b> on early stone-tool sites, early farming and its founder crops, regions and the scholars behind them."
     ]
   },
   {
