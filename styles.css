@@ -4880,6 +4880,9 @@ canvas{-webkit-tap-highlight-color:transparent;}
    banner's own long-press sheet now (openReviewMenu), beside the deck rows' options. */
 .review-group.has-active > #b-review{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .active-decks{display:flex; flex-direction:column;}
+/* an EMPTY active-collections list (Oct 2026, on request): a dashed outline box, and the way to the Collections page under it */
+.rv-empty{margin-top:4px; padding:26px 18px; border:2px dashed var(--rule); border-radius:14px; text-align:center; color:var(--ink-faint); font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase;}
+.rv-empty-go{display:block; width:100%; margin-top:12px; text-align:center;}
 /* NEVER NAME A CLASS `ad-…` (Aug 2026, on a bug report — and this whole block was renamed `ad-` → `dk-`
    because of it). The parts of a review row were named for the ACTIVE DECK they belong to, and `.ad-body`
    and `.ad-title` are also real advertisement class names, so EasyList and its relatives carry generic

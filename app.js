@@ -25422,7 +25422,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   Edit button sits now, and the `padding-right` it left on the title is what keeps the two
                   apart. */""}
             ${collectionsBtn}
-            ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
+            ${fresh ? "" : activeIds.length ? `<div class="active-decks">${activeHTML}</div>` : `${/* NO ACTIVE COLLECTIONS (Oct 2026, on request): a dashed, empty box says the list is empty, with a button to the Collections page under it. Not drawn on a first visit, where the hero is the one way in. */""}<div class="rv-empty" role="note">${esc(t("No active collections yet"))}</div><button class="btn rv-empty-go" id="b-empty-go" type="button">${esc(t("Browse the collections"))}</button>`}
             ${/* The footer row BELOW the card — the day's time studied, on the page's own paper rather
                   than on the card, against the left end of the group's own bottom edge. It is STILL
                   hidden while the editor mode is open, which is what the mode's own request asked for
@@ -25570,6 +25570,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the Collections button under the review group and the About line under the games — both at every
     // width now, each being the only route to the page it names anywhere on the site
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
+    { const eg = root.querySelector("#b-empty-go"); if (eg) eg.addEventListener("click", () => route("decks")); }
     { const cb = root.querySelector("#b-credits"); if (cb) cb.addEventListener("click", () => route("credits")); }   // the map data's sources, generated from the files (Oct 2026)
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
     { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", (e) => {
