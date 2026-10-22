@@ -173,7 +173,7 @@ in plan order unless the user says otherwise.
 | B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | **done 2026-10-22** |
 | B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | **done 2026-10-22** |
 | B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | **done 2026-10-22** |
-| B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | open |
+| B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | **done 2026-10-22** |
 | B61 | The Americas before Columbus (`wh-americas`) | `wh-601`–`wh-610` | 10 | 69 | open |
 | B62 | The Americas before Columbus (`wh-americas`) | `wh-611`–`wh-620` | 10 | 68 | open |
 | B63 | Renaissance, Reformation and the new science (`wh-renaissance`) | `wh-621`–`wh-630` | 10 | 81 | open |
@@ -2223,6 +2223,29 @@ Several of the cards lean on abstract pages for some sources (named in each draf
 
 **Glossary.** Ten terms rewritten (*Zagwe dynasty*, *Lalibela*, *Griot*, *Ajami*, *Makuria*, *Composite bow*, *Yurt*, *Yuezhi*, *Huns*, *Attila*).
 
+### B60 — `wh-591`–`wh-600`, Steppe empires and the Mongols (2026-10-22)
+
+Run as B59, which ends this thread's range: **`wh-501`–`wh-600` are done, and the audit continues at `wh-601` (B61, The Americas before Columbus)**. Pictures skipped (Commons still answers with an error page).
+Checks: `wh-audit.js --range=wh-591:wh-600` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on nine and, first, one on `wh-598` (a *Crossroads* issue labelled 2023 that Crossref dates 2024: now "2023, published 2024"), then 0;
+of 74 distinct URLs one was non-2xx (a Scientific Reports DOI that answers 429 under load). Locators retried once: `wh-041`, `wh-268` and `wh-425` still have no primary coordinate on Wikipedia, so they stay unwritten along with `wh-337`, `wh-376` and `wh-422`.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-591` Göktürks | 6 | 5 → 7 | **"The earliest writing in any Turkic language" was an unsourced superlative**: now a 2026 Turkish study's claim. 552, the split of 583, the second khaganate c. 682 – 745 (687 in another history) and the stones of 732 and 735 (Ross; Thomsen's 1893 notice read the Chinese date as 733); Tujue is the Chinese name, Göktürk a modern one; the 744 end had no source. |
+| `wh-592` Khazars | 7 | 5 → 9 | **"Letters found 16th century" was Akrish's find, printed at Constantinople in 1577** (Schechter's Geniza letter of 1912 is another document). The khaganate runs c. 660 – 965 (Ibn Hawqal has 968 – 69, Dunlop favours 965), not 969; the conversion is dated by Halevi to c. 740 and by Mas'udi to al-Rashid's time; "is said to have adopted Judaism" in question 1; Sarkel c. 833. |
+| `wh-593` Genghis Khan | 9 | 5 → 9 | **The birth year is uncertain**: Mongol tradition 1162, Columbia probably 1167. The 1206 title and the fall from a horse are the *Secret History*'s, the incurable illness Juvayni's; the *Secret History*'s date is 1228 in one scholar's reckoning and 1240 in the Russian; the Yassa is doubted; Zerjal's study is stated only as its authors state it; no "40 million". |
+| `wh-594` Mongol Empire | 9 | 5 → 9 | **"Widest extent c. 1279" and any km² figure had no source.** "Divided after 1260" is Möngke's death in 1259 and the civil war of 1260 – 64; the largest land-based empire is "a recent Cambridge history's" phrase; the yam, the Great Khans and Karakorum re-sourced; question 1 no longer states the superlative. |
+| `wh-595` Mongol conquests | 8 | 5 → 9 | **"Campaigns 1206 – 1279" is a convention**, labelled "Frame". Ryazan fell in December 1237 (the translation's "1238" heading was wrong); Kyiv December 1240 only; Legnica and Mohi 9 and 11 April 1241; the turn back from Hungary on Ögedei's death is a long-held explanation now challenged (Batu never returned); casualties are Juvayni's own claims. |
+| `wh-596` Pax Mongolica | 7 | 5 → 7 | **"c. 1250 – 1350" was unsourced** (Di Cosmo gives about 1280 – 1360, hedged with "seemingly") and "Polo 1275 – 1291" belongs to `wh-536`: `""` and `undatable`. Pegolotti's "perfectly safe" is a merchant's claim, Rubruck the counterweight; the Black Death link is a hypothesis; the "by analogy with Pax Romana" origin had no source. |
+| `wh-597` Siege of Baghdad | 7 | 5 → 8 | **The old dating source never mentions Baghdad**, and the "minaret 1279" rested on a source giving 1270 and 1279. The siege began in January 1258 (Le Strange) and Rashid al-Din dates the caliph's death to 20 February 1258; the carpet, starvation and gold versions are attributed; death tolls are attributed ranges; Polo's own date for the capture (1255) is wrong. |
+| `wh-598` Golden Horde | 8 | 5 → 8 | **"State 1242 – 1502" rests on a Russian-language source alone**; the English survey (Favereau and Pochekaev) gives c. 1260 – 1502, so the line does; this disagrees with `ru-100` (from 1242, citing Gorsky) and is left to that card's pass. The name is a Muscovite coinage of the 16th century (Ulus of Jochi in its day); the "Tatar yoke" is contested (Halperin 2025). |
+| `wh-599` Timur | 8 | 5 → 8 | **Russian-language and off-topic papers had been cited for claims they do not make.** Born 8 April 1336 by one 19th-century edition of Clavijo; an emir under a puppet khan who held the title *güregen*; Ibn Khaldun met him in 1401 (agrees with `wh-482`); the iron cage is a disputed tale; skull towers, casualty figures and the 1941 exhumation left out, no readable source. |
+| `wh-600` Chinggisids | 7 | 5 → 9 | **The card was rebuilt on the principle itself**, with loose rows ("Four khanates after 1260", "last khanate to the 18th century") replaced by 1206, the Time of Troubles 1359 – 80, the Crimean Khanate 1441 – 1783 and the Kazakh charter of 1822. The Manghit and Khiva claims are not stated (no readable source). Agrees with `ru-091` and `cnh-485`. |
+
+**Read by eye.** *Article:* "the Göktürks" and "the Khazars" with "the" before the blank, "the Mongol Empire" and "the Mongol conquests" with "the" or "During the _____" as the phrasing needs, "the Siege of Baghdad", "the Golden Horde", "the Chinggisids"; "Genghis Khan", "Timur" bare. *Confusability:* `wh-593`/`wh-594`/`wh-595` the man, his state and its wars (the Secret History and the 1206 assembly on `wh-593`; the quriltai and yam on `wh-594`; Ryazan and Mohi on `wh-595`); `wh-595`/`wh-596` the wars and the peace; `wh-598`/`wh-599`/`wh-600` the western khanate, the conqueror who was not a khan and the lineage that could be; the Baghdad siege only on `wh-597`. *Against other cards:* `ru-091` and `cnh-485` agree; `ru-100` dates the Golden Horde from 1242, this card c. 1260 (see `wh-598`); `wh-469` and `wh-470` (Baghdad: "from 1261", the forty days of sack) are consistent with `wh-597`; none edited.
+
+**Glossary.** Ten terms rewritten (*Göktürks*, *Khazars*, *Genghis Khan*, *Mongol Empire*, *Mongol conquests*, *Pax Mongolica*, *Siege of Baghdad*, *Golden Horde*, *Timur*, *Chinggisids*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2471,3 +2494,10 @@ pass once it answers. Filled batch by batch.
 | `wh-588` | a Tillya Tepe crown: "first-century" is stated as fact, and that these burials are Yuezhi is an inference |
 | `wh-581` | Yemrehanna Krestos; one small unsourced phrase in its description |
 | `wh-582`, `wh-583`, `wh-585`–`wh-587`, `wh-589`, `wh-590` | kept: judged from title and description only |
+| `wh-591` | the Bilge Khagan stele; its description says "the oldest surviving writing in a Turkic language" (unsourced) |
+| `wh-592` | Sarkel: one fortress, not the khaganate; the description (a 1930s aerial photograph) is unchecked |
+| `wh-594` | a 14th-century drawing of warriors, not the empire |
+| `wh-595` | one episode (the taking of Suzdal) with Cyrillic text burned in; the credit string carries stray text |
+| `wh-596` | a Catalan Atlas caravan with an inscription burned in; the description is an inference |
+| `wh-597` | a Persian miniature of the siege whose credit line ("Sayf al-vâhidî et al.") looks wrong |
+| `wh-593`, `wh-598`–`wh-600` | kept: judged from title and description only (`wh-599` shows Timur's tomb) |

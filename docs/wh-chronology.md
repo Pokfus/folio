@@ -560,6 +560,15 @@ Filled batch by batch, from the source each row names.
 | Yuezhi: first defeat / king killed / Zhang Qian left / returned | c. 176 / c. 165 / c. 138 / 126 BCE | Hirth (`wh-588`; `wh-409` also gives 126) |
 | Huns: reached Europe / Nedao | c. 370 – 376 / 454 CE | Gnecchi-Ruscone et al.; Maenchen-Helfen (`wh-589`) |
 | Attila: joint rule began / Bleda killed / Gaul / died | c. 434 – 439 / 445 / 451 / 453 CE | Maenchen-Helfen (`wh-590`) |
+| Göktürks: founded / divided / second khaganate / Orkhon stones | 552 / 583 / c. 682 – 745 / 732 and 735 CE | Erkoç; Chen; Ross (`wh-591`) |
+| Khazars: khaganate / Sarkel / letters printed | c. 660 – 965 / c. 833 / 1577 CE | Howard-Johnston; Bury; Dunlop (`wh-592`) |
+| Genghis Khan: born (tradition) / proclaimed khan / died | c. 1162 / 1206 / 1227 CE | Asia for Educators; Cleaves (`wh-593`) |
+| Mongol Empire: founded / civil war | 1206 / 1260 – 1264 CE | Rashid al-Din; Cambridge History of the Mongol Empire (`wh-594`) |
+| Mongol conquests: frame / Jin war / Kalka / Rus' | 1206 – 1279 / 1211 – 1234 / 31 May 1223 / 1237 – 1240 CE | Büntgen and Di Cosmo; Theobald (`wh-595`; `wh-596` is `undatable`) |
+| Siege of Baghdad: siege began / caliph killed / Cairo caliphs | January 1258 / 20 February 1258 / from 1261 CE | Le Strange; Rashid al-Din via Yule (`wh-597`) |
+| Golden Horde: state / Özbeg Khan / breakup | c. 1260 – 1502 / 1313 – 1341 / 1359 CE (`ru-100` has 1242) | Favereau and Pochekaev; Hautala; Schamiloglu (`wh-598`) |
+| Timur: born / ruled / Clavijo's visit | 1336 / 1370 – 1405 / 1404 CE | Clavijo; Milwright and Baboula (`wh-599`) |
+| Chinggisids: enthroned / Time of Troubles / Crimean Khanate / Kazakh charter | 1206 / 1359 – 1380 / 1441 – 1783 / 1822 CE | Munkh-Erdene; Landa; Başer (`wh-600`) |
 
 ## Chronology pins
 
@@ -1104,4 +1113,13 @@ wh-585: 450; 550; 651; 652; 1317
 wh-588: 176; 165; 138; 126
 wh-589: 370; 376; 454
 wh-590: 434; 439; 445; 451; 453
+wh-591: 552; 583; 682; 745; 732; 735
+wh-592: 660; 965; 833; 1577
+wh-593: 1162; 1206; 1227
+wh-594: 1206; 1260; 1264
+wh-595: 1206; 1279; 1211; 1234; 31 May 1223; 1237; 1240
+wh-597: 1258; 20; 1261
+wh-598: 1260; 1502; 1313; 1341; 1359
+wh-599: 1336; 1370; 1405; 1404
+wh-600: 1206; 1359; 1380; 1441; 1783; 1822
 ```
