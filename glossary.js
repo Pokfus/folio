@@ -14181,7 +14181,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Traditional_Chinese_medicine": ["TCM"],
 "Bencao_Gangmu": ["Compendium of Materia Medica"],
 "Huangdi_Neijing": ["Neijing","Yellow Emperor’s Inner Classic"],
-"Tu_Youyou": ["Youyou Tu"]
+"Tu_Youyou": ["Youyou Tu"],
+"Philip_V_of_Macedon": ["Philip V"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

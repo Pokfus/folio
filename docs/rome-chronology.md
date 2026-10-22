@@ -276,6 +276,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Battle of the Metaurus | 207 BCE | `rm-228` |
 | Scipio's African campaign: landed / the camps burnt / the Great Plains | 204 BCE / 203 BCE / 203 BCE | `rm-229` |
 | Masinissa: joined Scipio / Syphax taken / died | 204 BCE / 203 BCE / 148 BCE ("ninety" is Polybius's word, not a printed birth year) | `rm-230` |
+| the Battle of Zama | 202 BCE (Dodge, Hallward, Lendering; the season is disputed: spring, early autumn, or 19 October from a reported eclipse that Dodge rejects) | `rm-231` |
+| the peace of 201 BCE | 201 BCE (Hallward dates the earlier draft of 5,000 talents to autumn 203 BCE) | `rm-232` |
+| Italy after Hannibal: Capua taken / Toynbee's *Hannibal's Legacy* | 211 BCE / 1965 | `rm-233` |
+| the Third Punic War | 149 – 146 BCE | `rm-234` |
+| the destruction of Carthage / the Gracchan colony attempted | 146 BCE / 122 BCE (Lendering) | `rm-235` |
+| the Conference of Naupactus / the Social War | 217 BCE / 220 – 217 BCE | `rm-236` |
+| the Illyrian Wars: first / second | 229 – 228 BCE / 219 BCE (Holleaux; Polybius prints none) | `rm-237` |
+| the First Macedonian War: Hannibal's pact / the Aetolian pact / peace of Phoenice | 214 – 205 BCE / 215 BCE / 212 or 211 BCE / 205 BCE | `rm-238` |
+| Philip V: reigned / Hannibal pact / the Second Macedonian War | 221 – 179 BCE / 215 BCE / 200 – 197 BCE | `rm-239`, `rm-240` |
+| the Aous battle | 198 BCE | `rm-240` |
 
 ## The middle and late Republic
 
@@ -515,4 +525,14 @@ rm-227: 208; 207
 rm-228: 207
 rm-229: 204; 203
 rm-230: 204; 203; 148
+rm-231: 202
+rm-232: 201
+rm-233: 211; 1965
+rm-234: 149; 146
+rm-235: 146; 122
+rm-236: 217; 220
+rm-237: 229; 228; 219
+rm-238: 214; 205; 215; 212; 211
+rm-239: 221; 179; 215; 200; 197
+rm-240: 200; 197; 198
 ```

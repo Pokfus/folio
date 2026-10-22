@@ -155,7 +155,7 @@ order unless the user says otherwise.
 | B21 | The Punic Wars (`rm-punic-wars`) | `rm-201`–`rm-210` | 10 | 128 | **done 2026-10-22** |
 | B22 | The Punic Wars (`rm-punic-wars`) | `rm-211`–`rm-220` | 10 | 115 | **done 2026-10-22** |
 | B23 | The Punic Wars (`rm-punic-wars`) | `rm-221`–`rm-230` | 10 | 113 | **done 2026-10-22** |
-| B24 | The Punic Wars (`rm-punic-wars`) / Rome and the Mediterranean (`rm-mediterranean`) | `rm-231`–`rm-240` | 10 | 120 | open |
+| B24 | The Punic Wars (`rm-punic-wars`) / Rome and the Mediterranean (`rm-mediterranean`) | `rm-231`–`rm-240` | 10 | 120 | **done 2026-10-22** |
 | B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | open |
 | B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | open |
 | B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | open |
@@ -500,6 +500,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-228` Battle of the Metaurus | Hannibal shown his brother's head, an 1818 engraving | wrong: an imagined scene staged indoors, where Livy has the head thrown before the outposts. **No locator: the site is uncertain** |
 | `rm-229` Scipio's African campaign | the ruins of Utica | wrong: the description says Scipio besieged it through the whole campaign, but the siege lasted about forty days and was abandoned |
 | `rm-230` Masinissa | a Numidian bronze catalogued as Masinissa's | partly wrong: "not a portrait from life" is unsourced |
+| `rm-231` battle of Zama | Motte's 1906 painting | ok: public domain, no text; the description already says it is a modern imagining. **No locator: the site is uncertain, so a pin would assert one** |
+| `rm-232` peace of 201 BCE | the circular military-harbour basin at Carthage | questionable: the description asserts the fleet moored there, which no source here says |
+| `rm-233` Italy after Hannibal | a Roman field grid near Padua | wrong: northern Italy, later than the war, and the description admits it |
+| `rm-234` Third Punic War | a drawn plan of Carthage "as besieged" | wrong: a drawing with burned-in labels; it shows the siege (`rm-235`) |
+| `rm-235` destruction of Carthage | the excavated Punic quarter on the Byrsa | weak: houses of the last decades, not the destruction; the description asserts the hill was levelled for a forum, which no source here checks |
+| `rm-236` Conference of Naupactus | the harbour of Naupactus on a c. 1935 postcard | weak: a place picture only |
+| `rm-237` Illyrian Wars | Risan and its bay | weak: no event of either war; the description names Polybius and says "inland" where the photo shows a coastal town |
+| `rm-238` First Macedonian War | an Aetolian League silver drachma | weak: one ally's coin for the war; the dating rests on the museum's attribution |
+| `rm-239` Philip V | a silver tetradrachm of Philip V | ok; the title's "about 220 BCE" comes from the file name |
+| `rm-240` Second Macedonian War | a modern map of the theatre | wrong: burned-in English labels and arrows; the glossary plate is German-labelled |
 
 ## Glossary candidates
 
@@ -1184,3 +1194,22 @@ Run as B22. Checks: `rm-audit.js --range=rm-221:rm-230` reads clean on eight car
 | `rm-230` Masinissa | 6 | 6 → 7 | **Polybius says "nine other sons", not "nine grown sons"**, and "ninety" is his word, not a printed year. Sophonisba is Livy's story, with Appian's variant and Gsell's caution. The old four Livy citations are now one. |
 
 **Read by eye.** *Confusability:* `rm-221`/`rm-222` are the revolt and the siege; `rm-223`/`rm-224` the campaigns and the man; `rm-225`/`rm-226` the city's capture and the set-piece battle; `rm-227`/`rm-228` the march and the battle; `rm-229`/`rm-230` the campaign and the king. *Legend:* every Livy set piece named above is told as Livy's. *Chronology:* the Ilipa year is split (206 or 207) and says whose each is. *Overlap:* no `gr-` or `wh-` card disagrees; `rm-223`'s picture is also on `gr-217`; `rm-271` gives 211 BCE for Syracuse's fall and should be reconciled with `rm-222` when it is reached.
+
+### B24 — `rm-231`–`rm-240`, the Punic Wars to the Macedonian Wars: Zama to the Second Macedonian War (2026-10-22)
+
+Run as B23. Checks: `rm-audit.js --range=rm-231:rm-240` reads clean on nine cards (`rm-235`'s two non-"Why" FAQs were reworded and the card re-applied); the rest is `L.missing` on `rm-231`. `check-questions`, `check-cards` and `check-citations --card` (0 mismatched on every card) pass; every citation URL answers 2xx except two DOIs whose publishers (Wiley, Chicago) answer 403 to a script and that Crossref confirms. From here the narrative source thins to Polybius's fragments, so the faults are **Livy's speeches and figures told as record** and **a year no source prints**: Polybius prints no BCE year anywhere, so every year on these lines is a modern author's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-231` battle of Zama | 8 | 9 → 8 | Nine chapters of one Polybius page are now Polybius, Livy and Appian with five moderns. **The year 202, the season (spring, early autumn or 19 October) and the site (Zama or Naraggara) are shown as unsettled**; the interview of Scipio and Hannibal is Polybius's report with Ihne's doubt. Polybius's casualties and Appian's differ; no army size is printed. |
+| `rm-232` peace of 201 BCE | 7 | 6 → 7 | **Livy's armistice price (25,000 pounds of silver) had been told as a peace term**; the terms are Polybius 15.18, Livy 30.37 and Appian 54, which differ (Appian gives 250 talents a year). Hallward dates the earlier 5,000-talent draft to autumn 203. Hannibal's speech is the author's composition. |
+| `rm-233` Italy after Hannibal | 7 | 5 → 10 | **The old card told the debate as settled** and printed 209 for the colonies' refusal (no source), 210 for a loan (a consular year converted) and a 218 – 201 war row. It is now the Toynbee thesis and its critics (Beloch–Brunt, Potter, Rosenstein, Launaro), with no depopulation asserted; Livy's census total is Livy's. Four sentences on debate, because the debate is the subject. |
+| `rm-234` Third Punic War | 8 | 8 → 9 | Polybius ×5 and no modern author are now Polybius, Appian ×2, Plutarch and five moderns. **The 58,000 army was Appian's figure; the "just war" maxim is one Polybius quotes from Demetrius.** Cato's fig is Plutarch's "it is said". Motive is a modern debate. |
+| `rm-235` destruction of Carthage | 8 | 7 → 8 | Seven Appian citations are now Appian ×2, Polybius, Strabo and four moderns. **The salting of Carthage is stated as a modern myth** (Ridley 1986; Drogula); the 700,000 and 300 cities are Strabo's; Appian's decree forbids living there but not going upon the ground. The counts leave the date line. |
+| `rm-236` Conference of Naupactus | 6 | 8 → 6 | Two questions carried 217 and are rewritten; Polybius's "Olympiad" row was not a BCE date. **Agelaus's speech is Polybius's version** (Walbank: "if we can believe"); Justin's storm cloud is Philip's pretext, not Agelaus's. |
+| `rm-237` Illyrian Wars | 6 | 7 → 6 | **Polybius's account of the envoy's death is his; Appian's differs and Holleaux doubts that Teuta ordered it.** The years 229, 228 and 219 are Holleaux's. The old question stated the killing as fact. |
+| `rm-238` First Macedonian War | 7 | 5 → 7 | **"Every gain of the Illyrian wars" is dropped: the treaty list in Polybius 7.9 omits Issa.** The Aetolian pact is "212 or 211"; the interception of Philip's envoys is Holleaux's account, not Livy's, and Holleaux judges Livy's terms a fabrication. |
+| `rm-239` Philip V | 7 | 6 → 8 | **Polybius dates the turn in Philip's character to the Messene affair, not to the war with Rome.** The "c. 2,000" statues and the unsourced Thermum year leave the date line; Polybius is sometimes admiring and sometimes hostile, said so. |
+| `rm-240` Second Macedonian War | 7 | 6 → 8 | **"All but six warships" is a sum nobody prints: Polybius 18.44 says five light vessels and the great ship.** Aemilius at Abydos is not clearly the ultimatum (Polybius has it go first to Nicanor at Athens; Mommsen and Holleaux disagree); the Aous and the Malian Gulf parley added. |
+
+**Read by eye.** *Confusability:* `rm-231`/`rm-232` are the battle and the peace; `rm-233`/`rm-234`/`rm-235` the countryside debate, the war and the end of the city; `rm-236`/`rm-237`/`rm-238` the conference, the Adriatic wars and the first war with Macedon; `rm-239`/`rm-240` the king and the second war. *Legend:* Cato's fig, Teuta's order and the Zama interview are each an author's. *Overlap:* `gr-792` says Apamea was "ten thousand talents over ten years", which no source read gives (see `rm-248`); `gr-851`/`gr-852` agree with `rm-239`/`rm-240`.
