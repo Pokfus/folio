@@ -529,6 +529,14 @@ Filled batch by batch, from the source each row names.
 | Chola dynasty: Rajaraja I / Kadaram raid / Tanjore record | 985 / c. 1025 / 1030 – 1031 CE | Venkayya; Tran and Nguyen (`wh-547`) |
 | Delhi Sultanate: sultanate / Iltutmish / Alauddin Khalji / Timur | 1206 – 1526 / 1211 – 1236 / 1296 – 1316 / 1398 – 1399 CE | Hambly (`wh-548`) |
 | Vijayanagara Empire: founded (traditional) / Talikota | c. 1336 / 1565 CE | Sewell; Piotter (`wh-549`; `wh-550` is `undatable`) |
+| Islam in India: Sind / second Tarain | 711 – 713 / 1192 CE | Lapidus; Datta (`wh-551`) |
+| Indo-Islamic architecture: mosque dated / Alai Darwaza | 1191 – 1196 / 1310 – 1311 CE (sources differ) | Khan and Bila (`wh-552`; `wh-553` is `undatable`) |
+| Srivijaya: earliest stones / Chola raid | 682 – 686 / 1025 CE | Alnoza; Kulke (`wh-554`) |
+| Majapahit: founded / once read as end | c. 1293 / 1478 CE | Hall; Tjahjono (`wh-555`) |
+| Khmer Empire: reported start / Jayavarman VII / conventional end | 802 / 1181 – 1218 / 1431 CE | Carter (`wh-556`) |
+| Angkor Wat: built / pilgrim texts | c. 1113 – 1150 / 1541 – 1747 CE | Univ. of Chicago DSAL; Carter (`wh-557`) |
+| Pagan Kingdom: usual dates / Thaton / king flees | 1044 – 1287 / 1057 / 1284 CE | Mezzino; Quaritch Wales (`wh-558`) |
+| Đại Việt: Đại Cồ Việt / named (annals) / Ming rule | 968 / 1054 / 1407 – 1428 CE (Bạch Đằng 938, kingship 939) | Ku; Đinh (`wh-559`; `wh-560` is `undatable`) |
 
 ## Chronology pins
 
@@ -1042,4 +1050,12 @@ wh-546: 606; 647; 643
 wh-547: 985; 1025; 1030; 1031
 wh-548: 1206; 1526; 1211; 1236; 1296; 1316; 1398; 1399
 wh-549: 1336; 1565
+wh-551: 711; 713; 1192
+wh-552: 1191; 1196; 1310; 1311
+wh-554: 682; 686; 1025
+wh-555: 1293; 1478
+wh-556: 802; 1181 – 1218; 1431
+wh-557: 1113; 1150; 1541; 1747
+wh-558: 1044; 1287; 1057; 1284
+wh-559: 968; 1054; 1407; 1428
 ```

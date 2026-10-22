@@ -169,7 +169,7 @@ in plan order unless the user says otherwise.
 | B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | **done 2026-10-21** |
 | B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | **done 2026-10-22** |
 | B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | **done 2026-10-22** |
-| B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | open |
+| B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | **done 2026-10-22** |
 | B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | open |
 | B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | open |
 | B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | open |
@@ -2131,6 +2131,30 @@ archive.org was unreachable to every agent, so the old Murdoch, Smith, Juzjani, 
 
 **Glossary.** Nine terms rewritten (*Metal movable type*, *Genji Monogatari*, *Samurai*, *Kamakura shogunate*, *Harsha*, *Chola dynasty*, *Delhi Sultanate*, *Vijayanagara Empire*, *Bhakti*); *Heian period* kept as it stood.
 
+### B56 — `wh-551`–`wh-560`, South and Southeast Asia (2026-10-22)
+
+Run as B55 (five agents cut off by the usage limit and resumed by id). Pictures skipped. Checks: `wh-audit.js --range=wh-551:wh-560` clean but for `L.missing` on `wh-552` until its locator
+was written on a retry (the first `add-locators` run was rate-limited); `check-cards` first flagged `wh-560` question 3 ("Oc Eo" read as a scholar's name; the place is now "a port in the Mekong delta"), then all pass;
+`check-citations --card` first reported `wh-551` (Cambridge prints 2010, Crossref dates the chapter 2000: now "2010; published online 2000") and `wh-558` (the 1971 issue Crossref dates 1972: now "1971, published 1972"),
+both now 0 mismatched; 6 of 71 distinct URLs were non-2xx. archive.org was unreachable to every agent. The Think-it-through markers on this batch were all after the full stop.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-551` Islam in India | 8 | 7 → 8 | **"Sind conquered 712" is one count of 711 – 713** (Lapidus; Arnold has 714); the Chachnama is a 13th-century Persian text claiming to translate an Arabic one, some read it as political thought; the Cheraman Perumal mosque is tradition only; Tarain 1191 and 1192; how far conquest, preaching and social advantage explain conversion is attributed by view. The old "zimmi terms" claim dropped. |
+| `wh-552` Indo-Islamic architecture | 7 | 5 → 7 | **"Never built an arch" was a Fergusson (1891) view stated as fact**; now attributed. The Quwwat-ul-Islam mosque is dated 1191 – 1196 and the Alai Darwaza 1310 – 1311, with whose figure is whose; the Taj Mahal row dropped (a Mughal building); Indo-Saracenic is a different, colonial style. New locator (the Qutb complex). |
+| `wh-553` Indian Ocean trade | 8 | 5 → 9 | **"Classical period 300 BCE – 400 CE" was one study's own definition and "14th century" a century alone**: `""` and `undatable`. The Hippalus story is the *Periplus*'s, Pliny's 550 million sesterces is his claim; the Cairo Geniza letters and Zheng He added; the "one ocean world" framing is carried by named authors, not stated. |
+| `wh-554` Srivijaya | 6 | 5 → 7 | **Yijing's "more than 1,000 priests" is from his *Record* of about 691 – 692, not the visit of 671.** The stones are 682 – 686 (Kedukan Bukit 682 or 23 April 683); the capital at Palembang is disputed (Muara Takus, Jambi); Sanfoqi = Srivijaya rests on convention; the "15th century" and 1178 rows dropped; the Chola raid of 1025. |
+| `wh-555` Majapahit | 6 | 5 → 7 | **"Chinese account 1416" and "Islam c. 1475" had no source.** The *Yuan shi*, the *Nagarakretagama* (1365) and the *Pararaton* (c. 1500, with Gajah Mada's oath) are attributed to their sources; the empire's reach and its end (1478 once read as the end; a Demak attack in 1519 by one account) are argued. |
+| `wh-556` Khmer Empire | 7 | 5 → 7 | **Jayavarman VII's "1162 – 1201" was wrong: 1181 – 1218.** 802 is a "reported start", from an inscription of the 11th century; the 700,000 – 900,000 population is Klassen's model; the droughts are the tree-ring study's; the Yuan envoy's account attributed. |
+| `wh-557` Angkor Wat | 8 | 5 → 8 | **"Largest religious monument", a 220 m moat and 18 – 20,000 figures had no source** (the moat is about 200 m). Built under Suryavarman II (reign from 1113, died about 1150); the astronomical reading is "one scholar's"; Buddhist monks tended it and pilgrims left texts 1541 – 1747, so it was never lost to Mouhot. |
+| `wh-558` Pagan Kingdom | 7 | 5 → 8 | **"The Mongols occupied Pagan in 1287" and a three-month siege had no source.** 1044 and 1287 are usual dates; 1057 is the chronicle's date for Thaton (whose remains are Hindu, not Buddhist); 1284 the annals' date for the king's flight; the Lokananda and Ananda dates dropped. |
+| `wh-559` Đại Việt | 6 | 5 → 7 | **"Independence 940" is 938 (the Bạch Đằng victory) and 939 (Ngô Quyền's kingship).** Đại Cồ Việt 968; Đại Việt named in 1054 by the annals, doubted by one Vietnamese historian; Ming rule 1407 – 1428; Toda's numismatic book and "Annam 502" dropped. The glossary's end year (1804) has no source and is left out. |
+| `wh-560` Indianisation | 6 | 5 → 6 | **A modern concept was treated as a process**: Coedès's word, criticised by Wolters, Mabbett and Vickery as casting the region as a passive recipient. `""` and `undatable`; the "earliest gold" row (a literary Suvarnabhumi) dropped; Oc Eo evidence kept. |
+
+**Read by eye.** *Article:* "the Pagan Kingdom", "the Khmer Empire", "the Indo-Islamic architecture" bare where a phrasing supplies none; "the Srivijaya" avoided; "Majapahit" and "Angkor Wat" bare with "the temple of _____"; "Islam in India" and "Indianisation" bare. *Confusability:* `wh-554`/`wh-555`/`wh-556` three states by their sources (inscriptions of Sumatra, the Pararaton, Zhou Daguan); `wh-556`/`wh-557` the state and its temple, lidar dropped from `wh-556`; `wh-553` against `wh-563`/`wh-564` the ocean's trade, spices and the ship; `wh-551`/`wh-552` the faith and its buildings. *Against other cards:* `in-` is empty, `cnh-` none contradicted; none edited.
+
+**Glossary.** Ten terms rewritten (*Islam in India*, *Indo-Islamic architecture*, *Indian Ocean trade*, *Srivijaya*, *Majapahit*, *Khmer Empire*, *Angkor Wat*, *Pagan Kingdom*, *Đại Việt*, *Indianisation*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2359,3 +2383,9 @@ pass once it answers. Filled batch by batch.
 | `wh-545` | a portrait of one man (identification disputed), not the regime |
 | `wh-549` | a stone chariot at Hampi; its description says the wheels turn (no source) |
 | `wh-541`–`wh-550` (others) | kept: judged from title and description only |
+| `wh-551` | the Bhambore foundations; its description says "earliest known mosque in the subcontinent" and ties the site to a conquest in 712 |
+| `wh-552` | a corbelled screen; its description says the masons "had never made a true arch" as fact |
+| `wh-554` | the Bukit Seguntang Buddha; "the best surviving sculpture" is unsourced |
+| `wh-559` | the north gate of the Hồ-dynasty citadel, one dynasty's building |
+| `wh-560` | Harihara; "within a few centuries of the first Indian forms" is unsourced |
+| `wh-553`, `wh-555`–`wh-558` | kept: judged from title and description only |
