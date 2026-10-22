@@ -8,8 +8,8 @@
    · THE NEIGHBOURS are the two before and the two after by start date, among the cards that carry the field.
    · A PERIOD is a bar wider than a dash; an EVENT is a dash; the card's own item is marked `self` and is
      not a button, while every neighbour is a `data-kin` button like the "Nearby" rail's.
-   · TWO DESIGNS: the rail (one axis, lanes) wide; the ledger (a spine, columns) on a phone — and in
-     neither does a name overlap another name.
+   · TWO DESIGNS: the rail (one axis, lanes) wide — the date behind the name on a desktop, under it on a
+     tablet (641 – 1024 px) — and the ledger (a spine, columns) on a phone; in none does a name overlap another.
        node .claude/test-card-timeline.js
    Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
    `mountCardTimelines` / `.claude/set-timeline.js` / the `.tl-` rules in styles.css. Not part of the site. */
@@ -78,7 +78,19 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("the Second World War is a period that runs past the window: its bar is clipped with an arrow",
     !!w && w.items[w.items.findIndex((i) => i.self)].period && w.items.find((i) => i.self).mark.w > 100, w && JSON.stringify(w.items.find((i) => i.self).mark));
 
-  console.log("\n3) on a phone, the ledger");
+  console.log("\n3) on a tablet, the rail with the date under the name");
+  const tb = await browser.newPage({ viewport: { width: 820, height: 1000 } });
+  tb.on("pageerror", (e) => errs.push(String(e))); tb.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
+  const tv = await open(tb, "ww2-004");
+  check("the same card is still the rail", !!tv && tv.laid && tv.axis && !tv.spine);
+  if (tv) {
+    check("...the same five items in the same order", tv.items.map((i) => i.id).join(" ") === "ww2-002 ww2-003 self ww2-017 ww2-009");
+    check("...each name is two lines tall: the date sits under it", tv.items.every((i) => i.box.h >= 26 && i.box.h < 44), tv.items.map((i) => Math.round(i.box.h)).join(" "));
+    check("...no two names overlap", tv.overlaps === 0, String(tv.overlaps));
+    check("...nothing runs past the box", tv.wider);
+  }
+
+  console.log("\n4) on a phone, the ledger");
   const ph = await browser.newPage({ viewport: { width: 390, height: 800 } });
   ph.on("pageerror", (e) => errs.push(String(e))); ph.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
   const p = await open(ph, "ww2-004");

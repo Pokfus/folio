@@ -5667,7 +5667,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `war` (`--force` overrides and says so). The neighbours are the two before and the two after among the field-
   carrying cards of `cardCollectionRoot`, by start date then id (`cardTimelineItems`); a card with no neighbour
   draws nothing. Two designs, chosen by the 640 px phone query at layout: the RAIL (one axis, marks packed into
-  lanes, each name on one line with its date behind it) and the LEDGER (time down a spine, a bar a column, names
+  lanes, each name with its date behind it on a desktop and UNDER it on a tablet, 641 – 1024 px, the `.two` class the layout sets) and the LEDGER (time down a spine, a bar a column, names
   pushed apart with leader lines) — six were mocked in `docs/timeline-designs.html` and these two chosen. The
   window is the span of the five starts and the card's own end; a neighbour's end widens it only by less than the
   spread of the five starts, else its bar runs off the edge with an arrowhead. The markup is a plain `<ol>` of the

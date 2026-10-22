@@ -36434,11 +36434,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     items.forEach((i) => { i.li.style.cssText = ""; i.lab.style.cssText = ""; i.mark.className = "tl-mark"; });
     const W = ol.clientWidth;
     if (!W || !items.length) return;
-    const phone = matchMedia("(max-width:640px)").matches;
+    const phone = matchMedia("(max-width:640px)").matches, tablet = !phone && matchMedia("(max-width:1024px)").matches;
     const win = tlWindow(items), clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    ol.classList.toggle("two", tablet);   // on a tablet a name's date goes on the line below it (on request); a desktop keeps it behind
     if (!phone) {
       /* THE RAIL: labels measured first, then packed into lanes with their marks; lane 0 is nearest the axis */
-      const X = (t) => (t - win.a) / (win.b - win.a) * W, laneH = 34, axisH = 26;
+      const X = (t) => (t - win.a) / (win.b - win.a) * W, laneH = tablet ? 50 : 34, axisH = 26;
       items.forEach((i) => {
         i.x0 = X(i.s); i.clip = i.e != null && X(i.e) > W + 1; i.x1 = i.e == null ? i.x0 : Math.min(X(i.e), W);
         i.lw = Math.min(W, i.lab.scrollWidth + 2); i.lx = clamp(i.x0, 0, W - i.lw);   // scrollWidth: the name's full width even where its own ellipsis rule is clipping it

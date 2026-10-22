@@ -9391,6 +9391,10 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
 .tl-k-self{width:16px; height:6px; border-radius:3px; background:var(--zh);}
 .tl-k-bar{width:16px; height:6px; border-radius:3px; background:var(--indigo);}
 .tl-k-dash{width:2px; height:12px; background:var(--ink-soft);}
+/* the tablet (641 – 1024 px, set by the layout as `.two`) keeps the rail but stacks each name over its date */
+.tl-list.laid.two .tl-lab{line-height:1.25;}
+.tl-list.laid.two .tl-t{display:block; overflow:hidden; text-overflow:ellipsis;}
+.tl-list.laid.two .tl-w{display:block; margin:1px 0 0;}
 @media (max-width:640px){
   .tl-list.laid .tl-lab{line-height:1.25;}
   .tl-list.laid .tl-t{display:block; overflow:hidden; text-overflow:ellipsis;}
