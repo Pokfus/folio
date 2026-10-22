@@ -168,7 +168,7 @@ in plan order unless the user says otherwise.
 | B52 | Medieval Europe (`wh-medieval-europe`) | `wh-511`–`wh-520` | 10 | 89 | **done 2026-10-21** |
 | B53 | East Asia (`wh-east-asia`) | `wh-521`–`wh-530` | 10 | 106 | **done 2026-10-21** |
 | B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | **done 2026-10-22** |
-| B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | open |
+| B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | **done 2026-10-22** |
 | B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | open |
 | B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | open |
 | B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | open |
@@ -2107,6 +2107,30 @@ sat before the full stop; moved after it (`wh-519` re-applied).
 
 **Glossary.** Ten terms rewritten (*Compass*, *Movable type*, *Neo-Confucianism*, *Porcelain*, *Yuan dynasty*, *Marco Polo*, *Mongol invasions of Japan*, *Muromachi period*, *Zen*, *Goryeo*).
 
+### B55 — `wh-541`–`wh-550`, East Asia and South and Southeast Asia (2026-10-22)
+
+Run as B54, with all ten agents cut off by the usage limit in turn and resumed by id; a second agent rebuilt `wh-547` and `wh-548` from scratch because the first left no usable pages. Pictures skipped.
+Checks: `wh-audit.js --range=wh-541:wh-550` all ten clean; `check-cards` all pass; `check-citations --card` 0 mismatched on eight and one each on `wh-541` and `wh-547`, both Crossref's
+given-name-first against the works' family-name-first ("Jae-jeong Lee", "Ky Phuong Tran"), so the citations follow the works; 4 of 74 distinct URLs were non-2xx (the IEP's Ramanuja page answers 500 to the bot but opened for the agent).
+archive.org was unreachable to every agent, so the old Murdoch, Smith, Juzjani, Barani and similar sources are replaced or the claim dropped.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-541` Korean metal movable type | 7 | 5 → 7 | **A Joseon king's 1403 type had been made "the first".** It is a Goryeo invention: 1234 is the earliest record (the *Sangjeong yemun*, a report, not a surviving book); the *Jikji* (Cheongju, 1377) is the oldest surviving, and only its second volume is known. The Joseon dates (1403, the 1434 fount) follow; the Gutenberg link is not claimed. |
+| `wh-542` Heian period | 8 | 5 → 8 | **"Kamakura 1192" was another card's row.** The period runs 794 – 1185 and ends with the Genpei War (1180 – 1185); 1192 and 1180 are alternative endings. The Fujiwara regency, the end of the missions to China (838, 894) with the "turned inward" reading hedged, kana, Tendai and Shingon, and the warrior side set against the "peaceful" label. |
+| `wh-543` Genji Monogatari | 8 | 5 → 9 | **"Written c. 1004" had no source.** The date line is the 1008 diary (it reads a passage of the tale) and the 1020 *Sarashina* diary's copy. Authorship, order, "the first novel" and the later scroll are attributed or hedged; the two text lines (Teika, Kawachi) are stated. |
+| `wh-544` samurai | 9 | 5 → 9 | **A tax-exemption thesis and a "streets of Kyoto" claim had no source.** *Saburau* 'to serve': the word named palace attendants before it named the class; the levies ended in 792; the Gempei War; bushidō as a later construction (Nitobe attributed); abolition in 1871, swords banned 1876, Satsuma 1877. |
+| `wh-545` Kamakura shogunate | 7 | 5 → 7 | **1185 was stated as the founding year and sat in a question.** The line is 1180 – 1192 with whose date each is in prose (Yoritomo's base 1180, the appointments of constables and stewards 1185, *shōgun* 1192); Jōkyū 1221, Jōei Code 1232, the end in 1333; the cost of the invasions argued, not stated. |
+| `wh-546` Harsha | 7 | 5 → 7 | **Troop figures, the Prayāga distribution and his age were unsourced.** The Madhuban plate on the brother's death; the Aihole poem read as a rival's praise (it names the Vindhya, not the Narmada, and carries no battle date); the Harsha era (year 8 = 614 – 15); his faith read from sources that disagree. |
+| `wh-547` Chola dynasty | 7 | 5 → 7 | **"Imperial period 985 – 1279" and "overseas campaign 1025 – 1027" had no firm source.** Named in Ashoka's edicts, then all but forgotten; the medieval revival with Vijayalaya (the 9th century by one editor's reckoning, no firm year); the Kadaram raid c. 1025 placed at Kedah, its motive marked as debated; the Tanjore record of 1030 – 31. |
+| `wh-548` Delhi Sultanate | 7 | 5 → 7 | **Barani, Ibn Battuta and Afif claims were stated flat**, and "five dynasties" had no source that counts them. Aibak was only a *malik* in 1206; Razia; Alauddin Khalji 1296 – 1316 replaces "price regulations 1290s – 1310s", with Barani attributed against other contemporaries' motives; "theocracy" attributed to one study. Sources 5 and 6 are weak (course slides, a student journal). |
+| `wh-549` Vijayanagara Empire | 7 | 5 → 7 | **The foundation stories were stated as fact.** c. 1336 is traditional; the Vidyāraṇya and the Delhi-captive stories are Sewell's rival tales; Razzaq's and Paes's accounts are visitors' reports; the "Hindu bulwark" frame set against sultans who fought one another; Talikota (1565) did not end the state (a rump at Penukonda). Three modern sources are read from abstracts. |
+| `wh-550` bhakti | 7 | 5 → 7 | **"Northern poets 15th – 16th centuries" was a century alone.** `""` and `undatable`; "the Bhakti movement" is attributed to Hawley and others as a modern gathering; Ramanuja is 1017 – 1137 by tradition, 1077 – 1157 recently; the unsourced "travelling between shrines" dropped. |
+
+**Read by eye.** *Article:* "the Heian period", "the Kamakura shogunate", "the Chola dynasty", "the Delhi Sultanate", "the Vijayanagara Empire" (the three phrasings of `wh-549` were missing "the" before the blank and were mended), "the samurai"; "Harsha", "bhakti", "Genji Monogatari" bare. *Confusability:* `wh-542`/`wh-544`/`wh-545` the age, the warriors and the first warrior government, the Gempei War on `wh-542` and `wh-544` only as a boundary; `wh-543` against `wh-542` the tale only; `wh-547`/`wh-548`/`wh-549` three southern or northern states told apart by Tanjavur, Delhi and Hampi; `wh-541` against `wh-532` Korea's type against Bi Sheng's. *Against other cards:* `jp-` has no card for these (the Japan deck stops at `jp-092`); `in-` is empty; `cnh-` none contradicted; none edited.
+
+**Glossary.** Nine terms rewritten (*Metal movable type*, *Genji Monogatari*, *Samurai*, *Kamakura shogunate*, *Harsha*, *Chola dynasty*, *Delhi Sultanate*, *Vijayanagara Empire*, *Bhakti*); *Heian period* kept as it stood.
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2331,3 +2355,7 @@ pass once it answers. Filled batch by batch.
 | `wh-536` | a generic caravan from the Catalan Atlas, not Marco Polo |
 | `wh-538` | Kinkaku-ji: description says the third Ashikaga shogun "built" it; he took it over |
 | `wh-533`, `wh-535`, `wh-537`, `wh-539`, `wh-540` | kept: judged from title and description only (`wh-535` shows the founder, not the dynasty) |
+| `wh-541` | a typeset forme in a case; its description says "reproducing a work of 1447" and names Song Hyon's arrangement, neither sourced |
+| `wh-545` | a portrait of one man (identification disputed), not the regime |
+| `wh-549` | a stone chariot at Hampi; its description says the wheels turn (no source) |
+| `wh-541`–`wh-550` (others) | kept: judged from title and description only |

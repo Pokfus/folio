@@ -520,6 +520,15 @@ Filled batch by batch, from the source each row names.
 | Mongol invasions of Japan: letter dated / reached / fleets | 1266 / 1268 / 1274 and 1281 | Chase; Delgado; Ikeda (`wh-537`) |
 | Muromachi period: period / courts reunited / Ōnin War | 1338 – 1573 / 1392 / 1467 – 1477 | Conlan; Segal (`wh-538`; `wh-539` is `undatable`) |
 | Goryeo: kingdom / Gaegyeong / peninsula united | 918 – 1392 / 919 / 936 CE | Heo; Shin; Song (`wh-540`) |
+| metal movable type: earliest record / oldest surviving / Joseon foundry / Gabin fount | 1234 / 1377 / 1403 / 1434 | Lee Jae-jeong; BnF; Chon (`wh-541`) |
+| Heian period: capital moved / period / Genpei War | 794 / 794 – 1185 / 1180 – 1185 CE | Princeton University Art Museum; Asia for Educators (`wh-542`) |
+| Genji Monogatari: diary covers / copy received | 1008 / 1020 CE | Tyler; McCormick (`wh-543`) |
+| samurai: levies ended / Gempei War / swords banned | 792 / 1180 – 1185 / 1876 CE | Friday; Culeddu; Yamada (`wh-544`) |
+| Kamakura shogunate: founded (by whose count) / Jōkyū / Jōei Code / ended | 1180 – 1192 / 1221 / 1232 / 1333 CE | Kamakura Citizen Net; Brinkley (`wh-545`) |
+| Harsha: reigned / Kanauj assembly | 606 – 647 / 643 CE | Lee (`wh-546`) |
+| Chola dynasty: Rajaraja I / Kadaram raid / Tanjore record | 985 / c. 1025 / 1030 – 1031 CE | Venkayya; Tran and Nguyen (`wh-547`) |
+| Delhi Sultanate: sultanate / Iltutmish / Alauddin Khalji / Timur | 1206 – 1526 / 1211 – 1236 / 1296 – 1316 / 1398 – 1399 CE | Hambly (`wh-548`) |
+| Vijayanagara Empire: founded (traditional) / Talikota | c. 1336 / 1565 CE | Sewell; Piotter (`wh-549`; `wh-550` is `undatable`) |
 
 ## Chronology pins
 
@@ -1024,4 +1033,13 @@ wh-536: 1254; 1271; 1295; 1298; 1324
 wh-537: 1266; 1268; 1274; 1281
 wh-538: 1338; 1573; 1392; 1467; 1477
 wh-540: 918; 1392; 919; 936
+wh-541: 1234; 1377; 1403; 1434
+wh-542: 794; 1185; 1180
+wh-543: 1008; 1020
+wh-544: 792; 1180; 1185; 1876
+wh-545: 1180; 1192; 1221; 1232; 1333
+wh-546: 606; 647; 643
+wh-547: 985; 1025; 1030; 1031
+wh-548: 1206; 1526; 1211; 1236; 1296; 1316; 1398; 1399
+wh-549: 1336; 1565
 ```
