@@ -6551,7 +6551,16 @@ window.GLOSSARY = {
 "Acupuncture": "",
 "Bencao_Gangmu": "",
 "Huangdi_Neijing": "",
-"Tu_Youyou": ""
+"Tu_Youyou": "",
+"East_Africa": "",
+"Amiens": "",
+"Gabriel_de_Mortillet": "",
+"Kokiselei": "",
+"West_Turkana": "",
+"Konso": "",
+"Movius_Line": "",
+"South_Asia": "",
+"Tektite": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10015,7 +10024,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Fan_Shengzhi_shu": "1st century BCE",
 "Bencao_Gangmu": "1596",
 "Huangdi_Neijing": "c. 100 – 1 BCE",
-"Tu_Youyou": "b. 1930"
+"Tu_Youyou": "b. 1930",
+"Gabriel_de_Mortillet": "1821–1898",
+"Kokiselei": "c. 1.76 Mya",
+"Konso": "Acheulean from c. 1.75 Mya"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14181,7 +14193,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Traditional_Chinese_medicine": ["TCM"],
 "Bencao_Gangmu": ["Compendium of Materia Medica"],
 "Huangdi_Neijing": ["Neijing","Yellow Emperor’s Inner Classic"],
-"Tu_Youyou": ["Youyou Tu"]
+"Tu_Youyou": ["Youyou Tu"],
+"East_Africa": ["Eastern Africa"],
+"Gabriel_de_Mortillet": ["Mortillet","de Mortillet"],
+"Konso": ["Konso-Gardula","Konso Formation"],
+"Movius_Line": ["Movius Divide"],
+"South_Asia": ["Southern Asia","South Asian","South Asians"],
+"Tektite": ["Muong Nong tektite"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20858,7 +20876,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Acupuncture": ["practice","medicine","science","china"],
 "Bencao_Gangmu": ["text","medicine","science","china","ming"],
 "Huangdi_Neijing": ["text","medicine","science","literature","china","han dynasty"],
-"Tu_Youyou": ["person","science","medicine","china","nobel prize"]
+"Tu_Youyou": ["person","science","medicine","china","nobel prize"],
+"East_Africa": ["place","geography","history","africa"],
+"Amiens": ["place","city","archaeology","prehistory","france"],
+"Gabriel_de_Mortillet": ["person","archaeology","prehistory","france"],
+"Kokiselei": ["place","archaeology","prehistory","kenya"],
+"West_Turkana": ["place","archaeology","prehistory","kenya"],
+"Konso": ["place","archaeology","prehistory","ethiopia"],
+"Movius_Line": ["concept","archaeology","prehistory","asia"],
+"South_Asia": ["place","geography","history","asia"],
+"Tektite": ["object","geology","science","impact"]
 });
 
 /* ============================================================================
