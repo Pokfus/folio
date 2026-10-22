@@ -259,6 +259,13 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Saguntum: besieged / retaken by Rome | 219 BCE (Polybius's eight months; Livy gives it only as "some writers") / 212 BCE (Hallward) | `rm-208` |
 | the Second Punic War | 218 – 201 BCE (the siege of Saguntum 219 BCE) | `rm-209` |
 | Hannibal: born / to Spain / exiled / died | c. 247 BCE / 237 BCE / 195 BCE / 183 – 181 BCE (Atticus 183, Polybius 182, Sulpicius Blitho 181, in Nepos 13) | `rm-210` |
+| Hannibal's crossing of the Alps | 218 BCE (Polybius prints no year; Berti and Vollrath, Hunt and Bainbridge and Cracolici do) | `rm-211` |
+| war elephants: first met by Rome at Heraclea / Raphia / Zama / Thapsus | 280 BCE / 217 BCE / 202 BCE / 46 BCE | `rm-212` |
+| the Battle of the Ticinus / the Trebia | 218 BCE (Dodge: mid-November) / 218 BCE (Dodge: December; Polybius gives the winter solstice) | `rm-213`, `rm-214` |
+| the Battle of Lake Trasimene | 217 BCE (no ancient source gives the day) | `rm-215` |
+| Quintus Fabius Maximus: first consul / dictator / died | 233 BCE / 217 BCE / 203 BCE (Feig Vishnia) | `rm-216` |
+| the Fabian strategy / the Fabian Society founded | 217 BCE (the dictatorship) / 1884 | `rm-217` |
+| the Battle of Cannae / Rome's response | 216 BCE (Polybius prints no day; a calendar day is a modern deduction and not printed) | `rm-218`, `rm-220` |
 
 ## The middle and late Republic
 
@@ -479,4 +486,13 @@ rm-207: 226; 218
 rm-208: 219; 212
 rm-209: 218; 201; 219
 rm-210: 247; 237; 195; 183; 181
+rm-211: 218
+rm-212: 280; 217; 202; 46
+rm-213: 218
+rm-214: 218
+rm-215: 217
+rm-216: 233; 217; 203
+rm-217: 217; 1884
+rm-218: 216
+rm-220: 216
 ```
