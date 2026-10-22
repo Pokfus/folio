@@ -7426,7 +7426,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Achaean_War": "146 BCE",
 "Sack_of_Corinth": "146 BCE",
 "Bequest_of_Attalus_III": "133 BCE",
-"Revolt_of_Aristonicus": "133–130 BCE",
+"Revolt_of_Aristonicus": "133–129 BCE",
 "Celtiberian_Wars": "181–133 BCE",
 "Lusitanian_War": "155–150 BCE",
 "Viriathus": "died c. 140 BCE",
@@ -10015,7 +10015,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Fan_Shengzhi_shu": "1st century BCE",
 "Bencao_Gangmu": "1596",
 "Huangdi_Neijing": "c. 100 – 1 BCE",
-"Tu_Youyou": "b. 1930"
+"Tu_Youyou": "b. 1930",
+"Lucius_Aemilius_Paullus_Macedonicus": "168 BCE",
+"Province_of_Macedonia": "148 BCE",
+"Province_of_Asia": "c. 129 – 126 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

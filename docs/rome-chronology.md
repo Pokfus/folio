@@ -294,6 +294,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Battle of Magnesia | 190 BCE (Shuckburgh) or 189 BCE (Holleaux: probably January) | `rm-247` |
 | the Third Macedonian War | 171 – 168 BCE | `rm-249` |
 | Perseus of Macedon: reigned | 179 – 168 BCE | `rm-250` |
+| the Battle of Pydna | 22 June 168 BCE (a modern conversion via the eclipse the night before; Livy gives the Roman date) | `rm-251` |
+| Aemilius Paullus: consul / triumph / censor / died | 182 BCE and 168 BCE / 167 BCE / 164 BCE / 160 BCE (the last two from the Loeb translator's footnotes, said so on the card) | `rm-252` |
+| the settlement of Macedonia / the mines reopened | 167 BCE (the modern year; no ancient source prints one) / 158 BCE | `rm-253` |
+| the Day of Eleusis | 168 BCE (Benecke, Bevan; no ancient author prints it) | `rm-254` |
+| the Achaean War / the sack of Corinth | 146 BCE (no year given for Caesar's colony: sources give 46 and 44 BCE) | `rm-255`, `rm-256` |
+| the province of Macedonia: organised / the Andriscus rising | 148 BCE (the Macedonian era; Mommsen puts the organisation two years after the victory) / 149 BCE | `rm-257` |
+| the province of Asia: organised / the tax law / Phrygia added | c. 129 – 126 BCE / 123 BCE (some argue the companies reached Asia only about 100 BCE) / 116 BCE | `rm-258` |
+| the bequest of Attalus III: died / reigned / envoys sent to Rome | 133 BCE / 138 – 133 BCE / 132 BCE | `rm-259` |
+| the revolt of Aristonicus: began / Crassus killed / Aquillius / his triumph | 133 or 132 BCE / 130 BCE (not 131, the year he was consul) / 129 BCE / 126 BCE | `rm-260` |
 
 ## The middle and late Republic
 
@@ -553,4 +562,14 @@ rm-247: 190; 189
 rm-248: 188
 rm-249: 171; 168
 rm-250: 179; 168
+rm-251: 168
+rm-252: 182; 168; 167; 164; 160
+rm-253: 167; 158
+rm-254: 168
+rm-255: 146
+rm-256: 146
+rm-257: 148; 149
+rm-258: 129; 126; 123; 116
+rm-259: 133; 138; 132
+rm-260: 133; 132; 130; 129; 126
 ```

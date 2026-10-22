@@ -157,7 +157,7 @@ order unless the user says otherwise.
 | B23 | The Punic Wars (`rm-punic-wars`) | `rm-221`–`rm-230` | 10 | 113 | **done 2026-10-22** |
 | B24 | The Punic Wars (`rm-punic-wars`) / Rome and the Mediterranean (`rm-mediterranean`) | `rm-231`–`rm-240` | 10 | 120 | **done 2026-10-22** |
 | B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | **done 2026-10-22** |
-| B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | open |
+| B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | **done 2026-10-22** |
 | B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | open |
 | B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | open |
 | B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | open |
@@ -520,6 +520,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-248` Treaty of Apamea | a modern map of the settlement | wrong: burned-in English labels; the glossary's is shared with the Anatolia entry |
 | `rm-249` Third Macedonian War | a Finnish-language map | wrong: burned-in Finnish labels; the description editorialises about Livy |
 | `rm-250` Perseus | a silver tetradrachm of Perseus | ok in kind; the description names Polybius and says what the coins paid for |
+| `rm-251` Battle of Pydna | a museum diorama of the battle | ok-ish: a modern model that the description says makes the phalanx a solid block; a Delphi frieze photograph is on `gr-861`. **No locator: Pydna is wanted** |
+| `rm-252` Lucius Aemilius Paullus | the Delphi monument frieze in a 19th-century line drawing | wrong: a drawing where photographs exist, and it shows the battle, not the man |
+| `rm-253` settlement of Macedonia | a tetradrachm of the first district, struck at Amphipolis | weak, not wrong: the museum dates the type about 158 – 146 BCE, after the settlement |
+| `rm-254` Day of Eleusis | Andriessen's pen-and-wash drawing of Laenas's circle | weak: an imagining nearly two thousand years later, and the description names the artist |
+| `rm-255` Achaean War | the Kleitor relief "thought to show Polybius" | wrong: a plaster cast of a relief with a conjectural subject; neither war nor place |
+| `rm-256` sack of Corinth | the archaic Temple of Apollo with Acrocorinth | acceptable but weak, and also on `wh-349` (`I.duplicate`); the description says nothing in it is of the sack |
+| `rm-257` province of Macedonia | paving of the Egnatian Way at Philippi | weak: one road, not the province. **No locator: a province needs a hand-drawn shape** |
+| `rm-258` province of Asia | the acropolis of Pergamum | wrong: one city; the description names Strabo. **No locator: a province needs a hand-drawn shape** |
+| `rm-259` bequest of Attalus III | the Great Altar re-erected in Berlin | weak: the altar is Eumenes II's, and the description admits much of it is modern masonry |
+| `rm-260` revolt of Aristonicus | the colonnaded street at Ephesus | weak: a Roman-era street for a city that fought the revolt; the description admits it post-dates it |
 
 ## Glossary candidates
 
@@ -1242,3 +1252,22 @@ Run as B24. Checks: `rm-audit.js --range=rm-241:rm-250` reads clean on eight car
 | `rm-250` Perseus | 6 | 7 → 8 | The old Polybius question garbled 29.9; **the forged letter in Flamininus's name is Livy's story, and the forger is Livy's, not Polybius's**; the "Alba from 167" row is dropped. Plutarch gives two ways he might have died (starved or kept awake). |
 
 **Read by eye.** *Confusability:* `rm-241`/`rm-242` are the battle and the man; `rm-243`/`rm-244` the slogan and the king; `rm-245`–`rm-248` war, pass, plain and treaty; `rm-249`/`rm-250` the war and the king. *Legend:* the Ephesus talk and the forged letter are each an author's. *Overlap:* `gr-792` says Apamea was "ten thousand talents over ten years", which no source read gives; `gr-793` says Antiochus "took Alexandria" and starts that war in 170, which `rm-254` does not bear out; `rm-245`/`rm-248` agree with the talents as set out here.
+
+### B26 — `rm-251`–`rm-260`, Rome and the Mediterranean: Pydna to the revolt of Aristonicus (2026-10-22)
+
+Run as B25. Checks: `rm-audit.js --range=rm-251:rm-260` reads clean on five cards; the rest are `L.missing` on `rm-251`, `rm-257` and `rm-258` (a battle and two provinces), `I.duplicate` on `rm-256` (with `wh-349`) and `Q.sibling` on `rm-259` (a phrasing shares half its content words with one of `rm-281`'s, which is rewritten in B29 and must not reuse Attalus's money). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx (one archive.org mirror of Mommsen answered 500 once and 200 on a second try). The ancient narrative is now Livy and the fragments of Polybius, so **the faults are a later date or a story given as record**.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-251` Battle of Pydna | 7 | 5 → 8 | **The old date line printed Livy's casualties as rows, including an "11,000 prisoners" sum Livy never prints**; it is now one day, 22 June 168 BCE, a modern conversion via the eclipse. Polybius's phalanx-against-legion analysis added; the sources' gaps (Livy breaks off) said. The Paelignian standard story is "in one account". |
+| `rm-252` Lucius Aemilius Paullus | 6 | 5 → 6 | **The censor and death years (164, 160) come only from the Loeb translator's footnotes, and the card says so.** The old Epirus question had Paullus "promising" to withdraw garrisons where Livy has a ruse; the sons question had him say he "had none" left, where Plutarch's speech says he had lost his children. Livy and Plutarch give opposite orders for the boys' deaths. |
+| `rm-253` settlement of Macedonia | 6 | 5 → 6 | **"Trade across the boundaries" was wrong: Livy 45.29 forbids intermarriage and buying land or houses across district borders.** The date line is 167 (the modern year; no ancient source prints one) and 158 (mines reopened). The gold and silver mines closed, the iron and copper stayed open at half the royalty. |
+| `rm-254` Day of Eleusis | 6 | 5 → 8 | **The merged telling is separated by author**: Polybius has the vine stick and the copy of the decree, Livy the tablet and the wand, Diodorus follows Polybius, Appian says only "think about it here"; **Eleusis is not in Polybius's surviving text, which has Pelusium.** Date line 168 only. `gr-793` says Antiochus "took Alexandria" and puts that war in 170; this card prints neither. |
+| `rm-255` Achaean War | 7 | 9 → 8 | **"Polybius in Africa with Scipio" is Orosius's claim, not Polybius's**, and is dropped. Polybius was an Achaean who despised the war party and later helped settle the cities; his account survives in pieces. The settlement's ban on property in other states is Pausanias's. |
+| `rm-256` sack of Corinth | 7 | 5 → 8 | **"Polybius was present" is Strabo's report; "deserted" is set beside Lendering's "not completely deserted"**; Mummius's warning to the shippers is Velleius's. No year is printed for Caesar's colony (46 and 44 are both given). The corrected glossary entry is shared with `gr-864`, which is not edited. |
+| `rm-257` province of Macedonia | 6 | 8 → 8 | **"Put down 147 BCE" came from Lendering's bracketed margin year, and "about 860 km" is a figure no source gives.** The line is organised 148 (the Macedonian era) and the uprising 149; Mommsen's two years later and the dispute over the Egnatian Way's builder are hedged. |
+| `rm-258` province of Asia | 7 | 7 → 7 | Strabo ×3 and Cicero ×4 are now three ancient and four modern sources. **The tax law is 123 for some, with the companies reaching Asia only about 100 BCE for others**; Phrygia was given to Mithridates V and added in 116. Cicero's letter to Quintus is Cicero's argument. |
+| `rm-259` bequest of Attalus III | 7 | 6 → 8 | **Justin's gossip about poisons and bronze-casting was told as fact, and the will as a gift of the "whole kingdom"**; the debate is now stated (kingdom or property; whether Pergamum was freed; Sallust's "forgery"). Rome's slowness is Kallet-Marx's view against Last's "accepted without hesitation". |
+| `rm-260` revolt of Aristonicus | 6 | 5 → 6 | **Crassus was killed in 130, not 131, the year he was consul**; the start is 133 or 132. The capture year is dropped because no source prints it. The modern doubt that it was a slave revolt is stated; Aristonicus's death is Strabo's, Last's and Mommsen's separately. |
+
+**Read by eye.** *Confusability:* `rm-251`/`rm-252` are the battle and the man; `rm-253`/`rm-254` the settlement and the circle; `rm-255`/`rm-256` the war and the sack; `rm-257`/`rm-258` the two provinces; `rm-259`/`rm-260` the will and the revolt, with the Eudemus and Blossius clues kept apart. *Legend:* the vine stick, the Paelignian standard, the poison garden and the "Heliopolitae" are each an author's. *Overlap:* `gr-189` and `gr-864` differ slightly on Corinth (details in the drafts); `gr-861` has a Pydna relief photograph; `gr-793` as above.
