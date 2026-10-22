@@ -9531,6 +9531,10 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-decks .active-deck.dk-att{padding-top:4px; padding-bottom:4px; min-height:calc(34px * var(--fs) + 10px);}   /* the language row's: its 34px chevron and the padding */
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, .review-group .active-deck.dk-coll, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.dk-coll{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
+/* A COLLECTION'S SIGNPOST ROW IS THE SAME HEIGHT AS A COLLECTION'S ROW (Oct 2026, on request: two subdecks added from China and
+   its header stood 16px taller than the other collections). `.active-deck.context` asks for 7px of padding, but the plain row's
+   12px outranks it in this list, so the header took the full height beside collection rows that take the 4px above. */
+.review-group .active-decks .active-deck.context{padding-top:4px; padding-bottom:4px; min-height:0;}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
 .review-group .active-deck > .dk-grip{z-index:2;}
 /* THE ICON AND THE GRIP STAND ABOVE THE TITLE'S BLOCK (Oct 2026, on a bug report: the deck's icon vanished once any
