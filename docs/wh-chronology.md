@@ -609,6 +609,22 @@ Filled batch by batch, from the source each row names.
 | Witch trials: whole period (one historian's) / Great Hunt | c. 1450 – 1750 / 1560 – 1630 CE | Leeson and Russ (`wh-648`) |
 | Scientific Revolution: conventional frame | 1543 – 1687 CE | Harvard Library (`wh-649`) |
 | Copernicus: born / died / book printed / on the Index | 19 February 1473 / 24 May 1543 / 1543 / 1616 – 1835 CE | Stanford Encyclopedia (`wh-650`; 1835 rests on that article alone) |
+| Galileo: lived / *Sidereus Nuncius* / admonished / condemned | 15 February 1564 – 8 January 1642 / March 1610 / 26 February 1616 / 22 June 1633 CE | Stanford Encyclopedia; Museo Galileo (`wh-651`) |
+| Kepler: lived (Julian birth) / *Astronomia nova* / *Harmonice mundi* / Rudolphine Tables | 27 December 1571 – 15 November 1630 / 1609 / 1619 / 1627 CE | MacTutor; Kepler Commission (`wh-652`) |
+| Newton: born / Lucasian chair / *Principia* / died (Old Style / New Style) | 25 December 1642 / 4 January 1643; October 1669; 1687; 20 March / 31 March 1727 CE | Smith (Stanford Encyclopedia); the Newton Project; Stukeley's memoir; Westfall (`wh-653`; `wh-654`, `wh-656`, `wh-658` are `undatable`) |
+| Royal Society: first meeting / first charter / second charter | 28 November 1660 / 15 July 1662 / 1663 CE | Royal Society; St Andrews Transactions project (`wh-655`) |
+| Henry the Navigator: lived / Ceuta / Bojador passed / Lagos captives | 1394 – 1460 / 1415 / 1434 / 1444 CE | Zurara; Polónia; Donovan (`wh-657`) |
+| Cape Route: Dias at Mossel Bay / Gama at the Cape / off Calicut | 3 February 1488 / 22 November 1497 (Castanheda and Barros: the 20th) / 20 May 1498 CE | Journal of the first voyage; Arbel (`wh-659`) |
+| Vasco da Gama: born / sailed / off Calicut / died | c. 1460 or c. 1469 / 8 July 1497 / 20 May 1498 / 24 December 1524 CE | Ravenstein (`wh-660`) |
+| Columbus: born / contract / first landfall / died | 1451 / 17 April 1492 / 12 October 1492 / May 1506 CE | Dizionario biografico degli Italiani; Young (`wh-661`) |
+| Treaty of Tordesillas: signed / ratified by Castile / ratified by Portugal | 7 June 1494 / 2 July 1494 / 5 September 1494 CE | the treaty text; Payne (`wh-662`) |
+| Magellan expedition: left Seville / left Sanlúcar / Magellan killed / back at Sanlúcar | 10 August 1519 / 20 September 1519 / 27 April 1521 / 6 September 1522 CE | Pigafetta; Carballo (`wh-663`; `wh-664` is `undatable`) |
+| Cortés: born / city taken / died | c. 1485 / 13 August 1521 / 2 December 1547 CE | MacNutt (`wh-665`) |
+| Fall of Tenochtitlan: siege began (Cortés's count) / city taken | 30 May / 13 August 1521 CE | Cortés's third letter; Sahagún (`wh-666`) |
+| Pizarro: capitulation / Atahualpa seized (Spaniards entered on the 15th) / killed (Atahualpa's execution: 26 July 1533 Kolata, 29 August Prescott) | 26 July 1529 / 16 November 1532 / 26 June 1541 CE | Xerez; Prescott; Kolata (`wh-667`) |
+| Spanish conquest of the Inca Empire: convention / Manco's rising / Pizarro killed / Vilcabamba fell | 1532 – 1572 / 1536 / 26 June 1541 / June 1572 CE | Bauer et al.; Kolata (`wh-668`) |
+| Columbian exchange: began | 1492 CE | Hamilton et al.; Crosby 1972 as reported (`wh-669`) |
+| Cocoliztli: first wave / second wave | 1545 – 1548 / 1576 – 1578 CE (one study: 1580) | Acuña-Soto's group as reported; Vågene et al. (`wh-670`) |
 
 ## Chronology pins
 
@@ -1202,4 +1218,20 @@ wh-647: 24; 1648
 wh-648: 1450; 1750; 1560; 1630
 wh-649: 1543; 1687
 wh-650: 1473; 1543; 1616; 1835
+wh-651: 15; 1564; 8; 1642; 1610; 26; 1616; 22; 1633
+wh-652: 27; 1571; 15; 1630; 1609; 1619; 1627
+wh-653: 1642; 1643; 1669; 1687; 1727
+wh-655: 28 November 1660; 15 July 1662; 1663
+wh-657: 1394; 1460; 1415; 1434; 1444
+wh-659: 3 February 1488; 22 November 1497; 20 May 1498
+wh-660: 1460; 1469; 8 July 1497; 20 May 1498; 24 December 1524
+wh-661: 1451; 17; 1492; 12; 1492; 1506
+wh-662: 7; 1494; 2
+wh-663: 10; 1519; 20; 27; 1521; 6; 1522
+wh-665: 1485; 1521; 1547
+wh-666: 30 May 1521; 13 August 1521
+wh-667: 1529; 1532; 1541
+wh-668: 1532; 1572; 1536; 1541
+wh-669: 1492
+wh-670: 1545; 1548; 1576; 1578
 ```
