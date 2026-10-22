@@ -296,7 +296,9 @@ It keeps every state alive in each war's display year (the middle of its years, 
 
 War window, the second Punic War (rm-209), same runner, 4b → 4c: desktop cold 2,387 → 1,640 ms, warm 2,112 → 1,299 ms; phone cold 69.2 → 19.4 s, warm 90.5 → 2.6 s (a 1.7 MB file is cached by a headless context; the 9.1 MB one was not); bytes served cold 12,972 → 5,809 KB (gzip 5,053 → 3,312).
 
-## Find it's learn panel — v1's popups and their engine counterparts (Task 3; `test-findit-learn.js`)
+## Find it's learn panel — v1's popups and their engine counterparts (Task 3) — **REMOVED Oct 2026**
+
+> The panel and its test were removed on request; a round ends on the question's own card. Kept for history only.
 
 | what v1 held after an answer | where | on the engine's board |
 |---|---|---|
