@@ -9876,6 +9876,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      the rest is the pill's own check, gap and padding (12 + 5 + 7 + 9 = 33px), plus one to spare. */
   .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:calc(7ch + .7em + 34px); justify-content:center;}
   .home-two{grid-template-columns:1fr;}
+  /* THE TODAY / THIS WEEK BOX SITS BETWEEN THE ACTIVE COLLECTIONS AND THE MINIGAMES on a phone (Oct 2026, on request): `.home-two` stops being a box
+     of its own so its two children join `.banners`' flex column and `order` can place them — the week box first (order 1, after everything
+     at the default 0), then the games, then Continue reading and the foot, which keep their old place at the end. */
+  .home-two{display:contents;}
+  .home-two > .home-week{order:1;}
+  .games-sec{order:2;}
+  .home-two > :not(.home-week){order:3;}
+  .home-foot{order:4;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}
   .home-foot .site-ver{margin:0; width:100%; text-align:center;}

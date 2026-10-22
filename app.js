@@ -1656,6 +1656,7 @@
       // artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows.
       artefacts: {},     // artefact id -> when it was drawn from a chest
       chests: 0,         // unopened chests. A level-up offers to open one at once; this is what is left if they don't.
+      levelChests: 0,    // how many of those were EARNED BY A LEVEL-UP and not yet opened — the only ones that light the chest at the end of the level bar (never above `chests`)
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
       playChest: "",     // the day the reader CLAIMED the nine-games-finished chest (see sweepRowHTML)
@@ -2196,7 +2197,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "levelChests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -21260,6 +21261,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const g = Object.keys(S.cards).length;
     if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
     grantChest();   // one chest per level, no congratsPopup behind it
+    S.levelChests = levelChestCount() + 1; save();   // …and remembered as a LEVEL chest, which is what lights the chest on the level bar
     /* THE CHEST WAITS ON THE HOME PAGE RATHER THAN OPENING HERE (Oct 2026, on request: "a chest shouldn't just
        appear mid-study session, it should remain there at the front page until it is clicked"). From Aug 2026
        the overlay was the celebration and rose on the grade that finished the bar, in the middle of a session;
@@ -21747,11 +21749,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      chest, just as we do with the weekly study banner ... when a level is completed ... a chest shouldn't just
      appear mid-study session, it should remain there at the front page until it is clicked"). The chest caps the
      bar the way the streak ribbon's caps its week: locked and quiet while nothing is owed, gold and nodding once
-     a chest is waiting, and a press opens it (openChestPop). It reads `S.chests`, the one count every channel
-     pays into, so a chest from a badge or the daily sweep waits here too; the figure on its shoulder says how
-     many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
+     a chest is waiting, and a press opens it (openChestPop). It reads `S.levelChests` — the chests a LEVEL-UP
+     earned and the reader has not opened (Oct 2026, on request: a badge, sweep or streak chest no longer lights it; those
+     wait in the home banner above); the figure on its shoulder says how many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
   function levelChestHTML() {
-    const n = chestCount(), ready = n > 0;
+    const n = levelChestCount(), ready = n > 0;
     const label = !ready ? "Locked: reach the next level to earn a chest"
       : n === 1 ? "Open your chest" : "Open a chest \u2014 " + n + " waiting";
     return '<button type="button" class="lvl-chest' + (ready ? " ready" : "") + '" id="lvlChest"' + (ready ? "" : " disabled") +
@@ -21905,6 +21907,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
+  // the unopened chests a LEVEL-UP earned (Oct 2026, on request: the level bar's chest lights for these alone); a badge, sweep or streak chest queues in `chests` but never counts here
+  function levelChestCount() { return Math.min(Math.max(0, (S.levelChests | 0)), chestCount()); }
 
   /* ---------- THE SECOND KIND OF THING A CHEST HOLDS: A THEME (Aug 2026, on request) ----------
      "Besides artifacts, we will add a second type of item users may occasionally collect: Themes."
@@ -22037,8 +22041,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
      `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
+  let chestFromLevelBar = false;   // set by openChestPop when the overlay was opened from the level bar's chest, read (and cleared) by spendChest
   function spendChest() {
     S.chests = Math.max(0, chestCount() - 1);
+    S.levelChests = levelChestCount() - (chestFromLevelBar ? 1 : 0);   // opened from the level bar's own chest: that one was a level chest; otherwise it is only clamped to what is left
+    if (S.levelChests < 0) S.levelChests = 0;
+    chestFromLevelBar = false;
     S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
     /* The collector's badges are tested HERE rather than waiting for the next card, which is where
@@ -22675,6 +22683,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      celebration; there is deliberately no separate confetti popup behind it. */
   function openChestPop(opts) {
     opts = opts || {};
+    chestFromLevelBar = !!opts.fromLevelBar;
     closeChestPop();
     /* The prose and the picture are lazy (bundle "artefactExtra"), so ask for them the moment the chest
        appears rather than when the lid is tapped: the reader has to read the hint and reach for the
@@ -25515,7 +25524,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       openChestPop();
     });
     // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
-    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (chestCount()) openChestPop(); }); }
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (levelChestCount()) openChestPop({ fromLevelBar: true }); }); }
     // the streak ribbon's chest (streakRibbonHTML): claimed on the press like the sweep chest above, in the same
     // load-bearing order — claim, repaint (ready → claimed), THEN the overlay
     { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop(); }); }
