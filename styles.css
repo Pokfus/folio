@@ -9335,6 +9335,67 @@ body[data-theme="carnelian"].night .collection-deco{
   font-family:var(--serif); font-size:calc(14px * var(--fs)); text-align:left;
 }
 .kin-row:hover{border-color:var(--indigo); color:var(--ink);}
+
+/* ---------- CARD TIMELINE (Oct 2026, on request) ----------
+   The card beside the two cards before it and the two after it in its collection (see cardTimelineHTML
+   in app.js). A PERIOD is a continuous bar, an EVENT a dash, the card's own mark the answer term's red.
+   The markup is a plain `<ol>` until `mountCardTimelines` lays it out, when every item is positioned
+   absolutely and the axis, guides and leaders (`.tl-deco`) are added; `.laid` marks the switch, so a
+   card whose script never ran still reads as a list. Wide, the RAIL: one line per name, its date behind
+   it in the date line's mono. On a phone (the site's 640 px breakpoint), the LEDGER: time runs down a
+   spine, a bar is a column, a name and its date are two lines pushed apart with leader lines. */
+.tl{margin:18px 0 0; padding-top:14px; border-top:1px solid var(--rule);}
+.tl .label{
+  display:block; margin-bottom:9px;
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet);
+}
+.tl-list{list-style:none; margin:0; padding:0; position:relative; display:flex; flex-direction:column; gap:4px; min-width:0;}
+.tl-list.laid{display:block;}
+.tl-it{margin:0; position:relative; min-width:0;}
+.tl-list.laid .tl-it{position:absolute;}
+.tl-lab{
+  appearance:none; background:none; border:0; padding:0; margin:0; font:inherit; color:inherit; cursor:pointer;
+  text-align:left; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.3;   /* its max-width is set by the layout, never a percentage: inside a shrink-wrapped item that measures as a clipped name */
+}
+span.tl-lab{cursor:default;}
+.tl-t{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink);}
+.tl-w{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); margin-left:7px; font-variant-numeric:tabular-nums;}
+.tl-it.self .tl-t{color:var(--zh);}
+button.tl-lab:hover .tl-t{color:var(--indigo);}
+button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px; border-radius:3px;}
+.tl-list:not(.laid) .tl-mark{display:none;}
+.tl-mark{position:absolute; display:block; background:var(--indigo); color:var(--indigo); border-radius:3px;}
+.tl-it.event .tl-mark{background:var(--ink-soft); color:var(--ink-soft); border-radius:1px;}
+.tl-it.self .tl-mark{background:var(--zh); color:var(--zh);}
+.tl-it:hover .tl-mark{filter:brightness(1.15);}
+/* a bar that runs past the window's edge ends in an arrowhead rather than a lie about where it stopped */
+.tl-mark.clip{border-top-right-radius:0; border-bottom-right-radius:0;}
+.tl-mark.clip::after{content:""; position:absolute; left:100%; top:50%; transform:translateY(-50%); border:solid transparent; border-width:7px 0 7px 8px; border-left-color:currentColor;}
+.tl-mark.clip-v{border-bottom-left-radius:0 !important; border-bottom-right-radius:0 !important;}
+.tl-mark.clip-v::after{content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:solid transparent; border-width:8px 7px 0 7px; border-top-color:currentColor;}
+.tl-deco{position:absolute; pointer-events:none;}
+.tl-axis{left:0; right:0; border-top:1px solid var(--rule); height:26px;}
+.tl-tick{top:-1px; width:1px; height:5px; background:var(--ink-faint);}
+.tl-tick-l{top:7px; transform:translateX(-50%); font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint); white-space:nowrap; font-variant-numeric:tabular-nums;}
+.tl-tick-l.first{transform:none;} .tl-tick-l.last{transform:translateX(-100%);}
+.tl-guide{width:0; border-left:1px dotted var(--rule);}
+.tl-hair{right:0; border-top:1px solid var(--rule);}
+.tl-ytick{left:0; text-align:right; font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint); white-space:nowrap; font-variant-numeric:tabular-nums;}
+.tl-spine{top:0; border-left:1.5px solid var(--ink-faint);}
+.tl-leaders{inset:0; width:100%; height:100%; overflow:visible;}
+.tl-leaders polyline{fill:none; stroke:var(--ink-faint); stroke-width:1; opacity:.7;}
+.tl-key{margin:10px 0 0; display:flex; flex-wrap:wrap; gap:4px 14px; font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-quiet);}
+.tl-key span{display:inline-flex; align-items:center; gap:6px;}
+.tl-key i{display:inline-block;}
+.tl-k-self{width:16px; height:6px; border-radius:3px; background:var(--zh);}
+.tl-k-bar{width:16px; height:6px; border-radius:3px; background:var(--indigo);}
+.tl-k-dash{width:2px; height:12px; background:var(--ink-soft);}
+@media (max-width:640px){
+  .tl-list.laid .tl-lab{line-height:1.25;}
+  .tl-list.laid .tl-t{display:block; overflow:hidden; text-overflow:ellipsis;}
+  .tl-list.laid .tl-w{display:block; margin:1px 0 0;}
+}
 .kin-row:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 
 /* ---------- one card at its own address (#card/<id>) ---------- */

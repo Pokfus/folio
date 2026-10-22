@@ -26380,7 +26380,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and so is emitted by `cardFrontHTML`, outside `#cpgBack` — so this page drew a geography card as a
        dead grey box for as long as it has existed. It is REVEALED at once, unlike a study card's: the
        answer is the heading of the page. */
-    mountCardMaps(root); cardMapReveal(root);
+    mountCardMaps(root); cardMapReveal(root); mountCardTimelines(root);
     wireTTS(root, c);   // the Question button sits outside #cpgBack, which mountCardBack wired
     root.querySelectorAll("[data-kin]").forEach((b) =>
       b.addEventListener("click", () => route("card", { id: b.dataset.kin })));
@@ -33049,6 +33049,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
         mountCardMaps(inner);   // …and start the locator globe, if the card carries one (see cardLocatorHTML)
+        mountCardTimelines(inner);   // …and lay out the timeline, if it has one (see cardTimelineHTML)
         /* …and say so if this reveal has just earned the reader somewhere new (see cardAtlasDiscover).
            It goes HERE, after `buildBack`, and not beside `cardMapReveal` above: the locator window is
            part of the card's BACK, so up there the chip does not exist yet and the call found nothing —
@@ -36206,6 +36207,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* WHAT CAME OF THIS — the causal strip (see cardLeadsTo). OUTSIDE the Background fold and above the
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
+    // WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML)
+    html += cardTimelineHTML(c);
     html += cardLeadsToHTML(c);
     /* …and the cards nearest this one, which is the same slot's other half (see relatedCardsHTML).
        Only for a CURATED card: a community deck has no tags to rank on and no collection to stay
@@ -36309,6 +36312,203 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* …and the rail joins the causal strip at the foot of a revealed card. They answer different
      questions — `leadsTo` is an AUTHORED claim that one thing caused another, this is "these are about
      similar things" — so where a card has both, both are shown and the authored one goes first. */
+  /* ==========================================================================================
+     CARD TIMELINE (Oct 2026, on request: "a timeline section showing the card on a timeline next to the
+     nearest four events (2 before, two after) in the same collection. Periods of time should be clearly
+     marked by a continuous coloured bar rather than a dash used for single events … Only events and
+     periods should appear in timelines, such as wars, battles, or treaties, but never more abstract or
+     general terms like 'medicus' or 'Polish Corridor'.")
+     ==========================================================================================
+     THE LIGHT FIELD `card.timeline` IS THE ONE SWITCH. `{ at: "1919-06-28" }` is an event (a dash),
+     `{ from: "1937-07-07", to: "1945-09-02" }` a period (a bar); a date is YYYY, YYYY-MM or YYYY-MM-DD
+     and keeps its precision ("1925" runs to the end of 1925). A card that carries the field gets the
+     section AND is a candidate neighbour on every other card of its collection; a card without it is
+     neither. NOTHING IS READ OFF THE DATE LINE: its rows describe several dated things (a treaty's
+     signing and its coming into force, a war's two beginnings and its end) and no rule tells a period
+     from an event among them reliably, so the span is authored — `.claude/set-timeline.js`, which also
+     refuses a card whose kind (first tag) is not event, era, battle or war. The rollout began with the
+     first 20 cards of The Second World War.
+
+     THE NEIGHBOURS are the two cards before and the two after in the collection (`cardCollectionRoot`),
+     among the cards that carry the field, ordered by start date and then id. Two designs, chosen by the
+     site's phone breakpoint: wide, a RAIL — one axis, the marks stacked in lanes above it, each name on
+     one line with its date behind it; on a phone, a LEDGER — time runs down a spine, a bar is a column,
+     and the names are pushed apart with leader lines where dates crowd. THE WINDOW is the span of the
+     five start dates and the card's own end; a neighbour's end widens it only by less than the spread
+     of the five starts, otherwise its bar runs off the edge with an arrowhead. The card's own mark is
+     the answer term's red; a neighbour's name is a `data-kin` button, so it opens the way the "Nearby
+     in this collection" rail does on every surface (a peek on a card back, a route on the card page).
+
+     THE MARKUP IS THE LIST, THE LAYOUT IS A PASS OVER IT: `cardTimelineHTML` emits an `<ol>` of the five
+     items with their marks and names, which reads as a plain list until `mountCardTimelines` (called
+     where `mountCardMaps` is) measures the box and positions each item in place; a ResizeObserver
+     re-lays it when the card changes width. The names are measured in the DOM, so Text size is honoured.
+     `test-card-timeline.js` guards the eligibility, the neighbours, the two designs and the no-overlap. */
+  const TL_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const TL_MON3 = TL_MONTHS.map((m) => m.slice(0, 3));
+  // "YYYY" | "YYYY-MM" | "YYYY-MM-DD" (a leading "-" for BCE) → { y, mo, d, t, unit }: t is a fractional year, unit its precision
+  function tlParse(s) {
+    const m = /^(-?\d{1,6})(?:-(\d{2}))?(?:-(\d{2}))?$/.exec(String(s == null ? "" : s).trim());
+    if (!m) return null;
+    const y = +m[1], mo = m[2] ? +m[2] : 0, d = m[3] ? +m[3] : 0;
+    if (!y || (mo && (mo < 1 || mo > 12)) || (d && (d < 1 || d > 31))) return null;
+    return { y, mo, d, t: y + (mo ? (mo - 1) / 12 : 0) + (d ? (d - 1) / 365 : 0), unit: d ? 1 / 365 : (mo ? 1 / 12 : 1) };
+  }
+  function tlLabel(p) { return (p.d ? p.d + " " : "") + (p.mo ? TL_MONTHS[p.mo - 1] + " " : "") + (p.y < 0 ? (-p.y) + " BCE" : String(p.y)); }
+  // the card's authored span, or null when it has none (or a malformed one — drawn as nothing, never guessed)
+  function cardTimelineSpan(c) {
+    const f = c && c.timeline;
+    if (!f || typeof f !== "object") return null;
+    if (f.from != null || f.to != null) {
+      const a = tlParse(f.from), b = tlParse(f.to);
+      if (!a || !b || b.t < a.t) return null;
+      return { start: a.t, end: b.t + b.unit, label: tlLabel(a) + " – " + tlLabel(b), period: true };
+    }
+    const a = tlParse(f.at);
+    return a ? { start: a.t, end: null, label: tlLabel(a), period: false } : null;
+  }
+  // the five items around a card in its collection's timeline order, or null when it has no neighbour
+  function cardTimelineItems(c) {
+    if (!c || !c.id || !cardTimelineSpan(c)) return null;
+    const root = cardCollectionRoot(c.id);
+    if (!root) return null;
+    const pool = subtreeCardIds(root).map(cardById).filter(Boolean)
+      .map((o) => ({ c: o, s: cardTimelineSpan(o) })).filter((x) => x.s)
+      .sort((a, b) => a.s.start - b.s.start || (a.c.id < b.c.id ? -1 : a.c.id > b.c.id ? 1 : 0));
+    const i = pool.findIndex((x) => x.c.id === c.id);
+    if (i < 0) return null;
+    const list = pool.slice(Math.max(0, i - 2), i + 3);
+    return list.length > 1 ? list : null;
+  }
+  function cardTimelineHTML(c) {
+    if (!c || !c.id || isCommunityCard(c.id)) return "";
+    const list = cardTimelineItems(c);
+    if (!list) return "";
+    return '<div class="tl" data-tl="' + esc(c.id) + '"><span class="label">Timeline</span><ol class="tl-list">' +
+      list.map((x) => {
+        const self = x.c.id === c.id, lo = cardLocalized(x.c);
+        const title = lo.answerText || String(lo.answer || "").replace(/<[^>]*>/g, "");
+        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
+          '<i class="tl-mark" aria-hidden="true"></i>' +
+          (self ? '<span class="tl-lab" aria-current="true">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">') +
+          '<span class="tl-t">' + esc(title) + '</span><span class="tl-w">' + esc(x.s.label) + "</span>" +
+          (self ? "</span>" : "</button>") + "</li>";
+      }).join("") +
+      '</ol><p class="tl-key"><span><i class="tl-k-self"></i>this card</span><span><i class="tl-k-bar"></i>a period</span><span><i class="tl-k-dash"></i>a single event</span></p></div>';
+  }
+  // the axis: ~one tick per 95 px, from 1, 2, 5 … 10,000 years, or 1 – 12 months when the window is under three years
+  function tlTicks(a, b, px) {
+    const span = b - a, max = Math.max(3, Math.floor(px / 95)), out = [];
+    if (span <= 3) {
+      const m = [1, 2, 3, 4, 6, 12].find((s) => span * 12 / s <= max) || 12;
+      let k = Math.ceil(a * 12 - 1e-6); while (((k % m) + m) % m) k++;
+      for (; k / 12 <= b; k += m) { const y = Math.floor(k / 12 + 1e-9), mo = k - y * 12; out.push({ t: k / 12, label: mo === 0 ? String(y) : TL_MON3[mo] + " " + y }); }
+      return out;
+    }
+    const st = [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000].find((s) => span / s <= max) || 10000;
+    for (let v = Math.ceil(a / st) * st; v <= b + 1e-9; v += st) out.push({ t: v, label: v < 0 ? (-v).toLocaleString("en-GB") + " BCE" : String(v) });
+    return out;
+  }
+  function tlWindow(items) {
+    const starts = items.map((i) => i.s), self = items.find((i) => i.self);
+    let a = Math.min.apply(null, starts), b = Math.max.apply(null, starts.concat(self && self.e != null ? [self.e] : []));
+    const hull = (Math.max.apply(null, starts) - a) || (b - a) * 0.1 || 1 / 12;
+    items.filter((i) => !i.self && i.e != null).sort((x, y) => x.e - y.e).forEach((i) => { const ext = i.e - b; if (ext > 0 && ext <= hull) b = i.e; });
+    const pad = (b - a) * 0.045 || 0.05;
+    return { a: a - pad, b: b + pad };
+  }
+  const tlDeco = (cls, style, text) => { const d = document.createElement("div"); d.className = "tl-deco " + cls; d.setAttribute("aria-hidden", "true"); if (style) d.style.cssText = style; if (text != null) d.textContent = text; return d; };
+  function tlPack(list, gap) {   // greedy lanes by footprint [f0, f1]; returns the lane count
+    const ends = [];
+    list.forEach((it) => { let k = ends.findIndex((e) => e + gap <= it.f0); if (k < 0) { k = ends.length; ends.push(0); } ends[k] = it.f1; it.lane = k; });
+    return ends.length;
+  }
+  function tlLayout(el) {
+    const ol = el.querySelector(".tl-list");
+    if (!ol) return;
+    ol.classList.add("laid");
+    ol.querySelectorAll(".tl-deco").forEach((d) => d.remove());
+    const items = Array.from(ol.querySelectorAll(".tl-it")).map((li) => ({
+      li, s: +li.dataset.s, e: li.dataset.e === "" ? null : +li.dataset.e, self: li.classList.contains("self"),
+      mark: li.querySelector(".tl-mark"), lab: li.querySelector(".tl-lab") }));
+    items.forEach((i) => { i.li.style.cssText = ""; i.lab.style.cssText = ""; i.mark.className = "tl-mark"; });
+    const W = ol.clientWidth;
+    if (!W || !items.length) return;
+    const phone = matchMedia("(max-width:640px)").matches;
+    const win = tlWindow(items), clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    if (!phone) {
+      /* THE RAIL: labels measured first, then packed into lanes with their marks; lane 0 is nearest the axis */
+      const X = (t) => (t - win.a) / (win.b - win.a) * W, laneH = 34, axisH = 26;
+      items.forEach((i) => {
+        i.x0 = X(i.s); i.clip = i.e != null && X(i.e) > W + 1; i.x1 = i.e == null ? i.x0 : Math.min(X(i.e), W);
+        i.lw = Math.min(W, i.lab.scrollWidth + 2); i.lx = clamp(i.x0, 0, W - i.lw);   // scrollWidth: the name's full width even where its own ellipsis rule is clipping it
+        i.f0 = Math.min(i.lx, i.x0 - 1); i.f1 = Math.max(i.lx + i.lw, i.x1 + (i.clip ? 10 : 0));
+      });
+      const n = tlPack(items.slice().sort((a, b) => a.f0 - b.f0 || a.s - b.s), 10), H = n * laneH + axisH;
+      ol.style.height = H + "px";
+      items.forEach((i) => {
+        const top = (n - 1 - i.lane) * laneH;
+        i.li.style.cssText = "left:" + i.lx.toFixed(1) + "px;top:" + top + "px;width:" + i.lw.toFixed(1) + "px";
+        i.lab.style.maxWidth = i.lw.toFixed(1) + "px";
+        if (i.e == null) {
+          i.mark.style.cssText = "left:" + (i.x0 - i.lx - 1).toFixed(1) + "px;top:" + (laneH - 18) + "px;width:" + (i.self ? 3 : 2) + "px;height:16px";
+          if (i.lane > 0) ol.appendChild(tlDeco("tl-guide", "left:" + i.x0.toFixed(1) + "px;top:" + (top + laneH - 2) + "px;height:" + (H - axisH - top - laneH + 2) + "px"));
+        } else {
+          i.mark.className = "tl-mark" + (i.clip ? " clip" : "");
+          i.mark.style.cssText = "left:" + (i.x0 - i.lx).toFixed(1) + "px;top:" + (laneH - 8) + "px;width:" + Math.max(6, i.x1 - i.x0).toFixed(1) + "px;height:6px";   // a four-day period is still a bar, never a dot
+        }
+      });
+      const axis = tlDeco("tl-axis", "top:" + (H - axisH) + "px");
+      tlTicks(win.a, win.b, W).forEach((k) => {
+        const x = X(k.t);
+        axis.appendChild(tlDeco("tl-tick", "left:" + x.toFixed(1) + "px"));
+        axis.appendChild(tlDeco("tl-tick-l" + (x < 30 ? " first" : x > W - 30 ? " last" : ""), "left:" + x.toFixed(1) + "px", k.label));
+      });
+      ol.appendChild(axis);
+      return;
+    }
+    /* THE LEDGER: time runs down; bars are columns beside the spine, names to the right with leaders */
+    const H = 280, Y = (t) => (t - win.a) / (win.b - win.a) * H, L = 62, laneW = 14, labH = 34, gap = 6;
+    items.forEach((i) => { i.y0 = Y(i.s); i.clip = i.e != null && Y(i.e) > H + 1; i.y1 = i.e == null ? i.y0 : Math.min(Y(i.e), H); i.f0 = i.y0 - 2; i.f1 = Math.max(i.y1, i.y0 + 4); });
+    const n = tlPack(items.slice().sort((a, b) => a.f0 - b.f0 || a.s - b.s), gap), lx = L + 10 + n * laneW + 22;
+    const byY = items.slice().sort((a, b) => a.y0 - b.y0 || a.s - b.s);
+    let prev = -1e9;
+    byY.forEach((i) => { i.ly = Math.max(i.y0 - 8, prev + labH + gap); prev = i.ly; });
+    const over = prev + labH - (H + 8);
+    if (over > 0) { let p = -1e9; byY.forEach((i) => { i.ly = Math.max(i.ly - over, p + labH + gap, -4); p = i.ly; }); }
+    ol.style.height = (H + 24) + "px";
+    tlTicks(win.a, win.b, H * 1.6).forEach((k) => {
+      const y = Y(k.t);
+      ol.appendChild(tlDeco("tl-hair", "left:" + L + "px;top:" + y.toFixed(1) + "px"));
+      ol.appendChild(tlDeco("tl-ytick", "width:" + (L - 10) + "px;top:" + (y - 7).toFixed(1) + "px", k.label));
+    });
+    ol.appendChild(tlDeco("tl-spine", "left:" + L + "px;height:" + H + "px"));
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "tl-deco tl-leaders"); svg.setAttribute("aria-hidden", "true");
+    items.forEach((i) => {
+      const mx = L + 10 + i.lane * laneW;
+      i.li.style.cssText = "left:" + lx + "px;top:" + i.ly.toFixed(1) + "px;width:" + (W - lx) + "px";
+      if (i.e == null) i.mark.style.cssText = "left:" + (mx - 3 - lx) + "px;top:" + (i.y0 - i.ly - 1).toFixed(1) + "px;width:14px;height:" + (i.self ? 3 : 2) + "px";
+      else {
+        i.mark.className = "tl-mark" + (i.clip ? " clip-v" : "");
+        i.mark.style.cssText = "left:" + (mx - lx) + "px;top:" + (i.y0 - i.ly).toFixed(1) + "px;width:8px;height:" + Math.max(6, i.y1 - i.y0).toFixed(1) + "px;border-radius:4px";
+      }
+      const p = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      const ty = i.ly + 8;
+      p.setAttribute("points", (mx + (i.e == null ? 12 : 9)) + "," + i.y0.toFixed(1) + " " + (lx - 14) + "," + ty + " " + (lx - 6) + "," + ty);
+      svg.appendChild(p);
+    });
+    ol.appendChild(svg);
+  }
+  /* Lay out every timeline inside `root` and keep it laid as the card's width changes. Called from the same
+     four places as mountCardMaps: the card page, the study reveal, a card back and the editor preview. */
+  function mountCardTimelines(root) {
+    if (!root || !root.querySelectorAll) return;
+    root.querySelectorAll(".tl").forEach((el) => {
+      if (!el._tlRO && typeof ResizeObserver === "function") { el._tlRO = new ResizeObserver(() => tlLayout(el)); el._tlRO.observe(el); }
+      tlLayout(el);
+    });
+  }
   function cardLeadsToHTML(c) {
     const edges = cardLeadsTo(c);
     if (!edges.length) return "";
@@ -36927,7 +37127,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `mountCardMaps`, which is what would start it. */
     if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => el.remove());
     // a locator's globe, already naming its place: the answer is on screen, so there is nothing to hold back
-    mountCardMaps(inner); cardMapReveal(inner);
+    mountCardMaps(inner); cardMapReveal(inner); mountCardTimelines(inner);
   }
   // render a static, fully-expanded card preview (question + back) into a box — used by the admin editor's live preview
   function renderCardPreviewInto(box, c) {
@@ -36942,7 +37142,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     openLinks(box);
     // the preview shows the whole card, so a map card's window is started AND already naming its place —
     // an editor checking a card should see what a reader sees after revealing it
-    mountCardMaps(box); cardMapReveal(box);
+    mountCardMaps(box); cardMapReveal(box); mountCardTimelines(box);
     inner.querySelectorAll(".bg-collapse, .bg-toggle").forEach((el) => el.classList.remove("collapsed"));   // expand so all edits are visible
     const bh = inner.querySelector(".bg-head"); if (bh) bh.setAttribute("aria-expanded", "true");
     processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner); wireSpeakControls(box);
