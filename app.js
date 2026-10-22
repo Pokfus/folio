@@ -1507,7 +1507,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -18921,152 +18921,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
-  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): a CHEVRON on its top edge folds it
-     between two heights — tall, with the four grades named, and short, with them as bare colours beside the
-     ?, Undo and Suspend icons.
-
-     It was a drag grip modelled on the Atlas place sheet's, and the chevron replaced it on request (Aug
-     2026) because the two controls are not doing the same job: the place sheet has a continuum of heights
-     and this has exactly two, so a drag was a gesture whose whole range mapped onto one bit. A chevron says
-     "there are two states and this is the other one" outright, and needs no classification of the press —
-     which also retires GB_SLOP, the guard that told a drag from a tap.
-     Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
-     screen the buttons take is a fact about this screen, not about the account. */
-  const GB_H_KEY = "folio_gb_compact_v1";
-  // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
-  const GB_FOLD_MS = 280;
-  /* …and with `--ease` in styles.css, which is what those transitions run on (Aug 2026, on a report that
-     the fold ran roughly). The FLIP and the CSS transitions act on the same four buttons at the same
-     moment — the position from here, the height and padding from there — so a curve that differs even
-     slightly makes the box arrive before or after the place it is sliding to, which reads as a stutter
-     rather than as two animations. One clock, one curve. */
-  const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
-  let gbCompact = null;
-  /* The fold's in-flight animations, so a second press can end them rather than layering a second set
-     over the first. Held here rather than derived from document.getAnimations(), which would also sweep
-     up the page entrance, the reveal and the marker panel. */
-  let _gbAnims = [];
-  let _gbFoldT = null;
-  function gbStopFold() {
-    _gbAnims.forEach((a) => { try { a.cancel(); } catch (e) {} });
-    _gbAnims = [];
-    if (_gbFoldT) { clearTimeout(_gbFoldT); _gbFoldT = null; }
-    document.body.classList.remove("gb-folding");
-  }
-  /* …and while it runs, the bar's CONTENTS do not hit-test at all (body.gb-folding — one rule in
-     styles.css). That is the other half of the jam above and the half that cannot be reasoned around: a
-     press landing inside a subtree whose boxes are mid-animation is what leaves Chromium's hit-testing
-     stale, and no amount of cancelling afterwards puts it back. Made inert for the fold's own 280ms, the
-     press lands on #gradebar — a static box with no listener — and is simply swallowed, which is what a
-     tap into a control that is still moving should do anyway. The CHEVRON is outside .gradebar-inner and
-     stays live, so the reader can keep folding; and gbStopFold clears it early whenever a press or a card
-     change ends the fold before its time. */
-  function gbFoldingFor(ms) {
-    document.body.classList.add("gb-folding");
-    _gbFoldT = setTimeout(() => { _gbFoldT = null; document.body.classList.remove("gb-folding"); }, ms);
-  }
-  function gbReadCompact() {
-    if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
-    return gbCompact;
-  }
-  /* The fold is ANIMATED (Aug 2026, on a report that it was a hard cut). The two states differ by more
-     than a height: the four grades go from two rows of two to one row of four, and the ?, Undo and
-     Suspend move from a row of their own up beside them. None of that is a property CSS can transition
-     — it is a reflow — so it is FLIPped: every part is measured, the class is flipped, and each part is
-     animated from where it was to where it now is. The bar's own height is animated alongside them
-     (flipHeight), because a container that snaps while its contents slide looks worse than either.
-
-     `animate` is not gated on being on a phone: above the breakpoint the chevron is display:none and
-     this is unreachable, and flipMove skips anything that did not actually move, so the desktop pays
-     nothing for it. It IS gated on the reader's motion setting, inside both helpers. */
-  function gbSetCompact(on, persist, animate) {
-    const bar = gradeBarEl;
-    const wrap = bar && bar.querySelector(".grade-wrap");
-    const apply = () => {
-      gbCompact = !!on;
-      document.body.classList.toggle("gb-compact", gbCompact);
-      // the chevron points the way it will go, and says which state it is in — see gbWireResize
-      document.querySelectorAll(".gb-fold").forEach((b) => {
-        b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
-        const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
-        b.setAttribute("aria-label", lab);
-        b.setAttribute("title", lab);
-      });
-    };
-    if (animate && wrap && bar.classList.contains("show")) {
-      /* A FOLD ALREADY RUNNING IS ENDED BEFORE A NEW ONE STARTS, and this is the whole of the fix for a
-         reported jam (Aug 2026: "sometimes after closing/opening it a few times I can no longer press the
-         buttons"). Reproduced: a fold FLIPs about twenty elements, and nothing cancelled the previous
-         set — so tapping the chevron again while one was in flight left up to 53 concurrent transform
-         animations on the four grade buttons and the row around them. While those run, Chromium's
-         hit-testing and getBoundingClientRect disagree: elementFromPoint at a button's own centre
-         returns #gradebar (or nothing at all), so a real tap lands on the bar's background and the grade
-         never fires — and once the reader has tapped into that gap the bar can stay un-hittable with no
-         animation left running at all. Every count reads healthy throughout: the buttons are there, they
-         are the right size, in the right place, with their listeners attached.
-         Cancelling is right rather than merely safe: these animations are fill:none, so a cancelled one
-         reverts to the element's own layout position at once — which is exactly where the reader can see
-         the button, and where the press has to land. */
-      gbStopFold();
-      // …but not under reduced motion, where nothing moves and the bar must stay live throughout
-      if (!prefersReducedMotion()) gbFoldingFor(GB_FOLD_MS + 40);
-      // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
-      const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      const h = flipHeight(
-        bar.querySelector(".gradebar-inner"),
-        () => { _gbAnims = flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }) || []; },
-        GB_FOLD_MS, GB_FOLD_EASE
-      );
-      if (h) _gbAnims.push(h);
-    } else { gbStopFold(); apply(); }
-    if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
-  }
-  function gbWireResize(fold) {
-    if (!fold) return;
-    // a real <button>: click and Enter/Space come free, and the arrows reach the two states directly
-    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true, true));
-    fold.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true, true); }
-      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true, true); }
-    });
-  }
+  /* It has ONE height. A chevron folded it to a short, colours-only state on a phone (Aug 2026); that mode
+     and its FLIP animation were removed on request (Oct 2026). */
   let gradeBarEl = null;
   function ensureGradeBar() {
     if (!gradeBarEl) {
       gradeBarEl = document.createElement("div");
       gradeBarEl.id = "gradebar";
-      // the chevron sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
-      gradeBarEl.innerHTML = '<button class="gb-fold" id="gbFold" type="button" aria-expanded="true" aria-label="Shrink the grade buttons" title="Shrink the grade buttons">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
-        '</button><div class="gradebar-inner"></div>';
-      /* …and a press anywhere in the bar ends a fold that is still running, BEFORE the press is
-         hit-tested. Capture phase on the bar itself: pointerdown is the first thing a tap does, so
-         cancelling here puts every button back at its layout position for the pointerup that follows.
-         The chevron is exempt — gbSetCompact cancels for itself, and cancelling here as well would end
-         the fold this very press is asking for. */
-      gradeBarEl.addEventListener("pointerdown", (e) => {
-        if (e.target && e.target.closest && e.target.closest(".gb-fold")) return;
-        gbStopFold();
-      }, true);
+      gradeBarEl.innerHTML = '<div class="gradebar-inner"></div>';
       document.body.appendChild(gradeBarEl);
-      gbWireResize(gradeBarEl.querySelector("#gbFold"));
     }
     return gradeBarEl;
   }
   function showGradeBar(innerHTML, onGrade) {
     const bar = ensureGradeBar();
     const inner = bar.querySelector(".gradebar-inner");
-    gbStopFold();   // the elements a fold is animating are about to be replaced
     inner.innerHTML = innerHTML;
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
     );
-    gbSetCompact(gbReadCompact(), false);   // the height the reader last left it at
     document.body.classList.add("grading");
     requestAnimationFrame(() => bar.classList.add("show"));
   }
   function hideGradeBar() {
-    gbStopFold();
     document.body.classList.remove("grading");
     if (gradeBarEl) {
       gradeBarEl.classList.remove("show");
@@ -26314,13 +26191,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function relatedCardsHTML(id) {
     const rows = relatedCards(id);
     if (!rows.length) return "";
-    return '<div class="kin"><span class="label">Nearby in this collection</span><ul class="kin-list">' +
+    /* A FOLD LIKE THE BACKGROUND'S AND THE SOURCES' (Oct 2026, on request), remembered across cards in
+       `S.settings.kinCollapsed` and wired by the one delegated handler below, so the card back, the card
+       page and the peek all get it without each wiring it. */
+    const shut = !!(S.settings && S.settings.kinCollapsed);
+    const c = shut ? " collapsed" : "";
+    return '<div class="kin">' +
+      '<button class="kin-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide nearby cards">' +
+        '<span class="label">Nearby in this collection</span>' +
+        '<span class="kin-toggle' + c + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>' +
+      "</button>" +
+      '<div class="kin-collapse' + c + '"><div class="kin-collapse-inner"><ul class="kin-list">' +
       rows.map((r) => {
         const o = cardLocalized(cardById(r.id));
         const t = o.answerText || String(o.answer || "").replace(/<[^>]*>/g, "");
         return '<li><button type="button" class="kin-row" data-kin="' + esc(r.id) + '">' + esc(t) + "</button></li>";
-      }).join("") + "</ul></div>";
+      }).join("") + "</ul></div></div></div>";
   }
+  document.addEventListener("click", (e) => {
+    const head = e.target && e.target.closest && e.target.closest(".kin-head");
+    if (!head) return;
+    const box = head.closest(".kin");
+    const col = box && box.querySelector(".kin-collapse"), tog = box && box.querySelector(".kin-toggle");
+    if (!col) return;
+    const collapsed = col.classList.toggle("collapsed");
+    if (tog) tog.classList.toggle("collapsed", collapsed);
+    head.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    S.settings.kinCollapsed = collapsed;
+    save();
+  });
 
   /* ============================================================
      PAGE: ONE CARD, AT A STABLE ADDRESS (#card/<id>)
@@ -34498,6 +34397,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
       "</div>" +
       /* The slot is always in the markup and HIDDEN, never created on demand: it is filled after the
          shapes bundle lands, and a live region announced at the moment it is inserted is one the screen
@@ -36038,6 +35939,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
       /* …AND A WAY THROUGH TO THE READER'S OWN GLOBE (Sep 2026, on request: "each atlas window should
          have an icon button to take the user to that location on the personal atlas page, where there
          should then be a 'Back' button to go back to the card study the user was in"). It carries

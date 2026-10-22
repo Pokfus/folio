@@ -1952,6 +1952,8 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .mc-btn:hover{background:var(--card); color:var(--ink);}
 .mc-btn svg{width:14px; height:14px;}
+.mc-btn[hidden]{display:none;}
+.mc-relief[aria-pressed="true"]{background:var(--card); color:var(--indigo); border-color:var(--indigo);}
 /* "Discovered!" — top LEFT, opposite the control stack, on a card whose reveal has just earned the
    reader somewhere new (Sep 2026, on request). It takes --newterm, which is the ink the site already
    uses for a term met for the first time, so a discovery looks the same wherever it happens. */
@@ -2595,13 +2597,6 @@ kbd{font-family:var(--mono); font-size:.86em; line-height:1; padding:1.5px 5px; 
 #gradebar.show{transform:translateY(0); pointer-events:auto;}
 #gradebar .gradebar-inner{max-width:880px; margin:0 auto; padding:0 clamp(16px,4vw,40px);}
 body.grading .stage{padding-bottom:150px;}
-/* the CHEVRON along the bar's top edge — phone-only (Aug 2026, on request: it was a drag grip). The bar has
-   exactly two heights, so a drag was a gesture whose whole range mapped onto one bit; a chevron says "there
-   are two states and this is the other one" outright, and being a real <button> it needs no press
-   classification and reaches a keyboard for free. Above the breakpoint the bar is one comfortable row
-   already and there is nothing to reclaim, so it is not rendered at all — display:none rather than a
-   second markup path. */
-.gb-fold{display:none;}
 
 /* empty / complete states */
 .placard{
@@ -5987,16 +5982,18 @@ button.game-tile .gt-glyph{opacity:.14;}
      take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
   .card-facts{max-width:none; width:100%; margin-top:12px;}
   .grades{grid-template-columns:repeat(2,1fr);}
-  .grade-wrap{grid-template-columns:auto auto 1fr; grid-template-areas:"grades grades grades" "help undo suspend"; gap:10px;}
+  /* Two equal columns: the ? is as wide as the grades above it on the left, Suspend as wide as the ones on the
+     right; Undo, when there is something to undo, takes a row of its own under them. */
+  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend" "undo undo"; gap:10px;}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
-  .grade-wrap .grade-help{grid-area:help; justify-self:start;}
-  .grade-wrap .gb-undo{grid-area:undo; justify-self:start; align-self:center;
+  .grade-wrap .grade-help{grid-area:help; justify-self:stretch; width:auto; height:auto; min-height:44px; border-radius:9px; align-self:stretch;}
+  .grade-wrap .gb-undo{grid-area:undo; justify-self:stretch; justify-content:center; align-self:center;
     display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
     border:1px dashed var(--rule); background:var(--card); border-radius:9px; padding:7px 11px; margin:0;
     font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600;
     color:var(--ink-faint);}
   .grade-wrap .gb-undo svg{width:12px; height:12px;}
-  .grade-wrap .suspendbtn{grid-area:suspend; justify-self:end;}
+  .grade-wrap .suspendbtn{grid-area:suspend; justify-self:stretch; align-self:stretch; justify-content:center; min-height:44px;}
   /* the study bar's copy steps aside while the grade bar carries one, so a card never shows two Undos */
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
@@ -6005,61 +6002,10 @@ button.game-tile .gt-glyph{opacity:.14;}
      tablet alike — in the ≤1024px block below this one. They used to be hidden here; a tablet has no
      keyboard either, so the rule had to widen, and it lives in ONE place so the two cannot disagree.) */
 
-  /* ---------- the grade bar's two heights (Aug 2026, on request) ----------
-     Drag the grip down and the bar halves: the four grades go side by side as bare COLOURS, and the ?,
-     Undo and Suspend shrink to their icons beside them, all on one row. Nothing is taken away — a phone
-     reader who wants the card back has the whole bar's function in half its height — and nothing is
-     re-rendered: the same markup, laid out differently, so a grade never has to survive a rebuild. */
-  /* It is a quiet control on a bar of loud ones — four saturated colours directly under it — so it is
-     dimmed further than --ink-faint alone (Aug 2026, on request). Full strength on hover and focus, where
-     it has been reached for deliberately. */
-  .gb-fold{
-    display:flex; align-items:center; justify-content:center; width:100%; height:20px;
-    appearance:none; border:0; background:none; padding:0; margin:0 0 -3px; cursor:pointer;
-    color:var(--ink-faint); opacity:.5; transition:color .15s var(--ease), opacity .15s var(--ease);
-  }
-  /* the chevron turns on the SAME clock as the fold it announces — see GB_FOLD_MS in app.js */
-  .gb-fold svg{width:20px; height:20px; transition:transform .28s var(--ease);}
-  /* while the fold runs, the bar's CONTENTS are inert — see gbFoldingFor in app.js. A press into boxes
-     that are mid-animation is what leaves the buttons painted in one place and hit-tested in another,
-     which is the reported jam; the chevron sits outside .gradebar-inner and stays live throughout. */
-  body.gb-folding .gradebar-inner{pointer-events:none;}
-  /* it points the way it will GO: down while the bar is tall (press to fold it away), up once it is short */
-  body.gb-compact .gb-fold svg{transform:rotate(180deg);}
-  .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo); opacity:1;}
-  .gb-fold:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:6px;}
-  /* the bar's own padding shrinks with it, and has to be TRANSITIONED or the fold ends on a 5px jump the
-     instant everything else settles — the one part of the movement nothing was animating */
-  #gradebar{padding-top:2px; transition:transform .34s var(--ease), padding-bottom .28s var(--ease);}
-  body.gb-compact #gradebar{padding-bottom:max(8px, env(safe-area-inset-bottom));}
-  /* one row: [?] [four colours] [undo] [suspend] */
-  body.gb-compact .grade-wrap{grid-template-columns:auto 1fr auto auto; grid-template-areas:"help grades undo suspend"; gap:8px; align-items:center;}
-  body.gb-compact .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
-  /* The SIZES transition in CSS while the POSITIONS are FLIPped in JS (see gbSetCompact): between them
-     the fold moves instead of cutting. The two halves have to be written against each other — a button
-     whose height snaps under a sliding position looks worse than either doing it alone — so the tall
-     state states its height explicitly, `auto` being a value nothing can transition from. Keep the
-     280ms in step with GB_FOLD_MS in app.js. */
+  /* The bar's own top padding; it has one height (the fold chevron and its short state were removed, Oct 2026). */
+  #gradebar{padding-top:10px;}
   .grade{height:calc(56px * var(--fs)); padding:0; overflow:hidden;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    transition:transform .12s var(--ease), box-shadow .2s, filter .2s,
-               height .28s var(--ease), border-radius .28s var(--ease);}
-  /* font-size is deliberately NOT transitioned (Aug 2026, on a report that the fold ran roughly). Easing a
-     font down to 0 relayouts the text on every frame, and it did so on three buttons that flipMove was
-     translating at the same time — the two passes fighting over the same boxes is what the roughness was.
-     The labels now go at once and the buttons' geometry eases, which is the half a reader is watching. */
-  .grade-help,.grade-wrap .gb-undo,.grade-wrap .suspendbtn{transition:width .28s var(--ease), height .28s var(--ease), padding .28s var(--ease);}
-  body.gb-compact .grade{position:relative; padding:0; height:32px; border-radius:8px;}
-  /* the label is CLIPPED, not removed: display:none would take it out of the accessibility tree too, and
-     then the four buttons would be four unnamed colours to a screen reader as well as to the eye */
-  body.gb-compact .grade .gl{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap;}
-  body.gb-compact .grade .gi, body.gb-compact .grade .gk{display:none;}
-  body.gb-compact .grade-help{width:26px; height:26px; font-size:calc(15px * var(--fs));}
-  /* icon-only: font-size:0 hides the bare text node beside the svg, which no selector can reach, while the
-     svg keeps its own px size — and the text stays in the accessibility tree, as above */
-  body.gb-compact .grade-wrap .gb-undo, body.gb-compact .grade-wrap .suspendbtn{font-size:0; gap:0; padding:6px 7px;}
-  body.gb-compact.grading .stage{padding-bottom:96px;}
-  body.gb-compact.grading .wb-tools{bottom:76px;}
+    display:flex; flex-direction:column; align-items:center; justify-content:center;}
   /* ---- the game tiles, three to a row under their heading ----
      They were two to a row on the pane they had to themselves; that pane is gone (Aug 2026, on request) and
      the six tiles now sit under the review as a 3×2 block. Three to a row leaves about 86px of text column,
@@ -6187,11 +6133,11 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-sub{font-size:calc(11px * var(--fs)); line-height:1.3; margin-top:3px;}
   .gt-eyebrow{margin-bottom:5px;}
   .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
+  .grade-wrap{gap:8px 6px;}   /* a 6px column gap makes each half exactly the width of two grades and the gap between them */
   .grade{padding:9px 3px 8px; border-radius:9px;}
   .grade .gl{font-size:calc(10px * var(--fs)); letter-spacing:.02em;}
   .grade .gi{font-size:calc(9px * var(--fs)); margin-top:4px;}
   /* (.grade .gk is hidden across the whole TOUCH range, phone and tablet — see the ≤1024px block above) */
-  .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
   /* "studied 3h 07m today" — the longest this line gets — runs into the "+ Add decks" lip on a 320px
@@ -9328,6 +9274,16 @@ body[data-theme="carnelian"].night .collection-deco{
   font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600;
   letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet);
 }
+.kin-head{display:inline-flex; align-items:center; gap:8px; margin:0 0 7px; appearance:none; background:none; border:0; padding:0; cursor:pointer; font:inherit; color:inherit; text-align:left;}
+.kin-head .label{margin:0; line-height:1; transition:color .18s;}
+.kin-toggle{display:inline-flex; align-items:center; color:var(--ink-faint); transition:transform .3s var(--ease), color .18s;}
+.kin-toggle svg{width:15px; height:15px;}
+.kin-toggle.collapsed{transform:rotate(-90deg);}
+.kin-head:hover .label, .kin-head:hover .kin-toggle{color:var(--indigo);}
+.kin-head:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:5px;}
+.kin-collapse{overflow:hidden; display:grid; grid-template-rows:1fr; transition:grid-template-rows .38s var(--ease);}
+.kin-collapse.collapsed{grid-template-rows:0fr;}
+.kin-collapse-inner{min-height:0; min-width:0;}   /* see .reveal-inner */
 .kin-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px;}
 .kin-row{
   appearance:none; cursor:pointer; padding:6px 11px; border-radius:999px;
@@ -9451,7 +9407,7 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .page .rv-banner .stat.st-est b{color:#fff; white-space:nowrap;}
 .page .rv-banner .cta{grid-column:1 / -1; margin:18px 0 0; display:block; width:100%;}
 .page .rv-banner .cta .btn{display:flex; justify-content:center; background:#fff; color:var(--sky); border:0; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:13px 20px; border-radius:11px;}
-.page .rv-banner.hero .meta{display:flex;} .page .rv-banner.hero .cta{width:auto; margin:0;}
+.page .rv-banner.hero .meta{display:flex;} .page .rv-banner.hero .cta{margin:0;}
 /* the level bar: in the stack with the piles, as wide as they are, with air above and below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{display:grid; grid-template-columns:minmax(0, max-content); width:max-content; max-width:100%;}
 .page .rv-banner .rv-stack > .meta{width:100%;}
@@ -9460,6 +9416,14 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
+/* THE FIRST-VISIT HERO, SPACED (Oct 2026, on request): the zero margins above ran its eyebrow, title, sentence and
+   button together, and the button stood at its own text's width. The three get air between them and the button
+   spans the banner. (After the zero-margin rule above, same specificity or higher, so these win.) */
+.page .rv-banner.hero .hero-eyebrow{margin-bottom:14px;}
+.page .rv-banner.hero h2.review-title{margin:0 0 16px;}
+.page .rv-banner.hero .desc{margin-bottom:26px;}
+.page .rv-banner.hero .meta{width:100%;}
+.page .rv-banner.hero .cta{width:100%;}
 /* THE LEVEL BAR IS GOLD IN BOTH THEMES (Oct 2026, on request: "make the level bar gold in day mode like it
    already is in dark mode") — it was rose by day because this rule outranked `.banner .xp-fill` while the
    night rule outranked this one. The night gold, since the banner is deep indigo in both themes. */

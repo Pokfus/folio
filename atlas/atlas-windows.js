@@ -38,6 +38,13 @@
     return steps.length - 1;
   }
   const mark = (n) => { try { performance.mark(n); } catch (e) {} };   // Phase 4b: named marks (a2:*) so a trace shows where a first window's time went
+  if (typeof window !== "undefined" && !window.__folioReliefBtnSync) {
+    window.__folioReliefBtnSync = true;
+    window.addEventListener("atlas2:windowrelief", (e) => {
+      const on = !!(e && e.detail && e.detail.on);
+      document.querySelectorAll(".mc-relief").forEach((b) => b.setAttribute("aria-pressed", on ? "true" : "false"));
+    });
+  }
   function startCardWindow(host, X) {
     mark("a2:window-start");
     if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
@@ -513,7 +520,13 @@
         host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
           e.stopPropagation(); const w = b.getAttribute("data-mc");
           if (w === "home") win.goHome(); else if (w === "in") win.zoomBy(1.45); else if (w === "out") win.zoomBy(1 / 1.45);
+          else if (w === "relief" && W.AtlasEmbed && W.AtlasEmbed.setWindowRelief) W.AtlasEmbed.setWindowRelief(!reliefNow().relief);
         }));
+        /* THE RELIEF BUTTON (Oct 2026, on request) ships hidden in the markup and is shown only where relief CAN draw: the engine's WebGL2 path, and not under light mode or on a cellular connection (reliefNow's own rule). */
+        const rb = host.querySelector(".mc-relief");
+        if (rb && !lightReader && !onCellular && !(W.AtlasEmbed && W.AtlasEmbed.isCanvas2D && W.AtlasEmbed.isCanvas2D())) {
+          rb.hidden = false; rb.setAttribute("aria-pressed", reliefNow().relief ? "true" : "false");
+        }
         isReady = true;
     }
   }

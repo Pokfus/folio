@@ -5218,55 +5218,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
   from 206px to 150px to match.
-- **…and on a phone its HEIGHT is the reader's** (`.gb-fold` / `gbWireResize` / `body.gb-compact`): a
-  **CHEVRON** on its top edge folds the bar to half its height, 111px → 58px, the four grades going side
-  by side as bare COLOURS with the `?`, Undo and Suspend as icons on the same row. It was a DRAG GRIP for
-  a fortnight and became a chevron on request — the bar has exactly two positions, so a drag was a gesture
-  whose whole range mapped onto one bit — and being a real `<button>` it needs no press classification and
-  gets Enter/Space free.
-  Three things are load-bearing. The chevron lives **outside `.gradebar-inner`**, whose contents are
-  replaced for every card, so it is wired once in `ensureGradeBar` and a grade never has to survive a
-  rebuild. **Nothing is LOST in the short state**: the label is CLIPPED (`clip-path`, 1px) rather than
-  `display:none`, or the four buttons would be four unnamed colours to a screen reader as well as to the
-  eye, and the `?`/Undo/Suspend go icon-only via **`font-size:0` on the button** — their text is a bare
-  node beside an `<svg>`, which no selector can reach. And `body.gb-compact.grading .stage`'s padding
-  drops to 96px with it (specificity, not source order). Device-local in
-  `localStorage["folio_gb_compact_v1"]`.
-  **It FOLDS rather than cutting.** The two states differ by more than a height — the four grades go from
-  two rows of two to one row of four — and none of that is a property CSS can transition, so the SIZES
-  transition in CSS and the POSITIONS are FLIPped in JS (`gbSetCompact(on, persist, animate)` →
-  `flipHeight` around `flipMove`), and **the two halves have to be written against each other**: the tall
-  state states `.grade`'s height explicitly (`auto` being a value nothing can transition from) and
-  **`GB_FOLD_MS` must stay in step with the 280ms in styles.css**. It is gated on the reader's motion
-  setting inside both helpers. **Note for the tests: a height read sooner than `GB_FOLD_MS` after the
-  press measures a state half way between the two.**
-  **ONE CLOCK AND ONE CURVE.** The two passes act on the SAME four buttons at the same moment, so they
-  have to agree about more than the duration: `GB_FOLD_EASE` in app.js is `--ease` written out, and
-  `flipHeight` takes an easing argument so it can be passed the same one. **`font-size` is NOT
-  transitioned** on `.grade-help` / `.gb-undo` / `.suspendbtn` — easing a font down to 0 relayouts the
-  text every frame on three buttons `flipMove` is translating — and **`#gradebar`'s own `padding-bottom`
-  IS transitioned**, or the whole movement ends on a 5px jump.
-  **AND IT MUST NOT JAM HALF WAY** (`_gbAnims` / `_gbFoldT` / `gbStopFold` / `gbFoldingFor` /
-  `body.gb-folding`). Two faults, each invisible on a single press: the FLIP's animations were fired and
-  forgotten, so a second press started a second set over the first — they are kept in `_gbAnims` and
-  cancelled at the head of the next fold, which is why **`flipMove` and `flipHeight` RETURN what they
-  create**; and the CSS transitions have a duration of their own, so a press landing inside it measured a
-  height half way between the two states, hence `body.gb-folding` for `GB_FOLD_MS`, with a capture-phase
-  `pointerdown` **exempting `.gb-fold` itself** — a reader who presses it twice means to end up where the
-  second press says.
-  **ITS TEST MUST DRIVE REAL INPUT AND MUST CLEAR THE LEVEL-UP CHEST.** `el.click()` bypasses hit-testing
-  entirely, which is the whole of what breaks here; but six grades takes a fresh reader past level 2, and
-  a level buys a chest whose overlay swallows every REAL pointer event — so the round reports a jam that
-  is the REWARD working exactly as designed, showing as **1 of 6** and reading like a rare intermittent
-  fault. The chests are dismissed at the head of each round and **counted**. **And the sub-block after the
-  loop has to REVEAL again**, the loop now ending on a grade that succeeds and hides the bar. **A fixture
-  that depends on an earlier step failing passes until that step is fixed.**
-  **📖 `docs/study-page.md` — READ BEFORE CHANGING THE GRADE BAR, THE UNDO OR THE GLOSS POPUP.**
+- **The grade bar's fold chevron and its short state were REMOVED (Oct 2026, on request).** The bar has one
+  height; below the four grades the phone's row is two equal halves, the `?` as wide as the two left grades and
+  Suspend as wide as the two right (`.grade-wrap` `1fr 1fr`; Undo on a row of its own beneath). The history is in
+  `docs/study-page.md`. **📖 `docs/study-page.md` — READ BEFORE CHANGING THE GRADE BAR, THE UNDO OR THE GLOSS POPUP.**
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
-  takes the `undo` cell of `.grade-wrap`'s phone grid (`"grades grades grades" / "help undo suspend"`), beside
-  the `?` that explains the buttons above it. It is a SECOND button rather than a moved one because the grade
+  takes the `undo` cell of `.grade-wrap`'s phone grid (`"grades grades" / "help suspend" / "undo undo"`), a row
+  under the `?` that explains the buttons above it. It is a SECOND button rather than a moved one because the grade
   bar only exists once the answer is revealed, and the study bar's copy still has to be there before that;
   `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
   `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are
