@@ -537,6 +537,13 @@ Filled batch by batch, from the source each row names.
 | Angkor Wat: built / pilgrim texts | c. 1113 – 1150 / 1541 – 1747 CE | Univ. of Chicago DSAL; Carter (`wh-557`) |
 | Pagan Kingdom: usual dates / Thaton / king flees | 1044 – 1287 / 1057 / 1284 CE | Mezzino; Quaritch Wales (`wh-558`) |
 | Đại Việt: Đại Cồ Việt / named (annals) / Ming rule | 968 / 1054 / 1407 – 1428 CE (Bạch Đằng 938, kingship 939) | Ku; Đinh (`wh-559`; `wh-560` is `undatable`) |
+| Borobudur: built / cleared / van Erp / UNESCO project | c. 780 – 850 / 1814 / 1907 – 1911 / 1973 – 1983 CE | Iwamoto; Krom (`wh-561`) |
+| Anuradhapura: village / Chola conquest | c. 800 – 700 BCE / 993 – 1017 CE | Coningham et al.; Sastri; Geiger (`wh-562`; `wh-563` and `wh-564` are `undatable`) |
+| Malacca Sultanate: first recorded / ruler made king / Portuguese took | 1403 / 1405 / 1511 CE | Wade (Ming Shilu); Pires (`wh-565`) |
+| Ghana Empire: Awdaghust / al-Bakri wrote / conquest claim | 1054 / c. 1067 / 1076 (disputed) CE | Masonen and Fisher; Conrad and Fisher (`wh-566`) |
+| Sijilmasa: founded (tradition) / Ibn Battuta leaves / revolt / Leo sees ruins | c. 757 – 758 / 14 February 1352 / c. 1393 / c. 1510 CE | Villar; Gibb and Beckingham (`wh-567`) |
+| Mali Empire: Kirina (one reckoning) / Ibn Battuta at Mali / Timbuktu lost / Gambia held | c. 1235 / 1352 – 1353 / c. 1433 / 1594 CE | Niane; Gibb and Beckingham; Ly-Tall (`wh-568`; `wh-569` is `""`) |
+| Mansa Musa: reigned / pilgrimage | c. 1312 – 1337 / 1324 – 1325 CE | British Library; Northwestern University (`wh-570`) |
 
 ## Chronology pins
 
@@ -1058,4 +1065,11 @@ wh-556: 802; 1181 – 1218; 1431
 wh-557: 1113; 1150; 1541; 1747
 wh-558: 1044; 1287; 1057; 1284
 wh-559: 968; 1054; 1407; 1428
+wh-561: 780; 850; 1814; 1907; 1911; 1973; 1983
+wh-562: 800; 700; 993; 1017
+wh-565: 1403; 1405; 1511
+wh-566: 1054; 1067; 1076
+wh-567: 757; 758; 1352; 1393; 1510
+wh-568: 1235; 1352; 1353; 1433; 1594
+wh-570: 1312; 1337; 1324; 1325
 ```

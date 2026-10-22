@@ -170,7 +170,7 @@ in plan order unless the user says otherwise.
 | B54 | East Asia (`wh-east-asia`) | `wh-531`–`wh-540` | 10 | 75 | **done 2026-10-22** |
 | B55 | East Asia (`wh-east-asia`) / South and Southeast Asia (`wh-south-asia`) | `wh-541`–`wh-550` | 10 | 89 | **done 2026-10-22** |
 | B56 | South and Southeast Asia (`wh-south-asia`) | `wh-551`–`wh-560` | 10 | 76 | **done 2026-10-22** |
-| B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | open |
+| B57 | South and Southeast Asia (`wh-south-asia`) / Africa (`wh-africa`) | `wh-561`–`wh-570` | 10 | 93 | **done 2026-10-22** |
 | B58 | Africa (`wh-africa`) | `wh-571`–`wh-580` | 10 | 74 | open |
 | B59 | Africa (`wh-africa`) / Steppe empires and the Mongols (`wh-steppe`) | `wh-581`–`wh-590` | 10 | 79 | open |
 | B60 | Steppe empires and the Mongols (`wh-steppe`) | `wh-591`–`wh-600` | 10 | 81 | open |
@@ -2155,6 +2155,29 @@ both now 0 mismatched; 6 of 71 distinct URLs were non-2xx. archive.org was unrea
 
 **Glossary.** Ten terms rewritten (*Islam in India*, *Indo-Islamic architecture*, *Indian Ocean trade*, *Srivijaya*, *Majapahit*, *Khmer Empire*, *Angkor Wat*, *Pagan Kingdom*, *Đại Việt*, *Indianisation*).
 
+### B57 — `wh-561`–`wh-570`, South and Southeast Asia and Africa (2026-10-22)
+
+Run as B56. Pictures skipped. Checks: `wh-audit.js --range=wh-561:wh-570` clean but for `S.chip?` on `wh-570` (a false positive: Aradeon's article is in English, and the heuristic trips on "des" in the *Journal des africanistes*);
+`check-cards` first flagged `wh-565`'s mended question (it ended on the blank, then ran over 34 words; now 34); `check-citations --card` 0 mismatched on all ten; of 67 distinct URLs one was non-2xx (a Wiley DOI that answers 403 to the bot; the agent read the abstract through OpenAlex and cites the DOI).
+The Think-it-through markers of all ten sat after the full stop. Sources that archive.org carried were replaced or the claim dropped.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `wh-561` Borobudur | 8 | 6 → 8 | **The 1814 clearing was cited to Raffles, who never mentions it**: now Krom (1927), Cornelius and more than 200 workers, with the hill's name already in a 1709 – 10 report. The hidden foot was buried by the builders, not sealed in 1907 – 11. The "c. 780 – 850" span is attributed (c. 780 start; 750 – 850 in a 2024 study; Krom's reading of the base inscriptions). Unsourced 504, 2,672, 1.6 million and the mandala reading dropped. |
+| `wh-562` Anuradhapura | 7 | 5 → 7 | **"Capital c. 437 BCE" is the chronicle's reckoning and no source prints it.** The line starts at the archaeological village (8th century BCE); Geiger's table uses 483 BCE and Deeg begins the period in 377 BCE; the end is 993 (Rajaraja, Sastri) to 1017 (Geiger), with a slow decline in excavation; Fa-Hien's visit has no date of its own (the journey 399 – 414). |
+| `wh-563` spice trade | 8 | 7 → 8 | **Barbosa's account and the fall of Malacca were other cards' rows**: `""` and `undatable`. Pliny's prices are his report, set against a modern price study; the "spices hid rotten meat" story is rebutted; the Terqa cloves are the excavators' report; "Venice held a monopoly" has no source and is dropped; the Age of Discovery is a debate. |
+| `wh-564` dhow | 8 | 6 → 8 | **"Sewn hulls recorded c. 50 CE" and "seen at Hormuz c. 1290" were two reports made into dates**: `""` and `undatable`. The lateen is unsettled (one team calls an ancient Indian Ocean lateen a myth; Mediterranean pictures show it by late antiquity); Polo's account is his own; the Belitung ship is 9th-century with a disputed origin. |
+| `wh-565` Malacca Sultanate | 7 | 6 → 9 | **"Chinese recognition 1409" is Ma Huan's version of the seals alone**: the *Shilu* has Yin Qing sent in 1403 and the ruler made king in 1405. The Malay Annals (which one scholar dates to 1536), Ming records and Pires disagree on the beginning; conversion and Parameswara = Iskandar Shah are disputed; the day of the 1511 capture is not given. |
+| `wh-566` Ghana Empire | 7 | 6 → 7 | **The Almoravid conquest of 1076 is a claim, not an event**: Masonen and Fisher call it a myth, and Conrad and Fisher find the dating source dubious. The line is Awdaghust 1054, al-Bakri c. 1067 and the claim marked disputed; "Ghana" was the king's title (Wagadu is the oral name, linked in the late 19th century); Koumbi Saleh is unproven. |
+| `wh-567` Sijilmasa | 6 | 5 → 6 | **The "910 – 934 dinars" row was al-Mahdi's reign, and "deserted by c. 1526" was wrong** (building continues into the 18th century): now the revolt c. 1393 and Leo seeing ruins c. 1510. Ibn Battuta left 14 February 1352 (Beckingham's footnote; Villar has 18); the Taghaza crossing is ten days, not twenty; the 64 km wall is Leo's; the coin study does not show West African isotopes. |
+| `wh-568` Mali Empire | 8 | 5 → 8 | **Wali's pilgrimage "under Baybars" and a Musa row had no source**; "under Songhai by the early 16th century" is Timbuktu lost c. 1433 and Gambia still held in 1594. The Kirina date (c. 1235) and the Manden Charter are attributed; Ibn Battuta's gift was beef, not fish. The Almoravid capture of Ghana (see `wh-566`) left out of the abstract. |
+| `wh-569` Sundiata Keita | 7 | 5 → 7 | **"Reconstructed c. 1230 – 1255", "son's pilgrimage 1259 – 1276" and "the 1390s" had no source**: `""`. Ibn Khaldun is cited for what he reports (the name Mari Jata, a lion-prince); the epic is oral tradition, Niane's French text partly its editor's creation, set against Jansen's nearer-to-performance edition. |
+| `wh-570` Mansa Musa | 8 | 5 → 8 | **"Met al-Sahili at Mecca" and a PLOS isotope source were unsupported.** Reigned c. 1312 – 1337, pilgrimage 1324 – 1325; the gold and entourage figures are attributed ranges (80 or 100 loads; 12,000 or "more than 10,000" followers); the fall in the price of gold is al-Umari's; al-Sahili's role is a later tradition one architectural historian calls a myth. |
+
+**Read by eye.** *Article:* "the spice trade" (all three phrasings supply "the"), "the Malacca Sultanate" and "the Mali Empire" with "the" before the blank; "Borobudur", "Anuradhapura", "Sijilmasa", "Sundiata Keita", "Mansa Musa" bare; "dhow" after "a" or "the" as the phrasing needs. *Confusability:* `wh-566`/`wh-568`/`wh-569`/`wh-570` the earlier state, the later one, its founder-hero and its famous king, told apart by al-Bakri, Ibn Battuta, the epic and the Cairo pilgrimage; `wh-563`/`wh-564` goods and ship; `wh-561`/`wh-562` a Buddhist monument in Java and a Buddhist capital in Sri Lanka. *Against other cards:* `wh-481` (Ibn Battuta) dates his departure from Sijilmasa as here ("February 1352"); `wh-482` (Ibn Khaldun) agrees on what he reports of Sundiata; `wh-566` and `wh-568` now agree that the 1076 conquest is not asserted; none edited.
+
+**Glossary.** Ten terms rewritten (*Borobudur*, *Anuradhapura*, *Spice trade*, *Dhow*, *Malacca Sultanate*, *Ghana Empire*, *Sijilmasa*, *Mali Empire*, *Sundiata Keita*, *Mansa Musa*).
+
 ### Pictures to redo
 
 Kept as they stand while Wikimedia refuses this sandbox; each to be replaced or confirmed in a picture
@@ -2389,3 +2412,7 @@ pass once it answers. Filled batch by batch.
 | `wh-559` | the north gate of the Hồ-dynasty citadel, one dynasty's building |
 | `wh-560` | Harihara; "within a few centuries of the first Indian forms" is unsourced |
 | `wh-553`, `wh-555`–`wh-558` | kept: judged from title and description only |
+| `wh-561` | a row of stupas on the upper terrace, not the whole monument |
+| `wh-568` | the Great Mosque of Djenné, a 20th-century rebuilding in one Sahel town |
+| `wh-566` | an inscribed plaque from Koumbi Saleh, one find from the proposed capital |
+| `wh-562`–`wh-567`, `wh-569`, `wh-570` (others) | kept: judged from title and description only |
