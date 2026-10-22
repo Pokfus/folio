@@ -286,6 +286,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the First Macedonian War: Hannibal's pact / the Aetolian pact / peace of Phoenice | 214 – 205 BCE / 215 BCE / 212 or 211 BCE / 205 BCE | `rm-238` |
 | Philip V: reigned / Hannibal pact / the Second Macedonian War | 221 – 179 BCE / 215 BCE / 200 – 197 BCE | `rm-239`, `rm-240` |
 | the Aous battle | 198 BCE | `rm-240` |
+| the Battle of Cynoscephalae | 197 BCE (modern reckoning; Polybius prints none) | `rm-241` |
+| Flamininus: consul / beat Philip / the gold stater | 198 BCE / 197 BCE / 196 BCE (the British Museum caption) | `rm-242` |
+| the freedom of the Greeks: proclaimed / the last garrisons out | 196 BCE / 194 BCE (Polybius, Eckstein and Holleaux have Roman troops in the Acrocorinth, Demetrias and Chalcis until then; Plutarch says otherwise) | `rm-243` |
+| Antiochus III: reigned / Raphia / the eastern march / landed in Greece | 223 – 187 BCE (Livius.org says 222) / 217 BCE / 212 – 205 BCE / 192 BCE | `rm-244` |
+| the Roman–Seleucid War: fought / driven out of Greece / peace | 192 – 188 BCE / 191 BCE / 188 BCE | `rm-245`, `rm-246`, `rm-248` |
+| the Battle of Magnesia | 190 BCE (Shuckburgh) or 189 BCE (Holleaux: probably January) | `rm-247` |
+| the Third Macedonian War | 171 – 168 BCE | `rm-249` |
+| Perseus of Macedon: reigned | 179 – 168 BCE | `rm-250` |
 
 ## The middle and late Republic
 
@@ -535,4 +543,14 @@ rm-237: 229; 228; 219
 rm-238: 214; 205; 215; 212; 211
 rm-239: 221; 179; 215; 200; 197
 rm-240: 200; 197; 198
+rm-241: 197
+rm-242: 198; 197; 196
+rm-243: 196; 194
+rm-244: 223; 187; 217; 212; 205; 192
+rm-245: 192; 188; 191
+rm-246: 191
+rm-247: 190; 189
+rm-248: 188
+rm-249: 171; 168
+rm-250: 179; 168
 ```

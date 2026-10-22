@@ -14182,7 +14182,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bencao_Gangmu": ["Compendium of Materia Medica"],
 "Huangdi_Neijing": ["Neijing","Yellow Emperor’s Inner Classic"],
 "Tu_Youyou": ["Youyou Tu"],
-"Philip_V_of_Macedon": ["Philip V"]
+"Philip_V_of_Macedon": ["Philip V"],
+"Antiochus_III_the_Great": ["Antiochus III"],
+"Battle_of_Thermopylae_(191_BCE)": ["Battle of Thermopylae, 191 BCE"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -16502,7 +16504,7 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Magnesia": ["battle","warfare","history","rome","greece"],
 "Treaty_of_Apamea": ["event","history","politics","rome","greece"],
 "Third_Macedonian_War": ["event","warfare","history","rome","greece"],
-"Perseus_of_Macedon": ["ruler","person","history","greece","rome"],
+"Perseus_of_Macedon": ["person","ruler","history","rome","greece"],
 "Battle_of_Pydna": ["battle","warfare","history","greece","rome"],
 "Lucius_Aemilius_Paullus_Macedonicus": ["person","history","warfare","rome","macedonia"],
 "Settlement_of_Macedonia": ["event","history","politics","rome","greece"],

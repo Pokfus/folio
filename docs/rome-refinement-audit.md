@@ -156,7 +156,7 @@ order unless the user says otherwise.
 | B22 | The Punic Wars (`rm-punic-wars`) | `rm-211`–`rm-220` | 10 | 115 | **done 2026-10-22** |
 | B23 | The Punic Wars (`rm-punic-wars`) | `rm-221`–`rm-230` | 10 | 113 | **done 2026-10-22** |
 | B24 | The Punic Wars (`rm-punic-wars`) / Rome and the Mediterranean (`rm-mediterranean`) | `rm-231`–`rm-240` | 10 | 120 | **done 2026-10-22** |
-| B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | open |
+| B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | **done 2026-10-22** |
 | B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | open |
 | B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | open |
 | B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | open |
@@ -510,6 +510,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-238` First Macedonian War | an Aetolian League silver drachma | weak: one ally's coin for the war; the dating rests on the museum's attribution |
 | `rm-239` Philip V | a silver tetradrachm of Philip V | ok; the title's "about 220 BCE" comes from the file name |
 | `rm-240` Second Macedonian War | a modern map of the theatre | wrong: burned-in English labels and arrows; the glossary plate is German-labelled |
+| `rm-241` Battle of Cynoscephalae | a three-phase modern diagram | wrong: drawn blocks, a reading the description admits to; the glossary photo is a model phalanx. **No locator: the site is disputed (Hammond: farther west)** |
+| `rm-242` Titus Quinctius Flamininus | the gold stater struck for him | probably fine; the description's remark on Hellenistic royal habit is unsourced |
+| `rm-243` freedom of the Greeks | Saint-Ours's 1780 painting | ok: a painted imagining, and the description says it puts Flamininus before the crowd against both ancient accounts |
+| `rm-244` Antiochus III | a silver tetradrachm | ok-ish; the description makes an unsourced claim to trim |
+| `rm-245` Roman–Seleucid War | a modern map of the campaigns | wrong: burned-in labels and an editorial description; the glossary image has the same fault |
+| `rm-246` Battle of Thermopylae, 191 BCE | the pass today | fine as a photograph; the description ("more than any other battlefield") is editorial. **No locator: Thermopylae is wanted** |
+| `rm-247` Battle of Magnesia | a mailed horseman on a plaque from Iraq | wrong: the description admits it does not show this battle; the glossary's engraved map is labelled. **No locator: Manisa (Magnesia ad Sipylum) is wanted** |
+| `rm-248` Treaty of Apamea | a modern map of the settlement | wrong: burned-in English labels; the glossary's is shared with the Anatolia entry |
+| `rm-249` Third Macedonian War | a Finnish-language map | wrong: burned-in Finnish labels; the description editorialises about Livy |
+| `rm-250` Perseus | a silver tetradrachm of Perseus | ok in kind; the description names Polybius and says what the coins paid for |
 
 ## Glossary candidates
 
@@ -1213,3 +1223,22 @@ Run as B23. Checks: `rm-audit.js --range=rm-231:rm-240` reads clean on nine card
 | `rm-240` Second Macedonian War | 7 | 6 → 8 | **"All but six warships" is a sum nobody prints: Polybius 18.44 says five light vessels and the great ship.** Aemilius at Abydos is not clearly the ultimatum (Polybius has it go first to Nicanor at Athens; Mommsen and Holleaux disagree); the Aous and the Malian Gulf parley added. |
 
 **Read by eye.** *Confusability:* `rm-231`/`rm-232` are the battle and the peace; `rm-233`/`rm-234`/`rm-235` the countryside debate, the war and the end of the city; `rm-236`/`rm-237`/`rm-238` the conference, the Adriatic wars and the first war with Macedon; `rm-239`/`rm-240` the king and the second war. *Legend:* Cato's fig, Teuta's order and the Zama interview are each an author's. *Overlap:* `gr-792` says Apamea was "ten thousand talents over ten years", which no source read gives (see `rm-248`); `gr-851`/`gr-852` agree with `rm-239`/`rm-240`.
+
+### B25 — `rm-241`–`rm-250`, Rome and the Mediterranean: Cynoscephalae to the Third Macedonian War (2026-10-22)
+
+Run as B24. Checks: `rm-audit.js --range=rm-241:rm-250` reads clean on eight cards; the rest is `L.missing` on `rm-246` and `rm-247`. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; every citation URL answers 2xx; `check-citations --card` 0 mismatched on every card. Two housekeeping faults were found and fixed: **`rm-250`'s Wikipedia link and glossary entry pointed at Perseus the hero**, so `wiki-links.json` now maps it to "Perseus of Macedon" by hand (`manual`, not fetched: Wikipedia is unreachable from the sandbox) and the glossary entry for the king is `Perseus_of_Macedon`; **`rm-244`'s and `rm-246`'s glossary entries lacked the alias that the card's answer needs** (`Antiochus III`; `Battle of Thermopylae, 191 BCE`), which the redrafted entries add. Livy and Polybius remain the ancient sources; the modern half is Holleaux, Bevan, Benecke and Mommsen from archive.org and the Cambridge Ancient History (1902–30), with a few recent abstracts.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-241` Battle of Cynoscephalae | 7 | 8 → 8 | Eight Polybius chapters are now Polybius, Livy ×2 and Plutarch with four moderns. **The 8,000 dead and 5,000 captured are Polybius's; Livy rejects the 40,000 and 32,000 of Valerius and Claudius and Plutarch the epigram's 30,000.** The year is the modern reckoning; the site is disputed (Hammond, Sears and Butera). |
+| `rm-242` Titus Quinctius Flamininus | 7 | 6 → 7 | **Philip stayed aboard only at the first Nicaea meeting and came ashore the next day (Polybius 18.8)**; "Nicaea 198" is dropped, no source printing it. **Plutarch does not mention the gold stater**; it rests on the British Museum caption and a modern summary. |
+| `rm-243` freedom of the Greeks | 6 | 6 → 6 | **The old text gave Plutarch's "all garrisons removed" as fact; Polybius, Eckstein and Holleaux have Roman troops in the Acrocorinth, Demetrias and Chalcis until 194.** The slogan is shown as a diplomatic weapon (Philip, Antiochus, the Aetolians' "words, not things") and the proclamation as a manumission in form. |
+| `rm-244` Antiochus III | 7 | 5 → 7 | Polybius ×5 became Polybius, Strabo and five moderns; a question carried a year. **The accession is 223 (Bevan) or 222 (Livius.org); his death place differs between Strabo, Bevan and Livius.org.** "Elephants 150" is a count and goes. |
+| `rm-245` Roman–Seleucid War | 6 | 5 → 6 | Now the whole war, not the Sardis terms (Apamea detail). **Livy's Thoas and Hannibal speeches are attributed, and the Hannibal–Scipio talk at Ephesus is an anecdote** Holleaux calls a legend. The old "first war against a power based in Asia" had no source. |
+| `rm-246` Battle of Thermopylae, 191 BCE | 6 | 5 → 6 | **The elephants slowed the Roman pursuit, not the Seleucid retreat (Livy 36.19)**; old Q2 said the heights were not held when Antiochus sent Aetolians who failed. Plutarch, Livy and Appian on Cato's march are set side by side, and all three notice the echo of 480 BCE. |
+| `rm-247` Battle of Magnesia | 6 | 5 → 7 | **A "324 Roman dead" sum nobody prints** (Livy 300 foot and 24 horse, Appian 24 knights and 300 foot) is gone, and the year is split: 190 (Shuckburgh) or probably January 189 (Holleaux, because the Roman March of that time fell between October and December). Livy and Appian differ on who commanded. |
+| `rm-248` Treaty of Apamea | 6 | 5 → 6 | **The indemnity is laid out by stage and source**: Scipio's first terms 15,000 Euboic talents (Polybius), Livy's treaty 12,000 Attic talents over twelve years, Paton's English Polybius reading 12,000 a year. "Treaty of Apamea" is a modern name. The first phrasing duplicated `rm-232` and is replaced. |
+| `rm-249` Third Macedonian War | 6 | 5 → 7 | **One Livy anecdote chain with speeches told as record is now the whole war, hedged**: Polybius calls the plot against Eumenes at Delphi the beginning, not the cause; Livy's truce speech is his; the order of fighting round Lake Ohrid is argued (Milivojević). The counts leave the date line. |
+| `rm-250` Perseus | 6 | 7 → 8 | The old Polybius question garbled 29.9; **the forged letter in Flamininus's name is Livy's story, and the forger is Livy's, not Polybius's**; the "Alba from 167" row is dropped. Plutarch gives two ways he might have died (starved or kept awake). |
+
+**Read by eye.** *Confusability:* `rm-241`/`rm-242` are the battle and the man; `rm-243`/`rm-244` the slogan and the king; `rm-245`–`rm-248` war, pass, plain and treaty; `rm-249`/`rm-250` the war and the king. *Legend:* the Ephesus talk and the forged letter are each an author's. *Overlap:* `gr-792` says Apamea was "ten thousand talents over ten years", which no source read gives; `gr-793` says Antiochus "took Alexandria" and starts that war in 170, which `rm-254` does not bear out; `rm-245`/`rm-248` agree with the talents as set out here.
