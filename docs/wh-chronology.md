@@ -569,6 +569,28 @@ Filled batch by batch, from the source each row names.
 | Golden Horde: state / Özbeg Khan / breakup | c. 1260 – 1502 / 1313 – 1341 / 1359 CE (`ru-100` has 1242) | Favereau and Pochekaev; Hautala; Schamiloglu (`wh-598`) |
 | Timur: born / ruled / Clavijo's visit | 1336 / 1370 – 1405 / 1404 CE | Clavijo; Milwright and Baboula (`wh-599`) |
 | Chinggisids: enthroned / Time of Troubles / Crimean Khanate / Kazakh charter | 1206 / 1359 – 1380 / 1441 – 1783 / 1822 CE | Munkh-Erdene; Landa; Başer (`wh-600`) |
+| Tikal: Classic era (one team's) / recorded arrival / last monument | 250 – 900 / 378 / 869 CE | Lentz et al. 2021; Houston et al.; Lentz et al. 2014 (`wh-601`) |
+| Classic Maya collapse: decline begins / fastest decline / Terminal Classic / stelae end | c. 750 / 750 – 850 / 800 – 1000 / by 998 CE | McCool et al.; Braun et al.; James et al. (`wh-602`) |
+| Chichen Itza: prominent / end (estimate) | c. 600 – 1000 / c. 1025 – 1050 CE | Barquera et al. 2024; James et al. 2025 (`wh-603`) |
+| Toltecs (Tula): Tollan phase | c. 900 – 1150 CE | Healan, Cobean and Bowsher 2021 (`wh-604`) |
+| Aztec Empire: imperial years (formation 1428 in prose) | c. 1430 – 1521 CE | Nielsen; De Rojas; Morehart et al. (`wh-605`) |
+| Tenochtitlan: founded (tradition) | c. 1325 CE | De Rojas (`wh-606`; `wh-607`, `wh-608`, `wh-609` are `undatable`) |
+| Wari: Middle Horizon | c. 600 – 1000 CE | Conlee et al. 2021 (`wh-610`) |
+| Tiwanaku: modelled start / peak influence / residents left | c. 180 / c. 500 – 1000 / c. 1010 CE | Marsh et al. 2023; Popovic et al. 2021 (`wh-611`) |
+| Inca Empire: traditional span / Cajamarca / Vilcabamba | 1438 – 1533 / 1532 / 1572 CE | Rowe 1945 via Ziółkowski et al.; Covey (`wh-612`; `wh-613`, `wh-615`, `wh-616` are `undatable`) |
+| Machu Picchu: occupied | c. 1420 – 1532 CE | Burger et al. 2021 (`wh-614`) |
+| Mississippian culture: flourished (one climate study's) | c. 1000 – 1450 CE (`us-017` has 1000 – 1600) | Bird et al.; Pompeani et al. (`wh-617`) |
+| Cahokia: emerged / abandoned | c. 1050 / c. 1350 – 1400 CE | Kessler et al.; Pompeani et al. (`wh-618`) |
+| Ancestral Puebloans: Four Corners / Mesa Verde empty | 500 – 1300 / by c. 1280 CE | National Park Service; Kemp (`wh-619`) |
+| Chaco Canyon: great houses / regional centre / crypt burials | c. 850 – 1150 / by 1050 / 800 – 1130 CE | National Park Service; Pinotti; Kennett et al. 2017 (`wh-620`) |
+| Italian city-states: communes began | c. 1100 CE | Wickham (`wh-622`; `wh-621`, `wh-625` are `undatable`) |
+| Florence: florin / priors / republic ended (1530 is the siege) | from 1252 / from 1282 / 1532 CE | Einaudi; Machiavelli; Byatt (`wh-623`) |
+| House of Medici: rule / bank / Pazzi plot / dukes | 1434 – 1737 / from 1397 / 26 April 1478 / from 1532 CE | Historisches Lexikon der Schweiz; EBSCO; Byatt (`wh-624`) |
+| Petrarch: lived / crowned / Ventoux letter | 1304 – 1374 / 8 April 1341 / dated 26 April, read as 1336 CE | Università di Bologna; Nicholl; Mann (`wh-626`) |
+| Leonardo: lived / Mona Lisa | 15 April 1452 – 2 May 1519 / 1503 – 1519 CE | Louvre (`wh-627`) |
+| Michelangelo: lived (1474 in his father's notebook) / ceiling / Last Judgement | 6 March 1475 – 18 February 1564 / 1508 – 1512 / 1536 – 1541 CE | Condivi; Symonds; Vatican (`wh-628`) |
+| Linear perspective: reported start / Alberti's treatise | c. 1413 / 1435 – 1436 CE | Hertzmann citing Kemp; Sinisgalli; Horton (`wh-629`) |
+| Printing press: press at Mainz / 42-line Bible / Subiaco book | c. 1450 / c. 1454 – 1455 / 1465 CE | Mainz city site; Library of Congress (`wh-630`) |
 
 ## Chronology pins
 
@@ -1122,4 +1144,26 @@ wh-597: 1258; 20; 1261
 wh-598: 1260; 1502; 1313; 1341; 1359
 wh-599: 1336; 1370; 1405; 1404
 wh-600: 1206; 1359; 1380; 1441; 1783; 1822
+wh-601: 250; 900; 378; 869
+wh-602: 750; 850; 800; 1000; 998
+wh-603: 600; 1000; 1025; 1050
+wh-604: 900; 1150
+wh-605: 1430; 1521
+wh-606: 1325
+wh-610: 600; 1000
+wh-611: 180; 500; 1000; 1010
+wh-612: 1438; 1533; 1532
+wh-614: 1420; 1532
+wh-617: 1000; 1450
+wh-618: 1050; 1350; 1400
+wh-619: 500; 1300; 1280
+wh-620: 850; 1150; 1050; 800; 1130
+wh-622: 1100
+wh-623: 1252; 1282; 1532
+wh-624: 1434; 1737; 1397; 26; 1478; 1532
+wh-626: 1304; 1374; 1341; 1336
+wh-627: 1452; 1519; 1503
+wh-628: 1475; 1564; 1508; 1512; 1536; 1541
+wh-629: 1413; 1435; 1436
+wh-630: 1450; 1454; 1455; 1465
 ```
