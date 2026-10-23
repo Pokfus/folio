@@ -720,6 +720,14 @@ Filled batch by batch, from the source each row names.
 | Second Industrial Revolution: Mokyr / Homburg / phrase printed | 1870 – 1914 / c. 1870 – 1900 / 1915 CE | Mokyr; Homburg; Geddes (`wh-796`; `wh-797` is `undatable`) |
 | Electrical telegraph: Shilling's demonstration / Gauss and Weber / joint patent / Morse's line | 1832 / May 1833 / June 1837 / 24 May 1844 CE | IEEE; Göttingen University; Distant Writing; US Senate (`wh-798`; `wh-799` is `undatable`) |
 | Suez Canal: conceded / company formed / works began / opened | 30 November 1854 / 15 December 1858 / 25 April 1859 / 17 November 1869 CE (shares sold 25 November 1875) | Prat dit Hauret; Hefler (`wh-800`) |
+| Unification of Italy: war began / proclaimed / Venetia ceded / Rome taken | 26 April 1859 / 17 March 1861 / 3 October 1866 / 20 September 1870 CE | King; Hertslet; the Camera dei deputati (`wh-802`; `wh-801` is `undatable`) |
+| Giuseppe Garibaldi: born / Marsala landing / died | 4 July 1807 / 11 May 1860 / 2 June 1882 CE | Monsagrati (Treccani) (`wh-803`) |
+| Unification of Germany: span / proclaimed | 1866 – 1871 / 18 January 1871 CE | German History in Documents and Images; Versailles (`wh-804`) |
+| Otto von Bismarck: born / premier / chancellor / died | 1 April 1815 / 1862 / 1871 – 1890 / 30 July 1898 CE | LeMO; Headlam (`wh-805`) |
+| Franco-Prussian War: declared / Sedan / armistice / Frankfurt treaty | 19 July 1870 / 1 September 1870 / 28 January 1871 / 10 May 1871 CE | Moltke; Hertslet; LeMO (`wh-806`) |
+| Austria-Hungary: in existence | 1867 – 1918 CE | Solsten (Library of Congress) (`wh-807`) |
+| Tanzimat: edict read / Altınay's span | 3 November 1839 / 1839 – 1876 CE (Aytemiz ends a first stage in 1856 and follows the practices to 1924) | Engelhardt; Aytemiz; Altınay (`wh-808`) |
+| Crimean War: Ottoman declaration / British and French declaration / siege / Treaty of Paris | October 1853 / 28 March 1854 / October 1854 – September 1855 / 30 March 1856 CE | Kinglake; Sorokina; National Army Museum (`wh-809`; `wh-810` is `undatable`) |
 
 ## Chronology pins
 
@@ -1421,4 +1429,12 @@ wh-794: 29 November – 8 December 1847; February 1848; 1850
 wh-796: 1870; 1914; 1900; 1915
 wh-798: 1832; May 1833; June 1837; 24 May 1844
 wh-800: 30 November 1854; 15 December 1858; 25 April 1859; 17 November 1869
+wh-802: 26 April 1859; 17 March 1861; 3 October 1866; 20 September 1870
+wh-803: 4 July 1807; 11 May 1860; 2 June 1882
+wh-804: 1866 – 1871; 18 January 1871
+wh-805: 1 April 1815; 1862; 1871 – 1890; 30 July 1898
+wh-806: 19 July 1870; 1 September 1870; 28 January 1871; 10 May 1871
+wh-807: 1867 – 1918
+wh-808: 3 November 1839; 1839 – 1876
+wh-809: October 1853; 28 March 1854; October 1854 – September 1855; 30 March 1856
 ```

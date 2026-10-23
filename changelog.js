@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1082", released: "2026-10-23T10:56Z" };
+window.FOLIO_VERSION = { v: "1.1083", released: "2026-10-23T12:32Z" };
 
 window.CHANGELOG = [
   {
@@ -46,6 +46,7 @@ window.CHANGELOG = [
       "<b>Read aloud</b>: the play button beside Question, Answer and Background now appears on every card, including geography, philosophy and the arts.",
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
+      "<b>Ten more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Crimean War and Russian serfdom, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
