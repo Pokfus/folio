@@ -5220,13 +5220,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   from 206px to 150px to match.
 - **The grade bar's fold chevron and its short state were REMOVED (Oct 2026, on request).** The bar has one
   height; below the four grades the phone's row is two equal halves, the `?` as wide as the two left grades and
-  Suspend as wide as the two right (`.grade-wrap` `1fr 1fr`; Undo on a row of its own beneath). The history is in
+  Suspend as wide as the two right (`.grade-wrap` `1fr 1fr`; with an Undo to offer, three equal thirds with Undo between `?` and Suspend). The history is in
   `docs/study-page.md`. **📖 `docs/study-page.md` — READ BEFORE CHANGING THE GRADE BAR, THE UNDO OR THE GLOSS POPUP.**
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
-  takes the `undo` cell of `.grade-wrap`'s phone grid (`"grades grades" / "help suspend" / "undo undo"`), a row
-  under the `?` that explains the buttons above it. It is a SECOND button rather than a moved one because the grade
+  takes the `undo` cell of `.grade-wrap`'s phone grid (`"help undo suspend"` in thirds, via `.grade-wrap:has(.gb-undo)`), between the `?` and Suspend. It is a SECOND button rather than a moved one because the grade
   bar only exists once the answer is revealed, and the study bar's copy still has to be there before that;
   `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
   `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are

@@ -6005,11 +6005,12 @@ button.game-tile .gt-glyph{opacity:.14;}
   .card-facts{max-width:none; width:100%; margin-top:12px;}
   .grades{grid-template-columns:repeat(2,1fr);}
   /* Two equal columns: the ? is as wide as the grades above it on the left, Suspend as wide as the ones on the
-     right; Undo, when there is something to undo, takes a row of its own under them. */
-  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend" "undo undo"; gap:10px;}
+     right. When there is something to undo, Undo sits between them and the three share the row in equal thirds. */
+  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend"; gap:10px;}
+  .grade-wrap:has(.gb-undo){grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-areas:"grades grades grades" "help undo suspend";}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
   .grade-wrap .grade-help{grid-area:help; justify-self:stretch; width:auto; height:auto; min-height:44px; border-radius:9px; align-self:stretch;}
-  .grade-wrap .gb-undo{grid-area:undo; justify-self:stretch; justify-content:center; align-self:center;
+  .grade-wrap .gb-undo{grid-area:undo; justify-self:stretch; justify-content:center; align-self:stretch; min-height:44px;
     display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
     border:1px dashed var(--rule); background:var(--card); border-radius:9px; padding:7px 11px; margin:0;
     font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600;
