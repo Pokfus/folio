@@ -543,7 +543,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | event or person | the collection says | source |
 |---|---|---|
 | Peloponnesian War | 431 – 404 BCE; the Corcyra alliance 433 BCE; the Peace of Nicias 421 BCE; the Sicilian expedition sailed 415 BCE; Sparta renewed the war 413 BCE; Aegospotami 405 BCE; Athens surrendered in the spring of 404 BCE | Lendering, Livius (`gr-521`) |
-| Thucydides | no life dates; general in Thrace when Amphipolis fell 424 BCE; banished for 20 years (423 BCE on one reckoning); the history breaks off in 411 BCE | Thucydides 4.104–106, 5.26; Lendering, Livius; Stronk's review (`gr-522`) |
+| Thucydides | born c. 460 BCE and died c. 395 BCE on Livius's reckoning (an estimate, on the date line since 2026-10-23; no ancient source fixes them); general in Thrace when Amphipolis fell 424 BCE; banished for 20 years (423 BCE on one reckoning); the history breaks off in 411 BCE | Thucydides 4.104–106, 5.26; Lendering, Livius (including the "Thucydides (historian)" stub for the life dates); Stronk's review (`gr-522`) |
 | Prophasis | no line: a word | (`gr-523`) |
 | Epidamnus | founded 627 BCE; the war with Corcyra 435 BCE (436 BCE on Lendering's dating, used on no card) | Sestieri, Princeton Encyclopedia; Oldfather's note to Diodorus 12.30 (`gr-524`) |
 | Battle of Sybota | 433 BCE | Lendering, Livius; Sferruzza's review (`gr-525`) |
@@ -1592,7 +1592,7 @@ gr-518: 425; 424; 431; 413
 gr-519: 434; 433; 423
 gr-520: 425
 gr-521: 431; 404; 421; 405
-gr-522: 424; 411
+gr-522: 460; 424; 411; 395
 gr-524: 627; 435
 gr-525: 433
 gr-526: 600; 432; 430
