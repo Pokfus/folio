@@ -672,6 +672,12 @@ Filled batch by batch, from the source each row names.
 | Sakoku: measures / Dutch to Dejima / term coined / US treaty | 1633 – 1639 / 1641 / 1801 / 1854 CE | Hiraishi; Peng (`wh-724`) |
 | Hangul: announced (lunar calendar) / treatise / Haerye found / name in print | December 1443 / 1446 / 1940 / March 1913 CE | Ryu (`wh-725`) |
 | Atlantic slave trade: recorded voyages / suppression | 1514 – 1866 / 1867 CE | NEH on the Voyages database; Domingues da Silva et al. (`wh-726`; `wh-727`–`wh-730` are `undatable`) |
+| Slave codes: Barbados / Jamaica / South Carolina | 1661 / 1664 and 1684 / 1691 CE (Jamaica's consolidated act 2 March 1792) | Rugemer; Edwards (`wh-732`; `wh-731` and `wh-733` are `undatable`) |
+| Maroons: Jamaican treaty (1738, 1738 / 39 or 1739 by source) | 1738 – 1739 CE | Dallas; Johnson; Smithsonian (`wh-734` is `undatable`) |
+| Asiento: British contract signed at Madrid / given up | 26 March 1713 / 1748 and 1750 CE | Scelle; Smith; García de León (`wh-735` is `undatable`) |
+| Royal African Company: chartered / trade opened / dissolved | 1672 / 24 June 1698 / 1752 CE | Pettigrew (`wh-736`) |
+| Kingdom of Dahomey: founded (Law's estimate) / Allada, Whydah / French conquest | c. 1600 – 1650 / 1724, 1727 / 1892 – 1894 CE | Law; Ross (`wh-737`) |
+| Ashanti Empire: Feyiase (McCaskie) / Sagrenti War / annexed | 1701 / 1873 – 1874 / 1901 CE | McCaskie; Ponsonby (`wh-738`; `wh-739` and `wh-740` are `undatable`) |
 
 ## Chronology pins
 
@@ -1328,4 +1334,7 @@ wh-723: 1603; 1867; 3 January 1868
 wh-724: 1633 – 1639; 1641; 1801; 1854
 wh-725: 1443; 1446; 1940; 1913
 wh-726: 1514; 1866; 1867
+wh-736: 1672; 24 June 1698; 1752
+wh-737: 1600; 1650; 1724; 1727; 1892; 1894
+wh-738: 1701; 1873; 1874; 1901
 ```
