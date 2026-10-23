@@ -6572,7 +6572,28 @@ window.GLOSSARY = {
 "Core_area_hypothesis": "",
 "Karaca_Dağ": "",
 "Pulse_(legume)": "",
-"Axis_powers": ""
+"Axis_powers": "",
+"Dionysius_of_Halicarnassus": "",
+"Marcus_Terentius_Varro": "",
+"Parilia": "",
+"Pastoralism": "",
+"Timaeus_(historian)": "",
+"Tuscany": "",
+"Authoritarianism": "",
+"Gabriele_D'Annunzio": "",
+"Grand_Council_of_Fascism": "",
+"Jews": "",
+"Pacifism": "",
+"Rijeka": "",
+"Syndicalism": "",
+"Victor_Emmanuel_III": "",
+"Amyclae": "",
+"Athena_Polias": "",
+"Larisa_(Argos)": "",
+"Limnae": "",
+"Persia": "",
+"Stymphalus": "",
+"Taygetus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10040,7 +10061,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Gabriel_de_Mortillet": "1821–1898",
 "Kokiselei": "c. 1.76 Mya",
 "Konso": "Acheulean from c. 1.75 Mya",
-"Axis_powers": "1940–1945"
+"Axis_powers": "1940–1945",
+"Gabriele_D'Annunzio": "1863–1938",
+"Victor_Emmanuel_III": "1869–1947"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14229,7 +14252,22 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Arcadia": ["Arkadia"],
 "Battle_of_Leuctra": ["Leuctra"],
 "Palatine_Hill": ["Palatine"],
-"Romulus_and_Remus": ["Remus"]
+"Romulus_and_Remus": ["Remus"],
+"Marcus_Terentius_Varro": ["Varro"],
+"Parilia": ["Palilia"],
+"Pastoralism": ["pastoral"],
+"Timaeus_(historian)": ["Timaeus of Tauromenium","Timaeus","Tymaeus"],
+"Authoritarianism": ["authoritarian"],
+"Gabriele_D'Annunzio": ["Gabriele d’Annunzio","D'Annunzio","D’Annunzio"],
+"Grand_Council_of_Fascism": ["Gran Consiglio del Fascismo","Fascist Grand Council"],
+"Rijeka": ["Fiume"],
+"Syndicalism": ["syndicalist"],
+"Amyclae": ["Amyklai"],
+"Larisa_(Argos)": ["Larisa of Argos"],
+"Limnae": ["Limnai"],
+"Persia": ["Persians"],
+"Stymphalus": ["Stymphalos"],
+"Taygetus": ["Mount Taygetus","Taygetos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20927,7 +20965,28 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Core_area_hypothesis": ["theory","agriculture","archaeology","prehistory","science"],
 "Karaca_Dağ": ["place","mountain","geography","archaeology","prehistory","turkey"],
 "Pulse_(legume)": ["plant","agriculture","science","prehistory"],
-"Axis_powers": ["concept","history","politics","diplomacy","germany","italy","japan","20th century"]
+"Axis_powers": ["concept","history","politics","diplomacy","germany","italy","japan","20th century"],
+"Dionysius_of_Halicarnassus": ["person","history","literature","rome","greece","classical"],
+"Marcus_Terentius_Varro": ["person","history","literature","rome","classical"],
+"Parilia": ["practice","religion","rome","italy"],
+"Pastoralism": ["practice","agriculture","economics","geography"],
+"Timaeus_(historian)": ["person","history","literature","greece","classical"],
+"Tuscany": ["place","geography","italy","europe","history"],
+"Authoritarianism": ["concept","politics","ideology","history","government"],
+"Gabriele_D'Annunzio": ["person","literature","poetry","politics","history","italy","20th century"],
+"Grand_Council_of_Fascism": ["institution","politics","history","italy","20th century"],
+"Jews": ["people","religion","history","culture","ethnicity","judaism"],
+"Pacifism": ["concept","philosophy","politics","history","ethics"],
+"Rijeka": ["place","city","history","croatia","italy","20th century"],
+"Syndicalism": ["concept","politics","ideology","history","france","20th century"],
+"Victor_Emmanuel_III": ["person","ruler","politics","history","italy","20th century"],
+"Amyclae": ["place","religion","history","greece","sparta","archaic"],
+"Athena_Polias": ["deity","religion","mythology","greece","archaeology","athens"],
+"Larisa_(Argos)": ["place","history","greece","archaeology","religion","archaic"],
+"Limnae": ["place","history","greece","sparta","religion","archaic"],
+"Persia": ["state","history","politics","geography","iran"],
+"Stymphalus": ["place","history","greece","archaeology","city","archaic"],
+"Taygetus": ["mountain","geography","greece","sparta","religion"]
 });
 
 /* ============================================================================
