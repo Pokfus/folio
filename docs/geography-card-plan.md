@@ -38,6 +38,9 @@ City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519`
 **THE COLLECTION IS COMPLETE.** All fifty states (`geo-001`–`geo-050`) and all fifty capitals
 (`geo-501`–`geo-550`) are written, cited at the bar, paired with glossary terms and illustrated. The
 running order below is a record of what was written, not a queue; there is no next card.
+**Two physical decks were planned in Oct 2026 and are the queue now** — rivers, lakes and bays
+(`geo-801`–`geo-840`) and mountains, canyons and caves (`geo-901`–`geo-940`), text cards with a
+locator rather than map cards; see "The physical decks" below.
 
 ---
 
@@ -2026,6 +2029,186 @@ table, since Charleston is already West Virginia's capital there and the Portlan
   geo-747 Omaha
   geo-748 Sioux Falls
   geo-749 Fargo
+
+---
+
+## The physical decks — water, and mountains and caves (Oct 2026, planned before any card)
+
+Added Oct 2026, on request: "add a new deck for studying rivers, lakes, and major bodies of water. Also add
+a deck for major mountains, mountain ranges, caves, and similar features. Plan them out before you start
+writing any cards." Two decks of forty, numbered past the cities so the ranges never meet:
+**Rivers, lakes and bays** (`geo-us-water`, `geo-801`–`geo-840`) and **Mountains, canyons and caves**
+(`geo-us-mountains`, `geo-901`–`geo-940`).
+
+### They are NOT map cards, and why
+
+The three decks above ask a question OF a picture — a shaded state, a dot in it — and that works because a
+state is a FACE the window can shade. A river is a line, a peak is a point and a cave is underground; none
+of them is a face, and the card windows have no primitive that holds a line or a point back as the
+question and names it at the reveal (`docs/atlas-v2-card-windows.md`, the map-card row: "Highlight of
+faces by registry id"). Building one is engine work, not a deck. So these two decks use the format the
+history collections already ship for the same subjects — `rm-003` the Tiber is the model:
+
+- **A text clue on the front**, written to `docs/card-authoring.md`'s rules (20–34 words, the blank in the
+  middle, two more phrasings from different angles). The clue is a fact about the place — where it rises,
+  what it drains, what happened on it — never "the river on the map is ___".
+- **A `locator` on the back** that draws the feature with its extent: `kind: "river"` traces the river in
+  gold, `kind: "range"` walks triangles along an authored `spine`, `kind: "point"` is the dot for a peak,
+  a cave, a falls or a lake, and `kind: "sea"` an authored area for a bay or a gulf. The coordinate is
+  FETCHED by `add-card.js` / `add-locators.js` from the named article; only a spine or an area is typed,
+  and the validator checks it. **A range without a spine gets no locator rather than a dot**: a dot in
+  the middle of the Rockies is the false claim `docs/map-cards.md` "A place with extent" was written for.
+- **The ordinary card's full apparatus**: the ten-sentence background, the five-source bar, three `why`
+  items, a glossary term per answer, `difficulty` by how well the NAME is known. Tag 1 is `place`; then
+  `geography`, `united states`, and `river` / `lake` / `mountain` / `cave` as the subject.
+- **`undatable: true`** on almost every card — a river or a mountain is not located at a moment — and an
+  empty date line, unless a date is genuinely the feature's own (a dam that made a reservoir, an
+  eruption, a park's establishment). Never date a feature by its first European sighting alone.
+- **The minigames take them**, unlike the map cards: the clue is text, so the games can deal it cold.
+  `gameCardIdSet` decides that and needs nothing on the card.
+
+### The facts grid for these decks
+
+The map decks' rule — the same four rows on every card, like over like — applies, with rows that say what
+a physical feature IS rather than a state's capital and population:
+
+    River:                 Length        | Drainage basin
+                           Source        | Mouth
+    Lake, bay, gulf:       Surface area  | Maximum depth
+                           States        | Outflow (a bay or gulf: Opens to)
+    Peak, volcano:         Elevation     | Prominence
+                           State         | Range
+    Range, canyon, plain:  Highest point | Length (a canyon: Depth)
+                           States        | Protected as
+    Cave:                  Surveyed length | Depth
+                           State           | Protected as
+
+Write `"?"` where no source gives the cell, as `set-facts.js` does — never a figure from memory. **And
+the figures are not repeated in the background**, the facts-echo rule above: the background is the
+feature's history and its part in the country's, the grid carries the numbers.
+
+### Sourcing for these decks
+
+The federal spine extends naturally: the **USGS** (the Water Science School, the Volcano Hazards Program's
+volcano pages, GNIS for names), the **NPS** park pages and their `/learn/nature/` and
+`/learn/historyculture/` pages, **NOAA** (the Great Lakes Environmental Research Laboratory, the National
+Ocean Service), the **EPA**'s Great Lakes facts, the **US Army Corps of Engineers** for rivers and
+reservoirs, the **Bureau of Reclamation** for Hoover and Glen Canyon dams, and the **International Joint
+Commission** for the boundary waters. State geological surveys and the state encyclopedias that pass the
+per-entry test above (the Handbook of Texas, the Encyclopedia of Alabama, NCpedia) carry the history.
+**A length is a claim with a method**: the USGS's river lengths, the NPS's and the state survey's often
+differ by tens of kilometres, so the card names whose figure it gives and does not average two.
+
+### Names that changed in 2025 — decide on each card, never in silence
+
+Executive Order 14172 of January 2025 renamed two features in this plan for federal use: **Denali** became
+**Mount McKinley** again, and the **Gulf of Mexico** the **Gulf of America**, and GNIS followed. Neither
+name is false and the card must not pretend one is: the background states both and when each was
+applied, sourced to GNIS or the order itself, and the glossary term carries the other as an alias. **The
+answer is the name the card's own sources use most widely**, which for both is to be decided by the
+session writing them and stated in that card's commit, since the question is a live one rather than
+settled history. Check every other name in the plan against GNIS as it is written; a renaming no one
+expected is exactly what a plan line hides.
+
+### How the running orders were chosen
+
+**By how well the name is known**, the same axis `difficulty` encodes and the same rule the states deck's
+bands followed: 1–10 household names, 11–22 familiar from school, 23–32 known to the interested, 33–40
+the hard ones. Each band mixes kinds, so a reader is not dealt ten rivers in a row. A plan line is a
+subject to research, not a fact: re-order, re-band or replace a line in the same commit as its card when
+the research says so, and do not create a deck to hold a feature that does not fit.
+
+**What the water deck leaves out on purpose**: the oceans (they are not the United States' own, and a
+world deck is the place for them), springs and aquifers (no extent a locator can draw), and the long tail
+of reservoirs — Lake Mead and Lake Powell are in because the Colorado's history is theirs. **What the
+mountains deck leaves out**: individual national parks as parks (a park is an institution; the feature
+it protects is the card), and glaciers, which want a deck of their own if they are wanted at all.
+
+## Rivers, lakes and bays — `geo-us-water`
+
+  geo-801 Mississippi River
+  geo-802 Lake Superior
+  geo-803 Missouri River
+  geo-804 Great Salt Lake
+  geo-805 Colorado River
+  geo-806 Lake Michigan
+  geo-807 Rio Grande
+  geo-808 Niagara Falls
+  geo-809 Chesapeake Bay
+  geo-810 Hudson River
+  geo-811 Ohio River
+  geo-812 Columbia River
+  geo-813 Lake Erie
+  geo-814 Lake Huron
+  geo-815 Lake Ontario
+  geo-816 Lake Tahoe
+  geo-817 Gulf of Mexico (the 2025 name: see above)
+  geo-818 Crater Lake
+  geo-819 Everglades
+  geo-820 Puget Sound
+  geo-821 Potomac River
+  geo-822 Snake River
+  geo-823 Lake Mead
+  geo-824 Lake Okeechobee
+  geo-825 Tennessee River
+  geo-826 Yukon River
+  geo-827 San Francisco Bay
+  geo-828 Arkansas River
+  geo-829 Lake Champlain
+  geo-830 Delaware River
+  geo-831 Sacramento River
+  geo-832 Long Island Sound
+  geo-833 Lake Powell
+  geo-834 Lake Pontchartrain
+  geo-835 Connecticut River
+  geo-836 Yellowstone River
+  geo-837 Red River (the Mississippi's tributary, Texas–Oklahoma)
+  geo-838 Platte River
+  geo-839 Iliamna Lake
+  geo-840 Red River of the North
+
+## Mountains, canyons and caves — `geo-us-mountains`
+
+  geo-901 Rocky Mountains
+  geo-902 Grand Canyon
+  geo-903 Appalachian Mountains
+  geo-904 Denali (the 2025 name: see above)
+  geo-905 Mount St. Helens
+  geo-906 Mount Rushmore
+  geo-907 Sierra Nevada
+  geo-908 Mammoth Cave
+  geo-909 Mount Rainier
+  geo-910 Death Valley
+  geo-911 Mount Whitney
+  geo-912 Carlsbad Caverns
+  geo-913 Cascade Range
+  geo-914 Kīlauea
+  geo-915 Mauna Kea
+  geo-916 Half Dome
+  geo-917 Pikes Peak
+  geo-918 Mount Washington
+  geo-919 Devils Tower
+  geo-920 Great Smoky Mountains
+  geo-921 Grand Teton
+  geo-922 Black Hills
+  geo-923 Mount Hood
+  geo-924 Monument Valley
+  geo-925 Badlands
+  geo-926 Mauna Loa
+  geo-927 Blue Ridge Mountains
+  geo-928 Mount Mitchell
+  geo-929 Wind Cave
+  geo-930 Mount Shasta
+  geo-931 Bryce Canyon
+  geo-932 Adirondack Mountains
+  geo-933 Ozarks
+  geo-934 Stone Mountain
+  geo-935 Brooks Range
+  geo-936 Mount Elbert
+  geo-937 Delicate Arch
+  geo-938 Lechuguilla Cave
+  geo-939 White Mountains (New Hampshire)
+  geo-940 Mount Katahdin
 
 ---
 

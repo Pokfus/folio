@@ -20413,6 +20413,18 @@ window.COLLECTION_TREE = {
             "geo-705",
             "geo-742"
           ]
+        },
+        {
+          "id": "geo-us-water",
+          "title": "Rivers, lakes and bays",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-us-mountains",
+          "title": "Mountains, canyons and caves",
+          "placeholder": false,
+          "cardIds": []
         }
       ]
     },
