@@ -35,19 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1086", released: "2026-10-23T12:51Z" };
+window.FOLIO_VERSION = { v: "1.1088", released: "2026-10-23T13:36Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "<b>Collections</b> opens much faster: a collection's decks are now listed when you open it, not all at once when the page loads.",
       "Opening a chest now waits for the artefact's picture before revealing it, and swaps in another artefact if the picture is broken.",
       "A deck or collection you have not set an order for now opens in <b>By difficulty</b> instead of Ordered; you can still change it.",
       "<b>Read aloud</b>: the play button beside Question, Answer and Background now appears on every card, including geography, philosophy and the arts.",
       "<b>Read aloud</b>: Background now continues through a book quotation into the second paragraph instead of stopping after the first.",
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
+      "<b>A hundred more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Soviet Union, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
