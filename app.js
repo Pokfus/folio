@@ -27243,6 +27243,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const toggle = (e) => {
       if (e) e.stopPropagation();
       const open = subsEl.classList.toggle("open");
+      if (open) fillExpander(subsEl);
       chevEl.classList.toggle("open", open);
       containerEl.classList.toggle("open", open);
       if (open) {
@@ -27258,7 +27259,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onRow(); }
     });
   }
+  /* A BRANCH'S CHILD ROWS ARE BUILT WHEN IT IS FIRST OPENED, NOT WHEN THE PAGE IS (Oct 2026, on a report of
+     lag between pages). Collections used to build every deck and sub-deck row of every collection up front
+     — about 12,500 elements, of which a reader sees a few dozen, since each branch starts folded — so the
+     page took over a second to arrive on a laptop and several on a phone. `lazyChildren` parks the build on
+     the children's container; `fillExpander` (the one place a fold opens) runs it once. Nothing is lost: a
+     row built later reads the same live state (`isActive`, the counts) a row built at page load did. */
+  function lazyChildren(subsEl, build) { subsEl._fill = build; }
+  function fillExpander(subsEl) {
+    const f = subsEl._fill;
+    if (f) { subsEl._fill = null; f(); }
+  }
   function openExpander(subsEl, chevEl, containerEl) {
+    fillExpander(subsEl);
     subsEl.classList.add("open");
     chevEl.classList.add("open");
     containerEl.classList.add("open");
@@ -27321,9 +27334,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const aBtn = group.querySelector(".node-add");
       if (aBtn) wireAddButton(aBtn, node.id);
       const pad = group.querySelector(".node-children-pad");
-      nodeChildren(node).forEach((ch, i) => pad.appendChild(buildNode(ch, i)));
       const row = group.querySelector(".node.branch");
       const childrenEl = [...group.children].find((c) => c.classList.contains("node-children"));
+      lazyChildren(childrenEl, () => { nodeChildren(node).forEach((ch, i) => pad.appendChild(buildNode(ch, i))); unitizeTree(pad); spellTree(pad); });
       const chev = row.querySelector(".chev");
       wireExpander(row, childrenEl, chev, group);
       return group;
@@ -28001,10 +28014,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
       if (hasSubs) {
         const padEl = collEl.querySelector(".node-children-pad");
-        nodeChildren(d).forEach((sd, i) => padEl.appendChild(buildNode(sd, i)));
-
         const chev = collEl.querySelector(".collection-actions > .chev");
         const childrenEl = [...collEl.children].find((c) => c.classList.contains("node-children"));
+        lazyChildren(childrenEl, () => { nodeChildren(d).forEach((sd, i) => padEl.appendChild(buildNode(sd, i))); unitizeTree(padEl); spellTree(padEl); });
         const rowEl = collEl.querySelector(".collection-row");
         // clicking the collection body studies its whole subtree (the chevron still expands the decks within); a coming-soon or
         // empty collection has nothing to study, so it falls back to toggling.
