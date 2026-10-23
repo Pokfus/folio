@@ -180,7 +180,7 @@ a URL is set** — `syncMediaMeta()` gates them on the GATE's staged src, not th
 viewer is suppressed inside the editor via stopPropagation); a card with neither shows an **editor-only**
 "Add an image or a video" placeholder (`.ces-img-ph` — deliberately NOT `.card-img`, so the delegated viewer/study
 page never see it). `.card-edit-single .admin-live-card` carries auto margins (the card caps at 680px inside the 780px
-column — without them it sat off-centre). **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
+column — without them it sat off-centre). The meta row also carries the **timelines** switch (Oct 2026): not on timelines / an event / a period, with date boxes, written as the `ADMIN_EDITS.cardTimeline` delta — see `docs/reference.md` "Card timeline". **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
 (the data fields still exist and render on study cards). **The admin tree drags two ways**: dropping on a
 same-parent sibling REORDERS (insert-before, `reorderSiblings` — the Library follows this order); dropping on a
 node with a different parent MOVES INTO it, as before. The

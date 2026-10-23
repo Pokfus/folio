@@ -5,76 +5,18 @@
 and bug reports each rule came from, the measurements, and the faults that were invisible on the page.
 The RULES stay in `CLAUDE.md`.
 
-## The grade bar's fold, moved out of `CLAUDE.md` (2026-09-11)
+## The grade bar's fold — REMOVED (Oct 2026)
 
-- **…and on a phone its HEIGHT is the reader's** (`.gb-fold` / `gbWireResize` / `body.gb-compact`, Aug 2026, on
-request): a **CHEVRON** on its top edge folds the bar to half its height, 111px → 58px, the four grades going
-side by side as bare COLOURS with the `?`, Undo and Suspend as icons on the same row. It was a DRAG GRIP for a
-fortnight and became a chevron on request (Aug 2026): the bar has exactly two positions, so a drag was a
-gesture whose whole range mapped onto one bit, and a chevron says "there are two states and this is the other
-one" outright. Being a real `<button>` it also needs no press classification — `GB_SLOP`, which told a drag
-from a tap, is retired — and Enter/Space come free, with ↑/↓ reaching the two states directly.
-Three things are load-bearing. The chevron lives **outside `.gradebar-inner`**, whose contents are replaced for
-every card, so it is wired once in `ensureGradeBar` and a grade never has to survive a rebuild. Nothing is
-**lost** in the short state: the label is CLIPPED (`clip-path`, 1px) rather than `display:none`, or the four
-buttons would be four unnamed colours to a screen reader as well as to the eye, and the `?`/Undo/Suspend go
-icon-only via **`font-size:0` on the button** — their text is a bare node beside an `<svg>`, which no
-selector can reach, and the svg keeps its own px size. The chevron's own svg is rotated 180° in the short
-state, so it always points the way pressing it will go. And `body.gb-compact.grading .stage`'s padding drops
-to 96px with it (specificity, not source order — the ≤430px block's `body.grading .stage` sits further
-down). Device-local in `localStorage["folio_gb_compact_v1"]`, like where the marker sits and how tall the
-place sheet is. Guarded by `test-layout.js`.
-**It FOLDS rather than cutting** (Aug 2026, on a report). The two states differ by more than a height —
-the four grades go from two rows of two to one row of four, and the `?`, Undo and Suspend move up beside
-them — and none of that is a property CSS can transition. So the SIZES transition in CSS and the
-POSITIONS are FLIPped in JS (`gbSetCompact(on, persist, animate)` → `flipHeight` around `flipMove`), and
-the two halves have to be written against each other: the tall state states `.grade`'s height explicitly
-(`calc(56px * var(--fs))`, since `auto` is a value nothing can transition from) and **`GB_FOLD_MS` must
-stay in step with the 280ms in styles.css**. The animation is not gated on being a phone — above the
-breakpoint the chevron is `display:none` and it is unreachable, and `flipMove` skips anything that did
-not move — but it IS gated on the reader's motion setting, inside both helpers. Note for the tests: a
-height read sooner than `GB_FOLD_MS` after the press measures a state half way between the two.
-**ONE CLOCK AND ONE CURVE, which is what it was missing** (Aug 2026, on a report that the fold ran
-roughly). The two passes act on the SAME four buttons at the same moment — the position from `flipMove`,
-the height and padding from the CSS transitions — so they have to agree about more than the duration:
-the FLIP ran `cubic-bezier(.22,.61,.36,1)` while the transitions ran `--ease`
-(`cubic-bezier(.2,.7,.2,1)`), and a box arriving slightly before or after the place it is sliding to
-reads as a stutter rather than as two animations. `GB_FOLD_EASE` in app.js is now `--ease` written out,
-and `flipHeight` takes an easing argument so it can be passed the same one. Two more things came out of
-the same report and are worth keeping: **`font-size` is NOT transitioned** on `.grade-help` /
-`.gb-undo` / `.suspendbtn` — easing a font down to 0 relayouts the text every frame on three buttons
-`flipMove` is translating, and the two fighting over one box was most of the roughness, so the labels
-now go at once and only the geometry eases — and **`#gradebar`'s own `padding-bottom` IS transitioned**,
-or the whole movement ends on a 5px jump the instant everything else settles.
-**The chevron is dimmed to `opacity:.5`** (Aug 2026, on request), full strength on hover and focus: it
-is a quiet control sitting directly above four saturated colours.
-**AND IT NO LONGER JAMS HALF WAY** (`_gbAnims` / `_gbFoldT` / `gbStopFold` / `gbFoldingFor` /
-`body.gb-folding`, Aug 2026, on a report that pressing the chevron twice quickly left the bar stuck).
-Two faults, and each is invisible on a single press. The FLIP's animations were fired and forgotten, so a
-second press started a second set over the first and the four buttons settled wherever the two disagreed —
-they are kept in `_gbAnims` now and cancelled at the head of the next fold, which is `flipMove` and
-`flipHeight` having been taught to RETURN what they created (they returned nothing, so no caller could
-have cancelled anything). And the CSS transitions have a duration of their own, so a press landing inside
-it measured a height half way between the two states and folded to the wrong one — `body.gb-folding` is
-set for `GB_FOLD_MS` and takes the bar's own contents out of hit-testing while it moves, with a
-capture-phase `pointerdown` **exempting `.gb-fold` itself** so the chevron stays pressable: a reader who
-presses it twice means to end up where the second press says, and swallowing that press would be the same
-jam wearing a different coat.
-**ITS TEST MUST DRIVE REAL INPUT AND MUST CLEAR THE LEVEL-UP CHEST**, and the second half is what made
-the block honest. `el.click()` bypasses hit-testing entirely — which is the whole of what breaks here —
-so a scripted version passes on the bug and the rounds have to go through `page.mouse.click`. But six
-grades takes a fresh reader past level 2 (`XP_PER_LEVEL` is 5), and a level buys an artefact chest whose
-overlay swallows every REAL pointer event: the chevron presses land on nothing and the grade's own centre
-hit-tests to the overlay, so the round reports a jam that is the REWARD working exactly as designed. It
-shows as **1 of 6** — the scripted reveal goes through regardless, so only the real-input half is blocked
-— which reads like a rare intermittent fault rather than a fixture problem. The chests are dismissed at
-the head of each round and **counted**, so a dismissal that stopped firing cannot put the false failure
-back quietly. **And the sub-block after the loop has to REVEAL again**: the loop now ends on a grade that
-succeeds, which moves to the next card and hides the bar, and `#gradebar` is `pointer-events:auto` only
-while it carries `.show` — so the mid-fold probe read `none` on everything and reported a fold that never
-started. It had been passing for the wrong reason, on a round 6 whose grade the chest was swallowing.
-**A fixture that depends on an earlier step failing passes until that step is fixed.**
-
+The phone's grade bar once had a chevron (`.gb-fold`, `gbWireResize`, `body.gb-compact`, `folio_gb_compact_v1`)
+that folded it to a short, colours-only state, animated by a FLIP (`gbSetCompact`, `flipHeight`/`flipMove`, `_gbAnims`,
+`body.gb-folding`). **It was removed on request, mode and all** — nothing reads or writes any of those names now, and a
+stale `folio_gb_compact_v1` in a reader's storage is simply ignored. The bar has one height.
+Under the four grades the phone's row is **two equal halves**: the `?` is as wide as the two grades above it on the
+left, Suspend as wide as the two on the right (`.grade-wrap` is `1fr 1fr`, areas `"grades grades" "help suspend"`;
+below 430px its column gap is 6px, the grades' own, so each half is exactly two grades and the gap between them).
+When there is something to undo (Oct 2026, on request), `.grade-wrap:has(.gb-undo)` becomes three equal thirds,
+`"help undo suspend"`, Undo between the two. Guarded by `test-layout.js`.
+(`flipMove` / `flipHeight` in app.js are left in place, now without a caller.)
 
 ## Undoing a grade, moved out of `CLAUDE.md`
 

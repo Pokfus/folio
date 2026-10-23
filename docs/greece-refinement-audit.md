@@ -243,16 +243,16 @@ one changelog line and a version bump; commit and push.
 | B71 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-676`–`gr-685` | 10 | **done 2026-10-15** |
 | B72 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-686`–`gr-695` | 10 | **done 2026-10-15** |
 | B73 | Fourth century and the rise of Macedon (`gr-fourth-century`) | `gr-696`–`gr-700` | 5 | **gr-696–700 done 2026-10-15** |
-| B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | open |
-| B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | open |
-| B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | open |
-| B77 | Alexander the Great (`gr-alexander`) | `gr-731`–`gr-740` | 10 | open |
-| B78 | Alexander the Great (`gr-alexander`) | `gr-741`–`gr-750` | 10 | open |
-| B79 | Successor kingdoms (`gr-successors`) | `gr-751`–`gr-760` | 10 | open |
-| B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | open |
-| B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | open |
-| B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | open |
-| B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | open |
+| B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | **done 2026-10-22** |
+| B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | **done 2026-10-22** |
+| B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | **done 2026-10-22** |
+| B77 | Alexander the Great (`gr-alexander`) | `gr-731`–`gr-740` | 10 | **done 2026-10-22** |
+| B78 | Alexander the Great (`gr-alexander`) | `gr-741`–`gr-750` | 10 | **done 2026-10-22** |
+| B79 | Successor kingdoms (`gr-successors`) | `gr-751`–`gr-760` | 10 | **done 2026-10-22** |
+| B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | **done 2026-10-23** |
+| B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | **done 2026-10-23** |
+| B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | **done 2026-10-23** |
+| B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | **done 2026-10-23** |
 | B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | open |
 | B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | open |
 | B86 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-821`–`gr-830` | 10 | open |
@@ -2369,3 +2369,233 @@ The new titles Battle of Coronea (394 BC), Battle of Sardis (395 BC) and Social 
 `gr-675`, `gr-699`, all as battles), `gr-612`, `gr-646`, `gr-665`, `gr-666`, `gr-674` and `gr-678`. `gr-673` was fetched on a later try; `gr-683`'s
 coordinate (23.7435, 37.9741) was read from the `wgCoordinates` of the English Wikipedia article "Lyceum (classical)" itself
 after the coordinate service refused the shared address five times, and written through `add-card.js`.
+
+### B74–B76 (`gr-701`–`gr-730`) — Alexander the Great: the man, the army, the first campaigns, the Persian heartland (2026-10-22)
+
+Thirty cards of `gr-alexander`: Alexander, Olympias, Philip's murder, the accession, the destruction of Thebes, the army,
+the Companion cavalry, the pezhetairoi, Parmenion, the Hellespont, the Granicus, Miletus, Halicarnassus, the Gordian Knot,
+Issus, Darius III, Tyre, Gaza, Memphis, Alexandria, the oracle of Ammon, Gaugamela, the surrender of Babylon, Susa,
+Persepolis, its burning, the death of Darius, Bessus, Persian dress and proskynesis. Method as before (drafts by research
+agents, every claim re-sourced from the page, every draft read and re-checked here). The Alexander cards are the
+legend-prone ones, so each says whose account a tale rests on (Arrian, Plutarch, Curtius, Diodorus, Justin) and where
+they part: the Granicus (axe or scimitar, the night crossing), Miletus (Arrian's 300 mercenaries spared, Diodorus' sale),
+Halicarnassus (the drunken pair or the old Macedonians), Tyre (Diodorus' bridge, Arrian's ships), Gaza (two months or four),
+Alexandria (barley and birds), Gaugamela (Arrian's Darius flees first, the Babylonian diary's troops desert him),
+Persepolis (vengeance or a drinking party), Darius's death (Arrian's Nabarzanes and Barsaentes, Diodorus' Bessus).
+
+Checks: `greece-audit.js` finds only `I.none` on the cards with no picture and `Q.sibling` on `gr-724` (47 % against `gr-386`,
+both about Susa as a place); `check-questions`, `check-cards --prefix=gr-`, `split-cards --check`, `test-card-plans`,
+`check-docs`, `apply-wiki-links --check` pass; `check-style` adds nothing to main's alarms (the "BC" titles of the Tyre and
+Gaza articles are known); `check-citations --card` finds no mismatch on any of the 30; every cited URL answers 2xx
+(Wikisource answered 429 on two links on `gr-727`, a rate limit, not a dead page).
+
+**Date lines:** empty and `undatable` for `gr-730` (proskynesis: the greeting is far older than the attempt of 327 BCE,
+which stays in the prose). No estimated life dates: `gr-702` drops the old "c. 375" birth and keeps the marriage (357 BCE)
+and her death (316 BCE); `gr-701` keeps only the born-356 and reigned 336 – 323 BCE rows of the chronology table;
+`gr-709` carries Philip's advance party (336 BCE) and the killing (330 BCE); `gr-728` carries Livius' reign of Artaxerxes V
+(330 – 329 BCE). Months are left out where the sources part: Philip's murder (`gr-703`: summer or October), Parmenion's
+death (`gr-709`: October or December), the Gordian Knot (`gr-714`: Penn's page says 333 BCE, its own Expedition article
+334/3 BCE, Livius has Alexander join Parmenion in winter), Issus (`gr-715`: 5 or 6 November).
+
+**Corrected in the old cards:** Diodorus' own cavalry figures add up to 5,100, not the 4,500 he states (`gr-706`); the old
+`gr-709` and its glossary entry said Diodorus puts "the whole infantry" under Parmenion (he gives 24,000 of the 32,000);
+the glossary entry for the pezhetairoi said 16 – 20 ranks deep, Livius says 8 – 16 before Philip and 20 under him
+(`gr-708`); the Granicus card put Diodorus' figures in Arrian's mouth (`gr-711`); "greatest harbour of Ionia" had no source
+(`gr-712`); the Gordian Knot card cited the Penn home page for a 2023 listing it does not carry (`gr-714`); "half the
+empire" was never in Arrian's letters of Darius (`gr-716`); the Carthage evacuation of Tyre is Diodorus 17.46 against 17.41
+(dropped, `gr-717`); Alexander did not sail up the Nile to Memphis, his ships did and he marched by Heliopolis (`gr-719`);
+the old Alexandria card said Arrian found the barley story unworthy of belief, Chinnock's Arrian says "not unworthy of
+belief" (`gr-720`); the oasis width of 8 km at Siwa had no cited page (`gr-721`); Diodorus' Book 17 translator was named
+Oldfather by the Perseus boilerplate and is no longer named (`gr-706`, `gr-723`, `gr-724`); the Apadana's "72 columns, 25 m"
+counted the porticoes, the excavators' figure is six rows of six columns about 19 m high (`gr-725`); Arrian says the
+officers wounded Darius, not "stabbed" him, and the date is July 330 BCE (`gr-727`); Alexander left out the trousers,
+sleeved garment and tiara (`gr-729`); "failed to impose" proskynesis is dropped, the Persians went on performing it
+(`gr-730`). **Glossary entries redrafted:** `Alexander_the_Great`, `Olympias` (date 357 – 316 BCE), `Assassination_of_Philip_II`,
+`Pezhetairoi`, `Parmenion`, `Darius_III`, `Death_of_Darius_III`, `Bessus`, `Persian_dress`, `Proskynesis`.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Pausanias` (the travel writer, `gr-703`), `Thebes`, `Cleopatra`
+(Cleopatra VII) and `Thermopylae` (`gr-704`, `gr-705`), `Lade` and `Mycale` (`gr-712`), `Arses` (opens Saguntum, `gr-716`),
+`Menes` (the pharaoh, `gr-724`) and `midway` (`gr-729`).
+
+**Answer terms kept:** `gr-719` is answered by Memphis although its plan line reads "Alexander in Egypt" (an earlier batch's
+choice; the Egypt landing is its subject), and `gr-729` by Persian dress although its plan line reads "Alexander's
+Persianising policy" (the policy is the last half of the background).
+
+**Chronology.** A new section, "Alexander the Great, accession to the Persian heartland", holds rows and pins; the Events
+and reigns rows for Alexander III (born 356, reigned 336 – 323 BCE) are confirmed, and rows for the three great battles and
+Tyre and Gaza are added.
+
+**Pictures for `gr-701`–`gr-730`** (applied with the text). Replaced (4): `gr-703`
+the theatre site at Aigai for a Vergina tomb facade whose identification with Philip is uncertain, `gr-715` the whole Alexander
+Mosaic for a crop of Alexander alone, `gr-722` a clean 17th-century painting (imagined) for a gallery photo of a framed
+painting, `gr-726` Rochegrosse's imagined burning of Persepolis (1890) for a ruin photo that does not show the fire.
+Reformatted to standard thumbnails with the subject kept (6): `gr-701`, `gr-702`, `gr-716`, `gr-724`, `gr-727` (which now says
+"imagined") and `gr-728`. Kept (14): `gr-704`–`gr-706`, `gr-710`, `gr-711`, `gr-714`, `gr-717`, `gr-719`–`gr-721`, `gr-723`,
+`gr-725`, `gr-729`, `gr-730`. Removed (4): `gr-707` (a 1920s copy-drawing of an uncertain unit), `gr-708` (a 507-pixel photo),
+`gr-712` (a silted harbour with a later monument), `gr-713` (the Mausoleum, not the siege). No picture and none before
+(`gr-709`, `gr-718`). `gr-716` is still a detail of the Issus mosaic (the only likeness of Darius) and `gr-728` shows the
+citadel mound at Balkh.
+
+**Locators:** none new; every battle, siege, city and site among these cards already carried one.
+
+### B77–B79 (`gr-731`–`gr-760`) — Alexander's last campaigns and death, the first Successors (2026-10-22)
+
+Thirty cards: the fall of Philotas, the murder of Parmenion, the killing of Cleitus, the Pages' Conspiracy, Callisthenes,
+Sogdiana, Roxana, the Indian campaign, the Hydaspes, Porus, the Hyphasis, Gedrosia, Nearchus, the Susa weddings, the Opis
+mutiny, Hephaestion, Alexander's death, Alexandria Eschate, the Alexander historians and Hellenisation (which close
+`gr-alexander`), then the Diadochi, the Partition of Babylon, Perdiccas, Antipater, the Lamian War, Crannon, Calauria,
+Eumenes, Triparadisus and Cassander (the first ten of `gr-successors`). Method as for B74 – B76. The sources are set against
+each other wherever they part: the trial of Philotas (Plutarch's tapestry and torture, Arrian's javelins, Curtius' stoning),
+the quarrel with Cleitus (Arrian's flattery of the Dioscuri, Justin's defence of Philip, Plutarch's Euripides), Hephaestion's honours
+(Arrian: Ammon refused; Plutarch: hero honours; Diodorus: worship approved), the death (the Journals; the poison tale as Arrian
+disbelieves it and Justin tells it; the Last Plans from Diodorus after Hieronymus), the bride at Susa (Arrian's Barsine, Plutarch's
+and Diodorus' Stateira), Perdiccas' end (Diodorus' stabbing in the tent, Photius' summary of Arrian's engagement) and Demades'
+killer (Antipater in Diodorus, Cassander in Photius).
+
+Checks: `greece-audit.js` finds only `I.none` on cards with no picture; `check-questions`, `check-cards --prefix=gr-`,
+`split-cards --check`, `test-card-plans`, `apply-wiki-links --check` pass; `check-style` adds nothing to main's alarms; every
+cited URL answers 2xx; `check-citations --card` finds no mismatch.
+
+**Date lines:** empty and `undatable` for `gr-749` and `gr-750` (a body of writing and a process). Estimated life dates dropped:
+`gr-754` (Antipater's old "399 – 319" becomes "put in charge 334, died 319"), `gr-758` (Eumenes' "c. 362 – 316"), `gr-760`
+(Cassander's "born c. 350"), `gr-746` (Hephaestion's birth) and the glossary dates of `Hephaestion`, `Eumenes_of_Cardia`,
+`Cassander` and `Roxana`. A disputed date is two rows saying whose: `gr-759` (low chronology 320 BCE, high chronology 321 BCE,
+after Anson 2003 and the review of Boiy); `gr-737` prints Roxana's death as "311 – 310 BCE" (Smith and Wheeler give 311, Lendering
+311/310); `gr-758` prints Eumenes' death as "316 – 315 BCE" (the year Diodorus numbers, and a reviewer's January 315);
+`gr-760` gives Cassander's murder of Alexander IV as 311 BCE (Diodorus) in the prose and 309 BCE (Wünsch) beside it. Months are
+left out where the sources part: the Hyphasis (end of July, or September), Gedrosia (August to December), the voyage of Nearchus
+(15 September, or October), the Hydaspes and Crannon (7 Metageitnion, converted to July or 5 September).
+
+**Corrected in the old cards:** the plotters Dimnus and Cebalinus were put in Arrian's mouth, and the trial of Philotas now sets Plutarch,
+Arrian and Curtius side by side (`gr-731`); "not tried at all" for Parmenion is Bury against Diodorus' condemnation by the army (`gr-732`); the quarrel with Cleitus now differs by source (Arrian's flatterers, Justin's Philip, Plutarch's songs and Euripides; `gr-733`); the Pages' Conspiracy now rests on Arrian's chain
+(Epimenes, Eurylochus, Ptolemy) and not on a stoning Arrian only mentions (`gr-734`); Callisthenes is a "relative" of Aristotle, not
+his nephew (Livius says nephew, Smith and Plutarch a more distant kinsman) (`gr-735`); the Roxana card's "the rites were the
+local ones" was not in Arrian (`gr-737`); the Indian-campaign card described only the first year and now runs to the Hyphasis, the river
+voyage and Gedrosia (`gr-738`); the Hydaspes card leaned on Diodorus' figures and a Plutarch-only distance (`gr-739`); Plutarch alone
+has the kneeling elephant (`gr-740`); Hephaestion's pyre cost 10,000 talents (Arrian, Plutarch) or over 12,000 (Diodorus) (`gr-746`);
+the old death card's "Arrian gives no such scene" of the succession was wrong, Arrian 7.26 reports it (`gr-747`); Arrian's preface
+does not say he rejected whatever Ptolemy and Aristobulus omitted, so the card and its glossary entry no longer say so (`gr-749`); the
+month Metageitnion and the Munychia garrison were wrongly sourced at Crannon (`gr-756`); Pausanias did not "see" the tomb of
+Demosthenes, he places it in the enclosure (`gr-757`); the "forty years" and "c. 275" of the Diadochi card are gone (`gr-751`);
+"administration, not sovereignty" at Babylon had no source (`gr-752`); Anson's high and low chronologies are named wherever
+Perdiccas dies (`gr-753`, `gr-759`). **Glossary entries redrafted:** `Sogdiana`, `Roxana`, `Hephaestion`, `Alexandria_Eschate`,
+`Alexander_historians`, `Diadochi`, `Eumenes_of_Cardia`, `Cassander`.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes`, `Cleopatra` and `Parian Marble` (`gr-753`), `Antipater` (the page,
+`gr-734`), `Hydaspes` and `Meroes` (`gr-740`), `Media` (the satrapy, which opens the Medes; `gr-732`, `gr-752`, `gr-759`), `Heracles`
+(Barsine's son, `gr-752`), `Heraclea`, `Cleitus`, `Thebes` (`gr-755`), `horse` as cavalry (`gr-756`), `Poros` (the island, which opens
+the stone; `gr-757`), `Silver Shields` (`gr-758`), `vulgate` (the Bible, `gr-749`), `Corinthian` (`gr-750`), `reconstruction`
+(`gr-741`), `direct rule` (`gr-738`).
+
+**Chronology.** Rows and pins added to "Alexander the Great" and a new section, "The Successors, the Partition of Babylon to Cassander";
+Events and reigns gains the death of Alexander, the Lamian War and Crannon, and the date of Perdiccas' death and Triparadisus.
+Spellings gains **Triparadisus** (Diodorus' and Anson's forms stay inside cited titles).
+
+**Pictures for `gr-731`–`gr-760`** (applied with the text). Replaced (2): `gr-744` the ruins of the Apadana at Susa for a Castaigne
+magazine illustration, `gr-748` the fortress at Khujand for an 1870s photograph of the modern town. Kept (11): `gr-736`, `gr-738`,
+`gr-739`, `gr-741` – `gr-743`, `gr-749`, `gr-752`, `gr-755` – `gr-757`. Description fixed on one: `gr-732` (a whole 15th-century
+manuscript leaf, now described as one). Removed (13): later paintings and engravings or conjectural
+identifications, and two pictures found on the final contact sheet to carry a printed caption: `gr-733` (Castaigne's engraving has its caption line
+under it) and `gr-751` (the map has a printed title and a credit in it and is dated about 240 BCE, not the whole of the Diadochi); and, earlier, `gr-734` (the Stag Hunt mosaic is not the conspiracy), `gr-737` (a Sodoma fresco), `gr-740` (Le Brun), `gr-745`
+(Castaigne), `gr-746` (the Ecbatana file found was a skeleton, refused), `gr-747` (Piloty), `gr-750` (under 960 pixels, and the
+replacements found were too small), `gr-753`, `gr-754`, `gr-758`, `gr-760`. No picture and none before: `gr-731`, `gr-735`, `gr-759`.
+
+**Locators:** `gr-736` (Maracanda, from the Samarkand article) and `gr-739` (the Jhelum, as a battle) fetched through
+`add-locators.js`; the Hydaspes article carries no coordinate, so the Jhelum river's is used. `gr-745`'s Opis has none (the
+Wikipedia article gives no coordinates for the lost city).
+
+### B80–B83 (`gr-761`–`gr-795`) — the Successors from Antigonus to the Aetolian League (2026-10-23)
+
+Thirty-five cards of `gr-successors`: Antigonus Monophthalmus, Demetrius Poliorcetes, the siege of Rhodes, the Colossus, Ipsus,
+Ptolemy I, Ptolemaic Egypt, Seleucus I, the Seleucid Empire, the Antigonid dynasty, Lysimachus, Corupedium, Hellenistic kingship,
+ruler cult, the basilissa, Arsinoe II, Berenice II, the dioiketes, Seleucid colonisation, Antioch, Seleucia on the Tigris, Ai-Khanoum,
+the Greco-Bactrian and Indo-Greek kingdoms, Menander I, the Milindapanha, the Gallic invasion, the Galatians, the Attalids, the Great
+Altar of Pergamon, the Library of Pergamon, Antiochus III, the Syrian Wars, Raphia and the Aetolian League. `gr-796` – `gr-800`
+follow in their own paragraph. Method as before; where the sources part the card says whose is whose (Diodorus against Appian on
+why Seleucus fled, Diodorus against Plutarch on the helepolis and on who brokered the peace at Rhodes, Diodorus, Pausanias and
+Strabo on Alexander's body, Strabo against Diodorus on Antigonia, Pausanias, Justin and Livius on the death of Agathocles, Pausanias,
+Justin and Diodorus on the death of Brennus).
+
+Checks: `greece-audit.js` finds only `I.none` on cards with no picture, `Q.sibling` on `gr-780` (43 % against `gr-219`, Byzantium)
+and `W.not-why` on `gr-791` (two questions that do not open "Why", which is reported, not a fault); `check-questions`,
+`check-cards --prefix=gr-`, `split-cards --check`, `test-card-plans`, `check-docs` and `apply-wiki-links --check` pass; `check-style`
+adds nothing to main's alarms; every cited URL answers 2xx.
+
+**Date lines:** empty and `undatable` for `gr-773` (Hellenistic kingship), `gr-774` (ruler cult), `gr-775` (basilissa), `gr-778`
+(the dioiketes, whose office has no sourced start), `gr-779` (Seleucid colonisation) and `gr-786` (the Milindapanha, whose date runs
+from soon after Menander to about 430 CE, three scholars giving three answers). Estimated life dates dropped from `gr-771`
+(Lysimachus' "c. 361"), `gr-776` (Arsinoe II's "c. 316"), `gr-777` (Berenice II's "after 270") and `gr-768`, `gr-761` and `gr-762`
+(the glossary dates of Seleucus, Antigonus and Demetrius now read "died 281", "died 301" and "king of Macedon 294 – 288 BCE").
+Disputed dates are two rows saying whose: `gr-776` (the Mendes stele 270, the Pithom stele 268; Bevan's 269 in prose), `gr-785`
+(Menander's reign 155 – 130 BCE in the American Numismatic Society's catalogue, about 140 – 115 BCE in Rhys Davids), and
+`gr-783`, `gr-789` and `gr-788` print the dates their sources agree on and name the rest in the prose (the Kaikos battle, 230 or 233
+BCE, is left undated). `gr-781` prints the founding of Seleucia as the window 309 – 301 BCE (Livius), and `gr-782` the founding of
+Ai-Khanoum as the reign of Antiochus I (281 – 261 BCE).
+
+**Corrected in the old cards:** Antigonus' "nobody had granted him" and the "evident intention" of his glossary entry (`gr-761`);
+Demetrius' fall of Macedonia is 288 BCE, not 287 (`gr-762`); the Colossus did not "raise itself in thanksgiving" in Strabo, the
+size is Pliny's and the "Strabo saw it lying" of the glossary entry is gone (`gr-764`); "outlasted every rival" and the grain-and-
+troops tale of Ptolemy's surname had no source (`gr-766`); Seleucus' "died at 73 after reigning 42 years" and "those elephants decided
+Ipsus" are dropped and the 800 + 200 men of Diodorus are set against Appian's 1,000 + 300 (`gr-768`); Appian's 72 satraps are flagged as an
+exaggeration (`gr-769`); the Antigonid card's "fetters of Greece" was Philip V's phrase as the Greek envoys quoted it (`gr-770`);
+the "every part of the empire except Egypt" of Corupedium's glossary entry had no source (`gr-772`); Demetrius "sent" grain and timber
+to Athens in the old ruler-cult glossary entry, Plutarch has him promise it (`gr-774`); the "chariots at Nemea" and "Byzantine east"
+claims about the basilissa had no source, and Polybius calls Arsinoe at Raphia the king's sister, not queen (`gr-775`); the Memnon
+story of Heracleia is Arsinoe II's only in Memnon (`gr-776`, `gr-775`); Justin gives the army the killing of Demetrius the Fair and
+calls Berenice's mother Arsinoe (`gr-777`); the "c. 300" of Antioch and the "capital from c. 240" had no source (`gr-780`); the "c. 300
+BCE" of Ai-Khanoum and its Doric court and arsenal had none either (`gr-782`); the Rapson chapter of the Greco-Bactrian card was
+George Macdonald's (`gr-783`); "Ended c. 10 CE" became c. 10 BCE (Simonin), Iranica's reading being blocked and so unchecked
+(`gr-784`); the Gallic invasion's "280 BCE" death of Keraunos is 279 in Tarn and King (`gr-787`); the Great Frieze is 113 metres long,
+not 90, and the glossary entry says so (`gr-790`); the Library of Pergamon's north-stoa rooms are a doubted identification and "c. 168"
+for Crates is gone (`gr-791`); the "10,000 talents" of Antiochus III at Apamea is Polybius' 15,000 for the terms set after Magnesia
+(`gr-792`); Popilius' circle was drawn "outside Alexandria" in no source (`gr-793`); the day "22 June" of Raphia is in none
+(`gr-794`); the Roman treaty of "212 BCE" and "the first Greek state to ally with Rome" were the Roman commander's own speech and an
+unsourced year (`gr-795`). **Glossary entries redrafted:** `Antigonus_I_Monophthalmus`, `Demetrius_I_Poliorcetes`, `Colossus_of_Rhodes`,
+`Ptolemy_I_Soter`, `Ptolemaic_Egypt`, `Seleucus_I_Nicator`, `Seleucid_Empire`, `Antigonid_dynasty`, `Battle_of_Corupedium`, `Ruler_cult`,
+`Basilissa`, `Arsinoe_II`, `Berenice_II`, `Dioiketes`, `Seleucid_colonisation`, `Antioch`, `Seleucia_on_the_Tigris`, `Ai-Khanoum`,
+`Greco-Bactrian_Kingdom`, `Indo-Greek_Kingdom`, `Pergamon_Altar`, `Syrian_Wars`, `Battle_of_Raphia`, `Aetolian_League`, among others.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Salamis` (the island of 480 BCE, hand-keyed `Salamis_(Cyprus)`, `gr-761`,
+`gr-762`), `Egypt` (`gr-766`, `gr-767`), `Antipater` (`gr-770`), `epitaph` (the Korean key, `gr-772`), `Antioch` (several, `gr-779`),
+`Magas` and `Conon` (`gr-777`), `Philadelphia` and `Chrysippus` (`gr-778`), `Michigan` (`gr-781`), `Syria` (`gr-783`), `Brennus` (the
+Gaul who sacked Rome, `gr-787`, `gr-788`), `Media` (`gr-792`), `Cleopatra` (`gr-793`), `Syrian War` and `African` (`gr-794`), `Greek`
+(`gr-795`); bare `Menander` is hand-keyed to `Menander_I` on `gr-783` – `gr-785`.
+
+**Wikipedia links:** `gr-763` is the one manual entry (Siege of Rhodes (305–304 BC), which the resolver left as a disambiguation).
+
+**Chronology.** Rows and pins added to "The Successors" (renamed "… to the Aetolian League"); the Ipsus row of Events and reigns is
+confirmed.
+
+**Pictures for `gr-761`–`gr-795`** (applied with the text; the agents ran `cm.py info` on every picture they kept). Replaced (4):
+`gr-764` the Rhodes harbour mouth for a 16th-century print of the straddling pose, `gr-770` a tetradrachm of Antigonus Gonatas for
+a museum board of six small bronzes, `gr-775` Arsinoe III's own gold coin for a bust labelled Arsinoe III, `gr-776` the portrait
+obverse of Arsinoe II's gold coin for the reverse. Kept (23), several with a corrected description or credit: `gr-771` shows the
+reverse of the Lysimachus coin, not Alexander's head; `gr-762` and `gr-768` now say the identification is traditional or modern; `gr-766`,
+`gr-769` and `gr-773` had their credit or description corrected; `gr-782` keeps a find from Ai-Khanoum (the Cybele plate) because the
+only site photograph is 600 pixels wide. No picture (8): `gr-761` (the old coin shows Heracles; the files of his own coin are under
+400 pixels), `gr-763` (a hobbyist 3D model of the helepolis), `gr-765` (a Catalan-lettered map), `gr-772` (a Spruner plate with map
+lettering), `gr-781` (a detail of a Heracles statuette), `gr-786` (a Victorian illustration), `gr-791` (a lettered plan plate) and
+`gr-793` (the wars are six; a coin of one king is not the subject).
+
+**Locators:** `gr-790` and `gr-791` (the Pergamon acropolis) and `gr-794` (Rafah, as a battle) added through `add-locators.js`.
+
+**`gr-796`–`gr-800` (B83, the last five)**: the Achaean League, Aratus, Cleomenes III, Agis IV and the torsion catapult. The audit finds
+nothing on any of the five; `check-style`, `check-questions`, `check-cards`, `split-cards`, `test-card-plans`, `check-docs` and
+`apply-wiki-links --check` add nothing; `check-citations --card` finds no mismatch. Every cited URL answers 2xx except the DOI of the
+Spanish article on Agis IV and Cleomenes III (Fornis, `gr-798`, `gr-799`), which resolves but whose redirect target `revistas.uned.es`
+answers 503 over plain HTTP and 200 over HTTPS; Crossref matches the record.
+- **Date lines:** `gr-800` empty and `undatable` (the torsion spring has no firmly sourced start; Diodorus' Syracuse workshop of 399 BCE
+  is the earlier bow-shaped engine and one modern book's date). `gr-796` drops the "Sparta joined 192" row and prints Livius' c. 281 BCE
+  for the re-founding (Polybius gives an Olympiad, about five years before Aegium); `gr-797` replaces the estimated life with the
+  generalships (245 – 213 BCE: sixteen by Livius' count, seventeen by Plutarch's); `gr-798` drops the unsourced death in 219 and prints
+  Sellasia as 222 BCE (Plutarch's Loeb note has June 221); `gr-799` prints the reign as 245 – 241 BCE and says in the prose that the
+  accession is 245 (Pedersen) or 244 (Fornis, Shipley).
+- **Corrected:** Vitruvius credits Polyidus, Diades and Charias with rams and towers, not with torsion artillery (`gr-800`); the glossary
+  entry's "from c. 340 BCE" for the torsion engine had no source; the 15,000 lots of Agis' bill were for the provincials, not the
+  Spartans (`gr-799`); Plutarch's "20,000 against 30,000" at Sellasia is not Polybius' own total of 28,000 foot and 1,200 horse
+  (`gr-798`); the glossary entries `Aratus_of_Sicyon` ("for some thirty years", "c. 271"), `Cleomenes_III` ("killed himself at Alexandria in 219"),
+  `Agis_IV` and `Torsion_siege_engine` were redrafted.
+- **Wrong auto-links** stopped: `German` (`gr-796`), `Archidamus` (`gr-798`), `Lysander`, `Leonidas`, `Agesilaus` (`gr-799`), `Salamis` (`gr-800`).
+- **Pictures:** each checked with `cm.py info`: `gr-796` a hemidrachm of the league, `gr-797` the theatre of Sicyon, `gr-798` a tetradrachm
+  of Cleomenes III (for the Victorian engraving of the valley of Sellasia that the draft marked for replacement), `gr-799` Monsiau's
+  painting of 1789, which shows this very scene and is described as imagined, `gr-800` a Saalburg reconstruction of torsion artillery.

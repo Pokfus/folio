@@ -420,8 +420,8 @@ invites improving a recall after seeing the answer.
 · **TRY TEN CARDS** (`SAMPLE_N` / `sampleIds` / `PAGES.sample` at `#sample/<id>`; the **Try ten** button
 on a collection row). **IT WRITES NOTHING** — no `S.active`, no `S.cards` — which matters more than it
 sounds, XP being `Object.keys(S.cards).length` and a level buying a chest, so a sampler that scheduled
-its cards would hand a browsing reader levels and chests for reading ten cards. `PAGES.pretest` made
-this decision first. **The ten are the collection's OWN first ten**, unstudied ones skipped: a plan is
+its cards would hand a browsing reader levels and chests for reading ten cards. The deck pretest (removed
+Oct 2026) made this decision first. **The ten are the collection's OWN first ten**, unstudied ones skipped: a plan is
 a running order and the opening cards are where a collection introduces itself.
 · **UNDO NAMES THE CARD IT WILL GIVE BACK** (`undoLabel`). The stack has held a hundred snapshots since
 it shipped and a second press has always reached the card before last; what it never did was SAY so.

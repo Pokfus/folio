@@ -85,7 +85,7 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
     check("the cards whose window reads the Second World War slice (WAR_FRONT_CARDS) are exactly the front entities' `cards` in history.bin", mine === theirs, `${mine} / ${theirs}`);
     check("a month and a year read \"Mar 1943\"; a year-only step reads \"202 BCE\"", w.AtlasWindows.stepText({ year: 1943, month: 3 }) === "Mar 1943" && w.AtlasWindows.stepText({ year: -202, month: null }) === "202 BCE" && w.AtlasWindows.stepText({ year: 1356, month: null }) === "1356" && w.AtlasWindows.stepText({ year: 632, month: null }) === "632 CE");
     const st = w.AtlasWindows.timelineSteps({ front: false, years: [-218, -216, -202], plates: [] });
-    check("the pin opens at the last step, or at the step nearest the one year the card names inside the war", w.AtlasWindows.startStep(st, [-218, -201], [-218, -201, -209]) === 2 && w.AtlasWindows.startStep(st, [-218, -201], [-217]) === 1 && w.AtlasWindows.startStep(st, [-218, -201], [-300]) === 2 && w.AtlasWindows.startStep(st, [-218, -201], []) === 2);
+    check("the pin ALWAYS opens at the step nearest the middle of the rail, whatever years the card names (Oct 2026)", w.AtlasWindows.startStep(st, [-218, -201], [-218, -201, -209]) === 1 && w.AtlasWindows.startStep(st, [-218, -201], [-217]) === 1 && w.AtlasWindows.startStep(st, [-218, -201], [-300]) === 1 && w.AtlasWindows.startStep(st, [-218, -201], []) === 1);
     check("a single step is no timeline", w.AtlasWindows.timelineSteps({ front: false, years: [1066], plates: [] }).length === 0); } }
 
   await new Promise((r) => server.listen(PORT, r));
@@ -100,10 +100,12 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
     let t = await tl(page);
     check("a rail stands directly under the window, inside the card's location block", !!t && t.under);
     const want = by.get("rm-209");
-    check("it has the war's eight steps and opens at the last (the card's date line names several years, none one)", t && t.n === 8 && t.idx === 7 && t.year === String(want.last), JSON.stringify(t && [t.n, t.idx, t.year]));
-    check("the label under the pin is the year (\"202 BCE\": the data has no month), the rail's ends are the war's own years (218 BCE, 201 BCE)", t && t.label === "202 BCE" && t.shown === "202 BCE" && t.start === "218 BCE" && t.end === "201 BCE", JSON.stringify(t && [t.label, t.start, t.end]));
-    check("the pin is a slider for assistive technology: role, 1 to 8, now 8, a text with the date and the step", t && t.role === "slider" && t.min === "1" && t.max === "8" && t.now === "8" && /202 BCE, step 8 of 8/.test(t.text), JSON.stringify(t && [t.role, t.min, t.max, t.now, t.text]));
-    check("the next button is disabled at the last step, the previous is not", t && t.nextOff && !t.prevOff);
+    const midIdx = await page.evaluate(() => { const f = document.querySelector(".map-card")._folioTimeline; return f.index(); });
+    const midYear = await page.evaluate(() => { const f = document.querySelector(".map-card")._folioTimeline; return f.steps[f.index()].year; });
+    check("it has the war's eight steps and opens at the HALFWAY point of the rail (the middle of 218 to 201 BCE is 209 BCE; the step nearest it)", t && t.n === 8 && t.idx === midIdx && Math.abs(midYear - (-209)) <= 2 && t.idx > 0 && t.idx < 7, JSON.stringify(t && [t.n, t.idx, t.year, midYear]));
+    check("the label under the pin is that step's year, the rail's ends are the war's own years (218 BCE, 201 BCE)", t && t.label === t.shown && t.start === "218 BCE" && t.end === "201 BCE", JSON.stringify(t && [t.label, t.shown, t.start, t.end]));
+    check("the pin is a slider for assistive technology: role, 1 to 8, now the middle step, a text with the date and the step", t && t.role === "slider" && t.min === "1" && t.max === "8" && t.now === String(midIdx + 1) && new RegExp("step " + (midIdx + 1) + " of 8").test(t.text), JSON.stringify(t && [t.role, t.min, t.max, t.now, t.text]));
+    check("neither button is disabled in the middle of the rail", t && !t.nextOff && !t.prevOff);
     await snap(page, "last"); const tintLast = await tints(page);
     const d0 = await draws(page);
     await page.focus(".wtl-pin"); await page.keyboard.press("Home"); await afterMove(page, d0);
@@ -178,8 +180,8 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
     await openCard(page, "ww2-001");
     let t = await tl(page);
     const ww = by.get("ww2-001");
-    check(`the window reads the Second World War slice (not the whole history) and the rail has the front's ${ww.steps} plate dates, opening at the last`, !!t && t.n === ww.steps && t.idx === ww.steps - 1 && (await page.evaluate(() => AtlasEmbed.hub().historyKind())) === "ww2", JSON.stringify(t && [t.n, t.idx]));
-    check("the label under the pin is a month and a year (\"Aug 1945\"); the rail's ends are 1937 and 1945", t && /^[A-Z][a-z]{2} \d{4}$/.test(t.label) && t.label === "Aug 1945" && t.start === "1937" && t.end === "1945", JSON.stringify(t && [t.label, t.start, t.end]));
+    check(`the window reads the Second World War slice (not the whole history) and the rail has the front's ${ww.steps} plate dates, opening at the halfway point of the rail (1937 to 1945: mid-1941)`, !!t && t.n === ww.steps && t.idx > 0 && t.idx < ww.steps - 1 && /1941/.test(t.label) && (await page.evaluate(() => AtlasEmbed.hub().historyKind())) === "ww2", JSON.stringify(t && [t.n, t.idx]));
+    check("the label under the pin is a month and a year (\"Jun 1941\", the middle of the rail); the rail's ends are 1937 and 1945", t && /^[A-Z][a-z]{2} \d{4}$/.test(t.label) && /1941$/.test(t.label) && t.start === "1937" && t.end === "1945", JSON.stringify(t && [t.label, t.start, t.end]));
     const at = (date) => ww.list.indexOf(date);
     const goTo = async (i) => { const d0 = await draws(page); await page.evaluate((k) => document.querySelector(".map-card")._folioTimeline.go(k), i); await afterMove(page, d0); };
     await goTo(at(19440615)); await sleep(1500);

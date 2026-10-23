@@ -4223,7 +4223,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   two scales and a rule about what "progress" means must not exist in two places able to disagree — this
   is that rule restricted to `entryCardIds(id)`.
   **WHAT IT TAKES IS THE SCHEDULE AND THE HISTORY**: `S.cards` and `S.buried` for those ids, their rows in
-  `S.revlog`, any `S.confused` pair naming one of them, and the entry's own `S.pretest` / `S.orderPicked` /
+  `S.revlog`, any `S.confused` pair naming one of them, and the entry's own `S.orderPicked` /
   `S.deckDay`. **WHAT IT LEAVES IS ANNOTATION AND CHOICE**: the reader's flags, their suspensions, the
   deck's own options and its place in the list — `RESET_KEEPS`'s distinction one level down.
   **THE LEVEL GOES DOWN AND THE CONFIRMATION SAYS SO.** Folio's XP is `Object.keys(S.cards).length`, so
@@ -5014,15 +5014,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     at `CONFUSE_CAP`, surfaced at `CONFUSE_MIN` (2) and drilled through the `{type:"ids"}` scope. **It is
     the only personal thing on the home page** — every other figure would be the same for anybody with the
     same decks.
-  · **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS**, and **no feedback until the end**.
-    **Offered only where the deck is dealt BY DIFFICULTY**, that being the only order that sorts the new
-    pile by a property of the card and so the only one a result can be spliced into. **⚠ IT MUST NEVER
-    WRITE `S.cards`**: XP is `Object.keys(S.cards).length` and a level buys a chest, so seeding twelve
-    records would hand a brand-new reader several levels and their chests for answering twelve questions,
-    silently. It writes `S.pretest[entryId]` and `sortByDifficulty` reads it as a deal-order preference; a
-    known card is still taught, later. Matching is `pretestMatch` → `nearMiss`, which forgives case,
-    accents, an article, a bracketed aside and ONE slip **including a transposition** — plain edit distance
-    counts a swap as two.
+  · **THE DECK PRETEST IS GONE (Oct 2026, on request).** `PAGES.pretest` (Sep 2026) put twelve questions
+    before the first session of a deck dealt by difficulty and sorted the cards the reader got right to the
+    back of the new pile, in its own register `S.pretest` so as never to write `S.cards` (XP). A reader met
+    a difficulty-3 question before their first card and asked for the ranking alone, so the page, the
+    offer, the `#pretest` route, the register (dropped from `PROGRESS_FIELDS`) and the `.pt-*` styles are
+    removed; `sortByDifficulty` is a pure sort by `cardDifficultyRank`, and **a deck's day of new cards is
+    cut AFTER that sort** (`buildSession`'s deck and group branches), so the first card is the deck's easiest
+    rather than the easiest of each subdeck's first few. `nearMiss` / `editDistanceLE1` stay for the cloze
+    box and the artwork matcher. `test-learning.js` §3 and §7 assert it.
   · **`card.leadsTo` — CAUSAL CHAINS.** An authored `[{ id, how }]` forming a shallow DAG **within one
     collection**, drawn as a strip outside the Background fold, each edge opening a `openCardPeek` sheet
     rather than routing — a click meant as a glance must not end the session and spend that card's
@@ -5043,8 +5043,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Guarded by `.claude/test-learning.js`** (sections 1–5 need no browser). **Re-run after touching
     `CRIT_DAYS` / `critMark` / `critDays` / `critPipsHTML` / `critLearnedCount` / `byDue` / `warmUpFirst` /
     `WARMUP_N` / `robinOrder` / `studyOrder` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
-    `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
-    `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
+    `orderAskEntry` / `setOrderPicked` /
+    `nearMiss` / `editDistanceLE1` / `sortByDifficulty` / `elabPromptHTML` /
     `wireElabPrompt` / `cardWhy` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
     `cardLeadsToHTML` / `gradeCloze` / `normAnswer` / `answerNear` / `answerIndex` / `noteConfusion` /
     `confusionPairs` / `confusionDrillIds` / `confusionRowHTML` / `forgettingCurveHTML` / `seenOnceIds` /
@@ -5218,55 +5218,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
   from 206px to 150px to match.
-- **…and on a phone its HEIGHT is the reader's** (`.gb-fold` / `gbWireResize` / `body.gb-compact`): a
-  **CHEVRON** on its top edge folds the bar to half its height, 111px → 58px, the four grades going side
-  by side as bare COLOURS with the `?`, Undo and Suspend as icons on the same row. It was a DRAG GRIP for
-  a fortnight and became a chevron on request — the bar has exactly two positions, so a drag was a gesture
-  whose whole range mapped onto one bit — and being a real `<button>` it needs no press classification and
-  gets Enter/Space free.
-  Three things are load-bearing. The chevron lives **outside `.gradebar-inner`**, whose contents are
-  replaced for every card, so it is wired once in `ensureGradeBar` and a grade never has to survive a
-  rebuild. **Nothing is LOST in the short state**: the label is CLIPPED (`clip-path`, 1px) rather than
-  `display:none`, or the four buttons would be four unnamed colours to a screen reader as well as to the
-  eye, and the `?`/Undo/Suspend go icon-only via **`font-size:0` on the button** — their text is a bare
-  node beside an `<svg>`, which no selector can reach. And `body.gb-compact.grading .stage`'s padding
-  drops to 96px with it (specificity, not source order). Device-local in
-  `localStorage["folio_gb_compact_v1"]`.
-  **It FOLDS rather than cutting.** The two states differ by more than a height — the four grades go from
-  two rows of two to one row of four — and none of that is a property CSS can transition, so the SIZES
-  transition in CSS and the POSITIONS are FLIPped in JS (`gbSetCompact(on, persist, animate)` →
-  `flipHeight` around `flipMove`), and **the two halves have to be written against each other**: the tall
-  state states `.grade`'s height explicitly (`auto` being a value nothing can transition from) and
-  **`GB_FOLD_MS` must stay in step with the 280ms in styles.css**. It is gated on the reader's motion
-  setting inside both helpers. **Note for the tests: a height read sooner than `GB_FOLD_MS` after the
-  press measures a state half way between the two.**
-  **ONE CLOCK AND ONE CURVE.** The two passes act on the SAME four buttons at the same moment, so they
-  have to agree about more than the duration: `GB_FOLD_EASE` in app.js is `--ease` written out, and
-  `flipHeight` takes an easing argument so it can be passed the same one. **`font-size` is NOT
-  transitioned** on `.grade-help` / `.gb-undo` / `.suspendbtn` — easing a font down to 0 relayouts the
-  text every frame on three buttons `flipMove` is translating — and **`#gradebar`'s own `padding-bottom`
-  IS transitioned**, or the whole movement ends on a 5px jump.
-  **AND IT MUST NOT JAM HALF WAY** (`_gbAnims` / `_gbFoldT` / `gbStopFold` / `gbFoldingFor` /
-  `body.gb-folding`). Two faults, each invisible on a single press: the FLIP's animations were fired and
-  forgotten, so a second press started a second set over the first — they are kept in `_gbAnims` and
-  cancelled at the head of the next fold, which is why **`flipMove` and `flipHeight` RETURN what they
-  create**; and the CSS transitions have a duration of their own, so a press landing inside it measured a
-  height half way between the two states, hence `body.gb-folding` for `GB_FOLD_MS`, with a capture-phase
-  `pointerdown` **exempting `.gb-fold` itself** — a reader who presses it twice means to end up where the
-  second press says.
-  **ITS TEST MUST DRIVE REAL INPUT AND MUST CLEAR THE LEVEL-UP CHEST.** `el.click()` bypasses hit-testing
-  entirely, which is the whole of what breaks here; but six grades takes a fresh reader past level 2, and
-  a level buys a chest whose overlay swallows every REAL pointer event — so the round reports a jam that
-  is the REWARD working exactly as designed, showing as **1 of 6** and reading like a rare intermittent
-  fault. The chests are dismissed at the head of each round and **counted**. **And the sub-block after the
-  loop has to REVEAL again**, the loop now ending on a grade that succeeds and hides the bar. **A fixture
-  that depends on an earlier step failing passes until that step is fixed.**
-  **📖 `docs/study-page.md` — READ BEFORE CHANGING THE GRADE BAR, THE UNDO OR THE GLOSS POPUP.**
+- **The grade bar's fold chevron and its short state were REMOVED (Oct 2026, on request).** The bar has one
+  height; below the four grades the phone's row is two equal halves, the `?` as wide as the two left grades and
+  Suspend as wide as the two right (`.grade-wrap` `1fr 1fr`; with an Undo to offer, three equal thirds with Undo between `?` and Suspend). The history is in
+  `docs/study-page.md`. **📖 `docs/study-page.md` — READ BEFORE CHANGING THE GRADE BAR, THE UNDO OR THE GLOSS POPUP.**
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
-  takes the `undo` cell of `.grade-wrap`'s phone grid (`"grades grades grades" / "help undo suspend"`), beside
-  the `?` that explains the buttons above it. It is a SECOND button rather than a moved one because the grade
+  takes the `undo` cell of `.grade-wrap`'s phone grid (`"help undo suspend"` in thirds, via `.grade-wrap:has(.gb-undo)`), between the `?` and Suspend. It is a SECOND button rather than a moved one because the grade
   bar only exists once the answer is revealed, and the study bar's copy still has to be there before that;
   `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
   `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are
@@ -5521,7 +5480,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   own findings, the stars' two `body.hc` results and the sweep that could not see the study card at all,
   the crossword draw cap that had to scale with the pool, What year? leaving the cards entirely, and the
   fourteen flagged terms with the three flagged belt-and-braces.
-- **THE ANSWER'S CHINESE NAME IS THE MIDDLE SECTION OF THE ANSWER BOX** (`answerNameHTML` / `wireAnswerSay`
+- **THE ANSWER'S CHINESE NAME IS A SPEECH BUBBLE OFF A TRANSLATE ICON (Oct 2026, on request) — THE
+  PARAGRAPHS BELOW DESCRIBE ITS CONTENT, NOT ITS PLACE.** It is no longer a section of the answer box:
+  `answerNameHTML` returns `.ac-wrap` (a plain grey `文A` icon button `.ac-btn`, no ring or fill + a hidden `.ac-bubble` holding the old
+  `.ans-cn` block), and `buildBack` sets it as a SIBLING of `.val` inside `.av-term.av-cn` — **never inside
+  `.val`**, which five suites read the answer text from. One delegated listener (`wireAnswerBubbles`, at
+  module load) opens / closes it for every render path (click the icon, click elsewhere, Escape).
+  **`placeAnswerBubble` clamps the bubble to the ANSWER BOX, not the viewport**: `.reveal` is
+  `overflow:hidden`, so a bubble that fitted the screen but not the card lost its right edge and its speaker
+  on a 360 px phone; and it measures from layout (`offsetWidth`), never the rect, because the opening
+  animation scales the bubble. The bubble overlays what lies below it, and is SHRINK-WRAPPED: no min-width, and when a long name wraps at the cap `placeAnswerBubble` sizes it to the widest laid-out line so no empty strip is left on the right. The phone rule that put the block
+  under the term with a hairline is gone.
+- **THE ANSWER'S CHINESE NAME (content; it was the MIDDLE SECTION OF THE ANSWER BOX)** (`answerNameHTML` / `wireAnswerSay`
   / `.ans-cn`; Sep 2026, on request). It was a line under the term and only on a MAP card; it is a sibling
   of `.answer-main` now and is drawn on every card carrying `hanzi`, so on a wide card it stands between
   the term on the left and the figures on the right, ruled off by a hairline, and below 640px it stacks
@@ -5652,6 +5622,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its own `<!-- QUESTION -->` / `<!-- QUESTION 2 -->` … section. Extras ride through export/publish/install
   and are sanitized on ingest (`uCardSanitize`, capped at 9 extras). The admin card search matches every
   phrasing. Backfill existing cards with `.claude/add-questions.js` (see "Generating cards").
+- **Card timeline (Oct 2026, on request: "a timeline section showing the card on a timeline next to the nearest four
+  events (2 before, two after) in the same collection … periods a continuous coloured bar, single events a dash …
+  only events and periods, such as wars, battles or treaties, never abstract or general terms like 'medicus' or
+  'Polish Corridor'"):** the LIGHT field `card.timeline` — `{ at: "1919-06-28" }` an event, `{ from: "1937-07-07",
+  to: "1945-09-02" }` a period; YYYY, YYYY-MM or YYYY-MM-DD, a leading "-" for BCE, the precision kept ("1925" runs
+  to the end of 1925). It is the ONE switch: a card that carries it gets the Timeline section on its answer side
+  (`cardTimelineHTML`, emitted by `buildBack` above the causal strip) AND is a candidate neighbour on every card of
+  its collection; a card without it is neither. NOTHING IS INFERRED FROM THE DATE LINE: its rows describe several
+  dated things (a treaty's signing and its coming into force, a war's two beginnings and its end) and no rule tells
+  a period from an event among them — the first draft tried "the basis row holds a range" and called the Second
+  World War a single event. So the span is authored, with `.claude/set-timeline.js`, from the card's own rows
+  wherever they give one, and the helper refuses a card whose kind (first tag) is not `event`, `era`, `battle` or
+  `war` (`--force` overrides and says so). The neighbours are the two before and the two after among the field-
+  carrying cards of `cardCollectionRoot`, by start date then id (`cardTimelineItems`); a card with no neighbour
+  draws nothing. Two designs, chosen by the 640 px phone query at layout: the RAIL (one axis, marks packed into
+  lanes, each name with its date behind it on a desktop and UNDER it on a tablet, 641 – 1024 px, the `.two` class the layout sets) and the LEDGER (time down a spine, a bar a column, names
+  pushed apart with leader lines) — six were mocked in `docs/timeline-designs.html` and these two chosen. The
+  window is the span of the five starts and the card's own end; a neighbour's end widens it only by less than the
+  spread of the five starts, else its bar runs off the edge with an arrowhead. The markup is a plain `<ol>` of the
+  five items (`.tl-list`), laid out in place by `mountCardTimelines` (called beside every `mountCardMaps` that
+  follows `buildBack`) and re-laid by a ResizeObserver; names are measured in the DOM so Text size is honoured. A
+  neighbour's name OPENS ITS GLOSSARY TERM (Oct 2026, on request; `cardTimelineTermKey`, through `byAnySurface`
+  like every game's card → term question; `data-tlterm`, wired in `mountCardTimelines`), and only a card with no
+  term of its own falls back to a `data-kin` button that opens the card. The card's own name is never a control.
+  THE SECTION SITS BELOW THE ATLAS BOX (Oct 2026, on request), between the locator and the Nearby rail, which
+  moved down with it. THE EDITOR'S SWITCH: the meta row's `timelines` select (`#adminTlMode`: not on timelines /
+  an event / a period, with the date boxes that follow it) writes the delta `ADMIN_EDITS.cardTimeline[id]` —
+  "none" takes a shipped card off every timeline, an object sets its dates, no key means as shipped — which
+  `cardTimelineField` resolves ahead of the shipped field and `serializeCardData` bakes into `timeline` on the
+  way out; a date that does not parse is marked `aria-invalid` and not written. The key is `cardTimeline`, never
+  `timeline`: that name was v1's map delta and `normalizeAdminEdits` drops it on read. The rollout began with
+  the first 20 cards of The Second World War (11 carry the field).
+  Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
+  `mountCardTimelines` / `set-timeline.js` / the `.tl-` rules: `node .claude/test-card-timeline.js`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as
   a **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens
   the **fullscreen viewer** (`openImageViewer`: wheel and pinch zoom 1–8×, tap toggles 1↔2.5×, drag pans
@@ -9259,7 +9263,7 @@ division-capital city tier are inert dead code.
     `ensureData("atlas")` beside it / `uCacheBust` / `CMAP_HIRES` / a `coast_*` bundle, and after giving a
     card a locator `kind`.**
   · `node .claude/test-learning.js` — **the learning-science batch**, and every one of its subjects
-    fails SILENTLY. **Its starred assertion is that the deck pretest writes NO card records.** Sections
+    fails SILENTLY. **Its §7 asserts that the difficulty order opens on the deck's easiest card with no pretest first** (the pretest was removed Oct 2026). Sections
     1–5 need no browser. **Re-run after touching anything in the "HOW A READER MEETS A CARD" bullet's own
     list.**
   · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
