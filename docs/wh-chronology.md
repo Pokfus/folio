@@ -649,6 +649,16 @@ Filled batch by batch, from the source each row names.
 | Abbas the Great: lived / reigned (1587 in other sources) / Armenians moved / Hormuz taken | 1571 – 1629 / 1588 – 1629 / 1604 – 1605 / 1622 CE | Matthee; Library of Congress study (`wh-696`; `wh-697` and `wh-698` are `undatable`) |
 | Mughal Empire: founded / dynasty ended | 1526 / 1858 CE | Smith; Richards (`wh-699`) |
 | Babur: born / King of Ferghana / Panipat (20 April in Beveridge) / died | 14 February 1483 / June 1494 / 21 April 1526 / 26 December 1530 CE | Lane-Poole; Beveridge; the *Baburnama* (`wh-700`) |
+| Ming dynasty: founded (Hongwu reign name begins) / capital moved / fell (Beijing) | 1368 / 1421 / 1644 CE | Wade; Shao; Theobald (`wh-711`) |
+| Zheng He: first order / seventh order / voyages | 11 July 1405 / 29 June 1430 / 1405 – 1433 CE | the Ming Veritable Records via Wade; Columbia (`wh-712`) |
+| Forbidden City: built (official records) / court moved / Puyi expelled / museum opened | 1406 – 1420 (1416 – 1420) / 1421 / 5 November 1924 / 10 October 1925 CE | Palace Museum and Durham; Campbell; Xu (`wh-713`) |
+| Haijin: first ordered (1368 in one study) / partly lifted / coast cleared / lifted | 1371 / 1567 / 1661 / 1684 CE | Zurndorfer; Kung and Ma; Lin; Holroyd (`wh-714`) |
+| Fall of the Ming: Beijing taken (emperor's death the same day) / Wu met Dorgon / Qing entered / last claimant died | 25 April / 27 May / 6 June 1644 / June 1662 CE | Tu; Fang; Yang in Hummel (`wh-715`) |
+| Qing dynasty: named Qing / Beijing taken / abdicated | 14 May 1636 / 6 June 1644 / 12 February 1912 CE | Fang in Hummel; the abdication edict item (`wh-716`) |
+| Kangxi Emperor: born / reigned / died | 4 May 1654 / 1661 – 1722 / 20 December 1722 CE (the era name from 1662) | Fang in Hummel (`wh-717`) |
+| Qianlong Emperor: born / reigned / died | 25 September 1711 / 1735 – 1796 / 7 February 1799 CE (the era name from 1736) | Fang in Hummel (`wh-718`) |
+| Canton System: edict (Morse) / rules (Grant) / ended | 1757 / 1760 / 1842 CE | Morse; Grant; Liu Yong (`wh-719`) |
+| Macartney Embassy: reached Taku / audience / reply given / left Peking | 5 August / 14 September / 3 October / 7 October 1793 CE | Staunton; Macartney's journal; Fang in Hummel (`wh-720`) |
 
 ## Chronology pins
 
@@ -1282,4 +1292,14 @@ wh-695: 1501; 1514; 1722; 1736
 wh-696: 1571; 1629; 1588; 1604; 1605; 1622
 wh-699: 1526; 1858
 wh-700: 14 February 1483; June 1494; 21 April 1526; 26 December 1530
+wh-711: 1368; 1421; 1644
+wh-712: 11; 1405; 29; 1430; 1433
+wh-713: 1406; 1420; 1421; 5 November 1924; 10 October 1925
+wh-714: 1371; 1567; 1661; 1684
+wh-715: 25 April 1644; 27 May 1644; 6 June 1644; June 1662
+wh-716: 14 May 1636; 6 June 1644; 12 February 1912
+wh-717: 4 May 1654; 1661; 1722; 20 December 1722
+wh-718: 25 September 1711; 1735; 1796; 7 February 1799
+wh-719: 1757; 1760; 1842
+wh-720: 5 August 1793; 14 September 1793; 3 October 1793; 7 October 1793
 ```
