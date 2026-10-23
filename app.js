@@ -1603,14 +1603,6 @@
          The evidence for it was already being collected and thrown away: `gradeCloze` reads the reader's
          typed guess to mark it character by character and then discards it. */
       confused: {},
-      /* THE DECK PRETEST'S RESULT — entryId -> { day, known: [cardIds] } (see PAGES.pretest). It is a
-         DEAL-ORDER PREFERENCE and nothing else: a card the reader answered correctly before studying the
-         deck sorts to the back of the new pile rather than being marked studied.
-         IT MUST NEVER WRITE `S.cards`, and that is the whole reason it has a field of its own. Folio's XP
-         is `Object.keys(S.cards).length` — the number of distinct cards with a record — so a pretest that
-         seeded twelve card records would hand a new reader several levels and several artefact chests for
-         answering twelve questions, silently, before they had studied anything at all. */
-      pretest: {},
       /* WHICH ENTRIES HAVE BEEN ASKED HOW THEY WANT TO STUDY — entryId -> the order chosen, or "" for
          "asked and left at the default" (see PAGES.order). It records that the QUESTION was put, not what
          the answer was, which is why it is separate from `deckOpts` where the order itself lives: a reader
@@ -2196,7 +2188,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2329,8 +2321,7 @@
     });
     if (Array.isArray(S.revlog)) S.revlog = S.revlog.filter((r) => !set.has(r && r[0]));
     if (S.confused) Object.keys(S.confused).forEach((k) => { const p = k.split("|"); if (set.has(p[0]) || set.has(p[1])) delete S.confused[k]; });
-    if (S.pretest) delete S.pretest[id];        // the pre-test is about this deck's first session, which is ahead of them again
-    if (S.orderPicked) delete S.orderPicked[id];   // …and so is the question of how they want it dealt
+    if (S.orderPicked) delete S.orderPicked[id];   // the question of how they want it dealt belongs to the first session, which is ahead of them again
     if (S.deckDay) delete S.deckDay[id];        // today's tally is derived from the records just deleted
     save();
     uCacheBust();
@@ -7206,16 +7197,12 @@
     setDeckLimits(id, { order: mode, random: mode === "random" });
   }
   function deckByDifficulty(id) { return deckOrderMode(id) === "difficulty"; }
-  /* …and a card the reader ALREADY KNEW when they took this deck's pretest sorts behind every card they
-     did not, whatever its rating (see PAGES.pretest). It is the one place a pretest result is read, and
-     it is why the pretest is offered on this order and no other: "ordered" is the deck's own sequence and
-     "random" is a shuffle, so neither has a sort key a result could be spliced into without contradicting
-     what the reader asked for. Nothing is skipped — a known card is still taught, later. */
+  /* Easiest first, by the card's own rating and nothing else (Oct 2026, on request). Until then a card
+     the reader had answered in the deck's twelve-question pretest sorted behind the rest; the pretest is
+     gone, so the first card dealt by this order is the lowest-rated card the deck has. `sort` is stable,
+     so cards of one rating keep the order they arrived in. */
   function sortByDifficulty(list) {
-    const known = pretestKnownSet();
-    if (!known.size) return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
-    const kn = (id) => (known.has(id) ? 1 : 0);
-    return list.slice().sort((a, b) => (kn(a) - kn(b)) || (cardDifficultyRank(a) - cardDifficultyRank(b)));
+    return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
   }
   /* Commonest first. TIES KEEP THE DECK'S OWN ORDER, which is the whole of why this degrades gracefully
      at the top of a syllabus: `sort` is stable, so the 3,029 Levels 7–9 words counted exactly once stay
@@ -15122,8 +15109,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // a card at its own address belongs under the collections its deck sits in
       : name === "u" ? "account"
       : name === "studio" || name === "deck" || name === "card" || name === "sample" ? "decks"
-      // the two pages that stand between pressing Study and studying belong to the session they open
-      : name === "order" || name === "pretest" ? "study"
+      // the page that stands between pressing Study and studying belongs to the session it opens
+      : name === "order" ? "study"
       // …and the page explaining how Folio studies you is reached from Settings, and belongs there
       : name === "how" ? "settings"
       : name;
@@ -15153,7 +15140,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
     study:     ["Study — Folio", "Review the cards that are due, one at a time."],
     order:     ["How would you like to study? — Folio", "Choose the order a deck's cards are dealt in, with what the evidence says about each."],
-    pretest:   ["Where should we start? — Folio", "A dozen quick questions to find what you already know before a deck begins."],
     how:       ["How Folio studies you — Folio", "Why Folio is built the way it is: what the evidence says about spacing, testing and rereading."],
     map:       ["Atlas — Folio", "An interactive globe: present-day borders, physical geography and world maps back to 1500."],
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
@@ -26401,8 +26387,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      THIS WRITES NOTHING. No `S.active`, no `S.cards`, no review log, no XP — which matters more than it
      sounds, because Folio's level is `Object.keys(S.cards).length` and a level buys an artefact chest, so
      a sampler that scheduled its cards the obvious way would hand a browsing reader levels and chests for
-     reading ten cards. `PAGES.pretest` made exactly this decision first and for exactly this reason; this
-     follows it.
+     reading ten cards. The deck pretest (removed Oct 2026) made exactly this decision first and for exactly
+     this reason; this follows it.
 
      THE TEN ARE A RANDOM DRAW FROM THE COLLECTION'S BEST-KNOWN CARDS (Sep 2026, on request; it was the
      collection's own first ten). The opening cards of a running order are where a collection introduces its
@@ -28119,7 +28105,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
-      const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
+      const gUnseen = gIds.filter((id) => !isSeen(id));
+      // by difficulty the day's new cards are the group's EASIEST unseen ones, not its first ones sorted — see the deck branch
+      const gNew = (deckByDifficulty(scope.id) ? sortByDifficulty(gUnseen) : gUnseen).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
       total = queue.length;
@@ -28165,7 +28153,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // pooled review only took a couple of new cards from still has the rest of its share here
       const due = capReviews(ids.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(sd.id)).take;
       const unseen = ids.filter((id) => !isSeen(id));
-      const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
+      /* new cards in deck (card) order — set via the editor's drag-reorder. BY DIFFICULTY THE WHOLE UNSEEN
+         PILE IS SORTED BEFORE THE DAY'S ALLOWANCE IS CUT (Oct 2026, on request): sliced first, the day's
+         cards were the first few of each subdeck sorted among themselves, and a reader who chose "easiest
+         first" opened on a difficulty-3 card while the deck's 1s sat beyond the slice. Random keeps the
+         slice-then-shuffle rule, which is about not making the day's draw a random handful. */
+      const fresh = (deckByDifficulty(sd.id) ? sortByDifficulty(unseen) : unseen).slice(0, Math.max(deckNewRemaining(sd.id), 0));
       queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
       if (deckRandom(sd.id)) shuffle(queue);   // this deck's own Random-order switch — see the udeck branch
 
@@ -31861,7 +31854,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       lead: "The best-known terms first, working outward to the obscure ones.",
       body: [
         "Every Folio card carries a rating of how widely known its answer is — 1 for a household name like the Stone Age, 5 for something named in the scholarship and almost nowhere else. This order deals the 1s and 2s before the 4s and 5s, so a session opens on ground you are likely to hold.",
-        "It is the gentlest way into a collection you know nothing about, and it is the only order that can use a short pretest: pick it and Folio can offer you twelve quick questions to find what you already know, so the deck starts where you actually are.",
+        "It is the gentlest way into a collection you know nothing about: the first card dealt is the easiest the deck has, and the hardest come last.",
       ],
       who: "Best for a subject you are new to, or for coming back to one after a long time away.",
     },
@@ -31928,159 +31921,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (mode) setDeckOrderMode(id, mode);
     save();
   }
-  /* ==========================================================================================
-     THE DECK PRETEST — "where should we start?" (Sep 2026, on request)
-     ==========================================================================================
-     Being tested on material BEFORE studying it improves the learning of it, even though nearly every
-     answer is wrong, provided the right answer follows — the pretesting effect, which is one of the
-     better-replicated findings in the literature and the only one that turns "I already knew that" into
-     something useful. Twelve questions before a deck begins does two jobs at once: the reader meets the
-     terms once under retrieval conditions, and Folio finds out where they actually are.
-
-     IT IS OFFERED ONLY WHERE THE DECK IS DEALT BY DIFFICULTY, on request — and that is not an arbitrary
-     gate, it is the only order whose ordering the result can change. "Ordered" is the deck's own
-     sequence and "Random" is a shuffle; only the difficulty order sorts
-     the new pile by a property of the card, which is where "and put the ones they already knew last"
-     can be spliced in without contradicting what the reader chose.
-
-     ***IT MUST NEVER WRITE `S.cards`, AND THAT IS THE WHOLE REASON IT HAS A FIELD OF ITS OWN.*** Folio's
-     XP is `Object.keys(S.cards).length` — the number of distinct cards with a record — and a level buys
-     an artefact chest. A pretest that seeded twelve card records the obvious way would hand a brand-new
-     reader two or three levels and the chests that go with them for answering twelve questions before
-     they had studied anything at all; nothing would throw, and the only symptom would be a reader
-     wondering why they were being congratulated. So the result is a DEAL-ORDER PREFERENCE in
-     `S.pretest`, and the schedule is not touched at all.
-
-     NO FEEDBACK UNTIL THE END. The literature's own condition is that the correct answers are supplied
-     afterwards; supplying them one at a time would turn a pretest into a study session, and the reader
-     would be "already knowing" answers they had just been shown two questions earlier. */
-  const PRETEST_N = 12;
-  // enough unseen cards to be worth asking about, the deck dealt by difficulty, and not already taken
-  function pretestOffer(entry) {
-    if (!entry || !S.pretest || S.pretest[entry]) return null;
-    if (deckOrderMode(entry) !== "difficulty") return null;
-    const ids = pretestPick(entry);
-    return ids.length >= PRETEST_N ? ids : null;
-  }
-  /* The twelve. Spread across the entry's SUBDECKS rather than taken off the front, so the result says
-     something about the whole deck; biased toward the well-known end, since a pretest is asking what the
-     reader already knows and nobody walks in knowing the difficulty-5 terms. Seeded on the entry id, so
-     the same deck offers the same twelve however many times the page is opened. */
-  function pretestPick(entry) {
-    const all = entryCardIds(entry).filter((id) => !isSeen(id) && !isSuspended(id) && cardById(id));
-    if (!all.length) return [];
-    const easy = all.filter((id) => cardDifficultyRank(id) <= 3);
-    const pool = easy.length >= PRETEST_N ? easy : all;
-    const groups = new Map();
-    pool.forEach((id) => {
-      const g = studyGroupOf(id);
-      let a = groups.get(g); if (!a) groups.set(g, a = []);
-      a.push(id);
-    });
-    const rnd = mulberry32(hashStr("pretest-" + entry));
-    const lists = [...groups.values()].map((a) => seededShuffle(a, rnd));
-    const out = [];
-    for (let round = 0; out.length < PRETEST_N; round++) {
-      let added = false;
-      for (let i = 0; i < lists.length && out.length < PRETEST_N; i++) {
-        if (lists[i][round] != null) { out.push(lists[i][round]); added = true; }
-      }
-      if (!added) break;
-    }
-    return out;
-  }
-  /* The cards this reader answered correctly in ANY pretest — the deal-order preference, and nothing
-     else. It is a fact about the CARD rather than about the entry it was asked under: a term known cold
-     is known cold whether it was met in a collection's pretest or the pooled review's, and keying it per
-     entry would put the same card first in one deck and last in another. Rebuilt on each call, which is
-     a dozen ids per pretest taken and a handful of pretests. */
-  function pretestKnownSet() {
-    const out = new Set(), P = S.pretest || {};
-    Object.keys(P).forEach((k) => { ((P[k] && P[k].known) || []).forEach((id) => out.add(id)); });
-    return out;
-  }
-  PAGES.pretest = function (root, params) {
-    const entry = params && params.entry, scope = params && params.scope;
-    if (!entry || !scope) { route("home"); return; }
-    const ids = pretestOffer(entry);
-    if (!ids) { route("study", { scope }); return; }
-    const info = entryInfo(entry) || { title: "this deck" };
-    const typed = new Array(ids.length).fill("");
-    let i = -1;   // -1 is the intro screen
-    const skip = () => { if (!S.pretest) S.pretest = {}; S.pretest[entry] = { day: todayStr(), known: [] }; save(); route("study", { scope }); };
-    function paint() {
-      if (i < 0) {
-        root.innerHTML =
-          '<div class="page-head"><h2>Where should we start?</h2><p class="sub">' + esc(info.title) + "</p></div>" +
-          '<div class="pt-intro"><p>Twelve questions, before you have studied anything. <b>You are expected to get most of them wrong</b> — that is not a figure of speech, it is how this works: being asked a question you cannot answer, and then being told the answer, teaches you more than being told it cold.</p>' +
-          "<p>Nothing here is graded, nothing is scheduled, and none of it counts towards your level. All it does is find the cards you already know, so this deck can put them later rather than starting you on things you learned years ago.</p>" +
-          '<div class="pt-acts"><button type="button" class="btn" id="ptGo">Start — 12 questions</button>' +
-          '<button type="button" class="btn ghost" id="ptSkip">Skip this</button></div></div>';
-        root.querySelector("#ptGo").addEventListener("click", () => { i = 0; paint(); });
-        root.querySelector("#ptSkip").addEventListener("click", skip);
-        return;
-      }
-      if (i >= ids.length) { finish(); return; }
-      const c = cardLocalized(cardById(ids[i]));
-      root.innerHTML =
-        '<div class="page-head"><h2>Where should we start?</h2><p class="sub">Question ' + (i + 1) + " of " + ids.length + "</p></div>" +
-        '<div class="pt-q"><div class="pt-bar"><i style="width:' + Math.round((i / ids.length) * 100) + '%"></i></div>' +
-          '<div class="question pt-qtext">' + (c.question || "") + "</div>" +
-          '<div class="pt-acts"><button type="button" class="btn" id="ptNext">' + (i === ids.length - 1 ? "See the result" : "Next") + "</button>" +
-          '<button type="button" class="btn ghost" id="ptDunno">I don’t know</button></div>' +
-          '<p class="pt-note">No feedback until the end — otherwise the questions after this one would be testing what you were just told.</p></div>';
-      setupCloze(root.querySelector(".pt-qtext"));
-      const next = (val) => { typed[i] = val; i++; paint(); };
-      root.querySelector("#ptNext").addEventListener("click", () => {
-        const f = root.querySelector(".pt-qtext .blank-input");
-        next(f ? f.value : "");
-      });
-      root.querySelector("#ptDunno").addEventListener("click", () => next(""));
-    }
-    function finish() {
-      const known = [];
-      ids.forEach((id, n) => { if (pretestMatch(typed[n], cardById(id))) known.push(id); });
-      if (!S.pretest) S.pretest = {};
-      S.pretest[entry] = { day: todayStr(), known };
-      save();
-      root.innerHTML =
-        '<div class="page-head"><h2>' + (known.length ? "You already knew " + known.length + " of " + ids.length : "Nothing to move — we’ll start at the beginning") + "</h2>" +
-          '<p class="sub">' + esc(info.title) + "</p></div>" +
-        '<div class="pt-res">' +
-          (known.length
-            ? "<p>Those " + known.length + " will still be taught, but they go later in the queue rather than first — so this deck starts where you actually are.</p>"
-            : "<p>That is the ordinary result on a subject you are new to, and it is worth more than it looks: you have now been asked twelve questions and told twelve answers, which is a better first contact with a deck than reading the same twelve.</p>") +
-          '<div class="pt-list">' + ids.map((id, n) => {
-            const c = cardLocalized(cardById(id));
-            const ok = known.indexOf(id) >= 0;
-            return '<div class="pt-row' + (ok ? " ok" : "") + '"><span class="pt-mark">' + (ok ? "✓" : "·") + "</span>" +
-              '<span class="pt-ans">' + esc(c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "")) + "</span>" +
-              '<span class="pt-you">' + (typed[n] ? esc(typed[n]) : "—") + "</span></div>";
-          }).join("") + "</div>" +
-          '<div class="pt-acts"><button type="button" class="btn" id="ptStudy">Start studying</button></div></div>';
-      root.querySelector("#ptStudy").addEventListener("click", () => route("study", { scope }));
-    }
-    paint();
-  };
-  /* A pretest answer is matched LOOSELY, and deliberately more loosely than the study page's cloze: this
-     is asking "did you know this already", not "can you spell it". Case, accents, articles and any
-     bracketed aside are stripped from both sides, and a single typing slip is forgiven on a word long
-     enough for one to be unambiguous. It errs toward NOT crediting: a false positive here pushes a card
-     the reader does not know to the back of the queue, which is the failure that costs them something. */
-  function pretestMatch(typedVal, card) {
-    const norm = (s) => {
-      let v = String(s || "").replace(/<[^>]*>/g, " ").toLowerCase();
-      try { v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { /* no NFD here */ }
-      return v.replace(/\([^)]*\)/g, " ").replace(/^(the|a|an)\s+/, "")
-              .replace(/[^a-z0-9\u4e00-\u9fff ]+/g, " ").replace(/\s+/g, " ").trim();
-    };
-    const a = norm(typedVal);
-    if (!a) return false;
-    const b = norm(card && (card.answerText || card.answer || ""));   // norm strips tags, so the HTML answer is a safe fallback
-    if (!b) return false;
-    if (a === b) return true;
-    return b.length >= 6 && nearMiss(a, b);
-  }
+  /* THE DECK PRETEST IS GONE (Oct 2026, on request). From Sep 2026 the difficulty order offered twelve
+     questions before a deck's first session and dealt the cards the reader got right last; a reader met
+     a difficulty-3 question before their first card and asked for the ranking alone. `nearMiss` and
+     `editDistanceLE1` below were its matcher's and are still the cloze box's and the artwork matcher's. */
   /* "THE SAME BUT FOR ONE SLIP" — one insertion, deletion or substitution, OR one adjacent transposition.
      The transposition is not a nicety: swapping two neighbouring letters is the commonest typing error
      there is, and plain edit distance counts it as two, so without it `Mousterain` for `Mousterian` reads
@@ -32121,11 +31965,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const cur = deckOrderMode(entry);
     const go = (mode) => {
       setOrderPicked(entry, mode);
-      /* Only the difficulty order can use the pretest, so only it is offered one — see PAGES.pretest.
-         The offer is a page of its own rather than a line on this one, because it is a second question
-         and stacking two decisions on one screen is how a reader ends up answering neither. */
-      if (mode === "difficulty" && pretestOffer(entry)) route("pretest", { entry, scope });
-      else route("study", { scope });
+      route("study", { scope });   // straight to the cards: no second question stands between this one and studying
     };
     root.innerHTML =
       '<div class="page-head"><h2>How would you like to study this?</h2>' +
@@ -33466,7 +33306,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      MATCHING IS DELIBERATELY TOLERANT IN ONE DIRECTION ONLY. Case, accents, a leading article, a
      bracketed aside and ONE typing slip are forgiven — so a reader is not told they were wrong for a
      transposition — while anything further apart is a miss. The tolerance is the same `nearMiss` the
-     pretest uses, because "did they know it" is the same question in both places. */
+     artwork matcher uses, because "did they know it" is the same question in both places. */
   const normAnswer = (s) => {
     let v = String(s || "").replace(/<[^>]*>/g, " ").toLowerCase();
     try { v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { /* no NFD here */ }
@@ -34810,7 +34650,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      answer 0.32, so every field shows what the reader typed AND what the work actually is.
 
      EACH OF THE THREE IS A DIFFERENT KIND OF ANSWER AND IS MARKED ACCORDINGLY. A title is a term and
-     takes `nearMiss`, the same one-slip tolerance the cloze box and the pretest use. A NAME is routinely
+     takes `nearMiss`, the same one-slip tolerance the cloze box uses. A NAME is routinely
      given short — "Rembrandt" is the right answer to "Rembrandt van Rijn", and "Master of the Vogelherd
      ivories" to a workshop named at greater length — so a value whose whole significant vocabulary sits
      inside the other counts, in BOTH directions, since a reader who gives the fuller form has not been
@@ -46553,7 +46393,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }

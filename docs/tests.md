@@ -1513,9 +1513,9 @@ subjects fails SILENTLY: a criterion that stops recording reads as a reader who 
 right; an order picker asked twice is a wall and asked never is a feature nobody meets; a reveal guard
 that misses one of its three doors is a policy that does nothing on a keyboard; and a confusion
 register whose capture breaks stays empty for ever, which looks exactly like a reader who never
-confuses anything. **Its starred assertion is that the deck pretest writes NO card records** — XP is
-the count of those, and a level buys a chest, so the obvious implementation hands a new reader several
-levels for answering twelve questions. Sections 1–5 need no browser. **Re-run after touching anything
+confuses anything. **Its §7 asserts that the difficulty order opens on the deck's easiest card with no
+pretest first** — the twelve-question deck pretest was removed in Oct 2026 on request, and the day's new
+pile is sorted before it is cut. Sections 1–5 need no browser. **Re-run after touching anything
 in the "HOW A READER MEETS A CARD" bullet's own list.**
 
 · `node .claude/test-deck-update.js` — **updating a language deck this device already holds**, and

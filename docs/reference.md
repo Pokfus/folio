@@ -4223,7 +4223,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   two scales and a rule about what "progress" means must not exist in two places able to disagree — this
   is that rule restricted to `entryCardIds(id)`.
   **WHAT IT TAKES IS THE SCHEDULE AND THE HISTORY**: `S.cards` and `S.buried` for those ids, their rows in
-  `S.revlog`, any `S.confused` pair naming one of them, and the entry's own `S.pretest` / `S.orderPicked` /
+  `S.revlog`, any `S.confused` pair naming one of them, and the entry's own `S.orderPicked` /
   `S.deckDay`. **WHAT IT LEAVES IS ANNOTATION AND CHOICE**: the reader's flags, their suspensions, the
   deck's own options and its place in the list — `RESET_KEEPS`'s distinction one level down.
   **THE LEVEL GOES DOWN AND THE CONFIRMATION SAYS SO.** Folio's XP is `Object.keys(S.cards).length`, so
@@ -5014,15 +5014,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     at `CONFUSE_CAP`, surfaced at `CONFUSE_MIN` (2) and drilled through the `{type:"ids"}` scope. **It is
     the only personal thing on the home page** — every other figure would be the same for anybody with the
     same decks.
-  · **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS**, and **no feedback until the end**.
-    **Offered only where the deck is dealt BY DIFFICULTY**, that being the only order that sorts the new
-    pile by a property of the card and so the only one a result can be spliced into. **⚠ IT MUST NEVER
-    WRITE `S.cards`**: XP is `Object.keys(S.cards).length` and a level buys a chest, so seeding twelve
-    records would hand a brand-new reader several levels and their chests for answering twelve questions,
-    silently. It writes `S.pretest[entryId]` and `sortByDifficulty` reads it as a deal-order preference; a
-    known card is still taught, later. Matching is `pretestMatch` → `nearMiss`, which forgives case,
-    accents, an article, a bracketed aside and ONE slip **including a transposition** — plain edit distance
-    counts a swap as two.
+  · **THE DECK PRETEST IS GONE (Oct 2026, on request).** `PAGES.pretest` (Sep 2026) put twelve questions
+    before the first session of a deck dealt by difficulty and sorted the cards the reader got right to the
+    back of the new pile, in its own register `S.pretest` so as never to write `S.cards` (XP). A reader met
+    a difficulty-3 question before their first card and asked for the ranking alone, so the page, the
+    offer, the `#pretest` route, the register (dropped from `PROGRESS_FIELDS`) and the `.pt-*` styles are
+    removed; `sortByDifficulty` is a pure sort by `cardDifficultyRank`, and **a deck's day of new cards is
+    cut AFTER that sort** (`buildSession`'s deck and group branches), so the first card is the deck's easiest
+    rather than the easiest of each subdeck's first few. `nearMiss` / `editDistanceLE1` stay for the cloze
+    box and the artwork matcher. `test-learning.js` §3 and §7 assert it.
   · **`card.leadsTo` — CAUSAL CHAINS.** An authored `[{ id, how }]` forming a shallow DAG **within one
     collection**, drawn as a strip outside the Background fold, each edge opening a `openCardPeek` sheet
     rather than routing — a click meant as a glance must not end the session and spend that card's
@@ -5043,8 +5043,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Guarded by `.claude/test-learning.js`** (sections 1–5 need no browser). **Re-run after touching
     `CRIT_DAYS` / `critMark` / `critDays` / `critPipsHTML` / `critLearnedCount` / `byDue` / `warmUpFirst` /
     `WARMUP_N` / `robinOrder` / `studyOrder` / `DECK_ORDERS` / `deckAttempt` / `PAGES.order` /
-    `orderAskEntry` / `setOrderPicked` / `PAGES.pretest` / `pretestOffer` / `pretestPick` / `pretestMatch` /
-    `nearMiss` / `editDistanceLE1` / `pretestKnownSet` / `sortByDifficulty` / `elabPromptHTML` /
+    `orderAskEntry` / `setOrderPicked` /
+    `nearMiss` / `editDistanceLE1` / `sortByDifficulty` / `elabPromptHTML` /
     `wireElabPrompt` / `cardWhy` / `cardFirstSentence` / `openCardPeek` / `cardLeadsTo` /
     `cardLeadsToHTML` / `gradeCloze` / `normAnswer` / `answerNear` / `answerIndex` / `noteConfusion` /
     `confusionPairs` / `confusionDrillIds` / `confusionRowHTML` / `forgettingCurveHTML` / `seenOnceIds` /
@@ -9284,7 +9284,7 @@ division-capital city tier are inert dead code.
     `ensureData("atlas")` beside it / `uCacheBust` / `CMAP_HIRES` / a `coast_*` bundle, and after giving a
     card a locator `kind`.**
   · `node .claude/test-learning.js` — **the learning-science batch**, and every one of its subjects
-    fails SILENTLY. **Its starred assertion is that the deck pretest writes NO card records.** Sections
+    fails SILENTLY. **Its §7 asserts that the difficulty order opens on the deck's easiest card with no pretest first** (the pretest was removed Oct 2026). Sections
     1–5 need no browser. **Re-run after touching anything in the "HOW A READER MEETS A CARD" bullet's own
     list.**
   · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
