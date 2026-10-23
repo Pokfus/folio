@@ -6683,7 +6683,13 @@ window.GLOSSARY = {
 "Lassen_Volcanic_National_Park": "",
 "Sierra_Nevada": "",
 "Silicon_Valley": "",
-"United_States_Census_Bureau": ""
+"United_States_Census_Bureau": "",
+"Algae": "",
+"Chemotaxis": "",
+"Comparative_psychology": "",
+"European_rabbit": "",
+"Replication_crisis": "",
+"Stimulus_(physiology)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14438,7 +14444,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Central_Valley_(California)": ["Central Valley","Great Valley of California"],
 "Joshua_Tree_National_Park": ["Joshua Tree"],
 "Lassen_Volcanic_National_Park": ["Lassen Volcanic"],
-"United_States_Census_Bureau": ["Census Bureau"]
+"United_States_Census_Bureau": ["Census Bureau"],
+"Algae": ["alga"],
+"Chemotaxis": ["nutrient gradient"],
+"Replication_crisis": ["replication study","replication studies","reproducibility crisis"],
+"Stimulus_(physiology)": ["stimuli"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21247,7 +21257,13 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lassen_Volcanic_National_Park": ["place","geography","nature","geology","united states","north america"],
 "Sierra_Nevada": ["place","geography","mountain","geology","united states","north america"],
 "Silicon_Valley": ["place","region","technology","economy","united states","20th century"],
-"United_States_Census_Bureau": ["institution","government","politics","united states","north america"]
+"United_States_Census_Bureau": ["institution","government","politics","united states","north america"],
+"Algae": ["concept","science","biology","plant"],
+"Chemotaxis": ["concept","science","biology"],
+"Comparative_psychology": ["concept","science","psychology","animal"],
+"European_rabbit": ["animal","science","biology"],
+"Replication_crisis": ["concept","science","research methods","psychology"],
+"Stimulus_(physiology)": ["concept","science","biology","psychology"]
 });
 
 /* ============================================================================
