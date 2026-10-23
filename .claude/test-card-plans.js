@@ -111,8 +111,10 @@ const PLANS = {
   /* …and 701-750 is the LARGEST CITIES deck (Sep 2026, on request): the largest city of every state whose
      largest city is not its capital, numbered 700 + the state's own number so the three decks pair by
      arithmetic as the capitals do. The seventeen missing numbers are the states whose capital IS the
-     largest city — Phoenix, Boston, Denver and the rest — which would be the capital card a second time. */
-  geography: ["geo-us", "geo-", [[1, 50], [501, 550], [701, 703], [705, 705], [707, 709], [711, 711], [714, 715], [717, 718], [721, 724], [726, 726], [728, 731], [733, 733], [735, 735], [737, 737], [739, 743], [746, 749]]],
+     largest city — Phoenix, Boston, Denver and the rest — which would be the capital card a second time.
+     801-840 and 901-940 are the two PHYSICAL decks (Oct 2026): rivers, lakes and bays, then mountains,
+     canyons and caves — forty each, text cards with a locator rather than map cards. */
+  geography: ["geo-us", "geo-", [[1, 50], [501, 550], [701, 703], [705, 705], [707, 709], [711, 711], [714, 715], [717, 718], [721, 724], [726, 726], [728, 731], [733, 733], [735, 735], [737, 737], [739, 743], [746, 749], [801, 840], [901, 940]]],
   /* The world: 233 countries and territories, and 226 capitals rather than 233. The seven missing
      numbers are not gaps to be filled — each is a capital card that would ask nothing, and each is
      argued in the plan: 604 Hong Kong, 614 Singapore, 667 Macau, 713 Gibraltar, 714 Monaco and

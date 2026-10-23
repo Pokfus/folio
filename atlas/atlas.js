@@ -153,6 +153,9 @@
      has and every other stop grows or shrinks the names by the ratio the chrome does. The factor multiplies the style sizes, the tracking, the glyph advances the worker shapes with, the halo widths, and — sent with each
      layout — the collision padding, the dot beside a city, the frame margin and the study marks, so a name that grows takes its box with it (a bigger name in the old box is a map that overlaps itself). */
   const FS_PHONE_QUERY = "(max-width:640px)";
+  /* the reader's place names (app.js SPELL_NAMES, Oct 2026): an American reader sees "Gulf of America" and "Mount McKinley" on the canvas as
+     the text pass shows them everywhere else — a whole-label table, or null for the authored (British) names */
+  function placeRenames() { try { return (typeof window !== "undefined" && typeof window.FolioPlaceNames === "function" && window.FolioPlaceNames()) || null; } catch (e) { return null; } }
   function labelScaleNow() {
     try {
       const v = parseFloat(getComputedStyle(document.body).getPropertyValue("--fs"));
@@ -253,7 +256,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "29745878ab:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "ef22a70e7f:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1835,7 +1838,7 @@
       const seq = ++layoutSeq;
       L.sentAt = performance.now();
       L.chrome = chromeRects();   // kept for the painter: between layouts a label that slid under a control or past the frame is not drawn (Phase 4c)
-      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, kmppFloor: kmFloor(), level: view.level, density: layers.density, phone: PHONE, fs: LS, show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
+      postToWorker({ type: "layout", seq, reason, chrome: L.chrome, year: time.year, present: time.present, aliveFaces: time.hist ? time.alive.map((a) => a.face).concat(time.palive.map((a) => a.face)) : [], capitals: time.capitals, rot: Float32Array.from(view.rot), radius: view.radius, cx: view.cx, cy: view.cy, W: cssW, H: cssH, kmpp: view.kmpp, kmppFloor: kmFloor(), level: view.level, density: layers.density, phone: PHONE, fs: LS, rename: placeRenames(), show: { countries: layers.countries, places: layers.places, physical: layers.physical, cities: layers.cities, provinces: layers.provinces, rivers: layers.rivers, lakes: layers.lakes }, admin1: view.admin1, riversDrawn: view.rivers, selected: sel.id, debug: !!L.debug });
       if (reason === "settle" || reason === "level") writeHash(false);
     }
     function applyLayout(m) {
@@ -2133,7 +2136,7 @@
     function openFan(x, y, near) {
       const A = root.AtlasStudy, ctx = lctx, st = STYLE_BY_ID.town || STYLE_BY_ID.city;
       ctx.font = fontOf(st, 12 * LS);
-      const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id); const name = e.m.members ? e.m.name + " — " + e.m.count + " places" : row ? A.labelText(row.name, row.aliases).text : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
+      const mem = near.slice(0, FAN_MAX).map((e) => { const row = G.byId.get(e.m.id), rn = placeRenames(); const name = e.m.members ? e.m.name + " — " + e.m.count + " places" : row ? A.labelText((rn && (rn[row.kind + "|" + row.name] || rn[row.name])) || row.name, row.aliases).text : e.m.id; return { e, name, x: e.x, y: e.y, w: ctx.measureText(name).width }; });
       const f = A.fanOut(mem, { x, y }, { W: cssW, H: cssH, chrome: L.chrome || [], max: FAN_MAX, half: 9 * LS });
       fan = { x, y, sig: fanSig(), mem, slots: f.slots.map((sl) => Object.assign({}, sl, { mem: mem[sl.i] })), clear: f.clear };
       sel.stack = []; sel.at = null; stackBtn.hidden = true;

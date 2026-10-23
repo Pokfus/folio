@@ -3426,7 +3426,7 @@
   // of them, and letting untrusted content borrow site-chrome classes invites visual spoofing.
   // "uc-*" is reserved for community content's own styling.
   const SANITIZE_CLASSES = new Set(["blank", "dt", "dt-k", "dt-v", "tr-pinline", "tr-pin", "ttip", "ans-term",
-    "card-img", "note", "quote", "small", "center", "fn"]);
+    "card-img", "note", "quote", "small", "center", "fn", "keep-name"]);
   const SANITIZE_URL_SCHEMES = ["http", "https", "mailto"];
 
   // Resolve an attribute URL to something safe, or "" to drop it. Values arrive entity-decoded from the
@@ -16264,6 +16264,46 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return { gb, us, rxGB: rx(gb), rxUS: rx(us) };
   })();
   function spellSystem() { return SPELLINGS.includes(S.settings && S.settings.spelling) ? S.settings.spelling : "en-GB"; }
+  /* PLACE NAMES THAT DEPEND ON THE READER'S ENGLISH (Oct 2026, on request: "if the user uses American English
+     spelling for the website, they are shown as Gulf of America, etc. If they use the British spelling for the
+     website, use the old names"). Executive Order 14172 of January 2025 renamed two features for US federal use
+     (and Executive Order 14422 of August 2026 a third, Lake Ontario),
+     and GNIS followed; British and international usage kept the older names. Content is AUTHORED with the older
+     name, as it is authored in British spelling, so this runs in the American direction only — and that is a
+     decision, not an economy: "Mount McKinley" was also the federal name from 1917 to 2015, so a reverse row
+     would rewrite a card about 1917 into a name nobody used then.
+     A WHOLE NAME, MATCHED CASE-SENSITIVELY, never a word: the `SPELL_PAIRS` machinery folds case and matches
+     single words, and "Denali" is also the name of a national park, a fault, a highway and a borough that were
+     NOT renamed — `not` is the lookahead that leaves them alone. "Mount Denali" is its own row so it does not
+     become "Mount Mount McKinley". A sentence that must NAME the older form for an American reader too (the card
+     that explains the renaming) wraps it in `<span class="keep-name">`, which `spellSkip` leaves alone.
+     The Atlas draws its names on a canvas the text pass cannot reach, so `FolioPlaceNames` hands it the
+     whole-label table (`atlas.js` puts it in the worker's layout message). Guarded by `test-spelling.js`. */
+  const SPELL_NAMES = [
+    ["Gulf of Mexico", "Gulf of America"],
+    ["Mount Denali", "Mount McKinley"],
+    ["Denali", "Mount McKinley", " (?:National|State|Fault|Highway|Borough|Park|Preserve)"],
+    /* Executive Order 14422 of 27 August 2026 (91 FR 56543): Lake Ontario renamed Lake America for federal use */
+    ["Lake Ontario", "Lake America"],
+  ];
+  /* THE ATLAS NAMES A LAKE BY ITS BARE NAME ("Superior", "Ontario"), so its table adds kind-scoped rows,
+     "<kind>|<label>": a plain "Ontario" row would rename the province as well. The worker asks the scoped
+     row first, then the whole label. */
+  const SPELL_NAMES_ATLAS = { "lake|Ontario": "America" };
+  const _spellNames = (() => {
+    const map = Object.create(null), alt = [];
+    SPELL_NAMES.forEach(([gb, us, not]) => {
+      map[gb] = us;
+      alt.push(gb.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + (not ? "(?!" + not + ")" : ""));
+    });
+    return { map, rx: new RegExp("(?<![\\p{L}\\p{N}_])(?:" + alt.join("|") + ")(?![\\p{L}\\p{N}_])", "gu") };
+  })();
+  function spellNames(text) {
+    _spellNames.rx.lastIndex = 0;
+    return text.replace(_spellNames.rx, (m) => _spellNames.map[m] || m);
+  }
+  const _spellNamesAtlas = Object.assign(Object.create(null), _spellNames.map, SPELL_NAMES_ATLAS);
+  window.FolioPlaceNames = () => (spellSystem() === "en-US" ? _spellNamesAtlas : null);
   /* The case of the word on the page is preserved, and only the three shapes a sentence actually
      produces: all lower, Capitalised, ALL CAPS. Anything else (`McDonald`-shaped, an acronym with a
      lowercase tail) is left exactly as written — a mixed-case word is a name far more often than it
@@ -16289,6 +16329,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const map = us ? _spellMaps.gb : _spellMaps.us;
     const rx = us ? _spellMaps.rxGB : _spellMaps.rxUS;
     const swap = (chunk) => {
+      if (us) chunk = spellNames(chunk);
       rx.lastIndex = 0;
       return chunk.replace(rx, (m) => {
         const hit = map[m] || map[m.toLowerCase()];
@@ -16354,7 +16395,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        for text Folio authored; Who said it?'s quotations are verbatim, so King's "colour of their skin"
        and Du Bois's "colour line" were being printed in a spelling neither man used. `.verbatim` marks
        text that must reach the reader exactly as it is stored. */
-    if (p.closest(".verbatim")) return true;
+    if (p.closest(".verbatim, .keep-name")) return true;   // .keep-name: a place's older name that a sentence must keep (SPELL_NAMES)
     if (!foreign) return false;
     /* THE ONE PART OF A FOREIGN-LANGUAGE CARD THAT IS CERTAINLY ENGLISH (Sep 2026, on request).
        A language deck's card wrapper carries the deck's own `speechLang`, so the guard above rightly

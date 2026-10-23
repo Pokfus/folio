@@ -1674,6 +1674,30 @@
    },
    "cards": 1
   },
+  "pl:q118388": {
+   "name": "Death Valley",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q118388",
+   "at": [
+    -116.8653,
+    36.4569
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Death Valley",
+   "manual": true,
+   "reason": "geo-910 Death Valley: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8514",
+     "Q39816",
+     "Q192810",
+     "Q813672"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q11907359": {
    "name": "Auximum",
    "kind": "site",
@@ -2629,6 +2653,27 @@
     }
    ]
   },
+  "pl:q130018": {
+   "name": "Denali",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q130018",
+   "at": [
+    -151.0063,
+    63.0691
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Denali",
+   "manual": true,
+   "reason": "geo-904 Denali: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q1303524": {
    "name": "Sphacteria",
    "kind": "island",
@@ -2748,6 +2793,28 @@
     "km": 0.1
    },
    "cards": 1
+  },
+  "pl:q131230": {
+   "name": "Mauna Kea",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q131230",
+   "at": [
+    -155.4681,
+    19.8206
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mauna Kea",
+   "manual": true,
+   "reason": "geo-915 Mauna Kea: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8072",
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q13142": {
    "name": "Fano",
@@ -3372,6 +3439,27 @@
    "cards": 1,
    "kindWas": "region"
   },
+  "pl:q1360486": {
+   "name": "Great Smoky Mountains",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q1360486",
+   "at": [
+    -83.4986,
+    35.5628
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Great Smoky Mountains",
+   "manual": true,
+   "reason": "geo-920 Great Smoky Mountains: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q1360503": {
    "name": "Issus (Cilicia)",
    "kind": "site",
@@ -3707,6 +3795,27 @@
     "km": 14.1
    },
    "cards": 1
+  },
+  "pl:q143762": {
+   "name": "Delaware River",
+   "kind": "river",
+   "sub": "",
+   "qid": "Q143762",
+   "at": [
+    -75.5288,
+    39.4326
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Delaware River",
+   "manual": true,
+   "reason": "geo-830 Delaware River: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q4022"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q1438": {
    "name": "Campania",
@@ -4358,6 +4467,48 @@
    },
    "cards": 1
   },
+  "pl:q1556007": {
+   "name": "White Mountains",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q1556007",
+   "at": [
+    -71.31,
+    44.27
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "White Mountains (New England)",
+   "manual": true,
+   "reason": "geo-939 White Mountains: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q156006": {
+   "name": "Red River of the North",
+   "kind": "river",
+   "sub": "",
+   "qid": "Q156006",
+   "at": [
+    -96.5988,
+    46.2643
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Red River of the North",
+   "manual": true,
+   "reason": "geo-840 Red River of the North: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q4022"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q156053": {
    "name": "Srebrenica",
    "kind": "town",
@@ -4565,6 +4716,28 @@
     "km": 0
    },
    "cards": 0
+  },
+  "pl:q159762": {
+   "name": "Mauna Loa",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q159762",
+   "at": [
+    -155.6,
+    19.4833
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mauna Loa",
+   "manual": true,
+   "reason": "geo-926 Mauna Loa: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q212057",
+     "Q29025902"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q15982250": {
    "name": "Tell al-Nabi Mando",
@@ -5995,6 +6168,27 @@
    },
    "cards": 2
   },
+  "pl:q1858056": {
+   "name": "Katahdin",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q1858056",
+   "at": [
+    -68.9213,
+    45.9044
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Katahdin",
+   "manual": true,
+   "reason": "geo-940 Katahdin: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q186312": {
    "name": "Masada",
    "kind": "site",
@@ -6071,6 +6265,28 @@
     "km": 5.6
    },
    "cards": 1
+  },
+  "pl:q188698": {
+   "name": "Kīlauea",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q188698",
+   "at": [
+    -155.2868,
+    19.4211
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Kīlauea",
+   "manual": true,
+   "reason": "geo-914 Kīlauea: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q212057",
+     "Q1330974"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q188731": {
    "name": "Rhodes (city)",
@@ -6388,6 +6604,28 @@
     "km": 0.1
    },
    "cards": 1
+  },
+  "pl:q192017": {
+   "name": "Monument Valley",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q192017",
+   "at": [
+    -110.1,
+    36.9833
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Monument Valley",
+   "manual": true,
+   "reason": "geo-924 Monument Valley: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q39816",
+     "Q749565"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q192134": {
    "name": "Saqqara",
@@ -6724,6 +6962,29 @@
     "km": 0
    },
    "cards": 0
+  },
+  "pl:q194057": {
+   "name": "Mount Rainier",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q194057",
+   "at": [
+    -121.7603,
+    46.8517
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Rainier",
+   "manual": true,
+   "reason": "geo-909 Mount Rainier: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358",
+     "Q1595289"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q194103": {
    "name": "Aventine Hill",
@@ -7415,6 +7676,27 @@
    },
    "cards": 1
   },
+  "pl:q2078034": {
+   "name": "Grand Teton",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q2078034",
+   "at": [
+    -110.8024,
+    43.7412
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Grand Teton",
+   "manual": true,
+   "reason": "geo-921 Grand Teton: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q207808": {
    "name": "Circus Maximus",
    "kind": "site",
@@ -8005,6 +8287,30 @@
    },
    "cards": 3
   },
+  "pl:q219562": {
+   "name": "Bryce Canyon",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q219562",
+   "at": [
+    -112.17,
+    37.64
+   ],
+   "within": "",
+   "aliases": [
+    "Bryce Canyon National Park"
+   ],
+   "wiki": "Bryce Canyon National Park",
+   "manual": true,
+   "reason": "geo-931 Bryce Canyon: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46169",
+     "Q34918903"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q220583": {
    "name": "Sybaris",
    "kind": "site",
@@ -8226,6 +8532,27 @@
    },
    "cards": 1
   },
+  "pl:q2300616": {
+   "name": "Delicate Arch",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q2300616",
+   "at": [
+    -109.4994,
+    38.7436
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Delicate Arch",
+   "manual": true,
+   "reason": "geo-937 Delicate Arch: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q954501"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q23069794": {
    "name": "Menelaion",
    "kind": "site",
@@ -8420,6 +8747,27 @@
    },
    "cards": 1,
    "kindWas": "strait"
+  },
+  "pl:q235539": {
+   "name": "Mount Whitney",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q235539",
+   "at": [
+    -118.2919,
+    36.5786
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Whitney",
+   "manual": true,
+   "reason": "geo-911 Mount Whitney: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q2369687": {
    "name": "Susiana",
@@ -9144,6 +9492,27 @@
    "cards": 1,
    "kindWas": "region"
   },
+  "pl:q2666855": {
+   "name": "Mammoth Cave",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q2666855",
+   "at": [
+    -86.1,
+    37.1833
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "",
+   "manual": true,
+   "reason": "geo-908 Mammoth Cave: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q35509"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q267258": {
    "name": "Odawara",
    "kind": "city",
@@ -9368,6 +9737,31 @@
    },
    "cards": 1
   },
+  "pl:q273195": {
+   "name": "Carlsbad Caverns",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q273195",
+   "at": [
+    -104.4439,
+    32.1753
+   ],
+   "within": "",
+   "aliases": [
+    "Carlsbad Caverns National Park"
+   ],
+   "wiki": "Carlsbad Caverns National Park",
+   "manual": true,
+   "reason": "geo-912 Carlsbad Caverns: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46169",
+     "Q2232001",
+     "Q34918903"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q273834": {
    "name": "Longmen Grottoes",
    "kind": "site",
@@ -9447,6 +9841,28 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q275662": {
+   "name": "Mount Hood",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q275662",
+   "at": [
+    -121.6958,
+    45.3736
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Hood",
+   "manual": true,
+   "reason": "geo-923 Mount Hood: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q278988": {
    "name": "Hierakonpolis",
@@ -9982,6 +10398,52 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q306201": {
+   "name": "Devils Tower",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q306201",
+   "at": [
+    -104.7153,
+    44.5903
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Devils Tower",
+   "manual": true,
+   "reason": "geo-919 Devils Tower: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q522464"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q306216": {
+   "name": "Badlands",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q306216",
+   "at": [
+    -102.5,
+    43.75
+   ],
+   "within": "",
+   "aliases": [
+    "Badlands National Park"
+   ],
+   "wiki": "Badlands National Park",
+   "manual": true,
+   "reason": "geo-925 Badlands: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46169",
+     "Q34918903"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q3077260": {
    "name": "Shika Island",
@@ -11408,6 +11870,27 @@
    "cards": 1,
    "kindWas": "site/site"
   },
+  "pl:q387771": {
+   "name": "Lechuguilla Cave",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q387771",
+   "at": [
+    -104.5033,
+    32.1906
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Lechuguilla Cave",
+   "manual": true,
+   "reason": "geo-938 Lechuguilla Cave: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q35509"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q38888": {
    "name": "Olympia, Greece",
    "kind": "site",
@@ -12177,6 +12660,28 @@
     "km": 1.3
    },
    "cards": 1
+  },
+  "pl:q4675": {
+   "name": "Mount St. Helens",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q4675",
+   "at": [
+    -122.1894,
+    46.2003
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount St. Helens",
+   "manual": true,
+   "reason": "geo-905 Mount St. Helens: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q471765": {
    "name": "Shangdu",
@@ -13649,6 +14154,27 @@
    },
    "cards": 1
   },
+  "pl:q572801": {
+   "name": "Mount Washington",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q572801",
+   "at": [
+    -71.3035,
+    44.2708
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Washington",
+   "manual": true,
+   "reason": "geo-918 Mount Washington: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q5747": {
    "name": "Palmyra",
    "kind": "site",
@@ -14113,6 +14639,29 @@
    },
    "cards": 1
   },
+  "pl:q597281": {
+   "name": "Everglades",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q597281",
+   "at": [
+    -80.7,
+    26
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Everglades",
+   "manual": true,
+   "reason": "geo-819 Everglades: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q1970725",
+     "Q3143162",
+     "Q6617741"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q59898": {
    "name": "Daming County",
    "kind": "region",
@@ -14249,6 +14798,27 @@
    },
    "cards": 0
   },
+  "pl:q604141": {
+   "name": "Puget Sound",
+   "kind": "strait",
+   "sub": "",
+   "qid": "Q604141",
+   "at": [
+    -122.435,
+    47.8331
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Puget Sound",
+   "manual": true,
+   "reason": "geo-820 Puget Sound: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q491713"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q604496": {
    "name": "Fennoscandia",
    "kind": "region",
@@ -14316,6 +14886,27 @@
    },
    "cards": 1,
    "kindWas": "region"
+  },
+  "pl:q609700": {
+   "name": "Stone Mountain",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q609700",
+   "at": [
+    -84.1454,
+    33.8059
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Stone Mountain",
+   "manual": true,
+   "reason": "geo-934 Stone Mountain: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q614510": {
    "name": "Gabii",
@@ -14408,6 +14999,27 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q615337": {
+   "name": "Mount Mitchell",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q615337",
+   "at": [
+    -82.2649,
+    35.7648
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Mitchell",
+   "manual": true,
+   "reason": "geo-928 Mount Mitchell: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q615449": {
    "name": "Cyzicus",
@@ -15139,6 +15751,27 @@
    "cards": 1,
    "kindWas": "region"
   },
+  "pl:q657225": {
+   "name": "Mount Elbert",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q657225",
+   "at": [
+    -106.4453,
+    39.1178
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Elbert",
+   "manual": true,
+   "reason": "geo-936 Mount Elbert: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q661559": {
    "name": "Ambracia",
    "kind": "site",
@@ -15206,6 +15839,28 @@
     "km": 0
    },
    "cards": 4
+  },
+  "pl:q665321": {
+   "name": "Pikes Peak",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q665321",
+   "at": [
+    -105.0442,
+    38.8406
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Pikes Peak",
+   "manual": true,
+   "reason": "geo-917 Pikes Peak: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q1129474"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q670003": {
    "name": "Saint-Acheul",
@@ -16318,6 +16973,28 @@
    },
    "cards": 1
   },
+  "pl:q748355": {
+   "name": "Mount Shasta",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q748355",
+   "at": [
+    -122.1949,
+    41.4092
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Shasta",
+   "manual": true,
+   "reason": "geo-930 Mount Shasta: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q751318": {
    "name": "Porta Maggiore",
    "kind": "site",
@@ -17006,6 +17683,27 @@
    },
    "cards": 2
   },
+  "pl:q83497": {
+   "name": "Mount Rushmore",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q83497",
+   "at": [
+    -103.4592,
+    43.8789
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Rushmore",
+   "manual": true,
+   "reason": "geo-906 Mount Rushmore: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q836108": {
    "name": "Baths of Diocletian",
    "kind": "site",
@@ -17643,6 +18341,29 @@
    },
    "cards": 1
   },
+  "pl:q925252": {
+   "name": "Half Dome",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q925252",
+   "at": [
+    -119.5332,
+    37.746
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Half Dome",
+   "manual": true,
+   "reason": "geo-916 Half Dome: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q1640361",
+     "Q2459045"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q927198": {
    "name": "Londinium",
    "kind": "site",
@@ -17812,6 +18533,27 @@
     "km": 2.2
    },
    "cards": 1
+  },
+  "pl:q9375154": {
+   "name": "Wind Cave",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q9375154",
+   "at": [
+    -103.4795,
+    43.558
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "",
+   "manual": true,
+   "reason": "geo-929 Wind Cave: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q2232001"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q938699": {
    "name": "Yorktown, Virginia",

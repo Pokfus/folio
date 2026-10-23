@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1099", released: "2026-10-23T18:35Z" };
+window.FOLIO_VERSION = { v: "1.1100", released: "2026-10-23T20:52Z" };
 
 window.CHANGELOG = [
   {
@@ -46,6 +46,8 @@ window.CHANGELOG = [
       "The home page's <b>quote now changes every minute</b> instead of every 30 seconds.",
       "<b>Four artefacts gained pictures</b>, and the two for which no picture could be found left the Reliquary.",
       "On Collections, a collection's <b>decks are now a compact, edge-to-edge list</b>: one line each, without numbers or file sizes.",
+      "<b>Two new United States geography decks</b>, Rivers, lakes and bays and Mountains, canyons and caves, arrive complete with 80 new cards and 74 glossary terms.",
+      "With <b>American spelling</b> on, the Gulf of Mexico, Denali and Lake Ontario now read as the Gulf of America, Mount McKinley and Lake America, on the Atlas too.",
       "<b>60 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU and Art.",
       "A few Ancient Greece, Russia and China cards gained a corrected question, dates, a Greek picture or a clearer background.",
       "The home page's <b>daily quote</b> now changes by itself every 30 seconds; the gold dash before the author's name runs out as the countdown.",

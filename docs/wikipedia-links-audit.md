@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4936 | the title is the article |
+| `ok` | 5011 | the title is the article |
 | `redirect-variant` | 330 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 76 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 458 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 463 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 104 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
 | `none` | 957 | nothing matched; no link |
 
-**5813 of 7028 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5893 of 7108 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (458)
+## Redirected to a differently named article — check each (463)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -157,6 +157,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `fl-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fl-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
 - `geo-517` **St. Paul** → [Paul the Apostle](https://en.wikipedia.org/wiki/Paul_the_Apostle) (from `St. Paul`)
+- `geo-908` **Mammoth Cave** → [Mammoth Cave National Park](https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park) (from `Mammoth Cave`)
+- `geo-912` **Carlsbad Caverns** → [Carlsbad Caverns National Park](https://en.wikipedia.org/wiki/Carlsbad_Caverns_National_Park) (from `Carlsbad Caverns`)
+- `geo-929` **Wind Cave** → [Wind Cave National Park](https://en.wikipedia.org/wiki/Wind_Cave_National_Park) (from `Wind Cave`)
+- `geo-931` **Bryce Canyon** → [Bryce Canyon National Park](https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park) (from `Bryce Canyon`)
+- `geo-940` **Mount Katahdin** → [Katahdin](https://en.wikipedia.org/wiki/Katahdin) (from `Mount Katahdin`)
 - `gga-018` **GPS spoofing** → [GNSS spoofing](https://en.wikipedia.org/wiki/GNSS_spoofing) (from `GPS spoofing`)
 - `gga-019` **Revisionist powers** → [Revisionist state](https://en.wikipedia.org/wiki/Revisionist_state) (from `Revisionist power`)
 - `gga-020` **Anti-colonialism** → [Decolonization](https://en.wikipedia.org/wiki/Decolonization) (from `Anti-colonialism`)

@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-18",
+ "retrieved": "2026-10-23",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -50943,6 +50943,50 @@
   "Q66661745": {
    "label": "group of artificial physical objects",
    "tops": []
+  },
+  "Q212057": {
+   "label": "shield volcano",
+   "tops": [
+    "Q8502",
+    "Q8072",
+    "Q2221906"
+   ]
+  },
+  "Q522464": {
+   "label": "laccolith",
+   "tops": []
+  },
+  "Q192810": {
+   "label": "graben",
+   "tops": []
+  },
+  "Q3143162": {
+   "label": "flooded grasslands and savannas",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794"
+   ]
+  },
+  "Q1640361": {
+   "label": "climbing area",
+   "tops": []
+  },
+  "Q2459045": {
+   "label": "granite dome",
+   "tops": [
+    "Q2221906",
+    "Q54050"
+   ]
+  },
+  "Q491713": {
+   "label": "sound",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q37901"
+   ]
   }
  },
  "labels": {
@@ -91452,6 +91496,402 @@
    ],
    "label": "",
    "title": "Tiananmen"
+  },
+  "Q273195": {
+   "coord": [
+    -104.4439,
+    32.1753
+   ],
+   "classes": [
+    "Q46169",
+    "Q2232001",
+    "Q34918903"
+   ],
+   "label": "Carlsbad Caverns National Park",
+   "title": "Carlsbad Caverns National Park"
+  },
+  "Q188698": {
+   "coord": [
+    -155.2868,
+    19.4211
+   ],
+   "classes": [
+    "Q212057",
+    "Q1330974"
+   ],
+   "label": "Kīlauea",
+   "title": "Kīlauea"
+  },
+  "Q306201": {
+   "coord": [
+    -104.7153,
+    44.5903
+   ],
+   "classes": [
+    "Q8502",
+    "Q522464"
+   ],
+   "label": "Devils Tower",
+   "title": "Devils Tower"
+  },
+  "Q2666855": {
+   "coord": [
+    -86.1,
+    37.1833
+   ],
+   "classes": [
+    "Q35509"
+   ],
+   "label": "Mammoth Cave",
+   "title": ""
+  },
+  "Q235539": {
+   "coord": [
+    -118.2919,
+    36.5786
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Whitney",
+   "title": "Mount Whitney"
+  },
+  "Q130018": {
+   "coord": [
+    -151.0063,
+    63.0691
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "",
+   "title": "Denali"
+  },
+  "Q4675": {
+   "coord": [
+    -122.1894,
+    46.2003
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358"
+   ],
+   "label": "",
+   "title": "Mount St. Helens"
+  },
+  "Q572801": {
+   "coord": [
+    -71.3035,
+    44.2708
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Washington",
+   "title": "Mount Washington"
+  },
+  "Q194057": {
+   "coord": [
+    -121.7603,
+    46.8517
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358",
+    "Q1595289"
+   ],
+   "label": "Mount Rainier",
+   "title": "Mount Rainier"
+  },
+  "Q118388": {
+   "coord": [
+    -116.8653,
+    36.4569
+   ],
+   "classes": [
+    "Q8514",
+    "Q39816",
+    "Q192810",
+    "Q813672"
+   ],
+   "label": "Death Valley",
+   "title": "Death Valley"
+  },
+  "Q83497": {
+   "coord": [
+    -103.4592,
+    43.8789
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Rushmore",
+   "title": "Mount Rushmore"
+  },
+  "Q2078034": {
+   "coord": [
+    -110.8024,
+    43.7412
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Grand Teton",
+   "title": "Grand Teton"
+  },
+  "Q597281": {
+   "coord": [
+    -80.7,
+    26
+   ],
+   "classes": [
+    "Q1970725",
+    "Q3143162",
+    "Q6617741"
+   ],
+   "label": "Everglades",
+   "title": "Everglades"
+  },
+  "Q143762": {
+   "coord": [
+    -75.5288,
+    39.4326
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Delaware River",
+   "title": "Delaware River"
+  },
+  "Q925252": {
+   "coord": [
+    -119.5332,
+    37.746
+   ],
+   "classes": [
+    "Q8502",
+    "Q1640361",
+    "Q2459045"
+   ],
+   "label": "Half Dome",
+   "title": "Half Dome"
+  },
+  "Q665321": {
+   "coord": [
+    -105.0442,
+    38.8406
+   ],
+   "classes": [
+    "Q8502",
+    "Q1129474"
+   ],
+   "label": "Pikes Peak",
+   "title": "Pikes Peak"
+  },
+  "Q1360486": {
+   "coord": [
+    -83.4986,
+    35.5628
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Great Smoky Mountains",
+   "title": "Great Smoky Mountains"
+  },
+  "Q275662": {
+   "coord": [
+    -121.6958,
+    45.3736
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358"
+   ],
+   "label": "Mount Hood",
+   "title": "Mount Hood"
+  },
+  "Q306216": {
+   "coord": [
+    -102.5,
+    43.75
+   ],
+   "classes": [
+    "Q46169",
+    "Q34918903"
+   ],
+   "label": "Badlands National Park",
+   "title": "Badlands National Park"
+  },
+  "Q615337": {
+   "coord": [
+    -82.2649,
+    35.7648
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Mitchell",
+   "title": "Mount Mitchell"
+  },
+  "Q219562": {
+   "coord": [
+    -112.17,
+    37.64
+   ],
+   "classes": [
+    "Q46169",
+    "Q34918903"
+   ],
+   "label": "Bryce Canyon National Park",
+   "title": "Bryce Canyon National Park"
+  },
+  "Q657225": {
+   "coord": [
+    -106.4453,
+    39.1178
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Elbert",
+   "title": "Mount Elbert"
+  },
+  "Q387771": {
+   "coord": [
+    -104.5033,
+    32.1906
+   ],
+   "classes": [
+    "Q35509"
+   ],
+   "label": "Lechuguilla Cave",
+   "title": "Lechuguilla Cave"
+  },
+  "Q1556007": {
+   "coord": [
+    -71.31,
+    44.27
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "White Mountains",
+   "title": "White Mountains (New England)"
+  },
+  "Q1858056": {
+   "coord": [
+    -68.9213,
+    45.9044
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Katahdin",
+   "title": "Katahdin"
+  },
+  "Q156006": {
+   "coord": [
+    -96.5988,
+    46.2643
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Red River of the North",
+   "title": "Red River of the North"
+  },
+  "Q131230": {
+   "coord": [
+    -155.4681,
+    19.8206
+   ],
+   "classes": [
+    "Q8072",
+    "Q8502"
+   ],
+   "label": "Mauna Kea",
+   "title": "Mauna Kea"
+  },
+  "Q192017": {
+   "coord": [
+    -110.1,
+    36.9833
+   ],
+   "classes": [
+    "Q39816",
+    "Q749565"
+   ],
+   "label": "Monument Valley",
+   "title": "Monument Valley"
+  },
+  "Q159762": {
+   "coord": [
+    -155.6,
+    19.4833
+   ],
+   "classes": [
+    "Q212057",
+    "Q29025902"
+   ],
+   "label": "Mauna Loa",
+   "title": "Mauna Loa"
+  },
+  "Q9375154": {
+   "coord": [
+    -103.4795,
+    43.558
+   ],
+   "classes": [
+    "Q2232001"
+   ],
+   "label": "Wind Cave",
+   "title": ""
+  },
+  "Q748355": {
+   "coord": [
+    -122.1949,
+    41.4092
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358"
+   ],
+   "label": "Mount Shasta",
+   "title": "Mount Shasta"
+  },
+  "Q609700": {
+   "coord": [
+    -84.1454,
+    33.8059
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Stone Mountain",
+   "title": "Stone Mountain"
+  },
+  "Q604141": {
+   "coord": [
+    -122.435,
+    47.8331
+   ],
+   "classes": [
+    "Q491713"
+   ],
+   "label": "Puget Sound",
+   "title": "Puget Sound"
+  },
+  "Q2300616": {
+   "coord": [
+    -109.4994,
+    38.7436
+   ],
+   "classes": [
+    "Q954501"
+   ],
+   "label": "Delicate Arch",
+   "title": "Delicate Arch"
   }
  },
  "links": {

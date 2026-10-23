@@ -172,6 +172,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 - **Never name a CSS class `ad-…`** (ad blockers hide it; `adBaitCheck` in `test-layout.js`).
 - **Units and spelling** are rendering passes over text nodes (`unitizeTree`, `spellTree`); content is
   authored metric-first with imperial in brackets, and in British spelling.
+  **Place names follow the reader's English** (`SPELL_NAMES`, Oct 2026): content says Gulf of Mexico, Denali and Lake Ontario, an American reader sees Gulf of America, Mount McKinley and Lake America (cards, glossary, Atlas labels via `FolioPlaceNames`); one-way; `.keep-name` protects a name a sentence must keep.
   **A quotation carries `.verbatim` and both passes skip it** (the Home daily quote, a card's quote block, Who said it?, the admin's quote lists — `test-quotes-verbatim.js`); mark any new one.
   📖 `docs/reader-settings.md` — READ BEFORE CHANGING EITHER.
 - **Library**: 📖 `docs/library-feature.md` — READ BEFORE TOUCHING THE LIBRARY.
@@ -255,7 +256,7 @@ have not this session.
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 30 cards, contiguous — next is `art-031`; not a history collection (artwork-card format) |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 3 / 3 | complete (map cards) |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 5 / 5 | complete: map decks, plus water (`geo-801`–`840`) and mountains (`geo-901`–`940`), text cards with a locator |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | complete but 3 deferred |
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | complete (4 deferred) |
