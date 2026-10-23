@@ -14479,7 +14479,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Greek_altar": ["altar"],
 "Hecatomb": ["hecatombs","hekatomb"],
 "Greek_priesthood": ["priesthood","priesthoods","priestess","priestesses"],
-"Temenos": ["temene"]
+"Temenos": ["temene"],
+"Asclepius": ["Asklepios","Aesculapius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

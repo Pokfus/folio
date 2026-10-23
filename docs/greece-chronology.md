@@ -1156,6 +1156,22 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | event or person | the collection says | source |
 |---|---|---|
 | Greek temple: Orders begin | c. 600 BCE | Barbara A. Barletta, review of Sanctuaries and the Sacred in the Ancient Greek World , b… (`gr-968`) |
+| omphalos: In Strabo | c. 20 CE | Pausanias, Description of Greece 10.16.3, trans. W. H. S. Jones and H. A. Ormerod, Loeb … (`gr-981`) |
+| omphalos: In Pausanias | c. 150 CE | Pausanias, Description of Greece 10.16.3, trans. W. H. S. Jones and H. A. Ormerod, Loeb … (`gr-981`) |
+| Dodona: In Herodotus | c. 430 BCE | Herodotus, The Histories 2.54–55, trans. A. D. Godley, Loeb Classical Library (Cambridge… (`gr-982`) |
+| Dodona: Lead strips | c. 550 – 50 BCE | Herodotus, The Histories 2.54–55, trans. A. D. Godley, Loeb Classical Library (Cambridge… (`gr-982`) |
+| Delphic amphictyony: In Aeschines | 330 BCE | Aeschines, Against Ctesiphon 3.107–108, trans. Charles Darwin Adams, Loeb Classical Libr… (`gr-983`) |
+| divination: In Plato | c. 370 BCE | Plato, Phaedrus 244a–b, trans. Harold N. Fowler, Loeb Classical Library (Cambridge, MA: … (`gr-984`) |
+| crown games: In Pausanias | c. 150 CE | Pausanias, Description of Greece 10.7.5–8, trans. W. H. S. Jones and H. A. Ormerod, Loeb… (`gr-985`) |
+| Panathenaia: Hipparchus killed | 514 BCE | Thucydides, The History of the Peloponnesian War 6.56–57, trans. Thomas Hobbes (London: … (`gr-986`) |
+| Panathenaia: In Thucydides | c. 400 BCE | Thucydides, The History of the Peloponnesian War 6.56–57, trans. Thomas Hobbes (London: … (`gr-986`) |
+| Greek festival calendar: Marathon | 490 BCE | Herodotus, The Histories 6.106, trans. A. D. Godley, Loeb Classical Library (Cambridge, … (`gr-987`) |
+| Greek festival calendar: In Herodotus | c. 430 BCE | Herodotus, The Histories 6.106, trans. A. D. Godley, Loeb Classical Library (Cambridge, … (`gr-987`) |
+| Thesmophoria: In Herodotus | c. 430 BCE | Herodotus, The Histories 2.171, trans. A. D. Godley, Loeb Classical Library (Cambridge, … (`gr-988`) |
+| Anthesteria: In Thucydides | c. 400 BCE | Thucydides, The History of the Peloponnesian War 2.15.4, trans. Richard Crawley (London:… (`gr-989`) |
+| Eleusinian Mysteries: In Herodotus | c. 430 BCE | Homeric Hymn 2, To Demeter 473–482, trans. Hugh G. Evelyn-White, Loeb Classical Library … (`gr-990`) |
+| Eleusinian Mysteries: Profaned | 415 BCE | Homeric Hymn 2, To Demeter 473–482, trans. Hugh G. Evelyn-White, Loeb Classical Library … (`gr-990`) |
+| Asclepius: Reached Athens | 420 BCE | Heidi Marx-Wolf, review of Asklepios, Medicine, and the Politics of Healing in Fifth-Cen… (`gr-995`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -2036,4 +2052,6 @@ gr-963: 750; 700
 gr-964: 750; 700
 gr-965: 700; 675
 gr-968: 600
+gr-986: 566; 514
+gr-995: 420
 ```

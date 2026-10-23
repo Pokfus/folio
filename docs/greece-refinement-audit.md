@@ -272,8 +272,8 @@ one changelog line and a version bump; commit and push.
 | B100 | Heroes and the epic cycle (`gr-heroes`) | `gr-951`–`gr-960` | 10 | **done 2026-10-23** |
 | B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | **done 2026-10-23** |
 | B102 | Cult, oracles and festivals (`gr-cult`) | `gr-966`–`gr-975` | 10 | **done 2026-10-23** |
-| B103 | Cult, oracles and festivals (`gr-cult`) | `gr-976`–`gr-985` | 10 | open |
-| B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | open |
+| B103 | Cult, oracles and festivals (`gr-cult`) | `gr-976`–`gr-985` | 10 | **gr-976–980 done 2026-10-23** |
+| B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | **gr-991–995 done 2026-10-23** |
 | B105 | Cult, oracles and festivals (`gr-cult`) | `gr-996`–`gr-1000` | 5 | open |
 
 ## Ledger
@@ -2861,3 +2861,17 @@ suitor Antinous's account (the narrator does not tell it), Homer's Dia against t
 **Corrected in the old cards:** the review of Hopman's *Scylla* credited to Gainsford is by Francese, and the review credited to Louden is by Sammons (`gr-961`, `gr-964`); the delay "pattern" and the landscape of Ogygia (`gr-962`); "poets will sing for ever" of Penelope, where the ghost says the immortals will compose a song (`gr-963`); Telemachus "about twenty" (`gr-964`);
 "the only major Trojan the poem promises a future" as the card's own first sentence, now Poseidon's words (`gr-965`). **Glossary entries redrafted:** `Scylla`, `Calypso`, `Penelope`, `Telemachus`, each with its own `date` key; `Aeneas` is shared with Rome's card, contradicts nothing here and was left. **Wrong auto-links:** `water` (`gr-961`) and `Antinous` (the suitor, not Hadrian's favourite, `gr-963`).
 Checks: the audit, `check-questions`, `check-cards`, `split-cards --check` and `apply-wiki-links --check` pass; every cited URL answers 2xx (53 citations).
+
+#### `gr-976`–`gr-980` and `gr-991`–`gr-995` (first halves of B103 and B104, committed fifth)
+
+Ten cards: the votive offering, the oracle, the Delphic oracle, the Pythia and the Delphic maxims; Eleusis, mystery cult, Orphism, the Dionysiac mysteries and Asclepius. Sources 5–6 → 6–9. Herodotus and Pausanias are held to two sources each, the Bryn Mawr reviews' reviewers are read off the pages, and **the five foreign-language reviews that stood without a chip now carry one**
+(Spanish, Italian and French: `gr-977`, `gr-978`, `gr-979`, `gr-991`, `gr-992`, `gr-994`). Checks: the audit, `check-questions`, `check-cards` and `apply-wiki-links --check` pass; every cited URL answers 2xx (116 citations) and `check-citations --card` finds no mismatch.
+
+**Date lines. Empty and `undatable`** on nine of the ten: no fetched source prints a year for a practice or a word, and a bare century gives no sort year (the old rows "In Herodotus c. 430 BCE", "In Pausanias c. 150 CE", "In Plato c. 380 BCE", "In Demosthenes 330 BCE", "Megaron B c. 15th century BCE" and "Pyre A c. 8th century BCE" were estimates of the authors' dates or bare centuries; the silence between the 11th century and the mid-8th century BCE at Eleusis, and the late-7th-century rise of the oracle, stay in the
+prose, where the sources print them as centuries; the Bacchanalia decree's 186 BCE stays in the prose of `gr-994`). `gr-995` prints "Reached Athens" 420 BCE (the cult's arrival on the Athenian acropolis, as Marx-Wolf's review has it) and drops "In Homer c. 700 BCE".
+
+**Corrected in the old cards:** the votive card's "largest body of physical evidence Greek religion has left" and "rarely thrown away" (`gr-976`); "thousands survive" at Dodona and "colonies, wars and laws" as the questions put to it (`gr-977`); Themistocles' reading of the wooden wall and the year 480, neither in the page cited (`gr-978`); **both card and glossary said Pausanias reports no male prophet at Delphi,
+when he quotes a hymn naming Olen as the first prophet and says tradition reports *no other* man** (`gr-979`); the "forecourt" of Delphi, which Pausanias calls the fore-temple, and Plato's seven, where it is Pausanias who says the seventh on Plato's list is Myson, not Periander (`gr-980`); "twenty kilometres west" of Athens, where no source gives the direction, and the Hymn making the place the goddess's own choice (`gr-991`);
+the unsourced list of other cults (`gr-992`); the Plato "spells" sentence, which is 364c and not about Orpheus (`gr-993`); Demosthenes' "boyhood" service, where the speech says manhood, and "open to women as well as men" (`gr-994`); "a mortal physician in the earliest poetry" and "something over 170 cult sites" (`gr-995`). **Glossary entries redrafted:** `Votive_dedication`, `Oracle`, `Delphic_oracle`, `Pythia`,
+`Delphic_maxims`, `Eleusis`, `Greco-Roman_mysteries`, `Orphism_(religion)`, `Dionysian_Mysteries` and `Asclepius`, each with its own `date` key (empty). **Wrong auto-links** stopped with `<span class="ans-term">`: `cult` and `cults` (the alias of the mystery-cult key, on the cards that do not mean it: `gr-991`, `gr-993` to `gr-995`), `reconstruction`, `gold`, `silver` and `bronze`
+(`gr-976`, `gr-977`, `gr-991`, `gr-993` to `gr-995`). **Locators:** none added.
