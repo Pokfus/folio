@@ -6675,7 +6675,15 @@ window.GLOSSARY = {
 "Biological_evolution": "",
 "DNA": "",
 "Drosophila_melanogaster": "",
-"RNA": ""
+"RNA": "",
+"Central_Valley_(California)": "",
+"Channel_Islands_National_Park": "",
+"Death_Valley": "",
+"Joshua_Tree_National_Park": "",
+"Lassen_Volcanic_National_Park": "",
+"Sierra_Nevada": "",
+"Silicon_Valley": "",
+"United_States_Census_Bureau": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10172,7 +10180,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mission_San_José_(Texas)": "1720–1824",
 "Jochi": "d. 1227",
 "Karakorum": "1235–1263",
-"Manetho": "fl. c. 300 BCE"
+"Manetho": "fl. c. 300 BCE",
+"Channel_Islands_National_Park": "1980–present",
+"Joshua_Tree_National_Park": "1994–present"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14424,7 +14434,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Archaea": ["archaeans"],
 "DNA": ["deoxyribonucleic acid"],
 "Drosophila_melanogaster": ["fruit fly","fruit flies"],
-"RNA": ["ribonucleic acid"]
+"RNA": ["ribonucleic acid"],
+"Central_Valley_(California)": ["Central Valley","Great Valley of California"],
+"Joshua_Tree_National_Park": ["Joshua Tree"],
+"Lassen_Volcanic_National_Park": ["Lassen Volcanic"],
+"United_States_Census_Bureau": ["Census Bureau"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21225,7 +21239,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Biological_evolution": ["concept","science","biology","evolution"],
 "DNA": ["concept","science","biology","genetics"],
 "Drosophila_melanogaster": ["animal","science","biology","genetics"],
-"RNA": ["concept","science","biology","genetics"]
+"RNA": ["concept","science","biology","genetics"],
+"Central_Valley_(California)": ["place","geography","region","agriculture","united states","north america"],
+"Channel_Islands_National_Park": ["place","geography","island","nature","united states","north america"],
+"Death_Valley": ["place","geography","region","climate","united states","north america"],
+"Joshua_Tree_National_Park": ["place","geography","nature","geology","united states","north america"],
+"Lassen_Volcanic_National_Park": ["place","geography","nature","geology","united states","north america"],
+"Sierra_Nevada": ["place","geography","mountain","geology","united states","north america"],
+"Silicon_Valley": ["place","region","technology","economy","united states","20th century"],
+"United_States_Census_Bureau": ["institution","government","politics","united states","north america"]
 });
 
 /* ============================================================================
