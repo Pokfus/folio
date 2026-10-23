@@ -471,10 +471,10 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-199` Aegates Islands | a Carthaginian bronze ram from the Egadi | suits the battle but is also on `wh-345` (`I.duplicate`); one of the two cards needs another picture. Locator added (the Aegates Islands). |
 | `rm-200` Treaty of Lutatius | none | no picture (`I.none`) |
 | `rm-201` Roman annexation of Sicily | the unfinished Doric temple at Segesta | weak: one temple stands for an event and a settlement; a map of Roman Sicily would do |
-| `rm-202` provincia | a bronze modius from Herculaneum | wrong: a grain measure for a concept; the description names a museum number and asserts the tithe; also on `rm-269` (`I.duplicate`) |
+| `rm-202` provincia | none (main's picture clean-up removed the modius it shared with `rm-269`) | no picture (`I.none`); the bulk-written bronze modius was wrong for the concept |
 | `rm-203` Mercenary War | none | no picture (`I.none`) |
 | `rm-204` seizure of Sardinia and Corsica | Tharros on the west coast of Sardinia | weak: one coastal site for a two-island event; the description makes unsourced claims |
-| `rm-205` Barcid conquest of Spain | two Carthaginian silver coins from the La Puebla de los Infantes hoard | wrong: the description names the museum and its dating; also on `wh-346` (`I.duplicate`) |
+| `rm-205` Barcid conquest of Spain | two Carthaginian silver coins from the La Puebla de los Infantes hoard | wrong: the description names the museum and its dating; main's clean-up of shared pictures has since settled the duplicate with `wh-346` |
 | `rm-206` New Carthage | the excavated Punic wall at Cartagena | acceptable but narrow; the description says two sandstone faces where the wall has a sandstone outer face and a mudbrick inner one. Locator added (Cartagena). |
 | `rm-207` Ebro treaty | the lower Ebro near Mora d'Ebre | fine as a photograph; the description is editorial and wants rewording |
 | `rm-208` Saguntum | the hilltop of Sagunto | the right subject; the description makes unsourced claims about the walls. Locator added (Sagunto). |
@@ -525,7 +525,7 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-253` settlement of Macedonia | a tetradrachm of the first district, struck at Amphipolis | weak, not wrong: the museum dates the type about 158 – 146 BCE, after the settlement |
 | `rm-254` Day of Eleusis | Andriessen's pen-and-wash drawing of Laenas's circle | weak: an imagining nearly two thousand years later, and the description names the artist |
 | `rm-255` Achaean War | the Kleitor relief "thought to show Polybius" | wrong: a plaster cast of a relief with a conjectural subject; neither war nor place |
-| `rm-256` sack of Corinth | the archaic Temple of Apollo with Acrocorinth | acceptable but weak, and also on `wh-349` (`I.duplicate`); the description says nothing in it is of the sack |
+| `rm-256` sack of Corinth | the archaic Temple of Apollo with Acrocorinth | acceptable but weak (main's clean-up has since settled the duplicate with `wh-349`); the description says nothing in it is of the sack |
 | `rm-257` province of Macedonia | paving of the Egnatian Way at Philippi | weak: one road, not the province. Locator added: a hand-drawn dashed outline, its point fetched from Thessaloniki. |
 | `rm-258` province of Asia | the acropolis of Pergamum | wrong: one city; the description names Strabo. Locator added: a hand-drawn dashed outline, its point fetched from Pergamon. |
 | `rm-259` bequest of Attalus III | the Great Altar re-erected in Berlin | weak: the altar is Eumenes II's, and the description admits much of it is modern masonry |
@@ -538,7 +538,7 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-266` Scipio Aemilianus | a painting of Masinissa's deathbed | wrong: a painting of one scene, titled with the wrong name; the description is a copied caption with a typo and gives Masinissa's dates |
 | `rm-267` Roman provincial system | none | no picture (`I.none`) |
 | `rm-268` publicani | none | no picture (`I.none`) |
-| `rm-269` provincial taxation | a bronze modius from Herculaneum | wrong: imperial-period, one object, and also on `rm-202` (`I.duplicate`); the agent proposes `rm-202` keeps it |
+| `rm-269` provincial taxation | a bronze modius from Herculaneum | wrong: imperial-period, one object; it now stays here alone, `rm-202` having lost it in main's clean-up of shared pictures |
 | `rm-270` wealth of empire | Vernet's 1789 *Triumph of Aemilius Paulus* | weak: a neoclassical painting nineteen centuries later; a relief, a hoard or a mine would show wealth better |
 | `rm-271` Greek influence on Roman culture | none | no picture (`I.none`) |
 | `rm-272` philhellenism | none | no picture (`I.none`) |
@@ -1390,7 +1390,7 @@ Run as B29; every draft compared with its card: no mismatch. Checks: `rm-audit.j
 
 ### The third hundred, in sum
 
-`rm-201`–`rm-300` (the Punic Wars from the settlement of Sicily, Rome and the Mediterranean and the first of the Republic in crisis) are done: 590 sources became 742 and 81 glossary entries were rewritten or added. `rm-audit.js --range=rm-201:rm-300` reads 66 of 100 cards clean once the 25 locators below were added (50 before); what remains is 25 cards with no picture, 4 real picture duplicates, 1 `I.caption-source`, 17 cards with no locator when the batches ran (every battle and place whose request had to be dropped; 25 locators were added afterwards, see "Locators added"), 8 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 1 `Q.sibling`. Every picture is still the bulk-written one: the "Pictures to redo" table holds a verdict for each of the three hundred, and the locator list is in the same table.
+`rm-201`–`rm-300` (the Punic Wars from the settlement of Sicily, Rome and the Mediterranean and the first of the Republic in crisis) are done: 590 sources became 742 and 81 glossary entries were rewritten or added. `rm-audit.js --range=rm-201:rm-300` reads 69 of 100 cards clean once the 25 locators below were added and main's clean-up of shared pictures landed (50 before); what remains is 26 cards with no picture, no picture duplicates, 1 `I.caption-source`, 17 cards with no locator when the batches ran (every battle and place whose request had to be dropped; 25 locators were added afterwards, see "Locators added"), 8 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 1 `Q.sibling`. Every picture is still the bulk-written one except `rm-202`'s, which main removed: the "Pictures to redo" table holds a verdict for each of the three hundred, and the locator list is in the same table.
 
 What the third hundred found, again and again:
 - **A year no source prints.** Polybius prints no BCE year anywhere; Livy's years are an editor's brackets; so "211 BCE" for Syracuse, "197" for the two Spains' origin, "209", "157 BCE, per Pliny", "66 BCE" and "167 BCE" for the publicani and "171 BCE" for the Spanish case were an earlier agent's conversions. Each year on a line now has a modern author who prints it, or is dropped.

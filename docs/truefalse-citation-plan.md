@@ -1,5 +1,7 @@
 # Citing True or False
 
+> **Status, 2026-10-23: CLOSED.** All 216 statements carry three or more different sources (`node .claude/check-truefalse.js` is clean). The four statements no open source could carry were removed, not cited falsely — see "WHAT WAS REMOVED" near the end. The Giza-builders statement is in the pool and cited. Indices quoted in the batch notes below are the day's positions, not current ones.
+
 The fourth citation pass, after the cards', the glossary's and the artefacts'. It is the smallest and
 the easiest to leave half done, because a True-or-False statement is one sentence and looks as though it
 does not need an apparatus.
