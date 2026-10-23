@@ -14062,11 +14062,11 @@
   },
   "rm-250": {
    "answer": "Perseus",
-   "title": "Perseus",
-   "url": "https://en.wikipedia.org/wiki/Perseus",
-   "via": "glossary",
-   "status": "redirect-variant",
-   "from": "Perseus (mythology)"
+   "title": "Perseus of Macedon",
+   "url": "https://en.wikipedia.org/wiki/Perseus_of_Macedon",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "rm-251": {
    "answer": "Battle of Pydna",
@@ -28866,10 +28866,11 @@
   },
   "wh-679": {
    "answer": "Jamestown",
-   "title": "Jamestown, Saint Helena",
-   "url": "https://en.wikipedia.org/wiki/Jamestown,_Saint_Helena",
+   "title": "Jamestown, Virginia",
+   "url": "https://en.wikipedia.org/wiki/Jamestown,_Virginia",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "wh-680": {
    "answer": "New England",

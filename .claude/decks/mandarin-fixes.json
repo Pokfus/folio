@@ -112012,7 +112012,8 @@
       ]
     },
     "hsk30l2/裤子": {
-      "why": "Two things. Its first example was a QUESTION ENDING IN A FULL STOP — 这些裤子多少钱。 — which the corpus-wide punctuation pass cannot fix, that pass converting marks and never replacing one with a different mark, since which mark a sentence wants is a judgement. (One more is on record, hsk30l4's 你想打排球吗。) | Its other two sentences' English said \"pants\", which is American, where the card's own gloss says trousers. The decks are authored in British English because the site's spelling switch only ever converts British to American and never back, so an American form inside deck content is what BOTH readers see.",
+      "why": "Two things. Its first example was a QUESTION ENDING IN A FULL STOP — 这些裤子多少钱。 — which the corpus-wide punctuation pass cannot fix, that pass converting marks and never replacing one with a different mark, since which mark a sentence wants is a judgement. (One more is on record, hsk30l4's 你想打排球吗。) | Its other two sentences' English said \"pants\", which is American, where the card's own gloss says trousers. The decks are authored in British English because the site's spelling switch only ever converts British to American and never back, so an American form inside deck content is what BOTH readers see. | THE TRADITIONAL FIELD CARRIED A VARIANT, 袴子. 袴 is a variant form of 褲; CC-CEDICT gives 褲子 裤子 as the headword pair and lists 袴子 only as a variant of it, so the field is set to the standard form, 褲子 (the last of the three outliers the batch-98 corpus sweep recorded).",
+      "Traditional": "褲子",
       "dropEx": [
         "这些裤子多少钱。"
       ],

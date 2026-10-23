@@ -336,7 +336,8 @@ of three interjection readings the card teaches.
   the same hand pass the 55 got.
 - **1,510 notes name several parts of speech against a single gloss.** The same judgement, from the
   other side.
-- **嗯's reading**, above.
+- ~~**嗯's reading**, above.~~ **DONE** (batch recorded in `mandarin-fixes.json`): the card teaches the "yes, uh-huh" sense and reads `èn`, the form CC-CEDICT and a reader can both act on.
+- **Closed 2026-10-23, with the Traditional-field outliers**: `hsk30l6/野` was cleared in batch 180 and `hsk30l2/裤子` now reads 褲子 (it carried the variant 袴子); and a count of the `uc-exadd` blocks against the record found none without a record row, so the "about ten blocks waiting on their note's first entry" of the batch-25 era no longer exist. The sweep of the deck-order hand pass is **not being continued into HSK Levels 7–9** (owner's decision).
 - One gloss was found to be a **copy of the card next to it in the file** — 炒作 was defined as "Nest",
   which is 巢穴's gloss — and is corrected. An adjacency sweep over all nine decks finds no second
   instance, so it is a one-off rather than a class; it was found by eye while writing examples, and

@@ -7176,7 +7176,7 @@
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
       if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
-      return S.settings.reviewRandom ? "random" : "ordered";
+      return S.settings.reviewRandom ? "random" : "difficulty";
     }
     /* The chain is walked ONCE and each entry is asked for both names, rather than asking every entry for
        `order` and then every entry for `random`: a subdeck that carries only the old boolean must beat a
@@ -7188,7 +7188,7 @@
       if (typeof o.random === "boolean") return o.random ? "random" : "ordered";
     }
     if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
-    return S.settings.reviewRandom ? "random" : "ordered";
+    return S.settings.reviewRandom ? "random" : "difficulty";
   }
   function setDeckOrderMode(id, mode) {
     if (!DECK_ORDERS.includes(mode)) return;
@@ -20524,18 +20524,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const TTS_PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 19 12 7 20"/></svg>';
   const TTS_PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4.5" height="16" rx="1"/><rect x="13.5" y="4" width="4.5" height="16" rx="1"/></svg>';
   // tiny play control behind a section title; span=true renders a role=button span (for inside the .bg-head <button>)
-  /* THE SECTION PLAY BUTTONS ARE LIVE ON HISTORY, SCIENCE AND SPECIAL COLLECTIONS ONLY (Oct 2026, on request),
+  /* THE SECTION PLAY BUTTONS ARE LIVE ON EVERY CURATED COLLECTION (Oct 2026, on request; first History, Science and Special only),
      and they are NOT the set-aside read-aloud system: `ttsEnabled()` is still false, so auto-read, the card
      mute button, the gloss popup's speaker and the selection menu stay off. Like `.uc-tts` this is a control
      a reader presses, so it deliberately bypasses that switch (see `ttsSectionClick`). The section is the
      card's collection ROOT's, via `sectionOf`; a card in no collection (a community or language deck's) has
      no root and gets no button. Offered wherever the API exists — never hidden on an empty voice list, which
      arrives asynchronously; a press that comes back silent says why instead. */
-  const TTS_SECTIONS = new Set(["History", "Science", "Special"]);
   function ttsSectionOk(c) {
     if (!c || !c.id || !ttsSupported() || S.settings.ttsButtons === false) return false;   // Settings → Audio → Read-aloud buttons
-    const root = cardCollectionRoot(c.id);
-    return !!root && TTS_SECTIONS.has(sectionOf(root.id));
+    return !!cardCollectionRoot(c.id);   // every curated collection (History, Geography, Science, Philosophy, The Arts, Special); language and community decks have no root
   }
   function ttsPlayHTML(kind, span, c) {
     if (!ttsEnabled() && !ttsSectionOk(c)) return "";
@@ -34778,21 +34776,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      viewport on a phone. One delegated listener (`wireAnswerBubbles`) owns open / close for every render
      path, so the study card, the browse popup and the admin preview all behave alike. */
   const AC_TR_ICON = '<span class="ac-ico" aria-hidden="true"><b>\u6587</b><i>A</i></span>';
+  /* WHICH LANGUAGE THE NAME IS IN is decided by the card's id prefix (Oct 2026, on request: "in the Japan
+     collection … all the cards … have Japanese translations with romanization"). The Japan collection
+     keeps its Japanese in the same light fields the China collection keeps its Chinese in — `hanzi` the
+     script, `pinyin` the romanisation (Hepburn, for Japan) — because every writer, the serializer, the
+     overlay and the editor already carry them, so the prefix says what they hold. It sets the voice and
+     the `lang` the browser chooses glyph forms by (a Japanese name set under `zh` takes Chinese forms),
+     the font (Chinese gets the site's own `--han`; Japanese falls through to the reader's system CJK font,
+     as Japanese body text does by design) and whether a traditional form is shown (Japanese has no second
+     script here). Add a row for a new collection. `.claude/set-ja-names.js` writes the Japan data. */
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }]];
+  const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
+  function answerNameLang(c) {
+    const id = String((c && c.id) || "");
+    for (let i = 0; i < ANSWER_NAME_LANGS.length; i++) if (id.indexOf(ANSWER_NAME_LANGS[i][0]) === 0) return ANSWER_NAME_LANGS[i][1];
+    return ANSWER_NAME_ZH;
+  }
   function answerNameHTML(c) {
     const hz = String((c && c.hanzi) || "").trim();
     if (!hz) return "";
-    const tr = String((c && c.traditional) || "").trim();
+    const L = answerNameLang(c);
+    const tr = L.cls === "zh" ? String((c && c.traditional) || "").trim() : "";
     const py = String((c && c.pinyin) || "").trim();
     return '<span class="ac-wrap">' +
-      '<button type="button" class="ac-btn" aria-expanded="false" aria-label="Show the Chinese translation" title="Chinese translation">' + AC_TR_ICON + "</button>" +
-      '<div class="ac-bubble" role="dialog" aria-label="Chinese translation" hidden>' +
-      '<div class="ans-cn">' +
-      '<div class="ac-chars">' +
+      '<button type="button" class="ac-btn" aria-expanded="false" aria-label="Show the ' + L.label + ' translation" title="' + L.label + ' translation">' + AC_TR_ICON + "</button>" +
+      '<div class="ac-bubble" role="dialog" aria-label="' + L.label + ' translation" hidden>' +
+      '<div class="ans-cn ' + L.cls + '">' +
+      '<div class="ac-chars" lang="' + L.tag + '">' +
       (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
       '<span class="ac-s">' + esc(hz) + "</span></div>" +
       '<div class="ac-row">' +
       (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") +
-      '<button type="button" class="ac-say" lang="zh-CN" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in Mandarin">' + AC_SAY_SVG + "</button>" +
+      '<button type="button" class="ac-say" lang="' + L.tag + '" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in ' + L.label + '">' + AC_SAY_SVG + "</button>" +
       "</div></div></div></span>";
   }
   function placeAnswerBubble(wrap) {
@@ -42832,7 +42847,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // random review order (also togglable from the home banner's Chrono/Random pill)
     const swRandom = root.querySelector("#sw-random");
     const toggleRandom = () => {
-      S.settings.reviewRandom = !S.settings.reviewRandom; save();
+      setDeckOrderMode(REVIEW_ENTRY, S.settings.reviewRandom ? "ordered" : "random");
       swRandom.classList.toggle("on", !!S.settings.reviewRandom);
       swRandom.setAttribute("aria-checked", String(!!S.settings.reviewRandom));
     };

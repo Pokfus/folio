@@ -250,6 +250,92 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Hamilcar Barca: at Hercte / at Eryx / landed in Iberia / died | c. 247 – 244 BCE (Scullard, Frank; Polybius gives only durations) / c. 244 – 241 BCE / 237 BCE (Schulten) / 229 – 228 BCE (disputed: Schulten 229/8; Frank 229) | `rm-198` |
 | the Battle of the Aegates Islands | 10 March 241 BCE (the day from Eutropius, accepted by Walbank and Morgan; the Egadi survey prints it) | `rm-199` |
 | the Treaty of Lutatius | 241 BCE (the first draft; the commissioners' revision the same year) | `rm-200` |
+| the annexation of Sicily: the peace / the first resident praetor | 241 BCE / 227 BCE (Frank, the only source read that prints it; no ancient source gives a year for the first province) | `rm-201`, `rm-202` |
+| the Mercenary War | 241 – 237 BCE (Mulligan and Hoyos's title; Polybius gives only 3 years 4 months) | `rm-203` |
+| the seizure of Sardinia and Corsica / its own praetor | 237 BCE (Hoyos, via Drogula's review) or 238 BCE (Enciclopedia Italiana; Bouchier) / 227 BCE (Frank, Bouchier; the Enciclopedia Italiana says 226) | `rm-204` |
+| the Barcid conquest of Spain: landed / Hamilcar died / Hasdrubal in command | 237 BCE / 229 BCE (Lendering) / 228 – 221 BCE | `rm-205` |
+| New Carthage: founded / Hasdrubal killed / taken by Rome | c. 229 – 227 BCE (the spread of modern dates) / 221 BCE / 209 BCE | `rm-206` |
+| the Ebro treaty / the Roman embassy at Carthage | c. 226 BCE (Schulten; Hallward 226 or 225; Polybius gives no year) / 218 BCE | `rm-207` |
+| Saguntum: besieged / retaken by Rome | 219 BCE (Polybius's eight months; Livy gives it only as "some writers") / 212 BCE (Hallward) | `rm-208` |
+| the Second Punic War | 218 – 201 BCE (the siege of Saguntum 219 BCE) | `rm-209` |
+| Hannibal: born / to Spain / exiled / died | c. 247 BCE / 237 BCE / 195 BCE / 183 – 181 BCE (Atticus 183, Polybius 182, Sulpicius Blitho 181, in Nepos 13) | `rm-210` |
+| Hannibal's crossing of the Alps | 218 BCE (Polybius prints no year; Berti and Vollrath, Hunt and Bainbridge and Cracolici do) | `rm-211` |
+| war elephants: first met by Rome at Heraclea / Raphia / Zama / Thapsus | 280 BCE / 217 BCE / 202 BCE / 46 BCE | `rm-212` |
+| the Battle of the Ticinus / the Trebia | 218 BCE (Dodge: mid-November) / 218 BCE (Dodge: December; Polybius gives the winter solstice) | `rm-213`, `rm-214` |
+| the Battle of Lake Trasimene | 217 BCE (no ancient source gives the day) | `rm-215` |
+| Quintus Fabius Maximus: first consul / dictator / died | 233 BCE / 217 BCE / 203 BCE (Feig Vishnia) | `rm-216` |
+| the Fabian strategy / the Fabian Society founded | 217 BCE (the dictatorship) / 1884 | `rm-217` |
+| the Battle of Cannae / Rome's response | 216 BCE (Polybius prints no day; a calendar day is a modern deduction and not printed) | `rm-218`, `rm-220` |
+| the defection of Capua / its recapture | 216 BCE / 211 BCE (Lendering) | `rm-221` |
+| the siege of Syracuse / Hieronymus died | 213 – 212 BCE (Rorres, Hallward; Polybius's eight months, Hallward's two and a half years) / 214 BCE (`rm-271` printed 211 BCE for the capture; it now prints no year) | `rm-222` |
+| the Spanish campaigns of the Scipios / the Ebro battle | 218 – 211 BCE / 215 BCE (each year from a modern source) | `rm-223` |
+| Scipio Africanus: elected aedile / in command | 213 BCE / 210 – 201 BCE (Hallward) | `rm-224` |
+| the capture of New Carthage | 209 BCE (Richardson, Hallward, Goldsworthy, Hornblower; Polybius prints no year) | `rm-225` |
+| the Battle of Ilipa | 206 BCE (Scullard, Goldsworthy, Hornblower) or 207 BCE (Hallward) | `rm-226` |
+| Hasdrubal's march: Baecula / the Alps | 208 BCE / 207 BCE | `rm-227` |
+| the Battle of the Metaurus | 207 BCE | `rm-228` |
+| Scipio's African campaign: landed / the camps burnt / the Great Plains | 204 BCE / 203 BCE / 203 BCE | `rm-229` |
+| Masinissa: joined Scipio / Syphax taken / died | 204 BCE / 203 BCE / 148 BCE ("ninety" is Polybius's word, not a printed birth year) | `rm-230` |
+| the Battle of Zama | 202 BCE (Dodge, Hallward, Lendering; the season is disputed: spring, early autumn, or 19 October from a reported eclipse that Dodge rejects) | `rm-231` |
+| the peace of 201 BCE | 201 BCE (Hallward dates the earlier draft of 5,000 talents to autumn 203 BCE) | `rm-232` |
+| Italy after Hannibal: Capua taken / Toynbee's *Hannibal's Legacy* | 211 BCE / 1965 | `rm-233` |
+| the Third Punic War | 149 – 146 BCE | `rm-234` |
+| the destruction of Carthage / the Gracchan colony attempted | 146 BCE / 122 BCE (Lendering) | `rm-235` |
+| the Conference of Naupactus / the Social War | 217 BCE / 220 – 217 BCE | `rm-236` |
+| the Illyrian Wars: first / second | 229 – 228 BCE / 219 BCE (Holleaux; Polybius prints none) | `rm-237` |
+| the First Macedonian War: Hannibal's pact / the Aetolian pact / peace of Phoenice | 214 – 205 BCE / 215 BCE / 212 or 211 BCE / 205 BCE | `rm-238` |
+| Philip V: reigned / Hannibal pact / the Second Macedonian War | 221 – 179 BCE / 215 BCE / 200 – 197 BCE | `rm-239`, `rm-240` |
+| the Aous battle | 198 BCE | `rm-240` |
+| the Battle of Cynoscephalae | 197 BCE (modern reckoning; Polybius prints none) | `rm-241` |
+| Flamininus: consul / beat Philip / the gold stater | 198 BCE / 197 BCE / 196 BCE (the British Museum caption) | `rm-242` |
+| the freedom of the Greeks: proclaimed / the last garrisons out | 196 BCE / 194 BCE (Polybius, Eckstein and Holleaux have Roman troops in the Acrocorinth, Demetrias and Chalcis until then; Plutarch says otherwise) | `rm-243` |
+| Antiochus III: reigned / Raphia / the eastern march / landed in Greece | 223 – 187 BCE (Livius.org says 222) / 217 BCE / 212 – 205 BCE / 192 BCE | `rm-244` |
+| the Roman–Seleucid War: fought / driven out of Greece / peace | 192 – 188 BCE / 191 BCE / 188 BCE | `rm-245`, `rm-246`, `rm-248` |
+| the Battle of Magnesia | 190 BCE (Shuckburgh) or 189 BCE (Holleaux: probably January) | `rm-247` |
+| the Third Macedonian War | 171 – 168 BCE | `rm-249` |
+| Perseus of Macedon: reigned | 179 – 168 BCE | `rm-250` |
+| the Battle of Pydna | 22 June 168 BCE (a modern conversion via the eclipse the night before; Livy gives the Roman date) | `rm-251` |
+| Aemilius Paullus: consul / triumph / censor / died | 182 BCE and 168 BCE / 167 BCE / 164 BCE / 160 BCE (the last two from the Loeb translator's footnotes, said so on the card) | `rm-252` |
+| the settlement of Macedonia / the mines reopened | 167 BCE (the modern year; no ancient source prints one) / 158 BCE | `rm-253` |
+| the Day of Eleusis | 168 BCE (Benecke, Bevan; no ancient author prints it) | `rm-254` |
+| the Achaean War / the sack of Corinth | 146 BCE (no year given for Caesar's colony: sources give 46 and 44 BCE) | `rm-255`, `rm-256` |
+| the province of Macedonia: organised / the Andriscus rising | 148 BCE (the Macedonian era; Mommsen puts the organisation two years after the victory) / 149 BCE | `rm-257` |
+| the province of Asia: organised / the tax law / Phrygia added | c. 129 – 126 BCE / 123 BCE (some argue the companies reached Asia only about 100 BCE) / 116 BCE | `rm-258` |
+| the bequest of Attalus III: died / reigned / envoys sent to Rome | 133 BCE / 138 – 133 BCE / 132 BCE | `rm-259` |
+| the revolt of Aristonicus: began / Crassus killed / Aquillius / his triumph | 133 or 132 BCE / 130 BCE (not 131, the year he was consul) / 129 BCE / 126 BCE | `rm-260` |
+| the Roman conquest of Spain: the Scipios land / the two provinces / Numantia falls / the Cantabrian wars | 218 BCE / 197 BCE (Schulten prints it for the boundary, not for the provinces' origin) / 133 BCE / 29 – 19 BCE | `rm-261` |
+| the Celtiberian Wars: first / second / Nobilior beaten | 181 – 179 BCE / 153 – 151 BCE (a modern numbering) / 23 August 153 BCE (Schulten) | `rm-262` |
+| the Lusitanian War / Galba's massacre | c. 155 – 139 BCE / 150 BCE | `rm-263` |
+| Viriathus: his leadership | c. 146 – 138 BCE (Schulten; the ancient authors give eight, eleven and fourteen years) | `rm-264` |
+| the Numantine War: fought / Mancinus yields / Scipio arrives | 143 – 133 BCE / 137 BCE / 134 BCE (Schulten) | `rm-265` |
+| Scipio Aemilianus: consul / took Carthage / took Numantia / died | 147 BCE / 146 BCE / 133 BCE / 129 BCE | `rm-266` |
+| the provincial system: the island praetors / the Sempronian law | 227 BCE / c. 123 BCE | `rm-267` |
+| the publicani: Traditional / the army contract | 493 BCE (Dionysius's date, as Malmendier reports it) / 216 BCE | `rm-268` |
+| provincial taxation: Spain's ruling / Macedonia's tribute halved / Gaius Gracchus tribune | 171 BCE / 167 BCE / 123 – 122 BCE | `rm-269` |
+| the wealth of empire: the taxes repaid / the war tax ended / the mines reopened | 187 BCE / 167 BCE / 158 BCE | `rm-270` |
+| Greek influence on Roman culture: the alphabet arrives / the philosophers' envoys at Rome | c. 800 – 750 BCE (a 'first half of the 8th century' converted to the house range) / 155 BCE (Forsythe's review; no ancient year is printed) | `rm-271` |
+| Cato the Elder: lived / consul / censor | 234 – 149 BCE / 195 BCE / 184 BCE | `rm-273` |
+| the Bacchanalian affair: the affair / the Senate's decree / the Tiriolo tablet found | 186 BCE / 7 October 186 BCE (read off the tablet's own date) / 1640 | `rm-274` |
+| sumptuary laws: passed / the Oppian law / the Fannian law | 215 – 18 BCE / 215 – 195 BCE / 161 BCE | `rm-275` |
+| the crisis of the Roman Republic: usual start / usual end / a shorter span | 133 BCE / 31 or 27 BCE / 133 – 49 BCE (a modern convention; each end is a convention, said so) | `rm-276` |
+| the decline of the Italian smallholder: the census fall / the Gracchan reform | 163 – 135 BCE (Brunt's figures; his table lost its year column in the scan and the years were matched by his own sentence) / 133 BCE | `rm-278` |
+| the First Servile War: fought / Rupilius wins | c. 135 – 132 BCE (one review has roughly 141 – 131) / 132 BCE | `rm-280` |
+| Tiberius Gracchus: tribune | 133 BCE | `rm-281` |
+| the Lex Sempronia agraria: carried / the older limit | 133 BCE (Hölkeskamp) / By tradition 367 BCE (Pellam; modern doubt that the older law is historical) | `rm-282` |
+| the Gracchan land commission: created / the cases moved from it | 133 BCE / 129 BCE (Greenidge) | `rm-283` |
+| the death of Tiberius Gracchus / the special inquiry | 133 BCE / 132 BCE (Greenidge) | `rm-284` |
+| Gaius Gracchus: tribune / died | 123 – 122 BCE / 121 BCE | `rm-285`, `rm-290` |
+| the lex frumentaria: carried | 123 BCE (Rickman: early in the year) | `rm-286` |
+| the equestrian order: senators out (the draft's own row) / the jury law / shared juries | 129 BCE / 123 BCE / 70 BCE (the sources conflict over the jury law's numbers: `rm-285`'s agent flagged "300 + 300") | `rm-287` |
+| the extortion court: Calpurnian law / Acilian law / Sulla's law / mixed panels | 149 BCE / 123 – 122 BCE / 81 BCE / 70 BCE | `rm-288` |
+| the *senatus consultum ultimum*: first used / later uses | 121 BCE (Bailey's review prints 122) / 100 BCE, 63 BCE and 49 BCE | `rm-289` |
+| the Gracchan laws / Cicero's speech defining optimates and populares | 133 – 123 BCE / 56 BCE | `rm-291` |
+| the Jugurthine War / Marius's triumph | 112 – 105 BCE / 104 BCE (Lendering's own bracket for the capture reads 106 against his article's 105) | `rm-292` |
+| Jugurtha: at Numantia / Micipsa died / the siege of Cirta / led in triumph | 134 BCE / 118 BCE / 112 BCE / 104 BCE (the modern sources disagree on his visit to Rome and the handing-over, so no row) | `rm-293` |
+| Gaius Marius: born / tribune / took command / died | c. 157 BCE / 119 BCE / 107 BCE / 86 BCE | `rm-294` |
+| Marius's levy of the poorest | 107 BCE (modern accounts; Sallust gives the consulship, not a BCE year; `rm-664` prints 104 BCE for the eagle standard, which Pliny does not give) | `rm-295` |
+| the Cimbri and Teutones: set out / first clash / last battle | c. 120 BCE / 113 BCE / 101 BCE (all from Last) | `rm-297` |
+| the Battle of Arausio / Aquae Sextiae / Vercellae | 6 October 105 BCE (Last) / 102 BCE / 101 BCE (30 July is a modern conversion of Plutarch's Roman day) | `rm-298`, `rm-299`, `rm-300` |
 
 ## The middle and late Republic
 
@@ -460,4 +546,99 @@ rm-197: 250; 241; 249
 rm-198: 247; 244; 241; 237; 229; 228
 rm-199: 241; 264
 rm-200: 241
+rm-201: 241
+rm-202: 227
+rm-203: 241; 237
+rm-204: 237; 238; 227
+rm-205: 237; 229; 228; 221
+rm-206: 229; 227; 221; 209
+rm-207: 226; 218
+rm-208: 219; 212
+rm-209: 218; 201; 219
+rm-210: 247; 237; 195; 183; 181
+rm-211: 218
+rm-212: 280; 217; 202; 46
+rm-213: 218
+rm-214: 218
+rm-215: 217
+rm-216: 233; 217; 203
+rm-217: 217; 1884
+rm-218: 216
+rm-220: 216
+rm-221: 216; 211
+rm-222: 213; 212; 214
+rm-223: 218; 211; 215
+rm-224: 213; 210; 201
+rm-225: 209
+rm-226: 206; 207
+rm-227: 208; 207
+rm-228: 207
+rm-229: 204; 203
+rm-230: 204; 203; 148
+rm-231: 202
+rm-232: 201
+rm-233: 211; 1965
+rm-234: 149; 146
+rm-235: 146; 122
+rm-236: 217; 220
+rm-237: 229; 228; 219
+rm-238: 214; 205; 215; 212; 211
+rm-239: 221; 179; 215; 200; 197
+rm-240: 200; 197; 198
+rm-241: 197
+rm-242: 198; 197; 196
+rm-243: 196; 194
+rm-244: 223; 187; 217; 212; 205; 192
+rm-245: 192; 188; 191
+rm-246: 191
+rm-247: 190; 189
+rm-248: 188
+rm-249: 171; 168
+rm-250: 179; 168
+rm-251: 168
+rm-252: 182; 168; 167; 164; 160
+rm-253: 167; 158
+rm-254: 168
+rm-255: 146
+rm-256: 146
+rm-257: 148; 149
+rm-258: 129; 126; 123; 116
+rm-259: 133; 138; 132
+rm-260: 133; 132; 130; 129; 126
+rm-261: 218; 197; 133; 29; 19
+rm-262: 181; 179; 153; 151; 23
+rm-263: 155; 139; 150
+rm-264: 146; 138
+rm-265: 143; 133; 137; 134
+rm-266: 147; 146; 133; 129
+rm-267: 227; 123
+rm-268: 493; 216
+rm-269: 171; 167; 123; 122
+rm-270: 187; 167; 158
+rm-271: 800; 750; 155
+rm-273: 234; 149; 195; 184
+rm-274: 186; 7; 1640
+rm-275: 215; 18; 195; 161
+rm-276: 133; 31; 27; 49
+rm-278: 163; 135; 133
+rm-280: 135; 132
+rm-281: 133
+rm-282: 133; 367
+rm-283: 133; 129
+rm-284: 133; 132
+rm-285: 123; 122; 121
+rm-286: 123
+rm-287: 129; 123; 70
+rm-288: 149; 123; 122; 81; 70
+rm-289: 121; 100; 63; 49
+rm-290: 121
+rm-291: 133; 123; 56
+rm-292: 112; 105; 104
+rm-293: 134; 118; 112; 104
+rm-294: 157; 119; 107; 86
+rm-295: 107
+rm-297: 120; 113; 101
+rm-298: 105
+rm-299: 102
+rm-300: 101
 ```
