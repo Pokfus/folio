@@ -5483,7 +5483,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fourteen flagged terms with the three flagged belt-and-braces.
 - **THE ANSWER'S CHINESE NAME IS A SPEECH BUBBLE OFF A TRANSLATE ICON (Oct 2026, on request) — THE
   PARAGRAPHS BELOW DESCRIBE ITS CONTENT, NOT ITS PLACE.** It is no longer a section of the answer box:
-  `answerNameHTML` returns `.ac-wrap` (a round `文A` button `.ac-btn` + a hidden `.ac-bubble` holding the old
+  `answerNameHTML` returns `.ac-wrap` (a plain grey `文A` icon button `.ac-btn`, no ring or fill + a hidden `.ac-bubble` holding the old
   `.ans-cn` block), and `buildBack` sets it as a SIBLING of `.val` inside `.av-term.av-cn` — **never inside
   `.val`**, which five suites read the answer text from. One delegated listener (`wireAnswerBubbles`, at
   module load) opens / closes it for every render path (click the icon, click elsewhere, Escape).

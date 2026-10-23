@@ -1901,7 +1901,7 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 
 /* ---------- the answer's Chinese name (see answerNameHTML) ----------
    A TRANSLATE ICON BEHIND THE ANSWER TERM, AND A SPEECH BUBBLE OFF IT (Oct 2026, on request; it was the
-   middle section of the answer box). `.ac-wrap` is the positioning root: the round `文A` button sits on the
+   middle section of the answer box). `.ac-wrap` is the positioning root: the plain grey `文A` icon sits on the
    term's line and the bubble hangs under it, its tail on the button. The bubble holds the same three lines
    as before — the traditional form where it differs, the simplified, then the pinyin and its speaker — set
    flush left now that it stands alone. It overlays what lies below it rather than pushing it down, and
@@ -1909,14 +1909,13 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 .av-term.av-cn{align-items:flex-start; gap:10px;}
 .av-cn .val{padding-top:0;}
 .ac-wrap{position:relative; flex:none; display:inline-block; margin-top:calc(2px * var(--fs));}
-.ac-btn{display:inline-flex; align-items:center; justify-content:center; width:calc(28px * var(--fs)); height:calc(28px * var(--fs)); padding:0; border-radius:50%;
-  border:1px solid color-mix(in srgb, var(--zh) 45%, var(--rule)); background:var(--card); color:var(--zh); cursor:pointer;
-  transition:background .15s var(--ease), color .15s var(--ease);}
-.ac-btn:hover, .ac-wrap.open .ac-btn{background:var(--zh); color:#fff;}
-.ac-btn:focus-visible{outline:2px solid var(--zh); outline-offset:2px;}
+.ac-btn{display:inline-flex; align-items:center; justify-content:center; width:calc(28px * var(--fs)); height:calc(28px * var(--fs)); padding:0; border:0; border-radius:6px;
+  background:transparent; color:var(--ink-faint); cursor:pointer; transition:color .15s var(--ease);}
+.ac-btn:hover, .ac-wrap.open .ac-btn{color:var(--ink-soft);}
+.ac-btn:focus-visible{outline:2px solid var(--ink-faint); outline-offset:2px;}
 .ac-ico{display:inline-flex; align-items:baseline; gap:0; line-height:1; pointer-events:none;}
-.ac-ico b{font-family:var(--han); font-weight:500; font-size:calc(13px * var(--fs));}
-.ac-ico i{font-family:var(--mono); font-style:normal; font-weight:600; font-size:calc(9px * var(--fs)); margin-left:1px;}
+.ac-ico b{font-family:var(--han); font-weight:500; font-size:calc(17px * var(--fs));}
+.ac-ico i{font-family:var(--mono); font-style:normal; font-weight:600; font-size:calc(11px * var(--fs)); margin-left:1px;}
 .ac-bubble{--ac-left:-8px; --tail:14px; position:absolute; top:calc(100% + 11px); left:var(--ac-left); z-index:40; box-sizing:border-box;
   width:max-content; min-width:calc(170px * var(--fs)); max-width:min(320px, calc(100vw - 24px));
   padding:12px 16px 11px; background:var(--card); border:1px solid color-mix(in srgb, var(--zh) 38%, var(--rule)); border-radius:12px;
