@@ -12,9 +12,10 @@ that folded it to a short, colours-only state, animated by a FLIP (`gbSetCompact
 `body.gb-folding`). **It was removed on request, mode and all** — nothing reads or writes any of those names now, and a
 stale `folio_gb_compact_v1` in a reader's storage is simply ignored. The bar has one height.
 Under the four grades the phone's row is **two equal halves**: the `?` is as wide as the two grades above it on the
-left, Suspend as wide as the two on the right (`.grade-wrap` is `1fr 1fr`, areas `"grades grades" "help suspend"
-"undo undo"`; below 430px its column gap is 6px, the grades' own, so each half is exactly two grades and the gap
-between them). Undo, when there is something to undo, takes a row of its own beneath. Guarded by `test-layout.js`.
+left, Suspend as wide as the two on the right (`.grade-wrap` is `1fr 1fr`, areas `"grades grades" "help suspend"`;
+below 430px its column gap is 6px, the grades' own, so each half is exactly two grades and the gap between them).
+When there is something to undo (Oct 2026, on request), `.grade-wrap:has(.gb-undo)` becomes three equal thirds,
+`"help undo suspend"`, Undo between the two. Guarded by `test-layout.js`.
 (`flipMove` / `flipHeight` in app.js are left in place, now without a caller.)
 
 ## Undoing a grade, moved out of `CLAUDE.md`
