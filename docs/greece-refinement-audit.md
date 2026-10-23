@@ -2702,3 +2702,47 @@ the "168 BCE" of the Callicrates glossary entry had no source (`gr-859`). **Glos
 `marble` (`gr-845`), `Egypt`, `horse` and `Antigone` (`gr-846`), `Archidamus` and `horse` (`gr-847`), `Coele-Syria` (`gr-848`), `horse` (`gr-850`), `Achaean` (`gr-859`); the plain `Hipparchus` is
 hand-keyed to `Hipparchus_of_Nicaea` on `gr-835` and `gr-837`. `gr-860` is filed by the card's answer ("Perseus"), which the glossary resolves to the hero; the key
 `Perseus_of_Macedon` (Rome's `rm-250`) is the one that describes this king, and the same split exists on `rm-250` (an open item, not fixed here).
+
+#### `gr-861`–`gr-900` (B90–B94, committed third)
+
+Forty cards: the monument of Aemilius Paullus, the Via Egnatia, Diaeus, the sack of Corinth, Polybius, the mixed constitution, Delos, Attalus III,
+Archelaus, the siege of Athens, Thessalonica, Thessaly, Philippi, Actium, Caesarion, Cleopatra VII, the province of Achaea, Carneades, the Second Sophistic,
+Manuel Chrysoloras (the end of `gr-under-rome`); Greek mythology, cosmogony, Chaos, Gaia, Uranus, the Titans, Cronus, the Titanomachy, Rhea, Zeus, Hera,
+Poseidon, Demeter, Hestia, Hades, Athena, Apollo, Artemis, Ares and Aphrodite (the first twenty of `gr-olympians`). The pairs with Rome (`rm-251`, `rm-255`,
+`rm-256`, `rm-259`, `rm-309`, `rm-310`, `rm-362`, `rm-377`, `rm-384`, `rm-387`) were read first. Sources 5 → 6 – 10 (the bar by difficulty met on all forty; modern
+share at least half). **The Olympians' rule held:** myth is told as what Hesiod, Homer, the hymns, Apollodorus and Pausanias TELL, no god has life dates, and the
+modern disagreements (the Succession Myth's eastern sources; Aphrodite's province as *mixis* or as war) are stated as "one view … another view" with no scholar named.
+
+Checks: the audit finds nothing but `W.not-why` on `gr-861` and `I.none` / `I.duplicate` on the cards whose picture the next paragraph settles; `check-questions`,
+`check-style`, `check-cards` (apart from the `gr-817` pair named above), `split-cards`, `test-card-plans`, `check-docs` and `apply-wiki-links --check` pass; every
+cited URL answers 2xx except the DOI of the *Humanities* article on the Second Sophistic (`gr-879`, MDPI), which answers 403 to every non-browser request and
+200 on Crossref, where the record matches. `check-citations --card` finds no mismatch on any of the forty except `gr-876`, where Crossref holds Ana María Rosso's name with the given and family
+fields swapped (`Rosso Ana María`) and the article's own title page reads "Ana María Rosso": the citation follows the page, and the checker's override list (`.claude/check-citations.js`) is the place for the fix, left alone here.
+
+**Date lines.** Empty and `undatable`: `gr-866` ("about 150" was only a bound), `gr-872`, `gr-879` (the unsourced date line went), `gr-881` to `gr-885` (the
+Theogony has no sourced date in the sources they cite) and `gr-898` to `gr-900` (no source prints a year for the cult). The gods whose sources do print one date the
+text or cult that attests them and no life: `gr-886` to `gr-889` the *Theogony*, about 700 BCE; `gr-890` the Linear B tablets (about 1400 – 1200 BCE, the palatial tablets in general) and the
+*Theogony*; `gr-891` to `gr-895` Hesiod, about 700 BCE (`gr-894` adds the Hymn to Aphrodite, about 675 BCE, from a translation's table); `gr-896` the Great Panathenaia, 566 BCE;
+`gr-897` the first temple at Delphi, about 600 BCE, and its burning, 548. Two rows saying whose: `gr-865` (Polybius' detention 167 – 151 BCE in the Loeb introduction, 168 – 152 in Livius)
+and `gr-867` (Delos granted to Athens, 167 BCE by the École française, 166 by the World History Encyclopedia). The Greek-side wars print what their sources date: `gr-861`
+(erected 167, the battle on its frieze 168), `gr-863` (Diaeus general 150, died 146), `gr-868` (reign 138 – 133, the king's own letters of 135), `gr-869` (sent to Greece 88, Piraeus 87 – 86, Chaeronea 86,
+peace 85; Orchomenus is left undated because the sources split between 86 and 85), `gr-870` (87 – 86, taken 1 March 86), `gr-873` (Krenides 360 – 359, taken 356 with 357 in the prose), `gr-875`,
+`gr-876`, `gr-877` (27 BCE, from the Loeb note to Tacitus), `gr-878` (the embassy 155; death 129/8 as printed) and `gr-880` (1397 – 1400, 1411, 15 April 1415).
+
+**Corrected in the old cards:** Justin and the triumph, which belong to Rome's cards (`gr-861`); Strabo, not Polybius, gives the 535 miles of the Via Egnatia, Polybius only the stade
+reckoning and 267 miles (`gr-862`); Diaeus "twice elected" (`gr-863`); the span "220 – 146" and a Corinth-present row for Polybius (`gr-865`); the 1,000 Delians
+and the resettlement in Achaea (`gr-867`); "first province in Asia" in the Attalus III glossary entry, which no source gives (`gr-868`); Archelaus was sent to Greece in 88, not 87
+(`gr-869`); Aristion surrendered from thirst, not starvation, and the glossary entry for `gr-870` was the siege of 404 BCE, so the dated key
+`Siege_of_Athens_(87-86_BCE)` was drafted (`gr-870`); the unsourced "49 – 48" row of Thessalonica (`gr-871`); the "last Hellenistic fleet" (`gr-874`); "Octavian kept her
+children alive" and the misattributed "Queen of Kings" (`gr-876`); "kept no legion" (`gr-877`); "Cato had them voted out of the city", where Plutarch has Cato only urging the senate to decide (`gr-878`);
+Ovid's *Metamorphoses* in the Golding translation, not Brookes More's (`gr-883`); the invented motive for hiding the children (`gr-885`); in Hesiod it is Earth, not Rhea, who hands Cronus the stone,
+and the "Ionia" festival is hedged (`gr-887`); Eumelus' authorship of the *Titanomachy* is "perhaps" (`gr-888`); "no heir would end his reign" and the scholar names (`gr-891`); the "Pylos tablets about 1200" row and
+Isthmia "best documented" (`gr-892`); "Thesmophoria kept by women alone" (`gr-893`); "few temples, almost no myths" and "eldest" (`gr-894`); "almost no cult" for Hades (`gr-895`); the apobatic race
+(`gr-896`); "thousands of lead figurines" (`gr-898`); Sparta among the cults Aphrodite and Ares shared (`gr-899`). **Glossary entries redrafted:** `Monument_of_Aemilius_Paullus`, `Via_Egnatia`, `Diaeus`,
+`Polybius`, `Attalus_III`, `Siege_of_Athens_(87-86_BCE)`, `Achaea_(Roman_province)`, `Carneades`, `Second_Sophistic`, `Manuel_Chrysoloras`, `Greek_mythology`, `Cosmogony`, `Chaos_(cosmogony)`, `Gaia`,
+`Uranus_(mythology)`, `Titans`, `Cronus`, `Titanomachy`, `Rhea_(mythology)`, `Poseidon`, `Demeter`, `Hestia`, `Hades` and `Ares`. The shared pair entries (`Sack_of_Corinth`, `Cleopatra_VII`,
+`Battle_of_Actium`, `Zeus`, `Hera`) were read against the Greek card and left; the draft notes that `Cleopatra_VII` carries a "34 BCE" its own source does not print (an open item).
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Dyrrachium` and `Heraclea` (`gr-862`), `horse` (`gr-863`), `Italy` (`gr-866`, `gr-867`, `gr-869`), `Greece` and `Asia` (`gr-867`), `Asia` (`gr-868`), `talent` (`gr-879`), `council` (`gr-880`),
+`Italian` (the nationality, which opens Italy, `gr-883`), and `Poros`, `Corinth`, `Pylos` and `gold` (`gr-891` – `gr-895`). **Locators:** none added: every card in the hundred that lacks one is a text,
+a concept, a god's name or a man (`gr-894` Hestia and `gr-895` Hades carry none deliberately, as their plan lines say).

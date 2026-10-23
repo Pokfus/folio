@@ -47,6 +47,10 @@ now the standard name of an excavated site.
 | Mycenaean | Mycenean |
 | Orientalising | Orientalizing (the site's spelling switch converts for an American reader) |
 | Triparadisus | Triparadeisus, Triparadeisos (the forms of Diodorus' translators and of Anson's title; keep only inside a cited title) |
+| Cronus, Uranus, Rhea, Gaia | Kronos, Ouranos, Rheia, Ge (Uranus and Ouranos both link; the prose uses Uranus) |
+| Thessalonica | Thessalonike, Thessaloniki (the modern city's name; an alias only) |
+| Pergamon | Pergamum (keep only inside a cited title or a quotation) |
+| oikoumene | oecumene, ecumene (the glossary key is `Ecumene`) |
 
 ## The Aegean Bronze Age
 
@@ -162,7 +166,7 @@ and each card's prose gives both ends, with the 1540 BCE end resting on Rutter's
 | Archaic period | c. 800 – 479 BCE; the older start 700 BCE (corrected by B35, `gr-321`: its histories end at 479 BCE, the year of Plataea and Mycale; from 776 BCE where a card counts from the first Olympiad) |
 | First Olympic Games (traditional) | 776 BCE |
 | Classical period | 480 – 323 BCE (confirmed by B62, `gr-586`: some histories start at 479 BCE, and one ends it at Philip's murder in 336 BCE, both in prose only) |
-| Hellenistic period | 323 – 31 BCE |
+| Hellenistic period | 323 – 31 BCE (Actium); the sources of `gr-845` and `gr-801` print 323 – 30 BCE, the death of Cleopatra and the end of Ptolemaic rule |
 
 ## The Early Iron Age (confirmed by B11–B18, `gr-111` – `gr-170`)
 
@@ -940,18 +944,18 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Archimedes: Palimpsest found | 1906 | Exploratorium, “Ancient Writings Revealed! About,” accessed 23 October 2026, (`gr-819`) |
 | claw of Archimedes: Used | 213 BCE | Chris Rorres and Harry G. Harris, “A Formidable War Machine: Construction and Operation… (`gr-821`) |
 | claw of Archimedes: City fell | 212 BCE | J. J. O’Connor and E. F. Robertson, “Archimedes of Syracuse,” MacTutor History of… (`gr-821`) |
-| conic section | c. 360 – 350 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-823`) |
+| conic section: Credited | c. 360 – 350 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-823`) |
 | Aristarchus of Samos: Ptolemy’s date | 281 – 280 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
 | Aristarchus of Samos: Recent reading | 280 – 279 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
-| Hipparchus of Nicaea | 161 – 126 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-828`) |
+| Hipparchus of Nicaea: Observed | 161 – 126 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-828`) |
 | precession of the equinoxes | 129 – 128 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921), 254, (`gr-829`) |
 | Antikythera mechanism: Made: Seiradakis | c. 150 – 100 BCE | John H. Seiradakis, “The Antikythera Mechanism: From the Bottom of the Sea to the… (`gr-835`) |
 | Antikythera mechanism: Made: Iversen | c. 100 – 50 BCE | Paul Iversen and Alexander Jones, “The Back Plate Inscription and Eclipse Scheme of the… (`gr-835`) |
 | Antikythera mechanism: Wrecked | 84 – 67 BCE | John H. Seiradakis, “The Antikythera Mechanism: From the Bottom of the Sea to the… (`gr-835`) |
 | Antikythera mechanism: Recovered | 1901 | Tony Freeth, David Higgon, Aris Dacanalis, Lindsay MacDonald, Myrto Georgakopoulou and… (`gr-835`) |
 | Stoicism | c. 300 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-838`) |
-| Zeno of Citium | c. 300 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-839`) |
-| Chrysippus | c. 230 – 206 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-840`) |
+| Zeno of Citium: Founded the Stoa | c. 300 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-839`) |
+| Chrysippus: Headed the Stoa | c. 230 – 206 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-840`) |
 | Epicureanism | 307/06 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-841`) |
 | Epicurus: Born | 341 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-842`) |
 | Epicurus: Back at Athens | 307/06 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-842`) |
@@ -995,6 +999,71 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Callicrates of Leontium: Died | 149 BCE | Edward A. Freeman, History of Federal Government in Greece and Italy, ed. J. B. Bury, 2nd… (`gr-859`) |
 | Perseus: Reigned | 179 – 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-860`) |
 | Perseus: Pydna | 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-860`) |
+| monument of Aemilius Paullus: Erected | 167 BCE | Juan P. Prieto, “Roman conquest and Late Hellenistic resilience: the epigraphical case of… (`gr-861`) |
+| monument of Aemilius Paullus: Battle shown | 168 BCE | Hellenic Ministry of Culture, “Frieze from the pillar of Lucius Aemilius Paullus… (`gr-861`) |
+| Via Egnatia | 146 – 120 BCE | Hellenic Ministry of Culture and Sports, “The Via Egnatia through the ages,” Cultural Via… (`gr-862`) |
+| Diaeus: General | 150 BCE | William Smith, ed., “Diaeus,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-863`) |
+| Diaeus: Died | 146 BCE | William Smith, ed., “Diaeus,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-863`) |
+| sack of Corinth: Sacked | 146 BCE | Socrates Koursoumis, “Ancient Corinth: History,” Odysseus, Ministry of Culture and… (`gr-864`) |
+| sack of Corinth: Refounded | 44 BCE | Socrates Koursoumis, “Ancient Corinth: History,” Odysseus, Ministry of Culture and… (`gr-864`) |
+| Polybius: Detained, Loeb | 167 – 151 BCE | “The Life and Works of Polybius,” introduction to Polybius, The Histories, trans. W. R.… (`gr-865`) |
+| Polybius: Detained, Livius | 168 – 152 BCE | Jona Lendering, “Polybius,” Livius.org, accessed 23 October 2026, (`gr-865`) |
+| Polybius: At Carthage | 146 BCE | “The Life and Works of Polybius,” introduction to Polybius, The Histories, trans. W. R.… (`gr-865`) |
+| Delos: Granted (EFA) | 167 BCE | École française d’Athènes, “8. Delos – a chronology,” accessed 23 October 2026, (`gr-867`) |
+| Delos: Granted (WHE) | 166 BCE | Mark Cartwright, “Delos,” World History Encyclopedia, accessed 23 October 2026, (`gr-867`) |
+| Delos: Sacked | 88 BCE | École française d’Athènes, “8. Delos – a chronology,” accessed 23 October 2026, (`gr-867`) |
+| Attalus III: Reigned | 138 – 133 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic Kingdoms of… (`gr-868`) |
+| Attalus III: Letters | 135 BCE | Carlos A. Picón and Seán Hemingway, eds., Pergamon and the Hellenistic Kingdoms of the… (`gr-868`) |
+| Attalus III: Left to Rome | 133 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic Kingdoms of… (`gr-868`) |
+| Archelaus: Sent to Greece | 88 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-869`) |
+| Archelaus: Held Piraeus | 87 – 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-869`) |
+| Archelaus: Lost Chaeronea | 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-869`) |
+| Archelaus: Peace | 85 BCE | Jona Lendering, “Mithridates VI Eupator,” Livius.org, (`gr-869`) |
+| siege of Athens: Besieged | 87 – 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-870`) |
+| siege of Athens: Taken | 1 March 86 BCE | John Rickard, “Siege of Piraeus, autumn 87 – spring 86 B.C.,” History of War, 11 December… (`gr-870`) |
+| Thessalonica: Founded | c. 316 – 315 BCE | M. Vickers, “Thessalonike,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-871`) |
+| Thessalonica: Capital | 146 BCE | M. Vickers, “Thessalonike,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-871`) |
+| Thessalonica: Pompey’s senate | 49 BCE | EBSCO Research Starters, “Thessalonica,” published September 2022, accessed 23 October… (`gr-871`) |
+| Philippi: Founded | 360 – 359 BCE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
+| Philippi: Taken by Philip | 356 BCE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
+| Philippi: Battle | 42 BCE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
+| Philippi: Paul’s visit | 49 CE | D. Lazarides, “Philippi,” in The Princeton Encyclopedia of Classical Sites, ed. Richard… (`gr-873`) |
+| Battle of Actium | 31 BCE | Roger B. McShane and Michael Witkoski, “Battle of Actium,” EBSCO Research Starters, 2022,… (`gr-874`) |
+| Caesarion: Born | 47 BCE | Arienne King, “Caesarion,” World History Encyclopedia, published 10 July 2018, accessed… (`gr-875`) |
+| Caesarion: Co-ruler | 44 BCE | Jona Lendering, “Ptolemy XV Caesarion,” Livius.org, last modified 10 August 2020,… (`gr-875`) |
+| Caesarion: King of Kings | 34 BCE | Rolf Strootman, “Queen of Kings: Cleopatra VII and the Donations of Alexandria,” in… (`gr-875`) |
+| Caesarion: Killed | 30 BCE | Arienne King, “Caesarion,” World History Encyclopedia, published 10 July 2018, accessed… (`gr-875`) |
+| Cleopatra VII: Reigned | 51 – 30 BCE | Jona Lendering, “Cleopatra VII Philopator,” Livius.org, last modified 10 August 2020, (`gr-876`) |
+| Cleopatra VII: Actium | 31 BCE | Joseph G. Manning, Francis Ludlow, Alexander R. Stine, William R. Boos, Michael Sigl and… (`gr-876`) |
+| Cleopatra VII: Died | 30 BCE | Jona Lendering, “Cleopatra VII Philopator,” Livius.org, last modified 10 August 2020, (`gr-876`) |
+| province of Achaea: Created | 27 BCE | Tacitus, Annals 1.76 with the Loeb editor’s notes, trans. John Jackson, Loeb Classical… (`gr-877`) |
+| province of Achaea: Corinth colony | 44 BCE | Mark Cartwright, “Corinth,” World History Encyclopedia, published 2 September 2009, (`gr-877`) |
+| Carneades: Embassy to Rome | 155 BCE | Aulus Gellius, Attic Nights 6.14, trans. J. C. Rolfe, Loeb Classical Library (Cambridge,… (`gr-878`) |
+| Carneades: Died | 129/8 BCE | James Allen, “Carneades,” in The Stanford Encyclopedia of Philosophy, first published 11… (`gr-878`) |
+| Manuel Chrysoloras: Taught Greek | 1397 – 1400 | Ian Thomson, “Manuel Chrysoloras and the Early Italian Renaissance,” Greek, Roman, and… (`gr-880`) |
+| Manuel Chrysoloras: Letter on Rome | 1411 | Aslıhan Akışık Karakullukçu, “Manuēl Khrysolōras’ın Roma ve Konstantinopolis… (`gr-880`) |
+| Manuel Chrysoloras: Died | 15 April 1415 | Ian Thomson, “Manuel Chrysoloras and the Early Italian Renaissance,” Greek, Roman, and… (`gr-880`) |
+
+
+## The Olympians and cosmogony (confirmed by B93 – B94, `gr-881` – `gr-900`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Titans: Theogony | c. 700 BCE | Mark Cartwright, “Titan: The Gods Defeated by the Greek Olympians,” World History… (`gr-886`) |
+| Cronus: Theogony | c. 700 BCE | Liana Miate, “Cronus,” World History Encyclopedia, published 25 October 2022, accessed 23… (`gr-887`) |
+| Titanomachy: Theogony | c. 700 BCE | Mark Cartwright, “Titan: The Gods Defeated by the Greek Olympians,” World History… (`gr-888`) |
+| Rhea: Theogony | c. 700 BCE | Liana Miate, “Rhea,” World History Encyclopedia, published 22 December 2022, accessed 23… (`gr-889`) |
+| Zeus: Linear B | c. 1400 – 1200 BCE | Thomas G. Palaima, “Appendix One: Linear B Sources,” in Anthology of Classical Myth:… (`gr-890`) |
+| Zeus: Theogony | c. 700 BCE | Mark Cartwright, “Zeus,” World History Encyclopedia, published 25 May 2013, accessed 23… (`gr-890`) |
+| Hera: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra, by Anthony T. Edwards, Bryn Mawr Classical Review… (`gr-891`) |
+| Poseidon: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra, by Anthony T. Edwards, Bryn Mawr Classical Review… (`gr-892`) |
+| Demeter: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra, by Anthony T. Edwards, Bryn Mawr Classical Review… (`gr-893`) |
+| Hestia: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra, by Anthony T. Edwards, Bryn Mawr Classical Review… (`gr-894`) |
+| Hestia: Aphrodite hymn | c. 675 BCE | Ingrid Holmberg, review of The Homeric Hymns, by Susan C. Shelmerdine, Bryn Mawr… (`gr-894`) |
+| Hades: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra, by Anthony T. Edwards, Bryn Mawr Classical Review… (`gr-895`) |
+| Athena: Greater festival | 566 BCE | Marion Meyer, review of Serving Athena: The Festival of the Panathenaia and the… (`gr-896`) |
+| Apollo: Delphi temple | c. 600 BCE | Stefanie A. H. Kennell, review of Das antike Delphi, by Michael Maass, Bryn Mawr… (`gr-897`) |
+| Apollo: Temple burnt | 548 BCE | Stefanie A. H. Kennell, review of Das antike Delphi, by Michael Maass, Bryn Mawr… (`gr-897`) |
 
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
@@ -1037,8 +1106,17 @@ sources when its batch comes round, and a disputed one given as a range.
 | Raphia | 217 BCE (confirmed by B83, `gr-794`, `gr-767`) |
 | Sellasia | 222 BCE (Plutarch's Loeb note has June 221; confirmed by B83, `gr-798`) |
 | Ipsus | 301 BCE (confirmed by B80, `gr-761`, `gr-762`, `gr-765`, `gr-768`) |
-| Sack of Corinth | 146 BCE |
-| Actium | 31 BCE |
+| Sack of Corinth | 146 BCE (confirmed by B90, `gr-864`; `gr-859`, `gr-863`, `gr-865`, `gr-877` agree) |
+| Actium | 31 BCE (confirmed by B91, `gr-874`; `gr-875`, `gr-876`) |
+| Death of Cleopatra VII, end of Ptolemaic rule | 30 BCE (confirmed by B91 – B92, `gr-875`, `gr-876`; `gr-801`) |
+| Epicurus' school at Athens | 307/06 BCE; Epicurus died 270 BCE, or 271 or 270 by a second reckoning (confirmed by B87, `gr-841` – `gr-843`) |
+| Pyrrhic War | 280 – 275 BCE; Sicily 278 – 276; Tarentum falls 272 (confirmed by B89, `gr-847`; `gr-846` dates Pyrrhus' death at Argos 272) |
+| Peace of Phoenice | 205 BCE (confirmed by B89, `gr-850`) |
+| Cynoscephalae | 197 BCE (confirmed by B89, `gr-853`; `gr-851`, `gr-855` agree) |
+| Treaty of Apamea | 188 BCE (confirmed by B90, `gr-857`, `gr-858`; Magnesia is 190 on this file and 189 in Livius, which the cards do not print) |
+| Pydna | 168 BCE (confirmed by B90, `gr-848`, `gr-860`, `gr-861`) |
+| Sulla takes Athens | 1 March 86 BCE, after the siege of 87 – 86 (confirmed by B91, `gr-869`, `gr-870`) |
+| Philippi | battle 42 BCE; Krenides 360 – 359 BCE, taken by Philip 356 BCE (confirmed by B91, `gr-873`) |
 
 ```chronology-pins
 gr-001: 3100; 1050
@@ -1778,4 +1856,33 @@ gr-857: 197; 159; 188
 gr-858: 188
 gr-859: 180; 167; 149
 gr-860: 179; 168
+gr-861: 167; 168
+gr-862: 146; 120
+gr-863: 150; 146
+gr-864: 146; 44
+gr-865: 167; 151; 168; 152; 146
+gr-867: 167; 166; 88
+gr-868: 138; 135; 133
+gr-869: 88; 87; 86; 85
+gr-870: 87; 86
+gr-871: 316; 315; 146; 49
+gr-873: 360; 359; 356; 42; 49
+gr-874: 31
+gr-875: 47; 44; 34; 30
+gr-876: 51; 31; 30
+gr-877: 27; 44
+gr-878: 155; 129
+gr-880: 1397; 1400; 1411; 1415
+gr-886: 700
+gr-887: 700
+gr-888: 700
+gr-889: 700
+gr-890: 1400; 1200; 700
+gr-891: 700
+gr-892: 700
+gr-893: 700
+gr-894: 700; 675
+gr-895: 700
+gr-896: 566
+gr-897: 600; 548
 ```
