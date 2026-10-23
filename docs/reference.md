@@ -6582,9 +6582,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   stay dormant for a later revival — Web Speech plus four Piper-baked narrators, all **CC BY 4.0**, and
   **`hfc_male`/`ryan`/`lessac` are CC BY-NC and must not be used.** See `docs/reader-settings.md`.
   · **THE SECTION PLAY BUTTONS ARE ALSO LIVE (Oct 2026, on request)** — the small triangle beside Question,
-    Answer and Background, on cards whose collection ROOT is in the History, Science or Special section
-    (`TTS_SECTIONS` / `ttsSectionOk(c)`, via `cardCollectionRoot` + `sectionOf`; Geography, Philosophy, The Arts,
-    language and community decks get none). They bypass `ttsEnabled()` like `.uc-tts` (a reader presses them),
+    Answer and Background, on every card that has a collection ROOT (`ttsSectionOk(c)`, via `cardCollectionRoot`;
+    History, Geography, Science, Philosophy, The Arts and Special — first History, Science and Special only, widened
+    later the same month; language and community decks have no root and get none). They bypass `ttsEnabled()` like `.uc-tts` (a reader presses them),
     go through `ttsSectionClick` (a second press stops; a silent press toasts `ttsSilentNote`; the Chinese
     part of an Answer is dropped — English voice only) and need only the API (`ttsSupported()`), never a voice
     list. Baked `audio/` stays dormant, so it is always the device's English voice. Guarded by `test-speak.js` §4.

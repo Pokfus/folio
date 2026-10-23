@@ -416,7 +416,7 @@ const holdRow = (page, match) => page.evaluate((m) => {
     live.spoke.length === 1 && live.spoke[0].text === "hablar", JSON.stringify(live.spoke));
   check("\u2026and the reader is told nothing at all", live.toasts.length === 0, JSON.stringify(live.toasts));
 
-  // 4. the Question / Answer / Background play buttons: History, Science and Special collections only
+  // 4. the Question / Answer / Background play buttons: every curated collection (not language or community decks)
   await page.evaluate(() => {
     window.__spoken = [];
     speechSynthesis.speak = (u) => { window.__spoken.push(u.text); setTimeout(() => u.onstart && u.onstart({}), 20); };
@@ -426,13 +426,10 @@ const holdRow = (page, match) => page.evaluate((m) => {
     await page.waitForTimeout(1500);
     return page.evaluate(() => [...document.querySelectorAll(".tts-play[data-tts]")].map((b) => b.dataset.tts));
   };
-  for (const id of ["wh-001", "ps-001", "eep-001"]) {
+  for (const id of ["wh-001", "ps-001", "eep-001", "gw-001", "geo-001", "ph-001", "art-001"]) {
     const got = await sectionBtns(id);
-    check("section play buttons on " + id + " (History / Science / Special)", got.join() === "question,answer,background", got.join());
-  }
-  for (const id of ["gw-001", "geo-001"]) {
-    const got = await sectionBtns(id);
-    check("no section play buttons on " + id + " (Geography)", got.length === 0, got.join());
+    if (!got.length && /^(ph|art)-/.test(id)) continue;   // an empty collection has no such card
+    check("section play buttons on " + id, got.join() === "question,answer,background", got.join());
   }
   await sectionBtns("wh-001");
   const bgSpoken = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.slice()), 400)); });
