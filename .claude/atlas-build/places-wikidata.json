@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-18",
+ "retrieved": "2026-10-23",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -91452,6 +91452,19 @@
    ],
    "label": "",
    "title": "Tiananmen"
+  },
+  "Q273195": {
+   "coord": [
+    -104.4439,
+    32.1753
+   ],
+   "classes": [
+    "Q46169",
+    "Q2232001",
+    "Q34918903"
+   ],
+   "label": "Carlsbad Caverns National Park",
+   "title": "Carlsbad Caverns National Park"
   }
  },
  "links": {

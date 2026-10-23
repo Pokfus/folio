@@ -6757,7 +6757,8 @@ window.GLOSSARY = {
 "Gustavus_Adolphus": "",
 "Treaty_of_Stolbovo": "",
 "Rocky_Mountains": "",
-"Lake_Superior": ""
+"Lake_Superior": "",
+"Carlsbad_Caverns_National_Park": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14579,7 +14580,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Names_of_Saint_Petersburg": ["Petrograd"],
 "Neva": ["Neva River","River Neva"],
 "Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"],
-"Rocky_Mountains": ["Rockies"]
+"Rocky_Mountains": ["Rockies"],
+"Carlsbad_Caverns_National_Park": ["Carlsbad Caverns","Carlsbad Cavern"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21464,7 +21466,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gustavus_Adolphus": ["ruler","person","history","politics","warfare","sweden"],
 "Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"],
 "Rocky_Mountains": ["place","geography","mountain","geology","united states"],
-"Lake_Superior": ["place","geography","lake","great lakes","united states"]
+"Lake_Superior": ["place","geography","lake","great lakes","united states"],
+"Carlsbad_Caverns_National_Park": ["place","geography","cave","geology","united states"]
 });
 
 /* ============================================================================

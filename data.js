@@ -7036,7 +7036,8 @@ window.CARD_DATA = [
 {"id":"geo-801","num":"801","category":"Geography","question":"Guided by the Ojibwe leader Ozawindib in 1832, Henry Rowe Schoolcraft declared a small lake the true source of the <span class=\"blank\">_____</span> after the French had long known it as Lac la Biche.","answer":"Mississippi River","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mississippi River","tags":["place","geography","united states","river","history"],"difficulty":1,"locator":{"name":"Mississippi River","at":[-89.2533,29.1511],"kind":"river"},"undatable":true,"facts":[["Length","3,780 km (2,350 mi)"],["Drainage basin","3.2M km² (1.2M sq mi)"],["Source","Lake Itasca, Minnesota"],["Mouth","Gulf of Mexico"]]},
 {"id":"geo-901","num":"901","category":"Geography","question":"Meriwether Lewis wrote in 1805 of his pleasure at having triumphed over the <span class=\"blank\">_____</span> after his starving party struggled for 11 days across the Bitterroot Mountains on the Lolo Trail.","answer":"Rocky Mountains","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Rocky Mountains","tags":["place","geography","united states","mountain","geology","history"],"difficulty":1,"locator":{"name":"Rocky Mountains","at":[-113.8,44.15],"kind":"range","spine":[[-125,59.5],[-121,55],[-117.5,52],[-114.5,49.5],[-112.8,46.5],[-110.6,44.3],[-108.5,42.8],[-106.3,41],[-105.7,40],[-106.3,38.6],[-105.5,37],[-105.7,35.8]]},"undatable":true,"facts":[["Highest point","Mount Elbert, 4,401 m (14,440 ft)"],["Length","?"],["States","Seven, Montana to New Mexico"],["Protected as","Glacier, Yellowstone, Rocky Mountain and other parks"]]},
 {"id":"geo-802","num":"802","category":"Geography","question":"In November 1975 the ore carrier Edmund Fitzgerald sank in a severe storm on eastern <span class=\"blank\">_____</span> about 27 kilometres (17 miles) from Whitefish Bay, and all 29 men aboard were lost.","answer":"Lake Superior","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lake Superior","tags":["place","geography","united states","lake","great lakes","history"],"difficulty":1,"locator":{"name":"Lake Superior","at":[-87.5,47.7],"zoom":7},"undatable":true,"facts":[["Surface area","82,100 km² (31,700 sq mi)"],["Maximum depth","406 m (1,332 ft)"],["States","Minnesota, Wisconsin, Michigan; Ontario"],["Outflow","St. Marys River"]]},
-{"id":"geo-803","num":"803","category":"Geography","question":"In 1803 Thomas Jefferson told Meriwether Lewis that the object of his mission was to explore the <span class=\"blank\">_____</span> in search of the most direct water route across the continent for commerce.","answer":"Missouri River","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Missouri River","tags":["place","geography","united states","river","history"],"difficulty":2,"locator":{"name":"Missouri River","at":[-90.1197,38.8136],"kind":"river"},"undatable":true,"facts":[["Length","3,700 km (2,300 mi)"],["Drainage basin","?"],["Source","Three Forks, Montana"],["Mouth","Mississippi River, above St. Louis"]]}
+{"id":"geo-803","num":"803","category":"Geography","question":"In 1803 Thomas Jefferson told Meriwether Lewis that the object of his mission was to explore the <span class=\"blank\">_____</span> in search of the most direct water route across the continent for commerce.","answer":"Missouri River","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Missouri River","tags":["place","geography","united states","river","history"],"difficulty":2,"locator":{"name":"Missouri River","at":[-90.1197,38.8136],"kind":"river"},"undatable":true,"facts":[["Length","3,700 km (2,300 mi)"],["Drainage basin","?"],["Source","Three Forks, Montana"],["Mouth","Mississippi River, above St. Louis"]]},
+{"id":"geo-912","num":"912","category":"Geography","question":"Early visitors to <span class=\"blank\">_____</span> in New Mexico were lowered into the cave in an old guano-mining bucket until a staircase replaced it in 1925, two years after it became a national monument.","answer":"Carlsbad Caverns","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Carlsbad Caverns","tags":["place","geography","united states","cave","geology","new mexico"],"difficulty":2,"locator":{"name":"Carlsbad Caverns","at":[-104.4439,32.1753],"zoom":9},"undatable":true,"facts":[["Surveyed length","?"],["Depth","?"],["State","New Mexico"],["Protected as","National park; World Heritage Site"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -20261,7 +20262,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-us",
       "title": "United States",
-      "total": 137,
+      "total": 138,
       "placeholder": false,
       "children": [
         {
@@ -20433,7 +20434,8 @@ window.COLLECTION_TREE = {
           "title": "Mountains, canyons and caves",
           "placeholder": false,
           "cardIds": [
-            "geo-901"
+            "geo-901",
+            "geo-912"
           ]
         }
       ]

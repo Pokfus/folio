@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-23T15:51Z",
+ "generated": "2026-10-23T15:59Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 4940,
-  "redirect-broader": 457,
+  "redirect-broader": 458,
   "redirect-variant": 330,
   "section-redirect": 104,
   "disambiguation": 138,
@@ -57472,6 +57472,14 @@
    "url": "https://en.wikipedia.org/wiki/Missouri_River",
    "via": "glossary",
    "status": "ok"
+  },
+  "geo-912": {
+   "answer": "Carlsbad Caverns",
+   "title": "Carlsbad Caverns National Park",
+   "url": "https://en.wikipedia.org/wiki/Carlsbad_Caverns_National_Park",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Carlsbad Caverns"
   }
  }
 }
