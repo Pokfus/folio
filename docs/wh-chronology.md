@@ -709,6 +709,17 @@ Filled batch by batch, from the source each row names.
 | Industrial Revolution: Toynbee's course / Ashton's title / Toynbee's lectures | 1760 – 1840 / 1760 – 1830 / October 1881 – May 1882 CE | Toynbee's widow's note; Crafts (`wh-776`) |
 | British Agricultural Revolution: Overton's dating / Kerridge's dating | c. 1750 – 1850 / 1560 – 1767 CE | Overton (`wh-777`; `wh-778` and `wh-779` are `undatable`) |
 | James Watt: born / patent / died | 19 January 1736 / 5 January 1769 / 25 August 1819 CE | Science Museum Group; University of Birmingham (`wh-780`) |
+| Spinning jenny: invented (Baines) / (Arkwright) / patented | c. 1764 / 1767 / 1770 CE | Baines; Arkwright (`wh-781`; `wh-782`, `wh-783`, `wh-785`, `wh-788` and `wh-789` are `undatable`) |
+| Bessemer process: patented / paper read (11 August in Turner) / basic lining | 17 October 1855 / 13 August 1856 / spring 1878 CE | Bishop; Bessemer; Turner (`wh-784`) |
+| Stephenson's Rocket: built / trials / preserved | 1829 / 6 – 14 October 1829 / 1862 CE | ASME; Smiles; Science Museum Group (`wh-786`) |
+| Bridgewater Canal: first Act / first coal boat / Mersey Act | 23 March 1759 / 17 July 1761 / March 1762 CE | the Company; Smiles (`wh-787`) |
+| Factory Acts: first act / inspectors / Ten Hours Act / in force | 22 June 1802 / 29 August 1833 / 1847 / 1 May 1848 CE | the statutes (`wh-790`) |
+| Luddite: began / Rawfolds attack / York hangings | March 1811 / April 1812 / January 1813 CE (the Frame-Breaking Act 20 March 1812) | the Hammonds; Binfield (`wh-791`; `wh-792` is `undatable`) |
+| Karl Marx: born / *Capital* vol. 1 / died | 5 May 1818 / 1867 / 14 March 1883 CE | Mehring; IISH (`wh-793`) |
+| The Communist Manifesto: congress / published (a week or two before the revolutions, or the end of February) / in English | 29 November – 8 December 1847 / February 1848 / 1850 CE | the MIA editors; Hobsbawm (`wh-794`; `wh-795` is `undatable`) |
+| Second Industrial Revolution: Mokyr / Homburg / phrase printed | 1870 – 1914 / c. 1870 – 1900 / 1915 CE | Mokyr; Homburg; Geddes (`wh-796`; `wh-797` is `undatable`) |
+| Electrical telegraph: Shilling's demonstration / Gauss and Weber / joint patent / Morse's line | 1832 / May 1833 / June 1837 / 24 May 1844 CE | IEEE; Göttingen University; Distant Writing; US Senate (`wh-798`; `wh-799` is `undatable`) |
+| Suez Canal: conceded / company formed / works began / opened | 30 November 1854 / 15 December 1858 / 25 April 1859 / 17 November 1869 CE (shares sold 25 November 1875) | Prat dit Hauret; Hefler (`wh-800`) |
 
 ## Chronology pins
 
@@ -1399,4 +1410,15 @@ wh-773: 12 January 1848; 24 February 1848; 28 April 1849; 13 August 1849
 wh-776: 1760; 1840; 1830; 1881; 1882
 wh-777: 1750; 1850; 1560; 1767
 wh-780: 19 January 1736; 5 January 1769; 25 August 1819
+wh-781: 1764; 1767; 1770
+wh-784: 1855; 1856; 1878
+wh-786: 1829; 6 – 14 October 1829; 1862
+wh-787: 23 March 1759; 17 July 1761; March 1762
+wh-790: 1802; 1833; 1847; 1 May 1848
+wh-791: 1811; 1812; 1813
+wh-793: 5 May 1818; 1867; 14 March 1883
+wh-794: 29 November – 8 December 1847; February 1848; 1850
+wh-796: 1870; 1914; 1900; 1915
+wh-798: 1832; May 1833; June 1837; 24 May 1844
+wh-800: 30 November 1854; 15 December 1858; 25 April 1859; 17 November 1869
 ```
