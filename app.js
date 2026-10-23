@@ -16231,7 +16231,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function spellSystem() { return SPELLINGS.includes(S.settings && S.settings.spelling) ? S.settings.spelling : "en-GB"; }
   /* PLACE NAMES THAT DEPEND ON THE READER'S ENGLISH (Oct 2026, on request: "if the user uses American English
      spelling for the website, they are shown as Gulf of America, etc. If they use the British spelling for the
-     website, use the old names"). Executive Order 14172 of January 2025 renamed two features for US federal use,
+     website, use the old names"). Executive Order 14172 of January 2025 renamed two features for US federal use
+     (and Executive Order 14422 of August 2026 a third, Lake Ontario),
      and GNIS followed; British and international usage kept the older names. Content is AUTHORED with the older
      name, as it is authored in British spelling, so this runs in the American direction only — and that is a
      decision, not an economy: "Mount McKinley" was also the federal name from 1917 to 2015, so a reverse row
@@ -16247,7 +16248,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["Gulf of Mexico", "Gulf of America"],
     ["Mount Denali", "Mount McKinley"],
     ["Denali", "Mount McKinley", " (?:National|State|Fault|Highway|Borough|Park|Preserve)"],
+    /* Executive Order 14422 of 27 August 2026 (91 FR 56543): Lake Ontario renamed Lake America for federal use */
+    ["Lake Ontario", "Lake America"],
   ];
+  /* THE ATLAS NAMES A LAKE BY ITS BARE NAME ("Superior", "Ontario"), so its table adds kind-scoped rows,
+     "<kind>|<label>": a plain "Ontario" row would rename the province as well. The worker asks the scoped
+     row first, then the whole label. */
+  const SPELL_NAMES_ATLAS = { "lake|Ontario": "America" };
   const _spellNames = (() => {
     const map = Object.create(null), alt = [];
     SPELL_NAMES.forEach(([gb, us, not]) => {
@@ -16260,7 +16267,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     _spellNames.rx.lastIndex = 0;
     return text.replace(_spellNames.rx, (m) => _spellNames.map[m] || m);
   }
-  window.FolioPlaceNames = () => (spellSystem() === "en-US" ? _spellNames.map : null);
+  const _spellNamesAtlas = Object.assign(Object.create(null), _spellNames.map, SPELL_NAMES_ATLAS);
+  window.FolioPlaceNames = () => (spellSystem() === "en-US" ? _spellNamesAtlas : null);
   /* The case of the word on the page is preserved, and only the three shapes a sentence actually
      produces: all lower, Capitalised, ALL CAPS. Anything else (`McDonald`-shaped, an acronym with a
      lowercase tail) is left exactly as written — a mixed-case word is a name far more often than it

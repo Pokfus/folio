@@ -217,7 +217,8 @@ Ten bullets, in the order they appeared in CLAUDE.md:
   · **PLACE NAMES THAT DEPEND ON THE READER'S ENGLISH (`SPELL_NAMES` / `spellNames` / `FolioPlaceNames`, Oct
     2026, on request: "if the user uses American English spelling for the website, they are shown as Gulf of
     America, etc. If they use the British spelling, use the old names").** Executive Order 14172 (January 2025)
-    renamed the Gulf of Mexico and Denali for US federal use. Content keeps the older names and the table
+    renamed the Gulf of Mexico and Denali for US federal use, and Executive Order 14422 (August 2026) Lake Ontario
+    (Lake America; the Atlas's bare lake label is renamed by a kind-scoped row, `SPELL_NAMES_ATLAS`). Content keeps the older names and the table
     rewrites them for an American reader only: a WHOLE NAME, case-sensitive, ahead of the word table inside
     `spellText` (so the cloze grading follows it too). One-way on purpose — "Mount McKinley" was the federal
     name from 1917 to 2015, and a reverse row would rewrite history. `Denali` carries a lookahead that leaves

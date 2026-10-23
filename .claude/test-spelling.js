@@ -28,11 +28,11 @@ function sliceBetween(a, b) {
 const block = sliceBetween("  const SPELLINGS =", "  function setSpelling(");
 check("the spelling block is still where the slice expects it", !!block);
 
-let spellText = null, SPELL_PAIRS = null;
+let spellText = null, SPELL_PAIRS = null, win = {};
 if (block) {
   const body = block.replace(/function spellSystem\(\)[^}]*}/, "function spellSystem(){return S.settings.spelling;}") +
     "\nreturn { spellText, spellCase, SPELL_PAIRS, SPELLINGS };";
-  const win = {};   // the block publishes FolioPlaceNames for the Atlas (SPELL_NAMES, Oct 2026)
+  win = {};   // the block publishes FolioPlaceNames for the Atlas (SPELL_NAMES, Oct 2026)
   const api = new Function("S", "window", body)({ settings: { spelling: "en-US" } }, win);
   check("the Atlas is handed the place-name table", typeof win.FolioPlaceNames === "function" && (win.FolioPlaceNames() || {})["Gulf of Mexico"] === "Gulf of America");
   spellText = api.spellText; SPELL_PAIRS = api.SPELL_PAIRS;
@@ -123,6 +123,9 @@ if (spellText) {
   check("Mount Denali does not become Mount Mount McKinley", gb2us("Mount Denali") === "Mount McKinley", gb2us("Mount Denali"));
   check("the park, the fault and the highway keep the name Denali", gb2us("Denali National Park, the Denali Fault and the Denali Highway") === "Denali National Park, the Denali Fault and the Denali Highway", gb2us("Denali National Park, the Denali Fault and the Denali Highway"));
   check("the renaming is one-way: Mount McKinley is never rewritten for a British reader", us2gb("Mount McKinley National Park, 1917") === "Mount McKinley National Park, 1917", us2gb("Mount McKinley National Park, 1917"));
+  check("Lake Ontario is Lake America for an American reader (EO 14422, 2026)", gb2us("the shore of Lake Ontario") === "the shore of Lake America", gb2us("the shore of Lake Ontario"));
+  check("…and the province of Ontario is left alone", gb2us("Toronto, Ontario") === "Toronto, Ontario", gb2us("Toronto, Ontario"));
+  check("the Atlas renames the lake's bare label only as a lake", (() => { const t = win.FolioPlaceNames() || {}; return t["lake|Ontario"] === "America" && !t["Ontario"]; })());
   check("a lower-case phrase is not a name", gb2us("a gulf of mexico") === "a gulf of mexico", gb2us("a gulf of mexico"));
 
   /* THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE (Aug 2026, on a bug report). JS's `\b` is

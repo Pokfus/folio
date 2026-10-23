@@ -2102,7 +2102,10 @@ differ by tens of kilometres, so the card names whose figure it gives and does n
 ### Names that changed in 2025 — the reader's English decides (Oct 2026, on request)
 
 Executive Order 14172 of January 2025 renamed two features in this plan for US federal use: **Denali**
-became **Mount McKinley** again, and the **Gulf of Mexico** the **Gulf of America**, and GNIS followed.
+became **Mount McKinley** again, and the **Gulf of Mexico** the **Gulf of America**, and GNIS followed. **Executive
+Order 14422 of 27 August 2026** (91 FR 56543) renamed **Lake Ontario** the **Lake America** in the same way, and
+the table carries it too (the Atlas labels the lake by its bare name, so its canvas row is scoped to lakes,
+`"lake|Ontario"`, and the province keeps its name).
 **The owner's rule: a reader on American spelling sees the federal names, a reader on British spelling
 the older ones.** So the cards are AUTHORED with the older names (Denali, Gulf of Mexico) exactly as they
 are authored in British spelling, and `SPELL_NAMES` in app.js — a one-way, whole-name, case-sensitive
@@ -2148,7 +2151,7 @@ it protects is the card), and glaciers, which want a deck of their own if they a
   geo-812 Columbia River
   geo-813 Lake Erie
   geo-814 Lake Huron
-  geo-815 Lake Ontario
+  geo-815 Lake Ontario (Lake America for an American reader: see above)
   geo-816 Lake Tahoe
   geo-817 Gulf of Mexico (Gulf of America for an American reader: see above)
   geo-818 Crater Lake

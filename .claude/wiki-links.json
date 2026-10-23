@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T16:19Z",
+ "generated": "2026-10-23T16:23Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4947,
+  "ok": 4952,
   "redirect-broader": 459,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57535,6 +57535,41 @@
    "answer": "Mount Whitney",
    "title": "Mount Whitney",
    "url": "https://en.wikipedia.org/wiki/Mount_Whitney",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-804": {
+   "answer": "Great Salt Lake",
+   "title": "Great Salt Lake",
+   "url": "https://en.wikipedia.org/wiki/Great_Salt_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-805": {
+   "answer": "Colorado River",
+   "title": "Colorado River",
+   "url": "https://en.wikipedia.org/wiki/Colorado_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-806": {
+   "answer": "Lake Michigan",
+   "title": "Lake Michigan",
+   "url": "https://en.wikipedia.org/wiki/Lake_Michigan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-807": {
+   "answer": "Rio Grande",
+   "title": "Rio Grande",
+   "url": "https://en.wikipedia.org/wiki/Rio_Grande",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-808": {
+   "answer": "Niagara Falls",
+   "title": "Niagara Falls",
+   "url": "https://en.wikipedia.org/wiki/Niagara_Falls",
    "via": "glossary",
    "status": "ok"
   }
