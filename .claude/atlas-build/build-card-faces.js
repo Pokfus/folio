@@ -44,6 +44,9 @@ const ALIASES = {
 };
 /* the layer's own name → the engine's, where the iso code does not carry it (Natural Earth's two spellings of a province) */
 const NAME_ALIASES = { "china-provinces": { "Inner Mongolia": "Inner Mongol", "Tibet": "Xizang" } };
+/* the engine's admin-1 entities carry Natural Earth's iso, which has Russia's two Moscow codes the wrong way round (RU-MOS on the city, RU-MOW on the oblast; ISO 3166-2 and the layer's own codes
+   say the opposite — docs/russia-geography-card-plan.md "Natural Earth has the two Moscow codes the wrong way round"), so these two keys are joined through the engine's own iso, not theirs */
+const ISO_OVERRIDES = { "russia-subjects": { MOS: "RU-MOW", MOW: "RU-MOS" } };
 const FROZEN = JSON.parse(fs.readFileSync(path.join(HERE, "frozen", "layers.json"), "utf8")).layers;
 const LAYERS = [
   { layer: "us-states", iso: "US-", kind: "admin1" },
@@ -67,7 +70,7 @@ function build() {
     for (const st of FZ.keys) {
       let ent = null;
       if (L.layer === "world") { const nm = ALIASES[st.n] || st.n; ent = byName.get(fold(nm)); }
-      else { ent = st.a ? byIso.get(L.iso + String(st.a).toUpperCase()) : null; if (!ent) ent = byName1.get(fold((NAME_ALIASES[L.layer] || {})[st.n] || st.n)); }
+      else { ent = st.a ? byIso.get((ISO_OVERRIDES[L.layer] || {})[String(st.a).toUpperCase()] || L.iso + String(st.a).toUpperCase()) : null; if (!ent) ent = byName1.get(fold((NAME_ALIASES[L.layer] || {})[st.n] || st.n)); }
       if (!ent) { problems.push(`${L.layer}: "${st.n}" matches no engine entity`); continue; }
       if (L.layer !== "world" && ent.kind !== "admin1") { problems.push(`${L.layer}: "${st.n}" matched ${ent.id}, which is not admin-1`); continue; }
       if (ids.has(ent.id)) problems.push(`${L.layer}: "${st.n}" and another key both match ${ent.id}`);
