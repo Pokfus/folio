@@ -649,6 +649,13 @@ Filled batch by batch, from the source each row names.
 | Abbas the Great: lived / reigned (1587 in other sources) / Armenians moved / Hormuz taken | 1571 – 1629 / 1588 – 1629 / 1604 – 1605 / 1622 CE | Matthee; Library of Congress study (`wh-696`; `wh-697` and `wh-698` are `undatable`) |
 | Mughal Empire: founded / dynasty ended | 1526 / 1858 CE | Smith; Richards (`wh-699`) |
 | Babur: born / King of Ferghana / Panipat (20 April in Beveridge) / died | 14 February 1483 / June 1494 / 21 April 1526 / 26 December 1530 CE | Lane-Poole; Beveridge; the *Baburnama* (`wh-700`) |
+| Akbar: born (official) / enthroned / jizya ended / died | 15 October 1542 / 14 February 1556 / 1564 (Abu'l-Fazl) or 1579 (Badauni) / 25 – 27 October 1605 CE (accounts differ) | Smith; Haig; Lane-Poole (`wh-701`) |
+| Shah Jahan: born / enthroned / confined / died | 6 January 1592 / 6 February 1628 / 8 June 1658 (18 June in Lane-Poole) / 22 January 1666 (1 February in Sarkar's other chapter) CE | Beveridge's note to the *Akbarnama*; Lahori; Sarkar (`wh-702`) |
+| Taj Mahal: built | 1632 – 1653 CE (a university teaching text; completion dated 1643, 1648 and 1653 by other sources) | Sarkar; Uttar Pradesh tourism department (`wh-703`) |
+| Aurangzeb: born / reigned | 1618 / 1658 – 1707 CE (death 20 February in Sarkar, 4 March in Lane-Poole) | Sarkar; Lane-Poole (`wh-704`; `wh-705` is `undatable`) |
+| Sikhism: Nanak lived (Sikh tradition) | 1469 – 1539 CE | Macauliffe; Mann (`wh-706`; `wh-708` and `wh-709` are `undatable`) |
+| Maratha Empire: Shivaji crowned / dues granted (per Duff) / Panipat / Peshwa removed | 6 June 1674 / 1719 / 14 January 1761 / February 1818 CE | Sarkar; Duff; Gordon (`wh-707`) |
+| Crimean Khanate: span / Ottoman vassal / Moscow raid / annexed | 1441 – 1783 / after 1475 / 1571 / April 1783 CE | Başer; Fletcher; Horsey; Fisher (`wh-710`) |
 | Ming dynasty: founded (Hongwu reign name begins) / capital moved / fell (Beijing) | 1368 / 1421 / 1644 CE | Wade; Shao; Theobald (`wh-711`) |
 | Zheng He: first order / seventh order / voyages | 11 July 1405 / 29 June 1430 / 1405 – 1433 CE | the Ming Veritable Records via Wade; Columbia (`wh-712`) |
 | Forbidden City: built (official records) / court moved / Puyi expelled / museum opened | 1406 – 1420 (1416 – 1420) / 1421 / 5 November 1924 / 10 October 1925 CE | Palace Museum and Durham; Campbell; Xu (`wh-713`) |
@@ -1302,4 +1309,11 @@ wh-717: 4 May 1654; 1661; 1722; 20 December 1722
 wh-718: 25 September 1711; 1735; 1796; 7 February 1799
 wh-719: 1757; 1760; 1842
 wh-720: 5 August 1793; 14 September 1793; 3 October 1793; 7 October 1793
+wh-701: 15 October 1542; 14 February 1556; 1564; 1579; 25 – 27 October 1605
+wh-702: 6 January 1592; 6 February 1628; 8 June 1658; 18 June; 22 January 1666; 1 February
+wh-703: 1632; 1653
+wh-704: 1618; 1658; 1707
+wh-706: 1469; 1539
+wh-707: 1674; 1719; 1761; 1818
+wh-710: 1441; 1783; 1475; 1571
 ```
