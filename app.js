@@ -2283,8 +2283,9 @@
        · `settings` and `user` — not progress at all, and `joined` is what the heatmap starts from.
        · `active` and `deckOpts` — WHICH decks you study and what your daily limits are is a choice, not a
          history. This is the reported symptom, and it is the one a reader cannot easily rebuild.
-       · `reading` and `bookFavs` — the Library is not the flashcards; losing your place in a 124-letter
-         book because you reset a card schedule is a surprise nothing warned you about.
+       · `bookFavs` — the books the reader starred are a choice, not a history. (`reading`, the place in every book
+         and the time spent reading, was kept here until Oct 2026 and now GOES, on request: "Reset all progress
+         should also reset all library book reading progress" — the dialog says so.)
      Field-wise rather than whole-object, so a PROGRESS_FIELD added later is reset by default and has to be
      named here to survive — the safe direction for a control with "cannot be undone" written on it. */
   /* …and the reader's GROUPS with them (Aug 2026): a group is how they have arranged the decks `active`
@@ -2297,7 +2298,7 @@
      streak and the badges, and an unlocked theme is an appearance the reader is wearing — clearing it
      would take the site's own look away from somebody who reset a card schedule, and would leave them
      wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "collAdded", "deckGroups", "deckNest", "flags", "notes", "themes", "theme"];
+  const RESET_KEEPS = ["active", "deckOpts", "bookFavs", "collAdded", "deckGroups", "deckNest", "flags", "notes", "themes", "theme"];
   /* ---------- RESETTING ONE DECK (Sep 2026, on request: "in the long press menu of active decks, there
      should be an option to reset all the user's progress in that particular deck") ----------
      `resetProgress` above is the whole save; this is one entry's share of it, and the two answer the same
@@ -42952,7 +42953,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#reset").addEventListener("click", () => {
       // the wording says what resetProgress actually does — see RESET_KEEPS. It used to promise the study
       // history, the streak and the badges and quietly take the settings and the decks with them.
-      inlinePrompt("This clears your study history, your streak, your badges and your artefacts. Your decks, your place in the Library and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
+      inlinePrompt("This clears your study history, your streak, your badges, your artefacts and your reading progress in every Library book. Your decks, your starred books and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
         if (String(val || "").trim().toUpperCase() !== "RESET") { toast("Reset cancelled — confirmation didn't match"); return; }
         resetProgress();
         save();

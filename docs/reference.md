@@ -4208,9 +4208,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   dialog names the study history, the streak and the badges, so those go, and the **artefacts and chests**
   with them (they are what a level buys, and forty of them beside a level 1 badge is the odder outcome).
   **`RESET_KEEPS` is what was never study history**: `active` and `deckOpts` (WHICH decks you study and what
-  your daily limits are is a choice, and the one thing a reader cannot easily rebuild), and `reading` /
-  `bookFavs` (the Library is not the flashcards — losing your place in a 124-letter book because you reset a
-  card schedule is a surprise nothing warned you about). `settings` and `user` are outside PROGRESS_FIELDS
+  your daily limits are is a choice, and the one thing a reader cannot easily rebuild), and `bookFavs` (the
+  books the reader starred). **`reading` — the place in every Library book and the time spent reading — was
+  kept here until Oct 2026 and is now CLEARED, on request; the dialog names it.** `settings` and `user` are outside PROGRESS_FIELDS
   entirely and are simply not touched; `user.joined` matters because the heatmap starts from it.
   It resets **field by field rather than replacing the object**, so a PROGRESS_FIELD added later is reset by
   default and has to be NAMED to survive — the safe direction for a control like this. The row's own

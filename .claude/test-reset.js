@@ -146,7 +146,7 @@ function serve() {
   /* ---- what it kept: RESET_KEEPS, plus settings and user ---- */
   check("the DECKS are kept — the reported symptom", JSON.stringify(s2.active) === JSON.stringify(["col-8", "col-13"]), s2.active);
   check("…with their per-deck daily limits", !!(s2.deckOpts && s2.deckOpts["col-8"] && s2.deckOpts["col-8"].newPerDay === 12), s2.deckOpts);
-  check("the Library reading position is kept", !!(s2.reading && s2.reading["seneca-letters"] && s2.reading["seneca-letters"].ch === 7), s2.reading);
+  check("the Library reading progress is CLEARED (Oct 2026, on request)", Object.keys(s2.reading || {}).length === 0, s2.reading);
   check("…and the starred books", !!(s2.bookFavs && s2.bookFavs.beowulf), s2.bookFavs);
   check("every setting is kept", s2.settings.theme === "synth" && s2.settings.night === true && s2.settings.fontSize === "large" && s2.settings.sfx === false && s2.settings.bookSort === "title" && s2.settings.dayEnd === 180,
     { theme: s2.settings.theme, fontSize: s2.settings.fontSize, night: s2.settings.night, sfx: s2.settings.sfx, bookSort: s2.settings.bookSort, dayEnd: s2.settings.dayEnd });
