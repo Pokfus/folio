@@ -20671,6 +20671,18 @@ window.COLLECTION_TREE = {
             "gc-530",
             "gc-531"
           ]
+        },
+        {
+          "id": "geo-china-water",
+          "title": "Rivers, lakes and seas",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-china-mountains",
+          "title": "Mountains, deserts and caves",
+          "placeholder": false,
+          "cardIds": []
         }
       ]
     },

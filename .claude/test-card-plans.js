@@ -140,7 +140,9 @@ const PLANS = {
      not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,
      cities that are themselves divisions, so a capital card there would shade its own answer. Written
      out as ranges so that a number quietly going missing still fails here. */
-  "china-geography": ["geo-china", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531]]],
+  /* 801-840 and 901-940 are China's two PHYSICAL decks (Oct 2026), the US decks' pattern: rivers, lakes and
+     seas, then mountains, deserts and caves — text cards with a locator. */
+  "china-geography": ["geo-china", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531], [801, 840], [901, 940]]],
   /* Flags: 233 cards, one per World Geography COUNTRY card and numbered to match it, so `fl-NNN` is the
      same entity as `gw-NNN`. IT IS ONE OF THE TWO PLANS OF THE `flags` COLLECTION — which is why this
      table is keyed by plan; see the note above it. (It spent a week as a deck of `geo-world` and is a
