@@ -99,7 +99,7 @@ async function goldShare(page, key) {
     check("the highlight is Tanzania's face and nothing else", s.probe && s.probe.hl.length === 1 && s.probe.hl[0].ids.join() === "adm0:tza" && !s.probe.year, JSON.stringify(s.probe && s.probe.hl.map((h) => h.ids)));
     check("the name is drawn, and only the name", s.boxes && s.boxes.names.length === 1 && s.boxes.names[0].text === "Tanzania" && s.boxes.marks.length === 0, JSON.stringify(s.boxes && s.boxes.names.map((n) => n.text)));
     check("the bar keeps the Atlas pin", s.pin);
-    const cv = await page.$(SEL("Tanzania") + " .gloss-atlas .mc-canvas"); const bb = await cv.boundingBox();
+    const cv = await page.$(SEL("Tanzania") + " .gloss-atlas .mc-canvas"); await cv.scrollIntoViewIfNeeded(); await sleep(200); const bb = await cv.boundingBox();   // the window sits below the description: the body scrolls to it
     await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.wheel(0, -240); await sleep(350);
     const v1 = (await hostState(page, "Tanzania")).view;
     check("the wheel zooms in", v1.zoom > s.view.zoom, s.view.zoom.toFixed(2) + " → " + v1.zoom.toFixed(2));
@@ -161,7 +161,7 @@ async function goldShare(page, key) {
     const s = await hostState(page, "Tanzania");
     check("the sheet carries the window, buttonless", s.host && s.engine === "v2" && s.buttons === 0, s.engine);
     const dy0 = await page.evaluate(() => document.querySelector('.gloss-win[data-k="Tanzania"]').style.getPropertyValue("--gs-dy") || "0px");
-    const cv = await page.$(SEL("Tanzania") + " .gloss-atlas .mc-canvas"); const bb = await cv.boundingBox();
+    const cv = await page.$(SEL("Tanzania") + " .gloss-atlas .mc-canvas"); await cv.scrollIntoViewIfNeeded(); await sleep(200); const bb = await cv.boundingBox();   // the window sits below the description: the body scrolls to it
     await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down(); await page.mouse.move(bb.x + bb.width / 2 + 10, bb.y + bb.height / 2 + 60, { steps: 8 }); await page.mouse.up(); await sleep(400);
     const dy1 = await page.evaluate(() => document.querySelector('.gloss-win[data-k="Tanzania"]').style.getPropertyValue("--gs-dy") || "0px");
     const v = (await hostState(page, "Tanzania")).view;
