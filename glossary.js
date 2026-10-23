@@ -6551,7 +6551,27 @@ window.GLOSSARY = {
 "Acupuncture": "",
 "Bencao_Gangmu": "",
 "Huangdi_Neijing": "",
-"Tu_Youyou": ""
+"Tu_Youyou": "",
+"East_Africa": "",
+"Amiens": "",
+"Gabriel_de_Mortillet": "",
+"Kokiselei": "",
+"West_Turkana": "",
+"Konso": "",
+"Movius_Line": "",
+"South_Asia": "",
+"Tektite": "",
+"Einkorn_wheat": "",
+"Lentil": "",
+"Pea": "",
+"Chickpea": "",
+"Southwest_Asia": "",
+"Bitter_vetch": "",
+"Flax": "",
+"Cereal": "",
+"Core_area_hypothesis": "",
+"Karaca_Dağ": "",
+"Pulse_(legume)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10018,7 +10038,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Tu_Youyou": "b. 1930",
 "Lucius_Aemilius_Paullus_Macedonicus": "168 BCE",
 "Province_of_Macedonia": "148 BCE",
-"Province_of_Asia": "c. 129 – 126 BCE"
+"Province_of_Asia": "c. 129 – 126 BCE",
+"Gabriel_de_Mortillet": "1821–1898",
+"Kokiselei": "c. 1.76 Mya",
+"Konso": "Acheulean from c. 1.75 Mya"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14187,7 +14210,23 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tu_Youyou": ["Youyou Tu"],
 "Philip_V_of_Macedon": ["Philip V"],
 "Antiochus_III_the_Great": ["Antiochus III"],
-"Battle_of_Thermopylae_(191_BCE)": ["Battle of Thermopylae, 191 BCE"]
+"Battle_of_Thermopylae_(191_BCE)": ["Battle of Thermopylae, 191 BCE"],
+"East_Africa": ["Eastern Africa"],
+"Gabriel_de_Mortillet": ["Mortillet","de Mortillet"],
+"Konso": ["Konso-Gardula","Konso Formation"],
+"Movius_Line": ["Movius Divide"],
+"South_Asia": ["Southern Asia","South Asian","South Asians"],
+"Tektite": ["Muong Nong tektite"],
+"Einkorn_wheat": ["einkorn","Triticum monococcum"],
+"Lentil": ["lentils","Lens culinaris"],
+"Pea": ["peas","Pisum sativum"],
+"Chickpea": ["chickpeas","Cicer arietinum"],
+"Bitter_vetch": ["Vicia ervilia"],
+"Flax": ["Linum usitatissimum","linseed"],
+"Cereal": ["cereals","cereal grain","cereal grains"],
+"Core_area_hypothesis": ["core area hypothesis","core-area hypothesis"],
+"Karaca_Dağ": ["Karacadağ","Karacadag","Karacadağ mountains"],
+"Pulse_(legume)": ["pulses","grain legume","grain legumes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20864,7 +20903,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Acupuncture": ["practice","medicine","science","china"],
 "Bencao_Gangmu": ["text","medicine","science","china","ming"],
 "Huangdi_Neijing": ["text","medicine","science","literature","china","han dynasty"],
-"Tu_Youyou": ["person","science","medicine","china","nobel prize"]
+"Tu_Youyou": ["person","science","medicine","china","nobel prize"],
+"East_Africa": ["place","geography","history","africa"],
+"Amiens": ["place","city","archaeology","prehistory","france"],
+"Gabriel_de_Mortillet": ["person","archaeology","prehistory","france"],
+"Kokiselei": ["place","archaeology","prehistory","kenya"],
+"West_Turkana": ["place","archaeology","prehistory","kenya"],
+"Konso": ["place","archaeology","prehistory","ethiopia"],
+"Movius_Line": ["concept","archaeology","prehistory","asia"],
+"South_Asia": ["place","geography","history","asia"],
+"Tektite": ["object","geology","science","impact"],
+"Einkorn_wheat": ["plant","agriculture","archaeology","prehistory","turkey"],
+"Lentil": ["plant","agriculture","archaeology","prehistory"],
+"Pea": ["plant","agriculture","archaeology","prehistory"],
+"Chickpea": ["plant","agriculture","archaeology","prehistory","turkey"],
+"Southwest_Asia": ["place","geography","archaeology","prehistory"],
+"Bitter_vetch": ["plant","agriculture","archaeology","prehistory"],
+"Flax": ["plant","agriculture","archaeology","prehistory"],
+"Cereal": ["plant","agriculture","science","prehistory"],
+"Core_area_hypothesis": ["theory","agriculture","archaeology","prehistory","science"],
+"Karaca_Dağ": ["place","mountain","geography","archaeology","prehistory","turkey"],
+"Pulse_(legume)": ["plant","agriculture","science","prehistory"]
 });
 
 /* ============================================================================

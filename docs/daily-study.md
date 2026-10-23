@@ -63,7 +63,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
   `deckVariety`, whose review flag is per-entry because Settings has no switch for it). And **`buildSession`
   shuffles the DECK and UDECK branches too**: those queues were never shuffled at all, so without that the
   switch would appear on a deck's sheet and do nothing — the piles are chosen first and shuffled after, so the
-  setting decides presentation order and never which cards the day's allowances let through.
+  setting decides presentation order and never which cards the day's allowances let through. **The one exception
+  is By difficulty (Oct 2026, on request): a deck's or group's unseen pile is sorted by rating BEFORE the day's
+  allowance is cut, so the day's new cards are the deck's easiest and the first card dealt is its easiest — sliced
+  first, a reader who chose "easiest first" opened on a difficulty-3 card while the deck's 1s sat beyond the slice.**
   **It was chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request)
   until Oct 2026, when the banner lost its hold menu on request ("the daily study banner should have no long press
   menu") — it starts no session any more, so the sheet set options nothing could use; `openReviewMenu` is kept but

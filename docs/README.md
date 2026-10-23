@@ -172,3 +172,4 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 **Adding a file here?** Give it an H1 that says what it is, a "read this before …" line under it, add
 a row above, and put an imperative `📖` pointer in `CLAUDE.md` at the bullet it belongs to. Then run
 `node .claude/check-docs.js`.
+| `timeline-designs.html` | Design exploration (Oct 2026): six candidate timeline sections for a card (the card beside its two neighbours each way), on three real test cards, viewable per device and theme. Open in a browser; not part of the site. |

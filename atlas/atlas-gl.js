@@ -291,12 +291,12 @@
   /* PHASE 4, 0b (the owner's decision from 2d) — WHERE THE SOURCE MAP ENDS. The 41 monthly plates of the front (1939–42) are one series, and its map has a frame: the Wikimedia
      Commons maps are drawn in a Lambert conformal conic (GMT -JL15/0/45/60, from the metadata the ww2-atlas vectoriser quotes), a rectangle in that projection. Where a plate's
      ground meets the frame it is CUT by the map, not by the war — the straight line through European Russia, the edge at 31°N across the Sahara. A front face of the monthly era
-     therefore fades to nothing over FRAME_FADE_KM towards the rectangle's four sides (a soft edge, no line), and the legend and the place card say so in one sentence. The four
+     therefore fades to nothing over `fadeKm` (450 km since 2026-10-22: at a card window's scale 120 km was a hard edge, a slanted block over the Sahara and Syria) towards the rectangle's four sides (a soft edge, no line), and the legend and the place card say so in one sentence. The four
      sides are measured from the plates themselves (the edges every plate shares: x = −2271 and 2582 km, y = 4556 and 8841 km; .claude/test-atlas-render.js checks the cuts lie on them);
      the fortnightly plates of 1943–45 are page maps of another atlas and carry no rectangle here. */
   const FRAME = (() => {
     const d = Math.PI / 180, a = 45 * d, b = 60 * d, n = Math.log(Math.cos(a) / Math.cos(b)) / Math.log(Math.tan(Math.PI / 4 + b / 2) / Math.tan(Math.PI / 4 + a / 2));
-    return { n, F: Math.cos(a) * Math.pow(Math.tan(Math.PI / 4 + a / 2), n) / n, lon0: 15 * d, XL: -2271, XR: 2582, YB: 4556, YT: 8841, fadeKm: 120 };
+    return { n, F: Math.cos(a) * Math.pow(Math.tan(Math.PI / 4 + a / 2), n) / n, lon0: 15 * d, XL: -2271, XR: 2582, YB: 4556, YT: 8841, fadeKm: 450 };
   })();
   const VS_PRES = `#version 300 es
     precision highp float;

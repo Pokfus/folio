@@ -8,10 +8,10 @@
  *     card reads "recalled on 0 of 3 days" for ever, the Learned tile reads 0, and the site looks like a
  *     reader who never gets anything right. If it writes TWICE in a day, the criterion means nothing and
  *     says so in gold pips.
- *   · THE PRETEST MUST NOT WRITE `S.cards`. Folio's XP is the count of distinct cards with a record and a
- *     level buys an artefact chest, so a pretest that seeded twelve records would hand a brand-new reader
- *     several levels and their chests for answering twelve questions. Nothing would throw; the only
- *     symptom is a reader being congratulated for nothing. This is the assertion that matters most here.
+ *   · THE DIFFICULTY ORDER OPENS ON THE DECK'S EASIEST CARD, with nothing asked first. The deck pretest
+ *     that used to stand before it (twelve questions, Sep 2026) was removed in Oct 2026 on request, and
+ *     the day's new pile is sorted before it is cut — sliced first, the first card could be a 3 while the
+ *     deck's 1s sat beyond the slice. Nothing throws either way; the reader just meets the wrong card.
  *   · THE ORDER PICKER intercepts the FIRST study of a deck. Asked twice it is a wall; asked never it is a
  *     feature nobody meets. Both look like "working" from one side.
  *   · ANSWER BEFORE REVEALING has three doors (the button, Enter, Space) and one guard. A guard that
@@ -104,23 +104,21 @@ head("2) the warm-up defers rather than shuffles");
     src.indexOf("warmUpFirst(queue);") < src.indexOf("spreadNoteSiblings(queue);"));
 }
 
-head("3) the answer matcher forgives a slip and nothing more");
+head("3) the one-slip matcher forgives a slip and nothing more");
 {
-  const M = new Function(fn("pretestMatch") + fn("nearMiss") + fn("editDistanceLE1") + "\nreturn { pretestMatch };")();
-  const t = (a, b) => M.pretestMatch(a, { answerText: b });
-  check("exact", t("Mousterian", "Mousterian"));
-  check("case and accents are folded", t("chatelperronian", "Châtelperronian"));
-  check("a leading article is ignored", t("the polis", "polis"));
-  check("a bracketed aside is ignored", t("Georgia", "Georgia (country)"));
-  check("one transposition — the commonest typing slip there is", t("Mousterain", "Mousterian"));
-  check("one substitution", t("Mousterien", "Mousterian"));
-  check("one deletion", t("Mousteran", "Mousterian"));
-  check("one insertion", t("Mousteriann", "Mousterian"));
-  check("two slips are a miss", !t("Moustarein", "Mousterian"));
-  check("a different term is a miss", !t("Acheulean", "Mousterian"));
-  check("a short word is matched strictly", !t("axe", "axes"));
-  check("an empty guess is never a match", !t("", "Mousterian"));
-  check("an HTML answer is compared as text", M.pretestMatch("polis", { answer: "<b>polis</b>" }));
+  const M = new Function(fn("nearMiss") + fn("editDistanceLE1") + "\nreturn { nearMiss };")();
+  const t = (a, b) => M.nearMiss(a, b);
+  check("exact", t("mousterian", "mousterian"));
+  check("one transposition — the commonest typing slip there is", t("mousterain", "mousterian"));
+  check("one substitution", t("mousterien", "mousterian"));
+  check("one deletion", t("mousteran", "mousterian"));
+  check("one insertion", t("mousteriann", "mousterian"));
+  check("two slips are a miss", !t("moustarein", "mousterian"));
+  check("a different term is a miss", !t("acheulean", "mousterian"));
+  check("the deck pretest is gone — no page, no offer, no register (Oct 2026)", !/PAGES\.pretest|pretestOffer|pretestPick|pretestMatch|S\.pretest/.test(src));
+  check("the difficulty order is a pure sort by rank", /function sortByDifficulty\(list\) \{\s*\n\s*return list\.slice\(\)\.sort\(\(a, b\) => \(cardDifficultyRank\(a\) - cardDifficultyRank\(b\)\)\);\s*\n\s*\}/.test(src));
+  check("…and a deck's day of new cards is cut AFTER that sort, so the first card is the deck's easiest",
+    /const fresh = \(deckByDifficulty\(sd\.id\) \? sortByDifficulty\(unseen\) : unseen\)\.slice\(0, Math\.max\(deckNewRemaining\(sd\.id\), 0\)\);/.test(src));
 }
 
 head("4) the defining sentence, lifted safely");
@@ -146,23 +144,21 @@ head("5) the wiring that cannot be seen from the page");
   check("Ordered deals Folio's own collections front to back, not round-robin",
     /function studyOrder[\s\S]{0,1400}deckOrderMode\(entryId\) === "ordered" && !ids\.some\(isCommunityCard\)\) return pair \? pairOrder\(ids\) : ids;\s*\n\s*return robinOrder/.test(src));
   check("`attempt` is one switch for every deck, not a per-deck policy (Oct 2026)", !/DECK_OPT_INHERIT = \[[^\]]*"attempt"/.test(src));
-  check("the three new registers are in PROGRESS_FIELDS",
-    /PROGRESS_FIELDS = \[[^\]]*"confused"[^\]]*"pretest"[^\]]*"orderPicked"/.test(src));
-  check("the three new registers have defaults", /confused: \{\}/.test(src) && /pretest: \{\}/.test(src) && /orderPicked: \{\}/.test(src));
-  check("the new routes are in the `valid` list", /valid = \[[^\]]*"order"[^\]]*"pretest"[^\]]*"how"/.test(src));
-  check("each new route has a PAGE_META row", /\n    order:\s+\[/.test(src) && /\n    pretest:\s+\[/.test(src) && /\n    how:\s+\[/.test(src));
+  check("the two registers are in PROGRESS_FIELDS (pretest dropped, Oct 2026)",
+    /PROGRESS_FIELDS = \[[^\]]*"confused"[^\]]*"orderPicked"/.test(src) && !/PROGRESS_FIELDS = \[[^\]]*"pretest"/.test(src));
+  check("the two registers have defaults", /confused: \{\}/.test(src) && !/pretest: \{\}/.test(src) && /orderPicked: \{\}/.test(src));
+  check("the new routes are in the `valid` list, and #pretest is not", /valid = \[[^\]]*"order"[^\]]*"how"/.test(src) && !/valid = \[[^\]]*"pretest"/.test(src));
+  check("each new route has a PAGE_META row", /\n    order:\s+\[/.test(src) && !/\n    pretest:\s+\[/.test(src) && /\n    how:\s+\[/.test(src));
   check("the answer index is busted with the other derived caches", /function uCacheBust\(\)[^\n]*_answerIdx = null/.test(src));
   check("…and is DECLARED with them, not beside the function that fills it (temporal dead zone)",
     src.indexOf("let _answerIdx = null;") < src.indexOf("function uCacheBust"));
   check("gradeCloze hands the typed guess back", /function gradeCloze\(qEl, answer\) \{\s*\n\s*if \(!qEl\) return \[\];/.test(src));
-  check("the pretest is offered on the difficulty order and no other",
-    /function pretestOffer[\s\S]{0,320}deckOrderMode\(entry\) !== "difficulty"/.test(src));
-  check("…and never writes S.cards", !/S\.cards\[[^\]]*\]\s*=/.test(src.slice(src.indexOf("const PRETEST_N"), src.indexOf("PAGES.order = function"))));
+  check("the order page goes straight to studying, whatever was picked", /setOrderPicked\(entry, mode\);\s*\n\s*route\("study", \{ scope \}\);/.test(src));
   check("styles exist for every new block",
-    [".crit-pip", ".op-card", ".pt-q", ".elab", ".miss-lead", ".leadsto", ".confuse-row", ".fg-track", ".how-claim", ".reveal-hint"]
+    [".crit-pip", ".op-card", ".elab", ".miss-lead", ".leadsto", ".confuse-row", ".fg-track", ".how-claim", ".reveal-hint"]
       .every((c) => css.indexOf(c) >= 0));
   // the ad-blocker trap: never name a class `ad-…` (see CLAUDE.md)
-  const newClasses = ["crit-row", "op-card", "pt-row", "elab", "miss-lead", "leadsto", "lt-go", "confuse-row", "fg-col", "how-claim"];
+  const newClasses = ["crit-row", "op-card", "elab", "miss-lead", "leadsto", "lt-go", "confuse-row", "fg-col", "how-claim"];
   check("no new class is one an ad blocker hides", newClasses.every((c) => !/^ads?[-_]/.test(c)));
 }
 
@@ -251,7 +247,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
       await row.click(); await page.waitForTimeout(750);
       return true;
     };
-    await seed({ active: ["wh-evolution"], cards: {}, orderPicked: {}, pretest: {}, confused: {} });
+    await seed({ active: ["wh-evolution"], cards: {}, orderPicked: {}, confused: {} });
     check("a deck row is on the home page to study", await studyDeck());
     check("the first study of a deck asks how to study it", (await page.evaluate(() => location.hash)) === "#order");
     check("all three orders are offered (Eased in was removed, Oct 2026)", (await page.$$(".op-card")).length === 3);
@@ -274,23 +270,21 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
       if (await page.$("#opSkip")) { await page.click("#opSkip"); await page.waitForTimeout(700); }
     };
 
-    head("7) the deck pretest gives no XP");
-    await seed({ active: ["wh-evolution"], cards: {}, orderPicked: {}, pretest: {} });
+    head("7) the difficulty order opens on the deck's easiest card, with no pretest first");
+    await seed({ active: ["wh-evolution"], cards: {}, orderPicked: {} });
     await studyDeck();
-    await page.click('.op-card[data-order="difficulty"]'); await page.waitForTimeout(700);
-    check("choosing the difficulty order offers the pretest", (await page.evaluate(() => location.hash)) === "#pretest");
-    await page.click("#ptGo"); await page.waitForTimeout(400);
-    check("it asks one question at a time, with a blank", (await page.$$(".pt-qtext .blank-input")).length === 1);
-    for (let i = 0; i < 12; i++) { await page.click("#ptDunno"); await page.waitForTimeout(90); }
-    check("it ends on a result", (await page.$$(".pt-row")).length === 12);
-    const afterPre = await page.evaluate(() => {
-      const st = JSON.parse(localStorage.getItem("folio_v1"));
-      return { cards: Object.keys(st.cards || {}).length, pre: Object.keys(st.pretest || {}).length };
+    await page.click('.op-card[data-order="difficulty"]'); await page.waitForTimeout(900);
+    check("choosing the difficulty order starts studying at once — no twelve questions", (await page.evaluate(() => location.hash)) === "#study" && !!(await page.$(".question")));
+    const first = await page.evaluate(() => {
+      const node = (function find(list) { for (const n of list || []) { if (n.id === "wh-evolution") return n; const c = find(n.children); if (c) return c; } return null; })(window.COLLECTION_TREE.collections);
+      const byId = new Map(window.CARD_DATA.map((c) => [c.id, c]));
+      const ranks = (node ? node.cardIds : []).map((id) => (byId.get(id) || {}).difficulty || 99);
+      const el = document.querySelector('[aria-label^="Difficulty "]');
+      const m = el && /Difficulty (\d) of/.exec(el.getAttribute("aria-label"));
+      return { shown: m ? +m[1] : null, easiest: Math.min.apply(null, ranks), label: el ? el.getAttribute("aria-label") : "" };
     });
-    check("*** IT WRITES NO CARD RECORDS — no XP, no levels, no chests ***", afterPre.cards === 0, JSON.stringify(afterPre));
-    check("…and it does record the result", afterPre.pre === 1, JSON.stringify(afterPre));
-    await page.click("#ptStudy"); await page.waitForTimeout(700);
-    check("and then studying begins", (await page.evaluate(() => location.hash)) === "#study" && !!(await page.$(".question")));
+    check("the first card dealt carries the deck's LOWEST difficulty rating", first.shown != null && first.shown === first.easiest, JSON.stringify(first));
+    check("…and nothing was recorded before it", (await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1")).cards || {}).length)) === 0);
 
     head("8) answer before revealing");
     await seed({ active: ["wh-evolution"], cards: {}, orderPicked: { "review:all": "" }, settings: Object.assign({}, await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).settings), { attemptFirst: true }) });

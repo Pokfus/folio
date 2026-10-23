@@ -1304,8 +1304,7 @@ function crosswordForPage(cells) {
        · "a wrong guess spends a try and says how far off it was", "a correct SECOND guess counts towards the score", "the round is over rather than offering a third try" → section 6 ("N km away — one more try!",
          "a second try that is right counts as FOUND", "after two tries there is no third: Next is showing and Guess is gone");
        · the [fi-atlas] rows: a day is five rounds in the fixed order (country, state or people, country, state or people, place), a state is found on the Full Atlas in its year (the cartouche), every round
-         played to its end, the game ends on a score → section 6 (the kinds are asserted as entity,area,entity,area,point on two fixed dates; "FULL ATLAS · <year>"; the score line), and the cards a state, a people or
-         a place ends on → test-findit-learn.js (the learn panel lists exactly the round's cards, each a link to its card's own address).
+         played to its end, the game ends on a score → section 6 (the kinds are asserted as entity,area,entity,area,point on two fixed dates; "FULL ATLAS · <year>"; the score line). A round no longer ends on a panel of cards (removed Oct 2026).
      The daily door (`g-findit`) is still read in this file's daily-games section; "Played today" is test-atlas-embed.js section 6. */
 
   check("[all] no page errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
