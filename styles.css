@@ -1935,6 +1935,8 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
    and this as the second script it is also written in. */
 .ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(24px * var(--fs)); color:var(--zh); line-height:1.15;}
 .ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(19px * var(--fs)); color:var(--zh); opacity:.5; line-height:1.15;}
+/* Japanese: no `--han` (Noto Sans SC would impose Chinese glyph forms); the `lang="ja"` on `.ac-chars` makes the reader's own system CJK font choose Japanese ones. */
+.ans-cn.ja .ac-s{font-family:var(--sans);}
 .ans-cn .ac-row{display:flex; align-items:center; gap:8px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 /* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
