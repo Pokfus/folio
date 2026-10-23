@@ -394,11 +394,10 @@
         '<button type="button" class="wtl-btn wtl-prev" aria-label="Previous step" title="Previous step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
         '<button type="button" class="wtl-btn wtl-play" aria-label="Play the steps" aria-pressed="false" title="Play"><svg class="wtl-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg><svg class="wtl-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></button>' +
         '<button type="button" class="wtl-btn wtl-next" aria-label="Next step" title="Next step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>' +
-        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-ticks" aria-hidden="true"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="War timeline" aria-orientation="horizontal"></div></div>' +
+        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="War timeline" aria-orientation="horizontal"></div></div>' +
         '<div class="wtl-now" aria-hidden="true"></div><div class="wtl-ends"><span class="wtl-start"></span><span class="wtl-end"></span></div></div></div>';
       const q = (c) => el.querySelector(c), track = q(".wtl-track"), pin = q(".wtl-pin"), now = q(".wtl-now"), prev = q(".wtl-prev"), next = q(".wtl-next"), play = q(".wtl-play");
       q(".wtl-start").textContent = yearText(tlSpan[0]); q(".wtl-end").textContent = yearText(tlSpan[1]);
-      q(".wtl-ticks").innerHTML = tlSteps.map((st) => '<i style="left:' + (frac(st) * 100).toFixed(2) + '%"></i>').join("");
       pin.setAttribute("aria-valuemin", "1"); pin.setAttribute("aria-valuemax", String(n));
       let playing = false, playTimer = 0;
       const stopPlay = () => { playing = false; clearTimeout(playTimer); playTimer = 0; play.setAttribute("aria-pressed", "false"); play.setAttribute("aria-label", "Play the steps"); play.title = "Play"; el.classList.remove("wtl-playing"); };
