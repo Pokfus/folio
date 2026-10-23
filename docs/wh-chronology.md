@@ -666,6 +666,12 @@ Filled batch by batch, from the source each row names.
 | Qianlong Emperor: born / reigned / died | 25 September 1711 / 1735 – 1796 / 7 February 1799 CE (the era name from 1736) | Fang in Hummel (`wh-718`) |
 | Canton System: edict (Morse) / rules (Grant) / ended | 1757 / 1760 / 1842 CE | Morse; Grant; Liu Yong (`wh-719`) |
 | Macartney Embassy: reached Taku / audience / reply given / left Peking | 5 August / 14 September / 3 October / 7 October 1793 CE | Staunton; Macartney's journal; Fang in Hummel (`wh-720`) |
+| Sengoku period: spans and start (by source) | 1467 – 1573 (Segal) / 1467 – 1568 (JAANUS) / 1493 (Conlan) / 1477 – 1600 (Smolucha) CE | Segal; JAANUS; Conlan; Smolucha (`wh-721`) |
+| Unification of Japan: Nobunaga / Hideyoshi | 1568 – 1582 / 1582 – 1590 CE | Kawai; Wang et al. (`wh-722`) |
+| Tokugawa shogunate: Ieyasu shogun / power returned / office abolished | 1603 / 1867 / 3 January 1868 CE | Library of Congress; Japan Search; Kyoto City (`wh-723`) |
+| Sakoku: measures / Dutch to Dejima / term coined / US treaty | 1633 – 1639 / 1641 / 1801 / 1854 CE | Hiraishi; Peng (`wh-724`) |
+| Hangul: announced (lunar calendar) / treatise / Haerye found / name in print | December 1443 / 1446 / 1940 / March 1913 CE | Ryu (`wh-725`) |
+| Atlantic slave trade: recorded voyages / suppression | 1514 – 1866 / 1867 CE | NEH on the Voyages database; Domingues da Silva et al. (`wh-726`; `wh-727`–`wh-730` are `undatable`) |
 
 ## Chronology pins
 
@@ -1316,4 +1322,10 @@ wh-704: 1618; 1658; 1707
 wh-706: 1469; 1539
 wh-707: 1674; 1719; 1761; 1818
 wh-710: 1441; 1783; 1475; 1571
+wh-721: 1467; 1573; 1568; 1493; 1477; 1600
+wh-722: 1568; 1582; 1590
+wh-723: 1603; 1867; 3 January 1868
+wh-724: 1633 – 1639; 1641; 1801; 1854
+wh-725: 1443; 1446; 1940; 1913
+wh-726: 1514; 1866; 1867
 ```
