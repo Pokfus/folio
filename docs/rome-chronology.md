@@ -320,6 +320,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the crisis of the Roman Republic: usual start / usual end / a shorter span | 133 BCE / 31 or 27 BCE / 133 – 49 BCE (a modern convention; each end is a convention, said so) | `rm-276` |
 | the decline of the Italian smallholder: the census fall / the Gracchan reform | 163 – 135 BCE (Brunt's figures; his table lost its year column in the scan and the years were matched by his own sentence) / 133 BCE | `rm-278` |
 | the First Servile War: fought / Rupilius wins | c. 135 – 132 BCE (one review has roughly 141 – 131) / 132 BCE | `rm-280` |
+| Tiberius Gracchus: tribune | 133 BCE | `rm-281` |
+| the Lex Sempronia agraria: carried / the older limit | 133 BCE (Hölkeskamp) / By tradition 367 BCE (Pellam; modern doubt that the older law is historical) | `rm-282` |
+| the Gracchan land commission: created / the cases moved from it | 133 BCE / 129 BCE (Greenidge) | `rm-283` |
+| the death of Tiberius Gracchus / the special inquiry | 133 BCE / 132 BCE (Greenidge) | `rm-284` |
+| Gaius Gracchus: tribune / died | 123 – 122 BCE / 121 BCE | `rm-285`, `rm-290` |
+| the lex frumentaria: carried | 123 BCE (Rickman: early in the year) | `rm-286` |
+| the equestrian order: senators out (the draft's own row) / the jury law / shared juries | 129 BCE / 123 BCE / 70 BCE (the sources conflict over the jury law's numbers: `rm-285`'s agent flagged "300 + 300") | `rm-287` |
+| the extortion court: Calpurnian law / Acilian law / Sulla's law / mixed panels | 149 BCE / 123 – 122 BCE / 81 BCE / 70 BCE | `rm-288` |
+| the *senatus consultum ultimum*: first used / later uses | 121 BCE (Bailey's review prints 122) / 100 BCE, 63 BCE and 49 BCE | `rm-289` |
 
 ## The middle and late Republic
 
@@ -606,4 +615,14 @@ rm-275: 215; 18; 195; 161
 rm-276: 133; 31; 27; 49
 rm-278: 163; 135; 133
 rm-280: 135; 132
+rm-281: 133
+rm-282: 133; 367
+rm-283: 133; 129
+rm-284: 133; 132
+rm-285: 123; 122; 121
+rm-286: 123
+rm-287: 129; 123; 70
+rm-288: 149; 123; 122; 81; 70
+rm-289: 121; 100; 63; 49
+rm-290: 121
 ```

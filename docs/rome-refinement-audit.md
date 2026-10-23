@@ -160,7 +160,7 @@ order unless the user says otherwise.
 | B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | **done 2026-10-22** |
 | B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | **done 2026-10-23** |
 | B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | **done 2026-10-23** |
-| B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | open |
+| B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | **done 2026-10-23** |
 | B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | open |
 | B31 | The Republic in crisis (`rm-crisis`) | `rm-301`–`rm-310` | 10 | 85 | open |
 | B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | open |
@@ -550,6 +550,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-278` decline of the Italian smallholder | none | no picture (`I.none`) |
 | `rm-279` slavery in Italian agriculture | none | no picture (`I.none`); a farm scene or a mosaic of farm slaves would suit |
 | `rm-280` First Servile War | the rock at Enna | fine as a photograph; the description narrates Diodorus and Strabo and the credit lacks "via Wikimedia Commons". **No locator: Enna is wanted** |
+| `rm-281` Tiberius Gracchus | none | no picture (`I.none`); the glossary's Guillaume bronze shows both brothers, so a Tiberius-only picture is wanted |
+| `rm-282` lex Sempronia agraria | none | no picture (`I.none`) |
+| `rm-283` Gracchan land commission | a boundary stone at Fano (CIL XI 6331) | ok with a caveat: a later restoration naming Licinius, Appius Claudius and Gaius Gracchus; its title ("naming the three commissioners") should be reworded |
+| `rm-284` death of Tiberius Gracchus | none | no picture (`I.none`); a free photograph of the Capitol area would do |
+| `rm-285` Gaius Gracchus | Guillaume's bronze of the brothers | mostly ok: the credit names no author and the description should say it is a 19th-century bronze; the same sculpture as the glossary picture |
+| `rm-286` lex frumentaria | none | no picture (`I.none`) |
+| `rm-287` equestrian order | none | no picture (`I.none`) |
+| `rm-288` extortion court | none | no picture (`I.none`); the Lex Acilia tablet would suit |
+| `rm-289` senatus consultum ultimum | none | no picture (`I.none`) |
+| `rm-290` death of Gaius Gracchus | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -1329,3 +1339,22 @@ Run as B27. Two cards (`rm-279`, `rm-280`) were not written by the first `batch.
 | `rm-280` First Servile War | 7 | 5 → 8 | **"Under Cleon 70,000 slaves" was Livy's figure for one gathering, not the army's size**; Livy's and Diodorus's figures are labelled theirs. The fire-breathing trick is Diodorus's own "trick". The span is c. 135 – 132, with a review's roughly 141 – 131. |
 
 **Read by eye.** *Confusability:* `rm-271`/`rm-272` are the influence and the attitude; `rm-273`/`rm-274`/`rm-275` the man, the affair and the laws, each with only its own clue; `rm-276` the whole period; `rm-277`/`rm-278`/`rm-279`/`rm-280` the estate, the smallholder's fate, the system and the revolt. *Legend:* Eunus's fire-breathing trick, Livy's Oppian-law speeches and Cato's speeches are the ancient authors'. *Chronology:* `rm-271`'s old Syracuse year is gone, which settles the `rm-222` note under B23. *Overlap:* `gr-994` on the Bacchanalia as above; no `gr-` or `wh-` card on sumptuary law, latifundia or the Servile War disagrees.
+
+### B29 — `rm-281`–`rm-290`, the Republic in crisis: the Gracchi (2026-10-23)
+
+Run as B28; after `batch.sh` every draft was compared with its card (source count and abstract): no mismatch. Checks: `rm-audit.js --range=rm-281:rm-290` reads clean but for `I.none` on eight cards that have no picture and `S.chip?` on `rm-281` and `rm-282` (English BMCR reviews of German-titled books: the known false positive). Two drafts were fixed by hand before applying: `rm-282`'s date row "367 BCE, older limit" (a non-date in a value) and `rm-284`'s third phrasing (it repeated "on the Capitol" from the first). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. The Gracchan story is told by Plutarch and Appian, who write centuries later from hostile or friendly sources, so **each version of an act, a number or a speech is given to its author**: the 300 dead are Plutarch's, "first bloodshed" is Appian's, Velleius's and Plutarch's, and the head-and-gold tale is Plutarch's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-281` Tiberius Gracchus | 8 | 6 → 8 | **The old card was mostly `rm-282`, `rm-283` and `rm-284` content under the man's name** (bill terms, the three commissioners, the vote-day urns, the Attalus bequest, the killing); now the man: parentage and Scipio kin, Numantia and the Mancinus treaty (Plutarch's 20,000 attributed), and the motive accounts (Velleius's fear of trial, Gaius's Tuscany story as Gaius's own claim). The Attalus and Eudemus phrasing is gone, which also clears `rm-259`'s `Q.sibling`. |
+| `rm-282` lex Sempronia agraria | 6 | 5 → 7 | The old date line carried counts ("Cap 500 iugera, +250 per son"); the card now tells **Plutarch's two drafts (compensation, then withdrawn after the veto)**, the sale ban and its repeal, and the doubt over the older limit (367, By tradition). Appian puts the ceiling at 500 iugera and Livy's summary at 1,000. |
+| `rm-283` Gracchan land commission | 6 | 5 → 8 | **The surviving boundary stones (CIL I² 639, 640, 643, 644) do not name Tiberius**: they name Gaius with Appius Claudius and Licinius Crassus, or with Fulvius Flaccus and Papirius Carbo, so they record later boards. Livy's census figures are Livy's and the rise is disputed (Brunt, Rosenstein, de Ligt, Roselaar). The 129 stall is Greenidge's date. |
+| `rm-284` death of Tiberius Gracchus | 7 | 5 → 8 | **"Pontifex maximus Nasica" is hedged (Velleius and Greenidge disagree with Appian)**; "first bloodshed" is Appian's, Velleius's and Plutarch's; the 300 dead are Plutarch's (Appian says only many). Plutarch 20 names neither Popillius nor a *quaestio*; Cicero's *Amic.* 37 is Laelius's judgement inside a dialogue. |
+| `rm-285` Gaius Gracchus | 8 | 6 → 8 | **The old lead question said he "carried in two years a programme his brother had not attempted" (no source says it)**; the order of his laws is disputed (Livy's summary puts most in the first year, Appian in the second; Last thinks Appian mistook re-election). The franchise offer is to Latins or to all Italians, by author. |
+| `rm-286` lex frumentaria | 6 | 5 → 6 | **"The first standing food subsidy" is no source's** (Mommsen notes earlier provincial grain, Last Hellenistic cheap food). The price of 6⅓ asses is Livy's *Periochae* only, "per modius" from Last and Rickman; recipient numbers and cost are stated as unknown; Saturninus's later law (103 or 100) has a price of five-sixths of an as. |
+| `rm-287` equestrian order | 7 | 5 → 8 | Now from Livy's tradition through the censors, the public horse and Pliny's 400,000 sesterces to Appian against Plutarch, Brunt's reconciliation and the debate whether the order was a Gracchan creation. **"300 senators + 300 knights" was a count and goes**; Livy's *Periochae* is the weakest witness on the jury law (Brunt). |
+| `rm-288` extortion court | 6 | 5 → 7 | **The old card printed 171 BCE for the Spanish case (no source prints it) and never told the court**: the Calpurnian court (149), the Lex Acilia from the Bruns text on archive.org (the 450/100/50 jury selection; single and double restitution), Sulla and 70. The line defining jurors by the public horse sits in a restored gap and is not claimed. |
+| `rm-289` senatus consultum ultimum | 6 | 5 → 7 | **The old card said "no source settles" the legal question; moderns have argued it for 150 years.** The name is a modern label (Sallust and Caesar word it differently); Giumetti lists the uses (100, 63, 49); the legal-force debate is three sentences. The 121 BCE crisis belongs to `rm-290`. |
+| `rm-290` death of Gaius Gracchus | 7 | 5 → 7 | The old abstract retold the Antyllius incident and the decree (that is `rm-289`) as fact and stopped at the bridge. **Plutarch himself records two versions of the servant's part and Appian gives a third**; the head-and-gold story, the 3,000 dead and the temple of Concord are each attributed. `wh-350` states the death by his slave as fact. |
+
+**Read by eye.** *Confusability:* `rm-281`/`rm-282`/`rm-283`/`rm-284` are the man, the bill, the board and the killing; `rm-285`/`rm-286` the brother and the grain law; `rm-287`/`rm-288` the class and the court; `rm-289`/`rm-290` the decree and the death, with each phrasing keeping to its own term. *Legend:* the Etruscan journey, the head weighed in gold and the club-wielding senators are Plutarch's or Appian's. *Overlap:* `wh-350` as above; `rm-287`'s "300 + 300" jury figure conflicts between sources and is not printed.
