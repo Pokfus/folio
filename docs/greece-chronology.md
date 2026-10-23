@@ -46,6 +46,7 @@ now the standard name of an excavated site.
 | Achaemenid | Achaemenian |
 | Mycenaean | Mycenean |
 | Orientalising | Orientalizing (the site's spelling switch converts for an American reader) |
+| Triparadisus | Triparadeisus, Triparadeisos (the forms of Diodorus' translators and of Anson's title; keep only inside a cited title) |
 
 ## The Aegean Bronze Age
 
@@ -743,7 +744,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | battle of Chaeronea: Chaeronea | 338 BCE | Jona Lendering, “Chaeronea (338 BCE),” Livius.org, accessed 15 October 2026 (`gr-699`) |
 | League of Corinth | 337 BCE | Ian Worthington, review of Stephen Usher, Demosthenes, On the Crown (Warminster: Aris &… (`gr-700`) |
 
-## Alexander the Great, accession to the Persian heartland (confirmed by B74–B76, `gr-701` – `gr-730`)
+## Alexander the Great, accession to the last years (confirmed by B74–B78, `gr-701` – `gr-750`)
 
 | event or person | the collection says | source |
 |---|---|---|
@@ -783,6 +784,46 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | death of Darius III | July 330 BCE | Jona Lendering, “Artaxerxes V Bessus,” Livius.org, last modified 27 April 2019, (`gr-727`) |
 | Bessus | 330 – 329 BCE | Jona Lendering, “Artaxerxes V Bessus,” Livius.org, last modified 27 April 2019, (`gr-728`) |
 | Persian dress | 330 BCE | Plutarch, Life of Alexander 45, trans. Bernadotte Perrin, Loeb Classical Library… (`gr-729`) |
+| Philotas | 330 BCE | Jona Lendering, “Philotas,” Livius.org, last modified 13 March 2019, (`gr-731`) |
+| Parmenion | 330 BCE | William Smith, ed., “Parmenion,” A Dictionary of Greek and Roman Biography and… (`gr-732`) |
+| Cleitus the Black | 328 BCE | Jona Lendering, “Clitus the Black,” Livius.org, last modified 23 April 2020, (`gr-733`) |
+| Pages' Conspiracy | 327 BCE | Lara O’Sullivan, “Court Intrigue and the Death of Callisthenes,” Greek, Roman, and… (`gr-734`) |
+| Callisthenes | 327 BCE | Lara O’Sullivan, “Court Intrigue and the Death of Callisthenes,” Greek, Roman, and… (`gr-735`) |
+| Sogdiana | 329 – 327 BCE | Benjamin Ide Wheeler, Alexander the Great: The Merging of East and West in Universal… (`gr-736`) |
+| Roxana: Married | 327 BCE | William Smith, ed., “Roxana,” A Dictionary of Greek and Roman Biography and… (`gr-737`) |
+| Roxana: Killed | 311 – 310 BCE | Jona Lendering, “Roxane,” Livius.org, last modified 2020, (`gr-737`) |
+| Indian campaign: Campaign | 327 – 325 BCE | Jona Lendering, “Alexander the Great (2.14: The Indus Valley),” Livius.org, last… (`gr-738`) |
+| Indian campaign: Turned back | 326 BCE | Jona Lendering, “Alexander the Great (2.13: The Punjab),” Livius.org, last modified… (`gr-738`) |
+| Battle of the Hydaspes | 326 BCE | Arrian, Anabasis of Alexander 5.8–5.19, trans. E. J. Chinnock (London: Hodder and… (`gr-739`) |
+| Porus: Defeated | 326 BCE | Arrian, Anabasis of Alexander 5.18–5.21 and 6.2, trans. E. J. Chinnock (London:… (`gr-740`) |
+| Porus: Murdered | 317 BCE | Jona Lendering, “Porus,” Livius.org, last modified 2019, (`gr-740`) |
+| Hyphasis | 326 BCE | Plutarch, Life of Alexander 62, trans. Bernadotte Perrin, Loeb Classical Library… (`gr-741`) |
+| Gedrosia | 325 BCE | Jona Lendering, “Alexander the Great (2.14: The Indus Valley),” Livius.org, last… (`gr-742`) |
+| Nearchus | 325 – 324 BCE | Jona Lendering, “Nearchus,” Livius.org, last modified 2020, (`gr-743`) |
+| Susa weddings | 324 BCE | Jona Lendering, “Alexander the Great (2.15: Kosmokrator),” Livius.org, last modified… (`gr-744`) |
+| mutiny at Opis | 324 BCE | Diodorus Siculus, Library of History 17.109, trans. C. H. Oldfather, Loeb Classical… (`gr-745`) |
+| Hephaestion | 324 BCE | Jona Lendering, “Hephaestion (2),” Livius.org, last modified 2020, (`gr-746`) |
+| death of Alexander | 323 BCE | John S. Marr and Charles H. Calisher, “Alexander the Great and West Nile Virus… (`gr-747`) |
+| Alexandria Eschate | 329 BCE | Jona Lendering, “Alexander 2.12: Sogdia,” Livius.org, last modified 2020, (`gr-748`) |
+
+## The Successors, the Partition of Babylon to Cassander (confirmed by B79 – B80, `gr-751` – `gr-760`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Diadochi | 323 – 281 BCE | Jeffrey D. Lerner, review of After Alexander: The Time of the Diadochi (323–281 BC),… (`gr-751`) |
+| Partition of Babylon | 323 BCE | Jona Lendering, “Diadochi 1: The Babylon Settlement,” Livius.org, last modified 2… (`gr-752`) |
+| Perdiccas | 323 – 320 BCE | Edward M. Anson, “The Dating of Perdiccas’ Death and the Assembly at Triparadeisus,”… (`gr-753`) |
+| Antipater: Put in charge | 334 BCE | Jona Lendering, “Antipater,” Livius.org, last modified 2 October 2020, (`gr-754`) |
+| Antipater: Died | 319 BCE | Jona Lendering, “Antipater,” Livius.org, last modified 2 October 2020, (`gr-754`) |
+| Lamian War | 323 – 322 BCE | Lara O’Sullivan, “The Athenian Naval Campaign and the Failure of the Lamian War: A… (`gr-755`) |
+| battle of Crannon | 322 BCE | Jona Lendering, “Lamian War,” Livius.org, last modified 12 October 2020, (`gr-756`) |
+| Calauria: Site active | c. 750 BCE – 100 CE | Swedish Institute at Athens, “Kalaureia, Poros (1894 and 1997– ongoing),” published… (`gr-757`) |
+| Calauria: Orator died | 322 BCE | Jona Lendering, “Lamian War,” Livius.org, last modified 12 October 2020, (`gr-757`) |
+| Eumenes of Cardia: Satrapy given | 323 BCE | E. Edward Garvin, review of Eumenes of Cardia: A Greek among Macedonians, by Edward… (`gr-758`) |
+| Eumenes of Cardia: Died | 316 – 315 BCE | Diodorus Siculus, Library of History 19.43–44, Loeb Classical Library, vol. 9… (`gr-758`) |
+| Triparadisus: Low chronology | 320 BCE | Edward M. Anson, “The Dating of Perdiccas’ Death and the Assembly at Triparadeisus,”… (`gr-759`) |
+| Triparadisus: High chronology | 321 BCE | Edward M. Anson, “The Dating of Perdiccas’ Death and the Assembly at Triparadeisus,”… (`gr-759`) |
+| Cassander | 306 – 298 BCE | Jona Lendering, “Cassander,” Livius.org, last modified 12 October 2020, (`gr-760`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -818,6 +859,9 @@ sources when its batch comes round, and a disputed one given as a range.
 | Alexander III | born 356 BCE; reigned 336 – 323 BCE (confirmed by B74 – B76, `gr-701`, `gr-704`, `gr-706`) |
 | Granicus, Issus, Gaugamela | 334, 333 and 1 October 331 BCE (confirmed by B75, `gr-711`, `gr-715`, `gr-722`) |
 | Tyre and Gaza | 332 BCE (confirmed by B75, `gr-717`, `gr-718`) |
+| Death of Alexander | June 323 BCE (10 or 11 June by the sources; the cards print no day; confirmed by B78, `gr-747`) |
+| Lamian War and Crannon | 323 – 322 BCE; Crannon 322 BCE (confirmed by B79 – B80, `gr-755`, `gr-756`) |
+| Perdiccas killed, Triparadisus | 320 BCE by the low chronology, 321 BCE by the high one (the cards print both on `gr-759` and 320 elsewhere; confirmed by B79 – B80, `gr-751`, `gr-753`, `gr-759`) |
 | Ipsus | 301 BCE |
 | Sack of Corinth | 146 BCE |
 | Actium | 31 BCE |
@@ -1467,4 +1511,32 @@ gr-726: 330
 gr-727: 330
 gr-728: 330; 329
 gr-729: 330
+gr-731: 330
+gr-732: 330
+gr-733: 328
+gr-734: 327
+gr-735: 327
+gr-736: 329; 327
+gr-737: 327; 311; 310
+gr-738: 327; 325; 326
+gr-739: 326
+gr-740: 326; 317
+gr-741: 326
+gr-742: 325
+gr-743: 325; 324
+gr-744: 324
+gr-745: 324
+gr-746: 324
+gr-747: 323
+gr-748: 329
+gr-751: 323; 281
+gr-752: 323
+gr-753: 323; 320
+gr-754: 334; 319
+gr-755: 323; 322
+gr-756: 322
+gr-757: 750; 100; 322
+gr-758: 323; 316; 315
+gr-759: 320; 321
+gr-760: 306; 298
 ```

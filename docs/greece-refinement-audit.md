@@ -246,10 +246,10 @@ one changelog line and a version bump; commit and push.
 | B74 | Alexander the Great (`gr-alexander`) | `gr-701`–`gr-710` | 10 | **done 2026-10-22** |
 | B75 | Alexander the Great (`gr-alexander`) | `gr-711`–`gr-720` | 10 | **done 2026-10-22** |
 | B76 | Alexander the Great (`gr-alexander`) | `gr-721`–`gr-730` | 10 | **done 2026-10-22** |
-| B77 | Alexander the Great (`gr-alexander`) | `gr-731`–`gr-740` | 10 | open |
-| B78 | Alexander the Great (`gr-alexander`) | `gr-741`–`gr-750` | 10 | open |
-| B79 | Successor kingdoms (`gr-successors`) | `gr-751`–`gr-760` | 10 | open |
-| B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | open |
+| B77 | Alexander the Great (`gr-alexander`) | `gr-731`–`gr-740` | 10 | **done 2026-10-22** |
+| B78 | Alexander the Great (`gr-alexander`) | `gr-741`–`gr-750` | 10 | **done 2026-10-22** |
+| B79 | Successor kingdoms (`gr-successors`) | `gr-751`–`gr-760` | 10 | **done 2026-10-22** |
+| B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | **done 2026-10-22** |
 | B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | open |
 | B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | open |
 | B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | open |
@@ -2437,3 +2437,68 @@ Reformatted to standard thumbnails with the subject kept (6): `gr-701`, `gr-702`
 citadel mound at Balkh.
 
 **Locators:** none new; every battle, siege, city and site among these cards already carried one.
+
+### B77–B80 (`gr-731`–`gr-760`) — Alexander's last campaigns and death, the first Successors (2026-10-22)
+
+Thirty cards: the fall of Philotas, the murder of Parmenion, the killing of Cleitus, the Pages' Conspiracy, Callisthenes,
+Sogdiana, Roxana, the Indian campaign, the Hydaspes, Porus, the Hyphasis, Gedrosia, Nearchus, the Susa weddings, the Opis
+mutiny, Hephaestion, Alexander's death, Alexandria Eschate, the Alexander historians and Hellenisation (which close
+`gr-alexander`), then the Diadochi, the Partition of Babylon, Perdiccas, Antipater, the Lamian War, Crannon, Calauria,
+Eumenes, Triparadisus and Cassander (the first ten of `gr-successors`). Method as for B74 – B76. The sources are set against
+each other wherever they part: the trial of Philotas (Plutarch's tapestry and torture, Arrian's javelins, Curtius' stoning),
+the quarrel with Cleitus (Arrian's flattery of the Dioscuri, Justin's defence of Philip, Plutarch's Euripides), Hephaestion's honours
+(Arrian: Ammon refused; Plutarch: hero honours; Diodorus: worship approved), the death (the Journals; the poison tale as Arrian
+disbelieves it and Justin tells it; the Last Plans from Diodorus after Hieronymus), the bride at Susa (Arrian's Barsine, Plutarch's
+and Diodorus' Stateira), Perdiccas' end (Diodorus' stabbing in the tent, Photius' summary of Arrian's engagement) and Demades'
+killer (Antipater in Diodorus, Cassander in Photius).
+
+Checks: `greece-audit.js` finds only `I.none` on cards with no picture; `check-questions`, `check-cards --prefix=gr-`,
+`split-cards --check`, `test-card-plans`, `apply-wiki-links --check` pass; `check-style` adds nothing to main's alarms; every
+cited URL answers 2xx; `check-citations --card` finds no mismatch.
+
+**Date lines:** empty and `undatable` for `gr-749` and `gr-750` (a body of writing and a process). Estimated life dates dropped:
+`gr-754` (Antipater's old "399 – 319" becomes "put in charge 334, died 319"), `gr-758` (Eumenes' "c. 362 – 316"), `gr-760`
+(Cassander's "born c. 350"), `gr-746` (Hephaestion's birth) and the glossary dates of `Hephaestion`, `Eumenes_of_Cardia`,
+`Cassander` and `Roxana`. A disputed date is two rows saying whose: `gr-759` (low chronology 320 BCE, high chronology 321 BCE,
+after Anson 2003 and the review of Boiy); `gr-737` prints Roxana's death as "311 – 310 BCE" (Smith and Wheeler give 311, Lendering
+311/310); `gr-758` prints Eumenes' death as "316 – 315 BCE" (the year Diodorus numbers, and a reviewer's January 315);
+`gr-760` gives Cassander's murder of Alexander IV as 311 BCE (Diodorus) in the prose and 309 BCE (Wünsch) beside it. Months are
+left out where the sources part: the Hyphasis (end of July, or September), Gedrosia (August to December), the voyage of Nearchus
+(15 September, or October), the Hydaspes and Crannon (7 Metageitnion, converted to July or 5 September).
+
+**Corrected in the old cards:** the plotters Dimnus and Cebalinus were put in Arrian's mouth, and the trial of Philotas now sets Plutarch,
+Arrian and Curtius side by side (`gr-731`); "not tried at all" for Parmenion is Bury against Diodorus' condemnation by the army (`gr-732`); the quarrel with Cleitus now differs by source (Arrian's flatterers, Justin's Philip, Plutarch's songs and Euripides; `gr-733`); the Pages' Conspiracy now rests on Arrian's chain
+(Epimenes, Eurylochus, Ptolemy) and not on a stoning Arrian only mentions (`gr-734`); Callisthenes is a "relative" of Aristotle, not
+his nephew (Livius says nephew, Smith and Plutarch a more distant kinsman) (`gr-735`); the Roxana card's "the rites were the
+local ones" was not in Arrian (`gr-737`); the Indian-campaign card described only the first year and now runs to the Hyphasis, the river
+voyage and Gedrosia (`gr-738`); the Hydaspes card leaned on Diodorus' figures and a Plutarch-only distance (`gr-739`); Plutarch alone
+has the kneeling elephant (`gr-740`); Hephaestion's pyre cost 10,000 talents (Arrian, Plutarch) or over 12,000 (Diodorus) (`gr-746`);
+the old death card's "Arrian gives no such scene" of the succession was wrong, Arrian 7.26 reports it (`gr-747`); Arrian's preface
+does not say he rejected whatever Ptolemy and Aristobulus omitted, so the card and its glossary entry no longer say so (`gr-749`); the
+month Metageitnion and the Munychia garrison were wrongly sourced at Crannon (`gr-756`); Pausanias did not "see" the tomb of
+Demosthenes, he places it in the enclosure (`gr-757`); the "forty years" and "c. 275" of the Diadochi card are gone (`gr-751`);
+"administration, not sovereignty" at Babylon had no source (`gr-752`); Anson's high and low chronologies are named wherever
+Perdiccas dies (`gr-753`, `gr-759`). **Glossary entries redrafted:** `Sogdiana`, `Roxana`, `Hephaestion`, `Alexandria_Eschate`,
+`Alexander_historians`, `Diadochi`, `Eumenes_of_Cardia`, `Cassander`.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes`, `Cleopatra` and `Parian Marble` (`gr-753`), `Antipater` (the page,
+`gr-734`), `Hydaspes` and `Meroes` (`gr-740`), `Media` (the satrapy, which opens the Medes; `gr-732`, `gr-752`, `gr-759`), `Heracles`
+(Barsine's son, `gr-752`), `Heraclea`, `Cleitus`, `Thebes` (`gr-755`), `horse` as cavalry (`gr-756`), `Poros` (the island, which opens
+the stone; `gr-757`), `Silver Shields` (`gr-758`), `vulgate` (the Bible, `gr-749`), `Corinthian` (`gr-750`), `reconstruction`
+(`gr-741`), `direct rule` (`gr-738`).
+
+**Chronology.** Rows and pins added to "Alexander the Great" and a new section, "The Successors, the Partition of Babylon to Cassander";
+Events and reigns gains the death of Alexander, the Lamian War and Crannon, and the date of Perdiccas' death and Triparadisus.
+Spellings gains **Triparadisus** (Diodorus' and Anson's forms stay inside cited titles).
+
+**Pictures for `gr-731`–`gr-760`** (applied with the text). Replaced (2): `gr-744` the ruins of the Apadana at Susa for a Castaigne
+magazine illustration, `gr-748` the fortress at Khujand for an 1870s photograph of the modern town. Kept (12): `gr-736`, `gr-738`,
+`gr-739`, `gr-741` – `gr-743`, `gr-749`, `gr-751`, `gr-752`, `gr-755` – `gr-757`. Description fixed on two: `gr-732` (a whole 15th-century
+manuscript leaf, now described as one) and `gr-733` ("imagined" added). Removed (11): later paintings and engravings or conjectural
+identifications: `gr-734` (the Stag Hunt mosaic is not the conspiracy), `gr-737` (a Sodoma fresco), `gr-740` (Le Brun), `gr-745`
+(Castaigne), `gr-746` (the Ecbatana file found was a skeleton, refused), `gr-747` (Piloty), `gr-750` (under 960 pixels, and the
+replacements found were too small), `gr-753`, `gr-754`, `gr-758`, `gr-760`. No picture and none before: `gr-731`, `gr-735`, `gr-759`.
+
+**Locators:** `gr-736` (Maracanda, from the Samarkand article) and `gr-739` (the Jhelum, as a battle) fetched through
+`add-locators.js`; the Hydaspes article carries no coordinate, so the Jhelum river's is used. `gr-745`'s Opis has none (the
+Wikipedia article gives no coordinates for the lost city).
