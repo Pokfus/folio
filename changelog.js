@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1100", released: "2026-10-23T20:52Z" };
+window.FOLIO_VERSION = { v: "1.1101", released: "2026-10-23T23:59Z" };
 
 window.CHANGELOG = [
   {
@@ -48,8 +48,8 @@ window.CHANGELOG = [
       "On Collections, a collection's <b>decks are now a compact, edge-to-edge list</b>: one line each, without numbers or file sizes.",
       "<b>Two new United States geography decks</b>, Rivers, lakes and bays and Mountains, canyons and caves, arrive complete with 80 new cards and 74 glossary terms.",
       "With <b>American spelling</b> on, the Gulf of Mexico, Denali and Lake Ontario now read as the Gulf of America, Mount McKinley and Lake America, on the Atlas too.",
-      "<b>60 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU and Art.",
-      "A few Ancient Greece, Russia and China cards gained a corrected question, dates, a Greek picture or a clearer background.",
+      "<b>103 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU, Art, the Second World War and World History.",
+      "A few Ancient Greece, Russia, China, Second World War and World History cards gained a corrected question, dates, a new picture or clearer Think it through questions.",
       "The home page's <b>daily quote</b> now changes by itself every 30 seconds; the gold dash before the author's name runs out as the countdown.",
       "<b>Glossary</b>: a term that is a place, a state or a people now opens with its own small Atlas map — drag and zoom it; a state or an empire is shaded at the year of its greatest extent.",
       "<b>Collections</b> opens much faster: a collection's decks are now listed when you open it, not all at once when the page loads.",
@@ -61,7 +61,7 @@ window.CHANGELOG = [
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
       "<b>A hundred more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Soviet Union, with more sources and corrected dates.",
       "<b>A hundred more World History cards are rewritten</b>, from Stalin and the Korean War to the Partition of India, the Arab Spring and the Anthropocene, with more sources and corrected dates.",
-      "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
+      "<b>Seven World History cards that had no map now show one</b>, five of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
       "A card's <b>Timeline</b> and its Nearby rail now sit below the Atlas box, and a name on the timeline opens that term's glossary entry.",
@@ -73,6 +73,7 @@ window.CHANGELOG = [
       "1 World History card's date line now gives when its age ended instead of a second start date.",
       "On a phone, <b>Undo</b> now sits between the <b>?</b> and <b>Suspend</b> under the answer buttons, the three the same width.",
       "<b>124 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan, the Mongols, California, psychology and biology, plus new aliases.",
+      "World History cards no longer show a Chinese name beside their answer.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
       "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
       "<b>300 more Ancient Greece cards are rewritten</b>, from Alexander the Great to the Olympians, the heroes and cult, oracles and festivals, with more sources, corrected dates and new pictures.",
