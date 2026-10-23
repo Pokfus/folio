@@ -50943,6 +50943,14 @@
   "Q66661745": {
    "label": "group of artificial physical objects",
    "tops": []
+  },
+  "Q212057": {
+   "label": "shield volcano",
+   "tops": [
+    "Q8502",
+    "Q8072",
+    "Q2221906"
+   ]
   }
  },
  "labels": {
@@ -91465,6 +91473,18 @@
    ],
    "label": "Carlsbad Caverns National Park",
    "title": "Carlsbad Caverns National Park"
+  },
+  "Q188698": {
+   "coord": [
+    -155.2868,
+    19.4211
+   ],
+   "classes": [
+    "Q212057",
+    "Q1330974"
+   ],
+   "label": "Kīlauea",
+   "title": "Kīlauea"
   }
  },
  "links": {

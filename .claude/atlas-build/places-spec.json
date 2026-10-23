@@ -6072,6 +6072,28 @@
    },
    "cards": 1
   },
+  "pl:q188698": {
+   "name": "Kīlauea",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q188698",
+   "at": [
+    -155.2868,
+    19.4211
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Kīlauea",
+   "manual": true,
+   "reason": "geo-914 Kīlauea: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q212057",
+     "Q1330974"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q188731": {
    "name": "Rhodes (city)",
    "kind": "town",

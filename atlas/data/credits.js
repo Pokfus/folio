@@ -7,7 +7,7 @@
    files' headers name them (build-history.js, geometry-fixes.json). */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-23T15:59:51.959Z",
+ "generated": "2026-10-23T16:45:50.886Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
  "filesRead": 667,
  "sources": [

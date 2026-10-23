@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":65,"site":413,"mountain":11,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":65,"site":413,"mountain":12,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -918,6 +918,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q192522","Çatalhöyük","site","site",192522,0,[32.8283,37.6675],0,1],
 ["pl:q1010335","Burkhan Khaldun","mountain",0,1010335,0,[109.1667,48.7833],0,1],
 ["pl:q697119","Kahlenberg","mountain",0,697119,0,[16.3333,48.2761],0,1],
+["pl:q188698","Kīlauea","mountain",0,188698,0,[-155.2868,19.4211],0,1],
 ["pl:q1729630","Monte Cavo","mountain",0,1729630,"city:1159151593",[12.71,41.7517],
 ["Alban Mount"],1],
 ["pl:q16990","Mount Etna","mountain",0,16990,0,[14.9932,37.7508],0,1],
