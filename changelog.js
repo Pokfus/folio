@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1077", released: "2026-10-23T10:10Z" };
+window.FOLIO_VERSION = { v: "1.1080", released: "2026-10-23T10:11Z" };
 
 window.CHANGELOG = [
   {
@@ -54,9 +54,12 @@ window.CHANGELOG = [
       "On a phone, <b>Undo</b> now sits between the <b>?</b> and <b>Suspend</b> under the answer buttons, the three the same width.",
       "<b>90 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan and the Mongols, plus new aliases.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
+      "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
       "<b>100 more Ancient Greece cards are rewritten</b>, covering Alexander the Great and the Successor kingdoms, with more sources and new pictures.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
+      "Twenty cards that shared a picture with another card now show it only on the card it illustrates best, and one Yan'an source is now an open English article.",
+      "<b>25 Ancient Rome cards gain a map</b>: battles, sieges, cities and two provinces now show where they were on the card's mini-globe.",
     ],
   },
   {
@@ -305,7 +308,7 @@ window.CHANGELOG = [
       "<b>Continue with</b>: the completion screen now shows every banner of your active decks list still unfinished today, as those banners, skipping anything folded away.",
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
-      "<b>200 Ancient Rome cards are rewritten</b>, in Italy before Rome, Rome under the kings, the early Republic, the conquest of Italy and the Punic Wars, with more sources, corrected dates and legend told as legend.",
+      "<b>300 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars and the Gracchi to Marius, with more sources, corrected dates and legend told as legend.",
       "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
       "<b>Unfolded collections show no counts of their own</b>: only the decks inside carry them, and the daily study banner now totals just the rows you can see.",
       "<b>Card preview</b>: the fanned cards beside the daily study banner are now shown on desktop only; on a tablet the banner's level bar and figures spread across the full width instead.",
