@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1083", released: "2026-10-23T12:58Z" };
+window.FOLIO_VERSION = { v: "1.1083", released: "2026-10-23T13:04Z" };
 
 window.CHANGELOG = [
   {
@@ -46,7 +46,7 @@ window.CHANGELOG = [
       "<b>Read aloud</b>: the play button beside Question, Answer and Background now appears on every card, including geography, philosophy and the arts.",
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
-      "<b>Forty more World History cards are rewritten</b>, from the nation state and the unification of Italy to Darwin, the Berlin Conference, the Opium Wars and the Indian Rebellion of 1857, with more sources and corrected dates.",
+      "<b>Fifty more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Taiping, Meiji Japan, the two wars of Japan and the Uganda Railway, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",

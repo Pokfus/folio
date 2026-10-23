@@ -756,6 +756,13 @@ Filled batch by batch, from the source each row names.
 | Indian Rebellion of 1857: began / Delhi retaken / Gwalior retaken | 10 May 1857 / 14 – 21 September 1857 / 19 June 1858 CE | National Army Museum (`wh-838`) |
 | Indian National Congress: founded / Surat split / Lucknow scheme | 28 December 1885 / 27 December 1907 / 29 December 1916 CE | Besant; Nevinson; the scheme's title (`wh-839`) |
 | Opium Wars: first / second / Nanjing treaty | 1839 – 1842 / 1856 – 1860 / 29 August 1842 CE | Perdue; Perdue and Sebring (`wh-840`) |
+| Taiping Rebellion: fought / Nanjing taken / Nanjing retaken | 1851 – 1864 / 19 March 1853 / 19 July 1864 CE | Morse; Orlandi (`wh-842`; `wh-841` is `undatable`) |
+| Boxer Rebellion: rising (Klein) / legations siege / Protocol signed | 1899 – 1901 (1898 in other sources) / 20 June – 14 August 1900 / 7 September 1901 CE | Klein; Perdue and Sebring; the Protocol (`wh-843`) |
+| Meiji Restoration: restoration / Boshin War / Charter Oath / domains ended | 3 January 1868 / 1868 – June 1869 / April 1868 (6 or 7 April by source) / 29 August 1871 CE | Wachutka; Nippon.com; Walker (`wh-844`; `wh-845` is `undatable`) |
+| First Sino-Japanese War: naval clash / war declared / treaty signed / powers' note | 25 July 1894 / 1 August 1894 / 17 April 1895 / 23 April 1895 CE | Morse; Zachmann (`wh-846`) |
+| Russo-Japanese War: fighting began / Tsushima / treaty signed | 8 February 1904 / 27 – 28 May 1905 / 5 September 1905 CE | Semenoff; the treaty text (`wh-847`; `wh-848` is `undatable`) |
+| Indian indenture system: first colony / abolished / Fiji cancelled | 1834 (Mauritius) / 12 March 1917 / 2 January 1920 CE | Lal; Hansard (`wh-849`) |
+| Uganda Railway: construction / reached the lake | 1896 – 1901 / 20 December 1901 CE | Jedwab; the Memoranda of 1902 (`wh-850`) |
 
 ## Chronology pins
 
@@ -1490,4 +1497,11 @@ wh-837: 1 November 1858; 1 January 1877; 15 August 1947
 wh-838: 10 May 1857; 14 – 21 September 1857; 19 June 1858
 wh-839: 28 December 1885; 27 December 1907; 29 December 1916
 wh-840: 1839 – 1842; 1856 – 1860; 29 August 1842
+wh-842: 1851 – 1864; 19 March 1853; 19 July 1864
+wh-843: 1899 – 1901; 20 June – 14 August 1900; 7 September 1901
+wh-844: 3 January 1868; 1868 – June 1869; April 1868; 29 August 1871
+wh-846: 25 July 1894; 1 August 1894; 17 April 1895; 23 April 1895
+wh-847: 8 February 1904; 27 – 28 May 1905; 5 September 1905
+wh-849: 1834, Mauritius; 12 March 1917; 2 January 1920
+wh-850: 1896 – 1901; 20 December 1901
 ```
