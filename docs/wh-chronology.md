@@ -728,6 +728,14 @@ Filled batch by batch, from the source each row names.
 | Austria-Hungary: in existence | 1867 – 1918 CE | Solsten (Library of Congress) (`wh-807`) |
 | Tanzimat: edict read / Altınay's span | 3 November 1839 / 1839 – 1876 CE (Aytemiz ends a first stage in 1856 and follows the practices to 1924) | Engelhardt; Aytemiz; Altınay (`wh-808`) |
 | Crimean War: Ottoman declaration / British and French declaration / siege / Treaty of Paris | October 1853 / 28 March 1854 / October 1854 – September 1855 / 30 March 1856 CE | Kinglake; Sorokina; National Army Museum (`wh-809`; `wh-810` is `undatable`) |
+| Emancipation reform of 1861: signed / proclaimed | 19 February (Old Style) = 3 March 1861 / 5 March (Old Style) = 17 March 1861 CE | Wallace; Kropotkin; the manifesto (`wh-811`) |
+| American Civil War: began / Lee surrenders / Smith surrenders | 12 April 1861 / 9 April 1865 / 2 June 1865 CE | the Freedmen and Southern Society Project; National Park Service; Texas State Library (`wh-812`) |
+| Abraham Lincoln: lived / in office | 12 February 1809 – 15 April 1865 / 4 March 1861 – 15 April 1865 CE | National Park Service; the Freedmen and Southern Society Project (`wh-813`) |
+| Emancipation Proclamation: preliminary / issued | 22 September 1862 / 1 January 1863 CE | the National Archives; the Freedmen and Southern Society Project (`wh-814`) |
+| Reconstruction era: Foner's dating / National Park Service span / 14th Amendment / 15th Amendment | 1865 – 1877 / 1861 – 1900 / 9 July 1868 / 3 February 1870 CE | Foner; National Archives; House Office of the Historian (`wh-815`) |
+| Manifest destiny: first use in print (Pratt) / Oregon use | July – August 1845 / 27 December 1845 CE | Pratt (`wh-816`) |
+| Trail of Tears: Choctaw removal / treaty signed / Cherokee removal | 1831 – 1832 / 29 December 1835 / May 1838 – March 1839 CE | Oklahoma Historical Society; the treaty text; National Park Service (`wh-817`) |
+| Mary Wollstonecraft: lived / *Rights of Men* / *Rights of Woman* | 27 April 1759 – 10 September 1797 / 1790 / 1792 CE | Stanford Encyclopedia; Godwin (`wh-819`; `wh-818` and `wh-820` are `undatable`) |
 
 ## Chronology pins
 
@@ -1437,4 +1445,12 @@ wh-806: 19 July 1870; 1 September 1870; 28 January 1871; 10 May 1871
 wh-807: 1867 – 1918
 wh-808: 3 November 1839; 1839 – 1876
 wh-809: October 1853; 28 March 1854; October 1854 – September 1855; 30 March 1856
+wh-811: 19 February 1861 Old Style, 3 March New Style; 5 March 1861 Old Style, 17 March New Style
+wh-812: 12 April 1861; 9 April 1865; 2 June 1865
+wh-813: 12 February 1809 – 15 April 1865; 4 March 1861 – 15 April 1865
+wh-814: 22 September 1862; 1 January 1863
+wh-815: 1865 – 1877; 1861 – 1900; 9 July 1868; 3 February 1870
+wh-816: July – August 1845; 27 December 1845
+wh-817: 1831 – 1832; 29 December 1835; May 1838 – March 1839
+wh-819: 27 April 1759 – 10 September 1797; 1790; 1792
 ```
