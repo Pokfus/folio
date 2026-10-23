@@ -6619,7 +6619,19 @@ window.GLOSSARY = {
 "Twenty-ninth_Dynasty_of_Egypt": "",
 "Twenty-seventh_Dynasty_of_Egypt": "",
 "Twenty-sixth_Dynasty_of_Egypt": "",
-"Twenty-third_Dynasty_of_Egypt": ""
+"Twenty-third_Dynasty_of_Egypt": "",
+"Alaska_Natives": "",
+"Bureau_of_Indian_Affairs": "",
+"Gypsum": "",
+"Navajo": "",
+"Picuris_Pueblo,_New_Mexico": "",
+"White_Sands_National_Park": "",
+"Continental_Army": "",
+"Cotton_Mather": "",
+"Mandan": "",
+"Mission_San_José_(Texas)": "",
+"Missouri_River": "",
+"Onesimus_(Bostonian)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10106,7 +10118,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Twenty-fifth_Dynasty_of_Egypt": "c. 747–664 BCE",
 "Twenty-ninth_Dynasty_of_Egypt": "399–380 BCE",
 "Twenty-seventh_Dynasty_of_Egypt": "525–404 BCE",
-"Twenty-sixth_Dynasty_of_Egypt": "664–525 BCE"
+"Twenty-sixth_Dynasty_of_Egypt": "664–525 BCE",
+"Bureau_of_Indian_Affairs": "1824–present",
+"Continental_Army": "1775–1784",
+"Cotton_Mather": "1663–1728",
+"Mission_San_José_(Texas)": "1720–1824"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14333,7 +14349,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Twenty-ninth_Dynasty_of_Egypt": ["Twenty-ninth Dynasty","29th Dynasty","Dynasty XXIX","29th Dynasty of Egypt"],
 "Twenty-seventh_Dynasty_of_Egypt": ["Twenty-seventh Dynasty","27th Dynasty","Dynasty XXVII","27th Dynasty of Egypt"],
 "Twenty-sixth_Dynasty_of_Egypt": ["Twenty-sixth Dynasty","26th Dynasty","Dynasty XXVI","26th Dynasty of Egypt"],
-"Twenty-third_Dynasty_of_Egypt": ["Twenty-third Dynasty","23rd Dynasty","Dynasty XXIII","23rd Dynasty of Egypt"]
+"Twenty-third_Dynasty_of_Egypt": ["Twenty-third Dynasty","23rd Dynasty","Dynasty XXIII","23rd Dynasty of Egypt"],
+"Alaska_Natives": ["Alaska Native"],
+"Navajo": ["Diné","Navajo people"],
+"Picuris_Pueblo,_New_Mexico": ["Picuris Pueblo","Picuris"],
+"White_Sands_National_Park": ["White Sands"],
+"Mission_San_José_(Texas)": ["Mission San José"],
+"Onesimus_(Bostonian)": ["Onesimus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21078,7 +21100,19 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Twenty-ninth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
 "Twenty-seventh_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
 "Twenty-sixth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","iron age"],
-"Twenty-third_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","iron age"]
+"Twenty-third_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","iron age"],
+"Alaska_Natives": ["people","history","geography","united states","north america"],
+"Bureau_of_Indian_Affairs": ["institution","government","united states","history"],
+"Gypsum": ["object","geology","science"],
+"Navajo": ["people","history","geography","united states","north america"],
+"Picuris_Pueblo,_New_Mexico": ["place","history","united states","north america"],
+"White_Sands_National_Park": ["place","geography","geology","united states","archaeology"],
+"Continental_Army": ["institution","warfare","military","history","united states","north america"],
+"Cotton_Mather": ["person","religion","history","medicine","united states","north america"],
+"Mandan": ["people","history","north america","united states","trade"],
+"Mission_San_José_(Texas)": ["place","religion","history","north america","united states","spain"],
+"Missouri_River": ["place","river","geography","north america","united states"],
+"Onesimus_(Bostonian)": ["person","history","medicine","slavery","united states","north america"]
 });
 
 /* ============================================================================
