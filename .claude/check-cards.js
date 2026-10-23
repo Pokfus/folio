@@ -290,6 +290,18 @@ const INSTITUTIONAL = new Set([
      and wh-203 moves from a FAIL to the one-institution note rather than to silence, which is what
      this table is for. The card was read first. */
   "wolfram grajetzki and stephen quirke",  // Digital Egypt for Universities, cited per page (wh-203)
+  /* OFFICIAL RECORDS OF A TREATY, A DIPLOMATIC SERIES OR AN ORGANISATION'S OWN POSITION (Oct 2026), the
+     eight cards rule 1 still reported outside the Greece pass, each read before it was named. What
+     these cards cite is the primary record the card is about, taken a document at a time: the English
+     and Chinese texts of one treaty and its supplement (`cnh-562`); three telegrams or notes in the
+     Office of the Historian's FRUS volumes, which that office is already declared above for
+     (`cnh-573`, `cnh-646`, `cnh-693`); the WTO's own accession decision, press release and
+     dispute summary (`cnh-686`); NATO's declarations and topic page (`eep-012`, `eep-013`); three
+     Commission directorates' policy pages (`eep-210`). None is one scholar arguing one view three
+     times. They stay visible as a one-institution NOTE rather than a failure. */
+  "great britain and china", "papers relating to the foreign relations of the united states",
+  "foreign relations of the united states", "world trade organization",
+  "north atlantic treaty organization", "european commission",
 ]);
 
 /* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and
@@ -413,6 +425,11 @@ const NOT_A_SCHOLAR = new Set([
   "Feng Guifen",        // cnh-568: the 1860s reformer of the Self-Strengthening essays
   "Governor Yuxian",    // cnh-572: the Shandong and Shanxi governor of the Boxer year
   "Wellington Koo",     // cnh-584: China's delegate at Paris in 1919
+  /* STATESMEN AND A PLACE, caught in front of a verb of agency on the Politics and course cards. */
+  "Chiang Kai-shek",    // cnh-609: led the third encirclement campaign against the Jiangxi base
+  "Deng Xiaoping",      // cnh-680, cnh-682: "called" the rural enterprises a success, the zones a window
+  "NATO's Mark Rutte",  // gga-024: the Secretary General, who "called" Spain's stance an agreement to disagree
+  "Chagos Archipelago", // gga-020: the islands the ICJ opinion "shows" the argument over
 ]);
 
 /* ============================================================================
