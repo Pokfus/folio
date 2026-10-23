@@ -1156,13 +1156,8 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | event or person | the collection says | source |
 |---|---|---|
 | Greek temple: Orders begin | c. 600 BCE | Barbara A. Barletta, review of Sanctuaries and the Sacred in the Ancient Greek World , b… (`gr-968`) |
-| omphalos: In Strabo | c. 20 CE | Pausanias, Description of Greece 10.16.3, trans. W. H. S. Jones and H. A. Ormerod, Loeb … (`gr-981`) |
-| omphalos: In Pausanias | c. 150 CE | Pausanias, Description of Greece 10.16.3, trans. W. H. S. Jones and H. A. Ormerod, Loeb … (`gr-981`) |
-| Dodona: In Herodotus | c. 430 BCE | Herodotus, The Histories 2.54–55, trans. A. D. Godley, Loeb Classical Library (Cambridge… (`gr-982`) |
-| Dodona: Lead strips | c. 550 – 50 BCE | Herodotus, The Histories 2.54–55, trans. A. D. Godley, Loeb Classical Library (Cambridge… (`gr-982`) |
-| Delphic amphictyony: In Aeschines | 330 BCE | Aeschines, Against Ctesiphon 3.107–108, trans. Charles Darwin Adams, Loeb Classical Libr… (`gr-983`) |
-| divination: In Plato | c. 370 BCE | Plato, Phaedrus 244a–b, trans. Harold N. Fowler, Loeb Classical Library (Cambridge, MA: … (`gr-984`) |
-| crown games: In Pausanias | c. 150 CE | Pausanias, Description of Greece 10.7.5–8, trans. W. H. S. Jones and H. A. Ormerod, Loeb… (`gr-985`) |
+| Delphic amphictyony: Speech given | 330 BCE | Johannes Engels, review of Demosthenes of Athens and the Fall of Classical Greece , by I… (`gr-983`) |
+| crown games: Pythian founded | 586 or 582 BCE | William Childs, review of Olympia 1875–2000: 125 Jahre deutsche Ausgrabungen , ed. Helmu… (`gr-985`) |
 | Panathenaia: Greater festival | 566 BCE | Marion Meyer, review of Serving Athena: The Festival of the Panathenaia and the Construc… (`gr-986`) |
 | Panathenaia: Hipparchus slain | 514 BCE | Donald Lateiner, review of The Tyrant-Slayers of Ancient Athens: A Tale of Two Statues ,… (`gr-986`) |
 | Asclepius: Reached Athens | 420 BCE | Heidi Marx-Wolf, review of Asklepios, Medicine, and the Politics of Healing in Fifth-Cen… (`gr-995`) |

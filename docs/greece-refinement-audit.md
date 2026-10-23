@@ -272,8 +272,8 @@ one changelog line and a version bump; commit and push.
 | B100 | Heroes and the epic cycle (`gr-heroes`) | `gr-951`–`gr-960` | 10 | **done 2026-10-23** |
 | B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | **done 2026-10-23** |
 | B102 | Cult, oracles and festivals (`gr-cult`) | `gr-966`–`gr-975` | 10 | **done 2026-10-23** |
-| B103 | Cult, oracles and festivals (`gr-cult`) | `gr-976`–`gr-985` | 10 | **gr-976–980 done 2026-10-23** |
-| B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | **gr-986–990 and gr-991–995 done 2026-10-23** |
+| B103 | Cult, oracles and festivals (`gr-cult`) | `gr-976`–`gr-985` | 10 | **done 2026-10-23** |
+| B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | **done 2026-10-23** |
 | B105 | Cult, oracles and festivals (`gr-cult`) | `gr-996`–`gr-1000` | 5 | **done 2026-10-23** |
 
 ## Ledger
@@ -2891,3 +2891,13 @@ a cult or the Mysteries; the draft for `gr-990` kept "Profaned 415 BCE" as its o
 "before dawn, at home" for the funeral (`gr-999`); "Plato knows the practice and dislikes it", when the passage is about begging priests (`gr-1000`). **Glossary entries redrafted:** `Panathenaia`, `Ancient_Greek_calendars`, `Thesmophoria`, `Anthesteria`, `Eleusinian_Mysteries`, `Epidaurus`, `Incubation_(ritual)`, `Ancient_Greek_funeral_and_burial_practices` and `Curse_tablet`, each with its own `date` key (empty); the `Hero_cult` entry was read against `gr-998` and left.
 **Wrong auto-links** stopped with `<span class="ans-term">`: `Lichas` (the commissioner of 412 BCE, not the Spartan of Herodotus, `gr-998`), `Tholos` (the tomb, `gr-996`), `Italian` (`gr-1000`), `council` (`gr-987`), `Egypt` (`gr-988`), `cult` and `cults` (the alias of the mystery-cult key, `gr-986`, `gr-996`, `gr-997`), and `gold`, `silver`, `marble`, `coin`, `horse`,
 `armour` and `reconstruction` (`gr-986`, `gr-990`, `gr-996`, `gr-999`, `gr-1000`). **Locators:** none added; `gr-998`, `gr-1000` and `gr-999` keep the dots they have.
+
+#### `gr-981`–`gr-985` (the rest of B103, committed seventh)
+
+Five cards: the omphalos, the oracle at Dodona, the Delphic amphictyony, divination and the crown games. Sources 5 → 6–8. `gr-981` had three Bryn Mawr reviews that never mention the omphalos; it is rebuilt on an open-access chapter on the omphalos itself (Kristensen), Frazer's commentary (for the shape and size on vases and coins, hedged as an early commentator), Plutarch, Strabo and Pausanias.
+`gr-985` had three Pausanias sources and now has one; `gr-983` had one Aeschines speech cited as two pages that never held the lines cited. Checks: the audit finds only `S.chip?` on `gr-983` (an English review of a French-titled book); `check-questions`, `check-cards` and `apply-wiki-links --check` pass; every cited URL answers 2xx (53 citations) and `check-citations --card` finds no mismatch.
+**Date lines.** `gr-983` prints the Crown Trial, 330 BCE, as "Speech given" (Engels' review; the card's Cirrha story is Aeschines' account in that speech, which the prose says); `gr-985` prints "Pythian founded" as 586 or 582 BCE, the two figures Childs' review gives (the chronology file already held them). **Empty and `undatable`:** `gr-981`, `gr-982` and `gr-984` (the old rows "In Strabo c. 20 CE", "In Pausanias c. 150 CE",
+"In Herodotus c. 430 BCE", "Lead strips c. 550 – 50 BCE" and "In Plato c. 370 BCE" were estimates, and the strips and the oak are dated by sources only in centuries, which the line cannot sort; the 6th to 1st centuries of the strips, the early 4th century of the first temple at Dodona and the late 6th century of Delphi stay in the prose). **Corrected in the old cards:** "a carved stone of that shape survives, though it is Hellenistic or Roman",
+which the three reviews cited do not say, and "geographers doubted Delphi's claim", which is not in Strabo (`gr-981`); the glossary entry's "Herodotus was told at Dodona that a priestess was carried off from Thebes" (he was told it by the priests in Egypt) and its "Plato has a speaker say the first prophecies came from an oak" (`gr-982`); "tribes... controlled the land and finances", "drew Athens, Thebes, Sparta and Macedon in" and "the city has been
+written out of its history", none in the review cited (`gr-983`); "a travelling seer who read entrails... flight of birds and dreams" cited to a general textbook that never mentions seers, and the French review without its chip (`gr-984`); "two games fell in each Olympiad", the title *periodonikes* and "the pine was the Isthmian crown", which Pausanias does not say (`gr-985`). **Glossary entries redrafted:** `Omphalos`, `Dodona`, `Delphic_amphictyony`, `Divination`
+and `Panhellenic_Games`, each with its own `date` key (empty). **Wrong auto-links:** `marble`, `iron`, `limestone`, `reconstruction` (`gr-981`), `council` (`gr-983`), `Thebes` and `Egypt` in "Thebes in Egypt" (`gr-982`). **Locators:** none added.
