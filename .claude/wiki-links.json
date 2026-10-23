@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T16:11Z",
+ "generated": "2026-10-23T16:14Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4942,
+  "ok": 4943,
   "redirect-broader": 458,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57492,6 +57492,13 @@
    "answer": "Mount Washington",
    "title": "Mount Washington",
    "url": "https://en.wikipedia.org/wiki/Mount_Washington",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-919": {
+   "answer": "Devils Tower",
+   "title": "Devils Tower",
+   "url": "https://en.wikipedia.org/wiki/Devils_Tower",
    "via": "glossary",
    "status": "ok"
   }

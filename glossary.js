@@ -6760,7 +6760,8 @@ window.GLOSSARY = {
 "Lake_Superior": "",
 "Carlsbad_Caverns_National_Park": "",
 "Kīlauea": "",
-"Mount_Washington": ""
+"Mount_Washington": "",
+"Devils_Tower": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14584,7 +14585,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"],
 "Rocky_Mountains": ["Rockies"],
 "Carlsbad_Caverns_National_Park": ["Carlsbad Caverns","Carlsbad Cavern"],
-"Kīlauea": ["Kilauea"]
+"Kīlauea": ["Kilauea"],
+"Devils_Tower": ["Bear Lodge"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21472,7 +21474,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lake_Superior": ["place","geography","lake","great lakes","united states"],
 "Carlsbad_Caverns_National_Park": ["place","geography","cave","geology","united states"],
 "Kīlauea": ["place","geography","volcano","hawaii","united states"],
-"Mount_Washington": ["place","geography","mountain","weather","united states"]
+"Mount_Washington": ["place","geography","mountain","weather","united states"],
+"Devils_Tower": ["place","geography","mountain","geology","united states"]
 });
 
 /* ============================================================================
