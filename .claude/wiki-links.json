@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-23T16:14Z",
+ "generated": "2026-10-23T16:19Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4943,
-  "redirect-broader": 458,
+  "ok": 4947,
+  "redirect-broader": 459,
   "redirect-variant": 330,
   "section-redirect": 104,
   "disambiguation": 138,
@@ -57499,6 +57499,42 @@
    "answer": "Devils Tower",
    "title": "Devils Tower",
    "url": "https://en.wikipedia.org/wiki/Devils_Tower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-907": {
+   "answer": "Sierra Nevada",
+   "title": "Sierra Nevada",
+   "url": "https://en.wikipedia.org/wiki/Sierra_Nevada",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-908": {
+   "answer": "Mammoth Cave",
+   "title": "Mammoth Cave National Park",
+   "url": "https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mammoth Cave"
+  },
+  "geo-909": {
+   "answer": "Mount Rainier",
+   "title": "Mount Rainier",
+   "url": "https://en.wikipedia.org/wiki/Mount_Rainier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-910": {
+   "answer": "Death Valley",
+   "title": "Death Valley",
+   "url": "https://en.wikipedia.org/wiki/Death_Valley",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-911": {
+   "answer": "Mount Whitney",
+   "title": "Mount Whitney",
+   "url": "https://en.wikipedia.org/wiki/Mount_Whitney",
    "via": "glossary",
    "status": "ok"
   }

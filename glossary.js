@@ -6761,7 +6761,10 @@ window.GLOSSARY = {
 "Carlsbad_Caverns_National_Park": "",
 "Kīlauea": "",
 "Mount_Washington": "",
-"Devils_Tower": ""
+"Devils_Tower": "",
+"Mammoth_Cave_National_Park": "",
+"Mount_Rainier": "",
+"Mount_Whitney": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14586,7 +14589,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Rocky_Mountains": ["Rockies"],
 "Carlsbad_Caverns_National_Park": ["Carlsbad Caverns","Carlsbad Cavern"],
 "Kīlauea": ["Kilauea"],
-"Devils_Tower": ["Bear Lodge"]
+"Devils_Tower": ["Bear Lodge"],
+"Mammoth_Cave_National_Park": ["Mammoth Cave"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21475,7 +21479,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Carlsbad_Caverns_National_Park": ["place","geography","cave","geology","united states"],
 "Kīlauea": ["place","geography","volcano","hawaii","united states"],
 "Mount_Washington": ["place","geography","mountain","weather","united states"],
-"Devils_Tower": ["place","geography","mountain","geology","united states"]
+"Devils_Tower": ["place","geography","mountain","geology","united states"],
+"Mammoth_Cave_National_Park": ["place","geography","cave","geology","united states"],
+"Mount_Rainier": ["place","geography","mountain","volcano","united states"],
+"Mount_Whitney": ["place","geography","mountain","united states"]
 });
 
 /* ============================================================================
