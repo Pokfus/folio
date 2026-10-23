@@ -6668,7 +6668,14 @@ window.GLOSSARY = {
 "Microbiology": "",
 "Paleontology": "",
 "Physiology": "",
-"Zoology": ""
+"Zoology": "",
+"Archaea": "",
+"Atom": "",
+"Bacteria": "",
+"Biological_evolution": "",
+"DNA": "",
+"Drosophila_melanogaster": "",
+"RNA": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14413,7 +14420,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Atbarah_River": ["Atbara","Atbara River"],
 "Sobat_River": ["Sobat"],
 "Biology": ["biological"],
-"Paleontology": ["palaeontology"]
+"Paleontology": ["palaeontology"],
+"Archaea": ["archaeans"],
+"DNA": ["deoxyribonucleic acid"],
+"Drosophila_melanogaster": ["fruit fly","fruit flies"],
+"RNA": ["ribonucleic acid"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21207,7 +21218,14 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Microbiology": ["concept","science","biology"],
 "Paleontology": ["concept","science","biology","palaeontology"],
 "Physiology": ["concept","science","biology"],
-"Zoology": ["concept","science","biology","nature"]
+"Zoology": ["concept","science","biology","nature"],
+"Archaea": ["concept","science","biology"],
+"Atom": ["concept","science","chemistry","physics"],
+"Bacteria": ["concept","science","biology"],
+"Biological_evolution": ["concept","science","biology","evolution"],
+"DNA": ["concept","science","biology","genetics"],
+"Drosophila_melanogaster": ["animal","science","biology","genetics"],
+"RNA": ["concept","science","biology","genetics"]
 });
 
 /* ============================================================================
