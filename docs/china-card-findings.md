@@ -4522,7 +4522,7 @@ The last 99 cards, written as twenty batches of five (the last four), imported i
 `cn-religion` (`cnh-902`), `cn-language` (`cnh-903`–`942`), `cn-arts` (`cnh-943`–`972`) and `cn-science`
 (`cnh-973`–`1000`). Category "Thought and Religion" for `cnh-902`, "Learning, Arts and Invention" for the rest.
 **THE PLAN IS COMPLETE.** `cnh-001`–`cnh-1000` are all written except `cnh-070`, which stays retired and is never
-reused: 999 cards. No plan line was deferred. **99 glossary terms** were written (none refused). **78 plan lines were
+reused: 999 cards. (Superseded Oct 2026: `cnh-070` was rewritten on request as *Shang bronze inscriptions* — 1000 cards.) No plan line was deferred. **99 glossary terms** were written (none refused). **78 plan lines were
 retitled** to the concrete answer; 19 already were an answer and were kept (`Clerical script`, `Regular script`, `Classical
 Chinese`, `Shuowen Jiezi`, `Simplified Chinese characters`, `Pinyin`, `Four Great Classical Novels`, `Water Margin`, `Journey to
 the West`, `Jin Ping Mei`, `Dream of the Red Chamber`, `Strange Tales from a Chinese Studio`, `Four Treasures of the Study`,

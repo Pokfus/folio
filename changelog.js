@@ -35,13 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1091", released: "2026-10-23T15:22Z" };
+window.FOLIO_VERSION = { v: "1.1098", released: "2026-10-23T15:51Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "On Collections, a collection's <b>decks are now a compact, edge-to-edge list</b>: one line each, without numbers or file sizes.",
+      "<b>60 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU and Art.",
+      "A few Ancient Greece, Russia and China cards gained a corrected question, dates, a Greek picture or a clearer background.",
+      "The home page's <b>daily quote</b> now changes by itself every 30 seconds; the gold dash before the author's name runs out as the countdown.",
       "<b>Glossary</b>: a term that is a place, a state or a people now opens with its own small Atlas map — drag and zoom it; a state or an empire is shaded at the year of its greatest extent.",
       "<b>Collections</b> opens much faster: a collection's decks are now listed when you open it, not all at once when the page loads.",
       "Opening a chest now waits for the artefact's picture before revealing it, and swaps in another artefact if the picture is broken.",
@@ -51,6 +55,7 @@ window.CHANGELOG = [
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
       "<b>A hundred more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Soviet Union, with more sources and corrected dates.",
+      "<b>A hundred more World History cards are rewritten</b>, from Stalin and the Korean War to the Partition of India, the Arab Spring and the Anthropocene, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
@@ -65,7 +70,7 @@ window.CHANGELOG = [
       "<b>124 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan, the Mongols, California, psychology and biology, plus new aliases.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
       "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
-      "<b>200 more Ancient Greece cards are rewritten</b>, covering Alexander the Great, the Successor kingdoms, Alexandria and Hellenistic science, Greece under Rome and the first Olympians, with more sources and corrected dates.",
+      "<b>300 more Ancient Greece cards are rewritten</b>, from Alexander the Great to the Olympians, the heroes and cult, oracles and festivals, with more sources, corrected dates and new pictures.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
       "Twenty cards that shared a picture with another card now show it only on the card it illustrates best, and one Yan'an source is now an open English article.",
@@ -78,6 +83,7 @@ window.CHANGELOG = [
       "<b>Large</b> is now the default text size for new visitors, and in the <b>Bloodstone</b> theme unread glossary links are blue so they stand out from the text.",
       "A level-up chest now waits gold on the level bar; pressing it greys the bar's chest and moves it to the chest banner, instead of showing in both.",
       "<b>The Russia map cards for Moscow and Moscow Oblast</b> had swapped shapes: Moscow now shades the city, framed whole, and the Oblast card shades the oblast.",
+      "<b>2 new cards</b> with their glossary terms: one in China's Shang deck and one in Korea's Gojoseon deck, so China now has 1,000 cards and Korea 100.",
     ],
   },
   {

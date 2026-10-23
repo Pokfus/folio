@@ -23228,8 +23228,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // toggle is a class flip with nothing to re-render. The original carries `notranslate`: it is the one
   // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
   // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
+  /* The quote moves on by itself every DQ_PERIOD (Oct 2026, on request): `_dqStep` is how many quotes past
+     the day's own pick the reader has been carried this visit. It lives outside the page's render, so a
+     re-render (a setting, a sync) keeps the quote on screen rather than snapping back to the day's first. */
+  let _dqStep = 0;
   function dailyQuoteHTML() {
-    const q = QUOTES[QUOTE_ORDER[dayIndex() % QUOTE_ORDER.length]];
+    const q = QUOTES[QUOTE_ORDER[(dayIndex() + _dqStep) % QUOTE_ORDER.length]];
     const o = q.o;
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
@@ -23251,11 +23255,55 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
   // two languages (a Greek line and its English rarely wrap the same), so nothing cuts and nothing jumps.
   const DQ_FADE = 170, DQ_SIZE = 240;   // keep in step with the .dq-* transitions in styles.css
+  const DQ_PERIOD = 30000;              // ms a quote stays; keep in step with --dq-period (the dash's run) in styles.css
   let _dqResize = null;   // the one listener the quote installs — render() re-enters this function
+  let _dqTimer = null;    // the one auto-advance timer
   function wireDailyQuote(root) {
-    const fig = root.querySelector(".daily-quote.dq-flip");
+    const fig = root.querySelector(".daily-quote");
     if (_dqResize) { window.removeEventListener("resize", _dqResize); _dqResize = null; }
+    if (_dqTimer) { clearTimeout(_dqTimer); _dqTimer = null; }
     if (!fig) return;
+    /* THE QUOTE MOVES ON EVERY 30 SECONDS, and the gold dash before the author's name is the countdown: it
+       shrinks from its left edge to its right (CSS, `dq-dash`) and when it is gone the next quote of the
+       running order takes the place. The timer, not the animation, decides — a reader with animations off
+       gets the same pace and a dash that stays whole. The advance is held back (and the dash restarted) while
+       the tab is hidden or the reader has words of the quote selected, so nothing is taken from under them. */
+    let swapping = false;
+    const restartDash = () => { fig.classList.toggle("dq-dash-b"); };
+    const advance = () => {
+      _dqTimer = null;
+      if (!document.body.contains(fig)) return;
+      const sel = window.getSelection && window.getSelection();
+      const holding = document.hidden || swapping || (sel && !sel.isCollapsed && sel.anchorNode && fig.contains(sel.anchorNode));
+      if (holding || QUOTE_ORDER.length < 2) { restartDash(); arm(); return; }
+      _dqStep++;
+      const done = () => {
+        if (!document.body.contains(fig)) return;
+        fig.insertAdjacentHTML("afterend", dailyQuoteHTML());
+        const next = fig.nextElementSibling;
+        fig.remove();
+        wireDailyQuote(root);
+        if (!prefersReducedMotion() && next) {
+          next.classList.add("dq-in");
+          requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("dq-in")));
+        }
+      };
+      if (prefersReducedMotion()) { done(); return; }
+      swapping = true;
+      fig.classList.add("dq-fade");   // the words on screen fade out and lift, then the next quote rises in
+      setTimeout(done, DQ_FADE);
+    };
+    const arm = () => { _dqTimer = setTimeout(advance, DQ_PERIOD); };
+    arm();
+    /* …and the dash itself is a second trigger: a phone can run a timer late while the page is busy, but the
+       bar runs out on the compositor on time, and a reader who watched it empty must see the quote change.
+       `elapsedTime` guards the case where the stylesheet flattens the animation to a blink (it would
+       otherwise fire at once); whichever of the two comes first wins, the other finds the timer gone. */
+    fig.addEventListener("animationend", (e) => {
+      if (e.pseudoElement !== "::before" || !/^dq-dash/.test(e.animationName) || e.elapsedTime < DQ_PERIOD / 1000 - 1) return;
+      if (_dqTimer) { clearTimeout(_dqTimer); advance(); }
+    });
+    if (!fig.classList.contains("dq-flip")) return;   // a quote with no documented original: no flip, but it still moves on
     let busy = false;
     const show = (toOriginal) => {
       fig.querySelectorAll(".dq-live").forEach((el) => { el.hidden = toOriginal; });
@@ -27335,7 +27383,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
   // recursive renderer for a node beneath a collection (deck/subdeck), arbitrary depth
   function buildNode(node, index) {
-    const num = String(index + 1).padStart(2, "0");
+    /* NO RUNNING NUMBER (Oct 2026, on request): the rows are a flat list under their collection now, and the
+       "01 / 02" in front of each title was the one thing on the row that said nothing about the deck. */
     const soon = isComingSoon(node);
     const pid = node.parentId || "";
     /* A DECK ROW SAYS HOW MANY CARDS IT HOLDS, not what years they cover (Aug 2026, on request — the
@@ -27347,13 +27396,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the collection banner does — "0 cards" reads as a figure that failed to load. */
     const spanText = nodeDateOverride(node.id);
     const cardCount = subtreeCardIds(node).length;
-    /* AND HOW MUCH OF THE DOWNLOAD IT IS (Aug 2026, on request — the language decks say what they will
-       fetch and these were asked to say the same). A curated deck has no file of its own: its cards ship
-       inside `data.js`, so the figure is what they weigh there and the wording says so rather than
-       promising a fetch that happened before the reader saw the page. It sits on the title row beside the
-       count, where the language rows put theirs, so one fact is in one place on both. */
-    const bytes = nodeBytes(node);
-    const sizeText = cardCount ? fmtDeckSize(bytes) : "";
+    /* NO FILE SIZE ON THE ROW (Oct 2026, on request — it had been added in Aug 2026 to match the language
+       decks, and both shelves drop it together). The count is the one figure a deck row carries. */
     /* THE FIGURES SIT ON A LINE OF THEIR OWN, UNDER THE TITLE (Aug 2026, on request: "language decks
        should say the card number and file size below their title, the same way history decks do"). They
        used to share the title's line and WRAP onto a second one when they would not fit, which is a
@@ -27364,8 +27408,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        about the row rather than a figure about its contents, and it is what a reader is scanning for. */
     const nodeMetaHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
-      (cardCount ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>` : "") +
-      (sizeText ? `<span class="node-size" title="These cards ship with the site, so they are already downloaded.">${sizeText}</span>` : "");
+      (cardCount ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>` : "");
     const nodeMetaRow = nodeMetaHTML ? `<div class="node-meta">${nodeMetaHTML}</div>` : "";
     const nodeEmptyPill = (!cardCount && !soon) ? `<span class="pill soon">Empty</span>` : "";
 
@@ -27374,7 +27417,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       group.className = "node-group";
       group.innerHTML = `
         <div class="node branch${soon ? " placeholder" : ""}" tabindex="0" role="button" data-libitem="${esc(node.id)}" data-libkind="node" data-libparent="${esc(pid)}">
-          <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
               <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
@@ -27408,7 +27450,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     subEl.style.cursor = "pointer";
     subEl.dataset.libitem = node.id; subEl.dataset.libkind = "node"; subEl.dataset.libparent = pid;
     subEl.innerHTML = `
-      <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
           <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
@@ -31162,24 +31203,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      for whoever wants it rather than half-built here. */
   function langRowHTML(o, index, depth) {
     depth = depth || 0;
-    const num = String(index + 1).padStart(2, "0");
-    /* THE SIZE IS THE FILE'S, and on an unwrapped deck one file serves every row — so the title says so
-       rather than leaving nine rows reading "20.6 MB" to be added up. Both shelves print the bytes and
-       nothing else, which is the request's own "one fact in one place on both": what differs between them
-       is what the figure MEANS, and that is where the difference belongs. */
-    const sizeTitle = o.shared
-      ? "These decks are in one " + fmtDeckSize(o.bytes) + " file — downloading any of them brings them all."
-      : "Downloaded from this deck's own row in Daily study, once you have added it.";
     const main =
       '<div class="node-main">' +
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(o.title) + '</span>' +
         '</div>' +
-        /* The count and the size on a line of their own under the title, exactly as the curated shelf
-           now sets them — see `nodeMetaHTML` in buildNode for why they left the title's line. */
+        /* The count on a line of its own under the title, exactly as the curated shelf sets it — see
+           `nodeMetaHTML` in buildNode. No file size (Oct 2026, on request): Daily study's Download button
+           still says what a deck will fetch. */
         '<div class="node-meta">' +
           '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
-          '<span class="node-size" title="' + esc(sizeTitle) + '">' + esc(fmtDeckSize(o.bytes)) + "</span>" +
           langFactsHTML(o) +
         '</div>' +
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
@@ -31198,16 +31231,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const on = isActive(o.entry);
     const act = '<button class="node-add' + (on ? " added" : "") + '" data-id="' + esc(o.entry) +
       '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + "</button>";
-    const head = '<span class="node-num">' + num + "</span>";
     const kids = Array.isArray(o.kids) ? o.kids : [];
     /* `.lang-deck` MARKS A TOP-LEVEL ROW AND `.lang-sub` A NESTED ONE, and that distinction is worth
        keeping now that the two are built by one function: `.node.lang-deck` is how the page counts a
        language's DECKS, so a subdeck wearing it would make every language claim more than it has —
        Spanish would read 21 for its seven levels and their fourteen directions. */
     const kind = depth ? "lang-sub" : "lang-deck";
-    if (!kids.length) return '<div class="node ' + kind + '">' + head + main + act + "</div>";
+    if (!kids.length) return '<div class="node ' + kind + '">' + main + act + "</div>";
     return '<div class="node-group lang-group">' +
-      '<div class="node branch ' + kind + '" tabindex="0" role="button">' + head + main + act + chevBtn("chev-sm") + "</div>" +
+      '<div class="node branch ' + kind + '" tabindex="0" role="button">' + main + act + chevBtn("chev-sm") + "</div>" +
       '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
         kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
       "</div></div></div>" +

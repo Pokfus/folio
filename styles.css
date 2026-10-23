@@ -3786,7 +3786,18 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:calc(18px * var(--fs)); font-style:italic; line-height:1.5; color:var(--ink);}
 .daily-quote blockquote::before{content:"\201C"; display:block; font-family:var(--display); font-style:normal; font-size:calc(34px * var(--fs)); line-height:.4; color:var(--zh); opacity:.75; margin-bottom:8px;}
 .daily-quote figcaption{margin-top:9px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
-.daily-quote figcaption::before{content:""; display:inline-block; width:16px; height:1.5px; background:#C39A2E; vertical-align:3px; margin-right:8px;}
+.daily-quote figcaption::before{content:""; display:inline-block; width:16px; height:1.5px; background:#C39A2E; vertical-align:3px; margin-right:8px;
+  transform-origin:100% 50%; animation:dq-dash 30s linear forwards;}
+/* the dash is the countdown to the next quote: it runs out from its left edge to its right over 30 s
+   (DQ_PERIOD in app.js). Two identical keyframe sets, swapped by .dq-dash-b, restart it without
+   re-rendering — used when the advance is held back (hidden tab, a selection). */
+@keyframes dq-dash{from{transform:scaleX(1);} to{transform:scaleX(0);}}
+@keyframes dq-dash-b{from{transform:scaleX(1);} to{transform:scaleX(0);}}
+.daily-quote.dq-dash-b figcaption::before{animation-name:dq-dash-b;}
+body.no-anim .daily-quote figcaption::before{animation:none;}
+.daily-quote blockquote, .daily-quote figcaption{transition:opacity .17s ease, transform .17s ease;}
+.daily-quote.dq-fade blockquote, .daily-quote.dq-fade figcaption{opacity:0; transform:translateY(-5px);}
+.daily-quote.dq-in blockquote, .daily-quote.dq-in figcaption{opacity:0; transform:translateY(6px); transition:none;}
 /* where the words come from, small under the speaker — italic serif, since most of these are work titles */
 .daily-quote .dq-src{display:block; margin-top:5px; font-family:var(--serif); font-style:italic; font-size:calc(11.5px * var(--fs)); letter-spacing:0; text-transform:none; color:var(--ink-faint);}
 /* click the quote to read it in its original language. The original is set in its own script's natural
@@ -10046,6 +10057,31 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .page .collection-add, .page .node-add{width:34px; height:34px;}
 .page .collection-add.added, .page .node-add.added{background:var(--good); border-color:var(--good); color:#fff;}
 .page .chev{width:34px; height:34px;}
+/* A COLLECTION'S DECKS ARE A FLAT LIST, EDGE TO EDGE (Oct 2026, on request): no card per deck, no padding
+   round the list or gap between rows — each row runs the panel's full width, parted from the next by a
+   hairline, keeps its hue on the left edge, and is about half the collection banner's height: one line,
+   the figures beside the title rather than under it (still their own `.node-meta`), the + and chevron
+   shrunk to fit. A nested branch's rows step in by the indent rather than by a box. */
+.page .node-children-pad, .page .node-children .node-children .node-children-pad{padding:0; gap:0;}
+.page .node, body[data-theme] .page .node{
+  border:0; border-top:1px solid var(--rule); border-left:3px solid var(--coll-bg, var(--indigo)); border-radius:0;
+  padding:3px 16px 3px 13px; gap:10px; align-items:center; background:var(--card);
+}
+.page .collection .node.branch{border-left-color:var(--ochre);}
+.page .collection .node.placeholder{border-left-color:var(--ink-faint);}
+.page .node:hover, .page .node.branch:hover{transform:none; box-shadow:none; background:color-mix(in srgb, var(--coll-bg, var(--indigo)) 6%, var(--card));}
+.page .node.placeholder:hover{background:var(--card);}
+.page .node:focus-visible{outline-offset:-2px;}
+.page .node-children .node-children .node{padding-left:29px;}
+.page .node-children .node-children .node-children .node{padding-left:45px;}
+.page .node-main{display:flex; align-items:baseline; flex-wrap:wrap; column-gap:10px; row-gap:2px;}
+.page .node-title-row{gap:7px;}
+.page .node-title{font-size:calc(15px * var(--fs));}
+.page .node-meta{margin-top:0;}
+.page .node-sub{flex-basis:100%; margin-top:0;}
+.page .node .node-add, .page .node .chev-sm{width:28px; height:28px;}
+.page .node .node-add svg{width:14px; height:14px;}
+.page .node .chev-sm svg{width:13px; height:13px;}
 .page .collection.udeck > .collection-row{border:0; background:transparent;}
 .page .collection.udeck .collection-deco{display:block;}
 .page .collection.udeck-editing > .collection-row{background:var(--indigo-wash);}

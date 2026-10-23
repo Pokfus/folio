@@ -801,6 +801,95 @@ Filled batch by batch, from the source each row names.
 | Bolsheviks: split / Prague break / renamed | 1903 / January 1912 / March 1918 CE | Bilinsky and Holubnychy; Lenin (`wh-898`) |
 | Russian Civil War: fought (Werth) / Czech clashes / evacuation order / Kronstadt | 1918 – 1921 / May 1918 / 13 November 1920 / 18 March 1921 CE | Werth; the US consuls' reports (`wh-899`) |
 | Soviet Union: founded / constitution / dissolved | 30 December 1922 / 31 January 1924 / 26 December 1991 CE | the Fundamental Law; Siegelbaum; the *Encyclopedia of Ukraine* (`wh-900`) |
+| Joseph Stalin: general secretary / died | 1922 / 5 March 1953 CE | the *Encyclopedia of Ukraine*; Siegelbaum (`wh-901`); no birth date, no source read settles it |
+| Five-year plans: first plan / declared fulfilled / second plan | 1928 – 1932 / 7 January 1933 / 1933 – 1937 CE | Siegelbaum; Stalin's report; the resolution of January 1932 (`wh-902`) |
+| Holodomor: famine / exit from Ukraine and the Kuban banned | 1932 – 1933 / 22 January 1933 CE | Klid and Makuch; Werth (`wh-903`) |
+| Great Purge: Kirov killed / Order 00447 / height | 1 December 1934 / 30 July 1937 / 1936 – 1938 CE | Siegelbaum; Werth (`wh-904`) |
+| Weimar Republic: proclaimed / constitution signed / ended | 9 November 1918 / 11 August 1919 / 30 January 1933 CE | the German Historical Institute; the Weimar constitution (`wh-905`) |
+| German hyperinflation: span (Brunnermeier and others) / Rentenmark issued | July 1922 – November 1923 / 15 November 1923 CE | the 2024 preprint; Kunzel, LeMO (`wh-906`) |
+| Wall Street Crash: Dow peak / Black Thursday / Black Tuesday / Dow low | 3 September 1929 / 24 October 1929 / 29 October 1929 / 8 July 1932 CE | the Federal Reserve history; the Senate (`wh-907`) |
+| Great Depression: began / low point / ended (Federal Reserve) | August 1929 / March 1933 / 1941 CE | Richardson, Federal Reserve History (`wh-908`) |
+| New Deal: pledged / bank holiday / Recovery Act / Social Security | 2 July 1932 / 6 March 1933 / 16 June 1933 / August 1935 CE | Roosevelt's speech; the Federal Reserve history; the National Archives (`wh-909`) |
+| Benito Mussolini: born / in power / died | 29 July 1883 / 1922 – 1943 / 28 April 1945 CE | Gentile, *Dizionario Biografico*; the Holocaust Museum (`wh-911`) |
+| Adolf Hitler: born / chancellor / died | 20 April 1889 / 30 January 1933 / 30 April 1945 CE | the Holocaust Museum; the National WWII Museum (`wh-912`) |
+| Nazi seizure of power: appointed / Enabling Act / one-party law / complete | 30 January 1933 / 23 March 1933 / 14 July 1933 / August 1934 CE | the Holocaust Museum; GHDI; the Nuremberg judgment (`wh-913`) |
+| Nuremberg Laws: announced / Jew defined | 15 September 1935 / 14 November 1935 CE | the Holocaust Museum; GHDI (`wh-914`) |
+| Second World War: began, Asia / began, Europe / ended, Europe / ended, Asia | 7 July 1937 / 1 September 1939 / 8 May 1945 (Reims 7 May) / 2 September 1945 CE | the State Department; the Holocaust Museum; Avalon (`wh-916`) |
+| Molotov-Ribbentrop Pact: dated / ended / declared void | 23 August 1939 / 22 June 1941 / December 1989 CE | Avalon; the German record of the talks; the Baltic Way form (`wh-917`) |
+| Invasion of Poland: German attack / Soviet attack / last surrender | 1 September 1939 / 17 September 1939 / 6 October 1939 CE | the Holocaust Museum (`wh-918`) |
+| Battle of France: attack began / Meuse crossed / Paris fell / armistice signed | 10 May 1940 / 13 May 1940 / 14 June 1940 / 22 June 1940 CE | House; Koch; the Compiègne armistice (`wh-920`) |
+| Dunkirk evacuation: Operation Dynamo | 26 May – 4 June 1940 CE | Ramsay's despatch; Ellis (`wh-921`) |
+| Battle of Britain: British dating / Eagle Day | 10 July – 31 October 1940 / 13 August 1940 CE | Collier; Boog (`wh-922`); Dowding dates it differently, see the card |
+| The Blitz: began / Coventry raid / worst raid on London | 7 September 1940 / 14 November 1940 / 10 – 11 May 1941 CE | the RAF Museum; Collier (`wh-923`) |
+| Operation Barbarossa: Directive 21 / launched / Soviet counter-attack | 18 December 1940 / 22 June 1941 / 6 December 1941 CE | Hitler's directive; the Holocaust Museum (`wh-924`) |
+| Siege of Leningrad: besieged / corridor opened | 8 September 1941 – 27 January 1944 / January 1943 CE | Bidlack; Ziemke (`wh-925`) |
+| Battle of Stalingrad: start (Soviet) / city bombed / encircled / surrendered | 17 July 1942 / 23 August 1942 / 19 – 23 November 1942 / 31 January – 2 February 1943 CE | Ziemke; Siegelbaum (`wh-926`) |
+| Second Sino-Japanese War: began / Tribunal's start / ended | 7 July 1937 / 18 September 1931 / 2 September 1945 CE | the Tokyo judgment; Reed (`wh-927`) |
+| Nanjing Massacre: city fell / tribunal's span / Kasahara's span | 13 December 1937 / 13 December 1937 – early February 1938 / 4 December 1937 – 28 March 1938 CE | the Tokyo judgment; Yoshida (`wh-928`) |
+| Attack on Pearl Harbor: fleet sailed / attacked | 26 November 1941 / 7 December 1941 CE | the Strategic Bombing Survey; Matloff (`wh-929`) |
+| Pacific War: began (Tokyo's date) / Potsdam terms accepted / surrender signed | 8 December 1941 / 14 August 1945 / 2 September 1945 CE | JACAR; Avalon (`wh-930`) |
+| Battle of Midway: first contact / carriers hit / Yorktown sunk | 3 June 1942 / 4 June 1942 / 7 June 1942 CE | Nimitz's report; the National WWII Museum (`wh-931`) |
+| North African campaign: Italy invades Egypt / Rommel lands / Torch landings / last surrender | 13 September 1940 / 11 February 1941 / 8 November 1942 / 13 May 1943 CE | the National Army Museum; Alexander's despatch (`wh-932`) |
+| Second Battle of El Alamein | 23 October – 4 November 1942 CE | the National Army Museum; Alexander (`wh-933`) |
+| The Holocaust (Holocaust Museum's span) | 1933 – 1945 CE | the Holocaust Museum (`wh-934`) |
+| Auschwitz: first prisoners / gassing began / liberated | 14 June 1940 / March 1942 / 27 January 1945 CE | the Holocaust Museum, Key Dates (`wh-935`) |
+| Normandy landings: landings / campaign (Canadian War Museum) | 6 June 1944 / 6 June – 21 August 1944 CE | the National Army Museum; the Canadian War Museum (`wh-937`) |
+| Battle of the Bulge: began / Bastogne relieved / end (National WWII Museum) | 16 December 1944 / 26 December 1944 / 25 January 1945 CE | the National WWII Museum; Cole (`wh-938`) |
+| Battle of Berlin | 16 April – 2 May 1945 CE | Ziemke; the Holocaust Museum (`wh-939`) |
+| Atomic bombings: Hiroshima / Nagasaki | 6 August 1945 / 9 August 1945 CE | the National Archives; Truman's statement (`wh-940`) |
+| Surrender of Japan: terms accepted / broadcast / instrument signed | 14 August 1945 / 15 August 1945 / 2 September 1945 CE | Truman's news conference; Avalon (`wh-941`) |
+| Nuremberg trials: tribunal made / main trial / later trials | 8 August 1945 / 20 November 1945 – 1 October 1946 / December 1946 – April 1949 CE | the London Agreement; the Nuremberg municipal museum (`wh-942`); the Holocaust Museum gives April 1948 for the end of the later trials |
+| Displaced persons: DP camps | 1945 – 1952 CE | the Holocaust Museum (`wh-943`) |
+| United Nations: Charter signed / in force | 26 June 1945 / 24 October 1945 CE | the UN San Francisco page (`wh-944`) |
+| Universal Declaration of Human Rights: adopted | 10 December 1948 CE | the General Assembly record A/PV.183 (`wh-945`) |
+| Cold War: State Department span / Orwell's essay / Bush's declaration | 1947 – 1989 / 19 October 1945 / 25 December 1991 CE | the State Department; Orwell Foundation; American Presidency Project (`wh-946`); the card says historians date it differently |
+| Truman Doctrine: announced / Senate vote / House vote / signed | 12 March 1947 / 22 April 1947 / 9 May 1947 / 22 May 1947 CE | Truman's address; FRUS (`wh-948`) |
+| Marshall Plan: proposed / Act signed | 5 June 1947 / 3 April 1948 CE | the Marshall Foundation (`wh-949`) |
+| Berlin Blockade: blockade / airlift / Western currency | 24 June 1948 – 12 May 1949 / 26 June 1948 – 30 September 1949 / 20 June 1948 CE | Miller; the four-power communiqué, FRUS (`wh-950`) |
+| NATO: signed / in force | 4 April 1949 / 24 August 1949 CE | the North Atlantic Treaty; Truman's address (`wh-951`) |
+| Warsaw Pact: signed / military cooperation ended / protocol signed | 14 May 1955 / 25 February 1991 / 1 July 1991 CE | the treaty; Czarnecka; the protocol (`wh-952`); the protocol took effect in 1993 by one page |
+| Chinese Communist Revolution (the party's account) | 1921 – 1949 CE | the 1981 resolution (`wh-953`) |
+| Mao Zedong: born / died | 1893 / 9 September 1976 CE | Snow; *Peking Review* (`wh-954`) |
+| Korean War: began / armistice | 25 June 1950 / 27 July 1953 CE | FRUS; the Armistice Agreement (`wh-955`); 24 June in Washington |
+| Nuclear arms race: Soviet A-bomb / US thermonuclear test / FAS peak / INF signed | 29 August 1949 / 1 November 1952 / 1986 / 8 December 1987 CE | the Department of Energy history; FAS (`wh-956`) |
+| Hungarian Revolution: began / neutrality declared / Soviet attack | 23 October 1956 / 1 November 1956 / 4 November 1956 CE | the UN Special Committee; the cabinet minutes (`wh-958`) |
+| Berlin Wall: ordered / stood | 12 August 1961 / 13 August 1961 – 9 November 1989 CE | the Council of Ministers' resolution; the Berlin Wall Foundation (`wh-959`) |
+| Cuban Revolution: Moncada / landing / Batista fled / socialism (in Castro's speech) | 26 July 1953 / 2 December 1956 / 1 January 1959 / 1 May 1961 CE | Castro; Guevara; FRUS (`wh-960`) |
+| Cuban Missile Crisis: Soviet warheads (National Security Archive) / photographed / US "thirteen days" / quarantine ended | 4 October – 1 December 1962 CE / 14 October 1962 CE / 16 – 28 October 1962 CE / 20 November 1962 CE | the Archive; FRUS; the Kennedy Library (`wh-961`); the Washington count, Moscow seven hours ahead |
+| Space Race (usual start) | 4 October 1957 CE | the State Department's Office of the Historian (`wh-962`) |
+| Apollo 11: launched / landed / first step / splashdown | 16 July 1969, 13:32 UTC / 20 July 1969, 20:17 UTC / 21 July 1969, 02:56 UTC / 24 July 1969, 16:50 UTC | the Mission Report; NASA (`wh-963`); 20 July on the report's Eastern clock |
+| Vietnam War: US legal start / Tonkin vote / peace signed / fall of Saigon | 1 November 1955 / 7 August 1964 / 27 January 1973 / 30 April 1975 CE | the statute; the National Archives; the Agreement (`wh-964`); no single start date exists |
+| Prague Spring: Dubček elected / Action Programme / invasion / Moscow Protocol | January 1968 / 5 April 1968 / 20 – 21 August 1968 / 26 August 1968 CE | Kramer; the Programme; FRUS; the Czech Academy's edition (`wh-965`) |
+| Détente (State Department span) / ABM Treaty / Basic Principles / Final Act | 1969 – 1979 / 26 May 1972 / 29 May 1972 / 1 August 1975 CE | Office of the Historian; the texts (`wh-966`); no single beginning or end |
+| Great Leap Forward: campaign / famine | 1958 – 1960 / 1959 – 1961 CE | the 1981 resolution; Meng, Qian and Yared (`wh-967`) |
+| Cultural Revolution: dated by the Party / most killings | May 1966 – October 1976 / 1968 – 1971 CE | the 1981 resolution; Walder and Su (`wh-968`) |
+| Soviet–Afghan War: began (US view) / entry (UN) / Accords signed / troops out | 24 December 1979 / 27 December 1979 / 14 April 1988 / 15 February 1989 CE | State Department history; the UN history; Pravda (`wh-969`) |
+| Fall of the Berlin Wall: border opened | 9 November 1989 CE | Hertle; the CWIHP Bulletin (`wh-970`) |
+| Indian independence movement: the Museum's start / dominions set up | 1857 / 15 August 1947 CE | the National Army Museum; the Indian Independence Act (`wh-972`); the movement has no agreed start |
+| Mahatma Gandhi: lived | 2 October 1869 – 30 January 1948 CE | the Collected Works editors; the Nobel page (`wh-973`) |
+| Partition of India: plan announced / Act passed / Award dated / dominions set up | 3 June 1947 / 18 July 1947 / 12 August 1947 / 15 August 1947 CE | the plan; the Act; the Boundary Commission's Award (`wh-974`) |
+| Indonesian National Revolution: proclaimed / recognised | 17 August 1945 / 27 December 1949 CE | Library of Congress; the Round Table charter (`wh-975`) |
+| Suez Crisis: nationalised / Israel attacked / ceasefire / last withdrawal | 26 July 1956 / 29 October 1956 / 6 November 1956 / 8 March 1957 CE | FRUS; Hansard; the protocol (`wh-977`) |
+| Algerian War: began / Évian Accords / referendum / independence day | 1 November 1954 / 18 March 1962 / 1 July 1962 / 5 July 1962 CE | the Front's proclamation; the Accords; the UN resolution (`wh-978`) |
+| Year of Africa: independences / joined the UN | 1 January – 28 November 1960 / 20 September – 7 October 1960 CE | CBC; the UN's list (`wh-979`) |
+| Kwame Nkrumah: born / independence / overthrown / died | 1909 / 6 March 1957 / 24 February 1966 / 27 April 1972 CE | the Schomburg guide; Hansard (`wh-980`); the day of birth is disputed, the line gives the year |
+| Non-Aligned Movement: first summit (Belgrade) / Lusaka summit | September 1961 / September 1970 CE | the State Department; Stubbs (`wh-981`) |
+| Apartheid (policy began / Acts in force / ended, Dugard) | 26 May 1948 / 7 July 1950 / 1990 CE | the Truth and Reconciliation Commission; the Acts; Dugard (`wh-982`) |
+| Nelson Mandela: born / sentenced / released / inaugurated | 18 July 1918 / 12 June 1964 / 11 February 1990 / 10 May 1994 CE | the Nobel biography; the UN edition (`wh-983`); the Rivonia conviction was on 11 June |
+| Iranian Revolution: span / Shah left / government fell / referendum | 1978 – 1979 / 16 January 1979 / 11 February 1979 / 30 – 31 March 1979 CE | the State Department; the referendum record (`wh-984`); the republic was declared on 1 April |
+| Ujamaa: pamphlet / Arusha Declaration | April 1962 / 5 February 1967 CE | Nyerere's pamphlet; the Declaration (`wh-985`) |
+| Tiananmen Square protests: began / martial law / crackdown | 15 April 1989 / 20 May 1989 / 3 – 4 June 1989 CE | the State Department; Calhoun (`wh-986`); Calhoun dates martial law at midnight on 19 May |
+| Dissolution of the Soviet Union: coup attempt / Minsk agreement / Gorbachev resigned / declared ended | 19 – 21 August 1991 / 8 December 1991 / 25 December 1991 / 26 December 1991 CE | the speech; the Council of the Republics' declaration (`wh-987`) |
+| German reunification: treaty / Two Plus Four / unified | 31 August 1990 / 12 September 1990 / 3 October 1990 CE | the treaties (`wh-988`) |
+| European Union: created / Maastricht signed | 1 November 1993 / 7 February 1992 CE | the European Parliament fact sheets; Craig (`wh-989`) |
+| Reform and opening up: plenum / zones approved | 18 – 22 December 1978 / 26 August 1980 CE | the communiqué; the regulations (`wh-990`) |
+| Yugoslav Wars: fought / Srebrenica / Dayton signed / NATO air war | 1991 – 2001 / July 1995 / 14 December 1995 / 24 March – 10 June 1999 CE | the tribunal; the ICJ; OHR; NATO (`wh-991`) |
+| Rwandan genocide: dated by the ICTR / tribunal set up / Akayesu verdict | 6 April – 17 July 1994 / 8 November 1994 / 2 September 1998 CE | the appeals judges' judicial notice; the UN outreach page ends it on 4 July (`wh-992`) |
+| Internet: first message / TCP/IP switch | 29 October 1969 / 1 January 1983 CE | Kleinrock; RFC 801; the Internet Society (`wh-994`) |
+| September 11 attacks | 11 September 2001 CE | the Commission (`wh-995`) |
+| War on terror: Bush's address to Congress | 20 September 2001 CE | the address (`wh-996`) |
+| Arab Spring: self-immolation / Ben Ali fled / Mubarak resigned / Libya mandate | 17 December 2010 / 14 January 2011 / 11 February 2011 / 17 March 2011 CE | UN texts (`wh-997`) |
+| COVID-19 pandemic: reported to WHO / called pandemic / emergency ended | 31 December 2019 / 11 March 2020 / 5 May 2023 CE | WHO (`wh-999`) |
 
 ## Chronology pins
 
@@ -1580,4 +1669,93 @@ wh-897: 22 April 1870 – 21 January 1924
 wh-898: 1903; January 1912; March 1918
 wh-899: 1918 – 1921; May 1918; 13 November 1920; 18 March 1921
 wh-900: 30 December 1922; 31 January 1924; 26 December 1991
+wh-901: 1922; 5 March 1953
+wh-902: 1928 – 1932; 7 January 1933; 1933 – 1937
+wh-903: 1932; 1933; 22 January 1933
+wh-904: 1 December 1934; 30 July 1937; 1936; 1938
+wh-905: 9 November 1918; 11 August 1919; 30 January 1933
+wh-906: July 1922; November 1923; 15 November 1923; 4.2
+wh-907: 3 September 1929; 24 October 1929; 29 October 1929; 8 July 1932; 381.17; 41.22
+wh-908: August 1929; March 1933; 1941
+wh-909: 1932; 1933; 1935
+wh-911: 29 July 1883; 1922; 1943; 28 April 1945
+wh-912: 20 April 1889; 30 January 1933; 30 April 1945
+wh-913: 30 January 1933; 23 March 1933; 14 July 1933; August 1934
+wh-914: 15 September 1935; 14 November 1935
+wh-916: 1937; 1939; 1945
+wh-917: 1939; 1941; 1989
+wh-918: 1939
+wh-920: 1940
+wh-921: 26 May – 4 June 1940
+wh-922: 10 July – 31 October 1940; 13 August 1940
+wh-923: 7 September 1940; 14 November 1940; 10 – 11 May 1941
+wh-924: 18 December 1940; 22 June 1941; 6 December 1941
+wh-925: 8 September 1941 – 27 January 1944; January 1943
+wh-926: 17 July 1942; 23 August 1942; 19 – 23 November 1942; 31 January – 2 February 1943
+wh-927: 1937; 1931; 1945
+wh-928: 1937; 1938
+wh-929: 26 November 1941; 7 December 1941
+wh-930: 8 December 1941; 14 August 1945; 2 September 1945
+wh-931: 3 June 1942; 4 June 1942; 7 June 1942
+wh-932: 13 September 1940; 11 February 1941; 8 November 1942; 13 May 1943
+wh-933: 23; 4; 1942
+wh-934: 1933; 1945
+wh-935: 14 June 1940; March 1942; 27 January 1945
+wh-937: 6 June 1944; 21 August 1944
+wh-938: 16 December 1944; 26 December 1944; 25 January 1945
+wh-939: 16 April – 2 May 1945
+wh-940: 6 August 1945; 9 August 1945
+wh-941: 14 August 1945; 15 August 1945; 2 September 1945
+wh-942: 8 August 1945; 20 November 1945 – 1 October 1946; December 1946 – April 1949
+wh-943: 1945; 1952
+wh-944: 1945
+wh-945: 1948
+wh-946: 1947; 1989; 1945; 1991
+wh-948: 1947
+wh-949: 1947; 1948
+wh-950: 1948; 1949
+wh-951: 1949
+wh-952: 1955; 1991
+wh-953: 1921; 1949
+wh-954: 1893; 9 September 1976
+wh-955: 25 June 1950; 27 July 1953
+wh-956: 29 August 1949; 1 November 1952; 1986; 8 December 1987
+wh-958: 23 October 1956; 1 November 1956; 4 November 1956
+wh-959: 12 August 1961; 13 August 1961; 9 November 1989
+wh-960: 26 July 1953; 2 December 1956; 1 January 1959; 1 May 1961
+wh-961: 4 October 1962; 1 December 1962; 14 October 1962; 20 November 1962
+wh-962: 4 October 1957
+wh-963: 16 July 1969; 20 July 1969; 21 July 1969; 24 July 1969
+wh-964: 1 November 1955; 7 August 1964; 27 January 1973; 30 April 1975
+wh-965: January 1968; 5 April 1968; 20 – 21 August 1968; 26 August 1968
+wh-966: 1969 – 1979; 26 May 1972; 29 May 1972; 1 August 1975
+wh-967: 1958; 1960; 1959; 1961
+wh-968: 1966; 1976; 1968; 1971
+wh-969: 24 December 1979; 27 December 1979; 14 April 1988; 15 February 1989
+wh-970: 9 November 1989
+wh-972: 1857; 15 August 1947
+wh-973: 1869; 1948
+wh-974: 1947
+wh-975: 17 August 1945; 27 December 1949
+wh-977: 26 July 1956; 29 October 1956; 6 November 1956; 8 March 1957
+wh-978: 1 November 1954; 18 March 1962; 1 July 1962; 5 July 1962
+wh-979: 1 January – 28 November 1960; 20 September – 7 October 1960
+wh-980: 1909; 6 March 1957; 24 February 1966; 27 April 1972
+wh-981: 1961; 1970
+wh-982: 26 May 1948; 7 July 1950; 1990
+wh-983: 18 July 1918; 12 June 1964; 11 February 1990; 10 May 1994
+wh-984: 1978 – 1979; 16 January 1979; 11 February 1979; 30 – 31 March 1979
+wh-985: April 1962; 5 February 1967
+wh-986: 15 April 1989; 20 May 1989; 3 – 4 June 1989
+wh-987: 1991
+wh-988: 1990
+wh-989: 1 November 1993; 7 February 1992
+wh-990: 18 – 22 December 1978; 26 August 1980
+wh-991: 1991; 2001; July 1995; 14 December 1995
+wh-992: 8 November 1994; 2 September 1998
+wh-994: 29 October 1969; 1 January 1983
+wh-995: 11 September 2001
+wh-996: 20 September 2001
+wh-997: 17 December 2010; 14 January 2011; 11 February 2011; 17 March 2011
+wh-999: 2019; 2020; 2023
 ```

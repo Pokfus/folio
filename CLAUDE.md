@@ -235,7 +235,7 @@ have not this session.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | live |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 999 cards (`cnh-070` retired, never reuse) |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 1000 cards (`cnh-070` retired in Sep 2026, rewritten as *Shang bronze inscriptions* in Oct 2026 on request) |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | live |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | live |
 | The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
