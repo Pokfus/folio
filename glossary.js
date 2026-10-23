@@ -6593,7 +6593,14 @@ window.GLOSSARY = {
 "Limnae": "",
 "Persia": "",
 "Stymphalus": "",
-"Taygetus": ""
+"Taygetus": "",
+"All-China_Women's_Federation": "",
+"Communism": "",
+"Communist_Youth_League_of_China": "",
+"Ruijin": "",
+"Shaoshan": "",
+"Socialism_with_Chinese_characteristics": "",
+"Wang_Jiaxiang": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10063,7 +10070,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Konso": "Acheulean from c. 1.75 Mya",
 "Axis_powers": "1940–1945",
 "Gabriele_D'Annunzio": "1863–1938",
-"Victor_Emmanuel_III": "1869–1947"
+"Victor_Emmanuel_III": "1869–1947",
+"All-China_Women's_Federation": "1949–present",
+"Communist_Youth_League_of_China": "1922–present",
+"Ruijin": "1931–1934",
+"Socialism_with_Chinese_characteristics": "1982–present",
+"Wang_Jiaxiang": "1906–1974"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -13549,7 +13561,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Women's_suffrage_in_China": ["Chinese women's suffrage movement"],
 "Cai_Yuanpei": ["Ts'ai Yüan-p'ei","Tsai Yuan-pei"],
 "Chinese_Civil_War": ["Kuomintang–Communist civil war","Guo-Gong neizhan"],
-"Jiangxi_Soviet": ["Kiangsi Soviet","Central Soviet Area"],
+"Jiangxi_Soviet": ["Kiangsi Soviet","Central Soviet Area","Chinese Soviet Republic","Central Executive Committee of the Chinese Soviet Republic"],
 "Encirclement_campaigns_(Chinese_Civil_War)": ["encirclement campaigns","encirclement and suppression campaigns","weijiao"],
 "Long_March": ["Changzheng"],
 "Zunyi_Conference": ["Tsunyi Conference","Zunyi Meeting","Zunyi"],
@@ -13808,7 +13820,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kimilsungism–Kimjongilism": ["Kimilsungism-Kimjongilism","Kimilsungism","Kim Il-sungism–Kim Jong-ilism"],
 "Nomenklatura": ["nomenklatura system"],
 "People's_Liberation_Army": ["PLA"],
-"Central_Military_Commission_(China)": ["CMC"],
+"Central_Military_Commission_(China)": ["CMC","Central Military Committee"],
 "Politburo_Standing_Committee_of_the_Chinese_Communist_Party": ["Politburo Standing Committee","Standing Committee of the Politburo"],
 "Central_Commission_for_Discipline_Inspection": ["CCDI"],
 "National_People's_Congress": ["NPC"],
@@ -14267,7 +14279,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Limnae": ["Limnai"],
 "Persia": ["Persians"],
 "Stymphalus": ["Stymphalos"],
-"Taygetus": ["Mount Taygetus","Taygetos"]
+"Taygetus": ["Mount Taygetus","Taygetos"],
+"All-China_Women's_Federation": ["Women's Federation"],
+"Communism": ["communist"],
+"Communist_Youth_League_of_China": ["Communist Youth League"],
+"Ruijin": ["Juichin"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20986,7 +21002,14 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Limnae": ["place","history","greece","sparta","religion","archaic"],
 "Persia": ["state","history","politics","geography","iran"],
 "Stymphalus": ["place","history","greece","archaeology","city","archaic"],
-"Taygetus": ["mountain","geography","greece","sparta","religion"]
+"Taygetus": ["mountain","geography","greece","sparta","religion"],
+"All-China_Women's_Federation": ["institution","politics","women","china","20th century"],
+"Communism": ["concept","politics","ideology","history","communism"],
+"Communist_Youth_League_of_China": ["institution","politics","history","china","communism","20th century"],
+"Ruijin": ["place","history","china","communism","20th century"],
+"Shaoshan": ["place","history","china","communism","20th century"],
+"Socialism_with_Chinese_characteristics": ["concept","politics","ideology","china","communism"],
+"Wang_Jiaxiang": ["person","history","politics","china","communism"]
 });
 
 /* ============================================================================
