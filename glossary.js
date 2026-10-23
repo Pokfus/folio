@@ -6571,7 +6571,8 @@ window.GLOSSARY = {
 "Cereal": "",
 "Core_area_hypothesis": "",
 "Karaca_Dağ": "",
-"Pulse_(legume)": ""
+"Pulse_(legume)": "",
+"Axis_powers": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10038,7 +10039,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Tu_Youyou": "b. 1930",
 "Gabriel_de_Mortillet": "1821–1898",
 "Kokiselei": "c. 1.76 Mya",
-"Konso": "Acheulean from c. 1.75 Mya"
+"Konso": "Acheulean from c. 1.75 Mya",
+"Axis_powers": "1940–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -11668,7 +11670,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Second_Italo-Ethiopian_War": ["Second Italo-Abyssinian War"],
 "Nazism": ["National Socialism"],
 "Adolf_Hitler": ["Hitler"],
-"Nazi_Party": ["NSDAP"],
+"Nazi_Party": ["NSDAP","National Socialist Party"],
 "Antisemitism": ["racial antisemitism"],
 "1930_German_federal_election": ["Reichstag election of 1930"],
 "Enabling_Act_of_1933": ["Enabling Act"],
@@ -14220,7 +14222,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cereal": ["cereals","cereal grain","cereal grains"],
 "Core_area_hypothesis": ["core area hypothesis","core-area hypothesis"],
 "Karaca_Dağ": ["Karacadağ","Karacadag","Karacadağ mountains"],
-"Pulse_(legume)": ["pulses","grain legume","grain legumes"]
+"Pulse_(legume)": ["pulses","grain legume","grain legumes"],
+"Axis_powers": ["Axis alliance"],
+"Lebensraum": ["living space"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20917,7 +20921,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cereal": ["plant","agriculture","science","prehistory"],
 "Core_area_hypothesis": ["theory","agriculture","archaeology","prehistory","science"],
 "Karaca_Dağ": ["place","mountain","geography","archaeology","prehistory","turkey"],
-"Pulse_(legume)": ["plant","agriculture","science","prehistory"]
+"Pulse_(legume)": ["plant","agriculture","science","prehistory"],
+"Axis_powers": ["concept","history","politics","diplomacy","germany","italy","japan","20th century"]
 });
 
 /* ============================================================================
