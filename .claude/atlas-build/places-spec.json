@@ -3145,6 +3145,27 @@
    },
    "cards": 1
   },
+  "pl:q134927": {
+   "name": "Mount Emei",
+   "kind": "mountain",
+   "sub": "Mount",
+   "qid": "Q134927",
+   "at": [
+    103.3325,
+    29.5197
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Emei",
+   "manual": true,
+   "reason": "gc-914 : the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q134960293": {
    "name": "Lysimacheia",
    "kind": "site",
@@ -10891,6 +10912,28 @@
    },
    "cards": 1
   },
+  "pl:q334225": {
+   "name": "Li River",
+   "kind": "river",
+   "sub": "Li",
+   "qid": "Q334225",
+   "at": [
+    110.6333,
+    24.6331
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Li River",
+   "manual": true,
+   "reason": "gc-821 : the card's own place",
+   "evidence": {
+    "classes": [
+     "Q4022",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q3346548": {
    "name": "Palashi",
    "kind": "town",
@@ -15606,6 +15649,30 @@
    },
    "cards": 1
   },
+  "pl:q644965": {
+   "name": "Mount Heng (Hunan)",
+   "kind": "mountain",
+   "sub": "Mount",
+   "qid": "Q644965",
+   "at": [
+    112.6847,
+    27.3017
+   ],
+   "within": "",
+   "aliases": [
+    "Mount Heng"
+   ],
+   "wiki": "Mount Heng (Hunan)",
+   "manual": true,
+   "reason": "gc-925 : the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q645234": {
    "name": "Tegea",
    "kind": "site",
@@ -16357,6 +16424,28 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q714023": {
+   "name": "Heaven Lake",
+   "kind": "lake",
+   "sub": "Heaven",
+   "qid": "Q714023",
+   "at": [
+    128.057,
+    42.006
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Heaven Lake",
+   "manual": true,
+   "reason": "gc-819 : the card's own place",
+   "evidence": {
+    "classes": [
+     "Q23397",
+     "Q204324"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q715869": {
    "name": "Legislative Yuan",

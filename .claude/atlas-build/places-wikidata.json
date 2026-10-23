@@ -91892,6 +91892,53 @@
    ],
    "label": "Delicate Arch",
    "title": "Delicate Arch"
+  },
+  "Q714023": {
+   "coord": [
+    128.057,
+    42.006
+   ],
+   "classes": [
+    "Q23397",
+    "Q204324"
+   ],
+   "label": "Heaven Lake",
+   "title": "Heaven Lake"
+  },
+  "Q334225": {
+   "coord": [
+    110.6333,
+    24.6331
+   ],
+   "classes": [
+    "Q4022",
+    "Q6838244"
+   ],
+   "label": "Li River",
+   "title": "Li River"
+  },
+  "Q134927": {
+   "coord": [
+    103.3325,
+    29.5197
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Emei",
+   "title": "Mount Emei"
+  },
+  "Q644965": {
+   "coord": [
+    112.6847,
+    27.3017
+   ],
+   "classes": [
+    "Q8502",
+    "Q6838244"
+   ],
+   "label": "Mount Heng",
+   "title": "Mount Heng (Hunan)"
   }
  },
  "links": {

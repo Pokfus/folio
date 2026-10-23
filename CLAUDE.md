@@ -260,7 +260,7 @@ have not this session.
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | complete but 3 deferred |
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | complete (4 deferred) |
-| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 4 / 4 | map decks complete; water (`gc-801`+) and mountains (`gc-901`+) decks planned, text cards with a locator |
+| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 4 / 4 | complete: map decks, plus water (`gc-801`–`840`) and mountains (`gc-901`–`940`), text cards with a locator |
 | Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | complete (`gru-502` deferred) |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | live, planned a lecture at a time |
 | The EU as an External Power | `eep` | `eep-` | `docs/eu-external-power-card-plan.md` | 14 / 14 | live, a course in the Special section: 292 of 300 planned cards written; Reading 3 (8 cards) waits for its PDF |

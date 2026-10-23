@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":3,"gulf":2,"lake":6,"river":8,"island":25,"island-group":3,"range":8,"region":71,"site":416,"mountain":30,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":3,"gulf":2,"lake":7,"river":9,"island":25,"island-group":3,"range":8,"region":71,"site":416,"mountain":32,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -286,6 +286,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q79883","Strait of Hormuz","strait",0,79883,0,[56.5,26.6],0,1],
 ["pl:q2344806","Hakata Bay","gulf",0,2344806,"city:1159149927",[130.3734,33.632],0,1],
 ["pl:q1756937","Sydney Cove","gulf",0,1756937,0,[151.2117,-33.8586],0,1],
+["pl:q714023","Heaven Lake","lake","Heaven",714023,0,[128.057,42.006],0,1],
 ["pl:q1234240","Lake Copais","lake",0,1234240,0,[23.05,38.45],0,1],
 ["pl:q17051922","Lake Regillus","lake",0,17051922,0,[12.6931,41.8797],0,1],
 ["pl:q183360","Lake Toba","lake",0,183360,0,[98.8875,2.67],0,1],
@@ -298,6 +299,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q782845","Awash River","river",0,782845,0,[38.1471,9.0118],0,1],
 ["pl:q143762","Delaware River","river",0,143762,0,[-75.5288,39.4326],0,1],
 ["pl:q4163154","Dnieper rapids","river",0,4163154,0,[35.1889,48.1833],0,1],
+["pl:q334225","Li River","river","Li",334225,0,[110.6333,24.6331],0,1],
 ["pl:q966140","Lingqu","river",0,966140,0,[110.6625,25.6215],0,1],
 ["pl:q156006","Red River of the North","river",0,156006,0,[-96.5988,46.2643],0,1],
 ["pl:q974205","Xerxes Canal","river",0,974205,0,[23.9245,40.3732],
@@ -945,8 +947,11 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q1729630","Monte Cavo","mountain",0,1729630,"city:1159151593",[12.71,41.7517],
 ["Alban Mount"],1],
 ["pl:q657225","Mount Elbert","mountain",0,657225,0,[-106.4453,39.1178],0,1],
+["pl:q134927","Mount Emei","mountain","Mount",134927,0,[103.3325,29.5197],0,1],
 ["pl:q16990","Mount Etna","mountain",0,16990,0,[14.9932,37.7508],0,1],
 ["pl:q215516","Mount Helicon","mountain",0,215516,0,[22.825,38.3522],0,1],
+["pl:q644965","Mount Heng (Hunan)","mountain","Mount",644965,0,[112.6847,27.3017],
+["Mount Heng"],1],
 ["pl:q275662","Mount Hood","mountain",0,275662,0,[-121.6958,45.3736],0,1],
 ["pl:q622616","Mount Lu","mountain",0,622616,0,[115.9733,29.5725],
 ["Lushan"],1],

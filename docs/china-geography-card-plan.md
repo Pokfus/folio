@@ -406,6 +406,26 @@ never a source not opened; no author in more than two of one card's sources. **A
 height is a claim with a method**: name whose figure it is in `notes` when two authorities differ, and do
 not average them.
 
+### As written (Oct 2026): the decks are COMPLETE, and what changed on the way
+
+All 80 cards were drafted by research helpers from sources they opened, each card reviewed and every cited
+URL re-checked before it was written in. What the writing changed or decided:
+- **`gc-929` answers *Mount Lu***, the Wikipedia title, with *Lushan* as its glossary alias (the plan line
+  said Lushan). *Hukou Waterfall* keeps the singular answer; its term is Wikipedia's `Hukou_Waterfalls`.
+- **Three ranges have no locator**, because no honest spine could be sourced: Wudang (`gc-921`), the Flaming
+  Mountains (`gc-923`) and Wuyi (`gc-930`). **`gc-823` the Min is a point at Dujiangyan**: `rivers.js` keeps
+  Sichuan's Min and Fujian's Min in one entry, so naming it would trace both.
+- **American diplomatic material was removed** under this plan's rule: `gc-801` no longer quotes the US
+  ambassador on the 1949 crossing (it ends on Wu's river line and 280 CE instead), and `gc-813` says
+  "the Western powers" where an Office of the Historian source listed the United States.
+- **Facts cells set to `?`** where the only figure was stale or unsourced (the Huangpu's 1921 basin
+  estimate); the Tibetan Plateau's provinces row says only what is certain.
+- Two cards that listed one work twice (`gc-907` Chavannes, `gc-925` Robson) were merged and given a new
+  source each. `check-cards.js` gained three NOT_A_SCHOLAR names (Isabella Bird, Xu Xiake, Wu Zetian) and two
+  same-language exemptions (Cahiers d'Extrême-Asie publishes in English).
+- Three backgrounds cite UNEP-WCMC World Heritage datasheets through a private mirror (`thesalmons.org`), the
+  only copy reachable; an official copy is wanted when `whc.unesco.org` answers again.
+
 ### How the running orders were chosen
 
 **By how well the name is known**, the US decks' axis and `difficulty`'s: 1–10 household names, 11–22
