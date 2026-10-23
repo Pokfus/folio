@@ -6651,7 +6651,17 @@ window.GLOSSARY = {
 "Mummy": "",
 "Pathogen": "",
 "Vaccination": "",
-"Variola_virus": ""
+"Variola_virus": "",
+"Abu_Rawash": "",
+"Aswan": "",
+"Atbarah_River": "",
+"Blue_Nile": "",
+"Dahshur": "",
+"Damietta": "",
+"Manetho": "",
+"Rashid": "",
+"Sobat_River": "",
+"White_Nile": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10144,7 +10154,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cotton_Mather": "1663–1728",
 "Mission_San_José_(Texas)": "1720–1824",
 "Jochi": "d. 1227",
-"Karakorum": "1235–1263"
+"Karakorum": "1235–1263",
+"Manetho": "fl. c. 300 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14384,7 +14395,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sea_of_Japan": ["Japan Sea"],
 "Shogun": ["shoguns"],
 "Molecular_clock": ["molecular dating"],
-"Mummy": ["mummies"]
+"Mummy": ["mummies"],
+"Abu_Rawash": ["Abu Roash","Abou Rawash"],
+"Atbarah_River": ["Atbara","Atbara River"],
+"Sobat_River": ["Sobat"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21161,7 +21175,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mummy": ["concept","archaeology","history","death","science"],
 "Pathogen": ["concept","science","biology","medicine"],
 "Vaccination": ["concept","medicine","science","biology","health"],
-"Variola_virus": ["concept","science","medicine","biology","history"]
+"Variola_virus": ["concept","science","medicine","biology","history"],
+"Abu_Rawash": ["place","archaeology","history","egypt","old kingdom","site"],
+"Aswan": ["city","place","geography","egypt","africa","nature"],
+"Atbarah_River": ["river","geography","africa","ethiopia","sudan","nature"],
+"Blue_Nile": ["river","geography","africa","ethiopia","sudan","nature"],
+"Dahshur": ["place","building","architecture","history","egypt","old kingdom"],
+"Damietta": ["city","place","geography","egypt","africa","port"],
+"Manetho": ["person","historian","priest","history","egypt","historiography"],
+"Rashid": ["city","place","geography","egypt","africa","port"],
+"Sobat_River": ["river","geography","africa","ethiopia","south sudan","nature"],
+"White_Nile": ["river","geography","africa","sudan","nature"]
 });
 
 /* ============================================================================
