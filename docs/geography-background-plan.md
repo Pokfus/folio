@@ -4272,7 +4272,7 @@ than a fix per batch.**
   `add-sources.js` refuses that. Either find the one national fact the page does carry or drop the source
   and put a fifth in its place.
 
-**Rules 1 and 3 remain open on about 250 cards.** Run `node .claude/gw-audit.js` for the live figures.
+**FINISHED (checked 2026-10-23): `node .claude/gw-audit.js` reports 0 on all four rules across all 468 cards**, the country half and the capital half alike (C1–C39). Ten cards are recorded as read and kept (a card whose own subject is the United States or a territory; a grid value inside a longer name). The sentence that stood here, "Rules 1 and 3 remain open on about 250 cards", dates from the first batches and is kept out of the way: run the script for the live figures.
 
 *Not part of the site.*
 
@@ -4341,7 +4341,7 @@ deferred rather than half-solved: the
 World Bank's open climate API and the national met services answer for the weather, and nothing
 reachable carries the LANDFORM. **A COUNTRY THE RECOGNITION GUIDE HAS NO PAGE FOR CAN STILL BE
 WRITTEN**: it has none for North Korea, and `gw-056` rests instead on a MILESTONE, which is about
-an event rather than a state. Rules 1 and 3 remain open on about 350 cards.
+an event rather than a state. *(That batch left rules 1 and 3 open on about 350 cards; both are closed — see the note above the file's end.)*
 · **A GEOGRAPHY CARD'S DATE LINE CARRIES DATES, NOT A CENSUS** (Sep 2026, on request: "cards in
 geography decks should never have their census information mentioned in the period box below the main
 answer term"). Fifteen carried one — `Census | 21,893,095 in 2020` on `gw-502` Beijing, `2011 census |

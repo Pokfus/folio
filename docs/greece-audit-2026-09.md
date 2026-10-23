@@ -1190,7 +1190,7 @@ times gets the `one-witness` NOTE it deserves rather than an over-cited failure.
 the *Shiji* four times over, moved to that note the moment its citations were rewritten
 `Sima Qian … trans. Édouard Chavannes` — which is the checker finally saying what is true of the card.
 
-**THE REST OF THE SWEEP IS MEASURED AND DELIBERATELY NOT DONE.** **304 more citations across 145 cards**
+**THE REST OF THE SWEEP IS MEASURED AND DELIBERATELY NOT DONE** *(and on 2026-10-23 the owner decided it will not be done at all)*. **304 more citations across 145 cards**
 (150 opening `James Legge`, 154 opening `Édouard Chavannes`) plus 71 in `glossary-extra.js` still carry
 the translator-first form. It is not a regex job: every one has to be read for the text-versus-prolegomena
 distinction above, and getting that wrong attributes a Victorian's argument to a Zhou compiler. This
