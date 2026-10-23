@@ -253,17 +253,17 @@ one changelog line and a version bump; commit and push.
 | B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | **done 2026-10-23** |
 | B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | **done 2026-10-23** |
 | B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | **done 2026-10-23** |
-| B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | open |
-| B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | open |
-| B86 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-821`–`gr-830` | 10 | open |
-| B87 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-831`–`gr-840` | 10 | open |
-| B88 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-841`–`gr-845` | 5 | open |
-| B89 | Greece under Rome (`gr-under-rome`) | `gr-846`–`gr-855` | 10 | open |
-| B90 | Greece under Rome (`gr-under-rome`) | `gr-856`–`gr-865` | 10 | open |
-| B91 | Greece under Rome (`gr-under-rome`) | `gr-866`–`gr-875` | 10 | open |
-| B92 | Greece under Rome (`gr-under-rome`) | `gr-876`–`gr-880` | 5 | open |
-| B93 | Olympians and cosmogony (`gr-olympians`) | `gr-881`–`gr-890` | 10 | open |
-| B94 | Olympians and cosmogony (`gr-olympians`) | `gr-891`–`gr-900` | 10 | open |
+| B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | **done 2026-10-23** |
+| B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | **done 2026-10-23** |
+| B86 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-821`–`gr-830` | 10 | **done 2026-10-23** |
+| B87 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-831`–`gr-840` | 10 | **done 2026-10-23** |
+| B88 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-841`–`gr-845` | 5 | **done 2026-10-23** |
+| B89 | Greece under Rome (`gr-under-rome`) | `gr-846`–`gr-855` | 10 | **done 2026-10-23** |
+| B90 | Greece under Rome (`gr-under-rome`) | `gr-856`–`gr-865` | 10 | **done 2026-10-23** |
+| B91 | Greece under Rome (`gr-under-rome`) | `gr-866`–`gr-875` | 10 | **done 2026-10-23** |
+| B92 | Greece under Rome (`gr-under-rome`) | `gr-876`–`gr-880` | 5 | **done 2026-10-23** |
+| B93 | Olympians and cosmogony (`gr-olympians`) | `gr-881`–`gr-890` | 10 | **done 2026-10-23** |
+| B94 | Olympians and cosmogony (`gr-olympians`) | `gr-891`–`gr-900` | 10 | **done 2026-10-23** |
 | B95 | Olympians and cosmogony (`gr-olympians`) | `gr-901`–`gr-910` | 10 | open |
 | B96 | Olympians and cosmogony (`gr-olympians`) | `gr-911`–`gr-920` | 10 | open |
 | B97 | Heroes and the epic cycle (`gr-heroes`) | `gr-921`–`gr-930` | 10 | open |
@@ -2658,7 +2658,7 @@ The old Eratosthenes figure of 70,000 by 30,000 stadia is Strabo's own, not Erat
 `coin` (`gr-817`), `Hippocrates` (`gr-821`), `Egypt`, `Athens`, `Heracles` and `Hipparchus` (the son of Peisistratus, `gr-824`); the plain `Hipparchus` is
 hand-keyed to `Hipparchus_of_Nicaea` where the astronomer is meant.
 
-#### `gr-831`–`gr-860` (B87–B89, committed second)
+#### `gr-831`–`gr-860` (B87–B89 and the first half of B90, committed second)
 
 Thirty cards: Philo of Byzantium, Herophilus, Erasistratus, human dissection, the Antikythera mechanism, the oikoumene, Pytheas, Stoicism,
 Zeno of Citium, Chrysippus, Epicureanism, Epicurus, the Garden, Pyrrhonism, Hellenistic sculpture (the end of `gr-alexandria`); Pyrrhus of Epirus,
@@ -2703,7 +2703,7 @@ the "168 BCE" of the Callicrates glossary entry had no source (`gr-859`). **Glos
 hand-keyed to `Hipparchus_of_Nicaea` on `gr-835` and `gr-837`. `gr-860` is filed by the card's answer ("Perseus"), which the glossary resolves to the hero; the key
 `Perseus_of_Macedon` (Rome's `rm-250`) is the one that describes this king, and the same split exists on `rm-250` (an open item, not fixed here).
 
-#### `gr-861`–`gr-900` (B90–B94, committed third)
+#### `gr-861`–`gr-900` (the second half of B90, then B91–B94, committed third)
 
 Forty cards: the monument of Aemilius Paullus, the Via Egnatia, Diaeus, the sack of Corinth, Polybius, the mixed constitution, Delos, Attalus III,
 Archelaus, the siege of Athens, Thessalonica, Thessaly, Philippi, Actium, Caesarion, Cleopatra VII, the province of Achaea, Carneades, the Second Sophistic,
@@ -2746,3 +2746,22 @@ Isthmia "best documented" (`gr-892`); "Thesmophoria kept by women alone" (`gr-89
 **Wrong auto-links** stopped with `<span class="ans-term">`: `Dyrrachium` and `Heraclea` (`gr-862`), `horse` (`gr-863`), `Italy` (`gr-866`, `gr-867`, `gr-869`), `Greece` and `Asia` (`gr-867`), `Asia` (`gr-868`), `talent` (`gr-879`), `council` (`gr-880`),
 `Italian` (the nationality, which opens Italy, `gr-883`), and `Poros`, `Corinth`, `Pylos` and `gold` (`gr-891` – `gr-895`). **Locators:** none added: every card in the hundred that lacks one is a text,
 a concept, a god's name or a man (`gr-894` Hestia and `gr-895` Hades carry none deliberately, as their plan lines say).
+
+#### Pictures for `gr-801`–`gr-900` (own commit)
+
+Every one of the hundred pictures was looked at, the old ones included (`cm.py info` for width, author and licence, a downloaded thumbnail read by eye, `check-image-free.js` before any
+new file), and the 49 that remain were looked at once more on contact sheets after they were applied; every `src` is the standard thumbnail on `thumb.wikimedia.org` (the largest of
+1920, 1280 and 960 pixels that does not exceed the file) and every one answers 200. **49 of the hundred now carry a picture; 51 carry none**, where 97 carried one before: the draft
+agents had marked most of the old pictures "ok" without looking, and the refusals the rules name took out far more than they kept (no `cm.py` search found a free, unlettered, uncropped replacement for most of them).
+- **Replaced (12):** `gr-801` the Eastern Harbour for one corner of a late antique theatre; `gr-810` a 13th-century manuscript page of the poem for a vase painted before it; `gr-839` the Farnese bust of Zeno, clean, for a bust photographed with a museum label in frame;
+  `gr-854` Nabis' own tetradrachm for the Roman-period theatre at Sparta; `gr-857` the Hierapolis relief bust of Eumenes II for a coin that carries the head of Philetaerus; `gr-867` a view of the island of Delos for one building;
+  `gr-876` the denarius of Antony and Cleopatra for a posthumous, disputedly identified painting; `gr-877` the Roman forum of Corinth for a gate at Athens; `gr-878` the Munich Roman copy of the Carneades statue for a restored head on a modern bust with a spurious inscription;
+  `gr-885` the whole Vasari panel for a crop; `gr-889` the Attic pelike of Rhea handing Cronus the stone for a carved dedication of 1743; `gr-890` a bronze statuette of Zeus for the Artemision bronze, which may be Poseidon.
+- **Kept (37)**, each re-measured, its `src` normalised and its description or credit corrected where it was wrong: `gr-804` (a 1909 reconstruction drawing, now said to be imagined), `gr-818`, `gr-835`, `gr-838`, `gr-840` ("under Augustus" dropped), `gr-842`, `gr-845` (the find-spot dropped),
+  `gr-846`, `gr-850`, `gr-851` (the mint dropped), `gr-852`, `gr-856`, `gr-860`, `gr-861` (one slab of the frieze, as the description says), `gr-862`, `gr-864` (the ground, not the sack), `gr-865` (a conservation ruler and colour strip, no label), `gr-868`, `gr-870`, `gr-871` – `gr-875`,
+  `gr-884`, `gr-887` (Rubens' painting of 1636, imagined; a tiny inventory mark in one corner), `gr-888` (re-dated, imagined), `gr-891` – `gr-900` (`gr-894` credit corrected to CC BY 4.0 and its identification said to be doubtful, `gr-897` photographed through glass).
+- **Removed (48) or none (3):** a later painting, engraving or crop of a man with no ancient likeness (`gr-817`, `gr-819`, `gr-822`, `gr-824`, `gr-832`, `gr-833`, `gr-837`, `gr-844`, `gr-863`, `gr-869`); a manuscript or papyrus that is not the man (`gr-806`, `gr-807`, `gr-809`, `gr-811`, `gr-815`) or not the form (`gr-812`, `gr-813`, `gr-814`, `gr-841`);
+  lettering, labels or viewer controls burned in (`gr-816` the Rylands papyrus, `gr-823` English captions, `gr-826`, `gr-827`, `gr-828` and `gr-829` printed pages and charts, `gr-830` and `gr-831` reconstructions with text panels, `gr-834` a woodcut captioned CARPUS, `gr-836` a lettered map, `gr-880` Uccello's drawing with handwritten text and collection stamps, `gr-883` Goltzius with Latin lettering);
+  the wrong subject (`gr-802` a Serapeum column, `gr-803` a sarcophagus of the Muses, `gr-805` the Pnyx, `gr-820` the bath legend, `gr-821` a crop of the Parigi fresco, `gr-825` a sundial, `gr-843` the double herm, `gr-847` a coin of Tarentum in a pendant mount, `gr-848` the walls of Nafpaktos,
+  `gr-849` later Roman mosaics, `gr-853` a coin of the Roman-supervised kingdom, `gr-855` the temple at Isthmia, `gr-858` a mountain, `gr-879` Herodes Atticus, `gr-881` a composite plate of the François Vase, `gr-886` the Farnese Atlas); no good file (`gr-808`, whose only Aetia file is 749 pixels wide); none to start with (`gr-859`, `gr-866`, `gr-882`, where the Derveni papyrus is excluded by the plan).
+  **An open item:** a second pass could look again for a coin, relief or vase for the men and wars among these (Hipparchus on a coin of Nicaea, Pyrrhus' elephants, Theocritus) once a free unlettered file of 960 pixels or more exists.
