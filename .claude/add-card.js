@@ -866,6 +866,24 @@ if (card.locator) {
     }
     }
   }
+  /* `rivers` names the card's river as rivers.js does (Oct 2026), for a river whose Natural Earth name is
+     too common a word to be a glossary alias (the Yellow River is `Huang`). Read only on a river locator,
+     and every name must be one rivers.js carries — a misspelt one draws a dot and says nothing. */
+  if (card.locator.rivers != null) {
+    const rv = card.locator.rivers;
+    if (kind !== "river" || !Array.isArray(rv) || !rv.length) {
+      console.error("ERROR: card.locator.rivers is a list of rivers.js names, read only on a locator of kind \"river\".");
+      process.exit(1);
+    }
+    const rw = {};
+    new Function("window", fs.readFileSync(path.join(__dirname, "..", "rivers.js"), "utf8"))(rw);
+    const known = new Set((rw.RIVERS || []).map((r) => String(r.n)));
+    const miss = rv.filter((r) => !known.has(String(r)));
+    if (miss.length) {
+      console.error("ERROR: card.locator.rivers names a river rivers.js does not carry: " + JSON.stringify(miss) + ".");
+      process.exit(1);
+    }
+  }
   for (const extra of ["area", "spine"]) {
     if (card.locator[extra] && extra !== shape) {
       console.error("ERROR: card.locator." + extra + " is only read on a locator of kind \"" + (extra === "area" ? "region\", \"sea\" or \"shelf" : "range") + "\" — this one is \"" + kind + "\", so the shape would be carried in data.js and never drawn.");

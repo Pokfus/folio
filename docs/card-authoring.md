@@ -216,7 +216,8 @@ importer fetches the real coordinates, so **never write coordinates**:
 
 - `name` (optional) is the map label if it differs from the article title; it must be a PLACE, never
   the card's answer term, and must not start with "The".
-- For a battle add `"kind": "battle"`; for a river `"kind": "river"`. Leave regions and ranges out
+- For a battle add `"kind": "battle"`; for a river `"kind": "river"` (and, where the river's name in
+  `rivers.js` differs from the answer, `"rivers": ["<that name>"]`). Leave regions and ranges out
   (they need hand-drawn shapes).
 - A concept, a technique or a word gets no locator.
 

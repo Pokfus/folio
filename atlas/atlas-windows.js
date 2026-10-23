@@ -146,7 +146,9 @@
       if (wantsOwnRiver) {   // the card's own river, by its name or a glossary alias, out of rivers.js (and the frame's hi-res set where there is one)
         const LOW = window.RIVERS || [], HR = hiRegion && window.HIRES_RIVER ? window.HIRES_RIVER[hiRegion] : null;
         const RIV = HR ? LOW.filter((r) => !HR.sup.has(String(r.n))).concat(HR.rivers) : LOW;
-        for (let i = 0; i < RIV.length; i++) { const nm = String(RIV[i].n || "").toLowerCase(); if (sib.own.has(nm)) { ownLines = RIV[i].p; ownName = sib.termName.get(nm) || RIV[i].n; break; } }
+        /* every stretch the card names, not the first: Natural Earth splits a long river into named lengths (the Yangtze is
+           `Yangtze`, `Chang Jiang` and `Jinsha`), and a card naming three draws three (Oct 2026) */
+        for (let i = 0; i < RIV.length; i++) { const nm = String(RIV[i].n || "").toLowerCase(); if (sib.own.has(nm)) { ownLines = (ownLines || []).concat(RIV[i].p); if (!ownName) ownName = sib.termName.get(nm) || RIV[i].n; } }
       }
       return true;
     }
