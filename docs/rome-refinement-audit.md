@@ -459,35 +459,35 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-187` Mamertines | a Mamertine bronze coin | a fair single object for a people who struck coins; the description names the Berlin cabinet and its own dating |
 | `rm-188` Messana | a silver tetradrachm of Zancle | one coin cannot show a city; the description names the Berlin cabinet and a date range |
 | `rm-189` Hiero II | a silver 32-litra piece of Syracuse | the right kind of picture; the description wants rewording (it names the museum and its dates disagree with the card) |
-| `rm-190` siege of Agrigentum | a 1727 engraving from Thuillier's French Polybius | usable (no photograph can show the siege); the description names its source. **No locator: Agrigento is wanted** |
+| `rm-190` siege of Agrigentum | a 1727 engraving from Thuillier's French Polybius | usable (no photograph can show the siege); the description names its source. Locator added (Agrigento). |
 | `rm-191` first Roman fleet | an undated Roman as with a galley prow | a symbol of sea-power, not the fleet; the description admits the museum gives no date |
 | `rm-192` corvus | a 1926 line engraving of the boarding bridge | the description says it departs from Polybius (a hooked spike for a pestle, a pivot for the hole) |
-| `rm-193` Battle of Mylae | the museum copy of the Duilius inscription base | acceptable (the lettering is legible) but shows the monument, not the battle. **No locator: Milazzo is wanted** |
-| `rm-194` Cape Ecnomus | a three-panel diagram of the battle | the description admits it "departs from the text in places"; one reconstruction among several. **No locator: the site is uncertain (Heraclea Minoa is the nearest fixed point)** |
+| `rm-193` Battle of Mylae | the museum copy of the Duilius inscription base | acceptable (the lettering is legible) but shows the monument, not the battle. Locator added (Mylae, the article's own point). |
+| `rm-194` Cape Ecnomus | a three-panel diagram of the battle | the description admits it "departs from the text in places"; one reconstruction among several. Locator added (the article's point off Licata; the site is uncertain). |
 | `rm-195` African expedition | a map of the campaign in Africa | burned-in Spanish labels and numbered stages; the description names its provenance. **No locator: Aspis (Kelibia, an identification no page read confirms) is wanted** |
 | `rm-196` Regulus | Rosa's painting of Regulus in the spiked barrel | acceptable but second-best: it shows the later legend, not anything in Polybius |
-| `rm-197` siege of Lilybaeum | a plate from Thuillier's French Polybius | an 18th-century imagining of the relief; the description names its source. **No locator: Marsala is wanted** |
+| `rm-197` siege of Lilybaeum | a plate from Thuillier's French Polybius | an 18th-century imagining of the relief; the description names its source. Locator added (Marsala). |
 | `rm-198` Hamilcar Barca | Monte Erice, the ancient Eryx | a mountain, not the man; the description asserts "seized in 244 BCE" and "each side was besieging the other" as fact |
-| `rm-199` Aegates Islands | a Carthaginian bronze ram from the Egadi | suits the battle but is also on `wh-345` (`I.duplicate`); one of the two cards needs another picture. **No locator: the Aegadian Islands are wanted** |
+| `rm-199` Aegates Islands | a Carthaginian bronze ram from the Egadi | suits the battle but is also on `wh-345` (`I.duplicate`); one of the two cards needs another picture. Locator added (the Aegates Islands). |
 | `rm-200` Treaty of Lutatius | none | no picture (`I.none`) |
 | `rm-201` Roman annexation of Sicily | the unfinished Doric temple at Segesta | weak: one temple stands for an event and a settlement; a map of Roman Sicily would do |
 | `rm-202` provincia | a bronze modius from Herculaneum | wrong: a grain measure for a concept; the description names a museum number and asserts the tithe; also on `rm-269` (`I.duplicate`) |
 | `rm-203` Mercenary War | none | no picture (`I.none`) |
 | `rm-204` seizure of Sardinia and Corsica | Tharros on the west coast of Sardinia | weak: one coastal site for a two-island event; the description makes unsourced claims |
 | `rm-205` Barcid conquest of Spain | two Carthaginian silver coins from the La Puebla de los Infantes hoard | wrong: the description names the museum and its dating; also on `wh-346` (`I.duplicate`) |
-| `rm-206` New Carthage | the excavated Punic wall at Cartagena | acceptable but narrow; the description says two sandstone faces where the wall has a sandstone outer face and a mudbrick inner one. **No locator: Cartagena is wanted** |
+| `rm-206` New Carthage | the excavated Punic wall at Cartagena | acceptable but narrow; the description says two sandstone faces where the wall has a sandstone outer face and a mudbrick inner one. Locator added (Cartagena). |
 | `rm-207` Ebro treaty | the lower Ebro near Mora d'Ebre | fine as a photograph; the description is editorial and wants rewording |
-| `rm-208` Saguntum | the hilltop of Sagunto | the right subject; the description makes unsourced claims about the walls. **No locator: Sagunto is wanted** |
+| `rm-208` Saguntum | the hilltop of Sagunto | the right subject; the description makes unsourced claims about the walls. Locator added (Sagunto). |
 | `rm-209` Second Punic War | a Carthaginian silver tetradrachm | wrong: a single coin for a whole war; the description itself says the types were not struck for the war |
 | `rm-210` Hannibal | the Capua bust "traditionally called Hannibal" | weak: not a verified likeness; the description names a photographer (`I.caption-source`) |
 | `rm-211` Hannibal's crossing of the Alps | Turner's 1812 *Snow Storm* | weak, not wrong in rights: a Romantic storm with the army reduced to specks; keep unless a period object serves better |
 | `rm-212` war elephant | Siamese war elephants photographed about 1870 | acceptable stand-in only: Asian and two thousand years late; a Hellenistic or Punic object would serve better |
-| `rm-213` Battle of the Ticinus | the rescue of the consul, a 1790s French engraving | wrong: the description names its source (Mirys's plate) and it shows one episode. **No locator: the Ticino is wanted** |
-| `rm-214` Battle of the Trebia | the Trebbia at Rivergaro | fine as a photograph of the river, not the battlefield; one clause in the description is unsourced. **No locator: the Trebbia is wanted** |
-| `rm-215` Battle of Lake Trasimene | the battle painted into the Vatican wall map of Perugia | wrong: a 1580s fresco with burned-in Latin labels; a photograph of the Tuoro plain would serve. **No locator: Lake Trasimene is wanted** |
+| `rm-213` Battle of the Ticinus | the rescue of the consul, a 1790s French engraving | wrong: the description names its source (Mirys's plate) and it shows one episode. Locator added (the Ticino river's point, not a field: the site is disputed). |
+| `rm-214` Battle of the Trebia | the Trebbia at Rivergaro | fine as a photograph of the river, not the battlefield; one clause in the description is unsourced. Locator added (the Trebia). |
+| `rm-215` Battle of Lake Trasimene | the battle painted into the Vatican wall map of Perugia | wrong: a 1580s fresco with burned-in Latin labels; a photograph of the Tuoro plain would serve. Locator added (Lake Trasimene). |
 | `rm-216` Quintus Fabius Maximus | the Schönbrunn statue of Fabius Cunctator | acceptable in kind: an 18th-century marble, not a likeness, and the description says so |
 | `rm-217` Fabian strategy | Hannibal's oxen, an 1885 Italian print | wrong: one episode, imagined; the glossary's photograph of the Falernian plain would fit better |
-| `rm-218` Battle of Cannae | the field of Cannae, an 1885 engraving | weak: a drawing of the plain; a photograph from Cannae hill would serve. **No locator: Cannae is wanted** |
+| `rm-218` Battle of Cannae | the field of Cannae, an 1885 engraving | weak: a drawing of the plain; a photograph from Cannae hill would serve. Locator added (Cannae). |
 | `rm-219` double envelopment | the closing of the trap at Cannae, a military-academy diagram | wrong: burned-in map text and it is `rm-218`'s subject, not the concept |
 | `rm-220` Rome after Cannae | Roman women mourning, an 1885 engraving | wrong: an imagined drawing; the description names its own file name |
 | `rm-221` defection of Capua | a tufa votive from ancient Capua | weak: a sanctuary votive, not the revolt; the description claims the treaty kept Capua's "gods", which Livy does not say |
@@ -495,12 +495,12 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-223` Spanish campaigns of the Scipios | the bay at Empúries | weak: one bay for a war across Spain; the description names Polybius; also on `gr-217` |
 | `rm-224` Scipio Africanus | the Herculaneum bronze bust "long called Scipio" | questionable: not Scipio, and the description names the museum's dating |
 | `rm-225` capture of New Carthage | the Punic rampart at Cartagena from above | weak, not wrong: a place, not the capture |
-| `rm-226` Battle of Ilipa | a modern diagram of the pre-battle array | wrong: burned-in key; shows only the array. **No locator: Alcalá del Río is the usual identification** |
+| `rm-226` Battle of Ilipa | a modern diagram of the pre-battle array | wrong: burned-in key; shows only the array. Locator added (the article's point near Alcalá del Río). |
 | `rm-227` Hasdrubal's march into Italy | the valley below the Little St Bernard | ok but weak: the pass is not recorded and the description says so |
-| `rm-228` Battle of the Metaurus | Hannibal shown his brother's head, an 1818 engraving | wrong: an imagined scene staged indoors, where Livy has the head thrown before the outposts. **No locator: the site is uncertain** |
+| `rm-228` Battle of the Metaurus | Hannibal shown his brother's head, an 1818 engraving | wrong: an imagined scene staged indoors, where Livy has the head thrown before the outposts. Locator added (the Metaurus). |
 | `rm-229` Scipio's African campaign | the ruins of Utica | wrong: the description says Scipio besieged it through the whole campaign, but the siege lasted about forty days and was abandoned |
 | `rm-230` Masinissa | a Numidian bronze catalogued as Masinissa's | partly wrong: "not a portrait from life" is unsourced |
-| `rm-231` battle of Zama | Motte's 1906 painting | ok: public domain, no text; the description already says it is a modern imagining. **No locator: the site is uncertain, so a pin would assert one** |
+| `rm-231` battle of Zama | Motte's 1906 painting | ok: public domain, no text; the description already says it is a modern imagining. Locator added (the article's point; the site is uncertain, so the zoom is wide). |
 | `rm-232` peace of 201 BCE | the circular military-harbour basin at Carthage | questionable: the description asserts the fleet moored there, which no source here says |
 | `rm-233` Italy after Hannibal | a Roman field grid near Padua | wrong: northern Italy, later than the war, and the description admits it |
 | `rm-234` Third Punic War | a drawn plan of Carthage "as besieged" | wrong: a drawing with burned-in labels; it shows the siege (`rm-235`) |
@@ -515,26 +515,26 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-243` freedom of the Greeks | Saint-Ours's 1780 painting | ok: a painted imagining, and the description says it puts Flamininus before the crowd against both ancient accounts |
 | `rm-244` Antiochus III | a silver tetradrachm | ok-ish; the description makes an unsourced claim to trim |
 | `rm-245` Roman–Seleucid War | a modern map of the campaigns | wrong: burned-in labels and an editorial description; the glossary image has the same fault |
-| `rm-246` Battle of Thermopylae, 191 BCE | the pass today | fine as a photograph; the description ("more than any other battlefield") is editorial. **No locator: Thermopylae is wanted** |
-| `rm-247` Battle of Magnesia | a mailed horseman on a plaque from Iraq | wrong: the description admits it does not show this battle; the glossary's engraved map is labelled. **No locator: Manisa (Magnesia ad Sipylum) is wanted** |
+| `rm-246` Battle of Thermopylae, 191 BCE | the pass today | fine as a photograph; the description ("more than any other battlefield") is editorial. Locator added (Thermopylae). |
+| `rm-247` Battle of Magnesia | a mailed horseman on a plaque from Iraq | wrong: the description admits it does not show this battle; the glossary's engraved map is labelled. Locator added (Magnesia ad Sipylum). |
 | `rm-248` Treaty of Apamea | a modern map of the settlement | wrong: burned-in English labels; the glossary's is shared with the Anatolia entry |
 | `rm-249` Third Macedonian War | a Finnish-language map | wrong: burned-in Finnish labels; the description editorialises about Livy |
 | `rm-250` Perseus | a silver tetradrachm of Perseus | ok in kind; the description names Polybius and says what the coins paid for |
-| `rm-251` Battle of Pydna | a museum diorama of the battle | ok-ish: a modern model that the description says makes the phalanx a solid block; a Delphi frieze photograph is on `gr-861`. **No locator: Pydna is wanted** |
+| `rm-251` Battle of Pydna | a museum diorama of the battle | ok-ish: a modern model that the description says makes the phalanx a solid block; a Delphi frieze photograph is on `gr-861`. Locator added (Pydna). |
 | `rm-252` Lucius Aemilius Paullus | the Delphi monument frieze in a 19th-century line drawing | wrong: a drawing where photographs exist, and it shows the battle, not the man |
 | `rm-253` settlement of Macedonia | a tetradrachm of the first district, struck at Amphipolis | weak, not wrong: the museum dates the type about 158 – 146 BCE, after the settlement |
 | `rm-254` Day of Eleusis | Andriessen's pen-and-wash drawing of Laenas's circle | weak: an imagining nearly two thousand years later, and the description names the artist |
 | `rm-255` Achaean War | the Kleitor relief "thought to show Polybius" | wrong: a plaster cast of a relief with a conjectural subject; neither war nor place |
 | `rm-256` sack of Corinth | the archaic Temple of Apollo with Acrocorinth | acceptable but weak, and also on `wh-349` (`I.duplicate`); the description says nothing in it is of the sack |
-| `rm-257` province of Macedonia | paving of the Egnatian Way at Philippi | weak: one road, not the province. **No locator: a province needs a hand-drawn shape** |
-| `rm-258` province of Asia | the acropolis of Pergamum | wrong: one city; the description names Strabo. **No locator: a province needs a hand-drawn shape** |
+| `rm-257` province of Macedonia | paving of the Egnatian Way at Philippi | weak: one road, not the province. Locator added: a hand-drawn dashed outline, its point fetched from Thessaloniki. |
+| `rm-258` province of Asia | the acropolis of Pergamum | wrong: one city; the description names Strabo. Locator added: a hand-drawn dashed outline, its point fetched from Pergamon. |
 | `rm-259` bequest of Attalus III | the Great Altar re-erected in Berlin | weak: the altar is Eumenes II's, and the description admits much of it is modern masonry |
 | `rm-260` revolt of Aristonicus | the colonnaded street at Ephesus | weak: a Roman-era street for a city that fought the revolt; the description admits it post-dates it |
 | `rm-261` Roman conquest of Spain | the Roman theatre at Cartagena | wrong: a later monument that stands for no part of a 200-year conquest |
 | `rm-262` Celtiberian Wars | the Botorrita bronze plaques | borderline: they show the Celtiberian language, not the wars |
 | `rm-263` Lusitanian War | a street at the Citânia de Briteiros | wrong: a hillfort in the Minho, north of Lusitania, as the description says. **No locator: Lusitania has no point** |
 | `rm-264` Viriathus | the monument to Viriato at Viseu | ok in kind: a modern bronze; the description says no ancient likeness survives |
-| `rm-265` Numantine War | reconstructed timber towers at Numantia | ok in kind, weak: a visitors' reconstruction of the site, not the siege. **No locator: Numantia (Garray) is wanted** |
+| `rm-265` Numantine War | reconstructed timber towers at Numantia | ok in kind, weak: a visitors' reconstruction of the site, not the siege. Locator added (Numantia). |
 | `rm-266` Scipio Aemilianus | a painting of Masinissa's deathbed | wrong: a painting of one scene, titled with the wrong name; the description is a copied caption with a typo and gives Masinissa's dates |
 | `rm-267` Roman provincial system | none | no picture (`I.none`) |
 | `rm-268` publicani | none | no picture (`I.none`) |
@@ -543,13 +543,13 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-271` Greek influence on Roman culture | none | no picture (`I.none`) |
 | `rm-272` philhellenism | none | no picture (`I.none`) |
 | `rm-273` Cato the Elder | none | no picture (`I.none`) |
-| `rm-274` Bacchanalian affair | none | no picture (`I.none`); the Tiriolo tablet in Vienna would suit if a free image exists. **No locator: Tiriolo is wanted** |
+| `rm-274` Bacchanalian affair | none | no picture (`I.none`); the Tiriolo tablet in Vienna would suit if a free image exists. Locator added (Tiriolo). |
 | `rm-275` sumptuary law | none | no picture (`I.none`) |
 | `rm-276` crisis of the Roman Republic | none | no picture (`I.none`) |
 | `rm-277` latifundium | none | no picture (`I.none`) |
 | `rm-278` decline of the Italian smallholder | none | no picture (`I.none`) |
 | `rm-279` slavery in Italian agriculture | none | no picture (`I.none`); a farm scene or a mosaic of farm slaves would suit |
-| `rm-280` First Servile War | the rock at Enna | fine as a photograph; the description narrates Diodorus and Strabo and the credit lacks "via Wikimedia Commons". **No locator: Enna is wanted** |
+| `rm-280` First Servile War | the rock at Enna | fine as a photograph; the description narrates Diodorus and Strabo and the credit lacks "via Wikimedia Commons". Locator added (Enna). |
 | `rm-281` Tiberius Gracchus | none | no picture (`I.none`); the glossary's Guillaume bronze shows both brothers, so a Tiberius-only picture is wanted |
 | `rm-282` lex Sempronia agraria | none | no picture (`I.none`) |
 | `rm-283` Gracchan land commission | a boundary stone at Fano (CIL XI 6331) | ok with a caveat: a later restoration naming Licinius, Appius Claudius and Gaius Gracchus; its title ("naming the three commissioners") should be reworded |
@@ -567,9 +567,9 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-295` Marian reforms | a denarius of Fundanius showing Marius as triumphator | weak: a victory type, not the army; the description names a catalogue number and says "BC" |
 | `rm-296` capite censi | none | no picture (`I.none`) |
 | `rm-297` Cimbri and the Teutones | a book plate of Marius and the Cimbrian ambassadors | wrong: one episode for a whole people, and the description names its source |
-| `rm-298` Battle of Arausio | none | no picture (`I.none`). **No locator: Orange is wanted** |
-| `rm-299` Battle of Aquae Sextiae | a 1915 illustration by John Harris Valda | wrong: the description names the artist and the book. **No locator: Aix-en-Provence is wanted** |
-| `rm-300` Battle of Vercellae | Tiepolo's oil of the battle | acceptable as an imagined scene; the description gives museum dimensions and the credit names no painter. **No locator: Vercelli is wanted, the site being disputed** |
+| `rm-298` Battle of Arausio | none | no picture (`I.none`). Locator added (Arausio). |
+| `rm-299` Battle of Aquae Sextiae | a 1915 illustration by John Harris Valda | wrong: the description names the artist and the book. Locator added (Aquae Sextiae). |
+| `rm-300` Battle of Vercellae | Tiepolo's oil of the battle | acceptable as an imagined scene; the description gives museum dimensions and the credit names no painter. Locator added (Vercellae; the site is disputed). |
 
 ## Glossary candidates
 
@@ -1390,7 +1390,7 @@ Run as B29; every draft compared with its card: no mismatch. Checks: `rm-audit.j
 
 ### The third hundred, in sum
 
-`rm-201`–`rm-300` (the Punic Wars from the settlement of Sicily, Rome and the Mediterranean and the first of the Republic in crisis) are done: 590 sources became 742 and 81 glossary entries were rewritten or added. `rm-audit.js --range=rm-201:rm-300` reads 50 of 100 cards clean; what remains is 25 cards with no picture, 4 real picture duplicates, 1 `I.caption-source`, 17 cards with no locator (every battle and place whose request had to be dropped), 8 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 1 `Q.sibling`. Every picture is still the bulk-written one: the "Pictures to redo" table holds a verdict for each of the three hundred, and the locator list is in the same table.
+`rm-201`–`rm-300` (the Punic Wars from the settlement of Sicily, Rome and the Mediterranean and the first of the Republic in crisis) are done: 590 sources became 742 and 81 glossary entries were rewritten or added. `rm-audit.js --range=rm-201:rm-300` reads 66 of 100 cards clean once the 25 locators below were added (50 before); what remains is 25 cards with no picture, 4 real picture duplicates, 1 `I.caption-source`, 17 cards with no locator when the batches ran (every battle and place whose request had to be dropped; 25 locators were added afterwards, see "Locators added"), 8 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 1 `Q.sibling`. Every picture is still the bulk-written one: the "Pictures to redo" table holds a verdict for each of the three hundred, and the locator list is in the same table.
 
 What the third hundred found, again and again:
 - **A year no source prints.** Polybius prints no BCE year anywhere; Livy's years are an editor's brackets; so "211 BCE" for Syracuse, "197" for the two Spains' origin, "209", "157 BCE, per Pliny", "66 BCE" and "167 BCE" for the publicani and "171 BCE" for the Spanish case were an earlier agent's conversions. Each year on a line now has a modern author who prints it, or is dropped.
@@ -1401,3 +1401,9 @@ What the third hundred found, again and again:
 - **Housekeeping.** `rm-250`'s Wikipedia link and glossary pointed at Perseus the hero (fixed by hand in `wiki-links.json`); `rm-244`/`rm-246` lacked the glossary alias their answer needs; one source's chip sat after the URL's full stop. After the merge with main, `atlas/data/wars.js`, the war slice (`history-wars.bin` and its twin) and `credits.js` were regenerated (`build-wars.js --install`, `build-war-slice.js --install`): the war table takes its titles and years from the cards, so a rewrite of the Punic-War cards leaves it stale. `rm-208`'s first phrasing named Polybius (`check-cards` counts it as a scholar) and now says "one ancient count".
 
 Overlap notes for the owner (nothing was edited): `gr-792` says Apamea was "ten thousand talents over ten years", which no source read gives; `gr-793` says Antiochus took Alexandria and starts that war in 170; `gr-994` says the Bacchanalian decree "banned" the rites; `wh-350` states Gaius Gracchus's death by his slave as fact; `gr-189` and `gr-864` differ slightly on Corinth.
+
+### Locators added (2026-10-23)
+
+Wikipedia answered after the batches ran, so `add-locators.js` was run on the cards whose requests had been dropped: **`rm-190`, `rm-193`, `rm-194`, `rm-197`, `rm-199`, `rm-206`, `rm-208`, `rm-213`, `rm-214`, `rm-215`, `rm-218`, `rm-226`, `rm-228`, `rm-231`, `rm-246`, `rm-247`, `rm-251`, `rm-257`, `rm-258`, `rm-265`, `rm-274`, `rm-280`, `rm-298`, `rm-299`, `rm-300`**. Every coordinate was fetched from the named article (one title per request, retried through Wikipedia's rate limit), never typed; battles carry the crossed-swords kind where the article names the battle, and the Ticinus is the Ticino river's point because its battle article carries no coordinate and the site is disputed. The two provinces (`rm-257`, `rm-258`) are `region` locators whose dashed outlines are hand-drawn approximations (the province of Macedonia about 148 BCE without Thessaly, Asia as western Anatolia); their `at` is fetched from Thessaloniki and Pergamon, because the provinces' own articles carry no coordinate.
+
+Still without one: `rm-195` (Aspis, an identification no page read confirms), `rm-263` (Lusitania would need a hand-drawn region) and the later cards the audit still lists. `migrate-places.js` derived `places` ids for `rm-218`, `rm-246` and `rm-247` (committed with the locators); the other new toponyms stay "not fetched" in `docs/atlas-places-report.md`. A `migrate-places.js --fetch` run was started and stopped: Wikidata's query service rate-limited it, and the partial cache it wrote rewrote tens of thousands of lines of `places-wikidata.json` and broke `--check`, so the file was restored. `migrate-places --check`, `check-places`, `build-card-places --check`, `build-card-faces --check` and `test-places` pass; the new places reach the Atlas only after a full `--fetch` from an address the query service will answer.

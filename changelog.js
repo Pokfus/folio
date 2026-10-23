@@ -46,6 +46,7 @@ window.CHANGELOG = [
       "A card's <b>Timeline</b> and its Nearby rail now sit below the Atlas box, and a name on the timeline opens that term's glossary entry.",
       "Admins can switch a card on or off the timelines of its collection, and set its dates, from the card editor.",
       "The twelve-question test before a deck's first session is gone: choosing <b>By difficulty</b> now starts studying at once, and the first card is the deck's easiest.",
+      "<b>25 Ancient Rome cards gain a map</b>: battles, sieges, cities and two provinces now show where they were on the card's mini-globe.",
     ],
   },
   {
