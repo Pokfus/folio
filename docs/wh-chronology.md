@@ -625,6 +625,23 @@ Filled batch by batch, from the source each row names.
 | Spanish conquest of the Inca Empire: convention / Manco's rising / Pizarro killed / Vilcabamba fell | 1532 – 1572 / 1536 / 26 June 1541 / June 1572 CE | Bauer et al.; Kolata (`wh-668`) |
 | Columbian exchange: began | 1492 CE | Hamilton et al.; Crosby 1972 as reported (`wh-669`) |
 | Cocoliztli: first wave / second wave | 1545 – 1548 / 1576 – 1578 CE (one study: 1580) | Acuña-Soto's group as reported; Vågene et al. (`wh-670`) |
+| Potosí: silver found / mercury trial / mita begun | 1545 / 1571 / 1572 – 1573 CE (1545 or 1546; 1570 – 1572; 1572 or 1573) | Bakewell; Cieza; Salazar-Soler (`wh-671`; `wh-672` is `undatable`) |
+| Encomienda: royal order / Laws of Burgos / New Laws / clause revoked | December 1503 / 27 December 1512 / 1542 / 20 October 1545 CE (Roldán grants: 1497 Bourne, 1499 an encyclopedia) | Bourne (`wh-673`) |
+| Spanish Empire: in the Americas / mainland ended | 1492 – 1898 / 1824 CE | one encyclopedia's convention (`wh-674`) |
+| Portuguese Empire: counted as / Estado da Índia | 1415 – 1999 / 1505 – 1961 CE | the card's own reckoning (`wh-675`) |
+| Dutch East India Company: chartered / directors out / charter revoked | 20 March 1602 / 1 March 1796 / 1 January 1800 CE | Dutch National Archives; Gaastra (`wh-676`) |
+| East India Company: chartered (Old Style) / first voyage / Crown took over / dissolved | 31 December 1600 / 1601 / 1858 / 1874 CE | Smith; a 19th-century history of India (`wh-677`) |
+| Manila galleon: return route / Manila founded / Cortes decree / last to Manila | 1565 / 1571 / 14 September 1813 / 1815 CE | Library of Congress (`wh-678`) |
+| Jamestown: chartered / landed / first assembly / first Africans | 10 April 1606 / 13 – 14 May 1607 / 30 July 1619 / August 1619 CE | Jamestown Rediscovery Foundation; Percy (`wh-679`) |
+| New England: named / colonised | 1616 / from 1620 CE | Smith 1616 (`wh-680`) |
+| New France: Quebec begun / crown took over / Montreal fell / ceded | 3 July 1608 / 1663 / 8 September 1760 / 10 February 1763 CE (Acadia 1713) | Dictionary of Canadian Biography; Vachon (`wh-681`) |
+| Russian conquest of Siberia: Kuchum beaten / Tobolsk / Pacific reached / Nerchinsk | 1582 / 1587 / 1639 / 1689 CE (Yermak's march 1581 or 1582) | Perrie; Richards; Trekhsviatskyi (`wh-682`) |
+| James Cook: lived / Endeavour sails / transit observed | 27 October 1728 – 14 February 1779 / 26 August 1768 / 3 June 1769 CE | Royal Museums Greenwich (`wh-683`; `wh-684` is `undatable`) |
+| Mercator projection: map published / Wright's tables | 1569 / 1599 CE | Snyder (USGS) (`wh-685`; `wh-686` is `undatable`) |
+| Ottoman Empire: reckoned from (tradition) / sultanate ended | 1299 / 1 November 1922 CE | İnalcık (`wh-687`) |
+| Mehmed II: lived / reigns / took the city | 30 March 1432 – 3 May 1481 / 1444 – 1446 and 1451 – 1481 / 29 May 1453 CE | İnalcık (`wh-688`) |
+| Janissaries: founded / abolished | c. 1350 – 1400 / 17 June 1826 CE (18 June for the shelling) | Veinstein; Gül (`wh-689`) |
+| Suleiman: lived / reigned | 1494 – 1566 / 1520 – 1566 CE (1496 in another source) | Emecen (`wh-690`) |
 
 ## Chronology pins
 
@@ -1234,4 +1251,21 @@ wh-667: 1529; 1532; 1541
 wh-668: 1532; 1572; 1536; 1541
 wh-669: 1492
 wh-670: 1545; 1548; 1576; 1578
+wh-671: 1545; 1571; 1572; 1573
+wh-673: 1503; 27; 1512; 1542; 20; 1545
+wh-674: 1492; 1898; 1824
+wh-675: 1415; 1999; 1505; 1961
+wh-676: 20; 1602; 1; 1796; 1800
+wh-677: 31; 1600; 1601; 1858; 1874
+wh-678: 1565; 1571; 14; 1813; 1815
+wh-679: 10 April 1606; 13 – 14 May 1607; 30 July 1619; August 1619
+wh-680: 1616; 1620
+wh-681: 3 July 1608; 1663; 8 September 1760; 10 February 1763
+wh-682: 1582; 1587; 1639; 1689
+wh-683: 1728; 1779; 1768; 1769
+wh-685: 1569; 1599
+wh-687: 1299; 1 November 1922
+wh-688: 30 March 1432; 3 May 1481; 1444; 1446; 1451; 29 May 1453
+wh-689: 1350; 1400; 1826
+wh-690: 1494; 1566; 1520
 ```
