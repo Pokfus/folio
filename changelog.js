@@ -35,9 +35,43 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1054", released: "2026-10-22T10:20Z" };
+window.FOLIO_VERSION = { v: "1.1067", released: "2026-10-23T08:01Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-10-23",
+    t: "The card timeline moves below the Atlas box and opens the glossary",
+    items: [
+      "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
+      "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
+      "A card's <b>Timeline</b> and its Nearby rail now sit below the Atlas box, and a name on the timeline opens that term's glossary entry.",
+      "Admins can switch a card on or off the timelines of its collection, and set its dates, from the card editor.",
+      "The twelve-question test before a deck's first session is gone: choosing <b>By difficulty</b> now starts studying at once, and the first card is the deck's easiest.",
+      "1 World History card's date line now gives when its age ended instead of a second start date.",
+    ],
+  },
+  {
+    d: "2026-10-22",
+    t: "Card timelines, Find it, Home and study-page polish",
+    items: [
+      "A <b>Timeline</b> on the answer side of an event or period card shows it beside the two cards before and the two after in its collection, periods as bars and single events as dashes — on the first 20 cards of The Second World War to begin with.",,
+      "<b>Twenty new glossary terms</b> on early stone-tool sites, early farming and its founder crops, regions and the scholars behind them.",
+      "The <b>Second World War map window</b> no longer shows a stray slanted block over the Allied lands, its timeline drops the dense vertical dashes, and the 1939–42 front fades softly at its map's edge.",
+      "<b>On a phone the grade buttons have one size</b>: the fold chevron is gone, and the ? and Suspend buttons sit under the grades, each as wide as two of them.",
+      "<b>\"Nearby in this collection\" folds</b> like Background and Sources, and remembers whether you left it shut.",
+      "<b>Map windows on cards have a relief button</b> to switch the shaded hills and mountains on or off.",
+      "<b>The first-visit banner on Home is more spaced out</b>, and its button spans the banner.",
+      "<b>Find it no longer opens the place window</b> after each answer; the round ends on \"Found it\" and the Next button.",
+      "<b>An empty \"Your collections\" list on Home shows a dashed empty box</b> with a button to the Collections page beneath it.",
+      "<b>The level-bar chest lights up only for a chest earned by levelling up</b> and not yet opened; badge, sweep and streak chests wait in the banner above.",
+      "<b>On a phone the Today / This week box sits between your collections and the minigames.</b>",
+      "<b>Glossary terms you have not opened are blue, and ones you have opened turn purple</b>, like a visited link.",
+      "<b>A collection whose subdecks you added one by one</b> now has a header row the same height as any other collection.",
+      "<b>Think it through</b> has even space above and below its questions, and each answer sits on the card's own background.",
+      "<b>The Atlas window on a card now sits right under the Background</b>, above what came of it, the nearby cards and the sources.",
+      "<b>War timelines open at the halfway point</b> of the war instead of at its last step."
+    ]
+  },
   {
     d: "2026-10-21",
     t: "World History: more cards rewritten and corrected",
