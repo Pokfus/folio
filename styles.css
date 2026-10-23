@@ -9488,6 +9488,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
+/* The caught-up sentence sat flush under its title; a little air between them (Oct 2026, on request). Only the
+   normal banner: the first-visit hero spaces its own title. */
+.page .rv-banner:not(.hero) h2.review-title + .desc{margin-top:8px;}
 /* THE FIRST-VISIT HERO, SPACED (Oct 2026, on request): the zero margins above ran its eyebrow, title, sentence and
    button together, and the button stood at its own text's width. The three get air between them and the button
    spans the banner. (After the zero-margin rule above, same specificity or higher, so these win.) */
