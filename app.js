@@ -7176,7 +7176,7 @@
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
       if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
-      return S.settings.reviewRandom ? "random" : "ordered";
+      return S.settings.reviewRandom ? "random" : "difficulty";
     }
     /* The chain is walked ONCE and each entry is asked for both names, rather than asking every entry for
        `order` and then every entry for `random`: a subdeck that carries only the old boolean must beat a
@@ -7188,7 +7188,7 @@
       if (typeof o.random === "boolean") return o.random ? "random" : "ordered";
     }
     if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
-    return S.settings.reviewRandom ? "random" : "ordered";
+    return S.settings.reviewRandom ? "random" : "difficulty";
   }
   function setDeckOrderMode(id, mode) {
     if (!DECK_ORDERS.includes(mode)) return;
@@ -42832,7 +42832,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // random review order (also togglable from the home banner's Chrono/Random pill)
     const swRandom = root.querySelector("#sw-random");
     const toggleRandom = () => {
-      S.settings.reviewRandom = !S.settings.reviewRandom; save();
+      setDeckOrderMode(REVIEW_ENTRY, S.settings.reviewRandom ? "ordered" : "random");
       swRandom.classList.toggle("on", !!S.settings.reviewRandom);
       swRandom.setAttribute("aria-checked", String(!!S.settings.reviewRandom));
     };
