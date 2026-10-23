@@ -6631,7 +6631,27 @@ window.GLOSSARY = {
 "Mandan": "",
 "Mission_San_José_(Texas)": "",
 "Missouri_River": "",
-"Onesimus_(Bostonian)": ""
+"Onesimus_(Bostonian)": "",
+"Caspian_Sea": "",
+"Danube": "",
+"Jochi": "",
+"Kalchyk_(river)": "",
+"Karakorum": "",
+"Ulus": "",
+"Hokkaido": "",
+"Honshu": "",
+"Kanagawa_Prefecture": "",
+"Kyushu": "",
+"Okinawa_Island": "",
+"Sea_of_Japan": "",
+"Shikoku": "",
+"Shogun": "",
+"Inoculation": "",
+"Molecular_clock": "",
+"Mummy": "",
+"Pathogen": "",
+"Vaccination": "",
+"Variola_virus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10122,7 +10142,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bureau_of_Indian_Affairs": "1824–present",
 "Continental_Army": "1775–1784",
 "Cotton_Mather": "1663–1728",
-"Mission_San_José_(Texas)": "1720–1824"
+"Mission_San_José_(Texas)": "1720–1824",
+"Jochi": "d. 1227",
+"Karakorum": "1235–1263"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14355,7 +14377,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Picuris_Pueblo,_New_Mexico": ["Picuris Pueblo","Picuris"],
 "White_Sands_National_Park": ["White Sands"],
 "Mission_San_José_(Texas)": ["Mission San José"],
-"Onesimus_(Bostonian)": ["Onesimus"]
+"Onesimus_(Bostonian)": ["Onesimus"],
+"Caspian_Sea": ["Caspian"],
+"Kalchyk_(river)": ["Kalka River","Kalchyk","Kalets"],
+"Kanagawa_Prefecture": ["Kanagawa"],
+"Sea_of_Japan": ["Japan Sea"],
+"Shogun": ["shoguns"],
+"Molecular_clock": ["molecular dating"],
+"Mummy": ["mummies"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21112,7 +21141,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mandan": ["people","history","north america","united states","trade"],
 "Mission_San_José_(Texas)": ["place","religion","history","north america","united states","spain"],
 "Missouri_River": ["place","river","geography","north america","united states"],
-"Onesimus_(Bostonian)": ["person","history","medicine","slavery","united states","north america"]
+"Onesimus_(Bostonian)": ["person","history","medicine","slavery","united states","north america"],
+"Caspian_Sea": ["sea","geography","nature","asia","europe","place"],
+"Danube": ["river","geography","nature","europe","place"],
+"Jochi": ["person","ruler","history","warfare","state","asia"],
+"Kalchyk_(river)": ["river","geography","nature","ukraine","europe","place"],
+"Karakorum": ["city","capital","place","history","asia","mongolia"],
+"Ulus": ["concept","state","politics","history","asia","mongols"],
+"Hokkaido": ["place","geography","island","japan","asia"],
+"Honshu": ["place","geography","island","japan","asia"],
+"Kanagawa_Prefecture": ["place","geography","city","japan","asia","diplomacy"],
+"Kyushu": ["place","geography","island","japan","asia"],
+"Okinawa_Island": ["place","geography","island","japan","asia"],
+"Sea_of_Japan": ["place","geography","sea","japan","korea","asia"],
+"Shikoku": ["place","geography","island","japan","asia"],
+"Shogun": ["title","history","japan","asia","government"],
+"Inoculation": ["concept","medicine","science","history","18th century"],
+"Molecular_clock": ["concept","science","biology","evolution","genetics"],
+"Mummy": ["concept","archaeology","history","death","science"],
+"Pathogen": ["concept","science","biology","medicine"],
+"Vaccination": ["concept","medicine","science","biology","health"],
+"Variola_virus": ["concept","science","medicine","biology","history"]
 });
 
 /* ============================================================================
