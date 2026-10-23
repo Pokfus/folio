@@ -9372,7 +9372,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Spanish_flu": "1918–1919",
 "Russian_Revolution": "1917",
 "Vladimir_Lenin": "1870–1924",
-"Russian_Civil_War": "1917–1921",
+"Russian_Civil_War": "1918–1921",
 "Soviet_Union": "1922–1991",
 "Warsaw_Pact": "1955–1991",
 "Chinese_Communist_Revolution": "1921–1949",
