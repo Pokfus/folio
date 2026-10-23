@@ -6600,7 +6600,26 @@ window.GLOSSARY = {
 "Ruijin": "",
 "Shaoshan": "",
 "Socialism_with_Chinese_characteristics": "",
-"Wang_Jiaxiang": ""
+"Wang_Jiaxiang": "",
+"Eighteenth_Dynasty_of_Egypt": "",
+"Fifteenth_Dynasty_of_Egypt": "",
+"Fourteenth_Dynasty_of_Egypt": "",
+"Nineteenth_Dynasty_of_Egypt": "",
+"Ninth_Dynasty_of_Egypt": "",
+"Seventeenth_Dynasty_of_Egypt": "",
+"Sixteenth_Dynasty_of_Egypt": "",
+"Twentieth_Dynasty_of_Egypt": "",
+"Twenty-first_Dynasty_of_Egypt": "",
+"Twenty-second_Dynasty_of_Egypt": "",
+"Thirtieth_Dynasty_of_Egypt": "",
+"Thirty-first_Dynasty_of_Egypt": "",
+"Twenty-eighth_Dynasty_of_Egypt": "",
+"Twenty-fifth_Dynasty_of_Egypt": "",
+"Twenty-fourth_Dynasty_of_Egypt": "",
+"Twenty-ninth_Dynasty_of_Egypt": "",
+"Twenty-seventh_Dynasty_of_Egypt": "",
+"Twenty-sixth_Dynasty_of_Egypt": "",
+"Twenty-third_Dynasty_of_Egypt": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10075,7 +10094,19 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Communist_Youth_League_of_China": "1922–present",
 "Ruijin": "1931–1934",
 "Socialism_with_Chinese_characteristics": "1982–present",
-"Wang_Jiaxiang": "1906–1974"
+"Wang_Jiaxiang": "1906–1974",
+"Eighteenth_Dynasty_of_Egypt": "c. 1550–1295 BCE",
+"Nineteenth_Dynasty_of_Egypt": "c. 1295–1186 BCE",
+"Twentieth_Dynasty_of_Egypt": "c. 1186–1069 BCE",
+"Twenty-first_Dynasty_of_Egypt": "c. 1069–945 BCE",
+"Twenty-second_Dynasty_of_Egypt": "c. 945–715 BCE",
+"Thirtieth_Dynasty_of_Egypt": "380–343 BCE",
+"Thirty-first_Dynasty_of_Egypt": "c. 343–332 BCE",
+"Twenty-eighth_Dynasty_of_Egypt": "404–399 BCE",
+"Twenty-fifth_Dynasty_of_Egypt": "c. 747–664 BCE",
+"Twenty-ninth_Dynasty_of_Egypt": "399–380 BCE",
+"Twenty-seventh_Dynasty_of_Egypt": "525–404 BCE",
+"Twenty-sixth_Dynasty_of_Egypt": "664–525 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14283,7 +14314,26 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Communism": ["communist"],
 "Communist_Youth_League_of_China": ["Communist Youth League"],
 "Ruijin": ["Juichin"],
-"Batu_Khan": ["Batu"]
+"Batu_Khan": ["Batu"],
+"Eighteenth_Dynasty_of_Egypt": ["Eighteenth Dynasty","18th Dynasty","Dynasty XVIII","18th Dynasty of Egypt"],
+"Fifteenth_Dynasty_of_Egypt": ["Fifteenth Dynasty","15th Dynasty","Dynasty XV","15th Dynasty of Egypt"],
+"Fourteenth_Dynasty_of_Egypt": ["Fourteenth Dynasty","14th Dynasty","Dynasty XIV","14th Dynasty of Egypt"],
+"Nineteenth_Dynasty_of_Egypt": ["Nineteenth Dynasty","19th Dynasty","Dynasty XIX","19th Dynasty of Egypt"],
+"Ninth_Dynasty_of_Egypt": ["Ninth Dynasty","9th Dynasty","Dynasty IX","9th Dynasty of Egypt"],
+"Seventeenth_Dynasty_of_Egypt": ["Seventeenth Dynasty","17th Dynasty","Dynasty XVII","17th Dynasty of Egypt"],
+"Sixteenth_Dynasty_of_Egypt": ["Sixteenth Dynasty","16th Dynasty","Dynasty XVI","16th Dynasty of Egypt"],
+"Twentieth_Dynasty_of_Egypt": ["Twentieth Dynasty","20th Dynasty","Dynasty XX","20th Dynasty of Egypt"],
+"Twenty-first_Dynasty_of_Egypt": ["Twenty-first Dynasty","21st Dynasty","Dynasty XXI","21st Dynasty of Egypt"],
+"Twenty-second_Dynasty_of_Egypt": ["Twenty-second Dynasty","22nd Dynasty","Dynasty XXII","22nd Dynasty of Egypt"],
+"Thirtieth_Dynasty_of_Egypt": ["Thirtieth Dynasty","30th Dynasty","Dynasty XXX","30th Dynasty of Egypt"],
+"Thirty-first_Dynasty_of_Egypt": ["Thirty-first Dynasty","31st Dynasty","Dynasty XXXI","31st Dynasty of Egypt"],
+"Twenty-eighth_Dynasty_of_Egypt": ["Twenty-eighth Dynasty","28th Dynasty","Dynasty XXVIII","28th Dynasty of Egypt"],
+"Twenty-fifth_Dynasty_of_Egypt": ["Twenty-fifth Dynasty","25th Dynasty","Dynasty XXV","25th Dynasty of Egypt"],
+"Twenty-fourth_Dynasty_of_Egypt": ["Twenty-fourth Dynasty","24th Dynasty","Dynasty XXIV","24th Dynasty of Egypt"],
+"Twenty-ninth_Dynasty_of_Egypt": ["Twenty-ninth Dynasty","29th Dynasty","Dynasty XXIX","29th Dynasty of Egypt"],
+"Twenty-seventh_Dynasty_of_Egypt": ["Twenty-seventh Dynasty","27th Dynasty","Dynasty XXVII","27th Dynasty of Egypt"],
+"Twenty-sixth_Dynasty_of_Egypt": ["Twenty-sixth Dynasty","26th Dynasty","Dynasty XXVI","26th Dynasty of Egypt"],
+"Twenty-third_Dynasty_of_Egypt": ["Twenty-third Dynasty","23rd Dynasty","Dynasty XXIII","23rd Dynasty of Egypt"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21009,7 +21059,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ruijin": ["place","history","china","communism","20th century"],
 "Shaoshan": ["place","history","china","communism","20th century"],
 "Socialism_with_Chinese_characteristics": ["concept","politics","ideology","china","communism"],
-"Wang_Jiaxiang": ["person","history","politics","china","communism"]
+"Wang_Jiaxiang": ["person","history","politics","china","communism"],
+"Eighteenth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Fifteenth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Fourteenth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Nineteenth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Ninth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Seventeenth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Sixteenth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Twentieth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Twenty-first_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Twenty-second_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa"],
+"Thirtieth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
+"Thirty-first_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
+"Twenty-eighth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
+"Twenty-fifth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","nubia"],
+"Twenty-fourth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","iron age"],
+"Twenty-ninth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
+"Twenty-seventh_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","persia"],
+"Twenty-sixth_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","iron age"],
+"Twenty-third_Dynasty_of_Egypt": ["dynasty","history","politics","egypt","africa","iron age"]
 });
 
 /* ============================================================================
