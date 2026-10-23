@@ -9082,7 +9082,7 @@ body[data-theme="carnelian"].night .collection-deco{
    and 4.72 mixed — and the deeper red it was promoted with takes it to 6.10 and 8.46.) The plain `--zh` is
    declared first so a browser without `color-mix` still gets a readable tab rather than none. */
 .elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
-  padding:24px 16px 26px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}   /* the foot's 26px + the row's 2px match the head's 24 + 2 + 2: the same air under the last question as over the first (Oct 2026, on request) */
+  padding:20px 16px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}   /* EVEN AIR (Oct 2026, on request): 20px + the row's 2px (22px) over the first question, under the last, and either side of each rule between them */
 .elab-kind{position:absolute; top:calc(-10px * var(--fs)); left:15px;
   background:var(--zh); background:color-mix(in srgb, var(--zh) 72%, var(--ink));
   color:var(--card); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.13em;
@@ -9110,8 +9110,9 @@ body[data-theme="carnelian"].night .collection-deco{
    of two words; `list-style:none` plus the WebKit pseudo-element is what takes the browser's own marker
    off, and both are needed. The chevron rotates rather than swapping glyph, so the reduced-motion
    killswitch lands it on its true angle with no rule of its own. */
-.elab-item{padding-top:10px; border-top:1px solid var(--rule);}
-.elab-item:first-of-type{padding-top:2px; border-top:0;}
+.elab-item{padding:20px 0; border-top:1px solid var(--rule);}
+.elab-item:first-of-type{padding-top:0; border-top:0;}
+.elab-item:last-of-type{padding-bottom:0;}
 .elab-qrow{display:flex; align-items:flex-start; gap:12px; cursor:pointer; list-style:none;
   padding:2px 0; border-radius:7px;}
 .elab-qrow::-webkit-details-marker{display:none;}
@@ -9130,7 +9131,7 @@ body[data-theme="carnelian"].night .collection-deco{
    the line above rather than as another paragraph of the background */
 /* THE ANSWER SITS ON THE CARD'S OWN BACKGROUND (Oct 2026, on request) so it stands off the box's darker paper, with air under it
    before the next rule. */
-.elab-wrap{padding:7px 0 14px;}
+.elab-wrap{padding:7px 0 2px;}
 .elab-a{margin:0; padding:10px 13px; background:var(--card); border-radius:0 7px 7px 0; border-left:3px solid var(--zh);
   font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
 .elab-a[hidden]{display:none;}
@@ -9488,6 +9489,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
+/* The caught-up sentence sat flush under its title; a little air between them (Oct 2026, on request). Only the
+   normal banner: the first-visit hero spaces its own title. */
+.page .rv-banner:not(.hero) h2.review-title + .desc{margin-top:8px;}
 /* THE FIRST-VISIT HERO, SPACED (Oct 2026, on request): the zero margins above ran its eyebrow, title, sentence and
    button together, and the button stood at its own text's width. The three get air between them and the button
    spans the banner. (After the zero-margin rule above, same specificity or higher, so these win.) */
