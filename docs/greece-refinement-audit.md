@@ -2492,10 +2492,11 @@ Events and reigns gains the death of Alexander, the Lamian War and Crannon, and 
 Spellings gains **Triparadisus** (Diodorus' and Anson's forms stay inside cited titles).
 
 **Pictures for `gr-731`–`gr-760`** (applied with the text). Replaced (2): `gr-744` the ruins of the Apadana at Susa for a Castaigne
-magazine illustration, `gr-748` the fortress at Khujand for an 1870s photograph of the modern town. Kept (12): `gr-736`, `gr-738`,
-`gr-739`, `gr-741` – `gr-743`, `gr-749`, `gr-751`, `gr-752`, `gr-755` – `gr-757`. Description fixed on two: `gr-732` (a whole 15th-century
-manuscript leaf, now described as one) and `gr-733` ("imagined" added). Removed (11): later paintings and engravings or conjectural
-identifications: `gr-734` (the Stag Hunt mosaic is not the conspiracy), `gr-737` (a Sodoma fresco), `gr-740` (Le Brun), `gr-745`
+magazine illustration, `gr-748` the fortress at Khujand for an 1870s photograph of the modern town. Kept (11): `gr-736`, `gr-738`,
+`gr-739`, `gr-741` – `gr-743`, `gr-749`, `gr-752`, `gr-755` – `gr-757`. Description fixed on one: `gr-732` (a whole 15th-century
+manuscript leaf, now described as one). Removed (13): later paintings and engravings or conjectural
+identifications, and two pictures found on the final contact sheet to carry a printed caption: `gr-733` (Castaigne's engraving has its caption line
+under it) and `gr-751` (the map has a printed title and a credit in it and is dated about 240 BCE, not the whole of the Diadochi); and, earlier, `gr-734` (the Stag Hunt mosaic is not the conspiracy), `gr-737` (a Sodoma fresco), `gr-740` (Le Brun), `gr-745`
 (Castaigne), `gr-746` (the Ecbatana file found was a skeleton, refused), `gr-747` (Piloty), `gr-750` (under 960 pixels, and the
 replacements found were too small), `gr-753`, `gr-754`, `gr-758`, `gr-760`. No picture and none before: `gr-731`, `gr-735`, `gr-759`.
 
