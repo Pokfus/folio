@@ -873,6 +873,23 @@ Filled batch by batch, from the source each row names.
 | Algerian War: began / Évian Accords / referendum / independence day | 1 November 1954 / 18 March 1962 / 1 July 1962 / 5 July 1962 CE | the Front's proclamation; the Accords; the UN resolution (`wh-978`) |
 | Year of Africa: independences / joined the UN | 1 January – 28 November 1960 / 20 September – 7 October 1960 CE | CBC; the UN's list (`wh-979`) |
 | Kwame Nkrumah: born / independence / overthrown / died | 1909 / 6 March 1957 / 24 February 1966 / 27 April 1972 CE | the Schomburg guide; Hansard (`wh-980`); the day of birth is disputed, the line gives the year |
+| Non-Aligned Movement: first summit (Belgrade) / Lusaka summit | September 1961 / September 1970 CE | the State Department; Stubbs (`wh-981`) |
+| Apartheid (policy began / Acts in force / ended, Dugard) | 26 May 1948 / 7 July 1950 / 1990 CE | the Truth and Reconciliation Commission; the Acts; Dugard (`wh-982`) |
+| Nelson Mandela: born / sentenced / released / inaugurated | 18 July 1918 / 12 June 1964 / 11 February 1990 / 10 May 1994 CE | the Nobel biography; the UN edition (`wh-983`); the Rivonia conviction was on 11 June |
+| Iranian Revolution: span / Shah left / government fell / referendum | 1978 – 1979 / 16 January 1979 / 11 February 1979 / 30 – 31 March 1979 CE | the State Department; the referendum record (`wh-984`); the republic was declared on 1 April |
+| Ujamaa: pamphlet / Arusha Declaration | April 1962 / 5 February 1967 CE | Nyerere's pamphlet; the Declaration (`wh-985`) |
+| Tiananmen Square protests: began / martial law / crackdown | 15 April 1989 / 20 May 1989 / 3 – 4 June 1989 CE | the State Department; Calhoun (`wh-986`); Calhoun dates martial law at midnight on 19 May |
+| Dissolution of the Soviet Union: coup attempt / Minsk agreement / Gorbachev resigned / declared ended | 19 – 21 August 1991 / 8 December 1991 / 25 December 1991 / 26 December 1991 CE | the speech; the Council of the Republics' declaration (`wh-987`) |
+| German reunification: treaty / Two Plus Four / unified | 31 August 1990 / 12 September 1990 / 3 October 1990 CE | the treaties (`wh-988`) |
+| European Union: created / Maastricht signed | 1 November 1993 / 7 February 1992 CE | the European Parliament fact sheets; Craig (`wh-989`) |
+| Reform and opening up: plenum / zones approved | 18 – 22 December 1978 / 26 August 1980 CE | the communiqué; the regulations (`wh-990`) |
+| Yugoslav Wars: fought / Srebrenica / Dayton signed / NATO air war | 1991 – 2001 / July 1995 / 14 December 1995 / 24 March – 10 June 1999 CE | the tribunal; the ICJ; OHR; NATO (`wh-991`) |
+| Rwandan genocide: dated by the ICTR / tribunal set up / Akayesu verdict | 6 April – 17 July 1994 / 8 November 1994 / 2 September 1998 CE | the appeals judges' judicial notice; the UN outreach page ends it on 4 July (`wh-992`) |
+| Internet: first message / TCP/IP switch | 29 October 1969 / 1 January 1983 CE | Kleinrock; RFC 801; the Internet Society (`wh-994`) |
+| September 11 attacks | 11 September 2001 CE | the Commission (`wh-995`) |
+| War on terror: Bush's address to Congress | 20 September 2001 CE | the address (`wh-996`) |
+| Arab Spring: self-immolation / Ben Ali fled / Mubarak resigned / Libya mandate | 17 December 2010 / 14 January 2011 / 11 February 2011 / 17 March 2011 CE | UN texts (`wh-997`) |
+| COVID-19 pandemic: reported to WHO / called pandemic / emergency ended | 31 December 2019 / 11 March 2020 / 5 May 2023 CE | WHO (`wh-999`) |
 
 ## Chronology pins
 
@@ -1724,4 +1741,21 @@ wh-977: 26 July 1956; 29 October 1956; 6 November 1956; 8 March 1957
 wh-978: 1 November 1954; 18 March 1962; 1 July 1962; 5 July 1962
 wh-979: 1 January – 28 November 1960; 20 September – 7 October 1960
 wh-980: 1909; 6 March 1957; 24 February 1966; 27 April 1972
+wh-981: 1961; 1970
+wh-982: 26 May 1948; 7 July 1950; 1990
+wh-983: 18 July 1918; 12 June 1964; 11 February 1990; 10 May 1994
+wh-984: 1978 – 1979; 16 January 1979; 11 February 1979; 30 – 31 March 1979
+wh-985: April 1962; 5 February 1967
+wh-986: 15 April 1989; 20 May 1989; 3 – 4 June 1989
+wh-987: 1991
+wh-988: 1990
+wh-989: 1 November 1993; 7 February 1992
+wh-990: 18 – 22 December 1978; 26 August 1980
+wh-991: 1991; 2001; July 1995; 14 December 1995
+wh-992: 8 November 1994; 2 September 1998
+wh-994: 29 October 1969; 1 January 1983
+wh-995: 11 September 2001
+wh-996: 20 September 2001
+wh-997: 17 December 2010; 14 January 2011; 11 February 2011; 17 March 2011
+wh-999: 2019; 2020; 2023
 ```
