@@ -806,7 +806,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | death of Alexander | 323 BCE | John S. Marr and Charles H. Calisher, “Alexander the Great and West Nile Virus… (`gr-747`) |
 | Alexandria Eschate | 329 BCE | Jona Lendering, “Alexander 2.12: Sogdia,” Livius.org, last modified 2020, (`gr-748`) |
 
-## The Successors, the Partition of Babylon to Cassander (confirmed by B79 – B80, `gr-751` – `gr-760`)
+## The Successors, the Partition of Babylon to the Aetolian League (confirmed by B79 – B83, `gr-751` – `gr-795`)
 
 | event or person | the collection says | source |
 |---|---|---|
@@ -824,6 +824,91 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Triparadisus: Low chronology | 320 BCE | Edward M. Anson, “The Dating of Perdiccas’ Death and the Assembly at Triparadeisus,”… (`gr-759`) |
 | Triparadisus: High chronology | 321 BCE | Edward M. Anson, “The Dating of Perdiccas’ Death and the Assembly at Triparadeisus,”… (`gr-759`) |
 | Cassander | 306 – 298 BCE | Jona Lendering, “Cassander,” Livius.org, last modified 12 October 2020, (`gr-760`) |
+| Antigonus Monophthalmus: Antigonus satrap of Phrygia | from 333 BCE | Jona Lendering, “Antigonus Monophthalmus,” Livius.org, last modified 23 September… (`gr-761`) |
+| Antigonus Monophthalmus: Triparadisus command in Asia | 320 BCE | Jona Lendering, “Antigonus Monophthalmus,” Livius.org, last modified 23 September… (`gr-761`) |
+| Antigonus Monophthalmus: Antigonus takes the royal title | 306 BCE | Jona Lendering, “Antigonus Monophthalmus,” Livius.org, last modified 23 September… (`gr-761`) |
+| Antigonus Monophthalmus: Ipsus | 301 BCE | Jona Lendering, “The Battle of Ipsus (301 BCE),” Livius.org, last modified 23… (`gr-761`) |
+| Demetrius Poliorcetes: Demetrius liberates Athens | 307 BCE | Jona Lendering, “Demetrius Poliorcetes,” Livius.org, last modified 23 September 2020, (`gr-762`) |
+| Demetrius Poliorcetes: Siege of Rhodes | 305 – 304 BCE | Jona Lendering, “Demetrius Poliorcetes,” Livius.org, last modified 23 September 2020, (`gr-762`) |
+| Demetrius Poliorcetes: Ipsus | 301 BCE | Jona Lendering, “The Battle of Ipsus (301 BCE),” Livius.org, last modified 23… (`gr-762`) |
+| Demetrius Poliorcetes: King of Macedon | 294 – 288 BCE | Jona Lendering, “Demetrius Poliorcetes,” Livius.org, last modified 23 September 2020, (`gr-762`) |
+| siege of Rhodes | 305 – 304 BCE | Jona Lendering, “Rhodes,” Livius.org, last modified 23 September 2020, (`gr-763`) |
+| Colossus of Rhodes: Colossus built | c. 292 – 280 BCE | Herbert Maryon, “The Colossus of Rhodes,” Journal of Hellenic Studies 76 (1956):… (`gr-764`) |
+| Colossus of Rhodes: Colossus felled by earthquake | c. 226 BCE | Robert B. Kebric, “The Colossus of Rhodes: Some Observations about Its Location,”… (`gr-764`) |
+| battle of Ipsus | 301 BCE | Jona Lendering, “The Battle of Ipsus (301 BCE),” Livius.org, last modified 23… (`gr-765`) |
+| Ptolemy I Soter: Satrap | 323 BCE | Jona Lendering, “Ptolemies,” Livius.org, last modified 10 August 2020, (`gr-766`) |
+| Ptolemy I Soter: Royal title | 306 BCE | Jona Lendering, “Ptolemies,” Livius.org, last modified 10 August 2020, (`gr-766`) |
+| Ptolemy I Soter: Heir crowned | 285 BCE | Edwyn Bevan, A History of Egypt under the Ptolemaic Dynasty (London: Methuen, 1927),… (`gr-766`) |
+| Ptolemy I Soter: Died | 283 – 282 BCE | Edwyn Bevan, A History of Egypt under the Ptolemaic Dynasty (London: Methuen, 1927),… (`gr-766`) |
+| Ptolemaic Egypt: Ptolemaic rule | 323 – 30 BCE | Arienne King, “Ptolemaic Egypt,” World History Encyclopedia, accessed 22 October… (`gr-767`) |
+| Ptolemaic Egypt: First king | 306 BCE | Arienne King, “Ptolemaic Dynasty,” World History Encyclopedia, accessed 22 October… (`gr-767`) |
+| Ptolemaic Egypt: Raphia | 217 BCE | Arienne King, “Ptolemaic Egypt,” World History Encyclopedia, accessed 22 October… (`gr-767`) |
+| Seleucus I Nicator: Babylon retaken | 311 BCE | Jona Lendering, “Seleucus I Nicator,” Livius.org, last modified 2020, (`gr-768`) |
+| Seleucus I Nicator: Royal title | 305 BCE | Donald L. Wasson, “Seleucus I Nicator,” World History Encyclopedia, accessed 22… (`gr-768`) |
+| Seleucus I Nicator: Ipsus | 301 BCE | Jona Lendering, “Seleucus I Nicator,” Livius.org, last modified 2020, (`gr-768`) |
+| Seleucus I Nicator: Murdered | 281 BCE | Jona Lendering, “Seleucus I Nicator,” Livius.org, last modified 2020, (`gr-768`) |
+| Seleucid Empire: Seleucid rule | 312 – 63 BCE | Joshua J. Mark, “Seleucid Empire,” World History Encyclopedia, accessed 22 October… (`gr-769`) |
+| Seleucid Empire: Capitals | c. 300 BCE | Jona Lendering, “Seleucids,” Livius.org, last modified 10 August 2020, (`gr-769`) |
+| Seleucid Empire: Magnesia | 190 BCE | Joshua J. Mark, “Seleucid Empire,” World History Encyclopedia, accessed 22 October… (`gr-769`) |
+| Seleucid Empire: Babylonia lost | 141 BCE | Jona Lendering, “Seleucids,” Livius.org, last modified 10 August 2020, (`gr-769`) |
+| Antigonid dynasty: Diadem taken | 306 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-770`) |
+| Antigonid dynasty: Kings of Macedon | 294 – 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-770`) |
+| Antigonid dynasty: Galatians beaten | 277 BCE | Jona Lendering, “Antigonus II Gonatas,” Livius.org, last modified 8 September 2020, (`gr-770`) |
+| Antigonid dynasty: Pydna | 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-770`) |
+| Lysimachus: Ruled Thrace | 323 – 281 BCE | Jona Lendering, “Lysimachus,” Livius.org, last modified 23 September 2020, (`gr-771`) |
+| Lysimachus: King | 305 – 281 BCE | Jona Lendering, “Lysimachus,” Livius.org, last modified 23 September 2020, (`gr-771`) |
+| Lysimachus: Killed | 281 BCE | Jona Lendering, “Lysimachus,” Livius.org, last modified 23 September 2020, (`gr-771`) |
+| battle of Corupedium | 281 BCE | Jona Lendering, “Corupedium (281 BCE),” Livius.org, last modified 10 August 2020, (`gr-772`) |
+| Arsinoe II: First marriage | 300 – 298 BCE | E. R. Bevan, The House of Ptolemy (London: Methuen, 1927), chap. 2, LacusCurtius, (`gr-776`) |
+| Arsinoe II: Lysimachus dies | 281 BCE | E. R. Bevan, The House of Ptolemy (London: Methuen, 1927), chap. 3, LacusCurtius, (`gr-776`) |
+| Arsinoe II: Death, Mendes | 270 BCE | Adalberto Magnelli and Giulia Senesi, “On a Spring Full Moon, Observations on the… (`gr-776`) |
+| Arsinoe II: Death, Pithom | 268 BCE | Adalberto Magnelli and Giulia Senesi, “On a Spring Full Moon, Observations on the… (`gr-776`) |
+| Berenice II: Lock dedicated | 246 BCE | Jona Lendering, “Berenice II,” Livius.org, last modified 10 August 2020, (`gr-777`) |
+| Berenice II: Nemean victory | 245 BCE | Jona Lendering, “Berenice II,” Livius.org, last modified 10 August 2020, (`gr-777`) |
+| Berenice II: Death ordered | 221 BCE | Jona Lendering, “Berenice II,” Livius.org, last modified 10 August 2020, (`gr-777`) |
+| Antioch: Founded | after 301 BCE | Jona Lendering, “Antioch (Antakya),” Livius.org, last modified 24 September 2020, (`gr-780`) |
+| Antioch: Taken by Egypt | 246 – 241 BCE | Jona Lendering, “Antioch (Antakya),” Livius.org, last modified 24 September 2020, (`gr-780`) |
+| Antioch: Roman rule | from 64 BCE | Jona Lendering, “Antioch (Antakya),” Livius.org, last modified 24 September 2020, (`gr-780`) |
+| Seleucia on the Tigris: Founded | c. 309 – 301 BCE | Jona Lendering, “Seleucia on the Tigris,” Livius.org, last modified 14 August 2020, (`gr-781`) |
+| Seleucia on the Tigris: Parthian rule | from 141 BCE | Neilson C. Debevoise, A Political History of Parthia (Chicago: University of Chicago… (`gr-781`) |
+| Seleucia on the Tigris: Excavated | 1927 – 1937 CE | Kelsey Museum of Archaeology, “Seleucia-on-the-Tigris, Iraq,” University of… (`gr-781`) |
+| Seleucia on the Tigris: Abandoned | from c. 150 CE | Enrico Foietta, “Seleucia on the Tigris and Its Landscape: Seleucid Water Management… (`gr-781`) |
+| Ai-Khanoum: Founded | 281 – 261 BCE | Laurianne Martinez-Sève, “The Spatial Organization of Ai Khanoum, a Greek City in… (`gr-782`) |
+| Ai-Khanoum: Eucratides ruled | c. 170 – 145 BCE | Laurianne Martinez-Sève, “The Spatial Organization of Ai Khanoum, a Greek City in… (`gr-782`) |
+| Ai-Khanoum: Greek city ends | c. 145 BCE | Milinda Hoo, “Western, Eastern, Both, or Neither? Translocalism as Alternative… (`gr-782`) |
+| Greco-Bactrian Kingdom: Independent | c. 250 BCE | George Macdonald, “The Hellenic Kingdoms of Syria, Bactria, and Parthia,” in The… (`gr-783`) |
+| Greco-Bactrian Kingdom: Peace with Syria | c. 206 BCE | W. W. Tarn, The Greeks in Bactria and India (Cambridge: Cambridge University Press,… (`gr-783`) |
+| Greco-Bactrian Kingdom: Lost to nomads | by 135 BCE | George Macdonald, “The Hellenic Kingdoms of Syria, Bactria, and Parthia,” in The… (`gr-783`) |
+| Indo-Greek Kingdom: Founded | c. 190 BCE | Antoine Simonin, “Indo-Greek,” World History Encyclopedia, 28 April 2011, accessed… (`gr-784`) |
+| Indo-Greek Kingdom: Rival houses | from c. 162 BCE | E. J. Rapson, “The Successors of Alexander the Great,” in The Cambridge History of… (`gr-784`) |
+| Indo-Greek Kingdom: Ended | c. 10 BCE | Antoine Simonin, “Indo-Greek,” World History Encyclopedia, 28 April 2011, accessed… (`gr-784`) |
+| Menander I: Reign (ANS) | 155 – 130 BCE | American Numismatic Society, “Menander I 23.1,” in Bactrian and Indo-Greek Coinage… (`gr-785`) |
+| Menander I: Reign (Rhys D.) | c. 140 – 115 BCE | T. W. Rhys Davids, introduction to The Questions of King Milinda, Sacred Books of… (`gr-785`) |
+| Gallic invasion of Greece: Invasion | 280 – 279 BCE | Duncan R. J. Campbell, “The So-Called Galatae, Celts, and Gauls in the Early… (`gr-787`) |
+| Gallic invasion of Greece: Crossed to Asia | 278 BCE | William Woodthorpe Tarn, Antigonos Gonatas (Oxford: Clarendon Press, 1913), chap. 6, (`gr-787`) |
+| Galatians: Crossed to Asia | 278 BCE | The Herodotos Project, “Γαλάται (Galatians),” Ethnohistory of the Ancient World,… (`gr-788`) |
+| Galatians: Beaten by Rome | 189 BCE | Jeffrey King, “Conflict & Celts: The Creation of Ancient Galatia,” World History… (`gr-788`) |
+| Galatians: Roman province | 25 BCE | The Herodotos Project, “Γαλάται (Galatians),” Ethnohistory of the Ancient World,… (`gr-788`) |
+| Attalid dynasty: Founded | 282 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic… (`gr-789`) |
+| Attalid dynasty: Peace of Apamea | 188 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic… (`gr-789`) |
+| Attalid dynasty: Left to Rome | 133 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic… (`gr-789`) |
+| Pergamon Altar: Built | c. 175 – 150 BCE | Volker Kästner, “Pergamon and the Attalids,” in Pergamon and the Hellenistic… (`gr-790`) |
+| Pergamon Altar: Excavated | 1878 – 1886 | Ursula Kästner, “The German Excavations at Pergamon: A Chronology,” in Pergamon and… (`gr-790`) |
+| Library of Pergamon: Founder reigned | from 197 BCE | Carlos A. Picón and Seán Hemingway, eds., Pergamon and the Hellenistic Kingdoms of… (`gr-791`) |
+| Library of Pergamon: Athena found | 1880 | Carlos A. Picón and Seán Hemingway, eds., Pergamon and the Hellenistic Kingdoms of… (`gr-791`) |
+| Antiochus III: Reigned | 223 – 187 BCE | Carlos A. Picón and Seán Hemingway, eds., Pergamon and the Hellenistic Kingdoms of… (`gr-792`) |
+| Antiochus III: Eastern march | 212 – 205 BCE | Jona Lendering, “Antiochus III the Great,” Livius.org, last modified 10 August 2020, (`gr-792`) |
+| Antiochus III: Magnesia | 190 BCE | Carlos A. Picón and Seán Hemingway, eds., Pergamon and the Hellenistic Kingdoms of… (`gr-792`) |
+| Antiochus III: Killed | 187 BCE | Filippo Canali De Rossi, review of Michael J. Taylor, Antiochus the Great, Bryn Mawr… (`gr-792`) |
+| Syrian Wars: Fought | 274 – 168 BCE | Athanasia Sofou, “Syrian Wars,” trans. Georgios Velentzas, Encyclopaedia of the… (`gr-793`) |
+| Syrian Wars: Fourth | 221 – 217 BCE | Athanasia Sofou, “Syrian Wars,” trans. Georgios Velentzas, Encyclopaedia of the… (`gr-793`) |
+| Syrian Wars: Fifth | 202 – 198 BCE | Athanasia Sofou, “Syrian Wars,” trans. Georgios Velentzas, Encyclopaedia of the… (`gr-793`) |
+| Syrian Wars: Sixth | 170 – 168 BCE | Athanasia Sofou, “Syrian Wars,” trans. Georgios Velentzas, Encyclopaedia of the… (`gr-793`) |
+| battle of Raphia: Fought | 217 BCE | “Raphia Decree” (Cairo CG 31088), trans. E. R. Bevan, Translations of Hellenistic… (`gr-794`) |
+| battle of Raphia: The war | 221 – 217 BCE | Athanasia Sofou, “Syrian Wars,” trans. Georgios Velentzas, Encyclopaedia of the… (`gr-794`) |
+| Aetolian League: Defended Delphi | 279 BCE | Craige Champion, review of Joseph B. Scholten, The Politics of Plunder: Aitolians… (`gr-795`) |
+| Aetolian League: Social War | 220 – 217 BCE | Craige Champion, review of Joseph B. Scholten, The Politics of Plunder: Aitolians… (`gr-795`) |
+| Aetolian League: Peace with Rome | 189 BCE | Denvy A. Bowman, “Aetolian League,” EBSCO Research Starters: History, 2022, (`gr-795`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -860,9 +945,9 @@ sources when its batch comes round, and a disputed one given as a range.
 | Granicus, Issus, Gaugamela | 334, 333 and 1 October 331 BCE (confirmed by B75, `gr-711`, `gr-715`, `gr-722`) |
 | Tyre and Gaza | 332 BCE (confirmed by B75, `gr-717`, `gr-718`) |
 | Death of Alexander | June 323 BCE (10 or 11 June by the sources; the cards print no day; confirmed by B78, `gr-747`) |
-| Lamian War and Crannon | 323 – 322 BCE; Crannon 322 BCE (confirmed by B79 – B80, `gr-755`, `gr-756`) |
-| Perdiccas killed, Triparadisus | 320 BCE by the low chronology, 321 BCE by the high one (the cards print both on `gr-759` and 320 elsewhere; confirmed by B79 – B80, `gr-751`, `gr-753`, `gr-759`) |
-| Ipsus | 301 BCE |
+| Lamian War and Crannon | 323 – 322 BCE; Crannon 322 BCE (confirmed by B79, `gr-755`, `gr-756`) |
+| Perdiccas killed, Triparadisus | 320 BCE by the low chronology, 321 BCE by the high one (the cards print both on `gr-759` and 320 elsewhere; confirmed by B79, `gr-751`, `gr-753`, `gr-759`) |
+| Ipsus | 301 BCE (confirmed by B80, `gr-761`, `gr-762`, `gr-765`, `gr-768`) |
 | Sack of Corinth | 146 BCE |
 | Actium | 31 BCE |
 
@@ -1539,4 +1624,33 @@ gr-757: 750; 100; 322
 gr-758: 323; 316; 315
 gr-759: 320; 321
 gr-760: 306; 298
+gr-761: 333; 320; 306; 301
+gr-762: 307; 305; 304; 301; 294; 288
+gr-763: 305; 304
+gr-764: 292; 280; 226
+gr-765: 301
+gr-766: 323; 306; 285; 283; 282
+gr-767: 323; 30; 306; 217
+gr-768: 311; 305; 301; 281
+gr-769: 312; 63; 300; 190; 141
+gr-770: 306; 294; 168; 277
+gr-771: 323; 305; 281
+gr-772: 281
+gr-776: 300; 298; 281; 270; 268
+gr-777: 246; 245; 221
+gr-780: 301; 246; 241; 64
+gr-781: 309; 301; 141; 1927; 1937; 150
+gr-782: 281; 261; 170; 145
+gr-783: 250; 206; 135
+gr-784: 190; 162; 10
+gr-785: 155; 130; 140; 115
+gr-787: 280; 279; 278
+gr-788: 278; 189; 25
+gr-789: 282; 188; 133
+gr-790: 175; 150; 1878; 1886
+gr-791: 197; 1880
+gr-792: 223; 187; 212; 205; 190
+gr-793: 274; 168; 221; 217; 202; 198; 170
+gr-794: 217; 221
+gr-795: 279; 220; 217; 189
 ```

@@ -249,9 +249,9 @@ one changelog line and a version bump; commit and push.
 | B77 | Alexander the Great (`gr-alexander`) | `gr-731`–`gr-740` | 10 | **done 2026-10-22** |
 | B78 | Alexander the Great (`gr-alexander`) | `gr-741`–`gr-750` | 10 | **done 2026-10-22** |
 | B79 | Successor kingdoms (`gr-successors`) | `gr-751`–`gr-760` | 10 | **done 2026-10-22** |
-| B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | **done 2026-10-22** |
-| B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | open |
-| B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | open |
+| B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | **done 2026-10-23** |
+| B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | **done 2026-10-23** |
+| B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | **done 2026-10-23** |
 | B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | open |
 | B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | open |
 | B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | open |
@@ -2438,7 +2438,7 @@ citadel mound at Balkh.
 
 **Locators:** none new; every battle, siege, city and site among these cards already carried one.
 
-### B77–B80 (`gr-731`–`gr-760`) — Alexander's last campaigns and death, the first Successors (2026-10-22)
+### B77–B79 (`gr-731`–`gr-760`) — Alexander's last campaigns and death, the first Successors (2026-10-22)
 
 Thirty cards: the fall of Philotas, the murder of Parmenion, the killing of Cleitus, the Pages' Conspiracy, Callisthenes,
 Sogdiana, Roxana, the Indian campaign, the Hydaspes, Porus, the Hyphasis, Gedrosia, Nearchus, the Susa weddings, the Opis
@@ -2502,3 +2502,78 @@ replacements found were too small), `gr-753`, `gr-754`, `gr-758`, `gr-760`. No p
 **Locators:** `gr-736` (Maracanda, from the Samarkand article) and `gr-739` (the Jhelum, as a battle) fetched through
 `add-locators.js`; the Hydaspes article carries no coordinate, so the Jhelum river's is used. `gr-745`'s Opis has none (the
 Wikipedia article gives no coordinates for the lost city).
+
+### B80–B83 (`gr-761`–`gr-795`) — the Successors from Antigonus to the Aetolian League (2026-10-23)
+
+Thirty-five cards of `gr-successors`: Antigonus Monophthalmus, Demetrius Poliorcetes, the siege of Rhodes, the Colossus, Ipsus,
+Ptolemy I, Ptolemaic Egypt, Seleucus I, the Seleucid Empire, the Antigonid dynasty, Lysimachus, Corupedium, Hellenistic kingship,
+ruler cult, the basilissa, Arsinoe II, Berenice II, the dioiketes, Seleucid colonisation, Antioch, Seleucia on the Tigris, Ai-Khanoum,
+the Greco-Bactrian and Indo-Greek kingdoms, Menander I, the Milindapanha, the Gallic invasion, the Galatians, the Attalids, the Great
+Altar of Pergamon, the Library of Pergamon, Antiochus III, the Syrian Wars, Raphia and the Aetolian League. `gr-796` – `gr-800`
+follow in their own paragraph. Method as before; where the sources part the card says whose is whose (Diodorus against Appian on
+why Seleucus fled, Diodorus against Plutarch on the helepolis and on who brokered the peace at Rhodes, Diodorus, Pausanias and
+Strabo on Alexander's body, Strabo against Diodorus on Antigonia, Pausanias, Justin and Livius on the death of Agathocles, Pausanias,
+Justin and Diodorus on the death of Brennus).
+
+Checks: `greece-audit.js` finds only `I.none` on cards with no picture, `Q.sibling` on `gr-780` (43 % against `gr-219`, Byzantium)
+and `W.not-why` on `gr-791` (two questions that do not open "Why", which is reported, not a fault); `check-questions`,
+`check-cards --prefix=gr-`, `split-cards --check`, `test-card-plans`, `check-docs` and `apply-wiki-links --check` pass; `check-style`
+adds nothing to main's alarms; every cited URL answers 2xx.
+
+**Date lines:** empty and `undatable` for `gr-773` (Hellenistic kingship), `gr-774` (ruler cult), `gr-775` (basilissa), `gr-778`
+(the dioiketes, whose office has no sourced start), `gr-779` (Seleucid colonisation) and `gr-786` (the Milindapanha, whose date runs
+from soon after Menander to about 430 CE, three scholars giving three answers). Estimated life dates dropped from `gr-771`
+(Lysimachus' "c. 361"), `gr-776` (Arsinoe II's "c. 316"), `gr-777` (Berenice II's "after 270") and `gr-768`, `gr-761` and `gr-762`
+(the glossary dates of Seleucus, Antigonus and Demetrius now read "died 281", "died 301" and "king of Macedon 294 – 288 BCE").
+Disputed dates are two rows saying whose: `gr-776` (the Mendes stele 270, the Pithom stele 268; Bevan's 269 in prose), `gr-785`
+(Menander's reign 155 – 130 BCE in the American Numismatic Society's catalogue, about 140 – 115 BCE in Rhys Davids), and
+`gr-783`, `gr-789` and `gr-788` print the dates their sources agree on and name the rest in the prose (the Kaikos battle, 230 or 233
+BCE, is left undated). `gr-781` prints the founding of Seleucia as the window 309 – 301 BCE (Livius), and `gr-782` the founding of
+Ai-Khanoum as the reign of Antiochus I (281 – 261 BCE).
+
+**Corrected in the old cards:** Antigonus' "nobody had granted him" and the "evident intention" of his glossary entry (`gr-761`);
+Demetrius' fall of Macedonia is 288 BCE, not 287 (`gr-762`); the Colossus did not "raise itself in thanksgiving" in Strabo, the
+size is Pliny's and the "Strabo saw it lying" of the glossary entry is gone (`gr-764`); "outlasted every rival" and the grain-and-
+troops tale of Ptolemy's surname had no source (`gr-766`); Seleucus' "died at 73 after reigning 42 years" and "those elephants decided
+Ipsus" are dropped and the 800 + 200 men of Diodorus are set against Appian's 1,000 + 300 (`gr-768`); Appian's 72 satraps are flagged as an
+exaggeration (`gr-769`); the Antigonid card's "fetters of Greece" was Philip V's phrase as the Greek envoys quoted it (`gr-770`);
+the "every part of the empire except Egypt" of Corupedium's glossary entry had no source (`gr-772`); Demetrius "sent" grain and timber
+to Athens in the old ruler-cult glossary entry, Plutarch has him promise it (`gr-774`); the "chariots at Nemea" and "Byzantine east"
+claims about the basilissa had no source, and Polybius calls Arsinoe at Raphia the king's sister, not queen (`gr-775`); the Memnon
+story of Heracleia is Arsinoe II's only in Memnon (`gr-776`, `gr-775`); Justin gives the army the killing of Demetrius the Fair and
+calls Berenice's mother Arsinoe (`gr-777`); the "c. 300" of Antioch and the "capital from c. 240" had no source (`gr-780`); the "c. 300
+BCE" of Ai-Khanoum and its Doric court and arsenal had none either (`gr-782`); the Rapson chapter of the Greco-Bactrian card was
+George Macdonald's (`gr-783`); "Ended c. 10 CE" became c. 10 BCE (Simonin), Iranica's reading being blocked and so unchecked
+(`gr-784`); the Gallic invasion's "280 BCE" death of Keraunos is 279 in Tarn and King (`gr-787`); the Great Frieze is 113 metres long,
+not 90, and the glossary entry says so (`gr-790`); the Library of Pergamon's north-stoa rooms are a doubted identification and "c. 168"
+for Crates is gone (`gr-791`); the "10,000 talents" of Antiochus III at Apamea is Polybius' 15,000 for the terms set after Magnesia
+(`gr-792`); Popilius' circle was drawn "outside Alexandria" in no source (`gr-793`); the day "22 June" of Raphia is in none
+(`gr-794`); the Roman treaty of "212 BCE" and "the first Greek state to ally with Rome" were the Roman commander's own speech and an
+unsourced year (`gr-795`). **Glossary entries redrafted:** `Antigonus_I_Monophthalmus`, `Demetrius_I_Poliorcetes`, `Colossus_of_Rhodes`,
+`Ptolemy_I_Soter`, `Ptolemaic_Egypt`, `Seleucus_I_Nicator`, `Seleucid_Empire`, `Antigonid_dynasty`, `Battle_of_Corupedium`, `Ruler_cult`,
+`Basilissa`, `Arsinoe_II`, `Berenice_II`, `Dioiketes`, `Seleucid_colonisation`, `Antioch`, `Seleucia_on_the_Tigris`, `Ai-Khanoum`,
+`Greco-Bactrian_Kingdom`, `Indo-Greek_Kingdom`, `Pergamon_Altar`, `Syrian_Wars`, `Battle_of_Raphia`, `Aetolian_League`, among others.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Salamis` (the island of 480 BCE, hand-keyed `Salamis_(Cyprus)`, `gr-761`,
+`gr-762`), `Egypt` (`gr-766`, `gr-767`), `Antipater` (`gr-770`), `epitaph` (the Korean key, `gr-772`), `Antioch` (several, `gr-779`),
+`Magas` and `Conon` (`gr-777`), `Philadelphia` and `Chrysippus` (`gr-778`), `Michigan` (`gr-781`), `Syria` (`gr-783`), `Brennus` (the
+Gaul who sacked Rome, `gr-787`, `gr-788`), `Media` (`gr-792`), `Cleopatra` (`gr-793`), `Syrian War` and `African` (`gr-794`), `Greek`
+(`gr-795`); bare `Menander` is hand-keyed to `Menander_I` on `gr-783` – `gr-785`.
+
+**Wikipedia links:** `gr-763` is the one manual entry (Siege of Rhodes (305–304 BC), which the resolver left as a disambiguation).
+
+**Chronology.** Rows and pins added to "The Successors" (renamed "… to the Aetolian League"); the Ipsus row of Events and reigns is
+confirmed.
+
+**Pictures for `gr-761`–`gr-795`** (applied with the text; the agents ran `cm.py info` on every picture they kept). Replaced (4):
+`gr-764` the Rhodes harbour mouth for a 16th-century print of the straddling pose, `gr-770` a tetradrachm of Antigonus Gonatas for
+a museum board of six small bronzes, `gr-775` Arsinoe III's own gold coin for a bust labelled Arsinoe III, `gr-776` the portrait
+obverse of Arsinoe II's gold coin for the reverse. Kept (23), several with a corrected description or credit: `gr-771` shows the
+reverse of the Lysimachus coin, not Alexander's head; `gr-762` and `gr-768` now say the identification is traditional or modern; `gr-766`,
+`gr-769` and `gr-773` had their credit or description corrected; `gr-782` keeps a find from Ai-Khanoum (the Cybele plate) because the
+only site photograph is 600 pixels wide. No picture (8): `gr-761` (the old coin shows Heracles; the files of his own coin are under
+400 pixels), `gr-763` (a hobbyist 3D model of the helepolis), `gr-765` (a Catalan-lettered map), `gr-772` (a Spruner plate with map
+lettering), `gr-781` (a detail of a Heracles statuette), `gr-786` (a Victorian illustration), `gr-791` (a lettered plan plate) and
+`gr-793` (the wars are six; a coin of one king is not the subject).
+
+**Locators:** `gr-790` and `gr-791` (the Pergamon acropolis) and `gr-794` (Rafah, as a battle) added through `add-locators.js`.
