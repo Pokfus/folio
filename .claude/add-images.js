@@ -192,7 +192,8 @@ function main() {
     if (!/^https:\/\//.test(img.src || "")) problems.push(`artefact ${id}: src must be an https URL`);
     if (!String(img.credit || "").trim()) problems.push(`artefact ${id}: no credit`);
     if (!String(img.alt || "").trim()) problems.push(`artefact ${id}: no alt text`);
-    const extra = Object.keys(img).filter((k) => !["src", "credit", "alt"].includes(k));
+    // title and desc are optional (writeArtefacts keeps them, and the enlarged viewer shows desc)
+    const extra = Object.keys(img).filter((k) => !FIELDS.includes(k));
     if (extra.length) problems.push(`artefact ${id}: unknown field(s) ${extra.join(", ")}`);
   }
 
