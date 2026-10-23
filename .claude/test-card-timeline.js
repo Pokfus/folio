@@ -46,7 +46,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
       const after = (a, b) => !!(a && b) && !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING);   // a comes after b
       const loc = document.querySelector(".card-loc"), kin = document.querySelector(".kin"), lt = document.querySelector(".leadsto");
       return { laid: ol.classList.contains("laid"), items, overlaps, axis: !!ol.querySelector(".tl-axis"), spine: !!ol.querySelector(".tl-spine"),
-        order: { hasLoc: !!loc, belowLoc: !loc || after(tl, loc), belowLeads: !lt || after(tl, lt), aboveKin: !kin || after(kin, tl) },
+        order: { hasLoc: !!loc, belowLoc: !loc || after(tl, loc), aboveLeads: !lt || after(lt, tl), aboveKin: !kin || after(kin, tl) },
         terms: [...ol.querySelectorAll("[data-tlterm]")].map((b) => b.dataset.tlterm),
         ticks: [...ol.querySelectorAll(".tl-tick-l, .tl-ytick")].map((t) => t.textContent), height: ol.getBoundingClientRect().height,
         wider: ol.scrollWidth <= ol.clientWidth + 1 };
@@ -76,7 +76,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     check("...no two names overlap", v.overlaps === 0, String(v.overlaps));
     check("...the axis is in months", v.ticks.some((t) => /^[A-Z][a-z]{2} \d{4}$/.test(t)), v.ticks.join(", "));
     check("...and nothing runs past the box", v.wider);
-    check("...the section sits below the Atlas box and the causal strip, above the Nearby rail", v.order.belowLoc && v.order.belowLeads && v.order.aboveKin, JSON.stringify(v.order));
+    check("...the section sits below the Atlas box, above the causal strip and the Nearby rail", v.order.belowLoc && v.order.aboveLeads && v.order.aboveKin, JSON.stringify(v.order));
     check("...every neighbour's name is its glossary term", v.terms.length === 4 && v.terms.some((k) => /^Paris_Peace_Conference/.test(k)), v.terms.join(" "));
     const gw = await page.evaluate(async () => {
       const b = document.querySelector('.tl [data-tlterm^="Paris_Peace_Conference"]'); if (!b) return null;

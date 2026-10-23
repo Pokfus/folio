@@ -1508,7 +1508,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1657,6 +1657,7 @@
       // artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows.
       artefacts: {},     // artefact id -> when it was drawn from a chest
       chests: 0,         // unopened chests. A level-up offers to open one at once; this is what is left if they don't.
+      levelChests: 0,    // how many of those were EARNED BY A LEVEL-UP and not yet opened — the only ones that light the chest at the end of the level bar (never above `chests`)
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
       playChest: "",     // the day the reader CLAIMED the nine-games-finished chest (see sweepRowHTML)
@@ -2197,7 +2198,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "levelChests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -4509,8 +4510,10 @@
      That is why this writes an explicit `data-new` rather than styling `:not([data-seen])`. */
   function markTtipNew(el) {
     const k = el.dataset.k;
-    if (k && !isDeckGlossKey(k) && !(S.glossSeen && S.glossSeen[k])) el.setAttribute("data-new", "1");
-    else el.removeAttribute("data-new");
+    // data-new: a curated term not yet opened; data-seen: one the reader has opened (a visited-link purple). A deck term is neither.
+    const curated = k && !isDeckGlossKey(k), seen = !!(curated && S.glossSeen && S.glossSeen[k]);
+    if (curated && !seen) el.setAttribute("data-new", "1"); else el.removeAttribute("data-new");
+    if (seen) el.setAttribute("data-seen", "1"); else el.removeAttribute("data-seen");
   }
   // every .ttip currently on the page that points at this term — the prose behind a popup must lose its
   // gold the moment the term is read, not on the next render (which for a study card is the next card)
@@ -18332,12 +18335,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     },
     {
       title: "Your first card",
-      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL: a walkthrough naming a
+      /* The button says "Reveal answer" and the undiscovered-term mark is BLUE: a walkthrough naming a
          control by a label the page has not got is worse than one that names no control at all. */
       body: "A card asks for one missing name, date or term. Think of the answer, or type it into the blank, " +
         "then press <b>Reveal answer</b>. The space bar does the same.<p>Behind the answer sits a page of " +
-        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
-        "entries you have not opened yet; a tap defines them.</p>",
+        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">blue</b> are glossary " +
+        "entries you have not opened yet; a tap defines them, and ones you have read turn <b class=\"tour-seenterm\">purple</b>.</p>",
       target: [".cardwrap", ".study-card"],
       wait: "reveal", live: true, pos: "corner", noBack: true,
     },
@@ -18922,152 +18925,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
-  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): a CHEVRON on its top edge folds it
-     between two heights — tall, with the four grades named, and short, with them as bare colours beside the
-     ?, Undo and Suspend icons.
-
-     It was a drag grip modelled on the Atlas place sheet's, and the chevron replaced it on request (Aug
-     2026) because the two controls are not doing the same job: the place sheet has a continuum of heights
-     and this has exactly two, so a drag was a gesture whose whole range mapped onto one bit. A chevron says
-     "there are two states and this is the other one" outright, and needs no classification of the press —
-     which also retires GB_SLOP, the guard that told a drag from a tap.
-     Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
-     screen the buttons take is a fact about this screen, not about the account. */
-  const GB_H_KEY = "folio_gb_compact_v1";
-  // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
-  const GB_FOLD_MS = 280;
-  /* …and with `--ease` in styles.css, which is what those transitions run on (Aug 2026, on a report that
-     the fold ran roughly). The FLIP and the CSS transitions act on the same four buttons at the same
-     moment — the position from here, the height and padding from there — so a curve that differs even
-     slightly makes the box arrive before or after the place it is sliding to, which reads as a stutter
-     rather than as two animations. One clock, one curve. */
-  const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
-  let gbCompact = null;
-  /* The fold's in-flight animations, so a second press can end them rather than layering a second set
-     over the first. Held here rather than derived from document.getAnimations(), which would also sweep
-     up the page entrance, the reveal and the marker panel. */
-  let _gbAnims = [];
-  let _gbFoldT = null;
-  function gbStopFold() {
-    _gbAnims.forEach((a) => { try { a.cancel(); } catch (e) {} });
-    _gbAnims = [];
-    if (_gbFoldT) { clearTimeout(_gbFoldT); _gbFoldT = null; }
-    document.body.classList.remove("gb-folding");
-  }
-  /* …and while it runs, the bar's CONTENTS do not hit-test at all (body.gb-folding — one rule in
-     styles.css). That is the other half of the jam above and the half that cannot be reasoned around: a
-     press landing inside a subtree whose boxes are mid-animation is what leaves Chromium's hit-testing
-     stale, and no amount of cancelling afterwards puts it back. Made inert for the fold's own 280ms, the
-     press lands on #gradebar — a static box with no listener — and is simply swallowed, which is what a
-     tap into a control that is still moving should do anyway. The CHEVRON is outside .gradebar-inner and
-     stays live, so the reader can keep folding; and gbStopFold clears it early whenever a press or a card
-     change ends the fold before its time. */
-  function gbFoldingFor(ms) {
-    document.body.classList.add("gb-folding");
-    _gbFoldT = setTimeout(() => { _gbFoldT = null; document.body.classList.remove("gb-folding"); }, ms);
-  }
-  function gbReadCompact() {
-    if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
-    return gbCompact;
-  }
-  /* The fold is ANIMATED (Aug 2026, on a report that it was a hard cut). The two states differ by more
-     than a height: the four grades go from two rows of two to one row of four, and the ?, Undo and
-     Suspend move from a row of their own up beside them. None of that is a property CSS can transition
-     — it is a reflow — so it is FLIPped: every part is measured, the class is flipped, and each part is
-     animated from where it was to where it now is. The bar's own height is animated alongside them
-     (flipHeight), because a container that snaps while its contents slide looks worse than either.
-
-     `animate` is not gated on being on a phone: above the breakpoint the chevron is display:none and
-     this is unreachable, and flipMove skips anything that did not actually move, so the desktop pays
-     nothing for it. It IS gated on the reader's motion setting, inside both helpers. */
-  function gbSetCompact(on, persist, animate) {
-    const bar = gradeBarEl;
-    const wrap = bar && bar.querySelector(".grade-wrap");
-    const apply = () => {
-      gbCompact = !!on;
-      document.body.classList.toggle("gb-compact", gbCompact);
-      // the chevron points the way it will go, and says which state it is in — see gbWireResize
-      document.querySelectorAll(".gb-fold").forEach((b) => {
-        b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
-        const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
-        b.setAttribute("aria-label", lab);
-        b.setAttribute("title", lab);
-      });
-    };
-    if (animate && wrap && bar.classList.contains("show")) {
-      /* A FOLD ALREADY RUNNING IS ENDED BEFORE A NEW ONE STARTS, and this is the whole of the fix for a
-         reported jam (Aug 2026: "sometimes after closing/opening it a few times I can no longer press the
-         buttons"). Reproduced: a fold FLIPs about twenty elements, and nothing cancelled the previous
-         set — so tapping the chevron again while one was in flight left up to 53 concurrent transform
-         animations on the four grade buttons and the row around them. While those run, Chromium's
-         hit-testing and getBoundingClientRect disagree: elementFromPoint at a button's own centre
-         returns #gradebar (or nothing at all), so a real tap lands on the bar's background and the grade
-         never fires — and once the reader has tapped into that gap the bar can stay un-hittable with no
-         animation left running at all. Every count reads healthy throughout: the buttons are there, they
-         are the right size, in the right place, with their listeners attached.
-         Cancelling is right rather than merely safe: these animations are fill:none, so a cancelled one
-         reverts to the element's own layout position at once — which is exactly where the reader can see
-         the button, and where the press has to land. */
-      gbStopFold();
-      // …but not under reduced motion, where nothing moves and the bar must stay live throughout
-      if (!prefersReducedMotion()) gbFoldingFor(GB_FOLD_MS + 40);
-      // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
-      const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      const h = flipHeight(
-        bar.querySelector(".gradebar-inner"),
-        () => { _gbAnims = flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }) || []; },
-        GB_FOLD_MS, GB_FOLD_EASE
-      );
-      if (h) _gbAnims.push(h);
-    } else { gbStopFold(); apply(); }
-    if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
-  }
-  function gbWireResize(fold) {
-    if (!fold) return;
-    // a real <button>: click and Enter/Space come free, and the arrows reach the two states directly
-    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true, true));
-    fold.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true, true); }
-      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true, true); }
-    });
-  }
+  /* It has ONE height. A chevron folded it to a short, colours-only state on a phone (Aug 2026); that mode
+     and its FLIP animation were removed on request (Oct 2026). */
   let gradeBarEl = null;
   function ensureGradeBar() {
     if (!gradeBarEl) {
       gradeBarEl = document.createElement("div");
       gradeBarEl.id = "gradebar";
-      // the chevron sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
-      gradeBarEl.innerHTML = '<button class="gb-fold" id="gbFold" type="button" aria-expanded="true" aria-label="Shrink the grade buttons" title="Shrink the grade buttons">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
-        '</button><div class="gradebar-inner"></div>';
-      /* …and a press anywhere in the bar ends a fold that is still running, BEFORE the press is
-         hit-tested. Capture phase on the bar itself: pointerdown is the first thing a tap does, so
-         cancelling here puts every button back at its layout position for the pointerup that follows.
-         The chevron is exempt — gbSetCompact cancels for itself, and cancelling here as well would end
-         the fold this very press is asking for. */
-      gradeBarEl.addEventListener("pointerdown", (e) => {
-        if (e.target && e.target.closest && e.target.closest(".gb-fold")) return;
-        gbStopFold();
-      }, true);
+      gradeBarEl.innerHTML = '<div class="gradebar-inner"></div>';
       document.body.appendChild(gradeBarEl);
-      gbWireResize(gradeBarEl.querySelector("#gbFold"));
     }
     return gradeBarEl;
   }
   function showGradeBar(innerHTML, onGrade) {
     const bar = ensureGradeBar();
     const inner = bar.querySelector(".gradebar-inner");
-    gbStopFold();   // the elements a fold is animating are about to be replaced
     inner.innerHTML = innerHTML;
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
     );
-    gbSetCompact(gbReadCompact(), false);   // the height the reader last left it at
     document.body.classList.add("grading");
     requestAnimationFrame(() => bar.classList.add("show"));
   }
   function hideGradeBar() {
-    gbStopFold();
     document.body.classList.remove("grading");
     if (gradeBarEl) {
       gradeBarEl.classList.remove("show");
@@ -21384,6 +21264,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const g = Object.keys(S.cards).length;
     if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
     grantChest();   // one chest per level, no congratsPopup behind it
+    S.levelChests = levelChestCount() + 1; save();   // …and remembered as a LEVEL chest, which is what lights the chest on the level bar
     /* THE CHEST WAITS ON THE HOME PAGE RATHER THAN OPENING HERE (Oct 2026, on request: "a chest shouldn't just
        appear mid-study session, it should remain there at the front page until it is clicked"). From Aug 2026
        the overlay was the celebration and rose on the grade that finished the bar, in the middle of a session;
@@ -21871,11 +21752,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      chest, just as we do with the weekly study banner ... when a level is completed ... a chest shouldn't just
      appear mid-study session, it should remain there at the front page until it is clicked"). The chest caps the
      bar the way the streak ribbon's caps its week: locked and quiet while nothing is owed, gold and nodding once
-     a chest is waiting, and a press opens it (openChestPop). It reads `S.chests`, the one count every channel
-     pays into, so a chest from a badge or the daily sweep waits here too; the figure on its shoulder says how
-     many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
+     a chest is waiting, and a press opens it (openChestPop). It reads `S.levelChests` — the chests a LEVEL-UP
+     earned and the reader has not opened (Oct 2026, on request: a badge, sweep or streak chest no longer lights it; those
+     wait in the home banner above); the figure on its shoulder says how many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
   function levelChestHTML() {
-    const n = chestCount(), ready = n > 0;
+    const n = levelChestCount(), ready = n > 0;
     const label = !ready ? "Locked: reach the next level to earn a chest"
       : n === 1 ? "Open your chest" : "Open a chest \u2014 " + n + " waiting";
     return '<button type="button" class="lvl-chest' + (ready ? " ready" : "") + '" id="lvlChest"' + (ready ? "" : " disabled") +
@@ -22029,6 +21910,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
+  // the unopened chests a LEVEL-UP earned (Oct 2026, on request: the level bar's chest lights for these alone); a badge, sweep or streak chest queues in `chests` but never counts here
+  function levelChestCount() { return Math.min(Math.max(0, (S.levelChests | 0)), chestCount()); }
 
   /* ---------- THE SECOND KIND OF THING A CHEST HOLDS: A THEME (Aug 2026, on request) ----------
      "Besides artifacts, we will add a second type of item users may occasionally collect: Themes."
@@ -22161,8 +22044,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
      `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
+  let chestFromLevelBar = false;   // set by openChestPop when the overlay was opened from the level bar's chest, read (and cleared) by spendChest
   function spendChest() {
     S.chests = Math.max(0, chestCount() - 1);
+    S.levelChests = levelChestCount() - (chestFromLevelBar ? 1 : 0);   // opened from the level bar's own chest: that one was a level chest; otherwise it is only clamped to what is left
+    if (S.levelChests < 0) S.levelChests = 0;
+    chestFromLevelBar = false;
     S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
     /* The collector's badges are tested HERE rather than waiting for the next card, which is where
@@ -22799,6 +22686,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      celebration; there is deliberately no separate confetti popup behind it. */
   function openChestPop(opts) {
     opts = opts || {};
+    chestFromLevelBar = !!opts.fromLevelBar;
     closeChestPop();
     /* The prose and the picture are lazy (bundle "artefactExtra"), so ask for them the moment the chest
        appears rather than when the lid is tapped: the reader has to read the hint and reach for the
@@ -25546,7 +25434,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   Edit button sits now, and the `padding-right` it left on the title is what keeps the two
                   apart. */""}
             ${collectionsBtn}
-            ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
+            ${fresh ? "" : activeIds.length ? `<div class="active-decks">${activeHTML}</div>` : `${/* NO ACTIVE COLLECTIONS (Oct 2026, on request): a dashed, empty box says the list is empty, with a button to the Collections page under it. Not drawn on a first visit, where the hero is the one way in. */""}<div class="rv-empty" role="note">${esc(t("No active collections yet"))}</div><button class="btn rv-empty-go" id="b-empty-go" type="button">${esc(t("Browse the collections"))}</button>`}
             ${/* The footer row BELOW the card — the day's time studied, on the page's own paper rather
                   than on the card, against the left end of the group's own bottom edge. It is STILL
                   hidden while the editor mode is open, which is what the mode's own request asked for
@@ -25611,6 +25499,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </section>
         <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
+        ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
+        ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
       </div>`;
 
     /* ONE WALK OVER THE TILES, rather than nine `querySelector` lines that a tenth game would have to be
@@ -25639,7 +25529,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       openChestPop();
     });
     // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
-    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (chestCount()) openChestPop(); }); }
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (levelChestCount()) openChestPop({ fromLevelBar: true }); }); }
     // the streak ribbon's chest (streakRibbonHTML): claimed on the press like the sweep chest above, in the same
     // load-bearing order — claim, repaint (ready → claimed), THEN the overlay
     { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop(); }); }
@@ -25694,6 +25584,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the Collections button under the review group and the About line under the games — both at every
     // width now, each being the only route to the page it names anywhere on the site
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
+    { const rf = root.querySelector("#b-refresh"); if (rf) rf.addEventListener("click", async () => {
+      rf.disabled = true; rf.classList.add("spin");
+      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k)).map((k) => caches.delete(k))); } } catch (e) { /* no Cache API: the reload below still asks the network */ }
+      try { if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map((r) => r.unregister())); } } catch (e) { /* none registered (a dev origin) */ }
+      location.reload();
+    }); }
+    { const eg = root.querySelector("#b-empty-go"); if (eg) eg.addEventListener("click", () => route("decks")); }
     { const cb = root.querySelector("#b-credits"); if (cb) cb.addEventListener("click", () => route("credits")); }   // the map data's sources, generated from the files (Oct 2026)
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
     { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", (e) => {
@@ -26315,13 +26212,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function relatedCardsHTML(id) {
     const rows = relatedCards(id);
     if (!rows.length) return "";
-    return '<div class="kin"><span class="label">Nearby in this collection</span><ul class="kin-list">' +
+    /* A FOLD LIKE THE BACKGROUND'S AND THE SOURCES' (Oct 2026, on request), remembered across cards in
+       `S.settings.kinCollapsed` and wired by the one delegated handler below, so the card back, the card
+       page and the peek all get it without each wiring it. */
+    const shut = !!(S.settings && S.settings.kinCollapsed);
+    const c = shut ? " collapsed" : "";
+    return '<div class="kin">' +
+      '<button class="kin-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide nearby cards">' +
+        '<span class="label">Nearby in this collection</span>' +
+        '<span class="kin-toggle' + c + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>' +
+      "</button>" +
+      '<div class="kin-collapse' + c + '"><div class="kin-collapse-inner"><ul class="kin-list">' +
       rows.map((r) => {
         const o = cardLocalized(cardById(r.id));
         const t = o.answerText || String(o.answer || "").replace(/<[^>]*>/g, "");
         return '<li><button type="button" class="kin-row" data-kin="' + esc(r.id) + '">' + esc(t) + "</button></li>";
-      }).join("") + "</ul></div>";
+      }).join("") + "</ul></div></div></div>";
   }
+  document.addEventListener("click", (e) => {
+    const head = e.target && e.target.closest && e.target.closest(".kin-head");
+    if (!head) return;
+    const box = head.closest(".kin");
+    const col = box && box.querySelector(".kin-collapse"), tog = box && box.querySelector(".kin-toggle");
+    if (!col) return;
+    const collapsed = col.classList.toggle("collapsed");
+    if (tog) tog.classList.toggle("collapsed", collapsed);
+    head.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    S.settings.kinCollapsed = collapsed;
+    save();
+  });
 
   /* ============================================================
      PAGE: ONE CARD, AT A STABLE ADDRESS (#card/<id>)
@@ -34500,6 +34419,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
       "</div>" +
       /* The slot is always in the markup and HIDDEN, never created on demand: it is filled after the
          shapes bundle lands, and a live region announced at the moment it is inserted is one the screen
@@ -36040,6 +35961,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
       /* …AND A WAY THROUGH TO THE READER'S OWN GLOBE (Sep 2026, on request: "each atlas window should
          have an icon button to take the user to that location on the personal atlas page, where there
          should then be a 'Back' button to go back to the card study the user was in"). It carries
@@ -36208,11 +36131,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* WHAT CAME OF THIS — the causal strip (see cardLeadsTo). OUTSIDE the Background fold and above the
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
-    html += cardLeadsToHTML(c);
+    /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
     html += cardLocatorHTML(c);
-    /* BELOW THE ATLAS BOX (Oct 2026, on request): WHEN this was, beside what came just before and after it
-       in the collection (see cardTimelineHTML)… */
+    /* …then WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML):
+       below the Atlas box, on request, with the Nearby rail after it. */
     html += cardTimelineHTML(c);
+    html += cardLeadsToHTML(c);
     /* …and the cards nearest this one, which is the same slot's other half (see relatedCardsHTML).
        Only for a CURATED card: a community deck has no tags to rank on and no collection to stay
        inside. Suppressed inside a game round, where a rail of other cards is a distraction from the
