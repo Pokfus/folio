@@ -945,6 +945,56 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Aristarchus of Samos: Recent reading | 280 – 279 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
 | Hipparchus of Nicaea | 161 – 126 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-828`) |
 | precession of the equinoxes | 129 – 128 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921), 254, (`gr-829`) |
+| Antikythera mechanism: Made: Seiradakis | c. 150 – 100 BCE | John H. Seiradakis, “The Antikythera Mechanism: From the Bottom of the Sea to the… (`gr-835`) |
+| Antikythera mechanism: Made: Iversen | c. 100 – 50 BCE | Paul Iversen and Alexander Jones, “The Back Plate Inscription and Eclipse Scheme of the… (`gr-835`) |
+| Antikythera mechanism: Wrecked | 84 – 67 BCE | John H. Seiradakis, “The Antikythera Mechanism: From the Bottom of the Sea to the… (`gr-835`) |
+| Antikythera mechanism: Recovered | 1901 | Tony Freeth, David Higgon, Aris Dacanalis, Lindsay MacDonald, Myrto Georgakopoulou and… (`gr-835`) |
+| Stoicism | c. 300 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-838`) |
+| Zeno of Citium | c. 300 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-839`) |
+| Chrysippus | c. 230 – 206 BCE | Marion Durand, Simon Shogry and Dirk Baltzly, “Stoicism,” in The Stanford Encyclopedia of… (`gr-840`) |
+| Epicureanism | 307/06 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-841`) |
+| Epicurus: Born | 341 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-842`) |
+| Epicurus: Back at Athens | 307/06 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-842`) |
+| Epicurus: Died | 270 BCE | Tim O’Keefe, “Epicurus,” Internet Encyclopedia of Philosophy, accessed 23 October 2026, (`gr-842`) |
+| Epicurus: Also dated | 271 or 270 BCE | Tim O’Keefe, “Epicurus,” Internet Encyclopedia of Philosophy, accessed 23 October 2026, (`gr-842`) |
+| Garden of Epicurus: Opened | 307/06 BCE | R. D. Hicks, Stoic and Epicurean (New York: Charles Scribner’s Sons, 1910), (`gr-843`) |
+| Garden of Epicurus: Founder died | 270 BCE | David Konstan, “Epicurus,” in The Stanford Encyclopedia of Philosophy, first published 10… (`gr-843`) |
+| Hellenistic sculpture | 323 – 30 BCE | Kiki Karoglou, “Trends in Hellenistic Sculpture,” in Pergamon and the Hellenistic… (`gr-845`) |
+
+
+## Greece under Rome (confirmed by B89 – B92, `gr-846` – `gr-880`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Pyrrhus of Epirus: King of Epirus | 306 – 302 and 297 – 272 BCE | Jona Lendering, “Pyrrhus (2),” Livius.org, accessed 23 October 2026, (`gr-846`) |
+| Pyrrhus of Epirus: King of Macedon | 288 – 284 and 273 – 272 BCE | Jona Lendering, “Pyrrhus (2),” Livius.org, accessed 23 October 2026, (`gr-846`) |
+| Pyrrhus of Epirus: Died | 272 BCE | Jona Lendering, “Pyrrhus (2),” Livius.org, accessed 23 October 2026, (`gr-846`) |
+| Pyrrhic War: Fought | 280 – 275 BCE | Jona Lendering, “Pyrrhus (2),” Livius.org, accessed 23 October 2026, (`gr-847`) |
+| Pyrrhic War: In Sicily | 278 – 276 BCE | Gary Forsythe, A Critical History of Early Rome: From Prehistory to the First Punic War… (`gr-847`) |
+| Pyrrhic War: Tarentum falls | 272 BCE | Gary Forsythe, A Critical History of Early Rome: From Prehistory to the First Punic War… (`gr-847`) |
+| symploke: Dated from | 217 BCE | Colin Bailey, review of Philip V of Macedon in Polybius’ Histories: Politics, History,… (`gr-848`) |
+| symploke: Ends at | 168 BCE | Colin Bailey, review of Philip V of Macedon in Polybius’ Histories: Politics, History,… (`gr-848`) |
+| Teuta: Took power | 231 BCE | William Smith, ed., “Teuta,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-849`) |
+| Teuta: Rome crosses | 229 BCE | William Smith, ed., “Teuta,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-849`) |
+| Teuta: Treaty | 228 BCE | William Smith, ed., “Teuta,” in A Dictionary of Greek and Roman Biography and Mythology… (`gr-849`) |
+| Peace of Phoenice: Agreed | 205 BCE | Livy, History of Rome 29.12, trans. Frank Gardner Moore, Loeb Classical Library… (`gr-850`) |
+| Peace of Phoenice: Aetolian treaty | 211 BCE | Adolf Holm, The History of Greece from its Commencement to the Close of the Independence… (`gr-850`) |
+| Philip V: Reigned | 221 – 179 BCE | Jona Lendering, “Philip V,” Livius.org, last modified 8 September 2020, (`gr-851`) |
+| Philip V: Aetolian war | 220 – 217 BCE | Jona Lendering, “Philip V,” Livius.org, last modified 8 September 2020, (`gr-851`) |
+| Philip V: Defeated | 197 BCE | Jona Lendering, “Philip V,” Livius.org, last modified 8 September 2020, (`gr-851`) |
+| siege of Abydos | 200 BCE | G. E. Bean, “Abydos (Nağara Point), Turkey,” in The Princeton Encyclopedia of Classical… (`gr-852`) |
+| Battle of Cynoscephalae | 197 BCE | Jona Lendering, “Cynoscephalae (197 BCE),” Livius.org, last modified 8 September 2020, (`gr-853`) |
+| Nabis: Ruled | c. 207 – 192 BCE | Polybius, Histories 13.6, trans. Evelyn S. Shuckburgh (London: Macmillan, 1889), Perseus… (`gr-854`) |
+| Nabis: War with Rome | 195 BCE | Adolf Holm, The History of Greece from Its Commencement to the Close of the Independence… (`gr-854`) |
+| siege of Ambracia | 189 BCE | Polybius, Histories 21.27–32, trans. Evelyn S. Shuckburgh (London: Macmillan, 1889),… (`gr-856`) |
+| Eumenes II: Reigned | 197 – 159 BCE | Jona Lendering, “Eumenes II Soter,” Livius.org, last modified 10 August 2020, (`gr-857`) |
+| Eumenes II: Apamea | 188 BCE | Edwyn Robert Bevan, The House of Seleucus, vol. 2 (London: Edward Arnold, 1902), 110,… (`gr-857`) |
+| Treaty of Apamea | 188 BCE | Edwyn Robert Bevan, The House of Seleucus, vol. 2 (London: Edward Arnold, 1902), 113–16, (`gr-858`) |
+| Callicrates of Leontium: Embassy | 180 BCE | Nicholas Sekunda, review of Rome, Polybius, and the East, by Peter Derow, ed. Andrew… (`gr-859`) |
+| Callicrates of Leontium: Deportations | 167 BCE | Edward A. Freeman, History of Federal Government in Greece and Italy, ed. J. B. Bury, 2nd… (`gr-859`) |
+| Callicrates of Leontium: Died | 149 BCE | Edward A. Freeman, History of Federal Government in Greece and Italy, ed. J. B. Bury, 2nd… (`gr-859`) |
+| Perseus: Reigned | 179 – 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-860`) |
+| Perseus: Pydna | 168 BCE | Jona Lendering, “Antigonids,” Livius.org, last modified 10 August 2020, (`gr-860`) |
 
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
@@ -1706,4 +1756,26 @@ gr-823: 360; 350
 gr-826: 281; 280; 279
 gr-828: 161; 126
 gr-829: 129; 128
+gr-835: 150; 100; 50; 84; 67; 1901
+gr-838: 300
+gr-839: 300
+gr-840: 230; 206
+gr-841: 307
+gr-842: 341; 307; 270; 271
+gr-843: 307; 270
+gr-845: 323; 30
+gr-846: 306; 302; 297; 272; 288; 284; 273
+gr-847: 280; 275; 278; 276; 272
+gr-848: 217; 168
+gr-849: 231; 229; 228
+gr-850: 205; 211
+gr-851: 221; 179; 220; 217; 197
+gr-852: 200
+gr-853: 197
+gr-854: 207; 192; 195
+gr-856: 189
+gr-857: 197; 159; 188
+gr-858: 188
+gr-859: 180; 167; 149
+gr-860: 179; 168
 ```

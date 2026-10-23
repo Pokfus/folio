@@ -2657,3 +2657,48 @@ The old Eratosthenes figure of 70,000 by 30,000 stadia is Strabo's own, not Erat
 `gr-815`), `pastoral` and `behaviour` (`gr-811`, `gr-812`), `Leonidas`, `Palatine` and `epitaph` (`gr-813`), `cells` (the biological key, `gr-816`),
 `coin` (`gr-817`), `Hippocrates` (`gr-821`), `Egypt`, `Athens`, `Heracles` and `Hipparchus` (the son of Peisistratus, `gr-824`); the plain `Hipparchus` is
 hand-keyed to `Hipparchus_of_Nicaea` where the astronomer is meant.
+
+#### `gr-831`–`gr-860` (B87–B89, committed second)
+
+Thirty cards: Philo of Byzantium, Herophilus, Erasistratus, human dissection, the Antikythera mechanism, the oikoumene, Pytheas, Stoicism,
+Zeno of Citium, Chrysippus, Epicureanism, Epicurus, the Garden, Pyrrhonism, Hellenistic sculpture (the end of `gr-alexandria`); Pyrrhus of Epirus,
+the Pyrrhic War, symploke, Teuta, the Peace of Phoenice, Philip V, the siege of Abydos, Cynoscephalae, Nabis, eleutheria, the siege of Ambracia, Eumenes II,
+the Treaty of Apamea, Callicrates of Leontium and Perseus (the start of `gr-under-rome`). The paired Rome cards (`rm-164`, `rm-237`, `rm-238`, `rm-239`, `rm-241`,
+`rm-248`, `rm-250`) were read first and each Greek card is told from the Greek side. Sources 5 → 5 – 9 (the one card that comes out at five, `gr-848`
+symploke, is difficulty 5 with three modern sources); the glossary entries shared with a Rome card (`Philip_V_of_Macedon`, `Siege_of_Abydos`,
+`Battle_of_Cynoscephalae`, `Nabis`, `Eumenes_II`, `Treaty_of_Apamea`, `Perseus_of_Macedon`) were read against the Greek card and left, because none contradicts it.
+
+Checks: the audit finds nothing but `W.not-why` on `gr-861` (reported) and `I.none` on the cards with no picture; every cited URL answers 2xx (382
+citations, 231 distinct).
+
+**Date lines.** Empty and `undatable`: `gr-831` (no source dates Philo to a year), `gr-832` and `gr-833` (the draft's estimated lives), `gr-834`, `gr-836`,
+`gr-837` (the late 4th century stays in the prose), `gr-844` (Pyrrhonism has no sourced start; Pyrrho's own years are estimates) and `gr-855` (a status
+has no date of its own, as the plan says). Two rows saying whose: `gr-835` (the lettering dates the making about 150 – 100 BCE in one study, about 100 – 50 BCE in
+another; the wreck 84 – 67; recovered 1901) and `gr-842` (Epicurus died in 270 BCE by one reckoning, 271 or 270 by another). `gr-840` prints the headship, about 230 – 206 BCE,
+and no life dates; `gr-838` and `gr-839` print the founding of the Stoa, about 300 BCE; `gr-841`, `gr-843` and `gr-842` print 307/06 BCE for Epicurus' return to
+Athens, the form the Stanford Encyclopedia prints. `gr-845` prints 323 – 30 BCE, the span its sources give; the chronology file's 323 – 31 for the Hellenistic
+period (Actium) stays as the other convention and says so. `gr-846` prints the two reigns in Epirus and the two in Macedon (306 – 302 and 297 – 272;
+288 – 284 and 273 – 272) with the death at Argos in 272 and no birth year; `gr-847` prints the war, Sicily and the fall of Tarentum; `gr-848` the span 217 – 168 BCE
+that Polybius' own phrase is read to cover; `gr-850` the peace of 205 and the Aetolian treaty of 211; `gr-854` Nabis' rule from about 207 (a Perseus heading, hence "about") to 192;
+`gr-859` the embassy of 180 (Smith's dictionary prints 179 for the debate, which the abstract notes), the deportations of 167 and the death in 149.
+
+**Corrected in the old cards:** Philo's "four books and part of a fifth" (the Dictionary of Scientific Biography counts four of nine surviving, `gr-831`); the
+arteries-carry-air claim of Erasistratus, which the old Galen citations did not carry (it now rests on two papers in the history of cardiology, `gr-833`); the
+Antikythera mechanism was not a "bronze model" and Cicero's word is "orrery" (`gr-835`); the old Eratosthenes figures of 70,000 by 30,000 stadia are Strabo's own, the
+oikoumene of Eratosthenes is 38,000 by 77,800 (`gr-836`); Pytheas' "about 325 BCE", the tin and the "circuit of Britain" (`gr-837`); "six centuries" and "founded about 306" for
+the Epicurean school (`gr-841`); Epicurus "born on Samos", which no source says (`gr-842`); Pliny's "descent of pleasure grounds" and "site not identified" for the Garden,
+now the dispute between Pliny and Cicero over where it lay (`gr-843`); Pyrrhonists did not claim that nothing can be known, which would itself be a claim
+(`gr-844`); Pyrrhus "twice king of Macedon before his western adventures", when the reigns fall either side of the west, the "fifteen generations" and the Aetolian
+claims, and Holm's date of 1894, not 1898 (`gr-846`); Polybius overread on the Pyrrhic War (`gr-847`); the 211 treaty and Livy are Rome's card's ground and were
+dropped from symploke (`gr-848`); Teuta's missing `[in Turkish]` chip (`gr-849`); the "Macedonian envoy" speech at Phoenice was made by neutral envoys (`gr-850`);
+Aemilius asked Philip "did they attack you first", not "lay hands on him" (`gr-852`); Philip entrusted Argos to Nabis, the Argives did not hand it over (`gr-854`);
+Mendels' article dated 2020 by Crossref and 1978 by its journal was dropped (`gr-854`); Polybius' chapter for the Treaty of Apamea is 21.48, not 21.45 (`gr-858`);
+the "168 BCE" of the Callicrates glossary entry had no source (`gr-859`). **Glossary entries redrafted:** `Philo_of_Byzantium`, `Herophilus`, `Erasistratus`,
+`Antikythera_mechanism`, `Ecumene`, `Pytheas`, `Zeno_of_Citium`, `Chrysippus`, `Epicureanism`, `Garden_of_Epicurus`, `Pyrrhonism`, `Hellenistic_sculpture`,
+`Pyrrhus_of_Epirus`, `Pyrrhic_War`, `Symploke`, `Teuta`, `Peace_of_Phoenice` and `Callicrates_of_Leontium`, each with its own `date` key.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `compass` (`gr-831`), `water clock` and `pulses` (`gr-832`), `reconstruction` and `cells` (`gr-835`),
+`Heracles` (`gr-836`), `Athens` (`gr-838`, `gr-839`, `gr-840`), `Republic` (the title, `gr-839`), `Diodorus Cronus` (`gr-840`), `water` and `republic` (`gr-841`, `gr-843`),
+`marble` (`gr-845`), `Egypt`, `horse` and `Antigone` (`gr-846`), `Archidamus` and `horse` (`gr-847`), `Coele-Syria` (`gr-848`), `horse` (`gr-850`), `Achaean` (`gr-859`); the plain `Hipparchus` is
+hand-keyed to `Hipparchus_of_Nicaea` on `gr-835` and `gr-837`. `gr-860` is filed by the card's answer ("Perseus"), which the glossary resolves to the hero; the key
+`Perseus_of_Macedon` (Rome's `rm-250`) is the one that describes this king, and the same split exists on `rm-250` (an open item, not fixed here).
