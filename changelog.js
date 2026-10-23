@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
       "<b>A hundred more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Soviet Union, with more sources and corrected dates.",
-      "<b>Forty more World History cards are rewritten</b>, from Stalin and the five-year plans to Midway, the Holocaust and Hiroshima, with more sources and corrected dates.",
+      "<b>Fifty more World History cards are rewritten</b>, from Stalin and the five-year plans to Hiroshima, the United Nations and the Berlin Blockade, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",

@@ -837,6 +837,15 @@ Filled batch by batch, from the source each row names.
 | Battle of the Bulge: began / Bastogne relieved / end (National WWII Museum) | 16 December 1944 / 26 December 1944 / 25 January 1945 CE | the National WWII Museum; Cole (`wh-938`) |
 | Battle of Berlin | 16 April – 2 May 1945 CE | Ziemke; the Holocaust Museum (`wh-939`) |
 | Atomic bombings: Hiroshima / Nagasaki | 6 August 1945 / 9 August 1945 CE | the National Archives; Truman's statement (`wh-940`) |
+| Surrender of Japan: terms accepted / broadcast / instrument signed | 14 August 1945 / 15 August 1945 / 2 September 1945 CE | Truman's news conference; Avalon (`wh-941`) |
+| Nuremberg trials: tribunal made / main trial / later trials | 8 August 1945 / 20 November 1945 – 1 October 1946 / December 1946 – April 1949 CE | the London Agreement; the Nuremberg municipal museum (`wh-942`); the Holocaust Museum gives April 1948 for the end of the later trials |
+| Displaced persons: DP camps | 1945 – 1952 CE | the Holocaust Museum (`wh-943`) |
+| United Nations: Charter signed / in force | 26 June 1945 / 24 October 1945 CE | the UN San Francisco page (`wh-944`) |
+| Universal Declaration of Human Rights: adopted | 10 December 1948 CE | the General Assembly record A/PV.183 (`wh-945`) |
+| Cold War: State Department span / Orwell's essay / Bush's declaration | 1947 – 1989 / 19 October 1945 / 25 December 1991 CE | the State Department; Orwell Foundation; American Presidency Project (`wh-946`); the card says historians date it differently |
+| Truman Doctrine: announced / Senate vote / House vote / signed | 12 March 1947 / 22 April 1947 / 9 May 1947 / 22 May 1947 CE | Truman's address; FRUS (`wh-948`) |
+| Marshall Plan: proposed / Act signed | 5 June 1947 / 3 April 1948 CE | the Marshall Foundation (`wh-949`) |
+| Berlin Blockade: blockade / airlift / Western currency | 24 June 1948 – 12 May 1949 / 26 June 1948 – 30 September 1949 / 20 June 1948 CE | Miller; the four-power communiqué, FRUS (`wh-950`) |
 
 ## Chronology pins
 
@@ -1652,4 +1661,13 @@ wh-937: 6 June 1944; 21 August 1944
 wh-938: 16 December 1944; 26 December 1944; 25 January 1945
 wh-939: 16 April – 2 May 1945
 wh-940: 6 August 1945; 9 August 1945
+wh-941: 14 August 1945; 15 August 1945; 2 September 1945
+wh-942: 8 August 1945; 20 November 1945 – 1 October 1946; December 1946 – April 1949
+wh-943: 1945; 1952
+wh-944: 1945
+wh-945: 1948
+wh-946: 1947; 1989; 1945; 1991
+wh-948: 1947
+wh-949: 1947; 1948
+wh-950: 1948; 1949
 ```
