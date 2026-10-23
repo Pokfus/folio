@@ -27313,13 +27313,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the collection banner does — "0 cards" reads as a figure that failed to load. */
     const spanText = nodeDateOverride(node.id);
     const cardCount = subtreeCardIds(node).length;
-    /* AND HOW MUCH OF THE DOWNLOAD IT IS (Aug 2026, on request — the language decks say what they will
-       fetch and these were asked to say the same). A curated deck has no file of its own: its cards ship
-       inside `data.js`, so the figure is what they weigh there and the wording says so rather than
-       promising a fetch that happened before the reader saw the page. It sits on the title row beside the
-       count, where the language rows put theirs, so one fact is in one place on both. */
-    const bytes = nodeBytes(node);
-    const sizeText = cardCount ? fmtDeckSize(bytes) : "";
+    /* NO FILE SIZE ON THE ROW (Oct 2026, on request — it had been added in Aug 2026 to match the language
+       decks, and both shelves drop it together). The count is the one figure a deck row carries. */
     /* THE FIGURES SIT ON A LINE OF THEIR OWN, UNDER THE TITLE (Aug 2026, on request: "language decks
        should say the card number and file size below their title, the same way history decks do"). They
        used to share the title's line and WRAP onto a second one when they would not fit, which is a
@@ -27330,8 +27325,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        about the row rather than a figure about its contents, and it is what a reader is scanning for. */
     const nodeMetaHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
-      (cardCount ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>` : "") +
-      (sizeText ? `<span class="node-size" title="These cards ship with the site, so they are already downloaded.">${sizeText}</span>` : "");
+      (cardCount ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>` : "");
     const nodeMetaRow = nodeMetaHTML ? `<div class="node-meta">${nodeMetaHTML}</div>` : "";
     const nodeEmptyPill = (!cardCount && !soon) ? `<span class="pill soon">Empty</span>` : "";
 
@@ -31126,23 +31120,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      for whoever wants it rather than half-built here. */
   function langRowHTML(o, index, depth) {
     depth = depth || 0;
-    /* THE SIZE IS THE FILE'S, and on an unwrapped deck one file serves every row — so the title says so
-       rather than leaving nine rows reading "20.6 MB" to be added up. Both shelves print the bytes and
-       nothing else, which is the request's own "one fact in one place on both": what differs between them
-       is what the figure MEANS, and that is where the difference belongs. */
-    const sizeTitle = o.shared
-      ? "These decks are in one " + fmtDeckSize(o.bytes) + " file — downloading any of them brings them all."
-      : "Downloaded from this deck's own row in Daily study, once you have added it.";
     const main =
       '<div class="node-main">' +
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(o.title) + '</span>' +
         '</div>' +
-        /* The count and the size on a line of their own under the title, exactly as the curated shelf
-           now sets them — see `nodeMetaHTML` in buildNode for why they left the title's line. */
+        /* The count on a line of its own under the title, exactly as the curated shelf sets it — see
+           `nodeMetaHTML` in buildNode. No file size (Oct 2026, on request): Daily study's Download button
+           still says what a deck will fetch. */
         '<div class="node-meta">' +
           '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
-          '<span class="node-size" title="' + esc(sizeTitle) + '">' + esc(fmtDeckSize(o.bytes)) + "</span>" +
           langFactsHTML(o) +
         '</div>' +
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
