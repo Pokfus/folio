@@ -810,6 +810,14 @@ Filled batch by batch, from the source each row names.
 | Wall Street Crash: Dow peak / Black Thursday / Black Tuesday / Dow low | 3 September 1929 / 24 October 1929 / 29 October 1929 / 8 July 1932 CE | the Federal Reserve history; the Senate (`wh-907`) |
 | Great Depression: began / low point / ended (Federal Reserve) | August 1929 / March 1933 / 1941 CE | Richardson, Federal Reserve History (`wh-908`) |
 | New Deal: pledged / bank holiday / Recovery Act / Social Security | 2 July 1932 / 6 March 1933 / 16 June 1933 / August 1935 CE | Roosevelt's speech; the Federal Reserve history; the National Archives (`wh-909`) |
+| Benito Mussolini: born / in power / died | 29 July 1883 / 1922 – 1943 / 28 April 1945 CE | Gentile, *Dizionario Biografico*; the Holocaust Museum (`wh-911`) |
+| Adolf Hitler: born / chancellor / died | 20 April 1889 / 30 January 1933 / 30 April 1945 CE | the Holocaust Museum; the National WWII Museum (`wh-912`) |
+| Nazi seizure of power: appointed / Enabling Act / one-party law / complete | 30 January 1933 / 23 March 1933 / 14 July 1933 / August 1934 CE | the Holocaust Museum; GHDI; the Nuremberg judgment (`wh-913`) |
+| Nuremberg Laws: announced / Jew defined | 15 September 1935 / 14 November 1935 CE | the Holocaust Museum; GHDI (`wh-914`) |
+| Second World War: began, Asia / began, Europe / ended, Europe / ended, Asia | 7 July 1937 / 1 September 1939 / 8 May 1945 (Reims 7 May) / 2 September 1945 CE | the State Department; the Holocaust Museum; Avalon (`wh-916`) |
+| Molotov-Ribbentrop Pact: dated / ended / declared void | 23 August 1939 / 22 June 1941 / December 1989 CE | Avalon; the German record of the talks; the Baltic Way form (`wh-917`) |
+| Invasion of Poland: German attack / Soviet attack / last surrender | 1 September 1939 / 17 September 1939 / 6 October 1939 CE | the Holocaust Museum (`wh-918`) |
+| Battle of France: attack began / Meuse crossed / Paris fell / armistice signed | 10 May 1940 / 13 May 1940 / 14 June 1940 / 22 June 1940 CE | House; Koch; the Compiègne armistice (`wh-920`) |
 
 ## Chronology pins
 
@@ -1598,4 +1606,12 @@ wh-906: July 1922; November 1923; 15 November 1923; 4.2
 wh-907: 3 September 1929; 24 October 1929; 29 October 1929; 8 July 1932; 381.17; 41.22
 wh-908: August 1929; March 1933; 1941
 wh-909: 1932; 1933; 1935
+wh-911: 29 July 1883; 1922; 1943; 28 April 1945
+wh-912: 20 April 1889; 30 January 1933; 30 April 1945
+wh-913: 30 January 1933; 23 March 1933; 14 July 1933; August 1934
+wh-914: 15 September 1935; 14 November 1935
+wh-916: 1937; 1939; 1945
+wh-917: 1939; 1941; 1989
+wh-918: 1939
+wh-920: 1940
 ```
