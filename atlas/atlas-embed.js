@@ -333,11 +333,20 @@
   function reliefSetting() {
     if (reliefCache) return reliefCache;
     let l = null; try { l = root.AtlasV2 && root.AtlasV2.layersStored ? root.AtlasV2.layersStored() : null; } catch (e) { l = null; }
-    reliefCache = { on: !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
+    /* A WINDOW'S OWN SWITCH (Oct 2026, on request: an icon button in each window): a device-local preference that OVERRIDES the Atlas's Legend switch for the windows only, strength still the Legend's.
+       Absent = follow the Atlas, which is what every window did before the button existed. */
+    let pref = null; try { pref = localStorage.getItem(RELIEF_PREF_KEY); } catch (e) { pref = null; }
+    reliefCache = { on: pref === "1" ? true : pref === "0" ? false : !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
     return reliefCache;
   }
+  const RELIEF_PREF_KEY = "folio_window_relief_v1";
+  function setWindowRelief(on) {
+    try { localStorage.setItem(RELIEF_PREF_KEY, on ? "1" : "0"); } catch (e) { /* no storage: nothing to remember, the window keeps what the Atlas says */ }
+    reliefChanged();
+    try { window.dispatchEvent(new CustomEvent("atlas2:windowrelief", { detail: { on: !!on } })); } catch (e) { /* no CustomEvent: the buttons catch up on the next draw */ }
+  }
   function reliefChanged() { const was = reliefCache; reliefCache = null; const now = reliefSetting(); if (was && was.on === now.on && was.strength === now.strength) return; for (const w of windows) { try { if (w.schedule) w.schedule(); } catch (e) { /* one window's redraw must not stop the others */ } } }
-  if (typeof window !== "undefined") { window.addEventListener("atlas2:layers", reliefChanged); window.addEventListener("storage", (e) => { if (!e || !e.key || /atlas2_layers/.test(e.key)) reliefChanged(); }); }
+  if (typeof window !== "undefined") { window.addEventListener("atlas2:layers", reliefChanged); window.addEventListener("storage", (e) => { if (!e || !e.key || /atlas2_layers|folio_window_relief/.test(e.key)) reliefChanged(); }); }
 
   /* ---- the interaction every window shares ----
      opts: { spec(state) → the spec for the current state, draw(state, api) → called after the base is drawn so the window can add its marks, onView(state),
@@ -420,5 +429,5 @@
   }
   function release0() { release(); }
 
-  root.AtlasEmbed = { ensure, warm, hold, view, release, reliefSetting, isCanvas2D: () => canvas2d, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
+  root.AtlasEmbed = { ensure, warm, hold, view, release, reliefSetting, setWindowRelief, isCanvas2D: () => canvas2d, stats: () => ({ live: hub && !hub.disposed ? 1 : 0, created: counters.created, disposed: counters.disposed, windows: windows.size, draws: counters.draws, masks: counters.masks, ready: !!(hub && hub.ready()) }), hub: () => hub, setIdleMs: (ms) => { idleMs = ms; } };
 })(typeof window !== "undefined" ? window : globalThis);

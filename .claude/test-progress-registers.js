@@ -34,7 +34,7 @@ const check = (name, ok, extra) => { if (ok) { pass++; console.log("  \x1b[32mok
 /* the truth: the table the migration reads, and the field list sync has always sent (pinned here on purpose: a field added to or dropped from this list is a change to sync and needs its own decision; `pretest` was dropped on 2026-10-23 with the deck pretest) */
 global.window = {}; require(path.join(ROOT, "atlas", "data", "country-names.js"));
 const C = global.window.ATLAS_COUNTRIES, V1 = C.v1;
-const PINNED_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+const PINNED_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "levelChests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
 
 (async () => {
   await new Promise((r) => server.listen(0, r));

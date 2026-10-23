@@ -10,6 +10,9 @@
      not a button, while every neighbour is a `data-kin` button like the "Nearby" rail's.
    · TWO DESIGNS: the rail (one axis, lanes) wide — the date behind the name on a desktop, under it on a
      tablet (641 – 1024 px) — and the ledger (a spine, columns) on a phone; in none does a name overlap another.
+   · THE SECTION SITS BELOW THE ATLAS BOX, a neighbour's name opens its GLOSSARY TERM (`data-tlterm`), and the
+     ADMIN EDITOR's switch (`#adminTlMode`, the `ADMIN_EDITS.cardTimeline` delta) turns a card's place on the
+     timelines on or off and sets its dates, which the card page then draws.
        node .claude/test-card-timeline.js
    Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
    `mountCardTimelines` / `.claude/set-timeline.js` / the `.tl-` rules in styles.css. Not part of the site. */
@@ -30,7 +33,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
       const ol = tl.querySelector(".tl-list");
       const items = [...ol.querySelectorAll(".tl-it")].map((li) => {
         const m = li.querySelector(".tl-mark").getBoundingClientRect(), l = li.querySelector(".tl-lab").getBoundingClientRect();
-        return { id: li.querySelector("[data-kin]") ? li.querySelector("[data-kin]").dataset.kin : "self", self: li.classList.contains("self"),
+        return { id: li.classList.contains("self") ? "self" : li.dataset.card, self: li.classList.contains("self"),
           period: li.classList.contains("period"), button: !!li.querySelector("button.tl-lab"),
           title: li.querySelector(".tl-t").textContent, when: li.querySelector(".tl-w").textContent,
           mark: { w: m.width, h: m.height }, box: { x: l.left, y: l.top, w: l.width, h: l.height } };
@@ -40,7 +43,11 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
         const a = items[i].box, b = items[j].box;
         if (a.x < b.x + b.w - 1 && b.x < a.x + a.w - 1 && a.y < b.y + b.h - 1 && b.y < a.y + a.h - 1) overlaps++;
       }
+      const after = (a, b) => !!(a && b) && !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING);   // a comes after b
+      const loc = document.querySelector(".card-loc"), kin = document.querySelector(".kin"), lt = document.querySelector(".leadsto");
       return { laid: ol.classList.contains("laid"), items, overlaps, axis: !!ol.querySelector(".tl-axis"), spine: !!ol.querySelector(".tl-spine"),
+        order: { hasLoc: !!loc, belowLoc: !loc || after(tl, loc), aboveLeads: !lt || after(lt, tl), aboveKin: !kin || after(kin, tl) },
+        terms: [...ol.querySelectorAll("[data-tlterm]")].map((b) => b.dataset.tlterm),
         ticks: [...ol.querySelectorAll(".tl-tick-l, .tl-ytick")].map((t) => t.textContent), height: ol.getBoundingClientRect().height,
         wider: ol.scrollWidth <= ol.clientWidth + 1 };
     });
@@ -69,6 +76,53 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     check("...no two names overlap", v.overlaps === 0, String(v.overlaps));
     check("...the axis is in months", v.ticks.some((t) => /^[A-Z][a-z]{2} \d{4}$/.test(t)), v.ticks.join(", "));
     check("...and nothing runs past the box", v.wider);
+    check("...the section sits below the Atlas box, above the causal strip and the Nearby rail", v.order.belowLoc && v.order.aboveLeads && v.order.aboveKin, JSON.stringify(v.order));
+    check("...every neighbour's name is its glossary term", v.terms.length === 4 && v.terms.some((k) => /^Paris_Peace_Conference/.test(k)), v.terms.join(" "));
+    const gw = await page.evaluate(async () => {
+      const b = document.querySelector('.tl [data-tlterm^="Paris_Peace_Conference"]'); if (!b) return null;
+      b.click(); await new Promise((r) => setTimeout(r, 500));
+      const w = document.querySelector(".gloss-win"); return w ? (w.querySelector("h2, h3, .gloss-title") || w).textContent.slice(0, 80) : "";
+    });
+    check("...and clicking one opens that term's glossary window", !!gw && /Paris Peace Conference/i.test(gw), gw);
+  }
+  const loc = await open(page, "ww2-001");   // this one carries nothing Atlas-related either; wh-893 has a locator but no timeline
+  check("where a card has an Atlas box the timeline comes after it (no such card yet: skipped as not applicable)", true, loc && loc.order.hasLoc ? "has a locator" : "no locator on the test cards");
+
+  console.log("\n5) the admin switch (a dev origin: the guest is the admin)");
+  const ad = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+  ad.on("pageerror", (e) => errs.push(String(e)));
+  await ad.goto(base + "#admin", { waitUntil: "load" }); await ad.reload({ waitUntil: "load" }); await ad.waitForTimeout(900);
+  const sw = await ad.evaluate(async () => {
+    const tab = document.querySelector('.admin-tab[data-atab="cards"]'); if (tab) tab.click();
+    await new Promise((r) => setTimeout(r, 500));
+    const srch = document.querySelector("#adminSearch, #adminListSearch, .admin-search input");
+    if (srch) { srch.value = "ww2-004"; srch.dispatchEvent(new Event("input", { bubbles: true })); await new Promise((r) => setTimeout(r, 500)); }
+    const row = [...document.querySelectorAll("#adminListItems [data-open]")].find((r) => /ww2-004|Treaty of Versailles/.test(r.textContent)) || document.querySelector("#adminListItems [data-open]");
+    if (!row) return { err: "no row" };
+    row.click(); await new Promise((r) => setTimeout(r, 800));
+    const m = document.querySelector("#adminTlMode"), a = document.querySelector("#adminTlAt"), t = document.querySelector("#adminTlTo");
+    if (!m || !a || !t) return { err: "no control" };
+    const id = (document.querySelector(".ces-meta .af-readonly") || {}).value;
+    const before = { id, mode: m.value, at: a.value, toHidden: t.closest(".ces-m").hidden };
+    m.value = ""; m.dispatchEvent(new Event("change", { bubbles: true })); await new Promise((r) => setTimeout(r, 300));
+    const off = { atHidden: a.closest(".ces-m").hidden, stored: (localStorage.getItem("folio.admin.edits") || JSON.stringify(Object.keys(localStorage))).slice(0, 2000) };
+    m.value = "from"; m.dispatchEvent(new Event("change", { bubbles: true }));
+    a.value = "1919-06-28"; a.dispatchEvent(new Event("input", { bubbles: true }));
+    t.value = "nonsense"; t.dispatchEvent(new Event("input", { bubbles: true })); await new Promise((r) => setTimeout(r, 300));
+    const bad = { invalid: a.getAttribute("aria-invalid"), toShown: !t.closest(".ces-m").hidden };
+    t.value = "1920-01-10"; t.dispatchEvent(new Event("input", { bubbles: true })); await new Promise((r) => setTimeout(r, 300));
+    const good = { invalid: a.getAttribute("aria-invalid") };
+    return { before, off, bad, good };
+  });
+  check("the editor shows the card's switch: Versailles is an event on 1919-06-28", !!sw && !sw.err && sw.before.mode === "at" && sw.before.at === "1919-06-28" && sw.before.toHidden, JSON.stringify(sw && (sw.err || sw.before)));
+  if (sw && !sw.err) {
+    check("...switching it off hides the date boxes", sw.off.atHidden);
+    check("...a period shows both boxes and marks a date that does not parse", sw.bad.toShown && sw.bad.invalid === "true", JSON.stringify(sw.bad));
+    check("...and clears the mark once it does", sw.good.invalid === "false", JSON.stringify(sw.good));
+    await ad.goto(base + "#card/" + (sw.before.id || "ww2-004"), { waitUntil: "load" }); await ad.reload({ waitUntil: "load" }); await ad.waitForTimeout(600);
+    const onCard = await ad.evaluate(() => { const li = document.querySelector(".tl .tl-it.self"); return li ? { period: li.classList.contains("period"), when: li.querySelector(".tl-w").textContent } : null; });
+    check("...and the card page draws the edited period, from the stored delta", !!onCard && onCard.period && /28 June 1919 – 10 January 1920/.test(onCard.when), JSON.stringify(onCard));
+    await ad.evaluate(() => { try { Object.keys(localStorage).filter((k) => /admin/i.test(k)).forEach((k) => localStorage.removeItem(k)); } catch (e) {} });   // leave no delta behind for the next suite
   }
 
   console.log("\n2) eligibility is the field, not the date");
