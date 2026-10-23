@@ -8532,6 +8532,27 @@
    },
    "cards": 1
   },
+  "pl:q2300616": {
+   "name": "Delicate Arch",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q2300616",
+   "at": [
+    -109.4994,
+    38.7436
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Delicate Arch",
+   "manual": true,
+   "reason": "geo-937 Delicate Arch: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q954501"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q23069794": {
    "name": "Menelaion",
    "kind": "site",
@@ -14777,6 +14798,27 @@
    },
    "cards": 0
   },
+  "pl:q604141": {
+   "name": "Puget Sound",
+   "kind": "strait",
+   "sub": "",
+   "qid": "Q604141",
+   "at": [
+    -122.435,
+    47.8331
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Puget Sound",
+   "manual": true,
+   "reason": "geo-820 Puget Sound: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q491713"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q604496": {
    "name": "Fennoscandia",
    "kind": "region",
@@ -14844,6 +14886,27 @@
    },
    "cards": 1,
    "kindWas": "region"
+  },
+  "pl:q609700": {
+   "name": "Stone Mountain",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q609700",
+   "at": [
+    -84.1454,
+    33.8059
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Stone Mountain",
+   "manual": true,
+   "reason": "geo-934 Stone Mountain: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q614510": {
    "name": "Gabii",
@@ -16910,6 +16973,28 @@
    },
    "cards": 1
   },
+  "pl:q748355": {
+   "name": "Mount Shasta",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q748355",
+   "at": [
+    -122.1949,
+    41.4092
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Shasta",
+   "manual": true,
+   "reason": "geo-930 Mount Shasta: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q751318": {
    "name": "Porta Maggiore",
    "kind": "site",
@@ -18448,6 +18533,27 @@
     "km": 2.2
    },
    "cards": 1
+  },
+  "pl:q9375154": {
+   "name": "Wind Cave",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q9375154",
+   "at": [
+    -103.4795,
+    43.558
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "",
+   "manual": true,
+   "reason": "geo-929 Wind Cave: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q2232001"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q938699": {
    "name": "Yorktown, Virginia",

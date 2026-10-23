@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":2,"gulf":2,"lake":6,"river":8,"island":25,"island-group":3,"range":8,"region":70,"site":415,"mountain":28,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":3,"gulf":2,"lake":6,"river":8,"island":25,"island-group":3,"range":8,"region":71,"site":416,"mountain":30,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -282,6 +282,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["Yorktown"],1],
 ["pl:q13659137","Zhoukoudian","town",0,13659137,0,[115.946,39.6797],0,1],
 ["pl:q477137","Humen","strait",0,477137,0,[113.6052,22.8018],0,1],
+["pl:q604141","Puget Sound","strait",0,604141,0,[-122.435,47.8331],0,1],
 ["pl:q79883","Strait of Hormuz","strait",0,79883,0,[56.5,26.6],0,1],
 ["pl:q2344806","Hakata Bay","gulf",0,2344806,"city:1159149927",[130.3734,33.632],0,1],
 ["pl:q1756937","Sydney Cove","gulf",0,1756937,0,[151.2117,-33.8586],0,1],
@@ -370,6 +371,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q59898","Daming County","region",0,59898,0,[115.142,36.2853],0,1],
 ["pl:q1159662","Dangtu County","region",0,1159662,0,[118.4889,31.5511],0,1],
 ["pl:q118388","Death Valley","region",0,118388,0,[-116.8653,36.4569],0,1],
+["pl:q2300616","Delicate Arch","region",0,2300616,0,[-109.4994,38.7436],0,1],
 ["pl:q113491323","Dingtao County","region",0,113491323,0,[115.5911,35.1425],
 ["Dingtao"]],
 ["pl:q1138308","Doggerland","region",0,1138308,0,[3,52],0,1],
@@ -917,6 +919,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q1548813","Wadi Maghareh","site","site",1548813,0,[33.45,29.0333],0,1],
 ["pl:q151545","Wartburg","site","building",151545,0,[10.3064,50.9661],0,1],
 ["pl:q1264618","White Horse Temple","site","building",1264618,"city:1159147063",[112.5997,34.7239],0,1],
+["pl:q9375154","Wind Cave","site","cave",9375154,0,[-103.4795,43.558]],
 ["pl:q2543042","Wonderwerk Cave","site","cave",2543042,0,[23.5539,-27.845],0,1],
 ["pl:q3316008","Woolsthorpe Manor","site","building",3316008,0,[-0.6306,52.8092],0,1],
 ["pl:q464936","Xanthos","site","site",464936,0,[29.3274,36.3627],0,1],
@@ -952,6 +955,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q105261","Mount Parnassus","mountain",0,105261,0,[22.6167,38.533],0,1],
 ["pl:q194057","Mount Rainier","mountain",0,194057,0,[-121.7603,46.8517],0,1],
 ["pl:q83497","Mount Rushmore","mountain",0,83497,0,[-103.4592,43.8789],0,1],
+["pl:q748355","Mount Shasta","mountain",0,748355,0,[-122.1949,41.4092],0,1],
 ["pl:q4675","Mount St. Helens","mountain",0,4675,0,[-122.1894,46.2003],0,1],
 ["pl:q524","Mount Vesuvius","mountain",0,524,0,[14.4292,40.8226],
 ["Vesuvius"],1],
@@ -960,6 +964,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q665321","Pikes Peak","mountain",0,665321,0,[-105.0442,38.8406],0,1],
 ["pl:q1518125","Qubbet el-Hawa","mountain",0,1518125,0,[32.8903,24.103],0,1],
 ["pl:q697937","Similaun","mountain",0,697937,0,[10.8806,46.7636],0,1],
+["pl:q609700","Stone Mountain","mountain",0,609700,0,[-84.1454,33.8059],0,1],
 ["pl:q216551","Actium","cape",0,216551,0,[20.768,38.953],0,1],
 ["pl:q193401","Cape Canaveral","cape",0,193401,0,[-80.5278,28.4556],0,1],
 ["pl:q4092","Cape of Good Hope","cape",0,4092,0,[18.4719,-34.3581],0,1],

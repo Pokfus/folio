@@ -50979,6 +50979,14 @@
     "Q2221906",
     "Q54050"
    ]
+  },
+  "Q491713": {
+   "label": "sound",
+   "tops": [
+    "Q2221906",
+    "Q82794",
+    "Q37901"
+   ]
   }
  },
  "labels": {
@@ -91828,6 +91836,62 @@
    ],
    "label": "Mauna Loa",
    "title": "Mauna Loa"
+  },
+  "Q9375154": {
+   "coord": [
+    -103.4795,
+    43.558
+   ],
+   "classes": [
+    "Q2232001"
+   ],
+   "label": "Wind Cave",
+   "title": ""
+  },
+  "Q748355": {
+   "coord": [
+    -122.1949,
+    41.4092
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358"
+   ],
+   "label": "Mount Shasta",
+   "title": "Mount Shasta"
+  },
+  "Q609700": {
+   "coord": [
+    -84.1454,
+    33.8059
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Stone Mountain",
+   "title": "Stone Mountain"
+  },
+  "Q604141": {
+   "coord": [
+    -122.435,
+    47.8331
+   ],
+   "classes": [
+    "Q491713"
+   ],
+   "label": "Puget Sound",
+   "title": "Puget Sound"
+  },
+  "Q2300616": {
+   "coord": [
+    -109.4994,
+    38.7436
+   ],
+   "classes": [
+    "Q954501"
+   ],
+   "label": "Delicate Arch",
+   "title": "Delicate Arch"
   }
  },
  "links": {
