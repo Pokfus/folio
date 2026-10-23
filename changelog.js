@@ -44,7 +44,7 @@ window.CHANGELOG = [
     items: [
       "A <b>Timeline</b> on the answer side of an event or period card shows it beside the two cards before and the two after in its collection, periods as bars and single events as dashes — on the first 20 cards of The Second World War to begin with.",,
       "<b>Twenty new glossary terms</b> on early stone-tool sites, early farming and its founder crops, regions and the scholars behind them.",
-      "The <b>Second World War map window</b> no longer shows a stray slanted block over the Allied lands, and its timeline drops the dense vertical dashes."
+      "The <b>Second World War map window</b> no longer shows a stray slanted block over the Allied lands, its timeline drops the dense vertical dashes, and the 1939–42 front fades softly at its map's edge."
     ],
   },
   {
