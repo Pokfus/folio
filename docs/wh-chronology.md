@@ -703,6 +703,12 @@ Filled batch by batch, from the source each row names.
 | Toussaint Louverture: lived / Santo Domingo / constitution / arrested | c. 1743 – 7 April 1803 / January 1801 / July 1801 / 7 June 1802 CE | Girard; Beard (`wh-768`) |
 | Spanish American wars of independence: Bayonne / Caracas junta / Ayacucho / Callao fell | May 1808 / 19 April 1810 / 9 December 1824 / January 1826 CE | Fisher; OpenStax (`wh-769`) |
 | Simón Bolívar: born / Angostura / Boyacá / died | 24 July 1783 / 15 February 1819 / 7 August 1819 / 17 December 1830 CE | Robertson; Rojas Castro (`wh-770`) |
+| José de San Martín: born / crossed the Andes / Peru proclaimed / died | 25 February 1778 / January – February 1817 / 28 July 1821 / 17 August 1850 CE | Robertson; Mitre; Criscenti (`wh-771`) |
+| Mexican War of Independence: Grito / Plan of Iguala / Córdoba treaty / capital entered | 16 September 1810 / 24 February 1821 / 24 August 1821 / 27 September 1821 CE (Hidalgo shot 30 July 1811; 31 July in two sources) | Robertson; Tenenbaum; Priestley (`wh-772`) |
+| Revolutions of 1848: Palermo / provisional government in Paris / crown refused / Hungary defeated | 12 January 1848 / 24 February 1848 / 28 April 1849 / 13 August 1849 CE (the king's first answer 3 April) | Maurice; GHDI; Library of Congress (`wh-773`; `wh-774` and `wh-775` are `undatable`) |
+| Industrial Revolution: Toynbee's course / Ashton's title / Toynbee's lectures | 1760 – 1840 / 1760 – 1830 / October 1881 – May 1882 CE | Toynbee's widow's note; Crafts (`wh-776`) |
+| British Agricultural Revolution: Overton's dating / Kerridge's dating | c. 1750 – 1850 / 1560 – 1767 CE | Overton (`wh-777`; `wh-778` and `wh-779` are `undatable`) |
+| James Watt: born / patent / died | 19 January 1736 / 5 January 1769 / 25 August 1819 CE | Science Museum Group; University of Birmingham (`wh-780`) |
 
 ## Chronology pins
 
@@ -1387,4 +1393,10 @@ wh-767: 22 August 1791; 29 August 1793; 4 February 1794; 1 January 1804
 wh-768: 1743; 7 April 1803; January 1801; July 1801; 7 June 1802
 wh-769: May 1808; 19 April 1810; 9 December 1824; January 1826
 wh-770: 24 July 1783; 15 February 1819; 7 August 1819; 17 December 1830
+wh-771: 25 February 1778; January – February 1817; 28 July 1821; 17 August 1850
+wh-772: 16 September 1810; 24 February 1821; 24 August 1821; 27 September 1821
+wh-773: 12 January 1848; 24 February 1848; 28 April 1849; 13 August 1849
+wh-776: 1760; 1840; 1830; 1881; 1882
+wh-777: 1750; 1850; 1560; 1767
+wh-780: 19 January 1736; 5 January 1769; 25 August 1819
 ```
