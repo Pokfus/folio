@@ -14404,7 +14404,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mummy": ["mummies"],
 "Abu_Rawash": ["Abu Roash","Abou Rawash"],
 "Atbarah_River": ["Atbara","Atbara River"],
-"Sobat_River": ["Sobat"]
+"Sobat_River": ["Sobat"],
+"Biology": ["biological"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
