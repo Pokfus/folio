@@ -161,7 +161,7 @@ order unless the user says otherwise.
 | B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | **done 2026-10-23** |
 | B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | **done 2026-10-23** |
 | B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | **done 2026-10-23** |
-| B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | open |
+| B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | **done 2026-10-23** |
 | B31 | The Republic in crisis (`rm-crisis`) | `rm-301`–`rm-310` | 10 | 85 | open |
 | B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | open |
 | B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | open |
@@ -560,6 +560,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-288` extortion court | none | no picture (`I.none`); the Lex Acilia tablet would suit |
 | `rm-289` senatus consultum ultimum | none | no picture (`I.none`) |
 | `rm-290` death of Gaius Gracchus | none | no picture (`I.none`) |
+| `rm-291` optimates and populares | none | no picture (`I.none`); a bust of Cicero or of Cato the Younger would be apt |
+| `rm-292` Jugurthine War | none | no picture (`I.none`); the denarius of Faustus Sulla showing Bocchus surrendering Jugurtha would be the apt picture |
+| `rm-293` Jugurtha | none | no picture (`I.none`) |
+| `rm-294` Gaius Marius | a portrait head conventionally called Marius | ok on the whole: the description is honest that the name is conventional; its first sentence reads as commentary |
+| `rm-295` Marian reforms | a denarius of Fundanius showing Marius as triumphator | weak: a victory type, not the army; the description names a catalogue number and says "BC" |
+| `rm-296` capite censi | none | no picture (`I.none`) |
+| `rm-297` Cimbri and the Teutones | a book plate of Marius and the Cimbrian ambassadors | wrong: one episode for a whole people, and the description names its source |
+| `rm-298` Battle of Arausio | none | no picture (`I.none`). **No locator: Orange is wanted** |
+| `rm-299` Battle of Aquae Sextiae | a 1915 illustration by John Harris Valda | wrong: the description names the artist and the book. **No locator: Aix-en-Provence is wanted** |
+| `rm-300` Battle of Vercellae | Tiepolo's oil of the battle | acceptable as an imagined scene; the description gives museum dimensions and the credit names no painter. **No locator: Vercelli is wanted, the site being disputed** |
 
 ## Glossary candidates
 
@@ -1358,3 +1368,36 @@ Run as B28; after `batch.sh` every draft was compared with its card (source coun
 | `rm-290` death of Gaius Gracchus | 7 | 5 → 7 | The old abstract retold the Antyllius incident and the decree (that is `rm-289`) as fact and stopped at the bridge. **Plutarch himself records two versions of the servant's part and Appian gives a third**; the head-and-gold story, the 3,000 dead and the temple of Concord are each attributed. `wh-350` states the death by his slave as fact. |
 
 **Read by eye.** *Confusability:* `rm-281`/`rm-282`/`rm-283`/`rm-284` are the man, the bill, the board and the killing; `rm-285`/`rm-286` the brother and the grain law; `rm-287`/`rm-288` the class and the court; `rm-289`/`rm-290` the decree and the death, with each phrasing keeping to its own term. *Legend:* the Etruscan journey, the head weighed in gold and the club-wielding senators are Plutarch's or Appian's. *Overlap:* `wh-350` as above; `rm-287`'s "300 + 300" jury figure conflicts between sources and is not printed.
+
+### B30 — `rm-291`–`rm-300`, the Republic in crisis: the labels, Jugurtha, Marius and the Cimbri (2026-10-23)
+
+Run as B29; every draft compared with its card: no mismatch. Checks: `rm-audit.js --range=rm-291:rm-300` reads clean on two cards; the rest are `I.none` on five, `L.missing` on `rm-298`, `rm-299` and `rm-300`, and `S.chip?` on `rm-295` and `rm-296` (an English BMCR review of a French-titled book: the known false positive). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. The ancient authors are Sallust, Plutarch and Livy's *Periochae*, so **the faults are speeches and anecdotes given as record and labels given to the wrong author**: Sallust never uses "optimates" and "populares", which are Cicero's; "the Marian reforms" is a modern label for piecemeal remarks; the Alpine and Jugurthine set pieces are Plutarch's or Sallust's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-291` optimates and populares | 7 | 6 → 7 | **The old text said Rome divided "ever after" into two named camps and that Sallust "ties the labels to particular men"; the labels are Cicero's (*Pro Sestio* 96 – 97)**, and Sallust speaks of the Senate and people, nobles, and "parties and factions". The "party" picture is set against Syme, Mouritsen, Robb, Arena and Yakobson. |
+| `rm-292` Jugurthine War | 7 | 6 → 7 | **Sallust is hedged as a moralising source with a bribery theme**; the old wording "opposition to the power of the nobility" follows Rolfe's "resistance to their insolence". The years 112, 105 and 104 are Lendering's, not Livy's, and Lendering's own bracket for the capture reads 106 against his article's 105. |
+| `rm-293` Jugurtha | 7 | 5 → 9 | **"Left Rome 110 / Handed over 105" is gone: the modern sources disagree on those years.** Scipio's words, the officers' remark, the Massiva murder and the "city for sale" line are Sallust's report; the bribery charge "may or may not be true"; "twenty years ignoring" was unsourced. The old glossary called him Masinissa's "grandson by adoption" (he was a grandson by birth). |
+| `rm-294` Gaius Marius | 8 | 6 → 9 | The mule and Cimbri-emergency material is cut (their own cards); **poverty is set against modern doubt, the speech in Sallust 85 is attributed to Sallust, and the seven-times prophecy (Plutarch) is told as legend**. "Consul 7 times" leaves the date line. |
+| `rm-295` Marian reforms | 7 | 5 → 8 | **"Marian reforms" is a modern label** (the Cambridge Ancient History of 1932 calls the recruitment "the greatest of the Marian reforms"); the ancient reports (Sallust on the levy, Plutarch on the javelin pin and the mules, Pliny on the eagle) are set out as separate remarks, with Probst's, Rafferty's and Northwood's doubts. The 400 drachmae and 101 javelin rows go. `rm-664` prints 104 BCE for the eagle, which Pliny does not give. |
+| `rm-296` capite censi | 5 | 5 → 6 | **The old card equated Polybius's 400-drachmae line with the capite censi; Polybius names no class**, so the equation is now a modern link, said to be one. Gellius's definition is the ancient anchor; the class has no sourced start date, so the date line is empty. |
+| `rm-297` Cimbri and the Teutones | 7 | 5 → 8 | The old card was half Arausio and **"four armies in eight years" is a figure no source gives** (Tacitus names five consular armies). Plutarch's 300,000 is his; Celtic or Germanic and the name are hedged; Strabo doubts the flood story; the dates c. 120, 113 and 101 are all Last's. |
+| `rm-298` Battle of Arausio | 6 | 5 → 6 | **"Cost more men than any defeat since Cannae" is no ancient source's; it is Mommsen's judgement only.** The consul is Mallius (Last, Mommsen), where Lendering's Livy has Manlius; the date is 6 October 105 (Last). Antias's inflation of numbers was an unsourced claim and goes. |
+| `rm-299` Battle of Aquae Sextiae | 6 | 5 → 6 | The old card cited Plutarch three times. **The question printed "102 BCE", and a joined 150,000 – 200,000 range summed two authors' figures nobody prints** (Plutarch's 100,000, Livy's 200,000 and 90,000 and the Teutobodus disagreement are each attributed). The site is debated. |
+| `rm-300` Battle of Vercellae | 6 | 5 → 6 | The javelin and chains anecdotes are Plutarch's; **Verona is the only alternative site any source read gives**. 30 July is a modern conversion of Plutarch's Roman day; the Velleius figure was not re-read and is not carried. |
+
+**Read by eye.** *Confusability:* `rm-291` the labels; `rm-292`/`rm-293` the war and the prince; `rm-294`/`rm-295`/`rm-296` the man, the supposed programme and the class; `rm-297`/`rm-298`/`rm-299`/`rm-300` the peoples and their three battles, each phrasing using only its own clue. *Legend:* the seven-times prophecy, the Cimbrian women at the waggons and the chains through the belts are all Plutarch's. *Overlap:* no `gr-` or `wh-` card is about Jugurtha; `wh-351` says Marius was consul 107 – 86 BCE and does not touch these cards.
+
+### The third hundred, in sum
+
+`rm-201`–`rm-300` (the Punic Wars from the settlement of Sicily, Rome and the Mediterranean and the first of the Republic in crisis) are done: 590 sources became 742 and 81 glossary entries were rewritten or added. `rm-audit.js --range=rm-201:rm-300` reads 50 of 100 cards clean; what remains is 25 cards with no picture, 4 real picture duplicates, 1 `I.caption-source`, 17 cards with no locator (every battle and place whose request had to be dropped), 8 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 1 `Q.sibling`. Every picture is still the bulk-written one: the "Pictures to redo" table holds a verdict for each of the three hundred, and the locator list is in the same table.
+
+What the third hundred found, again and again:
+- **A year no source prints.** Polybius prints no BCE year anywhere; Livy's years are an editor's brackets; so "211 BCE" for Syracuse, "197" for the two Spains' origin, "209", "157 BCE, per Pliny", "66 BCE" and "167 BCE" for the publicani and "171 BCE" for the Spanish case were an earlier agent's conversions. Each year on a line now has a modern author who prints it, or is dropped.
+- **A count or a sum on the date line.** Armies, dead, talents, hostages, ships, ranks and distances ("58,000", "324 Roman dead", "860 km", "about 9 years") were rows of the old lines; they are prose, attributed to Polybius, Livy, Appian or Plutarch, who often disagree.
+- **An ancient speech or anecdote told as event.** Livy's Hannibal and Thoas speeches, Cato's Oppian-law speech, Vibius Virrius's banquet, Sophonisba's cup, the severed head of Hasdrubal and of Gaius Gracchus, the seven-times prophecy and the burning mirror are each now an author's.
+- **A modern label given as ancient fact.** "Barcid empire", "the Marian reforms", "the Scipionic circle", "optimates and populares", "the Treaty of Apamea", "the salting of Carthage", the numbered Celtiberian wars and "philhellenism" are said to be modern.
+- **The same ancient author many times.** Cards that cited Polybius, Livy or Appian five to nine times as separate chapter links now cite each at most twice; many had no modern scholarship, and in several the modern half is still the 1930 Cambridge Ancient History, Dodge, Mommsen and Ihne from archive.org because the recent chapters were paywalled. A pass with a library could replace them.
+- **Housekeeping.** `rm-250`'s Wikipedia link and glossary pointed at Perseus the hero (fixed by hand in `wiki-links.json`); `rm-244`/`rm-246` lacked the glossary alias their answer needs; one source's chip sat after the URL's full stop.
+
+Overlap notes for the owner (nothing was edited): `gr-792` says Apamea was "ten thousand talents over ten years", which no source read gives; `gr-793` says Antiochus took Alexandria and starts that war in 170; `gr-994` says the Bacchanalian decree "banned" the rites; `wh-350` states Gaius Gracchus's death by his slave as fact; `gr-189` and `gr-864` differ slightly on Corinth.

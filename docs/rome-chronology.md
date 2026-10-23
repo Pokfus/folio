@@ -329,6 +329,13 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the equestrian order: senators out (the draft's own row) / the jury law / shared juries | 129 BCE / 123 BCE / 70 BCE (the sources conflict over the jury law's numbers: `rm-285`'s agent flagged "300 + 300") | `rm-287` |
 | the extortion court: Calpurnian law / Acilian law / Sulla's law / mixed panels | 149 BCE / 123 – 122 BCE / 81 BCE / 70 BCE | `rm-288` |
 | the *senatus consultum ultimum*: first used / later uses | 121 BCE (Bailey's review prints 122) / 100 BCE, 63 BCE and 49 BCE | `rm-289` |
+| the Gracchan laws / Cicero's speech defining optimates and populares | 133 – 123 BCE / 56 BCE | `rm-291` |
+| the Jugurthine War / Marius's triumph | 112 – 105 BCE / 104 BCE (Lendering's own bracket for the capture reads 106 against his article's 105) | `rm-292` |
+| Jugurtha: at Numantia / Micipsa died / the siege of Cirta / led in triumph | 134 BCE / 118 BCE / 112 BCE / 104 BCE (the modern sources disagree on his visit to Rome and the handing-over, so no row) | `rm-293` |
+| Gaius Marius: born / tribune / took command / died | c. 157 BCE / 119 BCE / 107 BCE / 86 BCE | `rm-294` |
+| Marius's levy of the poorest | 107 BCE (modern accounts; Sallust gives the consulship, not a BCE year; `rm-664` prints 104 BCE for the eagle standard, which Pliny does not give) | `rm-295` |
+| the Cimbri and Teutones: set out / first clash / last battle | c. 120 BCE / 113 BCE / 101 BCE (all from Last) | `rm-297` |
+| the Battle of Arausio / Aquae Sextiae / Vercellae | 6 October 105 BCE (Last) / 102 BCE / 101 BCE (30 July is a modern conversion of Plutarch's Roman day) | `rm-298`, `rm-299`, `rm-300` |
 
 ## The middle and late Republic
 
@@ -625,4 +632,13 @@ rm-287: 129; 123; 70
 rm-288: 149; 123; 122; 81; 70
 rm-289: 121; 100; 63; 49
 rm-290: 121
+rm-291: 133; 123; 56
+rm-292: 112; 105; 104
+rm-293: 134; 118; 112; 104
+rm-294: 157; 119; 107; 86
+rm-295: 107
+rm-297: 120; 113; 101
+rm-298: 105
+rm-299: 102
+rm-300: 101
 ```
