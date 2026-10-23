@@ -35,24 +35,29 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1086", released: "2026-10-23T13:59Z" };
+window.FOLIO_VERSION = { v: "1.1090", released: "2026-10-23T14:57Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "<b>Collections</b> opens much faster: a collection's decks are now listed when you open it, not all at once when the page loads.",
       "Opening a chest now waits for the artefact's picture before revealing it, and swaps in another artefact if the picture is broken.",
       "A deck or collection you have not set an order for now opens in <b>By difficulty</b> instead of Ordered; you can still change it.",
       "<b>Read aloud</b>: the play button beside Question, Answer and Background now appears on every card, including geography, philosophy and the arts.",
       "<b>Read aloud</b>: Background now continues through a book quotation into the second paragraph instead of stopping after the first.",
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
+      "<b>A hundred more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Soviet Union, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
       "A card's <b>Timeline</b> and its Nearby rail now sit below the Atlas box, and a name on the timeline opens that term's glossary entry.",
       "Admins can switch a card on or off the timelines of its collection, and set its dates, from the card editor.",
+      "<b>64 more Second World War cards</b> now show a Timeline, so every event and period in the collection sits beside its neighbours.",
+      "<b>172 China history cards</b> now show a Timeline too, from the Neolithic to the Tiananmen protests and the handover of Hong Kong.",
+      "<b>41 United States, Russia and Korea cards</b> now show a Timeline, from the Beaver Wars and Wounded Knee to the Mongol invasion of Rus' and the Three Kingdoms.",
       "The twelve-question test before a deck's first session is gone: choosing <b>By difficulty</b> now starts studying at once, and the first card is the deck's easiest.",
       "1 World History card's date line now gives when its age ended instead of a second start date.",
       "On a phone, <b>Undo</b> now sits between the <b>?</b> and <b>Suspend</b> under the answer buttons, the three the same width.",
@@ -71,6 +76,7 @@ window.CHANGELOG = [
       "<b>World Geography</b>: the China card now shades China on its map, as do the Russia and United States cards.",
       "<b>Large</b> is now the default text size for new visitors, and in the <b>Bloodstone</b> theme unread glossary links are blue so they stand out from the text.",
       "A level-up chest now waits gold on the level bar; pressing it greys the bar's chest and moves it to the chest banner, instead of showing in both.",
+      "<b>The Russia map cards for Moscow and Moscow Oblast</b> had swapped shapes: Moscow now shades the city, framed whole, and the Oblast card shades the oblast.",
     ],
   },
   {
