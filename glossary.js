@@ -10215,7 +10215,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lernaean_Hydra": "in Hesiod, c. 700 BCE",
 "Perseus_(mythology)": "in Hesiod, c. 700 BCE",
 "Medusa": "in Hesiod, c. 700 BCE",
-"Ariadne": "in Hesiod, c. 700 BCE"
+"Ariadne": "in Hesiod, c. 700 BCE",
+"Panathenaia": "566 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

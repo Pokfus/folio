@@ -273,8 +273,8 @@ one changelog line and a version bump; commit and push.
 | B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | **done 2026-10-23** |
 | B102 | Cult, oracles and festivals (`gr-cult`) | `gr-966`–`gr-975` | 10 | **done 2026-10-23** |
 | B103 | Cult, oracles and festivals (`gr-cult`) | `gr-976`–`gr-985` | 10 | **gr-976–980 done 2026-10-23** |
-| B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | **gr-991–995 done 2026-10-23** |
-| B105 | Cult, oracles and festivals (`gr-cult`) | `gr-996`–`gr-1000` | 5 | open |
+| B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | **gr-986–990 and gr-991–995 done 2026-10-23** |
+| B105 | Cult, oracles and festivals (`gr-cult`) | `gr-996`–`gr-1000` | 5 | **done 2026-10-23** |
 
 ## Ledger
 
@@ -2875,3 +2875,19 @@ when he quotes a hymn naming Olen as the first prophet and says tradition report
 the unsourced list of other cults (`gr-992`); the Plato "spells" sentence, which is 364c and not about Orpheus (`gr-993`); Demosthenes' "boyhood" service, where the speech says manhood, and "open to women as well as men" (`gr-994`); "a mortal physician in the earliest poetry" and "something over 170 cult sites" (`gr-995`). **Glossary entries redrafted:** `Votive_dedication`, `Oracle`, `Delphic_oracle`, `Pythia`,
 `Delphic_maxims`, `Eleusis`, `Greco-Roman_mysteries`, `Orphism_(religion)`, `Dionysian_Mysteries` and `Asclepius`, each with its own `date` key (empty). **Wrong auto-links** stopped with `<span class="ans-term">`: `cult` and `cults` (the alias of the mystery-cult key, on the cards that do not mean it: `gr-991`, `gr-993` to `gr-995`), `reconstruction`, `gold`, `silver` and `bronze`
 (`gr-976`, `gr-977`, `gr-991`, `gr-993` to `gr-995`). **Locators:** none added.
+
+#### `gr-986`–`gr-990` and `gr-996`–`gr-1000` (B104 and B105, committed sixth)
+
+Ten cards: the Panathenaia, the festival calendar, the Thesmophoria, the Anthesteria and the Eleusinian Mysteries; Epidaurus, incubation, hero cult, Greek funerary practice and the curse tablet. Sources 5–6 → 6–8. Every foreign-language review that stood without a chip has one (`gr-997` Italian, `gr-999` Spanish, `gr-1000` German); the French review of Parker's *Polytheism and Society at Athens*
+that the old Panathenaia, calendar, Thesmophoria, Anthesteria and Mysteries cards cited for claims it does not carry was dropped from all five. Checks: the audit, `check-questions`, `check-cards` and `apply-wiki-links --check` pass; every cited URL answers 2xx (103 citations) and `check-citations --card` finds no mismatch.
+
+**Date lines.** `gr-986` prints the Greater festival, 566 BCE ("one view", Meyer's review, and the prose says so), and the killing of Hipparchus, 514 BCE (Lateiner's review; Thucydides prints no year); `gr-996` the arrival of the cult at Athens, 420 BCE (Marx-Wolf's review) and the Tholos begun about 365 BCE (Miles's review; another review puts the building programme at 400 – 350 BCE, so the prose says "about");
+`gr-997` *Wealth* staged, 388 BCE (Anderson's review of Sommerstein); `gr-999` Solon's laws, 594/593 BCE (Whitehead's review), and the public funeral of 431 BCE (Baebler's review); `gr-1000` the span 500 – 250 BCE over which the curse tablets spread (Dreher's review of Lamont's study). **Empty and `undatable`:** `gr-987` to `gr-990` and `gr-998` (no source prints a start year for a festival,
+a cult or the Mysteries; the draft for `gr-990` kept "Profaned 415 BCE" as its only row and `gr-998` "Brasidas died 422 BCE", and both rows were taken off the line because they date a scandal and a death, not the cult, and would have given the term a sort year that is not its own; the years stay in the prose). Old rows dropped: "In Thucydides c. 400 BCE", "In Herodotus c. 430 BCE", "In Pausanias c. 150 CE",
+"Marathon 490 BCE" (`gr-987`), "Sanctuary from c. 6th century BCE" and "Temple and statue c. 370 BCE" (`gr-996`), "Tomb cult from c. 10th century BCE" and "Orestes' bones c. 560 BCE" (`gr-998`), "In Plato c. 375 BCE" (`gr-1000`) and the draft's own "Corinth's fall 146 BCE" row (`gr-996`: another event's date).
+
+**Corrected in the old cards:** the prize of the Panathenaia as "a jar of oil rather than a wreath" and the procession's route from the Kerameikos, which no source gives (`gr-986`); month-naming after festivals, which no source supports (`gr-987`); "camping" and "officers of their own" for the Thesmophoria, and Herodotus as "the earliest witness" (`gr-988`); "February", "the twelfth day", "three days" and "hundreds of jugs" for the Anthesteria (`gr-989`);
+"women and slaves included", "held for a thousand years" and "more than twenty kilometres of road" for the Mysteries (`gr-990`); "east coast, a few kilometres inland, the most famous healing shrine in Greece" and a Roman senator "in the second century CE" (`gr-996`); "Aristophanes gives the fullest picture" and the cakes burnt on the altar (`gr-997`); the enormous coffin of Orestes, now Godley's twelve feet (`gr-998`);
+"before dawn, at home" for the funeral (`gr-999`); "Plato knows the practice and dislikes it", when the passage is about begging priests (`gr-1000`). **Glossary entries redrafted:** `Panathenaia`, `Ancient_Greek_calendars`, `Thesmophoria`, `Anthesteria`, `Eleusinian_Mysteries`, `Epidaurus`, `Incubation_(ritual)`, `Ancient_Greek_funeral_and_burial_practices` and `Curse_tablet`, each with its own `date` key (empty); the `Hero_cult` entry was read against `gr-998` and left.
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Lichas` (the commissioner of 412 BCE, not the Spartan of Herodotus, `gr-998`), `Tholos` (the tomb, `gr-996`), `Italian` (`gr-1000`), `council` (`gr-987`), `Egypt` (`gr-988`), `cult` and `cults` (the alias of the mystery-cult key, `gr-986`, `gr-996`, `gr-997`), and `gold`, `silver`, `marble`, `coin`, `horse`,
+`armour` and `reconstruction` (`gr-986`, `gr-990`, `gr-996`, `gr-999`, `gr-1000`). **Locators:** none added; `gr-998`, `gr-1000` and `gr-999` keep the dots they have.
