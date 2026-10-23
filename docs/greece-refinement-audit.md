@@ -2616,10 +2616,7 @@ Thirty cards: Alexandria, the Library, the Mouseion, the Pharos, Demetrius of Ph
 Rhodes, the *Argonautica*, Theocritus, bucolic poetry, the Hellenistic epigram, the *Pinakes*, Aristarchus of Samothrace, the Septuagint,
 Euclid, the *Elements*, Archimedes, his principle, the claw, Apollonius of Perga, the conic sections, Eratosthenes, the circumference of the
 earth, Aristarchus of Samos, heliocentrism, Hipparchus, precession and Ctesibius. Sources 5 → 6 – 9 on every card (the bar by difficulty
-met on all thirty; modern share at least half). Where the sources part the card says whose is whose: the Suda against Strabo on
-the Library's founder and against the Archai/Kolde-less modern accounts on Demetrius' part, the Suda editors against Peter Green's translation
-on Apollonius' headship, Ptolemy's Callippic reckoning against a recent reading for Aristarchus' solstice, Pliny against Cicero on where the
-Garden lay (a later card), Livius against Empereur for the Pharos' dates.
+met on all thirty; modern share at least half). Where the sources part the card says whose is whose: the Suda against its own online editors, and a modern commentary, on who headed the Library after Zenodotus (`gr-806`, `gr-809`); Gellius against Plutarch on how the Library burned (`gr-802`); the Letter of Aristeas against modern accounts for the Septuagint (`gr-816`); Ptolemy's Callippic reckoning against a recent reading for Aristarchus' solstice (`gr-826`); the usual 300 – 280 BCE against Empereur's 285 – 280 BCE for the Pharos (`gr-804`); Athenaeus against Hedylus on the reign of Ctesibius (`gr-830`).
 
 Checks: `greece-audit.js --range=gr-801:gr-830` finds only `Q.sibling` on `gr-810` (47 % against `gr-932`, a different subject),
 `W.not-why` on `gr-812` and `gr-813` (reported, not a fault) and `S.chip?` on `gr-813`, `gr-817` and `gr-818` (all false positives: English
