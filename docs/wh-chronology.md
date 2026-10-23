@@ -828,6 +828,15 @@ Filled batch by batch, from the source each row names.
 | Nanjing Massacre: city fell / tribunal's span / Kasahara's span | 13 December 1937 / 13 December 1937 – early February 1938 / 4 December 1937 – 28 March 1938 CE | the Tokyo judgment; Yoshida (`wh-928`) |
 | Attack on Pearl Harbor: fleet sailed / attacked | 26 November 1941 / 7 December 1941 CE | the Strategic Bombing Survey; Matloff (`wh-929`) |
 | Pacific War: began (Tokyo's date) / Potsdam terms accepted / surrender signed | 8 December 1941 / 14 August 1945 / 2 September 1945 CE | JACAR; Avalon (`wh-930`) |
+| Battle of Midway: first contact / carriers hit / Yorktown sunk | 3 June 1942 / 4 June 1942 / 7 June 1942 CE | Nimitz's report; the National WWII Museum (`wh-931`) |
+| North African campaign: Italy invades Egypt / Rommel lands / Torch landings / last surrender | 13 September 1940 / 11 February 1941 / 8 November 1942 / 13 May 1943 CE | the National Army Museum; Alexander's despatch (`wh-932`) |
+| Second Battle of El Alamein | 23 October – 4 November 1942 CE | the National Army Museum; Alexander (`wh-933`) |
+| The Holocaust (Holocaust Museum's span) | 1933 – 1945 CE | the Holocaust Museum (`wh-934`) |
+| Auschwitz: first prisoners / gassing began / liberated | 14 June 1940 / March 1942 / 27 January 1945 CE | the Holocaust Museum, Key Dates (`wh-935`) |
+| Normandy landings: landings / campaign (Canadian War Museum) | 6 June 1944 / 6 June – 21 August 1944 CE | the National Army Museum; the Canadian War Museum (`wh-937`) |
+| Battle of the Bulge: began / Bastogne relieved / end (National WWII Museum) | 16 December 1944 / 26 December 1944 / 25 January 1945 CE | the National WWII Museum; Cole (`wh-938`) |
+| Battle of Berlin | 16 April – 2 May 1945 CE | Ziemke; the Holocaust Museum (`wh-939`) |
+| Atomic bombings: Hiroshima / Nagasaki | 6 August 1945 / 9 August 1945 CE | the National Archives; Truman's statement (`wh-940`) |
 
 ## Chronology pins
 
@@ -1634,4 +1643,13 @@ wh-927: 1937; 1931; 1945
 wh-928: 1937; 1938
 wh-929: 26 November 1941; 7 December 1941
 wh-930: 8 December 1941; 14 August 1945; 2 September 1945
+wh-931: 3 June 1942; 4 June 1942; 7 June 1942
+wh-932: 13 September 1940; 11 February 1941; 8 November 1942; 13 May 1943
+wh-933: 23; 4; 1942
+wh-934: 1933; 1945
+wh-935: 14 June 1940; March 1942; 27 January 1945
+wh-937: 6 June 1944; 21 August 1944
+wh-938: 16 December 1944; 26 December 1944; 25 January 1945
+wh-939: 16 April – 2 May 1945
+wh-940: 6 August 1945; 9 August 1945
 ```
