@@ -6661,7 +6661,14 @@ window.GLOSSARY = {
 "Manetho": "",
 "Rashid": "",
 "Sobat_River": "",
-"White_Nile": ""
+"White_Nile": "",
+"Botany": "",
+"Ecology": "",
+"Ecosystem": "",
+"Microbiology": "",
+"Paleontology": "",
+"Physiology": "",
+"Zoology": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14405,7 +14412,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Abu_Rawash": ["Abu Roash","Abou Rawash"],
 "Atbarah_River": ["Atbara","Atbara River"],
 "Sobat_River": ["Sobat"],
-"Biology": ["biological"]
+"Biology": ["biological"],
+"Paleontology": ["palaeontology"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21192,7 +21200,14 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Manetho": ["person","historian","priest","history","egypt","historiography"],
 "Rashid": ["city","place","geography","egypt","africa","port"],
 "Sobat_River": ["river","geography","africa","ethiopia","south sudan","nature"],
-"White_Nile": ["river","geography","africa","sudan","nature"]
+"White_Nile": ["river","geography","africa","sudan","nature"],
+"Botany": ["concept","science","biology","nature"],
+"Ecology": ["concept","science","biology","nature"],
+"Ecosystem": ["concept","science","biology","nature"],
+"Microbiology": ["concept","science","biology"],
+"Paleontology": ["concept","science","biology","palaeontology"],
+"Physiology": ["concept","science","biology"],
+"Zoology": ["concept","science","biology","nature"]
 });
 
 /* ============================================================================
