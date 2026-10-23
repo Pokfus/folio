@@ -20515,9 +20515,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (c && c.hanzi) parts.push({ text: c.hanzi, zh: true });   // Chinese stays on the device voice (no commercially-safe zh Piper voice)
       return parts;
     }
+    /* THE BACKGROUND IS READ WHOLE (Oct 2026, on request): a card with a book quotation renders its abstract as
+       TWO `p.abstract` with the `figure.card-quote` between them (see the Background build), and the first
+       `.abstract` alone stopped at the quotation. So every block of the section is read in page order — the
+       paragraphs and the quotation's own text (never its caption or its Library button). */
     const abs = container && container.querySelector(".abstract");
     let t;
-    if (abs) { const cl = abs.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); t = (cl.textContent || "").replace(/\s+/g, " ").trim(); }
+    if (abs) {
+      const blocks = Array.from((abs.parentNode || abs).querySelectorAll(".abstract, figure.card-quote > blockquote"));
+      t = blocks.map((b) => { const cl = b.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); return (cl.textContent || "").replace(/\s+/g, " ").trim(); }).filter(Boolean).join(" ");
+    }
     else t = ttsStrip(c && c.abstract);
     return [{ text: t, baked: bakedUrl(id, "bg", t) }];
   }

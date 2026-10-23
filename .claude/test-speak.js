@@ -435,6 +435,12 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const bgSpoken = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.slice()), 400)); });
   check("the Background button reads the background aloud in English", bgSpoken.length > 0 && /Prehistory/.test(bgSpoken[0]), (bgSpoken[0] || "").slice(0, 60));
 
+  // 4a. a card with a book quotation between its two background paragraphs reads all three, in order
+  await sectionBtns("gr-130");
+  const bgQuote = await page.evaluate(() => { window.__spoken = []; document.querySelector('.tts-play[data-tts="background"]').click(); return new Promise((r) => setTimeout(() => r(window.__spoken.join(" ")), 600)); });
+  const iA = bgQuote.indexOf("Iliad is a Greek epic"), iQ = bgQuote.indexOf("The wrath sing, goddess"), iB = bgQuote.indexOf("cannot have been composed");
+  check("the Background reads the quotation and the second paragraph too", iA >= 0 && iQ > iA && iB > iQ, [iA, iQ, iB].join());
+
   // 4b. while a section is playing a pause button appears beside its play button, and toggles pause / resume
   await page.evaluate(() => {
     window.__ps = [];
