@@ -11665,10 +11665,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wall_Street_Crash_of_1929": ["Wall Street crash","stock market crash of 1929","Great Crash"],
 "Article_48_of_the_Weimar_Constitution": ["Article 48"],
 "Benito_Mussolini": ["Mussolini"],
-"Corporatism": ["corporate state","corporative state"],
+"Corporatism": ["corporate state","corporative state","corporatist","corporativist"],
 "Duce": ["il Duce"],
 "Second_Italo-Ethiopian_War": ["Second Italo-Abyssinian War"],
-"Nazism": ["National Socialism"],
+"Nazism": ["National Socialism","Nazi","Nazis"],
 "Adolf_Hitler": ["Hitler"],
 "Nazi_Party": ["NSDAP","National Socialist Party"],
 "Antisemitism": ["racial antisemitism"],
@@ -13529,7 +13529,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Jiangxi_Soviet": ["Kiangsi Soviet","Central Soviet Area"],
 "Encirclement_campaigns_(Chinese_Civil_War)": ["encirclement campaigns","encirclement and suppression campaigns","weijiao"],
 "Long_March": ["Changzheng"],
-"Zunyi_Conference": ["Tsunyi Conference","Zunyi Meeting"],
+"Zunyi_Conference": ["Tsunyi Conference","Zunyi Meeting","Zunyi"],
 "Yan'an": ["Yenan"],
 "Yan'an_Rectification_Movement": ["Yenan Rectification Movement","Zhengfeng movement"],
 "Mao_Zedong_Thought": ["Mao Tse-tung Thought","Thought of Mao Zedong"],
@@ -14224,7 +14224,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Karaca_Dağ": ["Karacadağ","Karacadag","Karacadağ mountains"],
 "Pulse_(legume)": ["pulses","grain legume","grain legumes"],
 "Axis_powers": ["Axis alliance"],
-"Lebensraum": ["living space"]
+"Lebensraum": ["living space"],
+"Alaric_I": ["Alaric"],
+"Arcadia": ["Arkadia"],
+"Battle_of_Leuctra": ["Leuctra"],
+"Palatine_Hill": ["Palatine"],
+"Romulus_and_Remus": ["Remus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
