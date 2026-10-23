@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1060", released: "2026-10-22T23:53Z" };
+window.FOLIO_VERSION = { v: "1.1061", released: "2026-10-23T00:09Z" };
 
 window.CHANGELOG = [
   {
@@ -51,7 +51,10 @@ window.CHANGELOG = [
       "<b>The level-bar chest lights up only for a chest earned by levelling up</b> and not yet opened; badge, sweep and streak chests wait in the banner above.",
       "<b>On a phone the Today / This week box sits between your collections and the minigames.</b>",
       "<b>Glossary terms you have not opened are blue, and ones you have opened turn purple</b>, like a visited link.",
-      "<b>A collection whose subdecks you added one by one</b> now has a header row the same height as any other collection."
+      "<b>A collection whose subdecks you added one by one</b> now has a header row the same height as any other collection.",
+      "<b>Think it through</b> has even space above and below its questions, and each answer sits on the card's own background.",
+      "<b>The Atlas window on a card now sits right under the Background</b>, above what came of it, the nearby cards and the sources.",
+      "<b>War timelines open at the halfway point</b> of the war instead of at its last step."
     ]
   },
   {

@@ -25498,6 +25498,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </section>
         <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
+        ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
+        ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
       </div>`;
 
     /* ONE WALK OVER THE TILES, rather than nine `querySelector` lines that a tenth game would have to be
@@ -25581,6 +25583,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the Collections button under the review group and the About line under the games — both at every
     // width now, each being the only route to the page it names anywhere on the site
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
+    { const rf = root.querySelector("#b-refresh"); if (rf) rf.addEventListener("click", async () => {
+      rf.disabled = true; rf.classList.add("spin");
+      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k)).map((k) => caches.delete(k))); } } catch (e) { /* no Cache API: the reload below still asks the network */ }
+      try { if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map((r) => r.unregister())); } } catch (e) { /* none registered (a dev origin) */ }
+      location.reload();
+    }); }
     { const eg = root.querySelector("#b-empty-go"); if (eg) eg.addEventListener("click", () => route("decks")); }
     { const cb = root.querySelector("#b-credits"); if (cb) cb.addEventListener("click", () => route("credits")); }   // the map data's sources, generated from the files (Oct 2026)
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
@@ -36121,13 +36129,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* WHAT CAME OF THIS — the causal strip (see cardLeadsTo). OUTSIDE the Background fold and above the
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
+    /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
+    html += cardLocatorHTML(c);
     html += cardLeadsToHTML(c);
     /* …and the cards nearest this one, which is the same slot's other half (see relatedCardsHTML).
        Only for a CURATED card: a community deck has no tags to rank on and no collection to stay
        inside. Suppressed inside a game round, where a rail of other cards is a distraction from the
        answer the reader is being shown. */
     if (c && c.id && !isCommunityCard(c.id)) html += relatedCardsHTML(c.id);
-    html += cardLocatorHTML(c);
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));

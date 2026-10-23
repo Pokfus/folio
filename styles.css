@@ -9077,7 +9077,7 @@ body[data-theme="carnelian"].night .collection-deco{
    and 4.72 mixed — and the deeper red it was promoted with takes it to 6.10 and 8.46.) The plain `--zh` is
    declared first so a browser without `color-mix` still gets a readable tab rather than none. */
 .elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
-  padding:24px 16px 15px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}
+  padding:24px 16px 26px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}   /* the foot's 26px + the row's 2px match the head's 24 + 2 + 2: the same air under the last question as over the first (Oct 2026, on request) */
 .elab-kind{position:absolute; top:calc(-10px * var(--fs)); left:15px;
   background:var(--zh); background:color-mix(in srgb, var(--zh) 72%, var(--ink));
   color:var(--card); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.13em;
@@ -9123,8 +9123,10 @@ body[data-theme="carnelian"].night .collection-deco{
 .elab-legacy .elab-show:disabled{opacity:.4; cursor:default;}
 /* the answer itself: the card's own prose, set off by a rule down its left edge so it reads as a reply to
    the line above rather than as another paragraph of the background */
-.elab-wrap{padding-top:7px;}
-.elab-a{margin:0; padding-left:13px; border-left:3px solid var(--zh);
+/* THE ANSWER SITS ON THE CARD'S OWN BACKGROUND (Oct 2026, on request) so it stands off the box's darker paper, with air under it
+   before the next rule. */
+.elab-wrap{padding:7px 0 14px;}
+.elab-a{margin:0; padding:10px 13px; background:var(--card); border-radius:0 7px 7px 0; border-left:3px solid var(--zh);
   font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
 .elab-a[hidden]{display:none;}
 @media (max-width:520px){
@@ -9693,6 +9695,13 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .home-foot{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:10px; padding:16px 0 0;}
 .home-foot .home-about, .home-foot .home-about:hover{width:auto; padding:0; text-align:left; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; color:var(--ink-faint);}
 .home-foot .home-about:hover{color:var(--ink-soft);}
+/* the admin's refresh, bottom left of the home page (Oct 2026, on request) */
+.home-admin-row{display:flex; justify-content:flex-start; margin-top:6px; order:5;}
+.home-refresh{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; padding:0; border-radius:8px; border:1px solid var(--rule); background:transparent; color:var(--ink-faint); cursor:pointer; transition:color .15s var(--ease), border-color .15s var(--ease);}
+.home-refresh:hover, .home-refresh:focus-visible{color:var(--indigo); border-color:var(--indigo);}
+.home-refresh svg{width:14px; height:14px; display:block;}
+.home-refresh.spin svg{animation:hrspin .8s linear infinite;}
+@keyframes hrspin{to{transform:rotate(360deg);}}
 .home-foot .site-ver{margin:0 0 0 auto; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase;}
 @media (min-width:641px){ .home-foot .home-about{padding-top:0;} }
 /* the middle column is the flexible one (Oct 2026, on request: the gap after the number was too wide) — with

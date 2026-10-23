@@ -31,14 +31,16 @@
     else for (const y of tl.years || []) out.push({ year: y, month: null, day: null, date: null, t: y, front: false });
     return out.length >= 2 ? out : [];
   }
-  /* where the pin opens: the step nearest the card's own date when the card's date line names ONE year inside the war, else the war's last step */
+  /* where the pin opens: ALWAYS at the halfway point of the timeline (Oct 2026, on request — it used to open at the war's last step, or at the step nearest the one year the card's date line names). The pin
+     stands on steps, so "halfway" is the step nearest the midpoint of the rail, whose ends are the war's first year and the year after its last (`mountTimeline`'s t0 and t1); a tie takes the earlier step.
+     `years` is accepted and ignored, so the callers and the suites that pass it keep working. */
   function startStep(steps, span, years) {
-    const set = new Set((years || []).filter((y) => isFinite(y)));
-    if (set.size === 1) { const y = [...set][0]; if (y >= span[0] && y <= span[1]) { let best = 0; steps.forEach((st, i) => { if (Math.abs(st.t - (y + 0.5)) < Math.abs(steps[best].t - (y + 0.5))) best = i; }); return best; } }
-    return steps.length - 1;
+    const mid = (span[0] + span[1] + 1) / 2;
+    let best = 0; steps.forEach((st, i) => { if (Math.abs(st.t - mid) < Math.abs(steps[best].t - mid)) best = i; });
+    return best;
   }
   const mark = (n) => { try { performance.mark(n); } catch (e) {} };   // Phase 4b: named marks (a2:*) so a trace shows where a first window's time went
-  if (typeof window !== "undefined" && !window.__folioReliefBtnSync) {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function" && !window.__folioReliefBtnSync) {
     window.__folioReliefBtnSync = true;
     window.addEventListener("atlas2:windowrelief", (e) => {
       const on = !!(e && e.detail && e.detail.on);
