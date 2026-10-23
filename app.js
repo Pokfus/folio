@@ -27300,7 +27300,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
   // recursive renderer for a node beneath a collection (deck/subdeck), arbitrary depth
   function buildNode(node, index) {
-    const num = String(index + 1).padStart(2, "0");
+    /* NO RUNNING NUMBER (Oct 2026, on request): the rows are a flat list under their collection now, and the
+       "01 / 02" in front of each title was the one thing on the row that said nothing about the deck. */
     const soon = isComingSoon(node);
     const pid = node.parentId || "";
     /* A DECK ROW SAYS HOW MANY CARDS IT HOLDS, not what years they cover (Aug 2026, on request — the
@@ -27339,7 +27340,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       group.className = "node-group";
       group.innerHTML = `
         <div class="node branch${soon ? " placeholder" : ""}" tabindex="0" role="button" data-libitem="${esc(node.id)}" data-libkind="node" data-libparent="${esc(pid)}">
-          <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
               <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
@@ -27373,7 +27373,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     subEl.style.cursor = "pointer";
     subEl.dataset.libitem = node.id; subEl.dataset.libkind = "node"; subEl.dataset.libparent = pid;
     subEl.innerHTML = `
-      <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
           <span class="node-title">${esc(nodeTitle(node))}</span>${deadlineTagHTML(node.id, "collection-span")}
@@ -31127,7 +31126,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      for whoever wants it rather than half-built here. */
   function langRowHTML(o, index, depth) {
     depth = depth || 0;
-    const num = String(index + 1).padStart(2, "0");
     /* THE SIZE IS THE FILE'S, and on an unwrapped deck one file serves every row — so the title says so
        rather than leaving nine rows reading "20.6 MB" to be added up. Both shelves print the bytes and
        nothing else, which is the request's own "one fact in one place on both": what differs between them
@@ -31163,16 +31161,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const on = isActive(o.entry);
     const act = '<button class="node-add' + (on ? " added" : "") + '" data-id="' + esc(o.entry) +
       '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + "</button>";
-    const head = '<span class="node-num">' + num + "</span>";
     const kids = Array.isArray(o.kids) ? o.kids : [];
     /* `.lang-deck` MARKS A TOP-LEVEL ROW AND `.lang-sub` A NESTED ONE, and that distinction is worth
        keeping now that the two are built by one function: `.node.lang-deck` is how the page counts a
        language's DECKS, so a subdeck wearing it would make every language claim more than it has —
        Spanish would read 21 for its seven levels and their fourteen directions. */
     const kind = depth ? "lang-sub" : "lang-deck";
-    if (!kids.length) return '<div class="node ' + kind + '">' + head + main + act + "</div>";
+    if (!kids.length) return '<div class="node ' + kind + '">' + main + act + "</div>";
     return '<div class="node-group lang-group">' +
-      '<div class="node branch ' + kind + '" tabindex="0" role="button">' + head + main + act + chevBtn("chev-sm") + "</div>" +
+      '<div class="node branch ' + kind + '" tabindex="0" role="button">' + main + act + chevBtn("chev-sm") + "</div>" +
       '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
         kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
       "</div></div></div>" +

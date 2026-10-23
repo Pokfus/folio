@@ -277,7 +277,7 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   if (row) {
     check("…in the curated tree's own row shape", row.isNode);
     check("…and not itself pressable", !row.pressable);
-    check("…numbered like a curated deck", /^\d\d$/.test(row.num.trim()), row.num);
+    check("…unnumbered, like a curated deck (Oct 2026)", row.num === "", row.num);
     /* THE TITLE IS THE CATALOGUE'S WITH THE LANGUAGE TRIMMED OFF (Aug 2026, on request: "language decks
        do not need to name the language in their title, since its already mentioned in the collection
        name"). The expectation is the SITE'S OWN `langShortTitle`, sliced out of app.js and run here, for
