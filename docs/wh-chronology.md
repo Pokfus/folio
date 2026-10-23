@@ -649,6 +649,77 @@ Filled batch by batch, from the source each row names.
 | Abbas the Great: lived / reigned (1587 in other sources) / Armenians moved / Hormuz taken | 1571 – 1629 / 1588 – 1629 / 1604 – 1605 / 1622 CE | Matthee; Library of Congress study (`wh-696`; `wh-697` and `wh-698` are `undatable`) |
 | Mughal Empire: founded / dynasty ended | 1526 / 1858 CE | Smith; Richards (`wh-699`) |
 | Babur: born / King of Ferghana / Panipat (20 April in Beveridge) / died | 14 February 1483 / June 1494 / 21 April 1526 / 26 December 1530 CE | Lane-Poole; Beveridge; the *Baburnama* (`wh-700`) |
+| Akbar: born (official) / enthroned / jizya ended / died | 15 October 1542 / 14 February 1556 / 1564 (Abu'l-Fazl) or 1579 (Badauni) / 25 – 27 October 1605 CE (accounts differ) | Smith; Haig; Lane-Poole (`wh-701`) |
+| Shah Jahan: born / enthroned / confined / died | 6 January 1592 / 6 February 1628 / 8 June 1658 (18 June in Lane-Poole) / 22 January 1666 (1 February in Sarkar's other chapter) CE | Beveridge's note to the *Akbarnama*; Lahori; Sarkar (`wh-702`) |
+| Taj Mahal: built | 1632 – 1653 CE (a university teaching text; completion dated 1643, 1648 and 1653 by other sources) | Sarkar; Uttar Pradesh tourism department (`wh-703`) |
+| Aurangzeb: born / reigned | 1618 / 1658 – 1707 CE (death 20 February in Sarkar, 4 March in Lane-Poole) | Sarkar; Lane-Poole (`wh-704`; `wh-705` is `undatable`) |
+| Sikhism: Nanak lived (Sikh tradition) | 1469 – 1539 CE | Macauliffe; Mann (`wh-706`; `wh-708` and `wh-709` are `undatable`) |
+| Maratha Empire: Shivaji crowned / dues granted (per Duff) / Panipat / Peshwa removed | 6 June 1674 / 1719 / 14 January 1761 / February 1818 CE | Sarkar; Duff; Gordon (`wh-707`) |
+| Crimean Khanate: span / Ottoman vassal / Moscow raid / annexed | 1441 – 1783 / after 1475 / 1571 / April 1783 CE | Başer; Fletcher; Horsey; Fisher (`wh-710`) |
+| Ming dynasty: founded (Hongwu reign name begins) / capital moved / fell (Beijing) | 1368 / 1421 / 1644 CE | Wade; Shao; Theobald (`wh-711`) |
+| Zheng He: first order / seventh order / voyages | 11 July 1405 / 29 June 1430 / 1405 – 1433 CE | the Ming Veritable Records via Wade; Columbia (`wh-712`) |
+| Forbidden City: built (official records) / court moved / Puyi expelled / museum opened | 1406 – 1420 (1416 – 1420) / 1421 / 5 November 1924 / 10 October 1925 CE | Palace Museum and Durham; Campbell; Xu (`wh-713`) |
+| Haijin: first ordered (1368 in one study) / partly lifted / coast cleared / lifted | 1371 / 1567 / 1661 / 1684 CE | Zurndorfer; Kung and Ma; Lin; Holroyd (`wh-714`) |
+| Fall of the Ming: Beijing taken (emperor's death the same day) / Wu met Dorgon / Qing entered / last claimant died | 25 April / 27 May / 6 June 1644 / June 1662 CE | Tu; Fang; Yang in Hummel (`wh-715`) |
+| Qing dynasty: named Qing / Beijing taken / abdicated | 14 May 1636 / 6 June 1644 / 12 February 1912 CE | Fang in Hummel; the abdication edict item (`wh-716`) |
+| Kangxi Emperor: born / reigned / died | 4 May 1654 / 1661 – 1722 / 20 December 1722 CE (the era name from 1662) | Fang in Hummel (`wh-717`) |
+| Qianlong Emperor: born / reigned / died | 25 September 1711 / 1735 – 1796 / 7 February 1799 CE (the era name from 1736) | Fang in Hummel (`wh-718`) |
+| Canton System: edict (Morse) / rules (Grant) / ended | 1757 / 1760 / 1842 CE | Morse; Grant; Liu Yong (`wh-719`) |
+| Macartney Embassy: reached Taku / audience / reply given / left Peking | 5 August / 14 September / 3 October / 7 October 1793 CE | Staunton; Macartney's journal; Fang in Hummel (`wh-720`) |
+| Sengoku period: spans and start (by source) | 1467 – 1573 (Segal) / 1467 – 1568 (JAANUS) / 1493 (Conlan) / 1477 – 1600 (Smolucha) CE | Segal; JAANUS; Conlan; Smolucha (`wh-721`) |
+| Unification of Japan: Nobunaga / Hideyoshi | 1568 – 1582 / 1582 – 1590 CE | Kawai; Wang et al. (`wh-722`) |
+| Tokugawa shogunate: Ieyasu shogun / power returned / office abolished | 1603 / 1867 / 3 January 1868 CE | Library of Congress; Japan Search; Kyoto City (`wh-723`) |
+| Sakoku: measures / Dutch to Dejima / term coined / US treaty | 1633 – 1639 / 1641 / 1801 / 1854 CE | Hiraishi; Peng (`wh-724`) |
+| Hangul: announced (lunar calendar) / treatise / Haerye found / name in print | December 1443 / 1446 / 1940 / March 1913 CE | Ryu (`wh-725`) |
+| Atlantic slave trade: recorded voyages / suppression | 1514 – 1866 / 1867 CE | NEH on the Voyages database; Domingues da Silva et al. (`wh-726`; `wh-727`–`wh-730` are `undatable`) |
+| Slave codes: Barbados / Jamaica / South Carolina | 1661 / 1664 and 1684 / 1691 CE (Jamaica's consolidated act 2 March 1792) | Rugemer; Edwards (`wh-732`; `wh-731` and `wh-733` are `undatable`) |
+| Maroons: Jamaican treaty (1738, 1738 / 39 or 1739 by source) | 1738 – 1739 CE | Dallas; Johnson; Smithsonian (`wh-734` is `undatable`) |
+| Asiento: British contract signed at Madrid / given up | 26 March 1713 / 1748 and 1750 CE | Scelle; Smith; García de León (`wh-735` is `undatable`) |
+| Royal African Company: chartered / trade opened / dissolved | 1672 / 24 June 1698 / 1752 CE | Pettigrew (`wh-736`) |
+| Kingdom of Dahomey: founded (Law's estimate) / Allada, Whydah / French conquest | c. 1600 – 1650 / 1724, 1727 / 1892 – 1894 CE | Law; Ross (`wh-737`) |
+| Ashanti Empire: Feyiase (McCaskie) / Sagrenti War / annexed | 1701 / 1873 – 1874 / 1901 CE | McCaskie; Ponsonby (`wh-738`; `wh-739` and `wh-740` are `undatable`) |
+| Olaudah Equiano: born (his account) / freed / Narrative / died | 1745 / 10 July 1766 / 1789 / 31 March 1797 CE (baptised 9 February 1759 as from Carolina) | the *Narrative*; Hoare; Matiu; Carey (`wh-742`; `wh-741`, `wh-744`, `wh-745`, `wh-746` are `undatable`) |
+| Slave Trade Act 1807: royal assent / in force / Commons vote | 25 March / 1 May / 23 February 1807 CE | the Act; Hansard (`wh-743`) |
+| John Locke: lived / *Two Treatises* / *Essay* | 1632 – 1704 / 1689 (title page 1690) / 1689 CE | Uzgalis and Tuckness (SEP); Laslett (`wh-747`) |
+| Montesquieu: lived / *Persian Letters* / *Spirit of Laws* | 1689 – 1755 / 1721 / 1748 CE | SEP; Stewart (`wh-748`) |
+| Voltaire: lived / *English Letters* / Calas executed (museum; 9 March in his treatise) / Calas cleared | 21 November 1694 – 30 May 1778 / 1733 / 10 March 1762 / 1765 CE | Tallentyre; Musée protestant (`wh-749`) |
+| Jean-Jacques Rousseau: lived / Discourse on Inequality / *Social Contract* | 28 June 1712 – 2 July 1778 / 1755 / 1762 CE | Cole; SEP (`wh-750`) |
+| Encyclopédie: prospectus / text volumes / plates | November 1750 / 1751 – 1765 / completed 1772 CE | Chartier; ARTFL; Brandeis (`wh-751`; `wh-752` is `undatable`) |
+| American Revolution: Stamp Act passed / Tea Party / Declaration / Treaty of Paris | 22 March 1765 / 16 December 1773 / 4 July 1776 / 3 September 1783 CE | National Archives; Library of Congress (`wh-753`) |
+| Declaration of Independence: adopted / Lee motion / vote carried / mostly signed | 4 July / 7 June / 2 July / 2 August 1776 CE | National Archives; National Park Service (`wh-754`) |
+| American Revolutionary War: began / alliance signed / Yorktown fell / treaty signed | 19 April 1775 / 6 February 1778 / 19 October 1781 / 3 September 1783 CE (Yorktown siege from 28 September) | National Park Service; State Department historian; American Battlefield Trust (`wh-755`) |
+| US Constitution: signed / ninth state / legal start / Bill of Rights | 17 September 1787 / 21 June 1788 / 4 March 1789 / 15 December 1791 CE (quorums 6 April 1789) | National Archives (`wh-756`) |
+| French Revolution: Estates opened / monarchy ended / Directory fell | 5 May 1789 / 21 September 1792 / 9 November 1799 CE | Versailles; Lentz (`wh-757`) |
+| Storming of the Bastille: stormed / anniversary fête / holiday law | 14 July 1789 / 14 July 1790 / 6 July 1880 CE | Funck-Brentano; the Swiss officer's account (`wh-758`) |
+| Declaration of the Rights of Man: approved / debated / royal assent / in constitution | 26 August 1789 / 20 – 26 August 1789 / 5 October 1789 / 3 September 1791 CE | Library of Congress; American Battlefield Trust (`wh-759`) |
+| Reign of Terror: Royer's call / Law of Suspects / Prairial law / 9 Thermidor | 5 September 1793 / 17 September 1793 / 10 June 1794 / 27 July 1794 CE | Linton; Hesse; the Convention's decrees (`wh-760`) |
+| Maximilien Robespierre: lived / Terror speech / Supreme Being (10 June in one article) / Prairial law | 6 May 1758 – 28 July 1794 / 5 February 1794 / 8 June 1794 / 10 June 1794 CE | Jones and Macdonald; Maitron; Mark (`wh-761`) |
+| Napoleon: lived / Brumaire / empire declared / abdications | 15 August 1769 – 5 May 1821 / 9 – 10 November 1799 / 18 May 1804 / April 1814 and 22 June 1815 CE | Broers; the Fondation Napoléon (`wh-762`) |
+| Napoleonic Wars: museum dating / Second Treaty of Paris | 1803 – 1815 / 20 November 1815 CE | Royal Museums Greenwich; National Army Museum (`wh-763`) |
+| Napoleonic Code: voted in parts / promulgated / renamed | March 1803 – March 1804 / 21 March 1804 / 1807 CE (2,281 articles) | Delage (`wh-764`) |
+| Battle of Waterloo: campaign / battle | 15 – 18 June / 18 June 1815 CE | National Army Museum (`wh-765`) |
+| Congress of Vienna: opened / Final Act | November 1814 / 9 June 1815 CE | Lentz (Fondation Napoléon) (`wh-766`) |
+| Haitian Revolution: rising / emancipation (Sonthonax) / abolition (Convention) / independence | 22 August 1791 / 29 August 1793 / 4 February 1794 / 1 January 1804 CE | Assemblée nationale; Fondation Napoléon (`wh-767`) |
+| Toussaint Louverture: lived / Santo Domingo / constitution / arrested | c. 1743 – 7 April 1803 / January 1801 / July 1801 / 7 June 1802 CE | Girard; Beard (`wh-768`) |
+| Spanish American wars of independence: Bayonne / Caracas junta / Ayacucho / Callao fell | May 1808 / 19 April 1810 / 9 December 1824 / January 1826 CE | Fisher; OpenStax (`wh-769`) |
+| Simón Bolívar: born / Angostura / Boyacá / died | 24 July 1783 / 15 February 1819 / 7 August 1819 / 17 December 1830 CE | Robertson; Rojas Castro (`wh-770`) |
+| José de San Martín: born / crossed the Andes / Peru proclaimed / died | 25 February 1778 / January – February 1817 / 28 July 1821 / 17 August 1850 CE | Robertson; Mitre; Criscenti (`wh-771`) |
+| Mexican War of Independence: Grito / Plan of Iguala / Córdoba treaty / capital entered | 16 September 1810 / 24 February 1821 / 24 August 1821 / 27 September 1821 CE (Hidalgo shot 30 July 1811; 31 July in two sources) | Robertson; Tenenbaum; Priestley (`wh-772`) |
+| Revolutions of 1848: Palermo / provisional government in Paris / crown refused / Hungary defeated | 12 January 1848 / 24 February 1848 / 28 April 1849 / 13 August 1849 CE (the king's first answer 3 April) | Maurice; GHDI; Library of Congress (`wh-773`; `wh-774` and `wh-775` are `undatable`) |
+| Industrial Revolution: Toynbee's course / Ashton's title / Toynbee's lectures | 1760 – 1840 / 1760 – 1830 / October 1881 – May 1882 CE | Toynbee's widow's note; Crafts (`wh-776`) |
+| British Agricultural Revolution: Overton's dating / Kerridge's dating | c. 1750 – 1850 / 1560 – 1767 CE | Overton (`wh-777`; `wh-778` and `wh-779` are `undatable`) |
+| James Watt: born / patent / died | 19 January 1736 / 5 January 1769 / 25 August 1819 CE | Science Museum Group; University of Birmingham (`wh-780`) |
+| Spinning jenny: invented (Baines) / (Arkwright) / patented | c. 1764 / 1767 / 1770 CE | Baines; Arkwright (`wh-781`; `wh-782`, `wh-783`, `wh-785`, `wh-788` and `wh-789` are `undatable`) |
+| Bessemer process: patented / paper read (11 August in Turner) / basic lining | 17 October 1855 / 13 August 1856 / spring 1878 CE | Bishop; Bessemer; Turner (`wh-784`) |
+| Stephenson's Rocket: built / trials / preserved | 1829 / 6 – 14 October 1829 / 1862 CE | ASME; Smiles; Science Museum Group (`wh-786`) |
+| Bridgewater Canal: first Act / first coal boat / Mersey Act | 23 March 1759 / 17 July 1761 / March 1762 CE | the Company; Smiles (`wh-787`) |
+| Factory Acts: first act / inspectors / Ten Hours Act / in force | 22 June 1802 / 29 August 1833 / 1847 / 1 May 1848 CE | the statutes (`wh-790`) |
+| Luddite: began / Rawfolds attack / York hangings | March 1811 / April 1812 / January 1813 CE (the Frame-Breaking Act 20 March 1812) | the Hammonds; Binfield (`wh-791`; `wh-792` is `undatable`) |
+| Karl Marx: born / *Capital* vol. 1 / died | 5 May 1818 / 1867 / 14 March 1883 CE | Mehring; IISH (`wh-793`) |
+| The Communist Manifesto: congress / published (a week or two before the revolutions, or the end of February) / in English | 29 November – 8 December 1847 / February 1848 / 1850 CE | the MIA editors; Hobsbawm (`wh-794`; `wh-795` is `undatable`) |
+| Second Industrial Revolution: Mokyr / Homburg / phrase printed | 1870 – 1914 / c. 1870 – 1900 / 1915 CE | Mokyr; Homburg; Geddes (`wh-796`; `wh-797` is `undatable`) |
+| Electrical telegraph: Shilling's demonstration / Gauss and Weber / joint patent / Morse's line | 1832 / May 1833 / June 1837 / 24 May 1844 CE | IEEE; Göttingen University; Distant Writing; US Senate (`wh-798`; `wh-799` is `undatable`) |
+| Suez Canal: conceded / company formed / works began / opened | 30 November 1854 / 15 December 1858 / 25 April 1859 / 17 November 1869 CE (shares sold 25 November 1875) | Prat dit Hauret; Hefler (`wh-800`) |
 
 ## Chronology pins
 
@@ -1282,4 +1353,72 @@ wh-695: 1501; 1514; 1722; 1736
 wh-696: 1571; 1629; 1588; 1604; 1605; 1622
 wh-699: 1526; 1858
 wh-700: 14 February 1483; June 1494; 21 April 1526; 26 December 1530
+wh-711: 1368; 1421; 1644
+wh-712: 11; 1405; 29; 1430; 1433
+wh-713: 1406; 1420; 1421; 5 November 1924; 10 October 1925
+wh-714: 1371; 1567; 1661; 1684
+wh-715: 25 April 1644; 27 May 1644; 6 June 1644; June 1662
+wh-716: 14 May 1636; 6 June 1644; 12 February 1912
+wh-717: 4 May 1654; 1661; 1722; 20 December 1722
+wh-718: 25 September 1711; 1735; 1796; 7 February 1799
+wh-719: 1757; 1760; 1842
+wh-720: 5 August 1793; 14 September 1793; 3 October 1793; 7 October 1793
+wh-701: 15 October 1542; 14 February 1556; 1564; 1579; 25 – 27 October 1605
+wh-702: 6 January 1592; 6 February 1628; 8 June 1658; 18 June; 22 January 1666; 1 February
+wh-703: 1632; 1653
+wh-704: 1618; 1658; 1707
+wh-706: 1469; 1539
+wh-707: 1674; 1719; 1761; 1818
+wh-710: 1441; 1783; 1475; 1571
+wh-721: 1467; 1573; 1568; 1493; 1477; 1600
+wh-722: 1568; 1582; 1590
+wh-723: 1603; 1867; 3 January 1868
+wh-724: 1633 – 1639; 1641; 1801; 1854
+wh-725: 1443; 1446; 1940; 1913
+wh-726: 1514; 1866; 1867
+wh-736: 1672; 24 June 1698; 1752
+wh-737: 1600; 1650; 1724; 1727; 1892; 1894
+wh-738: 1701; 1873; 1874; 1901
+wh-742: 1745; 10 July 1766; 1789; 31 March 1797
+wh-743: 25 March 1807; 1 May 1807; 23 February 1807
+wh-747: 1632; 1704; 1689
+wh-748: 1689; 1755; 1721; 1748
+wh-749: 21 November 1694; 30 May 1778; 1733; 10 March 1762; 1765
+wh-750: 28 June 1712; 2 July 1778; 1755; 1762
+wh-751: 1750; 1751; 1765; 1772
+wh-753: 22 March 1765; 16 December 1773; 4 July 1776; 3 September 1783
+wh-754: 4 July 1776; 7 June 1776; 2 July 1776; 2 August 1776
+wh-755: 19; 1775; 6; 1778; 19; 1781; 3; 1783
+wh-756: 17; 1787; 21; 1788; 4; 1789; 15; 1791
+wh-757: 5 May 1789; 21 September 1792; 9 November 1799
+wh-758: 14 July 1789; 14 July 1790; 6 July 1880
+wh-759: 26 August 1789; 20 – 26 August 1789; 5 October 1789; 3 September 1791
+wh-760: 5 September 1793; 17 September 1793; 10 June 1794; 27 July 1794
+wh-761: 1758; 1794
+wh-762: 1769; 1821; 1799; 1804; 1814; 1815
+wh-763: 1803 – 1815; 20 November 1815
+wh-764: March 1803 – March 1804; 21 March 1804; 2,281; 1807
+wh-765: 15; 18; 1815
+wh-766: 1814; 9; 1815
+wh-767: 22 August 1791; 29 August 1793; 4 February 1794; 1 January 1804
+wh-768: 1743; 7 April 1803; January 1801; July 1801; 7 June 1802
+wh-769: May 1808; 19 April 1810; 9 December 1824; January 1826
+wh-770: 24 July 1783; 15 February 1819; 7 August 1819; 17 December 1830
+wh-771: 25 February 1778; January – February 1817; 28 July 1821; 17 August 1850
+wh-772: 16 September 1810; 24 February 1821; 24 August 1821; 27 September 1821
+wh-773: 12 January 1848; 24 February 1848; 28 April 1849; 13 August 1849
+wh-776: 1760; 1840; 1830; 1881; 1882
+wh-777: 1750; 1850; 1560; 1767
+wh-780: 19 January 1736; 5 January 1769; 25 August 1819
+wh-781: 1764; 1767; 1770
+wh-784: 1855; 1856; 1878
+wh-786: 1829; 6 – 14 October 1829; 1862
+wh-787: 23 March 1759; 17 July 1761; March 1762
+wh-790: 1802; 1833; 1847; 1 May 1848
+wh-791: 1811; 1812; 1813
+wh-793: 5 May 1818; 1867; 14 March 1883
+wh-794: 29 November – 8 December 1847; February 1848; 1850
+wh-796: 1870; 1914; 1900; 1915
+wh-798: 1832; May 1833; June 1837; 24 May 1844
+wh-800: 30 November 1854; 15 December 1858; 25 April 1859; 17 November 1869
 ```
