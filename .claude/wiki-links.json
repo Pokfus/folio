@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T16:05Z",
+ "generated": "2026-10-23T16:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4941,
+  "ok": 4942,
   "redirect-broader": 458,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57485,6 +57485,13 @@
    "answer": "Kīlauea",
    "title": "Kīlauea",
    "url": "https://en.wikipedia.org/wiki/K%C4%ABlauea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-918": {
+   "answer": "Mount Washington",
+   "title": "Mount Washington",
+   "url": "https://en.wikipedia.org/wiki/Mount_Washington",
    "via": "glossary",
    "status": "ok"
   }

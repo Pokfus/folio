@@ -6759,7 +6759,8 @@ window.GLOSSARY = {
 "Rocky_Mountains": "",
 "Lake_Superior": "",
 "Carlsbad_Caverns_National_Park": "",
-"Kīlauea": ""
+"Kīlauea": "",
+"Mount_Washington": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -21470,7 +21471,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Rocky_Mountains": ["place","geography","mountain","geology","united states"],
 "Lake_Superior": ["place","geography","lake","great lakes","united states"],
 "Carlsbad_Caverns_National_Park": ["place","geography","cave","geology","united states"],
-"Kīlauea": ["place","geography","volcano","hawaii","united states"]
+"Kīlauea": ["place","geography","volcano","hawaii","united states"],
+"Mount_Washington": ["place","geography","mountain","weather","united states"]
 });
 
 /* ============================================================================

@@ -7038,7 +7038,8 @@ window.CARD_DATA = [
 {"id":"geo-802","num":"802","category":"Geography","question":"In November 1975 the ore carrier Edmund Fitzgerald sank in a severe storm on eastern <span class=\"blank\">_____</span> about 27 kilometres (17 miles) from Whitefish Bay, and all 29 men aboard were lost.","answer":"Lake Superior","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lake Superior","tags":["place","geography","united states","lake","great lakes","history"],"difficulty":1,"locator":{"name":"Lake Superior","at":[-87.5,47.7],"zoom":7},"undatable":true,"facts":[["Surface area","82,100 km² (31,700 sq mi)"],["Maximum depth","406 m (1,332 ft)"],["States","Minnesota, Wisconsin, Michigan; Ontario"],["Outflow","St. Marys River"]]},
 {"id":"geo-803","num":"803","category":"Geography","question":"In 1803 Thomas Jefferson told Meriwether Lewis that the object of his mission was to explore the <span class=\"blank\">_____</span> in search of the most direct water route across the continent for commerce.","answer":"Missouri River","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Missouri River","tags":["place","geography","united states","river","history"],"difficulty":2,"locator":{"name":"Missouri River","at":[-90.1197,38.8136],"kind":"river"},"undatable":true,"facts":[["Length","3,700 km (2,300 mi)"],["Drainage basin","?"],["Source","Three Forks, Montana"],["Mouth","Mississippi River, above St. Louis"]]},
 {"id":"geo-912","num":"912","category":"Geography","question":"Early visitors to <span class=\"blank\">_____</span> in New Mexico were lowered into the cave in an old guano-mining bucket until a staircase replaced it in 1925, two years after it became a national monument.","answer":"Carlsbad Caverns","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Carlsbad Caverns","tags":["place","geography","united states","cave","geology","new mexico"],"difficulty":2,"locator":{"name":"Carlsbad Caverns","at":[-104.4439,32.1753],"zoom":9},"undatable":true,"facts":[["Surveyed length","?"],["Depth","?"],["State","New Mexico"],["Protected as","National park; World Heritage Site"]]},
-{"id":"geo-914","num":"914","category":"Geography","question":"Many Native Hawaiians regard Halemaʻumaʻu, the persistently active crater in the summit caldera of <span class=\"blank\">_____</span>, as the home of Pele, the Hawaiian volcano deity.","answer":"Kīlauea","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kīlauea","tags":["place","geography","united states","volcano","hawaii","geology"],"difficulty":3,"locator":{"name":"Kīlauea","at":[-155.2868,19.4211],"zoom":9},"undatable":true,"facts":[["Elevation","1,222 m (4,009 ft)"],["Prominence","?"],["State","Hawaii"],["Range","Shield volcano, Island of Hawaiʻi"]]}
+{"id":"geo-914","num":"914","category":"Geography","question":"Many Native Hawaiians regard Halemaʻumaʻu, the persistently active crater in the summit caldera of <span class=\"blank\">_____</span>, as the home of Pele, the Hawaiian volcano deity.","answer":"Kīlauea","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kīlauea","tags":["place","geography","united states","volcano","hawaii","geology"],"difficulty":3,"locator":{"name":"Kīlauea","at":[-155.2868,19.4211],"zoom":9},"undatable":true,"facts":[["Elevation","1,222 m (4,009 ft)"],["Prominence","?"],["State","Hawaii"],["Range","Shield volcano, Island of Hawaiʻi"]]},
+{"id":"geo-918","num":"918","category":"Geography","question":"On 12 April 1934 observers on the summit of <span class=\"blank\">_____</span> in New Hampshire clocked a world-record wind of 372 km/h (231 mph), which helped secure their observatory's future.","answer":"Mount Washington","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mount Washington","tags":["place","geography","united states","mountain","weather","new hampshire"],"difficulty":3,"locator":{"name":"Mount Washington","at":[-71.3032,44.2705],"zoom":9},"undatable":true,"facts":[["Elevation","1,917 m (6,288 ft)"],["Prominence","?"],["State","New Hampshire"],["Range","Presidential Range, White Mountains"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -20263,7 +20264,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-us",
       "title": "United States",
-      "total": 139,
+      "total": 140,
       "placeholder": false,
       "children": [
         {
@@ -20437,7 +20438,8 @@ window.COLLECTION_TREE = {
           "cardIds": [
             "geo-901",
             "geo-912",
-            "geo-914"
+            "geo-914",
+            "geo-918"
           ]
         }
       ]
