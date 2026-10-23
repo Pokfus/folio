@@ -38,9 +38,9 @@ City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519`
 **THE COLLECTION IS COMPLETE.** All fifty states (`geo-001`–`geo-050`) and all fifty capitals
 (`geo-501`–`geo-550`) are written, cited at the bar, paired with glossary terms and illustrated. The
 running order below is a record of what was written, not a queue; there is no next card.
-**Two physical decks were planned in Oct 2026 and are the queue now** — rivers, lakes and bays
-(`geo-801`–`geo-840`) and mountains, canyons and caves (`geo-901`–`geo-940`), text cards with a
-locator rather than map cards; see "The physical decks" below.
+**Two physical decks were added in Oct 2026 and are COMPLETE** — rivers, lakes and bays
+(`geo-801`–`geo-840`) and mountains, canyons and caves (`geo-901`–`geo-940`), all 80 written, text cards
+with a locator rather than map cards; see "The physical decks" below.
 
 ---
 
@@ -2083,6 +2083,16 @@ a physical feature IS rather than a state's capital and population:
     Cave:                  Surveyed length | Depth
                            State           | Protected as
 
+Three kinds the first plan lacked were met while writing and are fixed here so the next card agrees:
+
+    Waterfall:             Height        | Crest width
+                           River         | States
+    Valley or basin:       Lowest point  | Length
+                           States        | Protected as
+    Arch:                  Opening height | Opening width
+                           State          | Protected as
+
+A reservoir takes the lake's grid with Outflow "River X at Y Dam"; a wetland takes the lake's.
 Write `"?"` where no source gives the cell, as `set-facts.js` does — never a figure from memory. **And
 the figures are not repeated in the background**, the facts-echo rule above: the background is the
 feature's history and its part in the country's, the grid carries the numbers.

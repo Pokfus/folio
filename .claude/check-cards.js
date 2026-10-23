@@ -265,7 +265,7 @@ const ANCIENT = /^(aurelius victor|shapur i|dio chrysostom|aelius aristides|phil
 const INSTITUTIONAL = new Set([
   "world bank", "u.s. census bureau", "united nations statistics division", "un general assembly",
   "un security council", "office of the historian", "united states department of state",
-  "national park service", "u.s. geological survey", "historic american buildings survey",   // the USGS, like the NPS, is an agency of separate pages (the physical geography decks, Oct 2026)
+  "national park service", "u.s. geological survey", "national oceanic and atmospheric administration", "u.s. environmental protection agency", "bureau of reclamation", "usda forest service", "forest history society", "baxter state park", "north carolina department of natural and cultural resources", "new york state department of environmental conservation", "historic american buildings survey",   // the USGS, NOAA, the EPA and Reclamation, like the NPS, are agencies of separate pages (the physical geography decks, Oct 2026)
   "smithsonian national museum of natural history",
   "united states holocaust memorial museum", "national diet library", "american school of classical studies at athens",
   "institute for the study of the ancient world", "digital egypt for universities",
@@ -393,6 +393,9 @@ const ATTRIB_HOW = new RegExp(
    agency.  Widening the pattern to catch them would start excusing real findings; naming them
    cannot.  Add one only after reading the card. */
 const NOT_A_SCHOLAR = new Set([
+  /* People of the past, not modern scholars, whom the physical geography decks' questions name (Oct 2026). */
+  "Thomas Jefferson", // geo-821: Jefferson "called" the Potomac's passage one of the most stupendous scenes in Nature
+  "Samuel Barlow",    // geo-923: the emigrant who "set out" to cut a road around Mount Hood in 1845
   "White Castle",     // gr-478: the Persian citadel of Memphis, which "held them"
   /* Places and things the prose puts in front of a verb of agency — the shape the header above
      predicted, met once the Rome, World History and Second World War collections grew. */

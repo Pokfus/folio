@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 4968 | the title is the article |
+| `ok` | 5010 | the title is the article |
 | `redirect-variant` | 330 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 76 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 459 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 462 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 104 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
+| `disambiguation` | 139 | only a disambiguation page; no link could be chosen |
 | `none` | 956 | nothing matched; no link |
 
-**5846 of 7060 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5891 of 7106 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (459)
+## Redirected to a differently named article — check each (462)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -159,6 +159,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `geo-517` **St. Paul** → [Paul the Apostle](https://en.wikipedia.org/wiki/Paul_the_Apostle) (from `St. Paul`)
 - `geo-908` **Mammoth Cave** → [Mammoth Cave National Park](https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park) (from `Mammoth Cave`)
 - `geo-912` **Carlsbad Caverns** → [Carlsbad Caverns National Park](https://en.wikipedia.org/wiki/Carlsbad_Caverns_National_Park) (from `Carlsbad Caverns`)
+- `geo-929` **Wind Cave** → [Wind Cave National Park](https://en.wikipedia.org/wiki/Wind_Cave_National_Park) (from `Wind Cave`)
+- `geo-931` **Bryce Canyon** → [Bryce Canyon National Park](https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park) (from `Bryce Canyon`)
+- `geo-940` **Mount Katahdin** → [Katahdin](https://en.wikipedia.org/wiki/Katahdin) (from `Mount Katahdin`)
 - `gga-018` **GPS spoofing** → [GNSS spoofing](https://en.wikipedia.org/wiki/GNSS_spoofing) (from `GPS spoofing`)
 - `gga-019` **Revisionist powers** → [Revisionist state](https://en.wikipedia.org/wiki/Revisionist_state) (from `Revisionist power`)
 - `gga-020` **Anti-colonialism** → [Decolonization](https://en.wikipedia.org/wiki/Decolonization) (from `Anti-colonialism`)
@@ -596,7 +599,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (138)
+## Disambiguation pages that could not be settled (139)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -638,6 +641,7 @@ Pick the right article by hand, or leave the card without a link.
 - `geo-739` **Wilmington** — `Wilmington` is a disambiguation page; its links: `District Council of Wilmington`, `Wilmington, Devon`, `Wilmington, Kent`, `Wilmington, Somerset`, `Lordship of Wilmington`, `Wilmington, Delaware`
 - `geo-746` **Wichita** — `Wichita` is a disambiguation page; its links: `Wichita people`, `Wichita language`, `Wichita, Kansas`, `Wichita County, Kansas`, `Wichita County, Texas`, `Wichita Mountains`
 - `geo-749` **Fargo** — `Fargo` is a disambiguation page; its links: `Wells Fargo`, `Fargo, Arkansas`, `Fargo, Georgia`, `Fargo, Indiana`, `Fargo, Ohio`, `Fargo, Oklahoma`
+- `geo-837` **Red River** — `Red River` is a disambiguation page; its links: `Red River City, Texas`, `Red River County, Texas`, `Red River, Queensland`, `Red River, Tennessee`, `Red River (Amal)`, `Red River (Asia)`
 - `gga-038` **Algiers Agreement** — `Algiers Agreement` is a disambiguation page; its links: `1975 Algiers Agreement`, `Algiers Agreement (2000)`
 - `gga-257` **Force of nature** — `Force of nature` is a disambiguation page; its links: `Force of Nature (duo)`, `Forces of Nature (Teen Titans)`, `Forces of Nature (book)`, `Force of Nature (novel)`, `Force of Nature (comics)`, `Forces of Nature (1999 film)`
 - `gga-263` **Do no harm** — `First Do No Harm (disambiguation)` is a disambiguation page; its links: `First do no harm`, `Do No Harm (Lost)`, `...First Do No Harm`, `Do No Harm (organization)`, `Do No Harm (Burn Notice)`, `Do No Harm (HR report on Bahrain)`

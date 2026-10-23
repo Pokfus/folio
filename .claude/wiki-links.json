@@ -1,12 +1,12 @@
 {
- "generated": "2026-10-23T17:05Z",
+ "generated": "2026-10-23T17:26Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4968,
-  "redirect-broader": 459,
+  "ok": 5010,
+  "redirect-broader": 462,
   "redirect-variant": 330,
   "section-redirect": 104,
-  "disambiguation": 138,
+  "disambiguation": 139,
   "none": 956,
   "disambig-resolved": 76,
   "list-page": 6,
@@ -57682,6 +57682,341 @@
    "answer": "Crater Lake",
    "title": "Crater Lake",
    "url": "https://en.wikipedia.org/wiki/Crater_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-819": {
+   "answer": "Everglades",
+   "title": "Everglades",
+   "url": "https://en.wikipedia.org/wiki/Everglades",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-820": {
+   "answer": "Puget Sound",
+   "title": "Puget Sound",
+   "url": "https://en.wikipedia.org/wiki/Puget_Sound",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-821": {
+   "answer": "Potomac River",
+   "title": "Potomac River",
+   "url": "https://en.wikipedia.org/wiki/Potomac_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-822": {
+   "answer": "Snake River",
+   "title": "Snake River",
+   "url": "https://en.wikipedia.org/wiki/Snake_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-823": {
+   "answer": "Lake Mead",
+   "title": "Lake Mead",
+   "url": "https://en.wikipedia.org/wiki/Lake_Mead",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-824": {
+   "answer": "Lake Okeechobee",
+   "title": "Lake Okeechobee",
+   "url": "https://en.wikipedia.org/wiki/Lake_Okeechobee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-825": {
+   "answer": "Tennessee River",
+   "title": "Tennessee River",
+   "url": "https://en.wikipedia.org/wiki/Tennessee_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-826": {
+   "answer": "Yukon River",
+   "title": "Yukon River",
+   "url": "https://en.wikipedia.org/wiki/Yukon_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-827": {
+   "answer": "San Francisco Bay",
+   "title": "San Francisco Bay",
+   "url": "https://en.wikipedia.org/wiki/San_Francisco_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-828": {
+   "answer": "Arkansas River",
+   "title": "Arkansas River",
+   "url": "https://en.wikipedia.org/wiki/Arkansas_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-829": {
+   "answer": "Lake Champlain",
+   "title": "Lake Champlain",
+   "url": "https://en.wikipedia.org/wiki/Lake_Champlain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-830": {
+   "answer": "Delaware River",
+   "title": "Delaware River",
+   "url": "https://en.wikipedia.org/wiki/Delaware_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-831": {
+   "answer": "Sacramento River",
+   "title": "Sacramento River",
+   "url": "https://en.wikipedia.org/wiki/Sacramento_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-832": {
+   "answer": "Long Island Sound",
+   "title": "Long Island Sound",
+   "url": "https://en.wikipedia.org/wiki/Long_Island_Sound",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-833": {
+   "answer": "Lake Powell",
+   "title": "Lake Powell",
+   "url": "https://en.wikipedia.org/wiki/Lake_Powell",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-834": {
+   "answer": "Lake Pontchartrain",
+   "title": "Lake Pontchartrain",
+   "url": "https://en.wikipedia.org/wiki/Lake_Pontchartrain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-835": {
+   "answer": "Connecticut River",
+   "title": "Connecticut River",
+   "url": "https://en.wikipedia.org/wiki/Connecticut_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-836": {
+   "answer": "Yellowstone River",
+   "title": "Yellowstone River",
+   "url": "https://en.wikipedia.org/wiki/Yellowstone_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-837": {
+   "answer": "Red River",
+   "title": "Red River of the South",
+   "url": "https://en.wikipedia.org/wiki/Red_River_of_the_South",
+   "via": "manual",
+   "status": "ok",
+   "from": "Red River",
+   "suggestions": [
+    "Red River City, Texas",
+    "Red River County, Texas",
+    "Red River, Queensland",
+    "Red River, Tennessee",
+    "Red River (Amal)",
+    "Red River (Asia)"
+   ],
+   "manual": true
+  },
+  "geo-838": {
+   "answer": "Platte River",
+   "title": "Platte River",
+   "url": "https://en.wikipedia.org/wiki/Platte_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-839": {
+   "answer": "Iliamna Lake",
+   "title": "Iliamna Lake",
+   "url": "https://en.wikipedia.org/wiki/Iliamna_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-840": {
+   "answer": "Red River of the North",
+   "title": "Red River of the North",
+   "url": "https://en.wikipedia.org/wiki/Red_River_of_the_North",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-913": {
+   "answer": "Cascade Range",
+   "title": "Cascade Range",
+   "url": "https://en.wikipedia.org/wiki/Cascade_Range",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-915": {
+   "answer": "Mauna Kea",
+   "title": "Mauna Kea",
+   "url": "https://en.wikipedia.org/wiki/Mauna_Kea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-916": {
+   "answer": "Half Dome",
+   "title": "Half Dome",
+   "url": "https://en.wikipedia.org/wiki/Half_Dome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-917": {
+   "answer": "Pikes Peak",
+   "title": "Pikes Peak",
+   "url": "https://en.wikipedia.org/wiki/Pikes_Peak",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-920": {
+   "answer": "Great Smoky Mountains",
+   "title": "Great Smoky Mountains",
+   "url": "https://en.wikipedia.org/wiki/Great_Smoky_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-922": {
+   "answer": "Black Hills",
+   "title": "Black Hills",
+   "url": "https://en.wikipedia.org/wiki/Black_Hills",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-923": {
+   "answer": "Mount Hood",
+   "title": "Mount Hood",
+   "url": "https://en.wikipedia.org/wiki/Mount_Hood",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-924": {
+   "answer": "Monument Valley",
+   "title": "Monument Valley",
+   "url": "https://en.wikipedia.org/wiki/Monument_Valley",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-925": {
+   "answer": "Badlands",
+   "title": "Badlands",
+   "url": "https://en.wikipedia.org/wiki/Badlands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-926": {
+   "answer": "Mauna Loa",
+   "title": "Mauna Loa",
+   "url": "https://en.wikipedia.org/wiki/Mauna_Loa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-927": {
+   "answer": "Blue Ridge Mountains",
+   "title": "Blue Ridge Mountains",
+   "url": "https://en.wikipedia.org/wiki/Blue_Ridge_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-938": {
+   "answer": "Lechuguilla Cave",
+   "title": "Lechuguilla Cave",
+   "url": "https://en.wikipedia.org/wiki/Lechuguilla_Cave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-939": {
+   "answer": "White Mountains",
+   "title": "White Mountains (New England)",
+   "url": "https://en.wikipedia.org/wiki/White_Mountains_(New_England)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-940": {
+   "answer": "Mount Katahdin",
+   "title": "Katahdin",
+   "url": "https://en.wikipedia.org/wiki/Katahdin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mount Katahdin"
+  },
+  "geo-928": {
+   "answer": "Mount Mitchell",
+   "title": "Mount Mitchell",
+   "url": "https://en.wikipedia.org/wiki/Mount_Mitchell",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-929": {
+   "answer": "Wind Cave",
+   "title": "Wind Cave National Park",
+   "url": "https://en.wikipedia.org/wiki/Wind_Cave_National_Park",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Wind Cave"
+  },
+  "geo-930": {
+   "answer": "Mount Shasta",
+   "title": "Mount Shasta",
+   "url": "https://en.wikipedia.org/wiki/Mount_Shasta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-931": {
+   "answer": "Bryce Canyon",
+   "title": "Bryce Canyon National Park",
+   "url": "https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bryce Canyon"
+  },
+  "geo-932": {
+   "answer": "Adirondack Mountains",
+   "title": "Adirondack Mountains",
+   "url": "https://en.wikipedia.org/wiki/Adirondack_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-933": {
+   "answer": "Ozarks",
+   "title": "Ozarks",
+   "url": "https://en.wikipedia.org/wiki/Ozarks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-934": {
+   "answer": "Stone Mountain",
+   "title": "Stone Mountain",
+   "url": "https://en.wikipedia.org/wiki/Stone_Mountain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-935": {
+   "answer": "Brooks Range",
+   "title": "Brooks Range",
+   "url": "https://en.wikipedia.org/wiki/Brooks_Range",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-936": {
+   "answer": "Mount Elbert",
+   "title": "Mount Elbert",
+   "url": "https://en.wikipedia.org/wiki/Mount_Elbert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-937": {
+   "answer": "Delicate Arch",
+   "title": "Delicate Arch",
+   "url": "https://en.wikipedia.org/wiki/Delicate_Arch",
    "via": "glossary",
    "status": "ok"
   }

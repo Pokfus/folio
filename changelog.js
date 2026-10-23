@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1092", released: "2026-10-23T16:39Z" };
+window.FOLIO_VERSION = { v: "1.1092", released: "2026-10-23T17:29Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
-      "<b>Two new United States geography decks</b>, Rivers, lakes and bays and Mountains, canyons and caves, open with 28 new cards and 23 glossary terms.",
+      "<b>Two new United States geography decks</b>, Rivers, lakes and bays and Mountains, canyons and caves, arrive complete with 80 new cards and 74 glossary terms.",
       "With <b>American spelling</b> on, the Gulf of Mexico, Denali and Lake Ontario now read as the Gulf of America, Mount McKinley and Lake America, on the Atlas too.",
       "<b>60 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU and Art.",
       "A few Ancient Greece, Russia and China cards gained a corrected question, dates, a Greek picture or a clearer background.",
