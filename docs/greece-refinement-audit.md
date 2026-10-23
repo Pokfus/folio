@@ -252,7 +252,7 @@ one changelog line and a version bump; commit and push.
 | B80 | Successor kingdoms (`gr-successors`) | `gr-761`–`gr-770` | 10 | **done 2026-10-23** |
 | B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | **done 2026-10-23** |
 | B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | **done 2026-10-23** |
-| B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | open |
+| B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | **done 2026-10-23** |
 | B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | open |
 | B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | open |
 | B86 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-821`–`gr-830` | 10 | open |
@@ -2577,3 +2577,24 @@ lettering), `gr-781` (a detail of a Heracles statuette), `gr-786` (a Victorian i
 `gr-793` (the wars are six; a coin of one king is not the subject).
 
 **Locators:** `gr-790` and `gr-791` (the Pergamon acropolis) and `gr-794` (Rafah, as a battle) added through `add-locators.js`.
+
+**`gr-796`–`gr-800` (B83, the last five)**: the Achaean League, Aratus, Cleomenes III, Agis IV and the torsion catapult. The audit finds
+nothing on any of the five; `check-style`, `check-questions`, `check-cards`, `split-cards`, `test-card-plans`, `check-docs` and
+`apply-wiki-links --check` add nothing; `check-citations --card` finds no mismatch. Every cited URL answers 2xx except the DOI of the
+Spanish article on Agis IV and Cleomenes III (Fornis, `gr-798`, `gr-799`), which resolves but whose redirect target `revistas.uned.es`
+answers 503 over plain HTTP and 200 over HTTPS; Crossref matches the record.
+- **Date lines:** `gr-800` empty and `undatable` (the torsion spring has no firmly sourced start; Diodorus' Syracuse workshop of 399 BCE
+  is the earlier bow-shaped engine and one modern book's date). `gr-796` drops the "Sparta joined 192" row and prints Livius' c. 281 BCE
+  for the re-founding (Polybius gives an Olympiad, about five years before Aegium); `gr-797` replaces the estimated life with the
+  generalships (245 – 213 BCE: sixteen by Livius' count, seventeen by Plutarch's); `gr-798` drops the unsourced death in 219 and prints
+  Sellasia as 222 BCE (Plutarch's Loeb note has June 221); `gr-799` prints the reign as 245 – 241 BCE and says in the prose that the
+  accession is 245 (Pedersen) or 244 (Fornis, Shipley).
+- **Corrected:** Vitruvius credits Polyidus, Diades and Charias with rams and towers, not with torsion artillery (`gr-800`); the glossary
+  entry's "from c. 340 BCE" for the torsion engine had no source; the 15,000 lots of Agis' bill were for the provincials, not the
+  Spartans (`gr-799`); Plutarch's "20,000 against 30,000" at Sellasia is not Polybius' own total of 28,000 foot and 1,200 horse
+  (`gr-798`); the glossary entries `Aratus_of_Sicyon` ("for some thirty years", "c. 271"), `Cleomenes_III` ("killed himself at Alexandria in 219"),
+  `Agis_IV` and `Torsion_siege_engine` were redrafted.
+- **Wrong auto-links** stopped: `German` (`gr-796`), `Archidamus` (`gr-798`), `Lysander`, `Leonidas`, `Agesilaus` (`gr-799`), `Salamis` (`gr-800`).
+- **Pictures:** each checked with `cm.py info`: `gr-796` a hemidrachm of the league, `gr-797` the theatre of Sicyon, `gr-798` a tetradrachm
+  of Cleomenes III (for the Victorian engraving of the valley of Sellasia that the draft marked for replacement), `gr-799` Monsiau's
+  painting of 1789, which shows this very scene and is described as imagined, `gr-800` a Saalburg reconstruction of torsion artillery.

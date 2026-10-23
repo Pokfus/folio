@@ -806,7 +806,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | death of Alexander | 323 BCE | John S. Marr and Charles H. Calisher, “Alexander the Great and West Nile Virus… (`gr-747`) |
 | Alexandria Eschate | 329 BCE | Jona Lendering, “Alexander 2.12: Sogdia,” Livius.org, last modified 2020, (`gr-748`) |
 
-## The Successors, the Partition of Babylon to the Aetolian League (confirmed by B79 – B83, `gr-751` – `gr-795`)
+## The Successors, the Partition of Babylon to the Spartan revolution (confirmed by B79 – B83, `gr-751` – `gr-800`)
 
 | event or person | the collection says | source |
 |---|---|---|
@@ -909,6 +909,19 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Aetolian League: Defended Delphi | 279 BCE | Craige Champion, review of Joseph B. Scholten, The Politics of Plunder: Aitolians… (`gr-795`) |
 | Aetolian League: Social War | 220 – 217 BCE | Craige Champion, review of Joseph B. Scholten, The Politics of Plunder: Aitolians… (`gr-795`) |
 | Aetolian League: Peace with Rome | 189 BCE | Denvy A. Bowman, “Aetolian League,” EBSCO Research Starters: History, 2022, (`gr-795`) |
+| Achaean League: Re-formed | c. 281 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-796`) |
+| Achaean League: Sicyon joined | 251 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-796`) |
+| Achaean League: Citadel taken | 243 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-796`) |
+| Achaean League: Corinth sacked | 146 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-796`) |
+| Aratus of Sicyon: Freed Sicyon | 251 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-797`) |
+| Aratus of Sicyon: Citadel taken | 243 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-797`) |
+| Aratus of Sicyon: Generalships | 245 – 213 BCE | Jona Lendering, “Achaean League,” Livius.org, last modified 12 October 2020, (`gr-797`) |
+| Cleomenes III: Reigned | 235 – 222 BCE | César Fornis, “Bajo el signo de Licurgo: el reformismo atávico de Agis IV y… (`gr-798`) |
+| Cleomenes III: War began | 229 BCE | César Fornis, “Bajo el signo de Licurgo: el reformismo atávico de Agis IV y… (`gr-798`) |
+| Cleomenes III: Coup | 227 BCE | César Fornis, “Bajo el signo de Licurgo: el reformismo atávico de Agis IV y… (`gr-798`) |
+| Cleomenes III: Sellasia | 222 BCE | Jona Lendering, “Antigonus III Doson,” Livius.org, last modified 8 September 2020, (`gr-798`) |
+| Agis IV: Reigned | 245 – 241 BCE | Benjamin Pedersen, review of Miltiadis Michalopoulos, In the Name of Lykourgos: The… (`gr-799`) |
+| Agis IV: Executed | 241 BCE | César Fornis, “Bajo el signo de Licurgo: el reformismo atávico de Agis IV y… (`gr-799`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -947,6 +960,8 @@ sources when its batch comes round, and a disputed one given as a range.
 | Death of Alexander | June 323 BCE (10 or 11 June by the sources; the cards print no day; confirmed by B78, `gr-747`) |
 | Lamian War and Crannon | 323 – 322 BCE; Crannon 322 BCE (confirmed by B79, `gr-755`, `gr-756`) |
 | Perdiccas killed, Triparadisus | 320 BCE by the low chronology, 321 BCE by the high one (the cards print both on `gr-759` and 320 elsewhere; confirmed by B79, `gr-751`, `gr-753`, `gr-759`) |
+| Raphia | 217 BCE (confirmed by B83, `gr-794`, `gr-767`) |
+| Sellasia | 222 BCE (Plutarch's Loeb note has June 221; confirmed by B83, `gr-798`) |
 | Ipsus | 301 BCE (confirmed by B80, `gr-761`, `gr-762`, `gr-765`, `gr-768`) |
 | Sack of Corinth | 146 BCE |
 | Actium | 31 BCE |
@@ -1653,4 +1668,8 @@ gr-792: 223; 187; 212; 205; 190
 gr-793: 274; 168; 221; 217; 202; 198; 170
 gr-794: 217; 221
 gr-795: 279; 220; 217; 189
+gr-796: 281; 251; 243; 146
+gr-797: 251; 243; 245; 213
+gr-798: 235; 222; 229; 227
+gr-799: 245; 241
 ```
