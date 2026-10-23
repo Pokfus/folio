@@ -1114,13 +1114,6 @@ window.ARTEFACTS = [
     origin: "South and Southeast Asia",
   },
   {
-    id: "thule-harpoon-head",
-    name: "Thule harpoon head",
-    rarity: "rare",
-    date: "c. 1000 – 1600 CE",
-    origin: "The North American Arctic and Greenland",
-  },
-  {
     id: "great-zimbabwe-bird",
     name: "Zimbabwe Bird",
     rarity: "epic",
@@ -1364,13 +1357,6 @@ window.ARTEFACTS = [
     rarity: "common",
     date: "c. 11,000 – 5,000 BP",
     origin: "Sumatra and mainland Southeast Asia",
-  },
-  {
-    id: "glass-bangle",
-    name: "Glass bangle",
-    rarity: "common",
-    date: "c. 500 BCE – present",
-    origin: "South Asia",
   },
   {
     id: "benin-bronze-plaque",
