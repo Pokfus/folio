@@ -290,6 +290,18 @@ const INSTITUTIONAL = new Set([
      and wh-203 moves from a FAIL to the one-institution note rather than to silence, which is what
      this table is for. The card was read first. */
   "wolfram grajetzki and stephen quirke",  // Digital Egypt for Universities, cited per page (wh-203)
+  /* OFFICIAL RECORDS OF A TREATY, A DIPLOMATIC SERIES OR AN ORGANISATION'S OWN POSITION (Oct 2026), the
+     eight cards rule 1 still reported outside the Greece pass, each read before it was named. What
+     these cards cite is the primary record the card is about, taken a document at a time: the English
+     and Chinese texts of one treaty and its supplement (`cnh-562`); three telegrams or notes in the
+     Office of the Historian's FRUS volumes, which that office is already declared above for
+     (`cnh-573`, `cnh-646`, `cnh-693`); the WTO's own accession decision, press release and
+     dispute summary (`cnh-686`); NATO's declarations and topic page (`eep-012`, `eep-013`); three
+     Commission directorates' policy pages (`eep-210`). None is one scholar arguing one view three
+     times. They stay visible as a one-institution NOTE rather than a failure. */
+  "great britain and china", "papers relating to the foreign relations of the united states",
+  "foreign relations of the united states", "world trade organization",
+  "north atlantic treaty organization", "european commission",
 ]);
 
 /* Is this cited author the card's own subject? Folded to letters, digits and single spaces, and
