@@ -271,6 +271,25 @@ reads after `BRIEF.md`; where they differ it wins), `STEPS.md` (the per-agent st
   comma); take main's `changelog.js` day and re-add this branch's line; take main's `wiki-links.json`,
   `wiki-title-cache.json` and `wikipedia-links-audit.md` and re-resolve any card of ours with `find-wiki-links.js`.
 
+**Lessons from `wh-601`–`wh-800`.**
+- **Fifteen agents at once is fine** (two cards each, general-purpose, background), and a batch is applied in the
+  background (`batch.sh … > log; echo FIN >> log`) while the next is read; commit and push after every batch.
+  `batch.sh` takes about ten minutes for its citation check.
+- **`precheck.js` passes drafts that the house rules reject.** Read every draft with `.claude/wh-refine/tools/`
+  (`review.js`): a full stop after the markers as well as before them (`fixpunct.js`), a clue that contains the
+  answer's own word (`wh-736` "African" beside "Royal African Company", `wh-759` "declaration"), a year left in
+  a question, a mean sentence length over 28.5 after a word is added to an abstract (trim elsewhere), a
+  date-line row that is another event's date.
+- **A translated book is catalogued under its translators** (`check-citations`: `wh-710`), and a journal issue
+  Crossref dates a year late wants "(2020, published 2021)" (`wh-745`).
+- **Quotation and legend discipline held up**: the speech or letter is attributed to the person it came from
+  (Byron on juries, "we possess all things", Kant's answer to *Was ist Aufklärung*), and a remark no source
+  gave (the "defend to the death" line, Napoleon on the Code, "ploughed the sea") is left out, not hedged.
+- **Sources that answered**: Gutenberg texts, Europe PMC, Cambridge/Brill abstracts, museum and national-archive
+  pages, H-France Salon, Library of Congress records; **blocked**: Britannica, Wikisource, JSTOR, Project MUSE,
+  OUP and Wiley journal pages, Mount Vernon, Smithsonian. Wikimedia Commons still refuses this sandbox, so
+  `wh-601`–`wh-800` have had no picture pass.
+
 ## Glossary candidates
 
 Terms the batches meet that have no entry, ranked by how many cards use them. Grep the keys AND the aliases
