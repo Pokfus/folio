@@ -248,7 +248,7 @@ console.log("\n9) the glossary's \"show on the Atlas\" table\n");
   check("an unresolved point, a stale id, a two-row name and an unknown country are left out and say why — nothing guessed", !T.ids.Alaska && !T.ids.Gone && !T.ids.Twin && !T.ids.Nowhere && T.left.length === 4 && T.left.every((l) => l.why), T.left.map((l) => l.slug).join(","));
   check("atlas/data/glossary-places.js is exactly what glossary.js, the spec and the registry build", G.build({ check: true, log: () => {} }).ok);
   const wg = {}; new Function("window", fs.readFileSync(G.TARGET, "utf8"))(wg); const gp = wg.ATLAS_GLOSSARY_PLACES;
-  check("every country term has a country row and no term in the table is a community deck's", Object.keys(gp.ids).filter((k) => /^adm0:/.test(gp.ids[k])).length === 181 && Object.keys(gp.ids).every((k) => !/^deck:/.test(k)), JSON.stringify(gp.counts));
+  check("every country term has a country row (the input file's 181, and the cards' own since 2026-10-23) and no term in the table is a community deck's", Object.keys(gp.ids).filter((k) => /^adm0:/.test(gp.ids[k])).length >= 181 && Object.keys(gp.ids).every((k) => !/^deck:/.test(k)), JSON.stringify(gp.counts));
 }
 
 console.log("\n10) the wars (Phase 2d): which wars are drawn, which entities are tinted in which role\n");

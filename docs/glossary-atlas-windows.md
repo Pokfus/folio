@@ -1,15 +1,58 @@
-# Glossary Atlas windows — the analysis before anything is built (2026-10-23)
+# Glossary Atlas windows — the analysis, and what was built (2026-10-23)
 
-**What this is.** An owner's request, examined and costed, with nothing built yet: *"adding Atlas windows for glossary
-pop-ups … no buttons in them, but allowed to move and zoom within the window; the glossary topic the only location on the
-map."* The first half says how such a window would sit on what already exists; the second half is the whole glossary
-(6,695 terms) sorted by how easily each term's place can be found. **The rule (the owner, 2026-10-23): a window only for a
-term that is specifically about that location** — the town of Versailles, never the Treaty of Versailles; a battle, a
-treaty, a person, a fossil or an institution gets none, however well its card is placed. The analysis script is not committed (it was a one-off
-read of `gloss-io.js`, `card-io.js`, `places-registry.js` and `glossary-places.js`); its rules are stated below so it can
-be rebuilt in a few lines.
+**What this is.** An owner's request, examined and costed in §1–§3 and then BUILT the same day (§0): *"adding Atlas windows for
+glossary pop-ups … no buttons in them, but allowed to move and zoom within the window; the glossary topic the only location on
+the map."* **The rule (the owner): a window only for a term that is specifically about that location** — the town of Versailles,
+never the Treaty of Versailles; a battle, a treaty, a person, a fossil or an institution gets none, however well its card is placed.
+**States, empires and peoples are shaded at the year of their greatest extent. Opening a popup never adds to the Personal Atlas.**
 
-## 1. What the window would be
+## 0. As built (2026-10-23) — tiers 1, 2 and 4, and the states and peoples
+
+**What a reader sees.** A glossary popup whose term is a location carries a small map — **below the description (and the Library
+banner), above the Sources fold** — on the card windows' engine: no buttons at all, a drag and a pinch or the wheel move and zoom
+it (the arrow keys and `+` / `−` when it has focus). The term's place is the only thing marked: a gold square and the name for a
+point (a site, a city, a cave, a mountain), the name alone for a region, a sea or a range, the Atlas's selection gold over the face
+of a present-day country or province, and a **state, an empire, a people or a culture at the year of its greatest extent** —
+Rome at 117, the Byzantine Empire at 561, the Achaemenids at 480 BCE — with every other state of that year plain. A people is its
+presence stipple alone (no other people's). The bar's Atlas pin stays. No window on the Atlas page itself, none for a community
+deck's term, and when the engine cannot draw (the bundle refused; no WebGL2 for a state of the past) the block simply goes.
+
+**The pieces.**
+
+* `atlas/data/glossary-places.js` is **format 2**: `ids` (the pin, as before, now 781 terms) and `windows` — per term
+  `[lon, lat, kind, face, year, zoom]` — 1,098 windows: 104 at a year of greatest extent, 380 present-day faces, 213 card
+  coordinates, the rest points. Still the lazy `atlas2gloss` bundle, 80 KB. `.claude/atlas-build/build-glossary-places.js`
+  builds it as a pure function of the glossary (keys, tags, aliases), the cards (answers, locators, heavy `places`), the input
+  file, the spec, the registry, `card-faces.js` (a country's frame) and `history.bin`; `check-places.js` (CI) and
+  `test-study.js` §9 fail when it lags. Its header states the rule and every join.
+* **The year of greatest extent** is read off `history.bin` alone: for an entity, the candidate years are each step's first year
+  and the year after its last; the area in a year is the sum of `faceKm2` over its own faces alive then, a `contested:` face it
+  shares at half, a `nested:` face it owns in full; the first year that attains the maximum wins. The centre is the area-weighted
+  mean of the faces' `faceAnchor`s, the zoom frames their vertices (a face under 2 % of the total, an outlying island, does not
+  widen the frame; a face is never framed closer than zoom 40).
+* **Which terms**: the input file's 211 pins; a term whose tags make it a location (`locationClass` in the builder: the place tags,
+  and the state/people tags when it joins a face; any event / person / thing tag excludes it) and that is the ANSWER of a card —
+  or the name of a card's locator — whose `places` carry a registry row NAMED for it (tier 2); or whose such cards agree on one
+  locator coordinate within 25 km (tier 4). A city and the province of its name resolve to the city unless the slug says
+  `(state)`, `(province)`, `(region)`; anything else that disagrees is left out and listed (four today: Georgia (state), Grand
+  Canal, Rhodes, Lomekwi 3).
+* `app.js`: `glossWindowSpec`, `glossWindowHTML`, `mountGlossAtlas`, `stopGlossAtlas` beside `glossPlaceId`; the popup's body gained
+  `.gloss-atlas`; `.mc-canvas` joined `GLOSS_NODRAG` and `GLOSS_TAP_SKIP` so a finger on the map pans the map, not the phone's
+  sheet, and two taps on it are not a close. `atlas/atlas-windows.js`: the `map-gloss` host (`data-map-face`, `-facekind`,
+  `-year`): the face is a highlight (`exact` at a year), the hub is asked for the whole history (`needHistory: "full"`, as Find
+  it's area round), `neutral` for the other states, `peopleOnly` for a people. `atlas/atlas.js` + `atlas-embed.js`: the one-line
+  `peopleOnly` switch in `presShown` and the spec. `styles.css`: `.gloss-atlas`.
+* **Guarded by** `.claude/test-gloss-atlas-window.js` (the table's rules; a country, a point, a state at 561 with the gold on the
+  pixels, a people; the phone's sheet; no WebGL2; no `placesSeen` written) — re-run after touching any of the above — plus
+  `test-study.js` §9, `check-places.js`, `test-atlas-study.js` §7c (the pin), `test-window-fallbacks.js`, `test-atlas-embed.js`.
+
+**Known limits.** A hub already on a war slice with a war window open keeps the slice, so a state's window opened beside a war
+card draws today's map until the war window goes (the engine's own rule). On `file://` there is no twin of the whole history, so
+a state's window stays today's map, centred and named. Tiers 3, 5 and 6 of §2 are not built: a glance list, a name-match list and
+a Wikidata pass remain the way to the other 900 location terms. A term wrongly tagged (a river tagged `event`) gets no window
+until retagged — the rule is strict by design.
+
+## 1. What the window would be (the design, as examined before building)
 
 **The contract, as asked.** Inside a glossary popup (`.gloss-win`, 375 px wide on a desktop, a sheet on a phone), a map
 window showing ONE place — the term's own — with its name; the reader can drag and pinch or wheel-zoom it; it carries no

@@ -2259,6 +2259,12 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
    map card's, which is the question and deserves the room; this is an annotation, so it takes about the
    height of the card's own illustration. Its failure line has to differ too — a map card's says the answer
    is below, which on the back of a card is nonsense. */
+/* the glossary popup's own Atlas window (2026-10-23; app.js mountGlossAtlas): no buttons, a little lower than a locator's; touch-action none so a finger pans the map, not the phone's sheet (.gloss-body gives pan-y back) */
+.gloss-atlas{margin:10px 0 4px; clear:both;}
+.gloss-atlas[hidden]{display:none;}
+.gloss-atlas .map-card{margin:0;}
+.gloss-atlas .mc-canvas{height:clamp(150px, 26vh, 200px); touch-action:none;}
+.gloss-atlas .map-card.mc-failed::after{content:"";}
 .card-loc{margin-top:20px;}
 .card-loc .label{display:block; margin-bottom:7px;}
 .map-card.map-loc{margin-bottom:0;}
