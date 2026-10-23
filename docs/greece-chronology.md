@@ -1117,6 +1117,23 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Medea: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-935`) |
 | Medea: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-935`) |
 | Medea: Euripides’ play | 431 BCE | Markus Dubischar, review of Euripides: Medea , by William Allan, Bryn Mawr Classical Rev… (`gr-935`) |
+| Bellerophon: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-936`) |
+| Pegasus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-937`) |
+| Pegasus: Early stater | c. 540 BCE | Paul and Alexandra Canellopoulos Museum, “Corinthian Silver Stater,” (`gr-937`) |
+| Oedipus: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-938`) |
+| Sphinx: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-939`) |
+| Amphiaraus: Cult introduced | 424 – 414 BCE | Maria Elena Gorrini, review of Amphiaraos: guerrier, devin et guérisseur , by Pierre Sin… (`gr-940`) |
+| Epigoni: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-941`) |
+| Judgement of Paris: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-942`) |
+| Judgement of Paris: Chigi Vase | c. 650 BCE | Barry B. Powell, review of Image and Myth: A History of Pictorial Narration in Greek Art… (`gr-942`) |
+| Helen: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-943`) |
+| Trojan War: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-944`) |
+| Agamemnon: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-945`) |
+| Achilles: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-946`) |
+| mēnis: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-947`) |
+| Patroclus: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-948`) |
+| Hector: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-949`) |
+| Ajax the Great: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-950`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -1968,4 +1985,19 @@ gr-932: 700; 462
 gr-933: 700; 462
 gr-934: 462
 gr-935: 700; 462; 431
+gr-936: 700
+gr-937: 700; 540
+gr-938: 700
+gr-939: 700
+gr-940: 424; 414
+gr-941: 700
+gr-942: 700; 650
+gr-943: 700
+gr-944: 700
+gr-945: 700
+gr-946: 700
+gr-947: 700
+gr-948: 700
+gr-949: 700
+gr-950: 700
 ```

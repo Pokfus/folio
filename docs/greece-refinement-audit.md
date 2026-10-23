@@ -267,8 +267,8 @@ one changelog line and a version bump; commit and push.
 | B95 | Olympians and cosmogony (`gr-olympians`) | `gr-901`–`gr-910` | 10 | **done 2026-10-23** |
 | B96 | Olympians and cosmogony (`gr-olympians`) | `gr-911`–`gr-920` | 10 | **done 2026-10-23** |
 | B97 | Heroes and the epic cycle (`gr-heroes`) | `gr-921`–`gr-930` | 10 | **done 2026-10-23** |
-| B98 | Heroes and the epic cycle (`gr-heroes`) | `gr-931`–`gr-940` | 10 | **gr-931–935 done 2026-10-23** |
-| B99 | Heroes and the epic cycle (`gr-heroes`) | `gr-941`–`gr-950` | 10 | open |
+| B98 | Heroes and the epic cycle (`gr-heroes`) | `gr-931`–`gr-940` | 10 | **done 2026-10-23** |
+| B99 | Heroes and the epic cycle (`gr-heroes`) | `gr-941`–`gr-950` | 10 | **done 2026-10-23** |
 | B100 | Heroes and the epic cycle (`gr-heroes`) | `gr-951`–`gr-960` | 10 | open |
 | B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | open |
 | B102 | Cult, oracles and festivals (`gr-cult`) | `gr-966`–`gr-975` | 10 | open |
@@ -2812,3 +2812,23 @@ and `Medea_(mythology)`, each with its own `date` key (empty for the figures, th
 `gr-921`, `gr-927`), `clay` (`gr-906`), `settlement` (`gr-910`), `Aratus` (the poet, not Aratus of Sicyon) and `Timaeus` (the dialogue, not the historian) and `Bronze Age` (the myth's race, `gr-911`, `gr-912`), `sheep`, `armour`, `barley` and `Cimmerians` (`gr-916`, `gr-920`),
 `Antinous` (the suitor, not Hadrian's favourite), `horse`, `horses` (`gr-919`, `gr-926`, `gr-927`), `councils` (`gr-928`), `marble` (`gr-931`), `Telamon` and `Heraclea` (`gr-933`: the hero and Heraclea Pontica, not the battles). `Thebes` is wrapped on `gr-911` only; on the myth cards the
 `Mycenaean_Thebes` key is the Kadmeia, which is the city meant. **Locators:** none added: every card in the thirty-five that lacks one is a god, a hero, a text or a concept (`gr-904`, `gr-916`, `gr-917`, `gr-920`, `gr-933` carry none deliberately, as their plan lines say).
+
+#### `gr-936`–`gr-950` (the rest of B98 and B99, committed second)
+
+Fifteen cards: Bellerophon, Pegasus, Oedipus, the Sphinx, Amphiaraus, the Epigoni, the Judgement of Paris, Helen, the Trojan War, Agamemnon, Achilles, *mēnis*, Patroclus, Hector and Ajax the Great.
+Sources 5–8 → 7–10 (the bar by difficulty met; modern share at least half). The Homer cards cite the *Iliad* and the *Odyssey* once each (Butler's whole texts on Project Gutenberg, as the author cap counts a work as one source);
+the myth is told as the poem tells it and the modern disagreements are stated as "one view … another" with no scholar named. Checks: the audit finds only `S.chip?` on `gr-936` (an English review of a French-titled book); `check-questions`, `check-cards`, `split-cards --check`,
+`apply-wiki-links --check` pass and `check-style` is at its standing count of `number-word` alarms (234 on main, 233 now); every cited URL answers 2xx (160 citations) and `check-citations --card` finds no mismatch on any of the fifteen.
+
+**Date lines.** The Homeric cards print one row dating the text, c. 700 BCE: "Iliad composed" (`gr-936`, `gr-946` to `gr-950`), "Odyssey composed" (`gr-938`) and "In Homer" (`gr-941` to `gr-945`), from Pisano's review of Graziosi, who writes that the poems "cannot have been composed much before 700 BC"; the
+old rows "c. 750 – 700 BCE", which no cited source printed, are gone. Hesiod cards: `gr-937` and `gr-939` "Hesiod writing" c. 700 BCE (Howe), `gr-937` with the stater c. 540 BCE (the Canellopoulos Museum's page); `gr-942` the Chigi Vase, c. 650 BCE (Powell);
+`gr-940` "Cult introduced 424 – 414 BCE", one study's proposal as the Italian review prints it (the sanctuary's operators say only "the 5th century"). Dropped as bounds, conversions or unprinted: "Olympian 13 464 BCE" (an Olympiad conversion, `gr-936`, `gr-937`),
+"Doubted by Herodotus c. 430 BCE", "Stesichorus c. 600 – 550 BCE", "Thucydides c. 410 BCE", "Chest of Cypselus c. 600 – 550 BCE", "Iliadic scenes in art after c. 630 BCE", "Later loves attested 5th century BCE onwards", "Invoked at Salamis 480 BCE", "Grave shown at Thebes 2nd century CE", "Croesus' gifts c. 550 BCE" and "Oropos shrine c. 420 BCE".
+
+**Corrected in the old cards:** the Iliad's Bellerophon does not name Pegasus and Ephyre is not identified with Corinth by any source read (`gr-936`); the coin-myth and gulf-trade claims of Pegasus (`gr-937`); **the 429 BCE of the *Oedipus Tyrannus* is gone**: no source prints it, the card says one edition puts the play in the 430s and another in the 420s, as `docs/greece-chronology.md`
+already records (`gr-938`; `gr-939` never printed it); the Sphinx "via Cyprus" and "earliest surviving notice" (`gr-939`); the Herodotus gold shield and spear stood at Thebes, not at Oropos, and "a thousand years" of oracle was no source's (`gr-940`); "the earliest surviving doubt about the authorship of a Greek poem" and "Herodotus names the Epigoni" (`gr-941`);
+"Homer alludes to it exactly once", "the reason for the whole war" and the golden apple as the story's original form, which Frazer's note shows to be a late detail (`gr-942`); "no one else in the poem blames her" (`gr-943`); "the last great deed of the age of heroes" (`gr-944`); the mask of Agamemnon and "brother of Menelaus" (`gr-945`);
+the Amazon queen and the "hired man" claims for Achilles (`gr-946`); ***mēnis* as "belongs to gods", a contested view stated as fact** (`gr-947`); "elder" and a debate "from the 5th century" for Patroclus (`gr-948`); "eldest son" and "the only fighter shown in a household" for Hector (`gr-949`); Ajax's suicide, which neither the Iliad nor the Odyssey says, now given through the vases and Sophocles (`gr-950`).
+**Glossary entries redrafted:** `Epigoni`, `Judgement_of_Paris`, `Helen_of_Troy`, `Trojan_War`, `Agamemnon`, `Mēnis`, `Hector` and `Ajax_the_Great`, each with its own `date` key; `Bellerophon`, `Pegasus`, `Oedipus`, `Sphinx_(Greek_mythology)`, `Amphiaraus`, `Achilles` and `Patroclus` were read against the card and left.
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Paris` (the capital of France; every use except the Judgement's own, `gr-942`, `gr-943`, `gr-946`), `Alcmaeon` (Alcmaeon of Croton, `gr-941`), `Telamon` (the battle, `gr-950`), `Egypt` (the modern country, `gr-939`, `gr-943`), `Thebes` (`gr-938` to `gr-940`), `Salamis` and `Pausanias` (`gr-950`),
+`Perseus` hand-keyed to `Perseus_(mythology)` (`gr-937`), and the ordinary words `horse`, `horses`, `silver`, `gold`, `bronze`, `goat` and `water` (`gr-936`, `gr-937`, `gr-940`, `gr-949`, `gr-950`). **Locators:** none added; every card here that lacks one is a hero, a text or a concept.
