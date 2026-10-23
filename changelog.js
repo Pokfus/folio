@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1085", released: "2026-10-23T12:33Z" };
+window.FOLIO_VERSION = { v: "1.1086", released: "2026-10-23T13:59Z" };
 
 window.CHANGELOG = [
   {
@@ -64,6 +64,13 @@ window.CHANGELOG = [
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
       "Twenty cards that shared a picture with another card now show it only on the card it illustrates best, and one Yan'an source is now an open English article.",
       "<b>25 Ancient Rome cards gain a map</b>: battles, sieges, cities and two provinces now show where they were on the card's mini-globe.",
+      "On Home, history collections in your active list wear an <b>hourglass</b> instead of a scroll, and collections always follow the Collections page's order.",
+      "The order choice before a deck's first session now lists the default, <b>By difficulty</b>, first instead of Ordered.",
+      "Politics: East Asia's <b>Japan terms now show Japanese</b>, with romanisation, in the translation bubble instead of Chinese.",
+      "On Collections, the three courses (Politics: East Asia, the EU as an External Power, Gateway to Global Affairs) now sit under <b>Shared decks</b>; the Special section is gone.",
+      "<b>World Geography</b>: the China card now shades China on its map, as do the Russia and United States cards.",
+      "<b>Large</b> is now the default text size for new visitors, and in the <b>Bloodstone</b> theme unread glossary links are blue so they stand out from the text.",
+      "A level-up chest now waits gold on the level bar; pressing it greys the bar's chest and moves it to the chest banner, instead of showing in both.",
     ],
   },
   {
