@@ -103,6 +103,10 @@ function syntheticPool() {
   const errs = [];
   // reduced motion, so the chest's rarity-sized wait collapses to a tick and 32 of them can be opened
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
+  /* The artefacts' pictures are other people's files and the chest now waits for one before it reveals
+     (and replaces an item whose picture is broken), so every off-site image is answered here with a 1x1 PNG. */
+  const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "base64");
+  await page.route((u) => !/^http:\/\/127\.0\.0\.1/.test(u.href), (route) => route.request().resourceType() === "image" ? route.fulfill({ status: 200, contentType: "image/png", body: PNG }) : route.continue());
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push(String(e)));
   await page.goto(base, { waitUntil: "domcontentloaded" });
@@ -228,7 +232,7 @@ function syntheticPool() {
       const hint = await page.locator("#chestHint").textContent();
       if (/every artefact/i.test(hint)) { exhausted = i; await page.evaluate(() => document.querySelector("#chestActs button").click()); break; }
       await page.locator("#chestBtn").click();
-      await page.waitForTimeout(260);
+      await page.waitForSelector("#chestReveal .chest-name", { timeout: 20000 });
       const got = await page.evaluate(() => {
         const r = document.querySelector("#chestReveal");
         return { name: r.querySelector(".chest-name").textContent, rar: r.dataset.rar };
@@ -284,7 +288,7 @@ function syntheticPool() {
     const hint1 = await page.locator("#chestHint").textContent();
     check("with artefacts exhausted but themes locked, the chest still opens", !/every artefact/i.test(hint1), hint1.slice(0, 60));
     await page.locator("#chestBtn").click();
-    await page.waitForTimeout(300);
+    await page.waitForSelector("#chestReveal .chest-name", { timeout: 20000 });
     const rev = await page.evaluate(() => {
       const r = document.querySelector("#chestReveal");
       return { chip: (r.querySelector(".ar-chip") || {}).textContent || "", mock: !!r.querySelector(".theme-mock"), name: (r.querySelector(".chest-name") || {}).textContent || "" };
@@ -623,6 +627,46 @@ function syntheticPool() {
     // produces and which no count can see
     check("…and every marker resolves inside its own artefact", cited.every((a) => marks(a.desc).every((x) => x >= 1 && x <= a.sources.length)));
     console.log("      coverage: " + cited.length + " of " + pool.length + " artefacts cited, " + dead.length + " still to do");
+  }
+
+  /* ================= the reveal waits for the picture (Oct 2026) =================
+     A chest must not show its plate before the artefact's image has arrived, must keep working while it
+     waits, and must swap in another artefact (nothing claimed yet) when the file is broken. */
+  {
+    const open = async () => {
+      await page.evaluate((owned) => { const s = JSON.parse(localStorage.getItem("folio_v1")) || {}; s.chests = 3; s.artefacts = {}; s.themes = owned; localStorage.setItem("folio_v1", JSON.stringify(s)); }, ALL_THEMES_OWNED);
+      await page.reload({ waitUntil: "domcontentloaded" });
+      await page.waitForTimeout(700);
+      await page.evaluate(() => { location.hash = "account"; });
+      await page.waitForTimeout(600);
+      await page.locator("#arOpen").click();
+      await page.waitForTimeout(150);
+      await page.locator("#chestBtn").click();
+    };
+    // (a) a slow picture: the plate stays hidden and the chest says it is still opening
+    let release = null; const held = new Promise((r) => { release = r; });
+    const slow = async (route) => { if (route.request().resourceType() !== "image") return route.continue(); await held; route.fulfill({ status: 200, contentType: "image/png", body: PNG }); };
+    await page.route((u) => !/^http:\/\/127\.0\.0\.1/.test(u.href), slow);
+    await open();
+    await page.waitForTimeout(900);
+    const mid = await page.evaluate(() => ({ revealHidden: document.querySelector("#chestReveal").hidden, waiting: document.querySelector(".chest-pop").classList.contains("waiting"), hint: document.querySelector("#chestHint").textContent }));
+    check("a slow picture: the reveal has not appeared", mid.revealHidden === true);
+    check("…the chest is still working, and says so", mid.waiting && /opening/i.test(mid.hint), JSON.stringify(mid));
+    const spentMid = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).chests | 0);
+    check("…and nothing is claimed yet", spentMid >= 3, String(spentMid));
+    release();
+    await page.waitForSelector("#chestReveal .chest-name", { timeout: 20000 });
+    check("…the reveal appears once the picture is in", await page.evaluate(() => !document.querySelector("#chestReveal").hidden));
+    await page.unroute((u) => !/^http:\/\/127\.0\.0\.1/.test(u.href), slow).catch(() => {});
+    // (b) broken pictures: the first three files fail, so the chest must replace the item before any reveal
+    let n = 0;
+    const broken = (route) => { if (route.request().resourceType() !== "image") return route.continue(); if (++n <= 3) return route.abort(); route.fulfill({ status: 200, contentType: "image/png", body: PNG }); };
+    await page.route((u) => !/^http:\/\/127\.0\.0\.1/.test(u.href), broken);
+    await open();
+    await page.waitForSelector("#chestReveal .chest-name", { timeout: 20000 });
+    const fin = await page.evaluate(() => { const im = document.querySelector("#chestReveal img"); return { loaded: !im || (im.complete && im.naturalWidth > 0), chests: JSON.parse(localStorage.getItem("folio_v1")).chests | 0, owned: Object.keys(JSON.parse(localStorage.getItem("folio_v1")).artefacts || {}).length }; });
+    check("a broken picture: the chest replaced it, so the reveal's picture loaded", fin.loaded, JSON.stringify(fin));
+    check("…and exactly one artefact was claimed", fin.owned === 1, JSON.stringify(fin));
   }
 
   check("no uncaught page errors", errs.length === 0, errs.slice(0, 4).join(" | "));
