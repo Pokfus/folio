@@ -6756,7 +6756,8 @@ window.GLOSSARY = {
 "Lake_Ladoga": "",
 "Gustavus_Adolphus": "",
 "Treaty_of_Stolbovo": "",
-"Rocky_Mountains": ""
+"Rocky_Mountains": "",
+"Lake_Superior": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -21462,7 +21463,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lake_Ladoga": ["place","geography","nature","russia","europe"],
 "Gustavus_Adolphus": ["ruler","person","history","politics","warfare","sweden"],
 "Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"],
-"Rocky_Mountains": ["place","geography","mountain","geology","united states"]
+"Rocky_Mountains": ["place","geography","mountain","geology","united states"],
+"Lake_Superior": ["place","geography","lake","great lakes","united states"]
 });
 
 /* ============================================================================

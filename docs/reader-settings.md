@@ -214,6 +214,18 @@ Ten bullets, in the order they appeared in CLAUDE.md:
     Hultzsch…) and 38 of the 40 were being respelled and unit-converted for American readers ("labor lost" for Legge's "labour lost"), altering a translator's published words. Who said it?'s pool has no `o` at all and was
     already verbatim throughout. Whether a quotation has an `o` decides nothing. The admin's daily-quote form says the quote is shown exactly as typed, in the translator's spelling.
     To mark a new kind of quotation: put `verbatim` on its element and add it to the list in `test-quotes-verbatim.js`.
+  · **PLACE NAMES THAT DEPEND ON THE READER'S ENGLISH (`SPELL_NAMES` / `spellNames` / `FolioPlaceNames`, Oct
+    2026, on request: "if the user uses American English spelling for the website, they are shown as Gulf of
+    America, etc. If they use the British spelling, use the old names").** Executive Order 14172 (January 2025)
+    renamed the Gulf of Mexico and Denali for US federal use. Content keeps the older names and the table
+    rewrites them for an American reader only: a WHOLE NAME, case-sensitive, ahead of the word table inside
+    `spellText` (so the cloze grading follows it too). One-way on purpose — "Mount McKinley" was the federal
+    name from 1917 to 2015, and a reverse row would rewrite history. `Denali` carries a lookahead that leaves
+    Denali National Park, the Denali Fault, Highway and Borough alone; `Mount Denali` is its own row. A name a
+    sentence must keep for every reader is wrapped in `.keep-name`, which `spellSkip` skips like `.verbatim`
+    (and the sanitizer keeps). The Atlas's names are canvas, out of the text pass's reach, so `atlas.js` puts
+    `FolioPlaceNames()` (the whole-label table, or null) into the worker's layout message and the worker's
+    `rn` renames a label before it is laid. Guarded by `test-spelling.js` §1.
   · **AND `gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS.** It is the one place the switch has to reach
     past the DOM: the cloze compares what was typed against the stored `answerText`, which is authored in
     British, so an American reader typing exactly what is on their screen would be marked wrong.

@@ -2099,16 +2099,24 @@ per-entry test above (the Handbook of Texas, the Encyclopedia of Alabama, NCpedi
 **A length is a claim with a method**: the USGS's river lengths, the NPS's and the state survey's often
 differ by tens of kilometres, so the card names whose figure it gives and does not average two.
 
-### Names that changed in 2025 — decide on each card, never in silence
+### Names that changed in 2025 — the reader's English decides (Oct 2026, on request)
 
-Executive Order 14172 of January 2025 renamed two features in this plan for federal use: **Denali** became
-**Mount McKinley** again, and the **Gulf of Mexico** the **Gulf of America**, and GNIS followed. Neither
-name is false and the card must not pretend one is: the background states both and when each was
-applied, sourced to GNIS or the order itself, and the glossary term carries the other as an alias. **The
-answer is the name the card's own sources use most widely**, which for both is to be decided by the
-session writing them and stated in that card's commit, since the question is a live one rather than
-settled history. Check every other name in the plan against GNIS as it is written; a renaming no one
-expected is exactly what a plan line hides.
+Executive Order 14172 of January 2025 renamed two features in this plan for US federal use: **Denali**
+became **Mount McKinley** again, and the **Gulf of Mexico** the **Gulf of America**, and GNIS followed.
+**The owner's rule: a reader on American spelling sees the federal names, a reader on British spelling
+the older ones.** So the cards are AUTHORED with the older names (Denali, Gulf of Mexico) exactly as they
+are authored in British spelling, and `SPELL_NAMES` in app.js — a one-way, whole-name, case-sensitive
+table beside `SPELL_PAIRS` — rewrites them for an American reader everywhere the spelling pass runs: the
+card, its answer and facts box, the cloze grading, the glossary, and (through `FolioPlaceNames`) the
+Atlas's canvas labels. Never author "Gulf of America" or "Mount McKinley" for the present-day feature: a
+British reader would then see the federal name. **"Mount McKinley" as a HISTORICAL name stays as written**
+(it was also the federal name from 1917 to 2015; the table never runs the other way), and the park,
+the fault, the highway and the borough called Denali were not renamed and are left alone.
+**A sentence that must name the older form to an American reader too** — the card that explains the
+renaming — wraps that name in `<span class="keep-name">Denali</span>`, which the pass skips. The
+background states both names and when each was applied, sourced to GNIS or the order itself. Check every
+other name in the plan against GNIS as it is written; a renaming no one expected is exactly what a plan
+line hides, and a new one is a row in `SPELL_NAMES`, not a card edit.
 
 ### How the running orders were chosen
 
@@ -2142,7 +2150,7 @@ it protects is the card), and glaciers, which want a deck of their own if they a
   geo-814 Lake Huron
   geo-815 Lake Ontario
   geo-816 Lake Tahoe
-  geo-817 Gulf of Mexico (the 2025 name: see above)
+  geo-817 Gulf of Mexico (Gulf of America for an American reader: see above)
   geo-818 Crater Lake
   geo-819 Everglades
   geo-820 Puget Sound
@@ -2172,7 +2180,7 @@ it protects is the card), and glaciers, which want a deck of their own if they a
   geo-901 Rocky Mountains
   geo-902 Grand Canyon
   geo-903 Appalachian Mountains
-  geo-904 Denali (the 2025 name: see above)
+  geo-904 Denali (Mount McKinley for an American reader: see above)
   geo-905 Mount St. Helens
   geo-906 Mount Rushmore
   geo-907 Sierra Nevada

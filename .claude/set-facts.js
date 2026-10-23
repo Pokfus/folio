@@ -58,7 +58,7 @@ if (!Array.isArray(CARDS)) die("data.js did not yield window.CARD_DATA");
 const byId = new Map(CARDS.map((c) => [c.id, c]));
 
 if (process.argv.includes("--check")) {
-  const grids = CARDS.filter((c) => c.map || c.artwork === true);
+  const grids = CARDS.filter((c) => c.map || c.artwork === true || (/^geo-[89]\d\d$/.test(c.id) && c.facts));
   console.log(grids.length + " cards with a facts grid (" + grids.filter((c) => c.map).length + " map, " +
     grids.filter((c) => !c.map).length + " artwork)");
   grids.forEach((c) => console.log("  " + c.id + "  [" + (c.map ? "map" : "artwork") + "]  " + (c.answerText || "") + "\n      " +
@@ -83,8 +83,12 @@ for (const [id, facts] of Object.entries(batch.cards)) {
      next hand edit of it would have gone straight into data.js. The two kinds take different MINIMA
      (a map card states capital/population/area; an artwork states artist/date/medium/size/where), so the
      bound is chosen by the card rather than shared. */
-  const kind = card.map ? "map" : (card.artwork === true ? "artwork" : null);
-  if (!kind) die(id + ": neither a map card nor an artwork card — `facts` is those two formats' figures grid");
+  /* …AND SO DOES A PHYSICAL GEOGRAPHY CARD (Oct 2026): the United States water and mountains decks
+     (geo-801+, geo-901+) are text cards with a locator, not map cards, and carry the same four-row grid
+     (docs/geography-card-plan.md "The facts grid for these decks"), so they take the map card's bounds. */
+  const physical = /^geo-[89]\d\d$/.test(id) && !!card.locator;
+  const kind = card.map || physical ? "map" : (card.artwork === true ? "artwork" : null);
+  if (!kind) die(id + ": neither a map card, a physical geography card nor an artwork card — `facts` is those formats' figures grid");
   if (!Array.isArray(facts) || !facts.length) die(id + ": facts must be a non-empty array of [label, value]");
   const min = kind === "map" ? MAP_FACTS_MIN : ART_FACTS_MIN;
   if (facts.length < min || facts.length > MAP_FACTS_MAX) {

@@ -799,6 +799,7 @@
     const shift = (q.density === "sparse" ? -1 : q.density === "dense" ? 1.5 : 0) + (q.phone ? -0.75 : 0);
     const t = Math.max(0, Math.min(1, (Math.log(24) - Math.log(kmpp)) / Math.log(24)));
     const cap = Math.round((40 + 80 * t) * (q.density === "sparse" ? 0.6 : q.density === "dense" ? 1.5 : 1) * (q.phone ? 0.6 : 1));
+    const rn = (nm) => (q.rename && q.rename[nm]) || nm;   // the reader's place names (app.js SPELL_NAMES): "Gulf of America" for an American reader
     const FS = q.fs > 0 ? q.fs : 1;   // the reader's Text size as a factor of the names (atlas.js labelScaleNow): the METRICS already carry it in sizes, tracking and advances; these are the literals that must grow with the names
     const pad = (q.density === "sparse" ? 8 : q.density === "dense" ? 2 : 4) * FS;
     const show = q.show || {};
@@ -1051,7 +1052,7 @@
       const row = c.row, k = row.kind; dropping = row;
       const styleId = styleFor(row, c.chordPx), st = METRICS[styleId];
       if (!st) { drop(k + " no metrics for style " + styleId); continue; }
-      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(row.name, null, { qualified: qualified(row.name) }).text : row.name;   // a settlement's name shows no parenthetical (decision f) and no ", <country>" qualifier unless two share the bare name (decision d, 2026-10-17)
+      const text = (k === "capital" || k === "city" || k === "town") && !c.hist && root.AtlasStudy ? root.AtlasStudy.labelText(rn(row.name), null, { qualified: qualified(row.name) }).text : rn(row.name);   // a settlement's name shows no parenthetical (decision f) and no ", <country>" qualifier unless two share the bare name (decision d, 2026-10-17)
       const sh = shape(text, st, missing); sh.style = styleId;
       const base = { id: row.id, kind: k, style: styleId, text: sh.chars.join(""), score: c.score, selected: row.id === q.selected, hist: !!c.hist, face: row.face, st: c.hl || 0 };
       if (studyPass) base.study = true;   // laid by the study pass (decision b)
@@ -1284,7 +1285,7 @@
           const style = STUDY_POINT[row.kind] ? (row.kind === "capital" ? "capital" : row.kind === "city" ? "city" : "town") : styleFor(row, 0), st2 = METRICS[style];
           if (st2) {
             /* THE LABEL'S TEXT (decision f): no parenthetical, the short name past 28 characters, two lines past 22 (AtlasStudy.labelText); the popup keeps the full name */
-            const lt = AS.labelText(row.name, row.aliases, { qualified: qualified(row.name) });
+            const lt = AS.labelText(rn(row.name), row.aliases, { qualified: qualified(row.name) });
             let two = null, sh = null;
             const setText = (lines) => {   // one line, or two meeting at the point
               if (lines) { const a = shape(lines[0], st2, missing), b = shape(lines[1], st2, missing); a.style = b.style = style; two = { a, b, wide: Math.max(a.w, b.w), h: a.h + b.h }; sh = { w: two.wide, h: two.h, chars: [...lines[0], " ", ...lines[1]] }; }

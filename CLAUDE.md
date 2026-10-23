@@ -171,6 +171,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 - **Never name a CSS class `ad-…`** (ad blockers hide it; `adBaitCheck` in `test-layout.js`).
 - **Units and spelling** are rendering passes over text nodes (`unitizeTree`, `spellTree`); content is
   authored metric-first with imperial in brackets, and in British spelling.
+  **Place names follow the reader's English** (`SPELL_NAMES`, Oct 2026): content says Gulf of Mexico and Denali, an American reader sees Gulf of America and Mount McKinley (cards, glossary, Atlas labels via `FolioPlaceNames`); one-way; `.keep-name` protects a name a sentence must keep.
   **A quotation carries `.verbatim` and both passes skip it** (the Home daily quote, a card's quote block, Who said it?, the admin's quote lists — `test-quotes-verbatim.js`); mark any new one.
   📖 `docs/reader-settings.md` — READ BEFORE CHANGING EITHER.
 - **Library**: 📖 `docs/library-feature.md` — READ BEFORE TOUCHING THE LIBRARY.

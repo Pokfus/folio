@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T15:24Z",
+ "generated": "2026-10-23T15:51Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4938,
+  "ok": 4940,
   "redirect-broader": 457,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57456,6 +57456,20 @@
    "answer": "Rocky Mountains",
    "title": "Rocky Mountains",
    "url": "https://en.wikipedia.org/wiki/Rocky_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-802": {
+   "answer": "Lake Superior",
+   "title": "Lake Superior",
+   "url": "https://en.wikipedia.org/wiki/Lake_Superior",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-803": {
+   "answer": "Missouri River",
+   "title": "Missouri River",
+   "url": "https://en.wikipedia.org/wiki/Missouri_River",
    "via": "glossary",
    "status": "ok"
   }
