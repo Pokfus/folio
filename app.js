@@ -20524,18 +20524,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const TTS_PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 19 12 7 20"/></svg>';
   const TTS_PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4.5" height="16" rx="1"/><rect x="13.5" y="4" width="4.5" height="16" rx="1"/></svg>';
   // tiny play control behind a section title; span=true renders a role=button span (for inside the .bg-head <button>)
-  /* THE SECTION PLAY BUTTONS ARE LIVE ON HISTORY, SCIENCE AND SPECIAL COLLECTIONS ONLY (Oct 2026, on request),
+  /* THE SECTION PLAY BUTTONS ARE LIVE ON EVERY CURATED COLLECTION (Oct 2026, on request; first History, Science and Special only),
      and they are NOT the set-aside read-aloud system: `ttsEnabled()` is still false, so auto-read, the card
      mute button, the gloss popup's speaker and the selection menu stay off. Like `.uc-tts` this is a control
      a reader presses, so it deliberately bypasses that switch (see `ttsSectionClick`). The section is the
      card's collection ROOT's, via `sectionOf`; a card in no collection (a community or language deck's) has
      no root and gets no button. Offered wherever the API exists — never hidden on an empty voice list, which
      arrives asynchronously; a press that comes back silent says why instead. */
-  const TTS_SECTIONS = new Set(["History", "Science", "Special"]);
   function ttsSectionOk(c) {
     if (!c || !c.id || !ttsSupported() || S.settings.ttsButtons === false) return false;   // Settings → Audio → Read-aloud buttons
-    const root = cardCollectionRoot(c.id);
-    return !!root && TTS_SECTIONS.has(sectionOf(root.id));
+    return !!cardCollectionRoot(c.id);   // every curated collection (History, Geography, Science, Philosophy, The Arts, Special); language and community decks have no root
   }
   function ttsPlayHTML(kind, span, c) {
     if (!ttsEnabled() && !ttsSectionOk(c)) return "";
