@@ -6780,7 +6780,12 @@ window.GLOSSARY = {
 "Denali": "",
 "Mount_St._Helens": "",
 "Mount_Rushmore": "",
-"Grand_Teton": ""
+"Grand_Teton": "",
+"Lake_Huron": "",
+"Lake_Ontario": "",
+"Lake_Tahoe": "",
+"Gulf_of_Mexico": "",
+"Crater_Lake": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14609,7 +14614,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mammoth_Cave_National_Park": ["Mammoth Cave"],
 "Rio_Grande": ["Río Bravo del Norte"],
 "Appalachian_Mountains": ["Appalachians"],
-"Denali": ["Mount McKinley"]
+"Denali": ["Mount McKinley"],
+"Lake_Ontario": ["Lake America"],
+"Gulf_of_Mexico": ["Gulf of America"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21517,7 +21524,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Denali": ["place","geography","mountain","alaska","united states"],
 "Mount_St._Helens": ["place","geography","volcano","geology","united states"],
 "Mount_Rushmore": ["place","geography","mountain","art","united states"],
-"Grand_Teton": ["place","geography","mountain","wyoming","united states"]
+"Grand_Teton": ["place","geography","mountain","wyoming","united states"],
+"Lake_Huron": ["place","geography","lake","great lakes","united states","canada"],
+"Lake_Ontario": ["place","geography","lake","great lakes","united states","canada"],
+"Lake_Tahoe": ["place","geography","lake","united states","california","nevada"],
+"Gulf_of_Mexico": ["place","geography","bay","gulf","united states","mexico"],
+"Crater_Lake": ["place","geography","lake","volcano","united states","oregon"]
 });
 
 /* ============================================================================

@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T16:44Z",
+ "generated": "2026-10-23T17:05Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4963,
+  "ok": 4968,
   "redirect-broader": 459,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57647,6 +57647,41 @@
    "answer": "Grand Teton",
    "title": "Grand Teton",
    "url": "https://en.wikipedia.org/wiki/Grand_Teton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-814": {
+   "answer": "Lake Huron",
+   "title": "Lake Huron",
+   "url": "https://en.wikipedia.org/wiki/Lake_Huron",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-815": {
+   "answer": "Lake Ontario",
+   "title": "Lake Ontario",
+   "url": "https://en.wikipedia.org/wiki/Lake_Ontario",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-816": {
+   "answer": "Lake Tahoe",
+   "title": "Lake Tahoe",
+   "url": "https://en.wikipedia.org/wiki/Lake_Tahoe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-817": {
+   "answer": "Gulf of Mexico",
+   "title": "Gulf of Mexico",
+   "url": "https://en.wikipedia.org/wiki/Gulf_of_Mexico",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-818": {
+   "answer": "Crater Lake",
+   "title": "Crater Lake",
+   "url": "https://en.wikipedia.org/wiki/Crater_Lake",
    "via": "glossary",
    "status": "ok"
   }
