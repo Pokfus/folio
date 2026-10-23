@@ -5486,6 +5486,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `.ans-cn` block), and `buildBack` sets it as a SIBLING of `.val` inside `.av-term.av-cn` — **never inside
   `.val`**, which five suites read the answer text from. One delegated listener (`wireAnswerBubbles`, at
   module load) opens / closes it for every render path (click the icon, click elsewhere, Escape).
+  **THE BUBBLE'S LANGUAGE IS DECIDED BY THE CARD'S ID PREFIX** (`ANSWER_NAME_LANGS` / `answerNameLang`, Oct 2026,
+  on request: all `jp-` cards get a Japanese name with romanisation). The Japan collection keeps its Japanese
+  in the SAME light fields — `hanzi` the script, `pinyin` the Hepburn romanisation — so no writer, serializer
+  or editor changed; the prefix sets the speech voice and `lang` (`ja-JP`, so the browser picks Japanese glyph
+  forms), drops the traditional line and the `--han` font (Noto Sans SC would impose Chinese forms), and
+  says "Japanese" in the labels. The data is `.claude/japan-names.json`, written by
+  `node .claude/set-ja-names.js` (`--check` reports drift; it refuses a non-`jp-` id). Names were written by
+  hand and cross-checked against Wikidata's Japanese labels; a few are a judgement for a concept English
+  names loosely (e.g. `jp-013` 樹木栽培, `jp-025` 縄文人系統, `jp-039` 弥生時代の首長制) — correct in the JSON and re-run.
   **`placeAnswerBubble` clamps the bubble to the ANSWER BOX, not the viewport**: `.reveal` is
   `overflow:hidden`, so a bubble that fitted the screen but not the card lost its right edge and its speaker
   on a 360 px phone; and it measures from layout (`offsetWidth`), never the rect, because the opening
