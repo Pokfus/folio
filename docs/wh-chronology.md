@@ -774,6 +774,33 @@ Filled batch by batch, from the source each row names.
 | Young Turk Revolution: constitution restored / parliament met | 23 – 24 July 1908 / 17 December 1908 CE | Doygun; Buxton; FRUS (`wh-865`; `wh-866`, `wh-867` and `wh-870` are `undatable`) |
 | Transatlantic telegraph cable: first completed / lasting link | 5 August 1858 / 27 July 1866 CE | Bright; Field (`wh-868`) |
 | World's fair: Great Exhibition | 1 May – 11 October 1851 CE | the Commissioners' report; the V&A (`wh-869`) |
+| First World War: first declared / armistice / treaty signed | 28 July 1914 / 11 November 1918 / 28 June 1919 CE | the Library of Congress; Powell (`wh-871`) |
+| Triple Entente: completed | 31 August 1907 CE (1904 as the first step in one reference) | the Foreign Office historians; Keleher and Imholte (`wh-872`) |
+| Assassination of Archduke Franz Ferdinand | 28 June 1914 CE | Fay; Myers (`wh-873`) |
+| July Crisis: span | 28 June – 4 August 1914 CE | Fata; Otte (`wh-874`) |
+| Schlieffen Plan: memorandum dated / finished (O'Neil) | December 1905 / February 1906 CE | the memorandum (GHDI); O'Neil (`wh-875`; `wh-877` is `undatable`) |
+| Western Front: fought / Race to the Sea / Hundred Days | August 1914 – 11 November 1918 / late September – November 1914 / 8 August – 11 November 1918 CE | National Army Museum; Canadian War Museum (`wh-876`) |
+| First Battle of the Marne: National Army Museum / Musée de l'Armée | 5 – 12 September 1914 / 6 – 11 September 1914 CE | the two museums (`wh-878`) |
+| Battle of Verdun: fought | 21 February – 18 December 1916 CE | the Mémorial de Verdun (`wh-879`) |
+| Battle of the Somme: fought | 1 July – 18 November 1916 CE | Canadian War Museum (`wh-880`) |
+| Gallipoli campaign: naval attack / landings / evacuation | 18 March 1915 / 25 April 1915 / 19 December 1915 – 9 January 1916 CE | National Army Museum; the Gallipoli Association (`wh-881`) |
+| Eastern Front: began / Treaty of Brest-Litovsk signed | August 1914 / 3 March 1918 CE | Walsh; the treaty text (`wh-882`) |
+| Unrestricted submarine warfare: war zone proclaimed / resumption | 4 February 1915 (effective 18 February) / 1 February 1917 (announced 31 January) CE | FRUS; the Bernstorff note (`wh-883`) |
+| Chemical warfare: first large gas attack | 22 April 1915 CE | the OPCW; the Canadian War Museum (`wh-884`; `wh-885` and `wh-886` are `undatable`) |
+| Armenian genocide: arrests / deportations | 24 April 1915 / 1915 – 1916 CE | the US Holocaust Memorial Museum; Kévorkian (`wh-887`) |
+| Arab Revolt: began (Erickson) / began (Library of Congress) / Aqaba / Damascus | 10 June 1916 / 5 June 1916 / 6 July 1917 / 1 October 1918 CE | Erickson; the Library of Congress; the Australian War Memorial (`wh-888`) |
+| Sykes–Picot Agreement: concluded / made public | 16 May 1916 / November 1917 CE | Loevy (`wh-889`) |
+| Balfour Declaration: issued | 2 November 1917 CE | the text; the Peel Commission (`wh-890`) |
+| American entry into the First World War: war message / war declared / draft law | 2 April 1917 / 6 April 1917 / 18 May 1917 CE | the National Archives; Wilson's address (`wh-891`) |
+| Armistice of 11 November 1918: talks began / signed (text) / signed (UK blog) / ceasefire | 8 November 1918 / 11 November 1918, 5 a.m. / 11 November 1918, 5:10 a.m. / 11 November 1918, 11 a.m. CE | FRUS; House of Commons; Finn (`wh-892`) |
+| Treaty of Versailles: signed / in force | 28 June 1919 / 10 January 1920 CE | the German Historical Museum (`wh-893`) |
+| League of Nations: came into being / dissolved | 10 January 1920 / 19 April 1946 CE | the UN Office at Geneva; the National WWII Museum (`wh-894`) |
+| Spanish flu: pandemic / deadliest wave | 1918 – 1919 / September – November 1918 CE | Taubenberger and Morens (`wh-895`) |
+| Russian Revolution: tsar abdicated / October rising / Assembly closed | 2 March 1917 (Old Style) = 15 March / 25 October 1917 (Old Style) = 7 November / 6 January 1918 (Old Style) = 19 January CE | Curtis (Library of Congress); Nicholas II's manifesto; Lenin's decree (`wh-896`) |
+| Vladimir Lenin: lived | 22 April 1870 – 21 January 1924 CE | Reshetar (`wh-897`) |
+| Bolsheviks: split / Prague break / renamed | 1903 / January 1912 / March 1918 CE | Bilinsky and Holubnychy; Lenin (`wh-898`) |
+| Russian Civil War: fought (Werth) / Czech clashes / evacuation order / Kronstadt | 1918 – 1921 / May 1918 / 13 November 1920 / 18 March 1921 CE | Werth; the US consuls' reports (`wh-899`) |
+| Soviet Union: founded / constitution / dissolved | 30 December 1922 / 31 January 1924 / 26 December 1991 CE | the Fundamental Law; Siegelbaum; the *Encyclopedia of Ukraine* (`wh-900`) |
 
 ## Chronology pins
 
@@ -1526,4 +1553,31 @@ wh-864: 20 September 1853; 1868 – 1910; 1873; 23 October 1910
 wh-865: 23 – 24 July 1908; 17 December 1908
 wh-868: 5 August 1858; 27 July 1866
 wh-869: 1 May – 11 October 1851
+wh-871: 28 July 1914; 11 November 1918; 28 June 1919
+wh-872: 31 August 1907
+wh-873: 28 June 1914
+wh-874: 28 June – 4 August 1914
+wh-875: December 1905; February 1906
+wh-876: August 1914 – 11 November 1918; late September – November 1914; 8 August – 11 November 1918
+wh-878: 5 – 12 September 1914; 6 – 11 September 1914
+wh-879: 21 February – 18 December 1916
+wh-880: 1 July – 18 November 1916
+wh-881: 18 March 1915; 25 April 1915; 19 December 1915 – 9 January 1916
+wh-882: August 1914; 3 March 1918
+wh-883: 4 February 1915; 1 February 1917
+wh-884: 22 April 1915
+wh-887: 24 April 1915; 1915 – 1916
+wh-888: 10 June 1916; 5 June 1916; 6 July 1917; 1 October 1918
+wh-889: 16 May 1916; November 1917
+wh-890: 2 November 1917
+wh-891: 2 April 1917; 6 April 1917; 18 May 1917
+wh-892: 8 November 1918; 11 November 1918, 5 a.m.; 11 November 1918, 5:10 a.m.; 11 November 1918, 11 a.m.
+wh-893: 28 June 1919; 10 January 1920
+wh-894: 10 January 1920; 19 April 1946
+wh-895: 1918 – 1919; September – November 1918
+wh-896: 2 March 1917 Old Style, 15 March New Style; 25 October 1917 Old Style, 7 November New Style; 6 January 1918 Old Style, 19 January New Style
+wh-897: 22 April 1870 – 21 January 1924
+wh-898: 1903; January 1912; March 1918
+wh-899: 1918 – 1921; May 1918; 13 November 1920; 18 March 1921
+wh-900: 30 December 1922; 31 January 1924; 26 December 1991
 ```

@@ -9351,7 +9351,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Meiji_Restoration": "1868",
 "Zaibatsu": "c. 1880–1945",
 "Western_Front_(World_War_I)": "1914–1918",
-"First_Battle_of_the_Marne": "6–11 September 1914",
+"First_Battle_of_the_Marne": "5–12 September 1914",
 "Battle_of_Verdun": "21 February – 18 December 1916",
 "Battle_of_the_Somme": "1 July – 18 November 1916",
 "War_of_the_Pacific": "1879–1884",
