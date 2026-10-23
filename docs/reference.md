@@ -5633,8 +5633,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   spread of the five starts, else its bar runs off the edge with an arrowhead. The markup is a plain `<ol>` of the
   five items (`.tl-list`), laid out in place by `mountCardTimelines` (called beside every `mountCardMaps` that
   follows `buildBack`) and re-laid by a ResizeObserver; names are measured in the DOM so Text size is honoured. A
-  neighbour's name is a `data-kin` button, so the existing rail wiring opens it (a peek on a card back, a route on
-  the card page). The rollout began with the first 20 cards of The Second World War (11 carry the field).
+  neighbour's name OPENS ITS GLOSSARY TERM (Oct 2026, on request; `cardTimelineTermKey`, through `byAnySurface`
+  like every game's card → term question; `data-tlterm`, wired in `mountCardTimelines`), and only a card with no
+  term of its own falls back to a `data-kin` button that opens the card. The card's own name is never a control.
+  THE SECTION SITS BELOW THE ATLAS BOX (Oct 2026, on request), between the locator and the Nearby rail, which
+  moved down with it. THE EDITOR'S SWITCH: the meta row's `timelines` select (`#adminTlMode`: not on timelines /
+  an event / a period, with the date boxes that follow it) writes the delta `ADMIN_EDITS.cardTimeline[id]` —
+  "none" takes a shipped card off every timeline, an object sets its dates, no key means as shipped — which
+  `cardTimelineField` resolves ahead of the shipped field and `serializeCardData` bakes into `timeline` on the
+  way out; a date that does not parse is marked `aria-invalid` and not written. The key is `cardTimeline`, never
+  `timeline`: that name was v1's map delta and `normalizeAdminEdits` drops it on read. The rollout began with
+  the first 20 cards of The Second World War (11 carry the field).
   Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
   `mountCardTimelines` / `set-timeline.js` / the `.tl-` rules: `node .claude/test-card-timeline.js`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as

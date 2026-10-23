@@ -6676,6 +6676,8 @@ select.af-sel{cursor:pointer; padding-right:30px; background-image:linear-gradie
    `.ces-m`, so the caption rule above matches it too and outranks a bare class — which set the label of a
    thing you CLICK in the uppercase mono of the labels above it, and left it under that rule's ellipsis. */
 .ces-m-check{flex:0 1 175px; min-width:160px;}
+.ces-m[hidden]{display:none;}   /* the timeline date boxes follow the switch (see adminTlMode); `display:flex` above would otherwise defeat the attribute */
+.af-input[aria-invalid="true"]{border-color:var(--zh);}
 .ces-m > span.ces-chk{display:flex; align-items:center; gap:7px; min-height:calc(40px * var(--fs)); font-family:var(--sans); font-size:calc(12.5px * var(--fs)); letter-spacing:0; text-transform:none; white-space:normal; overflow:visible; color:var(--ink-soft); cursor:pointer;}
 .ces-chk input{flex:none; margin:0; accent-color:var(--indigo); width:15px; height:15px; cursor:pointer;}
 .ces-decks-head{appearance:none; align-self:flex-start; display:flex; align-items:center; gap:7px; background:none; border:0; padding:2px 0; cursor:pointer; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; color:var(--ink-soft);}

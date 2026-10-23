@@ -544,6 +544,7 @@
       cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossarySources: o.glossarySources || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
+      cardTimeline: o.cardTimeline || {},   // per card: "none", or { at } / { from, to } — the editor's switch for the card timeline (see cardTimelineSpan); NOT `timeline`, which was v1's map delta and is ignored
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
       // a Library book's front-matter essay, keyed by book id (see bookIntroMerged). The overlay IS the
       // storage here, as it is for the quotes: books/<id>.js is generated and would lose a hand edit on the
@@ -1042,7 +1043,7 @@
     if (isCreatedCard(id)) delete ADMIN_EDITS.created[id];
     else ADMIN_EDITS.deleted[id] = true;
     delete ADMIN_EDITS.cards[id]; delete ADMIN_EDITS.membership[id]; delete ADMIN_EDITS.meta[id];
-    if (ADMIN_EDITS.chrono) delete ADMIN_EDITS.chrono[id]; if (ADMIN_EDITS.cardColor) delete ADMIN_EDITS.cardColor[id]; if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[id];   // don't strand overlay metadata (could resurrect onto a reused new-N id)
+    if (ADMIN_EDITS.chrono) delete ADMIN_EDITS.chrono[id]; if (ADMIN_EDITS.cardColor) delete ADMIN_EDITS.cardColor[id]; if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[id]; if (ADMIN_EDITS.cardTimeline) delete ADMIN_EDITS.cardTimeline[id];   // don't strand overlay metadata (could resurrect onto a reused new-N id)
     syncAllLeafOrders(); rebuildDerived(); saveAdminEdits();
   }
   // set the exact set of leaves a card belongs to
@@ -1486,7 +1487,7 @@
   function adminEditCount() {
     const ids = new Set([
       ...Object.keys(ADMIN_EDITS.cards), ...Object.keys(ADMIN_EDITS.created),
-      ...Object.keys(ADMIN_EDITS.deleted), ...Object.keys(ADMIN_EDITS.membership),
+      ...Object.keys(ADMIN_EDITS.deleted), ...Object.keys(ADMIN_EDITS.membership), ...Object.keys(ADMIN_EDITS.cardTimeline || {}),
     ]);
     const T = ADMIN_EDITS.tree || { renames: {}, created: {}, deleted: {}, dates: {} };
     const treeN = Object.keys(T.renames).length + Object.keys(T.created).length + Object.keys(T.deleted).length + Object.keys(T.dates || {}).length + Object.keys(T.cardOrder || {}).length;
@@ -36132,7 +36133,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reader who has shut the fold to see only the answer has not asked to lose it. */
     /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
     html += cardLocatorHTML(c);
-    // WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML)
+    /* …then WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML):
+       below the Atlas box, on request, with the Nearby rail after it. */
     html += cardTimelineHTML(c);
     html += cardLeadsToHTML(c);
     /* …and the cards nearest this one, which is the same slot's other half (see relatedCardsHTML).
@@ -36279,10 +36281,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return { y, mo, d, t: y + (mo ? (mo - 1) / 12 : 0) + (d ? (d - 1) / 365 : 0), unit: d ? 1 / 365 : (mo ? 1 / 12 : 1) };
   }
   function tlLabel(p) { return (p.d ? p.d + " " : "") + (p.mo ? TL_MONTHS[p.mo - 1] + " " : "") + (p.y < 0 ? (-p.y) + " BCE" : String(p.y)); }
+  /* THE EFFECTIVE FIELD: the editor's delta (`ADMIN_EDITS.cardTimeline[id]`, Oct 2026 — "none" takes a card off
+     every timeline, an object replaces its dates) wins over the shipped `card.timeline`; null when the card is on
+     no timeline. `serializeCardData` bakes this, not the shipped field, so a baked data.js carries the decision. */
+  function cardTimelineField(c) {
+    const ov = c && c.id != null && ADMIN_EDITS && ADMIN_EDITS.cardTimeline && c.id in ADMIN_EDITS.cardTimeline ? ADMIN_EDITS.cardTimeline[c.id] : undefined;
+    if (ov !== undefined) return ov && typeof ov === "object" ? ov : null;
+    return c && c.timeline && typeof c.timeline === "object" ? c.timeline : null;
+  }
+  // the editor's switch: null = as shipped, "none" = off, { at } / { from, to } = on with these dates
+  function setCardTimeline(id, val) {
+    if (!ADMIN_EDITS.cardTimeline) ADMIN_EDITS.cardTimeline = {};
+    if (val == null) delete ADMIN_EDITS.cardTimeline[id]; else ADMIN_EDITS.cardTimeline[id] = val;
+    queueAdminSave();
+  }
+  /* A neighbour's name opens its GLOSSARY TERM (Oct 2026, on request), found the way every game finds a card's
+     term: `byAnySurface`, the case-folded map built for "which term is this card's answer?". A card with no
+     term of its own (none should exist — every card ships with one — but a deck term is not it) falls back to
+     the card itself, through the same `data-kin` the "Nearby" rail uses. */
+  function cardTimelineTermKey(c) {
+    const idx = c && c.answerText ? glossIndexFor(GLOSS_SCOPE_SITE) : null;
+    const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText).trim().toLowerCase()] : null;
+    return k && !isDeckGlossKey(k) && (k in window.GLOSSARY) ? k : null;
+  }
   // the card's authored span, or null when it has none (or a malformed one — drawn as nothing, never guessed)
   function cardTimelineSpan(c) {
-    const f = c && c.timeline;
-    if (!f || typeof f !== "object") return null;
+    const f = cardTimelineField(c);
+    if (!f) return null;
     if (f.from != null || f.to != null) {
       const a = tlParse(f.from), b = tlParse(f.to);
       if (!a || !b || b.t < a.t) return null;
@@ -36312,9 +36337,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       list.map((x) => {
         const self = x.c.id === c.id, lo = cardLocalized(x.c);
         const title = lo.answerText || String(lo.answer || "").replace(/<[^>]*>/g, "");
-        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
+        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-card="' + esc(x.c.id) + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
           '<i class="tl-mark" aria-hidden="true"></i>' +
-          (self ? '<span class="tl-lab" aria-current="true">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">') +
+          (self ? '<span class="tl-lab" aria-current="true">' : (() => { const k = cardTimelineTermKey(x.c); return k ? '<button type="button" class="tl-lab" data-tlterm="' + esc(k) + '" title="' + esc(title) + ' in the glossary">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">'; })()) +
           '<span class="tl-t">' + esc(title) + '</span><span class="tl-w">' + esc(x.s.label) + "</span>" +
           (self ? "</span>" : "</button>") + "</li>";
       }).join("") +
@@ -36431,6 +36456,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!root || !root.querySelectorAll) return;
     root.querySelectorAll(".tl").forEach((el) => {
       if (!el._tlRO && typeof ResizeObserver === "function") { el._tlRO = new ResizeObserver(() => tlLayout(el)); el._tlRO.observe(el); }
+      // a neighbour's name opens its glossary term, on every surface alike (a card without one is a data-kin button, wired by the surface)
+      el.querySelectorAll("[data-tlterm]").forEach((b) => { if (b._tlWired) return; b._tlWired = true;
+        b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openGlossWin(b.dataset.tlterm, b); }); });
       tlLayout(el);
     });
   }
@@ -43516,7 +43544,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -44861,6 +44889,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              rating, because it is one editorial judgement with two answers — and unlike `difficulty` it is
              expressible in both directions, `false` being a real delta where an undefined one is not. */
           '<label class="ces-m ces-m-check" title="Tick where the answer term names something with no single moment a reader could place it at — a process, a condition, a material, a category or a physical feature. The Timeline game skips it; the deck&#39;s own chronological order, the other games and studying are all unaffected."><span>timeline</span><span class="ces-chk"><input type="checkbox" id="adminUndatable"' + (cardUndatable(c) ? " checked" : "") + ' /> no single date</span></label>' +
+          /* WHETHER THE CARD IS ON THE TIMELINES (Oct 2026, on request: "in the card edit screen, as an admin, I can
+             select whether the card should appear as a timeline event in timelines of any cards in the collection
+             or not"). One switch for both sides of the feature — the section on this card and its place on every
+             other card's — because that is what the field is (see cardTimelineSpan). An event needs one date and a
+             period two, so the date boxes follow the choice; a date that does not parse is marked and not written. */
+          '<label class="ces-m"><span>timelines</span><select class="af-input af-sel" id="adminTlMode" title="Whether this card appears on the Timeline section — its own and every other card\'s in the collection. An event is one date; a period runs from one date to another. Only an event, era, battle or war belongs there."><option value="">not on timelines</option><option value="at">an event — one date</option><option value="from">a period — from, to</option></select></label>' +
+          '<label class="ces-m" id="adminTlAtRow"><span>date</span><input class="af-input" id="adminTlAt" type="text" spellcheck="false" placeholder="1919-06-28" title="YYYY, YYYY-MM or YYYY-MM-DD; a leading - for BCE (-0218). The precision is kept: 1925 runs to the end of 1925." /></label>' +
+          '<label class="ces-m" id="adminTlToRow"><span>to</span><input class="af-input" id="adminTlTo" type="text" spellcheck="false" placeholder="1945-09-02" title="The period\'s last date, in the same form." /></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
         '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Deck: <b id="cesDeckName">' + esc(node ? node.title : "not in a deck") + '</b></button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
@@ -44940,6 +44976,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       setCardEdit(id, "undatable", undI.checked);
       adminFlashSaved(); adminUpdateCount(); editedFx();
     });
+    const tlM = host.querySelector("#adminTlMode"), tlA = host.querySelector("#adminTlAt"), tlT = host.querySelector("#adminTlTo");
+    if (tlM && tlA && tlT) {
+      const cur = cardTimelineField(c);
+      tlM.value = cur ? (cur.from != null ? "from" : "at") : "";
+      tlA.value = cur ? String(cur.from != null ? cur.from : cur.at) : "";
+      tlT.value = cur && cur.from != null ? String(cur.to) : "";
+      const show = () => { tlA.closest(".ces-m").hidden = !tlM.value; tlT.closest(".ces-m").hidden = tlM.value !== "from"; };
+      const write = () => {
+        if (!tlM.value) { setCardTimeline(id, c.timeline ? "none" : null); tlA.removeAttribute("aria-invalid"); }   // off: a real "none" only where the shipped card is on
+        else {
+          const f = tlM.value === "from" ? { from: tlA.value.trim(), to: tlT.value.trim() } : { at: tlA.value.trim() };
+          const ok = !!cardTimelineSpan({ timeline: f });   // no id: the parser alone, with no delta in the way
+          tlA.setAttribute("aria-invalid", String(!ok)); tlT.setAttribute("aria-invalid", String(!ok));
+          if (ok) setCardTimeline(id, f);
+        }
+        adminFlashSaved(); adminUpdateCount(); editedFx();
+      };
+      show();
+      tlM.addEventListener("change", () => {
+        // a switch to "on" with no date yet starts from the card's own sort year, so there is something to correct rather than a blank
+        if (tlM.value && !tlA.value.trim()) { const y = cardStartYear(c); if (y) tlA.value = String(y); }
+        show(); write();
+      });
+      tlA.addEventListener("input", write); tlT.addEventListener("input", write);
+    }
     // deck-picker toggles (inside the collapsible "Appears in N decks" box)
     const dh = host.querySelector("#cesDecksHead"), db = host.querySelector("#cesDecksBody");
     if (dh && db) dh.addEventListener("click", () => { const show = db.hidden; db.hidden = !show; dh.classList.toggle("open", show); dh.setAttribute("aria-expanded", String(show)); });
