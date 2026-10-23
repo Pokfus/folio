@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f2a0db3e14f70d4b","counts":{"terms":781,"points":544,"countries":237,"windows":1098,"faces":380,"years":104},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"df8690eac098f17f","counts":{"terms":783,"points":546,"countries":237,"windows":1100,"faces":380,"years":104},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -492,6 +492,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f2a0db3e14f70d4b","counts":
 "Nile":"river:1159121589",
 "Nile_Delta":"reg:1159103505",
 "Nineveh":"city:1159150087",
+"Ningbo":"city:1159149925",
 "Ningxia":"adm1:chn:cn-nx",
 "Niue":"adm0:niu",
 "Nizhny_Novgorod":"adm1:rus:ru-niz",
@@ -671,6 +672,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f2a0db3e14f70d4b","counts":
 "Tanzania":"adm0:tza",
 "Taras":"pl:q13498",
 "Tarentum":"pl:q13498",
+"Tarim_Basin":"reg:1159104093",
 "Tarquinia":"pl:q179999",
 "Tatarstan":"adm1:rus:ru-ta",
 "Taung":"pl:q2096879",
@@ -1465,6 +1467,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f2a0db3e14f70d4b","counts":
 "Nile":[30.303,19.828,"river",0,0,0],
 "Nile_Delta":[31.163,30.889,"region",0,0,0],
 "Nineveh":[43.143,36.347,"city",0,0,0],
+"Ningbo":[121.548,29.882,"city",0,0,0],
 "Ningxia":[106.038,37.176,"admin1","adm1:chn:cn-nx",0,16.64],
 "Niue":[-169.86,-19.05,"country","adm0:niu",0,40],
 "Nizhny_Novgorod":[44.775,56.138,"admin1","adm1:rus:ru-niz",0,18.93],
@@ -1721,6 +1724,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f2a0db3e14f70d4b","counts":
 "Tanzania":[34.96,-6.05,"country","adm0:tza",0,6.19],
 "Taras":[17.243,40.471,"city",0,0,0],
 "Tarentum":[17.243,40.471,"city",0,0,0],
+"Tarim_Basin":[82.567,39.146,"region",0,0,0],
 "Tarquinia":[11.756,42.249,"town",0,0,0],
 "Tatarstan":[50.736,55.374,"admin1","adm1:rus:ru-ta",0,17.23],
 "Taung":[24.748,-27.562,"town",0,0,0],
