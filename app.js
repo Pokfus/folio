@@ -34778,21 +34778,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      viewport on a phone. One delegated listener (`wireAnswerBubbles`) owns open / close for every render
      path, so the study card, the browse popup and the admin preview all behave alike. */
   const AC_TR_ICON = '<span class="ac-ico" aria-hidden="true"><b>\u6587</b><i>A</i></span>';
+  /* WHICH LANGUAGE THE NAME IS IN is decided by the card's id prefix (Oct 2026, on request: "in the Japan
+     collection … all the cards … have Japanese translations with romanization"). The Japan collection
+     keeps its Japanese in the same light fields the China collection keeps its Chinese in — `hanzi` the
+     script, `pinyin` the romanisation (Hepburn, for Japan) — because every writer, the serializer, the
+     overlay and the editor already carry them, so the prefix says what they hold. It sets the voice and
+     the `lang` the browser chooses glyph forms by (a Japanese name set under `zh` takes Chinese forms),
+     the font (Chinese gets the site's own `--han`; Japanese falls through to the reader's system CJK font,
+     as Japanese body text does by design) and whether a traditional form is shown (Japanese has no second
+     script here). Add a row for a new collection. `.claude/set-ja-names.js` writes the Japan data. */
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }]];
+  const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
+  function answerNameLang(c) {
+    const id = String((c && c.id) || "");
+    for (let i = 0; i < ANSWER_NAME_LANGS.length; i++) if (id.indexOf(ANSWER_NAME_LANGS[i][0]) === 0) return ANSWER_NAME_LANGS[i][1];
+    return ANSWER_NAME_ZH;
+  }
   function answerNameHTML(c) {
     const hz = String((c && c.hanzi) || "").trim();
     if (!hz) return "";
-    const tr = String((c && c.traditional) || "").trim();
+    const L = answerNameLang(c);
+    const tr = L.cls === "zh" ? String((c && c.traditional) || "").trim() : "";
     const py = String((c && c.pinyin) || "").trim();
     return '<span class="ac-wrap">' +
-      '<button type="button" class="ac-btn" aria-expanded="false" aria-label="Show the Chinese translation" title="Chinese translation">' + AC_TR_ICON + "</button>" +
-      '<div class="ac-bubble" role="dialog" aria-label="Chinese translation" hidden>' +
-      '<div class="ans-cn">' +
-      '<div class="ac-chars">' +
+      '<button type="button" class="ac-btn" aria-expanded="false" aria-label="Show the ' + L.label + ' translation" title="' + L.label + ' translation">' + AC_TR_ICON + "</button>" +
+      '<div class="ac-bubble" role="dialog" aria-label="' + L.label + ' translation" hidden>' +
+      '<div class="ans-cn ' + L.cls + '">' +
+      '<div class="ac-chars" lang="' + L.tag + '">' +
       (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
       '<span class="ac-s">' + esc(hz) + "</span></div>" +
       '<div class="ac-row">' +
       (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") +
-      '<button type="button" class="ac-say" lang="zh-CN" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in Mandarin">' + AC_SAY_SVG + "</button>" +
+      '<button type="button" class="ac-say" lang="' + L.tag + '" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in ' + L.label + '">' + AC_SAY_SVG + "</button>" +
       "</div></div></div></span>";
   }
   function placeAnswerBubble(wrap) {
