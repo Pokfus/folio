@@ -26756,13 +26756,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nothing else. The collection under it is called Visual Art rather than Art so that it does not
        read as the parent of the siblings that may join it. */
     { label: "The Arts", slot: "collection-list-arts" },
-    /* THERE IS NO "Special" SECTION (Oct 2026, on request: "put the three special collections in the shared
-       decks section … remove the special collections section entirely"). The three courses — Politics: East
-       Asia, The EU as an External Power, Gateway to Global Affairs — are filed "Special" in COLLECTION_SECTION
-       below, which is what keeps them out of History and gives the daily-study list its mark for them, and
-       the Collections page draws them at the head of the Shared decks section (`specialCollections`). */
+    /* THERE IS NO "Special" SECTION (Oct 2026, on request). The three courses — Politics: East Asia, The EU
+       as an External Power, Gateway to Global Affairs — were first drawn at the head of the Shared decks
+       section, and then left the curated collections altogether to be community decks in that list, beside
+       the Tea deck (`decks/community/`, written by `.claude/export-course-deck.js`). */
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -26903,8 +26902,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const comingSoon = TREE.collections.filter((d) => isComingSoon(d));
     const bySection = {};
     available.forEach((d) => { (bySection[sectionOf(d.id)] = bySection[sectionOf(d.id)] || []).push(d); });
-    // the courses filed "Special" have no section of their own: they are drawn in the Shared decks section
-    const specials = bySection.Special || [];
     const admin = isAdmin();
     /* What this tab draws. `shown` is the subject sections it covers, `soonShown` the planned collections
        filtered to those sections, and `empty` says the tab has nothing at all — which is a real state
@@ -26913,7 +26910,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const soonShown = comingSoon.filter((d) => collTab === "all" || shown.indexOf(sectionOf(d.id)) >= 0);
     const langShown = collTabIs("language") && (window.LANG_DECKS || []).length;
     const commShown = collTabIs("community");
-    const empty = !soonShown.length && !langShown && !commShown && !specials.length && !shown.some((lab) => (bySection[lab] || []).length);
+    const empty = !soonShown.length && !langShown && !commShown && !shown.some((lab) => (bySection[lab] || []).length);
     const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
     const section = (label, n, slotId, count) =>
       `<details class="collection-group collection-group-fold" data-fold="${label}"${collFolded.has(label) ? "" : " open"}>
@@ -26995,7 +26992,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             dragged into it would actually land under. Everywhere else an empty "Planned" heading would
             offer a target that can put nothing anywhere. */""}
       ${soonShown.length || (admin && (collTab === "all" || collTab === "history")) ? soonSection(soonShown.length, "collection-list-soon", soonShown.length) : ""}
-      ${collTabIs("community") ? communityLibraryHTML() + sharedDecksHTML(specials.length) : ""}
+      ${collTabIs("community") ? communityLibraryHTML() + sharedDecksHTML() : ""}
       ${/* A tab that is genuinely empty says so rather than leaving the reader a page with a bar and
             nothing under it, which reads as a failure to load. */""}
       ${empty ? '<div class="lib-empty coll-tab-empty">Nothing here yet — the collections in this group are still being written.</div>' : ""}`;
@@ -27008,7 +27005,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelectorAll("details[data-fold]").forEach((d) => d.addEventListener("toggle", () => {
       if (d.open) collFolded.delete(d.dataset.fold); else collFolded.add(d.dataset.fold);
     }));
-    { const spList = root.querySelector("#collection-list-special"); if (spList) specials.forEach((d) => spList.appendChild(buildCollection(d))); }
     const soonList = root.querySelector("#collection-list-soon");
     if (soonList) soonShown.forEach((d) => soonList.appendChild(buildCollection(d)));
     /* The bar itself. `renderInPlace` rather than `render()`: changing a filter is not a navigation, and
@@ -27449,38 +27445,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
-    /* muted periwinkle (Politics: East Asia, the Special section) — MEASURED, like every hue above it.
-       Swept in CIELAB against all 26 hues on the shelf: it stands 22.0 from its nearest neighbour
-       (Psychology plum) against a TIGHTEST EXISTING PAIR of 12.9 (China vermilion vs Russia lacquer).
-       The unconstrained peak is a hot magenta at 31.5 and chroma 61, rejected on the register the
-       Psychology and Philosophy notes below already state twice — this shelf reads muted, and chroma 34
-       sits below its own median of 44. L 53 and contrast 4.0:1 against white, inside the shelf's 3.7-10.4
-       range. It takes the one family absent here, the blue-violet between Greece's Aegean and Rome's
-       imperial purple, without being either. NOT looked at on a screen yet — see the note below. */
-    pea:      { bg: "#7A7AB5" },
-    /* dusty rose (The EU as an External Power, the Special section) — MEASURED in CIELAB against the 39
-       hues now on the shelf, the language decks included: median nearest-neighbour 19.8, median chroma 42.
-       The apt colour was tried and refused: the EU's own blue is the most crowded quarter left, and the best
-       blue inside the band stands 16.9 from the United States' navy and from Greece's Aegean at density 7.
-       Swept inside the shelf's band (L 28-55, 3.7-10.4:1 against white, chroma at or under the median) with
-       the hot magenta and the olive-brass left out on the standing notes above, the best-separated region is
-       this rose: 19.7 from the Mandarin deck's red and 19.8 from Flags' mauve, density 8 (hues within 30),
-       L 53, chroma 36, 4.0:1 against white.
-       19.7 IS AT THE SHELF'S MEDIAN, NOT ABOVE IT, AND THAT IS A STATED TRADE on Philosophy's and France's
-       precedent. The best colour that is not a rose is an emerald, #0E906E, at 17.1 with density 5 — below
-       the median, and in the green quarter, which is already crowded. Looked at as a banner and as its 20%
-       wash beside Korea, Psychology, Flags, the Mandarin deck and Politics: East Asia: it reads as a pink
-       between the Mandarin deck's coral and Flags' mauve, and its wash sits near Korea's and Psychology's,
-       which is the cost of the number. */
-    eep:      { bg: "#B66684" },
-    /* olive (Gateway to Global Affairs, a third course in the Special section) — MEASURED, like every
-       hue above it. Swept in CIELAB (L 36-60, chroma 24-52, every hue angle) against the 39 hues on the
-       shelf (before The EU as an External Power joined it), keeping only candidates whose contrast against white stays inside the shelf's 3.7-10.4 range:
-       the freest region is the dark olive at hue angle 99, which stands 21.2 from its nearest neighbour
-       (Mesopotamia) against a TIGHTEST EXISTING PAIR of 4.0 (Mesopotamia against Russia's geography). It
-       reads 7.5:1 against white. The runner-up, a pink at 3.9:1, sat at the bottom of that range. It is
-       also the olive branch, which a course in diplomacy can carry. NOT looked at on a screen yet. */
-    gga:      { bg: "#5C5600" },
     /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
        hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
        is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a
@@ -27920,8 +27884,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     china: "2026-07-11", "col-8": "2026-07-20", "col-13": "2026-08-03", "col-40": "2026-08-07",
     "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
     ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
-    japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
-    flags: "2026-09-18", gga: "2026-10-10",
+    japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", egypt: "2026-09-18",
+    flags: "2026-09-18",
   };
   function fmtYmd(s) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
@@ -31472,12 +31436,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     });
   }
-  function sharedDecksHTML(nSpecial) {
+  function sharedDecksHTML() {
     return '<div class="collection-group community-group" id="sharedDecks">' +
       '<div class="group-head"><span class="group-label">Shared decks</span><span class="group-line"></span>' +
         '<span class="group-count" id="sdCount">' + ((communityState.decks || []).length || "") + "</span></div>" +
-      // Folio's own three courses, above the intro that says the decks below are not fact-checked by Folio
-      (nSpecial ? '<div class="collection-list" id="collection-list-special"></div>' : "") +
       '<p class="udeck-intro">Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p>' +
       '<div class="cbrowse-bar">' +
         '<input class="af-input cbrowse-q" id="sdq" type="search" placeholder="Search shared decks…" value="' + esc(communityState.q) + '" />' +

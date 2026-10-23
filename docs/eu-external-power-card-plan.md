@@ -1,5 +1,7 @@
 # The EU as an External Power — the card plan
 
+> **Since Oct 2026 this course is not a curated collection.** It was exported with `.claude/export-course-deck.js` to a community deck file in `decks/community/` and is published to the Shared decks list from the Studio; its `eep-` cards are gone from `data.js`. This plan is kept as the record of what each card covers and where it came from.
+
 The running order for **The EU as an External Power** (`eep`), card prefix `eep-`, across 14 decks:
 **Lectures 1–6** and **Readings 1–8**, 300 cards in all. It is the second **course** collection, after
 [Politics: East Asia](politics-east-asia-card-plan.md), and it sits in the same **Special** section of the

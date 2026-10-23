@@ -1,5 +1,7 @@
 # Gateway to Global Affairs — the card plan
 
+> **Since Oct 2026 this course is not a curated collection.** It was exported with `.claude/export-course-deck.js` to a community deck file in `decks/community/` and is published to the Shared decks list from the Studio; its `gga-` cards are gone from `data.js`. This plan is kept as the record of what each card covers and where it came from.
+
 The running order for the **Gateway to Global Affairs** collection (`gga`), card prefix `gga-`, across
 **21 decks**: **Lectures 1–7** and **Readings 1–14**. It is the sibling of the Politics: East Asia
 plan (`docs/politics-east-asia-card-plan.md`) and is used the same way — the next card to write is the

@@ -1,5 +1,7 @@
 # Politics: East Asia — the card plan
 
+> **Since Oct 2026 this course is not a curated collection.** It was exported with `.claude/export-course-deck.js` to a community deck file in `decks/community/` and is published to the Shared decks list from the Studio; its `pea-` cards are gone from `data.js`. This plan is kept as the record of what each card covers and where it came from.
+
 The running order for the **Politics: East Asia** collection (`pea`), card prefix `pea-`, across 24
 decks: **Lectures 1–12** and **Extra 1–12**. It is the sibling of the nineteen collection plans, and
 it is used the same way — the next card to write is the lowest `pea-NNN` not yet in `data.js`, and its

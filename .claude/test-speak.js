@@ -426,7 +426,7 @@ const holdRow = (page, match) => page.evaluate((m) => {
     await page.waitForTimeout(1500);
     return page.evaluate(() => [...document.querySelectorAll(".tts-play[data-tts]")].map((b) => b.dataset.tts));
   };
-  for (const id of ["wh-001", "ps-001", "eep-001", "gw-001", "geo-001", "ph-001", "art-001"]) {
+  for (const id of ["wh-001", "ps-001", "gw-001", "geo-001", "ph-001", "art-001"]) {
     const got = await sectionBtns(id);
     if (!got.length && /^(ph|art)-/.test(id)) continue;   // an empty collection has no such card
     check("section play buttons on " + id, got.join() === "question,answer,background", got.join());
