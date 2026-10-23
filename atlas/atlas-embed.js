@@ -82,6 +82,7 @@
         faceAnchors: (faces, near) => new Promise((res) => E.faceAnchors(faces, (rows, q) => res(q ? rows.map((r) => ({ face: r.face, vis: r.vis, km2: r.km2, clear: r.clear, v: r.anchor ? unitAt(q, r.anchor[0], r.anchor[1]) : null, pts: (r.pts || []).map((p) => ({ v: unitAt(q, p[0], p[1]), clear: p[2] })).filter((p) => p.v), piece: !!r.piece })) : []), near)),
         warColours: () => E.warColours(),
         facesOf: (id) => { let f = h.faces.get(id); if (!f) h.faces.set(id, f = E.facesOfId(id)); return f; },
+        fillFacesOf: (id) => { const k = "+" + id; let f = h.faces.get(k); if (!f) h.faces.set(k, f = E.facesOfId(id, true)); return f; },   // the face and its admin-1 children: what a highlight must tint, the children being drawn over the parent
         dispose: () => dispose(h),
       };
       let pending = false;
@@ -197,12 +198,12 @@
       E.setTints(tm);
     } else if (!h.canvas2d) E.setTints(null);
     for (const hl of histYear ? [] : spec.highlights || []) {
-      const faces = []; for (const id of hl.ids || []) for (const f of h.facesOf(id)) faces.push(f);
+      const faces = [], fillFaces = []; for (const id of hl.ids || []) { for (const f of h.facesOf(id)) faces.push(f); for (const f of h.fillFacesOf(id)) fillFaces.push(f); }
       if (!faces.length) continue;
       const a = hl.a == null ? 0.24 : hl.a, c = rgb01(hl.rgb || [255, 200, 40]);
       const col = [land[0] + (c[0] - land[0]) * a, land[1] + (c[1] - land[1]) * a, land[2] + (c[2] - land[2]) * a];
-      for (const f of faces) fills.set(f, col);
-      groups.push({ hl, faces });
+      for (const f of fillFaces) fills.set(f, col);
+      groups.push({ hl, faces: fillFaces });   // the children too: the outline's mask pass paints the faces white and a drawn-after child would blacken them
     }
     R.highlight(fills);
     R.render(v);
