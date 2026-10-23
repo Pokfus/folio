@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1074", released: "2026-10-23T09:17Z" };
+window.FOLIO_VERSION = { v: "1.1077", released: "2026-10-23T09:50Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "A deck or collection you have not set an order for now opens in <b>By difficulty</b> instead of Ordered; you can still change it.",
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Six World History cards that had no map now show one</b>, four of them as dashed regions where the edge is only approximate.",
       "On Home, a collection banner now turns green once every active deck inside it is finished for the day.",
@@ -53,6 +54,7 @@ window.CHANGELOG = [
       "On a phone, <b>Undo</b> now sits between the <b>?</b> and <b>Suspend</b> under the answer buttons, the three the same width.",
       "<b>29 new glossary terms</b> on the Second World War, China, fascism, Greek citadels and Sparta, and the founding of Rome, plus new aliases on existing terms.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
+      "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
       "<b>100 more Ancient Greece cards are rewritten</b>, covering Alexander the Great and the Successor kingdoms, with more sources and new pictures.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
