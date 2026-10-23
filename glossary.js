@@ -10206,7 +10206,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Channel_Islands_National_Park": "1980–present",
 "Joshua_Tree_National_Park": "1994–present",
 "British_Psychological_Society": "1901–present",
-"Nature_(journal)": "1869–present"
+"Nature_(journal)": "1869–present",
+"Ages_of_Man": "c. 700 BCE",
+"Muses": "c. 700 BCE",
+"Hero_(Greek_mythology)": "in Hesiod, c. 700 BCE",
+"Heracles": "in Hesiod, c. 700 BCE",
+"Nemean_lion": "in Hesiod, c. 700 BCE",
+"Lernaean_Hydra": "in Hesiod, c. 700 BCE",
+"Perseus_(mythology)": "in Hesiod, c. 700 BCE",
+"Medusa": "in Hesiod, c. 700 BCE",
+"Ariadne": "in Hesiod, c. 700 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -12790,7 +12799,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gigantomachy": ["Gigantomachia","battle of the gods and the Giants"],
 "Typhon": ["Typhoeus"],
 "Muses": ["Muse"],
-"Moirai": ["Moirae"],
+"Moirai": ["Moirae","Fates"],
 "Erinyes": ["Furies","Erinys"],
 "Nymph": ["Naiad","Naiads"],
 "Hero_(Greek_mythology)": ["Greek hero","Greek heroes"],

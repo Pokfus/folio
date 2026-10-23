@@ -264,10 +264,10 @@ one changelog line and a version bump; commit and push.
 | B92 | Greece under Rome (`gr-under-rome`) | `gr-876`–`gr-880` | 5 | **done 2026-10-23** |
 | B93 | Olympians and cosmogony (`gr-olympians`) | `gr-881`–`gr-890` | 10 | **done 2026-10-23** |
 | B94 | Olympians and cosmogony (`gr-olympians`) | `gr-891`–`gr-900` | 10 | **done 2026-10-23** |
-| B95 | Olympians and cosmogony (`gr-olympians`) | `gr-901`–`gr-910` | 10 | open |
-| B96 | Olympians and cosmogony (`gr-olympians`) | `gr-911`–`gr-920` | 10 | open |
-| B97 | Heroes and the epic cycle (`gr-heroes`) | `gr-921`–`gr-930` | 10 | open |
-| B98 | Heroes and the epic cycle (`gr-heroes`) | `gr-931`–`gr-940` | 10 | open |
+| B95 | Olympians and cosmogony (`gr-olympians`) | `gr-901`–`gr-910` | 10 | **done 2026-10-23** |
+| B96 | Olympians and cosmogony (`gr-olympians`) | `gr-911`–`gr-920` | 10 | **done 2026-10-23** |
+| B97 | Heroes and the epic cycle (`gr-heroes`) | `gr-921`–`gr-930` | 10 | **done 2026-10-23** |
+| B98 | Heroes and the epic cycle (`gr-heroes`) | `gr-931`–`gr-940` | 10 | **gr-931–935 done 2026-10-23** |
 | B99 | Heroes and the epic cycle (`gr-heroes`) | `gr-941`–`gr-950` | 10 | open |
 | B100 | Heroes and the epic cycle (`gr-heroes`) | `gr-951`–`gr-960` | 10 | open |
 | B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | open |
@@ -2765,3 +2765,50 @@ agents had marked most of the old pictures "ok" without looking, and the refusal
   the wrong subject (`gr-802` a Serapeum column, `gr-803` a sarcophagus of the Muses, `gr-805` the Pnyx, `gr-820` the bath legend, `gr-821` a crop of the Parigi fresco, `gr-825` a sundial, `gr-843` the double herm, `gr-847` a coin of Tarentum in a pendant mount, `gr-848` the walls of Nafpaktos,
   `gr-849` later Roman mosaics, `gr-853` a coin of the Roman-supervised kingdom, `gr-855` the temple at Isthmia, `gr-858` a mountain, `gr-879` Herodes Atticus, `gr-881` a composite plate of the François Vase, `gr-886` the Farnese Atlas); no good file (`gr-808`, whose only Aetia file is 749 pixels wide); none to start with (`gr-859`, `gr-866`, `gr-882`, where the Derveni papyrus is excluded by the plan).
   **An open item:** a second pass could look again for a coin, relief or vase for the men and wars among these (Hipparchus on a coin of Nicaea, Pyrrhus' elephants, Theocritus) once a free unlettered file of 960 pixels or more exists.
+
+### B95–B105 (`gr-901`–`gr-1000`) — the last hundred: the Olympians, the heroes and the epic cycle, cult and festivals (2026-10-23)
+
+The last hundred cards of the collection: the second half of `gr-olympians` (`gr-901`–`gr-920`, B95–B96), `gr-heroes` (`gr-921`–`gr-965`, B97–B101) and `gr-cult`
+(`gr-966`–`gr-1000`, B102–B105). Method as for B84–B94 (twenty agents of five cards each, every page saved, every quote checked by `precheck.js`, every draft read by the harness
+owner, `urlcheck.js` on every cited URL, `check-citations --card` on every card). The rules that did most work here: **myth is told as what the text tells**
+("Hesiod says", "in Apollodorus' account", "the Homeric hymn tells"; no mythical act is stated as an event), **no god or hero has life dates** (the line dates the text that attests them, c. 700 BCE
+for Hesiod and the Homeric poems, as Howe's and Pisano's Bryn Mawr reviews print them, and Linear B for the gods whose names are on the tablets), and **an ancient author is a source for what he reports**:
+the old cards' sentences that rested on a modern scholar's name were rewritten as "one view is…".
+
+#### `gr-901`–`gr-935` (B95–B97 and the first half of B98, committed first)
+
+Thirty-five cards: Hephaestus, Hermes, Dionysus, the Twelve Olympians, Mount Olympus, Persephone, the *Homeric Hymn to Demeter*, Prometheus, the narthex, Pandora, the Ages of Man, Deucalion, the Gigantomachy,
+Typhon, the Muses, the Moirai, the Erinyes, nymphs, centaurs and the Greek underworld (the end of `gr-olympians`); the Greek hero, Heracles, the Labours, the Nemean lion, the Lernaean hydra, Perseus, Medusa, Theseus, the Minotaur,
+Ariadne, Daedalus, Jason, the Argonauts, the Golden Fleece and Medea (the start of `gr-heroes`). Sources 5–8 → 7–11 (the bar by difficulty met on all thirty-five; modern share at least half, with the Bryn Mawr
+Classical Review the main modern voice, as the open journals for the myths are few). Where the sources part the card says whose is whose: Hesiod's two parentages of the Moirai (`gr-916`), Pindar's and Apollodorus' versions of who sets the
+quest for the fleece (`gr-932`, `gr-934`), Homer's Dia against Apollodorus' Naxos (`gr-930`), Pausanias' one-headed hydra against Apollodorus' nine (`gr-925`), Plutarch's versions of the thread (`gr-928`), the Odyssey's and Apollodorus' Medea's children (`gr-935`).
+
+Checks: `greece-audit.js --range=gr-901:gr-935` finds only `S.chip?` on `gr-910`, `gr-917` and `gr-918` (English Bryn Mawr reviews of German-titled books, no chip by the rule) and `L.missing` on `gr-920` (the plan
+says the underworld carries no locator); `check-questions`, `check-cards` (apart from the standing `gr-817` pair), `split-cards --check`, `test-card-plans` (493 passed), `apply-wiki-links --check`
+pass; `check-style` finds only its three standing `number-word` alarms on other collections. Every cited URL answers 2xx (`urlcheck`: 424 citations) and `check-citations --card` finds no mismatch on any of the thirty-five.
+
+**Date lines.** One row dating the text, `Hesiod writing` c. 700 BCE (Howe, review of *Hesiod's Ascra*): `gr-901`, `gr-904`, `gr-906`, `gr-908` to `gr-911`, `gr-915`, `gr-921`, `gr-922`, `gr-924`, `gr-925`, `gr-930`; `gr-913` the Giants in Hesiod; `gr-916`,
+`gr-917`, `gr-919`, `gr-920` "In Hesiod/Homer" (the same date, the label kept from the old line). Two rows: `gr-902` and `gr-903` Linear B (c. 1400 – 1200 BCE, the tablets that name Hermes and Dionysus, Palaima) with Hesiod; `gr-914` Hesiod and Pythian 1
+(470 BCE as the Perseus translation's heading prints it); `gr-917` Hesiod and the *Eumenides*, 458 BCE (Ambrose); `gr-926` Hesiod and Pindar's ode, 490 BCE (the heading and Eckerman's review); `gr-927` also the Corinthian bowl, c. 625 BCE (Topper);
+`gr-932` to `gr-935` Pythian 4, **the race** (462 BCE: the Perseus heading prints the year of the chariot victory the ode is for, not of the ode), with Hesiod, the *Odyssey* c. 700 BCE (`gr-933`, Pisano) and Euripides' *Medea*, 431 BCE (Dubischar, `gr-935`);
+`gr-923` the temple of Zeus at Olympia, 470 – 456 BCE (the Cambridge cast museum's page); `gr-928` Delphi's order to fetch the bones, 476 – 475 BCE (the archonship of Phaedo, as Perrin's note to Plutarch prints it: a source's conversion, not ours).
+Empty and `undatable`: `gr-905` (a mountain), `gr-907` (the only printed date is a century), `gr-929` (the Minotaur's bull-men on tripods are in the prose as "the 8th century"), `gr-931` (no source printed here dates the Iliad passage or Pausanias to a year); `gr-912` and `gr-915`,
+`gr-918` to `gr-920` stay `undatable` with a date line, as `gr-896`/`gr-897` do (the text is dated; the subject is not located at a time). Old rows dropped as estimates, bounds, conversions or non-dates: "Tomb cult from c. 750 BCE" (`gr-921`), "Peisander's poem c. 645 BCE"
+(`gr-923`, `gr-925`; the Loeb note says only "perhaps about 645", kept in the prose of `gr-923`), "Races 5, gold to iron", "Names 4, Erinyes to Semnai", "Number 3 to 9" (counts, `gr-911`, `gr-917`, `gr-915`), "Herms mutilated 415 BCE" (`gr-554`'s date, now one prose sentence, `gr-902`), "Altar in the Agora late
+6th century BCE" (no source prints a year, `gr-904`), "In Homer c. 750 – 700 BCE" (`gr-931`, `gr-933`), "Works listed c. 175 CE" and "In Strabo c. 20 CE" (estimates), "1st – 2nd c. CE" for Apollodorus (`gr-912`, `gr-913`), "Attic vases c. 600 – 550 BCE", "Bones to Athens after 479 BCE" (a bound) and "Minotaur in art c. 800 – 700 BCE" (conversions of centuries).
+
+**Corrected in the old cards:** the "settled condition rather than an injury" reading of Hephaestus' lameness (`gr-901`); the sibling subjects that two Hermes questions carried (`gr-554`, `gr-085`) and "commonest image" (`gr-902`); Dionysus "a return rather than an entry" (`gr-903`); the unsourced altar date and a century in a Twelve Olympians question (`gr-904`);
+the Olympus distance of 18 km and the "weather-maker" passage, which rested on a geological paper (Styllas and Kaskaoutis, *Bulletin of the Geological Society of Greece*) that every host refused today with a 503, so the height now rests on two open papers that print 2,918 m (and a third, 2,917 m: the card says "about 2,918 metres") (`gr-905`);
+"fullest ancient account" for the Hymn to Demeter (`gr-907`); Theogony line numbers that sat on the wrong Perseus page (`gr-908`); the botany of the narthex, which had no source (`gr-909`); three Hesiod pages for Pandora against the cap of two (`gr-910`); the golden race "put away" (`gr-911`); Q3 of Deucalion ("the one man Zeus spared"), which was wrong, and the Hesiod brazen race, which does not match the generation Apollodorus says the flood destroyed (`gr-912`);
+the Delphi sculptures cited to a translation that never names Delphi (`gr-913`); "Typhoeus has all three marks of monstrosity" (`gr-914`); "an older count at Helicon" in the Muses questions (`gr-915`); "spindle of the universe" in the Moirai (`gr-916`); Phoenix and Amyntor, whom the Iliad passage cited does not name (`gr-917`); the German-language review cited without its chip (`gr-918`);
+"Homer draws the moral" of the centaur and the wine, which is the suitor Antinous speaking (`gr-919`); "Tartarus below Hades, twice as far" (`gr-920`); the "half-divine used once" lexical count (`gr-921`); the "double Heracles" the old abstract never told (`gr-922`); four Apollodorus pages for the Labours against the cap (`gr-923`);
+the hydra "child of Echidna and Typhon" (`gr-925`); a century and a half "earlier" for Euripides against Pausanias (`gr-925`); the Gorgon "as likely to be male as female, beautiful only from the 3rd century", which is Leeming's error as Topper's review quotes it, not Topper's finding (`gr-927`); the wrongly
+dated vases of Theseus and the "by lot" of the tribute (`gr-928`); "the Labyrinth at Knossos is a modern identification", which is not in Whitley's review as cited (`gr-929`); "the oldest text to name her" (`gr-930`); Plato's *Meno* for the walking statues, which is the *Euthyphro* (`gr-931`); Pindar's version as Apollodorus' (`gr-932`); "about fifty" Argonauts for Apollodorus' 44 (`gr-933`);
+"the earliest rationalisation" of the fleece (`gr-934`); the Hecate priestess and the "annual rite" at Corinth (`gr-935`). **Glossary entries redrafted:** `Hephaestus`, `Hermes`, `Dionysus`, `Twelve_Olympians`, `Mount_Olympus`, `Persephone`, `Homeric_Hymn_to_Demeter`, `Prometheus`, `Ferula_communis`, `Pandora`,
+`Ages_of_Man`, `Deucalion`, `Gigantomachy`, `Muses`, `Moirai`, `Greek_underworld`, `Hero_(Greek_mythology)`, `Heracles`, `Labours_of_Heracles`, `Nemean_lion`, `Lernaean_Hydra`, `Perseus_(mythology)`, `Medusa`, `Theseus`, `Minotaur`, `Ariadne`, `Daedalus`, `Jason_(mythology)`, `Argonauts`, `Golden_Fleece`
+and `Medea_(mythology)`, each with its own `date` key (empty for the figures, the date of the text for those whose entry names Hesiod). `Typhon`, `Erinyes`, `Nymph` and `Centaur` were read against the card and left.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `water` and `waters` (`gr-901`, `gr-910`, `gr-912`, `gr-916`, `gr-920`, `gr-925`), `behaviour` (`gr-901`, `gr-919`), `gold`, `silver`, `bronze` and `iron` for the races and the metals of arms (`gr-902`, `gr-906`, `gr-911`, `gr-919`, `gr-920`,
+`gr-921`, `gr-927`), `clay` (`gr-906`), `settlement` (`gr-910`), `Aratus` (the poet, not Aratus of Sicyon) and `Timaeus` (the dialogue, not the historian) and `Bronze Age` (the myth's race, `gr-911`, `gr-912`), `sheep`, `armour`, `barley` and `Cimmerians` (`gr-916`, `gr-920`),
+`Antinous` (the suitor, not Hadrian's favourite), `horse`, `horses` (`gr-919`, `gr-926`, `gr-927`), `councils` (`gr-928`), `marble` (`gr-931`), `Telamon` and `Heraclea` (`gr-933`: the hero and Heraclea Pontica, not the battles). `Thebes` is wrapped on `gr-911` only; on the myth cards the
+`Mycenaean_Thebes` key is the Kadmeia, which is the city meant. **Locators:** none added: every card in the thirty-five that lacks one is a god, a hero, a text or a concept (`gr-904`, `gr-916`, `gr-917`, `gr-920`, `gr-933` carry none deliberately, as their plan lines say).

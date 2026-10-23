@@ -1066,6 +1066,58 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Apollo: Temple burnt | 548 BCE | Stefanie A. H. Kennell, review of Das antike Delphi, by Michael Maass, Bryn Mawr… (`gr-897`) |
 
 
+## The Olympians and cosmogony, Hephaestus to the underworld (confirmed by B95 – B96, `gr-901` – `gr-920`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Hephaestus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-901`) |
+| Hermes: Linear B | c. 1400 – 1200 BCE | Thomas G. Palaima, “Appendix One: Linear B Sources,” in Anthology of Classical Myth: Pri… (`gr-902`) |
+| Hermes: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-902`) |
+| Dionysus: Linear B | c. 1400 – 1200 BCE | Thomas G. Palaima, “Appendix One: Linear B Sources,” in Anthology of Classical Myth: Pri… (`gr-903`) |
+| Dionysus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-903`) |
+| Twelve Olympians: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-904`) |
+| Persephone: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-906`) |
+| Prometheus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-908`) |
+| narthex: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-909`) |
+| Pandora: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-910`) |
+| Ages of Man: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-911`) |
+| Deucalion: Olympian 9 | 466 BCE | Pindar, Olympian 9.41–53, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-912`) |
+| Gigantomachy: Giants in Hesiod | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-913`) |
+| Typhon: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-914`) |
+| Typhon: Pythian 1 | 470 BCE | Pindar, Pythian 1.15–28, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-914`) |
+| Muses: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-915`) |
+| Moirai: In Hesiod | c. 700 BCE | Liana Miate, “Fates,” World History Encyclopedia, published 16 December 2022 (`gr-916`) |
+| Erinyes: In Hesiod | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-917`) |
+| Erinyes: Eumenides | 458 BCE | Z. Ambrose, review of Die “Eumeniden” des Aischylos und der Areopag , by Maximilian Brau… (`gr-917`) |
+| nymph: In the Odyssey | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-918`) |
+| centaur: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-919`) |
+| Greek underworld: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-920`) |
+
+## Heroes and the epic cycle (confirmed by B97 – B101, `gr-921` – `gr-965`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| hero: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-921`) |
+| Heracles: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-922`) |
+| Labours of Heracles: Temple built | 470 – 456 BCE | Museum of Classical Archaeology, University of Cambridge, “Temple of Zeus at Olympia, me… (`gr-923`) |
+| Nemean lion: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-924`) |
+| Lernaean Hydra: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-925`) |
+| Perseus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-926`) |
+| Perseus: Pindar’s ode | 490 BCE | Chris Eckerman, review of Pindar’s Pythian Twelve: A Linguistic Commentary and a Compara… (`gr-926`) |
+| Medusa: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-927`) |
+| Medusa: Corinthian bowl | c. 625 BCE | Kathryn Topper, review of Medusa: In the Mirror of Time , by David Leeming, Bryn Mawr Cl… (`gr-927`) |
+| Medusa: Pindar’s ode | 490 BCE | Chris Eckerman, review of Pindar’s Pythian Twelve: A Linguistic Commentary and a Compara… (`gr-927`) |
+| Theseus: Delphi’s order | 476 – 475 BCE | Plutarch, Life of Theseus 36, trans. Bernadotte Perrin, Loeb Classical Library (Cambridg… (`gr-928`) |
+| Ariadne: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-930`) |
+| Jason: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-932`) |
+| Jason: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-932`) |
+| Argonauts: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-933`) |
+| Argonauts: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-933`) |
+| Golden Fleece: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-934`) |
+| Medea: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-935`) |
+| Medea: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-935`) |
+| Medea: Euripides’ play | 431 BCE | Markus Dubischar, review of Euripides: Medea , by William Allan, Bryn Mawr Classical Rev… (`gr-935`) |
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -1885,4 +1937,35 @@ gr-894: 700; 675
 gr-895: 700
 gr-896: 566
 gr-897: 600; 548
+gr-901: 700
+gr-902: 1400; 1200; 700
+gr-903: 1400; 1200; 700
+gr-904: 700
+gr-906: 700
+gr-908: 700
+gr-909: 700
+gr-910: 700
+gr-911: 700
+gr-912: 466
+gr-913: 700
+gr-914: 700; 470
+gr-915: 700
+gr-916: 700
+gr-917: 700; 458
+gr-918: 700
+gr-919: 700
+gr-920: 700
+gr-921: 700
+gr-922: 700
+gr-923: 470; 456
+gr-924: 700
+gr-925: 700
+gr-926: 700; 490
+gr-927: 700; 625; 490
+gr-928: 476; 475
+gr-930: 700
+gr-932: 700; 462
+gr-933: 700; 462
+gr-934: 462
+gr-935: 700; 462; 431
 ```
