@@ -134,7 +134,7 @@
     fit(h, spec);
     const lay = spec.layers || {};
     L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
-    { const pw = lay.peoples || "off"; if (L.peoples !== pw) { L.peoples = pw; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too
+    { const pw = lay.peoples || "off", po = lay.peopleOnly || ""; if (L.peoples !== pw || (L.peopleOnly || "") !== po) { L.peoples = pw; L.peopleOnly = po; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too; a glossary window (2026-10-23) ONE people's presence and no other (`peopleOnly`: the entity id; atlas.js presShown)
     if (!h.canvas2d && h.E.setFlat) h.E.setFlat(!!lay.flat);   // Find-it's area round: every state of the year in the land colour, borders as a modern country's
     L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)
     /* RELIEF IN A WINDOW (2026-10-18; the owner: "if relief is turned on in the personal Atlas, it should also be on in the Atlas windows, at the opacity the user set"). A spec
