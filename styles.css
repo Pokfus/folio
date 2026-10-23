@@ -52,6 +52,8 @@
      is none of them, far enough round the wheel from --good's forest green (hue ~186 against ~152) to
      read as another thing rather than as a shade of the same one. */
   --newterm:#1E7A85;
+  /* A glossary term the reader HAS opened (Oct 2026, on request): a visited-link purple, like a followed link on Wikipedia. Undiscovered terms wear the ordinary glossary blue (--indigo). 7.2 on white, 6.2 on --paper-2. */
+  --seenterm:#6F3FA3;
   /* An ADMIN-ONLY tab in the nav (Aug 2026, on request: "make it so that pages that are visible to admin
      only appear with a different color in the menu bar than public pages"). A magenta-purple at hue ~305,
      which is the quarter of the wheel nothing else here holds — --indigo is ~258, --newterm ~186, --good
@@ -93,7 +95,7 @@ body.night{
      lacked was red, sitting at hue ~320 where the light value is ~345. This is that hue at the
      same weight: 8.89:1 on --card, so it reads as a red and is a shade clearer than before. */
   --zh:#EFA8B8; --zh-wash:#32202A; --geo:#7FCACD; --good:#75C6A4;
-  --newterm:#5FC2CE; --admin:#CF93DC;
+  --newterm:#5FC2CE; --admin:#CF93DC; --seenterm:#C4A6F0;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -149,7 +151,7 @@ body.night .btn:not(.ghost):hover{color:var(--paper);}
    contrast). Each is its own hue scaled toward the ink until it clears 4.6:1 on --paper-2, the darkest
    of the three papers: ink-faint 4.65, ochre 4.84, geo 4.80, zh 6.05, good 4.89, newterm 6.18. */
 body.hc:not(.night){
-  --ink-faint:#69657E; --ochre:#7A6142; --geo:#3A6E71; --zh:#9E2B49; --good:#376F58; --newterm:#155E68;
+  --ink-faint:#69657E; --ochre:#7A6142; --geo:#3A6E71; --zh:#9E2B49; --good:#376F58; --newterm:#155E68; --seenterm:#5B2C8F;
 }
 body.hc.night{ --ink-faint:#8C87A8; }   /* 4.98:1 on the new night --card */
 /* …and the borders, which are not text and so are not in the table above, but are what tells one card from
@@ -1264,7 +1266,8 @@ body.night .game-tile{ --gt-gold:#D8B355; }
    an undiscovered glossary term wears (see .ttip[data-new]); it was --ochre until Aug 2026, when the
    Library's note markers gave the teal up and the two roles were swapped, and this said "gold" for a
    fortnight after the mark had stopped being gold. Read the token, never a remembered hue. */
-.tour-body b.tour-newterm{color:var(--newterm);}
+.tour-body b.tour-newterm{color:var(--indigo);}
+.tour-body b.tour-seenterm{color:var(--seenterm);}
 .tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .tour-x:hover{background:var(--rule); color:var(--ink);}
 .tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
@@ -1952,6 +1955,8 @@ body.no-tts .ans-cn .ac-say{display:none;}
 }
 .mc-btn:hover{background:var(--card); color:var(--ink);}
 .mc-btn svg{width:14px; height:14px;}
+.mc-btn[hidden]{display:none;}
+.mc-relief[aria-pressed="true"]{background:var(--card); color:var(--indigo); border-color:var(--indigo);}
 /* "Discovered!" — top LEFT, opposite the control stack, on a card whose reveal has just earned the
    reader somewhere new (Sep 2026, on request). It takes --newterm, which is the ink the site already
    uses for a term met for the first time, so a discovery looks the same wherever it happens. */
@@ -2594,13 +2599,6 @@ kbd{font-family:var(--mono); font-size:.86em; line-height:1; padding:1.5px 5px; 
 #gradebar.show{transform:translateY(0); pointer-events:auto;}
 #gradebar .gradebar-inner{max-width:880px; margin:0 auto; padding:0 clamp(16px,4vw,40px);}
 body.grading .stage{padding-bottom:150px;}
-/* the CHEVRON along the bar's top edge — phone-only (Aug 2026, on request: it was a drag grip). The bar has
-   exactly two heights, so a drag was a gesture whose whole range mapped onto one bit; a chevron says "there
-   are two states and this is the other one" outright, and being a real <button> it needs no press
-   classification and reaches a keyboard for free. Above the breakpoint the bar is one comfortable row
-   already and there is nothing to reclaim, so it is not rendered at all — display:none rather than a
-   second markup path. */
-.gb-fold{display:none;}
 
 /* empty / complete states */
 .placard{
@@ -4884,6 +4882,9 @@ canvas{-webkit-tap-highlight-color:transparent;}
    banner's own long-press sheet now (openReviewMenu), beside the deck rows' options. */
 .review-group.has-active > #b-review{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .active-decks{display:flex; flex-direction:column;}
+/* an EMPTY active-collections list (Oct 2026, on request): a dashed outline box, and the way to the Collections page under it */
+.rv-empty{margin-top:4px; padding:26px 18px; border:2px dashed var(--rule); border-radius:14px; text-align:center; color:var(--ink-faint); font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase;}
+.rv-empty-go{display:block; width:100%; margin-top:12px; text-align:center;}
 /* NEVER NAME A CLASS `ad-…` (Aug 2026, on a bug report — and this whole block was renamed `ad-` → `dk-`
    because of it). The parts of a review row were named for the ACTIVE DECK they belong to, and `.ad-body`
    and `.ad-title` are also real advertisement class names, so EasyList and its relatives carry generic
@@ -5986,16 +5987,18 @@ button.game-tile .gt-glyph{opacity:.14;}
      take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
   .card-facts{max-width:none; width:100%; margin-top:12px;}
   .grades{grid-template-columns:repeat(2,1fr);}
-  .grade-wrap{grid-template-columns:auto auto 1fr; grid-template-areas:"grades grades grades" "help undo suspend"; gap:10px;}
+  /* Two equal columns: the ? is as wide as the grades above it on the left, Suspend as wide as the ones on the
+     right; Undo, when there is something to undo, takes a row of its own under them. */
+  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend" "undo undo"; gap:10px;}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
-  .grade-wrap .grade-help{grid-area:help; justify-self:start;}
-  .grade-wrap .gb-undo{grid-area:undo; justify-self:start; align-self:center;
+  .grade-wrap .grade-help{grid-area:help; justify-self:stretch; width:auto; height:auto; min-height:44px; border-radius:9px; align-self:stretch;}
+  .grade-wrap .gb-undo{grid-area:undo; justify-self:stretch; justify-content:center; align-self:center;
     display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
     border:1px dashed var(--rule); background:var(--card); border-radius:9px; padding:7px 11px; margin:0;
     font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600;
     color:var(--ink-faint);}
   .grade-wrap .gb-undo svg{width:12px; height:12px;}
-  .grade-wrap .suspendbtn{grid-area:suspend; justify-self:end;}
+  .grade-wrap .suspendbtn{grid-area:suspend; justify-self:stretch; align-self:stretch; justify-content:center; min-height:44px;}
   /* the study bar's copy steps aside while the grade bar carries one, so a card never shows two Undos */
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
@@ -6004,61 +6007,10 @@ button.game-tile .gt-glyph{opacity:.14;}
      tablet alike — in the ≤1024px block below this one. They used to be hidden here; a tablet has no
      keyboard either, so the rule had to widen, and it lives in ONE place so the two cannot disagree.) */
 
-  /* ---------- the grade bar's two heights (Aug 2026, on request) ----------
-     Drag the grip down and the bar halves: the four grades go side by side as bare COLOURS, and the ?,
-     Undo and Suspend shrink to their icons beside them, all on one row. Nothing is taken away — a phone
-     reader who wants the card back has the whole bar's function in half its height — and nothing is
-     re-rendered: the same markup, laid out differently, so a grade never has to survive a rebuild. */
-  /* It is a quiet control on a bar of loud ones — four saturated colours directly under it — so it is
-     dimmed further than --ink-faint alone (Aug 2026, on request). Full strength on hover and focus, where
-     it has been reached for deliberately. */
-  .gb-fold{
-    display:flex; align-items:center; justify-content:center; width:100%; height:20px;
-    appearance:none; border:0; background:none; padding:0; margin:0 0 -3px; cursor:pointer;
-    color:var(--ink-faint); opacity:.5; transition:color .15s var(--ease), opacity .15s var(--ease);
-  }
-  /* the chevron turns on the SAME clock as the fold it announces — see GB_FOLD_MS in app.js */
-  .gb-fold svg{width:20px; height:20px; transition:transform .28s var(--ease);}
-  /* while the fold runs, the bar's CONTENTS are inert — see gbFoldingFor in app.js. A press into boxes
-     that are mid-animation is what leaves the buttons painted in one place and hit-tested in another,
-     which is the reported jam; the chevron sits outside .gradebar-inner and stays live throughout. */
-  body.gb-folding .gradebar-inner{pointer-events:none;}
-  /* it points the way it will GO: down while the bar is tall (press to fold it away), up once it is short */
-  body.gb-compact .gb-fold svg{transform:rotate(180deg);}
-  .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo); opacity:1;}
-  .gb-fold:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:6px;}
-  /* the bar's own padding shrinks with it, and has to be TRANSITIONED or the fold ends on a 5px jump the
-     instant everything else settles — the one part of the movement nothing was animating */
-  #gradebar{padding-top:2px; transition:transform .34s var(--ease), padding-bottom .28s var(--ease);}
-  body.gb-compact #gradebar{padding-bottom:max(8px, env(safe-area-inset-bottom));}
-  /* one row: [?] [four colours] [undo] [suspend] */
-  body.gb-compact .grade-wrap{grid-template-columns:auto 1fr auto auto; grid-template-areas:"help grades undo suspend"; gap:8px; align-items:center;}
-  body.gb-compact .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
-  /* The SIZES transition in CSS while the POSITIONS are FLIPped in JS (see gbSetCompact): between them
-     the fold moves instead of cutting. The two halves have to be written against each other — a button
-     whose height snaps under a sliding position looks worse than either doing it alone — so the tall
-     state states its height explicitly, `auto` being a value nothing can transition from. Keep the
-     280ms in step with GB_FOLD_MS in app.js. */
+  /* The bar's own top padding; it has one height (the fold chevron and its short state were removed, Oct 2026). */
+  #gradebar{padding-top:10px;}
   .grade{height:calc(56px * var(--fs)); padding:0; overflow:hidden;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    transition:transform .12s var(--ease), box-shadow .2s, filter .2s,
-               height .28s var(--ease), border-radius .28s var(--ease);}
-  /* font-size is deliberately NOT transitioned (Aug 2026, on a report that the fold ran roughly). Easing a
-     font down to 0 relayouts the text on every frame, and it did so on three buttons that flipMove was
-     translating at the same time — the two passes fighting over the same boxes is what the roughness was.
-     The labels now go at once and the buttons' geometry eases, which is the half a reader is watching. */
-  .grade-help,.grade-wrap .gb-undo,.grade-wrap .suspendbtn{transition:width .28s var(--ease), height .28s var(--ease), padding .28s var(--ease);}
-  body.gb-compact .grade{position:relative; padding:0; height:32px; border-radius:8px;}
-  /* the label is CLIPPED, not removed: display:none would take it out of the accessibility tree too, and
-     then the four buttons would be four unnamed colours to a screen reader as well as to the eye */
-  body.gb-compact .grade .gl{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap;}
-  body.gb-compact .grade .gi, body.gb-compact .grade .gk{display:none;}
-  body.gb-compact .grade-help{width:26px; height:26px; font-size:calc(15px * var(--fs));}
-  /* icon-only: font-size:0 hides the bare text node beside the svg, which no selector can reach, while the
-     svg keeps its own px size — and the text stays in the accessibility tree, as above */
-  body.gb-compact .grade-wrap .gb-undo, body.gb-compact .grade-wrap .suspendbtn{font-size:0; gap:0; padding:6px 7px;}
-  body.gb-compact.grading .stage{padding-bottom:96px;}
-  body.gb-compact.grading .wb-tools{bottom:76px;}
+    display:flex; flex-direction:column; align-items:center; justify-content:center;}
   /* ---- the game tiles, three to a row under their heading ----
      They were two to a row on the pane they had to themselves; that pane is gone (Aug 2026, on request) and
      the six tiles now sit under the review as a 3×2 block. Three to a row leaves about 86px of text column,
@@ -6186,11 +6138,11 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-sub{font-size:calc(11px * var(--fs)); line-height:1.3; margin-top:3px;}
   .gt-eyebrow{margin-bottom:5px;}
   .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
+  .grade-wrap{gap:8px 6px;}   /* a 6px column gap makes each half exactly the width of two grades and the gap between them */
   .grade{padding:9px 3px 8px; border-radius:9px;}
   .grade .gl{font-size:calc(10px * var(--fs)); letter-spacing:.02em;}
   .grade .gi{font-size:calc(9px * var(--fs)); margin-top:4px;}
   /* (.grade .gk is hidden across the whole TOUCH range, phone and tablet — see the ≤1024px block above) */
-  .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
   /* "studied 3h 07m today" — the longest this line gets — runs into the "+ Add decks" lip on a 320px
@@ -6229,28 +6181,22 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   transition:color .15s var(--ease), text-decoration-color .15s var(--ease), background .15s var(--ease);
   border-radius:3px;
 }
-/* An UNDISCOVERED term wears --newterm, a teal of its own (Aug 2026, on request — it wore --ochre, the
-   gold of the blank in a card's question, until the Library books gave that teal up). A term already
-   read carries no attribute and keeps the ordinary glossary-link styling above, unchanged — the mark is
-   the invitation, not a record of what is finished. (markTtipNew sets data-new; deck terms never get it.) */
-.ttip[data-new]{
-  color:var(--newterm);
-  text-decoration-color:color-mix(in srgb,var(--newterm) 55%,transparent);
-}
 .ttip:hover,.ttip:focus-visible{
   color:var(--indigo-bright); text-decoration-color:var(--indigo-bright);
   background:var(--indigo-wash); outline:none;
 }
 .night .ttip:hover,.night .ttip:focus-visible{ color:var(--indigo); background:color-mix(in srgb,var(--indigo) 16%,transparent); }
-/* An undiscovered term keeps its own colour under the cursor — jumping to the indigo hover would read as
-   the term changing state before it has been opened. These sit AFTER the rules above: equal specificity,
-   so source order decides (and the .night pair below outranks .night .ttip:hover outright). */
-.ttip[data-new]:hover,.ttip[data-new]:focus-visible{
-  color:var(--newterm); text-decoration-color:var(--newterm);
-  background:color-mix(in srgb,var(--newterm) 13%,transparent); outline:none;
+/* A term already READ is a visited link (Oct 2026, on request): --seenterm, a purple, like a followed link on Wikipedia. An
+   UNDISCOVERED term — and any deck term, which never counts as read — keeps the ordinary glossary blue above (it wore a teal,
+   --newterm, from Aug 2026 until this swap). `markTtipNew` sets data-seen on a curated term the reader has opened and
+   data-new on one they have not. */
+.ttip[data-seen]{
+  color:var(--seenterm);
+  text-decoration-color:color-mix(in srgb,var(--seenterm) 55%,transparent);
 }
-.night .ttip[data-new]:hover,.night .ttip[data-new]:focus-visible{
-  color:var(--newterm); background:color-mix(in srgb,var(--newterm) 18%,transparent);
+.ttip[data-seen]:hover,.ttip[data-seen]:focus-visible,.night .ttip[data-seen]:hover,.night .ttip[data-seen]:focus-visible{
+  color:var(--seenterm); text-decoration-color:var(--seenterm);
+  background:color-mix(in srgb,var(--seenterm) 14%,transparent); outline:none;
 }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
 /* THE DAILY QUOTE'S AUTHOR AND WORK ARE LINKED WITHOUT AN UNDERLINE (Sep 2026, on request). The caption
@@ -9130,7 +9076,7 @@ body[data-theme="carnelian"].night .collection-deco{
    and 4.72 mixed — and the deeper red it was promoted with takes it to 6.10 and 8.46.) The plain `--zh` is
    declared first so a browser without `color-mix` still gets a readable tab rather than none. */
 .elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
-  padding:24px 16px 15px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}
+  padding:24px 16px 26px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}   /* the foot's 26px + the row's 2px match the head's 24 + 2 + 2: the same air under the last question as over the first (Oct 2026, on request) */
 .elab-kind{position:absolute; top:calc(-10px * var(--fs)); left:15px;
   background:var(--zh); background:color-mix(in srgb, var(--zh) 72%, var(--ink));
   color:var(--card); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.13em;
@@ -9176,8 +9122,10 @@ body[data-theme="carnelian"].night .collection-deco{
 .elab-legacy .elab-show:disabled{opacity:.4; cursor:default;}
 /* the answer itself: the card's own prose, set off by a rule down its left edge so it reads as a reply to
    the line above rather than as another paragraph of the background */
-.elab-wrap{padding-top:7px;}
-.elab-a{margin:0; padding-left:13px; border-left:3px solid var(--zh);
+/* THE ANSWER SITS ON THE CARD'S OWN BACKGROUND (Oct 2026, on request) so it stands off the box's darker paper, with air under it
+   before the next rule. */
+.elab-wrap{padding:7px 0 14px;}
+.elab-a{margin:0; padding:10px 13px; background:var(--card); border-radius:0 7px 7px 0; border-left:3px solid var(--zh);
   font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
 .elab-a[hidden]{display:none;}
 @media (max-width:520px){
@@ -9327,6 +9275,16 @@ body[data-theme="carnelian"].night .collection-deco{
   font-family:var(--mono); font-size:calc(10px * var(--fs)); font-weight:600;
   letter-spacing:.14em; text-transform:uppercase; color:var(--ink-quiet);
 }
+.kin-head{display:inline-flex; align-items:center; gap:8px; margin:0 0 7px; appearance:none; background:none; border:0; padding:0; cursor:pointer; font:inherit; color:inherit; text-align:left;}
+.kin-head .label{margin:0; line-height:1; transition:color .18s;}
+.kin-toggle{display:inline-flex; align-items:center; color:var(--ink-faint); transition:transform .3s var(--ease), color .18s;}
+.kin-toggle svg{width:15px; height:15px;}
+.kin-toggle.collapsed{transform:rotate(-90deg);}
+.kin-head:hover .label, .kin-head:hover .kin-toggle{color:var(--indigo);}
+.kin-head:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:5px;}
+.kin-collapse{overflow:hidden; display:grid; grid-template-rows:1fr; transition:grid-template-rows .38s var(--ease);}
+.kin-collapse.collapsed{grid-template-rows:0fr;}
+.kin-collapse-inner{min-height:0; min-width:0;}   /* see .reveal-inner */
 .kin-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px;}
 .kin-row{
   appearance:none; cursor:pointer; padding:6px 11px; border-radius:999px;
@@ -9515,7 +9473,7 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .page .rv-banner .stat.st-est b{color:#fff; white-space:nowrap;}
 .page .rv-banner .cta{grid-column:1 / -1; margin:18px 0 0; display:block; width:100%;}
 .page .rv-banner .cta .btn{display:flex; justify-content:center; background:#fff; color:var(--sky); border:0; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:13px 20px; border-radius:11px;}
-.page .rv-banner.hero .meta{display:flex;} .page .rv-banner.hero .cta{width:auto; margin:0;}
+.page .rv-banner.hero .meta{display:flex;} .page .rv-banner.hero .cta{margin:0;}
 /* the level bar: in the stack with the piles, as wide as they are, with air above and below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{display:grid; grid-template-columns:minmax(0, max-content); width:max-content; max-width:100%;}
 .page .rv-banner .rv-stack > .meta{width:100%;}
@@ -9524,6 +9482,14 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
+/* THE FIRST-VISIT HERO, SPACED (Oct 2026, on request): the zero margins above ran its eyebrow, title, sentence and
+   button together, and the button stood at its own text's width. The three get air between them and the button
+   spans the banner. (After the zero-margin rule above, same specificity or higher, so these win.) */
+.page .rv-banner.hero .hero-eyebrow{margin-bottom:14px;}
+.page .rv-banner.hero h2.review-title{margin:0 0 16px;}
+.page .rv-banner.hero .desc{margin-bottom:26px;}
+.page .rv-banner.hero .meta{width:100%;}
+.page .rv-banner.hero .cta{width:100%;}
 /* THE LEVEL BAR IS GOLD IN BOTH THEMES (Oct 2026, on request: "make the level bar gold in day mode like it
    already is in dark mode") — it was rose by day because this rule outranked `.banner .xp-fill` while the
    night rule outranked this one. The night gold, since the banner is deep indigo in both themes. */
@@ -9631,6 +9597,10 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
 .review-group .active-decks .active-deck.dk-att{padding-top:4px; padding-bottom:4px; min-height:calc(34px * var(--fs) + 10px);}   /* the language row's: its 34px chevron and the padding */
 /* a GROUP's header row is shorter than the rows under it and painted in a deeper wash of its colour */
 .review-group .active-deck.deck-group, .review-group .active-deck.dk-langhead, .review-group .active-deck.dk-coll, body.night .review-group .active-deck.deck-group, body.night .review-group .active-deck.dk-langhead, body.night .review-group .active-deck.dk-coll{padding-top:4px; padding-bottom:4px; min-height:0; background:linear-gradient(90deg, color-mix(in srgb, var(--dk-accent) 16%, var(--card)), color-mix(in srgb, var(--dk-accent) 6%, var(--card)));}
+/* A COLLECTION'S SIGNPOST ROW IS THE SAME HEIGHT AS A COLLECTION'S ROW (Oct 2026, on request: two subdecks added from China and
+   its header stood 16px taller than the other collections). `.active-deck.context` asks for 7px of padding, but the plain row's
+   12px outranks it in this list, so the header took the full height beside collection rows that take the 4px above. */
+.review-group .active-decks .active-deck.context{padding-top:4px; padding-bottom:4px; min-height:0;}
 .review-group .active-deck > :not(.dk-body):not(.dk-grip):not(.gt-check):not(.gt-seal){position:relative; z-index:1;}
 .review-group .active-deck > .dk-grip{z-index:2;}
 /* THE ICON AND THE GRIP STAND ABOVE THE TITLE'S BLOCK (Oct 2026, on a bug report: the deck's icon vanished once any
@@ -9789,6 +9759,13 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .home-foot{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:10px; padding:16px 0 0;}
 .home-foot .home-about, .home-foot .home-about:hover{width:auto; padding:0; text-align:left; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; color:var(--ink-faint);}
 .home-foot .home-about:hover{color:var(--ink-soft);}
+/* the admin's refresh, bottom left of the home page (Oct 2026, on request) */
+.home-admin-row{display:flex; justify-content:flex-start; margin-top:6px; order:5;}
+.home-refresh{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; padding:0; border-radius:8px; border:1px solid var(--rule); background:transparent; color:var(--ink-faint); cursor:pointer; transition:color .15s var(--ease), border-color .15s var(--ease);}
+.home-refresh:hover, .home-refresh:focus-visible{color:var(--indigo); border-color:var(--indigo);}
+.home-refresh svg{width:14px; height:14px; display:block;}
+.home-refresh.spin svg{animation:hrspin .8s linear infinite;}
+@keyframes hrspin{to{transform:rotate(360deg);}}
 .home-foot .site-ver{margin:0 0 0 auto; font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase;}
 @media (min-width:641px){ .home-foot .home-about{padding-top:0;} }
 /* the middle column is the flexible one (Oct 2026, on request: the gap after the number was too wide) — with
@@ -9973,6 +9950,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      the rest is the pill's own check, gap and padding (12 + 5 + 7 + 9 = 33px), plus one to spare. */
   .games-sec .game-tile.done .gt-check, .games-sec .game-tile.won .gt-seal{min-width:calc(7ch + .7em + 34px); justify-content:center;}
   .home-two{grid-template-columns:1fr;}
+  /* THE TODAY / THIS WEEK BOX SITS BETWEEN THE ACTIVE COLLECTIONS AND THE MINIGAMES on a phone (Oct 2026, on request): `.home-two` stops being a box
+     of its own so its two children join `.banners`' flex column and `order` can place them — the week box first (order 1, after everything
+     at the default 0), then the games, then Continue reading and the foot, which keep their old place at the end. */
+  .home-two{display:contents;}
+  .home-two > .home-week{order:1;}
+  .games-sec{order:2;}
+  .home-two > :not(.home-week){order:3;}
+  .home-foot{order:4;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}
   .home-foot .site-ver{margin:0; width:100%; text-align:center;}
@@ -10559,28 +10544,3 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .fi2-cartouche{display:block !important;}
 .fi2-loading{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--paper-2);}
 .fi2-loading[hidden]{display:none;}
-.fi2-reveal{position:absolute; left:50%; bottom:14px; transform:translateX(-50%); z-index:8; width:min(430px, calc(100% - 28px)); background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:11px 16px 12px; box-shadow:0 12px 32px -14px rgba(0,0,0,.5);}
-.fi2-reveal[hidden]{display:none;}
-.fi2-reveal-head{font-family:var(--display); font-size:calc(16px * var(--fs, 1)); color:var(--ink);}
-.fi2-reveal-desc{margin:4px 0 8px; font-size:calc(13px * var(--fs, 1)); color:var(--ink-soft); line-height:1.4;}
-.fi2-reveal-cards{margin:6px 0 0; padding:0 0 0 18px; font-size:calc(13px * var(--fs, 1)); line-height:1.5;}
-.fi2-reveal{max-height:min(58vh, 440px); display:flex; flex-direction:column; overflow:hidden;}
-.fi2-reveal[hidden]{display:none;}
-.fi2-reveal-body{flex:1 1 auto; min-height:0; overflow:auto; overscroll-behavior:contain;}
-.fi2-reveal-head, .fi2-reveal-acts{flex:none;}
-.fi2-reveal-head{display:flex; align-items:center; gap:8px;}
-.fi2-reveal-head b{flex:1 1 auto; min-width:0;}
-.fi2-learn-new{flex:none; font-family:var(--mono); font-size:calc(10.5px * var(--fs, 1)); letter-spacing:.06em; text-transform:uppercase; color:var(--indigo); border:1px solid var(--indigo); border-radius:999px; padding:1px 8px;}
-.fi2-reveal-close{flex:none; margin-left:auto; width:30px; height:30px; border:0; background:transparent; color:var(--ink-soft); font-size:22px; line-height:1; cursor:pointer; border-radius:8px;}
-.fi2-reveal-close:hover, .fi2-reveal-close:focus-visible{background:var(--paper-2); color:var(--ink);}
-.fi2-reveal-when{margin-bottom:2px;}
-.fi2-learn-h{margin:8px 0 0; font-family:var(--mono); font-size:calc(10.5px * var(--fs, 1)); font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
-.fi2-learn-cards .fi2-reveal-cards{padding-left:0; list-style:none;}
-.fi2-learn-cards li{margin:0;}
-.fi2-learn-card{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:5px 0; min-height:34px; text-decoration:none;}
-.fi2-learn-title{flex:1 1 auto; min-width:0;}
-.fi2-learn-chip, .fi2-learn-mine{flex:none; font-size:calc(10.5px * var(--fs, 1)); color:var(--ink-soft); border:1px solid var(--rule); border-radius:999px; padding:0 7px;}
-.fi2-learn-mine{color:var(--indigo); border-color:var(--indigo);}
-.fi2-learn-more{border:0; background:transparent; color:var(--indigo); font:inherit; font-size:calc(13px * var(--fs, 1)); padding:6px 0; cursor:pointer; text-decoration:underline;}
-.fi2-reveal-acts{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
-.fi2-reveal-acts .btn{flex:1 1 auto; min-height:44px;}
