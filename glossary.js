@@ -6830,7 +6830,9 @@ window.GLOSSARY = {
 "Stone_Mountain": "",
 "Brooks_Range": "",
 "Mount_Elbert": "",
-"Delicate_Arch": ""
+"Delicate_Arch": "",
+"Shang_bronze_inscriptions": "",
+"Jewang_ungi": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -7875,7 +7877,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shandong_Problem": "1914–1922",
 "Racial_Equality_Proposal": "1919",
 "Wall_Street_Crash_of_1929": "October 1929",
-"Great_Depression": "1929–1939",
+"Great_Depression": "1929 – 1941",
 "Article_48_of_the_Weimar_Constitution": "1919–1933",
 "Benito_Mussolini": "1883–1945",
 "March_on_Rome": "October 1922",
@@ -7927,8 +7929,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Greater_East_Asia_Co-Prosperity_Sphere": "1940–1945",
 "Japanese_withdrawal_from_the_League_of_Nations": "1933–1935",
 "Marco_Polo_Bridge_Incident": "7 July 1937",
-"Nanjing_Massacre": "December 1937 – January 1938",
-"Second_Sino-Japanese_War": "1937–1945",
+"Nanjing_Massacre": "13 December 1937 – early February 1938",
+"Second_Sino-Japanese_War": "7 July 1937 – 2 September 1945",
 "Second_United_Front": "1937–1941",
 "Soviet-Japanese_border_conflicts": "1932–1939",
 "Vogelherd_horse": "c. 35,000 years ago",
@@ -9214,15 +9216,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Philippi": "founded 360 – 359 BCE",
 "Second_Sophistic": "1st – 3rd centuries CE",
 "Thessaloniki": "founded c. 316 BCE",
-"Trojan_Horse": "c. 750 – 700 BCE",
-"Epic_Cycle": "c. 750 – 550 BCE",
-"Nostoi": "c. 700 – 600 BCE",
-"Clytemnestra": "c. 750 – 700 BCE",
-"Orestes": "c. 750 – 700 BCE",
-"Apologoi": "c. 750 – 700 BCE",
-"Polyphemus": "c. 750 – 700 BCE",
-"Circe": "c. 750 – 700 BCE",
-"Siren": "c. 750 – 700 BCE",
+"Trojan_Horse": "c. 700 BCE",
+"Epic_Cycle": "8th – 7th century BCE",
+"Nostoi": "late 7th century BCE",
+"Clytemnestra": "c. 700 BCE",
+"Orestes": "c. 700 BCE",
+"Apologoi": "c. 700 BCE",
+"Polyphemus": "c. 700 BCE",
+"Circe": "c. 700 BCE",
+"Siren": "c. 700 BCE",
 "Eleusis": "c. 15th century BCE – 4th century CE",
 "Epidaurus": "c. 6th century BCE – 4th century CE",
 "Curse_tablet": "c. 500 BCE – 4th century CE",
@@ -9544,7 +9546,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Atomic_bombings_of_Hiroshima_and_Nagasaki": "1945",
 "Nuclear_arms_race": "1949–1991",
 "Mutual_assured_destruction": "1965–1991",
-"Hungarian_Revolution_of_1956": "23 October – 11 November 1956",
+"Hungarian_Revolution_of_1956": "October – November 1956",
 "Berlin_Wall": "1961–1989",
 "Cuban_Revolution": "1953–1959",
 "Cuban_Missile_Crisis": "1962",
@@ -9563,7 +9565,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Year_of_Africa": "1960",
 "Kwame_Nkrumah": "1909–1972",
 "Détente": "1969–1979",
-"Great_Leap_Forward": "1958–1962",
+"Great_Leap_Forward": "1958–1960",
 "Cultural_Revolution": "1966–1976",
 "Soviet–Afghan_War": "1979–1989",
 "Fall_of_the_Berlin_Wall": "1989",
@@ -10342,6 +10344,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Joshua_Tree_National_Park": "1994–present",
 "British_Psychological_Society": "1901–present",
 "Nature_(journal)": "1869–present",
+"Ages_of_Man": "c. 700 BCE",
+"Muses": "c. 700 BCE",
+"Hero_(Greek_mythology)": "in Hesiod, c. 700 BCE",
+"Heracles": "in Hesiod, c. 700 BCE",
+"Nemean_lion": "in Hesiod, c. 700 BCE",
+"Lernaean_Hydra": "in Hesiod, c. 700 BCE",
+"Perseus_(mythology)": "in Hesiod, c. 700 BCE",
+"Medusa": "in Hesiod, c. 700 BCE",
+"Ariadne": "in Hesiod, c. 700 BCE",
+"Panathenaia": "566 BCE",
 "Andromache_(play)": "c. 425 BCE",
 "Yuri_Dolgorukiy": "c. 1090 – 1157",
 "Ivan_I_of_Moscow": "r. 1325 – 1340",
@@ -10350,7 +10362,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "René_Pleven": "1901 - 1993",
 "Peter_the_Great": "1672 - 1725",
 "Gustavus_Adolphus": "1594 - 1632",
-"Treaty_of_Stolbovo": "1617"
+"Treaty_of_Stolbovo": "1617",
+"Shang_bronze_inscriptions": "c. 1400 – 1046 BCE",
+"Jewang_ungi": "1287"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -12934,7 +12948,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gigantomachy": ["Gigantomachia","battle of the gods and the Giants"],
 "Typhon": ["Typhoeus"],
 "Muses": ["Muse"],
-"Moirai": ["Moirae"],
+"Moirai": ["Moirae","Fates"],
 "Erinyes": ["Furies","Erinys"],
 "Nymph": ["Naiad","Naiads"],
 "Hero_(Greek_mythology)": ["Greek hero","Greek heroes"],
@@ -14611,6 +14625,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chemotaxis": ["nutrient gradient"],
 "Replication_crisis": ["replication study","replication studies","reproducibility crisis"],
 "Stimulus_(physiology)": ["stimuli"],
+"Greek_altar": ["altar"],
+"Hecatomb": ["hecatombs","hekatomb"],
+"Greek_priesthood": ["priesthood","priesthoods","priestess","priestesses"],
+"Temenos": ["temene"],
+"Asclepius": ["Asklepios","Aesculapius"],
 "Battle_of_Aegospotami": ["Aegospotami"],
 "Thrace": ["Thracian"],
 "Hippocratic_Corpus": ["Hippocratic"],
@@ -14675,7 +14694,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wind_Cave_National_Park": ["Wind Cave"],
 "Bryce_Canyon_National_Park": ["Bryce Canyon"],
 "Adirondack_Mountains": ["Adirondacks"],
-"Ozarks": ["Ozark Mountains","Ozark Plateau"]
+"Ozarks": ["Ozark Mountains","Ozark Plateau"],
+"Shang_bronze_inscriptions": ["Shang bronze inscription","Shang dynasty bronze inscriptions"],
+"Jewang_ungi": ["Chewang ungi","Chewang un'gi","Rhyming Record of Emperors and Kings"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21633,7 +21654,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Stone_Mountain": ["place","geography","mountain","history","united states"],
 "Brooks_Range": ["place","geography","mountain","alaska","united states"],
 "Mount_Elbert": ["place","geography","mountain","colorado","united states"],
-"Delicate_Arch": ["place","geography","geology","utah","united states"]
+"Delicate_Arch": ["place","geography","geology","utah","united states"],
+"Shang_bronze_inscriptions": ["object","writing","history","china","bronze age"],
+"Jewang_ungi": ["text","literature","history","korea","asia"]
 });
 
 /* ============================================================================

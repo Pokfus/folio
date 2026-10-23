@@ -1977,3 +1977,16 @@ were the right name and the wrong person, an unlabelled plaster cast standing in
 a modern reproduction sold as the ancient thing.
 
 Not part of the site.
+
+**THE SIX WITHOUT A PICTURE, SETTLED (2026-10-23, on request: "find pictures for all the artifacts which are
+missing them; if you cannot find any picture, remove the artifact").** Four now carry one, each looked at
+before use: `sickle-blade` the Tahunian flint-and-resin sickle in the Israel Museum (Gary Todd, CC0);
+`ochre-crayon` a ground, faceted piece from Rose Cottage Cave (Hodgskiss and Wadley, CC BY 4.0, from their
+paper); `sipan-ear-ornaments` a **reconstruction** of the Lord's burial with the ear ornaments in place, and
+`harappan-toy-cart` a **modern replica** in the BITM, Kolkata — both captioned as what they are, since Commons
+has no photograph of either original. Rejected on the way: the bronze "bullock carts" labelled Harappa (the
+Daimabad chariot), the Met's harpoon heads (Punuk and Okvik, not Thule), the Ashmolean's glass bangles
+(Phoenician). `thule-harpoon-head` and `glass-bangle` had no usable picture and were **removed from the pool**
+(198 artefacts); a reader who owned one simply no longer sees it, since `ownedArtefacts` and `showcaseIds`
+read through the pool. Their prose and citations are in git history (`git log -S thule-harpoon-head`).
+`add-images.js` now accepts an artefact's optional `title` and `desc`, which its writer always kept.

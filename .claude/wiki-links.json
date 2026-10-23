@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-23T17:26Z",
+ "generated": "2026-10-23T20:52Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5010,
-  "redirect-broader": 462,
+  "ok": 5011,
+  "redirect-broader": 463,
   "redirect-variant": 330,
   "section-redirect": 104,
-  "disambiguation": 139,
-  "none": 956,
+  "disambiguation": 138,
+  "none": 957,
   "disambig-resolved": 76,
   "list-page": 6,
   "search-match": 6,
@@ -57444,6 +57444,28 @@
    "url": "https://en.wikipedia.org/wiki/Tu_Youyou",
    "via": "glossary",
    "status": "ok"
+  },
+  "cnh-070": {
+   "answer": "Shang bronze inscriptions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chinese bronze inscriptions",
+    "Late Shang",
+    "Shang dynasty",
+    "Religion of the Shang dynasty",
+    "Chinese ritual bronzes"
+   ]
+  },
+  "ko-047": {
+   "answer": "Jewang ungi",
+   "title": "Chewang un'gi",
+   "url": "https://en.wikipedia.org/wiki/Chewang_un'gi",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Jewang ungi"
   },
   "geo-801": {
    "answer": "Mississippi River",

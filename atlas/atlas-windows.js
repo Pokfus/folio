@@ -85,6 +85,15 @@
     const warAttr = host.classList.contains("map-war");
     const locKind = host.getAttribute("data-map-kind") || "point";
     const isWar = warAttr;   // a war window is drawn at a year of the war on the engine's history: its sides tinted in the years they fought, nothing outside them
+    /* A GLOSSARY WINDOW (2026-10-23, the owner; docs/glossary-atlas-windows.md): host class `map-gloss`, NO buttons (the host carries none and this code adds none), a drag, a pinch or the wheel move and zoom it
+       (AtlasEmbed.view's own), and the term's place is THE ONLY thing marked: a gold square and the name for a point, the name alone for an area, and for `data-map-face` — a present-day country or province (as a
+       map card's), or a history.bin entity at `data-map-year`, THE YEAR OF ITS GREATEST EXTENT — the selection gold over its face; a people or a culture (`data-map-facekind`) is its presence alone (`peopleOnly`), no
+       other people's. A year asks the hub for the WHOLE history (as Find it's area round does); until it lands the window is today's map centred on the place, and it is not settled. No siblings, no home square, no
+       "Discovered!" chip and no `placesSeen`: a term is no card and the Personal Atlas is the cards' (Q-P3 c). On the still renderer (no WebGL2) a state of the past cannot be drawn, so the window is `plain` and
+       the popup removes it (app.js mountGlossAtlas). */
+    const isGloss = host.classList.contains("map-gloss"), glossFace = isGloss ? String(host.getAttribute("data-map-face") || "") : "";
+    const glossYear = isGloss && glossFace && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
+    const glossPeople = glossYear != null && /^(people|culture)$/.test(String(host.getAttribute("data-map-facekind") || ""));
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
     const readRings = (a) => { if (!a) return null; const out = String(a).split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 3); return out.length ? out : null; };
     const locArea = readRings(host.getAttribute("data-map-area")), locSpine = readPts(host.getAttribute("data-map-spine"));
@@ -97,7 +106,7 @@
        finer level is in the same 4.3 MB file as the coarse one, so "never fetched" can only mean the file is not fetched): the card's own river from `rivers.js` is still drawn in gold. */
     const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
     const isWaterSubject = () => { const w = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.water; return !!sibCard && !!w && w.cards.indexOf(sibCard) >= 0; };   // the registry kind of the locator's place (build-card-faces.js); a name only for a locator with no resolved place, decided there
-    const wantWater = (!!sibCard || !!hiRegion) && !lightReader;
+    const wantWater = (!!sibCard || !!hiRegion || isGloss) && !lightReader;   // a glossary window draws its rivers and lakes as a locator does
     /* RELIEF FOLLOWS THE ATLAS (2026-10-18, the owner's decision c): a map card, a locator and a war window draw relief when the reader has it on in the Atlas's Legend, at the
        strength set there (AtlasEmbed.reliefSetting: the Atlas's saved layers, re-read on change), and never under light mode or on a cellular connection — the idle warm-up's own
        two rules (app.js lightMode / onCellular), since the L0 sheet alone is 9 MB. Find it never asks for it. */
@@ -122,12 +131,14 @@
     let ownRiverDone = false;
     const hubOptions = { host: {} };
     const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard);   // the war that owns the front line reads the Second World War slice (see WAR_FRONT_CARDS), on file:// too
-    if (isWar) { hubOptions.needHistory = wantsFront ? "ww2" : "wars"; hubOptions.ownHolds = 1; }   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
+    if (isWar) { hubOptions.needHistory = wantsFront ? "ww2" : "wars"; hubOptions.ownHolds = 1; }
+    if (glossYear != null) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
     let tlSteps = [], tlIdx = -1, tlSpan = null;   // the timeline's steps (none: no timeline), the step the pin stands on, the war's own years
     const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
       FACES = window.ATLAS_CARD_FACES; const L = FACES && FACES.layers[layerName]; if (!L) return false;
       if (key) for (const k of key.split("|")) { const t = L[k]; if (!t) return false; targets.push({ n: k, id: t[0], c: [t[1], t[2]], b: [t[3], t[4], t[5], t[6]] }); }
+      if (glossFace) targets.push({ n: host.getAttribute("data-map-atname") || "", id: glossFace, c: null, b: null });   // the glossary window's face: framed by its own `at` and zoom (fit), tinted by id
       const atAttr = host.getAttribute("data-map-at");
       if (atAttr) { const at = atAttr.split(",").map(Number); if (at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1])) return false; dot = { n: host.getAttribute("data-map-atname") || "", c: at }; }
       else { const dn = host.getAttribute("data-map-dot"); if (dn) { const D = FACES.dots[layerName] || {}; const p = D[dn]; if (!p) return false; dot = { n: p[3] || dn, c: [p[0], p[1]] }; } }
@@ -144,6 +155,7 @@
     const DEG = CMAP_DEG;
     const ringsBox = (rings) => ringsBBox(rings);
     function fit() {
+      if (isGloss) { const g = dot ? dot.c : [0, 0]; home = { lon: g[0], lat: g[1], zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || CMAP_ZLOC)) }; return; }   // the generator framed it (build-glossary-places.js)
       const at = targets.length ? targets[0].c : dot ? dot.c : [0, 0];
       let lon = at[0], lat = at[1], z = targets.length ? 4 : CMAP_ZLOC;
       const ext = locArea || (locSpine ? [locSpine] : null);
@@ -481,6 +493,7 @@
             if (tlSteps.length) { tlSpan = WT.y.slice(); const c0 = CARD_BY_ID[sibCard]; tlIdx = startStep(tlSteps, tlSpan, X.cardSpanYears && c0 ? X.cardSpanYears(c0) : []); warYear = tlSteps[tlIdx].year; host.setAttribute("data-map-year", String(warYear)); }
             mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
+        if (glossYear != null && hub.canvas2d) { plain("This browser cannot draw a state of the past (it needs WebGL2)."); return; }   // the still renderer draws no history; the popup drops the block
         mountWindow(hub, null);
       });
     }).catch(() => { unhold(); if (!stopped) plain(SORRY); });
@@ -507,9 +520,9 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject() }, reliefNow()),
-            year: tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9 }] : [],
+            layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar || glossYear != null, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
+            year: glossYear != null ? glossYear : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
+            highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
           extraSettled: (st, o) => anchorsCurrent(st, o),

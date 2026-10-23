@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5010 | the title is the article |
+| `ok` | 5011 | the title is the article |
 | `redirect-variant` | 330 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 76 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 462 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 463 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 104 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 139 | only a disambiguation page; no link could be chosen |
-| `none` | 956 | nothing matched; no link |
+| `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
+| `none` | 957 | nothing matched; no link |
 
-**5891 of 7106 cards get a link.** The three "no link" rows are the honest state: a card whose
+**5893 of 7108 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (462)
+## Redirected to a differently named article — check each (463)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -286,6 +286,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ko-035` **stone cist** → [Cist](https://en.wikipedia.org/wiki/Cist) (from `Stone cist`)
 - `ko-036` **Songgungni** → [Songguk-ri](https://en.wikipedia.org/wiki/Songguk-ri) (from `Songgungni`)
 - `ko-046` **Gojoseon** → [Old Chosŏn](https://en.wikipedia.org/wiki/Old_Chos%C5%8Fn) (from `Gojoseon`)
+- `ko-047` **Jewang ungi** → [Chewang un'gi](https://en.wikipedia.org/wiki/Chewang_un'gi) (from `Jewang ungi`)
 - `ko-048` **Dangun** → [Tan'gun](https://en.wikipedia.org/wiki/Tan'gun) (from `Dangun`)
 - `ko-054` **Wiman Joseon** → [Wiman Chosŏn](https://en.wikipedia.org/wiki/Wiman_Chos%C5%8Fn) (from `Wiman Joseon`)
 - `ko-055` **King Jun** → [Chun of Old Chosŏn](https://en.wikipedia.org/wiki/Chun_of_Old_Chos%C5%8Fn) (from `King Jun`)
@@ -599,7 +600,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (139)
+## Disambiguation pages that could not be settled (138)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -641,7 +642,6 @@ Pick the right article by hand, or leave the card without a link.
 - `geo-739` **Wilmington** — `Wilmington` is a disambiguation page; its links: `District Council of Wilmington`, `Wilmington, Devon`, `Wilmington, Kent`, `Wilmington, Somerset`, `Lordship of Wilmington`, `Wilmington, Delaware`
 - `geo-746` **Wichita** — `Wichita` is a disambiguation page; its links: `Wichita people`, `Wichita language`, `Wichita, Kansas`, `Wichita County, Kansas`, `Wichita County, Texas`, `Wichita Mountains`
 - `geo-749` **Fargo** — `Fargo` is a disambiguation page; its links: `Wells Fargo`, `Fargo, Arkansas`, `Fargo, Georgia`, `Fargo, Indiana`, `Fargo, Ohio`, `Fargo, Oklahoma`
-- `geo-837` **Red River** — `Red River` is a disambiguation page; its links: `Red River City, Texas`, `Red River County, Texas`, `Red River, Queensland`, `Red River, Tennessee`, `Red River (Amal)`, `Red River (Asia)`
 - `gga-038` **Algiers Agreement** — `Algiers Agreement` is a disambiguation page; its links: `1975 Algiers Agreement`, `Algiers Agreement (2000)`
 - `gga-257` **Force of nature** — `Force of nature` is a disambiguation page; its links: `Force of Nature (duo)`, `Forces of Nature (Teen Titans)`, `Forces of Nature (book)`, `Force of Nature (novel)`, `Force of Nature (comics)`, `Forces of Nature (1999 film)`
 - `gga-263` **Do no harm** — `First Do No Harm (disambiguation)` is a disambiguation page; its links: `First do no harm`, `Do No Harm (Lost)`, `...First Do No Harm`, `Do No Harm (organization)`, `Do No Harm (Burn Notice)`, `Do No Harm (HR report on Bahrain)`
@@ -863,7 +863,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (956)
+## No article found (957)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -895,6 +895,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-059` **Songs of the Five Sons** — search suggests `Wuxing (Chinese philosophy)`, `Five Dynasties and Ten Kingdoms period`, `Five Flower Songs`, `Han Chinese`, `China`
 - `cnh-064` **Erlitou bronze** — search suggests `Erlitou culture`, `Erlitou`, `Bronze Age`, `Prehistory of China`, `History of China`
 - `cnh-067` **Basic Annals of Yin** — search suggests `Pinyin`, `Shang dynasty`, `China`, `Traditional Chinese medicine`, `Zhang Shoujie`
+- `cnh-070` **Shang bronze inscriptions** — search suggests `Chinese bronze inscriptions`, `Late Shang`, `Shang dynasty`, `Religion of the Shang dynasty`, `Chinese ritual bronzes`
 - `cnh-072` **Shang divination** — search suggests `Oracle bone`, `Ritual and worship in the Shang dynasty`, `Religion of the Shang dynasty`, `Late Shang`, `Shang dynasty`
 - `cnh-076` **Shang kingship** — search suggests `Ritual and worship in the Shang dynasty`, `Zu Ji`, `Pan Geng`, `Bu Bing`, `Xiao Yi of Shang`
 - `cnh-078` **Shang ancestor worship** — search suggests `Ancestor veneration in China`, `Shang dynasty`, `Shangdi`, `Religion of the Shang dynasty`, `Religious beliefs of the Shang dynasty`

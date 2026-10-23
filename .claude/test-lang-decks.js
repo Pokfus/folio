@@ -264,7 +264,7 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
                 way the other one does it" — which is why both halves are asserted: that the figures are
                 inside `.node-meta`, AND that the title's own line carries neither of them. */
              meta: !!el.querySelector(".node-meta"),
-             metaHasFigures: !!(el.querySelector(".node-meta .node-count") && el.querySelector(".node-meta .node-size")),
+             metaHasFigures: !!el.querySelector(".node-meta .node-count"),
              titleRowClean: !el.querySelector(".node-title-row .node-count") && !el.querySelector(".node-title-row .node-size"),
              /* THE DECK ROW IS THE CURATED TREE'S `.node` (Aug 2026, on request), so it is the same box
                 as a collection's decks one section up — but it is NOT a button, since there is nothing
@@ -277,7 +277,7 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   if (row) {
     check("…in the curated tree's own row shape", row.isNode);
     check("…and not itself pressable", !row.pressable);
-    check("…numbered like a curated deck", /^\d\d$/.test(row.num.trim()), row.num);
+    check("…unnumbered, like a curated deck (Oct 2026)", row.num === "", row.num);
     /* THE TITLE IS THE CATALOGUE'S WITH THE LANGUAGE TRIMMED OFF (Aug 2026, on request: "language decks
        do not need to name the language in their title, since its already mentioned in the collection
        name"). The expectation is the SITE'S OWN `langShortTitle`, sliced out of app.js and run here, for
@@ -289,12 +289,10 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       row.title + " vs " + shortTitle(plain.title, plain.lang));
     check("…and still saying something", row.title.trim().length > 0, row.title);
     check("…and stating its card count", row.count.replace(/[^\d]/g, "") === String(plain.cards), row.count);
-    /* THE FIGURE IS THE BYTES AND NOTHING ELSE, on BOTH shelves, which is the request's own "one fact in
-       one place on both" — what differs between them is what the figure MEANS, and that is in the title
-       where it belongs rather than appended to every row. */
-    check("…and how big it is", /^[\d.,]+ (KB|MB)$/.test(row.size.trim()), row.size);
-    check("…with the title saying it is a download", /download/i.test(row.sizeTitle || ""), row.sizeTitle);
-    check("…on a line of their own below the title", row.meta && row.metaHasFigures);
+    /* NO FILE SIZE ON THE ROW (Oct 2026, on request), on either shelf; Daily study's Download button
+       still says what a deck will fetch. */
+    check("…and not printing a file size", row.size === "", row.size);
+    check("…on a line of its own below the title", row.meta && row.metaHasFigures);
     check("…and not on the title's line", row.titleRowClean);
   }
 
@@ -452,18 +450,13 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       disagree.map((r) => r.id).join(" ") || "all " + ROWS.length + " rows");
   }
 
-  /* The other half of the request: the curated shelf says it too. A curated deck has no file of its own,
-     so the figure is what its cards weigh inside data.js — read off the page and required to be a real
-     size rather than merely present, since "0 KB" is what a broken measurement looks like. */
+  /* The curated shelf: a count under the title, and no file size (Oct 2026, on request). */
   const cur = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".collection:not(.lang-coll) .node")];
     const sized = rows.filter((r) => r.querySelector(":scope .node-size"));
     const counted = rows.filter((r) => r.querySelector(":scope .node-count"));
     return {
       rows: rows.length, counted: counted.length, sized: sized.length,
-      texts: sized.slice(0, 4).map((r) => r.querySelector(".node-size").textContent),
-      allReal: sized.every((r) => /^[\d.,]+ (KB|MB)$/.test(r.querySelector(".node-size").textContent.trim())),
-      titled: sized.every((r) => /download/i.test(r.querySelector(".node-size").getAttribute("title") || "")),
       /* The same `.node-meta` line the language shelf draws — the request is that the two shelves set
          their figures alike, so it is asserted on BOTH or a divergence would show on one of them only. */
       meta: counted.every((r) => r.querySelector(":scope > .node-main > .node-meta > .node-count")),
@@ -471,15 +464,8 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     };
   });
   check("the curated shelf draws deck rows at all", cur.rows > 0, String(cur.rows));
-  /* EVERY ROW THAT STATES A CARD COUNT STATES A SIZE, and no other — an empty deck has nothing to weigh
-     and "0 KB" beside "Empty" would be a second way of saying the same nothing. */
-  check("…and every one holding cards says how much they weigh", cur.sized === cur.counted,
-    cur.sized + " sized vs " + cur.counted + " counted");
-  check("…as a real figure", cur.allReal, cur.texts.join(" | "));
-  /* AND SAYS WHAT THE FIGURE IS. These cards arrive with the site, so a bare size beside a language
-     deck's would say nothing about the difference between them. */
-  check("…explaining that curated cards ship with the site", cur.titled);
-  check("…with the figures on their own line under the title", cur.meta);
+  check("…and none prints a file size", cur.sized === 0, cur.sized + " sized");
+  check("…with the count on its own line under the title", cur.meta);
   check("…and the title's line carrying neither", cur.titleRowClean);
 
   /* ---------- 3. Add adds and NOTHING is downloaded ----------

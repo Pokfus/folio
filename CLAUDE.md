@@ -165,6 +165,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 - **Map cards / locators / war cards**: 📖 `docs/map-cards.md` and 📖 `docs/war-cards.md` — READ BEFORE CHANGING EITHER FORMAT.
 - **Footnotes**: markers are written EMPTY (`<sup class="fn" data-fn="N"></sup>`); `wireFootnotes`
   numbers them. 📖 `docs/source-footnotes.md` — READ BEFORE TOUCHING THE APPARATUS.
+- **Glossary Atlas windows (2026-10-23)**: a popup's map is for a term that IS a location only (the town, never the treaty — `locationClass` in `build-glossary-places.js` decides by tags), a state or a people shaded at the year of its greatest extent, no buttons, never a `placesSeen` write; `atlas/data/glossary-places.js` format 2 is generated (`--install`; `check-places.js` fails when it lags); `test-gloss-atlas-window.js` guards it. 📖 `docs/glossary-atlas-windows.md` — READ BEFORE TOUCHING THE GLOSSARY POPUP'S MAP, ITS TABLE OR `mountGlossAtlas`.
 - **Community decks** never enter `CARDS` / the tree / `window.GLOSSARY`; `uDeckNormalize` is the one
   ingest choke point; bump `SANITIZE_REV` when a sanitizer changes.
   📖 `docs/community-decks.md` — READ BEFORE TOUCHING ANY OF IT.
@@ -235,7 +236,7 @@ have not this session.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | live |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 999 cards (`cnh-070` retired, never reuse) |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 1000 cards (`cnh-070` retired in Sep 2026, rewritten as *Shang bronze inscriptions* in Oct 2026 on request) |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | live |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | live |
 | The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
