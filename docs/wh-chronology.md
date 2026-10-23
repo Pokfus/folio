@@ -801,6 +801,15 @@ Filled batch by batch, from the source each row names.
 | Bolsheviks: split / Prague break / renamed | 1903 / January 1912 / March 1918 CE | Bilinsky and Holubnychy; Lenin (`wh-898`) |
 | Russian Civil War: fought (Werth) / Czech clashes / evacuation order / Kronstadt | 1918 – 1921 / May 1918 / 13 November 1920 / 18 March 1921 CE | Werth; the US consuls' reports (`wh-899`) |
 | Soviet Union: founded / constitution / dissolved | 30 December 1922 / 31 January 1924 / 26 December 1991 CE | the Fundamental Law; Siegelbaum; the *Encyclopedia of Ukraine* (`wh-900`) |
+| Joseph Stalin: general secretary / died | 1922 / 5 March 1953 CE | the *Encyclopedia of Ukraine*; Siegelbaum (`wh-901`); no birth date, no source read settles it |
+| Five-year plans: first plan / declared fulfilled / second plan | 1928 – 1932 / 7 January 1933 / 1933 – 1937 CE | Siegelbaum; Stalin's report; the resolution of January 1932 (`wh-902`) |
+| Holodomor: famine / exit from Ukraine and the Kuban banned | 1932 – 1933 / 22 January 1933 CE | Klid and Makuch; Werth (`wh-903`) |
+| Great Purge: Kirov killed / Order 00447 / height | 1 December 1934 / 30 July 1937 / 1936 – 1938 CE | Siegelbaum; Werth (`wh-904`) |
+| Weimar Republic: proclaimed / constitution signed / ended | 9 November 1918 / 11 August 1919 / 30 January 1933 CE | the German Historical Institute; the Weimar constitution (`wh-905`) |
+| German hyperinflation: span (Brunnermeier and others) / Rentenmark issued | July 1922 – November 1923 / 15 November 1923 CE | the 2024 preprint; Kunzel, LeMO (`wh-906`) |
+| Wall Street Crash: Dow peak / Black Thursday / Black Tuesday / Dow low | 3 September 1929 / 24 October 1929 / 29 October 1929 / 8 July 1932 CE | the Federal Reserve history; the Senate (`wh-907`) |
+| Great Depression: began / low point / ended (Federal Reserve) | August 1929 / March 1933 / 1941 CE | Richardson, Federal Reserve History (`wh-908`) |
+| New Deal: pledged / bank holiday / Recovery Act / Social Security | 2 July 1932 / 6 March 1933 / 16 June 1933 / August 1935 CE | Roosevelt's speech; the Federal Reserve history; the National Archives (`wh-909`) |
 
 ## Chronology pins
 
@@ -1580,4 +1589,13 @@ wh-897: 22 April 1870 – 21 January 1924
 wh-898: 1903; January 1912; March 1918
 wh-899: 1918 – 1921; May 1918; 13 November 1920; 18 March 1921
 wh-900: 30 December 1922; 31 January 1924; 26 December 1991
+wh-901: 1922; 5 March 1953
+wh-902: 1928 – 1932; 7 January 1933; 1933 – 1937
+wh-903: 1932; 1933; 22 January 1933
+wh-904: 1 December 1934; 30 July 1937; 1936; 1938
+wh-905: 9 November 1918; 11 August 1919; 30 January 1933
+wh-906: July 1922; November 1923; 15 November 1923; 4.2
+wh-907: 3 September 1929; 24 October 1929; 29 October 1929; 8 July 1932; 381.17; 41.22
+wh-908: August 1929; March 1933; 1941
+wh-909: 1932; 1933; 1935
 ```

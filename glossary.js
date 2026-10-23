@@ -7740,7 +7740,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shandong_Problem": "1914–1922",
 "Racial_Equality_Proposal": "1919",
 "Wall_Street_Crash_of_1929": "October 1929",
-"Great_Depression": "1929–1939",
+"Great_Depression": "1929 – 1941",
 "Article_48_of_the_Weimar_Constitution": "1919–1933",
 "Benito_Mussolini": "1883–1945",
 "March_on_Rome": "October 1922",
