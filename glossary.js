@@ -9428,7 +9428,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Year_of_Africa": "1960",
 "Kwame_Nkrumah": "1909–1972",
 "Détente": "1969–1979",
-"Great_Leap_Forward": "1958–1962",
+"Great_Leap_Forward": "1958–1960",
 "Cultural_Revolution": "1966–1976",
 "Soviet–Afghan_War": "1979–1989",
 "Fall_of_the_Berlin_Wall": "1989",

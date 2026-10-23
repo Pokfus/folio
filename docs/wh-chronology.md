@@ -855,6 +855,24 @@ Filled batch by batch, from the source each row names.
 | Hungarian Revolution: began / neutrality declared / Soviet attack | 23 October 1956 / 1 November 1956 / 4 November 1956 CE | the UN Special Committee; the cabinet minutes (`wh-958`) |
 | Berlin Wall: ordered / stood | 12 August 1961 / 13 August 1961 – 9 November 1989 CE | the Council of Ministers' resolution; the Berlin Wall Foundation (`wh-959`) |
 | Cuban Revolution: Moncada / landing / Batista fled / socialism (in Castro's speech) | 26 July 1953 / 2 December 1956 / 1 January 1959 / 1 May 1961 CE | Castro; Guevara; FRUS (`wh-960`) |
+| Cuban Missile Crisis: Soviet warheads (National Security Archive) / photographed / US "thirteen days" / quarantine ended | 4 October – 1 December 1962 CE / 14 October 1962 CE / 16 – 28 October 1962 CE / 20 November 1962 CE | the Archive; FRUS; the Kennedy Library (`wh-961`); the Washington count, Moscow seven hours ahead |
+| Space Race (usual start) | 4 October 1957 CE | the State Department's Office of the Historian (`wh-962`) |
+| Apollo 11: launched / landed / first step / splashdown | 16 July 1969, 13:32 UTC / 20 July 1969, 20:17 UTC / 21 July 1969, 02:56 UTC / 24 July 1969, 16:50 UTC | the Mission Report; NASA (`wh-963`); 20 July on the report's Eastern clock |
+| Vietnam War: US legal start / Tonkin vote / peace signed / fall of Saigon | 1 November 1955 / 7 August 1964 / 27 January 1973 / 30 April 1975 CE | the statute; the National Archives; the Agreement (`wh-964`); no single start date exists |
+| Prague Spring: Dubček elected / Action Programme / invasion / Moscow Protocol | January 1968 / 5 April 1968 / 20 – 21 August 1968 / 26 August 1968 CE | Kramer; the Programme; FRUS; the Czech Academy's edition (`wh-965`) |
+| Détente (State Department span) / ABM Treaty / Basic Principles / Final Act | 1969 – 1979 / 26 May 1972 / 29 May 1972 / 1 August 1975 CE | Office of the Historian; the texts (`wh-966`); no single beginning or end |
+| Great Leap Forward: campaign / famine | 1958 – 1960 / 1959 – 1961 CE | the 1981 resolution; Meng, Qian and Yared (`wh-967`) |
+| Cultural Revolution: dated by the Party / most killings | May 1966 – October 1976 / 1968 – 1971 CE | the 1981 resolution; Walder and Su (`wh-968`) |
+| Soviet–Afghan War: began (US view) / entry (UN) / Accords signed / troops out | 24 December 1979 / 27 December 1979 / 14 April 1988 / 15 February 1989 CE | State Department history; the UN history; Pravda (`wh-969`) |
+| Fall of the Berlin Wall: border opened | 9 November 1989 CE | Hertle; the CWIHP Bulletin (`wh-970`) |
+| Indian independence movement: the Museum's start / dominions set up | 1857 / 15 August 1947 CE | the National Army Museum; the Indian Independence Act (`wh-972`); the movement has no agreed start |
+| Mahatma Gandhi: lived | 2 October 1869 – 30 January 1948 CE | the Collected Works editors; the Nobel page (`wh-973`) |
+| Partition of India: plan announced / Act passed / Award dated / dominions set up | 3 June 1947 / 18 July 1947 / 12 August 1947 / 15 August 1947 CE | the plan; the Act; the Boundary Commission's Award (`wh-974`) |
+| Indonesian National Revolution: proclaimed / recognised | 17 August 1945 / 27 December 1949 CE | Library of Congress; the Round Table charter (`wh-975`) |
+| Suez Crisis: nationalised / Israel attacked / ceasefire / last withdrawal | 26 July 1956 / 29 October 1956 / 6 November 1956 / 8 March 1957 CE | FRUS; Hansard; the protocol (`wh-977`) |
+| Algerian War: began / Évian Accords / referendum / independence day | 1 November 1954 / 18 March 1962 / 1 July 1962 / 5 July 1962 CE | the Front's proclamation; the Accords; the UN resolution (`wh-978`) |
+| Year of Africa: independences / joined the UN | 1 January – 28 November 1960 / 20 September – 7 October 1960 CE | CBC; the UN's list (`wh-979`) |
+| Kwame Nkrumah: born / independence / overthrown / died | 1909 / 6 March 1957 / 24 February 1966 / 27 April 1972 CE | the Schomburg guide; Hansard (`wh-980`); the day of birth is disputed, the line gives the year |
 
 ## Chronology pins
 
@@ -1688,4 +1706,22 @@ wh-956: 29 August 1949; 1 November 1952; 1986; 8 December 1987
 wh-958: 23 October 1956; 1 November 1956; 4 November 1956
 wh-959: 12 August 1961; 13 August 1961; 9 November 1989
 wh-960: 26 July 1953; 2 December 1956; 1 January 1959; 1 May 1961
+wh-961: 4 October 1962; 1 December 1962; 14 October 1962; 20 November 1962
+wh-962: 4 October 1957
+wh-963: 16 July 1969; 20 July 1969; 21 July 1969; 24 July 1969
+wh-964: 1 November 1955; 7 August 1964; 27 January 1973; 30 April 1975
+wh-965: January 1968; 5 April 1968; 20 – 21 August 1968; 26 August 1968
+wh-966: 1969 – 1979; 26 May 1972; 29 May 1972; 1 August 1975
+wh-967: 1958; 1960; 1959; 1961
+wh-968: 1966; 1976; 1968; 1971
+wh-969: 24 December 1979; 27 December 1979; 14 April 1988; 15 February 1989
+wh-970: 9 November 1989
+wh-972: 1857; 15 August 1947
+wh-973: 1869; 1948
+wh-974: 1947
+wh-975: 17 August 1945; 27 December 1949
+wh-977: 26 July 1956; 29 October 1956; 6 November 1956; 8 March 1957
+wh-978: 1 November 1954; 18 March 1962; 1 July 1962; 5 July 1962
+wh-979: 1 January – 28 November 1960; 20 September – 7 October 1960
+wh-980: 1909; 6 March 1957; 24 February 1966; 27 April 1972
 ```
