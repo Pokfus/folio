@@ -386,18 +386,21 @@ function scrimCheck() {
     const u = await page.evaluate(() => {
       const gbU = document.querySelector("#undoGradeBar"), sbU = document.querySelector("#undoGrade");
       const help = document.querySelector(".grade-help");
-      const r = (e) => { const b = e.getBoundingClientRect(); return { l: Math.round(b.left), t: Math.round(b.top) }; };
+      const r = (e) => { const b = e.getBoundingClientRect(); return { l: Math.round(b.left), t: Math.round(b.top), w: Math.round(b.width) }; };
       return {
         inBar: !!gbU && gbU.checkVisibility(), inStudyBar: !!sbU && sbU.checkVisibility(),
-        pos: gbU && gbU.checkVisibility() ? r(gbU) : null, help: r(help),
+        pos: gbU && gbU.checkVisibility() ? r(gbU) : null, help: r(help), susp: r(document.querySelector(".grade-wrap .suspendbtn")),
         grades: r(document.querySelector(".grades")),
       };
     });
     const tag = vp.width + "px";
     if (vp === PHONE) {
       check("[" + tag + "] Undo is in the grade bar", u.inBar);
-      check("[" + tag + "] ...on a row of its own, under the ? and the four grades",
-        !!u.pos && u.pos.t > u.help.t && u.pos.t > u.grades.t, JSON.stringify(u));
+      check("[" + tag + "] ...between the ? and Suspend, on the row under the four grades",
+        !!u.pos && u.pos.t > u.grades.t && Math.abs(u.pos.t - u.help.t) <= 1 && Math.abs(u.pos.t - u.susp.t) <= 1
+          && u.help.l < u.pos.l && u.pos.l < u.susp.l, JSON.stringify(u));
+      check("[" + tag + "] ...all three the same width",
+        !!u.pos && Math.abs(u.pos.w - u.help.w) <= 1 && Math.abs(u.pos.w - u.susp.w) <= 1, JSON.stringify(u));
       check("[" + tag + "] ...and the study bar's copy has stepped aside", !u.inStudyBar);
     } else {
       check("[" + tag + "] the grade bar carries no second Undo", !u.inBar);
