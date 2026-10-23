@@ -158,7 +158,7 @@ order unless the user says otherwise.
 | B24 | The Punic Wars (`rm-punic-wars`) / Rome and the Mediterranean (`rm-mediterranean`) | `rm-231`–`rm-240` | 10 | 120 | **done 2026-10-22** |
 | B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | **done 2026-10-22** |
 | B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | **done 2026-10-22** |
-| B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | open |
+| B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | **done 2026-10-23** |
 | B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | open |
 | B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | open |
 | B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | open |
@@ -530,6 +530,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-258` province of Asia | the acropolis of Pergamum | wrong: one city; the description names Strabo. **No locator: a province needs a hand-drawn shape** |
 | `rm-259` bequest of Attalus III | the Great Altar re-erected in Berlin | weak: the altar is Eumenes II's, and the description admits much of it is modern masonry |
 | `rm-260` revolt of Aristonicus | the colonnaded street at Ephesus | weak: a Roman-era street for a city that fought the revolt; the description admits it post-dates it |
+| `rm-261` Roman conquest of Spain | the Roman theatre at Cartagena | wrong: a later monument that stands for no part of a 200-year conquest |
+| `rm-262` Celtiberian Wars | the Botorrita bronze plaques | borderline: they show the Celtiberian language, not the wars |
+| `rm-263` Lusitanian War | a street at the Citânia de Briteiros | wrong: a hillfort in the Minho, north of Lusitania, as the description says. **No locator: Lusitania has no point** |
+| `rm-264` Viriathus | the monument to Viriato at Viseu | ok in kind: a modern bronze; the description says no ancient likeness survives |
+| `rm-265` Numantine War | reconstructed timber towers at Numantia | ok in kind, weak: a visitors' reconstruction of the site, not the siege. **No locator: Numantia (Garray) is wanted** |
+| `rm-266` Scipio Aemilianus | a painting of Masinissa's deathbed | wrong: a painting of one scene, titled with the wrong name; the description is a copied caption with a typo and gives Masinissa's dates |
+| `rm-267` Roman provincial system | none | no picture (`I.none`) |
+| `rm-268` publicani | none | no picture (`I.none`) |
+| `rm-269` provincial taxation | a bronze modius from Herculaneum | wrong: imperial-period, one object, and also on `rm-202` (`I.duplicate`); the agent proposes `rm-202` keeps it |
+| `rm-270` wealth of empire | Vernet's 1789 *Triumph of Aemilius Paulus* | weak: a neoclassical painting nineteen centuries later; a relief, a hoard or a mine would show wealth better |
 
 ## Glossary candidates
 
@@ -1271,3 +1281,22 @@ Run as B25. Checks: `rm-audit.js --range=rm-251:rm-260` reads clean on five card
 | `rm-260` revolt of Aristonicus | 6 | 5 → 6 | **Crassus was killed in 130, not 131, the year he was consul**; the start is 133 or 132. The capture year is dropped because no source prints it. The modern doubt that it was a slave revolt is stated; Aristonicus's death is Strabo's, Last's and Mommsen's separately. |
 
 **Read by eye.** *Confusability:* `rm-251`/`rm-252` are the battle and the man; `rm-253`/`rm-254` the settlement and the circle; `rm-255`/`rm-256` the war and the sack; `rm-257`/`rm-258` the two provinces; `rm-259`/`rm-260` the will and the revolt, with the Eudemus and Blossius clues kept apart. *Legend:* the vine stick, the Paelignian standard, the poison garden and the "Heliopolitae" are each an author's. *Overlap:* `gr-189` and `gr-864` differ slightly on Corinth (details in the drafts); `gr-861` has a Pydna relief photograph; `gr-793` as above.
+
+### B27 — `rm-261`–`rm-270`, Rome and the Mediterranean: the conquest of Spain to the wealth of empire (2026-10-23)
+
+Run as B26, on a new day. Checks: `rm-audit.js --range=rm-261:rm-270` reads clean on four cards; the rest are `S.chip?` on `rm-261`, `rm-262` and `rm-264` (English BMCR reviews of French- or German-titled books: the known false positive), `I.none` on `rm-267` and `rm-268`, and `I.duplicate` on `rm-269` (with `rm-202`). One source (`rm-268`'s Italian Cimma note) was written with its chip after the URL's closing full stop and flagged "NO URL" by `urlcheck`; it was corrected to `…pdf. [in Italian] [Open access]` and the card re-applied. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. The modern half of the Spanish cards is Schulten (Cambridge Ancient History vol. 8, 1930) and BMCR reviews of recent French and English books; **Appian's *Iberica* is the one ancient narrative, a second-century CE Greek, so every figure is his and said so**.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-261` Roman conquest of Spain | 7 | 5 → 8 | **The old text said the two Spains "date from" the praetors' lot of 197; Livy 32.28 does not say so** (Schulten prints 197 for the boundary). The Strabo and Justin material is gone; the line is 218, 197, 133, 29 – 19. A reviewer reads Appian as seeing Iberia as an administered empire from the Hannibalic war, so later resistance became rebellion in his telling. |
+| `rm-262` Celtiberian Wars | 6 | 6 → 6 | **"First" and "Second" are a modern numbering.** "Fiery war" is a Suidas excerpt of Polybius, not tied to a numbered war; Nobilior's "praetor" is Appian's label (Schulten has him consul); the 1 January start of the consular year is Schulten's. |
+| `rm-263` Lusitanian War | 6 | 6 → 7 | **Appian gives no death toll for Galba's massacre: the 30,000 is Suetonius's "they say"**, and Livy's summary says the survivors were sold, not killed. Lendering's margin years were an editor's; the line is 155 – 139 and 150. Lusitania was a region, not a state. |
+| `rm-264` Viriathus | 6 | 6 → 8 | **"Rome does not approve" is Eutropius 4.16, not Diodorus 33.21** (the English wording is a reading of the Latin). The ancient authors give eight, eleven and fourteen years for his leadership; Diodorus has the swords by night in his tent where the old text said "in his sleep". |
+| `rm-265` Numantine War | 6 | 8 → 7 | **"Naked" is Appian's; Plutarch says "unarmed and in bonds".** "8,000 against 60,000" was a count on the date line; the line is 143 – 133, 137, 134, as Schulten prints them. The war's heavy losses are tied to Gracchus's land reforms by one account only. |
+| `rm-266` Scipio Aemilianus | 7 | 6 → 7 | **The old glossary stated the "Scipionic circle" as fact**; reviewers now report that few believe in it as a real group. The old Q3 duplicated `rm-235`'s weeping at Carthage and is replaced. His death in 129 is unexplained, with rumours of murder or suicide (Appian). |
+| `rm-267` Roman provincial system | 7 | 8 → 7 | **"Six praetors from 197 BCE" was an agent's conversion (Livy 32.27 prints no year)** and goes. Republican Latin had no word for "governor"; a universal *lex provinciae* is doubted (Richardson, BMCR); the imperialism debate is in. |
+| `rm-268` publicani | 6 | 7 → 8 | **"66 BCE" for the Manilian speech and "167 BCE" for the mines were agent conversions** and go. The old card was Cicero ×4; the card now has the share-trading debate (Malmendier, Poitras and Geranio) and a Traditional 493 (Dionysius's date) with the army contract of 216. |
+| `rm-269` provincial taxation | 7 | 7 → 7 | **The old card was a string of Cicero's sentences**, claiming "the other provinces yielded barely enough" (rhetoric for Asia). Now the patchwork (Sicily's tenth, Spain's fixed sum and twentieth, Macedonia's halved tribute, Asia's censorial contracts), with Plutarch's debt story. |
+| `rm-270` wealth of empire | 7 | 6 → 8 | **"Treasury 157 BCE, per Pliny" is an agent's conversion; Antias's 120,000,000 sesterces is his figure, which Livy doubts.** Cato's caviare complaint was wrongly given to Polybius. Frank's cautions on the totals are added. |
+
+**Read by eye.** *Confusability:* `rm-261`/`rm-262` are the long conquest and the numbered wars; `rm-263`/`rm-264` the war and the man; `rm-265`/`rm-266` the siege and the general; `rm-267`/`rm-268`/`rm-269`/`rm-270` the system, the contractors, the taxes and the wealth, each phrasing using clues only its term has. *Legend:* Galba's massacre numbers and the "fiery war" label are each an ancient author's. *Chronology:* the Spanish years are Schulten's, and where a source prints none (Polybius, Appian) the card says so. *Overlap:* no `gr-` or `wh-` card covers these subjects; the Numantia and Lusitanian cards share nothing with `wh-` cards.

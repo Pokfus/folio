@@ -303,6 +303,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the province of Asia: organised / the tax law / Phrygia added | c. 129 – 126 BCE / 123 BCE (some argue the companies reached Asia only about 100 BCE) / 116 BCE | `rm-258` |
 | the bequest of Attalus III: died / reigned / envoys sent to Rome | 133 BCE / 138 – 133 BCE / 132 BCE | `rm-259` |
 | the revolt of Aristonicus: began / Crassus killed / Aquillius / his triumph | 133 or 132 BCE / 130 BCE (not 131, the year he was consul) / 129 BCE / 126 BCE | `rm-260` |
+| the Roman conquest of Spain: the Scipios land / the two provinces / Numantia falls / the Cantabrian wars | 218 BCE / 197 BCE (Schulten prints it for the boundary, not for the provinces' origin) / 133 BCE / 29 – 19 BCE | `rm-261` |
+| the Celtiberian Wars: first / second / Nobilior beaten | 181 – 179 BCE / 153 – 151 BCE (a modern numbering) / 23 August 153 BCE (Schulten) | `rm-262` |
+| the Lusitanian War / Galba's massacre | c. 155 – 139 BCE / 150 BCE | `rm-263` |
+| Viriathus: his leadership | c. 146 – 138 BCE (Schulten; the ancient authors give eight, eleven and fourteen years) | `rm-264` |
+| the Numantine War: fought / Mancinus yields / Scipio arrives | 143 – 133 BCE / 137 BCE / 134 BCE (Schulten) | `rm-265` |
+| Scipio Aemilianus: consul / took Carthage / took Numantia / died | 147 BCE / 146 BCE / 133 BCE / 129 BCE | `rm-266` |
+| the provincial system: the island praetors / the Sempronian law | 227 BCE / c. 123 BCE | `rm-267` |
+| the publicani: Traditional / the army contract | 493 BCE (Dionysius's date, as Malmendier reports it) / 216 BCE | `rm-268` |
+| provincial taxation: Spain's ruling / Macedonia's tribute halved / Gaius Gracchus tribune | 171 BCE / 167 BCE / 123 – 122 BCE | `rm-269` |
+| the wealth of empire: the taxes repaid / the war tax ended / the mines reopened | 187 BCE / 167 BCE / 158 BCE | `rm-270` |
 
 ## The middle and late Republic
 
@@ -572,4 +582,14 @@ rm-257: 148; 149
 rm-258: 129; 126; 123; 116
 rm-259: 133; 138; 132
 rm-260: 133; 132; 130; 129; 126
+rm-261: 218; 197; 133; 29; 19
+rm-262: 181; 179; 153; 151; 23
+rm-263: 155; 139; 150
+rm-264: 146; 138
+rm-265: 143; 133; 137; 134
+rm-266: 147; 146; 133; 129
+rm-267: 227; 123
+rm-268: 493; 216
+rm-269: 171; 167; 123; 122
+rm-270: 187; 167; 158
 ```
