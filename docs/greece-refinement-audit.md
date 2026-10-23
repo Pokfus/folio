@@ -253,17 +253,17 @@ one changelog line and a version bump; commit and push.
 | B81 | Successor kingdoms (`gr-successors`) | `gr-771`–`gr-780` | 10 | **done 2026-10-23** |
 | B82 | Successor kingdoms (`gr-successors`) | `gr-781`–`gr-790` | 10 | **done 2026-10-23** |
 | B83 | Successor kingdoms (`gr-successors`) | `gr-791`–`gr-800` | 10 | **done 2026-10-23** |
-| B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | open |
-| B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | open |
-| B86 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-821`–`gr-830` | 10 | open |
-| B87 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-831`–`gr-840` | 10 | open |
-| B88 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-841`–`gr-845` | 5 | open |
-| B89 | Greece under Rome (`gr-under-rome`) | `gr-846`–`gr-855` | 10 | open |
-| B90 | Greece under Rome (`gr-under-rome`) | `gr-856`–`gr-865` | 10 | open |
-| B91 | Greece under Rome (`gr-under-rome`) | `gr-866`–`gr-875` | 10 | open |
-| B92 | Greece under Rome (`gr-under-rome`) | `gr-876`–`gr-880` | 5 | open |
-| B93 | Olympians and cosmogony (`gr-olympians`) | `gr-881`–`gr-890` | 10 | open |
-| B94 | Olympians and cosmogony (`gr-olympians`) | `gr-891`–`gr-900` | 10 | open |
+| B84 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-801`–`gr-810` | 10 | **done 2026-10-23** |
+| B85 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-811`–`gr-820` | 10 | **done 2026-10-23** |
+| B86 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-821`–`gr-830` | 10 | **done 2026-10-23** |
+| B87 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-831`–`gr-840` | 10 | **done 2026-10-23** |
+| B88 | Alexandria and Hellenistic science (`gr-alexandria`) | `gr-841`–`gr-845` | 5 | **done 2026-10-23** |
+| B89 | Greece under Rome (`gr-under-rome`) | `gr-846`–`gr-855` | 10 | **done 2026-10-23** |
+| B90 | Greece under Rome (`gr-under-rome`) | `gr-856`–`gr-865` | 10 | **done 2026-10-23** |
+| B91 | Greece under Rome (`gr-under-rome`) | `gr-866`–`gr-875` | 10 | **done 2026-10-23** |
+| B92 | Greece under Rome (`gr-under-rome`) | `gr-876`–`gr-880` | 5 | **done 2026-10-23** |
+| B93 | Olympians and cosmogony (`gr-olympians`) | `gr-881`–`gr-890` | 10 | **done 2026-10-23** |
+| B94 | Olympians and cosmogony (`gr-olympians`) | `gr-891`–`gr-900` | 10 | **done 2026-10-23** |
 | B95 | Olympians and cosmogony (`gr-olympians`) | `gr-901`–`gr-910` | 10 | open |
 | B96 | Olympians and cosmogony (`gr-olympians`) | `gr-911`–`gr-920` | 10 | open |
 | B97 | Heroes and the epic cycle (`gr-heroes`) | `gr-921`–`gr-930` | 10 | open |
@@ -2599,3 +2599,169 @@ answers 503 over plain HTTP and 200 over HTTPS; Crossref matches the record.
 - **Pictures:** each checked with `cm.py info`: `gr-796` a hemidrachm of the league, `gr-797` the theatre of Sicyon, `gr-798` a tetradrachm
   of Cleomenes III (for the Victorian engraving of the valley of Sellasia that the draft marked for replacement), `gr-799` Monsiau's
   painting of 1789, which shows this very scene and is described as imagined, `gr-800` a Saalburg reconstruction of torsion artillery.
+
+### B84–B94 (`gr-801`–`gr-900`) — Alexandria and Hellenistic science, Greece under Rome, the Olympians (2026-10-23)
+
+One hundred cards: `gr-alexandria` (`gr-801`–`gr-845`, B84–B88), `gr-under-rome` (`gr-846`–`gr-880`, B89–B92) and the first twenty of
+`gr-olympians` (`gr-881`–`gr-900`, B93–B94). Method as before (twenty agents of five cards each, every page saved, every quote checked by
+`precheck.js`, every draft read by the harness owner, `urlcheck.js` on every cited URL). Rules unchanged; the three that did most work
+here: **no row dates another person's reign** (the draft rows "Under Euergetes", "Under Ptolemy I" and "Born, reported" were emptied),
+**no conversion of an Olympiad or a regnal year into a BCE year** (`gr-815`'s "156 – 153 BCE" from the Suda's "156th Olympiad" is gone,
+the prose keeps the Olympiad), and **every glossary redraft carries its own `date` key** (a draft without one leaves the old estimated
+life date in place; the dates of `Philo_of_Byzantium`, `Herophilus`, `Erasistratus` and `Antikythera_mechanism` were set by hand for it).
+
+#### `gr-801`–`gr-830` (B84–B86, committed first)
+
+Thirty cards: Alexandria, the Library, the Mouseion, the Pharos, Demetrius of Phalerum, Zenodotus, Callimachus, the *Aetia*, Apollonius of
+Rhodes, the *Argonautica*, Theocritus, bucolic poetry, the Hellenistic epigram, the *Pinakes*, Aristarchus of Samothrace, the Septuagint,
+Euclid, the *Elements*, Archimedes, his principle, the claw, Apollonius of Perga, the conic sections, Eratosthenes, the circumference of the
+earth, Aristarchus of Samos, heliocentrism, Hipparchus, precession and Ctesibius. Sources 5 → 6 – 9 on every card (the bar by difficulty
+met on all thirty; modern share at least half). Where the sources part the card says whose is whose: the Suda against its own online editors, and a modern commentary, on who headed the Library after Zenodotus (`gr-806`, `gr-809`); Gellius against Plutarch on how the Library burned (`gr-802`); the Letter of Aristeas against modern accounts for the Septuagint (`gr-816`); Ptolemy's Callippic reckoning against a recent reading for Aristarchus' solstice (`gr-826`); the usual 300 – 280 BCE against Empereur's 285 – 280 BCE for the Pharos (`gr-804`); Athenaeus against Hedylus on the reign of Ctesibius (`gr-830`).
+
+Checks: `greece-audit.js --range=gr-801:gr-830` finds only `Q.sibling` on `gr-810` (47 % against `gr-932`, a different subject),
+`W.not-why` on `gr-812` and `gr-813` (reported, not a fault) and `S.chip?` on `gr-813`, `gr-817` and `gr-818` (all false positives: English
+articles in the French-titled *Revue d'histoire des mathématiques*, and an English chapter in a Greek–Italian Festschrift). `check-cards.js`
+reports `same-language` on `gr-817` (the same two articles; `check-cards` is a trend, not a gate, and the pair is left unlisted). `check-questions`,
+`split-cards --check`, `test-card-plans` and `apply-wiki-links --check` pass; `check-style` adds nothing to main's alarms; every
+cited URL answers 2xx (308 citations, 120 distinct).
+
+**Date lines.** Empty and `undatable` for 20 of the 30: `gr-802`, `gr-803` (no source gives the start of either), `gr-806`, `gr-807`, `gr-809`
+(the draft rows dated Euergetes' reign), `gr-810`, `gr-811` (Theocritus' only anchor is a translator's inference), `gr-812`, `gr-813`, `gr-814`,
+`gr-815` (the Suda's 156th Olympiad is not converted), `gr-816`, `gr-817` and `gr-818` (Ptolemy I's reign is not Euclid's date), `gr-820`
+("proved before 212" was a bound), `gr-822`, `gr-824` (Möller's 276/3 – 194/1 is a modern bracket, kept in the prose as "about 276 – 194"),
+`gr-825`, `gr-827` and `gr-830` (Athenaeus and Hedylus give different reigns). Two rows saying whose: `gr-826` (Ptolemy's Callippic
+date 281 – 280 BCE, a recent reading 280 – 279) and `gr-808` (Books 1 – 2 about 270 BCE, an inference from Apollonius; Books 3 – 4 from 245 BCE, the Nemean
+victory of Berenice II). The rest print a date a source prints: `gr-801` (founded 331, Ptolemaic rule 323 – 30), `gr-804` (built about 300 – 280
+BCE; Empereur's 285 – 280 in the prose), `gr-805` (317 – 307), `gr-819` (died 212), `gr-821` (213, 212), `gr-823` (credited to Menaechmus about 360 – 350),
+`gr-828` (Ptolemy's observations of his, 161 – 126) and `gr-829` (129 – 128). Place and person suffixes ("212 BCE, to Rome") were stripped from
+every value, which hold dates only.
+
+**Corrected in the old cards:** the "capital 305 – 30 BCE" row (`gr-801`); every claim that rested on Murray's *Aitia* article (OpenEdition, behind a
+bot wall) and the "c. 300 – 48" line (`gr-802`); "salaried" scholars (`gr-803`); the Suda translator Roth, who only coded the page (Malcolm Heath is the
+translator), "first corrector", the asteriskos as Zenodotus' invention and "cited more than any other scholar" (`gr-806`); the poet's wife from Syracuse,
+"the first attempt to describe a whole literature" and a glossary entry that was the polemarch of the same name (`gr-807`); a half-read fragment of
+"Demeter outweighs the tall woman" (`gr-808`); the birth year 296 – 260 and the *P.Oxy.* 1241 claims (`gr-809`); "thirty poems" (`gr-811`); the
+invention "about 275" and "boast" for Virgil's *Eclogue* 6, which is a compliment (`gr-812`); the Anyte locust epigram, whose attribution is
+disputed, and the survival of the Garland, which preserved only a fraction (`gr-813`); "following two centuries" (`gr-816`); "most widely read" and "eight
+centuries" (`gr-817`); Proclus' "aim" of the *Elements* is his own idea (`gr-818`); a birth year (`gr-819`); Polybius' Appius, not Marcellus,
+starves the city out (`gr-821`); the estimated birth 262, "King Attalus" and the Euclid-pupil claim (`gr-822`); the Eratosthenes question that
+carried a year (`gr-824`); Philo's "four books and part of a fifth" (the Dictionary of Scientific Biography counts four of nine surviving, `gr-831`, next paragraph).
+The old Eratosthenes figure of 70,000 by 30,000 stadia is Strabo's own, not Eratosthenes' (`gr-836`, next paragraph).
+**Glossary entries redrafted:** `Alexandria`, `Library_of_Alexandria`, `Mouseion`, `Demetrius_of_Phalerum`, `Zenodotus`, `Callimachus_(poet)`,
+`Aetia_(Callimachus)`, `Apollonius_of_Rhodes`, `Argonautica`, `Theocritus`, `Bucolic_poetry`, `Hellenistic_epigram`, `Pinakes`, `Aristarchus_of_Samothrace`,
+`Septuagint`, `Euclid`, `Euclid's_Elements`, `Archimedes`, `Archimedes'_principle`, `Claw_of_Archimedes`, `Apollonius_of_Perga`, `Conic_section`,
+`Eratosthenes`, `Earth's_circumference`, `Aristarchus_of_Samos`, `Heliocentrism`, `Hipparchus_of_Nicaea`, `Precession_of_the_equinoxes`, `Ctesibius`
+(the draft for `gr-807` found that the card's glossary key was the polemarch's, and filed the poet under `Callimachus_(poet)`).
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes` (`gr-805`), `Aristophanes` (the comic poet, in "Aristophanes of Byzantium", `gr-806`, `gr-814`,
+`gr-815`), `pastoral` and `behaviour` (`gr-811`, `gr-812`), `Leonidas`, `Palatine` and `epitaph` (`gr-813`), `cells` (the biological key, `gr-816`),
+`coin` (`gr-817`), `Hippocrates` (`gr-821`), `Egypt`, `Athens`, `Heracles` and `Hipparchus` (the son of Peisistratus, `gr-824`); the plain `Hipparchus` is
+hand-keyed to `Hipparchus_of_Nicaea` where the astronomer is meant.
+
+#### `gr-831`–`gr-860` (B87–B89 and the first half of B90, committed second)
+
+Thirty cards: Philo of Byzantium, Herophilus, Erasistratus, human dissection, the Antikythera mechanism, the oikoumene, Pytheas, Stoicism,
+Zeno of Citium, Chrysippus, Epicureanism, Epicurus, the Garden, Pyrrhonism, Hellenistic sculpture (the end of `gr-alexandria`); Pyrrhus of Epirus,
+the Pyrrhic War, symploke, Teuta, the Peace of Phoenice, Philip V, the siege of Abydos, Cynoscephalae, Nabis, eleutheria, the siege of Ambracia, Eumenes II,
+the Treaty of Apamea, Callicrates of Leontium and Perseus (the start of `gr-under-rome`). The paired Rome cards (`rm-164`, `rm-237`, `rm-238`, `rm-239`, `rm-241`,
+`rm-248`, `rm-250`) were read first and each Greek card is told from the Greek side. Sources 5 → 5 – 9 (the one card that comes out at five, `gr-848`
+symploke, is difficulty 5 with three modern sources); the glossary entries shared with a Rome card (`Philip_V_of_Macedon`, `Siege_of_Abydos`,
+`Battle_of_Cynoscephalae`, `Nabis`, `Eumenes_II`, `Treaty_of_Apamea`, `Perseus_of_Macedon`) were read against the Greek card and left, because none contradicts it.
+
+Checks: the audit finds nothing but `W.not-why` on `gr-861` (reported) and `I.none` on the cards with no picture; every cited URL answers 2xx (382
+citations, 231 distinct).
+
+**Date lines.** Empty and `undatable`: `gr-831` (no source dates Philo to a year), `gr-832` and `gr-833` (the draft's estimated lives), `gr-834`, `gr-836`,
+`gr-837` (the late 4th century stays in the prose), `gr-844` (Pyrrhonism has no sourced start; Pyrrho's own years are estimates) and `gr-855` (a status
+has no date of its own, as the plan says). Two rows saying whose: `gr-835` (the lettering dates the making about 150 – 100 BCE in one study, about 100 – 50 BCE in
+another; the wreck 84 – 67; recovered 1901) and `gr-842` (Epicurus died in 270 BCE by one reckoning, 271 or 270 by another). `gr-840` prints the headship, about 230 – 206 BCE,
+and no life dates; `gr-838` and `gr-839` print the founding of the Stoa, about 300 BCE; `gr-841`, `gr-843` and `gr-842` print 307/06 BCE for Epicurus' return to
+Athens, the form the Stanford Encyclopedia prints. `gr-845` prints 323 – 30 BCE, the span its sources give; the chronology file's 323 – 31 for the Hellenistic
+period (Actium) stays as the other convention and says so. `gr-846` prints the two reigns in Epirus and the two in Macedon (306 – 302 and 297 – 272;
+288 – 284 and 273 – 272) with the death at Argos in 272 and no birth year; `gr-847` prints the war, Sicily and the fall of Tarentum; `gr-848` the span 217 – 168 BCE
+that Polybius' own phrase is read to cover; `gr-850` the peace of 205 and the Aetolian treaty of 211; `gr-854` Nabis' rule from about 207 (a Perseus heading, hence "about") to 192;
+`gr-859` the embassy of 180 (Smith's dictionary prints 179 for the debate, which the abstract notes), the deportations of 167 and the death in 149.
+
+**Corrected in the old cards:** Philo's "four books and part of a fifth" (the Dictionary of Scientific Biography counts four of nine surviving, `gr-831`); the
+arteries-carry-air claim of Erasistratus, which the old Galen citations did not carry (it now rests on two papers in the history of cardiology, `gr-833`); the
+Antikythera mechanism was not a "bronze model" and Cicero's word is "orrery" (`gr-835`); the old Eratosthenes figures of 70,000 by 30,000 stadia are Strabo's own, the
+oikoumene of Eratosthenes is 38,000 by 77,800 (`gr-836`); Pytheas' "about 325 BCE", the tin and the "circuit of Britain" (`gr-837`); "six centuries" and "founded about 306" for
+the Epicurean school (`gr-841`); Epicurus "born on Samos", which no source says (`gr-842`); Pliny's "descent of pleasure grounds" and "site not identified" for the Garden,
+now the dispute between Pliny and Cicero over where it lay (`gr-843`); Pyrrhonists did not claim that nothing can be known, which would itself be a claim
+(`gr-844`); Pyrrhus "twice king of Macedon before his western adventures", when the reigns fall either side of the west, the "fifteen generations" and the Aetolian
+claims, and Holm's date of 1894, not 1898 (`gr-846`); Polybius overread on the Pyrrhic War (`gr-847`); the 211 treaty and Livy are Rome's card's ground and were
+dropped from symploke (`gr-848`); Teuta's missing `[in Turkish]` chip (`gr-849`); the "Macedonian envoy" speech at Phoenice was made by neutral envoys (`gr-850`);
+Aemilius asked Philip "did they attack you first", not "lay hands on him" (`gr-852`); Philip entrusted Argos to Nabis, the Argives did not hand it over (`gr-854`);
+Mendels' article dated 2020 by Crossref and 1978 by its journal was dropped (`gr-854`); Polybius' chapter for the Treaty of Apamea is 21.48, not 21.45 (`gr-858`);
+the "168 BCE" of the Callicrates glossary entry had no source (`gr-859`). **Glossary entries redrafted:** `Philo_of_Byzantium`, `Herophilus`, `Erasistratus`,
+`Antikythera_mechanism`, `Ecumene`, `Pytheas`, `Zeno_of_Citium`, `Chrysippus`, `Epicureanism`, `Garden_of_Epicurus`, `Pyrrhonism`, `Hellenistic_sculpture`,
+`Pyrrhus_of_Epirus`, `Pyrrhic_War`, `Symploke`, `Teuta`, `Peace_of_Phoenice` and `Callicrates_of_Leontium`, each with its own `date` key.
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `compass` (`gr-831`), `water clock` and `pulses` (`gr-832`), `reconstruction` and `cells` (`gr-835`),
+`Heracles` (`gr-836`), `Athens` (`gr-838`, `gr-839`, `gr-840`), `Republic` (the title, `gr-839`), `Diodorus Cronus` (`gr-840`), `water` and `republic` (`gr-841`, `gr-843`),
+`marble` (`gr-845`), `Egypt`, `horse` and `Antigone` (`gr-846`), `Archidamus` and `horse` (`gr-847`), `Coele-Syria` (`gr-848`), `horse` (`gr-850`), `Achaean` (`gr-859`); the plain `Hipparchus` is
+hand-keyed to `Hipparchus_of_Nicaea` on `gr-835` and `gr-837`. `gr-860` is filed by the card's answer ("Perseus"), which the glossary resolves to the hero; the key
+`Perseus_of_Macedon` (Rome's `rm-250`) is the one that describes this king, and the same split exists on `rm-250` (an open item, not fixed here).
+
+#### `gr-861`–`gr-900` (the second half of B90, then B91–B94, committed third)
+
+Forty cards: the monument of Aemilius Paullus, the Via Egnatia, Diaeus, the sack of Corinth, Polybius, the mixed constitution, Delos, Attalus III,
+Archelaus, the siege of Athens, Thessalonica, Thessaly, Philippi, Actium, Caesarion, Cleopatra VII, the province of Achaea, Carneades, the Second Sophistic,
+Manuel Chrysoloras (the end of `gr-under-rome`); Greek mythology, cosmogony, Chaos, Gaia, Uranus, the Titans, Cronus, the Titanomachy, Rhea, Zeus, Hera,
+Poseidon, Demeter, Hestia, Hades, Athena, Apollo, Artemis, Ares and Aphrodite (the first twenty of `gr-olympians`). The pairs with Rome (`rm-251`, `rm-255`,
+`rm-256`, `rm-259`, `rm-309`, `rm-310`, `rm-362`, `rm-377`, `rm-384`, `rm-387`) were read first. Sources 5 → 6 – 10 (the bar by difficulty met on all forty; modern
+share at least half). **The Olympians' rule held:** myth is told as what Hesiod, Homer, the hymns, Apollodorus and Pausanias TELL, no god has life dates, and the
+modern disagreements (the Succession Myth's eastern sources; Aphrodite's province as *mixis* or as war) are stated as "one view … another view" with no scholar named.
+
+Checks: the audit finds nothing but `W.not-why` on `gr-861` and `I.none` / `I.duplicate` on the cards whose picture the next paragraph settles; `check-questions`,
+`check-style`, `check-cards` (apart from the `gr-817` pair named above), `split-cards`, `test-card-plans`, `check-docs` and `apply-wiki-links --check` pass; every
+cited URL answers 2xx except the DOI of the *Humanities* article on the Second Sophistic (`gr-879`, MDPI), which answers 403 to every non-browser request and
+200 on Crossref, where the record matches. `check-citations --card` finds no mismatch on any of the forty except `gr-876`, where Crossref holds Ana María Rosso's name with the given and family
+fields swapped (`Rosso Ana María`) and the article's own title page reads "Ana María Rosso": the citation follows the page, and the checker's override list (`.claude/check-citations.js`) is the place for the fix, left alone here.
+
+**Date lines.** Empty and `undatable`: `gr-866` ("about 150" was only a bound), `gr-872`, `gr-879` (the unsourced date line went), `gr-881` to `gr-885` (the
+Theogony has no sourced date in the sources they cite) and `gr-898` to `gr-900` (no source prints a year for the cult). The gods whose sources do print one date the
+text or cult that attests them and no life: `gr-886` to `gr-889` the *Theogony*, about 700 BCE; `gr-890` the Linear B tablets (about 1400 – 1200 BCE, the palatial tablets in general) and the
+*Theogony*; `gr-891` to `gr-895` Hesiod, about 700 BCE (`gr-894` adds the Hymn to Aphrodite, about 675 BCE, from a translation's table); `gr-896` the Great Panathenaia, 566 BCE;
+`gr-897` the first temple at Delphi, about 600 BCE, and its burning, 548. Two rows saying whose: `gr-865` (Polybius' detention 167 – 151 BCE in the Loeb introduction, 168 – 152 in Livius)
+and `gr-867` (Delos granted to Athens, 167 BCE by the École française, 166 by the World History Encyclopedia). The Greek-side wars print what their sources date: `gr-861`
+(erected 167, the battle on its frieze 168), `gr-863` (Diaeus general 150, died 146), `gr-868` (reign 138 – 133, the king's own letters of 135), `gr-869` (sent to Greece 88, Piraeus 87 – 86, Chaeronea 86,
+peace 85; Orchomenus is left undated because the sources split between 86 and 85), `gr-870` (87 – 86, taken 1 March 86), `gr-873` (Krenides 360 – 359, taken 356 with 357 in the prose), `gr-875`,
+`gr-876`, `gr-877` (27 BCE, from the Loeb note to Tacitus), `gr-878` (the embassy 155; death 129/8 as printed) and `gr-880` (1397 – 1400, 1411, 15 April 1415).
+
+**Corrected in the old cards:** Justin and the triumph, which belong to Rome's cards (`gr-861`); Strabo, not Polybius, gives the 535 miles of the Via Egnatia, Polybius only the stade
+reckoning and 267 miles (`gr-862`); Diaeus "twice elected" (`gr-863`); the span "220 – 146" and a Corinth-present row for Polybius (`gr-865`); the 1,000 Delians
+and the resettlement in Achaea (`gr-867`); "first province in Asia" in the Attalus III glossary entry, which no source gives (`gr-868`); Archelaus was sent to Greece in 88, not 87
+(`gr-869`); Aristion surrendered from thirst, not starvation, and the glossary entry for `gr-870` was the siege of 404 BCE, so the dated key
+`Siege_of_Athens_(87-86_BCE)` was drafted (`gr-870`); the unsourced "49 – 48" row of Thessalonica (`gr-871`); the "last Hellenistic fleet" (`gr-874`); "Octavian kept her
+children alive" and the misattributed "Queen of Kings" (`gr-876`); "kept no legion" (`gr-877`); "Cato had them voted out of the city", where Plutarch has Cato only urging the senate to decide (`gr-878`);
+Ovid's *Metamorphoses* in the Golding translation, not Brookes More's (`gr-883`); the invented motive for hiding the children (`gr-885`); in Hesiod it is Earth, not Rhea, who hands Cronus the stone,
+and the "Ionia" festival is hedged (`gr-887`); Eumelus' authorship of the *Titanomachy* is "perhaps" (`gr-888`); "no heir would end his reign" and the scholar names (`gr-891`); the "Pylos tablets about 1200" row and
+Isthmia "best documented" (`gr-892`); "Thesmophoria kept by women alone" (`gr-893`); "few temples, almost no myths" and "eldest" (`gr-894`); "almost no cult" for Hades (`gr-895`); the apobatic race
+(`gr-896`); "thousands of lead figurines" (`gr-898`); Sparta among the cults Aphrodite and Ares shared (`gr-899`). **Glossary entries redrafted:** `Monument_of_Aemilius_Paullus`, `Via_Egnatia`, `Diaeus`,
+`Polybius`, `Attalus_III`, `Siege_of_Athens_(87-86_BCE)`, `Achaea_(Roman_province)`, `Carneades`, `Second_Sophistic`, `Manuel_Chrysoloras`, `Greek_mythology`, `Cosmogony`, `Chaos_(cosmogony)`, `Gaia`,
+`Uranus_(mythology)`, `Titans`, `Cronus`, `Titanomachy`, `Rhea_(mythology)`, `Poseidon`, `Demeter`, `Hestia`, `Hades` and `Ares`. The shared pair entries (`Sack_of_Corinth`, `Cleopatra_VII`,
+`Battle_of_Actium`, `Zeus`, `Hera`) were read against the Greek card and left; the draft notes that `Cleopatra_VII` carries a "34 BCE" its own source does not print (an open item).
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Dyrrachium` and `Heraclea` (`gr-862`), `horse` (`gr-863`), `Italy` (`gr-866`, `gr-867`, `gr-869`), `Greece` and `Asia` (`gr-867`), `Asia` (`gr-868`), `talent` (`gr-879`), `council` (`gr-880`),
+`Italian` (the nationality, which opens Italy, `gr-883`), and `Poros`, `Corinth`, `Pylos` and `gold` (`gr-891` – `gr-895`). **Locators:** none added: every card in the hundred that lacks one is a text,
+a concept, a god's name or a man (`gr-894` Hestia and `gr-895` Hades carry none deliberately, as their plan lines say).
+
+#### Pictures for `gr-801`–`gr-900` (own commit)
+
+Every one of the hundred pictures was looked at, the old ones included (`cm.py info` for width, author and licence, a downloaded thumbnail read by eye, `check-image-free.js` before any
+new file), and the 49 that remain were looked at once more on contact sheets after they were applied; every `src` is the standard thumbnail on `thumb.wikimedia.org` (the largest of
+1920, 1280 and 960 pixels that does not exceed the file) and every one answers 200. **49 of the hundred now carry a picture; 51 carry none**, where 97 carried one before: the draft
+agents had marked most of the old pictures "ok" without looking, and the refusals the rules name took out far more than they kept (no `cm.py` search found a free, unlettered, uncropped replacement for most of them).
+- **Replaced (12):** `gr-801` the Eastern Harbour for one corner of a late antique theatre; `gr-810` a 13th-century manuscript page of the poem for a vase painted before it; `gr-839` the Farnese bust of Zeno, clean, for a bust photographed with a museum label in frame;
+  `gr-854` Nabis' own tetradrachm for the Roman-period theatre at Sparta; `gr-857` the Hierapolis relief bust of Eumenes II for a coin that carries the head of Philetaerus; `gr-867` a view of the island of Delos for one building;
+  `gr-876` the denarius of Antony and Cleopatra for a posthumous, disputedly identified painting; `gr-877` the Roman forum of Corinth for a gate at Athens; `gr-878` the Munich Roman copy of the Carneades statue for a restored head on a modern bust with a spurious inscription;
+  `gr-885` the whole Vasari panel for a crop; `gr-889` the Attic pelike of Rhea handing Cronus the stone for a carved dedication of 1743; `gr-890` a bronze statuette of Zeus for the Artemision bronze, which may be Poseidon.
+- **Kept (37)**, each re-measured, its `src` normalised and its description or credit corrected where it was wrong: `gr-804` (a 1909 reconstruction drawing, now said to be imagined), `gr-818`, `gr-835`, `gr-838`, `gr-840` ("under Augustus" dropped), `gr-842`, `gr-845` (the find-spot dropped),
+  `gr-846`, `gr-850`, `gr-851` (the mint dropped), `gr-852`, `gr-856`, `gr-860`, `gr-861` (one slab of the frieze, as the description says), `gr-862`, `gr-864` (the ground, not the sack), `gr-865` (a conservation ruler and colour strip, no label), `gr-868`, `gr-870`, `gr-871` – `gr-875`,
+  `gr-884`, `gr-887` (Rubens' painting of 1636, imagined; a tiny inventory mark in one corner), `gr-888` (re-dated, imagined), `gr-891` – `gr-900` (`gr-894` credit corrected to CC BY 4.0 and its identification said to be doubtful, `gr-897` photographed through glass).
+- **Removed (48) or none (3):** a later painting, engraving or crop of a man with no ancient likeness (`gr-817`, `gr-819`, `gr-822`, `gr-824`, `gr-832`, `gr-833`, `gr-837`, `gr-844`, `gr-863`, `gr-869`); a manuscript or papyrus that is not the man (`gr-806`, `gr-807`, `gr-809`, `gr-811`, `gr-815`) or not the form (`gr-812`, `gr-813`, `gr-814`, `gr-841`);
+  lettering, labels or viewer controls burned in (`gr-816` the Rylands papyrus, `gr-823` English captions, `gr-826`, `gr-827`, `gr-828` and `gr-829` printed pages and charts, `gr-830` and `gr-831` reconstructions with text panels, `gr-834` a woodcut captioned CARPUS, `gr-836` a lettered map, `gr-880` Uccello's drawing with handwritten text and collection stamps, `gr-883` Goltzius with Latin lettering);
+  the wrong subject (`gr-802` a Serapeum column, `gr-803` a sarcophagus of the Muses, `gr-805` the Pnyx, `gr-820` the bath legend, `gr-821` a crop of the Parigi fresco, `gr-825` a sundial, `gr-843` the double herm, `gr-847` a coin of Tarentum in a pendant mount, `gr-848` the walls of Nafpaktos,
+  `gr-849` later Roman mosaics, `gr-853` a coin of the Roman-supervised kingdom, `gr-855` the temple at Isthmia, `gr-858` a mountain, `gr-879` Herodes Atticus, `gr-881` a composite plate of the François Vase, `gr-886` the Farnese Atlas); no good file (`gr-808`, whose only Aetia file is 749 pixels wide); none to start with (`gr-859`, `gr-866`, `gr-882`, where the Derveni papyrus is excluded by the plan).
+  **An open item:** a second pass could look again for a coin, relief or vase for the men and wars among these (Hipparchus on a coin of Nicaea, Pyrrhus' elephants, Theocritus) once a free unlettered file of 960 pixels or more exists.
