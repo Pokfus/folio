@@ -1508,7 +1508,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "large", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -15642,7 +15642,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     document.body.classList.toggle("night", night);
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
-    document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
+    document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "large" : S.settings.fontSize;   // Large is the default since Oct 2026 (on request); a reader who chose a size keeps it
     readMapFs();   // the canvas maps have no stylesheet to inherit from — see mapFs above
     /* Two accessibility switches, written here for the same reason `data-fs` is: applyTheme runs on every
        render() and at boot, so neither needs a call site of its own and neither can be missed by a page.
@@ -21544,6 +21544,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { k: "flask", n: "Flask", d: '<path d="M9.4 3.5h5.2"/><path d="M10.4 3.5v6.1L5.6 17.9A2 2 0 0 0 7.3 21h9.4a2 2 0 0 0 1.7-3.1l-4.8-8.3V3.5"/><path d="M7.9 14.4h8.2"/>' },
     { k: "atom", n: "Atom", d: '<circle cx="12" cy="12" r="1.9"/><ellipse cx="12" cy="12" rx="9" ry="3.9"/><ellipse cx="12" cy="12" rx="9" ry="3.9" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.9" transform="rotate(120 12 12)"/>' },
     { k: "clock", n: "Clock", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 6.6V12l3.6 2.4"/>' },
+    { k: "hourglass", n: "Hourglass", d: '<path d="M6.6 3.4h10.8"/><path d="M6.6 20.6h10.8"/><path d="M7.6 3.4c0 4.2 2.6 6 4.4 8.6-1.8 2.6-4.4 4.4-4.4 8.6"/><path d="M16.4 3.4c0 4.2-2.6 6-4.4 8.6 1.8 2.6 4.4 4.4 4.4 8.6"/><path d="M9.6 18.4h4.8"/>' },
     { k: "key", n: "Key", d: '<circle cx="7.6" cy="8.4" r="3.9"/><path d="M10.4 11.2 20 20.8"/><path d="M16.6 17.4l2-2"/><path d="M13.8 14.6l2-2"/>' },
     { k: "brush", n: "Brush", d: '<path d="M17.6 3.4 20.6 6.4 11 16l-3-3z"/><path d="M8 13 5.4 15.6c-1 1-1 3.4-2 4.4 1.6.6 3.8.4 4.8-.6L11 16"/>' },
     { k: "music", n: "Music", d: '<path d="M9 18.2V5.4l10-2v12.8"/><ellipse cx="6.6" cy="18.2" rx="2.4" ry="2"/><ellipse cx="16.6" cy="16.2" rx="2.4" ry="2"/>' },
@@ -21903,6 +21904,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function chestCount() { return Math.max(0, (S.chests | 0)); }
   // the unopened chests a LEVEL-UP earned (Oct 2026, on request: the level bar's chest lights for these alone); a badge, sweep or streak chest queues in `chests` but never counts here
   function levelChestCount() { return Math.min(Math.max(0, (S.levelChests | 0)), chestCount()); }
+  /* A LEVEL CHEST STANDS ON THE LEVEL BAR UNTIL IT IS PRESSED, AND THEN WAITS IN THE BANNER (Oct 2026, on
+     request: the chest used to show in the banner AND stay gold on the bar). The two places share one
+     count: `S.chests` is every unopened chest, `S.levelChests` the share of them still on the bar, and the
+     banner is the rest — `chestCount() - levelChestCount()` — so a chest is never in both. Pressing the
+     bar's chest collects it: it leaves the bar's count (the bar greys) and the banner takes it. */
+  function bannerChestCount() { return chestCount() - levelChestCount(); }
+  function collectLevelChest() {
+    if (!levelChestCount()) return false;
+    S.levelChests = levelChestCount() - 1;
+    save();
+    return true;
+  }
 
   /* ---------- THE SECOND KIND OF THING A CHEST HOLDS: A THEME (Aug 2026, on request) ----------
      "Besides artifacts, we will add a second type of item users may occasionally collect: Themes."
@@ -22035,12 +22048,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
      `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
-  let chestFromLevelBar = false;   // set by openChestPop when the overlay was opened from the level bar's chest, read (and cleared) by spendChest
   function spendChest() {
     S.chests = Math.max(0, chestCount() - 1);
-    S.levelChests = levelChestCount() - (chestFromLevelBar ? 1 : 0);   // opened from the level bar's own chest: that one was a level chest; otherwise it is only clamped to what is left
-    if (S.levelChests < 0) S.levelChests = 0;
-    chestFromLevelBar = false;
+    S.levelChests = levelChestCount();   // a chest collected from the level bar has already left the count (collectLevelChest); this only clamps it to what is left
     S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
     /* The collector's badges are tested HERE rather than waiting for the next card, which is where
@@ -22237,7 +22247,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   document.addEventListener("click", (e) => { if (e.target && e.target.closest && e.target.closest("[data-guestgo]")) route("account"); });
   function chestBannerHTML() {
-    const n = chestCount();
+    const n = bannerChestCount();   // a chest still on the level bar is not in the banner yet — see collectLevelChest
     if (!n) return "";
     return '<div class="chest-banner" id="chestBanner">' +
       '<span class="cb-ic" aria-hidden="true">' + CHEST_SVG + "</span>" +
@@ -22712,7 +22722,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      celebration; there is deliberately no separate confetti popup behind it. */
   function openChestPop(opts) {
     opts = opts || {};
-    chestFromLevelBar = !!opts.fromLevelBar;
     closeChestPop();
     /* The prose and the picture are lazy (bundle "artefactExtra"), so ask for them the moment the chest
        appears rather than when the lid is tapped: the reader has to read the hint and reach for the
@@ -22732,7 +22741,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="chest-hint" id="chestHint">' + (nothingLeft
           ? "You have found everything Folio holds — every artefact and every theme. This chest will keep until there is more."
           : "Tap the chest") + '</div>' +
-        (chestCount() > 1 ? '<div class="chest-more" id="chestMore">' + chestCount() + ' chests waiting</div>' : "") +
+        (bannerChestCount() > 1 ? '<div class="chest-more" id="chestMore">' + bannerChestCount() + ' chests waiting</div>' : "") +
         '<div class="chest-reveal" id="chestReveal" hidden></div>' +
         '<div class="chest-acts" id="chestActs" hidden></div>' +
       '</div>';
@@ -22836,7 +22845,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
           addAct("Read about it", () => { close(); openArtefactWin(a.id); });
         }
-        if (chestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
+        if (bannerChestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
         addAct("Close", close, true);
         unitizeTree(rev);
       });
@@ -24826,7 +24835,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
       Object.keys(deckGroupMap()).forEach((id) => { if (isGroupId(id)) tops.push(id); });
-      orderedIds("", tops.filter((id) => !nestParentOf(id))).forEach((id) => emit(id, 0, "", ""));
+      /* THE COLLECTIONS ARE IN THE COLLECTIONS PAGE'S ORDER, ALWAYS (Oct 2026, on request). Its sections
+         top to bottom, the tree's order within each, the three courses after them. The reader's dragged
+         order still places their own decks, groups and languages; it is the curated collections' SLOTS in
+         that run that are refilled in the page's order, so a stale arrangement cannot reorder them. */
+      const run = orderedIds("", tops.filter((id) => !nestParentOf(id)));
+      const pageRank = (id) => {
+        const si = COLLECTION_SECTIONS.findIndex((x) => x.label === sectionOf(id));
+        return (si < 0 ? COLLECTION_SECTIONS.length : si) * 1000 + TREE.collections.findIndex((d) => d.id === id);
+      };
+      const isColl = (id) => TREE.collections.some((d) => d.id === id);
+      const collsInPageOrder = run.filter(isColl).sort((x, y) => pageRank(x) - pageRank(y));
+      let ci = 0;
+      run.map((id) => (isColl(id) ? collsInPageOrder[ci++] : id)).forEach((id) => emit(id, 0, "", ""));
       /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
          that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
          subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
@@ -25633,7 +25654,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       openChestPop();
     });
     // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
-    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (levelChestCount()) openChestPop({ fromLevelBar: true }); }); }
+    // …pressed, it is COLLECTED: the bar's chest goes grey and the chest moves to the banner above (collectLevelChest), then the overlay opens — repaint first, as for the two chests above
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (!collectLevelChest()) return; renderInPlace(); openChestPop(); }); }
     // the streak ribbon's chest (streakRibbonHTML): claimed on the press like the sweep chest above, in the same
     // load-bearing order — claim, repaint (ready → claimed), THEN the overlay
     { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop(); }); }
@@ -26726,15 +26748,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nothing else. The collection under it is called Visual Art rather than Art so that it does not
        read as the parent of the siblings that may join it. */
     { label: "The Arts", slot: "collection-list-arts" },
-    /* Special — NOT a subject, which is the whole reason it is its own heading (Sep 2026, on request:
-       "put it in a new section titled Special instead of a normal history or science collection"). What
-       goes here is a collection that is genuinely Folio-made content but is not one of the subjects the
-       shelf is organised by — the first is a university course rebuilt as a deck. Filing it under History
-       would be the claim the Philosophy comment above refuses to make: a heading is a statement about
-       what the thing IS, and "Politics: East Asia" under History is wrong about the subject rather than
-       merely untidy. It sits LAST of the subject sections and above the Planned fold, so the shelf still
-       reads subjects-first and the odd one out is where the eye reaches it last. */
-    { label: "Special", slot: "collection-list-special" },
+    /* THERE IS NO "Special" SECTION (Oct 2026, on request: "put the three special collections in the shared
+       decks section … remove the special collections section entirely"). The three courses — Politics: East
+       Asia, The EU as an External Power, Gateway to Global Affairs — are filed "Special" in COLLECTION_SECTION
+       below, which is what keeps them out of History and gives the daily-study list its mark for them, and
+       the Collections page draws them at the head of the Shared decks section (`specialCollections`). */
   ];
   const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
@@ -26750,7 +26768,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      subjects one icon would throw away a distinction for nothing.
      LANGUAGE AND COMMUNITY ARE NOT IN IT because neither is a section: a language container already wears
      the speech bubble and one of the reader's own decks the card stack, both decided in `adIconKey`. */
-  const SECTION_ICON = { History: "scroll", Geography: "globe", Science: "flask", Philosophy: "owl", "The Arts": "brush" };
+  const SECTION_ICON = { History: "hourglass", Geography: "globe", Science: "flask", Philosophy: "owl", "The Arts": "brush" };
 
   /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
      "Put a menu bar at the top which defaults to 'All'. Other pages should be 'History', 'Geography',
@@ -26784,7 +26802,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "history", label: "History", sections: ["History"] },
     { id: "geography", label: "Geography", sections: ["Geography"] },
     { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
-    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts", "Special"] },
+    { id: "other", label: "Other", sections: ["Science", "Philosophy", "The Arts"] },
     { id: "community", label: "Your decks", sections: [] },     // your own decks, then everyone else's
     { id: "all", label: "All", sections: null },               // null = every section; the default
   ];
@@ -26877,6 +26895,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const comingSoon = TREE.collections.filter((d) => isComingSoon(d));
     const bySection = {};
     available.forEach((d) => { (bySection[sectionOf(d.id)] = bySection[sectionOf(d.id)] || []).push(d); });
+    // the courses filed "Special" have no section of their own: they are drawn in the Shared decks section
+    const specials = bySection.Special || [];
     const admin = isAdmin();
     /* What this tab draws. `shown` is the subject sections it covers, `soonShown` the planned collections
        filtered to those sections, and `empty` says the tab has nothing at all — which is a real state
@@ -26885,7 +26905,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const soonShown = comingSoon.filter((d) => collTab === "all" || shown.indexOf(sectionOf(d.id)) >= 0);
     const langShown = collTabIs("language") && (window.LANG_DECKS || []).length;
     const commShown = collTabIs("community");
-    const empty = !soonShown.length && !langShown && !commShown && !shown.some((lab) => (bySection[lab] || []).length);
+    const empty = !soonShown.length && !langShown && !commShown && !specials.length && !shown.some((lab) => (bySection[lab] || []).length);
     const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
     const section = (label, n, slotId, count) =>
       `<details class="collection-group collection-group-fold" data-fold="${label}"${collFolded.has(label) ? "" : " open"}>
@@ -26967,7 +26987,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             dragged into it would actually land under. Everywhere else an empty "Planned" heading would
             offer a target that can put nothing anywhere. */""}
       ${soonShown.length || (admin && (collTab === "all" || collTab === "history")) ? soonSection(soonShown.length, "collection-list-soon", soonShown.length) : ""}
-      ${collTabIs("community") ? communityLibraryHTML() + sharedDecksHTML() : ""}
+      ${collTabIs("community") ? communityLibraryHTML() + sharedDecksHTML(specials.length) : ""}
       ${/* A tab that is genuinely empty says so rather than leaving the reader a page with a bar and
             nothing under it, which reads as a failure to load. */""}
       ${empty ? '<div class="lib-empty coll-tab-empty">Nothing here yet — the collections in this group are still being written.</div>' : ""}`;
@@ -26980,6 +27000,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelectorAll("details[data-fold]").forEach((d) => d.addEventListener("toggle", () => {
       if (d.open) collFolded.delete(d.dataset.fold); else collFolded.add(d.dataset.fold);
     }));
+    { const spList = root.querySelector("#collection-list-special"); if (spList) specials.forEach((d) => spList.appendChild(buildCollection(d))); }
     const soonList = root.querySelector("#collection-list-soon");
     if (soonList) soonShown.forEach((d) => soonList.appendChild(buildCollection(d)));
     /* The bar itself. `renderInPlace` rather than `render()`: changing a filter is not a navigation, and
@@ -31459,10 +31480,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     });
   }
-  function sharedDecksHTML() {
+  function sharedDecksHTML(nSpecial) {
     return '<div class="collection-group community-group" id="sharedDecks">' +
       '<div class="group-head"><span class="group-label">Shared decks</span><span class="group-line"></span>' +
         '<span class="group-count" id="sdCount">' + ((communityState.decks || []).length || "") + "</span></div>" +
+      // Folio's own three courses, above the intro that says the decks below are not fact-checked by Folio
+      (nSpecial ? '<div class="collection-list" id="collection-list-special"></div>' : "") +
       '<p class="udeck-intro">Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p>' +
       '<div class="cbrowse-bar">' +
         '<input class="af-input cbrowse-q" id="sdq" type="search" placeholder="Search shared decks…" value="' + esc(communityState.q) + '" />' +
@@ -32024,7 +32047,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         /* `deckOrdersFor` and not `DECK_ORDERS`: an order this entry cannot act on must not be offered
            here any more than on the sheet's cycler — a reader who picks one and sees nothing change
            concludes the ordering is broken. */
-        deckOrdersFor(entry).map((m) => {
+        /* …and the CURRENT DEFAULT FIRST (Oct 2026, on request: a new collection is dealt by difficulty, yet
+           Ordered stood at the top of the page and read as the default). The rest keep their cycle order. */
+        deckOrdersFor(entry).slice().sort((x, y) => (y === cur) - (x === cur)).map((m) => {
           const c = ORDER_PICK_COPY[m];
           return '<button type="button" class="op-card' + (m === cur ? " op-cur" : "") + '" data-order="' + esc(m) + '">' +
             '<span class="op-name">' + esc(DECK_ORDER_LABEL[m]) + (m === cur ? '<span class="op-tag">current default</span>' : "") + "</span>" +
@@ -34893,9 +34918,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      script here). Add a row for a new collection. `.claude/set-ja-names.js` writes the Japan data. */
   const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }]];
   const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
+  /* …AND A PREFIX THAT HOLDS MORE THAN ONE COUNTRY SAYS IT BY TAG (Oct 2026, on request: Politics: East Asia's
+     Japan terms showed a Chinese translation). `pea-` is a course on China, Japan and the Koreas, so the
+     prefix alone cannot name the language; a `pea-` card tagged `japan` keeps its Japanese in the same
+     `hanzi` / `pinyin` fields (kana and kanji, Hepburn) and takes the Japanese row. */
+  const ANSWER_NAME_TAGGED = [["pea-", "japan", ANSWER_NAME_LANGS[0][1]]];
   function answerNameLang(c) {
     const id = String((c && c.id) || "");
     for (let i = 0; i < ANSWER_NAME_LANGS.length; i++) if (id.indexOf(ANSWER_NAME_LANGS[i][0]) === 0) return ANSWER_NAME_LANGS[i][1];
+    for (let i = 0; i < ANSWER_NAME_TAGGED.length; i++) {
+      if (id.indexOf(ANSWER_NAME_TAGGED[i][0]) === 0 && Array.isArray(c.tags) && c.tags.indexOf(ANSWER_NAME_TAGGED[i][1]) >= 0) return ANSWER_NAME_TAGGED[i][2];
+    }
     return ANSWER_NAME_ZH;
   }
   function answerNameHTML(c) {
@@ -42477,7 +42510,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
   PAGES.settings = function (root) {
     const homeName = atlasCountryV2((S.settings.home && S.settings.home.name) || "Netherlands");   // a home stored under v1's spelling is selected under the new one
-    const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
+    const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "large" : S.settings.fontSize;
     const unitsNow = unitSystem();
     const spellNow = spellSystem();
     // atlas/data/country-names.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
@@ -42859,7 +42892,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // under the thumb as it is dragged; setFontSize is idempotent and a drag across one step is two
     // events at most, so there is nothing here worth debouncing.
     const fsRange = root.querySelector("#fsRange");
-    if (fsRange) fsRange.addEventListener("input", () => setFontSize(FONT_SIZES[+fsRange.value] || "medium"));
+    if (fsRange) fsRange.addEventListener("input", () => setFontSize(FONT_SIZES[+fsRange.value] || "large"));
     // measurements — the same segmented control, and the same delegation
     const unitPick = root.querySelector("#unitPick");
     if (unitPick) unitPick.addEventListener("click", (e) => {

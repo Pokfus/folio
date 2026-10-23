@@ -543,7 +543,7 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | event or person | the collection says | source |
 |---|---|---|
 | Peloponnesian War | 431 – 404 BCE; the Corcyra alliance 433 BCE; the Peace of Nicias 421 BCE; the Sicilian expedition sailed 415 BCE; Sparta renewed the war 413 BCE; Aegospotami 405 BCE; Athens surrendered in the spring of 404 BCE | Lendering, Livius (`gr-521`) |
-| Thucydides | no life dates; general in Thrace when Amphipolis fell 424 BCE; banished for 20 years (423 BCE on one reckoning); the history breaks off in 411 BCE | Thucydides 4.104–106, 5.26; Lendering, Livius; Stronk's review (`gr-522`) |
+| Thucydides | born c. 460 BCE and died c. 395 BCE on Livius's reckoning (an estimate, on the date line since 2026-10-23; no ancient source fixes them); general in Thrace when Amphipolis fell 424 BCE; banished for 20 years (423 BCE on one reckoning); the history breaks off in 411 BCE | Thucydides 4.104–106, 5.26; Lendering, Livius (including the "Thucydides (historian)" stub for the life dates); Stronk's review (`gr-522`) |
 | Prophasis | no line: a word | (`gr-523`) |
 | Epidamnus | founded 627 BCE; the war with Corcyra 435 BCE (436 BCE on Lendering's dating, used on no card) | Sestieri, Princeton Encyclopedia; Oldfather's note to Diodorus 12.30 (`gr-524`) |
 | Battle of Sybota | 433 BCE | Lendering, Livius; Sferruzza's review (`gr-525`) |
@@ -1065,6 +1065,108 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Apollo: Delphi temple | c. 600 BCE | Stefanie A. H. Kennell, review of Das antike Delphi, by Michael Maass, Bryn Mawr… (`gr-897`) |
 | Apollo: Temple burnt | 548 BCE | Stefanie A. H. Kennell, review of Das antike Delphi, by Michael Maass, Bryn Mawr… (`gr-897`) |
 
+
+## The Olympians and cosmogony, Hephaestus to the underworld (confirmed by B95 – B96, `gr-901` – `gr-920`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Hephaestus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-901`) |
+| Hermes: Linear B | c. 1400 – 1200 BCE | Thomas G. Palaima, “Appendix One: Linear B Sources,” in Anthology of Classical Myth: Pri… (`gr-902`) |
+| Hermes: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-902`) |
+| Dionysus: Linear B | c. 1400 – 1200 BCE | Thomas G. Palaima, “Appendix One: Linear B Sources,” in Anthology of Classical Myth: Pri… (`gr-903`) |
+| Dionysus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-903`) |
+| Twelve Olympians: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-904`) |
+| Persephone: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-906`) |
+| Prometheus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-908`) |
+| narthex: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-909`) |
+| Pandora: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-910`) |
+| Ages of Man: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-911`) |
+| Deucalion: Olympian 9 | 466 BCE | Pindar, Olympian 9.41–53, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-912`) |
+| Gigantomachy: Giants in Hesiod | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-913`) |
+| Typhon: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-914`) |
+| Typhon: Pythian 1 | 470 BCE | Pindar, Pythian 1.15–28, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-914`) |
+| Muses: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-915`) |
+| Moirai: In Hesiod | c. 700 BCE | Liana Miate, “Fates,” World History Encyclopedia, published 16 December 2022 (`gr-916`) |
+| Erinyes: In Hesiod | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-917`) |
+| Erinyes: Eumenides | 458 BCE | Z. Ambrose, review of Die “Eumeniden” des Aischylos und der Areopag , by Maximilian Brau… (`gr-917`) |
+| nymph: In the Odyssey | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-918`) |
+| centaur: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-919`) |
+| Greek underworld: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-920`) |
+
+## Heroes and the epic cycle (confirmed by B97 – B101, `gr-921` – `gr-965`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| hero: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-921`) |
+| Heracles: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-922`) |
+| Labours of Heracles: Temple built | 470 – 456 BCE | Museum of Classical Archaeology, University of Cambridge, “Temple of Zeus at Olympia, me… (`gr-923`) |
+| Nemean lion: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-924`) |
+| Lernaean Hydra: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-925`) |
+| Perseus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-926`) |
+| Perseus: Pindar’s ode | 490 BCE | Chris Eckerman, review of Pindar’s Pythian Twelve: A Linguistic Commentary and a Compara… (`gr-926`) |
+| Medusa: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-927`) |
+| Medusa: Corinthian bowl | c. 625 BCE | Kathryn Topper, review of Medusa: In the Mirror of Time , by David Leeming, Bryn Mawr Cl… (`gr-927`) |
+| Medusa: Pindar’s ode | 490 BCE | Chris Eckerman, review of Pindar’s Pythian Twelve: A Linguistic Commentary and a Compara… (`gr-927`) |
+| Theseus: Delphi’s order | 476 – 475 BCE | Plutarch, Life of Theseus 36, trans. Bernadotte Perrin, Loeb Classical Library (Cambridg… (`gr-928`) |
+| Ariadne: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-930`) |
+| Jason: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-932`) |
+| Jason: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-932`) |
+| Argonauts: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-933`) |
+| Argonauts: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-933`) |
+| Golden Fleece: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-934`) |
+| Medea: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-935`) |
+| Medea: Pythian 4 race | 462 BCE | Pindar, Pythian 4, trans. Diane Arnson Svarlien (1990), Perseus Digital Library (`gr-935`) |
+| Medea: Euripides’ play | 431 BCE | Markus Dubischar, review of Euripides: Medea , by William Allan, Bryn Mawr Classical Rev… (`gr-935`) |
+| Bellerophon: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-936`) |
+| Pegasus: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-937`) |
+| Pegasus: Early stater | c. 540 BCE | Paul and Alexandra Canellopoulos Museum, “Corinthian Silver Stater,” (`gr-937`) |
+| Oedipus: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-938`) |
+| Sphinx: Hesiod writing | c. 700 BCE | Timothy Howe, review of Hesiod’s Ascra , by Anthony T. Edwards, Bryn Mawr Classical Revi… (`gr-939`) |
+| Amphiaraus: Cult introduced | 424 – 414 BCE | Maria Elena Gorrini, review of Amphiaraos: guerrier, devin et guérisseur , by Pierre Sin… (`gr-940`) |
+| Epigoni: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-941`) |
+| Judgement of Paris: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-942`) |
+| Judgement of Paris: Chigi Vase | c. 650 BCE | Barry B. Powell, review of Image and Myth: A History of Pictorial Narration in Greek Art… (`gr-942`) |
+| Helen: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-943`) |
+| Trojan War: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-944`) |
+| Agamemnon: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-945`) |
+| Achilles: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-946`) |
+| mēnis: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-947`) |
+| Patroclus: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-948`) |
+| Hector: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-949`) |
+| Ajax the Great: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-950`) |
+| Odysseus: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-951`) |
+| Trojan Horse: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-952`) |
+| Trojan Horse: Mykonos pithos | c. 670 BCE | Barry B. Powell, review of Image and Myth: A History of Pictorial Narration in Greek Art… (`gr-952`) |
+| Clytemnestra: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-955`) |
+| Clytemnestra: Oresteia staged | 458 BCE | Michael Halleran, review of Aeschylus, the Oresteia , by Simon Goldhill, Bryn Mawr Class… (`gr-955`) |
+| Orestes: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-956`) |
+| Apologoi: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-957`) |
+| Polyphemus: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-958`) |
+| Circe: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-959`) |
+| Siren: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-960`) |
+| Scylla: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-961`) |
+| Calypso: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-962`) |
+| Penelope: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-963`) |
+| Telemachus: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-964`) |
+| Aeneas: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-965`) |
+| Aeneas: Aphrodite hymn | c. 675 BCE | Ingrid Holmberg, review of The Homeric Hymns , by Susan C. Shelmerdine, Bryn Mawr Classi… (`gr-965`) |
+
+## Cult, oracles and festivals (confirmed by B102 – B105, `gr-966` – `gr-1000`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Greek temple: Orders begin | c. 600 BCE | Barbara A. Barletta, review of Sanctuaries and the Sacred in the Ancient Greek World , b… (`gr-968`) |
+| Delphic amphictyony: Speech given | 330 BCE | Johannes Engels, review of Demosthenes of Athens and the Fall of Classical Greece , by I… (`gr-983`) |
+| crown games: Pythian founded | 586 or 582 BCE | William Childs, review of Olympia 1875–2000: 125 Jahre deutsche Ausgrabungen , ed. Helmu… (`gr-985`) |
+| Panathenaia: Greater festival | 566 BCE | Marion Meyer, review of Serving Athena: The Festival of the Panathenaia and the Construc… (`gr-986`) |
+| Panathenaia: Hipparchus slain | 514 BCE | Donald Lateiner, review of The Tyrant-Slayers of Ancient Athens: A Tale of Two Statues ,… (`gr-986`) |
+| Asclepius: Reached Athens | 420 BCE | Heidi Marx-Wolf, review of Asklepios, Medicine, and the Politics of Healing in Fifth-Cen… (`gr-995`) |
+| Epidaurus: Cult to Athens | 420 BCE | Heidi Marx-Wolf, review of Asklepios, Medicine, and the Politics of Healing in Fifth-cen… (`gr-996`) |
+| Epidaurus: Tholos begun | c. 365 BCE | Margaret M. Miles, review of The Thymele at Epidauros: Healing, Space, and Musical Perfo… (`gr-996`) |
+| incubation: Wealth staged | 388 BCE | Carl Anderson, review of Aristophanes Wealth , by Alan H. Sommerstein, Bryn Mawr Classic… (`gr-997`) |
+| Greek funerary practice: Solon’s laws | 594/593 BCE | David Whitehead, review of Athenian Democratic Origins and Other Essays , by G. E. M. de… (`gr-999`) |
+| Greek funerary practice: Public funeral | 431 BCE | Balbina Baebler, review of The Birth of the European Identity: The Europe-Asia Contrast … (`gr-999`) |
+| curse tablet: Early spread | c. 500 – 250 BCE | Martin Dreher, review of In Blood and Ashes: Curse Tablets and Binding Spells in Ancient… (`gr-1000`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -1592,7 +1694,7 @@ gr-518: 425; 424; 431; 413
 gr-519: 434; 433; 423
 gr-520: 425
 gr-521: 431; 404; 421; 405
-gr-522: 424; 411
+gr-522: 460; 424; 411; 395
 gr-524: 627; 435
 gr-525: 433
 gr-526: 600; 432; 430
@@ -1885,4 +1987,72 @@ gr-894: 700; 675
 gr-895: 700
 gr-896: 566
 gr-897: 600; 548
+gr-901: 700
+gr-902: 1400; 1200; 700
+gr-903: 1400; 1200; 700
+gr-904: 700
+gr-906: 700
+gr-908: 700
+gr-909: 700
+gr-910: 700
+gr-911: 700
+gr-912: 466
+gr-913: 700
+gr-914: 700; 470
+gr-915: 700
+gr-916: 700
+gr-917: 700; 458
+gr-918: 700
+gr-919: 700
+gr-920: 700
+gr-921: 700
+gr-922: 700
+gr-923: 470; 456
+gr-924: 700
+gr-925: 700
+gr-926: 700; 490
+gr-927: 700; 625; 490
+gr-928: 476; 475
+gr-930: 700
+gr-932: 700; 462
+gr-933: 700; 462
+gr-934: 462
+gr-935: 700; 462; 431
+gr-936: 700
+gr-937: 700; 540
+gr-938: 700
+gr-939: 700
+gr-940: 424; 414
+gr-941: 700
+gr-942: 700; 650
+gr-943: 700
+gr-944: 700
+gr-945: 700
+gr-946: 700
+gr-947: 700
+gr-948: 700
+gr-949: 700
+gr-950: 700
+gr-951: 700
+gr-952: 700; 670
+gr-955: 700; 458
+gr-956: 700
+gr-957: 700
+gr-958: 700
+gr-959: 700
+gr-960: 700
+gr-961: 750; 700
+gr-962: 750; 700
+gr-963: 750; 700
+gr-964: 750; 700
+gr-965: 700; 675
+gr-968: 600
+gr-983: 330
+gr-985: 586; 582
+gr-986: 566; 514
+gr-995: 420
+gr-996: 420; 365
+gr-997: 388
+gr-999: 594; 593; 431
+gr-1000: 500; 250
 ```

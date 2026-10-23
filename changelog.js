@@ -35,13 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1089", released: "2026-10-23T13:42Z" };
+window.FOLIO_VERSION = { v: "1.1093", released: "2026-10-23T15:16Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "<b>60 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU and Art.",
+      "A few Ancient Greece, Russia and China cards gained a corrected question, dates, a Greek picture or a clearer background.",
       "The home page's <b>daily quote</b> now changes by itself every 30 seconds; the gold dash before the author's name runs out as the countdown.",
       "<b>Collections</b> opens much faster: a collection's decks are now listed when you open it, not all at once when the page loads.",
       "Opening a chest now waits for the artefact's picture before revealing it, and swaps in another artefact if the picture is broken.",
@@ -56,17 +58,27 @@ window.CHANGELOG = [
       "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
       "A card's <b>Timeline</b> and its Nearby rail now sit below the Atlas box, and a name on the timeline opens that term's glossary entry.",
       "Admins can switch a card on or off the timelines of its collection, and set its dates, from the card editor.",
+      "<b>64 more Second World War cards</b> now show a Timeline, so every event and period in the collection sits beside its neighbours.",
+      "<b>172 China history cards</b> now show a Timeline too, from the Neolithic to the Tiananmen protests and the handover of Hong Kong.",
+      "<b>41 United States, Russia and Korea cards</b> now show a Timeline, from the Beaver Wars and Wounded Knee to the Mongol invasion of Rus' and the Three Kingdoms.",
       "The twelve-question test before a deck's first session is gone: choosing <b>By difficulty</b> now starts studying at once, and the first card is the deck's easiest.",
       "1 World History card's date line now gives when its age ended instead of a second start date.",
       "On a phone, <b>Undo</b> now sits between the <b>?</b> and <b>Suspend</b> under the answer buttons, the three the same width.",
       "<b>124 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan, the Mongols, California, psychology and biology, plus new aliases.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
       "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
-      "<b>200 more Ancient Greece cards are rewritten</b>, covering Alexander the Great, the Successor kingdoms, Alexandria and Hellenistic science, Greece under Rome and the first Olympians, with more sources and corrected dates.",
+      "<b>300 more Ancient Greece cards are rewritten</b>, from Alexander the Great to the Olympians, the heroes and cult, oracles and festivals, with more sources, corrected dates and new pictures.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
       "Twenty cards that shared a picture with another card now show it only on the card it illustrates best, and one Yan'an source is now an open English article.",
       "<b>25 Ancient Rome cards gain a map</b>: battles, sieges, cities and two provinces now show where they were on the card's mini-globe.",
+      "On Home, history collections in your active list wear an <b>hourglass</b> instead of a scroll, and collections always follow the Collections page's order.",
+      "The order choice before a deck's first session now lists the default, <b>By difficulty</b>, first instead of Ordered.",
+      "Politics: East Asia's <b>Japan terms now show Japanese</b>, with romanisation, in the translation bubble instead of Chinese.",
+      "On Collections, the three courses (Politics: East Asia, the EU as an External Power, Gateway to Global Affairs) now sit under <b>Shared decks</b>; the Special section is gone.",
+      "<b>World Geography</b>: the China card now shades China on its map, as do the Russia and United States cards.",
+      "<b>Large</b> is now the default text size for new visitors, and in the <b>Bloodstone</b> theme unread glossary links are blue so they stand out from the text.",
+      "A level-up chest now waits gold on the level bar; pressing it greys the bar's chest and moves it to the chest banner, instead of showing in both.",
       "<b>The Russia map cards for Moscow and Moscow Oblast</b> had swapped shapes: Moscow now shades the city, framed whole, and the Oblast card shades the oblast.",
     ],
   },

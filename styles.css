@@ -6233,6 +6233,14 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   background:color-mix(in srgb,var(--seenterm) 14%,transparent); outline:none;
 }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
+/* BLOODSTONE'S GLOSSARY LINKS ARE BLUE (Oct 2026, on request: "almost indistinguishable from normal text"). The theme's --indigo is
+   a green (#2A5741 by day, #5FA582 by night) beside an ink that is itself a green-black, so a term was a hair's breadth from the
+   words round it. An unread term takes a clear blue instead — 5.1:1 on the paper by day, 7.9:1 on the card by night — and a READ one
+   keeps --seenterm's purple, hence :not([data-seen]). */
+body[data-theme="bloodstone"] .ttip:not([data-seen]){ color:#1B6AA5; text-decoration-color:color-mix(in srgb,#1B6AA5 55%,transparent); }
+body[data-theme="bloodstone"] .ttip:not([data-seen]):hover,body[data-theme="bloodstone"] .ttip:not([data-seen]):focus-visible{ color:#14507F; text-decoration-color:#14507F; background:color-mix(in srgb,#1B6AA5 13%,transparent); }
+body[data-theme="bloodstone"].night .ttip:not([data-seen]){ color:#6CB6EB; text-decoration-color:color-mix(in srgb,#6CB6EB 55%,transparent); }
+body[data-theme="bloodstone"].night .ttip:not([data-seen]):hover,body[data-theme="bloodstone"].night .ttip:not([data-seen]):focus-visible{ color:#9ACEF2; text-decoration-color:#9ACEF2; background:color-mix(in srgb,#6CB6EB 16%,transparent); }
 /* THE DAILY QUOTE'S AUTHOR AND WORK ARE LINKED WITHOUT AN UNDERLINE (Sep 2026, on request). The caption
    is a set line of small capitals under a quotation, and a dotted rule under the speaker's name reads as
    decoration on a signature rather than as a link; the colour alone says it can be pressed, and the
