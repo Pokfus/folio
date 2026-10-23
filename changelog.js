@@ -42,6 +42,7 @@ window.CHANGELOG = [
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "Fixed the achievement pop-up on a phone: when several badges unlock at once they now scroll in a smaller grid and the button stays in view.",
       "A card's <b>Timeline</b> and its Nearby rail now sit below the Atlas box, and a name on the timeline opens that term's glossary entry.",
       "Admins can switch a card on or off the timelines of its collection, and set its dates, from the card editor.",
       "The twelve-question test before a deck's first session is gone: choosing <b>By difficulty</b> now starts studying at once, and the first card is the deck's easiest.",

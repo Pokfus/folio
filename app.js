@@ -40765,7 +40765,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const n = list.length;
     ov.innerHTML = '<div class="ach-stage" role="dialog" aria-modal="true" aria-label="Achievement unlocked">' +
       '<div class="ach-kicker">' + (n === 1 ? "Achievement unlocked" : n + " achievements unlocked") + "</div>" +
-      '<div class="ach-tiles">' + list.map(achPopTileHTML).join("") + "</div>" +
+      '<div class="ach-tiles' + (n > 2 ? " many" : "") + '">' + list.map(achPopTileHTML).join("") + "</div>" +
       '<div class="ach-hint">' + (n === 1 ? "Tap the badge to turn it over and open its chest." : "Tap a badge to turn it over and open its chest. Each one earned a chest.") + "</div>" +
       '<div class="ach-acts"><button type="button" class="btn ghost" data-act="later">Keep the ' + (n === 1 ? "chest" : "chests") + " for later</button></div></div>";
     document.body.appendChild(ov);
