@@ -23260,6 +23260,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     };
     const arm = () => { _dqTimer = setTimeout(advance, DQ_PERIOD); };
     arm();
+    /* …and the dash itself is a second trigger: a phone can run a timer late while the page is busy, but the
+       bar runs out on the compositor on time, and a reader who watched it empty must see the quote change.
+       `elapsedTime` guards the case where the stylesheet flattens the animation to a blink (it would
+       otherwise fire at once); whichever of the two comes first wins, the other finds the timer gone. */
+    fig.addEventListener("animationend", (e) => {
+      if (e.pseudoElement !== "::before" || !/^dq-dash/.test(e.animationName) || e.elapsedTime < DQ_PERIOD / 1000 - 1) return;
+      if (_dqTimer) { clearTimeout(_dqTimer); advance(); }
+    });
     if (!fig.classList.contains("dq-flip")) return;   // a quote with no documented original: no flip, but it still moves on
     let busy = false;
     const show = (toOriginal) => {
