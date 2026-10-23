@@ -24948,8 +24948,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${chev}
             </div>`;
           }
-          return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
-            ${grip}
+          /* A COLLECTION BANNER DRAWN AS A SIGNPOST TURNS GREEN WITH THE DECKS UNDER IT (Oct 2026, on request:
+             "when all the active decks within a collection have been completed for the day … the collection
+             banner itself should also turn green/completed"). A collection whose own row is not on the list —
+             only some of its decks were added — is a context row and has no cards of its own to count, so it
+             takes the verdict of the topmost reviewable rows beneath it: every one finished for the day, and
+             at least one of them. It goes gold only when every one of them is gold. A skipped or still-open
+             deck keeps it plain, exactly as it keeps that deck's own row plain (adDay). */
+          const ctx = (function () {
+            const below = rows.filter((x) => x !== r && (function () {
+              for (let p = parentOf.get(x.drag); p; p = parentOf.get(p)) if (p === r.drag) return true;
+              return false;
+            })());
+            const reviewable = (x) => x.active || x.flat || x.group || x.langhead;
+            const top = below.filter((x) => reviewable(x) && (function () {
+              for (let p = parentOf.get(x.drag); p && p !== r.drag; p = parentOf.get(p)) {
+                const up = below.find((y) => y.drag === p);
+                if (up && reviewable(up)) return false;
+              }
+              return true;
+            })());
+            if (!top.length) return { cls: "", mark: "" };
+            const days = top.map((x) => adDay(x.active ? x.node.id : x.drag));
+            if (!days.every((d) => d.cls)) return { cls: "", mark: "" };
+            const won = days.every((d) => d.cls.indexOf("dk-won") >= 0);
+            return { cls: won ? " dk-done dk-won" : " dk-done", mark: doneMarkHTML(true, won, DK_DAY_LABELS) };
+          })();
+          return `<div class="active-deck context${shut}${ctx.cls}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            ${grip}${ctx.mark}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
