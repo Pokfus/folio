@@ -779,6 +779,42 @@ stopped on these cards with `<span class="ans-term">`: `Thebes` (Mycenaean Thebe
 `gr-619`, `gr-621`, `gr-631`), `Lycurgus` the orator (`gr-612`), `marble` (`gr-612`) and `Hippias` the sophist (`gr-622`). None
 is fixed here, on purpose, for the reason given under B53–B63.
 
+**Added by the refinement's B74–B83 (2026-10-22/23)**, counted the same way after `gr-701`–`gr-800` were rewritten (prose, questions and
+Think-it-through answers; each name checked against the glossary's keys AND aliases, so a name that is only a part of a key counts as
+missing). The ancient authors head the list again: `Arrian` is cited on 53 of the 100 and has no key, `Diodorus` on 50 (still no key), and
+`Justin`, `Curtius`, `Appian`, `Cleitarchus` and `Hieronymus` of Cardia are named where an Alexander tale is told.
+
+| cards | term | note |
+|---|---|---|
+| 53 | Arrian | Arrian of Nicomedia, the historian of Alexander (the Anabasis); no key or alias |
+| 50 | Diodorus | Diodorus of Sicily; still no key under any form (see B63–B73 above) |
+| 48 | Ptolemy | the bare name opens nothing; `Ptolemy_I_Soter` has no bare alias and `Ptolemaic_Egypt` is the kingdom, so an alias or a disambiguating key is wanted |
+| 24 · 13 | Macedonia · Macedon | the kingdom (only `Macedonian_phalanx` begins with the word) |
+| 23 · 20 · 17 · 12 | Antigonus · Seleucus · Demetrius · Antiochus | bare names shared by several kings; `Antigonus_I_Monophthalmus`, `Seleucus_I_Nicator`, `Demetrius_I_Poliorcetes` and `Antiochus_III_the_Great` carry no bare alias |
+| 20 | Justin | Justin the epitomiser of Trogus (the Christian Justin Martyr is another man) |
+| 18 | Aristobulus | Aristobulus of Cassandreia, the campaign historian |
+| 15 · 11 | Craterus · Eumenes | the generals; `Eumenes_of_Cardia` has aliases only for the full form |
+| 15 | Bactria | the country; only `Greco-Bactrian_Kingdom` and `Bactria`-bearing keys exist |
+| 10 · 9 · 6 | Granicus · Gaugamela · Issus | the places (the battles have keys, the rivers and sites do not as bare names) |
+| 8 · 7 | Ptolemaic · Babylonia | adjective and region |
+| 7 · 5 | Arsinoe · Berenice | the bare names are shared by several queens; `Arsinoe_II`, `Berenice_II` have no bare alias |
+| 6 · 5 · 4 | Curtius · Cleitarchus · Hieronymus | Quintus Curtius Rufus, Cleitarchus of Alexandria, Hieronymus of Cardia: the lost sources behind Diodorus, Curtius, Arrian and Plutarch |
+| 6 | Appian | Appian of Alexandria, the author of the Syrian Wars |
+| 5 | Pergamon · chiliarch · Phrygia | the city (only `Pergamon_Altar` and `Library_of_Pergamon` exist), the Persian vizier's Greek title, the satrapy |
+| 4 | Coenus · Ecbatana · Coele-Syria · Pella · Agathocles · Keraunos · Spitamenes · Cappadocia · Barsine | Coele-Syria is in 7 cards under two spellings; Agathocles is Lysimachus' son (the tyrant of Syracuse is another man) |
+| 3 | Gaza · Epirus · Cleomenes · Attalid · Taxiles | `Cleomenes` opens nothing for the Spartan king; `Siege_of_Gaza` exists but the place does not |
+| 2 | Onesicritus · Hermolaus · Maracanda · Philetaerus · helepolis · Canopus · Adulis · Nagasena · Oxyartes · Samothrace · Antigenes · Argead · Stateira · Polyperchon | |
+| 1 | Aegae · Orestis · Dromichaetes · Mazaeus · Bagoas · Melqart · Sellasia · Kineas · Klearchos · Heliodorus · Silver Shields · Sphaerus · Parysatis · Thessalonice · Zenon · Apollonius | |
+
+Keys that open the wrong sense, stopped on these cards with `<span class="ans-term">` (none is fixed here, for the reason given under B53–B63):
+`Thebes` (Mycenaean Thebes; `gr-704`, `gr-705`, `gr-753`, `gr-755`), `Pausanias` (the travel writer, not the regicide; `gr-703`), `Cleopatra`
+(Cleopatra VII; `gr-704`, `gr-753`, `gr-793`), `Media` (the Medes; `gr-732`, `gr-752`, `gr-759`, `gr-792`), `Heracles` (the hero, not Barsine's son;
+`gr-752`), `Salamis` (the island of 480 BCE, not Salamis in Cyprus; `gr-761`, `gr-762`, `gr-800`), `Brennus` (the Gaul who sacked Rome; `gr-787`, `gr-788`),
+`Egypt` and `Egyptian` (`Ancient_Egypt`, where the Ptolemaic kingdom is meant; `gr-766`, `gr-767`), `Antioch` (several; `gr-779`), `Syria`, `Asia`,
+`Poros` (the stone, `gr-757`), `Silver Shields` (the metal, `gr-758`), `vulgate` (the Bible, `gr-749`), `epitaph` (the Korean key, `gr-772`),
+`Lysander`, `Leonidas` and `Agesilaus` (the earlier men of the names; `gr-799`), `Archidamus` (`gr-798`). The bare `Alexander` still has no alias,
+and the bare `Menander` is hand-keyed to `Menander_I` on `gr-783` – `gr-785` because the comic poet's key would otherwise win.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

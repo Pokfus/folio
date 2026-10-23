@@ -1,17 +1,17 @@
 {
- "generated": "2026-10-16T18:04Z",
+ "generated": "2026-10-23T08:01Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4932,
-  "redirect-broader": 458,
+  "ok": 4934,
+  "redirect-broader": 457,
   "redirect-variant": 331,
-  "section-redirect": 105,
-  "disambiguation": 140,
+  "section-redirect": 104,
+  "disambiguation": 139,
   "none": 956,
   "disambig-resolved": 76,
   "list-page": 6,
   "search-match": 6,
-  "no-article": 16
+  "no-article": 17
  },
  "cards": {
   "wh-001": {
@@ -24833,19 +24833,11 @@
   },
   "gr-763": {
    "answer": "siege of Rhodes",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "disambiguation",
-   "from": "Siege of Rhodes",
-   "suggestions": [
-    "The Siege of Rhodes",
-    "Siege of Rhodes (1444)",
-    "Siege of Rhodes (1480)",
-    "Siege of Rhodes (1522)",
-    "Siege of Rhodes (305–304 BC)",
-    "Siege of Rhodes (88 BC)"
-   ]
+   "title": "Siege of Rhodes (305–304 BC)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Rhodes_(305%E2%80%93304_BC)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-764": {
    "answer": "Colossus of Rhodes",
@@ -24891,13 +24883,11 @@
    "status": "ok"
   },
   "gr-770": {
-   "answer": "Antigonid Macedonia",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "section-redirect",
-   "from": "Antigonid Macedonia",
-   "target": "Macedonia (ancient kingdom)#Antigonid Macedon"
+   "answer": "Antigonid dynasty",
+   "title": "Antigonid dynasty",
+   "url": "https://en.wikipedia.org/wiki/Antigonid_dynasty",
+   "via": "glossary",
+   "status": "ok"
   },
   "rm-301": {
    "answer": "consulships of Marius",
@@ -28876,10 +28866,11 @@
   },
   "wh-679": {
    "answer": "Jamestown",
-   "title": "Jamestown, Saint Helena",
-   "url": "https://en.wikipedia.org/wiki/Jamestown,_Saint_Helena",
+   "title": "Jamestown, Virginia",
+   "url": "https://en.wikipedia.org/wiki/Jamestown,_Virginia",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "wh-680": {
    "answer": "New England",

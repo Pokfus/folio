@@ -24948,8 +24948,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${chev}
             </div>`;
           }
-          return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
-            ${grip}
+          /* A COLLECTION BANNER DRAWN AS A SIGNPOST TURNS GREEN WITH THE DECKS UNDER IT (Oct 2026, on request:
+             "when all the active decks within a collection have been completed for the day … the collection
+             banner itself should also turn green/completed"). A collection whose own row is not on the list —
+             only some of its decks were added — is a context row and has no cards of its own to count, so it
+             takes the verdict of the topmost reviewable rows beneath it: every one finished for the day, and
+             at least one of them. It goes gold only when every one of them is gold. A skipped or still-open
+             deck keeps it plain, exactly as it keeps that deck's own row plain (adDay). */
+          const ctx = (function () {
+            const below = rows.filter((x) => x !== r && (function () {
+              for (let p = parentOf.get(x.drag); p; p = parentOf.get(p)) if (p === r.drag) return true;
+              return false;
+            })());
+            const reviewable = (x) => x.active || x.flat || x.group || x.langhead;
+            const top = below.filter((x) => reviewable(x) && (function () {
+              for (let p = parentOf.get(x.drag); p && p !== r.drag; p = parentOf.get(p)) {
+                const up = below.find((y) => y.drag === p);
+                if (up && reviewable(up)) return false;
+              }
+              return true;
+            })());
+            if (!top.length) return { cls: "", mark: "" };
+            const days = top.map((x) => adDay(x.active ? x.node.id : x.drag));
+            if (!days.every((d) => d.cls)) return { cls: "", mark: "" };
+            const won = days.every((d) => d.cls.indexOf("dk-won") >= 0);
+            return { cls: won ? " dk-done dk-won" : " dk-done", mark: doneMarkHTML(true, won, DK_DAY_LABELS) };
+          })();
+          return `<div class="active-deck context${shut}${ctx.cls}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            ${grip}${ctx.mark}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
@@ -34742,20 +34768,103 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      read-aloud system was set aside: like the deck control it is something the reader presses, not
      something Folio does to them, and `body.no-tts` hides it on a device with no speech engine at all. */
   const AC_SAY_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  /* …AND IT IS A SPEECH BUBBLE OFF A TRANSLATE ICON NOW (Oct 2026, on request: "instead of a section within
+     the answer box, put a translation icon behind the main answer term, and when clicking that make a
+     speech bubble appear next to it with the translations in it"). The block above is the bubble's
+     content, unchanged; what changed is where it lives. `answerNameHTML` returns the icon button AND the
+     bubble as one `.ac-wrap`, which `buildBack` sets as a SIBLING of `.val` inside `.av-term` — never
+     inside `.val`, which several suites read the answer text from. The wrap is the positioning root, so
+     the bubble hangs under the icon with its tail on it; `placeAnswerBubble` nudges it back inside the
+     viewport on a phone. One delegated listener (`wireAnswerBubbles`) owns open / close for every render
+     path, so the study card, the browse popup and the admin preview all behave alike. */
+  const AC_TR_ICON = '<span class="ac-ico" aria-hidden="true"><b>\u6587</b><i>A</i></span>';
   function answerNameHTML(c) {
     const hz = String((c && c.hanzi) || "").trim();
     if (!hz) return "";
     const tr = String((c && c.traditional) || "").trim();
     const py = String((c && c.pinyin) || "").trim();
-    return '<div class="ans-cn">' +
+    return '<span class="ac-wrap">' +
+      '<button type="button" class="ac-btn" aria-expanded="false" aria-label="Show the Chinese translation" title="Chinese translation">' + AC_TR_ICON + "</button>" +
+      '<div class="ac-bubble" role="dialog" aria-label="Chinese translation" hidden>' +
+      '<div class="ans-cn">' +
       '<div class="ac-chars">' +
       (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
       '<span class="ac-s">' + esc(hz) + "</span></div>" +
       '<div class="ac-row">' +
       (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") +
       '<button type="button" class="ac-say" lang="zh-CN" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in Mandarin">' + AC_SAY_SVG + "</button>" +
-      "</div></div>";
+      "</div></div></div></span>";
   }
+  function placeAnswerBubble(wrap) {
+    const b = wrap.querySelector(".ac-bubble"), btn = wrap.querySelector(".ac-btn");
+    if (!b || !btn) return;
+    b.style.left = ""; b.style.maxWidth = ""; b.style.removeProperty("--tail");
+    /* The bubble must stay inside the ANSWER BOX, not merely the viewport: `.reveal` clips whatever pokes
+       out of the card (overflow:hidden for its open/close animation), so a bubble that fits the screen but
+       not the card lost its right edge — and its speaker — on a phone with a long name. */
+    const vw = document.documentElement.clientWidth, box = wrap.closest(".answer");
+    const bx = box ? box.getBoundingClientRect() : null;
+    const lo = Math.max(bx ? bx.left + 6 : 0, 12), hi = Math.min(bx ? bx.right - 6 : vw, vw - 12);
+    const cap = Math.max(160, Math.round(hi - lo));
+    b.style.maxWidth = cap + "px"; b.style.width = ""; b.style.animation = "none";
+    /* SHRINK-WRAP: `max-content` is the width of the text on ONE line, so a name too long for the cap
+       wraps and leaves the bubble at the cap with a ragged empty strip on the right of every short line.
+       Measure the widest line actually laid out (the characters' lines, and the pinyin's widest line plus
+       the speaker) and size the bubble to that. */
+    if (b.offsetWidth >= cap - 1) {
+      const lineW = (el) => {
+        if (!el) return 0;
+        const rg = document.createRange(); rg.selectNodeContents(el);
+        let mn = Infinity, mx = -Infinity;
+        for (const q of rg.getClientRects()) { if (q.width) { mn = Math.min(mn, q.left); mx = Math.max(mx, q.right); } }
+        return mx > mn ? mx - mn : 0;
+      };
+      let need = Math.max(lineW(b.querySelector(".ac-t")), lineW(b.querySelector(".ac-s")));
+      const say = b.querySelector(".ac-say"), py = b.querySelector(".ac-p");
+      const sayW = say && say.offsetWidth ? say.offsetWidth + 8 : 0;
+      need = Math.max(need, lineW(py) + sayW);
+      const cs = getComputedStyle(b);
+      const chrome = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
+      if (need) b.style.width = Math.min(cap, Math.ceil(need + chrome) + 2) + "px";
+    }
+    /* Measured from LAYOUT (offsetWidth, the wrap's own rect), never the bubble's rect: its opening
+       animation scales it, and a rect read mid-animation is 4% short of where it will rest. */
+    const wl = wrap.getBoundingClientRect().left, bw = b.offsetWidth, bl = wl + b.offsetLeft;
+    let dx = 0;
+    if (bl + bw > hi) dx = hi - (bl + bw);
+    if (bl + dx < lo) dx = lo - bl;
+    if (dx) b.style.left = "calc(var(--ac-left) + " + Math.round(dx) + "px)";
+    const br = btn.getBoundingClientRect();
+    b.style.setProperty("--tail", Math.max(12, Math.min(bw - 24, br.left + br.width / 2 - (bl + Math.round(dx)) - 6)) + "px");
+    b.style.animation = "";
+  }
+  function setAnswerBubble(wrap, open) {
+    const b = wrap.querySelector(".ac-bubble"), btn = wrap.querySelector(".ac-btn");
+    if (!b || !btn) return;
+    b.hidden = !open;
+    wrap.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) placeAnswerBubble(wrap);
+  }
+  function wireAnswerBubbles() {
+    document.addEventListener("click", (e) => {
+      const t = e.target && e.target.closest ? e.target : null;
+      const hit = t ? t.closest(".ac-wrap") : null;
+      document.querySelectorAll(".ac-wrap.open").forEach((w) => { if (w !== hit) setAnswerBubble(w, false); });
+      if (hit && t.closest(".ac-btn")) setAnswerBubble(hit, !hit.classList.contains("open"));
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      document.querySelectorAll(".ac-wrap.open").forEach((w) => {
+        setAnswerBubble(w, false);
+        const btn = w.querySelector(".ac-btn"); if (btn) btn.focus();
+      });
+    });
+    window.addEventListener("resize", () => {
+      document.querySelectorAll(".ac-wrap.open").forEach(placeAnswerBubble);
+    });
+  }
+  wireAnswerBubbles();
   function wireAnswerSay(scope) {
     if (!scope) return;
     scope.querySelectorAll(".ac-say").forEach((b) => {
@@ -35906,15 +36015,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          field: a lower-case letter followed immediately by a capital is `pH`, `mRNA`, `tRNA`, `iPSC`,
          and no ordinary word, so it says all this class has to say. */
       const noCap = /^[a-z][A-Z]/.test(c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "")) ? " nocap" : "";
+      /* The Chinese name's translate icon follows the term (see answerNameHTML), so a card that has one
+         gets the `.av-term` row too, flag or not. A card with neither keeps its byte-identical markup. */
+      const cnHTML = answerNameHTML(c);
       html += '<div class="answer-av">' +
-        (flagHTML ? '<div class="av-term"><span class="val' + noCap + '">' + c.answer + "</span>" + flagHTML + "</div>"
-                  : '<span class="val' + noCap + '">' + c.answer + "</span>");
+        (flagHTML || cnHTML ? '<div class="av-term' + (cnHTML ? " av-cn" : "") + '"><span class="val' + noCap + '">' + c.answer + "</span>" + cnHTML + flagHTML + "</div>"
+                            : '<span class="val' + noCap + '">' + c.answer + "</span>");
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div>";
       // (how many separate days this card has been recalled on used to close `.answer-main` here; it is in
       // the study card's header row now — see critPipsHTML)
       html += "</div>";
-      // the Chinese name, between the term and the figures — see answerNameHTML
-      html += answerNameHTML(c);
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
          inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is
          what lets them be a GRID: given the whole right-hand side they pair up two to a row, where under

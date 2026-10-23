@@ -1900,27 +1900,42 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 .cf-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-soft); line-height:1.35; overflow-wrap:anywhere;}
 
 /* ---------- the answer's Chinese name (see answerNameHTML) ----------
-   THE MIDDLE SECTION OF THE ANSWER BOX (Sep 2026, on request): a sibling of `.answer-main` and of the
-   figures grid, so on a wide card it stands between the term on the left and the figures on the right,
-   ruled off from the term by a hairline. The traditional form where it differs sits on the line above the
-   simplified, and the pinyin with its speaker under both; the block is centred against the term, as the
-   figures are. It was a line under the term, on a map card only; every card that carries
-   a Chinese name gets it now. Below 640px `.answer` stacks (see the phone block), so it goes under the
-   term at full width with the rule on its top edge instead. */
-/* THE BLOCK IS SET FLUSH RIGHT (Sep 2026, on request). Its three lines are of very different widths — a
-   two-character name over a four-character one over a romanisation twice as long as either — and ranged
-   left they read as a ragged column drifting away from the rule beside them; ranged right they line up
-   against the figures grid, which is the edge the eye is already following down the card. */
-.ans-cn{display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex:0 1 auto; min-width:0;
-  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent);
-  line-height:1.15; text-align:right;}
-.ans-cn .ac-chars{display:flex; flex-direction:column; align-items:flex-end; gap:1px;}
+   A TRANSLATE ICON BEHIND THE ANSWER TERM, AND A SPEECH BUBBLE OFF IT (Oct 2026, on request; it was the
+   middle section of the answer box). `.ac-wrap` is the positioning root: the plain grey `文A` icon sits on the
+   term's line and the bubble hangs under it, its tail on the button. The bubble holds the same three lines
+   as before — the traditional form where it differs, the simplified, then the pinyin and its speaker — set
+   flush left now that it stands alone. It overlays what lies below it rather than pushing it down, and
+   `placeAnswerBubble` shifts it sideways to stay inside the viewport on a phone. */
+.av-term.av-cn{align-items:flex-start; gap:10px;}
+.av-cn .val{padding-top:0;}
+.ac-wrap{position:relative; flex:none; display:inline-block; margin-top:calc(2px * var(--fs));}
+.ac-btn{display:inline-flex; align-items:center; justify-content:center; width:calc(28px * var(--fs)); height:calc(28px * var(--fs)); padding:0; border:0; border-radius:6px;
+  background:transparent; color:var(--ink-faint); cursor:pointer; transition:color .15s var(--ease);}
+.ac-btn:hover, .ac-wrap.open .ac-btn{color:var(--ink-soft);}
+.ac-btn:focus-visible{outline:2px solid var(--ink-faint); outline-offset:2px;}
+.ac-ico{display:inline-flex; align-items:baseline; gap:0; line-height:1; pointer-events:none;}
+.ac-ico b{font-family:var(--han); font-weight:500; font-size:calc(17px * var(--fs));}
+.ac-ico i{font-family:var(--mono); font-style:normal; font-weight:600; font-size:calc(11px * var(--fs)); margin-left:1px;}
+.ac-bubble{--ac-left:-8px; --tail:14px; position:absolute; top:calc(100% + 11px); left:var(--ac-left); z-index:40; box-sizing:border-box;
+  width:max-content; max-width:min(320px, calc(100vw - 24px));
+  padding:12px 16px 11px; background:var(--card); border:1px solid color-mix(in srgb, var(--zh) 38%, var(--rule)); border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.18); text-align:left; line-height:1.15;}
+.ac-bubble[hidden]{display:none;}
+/* the tail: a rotated square sharing the bubble's border and fill, riding the button's centre */
+.ac-bubble::before{content:""; position:absolute; top:-7px; left:var(--tail); width:12px; height:12px; box-sizing:border-box; transform:rotate(45deg);
+  background:var(--card); border-left:1px solid color-mix(in srgb, var(--zh) 38%, var(--rule)); border-top:1px solid color-mix(in srgb, var(--zh) 38%, var(--rule));}
+@media (prefers-reduced-motion:no-preference){
+  .ac-wrap.open .ac-bubble{animation:acPop .16s var(--ease) both; transform-origin:calc(var(--tail) + 6px) 0;}
+}
+@keyframes acPop{from{opacity:0; transform:translateY(-4px) scale(.96);} to{opacity:1; transform:none;}}
+.ans-cn{display:flex; flex-direction:column; align-items:flex-start; gap:4px; min-width:0;}
+.ans-cn .ac-chars{display:flex; flex-direction:column; align-items:flex-start; gap:1px;}
 /* the traditional form is written FIRST in the markup and so sits on the line above; it is still the
    quieter of the two, smaller and at half strength, so the simplified form under it reads as the name
    and this as the second script it is also written in. */
 .ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(24px * var(--fs)); color:var(--zh); line-height:1.15;}
 .ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(19px * var(--fs)); color:var(--zh); opacity:.5; line-height:1.15;}
-.ans-cn .ac-row{display:flex; align-items:center; gap:7px;}
+.ans-cn .ac-row{display:flex; align-items:center; gap:8px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 /* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
 .ans-cn .ac-say{flex:none; width:calc(22px * var(--fs)); height:calc(22px * var(--fs)); border-radius:50%; border:1px solid color-mix(in srgb, var(--zh) 45%, var(--rule));
@@ -5985,20 +6000,17 @@ button.game-tile .gt-glyph{opacity:.14;}
   .answer{flex-direction:column; align-items:stretch; gap:0;}
   .answer-main{flex-direction:column; align-items:flex-start; gap:5px; width:100%;}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
-  /* the rule is the ordinary `--rule` grey here, not the Chinese ink (Sep 2026, on request): on a phone
-     it runs the full width of the card, where a red hairline reads as part of the answer rather than as
-     the line dividing it from the name below. */
-  .ans-cn{align-self:stretch; padding:10px 0 0; margin-top:8px; border-left:0; border-top:1px solid var(--rule);}
   /* .answer stacks here, so "on the right" has nowhere to be — the figures go back under the answer and
      take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
   .card-facts{max-width:none; width:100%; margin-top:12px;}
   .grades{grid-template-columns:repeat(2,1fr);}
   /* Two equal columns: the ? is as wide as the grades above it on the left, Suspend as wide as the ones on the
-     right; Undo, when there is something to undo, takes a row of its own under them. */
-  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend" "undo undo"; gap:10px;}
+     right. When there is something to undo, Undo sits between them and the three share the row in equal thirds. */
+  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend"; gap:10px;}
+  .grade-wrap:has(.gb-undo){grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-areas:"grades grades grades" "help undo suspend";}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
   .grade-wrap .grade-help{grid-area:help; justify-self:stretch; width:auto; height:auto; min-height:44px; border-radius:9px; align-self:stretch;}
-  .grade-wrap .gb-undo{grid-area:undo; justify-self:stretch; justify-content:center; align-self:center;
+  .grade-wrap .gb-undo{grid-area:undo; justify-self:stretch; justify-content:center; align-self:stretch; min-height:44px;
     display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
     border:1px dashed var(--rule); background:var(--card); border-radius:9px; padding:7px 11px; margin:0;
     font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600;
@@ -9070,7 +9082,7 @@ body[data-theme="carnelian"].night .collection-deco{
    and 4.72 mixed — and the deeper red it was promoted with takes it to 6.10 and 8.46.) The plain `--zh` is
    declared first so a browser without `color-mix` still gets a readable tab rather than none. */
 .elab{position:relative; border:1px solid var(--rule); border-radius:3px; background:var(--paper-2);
-  padding:24px 16px 26px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}   /* the foot's 26px + the row's 2px match the head's 24 + 2 + 2: the same air under the last question as over the first (Oct 2026, on request) */
+  padding:10px 16px; margin:20px 0 4px; display:flex; flex-direction:column; gap:0;}   /* EVEN AIR (Oct 2026, on request): 10px + the row's 2px (12px) over the first question, under the last, and either side of each rule between them */
 .elab-kind{position:absolute; top:calc(-10px * var(--fs)); left:15px;
   background:var(--zh); background:color-mix(in srgb, var(--zh) 72%, var(--ink));
   color:var(--card); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.13em;
@@ -9098,8 +9110,9 @@ body[data-theme="carnelian"].night .collection-deco{
    of two words; `list-style:none` plus the WebKit pseudo-element is what takes the browser's own marker
    off, and both are needed. The chevron rotates rather than swapping glyph, so the reduced-motion
    killswitch lands it on its true angle with no rule of its own. */
-.elab-item{padding-top:10px; border-top:1px solid var(--rule);}
-.elab-item:first-of-type{padding-top:2px; border-top:0;}
+.elab-item{padding:10px 0; border-top:1px solid var(--rule);}
+.elab-item:first-of-type{padding-top:0; border-top:0;}
+.elab-item:last-of-type{padding-bottom:0;}
 .elab-qrow{display:flex; align-items:flex-start; gap:12px; cursor:pointer; list-style:none;
   padding:2px 0; border-radius:7px;}
 .elab-qrow::-webkit-details-marker{display:none;}
@@ -9118,7 +9131,7 @@ body[data-theme="carnelian"].night .collection-deco{
    the line above rather than as another paragraph of the background */
 /* THE ANSWER SITS ON THE CARD'S OWN BACKGROUND (Oct 2026, on request) so it stands off the box's darker paper, with air under it
    before the next rule. */
-.elab-wrap{padding:7px 0 14px;}
+.elab-wrap{padding:7px 0 2px;}
 .elab-a{margin:0; padding:10px 13px; background:var(--card); border-radius:0 7px 7px 0; border-left:3px solid var(--zh);
   font-family:var(--serif); font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft);}
 .elab-a[hidden]{display:none;}
@@ -9476,6 +9489,9 @@ body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
+/* The caught-up sentence sat flush under its title; a little air between them (Oct 2026, on request). Only the
+   normal banner: the first-visit hero spaces its own title. */
+.page .rv-banner:not(.hero) h2.review-title + .desc{margin-top:8px;}
 /* THE FIRST-VISIT HERO, SPACED (Oct 2026, on request): the zero margins above ran its eyebrow, title, sentence and
    button together, and the button stood at its own text's width. The three get air between them and the button
    spans the banner. (After the zero-margin rule above, same specificity or higher, so these win.) */

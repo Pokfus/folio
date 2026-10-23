@@ -569,6 +569,86 @@ Filled batch by batch, from the source each row names.
 | Golden Horde: state / Özbeg Khan / breakup | c. 1260 – 1502 / 1313 – 1341 / 1359 CE (`ru-100` has 1242) | Favereau and Pochekaev; Hautala; Schamiloglu (`wh-598`) |
 | Timur: born / ruled / Clavijo's visit | 1336 / 1370 – 1405 / 1404 CE | Clavijo; Milwright and Baboula (`wh-599`) |
 | Chinggisids: enthroned / Time of Troubles / Crimean Khanate / Kazakh charter | 1206 / 1359 – 1380 / 1441 – 1783 / 1822 CE | Munkh-Erdene; Landa; Başer (`wh-600`) |
+| Tikal: Classic era (one team's) / recorded arrival / last monument | 250 – 900 / 378 / 869 CE | Lentz et al. 2021; Houston et al.; Lentz et al. 2014 (`wh-601`) |
+| Classic Maya collapse: decline begins / fastest decline / Terminal Classic / stelae end | c. 750 / 750 – 850 / 800 – 1000 / by 998 CE | McCool et al.; Braun et al.; James et al. (`wh-602`) |
+| Chichen Itza: prominent / end (estimate) | c. 600 – 1000 / c. 1025 – 1050 CE | Barquera et al. 2024; James et al. 2025 (`wh-603`) |
+| Toltecs (Tula): Tollan phase | c. 900 – 1150 CE | Healan, Cobean and Bowsher 2021 (`wh-604`) |
+| Aztec Empire: imperial years (formation 1428 in prose) | c. 1430 – 1521 CE | Nielsen; De Rojas; Morehart et al. (`wh-605`) |
+| Tenochtitlan: founded (tradition) | c. 1325 CE | De Rojas (`wh-606`; `wh-607`, `wh-608`, `wh-609` are `undatable`) |
+| Wari: Middle Horizon | c. 600 – 1000 CE | Conlee et al. 2021 (`wh-610`) |
+| Tiwanaku: modelled start / peak influence / residents left | c. 180 / c. 500 – 1000 / c. 1010 CE | Marsh et al. 2023; Popovic et al. 2021 (`wh-611`) |
+| Inca Empire: traditional span / Cajamarca / Vilcabamba | 1438 – 1533 / 1532 / 1572 CE | Rowe 1945 via Ziółkowski et al.; Covey (`wh-612`; `wh-613`, `wh-615`, `wh-616` are `undatable`) |
+| Machu Picchu: occupied | c. 1420 – 1532 CE | Burger et al. 2021 (`wh-614`) |
+| Mississippian culture: flourished (one climate study's) | c. 1000 – 1450 CE (`us-017` has 1000 – 1600) | Bird et al.; Pompeani et al. (`wh-617`) |
+| Cahokia: emerged / abandoned | c. 1050 / c. 1350 – 1400 CE | Kessler et al.; Pompeani et al. (`wh-618`) |
+| Ancestral Puebloans: Four Corners / Mesa Verde empty | 500 – 1300 / by c. 1280 CE | National Park Service; Kemp (`wh-619`) |
+| Chaco Canyon: great houses / regional centre / crypt burials | c. 850 – 1150 / by 1050 / 800 – 1130 CE | National Park Service; Pinotti; Kennett et al. 2017 (`wh-620`) |
+| Italian city-states: communes began | c. 1100 CE | Wickham (`wh-622`; `wh-621`, `wh-625` are `undatable`) |
+| Florence: florin / priors / republic ended (1530 is the siege) | from 1252 / from 1282 / 1532 CE | Einaudi; Machiavelli; Byatt (`wh-623`) |
+| House of Medici: rule / bank / Pazzi plot / dukes | 1434 – 1737 / from 1397 / 26 April 1478 / from 1532 CE | Historisches Lexikon der Schweiz; EBSCO; Byatt (`wh-624`) |
+| Petrarch: lived / crowned / Ventoux letter | 1304 – 1374 / 8 April 1341 / dated 26 April, read as 1336 CE | Università di Bologna; Nicholl; Mann (`wh-626`) |
+| Leonardo: lived / Mona Lisa | 15 April 1452 – 2 May 1519 / 1503 – 1519 CE | Louvre (`wh-627`) |
+| Michelangelo: lived (1474 in his father's notebook) / ceiling / Last Judgement | 6 March 1475 – 18 February 1564 / 1508 – 1512 / 1536 – 1541 CE | Condivi; Symonds; Vatican (`wh-628`) |
+| Linear perspective: reported start / Alberti's treatise | c. 1413 / 1435 – 1436 CE | Hertzmann citing Kemp; Sinisgalli; Horton (`wh-629`) |
+| Printing press: press at Mainz / 42-line Bible / Subiaco book | c. 1450 / c. 1454 – 1455 / 1465 CE | Mainz city site; Library of Congress (`wh-630`) |
+| Gutenberg: born (Mainz / another summary) / Strasbourg suit / 42-line Bible / died | c. 1397 – 1406 (1394 – 1399) / 1439 / c. 1455 / early February 1468 CE | Mainz city site; Gould (`wh-631`; `wh-632` is `undatable`) |
+| Erasmus: born (disputed) / ordained / Greek New Testament / died | c. 1466 – 1469 / 1492 / 1516 / 11 or 12 July 1536 CE | Stanford Encyclopedia; Historisches Lexikon der Schweiz (`wh-633`) |
+| Machiavelli: born / Chancery / *The Prince* drafted (printed 1532) / died | 3 May 1469 / 1498 – 1512 / 1513 / 21 June 1527 CE | Black; Stanford Encyclopedia; the letter of 10 December 1513 (`wh-634`) |
+| Reformation: usual start / Zwingli at Zurich / Augsburg peace / usual end | 1517 / 1519 / 25 September 1555 / 1648 CE | Schaff (`wh-635`) |
+| Luther: born / entered the Erfurt friary / Worms / died | 10 November 1483 / 1505 / 1521 / 18 February 1546 CE | Melanchthon via the Stanford Encyclopedia (`wh-636`) |
+| Ninety-five Theses: letter to Albrecht dated | 31 October 1517 CE (the door story is Melanchthon's of 1546) | Jacobs; Leppin and Wengert (`wh-637`) |
+| Protestantism: name arose (Protestation at Speyer) | 19 – 25 April 1529 CE | Pollard; Helmer (`wh-638`) |
+| Calvin: born / *Institutes* / returned to Geneva / died | 10 July 1509 / 1536 / 1541 / 27 May 1564 CE | Walker; Calvin's own preface (`wh-639`) |
+| English Reformation: Appeals Act / Supremacy Act / first Prayer Book / settlement | 1533 / 1534 / 1549 / 1559 CE | Gee and Hardy; Maitland (`wh-640`) |
+| Henry VIII: born / reigned / died | 28 June 1491 / 1509 – 1547 / 28 January 1547 CE | royal.uk; British Library (`wh-641`) |
+| Jesuits: Montmartre vow / papal approval / suppressed / restored | 15 August 1534 / 27 September 1540 / 1773 / 1814 CE | Jesuits Global; Formula of the Institute (`wh-643`; `wh-642` is `undatable`) |
+| Wars of religion: Germany / France / Netherlands (conventions) | 1546 – 1555 / 1562 – 1598 / 1568 – 1648 CE | Benedict; Leiden (`wh-644`) |
+| St Bartholomew's Day massacre: Coligny shot / massacre | 22 / 24 August 1572 CE | Thompson; EBSCO (`wh-645`) |
+| Thirty Years' War: began / White Mountain / treaties signed | 23 May 1618 / 8 November 1620 / 24 October 1648 CE | GHDI; Wilson (`wh-646`) |
+| Peace of Westphalia: signed | 24 October 1648 CE | GHDI; Gardiner (`wh-647`) |
+| Witch trials: whole period (one historian's) / Great Hunt | c. 1450 – 1750 / 1560 – 1630 CE | Leeson and Russ (`wh-648`) |
+| Scientific Revolution: conventional frame | 1543 – 1687 CE | Harvard Library (`wh-649`) |
+| Copernicus: born / died / book printed / on the Index | 19 February 1473 / 24 May 1543 / 1543 / 1616 – 1835 CE | Stanford Encyclopedia (`wh-650`; 1835 rests on that article alone) |
+| Galileo: lived / *Sidereus Nuncius* / admonished / condemned | 15 February 1564 – 8 January 1642 / March 1610 / 26 February 1616 / 22 June 1633 CE | Stanford Encyclopedia; Museo Galileo (`wh-651`) |
+| Kepler: lived (Julian birth) / *Astronomia nova* / *Harmonice mundi* / Rudolphine Tables | 27 December 1571 – 15 November 1630 / 1609 / 1619 / 1627 CE | MacTutor; Kepler Commission (`wh-652`) |
+| Newton: born / Lucasian chair / *Principia* / died (Old Style / New Style) | 25 December 1642 / 4 January 1643; October 1669; 1687; 20 March / 31 March 1727 CE | Smith (Stanford Encyclopedia); the Newton Project; Stukeley's memoir; Westfall (`wh-653`; `wh-654`, `wh-656`, `wh-658` are `undatable`) |
+| Royal Society: first meeting / first charter / second charter | 28 November 1660 / 15 July 1662 / 1663 CE | Royal Society; St Andrews Transactions project (`wh-655`) |
+| Henry the Navigator: lived / Ceuta / Bojador passed / Lagos captives | 1394 – 1460 / 1415 / 1434 / 1444 CE | Zurara; Polónia; Donovan (`wh-657`) |
+| Cape Route: Dias at Mossel Bay / Gama at the Cape / off Calicut | 3 February 1488 / 22 November 1497 (Castanheda and Barros: the 20th) / 20 May 1498 CE | Journal of the first voyage; Arbel (`wh-659`) |
+| Vasco da Gama: born / sailed / off Calicut / died | c. 1460 or c. 1469 / 8 July 1497 / 20 May 1498 / 24 December 1524 CE | Ravenstein (`wh-660`) |
+| Columbus: born / contract / first landfall / died | 1451 / 17 April 1492 / 12 October 1492 / May 1506 CE | Dizionario biografico degli Italiani; Young (`wh-661`) |
+| Treaty of Tordesillas: signed / ratified by Castile / ratified by Portugal | 7 June 1494 / 2 July 1494 / 5 September 1494 CE | the treaty text; Payne (`wh-662`) |
+| Magellan expedition: left Seville / left Sanlúcar / Magellan killed / back at Sanlúcar | 10 August 1519 / 20 September 1519 / 27 April 1521 / 6 September 1522 CE | Pigafetta; Carballo (`wh-663`; `wh-664` is `undatable`) |
+| Cortés: born / city taken / died | c. 1485 / 13 August 1521 / 2 December 1547 CE | MacNutt (`wh-665`) |
+| Fall of Tenochtitlan: siege began (Cortés's count) / city taken | 30 May / 13 August 1521 CE | Cortés's third letter; Sahagún (`wh-666`) |
+| Pizarro: capitulation / Atahualpa seized (Spaniards entered on the 15th) / killed (Atahualpa's execution: 26 July 1533 Kolata, 29 August Prescott) | 26 July 1529 / 16 November 1532 / 26 June 1541 CE | Xerez; Prescott; Kolata (`wh-667`) |
+| Spanish conquest of the Inca Empire: convention / Manco's rising / Pizarro killed / Vilcabamba fell | 1532 – 1572 / 1536 / 26 June 1541 / June 1572 CE | Bauer et al.; Kolata (`wh-668`) |
+| Columbian exchange: began | 1492 CE | Hamilton et al.; Crosby 1972 as reported (`wh-669`) |
+| Cocoliztli: first wave / second wave | 1545 – 1548 / 1576 – 1578 CE (one study: 1580) | Acuña-Soto's group as reported; Vågene et al. (`wh-670`) |
+| Potosí: silver found / mercury trial / mita begun | 1545 / 1571 / 1572 – 1573 CE (1545 or 1546; 1570 – 1572; 1572 or 1573) | Bakewell; Cieza; Salazar-Soler (`wh-671`; `wh-672` is `undatable`) |
+| Encomienda: royal order / Laws of Burgos / New Laws / clause revoked | December 1503 / 27 December 1512 / 1542 / 20 October 1545 CE (Roldán grants: 1497 Bourne, 1499 an encyclopedia) | Bourne (`wh-673`) |
+| Spanish Empire: in the Americas / mainland ended | 1492 – 1898 / 1824 CE | one encyclopedia's convention (`wh-674`) |
+| Portuguese Empire: counted as / Estado da Índia | 1415 – 1999 / 1505 – 1961 CE | the card's own reckoning (`wh-675`) |
+| Dutch East India Company: chartered / directors out / charter revoked | 20 March 1602 / 1 March 1796 / 1 January 1800 CE | Dutch National Archives; Gaastra (`wh-676`) |
+| East India Company: chartered (Old Style) / first voyage / Crown took over / dissolved | 31 December 1600 / 1601 / 1858 / 1874 CE | Smith; a 19th-century history of India (`wh-677`) |
+| Manila galleon: return route / Manila founded / Cortes decree / last to Manila | 1565 / 1571 / 14 September 1813 / 1815 CE | Library of Congress (`wh-678`) |
+| Jamestown: chartered / landed / first assembly / first Africans | 10 April 1606 / 13 – 14 May 1607 / 30 July 1619 / August 1619 CE | Jamestown Rediscovery Foundation; Percy (`wh-679`) |
+| New England: named / colonised | 1616 / from 1620 CE | Smith 1616 (`wh-680`) |
+| New France: Quebec begun / crown took over / Montreal fell / ceded | 3 July 1608 / 1663 / 8 September 1760 / 10 February 1763 CE (Acadia 1713) | Dictionary of Canadian Biography; Vachon (`wh-681`) |
+| Russian conquest of Siberia: Kuchum beaten / Tobolsk / Pacific reached / Nerchinsk | 1582 / 1587 / 1639 / 1689 CE (Yermak's march 1581 or 1582) | Perrie; Richards; Trekhsviatskyi (`wh-682`) |
+| James Cook: lived / Endeavour sails / transit observed | 27 October 1728 – 14 February 1779 / 26 August 1768 / 3 June 1769 CE | Royal Museums Greenwich (`wh-683`; `wh-684` is `undatable`) |
+| Mercator projection: map published / Wright's tables | 1569 / 1599 CE | Snyder (USGS) (`wh-685`; `wh-686` is `undatable`) |
+| Ottoman Empire: reckoned from (tradition) / sultanate ended | 1299 / 1 November 1922 CE | İnalcık (`wh-687`) |
+| Mehmed II: lived / reigns / took the city | 30 March 1432 – 3 May 1481 / 1444 – 1446 and 1451 – 1481 / 29 May 1453 CE | İnalcık (`wh-688`) |
+| Janissaries: founded / abolished | c. 1350 – 1400 / 17 June 1826 CE (18 June for the shelling) | Veinstein; Gül (`wh-689`) |
+| Suleiman: lived / reigned | 1494 – 1566 / 1520 – 1566 CE (1496 in another source) | Emecen (`wh-690`) |
+| Siege of Vienna (1529): besieged / also dated | 27 September – 14 October / 27 September – 15 October 1529 CE (Berman: decision to retreat 16 October) | Wien Geschichte Wiki; Royal Collection (`wh-691`) |
+| Battle of Lepanto: League formed (signed 20 May) / fought / Venice's peace | 25 May 1571 / 7 October 1571 / 18 March 1573 CE | Ágoston; Korpás; Tucker; Whelan and Baxter (`wh-692`; `wh-693` is `undatable`) |
+| Battle of Vienna (1683): siege / relief battle | 14 July – 12 September / 12 September 1683 CE (a print: 13 July) | Royal Collection Trust (`wh-694`) |
+| Safavid Empire: shah at Tabriz / Chaldiran / Isfahan taken / line ended | 1501 / 23 August 1514 / 1722 / 1736 CE | Roemer; Quinn (`wh-695`) |
+| Abbas the Great: lived / reigned (1587 in other sources) / Armenians moved / Hormuz taken | 1571 – 1629 / 1588 – 1629 / 1604 – 1605 / 1622 CE | Matthee; Library of Congress study (`wh-696`; `wh-697` and `wh-698` are `undatable`) |
+| Mughal Empire: founded / dynasty ended | 1526 / 1858 CE | Smith; Richards (`wh-699`) |
+| Babur: born / King of Ferghana / Panipat (20 April in Beveridge) / died | 14 February 1483 / June 1494 / 21 April 1526 / 26 December 1530 CE | Lane-Poole; Beveridge; the *Baburnama* (`wh-700`) |
 
 ## Chronology pins
 
@@ -1122,4 +1202,84 @@ wh-597: 1258; 20; 1261
 wh-598: 1260; 1502; 1313; 1341; 1359
 wh-599: 1336; 1370; 1405; 1404
 wh-600: 1206; 1359; 1380; 1441; 1783; 1822
+wh-601: 250; 900; 378; 869
+wh-602: 750; 850; 800; 1000; 998
+wh-603: 600; 1000; 1025; 1050
+wh-604: 900; 1150
+wh-605: 1430; 1521
+wh-606: 1325
+wh-610: 600; 1000
+wh-611: 180; 500; 1000; 1010
+wh-612: 1438; 1533; 1532
+wh-614: 1420; 1532
+wh-617: 1000; 1450
+wh-618: 1050; 1350; 1400
+wh-619: 500; 1300; 1280
+wh-620: 850; 1150; 1050; 800; 1130
+wh-622: 1100
+wh-623: 1252; 1282; 1532
+wh-624: 1434; 1737; 1397; 26; 1478; 1532
+wh-626: 1304; 1374; 1341; 1336
+wh-627: 1452; 1519; 1503
+wh-628: 1475; 1564; 1508; 1512; 1536; 1541
+wh-629: 1413; 1435; 1436
+wh-630: 1450; 1454; 1455; 1465
+wh-631: 1397; 1406; 1439; 1455; 1468
+wh-633: 1466; 1469; 1492; 1516; 1536
+wh-634: 3; 1469; 1498; 1512; 1513; 21; 1527
+wh-635: 1517; 1519; 25 September 1555; 1648
+wh-636: 10 November 1483; 1505; 1521; 18 February 1546
+wh-637: 31; 1517
+wh-638: 19; 25; 1529
+wh-639: 10; 1509; 1536; 1541; 27; 1564
+wh-640: 1533; 1534; 1549; 1559
+wh-641: 1491; 1509; 1547
+wh-643: 1540; 1534; 1773; 1814
+wh-644: 1546; 1555; 1562; 1598; 1568; 1648
+wh-645: 24; 1572; 22
+wh-646: 23; 1618; 8; 1620; 24; 1648
+wh-647: 24; 1648
+wh-648: 1450; 1750; 1560; 1630
+wh-649: 1543; 1687
+wh-650: 1473; 1543; 1616; 1835
+wh-651: 15; 1564; 8; 1642; 1610; 26; 1616; 22; 1633
+wh-652: 27; 1571; 15; 1630; 1609; 1619; 1627
+wh-653: 1642; 1643; 1669; 1687; 1727
+wh-655: 28 November 1660; 15 July 1662; 1663
+wh-657: 1394; 1460; 1415; 1434; 1444
+wh-659: 3 February 1488; 22 November 1497; 20 May 1498
+wh-660: 1460; 1469; 8 July 1497; 20 May 1498; 24 December 1524
+wh-661: 1451; 17; 1492; 12; 1492; 1506
+wh-662: 7; 1494; 2
+wh-663: 10; 1519; 20; 27; 1521; 6; 1522
+wh-665: 1485; 1521; 1547
+wh-666: 30 May 1521; 13 August 1521
+wh-667: 1529; 1532; 1541
+wh-668: 1532; 1572; 1536; 1541
+wh-669: 1492
+wh-670: 1545; 1548; 1576; 1578
+wh-671: 1545; 1571; 1572; 1573
+wh-673: 1503; 27; 1512; 1542; 20; 1545
+wh-674: 1492; 1898; 1824
+wh-675: 1415; 1999; 1505; 1961
+wh-676: 20; 1602; 1; 1796; 1800
+wh-677: 31; 1600; 1601; 1858; 1874
+wh-678: 1565; 1571; 14; 1813; 1815
+wh-679: 10 April 1606; 13 – 14 May 1607; 30 July 1619; August 1619
+wh-680: 1616; 1620
+wh-681: 3 July 1608; 1663; 8 September 1760; 10 February 1763
+wh-682: 1582; 1587; 1639; 1689
+wh-683: 1728; 1779; 1768; 1769
+wh-685: 1569; 1599
+wh-687: 1299; 1 November 1922
+wh-688: 30 March 1432; 3 May 1481; 1444; 1446; 1451; 29 May 1453
+wh-689: 1350; 1400; 1826
+wh-690: 1494; 1566; 1520
+wh-691: 27; 14; 1529; 15
+wh-692: 7; 1571; 25; 18; 1573
+wh-694: 14; 12; 1683
+wh-695: 1501; 1514; 1722; 1736
+wh-696: 1571; 1629; 1588; 1604; 1605; 1622
+wh-699: 1526; 1858
+wh-700: 14 February 1483; June 1494; 21 April 1526; 26 December 1530
 ```
