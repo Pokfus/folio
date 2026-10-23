@@ -61,17 +61,18 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   if (v) {
     check("...laid out as the rail, with an axis and no spine", v.laid && v.axis && !v.spine);
     check("...five items: two before, the card, two after", v.items.length === 5 && v.items[2].self, v.items.map((i) => i.id).join(" "));
-    /* by START date: the German Revolution (November 1918) opens before the Armistice (11 November), so the
-       two before Versailles are the Armistice and the Paris Peace Conference; the Kapp Putsch (March 1920)
-       and Trianon (June 1920) are the two after — Lausanne (1923) is sixth and so not drawn */
-    check("...in date order: Armistice, Paris Peace Conference, Versailles, Kapp Putsch, Trianon",
-      v.items.map((i) => i.id).join(" ") === "ww2-002 ww2-003 self ww2-017 ww2-009", v.items.map((i) => i.title).join(" | "));
+    /* by START date: the two before Versailles are the Paris Peace Conference (18 January 1919) and the racial
+       equality proposal (11 April 1919) — the Armistice, the German Revolution and the Biennio Rosso start earlier
+       and are further back; the Kapp Putsch (March 1920) and Trianon (June 1920) are the two after — Lausanne
+       (1923) is sixth and so not drawn */
+    check("...in date order: Paris Peace Conference, racial equality proposal, Versailles, Kapp Putsch, Trianon",
+      v.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009", v.items.map((i) => i.title).join(" | "));
     check("...the Polish Corridor (a place, the same day) is NOT among them", !v.items.some((i) => i.id === "ww2-007"));
     check("...the card's own item is marked and is not a button", v.items[2].self && !v.items[2].button);
     check("...every neighbour is a data-kin button", v.items.filter((i) => !i.self).every((i) => i.button));
-    const rev = v.items.find((i) => i.id === "ww2-003"), arm = v.items.find((i) => i.id === "ww2-002");
+    const rev = v.items.find((i) => i.id === "ww2-003"), arm = v.items.find((i) => i.id === "ww2-031");
     check("...the Paris Peace Conference is a period: a bar wider than it is tall", rev && rev.period && rev.mark.w > 20 && rev.mark.h <= 8, rev && JSON.stringify(rev.mark));
-    check("...the Armistice is an event: a dash taller than it is wide", arm && !arm.period && arm.mark.w <= 3 && arm.mark.h >= 12, arm && JSON.stringify(arm.mark));
+    check("...the racial equality proposal is an event: a dash taller than it is wide", arm && !arm.period && arm.mark.w <= 3 && arm.mark.h >= 12, arm && JSON.stringify(arm.mark));
     check("...the date stands behind the name on one line", v.items.every((i) => i.box.h < 24) && /28 June 1919/.test(v.items[2].when), v.items[2].when);
     check("...no two names overlap", v.overlaps === 0, String(v.overlaps));
     check("...the axis is in months", v.ticks.some((t) => /^[A-Z][a-z]{2} \d{4}$/.test(t)), v.ticks.join(", "));
@@ -138,7 +139,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   const tv = await open(tb, "ww2-004");
   check("the same card is still the rail", !!tv && tv.laid && tv.axis && !tv.spine);
   if (tv) {
-    check("...the same five items in the same order", tv.items.map((i) => i.id).join(" ") === "ww2-002 ww2-003 self ww2-017 ww2-009");
+    check("...the same five items in the same order", tv.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009");
     check("...each name is two lines tall: the date sits under it", tv.items.every((i) => i.box.h >= 26 && i.box.h < 44), tv.items.map((i) => Math.round(i.box.h)).join(" "));
     check("...no two names overlap", tv.overlaps === 0, String(tv.overlaps));
     check("...nothing runs past the box", tv.wider);
@@ -150,7 +151,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   const p = await open(ph, "ww2-004");
   check("the same card lays out as the ledger: a spine, no axis", !!p && p.laid && p.spine && !p.axis);
   if (p) {
-    check("...the same five items in the same order", p.items.map((i) => i.id).join(" ") === "ww2-002 ww2-003 self ww2-017 ww2-009");
+    check("...the same five items in the same order", p.items.map((i) => i.id).join(" ") === "ww2-003 ww2-031 self ww2-017 ww2-009");
     const rev = p.items.find((i) => i.id === "ww2-003");
     check("...a period is a column, taller than it is wide", rev && rev.mark.h > rev.mark.w, rev && JSON.stringify(rev.mark));
     check("...no two names overlap", p.overlaps === 0, String(p.overlaps));
