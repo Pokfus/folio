@@ -716,7 +716,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
   see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-260` have
-  shipped, less `cnh-070`, which was retired in Sep 2026 and must not be written again** — so the
+  shipped, less `cnh-070`, which was retired in Sep 2026 and must not be written again** (superseded Oct
+  2026: on request it was rewritten as *Shang bronze inscriptions*, and all 1000 are written) — so the
   lowest unused number is not the next card, and the rest of the collection is open ground. **The `placeholder: true` that had held it back
   was CLEARED on request in Aug 2026**, so its cards reach the daily review, the games, the card of
   the day and study deep links, and the collection sits under Collections rather than Planned. Its

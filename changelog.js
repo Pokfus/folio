@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1091", released: "2026-10-23T14:59Z" };
+window.FOLIO_VERSION = { v: "1.1092", released: "2026-10-23T15:31Z" };
 
 window.CHANGELOG = [
   {
@@ -79,6 +79,7 @@ window.CHANGELOG = [
       "<b>Large</b> is now the default text size for new visitors, and in the <b>Bloodstone</b> theme unread glossary links are blue so they stand out from the text.",
       "A level-up chest now waits gold on the level bar; pressing it greys the bar's chest and moves it to the chest banner, instead of showing in both.",
       "<b>The Russia map cards for Moscow and Moscow Oblast</b> had swapped shapes: Moscow now shades the city, framed whole, and the Oblast card shades the oblast.",
+      "<b>2 new cards</b> with their glossary terms: one in China's Shang deck and one in Korea's Gojoseon deck, so China now has 1,000 cards and Korea 100.",
     ],
   },
   {
