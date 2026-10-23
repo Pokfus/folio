@@ -2629,6 +2629,27 @@
     }
    ]
   },
+  "pl:q130018": {
+   "name": "Denali",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q130018",
+   "at": [
+    -151.0063,
+    63.0691
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Denali",
+   "manual": true,
+   "reason": "geo-904 Denali: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q1303524": {
    "name": "Sphacteria",
    "kind": "island",
@@ -8443,6 +8464,27 @@
    "cards": 1,
    "kindWas": "strait"
   },
+  "pl:q235539": {
+   "name": "Mount Whitney",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q235539",
+   "at": [
+    -118.2919,
+    36.5786
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Whitney",
+   "manual": true,
+   "reason": "geo-911 Mount Whitney: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q2369687": {
    "name": "Susiana",
    "kind": "region",
@@ -9165,6 +9207,27 @@
    },
    "cards": 1,
    "kindWas": "region"
+  },
+  "pl:q2666855": {
+   "name": "Mammoth Cave",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q2666855",
+   "at": [
+    -86.1,
+    37.1833
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "",
+   "manual": true,
+   "reason": "geo-908 Mammoth Cave: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q35509"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q267258": {
    "name": "Odawara",
@@ -10029,6 +10092,28 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q306201": {
+   "name": "Devils Tower",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q306201",
+   "at": [
+    -104.7153,
+    44.5903
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Devils Tower",
+   "manual": true,
+   "reason": "geo-919 Devils Tower: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q522464"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q3077260": {
    "name": "Shika Island",
@@ -12224,6 +12309,28 @@
     "km": 1.3
    },
    "cards": 1
+  },
+  "pl:q4675": {
+   "name": "Mount St. Helens",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q4675",
+   "at": [
+    -122.1894,
+    46.2003
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount St. Helens",
+   "manual": true,
+   "reason": "geo-905 Mount St. Helens: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q471765": {
    "name": "Shangdu",

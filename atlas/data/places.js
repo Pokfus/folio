@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":65,"site":413,"mountain":12,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":123,"strait":2,"gulf":2,"lake":6,"river":6,"island":25,"island-group":3,"range":6,"region":65,"site":414,"mountain":16,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -684,6 +684,7 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["Mal'ta, Belaya River"]],
 ["pl:q1887316","Malia (archaeological site)","site","site",1887316,0,[25.4908,35.2939],
 ["Malia","Malia, Crete"],1],
+["pl:q2666855","Mammoth Cave","site","cave",2666855,0,[-86.1,37.1833]],
 ["pl:q1160195","Mantinea","site","site",1160195,0,[22.3919,37.6166],0,1],
 ["pl:q17276497","Marathon tumuli","site","site",17276497,0,[23.9783,38.1179],
 ["Soros"],1],
@@ -917,6 +918,8 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["pl:q6145247","Zhongshan Hall","site","building",6145247,0,[121.51,25.0431],0,1],
 ["pl:q192522","Çatalhöyük","site","site",192522,0,[32.8283,37.6675],0,1],
 ["pl:q1010335","Burkhan Khaldun","mountain",0,1010335,0,[109.1667,48.7833],0,1],
+["pl:q130018","Denali","mountain",0,130018,0,[-151.0063,63.0691],0,1],
+["pl:q306201","Devils Tower","mountain",0,306201,0,[-104.7153,44.5903],0,1],
 ["pl:q697119","Kahlenberg","mountain",0,697119,0,[16.3333,48.2761],0,1],
 ["pl:q188698","Kīlauea","mountain",0,188698,0,[-155.2868,19.4211],0,1],
 ["pl:q1729630","Monte Cavo","mountain",0,1729630,"city:1159151593",[12.71,41.7517],
@@ -927,8 +930,10 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-23","generator":"folio at
 ["Lushan"],1],
 ["pl:q80344","Mount Olympus","mountain",0,80344,0,[22.35,40.0833],0,1],
 ["pl:q105261","Mount Parnassus","mountain",0,105261,0,[22.6167,38.533],0,1],
+["pl:q4675","Mount St. Helens","mountain",0,4675,0,[-122.1894,46.2003],0,1],
 ["pl:q524","Mount Vesuvius","mountain",0,524,0,[14.4292,40.8226],
 ["Vesuvius"],1],
+["pl:q235539","Mount Whitney","mountain",0,235539,0,[-118.2919,36.5786],0,1],
 ["pl:q1518125","Qubbet el-Hawa","mountain",0,1518125,0,[32.8903,24.103],0,1],
 ["pl:q697937","Similaun","mountain",0,697937,0,[10.8806,46.7636],0,1],
 ["pl:q216551","Actium","cape",0,216551,0,[20.768,38.953],0,1],

@@ -50951,6 +50951,10 @@
     "Q8072",
     "Q2221906"
    ]
+  },
+  "Q522464": {
+   "label": "laccolith",
+   "tops": []
   }
  },
  "labels": {
@@ -91485,6 +91489,63 @@
    ],
    "label": "Kīlauea",
    "title": "Kīlauea"
+  },
+  "Q306201": {
+   "coord": [
+    -104.7153,
+    44.5903
+   ],
+   "classes": [
+    "Q8502",
+    "Q522464"
+   ],
+   "label": "Devils Tower",
+   "title": "Devils Tower"
+  },
+  "Q2666855": {
+   "coord": [
+    -86.1,
+    37.1833
+   ],
+   "classes": [
+    "Q35509"
+   ],
+   "label": "Mammoth Cave",
+   "title": ""
+  },
+  "Q235539": {
+   "coord": [
+    -118.2919,
+    36.5786
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Whitney",
+   "title": "Mount Whitney"
+  },
+  "Q130018": {
+   "coord": [
+    -151.0063,
+    63.0691
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "",
+   "title": "Denali"
+  },
+  "Q4675": {
+   "coord": [
+    -122.1894,
+    46.2003
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358"
+   ],
+   "label": "",
+   "title": "Mount St. Helens"
   }
  },
  "links": {
