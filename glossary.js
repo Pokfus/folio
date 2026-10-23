@@ -6689,7 +6689,13 @@ window.GLOSSARY = {
 "Comparative_psychology": "",
 "European_rabbit": "",
 "Replication_crisis": "",
-"Stimulus_(physiology)": ""
+"Stimulus_(physiology)": "",
+"British_Psychological_Society": "",
+"Experimental_psychology": "",
+"Leipzig": "",
+"Natural_science": "",
+"Nature_(journal)": "",
+"Philosophy": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10188,7 +10194,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Karakorum": "1235–1263",
 "Manetho": "fl. c. 300 BCE",
 "Channel_Islands_National_Park": "1980–present",
-"Joshua_Tree_National_Park": "1994–present"
+"Joshua_Tree_National_Park": "1994–present",
+"British_Psychological_Society": "1901–present",
+"Nature_(journal)": "1869–present"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -21263,7 +21271,13 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Comparative_psychology": ["concept","science","psychology","animal"],
 "European_rabbit": ["animal","science","biology"],
 "Replication_crisis": ["concept","science","research methods","psychology"],
-"Stimulus_(physiology)": ["concept","science","biology","psychology"]
+"Stimulus_(physiology)": ["concept","science","biology","psychology"],
+"British_Psychological_Society": ["institution","psychology","science","education","united kingdom","history"],
+"Experimental_psychology": ["concept","science","psychology","research methods","history"],
+"Leipzig": ["place","city","geography","germany","europe","trade","music"],
+"Natural_science": ["concept","science","natural science","research methods","history"],
+"Nature_(journal)": ["institution","science","history","publishing","united kingdom"],
+"Philosophy": ["concept","philosophy","science","history","education"]
 });
 
 /* ============================================================================
