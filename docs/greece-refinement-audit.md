@@ -2878,7 +2878,7 @@ the unsourced list of other cults (`gr-992`); the Plato "spells" sentence, which
 
 #### `gr-986`–`gr-990` and `gr-996`–`gr-1000` (B104 and B105, committed sixth)
 
-Ten cards: the Panathenaia, the festival calendar, the Thesmophoria, the Anthesteria and the Eleusinian Mysteries; Epidaurus, incubation, hero cult, Greek funerary practice and the curse tablet. Sources 5–6 → 6–8. Every foreign-language review that stood without a chip has one (`gr-997` Italian, `gr-999` Spanish, `gr-1000` German); the French review of Parker's *Polytheism and Society at Athens*
+Ten cards: the Panathenaia, the festival calendar, the Thesmophoria, the Anthesteria and the Eleusinian Mysteries; Epidaurus, incubation, hero cult, Greek funerary practice and the curse tablet. Sources 5–6 → 6–8. Every foreign-language review that stood without a chip has one (`gr-997` Italian, `gr-999` Spanish, `gr-1000` German); the unchipped French review (Bonnet's, of a book by Parker)
 that the old Panathenaia, calendar, Thesmophoria, Anthesteria and Mysteries cards cited for claims it does not carry was dropped from all five. Checks: the audit, `check-questions`, `check-cards` and `apply-wiki-links --check` pass; every cited URL answers 2xx (103 citations) and `check-citations --card` finds no mismatch.
 
 **Date lines.** `gr-986` prints the Greater festival, 566 BCE ("one view", Meyer's review, and the prose says so), and the killing of Hipparchus, 514 BCE (Lateiner's review; Thucydides prints no year); `gr-996` the arrival of the cult at Athens, 420 BCE (Marx-Wolf's review) and the Tholos begun about 365 BCE (Miles's review; another review puts the building programme at 400 – 350 BCE, so the prose says "about");
