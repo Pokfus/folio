@@ -159,7 +159,7 @@ order unless the user says otherwise.
 | B25 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-241`–`rm-250` | 10 | 123 | **done 2026-10-22** |
 | B26 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-251`–`rm-260` | 10 | 118 | **done 2026-10-22** |
 | B27 | Rome and the Mediterranean (`rm-mediterranean`) | `rm-261`–`rm-270` | 10 | 122 | **done 2026-10-23** |
-| B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | open |
+| B28 | Rome and the Mediterranean (`rm-mediterranean`) / The Republic in crisis (`rm-crisis`) | `rm-271`–`rm-280` | 10 | 135 | **done 2026-10-23** |
 | B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | open |
 | B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | open |
 | B31 | The Republic in crisis (`rm-crisis`) | `rm-301`–`rm-310` | 10 | 85 | open |
@@ -540,6 +540,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-268` publicani | none | no picture (`I.none`) |
 | `rm-269` provincial taxation | a bronze modius from Herculaneum | wrong: imperial-period, one object, and also on `rm-202` (`I.duplicate`); the agent proposes `rm-202` keeps it |
 | `rm-270` wealth of empire | Vernet's 1789 *Triumph of Aemilius Paulus* | weak: a neoclassical painting nineteen centuries later; a relief, a hoard or a mine would show wealth better |
+| `rm-271` Greek influence on Roman culture | none | no picture (`I.none`) |
+| `rm-272` philhellenism | none | no picture (`I.none`) |
+| `rm-273` Cato the Elder | none | no picture (`I.none`) |
+| `rm-274` Bacchanalian affair | none | no picture (`I.none`); the Tiriolo tablet in Vienna would suit if a free image exists. **No locator: Tiriolo is wanted** |
+| `rm-275` sumptuary law | none | no picture (`I.none`) |
+| `rm-276` crisis of the Roman Republic | none | no picture (`I.none`) |
+| `rm-277` latifundium | none | no picture (`I.none`) |
+| `rm-278` decline of the Italian smallholder | none | no picture (`I.none`) |
+| `rm-279` slavery in Italian agriculture | none | no picture (`I.none`); a farm scene or a mosaic of farm slaves would suit |
+| `rm-280` First Servile War | the rock at Enna | fine as a photograph; the description narrates Diodorus and Strabo and the credit lacks "via Wikimedia Commons". **No locator: Enna is wanted** |
 
 ## Glossary candidates
 
@@ -1223,7 +1233,7 @@ Run as B22. Checks: `rm-audit.js --range=rm-221:rm-230` reads clean on eight car
 | `rm-229` Scipio's African campaign | 6 | 8 → 6 | Polybius 14.1 – 14.8 were eight sources. **The old Q2 misquoted Polybius's "most splendid" remark** (14.5.15); Livy's 40,000 dead is his, against Gsell's view that neither army was destroyed. The siege of Utica was abandoned, not kept through the campaign. |
 | `rm-230` Masinissa | 6 | 6 → 7 | **Polybius says "nine other sons", not "nine grown sons"**, and "ninety" is his word, not a printed year. Sophonisba is Livy's story, with Appian's variant and Gsell's caution. The old four Livy citations are now one. |
 
-**Read by eye.** *Confusability:* `rm-221`/`rm-222` are the revolt and the siege; `rm-223`/`rm-224` the campaigns and the man; `rm-225`/`rm-226` the city's capture and the set-piece battle; `rm-227`/`rm-228` the march and the battle; `rm-229`/`rm-230` the campaign and the king. *Legend:* every Livy set piece named above is told as Livy's. *Chronology:* the Ilipa year is split (206 or 207) and says whose each is. *Overlap:* no `gr-` or `wh-` card disagrees; `rm-223`'s picture is also on `gr-217`; `rm-271` gives 211 BCE for Syracuse's fall and should be reconciled with `rm-222` when it is reached.
+**Read by eye.** *Confusability:* `rm-221`/`rm-222` are the revolt and the siege; `rm-223`/`rm-224` the campaigns and the man; `rm-225`/`rm-226` the city's capture and the set-piece battle; `rm-227`/`rm-228` the march and the battle; `rm-229`/`rm-230` the campaign and the king. *Legend:* every Livy set piece named above is told as Livy's. *Chronology:* the Ilipa year is split (206 or 207) and says whose each is. *Overlap:* no `gr-` or `wh-` card disagrees; `rm-223`'s picture is also on `gr-217`; `rm-271` had given 211 BCE for Syracuse's fall; B28 dropped it.
 
 ### B24 — `rm-231`–`rm-240`, the Punic Wars to the Macedonian Wars: Zama to the Second Macedonian War (2026-10-22)
 
@@ -1300,3 +1310,22 @@ Run as B26, on a new day. Checks: `rm-audit.js --range=rm-261:rm-270` reads clea
 | `rm-270` wealth of empire | 7 | 6 → 8 | **"Treasury 157 BCE, per Pliny" is an agent's conversion; Antias's 120,000,000 sesterces is his figure, which Livy doubts.** Cato's caviare complaint was wrongly given to Polybius. Frank's cautions on the totals are added. |
 
 **Read by eye.** *Confusability:* `rm-261`/`rm-262` are the long conquest and the numbered wars; `rm-263`/`rm-264` the war and the man; `rm-265`/`rm-266` the siege and the general; `rm-267`/`rm-268`/`rm-269`/`rm-270` the system, the contractors, the taxes and the wealth, each phrasing using clues only its term has. *Legend:* Galba's massacre numbers and the "fiery war" label are each an ancient author's. *Chronology:* the Spanish years are Schulten's, and where a source prints none (Polybius, Appian) the card says so. *Overlap:* no `gr-` or `wh-` card covers these subjects; the Numantia and Lusitanian cards share nothing with `wh-` cards.
+
+### B28 — `rm-271`–`rm-280`, Rome and the Mediterranean to the Republic in crisis: Greek influence to the First Servile War (2026-10-23)
+
+Run as B27. Two cards (`rm-279`, `rm-280`) were not written by the first `batch.sh` run (the audit showed their old text); `apply.js rm-279 rm-280` wrote them and **every card from `rm-201` to `rm-280` was then compared against its draft** (source count and abstract): no mismatch. Checks: `rm-audit.js --range=rm-271:rm-280` reads clean but for `I.none` on all nine cards that have no picture, `S.chip?` on `rm-272` (an English review of a German-titled book: the known false positive) and `Q.sibling` on `rm-277` (a phrasing shares content words with one of `rm-762`'s, which a later pass must keep apart). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. The cards of this batch were mostly **all-ancient**, so the work was the modern half and the date lines.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-271` Greek influence on Roman culture | 8 | 6 → 9 | **The old "Syracuse taken 211 BCE" is dropped (`rm-222`'s sources have the siege ending in 212 and no source read prints a year for Livy's remark)**; Livy's "Greek influence began at Syracuse" is set against Gruen's view. The alphabet (c. 800 – 750) converts "first half of the 8th century"; Horace's line is the agent's own rendering of the Latin. |
+| `rm-272` philhellenism | 7 | 6 → 10 | The old card treated the attitude as one thing and had no definition. **"Philhellenism" is a modern term**; Gruen finds no philhellenic party, the Scipionic circle is a Ciceronian ideal, and Postumius Albinus and Lucullus show the double edge. The unsourced date line is dropped (undatable). |
+| `rm-273` Cato the Elder | 8 | 6 → 9 | **The old card put Livy's composed Oppian-law speech in Cato's mouth**, and claimed he was "the only Roman whose speeches survive"; the speech is now Livy's, flagged with Dziuba. Old Q1 made a year-free but false claim; all three phrasings are rewritten. The assessment figures are not converted. |
+| `rm-274` Bacchanalian affair | 7 | 7 → 7 | **The old question carried "186 BCE" and two date rows were counts.** The decree is now read from the Tiriolo tablet: the limit of five worshippers, the praetor's leave, a quorum of a hundred senators. The 7,000 is Livy's "asserted" figure; the murders and forgeries Livy lists are not in the decree. `gr-994` says the decree "banned" the rites; it limits them. |
+| `rm-275` sumptuary law | 7 | 5 → 9 | **The old text gave Livy's and Plutarch's Cato as plain fact; Livy composed those speeches** (Mastrorosa). Livy's 15,000 asses at ten times value replace Plutarch's drachma sum; Gellius's three tiers (100, 30 and 10 asses) added; the laws' ineffectiveness is a modern view. |
+| `rm-276` crisis of the Roman Republic | 8 | 5 → 9 | **"Crisis" is a modern concept**; the usual start (133) and end (31 or 27) are conventions, with one critic stopping at 49. Sallust's and Polybius's diagnoses are the ancients' own. A phrasing that `rm-348` already uses (Appian's sword never carried into the assembly) is dropped. |
+| `rm-277` latifundium | 6 | 5 → 7 | The old date line held the land law's facts (500 iugera, 133), which belong to `rm-282`/`rm-283`; the card is now the estate type. **Pliny's "six proprietors held half of Africa" is his verdict**; Cato's 240- and 100-iugera model farms are his figures; Launaro's 27 surveys cut against the old idea. Date line "". |
+| `rm-278` decline of the Italian smallholder | 7 | 5 → 8 | **Polybius was bent into "in the fleet rather than in the legions"; his sentence says only that men rated under 400 drachmae served at sea.** Tiberius's wild-beasts speech is Plutarch's report; Brunt's census figures carry the dates he prints; the low-count / high-count and survey split is stated. |
+| `rm-279` slavery in Italian agriculture | 7 | 5 → 8 | The old line ("prosperous 60 years, then revolt", "3 kinds of instrument") was not dates, and half the abstract was Diodorus's Sicilian herdsmen (now `rm-280`). **Varro only reports that "some divide" slaves into three classes.** Scheidel's "at most 1.5 million" is a model; Strabo's 10,000 a day at Delos is his figure. |
+| `rm-280` First Servile War | 7 | 5 → 8 | **"Under Cleon 70,000 slaves" was Livy's figure for one gathering, not the army's size**; Livy's and Diodorus's figures are labelled theirs. The fire-breathing trick is Diodorus's own "trick". The span is c. 135 – 132, with a review's roughly 141 – 131. |
+
+**Read by eye.** *Confusability:* `rm-271`/`rm-272` are the influence and the attitude; `rm-273`/`rm-274`/`rm-275` the man, the affair and the laws, each with only its own clue; `rm-276` the whole period; `rm-277`/`rm-278`/`rm-279`/`rm-280` the estate, the smallholder's fate, the system and the revolt. *Legend:* Eunus's fire-breathing trick, Livy's Oppian-law speeches and Cato's speeches are the ancient authors'. *Chronology:* `rm-271`'s old Syracuse year is gone, which settles the `rm-222` note under B23. *Overlap:* `gr-994` on the Bacchanalia as above; no `gr-` or `wh-` card on sumptuary law, latifundia or the Servile War disagrees.

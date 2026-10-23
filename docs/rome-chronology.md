@@ -267,7 +267,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Fabian strategy / the Fabian Society founded | 217 BCE (the dictatorship) / 1884 | `rm-217` |
 | the Battle of Cannae / Rome's response | 216 BCE (Polybius prints no day; a calendar day is a modern deduction and not printed) | `rm-218`, `rm-220` |
 | the defection of Capua / its recapture | 216 BCE / 211 BCE (Lendering) | `rm-221` |
-| the siege of Syracuse / Hieronymus died | 213 – 212 BCE (Rorres, Hallward; Polybius's eight months, Hallward's two and a half years) / 214 BCE (`rm-271` says 211 BCE for the capture: to reconcile when that card is reached) | `rm-222` |
+| the siege of Syracuse / Hieronymus died | 213 – 212 BCE (Rorres, Hallward; Polybius's eight months, Hallward's two and a half years) / 214 BCE (`rm-271` printed 211 BCE for the capture; it now prints no year) | `rm-222` |
 | the Spanish campaigns of the Scipios / the Ebro battle | 218 – 211 BCE / 215 BCE (each year from a modern source) | `rm-223` |
 | Scipio Africanus: elected aedile / in command | 213 BCE / 210 – 201 BCE (Hallward) | `rm-224` |
 | the capture of New Carthage | 209 BCE (Richardson, Hallward, Goldsworthy, Hornblower; Polybius prints no year) | `rm-225` |
@@ -313,6 +313,13 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the publicani: Traditional / the army contract | 493 BCE (Dionysius's date, as Malmendier reports it) / 216 BCE | `rm-268` |
 | provincial taxation: Spain's ruling / Macedonia's tribute halved / Gaius Gracchus tribune | 171 BCE / 167 BCE / 123 – 122 BCE | `rm-269` |
 | the wealth of empire: the taxes repaid / the war tax ended / the mines reopened | 187 BCE / 167 BCE / 158 BCE | `rm-270` |
+| Greek influence on Roman culture: the alphabet arrives / the philosophers' envoys at Rome | c. 800 – 750 BCE (a 'first half of the 8th century' converted to the house range) / 155 BCE (Forsythe's review; no ancient year is printed) | `rm-271` |
+| Cato the Elder: lived / consul / censor | 234 – 149 BCE / 195 BCE / 184 BCE | `rm-273` |
+| the Bacchanalian affair: the affair / the Senate's decree / the Tiriolo tablet found | 186 BCE / 7 October 186 BCE (read off the tablet's own date) / 1640 | `rm-274` |
+| sumptuary laws: passed / the Oppian law / the Fannian law | 215 – 18 BCE / 215 – 195 BCE / 161 BCE | `rm-275` |
+| the crisis of the Roman Republic: usual start / usual end / a shorter span | 133 BCE / 31 or 27 BCE / 133 – 49 BCE (a modern convention; each end is a convention, said so) | `rm-276` |
+| the decline of the Italian smallholder: the census fall / the Gracchan reform | 163 – 135 BCE (Brunt's figures; his table lost its year column in the scan and the years were matched by his own sentence) / 133 BCE | `rm-278` |
+| the First Servile War: fought / Rupilius wins | c. 135 – 132 BCE (one review has roughly 141 – 131) / 132 BCE | `rm-280` |
 
 ## The middle and late Republic
 
@@ -592,4 +599,11 @@ rm-267: 227; 123
 rm-268: 493; 216
 rm-269: 171; 167; 123; 122
 rm-270: 187; 167; 158
+rm-271: 800; 750; 155
+rm-273: 234; 149; 195; 184
+rm-274: 186; 7; 1640
+rm-275: 215; 18; 195; 161
+rm-276: 133; 31; 27; 49
+rm-278: 163; 135; 133
+rm-280: 135; 132
 ```
