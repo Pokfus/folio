@@ -413,6 +413,11 @@ const NOT_A_SCHOLAR = new Set([
   "Feng Guifen",        // cnh-568: the 1860s reformer of the Self-Strengthening essays
   "Governor Yuxian",    // cnh-572: the Shandong and Shanxi governor of the Boxer year
   "Wellington Koo",     // cnh-584: China's delegate at Paris in 1919
+  /* STATESMEN AND A PLACE, caught in front of a verb of agency on the Politics and course cards. */
+  "Chiang Kai-shek",    // cnh-609: led the third encirclement campaign against the Jiangxi base
+  "Deng Xiaoping",      // cnh-680, cnh-682: "called" the rural enterprises a success, the zones a window
+  "NATO's Mark Rutte",  // gga-024: the Secretary General, who "called" Spain's stance an agreement to disagree
+  "Chagos Archipelago", // gga-020: the islands the ICJ opinion "shows" the argument over
 ]);
 
 /* ============================================================================
