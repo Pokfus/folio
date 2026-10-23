@@ -736,6 +736,16 @@ Filled batch by batch, from the source each row names.
 | Manifest destiny: first use in print (Pratt) / Oregon use | July – August 1845 / 27 December 1845 CE | Pratt (`wh-816`) |
 | Trail of Tears: Choctaw removal / treaty signed / Cherokee removal | 1831 – 1832 / 29 December 1835 / May 1838 – March 1839 CE | Oklahoma Historical Society; the treaty text; National Park Service (`wh-817`) |
 | Mary Wollstonecraft: lived / *Rights of Men* / *Rights of Woman* | 27 April 1759 – 10 September 1797 / 1790 / 1792 CE | Stanford Encyclopedia; Godwin (`wh-819`; `wh-818` and `wh-820` are `undatable`) |
+| Germ theory of disease | none: `undatable`; Pasteur 1878 paper, Lister 1867, Koch 1876 and 24 March 1882 are given in the prose by their owners | Cavaillon and Legout; Lister; Koch (`wh-821`) |
+| Charles Darwin: born / *Beagle* voyage / *Origin* published / died | 12 February 1809 / 27 December 1831 – 2 October 1836 / 24 November 1859 / 19 April 1882 CE | Westminster Abbey; the Darwin Correspondence Project; Sloan (`wh-822`) |
+| On the Origin of Species: published / sixth edition | 24 November 1859 (offered to the trade 22 November) / February 1872 CE | Freeman; the Darwin Correspondence Project (`wh-823`) |
+| Compulsory education | none: `undatable`; Prussia 12 August 1763, Massachusetts 1852, England 1870 / 1876 / 1880, France 28 March 1882 are in the prose | the decree; Katz; the statutes (`wh-824`) |
+| Penny press: first issue of the *Sun* | 3 September 1833 CE | O'Brien (`wh-825`) |
+| New Imperialism | none: `undatable`; the Scramble from the late 1870s (Reid), Hobson's 1884 – 1900 peak (via Lenin) | Reid; Lenin (`wh-826`) |
+| Scramble for Africa: period | c. 1880 – 1914 CE | Reid (`wh-827`) |
+| Berlin Conference: opened / Act signed | 15 November 1884 / 26 February 1885 CE | the German Foreign Office archive; Hertslet (`wh-828`) |
+| Congo Free State: existed | 1 July 1885 – 15 November 1908 CE | Keith (`wh-829`) |
+| Cecil Rhodes: born / Cape premier / died | 5 July 1853 / 17 July 1890 – January 1896 / 26 March 1902 CE | Williams; Stead (`wh-830`) |
 
 ## Chronology pins
 
@@ -1453,4 +1463,11 @@ wh-815: 1865 – 1877; 1861 – 1900; 9 July 1868; 3 February 1870
 wh-816: July – August 1845; 27 December 1845
 wh-817: 1831 – 1832; 29 December 1835; May 1838 – March 1839
 wh-819: 27 April 1759 – 10 September 1797; 1790; 1792
+wh-822: 12 February 1809, Shrewsbury; 27 December 1831 – 2 October 1836; 24 November 1859; 19 April 1882, Down House
+wh-823: 24 November 1859; February 1872
+wh-825: 3 September 1833, New York Sun
+wh-827: c. 1880 – 1914
+wh-828: 15 November 1884; 26 February 1885
+wh-829: 1 July 1885 – 15 November 1908
+wh-830: 5 July 1853; 17 July 1890 – January 1896; 26 March 1902
 ```
