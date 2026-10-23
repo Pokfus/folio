@@ -684,6 +684,15 @@ Filled batch by batch, from the source each row names.
 | Montesquieu: lived / *Persian Letters* / *Spirit of Laws* | 1689 – 1755 / 1721 / 1748 CE | SEP; Stewart (`wh-748`) |
 | Voltaire: lived / *English Letters* / Calas executed (museum; 9 March in his treatise) / Calas cleared | 21 November 1694 – 30 May 1778 / 1733 / 10 March 1762 / 1765 CE | Tallentyre; Musée protestant (`wh-749`) |
 | Jean-Jacques Rousseau: lived / Discourse on Inequality / *Social Contract* | 28 June 1712 – 2 July 1778 / 1755 / 1762 CE | Cole; SEP (`wh-750`) |
+| Encyclopédie: prospectus / text volumes / plates | November 1750 / 1751 – 1765 / completed 1772 CE | Chartier; ARTFL; Brandeis (`wh-751`; `wh-752` is `undatable`) |
+| American Revolution: Stamp Act passed / Tea Party / Declaration / Treaty of Paris | 22 March 1765 / 16 December 1773 / 4 July 1776 / 3 September 1783 CE | National Archives; Library of Congress (`wh-753`) |
+| Declaration of Independence: adopted / Lee motion / vote carried / mostly signed | 4 July / 7 June / 2 July / 2 August 1776 CE | National Archives; National Park Service (`wh-754`) |
+| American Revolutionary War: began / alliance signed / Yorktown fell / treaty signed | 19 April 1775 / 6 February 1778 / 19 October 1781 / 3 September 1783 CE (Yorktown siege from 28 September) | National Park Service; State Department historian; American Battlefield Trust (`wh-755`) |
+| US Constitution: signed / ninth state / legal start / Bill of Rights | 17 September 1787 / 21 June 1788 / 4 March 1789 / 15 December 1791 CE (quorums 6 April 1789) | National Archives (`wh-756`) |
+| French Revolution: Estates opened / monarchy ended / Directory fell | 5 May 1789 / 21 September 1792 / 9 November 1799 CE | Versailles; Lentz (`wh-757`) |
+| Storming of the Bastille: stormed / anniversary fête / holiday law | 14 July 1789 / 14 July 1790 / 6 July 1880 CE | Funck-Brentano; the Swiss officer's account (`wh-758`) |
+| Declaration of the Rights of Man: approved / debated / royal assent / in constitution | 26 August 1789 / 20 – 26 August 1789 / 5 October 1789 / 3 September 1791 CE | Library of Congress; American Battlefield Trust (`wh-759`) |
+| Reign of Terror: Royer's call / Law of Suspects / Prairial law / 9 Thermidor | 5 September 1793 / 17 September 1793 / 10 June 1794 / 27 July 1794 CE | Linton; Hesse; the Convention's decrees (`wh-760`) |
 
 ## Chronology pins
 
@@ -1349,4 +1358,13 @@ wh-747: 1632; 1704; 1689
 wh-748: 1689; 1755; 1721; 1748
 wh-749: 21 November 1694; 30 May 1778; 1733; 10 March 1762; 1765
 wh-750: 28 June 1712; 2 July 1778; 1755; 1762
+wh-751: 1750; 1751; 1765; 1772
+wh-753: 22 March 1765; 16 December 1773; 4 July 1776; 3 September 1783
+wh-754: 4 July 1776; 7 June 1776; 2 July 1776; 2 August 1776
+wh-755: 19; 1775; 6; 1778; 19; 1781; 3; 1783
+wh-756: 17; 1787; 21; 1788; 4; 1789; 15; 1791
+wh-757: 5 May 1789; 21 September 1792; 9 November 1799
+wh-758: 14 July 1789; 14 July 1790; 6 July 1880
+wh-759: 26 August 1789; 20 – 26 August 1789; 5 October 1789; 3 September 1791
+wh-760: 5 September 1793; 17 September 1793; 10 June 1794; 27 July 1794
 ```

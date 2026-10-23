@@ -8697,7 +8697,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Olaudah_Equiano": "died 1797",
 "Slave_Trade_Act_1807": "1807",
 "Voltaire": "1694–1778",
-"American_Revolution": "1763 – 1789",
+"American_Revolution": "1765 – 1783",
 "American_Revolutionary_War": "1775 – 1783",
 "Constitution_of_the_United_States": "signed 17 September 1787",
 "Declaration_of_the_Rights_of_Man_and_of_the_Citizen": "26 August 1789",
