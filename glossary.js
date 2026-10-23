@@ -9079,15 +9079,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Philippi": "founded 360 – 359 BCE",
 "Second_Sophistic": "1st – 3rd centuries CE",
 "Thessaloniki": "founded c. 316 BCE",
-"Trojan_Horse": "c. 750 – 700 BCE",
-"Epic_Cycle": "c. 750 – 550 BCE",
-"Nostoi": "c. 700 – 600 BCE",
-"Clytemnestra": "c. 750 – 700 BCE",
-"Orestes": "c. 750 – 700 BCE",
-"Apologoi": "c. 750 – 700 BCE",
-"Polyphemus": "c. 750 – 700 BCE",
-"Circe": "c. 750 – 700 BCE",
-"Siren": "c. 750 – 700 BCE",
+"Trojan_Horse": "c. 700 BCE",
+"Epic_Cycle": "8th – 7th century BCE",
+"Nostoi": "late 7th century BCE",
+"Clytemnestra": "c. 700 BCE",
+"Orestes": "c. 700 BCE",
+"Apologoi": "c. 700 BCE",
+"Polyphemus": "c. 700 BCE",
+"Circe": "c. 700 BCE",
+"Siren": "c. 700 BCE",
 "Eleusis": "c. 15th century BCE – 4th century CE",
 "Epidaurus": "c. 6th century BCE – 4th century CE",
 "Curse_tablet": "c. 500 BCE – 4th century CE",
@@ -14475,7 +14475,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Algae": ["alga"],
 "Chemotaxis": ["nutrient gradient"],
 "Replication_crisis": ["replication study","replication studies","reproducibility crisis"],
-"Stimulus_(physiology)": ["stimuli"]
+"Stimulus_(physiology)": ["stimuli"],
+"Greek_altar": ["altar"],
+"Hecatomb": ["hecatombs","hekatomb"],
+"Greek_priesthood": ["priesthood","priesthoods","priestess","priestesses"],
+"Temenos": ["temene"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

@@ -1134,6 +1134,22 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Patroclus: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-948`) |
 | Hector: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-949`) |
 | Ajax the Great: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-950`) |
+| Odysseus: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-951`) |
+| Trojan Horse: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-952`) |
+| Trojan Horse: Mykonos pithos | c. 670 BCE | Barry B. Powell, review of Image and Myth: A History of Pictorial Narration in Greek Art… (`gr-952`) |
+| Clytemnestra: Odyssey composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-955`) |
+| Clytemnestra: Oresteia staged | 458 BCE | Michael Halleran, review of Aeschylus, the Oresteia , by Simon Goldhill, Bryn Mawr Class… (`gr-955`) |
+| Orestes: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-956`) |
+| Apologoi: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-957`) |
+| Polyphemus: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-958`) |
+| Circe: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-959`) |
+| Siren: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-960`) |
+
+## Cult, oracles and festivals (confirmed by B102 – B105, `gr-966` – `gr-1000`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Greek temple: Orders begin | c. 600 BCE | Barbara A. Barletta, review of Sanctuaries and the Sacred in the Ancient Greek World , b… (`gr-968`) |
 
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
@@ -2000,4 +2016,13 @@ gr-947: 700
 gr-948: 700
 gr-949: 700
 gr-950: 700
+gr-951: 700
+gr-952: 700; 670
+gr-955: 700; 458
+gr-956: 700
+gr-957: 700
+gr-958: 700
+gr-959: 700
+gr-960: 700
+gr-968: 600
 ```
