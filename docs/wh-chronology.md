@@ -746,6 +746,16 @@ Filled batch by batch, from the source each row names.
 | Berlin Conference: opened / Act signed | 15 November 1884 / 26 February 1885 CE | the German Foreign Office archive; Hertslet (`wh-828`) |
 | Congo Free State: existed | 1 July 1885 – 15 November 1908 CE | Keith (`wh-829`) |
 | Cecil Rhodes: born / Cape premier / died | 5 July 1853 / 17 July 1890 – January 1896 / 26 March 1902 CE | Williams; Stead (`wh-830`) |
+| Anglo-Zulu War: main fighting / ultimatum / partition | 11 January – 4 July 1879 / 11 December 1878 / September 1879 CE | Colenso; South African History Online (`wh-831`) |
+| Second Boer War: fought | 11 October 1899 – 31 May 1902 CE | Pretorius (`wh-832`) |
+| Battle of Adwa: fought / Ethiopian date | 1 March 1896 / 23 Yekatit 1888 CE | Sohier (Geneva museum text) (`wh-833`) |
+| Herero and Nama genocide: committed / German statement | 1904 – 1908 / 28 May 2021 CE (the order 2 October, withdrawn 9 December 1904) | the German Foreign Office; the Bundestag research service (`wh-834`) |
+| Maji Maji Rebellion: fought | July 1905 – August 1907 CE | Wright (`wh-835`) |
+| Battle of Plassey: fought | 23 June 1757 CE | National Army Museum (`wh-836`) |
+| British Raj: proclamation / Empress of India / dominions | 1 November 1858 / 1 January 1877 / 15 August 1947 CE | Keith; Library of Congress (`wh-837`) |
+| Indian Rebellion of 1857: began / Delhi retaken / Gwalior retaken | 10 May 1857 / 14 – 21 September 1857 / 19 June 1858 CE | National Army Museum (`wh-838`) |
+| Indian National Congress: founded / Surat split / Lucknow scheme | 28 December 1885 / 27 December 1907 / 29 December 1916 CE | Besant; Nevinson; the scheme's title (`wh-839`) |
+| Opium Wars: first / second / Nanjing treaty | 1839 – 1842 / 1856 – 1860 / 29 August 1842 CE | Perdue; Perdue and Sebring (`wh-840`) |
 
 ## Chronology pins
 
@@ -1470,4 +1480,14 @@ wh-827: c. 1880 – 1914
 wh-828: 15 November 1884; 26 February 1885
 wh-829: 1 July 1885 – 15 November 1908
 wh-830: 5 July 1853; 17 July 1890 – January 1896; 26 March 1902
+wh-831: 11 January – 4 July 1879; 11 December 1878; September 1879
+wh-832: 11 October 1899 – 31 May 1902
+wh-833: 1 March 1896; 23 Yekatit 1888
+wh-834: 1904 – 1908; 28 May 2021
+wh-835: July 1905 – August 1907
+wh-836: 23 June 1757
+wh-837: 1 November 1858; 1 January 1877; 15 August 1947
+wh-838: 10 May 1857; 14 – 21 September 1857; 19 June 1858
+wh-839: 28 December 1885; 27 December 1907; 29 December 1916
+wh-840: 1839 – 1842; 1856 – 1860; 29 August 1842
 ```
