@@ -1,12 +1,12 @@
 {
- "generated": "2026-10-23T08:01Z",
+ "generated": "2026-10-23T15:24Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4934,
+  "ok": 4938,
   "redirect-broader": 457,
-  "redirect-variant": 331,
+  "redirect-variant": 330,
   "section-redirect": 104,
-  "disambiguation": 139,
+  "disambiguation": 138,
   "none": 956,
   "disambig-resolved": 76,
   "list-page": 6,
@@ -57442,6 +57442,20 @@
    "answer": "Tu Youyou",
    "title": "Tu Youyou",
    "url": "https://en.wikipedia.org/wiki/Tu_Youyou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-801": {
+   "answer": "Mississippi River",
+   "title": "Mississippi River",
+   "url": "https://en.wikipedia.org/wiki/Mississippi_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-901": {
+   "answer": "Rocky Mountains",
+   "title": "Rocky Mountains",
+   "url": "https://en.wikipedia.org/wiki/Rocky_Mountains",
    "via": "glossary",
    "status": "ok"
   }

@@ -6755,7 +6755,8 @@ window.GLOSSARY = {
 "Gulf_of_Finland": "",
 "Lake_Ladoga": "",
 "Gustavus_Adolphus": "",
-"Treaty_of_Stolbovo": ""
+"Treaty_of_Stolbovo": "",
+"Rocky_Mountains": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14576,7 +14577,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Moravia": ["Moravian"],
 "Names_of_Saint_Petersburg": ["Petrograd"],
 "Neva": ["Neva River","River Neva"],
-"Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"]
+"Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"],
+"Rocky_Mountains": ["Rockies"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21459,7 +21461,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gulf_of_Finland": ["place","geography","nature","europe","baltic sea","finland"],
 "Lake_Ladoga": ["place","geography","nature","russia","europe"],
 "Gustavus_Adolphus": ["ruler","person","history","politics","warfare","sweden"],
-"Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"]
+"Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"],
+"Rocky_Mountains": ["place","geography","mountain","geology","united states"]
 });
 
 /* ============================================================================
