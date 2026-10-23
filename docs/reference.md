@@ -5480,7 +5480,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   own findings, the stars' two `body.hc` results and the sweep that could not see the study card at all,
   the crossword draw cap that had to scale with the pool, What year? leaving the cards entirely, and the
   fourteen flagged terms with the three flagged belt-and-braces.
-- **THE ANSWER'S CHINESE NAME IS THE MIDDLE SECTION OF THE ANSWER BOX** (`answerNameHTML` / `wireAnswerSay`
+- **THE ANSWER'S CHINESE NAME IS A SPEECH BUBBLE OFF A TRANSLATE ICON (Oct 2026, on request) — THE
+  PARAGRAPHS BELOW DESCRIBE ITS CONTENT, NOT ITS PLACE.** It is no longer a section of the answer box:
+  `answerNameHTML` returns `.ac-wrap` (a plain grey `文A` icon button `.ac-btn`, no ring or fill + a hidden `.ac-bubble` holding the old
+  `.ans-cn` block), and `buildBack` sets it as a SIBLING of `.val` inside `.av-term.av-cn` — **never inside
+  `.val`**, which five suites read the answer text from. One delegated listener (`wireAnswerBubbles`, at
+  module load) opens / closes it for every render path (click the icon, click elsewhere, Escape).
+  **`placeAnswerBubble` clamps the bubble to the ANSWER BOX, not the viewport**: `.reveal` is
+  `overflow:hidden`, so a bubble that fitted the screen but not the card lost its right edge and its speaker
+  on a 360 px phone; and it measures from layout (`offsetWidth`), never the rect, because the opening
+  animation scales the bubble. The bubble overlays what lies below it, and is SHRINK-WRAPPED: no min-width, and when a long name wraps at the cap `placeAnswerBubble` sizes it to the widest laid-out line so no empty strip is left on the right. The phone rule that put the block
+  under the term with a hairline is gone.
+- **THE ANSWER'S CHINESE NAME (content; it was the MIDDLE SECTION OF THE ANSWER BOX)** (`answerNameHTML` / `wireAnswerSay`
   / `.ans-cn`; Sep 2026, on request). It was a line under the term and only on a MAP card; it is a sibling
   of `.answer-main` now and is drawn on every card carrying `hanzi`, so on a wide card it stands between
   the term on the left and the figures on the right, ruled off by a hairline, and below 640px it stacks
