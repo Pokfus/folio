@@ -1973,11 +1973,6 @@ tagged a place and nothing in Folio joins it: the slug is a Wikipedia title, so 
 | Zhengzhou_Shang_City | tagged a place, no join (needs a Wikidata lookup) |  |  |  | cnh-089 |
 | Zoo_Rock | tagged a place, no join (needs a Wikidata lookup) |  |  |  | art-023 |
 
-### Tier 5.5 — Name clashes to reject (0)
-
-the same, but the term's tags say it is not a place: do not take these.
-
-
 ### Tier G — a state, a people, a dynasty or a culture (374 joined, 26 not)
 
 Not a location in the sense of the rule, and set aside for the owner's call: a state or an empire could be drawn as a shaded face at a year (the engine does it for a war's sides), a people as its presence stipple — or none of them get a window. The join tier is the same scale as above.
