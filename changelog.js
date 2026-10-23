@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1076", released: "2026-10-23T09:45Z" };
+window.FOLIO_VERSION = { v: "1.1077", released: "2026-10-23T10:10Z" };
 
 window.CHANGELOG = [
   {
@@ -52,7 +52,7 @@ window.CHANGELOG = [
       "The twelve-question test before a deck's first session is gone: choosing <b>By difficulty</b> now starts studying at once, and the first card is the deck's easiest.",
       "1 World History card's date line now gives when its age ended instead of a second start date.",
       "On a phone, <b>Undo</b> now sits between the <b>?</b> and <b>Suspend</b> under the answer buttons, the three the same width.",
-      "<b>29 new glossary terms</b> on the Second World War, China, fascism, Greek citadels and Sparta, and the founding of Rome, plus new aliases on existing terms.",
+      "<b>90 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan and the Mongols, plus new aliases.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
       "<b>100 more Ancient Greece cards are rewritten</b>, covering Alexander the Great and the Successor kingdoms, with more sources and new pictures.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
