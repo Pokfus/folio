@@ -544,6 +544,7 @@
       cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossarySources: o.glossarySources || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
+      cardTimeline: o.cardTimeline || {},   // per card: "none", or { at } / { from, to } — the editor's switch for the card timeline (see cardTimelineSpan); NOT `timeline`, which was v1's map delta and is ignored
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
       // a Library book's front-matter essay, keyed by book id (see bookIntroMerged). The overlay IS the
       // storage here, as it is for the quotes: books/<id>.js is generated and would lose a hand edit on the
@@ -1042,7 +1043,7 @@
     if (isCreatedCard(id)) delete ADMIN_EDITS.created[id];
     else ADMIN_EDITS.deleted[id] = true;
     delete ADMIN_EDITS.cards[id]; delete ADMIN_EDITS.membership[id]; delete ADMIN_EDITS.meta[id];
-    if (ADMIN_EDITS.chrono) delete ADMIN_EDITS.chrono[id]; if (ADMIN_EDITS.cardColor) delete ADMIN_EDITS.cardColor[id]; if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[id];   // don't strand overlay metadata (could resurrect onto a reused new-N id)
+    if (ADMIN_EDITS.chrono) delete ADMIN_EDITS.chrono[id]; if (ADMIN_EDITS.cardColor) delete ADMIN_EDITS.cardColor[id]; if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[id]; if (ADMIN_EDITS.cardTimeline) delete ADMIN_EDITS.cardTimeline[id];   // don't strand overlay metadata (could resurrect onto a reused new-N id)
     syncAllLeafOrders(); rebuildDerived(); saveAdminEdits();
   }
   // set the exact set of leaves a card belongs to
@@ -1486,7 +1487,7 @@
   function adminEditCount() {
     const ids = new Set([
       ...Object.keys(ADMIN_EDITS.cards), ...Object.keys(ADMIN_EDITS.created),
-      ...Object.keys(ADMIN_EDITS.deleted), ...Object.keys(ADMIN_EDITS.membership),
+      ...Object.keys(ADMIN_EDITS.deleted), ...Object.keys(ADMIN_EDITS.membership), ...Object.keys(ADMIN_EDITS.cardTimeline || {}),
     ]);
     const T = ADMIN_EDITS.tree || { renames: {}, created: {}, deleted: {}, dates: {} };
     const treeN = Object.keys(T.renames).length + Object.keys(T.created).length + Object.keys(T.deleted).length + Object.keys(T.dates || {}).length + Object.keys(T.cardOrder || {}).length;
@@ -1507,7 +1508,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1603,14 +1604,6 @@
          The evidence for it was already being collected and thrown away: `gradeCloze` reads the reader's
          typed guess to mark it character by character and then discards it. */
       confused: {},
-      /* THE DECK PRETEST'S RESULT — entryId -> { day, known: [cardIds] } (see PAGES.pretest). It is a
-         DEAL-ORDER PREFERENCE and nothing else: a card the reader answered correctly before studying the
-         deck sorts to the back of the new pile rather than being marked studied.
-         IT MUST NEVER WRITE `S.cards`, and that is the whole reason it has a field of its own. Folio's XP
-         is `Object.keys(S.cards).length` — the number of distinct cards with a record — so a pretest that
-         seeded twelve card records would hand a new reader several levels and several artefact chests for
-         answering twelve questions, silently, before they had studied anything at all. */
-      pretest: {},
       /* WHICH ENTRIES HAVE BEEN ASKED HOW THEY WANT TO STUDY — entryId -> the order chosen, or "" for
          "asked and left at the default" (see PAGES.order). It records that the QUESTION was put, not what
          the answer was, which is why it is separate from `deckOpts` where the order itself lives: a reader
@@ -1656,6 +1649,7 @@
       // artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows.
       artefacts: {},     // artefact id -> when it was drawn from a chest
       chests: 0,         // unopened chests. A level-up offers to open one at once; this is what is left if they don't.
+      levelChests: 0,    // how many of those were EARNED BY A LEVEL-UP and not yet opened — the only ones that light the chest at the end of the level bar (never above `chests`)
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
       playChest: "",     // the day the reader CLAIMED the nine-games-finished chest (see sweepRowHTML)
@@ -2196,7 +2190,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "pretest", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "levelChests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2329,8 +2323,7 @@
     });
     if (Array.isArray(S.revlog)) S.revlog = S.revlog.filter((r) => !set.has(r && r[0]));
     if (S.confused) Object.keys(S.confused).forEach((k) => { const p = k.split("|"); if (set.has(p[0]) || set.has(p[1])) delete S.confused[k]; });
-    if (S.pretest) delete S.pretest[id];        // the pre-test is about this deck's first session, which is ahead of them again
-    if (S.orderPicked) delete S.orderPicked[id];   // …and so is the question of how they want it dealt
+    if (S.orderPicked) delete S.orderPicked[id];   // the question of how they want it dealt belongs to the first session, which is ahead of them again
     if (S.deckDay) delete S.deckDay[id];        // today's tally is derived from the records just deleted
     save();
     uCacheBust();
@@ -4508,8 +4501,10 @@
      That is why this writes an explicit `data-new` rather than styling `:not([data-seen])`. */
   function markTtipNew(el) {
     const k = el.dataset.k;
-    if (k && !isDeckGlossKey(k) && !(S.glossSeen && S.glossSeen[k])) el.setAttribute("data-new", "1");
-    else el.removeAttribute("data-new");
+    // data-new: a curated term not yet opened; data-seen: one the reader has opened (a visited-link purple). A deck term is neither.
+    const curated = k && !isDeckGlossKey(k), seen = !!(curated && S.glossSeen && S.glossSeen[k]);
+    if (curated && !seen) el.setAttribute("data-new", "1"); else el.removeAttribute("data-new");
+    if (seen) el.setAttribute("data-seen", "1"); else el.removeAttribute("data-seen");
   }
   // every .ttip currently on the page that points at this term — the prose behind a popup must lose its
   // gold the moment the term is read, not on the next render (which for a study card is the next card)
@@ -7206,16 +7201,12 @@
     setDeckLimits(id, { order: mode, random: mode === "random" });
   }
   function deckByDifficulty(id) { return deckOrderMode(id) === "difficulty"; }
-  /* …and a card the reader ALREADY KNEW when they took this deck's pretest sorts behind every card they
-     did not, whatever its rating (see PAGES.pretest). It is the one place a pretest result is read, and
-     it is why the pretest is offered on this order and no other: "ordered" is the deck's own sequence and
-     "random" is a shuffle, so neither has a sort key a result could be spliced into without contradicting
-     what the reader asked for. Nothing is skipped — a known card is still taught, later. */
+  /* Easiest first, by the card's own rating and nothing else (Oct 2026, on request). Until then a card
+     the reader had answered in the deck's twelve-question pretest sorted behind the rest; the pretest is
+     gone, so the first card dealt by this order is the lowest-rated card the deck has. `sort` is stable,
+     so cards of one rating keep the order they arrived in. */
   function sortByDifficulty(list) {
-    const known = pretestKnownSet();
-    if (!known.size) return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
-    const kn = (id) => (known.has(id) ? 1 : 0);
-    return list.slice().sort((a, b) => (kn(a) - kn(b)) || (cardDifficultyRank(a) - cardDifficultyRank(b)));
+    return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
   }
   /* Commonest first. TIES KEEP THE DECK'S OWN ORDER, which is the whole of why this degrades gracefully
      at the top of a syllabus: `sort` is stable, so the 3,029 Levels 7–9 words counted exactly once stay
@@ -15122,8 +15113,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // a card at its own address belongs under the collections its deck sits in
       : name === "u" ? "account"
       : name === "studio" || name === "deck" || name === "card" || name === "sample" ? "decks"
-      // the two pages that stand between pressing Study and studying belong to the session they open
-      : name === "order" || name === "pretest" ? "study"
+      // the page that stands between pressing Study and studying belongs to the session it opens
+      : name === "order" ? "study"
       // …and the page explaining how Folio studies you is reached from Settings, and belongs there
       : name === "how" ? "settings"
       : name;
@@ -15153,7 +15144,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
     study:     ["Study — Folio", "Review the cards that are due, one at a time."],
     order:     ["How would you like to study? — Folio", "Choose the order a deck's cards are dealt in, with what the evidence says about each."],
-    pretest:   ["Where should we start? — Folio", "A dozen quick questions to find what you already know before a deck begins."],
     how:       ["How Folio studies you — Folio", "Why Folio is built the way it is: what the evidence says about spacing, testing and rereading."],
     map:       ["Atlas — Folio", "An interactive globe: present-day borders, physical geography and world maps back to 1500."],
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
@@ -18331,12 +18321,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     },
     {
       title: "Your first card",
-      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL: a walkthrough naming a
+      /* The button says "Reveal answer" and the undiscovered-term mark is BLUE: a walkthrough naming a
          control by a label the page has not got is worse than one that names no control at all. */
       body: "A card asks for one missing name, date or term. Think of the answer, or type it into the blank, " +
         "then press <b>Reveal answer</b>. The space bar does the same.<p>Behind the answer sits a page of " +
-        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
-        "entries you have not opened yet; a tap defines them.</p>",
+        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">blue</b> are glossary " +
+        "entries you have not opened yet; a tap defines them, and ones you have read turn <b class=\"tour-seenterm\">purple</b>.</p>",
       target: [".cardwrap", ".study-card"],
       wait: "reveal", live: true, pos: "corner", noBack: true,
     },
@@ -18921,152 +18911,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
-  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): a CHEVRON on its top edge folds it
-     between two heights — tall, with the four grades named, and short, with them as bare colours beside the
-     ?, Undo and Suspend icons.
-
-     It was a drag grip modelled on the Atlas place sheet's, and the chevron replaced it on request (Aug
-     2026) because the two controls are not doing the same job: the place sheet has a continuum of heights
-     and this has exactly two, so a drag was a gesture whose whole range mapped onto one bit. A chevron says
-     "there are two states and this is the other one" outright, and needs no classification of the press —
-     which also retires GB_SLOP, the guard that told a drag from a tap.
-     Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
-     screen the buttons take is a fact about this screen, not about the account. */
-  const GB_H_KEY = "folio_gb_compact_v1";
-  // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
-  const GB_FOLD_MS = 280;
-  /* …and with `--ease` in styles.css, which is what those transitions run on (Aug 2026, on a report that
-     the fold ran roughly). The FLIP and the CSS transitions act on the same four buttons at the same
-     moment — the position from here, the height and padding from there — so a curve that differs even
-     slightly makes the box arrive before or after the place it is sliding to, which reads as a stutter
-     rather than as two animations. One clock, one curve. */
-  const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
-  let gbCompact = null;
-  /* The fold's in-flight animations, so a second press can end them rather than layering a second set
-     over the first. Held here rather than derived from document.getAnimations(), which would also sweep
-     up the page entrance, the reveal and the marker panel. */
-  let _gbAnims = [];
-  let _gbFoldT = null;
-  function gbStopFold() {
-    _gbAnims.forEach((a) => { try { a.cancel(); } catch (e) {} });
-    _gbAnims = [];
-    if (_gbFoldT) { clearTimeout(_gbFoldT); _gbFoldT = null; }
-    document.body.classList.remove("gb-folding");
-  }
-  /* …and while it runs, the bar's CONTENTS do not hit-test at all (body.gb-folding — one rule in
-     styles.css). That is the other half of the jam above and the half that cannot be reasoned around: a
-     press landing inside a subtree whose boxes are mid-animation is what leaves Chromium's hit-testing
-     stale, and no amount of cancelling afterwards puts it back. Made inert for the fold's own 280ms, the
-     press lands on #gradebar — a static box with no listener — and is simply swallowed, which is what a
-     tap into a control that is still moving should do anyway. The CHEVRON is outside .gradebar-inner and
-     stays live, so the reader can keep folding; and gbStopFold clears it early whenever a press or a card
-     change ends the fold before its time. */
-  function gbFoldingFor(ms) {
-    document.body.classList.add("gb-folding");
-    _gbFoldT = setTimeout(() => { _gbFoldT = null; document.body.classList.remove("gb-folding"); }, ms);
-  }
-  function gbReadCompact() {
-    if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
-    return gbCompact;
-  }
-  /* The fold is ANIMATED (Aug 2026, on a report that it was a hard cut). The two states differ by more
-     than a height: the four grades go from two rows of two to one row of four, and the ?, Undo and
-     Suspend move from a row of their own up beside them. None of that is a property CSS can transition
-     — it is a reflow — so it is FLIPped: every part is measured, the class is flipped, and each part is
-     animated from where it was to where it now is. The bar's own height is animated alongside them
-     (flipHeight), because a container that snaps while its contents slide looks worse than either.
-
-     `animate` is not gated on being on a phone: above the breakpoint the chevron is display:none and
-     this is unreachable, and flipMove skips anything that did not actually move, so the desktop pays
-     nothing for it. It IS gated on the reader's motion setting, inside both helpers. */
-  function gbSetCompact(on, persist, animate) {
-    const bar = gradeBarEl;
-    const wrap = bar && bar.querySelector(".grade-wrap");
-    const apply = () => {
-      gbCompact = !!on;
-      document.body.classList.toggle("gb-compact", gbCompact);
-      // the chevron points the way it will go, and says which state it is in — see gbWireResize
-      document.querySelectorAll(".gb-fold").forEach((b) => {
-        b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
-        const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
-        b.setAttribute("aria-label", lab);
-        b.setAttribute("title", lab);
-      });
-    };
-    if (animate && wrap && bar.classList.contains("show")) {
-      /* A FOLD ALREADY RUNNING IS ENDED BEFORE A NEW ONE STARTS, and this is the whole of the fix for a
-         reported jam (Aug 2026: "sometimes after closing/opening it a few times I can no longer press the
-         buttons"). Reproduced: a fold FLIPs about twenty elements, and nothing cancelled the previous
-         set — so tapping the chevron again while one was in flight left up to 53 concurrent transform
-         animations on the four grade buttons and the row around them. While those run, Chromium's
-         hit-testing and getBoundingClientRect disagree: elementFromPoint at a button's own centre
-         returns #gradebar (or nothing at all), so a real tap lands on the bar's background and the grade
-         never fires — and once the reader has tapped into that gap the bar can stay un-hittable with no
-         animation left running at all. Every count reads healthy throughout: the buttons are there, they
-         are the right size, in the right place, with their listeners attached.
-         Cancelling is right rather than merely safe: these animations are fill:none, so a cancelled one
-         reverts to the element's own layout position at once — which is exactly where the reader can see
-         the button, and where the press has to land. */
-      gbStopFold();
-      // …but not under reduced motion, where nothing moves and the bar must stay live throughout
-      if (!prefersReducedMotion()) gbFoldingFor(GB_FOLD_MS + 40);
-      // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
-      const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      const h = flipHeight(
-        bar.querySelector(".gradebar-inner"),
-        () => { _gbAnims = flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }) || []; },
-        GB_FOLD_MS, GB_FOLD_EASE
-      );
-      if (h) _gbAnims.push(h);
-    } else { gbStopFold(); apply(); }
-    if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
-  }
-  function gbWireResize(fold) {
-    if (!fold) return;
-    // a real <button>: click and Enter/Space come free, and the arrows reach the two states directly
-    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true, true));
-    fold.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true, true); }
-      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true, true); }
-    });
-  }
+  /* It has ONE height. A chevron folded it to a short, colours-only state on a phone (Aug 2026); that mode
+     and its FLIP animation were removed on request (Oct 2026). */
   let gradeBarEl = null;
   function ensureGradeBar() {
     if (!gradeBarEl) {
       gradeBarEl = document.createElement("div");
       gradeBarEl.id = "gradebar";
-      // the chevron sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
-      gradeBarEl.innerHTML = '<button class="gb-fold" id="gbFold" type="button" aria-expanded="true" aria-label="Shrink the grade buttons" title="Shrink the grade buttons">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
-        '</button><div class="gradebar-inner"></div>';
-      /* …and a press anywhere in the bar ends a fold that is still running, BEFORE the press is
-         hit-tested. Capture phase on the bar itself: pointerdown is the first thing a tap does, so
-         cancelling here puts every button back at its layout position for the pointerup that follows.
-         The chevron is exempt — gbSetCompact cancels for itself, and cancelling here as well would end
-         the fold this very press is asking for. */
-      gradeBarEl.addEventListener("pointerdown", (e) => {
-        if (e.target && e.target.closest && e.target.closest(".gb-fold")) return;
-        gbStopFold();
-      }, true);
+      gradeBarEl.innerHTML = '<div class="gradebar-inner"></div>';
       document.body.appendChild(gradeBarEl);
-      gbWireResize(gradeBarEl.querySelector("#gbFold"));
     }
     return gradeBarEl;
   }
   function showGradeBar(innerHTML, onGrade) {
     const bar = ensureGradeBar();
     const inner = bar.querySelector(".gradebar-inner");
-    gbStopFold();   // the elements a fold is animating are about to be replaced
     inner.innerHTML = innerHTML;
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
     );
-    gbSetCompact(gbReadCompact(), false);   // the height the reader last left it at
     document.body.classList.add("grading");
     requestAnimationFrame(() => bar.classList.add("show"));
   }
   function hideGradeBar() {
-    gbStopFold();
     document.body.classList.remove("grading");
     if (gradeBarEl) {
       gradeBarEl.classList.remove("show");
@@ -21383,6 +21250,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const g = Object.keys(S.cards).length;
     if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
     grantChest();   // one chest per level, no congratsPopup behind it
+    S.levelChests = levelChestCount() + 1; save();   // …and remembered as a LEVEL chest, which is what lights the chest on the level bar
     /* THE CHEST WAITS ON THE HOME PAGE RATHER THAN OPENING HERE (Oct 2026, on request: "a chest shouldn't just
        appear mid-study session, it should remain there at the front page until it is clicked"). From Aug 2026
        the overlay was the celebration and rose on the grade that finished the bar, in the middle of a session;
@@ -21870,11 +21738,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      chest, just as we do with the weekly study banner ... when a level is completed ... a chest shouldn't just
      appear mid-study session, it should remain there at the front page until it is clicked"). The chest caps the
      bar the way the streak ribbon's caps its week: locked and quiet while nothing is owed, gold and nodding once
-     a chest is waiting, and a press opens it (openChestPop). It reads `S.chests`, the one count every channel
-     pays into, so a chest from a badge or the daily sweep waits here too; the figure on its shoulder says how
-     many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
+     a chest is waiting, and a press opens it (openChestPop). It reads `S.levelChests` — the chests a LEVEL-UP
+     earned and the reader has not opened (Oct 2026, on request: a badge, sweep or streak chest no longer lights it; those
+     wait in the home banner above); the figure on its shoulder says how many. A real `<button>`, disabled while locked, so the keyboard and the screen reader get the same answer. */
   function levelChestHTML() {
-    const n = chestCount(), ready = n > 0;
+    const n = levelChestCount(), ready = n > 0;
     const label = !ready ? "Locked: reach the next level to earn a chest"
       : n === 1 ? "Open your chest" : "Open a chest \u2014 " + n + " waiting";
     return '<button type="button" class="lvl-chest' + (ready ? " ready" : "") + '" id="lvlChest"' + (ready ? "" : " disabled") +
@@ -22028,6 +21896,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
+  // the unopened chests a LEVEL-UP earned (Oct 2026, on request: the level bar's chest lights for these alone); a badge, sweep or streak chest queues in `chests` but never counts here
+  function levelChestCount() { return Math.min(Math.max(0, (S.levelChests | 0)), chestCount()); }
 
   /* ---------- THE SECOND KIND OF THING A CHEST HOLDS: A THEME (Aug 2026, on request) ----------
      "Besides artifacts, we will add a second type of item users may occasionally collect: Themes."
@@ -22160,8 +22030,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
      `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
+  let chestFromLevelBar = false;   // set by openChestPop when the overlay was opened from the level bar's chest, read (and cleared) by spendChest
   function spendChest() {
     S.chests = Math.max(0, chestCount() - 1);
+    S.levelChests = levelChestCount() - (chestFromLevelBar ? 1 : 0);   // opened from the level bar's own chest: that one was a level chest; otherwise it is only clamped to what is left
+    if (S.levelChests < 0) S.levelChests = 0;
+    chestFromLevelBar = false;
     S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
     /* The collector's badges are tested HERE rather than waiting for the next card, which is where
@@ -22798,6 +22672,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      celebration; there is deliberately no separate confetti popup behind it. */
   function openChestPop(opts) {
     opts = opts || {};
+    chestFromLevelBar = !!opts.fromLevelBar;
     closeChestPop();
     /* The prose and the picture are lazy (bundle "artefactExtra"), so ask for them the moment the chest
        appears rather than when the lid is tapped: the reader has to read the hint and reach for the
@@ -25073,8 +24948,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               ${chev}
             </div>`;
           }
-          return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
-            ${grip}
+          /* A COLLECTION BANNER DRAWN AS A SIGNPOST TURNS GREEN WITH THE DECKS UNDER IT (Oct 2026, on request:
+             "when all the active decks within a collection have been completed for the day … the collection
+             banner itself should also turn green/completed"). A collection whose own row is not on the list —
+             only some of its decks were added — is a context row and has no cards of its own to count, so it
+             takes the verdict of the topmost reviewable rows beneath it: every one finished for the day, and
+             at least one of them. It goes gold only when every one of them is gold. A skipped or still-open
+             deck keeps it plain, exactly as it keeps that deck's own row plain (adDay). */
+          const ctx = (function () {
+            const below = rows.filter((x) => x !== r && (function () {
+              for (let p = parentOf.get(x.drag); p; p = parentOf.get(p)) if (p === r.drag) return true;
+              return false;
+            })());
+            const reviewable = (x) => x.active || x.flat || x.group || x.langhead;
+            const top = below.filter((x) => reviewable(x) && (function () {
+              for (let p = parentOf.get(x.drag); p && p !== r.drag; p = parentOf.get(p)) {
+                const up = below.find((y) => y.drag === p);
+                if (up && reviewable(up)) return false;
+              }
+              return true;
+            })());
+            if (!top.length) return { cls: "", mark: "" };
+            const days = top.map((x) => adDay(x.active ? x.node.id : x.drag));
+            if (!days.every((d) => d.cls)) return { cls: "", mark: "" };
+            const won = days.every((d) => d.cls.indexOf("dk-won") >= 0);
+            return { cls: won ? " dk-done dk-won" : " dk-done", mark: doneMarkHTML(true, won, DK_DAY_LABELS) };
+          })();
+          return `<div class="active-deck context${shut}${ctx.cls}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            ${grip}${ctx.mark}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
@@ -25545,7 +25446,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   Edit button sits now, and the `padding-right` it left on the title is what keeps the two
                   apart. */""}
             ${collectionsBtn}
-            ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
+            ${fresh ? "" : activeIds.length ? `<div class="active-decks">${activeHTML}</div>` : `${/* NO ACTIVE COLLECTIONS (Oct 2026, on request): a dashed, empty box says the list is empty, with a button to the Collections page under it. Not drawn on a first visit, where the hero is the one way in. */""}<div class="rv-empty" role="note">${esc(t("No active collections yet"))}</div><button class="btn rv-empty-go" id="b-empty-go" type="button">${esc(t("Browse the collections"))}</button>`}
             ${/* The footer row BELOW the card — the day's time studied, on the page's own paper rather
                   than on the card, against the left end of the group's own bottom edge. It is STILL
                   hidden while the editor mode is open, which is what the mode's own request asked for
@@ -25610,6 +25511,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </section>
         <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
+        ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
+        ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
       </div>`;
 
     /* ONE WALK OVER THE TILES, rather than nine `querySelector` lines that a tenth game would have to be
@@ -25638,7 +25541,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       openChestPop();
     });
     // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
-    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (chestCount()) openChestPop(); }); }
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (levelChestCount()) openChestPop({ fromLevelBar: true }); }); }
     // the streak ribbon's chest (streakRibbonHTML): claimed on the press like the sweep chest above, in the same
     // load-bearing order — claim, repaint (ready → claimed), THEN the overlay
     { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop(); }); }
@@ -25693,6 +25596,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the Collections button under the review group and the About line under the games — both at every
     // width now, each being the only route to the page it names anywhere on the site
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
+    { const rf = root.querySelector("#b-refresh"); if (rf) rf.addEventListener("click", async () => {
+      rf.disabled = true; rf.classList.add("spin");
+      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k)).map((k) => caches.delete(k))); } } catch (e) { /* no Cache API: the reload below still asks the network */ }
+      try { if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map((r) => r.unregister())); } } catch (e) { /* none registered (a dev origin) */ }
+      location.reload();
+    }); }
+    { const eg = root.querySelector("#b-empty-go"); if (eg) eg.addEventListener("click", () => route("decks")); }
     { const cb = root.querySelector("#b-credits"); if (cb) cb.addEventListener("click", () => route("credits")); }   // the map data's sources, generated from the files (Oct 2026)
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
     { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", (e) => {
@@ -26314,13 +26224,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function relatedCardsHTML(id) {
     const rows = relatedCards(id);
     if (!rows.length) return "";
-    return '<div class="kin"><span class="label">Nearby in this collection</span><ul class="kin-list">' +
+    /* A FOLD LIKE THE BACKGROUND'S AND THE SOURCES' (Oct 2026, on request), remembered across cards in
+       `S.settings.kinCollapsed` and wired by the one delegated handler below, so the card back, the card
+       page and the peek all get it without each wiring it. */
+    const shut = !!(S.settings && S.settings.kinCollapsed);
+    const c = shut ? " collapsed" : "";
+    return '<div class="kin">' +
+      '<button class="kin-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide nearby cards">' +
+        '<span class="label">Nearby in this collection</span>' +
+        '<span class="kin-toggle' + c + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>' +
+      "</button>" +
+      '<div class="kin-collapse' + c + '"><div class="kin-collapse-inner"><ul class="kin-list">' +
       rows.map((r) => {
         const o = cardLocalized(cardById(r.id));
         const t = o.answerText || String(o.answer || "").replace(/<[^>]*>/g, "");
         return '<li><button type="button" class="kin-row" data-kin="' + esc(r.id) + '">' + esc(t) + "</button></li>";
-      }).join("") + "</ul></div>";
+      }).join("") + "</ul></div></div></div>";
   }
+  document.addEventListener("click", (e) => {
+    const head = e.target && e.target.closest && e.target.closest(".kin-head");
+    if (!head) return;
+    const box = head.closest(".kin");
+    const col = box && box.querySelector(".kin-collapse"), tog = box && box.querySelector(".kin-toggle");
+    if (!col) return;
+    const collapsed = col.classList.toggle("collapsed");
+    if (tog) tog.classList.toggle("collapsed", collapsed);
+    head.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    S.settings.kinCollapsed = collapsed;
+    save();
+  });
 
   /* ============================================================
      PAGE: ONE CARD, AT A STABLE ADDRESS (#card/<id>)
@@ -26401,8 +26333,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      THIS WRITES NOTHING. No `S.active`, no `S.cards`, no review log, no XP — which matters more than it
      sounds, because Folio's level is `Object.keys(S.cards).length` and a level buys an artefact chest, so
      a sampler that scheduled its cards the obvious way would hand a browsing reader levels and chests for
-     reading ten cards. `PAGES.pretest` made exactly this decision first and for exactly this reason; this
-     follows it.
+     reading ten cards. The deck pretest (removed Oct 2026) made exactly this decision first and for exactly
+     this reason; this follows it.
 
      THE TEN ARE A RANDOM DRAW FROM THE COLLECTION'S BEST-KNOWN CARDS (Sep 2026, on request; it was the
      collection's own first ten). The opening cards of a running order are where a collection introduces its
@@ -28119,7 +28051,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
-      const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
+      const gUnseen = gIds.filter((id) => !isSeen(id));
+      // by difficulty the day's new cards are the group's EASIEST unseen ones, not its first ones sorted — see the deck branch
+      const gNew = (deckByDifficulty(scope.id) ? sortByDifficulty(gUnseen) : gUnseen).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
       total = queue.length;
@@ -28165,7 +28099,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // pooled review only took a couple of new cards from still has the rest of its share here
       const due = capReviews(ids.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(sd.id)).take;
       const unseen = ids.filter((id) => !isSeen(id));
-      const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
+      /* new cards in deck (card) order — set via the editor's drag-reorder. BY DIFFICULTY THE WHOLE UNSEEN
+         PILE IS SORTED BEFORE THE DAY'S ALLOWANCE IS CUT (Oct 2026, on request): sliced first, the day's
+         cards were the first few of each subdeck sorted among themselves, and a reader who chose "easiest
+         first" opened on a difficulty-3 card while the deck's 1s sat beyond the slice. Random keeps the
+         slice-then-shuffle rule, which is about not making the day's draw a random handful. */
+      const fresh = (deckByDifficulty(sd.id) ? sortByDifficulty(unseen) : unseen).slice(0, Math.max(deckNewRemaining(sd.id), 0));
       queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
       if (deckRandom(sd.id)) shuffle(queue);   // this deck's own Random-order switch — see the udeck branch
 
@@ -31861,7 +31800,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       lead: "The best-known terms first, working outward to the obscure ones.",
       body: [
         "Every Folio card carries a rating of how widely known its answer is — 1 for a household name like the Stone Age, 5 for something named in the scholarship and almost nowhere else. This order deals the 1s and 2s before the 4s and 5s, so a session opens on ground you are likely to hold.",
-        "It is the gentlest way into a collection you know nothing about, and it is the only order that can use a short pretest: pick it and Folio can offer you twelve quick questions to find what you already know, so the deck starts where you actually are.",
+        "It is the gentlest way into a collection you know nothing about: the first card dealt is the easiest the deck has, and the hardest come last.",
       ],
       who: "Best for a subject you are new to, or for coming back to one after a long time away.",
     },
@@ -31928,159 +31867,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (mode) setDeckOrderMode(id, mode);
     save();
   }
-  /* ==========================================================================================
-     THE DECK PRETEST — "where should we start?" (Sep 2026, on request)
-     ==========================================================================================
-     Being tested on material BEFORE studying it improves the learning of it, even though nearly every
-     answer is wrong, provided the right answer follows — the pretesting effect, which is one of the
-     better-replicated findings in the literature and the only one that turns "I already knew that" into
-     something useful. Twelve questions before a deck begins does two jobs at once: the reader meets the
-     terms once under retrieval conditions, and Folio finds out where they actually are.
-
-     IT IS OFFERED ONLY WHERE THE DECK IS DEALT BY DIFFICULTY, on request — and that is not an arbitrary
-     gate, it is the only order whose ordering the result can change. "Ordered" is the deck's own
-     sequence and "Random" is a shuffle; only the difficulty order sorts
-     the new pile by a property of the card, which is where "and put the ones they already knew last"
-     can be spliced in without contradicting what the reader chose.
-
-     ***IT MUST NEVER WRITE `S.cards`, AND THAT IS THE WHOLE REASON IT HAS A FIELD OF ITS OWN.*** Folio's
-     XP is `Object.keys(S.cards).length` — the number of distinct cards with a record — and a level buys
-     an artefact chest. A pretest that seeded twelve card records the obvious way would hand a brand-new
-     reader two or three levels and the chests that go with them for answering twelve questions before
-     they had studied anything at all; nothing would throw, and the only symptom would be a reader
-     wondering why they were being congratulated. So the result is a DEAL-ORDER PREFERENCE in
-     `S.pretest`, and the schedule is not touched at all.
-
-     NO FEEDBACK UNTIL THE END. The literature's own condition is that the correct answers are supplied
-     afterwards; supplying them one at a time would turn a pretest into a study session, and the reader
-     would be "already knowing" answers they had just been shown two questions earlier. */
-  const PRETEST_N = 12;
-  // enough unseen cards to be worth asking about, the deck dealt by difficulty, and not already taken
-  function pretestOffer(entry) {
-    if (!entry || !S.pretest || S.pretest[entry]) return null;
-    if (deckOrderMode(entry) !== "difficulty") return null;
-    const ids = pretestPick(entry);
-    return ids.length >= PRETEST_N ? ids : null;
-  }
-  /* The twelve. Spread across the entry's SUBDECKS rather than taken off the front, so the result says
-     something about the whole deck; biased toward the well-known end, since a pretest is asking what the
-     reader already knows and nobody walks in knowing the difficulty-5 terms. Seeded on the entry id, so
-     the same deck offers the same twelve however many times the page is opened. */
-  function pretestPick(entry) {
-    const all = entryCardIds(entry).filter((id) => !isSeen(id) && !isSuspended(id) && cardById(id));
-    if (!all.length) return [];
-    const easy = all.filter((id) => cardDifficultyRank(id) <= 3);
-    const pool = easy.length >= PRETEST_N ? easy : all;
-    const groups = new Map();
-    pool.forEach((id) => {
-      const g = studyGroupOf(id);
-      let a = groups.get(g); if (!a) groups.set(g, a = []);
-      a.push(id);
-    });
-    const rnd = mulberry32(hashStr("pretest-" + entry));
-    const lists = [...groups.values()].map((a) => seededShuffle(a, rnd));
-    const out = [];
-    for (let round = 0; out.length < PRETEST_N; round++) {
-      let added = false;
-      for (let i = 0; i < lists.length && out.length < PRETEST_N; i++) {
-        if (lists[i][round] != null) { out.push(lists[i][round]); added = true; }
-      }
-      if (!added) break;
-    }
-    return out;
-  }
-  /* The cards this reader answered correctly in ANY pretest — the deal-order preference, and nothing
-     else. It is a fact about the CARD rather than about the entry it was asked under: a term known cold
-     is known cold whether it was met in a collection's pretest or the pooled review's, and keying it per
-     entry would put the same card first in one deck and last in another. Rebuilt on each call, which is
-     a dozen ids per pretest taken and a handful of pretests. */
-  function pretestKnownSet() {
-    const out = new Set(), P = S.pretest || {};
-    Object.keys(P).forEach((k) => { ((P[k] && P[k].known) || []).forEach((id) => out.add(id)); });
-    return out;
-  }
-  PAGES.pretest = function (root, params) {
-    const entry = params && params.entry, scope = params && params.scope;
-    if (!entry || !scope) { route("home"); return; }
-    const ids = pretestOffer(entry);
-    if (!ids) { route("study", { scope }); return; }
-    const info = entryInfo(entry) || { title: "this deck" };
-    const typed = new Array(ids.length).fill("");
-    let i = -1;   // -1 is the intro screen
-    const skip = () => { if (!S.pretest) S.pretest = {}; S.pretest[entry] = { day: todayStr(), known: [] }; save(); route("study", { scope }); };
-    function paint() {
-      if (i < 0) {
-        root.innerHTML =
-          '<div class="page-head"><h2>Where should we start?</h2><p class="sub">' + esc(info.title) + "</p></div>" +
-          '<div class="pt-intro"><p>Twelve questions, before you have studied anything. <b>You are expected to get most of them wrong</b> — that is not a figure of speech, it is how this works: being asked a question you cannot answer, and then being told the answer, teaches you more than being told it cold.</p>' +
-          "<p>Nothing here is graded, nothing is scheduled, and none of it counts towards your level. All it does is find the cards you already know, so this deck can put them later rather than starting you on things you learned years ago.</p>" +
-          '<div class="pt-acts"><button type="button" class="btn" id="ptGo">Start — 12 questions</button>' +
-          '<button type="button" class="btn ghost" id="ptSkip">Skip this</button></div></div>';
-        root.querySelector("#ptGo").addEventListener("click", () => { i = 0; paint(); });
-        root.querySelector("#ptSkip").addEventListener("click", skip);
-        return;
-      }
-      if (i >= ids.length) { finish(); return; }
-      const c = cardLocalized(cardById(ids[i]));
-      root.innerHTML =
-        '<div class="page-head"><h2>Where should we start?</h2><p class="sub">Question ' + (i + 1) + " of " + ids.length + "</p></div>" +
-        '<div class="pt-q"><div class="pt-bar"><i style="width:' + Math.round((i / ids.length) * 100) + '%"></i></div>' +
-          '<div class="question pt-qtext">' + (c.question || "") + "</div>" +
-          '<div class="pt-acts"><button type="button" class="btn" id="ptNext">' + (i === ids.length - 1 ? "See the result" : "Next") + "</button>" +
-          '<button type="button" class="btn ghost" id="ptDunno">I don’t know</button></div>' +
-          '<p class="pt-note">No feedback until the end — otherwise the questions after this one would be testing what you were just told.</p></div>';
-      setupCloze(root.querySelector(".pt-qtext"));
-      const next = (val) => { typed[i] = val; i++; paint(); };
-      root.querySelector("#ptNext").addEventListener("click", () => {
-        const f = root.querySelector(".pt-qtext .blank-input");
-        next(f ? f.value : "");
-      });
-      root.querySelector("#ptDunno").addEventListener("click", () => next(""));
-    }
-    function finish() {
-      const known = [];
-      ids.forEach((id, n) => { if (pretestMatch(typed[n], cardById(id))) known.push(id); });
-      if (!S.pretest) S.pretest = {};
-      S.pretest[entry] = { day: todayStr(), known };
-      save();
-      root.innerHTML =
-        '<div class="page-head"><h2>' + (known.length ? "You already knew " + known.length + " of " + ids.length : "Nothing to move — we’ll start at the beginning") + "</h2>" +
-          '<p class="sub">' + esc(info.title) + "</p></div>" +
-        '<div class="pt-res">' +
-          (known.length
-            ? "<p>Those " + known.length + " will still be taught, but they go later in the queue rather than first — so this deck starts where you actually are.</p>"
-            : "<p>That is the ordinary result on a subject you are new to, and it is worth more than it looks: you have now been asked twelve questions and told twelve answers, which is a better first contact with a deck than reading the same twelve.</p>") +
-          '<div class="pt-list">' + ids.map((id, n) => {
-            const c = cardLocalized(cardById(id));
-            const ok = known.indexOf(id) >= 0;
-            return '<div class="pt-row' + (ok ? " ok" : "") + '"><span class="pt-mark">' + (ok ? "✓" : "·") + "</span>" +
-              '<span class="pt-ans">' + esc(c.answerText || String(c.answer || "").replace(/<[^>]*>/g, "")) + "</span>" +
-              '<span class="pt-you">' + (typed[n] ? esc(typed[n]) : "—") + "</span></div>";
-          }).join("") + "</div>" +
-          '<div class="pt-acts"><button type="button" class="btn" id="ptStudy">Start studying</button></div></div>';
-      root.querySelector("#ptStudy").addEventListener("click", () => route("study", { scope }));
-    }
-    paint();
-  };
-  /* A pretest answer is matched LOOSELY, and deliberately more loosely than the study page's cloze: this
-     is asking "did you know this already", not "can you spell it". Case, accents, articles and any
-     bracketed aside are stripped from both sides, and a single typing slip is forgiven on a word long
-     enough for one to be unambiguous. It errs toward NOT crediting: a false positive here pushes a card
-     the reader does not know to the back of the queue, which is the failure that costs them something. */
-  function pretestMatch(typedVal, card) {
-    const norm = (s) => {
-      let v = String(s || "").replace(/<[^>]*>/g, " ").toLowerCase();
-      try { v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { /* no NFD here */ }
-      return v.replace(/\([^)]*\)/g, " ").replace(/^(the|a|an)\s+/, "")
-              .replace(/[^a-z0-9\u4e00-\u9fff ]+/g, " ").replace(/\s+/g, " ").trim();
-    };
-    const a = norm(typedVal);
-    if (!a) return false;
-    const b = norm(card && (card.answerText || card.answer || ""));   // norm strips tags, so the HTML answer is a safe fallback
-    if (!b) return false;
-    if (a === b) return true;
-    return b.length >= 6 && nearMiss(a, b);
-  }
+  /* THE DECK PRETEST IS GONE (Oct 2026, on request). From Sep 2026 the difficulty order offered twelve
+     questions before a deck's first session and dealt the cards the reader got right last; a reader met
+     a difficulty-3 question before their first card and asked for the ranking alone. `nearMiss` and
+     `editDistanceLE1` below were its matcher's and are still the cloze box's and the artwork matcher's. */
   /* "THE SAME BUT FOR ONE SLIP" — one insertion, deletion or substitution, OR one adjacent transposition.
      The transposition is not a nicety: swapping two neighbouring letters is the commonest typing error
      there is, and plain edit distance counts it as two, so without it `Mousterain` for `Mousterian` reads
@@ -32121,11 +31911,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const cur = deckOrderMode(entry);
     const go = (mode) => {
       setOrderPicked(entry, mode);
-      /* Only the difficulty order can use the pretest, so only it is offered one — see PAGES.pretest.
-         The offer is a page of its own rather than a line on this one, because it is a second question
-         and stacking two decisions on one screen is how a reader ends up answering neither. */
-      if (mode === "difficulty" && pretestOffer(entry)) route("pretest", { entry, scope });
-      else route("study", { scope });
+      route("study", { scope });   // straight to the cards: no second question stands between this one and studying
     };
     root.innerHTML =
       '<div class="page-head"><h2>How would you like to study this?</h2>' +
@@ -33466,7 +33252,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      MATCHING IS DELIBERATELY TOLERANT IN ONE DIRECTION ONLY. Case, accents, a leading article, a
      bracketed aside and ONE typing slip are forgiven — so a reader is not told they were wrong for a
      transposition — while anything further apart is a miss. The tolerance is the same `nearMiss` the
-     pretest uses, because "did they know it" is the same question in both places. */
+     artwork matcher uses, because "did they know it" is the same question in both places. */
   const normAnswer = (s) => {
     let v = String(s || "").replace(/<[^>]*>/g, " ").toLowerCase();
     try { v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { /* no NFD here */ }
@@ -34499,6 +34285,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
       "</div>" +
       /* The slot is always in the markup and HIDDEN, never created on demand: it is filled after the
          shapes bundle lands, and a live region announced at the moment it is inserted is one the screen
@@ -34810,7 +34598,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      answer 0.32, so every field shows what the reader typed AND what the work actually is.
 
      EACH OF THE THREE IS A DIFFERENT KIND OF ANSWER AND IS MARKED ACCORDINGLY. A title is a term and
-     takes `nearMiss`, the same one-slip tolerance the cloze box and the pretest use. A NAME is routinely
+     takes `nearMiss`, the same one-slip tolerance the cloze box uses. A NAME is routinely
      given short — "Rembrandt" is the right answer to "Rembrandt van Rijn", and "Master of the Vogelherd
      ivories" to a workshop named at greater length — so a value whose whole significant vocabulary sits
      inside the other counts, in BOTH directions, since a reader who gives the fuller form has not been
@@ -36039,6 +35827,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
       '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
       /* …AND A WAY THROUGH TO THE READER'S OWN GLOBE (Sep 2026, on request: "each atlas window should
          have an icon button to take the user to that location on the personal atlas page, where there
          should then be a 'Back' button to go back to the card study the user was in"). It carries
@@ -36207,7 +35997,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* WHAT CAME OF THIS — the causal strip (see cardLeadsTo). OUTSIDE the Background fold and above the
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
-    // WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML)
+    /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
+    html += cardLocatorHTML(c);
+    /* …then WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML):
+       below the Atlas box, on request, with the Nearby rail after it. */
     html += cardTimelineHTML(c);
     html += cardLeadsToHTML(c);
     /* …and the cards nearest this one, which is the same slot's other half (see relatedCardsHTML).
@@ -36215,7 +36008,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        inside. Suppressed inside a game round, where a rail of other cards is a distraction from the
        answer the reader is being shown. */
     if (c && c.id && !isCommunityCard(c.id)) html += relatedCardsHTML(c.id);
-    html += cardLocatorHTML(c);
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
@@ -36355,10 +36147,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return { y, mo, d, t: y + (mo ? (mo - 1) / 12 : 0) + (d ? (d - 1) / 365 : 0), unit: d ? 1 / 365 : (mo ? 1 / 12 : 1) };
   }
   function tlLabel(p) { return (p.d ? p.d + " " : "") + (p.mo ? TL_MONTHS[p.mo - 1] + " " : "") + (p.y < 0 ? (-p.y) + " BCE" : String(p.y)); }
+  /* THE EFFECTIVE FIELD: the editor's delta (`ADMIN_EDITS.cardTimeline[id]`, Oct 2026 — "none" takes a card off
+     every timeline, an object replaces its dates) wins over the shipped `card.timeline`; null when the card is on
+     no timeline. `serializeCardData` bakes this, not the shipped field, so a baked data.js carries the decision. */
+  function cardTimelineField(c) {
+    const ov = c && c.id != null && ADMIN_EDITS && ADMIN_EDITS.cardTimeline && c.id in ADMIN_EDITS.cardTimeline ? ADMIN_EDITS.cardTimeline[c.id] : undefined;
+    if (ov !== undefined) return ov && typeof ov === "object" ? ov : null;
+    return c && c.timeline && typeof c.timeline === "object" ? c.timeline : null;
+  }
+  // the editor's switch: null = as shipped, "none" = off, { at } / { from, to } = on with these dates
+  function setCardTimeline(id, val) {
+    if (!ADMIN_EDITS.cardTimeline) ADMIN_EDITS.cardTimeline = {};
+    if (val == null) delete ADMIN_EDITS.cardTimeline[id]; else ADMIN_EDITS.cardTimeline[id] = val;
+    queueAdminSave();
+  }
+  /* A neighbour's name opens its GLOSSARY TERM (Oct 2026, on request), found the way every game finds a card's
+     term: `byAnySurface`, the case-folded map built for "which term is this card's answer?". A card with no
+     term of its own (none should exist — every card ships with one — but a deck term is not it) falls back to
+     the card itself, through the same `data-kin` the "Nearby" rail uses. */
+  function cardTimelineTermKey(c) {
+    const idx = c && c.answerText ? glossIndexFor(GLOSS_SCOPE_SITE) : null;
+    const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText).trim().toLowerCase()] : null;
+    return k && !isDeckGlossKey(k) && (k in window.GLOSSARY) ? k : null;
+  }
   // the card's authored span, or null when it has none (or a malformed one — drawn as nothing, never guessed)
   function cardTimelineSpan(c) {
-    const f = c && c.timeline;
-    if (!f || typeof f !== "object") return null;
+    const f = cardTimelineField(c);
+    if (!f) return null;
     if (f.from != null || f.to != null) {
       const a = tlParse(f.from), b = tlParse(f.to);
       if (!a || !b || b.t < a.t) return null;
@@ -36388,9 +36203,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       list.map((x) => {
         const self = x.c.id === c.id, lo = cardLocalized(x.c);
         const title = lo.answerText || String(lo.answer || "").replace(/<[^>]*>/g, "");
-        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
+        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-card="' + esc(x.c.id) + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
           '<i class="tl-mark" aria-hidden="true"></i>' +
-          (self ? '<span class="tl-lab" aria-current="true">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">') +
+          (self ? '<span class="tl-lab" aria-current="true">' : (() => { const k = cardTimelineTermKey(x.c); return k ? '<button type="button" class="tl-lab" data-tlterm="' + esc(k) + '" title="' + esc(title) + ' in the glossary">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">'; })()) +
           '<span class="tl-t">' + esc(title) + '</span><span class="tl-w">' + esc(x.s.label) + "</span>" +
           (self ? "</span>" : "</button>") + "</li>";
       }).join("") +
@@ -36507,6 +36322,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!root || !root.querySelectorAll) return;
     root.querySelectorAll(".tl").forEach((el) => {
       if (!el._tlRO && typeof ResizeObserver === "function") { el._tlRO = new ResizeObserver(() => tlLayout(el)); el._tlRO.observe(el); }
+      // a neighbour's name opens its glossary term, on every surface alike (a card without one is a data-kin button, wired by the surface)
+      el.querySelectorAll("[data-tlterm]").forEach((b) => { if (b._tlWired) return; b._tlWired = true;
+        b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openGlossWin(b.dataset.tlterm, b); }); });
       tlLayout(el);
     });
   }
@@ -40973,7 +40791,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const n = list.length;
     ov.innerHTML = '<div class="ach-stage" role="dialog" aria-modal="true" aria-label="Achievement unlocked">' +
       '<div class="ach-kicker">' + (n === 1 ? "Achievement unlocked" : n + " achievements unlocked") + "</div>" +
-      '<div class="ach-tiles">' + list.map(achPopTileHTML).join("") + "</div>" +
+      '<div class="ach-tiles' + (n > 2 ? " many" : "") + '">' + list.map(achPopTileHTML).join("") + "</div>" +
       '<div class="ach-hint">' + (n === 1 ? "Tap the badge to turn it over and open its chest." : "Tap a badge to turn it over and open its chest. Each one earned a chest.") + "</div>" +
       '<div class="ach-acts"><button type="button" class="btn ghost" data-act="later">Keep the ' + (n === 1 ? "chest" : "chests") + " for later</button></div></div>";
     document.body.appendChild(ov);
@@ -43592,7 +43410,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -44937,6 +44755,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              rating, because it is one editorial judgement with two answers — and unlike `difficulty` it is
              expressible in both directions, `false` being a real delta where an undefined one is not. */
           '<label class="ces-m ces-m-check" title="Tick where the answer term names something with no single moment a reader could place it at — a process, a condition, a material, a category or a physical feature. The Timeline game skips it; the deck&#39;s own chronological order, the other games and studying are all unaffected."><span>timeline</span><span class="ces-chk"><input type="checkbox" id="adminUndatable"' + (cardUndatable(c) ? " checked" : "") + ' /> no single date</span></label>' +
+          /* WHETHER THE CARD IS ON THE TIMELINES (Oct 2026, on request: "in the card edit screen, as an admin, I can
+             select whether the card should appear as a timeline event in timelines of any cards in the collection
+             or not"). One switch for both sides of the feature — the section on this card and its place on every
+             other card's — because that is what the field is (see cardTimelineSpan). An event needs one date and a
+             period two, so the date boxes follow the choice; a date that does not parse is marked and not written. */
+          '<label class="ces-m"><span>timelines</span><select class="af-input af-sel" id="adminTlMode" title="Whether this card appears on the Timeline section — its own and every other card\'s in the collection. An event is one date; a period runs from one date to another. Only an event, era, battle or war belongs there."><option value="">not on timelines</option><option value="at">an event — one date</option><option value="from">a period — from, to</option></select></label>' +
+          '<label class="ces-m" id="adminTlAtRow"><span>date</span><input class="af-input" id="adminTlAt" type="text" spellcheck="false" placeholder="1919-06-28" title="YYYY, YYYY-MM or YYYY-MM-DD; a leading - for BCE (-0218). The precision is kept: 1925 runs to the end of 1925." /></label>' +
+          '<label class="ces-m" id="adminTlToRow"><span>to</span><input class="af-input" id="adminTlTo" type="text" spellcheck="false" placeholder="1945-09-02" title="The period\'s last date, in the same form." /></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
         '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Deck: <b id="cesDeckName">' + esc(node ? node.title : "not in a deck") + '</b></button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
@@ -45016,6 +44842,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       setCardEdit(id, "undatable", undI.checked);
       adminFlashSaved(); adminUpdateCount(); editedFx();
     });
+    const tlM = host.querySelector("#adminTlMode"), tlA = host.querySelector("#adminTlAt"), tlT = host.querySelector("#adminTlTo");
+    if (tlM && tlA && tlT) {
+      const cur = cardTimelineField(c);
+      tlM.value = cur ? (cur.from != null ? "from" : "at") : "";
+      tlA.value = cur ? String(cur.from != null ? cur.from : cur.at) : "";
+      tlT.value = cur && cur.from != null ? String(cur.to) : "";
+      const show = () => { tlA.closest(".ces-m").hidden = !tlM.value; tlT.closest(".ces-m").hidden = tlM.value !== "from"; };
+      const write = () => {
+        if (!tlM.value) { setCardTimeline(id, c.timeline ? "none" : null); tlA.removeAttribute("aria-invalid"); }   // off: a real "none" only where the shipped card is on
+        else {
+          const f = tlM.value === "from" ? { from: tlA.value.trim(), to: tlT.value.trim() } : { at: tlA.value.trim() };
+          const ok = !!cardTimelineSpan({ timeline: f });   // no id: the parser alone, with no delta in the way
+          tlA.setAttribute("aria-invalid", String(!ok)); tlT.setAttribute("aria-invalid", String(!ok));
+          if (ok) setCardTimeline(id, f);
+        }
+        adminFlashSaved(); adminUpdateCount(); editedFx();
+      };
+      show();
+      tlM.addEventListener("change", () => {
+        // a switch to "on" with no date yet starts from the card's own sort year, so there is something to correct rather than a blank
+        if (tlM.value && !tlA.value.trim()) { const y = cardStartYear(c); if (y) tlA.value = String(y); }
+        show(); write();
+      });
+      tlA.addEventListener("input", write); tlT.addEventListener("input", write);
+    }
     // deck-picker toggles (inside the collapsible "Appears in N decks" box)
     const dh = host.querySelector("#cesDecksHead"), db = host.querySelector("#cesDecksBody");
     if (dh && db) dh.addEventListener("click", () => { const show = db.hidden; db.hidden = !show; dh.classList.toggle("open", show); dh.setAttribute("aria-expanded", String(show)); });
@@ -46553,7 +46404,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "pretest", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }

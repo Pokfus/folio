@@ -31,13 +31,22 @@
     else for (const y of tl.years || []) out.push({ year: y, month: null, day: null, date: null, t: y, front: false });
     return out.length >= 2 ? out : [];
   }
-  /* where the pin opens: the step nearest the card's own date when the card's date line names ONE year inside the war, else the war's last step */
+  /* where the pin opens: ALWAYS at the halfway point of the timeline (Oct 2026, on request — it used to open at the war's last step, or at the step nearest the one year the card's date line names). The pin
+     stands on steps, so "halfway" is the step nearest the midpoint of the rail, whose ends are the war's first year and the year after its last (`mountTimeline`'s t0 and t1); a tie takes the earlier step.
+     `years` is accepted and ignored, so the callers and the suites that pass it keep working. */
   function startStep(steps, span, years) {
-    const set = new Set((years || []).filter((y) => isFinite(y)));
-    if (set.size === 1) { const y = [...set][0]; if (y >= span[0] && y <= span[1]) { let best = 0; steps.forEach((st, i) => { if (Math.abs(st.t - (y + 0.5)) < Math.abs(steps[best].t - (y + 0.5))) best = i; }); return best; } }
-    return steps.length - 1;
+    const mid = (span[0] + span[1] + 1) / 2;
+    let best = 0; steps.forEach((st, i) => { if (Math.abs(st.t - mid) < Math.abs(steps[best].t - mid)) best = i; });
+    return best;
   }
   const mark = (n) => { try { performance.mark(n); } catch (e) {} };   // Phase 4b: named marks (a2:*) so a trace shows where a first window's time went
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function" && !window.__folioReliefBtnSync) {
+    window.__folioReliefBtnSync = true;
+    window.addEventListener("atlas2:windowrelief", (e) => {
+      const on = !!(e && e.detail && e.detail.on);
+      document.querySelectorAll(".mc-relief").forEach((b) => b.setAttribute("aria-pressed", on ? "true" : "false"));
+    });
+  }
   function startCardWindow(host, X) {
     mark("a2:window-start");
     if (W.AtlasWindows) W.AtlasWindows.lastCtx = X;
@@ -385,11 +394,10 @@
         '<button type="button" class="wtl-btn wtl-prev" aria-label="Previous step" title="Previous step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
         '<button type="button" class="wtl-btn wtl-play" aria-label="Play the steps" aria-pressed="false" title="Play"><svg class="wtl-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg><svg class="wtl-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></button>' +
         '<button type="button" class="wtl-btn wtl-next" aria-label="Next step" title="Next step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>' +
-        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-ticks" aria-hidden="true"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="War timeline" aria-orientation="horizontal"></div></div>' +
+        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="War timeline" aria-orientation="horizontal"></div></div>' +
         '<div class="wtl-now" aria-hidden="true"></div><div class="wtl-ends"><span class="wtl-start"></span><span class="wtl-end"></span></div></div></div>';
       const q = (c) => el.querySelector(c), track = q(".wtl-track"), pin = q(".wtl-pin"), now = q(".wtl-now"), prev = q(".wtl-prev"), next = q(".wtl-next"), play = q(".wtl-play");
       q(".wtl-start").textContent = yearText(tlSpan[0]); q(".wtl-end").textContent = yearText(tlSpan[1]);
-      q(".wtl-ticks").innerHTML = tlSteps.map((st) => '<i style="left:' + (frac(st) * 100).toFixed(2) + '%"></i>').join("");
       pin.setAttribute("aria-valuemin", "1"); pin.setAttribute("aria-valuemax", String(n));
       let playing = false, playTimer = 0;
       const stopPlay = () => { playing = false; clearTimeout(playTimer); playTimer = 0; play.setAttribute("aria-pressed", "false"); play.setAttribute("aria-label", "Play the steps"); play.title = "Play"; el.classList.remove("wtl-playing"); };
@@ -513,7 +521,13 @@
         host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
           e.stopPropagation(); const w = b.getAttribute("data-mc");
           if (w === "home") win.goHome(); else if (w === "in") win.zoomBy(1.45); else if (w === "out") win.zoomBy(1 / 1.45);
+          else if (w === "relief" && W.AtlasEmbed && W.AtlasEmbed.setWindowRelief) W.AtlasEmbed.setWindowRelief(!reliefNow().relief);
         }));
+        /* THE RELIEF BUTTON (Oct 2026, on request) ships hidden in the markup and is shown only where relief CAN draw: the engine's WebGL2 path, and not under light mode or on a cellular connection (reliefNow's own rule). */
+        const rb = host.querySelector(".mc-relief");
+        if (rb && !lightReader && !onCellular && !(W.AtlasEmbed && W.AtlasEmbed.isCanvas2D && W.AtlasEmbed.isCanvas2D())) {
+          rb.hidden = false; rb.setAttribute("aria-pressed", reliefNow().relief ? "true" : "false");
+        }
         isReady = true;
     }
   }
@@ -654,10 +668,9 @@
             <div class="mg-acts"><button class="btn mg-confirm" id="mgConfirm" type="button" hidden></button><button class="btn ghost mg-clear" id="mgClear" type="button" hidden>Clear</button><button class="btn mg-next" id="mgNext" type="button" hidden></button></div>
           </div>
         </div>
-        <div class="fi2-reveal" id="fiReveal" hidden></div>
         <div class="data-loading fi2-loading" id="fi2Loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>
       </div>`;
-    const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), revealEl = root.querySelector("#fiReveal"), loadEl = root.querySelector("#fi2Loading");
+    const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), loadEl = root.querySelector("#fi2Loading");
     let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null;   // shown: an area round's rings, drawn by the window on the still renderer
     const reduced = () => prefersReducedMotion();
     const MAXY2 = new Date().getFullYear();
@@ -720,7 +733,7 @@
     // ---- the game (rules, scoring and wording as v1's) ----
     function clearPick() { pick = null; pickPin = null; marks = marks.filter((m) => !m.pick); confirmEl.hidden = true; clearEl.hidden = true; }
     function showRound() {
-      const r = rounds[ri]; tries = 0; lock = false; pulse = null; marks = []; pin = null; shown = null; clearPick(); revealEl.hidden = true;
+      const r = rounds[ri]; tries = 0; lock = false; pulse = null; marks = []; pin = null; shown = null; clearPick();
       roundEl.textContent = "Round " + (ri + 1) + " / " + rounds.length; scoreEl.textContent = found + " found";
       qEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fi2Year(r.shown) : (r.kind === "point" && r.cap ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(fi2Name(r.n)) + "</b>") + " on today's map";
       cart.textContent = r.kind === "area" ? "FULL ATLAS · " + fi2Year(r.shown) : "TODAY";
@@ -777,60 +790,16 @@
       revealPanel(r);
       nextEl.textContent = ri + 1 >= rounds.length ? "See your score" : "Next round"; nextEl.hidden = false; win.schedule();
     }
-    /* THE LEARN PANEL (Phase 4c, the owner's decision 5) — what v1's `showCountryPopup` and `showMinePopup` did after an answer, on the engine's board. The round ends on something learned:
-       · the place's NAME (a country by its full name), with "New discovery!" the first time a country is opened (the same `placesSeen` register v1's panel wrote, no sound in a game, as v1);
-       · for a country the prose v1 printed (the general description, without the figures and the "(Language: name)" parentheticals v1 strips), for a state or people the years it is shown in;
-       · THE PLACE CARD'S LIST OF CARDS (`AtlasStudy.cardsFor`: the reader's own first, "and N more", the collection beside each, "studied" on the ones the reader has a record for), each a link to the card's own
-         address — for a country the cards the register names for it, for a state, a people or a place the cards the round was dealt for;
-       · how to continue: a Next button in the panel (the same button as the one under the question), a way to read about it on the Atlas, and a close button (Escape too) that puts the panel away and leaves the board.
-       v1's mine popup also swiped through the cards' answers one at a time; here a card is one tap away. */
-    const stripInfoNoise = (t) => {   // = v1's `stripInfoNoise`: no "(Language: name)", no sentence that quotes a figure the number grid shows
-      if (!t) return ""; t = String(t).replace(/\s*\([^)]*:[^)]*\)/g, "");
-      const grid = /[$€£]\s?\d|\d[\d.,]*\s*(?:million|billion|trillion)\b|\d[\d.,]*\s*(?:km²|km2|sq\.?\s?mi|sq\.?\s?km|square\s?kilomet|square\s?mile)/i;
-      const kept = t.split(/(?<=[.!?])\s+/).filter((q) => !grid.test(q));
-      return (kept.length ? kept.join(" ") : t).replace(/\s{2,}/g, " ").trim();
-    };
-    const SU = X.study || null, AStudy = window.AtlasStudy || null;
-    let learnLimit = 0, learnRound = null, learnNew = false;
-    const cardsOf = (r) => {   // the card ids this round teaches: a country's by the register, anything else's as the round was dealt
-      let ids = [];
-      if (r.kind === "entity") { try { const reg = finditRegister(X), v = reg.names.get(r.n.toLowerCase()); if (v) ids = (v.ids || [v.id]).filter(Boolean); } catch (e) { ids = []; } }
-      else ids = (r.ids || []).slice();
-      const avail = availableCardIdSet(); return ids.filter((id, i) => CARD_BY_ID[id] && avail.has(id) && ids.indexOf(id) === i);
-    };
-    function learnList(r) {
-      const ids = cardsOf(r); if (!ids.length) return "";
-      const info = (id) => (SU && SU.cardInfo ? SU.cardInfo(id) : null);
-      const mine = SU && SU.studiedCards ? SU.studiedCards() : [];
-      let list;
-      if (AStudy && AStudy.cardsFor) { const idx = { cardsOfPlace: new Map([["round", ids]]) }; list = AStudy.cardsFor(idx, "round", { cards: mine }, "full", [], info, learnLimit || AStudy.LIST_CAP); }
-      else list = { shown: ids.slice(0, learnLimit || 8).map((id) => ({ id, mine: mine.indexOf(id) >= 0 })), more: Math.max(0, ids.length - (learnLimit || 8)), others: 0, total: ids.length };
-      const li = (c) => { const i = info(c.id) || {}; return '<li><a class="cp-cardlink fi2-learn-card" href="' + esc(SU && SU.cardHref ? SU.cardHref(c.id) : "#card/" + c.id) + '" data-card="' + esc(c.id) + '"><span class="fi2-learn-title">' + esc(i.title || c.id) + "</span>" + (i.coll ? '<span class="fi2-learn-chip">' + esc(i.coll) + "</span>" : "") + (c.mine ? '<span class="fi2-learn-mine" title="You have studied this card">studied</span>' : "") + "</a></li>"; };
-      return '<section class="fi2-learn-cards" aria-label="Cards about this place"><h3 class="fi2-learn-h">Cards about this place</h3><ul class="fi2-reveal-cards">' + list.shown.map(li).join("") + "</ul>" + (list.more ? '<button type="button" class="fi2-learn-more" data-more="1">and ' + list.more + " more</button>" : "") + "</section>";
+    /* THE REVEAL PANEL IS GONE (Oct 2026, on request: "remove this whole window/section for all questions/answers"): a round now ends on the question's own card — "Found it", and the Next button. What stays is the bookkeeping the panel
+       did on the way: finding a country for the first time still records it as discovered on the reader's Atlas (`study.discover`, the same `placesSeen` register), silently. */
+    const SU = X.study || null;
+    function revealPanel(r) {
+      if (r.kind === "entity" && SU && SU.discover) { try { SU.discover(r.n); } catch (e) { /* a failed record must not stop the round */ } }
     }
-    function revealPanel(r, again) {
-      learnRound = r;
-      if (!again) { learnLimit = 0; learnNew = false; if (r.kind === "entity" && SU && SU.discover) { try { learnNew = !!SU.discover(r.n); } catch (e) { learnNew = false; } } }
-      const name = r.kind === "entity" ? fi2Name(r.n) : r.n;
-      let html = '<div class="fi2-reveal-head"><b>' + esc(name) + "</b>" + (learnNew ? '<span class="fi2-learn-new">New discovery!</span>' : "") + '<button type="button" class="fi2-reveal-close" aria-label="Close this panel">&times;</button></div>';
-      html += '<div class="fi2-reveal-body">';
-      if (r.kind === "entity") { const d = stripInfoNoise(fi2CountryDesc(r.n)); if (d) html += '<p class="fi2-reveal-desc">' + (X.sanitizeHTML ? X.sanitizeHTML(d) : esc(d.replace(/<[^>]*>/g, ""))) + "</p>"; }   // the country prose carries <b> and <i> (v1 sets it through sanitizeHTML too)
-      else if (r.kind === "area") html += '<p class="fi2-reveal-desc fi2-reveal-when">As it stood in ' + esc(fi2Year(r.shown != null ? r.shown : r.year)) + ".</p>";
-      html += learnList(r) + "</div>";
-      const t = targetIds(r)[0];
-      html += '<div class="fi2-reveal-acts">' + (t ? '<button type="button" class="btn ghost fi2-reveal-go" data-place="' + esc(t) + '">Read about it on the Atlas</button>' : "") + '<button type="button" class="btn fi2-reveal-next" id="fiRevealNext">' + esc(ri + 1 >= rounds.length ? "See your score" : "Next round") + "</button></div>";
-      revealEl.setAttribute("role", "dialog"); revealEl.setAttribute("aria-label", "What you found: " + name);
-      revealEl.innerHTML = html; revealEl.hidden = false;
-      revealEl.querySelectorAll(".fi2-reveal-go").forEach((b) => b.addEventListener("click", () => route("map", { place: b.getAttribute("data-place") })));
-      const nx = revealEl.querySelector(".fi2-reveal-next"); if (nx) nx.addEventListener("click", () => { if (!nextEl.hidden) nextEl.click(); });
-      const cl = revealEl.querySelector(".fi2-reveal-close"); if (cl) cl.addEventListener("click", () => { revealEl.hidden = true; board.focus({ preventScroll: true }); });
-      const more = revealEl.querySelector(".fi2-learn-more"); if (more) more.addEventListener("click", () => { learnLimit = (learnLimit || (AStudy ? AStudy.LIST_CAP : 8)) + 20; revealPanel(learnRound, true); });
-    }
-    root.addEventListener("keydown", (e) => { if (e.key === "Escape" && !revealEl.hidden) { revealEl.hidden = true; e.stopPropagation(); } });
     function end() {
       over = true; const n = rounds.length, perfect = n >= 5 && found >= n;
       markGamePlayed("findit", perfect, found, n); save(); checkAchievements();
-      roundEl.textContent = "Done!"; scoreEl.textContent = ""; revealEl.hidden = true;
+      roundEl.textContent = "Done!"; scoreEl.textContent = "";
       qEl.innerHTML = "<b>" + found + " / " + n + "</b> found" + (perfect ? " — perfect!" : ".");
       fbEl.textContent = (firstTry < found ? firstTry + " of them on the first try. " : "") + "Come back tomorrow for five new places."; fbEl.hidden = false;
       nextEl.textContent = "Back to Home"; nextEl.hidden = false;
