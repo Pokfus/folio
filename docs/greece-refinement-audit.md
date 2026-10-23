@@ -2599,3 +2599,64 @@ answers 503 over plain HTTP and 200 over HTTPS; Crossref matches the record.
 - **Pictures:** each checked with `cm.py info`: `gr-796` a hemidrachm of the league, `gr-797` the theatre of Sicyon, `gr-798` a tetradrachm
   of Cleomenes III (for the Victorian engraving of the valley of Sellasia that the draft marked for replacement), `gr-799` Monsiau's
   painting of 1789, which shows this very scene and is described as imagined, `gr-800` a Saalburg reconstruction of torsion artillery.
+
+### B84–B94 (`gr-801`–`gr-900`) — Alexandria and Hellenistic science, Greece under Rome, the Olympians (2026-10-23)
+
+One hundred cards: `gr-alexandria` (`gr-801`–`gr-845`, B84–B88), `gr-under-rome` (`gr-846`–`gr-880`, B89–B92) and the first twenty of
+`gr-olympians` (`gr-881`–`gr-900`, B93–B94). Method as before (twenty agents of five cards each, every page saved, every quote checked by
+`precheck.js`, every draft read by the harness owner, `urlcheck.js` on every cited URL). Rules unchanged; the three that did most work
+here: **no row dates another person's reign** (the draft rows "Under Euergetes", "Under Ptolemy I" and "Born, reported" were emptied),
+**no conversion of an Olympiad or a regnal year into a BCE year** (`gr-815`'s "156 – 153 BCE" from the Suda's "156th Olympiad" is gone,
+the prose keeps the Olympiad), and **every glossary redraft carries its own `date` key** (a draft without one leaves the old estimated
+life date in place; the dates of `Philo_of_Byzantium`, `Herophilus`, `Erasistratus` and `Antikythera_mechanism` were set by hand for it).
+
+#### `gr-801`–`gr-830` (B84–B86, committed first)
+
+Thirty cards: Alexandria, the Library, the Mouseion, the Pharos, Demetrius of Phalerum, Zenodotus, Callimachus, the *Aetia*, Apollonius of
+Rhodes, the *Argonautica*, Theocritus, bucolic poetry, the Hellenistic epigram, the *Pinakes*, Aristarchus of Samothrace, the Septuagint,
+Euclid, the *Elements*, Archimedes, his principle, the claw, Apollonius of Perga, the conic sections, Eratosthenes, the circumference of the
+earth, Aristarchus of Samos, heliocentrism, Hipparchus, precession and Ctesibius. Sources 5 → 6 – 9 on every card (the bar by difficulty
+met on all thirty; modern share at least half). Where the sources part the card says whose is whose: the Suda against Strabo on
+the Library's founder and against the Archai/Kolde-less modern accounts on Demetrius' part, the Suda editors against Peter Green's translation
+on Apollonius' headship, Ptolemy's Callippic reckoning against a recent reading for Aristarchus' solstice, Pliny against Cicero on where the
+Garden lay (a later card), Livius against Empereur for the Pharos' dates.
+
+Checks: `greece-audit.js --range=gr-801:gr-830` finds only `Q.sibling` on `gr-810` (47 % against `gr-932`, a different subject),
+`W.not-why` on `gr-812` and `gr-813` (reported, not a fault) and `S.chip?` on `gr-813`, `gr-817` and `gr-818` (all false positives: English
+articles in the French-titled *Revue d'histoire des mathématiques*, and an English chapter in a Greek–Italian Festschrift). `check-cards.js`
+reports `same-language` on `gr-817` (the same two articles; `check-cards` is a trend, not a gate, and the pair is left unlisted). `check-questions`,
+`split-cards --check`, `test-card-plans` and `apply-wiki-links --check` pass; `check-style` adds nothing to main's alarms; every
+cited URL answers 2xx (308 citations, 120 distinct).
+
+**Date lines.** Empty and `undatable` for 20 of the 30: `gr-802`, `gr-803` (no source gives the start of either), `gr-806`, `gr-807`, `gr-809`
+(the draft rows dated Euergetes' reign), `gr-810`, `gr-811` (Theocritus' only anchor is a translator's inference), `gr-812`, `gr-813`, `gr-814`,
+`gr-815` (the Suda's 156th Olympiad is not converted), `gr-816`, `gr-817` and `gr-818` (Ptolemy I's reign is not Euclid's date), `gr-820`
+("proved before 212" was a bound), `gr-822`, `gr-824` (Möller's 276/3 – 194/1 is a modern bracket, kept in the prose as "about 276 – 194"),
+`gr-825`, `gr-827` and `gr-830` (Athenaeus and Hedylus give different reigns). Two rows saying whose: `gr-826` (Ptolemy's Callippic
+date 281 – 280 BCE, a recent reading 280 – 279) and `gr-808` (Books 1 – 2 about 270 BCE, an inference from Apollonius; Books 3 – 4 from 245 BCE, the Nemean
+victory of Berenice II). The rest print a date a source prints: `gr-801` (founded 331, Ptolemaic rule 323 – 30), `gr-804` (built about 300 – 280
+BCE; Empereur's 285 – 280 in the prose), `gr-805` (317 – 307), `gr-819` (died 212), `gr-821` (213, 212), `gr-823` (credited to Menaechmus about 360 – 350),
+`gr-828` (Ptolemy's observations of his, 161 – 126) and `gr-829` (129 – 128). Place and person suffixes ("212 BCE, to Rome") were stripped from
+every value, which hold dates only.
+
+**Corrected in the old cards:** the "capital 305 – 30 BCE" row (`gr-801`); every claim that rested on Murray's *Aitia* article (OpenEdition, behind a
+bot wall) and the "c. 300 – 48" line (`gr-802`); "salaried" scholars (`gr-803`); the Suda translator Roth, who only coded the page (Malcolm Heath is the
+translator), "first corrector", the asteriskos as Zenodotus' invention and "cited more than any other scholar" (`gr-806`); the poet's wife from Syracuse,
+"the first attempt to describe a whole literature" and a glossary entry that was the polemarch of the same name (`gr-807`); a half-read fragment of
+"Demeter outweighs the tall woman" (`gr-808`); the birth year 296 – 260 and the *P.Oxy.* 1241 claims (`gr-809`); "thirty poems" (`gr-811`); the
+invention "about 275" and "boast" for Virgil's *Eclogue* 6, which is a compliment (`gr-812`); the Anyte locust epigram, whose attribution is
+disputed, and the survival of the Garland, which preserved only a fraction (`gr-813`); "following two centuries" (`gr-816`); "most widely read" and "eight
+centuries" (`gr-817`); Proclus' "aim" of the *Elements* is his own idea (`gr-818`); a birth year (`gr-819`); Polybius' Appius, not Marcellus,
+starves the city out (`gr-821`); the estimated birth 262, "King Attalus" and the Euclid-pupil claim (`gr-822`); the Eratosthenes question that
+carried a year (`gr-824`); Philo's "four books and part of a fifth" (the Dictionary of Scientific Biography counts four of nine surviving, `gr-831`, next paragraph).
+The old Eratosthenes figure of 70,000 by 30,000 stadia is Strabo's own, not Eratosthenes' (`gr-836`, next paragraph).
+**Glossary entries redrafted:** `Alexandria`, `Library_of_Alexandria`, `Mouseion`, `Demetrius_of_Phalerum`, `Zenodotus`, `Callimachus_(poet)`,
+`Aetia_(Callimachus)`, `Apollonius_of_Rhodes`, `Argonautica`, `Theocritus`, `Bucolic_poetry`, `Hellenistic_epigram`, `Pinakes`, `Aristarchus_of_Samothrace`,
+`Septuagint`, `Euclid`, `Euclid's_Elements`, `Archimedes`, `Archimedes'_principle`, `Claw_of_Archimedes`, `Apollonius_of_Perga`, `Conic_section`,
+`Eratosthenes`, `Earth's_circumference`, `Aristarchus_of_Samos`, `Heliocentrism`, `Hipparchus_of_Nicaea`, `Precession_of_the_equinoxes`, `Ctesibius`
+(the draft for `gr-807` found that the card's glossary key was the polemarch's, and filed the poet under `Callimachus_(poet)`).
+
+**Wrong auto-links** stopped with `<span class="ans-term">`: `Thebes` (`gr-805`), `Aristophanes` (the comic poet, in "Aristophanes of Byzantium", `gr-806`, `gr-814`,
+`gr-815`), `pastoral` and `behaviour` (`gr-811`, `gr-812`), `Leonidas`, `Palatine` and `epitaph` (`gr-813`), `cells` (the biological key, `gr-816`),
+`coin` (`gr-817`), `Hippocrates` (`gr-821`), `Egypt`, `Athens`, `Heracles` and `Hipparchus` (the son of Peisistratus, `gr-824`); the plain `Hipparchus` is
+hand-keyed to `Hipparchus_of_Nicaea` where the astronomer is meant.

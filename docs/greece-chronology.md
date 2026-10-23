@@ -923,6 +923,30 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Agis IV: Reigned | 245 – 241 BCE | Benjamin Pedersen, review of Miltiadis Michalopoulos, In the Name of Lykourgos: The… (`gr-799`) |
 | Agis IV: Executed | 241 BCE | César Fornis, “Bajo el signo de Licurgo: el reformismo atávico de Agis IV y… (`gr-799`) |
 
+## Alexandria and Hellenistic science (confirmed by B84 – B88, `gr-801` – `gr-845`)
+
+| event or person | the collection says | source |
+|---|---|---|
+| Alexandria: Founded | 331 BCE | Luisa Ferro and Giulio Magli, “The Astronomical Orientation of the Urban Plan of… (`gr-801`) |
+| Alexandria: Ptolemaic rule | 323 – 30 BCE | Joshua J. Mark, “Alexandria, Egypt,” World History Encyclopedia, accessed 23 October 2026, (`gr-801`) |
+| Pharos of Alexandria: Built | c. 300 – 280 BCE | Mark Cartwright, “Lighthouse of Alexandria,” World History Encyclopedia, accessed 23… (`gr-804`) |
+| Pharos of Alexandria: Ruins last seen | 1420 CE | Honor Frost Foundation, “Qaitbay,” Centre d’Études Alexandrines small grant, accessed 23… (`gr-804`) |
+| Pharos of Alexandria: Dive survey | from 1994 CE | Honor Frost Foundation, “Qaitbay,” Centre d’Études Alexandrines small grant, accessed 23… (`gr-804`) |
+| Demetrius of Phalerum: Rules Athens | 317 – 307 BCE | Delfim F. Leão, “Plutarch on Demetrius of Phalerum: The Intellectual, the Legislator and… (`gr-805`) |
+| Demetrius of Phalerum: Goes to Egypt | after 297 BCE | Delfim F. Leão, “Plutarch on Demetrius of Phalerum: The Intellectual, the Legislator and… (`gr-805`) |
+| Aetia: Books 1 – 2 | c. 270 BCE | Callimachus, Aetia fr. 1 with the Scholia Florentina, trans. C. A. Trypanis and Frank… (`gr-808`) |
+| Aetia: Books 3 – 4 | from 245 BCE | Callimachus, Aetia fr. 1 with the Scholia Florentina, trans. C. A. Trypanis and Frank… (`gr-808`) |
+| Archimedes: Died | 212 BCE | Thomas L. Heath, The Works of Archimedes (Cambridge: Cambridge University Press, 1897),… (`gr-819`) |
+| Archimedes: Palimpsest found | 1906 | Exploratorium, “Ancient Writings Revealed! About,” accessed 23 October 2026, (`gr-819`) |
+| claw of Archimedes: Used | 213 BCE | Chris Rorres and Harry G. Harris, “A Formidable War Machine: Construction and Operation… (`gr-821`) |
+| claw of Archimedes: City fell | 212 BCE | J. J. O’Connor and E. F. Robertson, “Archimedes of Syracuse,” MacTutor History of… (`gr-821`) |
+| conic section | c. 360 – 350 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-823`) |
+| Aristarchus of Samos: Ptolemy’s date | 281 – 280 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
+| Aristarchus of Samos: Recent reading | 280 – 279 BCE | Ptolemy, Almagest 3.1, trans. Karl Manitius, Des Claudius Ptolemäus Handbuch der… (`gr-826`) |
+| Hipparchus of Nicaea | 161 – 126 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921),… (`gr-828`) |
+| precession of the equinoxes | 129 – 128 BCE | Thomas Heath, A History of Greek Mathematics, vol. 2 (Oxford: Clarendon Press, 1921), 254, (`gr-829`) |
+
+
 ## Events and reigns (to be confirmed as each deck's batch reaches it)
 
 The standard dates, as the collection already carries them; each will be checked against the card's own
@@ -1672,4 +1696,14 @@ gr-796: 281; 251; 243; 146
 gr-797: 251; 243; 245; 213
 gr-798: 235; 222; 229; 227
 gr-799: 245; 241
+gr-801: 331; 323; 30
+gr-804: 300; 280; 1420; 1994
+gr-805: 317; 307; 297
+gr-808: 270; 245
+gr-819: 212; 1906
+gr-821: 213; 212
+gr-823: 360; 350
+gr-826: 281; 280; 279
+gr-828: 161; 126
+gr-829: 129; 128
 ```
