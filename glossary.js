@@ -12708,7 +12708,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Vladimir_II_Monomakh": ["Vladimir Monomakh","Monomakh"],
 "Cumans": ["Cuman","Polovtsy","Polovtsian","Polovtsians"],
 "Mstislav_I_of_Kiev": ["Mstislav the Great","Mstislav I"],
-"Vladimir-Suzdal": ["Vladimir-Suzdal Principality"],
+"Vladimir-Suzdal": ["Vladimir-Suzdal Principality","grand princedom of Vladimir","Grand Principality of Vladimir"],
 "Andrey_Bogolyubsky": ["Andrei Bogolyubsky","Bogolyubsky"],
 "All-Russian_nation": ["all-Russian nation"],
 "Cross-in-square": ["cross-in-square church","cross-in-square plan"],
@@ -14466,7 +14466,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Algae": ["alga"],
 "Chemotaxis": ["nutrient gradient"],
 "Replication_crisis": ["replication study","replication studies","reproducibility crisis"],
-"Stimulus_(physiology)": ["stimuli"]
+"Stimulus_(physiology)": ["stimuli"],
+"Battle_of_Aegospotami": ["Aegospotami"],
+"Thrace": ["Thracian"],
+"Hippocratic_Corpus": ["Hippocratic"],
+"Nanjing": ["Nanking"],
+"Guangzhou": ["Canton"],
+"Fuzhou": ["Foochow"],
+"France": ["French"],
+"Christianity": ["Christians"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -14588,7 +14596,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Strange_Tales_from_a_Chinese_Studio": true,
 "Bamboo_and_wooden_slips": true,
 "Diary_of_a_Madman_(Lu_Xun)": true,
-"Traditional_Chinese_medicine": true
+"Traditional_Chinese_medicine": true,
+"Guangzhou": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
