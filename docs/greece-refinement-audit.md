@@ -270,7 +270,7 @@ one changelog line and a version bump; commit and push.
 | B98 | Heroes and the epic cycle (`gr-heroes`) | `gr-931`–`gr-940` | 10 | **done 2026-10-23** |
 | B99 | Heroes and the epic cycle (`gr-heroes`) | `gr-941`–`gr-950` | 10 | **done 2026-10-23** |
 | B100 | Heroes and the epic cycle (`gr-heroes`) | `gr-951`–`gr-960` | 10 | **done 2026-10-23** |
-| B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | open |
+| B101 | Heroes and the epic cycle (`gr-heroes`) | `gr-961`–`gr-965` | 5 | **done 2026-10-23** |
 | B102 | Cult, oracles and festivals (`gr-cult`) | `gr-966`–`gr-975` | 10 | **done 2026-10-23** |
 | B103 | Cult, oracles and festivals (`gr-cult`) | `gr-976`–`gr-985` | 10 | open |
 | B104 | Cult, oracles and festivals (`gr-cult`) | `gr-986`–`gr-995` | 10 | open |
@@ -2852,3 +2852,12 @@ sacrifice a hecatomb (`gr-972`); "the commonest religious act" and "no altar, no
 `Polis_religion`, `Ancient_Greek_temple`, `Cult_image`, `Greek_altar`, `Animal_sacrifice`, `Hecatomb`, `Libation`, `Greek_priesthood` and `Temenos`, each with its own `date` key.
 **Wrong auto-links** stopped with `<span class="ans-term">`: `Lichas` (the commissioner of 412 BCE, not the Spartan of Herodotus, `gr-956`), `reconstruction` (`gr-953`, `gr-954`), `space` (Lebensraum, `gr-975`), `pastoral` (`gr-958`, `gr-974`), and `horse`, `gold`, `silver` and `water` (`gr-952`, `gr-968`, `gr-969`, `gr-970`, `gr-971` to `gr-973`, `gr-975`).
 `Pausanias` opens the travel writer's key, which is right on these cards, and is not wrapped (a first draft had wrapped it on `gr-915`, `gr-950` and `gr-968` – `gr-970`; the wrap was taken out). **Locators:** none added; none of the twenty is a place with a dot to add (`gr-970` keeps its Olympia dot).
+
+#### `gr-961`–`gr-965` (B101, committed fourth)
+
+Five cards: Scylla and Charybdis, Calypso, Penelope, Telemachus and Aeneas in Greek myth (the end of `gr-heroes`). Sources 5–6 → 8–9; the Odyssey is one source (Butler's whole text) with one Murray page for the bed token; `gr-965` had no modern scholarship at all and now has five modern sources. Where the sources part the card says whose: the web of Penelope is the
+suitor Antinous's account (the narrator does not tell it), Homer's Dia against the later Naxos (`gr-930`), Strabo's rival voyages of Aeneas against Homer's Aeneas who stays and rules at Troy (`gr-965`). **Date lines.** `gr-961` to `gr-964` print "Odyssey composed 750 – 700 BCE", the most probable range one review reports, said to be that review's in the prose; it ends where the collection's convention
+(c. 700 BCE, "not much before 700", Pisano) sits, and the two do not contradict each other; `gr-965` prints the Iliad c. 700 BCE and the Hymn to Aphrodite c. 675 BCE (the translator's table, via Holmberg). Dropped: "In art from c. 450 BCE" (`gr-961`), "In Hesiod c. 700 BCE" (`gr-962`, `gr-965`: the closing lines of the Theogony are not dated by any fetched page).
+**Corrected in the old cards:** the review of Hopman's *Scylla* credited to Gainsford is by Francese, and the review credited to Louden is by Sammons (`gr-961`, `gr-964`); the delay "pattern" and the landscape of Ogygia (`gr-962`); "poets will sing for ever" of Penelope, where the ghost says the immortals will compose a song (`gr-963`); Telemachus "about twenty" (`gr-964`);
+"the only major Trojan the poem promises a future" as the card's own first sentence, now Poseidon's words (`gr-965`). **Glossary entries redrafted:** `Scylla`, `Calypso`, `Penelope`, `Telemachus`, each with its own `date` key; `Aeneas` is shared with Rome's card, contradicts nothing here and was left. **Wrong auto-links:** `water` (`gr-961`) and `Antinous` (the suitor, not Hadrian's favourite, `gr-963`).
+Checks: the audit, `check-questions`, `check-cards`, `split-cards --check` and `apply-wiki-links --check` pass; every cited URL answers 2xx (53 citations).

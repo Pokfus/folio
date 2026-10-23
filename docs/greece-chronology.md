@@ -1144,6 +1144,12 @@ means the same year, and the cards that cite such a source keep its form (`gr-28
 | Polyphemus: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-958`) |
 | Circe: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-959`) |
 | Siren: In Homer | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-960`) |
+| Scylla: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-961`) |
+| Calypso: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-962`) |
+| Penelope: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-963`) |
+| Telemachus: Odyssey composed | 750 – 700 BCE | Mary Lefkowitz, review of The Distaff Side: Representing the Female in Homer’s Odyssey ,… (`gr-964`) |
+| Aeneas: Iliad composed | c. 700 BCE | Carmine Pisano, review of Homer , by Barbara Graziosi, Bryn Mawr Classical Review 2017.1… (`gr-965`) |
+| Aeneas: Aphrodite hymn | c. 675 BCE | Ingrid Holmberg, review of The Homeric Hymns , by Susan C. Shelmerdine, Bryn Mawr Classi… (`gr-965`) |
 
 ## Cult, oracles and festivals (confirmed by B102 – B105, `gr-966` – `gr-1000`)
 
@@ -2024,5 +2030,10 @@ gr-957: 700
 gr-958: 700
 gr-959: 700
 gr-960: 700
+gr-961: 750; 700
+gr-962: 750; 700
+gr-963: 750; 700
+gr-964: 750; 700
+gr-965: 700; 675
 gr-968: 600
 ```
