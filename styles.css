@@ -4638,11 +4638,17 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
   background:color-mix(in srgb,#000 58%,transparent); opacity:0; transition:opacity .2s ease;}
 .ach-pop.show{opacity:1;}
 .ach-stage{width:min(400px,94vw); text-align:center; background:var(--card); border:1px solid var(--rule); border-radius:16px;
-  box-shadow:0 26px 64px rgba(0,0,0,.45); padding:24px 22px 18px; display:flex; flex-direction:column; align-items:center; gap:14px;}
+  box-shadow:0 26px 64px rgba(0,0,0,.45); padding:24px 22px 18px; display:flex; flex-direction:column; align-items:center; gap:14px;
+  max-height:calc(100vh - 44px); max-height:calc(100dvh - 44px);}
 .ach-kicker{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:#8A6A14;}
 body.night .ach-kicker{color:#E6C765;}
-.ach-tiles{display:flex; flex-wrap:wrap; justify-content:center; gap:12px;}
+.ach-tiles{display:flex; flex-wrap:wrap; justify-content:center; gap:12px; width:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:2px;}
+.ach-stage > *{flex-shrink:0;} .ach-stage > .ach-tiles{flex-shrink:1;}
 .ach-tile{width:170px; min-height:170px;}
+/* several badges at once (a reset account earns a run of them): smaller tiles, two to a row, the list scrolls and the button stays in view */
+.ach-tiles.many .ach-tile{width:calc(50% - 6px); min-height:118px;}
+.ach-tiles.many .ach-tile .badge-ic{font-size:calc(30px * var(--fs));}
+.ach-tiles.many .ach-tile .badge-face{padding:10px 8px;}
 .ach-tile .badge-ic{font-size:calc(44px * var(--fs));}
 .ach-tile .badge-name{font-size:calc(12px * var(--fs));}
 .ach-tile .badge-sub{font-family:var(--sans); font-size:calc(11px * var(--fs)); line-height:1.35;}
