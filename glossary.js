@@ -11078,7 +11078,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Old_Babylonian_period": ["Old Babylonian","Old Babylonian era"],
 "Hammurabi": ["Hammurapi","Hammu-rabi"],
 "Code_of_Hammurabi": ["Hammurabi's code","code of Hammurabi","laws of Hammurabi"],
-"Babylon": ["Babylonian city"],
+"Babylon": ["Babylonian city","Babylonians"],
 "Mesopotamian_religion": ["Sumerian religion","Babylonian religion"],
 "Enuma_Elish": ["Enūma Eliš","Epic of Creation","Babylonian creation epic"],
 "Babylonian_mathematics": ["Mesopotamian mathematics"],
@@ -11276,7 +11276,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tutankhamun": ["Tutankhamen"],
 "Ramesses_II": ["Ramses II","Ramesses the Great"],
 "Battle_of_Kadesh": ["Battle of Qadesh"],
-"Indus_Valley_Civilisation": ["Harappan civilisation","Harappan civilization","Indus civilisation","Indus civilization","Indus Valley Civilization"],
+"Indus_Valley_Civilisation": ["Harappan civilisation","Harappan civilization","Indus civilisation","Indus civilization","Indus Valley Civilization","Indus Valley"],
 "Mohenjo-daro": ["Mohenjo Daro","Mohenjodaro","Moenjodaro"],
 "Indus_script": ["Harappan script"],
 "Indus_urban_planning": ["Indus town planning","Harappan urban planning","Harappan town planning"],
@@ -11994,8 +11994,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Second_Italo-Ethiopian_War": ["Second Italo-Abyssinian War"],
 "Nazism": ["National Socialism","Nazi","Nazis"],
 "Adolf_Hitler": ["Hitler"],
-"Nazi_Party": ["NSDAP","National Socialist Party"],
-"Antisemitism": ["racial antisemitism"],
+"Nazi_Party": ["NSDAP","National Socialist Party","Nazi party"],
+"Antisemitism": ["racial antisemitism","antisemitic"],
 "1930_German_federal_election": ["Reichstag election of 1930"],
 "Enabling_Act_of_1933": ["Enabling Act"],
 "Führerprinzip": ["leader principle"],
@@ -14322,7 +14322,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nord_Stream_2": ["Nord Stream 2 pipeline"],
 "Finlandization": ["Finlandisation"],
 "The_Anarchical_Society": ["Anarchical Society"],
-"Non-interventionism": ["noninterventionism","non-intervention"],
+"Non-interventionism": ["noninterventionism","non-intervention","non-interventionist"],
 "Hugo_Grotius": ["Grotius","Hugo de Groot"],
 "Safe_zone": ["Safe area","Safe zones","Safe areas"],
 "International_Humanitarian_City": ["Dubai Humanitarian"],
@@ -14696,7 +14696,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Adirondack_Mountains": ["Adirondacks"],
 "Ozarks": ["Ozark Mountains","Ozark Plateau"],
 "Shang_bronze_inscriptions": ["Shang bronze inscription","Shang dynasty bronze inscriptions"],
-"Jewang_ungi": ["Chewang ungi","Chewang un'gi","Rhyming Record of Emperors and Kings"]
+"Jewang_ungi": ["Chewang ungi","Chewang un'gi","Rhyming Record of Emperors and Kings"],
+"Biennio_Rosso": ["biennio rosso"],
+"Fascism": ["Fascist","Fascists"],
+"First_Dynasty_of_Egypt": ["1st Dynasty"],
+"Second_Dynasty_of_Egypt": ["2nd Dynasty"],
+"Siberia": ["Siberian"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
