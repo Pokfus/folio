@@ -763,6 +763,17 @@ Filled batch by batch, from the source each row names.
 | Russo-Japanese War: fighting began / Tsushima / treaty signed | 8 February 1904 / 27 – 28 May 1905 / 5 September 1905 CE | Semenoff; the treaty text (`wh-847`; `wh-848` is `undatable`) |
 | Indian indenture system: first colony / abolished / Fiji cancelled | 1834 (Mauritius) / 12 March 1917 / 2 January 1920 CE | Lal; Hansard (`wh-849`) |
 | Uganda Railway: construction / reached the lake | 1896 – 1901 / 20 December 1901 CE | Jedwab; the Memoranda of 1902 (`wh-850`) |
+| First Fleet: sailed / arrived / flag raised | 13 May 1787 / 18 – 20 January 1788 (Botany Bay) / 26 January 1788 (Sydney Cove) CE | Sturgess; Phillip's *Voyage* (`wh-853`; `wh-851`, `wh-852`, `wh-855`, `wh-856`, `wh-857` and `wh-860` are `undatable`) |
+| Treaty of Waitangi: signed / proclaimed (South Island) | 6 February 1840 / 21 May 1840 CE | the Waitangi Tribunal; Buick (`wh-854`) |
+| Immigration to Argentina: mass migration (by one study) | 1850 – 1913 CE | Droller and others (`wh-858`) |
+| War of the Pacific: fought / Chile lands / Treaty of Ancón / Bolivian truce | 1879 – 1884 / 14 February 1879 / 20 October 1883 / 4 April 1884 CE | Library of Congress; FRUS (`wh-859`) |
+| Mexican Revolution: rising called / Constitution / end (Library of Congress timeline) | 20 November 1910 / 5 February 1917 / 30 November 1920 CE | the Library of Congress; the Constitution (`wh-861`) |
+| Lei Áurea: signed | 13 May 1888 CE | the Senate's news agency; Fischer and Grinberg (`wh-862`) |
+| Qajar Iran: dynasty began (Bakhash) / crowned (Sykes) / constitution signed / deposed | 1794 / 1796 / 30 December 1906 / 31 October 1925 CE | Bakhash; Sykes (`wh-863`) |
+| Chulalongkorn: born / reigned / crowned / died | 20 September 1853 / 1868 – 1910 / 1873 / 23 October 1910 CE (24 October in Wood) | *Twentieth Century Impressions of Siam*; Frankfurter; Wood (`wh-864`) |
+| Young Turk Revolution: constitution restored / parliament met | 23 – 24 July 1908 / 17 December 1908 CE | Doygun; Buxton; FRUS (`wh-865`; `wh-866`, `wh-867` and `wh-870` are `undatable`) |
+| Transatlantic telegraph cable: first completed / lasting link | 5 August 1858 / 27 July 1866 CE | Bright; Field (`wh-868`) |
+| World's fair: Great Exhibition | 1 May – 11 October 1851 CE | the Commissioners' report; the V&A (`wh-869`) |
 
 ## Chronology pins
 
@@ -1504,4 +1515,15 @@ wh-846: 25 July 1894; 1 August 1894; 17 April 1895; 23 April 1895
 wh-847: 8 February 1904; 27 – 28 May 1905; 5 September 1905
 wh-849: 1834, Mauritius; 12 March 1917; 2 January 1920
 wh-850: 1896 – 1901; 20 December 1901
+wh-853: 13 May 1787; 18 – 20 January 1788, Botany Bay; 26 January 1788, Sydney Cove
+wh-854: 6 February 1840, Waitangi; 21 May 1840
+wh-858: 1850 – 1913, by one study
+wh-859: 1879 – 1884; 14 February 1879; 20 October 1883; 4 April 1884
+wh-861: 20 November 1910; 5 February 1917; 30 November 1920
+wh-862: 13 May 1888
+wh-863: 1794 (Bakhash); 1796 (Sykes); 30 December 1906; 31 October 1925
+wh-864: 20 September 1853; 1868 – 1910; 1873; 23 October 1910
+wh-865: 23 – 24 July 1908; 17 December 1908
+wh-868: 5 August 1858; 27 July 1866
+wh-869: 1 May – 11 October 1851
 ```
