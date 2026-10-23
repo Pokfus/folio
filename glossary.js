@@ -6755,7 +6755,9 @@ window.GLOSSARY = {
 "Gulf_of_Finland": "",
 "Lake_Ladoga": "",
 "Gustavus_Adolphus": "",
-"Treaty_of_Stolbovo": ""
+"Treaty_of_Stolbovo": "",
+"Shang_bronze_inscriptions": "",
+"Jewang_ungi": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10285,7 +10287,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "René_Pleven": "1901 - 1993",
 "Peter_the_Great": "1672 - 1725",
 "Gustavus_Adolphus": "1594 - 1632",
-"Treaty_of_Stolbovo": "1617"
+"Treaty_of_Stolbovo": "1617",
+"Shang_bronze_inscriptions": "c. 1400 – 1046 BCE",
+"Jewang_ungi": "1287"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14591,7 +14595,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Moravia": ["Moravian"],
 "Names_of_Saint_Petersburg": ["Petrograd"],
 "Neva": ["Neva River","River Neva"],
-"Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"]
+"Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"],
+"Shang_bronze_inscriptions": ["Shang bronze inscription","Shang dynasty bronze inscriptions"],
+"Jewang_ungi": ["Chewang ungi","Chewang un'gi","Rhyming Record of Emperors and Kings"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21474,7 +21480,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gulf_of_Finland": ["place","geography","nature","europe","baltic sea","finland"],
 "Lake_Ladoga": ["place","geography","nature","russia","europe"],
 "Gustavus_Adolphus": ["ruler","person","history","politics","warfare","sweden"],
-"Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"]
+"Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"],
+"Shang_bronze_inscriptions": ["object","writing","history","china","bronze age"],
+"Jewang_ungi": ["text","literature","history","korea","asia"]
 });
 
 /* ============================================================================

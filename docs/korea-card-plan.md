@@ -245,8 +245,9 @@ belongs — and he is carded as **the story in one of its two thirteenth-century
 *Jewang ungi*; the *Samguk yusa* is `ko-088`), as **a historical claim** (`ko-048`) and as **a modern
 national symbol** (`ko-061`), because those are different subjects and running them together is how a
 foundation myth gets taught as a date. (`ko-047` was first written as the general concept **foundation
-myth**; that card was REMOVED on request in Sep 2026 and its line replaced, so the number is unwritten
-again and is the next card to write. The glossary term `Foundation_myth` stays, other cards linking it.)
+myth**; that card was REMOVED on request in Sep 2026 and its line replaced. The *Jewang ungi* card was
+written in Oct 2026, on request, and the deck is whole again. The glossary term `Foundation_myth` stays,
+other cards linking it.)
 
 ## History, not commemoration — and the pulls
 
@@ -569,8 +570,10 @@ origins around Dangun under colonial rule; there is an open article about exactl
 spends its one scholar on `ko-703` and says the remaining historiographical cards should name schools,
 states and projects rather than people. So `ko-047` takes the general concept, **foundation myth**, and
 `ko-048` takes **Dangun** himself, with Ch'oe Namsŏn cited and described in a clause rather than carded. (That
-`ko-047` was REMOVED on request in Sep 2026 and its line replaced with the *Jewang ungi* — see the
-sixth scope decision.)
+`ko-047` was REMOVED on request in Sep 2026 and its line replaced with the *Jewang ungi*, written Oct 2026 —
+see the sixth scope decision. The work's own text, its 1287 memorial and its colophons are open in the
+National Institute of Korean History's database, `db.history.go.kr/id/mujw_…`, which answered in Oct 2026,
+and the chronicle and gazetteer entries on its author are open in `db.itkc.or.kr/dir/node?dataId=…`.)
 **Read the collection's own scope rules before choosing an answer term**; the cap is not a style
 preference, it is what keeps a history collection from becoming a historiography one.
 

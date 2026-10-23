@@ -261,7 +261,10 @@ between them the deck asked a reader to learn a discovery story before it had to
 were for. The general card carries the subject now, discovery and all, and the slot went to a topic the
 deck did not have. It is also the collection's own instance of the rule two documents up: **Folio is a
 history site, and the story of how a thing was found is not the thing.** The retirement leaves one
-scholar unspent; do not spend it lightly.
+scholar unspent; do not spend it lightly. **The slot was filled in Oct 2026, on request** ("write the
+Shang bronze inscriptions card for CNH 70"): `cnh-070` is now *Shang bronze inscriptions*, the Shang
+counterpart of `cnh-123`, which brings the collection to 1000 cards. It names no modern scholar, so the
+spare scholar is still unspent.
 
 ## Names, dates and romanisation
 

@@ -7032,7 +7032,9 @@ window.CARD_DATA = [
 {"id":"cnh-997","num":"997","category":"Learning, Arts and Invention","question":"An early medical classic assigns lancing stones to the east, poisonous drugs to the west, moxa to the north and the nine needles of <span class=\"blank\">_____</span> to the south.","answer":"Acupuncture","answerDate":"","traditional":"針灸","hanzi":"针灸","pinyin":"zhēnjiǔ","translations":"","citation":"","answerText":"Acupuncture","tags":["practice","medicine","science","china","han dynasty","northern song"],"difficulty":2,"undatable":true},
 {"id":"cnh-998","num":"998","category":"Learning, Arts and Invention","question":"Drawing on more than 800 earlier sources, the <span class=\"blank\">_____</span> sorted 1,892 drugs into sixteen departments, from water and fire at the start to humankind at the end, and reached the throne in 1596.","answer":"Bencao Gangmu","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Preface</span><span class=\"dt-v\">1590 CE</span><span class=\"dt-k\">Presented</span><span class=\"dt-v\">1596 CE</span><span class=\"dt-k\">Author lived</span><span class=\"dt-v\">1518 – 1593 CE</span></div>","traditional":"本草綱目","hanzi":"本草纲目","pinyin":"Běncǎo Gāngmù","translations":"","citation":"","answerText":"Bencao Gangmu","tags":["text","medicine","science","china","ming","pharmacology"],"difficulty":4},
 {"id":"cnh-999","num":"999","category":"Learning, Arts and Invention","question":"Framed as a legendary ruler’s questions to his minister Qi Bo, the <span class=\"blank\">_____</span> opens by asking why people of the past lived to a hundred but those of his day fail at fifty.","answer":"Huangdi Neijing","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Composed</span><span class=\"dt-v\">c. 100 – 1 BCE</span><span class=\"dt-k\">Copy deposited</span><span class=\"dt-v\">after 26 BCE</span><span class=\"dt-k\">Tomb texts</span><span class=\"dt-v\">sealed 168 BCE</span></div>","traditional":"黃帝內經","hanzi":"黄帝内经","pinyin":"Huángdì Nèijīng","translations":"","citation":"","answerText":"Huangdi Neijing","tags":["text","medicine","science","literature","china","han dynasty"],"difficulty":3},
-{"id":"cnh-1000","num":"1000","category":"Learning, Arts and Invention","question":"The Chinese researcher <span class=\"blank\">_____</span> gathered over 2,000 prescriptions in three months in 1969 and narrowed them to 640 for a confidential national antimalarial programme.","answer":"Tu Youyou","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Born</span><span class=\"dt-v\">30 December 1930 CE</span><span class=\"dt-k\">Sample 191</span><span class=\"dt-v\">4 October 1971 CE</span><span class=\"dt-k\">Isolated</span><span class=\"dt-v\">November 1972 CE</span><span class=\"dt-k\">Nobel Prize</span><span class=\"dt-v\">2015 CE</span></div>","traditional":"屠呦呦","hanzi":"屠呦呦","pinyin":"Tú Yōuyōu","translations":"","citation":"","answerText":"Tu Youyou","tags":["person","science","medicine","china","pharmacology","nobel prize"],"difficulty":3}
+{"id":"cnh-1000","num":"1000","category":"Learning, Arts and Invention","question":"The Chinese researcher <span class=\"blank\">_____</span> gathered over 2,000 prescriptions in three months in 1969 and narrowed them to 640 for a confidential national antimalarial programme.","answer":"Tu Youyou","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Born</span><span class=\"dt-v\">30 December 1930 CE</span><span class=\"dt-k\">Sample 191</span><span class=\"dt-v\">4 October 1971 CE</span><span class=\"dt-k\">Isolated</span><span class=\"dt-v\">November 1972 CE</span><span class=\"dt-k\">Nobel Prize</span><span class=\"dt-v\">2015 CE</span></div>","traditional":"屠呦呦","hanzi":"屠呦呦","pinyin":"Tú Yōuyōu","translations":"","citation":"","answerText":"Tu Youyou","tags":["person","science","medicine","china","pharmacology","nobel prize"],"difficulty":3},
+{"id":"cnh-070","num":"70","category":"Shang","question":"Usually a clan emblem or the posthumous name of a dead ancestor, the <span class=\"blank\">_____</span> were cast into ritual vessels and seldom ran beyond a handful of characters.","answer":"Shang bronze inscriptions","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Cast</span><span class=\"dt-v\">c. 1400 – 1046 BCE</span><span class=\"dt-k\">Fu Hao's name</span><span class=\"dt-v\">on 18 of her round cauldrons</span><span class=\"dt-k\">Hou Mu Wu ding</span><span class=\"dt-v\">875 kilograms (1,929 pounds)</span></div>","traditional":"商代金文","hanzi":"商代金文","pinyin":"Shāngdài jīnwén","translations":"","citation":"","answerText":"Shang bronze inscriptions","tags":["object","writing","history","china","bronze age"],"difficulty":4},
+{"id":"ko-047","num":"47","category":"Gojoseon","question":"Presented to the Goryeo king in 1287, the <span class=\"blank\">_____</span> set out the rulers of China from Pangu and of Korea from Dangun in rhymed verse across two volumes.","answer":"Jewang ungi","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Presented</span><span class=\"dt-v\">1287</span><span class=\"dt-k\">First printed</span><span class=\"dt-v\">c. 1295 – 1297, at Jinju</span><span class=\"dt-k\">Reprinted</span><span class=\"dt-v\">1360, at Gyeongju</span><span class=\"dt-k\">Author died</span><span class=\"dt-v\">1300</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jewang ungi","tags":["text","literature","history","mythology","korea","asia"],"difficulty":5}
 ];
 
 window.COLLECTION_TREE = {
@@ -7042,7 +7044,7 @@ window.COLLECTION_TREE = {
       "title": "China",
       "hanzi": "中国",
       "blurb": "Template deck — one example card. Generate more with Claude.",
-      "total": 999,
+      "total": 1000,
       "children": [
         {
           "id": "cn-myth",
@@ -7176,7 +7178,8 @@ window.COLLECTION_TREE = {
                 "cnh-107",
                 "cnh-108",
                 "cnh-109",
-                "cnh-110"
+                "cnh-110",
+                "cnh-070"
               ]
             },
             {
@@ -16499,7 +16502,8 @@ window.COLLECTION_TREE = {
                 "ko-067",
                 "ko-068",
                 "ko-069",
-                "ko-070"
+                "ko-070",
+                "ko-047"
               ]
             },
             {
