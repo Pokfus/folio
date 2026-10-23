@@ -50959,6 +50959,26 @@
   "Q192810": {
    "label": "graben",
    "tops": []
+  },
+  "Q3143162": {
+   "label": "flooded grasslands and savannas",
+   "tops": [
+    "Q4835091",
+    "Q2221906",
+    "Q107425",
+    "Q82794"
+   ]
+  },
+  "Q1640361": {
+   "label": "climbing area",
+   "tops": []
+  },
+  "Q2459045": {
+   "label": "granite dome",
+   "tops": [
+    "Q2221906",
+    "Q54050"
+   ]
   }
  },
  "labels": {
@@ -91610,6 +91630,204 @@
    ],
    "label": "Grand Teton",
    "title": "Grand Teton"
+  },
+  "Q597281": {
+   "coord": [
+    -80.7,
+    26
+   ],
+   "classes": [
+    "Q1970725",
+    "Q3143162",
+    "Q6617741"
+   ],
+   "label": "Everglades",
+   "title": "Everglades"
+  },
+  "Q143762": {
+   "coord": [
+    -75.5288,
+    39.4326
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Delaware River",
+   "title": "Delaware River"
+  },
+  "Q925252": {
+   "coord": [
+    -119.5332,
+    37.746
+   ],
+   "classes": [
+    "Q8502",
+    "Q1640361",
+    "Q2459045"
+   ],
+   "label": "Half Dome",
+   "title": "Half Dome"
+  },
+  "Q665321": {
+   "coord": [
+    -105.0442,
+    38.8406
+   ],
+   "classes": [
+    "Q8502",
+    "Q1129474"
+   ],
+   "label": "Pikes Peak",
+   "title": "Pikes Peak"
+  },
+  "Q1360486": {
+   "coord": [
+    -83.4986,
+    35.5628
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "Great Smoky Mountains",
+   "title": "Great Smoky Mountains"
+  },
+  "Q275662": {
+   "coord": [
+    -121.6958,
+    45.3736
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358"
+   ],
+   "label": "Mount Hood",
+   "title": "Mount Hood"
+  },
+  "Q306216": {
+   "coord": [
+    -102.5,
+    43.75
+   ],
+   "classes": [
+    "Q46169",
+    "Q34918903"
+   ],
+   "label": "Badlands National Park",
+   "title": "Badlands National Park"
+  },
+  "Q615337": {
+   "coord": [
+    -82.2649,
+    35.7648
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Mitchell",
+   "title": "Mount Mitchell"
+  },
+  "Q219562": {
+   "coord": [
+    -112.17,
+    37.64
+   ],
+   "classes": [
+    "Q46169",
+    "Q34918903"
+   ],
+   "label": "Bryce Canyon National Park",
+   "title": "Bryce Canyon National Park"
+  },
+  "Q657225": {
+   "coord": [
+    -106.4453,
+    39.1178
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Elbert",
+   "title": "Mount Elbert"
+  },
+  "Q387771": {
+   "coord": [
+    -104.5033,
+    32.1906
+   ],
+   "classes": [
+    "Q35509"
+   ],
+   "label": "Lechuguilla Cave",
+   "title": "Lechuguilla Cave"
+  },
+  "Q1556007": {
+   "coord": [
+    -71.31,
+    44.27
+   ],
+   "classes": [
+    "Q46831"
+   ],
+   "label": "White Mountains",
+   "title": "White Mountains (New England)"
+  },
+  "Q1858056": {
+   "coord": [
+    -68.9213,
+    45.9044
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Katahdin",
+   "title": "Katahdin"
+  },
+  "Q156006": {
+   "coord": [
+    -96.5988,
+    46.2643
+   ],
+   "classes": [
+    "Q4022"
+   ],
+   "label": "Red River of the North",
+   "title": "Red River of the North"
+  },
+  "Q131230": {
+   "coord": [
+    -155.4681,
+    19.8206
+   ],
+   "classes": [
+    "Q8072",
+    "Q8502"
+   ],
+   "label": "Mauna Kea",
+   "title": "Mauna Kea"
+  },
+  "Q192017": {
+   "coord": [
+    -110.1,
+    36.9833
+   ],
+   "classes": [
+    "Q39816",
+    "Q749565"
+   ],
+   "label": "Monument Valley",
+   "title": "Monument Valley"
+  },
+  "Q159762": {
+   "coord": [
+    -155.6,
+    19.4833
+   ],
+   "classes": [
+    "Q212057",
+    "Q29025902"
+   ],
+   "label": "Mauna Loa",
+   "title": "Mauna Loa"
   }
  },
  "links": {
