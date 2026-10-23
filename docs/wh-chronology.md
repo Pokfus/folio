@@ -693,6 +693,16 @@ Filled batch by batch, from the source each row names.
 | Storming of the Bastille: stormed / anniversary fête / holiday law | 14 July 1789 / 14 July 1790 / 6 July 1880 CE | Funck-Brentano; the Swiss officer's account (`wh-758`) |
 | Declaration of the Rights of Man: approved / debated / royal assent / in constitution | 26 August 1789 / 20 – 26 August 1789 / 5 October 1789 / 3 September 1791 CE | Library of Congress; American Battlefield Trust (`wh-759`) |
 | Reign of Terror: Royer's call / Law of Suspects / Prairial law / 9 Thermidor | 5 September 1793 / 17 September 1793 / 10 June 1794 / 27 July 1794 CE | Linton; Hesse; the Convention's decrees (`wh-760`) |
+| Maximilien Robespierre: lived / Terror speech / Supreme Being (10 June in one article) / Prairial law | 6 May 1758 – 28 July 1794 / 5 February 1794 / 8 June 1794 / 10 June 1794 CE | Jones and Macdonald; Maitron; Mark (`wh-761`) |
+| Napoleon: lived / Brumaire / empire declared / abdications | 15 August 1769 – 5 May 1821 / 9 – 10 November 1799 / 18 May 1804 / April 1814 and 22 June 1815 CE | Broers; the Fondation Napoléon (`wh-762`) |
+| Napoleonic Wars: museum dating / Second Treaty of Paris | 1803 – 1815 / 20 November 1815 CE | Royal Museums Greenwich; National Army Museum (`wh-763`) |
+| Napoleonic Code: voted in parts / promulgated / renamed | March 1803 – March 1804 / 21 March 1804 / 1807 CE (2,281 articles) | Delage (`wh-764`) |
+| Battle of Waterloo: campaign / battle | 15 – 18 June / 18 June 1815 CE | National Army Museum (`wh-765`) |
+| Congress of Vienna: opened / Final Act | November 1814 / 9 June 1815 CE | Lentz (Fondation Napoléon) (`wh-766`) |
+| Haitian Revolution: rising / emancipation (Sonthonax) / abolition (Convention) / independence | 22 August 1791 / 29 August 1793 / 4 February 1794 / 1 January 1804 CE | Assemblée nationale; Fondation Napoléon (`wh-767`) |
+| Toussaint Louverture: lived / Santo Domingo / constitution / arrested | c. 1743 – 7 April 1803 / January 1801 / July 1801 / 7 June 1802 CE | Girard; Beard (`wh-768`) |
+| Spanish American wars of independence: Bayonne / Caracas junta / Ayacucho / Callao fell | May 1808 / 19 April 1810 / 9 December 1824 / January 1826 CE | Fisher; OpenStax (`wh-769`) |
+| Simón Bolívar: born / Angostura / Boyacá / died | 24 July 1783 / 15 February 1819 / 7 August 1819 / 17 December 1830 CE | Robertson; Rojas Castro (`wh-770`) |
 
 ## Chronology pins
 
@@ -1367,4 +1377,14 @@ wh-757: 5 May 1789; 21 September 1792; 9 November 1799
 wh-758: 14 July 1789; 14 July 1790; 6 July 1880
 wh-759: 26 August 1789; 20 – 26 August 1789; 5 October 1789; 3 September 1791
 wh-760: 5 September 1793; 17 September 1793; 10 June 1794; 27 July 1794
+wh-761: 1758; 1794
+wh-762: 1769; 1821; 1799; 1804; 1814; 1815
+wh-763: 1803 – 1815; 20 November 1815
+wh-764: March 1803 – March 1804; 21 March 1804; 2,281; 1807
+wh-765: 15; 18; 1815
+wh-766: 1814; 9; 1815
+wh-767: 22 August 1791; 29 August 1793; 4 February 1794; 1 January 1804
+wh-768: 1743; 7 April 1803; January 1801; July 1801; 7 June 1802
+wh-769: May 1808; 19 April 1810; 9 December 1824; January 1826
+wh-770: 24 July 1783; 15 February 1819; 7 August 1819; 17 December 1830
 ```
