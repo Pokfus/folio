@@ -50955,6 +50955,10 @@
   "Q522464": {
    "label": "laccolith",
    "tops": []
+  },
+  "Q192810": {
+   "label": "graben",
+   "tops": []
   }
  },
  "labels": {
@@ -91546,6 +91550,66 @@
    ],
    "label": "",
    "title": "Mount St. Helens"
+  },
+  "Q572801": {
+   "coord": [
+    -71.3035,
+    44.2708
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Washington",
+   "title": "Mount Washington"
+  },
+  "Q194057": {
+   "coord": [
+    -121.7603,
+    46.8517
+   ],
+   "classes": [
+    "Q8502",
+    "Q169358",
+    "Q1595289"
+   ],
+   "label": "Mount Rainier",
+   "title": "Mount Rainier"
+  },
+  "Q118388": {
+   "coord": [
+    -116.8653,
+    36.4569
+   ],
+   "classes": [
+    "Q8514",
+    "Q39816",
+    "Q192810",
+    "Q813672"
+   ],
+   "label": "Death Valley",
+   "title": "Death Valley"
+  },
+  "Q83497": {
+   "coord": [
+    -103.4592,
+    43.8789
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Mount Rushmore",
+   "title": "Mount Rushmore"
+  },
+  "Q2078034": {
+   "coord": [
+    -110.8024,
+    43.7412
+   ],
+   "classes": [
+    "Q8502"
+   ],
+   "label": "Grand Teton",
+   "title": "Grand Teton"
   }
  },
  "links": {

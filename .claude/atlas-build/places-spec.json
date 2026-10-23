@@ -1674,6 +1674,30 @@
    },
    "cards": 1
   },
+  "pl:q118388": {
+   "name": "Death Valley",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q118388",
+   "at": [
+    -116.8653,
+    36.4569
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Death Valley",
+   "manual": true,
+   "reason": "geo-910 Death Valley: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8514",
+     "Q39816",
+     "Q192810",
+     "Q813672"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q11907359": {
    "name": "Auximum",
    "kind": "site",
@@ -6768,6 +6792,29 @@
    },
    "cards": 0
   },
+  "pl:q194057": {
+   "name": "Mount Rainier",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q194057",
+   "at": [
+    -121.7603,
+    46.8517
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Rainier",
+   "manual": true,
+   "reason": "geo-909 Mount Rainier: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q169358",
+     "Q1595289"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q194103": {
    "name": "Aventine Hill",
    "kind": "hill",
@@ -7457,6 +7504,27 @@
     "km": 0.1
    },
    "cards": 1
+  },
+  "pl:q2078034": {
+   "name": "Grand Teton",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q2078034",
+   "at": [
+    -110.8024,
+    43.7412
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Grand Teton",
+   "manual": true,
+   "reason": "geo-921 Grand Teton: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q207808": {
    "name": "Circus Maximus",
@@ -13803,6 +13871,27 @@
    },
    "cards": 1
   },
+  "pl:q572801": {
+   "name": "Mount Washington",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q572801",
+   "at": [
+    -71.3035,
+    44.2708
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Washington",
+   "manual": true,
+   "reason": "geo-918 Mount Washington: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q5747": {
    "name": "Palmyra",
    "kind": "site",
@@ -17159,6 +17248,27 @@
     "km": 0
    },
    "cards": 2
+  },
+  "pl:q83497": {
+   "name": "Mount Rushmore",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q83497",
+   "at": [
+    -103.4592,
+    43.8789
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Rushmore",
+   "manual": true,
+   "reason": "geo-906 Mount Rushmore: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q836108": {
    "name": "Baths of Diocletian",
