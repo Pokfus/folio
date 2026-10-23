@@ -9409,7 +9409,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Atomic_bombings_of_Hiroshima_and_Nagasaki": "1945",
 "Nuclear_arms_race": "1949–1991",
 "Mutual_assured_destruction": "1965–1991",
-"Hungarian_Revolution_of_1956": "23 October – 11 November 1956",
+"Hungarian_Revolution_of_1956": "October – November 1956",
 "Berlin_Wall": "1961–1989",
 "Cuban_Revolution": "1953–1959",
 "Cuban_Missile_Crisis": "1962",

@@ -846,6 +846,15 @@ Filled batch by batch, from the source each row names.
 | Truman Doctrine: announced / Senate vote / House vote / signed | 12 March 1947 / 22 April 1947 / 9 May 1947 / 22 May 1947 CE | Truman's address; FRUS (`wh-948`) |
 | Marshall Plan: proposed / Act signed | 5 June 1947 / 3 April 1948 CE | the Marshall Foundation (`wh-949`) |
 | Berlin Blockade: blockade / airlift / Western currency | 24 June 1948 – 12 May 1949 / 26 June 1948 – 30 September 1949 / 20 June 1948 CE | Miller; the four-power communiqué, FRUS (`wh-950`) |
+| NATO: signed / in force | 4 April 1949 / 24 August 1949 CE | the North Atlantic Treaty; Truman's address (`wh-951`) |
+| Warsaw Pact: signed / military cooperation ended / protocol signed | 14 May 1955 / 25 February 1991 / 1 July 1991 CE | the treaty; Czarnecka; the protocol (`wh-952`); the protocol took effect in 1993 by one page |
+| Chinese Communist Revolution (the party's account) | 1921 – 1949 CE | the 1981 resolution (`wh-953`) |
+| Mao Zedong: born / died | 1893 / 9 September 1976 CE | Snow; *Peking Review* (`wh-954`) |
+| Korean War: began / armistice | 25 June 1950 / 27 July 1953 CE | FRUS; the Armistice Agreement (`wh-955`); 24 June in Washington |
+| Nuclear arms race: Soviet A-bomb / US thermonuclear test / FAS peak / INF signed | 29 August 1949 / 1 November 1952 / 1986 / 8 December 1987 CE | the Department of Energy history; FAS (`wh-956`) |
+| Hungarian Revolution: began / neutrality declared / Soviet attack | 23 October 1956 / 1 November 1956 / 4 November 1956 CE | the UN Special Committee; the cabinet minutes (`wh-958`) |
+| Berlin Wall: ordered / stood | 12 August 1961 / 13 August 1961 – 9 November 1989 CE | the Council of Ministers' resolution; the Berlin Wall Foundation (`wh-959`) |
+| Cuban Revolution: Moncada / landing / Batista fled / socialism (in Castro's speech) | 26 July 1953 / 2 December 1956 / 1 January 1959 / 1 May 1961 CE | Castro; Guevara; FRUS (`wh-960`) |
 
 ## Chronology pins
 
@@ -1670,4 +1679,13 @@ wh-946: 1947; 1989; 1945; 1991
 wh-948: 1947
 wh-949: 1947; 1948
 wh-950: 1948; 1949
+wh-951: 1949
+wh-952: 1955; 1991
+wh-953: 1921; 1949
+wh-954: 1893; 9 September 1976
+wh-955: 25 June 1950; 27 July 1953
+wh-956: 29 August 1949; 1 November 1952; 1986; 8 December 1987
+wh-958: 23 October 1956; 1 November 1956; 4 November 1956
+wh-959: 12 August 1961; 13 August 1961; 9 November 1989
+wh-960: 26 July 1953; 2 December 1956; 1 January 1959; 1 May 1961
 ```
