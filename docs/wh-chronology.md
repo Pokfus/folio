@@ -818,6 +818,16 @@ Filled batch by batch, from the source each row names.
 | Molotov-Ribbentrop Pact: dated / ended / declared void | 23 August 1939 / 22 June 1941 / December 1989 CE | Avalon; the German record of the talks; the Baltic Way form (`wh-917`) |
 | Invasion of Poland: German attack / Soviet attack / last surrender | 1 September 1939 / 17 September 1939 / 6 October 1939 CE | the Holocaust Museum (`wh-918`) |
 | Battle of France: attack began / Meuse crossed / Paris fell / armistice signed | 10 May 1940 / 13 May 1940 / 14 June 1940 / 22 June 1940 CE | House; Koch; the Compiègne armistice (`wh-920`) |
+| Dunkirk evacuation: Operation Dynamo | 26 May – 4 June 1940 CE | Ramsay's despatch; Ellis (`wh-921`) |
+| Battle of Britain: British dating / Eagle Day | 10 July – 31 October 1940 / 13 August 1940 CE | Collier; Boog (`wh-922`); Dowding dates it differently, see the card |
+| The Blitz: began / Coventry raid / worst raid on London | 7 September 1940 / 14 November 1940 / 10 – 11 May 1941 CE | the RAF Museum; Collier (`wh-923`) |
+| Operation Barbarossa: Directive 21 / launched / Soviet counter-attack | 18 December 1940 / 22 June 1941 / 6 December 1941 CE | Hitler's directive; the Holocaust Museum (`wh-924`) |
+| Siege of Leningrad: besieged / corridor opened | 8 September 1941 – 27 January 1944 / January 1943 CE | Bidlack; Ziemke (`wh-925`) |
+| Battle of Stalingrad: start (Soviet) / city bombed / encircled / surrendered | 17 July 1942 / 23 August 1942 / 19 – 23 November 1942 / 31 January – 2 February 1943 CE | Ziemke; Siegelbaum (`wh-926`) |
+| Second Sino-Japanese War: began / Tribunal's start / ended | 7 July 1937 / 18 September 1931 / 2 September 1945 CE | the Tokyo judgment; Reed (`wh-927`) |
+| Nanjing Massacre: city fell / tribunal's span / Kasahara's span | 13 December 1937 / 13 December 1937 – early February 1938 / 4 December 1937 – 28 March 1938 CE | the Tokyo judgment; Yoshida (`wh-928`) |
+| Attack on Pearl Harbor: fleet sailed / attacked | 26 November 1941 / 7 December 1941 CE | the Strategic Bombing Survey; Matloff (`wh-929`) |
+| Pacific War: began (Tokyo's date) / Potsdam terms accepted / surrender signed | 8 December 1941 / 14 August 1945 / 2 September 1945 CE | JACAR; Avalon (`wh-930`) |
 
 ## Chronology pins
 
@@ -1614,4 +1624,14 @@ wh-916: 1937; 1939; 1945
 wh-917: 1939; 1941; 1989
 wh-918: 1939
 wh-920: 1940
+wh-921: 26 May – 4 June 1940
+wh-922: 10 July – 31 October 1940; 13 August 1940
+wh-923: 7 September 1940; 14 November 1940; 10 – 11 May 1941
+wh-924: 18 December 1940; 22 June 1941; 6 December 1941
+wh-925: 8 September 1941 – 27 January 1944; January 1943
+wh-926: 17 July 1942; 23 August 1942; 19 – 23 November 1942; 31 January – 2 February 1943
+wh-927: 1937; 1931; 1945
+wh-928: 1937; 1938
+wh-929: 26 November 1941; 7 December 1941
+wh-930: 8 December 1941; 14 August 1945; 2 September 1945
 ```
