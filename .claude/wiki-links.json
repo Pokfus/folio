@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T16:38Z",
+ "generated": "2026-10-23T16:44Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4962,
+  "ok": 4963,
   "redirect-broader": 459,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57640,6 +57640,13 @@
    "answer": "Mount Rushmore",
    "title": "Mount Rushmore",
    "url": "https://en.wikipedia.org/wiki/Mount_Rushmore",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-921": {
+   "answer": "Grand Teton",
+   "title": "Grand Teton",
+   "url": "https://en.wikipedia.org/wiki/Grand_Teton",
    "via": "glossary",
    "status": "ok"
   }

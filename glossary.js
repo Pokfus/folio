@@ -6779,7 +6779,8 @@ window.GLOSSARY = {
 "Appalachian_Mountains": "",
 "Denali": "",
 "Mount_St._Helens": "",
-"Mount_Rushmore": ""
+"Mount_Rushmore": "",
+"Grand_Teton": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -21515,7 +21516,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Appalachian_Mountains": ["place","geography","mountain","geology","united states"],
 "Denali": ["place","geography","mountain","alaska","united states"],
 "Mount_St._Helens": ["place","geography","volcano","geology","united states"],
-"Mount_Rushmore": ["place","geography","mountain","art","united states"]
+"Mount_Rushmore": ["place","geography","mountain","art","united states"],
+"Grand_Teton": ["place","geography","mountain","wyoming","united states"]
 });
 
 /* ============================================================================
