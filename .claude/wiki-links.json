@@ -28866,10 +28866,11 @@
   },
   "wh-679": {
    "answer": "Jamestown",
-   "title": "Jamestown, Saint Helena",
-   "url": "https://en.wikipedia.org/wiki/Jamestown,_Saint_Helena",
+   "title": "Jamestown, Virginia",
+   "url": "https://en.wikipedia.org/wiki/Jamestown,_Virginia",
    "via": "glossary",
-   "status": "ok"
+   "status": "ok",
+   "manual": true
   },
   "wh-680": {
    "answer": "New England",
