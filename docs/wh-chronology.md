@@ -642,6 +642,13 @@ Filled batch by batch, from the source each row names.
 | Mehmed II: lived / reigns / took the city | 30 March 1432 – 3 May 1481 / 1444 – 1446 and 1451 – 1481 / 29 May 1453 CE | İnalcık (`wh-688`) |
 | Janissaries: founded / abolished | c. 1350 – 1400 / 17 June 1826 CE (18 June for the shelling) | Veinstein; Gül (`wh-689`) |
 | Suleiman: lived / reigned | 1494 – 1566 / 1520 – 1566 CE (1496 in another source) | Emecen (`wh-690`) |
+| Siege of Vienna (1529): besieged / also dated | 27 September – 14 October / 27 September – 15 October 1529 CE (Berman: decision to retreat 16 October) | Wien Geschichte Wiki; Royal Collection (`wh-691`) |
+| Battle of Lepanto: League formed (signed 20 May) / fought / Venice's peace | 25 May 1571 / 7 October 1571 / 18 March 1573 CE | Ágoston; Korpás; Tucker; Whelan and Baxter (`wh-692`; `wh-693` is `undatable`) |
+| Battle of Vienna (1683): siege / relief battle | 14 July – 12 September / 12 September 1683 CE (a print: 13 July) | Royal Collection Trust (`wh-694`) |
+| Safavid Empire: shah at Tabriz / Chaldiran / Isfahan taken / line ended | 1501 / 23 August 1514 / 1722 / 1736 CE | Roemer; Quinn (`wh-695`) |
+| Abbas the Great: lived / reigned (1587 in other sources) / Armenians moved / Hormuz taken | 1571 – 1629 / 1588 – 1629 / 1604 – 1605 / 1622 CE | Matthee; Library of Congress study (`wh-696`; `wh-697` and `wh-698` are `undatable`) |
+| Mughal Empire: founded / dynasty ended | 1526 / 1858 CE | Smith; Richards (`wh-699`) |
+| Babur: born / King of Ferghana / Panipat (20 April in Beveridge) / died | 14 February 1483 / June 1494 / 21 April 1526 / 26 December 1530 CE | Lane-Poole; Beveridge; the *Baburnama* (`wh-700`) |
 
 ## Chronology pins
 
@@ -1268,4 +1275,11 @@ wh-687: 1299; 1 November 1922
 wh-688: 30 March 1432; 3 May 1481; 1444; 1446; 1451; 29 May 1453
 wh-689: 1350; 1400; 1826
 wh-690: 1494; 1566; 1520
+wh-691: 27; 14; 1529; 15
+wh-692: 7; 1571; 25; 18; 1573
+wh-694: 14; 12; 1683
+wh-695: 1501; 1514; 1722; 1736
+wh-696: 1571; 1629; 1588; 1604; 1605; 1622
+wh-699: 1526; 1858
+wh-700: 14 February 1483; June 1494; 21 April 1526; 26 December 1530
 ```
