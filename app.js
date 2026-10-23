@@ -23193,8 +23193,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // toggle is a class flip with nothing to re-render. The original carries `notranslate`: it is the one
   // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
   // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
+  /* The quote moves on by itself every DQ_PERIOD (Oct 2026, on request): `_dqStep` is how many quotes past
+     the day's own pick the reader has been carried this visit. It lives outside the page's render, so a
+     re-render (a setting, a sync) keeps the quote on screen rather than snapping back to the day's first. */
+  let _dqStep = 0;
   function dailyQuoteHTML() {
-    const q = QUOTES[QUOTE_ORDER[dayIndex() % QUOTE_ORDER.length]];
+    const q = QUOTES[QUOTE_ORDER[(dayIndex() + _dqStep) % QUOTE_ORDER.length]];
     const o = q.o;
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
@@ -23216,11 +23220,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
   // two languages (a Greek line and its English rarely wrap the same), so nothing cuts and nothing jumps.
   const DQ_FADE = 170, DQ_SIZE = 240;   // keep in step with the .dq-* transitions in styles.css
+  const DQ_PERIOD = 30000;              // ms a quote stays; keep in step with --dq-period (the dash's run) in styles.css
   let _dqResize = null;   // the one listener the quote installs — render() re-enters this function
+  let _dqTimer = null;    // the one auto-advance timer
   function wireDailyQuote(root) {
-    const fig = root.querySelector(".daily-quote.dq-flip");
+    const fig = root.querySelector(".daily-quote");
     if (_dqResize) { window.removeEventListener("resize", _dqResize); _dqResize = null; }
+    if (_dqTimer) { clearTimeout(_dqTimer); _dqTimer = null; }
     if (!fig) return;
+    /* THE QUOTE MOVES ON EVERY 30 SECONDS, and the gold dash before the author's name is the countdown: it
+       shrinks from its left edge to its right (CSS, `dq-dash`) and when it is gone the next quote of the
+       running order takes the place. The timer, not the animation, decides — a reader with animations off
+       gets the same pace and a dash that stays whole. The advance is held back (and the dash restarted) while
+       the tab is hidden or the reader has words of the quote selected, so nothing is taken from under them. */
+    let swapping = false;
+    const restartDash = () => { fig.classList.toggle("dq-dash-b"); };
+    const advance = () => {
+      _dqTimer = null;
+      if (!document.body.contains(fig)) return;
+      const sel = window.getSelection && window.getSelection();
+      const holding = document.hidden || swapping || (sel && !sel.isCollapsed && sel.anchorNode && fig.contains(sel.anchorNode));
+      if (holding || QUOTE_ORDER.length < 2) { restartDash(); arm(); return; }
+      _dqStep++;
+      const done = () => {
+        if (!document.body.contains(fig)) return;
+        fig.insertAdjacentHTML("afterend", dailyQuoteHTML());
+        const next = fig.nextElementSibling;
+        fig.remove();
+        wireDailyQuote(root);
+        if (!prefersReducedMotion() && next) {
+          next.classList.add("dq-in");
+          requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("dq-in")));
+        }
+      };
+      if (prefersReducedMotion()) { done(); return; }
+      swapping = true;
+      fig.classList.add("dq-fade");   // the words on screen fade out and lift, then the next quote rises in
+      setTimeout(done, DQ_FADE);
+    };
+    const arm = () => { _dqTimer = setTimeout(advance, DQ_PERIOD); };
+    arm();
+    if (!fig.classList.contains("dq-flip")) return;   // a quote with no documented original: no flip, but it still moves on
     let busy = false;
     const show = (toOriginal) => {
       fig.querySelectorAll(".dq-live").forEach((el) => { el.hidden = toOriginal; });

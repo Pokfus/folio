@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1093", released: "2026-10-23T15:13Z" };
+window.FOLIO_VERSION = { v: "1.1094", released: "2026-10-23T15:17Z" };
 
 window.CHANGELOG = [
   {
@@ -45,6 +45,7 @@ window.CHANGELOG = [
       "On Collections, a collection's <b>decks are now a compact, edge-to-edge list</b>: one line each, without numbers or file sizes.",
       "<b>60 new glossary terms</b> now link from cards in Ancient Greece, Russia, China, the EU and Art.",
       "A few Ancient Greece, Russia and China cards gained a corrected question, dates, a Greek picture or a clearer background.",
+      "The home page's <b>daily quote</b> now changes by itself every 30 seconds; the gold dash before the author's name runs out as the countdown.",
       "<b>Collections</b> opens much faster: a collection's decks are now listed when you open it, not all at once when the page loads.",
       "Opening a chest now waits for the artefact's picture before revealing it, and swaps in another artefact if the picture is broken.",
       "A deck or collection you have not set an order for now opens in <b>By difficulty</b> instead of Ordered; you can still change it.",
@@ -67,7 +68,7 @@ window.CHANGELOG = [
       "<b>124 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan, the Mongols, California, psychology and biology, plus new aliases.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
       "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
-      "<b>200 more Ancient Greece cards are rewritten</b>, covering Alexander the Great, the Successor kingdoms, Alexandria and Hellenistic science, Greece under Rome and the first Olympians, with more sources and corrected dates.",
+      "<b>300 more Ancient Greece cards are rewritten</b>, from Alexander the Great to the Olympians, the heroes and cult, oracles and festivals, with more sources, corrected dates and new pictures.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
       "Twenty cards that shared a picture with another card now show it only on the card it illustrates best, and one Yan'an source is now an open English article.",

@@ -841,6 +841,21 @@ Keys that open the wrong sense, stopped on these cards with `<span class="ans-te
 `Asia` (`gr-867`, `gr-868`), `Poros`, `Corinth` and `Pylos` (`gr-891` – `gr-895`), `Republic` (the title, `gr-839`), `Diodorus Cronus` (`gr-840`), `Coele-Syria` (`gr-848`), and ordinary words that are also keys (`water`,
 `horse`, `marble`, `coin`, `cells`, `gold`, `pulses`, `compass`, `pastoral`, `talent`, `council`, `reconstruction`). The bare `Alexander` still has no alias.
 
+**Added by the refinement's B95–B105 (2026-10-23)**, counted the same way after `gr-901`–`gr-1000` were rewritten (abstract and Think-it-through answers; each capitalised name checked against the glossary's keys AND aliases, counted by cards of the hundred; the Roman and calendar words that only mark a date are left out).
+The myth and epic cards name the same heroes, places and ancient authors again and again, and most of the bare names open nothing: `Apollodorus` (the *Library*) is on 25 of the hundred (16 as the bare name, 9 as "Apollodorus' account") and has no key or alias, `Homeric Hymn` on 9, `Priam` on 6.
+
+| cards | term | note |
+|---|---|---|
+| 25 | Apollodorus | the mythographer of the *Library* and its *Epitome*; the author most cited after Homer on these cards; no key or alias |
+| 9 | Homeric Hymn | the bare phrase opens nothing (only `Homeric_Hymn_to_Demeter` exists; Aphrodite's hymn has no key) |
+| 6 · 5 · 5 | Priam · Nestor · Ithaca | the king of Troy, the old king of Pylos and the island; none has a key |
+| 4 | Menelaus · Amazons · Argives · Thebans | `Argives` and `Thebans` are the peoples, which `Argos` and `Mycenaean_Thebes` do not claim |
+| 3 | Aegisthus · Colchis · Creon · Cronos · Cypria · Demodocus · Diocles · Diomedes · Diodorus · Eurystheus · Gorgon · Iolcus · Lemnos · Mecone · Peleus · Pelias · Proclus · Thetis · Triptolemus | `Cronos` is the spelling of `Cronus` that Hesiod's translators print and wants an alias; `Proclus` is the summariser of the Epic Cycle |
+| 2 | Acastus · Adrastus · Aeaea · Aeetes · Agrius · Alcmena · Antisthenes · Boreas · Briseis · Cadmeans · Campania · Celeus · Cerberus · Cheiron · Chimera · Chrysaor · Chryse · Dawn · Echidna · Epimetheus · Erebus · Eriphyle · Eumolpus | the figures of the Argonaut, Theban and Trojan stories; there is no `Chiron` key for `Cheiron` |
+| 1 | the rest of the Olympian and Trojan casts | |
+
+Keys that open the wrong sense, stopped on these cards with `<span class="ans-term">` (none is fixed here, for the reason given under B53–B63): `Paris` (the capital of France; the prince is meant), `Alcmaeon` (of Croton, for the leader of the Epigoni), `Telamon` (the battle), `Lichas` (the commissioner of 412 BCE), `Tholos` (the tomb), `Antinous` (Hadrian's favourite), `Aratus` (of Sicyon), `Timaeus` (the historian), `Bronze Age` (the myth's race), `Italian`, `Egypt` (the country), `space` (Lebensraum), `reconstruction` (the American era), `pastoral`, `cult` and `cults` (the alias of the mystery-cult key), and the ordinary words `water`, `gold`, `silver`, `bronze`, `iron`, `marble`, `horse`, `coin`, `council`, `armour`, `behaviour`, `clay`, `settlement`, `barley`, `sheep`, `limestone`.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and
