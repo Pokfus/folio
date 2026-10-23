@@ -8694,7 +8694,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Jean-Jacques_Rousseau": "1712–1778",
 "John_Locke": "1632–1704",
 "Montesquieu": "1689–1755",
-"Olaudah_Equiano": "born 1745",
+"Olaudah_Equiano": "died 1797",
 "Slave_Trade_Act_1807": "1807",
 "Voltaire": "1694–1778",
 "American_Revolution": "1763 – 1789",

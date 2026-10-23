@@ -678,6 +678,12 @@ Filled batch by batch, from the source each row names.
 | Royal African Company: chartered / trade opened / dissolved | 1672 / 24 June 1698 / 1752 CE | Pettigrew (`wh-736`) |
 | Kingdom of Dahomey: founded (Law's estimate) / Allada, Whydah / French conquest | c. 1600 – 1650 / 1724, 1727 / 1892 – 1894 CE | Law; Ross (`wh-737`) |
 | Ashanti Empire: Feyiase (McCaskie) / Sagrenti War / annexed | 1701 / 1873 – 1874 / 1901 CE | McCaskie; Ponsonby (`wh-738`; `wh-739` and `wh-740` are `undatable`) |
+| Olaudah Equiano: born (his account) / freed / Narrative / died | 1745 / 10 July 1766 / 1789 / 31 March 1797 CE (baptised 9 February 1759 as from Carolina) | the *Narrative*; Hoare; Matiu; Carey (`wh-742`; `wh-741`, `wh-744`, `wh-745`, `wh-746` are `undatable`) |
+| Slave Trade Act 1807: royal assent / in force / Commons vote | 25 March / 1 May / 23 February 1807 CE | the Act; Hansard (`wh-743`) |
+| John Locke: lived / *Two Treatises* / *Essay* | 1632 – 1704 / 1689 (title page 1690) / 1689 CE | Uzgalis and Tuckness (SEP); Laslett (`wh-747`) |
+| Montesquieu: lived / *Persian Letters* / *Spirit of Laws* | 1689 – 1755 / 1721 / 1748 CE | SEP; Stewart (`wh-748`) |
+| Voltaire: lived / *English Letters* / Calas executed (museum; 9 March in his treatise) / Calas cleared | 21 November 1694 – 30 May 1778 / 1733 / 10 March 1762 / 1765 CE | Tallentyre; Musée protestant (`wh-749`) |
+| Jean-Jacques Rousseau: lived / Discourse on Inequality / *Social Contract* | 28 June 1712 – 2 July 1778 / 1755 / 1762 CE | Cole; SEP (`wh-750`) |
 
 ## Chronology pins
 
@@ -1337,4 +1343,10 @@ wh-726: 1514; 1866; 1867
 wh-736: 1672; 24 June 1698; 1752
 wh-737: 1600; 1650; 1724; 1727; 1892; 1894
 wh-738: 1701; 1873; 1874; 1901
+wh-742: 1745; 10 July 1766; 1789; 31 March 1797
+wh-743: 25 March 1807; 1 May 1807; 23 February 1807
+wh-747: 1632; 1704; 1689
+wh-748: 1689; 1755; 1721; 1748
+wh-749: 21 November 1694; 30 May 1778; 1733; 10 March 1762; 1765
+wh-750: 28 June 1712; 2 July 1778; 1755; 1762
 ```
