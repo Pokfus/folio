@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T16:23Z",
+ "generated": "2026-10-23T16:38Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4952,
+  "ok": 4962,
   "redirect-broader": 459,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57570,6 +57570,76 @@
    "answer": "Niagara Falls",
    "title": "Niagara Falls",
    "url": "https://en.wikipedia.org/wiki/Niagara_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-809": {
+   "answer": "Chesapeake Bay",
+   "title": "Chesapeake Bay",
+   "url": "https://en.wikipedia.org/wiki/Chesapeake_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-810": {
+   "answer": "Hudson River",
+   "title": "Hudson River",
+   "url": "https://en.wikipedia.org/wiki/Hudson_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-811": {
+   "answer": "Ohio River",
+   "title": "Ohio River",
+   "url": "https://en.wikipedia.org/wiki/Ohio_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-812": {
+   "answer": "Columbia River",
+   "title": "Columbia River",
+   "url": "https://en.wikipedia.org/wiki/Columbia_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-813": {
+   "answer": "Lake Erie",
+   "title": "Lake Erie",
+   "url": "https://en.wikipedia.org/wiki/Lake_Erie",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-902": {
+   "answer": "Grand Canyon",
+   "title": "Grand Canyon",
+   "url": "https://en.wikipedia.org/wiki/Grand_Canyon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-903": {
+   "answer": "Appalachian Mountains",
+   "title": "Appalachian Mountains",
+   "url": "https://en.wikipedia.org/wiki/Appalachian_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-904": {
+   "answer": "Denali",
+   "title": "Denali",
+   "url": "https://en.wikipedia.org/wiki/Denali",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-905": {
+   "answer": "Mount St. Helens",
+   "title": "Mount St. Helens",
+   "url": "https://en.wikipedia.org/wiki/Mount_St._Helens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "geo-906": {
+   "answer": "Mount Rushmore",
+   "title": "Mount Rushmore",
+   "url": "https://en.wikipedia.org/wiki/Mount_Rushmore",
    "via": "glossary",
    "status": "ok"
   }

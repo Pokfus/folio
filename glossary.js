@@ -6769,7 +6769,17 @@ window.GLOSSARY = {
 "Colorado_River": "",
 "Lake_Michigan": "",
 "Rio_Grande": "",
-"Niagara_Falls": ""
+"Niagara_Falls": "",
+"Chesapeake_Bay": "",
+"Hudson_River": "",
+"Ohio_River": "",
+"Columbia_River": "",
+"Lake_Erie": "",
+"Grand_Canyon": "",
+"Appalachian_Mountains": "",
+"Denali": "",
+"Mount_St._Helens": "",
+"Mount_Rushmore": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14596,7 +14606,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kīlauea": ["Kilauea"],
 "Devils_Tower": ["Bear Lodge"],
 "Mammoth_Cave_National_Park": ["Mammoth Cave"],
-"Rio_Grande": ["Río Bravo del Norte"]
+"Rio_Grande": ["Río Bravo del Norte"],
+"Appalachian_Mountains": ["Appalachians"],
+"Denali": ["Mount McKinley"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21493,7 +21505,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Colorado_River": ["place","geography","river","united states","mexico"],
 "Lake_Michigan": ["place","geography","lake","great lakes","united states"],
 "Rio_Grande": ["place","geography","river","united states","mexico"],
-"Niagara_Falls": ["place","geography","waterfall","united states","canada"]
+"Niagara_Falls": ["place","geography","waterfall","united states","canada"],
+"Chesapeake_Bay": ["place","geography","bay","estuary","united states"],
+"Hudson_River": ["place","geography","river","estuary","united states"],
+"Ohio_River": ["place","geography","river","united states"],
+"Columbia_River": ["place","geography","river","united states","canada"],
+"Lake_Erie": ["place","geography","lake","great lakes","united states","canada"],
+"Grand_Canyon": ["place","geography","canyon","geology","united states"],
+"Appalachian_Mountains": ["place","geography","mountain","geology","united states"],
+"Denali": ["place","geography","mountain","alaska","united states"],
+"Mount_St._Helens": ["place","geography","volcano","geology","united states"],
+"Mount_Rushmore": ["place","geography","mountain","art","united states"]
 });
 
 /* ============================================================================
