@@ -5490,7 +5490,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **`placeAnswerBubble` clamps the bubble to the ANSWER BOX, not the viewport**: `.reveal` is
   `overflow:hidden`, so a bubble that fitted the screen but not the card lost its right edge and its speaker
   on a 360 px phone; and it measures from layout (`offsetWidth`), never the rect, because the opening
-  animation scales the bubble. The bubble overlays what lies below it. The phone rule that put the block
+  animation scales the bubble. The bubble overlays what lies below it, and is SHRINK-WRAPPED: no min-width, and when a long name wraps at the cap `placeAnswerBubble` sizes it to the widest laid-out line so no empty strip is left on the right. The phone rule that put the block
   under the term with a hairline is gone.
 - **THE ANSWER'S CHINESE NAME (content; it was the MIDDLE SECTION OF THE ANSWER BOX)** (`answerNameHTML` / `wireAnswerSay`
   / `.ans-cn`; Sep 2026, on request). It was a line under the term and only on a MAP card; it is a sibling

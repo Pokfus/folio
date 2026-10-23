@@ -1917,7 +1917,7 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 .ac-ico b{font-family:var(--han); font-weight:500; font-size:calc(17px * var(--fs));}
 .ac-ico i{font-family:var(--mono); font-style:normal; font-weight:600; font-size:calc(11px * var(--fs)); margin-left:1px;}
 .ac-bubble{--ac-left:-8px; --tail:14px; position:absolute; top:calc(100% + 11px); left:var(--ac-left); z-index:40; box-sizing:border-box;
-  width:max-content; min-width:calc(170px * var(--fs)); max-width:min(320px, calc(100vw - 24px));
+  width:max-content; max-width:min(320px, calc(100vw - 24px));
   padding:12px 16px 11px; background:var(--card); border:1px solid color-mix(in srgb, var(--zh) 38%, var(--rule)); border-radius:12px;
   box-shadow:0 8px 24px rgba(0,0,0,.18); text-align:left; line-height:1.15;}
 .ac-bubble[hidden]{display:none;}

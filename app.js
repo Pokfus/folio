@@ -34779,7 +34779,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const vw = document.documentElement.clientWidth, box = wrap.closest(".answer");
     const bx = box ? box.getBoundingClientRect() : null;
     const lo = Math.max(bx ? bx.left + 6 : 0, 12), hi = Math.min(bx ? bx.right - 6 : vw, vw - 12);
-    b.style.maxWidth = Math.max(160, Math.round(hi - lo)) + "px";
+    const cap = Math.max(160, Math.round(hi - lo));
+    b.style.maxWidth = cap + "px"; b.style.width = ""; b.style.animation = "none";
+    /* SHRINK-WRAP: `max-content` is the width of the text on ONE line, so a name too long for the cap
+       wraps and leaves the bubble at the cap with a ragged empty strip on the right of every short line.
+       Measure the widest line actually laid out (the characters' lines, and the pinyin's widest line plus
+       the speaker) and size the bubble to that. */
+    if (b.offsetWidth >= cap - 1) {
+      const lineW = (el) => {
+        if (!el) return 0;
+        const rg = document.createRange(); rg.selectNodeContents(el);
+        let mn = Infinity, mx = -Infinity;
+        for (const q of rg.getClientRects()) { if (q.width) { mn = Math.min(mn, q.left); mx = Math.max(mx, q.right); } }
+        return mx > mn ? mx - mn : 0;
+      };
+      let need = Math.max(lineW(b.querySelector(".ac-t")), lineW(b.querySelector(".ac-s")));
+      const say = b.querySelector(".ac-say"), py = b.querySelector(".ac-p");
+      const sayW = say && say.offsetWidth ? say.offsetWidth + 8 : 0;
+      need = Math.max(need, lineW(py) + sayW);
+      const cs = getComputedStyle(b);
+      const chrome = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
+      if (need) b.style.width = Math.min(cap, Math.ceil(need + chrome) + 2) + "px";
+    }
     /* Measured from LAYOUT (offsetWidth, the wrap's own rect), never the bubble's rect: its opening
        animation scales it, and a rect read mid-animation is 4% short of where it will rest. */
     const wl = wrap.getBoundingClientRect().left, bw = b.offsetWidth, bl = wl + b.offsetLeft;
@@ -34789,6 +34810,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (dx) b.style.left = "calc(var(--ac-left) + " + Math.round(dx) + "px)";
     const br = btn.getBoundingClientRect();
     b.style.setProperty("--tail", Math.max(12, Math.min(bw - 24, br.left + br.width / 2 - (bl + Math.round(dx)) - 6)) + "px");
+    b.style.animation = "";
   }
   function setAnswerBubble(wrap, open) {
     const b = wrap.querySelector(".ac-bubble"), btn = wrap.querySelector(".ac-btn");
