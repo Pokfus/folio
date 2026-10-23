@@ -635,7 +635,7 @@ actually did anything.
 
 ### 17. A deck pretest that decides where to start
 
-> **SHIPPED (Sep 2026), gated on the difficulty order (on request).** The XP trap this entry names was avoided exactly as written — `S.pretest` rather than `S.cards` — and that is the assertion `test-learning.js` marks with three stars. The matcher forgives one slip INCLUDING a transposition, which plain edit distance counts as two.
+> **REMOVED (Oct 2026, on request): a reader met a difficulty-3 question before their first card and asked for the ranking alone; the difficulty order now deals the deck's easiest card first with nothing asked before it.** It had SHIPPED in Sep 2026, gated on the difficulty order (on request). The XP trap this entry names was avoided exactly as written — `S.pretest` rather than `S.cards` — and that is the assertion `test-learning.js` marks with three stars. The matcher forgives one slip INCLUDING a transposition, which plain edit distance counts as two.
 
 **Finding.** Pretesting works even on material not yet studied, and separately, overconfident readers
 waste time on what they already know. One screen does both.
@@ -994,7 +994,7 @@ card's answer but IS another card's, in the same collection, is a confusion rath
 `S.confused["<idA>|<idB>"]` (ids sorted), pruned at `CONFUSE_CAP`, surfaced on the home page at
 `CONFUSE_MIN` (2) and drilled through the new `{type:"ids"}` scope. **It is the only personal thing on
 that page** — every other figure would be the same for anybody with the same decks.
-· **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS.** The pretesting effect: being tested on
+· **`PAGES.pretest` — TWELVE QUESTIONS BEFORE A DECK BEGINS (REMOVED Oct 2026, on request; see §17).** The pretesting effect: being tested on
 material not yet studied improves learning of it even though nearly every answer is wrong, provided the
 answers follow — so **no feedback until the end**. **Offered only where the deck is dealt BY DIFFICULTY**
 (on request), which is not arbitrary: that is the only order that sorts the new pile by a property of

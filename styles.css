@@ -8999,7 +8999,7 @@ body[data-theme="carnelian"].night .collection-deco{
 }
 
 /* ==========================================================================================
-   THE FIRST-SESSION ORDER PICKER, AND THE DECK PRETEST (Sep 2026, on request)
+   THE FIRST-SESSION ORDER PICKER (Sep 2026, on request; its deck pretest was removed Oct 2026)
    ==========================================================================================
    Two pages that stand between pressing Study and studying. Both are read ONCE per deck and then
    never again, which decides how they are set: long lines, generous leading, nothing clever. A page
@@ -9031,20 +9031,6 @@ body[data-theme="carnelian"].night .collection-deco{
 .op-foot p{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); line-height:1.62; margin:0; max-width:70ch;}
 .op-footacts{display:flex; gap:10px; flex-wrap:wrap;}
 
-/* the pretest — one question at a time, and no feedback until the end */
-.pt-intro,.pt-q,.pt-res{background:var(--paper-2); border:1px solid var(--rule); border-radius:14px; padding:20px;}
-.pt-intro p,.pt-res p{font-size:calc(14.5px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:0 0 12px; max-width:68ch;}
-.pt-acts{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
-.pt-bar{height:4px; border-radius:999px; background:var(--rule); overflow:hidden; margin-bottom:18px;}
-.pt-bar i{display:block; height:100%; background:var(--indigo); transition:width .22s var(--ease);}
-.pt-qtext{font-family:var(--display); font-size:calc(19px * var(--fs)); line-height:1.62; color:var(--ink);}
-.pt-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); line-height:1.5; margin:14px 0 0;}
-.pt-list{display:flex; flex-direction:column; margin:16px 0 0; border-top:1px solid var(--rule);}
-.pt-row{display:grid; grid-template-columns:20px 1fr auto; gap:10px; align-items:baseline;
-  padding:8px 0; border-bottom:1px solid var(--rule); font-size:calc(13.5px * var(--fs));}
-.pt-mark{color:var(--ink-faint); text-align:center;}
-.pt-row.ok .pt-mark{color:var(--good);}
-.pt-ans{color:var(--ink); font-weight:600;}
 .pt-you{color:var(--ink-faint); font-style:italic;}
 
 /* ANSWER BEFORE REVEALING (see deckAttempt in app.js) — the held-back Reveal, its escape hatch and the
