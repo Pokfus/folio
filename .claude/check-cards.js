@@ -265,7 +265,8 @@ const ANCIENT = /^(aurelius victor|shapur i|dio chrysostom|aelius aristides|phil
 const INSTITUTIONAL = new Set([
   "world bank", "u.s. census bureau", "united nations statistics division", "un general assembly",
   "un security council", "office of the historian", "united states department of state",
-  "national park service", "historic american buildings survey", "smithsonian national museum of natural history",
+  "national park service", "u.s. geological survey", "historic american buildings survey",   // the USGS, like the NPS, is an agency of separate pages (the physical geography decks, Oct 2026)
+  "smithsonian national museum of natural history",
   "united states holocaust memorial museum", "national diet library", "american school of classical studies at athens",
   "institute for the study of the ancient world", "digital egypt for universities",
   "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
