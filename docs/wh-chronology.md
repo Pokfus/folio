@@ -720,6 +720,87 @@ Filled batch by batch, from the source each row names.
 | Second Industrial Revolution: Mokyr / Homburg / phrase printed | 1870 – 1914 / c. 1870 – 1900 / 1915 CE | Mokyr; Homburg; Geddes (`wh-796`; `wh-797` is `undatable`) |
 | Electrical telegraph: Shilling's demonstration / Gauss and Weber / joint patent / Morse's line | 1832 / May 1833 / June 1837 / 24 May 1844 CE | IEEE; Göttingen University; Distant Writing; US Senate (`wh-798`; `wh-799` is `undatable`) |
 | Suez Canal: conceded / company formed / works began / opened | 30 November 1854 / 15 December 1858 / 25 April 1859 / 17 November 1869 CE (shares sold 25 November 1875) | Prat dit Hauret; Hefler (`wh-800`) |
+| Unification of Italy: war began / proclaimed / Venetia ceded / Rome taken | 26 April 1859 / 17 March 1861 / 3 October 1866 / 20 September 1870 CE | King; Hertslet; the Camera dei deputati (`wh-802`; `wh-801` is `undatable`) |
+| Giuseppe Garibaldi: born / Marsala landing / died | 4 July 1807 / 11 May 1860 / 2 June 1882 CE | Monsagrati (Treccani) (`wh-803`) |
+| Unification of Germany: span / proclaimed | 1866 – 1871 / 18 January 1871 CE | German History in Documents and Images; Versailles (`wh-804`) |
+| Otto von Bismarck: born / premier / chancellor / died | 1 April 1815 / 1862 / 1871 – 1890 / 30 July 1898 CE | LeMO; Headlam (`wh-805`) |
+| Franco-Prussian War: declared / Sedan / armistice / Frankfurt treaty | 19 July 1870 / 1 September 1870 / 28 January 1871 / 10 May 1871 CE | Moltke; Hertslet; LeMO (`wh-806`) |
+| Austria-Hungary: in existence | 1867 – 1918 CE | Solsten (Library of Congress) (`wh-807`) |
+| Tanzimat: edict read / Altınay's span | 3 November 1839 / 1839 – 1876 CE (Aytemiz ends a first stage in 1856 and follows the practices to 1924) | Engelhardt; Aytemiz; Altınay (`wh-808`) |
+| Crimean War: Ottoman declaration / British and French declaration / siege / Treaty of Paris | October 1853 / 28 March 1854 / October 1854 – September 1855 / 30 March 1856 CE | Kinglake; Sorokina; National Army Museum (`wh-809`; `wh-810` is `undatable`) |
+| Emancipation reform of 1861: signed / proclaimed | 19 February (Old Style) = 3 March 1861 / 5 March (Old Style) = 17 March 1861 CE | Wallace; Kropotkin; the manifesto (`wh-811`) |
+| American Civil War: began / Lee surrenders / Smith surrenders | 12 April 1861 / 9 April 1865 / 2 June 1865 CE | the Freedmen and Southern Society Project; National Park Service; Texas State Library (`wh-812`) |
+| Abraham Lincoln: lived / in office | 12 February 1809 – 15 April 1865 / 4 March 1861 – 15 April 1865 CE | National Park Service; the Freedmen and Southern Society Project (`wh-813`) |
+| Emancipation Proclamation: preliminary / issued | 22 September 1862 / 1 January 1863 CE | the National Archives; the Freedmen and Southern Society Project (`wh-814`) |
+| Reconstruction era: Foner's dating / National Park Service span / 14th Amendment / 15th Amendment | 1865 – 1877 / 1861 – 1900 / 9 July 1868 / 3 February 1870 CE | Foner; National Archives; House Office of the Historian (`wh-815`) |
+| Manifest destiny: first use in print (Pratt) / Oregon use | July – August 1845 / 27 December 1845 CE | Pratt (`wh-816`) |
+| Trail of Tears: Choctaw removal / treaty signed / Cherokee removal | 1831 – 1832 / 29 December 1835 / May 1838 – March 1839 CE | Oklahoma Historical Society; the treaty text; National Park Service (`wh-817`) |
+| Mary Wollstonecraft: lived / *Rights of Men* / *Rights of Woman* | 27 April 1759 – 10 September 1797 / 1790 / 1792 CE | Stanford Encyclopedia; Godwin (`wh-819`; `wh-818` and `wh-820` are `undatable`) |
+| Germ theory of disease | none: `undatable`; Pasteur 1878 paper, Lister 1867, Koch 1876 and 24 March 1882 are given in the prose by their owners | Cavaillon and Legout; Lister; Koch (`wh-821`) |
+| Charles Darwin: born / *Beagle* voyage / *Origin* published / died | 12 February 1809 / 27 December 1831 – 2 October 1836 / 24 November 1859 / 19 April 1882 CE | Westminster Abbey; the Darwin Correspondence Project; Sloan (`wh-822`) |
+| On the Origin of Species: published / sixth edition | 24 November 1859 (offered to the trade 22 November) / February 1872 CE | Freeman; the Darwin Correspondence Project (`wh-823`) |
+| Compulsory education | none: `undatable`; Prussia 12 August 1763, Massachusetts 1852, England 1870 / 1876 / 1880, France 28 March 1882 are in the prose | the decree; Katz; the statutes (`wh-824`) |
+| Penny press: first issue of the *Sun* | 3 September 1833 CE | O'Brien (`wh-825`) |
+| New Imperialism | none: `undatable`; the Scramble from the late 1870s (Reid), Hobson's 1884 – 1900 peak (via Lenin) | Reid; Lenin (`wh-826`) |
+| Scramble for Africa: period | c. 1880 – 1914 CE | Reid (`wh-827`) |
+| Berlin Conference: opened / Act signed | 15 November 1884 / 26 February 1885 CE | the German Foreign Office archive; Hertslet (`wh-828`) |
+| Congo Free State: existed | 1 July 1885 – 15 November 1908 CE | Keith (`wh-829`) |
+| Cecil Rhodes: born / Cape premier / died | 5 July 1853 / 17 July 1890 – January 1896 / 26 March 1902 CE | Williams; Stead (`wh-830`) |
+| Anglo-Zulu War: main fighting / ultimatum / partition | 11 January – 4 July 1879 / 11 December 1878 / September 1879 CE | Colenso; South African History Online (`wh-831`) |
+| Second Boer War: fought | 11 October 1899 – 31 May 1902 CE | Pretorius (`wh-832`) |
+| Battle of Adwa: fought / Ethiopian date | 1 March 1896 / 23 Yekatit 1888 CE | Sohier (Geneva museum text) (`wh-833`) |
+| Herero and Nama genocide: committed / German statement | 1904 – 1908 / 28 May 2021 CE (the order 2 October, withdrawn 9 December 1904) | the German Foreign Office; the Bundestag research service (`wh-834`) |
+| Maji Maji Rebellion: fought | July 1905 – August 1907 CE | Wright (`wh-835`) |
+| Battle of Plassey: fought | 23 June 1757 CE | National Army Museum (`wh-836`) |
+| British Raj: proclamation / Empress of India / dominions | 1 November 1858 / 1 January 1877 / 15 August 1947 CE | Keith; Library of Congress (`wh-837`) |
+| Indian Rebellion of 1857: began / Delhi retaken / Gwalior retaken | 10 May 1857 / 14 – 21 September 1857 / 19 June 1858 CE | National Army Museum (`wh-838`) |
+| Indian National Congress: founded / Surat split / Lucknow scheme | 28 December 1885 / 27 December 1907 / 29 December 1916 CE | Besant; Nevinson; the scheme's title (`wh-839`) |
+| Opium Wars: first / second / Nanjing treaty | 1839 – 1842 / 1856 – 1860 / 29 August 1842 CE | Perdue; Perdue and Sebring (`wh-840`) |
+| Taiping Rebellion: fought / Nanjing taken / Nanjing retaken | 1851 – 1864 / 19 March 1853 / 19 July 1864 CE | Morse; Orlandi (`wh-842`; `wh-841` is `undatable`) |
+| Boxer Rebellion: rising (Klein) / legations siege / Protocol signed | 1899 – 1901 (1898 in other sources) / 20 June – 14 August 1900 / 7 September 1901 CE | Klein; Perdue and Sebring; the Protocol (`wh-843`) |
+| Meiji Restoration: restoration / Boshin War / Charter Oath / domains ended | 3 January 1868 / 1868 – June 1869 / April 1868 (6 or 7 April by source) / 29 August 1871 CE | Wachutka; Nippon.com; Walker (`wh-844`; `wh-845` is `undatable`) |
+| First Sino-Japanese War: naval clash / war declared / treaty signed / powers' note | 25 July 1894 / 1 August 1894 / 17 April 1895 / 23 April 1895 CE | Morse; Zachmann (`wh-846`) |
+| Russo-Japanese War: fighting began / Tsushima / treaty signed | 8 February 1904 / 27 – 28 May 1905 / 5 September 1905 CE | Semenoff; the treaty text (`wh-847`; `wh-848` is `undatable`) |
+| Indian indenture system: first colony / abolished / Fiji cancelled | 1834 (Mauritius) / 12 March 1917 / 2 January 1920 CE | Lal; Hansard (`wh-849`) |
+| Uganda Railway: construction / reached the lake | 1896 – 1901 / 20 December 1901 CE | Jedwab; the Memoranda of 1902 (`wh-850`) |
+| First Fleet: sailed / arrived / flag raised | 13 May 1787 / 18 – 20 January 1788 (Botany Bay) / 26 January 1788 (Sydney Cove) CE | Sturgess; Phillip's *Voyage* (`wh-853`; `wh-851`, `wh-852`, `wh-855`, `wh-856`, `wh-857` and `wh-860` are `undatable`) |
+| Treaty of Waitangi: signed / proclaimed (South Island) | 6 February 1840 / 21 May 1840 CE | the Waitangi Tribunal; Buick (`wh-854`) |
+| Immigration to Argentina: mass migration (by one study) | 1850 – 1913 CE | Droller and others (`wh-858`) |
+| War of the Pacific: fought / Chile lands / Treaty of Ancón / Bolivian truce | 1879 – 1884 / 14 February 1879 / 20 October 1883 / 4 April 1884 CE | Library of Congress; FRUS (`wh-859`) |
+| Mexican Revolution: rising called / Constitution / end (Library of Congress timeline) | 20 November 1910 / 5 February 1917 / 30 November 1920 CE | the Library of Congress; the Constitution (`wh-861`) |
+| Lei Áurea: signed | 13 May 1888 CE | the Senate's news agency; Fischer and Grinberg (`wh-862`) |
+| Qajar Iran: dynasty began (Bakhash) / crowned (Sykes) / constitution signed / deposed | 1794 / 1796 / 30 December 1906 / 31 October 1925 CE | Bakhash; Sykes (`wh-863`) |
+| Chulalongkorn: born / reigned / crowned / died | 20 September 1853 / 1868 – 1910 / 1873 / 23 October 1910 CE (24 October in Wood) | *Twentieth Century Impressions of Siam*; Frankfurter; Wood (`wh-864`) |
+| Young Turk Revolution: constitution restored / parliament met | 23 – 24 July 1908 / 17 December 1908 CE | Doygun; Buxton; FRUS (`wh-865`; `wh-866`, `wh-867` and `wh-870` are `undatable`) |
+| Transatlantic telegraph cable: first completed / lasting link | 5 August 1858 / 27 July 1866 CE | Bright; Field (`wh-868`) |
+| World's fair: Great Exhibition | 1 May – 11 October 1851 CE | the Commissioners' report; the V&A (`wh-869`) |
+| First World War: first declared / armistice / treaty signed | 28 July 1914 / 11 November 1918 / 28 June 1919 CE | the Library of Congress; Powell (`wh-871`) |
+| Triple Entente: completed | 31 August 1907 CE (1904 as the first step in one reference) | the Foreign Office historians; Keleher and Imholte (`wh-872`) |
+| Assassination of Archduke Franz Ferdinand | 28 June 1914 CE | Fay; Myers (`wh-873`) |
+| July Crisis: span | 28 June – 4 August 1914 CE | Fata; Otte (`wh-874`) |
+| Schlieffen Plan: memorandum dated / finished (O'Neil) | December 1905 / February 1906 CE | the memorandum (GHDI); O'Neil (`wh-875`; `wh-877` is `undatable`) |
+| Western Front: fought / Race to the Sea / Hundred Days | August 1914 – 11 November 1918 / late September – November 1914 / 8 August – 11 November 1918 CE | National Army Museum; Canadian War Museum (`wh-876`) |
+| First Battle of the Marne: National Army Museum / Musée de l'Armée | 5 – 12 September 1914 / 6 – 11 September 1914 CE | the two museums (`wh-878`) |
+| Battle of Verdun: fought | 21 February – 18 December 1916 CE | the Mémorial de Verdun (`wh-879`) |
+| Battle of the Somme: fought | 1 July – 18 November 1916 CE | Canadian War Museum (`wh-880`) |
+| Gallipoli campaign: naval attack / landings / evacuation | 18 March 1915 / 25 April 1915 / 19 December 1915 – 9 January 1916 CE | National Army Museum; the Gallipoli Association (`wh-881`) |
+| Eastern Front: began / Treaty of Brest-Litovsk signed | August 1914 / 3 March 1918 CE | Walsh; the treaty text (`wh-882`) |
+| Unrestricted submarine warfare: war zone proclaimed / resumption | 4 February 1915 (effective 18 February) / 1 February 1917 (announced 31 January) CE | FRUS; the Bernstorff note (`wh-883`) |
+| Chemical warfare: first large gas attack | 22 April 1915 CE | the OPCW; the Canadian War Museum (`wh-884`; `wh-885` and `wh-886` are `undatable`) |
+| Armenian genocide: arrests / deportations | 24 April 1915 / 1915 – 1916 CE | the US Holocaust Memorial Museum; Kévorkian (`wh-887`) |
+| Arab Revolt: began (Erickson) / began (Library of Congress) / Aqaba / Damascus | 10 June 1916 / 5 June 1916 / 6 July 1917 / 1 October 1918 CE | Erickson; the Library of Congress; the Australian War Memorial (`wh-888`) |
+| Sykes–Picot Agreement: concluded / made public | 16 May 1916 / November 1917 CE | Loevy (`wh-889`) |
+| Balfour Declaration: issued | 2 November 1917 CE | the text; the Peel Commission (`wh-890`) |
+| American entry into the First World War: war message / war declared / draft law | 2 April 1917 / 6 April 1917 / 18 May 1917 CE | the National Archives; Wilson's address (`wh-891`) |
+| Armistice of 11 November 1918: talks began / signed (text) / signed (UK blog) / ceasefire | 8 November 1918 / 11 November 1918, 5 a.m. / 11 November 1918, 5:10 a.m. / 11 November 1918, 11 a.m. CE | FRUS; House of Commons; Finn (`wh-892`) |
+| Treaty of Versailles: signed / in force | 28 June 1919 / 10 January 1920 CE | the German Historical Museum (`wh-893`) |
+| League of Nations: came into being / dissolved | 10 January 1920 / 19 April 1946 CE | the UN Office at Geneva; the National WWII Museum (`wh-894`) |
+| Spanish flu: pandemic / deadliest wave | 1918 – 1919 / September – November 1918 CE | Taubenberger and Morens (`wh-895`) |
+| Russian Revolution: tsar abdicated / October rising / Assembly closed | 2 March 1917 (Old Style) = 15 March / 25 October 1917 (Old Style) = 7 November / 6 January 1918 (Old Style) = 19 January CE | Curtis (Library of Congress); Nicholas II's manifesto; Lenin's decree (`wh-896`) |
+| Vladimir Lenin: lived | 22 April 1870 – 21 January 1924 CE | Reshetar (`wh-897`) |
+| Bolsheviks: split / Prague break / renamed | 1903 / January 1912 / March 1918 CE | Bilinsky and Holubnychy; Lenin (`wh-898`) |
+| Russian Civil War: fought (Werth) / Czech clashes / evacuation order / Kronstadt | 1918 – 1921 / May 1918 / 13 November 1920 / 18 March 1921 CE | Werth; the US consuls' reports (`wh-899`) |
+| Soviet Union: founded / constitution / dissolved | 30 December 1922 / 31 January 1924 / 26 December 1991 CE | the Fundamental Law; Siegelbaum; the *Encyclopedia of Ukraine* (`wh-900`) |
 
 ## Chronology pins
 
@@ -1421,4 +1502,82 @@ wh-794: 29 November – 8 December 1847; February 1848; 1850
 wh-796: 1870; 1914; 1900; 1915
 wh-798: 1832; May 1833; June 1837; 24 May 1844
 wh-800: 30 November 1854; 15 December 1858; 25 April 1859; 17 November 1869
+wh-802: 26 April 1859; 17 March 1861; 3 October 1866; 20 September 1870
+wh-803: 4 July 1807; 11 May 1860; 2 June 1882
+wh-804: 1866 – 1871; 18 January 1871
+wh-805: 1 April 1815; 1862; 1871 – 1890; 30 July 1898
+wh-806: 19 July 1870; 1 September 1870; 28 January 1871; 10 May 1871
+wh-807: 1867 – 1918
+wh-808: 3 November 1839; 1839 – 1876
+wh-809: October 1853; 28 March 1854; October 1854 – September 1855; 30 March 1856
+wh-811: 19 February 1861 Old Style, 3 March New Style; 5 March 1861 Old Style, 17 March New Style
+wh-812: 12 April 1861; 9 April 1865; 2 June 1865
+wh-813: 12 February 1809 – 15 April 1865; 4 March 1861 – 15 April 1865
+wh-814: 22 September 1862; 1 January 1863
+wh-815: 1865 – 1877; 1861 – 1900; 9 July 1868; 3 February 1870
+wh-816: July – August 1845; 27 December 1845
+wh-817: 1831 – 1832; 29 December 1835; May 1838 – March 1839
+wh-819: 27 April 1759 – 10 September 1797; 1790; 1792
+wh-822: 12 February 1809, Shrewsbury; 27 December 1831 – 2 October 1836; 24 November 1859; 19 April 1882, Down House
+wh-823: 24 November 1859; February 1872
+wh-825: 3 September 1833, New York Sun
+wh-827: c. 1880 – 1914
+wh-828: 15 November 1884; 26 February 1885
+wh-829: 1 July 1885 – 15 November 1908
+wh-830: 5 July 1853; 17 July 1890 – January 1896; 26 March 1902
+wh-831: 11 January – 4 July 1879; 11 December 1878; September 1879
+wh-832: 11 October 1899 – 31 May 1902
+wh-833: 1 March 1896; 23 Yekatit 1888
+wh-834: 1904 – 1908; 28 May 2021
+wh-835: July 1905 – August 1907
+wh-836: 23 June 1757
+wh-837: 1 November 1858; 1 January 1877; 15 August 1947
+wh-838: 10 May 1857; 14 – 21 September 1857; 19 June 1858
+wh-839: 28 December 1885; 27 December 1907; 29 December 1916
+wh-840: 1839 – 1842; 1856 – 1860; 29 August 1842
+wh-842: 1851 – 1864; 19 March 1853; 19 July 1864
+wh-843: 1899 – 1901; 20 June – 14 August 1900; 7 September 1901
+wh-844: 3 January 1868; 1868 – June 1869; April 1868; 29 August 1871
+wh-846: 25 July 1894; 1 August 1894; 17 April 1895; 23 April 1895
+wh-847: 8 February 1904; 27 – 28 May 1905; 5 September 1905
+wh-849: 1834, Mauritius; 12 March 1917; 2 January 1920
+wh-850: 1896 – 1901; 20 December 1901
+wh-853: 13 May 1787; 18 – 20 January 1788, Botany Bay; 26 January 1788, Sydney Cove
+wh-854: 6 February 1840, Waitangi; 21 May 1840
+wh-858: 1850 – 1913, by one study
+wh-859: 1879 – 1884; 14 February 1879; 20 October 1883; 4 April 1884
+wh-861: 20 November 1910; 5 February 1917; 30 November 1920
+wh-862: 13 May 1888
+wh-863: 1794 (Bakhash); 1796 (Sykes); 30 December 1906; 31 October 1925
+wh-864: 20 September 1853; 1868 – 1910; 1873; 23 October 1910
+wh-865: 23 – 24 July 1908; 17 December 1908
+wh-868: 5 August 1858; 27 July 1866
+wh-869: 1 May – 11 October 1851
+wh-871: 28 July 1914; 11 November 1918; 28 June 1919
+wh-872: 31 August 1907
+wh-873: 28 June 1914
+wh-874: 28 June – 4 August 1914
+wh-875: December 1905; February 1906
+wh-876: August 1914 – 11 November 1918; late September – November 1914; 8 August – 11 November 1918
+wh-878: 5 – 12 September 1914; 6 – 11 September 1914
+wh-879: 21 February – 18 December 1916
+wh-880: 1 July – 18 November 1916
+wh-881: 18 March 1915; 25 April 1915; 19 December 1915 – 9 January 1916
+wh-882: August 1914; 3 March 1918
+wh-883: 4 February 1915; 1 February 1917
+wh-884: 22 April 1915
+wh-887: 24 April 1915; 1915 – 1916
+wh-888: 10 June 1916; 5 June 1916; 6 July 1917; 1 October 1918
+wh-889: 16 May 1916; November 1917
+wh-890: 2 November 1917
+wh-891: 2 April 1917; 6 April 1917; 18 May 1917
+wh-892: 8 November 1918; 11 November 1918, 5 a.m.; 11 November 1918, 5:10 a.m.; 11 November 1918, 11 a.m.
+wh-893: 28 June 1919; 10 January 1920
+wh-894: 10 January 1920; 19 April 1946
+wh-895: 1918 – 1919; September – November 1918
+wh-896: 2 March 1917 Old Style, 15 March New Style; 25 October 1917 Old Style, 7 November New Style; 6 January 1918 Old Style, 19 January New Style
+wh-897: 22 April 1870 – 21 January 1924
+wh-898: 1903; January 1912; March 1918
+wh-899: 1918 – 1921; May 1918; 13 November 1920; 18 March 1921
+wh-900: 30 December 1922; 31 January 1924; 26 December 1991
 ```
