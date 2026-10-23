@@ -23220,7 +23220,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
   // two languages (a Greek line and its English rarely wrap the same), so nothing cuts and nothing jumps.
   const DQ_FADE = 170, DQ_SIZE = 240;   // keep in step with the .dq-* transitions in styles.css
-  const DQ_PERIOD = 30000;              // ms a quote stays; keep in step with --dq-period (the dash's run) in styles.css
+  const DQ_PERIOD = 60000;              // ms a quote stays; keep in step with --dq-period (the dash's run) in styles.css
   let _dqResize = null;   // the one listener the quote installs — render() re-enters this function
   let _dqTimer = null;    // the one auto-advance timer
   function wireDailyQuote(root) {
@@ -23228,7 +23228,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (_dqResize) { window.removeEventListener("resize", _dqResize); _dqResize = null; }
     if (_dqTimer) { clearTimeout(_dqTimer); _dqTimer = null; }
     if (!fig) return;
-    /* THE QUOTE MOVES ON EVERY 30 SECONDS, and the gold dash before the author's name is the countdown: it
+    /* THE QUOTE MOVES ON EVERY MINUTE, and the gold dash before the author's name is the countdown: it
        shrinks from its left edge to its right (CSS, `dq-dash`) and when it is gone the next quote of the
        running order takes the place. The timer, not the animation, decides — a reader with animations off
        gets the same pace and a dash that stays whole. The advance is held back (and the dash restarted) while
@@ -36525,7 +36525,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ol.style.height = (H + 24) + "px";
     tlTicks(win.a, win.b, H * 1.6).forEach((k) => {
       const y = Y(k.t);
-      ol.appendChild(tlDeco("tl-hair", "left:" + L + "px;top:" + y.toFixed(1) + "px"));
+      ol.appendChild(tlDeco("tl-hair", "left:" + L + "px;width:" + (10 + n * laneW) + "px;top:" + y.toFixed(1) + "px"));   // a short tick across the bars' lanes only, never out under the names (on request)
       ol.appendChild(tlDeco("tl-ytick", "width:" + (L - 10) + "px;top:" + (y - 7).toFixed(1) + "px", k.label));
     });
     ol.appendChild(tlDeco("tl-spine", "left:" + L + "px;height:" + H + "px"));

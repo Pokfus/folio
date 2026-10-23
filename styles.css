@@ -3781,8 +3781,8 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .daily-quote blockquote::before{content:"\201C"; display:block; font-family:var(--display); font-style:normal; font-size:calc(34px * var(--fs)); line-height:.4; color:var(--zh); opacity:.75; margin-bottom:8px;}
 .daily-quote figcaption{margin-top:9px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
 .daily-quote figcaption::before{content:""; display:inline-block; width:16px; height:1.5px; background:#C39A2E; vertical-align:3px; margin-right:8px;
-  transform-origin:100% 50%; animation:dq-dash 30s linear forwards;}
-/* the dash is the countdown to the next quote: it runs out from its left edge to its right over 30 s
+  transform-origin:100% 50%; animation:dq-dash 60s linear forwards;}
+/* the dash is the countdown to the next quote: it runs out from its left edge to its right over 60 s
    (DQ_PERIOD in app.js). Two identical keyframe sets, swapped by .dq-dash-b, restart it without
    re-rendering — used when the advance is held back (hidden tab, a selection). */
 @keyframes dq-dash{from{transform:scaleX(1);} to{transform:scaleX(0);}}
@@ -9363,16 +9363,15 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
 .tl-mark.clip-v{border-bottom-left-radius:0 !important; border-bottom-right-radius:0 !important;}
 .tl-mark.clip-v::after{content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:solid transparent; border-width:8px 7px 0 7px; border-top-color:currentColor;}
 .tl-deco{position:absolute; pointer-events:none; z-index:0;}
-/* the hairlines, guides and leaders sit BEHIND the names (on request): every item is layered above them and a name's
-   text carries the card's own surface, so a line passes under the words rather than through them */
+/* the decorations sit under the items; the ledger's hairlines stop at the bars' lanes (tlLayout sets their
+   width), so no line ever runs under or through a name */
 .tl-list.laid .tl-it{z-index:1;}
-.tl-list.laid .tl-t, .tl-list.laid .tl-w{background:var(--card); max-width:100%; width:fit-content; box-sizing:border-box;}
 .tl-axis{left:0; right:0; border-top:1px solid var(--rule); height:26px;}
 .tl-tick{top:-1px; width:1px; height:5px; background:var(--ink-faint);}
 .tl-tick-l{top:7px; transform:translateX(-50%); font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint); white-space:nowrap; font-variant-numeric:tabular-nums;}
 .tl-tick-l.first{transform:none;} .tl-tick-l.last{transform:translateX(-100%);}
 .tl-guide{width:0; border-left:1px dotted var(--rule);}
-.tl-hair{right:0; border-top:1px solid var(--rule);}
+.tl-hair{border-top:1px solid var(--rule);}
 .tl-ytick{left:0; text-align:right; font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint); white-space:nowrap; font-variant-numeric:tabular-nums;}
 .tl-spine{top:0; border-left:1.5px solid var(--ink-faint);}
 .tl-leaders{inset:0; width:100%; height:100%; overflow:visible;}
