@@ -815,6 +815,32 @@ Keys that open the wrong sense, stopped on these cards with `<span class="ans-te
 `Lysander`, `Leonidas` and `Agesilaus` (the earlier men of the names; `gr-799`), `Archidamus` (`gr-798`). The bare `Alexander` still has no alias,
 and the bare `Menander` is hand-keyed to `Menander_I` on `gr-783` – `gr-785` because the comic poet's key would otherwise win.
 
+**Added by the refinement's B84–B94 (2026-10-23)**, counted the same way after `gr-801`–`gr-900` were rewritten (abstract and Think-it-through answers;
+each name checked against the glossary's keys AND aliases, counted by cards of the hundred). The ancient authors who are named as sources again lead:
+`Ptolemy` is on 27 of the hundred and still opens nothing as a bare name (see B74–B83 above), `Suda` on 8, `Diogenes Laertius` on 8, `Apollodorus` on 8,
+`Dio` (Cassius Dio) on 6 and `Appian` on 3 have no key; `Polybius`, `Strabo`, `Plutarch`, `Pausanias`, `Livy`, `Hesiod` and `Homer` all do.
+
+| cards | term | note |
+|---|---|---|
+| 27 | Ptolemy | the bare name opens nothing (see B74–B83); the astronomer, eleven kings and Egypt's dynasty all use it |
+| 15 · 7 | Macedon · Macedonia | the kingdom and the Roman province; only `Macedonian_phalanx` begins with the word |
+| 12 · 8 · 7 | Philip · Antiochus · Demetrius | bare names shared by several kings; `Philip_V_of_Macedon`, `Antiochus_III_the_Great` and `Demetrius_I_Poliorcetes` carry no bare alias |
+| 9 · 7 · 7 | Ephesus · Epirus · Adriatic | the city, the region and the sea; none has a key of its own |
+| 8 · 8 · 8 | Suda · Diogenes Laertius · Apollodorus | the Byzantine lexicon, the biographer of the philosophers and the mythographer (the Library); no key or alias |
+| 6 · 6 | Tartarus · Alexandrian | the place of the Titans' prison (the Greek key is under another spelling) and the adjective |
+| 6 | Perseus | the bare name is the hero's key (`Perseus_(mythology)`) and the king's card shares it (see the note on `gr-860`) |
+| 6 · 3 | Dio · Appian | Cassius Dio and Appian of Alexandria, the sources of the civil wars |
+| 4 | Hiero · Eudoxus · Pergamon · Illyrian · Eumenes · Aemilius | Hiero II of Syracuse; Eudoxus of Cnidus; the city (only `Pergamon_Altar` and `Library_of_Pergamon` exist); the people; the Attalid king and the general |
+| 3 | Flamininus · Theon · Pappus | Titus Quinctius Flamininus (`rm-242`'s term has no bare alias); Theon of Alexandria; Pappus of Alexandria |
+| 2 | Aristion · Mummius · Seleucus · Timocharis · Ariston · Theophrastus · Hermarchus · Agron · Proclus · Metis · Hymn to Apollo | |
+| 1 | Marcellus · Philostratus · Menaechmus · Iapetus · Hyperion · Cleomedes · Python | |
+
+Keys that open the wrong sense, stopped on these cards with `<span class="ans-term">` (none is fixed here, for the reason given under B53–B63): `Thebes` (`gr-805`),
+`Aristophanes` (in "Aristophanes of Byzantium", the comic poet's key; `gr-806`, `gr-814`, `gr-815`), `Hipparchus` (the son of Peisistratus; hand-keyed to `Hipparchus_of_Nicaea` on `gr-835` and `gr-837`),
+`Heracles` (`gr-824`, `gr-836`), `Leonidas` (`gr-813`), `Athens` (`gr-824`, `gr-838` – `gr-840`), `Egypt` (`gr-824`, `gr-846`), `Archidamus` (`gr-847`), `Italy` for "Italian" (`gr-866`, `gr-867`, `gr-869`, `gr-883`),
+`Asia` (`gr-867`, `gr-868`), `Poros`, `Corinth` and `Pylos` (`gr-891` – `gr-895`), `Republic` (the title, `gr-839`), `Diodorus Cronus` (`gr-840`), `Coele-Syria` (`gr-848`), and ordinary words that are also keys (`water`,
+`horse`, `marble`, `coin`, `cells`, `gold`, `pulses`, `compass`, `pastoral`, `talent`, `council`, `reconstruction`). The bare `Alexander` still has no alias.
+
 **BATCH R5 — 2026-09-10. Six cards; Rutter 18 → 12, over-cited 95 → 89.** `gr-025` Kamares ware,
 `gr-030` horns of consecration, `gr-033` Ayia Triada sarcophagus, `gr-034` larnax, `gr-053` Postpalatial
 Crete (4 of 5 → 2), `gr-087` Mycenaean chariot. Five clear rule 1 outright; `gr-030` clears Rutter and

@@ -20515,9 +20515,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (c && c.hanzi) parts.push({ text: c.hanzi, zh: true });   // Chinese stays on the device voice (no commercially-safe zh Piper voice)
       return parts;
     }
+    /* THE BACKGROUND IS READ WHOLE (Oct 2026, on request): a card with a book quotation renders its abstract as
+       TWO `p.abstract` with the `figure.card-quote` between them (see the Background build), and the first
+       `.abstract` alone stopped at the quotation. So every block of the section is read in page order — the
+       paragraphs and the quotation's own text (never its caption or its Library button). */
     const abs = container && container.querySelector(".abstract");
     let t;
-    if (abs) { const cl = abs.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); t = (cl.textContent || "").replace(/\s+/g, " ").trim(); }
+    if (abs) {
+      const blocks = Array.from((abs.parentNode || abs).querySelectorAll(".abstract, figure.card-quote > blockquote"));
+      t = blocks.map((b) => { const cl = b.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); return (cl.textContent || "").replace(/\s+/g, " ").trim(); }).filter(Boolean).join(" ");
+    }
     else t = ttsStrip(c && c.abstract);
     return [{ text: t, baked: bakedUrl(id, "bg", t) }];
   }
@@ -22007,11 +22014,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
   /* Draw one artefact. Returns null when there is nothing left to find, which the overlay says out loud
      rather than opening an empty chest. */
-  function rollArtefact() {
+  function rollArtefact(skip, onlyRarity) {
     const owned = (S.artefacts) || {};
     const byRarity = {};
     RARITIES.forEach((r) => { byRarity[r.id] = []; });
-    ARTEFACTS.forEach((a) => { if (!owned[a.id]) byRarity[rarityId(a)].push(a); });
+    ARTEFACTS.forEach((a) => { if (!owned[a.id] && !(skip && skip[a.id]) && (!onlyRarity || rarityId(a) === onlyRarity)) byRarity[rarityId(a)].push(a); });
     const live = RARITIES.filter((r) => byRarity[r.id].length);
     if (!live.length) return null;
     const total = live.reduce((s, r) => s + r.weight, 0);
@@ -22664,6 +22671,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const LOCK_SVG =
     '<svg class="lock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       '<rect x="4.5" y="10.5" width="15" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>';
+  /* THE REVEAL WAITS FOR THE PICTURE (Oct 2026, on a bug report: the plate popped up with an empty frame).
+     An artefact's image is a link to somebody else's file, so the chest settles its item BEFORE the lid
+     lets it out: the picture is fetched while the animation plays, and a file that cannot be had is
+     replaced by another artefact (the same rarity first) while nothing has been shown or claimed.
+     An artefact with no picture is fine as it is — it is drawn as the rarity's initial on a wash. */
+  const CHEST_IMG_WAIT_MS = 8000, CHEST_IMG_TRIES = 4;
+  function preloadArtefactImage(a) {
+    if (!a.image || !a.image.src) return Promise.resolve(true);
+    return new Promise((resolve) => {
+      const im = new Image();
+      let done = false, t = 0;
+      const fin = (ok) => { if (done) return; done = true; clearTimeout(t); im.onload = im.onerror = null; resolve(ok); };
+      im.onload = () => fin(true);
+      im.onerror = () => fin(false);
+      t = setTimeout(() => fin(false), CHEST_IMG_WAIT_MS);
+      im.src = a.image.src;
+    });
+  }
+  async function settleChestItem(item) {
+    if (item.kind !== "artefact") return item;
+    const skip = {};
+    let cur = item;
+    for (let i = 0; i < CHEST_IMG_TRIES; i++) {
+      if (await preloadArtefactImage(cur.artefact)) return cur;
+      skip[cur.artefact.id] = 1;
+      const next = rollArtefact(skip, rarityId(cur.artefact)) || rollArtefact(skip);
+      if (!next) {
+        const locked = lockedThemes();
+        if (locked.length) return { kind: "theme", theme: locked[Math.floor(Math.random() * locked.length)] };
+        break;
+      }
+      cur = { kind: "artefact", artefact: next };
+    }
+    return Object.assign({}, cur, { noPic: true });   // nothing with a working picture left to try: show the placeholder rather than a broken frame
+  }
   let _chestClose = null;
   function closeChestPop() { if (_chestClose) _chestClose(); }
   /* opts.level — announce a level above the chest (the level-up path). The chest overlay IS the level-up
@@ -22753,15 +22795,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ov.querySelector("#chestActs").hidden = true;
       sfx("chest");
       if (!prefersReducedMotion()) chestConfetti(ov, r);
-      setTimeout(() => {
-        if (isTheme) claimTheme(item.theme); else claimArtefact(a);
+      /* The animation is on a clock and the picture is on the network: reveal when BOTH are done. A chest
+         whose picture is still on its way keeps working (`.waiting`) rather than showing an empty frame. */
+      const clock = new Promise((res) => setTimeout(res, dur));
+      const settled = settleChestItem(item);
+      clock.then(() => { if (_chestClose === close) { ov.classList.add("waiting"); ov.querySelector("#chestHint").textContent = "Opening…"; } });
+      Promise.all([clock, settled]).then(([, fin]) => {
+        if (_chestClose !== close) return;   // closed while waiting: nothing was shown, so nothing is claimed — the chest keeps
+        ov.classList.remove("waiting");
+        ov.querySelector("#chestHint").textContent = "";
+        const isTheme = fin.kind === "theme";
+        const a = fin.artefact;
+        const r = isTheme ? "epic" : rarityId(a);   // a replacement may differ in rarity only when its own rarity ran out
+        ov.dataset.rar = r;
+        if (isTheme) claimTheme(fin.theme); else claimArtefact(a);
         sfx("loot-" + r);
         ov.classList.add("opened");
         const rev = ov.querySelector("#chestReveal");
         rev.hidden = false;
         rev.dataset.rar = r;
         if (isTheme) {
-          const t = THEME_BY_ID[item.theme] || [item.theme, item.theme, "", "#36357A", "#C8453C", "#F6F5F1"];
+          const t = THEME_BY_ID[fin.theme] || [fin.theme, fin.theme, "", "#36357A", "#C8453C", "#F6F5F1"];
           rev.innerHTML =
             '<span class="ar-chip" data-rar="' + r + '">Theme</span>' +
             '<div class="chest-art chest-theme">' + themeMockHTML(t) + '</div>' +
@@ -22771,12 +22825,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           /* WEARING IT IS ONE PRESS, and it is the primary action: a theme is the only collectible on the
              site that DOES something, and burying that behind Settings → Appearance would make it read as
              a certificate. Keeping it is still the default — the button is offered, not applied. */
-          addAct("Wear it now", () => { setTheme(item.theme); close(); toast("Now wearing " + t[1] + "."); });
+          addAct("Wear it now", () => { setTheme(fin.theme); close(); toast("Now wearing " + t[1] + "."); });
           addAct("Keep it for later", close, true);
         } else {
           rev.innerHTML =
             '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
-            '<div class="chest-art">' + artefactArtHTML(a, "ar-big") + '</div>' +
+            '<div class="chest-art">' + artefactArtHTML(fin.noPic ? Object.assign({}, a, { image: null }) : a, "ar-big") + '</div>' +
             '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
             (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
             (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
@@ -22785,7 +22839,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (chestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
         addAct("Close", close, true);
         unitizeTree(rev);
-      }, dur);
+      });
     }
     btn.addEventListener("click", () => openLid());
     function addAct(label, fn, ghost) {

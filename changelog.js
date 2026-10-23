@@ -35,15 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1083", released: "2026-10-23T13:31Z" };
+window.FOLIO_VERSION = { v: "1.1087", released: "2026-10-23T13:34Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-23",
     t: "The card timeline moves below the Atlas box and opens the glossary",
     items: [
+      "Opening a chest now waits for the artefact's picture before revealing it, and swaps in another artefact if the picture is broken.",
       "A deck or collection you have not set an order for now opens in <b>By difficulty</b> instead of Ordered; you can still change it.",
       "<b>Read aloud</b>: the play button beside Question, Answer and Background now appears on every card, including geography, philosophy and the arts.",
+      "<b>Read aloud</b>: Background now continues through a book quotation into the second paragraph instead of stopping after the first.",
       "<b>A hundred more World History cards are rewritten</b>, from the Americas before Columbus and the Reformation to the voyages, the trading companies and the gunpowder empires, with more sources and corrected dates.",
       "<b>Another hundred World History cards are rewritten</b>, from the Mughal emperors and Ming and Qing China to the slave trade, the revolutions and the Industrial Revolution, with more sources and corrected dates.",
       "<b>A hundred more World History cards are rewritten</b>, from the nation state and the unification of Italy to the Soviet Union, with more sources and corrected dates.",
@@ -58,11 +60,12 @@ window.CHANGELOG = [
       "<b>124 new glossary terms</b> on the Second World War, China, fascism, Greece, Rome, Egypt, smallpox, Native Americans, Japan, the Mongols, California, psychology and biology, plus new aliases.",
       "On China cards the Chinese name is now a <b>文A</b> icon after the answer term; tap it for a speech bubble with the characters, pinyin and speaker.",
       "<b>All 100 Japan cards</b> now give their Japanese name with its romanisation in that bubble, spoken in Japanese.",
-      "<b>100 more Ancient Greece cards are rewritten</b>, covering Alexander the Great and the Successor kingdoms, with more sources and new pictures.",
+      "<b>200 more Ancient Greece cards are rewritten</b>, covering Alexander the Great, the Successor kingdoms, Alexandria and Hellenistic science, Greece under Rome and the first Olympians, with more sources and corrected dates.",
       "On Home, the \"All caught up\" banner now has a little more space between its title and the sentence under it.",
       "In a card's <b>Think it through</b> box, the air above the first question, under the last and either side of each divider is now the same.",
       "Twenty cards that shared a picture with another card now show it only on the card it illustrates best, and one Yan'an source is now an open English article.",
       "<b>25 Ancient Rome cards gain a map</b>: battles, sieges, cities and two provinces now show where they were on the card's mini-globe.",
+      "<b>The Russia map cards for Moscow and Moscow Oblast</b> had swapped shapes: Moscow now shades the city, framed whole, and the Oblast card shades the oblast.",
     ],
   },
   {
