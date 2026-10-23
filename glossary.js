@@ -6758,7 +6758,8 @@ window.GLOSSARY = {
 "Treaty_of_Stolbovo": "",
 "Rocky_Mountains": "",
 "Lake_Superior": "",
-"Carlsbad_Caverns_National_Park": ""
+"Carlsbad_Caverns_National_Park": "",
+"Kīlauea": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14581,7 +14582,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Neva": ["Neva River","River Neva"],
 "Treaty_of_Stolbovo": ["treaty of Stolbovo","Peace of Stolbovo"],
 "Rocky_Mountains": ["Rockies"],
-"Carlsbad_Caverns_National_Park": ["Carlsbad Caverns","Carlsbad Cavern"]
+"Carlsbad_Caverns_National_Park": ["Carlsbad Caverns","Carlsbad Cavern"],
+"Kīlauea": ["Kilauea"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21467,7 +21469,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Treaty_of_Stolbovo": ["event","history","politics","russia","sweden"],
 "Rocky_Mountains": ["place","geography","mountain","geology","united states"],
 "Lake_Superior": ["place","geography","lake","great lakes","united states"],
-"Carlsbad_Caverns_National_Park": ["place","geography","cave","geology","united states"]
+"Carlsbad_Caverns_National_Park": ["place","geography","cave","geology","united states"],
+"Kīlauea": ["place","geography","volcano","hawaii","united states"]
 });
 
 /* ============================================================================

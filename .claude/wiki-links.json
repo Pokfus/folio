@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-23T15:59Z",
+ "generated": "2026-10-23T16:05Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 4940,
+  "ok": 4941,
   "redirect-broader": 458,
   "redirect-variant": 330,
   "section-redirect": 104,
@@ -57480,6 +57480,13 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Carlsbad Caverns"
+  },
+  "geo-914": {
+   "answer": "Kīlauea",
+   "title": "Kīlauea",
+   "url": "https://en.wikipedia.org/wiki/K%C4%ABlauea",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
