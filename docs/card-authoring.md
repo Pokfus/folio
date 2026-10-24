@@ -201,8 +201,13 @@ school of thought, technology, object, people, institution. Otherwise omit it.
 ### Why (`why`)
 
 Exactly 3 items `{ "q": "Why …?", "a": "Because …" }`. Each `q` is 4–24 words and ends in `?`; each
-`a` is 12–60 words and is not a question. The three ask about different things. **Answers say only
-what the card's own background says** — no new claims.
+`a` is 12–120 words and is not a question. The three ask about different things. **Answers say only
+what the card's own cited sources say**, each claim carrying a marker into the card's source list.
+
+**The newcomer rewrite (Oct 2026, on request, card by card from `wh-001`)**: the owner is replacing the
+sets one card at a time. For each card, ten questions a complete newcomer would ask are offered, the owner
+picks three, and each answer is written in plain, simple language at about 100–120 words (twice the old
+60-word cap), every sentence footnoted to a source checked for that claim. A question need not open "Why".
 
 ### Locator (optional)
 
