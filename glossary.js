@@ -6959,7 +6959,18 @@ window.GLOSSARY = {
 "Crystal": "",
 "Genetics": "",
 "Organelle": "",
-"Virus": ""
+"Virus": "",
+"38th_parallel_north": "",
+"Bonin_Islands": "",
+"Izu_Islands": "",
+"Peninsula": "",
+"Ryukyu_Islands": "",
+"Sobaek_Mountains": "",
+"Caucasus": "",
+"Homogeneity": "",
+"Jebe": "",
+"Khwarazmian_Empire": "",
+"Subutai": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10514,7 +10525,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Treaty_of_Saint-Germain-en-Laye_(1919)": "Signed 10 September 1919",
 "Ulrich_von_Brockdorff-Rantzau": "1869–1928",
 "Weimar_National_Assembly": "1919–1920",
-"Velleius_Paterculus": "c. 19 BCE – after 30 CE"
+"Velleius_Paterculus": "c. 19 BCE – after 30 CE",
+"Jebe": "died c. 1223",
+"Khwarazmian_Empire": "1097–1221"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14952,7 +14965,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_the_Kalka_River": ["Kalka"],
 "Korean_Peninsula": ["Korean peninsula"],
 "Okinawa_Island": ["Okinawa"],
-"Taebaek_Mountains": ["Taebaek"]
+"Taebaek_Mountains": ["Taebaek"],
+"38th_parallel_north": ["38th parallel"],
+"Bonin_Islands": ["Bonin","Ogasawara Islands"],
+"Izu_Islands": ["Izu","Izu chain"],
+"Ryukyu_Islands": ["Ryukyus","Ryukyu chain"],
+"Sobaek_Mountains": ["Sobaek","Sobaek range"],
+"Caucasus": ["Caucasus Mountains"],
+"Jebe": ["Jebe Noyan"],
+"Khwarazmian_Empire": ["Khwarezm","Khwarazm","Khwarezmian Empire"],
+"Subutai": ["Sübe'etei","Subotai"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22039,7 +22061,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Crystal": ["concept","science","chemistry","geology"],
 "Genetics": ["concept","science","biology","genetics"],
 "Organelle": ["concept","science","biology","nature"],
-"Virus": ["concept","science","biology","medicine"]
+"Virus": ["concept","science","biology","medicine"],
+"38th_parallel_north": ["place","history","politics","cold war","korea"],
+"Bonin_Islands": ["place","geography","island","japan","nature"],
+"Izu_Islands": ["place","geography","island","japan","asia"],
+"Peninsula": ["place","geography","landform"],
+"Ryukyu_Islands": ["place","geography","island","japan","history"],
+"Sobaek_Mountains": ["place","geography","geology","korea","asia"],
+"Caucasus": ["region","geography","mountain","history","europe","asia"],
+"Homogeneity": ["concept","language","society","science"],
+"Jebe": ["person","warfare","history","asia"],
+"Khwarazmian_Empire": ["state","empire","history","warfare","asia"],
+"Subutai": ["person","warfare","history","asia","europe"]
 });
 
 /* ============================================================================
