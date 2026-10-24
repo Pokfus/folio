@@ -85,7 +85,7 @@
     const warAttr = host.classList.contains("map-war");
     const locKind = host.getAttribute("data-map-kind") || "point";
     const isWar = warAttr;   // a war window is drawn at a year of the war on the engine's history: its sides tinted in the years they fought, nothing outside them
-    /* A GLOSSARY WINDOW (2026-10-23, the owner; docs/glossary-atlas-windows.md): host class `map-gloss`, NO buttons (the host carries none and this code adds none), a drag, a pinch or the wheel move and zoom it
+    /* A GLOSSARY WINDOW (2026-10-23, the owner; docs/glossary-atlas-windows.md): host class `map-gloss`, the card windows' zoom, recentre and relief buttons (the host's markup since 2026-10-24, wired below like any window's; no globe button), a drag, a pinch or the wheel move and zoom it
        (AtlasEmbed.view's own), and the term's place is THE ONLY thing marked: a gold square and the name for a point, the name alone for an area, and for `data-map-face` — a present-day country or province (as a
        map card's), or a history.bin entity at `data-map-year`, THE YEAR OF ITS GREATEST EXTENT — the selection gold over its face; a people or a culture (`data-map-facekind`) is its presence alone (`peopleOnly`), no
        other people's. A year asks the hub for the WHOLE history (as Find it's area round does); until it lands the window is today's map centred on the place, and it is not settled. No siblings, no home square, no

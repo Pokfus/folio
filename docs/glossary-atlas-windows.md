@@ -9,7 +9,7 @@ never the Treaty of Versailles; a battle, a treaty, a person, a fossil or an ins
 ## 0. As built (2026-10-23) — tiers 1, 2 and 4, and the states and peoples
 
 **What a reader sees.** A glossary popup whose term is a location carries a small map — **below the description (and the Library
-banner), above the Sources fold** — on the card windows' engine: no buttons at all, a drag and a pinch or the wheel move and zoom
+banner), above the Sources fold** — on the card windows' engine: **since 2026-10-24 the card windows' own buttons** (zoom in, zoom out, recentre, and relief where relief can draw — the owner asked for them; still no globe button, the bar's pin is that; `GLOSS_ZOOM_HTML` in `app.js`), a drag and a pinch or the wheel move and zoom
 it (the arrow keys and `+` / `−` when it has focus). The term's place is the only thing marked: a gold square and the name for a
 point (a site, a city, a cave, a mountain), the name alone for a region, a sea or a range, the Atlas's selection gold over the face
 of a present-day country or province, and a **state, an empire, a people or a culture at the year of its greatest extent** —

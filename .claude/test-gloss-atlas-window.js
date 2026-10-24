@@ -3,17 +3,17 @@
      NODE_PATH="$SCRATCH/pw/node_modules" node .claude/test-gloss-atlas-window.js
      FOLIO_CHROMIUM=/path/to/chrome  … to pick the browser (otherwise playwright's own)
 
-   THE RULES IT PROVES. A term that IS a location (the town, never the treaty) shows a small map in its popup: NO buttons in it, a drag and the wheel move and zoom it, the term's place the ONLY thing marked, a state or a
+   THE RULES IT PROVES. A term that IS a location (the town, never the treaty) shows a small map in its popup: the card windows' buttons (zoom in, zoom out, recentre, relief; since 2026-10-24), a drag and the wheel move and zoom it, the term's place the ONLY thing marked, a state or a
    people shaded at the year of its greatest extent, and opening it never touches the Personal Atlas (`placesSeen` stays as it was). The table that says which terms and where is `atlas/data/glossary-places.js` `windows`,
    a pure function of the glossary, the cards, the registry and history.bin (build-glossary-places.js --check).
      1  the table: in step; no window for a term tagged an event, a person or a thing (unless it is one of the input file's own pins); a year only on an entity; the pin's ids resolve and never name a polity;
         Rome's greatest extent is 117 (Trajan: the data's own answer, pinned so a drift in the arithmetic is seen).
-     2  a COUNTRY (Tanzania, on wh-016): engine "v2", no button in the block, the highlight is adm0:tza, the name is drawn, the wheel raises the zoom, a drag moves the view; the pin is still in the bar; placesSeen stays empty.
+     2  a COUNTRY (Tanzania, on wh-016): engine "v2", the four buttons (each one works, none closes the popup), the highlight is adm0:tza, the name is drawn, the wheel raises the zoom, a drag moves the view; the pin is still in the bar; placesSeen stays empty.
      3  a POINT (Olduvai Gorge): the gold square and its name, no highlight, no "Discovered!" chip; a term with no window (Louis Leakey, a person) shows no block.
      4  a STATE (the Byzantine Empire, on wh-498): the spec's year is the table's (561), the whole history lands (settled), the highlight is pol:byzantium drawn `exact`, other states neutral, and the selection gold is on the
         pixels; a PEOPLE (the Yangshao culture, on cnh-046): peoples "all" with peopleOnly pol:yangshao at −4000.
      5  the PHONE (390 × 844): a drag on the map pans the map and does not move the sheet (--gs-dy unchanged); a drag on the title still does.
-     6  NO WebGL2 (Chromium's own flags): a point term's window runs on the still renderer ("v2-2d"), still buttonless; a state's window is dropped (the block is empty and hidden), the popup otherwise whole.
+     6  NO WebGL2 (Chromium's own flags): a point term's window runs on the still renderer ("v2-2d"), with zoom and recentre but no relief button; a state's window is dropped (the block is empty and hidden), the popup otherwise whole.
      7  no console or page errors anywhere. */
 "use strict";
 const path = require("path"), fs = require("fs");
@@ -45,7 +45,7 @@ async function hostState(page, key, timeout) {
   return page.evaluate((k) => {
     const w = document.querySelector(`.gloss-win[data-k="${k}"]`), slot = w && w.querySelector(".gloss-atlas"), h = slot && slot.querySelector(".map-card");
     const M = h && h._folioMap;
-    return { slotHidden: slot ? slot.hidden : null, slotEmpty: slot ? !slot.firstChild : null, host: !!h, engine: h ? h.getAttribute("data-map-engine") : null, failed: !!(h && h.classList.contains("mc-failed")), buttons: slot ? slot.querySelectorAll("button, .mc-btn, .mc-zoom").length : null,
+    return { slotHidden: slot ? slot.hidden : null, slotEmpty: slot ? !slot.firstChild : null, host: !!h, engine: h ? h.getAttribute("data-map-engine") : null, failed: !!(h && h.classList.contains("mc-failed")), buttons: slot ? [...slot.querySelectorAll("button")].filter((b) => !b.hidden).map((b) => b.getAttribute("data-mc") || "?").join(",") : null, relief: slot && slot.querySelector(".mc-relief") ? slot.querySelector(".mc-relief").getAttribute("aria-pressed") : null,
       chip: !!(w && w.querySelector(".mc-new")), pin: !!(w && w.querySelector(".gloss-map")), ready: M ? M.ready() : null, settled: M ? M.settled() : null, view: M ? M.view() : null, boxes: M ? M.boxes() : null, probe: M && M.probe() ? { year: M.probe().spec.year, hl: M.probe().spec.highlights, layers: M.probe().spec.layers } : null };
   }, key);
 }
@@ -95,7 +95,7 @@ async function goldShare(page, key) {
     const { page, errors } = await openPopup(ctx, "wh-016", "Tanzania");
     const s = await hostState(page, "Tanzania");
     check("the popup carries a window on the engine", s.host && s.engine === "v2", s.engine);
-    check("no button in the block", s.buttons === 0, String(s.buttons));
+    check("the card windows' buttons: zoom in, zoom out, recentre, relief (no globe button)", s.buttons === "in,out,home,relief", String(s.buttons));
     check("the highlight is Tanzania's face and nothing else", s.probe && s.probe.hl.length === 1 && s.probe.hl[0].ids.join() === "adm0:tza" && !s.probe.year, JSON.stringify(s.probe && s.probe.hl.map((h) => h.ids)));
     check("the name is drawn, and only the name", s.boxes && s.boxes.names.length === 1 && s.boxes.names[0].text === "Tanzania" && s.boxes.marks.length === 0, JSON.stringify(s.boxes && s.boxes.names.map((n) => n.text)));
     check("the bar keeps the Atlas pin", s.pin);
@@ -107,6 +107,22 @@ async function goldShare(page, key) {
     const v2 = (await hostState(page, "Tanzania")).view;
     check("a drag moves the view", Math.abs(v2.lon - v1.lon) > 0.3 && Math.abs(v2.lat - v1.lat) > 0.1, v1.lon.toFixed(2) + "," + v1.lat.toFixed(2) + " → " + v2.lon.toFixed(2) + "," + v2.lat.toFixed(2));
     check("the popup is still open after the gestures (a drag is not a tap, a wheel not a scroll of the page)", await page.$(SEL("Tanzania")) != null);
+    const B = (w) => SEL("Tanzania") + ` .gloss-atlas .mc-btn[data-mc="${w}"]`;
+    await page.click(B("in")); await sleep(400);
+    const v3 = (await hostState(page, "Tanzania")).view;
+    check("the + button zooms in", v3.zoom > v2.zoom * 1.2, v2.zoom.toFixed(2) + " → " + v3.zoom.toFixed(2));
+    await page.click(B("out")); await sleep(400);
+    const v4 = (await hostState(page, "Tanzania")).view;
+    check("the − button zooms out", v4.zoom < v3.zoom / 1.2, v3.zoom.toFixed(2) + " → " + v4.zoom.toFixed(2));
+    await page.click(B("home")); await sleep(900);
+    const v5 = (await hostState(page, "Tanzania")).view;
+    check("recentre goes back to the window's home", Math.abs(v5.lon - v5.home[0]) < 0.05 && Math.abs(v5.lat - v5.home[1]) < 0.05 && Math.abs(v5.zoom - v5.home[2]) < 0.05 * v5.home[2], JSON.stringify(v5));
+    const r0 = (await hostState(page, "Tanzania")).relief;
+    await page.click(B("relief")); await sleep(400);
+    const r1 = (await hostState(page, "Tanzania")).relief;
+    check("the relief button toggles relief", r0 && r1 && r0 !== r1, r0 + " → " + r1);
+    await page.click(B("relief")); await sleep(300);
+    check("a button press does not close the popup", await page.$(SEL("Tanzania")) != null);
     await page.click(SEL("Tanzania") + " .gloss-close"); await sleep(400);
     const pr = await progress(page);
     check("opening and closing the window wrote no placesSeen and no card record", pr.placesSeen.length === 0 && pr.cards.length === 0, JSON.stringify(pr));
@@ -118,7 +134,7 @@ async function goldShare(page, key) {
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
     const { page, errors } = await openPopup(ctx, "wh-016", "Olduvai_Gorge");
     const s = await hostState(page, "Olduvai_Gorge");
-    check("Olduvai Gorge: a window, no button, no highlight", s.host && s.engine === "v2" && s.buttons === 0 && s.probe && s.probe.hl.length === 0, s.engine);
+    check("Olduvai Gorge: a window with its buttons, no highlight", s.host && s.engine === "v2" && s.buttons === "in,out,home,relief" && s.probe && s.probe.hl.length === 0, s.engine);
     check("the gold square and its name, nothing else", s.boxes && s.boxes.marks.length === 1 && s.boxes.names.length === 1 && s.boxes.names[0].text === "Olduvai Gorge", JSON.stringify(s.boxes && { m: s.boxes.marks.length, n: s.boxes.names.map((n) => n.text) }));
     check("no \"Discovered!\" chip", !s.chip);
     await page.click(SEL("Olduvai_Gorge") + " .gloss-close"); await sleep(300);
@@ -134,7 +150,7 @@ async function goldShare(page, key) {
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
     const { page, errors } = await openPopup(ctx, "wh-498", "Byzantine_Empire");
     const s0 = await hostState(page, "Byzantine_Empire");
-    check("the Byzantine Empire: a window on the engine, no button", s0.host && s0.engine === "v2" && s0.buttons === 0, s0.engine);
+    check("the Byzantine Empire: a window on the engine, with its buttons", s0.host && s0.engine === "v2" && s0.buttons === "in,out,home,relief", s0.engine);
     const ok = await settle(page, "Byzantine_Empire", 240000);
     const s = await hostState(page, "Byzantine_Empire");
     check("the whole history lands and the window settles", ok && s.settled);
@@ -150,7 +166,7 @@ async function goldShare(page, key) {
     const r2 = await openPopup(ctx2, "cnh-046", "Yangshao_culture");
     const ok2 = await settle(r2.page, "Yangshao_culture", 240000);
     const s2 = await hostState(r2.page, "Yangshao_culture");
-    check("the Yangshao culture: at −4000, its presence alone (peoples all, peopleOnly pol:yangshao), settled", ok2 && s2.probe && s2.probe.year === -4000 && s2.probe.layers.peoples === "all" && s2.probe.layers.peopleOnly === "pol:yangshao" && s2.buttons === 0, JSON.stringify(s2.probe && s2.probe.layers));
+    check("the Yangshao culture: at −4000, its presence alone (peoples all, peopleOnly pol:yangshao), settled", ok2 && s2.probe && s2.probe.year === -4000 && s2.probe.layers.peoples === "all" && s2.probe.layers.peopleOnly === "pol:yangshao" && s2.buttons === "in,out,home,relief", JSON.stringify(s2.probe && s2.probe.layers));
     allErrors.push(...r2.errors); await ctx2.close();
   }
 
@@ -159,7 +175,7 @@ async function goldShare(page, key) {
     const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
     const { page, errors } = await openPopup(ctx, "wh-016", "Tanzania");
     const s = await hostState(page, "Tanzania");
-    check("the sheet carries the window, buttonless", s.host && s.engine === "v2" && s.buttons === 0, s.engine);
+    check("the sheet carries the window, with its buttons", s.host && s.engine === "v2" && s.buttons === "in,out,home,relief", s.engine);
     const dy0 = await page.evaluate(() => document.querySelector('.gloss-win[data-k="Tanzania"]').style.getPropertyValue("--gs-dy") || "0px");
     const cv = await page.$(SEL("Tanzania") + " .gloss-atlas .mc-canvas"); await cv.scrollIntoViewIfNeeded(); await sleep(200); const bb = await cv.boundingBox();   // the window sits below the description: the body scrolls to it
     await page.mouse.move(bb.x + bb.width / 2, bb.y + bb.height / 2); await page.mouse.down(); await page.mouse.move(bb.x + bb.width / 2 + 10, bb.y + bb.height / 2 + 60, { steps: 8 }); await page.mouse.up(); await sleep(400);
@@ -182,7 +198,7 @@ async function goldShare(page, key) {
     const ctx = await b2.newContext({ viewport: { width: 1280, height: 800 } });
     const { page, errors } = await openPopup(ctx, "wh-016", "Olduvai_Gorge");
     const s = await hostState(page, "Olduvai_Gorge");
-    check("a point term's window runs on the still renderer, buttonless", s.host && s.engine === "v2-2d" && s.buttons === 0, s.engine);
+    check("a point term's window runs on the still renderer: zoom and recentre, no relief button", s.host && s.engine === "v2-2d" && s.buttons === "in,out,home", s.engine);
     await page.click(SEL("Olduvai_Gorge") + " .gloss-close"); await sleep(300);
     allErrors.push(...errors);
     const r2 = await openPopup(ctx, "wh-498", "Byzantine_Empire");
