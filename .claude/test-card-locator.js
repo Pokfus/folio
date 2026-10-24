@@ -223,6 +223,16 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     JSON.stringify({ gold: rm.gold, box: rm.gw + "×" + rm.gh, fill: +rmFill.toFixed(3), dpr: rm.dpr }));
   await riv.close();
 
+  /* …AND ONE THAT FINDS ITS RIVER ONLY THROUGH `locator.rivers` (Oct 2026): the Yellow River is `Huang` in
+     rivers.js, a name no glossary alias may carry, so without the field this card silently draws a dot.
+     Measured: 627 gold pixels in a 151×57 box, a fill of 0.07. */
+  const yr = await openCard("gc-802");
+  const ym = await markOf(yr, "");
+  const ymLong = Math.max(ym.gw, ym.gh), ymFill = ym.gold / Math.max(1, ym.gw * ym.gh);
+  check("...and a river named only by its locator's `rivers` is traced too", ym.gold > 80 && ymLong > 40 * ym.dpr && ymFill < 0.35,
+    JSON.stringify({ gold: ym.gold, box: ym.gw + "×" + ym.gh, fill: +ymFill.toFixed(3), dpr: ym.dpr }));
+  await yr.close();
+
   // ---- a range card: the Apennines, drawn as a chain of mountains ----
   const rng = await openCard("rm-002");
   const am = await markOf(rng, "");
