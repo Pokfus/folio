@@ -507,6 +507,8 @@
        reader's on a side) } or null. `keepTex` is a style texture of the same shape as `styleTex` with only the reader's faces opaque — a pass writes the HIST stencil bit through it, so the one empty-land darkening
        (drawHistoryDim: LAND and not HIST) shades every other country, and `maskTex` the arc table the border shader reads. `styleOverride` swaps the face pass's texture for that pass. */
     let personal = null, keepTex = null, maskTex = null, styleOverride = null, pGen = 0;
+    let tintTex = null, tintOn = false;   // 2026-10-24: the selected and highlighted faces only, at TINT_ALPHA — laid again over the relief, which otherwise covers their fill (a map card's gold state showed only its outline)
+    const TINT_ALPHA = 0.8;
     /* THE GPU'S OWN TIME PER FRAME (Phase 2a, task 0b): where EXT_disjoint_timer_query_webgl2 exists, every rendered frame is
        bracketed by a TIME_ELAPSED query and the oldest query is polled each frame; the latest answer (ms) is what atlas.js's
        stage logic reads instead of the frame delta, so a main-thread stall cannot read as a slow GPU. Software GL and most
@@ -544,7 +546,7 @@
       cover.fbo = null; cover.tex = null; cover.none = null; cover.w = 0; cover.h = 0;   // the cover target is rebuilt on first use after a restore
       prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch"), dim: compile(gl, VS_BLIT, FS_DIM, "dim") };
       emptyVao = gl.createVertexArray();
-      styleTex = gl.createTexture(); keepTex = gl.createTexture(); maskTex = gl.createTexture();
+      styleTex = gl.createTexture(); tintTex = gl.createTexture(); keepTex = gl.createTexture(); maskTex = gl.createTexture();
       rampTex = gl.createTexture();
       idTex = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, idTex);
@@ -652,16 +654,21 @@
     }
     function buildStyle() {
       const styleH = Math.max(1, Math.ceil(faceCount / 256));
-      const px = new Uint8Array(256 * styleH * 4);
+      const px = new Uint8Array(256 * styleH * 4), tp = new Uint8Array(256 * styleH * 4);   // tp: the tint texture — the face's colour at TINT_ALPHA, every other face transparent (discarded)
       const land = palette.land, sel = palette.selected;
+      let tint = false;
       for (let i = 0; i < faceCount; i++) {
         const hl = i !== selected && selMap && selMap.get(i), c = i === selected ? sel : hl || land;
         px[4 * i] = c[0] * 255; px[4 * i + 1] = c[1] * 255; px[4 * i + 2] = c[2] * 255; px[4 * i + 3] = hl ? 254 : 255;   // 254: a highlighted face — the second face pass draws only these
+        if (i === selected || hl) { tp[4 * i] = c[0] * 255; tp[4 * i + 1] = c[1] * 255; tp[4 * i + 2] = c[2] * 255; tp[4 * i + 3] = 255 * TINT_ALPHA; tint = true; }
       }
-      gl.bindTexture(gl.TEXTURE_2D, styleTex);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, styleH, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      const up = (t, b) => {
+        gl.bindTexture(gl.TEXTURE_2D, t);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, styleH, 0, gl.RGBA, gl.UNSIGNED_BYTE, b);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      };
+      up(styleTex, px); up(tintTex, tp); tintOn = tint;
     }
     function release(Lv) {
       const g = Lv.gpu; if (!g) return;
@@ -1106,6 +1113,16 @@
         gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
         if (l0Needed) { gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND | ST_PATCH); drawRelief(relief.get("0"), view, R, 1, strength, fade); }
         gl.stencilFunc(gl.ALWAYS, 0, 0xff);
+        /* the selected and highlighted faces once more, OVER the relief (2026-10-24, the owner's phone: a US state map card with relief on showed only its gold outline —
+           the land pass is blended over the faces, so at full strength it painted their fill out). Same tile stencil as the face pass; the relief still shows through. */
+        if (tintOn && debug.faces) {
+          styleOverride = tintTex;
+          if (Lv && !complete) { faceStencil(0); drawFaces(Lv, view, idPass, R); }
+          if (parents.length) { faceStencil(1); for (const t of parents) drawFaces(t, view, idPass, R); }
+          if (own.length) { faceStencil(2); for (const t of own) drawFaces(t, view, idPass, R); }
+          styleOverride = null;
+          if (useStencil) { gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff); gl.stencilFunc(gl.ALWAYS, 0, 0xff); }
+        }
       }
         };
       const drawWaterAndArcs = () => {
