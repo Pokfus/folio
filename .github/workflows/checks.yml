@@ -79,6 +79,22 @@ jobs:
           for f in atlas/*.js atlas/vendor/*.js .claude/atlas-build/*.js .claude/atlas-build/lib/*.js; do node --check "$f" || exit 1; done
           echo "atlas/ and .claude/atlas-build/ parse"
 
+      # THE INSTALLED APP (Oct 2026, docs/downloadable-app-plan.md, docs/reminders.md). The reminder sender is a
+      # Cloudflare Pages Function (functions/api/) built on server/; both are ES modules that must parse. The shell
+      # check fails when sw.js's offline file list drifts from what index.html loads; test-reminders proves the Web
+      # Push encryption against RFC 8291's own example and the reminder timing across time zones. Offline, seconds.
+      - name: Syntax-check the reminder sender
+        if: ${{ !cancelled() }}
+        run: |
+          for f in server/*.js functions/api/*.js; do node --check "$f" || exit 1; done
+          echo "server/ and functions/ parse"
+      - name: check-sw-shell (the app's offline files match index.html)
+        if: ${{ !cancelled() }}
+        run: node .claude/check-sw-shell.js
+      - name: test-reminders (Web Push and the reminder rules, no browser)
+        if: ${{ !cancelled() }}
+        run: node .claude/test-reminders.js
+
       # The suites that need no browser. Each exits non-zero on failure.
       - name: test-card-plans
         if: ${{ !cancelled() }}
@@ -537,6 +553,15 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: node .claude/test-quotes-verbatim.js
+
+      # 2026-10-24 (the installed app): its service worker, offline open, same-moment and atomic updates, keep on this
+      # device, reminders and push, on full Chromium (the headless shell has no notifications). Here, not in a shard:
+      # the four shards are already at their cap.
+      - name: test-pwa
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-pwa.js
 
       - name: test-atlas-no-wars
         if: ${{ !cancelled() }}

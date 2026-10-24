@@ -1150,3 +1150,168 @@ end $$;
 
 revoke all on function public.bump_collection(text, text) from public;
 grant execute on function public.bump_collection(text, text) to anon, authenticated;
+
+-- ----------------------------------------------------------------------------
+-- 18) STUDY REMINDERS — one row per device that asked for a reminder  (run once)
+--     (Oct 2026, docs/reminders.md). The browser's push subscription, the
+--     reader's clock (time zone, the hour they chose, where their day ends)
+--     and three facts the reminder is worded from (the last day studied, the
+--     streak, the cards due). A DEVICE setting, not progress: its own table,
+--     never PROGRESS_FIELDS. Guests are welcome: a row is keyed by its
+--     endpoint and guarded by a random `secret` only that browser holds; a
+--     signed-in reader's row also carries user_id, so studying on another
+--     device silences this one's reminder (push_candidates reads progress).
+--     No RLS policy at all: the browser reaches the table only through
+--     push_save / push_delete, and the sender (functions/api/remind.js) only
+--     through the three service-role functions.
+-- ----------------------------------------------------------------------------
+create table if not exists public.push_subscriptions (
+  id          uuid primary key default gen_random_uuid(),
+  user_id     uuid references auth.users(id) on delete set null,
+  secret      text not null,
+  endpoint    text not null unique,
+  p256dh      text not null,
+  auth        text not null,
+  tz          text not null default 'UTC',
+  remind_at   smallint not null default 1200 check (remind_at between 0 and 1439),   -- minutes past midnight; 8 p.m.
+  day_end     smallint not null default 0 check (day_end between 0 and 720),
+  last_study  text,                -- the reader's own day key, YYYY-MM-DD
+  streak      int not null default 0,
+  due         int not null default 0,
+  badge       boolean not null default true,
+  sent_day    text,                -- the day key last reminded
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+alter table public.push_subscriptions enable row level security;
+create index if not exists push_subscriptions_user on public.push_subscriptions (user_id);
+
+-- the browser: add or refresh this device's row. Only the browser's own push services are accepted as an
+-- endpoint (the sender would otherwise POST wherever a stranger pointed it), and an existing row changes
+-- only for the holder of its secret. Returns true when a row was written.
+create or replace function public.push_save(p jsonb)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  ep  text := p->>'endpoint';
+  sec text := p->>'secret';
+  tzv text := coalesce(p->>'tz', 'UTC');
+  n   int;
+begin
+  if ep is null or length(ep) > 1000
+     or ep !~ '^https://(fcm\.googleapis\.com|android\.googleapis\.com|updates\.push\.services\.mozilla\.com|([a-z0-9-]+\.)*push\.apple\.com|([a-z0-9-]+\.)*notify\.windows\.com)/' then
+    return false;
+  end if;
+  if sec is null or length(sec) < 16 or length(sec) > 100 then return false; end if;
+  if coalesce(p->>'p256dh', '') !~ '^[A-Za-z0-9_-]{80,100}$' or coalesce(p->>'auth', '') !~ '^[A-Za-z0-9_-]{16,32}$' then return false; end if;
+  if not exists (select 1 from pg_timezone_names where name = tzv) then tzv := 'UTC'; end if;
+  insert into public.push_subscriptions as s
+    (user_id, secret, endpoint, p256dh, auth, tz, remind_at, day_end, last_study, streak, due, badge, sent_day)
+  values (
+    auth.uid(), sec, ep, p->>'p256dh', p->>'auth', tzv,
+    case when p->>'remind_at' ~ '^\d{1,4}$' then least((p->>'remind_at')::int, 1439) else 1200 end,
+    case when p->>'day_end' ~ '^\d{1,3}$' then least((p->>'day_end')::int, 720) else 0 end,
+    case when p->>'last_study' ~ '^\d{4}-\d{2}-\d{2}$' then p->>'last_study' end,
+    case when p->>'streak' ~ '^\d{1,6}$' then (p->>'streak')::int else 0 end,
+    case when p->>'due' ~ '^\d{1,7}$' then (p->>'due')::int else 0 end,
+    coalesce((p->>'badge')::boolean, true),
+    -- a reader who switches reminders on after today's time has passed is not reminded tonight
+    case when p->>'sent_day' ~ '^\d{4}-\d{2}-\d{2}$' then p->>'sent_day' end)
+  on conflict (endpoint) do update set
+    user_id = excluded.user_id, p256dh = excluded.p256dh, auth = excluded.auth, tz = excluded.tz,
+    remind_at = excluded.remind_at, day_end = excluded.day_end, last_study = excluded.last_study,
+    streak = excluded.streak, due = excluded.due, badge = excluded.badge, updated_at = now()
+  where s.secret = excluded.secret;
+  get diagnostics n = row_count;
+  return n > 0;
+end $$;
+
+create or replace function public.push_delete(ep text, sec text)
+returns void
+language sql
+security definer
+set search_path = public
+as $$ delete from public.push_subscriptions where endpoint = ep and secret = sec $$;
+
+revoke all on function public.push_save(jsonb) from public;
+revoke all on function public.push_delete(text, text) from public;
+grant execute on function public.push_save(jsonb) to anon, authenticated;
+grant execute on function public.push_delete(text, text) to anon, authenticated;
+
+-- the sender: the rows not yet reminded on the reader's current study day. A signed-in reader's last day
+-- studied (and that run's streak) is the later of this device's and the account's progress, so a reader
+-- who studied on their laptop is not reminded on their phone. Whether the chosen time has passed is decided
+-- in server/reminders.js, which is tested.
+create or replace function public.push_candidates()
+returns table (id uuid, endpoint text, p256dh text, auth text, tz text, remind_at int, day_end int,
+               last_study text, streak int, due int, badge boolean, sent_day text)
+language sql
+security definer
+stable
+set search_path = public
+as $$
+  select s.id, s.endpoint, s.p256dh, s.auth, s.tz, s.remind_at::int, s.day_end::int,
+         case when coalesce(pr.last, '') > coalesce(s.last_study, '') then pr.last else s.last_study end,
+         case when coalesce(pr.last, '') > coalesce(s.last_study, '') then pr.cnt else s.streak end,
+         s.due, s.badge, s.sent_day
+  from public.push_subscriptions s
+  left join lateral (
+    select p.data->'streak'->>'last' as last,
+           case when (p.data->'streak'->>'count') ~ '^\d{1,6}$' then (p.data->'streak'->>'count')::int else 0 end as cnt
+    from public.progress p where p.user_id = s.user_id
+  ) pr on true
+  where s.sent_day is distinct from to_char((now() at time zone s.tz) - make_interval(mins => s.day_end::int), 'YYYY-MM-DD')
+$$;
+
+-- the sender: mark rows reminded BEFORE sending, and only those not already marked for that day, so two
+-- runs that overlap send once. Returns the ids this caller may send to.
+create or replace function public.push_claim(p jsonb)
+returns setof uuid
+language sql
+security definer
+set search_path = public
+as $$
+  update public.push_subscriptions s set sent_day = x.day
+  from jsonb_to_recordset(coalesce(p, '[]'::jsonb)) as x(id uuid, day text)
+  where s.id = x.id and s.sent_day is distinct from x.day and x.day ~ '^\d{4}-\d{2}-\d{2}$'
+  returning s.id
+$$;
+
+-- the sender: the push service said these subscriptions are gone (404 / 410)
+create or replace function public.push_gone(ids uuid[])
+returns void
+language sql
+security definer
+set search_path = public
+as $$ delete from public.push_subscriptions where id = any(ids) $$;
+
+revoke all on function public.push_candidates() from public, anon, authenticated;
+revoke all on function public.push_claim(jsonb) from public, anon, authenticated;
+revoke all on function public.push_gone(uuid[]) from public, anon, authenticated;
+grant execute on function public.push_candidates() to service_role;
+grant execute on function public.push_claim(jsonb) to service_role;
+grant execute on function public.push_gone(uuid[]) to service_role;
+
+-- ----------------------------------------------------------------------------
+-- 18b) THE CLOCK — every fifteen minutes, ask the site to send what is due  (run once, AFTER the secret)
+--      pg_cron fires, pg_net makes the HTTPS call to the Pages Function. The shared secret lives in
+--      Supabase Vault, never in this file. FIRST run, once, with your own long random value:
+--          select vault.create_secret('<the same value as REMIND_SECRET in Cloudflare>', 'folio_remind_secret');
+--      then this block. docs/reminders.md has every step.
+-- ----------------------------------------------------------------------------
+create extension if not exists pg_cron;
+create extension if not exists pg_net with schema extensions;
+
+select cron.unschedule(jobid) from cron.job where jobname = 'folio-remind';
+select cron.schedule('folio-remind', '*/15 * * * *', $cron$
+  select net.http_post(
+    url := 'https://folio.study/api/remind',
+    headers := jsonb_build_object(
+      'Content-Type', 'application/json',
+      'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'folio_remind_secret')),
+    body := '{}'::jsonb,
+    timeout_milliseconds := 30000)
+$cron$);

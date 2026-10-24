@@ -47,7 +47,8 @@ before changing the thing it names.
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
 | `study-page.md` | The study page's furniture — the grade bar and its fold, undoing a grade, the phone's gloss popup. |
 | `accounts-sync.md` | Accounts, the progress blob and its reconcile, the friends table, admin gating, and the cloud content overlay. |
-| `downloadable-app-plan.md` | Folio as a downloadable app (Oct 2026, a plan, nothing built): what the PWA already does, the service-worker precache drift, the version probe for same-moment updates, the "keep on this device" switches, Web Push reminders through a Pages Function and `pg_cron`, Play via a TWA, why not the App Store, and the owner's decisions. |
+| `downloadable-app-plan.md` | Folio as a downloadable app (Oct 2026; built 2026-10-24 except the app stores, which the owner set aside): what the PWA already did, the precache drift, the per-open ETag check that keeps the installed app the same moment as the site, the "keep on this device" switches, why Web Push and a Pages Function, why no store. |
+| `reminders.md` | Study reminders end to end (Oct 2026): the row, the 15-minute clock, the sender and its rules (8 p.m. by default, never twice, never after studying), the owner's one-time setup (keys, secrets, the schema block), where they work (iPhone: from the Home Screen only), what is tested. |
 | `admin-editor.md` | The admin editor's tabs — the Dashboard's two halves and what RLS lets it ask, and what each later tab had to learn. |
 | `changelog-and-version.md` | The changelog's and the version line's own reasoning — the length rules, the title ceiling, what belongs in it and what does not. |
 | `collections-page.md` | The Collections page — the tab bar, the declared sections, the Planned fold, the shelf rows and their size figures. |

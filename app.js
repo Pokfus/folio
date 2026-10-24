@@ -6070,6 +6070,7 @@
     S.streak.last = t;
     S.streak.best = Math.max(S.streak.best | 0, S.streak.count);   // the longest run, for the home page's ribbon
     maybeStreakChest();
+    setTimeout(() => { remindSync(); }, 0);   // the first study of the day: tonight's reminder is not sent (docs/reminders.md)
   }
   /* ---------- A WEEK'S STREAK IS A CHEST (Aug 2026, on request) ----------
      The third way to earn one, after a level and the daily sweep, and the only one that rewards turning up
@@ -25758,6 +25759,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               how-it-works strip under the review used to say, said properly and only where asked for. */""}
         ${guestNoticeHTML()}
         ${tourOfferHTML()}
+        ${/* INSTALL FOLIO (Oct 2026): offered once a reader has come back (ten cards studied), dismissable for good — see installOfferHTML */""}
+        <div id="installSlot">${installOfferHTML()}</div>
         ${/* WAITING CHESTS, DIRECTLY ABOVE THE DAILY-STUDY BANNER (Aug 2026, on request). It was on the
               account page, two taps away from where a chest is actually earned, while the banner carried a
               bare count in its meta row — so the number was where nobody could act on it and the notice
@@ -42978,6 +42981,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="ctl"><button class="btn ghost" id="creditsBtn" type="button">Open</button></div>
           </div>
         </div>
+        ${/* THE APP (Oct 2026, on request): install, study reminders, the icon's count, keep on this device — see appSettingsHTML */""}
+        ${appSettingsHTML(setHead)}
         <div class="set-card">
           ${setHead("#2BA6A0", '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>', "Data")}
           <div class="set-row">
@@ -43161,6 +43166,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.addEventListener("click", flip);
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
     };
+    wireAppSettings(root);
     wireSwitch("#sw-anim", () => S.settings.animations !== false, (v) => { S.settings.animations = v; });
     wireSwitch("#sw-contrast", () => !!S.settings.contrast, (v) => { S.settings.contrast = v; });
     /* Load balancing. It goes through the same wireSwitch as the two above — the extra call is
@@ -46958,17 +46964,471 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   movedStripBoot();
 
-  // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
-  // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's
-  // live-reload against a caching worker serves files you've already fixed. Same guard as the
-  // cloud content overrides, for the same reason. Test the PWA on the deployed site.
+  /* ============================================================
+     THE INSTALLED APP (Oct 2026, on request: "turn the website into a downloadable app which updates at the
+     exact same time as the website itself … download some of the page files to the phone … send reminders").
+     📖 docs/downloadable-app-plan.md (the why) and docs/reminders.md (the reminders, end to end).
+
+     The app IS the website: installed from the browser (Chrome's Install, Safari's Add to Home Screen), with no
+     store and no second copy of anything. sw.js keeps the eager files on the phone as one set and checks them
+     against the site on every open, so an open is the current Folio whenever the network answers in time and
+     the phone's copy when it does not. This block is the page's half:
+
+       · registration, and the "a new version is ready — Reload" strip for a page opened on the old set
+         (the worker says `updated`) and for an app brought back to the foreground after a release
+       · `adopt`: the files this page fetched before the worker controlled it, so offline works from the
+         second open
+       · install help: Chrome's deferred prompt on Home and in Settings, the Share-sheet sentence on an iPhone
+       · the due count on the app icon (`setAppBadge`)
+       · Settings → "Keep on this device": the card details and glossary, the Atlas, the books opened
+       · study reminders (Web Push), at 8 p.m. unless the reader picks another time
+
+     STATE IS `var`, NOT `let`, AND EVERY CONSTANT A PAGE READS IS A FUNCTION: PAGES.home and PAGES.settings run
+     during boot when the address is #settings or home, BEFORE this block has run — a `let` would still be in its
+     temporal dead zone and a `var` still undefined (a #settings deep link once threw on `keepGroups().map`).
+     ============================================================ */
+  var SW_REG = null;                 // the registration, once there is one
+  var INSTALL_EVT = null;            // Chrome's deferred `beforeinstallprompt`
+  var SW_CHECKED_AT = 0;             // the last foreground check, for the five-minute throttle
+  var REMIND_SENT = "";              // the last reminder row written, so an unchanged one is not re-sent
+  var REMIND_VAPID = null;           // the public key from /api/vapid (null: not asked; "": the site has none)
+  function appDismissKey() { return "folio_install_dismissed"; }
+  function pushSecretKey() { return "folio_push_secret"; }
+
+  function appInstalled() {
+    try { return window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: window-controls-overlay)").matches || navigator.standalone === true; }
+    catch (e) { return false; }
+  }
+  function appIsIOS() {
+    const ua = navigator.userAgent || "";
+    return /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  }
+  // "installed" | "prompt" (Chrome can install it now) | "ios" (the Share sheet) | "browser" (the browser's own menu, if it has one)
+  function installState() {
+    if (appInstalled()) return "installed";
+    if (INSTALL_EVT) return "prompt";
+    if (appIsIOS()) return "ios";
+    return "browser";
+  }
+  // the worker controls this page — true from the first byte of a controlled load, well before `load` fires and the
+  // registration call returns, which a reader tapping a switch at once must not be made to wait for
+  function appSwReady() { return !isDevOrigin() && !!(navigator.serviceWorker && navigator.serviceWorker.controller); }
+  /* One question to the worker, with an optional progress callback; resolves the last message (the reply
+     whose type is not a progress tick), or null when there is no worker or it does not answer in `ms`. */
+  function swAsk(msg, onProgress, ms) {
+    return new Promise((resolve) => {
+      const ctl = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (!ctl) { resolve(null); return; }
+      const ch = new MessageChannel();
+      let t = setTimeout(() => resolve(null), ms || 15000);
+      ch.port1.onmessage = (e) => {
+        const d = e.data || {};
+        if (d.type === "keep-progress") { if (onProgress) onProgress(d); clearTimeout(t); t = setTimeout(() => resolve(null), ms || 60000); return; }
+        clearTimeout(t); resolve(d);
+      };
+      ctl.postMessage(msg, [ch.port2]);
+    });
+  }
+  function fmtMB(bytes) {
+    const mb = (bytes || 0) / 1048576;
+    return (mb >= 10 ? Math.round(mb) : mb.toFixed(1)) + " MB";
+  }
+
+  /* ---------- updates ---------- */
+  function appUpdateStrip() {
+    if (document.querySelector(".app-update")) return;
+    const bar = document.createElement("div");
+    bar.className = "moved-strip app-update";
+    bar.setAttribute("role", "status");
+    const msg = document.createElement("p");
+    const lead = document.createElement("b");
+    lead.textContent = "A new version of Folio is ready.";
+    msg.appendChild(lead);
+    msg.appendChild(document.createTextNode(" Reload when you finish what you are doing; your progress is kept."));
+    bar.appendChild(msg);
+    const go = document.createElement("button");
+    go.type = "button"; go.className = "btn"; go.textContent = "Reload";
+    go.addEventListener("click", () => location.reload());
+    bar.appendChild(go);
+    const x = document.createElement("button");
+    x.type = "button"; x.className = "moved-x"; x.setAttribute("aria-label", "Dismiss"); x.textContent = "×";
+    x.addEventListener("click", () => bar.remove());
+    bar.appendChild(x);
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+  function appCheckNow() {
+    if (!appSwReady() || Date.now() - SW_CHECKED_AT < 300000) return;   // at most every five minutes
+    SW_CHECKED_AT = Date.now();
+    swAsk({ type: "check" }, null, 60000);   // a change arrives as `updated`, below
+  }
+  // the files this page already fetched, for the worker to keep (it skips what it holds)
+  function appAdopt() {
+    if (!appSwReady() || !window.performance || !performance.getEntriesByType) return;
+    const urls = performance.getEntriesByType("resource").map((r) => r.name)
+      .filter((u) => { try { const x = new URL(u); return x.origin === location.origin && !/^\/api\//.test(x.pathname); } catch (e) { return false; } });
+    if (urls.length) navigator.serviceWorker.controller.postMessage({ type: "adopt", urls });
+  }
+
+  /* ---------- install ---------- */
+  function installOfferHTML() {
+    const st = installState();
+    if (st !== "prompt" && st !== "ios") return "";
+    if (Object.keys(S.cards || {}).length < 10) return "";   // offered to a reader who has come back, not at the door
+    try { if (localStorage.getItem(appDismissKey())) return ""; } catch (e) {}
+    return '<div class="install-offer" role="region" aria-label="Install Folio">' +
+      '<img class="io-ic" src="icon-192.png" alt="" width="40" height="40">' +
+      '<span class="io-body"><b>Put Folio on your home screen.</b> ' +
+      (st === "ios" ? "Tap the Share button, then <i>Add to Home Screen</i>. " : "") +
+      "It opens like an app, works offline and can remind you to study.</span>" +
+      (st === "prompt" ? '<button type="button" class="btn io-go" data-install>Install</button>' : "") +
+      '<button type="button" class="io-x" data-install-x aria-label="Not now">×</button></div>';
+  }
+  function installRefresh() {
+    const slot = document.getElementById("installSlot");
+    if (slot) slot.innerHTML = installOfferHTML();
+    const row = document.getElementById("appInstallRow");
+    if (row) row.outerHTML = appInstallRowHTML();
+  }
+  async function installNow() {
+    if (!INSTALL_EVT) return;
+    const evt = INSTALL_EVT;
+    INSTALL_EVT = null;   // a prompt can be shown once
+    try { evt.prompt(); await evt.userChoice; } catch (e) {}
+    installRefresh();
+  }
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); INSTALL_EVT = e; installRefresh(); });
+  window.addEventListener("appinstalled", () => { INSTALL_EVT = null; installRefresh(); });
+  document.addEventListener("click", (e) => {
+    const t = e.target && e.target.closest ? e.target : null;
+    if (!t) return;
+    if (t.closest("[data-install]")) { installNow(); return; }
+    if (t.closest("[data-install-x]")) {
+      try { localStorage.setItem(appDismissKey(), "1"); } catch (err) {}
+      const slot = document.getElementById("installSlot");
+      if (slot) slot.innerHTML = "";
+    }
+  });
+
+  /* ---------- the due count on the icon ---------- */
+  function appBadgeUpdate() {
+    if (!("setAppBadge" in navigator)) return;
+    try {
+      const n = S.settings.badge === false ? 0 : dueCountNow();
+      (n ? navigator.setAppBadge(n) : navigator.clearAppBadge()).catch(() => {});
+    } catch (e) {}
+  }
+
+  /* ---------- keep on this device ---------- */
+  // the Atlas's files that its scripts fetch() by name rather than through DATA_BUNDLES (check-sw-shell.js
+  // proves each exists). The finer tiles are not listed: they are kept as the reader visits them.
+  const KEEP_FIXED = {
+    atlas: [
+      "atlas/atlas-worker.js", "atlas/vendor/earcut.js",
+      "atlas/data/topology.bin", "atlas/data/water.bin", "atlas/data/history.bin", "atlas/data/history-wars.bin", "atlas/data/history-ww2.bin",
+      "atlas/data/gazetteer.js", "atlas/data/places.js", "atlas/data/polity-index.js", "atlas/data/polity-names.js", "atlas/data/land-changes.js",
+      "atlas/data/relief/relief.json", "atlas/data/relief/L0.hi.png", "atlas/data/relief/L0.lo.png", "atlas/data/relief/L0.sh.png",
+    ],
+  };
+  function keepGroups() { return [
+    ["cards", "Card details and the glossary", "Every card's background, sources and quotations, the glossary's definitions and the artefacts."],
+    ["atlas", "The Atlas", "The globe, its borders through time, its rivers and its relief; the closest views are kept as you visit them."],
+    ["books", "Books you have opened", "The full text of every Library book you have started."],
+  ]; }
+  function keepUrls(group) {
+    if (group === "cards") {
+      const pre = new Set(CARDS.map((c) => cardExtraPrefix(c.id)).filter(Boolean));
+      return [...pre].map((p) => "data-extra/" + p + ".js").concat(["glossary-extra.js", "artefacts-extra.js"]);
+    }
+    if (group === "atlas") {
+      const out = [];
+      Object.keys(DATA_BUNDLES).filter((k) => /^atlas2/.test(k) || k === "rivers1" || k === "credits").forEach((k) => out.push(...DATA_BUNDLES[k].files));
+      return out.concat(KEEP_FIXED.atlas);
+    }
+    if (group === "books") {
+      const out = [];
+      Object.keys(S.reading || {}).forEach((id) => {
+        const b = BOOKS.find((x) => x.id === id);
+        if (!b) return;
+        out.push("books/" + id + ".js");
+        if (b.origLang) out.push("books/" + id + "." + b.origLang + ".js");
+      });
+      return out;
+    }
+    return [];
+  }
+  function keepOn(group) { return !!(S.settings.keep && S.settings.keep[group]); }
+  async function keepSet(group, on, note) {
+    S.settings.keep = Object.assign({}, S.settings.keep, { [group]: !!on });
+    save();
+    const say = (t) => { if (note) note.textContent = t; };
+    if (!appSwReady()) { say("Folio is not running as an app on this device yet. Reload the page once and try again."); return; }
+    if (!on) { await swAsk({ type: "unkeep", urls: keepUrls(group) }); say(""); return; }
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+    const urls = keepUrls(group);
+    if (!urls.length) { say(group === "books" ? "Open a book in the Library and it is kept here." : ""); return; }
+    say("Downloading…");
+    const done = await swAsk({ type: "keep", urls }, (p) => say("Downloading… " + p.done + " of " + p.total + " (" + fmtMB(p.bytes) + ")"), 120000);
+    if (!done) { say("The download stopped. It carries on the next time you open Folio."); return; }
+    say("Kept on this device: " + fmtMB(done.bytes) + (done.failed ? ". " + done.failed + (done.failed === 1 ? " file" : " files") + " could not be fetched and will be tried again." : "."));
+  }
+  async function keepReport(group, note) {
+    if (!note || !keepOn(group) || !appSwReady()) return;
+    const r = await swAsk({ type: "kept", urls: keepUrls(group) });
+    if (r && r.total) note.textContent = "Kept on this device: " + fmtMB(r.bytes) + (r.have < r.total ? " (" + r.have + " of " + r.total + " files; the rest arrive on the next open)" : ".");
+  }
+  // at idle after boot: fetch what is new in each kept group (a book opened since, a release's changed files)
+  function keepRefresh() {
+    if (!appSwReady() || lightMode() || onCellular()) return;
+    keepGroups().forEach((g) => { if (keepOn(g[0])) { const urls = keepUrls(g[0]); if (urls.length) swAsk({ type: "keep", urls }, null, 600000); } });
+  }
+
+  /* ---------- study reminders ---------- */
+  function remindDefaultAt() { return 20 * 60; }   // 8 p.m., the owner's choice (2026-10-24); server/reminders.js holds the same
+  function remindSettings() {
+    const r = S.settings.remind || {};
+    const at = Number.isFinite(r.at) ? Math.min(1439, Math.max(0, r.at | 0)) : remindDefaultAt();
+    return { on: !!r.on, at };
+  }
+  // "ok" | "dev" (a dev origin has no worker) | "ios-tab" (Safari on an iPhone, not installed) | "unsupported"
+  function remindSupport() {
+    if (isDevOrigin()) return "dev";
+    if (appIsIOS() && !appInstalled()) return "ios-tab";
+    if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) return "unsupported";
+    return "ok";
+  }
+  function b64uBytes(s) {
+    const t = String(s).replace(/-/g, "+").replace(/_/g, "/");
+    const bin = atob(t + "===".slice((t.length + 3) % 4));
+    return Uint8Array.from(bin, (c) => c.charCodeAt(0));
+  }
+  function bytesB64u(buf) {
+    const b = new Uint8Array(buf);
+    let s = "";
+    for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+    return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  async function remindVapidKey() {
+    if (REMIND_VAPID !== null) return REMIND_VAPID;
+    try {
+      const r = await fetch("api/vapid", { cache: "no-store" });
+      const d = r.ok ? await r.json() : null;
+      REMIND_VAPID = (d && d.key) || "";
+    } catch (e) { return ""; }   // offline: ask again next time
+    return REMIND_VAPID;
+  }
+  function remindSecret() {
+    let s = "";
+    try { s = localStorage.getItem(pushSecretKey()) || ""; } catch (e) {}
+    if (s.length < 16) {
+      s = (crypto.randomUUID ? crypto.randomUUID() : bytesB64u(crypto.getRandomValues(new Uint8Array(24)))).replace(/-/g, "");
+      try { localStorage.setItem(pushSecretKey(), s); } catch (e) {}
+    }
+    return s;
+  }
+  // the next reminder moment on this device's clock
+  function remindNextAt() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    let t = d.getTime() + remindSettings().at * 60000;
+    if (t <= Date.now()) t += DAY;
+    return t;
+  }
+  function remindDueCount(at) {
+    try {
+      return activeCardIds().filter((id) => {
+        const c = S.cards[id];
+        return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= at && !isSuspended(id) && !isBuried(id);
+      }).length;
+    } catch (e) { return 0; }
+  }
+  // `create`: subscribe when there is no subscription; `granted`: the tap that just asked was answered "granted"
+  // (trusted over Notification.permission, which can lag the answer)
+  async function remindSubscription(create, granted) {
+    const reg = SW_REG || (navigator.serviceWorker && await Promise.race([navigator.serviceWorker.ready, new Promise((r) => setTimeout(() => r(null), 8000))]));
+    if (!reg || !reg.pushManager) return null;
+    const key = await remindVapidKey();
+    if (!key) return null;
+    let sub = await reg.pushManager.getSubscription();
+    // a subscription made under another key (the pair was rotated) is useless to the sender
+    if (sub && sub.options && sub.options.applicationServerKey && bytesB64u(sub.options.applicationServerKey) !== key) { try { await sub.unsubscribe(); } catch (e) {} sub = null; }
+    if (!sub && create && (granted || Notification.permission === "granted")) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64uBytes(key) });
+    return sub;
+  }
+  /* Write this device's row (push_save): its subscription, its clock and the three facts the reminder is
+     worded from. Skipped when nothing changed since the last write, unless `force`. */
+  async function remindSync(force, granted) {
+    const rs = remindSettings();
+    if (!rs.on || remindSupport() !== "ok") return false;
+    let sub;
+    try { sub = await remindSubscription(true, granted); } catch (e) { sub = null; }
+    if (!sub) return false;
+    const j = sub.toJSON();
+    const today = todayStr();
+    const todayAt = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime() + rs.at * 60000; })();
+    const row = {
+      endpoint: sub.endpoint, p256dh: j.keys && j.keys.p256dh, auth: j.keys && j.keys.auth, secret: remindSecret(),
+      tz: (Intl.DateTimeFormat().resolvedOptions().timeZone) || "UTC", remind_at: rs.at, day_end: dayEndMin(),
+      last_study: (S.streak && S.streak.last) || null, streak: (S.streak && S.streak.count) | 0,
+      due: remindDueCount(remindNextAt()), badge: S.settings.badge !== false,
+      // switched on after tonight's time has passed: start tomorrow
+      sent_day: Date.now() > todayAt ? today : null,
+    };
+    const sig = JSON.stringify(Object.assign({}, row, { sent_day: null }));
+    if (!force && sig === REMIND_SENT) return true;
+    const r = await supaFetch("/rest/v1/rpc/push_save", { method: "POST", body: { p: row } });
+    if (r.ok && r.data === true) { REMIND_SENT = sig; return true; }
+    return false;
+  }
+  // the switch, on: the permission prompt MUST be the first thing the tap does (iOS refuses it otherwise)
+  async function remindEnable(at) {
+    let perm = "default";
+    try { perm = await Notification.requestPermission(); } catch (e) {}
+    if (perm !== "granted") return perm === "denied" ? "blocked" : "dismissed";
+    S.settings.remind = { on: true, at: at == null ? remindSettings().at : at };
+    save();
+    let ok = false;
+    try { ok = await remindSync(true, true); } catch (e) { ok = false; }
+    if (ok) return "on";
+    S.settings.remind.on = false;
+    save();
+    return (await remindVapidKey()) ? "save" : "server";
+  }
+  async function remindDisable() {
+    S.settings.remind = Object.assign({}, S.settings.remind, { on: false });
+    save();
+    REMIND_SENT = "";
+    try {
+      const sub = await remindSubscription(false);
+      if (sub) {
+        await supaFetch("/rest/v1/rpc/push_delete", { method: "POST", body: { ep: sub.endpoint, sec: remindSecret() } });
+        await sub.unsubscribe();
+      }
+    } catch (e) {}
+  }
+  function remindTimeText(at) {
+    const d = new Date(2000, 0, 1, Math.floor(at / 60), at % 60);
+    return d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  }
+  function remindNoteText() {
+    const sup = remindSupport();
+    if (sup === "dev") return "Reminders work on folio.study, not on this copy of the site.";
+    if (sup === "ios-tab") return "On an iPhone or iPad, add Folio to your Home Screen first (tap Share, then Add to Home Screen) and open it from there; reminders work from the app icon.";
+    if (sup === "unsupported") return "This browser cannot show reminders.";
+    if (typeof Notification !== "undefined" && Notification.permission === "denied") return "Notifications are blocked for Folio. Allow them in your browser's or phone's settings, then switch this on.";
+    const rs = remindSettings();
+    return rs.on ? "On: every day at " + remindTimeText(rs.at) + " unless you have already studied. Never more than one a day." : "One notification a day at the time you choose, only on days you have not studied yet.";
+  }
+
+  /* ---------- the Settings card ---------- */
+  function appInstallRowHTML() {
+    const st = installState();
+    const text = st === "installed" ? "Folio is installed on this device. It opens from its own icon, works offline and updates itself whenever the site does."
+      : st === "prompt" ? "Install Folio to open it from its own icon, use it offline and get study reminders. It is the same site, updated at the same moment."
+      : st === "ios" ? "Tap the Share button, then <i>Add to Home Screen</i>. Folio then opens from its own icon, works offline and can remind you to study."
+      : "Your browser's menu can install Folio (look for <i>Install</i> or <i>Add to Home screen</i>). It is the same site, updated at the same moment.";
+    return '<div class="set-row" id="appInstallRow"><div class="info"><h3>Install Folio</h3><p>' + text + "</p></div>" +
+      '<div class="ctl">' + (st === "prompt" ? '<button class="btn" type="button" data-install>Install</button>' : "") + "</div></div>";
+  }
+  function appSettingsHTML(setHead) {
+    const rs = remindSettings();
+    const sup = remindSupport();
+    const hhmm = String(Math.floor(rs.at / 60)).padStart(2, "0") + ":" + String(rs.at % 60).padStart(2, "0");
+    const swOk = !isDevOrigin() && "serviceWorker" in navigator;
+    const sw = (id, on, label, disabled) => '<div class="switch ' + (on ? "on" : "") + (disabled ? " is-disabled" : "") + '" id="' + id + '" role="switch" aria-label="' + label + '" tabindex="0" aria-checked="' + !!on + '"' + (disabled ? ' aria-disabled="true"' : "") + "></div>";
+    return `<div class="set-card set-app">
+          ${setHead("#3E7CB1", '<rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="11" y1="18" x2="13" y2="18"/>', "App")}
+          ${appInstallRowHTML()}
+          <div class="set-row">
+            <div class="info"><h3>Study reminders</h3><p id="remindNote">${remindNoteText()}</p>
+              <p class="set-sub"><label for="remindAt">Remind me at</label> <input type="time" id="remindAt" class="remind-at" value="${hhmm}" step="300"${sup === "ok" ? "" : " disabled"}></p></div>
+            <div class="ctl">${sw("sw-remind", rs.on && sup === "ok", "Study reminders", sup !== "ok")}</div>
+          </div>
+          <div class="set-row">
+            <div class="info"><h3>Cards due on the icon</h3><p>Show how many cards are due on Folio's app icon, where your phone or computer supports it.</p></div>
+            <div class="ctl">${sw("sw-badge", S.settings.badge !== false, "Cards due on the icon")}</div>
+          </div>
+          <div class="set-row set-row-block">
+            <div class="info"><h3>Keep on this device</h3><p>Folio already keeps everything a first page needs, so it opens instantly and offline. These download the rest now, so it is there on a train too, and keep it current with the site.${swOk ? "" : " This works on folio.study, not on this copy of the site."}</p></div>
+            <div class="keep-list">${keepGroups().map((g) => `<div class="keep-row"><div class="info"><h4>${g[1]}</h4><p>${g[2]}</p><p class="set-sub" id="keepNote-${g[0]}"></p></div><div class="ctl">${sw("sw-keep-" + g[0], keepOn(g[0]), g[1], !swOk)}</div></div>`).join("")}</div>
+          </div>
+        </div>`;
+  }
+  function wireAppSettings(root) {
+    const flipEl = (el, on) => { el.classList.toggle("on", !!on); el.setAttribute("aria-checked", String(!!on)); };
+    const bind = (el, fn) => {
+      if (!el) return;
+      el.addEventListener("click", fn);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } });
+    };
+    const note = root.querySelector("#remindNote");
+    const swR = root.querySelector("#sw-remind");
+    const atEl = root.querySelector("#remindAt");
+    const atVal = () => { const m = /^(\d{1,2}):(\d{2})/.exec((atEl && atEl.value) || ""); return m ? Math.min(1439, (+m[1]) * 60 + (+m[2])) : remindDefaultAt(); };
+    bind(swR, () => {
+      if (!swR || swR.classList.contains("is-disabled")) return;
+      if (remindSettings().on) {
+        flipEl(swR, false);
+        remindDisable().then(() => { if (note) note.textContent = remindNoteText(); });
+        return;
+      }
+      flipEl(swR, true);
+      if (note) note.textContent = "Switching on…";
+      remindEnable(atVal()).then((r) => {
+        flipEl(swR, r === "on");
+        if (!note) return;
+        note.textContent = r === "on" ? remindNoteText()
+          : r === "blocked" ? "Notifications are blocked for Folio. Allow them in your browser's or phone's settings, then switch this on."
+          : r === "dismissed" ? "Reminders need your permission to show a notification. Switch this on again to be asked."
+          : r === "server" ? "Reminders are not switched on for the site yet. Try again later."
+          : "The reminder could not be saved. Check your connection and try again.";
+      });
+    });
+    if (atEl) atEl.addEventListener("change", () => {
+      S.settings.remind = Object.assign({}, S.settings.remind, { at: atVal() });
+      save();
+      if (remindSettings().on) remindSync(true).then(() => { if (note) note.textContent = remindNoteText(); });
+    });
+    const swB = root.querySelector("#sw-badge");
+    bind(swB, () => { S.settings.badge = S.settings.badge === false; save(); flipEl(swB, S.settings.badge !== false); appBadgeUpdate(); remindSync(); });
+    keepGroups().forEach((g) => {
+      const el = root.querySelector("#sw-keep-" + g[0]);
+      const kn = root.querySelector("#keepNote-" + g[0]);
+      bind(el, () => {
+        if (!el || el.classList.contains("is-disabled")) return;
+        const on = !keepOn(g[0]);
+        flipEl(el, on);
+        keepSet(g[0], on, kn);
+      });
+      keepReport(g[0], kn);
+    });
+  }
+
+  /* ---------- boot ---------- */
+  // Service worker (sw.js). Registered after `load` so it never competes with first paint, and NEVER on a dev
+  // origin: a file-watching dev server's live-reload against a caching worker serves files you have already
+  // fixed. Same guard as the cloud content overrides, for the same reason. `.claude/test-pwa.js` serves the
+  // repo on a made-up host to test it.
   if ("serviceWorker" in navigator && !isDevOrigin()) {
+    navigator.serviceWorker.addEventListener("message", (e) => {
+      const d = e.data || {};
+      if (d.type === "updated") appUpdateStrip();
+      else if (d.type === "route" && typeof d.hash === "string") { const h = d.hash.replace(/^#/, ""); if (h) location.hash = h; }
+    });
+    // a page the worker took over mid-visit (the first visit) hands it the files it already has
+    navigator.serviceWorker.addEventListener("controllerchange", () => setTimeout(appAdopt, 3000));
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("sw.js").then((reg) => {
-        // a worker that installs while a tab is open takes over on the NEXT navigation — never
-        // mid-session, which would swap the code out from under a study session
+        SW_REG = reg;
+        // a worker that installs while a tab is open takes over at once; the shell it serves is unchanged
+        // until its own check says otherwise, so nothing is swapped under a study session
         if (reg.waiting) reg.waiting.postMessage("skipWaiting");
+        const idle = window.requestIdleCallback || ((f) => setTimeout(f, 4000));
+        idle(() => { appAdopt(); keepRefresh(); appBadgeUpdate(); remindSync(); installRefresh(); });
       }).catch(() => {});   // an unregistrable worker (private mode, blocked scope) is not an error worth surfacing
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") appCheckNow();
+      else { appBadgeUpdate(); remindSync(); }
     });
   }
 

@@ -86,9 +86,9 @@ It is a plain static website — open `index.html` and it runs.
   typing the hour on your own clock and calling it UTC, and a placeholder rounded to midnight is wrong in
   every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
   bumping it and writing the day's line are one file open and two edits, and the two can never come to
-  disagree about what shipped when. It is **not** sw.js's `VERSION`, which is a cache generation — bumping
-  that one throws every cached file away and costs each reader ~1.4 MB, so the two are counted separately and
-  a release does not touch it.
+  disagree about what shipped when. It is **not** a cache generation: sw.js had a hand-bumped `VERSION` for that
+  until Oct 2026, and since then it has none — it checks every shell file's ETag on each open
+  (`docs/downloadable-app-plan.md` §4), so a release needs nothing from it.
 - **Keep the changelog current.** Whenever a user-requested change ships to the live site (committed/pushed),
   append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
   day first). Reader-facing wording — what changed for the user, not how. **Card/glossary content changes are
@@ -4186,16 +4186,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   either hook both get seeded. **Any new lazy file whose global is read at boot needs the same treatment.**
   **📖 `docs/eager-path.md` — READ BEFORE CHANGING `ensureData`'s COUNTING OR A BUNDLE'S `after` HOOK.**
   The request the load bar came from and the twelve steps measured off a live Atlas run.
-- **PWA:** `manifest.json` (installable, `icon.svg` + `icon-maskable.svg`) and **`sw.js`**, registered by
-  app.js on `load`. **Never registered on a dev origin** (`isDevOrigin()` — same guard, and same reason, as
-  the cloud content overrides): a file-watching dev server's live-reload against a caching worker serves
-  files you have already fixed. **Test the PWA on the deployed site, not localhost.** Strategy: navigations
-  are network-first (a deploy is picked up at once, and the app still opens offline); same-origin
-  JS/CSS/JSON/images are stale-while-revalidate, so **content files land one reload late** — the deliberate
-  trade for instant loads. Live admin edits are unaffected (they arrive through the Supabase
-  `content_overrides` overlay at runtime, not through these files). The multi-MB lazy bundles are **not**
-  precached — that would undo the split; they enter the cache when a page actually asks for them, so one
-  Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
+- **PWA:** `manifest.json` (installable; SVG icons plus the PNGs `.claude/build-icons.js` renders for iOS and
+  Android notifications) and **`sw.js`**, registered by app.js on `load`. **Never registered on a dev origin**
+  (`isDevOrigin()` — same guard, and same reason, as the cloud content overrides): a file-watching dev server's
+  live-reload against a caching worker serves files you have already fixed. Test it on the deployed site or with
+  `test-pwa.js`, which serves the repo on `folio.localhost` (a secure context that is not a dev origin).
+  **Strategy since Oct 2026** (`docs/downloadable-app-plan.md` §4, on request: "updates at the exact same time as
+  the website"): the eager files are ONE set; every open asks the site for each file's ETag (304s, no bodies) and,
+  when any changed, writes a new set whole before serving the open — or, past 4 s, opens the old set whole and
+  offers Reload. Lazy files are tagged with the release they were confirmed under and re-confirmed with their
+  ETag on first use after a new one. Content files therefore land WITH the release, not one reload late (the old
+  stale-while-revalidate trade is gone). Live admin edits are unaffected (they arrive through the Supabase
+  `content_overrides` overlay at runtime). The multi-MB lazy bundles are still **not** precached for everyone;
+  Settings → App → "Keep on this device" fetches them on request. There is no `VERSION` to bump.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE** (`resetProgress` / `RESET_KEEPS`, beside
   `applyProgress`/`emptyProgress`; Settings → Danger zone. Aug 2026, on a bug report). It was

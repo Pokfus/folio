@@ -4075,6 +4075,29 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .moved-x{appearance:none; cursor:pointer; border:0; background:none; color:var(--ink-soft); font-size:calc(22px * var(--fs)); line-height:1; padding:4px 8px; border-radius:6px;}
 .moved-x:hover{color:var(--ink); background:var(--paper-2);}
 .moved-x:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* THE INSTALLED APP (Oct 2026; app.js "THE INSTALLED APP", docs/downloadable-app-plan.md). The update strip is the
+   moved strip's own furniture (.moved-strip, above); the Home offer to install sits with the guest notice's shape
+   in the indigo wash rather than its amber, being an offer and not a warning. */
+.install-offer{display:flex; align-items:center; gap:14px; padding:12px 14px; border-radius:14px; background:var(--indigo-wash); border:1px solid var(--rule); color:var(--ink); font-size:calc(14px * var(--fs)); line-height:1.45;}
+.install-offer .io-ic{flex:none; width:40px; height:40px; border-radius:10px;}
+.install-offer .io-body{flex:1; min-width:0;}
+.install-offer .io-go{flex:none; padding:10px 16px;}
+.install-offer .io-x{flex:none; appearance:none; cursor:pointer; border:0; background:none; color:var(--ink-soft); font-size:calc(22px * var(--fs)); line-height:1; padding:4px 8px; border-radius:6px;}
+.install-offer .io-x:hover{color:var(--ink); background:var(--paper-2);}
+.install-offer .io-x:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+#installSlot:empty{display:none;}
+@media (max-width:640px){ .install-offer{flex-wrap:wrap;} .install-offer .io-body{flex-basis:calc(100% - 100px);} }
+.set-app .remind-at{font:inherit; font-style:normal; color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-radius:8px; padding:4px 8px; margin-left:6px;}
+.set-app .remind-at:disabled{opacity:.55;}
+.set-app .keep-list{display:flex; flex-direction:column;}
+.set-app .keep-row{display:flex; align-items:center; gap:18px; padding:12px 0;}
+.set-app .keep-row + .keep-row{border-top:1px dashed var(--rule);}
+.set-app .keep-row .info{flex:1; min-width:0;}
+.set-app .keep-row h4{font-family:var(--serif); font-weight:600; font-size:calc(15px * var(--fs)); margin:0 0 2px;}
+.set-app .keep-row p{margin:0; font-size:calc(13px * var(--fs)); color:var(--ink-faint);}
+.set-app .keep-row p.set-sub{margin-top:4px; font-size:calc(12.5px * var(--fs)); font-style:italic;}
+.set-app .keep-row p.set-sub:empty{display:none;}
+.switch.is-disabled{opacity:.45; cursor:not-allowed;}
 .toast{
   position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
   width:max-content; max-width:min(92vw, 560px);

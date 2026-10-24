@@ -1,11 +1,39 @@
 # Folio as a downloadable app — the investigation (Oct 2026)
 
-**Status: a plan, nothing built.** The owner asked (2026-10-24) to look into turning the site into a
-downloadable app that (1) updates at the exact moment the website does, so content is never
+**Status: built 2026-10-24, except the app stores.** The owner asked (2026-10-24) to look into turning the
+site into a downloadable app that (1) updates at the exact moment the website does, so content is never
 maintained twice, (2) keeps some of the page files on the phone so it opens faster, and (3) sends
-reminders so people do not forget to study. This file is the answer: what Folio already is, what each
-wish needs, the choices the owner has to make, and the order to build it in. Rules that come out of it
-will go into `CLAUDE.md` when something is built; until then this is reasoning only.
+reminders so people do not forget to study. This file was the answer; the owner then chose: **no Google
+Play and no App Store for now — downloadable from the website only**, reminders at **8 p.m. by default**,
+and the recommendations below on everything else (guests get reminders too; the sender is a Pages
+Function woken by `pg_cron`). The rules are in `CLAUDE.md`; the reminders have their own file,
+`docs/reminders.md`.
+
+## 0. As built — where the build differs from the plan below
+
+- **No version probe (§4).** The plan had app.js read `FOLIO_VERSION` and ask the worker to refresh.
+  The build is simpler and does not lean on the changelog rule: on **every open** the worker asks the
+  site for each shell file's ETag at once (an unchanged file is a 304 with no body), and when any
+  changed it writes the new set whole before serving the open. Past `NAV_WAIT_MS` (4 s) the old set opens
+  whole and the page shows "A new version of Folio is ready — Reload" when the new set is in. The page
+  also asks for the check when the app returns to the foreground (at most every five minutes). sw.js's
+  hand-bumped `VERSION` is gone.
+- **Lazy files land with their release, too.** Each is stored with the release it was confirmed under
+  (`X-Folio-Gen`) and confirmed with its ETag on its first use after a new one — so the old "content
+  files land one reload late" trade is gone everywhere, not only for the shell.
+- **The first visit's files are adopted.** Besides fixing `SHELL` (§5), the page hands the worker the list
+  of files it fetched before the worker controlled it (`adopt`), so the fonts and the warmed bundles are
+  on the phone from the second open.
+- **Keep on this device** (§5) has three switches: *Card details and the glossary* (every
+  `data-extra/` file, `glossary-extra.js`, `artefacts-extra.js`), *The Atlas* (its scripts, the world-level
+  topology, water, history, relief; finer tiles as visited) and *Books you have opened*. Sizes are
+  measured after download, never quoted in advance.
+- **PNG icons** were added (`.claude/build-icons.js`): iOS ignores an SVG `apple-touch-icon`, and Android's
+  notification badge must be a bitmap.
+- **The iPhone install hint** is on Home (after ten cards studied, dismissable for good) and in Settings →
+  App; Chrome's own Install prompt is offered in both places when the browser makes one available.
+- **Tests**: `check-sw-shell.js` and `test-reminders.js` in CI's fast job; `test-pwa.js` (full Chromium,
+  on `folio.localhost`) in the card-window job, the four shards being at their cap.
 
 ## 1. The short answer
 
