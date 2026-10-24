@@ -6962,6 +6962,13 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin-collapse{display:none;}
   .admin-list{width:auto; border-right:0; border-bottom:1px solid var(--rule);}
   .admin-list-items{max-height:300px;}
+  /* Oct 2026, on a bug report (a phone): the list's tools and the card editor's head each kept one unbreakable row, so the page
+     ran 140 px past the screen, and the head's buttons (Back to studying, Preview, Revert, Delete) squeezed the title and the
+     card's key into a column one letter wide. Both wrap here; the head's buttons go under the title. */
+  .admin-list-tools{flex-wrap:wrap;}
+  .alt-right{flex-wrap:wrap;}
+  .admin-ed-head{flex-direction:column; gap:12px;}
+  .admin-ed-actions{flex:initial; flex-wrap:wrap; gap:8px; padding-top:0;}
   /* Every tab that takes over the whole admin area needs the panel cap above lifted, or its entire page is
      trapped in a 300px scroll box with the rest of the screen left empty below it — which is exactly what
      the Quotes tab looked like on a phone (Aug 2026, on a bug report): the edit form filled the box, its
