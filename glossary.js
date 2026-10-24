@@ -12392,7 +12392,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "East–West_Schism": ["Great Schism","Schism of 1054"],
 "Eastern_Orthodox_Church": ["Eastern Orthodoxy","Orthodox Church","Eastern Orthodox"],
 "Cyril_and_Methodius": ["Saints Cyril and Methodius","Constantine the Philosopher","Methodius"],
-"Kievan_Rus'": ["Kyivan Rus","Kyivan Rus’","Kievan Rus","Rus’"],
+"Kievan_Rus'": ["Kyivan Rus","Kyivan Rus’","Kievan Rus","Rus’","Rus'"],
 "First_Bulgarian_Empire": ["First Bulgarian Tsardom","First Bulgarian state"],
 "Battle_of_Manzikert": ["Manzikert","Malazgirt"],
 "Sack_of_Constantinople": ["Sack of Constantinople in 1204"],
@@ -14948,7 +14948,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fascism": ["Fascist","Fascists"],
 "First_Dynasty_of_Egypt": ["1st Dynasty"],
 "Second_Dynasty_of_Egypt": ["2nd Dynasty"],
-"Siberia": ["Siberian"]
+"Siberia": ["Siberian"],
+"Battle_of_the_Kalka_River": ["Kalka"],
+"Korean_Peninsula": ["Korean peninsula"],
+"Okinawa_Island": ["Okinawa"],
+"Taebaek_Mountains": ["Taebaek"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
