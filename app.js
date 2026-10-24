@@ -20268,7 +20268,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (scrolled && !onMap) panFling();
       /* a press on a glossary term that never became a stroke: open the term. Nothing was drawn, so there
          is no dot to take back — which is the whole reason the stroke is deferred rather than undone. */
-      if (tip) { if (tipUnder(e) === tip) tip.click(); return; }
+      if (tip) { if (tipUnder(e) === tip) { tip.click(); eatClick = performance.now(); } return; }
       if (ctl) {
         /* Released on the same control it was pressed on → activate it, the way the click we suppressed
            would have. In stylus mode a finger that MOVED has scrolled the page rather than tapped, and
@@ -20281,11 +20281,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // drop every tap on a linked word.
         if (!moved && (controlUnder(e) || tipUnder(e)) === ctl) {
           if (/^(INPUT|TEXTAREA|SELECT)$/.test(ctl.tagName)) { try { ctl.focus(); } catch (x) {} }
-          else ctl.click();
+          else { ctl.click(); eatClick = performance.now(); }
         }
         return;
       }
       end();
+    });
+    /* THE BROWSER'S OWN CLICK STILL ARRIVES, ON THE CANVAS (Oct 2026, on a report that the Chinese and
+       Japanese answer's translation button did nothing with the marker selected). `preventDefault` on
+       pointerdown suppresses the mouse events but not `click`, so the control activated by hand above is
+       followed by a real click whose target is this canvas — and a popup that closes on a click OUTSIDE it
+       (`wireAnswerBubbles`' document listener) read that as one and shut the bubble the instant it opened.
+       So the one click that follows a press handed to a control is stopped here; every other click on the
+       canvas bubbles as before. */
+    let eatClick = 0;
+    canvas.addEventListener("click", (e) => {
+      if (eatClick && performance.now() - eatClick < 1000) { e.stopPropagation(); e.preventDefault(); }
+      eatClick = 0;
     });
     canvas.addEventListener("pointercancel", (e) => {
       /* A cancel for a pointer that owns nothing is a palm the browser has rejected for us — which is the
