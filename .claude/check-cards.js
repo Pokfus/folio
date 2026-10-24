@@ -397,6 +397,10 @@ const NOT_A_SCHOLAR = new Set([
   "Thomas Jefferson", // geo-821: Jefferson "called" the Potomac's passage one of the most stupendous scenes in Nature
   "Samuel Barlow",    // geo-923: the emigrant who "set out" to cut a road around Mount Hood in 1845
   "White Castle",     // gr-478: the Persian citadel of Memphis, which "held them"
+  /* …and China's physical decks (Oct 2026): a Victorian traveller, a Ming traveller and an empress. */
+  "Isabella Bird",    // gc-830: the traveller who "found" Chongqing on its reef in the 1890s
+  "Xu Xiake",         // gc-921: the Ming traveller (1587–1641) who "found" Wudang's cliff shrines
+  "Empress Wu Zetian", // gc-924: the Tang empress who "held" the feng and shan on Mount Song in 695
   /* Places and things the prose puts in front of a verb of agency — the shape the header above
      predicted, met once the Rome, World History and Second World War collections grew. */
   "Golan Heights",    // wh-138: the field of dolmens "holds over 400 tombs"
@@ -514,6 +518,10 @@ const SAME_LANGUAGE_OK = new Map([
   ["rm-034|French|2",  "CRAI: the Pyrgi inscriptions and the Campana terracottas"],
   ["rm-036|French|2",  "MEFRA and CRAI: the Tetnie tomb and the Bonaparte excavations at Vulci"],
   ["cnh-001|French|2", "Cahiers d'Extrême-Asie and the Revue de l'histoire des religions — French sinology"],
+  /* China's sacred mountains (Oct 2026): Cahiers d'Extrême-Asie publishes in English too, and Andersen, Hahn and
+     Robson are English articles in it; the French works are Chavannes's Le T'ai chan and, on Nanyue, Lycas's review. */
+  ["gc-916|French|3", "Andersen, Hahn and Robson write in English in Cahiers d'Extrême-Asie; Chavannes is the one French work"],
+  ["gc-925|French|2", "Chavannes's Le T'ai chan and Lycas's review of Robson in Études chinoises — French sinology on the Southern Peak"],
   ["wh-416|French|3",  "CRAI: Rilly on Meroitic and the Swiss-French mission's reports from Kerma and El-Hassa"],
   ["wh-429|Spanish|2", "Estudios de Cultura Maya, where Maya epigraphy is published"],
   ["wh-481|Italian|2", "Two English-language articles in Italian-titled journals (Rivista degli Studi Orientali; Quaderni di Linguistica e Studi Orientali), read on the page Oct 2026"],

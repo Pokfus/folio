@@ -3145,6 +3145,27 @@
    },
    "cards": 1
   },
+  "pl:q134927": {
+   "name": "Mount Emei",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q134927",
+   "at": [
+    103.3325,
+    29.5197
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Emei",
+   "manual": true,
+   "reason": "gc-914 Mount Emei: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q134960293": {
    "name": "Lysimacheia",
    "kind": "site",
@@ -10891,6 +10912,28 @@
    },
    "cards": 1
   },
+  "pl:q334225": {
+   "name": "Li River",
+   "kind": "river",
+   "sub": "",
+   "qid": "Q334225",
+   "at": [
+    110.6333,
+    24.6331
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Li River",
+   "manual": true,
+   "reason": "gc-821 Li River: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q4022",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q3346548": {
    "name": "Palashi",
    "kind": "town",
@@ -15606,6 +15649,30 @@
    },
    "cards": 1
   },
+  "pl:q644965": {
+   "name": "Mount Heng (Hunan)",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q644965",
+   "at": [
+    112.6847,
+    27.3017
+   ],
+   "within": "",
+   "aliases": [
+    "Mount Heng"
+   ],
+   "wiki": "Mount Heng (Hunan)",
+   "manual": true,
+   "reason": "gc-925 Mount Heng: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q645234": {
    "name": "Tegea",
    "kind": "site",
@@ -16357,6 +16424,28 @@
     "km": 0
    },
    "cards": 1
+  },
+  "pl:q714023": {
+   "name": "Heaven Lake",
+   "kind": "lake",
+   "sub": "",
+   "qid": "Q714023",
+   "at": [
+    128.057,
+    42.006
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Heaven Lake",
+   "manual": true,
+   "reason": "gc-819 Heaven Lake: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q23397",
+     "Q204324"
+    ],
+    "via": "add-place"
+   }
   },
   "pl:q715869": {
    "name": "Legislative Yuan",
@@ -19133,6 +19222,635 @@
     "km": 0.6
    },
    "cards": 1
+  },
+  "pl:q10939259": {
+   "name": "Xiaozhai Tiankeng",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q10939259",
+   "at": [
+    109.47,
+    30.7505
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Xiaozhai Tiankeng",
+   "manual": true,
+   "reason": "gc-940 Xiaozhai Tiankeng: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q473972"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q112568": {
+   "name": "Mount Hua",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q112568",
+   "at": [
+    110.0833,
+    34.4833
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Hua",
+   "manual": true,
+   "reason": "gc-916 Mount Hua: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q1140980": {
+   "name": "Mount Song",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q1140980",
+   "at": [
+    112.9603,
+    34.4847
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Song",
+   "manual": true,
+   "reason": "gc-924 Mount Song: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q1154914": {
+   "name": "Hongze Lake",
+   "kind": "lake",
+   "sub": "",
+   "qid": "Q1154914",
+   "at": [
+    118.5847,
+    33.2861
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Hongze Lake",
+   "manual": true,
+   "reason": "gc-835 Hongze Lake: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q23397"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q1165197": {
+   "name": "Mount Danxia",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q1165197",
+   "at": [
+    113.7461,
+    25.0319
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Danxia",
+   "manual": true,
+   "reason": "gc-938 Mount Danxia: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831",
+     "Q6838244",
+     "Q53444003"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q120314": {
+   "name": "Mount Wutai",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q120314",
+   "at": [
+    113.5669,
+    39.0814
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Wutai",
+   "manual": true,
+   "reason": "gc-922 Mount Wutai: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q1460797": {
+   "name": "Tiger Leaping Gorge",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q1460797",
+   "at": [
+    100.14,
+    27.23
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Tiger Leaping Gorge",
+   "manual": true,
+   "reason": "gc-927 Tiger Leaping Gorge: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q150784"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q1537157": {
+   "name": "Mount Gongga",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q1537157",
+   "at": [
+    101.8792,
+    29.5958
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Gongga",
+   "manual": true,
+   "reason": "gc-937 Mount Gongga: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q172351": {
+   "name": "Hengduan Mountains",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q172351",
+   "at": [
+    99,
+    27.5
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Hengduan Mountains",
+   "manual": true,
+   "reason": "gc-932 Hengduan Mountains: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q216059": {
+   "name": "Mount Tai",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q216059",
+   "at": [
+    117.1,
+    36.2667
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Tai",
+   "manual": true,
+   "reason": "gc-907 Mount Tai: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q229107": {
+   "name": "Mount Kailash",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q229107",
+   "at": [
+    81.3128,
+    31.0669
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Kailash",
+   "manual": true,
+   "reason": "gc-918 Mount Kailash: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q1595289",
+     "Q27963400"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q2735583": {
+   "name": "Stone Forest",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q2735583",
+   "at": [
+    103.325,
+    24.8178
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Stone Forest",
+   "manual": true,
+   "reason": "gc-931 Stone Forest: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q473972",
+     "Q1324355",
+     "Q6838244",
+     "Q53444003"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q284780": {
+   "name": "Turpan Depression",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q284780",
+   "at": [
+    89,
+    42.75
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Turpan Depression",
+   "manual": true,
+   "reason": "gc-920 Turpan Depression: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q190429",
+     "Q194502"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q319412": {
+   "name": "Lop Nur",
+   "kind": "lake",
+   "sub": "",
+   "qid": "Q319412",
+   "at": [
+    90.5833,
+    40.1667
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Lop Nur",
+   "manual": true,
+   "reason": "gc-831 Lop Nur: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q188025"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q36034": {
+   "name": "Huangshan",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q36034",
+   "at": [
+    118.1667,
+    30.125
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Huangshan",
+   "manual": true,
+   "reason": "gc-908 Huangshan: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831",
+     "Q473972",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q38432": {
+   "name": "Huangguoshu Waterfall",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q38432",
+   "at": [
+    105.666,
+    25.992
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Huangguoshu Waterfall",
+   "manual": true,
+   "reason": "gc-832 Huangguoshu Waterfall: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q34038",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q4034": {
+   "name": "Wudang Mountains",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q4034",
+   "at": [
+    111.0039,
+    32.4008
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Wudang Mountains",
+   "manual": true,
+   "reason": "gc-921 Wudang Mountains: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q4187": {
+   "name": "Wulingyuan",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q4187",
+   "at": [
+    110.4667,
+    29.3456
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Wulingyuan",
+   "manual": true,
+   "reason": "gc-915 Wulingyuan: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q473972"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q43512": {
+   "name": "K2",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q43512",
+   "at": [
+    76.5133,
+    35.8811
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "K2",
+   "manual": true,
+   "reason": "gc-910 K2: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q508454": {
+   "name": "Flaming Mountains",
+   "kind": "range",
+   "sub": "",
+   "qid": "Q508454",
+   "at": [
+    89.6431,
+    42.9672
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Flaming Mountains",
+   "manual": true,
+   "reason": "gc-923 Flaming Mountains: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q46831"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q513": {
+   "name": "Mount Everest",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q513",
+   "at": [
+    86.925,
+    27.9881
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Mount Everest",
+   "manual": true,
+   "reason": "gc-901 Mount Everest: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q602973": {
+   "name": "Hukou Waterfalls",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q602973",
+   "at": [
+    110.4439,
+    36.1472
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Hukou Waterfalls",
+   "manual": true,
+   "reason": "gc-820 Hukou Waterfall: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q34038",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q621247": {
+   "name": "Kawagarbo",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q621247",
+   "at": [
+    98.6833,
+    28.4383
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Kawagarbo",
+   "manual": true,
+   "reason": "gc-936 Kawagarbo: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502",
+     "Q1595289",
+     "Q27963400"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q630579": {
+   "name": "Muztagh Ata",
+   "kind": "mountain",
+   "sub": "",
+   "qid": "Q630579",
+   "at": [
+    75.1158,
+    38.2783
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Muztagh Ata",
+   "manual": true,
+   "reason": "gc-935 Muztagh Ata: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q8502"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q7306648": {
+   "name": "Reed Flute Cave",
+   "kind": "site",
+   "sub": "cave",
+   "qid": "Q7306648",
+   "at": [
+    110.2756,
+    25.3044
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Reed Flute Cave",
+   "manual": true,
+   "reason": "gc-934 Reed Flute Cave: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q2232001"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q83628": {
+   "name": "Erhai Lake",
+   "kind": "lake",
+   "sub": "",
+   "qid": "Q83628",
+   "at": [
+    100.1875,
+    25.7633
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Erhai Lake",
+   "manual": true,
+   "reason": "gc-836 Erhai Lake: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q23397"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q847641": {
+   "name": "Wei River",
+   "kind": "river",
+   "sub": "",
+   "qid": "Q847641",
+   "at": [
+    110.289,
+    34.6117
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Wei River",
+   "manual": true,
+   "reason": "gc-825 Wei River: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q4022"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q983252": {
+   "name": "Ban Gioc–Detian Falls",
+   "kind": "region",
+   "sub": "",
+   "qid": "Q983252",
+   "at": [
+    106.7219,
+    22.8564
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Ban Gioc–Detian Falls",
+   "manual": true,
+   "reason": "gc-833 Ban Gioc–Detian Falls: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q34038",
+     "Q6838244"
+    ],
+    "via": "add-place"
+   }
+  },
+  "pl:q99785": {
+   "name": "Huangpu River",
+   "kind": "river",
+   "sub": "",
+   "qid": "Q99785",
+   "at": [
+    121.515,
+    31.3925
+   ],
+   "within": "",
+   "aliases": [],
+   "wiki": "Huangpu River",
+   "manual": true,
+   "reason": "gc-824 Huangpu River: the card's own place",
+   "evidence": {
+    "classes": [
+     "Q4022"
+    ],
+    "via": "add-place"
+   }
   }
  },
  "overlay": {
