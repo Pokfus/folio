@@ -5663,7 +5663,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `cardTimelineField` resolves ahead of the shipped field and `serializeCardData` bakes into `timeline` on the
   way out; a date that does not parse is marked `aria-invalid` and not written. The key is `cardTimeline`, never
   `timeline`: that name was v1's map delta and `normalizeAdminEdits` drops it on read. The rollout began with
-  the first 20 cards of The Second World War (11 carry the field).
+  the first 20 cards of The Second World War (11 carry the field). By 24 Oct 2026 it covers the event, era, battle and war cards of WW2, China, the United States, Russia, Korea, World History, Ancient Greece, Ancient Rome, Japan and Ancient Egypt — left off are myths, festivals, cards marked undatable, open-ended eras and dates beyond the six-digit year (the Mya cards). The axis ladder runs to 500,000-year steps and a BCE month tick reads "480 BCE", both for those collections.
   Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
   `mountCardTimelines` / `set-timeline.js` / the `.tl-` rules: `node .claude/test-card-timeline.js`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as

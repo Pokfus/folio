@@ -36464,7 +36464,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!y || (mo && (mo < 1 || mo > 12)) || (d && (d < 1 || d > 31))) return null;
     return { y, mo, d, t: y + (mo ? (mo - 1) / 12 : 0) + (d ? (d - 1) / 365 : 0), unit: d ? 1 / 365 : (mo ? 1 / 12 : 1) };
   }
-  function tlLabel(p) { return (p.d ? p.d + " " : "") + (p.mo ? TL_MONTHS[p.mo - 1] + " " : "") + (p.y < 0 ? (-p.y) + " BCE" : String(p.y)); }
+  function tlLabel(p) { const y = Math.abs(p.y), ys = y >= 10000 ? y.toLocaleString("en-GB") : String(y); return (p.d ? p.d + " " : "") + (p.mo ? TL_MONTHS[p.mo - 1] + " " : "") + (p.y < 0 ? ys + " BCE" : ys); }
   /* THE EFFECTIVE FIELD: the editor's delta (`ADMIN_EDITS.cardTimeline[id]`, Oct 2026 — "none" takes a card off
      every timeline, an object replaces its dates) wins over the shipped `card.timeline`; null when the card is on
      no timeline. `serializeCardData` bakes this, not the shipped field, so a baked data.js carries the decision. */
@@ -36529,16 +36529,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }).join("") +
       '</ol><p class="tl-key"><span><i class="tl-k-self"></i>this card</span><span><i class="tl-k-bar"></i>a period</span><span><i class="tl-k-dash"></i>a single event</span></p></div>';
   }
-  // the axis: ~one tick per 95 px, from 1, 2, 5 … 10,000 years, or 1 – 12 months when the window is under three years
+  // the axis: ~one tick per 95 px, from 1, 2, 5 … 500,000 years (World History's Palaeolithic spans 300,000), or 1 – 12 months when the window is under three years
   function tlTicks(a, b, px) {
     const span = b - a, max = Math.max(3, Math.floor(px / 95)), out = [];
     if (span <= 3) {
       const m = [1, 2, 3, 4, 6, 12].find((s) => span * 12 / s <= max) || 12;
       let k = Math.ceil(a * 12 - 1e-6); while (((k % m) + m) % m) k++;
-      for (; k / 12 <= b; k += m) { const y = Math.floor(k / 12 + 1e-9), mo = k - y * 12; out.push({ t: k / 12, label: mo === 0 ? String(y) : TL_MON3[mo] + " " + y }); }
+      for (; k / 12 <= b; k += m) { const y = Math.floor(k / 12 + 1e-9), mo = k - y * 12; const yl = y < 0 ? (-y) + " BCE" : String(y); out.push({ t: k / 12, label: mo === 0 ? yl : TL_MON3[mo] + " " + yl }); }
       return out;
     }
-    const st = [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000].find((s) => span / s <= max) || 10000;
+    const st = [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000, 100000, 200000, 250000, 500000].find((s) => span / s <= max) || 500000;
     for (let v = Math.ceil(a / st) * st; v <= b + 1e-9; v += st) out.push({ t: v, label: v < 0 ? (-v).toLocaleString("en-GB") + " BCE" : String(v) });
     return out;
   }
