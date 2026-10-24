@@ -420,6 +420,11 @@ URL re-checked before it was written in. What the writing changed or decided:
   "the Western powers" where an Office of the Historian source listed the United States.
 - **Facts cells set to `?`** where the only figure was stale or unsourced (the Huangpu's 1921 basin
   estimate); the Tibetan Plateau's provinces row says only what is certain.
+- **Atlas places on 77 of the 80.** The Grand Canal (`gc-803`) and South China Karst (`gc-909`) have no
+  Wikidata class the registry's taxonomy maps, and Badain Jaran's item (`gc-939`) anchors 41 km from the point
+  its card draws, so those three carry none (the US decks' Red River of the North precedent). Waterfalls,
+  gorges and the Stone Forest are filed as `region`, and Huangshan, Mount Hua and Mount Danxia as `range`, as
+  their Wikidata classes require.
 - Two cards that listed one work twice (`gc-907` Chavannes, `gc-925` Robson) were merged and given a new
   source each. `check-cards.js` gained three NOT_A_SCHOLAR names (Isabella Bird, Xu Xiake, Wu Zetian) and two
   same-language exemptions (Cahiers d'Extrême-Asie publishes in English).
