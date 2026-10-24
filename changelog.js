@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1112", released: "2026-10-24T12:28Z" };
+window.FOLIO_VERSION = { v: "1.1113", released: "2026-10-24T12:37Z" };
 
 window.CHANGELOG = [
   {
@@ -46,7 +46,7 @@ window.CHANGELOG = [
       "Once you have opened a book, the home page's reading box <b>alternates every minute between Continue reading and a suggested book</b>; swipe it to switch.",
       "Fixed: <b>glossary links an editor wrote into a card</b>, such as evolution on the Biology card, were being removed as the page loaded.",
       "<b>24 new glossary terms</b> now link from cards in Biology, Ancient Rome, Japan, Korea and Russia, from organelles and the Tophet to the 38th parallel.",
-      "Ten World History, Biology, Ancient Rome, Korea and Russia cards gained new Think it through questions, and the Carthage card a new main question.",
+      "Eleven World History, Biology, Ancient Rome, Korea and Russia cards gained new Think it through questions, and the Carthage card a new main question.",
       "Percentages on cards, in the glossary and in True or False are now written with the <b>%</b> sign instead of “per cent”.",
       "The Korea card now has a map shading the whole peninsula.",
       "<b>624 more cards now show a Timeline</b>: the events, periods, battles and wars of World History, Ancient Greece, Ancient Rome, Japan and Ancient Egypt.",
