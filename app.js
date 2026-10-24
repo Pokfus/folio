@@ -1361,7 +1361,7 @@
      never gets one (a deck key is namespaced; the check is explicit rather than accidental). Terms do not contribute to the Personal Atlas (Q-P3 c): the button only opens the place. */
   function glossPlaceId(key) { const t = window.ATLAS_GLOSSARY_PLACES; return key && !isDeckGlossKey(key) && t && t.ids && t.ids[key] || null; }
   /* THE POPUP'S OWN ATLAS WINDOW (2026-10-23, on request; docs/glossary-atlas-windows.md). A term that IS a location — a place, or a state, an empire or a people — shows a small map in its popup, drawn by the
-     card windows' engine (startCardGlobe → atlas-windows.js, host class `map-gloss`): NO buttons, a drag and a pinch or the wheel move and zoom it, and the term's place is the ONLY thing marked — a gold square and the
+     card windows' engine (startCardGlobe → atlas-windows.js, host class `map-gloss`): the card windows' zoom, recentre and relief buttons (2026-10-24; no globe button), a drag and a pinch or the wheel move and zoom it, and the term's place is the ONLY thing marked — a gold square and the
      name for a point, the name alone for a region or a sea, the Atlas's selection gold over the face of a country, a province or a state, a state or a people AT THE YEAR OF ITS GREATEST EXTENT. Which terms, and where,
      is `windows` of the same lazy table (`atlas/data/glossary-places.js`, build-glossary-places.js: [lon, lat, kind, face, year, zoom]); the rule there is the owner's — only a term specifically about that location
      (the town of Versailles, never the Treaty of Versailles). It NEVER touches the Personal Atlas: nothing here calls markSeen("placesSeen") — a term is no card (Q-P3 c). No window on the Atlas page itself (a map in a
@@ -1372,12 +1372,22 @@
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
-    const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it, pinch or scroll to zoom; the arrow keys turn it and + and − zoom.";
+    const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' +
       (w.face ? ' data-map-face="' + esc(w.face) + '" data-map-facekind="' + esc(w.kind) + '"' : "") + (w.year ? ' data-map-year="' + w.year + '"' : "") + (w.zoom ? ' data-map-zoom="' + w.zoom + '"' : "") + ">" +
-      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas></div>';
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>";
   }
+  /* THE WINDOW'S BUTTONS (2026-10-24, on request: "they do not have any buttons like we have in the atlas windows of the cards to zoom in or turn on and off the relief"): the card windows' own column —
+     zoom in, zoom out, recentre, relief — and nothing more (no globe button: the bar's Atlas pin is that). atlas-windows.js wires `.mc-btn` for every host, and shows the relief button only where relief can draw. */
+  const GLOSS_ZOOM_HTML = '<div class="mc-zoom">' +
+    '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
+    '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
+    '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+    '<button type="button" class="mc-btn mc-relief" data-mc="relief" aria-pressed="false" aria-label="Show or hide relief" title="Show or hide relief" hidden>' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19 9 7.5l4 6.5 2.5-3.5L21.5 19z"/></svg></button>' +
+    "</div>";
   function mountGlossAtlas(win, key) {
     const slot = win.querySelector(".gloss-atlas"); if (!slot || slot.firstChild || !win.isConnected) return;
     if (current && current.name === "map") return;
