@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"d1c4869be5d2d105","counts":{"terms":896,"points":659,"countries":237,"windows":1259,"faces":380,"years":104},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"de5b36385b6bf779","counts":{"terms":898,"points":661,"countries":237,"windows":1261,"faces":380,"years":104},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -391,6 +391,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"d1c4869be5d2d105","counts":
 "Kirov,_Kirov_Oblast":"adm1:rus:ru-kir",
 "Knossos":"pl:q173527",
 "Komi_Republic":"adm1:rus:ru-ko",
+"Korea":"reg:1159103669",
 "Kosovo":"adm0:kos",
 "Kostroma":"adm1:rus:ru-kos",
 "Krasnodar":"adm1:rus:ru-kda",
@@ -587,6 +588,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"d1c4869be5d2d105","counts":
 "Novosibirsk":"adm1:rus:ru-nvs",
 "Odeon_of_Pericles":"pl:q2704249",
 "Ohio":"adm1:usa:us-oh",
+"Okinawa_Island":"reg:1730072495",
 "Oklahoma":"adm1:usa:us-ok",
 "Olbia":"pl:q1143233",
 "Old_Temple_of_Athena":"pl:q683988",
@@ -1434,6 +1436,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"d1c4869be5d2d105","counts":
 "Kirov,_Kirov_Oblast":[50.111,58.193,"admin1","adm1:rus:ru-kir",0,13.74],
 "Knossos":[25.163,35.298,"site",0,0,0],
 "Komi_Republic":[55.818,64.119,"admin1","adm1:rus:ru-ko",0,7.43],
+"Korea":[128.042,36.235,"region",0,0,0],
 "Kosovo":[20.86,42.59,"country","adm0:kos",0,40],
 "Kostroma":[43.469,58.388,"admin1","adm1:rus:ru-kos",0,18.14],
 "Krasnodar":[39.469,45.84,"admin1","adm1:rus:ru-kda",0,18.85],
@@ -1708,6 +1711,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"d1c4869be5d2d105","counts":
 "Odeon_of_Pericles":[23.729,37.971,"site",0,0,0],
 "Ohio":[-82.672,40.092,"admin1","adm1:usa:us-oh",0,19.15],
 "Ohio_River":[-89.131,36.987,"coord",0,0,0],
+"Okinawa_Island":[128.219,26.709,"island-group",0,0,0],
 "Oklahoma":[-97.131,35.452,"admin1","adm1:usa:us-ok",0,9.81],
 "Olbia":[31.902,46.692,"site",0,0,0],
 "Old_St._Peter's_Basilica":[12.453,41.902,"coord",0,0,0],
