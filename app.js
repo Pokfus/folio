@@ -15302,6 +15302,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        · never out of a horizontal scroller. The heatmap and the theme row scroll sideways (so did the
          Atlas sheet's pager, until Sep 2026), and a swipe that starts in one belongs to it — walked up the ancestor chain rather
          than listed by class, so a scroller added later is covered without anyone remembering this.
+       · never out of anything marked `data-own-swipe`, which turns on a sideways swipe itself (Oct 2026, on a
+         bug report: a swipe on the home page's reading box turned the box AND took the reader to Collections).
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
      wandered, and reading the page vertically is what a finger is mostly doing. */
@@ -15325,6 +15327,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     for (let n = el; n && n !== document.body; n = n.parentElement) {
       if (n.nodeType !== 1) continue;
       if (n.matches("input,textarea,select,[contenteditable=''],[contenteditable='true']")) return true;
+      if (n.hasAttribute("data-own-swipe")) return true;   // an element that turns on a sideways swipe itself (the home reading box, homeReadingSwap)
       if (n.scrollWidth > n.clientWidth + 4) {
         const ox = getComputedStyle(n).overflowX;
         if (ox === "auto" || ox === "scroll") return true;
@@ -23664,7 +23667,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the chapter the reader is in; a book still on its front matter names the author alone (Oct 2026, on
     // request: the "About this book" line is gone)
     const where = pos && pos.ch > 0 ? " \u00b7 " + b.chapterWord + " " + pos.ch : "";
-    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" style="--tile:' + esc(bookColor(b)) + '">' +
+    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
       '<span class="hb-k">Continue reading</span>' + homeReadingDots(0) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
@@ -23688,7 +23691,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const b = pick || (BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null);
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
       '<span class="hb-empty">Nothing on the shelf yet.</span></button>';
-    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1" style="--tile:' + esc(bookColor(b)) + '">' +
+    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
       '<span class="hb-k">Suggested reading</span>' + homeReadingDots(1) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
