@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1110", released: "2026-10-24T15:46Z" };
+window.FOLIO_VERSION = { v: "1.1111", released: "2026-10-24T18:18Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "Hand-written glossary links come back, and Rome cards think it through",
     items: [
       "The map in a glossary popup now has the <b>zoom, recentre and relief buttons</b> of a card's map window.",
-      "<b>470 glossary entries about people</b> now show a picture: a portrait, bust, coin or photograph, or a work tied to them.",
+      "<b>474 glossary entries about people</b> now show a picture: a portrait, bust, coin or photograph, or a work tied to them.",
       "Once you have opened a book, the home page's reading box <b>alternates every minute between Continue reading and a suggested book</b>; swipe it to switch.",
       "Fixed: an edited card's Background could show <b>an empty-looking line break</b> beside its picture, left by the editor's spaces.",
       "Fixed: <b>glossary links an editor wrote into a card</b>, such as evolution on the Biology card, were being removed as the page loaded.",
