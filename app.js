@@ -23336,6 +23336,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const next = fig.nextElementSibling;
         fig.remove();
         wireDailyQuote(root);
+        homeReadingSwap(root, 1);   // the reading box turns on the quote's minute (homeReadingHTML)
         if (!prefersReducedMotion() && next) {
           next.classList.add("dq-in");
           requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("dq-in")));
@@ -23623,19 +23624,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (best > 0 ? '<span class="sr-best">Longest \u00b7 ' + best + (best === 1 ? " day" : " days") + "</span>" : "") +
       "</div>";
   }
-  /* The book the reader stopped in most recently, as the Library's own shelf would draw it. */
+  /* The book the reader stopped in most recently, as the Library's own shelf would draw it.
+     ONCE A BOOK HAS BEEN OPENED THE BOX ALTERNATES (Oct 2026, on request: "it should then switch every minute
+     on the same timer as the daily quote at the top of the page between continue reading and a random
+     suggested reading. Swiping left and right within that banner should also allow the user to manually
+     switch"). The page is built on Continue reading; the suggestion is one book drawn at random per build (any
+     other book of the shelf where there is one), so swiping back and forth shows the same two and a fresh book
+     file is not fetched every other minute. The swap is homeReadingSwap: wireDailyQuote's advance calls it as
+     the quote moves on (one timer, held while the tab is hidden, as the quote is), and a horizontal swipe or
+     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone. */
+  let _hrPair = null;   // { cont, sug, mode } — the two books of this build's box; null when it has one face
   function homeReadingHTML() {
     const R = S.reading || {};
     let best = null, at = 0;
     Object.keys(R).forEach((id) => { const r = R[id]; const t = r ? (+r.at || 0) : 0; if (t > at && BOOKS.some((b) => b.id === id)) { at = t; best = id; } });
     const b = best ? BOOKS.find((x) => x.id === best) : null;
+    _hrPair = null;
     if (!b) return homeSuggestedHTML();
+    const others = BOOKS.filter((x) => x.id !== b.id), pool = others.length ? others : BOOKS;
+    _hrPair = { cont: b, sug: pool[Math.floor(Math.random() * pool.length)], mode: "cont" };
+    return homeContinueHTML(b);
+  }
+  // the two dots at the box's top right that say it has a second face (none when it has one)
+  function homeReadingDots(on) {
+    return _hrPair ? '<span class="hb-dots" aria-hidden="true"><i' + (on === 0 ? ' class="on"' : "") + "></i><i" + (on === 1 ? ' class="on"' : "") + "></i></span>" : "";
+  }
+  function homeContinueHTML(b) {
     const pct = readingPct(b), pos = readingPos(b.id);
     // the chapter the reader is in; a book still on its front matter names the author alone (Oct 2026, on
     // request: the "About this book" line is gone)
     const where = pos && pos.ch > 0 ? " \u00b7 " + b.chapterWord + " " + pos.ch : "";
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" style="--tile:' + esc(bookColor(b)) + '">' +
-      '<span class="hb-k">Continue reading</span>' +
+      '<span class="hb-k">Continue reading</span>' + homeReadingDots(0) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
         '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span>" +
@@ -23654,12 +23674,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      book's lazy file arrives — once the box is in view (not on boot), and never in light mode or on cellular,
      because the file is a whole book and nobody asked for this one. A press opens the book at its start (the click handler reads
      `data-book` as it does for a book in progress); a press on the passage opens its chapter. */
-  function homeSuggestedHTML() {
-    const b = BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null;
+  function homeSuggestedHTML(pick) {
+    const b = pick || (BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null);
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
       '<span class="hb-empty">Nothing on the shelf yet.</span></button>';
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1" style="--tile:' + esc(bookColor(b)) + '">' +
-      '<span class="hb-k">Suggested reading</span>' +
+      '<span class="hb-k">Suggested reading</span>' + homeReadingDots(1) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
         "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span></button>";
@@ -23726,6 +23746,52 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       whenIdle(fill);
     });
     obs.observe(rd);
+  }
+  /* Turn the box to its other face (see homeReadingHTML): `dir` is the side the new face comes in from, 1 the
+     right (the timer, a swipe to the left), -1 the left. The element is rebuilt and rewired, and its passage is
+     filled in again by homeReadingNextFill on that function's usual terms. */
+  function homeReadingSwap(root, dir) {
+    const rd = root && root.querySelector("#b-reading");
+    if (!_hrPair || !rd || !rd.isConnected) return;
+    _hrPair.mode = _hrPair.mode === "cont" ? "sug" : "cont";
+    const focused = document.activeElement === rd;
+    rd.insertAdjacentHTML("afterend", _hrPair.mode === "cont" ? homeContinueHTML(_hrPair.cont) : homeSuggestedHTML(_hrPair.sug));
+    const next = rd.nextElementSibling;
+    rd.remove();
+    wireHomeReading(root);
+    if (focused) next.focus({ preventScroll: true });
+    if (!prefersReducedMotion()) {
+      next.classList.add(dir < 0 ? "hb-in-l" : "hb-in-r");
+      requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("hb-in-l", "hb-in-r")));
+    }
+  }
+  function wireHomeReading(root) {
+    const rd = root.querySelector("#b-reading");
+    if (!rd) return;
+    let x0 = null, y0 = 0, swiped = false;
+    rd.addEventListener("click", (e) => {
+      if (swiped) { swiped = false; e.preventDefault(); return; }   // the click a swipe ends with is not a press
+      const nx = e.target && e.target.closest ? e.target.closest(".hb-next") : null;
+      if (nx && rd.dataset.book) route("book", { id: rd.dataset.book, n: nx.dataset.n });
+      else if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library");
+    });
+    if (_hrPair) {
+      // a horizontal swipe turns the box (`touch-action: pan-y` in styles.css leaves the vertical scroll to the page)
+      rd.addEventListener("pointerdown", (e) => { if (e.isPrimary) { x0 = e.clientX; y0 = e.clientY; swiped = false; } });
+      rd.addEventListener("pointercancel", () => { x0 = null; });
+      rd.addEventListener("pointerup", (e) => {
+        if (x0 == null) return;
+        const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        swiped = true; setTimeout(() => { swiped = false; }, 400);
+        homeReadingSwap(root, dx < 0 ? 1 : -1);
+      });
+      rd.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault(); homeReadingSwap(root, e.key === "ArrowRight" ? 1 : -1);
+      });
+    }
+    homeReadingNextFill(root);
   }
   /* The day's and the week's figures: cards from the daily totals, time and recall from the per-answer
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
@@ -25815,11 +25881,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { const eg = root.querySelector("#b-empty-go"); if (eg) eg.addEventListener("click", () => route("decks")); }
     { const cb = root.querySelector("#b-credits"); if (cb) cb.addEventListener("click", () => route("credits")); }   // the map data's sources, generated from the files (Oct 2026)
     { const cl = root.querySelector("#b-changelog"); if (cl) cl.addEventListener("click", () => route("mission", { scrollTo: "changelog" })); }
-    { const rd = root.querySelector("#b-reading"); if (rd) rd.addEventListener("click", (e) => {
-        const nx = e.target && e.target.closest ? e.target.closest(".hb-next") : null;
-        if (nx && rd.dataset.book) route("book", { id: rd.dataset.book, n: nx.dataset.n });
-        else if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library"); }); }
-    homeReadingNextFill(root);
+    wireHomeReading(root);
     /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
        thing that did (Aug 2026): the About line was the one block built on a phone and not on a desktop,
        and now that the desktop's About tab has gone it ships at both widths like everything else here. So
