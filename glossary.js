@@ -6875,7 +6875,15 @@ window.GLOSSARY = {
 "Weimar_National_Assembly": "",
 "Wheat": "",
 "Ypres": "",
-"Zagros_Mountains": ""
+"Zagros_Mountains": "",
+"Byrsa": "",
+"Cothon": "",
+"Dido": "",
+"North_Africa": "",
+"Stadion_(unit)": "",
+"Tophet": "",
+"Utica,_Tunisia": "",
+"Velleius_Paterculus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10429,7 +10437,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Louis_Agassiz": "1807–1873",
 "Treaty_of_Saint-Germain-en-Laye_(1919)": "Signed 10 September 1919",
 "Ulrich_von_Brockdorff-Rantzau": "1869–1928",
-"Weimar_National_Assembly": "1919–1920"
+"Weimar_National_Assembly": "1919–1920",
+"Velleius_Paterculus": "c. 19 BCE – after 30 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14803,7 +14812,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Völkisch_movement": ["völkisch"],
 "Weimar_National_Assembly": ["Weimar Assembly"],
 "Ypres": ["Ieper"],
-"Zagros_Mountains": ["Zagros mountains","Zagros"]
+"Zagros_Mountains": ["Zagros mountains","Zagros"],
+"Dido": ["Elissa","Queen Dido"],
+"North_Africa": ["North African"],
+"Stadion_(unit)": ["stadia","stadion","stade"],
+"Utica,_Tunisia": ["Utica"],
+"Velleius_Paterculus": ["Velleius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21806,7 +21820,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Weimar_National_Assembly": ["institution","history","politics","20th century","germany"],
 "Wheat": ["plant","agriculture","science","prehistory"],
 "Ypres": ["city","place","history","warfare","belgium","first world war"],
-"Zagros_Mountains": ["mountain","geography","nature","iran","prehistory"]
+"Zagros_Mountains": ["mountain","geography","nature","iran","prehistory"],
+"Byrsa": ["place","archaeology","history","carthage","iron age"],
+"Cothon": ["place","harbour","warfare","carthage","archaeology"],
+"Dido": ["person","ruler","legend","literature","carthage"],
+"North_Africa": ["region","geography","place","history","africa"],
+"Stadion_(unit)": ["unit","measurement","history","greece","geography"],
+"Tophet": ["place","religion","archaeology","carthage","iron age"],
+"Utica,_Tunisia": ["city","place","history","archaeology","carthage","rome"],
+"Velleius_Paterculus": ["person","historian","literature","history","rome"]
 });
 
 /* ============================================================================
