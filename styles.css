@@ -9759,6 +9759,14 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hb-bar span{display:block; height:100%; background:var(--ochre);}
 .hb-body em{display:block; font-style:normal; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); margin-top:6px;}
 .hb-empty{display:block; font-size:calc(13.5px * var(--fs)); color:var(--ink-quiet); line-height:1.5;}
+/* a box with two faces (Continue reading / Suggested reading — homeReadingSwap): two dots say so, a horizontal
+   swipe turns it, and the new face slides in from the side it came from */
+.home-reading{touch-action:pan-y; transition:opacity .22s var(--ease), transform .22s var(--ease);}
+.home-reading.hb-in-r{opacity:0; transform:translateX(18px); transition:none;}
+.home-reading.hb-in-l{opacity:0; transform:translateX(-18px); transition:none;}
+.hb-dots{position:absolute; top:20px; right:20px; display:flex; gap:5px;}
+.hb-dots i{width:6px; height:6px; border-radius:50%; background:var(--rule);}
+.hb-dots i.on{background:var(--ochre);}
 /* the next paragraph, fading out downwards (Oct 2026, on request — homeReadingNextHTML). The fade is a mask
    rather than a painted gradient so it is right on every theme's card without knowing the card's colour. */
 .hb-next{display:block; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
