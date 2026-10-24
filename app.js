@@ -36384,11 +36384,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          of the two failures. */
       if (c.abstract) {
         const qh = cardQuoteHTML(c);
-        const parts = qh ? c.abstract.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/) : null;
+        const ab = plainSpaces(c.abstract);   // an edit saved before the editor stored plain spaces (see plainSpaces)
+        const parts = qh ? ab.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/) : null;
         if (qh && parts && parts.length === 2) {
           html += '<p class="abstract">' + parts[0] + "</p>" + qh + '<p class="abstract">' + parts[1] + "</p>";
         } else {
-          html += '<p class="abstract">' + c.abstract + "</p>" + qh;
+          html += '<p class="abstract">' + ab + "</p>" + qh;
         }
       }
       html += "</div></div>";
@@ -43487,10 +43488,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const clone = el.cloneNode(true);
       clone.querySelectorAll('.ttip[data-auto]').forEach((sp) => { const p = sp.parentNode; while (sp.firstChild) p.insertBefore(sp.firstChild, sp); p.removeChild(sp); });
       clone.normalize();
-      return clone.innerHTML;
+      return plainSpaces(clone.innerHTML);
     }
-    return el.innerHTML;
+    return plainSpaces(el.innerHTML);
   }
+  /* A contenteditable types NON-BREAKING spaces where a word is deleted or retyped (Chrome keeps the gap
+     visible that way), and innerHTML hands them back as &nbsp;. Saved, they glue the words either side
+     into one unbreakable run, which drops to a line of its own beside the Background's floated picture and
+     leaves an empty-looking line above it — while the editor, wider and with no picture, shows nothing
+     wrong. No shipped prose carries one, so every one in a rich field is the editor's: store plain spaces. */
+  function plainSpaces(html) { return String(html == null ? "" : html).replace(/&nbsp;|\u00a0/g, " "); }
   function closeGlossPicker() {
     const p = document.querySelector(".gloss-picker"); if (p) p.remove();
     document.removeEventListener("mousedown", glossPickerOutside, true); document.removeEventListener("keydown", glossPickerEsc, true);
