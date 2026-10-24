@@ -11378,7 +11378,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nerve_conduction_velocity": ["conduction velocity"],
 "Ernst_Heinrich_Weber": ["Ernst Weber"],
 "Gustav_Fechner": ["Gustav Theodor Fechner","Fechner"],
-"Charles_Darwin": ["Darwin"],
+"Charles_Darwin": ["Darwin","Darwinian"],
 "Francis_Galton": ["Galton"],
 "Psychological_testing": ["mental test"],
 "Eugenics": ["eugenic"],

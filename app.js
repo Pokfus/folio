@@ -33330,7 +33330,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const G = glossSourcesFor(scope).G;
       abs.querySelectorAll(".ttip").forEach((el) => {
         const k = el.getAttribute("data-k");
-        if (el.hasAttribute("data-auto") || !k || !G[k]) el.replaceWith(document.createTextNode(el.textContent));
+        // `k in G`, never `G[k]`: the eager glossary.js carries every key with an EMPTY text until the lazy
+        // glossary-extra.js lands, so a truthiness test unwrapped every hand-added link (docs/eager-path.md)
+        if (el.hasAttribute("data-auto") || !k || !(k in G)) el.replaceWith(document.createTextNode(el.textContent));
       });
       abs.normalize();
       autoLinkGlossary(abs, card && card.answer, off, scope);
