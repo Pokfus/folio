@@ -6883,7 +6883,12 @@ window.GLOSSARY = {
 "Stadion_(unit)": "",
 "Tophet": "",
 "Utica,_Tunisia": "",
-"Velleius_Paterculus": ""
+"Velleius_Paterculus": "",
+"Biosphere": "",
+"Crystal": "",
+"Genetics": "",
+"Organelle": "",
+"Virus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14817,7 +14822,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "North_Africa": ["North African"],
 "Stadion_(unit)": ["stadia","stadion","stade"],
 "Utica,_Tunisia": ["Utica"],
-"Velleius_Paterculus": ["Velleius"]
+"Velleius_Paterculus": ["Velleius"],
+"Genetics": ["genetic"],
+"Virus": ["viruses"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -21828,7 +21835,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Stadion_(unit)": ["unit","measurement","history","greece","geography"],
 "Tophet": ["place","religion","archaeology","carthage","iron age"],
 "Utica,_Tunisia": ["city","place","history","archaeology","carthage","rome"],
-"Velleius_Paterculus": ["person","historian","literature","history","rome"]
+"Velleius_Paterculus": ["person","historian","literature","history","rome"],
+"Biosphere": ["concept","science","biology","nature","geography"],
+"Crystal": ["concept","science","chemistry","geology"],
+"Genetics": ["concept","science","biology","genetics"],
+"Organelle": ["concept","science","biology","nature"],
+"Virus": ["concept","science","biology","medicine"]
 });
 
 /* ============================================================================
