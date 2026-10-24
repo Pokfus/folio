@@ -270,7 +270,14 @@ generalisations that were tried and abandoned. The RULES stay in `CLAUDE.md`, in
   the Tiber is in `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang Jiang`), so
   a Tiber card takes the gold and gets its name by carrying `Tevere` as an alias on the paired glossary
   term — and one that does not, visibly does not. **That alias was added in Aug 2026 and the mechanism
-  now has a live instance**: `rm-003` is the first card whose answer is a river. **AND WHAT IS DRAWN IS
+  now has a live instance**: `rm-003` is the first card whose answer is a river. **WHERE NO ALIAS IS SAFE
+  THE LOCATOR NAMES THE RIVER ITSELF** (Oct 2026, China's physical deck): Natural Earth calls the Yellow
+  River `Huang` and the Pearl's trunk `Xi`, and an alias `Huang` would auto-link every Huang Chao on the
+  site, so a river locator may carry `rivers: ["Huang"]` — rivers.js names, read only on `kind: "river"`,
+  checked by `add-card.js` and `add-locators.js` (`locRiverNames` folds them into `locOwnTerms` and the
+  `termName` map). A card naming several stretches draws ALL of them (the window used to stop at the first
+  match). The US river cards (`geo-801`…) answer "Mississippi River" where rivers.js says `Mississippi`,
+  so they match nothing and draw their dot; they want the same field. **AND WHAT IS DRAWN IS
   LABELLED WITH FOLIO'S OWN NAME FOR IT, not Natural Earth's** — a map that draws the Tiber and prints
   "Tevere" beside it has answered a question nobody asked — so `locatorSiblings` hands back a `termName`
   map from every matchable surface to the term the collection teaches. **IT IS THE LOCATOR'S LAYER AND

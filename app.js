@@ -35995,6 +35995,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      therefore outside the per-collection cache — which is why it is a function of its own rather than a
      line inside the miss branch, where the cache HIT path would have skipped it and every second visit to
      a river card would have drawn its own river as somebody else's. */
+  // a river locator's own `rivers` (its rivers.js names), lowercased; [] for any other card
+  function locRiverNames(c) {
+    const l = c && c.locator;
+    return l && l.kind === "river" && Array.isArray(l.rivers) ? l.rivers.map((r) => String(r || "").trim().toLowerCase()).filter(Boolean) : [];
+  }
   function locOwnTerms(id) {
     const own = new Set();
     const me = CARD_BY_ID[id], t = me ? String(me.answerText || "").trim() : "";
@@ -36003,6 +36008,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
       if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) own.add(v.toLowerCase()); });
     }
+    /* …AND THE NAMES THE LOCATOR GIVES IT (Oct 2026, China's physical deck): Natural Earth calls the Yellow
+       River `Huang` and the Pearl's trunk `Xi`, words no glossary alias can carry without linking every Huang
+       Chao on the site, so a river locator may name its rivers.js stretches itself (`locator.rivers`). */
+    locRiverNames(me).forEach((v) => own.add(v));
     return own;
   }
   /* ---------- THE PERSONAL ATLAS and the discovery chip ----------
@@ -36042,6 +36051,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            draws and names its river, and one whose term does not, does not — visibly, on the card. */
         const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
         if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) termName.set(v.toLowerCase(), t); });
+        locRiverNames(c).forEach((v) => termName.set(v, t));
       }
       const l = cardLocator(c);
       /* A REGION AND A RANGE ARE LEFT OFF EVERY OTHER CARD'S MAP (Aug 2026, on request: "Regions and

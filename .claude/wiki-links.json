@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-23T20:52Z",
+ "generated": "2026-10-23T23:03Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5011,
-  "redirect-broader": 463,
-  "redirect-variant": 330,
+  "ok": 5088,
+  "redirect-broader": 464,
+  "redirect-variant": 331,
   "section-redirect": 104,
   "disambiguation": 138,
   "none": 957,
-  "disambig-resolved": 76,
+  "disambig-resolved": 77,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -58039,6 +58039,569 @@
    "answer": "Delicate Arch",
    "title": "Delicate Arch",
    "url": "https://en.wikipedia.org/wiki/Delicate_Arch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-801": {
+   "answer": "Yangtze",
+   "title": "Yangtze",
+   "url": "https://en.wikipedia.org/wiki/Yangtze",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-802": {
+   "answer": "Yellow River",
+   "title": "Yellow River",
+   "url": "https://en.wikipedia.org/wiki/Yellow_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-803": {
+   "answer": "Grand Canal",
+   "title": "Grand Canal (China)",
+   "url": "https://en.wikipedia.org/wiki/Grand_Canal_(China)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Grand Canal"
+  },
+  "gc-804": {
+   "answer": "South China Sea",
+   "title": "South China Sea",
+   "url": "https://en.wikipedia.org/wiki/South_China_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-805": {
+   "answer": "Mekong",
+   "title": "Mekong",
+   "url": "https://en.wikipedia.org/wiki/Mekong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-806": {
+   "answer": "Pearl River",
+   "title": "Pearl River",
+   "url": "https://en.wikipedia.org/wiki/Pearl_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-807": {
+   "answer": "West Lake",
+   "title": "West Lake",
+   "url": "https://en.wikipedia.org/wiki/West_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-808": {
+   "answer": "East China Sea",
+   "title": "East China Sea",
+   "url": "https://en.wikipedia.org/wiki/East_China_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-809": {
+   "answer": "Yellow Sea",
+   "title": "Yellow Sea",
+   "url": "https://en.wikipedia.org/wiki/Yellow_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-810": {
+   "answer": "Amur River",
+   "title": "Amur",
+   "url": "https://en.wikipedia.org/wiki/Amur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Amur River"
+  },
+  "gc-811": {
+   "answer": "Qinghai Lake",
+   "title": "Qinghai Lake",
+   "url": "https://en.wikipedia.org/wiki/Qinghai_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-812": {
+   "answer": "Yarlung Tsangpo",
+   "title": "Yarlung Tsangpo",
+   "url": "https://en.wikipedia.org/wiki/Yarlung_Tsangpo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-813": {
+   "answer": "Bohai Sea",
+   "title": "Bohai Sea",
+   "url": "https://en.wikipedia.org/wiki/Bohai_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-814": {
+   "answer": "Poyang Lake",
+   "title": "Poyang Lake",
+   "url": "https://en.wikipedia.org/wiki/Poyang_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-815": {
+   "answer": "Dongting Lake",
+   "title": "Dongting Lake",
+   "url": "https://en.wikipedia.org/wiki/Dongting_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-816": {
+   "answer": "Lake Tai",
+   "title": "Lake Tai",
+   "url": "https://en.wikipedia.org/wiki/Lake_Tai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-817": {
+   "answer": "Salween River",
+   "title": "Salween River",
+   "url": "https://en.wikipedia.org/wiki/Salween_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-818": {
+   "answer": "Huai River",
+   "title": "Huai River",
+   "url": "https://en.wikipedia.org/wiki/Huai_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-819": {
+   "answer": "Heaven Lake",
+   "title": "Heaven Lake",
+   "url": "https://en.wikipedia.org/wiki/Heaven_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-820": {
+   "answer": "Hukou Waterfall",
+   "title": "Hukou Waterfalls",
+   "url": "https://en.wikipedia.org/wiki/Hukou_Waterfalls",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Hukou Waterfall"
+  },
+  "gc-821": {
+   "answer": "Li River",
+   "title": "Li River",
+   "url": "https://en.wikipedia.org/wiki/Li_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-822": {
+   "answer": "Qiantang River",
+   "title": "Qiantang River",
+   "url": "https://en.wikipedia.org/wiki/Qiantang_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-823": {
+   "answer": "Min River",
+   "title": "Min River (Sichuan)",
+   "url": "https://en.wikipedia.org/wiki/Min_River_(Sichuan)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-824": {
+   "answer": "Huangpu River",
+   "title": "Huangpu River",
+   "url": "https://en.wikipedia.org/wiki/Huangpu_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-825": {
+   "answer": "Wei River",
+   "title": "Wei River",
+   "url": "https://en.wikipedia.org/wiki/Wei_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-826": {
+   "answer": "Songhua River",
+   "title": "Songhua River",
+   "url": "https://en.wikipedia.org/wiki/Songhua_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-827": {
+   "answer": "Tarim River",
+   "title": "Tarim River",
+   "url": "https://en.wikipedia.org/wiki/Tarim_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-828": {
+   "answer": "Xiang River",
+   "title": "Xiang River",
+   "url": "https://en.wikipedia.org/wiki/Xiang_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-829": {
+   "answer": "Namtso",
+   "title": "Namtso",
+   "url": "https://en.wikipedia.org/wiki/Namtso",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-830": {
+   "answer": "Jialing River",
+   "title": "Jialing River",
+   "url": "https://en.wikipedia.org/wiki/Jialing_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-831": {
+   "answer": "Lop Nur",
+   "title": "Lop Nur",
+   "url": "https://en.wikipedia.org/wiki/Lop_Nur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-832": {
+   "answer": "Huangguoshu Waterfall",
+   "title": "Huangguoshu Waterfall",
+   "url": "https://en.wikipedia.org/wiki/Huangguoshu_Waterfall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-833": {
+   "answer": "Ban Gioc–Detian Falls",
+   "title": "Ban Gioc–Detian Falls",
+   "url": "https://en.wikipedia.org/wiki/Ban_Gioc%E2%80%93Detian_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-834": {
+   "answer": "Liao River",
+   "title": "Liao River",
+   "url": "https://en.wikipedia.org/wiki/Liao_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-835": {
+   "answer": "Hongze Lake",
+   "title": "Hongze Lake",
+   "url": "https://en.wikipedia.org/wiki/Hongze_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-836": {
+   "answer": "Erhai Lake",
+   "title": "Erhai Lake",
+   "url": "https://en.wikipedia.org/wiki/Erhai_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-837": {
+   "answer": "Dian Lake",
+   "title": "Dian Lake",
+   "url": "https://en.wikipedia.org/wiki/Dian_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-838": {
+   "answer": "Ili River",
+   "title": "Ili River",
+   "url": "https://en.wikipedia.org/wiki/Ili_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-839": {
+   "answer": "Hulun Lake",
+   "title": "Hulun Lake",
+   "url": "https://en.wikipedia.org/wiki/Hulun_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-840": {
+   "answer": "Bosten Lake",
+   "title": "Bosten Lake",
+   "url": "https://en.wikipedia.org/wiki/Bosten_Lake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-901": {
+   "answer": "Mount Everest",
+   "title": "Mount Everest",
+   "url": "https://en.wikipedia.org/wiki/Mount_Everest",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-902": {
+   "answer": "Himalayas",
+   "title": "Himalayas",
+   "url": "https://en.wikipedia.org/wiki/Himalayas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-903": {
+   "answer": "Gobi Desert",
+   "title": "Gobi Desert",
+   "url": "https://en.wikipedia.org/wiki/Gobi_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-904": {
+   "answer": "Tibetan Plateau",
+   "title": "Tibetan Plateau",
+   "url": "https://en.wikipedia.org/wiki/Tibetan_Plateau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-905": {
+   "answer": "Three Gorges",
+   "title": "Three Gorges",
+   "url": "https://en.wikipedia.org/wiki/Three_Gorges",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-906": {
+   "answer": "Taklamakan Desert",
+   "title": "Taklamakan Desert",
+   "url": "https://en.wikipedia.org/wiki/Taklamakan_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-907": {
+   "answer": "Mount Tai",
+   "title": "Mount Tai",
+   "url": "https://en.wikipedia.org/wiki/Mount_Tai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-908": {
+   "answer": "Huangshan",
+   "title": "Huangshan",
+   "url": "https://en.wikipedia.org/wiki/Huangshan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-909": {
+   "answer": "South China Karst",
+   "title": "South China Karst",
+   "url": "https://en.wikipedia.org/wiki/South_China_Karst",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-910": {
+   "answer": "K2",
+   "title": "K2",
+   "url": "https://en.wikipedia.org/wiki/K2",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-911": {
+   "answer": "Kunlun Mountains",
+   "title": "Kunlun Mountains",
+   "url": "https://en.wikipedia.org/wiki/Kunlun_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-912": {
+   "answer": "Tian Shan",
+   "title": "Tian Shan",
+   "url": "https://en.wikipedia.org/wiki/Tian_Shan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-913": {
+   "answer": "Loess Plateau",
+   "title": "Loess Plateau",
+   "url": "https://en.wikipedia.org/wiki/Loess_Plateau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-914": {
+   "answer": "Mount Emei",
+   "title": "Mount Emei",
+   "url": "https://en.wikipedia.org/wiki/Mount_Emei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-915": {
+   "answer": "Wulingyuan",
+   "title": "Wulingyuan",
+   "url": "https://en.wikipedia.org/wiki/Wulingyuan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-916": {
+   "answer": "Mount Hua",
+   "title": "Mount Hua",
+   "url": "https://en.wikipedia.org/wiki/Mount_Hua",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-917": {
+   "answer": "Qinling",
+   "title": "Qinling",
+   "url": "https://en.wikipedia.org/wiki/Qinling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-918": {
+   "answer": "Mount Kailash",
+   "title": "Mount Kailash",
+   "url": "https://en.wikipedia.org/wiki/Mount_Kailash",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-919": {
+   "answer": "Tarim Basin",
+   "title": "Tarim Basin",
+   "url": "https://en.wikipedia.org/wiki/Tarim_Basin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-920": {
+   "answer": "Turpan Depression",
+   "title": "Turpan Depression",
+   "url": "https://en.wikipedia.org/wiki/Turpan_Depression",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-921": {
+   "answer": "Wudang Mountains",
+   "title": "Wudang Mountains",
+   "url": "https://en.wikipedia.org/wiki/Wudang_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-922": {
+   "answer": "Mount Wutai",
+   "title": "Mount Wutai",
+   "url": "https://en.wikipedia.org/wiki/Mount_Wutai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-923": {
+   "answer": "Flaming Mountains",
+   "title": "Flaming Mountains",
+   "url": "https://en.wikipedia.org/wiki/Flaming_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-924": {
+   "answer": "Mount Song",
+   "title": "Mount Song",
+   "url": "https://en.wikipedia.org/wiki/Mount_Song",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-925": {
+   "answer": "Mount Heng",
+   "title": "Mount Heng (Hunan)",
+   "url": "https://en.wikipedia.org/wiki/Mount_Heng_(Hunan)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-926": {
+   "answer": "Altai Mountains",
+   "title": "Altai Mountains",
+   "url": "https://en.wikipedia.org/wiki/Altai_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-927": {
+   "answer": "Tiger Leaping Gorge",
+   "title": "Tiger Leaping Gorge",
+   "url": "https://en.wikipedia.org/wiki/Tiger_Leaping_Gorge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-928": {
+   "answer": "Yarlung Tsangpo Grand Canyon",
+   "title": "Yarlung Tsangpo Grand Canyon",
+   "url": "https://en.wikipedia.org/wiki/Yarlung_Tsangpo_Grand_Canyon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-929": {
+   "answer": "Mount Lu",
+   "title": "Mount Lu",
+   "url": "https://en.wikipedia.org/wiki/Mount_Lu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-930": {
+   "answer": "Wuyi Mountains",
+   "title": "Wuyi Mountains",
+   "url": "https://en.wikipedia.org/wiki/Wuyi_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-931": {
+   "answer": "Stone Forest",
+   "title": "Stone Forest",
+   "url": "https://en.wikipedia.org/wiki/Stone_Forest",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-932": {
+   "answer": "Hengduan Mountains",
+   "title": "Hengduan Mountains",
+   "url": "https://en.wikipedia.org/wiki/Hengduan_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-933": {
+   "answer": "Greater Khingan",
+   "title": "Greater Khingan",
+   "url": "https://en.wikipedia.org/wiki/Greater_Khingan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-934": {
+   "answer": "Reed Flute Cave",
+   "title": "Reed Flute Cave",
+   "url": "https://en.wikipedia.org/wiki/Reed_Flute_Cave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-935": {
+   "answer": "Muztagh Ata",
+   "title": "Muztagh Ata",
+   "url": "https://en.wikipedia.org/wiki/Muztagh_Ata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-936": {
+   "answer": "Kawagarbo",
+   "title": "Kawagarbo",
+   "url": "https://en.wikipedia.org/wiki/Kawagarbo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-937": {
+   "answer": "Mount Gongga",
+   "title": "Mount Gongga",
+   "url": "https://en.wikipedia.org/wiki/Mount_Gongga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-938": {
+   "answer": "Mount Danxia",
+   "title": "Mount Danxia",
+   "url": "https://en.wikipedia.org/wiki/Mount_Danxia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-939": {
+   "answer": "Badain Jaran Desert",
+   "title": "Badain Jaran Desert",
+   "url": "https://en.wikipedia.org/wiki/Badain_Jaran_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gc-940": {
+   "answer": "Xiaozhai Tiankeng",
+   "title": "Xiaozhai Tiankeng",
+   "url": "https://en.wikipedia.org/wiki/Xiaozhai_Tiankeng",
    "via": "glossary",
    "status": "ok"
   }

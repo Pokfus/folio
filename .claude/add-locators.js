@@ -63,6 +63,13 @@ const fs = require("fs"), path = require("path");
 const DATA = path.join(__dirname, "..", "data.js");
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
 
+// every river name rivers.js and the hi-res region files carry, exactly as written there
+function riverNames() {
+  const out = new Set();
+  const w = loadWindow(path.join(__dirname, "..", "rivers.js"));
+  (w.RIVERS || []).forEach((r) => out.add(String(r.n)));
+  return out;
+}
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const win = loadWindow(DATA);
 const CARDS = win.CARD_DATA || [];
@@ -176,7 +183,20 @@ for (const id of Object.keys(want)) {
     if (kind !== "region" && kind !== "sea" && kind !== "shelf") die(id + ": `label` is only read on a region, a sea or a shelf — this one is \"" + kind + "\", so it would sit in data.js and never be used");
     label = [Number(L[0]), Number(L[1])];
   }
-  jobs.push({ id, card, title, qid, keepAt, name, zoom, kind, shapeKey, shape, within, label });
+  /* THE RIVER'S NAME IN rivers.js, WHEN NO SAFE GLOSSARY ALIAS CAN CARRY IT (Oct 2026, with China's
+     physical deck). A river card finds its line by the answer term and its glossary aliases, and Natural
+     Earth names the Yellow River `Huang` and the Pearl's trunk `Xi` — an alias that would auto-link every
+     Huang Chao in the corpus to a river. `rivers` names the stretches on the locator instead; each must be
+     a name rivers.js carries, or the card would quietly draw a dot. */
+  let rivers = null;
+  if (spec.rivers != null) {
+    if (kind !== "river") die(id + ": `rivers` is only read on a locator of kind \"river\" — this one is \"" + kind + "\"");
+    const known = riverNames();
+    rivers = (Array.isArray(spec.rivers) ? spec.rivers : [spec.rivers]).map((r) => String(r).trim()).filter(Boolean);
+    const miss = rivers.filter((r) => !known.has(r));
+    if (!rivers.length || miss.length) die(id + ": `rivers` names no river rivers.js carries: " + JSON.stringify(miss.length ? miss : spec.rivers));
+  }
+  jobs.push({ id, card, title, qid, keepAt, name, zoom, kind, shapeKey, shape, within, label, rivers });
 }
 
 /* A shape is a polyline (a spine) or a list of RINGS (an area) — say which, so the run's own report
@@ -238,6 +258,7 @@ async function getJSON(url, label) {
     if (j.kind && j.kind !== "point") loc.kind = j.kind;
     if (j.shapeKey && j.shape) loc[j.shapeKey] = j.shape;
     if (j.within) loc.within = j.within;
+    if (j.rivers) loc.rivers = j.rivers;
     if (j.label) loc.label = j.label;
     j.card.locator = loc;
     done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + shapeSize(j.shape) + ")" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== source ? "  ← " + redirected : ""));
