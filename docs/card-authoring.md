@@ -207,7 +207,9 @@ what the card's own cited sources say**, each claim carrying a marker into the c
 **The newcomer rewrite (Oct 2026, on request, card by card from `wh-001`)**: the owner is replacing the
 sets one card at a time. For each card, ten questions a complete newcomer would ask are offered, the owner
 picks three, and each answer is written in plain, simple language at about 100–120 words (twice the old
-60-word cap), every sentence footnoted to a source checked for that claim. A question need not open "Why".
+60-word cap), every sentence footnoted to a source checked for that claim. **Each answer cites at least
+three different sources, and at least one of them is NEW** — added to the card's list for this answer, not
+already on the card before the rewrite. A question need not open "Why".
 
 ### Locator (optional)
 
