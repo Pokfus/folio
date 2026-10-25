@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-13",
+ "retrieved": "2026-10-25",
  "source": "query.wikidata.org (Wikidata, CC0): for every item a polity of history.bin points at (or pointed at, or could point at): English label and description, direct classes (P31), inception/start and dissolution/end dates, the English Wikipedia sitelink, and whether a class of P31/P279* is one of the polity classes (state) or the people classes (people) named in audit-polity-names.js",
  "state_classes": [
   "Q3024240",
@@ -17,6 +17,39 @@
   "Q1620908"
  ],
  "items": {
+  "Q16": {
+   "label": "Canada",
+   "desc": "country in North America",
+   "enwiki": "Canada",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1867-07-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q20": {
+   "label": "Norway",
+   "desc": "country in Northern Europe",
+   "enwiki": "Norway",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "0900-01-01",
+    "1814-05-17",
+    "1905-06-07",
+    "1905-10-26"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
   "Q28": {
    "label": "Hungary",
    "desc": "country in Central Europe",
@@ -29,6 +62,28 @@
    ],
    "start": [
     "1000-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q29": {
+   "label": "Spain",
+   "desc": "country in southwestern Europe with territories in Africa",
+   "enwiki": "Spain",
+   "classes": [
+    "Mediterranean country",
+    "country",
+    "nation state",
+    "realm",
+    "sovereign state"
+   ],
+   "start": [
+    "1516-03-24",
+    "1715-01-01",
+    "1812-03-19",
+    "1931-12-09",
+    "1978-12-29"
    ],
    "end": [],
    "state": true,
@@ -49,6 +104,21 @@
    "state": true,
    "people": false
   },
+  "Q31": {
+   "label": "Belgium",
+   "desc": "country in western Europe",
+   "enwiki": "Belgium",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1830-10-04"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
   "Q33": {
    "label": "Finland",
    "desc": "country in Northern Europe",
@@ -61,6 +131,42 @@
    ],
    "start": [
     "1917-12-06"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q34": {
+   "label": "Sweden",
+   "desc": "country in Northern Europe",
+   "enwiki": "Sweden",
+   "classes": [
+    "constitutional monarchy",
+    "country",
+    "country bordering the Baltic Sea",
+    "sovereign state",
+    "unitary state"
+   ],
+   "start": [
+    "0900-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q39": {
+   "label": "Switzerland",
+   "desc": "country in Central Europe",
+   "enwiki": "Switzerland",
+   "classes": [
+    "country",
+    "federation",
+    "landlocked country",
+    "sovereign state",
+    "state"
+   ],
+   "start": [
+    "1848-09-12"
    ],
    "end": [],
    "state": true,
@@ -84,6 +190,56 @@
    "state": true,
    "people": false
   },
+  "Q45": {
+   "label": "Portugal",
+   "desc": "country in Southwestern Europe",
+   "enwiki": "Portugal",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1128-07-01",
+    "1139-08-01",
+    "1179-05-30"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q55": {
+   "label": "Netherlands",
+   "desc": "one of the four autonomous countries of the Kingdom of the Netherlands; with territories in the Caribbean",
+   "enwiki": "Netherlands",
+   "classes": [
+    "country",
+    "country of the Kingdom of the Netherlands"
+   ],
+   "start": [
+    "1795-01-19",
+    "1954-12-29"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q77": {
+   "label": "Uruguay",
+   "desc": "sovereign state in South America",
+   "enwiki": "Uruguay",
+   "classes": [
+    "constitutional republic",
+    "country",
+    "secular state",
+    "sovereign state"
+   ],
+   "start": [
+    "1825-08-25"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
   "Q148": {
    "label": "People's Republic of China",
    "desc": "country in East Asia",
@@ -94,6 +250,22 @@
    ],
    "start": [
     "1949-10-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q155": {
+   "label": "Brazil",
+   "desc": "country in South America",
+   "enwiki": "Brazil",
+   "classes": [
+    "country",
+    "secular state",
+    "sovereign state"
+   ],
+   "start": [
+    "1822-09-07"
    ],
    "end": [],
    "state": true,
@@ -133,6 +305,74 @@
    "state": true,
    "people": false
   },
+  "Q222": {
+   "label": "Albania",
+   "desc": "country in southeastern Europe",
+   "enwiki": "Albania",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1912-11-28"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q223": {
+   "label": "Greenland",
+   "desc": "autonomous territory of the Kingdom of Denmark and world's largest island",
+   "enwiki": "Greenland",
+   "classes": [
+    "autonomous administrative territorial entity",
+    "autonomous country within the Kingdom of Denmark",
+    "country",
+    "country sometimes considered transcontinental",
+    "dependent territory",
+    "electoral unit",
+    "island country"
+   ],
+   "start": [],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q228": {
+   "label": "Andorra",
+   "desc": "sovereign microstate between France and Spain, in Western Europe",
+   "enwiki": "Andorra",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1278-01-01",
+    "1715-01-01",
+    "1993-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q241": {
+   "label": "Cuba",
+   "desc": "sovereign state situated on an island in the Caribbean Sea",
+   "enwiki": "Cuba",
+   "classes": [
+    "communist state",
+    "country",
+    "island country",
+    "sovereign state",
+    "unitary state"
+   ],
+   "start": [
+    "1898-12-10"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
   "Q258": {
    "label": "South Africa",
    "desc": "country in southern Africa",
@@ -143,6 +383,279 @@
    ],
    "start": [
     "1910-05-31"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q298": {
+   "label": "Chile",
+   "desc": "country in South America",
+   "enwiki": "Chile",
+   "classes": [
+    "country",
+    "democratic republic",
+    "nation",
+    "sovereign state",
+    "transcontinental country"
+   ],
+   "start": [
+    "1810-09-18"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q408": {
+   "label": "Australia",
+   "desc": "country",
+   "enwiki": "Australia",
+   "classes": [
+    "country",
+    "federation",
+    "sovereign state"
+   ],
+   "start": [
+    "1901-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q419": {
+   "label": "Peru",
+   "desc": "sovereign state in South America",
+   "enwiki": "Peru",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1821-07-28"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q717": {
+   "label": "Venezuela",
+   "desc": "country in South America",
+   "enwiki": "Venezuela",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1811-07-05",
+    "1845-03-30"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q733": {
+   "label": "Paraguay",
+   "desc": "sovereign state in South America",
+   "enwiki": "Paraguay",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1811-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q736": {
+   "label": "Ecuador",
+   "desc": "sovereign state in South America",
+   "enwiki": "Ecuador",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1840-02-16"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q739": {
+   "label": "Colombia",
+   "desc": "country in South America",
+   "enwiki": "Colombia",
+   "classes": [
+    "country",
+    "country sometimes considered transcontinental",
+    "republic",
+    "secular state",
+    "sovereign state"
+   ],
+   "start": [
+    "1810-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q750": {
+   "label": "Bolivia",
+   "desc": "sovereign state in South America",
+   "enwiki": "Bolivia",
+   "classes": [
+    "country",
+    "landlocked country",
+    "sovereign state"
+   ],
+   "start": [
+    "1825-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q774": {
+   "label": "Guatemala",
+   "desc": "sovereign state in Central America",
+   "enwiki": "Guatemala",
+   "classes": [
+    "banana republic",
+    "country",
+    "republic",
+    "sovereign state"
+   ],
+   "start": [
+    "1821-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q783": {
+   "label": "Honduras",
+   "desc": "sovereign state in Central America",
+   "enwiki": "Honduras",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1821-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q792": {
+   "label": "El Salvador",
+   "desc": "sovereign state in Central America",
+   "enwiki": "El Salvador",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1841-02-02"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q800": {
+   "label": "Costa Rica",
+   "desc": "country in Central America",
+   "enwiki": "Costa Rica",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1821-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q804": {
+   "label": "Panama",
+   "desc": "sovereign state in Central America",
+   "enwiki": "Panama",
+   "classes": [
+    "country",
+    "republic",
+    "sovereign state"
+   ],
+   "start": [
+    "1903-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q811": {
+   "label": "Nicaragua",
+   "desc": "sovereign state in Central America",
+   "enwiki": "Nicaragua",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1821-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q837": {
+   "label": "Nepal",
+   "desc": "country in South Asia",
+   "enwiki": "Nepal",
+   "classes": [
+    "country",
+    "landlocked country",
+    "region",
+    "socialist state",
+    "sovereign state"
+   ],
+   "start": [
+    "2008-05-28"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q917": {
+   "label": "Bhutan",
+   "desc": "sovereign state in South Asia",
+   "enwiki": "Bhutan",
+   "classes": [
+    "country",
+    "hermit kingdom",
+    "kingdom",
+    "landlocked country",
+    "sovereign state"
+   ],
+   "start": [
+    "1949-08-08"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q1014": {
+   "label": "Liberia",
+   "desc": "sovereign state in West Africa",
+   "enwiki": "Liberia",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1822-01-07"
    ],
    "end": [],
    "state": true,
@@ -180,6 +693,18 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q4962": {
+   "label": null,
+   "desc": "Wikimedia disambiguation page",
+   "enwiki": "Georgia",
+   "classes": [
+    "Wikimedia disambiguation page"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
   },
   "Q7183": {
    "label": "Qin dynasty",
@@ -285,6 +810,22 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q8680": {
+   "label": "British Empire",
+   "desc": "overseas possessions of England and later the United Kingdom (1607–1997)",
+   "enwiki": "British Empire",
+   "classes": [
+    "colonial empire"
+   ],
+   "start": [
+    "1583-01-01"
+   ],
+   "end": [
+    "1997-01-01"
+   ],
+   "state": true,
+   "people": false
   },
   "Q8733": {
    "label": "Qing dynasty",
@@ -487,6 +1028,35 @@
    "state": false,
    "people": false
   },
+  "Q23666": {
+   "label": "Great Britain",
+   "desc": "island in the North Atlantic Ocean off the northwest coast of continental Europe",
+   "enwiki": "Great Britain",
+   "classes": [
+    "island"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q25227": {
+   "label": "Netherlands Antilles",
+   "desc": "former country within the Kingdom of the Netherlands",
+   "enwiki": "Netherlands Antilles",
+   "classes": [
+    "country of the Kingdom of the Netherlands",
+    "historical country"
+   ],
+   "start": [
+    "1954-12-15"
+   ],
+   "end": [
+    "2010-10-10"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q25979": {
    "label": "Kushan Empire",
    "desc": "empire in Central and South Asia (30–375 AD)",
@@ -614,6 +1184,20 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q31113": {
+   "label": "Kuomintang",
+   "desc": "Republic of China political party",
+   "enwiki": "Kuomintang",
+   "classes": [
+    "political party"
+   ],
+   "start": [
+    "1919-10-10"
+   ],
+   "end": [],
+   "state": false,
+   "people": false
   },
   "Q33296": {
    "label": "Mughal Empire",
@@ -882,6 +1466,24 @@
    "state": true,
    "people": true
   },
+  "Q62651": {
+   "label": "Denmark–Norway",
+   "desc": "political union (1524–1814)",
+   "enwiki": "Denmark–Norway",
+   "classes": [
+    "historical country",
+    "personal union",
+    "real union"
+   ],
+   "start": [
+    "1536-01-01"
+   ],
+   "end": [
+    "1814-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q62943": {
    "label": "Maurya empire",
    "desc": "ancient Indian empire (322–184 BCE)",
@@ -912,6 +1514,22 @@
     "0900-01-01"
    ],
    "state": false,
+   "people": true
+  },
+  "Q70802": {
+   "label": "French Third Republic",
+   "desc": "nation of France from 1870 to 1940",
+   "enwiki": "French Third Republic",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1870-09-04"
+   ],
+   "end": [
+    "1940-07-10"
+   ],
+   "state": true,
    "people": true
   },
   "Q70972": {
@@ -1172,6 +1790,23 @@
    "state": true,
    "people": true
   },
+  "Q139708": {
+   "label": "French Mandate for Syria and the Lebanon",
+   "desc": "League of Nations mandate of France in the Middle East (1923–1946)",
+   "enwiki": "Mandate for Syria and the Lebanon",
+   "classes": [
+    "League of Nations mandate",
+    "historical country"
+   ],
+   "start": [
+    "1923-01-01"
+   ],
+   "end": [
+    "1946-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q140446": {
    "label": "Zagwe dynasty",
    "desc": "dynasty centered around Lalibela, ruling large parts of the territory from about 900 to 1270",
@@ -1185,6 +1820,22 @@
    ],
    "end": [
     "1270-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q146862": {
+   "label": "Second Saudi State",
+   "desc": "1818– 1891 country in Arabian Peninsula",
+   "enwiki": "Second Saudi state",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1818-01-01"
+   ],
+   "end": [
+    "1891-01-24"
    ],
    "state": true,
    "people": true
@@ -1266,6 +1917,25 @@
    "end": [],
    "state": false,
    "people": false
+  },
+  "Q157734": {
+   "label": "Muscat and Oman",
+   "desc": "monarchy on the Arab Peninsula between 1820-1970",
+   "enwiki": "Muscat and Oman",
+   "classes": [
+    "British protectorate",
+    "country",
+    "historical country",
+    "sultanate"
+   ],
+   "start": [
+    "1820-01-01"
+   ],
+   "end": [
+    "1970-01-01"
+   ],
+   "state": true,
+   "people": true
   },
   "Q160307": {
    "label": "Fatimid Caliphate",
@@ -1450,6 +2120,22 @@
    "state": true,
    "people": true
   },
+  "Q179848": {
+   "label": "Scramble for Africa",
+   "desc": "1880s–1900s Western European colonisation of Africa",
+   "enwiki": "Scramble for Africa",
+   "classes": [
+    "partition"
+   ],
+   "start": [
+    "1885-01-01"
+   ],
+   "end": [
+    "1914-01-01"
+   ],
+   "state": false,
+   "people": false
+  },
   "Q179876": {
    "label": "Kingdom of England",
    "desc": "historic kingdom on the British Isles (927–1649; 1660–1707)",
@@ -1534,6 +2220,40 @@
    "state": true,
    "people": true
   },
+  "Q185682": {
+   "label": "French Indochina",
+   "desc": "federal state in Southeast Asia",
+   "enwiki": "French Indochina",
+   "classes": [
+    "colony",
+    "federation",
+    "historical country"
+   ],
+   "start": [
+    "1887-01-01"
+   ],
+   "end": [
+    "1954-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q188161": {
+   "label": "Dutch East Indies",
+   "desc": "Dutch colony in Southeast Asia and Oceania (1800–1949)",
+   "enwiki": "Dutch East Indies",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1800-01-01"
+   ],
+   "end": [
+    "1949-12-27"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q188712": {
    "label": "Empire of Japan",
    "desc": "empire in the Asia-Pacific region from 1868 to 1947",
@@ -1566,6 +2286,22 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q189326": {
+   "label": "Qajar dynasty",
+   "desc": "Iranian royal dynasty (1796–1925)",
+   "enwiki": "Qajar dynasty",
+   "classes": [
+    "dynasty"
+   ],
+   "start": [
+    "1785-01-01"
+   ],
+   "end": [
+    "1925-12-12"
+   ],
+   "state": false,
+   "people": false
   },
   "Q191077": {
    "label": "Kingdom of Yugoslavia",
@@ -1712,6 +2448,24 @@
    "state": true,
    "people": true
   },
+  "Q203493": {
+   "label": "Kingdom of Romania",
+   "desc": "kingdom in Southeastern Europe between 1881 and 1947",
+   "enwiki": "Kingdom of Romania",
+   "classes": [
+    "historical country",
+    "kingdom",
+    "sovereign state"
+   ],
+   "start": [
+    "1881-03-14"
+   ],
+   "end": [
+    "1947-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q203817": {
    "label": "First Bulgarian Empire",
    "desc": "medieval Bulgar-Slavic and later Bulgarian state that existed in Southeastern Europe between the 7th and 11th centuries AD.",
@@ -1844,6 +2598,23 @@
    "state": true,
    "people": true
   },
+  "Q213510": {
+   "label": "Belgian Congo",
+   "desc": "Belgian colony in Central Africa (1908–1960), established after international pressure forced Belgium to annex the Congo Free State following King Leopold II's brutal personal rule; now the Democratic Republic of the Congo",
+   "enwiki": "Belgian Congo",
+   "classes": [
+    "colony",
+    "former administrative territorial entity"
+   ],
+   "start": [
+    "1908-11-15"
+   ],
+   "end": [
+    "1960-06-30"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q215643": {
    "label": "Indo-Greek Kingdoms",
    "desc": "Hellenistic-era Greek kingdom in northwestern South Asia (200 BCE–10 CE)",
@@ -1856,6 +2627,22 @@
    ],
    "end": [
     "0010-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q216173": {
+   "label": "Free City of Danzig",
+   "desc": "semi-autonomous city-state that existed between 1920 and 1939",
+   "enwiki": "Free City of Danzig",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1920-11-15"
+   ],
+   "end": [
+    "1939-09-01"
    ],
    "state": true,
    "people": true
@@ -1908,6 +2695,18 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q236036": {
+   "label": "republic of the Soviet Union",
+   "desc": "top-level political division of the Soviet Union",
+   "enwiki": "Republics of the Soviet Union",
+   "classes": [
+    "pentadecad"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
   },
   "Q237325": {
    "label": "Antigonid dynasty",
@@ -2275,6 +3074,35 @@
    "state": true,
    "people": true
   },
+  "Q521263": {
+   "label": "history of Tibet",
+   "desc": "aspect of history",
+   "enwiki": "History of Tibet",
+   "classes": [
+    "aspect of history"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
+  },
+  "Q528546": {
+   "label": "First Hellenic Republic",
+   "desc": "historiographical concept of Greece (1822–1833)",
+   "enwiki": "First Hellenic Republic",
+   "classes": [
+    "historical country",
+    "historiographical concept"
+   ],
+   "start": [
+    "1822-01-01"
+   ],
+   "end": [
+    "1832-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q551067": {
    "label": "Northern Zhou",
    "desc": "Xianbei-led dynasty of China",
@@ -2458,6 +3286,23 @@
    "state": true,
    "people": true
   },
+  "Q752431": {
+   "label": "New Hebrides",
+   "desc": "former country, now Vanuatu",
+   "enwiki": "New Hebrides",
+   "classes": [
+    "condominium",
+    "historical country"
+   ],
+   "start": [
+    "1907-12-02"
+   ],
+   "end": [
+    "1980-07-30"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q783489": {
    "label": "Later Liang dynasty",
    "desc": "one of the Five Dynasties of China",
@@ -2490,6 +3335,22 @@
    ],
    "end": [
     "1888-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q815731": {
+   "label": "Principality of Bulgaria",
+   "desc": "principality on the Balkan Peninsula between 1878 and 1908",
+   "enwiki": "Principality of Bulgaria",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1878-03-03"
+   ],
+   "end": [
+    "1908-09-22"
    ],
    "state": true,
    "people": true
@@ -2527,6 +3388,23 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q832554": {
+   "label": "Argentine Confederation",
+   "desc": "1831–1861 republic in South America",
+   "enwiki": "Argentine Confederation",
+   "classes": [
+    "confederation",
+    "historical period"
+   ],
+   "start": [
+    "1831-01-04"
+   ],
+   "end": [
+    "1861-12-12"
+   ],
+   "state": true,
+   "people": false
   },
   "Q837855": {
    "label": "Qi",
@@ -2655,6 +3533,23 @@
    ],
    "end": [
     "1960-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q956357": {
+   "label": "Kingdom of Hejaz",
+   "desc": "former country",
+   "enwiki": "Kingdom of Hejaz",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "1916-06-10"
+   ],
+   "end": [
+    "1926-01-08"
    ],
    "state": true,
    "people": true
@@ -2834,6 +3729,23 @@
    "state": true,
    "people": true
   },
+  "Q1155700": {
+   "label": "Rattanakosin Kingdom",
+   "desc": "fourth traditional centre of power in the history of Thailand (1782 to 24 June 1932)",
+   "enwiki": "Rattanakosin Kingdom (1782–1932)",
+   "classes": [
+    "historical country",
+    "historical period"
+   ],
+   "start": [
+    "1782-01-01"
+   ],
+   "end": [
+    "1932-06-24"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q1232887": {
    "label": "County of Savoy",
    "desc": "countship",
@@ -2862,6 +3774,23 @@
    ],
    "end": [
     "1402-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q1335260": {
+   "label": "Emirate of Afghanistan",
+   "desc": "monarchy in Central Asia from 1823 to 1926",
+   "enwiki": "Emirate of Afghanistan",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1823-01-01",
+    "1900-01-01"
+   ],
+   "end": [
+    "1926-01-01"
    ],
    "state": true,
    "people": true
@@ -3037,6 +3966,20 @@
    "state": true,
    "people": true
   },
+  "Q1998401": {
+   "label": "North Yemen",
+   "desc": "generic term designating the north-western part of the state of Yemen",
+   "enwiki": "North Yemen",
+   "classes": [
+    "group",
+    "historical country",
+    "region"
+   ],
+   "start": [],
+   "end": [],
+   "state": true,
+   "people": true
+  },
   "Q2022162": {
    "label": "Kingdom of Pergamon",
    "desc": "Greek state during the Hellenistic period",
@@ -3133,6 +4076,24 @@
    "state": true,
    "people": true
   },
+  "Q2719360": {
+   "label": "Duchy of Luxembourg",
+   "desc": "country in Western Europe during Late Middle Ages-Early Modern Ages",
+   "enwiki": "Duchy of Luxembourg",
+   "classes": [
+    "duchy",
+    "historical country",
+    "state in the Holy Roman Empire"
+   ],
+   "start": [
+    "1353-01-01"
+   ],
+   "end": [
+    "1795-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q3185305": {
    "label": "United Kingdom of Israel",
    "desc": "a legend Israelite kingdom of Israel and Judah (c. 1047–930 BCE)",
@@ -3149,6 +4110,24 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q3497642": {
+   "label": "Tangier International Zone",
+   "desc": "former international zone in Morocco",
+   "enwiki": "Tangier International Zone",
+   "classes": [
+    "condominium",
+    "international zone",
+    "protectorate"
+   ],
+   "start": [
+    "1924-05-14"
+   ],
+   "end": [
+    "1956-10-29"
+   ],
+   "state": true,
+   "people": false
   },
   "Q3708094": {
    "label": "Seljuk Empire",
@@ -3184,6 +4163,22 @@
    "state": true,
    "people": true
   },
+  "Q5062192": {
+   "label": "Centralist Republic of Mexico",
+   "desc": "unitary political regime established in Mexico in 1835",
+   "enwiki": "Centralist Republic of Mexico",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1835-10-23"
+   ],
+   "end": [
+    "1846-08-22"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q5349053": {
    "label": "Eighteen Kingdoms",
    "desc": "18 states created by Xiang Yu in China in 206 BCE",
@@ -3196,6 +4191,22 @@
    "end": [],
    "state": false,
    "people": false
+  },
+  "Q5362837": {
+   "label": "Emirate of Jabal Shammar",
+   "desc": "1836–1921 state in northern Saudi Arabia",
+   "enwiki": "Emirate of Jabal Shammar",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1836-01-01"
+   ],
+   "end": [
+    "1921-11-02"
+   ],
+   "state": true,
+   "people": true
   },
   "Q5970542": {
    "label": "Yan'an Soviet",
@@ -3352,6 +4363,18 @@
    "state": true,
    "people": true
   },
+  "Q15728206": {
+   "label": "Asir Province",
+   "desc": "former province of Saudi Arabia",
+   "enwiki": "Asir Province",
+   "classes": [
+    "former province of Saudi Arabia"
+   ],
+   "start": [],
+   "end": [],
+   "state": true,
+   "people": true
+  },
   "Q16084290": {
    "label": "Illyrian kingdom",
    "desc": "ancient illyrian kingdom",
@@ -3384,6 +4407,18 @@
    ],
    "state": true,
    "people": true
+  },
+  "Q19951607": {
+   "label": "French Colonial Africa",
+   "desc": "French colonial territories in Africa",
+   "enwiki": "French Africa",
+   "classes": [
+    "region"
+   ],
+   "start": [],
+   "end": [],
+   "state": false,
+   "people": false
   },
   "Q112039853": {
    "label": "Foreign relations of the Byzantine Empire",

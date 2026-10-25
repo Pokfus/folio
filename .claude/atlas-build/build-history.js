@@ -1274,6 +1274,9 @@ function conflate(alive, label) {
   const nestOf = (owners) => {   // [member, overlord] rows, or null
     if (owners.length !== 2) return null;
     const [A, B] = owners; const a = areaOfRow.get(A) || 0, b = areaOfRow.get(B) || 0, ov = areaOfKey.get(ownerKey({ owners })) || 0;
+    /* `nestedIn` (polity-spec.json, 2026-10-25): a series the spec declares a member of another is nested in it whatever the two areas' ratio — Canada inside
+       Cliopatria's British colonial empire of 1920 is 80 % of its size, so the ratio rule called the pair contested and the map hatched a dominion as disputed */
+    for (const [m, o] of [[A, B], [B, A]]) { const sp = spec.polities[m.series.key]; if (sp && Array.isArray(sp.nestedIn) && sp.nestedIn.includes(o.series.key) && ov >= NEST_SHARE * (m === A ? a : b)) return [m, o]; }
     const small = Math.min(a, b), big = Math.max(a, b); if (!(small > 0) || ov < NEST_SHARE * small || big < NEST_RATIO * small) return null;
     return a <= b ? [A, B] : [B, A];
   };

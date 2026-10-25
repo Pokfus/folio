@@ -73,7 +73,9 @@ const warHash = crypto.createHash("sha256").update(JSON.stringify(warCards.map((
    (an earlier treaty, a later colony, a later foundation), and a war's years come off its card's date line unless the block carries `years` (docs/war-cards.md §5), so each
    war drew over years it did not run (rm-152 from 354, rm-159 to 264, rm-162 to 191, rm-158 into the first year of the First Punic War). The four blocks now carry `years` (343–341, 308–268,
    225–222 and 396–265 BCE); nothing else in any block moved. Before it: 6ad97d32… (sha256 of JSON.stringify of every war card [id, war] on main at 352d151; 2d changed none). */
-const WAR_FIELD_SHA = "61e5ff91fe3d4e75796c7695493a9ccfd870aa5eeeb61935bb5fb354f399df18";
+/* Re-pinned 2026-10-25 for ONE deliberate change: gr-521, wh-330 and gr-561 carry `zoom: 24`, because their sides are now drawn town by town (war-poleis.json) and
+   the fit of the poleis of Sicily, the Hellespont and Thrace opened the window on the whole Mediterranean. Before it: 61e5ff91…. */
+const WAR_FIELD_SHA = "9c7725852c9031ac8a16f3716e9697c4a8aff529892061dc5f97e61a241ab1f8";
 check("the cards' `war` blocks are byte-identical to main's (v1 reads them until Phase 5)", warHash === WAR_FIELD_SHA, warHash.slice(0, 16));
 
 console.log("\n2) the table is derived\n");

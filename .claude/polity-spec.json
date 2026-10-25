@@ -1139,7 +1139,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "british_colonies_1920": {
       "label": "British colonies",
@@ -1149,7 +1150,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "british_africa_1920": {
       "label": "British Africa",
@@ -1159,7 +1161,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "australia_1920": {
       "label": "Australia",
@@ -1169,7 +1172,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "canada_1920": {
       "label": "Canada",
@@ -1182,6 +1186,10 @@
           1920,
           1932
         ]
+      ],
+      "snapshot": true,
+      "nestedIn": [
+        "british_colonies_1920"
       ]
     },
     "new_zealand_1920": {
@@ -1195,7 +1203,8 @@
           1920,
           1948
         ]
-      ]
+      ],
+      "snapshot": true
     },
     "south_africa_1920": {
       "label": "Union of South Africa",
@@ -1208,7 +1217,8 @@
           1920,
           1932
         ]
-      ]
+      ],
+      "snapshot": true
     },
     "haiti_1920": {
       "label": "Haiti",
@@ -1221,7 +1231,8 @@
           1920,
           1936
         ]
-      ]
+      ],
+      "snapshot": true
     },
     "dominican_1920": {
       "label": "Dominican Republic",
@@ -1234,7 +1245,8 @@
           1920,
           1924
         ]
-      ]
+      ],
+      "snapshot": true
     },
     "france_1920": {
       "label": "France",
@@ -1244,7 +1256,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "french_africa_1920": {
       "label": "French Africa",
@@ -1254,7 +1267,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "french_indochina_1920": {
       "label": "French Indochina",
@@ -1264,7 +1278,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "french_levant_1920": {
       "label": "French Mandate for Syria and Lebanon",
@@ -1274,7 +1289,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "belgium_1920": {
       "label": "Belgium",
@@ -1284,7 +1300,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "belgian_congo_1920": {
       "label": "Belgian Congo",
@@ -1294,7 +1311,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "netherlands_1920": {
       "label": "Netherlands",
@@ -1304,7 +1322,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "dutch_east_indies_1920": {
       "label": "Dutch East Indies",
@@ -1314,7 +1333,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "netherlands_antilles_1920": {
       "label": "Netherlands Antilles",
@@ -1324,7 +1344,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "denmark_1920": {
       "label": "Denmark",
@@ -1334,7 +1355,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "greenland_1920": {
       "label": "Greenland",
@@ -1344,7 +1366,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "iceland_1920": {
       "label": "Iceland",
@@ -1354,6 +1377,10 @@
       "years": [
         1920,
         1920
+      ],
+      "snapshot": true,
+      "nestedIn": [
+        "denmark_1920"
       ]
     },
     "norway_1920": {
@@ -1364,7 +1391,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "sweden_1920": {
       "label": "Sweden",
@@ -1374,7 +1402,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "switzerland_1920": {
       "label": "Switzerland",
@@ -1384,7 +1413,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "luxembourg_1920": {
       "label": "Luxembourg",
@@ -1394,7 +1424,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "monaco_1920": {
       "label": "Monaco",
@@ -1404,7 +1435,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "andorra_1920": {
       "label": "Andorra",
@@ -1414,7 +1446,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "danzig_1920": {
       "label": "Free City of Danzig",
@@ -1424,7 +1457,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "portugal_1920": {
       "label": "Portugal",
@@ -1434,7 +1468,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "romania_1920": {
       "label": "Romania",
@@ -1444,7 +1479,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "bulgaria_1920": {
       "label": "Bulgaria",
@@ -1454,7 +1490,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "albania_1920": {
       "label": "Albania",
@@ -1464,7 +1501,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "greece_1920": {
       "label": "Greece",
@@ -1474,7 +1512,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "yugoslavia_1920": {
       "label": "Kingdom of the Serbs, Croats and Slovenes",
@@ -1484,7 +1523,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "georgia_1920": {
       "label": "Georgia",
@@ -1494,7 +1534,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "soviet_1920": {
       "label": "Soviet Russia",
@@ -1504,7 +1545,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "persia_1920": {
       "label": "Persia",
@@ -1514,7 +1556,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "afghanistan_1920": {
       "label": "Afghanistan",
@@ -1524,7 +1567,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "hejaz_1920": {
       "label": "Hejaz",
@@ -1534,7 +1578,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "nejd_1920": {
       "label": "Nejd",
@@ -1544,7 +1589,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "jabal_shammar_1920": {
       "label": "Jabal Shammar",
@@ -1554,7 +1600,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "asir_1920": {
       "label": "Asir",
@@ -1564,7 +1611,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "north_yemen_1920": {
       "label": "Yemen",
@@ -1574,7 +1622,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "muscat_1920": {
       "label": "Muscat and Oman",
@@ -1584,7 +1633,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "tibet_1920": {
       "label": "Tibet",
@@ -1594,7 +1644,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "nepal_1920": {
       "label": "Nepal",
@@ -1604,7 +1655,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "bhutan_1920": {
       "label": "Bhutan",
@@ -1614,7 +1666,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "siam_1920": {
       "label": "Siam",
@@ -1624,7 +1677,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "china_1920": {
       "label": "China",
@@ -1634,7 +1688,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "british_raj_1920": {
       "label": "British India",
@@ -1644,7 +1699,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "usa_1920": {
       "label": "United States",
@@ -1654,7 +1710,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "mexico_1920": {
       "label": "Mexico",
@@ -1664,7 +1721,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "guatemala_1920": {
       "label": "Guatemala",
@@ -1674,7 +1732,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "honduras_1920": {
       "label": "Honduras",
@@ -1684,7 +1743,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "el_salvador_1920": {
       "label": "El Salvador",
@@ -1694,7 +1754,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "nicaragua_1920": {
       "label": "Nicaragua",
@@ -1704,7 +1765,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "costa_rica_1920": {
       "label": "Costa Rica",
@@ -1714,7 +1776,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "panama_1920": {
       "label": "Panama",
@@ -1724,7 +1787,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "cuba_1920": {
       "label": "Cuba",
@@ -1734,7 +1798,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "colombia_1920": {
       "label": "Colombia",
@@ -1744,7 +1809,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "venezuela_1920": {
       "label": "Venezuela",
@@ -1754,7 +1820,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "ecuador_1920": {
       "label": "Ecuador",
@@ -1764,7 +1831,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "peru_1920": {
       "label": "Peru",
@@ -1774,7 +1842,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "bolivia_1920": {
       "label": "Bolivia",
@@ -1784,7 +1853,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "brazil_1920": {
       "label": "Brazil",
@@ -1794,7 +1864,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "paraguay_1920": {
       "label": "Paraguay",
@@ -1804,7 +1875,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "uruguay_1920": {
       "label": "Uruguay",
@@ -1814,7 +1886,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "argentina_1920": {
       "label": "Argentina",
@@ -1824,7 +1897,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "chile_1920": {
       "label": "Chile",
@@ -1834,7 +1908,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "liberia_1920": {
       "label": "Liberia",
@@ -1844,7 +1919,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "new_hebrides_1920": {
       "label": "New Hebrides",
@@ -1854,7 +1930,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "tangier_1920": {
       "label": "Tangier International Zone",
@@ -1864,7 +1941,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     },
     "spain_1920": {
       "label": "Spain",
@@ -1874,7 +1952,8 @@
       "years": [
         1920,
         1920
-      ]
+      ],
+      "snapshot": true
     }
   },
   "links": {
