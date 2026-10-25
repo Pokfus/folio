@@ -7088,7 +7088,21 @@ window.GLOSSARY = {
 "An_Essay_Concerning_Human_Understanding": "",
 "Polemic": "",
 "Gottfried_Wilhelm_Leibniz": "",
-"Axiom": ""
+"Axiom": "",
+"Paa-ko": "",
+"American_Falls,_Idaho": "",
+"Norsemen": "",
+"Blacks_Fork": "",
+"Kansas_River": "",
+"Šuŋgwakȟáŋ": "",
+"Shock_troops": "",
+"Landsberg_Prison": "",
+"Max_Amann": "",
+"Darwinism": "",
+"Braille": "",
+"Marxism": "",
+"Epic_poetry": "",
+"Anthology": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10670,7 +10684,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kyoto": "794",
 "Diodorus_Siculus": "1st century BCE",
 "An_Essay_Concerning_Human_Understanding": "1689",
-"Gottfried_Wilhelm_Leibniz": "1646–1716"
+"Gottfried_Wilhelm_Leibniz": "1646–1716",
+"Max_Amann": "1891–1957",
+"Darwinism": "1859",
+"Braille": "1824"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15185,7 +15202,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Diodorus_Siculus": ["Diodorus"],
 "West_Nile_fever": ["West Nile encephalitis","West Nile virus"],
 "Guerrilla_warfare": ["guerrilla war"],
-"Gottfried_Wilhelm_Leibniz": ["Leibniz"]
+"Gottfried_Wilhelm_Leibniz": ["Leibniz"],
+"Paa-ko": ["Paa’ko","Paa'ko"],
+"American_Falls,_Idaho": ["American Falls"],
+"Norsemen": ["Norse"],
+"Kansas_River": ["Kaw River"],
+"Šuŋgwakȟáŋ": ["Horse Nation"],
+"Darwinism": ["Darwinist"],
+"Marxism": ["Marxist"],
+"Epic_poetry": ["epic"],
+"Landsberg_Prison": ["Landsberg prison"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22402,7 +22428,21 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "An_Essay_Concerning_Human_Understanding": ["text","philosophy","psychology","england"],
 "Polemic": ["concept","literature","rhetoric","religion"],
 "Gottfried_Wilhelm_Leibniz": ["person","philosophy","mathematics","science","germany"],
-"Axiom": ["concept","philosophy","mathematics","logic"]
+"Axiom": ["concept","philosophy","mathematics","logic"],
+"Paa-ko": ["place","archaeology","history","north america","united states"],
+"American_Falls,_Idaho": ["place","city","geography","united states"],
+"Norsemen": ["people","history","europe","migration","genetics"],
+"Blacks_Fork": ["place","river","geography","north america","united states"],
+"Kansas_River": ["place","river","geography","north america","united states"],
+"Šuŋgwakȟáŋ": ["concept","religion","culture","north america","united states"],
+"Shock_troops": ["concept","warfare","military","history","first world war"],
+"Landsberg_Prison": ["building","history","germany","20th century","second world war"],
+"Max_Amann": ["person","politics","history","germany","20th century","second world war"],
+"Darwinism": ["theory","science","biology","evolution","history"],
+"Braille": ["technology","writing","language","education"],
+"Marxism": ["concept","politics","ideology","philosophy","economics","communism"],
+"Epic_poetry": ["concept","literature","poetry","greece"],
+"Anthology": ["concept","literature","poetry","greece","japan"]
 });
 
 /* ============================================================================
