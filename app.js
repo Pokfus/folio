@@ -35164,11 +35164,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (open) placeAnswerBubble(wrap);
   }
   function wireAnswerBubbles() {
+    /* ONLY ITS ICON CLOSES IT (Oct 2026, on request): a click elsewhere used to, and a stroke of the
+       whiteboard marker ends in a click, so writing beside the bubble took it away. Escape still closes. */
     document.addEventListener("click", (e) => {
       const t = e.target && e.target.closest ? e.target : null;
-      const hit = t ? t.closest(".ac-wrap") : null;
-      document.querySelectorAll(".ac-wrap.open").forEach((w) => { if (w !== hit) setAnswerBubble(w, false); });
-      if (hit && t.closest(".ac-btn")) setAnswerBubble(hit, !hit.classList.contains("open"));
+      const hit = t && t.closest(".ac-btn") ? t.closest(".ac-wrap") : null;
+      if (hit) setAnswerBubble(hit, !hit.classList.contains("open"));
     });
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Escape") return;
