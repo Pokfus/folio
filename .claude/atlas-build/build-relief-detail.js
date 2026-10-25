@@ -121,7 +121,7 @@ async function main() {
       if (flat) flatOnly++;
       const gx = Math.round((lonW + 180) / TILE_DEG) + tx, gy = ROWS - 1 - (Math.round((90 - latN) / TILE_DEG) + ty);   // rows from the south
       const key = gx + "-" + gy;
-      const jpg = await sharp(buf, { raw: { width: TILE, height: TILE, channels: 1 } }).jpeg({ quality: QUALITY, mozjpeg: true }).toBuffer();
+      const jpg = await sharp(buf, { raw: { width: TILE, height: TILE, channels: 1 } }).toColourspace("b-w").jpeg({ quality: QUALITY, mozjpeg: true }).toBuffer();
       fs.writeFileSync(path.join(OUT, key + ".jpg"), jpg);
       tiles.push(key); bytes += jpg.length; if (jpg.length > largest.bytes) largest = { bytes: jpg.length, file: key + ".jpg" };
     }
