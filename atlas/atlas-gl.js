@@ -408,9 +408,13 @@
       vec4 B = texelFetch(uSeg, ivec2((t0 + 1) % uTexW, (t0 + 1) / uTexW), 0);
       vec3 pa = uRot * A.xyz, pb = uRot * B.xyz;
       vec2 sa = uCenter + vec2(pa.x, -pa.y) * uRadius, sb = uCenter + vec2(pb.x, -pb.y) * uRadius;
-      float tag = A.w;
-      float kind = mod(tag, 8.0);
-      float flags = floor(mod(tag, 64.0) / 8.0);
+      /* the tag (arc * 64 + flags * 8 + kind) is unpacked with INTEGER bit operations (2026-10-25, the owner's phone: "I still dont see the borders"): a float
+         mod / floor is a division, which a mobile GPU approximates — at a history arc's tag (up to ~6.6 million) the quotient can land on the wrong side of an
+         integer, giving a kind of -1 or 8 (no width, or a present-day line hidden in a past year) and dropping most of a year's borders; desktop and software
+         GL divide exactly, so no suite saw it. A tag is an integer below 2^24, exact in a float32 */
+      int itag = int(A.w + 0.5);
+      float kind = float(itag & 7);
+      float flags = float((itag >> 3) & 7);
       float w = uWidth[int(kind + 0.5)];
       float hw = w * 0.5 + 1.0 + uIdPad;                  // a pixel of anti-aliasing margin
       vec2 d = sb - sa; float L = length(d);
@@ -423,7 +427,7 @@
       if (kind > 4.5 && kind < 5.5 && uAdmin1 < 0.5) p = vec2(-1.0e5);   // admin-1 below its zoom threshold: not drawn
       if (uBorders < 0.5 && ((kind > 0.5 && kind < 1.5) || (kind > 4.5 && kind < 5.5))) p = vec2(-1.0e5);   // a present-day line in a past year
       gl_Position = vec4(p.x / uSize.x * 2.0 - 1.0, 1.0 - p.y / uSize.y * 2.0, 0.0, 1.0);
-      vA = sa; vB = sb; vHw = w * 0.5; vKind = kind; vFlags = flags; vArc = floor(tag / 64.0); vZ = vec2(pa.z, pb.z);
+      vA = sa; vB = sb; vHw = w * 0.5; vKind = kind; vFlags = flags; vArc = float(itag >> 6); vZ = vec2(pa.z, pb.z);
     }`;
   const FS_ARC = `#version 300 es
     precision highp float;
