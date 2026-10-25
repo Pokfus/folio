@@ -1126,6 +1126,741 @@
       "cliopatria": [
         "Northern Zhou"
       ]
+    },
+    "uk_1920": {
+      "label": "United Kingdom",
+      "cliopatria": [
+        "Kingdom of Great Britain"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "british_colonies_1920": {
+      "label": "British colonies",
+      "cliopatria": [
+        "British Colonial Empire"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "british_africa_1920": {
+      "label": "British Africa",
+      "cliopatria": [
+        "British Africa"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "australia_1920": {
+      "label": "Australia",
+      "cliopatria": [
+        "Commonwealth of Australia"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "canada_1920": {
+      "label": "Canada",
+      "cliopatria": [
+        "Canada"
+      ],
+      "rowsAt": [
+        [
+          1920,
+          1920,
+          1932
+        ]
+      ]
+    },
+    "new_zealand_1920": {
+      "label": "New Zealand",
+      "cliopatria": [
+        "New Zealand"
+      ],
+      "rowsAt": [
+        [
+          1920,
+          1920,
+          1948
+        ]
+      ]
+    },
+    "south_africa_1920": {
+      "label": "Union of South Africa",
+      "cliopatria": [
+        "South Africa"
+      ],
+      "rowsAt": [
+        [
+          1920,
+          1920,
+          1932
+        ]
+      ]
+    },
+    "haiti_1920": {
+      "label": "Haiti",
+      "cliopatria": [
+        "Republic of Haiti"
+      ],
+      "rowsAt": [
+        [
+          1920,
+          1920,
+          1936
+        ]
+      ]
+    },
+    "dominican_1920": {
+      "label": "Dominican Republic",
+      "cliopatria": [
+        "Dominican Republic"
+      ],
+      "rowsAt": [
+        [
+          1920,
+          1920,
+          1924
+        ]
+      ]
+    },
+    "france_1920": {
+      "label": "France",
+      "cliopatria": [
+        "French Third Republic"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "french_africa_1920": {
+      "label": "French Africa",
+      "cliopatria": [
+        "French Africa"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "french_indochina_1920": {
+      "label": "French Indochina",
+      "cliopatria": [
+        "French Indochina"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "french_levant_1920": {
+      "label": "French Mandate for Syria and Lebanon",
+      "cliopatria": [
+        "French Mandate for Syria and Lebanon"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "belgium_1920": {
+      "label": "Belgium",
+      "cliopatria": [
+        "Kingdom of Belgium"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "belgian_congo_1920": {
+      "label": "Belgian Congo",
+      "cliopatria": [
+        "Belgian Congo"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "netherlands_1920": {
+      "label": "Netherlands",
+      "cliopatria": [
+        "Netherlands"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "dutch_east_indies_1920": {
+      "label": "Dutch East Indies",
+      "cliopatria": [
+        "Dutch East Indies"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "netherlands_antilles_1920": {
+      "label": "Netherlands Antilles",
+      "cliopatria": [
+        "Netherlands Antilles"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "denmark_1920": {
+      "label": "Denmark",
+      "cliopatria": [
+        "Denmark-Norway"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "greenland_1920": {
+      "label": "Greenland",
+      "cliopatria": [
+        "Greenland"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "iceland_1920": {
+      "label": "Iceland",
+      "cliopatria": [
+        "Kingdom of Iceland"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "norway_1920": {
+      "label": "Norway",
+      "cliopatria": [
+        "Kingdom of Norway"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "sweden_1920": {
+      "label": "Sweden",
+      "cliopatria": [
+        "Kingdom of Sweden"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "switzerland_1920": {
+      "label": "Switzerland",
+      "cliopatria": [
+        "Swiss Confederation"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "luxembourg_1920": {
+      "label": "Luxembourg",
+      "cliopatria": [
+        "Luxembourg"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "monaco_1920": {
+      "label": "Monaco",
+      "cliopatria": [
+        "Kingdom of Monaco"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "andorra_1920": {
+      "label": "Andorra",
+      "cliopatria": [
+        "Principality of Andorra"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "danzig_1920": {
+      "label": "Free City of Danzig",
+      "cliopatria": [
+        "Free City of Danzig"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "portugal_1920": {
+      "label": "Portugal",
+      "cliopatria": [
+        "Portuguese Republic"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "romania_1920": {
+      "label": "Romania",
+      "cliopatria": [
+        "Kingdom of Romania"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "bulgaria_1920": {
+      "label": "Bulgaria",
+      "cliopatria": [
+        "Principality of Bulgaria"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "albania_1920": {
+      "label": "Albania",
+      "cliopatria": [
+        "Albania"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "greece_1920": {
+      "label": "Greece",
+      "cliopatria": [
+        "First Hellenic Republic"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "yugoslavia_1920": {
+      "label": "Kingdom of the Serbs, Croats and Slovenes",
+      "cliopatria": [
+        "Yugoslavia"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "georgia_1920": {
+      "label": "Georgia",
+      "cliopatria": [
+        "Georgia"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "soviet_1920": {
+      "label": "Soviet Russia",
+      "cliopatria": [
+        "Republics of the Soviet Union"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "persia_1920": {
+      "label": "Persia",
+      "cliopatria": [
+        "Qajar Dynasty"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "afghanistan_1920": {
+      "label": "Afghanistan",
+      "cliopatria": [
+        "Emirate of Afghanistan"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "hejaz_1920": {
+      "label": "Hejaz",
+      "cliopatria": [
+        "Kingdom of Hejaz"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "nejd_1920": {
+      "label": "Nejd",
+      "cliopatria": [
+        "Emirate of Nejd"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "jabal_shammar_1920": {
+      "label": "Jabal Shammar",
+      "cliopatria": [
+        "Emirate of Jabal Shammar"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "asir_1920": {
+      "label": "Asir",
+      "cliopatria": [
+        "Asir"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "north_yemen_1920": {
+      "label": "Yemen",
+      "cliopatria": [
+        "North Yemen"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "muscat_1920": {
+      "label": "Muscat and Oman",
+      "cliopatria": [
+        "Sultanate of Muscat and Oman"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "tibet_1920": {
+      "label": "Tibet",
+      "cliopatria": [
+        "Tibet"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "nepal_1920": {
+      "label": "Nepal",
+      "cliopatria": [
+        "Nepal"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "bhutan_1920": {
+      "label": "Bhutan",
+      "cliopatria": [
+        "Kingdom of Bhutan"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "siam_1920": {
+      "label": "Siam",
+      "cliopatria": [
+        "Rattanakosin Kingdom"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "china_1920": {
+      "label": "China",
+      "cliopatria": [
+        "Kuomintang"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "british_raj_1920": {
+      "label": "British India",
+      "cliopatria": [
+        "British Raj"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "usa_1920": {
+      "label": "United States",
+      "cliopatria": [
+        "United States of America"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "mexico_1920": {
+      "label": "Mexico",
+      "cliopatria": [
+        "Mexico"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "guatemala_1920": {
+      "label": "Guatemala",
+      "cliopatria": [
+        "Guatemala"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "honduras_1920": {
+      "label": "Honduras",
+      "cliopatria": [
+        "Honduras"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "el_salvador_1920": {
+      "label": "El Salvador",
+      "cliopatria": [
+        "Republic of El Salvador"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "nicaragua_1920": {
+      "label": "Nicaragua",
+      "cliopatria": [
+        "Republic of Nicaragua"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "costa_rica_1920": {
+      "label": "Costa Rica",
+      "cliopatria": [
+        "Republic of Costa Rica"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "panama_1920": {
+      "label": "Panama",
+      "cliopatria": [
+        "Republic of Panama"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "cuba_1920": {
+      "label": "Cuba",
+      "cliopatria": [
+        "Republic of Cuba"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "colombia_1920": {
+      "label": "Colombia",
+      "cliopatria": [
+        "Republic of Colombia"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "venezuela_1920": {
+      "label": "Venezuela",
+      "cliopatria": [
+        "Venezuela"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "ecuador_1920": {
+      "label": "Ecuador",
+      "cliopatria": [
+        "Republic of Ecuador"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "peru_1920": {
+      "label": "Peru",
+      "cliopatria": [
+        "Republic of Peru"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "bolivia_1920": {
+      "label": "Bolivia",
+      "cliopatria": [
+        "Bolivia"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "brazil_1920": {
+      "label": "Brazil",
+      "cliopatria": [
+        "Brazilian Republic"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "paraguay_1920": {
+      "label": "Paraguay",
+      "cliopatria": [
+        "Paraguay"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "uruguay_1920": {
+      "label": "Uruguay",
+      "cliopatria": [
+        "Oriental Republic of Uruguay"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "argentina_1920": {
+      "label": "Argentina",
+      "cliopatria": [
+        "Argentine Confederation"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "chile_1920": {
+      "label": "Chile",
+      "cliopatria": [
+        "Republic of Chile"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "liberia_1920": {
+      "label": "Liberia",
+      "cliopatria": [
+        "Republic of Liberia"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "new_hebrides_1920": {
+      "label": "New Hebrides",
+      "cliopatria": [
+        "New Hebrides"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "tangier_1920": {
+      "label": "Tangier International Zone",
+      "cliopatria": [
+        "Tangier International Zone"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
     }
   },
   "links": {

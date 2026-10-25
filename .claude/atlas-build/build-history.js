@@ -107,7 +107,8 @@ const PRESENCE_NOTES = {
    because no open dataset draws it — DEFERRED, with the reason), UNRESOLVED (named by the card's keys and drawn by nothing). test-war-sides.js holds the same table, so
    the document and the data cannot disagree. Each row: side, cards, status, what draws it, the reason or the audit batch that names the work. */
 const WAR_SIDES_2D = [
-  ["Athens and its empire", "wh-330, gr-521, gr-552, gr-561", "authored (deferred)", "the card's own extent: Attica, Euboea and the Aegean", "batch 6: Shepherd's plate of c. 450 BCE is public domain but a raster page — an outline of a scatter of tribute-paying coasts and islands whose membership changed year by year (431, 421, 413–404) can be checked only against hand-picked places, and the Athenian Tribute Lists that would fix the members are fragmentary: left as the card's own extent, said so"],
+  ["Athens and its empire", "wh-330, gr-521, gr-552, gr-561", "derived (2026-10-25)", "the towns that stood with Athens year by year (war-poleis.json: Thucydides, Xenophon and the Athenian Tribute Lists), each drawn as its land round its Pleiades point or as its whole island", "batch 6 had deferred it (no dataset draws a scatter of tribute-paying coasts whose membership changed year by year); on the owner's request the sides are now derived from a dated table of members, which says its passages, over open points (Pleiades, CC BY 3.0) and the OSM coast"],
+  ["Sparta and its allies", "wh-330, gr-521, gr-561", "derived (2026-10-25)", "Lacedaemon (OHM) and the towns that stood with Sparta year by year (war-poleis.json)", "until 2026-10-25 Cliopatria's one Peloponnesian League polygon; replaced so that the alliances of 420–418, 412–411 and 405–404 can be drawn"],
   ["British Raj", "ww2-001", "built", "Cliopatria's \"British Raj\", 1939–45 (the Viceroy declared war on 3 September 1939)", "batch 3"],
   ["Celtiberians", "rm-262, rm-265", "authored (deferred)", "the card's own extent", "batch 6: an Iberian people with no open dataset (OHM's Lusitania is the Augustan province of 27 BCE; historical-basemaps is GPL and static)"],
   ["Chinese warlords", "ww2-001, ww2-096, cnh-631", "unresolved (deferred)", "nothing: the side's other names (the Republic of China and the Communist base areas) are drawn", "none: no open source draws the warlords' territories — said on the place card, never guessed"],
@@ -122,7 +123,6 @@ const WAR_SIDES_2D = [
   ["Seneca and Cayuga", "us-071", "authored (deferred)", "the card's own extent", "none: Cliopatria's Haudenosaunee is the whole confederacy (an over-claim for two nations) and the Royce cessions begin in 1784, after the 1779 expedition"],
   ["Sicilian Greeks", "gr-448", "authored (deferred)", "the card's own extent", "batch 6: Cliopatria draws one \"Greek City-States\" blob; OHM has Carthaginian Sicily but not Akragas or Gela"],
   ["Sparta", "gr-235, gr-236, gr-237, gr-461", "derived", "OpenHistoricalMap's Lacedaemon (CC0) outside the Taygetos line the card drew", "batch 5; as Messenia"],
-  ["Sparta and its allies", "wh-330, gr-521", "built", "Cliopatria's Peloponnesian League (gr-561's series), by date", "batch 5"],
   ["Syracuse", "gr-552", "authored (deferred)", "the card's own extent", "batch 6: Cliopatria draws one \"Greek City-States\" blob; OHM has no Syracuse of 415 BCE"],
   ["Umbria and Picenum", "rm-159", "authored (deferred)", "the card's own extent", "batch 8: the earlier, larger range is text-only; OHM has only the Augustan regiones of 7 CE"],
   ["Union of South Africa", "ww2-001", "built", "Cliopatria's \"South Africa\", 1939–45 (declared war on Germany on 6 September 1939)", "batch 3"],
@@ -132,14 +132,14 @@ const WAR_SIDES_2D = [
   ["the Yue peoples", "cnh-205", "authored (deferred)", "the card's own extent", "none: Cliopatria's Minyue lies in Fujian; the conquest of 214 BCE was in Lingnan"],
   ["the allies", "gr-676", "authored (deferred)", "the card's own extent: three islands and Byzantium", "batch 6: the islands could be OSM coast rings (as the Cyclades are) but Byzantium is a city on a strait with no ring; left as one authored side rather than half-built"],
 ];
-const SRC_IDX = { clio: 0, coast: 1, adm0: 2, wd: 3, hosner: 4, authored: 5, ohm: 6, usfs: 7, sched: 8, control: 9, atlas: 10 };   // the index of each source in the header's list (arcs and faces name theirs by it)
+const SRC_IDX = { clio: 0, coast: 1, adm0: 2, wd: 3, hosner: 4, authored: 5, ohm: 6, usfs: 7, sched: 8, control: 9, atlas: 10, pleiades: 11 };   // the index of each source in the header's list (arcs and faces name theirs by it)
 const NEST_SHARE = 0.8, NEST_RATIO = 2;   // nested, not contested: the overlap holds ≥ 80 % of the smaller claimant and the larger is ≥ 2× it
 // the pilot slice (2a; the file:// twin carries this much, with a sentence): the Mediterranean and Near East, 550 BCE – 650 CE
 const SLICE = { years: [-550, 650], region: { lon0: -25, lat0: 5, lon1: 95, lat1: 62 }, series: ["rome", "carthage", "achaemenid", "macedon", "ptolemaic", "seleucid", "byzantium", "sasanian"] };
 const BAND = (() => { const i = argv.indexOf("--years"); if (i < 0) return null; const [a, b] = argv[i + 1].split(",").map(Number); if (!(a < b)) throw new Error("--years A,B"); return [a, b]; })();
 const USE_CACHE = !argv.includes("--no-cache");
 /* ---------- the tolerances, chosen from --measure (§7 "Phase 2a — as built") ---------- */
-const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016", authored: "folio-authored-extents", ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule", control: "ww2-atlas-control", atlas: "us-army-battlefront-atlas" };
+const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016", authored: "folio-authored-extents", ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule", control: "ww2-atlas-control", atlas: "us-army-battlefront-atlas", pleiades: "pleiades-places" };
 const TOLERANCE_M = { [SRC.clio]: 15000 };    // Cliopatria's stated precision class (§2.3 step 4): no snap may exceed it
 /* Phase 2d: a front is not Cliopatria's. Its rings reach the coast by the same snap rule (D1_M), so the reach is the tolerance — D1 plus one quantum of rounding (the 15,001 m of a Pacific plate's China coast) —
    while the plate's OWN registration error (6–39 km, per plate) is carried on the plate (`unc`), not hidden in a snap. It is kept out of TOLERANCE_M so the epoch caches' key is unchanged. */
@@ -308,12 +308,23 @@ for (const [key, p] of Object.entries(spec.polities)) {
   if (!p.cliopatria) { if (!CULTURES.includes(key)) deferred.push({ key, why: "no source" }); continue; }   // the coastline and site-hull series are the presence layer's, built below
   const presence = PEOPLES.includes(key);
   const rows = [];
-  for (const name of p.cliopatria) for (const f of byName.get(name) || []) {
+  if (p.years || !p.rowsAt) for (const name of p.cliopatria) for (const f of byName.get(name) || []) {
     let from = f.properties.FromYear, to = f.properties.ToYear;
     if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); }
     from = Math.max(from, Y0); to = Math.min(to, Y1);
     if (from > to) continue;
     rows.push({ f, from, to, name });
+  }
+  /* `rowsAt` (2026-10-25, the League of Nations' window on the borders of 1920): [from, to, rowYear?] — the series is drawn in [from, to] by its Cliopatria row
+     alive in `rowYear` (default `from`). With no `years`, these are the series' only steps. A rowYear other than `from` BORROWS a later row for an earlier year,
+     for a state Cliopatria folds into an empire in that year (Canada, South Africa and New Zealand inside the British colonial empire of 1920; Haiti and the
+     Dominican Republic under American occupation): only where the state's borders did not change between the two years, and the entity's note says so. */
+  for (const ra of p.rowsAt || []) {
+    const ry = ra.length > 2 ? ra[2] : ra[0];
+    const hits = []; for (const name of p.cliopatria) for (const f of byName.get(name) || []) if (f.properties.FromYear <= ry && f.properties.ToYear >= ry) hits.push({ f, name });
+    if (hits.length !== 1) throw new Error(`series ${key}: rowsAt ${JSON.stringify(ra)} finds ${hits.length} Cliopatria row(s) alive in ${ry}`);
+    const from = Math.max(ra[0], Y0), to = Math.min(ra[1], Y1); if (from > to) continue;
+    rows.push({ f: hits[0].f, from, to, name: hits[0].name, borrowed: ry !== ra[0] ? ry : undefined });
   }
   if (!rows.length) { if (!BAND) deferred.push({ key, why: "no Cliopatria row for " + p.cliopatria.join(" / ") }); continue; }
   rows.sort((a, b) => a.from - b.from || a.name.localeCompare(b.name));
@@ -476,7 +487,7 @@ const CULT_Y0 = BAND ? BAND[0] : -10000;
      Royce cessions and Sparta and Messenia from OpenHistoricalMap's Lacedaemon. They replace the card's authored ring for their key; the entity says what it is made of */
   const WE = JSON.parse(fs.readFileSync(path.join(HERE, "war-extents.json"), "utf8"));
   for (const [id, sha] of Object.entries(WE.sources)) { const pin = headerSources([id])[0]; if (pin.sha256 !== sha) throw new Error(`war-extents.json was built from ${id} ${sha}, not the pinned ${pin.sha256}: run build-war-extents.js`); }
-  const SRC_OF = { [SRC.ohm]: SRC_IDX.ohm, [SRC.usfs]: SRC_IDX.usfs };
+  const SRC_OF = { [SRC.ohm]: SRC_IDX.ohm, [SRC.usfs]: SRC_IDX.usfs, [SRC.pleiades]: SRC_IDX.pleiades };
   for (const x of WR.extents) {
     const rows = [];
     const D = WE.extents[x.key];
@@ -1563,7 +1574,8 @@ sources.push(headerSources([SRC.usfs])[0]);    // index 7: the Royce cession pol
 sources.push(headerSources([SRC.sched])[0]);   // index 8: the Royce Schedule's treaty dates
 sources.push(headerSources([SRC.control])[0]);   // index 9: the monthly maps of 1939–42 (the front line)
 sources.push(headerSources([SRC.atlas])[0]);     // index 10: the fortnightly plates of 1943–45 (the front line)
-if (sources.length !== 11 || sources[SRC_IDX.hosner].id !== SRC.hosner || sources[SRC_IDX.wd].id !== SRC.wd || sources[SRC_IDX.coast].id !== SRC.coast) throw new Error("the header source order no longer matches SRC_IDX");
+sources.push(headerSources([SRC.pleiades])[0]);  // index 11: the towns of the Peloponnesian War's two sides (war-poleis.json, through build-war-extents.js)
+if (sources.length !== 12 || sources[SRC_IDX.hosner].id !== SRC.hosner || sources[SRC_IDX.wd].id !== SRC.wd || sources[SRC_IDX.coast].id !== SRC.coast) throw new Error("the header source order no longer matches SRC_IDX");
 const topology = {
   quantum: Q, lod: { intervals_m: LOD_M, note: "the core's three resident levels; a core-referencing arc takes the core's ranks" },
   generated: null, generator: "folio atlas-build: build-history.js (" + require("./package.json").version + ")", sources,

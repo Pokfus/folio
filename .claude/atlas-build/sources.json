@@ -1469,6 +1469,22 @@
       ]
     },
     {
+      "id": "pleiades-places",
+      "name": "Pleiades: A Gazetteer of Past Places — places.csv (the representative point of every place), from the isawnyu/pleiades.datasets repository",
+      "version": "commit 6df2361f61b13f0034aed21f5393c2de6121cf3d",
+      "url": "https://raw.githubusercontent.com/isawnyu/pleiades.datasets/6df2361f61b13f0034aed21f5393c2de6121cf3d/data/gis/places.csv",
+      "sha256": "4209248f5b3f17a24cd178f5ff58b4b3f5d251171f82d7597e05a6bcc8f4690c",
+      "bytes": 16635438,
+      "licence": "CC-BY-3.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "attribution": "Pleiades: A Gazetteer of Past Places (Institute for the Study of the Ancient World, New York University, and contributors), https://pleiades.stoa.org, CC BY 3.0. The towns’ representative points place the poleis of the Peloponnesian War’s two sides; the alliances by year are Folio’s, from Thucydides and Xenophon.",
+      "retrieved": "2026-10-25",
+      "reachable": "2026-10-25 200 through the agent proxy (raw.githubusercontent.com, pinned to a commit)",
+      "usedBy": [
+        "../build-war-extents.js (the Peloponnesian War’s two sides by year, run by hand; build-history.js reads the committed war-extents.json and checks it against this pin)"
+      ]
+    },
+    {
       "id": "usfs-royce-cessions",
       "name": "USDA Forest Service — Indian Land Cessions in the United States (Royce 1899, digitised), the cession polygons meeting the envelope 92°W–78°W, 35°N–46°N (ArcGIS REST layer 1, GeoJSON, ordered by objectid)",
       "version": "EDW_TribalCessionLands_01, layer 1 (the 2018 revision), as served 2026-10-12",

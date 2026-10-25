@@ -45,14 +45,14 @@ check("the eight wars that group others are flagged (the owner's rule: they are 
    built = a polity series answers it (Cliopatria, or an assembly of series); derived = an extent made from an open source; authored = kept as the card's own
    extent (no open dataset draws it); unresolved = named in the card's keys and drawn by nothing; existing = resolved to a series the file already had. */
 const SIDES_24 = {
-  "Athens and its empire": "authored", "British Raj": "built", "Celtiberians": "authored", "Chinese warlords": "unresolved", "Cisalpine Gauls": "authored",
+  "Athens and its empire": "derived", "British Raj": "built", "Celtiberians": "authored", "Chinese warlords": "unresolved", "Cisalpine Gauls": "authored",
   "Ethiopia (Italy)": "existing", "Gallic tribes": "authored", "Greek allies": "authored+built", "Lusitanians": "authored", "Macedon and the Greek leagues": "built",
-  "Messenia": "derived", "Samnium": "authored", "Seneca and Cayuga": "authored", "Sicilian Greeks": "authored", "Sparta": "derived", "Sparta and its allies": "built",
+  "Messenia": "derived", "Samnium": "authored", "Seneca and Cayuga": "authored", "Sicilian Greeks": "authored", "Sparta": "derived", "Sparta and its allies": "derived",
   "Syracuse": "authored", "Umbria and Picenum": "authored", "Union of South Africa": "built", "Western Confederacy": "derived", "Yugoslavia": "built",
   "the Celtiberians and Lusitanians": "authored", "the Yue peoples": "authored", "the allies": "authored",
 };
 const MEMBER_SIDE = { british_raj: "British Raj", south_africa: "Union of South Africa", yugoslavia: "Yugoslavia" };
-const DERIVED = new Set(["ext_sparta", "ext_messenia", "ext_western_confederacy"]);
+const DERIVED = new Set(["ext_sparta", "ext_messenia", "ext_western_confederacy", "ext_athens_and_its_empire", "ext_sparta_and_its_allies"]);   // the last two: the Peloponnesian War year by year (war-poleis.json, 2026-10-25)
 {
   const got = {};
   const note = (name, st) => { (got[name] = got[name] || new Set()).add(st); };
