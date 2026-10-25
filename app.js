@@ -4134,6 +4134,11 @@
         glossDoubleTap(s, () => { if (glossWins.length) removeGlossWin(glossWins[glossWins.length - 1], true); });
         // one frame at opacity 0 so the class change is a transition rather than an appearance
         requestAnimationFrame(() => s.classList.add("on"));
+      } else {
+        // a scrim still fading out is taken back up, not left for its removal timer: a gloss link inside
+        // a popup closes the first sheet (closeAllGloss) and opens the next in the same tick, and without
+        // this the old scrim's timer took the blur away from under the second sheet (Oct 2026)
+        s.classList.add("on");
       }
     } else if (s) {
       s.classList.remove("on");
