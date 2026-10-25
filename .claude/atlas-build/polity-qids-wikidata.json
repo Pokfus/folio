@@ -119,6 +119,24 @@
    "state": true,
    "people": false
   },
+  "Q32": {
+   "label": "Luxembourg",
+   "desc": "country in Western Europe",
+   "enwiki": "Luxembourg",
+   "classes": [
+    "country",
+    "grand duchy",
+    "landlocked country",
+    "sovereign state",
+    "unitary state"
+   ],
+   "start": [
+    "1815-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
   "Q33": {
    "label": "Finland",
    "desc": "country in Northern Europe",
@@ -149,6 +167,24 @@
    ],
    "start": [
     "0900-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q35": {
+   "label": "Denmark",
+   "desc": "country in Northern Europe",
+   "enwiki": "Denmark",
+   "classes": [
+    "autonomous country within the Kingdom of Denmark",
+    "colonial power",
+    "country",
+    "country bordering the Baltic Sea",
+    "state"
+   ],
+   "start": [
+    "0800-01-01"
    ],
    "end": [],
    "state": true,
@@ -235,6 +271,21 @@
    ],
    "start": [
     "1825-08-25"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q96": {
+   "label": "Mexico",
+   "desc": "country in North America",
+   "enwiki": "Mexico",
+   "classes": [
+    "country",
+    "sovereign state"
+   ],
+   "start": [
+    "1810-09-16"
    ],
    "end": [],
    "state": true,
@@ -417,6 +468,24 @@
    ],
    "start": [
     "1901-01-01"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q414": {
+   "label": "Argentina",
+   "desc": "country in South America",
+   "enwiki": "Argentina",
+   "classes": [
+    "confessional state",
+    "country",
+    "country sometimes considered transcontinental",
+    "nation",
+    "sovereign state"
+   ],
+   "start": [
+    "1816-07-09"
    ],
    "end": [],
    "state": true,
@@ -660,6 +729,22 @@
    "end": [],
    "state": true,
    "people": false
+  },
+  "Q2184": {
+   "label": "Russian Soviet Federative Socialist Republic",
+   "desc": "constituent republic of the Soviet Union (1922–1991)",
+   "enwiki": "Russian Soviet Federative Socialist Republic",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1917-11-07"
+   ],
+   "end": [
+    "1991-12-25"
+   ],
+   "state": true,
+   "people": true
   },
   "Q2277": {
    "label": "Roman Empire",
@@ -1840,6 +1925,22 @@
    "state": true,
    "people": true
   },
+  "Q147909": {
+   "label": "Kingdom of Bulgaria",
+   "desc": "state on the Balkan Peninsula between 1908 and 1946",
+   "enwiki": "Kingdom of Bulgaria",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1908-01-01"
+   ],
+   "end": [
+    "1946-09-15"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q148540": {
    "label": "Republic of Florence",
    "desc": "city-state on the Appenine Peninsula between 1115–1532/69",
@@ -2054,6 +2155,22 @@
    "state": false,
    "people": true
   },
+  "Q174193": {
+   "label": "United Kingdom of Great Britain and Ireland",
+   "desc": "historical sovereign state (1801–1922)",
+   "enwiki": "United Kingdom of Great Britain and Ireland",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1801-01-01"
+   ],
+   "end": [
+    "1927-04-12"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q174306": {
    "label": "Republic of Genoa",
    "desc": "medieval and early modern maritime republic from (1005-1797)",
@@ -2116,6 +2233,22 @@
    ],
    "end": [
     "-1259-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q179023": {
+   "label": "French colonial empire",
+   "desc": "set of territories that were under French rule primarily from the 17th century to the late 1960s",
+   "enwiki": "French colonial empire",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1534-01-01"
+   ],
+   "end": [
+    "1980-01-01"
    ],
    "state": true,
    "people": true
@@ -2582,6 +2715,23 @@
    "state": true,
    "people": false
   },
+  "Q209065": {
+   "label": "Kingdom of Greece",
+   "desc": "period of Greek statehood from 1832 to 1924 and 1935 to 1973",
+   "enwiki": "Kingdom of Greece",
+   "classes": [
+    "historical country",
+    "kingdom"
+   ],
+   "start": [
+    "1832-05-07"
+   ],
+   "end": [
+    "1973-06-01"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q212056": {
    "label": "Mongolian People's Republic",
    "desc": "1924–1992 communist republic in East Asia",
@@ -2773,6 +2923,22 @@
    ],
    "state": true,
    "people": false
+  },
+  "Q245160": {
+   "label": "Democratic Republic of Georgia",
+   "desc": "first modern establishment of Georgia as an independent Country (1918-1921)",
+   "enwiki": "Democratic Republic of Georgia",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1918-05-26"
+   ],
+   "end": [
+    "1921-03-18"
+   ],
+   "state": true,
+   "people": true
   },
   "Q245273": {
    "label": "Aetolian League",
@@ -3631,6 +3797,22 @@
    "state": true,
    "people": true
   },
+  "Q1078602": {
+   "label": "Kingdom of Nepal",
+   "desc": "sovereign monarchy in South Asia, lasting from 1768–2008",
+   "enwiki": "Kingdom of Nepal",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1768-09-25"
+   ],
+   "end": [
+    "2008-05-28"
+   ],
+   "state": true,
+   "people": true
+  },
   "Q1108445": {
    "label": "Kievan Rus'",
    "desc": "former federation of East Slavic tribes",
@@ -3950,6 +4132,22 @@
    "state": true,
    "people": true
   },
+  "Q1953333": {
+   "label": "Curaçao and Dependencies",
+   "desc": "former Dutch colony in the Caribbean",
+   "enwiki": "Colony of Curaçao and Dependencies",
+   "classes": [
+    "colony"
+   ],
+   "start": [
+    "1815-11-20"
+   ],
+   "end": [
+    "1954-12-15"
+   ],
+   "state": true,
+   "people": false
+  },
   "Q1968654": {
    "label": "Beylik of Saruhan",
    "desc": "Anatolian beylik",
@@ -4055,6 +4253,22 @@
    ],
    "end": [
     "-0145-01-01"
+   ],
+   "state": true,
+   "people": true
+  },
+  "Q2444884": {
+   "label": "Tibet",
+   "desc": "former de facto state in East Asia",
+   "enwiki": "Tibet (1912–1951)",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1912-01-01"
+   ],
+   "end": [
+    "1959-03-10"
    ],
    "state": true,
    "people": true
@@ -4419,6 +4633,22 @@
    "end": [],
    "state": false,
    "people": false
+  },
+  "Q63158027": {
+   "label": "Qajar Iran",
+   "desc": "country in Western Asia (1789–1925)",
+   "enwiki": "Qajar Iran",
+   "classes": [
+    "historical country"
+   ],
+   "start": [
+    "1789-01-01"
+   ],
+   "end": [
+    "1925-01-01"
+   ],
+   "state": true,
+   "people": true
   },
   "Q112039853": {
    "label": "Foreign relations of the Byzantine Empire",

@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":{"terms":900,"points":663,"countries":237,"windows":1263,"faces":380,"years":104},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"117f7fa609cdcf6f","counts":{"terms":902,"points":665,"countries":237,"windows":1266,"faces":380,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -68,6 +68,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":
 "Awash_River":"pl:q782845",
 "Azerbaijan":"adm0:aze",
 "Babylon":"pl:q5684",
+"Bactria":"pl:q132646",
 "Badlands":"pl:q306216",
 "Baghdad":"city:1159151547",
 "Bahrain":"adm0:bhr",
@@ -405,6 +406,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":
 "Kursk":"adm1:rus:ru-krs",
 "Kuwait":"adm0:kwt",
 "Kyiv":"city:1159151495",
+"Kyoto":"city:1159149967",
 "Kyrgyzstan":"adm0:kgz",
 "Kythera":"pl:q114571906",
 "Kīlauea":"pl:q188698",
@@ -998,6 +1000,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":
 "Azerbaijan":[47.21,40.4,"country","adm0:aze",0,15.32],
 "Aztec_Empire":[-97.893,18.469,"polity","pol:aztec",1502,7.5],
 "Babylon":[44.421,32.542,"site",0,0,0],
+"Bactria":[66.899,36.758,"region",0,0,0],
 "Badain_Jaran_Desert":[102.21,40.073,"coord",0,0,0],
 "Badlands":[-102.5,43.75,"region",0,0,0],
 "Baekje":[127.228,36.584,"polity","pol:baekje",347,16.99],
@@ -1453,6 +1456,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":
 "Kushan_Empire":[71.948,33.543,"polity","pol:kushan",127,2.97],
 "Kuwait":[47.31,29.41,"country","adm0:kwt",0,40],
 "Kyiv":[30.515,50.435,"capital",0,0,0],
+"Kyoto":[135.748,35.032,"city",0,0,0],
 "Kyrgyzstan":[74.53,41.67,"country","adm0:kgz",0,8.26],
 "Kythera":[23.023,36.232,"site",0,0,0],
 "Kīlauea":[-155.287,19.421,"mountain",0,0,0],
@@ -1531,6 +1535,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":
 "MMA_507":[32.608,25.738,"coord",0,0,0],
 "Maadi":[31.25,29.968,"town",0,0,0],
 "Macau":[113.56,22.13,"country","adm0:mac",0,40],
+"Macedonia_(ancient_kingdom)":[53.883,33.624,"polity","pol:macedon",-318,1.51],
 "Machu_Picchu":[-72.546,-13.163,"site",0,0,0],
 "Madagascar":[46.7,-18.63,"country","adm0:mdg",0,5.02],
 "Madjedbebe":[132.883,-12.5,"coord",0,0,0],
