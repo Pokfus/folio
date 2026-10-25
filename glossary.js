@@ -7025,7 +7025,9 @@ window.GLOSSARY = {
 "Diocles_of_Peparethus": "",
 "Berber,_Sudan": "",
 "Cataracts_of_the_Nile": "",
-"Myth": ""
+"Myth": "",
+"Isotope": "",
+"Homogeneity_and_heterogeneity": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15079,7 +15081,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Acca_Larentia": ["Larentia"],
 "Augury": ["augur","augurs"],
 "Cataracts_of_the_Nile": ["cataract","cataracts","Nile cataracts"],
-"Myth": ["myths","mythical"]
+"Myth": ["myths","mythical"],
+"Isotope": ["isotopes","isotopic"],
+"Homogeneity_and_heterogeneity": ["heterogeneity","heterogeneous","heterogenous"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22233,7 +22237,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Diocles_of_Peparethus": ["person","historian","literature","history","greece","rome"],
 "Berber,_Sudan": ["place","town","geography","history","sudan","africa","19th century"],
 "Cataracts_of_the_Nile": ["place","river","geography","egypt","sudan","africa","nature"],
-"Myth": ["concept","religion","mythology","literature","folklore"]
+"Myth": ["concept","religion","mythology","literature","folklore"],
+"Isotope": ["concept","science","chemistry","physics","archaeology"],
+"Homogeneity_and_heterogeneity": ["concept","science","chemistry","genetics"]
 });
 
 /* ============================================================================
