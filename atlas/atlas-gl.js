@@ -239,6 +239,32 @@
         o = vec4(c * a, a);
       }
     }`;
+  /* the DETAIL pass (2026-10-25): one 2.5° tile of the 15 arc-second hillshade over its patch mesh, land only. The tint (the
+     height) comes from the coarse texture under it — the L1 tile that holds it when resident, else the L0 sheet — through
+     uCoarseOff + vUV·uCoarseScale, so a detail patch and its coarse neighbour share their colour; the shade is the coarse
+     shade mixed toward the detail's by uMix (0 → 1 as the zoom passes RELIEF_DETAIL_KM_PER_PX), so the detail fades in
+     rather than popping. The detail texture is R8, LINEAR and mipmapped: one tap. */
+  const FS_DETAIL = `#version 300 es
+    precision highp float;
+    in vec3 vWorld; in float vZ; in vec2 vUV;
+    uniform float uRadius, uStrength, uFade, uMix;
+    uniform vec2 uCoarseOff, uCoarseScale;
+    uniform sampler2D uDetail, uRamp;
+    ${GLSL_RELIEF}
+    out vec4 o;
+    void main() {
+      float z = vZ; if (z < 0.0) discard;
+      float r = sqrt(max(0.0, 1.0 - z * z)), px = 1.0 / uRadius;
+      float edge = 1.0 - smoothstep(1.0 - px, 1.0, r);
+      vec2 hs = reliefAt(uCoarseOff + vUV * uCoarseScale);
+      float sh = mix(hs.y, texture(uDetail, vUV).r, uMix);
+      float shade = mix(1.0, 0.70, pow(1.0 - z, 2.2));
+      float t = sqrt(clamp(max(hs.x, 0.0) / 6000.0, 0.0, 1.0));
+      vec3 tint = texture(uRamp, vec2(t * (255.0 / 256.0) + 0.5 / 256.0, 0.5)).rgb;
+      vec3 c = tint * (0.35 + 0.95 * sh) * shade;      // the land branch of FS_RELIEF with the finer shade
+      float a = uStrength * uFade * edge;
+      o = vec4(c * a, a);
+    }`;
 
   const VS_FACE = `#version 300 es
     precision highp float;
@@ -490,6 +516,7 @@
     const water = {};             // level → { data, gpu }
     const waterTiles = new Map(); // key → { data, gpu, tile }
     const relief = new Map();     // key → { w, h, rgb, tile, gpu }
+    const detail = new Map();     // key → { w, h, bitmap, tile, gpu } — the relief's 15″ hillshade tiles (2026-10-25)
     /* THE STEP TOPOLOGY (Phase 2a): one bucketed segment list per resident level for the historical borders (drawn through a
        per-arc alpha table, so a year costs a table, not geometry), and one small mesh per (face, level) the main thread has asked
        for — triangulated lazily in the worker, uploaded here, dropped by the main thread's LRU. A face's fill is drawn only
@@ -538,13 +565,13 @@
     const landChanges = new Map();   // id → { data, gpu } (the dated land-change layer, 2026-10-18)
     const stats = { frames: 0, lastMs: 0, draws: 0, historyTriangles: 0, historySegments: 0, historyFaces: 0, trianglesDrawn: 0, segmentsDrawn: 0, riverSegments: 0, lakeSegments: 0, lakeTriangles: 0, lakeCulled: 0, lakeSegCulled: 0, reliefPatches: 0, visibleAngle: 0, tilesDrawn: 0, parentsDrawn: 0, waterTilesDrawn: 0, level: 0, coreLevel: -1, waterLevel: -1, restores: 0, reliefL0: -1, gpuBytes: 0, gpuTextureBytes: 0 };   // gpuBytes: every buffer and texture uploaded and not yet deleted (Phase 1d's memory session reads it)
     const onRestore = typeof opts.onRestore === "function" ? opts.onRestore : null;
-    const debug = { sphere: true, faces: true, arcs: true, water: true, relief: true, cull: true };   // toggles for the perf suite's breakdown; always on in use
+    const debug = { sphere: true, faces: true, arcs: true, water: true, relief: true, detail: true, cull: true };   // toggles for the perf suite's breakdown; always on in use
 
     function setup() {
       lines.fbo = null; lines.tex = null; lines.rb = null; lines.key = "";   // a restored context rebuilds the line layer
       still.fbo = null; still.tex = null; still.rb = null; still.scratch = null; still.scratchTex = null; still.scratchRb = null; still.key = ""; still.lastKey = "";
       cover.fbo = null; cover.tex = null; cover.none = null; cover.w = 0; cover.h = 0;   // the cover target is rebuilt on first use after a restore
-      prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch"), dim: compile(gl, VS_BLIT, FS_DIM, "dim") };
+      prog = { blit: compile(gl, VS_BLIT, FS_BLIT, "blit"), sphere: compile(gl, VS_SPHERE, FS_SPHERE, "sphere"), face: compile(gl, VS_FACE, FS_FACE, "face"), presence: compile(gl, VS_PRES, FS_PRES, "presence"), extent: compile(gl, VS_FACE, FS_EXTENT, "extent"), arc: compile(gl, VS_ARC, FS_ARC, "arc"), reliefL0: compile(gl, VS_SPHERE, FS_RELIEF, "relief"), reliefPatch: compile(gl, VS_PATCH, FS_RELIEF, "relief patch"), reliefDetail: compile(gl, VS_PATCH, FS_DETAIL, "relief detail"), dim: compile(gl, VS_BLIT, FS_DIM, "dim") };
       emptyVao = gl.createVertexArray();
       styleTex = gl.createTexture(); tintTex = gl.createTexture(); keepTex = gl.createTexture(); maskTex = gl.createTexture();
       rampTex = gl.createTexture();
@@ -626,6 +653,23 @@
       if (Rl.tile) { const m = extentMesh(Rl.tile, 24); g.ext = uploadFill(m.pos, m.idx, m.uv); }   // the L0 sheet draws over the sphere's quad
       Rl.rgb = null;   // 12 MB a sheet: the GPU has it (Phase 1c)
     }
+    // a detail tile: the decoded JPEG straight from its ImageBitmap into an R8 texture (the red channel of a grey image), mipmapped
+    function uploadDetail(Dl) {
+      const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      if (Dl.bitmap) gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, Dl.w, Dl.h, 0, gl.RED, gl.UNSIGNED_BYTE, Dl.bitmap);
+      else gl.texImage2D(gl.TEXTURE_2D, 0, gl.R8, Dl.w, Dl.h, 0, gl.RED, gl.UNSIGNED_BYTE, Dl.bytes);
+      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.BROWSER_DEFAULT_WEBGL);
+      gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      const g = Dl.gpu = { tex, bytes: Math.round(Dl.w * Dl.h * 4 / 3) };
+      stats.gpuBytes += g.bytes; stats.gpuTextureBytes += g.bytes;
+      const m = extentMesh(Dl.tile, 4); g.ext = uploadFill(m.pos, m.idx, m.uv);   // 2.5°: four quads a side follow the sphere closely enough
+      if (Dl.bitmap && Dl.bitmap.close) Dl.bitmap.close();
+      Dl.bitmap = null; Dl.bytes = null;
+    }
     function uploadRamp() {
       gl.bindTexture(gl.TEXTURE_2D, rampTex);
       gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
@@ -687,6 +731,7 @@
     }
     function releaseLandChange(L) { const g = L.gpu; if (!g) return; releaseFill(g.fill); releaseSegs(g.all); releaseSegs(g.land); for (const k of Object.keys(g.byRow || {})) releaseSegs(g.byRow[k]); L.gpu = null; }
     function releaseWater(Wl) { const g = Wl.gpu; if (!g) return; releaseFill(g.fill); releaseFill(g.ext); releaseSegs(g.lake); releaseSegs(g.river); releaseSegs(g.smooth); Wl.gpu = null; }
+    function releaseDetail(Dl) { const g = Dl.gpu; if (!g) return; gl.deleteTexture(g.tex); releaseFill(g.ext); stats.gpuBytes -= g.bytes || 0; stats.gpuTextureBytes -= g.bytes || 0; Dl.gpu = null; }
     function releaseRelief(Rl) { const g = Rl.gpu; if (!g) return; gl.deleteTexture(g.tex); releaseFill(g.ext); stats.gpuBytes -= g.bytes || 0; stats.gpuTextureBytes -= g.bytes || 0; Rl.gpu = null; }
 
     canvas.addEventListener("webglcontextlost", (e) => { e.preventDefault(); lost = true; }, false);
@@ -694,7 +739,7 @@
       lost = false;
       for (const k of Object.keys(levels)) delete levels[k];
       for (const k of Object.keys(water)) delete water[k];
-      tiles.clear(); waterTiles.clear(); relief.clear(); landChanges.clear();
+      tiles.clear(); waterTiles.clear(); relief.clear(); detail.clear(); landChanges.clear();
       stats.gpuBytes = 0; stats.gpuTextureBytes = 0;
       setup(); stats.restores++;
       if (onRestore) onRestore();
@@ -811,6 +856,26 @@
       gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, rampTex); gl.uniform1i(P.u.uRamp, 3);
       if (Rl.tile) { gl.bindVertexArray(Rl.gpu.ext.vao); gl.drawElements(gl.TRIANGLES, Rl.gpu.ext.count, gl.UNSIGNED_SHORT, 0); gl.bindVertexArray(null); }
       else { gl.bindVertexArray(emptyVao); gl.drawArrays(gl.TRIANGLES, 0, 6); }
+      stats.draws++;
+    }
+    /* the detail pass: one 2.5° hillshade tile over its patch; the tint from the L1 patch that holds it, else the L0 sheet */
+    function drawDetail(Dl, view, R, strength, fade, mix, patches) {
+      const P = prog.reliefDetail, t = Dl.tile;
+      gl.useProgram(P.p);
+      gl.uniform2f(P.u.uCenter, view.cx * dpr, view.cy * dpr); gl.uniform1f(P.u.uRadius, view.radius * dpr); gl.uniform2f(P.u.uSize, W, H);
+      gl.uniformMatrix3fv(P.u.uRot, false, R);
+      gl.uniform1f(P.u.uStrength, strength); gl.uniform1f(P.u.uFade, fade); gl.uniform1f(P.u.uMix, mix);
+      const cLon = (t.lon0 + t.lon1) / 2, cLat = (t.lat0 + t.lat1) / 2;
+      const c = patches.find((r) => cLon > r.tile.lon0 && cLon < r.tile.lon1 && cLat > r.tile.lat0 && cLat < r.tile.lat1);
+      const Rl = c || relief.get("0"), b = c ? c.tile : { lon0: -180, lon1: 180, lat0: -90, lat1: 90 };
+      gl.uniform2f(P.u.uCoarseOff, (t.lon0 - b.lon0) / (b.lon1 - b.lon0), (b.lat1 - t.lat1) / (b.lat1 - b.lat0));
+      gl.uniform2f(P.u.uCoarseScale, (t.lon1 - t.lon0) / (b.lon1 - b.lon0), (t.lat1 - t.lat0) / (b.lat1 - b.lat0));
+      gl.uniform1f(P.u.uWrap, c ? 0 : 1);
+      gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, Rl.gpu.tex); gl.uniform1i(P.u.uRelief, 2); gl.uniform2f(P.u.uReliefSize, Rl.w, Rl.h);
+      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, rampTex); gl.uniform1i(P.u.uRamp, 3);
+      gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, Dl.gpu.tex); gl.uniform1i(P.u.uDetail, 4);
+      gl.bindVertexArray(Dl.gpu.ext.vao); gl.drawElements(gl.TRIANGLES, Dl.gpu.ext.count, gl.UNSIGNED_SHORT, 0); gl.bindVertexArray(null);
+      gl.activeTexture(gl.TEXTURE0);
       stats.draws++;
     }
     /* do the loaded L1 patches cover everything the viewport shows of the disc? Nine sample points, unprojected on
@@ -1025,6 +1090,10 @@
       const patches = [];
       if (rel && fade > 0) for (const k of rel.tiles || []) { const r = relief.get(k); if (r && r.gpu) patches.push(r); }
       stats.reliefPatches = patches.length;
+      // the detail tiles (2026-10-25): drawn only while their shade shows (detailMix > 0); fetched a little earlier by atlas.js
+      const details = [];
+      if (rel && fade > 0 && rel.detailMix > 0 && debug.detail) for (const k of rel.detail || []) { const d = detail.get(k); if (d && d.gpu) details.push(d); }
+      stats.reliefDetail = details.length;
       const useStencil = !idPass;
       const R = transposed(rot);
       const Lv = pickLevel(levels, view.level, 2);
@@ -1107,8 +1176,10 @@
       }
       // relief over the land: the patches first (each marks its pixels), then the L0 sheet where no patch did
       if (rel && fade > 0) {
-        // a patch draws where the LAND bit is set and marks the PATCH bit (the ref carries both; the test masks the LAND bit only, the write the PATCH bit only)
-        gl.stencilFunc(gl.EQUAL, ST_LAND | ST_PATCH, ST_LAND); gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE); gl.stencilMask(ST_PATCH);
+        // a patch draws where the LAND bit is set and the PATCH bit clear, and sets PATCH (INVERT through the PATCH write mask): the detail
+        // tiles first, then the L1 patches where no detail tile shaded, then the L0 sheet where neither did
+        gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND | ST_PATCH); gl.stencilOp(gl.KEEP, gl.KEEP, gl.INVERT); gl.stencilMask(ST_PATCH);
+        for (const d of details) drawDetail(d, view, R, strength, fade, rel.detailMix, patches);
         for (const r of patches) drawRelief(r, view, R, 1, strength, fade);
         gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
         if (l0Needed) { gl.stencilFunc(gl.EQUAL, ST_LAND, ST_LAND | ST_PATCH); drawRelief(relief.get("0"), view, R, 1, strength, fade); }
@@ -1210,7 +1281,7 @@
         } else drawWaterAndArcs();
       } else drawWaterAndArcs();
       };
-      const stillKey = !idPass && still.on ? Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.parents || []).join(",") + "|" + (view.graticule ? 1 : 0) + (debug.sphere ? 1 : 0) + (debug.faces ? 1 : 0) + "|" + (rel ? strength.toFixed(3) + "/" + fade.toFixed(3) + "/" + patches.map((r) => r.key || "").join(",") : "-") + "|" + dataGen + "|" + (personal && view.landDim > 0 ? pGen : 0) : null;
+      const stillKey = !idPass && still.on ? Array.from(rot).map((v) => v.toFixed(6)).join(",") + "|" + radius.toFixed(2) + "|" + cx.toFixed(1) + "|" + cy.toFixed(1) + "|" + W + "x" + H + "|" + view.level + "|" + (view.kmpp || 0).toFixed(4) + "|" + (view.tiles || []).join(",") + "|" + (view.parents || []).join(",") + "|" + (view.graticule ? 1 : 0) + (debug.sphere ? 1 : 0) + (debug.faces ? 1 : 0) + "|" + (rel ? strength.toFixed(3) + "/" + fade.toFixed(3) + "/" + patches.map((r) => r.key || "").join(",") + "/" + details.length + "@" + (rel.detailMix || 0).toFixed(3) : "-") + "|" + dataGen + "|" + (personal && view.landDim > 0 ? pGen : 0) : null;
       if (stillKey && stillKey === still.lastKey && stillTargets()) {
         if (still.key !== stillKey) {
           const before = snapCounts();
@@ -1242,7 +1313,7 @@
       if (stillKey) still.lastKey = stillKey;
     }
     // what a cached layer would have drawn: its counters are snapshotted when it is rendered and added back when it is reused
-    const COUNT_KEYS = ["segmentsDrawn", "riverSegments", "lakeSegments", "lakeTriangles", "lakeCulled", "lakeSegCulled", "trianglesDrawn", "draws", "tilesDrawn", "parentsDrawn", "waterTilesDrawn", "reliefPatches"];
+    const COUNT_KEYS = ["segmentsDrawn", "riverSegments", "lakeSegments", "lakeTriangles", "lakeCulled", "lakeSegCulled", "trianglesDrawn", "draws", "tilesDrawn", "parentsDrawn", "waterTilesDrawn", "reliefPatches", "reliefDetail"];
     const snapCounts = () => { const o = {}; for (const k of COUNT_KEYS) o[k] = stats[k] || 0; return o; };
     const diffCounts = (before) => { const o = {}; for (const k of COUNT_KEYS) o[k] = (stats[k] || 0) - before[k]; return o; };
     const addCounts = (c) => { if (!c) return; for (const k of COUNT_KEYS) stats[k] = (stats[k] || 0) + c[k]; };
@@ -1307,6 +1378,10 @@
       waterTileLoaded(key) { const t = waterTiles.get(key); return !!(t && t.gpu); },
       setRelief(key, r) { dataGen++; if (relief.has(key)) releaseRelief(relief.get(key)); const e = { w: r.w, h: r.h, rgb: r.rgb, tile: r.tile || null }; relief.set(key, e); if (!lost) uploadRelief(e); },
       dropRelief(key) { dataGen++; const r = relief.get(key); if (!r) return; releaseRelief(r); relief.delete(key); },
+      // a relief DETAIL tile (2026-10-25): { w, h, bitmap (an ImageBitmap of the grey JPEG) | bytes (Uint8Array, one byte a texel), tile: { lon0, lon1, lat0, lat1 } }
+      setReliefDetail(key, d) { dataGen++; if (detail.has(key)) releaseDetail(detail.get(key)); const e = { w: d.w, h: d.h, bitmap: d.bitmap || null, bytes: d.bytes || null, tile: d.tile }; detail.set(key, e); if (!lost) uploadDetail(e); },
+      reliefDetailLoaded(key) { const d = detail.get(key); return !!(d && d.gpu); },
+      dropReliefDetail(key) { dataGen++; const d = detail.get(key); if (!d) return; releaseDetail(d); detail.delete(key); },
       reliefLoaded(key) { const r = relief.get(key); return !!(r && r.gpu); },
       reliefCount() { return relief.size; },
       setRamp(bytes) { dataGen++; ramp = bytes; if (!lost) uploadRamp(); },
@@ -1400,7 +1475,7 @@
       },
       linesCache(on) { lines.on = on !== false; lines.key = ""; },
       stillCache(on) { still.on = on !== false; still.key = ""; still.lastKey = ""; },
-      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, landChangesDrawn: stats.landChangesDrawn || 0, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
+      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, reliefDetail: stats.reliefDetail || 0, reliefDetailResident: detail.size, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, landChangesDrawn: stats.landChangesDrawn || 0, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
       rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}

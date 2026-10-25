@@ -56,6 +56,12 @@
         drawn at EVERY zoom down to the cap (the owner's decision of 2026-10-17, a): past the finest
         level's texel the finest level is drawn, bilinear, as a regional-scale wash — it is never faded
         out (RELIEF_FADE, which took it to nothing below 1 km/px, is gone).
+     6b. relief detail (2026-10-25): below RELIEF_DETAIL_KM_PER_PX the view's 2.5° tiles of the 15 arc-second
+        HILLSHADE (atlas/data/relief-detail/, one grey JPEG each, only where there is land; detail.json lists
+        them) are fetched, decoded by createImageBitmap and uploaded straight to an R8 texture — no worker,
+        no compose. The renderer shades the land with them over the L1 tint, the shade fading from L1's to
+        the detail's between RELIEF_DETAIL_KM_PER_PX and RELIEF_DETAIL_FULL_KM_PER_PX. A view that would need
+        more than RELIEF_DETAIL_MAX tiles takes none (a wide screen at the far end of the fade).
 
    THE VIEW is a centre (lon, lat), a zoom and the layer flags. The rotation matrix R maps a unit
    vector on the earth to view space (x right, y up, z toward the viewer): R's rows are the right,
@@ -87,6 +93,10 @@
   const WATER_TILE_CACHE = 64;
   const RELIEF_L1_KM_PER_PX = 6;             // L1 patches are wanted below this (L0's texel is 9.8 km: under two pixels here)
   const RELIEF_CACHE = 10;                   // L0 + up to nine L1 tiles resident (2048² RGB is 12 MB each on the GPU)
+  const RELIEF_DETAIL_KM_PER_PX = 2.5;       // the 15″ hillshade tiles are wanted below this (L1's 4.9 km texel is two pixels here)…
+  const RELIEF_DETAIL_FULL_KM_PER_PX = 1.5;  // …and their shade has replaced L1's at this zoom (a linear fade between: no pop)
+  const RELIEF_DETAIL_MAX = 40;              // a view needing more 2.5° tiles than this takes none (each is 0.5 MB on the GPU)
+  const RELIEF_DETAIL_CACHE = 56;            // resident detail tiles (about 27 MB of GPU memory at most)
   const LAYERS_KEY = "folio_atlas2_layers_v2";   // v2 (Phase 1c): the legend's fields replace the layers control's
   const PERF_KEY = "folio_atlas2_perf";           // Phase 2a: the About sheet's "Show frame statistics" switch
   /* TIME (Phase 2a; docs/atlas-v2-design.md §2.4, §7 "Phase 2a — as built"). The rail runs from 10,000 BCE to today, piecewise
@@ -268,6 +278,7 @@
     const waterUrl = opts.waterUrl || "atlas/data/water.bin";
     const waterTileUrl = opts.waterTileUrl || "atlas/data/water/";
     const reliefUrl = opts.reliefUrl || "atlas/data/relief/";
+    const reliefDetailUrl = opts.reliefDetailUrl || "atlas/data/relief-detail/";
     const gazetteerUrl = opts.gazetteerUrl || "atlas/data/gazetteer.js";
     const H = opts.host || {};
     const studyPanel = H.study && root.AtlasStudy ? `
@@ -440,7 +451,7 @@
     const EMBED = !!opts.embed;
     let embedHook = null;   // atlas-embed.js: told when a tile, a water level or the history has arrived (the hub has no frame loop of its own)
     const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, peoples: "off" }, opts.layers || {}) : loadLayers();
-    const view = { history: null, lon: H.home && isFinite(H.home.lon) ? H.home.lon : 10, lat: H.home && isFinite(H.home.lat) ? H.home.lat : 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, landChanges: [], relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
+    const view = { history: null, lon: H.home && isFinite(H.home.lon) ? H.home.lon : 10, lat: H.home && isFinite(H.home.lat) ? H.home.lat : 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, landChanges: [], relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [], detail: [], detailMix: 0 }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
        a slow GPU a full-screen frame does not fit it: on software GL the globe costs 100–130 ms at full resolution (fill
@@ -674,6 +685,19 @@
       const one = (plane) => fetch(reliefUrl + t.base + "." + plane + ".png", ac ? { signal: ac.signal } : undefined).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.blob(); }).then((blob) => createImageBitmap(blob, { colorSpaceConversion: "none", premultiplyAlpha: "none" }));
       return Promise.all([one("hi"), one("lo"), one("sh")]).then(([hi, lo, sh]) => ({ hi, lo, sh, w: hi.width, h: hi.height, bytes: t.total || 0 }));
     }
+    // the relief's detail tiles (2026-10-25): one grey JPEG each, decoded off the main thread by createImageBitmap and uploaded as it is
+    let detailIndex = null;           // { cols, rows, deg, present: Set } from detail.json
+    const detailTiles = TileLoader({
+      fetch: (key, ac) => fetch(reliefDetailUrl + key.slice(2) + ".jpg", ac ? { signal: ac.signal } : undefined).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.blob(); })
+        .then((blob) => createImageBitmap(blob, { colorSpaceConversion: "none", premultiplyAlpha: "none" }).then((bitmap) => ({ bitmap, bytes: blob.size }))),
+      toWorker: (key, p) => {   // no worker: the bitmap goes to the GPU as it is
+        const [x, y] = key.slice(2).split("-").map(Number), d = detailIndex.deg;
+        const tile = { lon0: -180 + x * d, lon1: -180 + (x + 1) * d, lat0: -90 + y * d, lat1: -90 + (y + 1) * d };
+        bracket(() => R.setReliefDetail(key, { w: p.bitmap.width, h: p.bitmap.height, bitmap: p.bitmap, tile }), "reliefDetail");
+        detailTiles.arrived(key, { tile });
+      },
+      wanted: () => new Set(view.relief.detail), cacheSize: RELIEF_DETAIL_CACHE, drop: (k) => R.dropReliefDetail(k),
+    });
     function reliefTileOf(key) { const lv = reliefIndex.levels.find((l) => l.level === Number(key.split(":")[0])); const [x, y] = key.split(":")[1].split("-").map(Number); const cols = lv.cols, rows = lv.rows; return { lon0: -180 + 360 * x / cols, lon1: -180 + 360 * (x + 1) / cols, lat0: 90 - 180 * (y + 1) / rows, lat1: 90 - 180 * y / rows }; }
     // relief tiles are indexed north-down (row 0 at 90° N) in relief.json; the grid helper counts rows from the south
     function reliefKeysFor(level) {
@@ -800,6 +824,15 @@
       view.relief.fade = 1;
       if (layers.relief && reliefIndex && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
+      // the 15″ hillshade below RELIEF_DETAIL_KM_PER_PX, for the land tiles the view touches, while they are few enough
+      view.relief.detail = []; view.relief.detailMix = 0;
+      if (layers.relief && detailIndex && k < RELIEF_DETAIL_KM_PER_PX) {
+        const keys = cellsFor(detailIndex.cols, detailIndex.rows, detailIndex.present, box || viewBox());
+        if (keys.length <= RELIEF_DETAIL_MAX) {
+          view.relief.detail = keys.map((x) => "d:" + x); detailTiles.want(view.relief.detail);
+          view.relief.detailMix = Math.max(0, Math.min(1, (RELIEF_DETAIL_KM_PER_PX - k) / (RELIEF_DETAIL_KM_PER_PX - RELIEF_DETAIL_FULL_KM_PER_PX)));
+        }
+      }
       stats.level = view.level;
       refreshOnScreen();   // with the rotation and the level of THIS view (the change years, [ ] and the "no states" note follow the view)
     }
@@ -816,7 +849,7 @@
         `frame ms (last ${n}): mean ${mean.toFixed(1)}  p95 ${p95.toFixed(1)}  max ${max.toFixed(1)}\n` +
         `draw ${s.lastMs.toFixed(2)} ms  ${s.triangles} tri  ${s.segments} seg  ${s.draws} calls\n` +
         `water: ${s.riverSegments} river seg${view.smoothRivers ? " (smoothed)" : ""}  ${s.lakeSegments} lake seg  ${s.lakeTriangles} lake tri  level ${s.waterLevel}  tiles ${s.waterTilesDrawn}/${view.waterTiles.length} (${wt.resident} resident)\n` +
-        `relief: ${view.relief.on ? "on" : "off"} strength ${view.relief.strength.toFixed(2)} fade ${view.relief.fade.toFixed(2)}  patches ${s.reliefPatches}/${view.relief.tiles.length} (${s.reliefResident} resident, ${(rt.bytes / 1048576).toFixed(1)} MB fetched)\n` +
+        `relief: ${view.relief.on ? "on" : "off"} strength ${view.relief.strength.toFixed(2)} fade ${view.relief.fade.toFixed(2)}  patches ${s.reliefPatches}/${view.relief.tiles.length} (${s.reliefResident} resident, ${(rt.bytes / 1048576).toFixed(1)} MB fetched)  detail ${s.reliefDetail}/${view.relief.detail.length} mix ${view.relief.detailMix.toFixed(2)} (${s.reliefDetailResident} resident, ${(detailTiles.stats.bytes / 1048576).toFixed(1)} MB fetched)\n` +
         `LOD ${s.level} (core ${s.coreLevel})  ${kmPerPx().toFixed(3)} km/px  zoom ${view.zoom.toFixed(2)}  gesture stage ${stage}${resScale < 1 ? " half-res" : ""}${lodBias() ? " coarser" : ""}\n` +
         `tiles: ${s.tilesDrawn} drawn, ${s.parentsDrawn} parents, ${view.tiles.length} wanted, ${lt.pending} pending, ${lt.resident} resident, ${lt.fetched} fetched (${(lt.bytes / 1024).toFixed(0)} KB), ${lt.evicted} evicted\n` +
         `lakes culled: ${s.lakeCulled} tri  ${s.lakeSegCulled} seg (under ${2} px²)\n` +
@@ -1124,7 +1157,7 @@
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
     function restoreAfterLoss() {
-      landTiles.reset(); waterTiles.reset(); reliefTiles.reset();
+      landTiles.reset(); waterTiles.reset(); reliefTiles.reset(); detailTiles.reset();
       time.resident.clear(); time.lru.length = 0; time.wanted.clear();
       postToWorker({ type: "rebuild" });
       if (layers.relief && reliefIndex) reliefTiles.want(["0"]);
@@ -1271,6 +1304,12 @@
         reliefTiles.want(["0"]);
         invalidate();
       }).catch((e) => { reliefFailed = true; layersNote.hidden = false; layersNote.textContent = "The relief didn’t arrive (" + (e && e.message ? e.message : e) + ")."; });
+      // the detail level's index (2026-10-25); without it the relief stops at L1, as it did before, and says nothing
+      fetch(reliefDetailUrl + "detail.json").then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); }).then((idx) => {
+        if (disposed) return;
+        detailIndex = { cols: idx.grid.cols, rows: idx.grid.rows, deg: idx.grid.degrees, present: new Set(idx.tiles) };
+        invalidate();
+      }).catch(() => {});
     }
 
     /* ================= Phase 2a: time — the step topology, the year, the rail, playback =================
@@ -3138,7 +3177,8 @@
     function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); flying = null; coasting = false; plan(); invalidate(); touched(); }
     const tilesSettled = () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
-      && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
+      && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
+        && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
     const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
@@ -3158,7 +3198,7 @@
       perfOn: () => perfOn,
       mode: () => ({ file: FILE, static2d: STATIC2D, shim: !!shim, worker: !!worker, resScale, stage, lodBias: lodBias(), shimWhy: stats.shim || null, workerError: stats.workerError || null, twinVerified: stats.twinVerified || 0 }),
       input: () => ({ pointers: [...ptrs.entries()].map(([id, p]) => [id, Math.round(p.x), Math.round(p.y)]), dragging, moved, pinch: Math.round(pinch), coasting, flying: !!flying }),   // for the suites
-      statsNow: () => Object.assign(R.stats(), { landChanges: { started: lcStarted, failed: lcFailed, rows: lcTable ? lcTable.rows.length : 0, ready: lcReady.size, alive: view.landChanges.slice(), year: time.year, meshes: Object.fromEntries(lcStats) }, frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
+      statsNow: () => Object.assign(R.stats(), { landChanges: { started: lcStarted, failed: lcFailed, rows: lcTable ? lcTable.rows.length : 0, ready: lcReady.size, alive: view.landChanges.slice(), year: time.year, meshes: Object.fromEntries(lcStats) }, frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, detailWanted: view.relief.detail.length, detailPending: detailTiles.pending.size, detailBytes: detailTiles.stats.bytes, detailMix: view.relief.detailMix, detailIndex: !!detailIndex, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
         year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), markDrawMs: L.lastMarkMs, markDrawP95: pct95(stats.markDraw), marksDrawn: L.ln,  marksLaid: L.marks.length, labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
