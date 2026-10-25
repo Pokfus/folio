@@ -95,6 +95,13 @@
     const isGloss = host.classList.contains("map-gloss"), glossFace = isGloss ? String(host.getAttribute("data-map-face") || "") : "";
     const glossYear = isGloss && glossFace && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
     const glossPeople = glossYear != null && /^(people|culture)$/.test(String(host.getAttribute("data-map-facekind") || ""));
+    /* AN ORGANISATION'S MEMBERS ON A PAST YEAR'S BORDERS (2026-10-25, on request: the League of Nations on the borders of 1920, the original members in gold and the later
+       joiners in a second tint). `data-map-year` and `data-map-groups` (history entity ids, `|` within a group, `;` between groups) come from app.js cardMembers; the hub
+       loads the whole history (as a glossary window's state does) and each group is a highlight of that year's states. On the still renderer (no WebGL2) no past year can be
+       drawn, so the window keeps today's countries (`data-map-key`) in gold, as it did before. */
+    const memYear = isMembers && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
+    const memGroups = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.length) : [];
+    let memHist = false;
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
     const readRings = (a) => { if (!a) return null; const out = String(a).split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 3); return out.length ? out : null; };
     const locArea = readRings(host.getAttribute("data-map-area")), locSpine = readPts(host.getAttribute("data-map-spine"));
@@ -133,7 +140,7 @@
     const hubOptions = { host: {} };
     const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard);   // the war that owns the front line reads the Second World War slice (see WAR_FRONT_CARDS), on file:// too
     if (isWar) { hubOptions.needHistory = wantsFront ? "ww2" : "wars"; hubOptions.ownHolds = 1; }
-    if (glossYear != null) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
+    if (glossYear != null || (memYear != null && memGroups.length)) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
     let tlSteps = [], tlIdx = -1, tlSpan = null;   // the timeline's steps (none: no timeline), the step the pin stands on, the war's own years
     const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
@@ -498,6 +505,8 @@
             mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         if (glossYear != null && hub.canvas2d) { plain("This browser cannot draw a state of the past (it needs WebGL2)."); return; }   // the still renderer draws no history; the popup drops the block
+        memHist = memYear != null && memGroups.length > 0 && !hub.canvas2d;
+        if (memHist) host.classList.add("map-members-hist");
         mountWindow(hub, null);
       });
     }).catch(() => { unhold(); if (!stopped) plain(SORRY); });
@@ -524,9 +533,9 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar || glossYear != null, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
-            year: glossYear != null ? glossYear : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
+            layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
+            year: glossYear != null ? glossYear : memHist ? memYear : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
+            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : (X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
           extraSettled: (st, o) => anchorsCurrent(st, o),
