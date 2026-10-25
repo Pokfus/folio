@@ -7006,7 +7006,18 @@ window.GLOSSARY = {
 "Secretariat_of_the_League_of_Nations": "",
 "Territory_of_the_Saar_Basin": "",
 "Upper_Silesia": "",
-"Watercolor_painting": ""
+"Watercolor_painting": "",
+"Carbon_dioxide": "",
+"Daniel_Wilson_(academic)": "",
+"Demand_sharing": "",
+"Early_Stone_Age": "",
+"Ice_sheet": "",
+"Juǀʼhoansi": "",
+"Mudbrick": "",
+"Plate_tectonics": "",
+"Scavenger": "",
+"Scotland": "",
+"Southeast_Asia": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10577,7 +10588,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "International_Court_of_Justice": "1945–present",
 "Reich_Chancellery": "1878–1945",
 "Secretariat_of_the_League_of_Nations": "1919–1946",
-"Territory_of_the_Saar_Basin": "1920–1935"
+"Territory_of_the_Saar_Basin": "1920–1935",
+"Daniel_Wilson_(academic)": "1816–1892"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15048,7 +15060,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Reich_Chancellery": ["Reichskanzlei"],
 "Secretariat_of_the_League_of_Nations": ["League Secretariat"],
 "Territory_of_the_Saar_Basin": ["Saar Basin","Saar Territory"],
-"Watercolor_painting": ["watercolour","watercolour painting","watercolor"]
+"Watercolor_painting": ["watercolour","watercolour painting","watercolor"],
+"Carbon_dioxide": ["CO2"],
+"Daniel_Wilson_(academic)": ["Daniel Wilson"],
+"Ice_sheet": ["ice sheets"],
+"Juǀʼhoansi": ["Ju|'hoansi","Ju/'hoansi","Ju|’hoansi"],
+"Mudbrick": ["mud brick","mud-brick","mudbricks"],
+"Scavenger": ["scavenging","scavenge","scavenged"],
+"Scotland": ["Scottish"],
+"Southeast_Asia": ["South-East Asia","Southeast Asian"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22183,7 +22203,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Secretariat_of_the_League_of_Nations": ["institution","history","politics","diplomacy","20th century"],
 "Territory_of_the_Saar_Basin": ["place","territory","history","politics","germany","france","20th century"],
 "Upper_Silesia": ["region","place","history","geography","poland","germany","20th century"],
-"Watercolor_painting": ["practice","art","painting","material"]
+"Watercolor_painting": ["practice","art","painting","material"],
+"Carbon_dioxide": ["object","chemistry","climate","science","nature"],
+"Daniel_Wilson_(academic)": ["person","archaeology","history","scotland","canada","19th century"],
+"Demand_sharing": ["concept","anthropology","economics","hunter-gatherers"],
+"Early_Stone_Age": ["era","archaeology","prehistory","africa","technology"],
+"Ice_sheet": ["object","geology","science","nature","geography","climate"],
+"Juǀʼhoansi": ["people","history","geography","africa","namibia","botswana"],
+"Mudbrick": ["material","architecture","archaeology","technology","history"],
+"Plate_tectonics": ["theory","geology","science","geography"],
+"Scavenger": ["concept","biology","ecology","nature","prehistory"],
+"Scotland": ["place","geography","history","scotland","united kingdom","europe"],
+"Southeast_Asia": ["region","geography","place","history","asia"]
 });
 
 /* ============================================================================
