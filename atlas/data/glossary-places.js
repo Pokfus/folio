@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"de5b36385b6bf779","counts":{"terms":898,"points":661,"countries":237,"windows":1261,"faces":380,"years":104},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21c81eb3201073c7","counts":{"terms":900,"points":663,"countries":237,"windows":1263,"faces":380,"years":104},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -101,6 +101,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"de5b36385b6bf779","counts":
 "Borobudur":"pl:q42798",
 "Bosnia_and_Herzegovina":"adm0:bih",
 "Botswana":"adm0:bwa",
+"Braunau_am_Inn":"pl:q131128",
 "Brazil":"adm0:bra",
 "Bridgetown":"city:1159150339",
 "British_Virgin_Islands":"adm0:vgb",
@@ -257,6 +258,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"de5b36385b6bf779","counts":
 "Gebel_Ramlah":"pl:q85762876",
 "Gebelein":"pl:q1496830",
 "Gela":"pl:q39971",
+"Geneva":"city:1159151505",
 "Georgia_(country)":"adm0:geo",
 "Germany":"adm0:deu",
 "Ghana":"adm0:gha",
@@ -1039,6 +1041,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"de5b36385b6bf779","counts":
 "Bosporan_Kingdom":[38.364,45.94,"polity","pol:bosporus",371,14.47],
 "Bosten_Lake":[87,42,"coord",0,0,0],
 "Botswana":[24.18,-22.1,"country","adm0:bwa",0,7.52],
+"Braunau_am_Inn":[13.033,48.258,"city",0,0,0],
 "Brazil":[-49.56,-12.1,"country","adm0:bra",0,1.58],
 "Bridgetown":[-59.617,13.102,"capital",0,0,0],
 "Bridgewater_Canal":[-2.384,53.509,"coord",0,0,0],
@@ -1245,6 +1248,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"de5b36385b6bf779","counts":
 "Gebelein":[32.483,25.483,"site",0,0,0],
 "Gedrosia":[62.5,26.5,"coord",0,0,0],
 "Gela":[14.25,37.067,"town",0,0,0],
+"Geneva":[6.14,46.21,"city",0,0,0],
 "Georgia_(country)":[43.74,41.87,"country","adm0:geo",0,13.83],
 "Germania_Superior":[8.274,49.999,"coord",0,0,0],
 "Germany":[9.68,50.96,"country","adm0:deu",0,8.78],

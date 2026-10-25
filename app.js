@@ -1008,6 +1008,7 @@
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
     CARD_BY_ID[id].war = p.war;               // and the two sides it shades on that globe (see cardWar)
+    CARD_BY_ID[id].members = p.members;       // and the member states it shades there instead (see cardMembers)
     CARD_BY_ID[id].quote = p.quote;           // and the passage it quotes out of the Library (see cardQuote)
     CARD_BY_ID[id].why = p.why;               // and the question it asks the reader to answer (see cardWhy)
     CARD_BY_ID[id].leadsTo = p.leadsTo;       // and what it led to (see cardLeadsTo)
@@ -36033,6 +36034,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the rest, and nothing about what is shaded changes. */
     return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0, group: w.group === true };
   }
+  /* ---------- THE MEMBERS OF AN ORGANISATION OF STATES (`card.members`; Oct 2026, on request) ----------
+     `members: { name, note, keys: [...], at: [lon, lat], atName }` — the League of Nations' window shades
+     every country that was ever in the League. Its window is the locator's (`cardLocatorHTML`), with the
+     member countries as `data-map-key` targets in the selection gold and a gold dot at the seat (`at`).
+     THE KEYS ARE PRESENT-DAY COUNTRIES of the window's `world` layer, because the window draws today's map:
+     a former member is shaded as the countries that now hold its land (Czechoslovakia as Czechia and
+     Slovakia), and the key under the map says so in words (`note`). A key the layer does not carry makes
+     the whole window the plain sentence, so `test-map-cards.js` checks every key against the layer. */
+  function cardMembers(c) {
+    const m = c && c.members;
+    if (!m || typeof m !== "object" || !Array.isArray(m.keys)) return null;
+    const keys = m.keys.map((k) => String(k || "").trim()).filter(Boolean);
+    const name = String(m.name || "").trim();
+    if (!keys.length || !name) return null;
+    const at = Array.isArray(m.at) && m.at.length === 2 && isFinite(Number(m.at[0])) && isFinite(Number(m.at[1])) ? [Number(m.at[0]), Number(m.at[1])] : null;
+    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "" };
+  }
+  function cardMembersKeyHTML(m) {
+    if (!m) return "";
+    return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
+      '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span></div>";
+  }
   // the years the war ran, for the personal atlas: the block's own override, else the card's date line
   function cardWarYears(c) {
     const w = cardWar(c);
@@ -36186,21 +36209,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // "lon,lat lon,lat …", rings separated by ";" — `readRings` in startCardGlobe is the other half of this
   function warRingsAttr(rings) { return rings.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";"); }
   function cardLocatorHTML(c) {
-    const l = cardLocator(c), w = cardWar(c);
+    const l = cardLocator(c), w = cardWar(c), m = w ? null : cardMembers(c);
     /* A WAR CARD GETS THIS WINDOW WITHOUT A LOCATOR, and that is the point of asking the war block for
        one: the two sides ARE the place, so the frame is read off their own extent (see `fitTarget`) and
        no separate coordinate has to be researched for a card whose subject is a hundred thousand square
        miles of Europe. A locator, where the card also has one, still supplies the dot and its name. */
-    if (!l && !w) return "";
+    if (!l && !w && !m) return "";
+    /* AN ORGANISATION'S MEMBERS (`cardMembers`) are the window's targets, and its seat is the dot; a card with
+       both a locator and members keeps its locator's dot and name. */
+    const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
     const said = (w
       ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
         w.losers.name + ", defeated, shaded red. "
+      : m ? m.name + " shaded in gold on an interactive globe of today's countries" + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
-    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : "Location") + "</span>" +
-      '<div class="map-card map-loc' + (w ? " map-war" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
-      (l ? ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' : "") +
-      (l && l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
+    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? "Members" : "Location") + "</span>" +
+      '<div class="map-card map-loc' + (w ? " map-war" : m ? " map-members" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
+      (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
+      (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
+      (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
       (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +
@@ -36246,7 +36274,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
          screen reader has not been watching, and the announcement is lost. */
       '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
-      "</div></div>" + cardWarKeyHTML(w);
+      "</div></div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
      Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and
@@ -43822,7 +43850,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardMembers(c)) o.members = c.members; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
