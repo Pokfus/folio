@@ -313,6 +313,12 @@ for (const [key, p] of Object.entries(spec.polities)) {
     if (p.years) { from = Math.max(from, p.years[0]); to = Math.min(to, p.years[1]); }
     from = Math.max(from, Y0); to = Math.min(to, Y1);
     if (from > to) continue;
+    // `exceptYears` [a, b] (2026-10-25): the series stands aside in those years for a series that draws the same ground more exactly (Spain alone in 1920, not the Spanish empire's composite)
+    if (p.exceptYears && from <= p.exceptYears[1] && to >= p.exceptYears[0]) {
+      if (from < p.exceptYears[0]) rows.push({ f, from, to: p.exceptYears[0] - 1, name });
+      if (to > p.exceptYears[1]) rows.push({ f, from: p.exceptYears[1] + 1, to, name });
+      continue;
+    }
     rows.push({ f, from, to, name });
   }
   /* `rowsAt` (2026-10-25, the League of Nations' window on the borders of 1920): [from, to, rowYear?] — the series is drawn in [from, to] by its Cliopatria row
@@ -1399,7 +1405,8 @@ for (const e of entsOut) {
     if (byQ.size > 1) e.alsoWiki = [...byQ.keys()].filter((k) => k !== best.join("|")).map((k) => k.split("|")).map(([q, w]) => ({ qid: q || null, wiki: w || null }));
     e.sourceNames = [...new Set(rows.map((r) => r.name))];
     if (isPresenceKind(e.kind)) { e.src = s.srcId; if (PRESENCE_NOTES[s.key]) e.note = PRESENCE_NOTES[s.key]; if (e.kind === "front") { e.unit = "date"; e.front = s.fronts; e.srcs = [SRC.control, SRC.atlas]; e.note = "A front is the line of a redrawn map: the Atlas shows each plate of the Second World War as its source drew it, standing from its date until the next plate replaces it — monthly to 1942, fortnightly from July 1943, nothing for January–June 1943 (no source). Every plate carries its own uncertainty on the place card."; delete e.sourceNames; delete e.qid; delete e.wiki; } else if (e.kind === "extent" && s.derived) { e.authored = false; e.derived = true; e.srcs = s.derived.src.slice(); e.note = s.derived.note; delete e.qid; delete e.wiki; delete e.sourceNames; } else if (e.kind === "extent") { e.authored = true; e.note = "An authored extent: Folio’s own approximation of where this side’s ground lay in the war’s years, drawn from no dataset and without a border line. No open source draws it (docs/atlas-v2-coverage.md)."; delete e.qid; delete e.wiki; delete e.sourceNames; } }
-    e.cards = s.cards;   // the cards that link this polity (polity-spec.json links): Phase 3's `places` field, nothing drawn from them yet
+    e.cards = s.cards;
+    { const bw = (s.rows || []).filter((r) => r.borrowed); if (bw.length && !e.note) e.note = "Cliopatria folds this state into another polity in " + bw.map((r) => r.from + (r.to !== r.from ? "–" + r.to : "")).join(", ") + "; the Atlas draws it there with Cliopatria's own row of " + [...new Set(bw.map((r) => r.borrowed))].join(", ") + ", the borders being the same in both years (polity-spec.json `rowsAt`)."; }   // the cards that link this polity (polity-spec.json links): Phase 3's `places` field, nothing drawn from them yet
     delete e.key;
   }
 }

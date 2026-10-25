@@ -105,7 +105,8 @@ function build(o) {
   }
   // ---- the Peloponnesian War's two sides, year by year (2026-10-25, on request) ----
   if (fs.existsSync(POLEIS_FILE)) Object.assign(out.extents, poleisExtents(PC, out));
-  const body = JSON.stringify(out, null, 1) + "\n";
+  // a point is written on one line ([lon,lat]), not three: the Peloponnesian War's 25 rows a side made the file 9 MB of brackets (2026-10-25)
+  const body = JSON.stringify(out, null, 1).replace(/\[\s+(-?[\d.]+),\s+(-?[\d.]+)\s+\]/g, "[$1,$2]") + "\n";
   if (o.check) { const have = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, "utf8") : ""; return { ok: have === body, body }; }
   fs.writeFileSync(OUT_FILE, body);
   return { ok: true, body };
@@ -161,7 +162,7 @@ function poleisExtents(PC, out) {
   for (const e of T.entries) {
     if (e.name === "Lacedaemon") { ground.set(e, lacRings); continue; }
     const p = pt.get(String(e.pleiades)), at = e.at || p;   // `at`: a point the table gives where Pleiades' point is not the town's (said in its `why`)
-    if (e.kind === "island") ground.set(e, [islandAt(at[0], at[1], e.name)]);
+    if (e.kind === "island") { let g = null; try { g = [islandAt(at[0], at[1], e.name)]; } catch (err) { if (!e.radiusKm) throw err; } ground.set(e, g || [circle(at[0], at[1], e.radiusKm)]); }   // an islet the OSM coast no longer rings (Minoa is joined to the shore now) is its radius instead
     else { const c = circle(at[0], at[1], e.radiusKm || T.radiusKm || 12); ground.set(e, e.island ? PC.intersection([c], [islandAt((e.islandAt || at)[0], (e.islandAt || at)[1], e.island)]) : [c]); }
   }
   const y0 = T.years[0], y1 = T.years[1], res = {};
@@ -191,7 +192,11 @@ function poleisExtents(PC, out) {
     for (const [k, s] of Object.entries(T.sides)) rowsBy[k].push({ from: y, to: y, members: mem[s].map((e) => e.name).sort(), rings: flat(shapes[s]) });
     last = { sig };
   }
-  for (const [k, s] of Object.entries(T.sides)) res[k] = { src: [SRC.pleiades, SRC.ohm], rows: rowsBy[k].filter((r) => r.rings.length), note: T.notes[s] };
+  /* the rings are simplified to ~55 m (Douglas–Peucker, 0.0005°) before they are written: build-history snaps every vertex to the committed coast at a far coarser
+     tolerance, so the coast rings' full resolution was 10 MB of a file nobody reads */
+  const dp = (P, e) => { if (P.length < 3) return P; let d = 0, ix = 0; const a = P[0], b = P[P.length - 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1e-12; for (let k = 1; k < P.length - 1; k++) { const q = P[k], n = Math.abs((b[0] - a[0]) * (a[1] - q[1]) - (a[0] - q[0]) * (b[1] - a[1])) / L; if (n > d) { d = n; ix = k; } } return d > e ? dp(P.slice(0, ix + 1), e).slice(0, -1).concat(dp(P.slice(ix), e)) : [a, b]; };
+  const simp = (ring) => { if (ring.length < 8) return ring; const h = Math.floor(ring.length / 2); const out2 = dp(ring.slice(0, h + 1), 0.0005).slice(0, -1).concat(dp(ring.slice(h).concat([ring[0]]), 0.0005).slice(0, -1)); return (out2.length >= 3 ? out2 : ring).map((q) => [Math.round(q[0] * 1e4) / 1e4, Math.round(q[1] * 1e4) / 1e4]); };
+  for (const [k, s] of Object.entries(T.sides)) res[k] = { src: [SRC.pleiades, SRC.ohm], rows: rowsBy[k].filter((r) => r.rings.length).map((r) => Object.assign(r, { rings: r.rings.map(simp) })), note: T.notes[s] };
   return res;
 }
 module.exports = { build, OUT_FILE, SRC, ohmRings };

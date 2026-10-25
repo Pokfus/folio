@@ -934,6 +934,10 @@
       "label": "Spanish Empire",
       "cliopatria": [
         "(Spanish Empire)"
+      ],
+      "exceptYears": [
+        1920,
+        1920
       ]
     },
     "portuguese_empire": {
@@ -1856,6 +1860,16 @@
       "label": "Tangier International Zone",
       "cliopatria": [
         "Tangier International Zone"
+      ],
+      "years": [
+        1920,
+        1920
+      ]
+    },
+    "spain_1920": {
+      "label": "Spain",
+      "cliopatria": [
+        "Kingdom of Spain"
       ],
       "years": [
         1920,

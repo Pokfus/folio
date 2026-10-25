@@ -1457,13 +1457,13 @@
       "name": "OpenHistoricalMap — relation 2849727, Λακεδαίμων (Lacedaemon / Sparta), -900 to -371, with its geometry (Overpass `out meta geom`)",
       "version": "relation 2849727 version 6, 2026-05-27 (changeset 241797)",
       "url": "https://overpass-api.openhistoricalmap.org/api/interpreter?data=%5Bout%3Ajson%5D%3Brel(2849727)%3Bout%20meta%20geom%3B",
-      "sha256": "5829b8a896b5a1714e15764197652102ef2c346f4ee105e0c745bf389a3fffab",
+      "sha256": "e56947fa35d015e974d73753e23cd5fa95564effc8bc06ab3a4ebe5d42c50a5a",
       "bytes": 54617,
       "licence": "CC0",
       "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
       "attribution": "Map data courtesy of the OpenHistoricalMap project, in the public domain (CC0 1.0) unless otherwise noted. The Lacedaemon polygon carries its own tag \"fixme:s = needs source for boundary lines\"; the split into Laconia and Messenia drawn from it is the Atlas's own, along the Taygetos line of the war cards.",
-      "retrieved": "2026-10-12",
-      "reachable": "2026-10-12 200 through the agent proxy (overpass-api.openhistoricalmap.org; the same sha256 on two downloads). The response's own osm3s block states \"The data is made available under CC0.\"",
+      "retrieved": "2026-10-25",
+      "reachable": "2026-10-25 200 through the agent proxy. RE-PINNED 2026-10-25: the relation is unchanged (version 6, changeset 241797), but Overpass writes its own osm3s timestamp into every response, so no later download can match the 2026-10-12 bytes; the geometry, and so ext_sparta and ext_messenia, are the same.",
       "usedBy": [
         "../build-war-extents.js (Phase 2d: the Sparta and Messenia extents, run by hand; build-history.js reads the committed .claude/atlas-build/war-extents.json and checks it against this pin)"
       ]
