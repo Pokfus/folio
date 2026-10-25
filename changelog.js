@@ -39,6 +39,16 @@ window.FOLIO_VERSION = { v: "1.1111", released: "2026-10-24T20:11Z" };
 
 window.CHANGELOG = [
   {
+    d: "2026-10-25",
+    t: "League members on the map, and 47 new glossary terms",
+    items: [
+      "A card about an organisation of states can now <b>shade its members on its map</b>; the League of Nations card shows every country that ever belonged.",
+      "<b>47 new glossary terms</b> now link from 12 cards in Geography, Psychology, World History and The Second World War, and five older terms link from more spellings.",
+      "Four cards in Geography, Psychology, World History and The Second World War have <b>clearer Background text</b>, and one a plainer Think it through answer.",
+      "Two World History and Second World War cards show <b>fuller dates</b>, and one World History card gained a quotation from Herodotus.",
+    ],
+  },
+  {
     d: "2026-10-24",
     t: "Hand-written glossary links come back, and Rome cards think it through",
     items: [

@@ -84,6 +84,7 @@
     const sibCard = host.getAttribute("data-map-card") || "";
     const warAttr = host.classList.contains("map-war");
     const locKind = host.getAttribute("data-map-kind") || "point";
+    const isMembers = host.classList.contains("map-members");   // an organisation's member countries as the targets, its seat as the dot (app.js cardMembers)
     const isWar = warAttr;   // a war window is drawn at a year of the war on the engine's history: its sides tinted in the years they fought, nothing outside them
     /* A GLOSSARY WINDOW (2026-10-23, the owner; docs/glossary-atlas-windows.md): host class `map-gloss`, the card windows' zoom, recentre and relief buttons (the host's markup since 2026-10-24, wired below like any window's; no globe button), a drag, a pinch or the wheel move and zoom it
        (AtlasEmbed.view's own), and the term's place is THE ONLY thing marked: a gold square and the name for a point, the name alone for an area, and for `data-map-face` — a present-day country or province (as a
@@ -169,6 +170,7 @@
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const t of targets) { if (t.b[0] < x0) x0 = t.b[0]; if (t.b[1] < y0) y0 = t.b[1]; if (t.b[2] > x1) x1 = t.b[2]; if (t.b[3] > y1) y1 = t.b[3]; }
         if (targets.length > 1) { lon = (x0 + x1) / 2; lat = (y0 + y1) / 2; }
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(lat * DEG), 0.2); z = 0.55 / (0.46 * DEG * span);
+        if (isMembers && dot) { lon = dot.c[0]; lat = dot.c[1]; }   // an organisation's members (app.js cardMembers): framed on its seat, the members' extent setting only the zoom
       }
       home = { lon, lat, zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || z)) };
     }

@@ -689,3 +689,26 @@ With `localStorage["folio.atlas2.preview"]="1"` (or `#map2?preview=1` on a phone
 bounding box of the rings near it — the fit is the same arithmetic as `fitTarget`), with the selection gold as a TINT and an outline and glow from the engine's mask pass; the capital's gold square, the reveal's label and
 every control are unchanged (`atlas/atlas-windows.js`, lazy). **Off is the default**, and the opt-in neighbours sentence (`S.settings.mapAlt`) keeps V1's window (it is computed from the layer's own shape files).
 `docs/atlas-v2-card-windows.md` has the inventory and the contract. Re-run after touching either path: `test-map-cards.js` (v1, default) and `test-atlas-embed.js` (the engine).
+
+## An organisation's members (`card.members`, 2026-10-25, on request)
+
+> "The [League of Nations] card should have an atlas window with all countries who were ever in the league highlighted."
+
+A light field on a text card, read by `cardMembers` in `app.js`:
+
+```js
+"members": { "name": "Members of the League of Nations", "note": "…", "keys": ["Afghanistan", …], "at": [6.1469, 46.2017], "atName": "Geneva" }
+```
+
+- **It is the locator's window** (`cardLocatorHTML`, class `map-members`), labelled "Members": the `keys` are written as
+  `data-map-key` and drawn as the window's targets in the selection gold (`TINT_SEL`), exactly as a map card's shape;
+  `at` is the organisation's seat, a gold dot named `atName`; the frame is centred on the seat and zoomed out to the
+  members' extent (`isMembers` in `atlas/atlas-windows.js` `fit`). Under the window a one-row key (`cardMembersKeyHTML`)
+  names the group and carries `note`. A war block wins over it (a card has one or the other).
+- **The keys are present-day countries of the `world` layer**, because the window draws today's map. A former member is
+  shaded as the countries that hold its land now (Czechoslovakia → Czechia and Slovakia, Yugoslavia → its seven
+  successors, the Soviet Union → the twelve successor states that were not members in their own right, British India → India, Pakistan, Bangladesh and Myanmar), Åland is listed with
+  Finland because Natural Earth draws it apart, and colonies and mandates are left unshaded. The `note` says so in words.
+- **One unknown key makes the whole window the plain sentence** (`model()` refuses it), so `test-map-cards.js` §1 checks every
+  key against `.claude/atlas-build/frozen/layers.json` and that the serializer and `revertCard` carry the field.
+- It adds no place to the card's `places` and nothing to the Personal Atlas.
