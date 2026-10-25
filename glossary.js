@@ -7073,7 +7073,22 @@ window.GLOSSARY = {
 "Kyoto": "",
 "Ise_Grand_Shrine": "",
 "Daijō-kan": "",
-"Huainanzi": ""
+"Huainanzi": "",
+"Parodos": "",
+"Prologue": "",
+"Macedonia_(ancient_kingdom)": "",
+"Bactria": "",
+"Indus_River": "",
+"Punjab": "",
+"Diodorus_Siculus": "",
+"West_Nile_fever": "",
+"Guerrilla_warfare": "",
+"Dowry": "",
+"Atreus": "",
+"An_Essay_Concerning_Human_Understanding": "",
+"Polemic": "",
+"Gottfried_Wilhelm_Leibniz": "",
+"Axiom": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10652,7 +10667,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hanseongbu": "1395–1910",
 "Cheugugi": "1441",
 "Gyeongbokgung": "1395",
-"Kyoto": "794"
+"Kyoto": "794",
+"Diodorus_Siculus": "1st century BCE",
+"An_Essay_Concerning_Human_Understanding": "1689",
+"Gottfried_Wilhelm_Leibniz": "1646–1716"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15161,7 +15179,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Joseon": ["Joseon dynasty"],
 "Feng_shui": ["geomancy","geomantic"],
 "Gyeongbokgung": ["Gyeongbok Palace"],
-"Ise_Grand_Shrine": ["Ise"]
+"Ise_Grand_Shrine": ["Ise"],
+"Macedonia_(ancient_kingdom)": ["Macedon","ancient Macedonia"],
+"Indus_River": ["Indus"],
+"Diodorus_Siculus": ["Diodorus"],
+"West_Nile_fever": ["West Nile encephalitis","West Nile virus"],
+"Guerrilla_warfare": ["guerrilla war"],
+"Gottfried_Wilhelm_Leibniz": ["Leibniz"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22363,7 +22387,22 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kyoto": ["city","place","history","japan","capital"],
 "Ise_Grand_Shrine": ["building","religion","history","japan","shinto"],
 "Daijō-kan": ["institution","history","politics","japan","law"],
-"Huainanzi": ["text","philosophy","literature","history","china"]
+"Huainanzi": ["text","philosophy","literature","history","china"],
+"Parodos": ["concept","literature","theatre","music","greece"],
+"Prologue": ["concept","literature","theatre","greece"],
+"Macedonia_(ancient_kingdom)": ["state","history","politics","greece","macedonia","hellenistic"],
+"Bactria": ["place","history","geography","afghanistan","iran","hellenistic"],
+"Indus_River": ["river","geography","nature","pakistan","india"],
+"Punjab": ["place","geography","history","india","pakistan"],
+"Diodorus_Siculus": ["person","historian","literature","history","greece","rome"],
+"West_Nile_fever": ["concept","medicine","science","nature"],
+"Guerrilla_warfare": ["practice","warfare","military","history"],
+"Dowry": ["practice","law","economics","society","family"],
+"Atreus": ["person","mythology","literature","greece","ruler"],
+"An_Essay_Concerning_Human_Understanding": ["text","philosophy","psychology","england"],
+"Polemic": ["concept","literature","rhetoric","religion"],
+"Gottfried_Wilhelm_Leibniz": ["person","philosophy","mathematics","science","germany"],
+"Axiom": ["concept","philosophy","mathematics","logic"]
 });
 
 /* ============================================================================
