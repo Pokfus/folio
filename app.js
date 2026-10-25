@@ -36049,7 +36049,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const name = String(m.name || "").trim();
     if (!keys.length || !name) return null;
     const at = Array.isArray(m.at) && m.at.length === 2 && isFinite(Number(m.at[0])) && isFinite(Number(m.at[1])) ? [Number(m.at[0]), Number(m.at[1])] : null;
-    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "" };
+    /* `label` (optional) names the window where "Members" would be wrong — a single state's own territory (the People's Republic
+       of China's card, Oct 2026, on request) is shaded the same way, but it has no members. */
+    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim() };
   }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
@@ -36224,7 +36226,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : m ? m.name + " shaded in gold on an interactive globe of today's countries" + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
-    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? "Members" : "Location") + "</span>" +
+    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
       '<div class="map-card map-loc' + (w ? " map-war" : m ? " map-members" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +

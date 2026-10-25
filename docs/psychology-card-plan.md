@@ -504,7 +504,7 @@ more work here than in any collection since Greece.
     ps-021  Empiricism
     ps-022  Rationalism
     ps-023  Associationism
-    ps-024  John Locke and the blank slate
+    ps-024  John Locke and the tabula rasa
     ps-025  René Descartes and dualism
     ps-026  Materialism
     ps-027  Nativism
