@@ -152,6 +152,9 @@ jobs:
       - name: check-relief (Atlas v2, relief pyramid)
         if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-relief.js
+      - name: check-relief-detail (Atlas v2, the relief's 15″ hillshade tiles)
+        if: ${{ !cancelled() }}
+        run: node .claude/atlas-build/check-relief-detail.js
       # THE GAZETTEER IS A GENERATED FILE TOO (Oct 2026, Phase 1c; docs/atlas-v2-design.md §7 "Phase 1c — as
       # built"). check-gazetteer.js reads atlas/data/gazetteer.js as the browser does and proves its header,
       # its table, that every country's label anchor lies in its own land in the z=4 partition (the United
@@ -519,6 +522,13 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/pw/node_modules
         run: node .claude/test-war-timeline.js
+
+      # 2026-10-25: the relief's detail level (15″ hillshade) rides here too — the shards were already predicted past their cap.
+      - name: test-atlas-relief-detail
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node .claude/test-atlas-relief-detail.js
 
       - name: test-ww2-slice
         if: ${{ !cancelled() }}

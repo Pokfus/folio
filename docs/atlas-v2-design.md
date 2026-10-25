@@ -791,6 +791,22 @@ gone below 1.0 km/px (chosen by eye in Phase 1b, screenshots at 2.5 / 1.8 / 1.2 
 a magnified texel is a blur that says nothing a reader can use, and the coast, borders and water carry
 the map on their own.
 
+**The detail level (2026-10-25; the owner: "when zoomed in, the relief map very quickly becomes blurry and undetailed").**
+This reopens the 2026-10-08 decision that the 60 arc-second grid alone feeds the relief, by a road L2 did not take: the
+TINT (the hypsometric ramp) changes slowly and stays L0/L1's 16-bit height; only the HILLSHADE, where the detail is, is
+carried finer — from the ETOPO 2022 **15 arc-second** grid (same model, publisher and CC0; `etopo-2022-15s`, a fileset of
+288 tiles of 15°, 5.2 GB in `src/`), about 460 m a texel, ten times L1. `build-relief-detail.js` computes the same Horn
+hillshade over each source tile with a one-texel border from its neighbours (no seam at 15°), flat below sea level, and
+writes one **600² greyscale JPEG (mozjpeg, quality 80) per 2.5° tile that holds land**: measured, **5,017 tiles, 65.9 MB,
+the largest 92 KB** (`atlas/data/relief-detail/`, `detail.json` the index; the PNG of the same plane was ten times the size,
+and at three times magnification the JPEG and the PNG could not be told apart on the Pyrenees). The renderer fetches the land
+tiles in view below **2.5 km/px** (at most 40; a wider view takes none), decodes each with `createImageBitmap` and uploads it
+straight to a mipmapped R8 texture (no worker, no compose); `drawDetail` shades the land with it before the L1 patches
+(stencil: LAND set, PATCH clear, INVERT the PATCH bit — so L1 and L0 shade only what no detail tile did), the tint read from
+the L1 tile that holds it, else L0, and the shade mixed from L1's to the detail's between 2.5 and 1.5 km/px, so it fades in.
+A typical zoomed view fetches 0.4–1.7 MB once. Cost on the session's software GL (`test-atlas-relief-detail.js` §5, 20 renders
+at the Alps, 0.5 km/px): ×0.93 on a desktop viewport, ×1.07 on a phone — within noise; the sea has no detail level.
+
 ### 2.8 Integration with the study material
 
 **The gazetteer** (`atlas/data/gazetteer.js`, built) is the single registry of places: for each
