@@ -7017,7 +7017,12 @@ window.GLOSSARY = {
 "Plate_tectonics": "",
 "Scavenger": "",
 "Scotland": "",
-"Southeast_Asia": ""
+"Southeast_Asia": "",
+"Remus": "",
+"Faustulus": "",
+"Acca_Larentia": "",
+"Augury": "",
+"Diocles_of_Peparethus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14780,7 +14785,6 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Arcadia": ["Arkadia"],
 "Battle_of_Leuctra": ["Leuctra"],
 "Palatine_Hill": ["Palatine"],
-"Romulus_and_Remus": ["Remus"],
 "Marcus_Terentius_Varro": ["Varro"],
 "Parilia": ["Palilia"],
 "Pastoralism": ["pastoral"],
@@ -15068,7 +15072,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mudbrick": ["mud brick","mud-brick","mudbricks"],
 "Scavenger": ["scavenging","scavenge","scavenged"],
 "Scotland": ["Scottish"],
-"Southeast_Asia": ["South-East Asia","Southeast Asian"]
+"Southeast_Asia": ["South-East Asia","Southeast Asian"],
+"Acca_Larentia": ["Larentia"],
+"Augury": ["augur","augurs"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22214,7 +22220,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Plate_tectonics": ["theory","geology","science","geography"],
 "Scavenger": ["concept","biology","ecology","nature","prehistory"],
 "Scotland": ["place","geography","history","scotland","united kingdom","europe"],
-"Southeast_Asia": ["region","geography","place","history","asia"]
+"Southeast_Asia": ["region","geography","place","history","asia"],
+"Remus": ["person","mythology","history","rome"],
+"Faustulus": ["person","mythology","history","rome"],
+"Acca_Larentia": ["person","mythology","religion","history","rome"],
+"Augury": ["practice","religion","history","rome"],
+"Diocles_of_Peparethus": ["person","historian","literature","history","greece","rome"]
 });
 
 /* ============================================================================
