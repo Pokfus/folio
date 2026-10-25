@@ -49,7 +49,7 @@ window.CHANGELOG = [
       "One Ancient Rome card has a <b>new main question</b>.",
       "On a phone, the page behind a glossary popup now <b>stays blurred</b> when a link inside it opens another term.",
       "A Chinese or Japanese card's <b>translation bubble stays open</b> while you write on the whiteboard; only its own icon closes it.",
-      "Signed in as an admin, a card now shows its <b>id</b> (such as ps-005) in small type at its top.",
+      "Signed in as an admin, a card now shows its <b>id</b> (such as ps-005) in small type at its foot, under the Wikipedia link.",
     ],
   },
   {

@@ -26586,7 +26586,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <h1>${esc(term)}</h1>
       </div>
       <div class="study-card cardpg-card">
-        ${cardAdminIdHTML(c)}
         <span class="label">Question${ttsPlayHTML("question", true, c)}</span>
         <div class="question">${cardFrontHTML(c) || ""}</div>
         <div class="reveal show"><div class="reveal-inner" id="cpgBack"></div></div>
@@ -32798,7 +32797,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     they are level at every text size, which is what was asked for, and neither has to
                     know the other's offset. The successive-relearning row sits BETWEEN them (Sep 2026,
                     on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
-              ${cardAdminIdHTML(c)}
               <div class="q-head">
               <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? qCycleHTML(qIdx, pool.length) : ""}${ttsPlayHTML("question", true, c)}</span></div>
               ${critInBar ? "" : critHTML}
@@ -34746,7 +34744,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // what goes in the study card's question area: a custom type's front template, or the Basic question —
   // and, on a map card, the globe window ABOVE the prompt, since the map is the clue and the words only
   // say what to do with it
-  /* THE CARD'S ID, FOR AN ADMIN (Oct 2026, on request): a small line at the top of the card ("ps-005"),
+  /* THE CARD'S ID, FOR AN ADMIN (Oct 2026, on request): a small line at the very foot of the card, under the Wikipedia tile ("ps-005"; moved there from the top
+     the same day, on request),
      so a card met while studying can be named in a request or found in the editor. Admins only — and
      never inside `.question`, which suites read the question text from. */
   function cardAdminIdHTML(c) {
@@ -36461,6 +36460,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     html += sourcesHTML(cardSources(c));
     // …and, last of all, the way on: the answer's own Wikipedia article (see learnMoreHTML)
     html += learnMoreHTML(c);
+    // …and under even that, for an admin only, the card's id (cardAdminIdHTML)
+    html += cardAdminIdHTML(c);
     return html;
   }
   /* LEARN MORE — the link to the answer term's own Wikipedia article (Oct 2026, on request: "for cards
