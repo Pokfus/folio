@@ -26586,6 +26586,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <h1>${esc(term)}</h1>
       </div>
       <div class="study-card cardpg-card">
+        ${cardAdminIdHTML(c)}
         <span class="label">Question${ttsPlayHTML("question", true, c)}</span>
         <div class="question">${cardFrontHTML(c) || ""}</div>
         <div class="reveal show"><div class="reveal-inner" id="cpgBack"></div></div>
@@ -32797,6 +32798,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     they are level at every text size, which is what was asked for, and neither has to
                     know the other's offset. The successive-relearning row sits BETWEEN them (Sep 2026,
                     on request) — see critPipsHTML for why it moved and how it shortens on a phone. */""}
+              ${cardAdminIdHTML(c)}
               <div class="q-head">
               <div class="q-lead">${cardStateDotHTML(id)}<span class="label">Question${pool.length > 1 ? qCycleHTML(qIdx, pool.length) : ""}${ttsPlayHTML("question", true, c)}</span></div>
               ${critInBar ? "" : critHTML}
@@ -34744,6 +34746,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // what goes in the study card's question area: a custom type's front template, or the Basic question —
   // and, on a map card, the globe window ABOVE the prompt, since the map is the clue and the words only
   // say what to do with it
+  /* THE CARD'S ID, FOR AN ADMIN (Oct 2026, on request): a small line at the top of the card ("ps-005"),
+     so a card met while studying can be named in a request or found in the editor. Admins only — and
+     never inside `.question`, which suites read the question text from. */
+  function cardAdminIdHTML(c) {
+    return c && c.id && isAdmin() ? '<div class="card-admin-id" translate="no">' + esc(c.id) + "</div>" : "";
+  }
   function cardFrontHTML(c) {
     const custom = cardTypeSideHTML(c, "front");
     if (custom != null) return custom;
