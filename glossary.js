@@ -7027,7 +7027,12 @@ window.GLOSSARY = {
 "Cataracts_of_the_Nile": "",
 "Myth": "",
 "Isotope": "",
-"Homogeneity_and_heterogeneity": ""
+"Homogeneity_and_heterogeneity": "",
+"Alans": "",
+"Don_(river)": "",
+"Ermanaric": "",
+"Scythia": "",
+"Sea_of_Azov": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10599,7 +10604,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Reich_Chancellery": "1878–1945",
 "Secretariat_of_the_League_of_Nations": "1919–1946",
 "Territory_of_the_Saar_Basin": "1920–1935",
-"Daniel_Wilson_(academic)": "1816–1892"
+"Daniel_Wilson_(academic)": "1816–1892",
+"Ermanaric": "d. c. 375 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15083,7 +15089,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cataracts_of_the_Nile": ["cataract","cataracts","Nile cataracts"],
 "Myth": ["myths","mythical"],
 "Isotope": ["isotopes","isotopic"],
-"Homogeneity_and_heterogeneity": ["heterogeneity","heterogeneous","heterogenous"]
+"Homogeneity_and_heterogeneity": ["heterogeneity","heterogeneous","heterogenous"],
+"Alans": ["Alani"],
+"Don_(river)": ["Tanaïs","River Don","Don River"],
+"Ermanaric": ["Ermenrichus","Ermanaric the Goth"],
+"Sea_of_Azov": ["Maeotic Sea","Maeotis","Lake Maeotis","Maeotic swamp"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -22239,7 +22249,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cataracts_of_the_Nile": ["place","river","geography","egypt","sudan","africa","nature"],
 "Myth": ["concept","religion","mythology","literature","folklore"],
 "Isotope": ["concept","science","chemistry","physics","archaeology"],
-"Homogeneity_and_heterogeneity": ["concept","science","chemistry","genetics"]
+"Homogeneity_and_heterogeneity": ["concept","science","chemistry","genetics"],
+"Alans": ["people","history","migration","warfare","language","europe"],
+"Don_(river)": ["river","geography","nature","russia","europe","place"],
+"Ermanaric": ["person","ruler","history","warfare","migration","literature"],
+"Scythia": ["region","history","geography","classical","europe","asia"],
+"Sea_of_Azov": ["place","geography","sea","nature","europe","ukraine","russia"]
 });
 
 /* ============================================================================
