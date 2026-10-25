@@ -118,7 +118,8 @@
   /* THE WHOLE-STATE SELECTION (2026-10-18; the owner: "like in Atlas v1"): the card windows' own gold (atlas-windows.js TINT_SEL) — the fill is the land blended with
      the gold at 0.24 (the history fill's own alpha does the blend), the outline 2.6 px and the glow 9 px are stroked on the label canvas from the face's rings */
   const SEL_GOLD = { rgb: [1, 178 / 255, 46 / 255], a: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)", width: 2.6, blur: 9 };
-  const HIST_DIM = 0.5;   // 2026-10-18: the land no state or people covers in a past year is drawn at half its luminance (the owner's 50 %; v1's Full Atlas measured 0.78, outside the 10 points that would have kept its number), on the Atlas page only — a card window and Find it never darken
+  const HIST_BORDER_W = 1.6;   // CSS px: a past year's borders (1.1 until 2026-10-25, too faint over the relief on a phone)
+  const HIST_DIM = 0.5;   // 2026-10-18: the land no state or people covers in a past year is drawn at half its luminance (the owner's 50 %; v1's Full Atlas measured 0.78, outside the 10 points that would have kept its number), on the Atlas page only — a card window and Find it never darken; since 2026-10-25 the Personal Atlas only (its undiscovered ground), never Map or Full
   const WAR_FILL_BOOST = 1.3;   // a side's tint is read against a state's own colour: 30 % stronger than a state's fill (2d)
   const SPEEDS = [1, 5, 25, 100];                 // years per second (Q-T4 b: every year is played)
   const PHONE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 768; } catch (e) { return false; } })();
@@ -795,7 +796,7 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
-      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready ? HIST_DIM : 0; }
+      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
@@ -1403,8 +1404,9 @@
       const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
       // the war tints (2d): a green and a red (hue 138° and 4°), each blended with the theme's ink (light) or paper (dark)
       warRGB = { victor: dark ? mix(hsl(138, 0.6, 0.55), paper, 0.08) : mix(hsl(138, 0.62, 0.34), ink, 0.1), loser: dark ? mix(hsl(4, 0.75, 0.6), paper, 0.08) : mix(hsl(4, 0.72, 0.44), ink, 0.1) };
-      const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
-      histBorderCss = hb; presInk = hb; histBorderStyle();   // 2c: the presences' stipple is the border ink, so it follows the theme too (screen on a dark one, multiply on a light one)
+      // the borders of a past year: 2026-10-25 (the owner's phone: "I do not see the borders between states") from 0.58 / 0.35 of the ink and 1.1 px to 0.8 / 0.6 and 1.6 px, so they
+      // hold against the relief; the peoples' stipple keeps the old, lighter ink
+      histBorderCss = dark ? mix(paper, ink, 0.6) : mix(paper, ink, 0.8); presInk = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58); histBorderStyle();   // 2c: the presences' stipple follows the theme too (screen on a dark one, multiply on a light one)
       void paper;
     }
     /* Phase 2d: a side's ground is tinted by its ROLE in the year (victor green, loser red; the legend says so). The tint replaces the entity's own slot colour, so a
@@ -1430,7 +1432,7 @@
        still drawn, plain land with its border; since decision a of the owner's sixth look it is not alive at all in Personal (`aliveShown`, above): no face, no border,
        its ground the darker empty land. The Full Atlas and the plain Map name, mark and draw every state. */
     /* Find-it (atlas-embed.js): `layers.flat` draws every state of a year in the land colour with the modern borders' colour and width, and the outline's mask pass blacks the borders and the peoples out */
-    function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : 1.1); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
+    function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : HIST_BORDER_W); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
     function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
@@ -1898,7 +1900,7 @@
     }
 
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
-    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", haloDark = false;
+    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", markCss = "", haloDark = false;
     const HALO_W = 2.6, HALO_W_DARK = 3.2;   // CSS px of halo stroke (both sides of a glyph): wider in a dark theme (decision c, 2026-10-17), where the dark halo is what keeps a light name legible over the lighter sea and the relief
     /* NO HALO WIDER THAN THE ORDINARY NAMES' WIDEST (2026-10-18, the owner's fifth look, decision b: "text labels for peoples have an unreasonably thick dark outline").
        HALO_W_MAX (3.2 px at Text size Medium, × LS like every width) is the cap: the ordinary names' own widest (the dark theme's HALO_W_DARK). The people styles
@@ -1911,7 +1913,12 @@
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
       const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
       haloCss = hex(dark ? paper : paper);
-      inkCss = hex(ink);
+      inkCss = dark ? hex(ink) : "#000000";   // 2026-10-25 (the owner: "the text black, like in V1 of the Atlas"): every name but a water's and the selected one is black by day
+      /* THE MARKS ARE RED (2026-10-25, the owner: "the location icons should be red … like in V1 of the Atlas"; v1's register red was rgb(200, 69, 60),
+         docs/atlas-v1-archive.md "A MARK IS A RED DOT"). By day a deeper red than v1's, #b22a20: v1's own read 2.5–2.7:1 against the relief's darker hillsides,
+         under the 3:1 test-atlas-mark-outline.js holds every mark to; in a dark theme a light red, #ec9e97, which reads against the names' dark halo stroked
+         under it and the night's relief alike. Every mark, the reader's own included: whose a place is no longer changes its fill */
+      markCss = dark ? "#ec9e97" : "#b22a20";
       // water names: a deep blue-ink in a light theme, a pale blue in a dark one — read against both the sea and the land; the palette's `waterInk`,
       // the one definition, which in a dark theme is the river lines' colour too (2026-10-18, the owner: "the same light blue as their text labels")
       waterCss = hex(palette.waterInk || (dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5)));
@@ -1932,7 +1939,7 @@
     }
     labelColours();
     const WATER_KINDS = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1 };
-    const inkFor = (p) => (p.id === sel.id || p.st === 2 ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places (Phase 3b) take the accent the selection has
+    const inkFor = (p) => (p.id === sel.id ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places took the selection's accent (Phase 3b) until 2026-10-25: every name is the ink now (the owner: "the text black")
     const SPRITE_PAD = 4;   // CSS px of margin round a sprite's box (the halo's reach)
     const spriteCache = new Map(); let spriteGen = 0;   // key → sprite; spriteGen bumps on a theme or font change
     function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + (p.st === 2 ? "m" : "") + "|" + dprNow + "|" + spriteGen + "|" + g; }
@@ -1963,7 +1970,7 @@
       return { c, x0, y0, w, h };
     }
     function drawMarker(ctx, x, y, r, kind, hot, p) {
-      ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss;
+      ctx.fillStyle = hot ? selCss : markCss; ctx.strokeStyle = haloCss;
       ctx.beginPath();
       if (kind === "capital") ctx.rect(x - r, y - r, 2 * r, 2 * r); else ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.lineWidth = (haloDark ? HALO_W_DARK : HALO_W) * LS; ctx.stroke(); ctx.fill();   // the names' halo under the dot in every theme, as under a glyph (dark: decision a, 2026-10-18 b; day: 2026-10-18 b of the seventh look)
@@ -1980,7 +1987,7 @@
     function paintMark(x, path, mine, hot) {
       const op = (m) => (path ? x[m](path) : x[m]());
       x.lineWidth = (haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; op("stroke");   // the names' halo, stroked first, in either theme
-      x.fillStyle = mine ? selCss : inkCss; op("fill");
+      x.fillStyle = markCss; op("fill");   // red, the reader's own and the rest alike (2026-10-25)
       if (hot) { x.lineWidth = 1.5; x.strokeStyle = haloDark ? selCss : accentCss; op("stroke"); }   // the selected mark: a ring inside its fill's edge — the lightened ochre on a dark theme's light fill, the ochre on a day's dark one
     }
     const countInk = () => haloCss;   // a ring's or a square's count is the halo's colour: dark on a dark theme's light fill, the paper on a day's dark one
@@ -3218,7 +3225,7 @@
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
-      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, markFill: inkCss, markOwnFill: selCss, markLine: haloCss, markLineWidth: haloDark ? HALO_W_DARK : HALO_W }),
+      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, mark: markCss, markFill: markCss, markOwnFill: markCss, markLine: haloCss, markLineWidth: haloDark ? HALO_W_DARK : HALO_W }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), selection: () => ({ id: sel.id, ent: time.selected, faces: selectedFaces(), rings: selRings && selRings.faces.every((f) => selectedFaces().indexOf(f) >= 0) ? selRings.rings.length : 0, points: selRings ? selRings.rings.reduce((n, r) => n + r.length / 3, 0) : 0, level: selRings ? selRings.level : null, gold: SEL_GOLD }), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, snap: PHONE && cardOpen ? sheetSnap : null }), sheetSnap: (k) => setSnap(k), sheetHeights: () => (PHONE ? sheetHeights() : null),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,

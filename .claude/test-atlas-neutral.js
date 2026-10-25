@@ -10,8 +10,8 @@
         state's fill is the land colour. A PEOPLE (the Scythians over the Black Sea, 450 BCE) is handed to the renderer in the same neutral ink as every
         other people (`probeAt().peopleFill`), and its pixels are that ink's stipple over the land: the per-channel darkening at every sampled pixel
         agrees across the channels (an achromatic ink multiplied over the land), where a hue would pull one channel apart from the others.
-     2  THE EMPTY LAND IS HALF AS BRIGHT (the owner: "areas of the map that do not have any states or peoples or anything should be 50 % darker, like in
-        Atlas v1"): at Europe in 1500, light theme and folio's night, every flat window of land the ID pass puts under NO state and NO people reads at
+     2  THE EMPTY LAND (2026-10-18: "areas of the map that do not have any states or peoples or anything should be 50 % darker, like in Atlas v1"; since
+        2026-10-25 on the Personal Atlas only — on Map the factor EMPTY_K is 1, so read "half" below as "the land"): at Europe in 1500, light theme and folio's night, every flat window of land the ID pass puts under NO state and NO people reads at
         half the land's luminance (HIST_DIM = 0.5, ±3 %) while a state's reads at the land's; under a people (the Scythians, 450 BCE) the ground
         between the dots is NOT darkened (the brightest quarter of its pixels is the land); in the present day nothing darkens (every land window, the
         Antarctic included, is the land); and in every light theme a name over the darker land keeps its contrast — the ink on its paper halo ≥ 7:1, the halo on the
@@ -137,7 +137,10 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
     await ctx.close();
   }
 
-  sect("2) the land no state or people covers is half as bright; a state's, a people's and the present day's are not");
+  /* 2026-10-25 (the owner: "random squares or blocky patches missing"): the darkening is the PERSONAL Atlas's only — on Map, where this suite runs, the land no state
+     covers is the land, like a state's (test-atlas-personal.js and test-atlas-popups.js keep the Personal darkening) */
+  const EMPTY_K = 1;
+  sect("2) on Map the land no state or people covers is the land (the darkening is Personal's only); a state's, a people's and the present day's too");
   for (const night of [false, true]) {
     const th = night ? "folio night" : "folio light";
     const { ctx, page } = await openAtlas(browser, [960, 640], night);
@@ -146,9 +149,9 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
     await viewAt(page, 10, 50, 3, 1500);
     await pixels(page);
     const all2 = await scan(page, 30), empty = ofKind(all2, "empty").filter((r) => r.flat), states = ofKind(all2, "state").filter((r) => r.flat);
-    const ratios = empty.map((r) => lum(r.rgb) / landL), offE = ratios.filter((q) => Math.abs(q - 0.5) > 0.03).length;
+    const ratios = empty.map((r) => lum(r.rgb) / landL), offE = ratios.filter((q) => Math.abs(q - EMPTY_K) > 0.03).length;
     check(`${th}, Europe in 1500: ${empty.length} flat windows of empty land (≥ 20)`, empty.length >= 20);
-    check(`${th}: every one reads at half the land's luminance (0.5 ± 0.03): ${empty.length - offE} of ${empty.length}`, empty.length >= 20 && offE === 0, ratios.length ? `min ${Math.min(...ratios).toFixed(3)} max ${Math.max(...ratios).toFixed(3)}` : "");
+    check(`${th}: every one reads at the land's luminance (${EMPTY_K} ± 0.03): ${empty.length - offE} of ${empty.length}`, empty.length >= 20 && offE === 0, ratios.length ? `min ${Math.min(...ratios).toFixed(3)} max ${Math.max(...ratios).toFixed(3)}` : "");
     const offS = states.filter((r) => !near(r.rgb, land, 1)).length;
     check(`${th}: a state's ground is still the land colour (${states.length - offS} of ${states.length} windows)`, states.length >= 6 && offS === 0);
     // under a people: the land between the dots
@@ -232,14 +235,14 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
     }
   }
 
-  sect("4) a state has NO fill: its pixels are the pixels of the same place with no state, at full opacity, relief on and off; the empty land is half of them");
+  sect("4) a state has NO fill: its pixels are the pixels of the same place with no state, at full opacity, relief on and off; on Map the empty land is the same (EMPTY_K)");
   /* 2026-10-18 c (the owner's phone: "states, instead of having a grey hue, should have no hue at all ... polities should show the relief and landmass inside them at
      full opacity"). The reference for "the same place with no state" is the SAME view in the present day (2026): the history is off there, every land face is a country's and
      nothing is drawn over the land or the relief. Pixel for pixel, at every probed point the ID pass puts inside a state of 276 CE (East Asia, 10 km/px, 960 x 640) and
      under no state and no people, the 3 x 3 block of the GL canvas is compared with the same block of the present-day frame:
        · inside a state: equal (every channel within 1 level) — before the change a state was the land colour at alpha 0.42 over the relief, so every hillside inside it was
          pulled toward the flat land (the grey wash the owner saw: the hills of Yunnan differed by tens of levels);
-       · under no state and no people: half of it (every channel within 3 levels of 0.5 x the present-day pixel) — the darker land of the colours thread, relief and all;
+       · under no state and no people: EMPTY_K of it (every channel within 3 levels; 1 on Map since 2026-10-25, 0.5 before) — the darker land of the colours thread, relief and all;
        · and the share of probed state points that are NOT flat land is reported, so a run on a view with no relief cannot pass for free (>= 15 % of the state windows must
          differ from the flat land colour by more than 8 levels with the relief on). */
   for (const night of [false, true]) for (const relief of [true, false]) {
@@ -252,7 +255,7 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
     const rows = await scan(page, 36);
     await viewAt(page, 108, 32, 10, 2026);
     await pixels(page); await page.evaluate(() => { window.__pxNow = window.__px; });
-    const cmp = await page.evaluate(([rows, dimTol]) => {
+    const cmp = await page.evaluate(([rows, dimTol, EMPTY_K]) => {
       const H = window.__pxHist, N = window.__pxNow, c = document.querySelector(".atlas2").__atlas2, [W] = c.frame(), k = H.w / W;
       const diff = (cx, cy, f, win) => { let worst = 0; for (let dy = -win; dy <= win; dy++) for (let dx = -win; dx <= win; dx++) { const i = 4 * ((cy + dy) * H.w + cx + dx); for (let j = 0; j < 3; j++) worst = Math.max(worst, Math.abs(H.d[i + j] - f(N.d[i + j]))); } return worst; };
       /* a LINE within 4 device px in either frame — a border of 276 CE, a modern line or a coast edge of the present-day frame — is not what this compares: the second difference
@@ -266,15 +269,15 @@ const near = (a, b, t) => a.every((v, i) => Math.abs(v - b[i]) <= t);
         const cx = Math.round(r.x * k), cy = Math.round(r.y * k); if (cx < 6 || cy < 6 || cx >= H.w - 6 || cy >= H.h - 6) continue;
         if (lineNear(H, cx, cy) || lineNear(N, cx, cy)) { onLine++; continue; }
         if (r.state && r.kind === "polity" && !r.people) { const d = diff(cx, cy, (v) => v, 1); st.n++; st.worst = Math.max(st.worst, d); if (d > 1) st.bad++; }
-        else if (!r.state && !r.people && nbEmpty(r)) { const d = diff(cx, cy, (v) => v * 0.5, 0); em.n++; em.worst = Math.max(em.worst, d); if (d > dimTol) { em.bad++; em.pts.push(r.x + "," + r.y + " hist " + [0, 1, 2].map((j) => H.d[4 * (cy * H.w + cx) + j]).join("/") + " now " + [0, 1, 2].map((j) => N.d[4 * (cy * H.w + cx) + j]).join("/")); } }
+        else if (!r.state && !r.people && nbEmpty(r)) { const d = diff(cx, cy, (v) => v * EMPTY_K, 0); em.n++; em.worst = Math.max(em.worst, d); if (d > dimTol) { em.bad++; em.pts.push(r.x + "," + r.y + " hist " + [0, 1, 2].map((j) => H.d[4 * (cy * H.w + cx) + j]).join("/") + " now " + [0, 1, 2].map((j) => N.d[4 * (cy * H.w + cx) + j]).join("/")); } }
       }
       return { st, em, onLine };
-    }, [rows, 3]);
+    }, [rows, 3, EMPTY_K]);
     const stRows = rows.filter((r) => r.state && r.kind === "polity" && !r.people);
     const shaded = await page.evaluate(([rows, land]) => { const N = window.__pxNow, c = document.querySelector(".atlas2").__atlas2, [W] = c.frame(), k = N.w / W; let n = 0, s = 0; for (const r of rows) { const cx = Math.round(r.x * k), cy = Math.round(r.y * k); if (cx < 2 || cy < 2 || cx >= N.w - 2 || cy >= N.h - 2) continue; const i = 4 * (cy * N.w + cx); n++; if (Math.max(Math.abs(N.d[i] - land[0]), Math.abs(N.d[i + 1] - land[1]), Math.abs(N.d[i + 2] - land[2])) > 8) s++; } return n ? s / n : 0; }, [stRows, land]);
     check(th + ": 276 CE, East Asia: states and empty land are both probed (" + cmp.st.n + " state points, " + cmp.em.n + " empty-land points; " + cmp.onLine + " more skipped, a line within 4 px)", cmp.st.n >= 10 && cmp.em.n >= 10);
     check(th + ": inside a state the pixels equal the present-day pixels of the same place (every channel within 1 level): " + (cmp.st.n - cmp.st.bad) + " of " + cmp.st.n, cmp.st.n >= 10 && cmp.st.bad === 0, "worst difference " + cmp.st.worst + " levels");
-    check(th + ": the darker land is 0.5 x the present-day pixel (every channel within 3 levels): " + (cmp.em.n - cmp.em.bad) + " of " + cmp.em.n, cmp.em.n >= 10 && cmp.em.bad === 0, "worst difference " + cmp.em.worst + " levels" + (cmp.em.pts.length ? "; " + cmp.em.pts.slice(0, 3).join("; ") : ""));
+    check(th + ": the empty land is " + EMPTY_K + " x the present-day pixel (every channel within 3 levels): " + (cmp.em.n - cmp.em.bad) + " of " + cmp.em.n, cmp.em.n >= 10 && cmp.em.bad === 0, "worst difference " + cmp.em.worst + " levels" + (cmp.em.pts.length ? "; " + cmp.em.pts.slice(0, 3).join("; ") : ""));
     if (relief) check(th + ": the view has relief inside its states (" + (shaded * 100).toFixed(0) + " % of the state windows differ from the flat land by more than 8 levels, >= 15 %)", shaded >= 0.15);
     await ctx.close();
   }
