@@ -351,6 +351,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the enfranchisement of Italy: the laws / the vote by decree / the census | 90 – 89 BCE / 84 BCE / 70 BCE | `rm-308` |
 | Sulla: lived / quaestor / consul / dictator | c. 138 – 78 BCE / 107 BCE / 88 BCE / 82 – 79 BCE (the praetorship 93 BCE in Broughton, 97 BCE in Badian; no row) | `rm-309` |
 | the First Mithridatic War / Asia overrun / Athens taken / the peace of Dardanus | 89 – 85 BCE (some start it in 88) / 88 BCE / 86 BCE (1 March is the Cambridge Ancient History's conversion of Plutarch's Kalends of March) / 85 BCE | `rm-310` |
+| Mithridates VI: born / reigned / died | c. 135 – 132 BCE (Reinach and Magowska differ) / c. 120 – 63 BCE / 63 BCE (the Cambridge Ancient History, not Lendering's bracket) | `rm-311` |
+| the Asiatic Vespers | 88 BCE | `rm-312` |
+| Sulla's march on Rome | 88 BCE | `rm-313` |
+| Cinna: consul / killed | 87 – 84 BCE / 84 BCE | `rm-314` |
+| the Marian terror: the killings / Marius died | 87 BCE / January 86 BCE | `rm-315` |
+| the civil war of 83 BCE / Sacriportus | 83 – 82 BCE / 82 BCE (no ancient author gives the spring of 83 for the landing) | `rm-316` |
+| the Battle of the Colline Gate | 1 November 82 BCE (Velleius's Kalends of November, pre-Julian) | `rm-317` |
+| Sulla's proscriptions / the lists closed | 82 – 81 BCE / 1 June 81 BCE (Cicero, pleading for Roscius) | `rm-318` |
+| Sulla's dictatorship / consul again / laid down by / died | 82 BCE / 80 BCE / 79 BCE (end of 81 in Badian; Vervaet has 79) / 78 BCE | `rm-319` |
+| Sulla's laws / largely undone | 81 – 80 BCE / 70 BCE | `rm-320` |
 
 ## The Principate
 
@@ -661,4 +671,14 @@ rm-307: 90
 rm-308: 90; 89; 84; 70
 rm-309: 138; 78; 107; 88; 82; 79
 rm-310: 89; 85; 88; 86
+rm-311: 135; 132; 120; 63
+rm-312: 88
+rm-313: 88
+rm-314: 87; 84
+rm-315: 87; 86
+rm-316: 83; 82
+rm-317: 82
+rm-318: 82; 81
+rm-319: 82; 80; 79; 78
+rm-320: 81; 80; 70
 ```

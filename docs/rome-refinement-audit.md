@@ -163,7 +163,7 @@ order unless the user says otherwise.
 | B29 | The Republic in crisis (`rm-crisis`) | `rm-281`–`rm-290` | 10 | 115 | **done 2026-10-23** |
 | B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | **done 2026-10-23** |
 | B31 | The Republic in crisis (`rm-crisis`) | `rm-301`–`rm-310` | 10 | 85 | **done 2026-10-29** |
-| B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | open |
+| B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | **done 2026-10-29** |
 | B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | open |
 | B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | open |
 | B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | open |
@@ -580,6 +580,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-308` enfranchisement of Italy | none | no picture (`I.none`) |
 | `rm-309` Sulla | a portrait head conventionally called Sulla | ok: a photograph, and the description says the identification is traditional |
 | `rm-310` First Mithridatic War | a campaign map | wrong: burned-in labels, and the description names its sources instead of describing the map |
+| `rm-311` Mithridates VI | the Louvre head of Mithridates as Heracles | ok |
+| `rm-312` Asiatic Vespers | a map | wrong: burned-in labels copied from a 2020 book, a doubtful CC0 claim, and the description names its source |
+| `rm-313` Sulla's march on Rome | a map | wrong: burned-in labels, and the description names its source and a Wikipedia article |
+| `rm-314` Cinna | none | no picture (`I.none`) |
+| `rm-315` Marian terror | none | no picture (`I.none`) |
+| `rm-316` civil war of 83 BCE | none | no picture (`I.none`) |
+| `rm-317` Battle of the Colline Gate | an engraved view | wrong: the description is a library catalogue title and the alt is the file name |
+| `rm-318` proscription | none | no picture (`I.none`) |
+| `rm-319` Sulla's dictatorship | a Munich marble head labelled "so-called Sulla" | weak: an uncertain portrait stands for an office, and the description reads as a museum label |
+| `rm-320` Sullan constitution | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -1436,3 +1446,22 @@ Run as B30 (Commons answered 429, so no picture was touched; locators are left f
 | `rm-310` First Mithridatic War | 7 | 7 → 9 | The start is 89 or 88 by author; **the 20,000 talents is Plutarch's; Appian gives five years' taxes plus the war's cost, and nothing is added**; 1 March 86 for Athens is the Cambridge Ancient History's conversion of Plutarch's Kalends of March. The massacre is one clause (`rm-312`'s card). |
 
 **Read by eye.** *Confusability:* `rm-301`/`rm-302` the consulships and the tribune; `rm-303` the Sicilian war (no clue of `rm-280` or `rm-328`); `rm-304`–`rm-308` the tribune, the war, the long demand, the one law and the process, each with its own clue (the ten tribes only on `rm-308`); `rm-309`/`rm-310` the man and the war. *Legend:* the mulberry jest, the seal ring, the Palatine house and Drusus's last words are Plutarch's or Velleius's. *Overlap:* no `gr-` or `wh-` card disagrees on these subjects.
+
+### B32 — `rm-311`–`rm-320`, the Republic in crisis: Mithridates to the Sullan laws (2026-10-29)
+
+Run as B31; after `batch.sh` every draft was compared with its card: no mismatch. Checks: `rm-audit.js --range=rm-311:rm-320` reads clean on five cards; the other five are `I.none` only. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Every citation URL answers but three from the batch run: Perseus's Smith's Dictionary entry for `rm-318` (a 302 then 403 from Perseus's rate limit; read and saved by the agent) and a Velleius page on LacusCurtius for `rm-319` (the host refused this sandbox all session; the agent's copy was read before). One phrasing was fixed by hand before applying: `rm-319`'s third ("the holder of Sulla's dictatorship" read the answer back clumsily). All ten old cards were **all-ancient**, Appian and Plutarch cited many times over as separate chapters; the modern half is the 1932 Cambridge Ancient History, Mommsen, Reinach (1890), How and Leigh (1896), Kallet-Marx (1995), Vervaet (2004), Ładoń (2021) and BMCR reviews. Mayor's *Poison King* was read only through an archive.org full-text snippet and is tagged [Paywalled].
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-311` Mithridates VI | 7 | 5 → 7 | **Appian's "57 years" of reign and "40 years" of war were date-line rows**; they are his figures in prose. Born c. 135 – 132 (Reinach and Magowska differ); the poison immunity and the mithridatium are ancient reports; the coins as a new Alexander are contemporary evidence. The old question had him run through by the Gallic officer, which Appian does not say. |
+| `rm-312` Asiatic Vespers | 6 | 6 → 8 | **"80,000 – 150,000" joined two authors' figures and "Notice given 30 days" was a count**: Plutarch's 150,000 and Memnon's and Valerius Maximus's 80,000 are given apart, with Kallet-Marx's "who counted?". **The name is modern** (Reinach's "Ephesian Vespers", after the Sicilian Vespers of 1282). |
+| `rm-313` Sulla's march on Rome | 7 | 6 → 7 | "The first Roman army to enter the city as an enemy" and the twelve public enemies are **Appian's**; Nola (Plutarch) and Capua (Appian) are both given; the counts leave the date line. |
+| `rm-314` Cinna | 6 | 6 → 8 | The deposition row and "by his own army" go; Ancona is the moderns' place (Appian names none); **Cicero's "domination of Lucius Cinna" is a hostile witness's phrase**, set against modern views of a calm, even reforming regime. Velleius's 300 cohorts is `rm-645`'s clue and is not used. |
+| `rm-315` Marian terror | 6 | 5 → 7 | **"Marian terror" is a modern label** (How and Leigh's "reign of terror"), and the accounts were reshaped after Sulla won. Appian's and Plutarch's versions of Octavius's and Ancharius's deaths and of who killed the Bardyaei are given side by side; Marius dies 17 days in (Plutarch) or on the Ides of January (Livy's summary). |
+| `rm-316` civil war of 83 BCE | 6 | 5 → 7 | Appian's five legions, 6,000 horse and **1,600 ships (Plutarch: 1,200)** were on the date line; both now in prose. No ancient author gives "spring 83" (only Perrin's note), so the landing is dated 83. Added Metellus Pius, Pompey and Crassus, Teanum, Sacriportus, Praeneste and Carbo's flight. |
+| `rm-317` Battle of the Colline Gate | 6 | 5 → 8 | Three count rows go; **1 November 82 BCE is Velleius's Kalends of November in the pre-Julian calendar, said so**. The wolves speech is Velleius's, Crassus's wing Plutarch's, the portcullis Appian's; the prisoners killed are Appian's over 8,000, Plutarch's 6,000 and Mommsen's 3,000 – 4,000, never summed. |
+| `rm-318` proscription | 7 | 5 → 9 | Appian's 40 senators and 1,600 knights, Plutarch's two talents and Valerius Maximus's 4,700 leave the line. **The 1 June 81 cut-off is Cicero's, pleading for Roscius; Perseus's English renders "Kalendas Iunias" as the first of January, so the Latin is cited** ([in Latin]). Gratidianus's death is a story with its killer disputed. The glossary put "82 BCE" inside Appian's report. |
+| `rm-319` Sulla's dictatorship | 7 | 5 → 8 | **The "120 years" on the LacusCurtius page is the translator's footnote; Appian gives only 400**, which Vervaet reads as a slip for the decemvirate; Plutarch and Velleius give 120. The title is read off Appian 1.99; the 24 axes are Appian's; the laying down is end of 81 (Badian), 80 or 79 (Vervaet). |
+| `rm-320` Sullan constitution | 6 | 5 → 7 | **"Sullan constitution" is a modern label** (a 1915 history's "so-called") for laws of 81 – 80. The purpose is attributed (Livy's summary, the usual modern reading, two dissents); about 300 new senators and 10,000 Cornelii are Appian's; the undoing of 70 is one clause. |
+
+**Read by eye.** *Confusability:* `rm-310`/`rm-311`/`rm-312` the war, the king and the massacre; `rm-313`/`rm-316`/`rm-317` the two marches and the last battle; `rm-314`/`rm-315` the consul and the killings (the stone oath only on `rm-314`, the Bardyaei only on `rm-315`); `rm-318`/`rm-319`/`rm-320` the lists, the office and the laws. *Legend:* Mithridates's poison, the stone oath, the wolves speech, Gratidianus's head and the Bardyaei are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees on these subjects.
