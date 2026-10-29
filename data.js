@@ -21029,6 +21029,18 @@ window.COLLECTION_TREE = {
             "gru-524",
             "gru-560"
           ]
+        },
+        {
+          "id": "geo-russia-water",
+          "title": "Rivers, lakes and seas",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-russia-mountains",
+          "title": "Mountains, plains and caves",
+          "placeholder": false,
+          "cardIds": []
         }
       ]
     },

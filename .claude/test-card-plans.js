@@ -134,7 +134,8 @@ const PLANS = {
      nothing else citable says which city it is, so the question cannot be asked honestly. The number
      stays in the running order because the plan still covers it. Written out as ranges so that a number
      quietly going missing still fails here. */
-  "russia-geography": ["geo-russia", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583]]],
+  /* 801-840 and 901-940 are Russia's two PHYSICAL decks (Oct 2026), the US and China pattern. */
+  "russia-geography": ["geo-russia", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583], [801, 840], [901, 940]]],
   "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762]]],
   /* China: 31 provincial-level divisions and 27 capitals rather than 31. The four missing numbers are
      not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,

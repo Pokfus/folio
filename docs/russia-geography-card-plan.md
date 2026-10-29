@@ -5,6 +5,12 @@ beside **World** (`geo-world`), **United States** (`geo-us`) and **China** (`geo
 cards in two decks**: **The federal subjects** (`geo-russia-subjects`, `gru-001`–`gru-083`) and **The
 administrative centres** (`geo-russia-capitals`, `gru-501`–`gru-583` with three numbers deliberately
 unused). Its cards use the **map card** format — a shape on a globe, and the question is what it is.
+**Two physical decks were added in Oct 2026** — **Rivers, lakes and seas** (`geo-russia-water`,
+`gru-801`–`gru-840`) and **Mountains, plains and caves** (`geo-russia-mountains`, `gru-901`–`gru-940`) — as map
+questions on a locator, the US and China physical decks' format; see "The physical decks" below.
+**Two physical decks were added in Oct 2026** — **Rivers, lakes and seas** (`geo-russia-water`,
+`gru-801`–`gru-840`) and **Mountains, plains and caves** (`geo-russia-mountains`, `gru-901`–`gru-940`) — as map
+questions on a locator, the US and China physical decks' format; see "The physical decks" below.
 
 📖 **`docs/geography-card-plan.md` describes the map card itself** — `map`, `facts`, the globe, the fit,
 the four-row facts grid, the accessibility limitation — and everything it says applies here unchanged.
@@ -312,6 +318,157 @@ Two collisions are already visible and both want a decision before the card is w
 - **`Kalmykia`, `Buryatia` and `Tuva`** are each also the name of a people and a language. Key the
   subject, and where a card elsewhere on the site means the people, write the link by hand.
 
+## The physical decks — water, and mountains, plains and caves (Oct 2026, planned before any card)
+
+Added 2026-10-29, on request: two decks "built the same way as the United States and China rivers and
+mountains decks", numbered past the centres so the ranges never meet: **Rivers, lakes and seas**
+(`geo-russia-water`, `gru-801`–`gru-840`) and **Mountains, plains and caves** (`geo-russia-mountains`,
+`gru-901`–`gru-940`). The collection grows from 163 numbers to 243.
+
+**The US and China physical decks are the rulebook, and this section only records what differs.**
+📖 `docs/geography-card-plan.md` "The physical decks — water, and mountains and caves" (with its
+2026-10-29 SUPERSEDED note) and 📖 `docs/china-geography-card-plan.md` "The physical decks" — read both
+before writing a card. What they fix holds here unchanged:
+
+- **Every located card is a MAP QUESTION** (`locator.ask: true`, `cardLocatorFront` in `app.js`): the
+  locator's window is on the FRONT, unnamed until the reveal. The question is the short prompt only —
+  **"The river traced on the map is ___."** for a river whose line is drawn, otherwise **"The <lake / sea
+  / gulf / bay / strait / reservoir / waterfall / wetland / mountain / volcano / mountain range / plateau /
+  plain / upland / cave / rock formation / crater / spit / valley / depression> marked on the map is
+  ___."** — and there are **no extra `questions` phrasings**. The history goes in the background.
+- **The ten-sentence background is the feature's HISTORY and its part in Russia's**, two blocks of five,
+  and never repeats the facts grid's figures. (The subjects deck's "block 1 is the place" rule is for
+  the shaded subjects; a feature card follows the US and China physical decks: what the feature is and
+  how it was made, then what people did with it.)
+- **`undatable: true` and an empty date line**, unless a date is genuinely the feature's own (the filling
+  of a reservoir; never a first Russian sighting alone). **`difficulty` by how well the NAME is known**,
+  and **the source bar by difficulty** (`srcTargetFor`: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5), every URL
+  opened and re-checked with curl before the card is written in. **Three `why` items, a glossary term
+  per answer.** Tag 1 is `place`; then `geography`, `russia`, and the subject (`river`, `lake`, `sea`,
+  `strait`, `reservoir`, `waterfall`, `wetland`, `mountain`, `volcano`, `plateau`, `plain`, `cave`,
+  `crater`, `spit`, `valley`).
+- **The coordinate is FETCHED, never typed** (`add-card.js` / `add-locators.js`). Only a range's `spine`
+  is typed, and **a spine is built from the fetched coordinates of the range's own named peaks and
+  passes**, listed in the card's `notes` so it can be re-derived. **A range with no honest spine gets no
+  locator** and is then not a map question: such a card is listed in the batch log, not drawn as a dot.
+  A plain, a plateau or an upland is a point (`gc-904` the Tibetan Plateau is the precedent), at a zoom
+  that shows its whole extent.
+
+### Rivers: the `rivers.js` names, checked before writing
+
+**A river locator must trace its line**: `kind: "river"` with `locator.rivers` naming its EXACT
+`rivers.js` entries — 18 of the 19 US river cards silently drew only a dot until that was fixed. Every
+name below was read out of `rivers.js` on 2026-10-29, with each entry's extent:
+
+    Volga               Volga                                      one entry, source to the delta
+    Ob                  Ob, Malaya Ob                               Biysk to the Gulf of Ob; Malaya Ob is its own lower branch
+    Yenisei             Yenisey, Verkhniy Yenisey                   Kyzyl to the Kara Sea (Bol'shoy and Malyy Yenisey are
+                                                                    the headstreams ABOVE Kyzyl and are left out)
+    Lena                Lena                                        Baikal mountains to the delta head
+    Irtysh              Irtysh, Ertis, Ertix                        the Russian, Kazakh and Chinese stretches of ONE river
+    Don                 Don
+    Neva                Neva
+    Ural River          Ural
+    Kolyma              Kolyma
+    Kama                Kama
+    Angara              Angara                                      ⚠ its eastern piece is a lake centreline across
+                                                                    southern Baikal — check the drawing
+    Northern Dvina      Severnaya Dvina                             (the Sukhona and Vychegda are its sources and
+                                                                    tributary, left out)
+    Pechora             Pechora
+    Kuban               Kuban
+    Indigirka           Indigirka
+
+**⚠ `Oka` is TWO RIVERS in one entry** — the Volga's Oka (36–44° E) and the Angara's Oka in Siberia
+(100–102° E). Naming it would draw both, so `gru-821` keeps the dot and says "marked" (the two US Red
+Rivers exactly). **The Moskva is not in `rivers.js` at all**, so `gru-822` is a dot too. A river not on
+this list is checked the same way before its card is written.
+
+### The facts grid
+
+The US and China grids, with **Federal subjects** for States / Provinces (the 83 by this collection's own
+names, and a neighbouring country named where a feature is shared):
+
+    River:                 Length          | Drainage basin
+                           Source          | Mouth
+    Lake, sea, gulf, bay,  Surface area    | Maximum depth
+    reservoir, wetland:    Federal subjects| Outflow (a sea, gulf or bay: Opens to)
+    Strait:                Minimum width   | Maximum depth
+                           Shores          | Connects
+    Peak, volcano:         Elevation       | Prominence
+                           Federal subject | Range
+    Range:                 Highest point   | Length
+                           Federal subjects| Protected as
+    Plain, plateau,        Area            | Highest point (a plateau: Mean elevation)
+    upland, depression:    Federal subjects| Protected as
+    Waterfall:             Height          | Crest width
+                           River           | Federal subject
+    Cave:                  Surveyed length | Depth
+                           Federal subject | Protected as
+    Rock formation, spit,  Height (a spit: Length; a crater: Diameter) | Width (a crater: Depth)
+    crater, valley:        Federal subject | Protected as
+
+**Write `"?"` where no opened source gives the cell**, and name whose figure a length or an area is in
+`notes` when authorities differ (the Ob–Irtysh and Yenisei–Angara system lengths are not the rivers'
+own). Figures follow the collection's three-significant-digit rule only where a number is a population
+or an area large enough to need it (`1.36M km² (525,000 sq mi)`); lengths and heights are written plainly.
+
+### Names
+
+- **The answer is the English name Wikipedia uses, in this collection's transliteration** — *Yenisei*
+  (the corpus's 24 uses), *Irtysh*, *Northern Dvina*, *Klyuchevskaya Sopka*, *Mount Elbrus*. The glossary
+  slug is the article's title; where the title is a disambiguated form (`Ob_(river)`), the card's answer
+  is an alias on it.
+- **The Russian name is given once in the background where a source gives it**, and a Finnic, Turkic,
+  Mongolic or Paleo-Siberian name likewise (Ladoga's Finnish *Laatokka*, Baikal's Buryat name), never as
+  a glossary alias unless the corpus has been grepped for it.
+- **Existing glossary terms are REUSED, and corrected only if wrong**: `Volga`, `Caspian_Sea`,
+  `Black_Sea`, `Bering_Strait`, `Lake_Ladoga`, `Neva`, `Gulf_of_Finland`, `Don_(river)`, `Lake_Ilmen`,
+  `Ural_Mountains` and `Greater_Caucasus`/`Caucasus` (read both before keying the range). Grep the
+  glossary for every answer before `add-glossary.js`, which overwrites in silence.
+- **`SPELL_NAMES` applies** (the reader's English): nothing in this plan is on the table today, and a
+  renaming met while writing is a row there, not a card edit.
+
+### What is in, what is out, and why
+
+**In: features in the 83 federal subjects this collection draws** (the ISO 3166-2:RU rule above), with a
+shared feature carded WHOLE and its neighbours named plainly: the Caspian Sea (five shore states), the
+Black Sea, the Bering Strait (with the United States), the Irtysh (from China through Kazakhstan), the
+Ural River (Kazakhstan), Lake Peipus (Estonia), the Caucasus Mountains and Mount Kazbek (Georgia and
+Azerbaijan), the Caspian Depression (Kazakhstan) and the Curonian Spit (Lithuania).
+**The Black Sea's card names the dispute over Crimea once**, with General Assembly resolution 68/262,
+and goes no further: its Russian coast for the purpose of the facts grid is Krasnodar Krai.
+
+**Out, and why** — each checked against the `geo-`, `gc-`, `gw-` and whole-corpus answers on 2026-10-29:
+
+- **The Amur** is `gc-810` and **the Altai Mountains** `gc-926`; both are whole-feature cards already,
+  and the Amur's carries the Russian story (Albazin, Nerchinsk, Aigun, Damansky). Not repeated. The Altai
+  is carded here through **Belukha**, its highest peak, which stands in the Russian Altai — a point
+  `gc-926` names but does not ask. **The Ussuri** is in the Amur card's history.
+- **Denisova Cave** is `wh-039` (with `wh-038` the Denisovans). Not repeated.
+- **The Sea of Azov and the Kerch Strait**: their northern and western shores are the ground the General
+  Assembly's resolutions address, and a card would be a card about that standing rather than about water
+  (the China plan's Taiwan Strait reasoning). The Don's card ends at its mouth.
+- **The Sea of Japan**: shared with three countries and carries a naming dispute that is Korea's and
+  Japan's to state; Russia's coast on it is Primorsky Krai's subject card. **The Baltic Sea**: nine
+  shore states, and Russia's two pieces of it are carded as the Gulf of Finland and the Curonian Spit.
+  **La Pérouse Strait**, **the Kuril Islands** and the oceans are out for the same reasons.
+- **The Dnieper, the Western Dvina and the Neman**: each rises in or crosses Russia but runs mostly
+  through Belarus, Ukraine or Lithuania; they belong to a deck of those countries. **The Selenga and Lake
+  Khanka** are mostly Mongolian and shared with China respectively, and the deck has forty better-placed
+  subjects.
+- **Peninsulas as peninsulas** (Kamchatka, Yamal, Taymyr, Kola, Chukotka): their subjects' map cards
+  already draw them (`gru-077` Kamchatka Krai, `gru-072` Yamalo-Nenets). Kamchatka's volcanoes are in.
+- **Glaciers, springs, aquifers, national parks as parks, and dams as cards** (the Rybinsk Reservoir is a
+  card because the flooding of Mologa is the reservoir's own history).
+
+### How the running orders were chosen
+
+**By how well the name is known**, the US and China decks' axis and `difficulty`'s: 1–10 household names,
+11–22 familiar from school, 23–32 known to the interested, 33–40 the hard ones, each band mixing kinds.
+A plan line is a subject to research, not a fact: re-order, re-band or replace a line in the same commit
+as its card when the research says so, and record it in the batch log.
+
 ---
 
 # The list
@@ -494,6 +651,99 @@ layer draws Abakan outside the republic. See "Three capital numbers are never wr
   gru-581  Magadan
   gru-582  Anadyr
   gru-583  Naryan-Mar
+
+## Rivers, lakes and seas — `geo-russia-water`
+
+Forty cards: rivers, lakes, seas, gulfs, straits, a reservoir, a waterfall and a wetland, each a map
+question on a locator (see "The physical decks" above). A river is traced by the `rivers.js` names that
+section lists; `gru-821` and `gru-822` are dots and say "marked".
+
+  gru-801  Volga
+  gru-802  Lake Baikal
+  gru-803  Caspian Sea
+  gru-804  Black Sea
+  gru-805  Bering Strait
+  gru-806  Ob
+  gru-807  Yenisei
+  gru-808  Lena
+  gru-809  White Sea
+  gru-810  Lake Ladoga
+  gru-811  Don
+  gru-812  Barents Sea
+  gru-813  Sea of Okhotsk
+  gru-814  Neva
+  gru-815  Irtysh
+  gru-816  Kara Sea
+  gru-817  Gulf of Finland
+  gru-818  Lake Onega
+  gru-819  Ural River
+  gru-820  Kolyma
+  gru-821  Oka (a dot: rivers.js holds two Okas in one entry)
+  gru-822  Moskva (a dot: not in rivers.js)
+  gru-823  Kama
+  gru-824  Angara
+  gru-825  Northern Dvina
+  gru-826  Lake Peipus
+  gru-827  Pechora
+  gru-828  Rybinsk Reservoir
+  gru-829  Laptev Sea
+  gru-830  Chukchi Sea
+  gru-831  Lake Teletskoye
+  gru-832  Kuban
+  gru-833  Strait of Tartary
+  gru-834  Indigirka
+  gru-835  Lake Ilmen
+  gru-836  Kivach Falls
+  gru-837  Gulf of Ob
+  gru-838  Avacha Bay
+  gru-839  Lake Elton
+  gru-840  Vasyugan Swamp
+
+## Mountains, plains and caves — `geo-russia-mountains`
+
+Forty cards: peaks, volcanoes, ranges, plains, plateaus, caves, rock formations, two craters and a spit.
+A range is drawn on a spine built from its own peaks' fetched coordinates, or carries no locator.
+
+  gru-901  Ural Mountains
+  gru-902  Mount Elbrus
+  gru-903  Caucasus Mountains
+  gru-904  Klyuchevskaya Sopka
+  gru-905  West Siberian Plain
+  gru-906  Valley of Geysers
+  gru-907  East European Plain
+  gru-908  Central Siberian Plateau
+  gru-909  Putorana Plateau
+  gru-910  Verkhoyansk Range
+  gru-911  Sayan Mountains
+  gru-912  Khibiny Mountains
+  gru-913  Kungur Ice Cave
+  gru-914  Lena Pillars
+  gru-915  Belukha
+  gru-916  Mount Kazbek
+  gru-917  Avachinsky
+  gru-918  Sikhote-Alin
+  gru-919  Kapova Cave
+  gru-920  Valdai Hills
+  gru-921  Central Russian Upland
+  gru-922  Stanovoy Range
+  gru-923  Manpupuner rock formations
+  gru-924  Chersky Range
+  gru-925  Shiveluch
+  gru-926  Mount Narodnaya
+  gru-927  Caspian Depression
+  gru-928  Zhiguli Mountains
+  gru-929  Tolbachik
+  gru-930  Batagaika crater
+  gru-931  Byrranga Mountains
+  gru-932  Mashuk
+  gru-933  Krasnoyarsk Stolby
+  gru-934  Dykh-Tau
+  gru-935  Kuznetsk Alatau
+  gru-936  Curonian Spit
+  gru-937  Ilmensky Mountains
+  gru-938  Orda Cave
+  gru-939  Barguzin Range
+  gru-940  Popigai crater
 
 ## ⚠⚠ THE FACTS GRID CANNOT BE FILLED FOR A NON-CITY SUBJECT, AND THAT BLOCKS 81 CARDS
 
