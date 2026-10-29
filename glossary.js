@@ -7364,7 +7364,29 @@ window.GLOSSARY = {
 "Theophrastus": "",
 "Thomas_Young_(scientist)": "",
 "Tomb_of_Alexander_the_Great": "",
-"Zythos": ""
+"Zythos": "",
+"Oka_(river)": "",
+"Moskva_(river)": "",
+"Kama_(river)": "",
+"Angara": "",
+"Northern_Dvina": "",
+"Lake_Peipus": "",
+"Pechora_(river)": "",
+"Rybinsk_Reservoir": "",
+"Laptev_Sea": "",
+"Chukchi_Sea": "",
+"Lake_Teletskoye": "",
+"Kuban_(river)": "",
+"Strait_of_Tartary": "",
+"Indigirka": "",
+"Kivach_Falls": "",
+"Gulf_of_Ob": "",
+"Avacha_Bay": "",
+"Lake_Baikal": "",
+"Ob": "",
+"Yenisei": "",
+"Lena_River": "",
+"White_Sea": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15706,7 +15728,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tell_es-Safi": ["Tell es-Safi/Gath","Tell eṣ-Ṣâfi","Tel Zafit"],
 "Tomb_of_Alexander_the_Great": ["Soma of Alexandria"],
 "Zythos": ["zythum","zythus"],
-"Nubia": ["Nubian"]
+"Nubia": ["Nubian"],
+"Oka_(river)": ["Oka River"],
+"Moskva_(river)": ["Moskva River"],
+"Kama_(river)": ["Kama River"],
+"Angara": ["Angara River"],
+"Pechora_(river)": ["Pechora River"],
+"Kuban_(river)": ["Kuban River"],
+"Indigirka": ["Indigirka River"],
+"Ob": ["Ob River"],
+"Yenisei": ["Yenisei River"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23212,7 +23243,29 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Theophrastus": ["person","philosophy","science","botany","greece","classical"],
 "Thomas_Young_(scientist)": ["person","science","history","egypt","writing","england"],
 "Tomb_of_Alexander_the_Great": ["building","history","archaeology","egypt","alexandria","hellenistic"],
-"Zythos": ["substance","food","history","egypt","drink"]
+"Zythos": ["substance","food","history","egypt","drink"],
+"Oka_(river)": ["place","geography","russia","river"],
+"Moskva_(river)": ["place","geography","russia","river","moscow"],
+"Kama_(river)": ["place","geography","russia","river","urals"],
+"Angara": ["place","geography","russia","river","siberia"],
+"Northern_Dvina": ["place","geography","russia","river","arctic"],
+"Lake_Peipus": ["place","geography","russia","lake","estonia"],
+"Pechora_(river)": ["place","geography","russia","river","arctic"],
+"Rybinsk_Reservoir": ["place","geography","russia","reservoir","volga"],
+"Laptev_Sea": ["place","geography","russia","sea","arctic"],
+"Chukchi_Sea": ["place","geography","russia","sea","arctic","united states"],
+"Lake_Teletskoye": ["place","geography","russia","lake","altai"],
+"Kuban_(river)": ["place","geography","russia","river","caucasus"],
+"Strait_of_Tartary": ["place","geography","russia","strait","sakhalin"],
+"Indigirka": ["place","geography","russia","river","siberia"],
+"Kivach_Falls": ["place","geography","russia","waterfall","karelia"],
+"Gulf_of_Ob": ["place","geography","russia","gulf","arctic"],
+"Avacha_Bay": ["place","geography","russia","bay","kamchatka"],
+"Lake_Baikal": ["place","geography","russia","lake","siberia"],
+"Ob": ["place","geography","russia","river","siberia"],
+"Yenisei": ["place","geography","russia","river","siberia"],
+"Lena_River": ["place","geography","russia","river","siberia"],
+"White_Sea": ["place","geography","russia","sea","arctic"]
 });
 
 /* ============================================================================

@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-23T23:03Z",
+ "generated": "2026-10-29T20:19Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5088,
-  "redirect-broader": 464,
+  "ok": 5107,
+  "redirect-broader": 475,
   "redirect-variant": 331,
   "section-redirect": 104,
   "disambiguation": 138,
@@ -58602,6 +58602,227 @@
    "answer": "Xiaozhai Tiankeng",
    "title": "Xiaozhai Tiankeng",
    "url": "https://en.wikipedia.org/wiki/Xiaozhai_Tiankeng",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-823": {
+   "answer": "Oka River",
+   "title": "Oka (river)",
+   "url": "https://en.wikipedia.org/wiki/Oka_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Oka River"
+  },
+  "gru-824": {
+   "answer": "Moskva River",
+   "title": "Moskva (river)",
+   "url": "https://en.wikipedia.org/wiki/Moskva_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Moskva River"
+  },
+  "gru-825": {
+   "answer": "Kama River",
+   "title": "Kama (river)",
+   "url": "https://en.wikipedia.org/wiki/Kama_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kama River"
+  },
+  "gru-826": {
+   "answer": "Angara River",
+   "title": "Angara",
+   "url": "https://en.wikipedia.org/wiki/Angara",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angara River"
+  },
+  "gru-827": {
+   "answer": "Northern Dvina",
+   "title": "Northern Dvina",
+   "url": "https://en.wikipedia.org/wiki/Northern_Dvina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-828": {
+   "answer": "Lake Peipus",
+   "title": "Lake Peipus",
+   "url": "https://en.wikipedia.org/wiki/Lake_Peipus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-829": {
+   "answer": "Pechora River",
+   "title": "Pechora (river)",
+   "url": "https://en.wikipedia.org/wiki/Pechora_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Pechora River"
+  },
+  "gru-830": {
+   "answer": "Rybinsk Reservoir",
+   "title": "Rybinsk Reservoir",
+   "url": "https://en.wikipedia.org/wiki/Rybinsk_Reservoir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-831": {
+   "answer": "Laptev Sea",
+   "title": "Laptev Sea",
+   "url": "https://en.wikipedia.org/wiki/Laptev_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-832": {
+   "answer": "Chukchi Sea",
+   "title": "Chukchi Sea",
+   "url": "https://en.wikipedia.org/wiki/Chukchi_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-833": {
+   "answer": "Lake Teletskoye",
+   "title": "Lake Teletskoye",
+   "url": "https://en.wikipedia.org/wiki/Lake_Teletskoye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-834": {
+   "answer": "Kuban River",
+   "title": "Kuban (river)",
+   "url": "https://en.wikipedia.org/wiki/Kuban_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kuban River"
+  },
+  "gru-835": {
+   "answer": "Strait of Tartary",
+   "title": "Strait of Tartary",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Tartary",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-836": {
+   "answer": "Indigirka River",
+   "title": "Indigirka",
+   "url": "https://en.wikipedia.org/wiki/Indigirka",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Indigirka River"
+  },
+  "gru-837": {
+   "answer": "Lake Ilmen",
+   "title": "Lake Ilmen",
+   "url": "https://en.wikipedia.org/wiki/Lake_Ilmen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-838": {
+   "answer": "Kivach Falls",
+   "title": "Kivach Falls",
+   "url": "https://en.wikipedia.org/wiki/Kivach_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-839": {
+   "answer": "Gulf of Ob",
+   "title": "Gulf of Ob",
+   "url": "https://en.wikipedia.org/wiki/Gulf_of_Ob",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-840": {
+   "answer": "Avacha Bay",
+   "title": "Avacha Bay",
+   "url": "https://en.wikipedia.org/wiki/Avacha_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-805": {
+   "answer": "Baltic Sea",
+   "title": "Baltic Sea",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-806": {
+   "answer": "Amur River",
+   "title": "Amur",
+   "url": "https://en.wikipedia.org/wiki/Amur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Amur River"
+  },
+  "gru-801": {
+   "answer": "Volga River",
+   "title": "Volga",
+   "url": "https://en.wikipedia.org/wiki/Volga",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Volga River"
+  },
+  "gru-802": {
+   "answer": "Lake Baikal",
+   "title": "Lake Baikal",
+   "url": "https://en.wikipedia.org/wiki/Lake_Baikal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-803": {
+   "answer": "Caspian Sea",
+   "title": "Caspian Sea",
+   "url": "https://en.wikipedia.org/wiki/Caspian_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-804": {
+   "answer": "Black Sea",
+   "title": "Black Sea",
+   "url": "https://en.wikipedia.org/wiki/Black_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-807": {
+   "answer": "Bering Strait",
+   "title": "Bering Strait",
+   "url": "https://en.wikipedia.org/wiki/Bering_Strait",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-808": {
+   "answer": "Ob River",
+   "title": "Ob",
+   "url": "https://en.wikipedia.org/wiki/Ob",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ob River"
+  },
+  "gru-809": {
+   "answer": "Yenisei River",
+   "title": "Yenisei",
+   "url": "https://en.wikipedia.org/wiki/Yenisei",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Yenisei River"
+  },
+  "gru-810": {
+   "answer": "Lena River",
+   "title": "Lena River",
+   "url": "https://en.wikipedia.org/wiki/Lena_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-811": {
+   "answer": "White Sea",
+   "title": "White Sea",
+   "url": "https://en.wikipedia.org/wiki/White_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-812": {
+   "answer": "Lake Ladoga",
+   "title": "Lake Ladoga",
+   "url": "https://en.wikipedia.org/wiki/Lake_Ladoga",
    "via": "glossary",
    "status": "ok"
   }
