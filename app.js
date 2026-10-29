@@ -23728,12 +23728,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const long = []; ps.forEach((x, j) => { if ((x.textContent || "").trim().length >= 160) long.push(j); });
       i = long.length ? long[Math.floor(Math.random() * long.length)] : Math.floor(Math.random() * ps.length);
     }
-    const p = ps[i];
-    p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
-    p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
-    let text = (p.textContent || "").replace(/\s+/g, " ").trim();
+    /* TWICE AS LONG (Oct 2026, on request: "make the next up excerpts twice as long"): 600 characters where it
+       was 300, and the box shows six and a half lines where it showed three (.hb-next-p). A paragraph shorter
+       than that is followed by the next ones of the chapter, so a short paragraph does not leave the box
+       half the length it was asked to be. */
+    const HB_NEXT_MAX = 600;
+    const ptext = (p) => {
+      p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
+      p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
+      return (p.textContent || "").replace(/\s+/g, " ").trim();
+    };
+    let text = ptext(ps[i]);
     if (!text) return "";
-    if (text.length > 300) { text = text.slice(0, 300); text = text.slice(0, Math.max(0, text.lastIndexOf(" "))) + "\u2026"; }
+    for (let j = i + 1; j < ps.length && text.length < HB_NEXT_MAX; j++) { const t = ptext(ps[j]); if (t) text += " " + t; }
+    if (text.length > HB_NEXT_MAX) { text = text.slice(0, HB_NEXT_MAX); text = text.slice(0, Math.max(0, text.lastIndexOf(" "))) + "\u2026"; }
     const num = b.chapterWord + " " + c.n;
     const label = num + (c.t && c.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + c.t : "");   // a title that is only the number is said once
     return '<span class="hb-next" data-n="' + esc(String(c.n)) + '" title="Open ' + esc(label) + '">' +
@@ -34432,6 +34440,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const TINT_LOSE = { rgb: "198,54,48", fillA: 0.32, line: "rgba(230,92,84,1)", glow: "rgba(216,72,64,0.7)" };
   // an organisation's LATER members beside its original ones in the selection gold (`cardMembers` groups, 2026-10-25): a blue no reader can take for the gold, the green or the red
   const TINT_LATE = { rgb: "64,128,214", fillA: 0.3, line: "rgba(96,156,236,1)", glow: "rgba(80,140,226,0.7)" };
+  // a third group (2026-10-29, the Three Kingdoms: three states, three colours): a plum, apart from the gold, the blue and the war's green and red
+  const TINT_THIRD = { rgb: "160,72,170", fillA: 0.3, line: "rgba(176,92,190,1)", glow: "rgba(168,84,180,0.7)" };
   const CARD_MAP_LAYERS = {
     /* A layer names the words a card window and its question use (`what`, `plural`, `dotWhat`) and — where the layer has one — says that a card may put a dot on a city (`points`, `pointsAlt`: the names of the old point tables). Since
        Phase 5 the SHAPES and the DOTS are the engine's (atlas/data/card-faces.js: layer → key → entity, layer → dot → point; the old bundles us-states.js, china-provinces.js, russia-subjects.js, world.js and the capitals tables are gone) and
@@ -34731,7 +34741,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
-    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, GAME_MAX_DIFFICULTY,
+    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr };
   }
@@ -35088,7 +35098,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the font (Chinese gets the site's own `--han`; Japanese falls through to the reader's system CJK font,
      as Japanese body text does by design) and whether a traditional form is shown (Japanese has no second
      script here). Add a row for a new collection. `.claude/set-ja-names.js` writes the Japan data. */
-  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }]];
+  // `ko-` (Oct 2026, on request: "in the Korea history collection, add Korean translations to each answer term"): Hangul in
+  // `hanzi`, the Revised Romanization in `pinyin`, written by `.claude/set-ko-names.js`; set in the reader's system font, as Japanese is
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }]];
   const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
   /* …AND A PREFIX THAT HOLDS MORE THAN ONE COUNTRY SAYS IT BY TAG (Oct 2026, on request: Politics: East Asia's
      Japan terms showed a Chinese translation). `pea-` is a course on China, Japan and the Koreas, so the
@@ -35986,7 +35998,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const within = String(l.within || "").trim();
     const lab = Array.isArray(l.label) && l.label.length === 2 && isFinite(Number(l.label[0])) && isFinite(Number(l.label[1]))
       ? [Number(l.label[0]), Number(l.label[1])] : null;
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab };
+    /* `hide` (Oct 2026, on request: "remove Burkhan Khaldun from the atlas window" of the Eurasian Steppe): names of OTHER cards' places this
+       card's window leaves off — a sibling the reader has studied that would otherwise be drawn on it. Matched against the sibling's mark name. */
+    const hide = Array.isArray(l.hide) ? l.hide.map((h) => String(h || "").trim().toLowerCase()).filter(Boolean) : [];
+    /* `also` (Oct 2026, on request: the stone circle card's window "with Ōyu and Isedotai"): further places of the card's OWN subject, each { name, at },
+       drawn as a named dot beside the card's own — for a card that is about two sites at once. The coordinates are fetched like `at`, never typed. */
+    const also = Array.isArray(l.also) ? l.also.map((a) => {
+      const p = a && Array.isArray(a.at) ? [Number(a.at[0]), Number(a.at[1])] : null;
+      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p } : null;
+    }).filter(Boolean) : [];
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also };
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -36070,12 +36091,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        window draws that year's states (history.bin entities, `ids`) and tints the first group gold and the second blue (TINT_LATE); `keys` stay as the present-day
        fallback for a browser that cannot draw a past year, and frame the window. Each group is a row of the key with its own swatch. */
     const year = Number.isInteger(m.year) ? m.year : null;
-    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 2);
-    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups };
+    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 3);   // three since 2026-10-29 (TINT_THIRD)
+    /* `span: [y0, y1]` (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): a members window on a past
+       year carries the war windows' timeline over those years, stepping where its states change (`entsTimeline` in atlas.js); `year` is where the pin opens. */
+    const span = groups.length && Array.isArray(m.span) && m.span.length === 2 && Number.isInteger(m.span[0]) && Number.isInteger(m.span[1]) && m.span[0] < m.span[1] ? [m.span[0], m.span[1]] : null;
+    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0 };
   }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
-    if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i ? TINT_LATE : TINT_SEL) +
+    if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i === 2 ? "wk-third" : i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i === 2 ? TINT_THIRD : i ? TINT_LATE : TINT_SEL) +
       '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + "</div>";
     return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
       '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span></div>";
@@ -36245,7 +36269,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const said = (w
       ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
         w.losers.name + ", defeated, shaded red. "
-      : m && m.groups.length ? m.name + " on an interactive globe of the borders of " + m.year + ": " + m.groups.map((g, i) => g.name + (i ? " in blue" : " in gold")).join(", ") + (atName ? "; " + atName + " marked" : "") + ". "
+      : m && m.groups.length ? m.name + " on an interactive globe of the borders of " + m.year + ": " + m.groups.map((g, i) => g.name + (i === 2 ? " in plum" : i ? " in blue" : " in gold")).join(", ") + (atName ? "; " + atName + " marked" : "") + "." + (m.span ? " A timeline under it steps through the years " + m.span[0] + " to " + m.span[1] + "." : "") + " "
       : m ? m.name + " shaded in gold on an interactive globe of today's countries" + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
@@ -36254,7 +36278,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
       (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
-      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' : "") +
+      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
       (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +
@@ -36278,7 +36302,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          with Rome and Samnium a smudge in the middle of it. A locator's zoom was chosen to frame a DOT;
          the window's subject here is the war, so the only zoom that may override the war's own fit is
          the war's own. */
-      ((w ? w.zoom : l && l.zoom) ? ' data-map-zoom="' + (w ? w.zoom : l.zoom) + '"' : "") + ">" +
+      ((w ? w.zoom : l ? l.zoom : m && m.zoom) ? ' data-map-zoom="' + (w ? w.zoom : l ? l.zoom : m.zoom) + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
       '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
@@ -37870,21 +37894,119 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      cannot move an edit onto its neighbour. A value is the whole replacement statement, or null for one
      taken out of play; the edit reaches every reader through `content_overrides` with no deploy, and
      truefalse.js itself is never rewritten by the app. */
-  function truefalsePool() {
+  function truefalsePool() { return truefalseKeyed().map((e) => e.it); }
+  // the same pool with each statement's SHIPPED key beside it, for the in-game admin controls below
+  function truefalseKeyed() {
     const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
-    return (window.TRUEFALSE || []).map((x) => (x && Object.prototype.hasOwnProperty.call(ov, x.q)) ? ov[x.q] : x).filter(Boolean);
+    return (window.TRUEFALSE || []).filter(Boolean)
+      .map((x) => ({ k: x.q, it: Object.prototype.hasOwnProperty.call(ov, x.q) ? ov[x.q] : x }))
+      .filter((e) => e.it);
   }
+  /* …AND FROM INSIDE THE GAME ITSELF (Oct 2026, on request: "as an admin, allow me to edit and remove True or
+     False minigame questions"). The list on the admin page's Quotes tab sat under two other pools and was
+     not found, so an admin now gets Edit and Remove beside the statement while playing, and on the results
+     screen. Both doors write through these two functions, so the overlay's shape and the validation are
+     one thing. `tfFormHTML` is the form both draw; `tfFormRead` returns the statement or an error string. */
+  function tfShipped(k) { return (window.TRUEFALSE || []).find((x) => x && x.q === k) || null; }
+  function tfFormHTML(k, it, extraActs) {
+    const src = Array.isArray(it.src) ? it.src.join("\n") : "";
+    const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
+    const edited = Object.prototype.hasOwnProperty.call(ov, k) && ov[k] !== null;
+    return '<div class="q-form tf-form" data-tfform="' + esc(k) + '">' +
+      '<div class="q-form-head"><b>Edit statement</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source. Metric first with the imperial in brackets, British spelling.</span></div>' +
+      '<label class="admin-field"><span class="af-label">the statement</span><textarea class="af-input" data-tff="q" rows="2">' + esc(it.q || "") + "</textarea></label>" +
+      '<label class="admin-field"><span class="af-label">the answer</span><select class="af-input" data-tff="a">' +
+        '<option value="true"' + (it.a ? " selected" : "") + '>True — a fact</option>' +
+        '<option value="false"' + (it.a ? "" : " selected") + '>False — a myth</option></select></label>' +
+      '<label class="admin-field"><span class="af-label">category</span><input class="af-input" type="text" data-tff="cat" value="' + esc(it.cat || "") + '" /></label>' +
+      '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-tff="why" rows="5">' + esc(it.why || "") + "</textarea></label>" +
+      '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-tff="src" rows="3">' + esc(src) + "</textarea></label>" +
+      '<div class="q-form-acts">' +
+        '<button class="mini-btn" type="button" data-tfcancel>Cancel</button>' +
+        (edited ? '<button class="mini-btn" type="button" data-tfrevert="' + esc(k) + '">Revert</button>' : "") +
+        (extraActs || "") +
+        '<button class="admin-new" type="button" data-tfsave="' + esc(k) + '">Save</button>' +
+      "</div></div>";
+  }
+  function tfFormSave(k, f) {
+    const v = (n) => (f.querySelector('[data-tff="' + n + '"]').value || "").trim();
+    const q = v("q").replace(/\s+/g, " "), why = v("why");
+    if (!q) return "A statement needs its words.";
+    if (!why) return "A statement needs its explanation.";
+    const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
+    // the house form ends in the URL, optionally followed by a `[in French]` / `[Open access]` label
+    const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
+    if (bad) return "Every source must end in the URL a reader can check it at.";
+    const marks = (why.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
+    if (marks.some((n) => n < 1 || n > src.length)) return "A footnote marker points past the end of the sources.";
+    const it = { q: q, a: v("a") === "true", why: why, cat: v("cat") };
+    if (src.length) it.src = src;
+    const orig = tfShipped(k), ov = ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
+    // typing the shipped statement back clears the edit rather than storing a copy of it
+    const same = orig && orig.q === it.q && !!orig.a === it.a && (orig.why || "") === it.why && (orig.cat || "") === it.cat &&
+      JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
+    if (same) delete ov[k]; else ov[k] = it;
+    saveAdminEdits();
+    return null;
+  }
+  // Remove is a toggle: a second press puts the shipped statement back
+  function tfToggleRemoved(k) {
+    const ov = ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
+    const wasOff = Object.prototype.hasOwnProperty.call(ov, k) && ov[k] === null;
+    if (wasOff) delete ov[k]; else ov[k] = null;
+    saveAdminEdits();
+    return !wasOff;
+  }
+  function tfIsRemoved(k) { const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {}; return Object.prototype.hasOwnProperty.call(ov, k) && ov[k] === null; }
   PAGES.truefalse = function (root) {
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
     if (gameLockedToday(root, "truefalse")) return;
     if (gamesI18nPending(root)) return;
-    const POOL = truefalsePool().map((x) => tfLocalized(x));
+    const KEYED = truefalseKeyed();
+    const POOL = KEYED.map((e) => tfLocalized(e.it));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
     // the day's five, distinct and the same for every reader — see dayPick
-    const picks = dayPick("truefalse", POOL.map((_, i) => i), ROUNDS).map((i) => POOL[i]);
+    const pickIx = dayPick("truefalse", POOL.map((_, i) => i), ROUNDS);
+    const picks = pickIx.map((i) => POOL[i]);
+    const pickKeys = pickIx.map((i) => KEYED[i].k);   // the shipped key each pick is filed under (admin edits)
     let r = 0, score = 0; const results = [];
+    /* The admin's controls (see tfFormHTML). Edit swaps the statement's block for the form; Save rewrites
+       this game's copy too, so the round goes on with the corrected words. Remove takes the statement out of
+       every later draw and is undone by the same button. */
+    const tfAdminBar = (k) => !isAdmin() ? "" :
+      '<div class="tf-adminbar"><span class="tf-adminbar-l">Admin</span>' +
+      (tfIsRemoved(k) ? '<span class="q-pill q-edited">removed from the pool</span>' : '<button type="button" class="mini-btn" data-tfg-edit="' + esc(k) + '">Edit</button>') +
+      '<button type="button" class="mini-btn' + (tfIsRemoved(k) ? "" : " danger") + '" data-tfg-off="' + esc(k) + '">' + (tfIsRemoved(k) ? "Restore" : "Remove") + "</button></div>";
+    function wireTfGameAdmin(scope, redraw) {
+      if (!isAdmin()) return;
+      scope.querySelectorAll("[data-tfg-off]").forEach((b) => b.addEventListener("click", () => {
+        const off = tfToggleRemoved(b.dataset.tfgOff);
+        toast(off ? "Removed from True or False — it leaves the pool from the next draw" : "Restored to True or False");
+        redraw();
+      }));
+      scope.querySelectorAll("[data-tfg-edit]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfgEdit, ix = pickKeys.indexOf(k);
+        const ov = ADMIN_EDITS.truefalse || {};
+        const it = Object.prototype.hasOwnProperty.call(ov, k) && ov[k] ? ov[k] : tfShipped(k);
+        const host = b.closest(".tf-edit-host");
+        if (!host || !it) return;
+        host.innerHTML = tfFormHTML(k, it);
+        const f = host.querySelector(".tf-form");
+        f.querySelector("[data-tfcancel]").addEventListener("click", redraw);
+        const rv = f.querySelector("[data-tfrevert]");
+        if (rv) rv.addEventListener("click", () => { delete ADMIN_EDITS.truefalse[k]; saveAdminEdits(); if (ix >= 0) picks[ix] = tfLocalized(tfShipped(k)); toast("Reverted"); redraw(); });
+        f.querySelector("[data-tfsave]").addEventListener("click", () => {
+          const err = tfFormSave(k, f);
+          if (err) { toast(err); return; }
+          const now = (ADMIN_EDITS.truefalse || {})[k] || tfShipped(k);
+          if (ix >= 0 && now) picks[ix] = tfLocalized(now);
+          toast("Statement saved"); redraw();
+        });
+        f.scrollIntoView({ block: "nearest" });
+      }));
+    }
 
     renderRound();
     function pips() { return `<div class="tf-pips">${picks.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
@@ -37898,8 +38020,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
           ${pips()}
           <div class="dc-q">
+            <div class="tf-edit-host">
             <div class="dc-meta"><span>${esc(it.cat)}</span><span>Myth or fact?</span></div>
             <p class="qtext" style="font-size:21px">${esc(it.q)}</p>
+            ${tfAdminBar(pickKeys[r])}
+            </div>
             <div class="tf-opts" id="tfopts">
               <button class="opt" data-v="1"><span class="key">T</span><span>True</span></button>
               <button class="opt" data-v="0"><span class="key">F</span><span>False</span></button>
@@ -37908,6 +38033,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
         </div>`;
       root.querySelectorAll("#tfopts .opt").forEach((b) => b.addEventListener("click", () => answer(b.dataset.v === "1", b)));
+      wireTfGameAdmin(root.querySelector(".dc-q"), () => { if (results.length > r) { renderRound(); replayAnswer(); } else renderRound(); });
+    }
+    // after an admin's edit mid-reveal, draw the round again in its answered state
+    function replayAnswer() {
+      const it = picks[r], correct = !!results[r];
+      const guessed = correct ? it.a : !it.a;
+      const btn = root.querySelector('#tfopts .opt[data-v="' + (guessed ? "1" : "0") + '"]');
+      if (correct) score--;
+      answer(guessed, btn);
     }
     function answer(guess, btn) {
       const it = picks[r], correct = guess === it.a; results[r] = correct; if (correct) score++;
@@ -37923,6 +38057,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function renderEnd() {
       markGamePlayed("truefalse", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
+      drawEnd();
+    }
+    function drawEnd() {
       // the closing line no longer invites a replay — there isn't one until tomorrow
       const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises.";
       root.innerHTML = `
@@ -37932,13 +38069,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${picks.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
+              <div class="tf-edit-host"><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}${tfAdminBar(pickKeys[k])}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#tf-home").addEventListener("click", () => route("home"));
+      wireTfGameAdmin(root.querySelector(".tf-summary"), drawEnd);
     }
   };
 
@@ -43569,20 +43707,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const panel = document.createElement("div"); panel.className = "gloss-picker";
     panel.innerHTML = '<input class="gp-search" type="text" placeholder="Search glossary terms…" /><div class="gp-list"></div>';
     document.body.appendChild(panel);
-    panel.style.left = Math.max(6, Math.min(x, window.innerWidth - panel.offsetWidth - 8)) + "px";
-    panel.style.top = Math.max(6, Math.min(y, window.innerHeight - panel.offsetHeight - 8)) + "px";
     const search = panel.querySelector(".gp-search"), list = panel.querySelector(".gp-list");
+    /* EVERY MATCH CAN BE REACHED (Oct 2026, on request: "i can only scroll so far down in the 'Link term' popup
+       list … so i can't see all the options"). Two things stopped it: the list was cut at its first 60
+       matches, and the panel was placed while still empty, so once filled it could hang past the bottom of
+       the window with its last rows unreachable. Now every match is listed — drawn 80 at a time as the list
+       is scrolled, so seven thousand terms cost nothing until they are wanted — and the panel is placed
+       AFTER it is filled, its list shortened to the room the window has. */
+    const place = () => {
+      const vh = window.innerHeight;
+      list.style.maxHeight = "";
+      const room = Math.max(120, vh - 16 - (panel.offsetHeight - list.offsetHeight));
+      list.style.maxHeight = Math.min(parseFloat(getComputedStyle(list).maxHeight) || 236, room) + "px";
+      panel.style.left = Math.max(6, Math.min(x, window.innerWidth - panel.offsetWidth - 8)) + "px";
+      panel.style.top = Math.max(6, Math.min(y, vh - panel.offsetHeight - 8)) + "px";
+    };
     const fold = (s) => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");   // diacritic-insensitive: "nuwa" matches "Nuwa"
+    const GP_STEP = 80;
+    let matches = [], shown = 0;
+    const itemHTML = (o) => '<button type="button" class="gp-item" data-k="' + esc(o.k) + '">' + esc(o.t) + (o.tg.length ? '<span class="gp-tags">' + esc(o.tg.join(", ")) + '</span>' : '') + '</button>';
+    function more() {
+      if (shown >= matches.length) return;
+      const next = matches.slice(shown, shown + GP_STEP);
+      shown += next.length;
+      const foot = list.querySelector(".gp-more"); if (foot) foot.remove();
+      list.insertAdjacentHTML("beforeend", next.map(itemHTML).join("") + (shown < matches.length ? '<div class="gp-more">' + (matches.length - shown) + " more \u2014 keep scrolling</div>" : ""));
+    }
+    list.addEventListener("scroll", () => { if (list.scrollTop + list.clientHeight >= list.scrollHeight - 60) more(); });
+    // one delegated listener, so rows appended by more() pick far as well as the first ones
+    list.addEventListener("mousedown", (ev) => {
+      const b = ev.target.closest("[data-k]"); if (!b) return;
+      ev.preventDefault(); onPick(b.dataset.k); closeGlossPicker();
+    });
     function render() {
       const q = fold(search.value.trim());
-      const items = Object.keys(window.GLOSSARY || {}).map((k) => ({ k: k, t: glossTitle(k), tg: glossTags(k) }))
+      matches = Object.keys(window.GLOSSARY || {}).map((k) => ({ k: k, t: glossTitle(k), tg: glossTags(k) }))
         .filter((o) => o.k !== excludeKey && (!q || fold(o.t).includes(q) || fold(o.k).includes(q) || fold(o.tg.join(", ")).includes(q)))
-        .sort((a, b) => a.t.localeCompare(b.t)).slice(0, 60);
-      list.innerHTML = items.length ? items.map((o) => '<button type="button" class="gp-item" data-k="' + esc(o.k) + '">' + esc(o.t) + (o.tg.length ? '<span class="gp-tags">' + esc(o.tg.join(", ")) + '</span>' : '') + '</button>').join("") : '<div class="gp-empty">No glossary terms match.</div>';
-      list.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("mousedown", (ev) => { ev.preventDefault(); onPick(b.dataset.k); closeGlossPicker(); }));
+        .sort((a, b) => a.t.localeCompare(b.t));
+      shown = 0; list.innerHTML = ""; list.scrollTop = 0;
+      if (!matches.length) { list.innerHTML = '<div class="gp-empty">No glossary terms match.</div>'; return; }
+      more();
     }
     search.value = preFilter || ""; render();
     if (preFilter && !list.querySelector(".gp-item")) { search.value = ""; render(); }   // the selection wasn't a term name → just show all terms
+    place();
     search.addEventListener("input", render);
     search.focus(); search.select();
     setTimeout(() => { document.addEventListener("mousedown", glossPickerOutside, true); document.addEventListener("keydown", glossPickerEsc, true); }, 0);
@@ -44632,7 +44800,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="ces-qtools"><button type="button" class="ces-qtool" id="cesQAdd" title="A card asks one of its questions at random each time it is shown">+ Add another question</button><button type="button" class="ces-qtool ces-qtool-del" id="cesQDel" hidden>Remove this question</button></div>' +
           '<div class="reveal show"><div class="reveal-inner">' +
             '<div class="answer"><div class="answer-main"><span class="label">Answer</span>' +
-              '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
+              '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div>' +
+                '<div class="ces-qtools ces-dttools"><button type="button" class="ces-qtool" id="cesDtAdd" title="Adds a row like the generated ones: a label on the left, the date on the right">+ Add a date row</button></div>' +
+              '</div></div></div>' +
             '<span class="label">Background</span>' +
             '<div id="cesMediaSlot"></div>' + mediaPanelHtml +
             live("abstract", "abstract") +
@@ -44921,6 +45091,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ab.dispatchEvent(new Event("input", { bubbles: true }));
       addSrcRow();
       toast("Marker " + n + " added — write the citation below.");
+    });
+
+    /* ---- the date line's rows (Oct 2026, on request: "add a button which automatically adds a new row with a
+       label on the left and the numbers on the right, since right now it's impossible for me to manually add
+       another row which looks like the ones you've generated"). A generated date line is a `.dt` grid of
+       `.dt-k` label / `.dt-v` value pairs (date-line.js), which typing into the field cannot produce. The
+       button appends one pair — making the grid if the line has none, keeping any plain text before it — and
+       selects the new label so typing replaces it; the field's own input handler saves it. */
+    const dtAdd = host.querySelector("#cesDtAdd");
+    if (dtAdd) dtAdd.addEventListener("click", () => {
+      const el = host.querySelector('[data-field="answerDate"]');
+      if (!el) return;
+      let dt = el.querySelector(".dt");
+      if (!dt) { dt = document.createElement("div"); dt.className = "dt"; el.appendChild(dt); }
+      const k = document.createElement("span"); k.className = "dt-k"; k.textContent = "Label";
+      const v = document.createElement("span"); v.className = "dt-v"; v.textContent = "date";
+      dt.appendChild(k); dt.appendChild(v);
+      el.contentEditable = "true"; el.classList.add("editing"); el.focus();
+      const rg = document.createRange(); rg.selectNodeContents(k);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg);
+      el.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
     // ---- live-field saves (the card IS the preview — no separate re-render, focus is never lost) ----
@@ -46001,30 +46192,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const all = window.TRUEFALSE || [], ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
       const has = (k) => Object.prototype.hasOwnProperty.call(ov, k);
       const live = all.filter((x) => !(has(x.q) && ov[x.q] === null)).length;
-      const form = (k, it) => {
-        const src = Array.isArray(it.src) ? it.src.join("\n") : "";
-        return '<div class="q-form tf-form" data-tfform="' + esc(k) + '">' +
-          '<div class="q-form-head"><b>Edit statement</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source. Metric first with the imperial in brackets, British spelling.</span></div>' +
-          '<label class="admin-field"><span class="af-label">the statement</span><textarea class="af-input" data-tff="q" rows="2">' + esc(it.q || "") + "</textarea></label>" +
-          '<label class="admin-field"><span class="af-label">the answer</span><select class="af-input" data-tff="a">' +
-            '<option value="true"' + (it.a ? " selected" : "") + '>True — a fact</option>' +
-            '<option value="false"' + (it.a ? "" : " selected") + '>False — a myth</option></select></label>' +
-          '<label class="admin-field"><span class="af-label">category</span><input class="af-input" type="text" data-tff="cat" value="' + esc(it.cat || "") + '" /></label>' +
-          '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-tff="why" rows="5">' + esc(it.why || "") + "</textarea></label>" +
-          '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-tff="src" rows="3">' + esc(src) + "</textarea></label>" +
-          '<div class="q-form-acts">' +
-            '<button class="mini-btn" type="button" data-tfcancel>Cancel</button>' +
-            (has(k) && ov[k] !== null ? '<button class="mini-btn" type="button" data-tfrevert="' + esc(k) + '">Revert</button>' : "") +
-            '<button class="admin-new" type="button" data-tfsave="' + esc(k) + '">Save</button>' +
-          "</div></div>";
-      };
       return '<div class="ws-admin tf-admin">' +
-        '<div class="ws-admin-head"><b>Myth or fact?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
-        '<div class="tl-intro">The True or False minigame\'s pool, from <code>truefalse.js</code>. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped statement. The game needs at least five in play.</div>' +
+        '<div class="ws-admin-head" id="tfAdminList"><b>True or False</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
+        '<div class="tl-intro">The True or False minigame\'s pool (\u201cMyth or fact?\u201d), from <code>truefalse.js</code>. Edit and Remove are also on each statement while you play the game. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped statement. The game needs at least five in play.</div>' +
         '<div class="q-list">' + all.map((x) => {
           const k = x.q, isOff = has(k) && ov[k] === null, edited = has(k) && ov[k] !== null;
           const it = edited ? ov[k] : x;
-          if (_tfEditing === k && !isOff) return form(k, it);
+          if (_tfEditing === k && !isOff) return tfFormHTML(k, it);
           return '<div class="q-row ws-row tf-row' + (isOff ? " ws-off" : "") + '">' +
             '<div class="q-main"><span class="q-text">' + esc(it.q) + "</span>" +
               '<span class="q-meta"><b>' + (it.a ? "True" : "False") + "</b>" + (it.cat ? '<span class="q-src">' + esc(it.cat) + "</span>" : "") +
@@ -46037,18 +46211,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function wireTfAdmin(items) {
       const ov = () => ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
-      const shipped = (k) => (window.TRUEFALSE || []).find((x) => x.q === k);
       items.querySelectorAll("[data-tfedit]").forEach((b) => b.addEventListener("click", () => {
         _tfEditing = b.dataset.tfedit; adminRenderQuotes();
         const f = items.querySelector(".tf-form"); if (f) f.scrollIntoView({ block: "nearest" });
       }));
       items.querySelectorAll("[data-tfoff]").forEach((b) => b.addEventListener("click", () => {
-        const k = b.dataset.tfoff, o = ov();
-        const wasOff = Object.prototype.hasOwnProperty.call(o, k) && o[k] === null;
-        if (wasOff) delete o[k]; else o[k] = null;
+        const k = b.dataset.tfoff, off = tfToggleRemoved(k);
         if (_tfEditing === k) _tfEditing = null;
-        saveAdminEdits(); adminRenderQuotes();
-        toast(wasOff ? "Restored to Myth or fact?" : "Removed from Myth or fact?");
+        adminRenderQuotes();
+        toast(off ? "Removed from True or False" : "Restored to True or False");
       }));
       items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderQuotes(); }));
       items.querySelectorAll("[data-tfrevert]").forEach((b) => b.addEventListener("click", () => {
@@ -46059,24 +46230,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }));
       items.querySelectorAll("[data-tfsave]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfsave, f = b.closest(".tf-form"); if (!f) return;
-        const v = (n) => (f.querySelector('[data-tff="' + n + '"]').value || "").trim();
-        const q = v("q").replace(/\s+/g, " "), why = v("why");
-        if (!q) { toast("A statement needs its words."); return; }
-        if (!why) { toast("A statement needs its explanation."); return; }
-        const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
-        // the house form ends in the URL, optionally followed by a `[in French]` / `[Open access]` label
-        const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
-        if (bad) { toast("Every source must end in the URL a reader can check it at."); return; }
-        const marks = (why.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
-        if (marks.some((n) => n < 1 || n > src.length)) { toast("A footnote marker points past the end of the sources."); return; }
-        const it = { q: q, a: v("a") === "true", why: why, cat: v("cat") };
-        if (src.length) it.src = src;
-        const orig = shipped(k);
-        // typing the shipped statement back clears the edit rather than storing a copy of it
-        const same = orig && orig.q === it.q && !!orig.a === it.a && (orig.why || "") === it.why && (orig.cat || "") === it.cat &&
-          JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
-        if (same) delete ov()[k]; else ov()[k] = it;
-        _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Statement saved");
+        const err = tfFormSave(k, f);
+        if (err) { toast(err); return; }
+        _tfEditing = null; adminRenderQuotes(); toast("Statement saved");
       }));
     }
     function adminRenderQuotes() {

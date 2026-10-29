@@ -1939,6 +1939,7 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 .ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(19px * var(--fs)); color:var(--zh); opacity:.5; line-height:1.15;}
 /* Japanese: no `--han` (Noto Sans SC would impose Chinese glyph forms); the `lang="ja"` on `.ac-chars` makes the reader's own system CJK font choose Japanese ones. */
 .ans-cn.ja .ac-s{font-family:var(--sans);}
+.ans-cn.ko .ac-s{font-family:var(--sans);}   /* Hangul in the reader's system font, as Japanese (Oct 2026) */
 .ans-cn .ac-row{display:flex; align-items:center; gap:8px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 /* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
@@ -9776,7 +9777,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hb-next:hover .hb-next-k{color:var(--indigo);}
 .hb-next-p{
   display:block; font-family:var(--serif); font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft);
-  max-height:calc(13.5px * var(--fs) * 1.55 * 3.3); overflow:hidden;
+  max-height:calc(13.5px * var(--fs) * 1.55 * 6.6); overflow:hidden;   /* twice the three lines it was (Oct 2026, on request) */
   -webkit-mask-image:linear-gradient(to bottom, #000 25%, transparent 100%); mask-image:linear-gradient(to bottom, #000 25%, transparent 100%);
 }
 /* THE WEEK BOX IS DESIGN D3 (Oct 2026, on request — docs/mockups/week-box-redesigns): Today's three figures, then
@@ -10629,3 +10630,10 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .fi2-cartouche{display:block !important;}
 .fi2-loading{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--paper-2);}
 .fi2-loading[hidden]{display:none;}
+
+/* True or False: the admin's Edit / Remove beside a statement in the game and on its results (Oct 2026) */
+.tf-adminbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:10px 0 16px;}
+.tf-adminbar-l{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-right:2px;}
+.dc-q .tf-form, .tf-summary .tf-form{margin:6px 0 14px; text-align:left;}
+.gp-more{padding:8px 9px; color:var(--ink-faint); font-family:var(--sans); font-size:calc(11.5px * var(--fs)); text-align:center;}
+.gp-list > *{flex-shrink:0;}

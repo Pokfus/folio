@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-24",
+ "retrieved": "2026-10-29",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -92301,6 +92301,41 @@
    ],
    "label": "Mount Danxia",
    "title": "Mount Danxia"
+  },
+  "Q11437550": {
+   "coord": [
+    140.8039,
+    40.2717
+   ],
+   "classes": [
+    "Q839954",
+    "Q1935728"
+   ],
+   "label": "Ōyu Stone Circles",
+   "title": "Ōyu Stone Circles"
+  },
+  "Q11378977": {
+   "coord": [
+    140.3481,
+    40.2011
+   ],
+   "classes": [
+    "Q839954",
+    "Q1935728"
+   ],
+   "label": "Isedōtai Site",
+   "title": "Isedōtai Ruins"
+  },
+  "Q243699": {
+   "coord": [
+    30.4194,
+    31.4014
+   ],
+   "classes": [
+    "Q515"
+   ],
+   "label": "Rosetta",
+   "title": "Rosetta"
   }
  },
  "links": {
