@@ -682,6 +682,9 @@ function conflate(alive, label) {
   const capM = new Map();   // vertex → metres; empty for a presence (peoples, cultures: a soft cover that has no seat and is conflated alone) and for a front
   const capped = !PRES && !(alive.length && alive.every((r) => r.series.kind === "front"));
   if (capped) for (const L of lines) { const sc = ringScalesOf(L.row)[L.idx]; if (sc >= SMALL_RING_M) continue; const c = RING_SNAP_FRAC * sc; for (const v of L.v) { const o = capM.get(v); if (o == null || c < o) capM.set(v, c); } }
+  /* a DERIVED extent drawn from a table of towns (war-poleis.json, 2026-10-25) arrives already clipped to the committed coast: its coastal vertices are ON the coast and its
+     inland ones are a town's radius, which D1's 15 km run rule would drag onto a shore across a peninsula (Chalcidice's) — so none of its vertices travels more than 2 km */
+  if (PRES && alive.length && alive.every((r) => r.series.kind === "extent" && r.series.derived && r.series.derived.src && r.series.derived.src.includes(SRC.pleiades))) for (const L of lines) for (const v of L.v) capM.set(v, 2000);
   // a CORRECTED ring (geometry-fixes.json) is not drawn onto a neighbour's line: D2 carried the Roman Kingdom's notch corner 4 km west onto the Etruscan line, tilting the
   // notch that exists to hold Rome and leaving a spike of the wedge below it. Its vertices keep D1 and D3 (the coast and the present-day borders are not what the fix disputes); the overlap with the neighbour is the fix's `over` to decide
   const noD2 = new Set(); for (const L of lines) if (L.row.fix) for (const v of L.v) noD2.add(v);
