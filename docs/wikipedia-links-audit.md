@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5141 | the title is the article |
+| `ok` | 5239 | the title is the article |
 | `redirect-variant` | 331 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 77 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 482 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 485 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 105 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
-| `none` | 958 | nothing matched; no link |
+| `none` | 957 | nothing matched; no link |
 
-**6044 of 7261 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6145 of 7361 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (482)
+## Redirected to a differently named article — check each (485)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -281,6 +281,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gw-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
 - `gw-657` **Port-of-Spain** → [Port of Spain](https://en.wikipedia.org/wiki/Port_of_Spain) (from `Port-of-Spain`)
 - `gw-723` **Mata-Utu** → [Mata Utu](https://en.wikipedia.org/wiki/Mata_Utu) (from `Mata-Utu`)
+- `gw-850` **Amur River** → [Amur](https://en.wikipedia.org/wiki/Amur) (from `Amur River`)
+- `gw-938` **Son Doong Cave** → [Hang Sơn Đoòng](https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng) (from `Son Doong Cave`)
+- `gw-950` **Mammoth Cave** → [Mammoth Cave National Park](https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park) (from `Mammoth Cave`)
 - `jp-009` **pit dwelling** → [Pit-house](https://en.wikipedia.org/wiki/Pit-house) (from `Pit dwelling`)
 - `jp-014` **azuki bean** → [Adzuki bean](https://en.wikipedia.org/wiki/Adzuki_bean) (from `Azuki bean`)
 - `jp-020` **Late Jōmon** → [Jōmon period](https://en.wikipedia.org/wiki/J%C5%8Dmon_period) (from `Late Jōmon`)
@@ -884,7 +887,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (958)
+## No article found (957)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1606,7 +1609,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-987` **Greek festival calendar** — search suggests `Ancient Greek calendars`, `Attic calendar`, `Revised Julian calendar`, `Lists of Greek mythological figures`, `Athenian festivals`
 - `gr-994` **Dionysiac mysteries** — search suggests `Villa of the Mysteries`, `Dionysus`, `Cult of Dionysus`, `Arion`, `List of Greek deities`
 - `gr-999` **Greek funerary practice** — search suggests `Ancient Greek funeral and burial practices`, `Ancient Egyptian funerary practices`, `Roman funerary practices`, `Pre-Greek substrate`, `Archaic Greece`
-- `gru-935` **Krasnoyarsk Stolby** — search suggests `Krasnoyarsk Pillars`, `Krasnoyarsk`, `Stolby`, `Krasnoyarsk railway station`, `Lena Pillars`
 - `gw-730` **Kingston (Norfolk Island)** — search suggests `Kingston, Norfolk Island`, `Norfolk Island`, `Outline of Norfolk Island`, `List of places called Kingston`, `Norfolk Islanders`
 - `jp-004` **dual structure model** — search suggests `Tesla Cybertruck`, `Phoenix Wright: Ace Attorney – Dual Destinies`, `PlayStation 2 models`, `Toyota Corolla (E140)`, `Large language model`
 - `jp-007` **Odai Yamamoto I** — search suggests `Ōdai Yamamoto I Site`, `List of Japanese actors`, `Japanese Paleolithic`, `Jōmon pottery`, `Index of Japan-related articles (Y–Z)`

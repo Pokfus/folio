@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-29T20:36Z",
+ "generated": "2026-10-29T22:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5141,
-  "redirect-broader": 482,
+  "ok": 5239,
+  "redirect-broader": 485,
   "redirect-variant": 331,
   "section-redirect": 105,
   "disambiguation": 138,
-  "none": 958,
+  "none": 957,
   "disambig-resolved": 77,
   "list-page": 6,
   "search-match": 6,
@@ -58604,6 +58604,709 @@
    "url": "https://en.wikipedia.org/wiki/Xiaozhai_Tiankeng",
    "via": "glossary",
    "status": "ok"
+  },
+  "gw-801": {
+   "answer": "Pacific Ocean",
+   "title": "Pacific Ocean",
+   "url": "https://en.wikipedia.org/wiki/Pacific_Ocean",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-802": {
+   "answer": "Nile",
+   "title": "Nile",
+   "url": "https://en.wikipedia.org/wiki/Nile",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-803": {
+   "answer": "Atlantic Ocean",
+   "title": "Atlantic Ocean",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_Ocean",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-804": {
+   "answer": "Amazon River",
+   "title": "Amazon River",
+   "url": "https://en.wikipedia.org/wiki/Amazon_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-805": {
+   "answer": "Mediterranean Sea",
+   "title": "Mediterranean Sea",
+   "url": "https://en.wikipedia.org/wiki/Mediterranean_Sea",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gw-806": {
+   "answer": "Indian Ocean",
+   "title": "Indian Ocean",
+   "url": "https://en.wikipedia.org/wiki/Indian_Ocean",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-807": {
+   "answer": "Dead Sea",
+   "title": "Dead Sea",
+   "url": "https://en.wikipedia.org/wiki/Dead_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-808": {
+   "answer": "Danube",
+   "title": "Danube",
+   "url": "https://en.wikipedia.org/wiki/Danube",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-809": {
+   "answer": "Victoria Falls",
+   "title": "Victoria Falls",
+   "url": "https://en.wikipedia.org/wiki/Victoria_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-810": {
+   "answer": "Arctic Ocean",
+   "title": "Arctic Ocean",
+   "url": "https://en.wikipedia.org/wiki/Arctic_Ocean",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-811": {
+   "answer": "Caspian Sea",
+   "title": "Caspian Sea",
+   "url": "https://en.wikipedia.org/wiki/Caspian_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-812": {
+   "answer": "Ganges",
+   "title": "Ganges",
+   "url": "https://en.wikipedia.org/wiki/Ganges",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-813": {
+   "answer": "Lake Victoria",
+   "title": "Lake Victoria",
+   "url": "https://en.wikipedia.org/wiki/Lake_Victoria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-814": {
+   "answer": "Red Sea",
+   "title": "Red Sea",
+   "url": "https://en.wikipedia.org/wiki/Red_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-815": {
+   "answer": "Rhine",
+   "title": "Rhine",
+   "url": "https://en.wikipedia.org/wiki/Rhine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-816": {
+   "answer": "Black Sea",
+   "title": "Black Sea",
+   "url": "https://en.wikipedia.org/wiki/Black_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-817": {
+   "answer": "Strait of Gibraltar",
+   "title": "Strait of Gibraltar",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Gibraltar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-818": {
+   "answer": "Lake Baikal",
+   "title": "Lake Baikal",
+   "url": "https://en.wikipedia.org/wiki/Lake_Baikal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-819": {
+   "answer": "Caribbean Sea",
+   "title": "Caribbean Sea",
+   "url": "https://en.wikipedia.org/wiki/Caribbean_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-820": {
+   "answer": "Mekong",
+   "title": "Mekong",
+   "url": "https://en.wikipedia.org/wiki/Mekong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-821": {
+   "answer": "Southern Ocean",
+   "title": "Southern Ocean",
+   "url": "https://en.wikipedia.org/wiki/Southern_Ocean",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-822": {
+   "answer": "Lake Titicaca",
+   "title": "Lake Titicaca",
+   "url": "https://en.wikipedia.org/wiki/Lake_Titicaca",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-823": {
+   "answer": "Euphrates",
+   "title": "Euphrates",
+   "url": "https://en.wikipedia.org/wiki/Euphrates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-824": {
+   "answer": "North Sea",
+   "title": "North Sea",
+   "url": "https://en.wikipedia.org/wiki/North_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-825": {
+   "answer": "Bosporus",
+   "title": "Bosporus",
+   "url": "https://en.wikipedia.org/wiki/Bosporus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-826": {
+   "answer": "Persian Gulf",
+   "title": "Persian Gulf",
+   "url": "https://en.wikipedia.org/wiki/Persian_Gulf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-827": {
+   "answer": "Congo River",
+   "title": "Congo River",
+   "url": "https://en.wikipedia.org/wiki/Congo_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-828": {
+   "answer": "Baltic Sea",
+   "title": "Baltic Sea",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-829": {
+   "answer": "Volga",
+   "title": "Volga",
+   "url": "https://en.wikipedia.org/wiki/Volga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-830": {
+   "answer": "Iguazu Falls",
+   "title": "Iguazu Falls",
+   "url": "https://en.wikipedia.org/wiki/Iguazu_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-831": {
+   "answer": "Strait of Malacca",
+   "title": "Strait of Malacca",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Malacca",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-832": {
+   "answer": "Angel Falls",
+   "title": "Angel Falls",
+   "url": "https://en.wikipedia.org/wiki/Angel_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-833": {
+   "answer": "Zambezi",
+   "title": "Zambezi",
+   "url": "https://en.wikipedia.org/wiki/Zambezi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-834": {
+   "answer": "Lake Tanganyika",
+   "title": "Lake Tanganyika",
+   "url": "https://en.wikipedia.org/wiki/Lake_Tanganyika",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-835": {
+   "answer": "Niger River",
+   "title": "Niger River",
+   "url": "https://en.wikipedia.org/wiki/Niger_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-836": {
+   "answer": "Aral Sea",
+   "title": "Aral Sea",
+   "url": "https://en.wikipedia.org/wiki/Aral_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-837": {
+   "answer": "Strait of Hormuz",
+   "title": "Strait of Hormuz",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Hormuz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-838": {
+   "answer": "Indus River",
+   "title": "Indus River",
+   "url": "https://en.wikipedia.org/wiki/Indus_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-839": {
+   "answer": "Bering Strait",
+   "title": "Bering Strait",
+   "url": "https://en.wikipedia.org/wiki/Bering_Strait",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-840": {
+   "answer": "Murray River",
+   "title": "Murray River",
+   "url": "https://en.wikipedia.org/wiki/Murray_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-901": {
+   "answer": "Mount Everest",
+   "title": "Mount Everest",
+   "url": "https://en.wikipedia.org/wiki/Mount_Everest",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-902": {
+   "answer": "Sahara",
+   "title": "Sahara",
+   "url": "https://en.wikipedia.org/wiki/Sahara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-903": {
+   "answer": "Alps",
+   "title": "Alps",
+   "url": "https://en.wikipedia.org/wiki/Alps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-904": {
+   "answer": "Andes",
+   "title": "Andes",
+   "url": "https://en.wikipedia.org/wiki/Andes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-905": {
+   "answer": "Himalayas",
+   "title": "Himalayas",
+   "url": "https://en.wikipedia.org/wiki/Himalayas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-906": {
+   "answer": "Mount Kilimanjaro",
+   "title": "Mount Kilimanjaro",
+   "url": "https://en.wikipedia.org/wiki/Mount_Kilimanjaro",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gw-907": {
+   "answer": "Mount Fuji",
+   "title": "Mount Fuji",
+   "url": "https://en.wikipedia.org/wiki/Mount_Fuji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-908": {
+   "answer": "Mount Vesuvius",
+   "title": "Mount Vesuvius",
+   "url": "https://en.wikipedia.org/wiki/Mount_Vesuvius",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gw-909": {
+   "answer": "Mount Etna",
+   "title": "Mount Etna",
+   "url": "https://en.wikipedia.org/wiki/Mount_Etna",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gw-910": {
+   "answer": "Uluru",
+   "title": "Uluru",
+   "url": "https://en.wikipedia.org/wiki/Uluru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-911": {
+   "answer": "Atacama Desert",
+   "title": "Atacama Desert",
+   "url": "https://en.wikipedia.org/wiki/Atacama_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-912": {
+   "answer": "Kalahari Desert",
+   "title": "Kalahari Desert",
+   "url": "https://en.wikipedia.org/wiki/Kalahari_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-913": {
+   "answer": "Pyrenees",
+   "title": "Pyrenees",
+   "url": "https://en.wikipedia.org/wiki/Pyrenees",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-914": {
+   "answer": "Ural Mountains",
+   "title": "Ural Mountains",
+   "url": "https://en.wikipedia.org/wiki/Ural_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-915": {
+   "answer": "Arabian Desert",
+   "title": "Arabian Desert",
+   "url": "https://en.wikipedia.org/wiki/Arabian_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-916": {
+   "answer": "Mount Olympus",
+   "title": "Mount Olympus",
+   "url": "https://en.wikipedia.org/wiki/Mount_Olympus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-917": {
+   "answer": "Mont Blanc",
+   "title": "Mont Blanc",
+   "url": "https://en.wikipedia.org/wiki/Mont_Blanc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-918": {
+   "answer": "Matterhorn",
+   "title": "Matterhorn",
+   "url": "https://en.wikipedia.org/wiki/Matterhorn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-919": {
+   "answer": "Atlas Mountains",
+   "title": "Atlas Mountains",
+   "url": "https://en.wikipedia.org/wiki/Atlas_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-920": {
+   "answer": "Aconcagua",
+   "title": "Aconcagua",
+   "url": "https://en.wikipedia.org/wiki/Aconcagua",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-921": {
+   "answer": "Table Mountain",
+   "title": "Table Mountain",
+   "url": "https://en.wikipedia.org/wiki/Table_Mountain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-922": {
+   "answer": "Namib",
+   "title": "Namib",
+   "url": "https://en.wikipedia.org/wiki/Namib",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-923": {
+   "answer": "Caucasus Mountains",
+   "title": "Caucasus Mountains",
+   "url": "https://en.wikipedia.org/wiki/Caucasus_Mountains",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gw-924": {
+   "answer": "Mount Elbrus",
+   "title": "Mount Elbrus",
+   "url": "https://en.wikipedia.org/wiki/Mount_Elbrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-925": {
+   "answer": "Carpathian Mountains",
+   "title": "Carpathian Mountains",
+   "url": "https://en.wikipedia.org/wiki/Carpathian_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-926": {
+   "answer": "Krakatoa",
+   "title": "Krakatoa",
+   "url": "https://en.wikipedia.org/wiki/Krakatoa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-927": {
+   "answer": "Mount Ararat",
+   "title": "Mount Ararat",
+   "url": "https://en.wikipedia.org/wiki/Mount_Ararat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-928": {
+   "answer": "Hindu Kush",
+   "title": "Hindu Kush",
+   "url": "https://en.wikipedia.org/wiki/Hindu_Kush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-929": {
+   "answer": "Thar Desert",
+   "title": "Thar Desert",
+   "url": "https://en.wikipedia.org/wiki/Thar_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-930": {
+   "answer": "Deccan Plateau",
+   "title": "Deccan Plateau",
+   "url": "https://en.wikipedia.org/wiki/Deccan_Plateau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-931": {
+   "answer": "Altiplano",
+   "title": "Altiplano",
+   "url": "https://en.wikipedia.org/wiki/Altiplano",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-932": {
+   "answer": "Great Dividing Range",
+   "title": "Great Dividing Range",
+   "url": "https://en.wikipedia.org/wiki/Great_Dividing_Range",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-933": {
+   "answer": "Mount Kenya",
+   "title": "Mount Kenya",
+   "url": "https://en.wikipedia.org/wiki/Mount_Kenya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-934": {
+   "answer": "Drakensberg",
+   "title": "Drakensberg",
+   "url": "https://en.wikipedia.org/wiki/Drakensberg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-935": {
+   "answer": "Aoraki / Mount Cook",
+   "title": "Aoraki / Mount Cook",
+   "url": "https://en.wikipedia.org/wiki/Aoraki_%2F_Mount_Cook",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-936": {
+   "answer": "Colca Canyon",
+   "title": "Colca Canyon",
+   "url": "https://en.wikipedia.org/wiki/Colca_Canyon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-937": {
+   "answer": "Fish River Canyon",
+   "title": "Fish River Canyon",
+   "url": "https://en.wikipedia.org/wiki/Fish_River_Canyon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-938": {
+   "answer": "Son Doong Cave",
+   "title": "Hang Sơn Đoòng",
+   "url": "https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Son Doong Cave"
+  },
+  "gw-939": {
+   "answer": "Postojna Cave",
+   "title": "Postojna Cave",
+   "url": "https://en.wikipedia.org/wiki/Postojna_Cave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-940": {
+   "answer": "Mount Kinabalu",
+   "title": "Mount Kinabalu",
+   "url": "https://en.wikipedia.org/wiki/Mount_Kinabalu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-841": {
+   "answer": "Mississippi River",
+   "title": "Mississippi River",
+   "url": "https://en.wikipedia.org/wiki/Mississippi_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-842": {
+   "answer": "Yangtze",
+   "title": "Yangtze",
+   "url": "https://en.wikipedia.org/wiki/Yangtze",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-843": {
+   "answer": "Niagara Falls",
+   "title": "Niagara Falls",
+   "url": "https://en.wikipedia.org/wiki/Niagara_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-844": {
+   "answer": "Gulf of Mexico",
+   "title": "Gulf of Mexico",
+   "url": "https://en.wikipedia.org/wiki/Gulf_of_Mexico",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-845": {
+   "answer": "Lake Superior",
+   "title": "Lake Superior",
+   "url": "https://en.wikipedia.org/wiki/Lake_Superior",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-846": {
+   "answer": "Yellow River",
+   "title": "Yellow River",
+   "url": "https://en.wikipedia.org/wiki/Yellow_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-847": {
+   "answer": "Tigris",
+   "title": "Tigris",
+   "url": "https://en.wikipedia.org/wiki/Tigris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-848": {
+   "answer": "South China Sea",
+   "title": "South China Sea",
+   "url": "https://en.wikipedia.org/wiki/South_China_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-849": {
+   "answer": "Rio Grande",
+   "title": "Rio Grande",
+   "url": "https://en.wikipedia.org/wiki/Rio_Grande",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-850": {
+   "answer": "Amur River",
+   "title": "Amur",
+   "url": "https://en.wikipedia.org/wiki/Amur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Amur River"
+  },
+  "gw-941": {
+   "answer": "Rocky Mountains",
+   "title": "Rocky Mountains",
+   "url": "https://en.wikipedia.org/wiki/Rocky_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-942": {
+   "answer": "Grand Canyon",
+   "title": "Grand Canyon",
+   "url": "https://en.wikipedia.org/wiki/Grand_Canyon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-943": {
+   "answer": "K2",
+   "title": "K2",
+   "url": "https://en.wikipedia.org/wiki/K2",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-944": {
+   "answer": "Gobi Desert",
+   "title": "Gobi Desert",
+   "url": "https://en.wikipedia.org/wiki/Gobi_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-945": {
+   "answer": "Tibetan Plateau",
+   "title": "Tibetan Plateau",
+   "url": "https://en.wikipedia.org/wiki/Tibetan_Plateau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-946": {
+   "answer": "Denali",
+   "title": "Denali",
+   "url": "https://en.wikipedia.org/wiki/Denali",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-947": {
+   "answer": "Tian Shan",
+   "title": "Tian Shan",
+   "url": "https://en.wikipedia.org/wiki/Tian_Shan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-948": {
+   "answer": "Appalachian Mountains",
+   "title": "Appalachian Mountains",
+   "url": "https://en.wikipedia.org/wiki/Appalachian_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-949": {
+   "answer": "Mount St. Helens",
+   "title": "Mount St. Helens",
+   "url": "https://en.wikipedia.org/wiki/Mount_St._Helens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-950": {
+   "answer": "Mammoth Cave",
+   "title": "Mammoth Cave National Park",
+   "url": "https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mammoth Cave"
   },
   "gru-823": {
    "answer": "Oka River",

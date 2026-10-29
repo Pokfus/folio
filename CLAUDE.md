@@ -257,7 +257,7 @@ have not this session.
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 30 cards, contiguous — next is `art-031`; not a history collection (artwork-card format) |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 5 / 5 | complete: map decks, plus water (`geo-801`–`840`) and mountains (`geo-901`–`940`), map questions on a locator (`locator.ask`, `cardLocatorFront`) |
-| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | complete but 3 deferred |
+| World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 4 / 4 | complete but 3 deferred: map decks, plus water (`gw-801`–`850`) and mountains (`gw-901`–`950`), map questions on a locator |
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 4 / 4 | complete: map decks, plus water (`gc-801`–`840`) and mountains (`gc-901`–`940`), map questions on a locator (`locator.ask`) |

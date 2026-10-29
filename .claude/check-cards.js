@@ -272,6 +272,7 @@ const INSTITUTIONAL = new Set([
   "ministère de la culture", "ministère de la culture (france)", "government of the netherlands",
   "government of anguilla", "governorate of vatican city state", "statistics jersey",
   "administration supérieure des îles wallis et futuna", "parks australia",
+  "national ocean service", "parks canada",   // NOAA's ocean office (declared above as NOAA) and the NPS's Canadian counterpart, each cited a page at a time (gw-801, gw-941; read 2026-10-29)
   /* A MULTI-AUTHOR TEXTBOOK CITED PER CHAPTER IS THE SAME CASE AS A DATA PUBLISHER (Sep 2026), and
      both were read before being named here. Three chapters of one standard textbook, credited to a
      team of three or six, are not three scholars' opinions — they are one reference shelf consulted

@@ -224,11 +224,10 @@ const isMap = !!card.map;
 const isArt = card.artwork === true;   // an ARTWORK card: the picture is its own subject (see the block below)
 const isFlag = card.flagCard === true; // a FLAG card: the flag is its whole question (see the block below)
 const isDraw = card.drawCard === true; // a DRAW card: the flag is its ANSWER and the reader draws it
-/* A LOCATOR THAT ASKS (Oct 2026, with the physical geography decks): `locator.ask: true` puts the locator's
-   window on the card's FRONT, unnamed until the reveal (app.js cardLocatorFront), so the window is the clue
-   exactly as a map card's is — the short prompt ("The river traced on the map is ___.") and no extra
-   phrasings. check-questions.js reads it the same way. */
-const isAskLoc = !!(card.locator && card.locator.ask === true);
+/* A LOCATOR THAT ASKS (2026-10-29, app.js cardLocatorFront): the window on the card's front is the question,
+   so the prompt is the short map prompt and there are no extra phrasings — as check-questions.js already holds.
+   import-batch.js passes --locator-ask for a card whose locator is still waiting on add-locators.js. */
+const isLocAsk = !!(card.locator && card.locator.ask === true) || process.argv.includes("--locator-ask");
 if (isMap) {
   const m = card.map;
   if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
@@ -500,12 +499,13 @@ if (isDraw) {
   }
 }
 
-const QMIN = isMap || isArt || isFlag || isDraw || isAskLoc ? MAPQ_MIN : Q_MIN, QMAX = isMap || isArt || isFlag || isDraw || isAskLoc ? MAPQ_MAX : Q_MAX;
-if (isAskLoc && Array.isArray(card.questions) && card.questions.length) {
-  console.error("ERROR: a card whose locator asks carries no extra question phrasings — the map is the clue. Give it `\"questions\": []`.");
+const QMIN = isMap || isLocAsk || isArt || isFlag || isDraw ? MAPQ_MIN : Q_MIN, QMAX = isMap || isLocAsk || isArt || isFlag || isDraw ? MAPQ_MAX : Q_MAX;
+if (isLocAsk && Array.isArray(card.questions) && card.questions.length) {
+  console.error("ERROR: a card whose locator asks (locator.ask) carries no extra phrasings — the map is the clue; put the history in the background.");
   process.exit(1);
 }
-if (!isMap && !isArt && !isFlag && !isDraw && !isAskLoc && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
+if (isLocAsk && !Array.isArray(card.questions)) card.questions = [];
+if (!isMap && !isLocAsk && !isArt && !isFlag && !isDraw && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
@@ -515,7 +515,7 @@ for (const [qi, q] of (isArt ? [] : [card.question, ...card.questions]).entries(
   const qn = qWords(q);
   if (qn < QMIN || qn > QMAX) {
     console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +
-      (isMap || isArt || isFlag || isDraw || isAskLoc ? " (the picture, the flag or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
+      (isMap || isLocAsk || isArt || isFlag || isDraw ? " (the picture, the flag or the map is the clue, so the prompt is short)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
     process.exit(1);
   }
   if (!isDraw && !/class="blank"/.test(q)) {
@@ -1065,7 +1065,7 @@ if (!NO_WIKI) require("./wiki-step.js").linkNewCards([card.id]);
 // …except a MAP card, whose illustration is its map. A second picture there would sit under the globe
 // answering the same question, and the suggestion is a network round trip nobody is going to act on.
 // A FLAG card is the same case: its illustration is the flag on its front.
-if (!isMap && !isArt && !isFlag && !isAskLoc && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
+if (!isMap && !isArt && !isFlag && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
   require("./suggest-image.js").report("cards", card.id, card.answerText || card.answer || card.id)
     .catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
 }
