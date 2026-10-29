@@ -341,6 +341,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 
 | event | the collection says | source |
 |---|---|---|
+| the consulships of Marius: in succession / the seventh | 104 – 100 BCE / 86 BCE (the law against iteration of about 151 BCE is Greenidge's and Mommsen's dating) | `rm-301` |
+| Saturninus: tribune / again / killed | 103 BCE / 100 BCE / 100 BCE | `rm-302` |
+| the Second Servile War / Aquillius's ovation | 104 – 100 BCE (the Cambridge Ancient History puts the turn in 101) / 99 BCE | `rm-303` |
+| Marcus Livius Drusus: tribune and killed | 91 BCE | `rm-304` |
+| the Social War / Asculum taken | 91 – 88 BCE (the Samnites and Lucanians still in arms in 87) / 89 BCE | `rm-305` |
+| the Italian demand: Flaccus's bill / Gracchus's bill / the expulsion law / Drusus's promise | 125 BCE / 122 BCE / 95 BCE / 91 BCE (all Heitland's) | `rm-306` |
+| the lex Julia | 90 BCE | `rm-307` |
+| the enfranchisement of Italy: the laws / the vote by decree / the census | 90 – 89 BCE / 84 BCE / 70 BCE | `rm-308` |
+| Sulla: lived / quaestor / consul / dictator | c. 138 – 78 BCE / 107 BCE / 88 BCE / 82 – 79 BCE (the praetorship 93 BCE in Broughton, 97 BCE in Badian; no row) | `rm-309` |
+| the First Mithridatic War / Asia overrun / Athens taken / the peace of Dardanus | 89 – 85 BCE (some start it in 88) / 88 BCE / 86 BCE (1 March is the Cambridge Ancient History's conversion of Plutarch's Kalends of March) / 85 BCE | `rm-310` |
 
 ## The Principate
 
@@ -641,4 +651,14 @@ rm-297: 120; 113; 101
 rm-298: 105
 rm-299: 102
 rm-300: 101
+rm-301: 104; 100; 86
+rm-302: 103; 100
+rm-303: 104; 100; 99
+rm-304: 91
+rm-305: 91; 88; 89
+rm-306: 125; 122; 95; 91
+rm-307: 90
+rm-308: 90; 89; 84; 70
+rm-309: 138; 78; 107; 88; 82; 79
+rm-310: 89; 85; 88; 86
 ```
