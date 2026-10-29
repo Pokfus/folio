@@ -468,6 +468,52 @@ and goes no further: its Russian coast for the purpose of the facts grid is Kras
 - **Glaciers, springs, aquifers, national parks as parks, and dams as cards** (the Rybinsk Reservoir is a
   card because the flooding of Mologa is the reservoir's own history).
 
+### As written (Oct 2026): 73 of the 80, and what changed on the way
+
+All 73 cards were drafted by research helpers from sources they opened, each reviewed by the lead, every cited URL
+re-checked with curl (one host, `vfuzeml.elpub.ru`, behind `gru-932`'s DOI, began resetting the connection after
+the helper had read it; Perseus answers only with a cookie) and every DOI's authors compared with Crossref
+(`gru-932`'s author order corrected). What the writing changed or decided:
+
+- **Seven ranges are DEFERRED, because no honest spine could be sourced**, and a range without a spine is not a map
+  question (the US plan's rule): the **Verkhoyansk Range** (`gru-912`, Wikidata places only two sub-ranges on it),
+  the **Sayan Mountains** (`gru-913`: every summit Wikidata or the sources place on it is on the EASTERN arm, so one
+  line cannot draw both arms), the **Stanovoy Range** (`gru-924`: the summits Wikidata gives include the separate
+  Udokan Plateau), the **Chersky Range** (`gru-926`: a belt of parallel ridges with no single crest), the **Byrranga
+  Mountains** (`gru-933`, one summit), the **Kuznetsk Alatau** (`gru-937`, a scatter that spans a third of its
+  length) and the **Barguzin Range** (`gru-939`, one summit). Their drafts are written; they wait for a source that
+  names crest peaks along the whole range, or for a decision to replace the line.
+- **Spines** are the fetched coordinates of named summits: the Urals from Konstantinov Kamen to Iremel (the southern
+  Urals beyond Iremel are not drawn), the Caucasus main watershed from Fisht to Tufandağ (Elbrus and Kazbek stand off
+  it), the Altai from Belukha to Sutai, and the Sikhote-Alin along the seven summits Wikidata places on its ridge
+  (P4552). Each card's `notes` lists them. **A range locator carries no `zoom`**, so its window frames the spine; at a
+  fixed zoom 3 the Urals' triangles were too small to read.
+- **The two dots**: the Oka (`gru-823`) is marked at its mouth at Nizhny Novgorod, Wikidata's P625 qualified "river
+  mouth" (the article has no primary coordinate); the Moskva (`gru-824`) at Moscow's own coordinate by the Kremlin, and
+  its label is "Moskva River" — labelled "Moskva", the Atlas migration derived the CITY of Moscow as its place.
+- **Three dots use Wikidata's coordinate**: the East European Plain (its article has none), the Krasnoyarsk Pillars
+  (the article's point lies about 45 km south-west of the central pillars) and the Batagaika crater.
+- **The Angara's `rivers.js` entry draws a short gold stub into southern Baikal** (its lake centreline). Accepted; it
+  reads as the river leaving the lake.
+- **Facts cells set to `?`** wherever no opened source gave the figure (several seas' Federal subjects row, prominences,
+  lengths of ranges, areas of plains); the Strait of Tartary's minimum width is Ravenstein's 1861 "within six miles".
+  **The Kuban's 1911 Britannica figure of "nearly 200,000" Circassian emigrants was removed**: the expulsion's scale is
+  contested and one old figure would understate it. The Kolyma gives its Gulag figures as a range with whose each is.
+- **The Global Volcanism Program (`volcano.si.edu`) refused the sandbox all session**, so no volcano card cites it, and
+  the eruption histories it would carry are thinner than they should be. Several open publishers (MDPI, PeerJ, De
+  Gruyter, IAEA, UNESCO) also refused, and their papers were read through Europe PMC where possible.
+- **Glossary**: 57 new terms; `Volga`, `Caspian_Sea`, `Black_Sea`, `Baltic_Sea`, `Bering_Strait`, `Lake_Ladoga`,
+  `Don_(river)`, `Neva`, `Gulf_of_Finland`, `Lake_Ilmen`, `Amur`, `Ural_Mountains`, `Caucasus`, `Altai_Mountains`,
+  `East_European_Plain` and `Denisova_Cave` reused. Kapova Cave's term is Wikipedia's `Shulgan-Tash_Cave` (alias
+  "Kapova Cave"); the Mashuk has no English article (it redirects to Pyatigorsk), so its card shows no Learn-more tile;
+  the Krasnoyarsk Stolby's link is set by hand to *Krasnoyarsk Pillars* (`wiki-links.json`, `manual`).
+- **Denisova Cave is in Altai Krai**, not the Altai Republic (Soloneshensky District).
+- **Atlas places** on the cards the migration derives them for (the Northern Dvina, the Don, the Neva, the Caucasus,
+  the Altai, Denisova Cave), added per card with `add-places.js`; the full `migrate-places.js` run rewrote unrelated
+  Greece cards and the registry, so it was not kept.
+- **The draft numbers were re-banded** before any card shipped, when the Amur, the Baltic, the Altai and Denisova Cave
+  came in; nothing was renumbered after it shipped.
+
 ### How the running orders were chosen
 
 **By how well the name is known**, the US and China decks' axis and `difficulty`'s: 1–10 household names,
@@ -664,42 +710,42 @@ Forty cards: rivers, lakes, seas, gulfs, straits, a reservoir and a waterfall, e
 question on a locator (see "The physical decks" above). A river is traced by the `rivers.js` names that
 section lists; `gru-823` and `gru-824` are dots and say "marked".
 
-  gru-801  Volga
+  gru-801  Volga River
   gru-802  Lake Baikal
   gru-803  Caspian Sea
   gru-804  Black Sea
   gru-805  Baltic Sea
-  gru-806  Amur River (also gc-810 in China: told here from the Russian side)
+  gru-806  Amur River
   gru-807  Bering Strait
-  gru-808  Ob
-  gru-809  Yenisei
-  gru-810  Lena
+  gru-808  Ob River
+  gru-809  Yenisei River
+  gru-810  Lena River
   gru-811  White Sea
   gru-812  Lake Ladoga
-  gru-813  Don
+  gru-813  Don River
   gru-814  Barents Sea
   gru-815  Sea of Okhotsk
-  gru-816  Neva
-  gru-817  Irtysh
+  gru-816  Neva River
+  gru-817  Irtysh River
   gru-818  Kara Sea
   gru-819  Gulf of Finland
   gru-820  Lake Onega
   gru-821  Ural River
-  gru-822  Kolyma
-  gru-823  Oka (a dot: rivers.js holds two Okas in one entry)
-  gru-824  Moskva (a dot: not in rivers.js)
-  gru-825  Kama
-  gru-826  Angara
+  gru-822  Kolyma River
+  gru-823  Oka River
+  gru-824  Moskva River
+  gru-825  Kama River
+  gru-826  Angara River
   gru-827  Northern Dvina
   gru-828  Lake Peipus
-  gru-829  Pechora
+  gru-829  Pechora River
   gru-830  Rybinsk Reservoir
   gru-831  Laptev Sea
   gru-832  Chukchi Sea
   gru-833  Lake Teletskoye
-  gru-834  Kuban
+  gru-834  Kuban River
   gru-835  Strait of Tartary
-  gru-836  Indigirka
+  gru-836  Indigirka River
   gru-837  Lake Ilmen
   gru-838  Kivach Falls
   gru-839  Gulf of Ob
@@ -707,48 +753,49 @@ section lists; `gru-823` and `gru-824` are dots and say "marked".
 
 ## Mountains, plains and caves — `geo-russia-mountains`
 
-Forty cards: peaks, volcanoes, ranges, plains, plateaus, caves, rock formations, two craters and a spit.
-A range is drawn on a spine built from its own peaks' fetched coordinates, or carries no locator.
+Forty lines, 33 written: peaks, volcanoes, ranges, plains, plateaus, caves, rock formations, two craters and a
+spit. A range is drawn on a spine built from its own peaks' fetched coordinates, or carries no locator and is
+deferred (seven, marked below).
 
   gru-901  Ural Mountains
   gru-902  Mount Elbrus
   gru-903  Caucasus Mountains
-  gru-904  Altai Mountains (also gc-926 in China: told here from the Russian Altai)
+  gru-904  Altai Mountains
   gru-905  Klyuchevskaya Sopka
   gru-906  West Siberian Plain
   gru-907  Valley of Geysers
   gru-908  East European Plain
   gru-909  Central Siberian Plateau
   gru-910  Putorana Plateau
-  gru-911  Denisova Cave (also wh-039 in World History: told here as a place)
-  gru-912  Verkhoyansk Range
-  gru-913  Sayan Mountains
+  gru-911  Denisova Cave
+  gru-912  Verkhoyansk Range (DEFERRED: no honest spine, so no locator; see "As written")
+  gru-913  Sayan Mountains (DEFERRED: no honest spine, so no locator; see "As written")
   gru-914  Khibiny Mountains
   gru-915  Kungur Ice Cave
   gru-916  Lena Pillars
-  gru-917  Belukha
+  gru-917  Belukha Mountain
   gru-918  Mount Kazbek
   gru-919  Avachinsky
   gru-920  Sikhote-Alin
   gru-921  Kapova Cave
   gru-922  Valdai Hills
   gru-923  Central Russian Upland
-  gru-924  Stanovoy Range
+  gru-924  Stanovoy Range (DEFERRED: no honest spine, so no locator; see "As written")
   gru-925  Manpupuner rock formations
-  gru-926  Chersky Range
+  gru-926  Chersky Range (DEFERRED: no honest spine, so no locator; see "As written")
   gru-927  Shiveluch
   gru-928  Mount Narodnaya
   gru-929  Caspian Depression
   gru-930  Zhiguli Mountains
   gru-931  Tolbachik
   gru-932  Batagaika crater
-  gru-933  Byrranga Mountains
+  gru-933  Byrranga Mountains (DEFERRED: no honest spine, so no locator; see "As written")
   gru-934  Mashuk
   gru-935  Krasnoyarsk Stolby
   gru-936  Dykh-Tau
-  gru-937  Kuznetsk Alatau
+  gru-937  Kuznetsk Alatau (DEFERRED: no honest spine, so no locator; see "As written")
   gru-938  Curonian Spit
-  gru-939  Barguzin Range
+  gru-939  Barguzin Range (DEFERRED: no honest spine, so no locator; see "As written")
   gru-940  Popigai crater
 
 ## ⚠⚠ THE FACTS GRID CANNOT BE FILLED FOR A NON-CITY SUBJECT, AND THAT BLOCKS 81 CARDS
