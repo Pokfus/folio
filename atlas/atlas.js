@@ -208,7 +208,10 @@
     const lum = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]), ratio = (a, b) => { const x = lum(a) + 0.05, y = lum(b) + 0.05; return x > y ? x / y : y / x; };
     const land = mix(paper, ink, 0.10);
     const dim = (f) => waterInk.map((v) => gam(lin(v) * f));
-    let riverDark = dim(0.8); for (let f = 0.8; f < 1 && (ratio(riverDark, land) < 3 || ratio(riverDark, ocean) < 3); f += 0.02) riverDark = dim(Math.min(1, f + 0.02));
+    /* 2026-10-29 (the owner: "make rivers on atlases less bright in night mode, but still clearly distinguishable from the relief map"): 60 % of the names' luminance where it was 80 %,
+       the hue kept, so the line stays a BLUE on the grey hillshade rather than a lighter grey; the same 3:1 floor against the land and the sea still raises it where a theme needs. */
+    const RIVER_DARK_F = 0.6;
+    let riverDark = dim(RIVER_DARK_F); for (let f = RIVER_DARK_F; f < 1 && (ratio(riverDark, land) < 3 || ratio(riverDark, ocean) < 3); f += 0.02) riverDark = dim(Math.min(1, f + 0.02));
     return {
       ocean, lake: ocean,
       land, coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), admin1: mix(paper, ink, 0.26), rim: mix(paper, ink, 0.32),
@@ -267,7 +270,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "ef22a70e7f:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "9f0f9dafa0:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -2684,6 +2687,19 @@
       const owns = time.frontEnts.length && time.frontPlates.length && time.frontEnts.some((i) => ((time.ents[i] && time.ents[i].cards) || []).indexOf(id) >= 0);
       return { years, front: !!owns, plates: owns && A ? A.plateDates(time.frontPlates) : [], span: w.y.slice() };
     }
+    /* A MEMBERS WINDOW'S TIMELINE (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): the years
+       inside `span` [y0, y1] at which any of the entities `ids` begins, ends or changes its face — warTimeline's rule over a list of states rather than
+       a war's two sides, each entity alive over its own steps. */
+    function entsTimeline(ids, span) {
+      if (!time.hist || !time.hist.ready || !Array.isArray(ids) || !Array.isArray(span)) return null;
+      const y0 = span[0], y1 = span[1], ys = new Set([y0]), inSpan = (y) => y >= y0 && y <= y1;
+      const steps = ids.map((eid) => { const ei = entityIndexOfId(eid); return ei >= 0 ? time.stepsOf.get(ei) || [] : []; });
+      steps.forEach((l) => { for (const st of l) for (const y of [st[0], st[1] + 1]) if (inSpan(y)) ys.add(y); });
+      const sig = (y) => steps.map((l) => { const st = l.find((t) => t[0] <= y && y <= t[1]); return st ? String(st[2]) : "-"; }).join(",");
+      const years = []; let prev = null;
+      for (const y of [...ys].sort((p, q) => p - q)) { const g = sig(y); if (g === prev) continue; prev = g; if (/\d/.test(g)) years.push(y); }
+      return { years, front: false, plates: [], span: [y0, y1] };
+    }
     /* A WAR WINDOW'S FRONT LINE (2026-10-19; the window's timeline, atlas-windows.js): `on` draws the front entities of the war's year at `date` (YYYYMMDD; null: the last plate of the year), without a reload —
        the year and the date are applied once, so a pin that moves from one plate to the next is one `applyYear`. The front needs the whole history file (the war slice carries none: build-war-slice.js). */
     function setWindowFront(on, date) {
@@ -3199,7 +3215,7 @@
           if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(p); add(e.id); } else add(e.id); } }
           else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(ent.id); if (ent.parent) add(ent.parent); } }
           return out;
-        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), warTimeline: (id) => warTimeline(id), frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), /* withChildren: a country's admin-1 faces too — drawn after it, in land, they cover a fill laid on the country alone (World Geography's China, Russia, United States) */ facesOfId: (id, withChildren) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) { if (faceEntity[f] === i) out.push(f); else if (withChildren) { const e = header.entities[faceEntity[f]]; if (e && e.parent === id) out.push(f); } } return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), warTimeline: (id) => warTimeline(id), entsTimeline: (ids, span) => entsTimeline(ids, span), frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), /* withChildren: a country's admin-1 faces too — drawn after it, in land, they cover a fill laid on the country alone (World Geography's China, Russia, United States) */ facesOfId: (id, withChildren) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) { if (faceEntity[f] === i) out.push(f); else if (withChildren) { const e = header.entities[faceEntity[f]]; if (e && e.parent === id) out.push(f); } } return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,

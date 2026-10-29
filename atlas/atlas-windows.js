@@ -102,6 +102,8 @@
     const memYear = isMembers && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
     const memGroups = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.length) : [];
     let memHist = false;
+    // a members window may carry a timeline over its states' own years (`members.span`, 2026-10-29): "y0,y1"
+    const memSpan = memYear != null && host.getAttribute("data-map-span") ? host.getAttribute("data-map-span").split(",").map(Number).filter((v) => isFinite(v)) : null;
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
     const readRings = (a) => { if (!a) return null; const out = String(a).split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 3); return out.length ? out : null; };
     const locArea = readRings(host.getAttribute("data-map-area")), locSpine = readPts(host.getAttribute("data-map-spine"));
@@ -342,13 +344,20 @@
       let sibAt = [], anchorAt = null;
       if (sibCard && !isWar) {
         const groups = new Map();
+        const meLoc = cardLocator(CARD_BY_ID[sibCard]), hideSet = new Set((meLoc && meLoc.hide) || []);   // places this card's window leaves off (`locator.hide`)
         for (const d of sib.dots) {
+          if (hideSet.size && (hideSet.has(String(d.n || "").trim().toLowerCase()) || hideSet.has(String(d.within || "").trim().toLowerCase()))) continue;
           if (!S.cards || !S.cards[d.id]) continue;
           const k = String(d.within || d.n || "").trim().toLowerCase(); if (!k || (locWithin && k === locWithin)) continue; if (anchor && k === anchor.n.toLowerCase()) continue;
+          // the card's OWN place, studied on another card (2026-10-29, the owner: "the atlas window seems to display the text label for Alexandria twice, possibly because i already discovered
+          // the city in another card"): the sibling is the same city as the card's dot — by name, or within a few kilometres — so it is the dot already drawn, not a second mark and name
+          if (dot && (k === String(dot.n || "").trim().toLowerCase() || (d.c && Math.abs(d.c[0] - dot.c[0]) < 0.03 && Math.abs(d.c[1] - dot.c[1]) < 0.03))) continue;
           const isCity = !d.within || String(d.n || "").trim().toLowerCase() === k; let g = groups.get(k);
           if (!g) groups.set(k, g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }); else if (isCity && !g.city) { g.c = d.c; g.n = d.n; g.kind = d.kind; g.city = true; }
         }
         groups.forEach((g) => { const p = api.project(g.c[0], g.c[1]); if (inView(api, p)) sibAt.push([p[0], p[1], g.n, g.kind]); });
+        // the card's own further places (`locator.also`): drawn whether or not anything has been studied, as named dots beside its own
+        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (inView(api, p)) sibAt.push([p[0], p[1], a.name, "point"]); }
         if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
         for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : 4.6, sa[3] === "battle" ? 8 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
@@ -367,7 +376,8 @@
         }
       }
       const ownLabelAt = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
-      if (revealed && ownLabelAt && nm0 && !(locKind === "river" && !!ownLines)) {
+      // a members window drawn on a past year with no seat names nothing of its own: its present-day keys are only the fallback and the frame (the Three Kingdoms' "China", 2026-10-29)
+      if (revealed && ownLabelAt && nm0 && !(locKind === "river" && !!ownLines) && !(memHist && !dot)) {
         const p = api.project(ownLabelAt[0], ownLabelAt[1]);
         if (p[2] >= 0) {
           const beside = !!dot && locKind !== "region" && locKind !== "range" && locKind !== "sea" && locKind !== "shelf";
@@ -412,12 +422,12 @@
     function mountTimeline(hub) {
       const n = tlSteps.length, t0 = tlSpan[0], t1 = tlSpan[1] + 1;
       const frac = (st) => Math.max(0, Math.min(1, (st.t - t0) / Math.max(1e-9, t1 - t0)));
-      const el = document.createElement("div"); el.className = "war-tl"; el.setAttribute("role", "group"); el.setAttribute("aria-label", "Timeline of the war: " + n + " steps, from " + stepText(tlSteps[0]) + " to " + stepText(tlSteps[n - 1]));
+      const el = document.createElement("div"); el.className = "war-tl"; el.setAttribute("role", "group"); el.setAttribute("aria-label", (isMembers ? "Timeline: " : "Timeline of the war: ") + n + " steps, from " + stepText(tlSteps[0]) + " to " + stepText(tlSteps[n - 1]));
       el.innerHTML = '<div class="wtl-bar"><div class="wtl-ctl">' +
         '<button type="button" class="wtl-btn wtl-prev" aria-label="Previous step" title="Previous step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
         '<button type="button" class="wtl-btn wtl-play" aria-label="Play the steps" aria-pressed="false" title="Play"><svg class="wtl-ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg><svg class="wtl-ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></button>' +
         '<button type="button" class="wtl-btn wtl-next" aria-label="Next step" title="Next step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>' +
-        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="War timeline" aria-orientation="horizontal"></div></div>' +
+        '<div class="wtl-rail"><div class="wtl-track"><div class="wtl-line"></div><div class="wtl-pin" role="slider" tabindex="0" aria-label="' + (isMembers ? "Timeline" : "War timeline") + '" aria-orientation="horizontal"></div></div>' +
         '<div class="wtl-now" aria-hidden="true"></div><div class="wtl-ends"><span class="wtl-start"></span><span class="wtl-end"></span></div></div></div>';
       const q = (c) => el.querySelector(c), track = q(".wtl-track"), pin = q(".wtl-pin"), now = q(".wtl-now"), prev = q(".wtl-prev"), next = q(".wtl-next"), play = q(".wtl-play");
       q(".wtl-start").textContent = yearText(tlSpan[0]); q(".wtl-end").textContent = yearText(tlSpan[1]);
@@ -508,6 +518,24 @@
         memHist = memYear != null && memGroups.length > 0 && !hub.canvas2d;
         if (memHist) host.classList.add("map-members-hist");
         mountWindow(hub, null);
+        if (memHist && memSpan && memSpan.length === 2 && hub.entsTimeline) {
+          /* the members' timeline (2026-10-29): its steps are the years the states change inside the span, asked for once the history has arrived (it loads
+             behind the window); the pin opens at the card's own year (`members.year`) where that is a step, else at the halfway point */
+          let off = null, tm = 0;
+          const tryTl = () => {
+            if (stopped || tlSteps.length) { if (off) off(); clearTimeout(tm); return true; }
+            let tl = null; try { tl = hub.entsTimeline([].concat.apply([], memGroups), memSpan); } catch (e) { tl = null; }
+            if (!tl) return false;
+            if (off) off(); clearTimeout(tm);
+            const steps = timelineSteps(tl); if (!steps.length) return true;
+            tlSteps = steps; tlSpan = memSpan.slice();
+            const at = tlSteps.findIndex((t) => t.year === memYear); tlIdx = at >= 0 ? at : startStep(tlSteps, tlSpan, []);
+            host.setAttribute("data-map-year", String(tlSteps[tlIdx].year));
+            mountTimeline(hub); if (win) win.schedule();
+            return true;
+          };
+          if (!tryTl()) { off = hub.onChange(() => { tryTl(); }); tm = setTimeout(() => { if (off) off(); }, 150000); }
+        }
       });
     }).catch(() => { unhold(); if (!stopped) plain(SORRY); });
     /* THE MAP IN WORDS (Settings → Describe geography maps): the shaded shape's neighbours among that layer's own shapes, from atlas/data/card-neighbours.js (build-card-faces.js froze the proximity rule that v1 ran in the
@@ -534,8 +562,8 @@
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
             layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
-            year: glossYear != null ? glossYear : memHist ? memYear : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : (X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
+            year: glossYear != null ? glossYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
+            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
           extraSettled: (st, o) => anchorsCurrent(st, o),
