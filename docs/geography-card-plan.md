@@ -2049,6 +2049,18 @@ question and names it at the reveal (`docs/atlas-v2-card-windows.md`, the map-ca
 faces by registry id"). Building one is engine work, not a deck. So these two decks use the format the
 history collections already ship for the same subjects — `rm-003` the Tiber is the model:
 
+> **SUPERSEDED (2026-10-29, on request: these cards "should work the same way as the state or country cards, where the location
+> is shown on a map and the user must guess")**: the window now DOES hold a line or a point back — `locator.ask: true` puts the
+> locator's window on the card's FRONT, unnamed until the reveal, with no globe button and no second copy on the back
+> (`cardLocatorFront` in `app.js`; kept out of the minigames and the review preview as a map card is). Every located card of both
+> decks carries it, its question is the short map prompt ("The river traced on the map is ___." / "The lake marked on the map is
+> ___.", 5–20 words, `check-questions.js`'s picture-card range) and it has no extra phrasings; the anecdote clues the bullets
+> below describe were dropped from the 157 cards (they are in git history, and the Background tells the same stories). A NEW
+> card in these decks is written that way. The three China ranges with no locator (`gc-921`, `gc-923`, `gc-930`) keep their text
+> clue, since there is nothing to draw. The same day, 16 of the 19 US river cards gained `locator.rivers` (their rivers.js names,
+> `Mississippi`, `North Platte` …): before it, all but the Rio Grande had drawn a dot at the mouth, not the river. The two Red
+> Rivers (`geo-837`, `geo-840`) share ONE rivers.js entry, so naming it would draw both; they keep the dot and say "marked".
+
 - **A text clue on the front**, written to `docs/card-authoring.md`'s rules (20–34 words, the blank in the
   middle, two more phrasings from different angles). The clue is a fact about the place — where it rises,
   what it drains, what happened on it — never "the river on the map is ___".

@@ -257,7 +257,7 @@ capitals so the ranges never meet: **Rivers, lakes and seas** (`geo-china-water`
 
 **They are the United States physical decks again, and that plan is the rulebook**:
 📖 `docs/geography-card-plan.md` "The physical decks — water, and mountains and caves" — read it before
-writing a card. Everything it says holds here: **text cards with a locator, not map cards** (a river is a
+writing a card (and its 2026-10-29 note: a located card is now a MAP QUESTION, `locator.ask: true`, the short prompt, no extra phrasings). Everything else it says holds here: **text cards with a locator, not map cards** (a river is a
 line, a peak a point, and the card windows hold no line or point back as a question); a clue of 20–34
 words with the blank in the middle and two more phrasings; the ten-sentence background that is the
 feature's HISTORY and never repeats the facts grid; three `why` items; a glossary term per answer;
