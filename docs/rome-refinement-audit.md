@@ -165,7 +165,7 @@ order unless the user says otherwise.
 | B31 | The Republic in crisis (`rm-crisis`) | `rm-301`–`rm-310` | 10 | 85 | **done 2026-10-29** |
 | B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | **done 2026-10-29** |
 | B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | **done 2026-10-29** |
-| B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | open |
+| B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | **done 2026-10-29** |
 | B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | open |
 | B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | open |
 | B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | open |
@@ -600,6 +600,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-328` Third Servile War | none | no picture (`I.none`) |
 | `rm-329` consulship of 70 BCE | none | no picture (`I.none`) |
 | `rm-330` restoration of the tribunate | none | no picture (`I.none`) |
+| `rm-331` Cilician piracy | none | no picture (`I.none`) |
+| `rm-332` lex Gabinia | none | no picture (`I.none`) |
+| `rm-333` Third Mithridatic War | none | no picture (`I.none`) |
+| `rm-334` Lucullus | none | no picture (`I.none`); the glossary's is an engraving of a bust only traditionally called Lucullus |
+| `rm-335` Pompey's settlement of the East | a map of the Near East in 62 BCE | wrong: a derived map, very likely with burned-in labels |
+| `rm-336` Cicero | a marble bust inscribed CICERO | ok |
+| `rm-337` trial of Verres | none | no picture (`I.none`) |
+| `rm-338` consulship of Cicero | Thorvaldsen's copy of the Capitoline bust | weak: the man, not the year, and close to `rm-336`'s |
+| `rm-339` Catiline | Segoni's painting of Catiline's body (1871) | acceptable in kind (no portrait survives); the description names the work and the credit no author |
+| `rm-340` Catilinarian conspiracy | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -1494,3 +1504,22 @@ Run as B32; every draft was compared with its card after `batch.sh`: no mismatch
 | `rm-330` restoration of the tribunate | 6 | 8 → 7 | Added the agitation of the 70s (Lepidus, Sicinius 76, Cotta's law of 75 — now the first date row —, Macer's speech of 73 as Sallust's composition). **"Moved by Pompey" is now the sources' split between Pompey and both consuls.** |
 
 **Read by eye.** *Confusability:* `rm-321` the framing (no clue of `rm-276`); `rm-322`; `rm-323`/`rm-324` the man (fawn, Osca, banquet) and the war (Pompey's battles, the letter, the bullets); `rm-325`/`rm-326` the two men; `rm-327`/`rm-328` the man and the war; `rm-329`/`rm-330` the year and the law. *Legend:* the fawn, the prophetess and her serpent, the molten gold and Pompey's horse led before the censors are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B34 — `rm-331`–`rm-340`, the fall of the Republic: the pirates, the East, Cicero and Catiline (2026-10-29)
+
+Run as B33; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-331:rm-340` reads clean on four cards; the rest are `I.none` and `W.not-why` on three (a third Think-it-through question that does not open "Why": advisory). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. Two phrasings were fixed by hand before applying: `rm-338`'s second (it shared Cicero's defence of Rabirius with `rm-302`; now the Macedonia bargain) and the glossary aliases `rm-334` and `rm-335` needed ("Lucullus", "Pompey's settlement of the East") came with their redrafted entries. `timeline` was moved for `rm-333` (74 – 63), `rm-335` (66 – 62) and `rm-340` (October – December 63). **The ten old cards were all-ancient** (Appian, Plutarch and Cicero cited up to four times each); **Cicero's speeches and Sallust's monograph are now named for what they are**: a pleader's or a partisan's case, published after the event.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-331` Cilician piracy | 7 | 5 → 9 | **"Grew from 88 BCE" was Lendering's note, not Appian's**, and the line carried words. Added Crete, Antonius in 102, the piracy law of 101 or 100 from its Delphi and Cnidus copies, the son's failed Cretan war of 74 and the modern doubt about the label "pirate"; Caesar's kidnapping is Plutarch's story; Ostia is Cicero's case for Pompey's command. The glossary had c. 88 and Livy's "forty days". |
+| `rm-332` lex Gabinia | 6 | 5 → 7 | **"Command 3 years" leaves the line**; the bill naming no commander is Dio's, not Plutarch's; Plutarch's and Appian's figures for ships and legates are kept apart; the "step to monarchy" and "model for later commands" are modern judgements. No source read names Pompeiopolis, so the card says Soli. |
+| `rm-333` Third Mithridatic War | 7 | 6 → 8 | **The start is 74 (the Cambridge Ancient History) or spring 73 (Kallet-Marx, Lendering), both on the line**; Appian's translator's margin year is dropped; Tigranocerta's numbers are Plutarch's; Cicero's speech for the Manilian law is an advocate's case for the knights. |
+| `rm-334` Lucullus | 7 | 5 → 9 | The youth anecdotes go; the debt relief in Asia (interest capped at one per cent a month) and the knights' hostility are the moderns' reading; Clodius's mutiny, the triumph delayed to 63, the villas and "Lucullan". **No birth or death year is printed by a source read.** The glossary lacked the alias "Lucullus" (`G.none`). |
+| `rm-335` Pompey's settlement of the East | 6 | 6 → 7 | **"Settlement" is a modern name for a bundle of decrees** (the Cambridge Ancient History's "general settlement"); the line was mostly words. Bithynia-Pontus, the client kings, Crete and Syria annexed, Hyrcanus as high priest without a crown; Pompey in the sanctuary is Josephus's; the tribute figures are Plutarch's. |
+| `rm-336` Cicero | 9 | 7 → 9 | The whole life now (born 106 to a family of Arpinum, consul 63, killed 43). **The speeches argue a client's case; the letters, not meant for publication, still show him shaping his image.** The Roscius case is left to `rm-318`. |
+| `rm-337` trial of Verres | 7 | 6 → 7 | **Verres's crimes are known only from the prosecutor's speeches, now said in the card's voice**; the Divinatio, Hortensius, the exile after the first hearing and the five unspoken books are added; Cicero's 40 million sesterces and Plutarch's 750,000 denarii are each attributed. |
+| `rm-338` consulship of Cicero | 7 | 6 → 7 | The conspiracy (`rm-339`–`rm-341`'s) is one clause; **the Commentariolum's authorship is doubted**; the Rullus land bill is Cicero's picture of it; the Macedonia bargain, Rabirius and the mocked poem are added. |
+| `rm-339` Catiline | 8 | 6 → 9 | **The old line had him die fighting Antonius; Antonius had gout and Petreius commanded.** The Gratidianus killing and the brother are Plutarch's charges, with the doubt; the "first conspiracy" is Sallust's story, which moderns doubt; Cicero published his speeches in 60 and may have revised them. Sallust puts the wounds in front on the soldiers, not on Catiline. |
+| `rm-340` Catilinarian conspiracy | 8 | 8 → 9 | Half the old abstract was the debate and the executions (`rm-341`'s). Now the plot in Rome: Fulvia's leak, the decree of 21 October, Manlius at Faesulae, the night at Laeca's, the First Catilinarian, the Allobroges' letters at the Mulvian Bridge, the arrests. |
+
+**Read by eye.** *Confusability:* `rm-331`/`rm-332` the phenomenon and the law; `rm-333`/`rm-334`/`rm-335` the war, the general and the settlement; `rm-336`/`rm-337`/`rm-338` the man, the trial and the year; `rm-339`/`rm-340` the man and the plot (the debate kept for `rm-341`). *Legend:* the kidnapping, Pompey's sanctuary visit and Catiline's last stand are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

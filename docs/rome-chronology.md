@@ -371,6 +371,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Third Servile War / both consuls beaten | 73 – 71 BCE / 72 BCE | `rm-328` |
 | the consulship of Pompey and Crassus | 70 BCE | `rm-329` |
 | the tribunate: partly restored / fully restored | 75 BCE / 70 BCE | `rm-330` |
+| Cilician piracy: Antonius's campaign / the Cretan command / the seas cleared | 102 BCE / 74 BCE / 67 BCE | `rm-331` |
+| the lex Gabinia | 67 BCE | `rm-332` |
+| the Third Mithridatic War / the lex Manilia | 74 – 63 BCE (Kallet-Marx and Lendering: 73 – 63) / 66 BCE | `rm-333` |
+| Lucullus: consul / eastern command / triumph | 74 BCE / 74 – 66 BCE / 63 BCE | `rm-334` |
+| Pompey's settlement of the East / Syria annexed / Jerusalem taken / ratified | 66 – 62 BCE / 64 BCE / 63 BCE / 59 BCE | `rm-335` |
+| Cicero: born / consul / died | 106 BCE / 63 BCE / 43 BCE | `rm-336` |
+| the trial of Verres / his governorship | 70 BCE / 73 – 71 BCE | `rm-337` |
+| Cicero's consulship / elected | 63 BCE / 64 BCE | `rm-338` |
+| Catiline: praetor / consular bids / died | 68 BCE / 66 – 63 BCE / January 62 BCE | `rm-339` |
+| the Catilinarian conspiracy: the Senate's decree / the First Catilinarian / the arrests | 21 October / 8 November / 3 December 63 BCE (pre-Julian Roman dates in modern dress) | `rm-340` |
 
 ## The Principate
 
@@ -701,4 +711,14 @@ rm-327: 73; 71
 rm-328: 73; 71; 72
 rm-329: 70
 rm-330: 75; 70
+rm-331: 102; 74; 67
+rm-332: 67
+rm-333: 74; 63; 73; 66
+rm-334: 74; 66; 63
+rm-335: 66; 62; 64; 63; 59
+rm-336: 106; 63; 43
+rm-337: 70; 73; 71
+rm-338: 63; 64
+rm-339: 68; 66; 63; 62
+rm-340: 63
 ```
