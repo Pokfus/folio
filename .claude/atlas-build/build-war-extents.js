@@ -25,7 +25,8 @@ const fs = require("fs"), path = require("path");
 const HERE = __dirname, ROOT = path.join(HERE, "..", "..");
 const { ensureSource } = require("./fetch-sources.js");
 const OUT_FILE = path.join(HERE, "war-extents.json");
-const SRC = { ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule" };
+const SRC = { ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule", pleiades: "pleiades-places" };
+const POLEIS_FILE = path.join(HERE, "war-poleis.json");
 
 const closeRing = (r) => { const a = r[0], b = r[r.length - 1]; return a[0] === b[0] && a[1] === b[1] ? r : r.concat([a]); };
 const r5 = (v) => Math.round(v * 1e5) / 1e5;
@@ -102,10 +103,109 @@ function build(o) {
     out.extents.ext_messenia = { src: [SRC.ohm], rows: [{ from: w.from, to: w.to, rings: flat(inside) }], note: "Messenia is the part of OpenHistoricalMap’s Lacedaemon polygon (relation " + rel.id + ", CC0; its own tags say “needs source for boundary lines”) that lies inside the Taygetos line Folio drew on the card: the outer limit is OHM’s, the line is Folio’s." };
     out.extents.ext_sparta = { src: [SRC.ohm], rows: [{ from: w.from, to: w.to, rings: flat(outside) }], note: "Sparta (Laconia) is OpenHistoricalMap’s Lacedaemon polygon (relation " + rel.id + ", CC0; its own tags say “needs source for boundary lines”) outside the Taygetos line Folio drew on the card: the outer limit is OHM’s, the line is Folio’s." };
   }
-  const body = JSON.stringify(out, null, 1) + "\n";
+  // ---- the Peloponnesian War's two sides, year by year (2026-10-25, on request) ----
+  if (fs.existsSync(POLEIS_FILE)) Object.assign(out.extents, poleisExtents(PC, out));
+  // a point is written on one line ([lon,lat]), not three: the Peloponnesian War's 25 rows a side made the file 9 MB of brackets (2026-10-25)
+  const body = JSON.stringify(out, null, 1).replace(/\[\s+(-?[\d.]+),\s+(-?[\d.]+)\s+\]/g, "[$1,$2]") + "\n";
   if (o.check) { const have = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, "utf8") : ""; return { ok: have === body, body }; }
   fs.writeFileSync(OUT_FILE, body);
   return { ok: true, body };
+}
+/* THE PELOPONNESIAN WAR, YEAR BY YEAR (2026-10-25, on request: "make the borders in the atlas window more accurate and show more/better yearly border and alliance
+   changes"). Batch 6 of the border audit deferred "Athens and its empire" because no open dataset draws a scatter of tribute-paying coasts whose membership changed
+   year by year. This derives both sides from a TABLE instead of a polygon: war-poleis.json (committed, authored) lists every polis, island and region with the
+   years it stood with each side and the ancient passage that says so (Thucydides, Xenophon, the Athenian Tribute Lists). The geometry is mechanical and open:
+     · a polis is the land within its radius (default 12 km) of its town's representative point in Pleiades (the pinned places.csv, CC BY 3.0) — on an island that
+       is not wholly its own, that circle within the island's coast ring;
+     · an island is its whole coast ring from the committed core (topology.bin, the OSM coast);
+     · "Lacedaemon" is OpenHistoricalMap's Lacedaemon polygon (the pinned relation, CC0), Laconia and Messenia together, as Sparta held both in these years.
+   A year's side is the union of its members. Where the two sides' shapes meet, an entry marked `enclave` (Pylos, Cythera, Methana, Nisaea, Decelea …) keeps its own
+   ground, and any other overlap goes piece by piece to the side whose nearest member town is closer. Consecutive years with the same members are one row.
+   The shapes say "these towns' lands", not a frontier: the entity's note says so. */
+function poleisExtents(PC, out) {
+  const T = JSON.parse(fs.readFileSync(POLEIS_FILE, "utf8"));
+  const pl = ensureSource(SRC.pleiades); out.sources[SRC.pleiades] = pl.sha256;
+  const ohm = ensureSource(SRC.ohm); out.sources[SRC.ohm] = ohm.sha256;
+  const lacRings = ohmRings(JSON.parse(fs.readFileSync(ohm.archive, "utf8"))).rings.map((r) => [closeRing(r)]);
+  // Pleiades: id → [lon, lat] (the representative point), read from the pinned CSV (RFC 4180: quoted fields may hold commas, quotes and newlines)
+  const want = new Set(T.entries.map((e) => String(e.pleiades || "")).filter(Boolean));
+  const pt = new Map();
+  { const txt = fs.readFileSync(pl.archive, "utf8").replace(/^﻿/, ""); let i = 0, row = [], f = "", q = false, head = null; const N = txt.length;
+    const endRow = () => { row.push(f); f = ""; if (!head) head = row; else { const id = row[head.indexOf("id")]; if (want.has(id)) { const la = Number(row[head.indexOf("representative_latitude")]), lo = Number(row[head.indexOf("representative_longitude")]); if (isFinite(la) && isFinite(lo) && (la || lo)) pt.set(id, [lo, la]); } } row = []; };
+    for (; i < N; i++) { const c = txt[i]; if (q) { if (c === '"') { if (txt[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; } else if (c === '"') q = true; else if (c === ",") { row.push(f); f = ""; } else if (c === "\n") endRow(); else if (c !== "\r") f += c; }
+    if (f || row.length) endRow(); }
+  for (const e of T.entries) if (e.pleiades && !pt.has(String(e.pleiades))) throw new Error(`war-poleis.json: ${e.name}: Pleiades ${e.pleiades} has no representative point in the pinned places.csv`);
+  // the committed core's coast rings (land on the left), for the islands
+  const F = require("./lib/format.js"), core = F.readFile(path.join(ROOT, "atlas", "data", "topology.bin")), Q = core.quantum, K = F.KIND, nCA = core.arcOffset.length - 1;
+  const dir = new Int8Array(nCA).fill(1);
+  { const l0 = core.header.entities.map((e) => !e.parent); for (const fc of core.faces) { if (!l0[fc.entity]) continue; for (const ring of fc.rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (core.arcKind[a] === K.COAST) dir[a] = ref > 0 ? 1 : -1; } } }
+  const head = (a) => (dir[a] > 0 ? core.arcOffset[a] : core.arcOffset[a + 1] - 1), tail = (a) => (dir[a] > 0 ? core.arcOffset[a + 1] - 1 : core.arcOffset[a]);
+  const pk = (i) => core.lon[i] * 4000000 + core.lat[i];
+  const coast = [], mainland = [];
+  /* THE LAND OF THE WAR'S REGION (2026-10-25): every shape is clipped to the committed coast BEFORE it is written. A circle reaching over a strait (Attica's to
+     Salamis and Aegina) left build-history a ring whose sea chords and 12 km-inland arcs it had to snap onto the coast by its run rule, and west Attica fell out of
+     the face from 422 BCE; a ring that already follows the coast needs no such guess. */
+  const REGION = [10, 30, 36, 46];
+  { const byHead = new Map(); for (let a = 0; a < nCA; a++) if (core.arcKind[a] === K.COAST) { const k = pk(head(a)); let l = byHead.get(k); if (!l) byHead.set(k, l = []); l.push(a); }
+    const used = new Uint8Array(nCA);
+    for (let a0 = 0; a0 < nCA; a0++) { if (core.arcKind[a0] !== K.COAST || used[a0]) continue; const pts = []; let a = a0, g = 0;
+      while (!used[a] && g++ < 1e6) { used[a] = 1; const idx = []; for (let i = core.arcOffset[a]; i < core.arcOffset[a + 1]; i++) idx.push(i); if (dir[a] < 0) idx.reverse(); for (let k = pts.length ? 1 : 0; k < idx.length; k++) pts.push([core.lon[idx[k]] * Q, core.lat[idx[k]] * Q]); const l = (byHead.get(pk(tail(a))) || []).filter((b) => !used[b]); if (!l.length) break; a = l[0]; }
+      if (pts.length < 4) continue; let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, ar = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q2 = pts[(i + 1) % pts.length]; x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); ar += p[0] * q2[1] - q2[0] * p[1]; }
+      if (ar > 0 && x1 - x0 < 6 && y1 - y0 < 6) coast.push({ pts, bb: [x0, y0, x1, y1], area: ar / 2 });
+      else if (ar > 0 && x1 >= REGION[0] && x0 <= REGION[2] && y1 >= REGION[1] && y0 <= REGION[3]) mainland.push(pts); } }
+  /* an island's coast ring is simplified to ~55 m (Douglas–Peucker, 0.0005°) BEFORE the unions and differences, so every polygon written is the clipper's own, valid
+     output (simplifying afterwards let an enclave's hole cross its outer ring, and build-history's depth nesting then lost west Attica): build-history snaps every vertex
+     to the committed coast at a far coarser tolerance, so the full resolution was 10 MB of a file nobody reads */
+  const dp = (P, e) => { if (P.length < 3) return P; let d = 0, ix = 0; const a = P[0], b = P[P.length - 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1e-12; for (let k = 1; k < P.length - 1; k++) { const q = P[k], n = Math.abs((b[0] - a[0]) * (a[1] - q[1]) - (a[0] - q[0]) * (b[1] - a[1])) / L; if (n > d) { d = n; ix = k; } } return d > e ? dp(P.slice(0, ix + 1), e).slice(0, -1).concat(dp(P.slice(ix), e)) : [a, b]; };
+  const simp = (ring) => { if (ring.length < 8) return ring; const h = Math.floor(ring.length / 2); const out2 = dp(ring.slice(0, h + 1), 0.0005).slice(0, -1).concat(dp(ring.slice(h).concat([ring[0]]), 0.0005).slice(0, -1)); return (out2.length >= 3 ? out2 : ring).map((q) => [r5(q[0]), r5(q[1])]); };
+  const pip = (poly, x, y) => { let k = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) k = !k; } return k; };
+  // the smallest coast ring holding the point, else the one with a vertex nearest it within 3 km (a town's point may sit on the shore)
+  const islandAt = (lon, lat, name) => {
+    let best = null; for (const r of coast) { const b = r.bb; if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue; if (pip(r.pts, lon, lat) && (!best || r.area < best.area)) best = r; }
+    if (!best) { let bd = 3 / 111.2; for (const r of coast) { const b = r.bb; if (lon < b[0] - bd || lon > b[2] + bd || lat < b[1] - bd || lat > b[3] + bd) continue; for (const p of r.pts) { const d = Math.hypot((p[0] - lon) * Math.cos(lat * Math.PI / 180), p[1] - lat); if (d < bd) { bd = d; best = r; } } } }
+    if (!best) throw new Error(`war-poleis.json: ${name}: no island coast ring at or within 3 km of ${lon}, ${lat}`);
+    return [closeRing(simp(best.pts))];
+  };
+  const box = [[[REGION[0], REGION[1]], [REGION[2], REGION[1]], [REGION[2], REGION[3]], [REGION[0], REGION[3]], [REGION[0], REGION[1]]]];
+  const land = PC.union(...coast.filter((r) => r.bb[2] >= REGION[0] && r.bb[0] <= REGION[2] && r.bb[3] >= REGION[1] && r.bb[1] <= REGION[3]).map((r) => [closeRing(simp(r.pts))]), ...mainland.map((m) => PC.intersection([closeRing(simp(m))], box)));
+  const circle = (lon, lat, km) => { const out2 = [], dl = km / 111.2, c = Math.cos(lat * Math.PI / 180); for (let k = 0; k < 40; k++) { const t = (k / 40) * 2 * Math.PI; out2.push([r5(lon + (dl / c) * Math.cos(t)), r5(lat + dl * Math.sin(t))]); } return [closeRing(out2)]; };
+  // each entry's ground, once
+  const ground = new Map();
+  for (const e of T.entries) {
+    if (e.name === "Lacedaemon") { ground.set(e, lacRings); continue; }
+    const p = pt.get(String(e.pleiades)), at = e.at || p;   // `at`: a point the table gives where Pleiades' point is not the town's (said in its `why`)
+    if (e.kind === "island") { let g = null; try { g = [islandAt(at[0], at[1], e.name)]; } catch (err) { if (!e.radiusKm) throw err; } ground.set(e, g || [circle(at[0], at[1], e.radiusKm)]); }   // an islet the OSM coast no longer rings (Minoa is joined to the shore now) is its radius instead
+    else { const c = circle(at[0], at[1], e.radiusKm || T.radiusKm || 12); ground.set(e, e.island ? PC.intersection([c], [islandAt((e.islandAt || at)[0], (e.islandAt || at)[1], e.island)]) : [c]); }
+  }
+  const y0 = T.years[0], y1 = T.years[1], res = {};
+  const sideOf = (e, y) => { for (const sp of e.spans || []) if (y >= sp.from && y <= sp.to) return sp.side; return null; };
+  const rowsBy = {}; for (const k of Object.keys(T.sides)) rowsBy[k] = [];
+  let last = null;
+  for (let y = y0; y <= y1; y++) {
+    const mem = {}; for (const s of Object.values(T.sides)) mem[s] = []; for (const e of T.entries) { const s = sideOf(e, y); if (s && mem[s]) mem[s].push(e); }
+    const sig = Object.values(T.sides).map((s) => mem[s].map((e) => e.name).sort().join(",")).join("|");
+    if (last && last.sig === sig) { for (const k of Object.keys(T.sides)) rowsBy[k][rowsBy[k].length - 1].to = y; continue; }
+    const shapes = {}; for (const s of Object.values(T.sides)) shapes[s] = mem[s].length ? PC.union(...mem[s].map((e) => ground.get(e))) : [];
+    const [sa, sb] = Object.values(T.sides);
+    const encl = (s) => mem[s].filter((e) => e.enclave).map((e) => ground.get(e));
+    if (shapes[sa].length && encl(sb).length) shapes[sa] = PC.difference(shapes[sa], ...encl(sb));
+    if (shapes[sb].length && encl(sa).length) shapes[sb] = PC.difference(shapes[sb], ...encl(sa));
+    if (shapes[sa].length && shapes[sb].length) {
+      const over = PC.intersection(shapes[sa], shapes[sb]);
+      if (over.length) {
+        const town = (e) => (e.name === "Lacedaemon" ? [22.43, 37.08] : e.at || pt.get(String(e.pleiades)));
+        const near = (s, x, yy) => Math.min(...mem[s].map((e) => { const t = town(e); return Math.hypot((t[0] - x) * Math.cos(yy * Math.PI / 180), t[1] - yy); }));
+        const toA = [], toB = [];
+        for (const poly of over) { const r = poly[0]; let cx = 0, cy = 0; for (const q2 of r) { cx += q2[0]; cy += q2[1]; } cx /= r.length; cy /= r.length; (near(sa, cx, cy) <= near(sb, cx, cy) ? toB : toA).push(poly); }
+        if (toA.length) shapes[sa] = PC.difference(shapes[sa], toA);   // pieces nearer B's towns leave A
+        if (toB.length) shapes[sb] = PC.difference(shapes[sb], toB);
+      }
+    }
+    for (const [k, s] of Object.entries(T.sides)) rowsBy[k].push({ from: y, to: y, members: mem[s].map((e) => e.name).sort(), rings: flat(shapes[s].length ? PC.intersection(shapes[s], land) : []) });
+    last = { sig };
+  }
+  for (const [k, s] of Object.entries(T.sides)) res[k] = { src: [SRC.pleiades, SRC.ohm], rows: rowsBy[k].filter((r) => r.rings.length), note: T.notes[s] };
+  return res;
 }
 module.exports = { build, OUT_FILE, SRC, ohmRings };
 if (require.main === module) {

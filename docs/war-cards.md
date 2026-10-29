@@ -670,3 +670,17 @@ Union", it has **Germany** and **USSR**.
 With the preview switch on, a war card's window is drawn at the MIDDLE YEAR of the war (`data-map-year`, from `atlas/data/wars.js`) on the engine's history: the two sides' entities tinted green and red by `warRoles` in the
 war's years, every other state plain land (`layers.neutral`), the frame fitted to both sides (`warFrame`). A year outside the war's years tints nothing. A war the table does not carry keeps V1's window (present-day countries
 shaded by name); `TINT_WIN` / `TINT_LOSE` and `cardWarKeyHTML` are unchanged. The go button and a tap open `#map2/<lon>/<lat>/<zoom>?y=<year>&war=<card>`.
+
+## The Peloponnesian War, year by year (2026-10-25, on request)
+
+> "See if you can make the borders in the atlas window more accurate and show more/better yearly border and alliance changes."
+
+Both sides of `gr-521` (and `wh-330`, `gr-561`, and Athens' side of `gr-552`) are DERIVED extents with one row per change
+year, built by `.claude/atlas-build/build-war-extents.js` from `.claude/atlas-build/war-poleis.json`: 268 entries (poleis,
+islands, Lacedaemon), each with the campaign years it stood with Athens or Sparta and the passage that says so (Thucydides,
+Xenophon, Diodorus, the Athenian Tribute Lists), a `conf` where it is a judgement. A polis is its land within `radiusKm` of its
+Pleiades point (pinned `pleiades-places`, CC BY 3.0), an island its whole OSM coast ring, Lacedaemon OpenHistoricalMap's
+polygon; `enclave` forts keep their ground inside the other side's land, other overlaps go to the nearer town. The war's
+`war-sides.json` entries are `extentOnly` so Sparta's side is no longer Cliopatria's single Peloponnesian League polygon.
+After editing the table: `build-war-extents.js`, then `build-history.js --no-cache --install`, `build-wars.js --install`,
+`build-war-slice.js --install`, `build-ww2-slice.js --install`, `audit-seats.js --write-known`, `check-history.js`.

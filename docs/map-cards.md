@@ -712,3 +712,17 @@ A light field on a text card, read by `cardMembers` in `app.js`:
 - **One unknown key makes the whole window the plain sentence** (`model()` refuses it), so `test-map-cards.js` §1 checks every
   key against `.claude/atlas-build/frozen/layers.json` and that the serializer and `revertCard` carry the field.
 - It adds no place to the card's `places` and nothing to the Personal Atlas.
+
+### On a past year's borders, in two groups (`members.year` + `members.groups`, 2026-10-25, on request)
+
+> "Use the 1920 borders in its atlas window with the original members shaded in gold, and later joiners shaded differently."
+
+`members` may add `year` (an integer) and `groups: [{ name, note, ids: ["pol:…"] }, …]` (at most two). The window then draws
+that year's states from `history.bin` (the whole history, as a glossary window's state does) and tints the first group's
+entities in the selection gold and the second in `TINT_LATE` (blue); each group is a row of the key. `keys` stay: they frame
+the window and are what a browser without WebGL2 shades instead (today's countries, in gold). The League's 1920 states are
+the `*_1920` series of `.claude/polity-spec.json` (Cliopatria's rows alive in 1920, `years: [1920, 1920]`); five states
+Cliopatria folds into an empire or an occupation that year (Canada, South Africa, New Zealand, Haiti, the Dominican
+Republic) are drawn with their own later row through `rowsAt: [[1920, 1920, rowYear]]`, their borders being the same, and
+the entity's note says so; the Spanish empire's composite stands aside in 1920 (`exceptYears`) for Spain alone.
+`cnh-656` uses the same block with `label: "Territory"` for one state's own present-day ground.

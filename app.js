@@ -34430,6 +34430,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which — so the colour is the quick read and the words are the answer. See `cardWarKeyHTML`. */
   const TINT_WIN = { rgb: "36,148,84", fillA: 0.34, line: "rgba(58,184,108,1)", glow: "rgba(48,168,96,0.7)" };
   const TINT_LOSE = { rgb: "198,54,48", fillA: 0.32, line: "rgba(230,92,84,1)", glow: "rgba(216,72,64,0.7)" };
+  // an organisation's LATER members beside its original ones in the selection gold (`cardMembers` groups, 2026-10-25): a blue no reader can take for the gold, the green or the red
+  const TINT_LATE = { rgb: "64,128,214", fillA: 0.3, line: "rgba(96,156,236,1)", glow: "rgba(80,140,226,0.7)" };
   const CARD_MAP_LAYERS = {
     /* A layer names the words a card window and its question use (`what`, `plural`, `dotWhat`) and — where the layer has one — says that a card may put a dot on a city (`points`, `pointsAlt`: the names of the old point tables). Since
        Phase 5 the SHAPES and the DOTS are the engine's (atlas/data/card-faces.js: layer → key → entity, layer → dot → point; the old bundles us-states.js, china-provinces.js, russia-subjects.js, world.js and the capitals tables are gone) and
@@ -34729,7 +34731,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
-    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, GAME_MAX_DIFFICULTY,
+    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr };
   }
@@ -36062,10 +36064,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const name = String(m.name || "").trim();
     if (!keys.length || !name) return null;
     const at = Array.isArray(m.at) && m.at.length === 2 && isFinite(Number(m.at[0])) && isFinite(Number(m.at[1])) ? [Number(m.at[0]), Number(m.at[1])] : null;
-    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "" };
+    /* `label` (optional) names the window where "Members" would be wrong — a single state's own territory (the People's Republic
+       of China's card, Oct 2026, on request) is shaded the same way, but it has no members. */
+    /* `year` + `groups` (2026-10-25, on request: the League "on the 1920 borders, the original members shaded in gold and later joiners shaded differently"): the
+       window draws that year's states (history.bin entities, `ids`) and tints the first group gold and the second blue (TINT_LATE); `keys` stay as the present-day
+       fallback for a browser that cannot draw a past year, and frame the window. Each group is a row of the key with its own swatch. */
+    const year = Number.isInteger(m.year) ? m.year : null;
+    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 2);
+    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups };
   }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
+    if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i ? TINT_LATE : TINT_SEL) +
+      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + "</div>";
     return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
       '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span></div>";
   }
@@ -36234,14 +36245,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const said = (w
       ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
         w.losers.name + ", defeated, shaded red. "
+      : m && m.groups.length ? m.name + " on an interactive globe of the borders of " + m.year + ": " + m.groups.map((g, i) => g.name + (i ? " in blue" : " in gold")).join(", ") + (atName ? "; " + atName + " marked" : "") + ". "
       : m ? m.name + " shaded in gold on an interactive globe of today's countries" + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
-    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? "Members" : "Location") + "</span>" +
+    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
       '<div class="map-card map-loc' + (w ? " map-war" : m ? " map-members" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
       (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
+      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
       (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +

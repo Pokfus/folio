@@ -45,7 +45,8 @@ function resolveWars(o) {
   const S = o.specs || specs();
   const cards = o.cards.filter((c) => c && c.war && c.war.victors && c.war.losers);
   const byLabel = new Map(), byKey = new Map();
-  for (const [key, p] of Object.entries(S.polities)) { byKey.set(key, key); byLabel.set(fold(p.label), key); }
+  // a `snapshot` series (the states of one year drawn for one window — the League's 1920, polity-spec.json) answers no war side by its name or key
+  for (const [key, p] of Object.entries(S.polities)) { if (p.snapshot) continue; byKey.set(key, key); byLabel.set(fold(p.label), key); }
   const hash = (v) => crypto.createHash("sha256").update(JSON.stringify(v)).digest("hex").slice(0, 8);
   const wars = [], extentBy = new Map();   // extent identity (name + shape) → entry
   for (const c of cards.slice().sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))) {

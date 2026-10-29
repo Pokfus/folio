@@ -301,13 +301,19 @@ function run() {
       cidx.near(x, y, rU, (k) => { const i1 = segV[k], i0 = i1 - 1; const ax = C.lon[i0], ay = C.lat[i0]; let bx = C.lon[i1]; if (bx - ax > X180q) bx -= 2 * X180q; else if (ax - bx > X180q) bx += 2 * X180q; let qx = x; if (qx - ax > X180q) qx -= 2 * X180q; else if (ax - qx > X180q) qx += 2 * X180q; const dx = bx - ax, dy = C.lat[i1] - ay; const l2 = dx * dx + dy * dy; let t = l2 ? ((qx - ax) * dx + (y - ay) * dy) / l2 : 0; t = Math.max(0, Math.min(1, t)); let px = Math.round(ax + dx * t); if (px >= X180q) px -= 2 * X180q; if (px < -X180q) px += 2 * X180q; const d = G.chordMetres(P, vec([px, Math.round(ay + dy * t)])); if (d < best) best = d; });
       return best;
     };
+    /* A reference whose coarsest drawing is short of 1/7 of its line BECAUSE OF THE COAST ITSELF, listed with its cause (the key is the reference's first point and the level).
+       A listed one that no longer fires fails, as KNOWN_ONE_SIDED's do. */
+    const KNOWN_SHORT = {
+      "-127.7,51.3 L0": "Canada in 1920 (the League of Nations window's states): its coast range on the fjords of central British Columbia, from Rivers Inlet north, is 855 km of inlets that level 0's 10 km coast straightens to 99.5 km (0.12 of the line); the same coast drawn by the present-day face is not a reference and is not tested",
+    };
+    const shortKnown = new Set();
     let shortPath = 0, chords = 0, longest = 0; const samples = []; const ratioMin = [Infinity, Infinity, Infinity]; let checked = 0;
     for (let i = 0; i < nA; i++) {
       if (T.coreArc[i] < 0) continue; checked++;
       const full = lenOf(geom(i, LODS - 1));   // every core vertex of the range: the line the reference replaces
       for (let L = 0; L < LODS; L++) {
         const g = geom(i, L); const len = lenOf(g);
-        if (full > 2 * CHORD_OFF_M[L] && len > 2 * CHORD_OFF_M[L]) { const r = len / full; if (r < ratioMin[L]) ratioMin[L] = r; if (r < 1 / CHORD_FACTOR) { shortPath++; if (samples.length < 8) samples.push(`arc ${i} L${L}: ${(len / 1000).toFixed(1)} km drawn for ${(full / 1000).toFixed(1)} km of line near ${(g[0][0] * Q).toFixed(3)},${(g[0][1] * Q).toFixed(3)}`); } }
+        if (full > 2 * CHORD_OFF_M[L] && len > 2 * CHORD_OFF_M[L]) { const r = len / full; if (r < ratioMin[L]) ratioMin[L] = r; if (r < 1 / CHORD_FACTOR) { const sk = `${(g[0][0] * Q).toFixed(1)},${(g[0][1] * Q).toFixed(1)} L${L}`; if (KNOWN_SHORT[sk]) { shortKnown.add(sk); continue; } shortPath++; if (samples.length < 8) samples.push(`arc ${i} L${L}: ${(len / 1000).toFixed(1)} km drawn for ${(full / 1000).toFixed(1)} km of line near ${(g[0][0] * Q).toFixed(3)},${(g[0][1] * Q).toFixed(3)}`); } }
         for (let k = 1; k < g.length; k++) {
           const m = G.chordMetres(vec(g[k - 1]), vec(g[k])); if (m <= CHORD_OFF_M[L]) continue;   // a segment shorter than the tolerance cannot leave the line by more than it
           let mx = g[k][0]; if (mx - g[k - 1][0] > X180q) mx -= 2 * X180q; else if (g[k - 1][0] - mx > X180q) mx += 2 * X180q; mx = Math.round((g[k - 1][0] + mx) / 2); if (mx >= X180q) mx -= 2 * X180q; if (mx < -X180q) mx += 2 * X180q;
@@ -316,6 +322,7 @@ function run() {
         }
       }
     }
+    { const staleShort = Object.keys(KNOWN_SHORT).filter((k) => !shortKnown.has(k)); if (staleShort.length) bad("every KNOWN_SHORT reference still fires (remove a fixed one)", staleShort.join("; ")); }
     shortPath ? bad(`every core reference draws at least 1/${CHORD_FACTOR} of the line it replaces at every level`, `${shortPath} (${samples.join("; ")})`) : ok(`every core reference draws at least 1/${CHORD_FACTOR} of the line it replaces at every level`, `${checked} references; the smallest ratio per level ${ratioMin.map((r) => (r === Infinity ? "—" : r.toFixed(2))).join(" / ")}`);
     (chords && longest > CHORD_MAX_M) ? bad(`no drawn segment of a core reference leaves the line by more than ${CHORD_OFF_M.join(" / ")} m per level (a chord across land)`, `${chords}, the longest ${(longest / 1000).toFixed(1)} km (${samples.join("; ")})`) : ok(`no drawn segment of a core reference leaves the line by more than ${CHORD_OFF_M.join(" / ")} m per level (a chord across land)`, chords ? `${chords} under ${CHORD_MAX_M / 1000} km (the longest ${(longest / 1000).toFixed(1)} km)` : "none");
   }
@@ -428,12 +435,21 @@ function run() {
       "pol:byzantium|pol:venice|22.7,37.6": "the Venetian enclave at Methoni/Koroni (1395–1429) lies inside the Byzantine Morea, the two borders within 135 m of each other and unshared (a near-coincident pair of source borders)",
       "pol:ottoman|pol:venice|22.7,37.6": "the same Venetian enclave in 1402, bordering the Ottoman row",
       "pol:ussr|pol:estonia_1918|27.5,58.5": "the Soviet row of 1922–1934 and Estonia's meet along the Narva–Pskov line within 135 m without sharing it (a near-coincident pair of source borders)",
+      "pol:soviet_1920|pol:estonia_1918|27.5,58.5": "the same line in 1920: Cliopatria's Soviet republics of 1920 (the League window's states) and Estonia meet along the Narva–Pskov line within 135 m without sharing it",
     };
     const wx = (x, px) => { let d = x - px; if (d > X180) d -= 2 * X180; else if (d < -X180) d += 2 * X180; return d; };
     const ringCache = new Map();
-    const ringOf = (fi, ri) => { const k = fi + ":" + ri; let r = ringCache.get(k); if (r) return r; const pts = []; for (const ref of T.faces[fi].rings[ri]) { let g = geom(Math.abs(ref) - 1, LODS - 1); if (ref < 0) g = g.slice().reverse(); for (let i = pts.length ? 1 : 0; i < g.length; i++) pts.push(g[i]); } let y0 = Infinity, y1 = -Infinity, x0 = Infinity, x1 = -Infinity, wrap = false; for (let i = 0; i < pts.length; i++) { if (pts[i][1] < y0) y0 = pts[i][1]; if (pts[i][1] > y1) y1 = pts[i][1]; if (pts[i][0] < x0) x0 = pts[i][0]; if (pts[i][0] > x1) x1 = pts[i][0]; if (i && Math.abs(pts[i][0] - pts[i - 1][0]) > X180) wrap = true; } r = { pts, y0, y1, x0, x1, wrap }; ringCache.set(k, r); return r; };
+    const ringOf = (fi, ri) => { const k = fi + ":" + ri; let r = ringCache.get(k); if (r) return r; const pts = []; for (const ref of T.faces[fi].rings[ri]) { let g = geom(Math.abs(ref) - 1, LODS - 1); if (ref < 0) g = g.slice().reverse(); for (let i = pts.length ? 1 : 0; i < g.length; i++) pts.push(g[i]); } let y0 = Infinity, y1 = -Infinity, x0 = Infinity, x1 = -Infinity, wrap = false; for (let i = 0; i < pts.length; i++) { if (pts[i][1] < y0) y0 = pts[i][1]; if (pts[i][1] > y1) y1 = pts[i][1]; if (pts[i][0] < x0) x0 = pts[i][0]; if (pts[i][0] > x1) x1 = pts[i][0]; if (i && Math.abs(pts[i][0] - pts[i - 1][0]) > X180) wrap = true; } r = { pts, y0, y1, x0, x1, wrap };
+      /* a ring that spans more than half the globe once unwrapped (the Soviet republics of 1920, the Baltic to Chukotka: 190°) folds over itself when its longitudes are
+         unwrapped about a test point on the far side (Canada), and the even-odd rule then finds the point inside it (2026-10-25, the League's 1920 states). Such a ring is
+         tested on its own continuous longitudes instead, the point shifted by a whole turn either way. */
+      /* …and so does any ring whose span holds the test point's antimeridian (the Soviet republics' 20°E–180° ring torn about a point in Canada): every ring that closes on
+         its own continuous longitudes (all but a ring round a pole) is tested that way */
+      { const u = [pts[0].slice()]; for (let i = 1; i < pts.length; i++) { let x = pts[i][0]; while (x - u[i - 1][0] > X180) x -= 2 * X180; while (u[i - 1][0] - x > X180) x += 2 * X180; u.push([x, pts[i][1]]); } if (Math.abs(u[u.length - 1][0] - u[0][0]) < X180) { r.upts = u; r.ux0 = Infinity; r.ux1 = -Infinity; for (const q of u) { if (q[0] < r.ux0) r.ux0 = q[0]; if (q[0] > r.ux1) r.ux1 = q[0]; } } }
+      ringCache.set(k, r); return r; };
     const inRing = (px, py, pts) => { let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const ax = wx(pts[i][0], px), ay = pts[i][1], bx = wx(pts[j][0], px), by = pts[j][1]; if ((ay > py) !== (by > py) && 0 < ((bx - ax) * (py - ay)) / (by - ay) + ax) c = !c; } return c; };
-    const inFace = (px, py, fi) => { let c = false; const rs = T.faces[fi].rings; for (let ri = 0; ri < rs.length; ri++) { const r = ringOf(fi, ri); if (py < r.y0 || py > r.y1 || (!r.wrap && (px < r.x0 || px > r.x1))) continue; if (inRing(px, py, r.pts)) c = !c; } return c; };
+    const inPlain = (px, py, pts) => { let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const ax = pts[i][0], ay = pts[i][1], bx = pts[j][0], by = pts[j][1]; if ((ay > py) !== (by > py) && px < ((bx - ax) * (py - ay)) / (by - ay) + ax) c = !c; } return c; };
+    const inFace = (px, py, fi) => { let c = false; const rs = T.faces[fi].rings; for (let ri = 0; ri < rs.length; ri++) { const r = ringOf(fi, ri); if (py < r.y0 || py > r.y1 || (!r.wrap && !r.upts && (px < r.x0 || px > r.x1))) continue; if (r.upts ? [-1, 0, 1].some((k) => { const sx = px + k * 2 * X180; return sx >= r.ux0 && sx <= r.ux1 && inPlain(sx, py, r.upts); }) : inRing(px, py, r.pts)) c = !c; } return c; };
     const seen = new Set(), found = new Map(); let epochs = 0, tested = 0, skipped = 0;
     for (let yi = 0; yi + 1 < years.length; yi++) {
       const y = years[yi]; const faces = aliveAt(y); if (!faces.length) continue; const key = faces.join(","); if (seen.has(key)) continue; seen.add(key); epochs++;
@@ -471,7 +487,11 @@ function run() {
     const presIdx = H.entities.map((e, i) => (e.kind === "people" || e.kind === "culture" || e.kind === "extent" || e.kind === "front" ? i : -1)).filter((i) => i >= 0);
     const faceSet = new Set(); for (const st of H.steps) if (isPres(st[0])) faceSet.add(st[3]);
     const faces = [...faceSet].sort((a, b) => a - b);
-    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0, frontFine = 0, frontCoarse = 0; const samples = [];
+    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0, frontFine = 0, frontCoarse = 0, townCoarse = 0; const samples = [];
+    /* THE PELOPONNESIAN WAR'S TWO SIDES (2026-10-25, war-poleis.json through build-war-extents.js): each year's side is a union of town circles and whole islands clipped to the
+       coast, hundreds of small coastal pieces a year over 25 rows, and the coarser levels' straightened coasts cut their bends as they cut the fronts' (the Bay of Cádiz class
+       of residue). Measured on the 2026-10-25 file: 0 at the finest level, 180 at the coarser; the budget is the measurement plus a quarter, the finest level stays exact. */
+    const TOWN_EXTENTS = new Set(["pol:ext_athens_and_its_empire", "pol:ext_sparta_and_its_allies"]), TOWN_COARSE_BUDGET = Math.ceil(180 * 1.25);
     const cls = H.faceClass || [], sources = H.sources || [];
     for (const fi of faces) {
       const f = T.faces[fi]; const isFrontFace = H.entities[f.entity].kind === "front"; if (cls[fi] !== (isFrontFace ? 1 : 2)) clsBad++;   // a front is APPROXIMATE (a redrawn map), every other presence SOFT
@@ -489,7 +509,7 @@ function run() {
         for (const a of seen) { const g = geom(a, L); for (let i = 1; i < g.length; i++) sg.push([a, g[i - 1], g[i]]); }
         const idx = SegIndex.build(sg.length, Math.max(80, Math.round(0.2 / Q)), (k) => [sg[k][1][0], sg[k][1][1], sg[k][2][0], sg[k][2][1]]);
         let n = 0; idx.pairs((p, q) => { const s1 = sg[p], t1 = sg[q]; const same = (u, v) => u[0] === v[0] && u[1] === v[1]; if (same(s1[1], t1[1]) || same(s1[1], t1[2]) || same(s1[2], t1[1]) || same(s1[2], t1[2])) return; if (G.segmentsCross(arcVec(s1[1]), arcVec(s1[2]), arcVec(t1[1]), arcVec(t1[2]))) n++; });
-        if (isFrontFace) { if (L === LODS - 1) frontFine += n; else frontCoarse += n; } else if (L === LODS - 1) crossFine += n; else crossCoarse += n;
+        if (isFrontFace) { if (L === LODS - 1) frontFine += n; else frontCoarse += n; } else if (L === LODS - 1) crossFine += n; else if (TOWN_EXTENTS.has(H.entities[f.entity].id)) townCoarse += n; else crossCoarse += n;
       }
       void segs;
     }
@@ -506,6 +526,7 @@ function run() {
        regression shows. Peoples, cultures and extents keep the exact finest level and the 40. */
     const FRONT_FINE_BUDGET = Math.ceil(29 * 1.25), FRONT_COARSE_BUDGET = Math.ceil(1194 * 1.25);
     (frontFine > FRONT_FINE_BUDGET || frontCoarse > FRONT_COARSE_BUDGET) ? bad("fronts: each front face crosses itself under " + FRONT_FINE_BUDGET + " times at the finest level and " + FRONT_COARSE_BUDGET + " at the coarser", `fine ${frontFine}, coarse ${frontCoarse}`) : ok("fronts: the fjord residue stays inside its budget", `fine ${frontFine} of ${FRONT_FINE_BUDGET}, coarse ${frontCoarse} of ${FRONT_COARSE_BUDGET}`);
+    townCoarse > TOWN_COARSE_BUDGET ? bad("presence: the Peloponnesian War's town-table sides cross themselves under " + TOWN_COARSE_BUDGET + " times at the coarser levels", `${townCoarse}`) : ok("presence: the Peloponnesian War's town-table sides stay inside their coarse budget", `${townCoarse} of ${TOWN_COARSE_BUDGET}`);
     (crossFine || crossCoarse > PRES_COARSE_BUDGET) ? bad("presence: each face is planar by itself at the finest level, and under " + PRES_COARSE_BUDGET + " crossings at the coarser", `fine ${crossFine}, coarse ${crossCoarse}`) : ok("presence: each face is planar by itself at the finest level", `coarse residue ${crossCoarse} (budget ${PRES_COARSE_BUDGET})`);
     entBad ? bad("presence: every entity has a span, its cards, a source of the header and the audit's note", `${entBad}`) : ok("presence: every entity has a span, its cards, a source of the header and the audit's note", presIdx.map((i) => H.entities[i].id.slice(4)).join(", "));
     // the Yangshao and Longshan outlines are built from the pinned Hosner file: site-hulls.json records the hash it was built from
