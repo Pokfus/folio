@@ -19451,7 +19451,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-world",
       "title": "World Geography",
-      "total": 468,
+      "total": 548,
       "placeholder": false,
       "children": [
         {
@@ -19935,6 +19935,18 @@ window.COLLECTION_TREE = {
             "gw-731",
             "gw-733"
           ]
+        },
+        {
+          "id": "geo-world-water",
+          "title": "Rivers, lakes and seas",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-world-mountains",
+          "title": "Mountains, deserts and caves",
+          "placeholder": false,
+          "cardIds": []
         }
       ]
     },

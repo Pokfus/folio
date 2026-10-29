@@ -7,6 +7,10 @@ territories** (`geo-world-countries`, `gw-001`–`gw-233`) and **The capitals**
 for the second and third seats of the ten countries that have more than one). Its cards use the
 **map card** format — a shape on a globe, and the question is what it is.
 
+**Two PHYSICAL decks were added on 2026-10-29** — **Rivers, lakes and seas** (`geo-world-water`,
+`gw-801`–`gw-840`) and **Mountains, deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-940`) — map
+questions on a locator, as the US and China physical decks; see "The physical decks" below.
+
 **THE COLLECTION HAS A THIRD DECK AND A SECOND PLAN, AND THIS FILE IS NOT IT.** `flags-world` asks the
 same 233 entities a second way — the card shows a flag and the reader names whose it is — and its whole
 answer side is the `gw-NNN` twin's, copied verbatim. It shipped as a collection of its own and was moved
@@ -9290,6 +9294,148 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
 
 ---
 
+## The physical decks — water, and mountains, deserts and caves (2026-10-29, planned before any card)
+
+Added 2026-10-29, on request: two physical-geography decks "built the same way as the United States and
+China rivers and mountains decks". Two decks of forty, numbered past the capitals' extra seats so the
+ranges never meet: **Rivers, lakes and seas** (`geo-world-water`, `gw-801`–`gw-840`) and **Mountains,
+deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-940`). The collection's total becomes 548
+planned cards (468 + 80).
+
+**They are the United States physical decks again, and that plan is the rulebook**:
+📖 `docs/geography-card-plan.md` "The physical decks — water, and mountains and caves", INCLUDING its
+2026-10-29 SUPERSEDED note, and 📖 `docs/china-geography-card-plan.md` "The physical decks", which adds the
+grids for deserts and plateaus and the river-name rule. What both say holds here:
+
+- **A located card is a MAP QUESTION** — `locator.ask: true` (`cardLocatorFront` in `app.js`): the window
+  is on the FRONT, unnamed until the reveal, and the question is the short prompt only: "The river traced
+  on the map is ___." for a river whose line is drawn, otherwise "The <ocean / sea / lake / gulf / strait
+  / waterfall / mountain / volcano / mountain range / desert / plateau / canyon / cave / rock formation>
+  marked on the map is ___.". **No `questions` phrasings**; the history goes in the background.
+- **The ordinary card's apparatus**: the ten-sentence background that is the feature's HISTORY and never
+  repeats the facts grid; three `why` items; a glossary term per answer (reused where it exists, written
+  where it does not); **`undatable: true` and an empty date line**; `difficulty` by how well the NAME is
+  known; **the source bar by difficulty** (`srcTargetFor`: 1 → 9, 2 → 8, 3 → 7, 4 → 6, 5 → 5); metric
+  first; British spelling. Tag 1 is `place`; then `geography`, `world`, the continent or ocean region,
+  and the subject (`ocean`, `river`, `lake`, `sea`, `strait`, `waterfall`, `mountain`, `volcano`,
+  `desert`, `plateau`, `canyon`, `cave`). Category `Geography`, as on every geography card.
+- **The locator** is fetched by `add-card.js` / `add-locators.js` from the named article, never typed.
+  `kind: "river"` traces the river in gold and **names its exact `rivers.js` entries in `locator.rivers`**,
+  each checked before the card is written: the entry must exist, and it must not hold a second, nearby
+  river of the same name (the US Red Rivers' trap) — if it does, the card keeps the dot and says "marked".
+  A namesake far away is harmless, since the window frames only the stretches within 25° of the point.
+  `kind: "range"` walks triangles along a `spine` typed from the coordinates of the range's own named
+  peaks and passes as Wikipedia/Wikidata publish them, listed in the card's `notes`; **a range with no
+  honest spine gets no locator**, cannot be a map question, and is listed below rather than given a dot.
+  Everything else — an ocean, a sea, a lake, a strait, a falls, a peak, a desert, a plateau, a canyon, a
+  cave — is the point its article publishes.
+
+The `rivers.js` names, read on 2026-10-29: `Nile` (with `Albert Nile` and `Victoria Nile` upstream),
+`Amazonas` (with `Marañón` and `Ucayali` upstream), `Danube`, `Ganges`, `Rhine` / `Rhein` / `Rhin`,
+`Mekong` (with `Lancang` and `Za`, as `gc-805`), `Euphrates`, `Congo` (with `Lualaba`), `Volga`,
+`Zambezi`, `Niger`, `Indus`, `Murray`. Each is re-checked on the card.
+
+### The facts grid
+
+The US and China grids, with **Countries** for States and Provinces (the sovereign states a feature lies
+in or borders, by the names of this collection's countries deck), and two kinds those decks did not meet:
+
+    River:                 Length         | Drainage basin
+                           Source         | Mouth
+    Ocean:                 Surface area   | Maximum depth
+                           Deepest point  | Bordered by (the continents)
+    Lake, sea, gulf:       Surface area   | Maximum depth
+                           Countries      | Outflow (a sea or gulf: Opens to)
+    Strait:                Minimum width  | Depth
+                           Countries      | Connects
+    Waterfall:             Height         | Crest width
+                           River          | Countries
+    Peak, volcano:         Elevation      | Prominence
+                           Countries      | Range
+    Range, canyon:         Highest point  | Length (a canyon: Depth)
+                           Countries      | Protected as
+    Desert, plateau:       Area           | Highest point (a plateau: Mean elevation)
+                           Countries      | Protected as
+    Cave:                  Surveyed length | Depth
+                           Country         | Protected as
+    Rock formation:        Height         | Rock
+                           Country        | Protected as
+
+**Write `"?"` where no opened source gives the cell — never a figure from memory**, and name whose figure
+a length or an area is in `notes` where authorities differ (the Nile's and the Amazon's lengths differ by
+hundreds of kilometres between authorities, and the Caspian's area moves with its level). Do not average.
+
+### What is in, what is out, and why
+
+**The oceans are in** — all five, as the US plan said they should be ("a world deck is the place for
+them"). The Southern Ocean is carded with its history as a name: the International Hydrographic
+Organization's limits and the date different bodies began to recognise it, sourced, with no claim that
+the matter is settled where it is not.
+
+**Repeats of a `geo-` or `gc-` card are allowed only for a feature that is truly international**, and the
+world deck needs it for its own sake. There are exactly three:
+- **Mount Everest** (`gc-901`) — on the China–Nepal border; a world mountains deck without the world's
+  highest mountain would be a hole, not a scope decision.
+- **Himalayas** (`gc-902`) — across five countries (Pakistan, India, Nepal, Bhutan, China); China holds
+  only the northern flank.
+- **Mekong** (`gc-805`) — through six countries; China holds the upper half as the Lancang.
+A repeat answers the same term, so it pairs with the SAME glossary entry (`Mount_Everest`, `Himalayas`,
+`Mekong`), and its background is written from the world's angle — the river's lower course, the range's
+south side, the mountain's Nepali history — so that the two cards do not tell one story twice.
+
+**Not repeated, though they cross a border, because the US or China card already teaches them and the
+world deck has better uses for forty slots**: the Gulf of Mexico (`geo-817`), Niagara Falls (`geo-808`),
+the Great Lakes (`geo-802`, `geo-806`, `geo-813`–`geo-815`), the Columbia, the Yukon and the Red River of
+the North (`geo-812`, `geo-826`, `geo-840`), the Rocky Mountains and the Appalachians (`geo-901`,
+`geo-903`), the South China Sea, the Amur, the Salween and the Yarlung Tsangpo / Brahmaputra (`gc-804`,
+`gc-810`, `gc-817`, `gc-812`), K2, the Gobi, the Tian Shan, the Altai and the Kunlun (`gc-910`, `gc-903`,
+`gc-912`, `gc-926`, `gc-911`). The Mississippi (`geo-801`) is wholly American.
+
+**Out on purpose**:
+- **Canals** (Suez, Panama): engineering with a building date, not physical geography; the request named
+  rivers, lakes, seas, gulfs, straits and waterfalls, and the China deck's one canal was China's own.
+- **The Great Rift Valley**: a valley thousands of kilometres long has no honest point, and a range's
+  triangles would draw mountains where the feature is a trough. It is named in the backgrounds of the
+  lakes and peaks it holds (Tanganyika, Kilimanjaro, Kenya, the Dead Sea).
+- **Islands, peninsulas and continents**: landforms of another kind, and a deck of their own if wanted.
+- **Glaciers, ice sheets and Antarctica's features**; springs and aquifers; reservoirs; national parks as
+  parks; man-made caves — as in the US and China plans.
+- **The long tail that forty cannot hold**, named so that leaving it out is a choice, not an oversight:
+  the Tigris (in the Euphrates's background), the St. Lawrence, the Paraná, the Orinoco, the Ob, the
+  Yenisey, the Lena, the Mackenzie, the Jordan and the Thames; the English Channel, the Dardanelles, the
+  Bay of Bengal and Hudson Bay; Lakes Malawi, Chad and Ladoga; the Gobi's neighbours and the Great
+  Victoria and Patagonian deserts; the Rockies' Canadian half; the Apennines, the Zagros, the Scandinavian
+  Mountains; Vinson, Erebus and Puncak Jaya.
+
+**Disputed names and places are given once, sourced, and not adjudicated** — the standing rule of this
+collection: the Persian Gulf is also called the Arabian Gulf by the Arab states; Mount Ararat stands in
+Turkey and is the national symbol of Armenia; Mount Everest's Nepali and Tibetan names (Sagarmatha,
+Chomolungma) are given; the Aoraki / Mount Cook card answers Wikipedia's title and gives both names.
+
+### Sourcing
+
+The bar is `srcTargetFor`'s. There is no single national spine, so the card reaches for **the
+international body whose job the feature is**: the river basin commissions (the ICPDR for the Danube, the
+ICPR for the Rhine, the Mekong River Commission, the Murray–Darling Basin Authority, the Nile Basin
+Initiative, the Niger Basin Authority, ZAMCOM for the Zambezi), the **IHO** for ocean and sea limits,
+**NOAA**'s Ocean Service and Ocean Exploration for the oceans, the **Smithsonian Global Volcanism Program**
+for every volcano, **NASA Earth Observatory** for the Aral Sea, the Dead Sea and the deserts, **UNESCO
+World Heritage** pages and IUCN evaluations for listed sites, national surveys and park agencies (Parks
+Australia for Uluru, the Slovenian park authority for Postojna, Vietnam's for Phong Nha–Kẻ Bàng), and
+**journal articles with DOIs**. **Classical and early travellers' texts in published translation**
+(Herodotus on the Nile, Pliny the Younger on Vesuvius, Strabo on the Pillars of Heracles) may carry the
+history. Never Wikipedia; never a source not opened; no author in more than two of one card's sources;
+**every URL curled before the card is committed**.
+
+### How the running orders were chosen
+
+**By how well the name is known**, the US and China decks' axis and `difficulty`'s: 1–10 household names,
+11–22 familiar from school, 23–32 known to the interested, 33–40 the hard ones, each band mixing kinds
+and continents. A plan line is a subject to research, not a fact: re-order, re-band or replace a line in
+the same commit as its card when the research says so, and record it here.
+
+---
+
 ## The day UNdata stopped existing — 864 citations, migrated rather than replaced (2026-09-14)
 
 `data.un.org/en/iso/<cc>.html` is the spine above. **It is gone.** The root answers 200, every country
@@ -9830,3 +9976,95 @@ It is not this batch's subject, and folding a typographic normalisation into a l
   gw-760  La Paz  [Bolivia — the seat of government]
   gw-761  Lobamba  [Eswatini — the legislative and royal capital]
   gw-762  Bujumbura  [Burundi — the economic capital and largest city]
+
+## Rivers, lakes and seas — `geo-world-water`
+
+Forty cards: oceans, rivers, lakes, seas and a gulf, straits and waterfalls, map questions on a locator
+(see "The physical decks" above).
+
+  gw-801  Pacific Ocean
+  gw-802  Nile
+  gw-803  Atlantic Ocean
+  gw-804  Amazon River
+  gw-805  Mediterranean Sea
+  gw-806  Indian Ocean
+  gw-807  Dead Sea
+  gw-808  Danube
+  gw-809  Victoria Falls
+  gw-810  Arctic Ocean
+  gw-811  Caspian Sea
+  gw-812  Ganges
+  gw-813  Lake Victoria
+  gw-814  Red Sea
+  gw-815  Rhine
+  gw-816  Black Sea
+  gw-817  Strait of Gibraltar
+  gw-818  Lake Baikal
+  gw-819  Caribbean Sea
+  gw-820  Mekong (a repeat of `gc-805`: six countries)
+  gw-821  Southern Ocean
+  gw-822  Lake Titicaca
+  gw-823  Euphrates
+  gw-824  North Sea
+  gw-825  Bosporus
+  gw-826  Persian Gulf
+  gw-827  Congo River
+  gw-828  Baltic Sea
+  gw-829  Volga
+  gw-830  Iguazu Falls
+  gw-831  Strait of Malacca
+  gw-832  Angel Falls
+  gw-833  Zambezi
+  gw-834  Lake Tanganyika
+  gw-835  Niger River
+  gw-836  Aral Sea
+  gw-837  Strait of Hormuz
+  gw-838  Indus River
+  gw-839  Bering Strait
+  gw-840  Murray River
+
+## Mountains, deserts and caves — `geo-world-mountains`
+
+Forty cards: peaks and volcanoes, ranges, deserts, plateaus, canyons, caves and two rock formations, map
+questions on a locator.
+
+  gw-901  Mount Everest (a repeat of `gc-901`: China and Nepal)
+  gw-902  Sahara
+  gw-903  Alps
+  gw-904  Andes
+  gw-905  Himalayas (a repeat of `gc-902`: five countries)
+  gw-906  Mount Kilimanjaro
+  gw-907  Mount Fuji
+  gw-908  Mount Vesuvius
+  gw-909  Mount Etna
+  gw-910  Uluru
+  gw-911  Atacama Desert
+  gw-912  Kalahari Desert
+  gw-913  Pyrenees
+  gw-914  Ural Mountains
+  gw-915  Arabian Desert
+  gw-916  Mount Olympus
+  gw-917  Mont Blanc
+  gw-918  Matterhorn
+  gw-919  Atlas Mountains
+  gw-920  Aconcagua
+  gw-921  Table Mountain
+  gw-922  Namib
+  gw-923  Caucasus Mountains
+  gw-924  Mount Elbrus
+  gw-925  Carpathian Mountains
+  gw-926  Krakatoa
+  gw-927  Mount Ararat
+  gw-928  Hindu Kush
+  gw-929  Thar Desert
+  gw-930  Deccan Plateau
+  gw-931  Altiplano
+  gw-932  Great Dividing Range
+  gw-933  Mount Kenya
+  gw-934  Drakensberg
+  gw-935  Aoraki / Mount Cook
+  gw-936  Colca Canyon
+  gw-937  Fish River Canyon
+  gw-938  Son Doong Cave
+  gw-939  Postojna Cave
+  gw-940  Mount Kinabalu
