@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-29T23:34Z",
+ "generated": "2026-10-29T23:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5255,
+  "ok": 5265,
   "redirect-broader": 486,
   "redirect-variant": 331,
   "section-redirect": 105,
@@ -59986,6 +59986,76 @@
    "answer": "Open city",
    "title": "Open city",
    "url": "https://en.wikipedia.org/wiki/Open_city",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-161": {
+   "answer": "Soviet occupation of the Baltic states",
+   "title": "Soviet occupation of the Baltic states (1940)",
+   "url": "https://en.wikipedia.org/wiki/Soviet_occupation_of_the_Baltic_states_(1940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-162": {
+   "answer": "Soviet occupation of Bessarabia and Northern Bukovina",
+   "title": "Soviet occupation of Bessarabia and Northern Bukovina",
+   "url": "https://en.wikipedia.org/wiki/Soviet_occupation_of_Bessarabia_and_Northern_Bukovina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-163": {
+   "answer": "Plan R 4",
+   "title": "Plan R 4",
+   "url": "https://en.wikipedia.org/wiki/Plan_R_4",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-164": {
+   "answer": "Operation Weserübung",
+   "title": "Operation Weserübung",
+   "url": "https://en.wikipedia.org/wiki/Operation_Weser%C3%BCbung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-165": {
+   "answer": "Norwegian campaign",
+   "title": "Norwegian campaign",
+   "url": "https://en.wikipedia.org/wiki/Norwegian_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-166": {
+   "answer": "Battles of Narvik",
+   "title": "Battles of Narvik",
+   "url": "https://en.wikipedia.org/wiki/Battles_of_Narvik",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-167": {
+   "answer": "Norway Debate",
+   "title": "Norway Debate",
+   "url": "https://en.wikipedia.org/wiki/Norway_Debate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-168": {
+   "answer": "Winston Churchill",
+   "title": "Winston Churchill",
+   "url": "https://en.wikipedia.org/wiki/Winston_Churchill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-169": {
+   "answer": "Altmark incident",
+   "title": "Altmark incident",
+   "url": "https://en.wikipedia.org/wiki/Altmark_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-170": {
+   "answer": "Battle of the River Plate",
+   "title": "Battle of the River Plate",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_River_Plate",
    "via": "glossary",
    "status": "ok"
   }

@@ -7492,7 +7492,17 @@ window.GLOSSARY = {
 "Battle_of_Arras_(1940)": "",
 "Halt_order": "",
 "Italian_invasion_of_France": "",
-"Open_city": ""
+"Open_city": "",
+"Soviet_occupation_of_the_Baltic_states_(1940)": "",
+"Soviet_occupation_of_Bessarabia_and_Northern_Bukovina": "",
+"Plan_R_4": "",
+"Operation_Weserübung": "",
+"Norwegian_campaign": "",
+"Battles_of_Narvik": "",
+"Norway_Debate": "",
+"Winston_Churchill": "",
+"Altmark_incident": "",
+"Battle_of_the_River_Plate": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11145,7 +11155,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Leopold_III_of_Belgium": "1901–1983",
 "Battle_of_Arras_(1940)": "1940",
 "Halt_order": "1940",
-"Italian_invasion_of_France": "1940"
+"Italian_invasion_of_France": "1940",
+"Soviet_occupation_of_the_Baltic_states_(1940)": "1940",
+"Soviet_occupation_of_Bessarabia_and_Northern_Bukovina": "1940",
+"Plan_R_4": "1940",
+"Operation_Weserübung": "1940",
+"Norwegian_campaign": "1940",
+"Battles_of_Narvik": "1940",
+"Norway_Debate": "1940",
+"Winston_Churchill": "1874–1965",
+"Altmark_incident": "1940",
+"Battle_of_the_River_Plate": "1939"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15896,7 +15916,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Attack_on_Mers-el-Kébir": ["Mers-el-Kébir"],
 "Strange_Defeat": ["L'Étrange Défaite"],
 "German_bombing_of_Rotterdam": ["Rotterdam Blitz"],
-"Leopold_III_of_Belgium": ["Leopold III"]
+"Leopold_III_of_Belgium": ["Leopold III"],
+"Soviet_occupation_of_the_Baltic_states_(1940)": ["Soviet occupation of the Baltic states","Soviet annexation of the Baltic states"],
+"Operation_Weserübung": ["Weserübung","Weser Exercise"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23533,7 +23555,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Arras_(1940)": ["battle","history","warfare","france","britain"],
 "Halt_order": ["event","history","warfare","germany"],
 "Italian_invasion_of_France": ["event","history","warfare","italy","france"],
-"Open_city": ["concept","history","warfare","law"]
+"Open_city": ["concept","history","warfare","law"],
+"Soviet_occupation_of_the_Baltic_states_(1940)": ["event","history","politics","lithuania","latvia","estonia"],
+"Soviet_occupation_of_Bessarabia_and_Northern_Bukovina": ["event","history","politics","romania","moldova","ukraine"],
+"Plan_R_4": ["event","history","warfare","norway","britain"],
+"Operation_Weserübung": ["event","history","warfare","germany","norway","denmark"],
+"Norwegian_campaign": ["war","history","warfare","norway"],
+"Battles_of_Narvik": ["battle","history","warfare","norway"],
+"Norway_Debate": ["event","history","politics","britain","parliament"],
+"Winston_Churchill": ["person","history","politics","britain"],
+"Altmark_incident": ["event","history","warfare","norway","britain"],
+"Battle_of_the_River_Plate": ["battle","history","warfare","uruguay"]
 });
 
 /* ============================================================================
