@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-29T22:08Z",
+ "generated": "2026-10-29T23:26Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5239,
+  "ok": 5248,
   "redirect-broader": 485,
   "redirect-variant": 331,
   "section-redirect": 105,
   "disambiguation": 138,
-  "none": 957,
+  "none": 958,
   "disambig-resolved": 77,
   "list-page": 6,
   "search-match": 6,
@@ -59837,6 +59837,83 @@
    "answer": "Batagaika crater",
    "title": "Batagaika crater",
    "url": "https://en.wikipedia.org/wiki/Batagaika_crater",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-191": {
+   "answer": "Exode",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Evacuation of the Louvre collection during World War II",
+    "The Exodus (1940)",
+    "Écouché in World War II",
+    "List of Spanish Civil War films",
+    "1390"
+   ]
+  },
+  "ww2-192": {
+   "answer": "Armistice of 22 June 1940",
+   "title": "Armistice of 22 June 1940",
+   "url": "https://en.wikipedia.org/wiki/Armistice_of_22_June_1940",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-193": {
+   "answer": "Vichy France",
+   "title": "Vichy France",
+   "url": "https://en.wikipedia.org/wiki/Vichy_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-194": {
+   "answer": "Philippe Pétain",
+   "title": "Philippe Pétain",
+   "url": "https://en.wikipedia.org/wiki/Philippe_P%C3%A9tain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-195": {
+   "answer": "Battle of Dakar",
+   "title": "Battle of Dakar",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Dakar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-196": {
+   "answer": "Free France",
+   "title": "Free France",
+   "url": "https://en.wikipedia.org/wiki/Free_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-197": {
+   "answer": "Charles de Gaulle",
+   "title": "Charles de Gaulle",
+   "url": "https://en.wikipedia.org/wiki/Charles_de_Gaulle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-198": {
+   "answer": "Attack on Mers-el-Kébir",
+   "title": "Attack on Mers-el-Kébir",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Mers-el-K%C3%A9bir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-199": {
+   "answer": "German occupation of the Channel Islands",
+   "title": "German occupation of the Channel Islands",
+   "url": "https://en.wikipedia.org/wiki/German_occupation_of_the_Channel_Islands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-200": {
+   "answer": "Strange Defeat",
+   "title": "Strange Defeat",
+   "url": "https://en.wikipedia.org/wiki/Strange_Defeat",
    "via": "glossary",
    "status": "ok"
   }

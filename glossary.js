@@ -7473,7 +7473,17 @@ window.GLOSSARY = {
 "Fish_River_Canyon": "",
 "Hang_Sơn_Đoòng": "",
 "Postojna_Cave": "",
-"Mount_Kinabalu": ""
+"Mount_Kinabalu": "",
+"The_Exodus_(1940)": "",
+"Armistice_of_22_June_1940": "",
+"Vichy_France": "",
+"Philippe_Pétain": "",
+"Battle_of_Dakar": "",
+"Free_France": "",
+"Charles_de_Gaulle": "",
+"Attack_on_Mers-el-Kébir": "",
+"German_occupation_of_the_Channel_Islands": "",
+"Strange_Defeat": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11110,7 +11120,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Muslim_conquest_of_Egypt": "639–642 CE",
 "Ptolemy_V_Epiphanes": "c. 210–181 BCE",
 "Theophrastus": "c. 372–287 BCE",
-"Thomas_Young_(scientist)": "1773–1829"
+"Thomas_Young_(scientist)": "1773–1829",
+"The_Exodus_(1940)": "1940",
+"Armistice_of_22_June_1940": "22 June 1940",
+"Vichy_France": "1940–1944",
+"Philippe_Pétain": "1856–1951",
+"Battle_of_Dakar": "23–25 September 1940",
+"Free_France": "1940–1943",
+"Charles_de_Gaulle": "1890–1970",
+"Attack_on_Mers-el-Kébir": "3 July 1940",
+"German_occupation_of_the_Channel_Islands": "1940–1945",
+"Strange_Defeat": "1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15855,7 +15875,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Deccan_Plateau": ["Deccan"],
 "Aoraki_/_Mount_Cook": ["Mount Cook","Aoraki","Aoraki/Mount Cook"],
 "Hang_Sơn_Đoòng": ["Son Doong Cave","Sơn Đoòng cave","Son Doong"],
-"Postojna_Cave": ["Postojnska jama"]
+"Postojna_Cave": ["Postojnska jama"],
+"The_Exodus_(1940)": ["Exode","exodus of 1940"],
+"Philippe_Pétain": ["Marshal Pétain"],
+"Attack_on_Mers-el-Kébir": ["Mers-el-Kébir"],
+"Strange_Defeat": ["L'Étrange Défaite"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -15993,7 +16017,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Terek_River": true,
 "Ach_(Blau)": true,
 "Frog": true,
-"Lone_(river)": true
+"Lone_(river)": true,
+"Free_France": true,
+"Strange_Defeat": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -23470,7 +23496,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fish_River_Canyon": ["place","geography","africa","canyon"],
 "Hang_Sơn_Đoòng": ["place","geography","asia","cave","vietnam"],
 "Postojna_Cave": ["place","geography","europe","cave","slovenia"],
-"Mount_Kinabalu": ["place","geography","asia","mountain","malaysia"]
+"Mount_Kinabalu": ["place","geography","asia","mountain","malaysia"],
+"The_Exodus_(1940)": ["event","history","france","refugees"],
+"Armistice_of_22_June_1940": ["event","history","warfare","france","germany"],
+"Vichy_France": ["state","history","politics","france","collaboration"],
+"Philippe_Pétain": ["person","history","politics","warfare","france"],
+"Battle_of_Dakar": ["battle","history","warfare","france","africa"],
+"Free_France": ["institution","history","politics","france","resistance"],
+"Charles_de_Gaulle": ["person","history","politics","warfare","france"],
+"Attack_on_Mers-el-Kébir": ["battle","history","warfare","france","britain"],
+"German_occupation_of_the_Channel_Islands": ["event","history","warfare","britain","occupation"],
+"Strange_Defeat": ["text","history","literature","france"]
 });
 
 /* ============================================================================
