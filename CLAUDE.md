@@ -261,7 +261,7 @@ have not this session.
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 4 / 4 | complete: map decks, plus water (`gc-801`–`840`) and mountains (`gc-901`–`940`), map questions on a locator (`locator.ask`) |
-| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | complete (`gru-502` deferred) |
+| Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 4 / 4 | map decks complete (`gru-502` deferred); water complete (`gru-801`–`840`), mountains 33 of 40 (`gru-901`–`940`; seven ranges deferred, no honest spine), map questions on a locator (`locator.ask`) |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | live, planned a lecture at a time |
 | The EU as an External Power | `eep` | `eep-` | `docs/eu-external-power-card-plan.md` | 14 / 14 | live, a course in the Special section: 292 of 300 planned cards written; Reading 3 (8 cards) waits for its PDF |
 | Gateway to Global Affairs | `gga` | `gga-` | `docs/gateway-to-global-affairs-card-plan.md` | 21 / 21 | a COURSE (Leiden), 297 of 300 cards written over Lectures 1–6 and 14 readings (from `gga-057` on, from the course texts only); Lecture 7 awaits slides |

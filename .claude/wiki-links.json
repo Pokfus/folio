@@ -1,11 +1,11 @@
 {
- "generated": "2026-10-29T20:39Z",
+ "generated": "2026-10-29T22:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5185,
-  "redirect-broader": 467,
+  "ok": 5239,
+  "redirect-broader": 485,
   "redirect-variant": 331,
-  "section-redirect": 104,
+  "section-redirect": 105,
   "disambiguation": 138,
   "none": 957,
   "disambig-resolved": 77,
@@ -59307,6 +59307,538 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Mammoth Cave"
+  },
+  "gru-823": {
+   "answer": "Oka River",
+   "title": "Oka (river)",
+   "url": "https://en.wikipedia.org/wiki/Oka_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Oka River"
+  },
+  "gru-824": {
+   "answer": "Moskva River",
+   "title": "Moskva (river)",
+   "url": "https://en.wikipedia.org/wiki/Moskva_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Moskva River"
+  },
+  "gru-825": {
+   "answer": "Kama River",
+   "title": "Kama (river)",
+   "url": "https://en.wikipedia.org/wiki/Kama_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kama River"
+  },
+  "gru-826": {
+   "answer": "Angara River",
+   "title": "Angara",
+   "url": "https://en.wikipedia.org/wiki/Angara",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angara River"
+  },
+  "gru-827": {
+   "answer": "Northern Dvina",
+   "title": "Northern Dvina",
+   "url": "https://en.wikipedia.org/wiki/Northern_Dvina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-828": {
+   "answer": "Lake Peipus",
+   "title": "Lake Peipus",
+   "url": "https://en.wikipedia.org/wiki/Lake_Peipus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-829": {
+   "answer": "Pechora River",
+   "title": "Pechora (river)",
+   "url": "https://en.wikipedia.org/wiki/Pechora_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Pechora River"
+  },
+  "gru-830": {
+   "answer": "Rybinsk Reservoir",
+   "title": "Rybinsk Reservoir",
+   "url": "https://en.wikipedia.org/wiki/Rybinsk_Reservoir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-831": {
+   "answer": "Laptev Sea",
+   "title": "Laptev Sea",
+   "url": "https://en.wikipedia.org/wiki/Laptev_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-832": {
+   "answer": "Chukchi Sea",
+   "title": "Chukchi Sea",
+   "url": "https://en.wikipedia.org/wiki/Chukchi_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-833": {
+   "answer": "Lake Teletskoye",
+   "title": "Lake Teletskoye",
+   "url": "https://en.wikipedia.org/wiki/Lake_Teletskoye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-834": {
+   "answer": "Kuban River",
+   "title": "Kuban (river)",
+   "url": "https://en.wikipedia.org/wiki/Kuban_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kuban River"
+  },
+  "gru-835": {
+   "answer": "Strait of Tartary",
+   "title": "Strait of Tartary",
+   "url": "https://en.wikipedia.org/wiki/Strait_of_Tartary",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-836": {
+   "answer": "Indigirka River",
+   "title": "Indigirka",
+   "url": "https://en.wikipedia.org/wiki/Indigirka",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Indigirka River"
+  },
+  "gru-837": {
+   "answer": "Lake Ilmen",
+   "title": "Lake Ilmen",
+   "url": "https://en.wikipedia.org/wiki/Lake_Ilmen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-838": {
+   "answer": "Kivach Falls",
+   "title": "Kivach Falls",
+   "url": "https://en.wikipedia.org/wiki/Kivach_Falls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-839": {
+   "answer": "Gulf of Ob",
+   "title": "Gulf of Ob",
+   "url": "https://en.wikipedia.org/wiki/Gulf_of_Ob",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-840": {
+   "answer": "Avacha Bay",
+   "title": "Avacha Bay",
+   "url": "https://en.wikipedia.org/wiki/Avacha_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-805": {
+   "answer": "Baltic Sea",
+   "title": "Baltic Sea",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-806": {
+   "answer": "Amur River",
+   "title": "Amur",
+   "url": "https://en.wikipedia.org/wiki/Amur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Amur River"
+  },
+  "gru-801": {
+   "answer": "Volga River",
+   "title": "Volga",
+   "url": "https://en.wikipedia.org/wiki/Volga",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Volga River"
+  },
+  "gru-802": {
+   "answer": "Lake Baikal",
+   "title": "Lake Baikal",
+   "url": "https://en.wikipedia.org/wiki/Lake_Baikal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-803": {
+   "answer": "Caspian Sea",
+   "title": "Caspian Sea",
+   "url": "https://en.wikipedia.org/wiki/Caspian_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-804": {
+   "answer": "Black Sea",
+   "title": "Black Sea",
+   "url": "https://en.wikipedia.org/wiki/Black_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-807": {
+   "answer": "Bering Strait",
+   "title": "Bering Strait",
+   "url": "https://en.wikipedia.org/wiki/Bering_Strait",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-808": {
+   "answer": "Ob River",
+   "title": "Ob",
+   "url": "https://en.wikipedia.org/wiki/Ob",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ob River"
+  },
+  "gru-809": {
+   "answer": "Yenisei River",
+   "title": "Yenisei",
+   "url": "https://en.wikipedia.org/wiki/Yenisei",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Yenisei River"
+  },
+  "gru-810": {
+   "answer": "Lena River",
+   "title": "Lena River",
+   "url": "https://en.wikipedia.org/wiki/Lena_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-811": {
+   "answer": "White Sea",
+   "title": "White Sea",
+   "url": "https://en.wikipedia.org/wiki/White_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-812": {
+   "answer": "Lake Ladoga",
+   "title": "Lake Ladoga",
+   "url": "https://en.wikipedia.org/wiki/Lake_Ladoga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-813": {
+   "answer": "Don River",
+   "title": "Don (river)",
+   "url": "https://en.wikipedia.org/wiki/Don_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Don River"
+  },
+  "gru-814": {
+   "answer": "Barents Sea",
+   "title": "Barents Sea",
+   "url": "https://en.wikipedia.org/wiki/Barents_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-815": {
+   "answer": "Sea of Okhotsk",
+   "title": "Sea of Okhotsk",
+   "url": "https://en.wikipedia.org/wiki/Sea_of_Okhotsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-816": {
+   "answer": "Neva River",
+   "title": "Neva",
+   "url": "https://en.wikipedia.org/wiki/Neva",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Neva River"
+  },
+  "gru-817": {
+   "answer": "Irtysh River",
+   "title": "Irtysh",
+   "url": "https://en.wikipedia.org/wiki/Irtysh",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Irtysh River"
+  },
+  "gru-818": {
+   "answer": "Kara Sea",
+   "title": "Kara Sea",
+   "url": "https://en.wikipedia.org/wiki/Kara_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-819": {
+   "answer": "Gulf of Finland",
+   "title": "Gulf of Finland",
+   "url": "https://en.wikipedia.org/wiki/Gulf_of_Finland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-820": {
+   "answer": "Lake Onega",
+   "title": "Lake Onega",
+   "url": "https://en.wikipedia.org/wiki/Lake_Onega",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-821": {
+   "answer": "Ural River",
+   "title": "Ural (river)",
+   "url": "https://en.wikipedia.org/wiki/Ural_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ural River"
+  },
+  "gru-822": {
+   "answer": "Kolyma River",
+   "title": "Kolyma (river)",
+   "url": "https://en.wikipedia.org/wiki/Kolyma_(river)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kolyma River"
+  },
+  "gru-901": {
+   "answer": "Ural Mountains",
+   "title": "Ural Mountains",
+   "url": "https://en.wikipedia.org/wiki/Ural_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-902": {
+   "answer": "Mount Elbrus",
+   "title": "Mount Elbrus",
+   "url": "https://en.wikipedia.org/wiki/Mount_Elbrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-903": {
+   "answer": "Caucasus Mountains",
+   "title": "Caucasus Mountains",
+   "url": "https://en.wikipedia.org/wiki/Caucasus_Mountains",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gru-904": {
+   "answer": "Altai Mountains",
+   "title": "Altai Mountains",
+   "url": "https://en.wikipedia.org/wiki/Altai_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-905": {
+   "answer": "Klyuchevskaya Sopka",
+   "title": "Klyuchevskaya Sopka",
+   "url": "https://en.wikipedia.org/wiki/Klyuchevskaya_Sopka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-906": {
+   "answer": "West Siberian Plain",
+   "title": "West Siberian Plain",
+   "url": "https://en.wikipedia.org/wiki/West_Siberian_Plain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-907": {
+   "answer": "Valley of Geysers",
+   "title": "Valley of Geysers",
+   "url": "https://en.wikipedia.org/wiki/Valley_of_Geysers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-908": {
+   "answer": "East European Plain",
+   "title": "East European Plain",
+   "url": "https://en.wikipedia.org/wiki/East_European_Plain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-909": {
+   "answer": "Central Siberian Plateau",
+   "title": "Central Siberian Plateau",
+   "url": "https://en.wikipedia.org/wiki/Central_Siberian_Plateau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-910": {
+   "answer": "Putorana Plateau",
+   "title": "Putorana Plateau",
+   "url": "https://en.wikipedia.org/wiki/Putorana_Plateau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-911": {
+   "answer": "Denisova Cave",
+   "title": "Denisova Cave",
+   "url": "https://en.wikipedia.org/wiki/Denisova_Cave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-914": {
+   "answer": "Khibiny Mountains",
+   "title": "Khibiny Mountains",
+   "url": "https://en.wikipedia.org/wiki/Khibiny_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-915": {
+   "answer": "Kungur Ice Cave",
+   "title": "Kungur Ice Cave",
+   "url": "https://en.wikipedia.org/wiki/Kungur_Ice_Cave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-916": {
+   "answer": "Lena Pillars",
+   "title": "Lena Pillars",
+   "url": "https://en.wikipedia.org/wiki/Lena_Pillars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-917": {
+   "answer": "Belukha Mountain",
+   "title": "Belukha Mountain",
+   "url": "https://en.wikipedia.org/wiki/Belukha_Mountain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-918": {
+   "answer": "Mount Kazbek",
+   "title": "Mount Kazbek",
+   "url": "https://en.wikipedia.org/wiki/Mount_Kazbek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-919": {
+   "answer": "Avachinsky",
+   "title": "Avachinsky",
+   "url": "https://en.wikipedia.org/wiki/Avachinsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-920": {
+   "answer": "Sikhote-Alin",
+   "title": "Sikhote-Alin",
+   "url": "https://en.wikipedia.org/wiki/Sikhote-Alin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-921": {
+   "answer": "Kapova Cave",
+   "title": "Shulgan-Tash Cave",
+   "url": "https://en.wikipedia.org/wiki/Shulgan-Tash_Cave",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kapova Cave"
+  },
+  "gru-922": {
+   "answer": "Valdai Hills",
+   "title": "Valdai Hills",
+   "url": "https://en.wikipedia.org/wiki/Valdai_Hills",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-934": {
+   "answer": "Mashuk",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Mashuk",
+   "target": "Pyatigorsk#Geography"
+  },
+  "gru-935": {
+   "answer": "Krasnoyarsk Stolby",
+   "title": "Krasnoyarsk Pillars",
+   "url": "https://en.wikipedia.org/wiki/Krasnoyarsk_Pillars",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "gru-936": {
+   "answer": "Dykh-Tau",
+   "title": "Dykh-Tau",
+   "url": "https://en.wikipedia.org/wiki/Dykh-Tau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-938": {
+   "answer": "Curonian Spit",
+   "title": "Curonian Spit",
+   "url": "https://en.wikipedia.org/wiki/Curonian_Spit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-940": {
+   "answer": "Popigai crater",
+   "title": "Popigai impact structure",
+   "url": "https://en.wikipedia.org/wiki/Popigai_impact_structure",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Popigai crater"
+  },
+  "gru-923": {
+   "answer": "Central Russian Upland",
+   "title": "Central Russian Upland",
+   "url": "https://en.wikipedia.org/wiki/Central_Russian_Upland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-925": {
+   "answer": "Manpupuner rock formations",
+   "title": "Manpupuner rock formations",
+   "url": "https://en.wikipedia.org/wiki/Manpupuner_rock_formations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-927": {
+   "answer": "Shiveluch",
+   "title": "Shiveluch",
+   "url": "https://en.wikipedia.org/wiki/Shiveluch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-928": {
+   "answer": "Mount Narodnaya",
+   "title": "Mount Narodnaya",
+   "url": "https://en.wikipedia.org/wiki/Mount_Narodnaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-929": {
+   "answer": "Caspian Depression",
+   "title": "Caspian Depression",
+   "url": "https://en.wikipedia.org/wiki/Caspian_Depression",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-930": {
+   "answer": "Zhiguli Mountains",
+   "title": "Zhiguli Mountains",
+   "url": "https://en.wikipedia.org/wiki/Zhiguli_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-931": {
+   "answer": "Tolbachik",
+   "title": "Tolbachik",
+   "url": "https://en.wikipedia.org/wiki/Tolbachik",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gru-932": {
+   "answer": "Batagaika crater",
+   "title": "Batagaika crater",
+   "url": "https://en.wikipedia.org/wiki/Batagaika_crater",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
