@@ -391,6 +391,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | political violence: Appian's start / Clodius's gangs / the Curia burned | 133 BCE / 58 – 52 BCE / 52 BCE | `rm-348` |
 | the conference at Luca / the laws that followed | 56 BCE / 55 BCE | `rm-349` |
 | the Gallic Wars / the command ended | 58 – 51 BCE / 50 BCE | `rm-350` |
+| Caesar's Commentaries: the campaigns told / in circulation | 58 – 52 BCE / by 46 BCE (Holmes) | `rm-351` |
+| Vercingetorix: the rising / executed | 52 BCE / 46 BCE | `rm-352` |
+| the siege of Alesia / re-excavated | 52 BCE / 1991 – 1997 | `rm-353` |
+| Caesar's crossings to Britain | 55 BCE and 54 BCE | `rm-354` |
+| Crassus's Parthian campaign: Syria voted / first crossing / Crassus killed | 55 BCE / 54 BCE / 53 BCE | `rm-355` |
+| the Battle of Carrhae / the standards returned | 53 BCE (9 June is Ovid's, which Holmes accepts) / 20 BCE | `rm-356` |
+| Milo: tribune / Clodius killed / condemned / died | 57 BCE / 18 January 52 BCE / 52 BCE / 48 BCE | `rm-357` |
+| Pompey's sole consulship | 52 BCE | `rm-358` |
+| the crossing of the Rubicon | January 49 BCE (7 January and the night of 10/11 January are modern reckonings) | `rm-359` |
+| Caesar's civil war / Pharsalus / Thapsus / Munda | 49 – 45 BCE / 48 BCE / 46 BCE / 45 BCE | `rm-360` |
 
 ## The Principate
 
@@ -741,4 +751,14 @@ rm-347: 58; 57
 rm-348: 133; 58; 52
 rm-349: 56; 55
 rm-350: 58; 51; 50
+rm-351: 58; 52; 46
+rm-352: 52; 46
+rm-353: 52; 1991; 1997
+rm-354: 55; 54
+rm-355: 55; 54; 53
+rm-356: 53; 20
+rm-357: 57; 52; 48
+rm-358: 52
+rm-359: 49
+rm-360: 49; 45; 48; 46
 ```

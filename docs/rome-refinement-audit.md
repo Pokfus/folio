@@ -167,7 +167,7 @@ order unless the user says otherwise.
 | B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | **done 2026-10-29** |
 | B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | **done 2026-10-29** |
 | B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | **done 2026-10-29** |
-| B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | open |
+| B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | **done 2026-10-29** |
 | B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | open |
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | open |
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | open |
@@ -620,6 +620,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-348` political violence in the late Republic | none | no picture (`I.none`) |
 | `rm-349` conference at Luca | none | no picture (`I.none`) |
 | `rm-350` Gallic Wars | the reconstructed siege works at Alesia | wrong: one siege (`rm-353`'s subject) for the whole war |
+| `rm-351` Commentarii | a 1798 Spanish half-title | weak: a title page with burned-in text stands for the work |
+| `rm-352` Vercingetorix | the gold stater bearing his name | ok; the description names the Cabinet des Médailles |
+| `rm-353` Alesia | a 19th-century engraving of the fighting | wrong: an imagined scene where photographs of the site exist, and the description names its source book |
+| `rm-354` British expeditions | none | no picture (`I.none`) |
+| `rm-355` Parthian campaign | none | no picture (`I.none`) |
+| `rm-356` Carrhae | the ruins of Harran | acceptable (the town, not the battlefield); the description is a file name and timestamp |
+| `rm-357` Titus Annius Milo | none | no picture (`I.none`) |
+| `rm-358` sole consulship | none | no picture (`I.none`) |
+| `rm-359` Rubicon | the Rubicone at Savignano | ok |
+| `rm-360` Caesar's civil war | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -1552,3 +1562,22 @@ Run as B34; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-350` Gallic Wars | 9 | 11 → 9 | **"Tribute 40,000,000 sesterces a year" was a date-line row**; it is Suetonius's figure in prose. The fighting ends in 51 (Uxellodunum), the command in 50; Plutarch's eight hundred towns and three hundred peoples are his. `wh-354` says 58 – 50 BCE. |
 
 **Read by eye.** *Confusability:* `rm-341`/`rm-342` the debate and Cato; `rm-343`/`rm-344`/`rm-345` the man, the compact and the year; `rm-346`/`rm-347`/`rm-348` the tribune, the exile and the theme; `rm-349`/`rm-350` the meeting and the war (the Alesia works kept for `rm-353`). *Legend:* the Utica night, the Bona Dea disguise and the "Julius and Caesar" joke are their authors'. *Overlap:* `wh-354` ends the Gallic Wars in 50 BCE; this card ends the fighting in 51 and the command in 50.
+
+### B36 — `rm-351`–`rm-360`, the fall of the Republic: the Commentaries to the Rubicon and the civil war (2026-10-29)
+
+Run as B35; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-351:rm-360` reads clean on three cards; the rest are `I.none`, `W.not-why` on two (advisory) and `L.missing` on `rm-356` (Carrhae: locators wait for the end of the session). `check-questions`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-cards` flagged `rm-355`'s first phrasing ("As Crassus…" reads to it as a scholar), which was reworded and re-applied. `check-citations --card` 0 mismatched on every card; the URL check's 5 failures are LacusCurtius pages read and saved when the host answered. One figure was fixed by hand before applying: **`rm-353` gave Caesar's relieving army as 250,000 infantry, the Cambridge Ancient History's figure, while the cited McDevitte translation reads about 240,000; both are now given.** `timeline` was moved for `rm-355` (55 – 53). The old cards were all-ancient, Caesar's own figures standing as date-line rows.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-351` Commentarii | 7 | 7 → 8 | The old abstract was a string of quotations and the line held counts ("in 7 books", "1 of 8"). **What a commentarius was, the third-person voice, Hirtius's eighth book and the continuators (Suetonius: author unknown); Cicero's and Hirtius's praise and Pollio's charge each attributed; the written-at-once and year-by-year views each credited; the modern reading as Caesar's advocacy.** The glossary's 58 – 48 BCE is in no source fetched. |
+| `rm-352` Vercingetorix | 8 | 9 → 8 | **Caesar's 80,000 men and thirty days' corn left the line** (and stay with `rm-353`). Caesar is nearly our only witness; Gergovia, scorched earth, the gold staters (the head usually read as Apollo), the three surrender accounts apart, six years' captivity; only Dio records the execution. |
+| `rm-353` Alesia | 8 | 9 → 8 | **"Roman lines about 16 km, with 23 redoubts" and "Standards taken 74" were rows; the 16 km was someone's conversion**: Caesar's eleven and fourteen miles stay as his. The Mandubii, Vercassivellaunus, Napoleon III's digs and the Franco-German digs of 1991 – 97; Alaise named as the rival site. |
+| `rm-354` British expeditions | 7 | 9 → 7 | Caesar's reason is his own case, the eagle-bearer his set piece, the forty ships lost his figure; Cicero's letters (no silver, no booty but slaves); the tribute perhaps never paid; Walmer–Deal and the Leicester team's Ebbsfleet finds. |
+| `rm-355` Parthian campaign | 7 | 9 → 8 | **The old card said flatly that no decree authorised the war; the lex Trebonia let Crassus make war or peace (Holmes)**, so both are given. Ariamnes and Abgarus are one man, a traitor to Plutarch and Dio, doubted by Tarn; Ateius's curse and the Zeugma omens are Plutarch's; the temple plunder Josephus's. |
+| `rm-356` Carrhae | 7 | 7 → 7 | **Plutarch's 20,000 killed and 10,000 taken are for the whole campaign, not the battle, and leave the line.** Dio's molten gold, Plutarch's head at the *Bacchae* and Ovid's 9 June (which Holmes accepts) are each attributed; the standards back in 20 BCE. |
+| `rm-357` Titus Annius Milo | 6 | 9 → 6 | **Appian's version of the killing is replaced by Asconius's, said to rest on the official records**; the published *Pro Milone* is a later rewrite; the mullets joke is Dio's; Massilia, and death beside Caelius in 48. |
+| `rm-358` sole consulship | 6 | 7 → 6 | **The old card followed Appian, who has Cato propose it; Bibulus moved it and Cato backed it.** "After 2 months" is Plutarch's (the Cambridge Ancient History puts Scipio's start in July or August); the intercalary month is Asconius's; the laws and the law of the ten tribunes are added. |
+| `rm-359` Rubicon | 9 | 7 → 11 | **Caesar's own *Civil War* never names the river, now said**; 7 January and the night of 10/11 January are modern reckonings in a calendar some seven weeks ahead of the seasons; Suetonius's "iacta alea est" and Plutarch's Greek call each their author's; the piper is Suetonius's portent; the river's identity is disputed (Rosetti 1901, a church court's ruling of 1756). Plutarch's 5,000 foot and 300 horse leave the line. |
+| `rm-360` Caesar's civil war | 9 | 11 → 9 | Every author was over the limit. The whole war from Italy to Munda and Sextus fighting on; Caesar's *Civil War* is his own case; the Rubicon's clues are `rm-359`'s; "I came, I saw, I conquered" is Suetonius's placard. |
+
+**Read by eye.** *Confusability:* `rm-351` the work; `rm-352`/`rm-353` the leader and the siege; `rm-354` Britain; `rm-355`/`rm-356` the campaign (march and omens) and the battle (fighting and death); `rm-357`/`rm-358` Milo and the consulship; `rm-359`/`rm-360` the river and the war. *Legend:* the piper, Ateius's curse, the molten gold, the eagle-bearer and the mullets are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
