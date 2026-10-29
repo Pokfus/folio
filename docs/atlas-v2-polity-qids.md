@@ -8,12 +8,12 @@ Where this comes from. Cliopatria names a Wikidata item and an English Wikipedia
 
 | | entities |
 |---|---|
-| carry a QID (polities 224, peoples 8) | 232 |
+| carry a QID (polities 223, peoples 8) | 231 |
 | **corrected** (wrong item, the right one unambiguous) | 42 |
 | **unresolved** (wrong item, no unambiguous replacement; allowed by the check with a reason) | 3 |
 | right item, let through by the check with a reason | 8 |
 | doubtful, kept | 8 |
-| unchanged otherwise | 171 |
+| unchanged otherwise | 170 |
 
 Besides the 42 series whose main pair was replaced, 3 secondary pairs (“Also in the source” on the place card) were replaced. The check's two rules are in the header of `audit-polity-names.js`.
 

@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-25",
+ "retrieved": "2026-10-29",
  "source": "query.wikidata.org (Wikidata, CC0): for every item a polity of history.bin points at (or pointed at, or could point at): English label and description, direct classes (P31), inception/start and dissolution/end dates, the English Wikipedia sitelink, and whether a class of P31/P279* is one of the polity classes (state) or the people classes (people) named in audit-polity-names.js",
  "state_classes": [
   "Q3024240",
@@ -371,24 +371,6 @@
    "state": true,
    "people": false
   },
-  "Q223": {
-   "label": "Greenland",
-   "desc": "autonomous territory of the Kingdom of Denmark and world's largest island",
-   "enwiki": "Greenland",
-   "classes": [
-    "autonomous administrative territorial entity",
-    "autonomous country within the Kingdom of Denmark",
-    "country",
-    "country sometimes considered transcontinental",
-    "dependent territory",
-    "electoral unit",
-    "island country"
-   ],
-   "start": [],
-   "end": [],
-   "state": true,
-   "people": false
-  },
   "Q228": {
    "label": "Andorra",
    "desc": "sovereign microstate between France and Spain, in Western Europe",
@@ -501,6 +483,26 @@
    ],
    "start": [
     "1821-07-28"
+   ],
+   "end": [],
+   "state": true,
+   "people": false
+  },
+  "Q664": {
+   "label": "New Zealand",
+   "desc": "island country in the southwest Pacific Ocean",
+   "enwiki": "New Zealand",
+   "classes": [
+    "Commonwealth realm",
+    "country",
+    "island country",
+    "sovereign state"
+   ],
+   "start": [
+    "1841-05-03",
+    "1907-09-26",
+    "1947-11-25",
+    "1986-12-13"
    ],
    "end": [],
    "state": true,
@@ -2358,9 +2360,7 @@
    "desc": "federal state in Southeast Asia",
    "enwiki": "French Indochina",
    "classes": [
-    "colony",
-    "federation",
-    "historical country"
+    "federation"
    ],
    "start": [
     "1887-01-01"
@@ -2369,7 +2369,7 @@
     "1954-01-01"
    ],
    "state": true,
-   "people": true
+   "people": false
   },
   "Q188161": {
    "label": "Dutch East Indies",
@@ -4408,7 +4408,7 @@
   },
   "Q5362837": {
    "label": "Emirate of Jabal Shammar",
-   "desc": "1836–1921 state in northern Saudi Arabia",
+   "desc": "1836–1921 state in northern Arabia",
    "enwiki": "Emirate of Jabal Shammar",
    "classes": [
     "historical country"
