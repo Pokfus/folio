@@ -164,7 +164,7 @@ order unless the user says otherwise.
 | B30 | The Republic in crisis (`rm-crisis`) | `rm-291`–`rm-300` | 10 | 143 | **done 2026-10-23** |
 | B31 | The Republic in crisis (`rm-crisis`) | `rm-301`–`rm-310` | 10 | 85 | **done 2026-10-29** |
 | B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | **done 2026-10-29** |
-| B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | open |
+| B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | **done 2026-10-29** |
 | B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | open |
 | B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | open |
 | B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | open |
@@ -590,6 +590,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-318` proscription | none | no picture (`I.none`) |
 | `rm-319` Sulla's dictatorship | a Munich marble head labelled "so-called Sulla" | weak: an uncertain portrait stands for an office, and the description reads as a museum label |
 | `rm-320` Sullan constitution | none | no picture (`I.none`) |
+| `rm-321` fall of the Roman Republic | Gérôme's *Death of Caesar* | weak: one event for a process, and the description is museum text with "BC" |
+| `rm-322` revolt of Lepidus | none | no picture (`I.none`) |
+| `rm-323` Sertorius | a 1638 painting of Sertorius and the horse's tail | wrong: an imagined scene, and the description names its source institute |
+| `rm-324` Sertorian War | excavated skeletons of executed soldiers at Valencia | acceptable as one episode; the description names the museum and makes a claim the card does not source |
+| `rm-325` Pompey | the Venice portrait head of Pompey | ok |
+| `rm-326` Marcus Licinius Crassus | a Louvre bust | wrong: the description is only "Louvre Museum, Paris.", the alt is the file name, and it differs from the glossary's bust |
+| `rm-327` Spartacus | Foyatier's statue of 1830 | ok as an imagined likeness; the description names the Louvre |
+| `rm-328` Third Servile War | none | no picture (`I.none`) |
+| `rm-329` consulship of 70 BCE | none | no picture (`I.none`) |
+| `rm-330` restoration of the tribunate | none | no picture (`I.none`) |
 
 ## Glossary candidates
 
@@ -1465,3 +1475,22 @@ Run as B31; after `batch.sh` every draft was compared with its card: no mismatch
 | `rm-320` Sullan constitution | 6 | 5 → 7 | **"Sullan constitution" is a modern label** (a 1915 history's "so-called") for laws of 81 – 80. The purpose is attributed (Livy's summary, the usual modern reading, two dissents); about 300 new senators and 10,000 Cornelii are Appian's; the undoing of 70 is one clause. |
 
 **Read by eye.** *Confusability:* `rm-310`/`rm-311`/`rm-312` the war, the king and the massacre; `rm-313`/`rm-316`/`rm-317` the two marches and the last battle; `rm-314`/`rm-315` the consul and the killings (the stone oath only on `rm-314`, the Bardyaei only on `rm-315`); `rm-318`/`rm-319`/`rm-320` the lists, the office and the laws. *Legend:* Mithridates's poison, the stone oath, the wolves speech, Gratidianus's head and the Bardyaei are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees on these subjects.
+
+### B33 — `rm-321`–`rm-330`, the fall of the Republic: the framing, Lepidus, Sertorius, Pompey, Crassus, Spartacus and 70 BCE (2026-10-29)
+
+Run as B32; every draft was compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-321:rm-330` reads clean on five cards; the rest are `I.none` and one `S.chip?` on `rm-324` (an English BMCR review of a French-titled book: the known false positive). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check reported 16 failures, all LacusCurtius pages (`000`: the host refused the sandbox for most of the session); each was fetched and saved by its agent when the host answered, so they stay. One phrasing was fixed by hand: `rm-326`'s second (Plutarch's "eight months" in the cave is now attributed). `timeline` was moved for `rm-322` (78 – 77 BCE) and `rm-324` (82 – 72 BCE). Eight of the ten old cards were all-ancient.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-321` fall of the Roman Republic | 8 | 6 → 9 | **"The fall of the Republic" is a modern name, and every start and end is a convention, now each given its owner**: 133 the ancient tradition, 88 Appian, 60 Pollio (followed by Syme), 44 the first Cambridge Ancient History, then Actium or 27. Sallust, Lucan and Tacitus speak for themselves; Syme, Gruen and Flower take two sentences. The old line carried words ("Appian's count sixty years"). |
+| `rm-322` revolt of Lepidus | 5 | 6 → 7 | **The Milvian Bridge battle and Pompey's part rest on Florus alone and are dropped**; his death is Appian's wasting disease or Plutarch's grief at his wife's adultery; Sallust's speeches for Lepidus and Philippus are Sallust's compositions. He is the triumvir's father. No death year is printed by any source read. |
+| `rm-323` Sertorius | 6 | 7 → 8 | The old card had no modern source. **The white fawn is Plutarch's tale, with Appian's version and a modern doubt**; the Mithridates treaty is told both ways. Killed 72, also dated 73 (the second resting only on the Oxford Classical Dictionary entry's title as Crossref records it, the entry itself answering 403). |
+| `rm-324` Sertorian War | 6 | 6 → 8 | The war starts in 82 or 80 by modern author; Pompey's letter is Sallust's text; **the sling bullets stamped Q.SERTORI PROCOS are contemporary evidence** (an open 2022 *Journal of Roman Archaeology* survey). Florus is dropped. A 2025 review reports García Domínguez dating the burning of Lauro to 77; the card keeps 76. |
+| `rm-325` Pompey | 9 | 8 → 9 | The old line had "and twice later" and "in his 58th year" (which Plutarch contradicts); **the first triumph is 81 BCE in Smith and early 79 in the Cambridge Ancient History, both given**; "Magnus" is Plutarch's report; "First Triumvirate" is said to be modern. The glossary stated the 58th year as fact. |
+| `rm-326` Marcus Licinius Crassus | 8 | 6 → 9 | **"Fortune 7,100 talents, per Plutarch" was a date-line row**; it is now Plutarch's figure in prose. The fire-brigade story is Plutarch's, the molten gold Dio's "as some say". "Born c. 115" is printed by no open modern source and goes. |
+| `rm-327` Spartacus | 9 | 6 → 9 | The old card had six ancient sources and no modern one. The escapees are Plutarch's 78 against Appian's about 70; **the prophetess wife and the serpent are legend; the Alpine plan is Plutarch's reading, set against modern views**; "more Hellenic than Thracian" is a stock compliment. |
+| `rm-328` Third Servile War | 7 | 6 → 7 | **"Crixus killed with 20,000 men" and "60,000 dead, per Livy" were date-line rows**; every figure is now its author's, never summed, and the crucified 6,000 are "one ancient historian"'s in the question too (fixed by hand). The old first phrasing repeated `rm-326`'s six-new-legions clue. |
+| `rm-329` consulship of 70 BCE | 5 | 6 → 7 | **"Pompey's age 34, per Appian never quaestor nor praetor" was words on the line.** Appian puts the reconciliation early, Plutarch at the year's end after a knight's dream; the jury-law praetor is Lucius Aurelius Cotta (not Lendering's "Marcus"); the 64 senators expelled and the 900,000 citizens are Livy's summary's. The glossary gave Appian's scene to Plutarch. |
+| `rm-330` restoration of the tribunate | 6 | 8 → 7 | Added the agitation of the 70s (Lepidus, Sicinius 76, Cotta's law of 75 — now the first date row —, Macer's speech of 73 as Sallust's composition). **"Moved by Pompey" is now the sources' split between Pompey and both consuls.** |
+
+**Read by eye.** *Confusability:* `rm-321` the framing (no clue of `rm-276`); `rm-322`; `rm-323`/`rm-324` the man (fawn, Osca, banquet) and the war (Pompey's battles, the letter, the bullets); `rm-325`/`rm-326` the two men; `rm-327`/`rm-328` the man and the war; `rm-329`/`rm-330` the year and the law. *Legend:* the fawn, the prophetess and her serpent, the molten gold and Pompey's horse led before the censors are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

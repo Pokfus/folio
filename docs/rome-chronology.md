@@ -361,6 +361,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Sulla's proscriptions / the lists closed | 82 – 81 BCE / 1 June 81 BCE (Cicero, pleading for Roscius) | `rm-318` |
 | Sulla's dictatorship / consul again / laid down by / died | 82 BCE / 80 BCE / 79 BCE (end of 81 in Badian; Vervaet has 79) / 78 BCE | `rm-319` |
 | Sulla's laws / largely undone | 81 – 80 BCE / 70 BCE | `rm-320` |
+| the fall of the Roman Republic: usual start / civil war / usual end | 133 BCE / 49 BCE / 27 BCE (each a convention; 88 Appian's, 60 Pollio's, 44 the first Cambridge Ancient History's) | `rm-321` |
+| the revolt of Lepidus: consul / revolt | 78 BCE / 78 – 77 BCE | `rm-322` |
+| Sertorius: born / to Spain / killed | c. 126 – 123 BCE / 83 BCE / 72 BCE (also dated 73) | `rm-323` |
+| the Sertorian War / Pompey appointed / Lauron / Sucro | c. 82 – 72 BCE (some start it in 80) / 77 BCE / 76 BCE / 75 BCE | `rm-324` |
+| Pompey: born / consul / killed | 106 BCE / 70, 55 and 52 BCE / 48 BCE (the first triumph 81 BCE in Smith, 79 in the Cambridge Ancient History; no row) | `rm-325` |
+| Crassus: consul / again / killed | 70 BCE / 55 BCE / 53 BCE | `rm-326` |
+| Spartacus: led the rising / died | 73 – 71 BCE / 71 BCE | `rm-327` |
+| the Third Servile War / both consuls beaten | 73 – 71 BCE / 72 BCE | `rm-328` |
+| the consulship of Pompey and Crassus | 70 BCE | `rm-329` |
+| the tribunate: partly restored / fully restored | 75 BCE / 70 BCE | `rm-330` |
 
 ## The Principate
 
@@ -681,4 +691,14 @@ rm-317: 82
 rm-318: 82; 81
 rm-319: 82; 80; 79; 78
 rm-320: 81; 80; 70
+rm-321: 133; 49; 27
+rm-322: 78; 77
+rm-323: 126; 123; 83; 72; 73
+rm-324: 82; 72; 77; 76; 75
+rm-325: 106; 70; 55; 52; 48
+rm-326: 70; 55; 53
+rm-327: 73; 71
+rm-328: 73; 71; 72
+rm-329: 70
+rm-330: 75; 70
 ```
