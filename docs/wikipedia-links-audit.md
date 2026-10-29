@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5107 | the title is the article |
+| `ok` | 5141 | the title is the article |
 | `redirect-variant` | 331 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 77 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 475 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 482 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 104 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 105 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
-| `none` | 957 | nothing matched; no link |
+| `none` | 958 | nothing matched; no link |
 
-**6003 of 7218 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6044 of 7261 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (475)
+## Redirected to a differently named article — check each (482)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -262,6 +262,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gru-806` **Amur River** → [Amur](https://en.wikipedia.org/wiki/Amur) (from `Amur River`)
 - `gru-808` **Ob River** → [Ob](https://en.wikipedia.org/wiki/Ob) (from `Ob River`)
 - `gru-809` **Yenisei River** → [Yenisei](https://en.wikipedia.org/wiki/Yenisei) (from `Yenisei River`)
+- `gru-813` **Don River** → [Don (river)](https://en.wikipedia.org/wiki/Don_(river)) (from `Don River`)
+- `gru-816` **Neva River** → [Neva](https://en.wikipedia.org/wiki/Neva) (from `Neva River`)
+- `gru-817` **Irtysh River** → [Irtysh](https://en.wikipedia.org/wiki/Irtysh) (from `Irtysh River`)
+- `gru-821` **Ural River** → [Ural (river)](https://en.wikipedia.org/wiki/Ural_(river)) (from `Ural River`)
+- `gru-822` **Kolyma River** → [Kolyma (river)](https://en.wikipedia.org/wiki/Kolyma_(river)) (from `Kolyma River`)
 - `gru-823` **Oka River** → [Oka (river)](https://en.wikipedia.org/wiki/Oka_(river)) (from `Oka River`)
 - `gru-824` **Moskva River** → [Moskva (river)](https://en.wikipedia.org/wiki/Moskva_(river)) (from `Moskva River`)
 - `gru-825` **Kama River** → [Kama (river)](https://en.wikipedia.org/wiki/Kama_(river)) (from `Kama River`)
@@ -269,6 +274,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gru-829` **Pechora River** → [Pechora (river)](https://en.wikipedia.org/wiki/Pechora_(river)) (from `Pechora River`)
 - `gru-834` **Kuban River** → [Kuban (river)](https://en.wikipedia.org/wiki/Kuban_(river)) (from `Kuban River`)
 - `gru-836` **Indigirka River** → [Indigirka](https://en.wikipedia.org/wiki/Indigirka) (from `Indigirka River`)
+- `gru-921` **Kapova Cave** → [Shulgan-Tash Cave](https://en.wikipedia.org/wiki/Shulgan-Tash_Cave) (from `Kapova Cave`)
+- `gru-940` **Popigai crater** → [Popigai impact structure](https://en.wikipedia.org/wiki/Popigai_impact_structure) (from `Popigai crater`)
 - `gw-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `gw-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `gw-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -767,7 +774,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (104)
+## Section redirects — no dedicated page (105)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -824,6 +831,7 @@ Wikipedia treats these as part of another article. No link.
 - `gr-787` **Gallic invasion of Greece** — `Gallic invasion of Greece` only redirects into `Celtic settlement of Southeast Europe#Great expedition in Greece`
 - `gr-864` **sack of Corinth** — `Sack of Corinth` only redirects into `Achaean War#Sack of Corinth`
 - `gr-913` **Gigantomachy** — `Gigantomachy` only redirects into `Giants (Greek mythology)#The Gigantomachy`
+- `gru-934` **Mashuk** — `Mashuk` only redirects into `Pyatigorsk#Geography`
 - `jp-012` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `jp-092` **Kegon** — `Kegon` only redirects into `Huayan#Japanese Kegon`
 - `ko-029` **Korean Bronze Age** — `Korean Bronze Age` only redirects into `Prehistoric Korea#Bronze Age`
@@ -876,7 +884,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (957)
+## No article found (958)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1598,6 +1606,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-987` **Greek festival calendar** — search suggests `Ancient Greek calendars`, `Attic calendar`, `Revised Julian calendar`, `Lists of Greek mythological figures`, `Athenian festivals`
 - `gr-994` **Dionysiac mysteries** — search suggests `Villa of the Mysteries`, `Dionysus`, `Cult of Dionysus`, `Arion`, `List of Greek deities`
 - `gr-999` **Greek funerary practice** — search suggests `Ancient Greek funeral and burial practices`, `Ancient Egyptian funerary practices`, `Roman funerary practices`, `Pre-Greek substrate`, `Archaic Greece`
+- `gru-935` **Krasnoyarsk Stolby** — search suggests `Krasnoyarsk Pillars`, `Krasnoyarsk`, `Stolby`, `Krasnoyarsk railway station`, `Lena Pillars`
 - `gw-730` **Kingston (Norfolk Island)** — search suggests `Kingston, Norfolk Island`, `Norfolk Island`, `Outline of Norfolk Island`, `List of places called Kingston`, `Norfolk Islanders`
 - `jp-004` **dual structure model** — search suggests `Tesla Cybertruck`, `Phoenix Wright: Ace Attorney – Dual Destinies`, `PlayStation 2 models`, `Toyota Corolla (E140)`, `Large language model`
 - `jp-007` **Odai Yamamoto I** — search suggests `Ōdai Yamamoto I Site`, `List of Japanese actors`, `Japanese Paleolithic`, `Jōmon pottery`, `Index of Japan-related articles (Y–Z)`
