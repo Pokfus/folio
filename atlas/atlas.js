@@ -270,7 +270,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "9f0f9dafa0:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "21cddd517a:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -2293,7 +2293,6 @@
       ctx.clearRect(0, 0, cssW, cssH);
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
       const live = [];
-      const muteOthers = ST.mode === "personal" && ST.flags.size > 0;
       drawSelection(ctx);   // the selected state's gold outline, under everything (2026-10-18)
       drawMarks(ctx);   // the study layer's marks, under the names
       for (const p of L.placed) {
@@ -2304,7 +2303,10 @@
         const sx = cx + (rot[0] * a[0] + rot[1] * a[1] + rot[2] * a[2]) * r, sy = cy - (rot[3] * a[0] + rot[4] * a[1] + rot[5] * a[2]) * r;
         const dx = sx - p.sx, dy = sy - p.sy;
         if ((dx || dy) && !labelFits(p, dx, dy)) continue;
-        ctx.globalAlpha = Math.min(1, z / 0.2) * (muteOthers && !p.st ? 0.4 : 1);   // the Personal Atlas mutes everything that is not the reader's (Phase 3b)
+        /* NOTHING IS MUTED (2026-10-29, the owner's phone: Rome "still displayed half-transparently on the personal atlas"). Phase 3b drew whatever was not the
+           reader's at 0.4 in Personal; since decision a of 2026-10-18 Personal draws only what a studied card discovered, and the one thing left under the mute was
+           a discovered state's period capital (Rome under the Roman Republic, no Rome card studied) — its square and name at 0.4. It is drawn like any other name */
+        ctx.globalAlpha = Math.min(1, z / 0.2);
         if (p.marker) drawMarker(ctx, p.marker[0] + dx, p.marker[1] + dy, p.marker[2], p.marker[3], p.id === sel.id, p);
         if (p.sprite) ctx.drawImage(p.sprite.c, p.sprite.x0 + dx, p.sprite.y0 + dy, p.sprite.w, p.sprite.h);
         const hit = [p.hit[0] + dx, p.hit[1] + dy, p.hit[2] + dx, p.hit[3] + dy];

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1117", released: "2026-10-29T13:58Z" };
+window.FOLIO_VERSION = { v: "1.1118", released: "2026-10-29T16:37Z" };
 
 window.CHANGELOG = [
   {
@@ -53,7 +53,7 @@ window.CHANGELOG = [
       "One Psychology card has a <b>new answer</b>: tabula rasa.",
       "An admin can now <b>edit or remove a True or False statement</b> while playing the game, as well as from the admin page.",
       "The <b>next-up passage</b> in the Continue reading and Suggested reading box is now twice as long.",
-      "On the Personal Atlas, <b>Rome</b> is drawn in full ink like any other discovered city, no longer a faded second square.",
+      "On the Personal Atlas, <b>Rome</b> and every other ancient capital are drawn in full ink like any discovered city, never faded.",
       "<b>Rivers at night</b> are a darker blue, still clear against the relief.",
       "A card's atlas window no longer names its own city twice when another card has discovered it.",
       "In the card editor, the <b>Link term</b> list now reaches every term, and a new button adds a date row with its label and date.",

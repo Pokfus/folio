@@ -847,7 +847,7 @@
     /* A PERIOD CAPITAL THE READER'S OWN MARKS ALREADY STAND FOR IS NOT DRAWN AGAIN (2026-10-29, the owner: "in the personal atlas, the square and label
        text for the city of Rome are half transparent and sometimes the name is missing. It should be like any other discovered city"). Rome in a past
        year was two things on one point: the study pass's capital stack (the reader's own places, full ink) and the Roman state's period capital — a
-       second square with no flag, so the Personal Atlas muted it to 0.4 (atlas.js `muteOthers`), and its marker, reserved before every label, pushed
+       second square with no flag, so the Personal Atlas muted it to 0.4 (atlas.js `drawLabels`, a mute removed later the same day), and its marker, reserved before every label, pushed
        the stack off its point and took the side its name needed. A period capital within 3 km (the city membership's own reach) of a flagged
        settlement or capital the study pass marks is now left to that mark, in every mode, as a present-day city already is ("not drawn twice"). */
     const studyTowns = [];
