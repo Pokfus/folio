@@ -9440,6 +9440,41 @@ Australia for Uluru, the Slovenian park authority for Postojna, Vietnam's for Ph
 history. Never Wikipedia; never a source not opened; no author in more than two of one card's sources;
 **every URL curled before the card is committed**.
 
+### As written (2026-10-29): the decks are COMPLETE at 50 + 50, and what changed on the way
+
+All 100 cards were drafted by research helpers from sources they opened, reviewed here, and imported
+through `import-batch.js`; 54 new glossary terms, the other answers reusing existing terms. Every cited URL
+was re-curled: 752 of 792 answered 200, and the rest are registered DOIs (all 302 at `doi.org`) whose
+publishers refuse scripted fetches, or pages behind a bot wall (the Canadian Encyclopedia, eScholarship)
+that the helper read in a browser. What the writing changed or decided:
+- **Every card is a map question; no card lost its locator.** Eleven ranges carry spines typed from their
+  own peaks' Wikidata coordinates, each point named in the card's `notes`; the four repeated ranges (the
+  Himalayas, the Rockies, the Tian Shan, the Appalachians) reuse their original card's spine. **No river is
+  a dot**: every river's `rivers.js` names were checked and none shares a nearby namesake (the Nile is five
+  joined entries, `Nile` to `Victoria Nile`; the Euphrates `Firat`, `Al Furat`, `Euphrates`; the Tigris
+  `Tigris`, `Dicle`; the Danube `Donau`, `Danube`).
+- **The points were fetched from Wikidata**, not Wikipedia, because Wikipedia's API answered 429 to this
+  container all session: `add-locators.js` reads the item's P625. For a river Wikidata's point is often
+  the SOURCE where Wikipedia's is the mouth, so the twelve repeats whose points differed by more than 25 km
+  were given their original card's already-fetched point (otherwise `build-glossary-places.js` drops the
+  shared glossary term's pin). River and range locators carry no `zoom`, so the window frames the traced
+  line or the spine, as the US decks do; the Nile's window still trims the last stretch above Lake Victoria.
+- **`gw-938` answers *Son Doong Cave*** with the Wikipedia title *Hang Sơn Đoòng* as its glossary key;
+  `gw-935` answers *Aoraki / Mount Cook*. `gw-814`'s maximum depth was set to `?` at review (its figure
+  came from a paper whose page would not open); `gw-838` gained, at review, India's April 2025 "abeyance"
+  of the Indus Waters Treaty with Pakistan's objection beside it, each government's position from its own
+  statement as reported.
+- **71 of the 400 facts cells are `?`**, mostly a peak's prominence, a range's length and a desert's area:
+  the opened sources did not give them, and `volcano.si.edu`, `whc.unesco.org` and Britannica refused
+  this sandbox, so the volcano cards are not sourced to the Global Volcanism Program as the plan wanted.
+- **Atlas places on 21 of the 100** (what `migrate-places.js` derives from the registry today); the rest
+  want registry rows, as China's physical cards needed (`atlas-build/add-place.js`). A rerun of the
+  migration under Wikidata's rate limit also dropped an unrelated card's place (Raphia); that file was
+  restored rather than committed.
+- `check-cards.js` declares the National Ocean Service and Parks Canada as institutions cited a page at a
+  time; `add-card.js`, `import-batch.js` and `add-locators.js` learned to write a NEW card whose locator
+  asks (`--locator-ask`, `ask` in a locator batch).
+
 ### How the running orders were chosen
 
 **By how well the name is known**, the US and China decks' axis and `difficulty`'s: 1–10 household names,
