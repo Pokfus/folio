@@ -56,6 +56,12 @@
         drawn at EVERY zoom down to the cap (the owner's decision of 2026-10-17, a): past the finest
         level's texel the finest level is drawn, bilinear, as a regional-scale wash — it is never faded
         out (RELIEF_FADE, which took it to nothing below 1 km/px, is gone).
+     6b. relief detail (2026-10-25): below RELIEF_DETAIL_KM_PER_PX the view's 2.5° tiles of the 15 arc-second
+        HILLSHADE (atlas/data/relief-detail/, one grey JPEG each, only where there is land; detail.json lists
+        them) are fetched, decoded by createImageBitmap and uploaded straight to an R8 texture — no worker,
+        no compose. The renderer shades the land with them over the L1 tint, the shade fading from L1's to
+        the detail's between RELIEF_DETAIL_KM_PER_PX and RELIEF_DETAIL_FULL_KM_PER_PX. A view that would need
+        more than RELIEF_DETAIL_MAX tiles takes none (a wide screen at the far end of the fade).
 
    THE VIEW is a centre (lon, lat), a zoom and the layer flags. The rotation matrix R maps a unit
    vector on the earth to view space (x right, y up, z toward the viewer): R's rows are the right,
@@ -87,6 +93,10 @@
   const WATER_TILE_CACHE = 64;
   const RELIEF_L1_KM_PER_PX = 6;             // L1 patches are wanted below this (L0's texel is 9.8 km: under two pixels here)
   const RELIEF_CACHE = 10;                   // L0 + up to nine L1 tiles resident (2048² RGB is 12 MB each on the GPU)
+  const RELIEF_DETAIL_KM_PER_PX = 2.5;       // the 15″ hillshade tiles are wanted below this (L1's 4.9 km texel is two pixels here)…
+  const RELIEF_DETAIL_FULL_KM_PER_PX = 1.5;  // …and their shade has replaced L1's at this zoom (a linear fade between: no pop)
+  const RELIEF_DETAIL_MAX = 40;              // a view needing more 2.5° tiles than this takes none (each is 0.5 MB on the GPU)
+  const RELIEF_DETAIL_CACHE = 56;            // resident detail tiles (about 27 MB of GPU memory at most)
   const LAYERS_KEY = "folio_atlas2_layers_v2";   // v2 (Phase 1c): the legend's fields replace the layers control's
   const PERF_KEY = "folio_atlas2_perf";           // Phase 2a: the About sheet's "Show frame statistics" switch
   /* TIME (Phase 2a; docs/atlas-v2-design.md §2.4, §7 "Phase 2a — as built"). The rail runs from 10,000 BCE to today, piecewise
@@ -108,7 +118,8 @@
   /* THE WHOLE-STATE SELECTION (2026-10-18; the owner: "like in Atlas v1"): the card windows' own gold (atlas-windows.js TINT_SEL) — the fill is the land blended with
      the gold at 0.24 (the history fill's own alpha does the blend), the outline 2.6 px and the glow 9 px are stroked on the label canvas from the face's rings */
   const SEL_GOLD = { rgb: [1, 178 / 255, 46 / 255], a: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)", width: 2.6, blur: 9 };
-  const HIST_DIM = 0.5;   // 2026-10-18: the land no state or people covers in a past year is drawn at half its luminance (the owner's 50 %; v1's Full Atlas measured 0.78, outside the 10 points that would have kept its number), on the Atlas page only — a card window and Find it never darken
+  const HIST_BORDER_W = 1.6;   // CSS px: a past year's borders (1.1 until 2026-10-25, too faint over the relief on a phone)
+  const HIST_DIM = 0.5;   // 2026-10-18: the land no state or people covers in a past year is drawn at half its luminance (the owner's 50 %; v1's Full Atlas measured 0.78, outside the 10 points that would have kept its number), on the Atlas page only — a card window and Find it never darken; since 2026-10-25 the Personal Atlas only (its undiscovered ground), never Map or Full
   const WAR_FILL_BOOST = 1.3;   // a side's tint is read against a state's own colour: 30 % stronger than a state's fill (2d)
   const SPEEDS = [1, 5, 25, 100];                 // years per second (Q-T4 b: every year is played)
   const PHONE = (() => { try { return matchMedia("(pointer: coarse)").matches && Math.min(screen.width, screen.height) < 768; } catch (e) { return false; } })();
@@ -197,7 +208,10 @@
     const lum = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]), ratio = (a, b) => { const x = lum(a) + 0.05, y = lum(b) + 0.05; return x > y ? x / y : y / x; };
     const land = mix(paper, ink, 0.10);
     const dim = (f) => waterInk.map((v) => gam(lin(v) * f));
-    let riverDark = dim(0.8); for (let f = 0.8; f < 1 && (ratio(riverDark, land) < 3 || ratio(riverDark, ocean) < 3); f += 0.02) riverDark = dim(Math.min(1, f + 0.02));
+    /* 2026-10-29 (the owner: "make rivers on atlases less bright in night mode, but still clearly distinguishable from the relief map"): 60 % of the names' luminance where it was 80 %,
+       the hue kept, so the line stays a BLUE on the grey hillshade rather than a lighter grey; the same 3:1 floor against the land and the sea still raises it where a theme needs. */
+    const RIVER_DARK_F = 0.6;
+    let riverDark = dim(RIVER_DARK_F); for (let f = RIVER_DARK_F; f < 1 && (ratio(riverDark, land) < 3 || ratio(riverDark, ocean) < 3); f += 0.02) riverDark = dim(Math.min(1, f + 0.02));
     return {
       ocean, lake: ocean,
       land, coast: mix(paper, ink, 0.32), border: mix(paper, ink, 0.46), admin1: mix(paper, ink, 0.26), rim: mix(paper, ink, 0.32),
@@ -256,7 +270,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "ef22a70e7f:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "21cddd517a:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -268,6 +282,7 @@
     const waterUrl = opts.waterUrl || "atlas/data/water.bin";
     const waterTileUrl = opts.waterTileUrl || "atlas/data/water/";
     const reliefUrl = opts.reliefUrl || "atlas/data/relief/";
+    const reliefDetailUrl = opts.reliefDetailUrl || "atlas/data/relief-detail/";
     const gazetteerUrl = opts.gazetteerUrl || "atlas/data/gazetteer.js";
     const H = opts.host || {};
     const studyPanel = H.study && root.AtlasStudy ? `
@@ -440,7 +455,7 @@
     const EMBED = !!opts.embed;
     let embedHook = null;   // atlas-embed.js: told when a tile, a water level or the history has arrived (the hub has no frame loop of its own)
     const layers = EMBED ? Object.assign({}, DEFAULT_LAYERS, { countries: false, places: false, physical: false, cities: false, relief: false, graticule: false, rivers: false, lakes: false, peoples: "off" }, opts.layers || {}) : loadLayers();
-    const view = { history: null, lon: H.home && isFinite(H.home.lon) ? H.home.lon : 10, lat: H.home && isFinite(H.home.lat) ? H.home.lat : 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, landChanges: [], relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [] }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
+    const view = { history: null, lon: H.home && isFinite(H.home.lon) ? H.home.lon : 10, lat: H.home && isFinite(H.home.lat) ? H.home.lat : 20, zoom: 1, graticule: layers.graticule, level: 0, admin1: false, borders: layers.borders, kmpp: 24, tiles: [], parents: [], waterTiles: [], rivers: layers.rivers, lakes: layers.lakes, smoothRivers: false, landChanges: [], relief: { on: layers.relief, strength: layers.strength, fade: 1, tiles: [], detail: [], detailMix: 0 }, radius: 100, cx: 0, cy: 0, rot: new Float32Array(9) };
     let cssW = 0, cssH = 0, base = 100, dprNow = 1;
     /* ADAPTIVE DEGRADATION DURING A GESTURE (Phase 1d). The owner's gate holds every frame of a gesture to 100 ms, and on
        a slow GPU a full-screen frame does not fit it: on software GL the globe costs 100–130 ms at full resolution (fill
@@ -674,6 +689,19 @@
       const one = (plane) => fetch(reliefUrl + t.base + "." + plane + ".png", ac ? { signal: ac.signal } : undefined).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.blob(); }).then((blob) => createImageBitmap(blob, { colorSpaceConversion: "none", premultiplyAlpha: "none" }));
       return Promise.all([one("hi"), one("lo"), one("sh")]).then(([hi, lo, sh]) => ({ hi, lo, sh, w: hi.width, h: hi.height, bytes: t.total || 0 }));
     }
+    // the relief's detail tiles (2026-10-25): one grey JPEG each, decoded off the main thread by createImageBitmap and uploaded as it is
+    let detailIndex = null;           // { cols, rows, deg, present: Set } from detail.json
+    const detailTiles = TileLoader({
+      fetch: (key, ac) => fetch(reliefDetailUrl + key.slice(2) + ".jpg", ac ? { signal: ac.signal } : undefined).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.blob(); })
+        .then((blob) => createImageBitmap(blob, { colorSpaceConversion: "none", premultiplyAlpha: "none" }).then((bitmap) => ({ bitmap, bytes: blob.size }))),
+      toWorker: (key, p) => {   // no worker: the bitmap goes to the GPU as it is
+        const [x, y] = key.slice(2).split("-").map(Number), d = detailIndex.deg;
+        const tile = { lon0: -180 + x * d, lon1: -180 + (x + 1) * d, lat0: -90 + y * d, lat1: -90 + (y + 1) * d };
+        bracket(() => R.setReliefDetail(key, { w: p.bitmap.width, h: p.bitmap.height, bitmap: p.bitmap, tile }), "reliefDetail");
+        detailTiles.arrived(key, { tile });
+      },
+      wanted: () => new Set(view.relief.detail), cacheSize: RELIEF_DETAIL_CACHE, drop: (k) => R.dropReliefDetail(k),
+    });
     function reliefTileOf(key) { const lv = reliefIndex.levels.find((l) => l.level === Number(key.split(":")[0])); const [x, y] = key.split(":")[1].split("-").map(Number); const cols = lv.cols, rows = lv.rows; return { lon0: -180 + 360 * x / cols, lon1: -180 + 360 * (x + 1) / cols, lat0: 90 - 180 * (y + 1) / rows, lat1: 90 - 180 * y / rows }; }
     // relief tiles are indexed north-down (row 0 at 90° N) in relief.json; the grid helper counts rows from the south
     function reliefKeysFor(level) {
@@ -771,7 +799,7 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
-      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready ? HIST_DIM : 0; }
+      view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
       const box = view.level >= 3 || (view.relief.on && k < RELIEF_L1_KM_PER_PX) ? viewBox() : null;
@@ -800,6 +828,15 @@
       view.relief.fade = 1;
       if (layers.relief && reliefIndex && k < RELIEF_L1_KM_PER_PX && RELIEF_MAX_LEVEL >= 1) { view.relief.tiles = reliefKeysFor(1); reliefTiles.want(view.relief.tiles); }
       else view.relief.tiles = [];
+      // the 15″ hillshade below RELIEF_DETAIL_KM_PER_PX, for the land tiles the view touches, while they are few enough
+      view.relief.detail = []; view.relief.detailMix = 0;
+      if (layers.relief && detailIndex && k < RELIEF_DETAIL_KM_PER_PX) {
+        const keys = cellsFor(detailIndex.cols, detailIndex.rows, detailIndex.present, box || viewBox());
+        if (keys.length <= RELIEF_DETAIL_MAX) {
+          view.relief.detail = keys.map((x) => "d:" + x); detailTiles.want(view.relief.detail);
+          view.relief.detailMix = Math.max(0, Math.min(1, (RELIEF_DETAIL_KM_PER_PX - k) / (RELIEF_DETAIL_KM_PER_PX - RELIEF_DETAIL_FULL_KM_PER_PX)));
+        }
+      }
       stats.level = view.level;
       refreshOnScreen();   // with the rotation and the level of THIS view (the change years, [ ] and the "no states" note follow the view)
     }
@@ -816,7 +853,7 @@
         `frame ms (last ${n}): mean ${mean.toFixed(1)}  p95 ${p95.toFixed(1)}  max ${max.toFixed(1)}\n` +
         `draw ${s.lastMs.toFixed(2)} ms  ${s.triangles} tri  ${s.segments} seg  ${s.draws} calls\n` +
         `water: ${s.riverSegments} river seg${view.smoothRivers ? " (smoothed)" : ""}  ${s.lakeSegments} lake seg  ${s.lakeTriangles} lake tri  level ${s.waterLevel}  tiles ${s.waterTilesDrawn}/${view.waterTiles.length} (${wt.resident} resident)\n` +
-        `relief: ${view.relief.on ? "on" : "off"} strength ${view.relief.strength.toFixed(2)} fade ${view.relief.fade.toFixed(2)}  patches ${s.reliefPatches}/${view.relief.tiles.length} (${s.reliefResident} resident, ${(rt.bytes / 1048576).toFixed(1)} MB fetched)\n` +
+        `relief: ${view.relief.on ? "on" : "off"} strength ${view.relief.strength.toFixed(2)} fade ${view.relief.fade.toFixed(2)}  patches ${s.reliefPatches}/${view.relief.tiles.length} (${s.reliefResident} resident, ${(rt.bytes / 1048576).toFixed(1)} MB fetched)  detail ${s.reliefDetail}/${view.relief.detail.length} mix ${view.relief.detailMix.toFixed(2)} (${s.reliefDetailResident} resident, ${(detailTiles.stats.bytes / 1048576).toFixed(1)} MB fetched)\n` +
         `LOD ${s.level} (core ${s.coreLevel})  ${kmPerPx().toFixed(3)} km/px  zoom ${view.zoom.toFixed(2)}  gesture stage ${stage}${resScale < 1 ? " half-res" : ""}${lodBias() ? " coarser" : ""}\n` +
         `tiles: ${s.tilesDrawn} drawn, ${s.parentsDrawn} parents, ${view.tiles.length} wanted, ${lt.pending} pending, ${lt.resident} resident, ${lt.fetched} fetched (${(lt.bytes / 1024).toFixed(0)} KB), ${lt.evicted} evicted\n` +
         `lakes culled: ${s.lakeCulled} tri  ${s.lakeSegCulled} seg (under ${2} px²)\n` +
@@ -1124,7 +1161,7 @@
     /* a restored GL context (Phase 1c): the renderer dropped everything; the worker sends the resident levels
        again from the files it kept, the loaders fetch their tiles again, relief is asked for again */
     function restoreAfterLoss() {
-      landTiles.reset(); waterTiles.reset(); reliefTiles.reset();
+      landTiles.reset(); waterTiles.reset(); reliefTiles.reset(); detailTiles.reset();
       time.resident.clear(); time.lru.length = 0; time.wanted.clear();
       postToWorker({ type: "rebuild" });
       if (layers.relief && reliefIndex) reliefTiles.want(["0"]);
@@ -1271,6 +1308,12 @@
         reliefTiles.want(["0"]);
         invalidate();
       }).catch((e) => { reliefFailed = true; layersNote.hidden = false; layersNote.textContent = "The relief didn’t arrive (" + (e && e.message ? e.message : e) + ")."; });
+      // the detail level's index (2026-10-25); without it the relief stops at L1, as it did before, and says nothing
+      fetch(reliefDetailUrl + "detail.json").then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); }).then((idx) => {
+        if (disposed) return;
+        detailIndex = { cols: idx.grid.cols, rows: idx.grid.rows, deg: idx.grid.degrees, present: new Set(idx.tiles) };
+        invalidate();
+      }).catch(() => {});
     }
 
     /* ================= Phase 2a: time — the step topology, the year, the rail, playback =================
@@ -1364,8 +1407,9 @@
       const hsl = (h, sat, lum) => { const c = (1 - Math.abs(2 * lum - 1)) * sat, x = c * (1 - Math.abs((h / 60) % 2 - 1)), mm = lum - c / 2; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [r + mm, g + mm, b + mm]; };
       // the war tints (2d): a green and a red (hue 138° and 4°), each blended with the theme's ink (light) or paper (dark)
       warRGB = { victor: dark ? mix(hsl(138, 0.6, 0.55), paper, 0.08) : mix(hsl(138, 0.62, 0.34), ink, 0.1), loser: dark ? mix(hsl(4, 0.75, 0.6), paper, 0.08) : mix(hsl(4, 0.72, 0.44), ink, 0.1) };
-      const hb = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58);
-      histBorderCss = hb; presInk = hb; histBorderStyle();   // 2c: the presences' stipple is the border ink, so it follows the theme too (screen on a dark one, multiply on a light one)
+      // the borders of a past year: 2026-10-25 (the owner's phone: "I do not see the borders between states") from 0.58 / 0.35 of the ink and 1.1 px to 0.8 / 0.6 and 1.6 px, so they
+      // hold against the relief; the peoples' stipple keeps the old, lighter ink
+      histBorderCss = dark ? mix(paper, ink, 0.6) : mix(paper, ink, 0.8); presInk = dark ? mix(paper, ink, 0.35) : mix(paper, ink, 0.58); histBorderStyle();   // 2c: the presences' stipple follows the theme too (screen on a dark one, multiply on a light one)
       void paper;
     }
     /* Phase 2d: a side's ground is tinted by its ROLE in the year (victor green, loser red; the legend says so). The tint replaces the entity's own slot colour, so a
@@ -1391,7 +1435,7 @@
        still drawn, plain land with its border; since decision a of the owner's sixth look it is not alive at all in Personal (`aliveShown`, above): no face, no border,
        its ground the darker empty land. The Full Atlas and the plain Map name, mark and draw every state. */
     /* Find-it (atlas-embed.js): `layers.flat` draws every state of a year in the land colour with the modern borders' colour and width, and the outline's mask pass blacks the borders and the peoples out */
-    function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : 1.1); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
+    function histBorderStyle() { if (!R.setHistoryBorderColor) return; R.setHistoryBorderColor(time.gameMask ? [0, 0, 0] : flatBorderOn ? palette.border : histBorderCss); if (R.setHistoryBorderWidth) R.setHistoryBorderWidth(flatBorderOn ? 0.9 : HIST_BORDER_W); if (R.setPresenceTheme) R.setPresenceTheme(time.gameMask ? false : histDark); }
     function restyleHist() { if (!time.hist || !time.view) return; time.view.faces = (time.onScreenAlive || []).map((a) => ({ face: a.face, rgb: entColour(a.ent), hatch: hatchOf(a.ent), tint: warRoleOf(a.ent), bare: isBare(a.ent) })); time.view.pfaces = presenceDraw(null, 1); uploadStyle(); }
     const hatchOf = (i) => (time.ents[i].kind === "contested" ? entColour(entityIndexOfId(time.ents[i].partners[1])) : null);
     const entityIndexOfId = (id) => { if (!time.entIndex) { time.entIndex = new Map(time.ents.map((e, i) => [e.id, i])); } const i = time.entIndex.get(id); return i == null ? -1 : i; };
@@ -1859,7 +1903,7 @@
     }
 
     /* ---- sprites: a label rendered once, glyph by glyph, halo then ink, at its layout position ---- */
-    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", haloDark = false;
+    let haloCss = "", inkCss = "", waterCss = "", selCss = "", accentCss = "", markCss = "", haloDark = false;
     const HALO_W = 2.6, HALO_W_DARK = 3.2;   // CSS px of halo stroke (both sides of a glyph): wider in a dark theme (decision c, 2026-10-17), where the dark halo is what keeps a light name legible over the lighter sea and the relief
     /* NO HALO WIDER THAN THE ORDINARY NAMES' WIDEST (2026-10-18, the owner's fifth look, decision b: "text labels for peoples have an unreasonably thick dark outline").
        HALO_W_MAX (3.2 px at Text size Medium, × LS like every width) is the cap: the ordinary names' own widest (the dark theme's HALO_W_DARK). The people styles
@@ -1872,7 +1916,12 @@
       const { ink, paper, paper2, indigo, ochre, dark } = themeTokens();
       const hex = (c) => "#" + c.map((v) => Math.round(Math.max(0, Math.min(1, v)) * 255).toString(16).padStart(2, "0")).join("");
       haloCss = hex(dark ? paper : paper);
-      inkCss = hex(ink);
+      inkCss = dark ? hex(ink) : "#000000";   // 2026-10-25 (the owner: "the text black, like in V1 of the Atlas"): every name but a water's and the selected one is black by day
+      /* THE MARKS ARE RED (2026-10-25, the owner: "the location icons should be red … like in V1 of the Atlas"; v1's register red was rgb(200, 69, 60),
+         docs/atlas-v1-archive.md "A MARK IS A RED DOT"). By day a deeper red than v1's, #b22a20: v1's own read 2.5–2.7:1 against the relief's darker hillsides,
+         under the 3:1 test-atlas-mark-outline.js holds every mark to; in a dark theme a light red, #ec9e97, which reads against the names' dark halo stroked
+         under it and the night's relief alike. Every mark, the reader's own included: whose a place is no longer changes its fill */
+      markCss = dark ? "#ec9e97" : "#b22a20";
       // water names: a deep blue-ink in a light theme, a pale blue in a dark one — read against both the sea and the land; the palette's `waterInk`,
       // the one definition, which in a dark theme is the river lines' colour too (2026-10-18, the owner: "the same light blue as their text labels")
       waterCss = hex(palette.waterInk || (dark ? mix([0.55, 0.8, 1], paper, 0.12) : mix(ink, [31 / 255, 122 / 255, 170 / 255], 0.5)));
@@ -1893,7 +1942,7 @@
     }
     labelColours();
     const WATER_KINDS = { sea: 1, ocean: 1, gulf: 1, strait: 1, lake: 1, river: 1 };
-    const inkFor = (p) => (p.id === sel.id || p.st === 2 ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places (Phase 3b) take the accent the selection has
+    const inkFor = (p) => (p.id === sel.id ? selCss : WATER_KINDS[p.kind] ? waterCss : inkCss);   // the reader's own places took the selection's accent (Phase 3b) until 2026-10-25: every name is the ink now (the owner: "the text black")
     const SPRITE_PAD = 4;   // CSS px of margin round a sprite's box (the halo's reach)
     const spriteCache = new Map(); let spriteGen = 0;   // key → sprite; spriteGen bumps on a theme or font change
     function spriteKey(p) { if (!p.glyphs || !p.glyphs.length) return null; const x0 = Math.floor(p.box[0]), y0 = Math.floor(p.box[1]); let g = ""; for (const q of p.glyphs) g += (Math.round((q[0] - x0) * 4) + "," + Math.round((q[1] - y0) * 4) + "," + (q[2] ? Math.round(q[2] * 100) : 0) + "," + (q[3] ? 1 : 0) + ";"); return p.id + "|" + p.style + "|" + p.text + "|" + (p.id === sel.id ? 1 : 0) + (p.st === 2 ? "m" : "") + "|" + dprNow + "|" + spriteGen + "|" + g; }
@@ -1924,7 +1973,7 @@
       return { c, x0, y0, w, h };
     }
     function drawMarker(ctx, x, y, r, kind, hot, p) {
-      ctx.fillStyle = hot ? selCss : inkCss; ctx.strokeStyle = haloCss;
+      ctx.fillStyle = hot ? selCss : markCss; ctx.strokeStyle = haloCss;
       ctx.beginPath();
       if (kind === "capital") ctx.rect(x - r, y - r, 2 * r, 2 * r); else ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.lineWidth = (haloDark ? HALO_W_DARK : HALO_W) * LS; ctx.stroke(); ctx.fill();   // the names' halo under the dot in every theme, as under a glyph (dark: decision a, 2026-10-18 b; day: 2026-10-18 b of the seventh look)
@@ -1941,7 +1990,7 @@
     function paintMark(x, path, mine, hot) {
       const op = (m) => (path ? x[m](path) : x[m]());
       x.lineWidth = (haloDark ? HALO_W_DARK : HALO_W) * LS; x.strokeStyle = haloCss; op("stroke");   // the names' halo, stroked first, in either theme
-      x.fillStyle = mine ? selCss : inkCss; op("fill");
+      x.fillStyle = markCss; op("fill");   // red, the reader's own and the rest alike (2026-10-25)
       if (hot) { x.lineWidth = 1.5; x.strokeStyle = haloDark ? selCss : accentCss; op("stroke"); }   // the selected mark: a ring inside its fill's edge — the lightened ochre on a dark theme's light fill, the ochre on a day's dark one
     }
     const countInk = () => haloCss;   // a ring's or a square's count is the halo's colour: dark on a dark theme's light fill, the paper on a day's dark one
@@ -2244,7 +2293,6 @@
       ctx.clearRect(0, 0, cssW, cssH);
       const rot = view.rot, r = view.radius, cx = view.cx, cy = view.cy;
       const live = [];
-      const muteOthers = ST.mode === "personal" && ST.flags.size > 0;
       drawSelection(ctx);   // the selected state's gold outline, under everything (2026-10-18)
       drawMarks(ctx);   // the study layer's marks, under the names
       for (const p of L.placed) {
@@ -2255,7 +2303,10 @@
         const sx = cx + (rot[0] * a[0] + rot[1] * a[1] + rot[2] * a[2]) * r, sy = cy - (rot[3] * a[0] + rot[4] * a[1] + rot[5] * a[2]) * r;
         const dx = sx - p.sx, dy = sy - p.sy;
         if ((dx || dy) && !labelFits(p, dx, dy)) continue;
-        ctx.globalAlpha = Math.min(1, z / 0.2) * (muteOthers && !p.st ? 0.4 : 1);   // the Personal Atlas mutes everything that is not the reader's (Phase 3b)
+        /* NOTHING IS MUTED (2026-10-29, the owner's phone: Rome "still displayed half-transparently on the personal atlas"). Phase 3b drew whatever was not the
+           reader's at 0.4 in Personal; since decision a of 2026-10-18 Personal draws only what a studied card discovered, and the one thing left under the mute was
+           a discovered state's period capital (Rome under the Roman Republic, no Rome card studied) — its square and name at 0.4. It is drawn like any other name */
+        ctx.globalAlpha = Math.min(1, z / 0.2);
         if (p.marker) drawMarker(ctx, p.marker[0] + dx, p.marker[1] + dy, p.marker[2], p.marker[3], p.id === sel.id, p);
         if (p.sprite) ctx.drawImage(p.sprite.c, p.sprite.x0 + dx, p.sprite.y0 + dy, p.sprite.w, p.sprite.h);
         const hit = [p.hit[0] + dx, p.hit[1] + dy, p.hit[2] + dx, p.hit[3] + dy];
@@ -2637,6 +2688,19 @@
       for (const y of [...ys].sort((p, q) => p - q)) { const g = sig(y); if (g === prev) continue; prev = g; if (/\d/.test(g)) years.push(y); }
       const owns = time.frontEnts.length && time.frontPlates.length && time.frontEnts.some((i) => ((time.ents[i] && time.ents[i].cards) || []).indexOf(id) >= 0);
       return { years, front: !!owns, plates: owns && A ? A.plateDates(time.frontPlates) : [], span: w.y.slice() };
+    }
+    /* A MEMBERS WINDOW'S TIMELINE (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): the years
+       inside `span` [y0, y1] at which any of the entities `ids` begins, ends or changes its face — warTimeline's rule over a list of states rather than
+       a war's two sides, each entity alive over its own steps. */
+    function entsTimeline(ids, span) {
+      if (!time.hist || !time.hist.ready || !Array.isArray(ids) || !Array.isArray(span)) return null;
+      const y0 = span[0], y1 = span[1], ys = new Set([y0]), inSpan = (y) => y >= y0 && y <= y1;
+      const steps = ids.map((eid) => { const ei = entityIndexOfId(eid); return ei >= 0 ? time.stepsOf.get(ei) || [] : []; });
+      steps.forEach((l) => { for (const st of l) for (const y of [st[0], st[1] + 1]) if (inSpan(y)) ys.add(y); });
+      const sig = (y) => steps.map((l) => { const st = l.find((t) => t[0] <= y && y <= t[1]); return st ? String(st[2]) : "-"; }).join(",");
+      const years = []; let prev = null;
+      for (const y of [...ys].sort((p, q) => p - q)) { const g = sig(y); if (g === prev) continue; prev = g; if (/\d/.test(g)) years.push(y); }
+      return { years, front: false, plates: [], span: [y0, y1] };
     }
     /* A WAR WINDOW'S FRONT LINE (2026-10-19; the window's timeline, atlas-windows.js): `on` draws the front entities of the war's year at `date` (YYYYMMDD; null: the last plate of the year), without a reload —
        the year and the date are applied once, so a pin that moves from one plate to the next is one `applyYear`. The front needs the whole history file (the war slice carries none: build-war-slice.js). */
@@ -3138,7 +3202,8 @@
     function setView(lon, lat, kmPerPixel) { view.lon = lon; view.lat = lat; view.zoom = R_KM / (kmPerPixel * base); flying = null; coasting = false; plan(); invalidate(); touched(); }
     const tilesSettled = () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0
       && (!view.lakes || !waterStarted || waterFailed || (view.waterTiles.every((k) => R.waterTileLoaded(k)) && waterTiles.pending.size === 0))
-      && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0));
+      && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
+        && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
     const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
@@ -3152,13 +3217,13 @@
           if (f && f.histFace != null && time.hist) { const e = time.ents[time.faceEntity[f.histFace]]; if (e) { if (e.kind === "contested") { for (const p of e.partners) add(p); add(e.id); } else add(e.id); } }
           else if (f && f.face != null && header && faceEntity && time.present) { const ent = header.entities[faceEntity[f.face]]; if (ent) { add(ent.id); if (ent.parent) add(ent.parent); } }
           return out;
-        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), warTimeline: (id) => warTimeline(id), frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), /* withChildren: a country's admin-1 faces too — drawn after it, in land, they cover a fill laid on the country alone (World Geography's China, Russia, United States) */ facesOfId: (id, withChildren) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) { if (faceEntity[f] === i) out.push(f); else if (withChildren) { const e = header.entities[faceEntity[f]]; if (e && e.parent === id) out.push(f); } } return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
+        }, historyOK: () => !!(time.hist && time.hist.ready) && !!time.wars && historySettled(), setYearNow: (y) => { if (time.year !== y) setYear(y); }, focusWarNow: (id) => focusWar(id), setWindowFront: (on, date) => setWindowFront(on, date), warTimeline: (id) => warTimeline(id), entsTimeline: (ids, span) => entsTimeline(ids, span), frontDateNow: () => curFrontDate(), year: () => time.year, TODAY, landSettled: () => view.tiles.every((k) => R.tileLoaded(k)) && (view.level !== 4 || view.parents.every((k) => R.tileLoaded(k))) && landTiles.pending.size === 0 && (view.level >= 3 || R.levelLoaded(view.level)), levelReady: () => R.levelLoaded(0), faceOfId: (id) => faceOfId(id), /* withChildren: a country's admin-1 faces too — drawn after it, in land, they cover a fill laid on the country alone (World Geography's China, Russia, United States) */ facesOfId: (id, withChildren) => { const i = entityOf(id); if (i == null || !faceEntity) return []; const out = []; for (let f = 0; f < faceEntity.length; f++) { if (faceEntity[f] === i) out.push(f); else if (withChildren) { const e = header.entities[faceEntity[f]]; if (e && e.parent === id) out.push(f); } } return out; }, ready: () => stats.ready } : null, dispose, stats, view, layers, renderer: R, invalidate, zoomAt, pick, setView, setLayers, kmPerPx, tilesSettled, waterSettled, setPerf,
       stageInfo: () => ({ stage, learnt, locked: stageLocked, trace: stageTrace.slice(), escalations: stats.escalations, recoveries: stats.recoveries, stallsIgnored: stats.stallsIgnored, longTasks: stats.longTasks, frameTasks: stats.frameTasks || 0, gpuTimer: !!(R.gpuMs && R.gpuTimer && R.gpuTimer()), gpuMs: R.gpuMs ? R.gpuMs() : null, fastRun, trialFast, longObs: !!longObs }),
       forceStage, feedGesture, stall: (ms) => bracket(() => { const t0 = performance.now(); while (performance.now() - t0 < ms) { /* a main-thread stall, bracketed as one */ } }),
       perfOn: () => perfOn,
       mode: () => ({ file: FILE, static2d: STATIC2D, shim: !!shim, worker: !!worker, resScale, stage, lodBias: lodBias(), shimWhy: stats.shim || null, workerError: stats.workerError || null, twinVerified: stats.twinVerified || 0 }),
       input: () => ({ pointers: [...ptrs.entries()].map(([id, p]) => [id, Math.round(p.x), Math.round(p.y)]), dragging, moved, pinch: Math.round(pinch), coasting, flying: !!flying }),   // for the suites
-      statsNow: () => Object.assign(R.stats(), { landChanges: { started: lcStarted, failed: lcFailed, rows: lcTable ? lcTable.rows.length : 0, ready: lcReady.size, alive: view.landChanges.slice(), year: time.year, meshes: Object.fromEntries(lcStats) }, frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
+      statsNow: () => Object.assign(R.stats(), { landChanges: { started: lcStarted, failed: lcFailed, rows: lcTable ? lcTable.rows.length : 0, ready: lcReady.size, alive: view.landChanges.slice(), year: time.year, meshes: Object.fromEntries(lcStats) }, frameTrace: stats.frameTrace ? stats.frameTrace.slice() : null, taskMs: stats.taskMs ? Object.fromEntries(Object.entries(stats.taskMs).map(([k, v]) => [k, Math.round(v)])) : null, frameMsP95: pct95(stats.frames), frameMsMean: stats.frames.length ? Math.round(stats.frames.reduce((p, q) => p + q, 0) / stats.frames.length) : 0, kmPerPx: kmPerPx(), wanted: view.tiles.length, resScale, stage, lodBias: lodBias(), mode: STATIC2D ? "canvas2d" : "webgl2", pending: landTiles.pending.size, resident: landTiles.stats.resident, fetched: landTiles.stats.fetched, tileBytes: landTiles.stats.bytes, evicted: landTiles.stats.evicted, waterWanted: view.waterTiles.length, waterPending: waterTiles.pending.size, reliefWanted: view.relief.tiles.length, reliefPending: reliefTiles.pending.size, reliefBytes: reliefTiles.stats.bytes, detailWanted: view.relief.detail.length, detailPending: detailTiles.pending.size, detailBytes: detailTiles.stats.bytes, detailMix: view.relief.detailMix, detailIndex: !!detailIndex, reliefFade: view.relief.fade, riversOn: view.rivers, lakesOn: view.lakes, reliefOn: view.relief.on, phone: PHONE,
         year: time.year, historyFaces: time.alive.length, labelsPlaced: L.placed.length, labelCandidates: L.candidates, labelCap: L.cap, labelLayoutMs: L.lastLayoutMs, labelLayoutP95: pct95(stats.labelLayout), labelSpriteMs: L.lastSpriteMs || 0, labelSpriteP95: pct95(stats.labelSprite), labelDrawMs: L.lastDrawMs, labelDrawP95: pct95(stats.labelDraw), markDrawMs: L.lastMarkMs, markDrawP95: pct95(stats.markDraw), marksDrawn: L.ln,  marksLaid: L.marks.length, labelBudgets: { drawMs: LABEL_DRAW_BUDGET_MS, layoutMs: LABEL_LAYOUT_BUDGET_MS }, heapMB: heapMB(), density: layers.density, zoomLevel: zoomLevel() }),
       // Phase 1c, for the suites and the console
       study: { enabled: () => !!(SU && AS), ready: () => ST.ready, mode: () => ST.mode, setMode: setStudyMode, open: () => ST.open, setOpen: setStudyOpen, summary: () => (ST.ready ? Object.assign(AS.summary(ST.st, ST.mode, ST.flags), { studiedCards: ST.st.cards.length, studiedPlaces: ST.st.all.size, noPlace: ST.st.noPlace, total: ST.st.total }) : null),
@@ -3178,7 +3243,7 @@
       frame: () => [cssW, cssH],
       drawSamples: () => ({ labels: stats.labelDraw.slice(), marks: (stats.markDraw || []).slice() }),
       labels: () => L.placed, labelScale: () => LS, labelsLive: () => L.live, layoutSeq: () => L.seq, layoutNow: () => new Promise((res) => { layoutWaiters.push(res); requestLayout("test", true); }), labelsReady: () => gazInWorker && metricsSent > 0,
-      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, markFill: inkCss, markOwnFill: selCss, markLine: haloCss, markLineWidth: haloDark ? HALO_W_DARK : HALO_W }),
+      gazetteer: () => G, styles: STYLES, palette: () => palette, colours: () => ({ halo: haloCss, ink: inkCss, water: waterCss, selected: selCss, accent: accentCss, dark: haloDark, haloWidth: haloDark ? HALO_W_DARK : HALO_W, mark: markCss, markFill: markCss, markOwnFill: markCss, markLine: haloCss, markLineWidth: haloDark ? HALO_W_DARK : HALO_W }),
       select: selectById, selectedId: () => sel.id, stack: () => sel.stack.map((r) => r.id), selection: () => ({ id: sel.id, ent: time.selected, faces: selectedFaces(), rings: selRings && selRings.faces.every((f) => selectedFaces().indexOf(f) >= 0) ? selRings.rings.length : 0, points: selRings ? selRings.rings.reduce((n, r) => n + r.length / 3, 0) : 0, level: selRings ? selRings.level : null, gold: SEL_GOLD }), stackAt: (x, y) => stackAt(x, y).map((r) => r.id), pickAt, hitAt: (x, y) => hitAt(x, y).map((h) => h.p.id), clearSelection,
       card: () => ({ open: cardOpen, id: cardRow ? cardRow.id : null, title: cardTitle.textContent, snap: PHONE && cardOpen ? sheetSnap : null }), sheetSnap: (k) => setSnap(k), sheetHeights: () => (PHONE ? sheetHeights() : null),
       search: (q) => runSearch(q).map((r) => r.id), chooseResult, flyTo, flyToRow: (id, open) => { const r = G.byId.get(id); if (r) flyToRow(r, open); return !!r; }, flying: () => !!flying,

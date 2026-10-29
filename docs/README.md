@@ -98,9 +98,9 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `mesopotamia-card-plan.md` | Ancient Mesopotamia (`mesopotamia`) | `me-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
-| `world-geography-card-plan.md` | World Geography (`geo-world`) — 471 cards, sorted by population | `gw-` |
+| `world-geography-card-plan.md` | World Geography (`geo-world`) — 571 cards: countries and capitals by population, plus the water and mountains decks | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
-| `russia-geography-card-plan.md` | Russia (`geo-russia`) — 163 cards, sorted by population | `gru-` |
+| `russia-geography-card-plan.md` | Russia (`geo-russia`) — 163 map cards sorted by population, plus the water and mountains decks (`gru-801`–`940`) | `gru-` |
 | `flags-card-plan.md` | The flags (`flags-world`) — the first deck of the Flags collection (`flags`); 233 cards, the answer side is its twin's | `fl-` |
 | `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |
 | `politics-east-asia-card-plan.md` | Politics: East Asia (`pea`) — a COURSE, planned a lecture at a time | `pea-` |

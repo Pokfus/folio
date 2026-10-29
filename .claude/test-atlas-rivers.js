@@ -159,7 +159,7 @@ async function run(browser, still) {
 
 /* 3) THE NIGHT RIVER'S COLOUR (2026-10-19, the owner: "in dark mode, reduce the brightness of the rivers somewhat; they are a little too light blue now"): from the palette the page
    draws with, not from pixels. The river is the water names' pale blue (#7eb6e4, 6.7:1 against the land) scaled to 80 % of its relative luminance with its hue kept (every linear-light
-   channel times the same factor), and still at least 3:1 against the dark land and the dark sea; the names keep #7eb6e4; the light theme's river is unchanged. */
+   channel times the same factor; 60 % since 2026-10-29), and still at least 3:1 against the dark land and the dark sea; the names keep #7eb6e4; the light theme's river is unchanged. */
 const lin = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
 const lum = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
 const cr = (a, b) => { const x = lum(a) + 0.05, y = lum(b) + 0.05; return x > y ? x / y : y / x; };
@@ -175,7 +175,8 @@ async function palettes(browser) {
   const n = out.night, l = out.light, ratio = lum(n.river) / lum(n.waterInk);
   const hue = [0, 1, 2].map((k) => lin(n.river[k]) / lin(n.waterInk[k]));
   console.log(`  night river ${hex(n.river)} (was ${hex(n.waterInk)}): luminance ${lum(n.river).toFixed(4)} against ${lum(n.waterInk).toFixed(4)}, x${ratio.toFixed(3)}; against the land ${cr(n.river, n.land).toFixed(2)}:1, against the sea ${cr(n.river, n.ocean).toFixed(2)}:1`);
-  check("night: the river has about 80 % of the names' luminance (0.78 to 0.82 of #7eb6e4's)", ratio > 0.78 && ratio < 0.82, `x${ratio.toFixed(3)}`);
+  // 60 % since 2026-10-29 (the owner: "make rivers on atlases less bright in night mode, but still clearly distinguishable from the relief map")
+  check("night: the river has about 60 % of the names' luminance (0.58 to 0.62 of #7eb6e4's)", ratio > 0.58 && ratio < 0.62, `x${ratio.toFixed(3)}`);
   check("night: the hue is kept (the three linear channels scale by one factor)", Math.max.apply(null, hue) - Math.min.apply(null, hue) < 0.01, hue.map((v) => v.toFixed(3)).join(" "));
   check("night: the river is at least 3:1 against the dark land and the dark sea", cr(n.river, n.land) >= 3 && cr(n.river, n.ocean) >= 3, `land ${cr(n.river, n.land).toFixed(2)}, sea ${cr(n.river, n.ocean).toFixed(2)}`);
   check("night: the river names' own colour is unchanged (#7eb6e4)", n.water === "#7eb6e4" && hex(n.waterInk) === "#7eb6e4", n.water + " / " + hex(n.waterInk));

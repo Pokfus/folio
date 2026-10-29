@@ -173,7 +173,7 @@ function staticChecks() {
   const ser = app.slice(app.indexOf("function serializeCardData"), app.indexOf("function serializeCardData") + 3000);
   ok(/o\.map\s*=\s*c\.map/.test(ser), "serializeCardData carries `map` through");
   ok(/o\.facts\s*=\s*c\.facts/.test(ser), "serializeCardData carries `facts` through");
-  const rev = app.slice(app.indexOf("function revertCard"), app.indexOf("function revertCard") + 1600);
+  const rev = app.slice(app.indexOf("function revertCard"), app.indexOf("function revertCard") + 2200);
   ok(/\.map\s*=\s*p\.map/.test(rev), "revertCard restores `map`");
   ok(/\.facts\s*=\s*p\.facts/.test(rev), "revertCard restores `facts`");
   /* THE PREDICATE, NOT A FIXED WINDOW OF BYTES. This read a 900-character slice from the function's
@@ -208,6 +208,21 @@ function staticChecks() {
   });
   ok(/o\.locator\s*=\s*c\.locator/.test(ser), "serializeCardData carries `locator` through");
   ok(/\.locator\s*=\s*p\.locator/.test(rev), "revertCard restores `locator`");
+
+  /* AN ORGANISATION'S MEMBERS (`card.members`, Oct 2026): the window's targets are names in the `world`
+     layer, and ONE name the layer does not carry turns the whole window into the plain sentence. */
+  const world = new Set(names("world"));
+  const withMem = cards.filter((c) => c.members);
+  ok(withMem.length >= 1, "a card carries members (the League of Nations)", withMem.length);
+  withMem.forEach((c) => {
+    const m = c.members, keys = Array.isArray(m.keys) ? m.keys : [];
+    ok(String(m.name || "").trim().length > 0 && keys.length > 0, c.id + ": the members block names its group and lists countries");
+    const missing = keys.filter((k) => !world.has(k));
+    ok(!missing.length, c.id + ": every member is a country of the world layer", missing.join(", "));
+    ok(new Set(keys).size === keys.length, c.id + ": …and none is listed twice");
+  });
+  ok(/o\.members\s*=\s*c\.members/.test(ser), "serializeCardData carries `members` through");
+  ok(/\.members\s*=\s*p\.members/.test(rev), "revertCard restores `members`");
 }
 
 /* ---- the browser half ---- */

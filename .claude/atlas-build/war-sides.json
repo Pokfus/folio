@@ -168,20 +168,14 @@
     },
     "wh-330": {
       "victors": {
-        "members": [
-          {
-            "e": "peloponnesian_league"
-          }
-        ]
+        "extentOnly": true,
+        "why": "2026-10-25: Sparta’s side is drawn year by year from war-poleis.json (build-war-extents.js), not from Cliopatria’s one Peloponnesian League polygon"
       }
     },
     "gr-521": {
       "victors": {
-        "members": [
-          {
-            "e": "peloponnesian_league"
-          }
-        ]
+        "extentOnly": true,
+        "why": "2026-10-25: Sparta’s side is drawn year by year from war-poleis.json (build-war-extents.js), not from Cliopatria’s one Peloponnesian League polygon"
       }
     },
     "gr-755": {
@@ -217,6 +211,12 @@
         "ignoreKeys": [
           "Ethiopia (Italy)"
         ]
+      }
+    },
+    "gr-561": {
+      "victors": {
+        "extentOnly": true,
+        "why": "2026-10-25: Sparta’s side is drawn year by year from war-poleis.json (build-war-extents.js), not from Cliopatria’s one Peloponnesian League polygon"
       }
     }
   }

@@ -196,7 +196,8 @@ for (const id of Object.keys(want)) {
     const miss = rivers.filter((r) => !known.has(r));
     if (!rivers.length || miss.length) die(id + ": `rivers` names no river rivers.js carries: " + JSON.stringify(miss.length ? miss : spec.rivers));
   }
-  jobs.push({ id, card, title, qid, keepAt, name, zoom, kind, shapeKey, shape, within, label, rivers });
+  const ask = spec.ask === true;   // the window is the card's question (app.js cardLocatorFront), for a new card that has no locator yet
+  jobs.push({ id, card, title, qid, keepAt, name, zoom, kind, shapeKey, shape, within, label, rivers, ask });
 }
 
 /* A shape is a polyline (a spine) or a list of RINGS (an area) — say which, so the run's own report
@@ -260,6 +261,7 @@ async function getJSON(url, label) {
     if (j.within) loc.within = j.within;
     if (j.rivers) loc.rivers = j.rivers;
     if (j.label) loc.label = j.label;
+    if (j.ask || (j.card.locator && j.card.locator.ask === true)) loc.ask = true;   // the window is the card's question (app.js cardLocatorFront): a re-fetch keeps it there
     j.card.locator = loc;
     done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + shapeSize(j.shape) + ")" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== source ? "  ← " + redirected : ""));
     if (!j.keepAt) await new Promise((r) => setTimeout(r, 900));   // be polite to the API

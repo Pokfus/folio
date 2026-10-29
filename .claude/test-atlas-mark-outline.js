@@ -7,8 +7,8 @@
    WHAT IT PROVES, for a seeded reader (Roman and Greek cards) in the Full Atlas on a 1280 x 800 window, in the light theme and in folio's night, over three grounds — plain land
    (2025, relief off), relief (2025, relief on) and the darker empty land (3000 BCE, where no state covers Latium) — at Rome, 1.5 km/px, read off the label canvas's own pixels
    (the marks) and the GL canvas's (the ground behind each mark, the labels hidden for the shot):
-     1  THE COLOURS the page says: the outline is the labels' halo colour (`colours().halo`) and its width the labels' halo width (2.6 px by day, 3.2 at night); the fill is the ink
-        (the reader's own the colour of their names, `selected`); by day the fill is DARKER than the outline, at night LIGHTER;
+     1  THE COLOURS the page says: the outline is the labels' halo colour (`colours().halo`) and its width the labels' halo width (2.6 px by day, 3.2 at night); the fill is the red
+        (`colours().mark`, the reader's own too, since 2026-10-25; the ink and the names' ochre before); by day the fill is DARKER than the outline, at night LIGHTER;
      2  THE PIXELS: from the ground inward along the row through a mark's centre — a lone mark's right edge, a city stack's square or ring — the row reads ground, then a run of the
         outline's colour about half the halo's width long, then the fill, on every mark whose strip is clear (>= 6 lone marks, >= 1 stack, the selected mark among them);
      3  THE CONTRAST, measured on the rendered pixels (WCAG's ratio): the fill against the ground behind it is at least 3:1 on plain land and on relief for every mark, in both themes;
@@ -139,7 +139,8 @@ const med = (a) => { const s = a.slice().sort((p, q) => p - q); return s.length 
     }
     const col = colours, fillL = lum(col.markFill), lineL = lum(col.markLine);
     check(`${th}: the outline is the labels' halo colour (${col.halo}) and its width the labels' halo width (${col.haloWidth} px)`, col.markLine === col.halo && col.markLineWidth === col.haloWidth, `outline ${col.markLine} ${col.markLineWidth} px, halo ${col.halo} ${col.haloWidth} px`);
-    check(`${th}: the fill is the ink (${col.ink}) and the reader's own marks the colour of their names (${col.selected}); ${night ? "lighter" : "darker"} than the outline`, col.markFill === col.ink && col.markOwnFill === col.selected && (night ? fillL > lineL : fillL < lineL), `fill ${col.markFill}, own ${col.markOwnFill}, outline ${col.markLine}`);
+    // 2026-10-25 (the owner: "the location icons should be red"): every mark, the reader's own included, is the theme's red (`colours().mark`), no longer the ink / the names' ochre
+    check(`${th}: the fill is the red (${col.mark}), the reader's own marks too; ${night ? "lighter" : "darker"} than the outline`, !!col.mark && col.markFill === col.mark && col.markOwnFill === col.mark && (night ? fillL > lineL : fillL < lineL), `fill ${col.markFill}, own ${col.markOwnFill}, outline ${col.markLine}`);
     await ctx.close();
   }
   check("no console or page errors", errors.length === 0, errors.slice(0, 3).join(" | "));

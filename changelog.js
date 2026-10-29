@@ -35,20 +35,50 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1160", released: "2026-10-29T22:21Z" };
+window.FOLIO_VERSION = { v: "1.1161", released: "2026-10-29T22:23Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-29",
-    t: "More World History cards get fuller answers to think through",
+    t: "The Peloponnesian War year by year, and Korean names on every Korea card",
     items: [
+      "The <b>Peloponnesian War's map</b> now shows both alliances year by year, town by town, from 431 to 404 BCE.",
+      "157 cards in the United States and China geography <b>rivers and mountains decks</b> now ask you to name the feature shown on a map, as the state cards do.",
+      "173 new cards in four new geography decks, <b>rivers, lakes and seas</b> and <b>mountains</b> for the world and for Russia, each asking you to name a feature on a map.",
+      "The League of Nations card's map now shows <b>the borders of 1920</b>, the original members in gold and later joiners in blue.",
+      "Ten cards, among them the Sahara, Seoul, Pyongyang and the Rosetta Stone, gained <b>an atlas window</b>.",
+      "The Chinese Three Kingdoms card's map shows <b>Wei, Shu-Han and Wu in three colours</b>, with a timeline from 220 to 280.",
+      "Every Korea card's answer now has its <b>Korean name</b>, in Hangul with its romanisation, behind the translation icon.",
+      "In the French, Italian and Portuguese decks, <b>an article, possessive or personal pronoun is now one card</b> listing all its forms.",
+      "<b>332 new glossary terms</b> now link from 67 cards in more than a dozen collections, and 28 existing terms link under more of their names.",
+      "Four cards in Ancient Greece, Korea and Ancient Egypt have <b>new pictures</b>.",
+      "Five cards in Japan, the United States, China, Rome and World History have <b>clearer Background text</b>, and two cards a fuller date.",
+      "One Psychology card has a <b>new answer</b>: tabula rasa.",
+      "An admin can now <b>edit or remove a True or False statement</b> while playing the game, as well as from the admin page.",
+      "The <b>next-up passage</b> in the Continue reading and Suggested reading box is now twice as long.",
+      "On the Personal Atlas, <b>Rome</b> and every other ancient capital are drawn in full ink like any discovered city, never faded.",
+      "<b>Rivers at night</b> are a darker blue, still clear against the relief.",
+      "A card's atlas window no longer names its own city twice when another card has discovered it.",
+      "In the card editor, the <b>Link term</b> list now reaches every term, and a new button adds a date row with its label and date.",
+      "The Great Depression card now has <b>a timeline</b>, and the donkey and barley answers are written in lower case.",
       "Eighteen more World History cards now have <b>Think it through</b> questions a newcomer would ask, with longer, fully sourced answers.",
     ],
   },
   {
     d: "2026-10-25",
-    t: "World History cards get fuller answers to think through",
+    t: "League members on the map, and 62 new glossary terms",
     items: [
+      "A card about an organisation of states can now <b>shade its members on its map</b>; the League of Nations card shows every country that ever belonged.",
+      "The Atlas's <b>relief stays sharp when you zoom in</b>: valleys and ridges now show down to about half a kilometre.",
+      "On the Atlas, <b>places are marked in red and named in black</b>, as in the first Atlas, and past borders are darker and easier to see.",
+      "The Map and Full Atlas no longer <b>darken land with no recorded state</b>, which showed gaps in the source maps as dark patches.",
+      "<b>62 new glossary terms</b> now link from 15 cards in Geography, Psychology, World History, Ancient Rome, Ancient Egypt, Russia and The Second World War.",
+      "Four cards in Geography, Psychology, World History and The Second World War have <b>clearer Background text</b>.",
+      "Two World History and Second World War cards show <b>fuller dates</b>, and one World History card gained a quotation from Herodotus.",
+      "One Ancient Rome card has a <b>new main question</b>.",
+      "On a phone, the page behind a glossary popup now <b>stays blurred</b> when a link inside it opens another term.",
+      "A Chinese or Japanese card's <b>translation bubble stays open</b> while you write on the whiteboard; only its own icon closes it.",
+      "Signed in as an admin, a card now shows its <b>id</b> (such as ps-005) in small type at its foot, under the Wikipedia link.",
       "Ten World History cards now have <b>Think it through</b> questions a newcomer would ask, with longer, fully sourced answers.",
     ],
   },
@@ -57,7 +87,10 @@ window.CHANGELOG = [
     t: "Hand-written glossary links come back, and Rome cards think it through",
     items: [
       "The map in a glossary popup now has the <b>zoom, recentre and relief buttons</b> of a card's map window.",
+      "<b>474 glossary entries about people</b> now show a picture: a portrait, bust, coin or photograph, or a work tied to them.",
       "Once you have opened a book, the home page's reading box <b>alternates every minute between Continue reading and a suggested book</b>; swipe it to switch.",
+      "Fixed: swiping the home page's reading box <b>no longer also switches to the next page</b>; it only turns the box.",
+      "Fixed: an edited card's Background could show <b>an empty-looking line break</b> beside its picture, left by the editor's spaces.",
       "Fixed: <b>glossary links an editor wrote into a card</b>, such as evolution on the Biology card, were being removed as the page loaded.",
       "<b>24 new glossary terms</b> now link from cards in Biology, Ancient Rome, Japan, Korea and Russia, from organelles and the Tophet to the 38th parallel.",
       "Thirty World History, Biology, Ancient Rome, Korea and Russia cards gained new Think it through questions, and the Carthage card a new main question.",

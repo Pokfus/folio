@@ -121,16 +121,12 @@
     "cause": "source",
     "years": [
      [
-      1332,
-      1332
-     ],
-     [
-      1334,
-      1334
-     ],
-     [
       1341,
       1341
+     ],
+     [
+      1359,
+      1359
      ]
     ],
     "why": "the raw row leaves it 5.1 km outside"
@@ -209,12 +205,12 @@
     "cause": "source",
     "years": [
      [
-      1242,
-      1242
+      1086,
+      1086
      ],
      [
-      1252,
-      1252
+      1097,
+      1097
      ]
     ],
     "why": "the raw row leaves it 312.5 km outside"
@@ -474,6 +470,18 @@
      ]
     ],
     "why": "the raw row leaves it 711.1 km outside"
+   }
+  ],
+  "pol:safavid|Safavid Empire|card": [
+   {
+    "cause": "source",
+    "years": [
+     [
+      1736,
+      1736
+     ]
+    ],
+    "why": "the raw row leaves it 758.4 km outside"
    }
   ],
   "pol:sasanian|Sasanian Empire|card": [

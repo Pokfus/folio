@@ -503,7 +503,26 @@ the book and section exist. **The quotation must be authored rather than extract
 whole letter or chapter, and picking the sentences that discuss the topic is exactly the editorial act the
 citation apparatus exists for.
 
-### H · One card per paradigm for articles and pronouns (item 36) — NOT DONE, and now doubly so
+### H · One card per paradigm for articles and pronouns (item 36) — BUILT (Oct 2026) for French, Italian and Portuguese, by record rather than by regeneration
+
+**BUILT, Oct 2026, and the paragraphs below are the reasoning as it stood before.** Two things changed
+the answer. Spanish had in the meantime folded its articles into one card through `spanish-fixes.json`
+(Sep 2026, on request), which proved a FOLD needs no generator: a record edits the shipped deck
+idempotently. And the id objection turned out not to bite: the survivor keeps the LOWEST id of its group,
+so the schedule on it carries on, and `langDeckUpdate` merges by id and never deletes, so a reader who
+already holds a deck keeps every folded note and its history — only a fresh download meets one card.
+`.claude/decks/paradigm-fix.js` + `paradigm-fixes.json` apply the same rule to the three languages that
+had no record: DELF A1 (`le, la`, `un, une`, `ce, cette`, `mon, ma`, `ton, ta`, `son, sa`, `il, elle`,
+`ils, elles` — 13 notes folded), CILS A1/A2 (`il, la`, `un, una`, `lui, lei`, `nessuno`, `ciascuno`,
+`esso`, and Forms rows on the possessives and demonstratives), CAPLE A1/A2 (`um, uma`, `ele, ela`,
+`eles, elas`, `meu, minha`, `seu, sua`, `teu, tua`, `este, esta`, `aquele, aquela`, `esse, essa`,
+`algum, alguma`, `nenhum, nenhuma`), and five notes in OTHER decks that were only a form of one of these
+paradigms are dropped (Italian Core's `lo`, `i`, `essa`, `essi`; DELF B2's `celles`, a form of A2's
+`celui`). **The rule**: the gender and number forms of one word are one card; a case form doing a
+different job (`je` / `me` / `moi`, `lui` / `gli`) and a different number of a personal pronoun
+(`il` / `ils`) stay cards of their own, named in the Forms row; definite and indefinite articles are two
+paradigms and two cards. German already taught `der, die, das` and `ein-` as one card each; Spanish's
+`él` and `ella` are still two cards (its record is `spanish-fixes.json`, not touched here).
 
 **The answer below stands and the ground under it has got firmer.** When it was written the objection was
 that merging notes changes card ids, and a card id is a reader's schedule: a deck that merges `mi`/`mis`

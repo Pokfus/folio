@@ -179,7 +179,8 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
      region are none of them that. The two cards are opened in one browser page each, which is the same
      cost as section 1 and the only way to reach a card's back. */
   const markOf = async (pg, sel) => pg.evaluate((s) => {
-    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    // a locator that asks (gc-802, Oct 2026) draws its window on the FRONT as `.map-front` and none on the back
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas, .map-card.map-front .mc-canvas");
     const ctx = cv.getContext("2d");
     const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
     let gold = 0, gx0 = 1e9, gx1 = -1e9, gy0 = 1e9, gy1 = -1e9, dark = 0, dx0 = 1e9, dx1 = -1e9;

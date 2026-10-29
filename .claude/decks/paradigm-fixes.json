@@ -1,0 +1,341 @@
+{
+  "why": "ONE CARD PER PARADIGM (Oct 2026, item 36 of 2026-08-27: \"an article or a personal pronoun should be one card listing all its forms rather than a card per variant\"). Applied by .claude/decks/paradigm-fix.js; read its header first. Each survivor keeps the lowest id of its group, so its schedule carries on, and langDeckUpdate never deletes, so a device that already holds a deck keeps the folded notes. THE RULE, as Spanish set it: the gender and number forms of ONE word are one card (articles, possessive and demonstrative determiners, the gender pair of a personal pronoun); a case form that does a different job (je / me / moi, lui / gli) stays a card of its own, and so does a different number of a personal pronoun (il / ils), which the Forms row names. Definite and indefinite articles stay two cards: two paradigms.",
+  "notes": {
+    "delfa1/le": {
+      "why": "le, la and les were three cards for one article, each also glossed as the object pronoun. les and la fold in; the pronoun senses stay, named by form.",
+      "head": "le, la",
+      "ipa": "/lə/, /la/",
+      "fold": ["la", "les"],
+      "senses": [["article", ["the"]], ["pronoun", ["le — him, it", "la — her, it", "les — them"]]],
+      "forms": [["plural", "les"], ["before a vowel or a mute h", "l'"], ["à + le, à + les", "au, aux"], ["de + le, de + les", "du, des"]],
+      "bold": ["le", "la", "les", "l'"],
+      "ex": [
+        ["Le monde ne tourne pas autour de toi.", "The world doesn't revolve around you."],
+        ["Laver avant de porter pour la première fois.", "Wash before first wearing."],
+        ["Parfois, les enfants ne peuvent pas être patients.", "Children sometimes lack patience."],
+        ["L'anglais est une langue difficile à apprendre.", "English is difficult to learn."]
+      ]
+    },
+    "delfa1/un": {
+      "why": "un, une and des were three cards for the indefinite article (des glossed 'the plural of un and une'). They fold into one; des as de + les is on the definite article's card, where it belongs. The first example of un was 'pour la première fois', which has no indefinite article in it.",
+      "head": "un, une",
+      "ipa": "/œ̃/, /yn/",
+      "fold": ["une", "des"],
+      "senses": [["article", ["a, an"]], ["article, plural", ["des — some"]], ["number", ["one"]]],
+      "forms": [["plural", "des"], ["after a negative", "de: je n'ai pas de voiture — I have no car"]],
+      "bold": ["un", "une", "des"],
+      "ex": [
+        ["C'est pratique d'avoir un ordinateur portable.", "It's practical to have a laptop."],
+        ["Chante-nous une chanson, s'il te plaît.", "Sing us a song, please."],
+        ["Mon passe-temps est de prendre des photos.", "My hobby is taking pictures."]
+      ]
+    },
+    "delfa1/ce": {
+      "why": "The ce card's own Forms row already listed cet, cette and ces, beside three cards that duplicated it. They fold in.",
+      "head": "ce, cette",
+      "ipa": "/sə/, /sɛt/",
+      "fold": ["cet", "cette", "ces"],
+      "senses": [["determiner", ["this, that"]], ["determiner, plural", ["ces — these, those"]], ["pronoun", ["ce — it, that (c'est, ce que)"]]],
+      "forms": [["before a vowel or a mute h", "cet"], ["plural", "ces"]],
+      "bold": ["ce", "cet", "cette", "ces"],
+      "ex": [
+        ["Cet homme a le cœur sur la main.", "This man is very generous."],
+        ["Il ne faut pas fumer dans cette pièce.", "Don't smoke in this room."],
+        ["Ces machines ne fonctionnent pas en ce moment.", "These machines aren't working now."],
+        ["Ce n'est pas tout à fait exact.", "It isn't totally exact."]
+      ]
+    },
+    "delfa1/mon": {
+      "why": "mon's Forms row already listed ma and mes, beside a card for each. They fold in.",
+      "head": "mon, ma",
+      "ipa": "/mɔ̃/, /ma/",
+      "fold": ["ma", "mes"],
+      "senses": [["determiner", ["my"]]],
+      "forms": [["plural", "mes"], ["before a feminine word starting with a vowel", "mon: mon amie"]],
+      "bold": ["mon", "ma", "mes"],
+      "ex": [
+        ["Je viens juste de finir mon petit déjeuner.", "I've just finished my breakfast."],
+        ["On m'a volé ma voiture hier soir.", "My car was stolen last night."],
+        ["J'ai vendu mes livres à bas prix.", "I sold my books cheaply."]
+      ]
+    },
+    "delfa1/ton": {
+      "why": "ton's Forms row already listed ta, beside a card for it. It folds in.",
+      "head": "ton, ta",
+      "ipa": "/tɔ̃/, /ta/",
+      "fold": ["ta"],
+      "senses": [["determiner", ["your (to someone you call tu)"]]],
+      "forms": [["plural", "tes"], ["before a feminine word starting with a vowel", "ton: ton amie"]],
+      "bold": ["ton", "ta", "tes"],
+      "ex": [
+        ["Ne jette pas ton argent par les fenêtres.", "Don't waste your money."],
+        ["S'il te plaît, prête-moi ta voiture.", "Please lend me your car."],
+        ["Par-dessus tout, fais attention à tes repas.", "Above all, watch your diet."]
+      ]
+    },
+    "delfa1/son": {
+      "why": "son's Forms row already listed sa, beside a card for it. It folds in, and the card says what a reader gets wrong first: the form agrees with the thing owned, not with the owner.",
+      "head": "son, sa",
+      "ipa": "/sɔ̃/, /sa/",
+      "fold": ["sa"],
+      "senses": [["determiner", ["his, her, its"]]],
+      "forms": [["plural", "ses"], ["agrees with the thing owned, not the owner", "son père — his father, or her father"], ["before a feminine word starting with a vowel", "son: son amie"]],
+      "bold": ["son", "sa", "ses"],
+      "ex": [
+        ["Tout un chacun sait écrire son propre nom.", "Anyone can write their own name."],
+        ["Sa théorie mérite d'être prise en compte.", "His theory deserves consideration."],
+        ["Cet accident s'est passé sous ses yeux.", "The accident happened under his nose."]
+      ]
+    },
+    "delfa1/il": {
+      "why": "il and elle are the gender pair of one personal pronoun; elle folds in. Of the two cards' six sentences only one used either word as the card meant it (two were 'S'il vous plaît' and two bolded nothing of the kind), so two are written fresh.",
+      "head": "il, elle",
+      "ipa": "/il/, /ɛl/",
+      "fold": ["elle"],
+      "senses": [["pronoun", ["il — he, it", "elle — she, it"]], ["pronoun", ["il — it (impersonal: il pleut, il faut)"]], ["pronoun", ["elle — her (after a preposition: avec elle)"]]],
+      "forms": [["plural", "ils, elles"]],
+      "bold": ["il", "elle"],
+      "ex": [
+        ["Il habite à Paris.", "He lives in Paris."],
+        ["Elle est vraiment intelligente, n'est-ce pas ?", "She's really smart, isn't she?"],
+        ["Il pleut depuis ce matin.", "It has been raining since this morning."]
+      ]
+    },
+    "delfa1/ils": {
+      "why": "ils and elles are the gender pair of one plural pronoun; elles folds in. ils's sentences included 'S'il vous plaît' and 'l'un d'eux'.",
+      "head": "ils, elles",
+      "ipa": "/il/, /ɛl/",
+      "fold": ["elles"],
+      "senses": [["pronoun", ["ils — they (men, or a mixed group)", "elles — they (women)"]], ["pronoun", ["elles — them (after a preposition: pour elles)"]]],
+      "forms": [["singular", "il, elle"]],
+      "bold": ["ils", "elles"],
+      "ex": [
+        ["Ils ont oublié de fermer la porte à clé.", "They forgot to lock the door."],
+        ["Combien de personnes étaient-elles présentes à la réunion ?", "How many people were present at the meeting?"]
+      ]
+    },
+    "cilsa1/la": {
+      "why": "il, la and le were three cards for one article, and Italian Core carried lo and i as two more (dropped below). la has the lowest id of the group, so it is the survivor. The le card's third sentence used le as a pronoun.",
+      "head": "il, la",
+      "fold": ["il", "le"],
+      "senses": [["article", ["the"]]],
+      "forms": [["masculine plural", "i"], ["feminine plural", "le"], ["before s + consonant, z, gn, ps, x, y", "lo, plural gli: lo studente, gli studenti"], ["before a vowel", "l', plural gli or le: l'amico, gli amici; l'amica, le amiche"]],
+      "bold": ["il", "la", "le", "lo", "i", "gli", "l'"],
+      "ex": [
+        ["Non aprire prima che il treno sia fermo.", "Don't open before the train stops."],
+        ["Ho cominciato a studiare cinese la settimana scorsa.", "I started learning Chinese last week."],
+        ["Le bottiglie di birra sono fatte di vetro.", "Beer bottles are made of glass."],
+        ["Lo studio non è davvero una cosa facile.", "Studying really isn't something easy."],
+        ["Guardo la TV dopo aver finito i compiti.", "I watch TV after I finish my homework."]
+      ]
+    },
+    "cilsa1/un": {
+      "why": "un had no Forms at all: uno, una and un' were nowhere on it. Nothing to fold (uno is the number's own card), so the card gains its paradigm and a sentence for the feminine.",
+      "head": "un, una",
+      "forms": [["before s + consonant, z, gn, ps, x, y", "uno: uno studente"], ["feminine before a vowel", "un': un'amica"]],
+      "bold": ["un", "una", "uno", "un'"],
+      "ex": [
+        ["Roma non è stata costruita in un giorno.", "Rome wasn't built in a day."],
+        ["Mi ha dato un bel regalo di Natale.", "He gave me a nice Christmas present."],
+        ["Vorrei una tazza di caffè.", "I'd like a cup of coffee."]
+      ]
+    },
+    "cilsa1/lei": {
+      "why": "lui and lei are the gender pair of one personal pronoun; lei has the lower id. Each card's examples were the other's, plus 'della loro'. The formal Lei, which the deck taught nowhere, is named.",
+      "head": "lui, lei",
+      "fold": ["lui"],
+      "senses": [["pronoun", ["lui — he, him", "lei — she, her"]], ["pronoun", ["Lei — you (formal, to one person)"]]],
+      "forms": [["plural", "loro"]],
+      "bold": ["lui", "lei"],
+      "ex": [
+        ["Lei mi ha accusato di essere un bugiardo.", "She accused me of being a liar."],
+        ["La mia vita è vuota senza di lui.", "My life is hollow without him."],
+        ["Lei è di qui, signora?", "Are you from here, madam?"]
+      ]
+    },
+    "cilsa1/nessuno": {
+      "why": "nessun is the form nessuno takes before a noun, and was a card of its own.",
+      "fold": ["nessun"],
+      "senses": [["pronoun", ["nobody, no one"]], ["determiner", ["no, not any"]]],
+      "forms": [["before a masculine noun", "nessun: nessun posto (nessuno before s + consonant, z)"], ["feminine", "nessuna; before a vowel nessun'"]],
+      "bold": ["nessuno", "nessun", "nessuna"],
+      "ex": [
+        ["Al giorno d'oggi nessuno crede ai fantasmi.", "Nowadays nobody believes in ghosts."],
+        ["Io non ho nessun posto in cui andare.", "I have nowhere to go."],
+        ["Non c'è nessuna sedia su cui sedersi.", "There's no chair to sit on."]
+      ]
+    },
+    "cilsa1/mio": { "why": "The possessive carried no Forms; its sentences used mia, miei and mie unexplained.", "forms": [["feminine", "mia"], ["plural", "miei, mie"]] },
+    "cilsa1/tuo": { "why": "The possessive carried no Forms.", "forms": [["feminine", "tua"], ["plural", "tuoi, tue"]] },
+    "cilsa1/suo": { "why": "The possessive carried no Forms.", "forms": [["feminine", "sua"], ["plural", "suoi, sue"]] },
+    "cilsa1/nostro": { "why": "The possessive carried no Forms.", "forms": [["feminine", "nostra"], ["plural", "nostri, nostre"]] },
+    "cilsa1/vostro": { "why": "The possessive carried no Forms.", "forms": [["feminine", "vostra"], ["plural", "vostri, vostre"]] },
+    "cilsa1/questo": { "why": "The demonstrative carried no Forms.", "forms": [["feminine", "questa"], ["plural", "questi, queste"]] },
+    "cilsa1/quello": { "why": "The demonstrative carried no Forms, and before a noun it changes like the article.", "forms": [["feminine", "quella"], ["plural", "quelli, quelle"], ["before a noun, like the article", "quel, quello, quell', quei, quegli"]] },
+    "cilsa2/ciascuno": {
+      "why": "ciascun is the form ciascuno takes before a noun, and was a card of its own.",
+      "fold": ["ciascun"],
+      "senses": [["pronoun", ["each one, everyone", "apiece"]], ["determiner", ["each, every"]]],
+      "forms": [["before a masculine noun", "ciascun: ciascun bambino (ciascuno before s + consonant, z)"], ["feminine", "ciascuna; before a vowel ciascun'"]],
+      "bold": ["ciascuno", "ciascun", "ciascuna"],
+      "ex": [
+        ["Ciascuno dei tre ragazzi ha ricevuto un premio.", "Each of the three boys got a prize."],
+        ["Ciascun individuo ha il proprio modo di pensare.", "Each individual has their own way of thinking."],
+        ["Ciascuna persona vede il mondo in modo unico.", "Each person views the world uniquely."]
+      ]
+    },
+    "cilsa2/esso": {
+      "why": "esso's own sentences used essi and essa, which Italian Core carried as two more cards (dropped below). The card gains the paradigm.",
+      "senses": [["pronoun", ["it (a thing or an animal)", "he, him (formal, written)"]]],
+      "forms": [["feminine", "essa"], ["plural", "essi, esse"]],
+      "bold": ["esso", "essa", "essi", "esse"],
+      "ex": [
+        ["Non mi sono mai accorto di esso prima.", "I never noticed it before."],
+        ["Ma vale la pena leggere pochi di essi.", "But few of them are worth reading."],
+        ["Non ho mai avuto un problema con essa.", "I've never had a problem with it."]
+      ]
+    },
+    "caplea1/um": {
+      "why": "um had no Forms; uma, uns and umas were nowhere. The third sentence ('Meus tempos de escola serão umas das minhas lembranças') is not European Portuguese and is replaced.",
+      "head": "um, uma",
+      "senses": [["article", ["a, an"]], ["number", ["one"]]],
+      "forms": [["plural", "uns, umas — some"]],
+      "bold": ["um", "uma", "uns", "umas"],
+      "ex": [
+        ["Ele deu um giro de 180 graus.", "He has turned 180 degrees around."],
+        ["Eu tenho uma passagem de volta para Tóquio.", "I have a return ticket to Tokyo."],
+        ["Comprei uns livros na feira.", "I bought some books at the fair."]
+      ]
+    },
+    "caplea1/ele": {
+      "why": "ele and ela are the gender pair of one personal pronoun; ela folds in. The glosses were Wiktionary's grammar labels ('third-person masculine singular nominative personal pronoun').",
+      "head": "ele, ela",
+      "fold": ["ela"],
+      "senses": [["pronoun", ["ele — he, it", "ela — she, it"]], ["pronoun", ["him, her (after a preposition: com ela)"]]],
+      "forms": [["plural", "eles, elas"], ["de + ele, de + ela", "dele, dela — his, hers"]],
+      "bold": ["ele", "ela"],
+      "ex": [
+        ["Ele fez a gentileza de mostrar-me o caminho.", "He had the kindness to show me the way."],
+        ["Ela trabalha num hospital.", "She works in a hospital."],
+        ["Ele prometeu casar-se com ela.", "He promised to marry her."]
+      ]
+    },
+    "caplea1/eles": {
+      "why": "eles and elas are the gender pair of one plural pronoun; elas folds in. Their sentences were Brazilian ('Elas nos fizeram trabalhar', 'irão se atrasar') in a deck that teaches European Portuguese, so the three are written fresh.",
+      "head": "eles, elas",
+      "fold": ["elas"],
+      "senses": [["pronoun", ["eles — they (men, or a mixed group)", "elas — they (women)"]], ["pronoun", ["them (after a preposition: com eles)"]]],
+      "forms": [["singular", "ele, ela"], ["de + eles, de + elas", "deles, delas — their, theirs"]],
+      "bold": ["eles", "elas"],
+      "ex": [
+        ["Eles moram em Lisboa.", "They live in Lisbon."],
+        ["Elas chegaram cedo.", "They (the women) arrived early."],
+        ["Fui ao cinema com eles.", "I went to the cinema with them."]
+      ]
+    },
+    "caplea1/meu": {
+      "why": "meu and minha were two cards for one possessive; minha folds in. In Portugal it is normally preceded by the article, which none of the cards said.",
+      "head": "meu, minha",
+      "fold": ["minha"],
+      "senses": [["determiner", ["my"]], ["pronoun", ["mine (o meu, a minha)"]]],
+      "forms": [["plural", "meus, minhas"], ["in Portugal, usually after the article", "o meu livro, a minha casa"]],
+      "bold": ["meu", "minha", "meus", "minhas"],
+      "ex": [
+        ["O meu irmão vive no Porto.", "My brother lives in Porto."],
+        ["A minha casa é pequena.", "My house is small."],
+        ["Eu senti alguma coisa tocar os meus pés.", "I felt something touch my feet."]
+      ]
+    },
+    "caplea1/seu": {
+      "why": "seu and sua were two cards for one possessive, glossed with Wiktionary's grammar labels; sua folds in.",
+      "head": "seu, sua",
+      "fold": ["sua"],
+      "senses": [["determiner", ["his, her, its, their", "your (to someone you call você or o senhor)"]]],
+      "forms": [["plural", "seus, suas"], ["to say whose, without doubt", "dele, dela, deles, delas: o carro dele — his car"]],
+      "bold": ["seu", "sua", "seus", "suas"],
+      "ex": [
+        ["Mostre-me o que tem no seu bolso.", "Show me what's in your pocket."],
+        ["Por favor, diga-me a sua opinião.", "Please tell me your opinion."],
+        ["Diga-me o que fez nas suas férias.", "Tell me what you did on your holidays."]
+      ]
+    },
+    "caplea1/tua": {
+      "why": "teu and tua were two cards for one possessive; tua has the lower id, so it survives and teu folds in.",
+      "head": "teu, tua",
+      "fold": ["teu"],
+      "senses": [["determiner", ["your (to someone you call tu)"]], ["pronoun", ["yours (o teu, a tua)"]]],
+      "forms": [["plural", "teus, tuas"]],
+      "bold": ["teu", "tua", "teus", "tuas"],
+      "ex": [
+        ["Mostra-me o teu passaporte, por favor.", "Show me your passport, please."],
+        ["Conta-me um pouquinho a respeito da tua viagem.", "Tell me a little bit about your trip."],
+        ["Despacha-te, antes que chegue a tua prima.", "Hurry up, before your cousin comes."]
+      ]
+    },
+    "caplea1/esta": {
+      "why": "este and esta were two cards for one demonstrative; esta has the lower id, so it survives and este folds in.",
+      "head": "este, esta",
+      "fold": ["este"],
+      "senses": [["determiner", ["this (near the speaker)"]], ["pronoun", ["this one"]]],
+      "forms": [["plural", "estes, estas"], ["neuter", "isto"], ["em + este, de + este", "neste, deste"]],
+      "bold": ["este", "esta", "estes", "estas"],
+      "ex": [
+        ["Pode ser que este diamante não seja verdadeiro.", "This may not be a real diamond."],
+        ["Pergunto-me se ele virá esta noite.", "I wonder if he'll come tonight."],
+        ["Estas maçãs são muito doces.", "These apples are very sweet."]
+      ]
+    },
+    "caplea1/aquele": {
+      "why": "aquele and aquela were two cards for one demonstrative; aquela folds in.",
+      "head": "aquele, aquela",
+      "fold": ["aquela"],
+      "senses": [["determiner", ["that (far from both speaker and listener)"]], ["pronoun", ["that one"]]],
+      "forms": [["plural", "aqueles, aquelas"], ["neuter", "aquilo"], ["a + aquele", "àquele"]],
+      "bold": ["aquele", "aquela", "aqueles", "aquelas"],
+      "ex": [
+        ["Da próxima vez, traga-me aquele livro sem falta!", "Next time bring me that book without fail!"],
+        ["Dê-me aquela revista, por favor.", "Give me that magazine, please."],
+        ["Estes são os meus livros; aqueles, os dele.", "These are my books, those are his."]
+      ]
+    },
+    "caplea1/esse": {
+      "why": "The demonstrative carried no Forms; its sentence used esses unexplained.",
+      "head": "esse, essa",
+      "forms": [["plural", "esses, essas"], ["neuter", "isso"], ["em + esse, de + esse", "nesse, desse"]]
+    },
+    "caplea1/nosso": { "why": "The possessive carried no Forms. (nossa is the interjection's own card.)", "forms": [["feminine", "nossa"], ["plural", "nossos, nossas"]] },
+    "caplea2/alguma": {
+      "why": "algum and alguma were two cards for one word; alguma has the lower id, so it survives and algum folds in. The sentences were Brazilian ('Você pode sentir', 'me viram dando') and are replaced.",
+      "head": "algum, alguma",
+      "fold": ["algum"],
+      "senses": [["determiner", ["some, any"]], ["pronoun", ["alguns, algumas — some (people or things)"]]],
+      "forms": [["plural", "alguns, algumas"], ["after the noun, in a negative", "no … at all: sem dúvida alguma — without any doubt"]],
+      "bold": ["algum", "alguma", "alguns", "algumas"],
+      "ex": [
+        ["Tens alguma pergunta?", "Do you have any questions?"],
+        ["Algum dia vou visitar o Brasil.", "Some day I'll visit Brazil."],
+        ["Alguns amigos vieram jantar.", "Some friends came to dinner."]
+      ]
+    },
+    "caplea2/nenhum": {
+      "why": "nenhum and nenhuma were two cards for one word sharing a sentence; nenhuma folds in.",
+      "head": "nenhum, nenhuma",
+      "fold": ["nenhuma"],
+      "senses": [["determiner", ["no, not any"]], ["pronoun", ["none, not one"]]],
+      "forms": [["plural (rare)", "nenhuns, nenhumas"]],
+      "bold": ["nenhum", "nenhuma"],
+      "ex": [
+        ["O que ele diz não tem nenhum sentido.", "What he says is total nonsense."],
+        ["Não ter nenhuma notícia é uma boa notícia.", "No news is good news."],
+        ["Eles não têm nenhuma fonte alternativa de energia.", "They have no alternative energy source."]
+      ]
+    }
+  },
+  "drop": {
+    "itcore/lo": { "why": "A form of the article CILS A1 now teaches on one card; Core exists for the words the CILS decks leave out.", "taughtBy": "cilsa1/il, la" },
+    "itcore/i": { "why": "A form of the article CILS A1 now teaches on one card.", "taughtBy": "cilsa1/il, la" },
+    "itcore/essa": { "why": "A form of esso, which CILS A2 now teaches with its paradigm.", "taughtBy": "cilsa2/esso" },
+    "itcore/essi": { "why": "A form of esso, which CILS A2 now teaches with its paradigm.", "taughtBy": "cilsa2/esso" },
+    "delfb2/celles": { "why": "A form of celui, whose DELF A2 card already lists celle, ceux and celles.", "taughtBy": "delfa2/celui" }
+  }
+}

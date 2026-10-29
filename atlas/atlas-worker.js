@@ -844,7 +844,26 @@
        on-screen area ranks 0 or 1 (the empires of the view) and before the smaller ones; its MARKER is reserved before any
        label is laid out (below), so a name placed first flows round the square rather than over it, and the capital's own
        name is placed in its turn beside the marker. */
-    for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: (CAPITAL_AFTER_RANK + 1) * 10 + KW.capital, hist: true }); }
+    /* A PERIOD CAPITAL THE READER'S OWN MARKS ALREADY STAND FOR IS NOT DRAWN AGAIN (2026-10-29, the owner: "in the personal atlas, the square and label
+       text for the city of Rome are half transparent and sometimes the name is missing. It should be like any other discovered city"). Rome in a past
+       year was two things on one point: the study pass's capital stack (the reader's own places, full ink) and the Roman state's period capital — a
+       second square with no flag, so the Personal Atlas muted it to 0.4 (atlas.js `drawLabels`, a mute removed later the same day), and its marker, reserved before every label, pushed
+       the stack off its point and took the side its name needed. A period capital within 3 km (the city membership's own reach) of a flagged
+       settlement or capital the study pass marks is now left to that mark, in every mode, as a present-day city already is ("not drawn twice"). */
+    const studyTowns = [];
+    if (study) {
+      // the reader's town marks: a flagged settlement or capital itself, or a city two or more flagged places belong to (its stack)
+      const perCity = new Map();
+      for (const [id, f] of study.flags) {
+        const r = f && study.rows.get(id); if (!r || !r.a || (!present && r.pd)) continue;
+        if (SETTLE[r.kind] || r.cap) studyTowns.push(r.a);
+        const cid = study.city && study.city.get(id); if (cid && cid !== id) perCity.set(cid, (perCity.get(cid) || 0) + 1);
+      }
+      for (const [cid, n] of perCity) { if (n < 2) continue; const g = study.rows.get(cid) || (GZ && GZ.byId.get(cid)); if (g && g.a) studyTowns.push(g.a); }
+    }
+    const CAP_SAME_CHORD = 3 / 6371;   // 3 km on the unit sphere
+    const ownTownAt = (u) => studyTowns.some((b) => { const dx = u[0] - b[0], dy = u[1] - b[1], dz = u[2] - b[2]; return dx * dx + dy * dy + dz * dz < CAP_SAME_CHORD * CAP_SAME_CHORD; });
+    for (const c of q.capitals || []) { const a = proj(unitOf(c.lon, c.lat)); if (a[2] < LIMB_Z || !onScreen(a[0], a[1], 200)) continue; if (!show.cities) continue; if (studyTowns.length && ownTownAt(unitOf(c.lon, c.lat))) continue; cands.push({ row: { id: "cap:" + c.entity + ":" + c.name, name: c.name, kind: "capital", rank: 0, a: unitOf(c.lon, c.lat) }, chordPx: 0, a, score: (CAPITAL_AFTER_RANK + 1) * 10 + KW.capital, hist: true }); }
     for (const row of GZ.rows) {
       const k = row.kind;
       if (!present && (k === "country" || k === "admin1" || k === "capital" || k === "city" || k === "town")) continue;

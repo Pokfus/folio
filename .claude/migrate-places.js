@@ -322,7 +322,9 @@ function glossaryPlaces() {
 
 /* ---------- resolution ---------- */
 function makeResolver(reg, cache, mergedQ) {
-  const byQid = new Map(); for (const r of reg.rows.values()) if (r.qid) byQid.set(r.qid, r);
+  // a `snapshot` series (polity-spec.json, the League's 1920 states) shares its Wikidata item with today's country (Q35, Denmark): it never takes the country's place by QID
+  const snapIds = new Set(Object.entries(JSON.parse(fs.readFileSync(POLITY_SPEC, "utf8")).polities).filter(([, p]) => p.snapshot).map(([k]) => "pol:" + k));
+  const byQid = new Map(); for (const r of reg.rows.values()) if (r.qid && !snapIds.has(r.id)) byQid.set(r.qid, r);
   // an item an earlier run folded into another place (the same site under another name) resolves to that place (3b, decision 1)
   if (mergedQ) for (const [q, id] of mergedQ) if (!byQid.has(q) && reg.rows.has(id)) byQid.set(q, reg.rows.get(id));
   const kindOk = (want, have) => {
@@ -659,7 +661,9 @@ function run() {
   const withinOnly = [];   // a locator whose place is unresolved but whose `within` city resolves: the card gets the city, and the report says so
   /* the cards' places */
   const entByKey = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) entByKey.set(e.key, e);
-  const entByName = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) entByName.set(fold(e.name), e);
+  // a `snapshot` series (polity-spec.json: the states of one year drawn for one window, the League's 1920) is never a card's place by its name: "Denmark" is the country
+  const SNAP = new Set(Object.entries(JSON.parse(fs.readFileSync(POLITY_SPEC, "utf8")).polities).filter(([, p]) => p.snapshot).map(([k]) => k));
+  const entByName = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind) && !SNAP.has(e.key)) entByName.set(fold(e.name), e);
   const linkedCards = new Map(); for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) for (const c of e.cards || []) { let l = linkedCards.get(c); if (!l) linkedCards.set(c, l = new Set()); l.add(e.id); }
   const per = {};   // per collection prefix
   const bump = (p, k) => { const o = per[p] || (per[p] = { cards: 0, old: 0, placed: 0, none: 0, byLocator: 0, byMap: 0, byWar: 0, byLink: 0, noneOld: [] }); o[k]++; return o; };

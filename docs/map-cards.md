@@ -689,3 +689,59 @@ With `localStorage["folio.atlas2.preview"]="1"` (or `#map2?preview=1` on a phone
 bounding box of the rings near it — the fit is the same arithmetic as `fitTarget`), with the selection gold as a TINT and an outline and glow from the engine's mask pass; the capital's gold square, the reveal's label and
 every control are unchanged (`atlas/atlas-windows.js`, lazy). **Off is the default**, and the opt-in neighbours sentence (`S.settings.mapAlt`) keeps V1's window (it is computed from the layer's own shape files).
 `docs/atlas-v2-card-windows.md` has the inventory and the contract. Re-run after touching either path: `test-map-cards.js` (v1, default) and `test-atlas-embed.js` (the engine).
+
+## An organisation's members (`card.members`, 2026-10-25, on request)
+
+> "The [League of Nations] card should have an atlas window with all countries who were ever in the league highlighted."
+
+A light field on a text card, read by `cardMembers` in `app.js`:
+
+```js
+"members": { "name": "Members of the League of Nations", "note": "…", "keys": ["Afghanistan", …], "at": [6.1469, 46.2017], "atName": "Geneva" }
+```
+
+- **It is the locator's window** (`cardLocatorHTML`, class `map-members`), labelled "Members": the `keys` are written as
+  `data-map-key` and drawn as the window's targets in the selection gold (`TINT_SEL`), exactly as a map card's shape;
+  `at` is the organisation's seat, a gold dot named `atName`; the frame is centred on the seat and zoomed out to the
+  members' extent (`isMembers` in `atlas/atlas-windows.js` `fit`). Under the window a one-row key (`cardMembersKeyHTML`)
+  names the group and carries `note`. A war block wins over it (a card has one or the other).
+- **The keys are present-day countries of the `world` layer**, because the window draws today's map. A former member is
+  shaded as the countries that hold its land now (Czechoslovakia → Czechia and Slovakia, Yugoslavia → its seven
+  successors, the Soviet Union → the twelve successor states that were not members in their own right, British India → India, Pakistan, Bangladesh and Myanmar), Åland is listed with
+  Finland because Natural Earth draws it apart, and colonies and mandates are left unshaded. The `note` says so in words.
+- **One unknown key makes the whole window the plain sentence** (`model()` refuses it), so `test-map-cards.js` §1 checks every
+  key against `.claude/atlas-build/frozen/layers.json` and that the serializer and `revertCard` carry the field.
+- It adds no place to the card's `places` and nothing to the Personal Atlas.
+
+### On a past year's borders, in two groups (`members.year` + `members.groups`, 2026-10-25, on request)
+
+> "Use the 1920 borders in its atlas window with the original members shaded in gold, and later joiners shaded differently."
+
+`members` may add `year` (an integer) and `groups: [{ name, note, ids: ["pol:…"] }, …]` (at most two). The window then draws
+that year's states from `history.bin` (the whole history, as a glossary window's state does) and tints the first group's
+entities in the selection gold and the second in `TINT_LATE` (blue); each group is a row of the key. `keys` stay: they frame
+the window and are what a browser without WebGL2 shades instead (today's countries, in gold). The League's 1920 states are
+the `*_1920` series of `.claude/polity-spec.json` (Cliopatria's rows alive in 1920, `years: [1920, 1920]`); five states
+Cliopatria folds into an empire or an occupation that year (Canada, South Africa, New Zealand, Haiti, the Dominican
+Republic) are drawn with their own later row through `rowsAt: [[1920, 1920, rowYear]]`, their borders being the same, and
+the entity's note says so; the Spanish empire's composite stands aside in 1920 (`exceptYears`) for Spain alone.
+`cnh-656` uses the same block with `label: "Territory"` for one state's own present-day ground.
+
+### Three groups, a zoom and a timeline (`members.span`, 2026-10-29, on request)
+
+> "Add an atlas window with a timeline for the whole period." (the Chinese Three Kingdoms, `cnh-273`)
+
+`groups` may hold **three** (the third in `TINT_THIRD`, a plum, with its own key row), `zoom` sets the window's zoom as a
+locator's does, and `span: [y0, y1]` (integers, `year` inside it) puts the war windows' timeline under the window: its
+steps are the years inside the span at which any of the groups' entities begins, ends or changes its face
+(`entsTimeline` in `atlas/atlas.js`, exposed on the hub; computed once the history has arrived), and the pin opens at
+`year` where that is a step, else at the halfway point. With no seat (`at`) a members window on a past year names nothing
+of its own — its present-day `keys` are only the fallback and the frame.
+
+## A locator's extra places and hidden siblings (`locator.also`, `locator.hide`, 2026-10-29, on request)
+
+- `also: [{ name, at: [lon, lat] }]` — further places of the card's OWN subject, drawn as named dots beside its own
+  (`jp-018`: Ōyu and Isedotai). The coordinates are fetched (Wikidata P625 or the article), never typed.
+- `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
+  studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within
+  0.03°) is never drawn a second time.

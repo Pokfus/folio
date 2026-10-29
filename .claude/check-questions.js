@@ -95,7 +95,7 @@ const fails = [];
 let checked = 0, mapCards = 0, artCards = 0, flagCards = 0, drawCards = 0;
 
 for (const c of window.CARD_DATA) {
-  const isMap = !!(c.map && c.map.key);
+  const isMap = !!(c.map && c.map.key) || !!(c.locator && c.locator.ask === true);   // a locator that asks is the question's map too (app.js cardLocatorFront)
   const isArt = c.artwork === true;
   /* A FLAG CARD takes the map card's two exemptions and not the artwork card's skip: its flag is the
      clue and its prompt is deliberately short and deliberately ends on the blank, but it DOES carry a

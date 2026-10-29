@@ -1008,6 +1008,7 @@
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
     CARD_BY_ID[id].war = p.war;               // and the two sides it shades on that globe (see cardWar)
+    CARD_BY_ID[id].members = p.members;       // and the member states it shades there instead (see cardMembers)
     CARD_BY_ID[id].quote = p.quote;           // and the passage it quotes out of the Library (see cardQuote)
     CARD_BY_ID[id].why = p.why;               // and the question it asks the reader to answer (see cardWhy)
     CARD_BY_ID[id].leadsTo = p.leadsTo;       // and what it led to (see cardLeadsTo)
@@ -4133,6 +4134,11 @@
         glossDoubleTap(s, () => { if (glossWins.length) removeGlossWin(glossWins[glossWins.length - 1], true); });
         // one frame at opacity 0 so the class change is a transition rather than an appearance
         requestAnimationFrame(() => s.classList.add("on"));
+      } else {
+        // a scrim still fading out is taken back up, not left for its removal timer: a gloss link inside
+        // a popup closes the first sheet (closeAllGloss) and opens the next in the same tick, and without
+        // this the old scrim's timer took the blur away from under the second sheet (Oct 2026)
+        s.classList.add("on");
       }
     } else if (s) {
       s.classList.remove("on");
@@ -6424,7 +6430,7 @@
        is deliberately NOT added to the picture round in this pass — a flag round wants its own decoy
        ranking (four flags of similar design rather than four tag-near countries) and is a change to a
        GAME rather than to a collection; see docs/flags-card-plan.md. */
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardLocatorFront(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -15302,6 +15308,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        · never out of a horizontal scroller. The heatmap and the theme row scroll sideways (so did the
          Atlas sheet's pager, until Sep 2026), and a swipe that starts in one belongs to it — walked up the ancestor chain rather
          than listed by class, so a scroller added later is covered without anyone remembering this.
+       · never out of anything marked `data-own-swipe`, which turns on a sideways swipe itself (Oct 2026, on a
+         bug report: a swipe on the home page's reading box turned the box AND took the reader to Collections).
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
      wandered, and reading the page vertically is what a finger is mostly doing. */
@@ -15325,6 +15333,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     for (let n = el; n && n !== document.body; n = n.parentElement) {
       if (n.nodeType !== 1) continue;
       if (n.matches("input,textarea,select,[contenteditable=''],[contenteditable='true']")) return true;
+      if (n.hasAttribute("data-own-swipe")) return true;   // an element that turns on a sideways swipe itself (the home reading box, homeReadingSwap)
       if (n.scrollWidth > n.clientWidth + 4) {
         const ox = getComputedStyle(n).overflowX;
         if (ox === "auto" || ox === "scroll") return true;
@@ -23664,7 +23673,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the chapter the reader is in; a book still on its front matter names the author alone (Oct 2026, on
     // request: the "About this book" line is gone)
     const where = pos && pos.ch > 0 ? " \u00b7 " + b.chapterWord + " " + pos.ch : "";
-    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" style="--tile:' + esc(bookColor(b)) + '">' +
+    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
       '<span class="hb-k">Continue reading</span>' + homeReadingDots(0) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
@@ -23688,7 +23697,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const b = pick || (BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null);
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
       '<span class="hb-empty">Nothing on the shelf yet.</span></button>';
-    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1" style="--tile:' + esc(bookColor(b)) + '">' +
+    return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
       '<span class="hb-k">Suggested reading</span>' + homeReadingDots(1) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
@@ -23719,12 +23728,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const long = []; ps.forEach((x, j) => { if ((x.textContent || "").trim().length >= 160) long.push(j); });
       i = long.length ? long[Math.floor(Math.random() * long.length)] : Math.floor(Math.random() * ps.length);
     }
-    const p = ps[i];
-    p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
-    p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
-    let text = (p.textContent || "").replace(/\s+/g, " ").trim();
+    /* TWICE AS LONG (Oct 2026, on request: "make the next up excerpts twice as long"): 600 characters where it
+       was 300, and the box shows six and a half lines where it showed three (.hb-next-p). A paragraph shorter
+       than that is followed by the next ones of the chapter, so a short paragraph does not leave the box
+       half the length it was asked to be. */
+    const HB_NEXT_MAX = 600;
+    const ptext = (p) => {
+      p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
+      p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
+      return (p.textContent || "").replace(/\s+/g, " ").trim();
+    };
+    let text = ptext(ps[i]);
     if (!text) return "";
-    if (text.length > 300) { text = text.slice(0, 300); text = text.slice(0, Math.max(0, text.lastIndexOf(" "))) + "\u2026"; }
+    for (let j = i + 1; j < ps.length && text.length < HB_NEXT_MAX; j++) { const t = ptext(ps[j]); if (t) text += " " + t; }
+    if (text.length > HB_NEXT_MAX) { text = text.slice(0, HB_NEXT_MAX); text = text.slice(0, Math.max(0, text.lastIndexOf(" "))) + "\u2026"; }
     const num = b.chapterWord + " " + c.n;
     const label = num + (c.t && c.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + c.t : "");   // a title that is only the number is said once
     return '<span class="hb-next" data-n="' + esc(String(c.n)) + '" title="Open ' + esc(label) + '">' +
@@ -23887,7 +23904,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      territory whose flag is shown is ___" is nothing on a card that shows no flag. The preview holds text
      only, so it skips past those to the next card whose question stands alone. */
   function previewable(c) {
-    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c);
+    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
   }
   function reviewPreviewHTML(ids) {
     const pick = [];
@@ -33121,7 +33138,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            It goes HERE, after `buildBack`, and not beside `cardMapReveal` above: the locator window is
            part of the card's BACK, so up there the chip does not exist yet and the call found nothing —
            silently, since a card with no atlas window is the ordinary case and returns early too. */
-        cardAtlasDiscover(inner, c);
+        cardAtlasDiscover(cardLocatorFront(c) ? cardRoot : inner, c);
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
            only: a type that marks several runs is asking for a control on each, not for a recital. */
         if (fromReader && autoSpeakOn) {
@@ -34421,6 +34438,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which — so the colour is the quick read and the words are the answer. See `cardWarKeyHTML`. */
   const TINT_WIN = { rgb: "36,148,84", fillA: 0.34, line: "rgba(58,184,108,1)", glow: "rgba(48,168,96,0.7)" };
   const TINT_LOSE = { rgb: "198,54,48", fillA: 0.32, line: "rgba(230,92,84,1)", glow: "rgba(216,72,64,0.7)" };
+  // an organisation's LATER members beside its original ones in the selection gold (`cardMembers` groups, 2026-10-25): a blue no reader can take for the gold, the green or the red
+  const TINT_LATE = { rgb: "64,128,214", fillA: 0.3, line: "rgba(96,156,236,1)", glow: "rgba(80,140,226,0.7)" };
+  // a third group (2026-10-29, the Three Kingdoms: three states, three colours): a plum, apart from the gold, the blue and the war's green and red
+  const TINT_THIRD = { rgb: "160,72,170", fillA: 0.3, line: "rgba(176,92,190,1)", glow: "rgba(168,84,180,0.7)" };
   const CARD_MAP_LAYERS = {
     /* A layer names the words a card window and its question use (`what`, `plural`, `dotWhat`) and — where the layer has one — says that a card may put a dot on a city (`points`, `pointsAlt`: the names of the old point tables). Since
        Phase 5 the SHAPES and the DOTS are the engine's (atlas/data/card-faces.js: layer → key → entity, layer → dot → point; the old bundles us-states.js, china-provinces.js, russia-subjects.js, world.js and the capitals tables are gone) and
@@ -34598,7 +34619,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      `S.cards[id]`, and the check below reads its absence as "first sighting". */
   function cardAtlasDiscover(root, c) {
     if (!root || !root.querySelector || !c) return;
-    const chip = root.querySelector(".card-loc .mc-new");
+    const chip = root.querySelector(".card-loc .mc-new, .map-front .mc-new");   // a locator that asks draws its window, and so its chip, on the front
     if (!chip) return;                                   // no atlas window on this card
     if (S.cards && S.cards[c.id]) return;                // already studied — the place came in then
     /* PHASE 5: the Atlas is v2's, so "a place you did not have" is v2's definition — the registry places the card is about (`ATLAS_CARD_PLACES`, 62 KB, lazy) against the places of every card the reader has a record for,
@@ -34720,7 +34741,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
-    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, GAME_MAX_DIFFICULTY,
+    return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr };
   }
@@ -34735,12 +34756,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // what goes in the study card's question area: a custom type's front template, or the Basic question —
   // and, on a map card, the globe window ABOVE the prompt, since the map is the clue and the words only
   // say what to do with it
+  /* THE CARD'S ID, FOR AN ADMIN (Oct 2026, on request): a small line at the very foot of the card, under the Wikipedia tile ("ps-005"; moved there from the top
+     the same day, on request),
+     so a card met while studying can be named in a request or found in the editor. Admins only — and
+     never inside `.question`, which suites read the question text from. */
+  function cardAdminIdHTML(c) {
+    return c && c.id && isAdmin() ? '<div class="card-admin-id" translate="no">' + esc(c.id) + "</div>" : "";
+  }
   function cardFrontHTML(c) {
     const custom = cardTypeSideHTML(c, "front");
     if (custom != null) return custom;
     const q = (c && c.question) || "";
     const spec = cardMapSpec(c);
     if (spec) return cardMapHTML(spec) + q;
+    // a locator that asks (cardLocatorFront): its window is the clue, above the prompt, as a map card's globe is
+    if (cardLocatorFront(c)) return cardLocatorHTML(c, true) + q;
     /* an artwork card: the picture is the WHOLE question — no prose at all, and the three fields under
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
@@ -35070,7 +35100,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the font (Chinese gets the site's own `--han`; Japanese falls through to the reader's system CJK font,
      as Japanese body text does by design) and whether a traditional form is shown (Japanese has no second
      script here). Add a row for a new collection. `.claude/set-ja-names.js` writes the Japan data. */
-  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }]];
+  // `ko-` (Oct 2026, on request: "in the Korea history collection, add Korean translations to each answer term"): Hangul in
+  // `hanzi`, the Revised Romanization in `pinyin`, written by `.claude/set-ko-names.js`; set in the reader's system font, as Japanese is
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }]];
   const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
   /* …AND A PREFIX THAT HOLDS MORE THAN ONE COUNTRY SAYS IT BY TAG (Oct 2026, on request: Politics: East Asia's
      Japan terms showed a Chinese translation). `pea-` is a course on China, Japan and the Koreas, so the
@@ -35155,11 +35187,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (open) placeAnswerBubble(wrap);
   }
   function wireAnswerBubbles() {
+    /* ONLY ITS ICON CLOSES IT (Oct 2026, on request): a click elsewhere used to, and a stroke of the
+       whiteboard marker ends in a click, so writing beside the bubble took it away. Escape still closes. */
     document.addEventListener("click", (e) => {
       const t = e.target && e.target.closest ? e.target : null;
-      const hit = t ? t.closest(".ac-wrap") : null;
-      document.querySelectorAll(".ac-wrap.open").forEach((w) => { if (w !== hit) setAnswerBubble(w, false); });
-      if (hit && t.closest(".ac-btn")) setAnswerBubble(hit, !hit.classList.contains("open"));
+      const hit = t && t.closest(".ac-btn") ? t.closest(".ac-wrap") : null;
+      if (hit) setAnswerBubble(hit, !hit.classList.contains("open"));
     });
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Escape") return;
@@ -35967,7 +36000,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const within = String(l.within || "").trim();
     const lab = Array.isArray(l.label) && l.label.length === 2 && isFinite(Number(l.label[0])) && isFinite(Number(l.label[1]))
       ? [Number(l.label[0]), Number(l.label[1])] : null;
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab };
+    /* `hide` (Oct 2026, on request: "remove Burkhan Khaldun from the atlas window" of the Eurasian Steppe): names of OTHER cards' places this
+       card's window leaves off — a sibling the reader has studied that would otherwise be drawn on it. Matched against the sibling's mark name. */
+    const hide = Array.isArray(l.hide) ? l.hide.map((h) => String(h || "").trim().toLowerCase()).filter(Boolean) : [];
+    /* `also` (Oct 2026, on request: the stone circle card's window "with Ōyu and Isedotai"): further places of the card's OWN subject, each { name, at },
+       drawn as a named dot beside the card's own — for a card that is about two sites at once. The coordinates are fetched like `at`, never typed. */
+    const also = Array.isArray(l.also) ? l.also.map((a) => {
+      const p = a && Array.isArray(a.at) ? [Number(a.at[0]), Number(a.at[1])] : null;
+      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p } : null;
+    }).filter(Boolean) : [];
+    /* `ask` (Oct 2026, on request: the rivers-and-mountains decks "should work the same way as the state or country cards"): the window IS the card's question —
+       drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true };
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -36029,6 +36073,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        true map, and not a map of the war. A card may frame the THEATRE instead; the reader zooms out for
        the rest, and nothing about what is shaded changes. */
     return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0, group: w.group === true };
+  }
+  /* ---------- THE MEMBERS OF AN ORGANISATION OF STATES (`card.members`; Oct 2026, on request) ----------
+     `members: { name, note, keys: [...], at: [lon, lat], atName }` — the League of Nations' window shades
+     every country that was ever in the League. Its window is the locator's (`cardLocatorHTML`), with the
+     member countries as `data-map-key` targets in the selection gold and a gold dot at the seat (`at`).
+     THE KEYS ARE PRESENT-DAY COUNTRIES of the window's `world` layer, because the window draws today's map:
+     a former member is shaded as the countries that now hold its land (Czechoslovakia as Czechia and
+     Slovakia), and the key under the map says so in words (`note`). A key the layer does not carry makes
+     the whole window the plain sentence, so `test-map-cards.js` checks every key against the layer. */
+  function cardMembers(c) {
+    const m = c && c.members;
+    if (!m || typeof m !== "object" || !Array.isArray(m.keys)) return null;
+    const keys = m.keys.map((k) => String(k || "").trim()).filter(Boolean);
+    const name = String(m.name || "").trim();
+    if (!keys.length || !name) return null;
+    const at = Array.isArray(m.at) && m.at.length === 2 && isFinite(Number(m.at[0])) && isFinite(Number(m.at[1])) ? [Number(m.at[0]), Number(m.at[1])] : null;
+    /* `label` (optional) names the window where "Members" would be wrong — a single state's own territory (the People's Republic
+       of China's card, Oct 2026, on request) is shaded the same way, but it has no members. */
+    /* `year` + `groups` (2026-10-25, on request: the League "on the 1920 borders, the original members shaded in gold and later joiners shaded differently"): the
+       window draws that year's states (history.bin entities, `ids`) and tints the first group gold and the second blue (TINT_LATE); `keys` stay as the present-day
+       fallback for a browser that cannot draw a past year, and frame the window. Each group is a row of the key with its own swatch. */
+    const year = Number.isInteger(m.year) ? m.year : null;
+    const groups = year == null || !Array.isArray(m.groups) ? [] : m.groups.map((g) => ({ name: String((g && g.name) || "").trim(), note: String((g && g.note) || "").trim(), ids: Array.isArray(g && g.ids) ? g.ids.map((x) => String(x || "").trim()).filter(Boolean) : [] })).filter((g) => g.name && g.ids.length).slice(0, 3);   // three since 2026-10-29 (TINT_THIRD)
+    /* `span: [y0, y1]` (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): a members window on a past
+       year carries the war windows' timeline over those years, stepping where its states change (`entsTimeline` in atlas.js); `year` is where the pin opens. */
+    const span = groups.length && Array.isArray(m.span) && m.span.length === 2 && Number.isInteger(m.span[0]) && Number.isInteger(m.span[1]) && m.span[0] < m.span[1] ? [m.span[0], m.span[1]] : null;
+    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0 };
+  }
+  function cardMembersKeyHTML(m) {
+    if (!m) return "";
+    if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i === 2 ? "wk-third" : i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i === 2 ? TINT_THIRD : i ? TINT_LATE : TINT_SEL) +
+      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + "</div>";
+    return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
+      '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span></div>";
   }
   // the years the war ran, for the personal atlas: the block's own override, else the card's date line
   function cardWarYears(c) {
@@ -36182,22 +36260,51 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   // "lon,lat lon,lat …", rings separated by ";" — `readRings` in startCardGlobe is the other half of this
   function warRingsAttr(rings) { return rings.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";"); }
-  function cardLocatorHTML(c) {
-    const l = cardLocator(c), w = cardWar(c);
+  /* A LOCATOR AS THE QUESTION (Oct 2026, on request: the physical geography decks' rivers, lakes and mountains "should work the same way as the state or country
+     cards, where the location is shown on a map and the user must guess"). `locator.ask` moves the window to the card's FRONT, the map card's place: the river traced,
+     the range's peaks or the dot drawn, its name held back until the reveal (no `data-map-named`), and no globe button, since the Atlas would name it. The back then
+     draws no second copy. Such a card is kept out of the minigames and the review preview exactly as a map card is: its question points at a map they do not show. */
+  function cardLocatorFront(c) {
+    const l = cardLocator(c);
+    return l && l.ask && !cardWar(c) && !cardMembers(c) ? l : null;
+  }
+  const LOC_ASK_WHAT = { river: "river", range: "mountain range" };
+  function cardLocatorHTML(c, front) {
+    if (!front && cardLocatorFront(c)) return "";   // its window is the question (cardFrontHTML)
+    if (front) {
+      const lf = cardLocatorFront(c); if (!lf) return "";
+      const what = LOC_ASK_WHAT[lf.kind] || "place";
+      return cardLocatorWindowHTML(c, lf, null, null, "map-front",
+        "An interactive globe with one " + what + " marked on it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?", false);
+    }
+    const l = cardLocator(c), w = cardWar(c), m = w ? null : cardMembers(c);
     /* A WAR CARD GETS THIS WINDOW WITHOUT A LOCATOR, and that is the point of asking the war block for
        one: the two sides ARE the place, so the frame is read off their own extent (see `fitTarget`) and
        no separate coordinate has to be researched for a card whose subject is a hundred thousand square
        miles of Europe. A locator, where the card also has one, still supplies the dot and its name. */
-    if (!l && !w) return "";
+    if (!l && !w && !m) return "";
+    /* AN ORGANISATION'S MEMBERS (`cardMembers`) are the window's targets, and its seat is the dot; a card with
+       both a locator and members keeps its locator's dot and name. */
+    const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
     const said = (w
       ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
         w.losers.name + ", defeated, shaded red. "
+      : m && m.groups.length ? m.name + " on an interactive globe of the borders of " + m.year + ": " + m.groups.map((g, i) => g.name + (i === 2 ? " in plum" : i ? " in blue" : " in gold")).join(", ") + (atName ? "; " + atName + " marked" : "") + "." + (m.span ? " A timeline under it steps through the years " + m.span[0] + " to " + m.span[1] + "." : "") + " "
+      : m ? m.name + " shaded in gold on an interactive globe of today's countries" + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
-    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : "Location") + "</span>" +
-      '<div class="map-card map-loc' + (w ? " map-war" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
-      (l ? ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' : "") +
-      (l && l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
+    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
+      cardLocatorWindowHTML(c, l, w, m, "map-loc" + (w ? " map-war" : m ? " map-members" : ""), said, true) +
+      "</div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
+  }
+  // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
+  function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
+    const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
+    return '<div class="map-card ' + cls + '" data-map-layer="world"' + (named ? " data-map-named" : "") + ' data-map-card="' + esc(c.id || "") + '"' +
+      (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
+      (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
+      (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
+      (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +
       (l && l.label ? ' data-map-label="' + l.label[0] + "," + l.label[1] + '"' : "") +
@@ -36221,7 +36328,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          with Rome and Samnium a smudge in the middle of it. A locator's zoom was chosen to frame a DOT;
          the window's subject here is the war, so the only zoom that may override the war's own fit is
          the war's own. */
-      ((w ? w.zoom : l && l.zoom) ? ' data-map-zoom="' + (w ? w.zoom : l.zoom) + '"' : "") + ">" +
+      ((w ? w.zoom : l ? l.zoom : m && m.zoom) ? ' data-map-zoom="' + (w ? w.zoom : l ? l.zoom : m.zoom) + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
       '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
@@ -36236,14 +36343,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `data-mc="go"` so the window's own closure handler can ignore it by name, and it is wired by a
          DELEGATED document listener rather than in `startCardGlobe`: routing is not the globe's job, and
          this markup is drawn by six surfaces that would each have to remember to wire it. */
-      '<button type="button" class="mc-btn mc-go" data-mc="go" aria-label="See this on your atlas" title="See this on your atlas">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></button>' +
+      (named ? '<button type="button" class="mc-btn mc-go" data-mc="go" aria-label="See this on your atlas" title="See this on your atlas">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></button>' : "") +
       "</div>" +
       /* THE CHIP SHIPS IN THE MARKUP, HIDDEN, rather than being created when the answer is revealed —
          `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
          screen reader has not been watching, and the announcement is lost. */
       '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
-      "</div></div>" + cardWarKeyHTML(w);
+      "</div>";
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
      Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and
@@ -36384,11 +36491,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          of the two failures. */
       if (c.abstract) {
         const qh = cardQuoteHTML(c);
-        const parts = qh ? c.abstract.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/) : null;
+        const ab = plainSpaces(c.abstract);   // an edit saved before the editor stored plain spaces (see plainSpaces)
+        const parts = qh ? ab.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/) : null;
         if (qh && parts && parts.length === 2) {
           html += '<p class="abstract">' + parts[0] + "</p>" + qh + '<p class="abstract">' + parts[1] + "</p>";
         } else {
-          html += '<p class="abstract">' + c.abstract + "</p>" + qh;
+          html += '<p class="abstract">' + ab + "</p>" + qh;
         }
       }
       html += "</div></div>";
@@ -36415,6 +36523,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     html += sourcesHTML(cardSources(c));
     // …and, last of all, the way on: the answer's own Wikipedia article (see learnMoreHTML)
     html += learnMoreHTML(c);
+    // …and under even that, for an admin only, the card's id (cardAdminIdHTML)
+    html += cardAdminIdHTML(c);
     return html;
   }
   /* LEARN MORE — the link to the answer term's own Wikipedia article (Oct 2026, on request: "for cards
@@ -37810,21 +37920,119 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      cannot move an edit onto its neighbour. A value is the whole replacement statement, or null for one
      taken out of play; the edit reaches every reader through `content_overrides` with no deploy, and
      truefalse.js itself is never rewritten by the app. */
-  function truefalsePool() {
+  function truefalsePool() { return truefalseKeyed().map((e) => e.it); }
+  // the same pool with each statement's SHIPPED key beside it, for the in-game admin controls below
+  function truefalseKeyed() {
     const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
-    return (window.TRUEFALSE || []).map((x) => (x && Object.prototype.hasOwnProperty.call(ov, x.q)) ? ov[x.q] : x).filter(Boolean);
+    return (window.TRUEFALSE || []).filter(Boolean)
+      .map((x) => ({ k: x.q, it: Object.prototype.hasOwnProperty.call(ov, x.q) ? ov[x.q] : x }))
+      .filter((e) => e.it);
   }
+  /* …AND FROM INSIDE THE GAME ITSELF (Oct 2026, on request: "as an admin, allow me to edit and remove True or
+     False minigame questions"). The list on the admin page's Quotes tab sat under two other pools and was
+     not found, so an admin now gets Edit and Remove beside the statement while playing, and on the results
+     screen. Both doors write through these two functions, so the overlay's shape and the validation are
+     one thing. `tfFormHTML` is the form both draw; `tfFormRead` returns the statement or an error string. */
+  function tfShipped(k) { return (window.TRUEFALSE || []).find((x) => x && x.q === k) || null; }
+  function tfFormHTML(k, it, extraActs) {
+    const src = Array.isArray(it.src) ? it.src.join("\n") : "";
+    const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
+    const edited = Object.prototype.hasOwnProperty.call(ov, k) && ov[k] !== null;
+    return '<div class="q-form tf-form" data-tfform="' + esc(k) + '">' +
+      '<div class="q-form-head"><b>Edit statement</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source. Metric first with the imperial in brackets, British spelling.</span></div>' +
+      '<label class="admin-field"><span class="af-label">the statement</span><textarea class="af-input" data-tff="q" rows="2">' + esc(it.q || "") + "</textarea></label>" +
+      '<label class="admin-field"><span class="af-label">the answer</span><select class="af-input" data-tff="a">' +
+        '<option value="true"' + (it.a ? " selected" : "") + '>True — a fact</option>' +
+        '<option value="false"' + (it.a ? "" : " selected") + '>False — a myth</option></select></label>' +
+      '<label class="admin-field"><span class="af-label">category</span><input class="af-input" type="text" data-tff="cat" value="' + esc(it.cat || "") + '" /></label>' +
+      '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-tff="why" rows="5">' + esc(it.why || "") + "</textarea></label>" +
+      '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-tff="src" rows="3">' + esc(src) + "</textarea></label>" +
+      '<div class="q-form-acts">' +
+        '<button class="mini-btn" type="button" data-tfcancel>Cancel</button>' +
+        (edited ? '<button class="mini-btn" type="button" data-tfrevert="' + esc(k) + '">Revert</button>' : "") +
+        (extraActs || "") +
+        '<button class="admin-new" type="button" data-tfsave="' + esc(k) + '">Save</button>' +
+      "</div></div>";
+  }
+  function tfFormSave(k, f) {
+    const v = (n) => (f.querySelector('[data-tff="' + n + '"]').value || "").trim();
+    const q = v("q").replace(/\s+/g, " "), why = v("why");
+    if (!q) return "A statement needs its words.";
+    if (!why) return "A statement needs its explanation.";
+    const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
+    // the house form ends in the URL, optionally followed by a `[in French]` / `[Open access]` label
+    const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
+    if (bad) return "Every source must end in the URL a reader can check it at.";
+    const marks = (why.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
+    if (marks.some((n) => n < 1 || n > src.length)) return "A footnote marker points past the end of the sources.";
+    const it = { q: q, a: v("a") === "true", why: why, cat: v("cat") };
+    if (src.length) it.src = src;
+    const orig = tfShipped(k), ov = ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
+    // typing the shipped statement back clears the edit rather than storing a copy of it
+    const same = orig && orig.q === it.q && !!orig.a === it.a && (orig.why || "") === it.why && (orig.cat || "") === it.cat &&
+      JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
+    if (same) delete ov[k]; else ov[k] = it;
+    saveAdminEdits();
+    return null;
+  }
+  // Remove is a toggle: a second press puts the shipped statement back
+  function tfToggleRemoved(k) {
+    const ov = ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
+    const wasOff = Object.prototype.hasOwnProperty.call(ov, k) && ov[k] === null;
+    if (wasOff) delete ov[k]; else ov[k] = null;
+    saveAdminEdits();
+    return !wasOff;
+  }
+  function tfIsRemoved(k) { const ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {}; return Object.prototype.hasOwnProperty.call(ov, k) && ov[k] === null; }
   PAGES.truefalse = function (root) {
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
     if (gameLockedToday(root, "truefalse")) return;
     if (gamesI18nPending(root)) return;
-    const POOL = truefalsePool().map((x) => tfLocalized(x));
+    const KEYED = truefalseKeyed();
+    const POOL = KEYED.map((e) => tfLocalized(e.it));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
     // the day's five, distinct and the same for every reader — see dayPick
-    const picks = dayPick("truefalse", POOL.map((_, i) => i), ROUNDS).map((i) => POOL[i]);
+    const pickIx = dayPick("truefalse", POOL.map((_, i) => i), ROUNDS);
+    const picks = pickIx.map((i) => POOL[i]);
+    const pickKeys = pickIx.map((i) => KEYED[i].k);   // the shipped key each pick is filed under (admin edits)
     let r = 0, score = 0; const results = [];
+    /* The admin's controls (see tfFormHTML). Edit swaps the statement's block for the form; Save rewrites
+       this game's copy too, so the round goes on with the corrected words. Remove takes the statement out of
+       every later draw and is undone by the same button. */
+    const tfAdminBar = (k) => !isAdmin() ? "" :
+      '<div class="tf-adminbar"><span class="tf-adminbar-l">Admin</span>' +
+      (tfIsRemoved(k) ? '<span class="q-pill q-edited">removed from the pool</span>' : '<button type="button" class="mini-btn" data-tfg-edit="' + esc(k) + '">Edit</button>') +
+      '<button type="button" class="mini-btn' + (tfIsRemoved(k) ? "" : " danger") + '" data-tfg-off="' + esc(k) + '">' + (tfIsRemoved(k) ? "Restore" : "Remove") + "</button></div>";
+    function wireTfGameAdmin(scope, redraw) {
+      if (!isAdmin()) return;
+      scope.querySelectorAll("[data-tfg-off]").forEach((b) => b.addEventListener("click", () => {
+        const off = tfToggleRemoved(b.dataset.tfgOff);
+        toast(off ? "Removed from True or False — it leaves the pool from the next draw" : "Restored to True or False");
+        redraw();
+      }));
+      scope.querySelectorAll("[data-tfg-edit]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.tfgEdit, ix = pickKeys.indexOf(k);
+        const ov = ADMIN_EDITS.truefalse || {};
+        const it = Object.prototype.hasOwnProperty.call(ov, k) && ov[k] ? ov[k] : tfShipped(k);
+        const host = b.closest(".tf-edit-host");
+        if (!host || !it) return;
+        host.innerHTML = tfFormHTML(k, it);
+        const f = host.querySelector(".tf-form");
+        f.querySelector("[data-tfcancel]").addEventListener("click", redraw);
+        const rv = f.querySelector("[data-tfrevert]");
+        if (rv) rv.addEventListener("click", () => { delete ADMIN_EDITS.truefalse[k]; saveAdminEdits(); if (ix >= 0) picks[ix] = tfLocalized(tfShipped(k)); toast("Reverted"); redraw(); });
+        f.querySelector("[data-tfsave]").addEventListener("click", () => {
+          const err = tfFormSave(k, f);
+          if (err) { toast(err); return; }
+          const now = (ADMIN_EDITS.truefalse || {})[k] || tfShipped(k);
+          if (ix >= 0 && now) picks[ix] = tfLocalized(now);
+          toast("Statement saved"); redraw();
+        });
+        f.scrollIntoView({ block: "nearest" });
+      }));
+    }
 
     renderRound();
     function pips() { return `<div class="tf-pips">${picks.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
@@ -37838,8 +38046,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
           ${pips()}
           <div class="dc-q">
+            <div class="tf-edit-host">
             <div class="dc-meta"><span>${esc(it.cat)}</span><span>Myth or fact?</span></div>
             <p class="qtext" style="font-size:21px">${esc(it.q)}</p>
+            ${tfAdminBar(pickKeys[r])}
+            </div>
             <div class="tf-opts" id="tfopts">
               <button class="opt" data-v="1"><span class="key">T</span><span>True</span></button>
               <button class="opt" data-v="0"><span class="key">F</span><span>False</span></button>
@@ -37848,6 +38059,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
         </div>`;
       root.querySelectorAll("#tfopts .opt").forEach((b) => b.addEventListener("click", () => answer(b.dataset.v === "1", b)));
+      wireTfGameAdmin(root.querySelector(".dc-q"), () => { if (results.length > r) { renderRound(); replayAnswer(); } else renderRound(); });
+    }
+    // after an admin's edit mid-reveal, draw the round again in its answered state
+    function replayAnswer() {
+      const it = picks[r], correct = !!results[r];
+      const guessed = correct ? it.a : !it.a;
+      const btn = root.querySelector('#tfopts .opt[data-v="' + (guessed ? "1" : "0") + '"]');
+      if (correct) score--;
+      answer(guessed, btn);
     }
     function answer(guess, btn) {
       const it = picks[r], correct = guess === it.a; results[r] = correct; if (correct) score++;
@@ -37863,6 +38083,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function renderEnd() {
       markGamePlayed("truefalse", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
+      drawEnd();
+    }
+    function drawEnd() {
       // the closing line no longer invites a replay — there isn't one until tomorrow
       const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises.";
       root.innerHTML = `
@@ -37872,13 +38095,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="tf-summary">${picks.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
+              <div class="tf-edit-host"><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}${tfAdminBar(pickKeys[k])}</div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#tf-home").addEventListener("click", () => route("home"));
+      wireTfGameAdmin(root.querySelector(".tf-summary"), drawEnd);
     }
   };
 
@@ -43487,10 +43711,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const clone = el.cloneNode(true);
       clone.querySelectorAll('.ttip[data-auto]').forEach((sp) => { const p = sp.parentNode; while (sp.firstChild) p.insertBefore(sp.firstChild, sp); p.removeChild(sp); });
       clone.normalize();
-      return clone.innerHTML;
+      return plainSpaces(clone.innerHTML);
     }
-    return el.innerHTML;
+    return plainSpaces(el.innerHTML);
   }
+  /* A contenteditable types NON-BREAKING spaces where a word is deleted or retyped (Chrome keeps the gap
+     visible that way), and innerHTML hands them back as &nbsp;. Saved, they glue the words either side
+     into one unbreakable run, which drops to a line of its own beside the Background's floated picture and
+     leaves an empty-looking line above it — while the editor, wider and with no picture, shows nothing
+     wrong. No shipped prose carries one, so every one in a rich field is the editor's: store plain spaces. */
+  function plainSpaces(html) { return String(html == null ? "" : html).replace(/&nbsp;|\u00a0/g, " "); }
   function closeGlossPicker() {
     const p = document.querySelector(".gloss-picker"); if (p) p.remove();
     document.removeEventListener("mousedown", glossPickerOutside, true); document.removeEventListener("keydown", glossPickerEsc, true);
@@ -43503,20 +43733,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const panel = document.createElement("div"); panel.className = "gloss-picker";
     panel.innerHTML = '<input class="gp-search" type="text" placeholder="Search glossary terms…" /><div class="gp-list"></div>';
     document.body.appendChild(panel);
-    panel.style.left = Math.max(6, Math.min(x, window.innerWidth - panel.offsetWidth - 8)) + "px";
-    panel.style.top = Math.max(6, Math.min(y, window.innerHeight - panel.offsetHeight - 8)) + "px";
     const search = panel.querySelector(".gp-search"), list = panel.querySelector(".gp-list");
+    /* EVERY MATCH CAN BE REACHED (Oct 2026, on request: "i can only scroll so far down in the 'Link term' popup
+       list … so i can't see all the options"). Two things stopped it: the list was cut at its first 60
+       matches, and the panel was placed while still empty, so once filled it could hang past the bottom of
+       the window with its last rows unreachable. Now every match is listed — drawn 80 at a time as the list
+       is scrolled, so seven thousand terms cost nothing until they are wanted — and the panel is placed
+       AFTER it is filled, its list shortened to the room the window has. */
+    const place = () => {
+      const vh = window.innerHeight;
+      list.style.maxHeight = "";
+      const room = Math.max(120, vh - 16 - (panel.offsetHeight - list.offsetHeight));
+      list.style.maxHeight = Math.min(parseFloat(getComputedStyle(list).maxHeight) || 236, room) + "px";
+      panel.style.left = Math.max(6, Math.min(x, window.innerWidth - panel.offsetWidth - 8)) + "px";
+      panel.style.top = Math.max(6, Math.min(y, vh - panel.offsetHeight - 8)) + "px";
+    };
     const fold = (s) => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");   // diacritic-insensitive: "nuwa" matches "Nuwa"
+    const GP_STEP = 80;
+    let matches = [], shown = 0;
+    const itemHTML = (o) => '<button type="button" class="gp-item" data-k="' + esc(o.k) + '">' + esc(o.t) + (o.tg.length ? '<span class="gp-tags">' + esc(o.tg.join(", ")) + '</span>' : '') + '</button>';
+    function more() {
+      if (shown >= matches.length) return;
+      const next = matches.slice(shown, shown + GP_STEP);
+      shown += next.length;
+      const foot = list.querySelector(".gp-more"); if (foot) foot.remove();
+      list.insertAdjacentHTML("beforeend", next.map(itemHTML).join("") + (shown < matches.length ? '<div class="gp-more">' + (matches.length - shown) + " more \u2014 keep scrolling</div>" : ""));
+    }
+    list.addEventListener("scroll", () => { if (list.scrollTop + list.clientHeight >= list.scrollHeight - 60) more(); });
+    // one delegated listener, so rows appended by more() pick far as well as the first ones
+    list.addEventListener("mousedown", (ev) => {
+      const b = ev.target.closest("[data-k]"); if (!b) return;
+      ev.preventDefault(); onPick(b.dataset.k); closeGlossPicker();
+    });
     function render() {
       const q = fold(search.value.trim());
-      const items = Object.keys(window.GLOSSARY || {}).map((k) => ({ k: k, t: glossTitle(k), tg: glossTags(k) }))
+      matches = Object.keys(window.GLOSSARY || {}).map((k) => ({ k: k, t: glossTitle(k), tg: glossTags(k) }))
         .filter((o) => o.k !== excludeKey && (!q || fold(o.t).includes(q) || fold(o.k).includes(q) || fold(o.tg.join(", ")).includes(q)))
-        .sort((a, b) => a.t.localeCompare(b.t)).slice(0, 60);
-      list.innerHTML = items.length ? items.map((o) => '<button type="button" class="gp-item" data-k="' + esc(o.k) + '">' + esc(o.t) + (o.tg.length ? '<span class="gp-tags">' + esc(o.tg.join(", ")) + '</span>' : '') + '</button>').join("") : '<div class="gp-empty">No glossary terms match.</div>';
-      list.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("mousedown", (ev) => { ev.preventDefault(); onPick(b.dataset.k); closeGlossPicker(); }));
+        .sort((a, b) => a.t.localeCompare(b.t));
+      shown = 0; list.innerHTML = ""; list.scrollTop = 0;
+      if (!matches.length) { list.innerHTML = '<div class="gp-empty">No glossary terms match.</div>'; return; }
+      more();
     }
     search.value = preFilter || ""; render();
     if (preFilter && !list.querySelector(".gp-item")) { search.value = ""; render(); }   // the selection wasn't a term name → just show all terms
+    place();
     search.addEventListener("input", render);
     search.focus(); search.select();
     setTimeout(() => { document.addEventListener("mousedown", glossPickerOutside, true); document.addEventListener("keydown", glossPickerEsc, true); }, 0);
@@ -43812,7 +44072,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardMembers(c)) o.members = c.members; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -44566,7 +44826,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="ces-qtools"><button type="button" class="ces-qtool" id="cesQAdd" title="A card asks one of its questions at random each time it is shown">+ Add another question</button><button type="button" class="ces-qtool ces-qtool-del" id="cesQDel" hidden>Remove this question</button></div>' +
           '<div class="reveal show"><div class="reveal-inner">' +
             '<div class="answer"><div class="answer-main"><span class="label">Answer</span>' +
-              '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
+              '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div>' +
+                '<div class="ces-qtools ces-dttools"><button type="button" class="ces-qtool" id="cesDtAdd" title="Adds a row like the generated ones: a label on the left, the date on the right">+ Add a date row</button></div>' +
+              '</div></div></div>' +
             '<span class="label">Background</span>' +
             '<div id="cesMediaSlot"></div>' + mediaPanelHtml +
             live("abstract", "abstract") +
@@ -44855,6 +45117,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ab.dispatchEvent(new Event("input", { bubbles: true }));
       addSrcRow();
       toast("Marker " + n + " added — write the citation below.");
+    });
+
+    /* ---- the date line's rows (Oct 2026, on request: "add a button which automatically adds a new row with a
+       label on the left and the numbers on the right, since right now it's impossible for me to manually add
+       another row which looks like the ones you've generated"). A generated date line is a `.dt` grid of
+       `.dt-k` label / `.dt-v` value pairs (date-line.js), which typing into the field cannot produce. The
+       button appends one pair — making the grid if the line has none, keeping any plain text before it — and
+       selects the new label so typing replaces it; the field's own input handler saves it. */
+    const dtAdd = host.querySelector("#cesDtAdd");
+    if (dtAdd) dtAdd.addEventListener("click", () => {
+      const el = host.querySelector('[data-field="answerDate"]');
+      if (!el) return;
+      let dt = el.querySelector(".dt");
+      if (!dt) { dt = document.createElement("div"); dt.className = "dt"; el.appendChild(dt); }
+      const k = document.createElement("span"); k.className = "dt-k"; k.textContent = "Label";
+      const v = document.createElement("span"); v.className = "dt-v"; v.textContent = "date";
+      dt.appendChild(k); dt.appendChild(v);
+      el.contentEditable = "true"; el.classList.add("editing"); el.focus();
+      const rg = document.createRange(); rg.selectNodeContents(k);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg);
+      el.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
     // ---- live-field saves (the card IS the preview — no separate re-render, focus is never lost) ----
@@ -45935,30 +46218,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const all = window.TRUEFALSE || [], ov = (ADMIN_EDITS && ADMIN_EDITS.truefalse) || {};
       const has = (k) => Object.prototype.hasOwnProperty.call(ov, k);
       const live = all.filter((x) => !(has(x.q) && ov[x.q] === null)).length;
-      const form = (k, it) => {
-        const src = Array.isArray(it.src) ? it.src.join("\n") : "";
-        return '<div class="q-form tf-form" data-tfform="' + esc(k) + '">' +
-          '<div class="q-form-head"><b>Edit statement</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source. Metric first with the imperial in brackets, British spelling.</span></div>' +
-          '<label class="admin-field"><span class="af-label">the statement</span><textarea class="af-input" data-tff="q" rows="2">' + esc(it.q || "") + "</textarea></label>" +
-          '<label class="admin-field"><span class="af-label">the answer</span><select class="af-input" data-tff="a">' +
-            '<option value="true"' + (it.a ? " selected" : "") + '>True — a fact</option>' +
-            '<option value="false"' + (it.a ? "" : " selected") + '>False — a myth</option></select></label>' +
-          '<label class="admin-field"><span class="af-label">category</span><input class="af-input" type="text" data-tff="cat" value="' + esc(it.cat || "") + '" /></label>' +
-          '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-tff="why" rows="5">' + esc(it.why || "") + "</textarea></label>" +
-          '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-tff="src" rows="3">' + esc(src) + "</textarea></label>" +
-          '<div class="q-form-acts">' +
-            '<button class="mini-btn" type="button" data-tfcancel>Cancel</button>' +
-            (has(k) && ov[k] !== null ? '<button class="mini-btn" type="button" data-tfrevert="' + esc(k) + '">Revert</button>' : "") +
-            '<button class="admin-new" type="button" data-tfsave="' + esc(k) + '">Save</button>' +
-          "</div></div>";
-      };
       return '<div class="ws-admin tf-admin">' +
-        '<div class="ws-admin-head"><b>Myth or fact?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
-        '<div class="tl-intro">The True or False minigame\'s pool, from <code>truefalse.js</code>. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped statement. The game needs at least five in play.</div>' +
+        '<div class="ws-admin-head" id="tfAdminList"><b>True or False</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
+        '<div class="tl-intro">The True or False minigame\'s pool (\u201cMyth or fact?\u201d), from <code>truefalse.js</code>. Edit and Remove are also on each statement while you play the game. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped statement. The game needs at least five in play.</div>' +
         '<div class="q-list">' + all.map((x) => {
           const k = x.q, isOff = has(k) && ov[k] === null, edited = has(k) && ov[k] !== null;
           const it = edited ? ov[k] : x;
-          if (_tfEditing === k && !isOff) return form(k, it);
+          if (_tfEditing === k && !isOff) return tfFormHTML(k, it);
           return '<div class="q-row ws-row tf-row' + (isOff ? " ws-off" : "") + '">' +
             '<div class="q-main"><span class="q-text">' + esc(it.q) + "</span>" +
               '<span class="q-meta"><b>' + (it.a ? "True" : "False") + "</b>" + (it.cat ? '<span class="q-src">' + esc(it.cat) + "</span>" : "") +
@@ -45971,18 +46237,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function wireTfAdmin(items) {
       const ov = () => ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
-      const shipped = (k) => (window.TRUEFALSE || []).find((x) => x.q === k);
       items.querySelectorAll("[data-tfedit]").forEach((b) => b.addEventListener("click", () => {
         _tfEditing = b.dataset.tfedit; adminRenderQuotes();
         const f = items.querySelector(".tf-form"); if (f) f.scrollIntoView({ block: "nearest" });
       }));
       items.querySelectorAll("[data-tfoff]").forEach((b) => b.addEventListener("click", () => {
-        const k = b.dataset.tfoff, o = ov();
-        const wasOff = Object.prototype.hasOwnProperty.call(o, k) && o[k] === null;
-        if (wasOff) delete o[k]; else o[k] = null;
+        const k = b.dataset.tfoff, off = tfToggleRemoved(k);
         if (_tfEditing === k) _tfEditing = null;
-        saveAdminEdits(); adminRenderQuotes();
-        toast(wasOff ? "Restored to Myth or fact?" : "Removed from Myth or fact?");
+        adminRenderQuotes();
+        toast(off ? "Removed from True or False" : "Restored to True or False");
       }));
       items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderQuotes(); }));
       items.querySelectorAll("[data-tfrevert]").forEach((b) => b.addEventListener("click", () => {
@@ -45993,24 +46256,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }));
       items.querySelectorAll("[data-tfsave]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfsave, f = b.closest(".tf-form"); if (!f) return;
-        const v = (n) => (f.querySelector('[data-tff="' + n + '"]').value || "").trim();
-        const q = v("q").replace(/\s+/g, " "), why = v("why");
-        if (!q) { toast("A statement needs its words."); return; }
-        if (!why) { toast("A statement needs its explanation."); return; }
-        const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
-        // the house form ends in the URL, optionally followed by a `[in French]` / `[Open access]` label
-        const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
-        if (bad) { toast("Every source must end in the URL a reader can check it at."); return; }
-        const marks = (why.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
-        if (marks.some((n) => n < 1 || n > src.length)) { toast("A footnote marker points past the end of the sources."); return; }
-        const it = { q: q, a: v("a") === "true", why: why, cat: v("cat") };
-        if (src.length) it.src = src;
-        const orig = shipped(k);
-        // typing the shipped statement back clears the edit rather than storing a copy of it
-        const same = orig && orig.q === it.q && !!orig.a === it.a && (orig.why || "") === it.why && (orig.cat || "") === it.cat &&
-          JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
-        if (same) delete ov()[k]; else ov()[k] = it;
-        _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Statement saved");
+        const err = tfFormSave(k, f);
+        if (err) { toast(err); return; }
+        _tfEditing = null; adminRenderQuotes(); toast("Statement saved");
       }));
     }
     function adminRenderQuotes() {

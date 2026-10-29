@@ -76,7 +76,7 @@ for (const c0 of cards) {
   if (!deck) { rejected.cards.push({ ...c0, error: "no `deck` — add-card.js would file it into China" }); continue; }
   const p = path.join(tmp, "c-" + String(c.id).replace(/[^\w-]/g, "_") + ".json");
   fs.writeFileSync(p, JSON.stringify(c));
-  const r = run("add-card.js", [p, deck, "--no-image", "--no-wiki"]);   // the batch's Wikipedia links are resolved together below
+  const r = run("add-card.js", [p, deck, "--no-image", "--no-wiki", ...(loc && loc.ask === true ? ["--locator-ask"] : [])]);   // the batch's Wikipedia links are resolved together below; a locator that asks is the card's question (app.js cardLocatorFront)
   if (!r.ok) { rejected.cards.push({ ...c0, error: errOf(r.out) }); continue; }
   cAdded.push(c.id);
   if (loc && loc.title) locBatch.cards[c.id] = loc;

@@ -3,6 +3,9 @@
    Keys: `<card> <victors|losers> <place> <in|out>`. A fixed one must be removed (test-war-sides.js fails on a listed key that now holds). */
 "use strict";
 module.exports = {
+ "gr-561 victors Olympia in": {
+  "cause": "table-neutral"
+ },
  "gr-235 losers Methone in": {
   "cause": "coast-clip"
  },
@@ -204,5 +207,6 @@ module.exports.CAUSES = {
  "cliopatria-includes": "Cliopatria’s own row for the series already contains the place that year (the pin’s ‘outside’ was composed against the card’s narrower ring)",
  "coast-snap": "the place lies within the 15 km coast-snap tolerance of the series’ edge: Cliopatria’s raw row excludes it, the border snapped to the OSM coast takes it in",
  "coast-clip": "a coastal site: the extent is clipped to the present OSM land and the place lies on the sea side of that coast ring (the face is within 1 km of it)",
+ "table-neutral": "the Peloponnesian War's sides are drawn from Folio's dated table of members (war-poleis.json, 2026-10-25): the place's polis is neutral that year in the sources (Elis broke with Sparta in 420 and is absent from Sparta's levy of 413, Thuc. 5.31, 8.3), so neither side holds it",
  "member-not-drawn": "the member is not alive that year: Cliopatria draws no Rashidun Caliphate in 632 (nothing in Arabia), so the Muslim side has no ground"
 };

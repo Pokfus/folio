@@ -1,0 +1,7302 @@
+{
+ "_about": "The Peloponnesian War, year by year (2026-10-25, on request). AUTHORED: which polis, island or region stood with Athens and which with Sparta in each campaign year (a change in autumn or winter counts from the next year), each span with the passage that says so: Thucydides (Crawley), Xenophon’s Hellenica (Brownson), Diodorus, and the Athenian Tribute Lists (IG I³ 259–290). `conf` (medium | low) marks a judgement; no `conf` is the text’s plain statement. READ by build-war-extents.js, which draws each entry from its Pleiades point (a polis: the land within radiusKm, default 12; on a shared island, within that island) or its whole OSM coast ring (an island), and Lacedaemon from OpenHistoricalMap. `enclave`: a fort or town that keeps its own ground inside the other side’s land. Uncovered years are neutral or unknown and draw nothing.",
+ "sides": {
+  "ext_athens_and_its_empire": "athens",
+  "ext_sparta_and_its_allies": "sparta"
+ },
+ "years": [
+  -431,
+  -404
+ ],
+ "radiusKm": 12,
+ "notes": {
+  "athens": "Athens and its empire, year by year: the land of every polis that stood with Athens in that campaign year (within 12 km or so of its town, Pleiades’ point) and every allied island whole, from Folio’s table of members with the passages that place each one (Thucydides, Xenophon, the Athenian Tribute Lists). It shows whose towns these were, not a frontier.",
+  "sparta": "Sparta and its allies, year by year: Lacedaemon (OpenHistoricalMap’s polygon, CC0) and the land of every polis that stood with Sparta in that campaign year (round its Pleiades point) or every allied island whole, from Folio’s table of members with the passages that place each one. It shows whose towns these were, not a frontier."
+ },
+ "sources": [
+  "Thucydides, History of the Peloponnesian War, trans. Richard Crawley (London: J. M. Dent; New York: E. P. Dutton, 1914), Perseus Digital Library text 1999.01.0200, TEI edition urn:cts:greekLit:tlg0003.tlg001.perseus-eng6, https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0003/tlg001/tlg0003.tlg001.perseus-eng6.xml.",
+  "Xenophon, Hellenica, trans. Carleton L. Brownson, Xenophon in Seven Volumes, vols. 1–2 (Cambridge, MA: Harvard University Press; London: William Heinemann, 1918–21), Perseus Digital Library text 1999.01.0206, TEI edition urn:cts:greekLit:tlg0032.tlg001.perseus-eng2, https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0032/tlg001/tlg0032.tlg001.perseus-eng2.xml.",
+  "Diodorus Siculus, Library of History, trans. C. H. Oldfather, Loeb Classical Library, books 13–14, LacusCurtius edition by Bill Thayer, https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/13D*.html (also 13C*, 14C*).",
+  "Inscriptiones Graecae I³ 279–290 (Athenian tribute quota lists, 433/2–415/4 BCE), ed. and German trans. Klaus Hallof, Inscriptiones Graecae digital edition (Berlin-Brandenburgische Akademie der Wissenschaften), https://telota.bbaw.de/ig/digitale-edition/inschrift/IG%20I%C2%B3%20279.",
+  "\"Decrees about reassessment of tribute of the Delian League, 425/4 BC\" (IG I³ 71), trans. Stephen Lambert and P. J. Rhodes, Attic Inscriptions Online, AIO 959, https://www.atticinscriptions.com/inscription/IGI3/71.",
+  "\"Athenian tribute list, 418/7 BC (?)\" (IG I³ 287), trans. Stephen Lambert and Robin Osborne, Attic Inscriptions Online, AIO 1172, https://www.atticinscriptions.com/inscription/IGI3/287.",
+  "Pleiades: A Gazetteer of Past Places, ed. Tom Elliott et al., place records fetched as JSON (e.g. https://pleiades.stoa.org/places/570106/json) and the full export https://atlantides.org/downloads/pleiades/json/pleiades-places-latest.json.gz."
+ ],
+ "research": "CONVENTIONS. (1) A span's year shows the alignment at the end of that year's campaigning season. A change in summer counts from that year; a change in autumn or winter (Thucydides' winter X/X-1) counts from the next year. Hence Amphipolis, Torone, Argilus and the Acte towns are Spartan from -423 (they fell in early winter 424/3), Melos Athenian from -415 (surrendered winter 416/5), Rhodes, Cnidus, Oropus, Phocaea and Cyme from -411, Byzantium Athenian again from -408 (winter 409/8), and every defection after Aegospotami (autumn 405) from -404. The brief gave Amphipolis 424 and Melos 416; each span carries a 'when' field so the year can be moved if you prefer the event year. (2) A revolt put down in the same season is not shown (Mytilene, Methymna and Clazomenae in 412, Cyzicus and Lampsacus in 411, Mende in 423, Argos' oligarchic interlude of winter 418/7); each is in the entry's 'why' or 'note'. (3) Uncovered years mean neutral OR unknown; 'conf' (absent = high, else medium/low) marks spans resting on inference. (4) Tributaries with no recorded change are Athenian to -405 (conf medium), relying on Xen. Hell. 2.2.6 that the Greek world fell away 'immediately after the battle, with the exception of Samos', and Spartan in -404. Mainland Asian tributaries with no specific evidence (Teos, Myrina, Gryneum, Pitane, Elaea, Pygela, Myus, Caunus, Myndus, Termera, Caryanda, Ceramus, Phaselis, Lamponeia, Gargara, Neandreia, Sigeum, Cius) are covered only -431..-413, since the King's treaties of 412/1 claimed the cities of Asia (Thuc. 8.18) and their later status is unrecorded. Athens' tribute was replaced by a 5% harbour tax in 413 and no quota list survives after 415/4. (5) Tribute membership is checked against the readable entries of IG I³ 279 (433/2), 280 (432/1) and the wartime lists 281–290 in the IG digital edition; each tributary cites the list in which I actually read its name.\nDEPARTURES FROM THE BRIEF / JUDGMENT CALLS. Rhegium was an Athenian ally only 427-424; in 415 it declared neutrality (Thuc. 6.44) and is absent from the catalogue of 7.57. Sicily: Thuc. 3.86 says the Dorian Sicilian cities except Camarina were in the Lacedaemonian confederacy from the start of the war, so Syracuse, Gela, Selinus and (low confidence, Thucydides' generalisation) Acragas are Spartan-side -431..-425; the first Athenian intervention (Leontini, Naxos, Catana, Camarina, Rhegium) is -427..-425, ending at the Peace of Gela (summer 424); Locri fought on and made peace only in 422 (5.5). Elis is not covered after 418: the Eleans left the allied army before Mantinea but are absent from the Spartan levy of 413/2 (8.3), and Sparta was still at odds with Elis after the war. The Achaeans other than Pellene are not covered (2.9: 'afterwards followed by the rest', undated). Corinth is uncovered 421-419 (allied with Argos without joining Athens: 5.31, 5.48). The Ozolian Locrians are Spartan from 426 only; 3.95 calls them allies of Athens in 426, but their earlier status is not stated. Thera joined by the 25th tribute year (430/29: IG I³ 281), dated -429. Cythera: Athenian 424-413 is attested (Cytherians in Athens' ranks at Syracuse, 7.57; not returned in 421 as the treaty required); its return to Sparta is undated (Spartan by 393, Xen. Hell. 4.8.8), entered from -412 with low confidence. Plataea after 427 is drawn Spartan-side (land given to Thebes). Cos -407 Spartan is low confidence (Diodorus 13.69 has Alcibiades ravaging Cos; Lysander called there). Andros' revolt is undated before 407; Abdera's before 407 (dated -411 low). Hestiaea/Oreus is assumed lost after Aegospotami. Lemnos, Imbros and Scyros (Athenian cleruchies) and Naupactus (Messenians) are left uncovered in 404. Methymna stays Spartan from Callicratidas' capture (406) since Eteonicus fell back there after Arginusae.\nGEOGRAPHY. Pleiades ids were matched against the full Pleiades export and every id was re-fetched from https://pleiades.stoa.org/places/<id>/json: all 268 reprPoints agree with 'lonlat' to 0.01°. Cnidus uses the earlier city at Burgaz (599576): Pleiades and current scholarship put the move to Tekir in the 4th century. Clazomenae uses the island city (550651): Thuc. 8.14 says the Clazomenians lived on the island in 412. Lacedaemon's id is Sparta (570685), for reference only; draw it from OpenHistoricalMap. Lesbos and Euboea have several poleis, so each carries 'island' and a radius; Rhodes, Chios, Samos, Corcyra, Cephallenia, Zacynthus, Ceos, Carpathos and Thasos are drawn whole because the island changed side as one (Ceos' four towns and Carpathos' towns are not split). Ozolian Tritaea (541166 'Triteia') and Ipnus (540828 'Hypnia?') are uncertain identifications in Pleiades/Barrington. Sane is the Acte town (501599); Thucydides' Sane of 4.109/5.18. The tribute lists' 'Sanaier' could be it or the Pallene Sane. Two Dikaias and two Neapoleis are both tributaries and both included.\nNOT INCLUDED. Persia and the satrapies (allied to Sparta from 412), Macedonia (Perdiccas changed side repeatedly), the Aetolians, Chaonians, Sicels, Odomantians, Edonian Myrcinus, Crete, Melos before 416, and Panactum after it was razed (420). Athenian forts with no town (Delphinium on Chios 412-407, Sidussa and Pteleum in the Erythraeid, the Laconian fort opposite Cythera of 413, Lecythus) are left out.",
+ "entries": [
+  {
+   "name": "Athens (Attica)",
+   "pleiades": "579885",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Piraeus (Attica)",
+   "pleiades": "580062",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Eleusis (Attica)",
+   "pleiades": "579920",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Marathon (Attica)",
+   "pleiades": "580021",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Rhamnous (Attica)",
+   "pleiades": "580097",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Sounion (Attica)",
+   "pleiades": "580107",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thorikos (Attica)",
+   "pleiades": "580119",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Acharnae (Attica)",
+   "pleiades": "579842",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Aphidna (Attica)",
+   "pleiades": "579873",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Brauron (Attica)",
+   "pleiades": "579879",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens and Attica: the leading power of its alliance throughout; surrendered in spring 404",
+     "refs": [
+      "Thuc. 2.9",
+      "Xen. Hell. 2.2.20"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Decelea",
+   "pleiades": "579907",
+   "kind": "polis",
+   "radiusKm": 6,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -413,
+     "to": -404,
+     "why": "fortified and held by Agis and the Peloponnesians from spring 413 to the end of the war",
+     "refs": [
+      "Thuc. 7.19",
+      "Thuc. 7.27",
+      "Xen. Hell. 2.2.7"
+     ],
+     "when": "spring 413"
+    }
+   ]
+  },
+  {
+   "name": "Oenoe (Attic fort)",
+   "pleiades": "580040",
+   "kind": "polis",
+   "radiusKm": 4,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "Athenian border fort",
+     "refs": [
+      "Thuc. 2.18",
+      "Thuc. 8.98"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "surrendered to the Boeotians by a ruse of Aristarchus in summer 411",
+     "refs": [
+      "Thuc. 8.98"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Panactum",
+   "pleiades": "580053",
+   "kind": "polis",
+   "radiusKm": 4,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -423,
+     "why": "Athenian border fortress",
+     "refs": [
+      "Thuc. 5.3"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -422,
+     "to": -421,
+     "why": "taken by treachery by the Boeotians in 422; razed by them in 421/0 rather than returned",
+     "refs": [
+      "Thuc. 5.3",
+      "Thuc. 5.42"
+     ],
+     "when": "summer 422"
+    }
+   ]
+  },
+  {
+   "name": "Oropus",
+   "pleiades": "580044",
+   "kind": "polis",
+   "radiusKm": 8,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "held by an Athenian garrison",
+     "refs": [
+      "Thuc. 2.23",
+      "Thuc. 8.60"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "taken by the Boeotians by treachery at the end of winter 412/1",
+     "refs": [
+      "Thuc. 8.60"
+     ],
+     "when": "late winter 412/1"
+    }
+   ]
+  },
+  {
+   "name": "Salamis",
+   "pleiades": "580101",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athenian island throughout (ravaged by Lysander in 405 but not detached)",
+     "refs": [
+      "Thuc. 2.93-94",
+      "Xen. Hell. 2.2.9"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Aegina",
+   "pleiades": "579844",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Aeginetans expelled in 431 and the island settled by Athenian colonists",
+     "refs": [
+      "Thuc. 2.27",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Lysander restored the Aeginetans after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.9"
+     ],
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Plataea",
+   "pleiades": "541063",
+   "kind": "polis",
+   "radiusKm": 8,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -428,
+     "why": "ally of Athens; besieged from 429",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.71-78"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -427,
+     "to": -404,
+     "why": "surrendered in summer 427; the defenders were executed and the land given to Thebes",
+     "refs": [
+      "Thuc. 3.52",
+      "Thuc. 3.68"
+     ],
+     "when": "summer 427"
+    }
+   ]
+  },
+  {
+   "name": "Thebes",
+   "pleiades": "541138",
+   "kind": "polis",
+   "radiusKm": 16,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Orchomenus (Boeotia)",
+   "pleiades": "540987",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thespiae",
+   "pleiades": "541141",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Tanagra",
+   "pleiades": "580114",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Coronea",
+   "pleiades": "540717",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Haliartus",
+   "pleiades": "540801",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lebadea",
+   "pleiades": "540907",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Chaeronea",
+   "pleiades": "540701",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Acraephia",
+   "pleiades": "540617",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Copae",
+   "pleiades": "540878",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Siphae",
+   "pleiades": "541102",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Chorsiae",
+   "pleiades": "540711",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Hyettus",
+   "pleiades": "540823",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Anthedon",
+   "pleiades": "540639",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thisbe",
+   "pleiades": "541146",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Boeotian League, ally of Sparta throughout (refused the Peace of Nicias but stayed hostile to Athens)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.17",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Megara",
+   "pleiades": "570468",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Nisaea",
+   "pleiades": "570508",
+   "kind": "polis",
+   "radiusKm": 3,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "port of Megara",
+     "refs": [
+      "Thuc. 2.93"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -424,
+     "to": -410,
+     "why": "surrendered to the Athenians in summer 424 and garrisoned",
+     "refs": [
+      "Thuc. 4.69"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -409,
+     "to": -404,
+     "why": "retaken by the Megarians in 409",
+     "refs": [
+      "Diod. 13.65"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Minoa",
+   "pleiades": "570486",
+   "kind": "island",
+   "radiusKm": 2,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -428,
+     "why": "Megarian fortified islet",
+     "refs": [
+      "Thuc. 3.51"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -410,
+     "why": "taken and fortified by Nicias in summer 427",
+     "refs": [
+      "Thuc. 3.51",
+      "Thuc. 4.67"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -409,
+     "to": -404,
+     "why": "presumably lost with Nisaea in 409",
+     "refs": [
+      "Diod. 13.65"
+     ],
+     "conf": "low"
+    }
+   ]
+  },
+  {
+   "name": "Elatea",
+   "pleiades": "540755",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Hyampolis",
+   "pleiades": "540820",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Abae",
+   "pleiades": "540582",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Panopeus",
+   "pleiades": "541008",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Daulis",
+   "pleiades": "540723",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lilaea",
+   "pleiades": "540915",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Tithorea",
+   "pleiades": "541152",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Anticyra",
+   "pleiades": "540642",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Stiris",
+   "pleiades": "541113",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ambrysus",
+   "pleiades": "540626",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Phocis: ally of Sparta (cavalry in 431; ships in 413/2)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Opus",
+   "pleiades": "540986",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Opuntian (Eastern) Locris: ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.32",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Cynus",
+   "pleiades": "540896",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Opuntian (Eastern) Locris: ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.32",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Halae",
+   "pleiades": "540800",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Opuntian (Eastern) Locris: ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.32",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Alope",
+   "pleiades": "540621",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Opuntian (Eastern) Locris: ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.32",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thronium",
+   "pleiades": "541147",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Opuntian (Eastern) Locris: ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.32",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Scarphea",
+   "pleiades": "541103",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Opuntian (Eastern) Locris: ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.32",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Atalanta",
+   "pleiades": "540675",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -421,
+     "why": "desert island off Opus fortified by Athens in summer 431; to be returned under the Peace of Nicias",
+     "refs": [
+      "Thuc. 2.32",
+      "Thuc. 3.89",
+      "Thuc. 5.18"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Amphissa",
+   "pleiades": "540630",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Myonia",
+   "pleiades": "540952",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Ipnus",
+   "pleiades": "540828",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Tritaea",
+   "pleiades": "541166",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Chaleion",
+   "pleiades": "540704",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Tolophon",
+   "pleiades": "541154",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Oeanthea",
+   "pleiades": "540969",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Oeneon",
+   "pleiades": "540972",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Eupalium",
+   "pleiades": "540782",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "gave hostages to (or, Oeneon and Eupalium, were taken by) Eurylochus in summer 426 and joined his march on Naupactus; later status not recorded",
+     "refs": [
+      "Thuc. 3.101",
+      "Thuc. 3.102"
+     ],
+     "conf": "medium",
+     "when": "summer 426"
+    }
+   ],
+   "note": "Ozolian Locrians: allies of Athens in 426 until Eurylochus detached them that summer (status earlier not stated) (Thuc. 3.95): before summer 426 not covered."
+  },
+  {
+   "name": "Naupactus",
+   "pleiades": "540960",
+   "kind": "polis",
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "held by the Messenians settled there by Athens; Athenian naval base",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 3.102",
+      "Thuc. 7.57"
+     ]
+    }
+   ],
+   "note": "The Messenians held Naupactus until the Spartans expelled them after the war (Diod. 14.34); 404 left uncovered."
+  },
+  {
+   "name": "Molycrium",
+   "pleiades": "540948",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -427,
+     "why": "Corinthian colony subject to Athens",
+     "refs": [
+      "Thuc. 3.102"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "taken by Eurylochus in 426; later status not recorded",
+     "refs": [
+      "Thuc. 3.102"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Heraclea Trachinia",
+   "pleiades": "541157",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -426,
+     "to": -404,
+     "why": "Spartan colony founded in 426 (taken over by the Boeotians in 419, still anti-Athenian)",
+     "refs": [
+      "Thuc. 3.92",
+      "Thuc. 5.52"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lacedaemon",
+   "kind": "region",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Sparta: Laconia and Messenia (draw from the OpenHistoricalMap polygon)",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    }
+   ],
+   "note": "Pylos/Coryphasium, Cythera and Methana have their own entries for their Athenian years."
+  },
+  {
+   "name": "Pylos (Coryphasium)",
+   "pleiades": "570640",
+   "kind": "polis",
+   "radiusKm": 4,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -425,
+     "to": -410,
+     "why": "fortified by Demosthenes in 425 and held by the Athenians and Messenians (not returned under the Peace)",
+     "refs": [
+      "Thuc. 4.3-41",
+      "Thuc. 5.35",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -409,
+     "to": -404,
+     "why": "retaken by the Spartans in 409; the garrison left under truce",
+     "refs": [
+      "Xen. Hell. 1.2.18",
+      "Diod. 13.64"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Cythera",
+   "pleiades": "570186",
+   "kind": "island",
+   "enclave": true,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "Laconian island (perioeci)",
+     "refs": [
+      "Thuc. 4.53"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -424,
+     "to": -413,
+     "why": "taken by Nicias in summer 424; Cytherians served in Athens' ranks at Syracuse in 413",
+     "refs": [
+      "Thuc. 4.54",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "Spartan again before Conon took it in 393; date of return unrecorded",
+     "refs": [
+      "Xen. Hell. 4.8.8"
+     ],
+     "conf": "low"
+    }
+   ]
+  },
+  {
+   "name": "Methana",
+   "pleiades": "570482",
+   "kind": "polis",
+   "radiusKm": 5,
+   "enclave": true,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -425,
+     "to": -421,
+     "why": "peninsula fortified by Athens in 425; to be returned under the Peace of Nicias",
+     "refs": [
+      "Thuc. 4.45",
+      "Thuc. 5.18"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Sicyon",
+   "pleiades": "570668",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Phlius",
+   "pleiades": "570602",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Epidaurus",
+   "pleiades": "570228",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Troezen",
+   "pleiades": "570756",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Hermione",
+   "pleiades": "570292",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Pellene",
+   "pleiades": "570576",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout (the only Achaean city in the war at first)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Tegea",
+   "pleiades": "570707",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Corinth",
+   "pleiades": "570182",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -422,
+     "why": "member of the Peloponnesian League throughout",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -418,
+     "to": -404,
+     "why": "back with Sparta for the Mantinea campaign (allied with Argos 421–420 without joining Athens)",
+     "refs": [
+      "Thuc. 5.31",
+      "Thuc. 5.48",
+      "Thuc. 5.57",
+      "Thuc. 8.3"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Heraea",
+   "pleiades": "570287",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Arcadian ally of Sparta (all Peloponnesians but Argos and Achaea)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.67",
+      "Thuc. 8.3"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Cleitor",
+   "pleiades": "570359",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Arcadian ally of Sparta (all Peloponnesians but Argos and Achaea)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.67",
+      "Thuc. 8.3"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Stymphalus",
+   "pleiades": "570696",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Arcadian ally of Sparta (all Peloponnesians but Argos and Achaea)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.67",
+      "Thuc. 8.3"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Pheneus",
+   "pleiades": "570595",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Arcadian ally of Sparta (all Peloponnesians but Argos and Achaea)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.67",
+      "Thuc. 8.3"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Caphyae",
+   "pleiades": "570329",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Arcadian ally of Sparta (all Peloponnesians but Argos and Achaea)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.67",
+      "Thuc. 8.3"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Orchomenus (Arcadia)",
+   "pleiades": "570535",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -419,
+     "why": "Arcadian ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.61"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -418,
+     "to": -418,
+     "why": "taken by the Argive-Athenian allies in summer 418",
+     "refs": [
+      "Thuc. 5.61"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -417,
+     "to": -404,
+     "why": "hostages released under the Spartan–Argive treaty",
+     "refs": [
+      "Thuc. 5.77"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Mantinea",
+   "pleiades": "570459",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -422,
+     "why": "Arcadian ally of Sparta",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 5.29"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -418,
+     "why": "in the hundred-years alliance with Athens, Argos and Elis",
+     "refs": [
+      "Thuc. 5.47"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -417,
+     "to": -404,
+     "why": "came to terms with Sparta after Argos did (end of winter 418/7)",
+     "refs": [
+      "Thuc. 5.81"
+     ],
+     "when": "winter 418/7"
+    }
+   ]
+  },
+  {
+   "name": "Elis",
+   "pleiades": "570220",
+   "kind": "polis",
+   "radiusKm": 22,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -422,
+     "why": "ally of Sparta (ships in 431)",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -418,
+     "why": "in the hundred-years alliance with Athens, Argos and Mantinea",
+     "refs": [
+      "Thuc. 5.31",
+      "Thuc. 5.47"
+     ]
+    }
+   ],
+   "note": "Not covered after 418: the Eleans left the allied army before Mantinea but are absent from the Spartan levy of 413/2 (Thuc. 8.3)."
+  },
+  {
+   "name": "Olympia (Elean sanctuary)",
+   "pleiades": "570531",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -422,
+     "why": "the sanctuary of Olympia, Elean ground, stood with Elis: ally of Sparta (ships in 431)",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -418,
+     "why": "the sanctuary of Olympia, Elean ground, stood with Elis: in the hundred-years alliance with Athens, Argos and Mantinea",
+     "refs": [
+      "Thuc. 5.31",
+      "Thuc. 5.47"
+     ]
+    }
+   ],
+   "note": "Olympia lay in Elean territory 35 km from the city of Elis; drawn so that Elis’s side covers its sanctuary."
+  },
+  {
+   "name": "Lepreum",
+   "pleiades": "570423",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "under Spartan protection against Elis; Helots and neodamodes settled there in 421",
+     "refs": [
+      "Thuc. 5.31",
+      "Thuc. 5.34"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Argos",
+   "pleiades": "570106",
+   "kind": "polis",
+   "radiusKm": 18,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -405,
+     "why": "allied with Athens from 420 (brief oligarchic alliance with Sparta in winter 418/7, reversed in summer 417)",
+     "refs": [
+      "Thuc. 5.47",
+      "Thuc. 5.79",
+      "Thuc. 5.82",
+      "Thuc. 7.57",
+      "Xen. Hell. 2.2.7"
+     ]
+    }
+   ],
+   "note": "Neutral 431-421 (Thuc. 2.9)."
+  },
+  {
+   "name": "Cleonae",
+   "pleiades": "570361",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -418,
+     "why": "Argive allies at Mantinea",
+     "refs": [
+      "Thuc. 5.67"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Orneae",
+   "pleiades": "570537",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -418,
+     "why": "Argive allies at Mantinea",
+     "refs": [
+      "Thuc. 5.67"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Corcyra",
+   "pleiades": "530835",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "defensive alliance with Athens from 433; ships at Sybota and Leucas, troops at Syracuse (strife of 410 kept the democrats in power)",
+     "refs": [
+      "Thuc. 1.44",
+      "Thuc. 2.9",
+      "Thuc. 7.57",
+      "Diod. 13.48"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Zacynthus",
+   "pleiades": "531155",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "independent ally of Athens",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Cephallenia",
+   "pleiades": "530826",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "brought over without force in 431; independent ally",
+     "refs": [
+      "Thuc. 2.30",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Stratus",
+   "pleiades": "531104",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Palaerus",
+   "pleiades": "531034",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Thyrreum",
+   "pleiades": "531123",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Alyzia",
+   "pleiades": "530793",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Limnaea",
+   "pleiades": "530980",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Coronta",
+   "pleiades": "530961",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Metropolis (Acarnania)",
+   "pleiades": "531000",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "most of the Acarnanians were allies of Athens (still so in 424 and 413)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 2.102",
+      "Thuc. 4.77",
+      "Thuc. 7.57"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Sollium",
+   "pleiades": "536133",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Corinthian town taken by the Athenians in 431 and given to the Acarnanians of Palaerus",
+     "refs": [
+      "Thuc. 2.30",
+      "Thuc. 3.95"
+     ],
+     "conf": "medium",
+     "when": "summer 431"
+    }
+   ]
+  },
+  {
+   "name": "Astacus (Acarnania)",
+   "pleiades": "530815",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "tyrant Evarchus expelled and the town won for the Athenian alliance",
+     "refs": [
+      "Thuc. 2.30"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -430,
+     "to": -430,
+     "why": "Evarchus restored by a Corinthian fleet in winter 431/0; later status unclear",
+     "refs": [
+      "Thuc. 2.33"
+     ],
+     "conf": "low",
+     "when": "winter 431/0"
+    }
+   ]
+  },
+  {
+   "name": "Oeniadae",
+   "pleiades": "531016",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "always hostile to Athens, unlike the rest of Acarnania; harboured the Ambraciots in 426",
+     "refs": [
+      "Thuc. 2.102",
+      "Thuc. 3.114"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -424,
+     "to": -405,
+     "why": "forced into the Athenian alliance by the Acarnanians in 424",
+     "refs": [
+      "Thuc. 4.77"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Amphilochian Argos",
+   "pleiades": "530809",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Athenian ally since Phormio's time; fought the Ambraciots in 426, then a defensive treaty with Ambracia",
+     "refs": [
+      "Thuc. 2.68",
+      "Thuc. 3.105-114"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Anactorium",
+   "pleiades": "530798",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -426,
+     "why": "Corinthian town, ally of Sparta",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -425,
+     "to": -405,
+     "why": "taken by the Athenians and Acarnanians in 425 and settled by Acarnanians",
+     "refs": [
+      "Thuc. 4.49"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Ambracia",
+   "pleiades": "530794",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Corinthian colony, ally of Sparta throughout (ships still in 411)",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 7.58",
+      "Thuc. 8.106"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Leucas",
+   "pleiades": "530974",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -404,
+     "why": "Corinthian colony, ally of Sparta throughout",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 3.94",
+      "Thuc. 8.106"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Larisa",
+   "pleiades": "540905",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "Thessalian cavalry came to Athens in 431 under the old alliance; no later active part",
+     "refs": [
+      "Thuc. 2.22"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Pharsalus",
+   "pleiades": "541042",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "Thessalian cavalry came to Athens in 431 under the old alliance; no later active part",
+     "refs": [
+      "Thuc. 2.22"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Crannon",
+   "pleiades": "540886",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "Thessalian cavalry came to Athens in 431 under the old alliance; no later active part",
+     "refs": [
+      "Thuc. 2.22"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Pyrasus",
+   "pleiades": "541081",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "Thessalian cavalry came to Athens in 431 under the old alliance; no later active part",
+     "refs": [
+      "Thuc. 2.22"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Gyrton",
+   "pleiades": "540798",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "Thessalian cavalry came to Athens in 431 under the old alliance; no later active part",
+     "refs": [
+      "Thuc. 2.22"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Pherae",
+   "pleiades": "541044",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -431,
+     "why": "Thessalian cavalry came to Athens in 431 under the old alliance; no later active part",
+     "refs": [
+      "Thuc. 2.22"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Chalcis",
+   "pleiades": "540703",
+   "kind": "polis",
+   "radiusKm": 14,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Eretria",
+   "pleiades": "579925",
+   "kind": "polis",
+   "radiusKm": 16,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Carystus",
+   "pleiades": "570336",
+   "kind": "polis",
+   "radiusKm": 14,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Styra",
+   "pleiades": "541117",
+   "kind": "polis",
+   "radiusKm": 8,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Dium (Euboea)",
+   "pleiades": "540734",
+   "kind": "polis",
+   "radiusKm": 8,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Athenae Diades",
+   "pleiades": "540681",
+   "kind": "polis",
+   "radiusKm": 6,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Grynchae",
+   "pleiades": "540797",
+   "kind": "polis",
+   "radiusKm": 6,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary subject of Athens (Island district); served at Syracuse",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the whole of Euboea except Oreus revolted after the battle off Eretria (summer 411)",
+     "refs": [
+      "Thuc. 8.95"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Hestiaea (Oreus)",
+   "pleiades": "540817",
+   "kind": "polis",
+   "radiusKm": 14,
+   "island": "Euboea",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Athenian settlement since 446; held by the Athenians when the rest of Euboea revolted in 411",
+     "refs": [
+      "Thuc. 1.114",
+      "Thuc. 7.57",
+      "Thuc. 8.95"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "presumably lost after Aegospotami (no direct record)",
+     "refs": [
+      "Xen. Hell. 2.2.2",
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "low"
+    }
+   ]
+  },
+  {
+   "name": "Tenos",
+   "pleiades": "590074",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Ceos",
+   "pleiades": "570348",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Cythnus",
+   "pleiades": "570403",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Seriphus",
+   "pleiades": "590044",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Siphnos",
+   "pleiades": "590049",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Naxos",
+   "pleiades": "599822",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Paros",
+   "pleiades": "599868",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Myconos",
+   "pleiades": "599808",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Syros",
+   "pleiades": "590067",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Rhenea",
+   "pleiades": "599919",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Ios",
+   "pleiades": "599673",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Sicinos",
+   "pleiades": "590047",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 288"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Pholegandros",
+   "pleiades": "589996",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 288"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Cimolos",
+   "pleiades": "589868",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 289"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Anaphe",
+   "pleiades": "599492",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 283"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Amorgos",
+   "pleiades": "599484",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Scyros",
+   "pleiades": "541093",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Athenian cleruchy (settled after Cimon's conquest)",
+     "refs": [
+      "Thuc. 1.98"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Sciathos",
+   "pleiades": "541092",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Peparethos",
+   "pleiades": "541024",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Icos",
+   "pleiades": "540833",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Island district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Delos",
+   "pleiades": "599588",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Athenian-controlled sanctuary island (purified 426; Delians expelled 422, restored 421)",
+     "refs": [
+      "Thuc. 3.104",
+      "Thuc. 5.1",
+      "Thuc. 5.32"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Andros",
+   "pleiades": "589693",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Island district)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -408,
+     "why": "tributary still in 415; no revolt recorded before 407",
+     "refs": [
+      "IG I³ 289"
+     ],
+     "conf": "low"
+    },
+    {
+     "side": "sparta",
+     "from": -407,
+     "to": -404,
+     "why": "had revolted and held a Peloponnesian garrison when Alcibiades attacked it in 407",
+     "refs": [
+      "Xen. Hell. 1.4.21-23",
+      "Diod. 13.69"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Melos",
+   "pleiades": "570475",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -415,
+     "to": -405,
+     "why": "besieged from summer 416 and surrendered in winter 416/5; men killed, 500 Athenian colonists sent",
+     "refs": [
+      "Thuc. 5.84",
+      "Thuc. 5.116"
+     ],
+     "when": "winter 416/5"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Lysander restored the surviving Melians",
+     "refs": [
+      "Xen. Hell. 2.2.9"
+     ],
+     "when": "autumn 405"
+    }
+   ],
+   "note": "Neutral, then hostile, 431-416 (Thuc. 2.9, 3.91, 5.84); assessed in 425 (IG I³ 71) but never paid."
+  },
+  {
+   "name": "Thera",
+   "pleiades": "599973",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -429,
+     "to": -405,
+     "why": "outside the alliance in 431, paying tribute by the 25th list (430/29) and still in 418/7",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281",
+      "IG I³ 282",
+      "IG I³ 287"
+     ],
+     "when": "by 430/29"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Lemnos",
+   "pleiades": "550693",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Athenian cleruchies at Hephaestia and Myrina; served at Syracuse as Athenian colonists",
+     "refs": [
+      "Thuc. 7.57",
+      "IG I³ 285"
+     ]
+    }
+   ],
+   "note": "Not covered in 404: Athens recovered the cleruchies only in the 390s."
+  },
+  {
+   "name": "Imbros",
+   "pleiades": "501439",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "Athenian cleruchy; served at Syracuse as Athenian colonists",
+     "refs": [
+      "Thuc. 7.57",
+      "IG I³ 285"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Thasos",
+   "pleiades": "501635",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Thracian district), 30 talents",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -408,
+     "why": "oligarchy set up by Diitrephes; the Thasians fortified their town and brought in a Spartan governor",
+     "refs": [
+      "Thuc. 8.64",
+      "Xen. Hell. 1.1.32"
+     ],
+     "when": "summer 411"
+    },
+    {
+     "side": "athens",
+     "from": -407,
+     "to": -405,
+     "why": "reduced by Thrasybulus in 407",
+     "refs": [
+      "Xen. Hell. 1.4.9",
+      "Diod. 13.72"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "brought over by Eteonicus after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Samothrace",
+   "pleiades": "501597",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Tenedos",
+   "pleiades": "550912",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "Thuc. 3.2",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Mytilene",
+   "pleiades": "550763",
+   "kind": "polis",
+   "radiusKm": 20,
+   "island": "Lesbos",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -429,
+     "why": "autonomous ship-providing ally",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 3.2"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -428,
+     "to": -428,
+     "why": "revolt of Mytilene and all Lesbos but Methymna (summer 428)",
+     "refs": [
+      "Thuc. 3.2"
+     ],
+     "when": "summer 428"
+    },
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -405,
+     "why": "surrendered to Paches in summer 427; walls razed, land given to Athenian cleruchs (the revolt of 412 was put down within days; besieged by Callicratidas 406)",
+     "refs": [
+      "Thuc. 3.28",
+      "Thuc. 3.50",
+      "Thuc. 8.22-23",
+      "Xen. Hell. 1.6.38"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Lysander settled Mytilene after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ],
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Methymna",
+   "pleiades": "550738",
+   "kind": "polis",
+   "radiusKm": 14,
+   "island": "Lesbos",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -407,
+     "why": "loyal in 428; ship-providing subject at Syracuse; its revolt of 412 failed",
+     "refs": [
+      "Thuc. 3.2",
+      "Thuc. 3.18",
+      "Thuc. 7.57",
+      "Thuc. 8.22-23",
+      "Thuc. 8.100"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -406,
+     "to": -404,
+     "why": "stormed by Callicratidas in 406 and kept as a Spartan base after Arginusae",
+     "refs": [
+      "Xen. Hell. 1.6.12-15",
+      "Xen. Hell. 1.6.38"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Antissa",
+   "pleiades": "550435",
+   "kind": "polis",
+   "radiusKm": 10,
+   "island": "Lesbos",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -429,
+     "why": "Lesbian ally of Athens",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -428,
+     "to": -428,
+     "why": "joined the Mytilenian revolt",
+     "refs": [
+      "Thuc. 3.2",
+      "Thuc. 3.18"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -405,
+     "why": "reduced by Paches in 427; land allotted to cleruchs",
+     "refs": [
+      "Thuc. 3.28",
+      "Thuc. 3.50"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Lysander settled the cities of Lesbos",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Pyrrha",
+   "pleiades": "550851",
+   "kind": "polis",
+   "radiusKm": 10,
+   "island": "Lesbos",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -429,
+     "why": "Lesbian ally of Athens",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -428,
+     "to": -428,
+     "why": "joined the Mytilenian revolt",
+     "refs": [
+      "Thuc. 3.2",
+      "Thuc. 3.18"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -405,
+     "why": "reduced by Paches in 427; land allotted to cleruchs",
+     "refs": [
+      "Thuc. 3.35",
+      "Thuc. 3.50"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Lysander settled the cities of Lesbos",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Eresus",
+   "pleiades": "550533",
+   "kind": "polis",
+   "radiusKm": 10,
+   "island": "Lesbos",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -429,
+     "why": "Lesbian ally of Athens",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -428,
+     "to": -428,
+     "why": "joined the Mytilenian revolt",
+     "refs": [
+      "Thuc. 3.2",
+      "Thuc. 3.18"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -412,
+     "why": "reduced by Paches in 427",
+     "refs": [
+      "Thuc. 3.35",
+      "Thuc. 3.50"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "revolted again in summer 411 (Methymnian exiles); the Athenian siege was abandoned",
+     "refs": [
+      "Thuc. 8.100",
+      "Thuc. 8.103",
+      "Xen. Hell. 2.2.5"
+     ],
+     "conf": "medium",
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Chios",
+   "pleiades": "550497",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "autonomous ship-providing ally, paying no tribute",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "revolted in summer 412 at the arrival of Chalcideus and Alcibiades",
+     "refs": [
+      "Thuc. 8.14",
+      "Xen. Hell. 2.1.6"
+     ],
+     "when": "summer 412"
+    }
+   ]
+  },
+  {
+   "name": "Samos",
+   "pleiades": "599926",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -404,
+     "why": "Athens' main base in the Ionian War and its last ally; surrendered to Lysander in summer 404",
+     "refs": [
+      "Thuc. 7.57",
+      "Thuc. 8.16",
+      "Xen. Hell. 2.2.6",
+      "Xen. Hell. 2.3.6-7"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Icaros",
+   "pleiades": "599667",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Cos",
+   "pleiades": "599581",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian-Carian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -408,
+     "why": "sacked by Astyochus in 412/1; fortified and garrisoned by Alcibiades in 411",
+     "refs": [
+      "Thuc. 8.41",
+      "Thuc. 8.108"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -407,
+     "to": -404,
+     "why": "ravaged by Alcibiades in 407 and visited by Lysander, so apparently lost to Athens by then",
+     "refs": [
+      "Diod. 13.69",
+      "Xen. Hell. 1.5.1"
+     ],
+     "conf": "low"
+    }
+   ]
+  },
+  {
+   "name": "Calymna",
+   "pleiades": "599684",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Astypalaea",
+   "pleiades": "599536",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Nisyros",
+   "pleiades": "599830",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Syme",
+   "pleiades": "599951",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Chalce",
+   "pleiades": "589742",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 8.44",
+      "Thuc. 8.55"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Telos",
+   "pleiades": "599961",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 284"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Carpathos",
+   "pleiades": "589841",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Casos",
+   "pleiades": "589846",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Ionian-Carian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Rhodes",
+   "pleiades": "590031",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "Lindus, Ialysus and Camirus tributary (Ionian-Carian district); Rhodians served at Syracuse",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 290",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the three cities revolted to the Peloponnesian fleet in winter 412/1",
+     "refs": [
+      "Thuc. 8.44",
+      "Xen. Hell. 1.5.1"
+     ],
+     "when": "winter 412/1"
+    }
+   ],
+   "note": "Drawn whole: Lindus, Ialysus and Camirus changed side together."
+  },
+  {
+   "name": "Erythrae",
+   "pleiades": "550535",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary with its dependent towns (Ionian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "revolted together with Chios in summer 412",
+     "refs": [
+      "Thuc. 8.14"
+     ],
+     "when": "summer 412"
+    }
+   ]
+  },
+  {
+   "name": "Clazomenae",
+   "pleiades": "550651",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "tributary; revolted with Chios in 412 but was recovered that summer and resisted Astyochus",
+     "refs": [
+      "IG I³ 280",
+      "Thuc. 8.14",
+      "Thuc. 8.23",
+      "Thuc. 8.31",
+      "IG I³ 289",
+      "Xen. Hell. 1.1.10"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Teos",
+   "pleiades": "550913",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280",
+      "IG I³ 281"
+     ]
+    }
+   ],
+   "note": "412: admitted the Chian army, then a convention with Athens admitting both sides (Thuc. 8.16, 8.20); later status unrecorded, so not covered."
+  },
+  {
+   "name": "Lebedus",
+   "pleiades": "599754",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district)",
+     "refs": [
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "brought to revolt by the Chians in summer 412",
+     "refs": [
+      "Thuc. 8.19"
+     ],
+     "conf": "medium",
+     "when": "summer 412"
+    }
+   ]
+  },
+  {
+   "name": "Erae",
+   "pleiades": "550419",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "brought to revolt by the Chians in summer 412; resisted Diomedon",
+     "refs": [
+      "Thuc. 8.19",
+      "Thuc. 8.20"
+     ],
+     "conf": "medium",
+     "when": "summer 412"
+    }
+   ]
+  },
+  {
+   "name": "Miletus",
+   "pleiades": "599799",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary; Milesian hoplites served with Athens at Cythera (424) and Syracuse",
+     "refs": [
+      "IG I³ 280",
+      "IG I³ 290",
+      "Thuc. 4.53",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "revolted in summer 412; the Peloponnesian fleet's base",
+     "refs": [
+      "Thuc. 8.17",
+      "Xen. Hell. 1.5.1"
+     ],
+     "when": "summer 412"
+    }
+   ]
+  },
+  {
+   "name": "Ephesus",
+   "pleiades": "599612",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (paid still in 416/5 and 415/4)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 289",
+      "IG I³ 290"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "in Peloponnesian and Persian hands by 411 (revolt not narrated); defended against Thrasyllus in 409; Lysander's base",
+     "refs": [
+      "Thuc. 8.19",
+      "Thuc. 8.109",
+      "Xen. Hell. 1.2.6-10",
+      "Xen. Hell. 1.5.1"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Notium",
+   "pleiades": "599578",
+   "kind": "polis",
+   "radiusKm": 8,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "tributary; Athenian settlement after 427 and fleet station in 409–407",
+     "refs": [
+      "Thuc. 3.34",
+      "IG I³ 279",
+      "Xen. Hell. 1.2.4",
+      "Xen. Hell. 1.5.12-14"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Colophon",
+   "pleiades": "599577",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -409,
+     "to": -405,
+     "why": "the Colophonians gave their allegiance to Thrasyllus in 409",
+     "refs": [
+      "Xen. Hell. 1.2.4"
+     ],
+     "conf": "medium"
+    }
+   ],
+   "note": "Upper Colophon was in Persian hands from 430 (Thuc. 3.34); the Colophonian tribute 427-415 came from the Athenian-protected community at Notium."
+  },
+  {
+   "name": "Phocaea",
+   "pleiades": "550823",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Ionian district)",
+     "refs": [
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "received Astyochus in winter 412/1; besieged by Thrasybulus in 407; a Peloponnesian refuge after Arginusae",
+     "refs": [
+      "Thuc. 8.31",
+      "Xen. Hell. 1.5.11",
+      "Xen. Hell. 1.6.33"
+     ],
+     "conf": "medium",
+     "when": "winter 412/1"
+    }
+   ]
+  },
+  {
+   "name": "Cyme",
+   "pleiades": "550506",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Ionian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "received Astyochus in winter 412/1; base of the Methymnian exiles in 411",
+     "refs": [
+      "Thuc. 8.31",
+      "Thuc. 8.100"
+     ],
+     "conf": "medium",
+     "when": "winter 412/1"
+    }
+   ]
+  },
+  {
+   "name": "Myrina (Aeolis)",
+   "pleiades": "550756",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Gryneum",
+   "pleiades": "550555",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Pitane",
+   "pleiades": "550833",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Elaea",
+   "pleiades": "550523",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Pygela",
+   "pleiades": "599887",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Myus",
+   "pleiades": "599813",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Ionian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Iasus",
+   "pleiades": "599664",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian); held by the rebel Amorges in 412",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 290",
+      "Thuc. 8.28"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -412,
+     "to": -404,
+     "why": "stormed by the Peloponnesians in summer 412 and handed to Tissaphernes",
+     "refs": [
+      "Thuc. 8.28"
+     ],
+     "when": "summer 412"
+    }
+   ]
+  },
+  {
+   "name": "Halicarnassus",
+   "pleiades": "599636",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -405,
+     "why": "tributary; refuge of the Athenian squadron in 412/1; paid Alcibiades in 411",
+     "refs": [
+      "IG I³ 279",
+      "Thuc. 8.42",
+      "Thuc. 8.108"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Cnidus",
+   "pleiades": "599576",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Carian district)",
+     "refs": [
+      "IG I³ 280",
+      "IG I³ 283"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "had revolted at Tissaphernes' instigation when Hippocrates arrived in winter 412/1; a Peloponnesian base",
+     "refs": [
+      "Thuc. 8.35",
+      "Thuc. 8.42"
+     ],
+     "when": "winter 412/1"
+    }
+   ]
+  },
+  {
+   "name": "Cedreae",
+   "pleiades": "599702",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -406,
+     "why": "tributary (Carian); still an ally of Athens in 405",
+     "refs": [
+      "IG I³ 280",
+      "Xen. Hell. 2.1.15"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -405,
+     "to": -404,
+     "why": "stormed by Lysander in summer 405 and its people enslaved",
+     "refs": [
+      "Xen. Hell. 2.1.15"
+     ],
+     "when": "summer 405"
+    }
+   ]
+  },
+  {
+   "name": "Caunus",
+   "pleiades": "638796",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 285"
+     ]
+    }
+   ],
+   "note": "412/1 the Peloponnesian fleet assembled at Caunus (Thuc. 8.39-41), so probably lost; not covered after 413."
+  },
+  {
+   "name": "Myndus",
+   "pleiades": "599811",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Termera",
+   "pleiades": "599965",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Caryanda",
+   "pleiades": "599693",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ceramus",
+   "pleiades": "599707",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Phaselis",
+   "pleiades": "639051",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Carian district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Antandrus",
+   "pleiades": "550433",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -412,
+     "why": "mainland town of Mytilene taken over by Athens in 427",
+     "refs": [
+      "Thuc. 3.50",
+      "Thuc. 4.52",
+      "Thuc. 4.75"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "admitted Peloponnesian hoplites from Abydos and expelled the Persian garrison in 411; built ships for Pharnabazus",
+     "refs": [
+      "Thuc. 8.108",
+      "Xen. Hell. 1.1.26"
+     ],
+     "when": "summer 411"
+    }
+   ]
+  },
+  {
+   "name": "Lamponeia",
+   "pleiades": "550678",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Hellespontine district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Gargara",
+   "pleiades": "550544",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Hellespontine district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 281"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Neandreia",
+   "pleiades": "550772",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Hellespontine district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Sigeum",
+   "pleiades": "550877",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Hellespontine district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Abydos",
+   "pleiades": "501325",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Hellespontine district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 287"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "revolted to Dercyllidas and Pharnabazus in spring 411; never recovered",
+     "refs": [
+      "Thuc. 8.62",
+      "Xen. Hell. 1.2.16",
+      "Xen. Hell. 2.1.18"
+     ],
+     "when": "spring 411"
+    }
+   ]
+  },
+  {
+   "name": "Lampsacus",
+   "pleiades": "501570",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -406,
+     "why": "tributary; its revolt of 411 was crushed within days; Athenian winter base 409/8",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 287",
+      "Thuc. 8.62",
+      "Xen. Hell. 1.2.15"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -405,
+     "to": -404,
+     "why": "stormed by Lysander in summer 405",
+     "refs": [
+      "Xen. Hell. 2.1.18-19"
+     ],
+     "when": "summer 405"
+    }
+   ]
+  },
+  {
+   "name": "Dardanus",
+   "pleiades": "501393",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Hellespontine district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "the Peloponnesian line stretched from Abydos to Dardanus at Cynossema (411)",
+     "refs": [
+      "Thuc. 8.104"
+     ],
+     "conf": "low"
+    }
+   ]
+  },
+  {
+   "name": "Sestos",
+   "pleiades": "501609",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 8.62",
+      "Xen. Hell. 1.1.7"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Elaeus",
+   "pleiades": "501411",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 8.103",
+      "Thuc. 8.107"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Madytus",
+   "pleiades": "501503",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Xen. Hell. 1.1.3"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Alopeconnesus",
+   "pleiades": "501345",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Limnae",
+   "pleiades": "501497",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Callipolis",
+   "pleiades": "501450",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Agora (Chersonese)",
+   "pleiades": "501332",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 282"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Cardia",
+   "pleiades": "501458",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -411,
+     "to": -405,
+     "why": "Athenian fleet base in 410",
+     "refs": [
+      "Xen. Hell. 1.1.11"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Parium",
+   "pleiades": "511354",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "IG I³ 287",
+      "Xen. Hell. 1.1.13"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Priapus",
+   "pleiades": "511375",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Cyzicus",
+   "pleiades": "511218",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "IG I³ 287",
+      "Thuc. 8.107",
+      "Xen. Hell. 1.1.19"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ],
+   "note": "Revolted in 411 and recovered by the Athenians four days after Cynossema (Thuc. 8.107); held by Mindarus early in 410 and re-entered after the battle of Cyzicus (Xen. Hell. 1.1.14-19). Neither loss lasted a season."
+  },
+  {
+   "name": "Artace",
+   "pleiades": "511158",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Proconnesus",
+   "pleiades": "511379",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Xen. Hell. 1.1.13",
+      "Xen. Hell. 1.1.20"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Cius",
+   "pleiades": "511385",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary (Hellespontine district) on the quota lists; status after 412 unrecorded (the King claimed the cities of Asia, Thuc. 8.18)",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Perinthus",
+   "pleiades": "511357",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Hellespontine district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "IG I³ 287",
+      "Xen. Hell. 1.1.21"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Selymbria",
+   "pleiades": "511414",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Hellespontine district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 287"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -408,
+     "to": -405,
+     "why": "captured by Alcibiades in 408",
+     "refs": [
+      "Xen. Hell. 1.3.10"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    }
+   ],
+   "note": "410: refused to admit the Athenians but paid them money (Xen. Hell. 1.1.21): not covered 411-409."
+  },
+  {
+   "name": "Byzantium",
+   "pleiades": "520985",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary, one of the largest payers",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -409,
+     "why": "revolted to Helixus the Megarian in summer 411",
+     "refs": [
+      "Thuc. 8.80",
+      "Xen. Hell. 1.1.35-36"
+     ],
+     "when": "summer 411"
+    },
+    {
+     "side": "athens",
+     "from": -408,
+     "to": -405,
+     "why": "betrayed to Alcibiades after a siege in winter 409/8",
+     "refs": [
+      "Xen. Hell. 1.3.14-22"
+     ],
+     "when": "winter 409/8"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "admitted Lysander after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.1-2"
+     ],
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Chalcedon",
+   "pleiades": "520988",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary (Hellespontine district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 281",
+      "IG I³ 287"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -409,
+     "why": "in Peloponnesian–Persian hands by 410 (Pharnabazus relieving it)",
+     "refs": [
+      "Xen. Hell. 1.1.22",
+      "Xen. Hell. 1.1.26",
+      "Xen. Hell. 1.1.35"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "athens",
+     "from": -408,
+     "to": -405,
+     "why": "agreement of 408: to pay its old tribute to Athens",
+     "refs": [
+      "Xen. Hell. 1.3.8-9"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "admitted Lysander after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.1-2"
+     ],
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Potidaea",
+   "pleiades": "491701",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -432,
+     "to": -430,
+     "why": "tributary (IG I³ 279) that revolted with the Chalcidians and Bottiaeans in 432; besieged",
+     "refs": [
+      "IG I³ 279",
+      "Thuc. 1.58",
+      "Thuc. 2.9"
+     ],
+     "when": "432"
+    },
+    {
+     "side": "athens",
+     "from": -429,
+     "to": -405,
+     "why": "capitulated in winter 430/29 and resettled with Athenian colonists",
+     "refs": [
+      "Thuc. 2.70",
+      "Thuc. 4.135"
+     ],
+     "when": "winter 430/29"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Eteonicus brought the Thracian coast over after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Olynthus",
+   "pleiades": "491678",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -432,
+     "to": -404,
+     "why": "centre of the Chalcidians, who revolted in 432 and moved inland to Olynthus",
+     "refs": [
+      "Thuc. 1.58",
+      "Thuc. 5.18",
+      "Thuc. 5.39"
+     ],
+     "when": "432"
+    }
+   ]
+  },
+  {
+   "name": "Spartolus",
+   "pleiades": "491729",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -432,
+     "to": -404,
+     "why": "Bottiaean town; revolted 432, defeated the Athenians in 429",
+     "refs": [
+      "Thuc. 1.58",
+      "Thuc. 2.79",
+      "Thuc. 5.18"
+     ],
+     "when": "432"
+    }
+   ]
+  },
+  {
+   "name": "Mecyberna",
+   "pleiades": "491660",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -421,
+     "why": "tributary with an Athenian garrison",
+     "refs": [
+      "IG I³ 279",
+      "Thuc. 5.39"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -420,
+     "to": -404,
+     "why": "taken by the Olynthians in winter 421/0",
+     "refs": [
+      "Thuc. 5.39"
+     ],
+     "when": "winter 421/0"
+    }
+   ]
+  },
+  {
+   "name": "Aphytis",
+   "pleiades": "491525",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "IG I³ 290",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Sermyle",
+   "pleiades": "501605",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Singus",
+   "pleiades": "501613",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "Thuc. 5.18",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Sane (Acte)",
+   "pleiades": "501599",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "Thuc. 4.109",
+      "Thuc. 5.18",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Methone (Pieria)",
+   "pleiades": "335229933",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "IG I³ 290",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Aenea",
+   "pleiades": "491513",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Neapolis (by Antisara)",
+   "pleiades": "501523",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "IG I³ 282",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Dicaea (by Abdera)",
+   "pleiades": "501399",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Dicaea (Eretrian colony)",
+   "pleiades": "491570",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "IG I³ 281",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Neapolis (Mendaean colony)",
+   "pleiades": "501522",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "IG I³ 281",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Maroneia",
+   "pleiades": "501507",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 279",
+      "IG I³ 290",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Aenus",
+   "pleiades": "501337",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ]
+  },
+  {
+   "name": "Mende",
+   "pleiades": "501515",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -413,
+     "why": "tributary member of the Delian League (Thracian district) at the outbreak; on the quota lists",
+     "refs": [
+      "Thuc. 2.9",
+      "IG I³ 280",
+      "Thuc. 4.123",
+      "Thuc. 4.129-130",
+      "Xen. Hell. 2.2.5"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -412,
+     "to": -405,
+     "why": "no defection recorded in the Ionian War; the Athenian empire fell away only after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "fell away to Lysander after Aegospotami (autumn 405)",
+     "refs": [
+      "Xen. Hell. 2.2.6"
+     ],
+     "conf": "medium",
+     "when": "autumn 405"
+    }
+   ],
+   "note": "Revolted to Brasidas in spring 423 and was retaken by Nicias that summer (Thuc. 4.123, 4.129-130)."
+  },
+  {
+   "name": "Scione",
+   "pleiades": "501620",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary (Thracian district)",
+     "refs": [
+      "IG I³ 280",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -422,
+     "why": "revolted to Brasidas in spring 423, two days after the armistice; besieged",
+     "refs": [
+      "Thuc. 4.120-122",
+      "Thuc. 4.131"
+     ],
+     "when": "spring 423"
+    },
+    {
+     "side": "athens",
+     "from": -421,
+     "to": -405,
+     "why": "taken in summer 421; men killed, land given to the Plataeans",
+     "refs": [
+      "Thuc. 5.32"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Eteonicus brought the Thracian coast over after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Torone",
+   "pleiades": "501646",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary with an Athenian garrison",
+     "refs": [
+      "IG I³ 280",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -423,
+     "why": "betrayed to Brasidas in winter 424/3",
+     "refs": [
+      "Thuc. 4.110-116"
+     ],
+     "when": "winter 424/3"
+    },
+    {
+     "side": "athens",
+     "from": -422,
+     "to": -405,
+     "why": "retaken by Cleon in summer 422",
+     "refs": [
+      "Thuc. 5.2-3"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Eteonicus brought the Thracian coast over after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Acanthus",
+   "pleiades": "501339",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -425,
+     "why": "tributary (Thracian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -424,
+     "to": -404,
+     "why": "revolted to Brasidas in summer 424; named in the Peace of Nicias but never returned",
+     "refs": [
+      "Thuc. 4.88",
+      "Thuc. 5.6",
+      "Thuc. 5.18"
+     ],
+     "when": "late summer 424"
+    }
+   ]
+  },
+  {
+   "name": "Stagirus",
+   "pleiades": "501625",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -425,
+     "why": "tributary (Thracian district)",
+     "refs": [
+      "IG I³ 280",
+      "IG I³ 281"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -424,
+     "to": -404,
+     "why": "revolted to Brasidas in summer 424; named in the Peace of Nicias but never returned",
+     "refs": [
+      "Thuc. 4.88",
+      "Thuc. 5.6",
+      "Thuc. 5.18"
+     ],
+     "when": "late summer 424"
+    }
+   ]
+  },
+  {
+   "name": "Argilus",
+   "pleiades": "501358",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary (Thracian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 282"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -404,
+     "why": "joined Brasidas when he marched on Amphipolis (winter 424/3)",
+     "refs": [
+      "Thuc. 4.103",
+      "Thuc. 5.18"
+     ],
+     "when": "winter 424/3"
+    }
+   ]
+  },
+  {
+   "name": "Amphipolis",
+   "pleiades": "501347",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "Athenian colony on the Strymon",
+     "refs": [
+      "Thuc. 4.102"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -404,
+     "why": "surrendered to Brasidas in early winter 424/3; never returned despite the Peace of Nicias",
+     "refs": [
+      "Thuc. 4.103-106",
+      "Thuc. 5.18",
+      "Thuc. 5.35"
+     ],
+     "when": "winter 424/3"
+    }
+   ]
+  },
+  {
+   "name": "Eion",
+   "pleiades": "501410",
+   "kind": "polis",
+   "radiusKm": 6,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -408,
+     "why": "Athenian port at the Strymon mouth, saved by Thucydides in 424",
+     "refs": [
+      "Thuc. 4.107",
+      "Thuc. 5.6"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -407,
+     "to": -404,
+     "why": "captured by the Lacedaemonians in 407",
+     "refs": [
+      "Xen. Hell. 1.5.15"
+     ],
+     "when": "407"
+    }
+   ]
+  },
+  {
+   "name": "Galepsus",
+   "pleiades": "501421",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "Thasian colony, tributary",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -423,
+     "why": "went over to Brasidas after Amphipolis",
+     "refs": [
+      "Thuc. 4.107"
+     ],
+     "when": "winter 424/3"
+    },
+    {
+     "side": "athens",
+     "from": -422,
+     "to": -405,
+     "why": "stormed by Cleon in summer 422",
+     "refs": [
+      "Thuc. 5.6"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Eteonicus brought the Thracian coast over after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Oesyme",
+   "pleiades": "501533",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "Thasian colony (Thracian district)",
+     "refs": [
+      "Thuc. 4.107"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -421,
+     "why": "went over to Brasidas after Amphipolis; recovery not recorded",
+     "refs": [
+      "Thuc. 4.107"
+     ],
+     "conf": "low",
+     "when": "winter 424/3"
+    }
+   ]
+  },
+  {
+   "name": "Dium (Athos)",
+   "pleiades": "501400",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -418,
+     "why": "tributary (Thracian district); held out against Brasidas in 424/3",
+     "refs": [
+      "IG I³ 279",
+      "Thuc. 4.109"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -417,
+     "to": -404,
+     "why": "revolted to the Chalcidians in summer 417",
+     "refs": [
+      "Thuc. 5.82"
+     ],
+     "conf": "medium",
+     "when": "summer 417"
+    }
+   ]
+  },
+  {
+   "name": "Thyssus",
+   "pleiades": "501643",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary (Thracian district)",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -422,
+     "why": "came over to Brasidas (winter 424/3)",
+     "refs": [
+      "Thuc. 4.109"
+     ],
+     "conf": "medium",
+     "when": "winter 424/3"
+    },
+    {
+     "side": "athens",
+     "from": -421,
+     "to": -421,
+     "why": "an Athenian ally when the Dians took it in 421",
+     "refs": [
+      "Thuc. 5.35"
+     ],
+     "conf": "low"
+    }
+   ]
+  },
+  {
+   "name": "Cleonae (Athos)",
+   "pleiades": "501469",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary of the Acte peninsula",
+     "refs": [
+      "IG I³ 279"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -404,
+     "why": "among the Acte towns that came over to Brasidas in winter 424/3; recovery not recorded",
+     "refs": [
+      "Thuc. 4.109"
+     ],
+     "conf": "low",
+     "when": "winter 424/3"
+    }
+   ]
+  },
+  {
+   "name": "Olophyxus",
+   "pleiades": "501535",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary of the Acte peninsula",
+     "refs": [
+      "IG I³ 279"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -404,
+     "why": "among the Acte towns that came over to Brasidas in winter 424/3; recovery not recorded",
+     "refs": [
+      "Thuc. 4.109"
+     ],
+     "conf": "low",
+     "when": "winter 424/3"
+    }
+   ]
+  },
+  {
+   "name": "Acrothoi",
+   "pleiades": "501343",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -424,
+     "why": "tributary of the Acte peninsula",
+     "refs": [
+      "Thuc. 4.109"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -423,
+     "to": -404,
+     "why": "among the Acte towns that came over to Brasidas in winter 424/3; recovery not recorded",
+     "refs": [
+      "Thuc. 4.109"
+     ],
+     "conf": "low",
+     "when": "winter 424/3"
+    }
+   ]
+  },
+  {
+   "name": "Abdera",
+   "pleiades": "501323",
+   "kind": "polis",
+   "spans": [
+    {
+     "side": "athens",
+     "from": -431,
+     "to": -412,
+     "why": "tributary, one of the largest Thracian payers",
+     "refs": [
+      "IG I³ 279",
+      "IG I³ 280"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -408,
+     "why": "among the Thracian places that had revolted (date not given; probably with Thasos in 411)",
+     "refs": [
+      "Xen. Hell. 1.4.9",
+      "Diod. 13.72"
+     ],
+     "conf": "low"
+    },
+    {
+     "side": "athens",
+     "from": -407,
+     "to": -405,
+     "why": "brought back over by Thrasybulus in 407",
+     "refs": [
+      "Diod. 13.72",
+      "Xen. Hell. 1.4.9"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -404,
+     "to": -404,
+     "why": "Eteonicus brought the Thracian coast over after Aegospotami",
+     "refs": [
+      "Xen. Hell. 2.2.5"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Syracuse",
+   "pleiades": "462503",
+   "kind": "polis",
+   "radiusKm": 20,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "the Dorian cities of Sicily (all but Camarina) were in the Lacedaemonian confederacy from the start of the war, though inactive; at war with Athens' allies 427–424; Peace of Gela (summer 424) ended the first Athenian intervention",
+     "refs": [
+      "Thuc. 2.7",
+      "Thuc. 3.86",
+      "Thuc. 4.58-65"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -415,
+     "to": -404,
+     "why": "at war with the Athenian expedition 415–413; Syracusan ships served with the Peloponnesian fleet 412–409",
+     "refs": [
+      "Thuc. 6.67",
+      "Thuc. 7.58",
+      "Thuc. 8.26",
+      "Xen. Hell. 1.2.8-10"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Gela",
+   "pleiades": "462214",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "the Dorian cities of Sicily (all but Camarina) were in the Lacedaemonian confederacy from the start of the war, though inactive; at war with Athens' allies 427–424",
+     "refs": [
+      "Thuc. 3.86"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -415,
+     "to": -413,
+     "why": "sent cavalry and later ships and troops to Syracuse",
+     "refs": [
+      "Thuc. 6.67",
+      "Thuc. 7.33",
+      "Thuc. 7.58"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Selinus",
+   "pleiades": "462489",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "the Dorian cities of Sicily (all but Camarina) were in the Lacedaemonian confederacy from the start of the war, though inactive; at war with Athens' allies 427–424",
+     "refs": [
+      "Thuc. 3.86"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -415,
+     "to": -410,
+     "why": "the strongest allied contingent at Syracuse; two ships in the Aegean in 412; destroyed by Carthage in 409",
+     "refs": [
+      "Thuc. 6.67",
+      "Thuc. 7.58",
+      "Thuc. 8.26",
+      "Diod. 13.57"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Acragas",
+   "pleiades": "462086",
+   "kind": "polis",
+   "radiusKm": 15,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -425,
+     "why": "the Dorian cities of Sicily (all but Camarina) were in the Lacedaemonian confederacy from the start of the war, though inactive; at war with Athens' allies 427–424",
+     "refs": [
+      "Thuc. 3.86"
+     ],
+     "conf": "low"
+    }
+   ],
+   "note": "Neutral in 415-413 (Thuc. 7.33, 7.58)."
+  },
+  {
+   "name": "Himera",
+   "pleiades": "462244",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -427,
+     "to": -425,
+     "why": "hostile to the Athenians, who raided its land in winter 426/5",
+     "refs": [
+      "Thuc. 3.115"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "sparta",
+     "from": -414,
+     "to": -410,
+     "why": "sent Gylippus a thousand men in 414; destroyed by Carthage in 409",
+     "refs": [
+      "Thuc. 7.1",
+      "Thuc. 7.58",
+      "Diod. 13.62"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Camarina",
+   "pleiades": "462126",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -425,
+     "why": "with Leontini and the Chalcidian cities against Syracuse",
+     "refs": [
+      "Thuc. 3.86"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -413,
+     "to": -413,
+     "why": "neutral in 415–414, then sent troops to Syracuse in 413",
+     "refs": [
+      "Thuc. 6.88",
+      "Thuc. 7.33",
+      "Thuc. 7.58"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Leontini",
+   "pleiades": "462279",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -425,
+     "why": "old ally of Athens; appealed for the Athenian fleet of 427",
+     "refs": [
+      "Thuc. 3.86"
+     ]
+    }
+   ],
+   "note": "Absorbed by Syracuse soon after 424 (Thuc. 5.4): not covered later."
+  },
+  {
+   "name": "Naxos (Sicily)",
+   "pleiades": "462386",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -425,
+     "why": "Chalcidian ally of Leontini and Athens",
+     "refs": [
+      "Thuc. 3.86",
+      "Thuc. 4.25"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -415,
+     "to": -413,
+     "why": "received the Athenian expedition and served with it",
+     "refs": [
+      "Thuc. 6.50",
+      "Thuc. 7.57"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Catana",
+   "pleiades": "462270",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -425,
+     "why": "Chalcidian ally of Leontini and Athens",
+     "refs": [
+      "Thuc. 3.86"
+     ],
+     "conf": "medium"
+    },
+    {
+     "side": "athens",
+     "from": -415,
+     "to": -413,
+     "why": "voted alliance with Athens in 415; the expedition's base",
+     "refs": [
+      "Thuc. 6.51",
+      "Thuc. 7.57"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Messana",
+   "pleiades": "462538",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -426,
+     "to": -426,
+     "why": "submitted to Laches and gave hostages in summer 426",
+     "refs": [
+      "Thuc. 3.90"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -425,
+     "to": -425,
+     "why": "revolted to the Syracusans and Locrians in summer 425",
+     "refs": [
+      "Thuc. 4.1",
+      "Thuc. 4.24-25"
+     ]
+    }
+   ],
+   "note": "Neutral in 415 (Thuc. 6.50)."
+  },
+  {
+   "name": "Egesta",
+   "pleiades": "462487",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -415,
+     "to": -413,
+     "why": "Elymian city that called in the Athenians",
+     "refs": [
+      "Thuc. 6.6",
+      "Thuc. 7.57"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Lipara",
+   "pleiades": "462284",
+   "kind": "island",
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -427,
+     "to": -425,
+     "why": "Cnidian colony allied to Syracuse; raided by Athens and Rhegium",
+     "refs": [
+      "Thuc. 3.88",
+      "Thuc. 3.115"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Rhegium",
+   "pleiades": "452416",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -427,
+     "to": -425,
+     "why": "sided with its Leontine kinsmen; the Athenian base 427–424",
+     "refs": [
+      "Thuc. 3.86",
+      "Thuc. 4.24-25"
+     ]
+    }
+   ],
+   "note": "Neutral in 415 (Thuc. 6.44)."
+  },
+  {
+   "name": "Locri (Epizephyrii)",
+   "pleiades": "452369",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -427,
+     "to": -423,
+     "why": "for Syracuse; the only Sicilian-war ally that did not make peace in 424 (treaty with Athens in 422)",
+     "refs": [
+      "Thuc. 3.86",
+      "Thuc. 4.1",
+      "Thuc. 5.5"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -415,
+     "to": -404,
+     "why": "shut the Athenian expedition out in 415; ships in the Peloponnesian fleet of 411",
+     "refs": [
+      "Thuc. 6.44",
+      "Thuc. 8.91"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Taras",
+   "pleiades": "442810",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -415,
+     "to": -404,
+     "why": "shut the Athenians out in 415; Gylippus' base in 414; ships in the Peloponnesian fleet of 411",
+     "refs": [
+      "Thuc. 6.44",
+      "Thuc. 6.104",
+      "Thuc. 8.91"
+     ],
+     "conf": "medium"
+    }
+   ]
+  },
+  {
+   "name": "Thurii",
+   "pleiades": "452457",
+   "kind": "polis",
+   "radiusKm": 14,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -413,
+     "to": -413,
+     "why": "joined Demosthenes' relief expedition in 413",
+     "refs": [
+      "Thuc. 7.33",
+      "Thuc. 7.35",
+      "Thuc. 7.57"
+     ]
+    },
+    {
+     "side": "sparta",
+     "from": -411,
+     "to": -404,
+     "why": "Thurian ships served with the Peloponnesian fleet from winter 412/1",
+     "refs": [
+      "Thuc. 8.35",
+      "Thuc. 8.61"
+     ],
+     "conf": "medium",
+     "when": "winter 412/1"
+    }
+   ]
+  },
+  {
+   "name": "Metapontum",
+   "pleiades": "442658",
+   "kind": "polis",
+   "radiusKm": 12,
+   "spans": [
+    {
+     "side": "athens",
+     "from": -413,
+     "to": -413,
+     "why": "sent ships and darters with Demosthenes in 413",
+     "refs": [
+      "Thuc. 7.33",
+      "Thuc. 7.57"
+     ]
+    }
+   ]
+  }
+ ]
+}
