@@ -381,6 +381,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Cicero's consulship / elected | 63 BCE / 64 BCE | `rm-338` |
 | Catiline: praetor / consular bids / died | 68 BCE / 66 – 63 BCE / January 62 BCE | `rm-339` |
 | the Catilinarian conspiracy: the Senate's decree / the First Catilinarian / the arrests | 21 October / 8 November / 3 December 63 BCE (pre-Julian Roman dates in modern dress) | `rm-340` |
+| the debate on the conspirators | 5 December 63 BCE (the Nones of December) | `rm-341` |
+| Cato the Younger: born / tribune / praetor / died | 95 BCE / 62 BCE / 54 BCE / 46 BCE (quaestor 64 or 65; no row) | `rm-342` |
+| Julius Caesar: born / consul / in Gaul / died | 100 BCE (Cary; Mommsen and Holmes 102) / 59 BCE / 58 – 50 BCE / 15 March 44 BCE | `rm-343` |
+| the First Triumvirate: formed / renewed / ended | 60 – 59 BCE / 56 BCE / 53 BCE | `rm-344` |
+| Caesar's first consulship | 59 BCE | `rm-345` |
+| Clodius: the Bona Dea affair / tribune / killed | 62 BCE / 58 BCE / 18 January 52 BCE (the Cambridge Ancient History; Purton's Asconius has the 20th) | `rm-346` |
+| Cicero's exile: left Rome / the recall law / back in Rome | 58 BCE / 4 August 57 BCE / 4 September 57 BCE (Cicero's own letter; the Cambridge Ancient History has the 9th) | `rm-347` |
+| political violence: Appian's start / Clodius's gangs / the Curia burned | 133 BCE / 58 – 52 BCE / 52 BCE | `rm-348` |
+| the conference at Luca / the laws that followed | 56 BCE / 55 BCE | `rm-349` |
+| the Gallic Wars / the command ended | 58 – 51 BCE / 50 BCE | `rm-350` |
 
 ## The Principate
 
@@ -721,4 +731,14 @@ rm-337: 70; 73; 71
 rm-338: 63; 64
 rm-339: 68; 66; 63; 62
 rm-340: 63
+rm-341: 63
+rm-342: 95; 62; 54; 46
+rm-343: 100; 59; 58; 50; 44
+rm-344: 60; 59; 56; 53
+rm-345: 59
+rm-346: 62; 58; 52
+rm-347: 58; 57
+rm-348: 133; 58; 52
+rm-349: 56; 55
+rm-350: 58; 51; 50
 ```

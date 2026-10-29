@@ -166,7 +166,7 @@ order unless the user says otherwise.
 | B32 | The Republic in crisis (`rm-crisis`) | `rm-311`–`rm-320` | 10 | 96 | **done 2026-10-29** |
 | B33 | The fall of the Republic (`rm-fall-republic`) | `rm-321`–`rm-330` | 10 | 83 | **done 2026-10-29** |
 | B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | **done 2026-10-29** |
-| B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | open |
+| B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | **done 2026-10-29** |
 | B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | open |
 | B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | open |
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | open |
@@ -610,6 +610,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-338` consulship of Cicero | Thorvaldsen's copy of the Capitoline bust | weak: the man, not the year, and close to `rm-336`'s |
 | `rm-339` Catiline | Segoni's painting of Catiline's body (1871) | acceptable in kind (no portrait survives); the description names the work and the credit no author |
 | `rm-340` Catilinarian conspiracy | none | no picture (`I.none`) |
+| `rm-341` debate on the conspirators | none | no picture (`I.none`) |
+| `rm-342` Cato the Younger | the Volubilis bronze bust inscribed CATO | ok |
+| `rm-343` Julius Caesar | the Green Caesar | ok |
+| `rm-344` First Triumvirate | none | no picture (`I.none`) |
+| `rm-345` Caesar's first consulship | none | no picture (`I.none`) |
+| `rm-346` Publius Clodius Pulcher | none | no picture (`I.none`); the glossary's is an imagined portrait with Latin text on it |
+| `rm-347` exile of Cicero | none | no picture (`I.none`) |
+| `rm-348` political violence in the late Republic | none | no picture (`I.none`) |
+| `rm-349` conference at Luca | none | no picture (`I.none`) |
+| `rm-350` Gallic Wars | the reconstructed siege works at Alesia | wrong: one siege (`rm-353`'s subject) for the whole war |
 
 ## Glossary candidates
 
@@ -1523,3 +1533,22 @@ Run as B33; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-340` Catilinarian conspiracy | 8 | 8 → 9 | Half the old abstract was the debate and the executions (`rm-341`'s). Now the plot in Rome: Fulvia's leak, the decree of 21 October, Manlius at Faesulae, the night at Laeca's, the First Catilinarian, the Allobroges' letters at the Mulvian Bridge, the arrests. |
 
 **Read by eye.** *Confusability:* `rm-331`/`rm-332` the phenomenon and the law; `rm-333`/`rm-334`/`rm-335` the war, the general and the settlement; `rm-336`/`rm-337`/`rm-338` the man, the trial and the year; `rm-339`/`rm-340` the man and the plot (the debate kept for `rm-341`). *Legend:* the kidnapping, Pompey's sanctuary visit and Catiline's last stand are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B35 — `rm-341`–`rm-350`, the fall of the Republic: the debate, Cato, Caesar, the triumvirs, Clodius and Gaul (2026-10-29)
+
+Run as B34; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-341:rm-350` reads clean on three cards; the rest are `I.none` and one `S.chip?` on `rm-348` (an English BMCR review of a German-titled book: the known false positive). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's 15 failures are LacusCurtius pages (`000`, the host refusing the sandbox), each read and saved by its agent when the host answered. One phrasing was fixed by hand: `rm-342`'s second (Plutarch's nearly seven thousand talents from Cyprus is now attributed). `timeline` was moved for `rm-341` (5 December 63) and `rm-350` (58 – 51). **The old cards cited 9 to 13 sources each, all ancient** (Plutarch, Suetonius, Appian and Cicero up to four times); they now have at most two per author and at least half modern.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-341` debate on the conspirators | 6 | 11 → 7 | **5 December 63 is the Nones of December, a Roman date in modern dress, now said**; the counts and "in the temple of Concord" leave the line (no source fetched clearly places the sitting there). The core is now the legality: a decree, not a court, and Cicero's exile in one clause. Sallust's two speeches are his own composition; the Fourth Catilinarian was published later and may be revised. |
+| `rm-342` Cato the Younger | 8 | 13 → 8 | **Plutarch was four of the glossary's five sources and much of the card's.** Quaestor 64 or 65 (moderns differ; Perrin's margin date not used); died at 48 (Plutarch) or 49 (Smith); Utica and the *Phaedo* are Plutarch's scene; Caesar's *Anticato* answers his memory. |
+| `rm-343` Julius Caesar | 9 | 11 → 9 | **"c. 100 BCE" had no source; 100 BCE is Cary's (from the ancient ages at death), and the 102 view (Mommsen, Holmes) is given.** The whole life now; the Commentaries are his own case; the biographers wrote long after. The pirates are one clause. |
+| `rm-344` First Triumvirate | 8 | 9 → 9 | **"First Triumvirate" is now said to be a modern name** (Cary: "constitutionally unjustified"); formed 60 or 59; Varro's *Tricaranus* is known through Appian. Julia's marriage is this card's; the line's "Broken Crassus killed" was words. |
+| `rm-345` Caesar's first consulship | 7 | 10 → 8 | Suetonius was cited four times. **"Province Gaul for 5 years" leaves the line: the command's end date is debated (Seager).** The year's laws, Vatinius, the "Julius and Caesar" joke (Suetonius's) and Cicero's letters of 59 as his fears written at the time. |
+| `rm-346` Publius Clodius Pulcher | 7 | 11 → 7 | **Cicero, his bitterest enemy, is almost our only witness: said.** Bona Dea, the adoption, the grain and clubs laws, the Senate-house pyre; 18 January 52 is the Cambridge Ancient History's day (Purton's 1875 Asconius converts it to the 20th). |
+| `rm-347` exile of Cicero | 7 | 10 → 8 | Plutarch's "sixteenth month" and "twenty thousand young men" go. **The return on 4 September 57 is read off Cicero's own letter (Att. 4.1); the Cambridge Ancient History prints the 9th.** The exile letters are evidence of his state of mind and self-pity; *De domo sua* is a pleader's speech. |
+| `rm-348` political violence in the late Republic | 8 | 10 → 10 | Appian was cited four times. **Appian's sword-in-the-assembly verdict is his**; the gangs, the lack of police (Lintott, Nippel) and the burning of the Curia; the old "133 – 44" end had no source and goes. |
+| `rm-349` conference at Luca | 6 | 7 → 8 | **The 120 lictors and 200 senators are Plutarch's and Appian's count, prose only**; Appian's slip putting Britain before Luca is dropped; the Ravenna meeting comes from Cicero's own letter; his "recantation" is told as his own account. Gruen's downplaying is left out (no open source). |
+| `rm-350` Gallic Wars | 9 | 11 → 9 | **"Tribute 40,000,000 sesterces a year" was a date-line row**; it is Suetonius's figure in prose. The fighting ends in 51 (Uxellodunum), the command in 50; Plutarch's eight hundred towns and three hundred peoples are his. `wh-354` says 58 – 50 BCE. |
+
+**Read by eye.** *Confusability:* `rm-341`/`rm-342` the debate and Cato; `rm-343`/`rm-344`/`rm-345` the man, the compact and the year; `rm-346`/`rm-347`/`rm-348` the tribune, the exile and the theme; `rm-349`/`rm-350` the meeting and the war (the Alesia works kept for `rm-353`). *Legend:* the Utica night, the Bona Dea disguise and the "Julius and Caesar" joke are their authors'. *Overlap:* `wh-354` ends the Gallic Wars in 50 BCE; this card ends the fighting in 51 and the command in 50.
