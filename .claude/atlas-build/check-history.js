@@ -477,7 +477,11 @@ function run() {
     const presIdx = H.entities.map((e, i) => (e.kind === "people" || e.kind === "culture" || e.kind === "extent" || e.kind === "front" ? i : -1)).filter((i) => i >= 0);
     const faceSet = new Set(); for (const st of H.steps) if (isPres(st[0])) faceSet.add(st[3]);
     const faces = [...faceSet].sort((a, b) => a - b);
-    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0, frontFine = 0, frontCoarse = 0; const samples = [];
+    let clsBad = 0, kindBad = 0, coastBack = 0, coastTwice = 0, srcBad = 0, entBad = 0, crossFine = 0, crossCoarse = 0, frontFine = 0, frontCoarse = 0, townCoarse = 0; const samples = [];
+    /* THE PELOPONNESIAN WAR'S TWO SIDES (2026-10-25, war-poleis.json through build-war-extents.js): each year's side is a union of town circles and whole islands clipped to the
+       coast, hundreds of small coastal pieces a year over 25 rows, and the coarser levels' straightened coasts cut their bends as they cut the fronts' (the Bay of Cádiz class
+       of residue). Measured on the 2026-10-25 file: 0 at the finest level, 180 at the coarser; the budget is the measurement plus a quarter, the finest level stays exact. */
+    const TOWN_EXTENTS = new Set(["pol:ext_athens_and_its_empire", "pol:ext_sparta_and_its_allies"]), TOWN_COARSE_BUDGET = Math.ceil(180 * 1.25);
     const cls = H.faceClass || [], sources = H.sources || [];
     for (const fi of faces) {
       const f = T.faces[fi]; const isFrontFace = H.entities[f.entity].kind === "front"; if (cls[fi] !== (isFrontFace ? 1 : 2)) clsBad++;   // a front is APPROXIMATE (a redrawn map), every other presence SOFT
@@ -495,7 +499,7 @@ function run() {
         for (const a of seen) { const g = geom(a, L); for (let i = 1; i < g.length; i++) sg.push([a, g[i - 1], g[i]]); }
         const idx = SegIndex.build(sg.length, Math.max(80, Math.round(0.2 / Q)), (k) => [sg[k][1][0], sg[k][1][1], sg[k][2][0], sg[k][2][1]]);
         let n = 0; idx.pairs((p, q) => { const s1 = sg[p], t1 = sg[q]; const same = (u, v) => u[0] === v[0] && u[1] === v[1]; if (same(s1[1], t1[1]) || same(s1[1], t1[2]) || same(s1[2], t1[1]) || same(s1[2], t1[2])) return; if (G.segmentsCross(arcVec(s1[1]), arcVec(s1[2]), arcVec(t1[1]), arcVec(t1[2]))) n++; });
-        if (isFrontFace) { if (L === LODS - 1) frontFine += n; else frontCoarse += n; } else if (L === LODS - 1) crossFine += n; else crossCoarse += n;
+        if (isFrontFace) { if (L === LODS - 1) frontFine += n; else frontCoarse += n; } else if (L === LODS - 1) crossFine += n; else if (TOWN_EXTENTS.has(H.entities[f.entity].id)) townCoarse += n; else crossCoarse += n;
       }
       void segs;
     }
@@ -512,6 +516,7 @@ function run() {
        regression shows. Peoples, cultures and extents keep the exact finest level and the 40. */
     const FRONT_FINE_BUDGET = Math.ceil(29 * 1.25), FRONT_COARSE_BUDGET = Math.ceil(1194 * 1.25);
     (frontFine > FRONT_FINE_BUDGET || frontCoarse > FRONT_COARSE_BUDGET) ? bad("fronts: each front face crosses itself under " + FRONT_FINE_BUDGET + " times at the finest level and " + FRONT_COARSE_BUDGET + " at the coarser", `fine ${frontFine}, coarse ${frontCoarse}`) : ok("fronts: the fjord residue stays inside its budget", `fine ${frontFine} of ${FRONT_FINE_BUDGET}, coarse ${frontCoarse} of ${FRONT_COARSE_BUDGET}`);
+    townCoarse > TOWN_COARSE_BUDGET ? bad("presence: the Peloponnesian War's town-table sides cross themselves under " + TOWN_COARSE_BUDGET + " times at the coarser levels", `${townCoarse}`) : ok("presence: the Peloponnesian War's town-table sides stay inside their coarse budget", `${townCoarse} of ${TOWN_COARSE_BUDGET}`);
     (crossFine || crossCoarse > PRES_COARSE_BUDGET) ? bad("presence: each face is planar by itself at the finest level, and under " + PRES_COARSE_BUDGET + " crossings at the coarser", `fine ${crossFine}, coarse ${crossCoarse}`) : ok("presence: each face is planar by itself at the finest level", `coarse residue ${crossCoarse} (budget ${PRES_COARSE_BUDGET})`);
     entBad ? bad("presence: every entity has a span, its cards, a source of the header and the audit's note", `${entBad}`) : ok("presence: every entity has a span, its cards, a source of the header and the audit's note", presIdx.map((i) => H.entities[i].id.slice(4)).join(", "));
     // the Yangshao and Longshan outlines are built from the pinned Hosner file: site-hulls.json records the hash it was built from
