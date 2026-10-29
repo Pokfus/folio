@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1122", released: "2026-10-29T22:06Z" };
+window.FOLIO_VERSION = { v: "1.1161", released: "2026-10-29T22:23Z" };
 
 window.CHANGELOG = [
   {
@@ -61,6 +61,7 @@ window.CHANGELOG = [
       "A card's atlas window no longer names its own city twice when another card has discovered it.",
       "In the card editor, the <b>Link term</b> list now reaches every term, and a new button adds a date row with its label and date.",
       "The Great Depression card now has <b>a timeline</b>, and the donkey and barley answers are written in lower case.",
+      "Eighteen more World History cards now have <b>Think it through</b> questions a newcomer would ask, with longer, fully sourced answers.",
     ],
   },
   {
@@ -78,6 +79,7 @@ window.CHANGELOG = [
       "On a phone, the page behind a glossary popup now <b>stays blurred</b> when a link inside it opens another term.",
       "A Chinese or Japanese card's <b>translation bubble stays open</b> while you write on the whiteboard; only its own icon closes it.",
       "Signed in as an admin, a card now shows its <b>id</b> (such as ps-005) in small type at its foot, under the Wikipedia link.",
+      "Ten World History cards now have <b>Think it through</b> questions a newcomer would ask, with longer, fully sourced answers.",
     ],
   },
   {
@@ -91,7 +93,7 @@ window.CHANGELOG = [
       "Fixed: an edited card's Background could show <b>an empty-looking line break</b> beside its picture, left by the editor's spaces.",
       "Fixed: <b>glossary links an editor wrote into a card</b>, such as evolution on the Biology card, were being removed as the page loaded.",
       "<b>24 new glossary terms</b> now link from cards in Biology, Ancient Rome, Japan, Korea and Russia, from organelles and the Tophet to the 38th parallel.",
-      "Seven Biology, Ancient Rome, Korea and Russia cards gained new Think it through questions, and the Carthage card a new main question.",
+      "Thirty World History, Biology, Ancient Rome, Korea and Russia cards gained new Think it through questions, and the Carthage card a new main question.",
       "Percentages on cards, in the glossary and in True or False are now written with the <b>%</b> sign instead of “per cent”.",
       "The Korea card now has a map shading the whole peninsula.",
       "<b>624 more cards now show a Timeline</b>: the events, periods, battles and wars of World History, Ancient Greece, Ancient Rome, Japan and Ancient Egypt.",

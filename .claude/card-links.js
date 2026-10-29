@@ -17,7 +17,7 @@ const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " 
 const words = (s) => (plain(s) ? plain(s).split(" ").length : 0);
 
 const WHY_MIN_WORDS = 4, WHY_MAX_WORDS = 24;
-const WHY_COUNT = 3, WHY_ANS_MIN_WORDS = 12, WHY_ANS_MAX_WORDS = 60;
+const WHY_COUNT = 3, WHY_ANS_MIN_WORDS = 12, WHY_ANS_MAX_WORDS = 120;
 const LEADS_MAX = 3, HOW_MIN_WORDS = 4, HOW_MAX_WORDS = 28;
 
 /* `card.why` — elaborative interrogation, as THREE why-questions about the answer term, each with its

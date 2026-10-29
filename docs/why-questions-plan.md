@@ -54,7 +54,7 @@ Run the count rather than quoting it:
 ## The bar
 
 Three `{ q, a }` items, checked by `.claude/card-links.js`: the question 4–24 words and ending in a
-question mark, the answer 12–60 words and not itself a question, no two questions the same. Those are the
+question mark, the answer 12–120 words (60 until Oct 2026, raised for the newcomer rewrite in `docs/card-authoring.md`) and not itself a question, no two questions the same. Those are the
 things a checker can see. The three that matter it cannot:
 
 **1. THE ANSWER SAYS WHAT THE CARD'S OWN CITED PROSE SAYS.** Write it out of the abstract, whose claims

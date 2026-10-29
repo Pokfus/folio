@@ -223,6 +223,12 @@ const CROSSREF_WRONG = [
   // and a Cyrillic homoglyph inside a Latin name is the one thing a citation must not ship: it breaks
   // search and reads as corruption. The citation writes all three sets of initials in Latin.
   ["10.21122/2227-1031-2025-24-4-307-316", "A. A. Kislyakov", "\u0410. \u0410. Kislyakov"],
+  // Elsevier deposited this 1999 J. Hum. Evol. byline with spacing acute accents AFTER the vowel
+  // ("Ferna\u00b4ndez-Jalvo", "D\u0131\u00b4ez", "Ca\u00b4ceres"), a typesetting artefact; PubMed 10497001 prints the
+  // byline as "Fern\u00e1ndez-Jalvo Y, Carlos D\u00edez J, C\u00e1ceres I, Rosell J". Read Oct 2026.
+  ["10.1006/jhev.1999.0324", "Yolanda Fern\u00e1ndez-Jalvo", "Yolanda Ferna\u00b4ndez-Jalvo"],
+  ["10.1006/jhev.1999.0324", "J. Carlos D\u00edez", "J. Carlos D\u0131\u00b4ez"],
+  ["10.1006/jhev.1999.0324", "Isabel C\u00e1ceres", "Isabel Ca\u00b4ceres"],
   // The NArFU Vestnik deposit reverses the name fields — Crossref carries given "Ushakov",
   // family "M.V." — and files the institute as a first author beside it. The article's own
   // landing page for the DOI prints the byline "Ушаков, М.В." (Ushakov Mikhail Vilorevich),
