@@ -256,11 +256,11 @@ have not this session.
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |
 | Visual Art | `art` | `art-` | `docs/art-card-plan.md` | 9 / 39 | 30 cards, contiguous — next is `art-031`; not a history collection (artwork-card format) |
-| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 5 / 5 | complete: map decks, plus water (`geo-801`–`840`) and mountains (`geo-901`–`940`), text cards with a locator |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 5 / 5 | complete: map decks, plus water (`geo-801`–`840`) and mountains (`geo-901`–`940`), map questions on a locator (`locator.ask`, `cardLocatorFront`) |
 | World Geography | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | complete but 3 deferred |
 | Flags | `flags` | `fl-` | `docs/flags-card-plan.md` | 2 / 2 | complete (4 deferred) |
 | Draw the flags | `flags` | `fd-` | `docs/flags-draw-card-plan.md` | 2 / 2 | complete (4 deferred) |
-| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 4 / 4 | complete: map decks, plus water (`gc-801`–`840`) and mountains (`gc-901`–`940`), text cards with a locator |
+| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 4 / 4 | complete: map decks, plus water (`gc-801`–`840`) and mountains (`gc-901`–`940`), map questions on a locator (`locator.ask`) |
 | Russia (Geography) | `geo-russia` | `gru-` | `docs/russia-geography-card-plan.md` | 2 / 2 | complete (`gru-502` deferred) |
 | Politics: East Asia | `pea` | `pea-` | `docs/politics-east-asia-card-plan.md` | 24 / 24 | live, planned a lecture at a time |
 | The EU as an External Power | `eep` | `eep-` | `docs/eu-external-power-card-plan.md` | 14 / 14 | live, a course in the Special section: 292 of 300 planned cards written; Reading 3 (8 cards) waits for its PDF |
