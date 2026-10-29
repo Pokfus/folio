@@ -378,10 +378,12 @@ name below was read out of `rivers.js` on 2026-10-29, with each entry's extent:
     Pechora             Pechora
     Kuban               Kuban
     Indigirka           Indigirka
+    Amur                Amur, Heilong Jiang                         as `gc-810` traces it (the Argun’ only if the sources
+                                                                    make it the Amur's own upper course)
 
 **⚠ `Oka` is TWO RIVERS in one entry** — the Volga's Oka (36–44° E) and the Angara's Oka in Siberia
-(100–102° E). Naming it would draw both, so `gru-821` keeps the dot and says "marked" (the two US Red
-Rivers exactly). **The Moskva is not in `rivers.js` at all**, so `gru-822` is a dot too. A river not on
+(100–102° E). Naming it would draw both, so `gru-823` keeps the dot and says "marked" (the two US Red
+Rivers exactly). **The Moskva is not in `rivers.js` at all**, so `gru-824` is a dot too. A river not on
 this list is checked the same way before its card is written.
 
 ### The facts grid
@@ -424,7 +426,8 @@ or an area large enough to need it (`1.36M km² (525,000 sq mi)`); lengths and h
   a glossary alias unless the corpus has been grepped for it.
 - **Existing glossary terms are REUSED, and corrected only if wrong**: `Volga`, `Caspian_Sea`,
   `Black_Sea`, `Bering_Strait`, `Lake_Ladoga`, `Neva`, `Gulf_of_Finland`, `Don_(river)`, `Lake_Ilmen`,
-  `Ural_Mountains` and `Greater_Caucasus`/`Caucasus` (read both before keying the range). Grep the
+  `Ural_Mountains`, `Amur`, `Altai_Mountains`, `Denisova_Cave` and `Greater_Caucasus`/`Caucasus` (read both
+  before keying the range; `Caucasus` carries the alias "Caucasus Mountains"). Grep the
   glossary for every answer before `add-glossary.js`, which overwrites in silence.
 - **`SPELL_NAMES` applies** (the reader's English): nothing in this plan is on the table today, and a
   renaming met while writing is a row there, not a card edit.
@@ -441,18 +444,21 @@ and goes no further: its Russian coast for the purpose of the facts grid is Kras
 
 **Out, and why** — each checked against the `geo-`, `gc-`, `gw-` and whole-corpus answers on 2026-10-29:
 
-- **The Amur** is `gc-810` and **the Altai Mountains** `gc-926`; both are whole-feature cards already,
-  and the Amur's carries the Russian story (Albazin, Nerchinsk, Aigun, Damansky). Not repeated. The Altai
-  is carded here through **Belukha**, its highest peak, which stands in the Russian Altai — a point
-  `gc-926` names but does not ask. **The Ussuri** is in the Amur card's history.
-- **Denisova Cave** is `wh-039` (with `wh-038` the Denisovans). Not repeated.
+- **A feature another collection already cards is IN when it is one of Russia's most important** (2026-10-29,
+  on request: "some users might never study the history or other geography collections and only want to learn
+  about the most important locations in Russia, so they should get those"). So **the Amur** (`gc-810` in
+  China), **the Altai Mountains** (`gc-926`) and **Denisova Cave** (`wh-039` in World History) are carded
+  here too, each told from the Russian side — Khabarov, Albazin and Aigun; Pazyryk, Ukok and the Golden
+  Mountains; the cave in the Anuy valley — in its own words and from its own sources, never copied from the
+  other card. **Belukha** keeps its own card beside the Altai's. The glossary term is SHARED (`Amur`,
+  `Altai_Mountains`, `Denisova_Cave`): one term per answer across the site. **The Baltic Sea** comes in on the
+  same reasoning: nine shore states, but Russia's oldest sea road. They replace Lake Elton, the Vasyugan Swamp,
+  the Ilmensky Mountains and Orda Cave, the four least-known lines. **The Ussuri** stays in the Amur's history.
 - **The Sea of Azov and the Kerch Strait**: their northern and western shores are the ground the General
   Assembly's resolutions address, and a card would be a card about that standing rather than about water
   (the China plan's Taiwan Strait reasoning). The Don's card ends at its mouth.
 - **The Sea of Japan**: shared with three countries and carries a naming dispute that is Korea's and
-  Japan's to state; Russia's coast on it is Primorsky Krai's subject card. **The Baltic Sea**: nine
-  shore states, and Russia's two pieces of it are carded as the Gulf of Finland and the Curonian Spit.
-  **La Pérouse Strait**, **the Kuril Islands** and the oceans are out for the same reasons.
+  Japan's to state; Russia's coast on it is Primorsky Krai's subject card. **La Pérouse Strait**, **the Kuril Islands** and the oceans are out for the same reasons.
 - **The Dnieper, the Western Dvina and the Neman**: each rises in or crosses Russia but runs mostly
   through Belarus, Ukraine or Lithuania; they belong to a deck of those countries. **The Selenga and Lake
   Khanka** are mostly Mongolian and shared with China respectively, and the deck has forty better-placed
@@ -654,50 +660,50 @@ layer draws Abakan outside the republic. See "Three capital numbers are never wr
 
 ## Rivers, lakes and seas — `geo-russia-water`
 
-Forty cards: rivers, lakes, seas, gulfs, straits, a reservoir, a waterfall and a wetland, each a map
+Forty cards: rivers, lakes, seas, gulfs, straits, a reservoir and a waterfall, each a map
 question on a locator (see "The physical decks" above). A river is traced by the `rivers.js` names that
-section lists; `gru-821` and `gru-822` are dots and say "marked".
+section lists; `gru-823` and `gru-824` are dots and say "marked".
 
   gru-801  Volga
   gru-802  Lake Baikal
   gru-803  Caspian Sea
   gru-804  Black Sea
-  gru-805  Bering Strait
-  gru-806  Ob
-  gru-807  Yenisei
-  gru-808  Lena
-  gru-809  White Sea
-  gru-810  Lake Ladoga
-  gru-811  Don
-  gru-812  Barents Sea
-  gru-813  Sea of Okhotsk
-  gru-814  Neva
-  gru-815  Irtysh
-  gru-816  Kara Sea
-  gru-817  Gulf of Finland
-  gru-818  Lake Onega
-  gru-819  Ural River
-  gru-820  Kolyma
-  gru-821  Oka (a dot: rivers.js holds two Okas in one entry)
-  gru-822  Moskva (a dot: not in rivers.js)
-  gru-823  Kama
-  gru-824  Angara
-  gru-825  Northern Dvina
-  gru-826  Lake Peipus
-  gru-827  Pechora
-  gru-828  Rybinsk Reservoir
-  gru-829  Laptev Sea
-  gru-830  Chukchi Sea
-  gru-831  Lake Teletskoye
-  gru-832  Kuban
-  gru-833  Strait of Tartary
-  gru-834  Indigirka
-  gru-835  Lake Ilmen
-  gru-836  Kivach Falls
-  gru-837  Gulf of Ob
-  gru-838  Avacha Bay
-  gru-839  Lake Elton
-  gru-840  Vasyugan Swamp
+  gru-805  Baltic Sea
+  gru-806  Amur River (also gc-810 in China: told here from the Russian side)
+  gru-807  Bering Strait
+  gru-808  Ob
+  gru-809  Yenisei
+  gru-810  Lena
+  gru-811  White Sea
+  gru-812  Lake Ladoga
+  gru-813  Don
+  gru-814  Barents Sea
+  gru-815  Sea of Okhotsk
+  gru-816  Neva
+  gru-817  Irtysh
+  gru-818  Kara Sea
+  gru-819  Gulf of Finland
+  gru-820  Lake Onega
+  gru-821  Ural River
+  gru-822  Kolyma
+  gru-823  Oka (a dot: rivers.js holds two Okas in one entry)
+  gru-824  Moskva (a dot: not in rivers.js)
+  gru-825  Kama
+  gru-826  Angara
+  gru-827  Northern Dvina
+  gru-828  Lake Peipus
+  gru-829  Pechora
+  gru-830  Rybinsk Reservoir
+  gru-831  Laptev Sea
+  gru-832  Chukchi Sea
+  gru-833  Lake Teletskoye
+  gru-834  Kuban
+  gru-835  Strait of Tartary
+  gru-836  Indigirka
+  gru-837  Lake Ilmen
+  gru-838  Kivach Falls
+  gru-839  Gulf of Ob
+  gru-840  Avacha Bay
 
 ## Mountains, plains and caves — `geo-russia-mountains`
 
@@ -707,41 +713,41 @@ A range is drawn on a spine built from its own peaks' fetched coordinates, or ca
   gru-901  Ural Mountains
   gru-902  Mount Elbrus
   gru-903  Caucasus Mountains
-  gru-904  Klyuchevskaya Sopka
-  gru-905  West Siberian Plain
-  gru-906  Valley of Geysers
-  gru-907  East European Plain
-  gru-908  Central Siberian Plateau
-  gru-909  Putorana Plateau
-  gru-910  Verkhoyansk Range
-  gru-911  Sayan Mountains
-  gru-912  Khibiny Mountains
-  gru-913  Kungur Ice Cave
-  gru-914  Lena Pillars
-  gru-915  Belukha
-  gru-916  Mount Kazbek
-  gru-917  Avachinsky
-  gru-918  Sikhote-Alin
-  gru-919  Kapova Cave
-  gru-920  Valdai Hills
-  gru-921  Central Russian Upland
-  gru-922  Stanovoy Range
-  gru-923  Manpupuner rock formations
-  gru-924  Chersky Range
-  gru-925  Shiveluch
-  gru-926  Mount Narodnaya
-  gru-927  Caspian Depression
-  gru-928  Zhiguli Mountains
-  gru-929  Tolbachik
-  gru-930  Batagaika crater
-  gru-931  Byrranga Mountains
-  gru-932  Mashuk
-  gru-933  Krasnoyarsk Stolby
-  gru-934  Dykh-Tau
-  gru-935  Kuznetsk Alatau
-  gru-936  Curonian Spit
-  gru-937  Ilmensky Mountains
-  gru-938  Orda Cave
+  gru-904  Altai Mountains (also gc-926 in China: told here from the Russian Altai)
+  gru-905  Klyuchevskaya Sopka
+  gru-906  West Siberian Plain
+  gru-907  Valley of Geysers
+  gru-908  East European Plain
+  gru-909  Central Siberian Plateau
+  gru-910  Putorana Plateau
+  gru-911  Denisova Cave (also wh-039 in World History: told here as a place)
+  gru-912  Verkhoyansk Range
+  gru-913  Sayan Mountains
+  gru-914  Khibiny Mountains
+  gru-915  Kungur Ice Cave
+  gru-916  Lena Pillars
+  gru-917  Belukha
+  gru-918  Mount Kazbek
+  gru-919  Avachinsky
+  gru-920  Sikhote-Alin
+  gru-921  Kapova Cave
+  gru-922  Valdai Hills
+  gru-923  Central Russian Upland
+  gru-924  Stanovoy Range
+  gru-925  Manpupuner rock formations
+  gru-926  Chersky Range
+  gru-927  Shiveluch
+  gru-928  Mount Narodnaya
+  gru-929  Caspian Depression
+  gru-930  Zhiguli Mountains
+  gru-931  Tolbachik
+  gru-932  Batagaika crater
+  gru-933  Byrranga Mountains
+  gru-934  Mashuk
+  gru-935  Krasnoyarsk Stolby
+  gru-936  Dykh-Tau
+  gru-937  Kuznetsk Alatau
+  gru-938  Curonian Spit
   gru-939  Barguzin Range
   gru-940  Popigai crater
 
