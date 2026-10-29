@@ -35,20 +35,29 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1116", released: "2026-10-29T08:48Z" };
+window.FOLIO_VERSION = { v: "1.1117", released: "2026-10-29T13:58Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-29",
-    t: "The Peloponnesian War year by year, and the League on 1920 borders",
+    t: "The Peloponnesian War year by year, and Korean names on every Korea card",
     items: [
       "The <b>Peloponnesian War's map</b> now shows both alliances year by year, town by town, from 431 to 404 BCE.",
       "The League of Nations card's map now shows <b>the borders of 1920</b>, the original members in gold and later joiners in blue.",
-      "The Sahara and People's Republic of China cards gained <b>an atlas window</b>.",
-      "<b>70 new glossary terms</b> now link from 22 cards in ten collections, and 15 existing terms link under more of their names.",
-      "Two cards in Ancient Greece and Korea have <b>new pictures</b>.",
-      "Three cards in Japan, the United States and China have <b>clearer Background text</b>, and one China card a fuller date.",
+      "Ten cards, among them the Sahara, Seoul, Pyongyang and the Rosetta Stone, gained <b>an atlas window</b>.",
+      "The Chinese Three Kingdoms card's map shows <b>Wei, Shu-Han and Wu in three colours</b>, with a timeline from 220 to 280.",
+      "Every Korea card's answer now has its <b>Korean name</b>, in Hangul with its romanisation, behind the translation icon.",
+      "<b>332 new glossary terms</b> now link from 67 cards in more than a dozen collections, and 28 existing terms link under more of their names.",
+      "Four cards in Ancient Greece, Korea and Ancient Egypt have <b>new pictures</b>.",
+      "Five cards in Japan, the United States, China, Rome and World History have <b>clearer Background text</b>, and two cards a fuller date.",
       "One Psychology card has a <b>new answer</b>: tabula rasa.",
+      "An admin can now <b>edit or remove a True or False statement</b> while playing the game, as well as from the admin page.",
+      "The <b>next-up passage</b> in the Continue reading and Suggested reading box is now twice as long.",
+      "On the Personal Atlas, <b>Rome</b> is drawn in full ink like any other discovered city, no longer a faded second square.",
+      "<b>Rivers at night</b> are a darker blue, still clear against the relief.",
+      "A card's atlas window no longer names its own city twice when another card has discovered it.",
+      "In the card editor, the <b>Link term</b> list now reaches every term, and a new button adds a date row with its label and date.",
+      "The Great Depression card now has <b>a timeline</b>, and the donkey and barley answers are written in lower case.",
     ],
   },
   {

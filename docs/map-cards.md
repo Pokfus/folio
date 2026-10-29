@@ -726,3 +726,22 @@ Cliopatria folds into an empire or an occupation that year (Canada, South Africa
 Republic) are drawn with their own later row through `rowsAt: [[1920, 1920, rowYear]]`, their borders being the same, and
 the entity's note says so; the Spanish empire's composite stands aside in 1920 (`exceptYears`) for Spain alone.
 `cnh-656` uses the same block with `label: "Territory"` for one state's own present-day ground.
+
+### Three groups, a zoom and a timeline (`members.span`, 2026-10-29, on request)
+
+> "Add an atlas window with a timeline for the whole period." (the Chinese Three Kingdoms, `cnh-273`)
+
+`groups` may hold **three** (the third in `TINT_THIRD`, a plum, with its own key row), `zoom` sets the window's zoom as a
+locator's does, and `span: [y0, y1]` (integers, `year` inside it) puts the war windows' timeline under the window: its
+steps are the years inside the span at which any of the groups' entities begins, ends or changes its face
+(`entsTimeline` in `atlas/atlas.js`, exposed on the hub; computed once the history has arrived), and the pin opens at
+`year` where that is a step, else at the halfway point. With no seat (`at`) a members window on a past year names nothing
+of its own — its present-day `keys` are only the fallback and the frame.
+
+## A locator's extra places and hidden siblings (`locator.also`, `locator.hide`, 2026-10-29, on request)
+
+- `also: [{ name, at: [lon, lat] }]` — further places of the card's OWN subject, drawn as named dots beside its own
+  (`jp-018`: Ōyu and Isedotai). The coordinates are fetched (Wikidata P625 or the article), never typed.
+- `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
+  studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within
+  0.03°) is never drawn a second time.
