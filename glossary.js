@@ -7483,7 +7483,16 @@ window.GLOSSARY = {
 "Charles_de_Gaulle": "",
 "Attack_on_Mers-el-Kébir": "",
 "German_occupation_of_the_Channel_Islands": "",
-"Strange_Defeat": ""
+"Strange_Defeat": "",
+"French_Army": "",
+"Maurice_Gamelin": "",
+"German_invasion_of_the_Netherlands": "",
+"German_bombing_of_Rotterdam": "",
+"Leopold_III_of_Belgium": "",
+"Battle_of_Arras_(1940)": "",
+"Halt_order": "",
+"Italian_invasion_of_France": "",
+"Open_city": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11130,7 +11139,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Charles_de_Gaulle": "1890–1970",
 "Attack_on_Mers-el-Kébir": "3 July 1940",
 "German_occupation_of_the_Channel_Islands": "1940–1945",
-"Strange_Defeat": "1940"
+"Strange_Defeat": "1940",
+"German_invasion_of_the_Netherlands": "1940",
+"German_bombing_of_Rotterdam": "1940",
+"Leopold_III_of_Belgium": "1901–1983",
+"Battle_of_Arras_(1940)": "1940",
+"Halt_order": "1940",
+"Italian_invasion_of_France": "1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15879,7 +15894,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Exodus_(1940)": ["Exode","exodus of 1940"],
 "Philippe_Pétain": ["Marshal Pétain"],
 "Attack_on_Mers-el-Kébir": ["Mers-el-Kébir"],
-"Strange_Defeat": ["L'Étrange Défaite"]
+"Strange_Defeat": ["L'Étrange Défaite"],
+"German_bombing_of_Rotterdam": ["Rotterdam Blitz"],
+"Leopold_III_of_Belgium": ["Leopold III"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -16019,7 +16036,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Frog": true,
 "Lone_(river)": true,
 "Free_France": true,
-"Strange_Defeat": true
+"Strange_Defeat": true,
+"Halt_order": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -23506,7 +23524,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Charles_de_Gaulle": ["person","history","politics","warfare","france"],
 "Attack_on_Mers-el-Kébir": ["battle","history","warfare","france","britain"],
 "German_occupation_of_the_Channel_Islands": ["event","history","warfare","britain","occupation"],
-"Strange_Defeat": ["text","history","literature","france"]
+"Strange_Defeat": ["text","history","literature","france"],
+"French_Army": ["institution","history","warfare","france"],
+"Maurice_Gamelin": ["person","history","warfare","france"],
+"German_invasion_of_the_Netherlands": ["event","history","warfare","netherlands","germany"],
+"German_bombing_of_Rotterdam": ["event","history","warfare","netherlands","germany"],
+"Leopold_III_of_Belgium": ["ruler","history","politics","belgium"],
+"Battle_of_Arras_(1940)": ["battle","history","warfare","france","britain"],
+"Halt_order": ["event","history","warfare","germany"],
+"Italian_invasion_of_France": ["event","history","warfare","italy","france"],
+"Open_city": ["concept","history","warfare","law"]
 });
 
 /* ============================================================================

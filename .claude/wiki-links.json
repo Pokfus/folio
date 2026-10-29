@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-29T23:26Z",
+ "generated": "2026-10-29T23:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5248,
-  "redirect-broader": 485,
+  "ok": 5255,
+  "redirect-broader": 486,
   "redirect-variant": 331,
   "section-redirect": 105,
   "disambiguation": 138,
-  "none": 958,
-  "disambig-resolved": 77,
+  "none": 959,
+  "disambig-resolved": 78,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -59914,6 +59914,78 @@
    "answer": "Strange Defeat",
    "title": "Strange Defeat",
    "url": "https://en.wikipedia.org/wiki/Strange_Defeat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-181": {
+   "answer": "French Army",
+   "title": "French Army",
+   "url": "https://en.wikipedia.org/wiki/French_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-182": {
+   "answer": "Maurice Gamelin",
+   "title": "Maurice Gamelin",
+   "url": "https://en.wikipedia.org/wiki/Maurice_Gamelin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-183": {
+   "answer": "German invasion of the Netherlands",
+   "title": "German invasion of the Netherlands",
+   "url": "https://en.wikipedia.org/wiki/German_invasion_of_the_Netherlands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-184": {
+   "answer": "Rotterdam Blitz",
+   "title": "German bombing of Rotterdam",
+   "url": "https://en.wikipedia.org/wiki/German_bombing_of_Rotterdam",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rotterdam Blitz"
+  },
+  "ww2-185": {
+   "answer": "Leopold III",
+   "title": "Leopold III of Belgium",
+   "url": "https://en.wikipedia.org/wiki/Leopold_III_of_Belgium",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Leopold III"
+  },
+  "ww2-186": {
+   "answer": "Battle of Arras",
+   "title": "Battle of Arras (1940)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Arras_(1940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-187": {
+   "answer": "Dunkirk evacuation",
+   "title": "Dunkirk evacuation",
+   "url": "https://en.wikipedia.org/wiki/Dunkirk_evacuation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-188": {
+   "answer": "Halt order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-189": {
+   "answer": "Italian invasion of France",
+   "title": "Italian invasion of France",
+   "url": "https://en.wikipedia.org/wiki/Italian_invasion_of_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-190": {
+   "answer": "Open city",
+   "title": "Open city",
+   "url": "https://en.wikipedia.org/wiki/Open_city",
    "via": "glossary",
    "status": "ok"
   }
