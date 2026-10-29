@@ -3325,6 +3325,13 @@ headword, 24 bolding another card's headword), the cards that shipped with no ex
 stripped them, the full DELE A1 read and its recurring fault shapes in order of frequency, and the two
 cards that contradicted themselves. The RULES stay in `CLAUDE.md`.
 
+- **`.claude/decks/paradigm-fixes.json` + `paradigm-fix.js` — ONE CARD PER PARADIGM in the French (DELF),
+Italian (CILS, Core) and Portuguese (CAPLE) decks (Oct 2026).** Folds an article's, a possessive's, a
+demonstrative's or a personal pronoun's gender and number forms into the note with the lowest id, rebuilds
+its English, Forms and Examples from the record, and drops a note in another deck only when the note that
+now teaches it names it. Idempotent; `node .claude/decks/paradigm-fix.js --check` asserts the decks match.
+A rebuild of any of those decks re-runs it as its last step, then `build-lang-decks.js`. The reasoning is
+`docs/refinements-2026-08-27.md` §4 H.
 - **📖 `.claude/decks/spanish-fixes.json` + `spanish-fix.js` — THE ONE WAY A DELE SPANISH DECK IS
 HAND-EDITED, AND THE ONLY PLACE AN EDIT MAY BE MADE.** `mandarin-fix.js`'s model, for the opposite
 reason: the Mandarin decks cannot be regenerated, so a hand edit there is permanent; the DELE decks
