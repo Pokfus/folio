@@ -35,23 +35,37 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1113", released: "2026-10-25T14:07Z" };
+window.FOLIO_VERSION = { v: "1.1116", released: "2026-10-29T08:48Z" };
 
 window.CHANGELOG = [
   {
-    d: "2026-10-25",
-    t: "The Peloponnesian War year by year, and 132 new glossary terms",
+    d: "2026-10-29",
+    t: "The Peloponnesian War year by year, and the League on 1920 borders",
     items: [
-      "A card about an organisation of states can now <b>shade its members on its map</b>; the League of Nations card shows every country that ever belonged.",
-      "The Atlas's <b>relief stays sharp when you zoom in</b>: valleys and ridges now show down to about half a kilometre.",
-      "<b>132 new glossary terms</b> now link from 37 cards in twelve collections, and 15 existing terms link under more of their names.",
       "The <b>Peloponnesian War's map</b> now shows both alliances year by year, town by town, from 431 to 404 BCE.",
       "The League of Nations card's map now shows <b>the borders of 1920</b>, the original members in gold and later joiners in blue.",
       "The Sahara and People's Republic of China cards gained <b>an atlas window</b>.",
+      "<b>70 new glossary terms</b> now link from 22 cards in ten collections, and 15 existing terms link under more of their names.",
       "Two cards in Ancient Greece and Korea have <b>new pictures</b>.",
-      "Seven cards in Geography, Psychology, World History, Japan, the United States, China and The Second World War have <b>clearer Background text</b>.",
-      "Three World History, Second World War and China cards show <b>fuller dates</b>, and one World History card gained a quotation from Herodotus.",
-      "One Ancient Rome card has a <b>new main question</b>, and one Psychology card a new answer.",
+      "Three cards in Japan, the United States and China have <b>clearer Background text</b>, and one China card a fuller date.",
+      "One Psychology card has a <b>new answer</b>: tabula rasa.",
+    ],
+  },
+  {
+    d: "2026-10-25",
+    t: "League members on the map, and 62 new glossary terms",
+    items: [
+      "A card about an organisation of states can now <b>shade its members on its map</b>; the League of Nations card shows every country that ever belonged.",
+      "The Atlas's <b>relief stays sharp when you zoom in</b>: valleys and ridges now show down to about half a kilometre.",
+      "On the Atlas, <b>places are marked in red and named in black</b>, as in the first Atlas, and past borders are darker and easier to see.",
+      "The Map and Full Atlas no longer <b>darken land with no recorded state</b>, which showed gaps in the source maps as dark patches.",
+      "<b>62 new glossary terms</b> now link from 15 cards in Geography, Psychology, World History, Ancient Rome, Ancient Egypt, Russia and The Second World War.",
+      "Four cards in Geography, Psychology, World History and The Second World War have <b>clearer Background text</b>.",
+      "Two World History and Second World War cards show <b>fuller dates</b>, and one World History card gained a quotation from Herodotus.",
+      "One Ancient Rome card has a <b>new main question</b>.",
+      "On a phone, the page behind a glossary popup now <b>stays blurred</b> when a link inside it opens another term.",
+      "A Chinese or Japanese card's <b>translation bubble stays open</b> while you write on the whiteboard; only its own icon closes it.",
+      "Signed in as an admin, a card now shows its <b>id</b> (such as ps-005) in small type at its foot, under the Wikipedia link.",
     ],
   },
   {

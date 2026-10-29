@@ -5486,7 +5486,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `answerNameHTML` returns `.ac-wrap` (a plain grey `文A` icon button `.ac-btn`, no ring or fill + a hidden `.ac-bubble` holding the old
   `.ans-cn` block), and `buildBack` sets it as a SIBLING of `.val` inside `.av-term.av-cn` — **never inside
   `.val`**, which five suites read the answer text from. One delegated listener (`wireAnswerBubbles`, at
-  module load) opens / closes it for every render path (click the icon, click elsewhere, Escape).
+  module load) opens / closes it for every render path (click the icon, or Escape — a click elsewhere no
+  longer closes it since Oct 2026, on request: a whiteboard marker stroke ends in a click and took it away).
   **THE BUBBLE'S LANGUAGE IS DECIDED BY THE CARD'S ID PREFIX** (`ANSWER_NAME_LANGS` / `answerNameLang`, Oct 2026,
   on request: all `jp-` cards get a Japanese name with romanisation). The Japan collection keeps its Japanese
   in the SAME light fields — `hanzi` the script, `pinyin` the Hepburn romanisation — so no writer, serializer

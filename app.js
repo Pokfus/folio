@@ -4134,6 +4134,11 @@
         glossDoubleTap(s, () => { if (glossWins.length) removeGlossWin(glossWins[glossWins.length - 1], true); });
         // one frame at opacity 0 so the class change is a transition rather than an appearance
         requestAnimationFrame(() => s.classList.add("on"));
+      } else {
+        // a scrim still fading out is taken back up, not left for its removal timer: a gloss link inside
+        // a popup closes the first sheet (closeAllGloss) and opens the next in the same tick, and without
+        // this the old scrim's timer took the blur away from under the second sheet (Oct 2026)
+        s.classList.add("on");
       }
     } else if (s) {
       s.classList.remove("on");
@@ -34741,6 +34746,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // what goes in the study card's question area: a custom type's front template, or the Basic question —
   // and, on a map card, the globe window ABOVE the prompt, since the map is the clue and the words only
   // say what to do with it
+  /* THE CARD'S ID, FOR AN ADMIN (Oct 2026, on request): a small line at the very foot of the card, under the Wikipedia tile ("ps-005"; moved there from the top
+     the same day, on request),
+     so a card met while studying can be named in a request or found in the editor. Admins only — and
+     never inside `.question`, which suites read the question text from. */
+  function cardAdminIdHTML(c) {
+    return c && c.id && isAdmin() ? '<div class="card-admin-id" translate="no">' + esc(c.id) + "</div>" : "";
+  }
   function cardFrontHTML(c) {
     const custom = cardTypeSideHTML(c, "front");
     if (custom != null) return custom;
@@ -35161,11 +35173,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (open) placeAnswerBubble(wrap);
   }
   function wireAnswerBubbles() {
+    /* ONLY ITS ICON CLOSES IT (Oct 2026, on request): a click elsewhere used to, and a stroke of the
+       whiteboard marker ends in a click, so writing beside the bubble took it away. Escape still closes. */
     document.addEventListener("click", (e) => {
       const t = e.target && e.target.closest ? e.target : null;
-      const hit = t ? t.closest(".ac-wrap") : null;
-      document.querySelectorAll(".ac-wrap.open").forEach((w) => { if (w !== hit) setAnswerBubble(w, false); });
-      if (hit && t.closest(".ac-btn")) setAnswerBubble(hit, !hit.classList.contains("open"));
+      const hit = t && t.closest(".ac-btn") ? t.closest(".ac-wrap") : null;
+      if (hit) setAnswerBubble(hit, !hit.classList.contains("open"));
     });
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Escape") return;
@@ -36460,6 +36473,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     html += sourcesHTML(cardSources(c));
     // …and, last of all, the way on: the answer's own Wikipedia article (see learnMoreHTML)
     html += learnMoreHTML(c);
+    // …and under even that, for an admin only, the card's id (cardAdminIdHTML)
+    html += cardAdminIdHTML(c);
     return html;
   }
   /* LEARN MORE — the link to the answer term's own Wikipedia article (Oct 2026, on request: "for cards
