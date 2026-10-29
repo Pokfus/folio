@@ -435,6 +435,7 @@ function run() {
       "pol:byzantium|pol:venice|22.7,37.6": "the Venetian enclave at Methoni/Koroni (1395–1429) lies inside the Byzantine Morea, the two borders within 135 m of each other and unshared (a near-coincident pair of source borders)",
       "pol:ottoman|pol:venice|22.7,37.6": "the same Venetian enclave in 1402, bordering the Ottoman row",
       "pol:ussr|pol:estonia_1918|27.5,58.5": "the Soviet row of 1922–1934 and Estonia's meet along the Narva–Pskov line within 135 m without sharing it (a near-coincident pair of source borders)",
+      "pol:soviet_1920|pol:estonia_1918|27.5,58.5": "the same line in 1920: Cliopatria's Soviet republics of 1920 (the League window's states) and Estonia meet along the Narva–Pskov line within 135 m without sharing it",
     };
     const wx = (x, px) => { let d = x - px; if (d > X180) d -= 2 * X180; else if (d < -X180) d += 2 * X180; return d; };
     const ringCache = new Map();
