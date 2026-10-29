@@ -6430,7 +6430,7 @@
        is deliberately NOT added to the picture round in this pass — a flag round wants its own decoy
        ranking (four flags of similar design rather than four tag-near countries) and is a change to a
        GAME rather than to a collection; see docs/flags-card-plan.md. */
-    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c) && !cardLocatorFront(c) && !cardArtSpec(c) && !cardFlagSpec(c) && !cardDrawSpec(c)) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -23904,7 +23904,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      territory whose flag is shown is ___" is nothing on a card that shows no flag. The preview holds text
      only, so it skips past those to the next card whose question stands alone. */
   function previewable(c) {
-    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c);
+    return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
   }
   function reviewPreviewHTML(ids) {
     const pick = [];
@@ -33138,7 +33138,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            It goes HERE, after `buildBack`, and not beside `cardMapReveal` above: the locator window is
            part of the card's BACK, so up there the chip does not exist yet and the call found nothing —
            silently, since a card with no atlas window is the ordinary case and returns early too. */
-        cardAtlasDiscover(inner, c);
+        cardAtlasDiscover(cardLocatorFront(c) ? cardRoot : inner, c);
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
            only: a type that marks several runs is asking for a control on each, not for a recital. */
         if (fromReader && autoSpeakOn) {
@@ -34619,7 +34619,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      `S.cards[id]`, and the check below reads its absence as "first sighting". */
   function cardAtlasDiscover(root, c) {
     if (!root || !root.querySelector || !c) return;
-    const chip = root.querySelector(".card-loc .mc-new");
+    const chip = root.querySelector(".card-loc .mc-new, .map-front .mc-new");   // a locator that asks draws its window, and so its chip, on the front
     if (!chip) return;                                   // no atlas window on this card
     if (S.cards && S.cards[c.id]) return;                // already studied — the place came in then
     /* PHASE 5: the Atlas is v2's, so "a place you did not have" is v2's definition — the registry places the card is about (`ATLAS_CARD_PLACES`, 62 KB, lazy) against the places of every card the reader has a record for,
@@ -34769,6 +34769,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const q = (c && c.question) || "";
     const spec = cardMapSpec(c);
     if (spec) return cardMapHTML(spec) + q;
+    // a locator that asks (cardLocatorFront): its window is the clue, above the prompt, as a map card's globe is
+    if (cardLocatorFront(c)) return cardLocatorHTML(c, true) + q;
     /* an artwork card: the picture is the WHOLE question — no prose at all, and the three fields under
        it are the answer box (see the ARTWORK CARDS block). `q` is empty on every such card and is not
        drawn either way, so a hand-authored one that carries a sentence cannot leak it onto the front. */
@@ -36007,7 +36009,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const p = a && Array.isArray(a.at) ? [Number(a.at[0]), Number(a.at[1])] : null;
       return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p } : null;
     }).filter(Boolean) : [];
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also };
+    /* `ask` (Oct 2026, on request: the rivers-and-mountains decks "should work the same way as the state or country cards"): the window IS the card's question —
+       drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true };
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -36256,7 +36260,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   // "lon,lat lon,lat …", rings separated by ";" — `readRings` in startCardGlobe is the other half of this
   function warRingsAttr(rings) { return rings.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";"); }
-  function cardLocatorHTML(c) {
+  /* A LOCATOR AS THE QUESTION (Oct 2026, on request: the physical geography decks' rivers, lakes and mountains "should work the same way as the state or country
+     cards, where the location is shown on a map and the user must guess"). `locator.ask` moves the window to the card's FRONT, the map card's place: the river traced,
+     the range's peaks or the dot drawn, its name held back until the reveal (no `data-map-named`), and no globe button, since the Atlas would name it. The back then
+     draws no second copy. Such a card is kept out of the minigames and the review preview exactly as a map card is: its question points at a map they do not show. */
+  function cardLocatorFront(c) {
+    const l = cardLocator(c);
+    return l && l.ask && !cardWar(c) && !cardMembers(c) ? l : null;
+  }
+  const LOC_ASK_WHAT = { river: "river", range: "mountain range" };
+  function cardLocatorHTML(c, front) {
+    if (!front && cardLocatorFront(c)) return "";   // its window is the question (cardFrontHTML)
+    if (front) {
+      const lf = cardLocatorFront(c); if (!lf) return "";
+      const what = LOC_ASK_WHAT[lf.kind] || "place";
+      return cardLocatorWindowHTML(c, lf, null, null, "map-front",
+        "An interactive globe with one " + what + " marked on it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?", false);
+    }
     const l = cardLocator(c), w = cardWar(c), m = w ? null : cardMembers(c);
     /* A WAR CARD GETS THIS WINDOW WITHOUT A LOCATOR, and that is the point of asking the war block for
        one: the two sides ARE the place, so the frame is read off their own extent (see `fitTarget`) and
@@ -36274,7 +36294,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
     return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
-      '<div class="map-card map-loc' + (w ? " map-war" : m ? " map-members" : "") + '" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
+      cardLocatorWindowHTML(c, l, w, m, "map-loc" + (w ? " map-war" : m ? " map-members" : ""), said, true) +
+      "</div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
+  }
+  // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
+  function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
+    const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
+    return '<div class="map-card ' + cls + '" data-map-layer="world"' + (named ? " data-map-named" : "") + ' data-map-card="' + esc(c.id || "") + '"' +
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
       (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
@@ -36317,14 +36343,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          `data-mc="go"` so the window's own closure handler can ignore it by name, and it is wired by a
          DELEGATED document listener rather than in `startCardGlobe`: routing is not the globe's job, and
          this markup is drawn by six surfaces that would each have to remember to wire it. */
-      '<button type="button" class="mc-btn mc-go" data-mc="go" aria-label="See this on your atlas" title="See this on your atlas">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></button>' +
+      (named ? '<button type="button" class="mc-btn mc-go" data-mc="go" aria-label="See this on your atlas" title="See this on your atlas">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></button>' : "") +
       "</div>" +
       /* THE CHIP SHIPS IN THE MARKUP, HIDDEN, rather than being created when the answer is revealed —
          `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
          screen reader has not been watching, and the announcement is lost. */
       '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
-      "</div></div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
+      "</div>";
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
      Rendered on the answer side, directly under the answer box, because a mnemonic is about the TERM and

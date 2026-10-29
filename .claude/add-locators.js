@@ -260,6 +260,7 @@ async function getJSON(url, label) {
     if (j.within) loc.within = j.within;
     if (j.rivers) loc.rivers = j.rivers;
     if (j.label) loc.label = j.label;
+    if (j.card.locator && j.card.locator.ask === true) loc.ask = true;   // the window is the card's question (app.js cardLocatorFront): a re-fetch keeps it there
     j.card.locator = loc;
     done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + shapeSize(j.shape) + ")" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== source ? "  ← " + redirected : ""));
     if (!j.keepAt) await new Promise((r) => setTimeout(r, 900));   // be polite to the API

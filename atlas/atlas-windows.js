@@ -170,7 +170,10 @@
       if (isGloss) { const g = dot ? dot.c : [0, 0]; home = { lon: g[0], lat: g[1], zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || CMAP_ZLOC)) }; return; }   // the generator framed it (build-glossary-places.js)
       const at = targets.length ? targets[0].c : dot ? dot.c : [0, 0];
       let lon = at[0], lat = at[1], z = targets.length ? 4 : CMAP_ZLOC;
-      const ext = locArea || (locSpine ? [locSpine] : null);
+      /* a river that IS the question (app.js cardLocatorFront: the window on the card's front, not yet named) is framed on its own traced line rather than on its
+         mouth, so the whole river is in view — only the stretches within 25° of the locator's point, since a rivers.js name may also hold a namesake's (the Colorado's in Argentina) */
+      const riverExt = !host.hasAttribute("data-map-named") && locKind === "river" && ownLines && dot ? ownLines.filter((l) => l && l.length > 1 && l.some((q) => Math.abs(q[0] - dot.c[0]) < 25 && Math.abs(q[1] - dot.c[1]) < 25)) : null;
+      const ext = locArea || (locSpine ? [locSpine] : null) || (riverExt && riverExt.length ? riverExt : null);
       if (!targets.length && ext && ext.length) {
         const b = ringsBox(ext); lon = wrapLon((b[0] + b[2]) / 2); lat = (b[1] + b[3]) / 2;
         const span = Math.max(b[3] - b[1], (b[2] - b[0]) * Math.cos(lat * DEG), 0.2); z = 0.85 / (0.46 * DEG * span);
