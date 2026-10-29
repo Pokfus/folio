@@ -10632,7 +10632,7 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .fi2-loading[hidden]{display:none;}
 
 /* True or False: the admin's Edit / Remove beside a statement in the game and on its results (Oct 2026) */
-.tf-adminbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:10px 0 4px;}
+.tf-adminbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:10px 0 16px;}
 .tf-adminbar-l{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-right:2px;}
 .dc-q .tf-form, .tf-summary .tf-form{margin:6px 0 14px; text-align:left;}
 .gp-more{padding:8px 9px; color:var(--ink-faint); font-family:var(--sans); font-size:calc(11.5px * var(--fs)); text-align:center;}
