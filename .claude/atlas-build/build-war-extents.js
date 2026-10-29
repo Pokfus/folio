@@ -141,21 +141,33 @@ function poleisExtents(PC, out) {
   { const l0 = core.header.entities.map((e) => !e.parent); for (const fc of core.faces) { if (!l0[fc.entity]) continue; for (const ring of fc.rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (core.arcKind[a] === K.COAST) dir[a] = ref > 0 ? 1 : -1; } } }
   const head = (a) => (dir[a] > 0 ? core.arcOffset[a] : core.arcOffset[a + 1] - 1), tail = (a) => (dir[a] > 0 ? core.arcOffset[a + 1] - 1 : core.arcOffset[a]);
   const pk = (i) => core.lon[i] * 4000000 + core.lat[i];
-  const coast = [];
+  const coast = [], mainland = [];
+  /* THE LAND OF THE WAR'S REGION (2026-10-25): every shape is clipped to the committed coast BEFORE it is written. A circle reaching over a strait (Attica's to
+     Salamis and Aegina) left build-history a ring whose sea chords and 12 km-inland arcs it had to snap onto the coast by its run rule, and west Attica fell out of
+     the face from 422 BCE; a ring that already follows the coast needs no such guess. */
+  const REGION = [10, 30, 36, 46];
   { const byHead = new Map(); for (let a = 0; a < nCA; a++) if (core.arcKind[a] === K.COAST) { const k = pk(head(a)); let l = byHead.get(k); if (!l) byHead.set(k, l = []); l.push(a); }
     const used = new Uint8Array(nCA);
     for (let a0 = 0; a0 < nCA; a0++) { if (core.arcKind[a0] !== K.COAST || used[a0]) continue; const pts = []; let a = a0, g = 0;
       while (!used[a] && g++ < 1e6) { used[a] = 1; const idx = []; for (let i = core.arcOffset[a]; i < core.arcOffset[a + 1]; i++) idx.push(i); if (dir[a] < 0) idx.reverse(); for (let k = pts.length ? 1 : 0; k < idx.length; k++) pts.push([core.lon[idx[k]] * Q, core.lat[idx[k]] * Q]); const l = (byHead.get(pk(tail(a))) || []).filter((b) => !used[b]); if (!l.length) break; a = l[0]; }
       if (pts.length < 4) continue; let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, ar = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q2 = pts[(i + 1) % pts.length]; x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); ar += p[0] * q2[1] - q2[0] * p[1]; }
-      if (ar > 0 && x1 - x0 < 6 && y1 - y0 < 6) coast.push({ pts, bb: [x0, y0, x1, y1], area: ar / 2 }); } }
+      if (ar > 0 && x1 - x0 < 6 && y1 - y0 < 6) coast.push({ pts, bb: [x0, y0, x1, y1], area: ar / 2 });
+      else if (ar > 0 && x1 >= REGION[0] && x0 <= REGION[2] && y1 >= REGION[1] && y0 <= REGION[3]) mainland.push(pts); } }
+  /* an island's coast ring is simplified to ~55 m (Douglas–Peucker, 0.0005°) BEFORE the unions and differences, so every polygon written is the clipper's own, valid
+     output (simplifying afterwards let an enclave's hole cross its outer ring, and build-history's depth nesting then lost west Attica): build-history snaps every vertex
+     to the committed coast at a far coarser tolerance, so the full resolution was 10 MB of a file nobody reads */
+  const dp = (P, e) => { if (P.length < 3) return P; let d = 0, ix = 0; const a = P[0], b = P[P.length - 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1e-12; for (let k = 1; k < P.length - 1; k++) { const q = P[k], n = Math.abs((b[0] - a[0]) * (a[1] - q[1]) - (a[0] - q[0]) * (b[1] - a[1])) / L; if (n > d) { d = n; ix = k; } } return d > e ? dp(P.slice(0, ix + 1), e).slice(0, -1).concat(dp(P.slice(ix), e)) : [a, b]; };
+  const simp = (ring) => { if (ring.length < 8) return ring; const h = Math.floor(ring.length / 2); const out2 = dp(ring.slice(0, h + 1), 0.0005).slice(0, -1).concat(dp(ring.slice(h).concat([ring[0]]), 0.0005).slice(0, -1)); return (out2.length >= 3 ? out2 : ring).map((q) => [r5(q[0]), r5(q[1])]); };
   const pip = (poly, x, y) => { let k = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) k = !k; } return k; };
   // the smallest coast ring holding the point, else the one with a vertex nearest it within 3 km (a town's point may sit on the shore)
   const islandAt = (lon, lat, name) => {
     let best = null; for (const r of coast) { const b = r.bb; if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue; if (pip(r.pts, lon, lat) && (!best || r.area < best.area)) best = r; }
     if (!best) { let bd = 3 / 111.2; for (const r of coast) { const b = r.bb; if (lon < b[0] - bd || lon > b[2] + bd || lat < b[1] - bd || lat > b[3] + bd) continue; for (const p of r.pts) { const d = Math.hypot((p[0] - lon) * Math.cos(lat * Math.PI / 180), p[1] - lat); if (d < bd) { bd = d; best = r; } } } }
     if (!best) throw new Error(`war-poleis.json: ${name}: no island coast ring at or within 3 km of ${lon}, ${lat}`);
-    return [closeRing(best.pts.map((p) => [r5(p[0]), r5(p[1])]))];
+    return [closeRing(simp(best.pts))];
   };
+  const box = [[[REGION[0], REGION[1]], [REGION[2], REGION[1]], [REGION[2], REGION[3]], [REGION[0], REGION[3]], [REGION[0], REGION[1]]]];
+  const land = PC.union(...coast.filter((r) => r.bb[2] >= REGION[0] && r.bb[0] <= REGION[2] && r.bb[3] >= REGION[1] && r.bb[1] <= REGION[3]).map((r) => [closeRing(simp(r.pts))]), ...mainland.map((m) => PC.intersection([closeRing(simp(m))], box)));
   const circle = (lon, lat, km) => { const out2 = [], dl = km / 111.2, c = Math.cos(lat * Math.PI / 180); for (let k = 0; k < 40; k++) { const t = (k / 40) * 2 * Math.PI; out2.push([r5(lon + (dl / c) * Math.cos(t)), r5(lat + dl * Math.sin(t))]); } return [closeRing(out2)]; };
   // each entry's ground, once
   const ground = new Map();
@@ -189,14 +201,10 @@ function poleisExtents(PC, out) {
         if (toB.length) shapes[sb] = PC.difference(shapes[sb], toB);
       }
     }
-    for (const [k, s] of Object.entries(T.sides)) rowsBy[k].push({ from: y, to: y, members: mem[s].map((e) => e.name).sort(), rings: flat(shapes[s]) });
+    for (const [k, s] of Object.entries(T.sides)) rowsBy[k].push({ from: y, to: y, members: mem[s].map((e) => e.name).sort(), rings: flat(shapes[s].length ? PC.intersection(shapes[s], land) : []) });
     last = { sig };
   }
-  /* the rings are simplified to ~55 m (Douglas–Peucker, 0.0005°) before they are written: build-history snaps every vertex to the committed coast at a far coarser
-     tolerance, so the coast rings' full resolution was 10 MB of a file nobody reads */
-  const dp = (P, e) => { if (P.length < 3) return P; let d = 0, ix = 0; const a = P[0], b = P[P.length - 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1e-12; for (let k = 1; k < P.length - 1; k++) { const q = P[k], n = Math.abs((b[0] - a[0]) * (a[1] - q[1]) - (a[0] - q[0]) * (b[1] - a[1])) / L; if (n > d) { d = n; ix = k; } } return d > e ? dp(P.slice(0, ix + 1), e).slice(0, -1).concat(dp(P.slice(ix), e)) : [a, b]; };
-  const simp = (ring) => { if (ring.length < 8) return ring; const h = Math.floor(ring.length / 2); const out2 = dp(ring.slice(0, h + 1), 0.0005).slice(0, -1).concat(dp(ring.slice(h).concat([ring[0]]), 0.0005).slice(0, -1)); return (out2.length >= 3 ? out2 : ring).map((q) => [Math.round(q[0] * 1e4) / 1e4, Math.round(q[1] * 1e4) / 1e4]); };
-  for (const [k, s] of Object.entries(T.sides)) res[k] = { src: [SRC.pleiades, SRC.ohm], rows: rowsBy[k].filter((r) => r.rings.length).map((r) => Object.assign(r, { rings: r.rings.map(simp) })), note: T.notes[s] };
+  for (const [k, s] of Object.entries(T.sides)) res[k] = { src: [SRC.pleiades, SRC.ohm], rows: rowsBy[k].filter((r) => r.rings.length), note: T.notes[s] };
   return res;
 }
 module.exports = { build, OUT_FILE, SRC, ohmRings };

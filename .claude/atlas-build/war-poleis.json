@@ -1751,6 +1751,34 @@
    "note": "Not covered after 418: the Eleans left the allied army before Mantinea but are absent from the Spartan levy of 413/2 (Thuc. 8.3)."
   },
   {
+   "name": "Olympia (Elean sanctuary)",
+   "pleiades": "570531",
+   "kind": "polis",
+   "radiusKm": 10,
+   "spans": [
+    {
+     "side": "sparta",
+     "from": -431,
+     "to": -422,
+     "why": "the sanctuary of Olympia, Elean ground, stood with Elis: ally of Sparta (ships in 431)",
+     "refs": [
+      "Thuc. 2.9"
+     ]
+    },
+    {
+     "side": "athens",
+     "from": -420,
+     "to": -418,
+     "why": "the sanctuary of Olympia, Elean ground, stood with Elis: in the hundred-years alliance with Athens, Argos and Mantinea",
+     "refs": [
+      "Thuc. 5.31",
+      "Thuc. 5.47"
+     ]
+    }
+   ],
+   "note": "Olympia lay in Elean territory 35 km from the city of Elis; drawn so that Elis’s side covers its sanctuary."
+  },
+  {
    "name": "Lepreum",
    "pleiades": "570423",
    "kind": "polis",
