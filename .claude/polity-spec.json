@@ -1142,17 +1142,6 @@
       ],
       "snapshot": true
     },
-    "british_colonies_1920": {
-      "label": "British colonies",
-      "cliopatria": [
-        "British Colonial Empire"
-      ],
-      "years": [
-        1920,
-        1920
-      ],
-      "snapshot": true
-    },
     "british_africa_1920": {
       "label": "British Africa",
       "cliopatria": [
@@ -1187,10 +1176,7 @@
           1932
         ]
       ],
-      "snapshot": true,
-      "nestedIn": [
-        "british_colonies_1920"
-      ]
+      "snapshot": true
     },
     "new_zealand_1920": {
       "label": "New Zealand",
@@ -1351,17 +1337,6 @@
       "label": "Denmark",
       "cliopatria": [
         "Denmark-Norway"
-      ],
-      "years": [
-        1920,
-        1920
-      ],
-      "snapshot": true
-    },
-    "greenland_1920": {
-      "label": "Greenland",
-      "cliopatria": [
-        "Greenland"
       ],
       "years": [
         1920,
