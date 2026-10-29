@@ -168,7 +168,7 @@ order unless the user says otherwise.
 | B34 | The fall of the Republic (`rm-fall-republic`) | `rm-331`–`rm-340` | 10 | 95 | **done 2026-10-29** |
 | B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | **done 2026-10-29** |
 | B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | **done 2026-10-29** |
-| B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | open |
+| B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | **done 2026-10-29** |
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | open |
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | open |
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | open |
@@ -630,6 +630,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-358` sole consulship | none | no picture (`I.none`) |
 | `rm-359` Rubicon | the Rubicone at Savignano | ok |
 | `rm-360` Caesar's civil war | none | no picture (`I.none`) |
+| `rm-361` Battle of Dyrrhachium | a modern plan of the lines | wrong: burned-in English labels |
+| `rm-362` Battle of Pharsalus | a Florentine chest panel | wrong: a 15th-century scene that also shows Pompey's death (`rm-363`), shared with the glossary |
+| `rm-363` death of Pompey | Tofanelli's *Head of Pompey brought to Caesar* | acceptable: the aftermath, not the killing |
+| `rm-364` Alexandrian War | an 1885 engraving of the fight on the mole | acceptable as one episode |
+| `rm-365` Battle of Thapsus | a 1732 engraved plan | wrong: lettering burned in |
+| `rm-366` Battle of Munda | a Merian engraving of about 1625 | wrong: Latin captions burned in |
+| `rm-367` Caesar's dictatorship | the Buca denarius reading CAESAR DICT PERPETVO | ok |
+| `rm-368` Julian calendar | the Menologium Rusticum Colotianum | ok |
+| `rm-369` Ides of March | Camuccini's *Death of Caesar* (1804 – 05) | acceptable as a reconstruction |
+| `rm-370` Marcus Junius Brutus | the EID MAR denarius | ok; the description's "his bearded head, 42 BCE" is wrong (CRRO: 43 – 42 BCE, the head of L. Junius Brutus) |
 
 ## Glossary candidates
 
@@ -1581,3 +1591,22 @@ Run as B35; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-360` Caesar's civil war | 9 | 11 → 9 | Every author was over the limit. The whole war from Italy to Munda and Sextus fighting on; Caesar's *Civil War* is his own case; the Rubicon's clues are `rm-359`'s; "I came, I saw, I conquered" is Suetonius's placard. |
 
 **Read by eye.** *Confusability:* `rm-351` the work; `rm-352`/`rm-353` the leader and the siege; `rm-354` Britain; `rm-355`/`rm-356` the campaign (march and omens) and the battle (fighting and death); `rm-357`/`rm-358` Milo and the consulship; `rm-359`/`rm-360` the river and the war. *Legend:* the piper, Ateius's curse, the molten gold, the eagle-bearer and the mullets are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B37 — `rm-361`–`rm-370`, the fall of the Republic: Dyrrhachium to the Ides of March and Brutus (2026-10-29)
+
+Run as B36; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-361:rm-370` reads clean on all ten cards. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's 10 failures are LacusCurtius pages read when the host answered and one PNAS DOI that answers a script 403 (the article is CC BY-NC-ND and was read in Europe PMC). One phrasing was fixed by hand: `rm-367`'s second (Dio's nine hundred senators is now attributed). The old cards were all-ancient, with Caesar's own casualty figures, Plutarch's dead and Suetonius's wounds as date-line rows. **Several famous days are Roman dates in modern dress, now said on the card**: Pharsalus's 9 August (usually 6 June Julian), Pompey's 28 September, Thapsus's 6 April (modern historians put it in February); Munda's 17 March 45 falls after the reform (Holmes: the new calendar began on 1 January 45), which the card says.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-361` Battle of Dyrrhachium | 6 | 9 → 8 | **Three count rows go; Caesar's losses (960 men, "a number of officers", 32 standards) are his own figures in prose; the old "five tribunes" had no source.** The lines (fifteen miles, Adcock and Holmes), the chara bread, the breakout at the unfinished south end; Caesar's remark is Plutarch's and Suetonius's. Scaeva's shield is `rm-659`'s clue. |
+| `rm-362` Battle of Pharsalus | 7 | 9 → 9 | **Caesar's 22,000 against 45,000 and 7,000 horse are his figures, and his 15,000 dead stand apart from Pollio's 6,000 (via Plutarch)**; the strike-at-the-faces order is Plutarch's story, which Holmes called rubbish; the site is disputed in one sentence. |
+| `rm-363` death of Pompey | 8 | 7 → 8 | **"Aged 59 or 57, the sources differ" was words on the line**; Velleius's eve-of-birthday against Plutarch's "sixty less one" (Holmes: a blunder) is now a Think-it-through answer. Caesar's tears are Plutarch's; Dio calls them pretence; Adcock reads relief. Appian's variants (Sempronius strikes first) are in the notes. |
+| `rm-364` Alexandrian War | 7 | 8 → 8 | **Caesar's own narrative ends at *Civil War* 3.112; a continuator, perhaps Hirtius, wrote the rest.** Plutarch's ten million drachmas in prose; the three legions dropped; the Library's loss a dispute (Seneca's 40,000 rolls, Plutarch, Dio, modern views); the bedding-sack story kept for `rm-384`. The *Bellum Alexandrinum* could not be fetched and is cited through Holmes and Adcock. |
+| `rm-365` Battle of Thapsus | 6 | 8 → 6 | **The *Bellum Africum*'s 10,000 enemy dead and fewer than 50 Caesarian dead stand apart from Plutarch's 50,000**; the anonymous officer is named as narrator; "Publius Scipio" is corrected to Metellus Scipio; the fit is Plutarch's "some say". |
+| `rm-366` Battle of Munda | 6 | 6 → 6 | The counts leave the line; the *Bellum Hispaniense* is named as narrator; the site is disputed (Way); "fought for his life" is Plutarch's and Appian's. |
+| `rm-367` Caesar's dictatorship | 7 | 8 → 7 | **"First tenure 11 days" and "Consulship voted 10 years" leave the line**: the eleven days are Caesar's own account; the 900 senators Dio's and the grain list cut from 320,000 to 150,000 Suetonius's. The DICT PERPETVO denarius (RRC 480/6) is contemporary evidence. July is this card's alone. |
+| `rm-368` Julian calendar | 8 | 6 → 8 | **"That year ran 445 days" was a row; Censorinus gives 445 and Macrobius 443.** Sosigenes is Pliny's; the pontiffs' third-year error and Augustus's fix Macrobius's; 1582 in one sentence. |
+| `rm-369` Ides of March | 9 | 7 → 9 | **"Wounds 23" and "Mortal wound 1, per Antistius" were rows; they are Suetonius's.** The omens and "more than sixty" are the biographers'; "kai su teknon" is Suetonius's "some have written"; "Et tu, Brute" is Shakespeare's. "Come but not gone" is `rm-900`'s clue. |
+| `rm-370` Marcus Junius Brutus | 8 | 9 → 8 | Born c. 85 (disputed, said); Q. Caepio Brutus; the Salamis loan at 48 per cent from Cicero's letters; the EID MAR denarius (CRRO record); the Philippi ghost is Plutarch's. **"Served under Pompey" is softened to "sided with": we do not know that he fought.** |
+
+**Read by eye.** *Confusability:* `rm-361`/`rm-362`/`rm-363`/`rm-364` the siege lines, the battle, the killing and the Egyptian war; `rm-365`/`rm-366` the elephants and Juba, Labienus and the sons; `rm-367`/`rm-368` the office and the calendar; `rm-369`/`rm-370` the day and the man. *Legend:* the last words, the note never read, the ghost at Philippi, the swim with the papers and the fit at Thapsus are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

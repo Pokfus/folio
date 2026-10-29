@@ -401,6 +401,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Pompey's sole consulship | 52 BCE | `rm-358` |
 | the crossing of the Rubicon | January 49 BCE (7 January and the night of 10/11 January are modern reckonings) | `rm-359` |
 | Caesar's civil war / Pharsalus / Thapsus / Munda | 49 – 45 BCE / 48 BCE / 46 BCE / 45 BCE | `rm-360` |
+| the Battle of Dyrrhachium | 48 BCE | `rm-361` |
+| the Battle of Pharsalus | 9 August 48 BCE (the inscribed calendars' Roman date, usually given as 6 June Julian) | `rm-362` |
+| the death of Pompey | 28 September 48 BCE (a Roman date of the time) | `rm-363` |
+| the Alexandrian War | 48 – 47 BCE | `rm-364` |
+| the Battle of Thapsus | 6 April 46 BCE (pre-reform; modern historians put it in February) | `rm-365` |
+| the Battle of Munda | 17 March 45 BCE (after the Julian reform of 1 January 45) | `rm-366` |
+| Caesar's dictatorship: held / named again / for ten years / for life | 49 – 44 BCE / 48 BCE / 46 BCE / 44 BCE | `rm-367` |
+| the Julian calendar: the reform year / in force / the Gregorian reform | 46 BCE / 1 January 45 BCE / 1582 | `rm-368` |
+| the Ides of March | 15 March 44 BCE | `rm-369` |
+| Brutus: born / urban praetor / died | c. 85 BCE (disputed) / 44 BCE / 42 BCE | `rm-370` |
 
 ## The Principate
 
@@ -761,4 +771,14 @@ rm-357: 57; 52; 48
 rm-358: 52
 rm-359: 49
 rm-360: 49; 45; 48; 46
+rm-361: 48
+rm-362: 48
+rm-363: 48
+rm-364: 48; 47
+rm-365: 46
+rm-366: 45
+rm-367: 49; 44; 48; 46
+rm-368: 46; 45; 1582
+rm-369: 44
+rm-370: 85; 44; 42
 ```
