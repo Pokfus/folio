@@ -8,7 +8,7 @@ for the second and third seats of the ten countries that have more than one). It
 **map card** format — a shape on a globe, and the question is what it is.
 
 **Two PHYSICAL decks were added on 2026-10-29** — **Rivers, lakes and seas** (`geo-world-water`,
-`gw-801`–`gw-840`) and **Mountains, deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-940`) — map
+`gw-801`–`gw-850`) and **Mountains, deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-950`) — map
 questions on a locator, as the US and China physical decks; see "The physical decks" below.
 
 **THE COLLECTION HAS A THIRD DECK AND A SECOND PLAN, AND THIS FILE IS NOT IT.** `flags-world` asks the
@@ -9297,10 +9297,11 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
 ## The physical decks — water, and mountains, deserts and caves (2026-10-29, planned before any card)
 
 Added 2026-10-29, on request: two physical-geography decks "built the same way as the United States and
-China rivers and mountains decks". Two decks of forty, numbered past the capitals' extra seats so the
-ranges never meet: **Rivers, lakes and seas** (`geo-world-water`, `gw-801`–`gw-840`) and **Mountains,
-deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-940`). The collection's total becomes 548
-planned cards (468 + 80).
+China rivers and mountains decks". Two decks of fifty (forty as first planned, widened the same day — see
+"What is in" below), numbered past the capitals' extra seats so the
+ranges never meet: **Rivers, lakes and seas** (`geo-world-water`, `gw-801`–`gw-850`) and **Mountains,
+deserts and caves** (`geo-world-mountains`, `gw-901`–`gw-950`). The collection's total becomes 568
+planned cards (468 + 100).
 
 **They are the United States physical decks again, and that plan is the rulebook**:
 📖 `docs/geography-card-plan.md` "The physical decks — water, and mountains and caves", INCLUDING its
@@ -9372,24 +9373,36 @@ them"). The Southern Ocean is carded with its history as a name: the Internation
 Organization's limits and the date different bodies began to recognise it, sourced, with no claim that
 the matter is settled where it is not.
 
-**Repeats of a `geo-` or `gc-` card are allowed only for a feature that is truly international**, and the
-world deck needs it for its own sake. There are exactly three:
-- **Mount Everest** (`gc-901`) — on the China–Nepal border; a world mountains deck without the world's
-  highest mountain would be a hole, not a scope decision.
-- **Himalayas** (`gc-902`) — across five countries (Pakistan, India, Nepal, Bhutan, China); China holds
-  only the northern flank.
-- **Mekong** (`gc-805`) — through six countries; China holds the upper half as the Lancang.
-A repeat answers the same term, so it pairs with the SAME glossary entry (`Mount_Everest`, `Himalayas`,
-`Mekong`), and its background is written from the world's angle — the river's lower course, the range's
-south side, the mountain's Nepali history — so that the two cards do not tell one story twice.
+**A feature already carded in another collection is IN when it is among the world's most important**
+(2026-10-29, on request, the same day as the plan: "some users might never study those other geography
+or history collections and only want to learn about the most important rivers and mountains in the
+world, so they should get those"). The world decks stand on their own; a reader who studies only them
+must still meet the Mississippi, the Yangtze and Everest. The first draft of this section allowed only
+three international repeats; the rule was widened before any card shipped, and the decks grew from forty
+to FIFTY each so that the forty already being drafted kept their numbers: `gw-841`–`850` and
+`gw-941`–`950` are the major features the first list had left to their US, China or history card.
 
-**Not repeated, though they cross a border, because the US or China card already teaches them and the
-world deck has better uses for forty slots**: the Gulf of Mexico (`geo-817`), Niagara Falls (`geo-808`),
-the Great Lakes (`geo-802`, `geo-806`, `geo-813`–`geo-815`), the Columbia, the Yukon and the Red River of
-the North (`geo-812`, `geo-826`, `geo-840`), the Rocky Mountains and the Appalachians (`geo-901`,
-`geo-903`), the South China Sea, the Amur, the Salween and the Yarlung Tsangpo / Brahmaputra (`gc-804`,
-`gc-810`, `gc-817`, `gc-812`), K2, the Gobi, the Tian Shan, the Altai and the Kunlun (`gc-910`, `gc-903`,
-`gc-912`, `gc-926`, `gc-911`). The Mississippi (`geo-801`) is wholly American.
+The repeats, and the card each repeats: Mount Everest (`gc-901`), the Himalayas (`gc-902`) and the Mekong
+(`gc-805`) in the first forty; then the Mississippi (`geo-801`), the Yangtze (`gc-801`), Niagara Falls
+(`geo-808`), the Gulf of Mexico (`geo-817`), Lake Superior (`geo-802`), the Yellow River (`gc-802`), the
+South China Sea (`gc-804`), the Rio Grande (`geo-807`), the Amur (`gc-810`), the Rocky Mountains
+(`geo-901`), the Grand Canyon (`geo-902`), K2 (`gc-910`), the Gobi (`gc-903`), the Tibetan Plateau
+(`gc-904`), Denali (`geo-904`), the Tian Shan (`gc-912`), the Appalachians (`geo-903`), Mount St. Helens
+(`geo-905`) and Mammoth Cave (`geo-908`). History collections' places are carded here too where they
+matter for their own sake: the Nile (`eg-002`), the Sahara (`eg-011`) and Mount Olympus (`gr-905`) are in
+the first forty, and the Tigris, left out of the first forty, is `gw-847`.
+
+**A repeat answers the same term**, so it pairs with the SAME glossary entry (`Mount_Everest`,
+`Mississippi_River`, `Yangtze` …) and needs no new one. **Its card is written to stand alone** — a reader
+may never see the other — from the world's angle where there is one (the Mekong's lower course, Everest's
+Nepali history, the Rio Grande as a border between two countries), and it reuses the other card's
+`rivers.js` names or spine exactly (they are checked and sourced there; the card's `notes` say so). Two
+cards on one feature must not disagree about a figure: where the world card's source gives a different
+length or height, it names whose figure it is, as the facts-grid rule says.
+
+**Still not repeated**: the smaller lakes, rivers, peaks and caves of the US and China decks (Lake Erie,
+the Columbia, Mount Rainier, the Yellow Sea, the Three Gorges …), which are national rather than world
+knowledge, and the Tiber (`rm-003`), whose importance is Rome's.
 
 **Out on purpose**:
 - **Canals** (Suez, Panama): engineering with a building date, not physical geography; the request named
@@ -9400,11 +9413,11 @@ the North (`geo-812`, `geo-826`, `geo-840`), the Rocky Mountains and the Appalac
 - **Islands, peninsulas and continents**: landforms of another kind, and a deck of their own if wanted.
 - **Glaciers, ice sheets and Antarctica's features**; springs and aquifers; reservoirs; national parks as
   parks; man-made caves — as in the US and China plans.
-- **The long tail that forty cannot hold**, named so that leaving it out is a choice, not an oversight:
-  the Tigris (in the Euphrates's background), the St. Lawrence, the Paraná, the Orinoco, the Ob, the
+- **The long tail that fifty cannot hold**, named so that leaving it out is a choice, not an oversight:
+  the St. Lawrence, the Paraná, the Orinoco, the Ob, the
   Yenisey, the Lena, the Mackenzie, the Jordan and the Thames; the English Channel, the Dardanelles, the
-  Bay of Bengal and Hudson Bay; Lakes Malawi, Chad and Ladoga; the Gobi's neighbours and the Great
-  Victoria and Patagonian deserts; the Rockies' Canadian half; the Apennines, the Zagros, the Scandinavian
+  Bay of Bengal and Hudson Bay; Lakes Malawi, Chad and Ladoga; the Great
+  Victoria and Patagonian deserts; the Apennines, the Zagros, the Scandinavian
   Mountains; Vinson, Erebus and Puncak Jaya.
 
 **Disputed names and places are given once, sourced, and not adjudicated** — the standing rule of this
@@ -9979,7 +9992,7 @@ It is not this batch's subject, and folding a typographic normalisation into a l
 
 ## Rivers, lakes and seas — `geo-world-water`
 
-Forty cards: oceans, rivers, lakes, seas and a gulf, straits and waterfalls, map questions on a locator
+Fifty cards: oceans, rivers, lakes, seas and a gulf, straits and waterfalls, map questions on a locator
 (see "The physical decks" above).
 
   gw-801  Pacific Ocean
@@ -10023,9 +10036,23 @@ Forty cards: oceans, rivers, lakes, seas and a gulf, straits and waterfalls, map
   gw-839  Bering Strait
   gw-840  Murray River
 
+The major features first left to another collection's card (see "What is in" above), in the same order of
+how well the name is known:
+
+  gw-841  Mississippi River (repeats `geo-801`)
+  gw-842  Yangtze (repeats `gc-801`)
+  gw-843  Niagara Falls (repeats `geo-808`)
+  gw-844  Gulf of Mexico (repeats `geo-817`; Gulf of America for an American reader, `SPELL_NAMES`)
+  gw-845  Lake Superior (repeats `geo-802`)
+  gw-846  Yellow River (repeats `gc-802`)
+  gw-847  Tigris
+  gw-848  South China Sea (repeats `gc-804`)
+  gw-849  Rio Grande (repeats `geo-807`)
+  gw-850  Amur River (repeats `gc-810`)
+
 ## Mountains, deserts and caves — `geo-world-mountains`
 
-Forty cards: peaks and volcanoes, ranges, deserts, plateaus, canyons, caves and two rock formations, map
+Fifty cards: peaks and volcanoes, ranges, deserts, plateaus, canyons, caves and two rock formations, map
 questions on a locator.
 
   gw-901  Mount Everest (a repeat of `gc-901`: China and Nepal)
@@ -10068,3 +10095,16 @@ questions on a locator.
   gw-938  Son Doong Cave
   gw-939  Postojna Cave
   gw-940  Mount Kinabalu
+
+The major features first left to another collection's card:
+
+  gw-941  Rocky Mountains (repeats `geo-901`)
+  gw-942  Grand Canyon (repeats `geo-902`)
+  gw-943  K2 (repeats `gc-910`)
+  gw-944  Gobi Desert (repeats `gc-903`)
+  gw-945  Tibetan Plateau (repeats `gc-904`)
+  gw-946  Denali (repeats `geo-904`; Mount McKinley for an American reader, `SPELL_NAMES`)
+  gw-947  Tian Shan (repeats `gc-912`)
+  gw-948  Appalachian Mountains (repeats `geo-903`)
+  gw-949  Mount St. Helens (repeats `geo-905`)
+  gw-950  Mammoth Cave (repeats `geo-908`)
