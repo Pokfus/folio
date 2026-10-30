@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0edd4ef590b439f2","counts":{"terms":926,"points":689,"countries":237,"windows":1417,"faces":380,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"51bbeb4897c9f81b","counts":{"terms":926,"points":689,"countries":237,"windows":1421,"faces":380,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1199,6 +1199,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0edd4ef590b439f2","counts":
 "Cumae":[14.054,40.849,"site",0,0,0],
 "Curaçao":[-68.92,12.15,"country","adm0:cuw",0,40],
 "Curonian_Spit":[20.971,55.274,"coord",0,0,0],
+"Curzon_Line":[23.657,52.135,"coord",0,0,0],
 "Cusco":[-71.972,-13.525,"town",0,0,0],
 "Cyclades":[25.063,37.038,"island-group",0,0,0],
 "Cyprus":[33.08,34.91,"country","adm0:cyp",0,40],
@@ -1311,6 +1312,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0edd4ef590b439f2","counts":
 "Fujian":[118.178,26.408,"admin1","adm1:chn:cn-fj",0,14.41],
 "Fujian_tulou":[116.732,24.724,"coord",0,0,0],
 "Fuzhou":[116.358,27.949,"coord",0,0,0],
+"Führerbunker":[13.382,52.512,"coord",0,0,0],
 "Gabii":[12.716,41.887,"site",0,0,0],
 "Gabon":[11.84,-0.44,"country","adm0:gab",0,10.94],
 "Gallia_Narbonensis":[3.004,43.184,"coord",0,0,0],
@@ -1666,6 +1668,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0edd4ef590b439f2","counts":
 "Mali_Empire":[-9.108,14.288,"polity","pol:mali",1415,3.68],
 "Malia":[25.491,35.294,"site",0,0,0],
 "Malta":[14.43,35.89,"country","adm0:mlt",0,40],
+"Mamayev_Kurgan":[44.537,48.743,"coord",0,0,0],
 "Mamluk_Sultanate":[41.072,23.609,"polity","pol:mamluk_egypt",1516,2.26],
 "Mammoth_Cave_National_Park":[-86.1,37.183,"site",0,0,0],
 "Manchester_(New_Hampshire)":[-2.25,53.502,"city",0,0,0],
@@ -1849,6 +1852,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0edd4ef590b439f2","counts":
 "Nubia":[30.41,19.601,"coord",0,0,0],
 "Ob":[71.395,66.534,"coord",0,0,0],
 "Odeon_of_Pericles":[23.729,37.971,"site",0,0,0],
+"Oder–Neisse_line":[14.552,52.342,"coord",0,0,0],
 "Ohio":[-82.672,40.092,"admin1","adm1:usa:us-oh",0,19.15],
 "Ohio_River":[-89.131,36.987,"coord",0,0,0],
 "Oka_(river)":[43.984,56.333,"coord",0,0,0],
