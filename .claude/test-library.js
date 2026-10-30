@@ -844,6 +844,36 @@ function ptahhotepChecks() {
    what leaks from that is markup — a `{{*|…}}` note, an `[[File:…]]`, a `'''` — or the typist's ASCII
    punctuation between characters, neither of which a count of parts can see. And the two columns pair on a
    single marker per part: a second marker in either would change how bookRows pairs them. */
+/* DIODORUS (Oct 2026) — the first book read off LacusCurtius. What a count of books cannot see: a
+   second marker for one chapter (Thayer re-marks a chapter carried over a page break as "(19)"), a
+   marker that cites one of THAYER'S notes, which are his copyright and must not ship, his tooltip mark
+   `º` or a scrap of his markup in the prose, and the two columns falling out of step on the chapter. */
+function diodorusChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "diodorus-library.js"), grF = path.join(dir, "diodorus-library.grc.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(grF)) return null;
+  global.window = {};
+  [enF, grF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "diodorus-library");
+  const gr = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "diodorus-library");
+  if (!en || !gr) return null;
+  const keys = (h) => [...h.matchAll(/class="bk-n" data-n="(\d+)"/g)].map((m) => +m[1]);
+  const o = { books: en.chapters.map((c) => c.n).join(","), grBooks: gr.chapters.map((c) => c.n).join(","),
+    dupes: [], unpaired: [], dead: 0, unref: 0, leaks: [], intro: en.intro || "" };
+  en.chapters.forEach((c) => {
+    const k = keys(c.html), g = gr.chapters.find((x) => x.n === c.n);
+    if (new Set(k).size !== k.length) o.dupes.push(c.n);
+    const gk = new Set(g ? keys(g.html) : []);
+    if (k.length !== gk.size || k.some((x) => !gk.has(x))) o.unpaired.push(c.n + ": " + k.length + "/" + gk.size);
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    ms.forEach((n) => { if (n < 1 || n > c.notes.length) o.dead++; });
+    c.notes.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    const text = c.html + "\n" + c.notes.join("\n");
+    (text.match(/Thayer|º|onMouse|E\/Roman\/|CLASS=|[\u0001-\u0004]/g) || []).forEach((m) => o.leaks.push(c.n + ":" + m));
+  });
+  return o;
+}
+
 function chajingChecks() {
   const dir = path.join(ROOT, "books");
   const enF = path.join(dir, "classic-of-tea.js"), zhF = path.join(dir, "classic-of-tea.zh.js");
@@ -919,6 +949,44 @@ function chajingChecks() {
   o.zhMao = !/明州縣/.test(zhAll) ? "" : "明州縣";   // the one character the wiki shows as an image is LEFT OUT, not guessed
   o.zhRare = /𣗪|𥥛|𡏻|𨫀/.test(zhAll);
   o.zhLen = zhAll.replace(/<[^>]*>/g, "").length;
+  return o;
+}
+
+/* STRABO'S GEOGRAPHY, read off the two files that shipped. Its reader is the chaptered TEI reader's
+   section path (teiBookSections in fetch-book.js), which no other book takes, so this sweep stands in
+   for re-running a sibling. What it can see: the 1,573 English sections and 1,580 Greek ones (the
+   seven extra are fragments of book 7 the translation leaves out), every marker carrying its
+   `data-n` key and keys rising within a book, every English key present in the Greek, notes that
+   resolve both ways, a doubled `<q><q>` that has crept back past the ten genuine interrupted quotes,
+   and paragraphs that balance — the two silent faults the reader was written against. */
+function straboChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "strabo-geography.js"), grF = path.join(dir, "strabo-geography.grc.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(grF)) return null;
+  global.window = {};
+  [enF, grF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "strabo-geography");
+  const gr = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "strabo-geography");
+  if (!en || !gr) return null;
+  const keys = (h) => [...h.matchAll(/class="bk-n"( data-n="(\d+)")?/g)].map((m) => (m[2] ? +m[2] : NaN));
+  const o = { n: en.chapters.length, ng: gr.chapters.length, secEn: 0, secGr: 0, nokey: 0, disorder: [],
+              enOnly: [], dead: 0, unref: 0, qq: 0, bal: [], intro: en.intro || "" };
+  en.chapters.forEach((c) => {
+    const g = gr.chapters.find((x) => x.n === c.n);
+    const a = keys(c.html), b = g ? keys(g.html) : [];
+    o.secEn += a.length; o.secGr += b.length;
+    o.nokey += a.concat(b).filter((v) => isNaN(v)).length;
+    [a, b].forEach((k) => { if (k.some((v, i) => i && v <= k[i - 1])) o.disorder.push(c.n); });
+    const sb = new Set(b);
+    a.forEach((v) => { if (!sb.has(v)) o.enOnly.push(c.n + ":" + v); });
+    const ns = c.notes || [];
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    ms.forEach((v) => { if (v < 1 || v > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    o.qq += (c.html.match(/<q><q>/g) || []).length;
+    const open = (c.html.match(/<p>/g) || []).length, shut = (c.html.match(/<\/p>/g) || []).length;
+    if (open !== shut) o.bal.push(c.n + " " + open + "/" + shut);
+  });
   return o;
 }
 
@@ -1263,7 +1331,9 @@ function aeneidChecks() {
     const starred = await page.evaluate(async () => {
       document.querySelector('.deck-menu [data-act="fav"]').click();
       await new Promise((z) => setTimeout(z, 600));
-      const titles = [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent);
+      /* By the book's id, not its title: two works on the shelf are both "The Histories" (Herodotus
+         and Polybius, Oct 2026), so a title count reads two books as one listed twice. */
+      const titles = [...document.querySelectorAll(".book-tile")].map((t) => t.dataset.book);
       return {
         heads: [...document.querySelectorAll(".lib-sec-head")].map((h) => h.textContent),
         first: [...document.querySelectorAll(".lib-sec")][0].querySelectorAll(".book-tile").length,
@@ -1973,6 +2043,23 @@ function aeneidChecks() {
       check("[ramayana] both halves of the book are on disk", false, "missing books/ramayana*.js");
     }
 
+    /* DIODORUS — see diodorusChecks above. */
+    const dd = diodorusChecks();
+    if (dd) {
+      check("[diodorus] the fifteen surviving books on each side, 1–5 and 11–20",
+        dd.books === "1,2,3,4,5,11,12,13,14,15,16,17,18,19,20" && dd.grBooks === dd.books, dd.books + " / " + dd.grBooks);
+      check("[diodorus] no chapter is marked twice in the English", dd.dupes.length === 0, dd.dupes.join(", "));
+      check("[diodorus] every chapter pairs with the Greek, book by book", dd.unpaired.length === 0, dd.unpaired.join("; "));
+      check("[diodorus] every footnote marker resolves", dd.dead === 0, String(dd.dead));
+      check("[diodorus] every note is referenced", dd.unref === 0, String(dd.unref));
+      check("[diodorus] nothing of Thayer's own (his notes, his º marks, his markup) reaches the page",
+        dd.leaks.length === 0, dd.leaks.slice(0, 8).join(", "));
+      check("[diodorus] the front matter says which books survive",
+        /Books 1 to 5 and 11 to 20/.test(dd.intro), String(dd.intro.length));
+    } else {
+      check("[diodorus] both halves of the book are on disk", false, "missing books/diodorus-library*.js");
+    }
+
     /* THE CLASSIC OF TEA — see chajingChecks above for what each of these can see. */
     const ct = chajingChecks();
     if (ct) {
@@ -2021,6 +2108,25 @@ function aeneidChecks() {
       check("[classic-of-tea] Chinese: the full text is there (about 9,300 characters)", ct.zhLen > 9000 && ct.zhLen < 9600, String(ct.zhLen));
     } else {
       check("[classic-of-tea] both halves of the book are on disk", false, "missing books/classic-of-tea*.js");
+    }
+
+    /* STRABO'S GEOGRAPHY — see straboChecks above for what each of these can see. */
+    const st = straboChecks();
+    if (st) {
+      check("[strabo-geography] seventeen books on each side", st.n === 17 && st.ng === 17, st.n + "/" + st.ng);
+      check("[strabo-geography] 1,573 sections in the English and 1,580 in the Greek",
+        st.secEn === 1573 && st.secGr === 1580, st.secEn + "/" + st.secGr);
+      check("[strabo-geography] every marker carries a data-n key, rising within its book",
+        st.nokey === 0 && st.disorder.length === 0, st.nokey + " unkeyed; " + st.disorder.join(","));
+      check("[strabo-geography] every English section has its Greek", st.enOnly.length === 0, st.enOnly.slice(0, 8).join(", "));
+      check("[strabo-geography] every footnote marker resolves and every note is referenced",
+        st.dead === 0 && st.unref === 0, st.dead + " dead / " + st.unref + " unreferenced");
+      check("[strabo-geography] no quotation set twice beyond the ten interrupted ones", st.qq <= 10, String(st.qq));
+      check("[strabo-geography] paragraphs balance", st.bal.length === 0, st.bal.join("; "));
+      check("[strabo-geography] the front matter names both translators and the lost end of book 7",
+        /Hamilton/.test(st.intro) && /Falconer/.test(st.intro) && /book 7 is lost/.test(st.intro), String(st.intro.length));
+    } else {
+      check("[strabo-geography] both halves of the book are on disk", false, "missing books/strabo-geography*.js");
     }
 
     /* THE MAXIMS OF PTAHHOTEP — see ptahhotepChecks above for what each of these can see. */

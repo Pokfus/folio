@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  matter (chapter 0 — see the Library bullet). Currently sixty-two:
   `treaty-of-versailles` (~500 KB, **15 chapters** — the treaty's fifteen Parts, the Preamble at the head of Part I
   and the signatures at the foot of Part XV, through `page(n)` arrays — **no notes, no original**; the official
   English text as printed at Ottawa in 1919, Canada's Sessional Paper No. 41, the one whole-treaty transcription on
@@ -29,6 +29,108 @@ book added later will meet the same traps.
   title page and contents, the Protocol (41a), the maps. The French text (equally authentic) is not transcribed
   whole anywhere this importer reads, so there is no second column. `glossOff` holds 21 entries from a rendered
   sweep — a treaty cites by number, so NATO's Article 5 and Weimar's Article 48 fired on this treaty's own.
+  `cassius-dio-roman-history` (~3.3 MB English, **75 chapters for 80 books**, **568 notes**, no original column;
+  Earnest Cary's Loeb, 1914–1927, from **Bill Thayer's LacusCurtius** — the first book from that site, `layout: "lacus"`
+  → `extractLacus`; Wikisource has one page of it and Perseus only the Greek of Books 36–55). A chapter is a Loeb book;
+  the shared page of Books 22–29 is cut at its H3 heads, the fragments of 30–35 have one run of numbers and no heads, so
+  they are one chapter numbered 30 (the tabs go 30, 36). Parts are the nine Loeb volumes. **Only Cary's notes are
+  taken** — anchored `#noteN`; Thayer's (`#note:slug`, `#noteA`, the `mynote` blocks appended to a Loeb note, his `º`
+  comment and correction pop-ups, glossary and metric-conversion bullets, photographs) are not. Many pages carry no
+  Loeb notes at all (44, 59, 64, 79 …): Thayer did not transcribe them there, so the count is what the site has.
+  Checked: words per page against the page body within the soft-hyphen splits (559,824 raw, 559,132 shipped), every
+  tag balanced, every marker resolving and every Loeb note cited. Two traps, both silent: an `onMouseOver` gloss can
+  hold markup whose `>` ends the tag early and spills it into the prose (69.2's `<SPAN CLASS=goof>`), so event
+  attributes are stripped before any tag is read, including ones written with no space after the previous quote; and
+  the host is slow and the proxy cut transfers at 16/32/64 KB, so a page is accepted only ending in `</HTML>` with the
+  site's title — prime the cache with parallel `curl -C -` (one 100 KB page took a minute, sixteen at once were fine).
+  In Books 61–80 Thayer's H3 numerals (*LXIII*) give the standard numbering's book for the chapter numbers that follow;
+  they are kept as headings and the front matter explains them.
+  `anglo-saxon-chronicle` (~486 KB, the whole Chronicle from the description of Britain to 1154 as **9 parts cut
+  by year**, 741 annal paragraphs, **307 notes**, no original — J. A. Giles's translation of 1847 in the 1914 Bell
+  reissue, one Wikisource page with all 206 printed pages VALIDATED; `layout: "annals"` → `extractAnnals`, the
+  parts in `ASC_SPANS`). **The edition has no divisions**, so the parts are Folio's and the front matter says so;
+  each tab is its span of years. **The cut asks the NEXT annal's year too**: the printing has "A. 1101." for 1011
+  between 1010 and 1012, and a first-year-past-the-boundary cut would have moved ninety years into the wrong tab.
+  **Giles's smaller type is the apparatus** — the other manuscripts' versions of a year, by his own first note —
+  and ships as `class="bk-var"` (102 paragraphs and quotations; `styles.css` sets it smaller): two shapes, a
+  `font-size:83%` span filling a paragraph and eleven `wst-smaller` blocks, plus one variant the wikitext ran onto
+  the body entry before it (1023), split off because its span opens on an annal mark. Two more small blocks are
+  CENTRED couplets the body entry quotes (the bride-ale, the hedge), and stay plain verse. 14 poems, the
+  Brunanburh poem's two page halves joined; the 1065 poem crosses a page with its `<poem>` tags unpaired (they
+  arrive escaped) and its second half typed as one run, which is set as one paragraph inside the quotation rather
+  than broken where nobody can say the printer broke it. Two bare runs after a closing div are kept as paragraphs.
+  **Fetched by `index.php?action=render&useparsoid=0`**, not the API: `action=render` now returns Parsoid unless
+  asked, and the API answered 429 to every request for an hour on the import day. Gutenberg 657 was refused: a
+  1996 collation of Ingram (1823) with Giles by its preparer, not a printed edition. No Old English column: the
+  only complete free text is Thorpe's six-column Rolls Series edition, and no one column of it faces a conflation.
+  `magna-carta` (~42 KB English, ~30 KB Latin, **63 chapters**, **12 notes**, original **Latin** — the charter of
+  1215 in William Sharp McKechnie's translation, from his *Magna Carta: A Commentary* (Glasgow, 1905), Project
+  Gutenberg ebook 65363; `layout: "mckechnie"` → `extractMcKechnie`). **The shelf's first document, and its first
+  text read out of a commentary**: the volume prints each chapter as Latin, then a `<div class="translate">` of
+  English, then pages of commentary; the commentary, introduction and appendix are left behind and only the
+  footnotes cited from inside a translation block ship. Both columns come out of ONE cached page and **pair
+  chapter for chapter, 63 a side** (one `bk-n` per chapter). The **preamble is printed with chapter 1**, ahead of
+  its marker in both columns, because the edition calls the break "a purely arbitrary one" and because chapter 0
+  is the reader's front matter. Gutenberg's other Magna Carta
+  (ebook 10000) is the British Library's modern translation and is not free to take. McKechnie (1863–1930) clears
+  the pre-1929 rule and life + 70, not life + 100 (2031). Author "Anonymous", colour keyed by id.
+  `tacitus-annals` (~947 KB English, ~687 KB Latin, **12 chapters** — the surviving books 1–6 and 11–16, books 7–10
+  being lost — **1 note**, original **Latin**; Church and Brodribb's translation, Macmillan 1869, beside C. D.
+  Fisher's Oxford text of 1906, both from Perseus's TEI; `layout: "chaptered"`, the Gallic War's shape, with
+  `chapters` listing the twelve and app.js's `chapterNums` telling `readingPct` the numbers skip). **Pairs on CHAPTER
+  numbers, 721 a side, identical in every book.** One importer option arrived with it: `crossBookChapters`, because
+  Fisher prints the end of book 5 (5.6–5.11) at the head of book 6 and both files number those divisions `5_6` …
+  `5_11` inside book 6, which `teiBookChapters` would have skipped as non-chapters; opted in, they stay where Fisher
+  prints them, marked "5.6", sorted ahead of 6.1. Licence ground is publication dates only; Perseus's header says its
+  English follows a 1942 reprint "with significant changes", so it was measured against the 1895 Macmillan printing
+  (90 % of six-word runs verbatim, the gaps read being OCR noise and spelling) before 1869 was relied on. Fisher's 15
+  `<del>` brackets (23 words) drop with the shared rule. Checked: word counts within one word (English) and exact
+  less the `<del>` words (Latin).
+  `polybius-histories` (~2.5 MB English, ~0.9 MB Greek, **38 chapters** — books 1–16 and 18–39; 17 survives in
+  nothing and 40 is lost — **454 notes**, original **Greek for books 1–5 only**; Evelyn S. Shuckburgh's translation
+  of 1889, Büttner-Wobst's Teubner Greek, both from Perseus's TEI, `layout: "chaptered"`). **The shelf's first
+  original that covers only PART of its book**, through the new `original.only`: books 1–5 survive whole and pair
+  474 of 474 English chapters (Greek 4.54 is run into Shuckburgh's 4.53 and draws an empty English cell), but in
+  the fragment books the two editors arranged and numbered the excerpts differently — book 8 two chapters out,
+  31, 32 and 37–39 at chance on a proper-name overlap test — so a pairing by number would have set English beside
+  the wrong Greek. Also settled: Shuckburgh's 2,011 marginal summaries dropped (through the English `teiRaw` hook); Walbank's seven corrigenda, six applied in place and one kept as a footnote; a
+  note on a Perseus chapter title moved into the chapter's first paragraph; the Scipio pedigree figure replaced by
+  a sentence; the English `fragments` book (110 unplaced passages) not imported, which needed teiBookChapters to
+  end a book at ANY book division; lower-case lettered chapters (`4b`) read like Herodotus's `2.121A`. Both
+  reader changes proved inert on every other chaptered book — Herodotus, the Gallic War, Thucydides' Greek, Livy (fenced),
+  Strabo (its one unnumbered book, `front`, stands before book 1) and Pausanias.
+  `livy-history-of-rome` (~5.3 MB English, ~3.7 MB Latin, the **35 surviving books** 1–10 and 21–45, **1,765
+  chapter numbers**, **363 notes**, original **Latin** — Livy's *Ab Urbe Condita* in the Bohn literal translation
+  by D. Spillan, Cyrus Edmonds and W. A. McDevitte, 1849–1857, beside Weissenborn and H. J. Müller's Teubner
+  text, 1884–1911, both Perseus TEI; `layout: "chaptered"`, the Gallic War's reader). Oct 2026, on request.
+  · **The chapter numbers are the book numbers, gap and all** — tabs run Book 10 → Book 21, like Beowulf's
+  fitts. The tile's reading percentage assumed 1…N, so the registry entry declares `chapterNums` and
+  `readingPct` measures by position.
+  · **Two opt-in options on `teiBookChapters`**: `preface: "pr"` keeps the Preface (numbered `pr` in both
+  editions) as key 0 instead of skipping it; `fence` ends a book's slice at the next book/part/index
+  division of any number, because the Latin interleaves the periochae (`n="1s"`) and Teubner's sigla
+  index between the books and an unfenced slice appends them to the book's last chapter. The 97
+  periocha-only books (46–142) are reported in one warning.
+  · **Paired 1,765 of 1,765**, no empty cell on either side. The English's per-book `argument` (the
+  translators' summary) and the Latin's periochae are left out, and the front matter says so.
+  · **Licence: the Gallic War's judgement again.** Spillan (d. 1854) and McDevitte (1834–1909) have dates;
+  Cyrus Edmonds (books 9–36) has none findable, so life-plus-seventy is not claimed for his books and the
+  ground is publication before 1929. Perseus's titleStmt says "Moritz Müller", its sourceDesc "H. J.
+  Müller"; the sourceDesc is followed (GND: 1844–1912). Neither file has an `<availability>`; CC BY-SA 4.0
+  comes from the canonical-latinLit README. The Loeb (`perseus-eng1`, 1919–1959) was not used.
+  · Colour `#632106`, a dark rust: the band's best is 16.1 against a tightest pair of 16.4, and the Plutarch
+  row's refusal to lift the ceiling stands; the wines were refused on the Euripides test (17 from Virgil).
+  `strabo-geography` (~3.1 MB English, ~1.8 MB Greek, all seventeen books, **5,479 notes**, original **Greek**;
+  Hamilton and Falconer's translation, Bohn 1854–57, beside Meineke's Teubner text of 1877, both from Perseus's TEI;
+  parts are Bohn's three volumes). **Pairs on SECTIONS, not chapters** — the chapters run to 70 sections — through
+  `pairOn: "section"` (`teiBookSections`): a marker reads `chapter.section` ("5.2" inside book 4 is Strabo 4.5.2),
+  `data-n` = chapter × 1000 + section × 10 + letter. 1,573 English sections against 1,580 Greek, the same numbers
+  in every chapter; the seven Greek-only rows are fragments of book 7 (`sectionChapters` admits the Fragments as
+  "Fr.", keyed after chapter 7). Hamilton's per-book "Summary" is skipped as his. Two silent faults in the English
+  were fixed in the reader: five passages standing outside any `<p>` or inside a nested one (`teiParaFlatten`), and
+  233 quotations doubled as `<quote><q>` (ten genuinely interrupted quotes keep both). Checked: letter counts source
+  against output are EXACT in both columns. Its colour is a dark wine inside the 85 ceiling (Plutarch's refusal to
+  lift it stands); the violet the band offered sat beside Marco Polo.
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,
@@ -41,6 +143,63 @@ book added later will meet the same traps.
   back by two `reFixes`. Timoleon opens on a chapter 0 (Plutarch's preface) in both columns. Checked: word counts
   against the source within 0.003 % (English) and exact (Greek). The order is the printed editions', not Plutarch's
   (the Pericles calls itself his tenth book), and the front matter says so.
+  `pausanias-description-of-greece` (~1.6 MB English, ~1.4 MB Greek, all ten books, **811 notes**, original
+  **Greek** — W. H. S. Jones's Loeb translation, Volume II with H. A. Ormerod, 1918–1935, beside Spiro's Teubner
+  text of 1903, both from Perseus; `layout: "chaptered"`, Herodotus's). Paired on the CHAPTER: 357 on each side,
+  the same numbers in every book. The tabs are the edition's own region heads (Attica … Phocis and Ozolian Locri).
+  · **THE LICENCE IS TWO GROUNDS BY VOLUME.** Volumes I–II (1918, 1926) are US public domain by date; III–IV
+  (1933, 1935) by NON-RENEWAL — the Catalog of Copyright Entries for both halves of 1960–1963 was searched (IA
+  OCR) for "Pausanias" and "Description of Greece" and holds nothing, while it does show Harvard's renewals and a
+  new Jones registration, so the search could see this claimant and translator. **The URAA question is open and
+  said so**: Volume IV is "Printed in Great Britain", but its title page names Harvard University Press,
+  Cambridge, Mass., as co-publisher, which is the evidence for simultaneous US publication (no restoration).
+  Jones died 1963, Ormerod 1964: not public domain in life-plus-seventy countries until 2034/2035, stated in
+  `rights`. English Wikisource hosts the whole translation under PD-US — a second opinion, not the evidence.
+  · **`teiRaw`, A NEW, OPTIONAL HOOK** on the `chaptered` branch (English and original): a book's own transform of
+  its TEI before the shared reader sees it; absent on every other book, so they are unchanged. Pausanias uses it
+  for three things the shared reader welds: 65 mid-paragraph `<milestone unit="para"/>` (a break after a stop, a
+  space after a letter or comma), 83 in-text `<bibl>` citations after verse quotations (made notes in the English,
+  dropped in the Greek, which has no fold and whose Teubner prints none), and the missing space on either side of
+  a `<quote>`. The hook exists because `reFixes` replaces with a literal string and cannot use a group.
+  · **FIFTEEN `fixes`, each read against English Wikisource's proofread transcription of the same Loeb** (spaces
+  lost after commas, `Anaxibi` for Anaxibia, `.` read for a hyphen twice). Book III has no Wikisource page; its
+  one row is a lost space between a full stop and a capital. `in formed` (1.7.2) is LEFT: Wikisource has it too.
+  · **Its colour** `"Pausanias": "#14203C"` is the best-separated left in the shelf's band (19.8; tightest pair
+  16.6). `glossOff` drops 29 of the 451 terms the auto-linker made, after a headless `.ttip` sweep of every book:
+  modern places on ancient ones (Pisa, Tripoli, Mali, Apia, Jordan), namesakes (Pope Damasus, Flavius Aetius, the
+  Brennus who took Rome) and common nouns on names (ion on Ion, xenia on Xenias). Re-run after a glossary batch.
+  `diodorus-library` (~3.8 MB English, ~5.2 MB Greek, **Books 1–5 and 11–20 as 15 chapters** — the fifteen of
+  Diodorus's forty that survive whole —, **1,414 chapters as sections**, **3,707 notes**, original **Ancient Greek**;
+  `layout: "thayer"` → `extractThayer`; the Greek from THREE Perseus files through `original.urls`). The Loeb of
+  1933–1963 (Oldfather, Sherman, Welles, Geer) as Bill Thayer retyped it on LacusCurtius. Five things it settled.
+  · **PUBLIC DOMAIN BY NON-RENEWAL, THE SECOND TIME, AND ON TEN VOLUMES.** Thayer's home page for the work states
+  that no volume I–XI was renewed and that XII (1967) is in copyright. Checked in the *Catalog of Copyright Entries*
+  (Internet Archive OCR) for the renewal windows of volumes I, II, III, IV, IX and half of V (1960–63, 1966–67,
+  1973–75, 1977): no Diodorus or Oldfather renewal, while Harvard's renewals of its other series do appear, and
+  the 1963 registration of vol. VIII and the 1967 one of vol. XII are there. Renewals from 1978 on (V's second
+  year, VI, VII, VIII, X) are in the Copyright Office's online records, not searched (Stanford's index is behind a
+  bot wall), so for those the ground is Thayer's word. The registrations carry the ad interim prefix and the title
+  pages name Cambridge, Mass. and London; the 1996 restoration of foreign works does not reach a work published
+  in the US within 30 days of its first publication, and simultaneity was not established beyond the title page.
+  Nothing is claimed outside the US. Booth's 1700 English (PD everywhere) was rejected: OCR only, and unnumbered.
+  · **THAYER'S OWN NOTES ARE HIS COPYRIGHT** and are dropped with every marker citing them (95 inside Loeb notes, 24
+  lists, 40 markers); his `º` tooltips go and his 38 `emend` repairs of the printed Loeb stay.
+  · **HIS HAND-TYPED ANCHORS HAVE SLIPS** — `NAME="31"` and `ID="A"` for notes 11 and 28 of 1D, `<HR CLASS="62">`,
+  an unquoted `NAME=92`, a chapter carried over a page break marked again as `(19)` — so notes are joined by
+  their back-links and every anchor rule tolerates the variants. See `docs/library-importer.md` "The `thayer` layout".
+  · **THE PAIRING IS THE CHAPTER**, Herodotus's rule: 1,414 on each side, all paired; sections are not carried.
+  Each book's ancient table of contents is left out on both sides (16 Loeb notes are cited only from it).
+  · **ITS COLOUR stays inside the band** (`#634806`, an olive-bronze 15.7 from Vyasa against a tightest pair of
+  15.6): the band's best blues stand 19–20 from Herodotus and were refused on the Euripides test. No `glossOff`
+  sweep was run at import.
+  `declaration-of-independence` (~15 KB, **one part**, no notes, no original — written in English): the **Goddard
+  broadside** (Baltimore, 1777), the first printing with the signers' names, chosen over the engrossed parchment
+  because that transcription is diplomatic (italic throughout, the scribe's filler dashes as underscores, one paragraph,
+  unlabelled signature columns). **The Wikisource transcription is NOT proofread**: collated line by line against the
+  Commons scan it departed from the print 41 times (Bonds/Bands, `alter or abolish`, `in these Colonies`, `tese`, `teh`…),
+  each now a `fixes` row with the scan as witness; McKean's absence is the broadside's and is not supplied. Two importer
+  options arrived with it: `lineBlocks` (`lineateBlocks`: a paragraph-less blockquote's newlines become `<br>`, for the
+  signers' brace table) and a `dropTail` for the PD banner. `glossOff`: Jersey, Settlement, Providence.
   `classic-of-tea` (~34 KB English, ~13 KB Chinese, all ten parts, **8 notes**, original **Chinese** — Lu Yu's
   *Cha Jing* in **a condensation**: the "Translation Digest of Ch'a Ching" William H. Ukers printed in *All
   About Tea* (1935), pp. 15–22, from a translation of a Ming copy by Z. L. Yih; `layout: "chajing"` →
@@ -1390,7 +1549,9 @@ book added later will meet the same traps.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-two:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-nine:
+  `polybius-histories.grc.js` (~900 KB, **books 1–5 only** — `original.only`; the fragment books are
+  numbered differently in the two editions and ship without a Greek column; see the English entry above).
   `bede-history.la.js` (~560 KB, all five books, **140 chapters**, the Praefatio joined in front of
   Book I — the received Latin as transcribed at Latin Wikisource, and **the original here whose
   TRANSCRIPTION NAMES AN EDITION IT DOES NOT PRINT.** Its header states "editio: Patrologia Latina,
