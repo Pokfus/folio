@@ -418,6 +418,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the ala: the grant at Asculum to the turma Salluitana | 89 BCE | `rm-652` |
 | the gladius: adopted (one modern view) / the oldest finds | c. 216 – 209 BCE / c. 175 BCE | `rm-657` |
 | the pilum: adopted (one reconstruction) / Marius's pin | c. 390 – 360 BCE / 101 BCE | `rm-658` |
+| the aquila the legions' sole standard (Pliny; the year from a modern edition) | 104 BCE | `rm-664` |
+| the marching camp: the lesson from Pyrrhus's camp (Frontinus's claim) | 275 BCE | `rm-666` |
 
 ## The Principate
 
@@ -619,6 +621,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the standing fleets (Starr's frame) | 31 BCE – 324 CE | `rm-655` |
 | the fleet at Misenum: founded (an assumption) / defected / the rescue voyage | c. 27 – 15 BCE / 69 CE / 79 CE | `rm-656` |
 | the lorica segmentata: the earliest finds / the Corbridge hoard | 9 CE / c. 122 – 138 CE | `rm-660` |
+| the standards returned by Parthia / the temple of Mars Ultor dedicated | 20 BCE / 2 BCE | `rm-663` |
+| the aquila: three lost with Varus / the first recovered | 9 CE / 15 CE | `rm-664` |
+| legionary fortresses: Vetera besieged / rebuilt in stone in Britain | 69 CE / 99 – 108 CE | `rm-667` |
 
 ## Late Antiquity
 
@@ -1336,4 +1341,8 @@ rm-656: 27; 15; 69; 79
 rm-657: 216; 209; 175
 rm-658: 390; 360; 101
 rm-660: 9; 122; 138
+rm-663: 20; 2
+rm-664: 104; 9; 15
+rm-666: 275
+rm-667: 69; 99; 108
 ```

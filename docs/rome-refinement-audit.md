@@ -198,7 +198,7 @@ order unless the user says otherwise.
 | B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | **done 2026-10-30** |
 | B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | **done 2026-10-30** |
 | B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | **done 2026-10-30** |
-| B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | open |
+| B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | **done 2026-10-30** |
 | B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | open |
 | B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | open |
 | B70 | The Roman army (`rm-army`) / Government, law and citizenship (`rm-government`) | `rm-691`–`rm-700` | 10 | 98 | open |
@@ -429,6 +429,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-658` pilum | none | not re-checked: the card has no picture |
 | `rm-659` scutum | none | not re-checked: the card has no picture; the Dura shield would do |
 | `rm-660` lorica segmentata | none | not re-checked: the card has no picture |
+| `rm-661` galea | none | not re-checked: the card has no picture |
+| `rm-662` caligae | none | not re-checked: the card has no picture |
+| `rm-663` signum | none | not re-checked: the card has no picture; the York signifer (RIB 673) would do |
+| `rm-664` aquila | none | not re-checked: the card has no picture |
+| `rm-665` vexillum | none | not re-checked: the card has no picture |
+| `rm-666` marching camp | none | not re-checked: the card has no picture |
+| `rm-667` legionary fortress | none | not re-checked: the card has no picture |
+| `rm-668` battering ram | none | not re-checked: the card has no picture |
+| `rm-669` ballista | A reconstructed Roman ballista at Yodfat | not re-checked (CC BY-SA, kept) |
+| `rm-670` siege tower | none | not re-checked: the card has no picture |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2506,3 +2516,22 @@ Run as B64; applied before B65 (B66's drafts finished first). Before applying, f
 | `rm-660` lorica segmentata | 7 | 7 → 7 | **The name only "modern" (no source read for the 16th century); the weights modern reconstructions; Kalkriese the probable site of Varus's defeat**; the Corbridge hoard dated c. 122 – 138 CE, not "buried". |
 
 **Read by eye.** *Confusability:* `rm-651`/`rm-652` the auxilia (the Batavians) and the wing (Hyginus's turmae); `rm-653`/`rm-654` the police (the will's 500) and the watch (Paulus's prefect); `rm-655`/`rm-656` the navy (Forum Julii) and the fleet (Pliny's galleys); `rm-657`/`rm-658`/`rm-659`/`rm-660` the sword (the right thigh), the javelin (Marius's pin), the shield (Scaeva) and the armour (Trajan's Column). *Legend:* Marius's pin and Scaeva's shield are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B67 — `rm-661`–`rm-670`, The Roman army: the galea to the siege tower (2026-10-30)
+
+Run as B66. Before applying, `rm-666`'s "Pyrrhus defeated" and `rm-667`'s "Vetera besieged" became "Model taken" and "Siege recorded"; `rm-669`'s and `rm-670`'s date lines, which dated sieges (Jotapata, Cremona, the Atuatuci, Avaricum, Masada) rather than the engines, were emptied and the cards marked undatable, as `rm-668`'s was by its agent (`rm-670`'s 57 and 52 BCE were also the Loeb translator's synopsis years, not Caesar's); and `rm-670`'s first phrasing no longer names the Atuatuci, whom `rm-668` uses. **The carry-over fault on `rm-664` is fixed: 104 BCE for the eagle as sole standard now rests on a modern edition's note to Pliny (Rackham's Loeb), and the prose says so.** `rm-663`'s "Mars Ultor completed 2 CE" was wrong: the temple was dedicated in 2 BCE. Two sources answer a script 403 or 500 (the RSC Advances DOI on `rm-662`, the Nova Tellus page on `rm-664`); both were read by their agents. `check-citations` reports one mismatch on `rm-662`: Crossref stores that paper's first author with given and family names swapped (given "Halldórsdóttir", family "H. H."), so the card's form is right. **The old date lines carried two sieges for a ram, two for a ballista, three for a tower, a list of camps' battles, and a man's death for a fortress.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-661` galea | 6 | 8 → 9 | **The type names (Montefortino, Imperial Gallic) modern schemes; Isidore's leather galea against the metal cassis**; Vegetius's "crosswise" crests go (the translation does not say it); Constantine's Christogram helmet; the modern share from one to five. |
+| `rm-662` caligae | 7 | 8 → 9 | **Six unsourced claims go (the officers, "caligati", Marius "from the caliga", Cicero's jibe, the scouts' boot, the Price Edict)**; Josephus's centurion and Juvenal's studded boots their authors'; the Elginhaugh finds and why leather survives at Vindolanda. |
+| `rm-663` signum | 6 | 8 → 7 | **Mars Ultor dedicated 2 BCE, not "completed 2 CE"; the standards perhaps first in a Capitoline temple**; Vegetius on savings kept with the standards; the York signifer (RIB 673). |
+| `rm-664` aquila | 7 | 8 → 8 | **104 BCE from Rackham's note to Pliny, said so; the "Marian reforms" a modern attribution; the third eagle's year left out (Dio under Claudius, Livius under Caligula)**; Varus out of the questions; the modern share from none to four. |
+| `rm-665` vexillum | 6 | 6 → 8 | **"Under Augustus" goes (only an unopened note); Agrippa's banner "sea-green", as the translation reads**; Caesar's signal to arms; Lollianus's inscription; the Pushkin vexillum left out (no source opened). |
+| `rm-666` marching camp | 7 | 7 → 9 | **The lesson from Pyrrhus's camp Frontinus's claim, with Plutarch's opposite version; "Before Pydna" goes**; Polybius's camp as a city of returning citizens; Josephus's city built on the sudden. |
+| `rm-667` legionary fortress | 6 | 6 → 8 | **"Rebuilt in stone 99 – 108 CE" loses "in Britain"; RIB 330 the Caerleon slab; 70 CE goes (no source)**; the 1,000 sesterces Suetonius's; legion size and area modern estimates; Inchtuthil without the nails (`rm-486`'s). |
+| `rm-668` battering ram | 8 | 8 → 8 | **The line dated two sieges: empty; the Carthaginian invention Vitruvius's claim against the Assyrian reliefs; Josephus the commander at Jotapata**; Jerusalem left to `rm-469`; the ancient share from seven of eight to four. |
+| `rm-669` ballista | 7 | 7 → 9 | **The name's change of meaning (Vitruvius's stone-thrower, Ammianus's arrow-shooter); the line's two sieges go**; Vegetius's "55 per legion" and the 600 m conversion go; the Fifteenth legion at Cremona (Tacitus's quintae decimae), not the Sixteenth. |
+| `rm-670` siege tower | 8 | 8 → 10 | **The line's three sieges go; the metre conversions go; Masada's year is whose (73 or 74) in prose**; the Masada question (close to `rm-472`'s) replaced by Vespasian's iron-plated towers. |
+
+**Read by eye.** *Confusability:* `rm-661`/`rm-662` the helmet (Isidore's cassis) and the boots (Josephus's centurion); `rm-663`/`rm-664`/`rm-665` the standard (Parthia's return), the eagle (Pliny's four beasts) and the flag (Agrippa's sea-green); `rm-666`/`rm-667` the camp (Pyrrhus) and the fortress (Domitian's rule); `rm-668`/`rm-669`/`rm-670` the ram (Caesar's terms), the engine (the Cremona ballista) and the tower (the jeering defenders). *Legend:* Marius's sole eagle and Frontinus's lesson from Pyrrhus are their authors'. *Overlap:* `gr-800` (torsion catapult) agrees with `rm-669`.
