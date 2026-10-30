@@ -36897,7 +36897,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* `span: [y0, y1]` (2026-10-29, on request: the Three Kingdoms card's "atlas window with a timeline for the whole period"): a members window on a past
        year carries the war windows' timeline over those years, stepping where its states change (`entsTimeline` in atlas.js); `year` is where the pin opens. */
     const span = groups.length && Array.isArray(m.span) && m.span.length === 2 && Number.isInteger(m.span[0]) && Number.isInteger(m.span[1]) && m.span[0] < m.span[1] ? [m.span[0], m.span[1]] : null;
-    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0 };
+    /* `layer` (optional, 2026-10-30, on request: Manchuria's card shaded as China's three north-eastern provinces): the keys are names of that
+       map-card layer (`china-provinces`, `us-states`, `russia-subjects`) instead of the `world` layer's countries. */
+    const layer = m.layer && CARD_MAP_LAYERS[m.layer] ? String(m.layer) : "world";
+    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer };
   }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
@@ -37088,7 +37091,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ? "The two sides of the war on an interactive globe: " + w.victors.name + ", the victors, shaded green; " +
         w.losers.name + ", defeated, shaded red. "
       : m && m.groups.length ? m.name + " on an interactive globe of the borders of " + m.year + ": " + m.groups.map((g, i) => g.name + (i === 2 ? " in plum" : i ? " in blue" : " in gold")).join(", ") + (atName ? "; " + atName + " marked" : "") + "." + (m.span ? " A timeline under it steps through the years " + m.span[0] + " to " + m.span[1] + "." : "") + " "
-      : m ? m.name + " shaded in gold on an interactive globe of today's countries" + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
+      : m ? m.name + " shaded in gold on an interactive globe of today's " + (m.layer === "world" ? "countries" : "borders") + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
     return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
@@ -37098,7 +37101,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
   function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
     const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
-    return '<div class="map-card ' + cls + '" data-map-layer="world"' + (named ? " data-map-named" : "") + ' data-map-card="' + esc(c.id || "") + '"' +
+    return '<div class="map-card ' + cls + '" data-map-layer="' + esc((m && m.layer) || "world") + '"' + (named ? " data-map-named" : "") + ' data-map-card="' + esc(c.id || "") + '"' +
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
       (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +

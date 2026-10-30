@@ -7510,7 +7510,25 @@ window.GLOSSARY = {
 "Blitzkrieg_legend": "",
 "Heinz_Guderian": "",
 "Erich_von_Manstein": "",
-"Panzer_Group_Kleist": ""
+"Panzer_Group_Kleist": "",
+"Shawnee": "",
+"War_of_1812": "",
+"Little_Turtle": "",
+"Fort_Wayne,_Indiana": "",
+"Great_Spirit": "",
+"Indian_Department": "",
+"Amherstburg": "",
+"Moraviantown": "",
+"Ontario": "",
+"Celeres": "",
+"Caprae_Palus": "",
+"Proculus_Julius": "",
+"Quirinus": "",
+"Synagogue": "",
+"Dachau_concentration_camp": "",
+"Pogrom": "",
+"Imaging_radar": "",
+"Core_sample": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11179,7 +11197,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Sedan_(1940)": "12–15 May 1940",
 "Heinz_Guderian": "1888–1954",
 "Erich_von_Manstein": "1887–1973",
-"Panzer_Group_Kleist": "1940"
+"Panzer_Group_Kleist": "1940",
+"War_of_1812": "1812–1815",
+"Little_Turtle": "c. 1752–1812",
+"Dachau_concentration_camp": "1933–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15938,7 +15959,22 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dyle_Plan": ["Plan D"],
 "Battle_of_Sedan_(1940)": ["Battle of Sedan"],
 "Blitzkrieg_legend": ["Blitzkrieg legend"],
-"Panzer_Group_Kleist": ["Panzergruppe Kleist","Kleist Group"]
+"Panzer_Group_Kleist": ["Panzergruppe Kleist","Kleist Group"],
+"Shawnee": ["Shawnees"],
+"Little_Turtle": ["Mihšihkinaahkwa","Michikinakoua","Michikinikwa"],
+"Fort_Wayne,_Indiana": ["Fort Wayne"],
+"Great_Spirit": ["the Great Spirit"],
+"Indian_Department": ["British Indian Department"],
+"Amherstburg": ["Fort Malden","Fort Amherstburg"],
+"Moraviantown": ["Fairfield","Fairfield on the Thames"],
+"Caprae_Palus": ["Caprae Palus","Goat's Marsh"],
+"Proculus_Julius": ["Proculus Julius","Julius Proculus"],
+"Quirinus": ["Quirinus"],
+"Synagogue": ["synagogue","synagogues"],
+"Dachau_concentration_camp": ["Dachau"],
+"Pogrom": ["pogrom","pogroms"],
+"Imaging_radar": ["radar imaging","imaging radar","synthetic aperture radar"],
+"Core_sample": ["soil coring","coring","sediment core","core sample"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23593,7 +23629,25 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Blitzkrieg_legend": ["theory","history","historiography","warfare","germany"],
 "Heinz_Guderian": ["person","history","warfare","germany","second world war"],
 "Erich_von_Manstein": ["person","history","warfare","germany","war crimes","second world war"],
-"Panzer_Group_Kleist": ["institution","history","warfare","germany","second world war"]
+"Panzer_Group_Kleist": ["institution","history","warfare","germany","second world war"],
+"Shawnee": ["people","north america","americas","united states","history"],
+"War_of_1812": ["war","event","united states","britain","north america","19th century"],
+"Little_Turtle": ["person","north america","united states","warfare","history"],
+"Fort_Wayne,_Indiana": ["city","place","united states","north america","history"],
+"Great_Spirit": ["religion","concept","north america","americas","culture"],
+"Indian_Department": ["institution","diplomacy","britain","north america","history"],
+"Amherstburg": ["place","city","north america","history","britain"],
+"Moraviantown": ["place","religion","north america","history","christianity"],
+"Ontario": ["province","place","north america","geography","history"],
+"Celeres": ["institution","military","rome","history","mythology"],
+"Caprae_Palus": ["place","rome","history","mythology","geography"],
+"Proculus_Julius": ["person","rome","mythology","history"],
+"Quirinus": ["deity","religion","rome","mythology"],
+"Synagogue": ["religion","building","institution","practice"],
+"Dachau_concentration_camp": ["place","germany","20th century","second world war","history"],
+"Pogrom": ["event","history","society","europe","russia"],
+"Imaging_radar": ["technology","science","research methods","archaeology"],
+"Core_sample": ["science","archaeology","geology","research methods"]
 });
 
 /* ============================================================================

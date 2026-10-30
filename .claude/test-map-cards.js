@@ -217,8 +217,10 @@ function staticChecks() {
   withMem.forEach((c) => {
     const m = c.members, keys = Array.isArray(m.keys) ? m.keys : [];
     ok(String(m.name || "").trim().length > 0 && keys.length > 0, c.id + ": the members block names its group and lists countries");
-    const missing = keys.filter((k) => !world.has(k));
-    ok(!missing.length, c.id + ": every member is a country of the world layer", missing.join(", "));
+    const lay = m.layer && FZ[m.layer] ? new Set(names(m.layer)) : world;   // `members.layer` (2026-10-30): another map-card layer's names
+    ok(!m.layer || !!FZ[m.layer], c.id + ": its `layer` is a map-card layer", m.layer);
+    const missing = keys.filter((k) => !lay.has(k));
+    ok(!missing.length, c.id + ": every member is a name of its layer", missing.join(", "));
     ok(new Set(keys).size === keys.length, c.id + ": …and none is listed twice");
   });
   ok(/o\.members\s*=\s*c\.members/.test(ser), "serializeCardData carries `members` through");
