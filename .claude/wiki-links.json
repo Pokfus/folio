@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-29T22:08Z",
+ "generated": "2026-10-29T23:59Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5239,
-  "redirect-broader": 485,
+  "ok": 5271,
+  "redirect-broader": 489,
   "redirect-variant": 331,
   "section-redirect": 105,
   "disambiguation": 138,
-  "none": 957,
-  "disambig-resolved": 77,
+  "none": 960,
+  "disambig-resolved": 78,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -59839,6 +59839,305 @@
    "url": "https://en.wikipedia.org/wiki/Batagaika_crater",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-191": {
+   "answer": "Exode",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Evacuation of the Louvre collection during World War II",
+    "The Exodus (1940)",
+    "Écouché in World War II",
+    "List of Spanish Civil War films",
+    "1390"
+   ]
+  },
+  "ww2-192": {
+   "answer": "Armistice of 22 June 1940",
+   "title": "Armistice of 22 June 1940",
+   "url": "https://en.wikipedia.org/wiki/Armistice_of_22_June_1940",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-193": {
+   "answer": "Vichy France",
+   "title": "Vichy France",
+   "url": "https://en.wikipedia.org/wiki/Vichy_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-194": {
+   "answer": "Philippe Pétain",
+   "title": "Philippe Pétain",
+   "url": "https://en.wikipedia.org/wiki/Philippe_P%C3%A9tain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-195": {
+   "answer": "Battle of Dakar",
+   "title": "Battle of Dakar",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Dakar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-196": {
+   "answer": "Free France",
+   "title": "Free France",
+   "url": "https://en.wikipedia.org/wiki/Free_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-197": {
+   "answer": "Charles de Gaulle",
+   "title": "Charles de Gaulle",
+   "url": "https://en.wikipedia.org/wiki/Charles_de_Gaulle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-198": {
+   "answer": "Attack on Mers-el-Kébir",
+   "title": "Attack on Mers-el-Kébir",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Mers-el-K%C3%A9bir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-199": {
+   "answer": "German occupation of the Channel Islands",
+   "title": "German occupation of the Channel Islands",
+   "url": "https://en.wikipedia.org/wiki/German_occupation_of_the_Channel_Islands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-200": {
+   "answer": "Strange Defeat",
+   "title": "Strange Defeat",
+   "url": "https://en.wikipedia.org/wiki/Strange_Defeat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-181": {
+   "answer": "French Army",
+   "title": "French Army",
+   "url": "https://en.wikipedia.org/wiki/French_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-182": {
+   "answer": "Maurice Gamelin",
+   "title": "Maurice Gamelin",
+   "url": "https://en.wikipedia.org/wiki/Maurice_Gamelin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-183": {
+   "answer": "German invasion of the Netherlands",
+   "title": "German invasion of the Netherlands",
+   "url": "https://en.wikipedia.org/wiki/German_invasion_of_the_Netherlands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-184": {
+   "answer": "Rotterdam Blitz",
+   "title": "German bombing of Rotterdam",
+   "url": "https://en.wikipedia.org/wiki/German_bombing_of_Rotterdam",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rotterdam Blitz"
+  },
+  "ww2-185": {
+   "answer": "Leopold III",
+   "title": "Leopold III of Belgium",
+   "url": "https://en.wikipedia.org/wiki/Leopold_III_of_Belgium",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Leopold III"
+  },
+  "ww2-186": {
+   "answer": "Battle of Arras",
+   "title": "Battle of Arras (1940)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Arras_(1940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-187": {
+   "answer": "Dunkirk evacuation",
+   "title": "Dunkirk evacuation",
+   "url": "https://en.wikipedia.org/wiki/Dunkirk_evacuation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-188": {
+   "answer": "Halt order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-189": {
+   "answer": "Italian invasion of France",
+   "title": "Italian invasion of France",
+   "url": "https://en.wikipedia.org/wiki/Italian_invasion_of_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-190": {
+   "answer": "Open city",
+   "title": "Open city",
+   "url": "https://en.wikipedia.org/wiki/Open_city",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-161": {
+   "answer": "Soviet occupation of the Baltic states",
+   "title": "Soviet occupation of the Baltic states (1940)",
+   "url": "https://en.wikipedia.org/wiki/Soviet_occupation_of_the_Baltic_states_(1940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-162": {
+   "answer": "Soviet occupation of Bessarabia and Northern Bukovina",
+   "title": "Soviet occupation of Bessarabia and Northern Bukovina",
+   "url": "https://en.wikipedia.org/wiki/Soviet_occupation_of_Bessarabia_and_Northern_Bukovina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-163": {
+   "answer": "Plan R 4",
+   "title": "Plan R 4",
+   "url": "https://en.wikipedia.org/wiki/Plan_R_4",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-164": {
+   "answer": "Operation Weserübung",
+   "title": "Operation Weserübung",
+   "url": "https://en.wikipedia.org/wiki/Operation_Weser%C3%BCbung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-165": {
+   "answer": "Norwegian campaign",
+   "title": "Norwegian campaign",
+   "url": "https://en.wikipedia.org/wiki/Norwegian_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-166": {
+   "answer": "Battles of Narvik",
+   "title": "Battles of Narvik",
+   "url": "https://en.wikipedia.org/wiki/Battles_of_Narvik",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-167": {
+   "answer": "Norway Debate",
+   "title": "Norway Debate",
+   "url": "https://en.wikipedia.org/wiki/Norway_Debate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-168": {
+   "answer": "Winston Churchill",
+   "title": "Winston Churchill",
+   "url": "https://en.wikipedia.org/wiki/Winston_Churchill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-169": {
+   "answer": "Altmark incident",
+   "title": "Altmark incident",
+   "url": "https://en.wikipedia.org/wiki/Altmark_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-170": {
+   "answer": "Battle of the River Plate",
+   "title": "Battle of the River Plate",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_River_Plate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-171": {
+   "answer": "Battle of France",
+   "title": "Battle of France",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-172": {
+   "answer": "Fall Gelb",
+   "title": "Manstein plan",
+   "url": "https://en.wikipedia.org/wiki/Manstein_plan",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Fall Gelb"
+  },
+  "ww2-173": {
+   "answer": "Dyle Plan",
+   "title": "French war planning 1920–1940",
+   "url": "https://en.wikipedia.org/wiki/French_war_planning_1920%E2%80%931940",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Dyle Plan"
+  },
+  "ww2-174": {
+   "answer": "Battle of Sedan",
+   "title": "Battle of Sedan (1940)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Sedan_(1940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-175": {
+   "answer": "Ardennes",
+   "title": "Ardennes",
+   "url": "https://en.wikipedia.org/wiki/Ardennes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-176": {
+   "answer": "Blitzkrieg",
+   "title": "Blitzkrieg",
+   "url": "https://en.wikipedia.org/wiki/Blitzkrieg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-177": {
+   "answer": "Blitzkrieg legend",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of World War II feature films",
+    "Blitzkrieg",
+    "Tanks in World War II",
+    "List of World War II video games",
+    "Western Front (World War II)"
+   ]
+  },
+  "ww2-178": {
+   "answer": "Heinz Guderian",
+   "title": "Heinz Guderian",
+   "url": "https://en.wikipedia.org/wiki/Heinz_Guderian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-179": {
+   "answer": "Erich von Manstein",
+   "title": "Erich von Manstein",
+   "url": "https://en.wikipedia.org/wiki/Erich_von_Manstein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-180": {
+   "answer": "Panzer Group Kleist",
+   "title": "XXII Army Corps (Wehrmacht)",
+   "url": "https://en.wikipedia.org/wiki/XXII_Army_Corps_(Wehrmacht)",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Panzer Group Kleist"
   }
  }
 }
