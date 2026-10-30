@@ -464,6 +464,29 @@ through a signed review. `pdftotext` is now present in the container. **Closed o
 now a squatted domain and must not be cited. **Wikimedia's API answered 429 for the whole run**; HEAD
 requests to `Special:FilePath/<file>` (302 = exists) confirmed the pictures instead.
 
+**WHAT `ww2-401`–`ww2-500` LEARNED ABOUT HOSTS (Oct 2026).** China and the Pacific run on **ibiblio
+HyperWar over plain http** (https fails): the US Army Green Books (Romanus and Sunderland's three CBI
+volumes, Morton, Miller, Crowl and Love, Smith, Appleman), the Marine Corps monographs and official
+volumes, Craven and Cate, the Navy's Combat Narratives, the Strategic Bombing Survey, the Joint
+Congressional Pearl Harbor report and the **Tokyo tribunal's judgment** (page numbers are read off its
+page markers). Its Japanese Monographs index is live but most monograph pages 404 (Nos. 45, 70–72, 79, 93,
+97, 178 and 179 load as PDFs). **archive.org** carries what HyperWar lacks: the *Reports of General
+MacArthur*, Kirby's *War Against Japan*, the Bombing Survey's *Campaigns of the Pacific War* (use
+`campaignsofpacif46unit`; the `00unit` copy answers 401), the CMH campaign brochures, the 1950 Khabarovsk
+trial record and the Nationalist *China Handbook 1937–43*. **New and open**: **FRUS** at
+`history.state.gov` for 1931–49 China and Japan (its dated search works); **NIDS** (Japan's National
+Institute for Defense Studies) English war-history forum papers at `nids.mod.go.jp`, read with
+`pdftotext`; the **Australian War Memorial**'s official histories, one chapter per page at
+`awm.gov.au/collection/RCDIG10700xx`; the **London Gazette** despatches (Layton, Percival, Brooke-Popham —
+Percival answers only on `/supplement/N/data.pdf`, Layton on `/page/N/data.pdf`); the Asian Women's Fund
+(`awf.or.jp`); `himeyuri.or.jp` and the Okinawa peace museum (EUC-JP pages); `soumu.go.jp` (Shift-JIS);
+and cyberleninka for the Russian Khabarovsk scholarship (a Vestnik SPbU DOI printed on one article was not
+yet registered — cite the cyberleninka page). **Closed this time:** `history.navy.mil` (NHHC: TLS
+failures and timeouts all run), `history.army.mil`, `apjjf.org` (Japan Focus), `mofa.go.jp`, `usmcu.edu`,
+`marines.mil`, `loc.gov` and `af.mil` (403 or bot walls), `nlb.gov.sg`/`nas.gov.sg` (202 walls), and
+image-only or vertical-Japanese J-STAGE PDFs. Wikimedia's API again answered 429; `Special:FilePath` HEADs
+confirmed every picture.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -971,112 +994,112 @@ definitions, which exist precisely because the wording matters.
 
 ### The war in China — `ww2-china-war`
 
-    ww2-401  Second Sino-Japanese War
-    ww2-402  China in 1937
-    ww2-403  The Chinese Nationalist army
-    ww2-404  The Chinese Communist forces in the war
-    ww2-405  The retreat to Chongqing
-    ww2-406  Chongqing as wartime capital
+    ww2-401  Second Sino-Japanese War  → written as *China Incident*
+    ww2-402  China in 1937  → written as *Nanjing decade*
+    ww2-403  The Chinese Nationalist army  → written as *National Revolutionary Army*
+    ww2-404  The Chinese Communist forces in the war  → written as *Eighth Route Army*
+    ww2-405  The retreat to Chongqing  → written as *Free China*
+    ww2-406  Chongqing as wartime capital  → written as *Chongqing*
     ww2-407  Bombing of Chongqing
     ww2-408  Battle of Taierzhuang
     ww2-409  1938 Yellow River flood
     ww2-410  Battle of Wuhan
-    ww2-411  The stalemate after 1938
-    ww2-412  Japanese occupation policy in China
+    ww2-411  The stalemate after 1938  → written as *First Battle of Changsha*
+    ww2-412  Japanese occupation policy in China  → written as *New Order in East Asia*
     ww2-413  Three Alls policy
-    ww2-414  Wang Jingwei and the Nanjing government
-    ww2-415  Collaboration in occupied China
+    ww2-414  Wang Jingwei and the Nanjing government  → written as *Wang Jingwei regime*
+    ww2-415  Collaboration in occupied China  → written as *Provisional Government of the Republic of China*
     ww2-416  Hundred Regiments Offensive
     ww2-417  New Fourth Army incident
-    ww2-418  The Communist base areas
+    ww2-418  The Communist base areas  → written as *Shaan-Gan-Ning Border Region*
     ww2-419  Unit 731
-    ww2-420  Japanese biological and chemical warfare in China
+    ww2-420  Japanese biological and chemical warfare in China  → written as *Khabarovsk war crimes trial*
     ww2-421  Comfort women
     ww2-422  Burma Road
     ww2-423  The Hump
     ww2-424  Flying Tigers
     ww2-425  Joseph Stilwell
-    ww2-426  Chiang Kai-shek and the Allies
+    ww2-426  Chiang Kai-shek and the Allies  → written as *Sino-American Treaty for the Relinquishment of Extraterritorial Rights in China*
     ww2-427  Cairo Conference
     ww2-428  Chinese famine of 1942–1943
     ww2-429  Operation Ichi-Go
-    ww2-430  The Chinese war economy
-    ww2-431  Chinese civilian casualties
-    ww2-432  Chinese wartime refugees
-    ww2-433  The Japanese surrender in China
-    ww2-434  The war and the Chinese Civil War
-    ww2-435  The China theatre in the balance of the war
+    ww2-430  The Chinese war economy  → written as *fabi*
+    ww2-431  Chinese civilian casualties  → written as *Zhejiang-Jiangxi campaign*
+    ww2-432  Chinese wartime refugees  → written as *Nanking Safety Zone*
+    ww2-433  The Japanese surrender in China  → written as *Yasuji Okamura*
+    ww2-434  The war and the Chinese Civil War  → written as *Operation Beleaguer*
+    ww2-435  The China theatre in the balance of the war  → written as *China Expeditionary Army*
 
 ### Pearl Harbor and Japan's expansion — `ww2-japan-expansion`
 
-    ww2-436  The Japanese decision for war with the West
-    ww2-437  The Japanese move into southern Indochina
-    ww2-438  The American oil embargo
+    ww2-436  The Japanese decision for war with the West  → written as *Imperial Conference*
+    ww2-437  The Japanese move into southern Indochina  → written as *Japanese occupation of southern French Indochina*
+    ww2-438  The American oil embargo  → written as *Executive Order 8832*
     ww2-439  The Hull note
     ww2-440  Isoroku Yamamoto
     ww2-441  Attack on Pearl Harbor
-    ww2-442  The planning of the Pearl Harbor raid
-    ww2-443  The damage at Pearl Harbor
-    ww2-444  The American declaration of war
+    ww2-442  The planning of the Pearl Harbor raid  → written as *Combined Fleet Operation Order No. 1*
+    ww2-443  The damage at Pearl Harbor  → written as *Battleship Row*
+    ww2-444  The American declaration of war  → written as *Day of Infamy speech*
     ww2-445  The German declaration of war on the United States
-    ww2-446  Hitler's decision to declare war on America
-    ww2-447  The Japanese offensive of 1941–1942
-    ww2-448  The sinking of Prince of Wales and Repulse
+    ww2-446  Hitler's decision to declare war on America  → written as *Greer incident*
+    ww2-447  The Japanese offensive of 1941–1942  → written as *Southern Operation*
+    ww2-448  The sinking of Prince of Wales and Repulse  → written as *Force Z*
     ww2-449  Malayan campaign
     ww2-450  Fall of Singapore
-    ww2-451  The Japanese conquest of the Philippines
+    ww2-451  The Japanese conquest of the Philippines  → written as *Battle of Bataan*
     ww2-452  Bataan Death March
-    ww2-453  The Japanese conquest of the Dutch East Indies
+    ww2-453  The Japanese conquest of the Dutch East Indies  → written as *Dutch East Indies campaign*
     ww2-454  Battle of Hong Kong
-    ww2-455  The Japanese invasion of Burma
+    ww2-455  The Japanese invasion of Burma  → written as *Japanese conquest of Burma*
     ww2-456  Bombing of Darwin
-    ww2-457  The limits of Japanese expansion
-    ww2-458  Japanese occupation policy in Southeast Asia
-    ww2-459  Asian nationalism under Japanese occupation
-    ww2-460  Allied prisoners of war of the Japanese
+    ww2-457  The limits of Japanese expansion  → written as *Absolute National Defence Sphere*
+    ww2-458  Japanese occupation policy in Southeast Asia  → written as *Japanese invasion money*
+    ww2-459  Asian nationalism under Japanese occupation  → written as *Greater East Asia Conference*
+    ww2-460  Allied prisoners of war of the Japanese  → written as *Changi Prison*
     ww2-461  Burma Railway
     ww2-462  Doolittle Raid
     ww2-463  Battle of the Coral Sea
     ww2-464  Battle of Midway
-    ww2-465  The codebreaking behind Midway
-    ww2-466  The significance of Midway
+    ww2-465  The codebreaking behind Midway  → written as *Station HYPO*
+    ww2-466  The significance of Midway  → written as *First Air Fleet*
     ww2-467  Guadalcanal campaign
-    ww2-468  The naval battles around Guadalcanal
+    ww2-468  The naval battles around Guadalcanal  → written as *Naval Battle of Guadalcanal*
     ww2-469  New Guinea campaign
     ww2-470  Kokoda Track campaign
 
 ### The Pacific counter-offensive — `ww2-pacific`
 
-    ww2-471  Allied strategy in the Pacific
+    ww2-471  Allied strategy in the Pacific  → written as *War Plan Orange*
     ww2-472  Leapfrogging
     ww2-473  Douglas MacArthur
     ww2-474  Chester W. Nimitz
-    ww2-475  The United States Navy in the Pacific
-    ww2-476  Carrier warfare
-    ww2-477  The American submarine campaign against Japan
-    ww2-478  The destruction of the Japanese merchant fleet
+    ww2-475  The United States Navy in the Pacific  → written as *United States Pacific Fleet*
+    ww2-476  Carrier warfare  → written as *Fast Carrier Task Force*
+    ww2-477  The American submarine campaign against Japan  → written as *unrestricted submarine warfare*
+    ww2-478  The destruction of the Japanese merchant fleet  → written as *Joint Army–Navy Assessment Committee*
     ww2-479  Aleutian Islands campaign
     ww2-480  Battle of Tarawa
     ww2-481  Gilbert and Marshall Islands campaign
     ww2-482  Battle of Saipan
     ww2-483  Battle of the Philippine Sea
-    ww2-484  The fall of the Tojo government
+    ww2-484  The fall of the Tojo government  → written as *Hideki Tojo*
     ww2-485  Battle of Peleliu
-    ww2-486  Philippines campaign of 1944–1945
+    ww2-486  Philippines campaign of 1944–1945  → written as *Battle of Luzon*
     ww2-487  Battle of Leyte Gulf
     ww2-488  Kamikaze
     ww2-489  Battle of Manila
     ww2-490  Battle of Iwo Jima
     ww2-491  Raising the Flag on Iwo Jima
     ww2-492  Battle of Okinawa
-    ww2-493  Civilian deaths on Okinawa
-    ww2-494  The American strategic bombing of Japan
-    ww2-495  Bombing of Tokyo
+    ww2-493  Civilian deaths on Okinawa  → written as *Himeyuri students*
+    ww2-494  The American strategic bombing of Japan  → written as *Air raids on Japan*
+    ww2-495  Bombing of Tokyo  → written as *Operation Meetinghouse*
     ww2-496  Curtis LeMay
-    ww2-497  Japanese civilians under the bombing
-    ww2-498  The collapse of Japanese war production
-    ww2-499  Japanese wartime propaganda
-    ww2-500  Korea and Taiwan in the Japanese war effort
+    ww2-497  Japanese civilians under the bombing  → written as *Tonarigumi*
+    ww2-498  The collapse of Japanese war production  → written as *Ministry of Munitions*
+    ww2-499  Japanese wartime propaganda  → written as *Imperial General Headquarters Announcement*
+    ww2-500  Korea and Taiwan in the Japanese war effort  → written as *Kominka movement*
     ww2-501  Forced labour in the Japanese empire
     ww2-502  The blockade of Japan
     ww2-503  Operation Downfall
