@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-30T01:25Z",
+ "generated": "2026-10-30T01:27Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5312,
-  "redirect-broader": 496,
+  "ok": 5319,
+  "redirect-broader": 499,
   "redirect-variant": 332,
   "section-redirect": 106,
   "disambiguation": 139,
@@ -60629,6 +60629,79 @@
    "answer": "Reich Ministry for the Occupied Eastern Territories",
    "title": "Reich Ministry for the Occupied Eastern Territories",
    "url": "https://en.wikipedia.org/wiki/Reich_Ministry_for_the_Occupied_Eastern_Territories",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-271": {
+   "answer": "Battle of Białystok–Minsk",
+   "title": "Battle of Białystok–Minsk",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bia%C5%82ystok%E2%80%93Minsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-272": {
+   "answer": "Battle of Smolensk",
+   "title": "Battle of Smolensk (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Smolensk_(1941)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-273": {
+   "answer": "Kaunas pogrom",
+   "title": "Kaunas pogrom",
+   "url": "https://en.wikipedia.org/wiki/Kaunas_pogrom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-274": {
+   "answer": "First Battle of Kiev",
+   "title": "Battle of Kiev (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First Battle of Kiev"
+  },
+  "ww2-275": {
+   "answer": "Army Group North",
+   "title": "Army Group North",
+   "url": "https://en.wikipedia.org/wiki/Army_Group_North",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-276": {
+   "answer": "Siege of Leningrad",
+   "title": "Siege of Leningrad",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-277": {
+   "answer": "Badayev warehouses",
+   "title": "Siege of Leningrad",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Badayev warehouses"
+  },
+  "ww2-278": {
+   "answer": "Road of Life",
+   "title": "Road of Life",
+   "url": "https://en.wikipedia.org/wiki/Road_of_Life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-279": {
+   "answer": "Operation Typhoon",
+   "title": "Battle of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Moscow",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Operation Typhoon"
+  },
+  "ww2-280": {
+   "answer": "Battle of Moscow",
+   "title": "Battle of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Moscow",
    "via": "glossary",
    "status": "ok"
   }

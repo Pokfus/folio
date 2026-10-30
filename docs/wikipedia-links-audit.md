@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5312 | the title is the article |
+| `ok` | 5319 | the title is the article |
 | `redirect-variant` | 332 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 496 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 499 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 106 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 139 | only a disambiguation page; no link could be chosen |
 | `none` | 968 | nothing matched; no link |
 
-**6232 of 7461 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6242 of 7471 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (496)
+## Redirected to a differently named article — check each (499)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -536,6 +536,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-202` **May 1940 war cabinet crisis** → [1940 British war cabinet crisis](https://en.wikipedia.org/wiki/1940_British_war_cabinet_crisis) (from `May 1940 war cabinet crisis`)
 - `ww2-269` **Tukhachevsky affair** → [Case of the Trotskyist Anti-Soviet Military Organization](https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization) (from `Tukhachevsky affair`)
 - `ww2-270` **Kesselschlacht** → [Encirclement](https://en.wikipedia.org/wiki/Encirclement) (from `Kesselschlacht`)
+- `ww2-274` **First Battle of Kiev** → [Battle of Kiev (1941)](https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)) (from `First Battle of Kiev`)
+- `ww2-277` **Badayev warehouses** → [Siege of Leningrad](https://en.wikipedia.org/wiki/Siege_of_Leningrad) (from `Badayev warehouses`)
+- `ww2-279` **Operation Typhoon** → [Battle of Moscow](https://en.wikipedia.org/wiki/Battle_of_Moscow) (from `Operation Typhoon`)
 - `ww2-284` **State Defence Committee** → [State Defense Committee](https://en.wikipedia.org/wiki/State_Defense_Committee) (from `State Defence Committee`)
 - `ww2-289` **German mistreatment of Soviet prisoners of war** → [German atrocities committed against Soviet prisoners of war](https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war) (from `German mistreatment of Soviet prisoners of war`)
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)

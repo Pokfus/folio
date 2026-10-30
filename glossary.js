@@ -7568,7 +7568,16 @@ window.GLOSSARY = {
 "Order_No._227": "",
 "Shtrafbat": "",
 "German_atrocities_committed_against_Soviet_prisoners_of_war": "",
-"Reich_Ministry_for_the_Occupied_Eastern_Territories": ""
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": "",
+"Battle_of_Białystok–Minsk": "",
+"Battle_of_Smolensk_(1941)": "",
+"Kaunas_pogrom": "",
+"Battle_of_Kiev_(1941)": "",
+"Army_Group_North": "",
+"Badayev_warehouses": "",
+"Road_of_Life": "",
+"Operation_Typhoon": "",
+"Battle_of_Moscow": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11286,7 +11295,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Order_No._227": "28 July 1942",
 "Shtrafbat": "1942",
 "German_atrocities_committed_against_Soviet_prisoners_of_war": "1941–1945",
-"Reich_Ministry_for_the_Occupied_Eastern_Territories": "1941"
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": "1941",
+"Battle_of_Białystok–Minsk": "22 June – 9 July 1941",
+"Battle_of_Smolensk_(1941)": "10 July – 5 August 1941",
+"Kaunas_pogrom": "25–29 June 1941",
+"Battle_of_Kiev_(1941)": "August – September 1941",
+"Army_Group_North": "1941–1945",
+"Badayev_warehouses": "8 September 1941",
+"Road_of_Life": "1941–1943",
+"Operation_Typhoon": "30 September – 5 December 1941",
+"Battle_of_Moscow": "October 1941 – January 1942"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16085,7 +16103,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Order_No._227": ["Order 227","Not a step back","Ni shagu nazad"],
 "Shtrafbat": ["Penal battalion","Shtrafnoi batalon","Soviet penal battalions"],
 "German_atrocities_committed_against_Soviet_prisoners_of_war": ["German mistreatment of Soviet prisoners of war","Soviet prisoners of war in German captivity"],
-"Reich_Ministry_for_the_Occupied_Eastern_Territories": ["Ostministerium","Reichsministerium für die besetzten Ostgebiete","Reich Ministry for the Occupied Eastern Territories"]
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": ["Ostministerium","Reichsministerium für die besetzten Ostgebiete","Reich Ministry for the Occupied Eastern Territories"],
+"Battle_of_Białystok–Minsk": ["Battle of Bialystok–Minsk","Battle of Białystok-Minsk"],
+"Battle_of_Smolensk_(1941)": ["Battle of Smolensk"],
+"Kaunas_pogrom": ["Kovno pogrom"],
+"Battle_of_Kiev_(1941)": ["First Battle of Kiev","Battle of Kiev","Battle of Kyiv (1941)"],
+"Army_Group_North": ["Heeresgruppe Nord"],
+"Badayev_warehouses": ["Badaev warehouses"],
+"Road_of_Life": ["Road of Life (Leningrad)"],
+"Operation_Typhoon": ["Unternehmen Taifun"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23798,7 +23824,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Order_No._227": ["text","history","warfare","law","russia"],
 "Shtrafbat": ["institution","history","warfare","law","russia"],
 "German_atrocities_committed_against_Soviet_prisoners_of_war": ["event","history","warfare","war crimes","germany","russia"],
-"Reich_Ministry_for_the_Occupied_Eastern_Territories": ["institution","history","politics","occupation","germany"]
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": ["institution","history","politics","occupation","germany"],
+"Battle_of_Białystok–Minsk": ["battle","history","warfare","second world war","belarus","russia","germany"],
+"Battle_of_Smolensk_(1941)": ["battle","history","warfare","second world war","russia","germany"],
+"Kaunas_pogrom": ["event","history","holocaust","second world war","lithuania","germany"],
+"Battle_of_Kiev_(1941)": ["battle","history","warfare","second world war","ukraine","russia","germany"],
+"Army_Group_North": ["institution","history","warfare","second world war","germany"],
+"Badayev_warehouses": ["building","history","second world war","russia","famine"],
+"Road_of_Life": ["place","history","second world war","russia","famine"],
+"Operation_Typhoon": ["battle","history","warfare","second world war","russia","germany"],
+"Battle_of_Moscow": ["battle","history","warfare","second world war","russia","germany"]
 });
 
 /* ============================================================================
