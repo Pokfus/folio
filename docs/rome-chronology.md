@@ -632,6 +632,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Roman military engineering: Corbulo's canal | 47 CE | `rm-674` |
 | the corona civica over Augustus's door | 27 BCE | `rm-679` |
 | the ovation of Aulus Plautius | 47 CE | `rm-680` |
+| Augusta Emerita founded | 25 BCE (the year Dio tells it under) | `rm-682` |
+| canabae: Severus's towns at Apulum and Potaissa / canabenses still at Mainz | c. 197 CE / 255 CE | `rm-683` |
+| adlocutio: Caligula's coin / Galba's speech / Hadrian at Lambaesis | 37 – 38 CE / 10 January 69 CE / 128 CE | `rm-684` |
+| valetudinarium: the Vindolanda sick list / the hospital builders | c. 92 – 97 CE / 97 – 105 CE | `rm-687` |
+| horreum: South Shields rebuilt as a depot | 205 – 207 CE | `rm-688` |
+| the Vindolanda tablets: written / the birthday letter / first found | c. 85 – 130 CE / c. 97 – 105 CE / 1973 | `rm-689` |
 
 ## Late Antiquity
 
@@ -710,6 +716,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Ostrogothic Kingdom: began / Theoderic died / the last king fell / the last towns taken | 493 CE / 30 August 526 CE / 552 CE / 562 CE | `rm-636` |
 | the Eastern Roman Empire (a modern name): two courts / Constantinople taken | 395 CE (330 CE in other reckonings) / 1453 | `rm-637` |
 | the Gothic War: began / Ravenna taken / Totila defeated / the settlement law | 535 CE / 540 CE / 552 CE / 554 CE | `rm-638` |
+| the annona militaris: three laws (CTh 7.4.1, 7.4.6, 7.4.30) | 19 October 325 CE / 17 May 360 CE / 23 March 409 CE | `rm-686` |
+| the limitanei: the frontier lands law (CTh 7.15.1) | 29 April 409 CE | `rm-690` |
 
 ## Chronology pins
 
@@ -1360,4 +1368,12 @@ rm-675: 55; 53
 rm-677: 471; 71
 rm-679: 27
 rm-680: 211; 40; 36; 47
+rm-682: 25
+rm-683: 197; 255
+rm-684: 37; 38; 69; 128
+rm-686: 325; 360; 409
+rm-687: 92; 97; 105
+rm-688: 205; 207
+rm-689: 85; 130; 97; 105; 1973
+rm-690: 409
 ```

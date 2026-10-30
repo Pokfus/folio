@@ -200,7 +200,7 @@ order unless the user says otherwise.
 | B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | **done 2026-10-30** |
 | B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | **done 2026-10-30** |
 | B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | **done 2026-10-30** |
-| B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | open |
+| B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | **done 2026-10-30** |
 | B70 | The Roman army (`rm-army`) / Government, law and citizenship (`rm-government`) | `rm-691`–`rm-700` | 10 | 98 | open |
 | B71 | Government, law and citizenship (`rm-government`) | `rm-701`–`rm-710` | 10 | 88 | open |
 | B72 | Government, law and citizenship (`rm-government`) | `rm-711`–`rm-720` | 10 | 79 | open |
@@ -449,6 +449,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-678` dona militaria | none | not re-checked: the card has no picture; Caelius's tombstone would do |
 | `rm-679` corona civica | none | not re-checked: the card has no picture |
 | `rm-680` ovation | none | not re-checked: the card has no picture |
+| `rm-681` primus pilus | none | not re-checked: the card has no picture |
+| `rm-682` Augusta Emerita | none | not re-checked: the card has no picture; the theatre would do |
+| `rm-683` canabae | none | not re-checked: the card has no picture |
+| `rm-684` adlocutio | none | not re-checked: the card has no picture; the Caligula sestertius would do |
+| `rm-685` donative | none | not re-checked: the card has no picture |
+| `rm-686` annona militaris | none | not re-checked: the card has no picture |
+| `rm-687` valetudinarium | none | not re-checked: the card has no picture |
+| `rm-688` horreum | none | not re-checked: the card has no picture |
+| `rm-689` Vindolanda tablets | none | not re-checked: the card has no picture; the locator's label is the term, "Vindolanda" would be right |
+| `rm-690` limitanei | none | not re-checked: the card has no picture |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2564,3 +2574,22 @@ Run as B67. Before applying, `rm-673`'s "Caesar's phrase" and `rm-674`'s "Corbul
 | `rm-680` ovation | 7 | 8 → 8 | **"After Philippi 40 BCE" was the joint ovation for not fighting each other (Lange); 13 November 36 BCE from Shipley's note; Postumius's ovation in Dionysius's voice, Cary's "503 B.C." another consulship's**; Marcellus 211 BCE and Plautius 47 CE added; the triumph left to `rm-176`. |
 
 **Read by eye.** *Confusability:* `rm-671`/`rm-672`/`rm-673` the ring (Numantia), the formation (Antony's kneeling men) and the battle order (the Helvetii); `rm-674`/`rm-675` engineering (the Saldae tunnel) and the bridges (the slanting piles); `rm-676`/`rm-677`/`rm-678` discipline (the sentry), decimation (Apronius) and decorations (Caelius); `rm-679`/`rm-680` the oak crown (Scipio) and the lesser triumph (myrtle). *Legend:* Manlius beheading his son, Postumius's ovation and Crassus scorning myrtle are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B69 — `rm-681`–`rm-690`, The Roman army: the primus pilus to the limitanei (2026-10-30)
+
+Run as B68. Before applying, date labels naming a man or a place were changed by hand (`rm-683` "Still at Mainz"; `rm-684` "Caligula's coin", "Galba's speech", "At Lambaesis"; `rm-686` "Palaestina law"), `rm-685`'s line ("Julian's promise 360 CE", another man's act sorting a Republican custom into late antiquity) was emptied, and `rm-690`'s "Ranks formalised 337 – 378 CE" (a book chapter's period, as one review summarises it) was cut, leaving the law of 29 April 409 CE. Two `rm-682` DOIs (MDPI) answer a script 403; both were read in Europe PMC. `rm-683` was re-applied after `batch.sh`: Piso's Tyche article is cited with the year Crossref gives (1992; the volume is dated 1991). The live `Donativum` term is dated from 41 CE, `rm-431`'s Claudius; `rm-685` carries no date line, so the two no longer disagree. **The old date lines carried a camp prefect's riot as a primus pilus's (Aufidienus Rufus, 14 CE), a late inscription whose page now sits behind a bot wall, a reign range for a levy ("Severan levies 193 – 235 CE"), a law shared with another card (325 CE on both the annona and the granary), a Justinianic law (534 CE) and a range made from a run of court cases ("Egyptian cases 114 – 142 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-681` primus pilus | 6 | 8 → 7 | **Aufidienus Rufus was a camp prefect, not a primus pilus: his row and the Novae inscription's go, no date line**; Vegetius's four companies his; Crastinus and Juvenal's eagle; a one-year term doubted; `rm-644`'s clues kept out. |
+| `rm-682` Augusta Emerita | 6 | 7 → 7 | **The city itself replaces the general text on veteran colonies; 25 BCE the year Dio tells it under, given to modern accounts**; Strabo's Turduli, the forum's Aeneas group; Agrippa's theatre date, the bridge and Ausonius (the edition reads Hispalis) go. |
+| `rm-683` canabae | 5 | 8 → 8 | **"The Severans turned canabae into towns" goes: Severus chartered only Apulum and Potaissa, probably in 197, and canabae lived on (Piso)**; canabenses still at Mainz in 255 CE; Herodian quoted as he says it; the Egyptian cases in prose only. |
+| `rm-684` adlocutio | 6 | 8 → 8 | **Nicaea's 364 stood only on a translator's margin: in prose without a year**; Caligula's ADLOCVT COH sestertius (OCRE), Galba's speech of 10 January 69 CE, Hadrian at Lambaesis in 128 worded apart from `rm-507`. |
+| `rm-685` donative | 6 | 8 → 9 | **Galba's "choosing soldiers, not buying them" Tacitus's; Marcus Aurelius's refusal Dio's epitome's; Julian's five gold pieces and a pound of silver Ammianus's**; no date line; `rm-431`, `rm-649` and `rm-653`'s clues kept out; the modern share from two to five. |
+| `rm-686` annona militaris | 6 | 7 → 8 | **The Severan origin one modern view, against a "historiographical myth"; the reign range goes**; three Theodosian Code laws of 325, 360 and 409 as the Grenoble edition prints them; Constantine's law out of the questions. |
+| `rm-687` valetudinarium | 6 | 8 → 8 | **Two Latin sources broke the one-per-language rule: Vegetius now in Clarke's English; the Digest and the glossary's "2nd-century jurist" go**; the sick list (Tab. Vindol. 154) its document's figures; the builders of Tab. Vindol. 155 "probably" for the hospital; Asclepius at Novae. |
+| `rm-688` horreum | 6 | 8 → 8 | **The rations law of 325 left to `rm-686`; "no stoke-holes" goes with its LacusCurtius source**; the Mumrills report for buttresses and vents; South Shields rebuilt as a depot 205 – 207 CE; Julian's new granaries Ammianus's. |
+| `rm-689` Vindolanda tablets | 7 | 7 → 7 | **The main question repeated `rm-854`'s (Severa's own hand) and the strength report is `rm-643`'s and `rm-687`'s: replaced by the Brittunculi, the socks and Lepidina's invitation**; the 50,000-man figure the online editors'; first found 1973. |
+| `rm-690` limitanei | 6 | 8 → 8 | **"534 CE" out of a question and Justinian's African law gone (its source failed TLS); the peasant-militia view set against offensive campaigns**; the Notitia and the ripenses; Procopius from Atwater's translation. |
+
+**Read by eye.** *Confusability:* `rm-681`/`rm-682`/`rm-683` the officer (Crastinus), the colony (the Turduli) and the settlement (Apulum); `rm-684`/`rm-685` the address (Caligula's sestertius) and the gift (Julian's pound of silver); `rm-686`/`rm-687`/`rm-688` the levy (the hundred pounds of gold), the hospital (Asclepius) and the granary (Mumrills); `rm-689`/`rm-690` the tablets (the socks) and the frontier troops (Procopius's complaint). *Legend:* the Historia Augusta's frontier lands under Severus Alexander are its claim. *Overlap:* no `gr-` or `wh-` card disagrees.
