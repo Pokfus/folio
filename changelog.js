@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1179", released: "2026-10-30T02:19Z" };
+window.FOLIO_VERSION = { v: "1.1180", released: "2026-10-30T02:33Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
-    t: "Forty Second World War cards, Atlas borders back, a dozen Library books",
+    t: "Forty Second World War cards, Atlas borders back, 13 Library books",
     items: [
       "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again, on Snapdragon phones such as the Galaxy S24 Ultra too.",
       "<b>40 new cards</b> in the Second World War's <i>Poland and the outbreak</i> and <i>The fall of the West</i> decks, with 37 new glossary terms.",
@@ -55,6 +55,7 @@ window.CHANGELOG = [
       "<b><i>The Anglo-Saxon Chronicle</i></b> is in the Library: every year from the first entries to 1154, in J. A. Giles's translation.",
       "<b>Cassius Dio's <i>Roman History</i></b> is in the Library: all eighty books, whole or in fragments and summaries, in Earnest Cary's translation.",
       "<b>Library</b>: the <i>Treaty of Versailles</i> joins the shelf, all fifteen Parts and 440 articles in the official English text of 1919.",
+      "<b><i>The Russian Primary Chronicle</i></b> is in the Library: every year from the first entries to 1110, in Samuel H. Cross's translation of 1930.",
     ],
   },
   {
