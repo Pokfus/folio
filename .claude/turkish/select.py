@@ -45,7 +45,7 @@ from collections import defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tr, supplement
 
-SIZE = {"a1": 500, "a2": 600, "b1": 1000, "b2": 1200}
+SIZE = {"a1": 500, "a2": 600, "b1": 1000, "b2": 1200, "c1": 1000}
 TOP_SURFACES = 80000
 
 # An inventory entry the dictionary does not carry, mapped to what it does, with the reason.
@@ -99,6 +99,12 @@ EXCLUDE = {
     "tara", "dolaşıp",           # "grain": counted as taramak's imperative and a name; a converb
     "bekar", "hatun", "komak",   # bekâr without its circumflex (A2); "khatun" counted as colloquial
                                  # "woman"; a spoken koymak
+    "amcık", "yavşak", "oha",    # vulgar slang, untagged in the source
+    "story", "bank", "post", "has", "def", "men", "lake", "il", "jeday",  # their counts are English (and a
+                                 # Jedi) in the subtitles
+    "çekmen", "araştırman", "iple", "iştir", "halim", "koşarak", "bitmez", "geçmez",  # forms of çekmek,
+                                 # araştırmak, ip, iş, hâl, koşmak, bitmek, geçmek with entries of their own
+    "dönenmek", "araşmak", "emîr", "akis", "kakmak",  # counted from dönen, araştırmak, emir, aksi, kak...
     "nerde",                     # a spoken spelling of nerede (A1), filed as an adverb so no rule reaches it
     "tabi",                      # "subject to": its count is the subtitles' misspelling of `tabii`, "of course"
 }

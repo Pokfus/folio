@@ -3195,8 +3195,9 @@ changed was the one that had been wrong all along.
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
   1,000 cards, 0.7 MB) **A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB) **B1 (with the programme's B1+),
-  `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB) **and B2, `decks/Turkish-B2.folio-deck.json`**
-  (1,197 / 2,394, 1.6 MB).
+  `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB) **B2, `decks/Turkish-B2.folio-deck.json`**
+  (1,197 / 2,394, 1.6 MB) **and C1, `decks/Turkish-C1.folio-deck.json`** (997 / 1,994, 1.4 MB) — all five
+  levels the programme has.
   `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
   `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
   run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
@@ -3266,6 +3267,14 @@ changed was the one that had been wrong all along.
   `geçer`, `keser` — not a rule, since A1's `olur` "OK" and A2's `yeter` "enough!" have the same shape and
   are real interjections), possessive and instrumental forms with entries (`içim`, `babamla`, `hocam`), and
   slurs and slang (`ibne`, `şerefsiz`, `gerizekâlı`, `kanka`).
+  **C1** added no rule and changed no lower deck by a byte. Its grammar list names register topics, not
+  words, except three loanwords given as spelling examples (`gayrimenkul`, `hıfzıssıha`, `fakruzaruret`;
+  only the first is in the dictionary). A dated English term inside a sound gloss is dropped, not shown
+  (`siyahi`, the neutral Turkish word, was glossed "black person of African descent, Negro";
+  `DATED_TERMS`). The description's "N more are words its grammar list names" clause left a bare
+  semicolon when N was zero — the derived-clause-at-zero lesson once more. Hand list: `amcık`, `yavşak`,
+  `oha`; English in the subtitles (`story`, `bank`, `post`, `has`, `men`, `jeday`); forms with entries
+  (`çekmen`, `araştırman`, `iple`, `bitmez`).
   **The description must not claim a table says what only another table says**: B1's first draft read "its
   B1 table says the vocabulary section was left out" — only A2's says so; B1's simply has none.
   The Arabic letters' names are dropped like the Latin ones (`nun`, `be`, `ha`); `possessive` joined the

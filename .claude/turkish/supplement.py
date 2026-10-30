@@ -369,9 +369,67 @@ GRAMMAR_B2 = [  # the programme's own words
     "nispetle", "kıyasla", "varsaymak", "farz etmek", "muhtemelen", "olanaklı", "olası", "öngörmek",
 ]
 
-LEVELS = {"a1": A1, "a2": A2, "b1": B1, "b2": B2}
-GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2, "b1": GRAMMAR_B1, "b2": GRAMMAR_B2}
-GRAMMAR_PAGE = {"a1": 83, "a2": 83, "b1": 84, "b2": 84}
+# Ortaöğretim C1, pp. 295-304.  FOLIO'S words for each theme's "Örnek Konular"; the programme lists no
+# C1 vocabulary.
+C1 = [
+    (295, "C1 1 İletişim — verbal and non-verbal communication, body language, conflict, online identities", [
+        "sözlü", "sözsüz", "beden dili", "jest", "mimik", "duygudaşlık", "unsur", "alıcı", "gönderici",
+        "kanal", "geri bildirim", "çatışma", "uzlaşma", "iletişimsizlik", "yanlış anlaşılma", "üslup",
+        "ifade", "algı", "algılamak", "kimlik", "sanal", "etkileşim", "dinleyici", "muhatap",
+    ]),
+    (296, "C1 2 Eğitim: Öğrenmeyi Öğrenmek — institutions, mobility, distance and lifelong learning, exam anxiety", [
+        "kurum", "kuruluş", "hareketlilik", "örgün", "yaygın", "uzaktan eğitim", "hayat boyu", "yaklaşım",
+        "yöntem", "müfredat", "ölçme", "değerlendirme", "kazanım", "öğrenme", "bilişsel", "kaygı", "başarı",
+        "akran", "rehberlik", "pedagoji", "öz disiplin",
+    ]),
+    (297, "C1 3 Her Şeyin Başı Sağlık — health tourism, treatments, alternative medicine, stress, psychology", [
+        "tedavi", "yöntem", "alternatif", "tıp", "geleneksel", "bitkisel", "akupunktur", "kaplıca",
+        "psikoloji", "psikolog", "psikiyatri", "depresyon", "kaygı bozukluğu", "baş etmek", "bağışıklık",
+        "kronik", "belirti", "teşhis", "önleyici", "hijyen", "sağlıklı yaşam", "yorgunluk", "uykusuzluk",
+    ]),
+    (298, "C1 4 Gençlik Ne Güzel Şey — young people's world, the generation gap, popular culture, entrepreneurs", [
+        "kuşak", "nesil", "çatışma", "ergen", "ergenlik", "akran", "popüler kültür", "akım", "trend",
+        "girişim", "girişimcilik", "bağımsızlık", "kimlik arayışı", "özerk", "isyankâr", "tutum",
+        "değer yargısı", "hayat tarzı",
+    ]),
+    (299, "C1 5 Ülkeler Arası Yolculuk ve Göç — migration, its problems, migration law, residence permits", [
+        "göç", "göçmen", "mülteci", "sığınmacı", "iltica", "hukuk", "yasa", "vatandaşlık", "uyruk",
+        "oturma izni", "çalışma izni", "sınır dışı", "entegrasyon", "uyum", "ayrımcılık", "önyargı",
+        "hoşgörü", "çok kültürlü", "gurbet", "memleket", "yurt dışı", "dilekçe",
+    ]),
+    (300, "C1 6 Küresel Isınma — water resources, ecological balance, coming disasters, extinct species", [
+        "su kaynakları", "ekoloji", "ekolojik", "denge", "ekosistem", "biyoçeşitlilik", "nesli tükenmek",
+        "tür", "felaket", "erozyon", "çölleşme", "kirlilik", "atmosfer", "sera gazı", "doğa dostu",
+        "çevreci", "ormansızlaşma", "su kıtlığı", "kuraklık",
+    ]),
+    (301, "C1 7 Geçmişten Günümüze Ekonomi — money and finance, trade routes, investment, consumption, capital", [
+        "finans", "finansal", "sermaye", "yatırım", "yatırımcı", "borsa", "hisse", "faiz", "enflasyon",
+        "kredi", "döviz", "kur", "ihracat", "ithalat", "ticaret yolu", "kervan", "tüccar", "tüketim toplumu",
+        "piyasa", "arz", "talep", "gelir", "gider", "bütçe", "kâr", "zarar", "gayrimenkul",
+    ]),
+    (302, "C1 8 Bilim ve Teknoloji — AI, genetics, data security and privacy, technology addiction, ethics", [
+        "genetik", "gen", "klonlama", "bilgi güvenliği", "mahremiyet", "ihlal", "bağımlılık", "etik",
+        "bilim etiği", "laboratuvar", "deney", "hipotez", "kuram", "araştırmacı", "veri tabanı", "siber",
+        "şifreleme", "inovasyon", "teknolojik",
+    ]),
+    (303, "C1 9 Kültürler Arasında — customs and celebrations, culture and behaviour, interaction, diversity", [
+        "gelenek", "görenek", "evrensel", "yerel", "etkileşim", "duyarlılık", "çeşitlilik", "kültürlerarası",
+        "asimilasyon", "kimlik", "aidiyet", "davranış", "norm", "tabu", "değer", "ortak payda", "zenginlik",
+    ]),
+    (304, "C1 10 Sanatın Dili — music as healing, famous artists, poetry, city stories, the screen and stage", [
+        "sanatçı", "ressam", "fotoğrafçı", "heykeltıraş", "tablo", "sergi", "galeri", "eser", "akım",
+        "üslup", "ilham", "yaratıcılık", "estetik", "otantik", "öykü", "öyküleyici", "anlatı", "şifa",
+        "uyarlama", "sinematografi", "dramaturji", "eleştirel",
+    ]),
+]
+
+# §7, C1 (p. 84): the list names writing and register topics -- spelling, punctuation, faulty expression,
+# formal and scientific set phrases -- and gives three loanwords as its own examples of spelling them.
+GRAMMAR_C1 = ["gayrimenkul", "hıfzıssıha", "fakruzaruret"]  # the programme's own words
+
+LEVELS = {"a1": A1, "a2": A2, "b1": B1, "b2": B2, "c1": C1}
+GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2, "b1": GRAMMAR_B1, "b2": GRAMMAR_B2, "c1": GRAMMAR_C1}
+GRAMMAR_PAGE = {"a1": 83, "a2": 83, "b1": 84, "b2": 84, "c1": 84}
 LISTED = {"a1"}        # the levels whose inventory is the programme's own column (the rest are Folio's)
 
 BACK = set("aıou")

@@ -57,6 +57,18 @@ SCOPE = {
         "pages": "pp. 285–294",
         "listed": False,
     },
+    "c1": {
+        "themes": "communication, education and learning to learn, health, youth, travel and migration between "
+                  "countries, global warming, the economy past and present, science and technology, between "
+                  "cultures, and the language of art",
+        "topics": "body language and communication breakdowns, kinds of education and exam anxiety, alternative "
+                  "medicine, stress and psychology, the generation gap and popular culture, migration and its "
+                  "law, water resources and extinction, finance, trade routes and global capital, genetics, data "
+                  "security and the ethics of science, cultural interaction and diversity, artists, poetry and "
+                  "the stage",
+        "pages": "pp. 295–304",
+        "listed": False,
+    },
 }
 
 FIELDS = ["Turkish", "Word", "English", "Forms", "Examples"]
@@ -101,11 +113,11 @@ def describe(level, n, inv, stats, cards):
         s.append("FROM A2 UP THE PROGRAMME LISTS NO VOCABULARY AT ALL: its A2 table says the vocabulary section "
                  "was left out so as not to limit the level%s. What each theme gives instead is its suggested "
                  "topics — %s. So %d of the %d words were written for Folio for those topics, a theme at a time, and are "
-                 "Folio's choice rather than the programme's; %s This is not an official word list and is not "
+                 "Folio's choice rather than the programme's%s This is not an official word list and is not "
                  "presented as one." % ("" if lv == "A2" else ", and the %s tables carry none either" % lv,
                      sc["topics"], inv - stats["grammar"], n,
-                     ("%d more are words its %s grammar list itself names (%s …)."
-                      % (stats["grammar"], lv, ", ".join(stats["grammar_eg"]))) if stats["grammar"] else ""))
+                     ("; %d more are words its %s grammar list itself names (%s …)."
+                      % (stats["grammar"], lv, ", ".join(stats["grammar_eg"]))) if stats["grammar"] else "."))
         s.append("No word taught in the levels below is repeated.")
     if fill:
         s.append("The other %d are the commonest words of everyday Turkish, from a frequency list built from "

@@ -42,6 +42,7 @@ DROP_GLOSS = re.compile(r"^(only used in|used in the form|used in|\(used in)", r
 STAMP = 1793318400000                  # 2026-10-30, fixed so a re-run is byte-identical
 E = lambda s: html.escape(s, quote=True)
 REPORT = []
+DATED_TERMS = {"Negro", "negro"}
 
 
 def senses_of(word, D):
@@ -62,6 +63,9 @@ def senses_of(word, D):
                 g = m.group(2)
             if DROP_GLOSS.match(g) or tr.LETTER_GLOSS.search(g):
                 continue
+            # a dated English term inside an otherwise sound gloss is dropped, not shown: `siyahi` (the
+            # neutral Turkish word) is glossed "black person of African descent, Negro"
+            g = ", ".join(x for x in g.split(", ") if x not in DATED_TERMS)
             if g and g not in gl:
                 gl.append(g)
         if gl:
