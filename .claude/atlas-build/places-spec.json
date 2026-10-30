@@ -1417,30 +1417,6 @@
    },
    "cards": 3
   },
-  "pl:q1145715": {
-   "name": "Pelusium",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q1145715",
-   "at": [
-    32.6,
-    31.05
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Pelusium",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q125866553",
-     "Q15661340",
-     "Q515"
-    ],
-    "via": "title",
-    "km": 5.3
-   },
-   "cards": 1
-  },
   "pl:q114571906": {
    "name": "Cythera (ancient town)",
    "kind": "site",
