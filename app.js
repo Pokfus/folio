@@ -12015,14 +12015,90 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
-  /* MEASURED AS THE ROW ABOVE, with forty-seven colours placed (Oct 2026, adding the Declaration of
-     Independence): the band's best now clears 16.4, a wine just under the shelf's tightest pair (Luo
-     Guanzhong and Plutarch, 16.5). The obvious navy was measured and REFUSED on the Euripides test:
-     the best blue in the band (15.8) stands nearest Machiavelli, the one book here a reader of the
-     Declaration would set beside it, so it would assert exactly the kinship the shelf avoids. This
-     oxblood's nearest neighbours are Sophocles, Ovid and Aristophanes, who assert none, and it reads
-     6.74:1 on the tightest light paper. */
-  "Thomas Jefferson": "#7B002A",
+  /* Measured the same way inside the shelf's own lightness and chroma band: this dark slate-navy is
+     the best-separated colour left anywhere in it, 19.8 from the Song of Roland and 20.1 from
+     Ptahhotep (68.5 from Plutarch's violet, placed the same day), above the shelf's tightest pair
+     (Luo Guanzhong and Plutarch, 16.5), and it reads 9.7:1 or better on all 43 light papers. Every brighter colour that clears 4.5
+     lands at 17 or under — the blues beside Marco Polo and Luo Guanzhong, the reds beside Ovid and
+     Sophocles. Neither near neighbour is a book anyone reads against Pausanias. */
+  "Pausanias": "#14203C",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-eight colours placed (Oct 2026, adding Strabo's Geography):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band's best clears 16.4, a tenth under the
+     shelf's tightest pair (Luo Guanzhong and Plutarch, 16.5) — the Plutarch row's position, and its
+     refusal to lift the ceiling into saturated blues stands. The candidates near the top are dark
+     wines and one violet, and the violet sits beside MARCO POLO, the other traveller-geographer; on
+     the Euripides test this wine is taken instead. Its nearest neighbours are Sophocles (16.4) and
+     Ovid (16.9), which assert no kinship with a geographer, and it stands 38 or more from every book
+     a reader sets beside Strabo — Thucydides 38.4, Pausanias 55.3, Herodotus 65.4, Homer 69.3, Marco
+     Polo 75.0, Plutarch 82.2. It reads 6.74:1 on the tightest light paper. */
+  "Strabo": "#7B002A",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-nine colours placed (Oct 2026, adding Livy): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band's best clears 16.1 against the shelf's tightest
+     pair of 16.4, and the Plutarch row's refusal to lift the ceiling into saturated blues stands, so a
+     candidate a few tenths under is taken, as Plutarch's and Strabo's were. On the Euripides test the
+     band's top two are refused — dark wines 17 from VIRGIL, the other Augustan telling of Rome's
+     beginnings — and so is the teal at 15.8, which joins the green cluster the Classic of Tea row
+     declined. This dark rust clears the Poetic Edda by 15.9 and Sophocles and Vyasa by 16.2, none a
+     book read beside Livy, and stands 25 or more from every one that is: Virgil 25, Strabo 27, Caesar
+     35, Suetonius 38, Thucydides 61, Herodotus 79, Plutarch 102. It reads 7.22:1 on the tightest paper. */
+  "Livy": "#632106",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty colours placed (Oct 2026, adding Polybius): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1
+     on every light paper, card and second paper. The band's best clears 16.1 (a dull wine) against
+     the shelf's tightest pair of 15.9, and is refused on the Euripides test: it stands 19.9 from
+     STRABO, who continued Polybius's history, so the two would read as a set. This plum is taken
+     instead, as Plutarch's, Strabo's and Livy's rows took a candidate a few tenths under the top: it
+     clears Snorri Sturluson by 15.6 and Wu Cheng'en by 15.7, neither read beside Polybius, and stands
+     27 or more from every book that is — Thucydides 27.4, Herodotus 34.7, Strabo 37.0, Plutarch 48.1,
+     Livy 56.6, Suetonius 84.8, Caesar 85.3. It reads 8.14:1 on the tightest light paper. */
+  "Polybius": "#5A0051",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-one colours placed (Oct 2026, adding the Annals): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1
+     on every light paper, card and second paper. This dark plum-wine is the band's best, clearing its
+     nearest — the Book of Rites, Plato and Beowulf — by 16.1, above the shelf's tightest pair
+     (Snorri Sturluson and Polybius, 15.6), so nothing was widened. THE EURIPIDES TEST: the books a
+     reader sets beside Tacitus are SUETONIUS, the other source for the same emperors, then Livy and
+     Polybius before him, Strabo his contemporary, Plutarch, Caesar, Seneca (whose death is in book
+     15) and Petronius (book 16), and it stands 19.9 or more from all of them — Strabo 19.9, Polybius
+     24.6, Livy 33.5, Seneca 52.3, Petronius 54.0, Suetonius 60.4, Caesar 61.5, Plutarch 68.5. Virgil
+     sits at 16.7, an Augustan poet and not a book read with a historian of the emperors. It reads
+     6.42:1 on the tightest light paper. */
+  "Tacitus": "#6C2442",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-two colours placed (Oct 2026, adding Magna Carta): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The deep wine first chosen for it went to Strabo on the
+     same day, so it was measured again against the shelf as merged. The band's best now clears only
+     15.8, and of the candidates at that figure the blues sit nearest MACHIAVELLI and the teal nearest
+     Chaucer — the two books on the shelf a reader most plausibly sets beside a medieval English charter
+     of government — so on the Euripides test this violet is taken: 15.8 from Euripides, 16.0 from
+     Seneca and 16.2 from Marco Polo, none a kinship, and 47.3 from Machiavelli, 94.5 from Bede and 99.0
+     from Malory. Shakespeare's navy, the other English king, is 22.6 away. Keyed by id, the charter
+     being anonymous. It reads 5.25:1 on the tightest light paper. */
+  "magna-carta": "#632D9F",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-three colours placed (Oct 2026, adding Diodorus): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band's best clears 15.8 against the shelf's tightest
+     pair of 15.6, so nothing was widened, and a candidate a tenth under is taken, as the Plutarch,
+     Strabo and Livy rows did. THE EURIPIDES TEST refused the top of the list: its blues stand 19–20
+     from HERODOTUS, and two Greek universal historians in neighbouring blues would read as a set; its
+     green joins the cluster the Classic of Tea and Livy rows declined; and its rust is 16.3 from
+     Caesar. This olive-bronze clears Vyasa by 15.7, not a book read beside Diodorus, and stands 26 or
+     more from every one that is — Livy 26.4, Julius Caesar 32.8, Pausanias 62.1, Strabo 50.7,
+     Tacitus 51.0, Polybius 75.0, Thucydides 78.7, Herodotus 88.3, Plutarch 115.7. It reads 5.14:1 on
+     the tightest light paper. */
+  "Diodorus Siculus": "#634806",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-four colours placed (Oct 2026, adding the Declaration of
+     Independence; first measured as an oxblood before Strabo's row took that very colour). The band's
+     best is this dark teal at 15.8, above the shelf's tightest pair (Snorri Sturluson and Polybius,
+     15.6). Livy's row declined a teal for joining the green cluster; it is taken here on the Euripides
+     test, which the alternatives fail: the navies at 15.7–15.8 stand nearest MACHIAVELLI, and the
+     mauve at 15.7 sits 16.1 from PLATO, the two books a reader of the Declaration would set beside it.
+     Its nearest neighbours are Aesop, Chaucer and Kalidasa, which assert no kinship, it stands 33 or
+     more from every political book on the shelf (Aristotle 33.8, Machiavelli 57.9, Plato 63.0), and it
+     reads 5.61:1 on the tightest light paper. */
+  "Thomas Jefferson": "#005142",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -12413,6 +12489,55 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 6, label: "Book VI", note: "Nero" },
         { n: 7, label: "Book VII", note: "Galba, Otho, Vitellius" },
         { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
+      ],
+    },
+    {
+      id: "tacitus-annals",
+      title: "The Annals",
+      // the work's own Latin title, as Fisher's edition prints it — what the Latin column is an edition of
+      subtitle: "Ab excessu divi Augusti",
+      author: "Tacitus",
+      written: "early 2nd century CE",
+      /* A sort key, not a date: the Annals were written in the second decade of the second century and
+         no year inside it is attested, so this sits in that span — Plutarch's position exactly. */
+      year: 115,
+      translator: "Alfred John Church and William Jackson Brodribb",
+      edition: "Annals of Tacitus, translated into English, Macmillan and Co., London, 1869",
+      /* Two layers on both columns, the Suetonius position. The ground is the publication dates —
+         1869 for the English (the 1895 reprint's verso) and 1906 for Fisher's Latin — and no death year
+         is claimed. Perseus's header says its English follows a 1942 reprint "with significant
+         changes", so it was measured against the 1895 printing before this was written: 90% of its
+         six-word runs are verbatim and the gaps read are OCR noise and spelling, not revision. See
+         .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Alfred John Church and William Jackson Brodribb's translation was " +
+        "first published by Macmillan in 1869, and the Latin printed beside it is Charles Dennis " +
+        "Fisher's Oxford text of 1906 — both long before 1929 — so the copyright in both has expired. " +
+        "Tacitus wrote the work in Latin in the early second century. The digital editions both " +
+        "columns are taken from are prepared by the Perseus Digital Library at Tufts University and " +
+        "are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The " +
+        "modern translations by Michael Grant, 1956, A. J. Woodman, 2004, and Cynthia Damon, 2012, are " +
+        "still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1351.phi005/",
+      /* Fisher's Latin by way of Perseus, paired on the CHAPTER — the Gallic War's handle. Measured over
+         both files: 721 chapters on each side, identical numbers in every one of the twelve books, every
+         one paired. Book 6 opens on 5.6–5.11, the end of book 5, where Fisher prints it; see
+         .claude/fetch-book.js (`crossBookChapters`). */
+      origLang: "la",
+      origName: "Latin",
+      chapterWord: "Book",
+      /* Twelve books survive of a work that probably ran to sixteen or eighteen — nobody knows which —
+         so `total` is the twelve that exist rather than a guess at the whole; "12 of 16" would assert
+         a figure. The numbers skip from 6 to 11, which `chapterNums` tells the progress line. */
+      count: 12,
+      total: 12,
+      chapterNums: [1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16],
+      /* The two halves the work survives in, each in its own medieval manuscript, and the two halves
+         of its subject, with the four lost books between them. */
+      parts: [
+        { n: 1, label: "Books I–VI", note: "Tiberius" },
+        { n: 2, label: "Books XI–XVI", note: "Claudius and Nero" },
       ],
     },
     {
@@ -13196,6 +13321,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          rather than a division the edition prints. The Analects' and The Prince's position exactly. */
     },
     {
+      id: "livy-history-of-rome",
+      title: "The History of Rome",
+      // the work's own Latin title, as the Gallic War, Lucretius and Herodotus give theirs
+      subtitle: "Ab Urbe Condita",
+      author: "Livy",
+      /* Begun early in Augustus's reign (the first books by about 27–25 BCE) and worked on for the rest
+         of Livy's life; no end date is stated, since his own death date is itself only traditional. */
+      written: "begun c. 27 BCE",
+      year: -27,
+      translator: "D. Spillan, Cyrus Edmonds and W. A. McDevitte",
+      edition: "Bohn's Classical Library, 1849–1857",
+      /* THE GALLIC WAR'S LICENCE AGAIN, one translator without dates. Spillan d. 1854 and McDevitte
+         1834–1909 are known; Cyrus Edmonds, who has books 9–36, is a byline only, so life-plus-seventy
+         is not claimed for his books and the ground is the date of publication, 1849–1857. The Latin is
+         Weissenborn (1803–1878) and H. J. Müller (1844–1912), Teubner 1884–1911. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States on the publication rule, with one gap stated plainly. This " +
+        "translation was published in four volumes by Henry G. Bohn in London between 1849 and 1857, and " +
+        "the Latin printed beside it is Wilhelm Weissenborn and H. J. Müller's Teubner text, Leipzig, " +
+        "1884–1911 — all well before 1929 — so the copyright in both has expired. Livy wrote the work in " +
+        "Latin some two thousand years ago. Of the translators, Daniel Spillan died in 1854 and William A. " +
+        "McDevitte lived from 1834 to 1909, and of the Latin's editors Weissenborn lived from 1803 to 1878 " +
+        "and Müller from 1844 to 1912, so they are also out of copyright wherever the term is the author's " +
+        "life plus seventy years; nothing is recorded of the third translator, Cyrus Edmonds, beyond his " +
+        "name and his work for Bohn, so for the books that are his no life-plus-seventy date can honestly " +
+        "be given, and the ground relied on here is the date of publication. The digital editions of both " +
+        "texts are prepared by the Perseus Digital Library at Tufts University, whose repository releases " +
+        "them under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+        "translations by Aubrey de Sélincourt, T. J. Luce and J. C. Yardley are still in copyright and are " +
+        "not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0914.phi001/",
+      origLang: "la",
+      origName: "Latin",
+      chapterWord: "Book",
+      /* Every book that survives: 1–10 and 21–45, numbered as every edition numbers them, so the tabs
+         jump from 10 to 21. `total` is the 142 Livy wrote; 107 are lost but for late summaries. */
+      count: 35,
+      total: 142,
+      // which numbers those are, so the tile's reading percentage counts Book 21 as the eleventh (readingPct)
+      chapterNums: Array.from({ length: 10 }, (_, i) => i + 1).concat(Array.from({ length: 25 }, (_, i) => i + 21)),
+      /* No `parts`. The decades are a copyists' arrangement, not a division this edition prints. */
+    },
+    {
       id: "thucydides-peloponnesian-war",
       title: "The History of the Peloponnesian War",
       /* Deliberately NOT the work's own Greek title, which is the one subtitle it cannot have:
@@ -13253,6 +13422,53 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          further. The Sicilian expedition of books six and seven is the movement every reader
          remembers, but grouping the books under headings of that kind would be a modern reader's
          arrangement rather than a division the edition prints — the Gallic War's position exactly. */
+    },
+    {
+      id: "polybius-histories",
+      title: "The Histories",
+      // not Ἱστορίαι, which Herodotus already carries on this shelf — Thucydides' reason; taken from
+      // the question Polybius sets himself on his first page
+      subtitle: "How Rome Came to Rule the World",
+      author: "Polybius",
+      /* Written over the second half of the second century BCE: begun in Rome after Polybius was
+         deported there in 167 and carried on to the events of 146. `year` is the single number the
+         shelf sorts by, a round figure inside that span rather than a date anything records. */
+      written: "2nd century BCE",
+      year: -150,
+      translator: "Evelyn S. Shuckburgh",
+      edition: "Macmillan and Co., London, 1889",
+      /* Both layers long expired and checked rather than recalled: Shuckburgh 1843–1906 (Online Books
+         Page authority record, Times obituary), Büttner-Wobst 1854–1905 (Deutsche Biographie). Unlike
+         Herodotus's English, this one is NOT modernized by Perseus — their layer is the digital
+         edition only. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Polybius wrote the work in Greek in the " +
+        "second century BCE. Evelyn S. Shuckburgh's translation was published in 1889 and he lived " +
+        "from 1843 to 1906, so it is out of copyright under the pre-1929 publication rule and wherever " +
+        "the term is the translator's life plus seventy or a hundred years. The Greek printed beside " +
+        "books 1 to 5 is Theodor Büttner-Wobst's Teubner text, published at Leipzig in the 1890s by an " +
+        "editor who died in 1905, so it is public domain on both rules too. The digital editions of " +
+        "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+        "translations by Ian Scott-Kilvert, 1979, and Robin Waterfield, 2010, and the revised Loeb of " +
+        "2010–2012, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0543.tlg001/",
+      /* Paired on the CHAPTER, Herodotus's rule — but in books 1–5 ONLY. Those survive whole and the
+         two editions agree on every chapter number but one (Greek 4.54, which Shuckburgh's 4.53 runs
+         through, draws an empty English cell). In the fragment books the editors arranged and
+         numbered the excerpts differently, so the same number marks different passages; the Greek
+         file holds books 1–5 and the other 33 books read as plain English. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      /* Forty books were written. 1–5 survive whole, 6–39 as excerpts, 17 in nothing at all and 40
+         (an index) not at all — so 38 books are here, and 38 is what survives, Seneca's sense of
+         `total`. The 110 fragments no editor can place are not imported; the front matter says so. */
+      count: 38,
+      total: 38,
+      /* No `parts`. The edition prints two volumes but they are a binding, not a division of the
+         work, and the front matter carries the one real division — whole books, then fragments. */
     },
     {
       id: "aesop-fables",
@@ -15075,6 +15291,209 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          "our Emigration and Settlement here"; `Providence` is the city, where the broadside means
          Providence Plantations ("Rhode-Island and Providence, &c.") or DIVINE PROVIDENCE. */
       glossOff: ["Jersey", "Settlement", "Providence"],
+    },
+    {
+      id: "magna-carta",
+      title: "Magna Carta",
+      subtitle: "The Great Charter of King John, 1215",
+      /* NO AUTHOR TO NAME. The charter speaks in John's voice and he did not write it: it is a
+         settlement between the king's side and the rebel barons, and no drafter is named in it. So it is
+         shelved as the Song of Roland is, and its colour keys on its id. */
+      author: "Anonymous",
+      // the date the charter gives itself, at its foot: Runnymede, 15 June, the seventeenth year of John
+      written: "1215",
+      year: 1215,
+      translator: "William Sharp McKechnie",
+      edition:
+        "Magna Carta: A Commentary on the Great Charter of King John, with an Historical Introduction, " +
+        "James MacLehose and Sons, Glasgow, 1905",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION. McKechnie published in 1905 and lived
+         1863–1930 — dates corroborated twice — so the English clears the pre-1929 rule and cleared life
+         plus seventy in 2001, and has NOT cleared life plus a hundred, which runs to 2031. The
+         translation most readers meet (the British Library's, G. R. C. Davis) is modern and is not
+         used; see .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The charter was granted in 1215, so the work itself has never " +
+        "been in copyright. William Sharp McKechnie published this translation, with the Latin beside " +
+        "it, in Glasgow in 1905, so it is out of copyright in the United States under the rule for works " +
+        "published before 1929, and he lived from 1863 to 1930, so it also cleared the translator's life " +
+        "plus seventy years in 2001. Where the term is life plus a hundred it remains in copyright until " +
+        "2031. (The modern translation published by the British Library, which is the one most often " +
+        "reprinted, is still in copyright and is not used.) McKechnie's historical introduction, his " +
+        "commentary on each chapter and his appendix of related documents are not reproduced; his notes " +
+        "on his own translation are.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+      /* The Latin is printed above each chapter's English in the same volume, so the two pair chapter for
+         chapter, one marker a side — see `layout: "mckechnie"` in the importer. */
+      origLang: "la",
+      origName: "Latin",
+      /* The modern division into sixty-three chapters, as the edition prints it and as everyone cites it
+         ("c. 39"); the preamble runs on into chapter 1 mid-sentence and is printed with it. */
+      chapterWord: "Chapter",
+      count: 63,
+      total: 63,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of the front matter and all
+         sixty-three chapters (a headless run listing every `.ttip`), as Macbeth's and the Classic of Tea's
+         were. England, Wales, Scotland and Ireland are entries on the modern countries, with modern
+         populations, sitting on "king of England" and "lord of Ireland" in 1215; London and Dublin are
+         the modern capitals; `Temple` is the Greek temple, on "the Knights of the Temple"; and
+         `Great_Britain` sat on the word "British" in "British Library". What stays is right in place:
+         the British Museum, the Jews of chapters 10 and 11, Latin, and Magna Carta itself. */
+      glossOff: ["England", "Wales", "Scotland", "Ireland", "London", "Dublin", "Temple", "Great_Britain"],
+    },
+    {
+      id: "pausanias-description-of-greece",
+      title: "Description of Greece",
+      // the work's own Greek title, which is what its Greek column is an edition of — Herodotus's pattern
+      subtitle: "Ἑλλάδος Περιήγησις",
+      author: "Pausanias",
+      /* Written over many years and dated by the text itself: Book I was finished before Herodes
+         Atticus began his music hall at Athens (7.20.6), and Book X mentions the Costoboci's raid of
+         about 170 (10.34.5). The key is a single year inside the span. */
+      written: "c. 155–180 CE",
+      year: 170,
+      translator: "W. H. S. Jones and H. A. Ormerod",
+      edition: "Loeb Classical Library, 1918–1935",
+      /* TWO GROUNDS BY VOLUME AND ONE LIMIT. Volumes I–II (1918, 1926) are clear in the United States
+         by date; Volumes III–IV (1933, 1935) by NON-RENEWAL, shown rather than assumed — the Classic
+         of Tea's method, over the Catalog of Copyright Entries for 1960–1963. Jones died in 1963 and
+         Ormerod in 1964, so nothing is claimed for life-plus-seventy countries before 2034. The whole
+         of the reasoning, the URAA question included, is in .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, on two grounds by volume, with one limit stated. W. H. S. " +
+        "Jones's translation (Volume II with H. A. Ormerod) was published in the Loeb Classical Library " +
+        "in four volumes. Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain " +
+        "in the United States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books " +
+        "VIII.22–X, 1935) were published by Heinemann in London and Harvard University Press in " +
+        "Cambridge, Massachusetts, and their copyright was not renewed — the Catalog of Copyright Entries " +
+        "for 1960–1963 lists no renewal — so they are public domain in the United States too. Jones died " +
+        "in 1963 and Ormerod in 1964, so the translation is still in copyright in countries whose term " +
+        "is the author's life plus seventy years, until 2034 (2035 for Volume II). The Greek beside it " +
+        "is Friedrich Spiro's Teubner edition of 1903, public domain on every ground. Both columns are " +
+        "taken from the digital editions prepared by the Perseus Digital Library at Tufts University, " +
+        "which are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+        "Pausanias wrote the work in Greek in the second century CE. (Peter Levi's translation, 1971, " +
+        "is still in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+      /* Paired on the CHAPTER, as Herodotus is: 357 on each side, the same numbers in the same order in
+         all ten books. The sections inside a chapter are not the unit. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the whole work: ten books, each named after its region in both editions
+      count: 10,
+      total: 10,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all ten books (a
+         headless run listing every `.ttip`, 451 distinct terms). Each of these told the reader
+         something untrue about the sentence in front of it: a modern place on an ancient one (Pisa in
+         Tuscany for Pisa in Elis, Tripoli for Arcadian Tripolis, Mali for the Malians of Malis, Jordan
+         the country for the river, Apia in Samoa for the old name of the Peloponnese, Providence and
+         Concord for the words, the Commonwealth of Nations for a city's "commonwealth", Germany for
+         the Germans of Marcus Aurelius's wars, Paris for Priam's son); a namesake (Alcmaeon of Croton
+         for Amphiaraus's son, the atomist Leucippus for the mythical one, Pope Damasus, Flavius Aetius
+         and Marcus Antonius Pallas for heroes of Troezen and Arcadia, the Brennus who took Rome for the
+         one who led the Gauls against Delphi, Cretan Ida mostly on Idas son of Aphareus); a battle on
+         its town or a man (Telamon, Heraclea the festival, Himera); and a common noun on a name or a
+         building (the electric ion on Ion, xenia on Xenias, the hippopotamus on Hippo, polites on
+         Polites, hippeis on Hippeus, the tholos tomb on the Tholos at Athens, Egyptian Abydos on the
+         Hellespont's, the Athenians' Egyptian expedition of the 450s on Ptolemy's of the 260s, the
+         Amazon River on the Amazons). Re-run the sweep after a batch of glossary terms. */
+      glossOff: ["Pisa", "Tripoli", "Mali", "Jordan", "Apia", "Providence", "Concord",
+        "Commonwealth_of_Nations", "Germany", "Paris", "Alcmaeon_of_Croton", "Leucippus", "Pope_Damasus_I",
+        "Flavius_Aetius", "Marcus_Antonius_Pallas", "Brennus_(leader_of_the_Senones)", "Mount_Ida",
+        "Battle_of_Telamon", "Battle_of_Heraclea", "Battle_of_Himera", "Ion", "Xenia", "Hippopotamus",
+        "Polites", "Hippeis", "Tholos_tomb", "Abydos,_Egypt", "Egyptian_expedition", "Amazon_River"],
+    },
+    {
+      id: "strabo-geography",
+      title: "Geography",
+      // the work's own Greek title, as the Histories gives Herodotus's
+      subtitle: "Γεωγραφικά",
+      author: "Strabo",
+      // the range Perseus's header gives the work; still being revised under Tiberius
+      written: "c. 7–24 CE",
+      year: 7,
+      translator: "H. C. Hamilton and W. Falconer",
+      edition: "Bohn's Classical Library, 1854–1857",
+      /* Expired on every ground: Bohn's three volumes of 1854–57 are pre-1929, Falconer died in 1885 and
+         Hamilton in 1895, and Meineke, whose 1877 Teubner text faces it, in 1870. Perseus's digital
+         editions are CC BY-SA 4.0. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Strabo wrote the Geography in Greek two " +
+        "thousand years ago. The English is the translation by H. C. Hamilton and W. Falconer, " +
+        "published by Henry G. Bohn in London in three volumes between 1854 and 1857, so it is public " +
+        "domain in the United States as a pre-1929 publication; Falconer died in 1885 and Hamilton in " +
+        "1895, so it is also public domain wherever copyright lasts for the author's life plus seventy " +
+        "or a hundred years. The Greek is the text edited by August Meineke (1790–1870) for Teubner, in " +
+        "the Leipzig printing of 1877, and is public domain on the same grounds. The digital editions of " +
+        "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (Duane W. Roller's " +
+        "translation of 2014 is in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+      /* Paired on the SECTION — "Strabo 4.5.2" is book, chapter, section, and a marker reads "5.2"
+         inside book 4 — because the chapters run to 70 sections, and the two editions agree on all
+         1,573 sections the English has. Seven Greek fragments of book 7 (marked "Fr.") have no
+         English and draw an empty cell. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      count: 17,
+      total: 17,
+      // the edition's own three volumes, stated on its title pages
+      parts: [
+        { n: 1, label: "Volume I", note: "Books 1–7" },
+        { n: 2, label: "Volume II", note: "Books 8–13" },
+        { n: 3, label: "Volume III", note: "Books 14–17" },
+      ],
+    },
+    {
+      id: "diodorus-library",
+      title: "The Library of History",
+      // the work's own Greek title, as Perseus's three editions of the Greek column give it
+      subtitle: "Βιβλιοθήκη ἱστορική",
+      author: "Diodorus Siculus",
+      /* Oldfather's dating in the Loeb's introduction: at work by 56 BCE (1.44), in Egypt in 59, and the
+         latest event named is the Roman colony at Tauromenium, 36 BCE or a little later (16.7.1). The
+         sort year is the middle of that span, and the front matter carries the reasoning. */
+      written: "c. 60–30 BCE",
+      year: -45,
+      translator: "C. H. Oldfather and others",
+      edition: "Loeb Classical Library, 1933–1963",
+      /* PUBLIC DOMAIN BY NON-RENEWAL, the Classic of Tea's ground on ten volumes. Each was published
+         before 1964 and needed renewing in its 28th year; Bill Thayer, whose retyping this is, records
+         that none was, and the Catalog of Copyright Entries lists no renewal in the windows it covers
+         (1960–1977, searched for this import). Renewals from 1978 on were not searched, and nothing is
+         claimed outside the United States. See .claude/fetch-book.js for the full account. */
+      rights:
+        "Public domain in the United States, by non-renewal. This is the Loeb Classical Library " +
+        "translation, published in ten volumes between 1933 and 1963 by C. H. Oldfather (Books 1 to " +
+        "15.19), C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20). " +
+        "Each volume was published before 1964 and needed its copyright renewed in its twenty-eighth " +
+        "year; none was, as Bill Thayer of LacusCurtius records volume by volume, and the Catalog of " +
+        "Copyright Entries lists no renewal in the years it covers (1960 to 1977). Outside the United " +
+        "States the term is usually counted from a translator's death, and no claim is made there. " +
+        "The text is Thayer's careful retyping, with his corrections of the printed volumes' slips; his " +
+        "own notes are his copyright and are not included. Diodorus wrote the work in Greek in the first " +
+        "century BCE. (The fragments of Books 33 to 40, in the Loeb's twelfth volume of 1967, are still " +
+        "in copyright and are not used here; neither are the modern translations by Robin Waterfield, " +
+        "2019, and Peter Green, 2010.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/home.html",
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the fifteen books that survive whole, of the forty Diodorus wrote; the fragments are not carried
+      count: 15,
+      total: 40,
+      // Diodorus's own three groups (1.4.6–7), shortened from his words; the gap is Books 6–10, lost
+      parts: [
+        { n: 1, label: "Before the Trojan War", note: "Books 1–5" },
+        { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
+        { n: 3, label: "After Alexander", note: "Books 18–20" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
@@ -29158,7 +29577,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function readingPct(b) {
     const r = readingPos(b.id);
     if (!r) return 0;
-    const i = Math.max(0, r.ch - 1);
+    // a book whose surviving chapters are not 1…N (Livy's 1–10, 21–45) declares them, and is measured by position
+    const i = b.chapterNums ? Math.max(0, b.chapterNums.indexOf(r.ch)) : Math.max(0, r.ch - 1);
     return Math.max(0, Math.min(100, Math.round(((i + (r.y || 0)) / Math.max(1, b.count)) * 100)));
   }
 
