@@ -197,7 +197,7 @@ order unless the user says otherwise.
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | **done 2026-10-30** |
 | B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | **done 2026-10-30** |
 | B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | open |
-| B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | open |
+| B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | **done 2026-10-30** |
 | B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | open |
 | B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | open |
 | B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | open |
@@ -409,6 +409,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-638` Gothic War | none | not re-checked: the card has no picture |
 | `rm-639` Historiography of the fall of the Western Roman Empire | none | not re-checked: the card has no picture |
 | `rm-640` Legacy of the Roman Empire | none | not re-checked: the card has no picture |
+| `rm-651` auxilia | none | not re-checked: the card has no picture |
+| `rm-652` ala | none | not re-checked: the card has no picture |
+| `rm-653` urban cohorts | none | not re-checked: the card has no picture |
+| `rm-654` vigiles | none | not re-checked: the card has no picture |
+| `rm-655` Roman navy | none | not re-checked: the card has no picture |
+| `rm-656` Classis Misenensis | none | not re-checked: the card has no picture |
+| `rm-657` gladius | none | not re-checked: the card has no picture |
+| `rm-658` pilum | none | not re-checked: the card has no picture |
+| `rm-659` scutum | none | not re-checked: the card has no picture; the Dura shield would do |
+| `rm-660` lorica segmentata | none | not re-checked: the card has no picture |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2448,3 +2458,22 @@ Run as B63 and applied with it (B64's drafts finished first). Before applying, t
 | `rm-640` Legacy of the Roman Empire | 8 | 8 → 8 | **The years out of the questions (1523/1524, 800, 1806); Justinian's law left to `rm-730`**; the Romance languages, Einhard's coronation, Philotheus's Third Rome; Saint-Denis and the Roman liturgy replace a thin sentence on English. |
 
 **Read by eye.** *Confusability:* `rm-631`/`rm-632` the battle (the ridge) and the sack (the Capitol's roof); `rm-633`/`rm-634`/`rm-635`/`rm-636` the kingmaker (Tortona), the boy (the diminutive), the king (Severinus) and the kingdom (the fish's head); `rm-637`/`rm-638` the East (the Isaurians) and the war (the women at Ravenna's gate); `rm-639`/`rm-640` the debate (Orosius's commission) and the legacy (Philotheus). *Legend:* Leo turning Attila and Theoderic's fish are their authors'. *Overlap:* `wh-436` dates the Byzantine Empire 330 – 1453; `rm-637` gives 395 with 330 as another start; `wh-438` agrees on 535 – 552.
+
+### B66 — `rm-651`–`rm-660`, The Roman army: the auxilia to the lorica segmentata (2026-10-30)
+
+Run as B64; applied before B65 (B66's drafts finished first). Before applying, five date labels that named a place or a man were changed by hand (`rm-651` "Levy for Macedon", `rm-652` "Ascoli decree", `rm-656` "Vesuvius rescue", `rm-658` "Marius's change", `rm-660` "Kalkriese finds" and "Corbridge hoard"), and `rm-657`'s "Byzantine encyclopaedia" became "a medieval Greek encyclopaedia" (a modern label). LacusCurtius did not answer: every source on it was replaced. **The old date lines carried another card's grant (the Antonine edict of 212 on the auxilia), a list standing for a date ("In Tacitus's list 23 CE"), a chapter title's span read as an adoption date ("c. 390 – 338 BCE" on the scutum) and a battle with no source for the weapon (Cannae on the gladius).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-651` auxilia | 7 | 8 → 7 | **The 89 BCE grant goes to `rm-652` and 212 to `rm-545`: the line is Livy's levy of 171 BCE, as Cheesman reads it**; Tacitus's count of the auxilia his; Mons Graupius left to `rm-485`; the Batavians added. |
+| `rm-652` ala | 6 | 7 → 6 | **The grant at Asculum of 89 BCE (the turma Salluitana bronze, read in Amela Valverde 2021) replaces "90 – 89 BCE"**; the sixteen and twenty-four turmae Hyginus's, the turma's strength a modern reconstruction; Hadrian's Lambaesis speech left to `rm-684`. |
+| `rm-653` urban cohorts | 6 | 7 → 8 | **Dio's 6,000 in four divisions his; the X – XII numbering, Aurelian's barracks and an end under Constantine go (no source read)**; Sabinus left to `rm-462`; the will's 500 sesterces; no date line. |
+| `rm-654` vigiles | 7 | 8 → 8 | **Founded 6 CE from modern sources, not Cary's margin; still attested 362 CE**; the cohorts' strength a modern estimate; Egnatius Rufus left to `rm-835`; Paulus's duties of the prefect; the Trastevere guardhouse. |
+| `rm-655` Roman navy | 8 | 8 → 8 | **"31 BCE – 324 CE" Starr's frame, with the opposing view**; the first fleet left to `rm-191`; the unsourced "three of ten squadrons" goes; fleet strengths each their author's; the glossary's unsourced end in 476 goes. |
+| `rm-656` Classis Misenensis | 6 | 7 → 7 | **Founded c. 27 – 15 BCE, Starr's assumption, said so; the list of 23 CE leaves the line**; the defection of 69 Tacitus's, the rescue Pliny's nephew's; the awnings of the Colosseum the Historia Augusta's. |
+| `rm-657` gladius | 8 | 8 → 8 | **The line dates the sword: adopted c. 216 – 209 BCE (one modern view) and the oldest finds at Šmihel c. 175 BCE**; the Suda fragment Polybius's; blade lengths from finds; Mainz and Pompeii modern labels; the ancient share from seven of eight to four. |
+| `rm-658` pilum | 7 | 7 → 8 | **Adopted c. 390 – 360 BCE, one reconstruction; Marius's wooden pin Plutarch's story (101 BCE)**; the surviving shanks shorter than Polybius's figure. |
+| `rm-659` scutum | 7 | 7 → 9 | **"Adopted c. 390 – 338 BCE" was a chapter title's span: the line is empty**; Scaeva's holes 120 in the Oxford text and 230 in one translation, both given; "200,000 sesterces" a gift with no coin named. |
+| `rm-660` lorica segmentata | 7 | 7 → 7 | **The name only "modern" (no source read for the 16th century); the weights modern reconstructions; Kalkriese the probable site of Varus's defeat**; the Corbridge hoard dated c. 122 – 138 CE, not "buried". |
+
+**Read by eye.** *Confusability:* `rm-651`/`rm-652` the auxilia (the Batavians) and the wing (Hyginus's turmae); `rm-653`/`rm-654` the police (the will's 500) and the watch (Paulus's prefect); `rm-655`/`rm-656` the navy (Forum Julii) and the fleet (Pliny's galleys); `rm-657`/`rm-658`/`rm-659`/`rm-660` the sword (the right thigh), the javelin (Marius's pin), the shield (Scaeva) and the armour (Trajan's Column). *Legend:* Marius's pin and Scaeva's shield are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

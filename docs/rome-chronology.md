@@ -411,6 +411,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Julian calendar: the reform year / in force / the Gregorian reform | 46 BCE / 1 January 45 BCE / 1582 | `rm-368` |
 | the Ides of March | 15 March 44 BCE | `rm-369` |
 | Brutus: born / urban praetor / died | c. 85 BCE (disputed) / 44 BCE / 42 BCE | `rm-370` |
+| the auxilia: a levy of allied troops recorded by Livy | 171 BCE | `rm-651` |
+| the ala: the grant at Asculum to the turma Salluitana | 89 BCE | `rm-652` |
+| the gladius: adopted (one modern view) / the oldest finds | c. 216 – 209 BCE / c. 175 BCE | `rm-657` |
+| the pilum: adopted (one reconstruction) / Marius's pin | c. 390 – 360 BCE / 101 BCE | `rm-658` |
 
 ## The Principate
 
@@ -604,6 +608,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Aurelian Walls: begun / restored | 271 CE / 401 – 403 CE | `rm-564` |
 | Probus: born / reigned / killed | 232 CE / 276 – 282 CE / 282 CE | `rm-565` |
 | the Altar of Victory: Augustus's statue in the Curia Julia | 29 BCE (Dio dates it by Augustus's fifth consulship) | `rm-607` |
+| the vigiles: founded / still attested | 6 CE / 362 CE | `rm-654` |
+| the standing fleets (Starr's frame) | 31 BCE – 324 CE | `rm-655` |
+| the fleet at Misenum: founded (an assumption) / defected / the rescue voyage | c. 27 – 15 BCE / 69 CE / 79 CE | `rm-656` |
+| the lorica segmentata: the earliest finds / the Corbridge hoard | 9 CE / c. 122 – 138 CE | `rm-660` |
 
 ## Late Antiquity
 
@@ -1307,4 +1315,12 @@ rm-635: 476; 493
 rm-636: 493; 526; 552; 562
 rm-637: 395; 1453
 rm-638: 535; 540; 552; 554
+rm-651: 171
+rm-652: 89
+rm-654: 6; 362
+rm-655: 31; 324
+rm-656: 27; 15; 69; 79
+rm-657: 216; 209; 175
+rm-658: 390; 360; 101
+rm-660: 9; 122; 138
 ```
