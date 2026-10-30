@@ -578,6 +578,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Didius Julianus: born / reigned | 133 CE (Dio; the Historia Augusta implies 137 CE) / 28 March – 1 June 193 CE | `rm-538` |
 | Septimius Severus: born / reigned / died | 11 April 145 or 146 CE / 193 – 211 CE / 4 February 211 CE | `rm-539` |
 | the Battle of Lugdunum | 19 February 197 CE (the day from the Historia Augusta) | `rm-540` |
+| Legio II Parthica: raised / at Apamea | c. 197 CE / 217 – 218 CE | `rm-541` |
+| Julia Domna: empress / mater castrorum / died | 193 – 211 CE / 195 CE / 217 CE | `rm-542` |
+| Eboracum: fortress founded / rebuilt / the court / a colonia by | c. 71 CE / 197 CE / 208 – 211 CE / 237 CE | `rm-543` |
+| Caracalla: born / reigned / died | 4 April 188 CE (from Dio's figures; Livius: 186 CE) / 211 – 217 CE / 8 April 217 CE | `rm-544` |
+| the Antonine Constitution | c. 212 CE (212 – 215 CE argued) | `rm-545` |
+| the Baths of Caracalla: begun / dedicated / aqueducts cut | c. 211 – 212 CE / 216 CE / 537 CE | `rm-546` |
+| Elagabalus: reigned / proclaimed / killed | 218 – 222 CE / 16 May 218 CE / 11 or 12 March 222 CE | `rm-547` |
+| Severus Alexander: born / reigned / the Persian war / died | 208 CE / 222 – 235 CE / 231 – 233 CE / 235 CE | `rm-548` |
+| Julia Mamaea: mater castrorum / mater senatus / killed | 224 CE / 226 CE / 235 CE | `rm-549` |
+| the Crisis of the Third Century (a modern label): the usual span / the Plague of Cyprian | 235 – 284 CE / c. 251 – 266 CE (also c. 249 – 270 CE) | `rm-550` |
 
 ## Late Antiquity
 
@@ -1110,4 +1120,14 @@ rm-537: 126; 193
 rm-538: 133; 193
 rm-539: 145; 146; 193; 211
 rm-540: 197
+rm-541: 197; 217; 218
+rm-542: 193; 211; 195; 217
+rm-543: 71; 197; 208; 211; 237
+rm-544: 188; 211; 217
+rm-545: 212
+rm-546: 211; 212; 216; 537
+rm-547: 218; 222
+rm-548: 208; 222; 235; 231; 233
+rm-549: 224; 226; 235
+rm-550: 235; 284; 251; 266
 ```

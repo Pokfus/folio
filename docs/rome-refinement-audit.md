@@ -186,7 +186,7 @@ order unless the user says otherwise.
 | B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | **done 2026-10-30** |
 | B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | **done 2026-10-30** |
 | B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | **done 2026-10-30** |
-| B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | open |
+| B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | **done 2026-10-30** |
 | B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | open |
 | B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | open |
 | B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | open |
@@ -810,6 +810,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-538` Didius Julianus | a denarius of 193 CE | ok |
 | `rm-539` Septimius Severus | the Munich bust | ok; the "Rome" locator is generic |
 | `rm-540` Battle of Lugdunum | a denarius of Albinus from the Lugdunum mint | weak: a coin for a battle |
+| `rm-541` Legio II Parthica | the Porta Praetoria of the camp at Albano | ok |
+| `rm-542` Julia Domna | the Severan Tondo | acceptable: the whole family, Geta's face erased; a portrait of her alone would be better |
+| `rm-543` Eboracum | the Multangular Tower | ok |
+| `rm-544` Caracalla | the Naples bust | ok |
+| `rm-545` Antonine Constitution | Papyrus Gissensis 40 | ok |
+| `rm-546` Baths of Caracalla | the central block's ruins | ok; the locator's point is at the baths, its label the generic "Rome" |
+| `rm-547` Elagabalus | a portrait head in the Capitoline Museums | ok |
+| `rm-548` Severus Alexander | a bust in the Louvre | ok |
+| `rm-549` Julia Mamaea | a portrait head in the Louvre | ok |
+| `rm-550` Crisis of the Third Century | an antoninianus of Gallienus | acceptable: a coin for the age |
 
 ## Glossary candidates
 
@@ -2139,3 +2149,22 @@ Run as B52. `batch.sh` stopped at `rm-533`'s glossary entry (a source no marker 
 | `rm-540` Battle of Lugdunum | 6 | 7 → 6 | **Dio prints no day: 19 February is the Historia Augusta's, 197 CE the modern year**; Dio's 150,000 a side against Platnauer's 50,000; Herodian's fall from the horse and Laetus's cavalry; Albinus's end told both ways. |
 
 **Read by eye.** *Confusability:* `rm-531`/`rm-532` the agent (the salary titles) and the city overseer (the logistes); `rm-533`/`rm-534`/`rm-535` the orator (the chariot), the hill (the painted labels) and the plan (the clamp holes); `rm-536`/`rm-537`/`rm-538`/`rm-539`/`rm-540` the label (Issus), the 87 days, the auction, the African senator (Ctesiphon) and the battle (the pits). *Legend:* the auction and Albinus's end are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B55 — `rm-541`–`rm-550`, The Severans and the third-century crisis: Legio II Parthica to the crisis (2026-10-30)
+
+Run as B54, with no stop. Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-541:rm-550` reads clean on nine cards; `rm-548` carries `S.chip?` (an English BMCR review of a German-titled commentary). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's two failures are the MDPI and Wiley DOIs on `rm-546`, which answer 403 to a script and were read in Europe PMC. **The old date lines carried other people's deaths for an empress ("Geta killed 212 CE", "Caracalla killed 217 CE" on `rm-542`), a son's reign for a mother ("Son's reign 222 – 235 CE"), Severus's death and Constantine's acclamation on a fortress, another man's defeat ("Macrinus beaten 8 June 218 CE"), Ulpian's citation for an edict and the translator's note for a legion's year ("Gates shut 212 CE").** `rm-549`'s glossary entry rested on a Spanish article that no longer opens and was rewritten from the card's own sources.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-541` Legio II Parthica | 5 | 8 → 6 | **"Gates shut 212 CE" came from Magie's note; the gates story is the Historia Augusta's, flagged**; at Apamea 217 – 218 CE (Livius); the fortress at Albano from Formato 2016. |
+| `rm-542` Julia Domna | 7 | 8 → 8 | **Her own dates replace two men's deaths**; Geta killed in her arms is Dio's and Herodian's, kept out of the questions; the "circle" a debated construction (Bowersock, through Silva); the Historia Augusta's horoscope goes. |
+| `rm-543` Eboracum | 6 | 7 → 6 | **The line is the fortress's (founded c. 71, rebuilt 197, the court 208 – 211, a colonia by 237 CE)**; Lunaris's Bordeaux altar and the Serapis temple replace Severus's death as clues; the York acclamation 306 (RCHME) or 305 (VCH), in notes. |
+| `rm-544` Caracalla | 8 | 7 → 9 | **Born 4 April 188 CE from Dio's figures (Platnauer), Livius 186 CE; Geta's murder December 211 (Livius) or 212 (the Loeb editor)**; the cloak nickname leads; the 280 million sesterces and the antoninianus go. |
+| `rm-545` Antonine Constitution | 6 | 5 → 6 | **c. 212 CE, with later years to 215 argued; Dio's tax motive in his hostile voice**; the dediticii reading of the Giessen papyrus uncertain; the Aurelii a modern dating tool; the papyrus's width had no source. |
+| `rm-546` Baths of Caracalla | 7 | 6 → 8 | **Begun c. 211 – 212 CE from Geta's brick stamps; dedicated 216 CE from Jerome as read by Platner–Ashby; the baths stopped when the aqueducts were cut in 537 (the Soprintendenza)**; the 35 m dome, 1,600 bathers and 1546 had no source. |
+| `rm-547` Elagabalus | 7 | 7 → 7 | **The banquet is the Historia Augusta's, and its flowers are violets: the roses are Alma-Tadema's of 1888**; killed 11 or 12 March 222 CE; the Vestal marriage Dio's. |
+| `rm-548` Severus Alexander | 7 | 7 → 7 | **The model prince is largely the Historia Augusta's invention; Herodian's failed three-pronged invasion against the Latin victory**; died probably near Mogontiacum; Dio on the renaming and Ulpian. |
+| `rm-549` Julia Mamaea | 6 | 7 → 7 | **Her titles 224 and 226 CE replace her son's reign**; the Historia Augusta's claims and an unreachable Spanish source go; Herodian on her avarice and the exiled daughter-in-law, Eusebius on Origen. |
+| `rm-550` Crisis of the Third Century | 7 | 7 → 8 | **The label is modern and 235 – 284 CE a convention; the Plague of Cyprian c. 251 – 266 CE attributed (also c. 249 – 270)**; no count of emperors without a source; death tolls go. |
+
+**Read by eye.** *Confusability:* `rm-542`/`rm-549` the two Syrian empresses (Philostratus's commission, Origen); `rm-544`/`rm-545`/`rm-546` the emperor (the cloak), the grant (the Giessen papyrus) and the baths (Geta's bricks); `rm-541`/`rm-543` the legion (the Alban camp) and the fortress (Lunaris); `rm-547`/`rm-548` the cousins (the black stone, the herald's rule); `rm-550` the age (Eutropius's empire in three). *Legend:* Geta in his mother's arms, the violets and the model prince are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
