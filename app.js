@@ -28889,7 +28889,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-japanese":   { bg: "#780F75" },
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
+    /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
+       shelf's band (L 28–55, chroma 7–62) and taken as far as possible from every hue already placed. It was
+       first a magenta, measured before Japanese and Turkish reached the shelf; both of those were measured
+       into the same region, which left Russian 13.1 from Turkish — tighter than any pair the shelf held — so
+       it was re-measured against all twenty hues at the merge: a muted mauve, 33.6 from its nearest
+       neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
+    "lang-russian":    { bg: "#9C7894" }, // measured mauve
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
+       sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two
+       arrived wearing one colour; Turkish was re-swept with Japanese's plum on the shelf. The rose below
+       clears its nearest neighbour by 25.0. */
+    "lang-turkish":    { bg: "#D5519F" }, // measured rose
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
