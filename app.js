@@ -12066,6 +12066,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sits at 16.7, an Augustan poet and not a book read with a historian of the emperors. It reads
      6.42:1 on the tightest light paper. */
   "Tacitus": "#6C2442",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-two colours placed (Oct 2026, adding Magna Carta): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The deep wine first chosen for it went to Strabo on the
+     same day, so it was measured again against the shelf as merged. The band's best now clears only
+     15.8, and of the candidates at that figure the blues sit nearest MACHIAVELLI and the teal nearest
+     Chaucer — the two books on the shelf a reader most plausibly sets beside a medieval English charter
+     of government — so on the Euripides test this violet is taken: 15.8 from Euripides, 16.0 from
+     Seneca and 16.2 from Marco Polo, none a kinship, and 47.3 from Machiavelli, 94.5 from Bede and 99.0
+     from Malory. Shakespeare's navy, the other English king, is 22.6 away. Keyed by id, the charter
+     being anonymous. It reads 5.25:1 on the tightest light paper. */
+  "magna-carta": "#632D9F",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15229,6 +15240,56 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "magna-carta",
+      title: "Magna Carta",
+      subtitle: "The Great Charter of King John, 1215",
+      /* NO AUTHOR TO NAME. The charter speaks in John's voice and he did not write it: it is a
+         settlement between the king's side and the rebel barons, and no drafter is named in it. So it is
+         shelved as the Song of Roland is, and its colour keys on its id. */
+      author: "Anonymous",
+      // the date the charter gives itself, at its foot: Runnymede, 15 June, the seventeenth year of John
+      written: "1215",
+      year: 1215,
+      translator: "William Sharp McKechnie",
+      edition:
+        "Magna Carta: A Commentary on the Great Charter of King John, with an Historical Introduction, " +
+        "James MacLehose and Sons, Glasgow, 1905",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION. McKechnie published in 1905 and lived
+         1863–1930 — dates corroborated twice — so the English clears the pre-1929 rule and cleared life
+         plus seventy in 2001, and has NOT cleared life plus a hundred, which runs to 2031. The
+         translation most readers meet (the British Library's, G. R. C. Davis) is modern and is not
+         used; see .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The charter was granted in 1215, so the work itself has never " +
+        "been in copyright. William Sharp McKechnie published this translation, with the Latin beside " +
+        "it, in Glasgow in 1905, so it is out of copyright in the United States under the rule for works " +
+        "published before 1929, and he lived from 1863 to 1930, so it also cleared the translator's life " +
+        "plus seventy years in 2001. Where the term is life plus a hundred it remains in copyright until " +
+        "2031. (The modern translation published by the British Library, which is the one most often " +
+        "reprinted, is still in copyright and is not used.) McKechnie's historical introduction, his " +
+        "commentary on each chapter and his appendix of related documents are not reproduced; his notes " +
+        "on his own translation are.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+      /* The Latin is printed above each chapter's English in the same volume, so the two pair chapter for
+         chapter, one marker a side — see `layout: "mckechnie"` in the importer. */
+      origLang: "la",
+      origName: "Latin",
+      /* The modern division into sixty-three chapters, as the edition prints it and as everyone cites it
+         ("c. 39"); the preamble runs on into chapter 1 mid-sentence and is printed with it. */
+      chapterWord: "Chapter",
+      count: 63,
+      total: 63,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of the front matter and all
+         sixty-three chapters (a headless run listing every `.ttip`), as Macbeth's and the Classic of Tea's
+         were. England, Wales, Scotland and Ireland are entries on the modern countries, with modern
+         populations, sitting on "king of England" and "lord of Ireland" in 1215; London and Dublin are
+         the modern capitals; `Temple` is the Greek temple, on "the Knights of the Temple"; and
+         `Great_Britain` sat on the word "British" in "British Library". What stays is right in place:
+         the British Museum, the Jews of chapters 10 and 11, Latin, and Magna Carta itself. */
+      glossOff: ["England", "Wales", "Scotland", "Ireland", "London", "Dublin", "Temple", "Great_Britain"],
     },
     {
       id: "pausanias-description-of-greece",

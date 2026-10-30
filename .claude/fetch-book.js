@@ -17579,6 +17579,129 @@ const BOOKS = {
     },
   },
 
+  "magna-carta": {
+    title: "Magna Carta",
+    subtitle: "The Great Charter of King John, 1215",
+    /* NO AUTHOR TO NAME. The charter speaks in John's voice ("John, by the grace of God, king of
+       England …") and he did not write it: it is a settlement drafted between the king's side and the
+       rebel barons, with Stephen Langton among the mediators, and no drafter is named in it. So it is
+       shelved as the Song of Roland and the Gilgamesh are, and keyed by its id for its colour. */
+    author: "Anonymous",
+    translator: "William Sharp McKechnie",
+    edition:
+      "Magna Carta: A Commentary on the Great Charter of King John, with an Historical Introduction, " +
+      "James MacLehose and Sons, Glasgow, 1905",
+    written: "1215",
+    year: 1215,
+
+    /* ---------- THE LICENCE — A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION ----------
+       The charter is eight hundred years old. McKechnie's volume was published in Glasgow in 1905 (the
+       title page of this transcription; a revised second edition followed in 1914, and it is the FIRST
+       that is read here), so it is public domain in the United States on the pre-1929 rule. He lived
+       2 September 1863 – 2 July 1930 — corroborated twice, by Wikidata (Q16030113) and by his English
+       Wikipedia biography, which cites the University of Glasgow's own record — so the English cleared
+       life plus seventy on 1 January 2001 and has NOT cleared life plus a hundred, which runs to
+       1 January 2031. The Latin is his printed text of the charter, which his footnote 322 says is
+       "taken from that issued by the Trustees of the British Museum founded on the Cottonian version
+       No. 2" — a transcription of a 1215 original, carried here under the same terms as his English.
+
+       WHAT WAS LOOKED AT AND NOT USED. Project Gutenberg's other Magna Carta (ebook 10000) is the
+       British Library's modern translation (G. R. C. Davis, 1963 onward), passed around the early
+       internet without a statement of its licence; it is the translation most readers meet and it is
+       not free to take. The Avalon Project's text is the same one. Ebook 26251 is a fragment. So the
+       one complete, cleanly licensed English with the Latin beside it is McKechnie's.
+
+       WHAT IS NOT TAKEN: his Historical Introduction, his commentary on every chapter (by far the
+       greater part of the book), its footnotes, and the Appendix of related documents (the Articles of
+       the Barons, the earlier coronation charters). They are a book ABOUT Magna Carta. */
+    rights:
+      "Public domain. The charter was granted in 1215. William Sharp McKechnie's translation was " +
+      "published in Glasgow in 1905, so it is public domain in the United States as a pre-1929 " +
+      "publication, and he died in 1930, so it also cleared life-plus-seventy in 2001. Where the term " +
+      "is life plus a hundred it remains in copyright until 2031.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+    url: "https://www.gutenberg.org/cache/epub/65363/pg65363-images.html",
+
+    layout: "mckechnie",
+    chapterWord: "Chapter",
+    /* The sixty-three chapters, numbered as McKechnie prints them and as every modern edition cites
+       them ("c. 39"). The division is not the charter's own — his footnote 322 says so, and the
+       about page repeats it — but it is the citation, so the tab carries it. The preamble rides with
+       chapter 1 (see the extractor). */
+    chapters: Array.from({ length: 63 }, (_, i) => i + 1),
+    /* Transcribed, never composed: McKechnie heads each chapter "CHAPTER ONE." and nothing more, so
+       the tab is the number. Chapter 1's carries the preamble's head too, since it holds both. */
+    titleOf: (n) => (n === 1 ? "Preamble and Chapter 1" : "Chapter " + n),
+    /* Chapter 40 is the shortest — one sentence, "To no one will we sell …", 131 characters with its
+       marker — so the guard sits under the shortest real chapter rather than at the shelf's default. */
+    minChars: 100,
+
+    about: [
+      "Magna Carta is a peace treaty that failed and a charter of liberties that lasted. In the spring " +
+        "of 1215 a large party of England's barons renounced their allegiance to King John and took " +
+        "London; in June the two sides met in a meadow on the Thames between Windsor and Staines, and " +
+        "the document the king granted there, dated 15 June 1215, set out the terms on which the rebels " +
+        "would return to their homage. It is written in Latin, in the king's own voice — \u201cJohn, by " +
+        "the grace of God, king of England\u201d — but John did not compose it: it is a settlement " +
+        "worked out between his advisers and his enemies, with Stephen Langton, archbishop of " +
+        "Canterbury, among those who brought them together, and no drafter is named in it. That is why " +
+        "this shelf lists it as anonymous.",
+      "Most of it is about <b>feudal money and feudal justice</b>, and a modern reader should expect " +
+        "that. It fixes what an heir must pay to inherit, protects widows from being forced to remarry, " +
+        "limits what a guardian may take from a ward's lands, stops interest running on an heir's debts " +
+        "while he is under age, regulates the royal forests, orders fish-weirs cleared from the Thames " +
+        "and the Medway, and names the foreign officials John is to dismiss. Among all this sit the few " +
+        "sentences that made its name: no scutage or aid to be imposed without the common counsel of " +
+        "the kingdom (chapter 12), and the promise that no free man is to be arrested, imprisoned, " +
+        "dispossessed, outlawed or exiled except by the lawful judgment of his peers or by the law of " +
+        "the land, nor justice sold, refused or delayed to anyone (chapters 39 and 40).",
+      "As a peace it lasted barely the summer. Chapter 61 gave twenty-five barons the right to " +
+        "distrain the king himself if he broke its terms, which no king could accept for long; John " +
+        "appealed to Pope Innocent III, his feudal overlord since 1213, and the Pope declared the " +
+        "charter null in August 1215. War followed, and John died in October 1216. What saved the " +
+        "charter was his son's minority: it was reissued in the boy king Henry III's name in 1216 and " +
+        "1217, and again in 1225, shortened and without chapter 61, and it was the 1225 text, confirmed " +
+        "by Edward I in 1297, that entered the statute book. Three of its clauses are still law in " +
+        "England and Wales — the freedom of the English Church, the liberties of the City of London, " +
+        "and the guarantee of lawful judgment.",
+      "This is the charter of <b>1215</b>, John's, which is the one people mean by the name. Four " +
+        "copies issued that June survive, two in the British Library and one each at Lincoln and " +
+        "Salisbury cathedrals. The division into a preamble and <b>sixty-three chapters</b> is not on " +
+        "any of them — the parchment is one unbroken block of text — but it is how every edition and " +
+        "every historian cites it, so it is the tabs here. The preamble runs straight on into chapter " +
+        "1 in mid-sentence, and the edition calls the break between them arbitrary, so the two are " +
+        "printed together in the first tab, the preamble first.",
+      "The translation is <b>William Sharp McKechnie's</b>, from the commentary he published in Glasgow " +
+        "in 1905, when he lectured on constitutional law and history in the university there. It is " +
+        "close, plain and careful rather than graceful, and where a word could not be rendered without " +
+        "an argument he gave the argument in a note; those notes, twelve of them, are here. The " +
+        "commentary itself, which runs to hundreds of pages and takes the charter apart chapter by " +
+        "chapter, is not reproduced, nor is his long historical introduction. A revised second edition " +
+        "followed in 1914; this is the first.",
+      "Beside the English is the <b>Latin</b>, as McKechnie printed it above each chapter, taken from " +
+        "the British Museum's text of one of its two original copies. Because the edition prints the " +
+        "two a chapter at a time, they pair exactly: chapter for chapter, sixty-three a side, with the " +
+        "preamble beside the preamble.",
+    ],
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "mckechnie",
+      edition:
+        "The Latin text as printed in W. S. McKechnie, Magna Carta (Glasgow, 1905), from the British " +
+        "Museum's text of the Cottonian original",
+      rights:
+        "Public domain. The charter was written in 1215; this is the Latin as McKechnie printed it in " +
+        "1905, public domain in the United States as a pre-1929 publication and cleared everywhere the " +
+        "term is life plus seventy (he died in 1930).",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+      minChars: 100,
+    },
+  },
+
   "pausanias-description-of-greece": {
     title: "Description of Greece",
     // the work's own Greek title, as Herodotus's and the Oedipus Rex's entries give theirs
@@ -26691,6 +26814,118 @@ function extractPtahhotep(h, BOOK, warn) {
 }
 
 /* ============================================================
+   A CHARTER WITH ITS TRANSLATION, OUT OF A COMMENTARY     (layout: "mckechnie")
+   ============================================================
+   Oct 2026, adding Magna Carta — the first document on the shelf rather than a literary work, and the
+   first book read out of a COMMENTARY. McKechnie's volume (Glasgow, 1905) prints the charter a chapter
+   at a time and argues about each one for pages: the Latin first, in a paragraph of its own; then his
+   English, in a block the transcription marks `<div class="translate">`; then the commentary, which is
+   ten times the length of the two together and is NOT taken — it is a book about Magna Carta, not
+   Magna Carta, as an editor's introduction always is on this shelf.
+
+   WHAT IS READ, AND HOW IT WAS MEASURED BEFORE A WORD WAS IMPORTED. Between the head "PREAMBLE." and
+   the Appendix there are exactly sixty-four `translate` blocks, one under each of the sixty-four heads
+   (the preamble and chapters 1–63), each holding one paragraph; and before each block stand one or
+   two paragraphs of Latin and nothing else. So the cut needs no guessing: a head opens a chapter, the
+   paragraphs before its translate block are its Latin, and the block is its English. Two Latin
+   classes are in use (`c016` and `c008`, the second where the Latin is wrapped in a `lang` span) and
+   both are read; a `c016` paragraph AFTER the translate block (one, in chapter 39's commentary) is a
+   citation and not the charter, which is why only what stands before the block is taken.
+
+   THE PREAMBLE IS NOT A CHAPTER OF ITS OWN, and the edition says why: its footnote 323 calls the
+   division between preamble and chapter 1 "a purely arbitrary one", the sentence running on from one
+   into the other. It is printed with chapter 1, ahead of the marker that opens chapter 1, in both
+   columns, so the two pair as a leading row of their own. (A chapter numbered 0 was the alternative and
+   was refused: the reader's front matter is chapter 0.)
+
+   THE NOTES ARE HIS NOTES ON THE TRANSLATION ONLY. The commentary's footnotes stay with the
+   commentary; the notes cited from inside a translate block — twelve, on the preamble and chapters 5,
+   10, 18, 23, 26, 39 and 52 — are what he says about a word of his own English, and they ship in the
+   chapter's fold, renumbered from 1. A marker in the Latin is dropped with the rest of its apparatus.
+
+   THE TRANSCRIBERS' CORRECTIONS ARE KEPT AND THEIR DUPLICATE IS NOT. Project Gutenberg prints each of
+   its corrections twice, once for a browser (`htmlonly`) and once for an e-reader (`epubonly`), side by
+   side in the same file; read naively, "postponement" comes out "postponementpostponement". The e-reader
+   copy is dropped and the correction stands. */
+function extractMcKechnie(h, BOOK, warn) {
+  const a = h.indexOf('<h3 class="c015">PREAMBLE.'), z = h.indexOf('<h2 class="c007">APPENDIX.', a);
+  if (a < 0 || z < 0) throw new Error("the heads that bound the charter (PREAMBLE … APPENDIX) are not in the file");
+  const body = h.slice(a, z);
+  const c = { notes: 0, marks: 0, latinMarks: 0, pages: 0, corrections: 0 };
+
+  // every footnote in the span, keyed by its printed number; only those a translation cites are kept
+  const foot = {};
+  for (const m of body.matchAll(/<div class="footnote" id="f(\d+)">([\s\S]*?)<\/div>/g)) foot[m[1]] = m[2];
+
+  const tidy = (s) => {
+    s = s.replace(/<span class="epubonly">[\s\S]*?<\/a><\/span>/g, () => { c.corrections++; return ""; });
+    s = s.replace(/<span class="pageno"[^>]*>\d+<\/span>/g, () => { c.pages++; return ""; });
+    return s;
+  };
+  const prose = (s) => stripTags(s).replace(/\s+/g, " ").trim();
+
+  const heads = [{ at: 0, n: 0 }].concat(
+    [...body.matchAll(/<h3 class="c014" id="c_(\d+)">/g)].map((m) => ({ at: m.index, n: +m[1] })));
+  const want = Array.from({ length: 64 }, (_, i) => i).join(",");
+  if (heads.map((x) => x.n).join(",") !== want)
+    throw new Error("expected the preamble and chapters 1–63 in order, found " + heads.map((x) => x.n).join(","));
+
+  const parts = heads.map((hd, i) => {
+    const seg = body.slice(hd.at, i + 1 < heads.length ? heads[i + 1].at : body.length);
+    const tm = /<div class="translate">([\s\S]*?)<\/div>/.exec(seg);
+    if (!tm) throw new Error((hd.n ? "chapter " + hd.n : "the preamble") + " has no translation block");
+    if (/<div class="translate">/.test(seg.slice(tm.index + tm[0].length)))
+      warn((hd.n ? "chapter " + hd.n : "the preamble") + " has a second translation block; only the first is read");
+
+    // the English, its markers carrying the PRINTED note number until the chapter renumbers them
+    const ps = [];
+    for (const pm of tidy(tm[1]).matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)) {
+      const t = pm[1].replace(/<a class="c017 pginternal" href="#f(\d+)"><sup>\[\d+\]<\/sup><\/a>/g,
+        (w, n) => { c.marks++; return '<sup class="fn" data-fn="' + n + '"></sup>'; });
+      if (/pginternal/.test(t)) warn("chapter " + hd.n + ": a link was not recognised as a note marker");
+      const p = prose(t);
+      if (p) ps.push(p);
+    }
+
+    // the Latin: what stands between the head and the translation, markers and all apparatus dropped
+    const lat = [];
+    for (const lm of tidy(seg.slice(0, tm.index)).matchAll(/<p class="c0(?:16|08)">([\s\S]*?)<\/p>/g)) {
+      const t = lm[1].replace(/<a class="c017 pginternal" href="#f\d+"><sup>\[\d+\]<\/sup><\/a>/g,
+        () => { c.latinMarks++; return ""; });
+      const p = prose(t);
+      if (p) lat.push(p);
+    }
+    if (!lat.length) throw new Error("chapter " + hd.n + " has no Latin before its translation");
+    return { n: hd.n, ps: ps, lat: lat };
+  });
+
+  // the preamble rides with chapter 1 — see the block above
+  const pre = parts.shift();
+  const mark = (n) => '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>";
+  const chapters = parts.map((p) => {
+    const lead = p.n === 1 ? pre : null;
+    const en = (lead ? lead.ps.map((x) => "<p>" + x + "</p>").join("\n") + "\n" : "") +
+      mark(p.n) + "\n" + p.ps.map((x) => "<p>" + x + "</p>").join("\n");
+    const la = (lead ? lead.lat.map((x) => "<p>" + x + "</p>").join("\n") + "\n" : "") +
+      mark(p.n) + "\n" + p.lat.map((x) => "<p>" + x + "</p>").join("\n");
+    const seen = [], map = {};
+    const html = en.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (w, n) => {
+      if (!map[n]) {
+        if (foot[n] === undefined) { warn("chapter " + p.n + " cites a note " + n + " that is not printed"); return ""; }
+        const t = prose(tidy(foot[n]).replace(/<\/?p\b[^>]*>/g, " "));
+        if (!/^\d+\.\s/.test(t)) warn("note " + n + " is printed without its number");
+        seen.push(t.replace(/^\d+\.\s*/, ""));
+        map[n] = seen.length;
+        c.notes++;
+      }
+      return '<sup class="fn" data-fn="' + map[n] + '"></sup>';
+    });
+    return { n: p.n, t: chapterTitle(p.n), html: html, notes: seen, latin: la };
+  });
+  return { chapters: chapters, counts: c };
+}
+
+/* ============================================================
    A PROSIMETRUM, FROM TWO PLAIN PRINTED PAGES     (layout: "boethius")
    ============================================================
    Aug 2026, adding The Consolation of Philosophy — the fifth book from Project Gutenberg and the
@@ -29106,6 +29341,28 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* MAGNA CARTA — the charter's sixty-three chapters out of McKechnie's commentary; one page, cached
+     whole, and read twice: once here for the English, once by fetchOriginal for the Latin. */
+  if (BOOK.layout === "mckechnie") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = correctGot(extractMcKechnie(raw, BOOK, warn));
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " chapters (the preamble printed with chapter 1); " + c.notes +
+      " notes on the translation, " + c.marks + " marker(s); " + c.latinMarks + " marker(s) dropped from the Latin; " +
+      c.pages + " printed page number(s) and " + c.corrections + " duplicated correction(s) removed");
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "quixote") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-text.txt");
@@ -30020,6 +30277,25 @@ async function fetchOriginal() {
         throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.byNum[n].length + " chars)");
       byNum[n] = got.byNum[n];
     }
+    return writeOriginal(byNum, warnings);
+  }
+  /* MAGNA CARTA'S LATIN — printed above each chapter's English on the same page, so it is read back
+     out of the English side's own cache (fetched if a clean checkout has none). Both columns carry the
+     same single marker per chapter, written by the extractor. */
+  if (O.layout === "mckechnie") {
+    console.log("\nReading the " + O.langName + " original out of the same page — " + O.edition);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractMcKechnie(raw, BOOK, warn);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.latin.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.latin.length + " chars)");
+      byNum[ch.n] = ch.latin;
+    });
+    console.log("  " + Object.keys(byNum).length + " chapters");
     return writeOriginal(byNum, warnings);
   }
   if (O.source === "text" && O.layout === "skeat") {
