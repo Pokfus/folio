@@ -193,7 +193,7 @@ order unless the user says otherwise.
 | B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | **done 2026-10-30** |
 | B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | **done 2026-10-30** |
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | **done 2026-10-30** |
-| B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | open |
+| B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | **done 2026-10-30** |
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | open |
 | B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | open |
 | B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | open |
@@ -379,6 +379,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-608` Ambrose | none | not re-checked: the card has no picture; the glossary's mosaic would do |
 | `rm-609` Massacre of Thessalonica | none | not re-checked: the card has no picture |
 | `rm-610` Arcadius | none | not re-checked: the card has no picture; the glossary's marble head would do |
+| `rm-611` Christianisation of the Roman Empire | none | not re-checked: the card has no picture |
+| `rm-612` metropolitan bishop | none | not re-checked: the card has no picture |
+| `rm-613` Desert Fathers | none | not re-checked: the card has no picture; the locator's label is the term, "Scetis" at Wadi El Natrun would be right |
+| `rm-614` Vulgate | none | not re-checked: the card has no picture |
+| `rm-615` Augustine of Hippo | none | not re-checked: the card has no picture; the glossary's Champaigne portrait would do |
+| `rm-616` City of God | none | not re-checked: the card has no picture |
+| `rm-617` Donatism | none | not re-checked: the card has no picture |
+| `rm-618` Council of Chalcedon | none | not re-checked: the card has no picture; the locator's label is the term |
+| `rm-619` Damasus I | none | not re-checked: the card has no picture; the glossary's illumination would do |
+| `rm-620` Pope Leo I | none | not re-checked: the card has no picture; the glossary's Herrera painting would do |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2361,3 +2371,22 @@ Run as B60, applied with B62 in one `batch.sh` run. Before applying, two date la
 | `rm-610` Arcadius | 6 | 7 → 8 | **"The division of 395" a modern way of speaking; born 377 (Livius), Augustus January 383 (16 in Socrates, 19 in Livius)**; Stilicho out of the questions; Synesius's speech no longer explains a purge. |
 
 **Read by eye.** *Confusability:* `rm-601`/`rm-602`/`rm-604` the people (Athanaric's ships), the battle (Cannae's comparison) and the status (Jordanes's renaming); `rm-603`/`rm-605`/`rm-606` the emperor (Frigidus), the law (the two bishops) and the laws (the shrines); `rm-607`/`rm-608`/`rm-609` the altar (Symmachus), the bishop (the basilica) and the massacre (Butheric); `rm-610` Eutropius's portrait. *Legend:* the child's cry, the church-door scene and Valens's cottage are their authors'. *Overlap:* `wh-488` dates the crossing 376 CE, as `rm-601` does; `gr-802` dates the Serapeum 391 only, against `rm-606`'s 391 or 391/2.
+
+### B62 — `rm-611`–`rm-620`, The Christian empire: Christianisation to Leo I (2026-10-30)
+
+Run as B61 and applied with it. No draft needed a hand change. **The old date lines carried a misread decade ("Elite shift from c. 340 CE", from "the 340s onwards"), a Justinianic act (529, the Academy's closure), a pilgrim's visit for a movement ("At Nitria c. 390"), another event's year as a book's first row ("Rome sacked 410 CE" on the City of God) and laws addressed to a bishop standing for his life.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-611` Christianisation of the Roman Empire | 7 | 7 → 8 | **"Elite shift c. 340" was Cameron's "from the 340s onwards", now his view in prose; "Justinian's laws 529" goes**; the one row is Pliny's report, c. 109 – 111 CE (Livius's governorship); Ehrman's estimate attributed and called conservative. |
+| `rm-612` metropolitan bishop | 6 | 8 → 7 | **Nicaea did not create the office: its canons treat it as established**; Ammianus's 137 bodies go (`rm-619`'s clue); no question uses "bishop"; the African senior-bishop rule and "archbishop" added. |
+| `rm-613` Desert Fathers | 7 | 7 → 7 | **A label modern writers use; "At Nitria c. 390" was Palladius's visit, now Scetis c. 330 (by tradition) and the Lausiac History 419 – 420**; the questions rewritten clear of `wh-492`'s Antony. |
+| `rm-614` Vulgate | 7 | 7 → 8 | **The name fixed on Jerome's text only in the 13th century; not all of it is his; "In 403 CE" out of the question**; Oea's plant was "ivy" in Jerome's letter, not "shrub". |
+| `rm-615` Augustine of Hippo | 8 | 8 → 9 | **The years out of the questions; the pears and "take up and read" his own retrospective telling, the ordination tears Possidius's**; bishop 395 (Livius) or c. 396 (the Stanford Encyclopedia). |
+| `rm-616` City of God | 7 | 7 → 8 | **"Rome sacked 410 CE" leaves the line: begun 412 or 413, completed 426**; 427 is in no source read; "began it in 412" stated as fact becomes two accounts. |
+| `rm-617` Donatism | 6 | 8 → 7 | **The opponents' name; Optatus and Augustine hostile witnesses**; the synod at Rome 2 October 313 CE (as `rm-592`), Arles 1 August 314, Carthage June 411; the unsourced "33 bishops at Arles" goes. |
+| `rm-618` Council of Chalcedon | 7 | 8 → 8 | **"Robber Synod" Leo's label; the council's own 520 against Leo's 600, the Liber Pontificalis's 1,200 gone**; "Peter spoke through Leo" left to `rm-620`. |
+| `rm-619` Damasus I | 6 | 7 → 8 | **The two law rows go: born c. 304 (one older account), bishop 366 – 384, died 11 December 384**; the 137 bodies Ammianus's everywhere; the law of 380 out of the questions. |
+| `rm-620` Pope Leo I | 7 | 8 → 7 | **The meeting with Attila told through Prosper and Jordanes; the vision of Peter and Paul a later legend; Genseric "is said to"**; Kirsch's days; Raphael's fresco set at Rome, the meeting near Mantua. |
+
+**Read by eye.** *Confusability:* `rm-611`/`rm-612` the process (Pliny, Victorinus) and the office (the provincial capital); `rm-613`/`rm-614`/`rm-615`/`rm-616` the monks (Pambo), the Bible (Oea's ivy), the man (the pears) and the book (Marcellinus); `rm-617`/`rm-618` the schism (the almoners) and the council (Proterius); `rm-619`/`rm-620` the two bishops of Rome (the basilica of Sicininus, the Mincius ford). *Legend:* the child's voice in the garden is Augustine's own telling, the vision of the apostles over Attila a later legend. *Overlap:* `wh-492` (Christian monasticism) and `rm-613` no longer share a clue; no `wh-` card covers Augustine.

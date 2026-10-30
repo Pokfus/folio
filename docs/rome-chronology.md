@@ -654,6 +654,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Ambrose: born / bishop / died | c. 340 CE / 374 CE / 4 April 397 CE | `rm-608` |
 | the Massacre of Thessalonica | 390 CE (391 CE in one review) | `rm-609` |
 | Arcadius: born / Augustus / ruled the East / died | 377 CE / January 383 CE / 395 – 408 CE / 1 May 408 CE | `rm-610` |
+| the Christianisation of the Roman Empire (a modern name): Pliny's report | c. 109 – 111 CE (Livius's dates for the governorship) | `rm-611` |
+| the metropolitan bishop: the Nicaea canons / the Antioch canons / the Chalcedon canons | 325 CE / 341 CE / 451 CE | `rm-612` |
+| the Desert Fathers (a modern label): Scetis founded, by tradition / the Lausiac History | c. 330 CE / 419 – 420 CE | `rm-613` |
+| the Vulgate (the name is later): the Gospels revised / from the Hebrew / declared authentic at Trent | c. 382 – 385 CE / c. 390 – 405 CE / 1546 | `rm-614` |
+| Augustine of Hippo: born / baptised / bishop / died | 13 November 354 CE / Easter 387 CE / c. 395 – 396 CE (395 Livius, c. 396 the Stanford Encyclopedia) / 28 August 430 CE | `rm-615` |
+| the City of God: begun / completed | c. 412 – 413 CE / 426 CE | `rm-616` |
+| Donatism (its opponents' name): began / the synod at Rome / Arles / the Carthage conference | c. 311 CE / 2 October 313 CE / 1 August 314 CE / June 411 CE | `rm-617` |
+| the Council of Chalcedon: met / the Ephesus synod it undid | 8 October – 1 November 451 CE / 449 CE | `rm-618` |
+| Damasus I: born / bishop of Rome / died | c. 304 CE (one older account) / 366 – 384 CE / 11 December 384 CE | `rm-619` |
+| Leo I, bishop of Rome: consecrated / died | 29 September 440 CE / 10 November 461 CE | `rm-620` |
 
 ## Chronology pins
 
@@ -1251,4 +1261,14 @@ rm-607: 29; 382; 384; 393
 rm-608: 340; 374; 397
 rm-609: 390; 391
 rm-610: 377; 383; 395; 408
+rm-611: 109; 111
+rm-612: 325; 341; 451
+rm-613: 330; 419; 420
+rm-614: 382; 385; 390; 405; 1546
+rm-615: 354; 387; 395; 396; 430
+rm-616: 412; 413; 426
+rm-617: 311; 313; 314; 411
+rm-618: 451; 449
+rm-619: 304; 366; 384
+rm-620: 440; 461
 ```
