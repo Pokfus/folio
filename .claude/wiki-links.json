@@ -1,16 +1,16 @@
 {
- "generated": "2026-10-30T20:21Z",
+ "generated": "2026-10-30T20:29Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5437,
-  "redirect-broader": 515,
+  "ok": 5458,
+  "redirect-broader": 517,
   "redirect-variant": 335,
-  "section-redirect": 107,
+  "section-redirect": 109,
   "disambiguation": 142,
-  "none": 975,
+  "none": 979,
   "disambig-resolved": 81,
   "list-page": 6,
-  "search-match": 6,
+  "search-match": 7,
   "no-article": 17
  },
  "cards": {
@@ -61803,6 +61803,250 @@
    "answer": "Battle of Wuhan",
    "title": "Battle of Wuhan",
    "url": "https://en.wikipedia.org/wiki/Battle_of_Wuhan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-411": {
+   "answer": "First Battle of Changsha",
+   "title": "Battle of Changsha (1939)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Changsha_(1939)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First Battle of Changsha"
+  },
+  "ww2-412": {
+   "answer": "New Order in East Asia",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "New Order in East Asia",
+   "target": "Greater East Asia Co-Prosperity Sphere#Development of the concept"
+  },
+  "ww2-413": {
+   "answer": "Three Alls policy",
+   "title": "Three Alls policy",
+   "url": "https://en.wikipedia.org/wiki/Three_Alls_policy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-414": {
+   "answer": "Wang Jingwei regime",
+   "title": "Wang Jingwei regime",
+   "url": "https://en.wikipedia.org/wiki/Wang_Jingwei_regime",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-415": {
+   "answer": "Provisional Government of the Republic of China",
+   "title": "Provisional Government of the Republic of China (1937–1940)",
+   "url": "https://en.wikipedia.org/wiki/Provisional_Government_of_the_Republic_of_China_(1937%E2%80%931940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-416": {
+   "answer": "Hundred Regiments Offensive",
+   "title": "Hundred Regiments Offensive",
+   "url": "https://en.wikipedia.org/wiki/Hundred_Regiments_Offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-417": {
+   "answer": "New Fourth Army incident",
+   "title": "New Fourth Army Incident",
+   "url": "https://en.wikipedia.org/wiki/New_Fourth_Army_Incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-418": {
+   "answer": "Shaan-Gan-Ning Border Region",
+   "title": "Yan'an Soviet",
+   "url": "https://en.wikipedia.org/wiki/Yan'an_Soviet",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Shaan-Gan-Ning Border Region"
+  },
+  "ww2-419": {
+   "answer": "Unit 731",
+   "title": "Unit 731",
+   "url": "https://en.wikipedia.org/wiki/Unit_731",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-420": {
+   "answer": "Khabarovsk war crimes trial",
+   "title": "Khabarovsk war crimes trials",
+   "url": "https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials",
+   "via": "search",
+   "status": "search-match"
+  },
+  "ww2-431": {
+   "answer": "Zhejiang-Jiangxi campaign",
+   "title": "Zhejiang-Jiangxi campaign",
+   "url": "https://en.wikipedia.org/wiki/Zhejiang-Jiangxi_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-432": {
+   "answer": "Nanking Safety Zone",
+   "title": "Nanking Safety Zone",
+   "url": "https://en.wikipedia.org/wiki/Nanking_Safety_Zone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-433": {
+   "answer": "Yasuji Okamura",
+   "title": "Yasuji Okamura",
+   "url": "https://en.wikipedia.org/wiki/Yasuji_Okamura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-434": {
+   "answer": "Operation Beleaguer",
+   "title": "Operation Beleaguer",
+   "url": "https://en.wikipedia.org/wiki/Operation_Beleaguer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-435": {
+   "answer": "China Expeditionary Army",
+   "title": "China Expeditionary Army",
+   "url": "https://en.wikipedia.org/wiki/China_Expeditionary_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-436": {
+   "answer": "Imperial Conference",
+   "title": "Imperial Conference",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Conference",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-437": {
+   "answer": "Japanese occupation of southern French Indochina",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "French Indochina in World War II",
+    "Japanese invasion of French Indochina",
+    "Japanese coup d'état in French Indochina",
+    "Indochina wars",
+    "Japan during World War II"
+   ]
+  },
+  "ww2-438": {
+   "answer": "Executive Order 8832",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Preparatory Committee for Philippine Independence",
+    "List of executive actions by Franklin D. Roosevelt",
+    "History of Italy",
+    "1st Congress of the Commonwealth of the Philippines",
+    "Foreign relations of Spain"
+   ]
+  },
+  "ww2-439": {
+   "answer": "Hull note",
+   "title": "Hull note",
+   "url": "https://en.wikipedia.org/wiki/Hull_note",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-440": {
+   "answer": "Isoroku Yamamoto",
+   "title": "Isoroku Yamamoto",
+   "url": "https://en.wikipedia.org/wiki/Isoroku_Yamamoto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-441": {
+   "answer": "attack on Pearl Harbor",
+   "title": "Attack on Pearl Harbor",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-442": {
+   "answer": "Combined Fleet Operation Order No. 1",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States Pacific Fleet",
+    "Spain during World War II",
+    "Home Fleet",
+    "United States Fourth Fleet",
+    "2nd Fleet (Imperial Japanese Navy)"
+   ]
+  },
+  "ww2-443": {
+   "answer": "Battleship Row",
+   "title": "Battleship Row",
+   "url": "https://en.wikipedia.org/wiki/Battleship_Row",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-444": {
+   "answer": "Day of Infamy speech",
+   "title": "Day of Infamy speech",
+   "url": "https://en.wikipedia.org/wiki/Day_of_Infamy_speech",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-445": {
+   "answer": "German declaration of war on the United States",
+   "title": "German declaration of war on the United States",
+   "url": "https://en.wikipedia.org/wiki/German_declaration_of_war_on_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-446": {
+   "answer": "Greer incident",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Greer incident",
+   "target": "USS Greer#The Greer incident, September 1941"
+  },
+  "ww2-447": {
+   "answer": "Southern Operation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of World War II military operations",
+    "List of military operations on the Eastern Front of World War II",
+    "World War II",
+    "Operation Southern Spear",
+    "Southern Rhodesia in World War II"
+   ]
+  },
+  "ww2-448": {
+   "answer": "Force Z",
+   "title": "Force Z",
+   "url": "https://en.wikipedia.org/wiki/Force_Z",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-449": {
+   "answer": "Malayan campaign",
+   "title": "Malayan campaign",
+   "url": "https://en.wikipedia.org/wiki/Malayan_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-450": {
+   "answer": "fall of Singapore",
+   "title": "Fall of Singapore",
+   "url": "https://en.wikipedia.org/wiki/Fall_of_Singapore",
    "via": "glossary",
    "status": "ok"
   }

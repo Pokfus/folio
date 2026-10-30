@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5437 | the title is the article |
+| `ok` | 5458 | the title is the article |
 | `redirect-variant` | 335 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
-| `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 515 | redirected to a differently named article — listed below, a glance each |
+| `search-match` | 7 | a search hit with the answer's words in another order — listed below |
+| `redirect-broader` | 517 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 109 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 975 | nothing matched; no link |
+| `none` | 979 | nothing matched; no link |
 
-**6381 of 7621 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6405 of 7651 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (515)
+## Redirected to a differently named article — check each (517)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -558,6 +558,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-391` **German-Soviet War** → [Eastern Front (World War II)](https://en.wikipedia.org/wiki/Eastern_Front_(World_War_II)) (from `German-Soviet War`)
 - `ww2-398` **Allied Control Commission** → [Allied Commission](https://en.wikipedia.org/wiki/Allied_Commission) (from `Allied Control Commission`)
 - `ww2-401` **China Incident** → [Marco Polo Bridge incident](https://en.wikipedia.org/wiki/Marco_Polo_Bridge_incident) (from `China Incident`)
+- `ww2-411` **First Battle of Changsha** → [Battle of Changsha (1939)](https://en.wikipedia.org/wiki/Battle_of_Changsha_(1939)) (from `First Battle of Changsha`)
+- `ww2-418` **Shaan-Gan-Ning Border Region** → [Yan'an Soviet](https://en.wikipedia.org/wiki/Yan'an_Soviet) (from `Shaan-Gan-Ning Border Region`)
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 
 ## Settled from a disambiguation page (81)
@@ -646,7 +648,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-354` **Jassy–Kishinev offensive** → [Second Jassy–Kishinev offensive](https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive) (via the disambiguation page `Jassy–Kishinev offensive`)
 - `ww2-395` **filtration camps** → [NKVD filtration camps](https://en.wikipedia.org/wiki/NKVD_filtration_camps) (via the disambiguation page `Filtration camp`)
 
-## Matched by search — check each (6)
+## Matched by search — check each (7)
 
 No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.
 
@@ -656,6 +658,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `jp-037` **moated settlement** → [Moated settlements](https://en.wikipedia.org/wiki/Moated_settlements)
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
+- `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
 ## Disambiguation pages that could not be settled (142)
 
@@ -815,7 +818,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (107)
+## Section redirects — no dedicated page (109)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -926,8 +929,10 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 - `ww2-227` **Anderson shelter** — `Anderson shelter` only redirects into `Air raid shelter#Anderson shelter`
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
+- `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
+- `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 
-## No article found (975)
+## No article found (979)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1906,3 +1911,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-394` **Yalta repatriation agreement**
 - `ww2-397` **Sowjetische Aktiengesellschaft**
 - `ww2-399` **Stalin's election speech**
+- `ww2-437` **Japanese occupation of southern French Indochina** — search suggests `French Indochina in World War II`, `Japanese invasion of French Indochina`, `Japanese coup d'état in French Indochina`, `Indochina wars`, `Japan during World War II`
+- `ww2-438` **Executive Order 8832** — search suggests `Preparatory Committee for Philippine Independence`, `List of executive actions by Franklin D. Roosevelt`, `History of Italy`, `1st Congress of the Commonwealth of the Philippines`, `Foreign relations of Spain`
+- `ww2-442` **Combined Fleet Operation Order No. 1** — search suggests `United States Pacific Fleet`, `Spain during World War II`, `Home Fleet`, `United States Fourth Fleet`, `2nd Fleet (Imperial Japanese Navy)`
+- `ww2-447` **Southern Operation** — search suggests `List of World War II military operations`, `List of military operations on the Eastern Front of World War II`, `World War II`, `Operation Southern Spear`, `Southern Rhodesia in World War II`

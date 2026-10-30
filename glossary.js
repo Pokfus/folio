@@ -7751,7 +7751,32 @@ window.GLOSSARY = {
 "Kokoda_Track_campaign": "",
 "China_Incident": "",
 "National_Revolutionary_Army": "",
-"Eighth_Route_Army": ""
+"Eighth_Route_Army": "",
+"Battle_of_Changsha_(1939)": "",
+"New_Order_in_East_Asia": "",
+"Three_Alls_policy": "",
+"Provisional_Government_of_the_Republic_of_China_(1937–1940)": "",
+"Shaan-Gan-Ning_Border_Region": "",
+"Khabarovsk_war_crimes_trials": "",
+"Zhejiang-Jiangxi_campaign": "",
+"Nanking_Safety_Zone": "",
+"Yasuji_Okamura": "",
+"Operation_Beleaguer": "",
+"China_Expeditionary_Army": "",
+"Gozen_Kaigi": "",
+"Japanese_occupation_of_southern_French_Indochina": "",
+"Executive_Order_8832": "",
+"Hull_note": "",
+"Isoroku_Yamamoto": "",
+"Combined_Fleet_Operation_Order_No._1": "",
+"Battleship_Row": "",
+"Day_of_Infamy_speech": "",
+"German_declaration_of_war_on_the_United_States": "",
+"Greer_incident": "",
+"Southern_Operation": "",
+"Force_Z": "",
+"Malayan_campaign": "",
+"Fall_of_Singapore": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16515,7 +16540,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Army_Group_Centre": ["Army Group Center","Heeresgruppe Mitte"],
 "Deep_operation": ["deep operation","deep operations","operation in depth","deep battle"],
 "Lvov–Sandomierz_offensive": ["Lvov-Sandomierz offensive","Lwów–Sandomierz offensive","Lviv–Sandomierz offensive"],
-"1st_Air_Fleet": ["First Air Fleet"]
+"1st_Air_Fleet": ["First Air Fleet"],
+"Battle_of_Changsha_(1939)": ["First Battle of Changsha"],
+"Provisional_Government_of_the_Republic_of_China_(1937–1940)": ["Provisional Government of the Republic of China"],
+"Shaan-Gan-Ning_Border_Region": ["Shensi-Kansu-Ninghsia Border Region"],
+"Khabarovsk_war_crimes_trials": ["Khabarovsk war crimes trial","Khabarovsk trial"],
+"Gozen_Kaigi": ["gozen kaigi"],
+"Hull_note": ["Hull Note"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24411,7 +24442,32 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kokoda_Track_campaign": ["battle","history","warfare","australia","japan","papua new guinea"],
 "China_Incident": ["event","history","warfare","politics","japan","china"],
 "National_Revolutionary_Army": ["institution","history","military","warfare","china"],
-"Eighth_Route_Army": ["institution","history","military","warfare","china"]
+"Eighth_Route_Army": ["institution","history","military","warfare","china"],
+"Battle_of_Changsha_(1939)": ["battle","history","warfare","china","japan"],
+"New_Order_in_East_Asia": ["policy","history","politics","japan","china"],
+"Three_Alls_policy": ["policy","history","warfare","china","japan"],
+"Provisional_Government_of_the_Republic_of_China_(1937–1940)": ["state","history","politics","china","japan"],
+"Shaan-Gan-Ning_Border_Region": ["state","history","politics","china"],
+"Khabarovsk_war_crimes_trials": ["event","history","law","warfare","japan","russia"],
+"Zhejiang-Jiangxi_campaign": ["event","history","warfare","china","japan"],
+"Nanking_Safety_Zone": ["place","history","warfare","china","nanjing"],
+"Yasuji_Okamura": ["person","history","warfare","japan","china"],
+"Operation_Beleaguer": ["event","history","warfare","china","united states"],
+"China_Expeditionary_Army": ["institution","history","warfare","japan","china"],
+"Gozen_Kaigi": ["institution","history","politics","japan"],
+"Japanese_occupation_of_southern_French_Indochina": ["event","history","warfare","japan","vietnam"],
+"Executive_Order_8832": ["text","history","politics","economics","united states"],
+"Hull_note": ["text","history","politics","diplomacy","united states","japan"],
+"Isoroku_Yamamoto": ["person","history","warfare","japan","navy"],
+"Combined_Fleet_Operation_Order_No._1": ["text","history","warfare","second world war","japan"],
+"Battleship_Row": ["place","history","warfare","second world war","united states","hawaii"],
+"Day_of_Infamy_speech": ["text","history","politics","second world war","united states"],
+"German_declaration_of_war_on_the_United_States": ["event","history","politics","second world war","germany","united states"],
+"Greer_incident": ["event","history","warfare","second world war","united states","germany"],
+"Southern_Operation": ["event","history","warfare","second world war","japan"],
+"Force_Z": ["event","history","warfare","second world war","united kingdom"],
+"Malayan_campaign": ["war","history","warfare","second world war","malaya","japan"],
+"Fall_of_Singapore": ["battle","history","warfare","second world war","singapore"]
 });
 
 /* ============================================================================
