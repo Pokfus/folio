@@ -623,6 +623,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Battle of the Milvian Bridge | 28 October 312 CE | `rm-578` |
 | the labarum: on a coin / described by Eusebius | 327 CE / 337 – 340 CE | `rm-579` |
 | the "Edict of Milan": the meeting / the letter posted | 313 CE / June 313 CE | `rm-580` |
+| Licinius: born / raised / surrendered / executed | c. 265 CE / 11 November 308 CE / 324 CE / 325 CE | `rm-581` |
+| the Battle of Chrysopolis | 18 September 324 CE | `rm-582` |
+| the First Council of Nicaea opened | 20 May 325 CE (Socrates; the creed perhaps 19 June) | `rm-583` |
+| the Nicene Creed: issued / enlarged | 325 CE / 381 CE (by tradition, first attested at Chalcedon in 451) | `rm-584` |
+| "Arianism" (its opponents' label): the dispute began / the Homoian creed / ended in the empire | c. 318 – 321 CE / 359 – 360 CE / 381 CE | `rm-585` |
+| Constantinople: consecrated / dedicated / taken by the Ottomans | 8 November 324 CE / 11 May 330 CE / 29 May 1453 | `rm-586` |
+| the solidus: the Trier issue / the weighing law / the city weighers / a new standard | 310 – 313 CE / 19 July 325 CE / 23 April 363 CE / 1092 | `rm-587` |
+| the magister militum in the eastern Notitia | c. 395 CE (also dated c. 450 CE) | `rm-588` |
+| comitatenses named in a law | 17 June 325 CE | `rm-589` |
+| the magister officiorum: named in a law / gained the arsenals | 320 or 321 CE / 396 CE | `rm-590` |
 
 ## Chronology pins
 
@@ -1190,4 +1200,14 @@ rm-577: 273; 306; 337
 rm-578: 312
 rm-579: 327; 337; 340
 rm-580: 313
+rm-581: 265; 308; 324; 325
+rm-582: 324
+rm-583: 325
+rm-584: 325; 381
+rm-585: 318; 321; 359; 360; 381
+rm-586: 324; 330; 1453
+rm-587: 310; 313; 325; 363; 1092
+rm-588: 395; 450
+rm-589: 325
+rm-590: 320; 321; 396
 ```

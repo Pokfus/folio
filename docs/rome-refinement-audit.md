@@ -190,7 +190,7 @@ order unless the user says otherwise.
 | B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | **done 2026-10-30** |
 | B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | **done 2026-10-30** |
 | B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | **done 2026-10-30** |
-| B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | open |
+| B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | **done 2026-10-30** |
 | B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | open |
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | open |
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | open |
@@ -850,6 +850,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-578` Battle of the Milvian Bridge | Giulio Romano's Vatican fresco | acceptable: a Renaissance painting where no ancient image exists |
 | `rm-579` labarum | a follis of Constantinople with the labarum and serpent | ok |
 | `rm-580` Edict of Milan | the letter in Christopherson's Latin Eusebius of 1570 | weak: the card no longer makes the 1570 claim; a Milan plaque would suit |
+| `rm-581` Licinius | none | not re-checked: the card has no picture |
+| `rm-582` Battle of Chrysopolis | none | not re-checked: the card has no picture |
+| `rm-583` First Council of Nicaea | none | not re-checked: the card has no picture |
+| `rm-584` Nicene Creed | none | not re-checked: the card has no picture |
+| `rm-585` Arianism | none | not re-checked: the card has no picture |
+| `rm-586` Constantinople | none | not re-checked: the card has no picture; the glossary's Column of Constantine would do |
+| `rm-587` solidus | none | not re-checked: the card has no picture (the plan suggests a Met CC0 solidus) |
+| `rm-588` magister militum | none | not re-checked: the card has no picture |
+| `rm-589` comitatenses | none | not re-checked: the card has no picture |
+| `rm-590` magister officiorum | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -2255,3 +2265,22 @@ Run as B57. Every draft compared with its card after `batch.sh`: no mismatch. Be
 | `rm-580` Edict of Milan | 8 | 6 → 8 | **Neither an edict nor issued at Milan (Kahlos's review), the debate shown; Lactantius gives "the ides of June", unconverted, so June 313 CE**; the 16th-century-translation origin of the name rested on an unreachable article and goes. |
 
 **Read by eye.** *Confusability:* `rm-571`/`rm-572` the tax (Optatus's edict) and the prices (the labourer's 25 denarii); `rm-573`/`rm-574` the persecution (the Terminalia) and the persecutor (the run beside the chariot); `rm-575`/`rm-576` the palace (Salona's refugees) and the conference (the Mithras altar); `rm-577`/`rm-578`/`rm-579`/`rm-580` the emperor (the portrait at York), the battle (the games), the standard (fifty bearers) and the letter (Nicomedia). *Legend:* Constantine's vision, Galerius's illness and Fausta's bath are their authors'. *Overlap:* `wh-372` gives Constantine's birth as c. 271 – 273 CE; nothing disagrees outright.
+
+### B59 — `rm-581`–`rm-590`, Diocletian and Constantine: Licinius to the magister officiorum (2026-10-30)
+
+Run as B58. Every draft compared with its card after `batch.sh`: no mismatch. Before applying, `rm-585`'s third phrasing (it carried "Arian") and `rm-588`'s first date row ("c. 320 – 330 CE", a range made from "the 320s") were changed by hand; after applying, `check-cards` read "Gothic Christians" in `rm-585`'s second phrasing as a scholar, and the card was reworded and re-applied. Checks: `rm-audit.js --range=rm-581:rm-590` reports `I.none` on all ten (none of these cards has a picture) and `W.not-why` (advisory, one card). `rm-582`'s `timeline` stays at 18 September 324 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The De Imperatoribus Romanis site answered 502 or was refused all session; its pages were replaced. **The old date lines carried another battle ("Adrianople 3 July 324 CE" on Chrysopolis), a later edict that is another card's (`Cunctos populos` on Arianism), a Justinianic law two centuries on ("African law 13 April 534 CE", "Justinian's law 531 – 534 CE") and a writer's own tenure for an office ("Cassiodorus c. 526 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-581` Licinius | 6 | 7 → 8 | **The war of Cibalae and Mardia 314 or 316; Lactantius's angel-dictated prayer and his 30,000 against 70,000 are his**; the persecution Eusebius's, hostile; the unsourced synod ban goes; the death told three ways. |
+| `rm-582` Battle of Chrysopolis | 6 | 6 → 8 | **Adrianople off the line; the day is the Consularia's "XIIII kal. Oct." as Livius reads it**; every army and loss figure is Zosimus's or the Origo's. |
+| `rm-583` First Council of Nicaea | 8 | 8 → 9 | **The bishops counted by each witness, none chosen (Eusebius over 250, Athanasius about 300, Socrates 318)**; 20 May from Socrates, 19 June for the creed in the acts of Chalcedon; Sozomen's 320, the burned petitions and the low stool go. |
+| `rm-584` Nicene Creed | 8 | 8 → 10 | **"Nicene Creed" today means the longer text, credited to Constantinople 381 only from Chalcedon in 451**; the curses and homoousios; the five who refused; the filioque one sentence. |
+| `rm-585` Arianism | 7 | 8 → 8 | **The name is its enemies' (Athanasius's "Ario-maniacs"; Löhr, Webb), the record polemical (Gwynn)**; the dispute c. 318 – 321 CE; Jerome's groaning world attributed; `Cunctos populos` left to `rm-605`. |
+| `rm-586` Constantinople | 8 | 8 → 9 | **No dates in the questions; "New Rome" from Socrates (the 381 canon not read); no population without a source**; consecrated 8 November 324 CE (Livius), the yearly procession of 11 May (Berger); the senate first of *clari*, then Constantius's. |
+| `rm-587` solidus | 7 | 8 → 8 | **"The rest of the empire's history" was wrong: debased in the 11th century, put on a new standard in 1092 (Grierson)**; about 4.5 g (Grierson, Schibille); the Trier row an issue, not the coin's first year. |
+| `rm-588` magister militum | 6 | 8 → 7 | **The office is "probably of the 320s" in prose, not a range on the line**; the eastern Notitia c. 395 or c. 450 CE; Silvanus left to `rm-590`; Arbogast and Stilicho as later holders. |
+| `rm-589` comitatenses | 6 | 7 → 6 | **Named in the law of 17 June 325 CE, posted at Antioch; the law of 534 and Procopius go**; the unsourced 25,000 men for Galerius's field force go; Zosimus a pagan who blamed Constantine. |
+| `rm-590` magister officiorum | 6 | 7 → 6 | **The first law 320 or 321 CE (the edition's 320/1, Boak's 321); the arsenals 396 CE replace Cassiodorus's tenure**; Lydus one historian's reading of a partisan source. |
+
+**Read by eye.** *Confusability:* `rm-581`/`rm-582` the emperor (New Dacia, the angel's prayer) and his last battle (Alica's Goths); `rm-583`/`rm-584`/`rm-585` the council (Easter, the counts), the creed (homoousios) and the movement (its name); `rm-586`/`rm-587` the city (New Rome) and the coin (the zygostates); `rm-588`/`rm-589`/`rm-590` the general (Zosimus's split command), the field army (the palatini) and the palace master (the agentes in rebus). *Legend:* Lactantius's angel and Constantine's golden chair are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
