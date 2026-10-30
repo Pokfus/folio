@@ -306,9 +306,72 @@ GRAMMAR_B1 = [  # the programme's own words
     "öncelikle", "artık", "itibaren", "dolayısıyla", "yüzünden", "sayesinde", "örnek", "yine",
 ]
 
-LEVELS = {"a1": A1, "a2": A2, "b1": B1}
-GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2, "b1": GRAMMAR_B1}
-GRAMMAR_PAGE = {"a1": 83, "a2": 83, "b1": 84}
+# Ortaöğretim B2, pp. 285-294.  FOLIO'S words for each theme's "Örnek Konular"; the programme lists no
+# B2 vocabulary.
+B2 = [
+    (285, "B2 1 Dünyayı Dönüştürenler — biographies of scientists and historical figures, discoveries, events", [
+        "biyografi", "hayat hikâyesi", "doğmak", "ölüm", "dönem", "çağ", "imparatorluk", "imparator", "fetih",
+        "fethetmek", "devrim", "reform", "olgu", "kaşif", "bilgin", "düşünür", "filozof", "kuram", "yayımlamak",
+        "eser", "katkı", "etkilemek", "infografik", "dizge", "sıralamak", "kronoloji", "anlatım",
+    ]),
+    (286, "B2 2 Mecazların Dünyası — idioms and proverbs, poetry, humour, folk songs, stories, legends", [
+        "mecaz", "mecazi", "deyim", "atasözü", "şiir", "şair", "dize", "kafiye", "türkü", "edebiyat",
+        "anlatıcı", "öykü", "simge", "sembol", "benzetme", "abartı", "gerçek", "ima", "ironi", "anlamak",
+        "yorumlamak", "nükte",
+    ]),
+    (287, "B2 3 Bir Açık Hava Müzesi: Anadolu — historical and natural sites, travel writing, outsiders' views", [
+        "Anadolu", "katalog", "peribacası", "antik kent", "harabe", "ören yeri", "kazı", "arkeolog", "arkeoloji",
+        "heykel", "kabartma", "mozaik", "tiyatro", "tapınak", "seyyah", "seyahatname", "gezgin", "izlenim",
+        "miras", "eşsiz", "büyüleyici", "kalıntı", "tarih öncesi", "medeniyet",
+    ]),
+    (288, "B2 4 Kariyer Planım — career aptitude tests, personality inventories, jobs of the future", [
+        "eğilim", "envanter", "yetkinlik", "beceri", "deneyim", "tecrübe", "özgeçmiş", "mülakat", "staj",
+        "stajyer", "işveren", "çalışan", "terfi", "istifa", "emeklilik", "sektör", "alan", "uzmanlık",
+        "girişimci", "serbest", "mesai", "verimli", "hedef", "motivasyon",
+    ]),
+    (289, "B2 5 Türkiye'de Öğrenci Olmak — the education system, housing, universities, applications, permits", [
+        "eğitim sistemi", "lisans", "yüksek lisans", "doktora", "fakülte", "rektör", "dekan", "akademisyen",
+        "burs", "harç", "kontenjan", "barınma", "konut", "kira", "broşür", "başvurmak", "denklik", "diploma",
+        "transkript", "oturma izni", "vize", "pasaport", "noter", "tercüme", "onaylamak", "belgelemek",
+        "kayıt yaptırmak", "dönem", "yurt",
+    ]),
+    (290, "B2 6 Geleceğin Dünyası — science and technology, online shopping, consumerism, AI, utopia", [
+        "yapay zekâ", "kodlama", "algoritma", "yazılım", "donanım", "otomasyon", "otomatik", "veri", "ağ",
+        "tüketici", "tüketim", "çılgınlık", "reklam", "marka", "ütopya", "distopya", "kurgu", "bilim kurgu",
+        "uluslararası", "küresel", "yenilik", "ilerleme", "insansız",
+    ]),
+    (291, "B2 7 Kültür Atlası — marriage rituals, customs and beliefs, from birth to death, seasonal festivals", [
+        "ritüel", "âdet", "inanç", "batıl", "gelin", "damat", "nişan", "kına", "çeyiz", "nikâh", "söz",
+        "belgesel", "doğum", "sünnet", "cenaze", "yas", "taziye", "nevruz", "takvim", "uğur", "uğursuz",
+        "nazar", "dilek", "isim koymak",
+    ]),
+    (292, "B2 8 Sular Isınıyor — natural disasters, pollution, global warming, recycling, renewable energy", [
+        "afet", "doğal afet", "deprem", "sel", "heyelan", "tsunami", "kasırga", "orman yangını", "küresel ısınma",
+        "iklim değişikliği", "sera", "karbon", "emisyon", "fosil", "yakıt", "yenilenebilir", "güneş enerjisi",
+        "rüzgâr", "nükleer", "sürdürülebilir", "önlem", "tedbir", "buzul", "erimek", "kuraklık",
+    ]),
+    (293, "B2 9 Kitap Kurdu — the history of writing, e-books, reviews, libraries, literary texts, book fairs", [
+        "kitap kurdu", "yazı", "matbaa", "basım", "yayınevi", "yayımcı", "baskı", "e-kitap", "sesli kitap",
+        "eleştirmen", "değerlendirme", "özet", "bülten", "edebî", "roman", "romancı", "öykü", "deneme",
+        "anı", "okur", "okuyucu", "imza günü", "kitapçı", "raf", "serüven",
+    ]),
+    (294, "B2 10 Müziğin Dünyası — Turkish song and folk song, musicians' lives, world music and instruments", [
+        "müzisyen", "besteci", "beste", "bestelemek", "söz yazarı", "söyleşi", "albüm", "konser", "orkestra",
+        "koro", "şef", "solist", "melodi", "ritim", "ezgi", "nota", "tarz", "caz", "klasik", "halk müziği",
+        "bağlama", "ud", "kanun", "ney", "flüt",
+    ]),
+]
+
+# §7, B2 (p. 84): the conjunctions and fixed expressions its grammar list names.
+GRAMMAR_B2 = [  # the programme's own words
+    "oysaki", "hâlbuki", "meğerse", "mademki", "ne var ki", "veyahut", "lâkin", "dahi", "öyleyse", "oysa",
+    "yeter ki", "bilakis", "bari", "bundan böyle", "şayet", "takdirde", "süresince", "ilaveten", "oranla",
+    "nispetle", "kıyasla", "varsaymak", "farz etmek", "muhtemelen", "olanaklı", "olası", "öngörmek",
+]
+
+LEVELS = {"a1": A1, "a2": A2, "b1": B1, "b2": B2}
+GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2, "b1": GRAMMAR_B1, "b2": GRAMMAR_B2}
+GRAMMAR_PAGE = {"a1": 83, "a2": 83, "b1": 84, "b2": 84}
 LISTED = {"a1"}        # the levels whose inventory is the programme's own column (the rest are Folio's)
 
 BACK = set("aıou")

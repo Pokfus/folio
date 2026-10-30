@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 156 MB of decks. The file itself is fetched on Add. */
+   section without fetching 157 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -30,6 +30,7 @@ window.LANG_DECKS = [
   { lang: "Turkish", file: "Turkish-A1.folio-deck.json", id: "turkisha1", title: "Turkish A1", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, say: false, bytes: 680115, rev: "b3805cd5a9f2" },
   { lang: "Turkish", file: "Turkish-A2.folio-deck.json", id: "turkisha2", title: "Turkish A2", sub: "600 words · both directions, as two cards per word", notes: 600, cards: 1200, ex: 100, say: false, bytes: 823127, rev: "4b98afe10a2c" },
   { lang: "Turkish", file: "Turkish-B1.folio-deck.json", id: "turkishb1", title: "Turkish B1", sub: "999 words · both directions, as two cards per word", notes: 999, cards: 1998, ex: 100, say: false, bytes: 1381567, rev: "ffe5ea93d2e6" },
+  { lang: "Turkish", file: "Turkish-B2.folio-deck.json", id: "turkishb2", title: "Turkish B2", sub: "1197 words · both directions, as two cards per word", notes: 1197, cards: 2394, ex: 99, say: false, bytes: 1648578, rev: "d0abf1ae8d05" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },

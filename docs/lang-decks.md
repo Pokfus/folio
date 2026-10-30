@@ -3194,8 +3194,9 @@ changed was the one that had been wrong all along.
 - `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
-  1,000 cards, 0.7 MB) **A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB) **and B1 (with the programme's B1+),
-  `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB).
+  1,000 cards, 0.7 MB) **A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB) **B1 (with the programme's B1+),
+  `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB) **and B2, `decks/Turkish-B2.folio-deck.json`**
+  (1,197 / 2,394, 1.6 MB).
   `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
   `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
   run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
@@ -3251,6 +3252,20 @@ changed was the one that had been wrong all along.
   "involvement", `açılmak` "to leave port", `vurulmak` "to fall in love" — its count is "to be shot"),
   English and names in the subtitles (`is`, `ten`, `don`, `sara`, `han`), and slurs and insults (`zenci`,
   `piç`, `fahişe`). None changed A1; A2 lost `adım` and gained `fırsat`.
+  **B2: the forms rows needed two more checks, each a rule of Turkish rather than a list.** (9) A vowel-final
+  noun's case cell must carry a consonant before its case vowel (`kapı-y-ı`, `havalimanı-n-ı`, `su-y-un`):
+  Wiktionary's table gives `belirtii`, `komploa`, `ezgii`, and those cells are dropped and reported — a
+  first draft demanded the REGULAR consonant (`y` / `n`) and refused every lexicalised possessive
+  (`havalimanını`, `birisine`, `hangisini`) and `suyun`, so the rule is only "not a vowel". (10) The aorist
+  check has a SECOND WITNESS, the closed rule — a one-syllable consonant stem takes -Ar except thirteen (`al`,
+  `bil`, `bul`, `dur`, `gel`, `gör`, `kal`, `ol`, `öl`, `san`, `var`, `ver`, `vur`) that take -Ir — so a rare
+  aorist the rule contradicts goes too (`burır`); and the corpus witness no longer counts an alternative
+  that is ANOTHER verb's cell, after it dropped the correct `incelir` because `inceler` (incelemek's aorist)
+  is common. Neither changed A1–B1 by a byte. "dated spelling of X" is a pointer (`özgeçmiş`). The hand
+  list took B2's subtitle fragments (`me` "baa", `do`, `si`, `mars`), aorists filed as nouns (`tutar`,
+  `geçer`, `keser` — not a rule, since A1's `olur` "OK" and A2's `yeter` "enough!" have the same shape and
+  are real interjections), possessive and instrumental forms with entries (`içim`, `babamla`, `hocam`), and
+  slurs and slang (`ibne`, `şerefsiz`, `gerizekâlı`, `kanka`).
   **The description must not claim a table says what only another table says**: B1's first draft read "its
   B1 table says the vocabulary section was left out" — only A2's says so; B1's simply has none.
   The Arabic letters' names are dropped like the Latin ones (`nun`, `be`, `ha`); `possessive` joined the

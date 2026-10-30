@@ -37,7 +37,7 @@ POS_NAME = {"noun": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb",
             "num": "numeral", "postp": "postposition", "conj": "conjunction", "det": "determiner",
             "intj": "interjection", "particle": "particle", "classifier": "counter word"}
 MAX_SENSES = 5
-XREF = re.compile(r"^(?:synonym|alternative form|alternative spelling|variant) of (\S+)(?:\s*\(“([^”]+)”\))?", re.I)
+XREF = re.compile(r"^(?:synonym|alternative form|(?:\w+ )?spelling|variant) of (\S+)(?:\s*\(“([^”]+)”\))?", re.I)
 DROP_GLOSS = re.compile(r"^(only used in|used in the form|used in|\(used in)", re.I)
 STAMP = 1793318400000                  # 2026-10-30, fixed so a re-run is byte-identical
 E = lambda s: html.escape(s, quote=True)
@@ -97,6 +97,20 @@ OTHER_TENSES = {"aorist", "continuative", "past", "future", "inferential", "prog
                 "conditional", "optative", "imperative", "negative", "potential", "subjunctive"}
 
 
+VOWEL_END = set("aeıioöuü")
+# A vowel-final noun takes a buffer consonant before a case vowel: kapı-y-ı, kapı-y-a, kapı-n-ın -- and
+# `n` after a lexicalised possessive (havalimanı-n-ı, birisi-n-e), `y` in `suyun`.  Wiktionary's table
+# drops it altogether now and then (`belirtii`, `ezgii`): such a cell is dropped and reported.  A first
+# version demanded the regular consonant and refused every lexicalised possessive.
+BUFFER = {"accusative", "dative", "genitive"}
+
+
+def cell_ok(word, label, f):
+    if label not in BUFFER or word[-1] not in VOWEL_END or not f.startswith(word) or len(f) == len(word):
+        return True
+    return f[len(word)] not in VOWEL_END
+
+
 def noun_row(word, e, pron=False):
     t = tr.table_forms(e, word)
     cells = []
@@ -105,14 +119,33 @@ def noun_row(word, e, pron=False):
             continue
         hit = next((f for f, tg in t if need <= set(tg) and not set(tg) & avoid), None)
         if hit and hit != word:
+            if not cell_ok(word, label, hit):
+                REPORT.append("%s: %s cell %r lacks its buffer consonant, dropped" % (word, label, hit))
+                continue
             cells.append((label, hit))
     return cells
 
 
 FREQ = {}
+AORIST_IR = {"al", "bil", "bul", "dur", "gel", "gör", "kal", "ol", "öl", "san", "var", "ver", "vur"}
 
 
-def aorist_doubtful(f):
+VERB_CELLS = {}
+
+
+def other_verbs_cell(form, word):
+    """Whether `form` is a cell of another verb's table: `inceler` is incelemek's aorist, so it says nothing
+    against incelmek's `incelir` (the first draft of this check dropped that correct cell)."""
+    if not VERB_CELLS:
+        for w, entries in tr.load_dict().items():
+            for e in entries:
+                if e["pos"] == "verb" and tr.live(e):
+                    for f, _ in tr.table_forms(e, w):
+                        VERB_CELLS.setdefault(tr.fold(f), set()).add(w)
+    return bool(VERB_CELLS.get(tr.fold(form), set()) - {word})
+
+
+def aorist_doubtful(f, word=""):
     """THE AORIST'S VOWEL IS THE ONE CELL A LEARNER CANNOT PREDICT, so it is checked against the corpus.
     `değmek`'s table gives `değir` (5 in the subtitles) where Turkish says `değer` (20,762); an aorist is
     dropped when it is rare (under 50) and the same stem with the other vowel is ten times commoner."""
@@ -128,7 +161,16 @@ def aorist_doubtful(f):
         return False
     other = {"a": "ı", "e": "i", "ı": "a", "i": "e", "u": "a", "ü": "e"}[m.group(2)]
     alt = m.group(1) + other + "r"
-    return FREQ.get(f, 0) < 50 and FREQ.get(alt, 0) > 10 * max(1, FREQ.get(f, 0))
+    if FREQ.get(f, 0) >= 50 or other_verbs_cell(alt, word):
+        return False
+    # A SECOND WITNESS, THE RULE: a one-syllable consonant stem takes -Ar, except a closed set of thirteen
+    # that take -Ir.  `burmak`'s table gives `burır`, which neither the rule nor the corpus supports.
+    stem = word[:-3]
+    rule_says_ir = None
+    if sum(c in VOWEL_END for c in stem) == 1 and stem[-1] not in VOWEL_END:
+        rule_says_ir = stem in AORIST_IR
+    rule_disagrees = rule_says_ir is not None and rule_says_ir != (m.group(2) in "ıiuü")
+    return FREQ.get(alt, 0) > 10 * max(1, FREQ.get(f, 0)) or rule_disagrees
 
 
 def verb_row(word, e):
@@ -145,7 +187,7 @@ def verb_row(word, e):
         if not shape(f) or f[0] != word[0]:
             REPORT.append("%s: %s cell %r has the wrong shape, dropped" % (word, label, f))
             continue
-        if label == "aorist" and aorist_doubtful(f):
+        if label == "aorist" and aorist_doubtful(f, word):
             REPORT.append("%s: aorist %r is rare in the corpus beside its other vowel, dropped" % (word, f))
             continue
         cells.append((label, f))

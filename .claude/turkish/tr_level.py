@@ -45,6 +45,18 @@ SCOPE = {
         "pages": "pp. 265–274, with B1+ on pp. 275–284",
         "listed": False,
     },
+    "b2": {
+        "themes": "people and events that changed the world, figurative language, Anatolia as an open-air museum, "
+                  "planning a career, studying in Turkey, the world of the future, an atlas of cultures, a "
+                  "warming planet, books and reading, and music",
+        "topics": "biographies and historical events, idioms, proverbs, poetry and folk songs, Anatolia's historic "
+                  "and natural sites and travel writing, aptitude tests and the jobs of the future, the education "
+                  "system, housing, applications and residence permits, artificial intelligence and consumerism, "
+                  "wedding rituals and customs from birth to death, natural disasters, global warming and "
+                  "renewable energy, publishing, reviews and libraries, musicians, instruments and world music",
+        "pages": "pp. 285–294",
+        "listed": False,
+    },
 }
 
 FIELDS = ["Turkish", "Word", "English", "Forms", "Examples"]

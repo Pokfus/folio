@@ -45,7 +45,7 @@ from collections import defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tr, supplement
 
-SIZE = {"a1": 500, "a2": 600, "b1": 1000}
+SIZE = {"a1": 500, "a2": 600, "b1": 1000, "b2": 1200}
 TOP_SURFACES = 80000
 
 # An inventory entry the dictionary does not carry, mapped to what it does, with the reason.
@@ -86,6 +86,19 @@ EXCLUDE = {
     "yumak",                     # "ball of yarn": its count is not the yarn's (the yumak/yummak stem)
     "dahil", "açılmak", "vurulmak",  # the dictionary carries only a rare sense (involvement; to leave
                                  # port; to fall in love) of a word whose count is its common one
+    "geçer", "tutar", "çalar", "döner", "duyar", "keser",  # filed as an adjective or noun ("valid",
+                                 # "amount", "adze"), counted as the aorist of geçmek, tutmak, çalmak ... --
+                                 # not a rule, since `olur` "OK" and `yeter` "enough!" are the same shape
+                                 # and are real interjections
+    "değeri", "gözle", "içim", "aşkın", "babamla", "hocam",  # possessive and instrumental forms with an
+                                 # entry of their own, counted as değer, göz, iç, aşk, baba, hoca inflected
+    "me", "do", "si", "id", "nü", "rop", "pat", "mars", "sin",  # a sheep's baa, notes, backgammon: their
+                                 # counts are English, Spanish and suffix fragments in the subtitles
+    "ibne", "şerefsiz", "sıçmak", "gerizekâlı",  # slurs and vulgarities, untagged in the source
+    "kanka", "harbi",            # slang ("bro", "for real"), untagged
+    "tara", "dolaşıp",           # "grain": counted as taramak's imperative and a name; a converb
+    "bekar", "hatun", "komak",   # bekâr without its circumflex (A2); "khatun" counted as colloquial
+                                 # "woman"; a spoken koymak
     "nerde",                     # a spoken spelling of nerede (A1), filed as an adverb so no rule reaches it
     "tabi",                      # "subject to": its count is the subtitles' misspelling of `tabii`, "of course"
 }
