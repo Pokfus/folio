@@ -174,7 +174,7 @@ order unless the user says otherwise.
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | **done 2026-10-30** |
 | B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | **done 2026-10-30** |
 | B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | **done 2026-10-30** |
-| B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | open |
+| B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | **done 2026-10-30** |
 | B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | open |
 | B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | open |
 | B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | open |
@@ -690,6 +690,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-418` dies imperii | a Roman public calendar (the Fasti Praenestini) | acceptable stand-in: it shows no dies imperii entry |
 | `rm-419` Germanicus | a portrait bust of Germanicus | ok |
 | `rm-420` Percennius | none | no picture (`I.none`): no portrait of a private soldier exists |
+| `rm-421` Arminius | the gravestone of Marcus Caelius | wrong subject: a centurion who died in the Varian war (it suits `rm-414`) |
+| `rm-422` Gnaeus Calpurnius Piso | none | no picture (`I.none`) |
+| `rm-423` Sejanus | the wall of the praetorian camp | weak: the camp (`rm-399`'s subject), not the man |
+| `rm-424` Macro | none | no picture (`I.none`); no certain portrait exists. The Gemonian Stairs locator belongs to Sejanus |
+| `rm-425` Capreae | ruins on the heights of Capri | ok |
+| `rm-426` maiestas | the senate house in the Roman Forum | weak: a building for a legal concept |
+| `rm-427` Caligula | a portrait bust of Gaius | ok; the credit names no author |
+| `rm-428` Incitatus | a named racehorse in a Roman mosaic | wrong: the Sousse mosaic shows another horse (Amator); the Circus Maximus locator is in neither source |
+| `rm-429` Cassius Chaerea | a covered passage on the Palatine | wrong in kind: a Neronian cryptoporticus built after Gaius's death |
+| `rm-430` Claudius | Claudius in the guise of Jupiter | ok |
 
 ## Glossary candidates
 
@@ -1773,3 +1783,22 @@ Run as B41; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-420` Percennius | 5 | 7 → 5 | **His speech is Tacitus's composition; the eclipse is 27 September 14 CE in NASA's catalogue (Furneaux: 26 September), Tacitus gives no day**; the Rhine mutiny is kept for `rm-644`. |
 
 **Read by eye.** *Confusability:* `rm-411`/`rm-412` the wife (the figs) and the grandson (Clemens); `rm-413`/`rm-414`/`rm-419` the father (the Elbe), the battle (the bones) and the son (the Antioch spells); `rm-415`/`rm-418` the cult (Atticus's oath) and the counting day (the Arval acts); `rm-416`/`rm-417` the house and the man; `rm-420` the mutineer. *Legend:* the woman at the Elbe, Augustus's cry for his legions and the smothering of Tiberius are their authors'. *Overlap:* `wh-366` gives Nero's death as 9 June 68 CE, as `rm-416` does.
+
+### B43 — `rm-421`–`rm-430`, the Julio-Claudians: Arminius to Claudius (2026-10-30)
+
+Run as B42 (the research agents were stopped by a usage limit mid-hundred and resumed on their saved pages); every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-421:rm-430` reads clean on four cards; the rest carry `S.chip?` on `rm-421` and `rm-423` (English BMCR reviews of German-titled books: the known false positive), `I.none` on `rm-422` and `rm-424`, and `W.not-why` (advisory, three cards). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when the host answered and one Perseus dictionary entry (Lewis and Short) that answers a script 403. **The old cards leaned on one ancient author three or four times (Suetonius four times on Capreae, three times on Chaerea and Macro); their date lines carried another man's reign ("Tiberius's reign 14 – 37 CE", "Owner died 24 January 41 CE"), an omen ("Lighthouse fell 37 CE") and a back-calculated birth ("c. 18 BCE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-421` Arminius | 8 | 9 → 9 | **"c. 18 BCE" was a back-calculation from Tacitus's thirty-seven years and goes; the death is 19 CE (the Cambridge Ancient History) or 21 CE (Furneaux's count), both shown**; "liberator of Germany" is Tacitus's verdict; "Strabo watched the triumph" was wrong (he lists the captives). |
+| `rm-422` Gnaeus Calpurnius Piso | 5 | 9 → 6 | **The old card and glossary said the Senate "acquitted" him of poisoning: Tacitus says only that the charge seemed answered, and the decree shows no formal murder charge** (Flower's review); the decree's 10 December 20 CE on the line; Celenderis, the fort he held, keeps its locator. |
+| `rm-423` Sejanus | 7 | 9 → 7 | **"Camp built by 23 CE" dated nothing a source prints and goes**; executed 18 October 31 (the Cambridge Ancient History's day: Dio gives none); Drusus's poisoning is Tacitus's report from Apicata's statement and confessions under torture; Velleius wrote at Sejanus's height. |
+| `rm-424` Macro | 5 | 8 → 6 | The letter scene from Macro's side only (Dio); **the smothering of Tiberius is Tacitus's version against Dio's, with the Cambridge Ancient History's doubt**; Ennia in three conflicting versions; Egypt and the suicide of 38. The Gemonian Stairs locator was Sejanus's. |
+| `rm-425` Capreae | 7 | 10 → 8 | **The lighthouse omen leaves the line; Tacitus's twelve villas are his count, from a passage whose text is unstable**; the debauchery is Tacitus's and Suetonius's, set against the Cambridge Ancient History's note that no first-century writer tells it; the exchange with Naples added. |
+| `rm-426` maiestas | 6 | 9 → 8 | The line is now the law's own: the lex Appuleia (100 BCE, Furneaux), the revival of 15 CE and Gaius's of 39 CE (the Loeb translator's margin, said so); **Tacitus's framing is called hostile**; the informers' reward is left to `rm-482`. |
+| `rm-427` Caligula | 9 | 9 → 9 | **31 August and 24 January are the moderns' forms of Suetonius's Roman days**; the "little boots" question goes to `rm-662`; the illness of 37 (Philo, a hostile contemporary), the bridge at Baiae, the shells with Winterling's reading, the Temple statue. |
+| `rm-428` Incitatus | 7 | 7 → 8 | **The consulship never happened, said plainly; the name means "swift", not "at full gallop"**; Dio's fellow-priest added; a satire on the Senate or a joke, both modern readings; the line is Gaius's reign, the period the anecdote belongs to. |
+| `rm-429` Cassius Chaerea | 6 | 8 → 8 | **The old card cited a Russian article that never names him**; the Rhine-mutiny row is Tacitus's mention; the taunts and watchwords Suetonius's; Josephus the fullest narrative, probably drawing on Cluvius Rufus (Wiseman, via BMCR). |
+| `rm-430` Claudius | 9 | 9 → 9 | **"Died 54 CE" is now 13 October (Suetonius's third day before the Ides)**; the poisoning is the ancient authors' report, with Suetonius's own admission that the poisoner and method were disputed; the siblings' clues (aqueduct, Fucine lake, maiestas) are dropped. |
+
+**Read by eye.** *Confusability:* `rm-421`/`rm-422` the German (Flavus across the Weser) and the governor (the decree at Seville); `rm-423`/`rm-424` the fallen prefect (Apicata) and his successor (the letter, Ennia); `rm-425`/`rm-426` the island and the law; `rm-427`/`rm-428`/`rm-429` the emperor, the horse and the killer; `rm-430` Claudius behind the curtain. *Legend:* Tiberius on Capri, the horse as consul, the smothering of Tiberius and the mushroom are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

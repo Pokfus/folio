@@ -465,6 +465,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | dies imperii: Vespasian's | 1 July 69 CE (Tacitus); Tiberius's disputed (17 September or early September 14 CE) | `rm-418` |
 | Germanicus: born / adopted / triumph / died | 24 May 15 BCE / 4 CE / 26 May 17 CE / 10 October 19 CE | `rm-419` |
 | the Pannonian mutiny / the eclipse | 14 CE / 27 September 14 CE (NASA's catalogue; Furneaux: 26 September) | `rm-420` |
+| Arminius: Varus defeated / Idistaviso / killed | 9 CE / 16 CE / 19 CE (the Cambridge Ancient History; Furneaux: 21 CE) | `rm-421` |
+| Gnaeus Piso: consul / legate of Syria / the Senate's decree | 7 BCE / 17 CE / 10 December 20 CE | `rm-422` |
+| Sejanus: prefect / consul / executed | 14 – 31 CE / 31 CE / 18 October 31 CE (the Cambridge Ancient History) | `rm-423` |
+| Macro: prefect / died | 31 – 38 CE / 38 CE | `rm-424` |
+| Tiberius on Capreae | 27 – 37 CE | `rm-425` |
+| maiestas: the lex Appuleia / revived / revived by Gaius | 100 BCE / 15 CE / 39 CE (the Loeb translator's margin) | `rm-426` |
+| Caligula: born / reigned / killed | 31 August 12 CE / 37 – 41 CE / 24 January 41 CE | `rm-427` |
+| Cassius Chaerea: the Rhine mutiny / executed | 14 CE (Tacitus's mention) / 41 CE | `rm-429` |
+| Claudius: born / reigned / died | 1 August 10 BCE / 41 – 54 CE / 13 October 54 CE | `rm-430` |
 
 ## Late Antiquity
 
@@ -880,4 +889,14 @@ rm-417: 42; 14; 37
 rm-418: 14; 69
 rm-419: 15; 4; 17; 19
 rm-420: 14
+rm-421: 9; 16; 19; 21
+rm-422: 7; 17; 20
+rm-423: 14; 31
+rm-424: 31; 38
+rm-425: 27; 37
+rm-426: 100; 15; 39
+rm-427: 12; 37; 41
+rm-428: 37; 41
+rm-429: 14; 41
+rm-430: 10; 41; 54
 ```

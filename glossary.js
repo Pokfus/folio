@@ -9674,7 +9674,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nero_Claudius_Drusus": "38 – 9 BCE",
 "Percennius": "d. 14 CE",
 "Tiberius": "42 BCE – 37 CE",
-"Arminius": "c. 18 BCE – 21 CE",
+"Arminius": "died 19 or 21 CE",
 "Caligula": "12 – 41 CE",
 "Cassius_Chaerea": "died 41 CE",
 "Claudius": "10 BCE – 54 CE",
