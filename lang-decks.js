@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 153 MB of decks. The file itself is fetched on Add. */
+   section without fetching 170 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -27,6 +27,15 @@ window.LANG_DECKS = [
   { lang: "Portuguese", file: "CAPLE-C1-Portuguese.folio-deck.json", id: "caplec1", title: "CAPLE C1 — Portuguese", sub: "1,000 words · European Portuguese · both directions", notes: 999, cards: 1998, ex: 74, bytes: 3032064, rev: "704b1d50046c" },
   { lang: "Portuguese", file: "CAPLE-C2-Portuguese.folio-deck.json", id: "caplec2", title: "CAPLE C2 — Portuguese", sub: "700 words · European Portuguese · both directions", notes: 700, cards: 1400, ex: 58, bytes: 1974986, rev: "901aa60fc313" },
   { lang: "Portuguese", file: "Portuguese-Phrases-and-Expressions.folio-deck.json", id: "ptphrase", title: "Portuguese Phrases and Expressions", sub: "1,342 expressions · European Portuguese · both directions", notes: 1342, cards: 2684, subs: 2, tree: [{"n":"Expressions","c":2254,"x":34},{"n":"Proverbs","c":430,"x":30}], flat: true, ex: 33, bytes: 2149382, rev: "24e61af10300" },
+  { lang: "Japanese", file: "Japanese-Hiragana.folio-deck.json", id: "jahira", title: "Japanese — Hiragana", sub: "The 105 hiragana — start here, before any word", notes: 105, cards: 210, ex: 93, bytes: 37597, rev: "17191a659535" },
+  { lang: "Japanese", file: "Japanese-Katakana.folio-deck.json", id: "jakata", title: "Japanese — Katakana", sub: "The 121 katakana, for loanwords — study after hiragana", notes: 121, cards: 242, ex: 76, bytes: 36406, rev: "faa645da95c9" },
+  { lang: "Japanese", file: "JLPT-N5-Japanese.folio-deck.json", id: "jlptn5", title: "Japanese — JLPT N5", sub: "The first 667 words — start here once you can read kana", notes: 667, cards: 1334, ex: 98, bytes: 1428043, rev: "75ed2687d8fc" },
+  { lang: "Japanese", file: "JLPT-N4-Japanese.folio-deck.json", id: "jlptn4", title: "Japanese — JLPT N4", sub: "630 more words, taking you to about 1,297 — study after N5", notes: 630, cards: 1260, ex: 98, bytes: 1390044, rev: "4959454e04cc" },
+  { lang: "Japanese", file: "JLPT-N3-Japanese.folio-deck.json", id: "jlptn3", title: "Japanese — JLPT N3", sub: "1,650 more words, taking you to about 2,947 — study after N4", notes: 1650, cards: 3300, ex: 99, bytes: 3738815, rev: "80fa212fe674" },
+  { lang: "Japanese", file: "JLPT-N2-Japanese.folio-deck.json", id: "jlptn2", title: "Japanese — JLPT N2", sub: "1,738 more words, taking you to about 4,685 — study after N3", notes: 1738, cards: 3476, ex: 93, bytes: 3596422, rev: "f4463d6ed0f4" },
+  { lang: "Japanese", file: "JLPT-N1-Japanese.folio-deck.json", id: "jlptn1", title: "Japanese — JLPT N1", sub: "3,055 more words, taking you to about 7,740 — study after N2", notes: 3055, cards: 6110, ex: 88, bytes: 6307850, rev: "a1f578de2226" },
+  { lang: "Japanese", file: "Japanese-Idioms.folio-deck.json", id: "jaidiom", title: "Japanese — Idioms and Proverbs", sub: "206 four-character idioms and proverbs — after the levels", notes: 206, cards: 412, ex: 100, bytes: 550049, rev: "7607b21b3be7" },
+  { lang: "Japanese", file: "Japanese-Phrases-and-Expressions.folio-deck.json", id: "japhr", title: "Japanese — Phrases and Expressions", sub: "292 set phrases and grammatical chunks — alongside any level", notes: 292, cards: 584, ex: 100, bytes: 450618, rev: "22a95d9c0774" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },

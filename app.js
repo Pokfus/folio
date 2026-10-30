@@ -3415,7 +3415,10 @@
     /* the platform's own disclosure widget, so a card type can fold a long section away without script —
        which is the only way it could, deck CSS being scoped and deck JS not existing. Neither element has a
        scripting surface or takes a URL; `open` is the one attribute and it is a boolean. */
-    "details", "summary"]);
+    "details", "summary",
+    /* ruby annotation — furigana, the small kana over a Japanese word's kanji (the Japanese decks, Oct 2026). Text
+       containers like <sub>; none of the three takes an attribute of its own, so they get only the "*" set. */
+    "ruby", "rt", "rp"]);
   const SANITIZE_ATTRS = {
     "*": new Set(["class", "dir", "lang", "title", "style"]),
     a: new Set(["href", "rel", "target"]),
@@ -8461,7 +8464,7 @@
      BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES — sanitizePass, sanitizeHTML, sanitizePlain,
      sanitizeCSSText, sanitizeUrl or any of the SANITIZE_* / UTYPE_* allowlists. Forgetting to leaves
      already-stored decks cleaned by the old rules, which is the one way this can be wrong. */
-  const SANITIZE_REV = 1;
+  const SANITIZE_REV = 2;   // 2: <ruby>, <rt> and <rp> allowed (furigana, Oct 2026)
   let _uTrusted = false;   // set ONLY inside uDeckNormalize, around a synchronous body, and restored in a finally
   const uSH = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeHTML(v));
   const uSP = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizePlain(v));
@@ -28880,6 +28883,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-german":     { bg: "#633318" }, // brown
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
+    /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
+       27.2 from its nearest neighbour. 9.9:1 against white. */
+    "lang-japanese":   { bg: "#780F75" },
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
     "lang-spanish":    { bg: "#AE5A33" }, // orange
