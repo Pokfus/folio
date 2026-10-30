@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-30T15:50Z",
+ "generated": "2026-10-30T15:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5388,
-  "redirect-broader": 509,
+  "ok": 5397,
+  "redirect-broader": 510,
   "redirect-variant": 334,
   "section-redirect": 107,
   "disambiguation": 142,
@@ -61376,6 +61376,77 @@
    "via": "answer",
    "status": "redirect-variant",
    "from": "Arctic convoys"
+  },
+  "ww2-321": {
+   "answer": "Night Witches",
+   "title": "Night Witches",
+   "url": "https://en.wikipedia.org/wiki/Night_Witches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-322": {
+   "answer": "Soviet Information Bureau",
+   "title": "Soviet Information Bureau",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Information_Bureau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-323": {
+   "answer": "Operational art",
+   "title": "Operational level of war",
+   "url": "https://en.wikipedia.org/wiki/Operational_level_of_war",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Operational art"
+  },
+  "ww2-324": {
+   "answer": "Operation Lentil",
+   "title": "Operation Lentil (Caucasus)",
+   "url": "https://en.wikipedia.org/wiki/Operation_Lentil_(Caucasus)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-325": {
+   "answer": "Union of Polish Patriots",
+   "title": "Union of Polish Patriots",
+   "url": "https://en.wikipedia.org/wiki/Union_of_Polish_Patriots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-326": {
+   "answer": "Katyn Commission",
+   "title": "Katyn Commission",
+   "url": "https://en.wikipedia.org/wiki/Katyn_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-327": {
+   "answer": "Władysław Sikorski",
+   "title": "Władysław Sikorski",
+   "url": "https://en.wikipedia.org/wiki/W%C5%82adys%C5%82aw_Sikorski",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-328": {
+   "answer": "Operation Sledgehammer",
+   "title": "Operation Sledgehammer",
+   "url": "https://en.wikipedia.org/wiki/Operation_Sledgehammer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-329": {
+   "answer": "Moscow Conference",
+   "title": "Moscow Conference (1943)",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Conference_(1943)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-330": {
+   "answer": "Casablanca Conference",
+   "title": "Casablanca Conference",
+   "url": "https://en.wikipedia.org/wiki/Casablanca_Conference",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

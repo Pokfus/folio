@@ -7700,7 +7700,17 @@ window.GLOSSARY = {
 "Chelyabinsk_Tractor_Plant": "",
 "T-34": "",
 "Moscow_Conference_(1941)": "",
-"Arctic_convoys_of_World_War_II": ""
+"Arctic_convoys_of_World_War_II": "",
+"Night_Witches": "",
+"Soviet_Information_Bureau": "",
+"Operational_level_of_war": "",
+"Operation_Lentil_(Caucasus)": "",
+"Union_of_Polish_Patriots": "",
+"Katyn_Commission": "",
+"Władysław_Sikorski": "",
+"Operation_Sledgehammer": "",
+"Moscow_Conference_(1943)": "",
+"Casablanca_Conference": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11515,7 +11525,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Operation_Little_Saturn": "16–30 December 1942",
 "Third_Battle_of_Kharkov": "19 February – 18 March 1943",
 "Moscow_Conference_(1941)": "28 September – 1 October 1941",
-"Arctic_convoys_of_World_War_II": "1941–1945"
+"Arctic_convoys_of_World_War_II": "1941–1945",
+"Night_Witches": "1942–1945",
+"Soviet_Information_Bureau": "1941",
+"Operation_Lentil_(Caucasus)": "23 February 1944",
+"Katyn_Commission": "April 1943",
+"Operation_Sledgehammer": "1942",
+"Moscow_Conference_(1943)": "19–30 October 1943",
+"Casablanca_Conference": "14–24 January 1943"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16405,7 +16422,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Guards_unit_(Soviet_Union)": ["Soviet Guards","Guards unit"],
 "Chelyabinsk_Tractor_Plant": ["Tankograd","Chelyabinsk Kirov Plant"],
 "Moscow_Conference_(1941)": ["Moscow Protocol","First Protocol","Beaverbrook–Harriman mission"],
-"Arctic_convoys_of_World_War_II": ["Arctic convoys","Russian convoys","PQ convoys"]
+"Arctic_convoys_of_World_War_II": ["Arctic convoys","Russian convoys","PQ convoys"],
+"Night_Witches": ["588th Night Bomber Aviation Regiment","46th Guards Night Bomber Aviation Regiment"],
+"Soviet_Information_Bureau": ["Sovinformburo"],
+"Operational_level_of_war": ["Operational art","operational art","operational level of war"],
+"Operation_Lentil_(Caucasus)": ["Operation Lentil"],
+"Katyn_Commission": ["International Katyn Commission"],
+"Moscow_Conference_(1943)": ["Moscow Conference","Moscow Conference of 1943"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24250,7 +24273,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chelyabinsk_Tractor_Plant": ["industry","history","russia","technology"],
 "T-34": ["technology","history","warfare","russia"],
 "Moscow_Conference_(1941)": ["event","history","politics","russia","united states","united kingdom"],
-"Arctic_convoys_of_World_War_II": ["event","history","warfare","russia","united kingdom"]
+"Arctic_convoys_of_World_War_II": ["event","history","warfare","russia","united kingdom"],
+"Night_Witches": ["institution","history","warfare","women","aviation","russia"],
+"Soviet_Information_Bureau": ["institution","history","propaganda","politics","russia"],
+"Operational_level_of_war": ["concept","warfare","history","military theory"],
+"Operation_Lentil_(Caucasus)": ["event","history","deportation","russia","chechnya"],
+"Union_of_Polish_Patriots": ["institution","history","politics","poland","russia"],
+"Katyn_Commission": ["institution","history","law","poland","russia","germany"],
+"Władysław_Sikorski": ["person","history","politics","warfare","poland"],
+"Operation_Sledgehammer": ["event","history","warfare","politics","united kingdom","united states"],
+"Moscow_Conference_(1943)": ["event","history","politics","diplomacy","russia","united kingdom","united states"],
+"Casablanca_Conference": ["event","history","politics","warfare","united states","united kingdom"]
 });
 
 /* ============================================================================
