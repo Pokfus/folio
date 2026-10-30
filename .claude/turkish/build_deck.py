@@ -109,6 +109,28 @@ def noun_row(word, e, pron=False):
     return cells
 
 
+FREQ = {}
+
+
+def aorist_doubtful(f):
+    """THE AORIST'S VOWEL IS THE ONE CELL A LEARNER CANNOT PREDICT, so it is checked against the corpus.
+    `değmek`'s table gives `değir` (5 in the subtitles) where Turkish says `değer` (20,762); an aorist is
+    dropped when it is rare (under 50) and the same stem with the other vowel is ten times commoner."""
+    if not FREQ:
+        with open(os.path.join(tr.CACHE, "tr_full.txt"), encoding="utf-8") as fh:
+            for i, line in enumerate(fh):
+                if i >= 300000:
+                    break
+                w, n = line.rsplit(" ", 1)
+                FREQ[tr.fold(w)] = int(n)
+    m = re.match(r"(.*)([aeıiuü])r$", f)
+    if not m:
+        return False
+    other = {"a": "ı", "e": "i", "ı": "a", "i": "e", "u": "a", "ü": "e"}[m.group(2)]
+    alt = m.group(1) + other + "r"
+    return FREQ.get(f, 0) < 50 and FREQ.get(alt, 0) > 10 * max(1, FREQ.get(f, 0))
+
+
 def verb_row(word, e):
     t = tr.table_forms(e, word)
     cells = []
@@ -122,6 +144,9 @@ def verb_row(word, e):
         f = t[start + 2][0]
         if not shape(f) or f[0] != word[0]:
             REPORT.append("%s: %s cell %r has the wrong shape, dropped" % (word, label, f))
+            continue
+        if label == "aorist" and aorist_doubtful(f):
+            REPORT.append("%s: aorist %r is rare in the corpus beside its other vowel, dropped" % (word, f))
             continue
         cells.append((label, f))
     return cells
@@ -222,7 +247,10 @@ def main():
         })
     n = len(cards)
     inv = sum(1 for x in wl["words"] if "page" in x and x["word"] not in refused)
-    stats["grammar"] = sum(1 for x in wl["words"] if x.get("page") == 83 and x["word"] not in refused)
+    gram = [x["word"] for x in wl["words"] if x.get("theme") == "grammar list" and x["word"] not in refused]
+    stats["grammar"] = len(gram)
+    stats["grammar_eg"] = [x["word"] for x in sorted((y for y in wl["words"] if y["word"] in gram),
+                                                     key=lambda y: -y["count"])][:5]
     meta = tr_level.meta(lv, n, inv, stats, open(os.path.join(tr.HERE, "card.css"), encoding="utf-8").read(), STAMP, cards)
     deck = {"folioDeck": 1, "exportedAt": STAMP, "meta": meta, "cards": cards, "gloss": {}}
 
@@ -242,6 +270,7 @@ def main():
         print("  ! " + r)
     if refused:
         print("  ! refused, no taught sense: " + ", ".join(refused))
+    stats.pop("grammar_eg", None)
     print("  wrote %s: %d notes = %d cards | %s | bytes %d" % (out, n, 2 * n, stats, os.path.getsize(out)))
 
 

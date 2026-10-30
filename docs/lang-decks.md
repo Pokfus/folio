@@ -3194,7 +3194,8 @@ changed was the one that had been wrong all along.
 - `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
-  1,000 cards, 0.7 MB) **and A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB).
+  1,000 cards, 0.7 MB) **A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB) **and B1 (with the programme's B1+),
+  `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB).
   `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
   `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
   run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
@@ -3237,6 +3238,21 @@ changed was the one that had been wrong all along.
   counts that belong to another form (`azı`, `un`, `bırak`), `sensin`, `adamım`, and `karı`. These changed
   A1's fill by six words (`bak`, `oldu`, `yapma` out; `bayan`, `hemen`, `inanmak` in) before A2 was built
   on it; A1 had not yet been merged.
+  **B1's fill is two-thirds of the deck, and reading it found the `tau` shape a dozen times over.** Three more
+  rules: (6) a word whose live entries are all nouns is skipped when it is ANY case cell of a commoner noun
+  — `kanı` "opinion" was counted from `kan` "blood"'s accusative, `testi` "water jug" from `test`'s, `hale`
+  "halo" from `hal`'s dative, and A2 lost `adım` "step" to `ad`'s "my name" by the same rule; (7) a spelling
+  listed as another word's "alternative" is that word's; (8) **an aorist cell is checked against the
+  corpus** — `değmek`'s table says `değir` (5 in the subtitles) where Turkish says `değer` (20,762), so an
+  aorist under 50 whose other vowel is ten times commoner is dropped and reported (`aorist_doubtful`). The
+  grammatical-gloss pattern now reads "second/third-person …" (`anlamına`, `haline`). And the hand list grew
+  by the cases no rule can see: a missing circumflex (`hal` for hâl, `aşık` for âşık, `hakim`), a rarer
+  homograph (`geleni` "ground squirrel"), a dictionary that carries only the uncommon sense (`dahil`
+  "involvement", `açılmak` "to leave port", `vurulmak` "to fall in love" — its count is "to be shot"),
+  English and names in the subtitles (`is`, `ten`, `don`, `sara`, `han`), and slurs and insults (`zenci`,
+  `piç`, `fahişe`). None changed A1; A2 lost `adım` and gained `fırsat`.
+  **The description must not claim a table says what only another table says**: B1's first draft read "its
+  B1 table says the vocabulary section was left out" — only A2's says so; B1's simply has none.
   The Arabic letters' names are dropped like the Latin ones (`nun`, `be`, `ha`); `possessive` joined the
   grammatical-gloss pattern (`beyin` carried "possessive second singular of bey"), and a gloss that is a
   pointer AND a meaning joined by a semicolon keeps the meaning (`hepimiz` "… of hep; all of us",

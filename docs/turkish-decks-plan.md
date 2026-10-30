@@ -1,8 +1,8 @@
 # The Turkish language decks — plan
 
 Started 2026-10-30, on request: "In the same form that we have several language vocabulary collections,
-start planning a Turkish language collection." **Built so far: A1 and A2** (`decks/Turkish-A1.folio-deck.json`,
-`decks/Turkish-A2.folio-deck.json`, 2026-10-30, generator `.claude/turkish/`, findings in `docs/lang-decks.md` under `.claude/turkish/`).
+start planning a Turkish language collection." **Built so far: A1, A2 and B1** (`decks/Turkish-A1.folio-deck.json`,
+`decks/Turkish-A2.folio-deck.json`, `decks/Turkish-B1.folio-deck.json`, 2026-10-30, generator `.claude/turkish/`, findings in `docs/lang-decks.md` under `.claude/turkish/`).
 The owner's decisions (2026-10-30): use the programme's vocabulary; fold B1+ into B1; English names for the
 collection and decks. This file is the plan the remaining levels are built from. Read `docs/lang-decks.md` first: everything there about community decks, the shelf
 (`lang-decks.js`, `build-lang-decks.js`) and the generators' standing rules applies here unchanged. This
@@ -17,7 +17,7 @@ per CEFR level plus a deck that is not a level:
 |---|---|---|---|
 | `Turkish-A1.folio-deck.json` | A1 | Programme A1 themes + its *söz varlığı* | **500, built** |
 | `Turkish-A2.folio-deck.json` | A2 | Programme A2 themes and topics (no vocabulary column — see §2) | **600, built** |
-| `Turkish-B1.folio-deck.json` | B1 | Programme B1 **and B1+** (one deck, see §6) | ~1,000 |
+| `Turkish-B1.folio-deck.json` | B1 | Programme B1 **and B1+** themes and topics (one deck, see §6) | **999, built** |
 | `Turkish-B2.folio-deck.json` | B2 | Programme B2 | ~1,200 |
 | `Turkish-C1.folio-deck.json` | C1 | Programme C1 | ~1,000 |
 | `Turkish-Phrases-and-Expressions.folio-deck.json` | — | Programme *dil ifadeleri* + Wiktionary idioms and proverbs | ~400 |
@@ -166,11 +166,13 @@ Each step is one session's work, and each ends with the deck's own check passing
    `tr.py` for the fold and the dictionary rules, `tr_level.py` for the level's facts and the description).
 2. ~~A1~~ — done; all 500 cards read.
 3. ~~Shelf~~ — done.
-4. ~~A2~~ — done; all 600 cards read. **B1 → C1** next, one per session (next: B1 + B1+ — read the
-   "Örnek Konular" of pp. 265–284, write `B1` in `supplement.LEVELS` with the pages, add `SIZE["b1"]` in
-   `select.py` and `SCOPE["b1"]` (`listed: False`, both page ranges) in `tr_level.py`, then
-   `run.py --level b1`). The topics column is cropped as the vocabulary column was, at the "Konular"
-   header; widen the crop to the left, where a line comes out clipped., one per session, each taught on top of the shipped decks below it (no word on two levels).
+4. ~~A2~~ — done; all 600 cards read. ~~B1 (+ B1+)~~ — done; all 999 cards read. **B2 → C1** next, one per
+   session (next: B2 — read the "Örnek Konular" of pp. 285–294, write `B2` in `supplement.LEVELS` with the
+   pages, `GRAMMAR_B2` from §7 (p. 84–85) with its page in `GRAMMAR_PAGE`, `SIZE["b2"]` (plan: ~1,200) in
+   `select.py` and `SCOPE["b2"]` (`listed: False`) in `tr_level.py`, then `run.py --level b2`). The topics
+   column is cropped at the "Konular" header; widen the crop to the left, where a line comes out clipped.
+   Expect the topic inventory to shrink as the levels below have taught more of it (B1: 304 of ~460 written
+   survived) and the subtitle fill to grow — read the fill hardest.
 5. **Phrases**: the programme's *dil ifadeleri* as the scope; Wiktionary's Turkish idioms and proverbs
    (with English glosses) as the content; the CAPLE phrases deck is the model.
 6. Optional: a combined `Turkish-A1-C1` (gitignored, `combine.py`, as French/Spanish/Italian/Indonesian).

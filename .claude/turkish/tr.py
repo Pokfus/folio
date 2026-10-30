@@ -45,7 +45,7 @@ TEACH_POS = {"noun", "verb", "adj", "adv", "pron", "num", "postp", "conj", "det"
              "classifier"}       # `tane` "piece", the counter word, is filed under it
 # A gloss that only names a grammatical relation is a pointer, even untagged: `ağrısı` is glossed
 # "third-person singular single-possession possessive of ağrı" with no form-of tag at all.
-GRAM_PREFIX = (r"^(?:(?:first|second|third)-person|plural|accusative|dative|locative|ablative|genitive|"
+GRAM_PREFIX = (r"^(?:(?:first|second|third)(?:/(?:first|second|third))?-person|plural|accusative|dative|locative|ablative|genitive|"
                r"inflection|definite|possessive)\b[^;]* of (\S+?)[.:]?")
 GRAM_GLOSS = re.compile(GRAM_PREFIX + "$")
 # ...and a gloss may carry the pointer AND the meaning, joined by a semicolon:

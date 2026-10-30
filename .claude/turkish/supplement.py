@@ -207,8 +207,108 @@ GRAMMAR_A2 = [  # the programme's own words
     "cevap", "birkaç", "birçok", "çoğu", "hepsi", "hiçbiri",
 ]
 
-LEVELS = {"a1": A1, "a2": A2}
-GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2}
+# Ortaöğretim B1, pp. 265-274, and B1+, pp. 275-284 -- B1+ folded into B1 on request (Oct 2026).
+# FOLIO'S words for each theme's "Örnek Konular"; the programme lists no B1 vocabulary.
+B1 = [
+    (265, "B1 1 Dostluk Köprüsü — the start of a course, new friendships, feelings, enrolment, places", [
+        "arkadaşlık", "dostluk", "kayıt", "başvuru", "belge", "form", "imza", "kimlik", "bölüm", "kampüs",
+        "yurt", "salon", "tesis", "his", "heyecan", "yalnızlık", "samimi", "utangaç", "kaygı", "tanıtım",
+    ]),
+    (266, "B1 2 Hayatın İçinden — school elections, club choices, school and current news, subject choice", [
+        "seçim", "aday", "oy", "kampanya", "seçmek", "temsilci", "başkan", "konuşma", "destek",
+        "desteklemek", "duyuru", "güncel", "fen", "bilim", "sosyal", "alan", "kafe", "ders", "toplum",
+    ]),
+    (267, "B1 3 Eğlence Zamanı — entertainment in the past, traditions, festivals and holidays, music", [
+        "gelenek", "geleneksel", "festival", "bayram", "kutlama", "kutlamak", "tören", "eğlenmek", "çalgı",
+        "enstrüman", "davul", "zurna", "saz", "gitar", "piyano", "keman", "nota", "tür", "halk", "oyun",
+        "şenlik", "seyirci", "sahne",
+    ]),
+    (268, "B1 4 Afiyet Olsun — menus, healthy eating, fast food, recipes, Turkish cuisine, table manners", [
+        "tarif", "malzeme", "pişirmek", "kızartmak", "haşlamak", "doğramak", "karıştırmak", "fırın",
+        "tencere", "tava", "tabak", "bardak", "peçete", "sofra", "çorba", "pilav", "salata", "tatlı",
+        "baharat", "tuz", "un", "kıyma", "sos", "lezzetli", "taze", "acıkmak", "doymak", "susamak",
+        "ziyafet", "görgü",
+    ]),
+    (269, "B1 5 Doğaya Kulak Ver — pollution, environmental awareness, people and nature, recycling", [
+        "çevre", "kirlilik", "kirletmek", "atık", "plastik", "cam", "kâğıt", "geri dönüşüm", "enerji",
+        "doğal", "korumak", "zarar", "tüketim", "tüketmek", "israf", "hava", "toprak", "duman", "sorumluluk",
+        "bilinç", "gezegen",
+    ]),
+    (270, "B1 6 Dostluk Kazansın — famous athletes, competitions, traditional sports, fair play", [
+        "sporcu", "şampiyon", "şampiyona", "müsabaka", "yarış", "rakip", "hakem", "taraftar", "stadyum",
+        "madalya", "kupa", "gol", "skor", "beraberlik", "güreş", "okçuluk", "ahlak", "kural", "hile",
+        "dürüst", "centilmen", "yenmek", "yenilmek",
+    ]),
+    (271, "B1 7 Teknoloji Çağı — technical texts, manuals, instructions, requests and complaints, the future", [
+        "kılavuz", "cihaz", "makine", "alet", "teknik", "gelişme", "icat", "fayda", "faydalı", "zararlı",
+        "talep", "istek", "şikâyet", "robot", "yapay", "dijital", "elektrik", "kurulum", "ayar", "sorunsuz",
+    ]),
+    (272, "B1 8 Evvel Zaman İçinde — tales, stories, legends, jokes, fables", [
+        "efsane", "fıkra", "fabl", "masal", "dev", "cin", "peri", "padişah", "sultan", "saray", "köylü",
+        "kurnaz", "akıllı", "aptal", "ders", "sonunda", "evvel", "olay", "kahraman",
+    ]),
+    (273, "B1 9 Kendini Keşfet — personality, empathy, personalities and professions, future jobs", [
+        "kişilik", "özellik", "karakter", "empati", "sabır", "sabırlı", "cesur", "cesaret", "kibar", "kaba",
+        "cömert", "cimri", "sorumlu", "yetenek", "yetenekli", "güven", "özgüven", "anket", "hedef",
+    ]),
+    (274, "B1 10 Sanal Dünya, Sanal İletişim — social media, online dangers, online shopping", [
+        "sosyal medya", "hesap", "profil", "paylaşım", "takipçi", "beğeni", "yorum", "sanal", "zorbalık",
+        "korsan", "tehlike", "tehlikeli", "güvenli", "kişisel", "gizlilik", "dolandırıcı", "sipariş",
+        "kargo", "ödeme", "kredi kartı", "site",
+    ]),
+    (275, "B1+ 1 Ben, Arkadaşlarım ve Çevrem — letters between friends, personality, interests, plans", [
+        "mektup", "zarf", "pul", "posta", "ilgi", "uğraş", "merak", "plan", "planlamak", "çevre", "mahalle",
+        "semt", "kişilik",
+    ]),
+    (276, "B1+ 2 Birlikte Yaşıyoruz — family communication, neighbours, helping each other, cultures", [
+        "iletişim", "komşuluk", "yardımlaşma", "dayanışma", "kültür", "birlik", "saygı", "hoşgörü",
+        "anlayış", "fark", "farklılık", "ortak", "bağ", "ilişki", "tartışma", "tartışmak", "barış",
+    ]),
+    (277, "B1+ 3 Şimdi Haberler — news texts on culture, art, sport, the economy, education, health", [
+        "haber", "manşet", "muhabir", "röportaj", "ekonomi", "ekonomik", "fiyat", "artış", "düşüş",
+        "eğitim", "öğretim", "üniversite", "hastalık", "tedavi", "aşı", "salgın", "açıklama", "rapor",
+    ]),
+    (278, "B1+ 4 Dünya Bir Sahne — theatre and cinema, posters, advertisements, traditional Turkish stage arts", [
+        "oyuncu", "rol", "senaryo", "yönetmen", "perde", "sahne", "gösteri", "reklam", "ilan", "afiş",
+        "karagöz", "meddah", "kukla", "alkış", "alkışlamak", "eleştiri", "modern",
+    ]),
+    (279, "B1+ 5 Büyük Buluşlar Çılgın Mucitler — inventions, science fairs, inventors", [
+        "buluş", "mucit", "icat", "keşif", "keşfetmek", "bilim insanı", "deney", "fuar", "proje",
+        "araştırma", "araştırmak", "sonuç", "başarı", "başarısız", "ilginç", "tasarım",
+    ]),
+    (280, "B1+ 6 Kıyafetler ve Renkler — choosing clothes, sizes, returns and exchanges", [
+        "kıyafet", "elbise", "etek", "pantolon", "ceket", "takım", "ayakkabı", "beden", "numara", "dar",
+        "bol", "uygun", "iade", "değişim", "değiştirmek", "fatura", "kumaş", "pamuk", "yün", "moda",
+        "renkli", "koyu", "açık",
+    ]),
+    (281, "B1+ 7 İnsanlar ve Mekânlar — homes across cultures, journeys into the past, famous buildings", [
+        "mekân", "yapı", "bina", "saray", "kule", "piramit", "tapınak", "kale", "müze", "antik", "tarihî",
+        "yüzyıl", "ziyaret", "ziyaret etmek", "mimari", "kalıntı", "medeniyet", "uygarlık",
+    ]),
+    (282, "B1+ 8 Kıssadan Hisse — comics, cartoons, jokes, fables, riddles, tongue-twisters, comedy", [
+        "çizgi", "karikatür", "mizah", "bilmece", "tekerleme", "espri", "gülünç", "komedi", "hisse",
+        "anlam", "mesaj",
+    ]),
+    (283, "B1+ 9 Bayramınız Kutlu Olsun — holiday mornings, traditions, festivals, ceremonies, gifts", [
+        "bayram", "gelenek", "görenek", "tören", "kutlama", "hediyeleşmek", "ziyaret", "akraba", "şeker",
+        "kurban", "ramazan", "tebrik", "kutlu", "mübarek",
+    ]),
+    (284, "B1+ 10 Doğayı Keşfediyorum — alone in nature, camping, natural events, landforms, wildlife", [
+        "doğa", "canlı", "vahşi", "yaban", "hayvan", "bitki", "habitat", "yeryüzü", "ova", "vadi", "tepe",
+        "yayla", "mağara", "çöl", "volkan", "sel", "çığ", "kuraklık", "iklim", "duyuru",
+    ]),
+]
+
+# §7, B1 (p. 84): the conjunctions and postpositions its grammar list names.
+GRAMMAR_B1 = [  # the programme's own words
+    "keşke", "eğer", "sanki", "üzere", "doğru", "karşı", "değin", "dek", "dolayı", "yalnız", "ancak",
+    "karşın", "rağmen", "fakat", "bile", "ise", "yanı sıra", "ayrıca", "hatta", "aksine", "hariç",
+    "öncelikle", "artık", "itibaren", "dolayısıyla", "yüzünden", "sayesinde", "örnek", "yine",
+]
+
+LEVELS = {"a1": A1, "a2": A2, "b1": B1}
+GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2, "b1": GRAMMAR_B1}
+GRAMMAR_PAGE = {"a1": 83, "a2": 83, "b1": 84}
 LISTED = {"a1"}        # the levels whose inventory is the programme's own column (the rest are Folio's)
 
 BACK = set("aıou")
@@ -225,7 +325,7 @@ def headwords(level):
     """[(headword, page, theme)] in the order read, first occurrence kept."""
     out, seen = [], set()
     rows = [(p, t, ws) for p, t, ws in LEVELS.get(level, [])]
-    rows.append((83, "grammar list", GRAMMAR.get(level, [])))
+    rows.append((GRAMMAR_PAGE.get(level, 83), "grammar list", GRAMMAR.get(level, [])))
     for page, theme, words in rows:
         for w in words:
             h = infinitive(w[:-1]) if w.endswith("-") else w

@@ -45,7 +45,7 @@ from collections import defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tr, supplement
 
-SIZE = {"a1": 500, "a2": 600}
+SIZE = {"a1": 500, "a2": 600, "b1": 1000}
 TOP_SURFACES = 80000
 
 # An inventory entry the dictionary does not carry, mapped to what it does, with the reason.
@@ -71,6 +71,22 @@ EXCLUDE = {
     "sensin",                    # "it's you": `sen` with the copula, a form rather than a word
     "adamım",                    # "my man": subtitle slang, the possessive of adam (A1)
     "karı",                      # "wife": pejorative in modern use (except in karı koca), untagged in the source
+    "piç", "fahişe", "zenci", "kıç", "defolmak",  # offensive (zenci is a slur in modern use); untagged in the source
+    "sara", "han", "ten", "don", "tan", "is",  # their counts are names and English words in the subtitles
+    "etmen",                     # "factor": its count is `etmen lazım`, "you need to do" (etmek)
+    "gider",                     # "expense": its count is gitmek's aorist "goes"
+    "hakim",                     # "wise": its count is hâkim "judge" written without the circumflex (A2)
+    "şûra", "âmâ",               # "council", "blind": counts from unaccented `şura` "there" and `ama` "but"
+    "verici",                    # "transmitter": its count is `heyecan verici`, "exciting", and the like
+    "yapılanmak",                # its count is `yapılan`, the participle of yapılmak "to be done"
+    "biriyle", "şeyle",          # "with someone / something": biri and şey with the instrumental
+    "hal",                       # "covered market": its count is hâl "state" written without the circumflex
+    "aşık",                      # "anklebone": its count is âşık "in love" without the circumflex
+    "geleni",                    # "ground squirrel": its count is `geleni`, "the one who comes"
+    "yumak",                     # "ball of yarn": its count is not the yarn's (the yumak/yummak stem)
+    "dahil", "açılmak", "vurulmak",  # the dictionary carries only a rare sense (involvement; to leave
+                                 # port; to fall in love) of a word whose count is its common one
+    "nerde",                     # a spoken spelling of nerede (A1), filed as an adverb so no rule reaches it
     "tabi",                      # "subject to": its count is the subtitles' misspelling of `tabii`, "of course"
 }
 
@@ -206,16 +222,24 @@ def main():
     # conjunction, postposition, determiner or numeral entry is lexicalised and kept, and only the slots
     # below shadow.  The inventory is not filtered: a word the level names is taught.
     SHADOW_SLOTS = {"imperative", "past", "participle", "predicative"}
+    # A NOUN THAT IS A CASE OF A COMMONER NOUN is the same fault one class over: `kanı` "opinion" is
+    # counted from `kan` "blood"'s accusative, `testi` "water jug" from `test`'s, `hale` "halo" from
+    # `hal`'s dative, `bayanlar` "mesdames" is bayan's plural.  So a word whose live entries are all
+    # nouns is shadowed by ANY cell of a commoner noun's table -- and a spelling listed as another
+    # word's "alternative" (`nerde` for nerede) by that word, whatever its class.
     LEXICAL = {"adv", "conj", "postp", "det", "num"}
     slot_owners = defaultdict(set)
+    noun_owners = defaultdict(set)
     for o, entries in D.items():
         for e in entries:
             if not tr.live(e) or o != tr.fold(o):
                 continue
             for f, tg in tr.table_forms(e, o):
                 k = tr.fold(f)
-                if k != tr.fold(o) and (e["pos"] == "pron" or set(tg) & SHADOW_SLOTS):
+                if k != tr.fold(o) and (e["pos"] == "pron" or set(tg) & SHADOW_SLOTS or "alternative" in tg):
                     slot_owners[k].add(o)
+                elif k != tr.fold(o) and e["pos"] == "noun" and tg:
+                    noun_owners[k].add(o)
     shadowed = []
     fill = []
     for w, n in sorted(counts.items(), key=lambda x: (-x[1], x[0])):
@@ -223,8 +247,9 @@ def main():
             break
         if w in seen or w in EXCLUDE or len(w) < 2 and w != "o":
             continue
-        if (not any(e["pos"] in LEXICAL for e in D.get(w, []) if tr.live(e))
-                and any(counts.get(o, 0) > n for o in slot_owners.get(tr.fold(w), ()))):
+        own_pos = {e["pos"] for e in D.get(w, []) if tr.live(e)}
+        if ((not own_pos & LEXICAL and any(counts.get(o, 0) > n for o in slot_owners.get(tr.fold(w), ())))
+                or (own_pos <= {"noun"} and any(counts.get(o, 0) > n for o in noun_owners.get(tr.fold(w), ())))):
             shadowed.append(w)
             continue
         seen.add(w)

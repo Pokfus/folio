@@ -31,6 +31,20 @@ SCOPE = {
         "pages": "pp. 255–264",
         "listed": False,
     },
+    "b1": {
+        "themes": "a new course and new friends, school life and the news, entertainment and festivals, food and "
+                  "cooking, the environment, sport, technology, tales and legends, personality, and the online "
+                  "world; and, for B1+, which this deck includes, friends and plans, living together, the news, "
+                  "theatre and cinema, inventions, clothes, famous places, humour, holidays and celebrations, and "
+                  "nature",
+        "topics": "enrolment, elections and clubs, traditional entertainment and music, recipes and table manners, "
+                  "pollution and recycling, competitions and fair play, manuals and complaints, legends and jokes, "
+                  "character and empathy, social media and online shopping, letters, neighbours and solidarity, "
+                  "the economy and health in the news, the stage and advertising, inventors, sizes and returns, "
+                  "historic buildings, cartoons and riddles, festivals and ceremonies, landforms and wildlife",
+        "pages": "pp. 265–274, with B1+ on pp. 275–284",
+        "listed": False,
+    },
 }
 
 FIELDS = ["Turkish", "Word", "English", "Forms", "Examples"]
@@ -62,8 +76,9 @@ def describe(level, n, inv, stats, cards):
          "(TYS) certifies only B2 and C1 and publishes no vocabulary list. The scope of this deck is taken instead from the "
          "Turkish as a Foreign Language Teaching Programme (Türkçenin Yabancı Dil Olarak Öğretimi Programı; "
          "Türkiye Maarif Foundation, 2nd edition, 2020, approved by Turkey's Ministry of National Education), "
-         "a CEFR-based syllabus whose %s tables for secondary school (%s) %s ten themes: %s."
-         % (lv, sc["pages"], "list vocabulary under" if sc["listed"] else "are organised in", sc["themes"])]
+         "a CEFR-based syllabus whose %s tables for secondary school (%s) %s %s themes: %s."
+         % (lv, sc["pages"], "list vocabulary under" if sc["listed"] else "are organised in",
+            "twenty" if "B1+" in sc["pages"] else "ten", sc["themes"])]
     if sc["listed"]:
         s.append("%d of the %d words are that vocabulary, together with the members of the categories it names "
                  "without listing them (the days of the week, the months, the seasons, the numbers) and the "
@@ -71,13 +86,14 @@ def describe(level, n, inv, stats, cards):
                  "its themes as suggestions rather than a fixed list, so this is not an official word list and "
                  "is not presented as one." % (inv, n, lv))
     else:
-        s.append("FROM A2 UP THE PROGRAMME LISTS NO VOCABULARY AT ALL: its %s table says the vocabulary section "
-                 "was left out so as not to limit the level, and gives instead each theme's suggested topics — "
-                 "%s. So %d of the %d words were written for Folio for those topics, a theme at a time, and are "
+        s.append("FROM A2 UP THE PROGRAMME LISTS NO VOCABULARY AT ALL: its A2 table says the vocabulary section "
+                 "was left out so as not to limit the level%s. What each theme gives instead is its suggested "
+                 "topics — %s. So %d of the %d words were written for Folio for those topics, a theme at a time, and are "
                  "Folio's choice rather than the programme's; %s This is not an official word list and is not "
-                 "presented as one." % (lv, sc["topics"], inv - stats["grammar"], n,
-                     ("%d more are the connectives and indefinites (hem, veya, mutlaka, birkaç, hepsi …) its %s "
-                      "grammar list names." % (stats["grammar"], lv)) if stats["grammar"] else ""))
+                 "presented as one." % ("" if lv == "A2" else ", and the %s tables carry none either" % lv,
+                     sc["topics"], inv - stats["grammar"], n,
+                     ("%d more are words its %s grammar list itself names (%s …)."
+                      % (stats["grammar"], lv, ", ".join(stats["grammar_eg"]))) if stats["grammar"] else ""))
         s.append("No word taught in the levels below is repeated.")
     if fill:
         s.append("The other %d are the commonest words of everyday Turkish, from a frequency list built from "
