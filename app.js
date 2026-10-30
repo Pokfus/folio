@@ -12015,6 +12015,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* Measured the same way inside the shelf's own lightness and chroma band: this dark slate-navy is
+     the best-separated colour left anywhere in it, 19.8 from the Song of Roland and 20.1 from
+     Ptahhotep (68.5 from Plutarch's violet, placed the same day), above the shelf's tightest pair
+     (Luo Guanzhong and Plutarch, 16.5), and it reads 9.7:1 or better on all 43 light papers. Every brighter colour that clears 4.5
+     lands at 17 or under — the blues beside Marco Polo and Luo Guanzhong, the reds beside Ovid and
+     Sophocles. Neither near neighbour is a book anyone reads against Pausanias. */
+  "Pausanias": "#14203C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15038,6 +15045,70 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "pausanias-description-of-greece",
+      title: "Description of Greece",
+      // the work's own Greek title, which is what its Greek column is an edition of — Herodotus's pattern
+      subtitle: "Ἑλλάδος Περιήγησις",
+      author: "Pausanias",
+      /* Written over many years and dated by the text itself: Book I was finished before Herodes
+         Atticus began his music hall at Athens (7.20.6), and Book X mentions the Costoboci's raid of
+         about 170 (10.34.5). The key is a single year inside the span. */
+      written: "c. 155–180 CE",
+      year: 170,
+      translator: "W. H. S. Jones and H. A. Ormerod",
+      edition: "Loeb Classical Library, 1918–1935",
+      /* TWO GROUNDS BY VOLUME AND ONE LIMIT. Volumes I–II (1918, 1926) are clear in the United States
+         by date; Volumes III–IV (1933, 1935) by NON-RENEWAL, shown rather than assumed — the Classic
+         of Tea's method, over the Catalog of Copyright Entries for 1960–1963. Jones died in 1963 and
+         Ormerod in 1964, so nothing is claimed for life-plus-seventy countries before 2034. The whole
+         of the reasoning, the URAA question included, is in .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, on two grounds by volume, with one limit stated. W. H. S. " +
+        "Jones's translation (Volume II with H. A. Ormerod) was published in the Loeb Classical Library " +
+        "in four volumes. Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain " +
+        "in the United States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books " +
+        "VIII.22–X, 1935) were published by Heinemann in London and Harvard University Press in " +
+        "Cambridge, Massachusetts, and their copyright was not renewed — the Catalog of Copyright Entries " +
+        "for 1960–1963 lists no renewal — so they are public domain in the United States too. Jones died " +
+        "in 1963 and Ormerod in 1964, so the translation is still in copyright in countries whose term " +
+        "is the author's life plus seventy years, until 2034 (2035 for Volume II). The Greek beside it " +
+        "is Friedrich Spiro's Teubner edition of 1903, public domain on every ground. Both columns are " +
+        "taken from the digital editions prepared by the Perseus Digital Library at Tufts University, " +
+        "which are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+        "Pausanias wrote the work in Greek in the second century CE. (Peter Levi's translation, 1971, " +
+        "is still in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+      /* Paired on the CHAPTER, as Herodotus is: 357 on each side, the same numbers in the same order in
+         all ten books. The sections inside a chapter are not the unit. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the whole work: ten books, each named after its region in both editions
+      count: 10,
+      total: 10,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all ten books (a
+         headless run listing every `.ttip`, 451 distinct terms). Each of these told the reader
+         something untrue about the sentence in front of it: a modern place on an ancient one (Pisa in
+         Tuscany for Pisa in Elis, Tripoli for Arcadian Tripolis, Mali for the Malians of Malis, Jordan
+         the country for the river, Apia in Samoa for the old name of the Peloponnese, Providence and
+         Concord for the words, the Commonwealth of Nations for a city's "commonwealth", Germany for
+         the Germans of Marcus Aurelius's wars, Paris for Priam's son); a namesake (Alcmaeon of Croton
+         for Amphiaraus's son, the atomist Leucippus for the mythical one, Pope Damasus, Flavius Aetius
+         and Marcus Antonius Pallas for heroes of Troezen and Arcadia, the Brennus who took Rome for the
+         one who led the Gauls against Delphi, Cretan Ida mostly on Idas son of Aphareus); a battle on
+         its town or a man (Telamon, Heraclea the festival, Himera); and a common noun on a name or a
+         building (the electric ion on Ion, xenia on Xenias, the hippopotamus on Hippo, polites on
+         Polites, hippeis on Hippeus, the tholos tomb on the Tholos at Athens, Egyptian Abydos on the
+         Hellespont's, the Athenians' Egyptian expedition of the 450s on Ptolemy's of the 260s, the
+         Amazon River on the Amazons). Re-run the sweep after a batch of glossary terms. */
+      glossOff: ["Pisa", "Tripoli", "Mali", "Jordan", "Apia", "Providence", "Concord",
+        "Commonwealth_of_Nations", "Germany", "Paris", "Alcmaeon_of_Croton", "Leucippus", "Pope_Damasus_I",
+        "Flavius_Aetius", "Marcus_Antonius_Pallas", "Brennus_(leader_of_the_Senones)", "Mount_Ida",
+        "Battle_of_Telamon", "Battle_of_Heraclea", "Battle_of_Himera", "Ion", "Xenia", "Hippopotamus",
+        "Polites", "Hippeis", "Tholos_tomb", "Abydos,_Egypt", "Egyptian_expedition", "Amazon_River"],
     },
   ];
   const BOOK_BY_ID = {};
