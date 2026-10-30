@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 165 MB of decks. The file itself is fetched on Add. */
+   section without fetching 173 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -32,6 +32,8 @@ window.LANG_DECKS = [
   { lang: "Russian", file: "TORFL-A2-Russian.folio-deck.json", id: "torfla2", title: "TORFL A2 Basic — Russian", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 2561283, rev: "ef7f5ae19785" },
   { lang: "Russian", file: "TORFL-B1-Russian.folio-deck.json", id: "torflb1", title: "TORFL B1 Certificate Level 1 — Russian", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 100, bytes: 3467815, rev: "13c3dae6e7df" },
   { lang: "Russian", file: "TORFL-B2-Russian.folio-deck.json", id: "torflb2", title: "TORFL B2 Certificate Level 2 — Russian", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 99, bytes: 5219214, rev: "93952ff9c6ca" },
+  { lang: "Russian", file: "TORFL-C1-Russian.folio-deck.json", id: "torflc1", title: "TORFL C1 Certificate Level 3 — Russian", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 91, bytes: 4947018, rev: "3ad7dec9c206" },
+  { lang: "Russian", file: "TORFL-C2-Russian.folio-deck.json", id: "torflc2", title: "TORFL C2 Certificate Level 4 — Russian", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 85, bytes: 3169429, rev: "b51181018cee" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },

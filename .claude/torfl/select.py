@@ -120,7 +120,7 @@ for _reason, _words in [
      'майор'),
     ('coarse or slang', 'задница мужик идиот детка чёртов затыкаться ад секс член дерьмо '
      'сука придурок урод дурак ублюдок сексуальный грёбаный фигня сволочь отстой дура '
-     'чокнутый хрен козёл трахаться трахнуться трахать'),
+     'чокнутый хрен козёл трахаться трахнуться трахать насиловать изнасиловать'),
     ('dubbing\'s rendering of an English form of address, or of an American thing',
      'мэм леди босс сэр шеф окей штат доллар ник колледж генри месье величество вау '
      'эрика джим'),
@@ -195,7 +195,25 @@ FILM_NAMES = {'крис', 'стив', 'скотт', 'алан', 'дина', 'б�
               'адмирал', 'маньяк', 'оборотень', 'шантажировать', 'останки', 'марсель', 'вика',
               'лука', 'синьор', 'сеньора', 'морда', 'не-а', 'а-а', 'ха-ха', 'калибр', 'рация',
               'целиться', 'рядовой', 'мор', 'гад', 'бармен', 'бойфренд', 'паб', 'сити', 'гм',
-              'тоня', 'избивать', 'избить', 'обыскивать', 'обыскать'}
+              'тоня', 'избивать', 'избить', 'обыскивать', 'обыскать',
+              # C1's fill
+              'жрать', 'сожрать', 'помирать', 'дурь', 'тсс', 'мафия', 'нацист', 'скотина',
+              'тёлка', 'насильник', 'поиметь', 'киска', 'сосок', 'оргазм', 'лифчик',
+              'девственница', 'спецназ', 'взвод', 'танк', 'телохранитель', 'розыск', 'выкуп',
+              'психопат', 'умник', 'щас', 'йоу', 'го', 'бри', 'ай', 'хи', 'дак', 'шона', 'вики',
+              'ми', 'бут', 'иль', 'д-р', 'фр', 'синьора', 'нету', 'спятить', 'прикалываться',
+              'приколоться', 'бинго', 'мамаша', 'старина', 'миленький', 'шантаж', 'плен',
+              'заговор', 'конгрессмен', 'сенат', 'дилер', 'отравление', 'бункер',
+              # C2's fill
+              'отсасывать', 'отсосать', 'негр', 'бордель', 'стриптизёрша', 'граната',
+              'контрабанда', 'фюрер', 'капрал', 'чертовщина', 'рехнуться', 'свихнуться',
+              'здрасте', 'манхэттен', 'тор', 'тако', 'чили', 'слыхать', 'смыться', 'кол',
+              'текила', 'возбуждать', 'возбудить', 'возбуждённый', 'засаживать', 'засадить',
+              'запугивать', 'запугать', 'подкупать', 'подкупить', 'смочь', 'кокс', 'фига',
+              'париться', 'поганый', 'морпех', 'гангстер', 'револьвер', 'прослушка', 'афера',
+              'поджог', 'терроризм', 'террористический', 'повстанец', 'сутенёр', 'янки', 'упс',
+              'чао', 'па', 'джерси', 'госсекретарь', 'республиканец', 'супергерой', 'эльф',
+              'отсиживать', 'отсидеть', 'оперативник', 'прицел', 'кейс', 'о-о'}
 for _w in FILM_NAMES:
     REFUSED.setdefault(_w, 'an English name, a filler sound or film slang')
 
@@ -376,9 +394,25 @@ def main():
         u = unit_of(i, key)
         u['source'], u['sec'] = 'inventory', sec
         units.append(u)
+    # A1 TO B2 REFUSE THE BUILD ON A MISSING ENTRY; C1 AND C2 REPORT AND SKIP.  The
+    # upper levels are mostly inventory (the owner's decision, 2026-10-30, since the
+    # subtitle counts no longer rank anything there), and a list of a thousand
+    # hand-written words will always hold a few Wiktionary files differently.  The
+    # skipped words are printed on every run.
     if missing:
-        raise SystemExit('the inventory names entries Wiktionary does not have:\n  '
-                         + '\n  '.join(missing))
+        if LEVEL in ('c1', 'c2'):
+            print(f'  {len(missing)} inventory words not in Wiktionary, skipped: '
+                  + ', '.join(m.split(': ', 1)[1] for m in missing))
+        else:
+            raise SystemExit('the inventory names entries Wiktionary does not have:\n  '
+                             + '\n  '.join(missing))
+    # AN INVENTORY LARGER THAN THE LEVEL keeps its commonest words.
+    if len(units) > TARGET[LEVEL]:
+        units.sort(key=lambda u: -u['freq'])
+        cut = units[TARGET[LEVEL]:]
+        units = units[:TARGET[LEVEL]]
+        print(f'  inventory over the level size; dropped the {len(cut)} rarest: '
+              + ', '.join(lex[u['entries'][0]]['word'] for u in cut))
     n_inv = len(units)
     taken = {fold(lex[m]['word']) for u in units for m in u['entries']}
 

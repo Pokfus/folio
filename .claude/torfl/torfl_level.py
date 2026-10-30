@@ -109,6 +109,33 @@ SCOPE = {
                   'the media, education and expertise, medicine, character and the mind, and '
                   'the verbs, adjectives and adverbs of analysis and judgement',
     },
+    'c1': {
+        'source': 'cefr',
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for social, '
+                 'academic and professional purposes, and to produce clear, well-structured, '
+                 'detailed text on complex subjects',
+        'topics': 'academic work and method, business and finance, law and the state, politics '
+                  'and international relations, the economy, science and technology, medicine, '
+                  'the environment and physical geography, literature and the arts, the media, '
+                  'the mind and the finer emotions, society, philosophy and religion, history, '
+                  'and the verbs, adjectives and discourse markers of complex argument',
+    },
+    'c2': {
+        'source': 'cefr',
+        'quote': 'Can understand with ease virtually everything heard or read',
+        'gloss': 'able to summarise information from different spoken and written sources, '
+                 'reconstructing arguments and accounts coherently, and to express themselves '
+                 'spontaneously, very fluently and precisely, differentiating finer shades of '
+                 'meaning even in more complex situations',
+        'topics': 'the bookish and official registers, the vocabulary of literature and nature '
+                  'description, verbs that distinguish manner (of walking, speaking, laughing, '
+                  'shining, sounding), the finer shades of feeling and character, the language '
+                  'used to talk about language, rhetoric and judgement, adjectives of degree and '
+                  'evaluation, and the adverbs of manner a precise sentence turns on',
+    },
 }
 
 

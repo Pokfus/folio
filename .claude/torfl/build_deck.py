@@ -472,6 +472,10 @@ def main():
         blocks, forms, table = [], '', ''
         if u['pair']:
             gl = glosses(e0, u.get('key'), 4)
+            # an imperfective glossed only as `imperfective form of переби́ть`
+            # takes its perfective's senses
+            if not gl or re.match(r'(im)?perfective (form|equivalent) of', gl[0]):
+                gl = glosses(members[1], u.get('key'), 4) or gl
             blocks.append(('verb, imperfective / perfective', gl))
             forms = verb_forms(members)
             table = ''.join(verb_tables(m) for m in members)

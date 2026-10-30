@@ -6,10 +6,10 @@ Portuguese CAPLE, Italian CILS, Indonesian UKBI …); `docs/lang-decks.md` is th
 were built, and every rule there applies here unless this file says otherwise. Asked for on 2026-10-30: "In the same style, we made other language vocabulary collections for
 several foreign languages. Start planning a collection for learning Russian."
 
-**STATUS (2026-10-30): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/torfl/`, §10). The owner's
+**STATUS (2026-10-30): the alphabet deck and all six levels, A1 to C2, are built** (`.claude/torfl/`, §10). The owner's
 answers to §9: sizes as below; **an alphabet deck, yes**; **titles in English**; word source as
 recommended (assembled). The owner is supplying TORFL's own level descriptions; until they are written
-into `SCOPE` in `torfl_level.py`, A1 to B2 are scoped to the CEFR global descriptors for their bands
+into `SCOPE` in `torfl_level.py`, every level is scoped to the CEFR global descriptors for their bands
 and say so in their descriptions.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version
@@ -29,8 +29,8 @@ itself, and each maps to a CEFR band:
 | `TORFL-A2-Russian` (built) | Базовый уровень (ТБУ) | A2 | 750 |
 | `TORFL-B1-Russian` (built) | ТРКИ-1 | B1 | 1,000 |
 | `TORFL-B2-Russian` (built) | ТРКИ-2 | B2 | 1,500 |
-| `TORFL-C1-Russian` | ТРКИ-3 | C1 | 1,500 |
-| `TORFL-C2-Russian` | ТРКИ-4 | C2 | 1,000 |
+| `TORFL-C1-Russian` (built) | ТРКИ-3 | C1 | 1,500 |
+| `TORFL-C2-Russian` (built) | ТРКИ-4 | C2 | 1,000 |
 | `Russian-Phrases-and-Expressions` | — | — | whatever the pool holds (CAPLE's held 1,342) |
 
 The sizes follow UKBI's and CAPLE's (A1 498–500, B2 1,400–1,500) and are the owner's (confirmed
@@ -315,7 +315,36 @@ expertise, medicine and the mind), the rest by frequency; three sentences for ne
   cross-reference and a "filter-avoidance spelling" are dropped.
 - `притворяться` joins `PICK` ("pretend", not "to shut").
 
-**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the inventories
-against them) when the owner's text arrives; then C1 (1,500 notes) and C2 (1,000). Past B2 the subtitle
-counts no longer rank anything, so C1 and C2 should be mostly inventory — the UKBI finding — or take
-their order from the RNC frequency dictionary once its licence is confirmed (§3).
+## 14. As built (2026-10-30): C1 and C2, mostly inventory
+
+**The owner's decision (2026-10-30): C1 and C2 are built mostly from hand-written inventories**, as UKBI's
+upper levels are, because past B2 the subtitle counts no longer rank anything and what fills that band
+is film plot. C1 is 1,500 notes, **838 from `SECTIONS_C1`** (academic method, business and finance, law
+and the state, politics, the economy, science, medicine, physical geography, the arts, the media, the
+mind, society, philosophy, history; then the workplace, the city, cooking, the house, appearance, sport,
+the education system, family relations, industry, computing, verbs of speech, prefixed verbs of motion,
+abstract nouns in -ость); C2 is 1,000 notes, **609 from `SECTIONS_C2`** (the bookish and official
+registers, the vocabulary of description, verbs of manner, the finer shades of feeling and character,
+the language used to talk about language, rhetoric, adjectives of degree, adverbs of manner; then
+bookish verbs, verbs of nuance, abstract distinctions, temperament, landscape, flora, fauna, anatomy).
+
+- **Each first list lost about half its words to the levels below** (`мрачный`, `хрупкий`, `нарочно`
+  had reached earlier levels by frequency), so each got a second list to make the inventory the
+  majority. A further level's inventory should be written expecting that loss.
+- **At C1 and C2 a missing inventory word is reported and skipped** rather than refusing the build
+  (22 at C2: `строптивость`, `образумиться`, `трюизм`…, filed differently in Wiktionary or not at all),
+  and an inventory larger than the level would keep its commonest words.
+- **Many inventory words have no Tatoeba sentence** (131 of C1's notes, 146 of C2's), which is the
+  price of choosing words for the level rather than for the corpus; the decks' descriptions say how
+  many carry sentences.
+- **The frequency remainder needed the same refusals again** (a rape verb whose first gloss is "to
+  violate", an ethnic slur, coarse slang, crime and military, subtitle names), now in `FILM_NAMES`.
+- An imperfective glossed only as "imperfective form of X" takes its perfective's senses
+  (`перебивать / перебить`).
+
+**C1 and C2 were read as an automated sweep for known bad gloss shapes plus a random 120 cards each**,
+not one by one; strays will remain in their frequency remainders.
+
+**Open:** write TORFL's own level descriptions into `SCOPE` and the inventories against them when the
+owner's text arrives; a phrases-and-expressions deck (§1); and a full one-by-one read of B2–C2 of the
+kind DELE's decks had.
