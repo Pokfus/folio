@@ -12015,6 +12015,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-five colours placed (Oct 2026, adding the Anglo-Saxon
+     Chronicle): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from every light theme's
+     ink and 4.5:1 on every light paper, card and second paper. A dark wine was placed first and then
+     withdrawn when the branch met main: Strabo, shelved the same day, had taken #7B002A, 4.4 from it.
+     Re-measured against all fifty-five, the band's best is this steel blue at 15.8, from Machiavelli,
+     above the shelf's own tightest pair (Snorri and Polybius, 15.6), at 5.08:1 on the tightest light
+     paper. The Euripides test costs it one point: it sits 16 from the Song of Roland, a medieval
+     neighbour, but 70 from BEDE — the book a reader genuinely sets beside the Chronicle, its source
+     for the early centuries — 43 from Beowulf, 84 from the Poetic Edda and 31 from Snorri. The only
+     candidates clear of every medieval book by 25 are magentas at 15.4 and 4.5–4.8:1, tighter than
+     the shelf's own minimum and on the contrast bar, so they were refused. */
+  "anglo-saxon-chronicle": "#0C4E8D",
   /* Measured the same way inside the shelf's own lightness and chroma band: this dark slate-navy is
      the best-separated colour left anywhere in it, 19.8 from the Song of Roland and 20.1 from
      Ptahhotep (68.5 from Plutarch's violet, placed the same day), above the shelf's tightest pair
@@ -12066,15 +12078,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sits at 16.7, an Augustan poet and not a book read with a historian of the emperors. It reads
      6.42:1 on the tightest light paper. */
   "Tacitus": "#6C2442",
-  /* MEASURED AS EVERY ROW ABOVE, with fifty-two colours placed (Oct 2026, adding Cassius Dio): CIELAB
-     distance, L 12.3–47.8 and chroma 18–85, 22 or more from every light theme's ink and 4.5:1 on every
-     light paper, card and second paper. The band's top two are magentas, refused on the Euripides test
-     — 16.6 and 17.1 from THUCYDIDES, the historian Dio set out to imitate — and the teals next are 18
-     from MARCUS AURELIUS, whose reign Dio narrates. This muted violet-grey is the best left, clearing the
-     Song of Roland by 16.1 and the Classic of Poetry by 16.8, neither read beside Dio, above the shelf's
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-two colours placed (Oct 2026, adding Magna Carta): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The deep wine first chosen for it went to Strabo on the
+     same day, so it was measured again against the shelf as merged. The band's best now clears only
+     15.8, and of the candidates at that figure the blues sit nearest MACHIAVELLI and the teal nearest
+     Chaucer — the two books on the shelf a reader most plausibly sets beside a medieval English charter
+     of government — so on the Euripides test this violet is taken: 15.8 from Euripides, 16.0 from
+     Seneca and 16.2 from Marco Polo, none a kinship, and 47.3 from Machiavelli, 94.5 from Bede and 99.0
+     from Malory. Shakespeare's navy, the other English king, is 22.6 away. Keyed by id, the charter
+     being anonymous. It reads 5.25:1 on the tightest light paper. */
+  "magna-carta": "#632D9F",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-three colours placed (Oct 2026, adding Diodorus): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band's best clears 15.8 against the shelf's tightest
+     pair of 15.6, so nothing was widened, and a candidate a tenth under is taken, as the Plutarch,
+     Strabo and Livy rows did. THE EURIPIDES TEST refused the top of the list: its blues stand 19–20
+     from HERODOTUS, and two Greek universal historians in neighbouring blues would read as a set; its
+     green joins the cluster the Classic of Tea and Livy rows declined; and its rust is 16.3 from
+     Caesar. This olive-bronze clears Vyasa by 15.7, not a book read beside Diodorus, and stands 26 or
+     more from every one that is — Livy 26.4, Julius Caesar 32.8, Pausanias 62.1, Strabo 50.7,
+     Tacitus 51.0, Polybius 75.0, Thucydides 78.7, Herodotus 88.3, Plutarch 115.7. It reads 5.14:1 on
+     the tightest light paper. */
+  "Diodorus Siculus": "#634806",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-four colours placed (Oct 2026, adding the Declaration of
+     Independence; first measured as an oxblood before Strabo's row took that very colour). The band's
+     best is this dark teal at 15.8, above the shelf's tightest pair (Snorri Sturluson and Polybius,
+     15.6). Livy's row declined a teal for joining the green cluster; it is taken here on the Euripides
+     test, which the alternatives fail: the navies at 15.7–15.8 stand nearest MACHIAVELLI, and the
+     mauve at 15.7 sits 16.1 from PLATO, the two books a reader of the Declaration would set beside it.
+     Its nearest neighbours are Aesop, Chaucer and Kalidasa, which assert no kinship, it stands 33 or
+     more from every political book on the shelf (Aristotle 33.8, Machiavelli 57.9, Plato 63.0), and it
+     reads 5.61:1 on the tightest light paper. */
+  "Thomas Jefferson": "#005142",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-six colours placed (Oct 2026, adding Cassius Dio, measured
+     again after Magna Carta, Diodorus and the Declaration took their rows): CIELAB distance, L 12.3–47.8
+     and chroma 18–85, 22 or more from every light theme's ink and 4.5:1 on every light paper, card and
+     second paper. The band's top two are magentas, refused on the Euripides test — 16.6 and 17.1 from
+     THUCYDIDES, the historian Dio set out to imitate — and the teals next are 16–18 from MARCUS
+     AURELIUS, whose reign Dio narrates. This muted violet-grey is the best left, clearing the Song of
+     Roland by 16.1 and the Classic of Poetry by 16.8, neither read beside Dio, above the shelf's
      tightest pair (Snorri Sturluson and Polybius, 15.6). It stands 28 or more from every book that is —
      Tacitus 28.9, Herodotus 36.0, Polybius 39.5, Marcus Aurelius 43.3, Thucydides 44.8, Strabo 47.0,
-     Livy 50.2, Suetonius 60.1, Plutarch 65.5, Caesar 71.7. It reads 4.54:1 on the tightest light paper. */
+     Livy 50.2, Diodorus 53.7, Suetonius 60.1, Plutarch 65.5, Caesar 71.7. It reads 4.54:1 on the
+     tightest light paper. */
   "Cassius Dio": "#685874",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
@@ -15285,6 +15332,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },    {
+      id: "declaration-of-independence",
+      title: "The Declaration of Independence",
+      subtitle: "In Congress, July 4, 1776",
+      /* Jefferson wrote the draft and Congress rewrote it; the front matter says so. */
+      author: "Thomas Jefferson",
+      written: "1776",
+      year: 1776,
+      /* NO `translator` — written in English, so the rights box names the printing instead. */
+      edition: "The Goddard broadside, printed by order of Congress by Mary Katharine Goddard, Baltimore, 1777",
+      /* A LIMIT ON NOTHING: a text of 1776 in a printing of 1777. The Wikisource transcription is not
+         proofread and was collated against a scan of the broadside; see .claude/fetch-book.js. */
+      rights:
+        "Public domain. The Declaration was adopted by the Continental Congress in 1776, and this printing " +
+        "of it was made in Baltimore in 1777, so it has never been in copyright anywhere. The text is the " +
+        "Wikisource transcription of the Goddard broadside, corrected against a scan of the broadside " +
+        "itself wherever the two differ.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/United_States_Declaration_of_Independence_(Goddard_Broadside)",
+      /* NO `origLang`: the English is the original. The broadside prints the Declaration in one piece,
+         so the book is one part: the text, the signers by state, and Congress's order of 1777. */
+      chapterWord: "Part",
+      count: 1,
+      total: 1,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page (every `.ttip`). `Jersey` is
+         the Channel Island, reached through "New-Jersey"; `Settlement` is the archaeologist's word, on
+         "our Emigration and Settlement here"; `Providence` is the city, where the broadside means
+         Providence Plantations ("Rhode-Island and Providence, &c.") or DIVINE PROVIDENCE. */
+      glossOff: ["Jersey", "Settlement", "Providence"],
+    },
+    {
+      id: "magna-carta",
+      title: "Magna Carta",
+      subtitle: "The Great Charter of King John, 1215",
+      /* NO AUTHOR TO NAME. The charter speaks in John's voice and he did not write it: it is a
+         settlement between the king's side and the rebel barons, and no drafter is named in it. So it is
+         shelved as the Song of Roland is, and its colour keys on its id. */
+      author: "Anonymous",
+      // the date the charter gives itself, at its foot: Runnymede, 15 June, the seventeenth year of John
+      written: "1215",
+      year: 1215,
+      translator: "William Sharp McKechnie",
+      edition:
+        "Magna Carta: A Commentary on the Great Charter of King John, with an Historical Introduction, " +
+        "James MacLehose and Sons, Glasgow, 1905",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION. McKechnie published in 1905 and lived
+         1863–1930 — dates corroborated twice — so the English clears the pre-1929 rule and cleared life
+         plus seventy in 2001, and has NOT cleared life plus a hundred, which runs to 2031. The
+         translation most readers meet (the British Library's, G. R. C. Davis) is modern and is not
+         used; see .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The charter was granted in 1215, so the work itself has never " +
+        "been in copyright. William Sharp McKechnie published this translation, with the Latin beside " +
+        "it, in Glasgow in 1905, so it is out of copyright in the United States under the rule for works " +
+        "published before 1929, and he lived from 1863 to 1930, so it also cleared the translator's life " +
+        "plus seventy years in 2001. Where the term is life plus a hundred it remains in copyright until " +
+        "2031. (The modern translation published by the British Library, which is the one most often " +
+        "reprinted, is still in copyright and is not used.) McKechnie's historical introduction, his " +
+        "commentary on each chapter and his appendix of related documents are not reproduced; his notes " +
+        "on his own translation are.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+      /* The Latin is printed above each chapter's English in the same volume, so the two pair chapter for
+         chapter, one marker a side — see `layout: "mckechnie"` in the importer. */
+      origLang: "la",
+      origName: "Latin",
+      /* The modern division into sixty-three chapters, as the edition prints it and as everyone cites it
+         ("c. 39"); the preamble runs on into chapter 1 mid-sentence and is printed with it. */
+      chapterWord: "Chapter",
+      count: 63,
+      total: 63,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of the front matter and all
+         sixty-three chapters (a headless run listing every `.ttip`), as Macbeth's and the Classic of Tea's
+         were. England, Wales, Scotland and Ireland are entries on the modern countries, with modern
+         populations, sitting on "king of England" and "lord of Ireland" in 1215; London and Dublin are
+         the modern capitals; `Temple` is the Greek temple, on "the Knights of the Temple"; and
+         `Great_Britain` sat on the word "British" in "British Library". What stays is right in place:
+         the British Museum, the Jews of chapters 10 and 11, Latin, and Magna Carta itself. */
+      glossOff: ["England", "Wales", "Scotland", "Ireland", "London", "Dublin", "Temple", "Great_Britain"],
     },
     {
       id: "pausanias-description-of-greece",
@@ -15392,6 +15518,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 2, label: "Volume II", note: "Books 8–13" },
         { n: 3, label: "Volume III", note: "Books 14–17" },
       ],
+    },
+    {
+      id: "diodorus-library",
+      title: "The Library of History",
+      // the work's own Greek title, as Perseus's three editions of the Greek column give it
+      subtitle: "Βιβλιοθήκη ἱστορική",
+      author: "Diodorus Siculus",
+      /* Oldfather's dating in the Loeb's introduction: at work by 56 BCE (1.44), in Egypt in 59, and the
+         latest event named is the Roman colony at Tauromenium, 36 BCE or a little later (16.7.1). The
+         sort year is the middle of that span, and the front matter carries the reasoning. */
+      written: "c. 60–30 BCE",
+      year: -45,
+      translator: "C. H. Oldfather and others",
+      edition: "Loeb Classical Library, 1933–1963",
+      /* PUBLIC DOMAIN BY NON-RENEWAL, the Classic of Tea's ground on ten volumes. Each was published
+         before 1964 and needed renewing in its 28th year; Bill Thayer, whose retyping this is, records
+         that none was, and the Catalog of Copyright Entries lists no renewal in the windows it covers
+         (1960–1977, searched for this import). Renewals from 1978 on were not searched, and nothing is
+         claimed outside the United States. See .claude/fetch-book.js for the full account. */
+      rights:
+        "Public domain in the United States, by non-renewal. This is the Loeb Classical Library " +
+        "translation, published in ten volumes between 1933 and 1963 by C. H. Oldfather (Books 1 to " +
+        "15.19), C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20). " +
+        "Each volume was published before 1964 and needed its copyright renewed in its twenty-eighth " +
+        "year; none was, as Bill Thayer of LacusCurtius records volume by volume, and the Catalog of " +
+        "Copyright Entries lists no renewal in the years it covers (1960 to 1977). Outside the United " +
+        "States the term is usually counted from a translator's death, and no claim is made there. " +
+        "The text is Thayer's careful retyping, with his corrections of the printed volumes' slips; his " +
+        "own notes are his copyright and are not included. Diodorus wrote the work in Greek in the first " +
+        "century BCE. (The fragments of Books 33 to 40, in the Loeb's twelfth volume of 1967, are still " +
+        "in copyright and are not used here; neither are the modern translations by Robin Waterfield, " +
+        "2019, and Peter Green, 2010.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/home.html",
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the fifteen books that survive whole, of the forty Diodorus wrote; the fragments are not carried
+      count: 15,
+      total: 40,
+      // Diodorus's own three groups (1.4.6–7), shortened from his words; the gap is Books 6–10, lost
+      parts: [
+        { n: 1, label: "Before the Trojan War", note: "Books 1–5" },
+        { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
+        { n: 3, label: "After Alexander", note: "Books 18–20" },
+      ],
+    },
+    {
+      id: "anglo-saxon-chronicle",
+      title: "The Anglo-Saxon Chronicle",
+      /* Annals kept by many anonymous hands, so the colour row keys on the id — see song-of-roland. */
+      author: "Anonymous",
+      /* Begun in Alfred's reign around 890, the last entry written at Peterborough in 1154. `year` is
+         the start, the single number the shelf's date sort needs; the span is in `written`. */
+      written: "c. 890–1154",
+      year: 890,
+      translator: "J. A. Giles",
+      edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
+      /* A LIMIT ON NOTHING. The annals are eight to eleven centuries old; Giles published the
+         translation in 1847 and died in 1884, so it clears the pre-1929 rule and life plus a
+         hundred alike. The 1914 reissue's editor signs only "E. B." and cannot be traced, but
+         nothing of that editor's is taken — the preface is left behind — and the edition was
+         published before 1929. See .claude/fetch-book.js for the editions measured and why this one. */
+      rights:
+        "Public domain. The annals were begun in the reign of Alfred the Great, around 890, and the " +
+        "last of them was written at Peterborough in 1154. J. A. Giles's translation was first " +
+        "published in London in 1847, and he died in 1884, so the English is out of copyright under " +
+        "the rule for works published before 1929, under the translator's life plus seventy years and " +
+        "under life plus a hundred. The text is that of the 1914 reissue, whose editor signs the " +
+        "preface only \"E. B.\"; that preface is not reproduced, and the edition was published before " +
+        "1929. The footnotes are Giles's own. (The modern translations by G. N. Garmonsway, 1953, " +
+        "Dorothy Whitelock, 1961, and Michael Swanton, 1996, are still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Anglo-Saxon_Chronicle_(Giles)",
+      /* NO `origLang`: Giles's English conflates several manuscripts, so no one Old English text
+         faces it — see the importer's entry. Nine parts cut by year, Folio's and not the edition's. */
+      chapterWord: "Part",
+      count: 9,
+      total: 9,
     },
   ];
   const BOOK_BY_ID = {};

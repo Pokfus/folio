@@ -844,6 +844,36 @@ function ptahhotepChecks() {
    what leaks from that is markup — a `{{*|…}}` note, an `[[File:…]]`, a `'''` — or the typist's ASCII
    punctuation between characters, neither of which a count of parts can see. And the two columns pair on a
    single marker per part: a second marker in either would change how bookRows pairs them. */
+/* DIODORUS (Oct 2026) — the first book read off LacusCurtius. What a count of books cannot see: a
+   second marker for one chapter (Thayer re-marks a chapter carried over a page break as "(19)"), a
+   marker that cites one of THAYER'S notes, which are his copyright and must not ship, his tooltip mark
+   `º` or a scrap of his markup in the prose, and the two columns falling out of step on the chapter. */
+function diodorusChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "diodorus-library.js"), grF = path.join(dir, "diodorus-library.grc.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(grF)) return null;
+  global.window = {};
+  [enF, grF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "diodorus-library");
+  const gr = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "diodorus-library");
+  if (!en || !gr) return null;
+  const keys = (h) => [...h.matchAll(/class="bk-n" data-n="(\d+)"/g)].map((m) => +m[1]);
+  const o = { books: en.chapters.map((c) => c.n).join(","), grBooks: gr.chapters.map((c) => c.n).join(","),
+    dupes: [], unpaired: [], dead: 0, unref: 0, leaks: [], intro: en.intro || "" };
+  en.chapters.forEach((c) => {
+    const k = keys(c.html), g = gr.chapters.find((x) => x.n === c.n);
+    if (new Set(k).size !== k.length) o.dupes.push(c.n);
+    const gk = new Set(g ? keys(g.html) : []);
+    if (k.length !== gk.size || k.some((x) => !gk.has(x))) o.unpaired.push(c.n + ": " + k.length + "/" + gk.size);
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    ms.forEach((n) => { if (n < 1 || n > c.notes.length) o.dead++; });
+    c.notes.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    const text = c.html + "\n" + c.notes.join("\n");
+    (text.match(/Thayer|º|onMouse|E\/Roman\/|CLASS=|[\u0001-\u0004]/g) || []).forEach((m) => o.leaks.push(c.n + ":" + m));
+  });
+  return o;
+}
+
 function chajingChecks() {
   const dir = path.join(ROOT, "books");
   const enF = path.join(dir, "classic-of-tea.js"), zhF = path.join(dir, "classic-of-tea.zh.js");
@@ -2011,6 +2041,23 @@ function aeneidChecks() {
         /Uttara/.test(ram.intro) && /111/.test(ram.intro), String(ram.intro.length));
     } else {
       check("[ramayana] both halves of the book are on disk", false, "missing books/ramayana*.js");
+    }
+
+    /* DIODORUS — see diodorusChecks above. */
+    const dd = diodorusChecks();
+    if (dd) {
+      check("[diodorus] the fifteen surviving books on each side, 1–5 and 11–20",
+        dd.books === "1,2,3,4,5,11,12,13,14,15,16,17,18,19,20" && dd.grBooks === dd.books, dd.books + " / " + dd.grBooks);
+      check("[diodorus] no chapter is marked twice in the English", dd.dupes.length === 0, dd.dupes.join(", "));
+      check("[diodorus] every chapter pairs with the Greek, book by book", dd.unpaired.length === 0, dd.unpaired.join("; "));
+      check("[diodorus] every footnote marker resolves", dd.dead === 0, String(dd.dead));
+      check("[diodorus] every note is referenced", dd.unref === 0, String(dd.unref));
+      check("[diodorus] nothing of Thayer's own (his notes, his º marks, his markup) reaches the page",
+        dd.leaks.length === 0, dd.leaks.slice(0, 8).join(", "));
+      check("[diodorus] the front matter says which books survive",
+        /Books 1 to 5 and 11 to 20/.test(dd.intro), String(dd.intro.length));
+    } else {
+      check("[diodorus] both halves of the book are on disk", false, "missing books/diodorus-library*.js");
     }
 
     /* THE CLASSIC OF TEA — see chajingChecks above for what each of these can see. */

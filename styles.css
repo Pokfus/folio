@@ -8366,6 +8366,8 @@ body.night .book-tile, body.night .gloss-book{
    somebody's greeting. Both are written on by the importer AFTER the tag stripper, which drops
    attributes from every tag it keeps. */
 .bk-salut,.bk-head{font-style:italic; color:var(--ink-soft);}
+/* Another manuscript's version of the same year, which the printing sets in smaller type (the Anglo-Saxon Chronicle). */
+.bk-prose .bk-var{font-size:.9em; color:var(--ink-soft);}
 /* Gummere's section numbers — how this text is cited, so they are kept and set apart rather than
    folded into the prose */
 .bk-prose .bk-n{

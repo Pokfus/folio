@@ -17688,6 +17688,220 @@ const BOOKS = {
     },
   },
 
+  "anglo-saxon-chronicle": {
+    title: "The Anglo-Saxon Chronicle",
+    author: "Anonymous",
+    translator: "J. A. Giles",
+    edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
+    written: "c. 890–1154",
+    year: 890,
+
+    /* ---------- THE LICENCE ----------
+       The annals were begun in Alfred's reign, around 890, and the last was written at Peterborough
+       in 1154, so the work is free everywhere on any reading. Giles's translation first appeared in
+       1847, in the same Bohn volume as his Bede, and he died in 1884 — so the English clears the
+       pre-1929 rule, life plus seventy and life plus a hundred alike. The 1914 reissue was prepared
+       by an editor who signs the preface "E. B." and cannot be identified, which is the Gallic War's
+       and Bede's position in miniature; it matters less here, because what is taken from that
+       editor is nothing — the preface is left behind — and the edition itself was published in 1914,
+       before 1929. The footnotes are Giles's: every one that names an authority names Ingram (1823),
+       Petrie, Gibson, Lye or Miss Gurney (1819), all before 1847, and the two that cite Plummer's
+       edition of 1892–99 are E. B.'s and belong to the preface.
+
+       WHY GILES AND NOT INGRAM. Project Gutenberg's text (ebook 657) is the other free English most
+       readers are pointed at, and it is not an edition at all: it is a 1996 collation by its
+       preparer of Ingram's translation of 1823 with passages from Giles's, merged by him and marked
+       with doubled brackets. Its every page is a modern editor's choice between two Victorian
+       translators, which is a fine thing to read and the wrong thing to present as a printed book.
+       Giles's 1914 volume is one translation as it was printed, transcribed from its scan, and every
+       one of its 206 pages is VALIDATED on Wikisource — proofread twice — which is the best state a
+       transcription there can be in. Anna Gurney's 1819 version is on Wikisource too, and is a
+       translation of Gibson's text alone.
+
+       THE MODERN TRANSLATIONS are in copyright and are not used: G. N. Garmonsway's Everyman of 1953,
+       Dorothy Whitelock's of 1961 and Michael Swanton's of 1996, each of which sets the manuscripts
+       side by side as this one does not.
+
+       THERE IS NO OLD ENGLISH COLUMN, and that is a measurement too. The one complete public-domain
+       text on Wikisource is Thorpe's Rolls Series edition of 1861, which prints up to six manuscripts
+       in parallel columns, year by year; Giles's English is a conflation of those manuscripts, one at
+       a time, so no single column of Thorpe faces it, and pairing a conflation against a chosen
+       manuscript would put Old English beside English that does not translate it. */
+    rights:
+      "Public domain. The annals were begun in the reign of Alfred the Great, around 890, and the " +
+      "last of them was written at Peterborough in 1154. J. A. Giles's translation was first " +
+      "published in London in 1847, and he died in 1884, so the English is out of copyright under " +
+      "the rule for works published before 1929, under the translator's life plus seventy years and " +
+      "under life plus a hundred. The text is that of the 1914 reissue, whose editor signs the " +
+      "preface only \"E. B.\"; that preface is not reproduced, and the edition was published before " +
+      "1929. The footnotes are Giles's own. (The modern translations by G. N. Garmonsway, 1953, " +
+      "Dorothy Whitelock, 1961, and Michael Swanton, 1996, are still in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Anglo-Saxon_Chronicle_(Giles)",
+    url: "https://en.wikisource.org/w/index.php?title=The_Anglo-Saxon_Chronicle_(Giles)&action=render&useparsoid=0",
+
+    layout: "annals",
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    /* The tab carries the span of years each part holds — see ASC_SPANS above extractAnnals. */
+    titleOf: (n) => ascTitle(n),
+    /* The shortest part is the first, at about 19,000 characters: the description of Britain and
+       six centuries of mostly one-line entries. 10,000 is well below it and far above what a failed
+       extraction returns. */
+    minChars: 10000,
+
+    about: [
+      "The Chronicle is a year-by-year record of England, kept in English by monks for more than " +
+        "two and a half centuries. It was begun in the reign of <b>Alfred the Great</b>, around 890, " +
+        "when someone gathered what was known from Bede, from lists of kings and bishops and from " +
+        "older annals into one book, and copies were then sent to monasteries that went on adding " +
+        "to them. The last entry was written at Peterborough in 1154. It is the first continuous " +
+        "history of a European people written in its own language rather than in Latin.",
+      "It does not read like a history. Each year has an entry, sometimes a single line — a bishop " +
+        "died, a comet was seen — and sometimes several pages. Many years have nothing at all, and " +
+        "this edition keeps those empty years as the manuscripts do. Where something happened, the " +
+        "Chronicle is often the only witness: the Viking raids, Alfred's war with the Danes, the " +
+        "reign of Cnut, the year 1066 and the hard years under the Norman kings, which the last " +
+        "Peterborough writer describes with open bitterness. A handful of entries are poems, the " +
+        "best known the battle of Brunanburh in 937.",
+      "No two of the surviving manuscripts are the same, and this <b>translation</b> by J. A. Giles, " +
+        "first published in 1847, does not follow just one. It takes one manuscript at a time as " +
+        "the main text and prints the other manuscripts' versions of a year beside it <b>in smaller " +
+        "type</b>, so the same year can appear twice with different details. That is the edition " +
+        "working as intended, not a mistake. Words in square brackets are added from other " +
+        "manuscripts or by the translator. The dates are the manuscripts' own: for part of the eighth " +
+        "and ninth centuries they run two or three years early, and a few entries stand out of order.",
+      "The Chronicle has no chapters, so the <b>nine parts</b> here are Folio's, cut by year so that " +
+        "each is a comfortable length; each part's tab gives the years it covers. The text is the " +
+        "1914 reissue of Giles's translation, with his footnotes. Its unsigned preface is not " +
+        "included, and there is no Old English beside it, because Giles's English combines several " +
+        "manuscripts and no one Old English text matches it.",
+    ],
+  },
+
+  "magna-carta": {
+    title: "Magna Carta",
+    subtitle: "The Great Charter of King John, 1215",
+    /* NO AUTHOR TO NAME. The charter speaks in John's voice ("John, by the grace of God, king of
+       England …") and he did not write it: it is a settlement drafted between the king's side and the
+       rebel barons, with Stephen Langton among the mediators, and no drafter is named in it. So it is
+       shelved as the Song of Roland and the Gilgamesh are, and keyed by its id for its colour. */
+    author: "Anonymous",
+    translator: "William Sharp McKechnie",
+    edition:
+      "Magna Carta: A Commentary on the Great Charter of King John, with an Historical Introduction, " +
+      "James MacLehose and Sons, Glasgow, 1905",
+    written: "1215",
+    year: 1215,
+
+    /* ---------- THE LICENCE — A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION ----------
+       The charter is eight hundred years old. McKechnie's volume was published in Glasgow in 1905 (the
+       title page of this transcription; a revised second edition followed in 1914, and it is the FIRST
+       that is read here), so it is public domain in the United States on the pre-1929 rule. He lived
+       2 September 1863 – 2 July 1930 — corroborated twice, by Wikidata (Q16030113) and by his English
+       Wikipedia biography, which cites the University of Glasgow's own record — so the English cleared
+       life plus seventy on 1 January 2001 and has NOT cleared life plus a hundred, which runs to
+       1 January 2031. The Latin is his printed text of the charter, which his footnote 322 says is
+       "taken from that issued by the Trustees of the British Museum founded on the Cottonian version
+       No. 2" — a transcription of a 1215 original, carried here under the same terms as his English.
+
+       WHAT WAS LOOKED AT AND NOT USED. Project Gutenberg's other Magna Carta (ebook 10000) is the
+       British Library's modern translation (G. R. C. Davis, 1963 onward), passed around the early
+       internet without a statement of its licence; it is the translation most readers meet and it is
+       not free to take. The Avalon Project's text is the same one. Ebook 26251 is a fragment. So the
+       one complete, cleanly licensed English with the Latin beside it is McKechnie's.
+
+       WHAT IS NOT TAKEN: his Historical Introduction, his commentary on every chapter (by far the
+       greater part of the book), its footnotes, and the Appendix of related documents (the Articles of
+       the Barons, the earlier coronation charters). They are a book ABOUT Magna Carta. */
+    rights:
+      "Public domain. The charter was granted in 1215. William Sharp McKechnie's translation was " +
+      "published in Glasgow in 1905, so it is public domain in the United States as a pre-1929 " +
+      "publication, and he died in 1930, so it also cleared life-plus-seventy in 2001. Where the term " +
+      "is life plus a hundred it remains in copyright until 2031.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+    url: "https://www.gutenberg.org/cache/epub/65363/pg65363-images.html",
+
+    layout: "mckechnie",
+    chapterWord: "Chapter",
+    /* The sixty-three chapters, numbered as McKechnie prints them and as every modern edition cites
+       them ("c. 39"). The division is not the charter's own — his footnote 322 says so, and the
+       about page repeats it — but it is the citation, so the tab carries it. The preamble rides with
+       chapter 1 (see the extractor). */
+    chapters: Array.from({ length: 63 }, (_, i) => i + 1),
+    /* Transcribed, never composed: McKechnie heads each chapter "CHAPTER ONE." and nothing more, so
+       the tab is the number. Chapter 1's carries the preamble's head too, since it holds both. */
+    titleOf: (n) => (n === 1 ? "Preamble and Chapter 1" : "Chapter " + n),
+    /* Chapter 40 is the shortest — one sentence, "To no one will we sell …", 131 characters with its
+       marker — so the guard sits under the shortest real chapter rather than at the shelf's default. */
+    minChars: 100,
+
+    about: [
+      "Magna Carta is a peace treaty that failed and a charter of liberties that lasted. In the spring " +
+        "of 1215 a large party of England's barons renounced their allegiance to King John and took " +
+        "London; in June the two sides met in a meadow on the Thames between Windsor and Staines, and " +
+        "the document the king granted there, dated 15 June 1215, set out the terms on which the rebels " +
+        "would return to their homage. It is written in Latin, in the king's own voice — \u201cJohn, by " +
+        "the grace of God, king of England\u201d — but John did not compose it: it is a settlement " +
+        "worked out between his advisers and his enemies, with Stephen Langton, archbishop of " +
+        "Canterbury, among those who brought them together, and no drafter is named in it. That is why " +
+        "this shelf lists it as anonymous.",
+      "Most of it is about <b>feudal money and feudal justice</b>, and a modern reader should expect " +
+        "that. It fixes what an heir must pay to inherit, protects widows from being forced to remarry, " +
+        "limits what a guardian may take from a ward's lands, stops interest running on an heir's debts " +
+        "while he is under age, regulates the royal forests, orders fish-weirs cleared from the Thames " +
+        "and the Medway, and names the foreign officials John is to dismiss. Among all this sit the few " +
+        "sentences that made its name: no scutage or aid to be imposed without the common counsel of " +
+        "the kingdom (chapter 12), and the promise that no free man is to be arrested, imprisoned, " +
+        "dispossessed, outlawed or exiled except by the lawful judgment of his peers or by the law of " +
+        "the land, nor justice sold, refused or delayed to anyone (chapters 39 and 40).",
+      "As a peace it lasted barely the summer. Chapter 61 gave twenty-five barons the right to " +
+        "distrain the king himself if he broke its terms, which no king could accept for long; John " +
+        "appealed to Pope Innocent III, his feudal overlord since 1213, and the Pope declared the " +
+        "charter null in August 1215. War followed, and John died in October 1216. What saved the " +
+        "charter was his son's minority: it was reissued in the boy king Henry III's name in 1216 and " +
+        "1217, and again in 1225, shortened and without chapter 61, and it was the 1225 text, confirmed " +
+        "by Edward I in 1297, that entered the statute book. Three of its clauses are still law in " +
+        "England and Wales — the freedom of the English Church, the liberties of the City of London, " +
+        "and the guarantee of lawful judgment.",
+      "This is the charter of <b>1215</b>, John's, which is the one people mean by the name. Four " +
+        "copies issued that June survive, two in the British Library and one each at Lincoln and " +
+        "Salisbury cathedrals. The division into a preamble and <b>sixty-three chapters</b> is not on " +
+        "any of them — the parchment is one unbroken block of text — but it is how every edition and " +
+        "every historian cites it, so it is the tabs here. The preamble runs straight on into chapter " +
+        "1 in mid-sentence, and the edition calls the break between them arbitrary, so the two are " +
+        "printed together in the first tab, the preamble first.",
+      "The translation is <b>William Sharp McKechnie's</b>, from the commentary he published in Glasgow " +
+        "in 1905, when he lectured on constitutional law and history in the university there. It is " +
+        "close, plain and careful rather than graceful, and where a word could not be rendered without " +
+        "an argument he gave the argument in a note; those notes, twelve of them, are here. The " +
+        "commentary itself, which runs to hundreds of pages and takes the charter apart chapter by " +
+        "chapter, is not reproduced, nor is his long historical introduction. A revised second edition " +
+        "followed in 1914; this is the first.",
+      "Beside the English is the <b>Latin</b>, as McKechnie printed it above each chapter, taken from " +
+        "the British Museum's text of one of its two original copies. Because the edition prints the " +
+        "two a chapter at a time, they pair exactly: chapter for chapter, sixty-three a side, with the " +
+        "preamble beside the preamble.",
+    ],
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "mckechnie",
+      edition:
+        "The Latin text as printed in W. S. McKechnie, Magna Carta (Glasgow, 1905), from the British " +
+        "Museum's text of the Cottonian original",
+      rights:
+        "Public domain. The charter was written in 1215; this is the Latin as McKechnie printed it in " +
+        "1905, public domain in the United States as a pre-1929 publication and cleared everywhere the " +
+        "term is life plus seventy (he died in 1930).",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/65363",
+      minChars: 100,
+    },
+  },
+
   "pausanias-description-of-greece": {
     title: "Description of Greece",
     // the work's own Greek title, as Herodotus's and the Oedipus Rex's entries give theirs
@@ -18006,6 +18220,303 @@ const BOOKS = {
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-grc2.xml",
     },
+  },
+
+
+  "diodorus-library": {
+    title: "The Library of History",
+    // the work's own Greek title, as Perseus's three editions give it
+    subtitle: "Βιβλιοθήκη ἱστορική",
+    author: "Diodorus Siculus",
+    translator: "C. H. Oldfather, C. L. Sherman, C. B. Welles and R. M. Geer",
+    edition: "Diodorus of Sicily, with an English translation, Loeb Classical Library, Harvard University Press and William Heinemann, 1933–1963 (vols. I–X)",
+    written: "c. 60–30 BCE",
+
+    /* ---------- WHICH ENGLISH, AND WHY THIS ONE ----------
+       Three English translations exist that anyone could reach for. George Booth's of 1700 (reprinted
+       1814) is public domain on every ground, and the Internet Archive holds six scans of it — but only
+       as OCR, of a quality that reads "hb" for "his" and "tbe" for "the" on every page, and with no
+       chapter numbers, so nothing could pair it with the Greek. Perseus shows part of the Loeb English
+       on its own site but not in the open repository the shelf reads, and the Loeb's last volume
+       (XII, 1967, the fragments of Books 33–40) is in copyright. What remains is the Loeb of 1933–1963
+       as Bill Thayer retyped and proofread it on LacusCurtius — volumes I–XI, the whole of Books 1–32 —
+       with the Loeb's chapter and section numbers set in the markup and every Loeb note kept. That is
+       the text taken.
+
+       THE GROUND IS NON-RENEWAL, the Classic of Tea's, and it was checked as well as read. Every
+       volume here was published in the United States before 1964 and so needed renewing in its 28th
+       year; Thayer's home page for the work states that none was, volume by volume, with the year each
+       renewal would have fallen due, and that only volume XII (1967, renewed automatically under the
+       1992 act) is still in copyright — which is why he does not carry Books 33–40. CHECKED, not only
+       read: the Catalog of Copyright Entries, Third Series, Part 1 (Books), on the Internet Archive,
+       for both halves of 1960, 1961, 1962, 1963, 1966, 1967, 1974, 1975 and 1977 and for 1973 (the
+       first half whole, the second half's renewal section) — the windows for volumes I, II, III, IV,
+       IX and half of V's — was searched for "Diodor" and "Oldfather" and holds no renewal of any of
+       them, while the same volumes do list renewals by Harvard of its other series, so the OCR can see
+       one. What turns up is the 1963 registration of volume VIII (AI-8466) and the 1967 one of volume
+       XII (AI-10641), the two dates Thayer's account depends on. THE LIMIT, stated: renewals from
+       1978 on (volumes V's second year, VI, VII, VIII and X) are in the Copyright Office's online
+       records rather than the printed catalogue, and those were not searched from here — the Stanford
+       renewal database that indexes them answers with a bot challenge. For those five the ground is
+       Thayer's statement alone. ONE MORE LIMIT: the registrations carry the ad interim prefix and the title
+       pages name Cambridge, Mass. and London together. The 1996 restoration of foreign works does not reach
+       a work published in the US within thirty days of its first publication; that the two printings were
+       simultaneous is read off the title page and was not established further. Nothing is claimed for
+       countries that count a term from a translator's
+       death: Oldfather died in 1954, and the others' dates were not established.
+
+       THE FIFTEEN BOOKS THAT SURVIVE WHOLE AND NOTHING ELSE. Diodorus wrote forty; 1–5 and 11–20 come
+       down entire and the rest as excerpts and quotations. Thayer carries the fragments of 6–10 and
+       21–32 too, but Perseus has no Greek for them, they are not continuous text, and they are not
+       what a reader opening "Diodorus" expects to read through — so `count` is 15 of a `total` of 40
+       and the front matter says what is missing. */
+    rights:
+      "Public domain in the United States, by non-renewal. This is the Loeb Classical Library " +
+      "translation, published in ten volumes between 1933 and 1963 by C. H. Oldfather (Books 1 to " +
+      "15.19), C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20). " +
+      "Each volume was published before 1964 and needed its copyright renewed in its twenty-eighth " +
+      "year; none was, as Bill Thayer of LacusCurtius records volume by volume, and the Catalog of " +
+      "Copyright Entries lists no renewal in the years it covers (1960 to 1977). Outside the United " +
+      "States the term is usually counted from a translator's death, and no claim is made there. " +
+      "The text is Thayer's careful retyping, with his corrections of the printed volumes' slips; his " +
+      "own notes are his copyright and are not included. Diodorus wrote the work in Greek in the first " +
+      "century BCE. (The fragments of Books 33 to 40, in the Loeb's twelfth volume of 1967, are still " +
+      "in copyright and are not used here; neither are the modern translations by Robin Waterfield, " +
+      "2019, and Peter Green, 2010.)",
+    sourceName: "LacusCurtius",
+    sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/home.html",
+    source: "html",
+    layout: "thayer",
+    pageUrl: (p) => "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/" + p + "*.html",
+    // Thayer's pages, in reading order, for each book: Book I on 1A–1D, and so on
+    pages: Object.fromEntries([[1, 4], [2, 2], [3, 5], [4, 4], [5, 4], [11, 4], [12, 4], [13, 5], [14, 7],
+      [15, 5], [16, 4], [17, 6], [18, 3], [19, 6], [20, 5]].map(([b, k]) =>
+      [b, Array.from({ length: k }, (_, i) => b + "ABCDEFG"[i])])),
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    /* Diodorus's own plan of the work, at 1.4.6–7, in Oldfather's words: the first six books "embrace
+       the events and legends previous to the Trojan War", the next eleven "a universal history of
+       events from the Trojan War to the death of Alexander", and the rest "all subsequent events".
+       The three groups are his; the labels are his phrases shortened, not composed. */
+    parts: [
+      { n: 1, from: 1, to: 5, t: "Before the Trojan War" },
+      { n: 2, from: 11, to: 17, t: "From the Trojan War to the death of Alexander" },
+      { n: 3, from: 18, to: 20, t: "After Alexander" },
+    ],
+    /* THE FRONT MATTER — chapter 0. Every fact in it is Diodorus's own, cited to the passage, or
+       Oldfather's General Introduction to the Loeb (vol. I, pp. vii–xxiii, on LacusCurtius): what the
+       work is and how little of it survives, who he was and when he wrote, what the fifteen books hold,
+       how far to trust him, and what this edition is. */
+    about: [
+      "<b>The Library of History</b> is a history of the whole known world, from the myths of the " +
+        "gods to the author's own lifetime, written in Greek by Diodorus of Sicily in the first " +
+        "century BCE. He set out its plan himself (1.4.6–7): six books on the events and legends " +
+        "before the Trojan War, the first three on the non-Greek peoples and the next three on the " +
+        "Greeks; eleven more from the Trojan War to the death of Alexander; and twenty-three on " +
+        "everything after, down to the beginning of Julius Caesar's war in Gaul. Of the forty books, " +
+        "only <b>Books 1 to 5 and 11 to 20</b> survive whole. The rest come down only as excerpts " +
+        "and quotations in later writers, and this edition carries the fifteen complete books.",
+      "Almost everything known about Diodorus comes from the book itself. He was born at Agyrium, " +
+        "a town in the interior of Sicily (1.4.4), and says he spent thirty years on the work, " +
+        "travelling in Asia and Europe to see the places he wrote about and living for a long time " +
+        "in Rome, which supplied his material in abundance (1.4.1–4). He was in Egypt in the 180th " +
+        "Olympiad, the years 60 to 56 BCE (1.44.1), and saw a crowd there demand the death of a " +
+        "Roman who had killed a cat by accident (1.83.8). The latest event he mentions is the " +
+        "settling of a Roman colony at Tauromenium in Sicily (16.7.1), probably in 36 BCE or soon " +
+        "after, so the work was written between the 50s and the 30s BCE.",
+      "The fifteen books divide in two. <b>Books 1 to 5</b> are geography, myth and the customs of " +
+        "peoples: Egypt in Book 1; Assyria, India, Scythia and Arabia in Book 2; Ethiopia, the " +
+        "Amazons of Africa and the first gods in Book 3; the Greek gods and heroes, the Argonauts and " +
+        "Theseus in Book 4; and the islands and peoples of the West, Rhodes and Crete in Book 5. " +
+        "<b>Books 11 to 20</b> are history told year by year, from Xerxes' invasion of Greece in " +
+        "480 BCE to 302 BCE: the Persian Wars, the rise of Athens, the tyrants of Sicily, Philip of " +
+        "Macedon (Book 16), Alexander (Book 17) and the wars of his successors (Books 18 to 20).",
+      "Diodorus called his book a library, and he meant it: it gathers and condenses what earlier " +
+        "historians had written, most of whose works are now lost. His translator Oldfather judged " +
+        "that he used good sources and reproduced them faithfully, but that his method made " +
+        "trouble. From Book 11 on he files events under the year they happened, so a long war is " +
+        "broken into pieces, and he matches the Roman consular year to the Athenian one, which " +
+        "began in midsummer, so his dates are sometimes a year out. Even so, for long stretches he " +
+        "is the only continuous account to survive: the fifty years after 480 BCE, to which " +
+        "Thucydides gives little more than thirty chapters; the years from 362 to 302 BCE; and the wars after Alexander's death, " +
+        "for which Books 18 to 20 are the chief source. Without him, Oldfather notes, no history of " +
+        "ancient Sicily could be written.",
+      "This is the Loeb Classical Library translation, by C. H. Oldfather (Books 1 to 15.19), " +
+        "C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20), " +
+        "published between 1933 and 1963, as retyped and proofread by Bill Thayer on his site " +
+        "LacusCurtius. The small figures in the margin are Diodorus's chapter numbers, by which the " +
+        "work is cited (\"Diodorus 12.53\" is Book 12, chapter 53); the finer section numbers are " +
+        "not shown. The notes are the Loeb editors'; Thayer's own notes are not included. The short " +
+        "table of contents printed at the head of each book is left out, since the book's tabs do " +
+        "the same job. The Greek column is the text Perseus publishes: the Teubner " +
+        "edition of Vogel for Books 1 to 5 and of Fischer for Books 18 to 20, and the Greek printed " +
+        "in the Loeb volumes themselves for Books 11 to 17.",
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Ancient Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Bibliotheca Historica, edited by Immanuel Bekker, Ludwig Dindorf and Friedrich Vogel (Books 1–5, Teubner, Leipzig, 1888–1890) and Curt Theodor Fischer (Books 18–20, Teubner, 1903–1906); Books 11–17 as printed in the Loeb volumes, 1946–1963",
+      rights:
+        "Diodorus wrote in Greek in the first century BCE, so the words themselves are in the public " +
+        "domain everywhere. Books 1 to 5 are the Teubner text of Bekker, Dindorf and Vogel (1888–1890) " +
+        "and Books 18 to 20 that of Bekker, Dindorf and Fischer (1903–1906), both published before 1929 " +
+        "and so public domain in the United States. Books 11 to 17 are the Greek printed facing the " +
+        "translation in the same Loeb volumes (1946–1963), public domain in the United States on the " +
+        "same non-renewal ground as the English. The digital editions are prepared by the Perseus " +
+        "Digital Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0060.tlg001/",
+      urls: ["grc5", "grc4", "grc6"].map((e) =>
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0060/tlg001/tlg0060.tlg001.perseus-" + e + ".xml"),
+    },
+  },
+
+  "declaration-of-independence": {
+    title: "The Declaration of Independence",
+    subtitle: "In Congress, July 4, 1776",
+    /* THE NAME THE SHELF CAN PRINT, and the front matter says what it hides: Jefferson wrote the draft,
+       Adams and Franklin revised it and Congress cut it by about a quarter, so the words are the
+       Congress's. Wikisource heads this transcription "Thomas Jefferson et al." for the same reason. */
+    author: "Thomas Jefferson",
+    /* NO `translator`: written in English, as Macbeth was, so the run header names the printing. */
+    edition: "The Goddard broadside, printed by order of Congress by Mary Katharine Goddard, Baltimore, 1777",
+    written: "1776",
+    year: 1776,
+
+    /* ---------- WHY THIS PRINTING, AND WHY NOT THE PARCHMENT ----------
+       Wikisource's versions page offers the engrossed parchment, the Dunlap broadside of 5 July 1776
+       and this one. The parchment's transcription is DIPLOMATIC — italic throughout to stand for the
+       hand, the scribe's line-filling dashes kept as rows of underscores, the whole text one paragraph
+       and the signatures in unlabelled columns — and that is the wrong page for a reader. Dunlap's
+       carries two names. Goddard's is the printing Congress itself ordered sent to every state with
+       the names of the signers: set in type, one grievance to a paragraph, the signers grouped by
+       state, and its own order of 18 January 1777 and imprint at the foot.
+
+       THE TRANSCRIPTION IS NOT PROOFREAD, and it was collated before it was trusted. It is a
+       single-image page with no quality mark, and read line by line against the scan on Commons
+       (File:Goddard broadside.jpg, 1920-pixel copy) it departs from the print some forty times: words
+       modernised (Bonds for Bands, Connections for Connexions), dropped (alter or abolish, by the
+       Authority), changed (in these Colonies for into), misspelt (tese, teh, subsribing, Tayler) and
+       punctuation the broadside does not have. Each is a row in `fixes`, and the scan is the witness
+       for every one; nothing was corrected from memory of another printing. Thomas McKean's name is
+       absent because the broadside omits it — he added his signature to the parchment later — and it
+       is not supplied. */
+    rights:
+      "Public domain. The Declaration was adopted by the Continental Congress in 1776, and this printing " +
+      "of it was made in Baltimore in 1777, so it has never been in copyright anywhere. The text is the " +
+      "Wikisource transcription of the Goddard broadside, corrected against a scan of the broadside " +
+      "itself wherever the two differ.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/United_States_Declaration_of_Independence_(Goddard_Broadside)",
+
+    about: [
+      "<b>The Declaration of Independence</b> is the statement in which thirteen British colonies in " +
+        "North America announced that they were no longer part of the British Empire. The Second " +
+        "Continental Congress, meeting in Philadelphia more than a year into the war with Britain, voted " +
+        "for independence on 2 July 1776, and two days later, on 4 July, it adopted the text that " +
+        "explained why. That is the date at the head of the document, and the one the United States " +
+        "keeps as its birthday.",
+      "It is short — about 1,300 words — and it has a clear shape. An opening sentence says that a " +
+        "people breaking with another owes the world its reasons. A paragraph of principle follows, " +
+        "beginning <i>We hold these Truths to be self-evident</i>: that all men are created equal, that " +
+        "they have rights no government can take away, among them life, liberty and the pursuit of " +
+        "happiness, and that a government which destroys those rights may be replaced. Then come the " +
+        "reasons, set out as a list of charges against King George III, nearly every one beginning " +
+        "<i>He has</i>; a paragraph on the colonists' appeals to the British people; and the " +
+        "declaration itself, that <i>these United Colonies are, and of Right ought to be, Free and " +
+        "Independent States</i>, closed by the signers' pledge of <i>our Lives, our Fortunes, and our " +
+        "sacred Honour</i>.",
+      "Congress gave the drafting to a committee of five — John Adams, Benjamin Franklin, Thomas " +
+        "Jefferson, Robert R. Livingston and Roger Sherman — and the committee gave it to Jefferson. " +
+        "Adams and Franklin made changes to his draft, and Congress then cut and rewrote it, removing " +
+        "about a quarter, including a long passage blaming the king for the slave trade. Jefferson is " +
+        "named as the author on this shelf because he wrote the draft; the words that were adopted are " +
+        "the Congress's.",
+      "The text here is not the famous parchment. The night it was adopted, Congress had the " +
+        "Declaration printed as a broadside by John Dunlap in Philadelphia, bearing only the names of " +
+        "John Hancock, its president, and Charles Thomson, its secretary. A fair copy was then written " +
+        "out on parchment, and most of the delegates signed it on 2 August 1776; that is the copy now " +
+        "shown in the National Archives in Washington, and it has faded badly. For months the signers' " +
+        "names were not made public, since signing was treason. Then, on 18 January 1777, Congress — " +
+        "sitting in Baltimore, having left Philadelphia as the British army approached — ordered an " +
+        "authenticated copy <i>with the Names of the MEMBERS of CONGRESS, subscribing the same</i> sent " +
+        "to every state. This is that printing, and its order is printed at the foot.",
+      "It was printed by <b>Mary Katharine Goddard</b>, Baltimore's printer and postmaster, and her " +
+        "full name stands in the imprint on the last line, which is why it is called the Goddard " +
+        "broadside. It names fifty-five signers, grouped by state. The fifty-sixth name on the " +
+        "parchment, Thomas McKean of Delaware, is missing because he signed later; it is left missing " +
+        "here.",
+      "The words are given as the broadside prints them. The spelling and the capital letters are " +
+        "1777's — <i>Connexion</i>, <i>harrass</i>, <i>Honour</i>, a capital on almost every noun — and " +
+        "the printer's long s is shown as an ordinary s. The names of the signers keep the " +
+        "abbreviations they were printed with (<i>Tho<sup>s.</sup></i>, <i>Benja.</i>). The text comes " +
+        "from Wikisource and was checked line by line against a photograph of the broadside; where the " +
+        "two disagreed, about forty times, the broadside's reading is the one shown.",
+    ],
+
+    page: () => "United States Declaration of Independence (Goddard Broadside)",
+    chapterWord: "Part",
+    // the broadside's own heading, which is the only title it has — it is printed in one piece, with no
+    // divisions, so the book is one part
+    titleOf: () => "The Unanimous Declaration",
+    chapters: [1],
+    // the signers' list arrives as one block, a name to a line, with nothing but newlines between them
+    lineBlocks: true,
+    // the wiki's licence banner under the transcription, and its machine-readable twin
+    dropTail: [/^This work was published before/i, /^Public domain/i],
+    /* THE BROADSIDE'S OWN READINGS, every row read off the scan (see above). The left side is the
+       transcription exactly as extracted; each carries enough context to match once. */
+    fixes: [
+      ["ThirteenUnitedStatesofAMERICA.", "Thirteen United States of AMERICA."],
+      ["the Political Bonds", "the Political Bands"],
+      ["We hold tese Truths", "We hold these Truths"],
+      ["the pursuit of Happiness", "the Pursuit of Happiness"],
+      ["the Pursuit of Happiness—That", "the Pursuit of Happiness.—That"],
+      ["to alter or abolish it", "to alter or to abolish it"],
+      ["to institute a new Government", "to institute new Government"],
+      ["will dictate that Governments", "will dictate, that Governments"],
+      ["Governments long established should not", "Governments long established, should not"],
+      ["The History of the Present King", "The History of the present King"],
+      ["large Districts of People; unless", "large Districts of People, unless"],
+      ["the State remaining in the mean time exposed", "the State remaining, in the mean Time, exposed"],
+      ["and Amount and Payment", "and the Amount and Payment"],
+      ["Officers to harass our People", "Officers to harrass our People"],
+      ["without the consent of our Legislature.", "without the Consent of our Legislatures."],
+      ["For imposing taxes on us", "For imposing Taxes on us"],
+      ["absolute Rule in these Colonies", "absolute Rule into these Colonies"],
+      ["invested with Powers to legislate", "invested with Power to legislate"],
+      ["out of his Protection and waging", "out of his Protection, and waging"],
+      ["Mercenaries to compleat the Works", "Mercenaries to complete the Works"],
+      ["begun with circumstances of Cruelty", "begun with Circumstances of Cruelty"],
+      ["our fellow Citizens taken Captive on the high Seas to bear",
+        "our Fellow-Citizens, taken Captive on the high Seas, to bear"],
+      ["domestic Insurrections among us", "domestic Insurrections amongst us"],
+      ["of all Ages, Sexes and Conditions", "of all Ages, Sexes, and Conditions"],
+      ["In every stage of these", "In every Stage of these"],
+      ["marked by every act which", "marked by every Act which"],
+      ["warned them from Time to Time of Attempts", "warned them, from Time to Time, of Attempts"],
+      ["Usurpations, which, would inevitably interrupt our Connections",
+        "Usurpations, which would inevitably interrupt our Connexions"],
+      ["the rest of Mankind, Enemies in War, in Peace, Friends.",
+        "the Rest of Mankind, Enemies in War, in Peace Friends."],
+      ["in GENERAL CONGRESS, Assembled,", "in GENERAL CONGRESS Assembled,"],
+      ["and by the Authority of the good People", "and by Authority of the good People"],
+      ["all political Connection between", "all political Connexion between"],
+      ["is and ought to be totally dissolved", "is, and ought to be, totally dissolved"],
+      ["which INDEPENDENT STATES may of right do", "which INDEPENDENT STATES may of Right do"],
+      ["the Protection of the DIVINE PROVIDENCE", "the Protection of DIVINE PROVIDENCE"],
+      ["Banj<sup>a.</sup> Harrison", "Benj<sup>a.</sup> Harrison"],
+      ["Geo. Tayler,", "Geo. Taylor,"],
+      ["Providence, <i>&amp;c.</i>,", "Providence, <i>&amp;c.</i>"],
+      ["MEMBERS of CONGRESS, subsribing the same", "MEMBERS of CONGRESS, subscribing the same"],
+      ["to have teh same put on RECORD", "to have the same put on RECORD"],
+      ["DECLARATION of INDEPENDANCY", "DECLARATION of INDEPENDENCY"],
+      ["Baltimore in Maryland:", "Baltimore, in Maryland:"],
+    ].map((row) => row.concat("read off the scan of the broadside (Commons, File:Goddard broadside.jpg)")),
   },
 
 };
@@ -24414,6 +24925,188 @@ function extractSkeat(text, warn) {
     rubrics: rubrics, verseLines: verseLines, tyrwhitt: tyrwhitt, crossRefs: crossRefs };
 }
 
+/* ============================================================
+   A LOEB RETYPED BY HAND ON LACUSCURTIUS — one HTML page per run of chapters     (layout: "thayer")
+   ============================================================
+   Oct 2026, adding Diodorus Siculus. Bill Thayer retyped the Loeb translation and proofread it, and
+   his markup states the citation apparatus outright: `<A CLASS="chapter" NAME="12">` opens chapter
+   12, `<A CLASS="sec" NAME="12.3">` its section 3, `<A CLASS="ref" HREF="…#note7">` cites the Loeb
+   editor's note 7, kept at the foot of the same page. So nothing is read back out of the prose; what
+   this reader has to get right is what to LEAVE BEHIND, and five things are left:
+   · THAYER'S OWN WORDS. His notes (`<DIV CLASS="mynote">` inside a Loeb note, and the whole list after
+     the second `<HR CLASS="endnotes">`) are his and are copyright him, not public domain — his site
+     says so on every page. Each is dropped and counted, and a marker in the text that cites one goes
+     with it.
+   · HIS TOOLTIP MARKS. A small `º` link (`CLASS="correction"` or `"comment"`) sits after every word he
+     corrected or remarked on, the remark itself in a mouse-over. The mark goes; the CORRECTION stays
+     (`<SPAN CLASS="emend">`, his repair of a slip in the printed Loeb — "derives its name from that
+     <of> Antaeus", the Loeb having dropped the word), because it restores what the edition meant.
+     Both are counted.
+   · THE BOOK'S ANCIENT TABLE OF CONTENTS, printed before chapter 1 of each book, which Folio's own
+     chapter tabs and the reader's panel replace — and which the Greek side skips as well, being the
+     division Perseus numbers `arg`.
+   · THE SECTION NUMBERS. A Folio chapter here is a whole BOOK of Diodorus and the unit both columns
+     pair on is his CHAPTER, which is what Herodotus pairs on too; the sections inside a chapter are
+     not carried on either side.
+   · THE LOEB PAGE NUMBERS (`<SPAN CLASS="pagenum">`), which are the printed volume's furniture.
+   Thayer's HTML leaves `<P>` unclosed, as HTML 4 allows, so the text is cut into paragraphs at each
+   opening tag rather than handed to `stripTags` as it stands — whose stack would read every paragraph
+   as nested inside the one before it. Verse (a `<TABLE CLASS="verse">`, a line per `<P>`) becomes a
+   blockquote with a line break per line. */
+const THAYER_ITALIC = /^(?:translit_Greek|archaic|source)$/i;
+function thayerSpans(s) {
+  // Spans become <i>, <sup> or nothing, through a STACK so a nested span closes the right thing.
+  const out = [], stack = [];
+  let pos = 0, m;
+  const rx = /<(\/?)SPAN\b([^>]*)>/gi;
+  while ((m = rx.exec(s))) {
+    out.push(s.slice(pos, m.index));
+    pos = rx.lastIndex;
+    if (m[1]) { out.push(stack.length ? stack.pop() : ""); continue; }
+    const cls = (/CLASS="([^"]*)"/i.exec(m[2]) || [])[1] || "";
+    const lang = (/LANG="([^"]*)"/i.exec(m[2]) || [])[1] || "";
+    if (/\bbk-n\b/.test(cls)) { out.push(m[0]); stack.push("</span>"); }
+    else if (THAYER_ITALIC.test(cls) || lang === "la") { out.push("<i>"); stack.push("</i>"); }
+    else if (/^superscript$/i.test(cls)) { out.push("<sup>"); stack.push("</sup>"); }
+    else stack.push("");
+  }
+  out.push(s.slice(pos));
+  return out.join("");
+}
+function thayerVerse(t) {
+  return t.split(/<P\b[^>]*>/i).map((l) => stripTags(thayerSpans(l)).replace(/\s+/g, " ").trim())
+    .filter(Boolean).join("<br>");
+}
+// one stretch of Thayer's HTML down to Folio's tag set; `verse` says what a verse table becomes
+function thayerClean(s, inNote) {
+  let b = s.replace(/<SPAN CLASS="pagenum">[^<]*<\/SPAN>/gi, "");
+  b = b.replace(/&#8288;|&shy;/g, "");
+  b = b.replace(/(?:<DIV[^>]*>\s*)?<TABLE CLASS="verse\d?"[^>]*>([\s\S]*?)<\/TABLE>(?:\s*<\/DIV>)?/gi,
+    (w, inner) => (inNote ? " " + thayerVerse(inner) + " " : "\u0001" + thayerVerse(inner) + "\u0002"));
+  /* Every block and link tag goes HERE, before `stripTags` sees a paragraph: an unclosed <DIV> whose
+     closer sits in another paragraph would stay on its stack and swallow the next </i>. */
+  return b.replace(/<\/?(?:DIV|TABLE|TBODY|TR|TD|TH|A|IMG|FONT|CENTER|H\d|HR|UL|OL|LI|DL|DT|DD)\b[^>]*>/gi, " ");
+}
+/* A link's text sits on its own lines in Thayer's source ("(<I>Solon</I>, 31)</A>, on the authority"),
+   so the line break before the closing tag survives as a space in front of the punctuation after it —
+   "Athenaeus 104B , where". Closed up here, and only before a closing mark. */
+function thayerTidy(t) {
+  return t.replace(/\s+/g, " ").replace(/ ([,.;:!?)\]])/g, "$1").replace(/([(\[]) /g, "$1").trim();
+}
+function thayerParas(b) {
+  // unclosed <P>s: cut at every paragraph opening, and a verse block stands between paragraphs
+  const out = [];
+  b.replace(/<\/P>/gi, "").split(/<P\b[^>]*>/i).forEach((piece) => {
+    piece.split(/(\u0001[\s\S]*?\u0002)/).forEach((bit) => {
+      if (bit[0] === "\u0001") { out.push("<blockquote>" + bit.slice(1, -1) + "</blockquote>"); return; }
+      const t = thayerTidy(stripTags(thayerSpans(bit)));
+      if (t) out.push("<p>" + t + "</p>");
+    });
+  });
+  return out;
+}
+function thayerPage(h, where, c, warn) {
+  let s = h.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  // The mouse-over remarks carry markup INSIDE an attribute value ('…<BR>omits…'), which would end
+  // any `<[^>]*>` match early, so the attributes go first; none of their values holds a double quote.
+  s = s.replace(/\s*onMouse(?:Over|Out)="[^"]*"/gi, "");
+  s = s.replace(/<A CLASS="(correction|comment)"[^>]*>[^<]*<\/A>/gi, (w, k) => { c[k]++; return ""; });
+  c.emend += (s.match(/<SPAN CLASS="emend">/gi) || []).length;
+  // NAME is not always quoted (`NAME=92` in 1D), so neither quote is required anywhere below
+  const first = s.search(/<A CLASS="chapter" NAME="?\d+"?>|<A NAME="1\.1"><\/A>/i);
+  if (first < 0) throw new Error(where + ": no chapter mark on the page");
+  const pOpen = s.slice(0, first).search(/<P\b[^>]*>(?![\s\S]*<P\b)/i);
+  const start = pOpen >= 0 ? pOpen : first;
+  if (/<DIV CLASS="small">/i.test(s.slice(0, start))) c.contents++;
+  /* THE NOTES ARE FOUND BY THEIR BACK-REFERENCE, NOT BY THEIR ID. Thayer types each note's anchor by
+     hand and a few are slips — note 11 of 1D is `NAME="31"`, note 28 `ID="A"`, and 3E's rule above
+     the list is `<HR CLASS="62">` — so a reader keyed on `ID="noteN"` or on the rule's class loses
+     those notes and every marker citing them. What every note does carry is a link back to its
+     marker (`#ref11`), and the marker in the text names the note it cites (`ID="ref11" …#note11`),
+     so the list is cut at its fleurons and each piece is joined to the note its back-link names. */
+  const foot = s.search(/<TABLE CLASS="footer"/i);
+  const nStart = s.search(/<A ID="endnotes"><\/A>/i);
+  const textEnd = nStart >= 0 ? nStart : foot;
+  if (textEnd < start) throw new Error(where + ": the text has no end");
+  const refTo = {};
+  for (const m of s.slice(start, textEnd).matchAll(/<A CLASS="ref" ID="ref([^"]+)"[^>]*?HREF="[^"#]*#note([^"\s]+)/gi))
+    refTo[m[1]] = m[2];
+  // the notes in Thayer's own list, after `endnotes_T`, so that a marker citing one goes with it
+  const tAt = s.search(/<A ID="endnotes_T">/i);
+  const mine = new Set(tAt < 0 ? [] : [...s.slice(tAt).matchAll(/<A CLASS="note"[^>]*?HREF="[^"#]*#ref([^"\s]+)/gi)]
+    .map((m) => refTo[m[1]] || m[1]));
+  const notes = {};
+  if (nStart >= 0) {
+    const rest = s.slice(nStart);
+    const tEnd = [rest.search(/<A ID="endnotes_T">/i), rest.search(/<TABLE CLASS="footer"/i)].filter((x) => x >= 0);
+    const region = rest.slice(0, tEnd.length ? Math.min(...tEnd) : rest.length).replace(/<H2>[\s\S]*?<\/H2>/gi, "");
+    if (/<A ID="endnotes_T">/i.test(rest)) c.thayerLists++;
+    region.split(/<P CLASS="ivy">[^<]*<\/P>/i).forEach((t) => {
+      const backs = [...t.matchAll(/<A CLASS="note"[^>]*?HREF="[^"#]*#ref([^"\s]+)\s*"[^>]*>[^<]*<\/A>/gi)].map((m) => m[1]);
+      if (!backs.length) {
+        if (stripTags(t).trim()) warn(where + ": a block in the notes links back to no marker");
+        return;
+      }
+      const ids = [...new Set(backs.map((r) => refTo[r] || r.replace(/[a-z]$/, "")))];
+      if (ids.length > 1) warn(where + ": one note links back to markers of " + ids.join(", "));
+      t = t.replace(/<A CLASS="note"[^>]*>[^<]*<\/A>/gi, "");
+      t = t.replace(/<DIV CLASS="mynote">[\s\S]*?<\/DIV>/gi, () => { c.myNotes++; return ""; });
+      t = thayerTidy(stripTags(thayerSpans(thayerClean(t, true).replace(/<P\b[^>]*>/gi, " "))));
+      if (!t) warn(where + ": note " + ids[0] + " came back empty");
+      if (ids[0] in notes) warn(where + ": note " + ids[0] + " appears twice");
+      notes[ids[0]] = t;
+    });
+  }
+  let text = s.slice(start, textEnd);
+  text = text.replace(/<A CLASS="sec" NAME="?[^">]*"?>[^<]*<\/A>\s*/gi, () => { c.secs++; return ""; });
+  const used = [];
+  text = text.replace(/<A CLASS="ref"[^>]*HREF="[^"#]*#note([^"\s]+)\s*"[^>]*>[^<]*<\/A>/gi, (w, id) => {
+    if (id[0] === ":" || mine.has(id)) { c.myRefs++; return ""; }
+    if (!(id in notes)) { warn(where + ": a marker cites note " + id + ", which the page does not carry"); return ""; }
+    used.push(id);
+    return "\u0003" + id + "\u0004";
+  });
+  const chs = [];
+  text = text.replace(/<A CLASS="chapter" NAME="?([^">]*)"?>([^<]*)<\/A>|<A NAME="1\.1"><\/A>/gi, (w, n, shown) => {
+    /* A chapter carried over a page break is marked again at the head of the next page IN BRACKETS —
+       13B opens "(19)" on 19.4 — and is the same chapter, not a second one with that number. */
+    if (/^\s*\(\d+\)\s*$/.test(shown || "")) { c.carried++; return ""; }
+    const k = n === undefined ? 1 : +n;
+    if (!(k >= 0)) { warn(where + ": chapter mark " + JSON.stringify(n) + " is not a number"); return ""; }
+    if (n === undefined && /<A CLASS="chapter" NAME="?1"?>/i.test(s)) return "";
+    chs.push(k);
+    return '<span class="bk-n" data-n="' + k * 100 + '">' + k + "</span> ";
+  });
+  Object.keys(notes).forEach((id) => { if (!used.includes(id)) c.unused.push(where + " " + id); });
+  return { paras: thayerParas(thayerClean(text, false)), notes: notes, chapters: chs };
+}
+function extractThayer(pages, book, warn) {
+  const c = { correction: 0, comment: 0, emend: 0, contents: 0, thayerLists: 0, myNotes: 0, myRefs: 0,
+    secs: 0, carried: 0, unused: [] };
+  const out = [];
+  for (const n of book.chapters) {
+    if (!pages[n]) continue;
+    const notes = [], index = {};
+    let html = [], chs = [];
+    pages[n].forEach((pg) => {
+      const where = book.chapterWord + " " + n + " (" + pg.id + ")";
+      const got = thayerPage(pg.html, where, c, warn);
+      // a marker carries the entry it points at, renumbered across the whole book; a note cited twice
+      // on a page (Thayer's `1a`, `1b`) is ONE entry with two markers
+      html = html.concat(got.paras.map((p) => p.replace(/\u0003([^\u0004]+)\u0004/g, (w, id) => {
+        const key = pg.id + "#" + id;
+        if (!(key in index)) { notes.push(got.notes[id]); index[key] = notes.length; }
+        return '<sup class="fn" data-fn="' + index[key] + '"></sup>';
+      })));
+      chs = chs.concat(got.chapters);
+    });
+    for (let i = 1; i < chs.length; i++)
+      if (chs[i] !== chs[i - 1] + 1) warn(book.chapterWord + " " + n + ": chapter " + chs[i] + " follows " + chs[i - 1]);
+    out.push({ n: n, html: html.join("\n"), notes: notes, count: chs.length, last: chs[chs.length - 1] });
+  }
+  return { chapters: out, counts: c };
+}
+
 function extractTablets(h, book, warn) {
   /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
      the page with Windows line endings; every other source on the shelf does not, so `esc` — which
@@ -26800,6 +27493,118 @@ function extractPtahhotep(h, BOOK, warn) {
 }
 
 /* ============================================================
+   A CHARTER WITH ITS TRANSLATION, OUT OF A COMMENTARY     (layout: "mckechnie")
+   ============================================================
+   Oct 2026, adding Magna Carta — the first document on the shelf rather than a literary work, and the
+   first book read out of a COMMENTARY. McKechnie's volume (Glasgow, 1905) prints the charter a chapter
+   at a time and argues about each one for pages: the Latin first, in a paragraph of its own; then his
+   English, in a block the transcription marks `<div class="translate">`; then the commentary, which is
+   ten times the length of the two together and is NOT taken — it is a book about Magna Carta, not
+   Magna Carta, as an editor's introduction always is on this shelf.
+
+   WHAT IS READ, AND HOW IT WAS MEASURED BEFORE A WORD WAS IMPORTED. Between the head "PREAMBLE." and
+   the Appendix there are exactly sixty-four `translate` blocks, one under each of the sixty-four heads
+   (the preamble and chapters 1–63), each holding one paragraph; and before each block stand one or
+   two paragraphs of Latin and nothing else. So the cut needs no guessing: a head opens a chapter, the
+   paragraphs before its translate block are its Latin, and the block is its English. Two Latin
+   classes are in use (`c016` and `c008`, the second where the Latin is wrapped in a `lang` span) and
+   both are read; a `c016` paragraph AFTER the translate block (one, in chapter 39's commentary) is a
+   citation and not the charter, which is why only what stands before the block is taken.
+
+   THE PREAMBLE IS NOT A CHAPTER OF ITS OWN, and the edition says why: its footnote 323 calls the
+   division between preamble and chapter 1 "a purely arbitrary one", the sentence running on from one
+   into the other. It is printed with chapter 1, ahead of the marker that opens chapter 1, in both
+   columns, so the two pair as a leading row of their own. (A chapter numbered 0 was the alternative and
+   was refused: the reader's front matter is chapter 0.)
+
+   THE NOTES ARE HIS NOTES ON THE TRANSLATION ONLY. The commentary's footnotes stay with the
+   commentary; the notes cited from inside a translate block — twelve, on the preamble and chapters 5,
+   10, 18, 23, 26, 39 and 52 — are what he says about a word of his own English, and they ship in the
+   chapter's fold, renumbered from 1. A marker in the Latin is dropped with the rest of its apparatus.
+
+   THE TRANSCRIBERS' CORRECTIONS ARE KEPT AND THEIR DUPLICATE IS NOT. Project Gutenberg prints each of
+   its corrections twice, once for a browser (`htmlonly`) and once for an e-reader (`epubonly`), side by
+   side in the same file; read naively, "postponement" comes out "postponementpostponement". The e-reader
+   copy is dropped and the correction stands. */
+function extractMcKechnie(h, BOOK, warn) {
+  const a = h.indexOf('<h3 class="c015">PREAMBLE.'), z = h.indexOf('<h2 class="c007">APPENDIX.', a);
+  if (a < 0 || z < 0) throw new Error("the heads that bound the charter (PREAMBLE … APPENDIX) are not in the file");
+  const body = h.slice(a, z);
+  const c = { notes: 0, marks: 0, latinMarks: 0, pages: 0, corrections: 0 };
+
+  // every footnote in the span, keyed by its printed number; only those a translation cites are kept
+  const foot = {};
+  for (const m of body.matchAll(/<div class="footnote" id="f(\d+)">([\s\S]*?)<\/div>/g)) foot[m[1]] = m[2];
+
+  const tidy = (s) => {
+    s = s.replace(/<span class="epubonly">[\s\S]*?<\/a><\/span>/g, () => { c.corrections++; return ""; });
+    s = s.replace(/<span class="pageno"[^>]*>\d+<\/span>/g, () => { c.pages++; return ""; });
+    return s;
+  };
+  const prose = (s) => stripTags(s).replace(/\s+/g, " ").trim();
+
+  const heads = [{ at: 0, n: 0 }].concat(
+    [...body.matchAll(/<h3 class="c014" id="c_(\d+)">/g)].map((m) => ({ at: m.index, n: +m[1] })));
+  const want = Array.from({ length: 64 }, (_, i) => i).join(",");
+  if (heads.map((x) => x.n).join(",") !== want)
+    throw new Error("expected the preamble and chapters 1–63 in order, found " + heads.map((x) => x.n).join(","));
+
+  const parts = heads.map((hd, i) => {
+    const seg = body.slice(hd.at, i + 1 < heads.length ? heads[i + 1].at : body.length);
+    const tm = /<div class="translate">([\s\S]*?)<\/div>/.exec(seg);
+    if (!tm) throw new Error((hd.n ? "chapter " + hd.n : "the preamble") + " has no translation block");
+    if (/<div class="translate">/.test(seg.slice(tm.index + tm[0].length)))
+      warn((hd.n ? "chapter " + hd.n : "the preamble") + " has a second translation block; only the first is read");
+
+    // the English, its markers carrying the PRINTED note number until the chapter renumbers them
+    const ps = [];
+    for (const pm of tidy(tm[1]).matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)) {
+      const t = pm[1].replace(/<a class="c017 pginternal" href="#f(\d+)"><sup>\[\d+\]<\/sup><\/a>/g,
+        (w, n) => { c.marks++; return '<sup class="fn" data-fn="' + n + '"></sup>'; });
+      if (/pginternal/.test(t)) warn("chapter " + hd.n + ": a link was not recognised as a note marker");
+      const p = prose(t);
+      if (p) ps.push(p);
+    }
+
+    // the Latin: what stands between the head and the translation, markers and all apparatus dropped
+    const lat = [];
+    for (const lm of tidy(seg.slice(0, tm.index)).matchAll(/<p class="c0(?:16|08)">([\s\S]*?)<\/p>/g)) {
+      const t = lm[1].replace(/<a class="c017 pginternal" href="#f\d+"><sup>\[\d+\]<\/sup><\/a>/g,
+        () => { c.latinMarks++; return ""; });
+      const p = prose(t);
+      if (p) lat.push(p);
+    }
+    if (!lat.length) throw new Error("chapter " + hd.n + " has no Latin before its translation");
+    return { n: hd.n, ps: ps, lat: lat };
+  });
+
+  // the preamble rides with chapter 1 — see the block above
+  const pre = parts.shift();
+  const mark = (n) => '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>";
+  const chapters = parts.map((p) => {
+    const lead = p.n === 1 ? pre : null;
+    const en = (lead ? lead.ps.map((x) => "<p>" + x + "</p>").join("\n") + "\n" : "") +
+      mark(p.n) + "\n" + p.ps.map((x) => "<p>" + x + "</p>").join("\n");
+    const la = (lead ? lead.lat.map((x) => "<p>" + x + "</p>").join("\n") + "\n" : "") +
+      mark(p.n) + "\n" + p.lat.map((x) => "<p>" + x + "</p>").join("\n");
+    const seen = [], map = {};
+    const html = en.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (w, n) => {
+      if (!map[n]) {
+        if (foot[n] === undefined) { warn("chapter " + p.n + " cites a note " + n + " that is not printed"); return ""; }
+        const t = prose(tidy(foot[n]).replace(/<\/?p\b[^>]*>/g, " "));
+        if (!/^\d+\.\s/.test(t)) warn("note " + n + " is printed without its number");
+        seen.push(t.replace(/^\d+\.\s*/, ""));
+        map[n] = seen.length;
+        c.notes++;
+      }
+      return '<sup class="fn" data-fn="' + map[n] + '"></sup>';
+    });
+    return { n: p.n, t: chapterTitle(p.n), html: html, notes: seen, latin: la };
+  });
+  return { chapters: chapters, counts: c };
+}
+
+/* ============================================================
    A PROSIMETRUM, FROM TWO PLAIN PRINTED PAGES     (layout: "boethius")
    ============================================================
    Aug 2026, adding The Consolation of Philosophy — the fifth book from Project Gutenberg and the
@@ -28287,6 +29092,231 @@ function reconcileCards(enBooks, laBooks, warn, log, langName) {
 
 /* ---------- serialize ---------- */
 function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n"); }
+/* ---------- THE ANGLO-SAXON CHRONICLE: one transcluded page, cut into parts by year ----------
+   Giles's translation is ONE Wikisource page — the whole 1914 volume transcluded from its scan, all
+   206 printed pages validated — and the edition has no division of its own between the title and
+   the last annal: it is a single run of 739 year-entries from the description of Britain to 1154.
+   So the parts a reader moves between are Folio's, cut at the year (`ASC_SPANS`), and the front
+   matter says so; each is a span of years and its tab says which, which is a label of what the
+   part holds rather than a title the work does not have (the Meditations' rule is about inventing a
+   NAME, and nothing here is named).
+
+   FOUR THINGS ABOUT THIS PRINTING WERE MEASURED BEFORE A LINE WAS WRITTEN.
+
+   THE PAGE IS FETCHED WITH THE LEGACY PARSER, AND BY INDEX.PHP RATHER THAN THE API. Wikisource's
+   `action=render` now answers with Parsoid's markup unless asked otherwise, whose page markers and
+   transclusion data are different objects from the ones every other wiki book here is read
+   through; `useparsoid=0` returns the markup `action=parse` has always returned. It was taken
+   through index.php because the API refused this host outright for an hour on the day of the
+   import (HTTP 429 on every request), and one plain request for the whole book is the politest
+   thing to send a host that is saying that. Cached whole like every other single-file book.
+
+   GILES SETS THE OTHER MANUSCRIPTS' VERSIONS IN SMALLER TYPE, AND THAT TYPE IS THE APPARATUS. His
+   own first note says so: the text follows one manuscript at a time, and "such portions of the
+   different MSS. as are concurrent with the text, but will not conveniently admit of collation, are
+   given separately in a smaller type" — so the same year can stand twice, once in the body and once
+   small, and the second is a different chronicle's account. The transcription keeps the distinction
+   in two shapes, a `font-size:83%` span filling a paragraph and a `wst-smaller` block holding a run
+   of paragraphs (eleven of them, the longest the whole of a manuscript's 1052). Both become
+   `class="bk-var"`, which the reader sets smaller, because flattening them into body text would print
+   two contradictory entries for one year as if one scribe wrote both. Two more `wst-smaller` blocks
+   hold nothing but a two-line rhyme the body entry quotes, and those stay plain verse.
+
+   THE POEMS ARE VERSE IN THE PRINTING, and the Brunanburh poem is cut in two by a page break, which
+   arrives as two adjacent `poem` divs. Adjacent poems are joined into one quotation, as the printed
+   page reads them; a blank line inside a poem is its stanza break and becomes a paragraph break
+   inside the quotation, which is how every other book here sets verse in prose.
+
+   THE YEAR IS READ OFF THE TEXT AND IS NOT ALWAYS IN ORDER, AND TWICE ON PURPOSE. The printing dates
+   698 before 694 and 855 before 853 because its manuscripts do, and once it prints "A. 1101." for
+   1011 between 1010 and 1012 — a printer's slip the transcription reproduces faithfully. A cut keyed
+   on the first year past a boundary would start the twelfth century in the eleventh and put ninety
+   years in the wrong tab. So a part begins at the first annal whose year reaches the boundary AND
+   whose next annal's year does too, which no slip of one entry can satisfy; every cut is reported. */
+const ASC_SPANS = {
+  1: [-Infinity, 599], 2: [600, 699], 3: [700, 799], 4: [800, 899], 5: [900, 999],
+  6: [1000, 1049], 7: [1050, 1066], 8: [1067, 1099], 9: [1100, 1154],
+};
+function ascTitle(n) {
+  const s = ASC_SPANS[n];
+  return s[0] === -Infinity ? "To " + s[1] : s[0] + "–" + s[1];
+}
+function ascInline(s) {
+  return bedeEnt(s
+    .replace(/<span class="wst-bar"[^>]*><span class="wst-bar-inner">([^<]*)<\/span><\/span>/g, "$1")
+    .replace(/<(?!\/?(?:i|b|br)\b|sup class="fn"|\/sup)[^>]*>/g, ""))
+    .replace(/​/g, "").replace(/\s+/g, " ").replace(/\s+([,.;:!?])/g, "$1").trim();
+}
+function extractAnnals(h, warn) {
+  const counts = { annals: 0, variants: 0, poems: 0, poemLines: 0, marks: 0, notes: 0, uncited: 0, pages: 0, cuts: [] };
+  const got = notesOf(h);
+  const notes = {};
+  got.ids.forEach((id, i) => { notes[id.replace(/^cite_note-/, "")] = got.notes[i]; });
+  counts.notes = got.notes.length;
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  /* The text starts under the work's own heading — the title Giles prints over the description of
+     Britain, which carries his note on the manuscripts — and everything above it (the title page,
+     E. B.'s preface to the 1914 reissue) is the editor's, left behind as front matter is on every
+     book here. It ends where the note list begins. */
+  const head = /ANGLO-SAXON CHRONICLE\s*(?:<\/span>\s*)?<sup id="cite_ref-[^"]*"[\s\S]*?<\/sup>/.exec(b);
+  if (!head) throw new Error("the work's heading is not on the page");
+  const end = b.indexOf('<div class="reflist');
+  if (end < 0) throw new Error("the note list is not on the page");
+  b = b.slice(head.index + head[0].length, end);
+  /* A page mark becomes a NEWLINE rather than nothing: in prose that is whitespace and collapses,
+     and in the one poem a page break cuts mid-stanza it is what keeps the last line of one page
+     from running into the first of the next. */
+  b = b.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, () => { counts.pages++; return "\n"; });
+  b = b.replace(/<sup id="cite_ref-[^"]*" class="reference"><a href="#cite_note-([^"]+)">[\s\S]*?<\/a><\/sup>/g,
+    (w, k) => { counts.marks++; return '<sup class="fn" data-fn="' + k + '"></sup>'; });
+  for (let g = 0; g < 20; g++) {
+    const m = /<div class="[^"]*\bwst-smaller\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) { warn("a small-type block is unbalanced and was left in place"); break; }
+    const inner = b.slice(m.index + m[0].length, e - 6);
+    /* A SMALL BLOCK SET CENTRED IS A QUOTED RHYME, NOT ANOTHER MANUSCRIPT: the Peterborough
+       writer's two couplets ("There was that bride-ale / The source of man's bale", and the
+       proverb "The hedge still stands / That parts the lands"), set small and centred inside the
+       body entry that quotes them. The centring is the discriminator — none of the eleven variant
+       blocks is centred — and the couplet is kept as verse, one of them typed as a poem and the
+       other as a paragraph broken by lines. */
+    const rhyme = /<div class="wst-block-center"[^>]*>\s*(?:<link[^>]*>\s*)?$/.test(b.slice(Math.max(0, m.index - 300), m.index));
+    if (rhyme) counts.rhymes = (counts.rhymes || 0) + 1;
+    else counts.varBlocks = (counts.varBlocks || 0) + 1;
+    b = b.slice(0, m.index) +
+      (rhyme ? (/<div class="poem">/.test(inner) ? inner : inner.replace(/<p>([\s\S]*?)<\/p>/g, " POEM{$1}POEM "))
+        : " VAR{ " + inner + " }VAR ") + b.slice(e);
+  }
+  b = b.replace(/<div class="poem">\s*<p>([\s\S]*?)<\/p>\s*<\/div>/g, " POEM{$1}POEM ");
+  const out = [];
+  let depth = 0, cur = null, poem = null;
+  /* A LINE LONGER THAN ANY VERSE LINE IS A RUN THE TRANSCRIPTION DID NOT BREAK, and it stands as a
+     paragraph of its own inside the quotation. It happens once: the poem on Edward's death in 1065
+     crosses a page, the second page's half is typed as one run, and the line breaks it had in print
+     are not in the transcription to recover — so it is set as the run it is, after the lines, rather
+     than joined onto the last of them or broken where nobody can say the printer broke it. */
+  const flushPoem = () => {
+    if (!poem) return;
+    const stanzas = [];
+    poem.lines.join("\n").split(/\n\s*\n/).forEach((st) => {
+      let run = [];
+      st.split("\n").map(ascInline).filter(Boolean).forEach((l) => {
+        if (l.replace(/<[^>]+>/g, "").length > 120) {
+          if (run.length) stanzas.push(run.join("<br>"));
+          stanzas.push(l); run = [];
+          counts.longLines = (counts.longLines || 0) + 1;
+        } else run.push(l);
+      });
+      if (run.length) stanzas.push(run.join("<br>"));
+    });
+    counts.poems++;
+    counts.poemLines += stanzas.reduce((a, s) => a + s.split("<br>").length, 0);
+    out.push({ poem: true, varnt: poem.varnt, html: stanzas.map((s) => "<p>" + s + "</p>").join("") });
+    poem = null;
+  };
+  /* One paragraph, as the printed page has it. A SMALL-TYPE SPAN THAT FILLS IT makes it a variant
+     (matched BALANCED, since a variant can carry a small "A.D." of its own inside it). A small span
+     that opens on an annal mark and runs to the paragraph's end is a variant the wikitext set on
+     the same line as the body entry before it — the 1023 entry — and is split off as its own. Any
+     other small span is typography — a small "XII" in a date — and is simply unwrapped. */
+  const SMALL = '<span style="font-size:83%;">';
+  const para = (p, varnt) => {
+    p = p.trim();
+    if (p.startsWith(SMALL) && blockEnd(p, 0, "span") === p.length) {
+      p = p.slice(SMALL.length, -7); varnt = true;
+    } else {
+      const i = p.lastIndexOf(SMALL);
+      const tail = i > 0 ? ascInline(p.slice(i)) : "";
+      if (i > 0 && blockEnd(p, i, "span") === p.length && /^A[.,]?\s*(?:D\.\s*)?\d/.test(tail)) {
+        counts.split = (counts.split || 0) + 1;
+        para(p.slice(0, i), varnt);
+        para(p.slice(i), varnt);
+        return;
+      }
+      for (const x of p.matchAll(/<span style="font-size:83%;">([\s\S]*?)<\/span>/g))
+        if (ascInline(x[1]).length > 12) warn("a long small-type span inside a paragraph: " + JSON.stringify(ascInline(x[1]).slice(0, 60)));
+    }
+    const t = ascInline(p);
+    if (!t) return;
+    const y = /^\[?\s*A[.,]?\s*(?:D\.\s*)?(\d{1,4})\b/.exec(t.replace(/<[^>]+>/g, ""));
+    if (varnt) counts.variants++;
+    if (y) counts.annals++;
+    out.push({ year: y ? +y[1] : null, varnt: varnt, html: t });
+  };
+  /* TEXT BETWEEN BLOCKS IS A PARAGRAPH TOO. MediaWiki wraps a run in `<p>` only where the wikitext
+     had a blank line before it, so a run that follows a closing div — a poem's, or a small-type
+     block's — arrives bare (the Art of War's finding, met twice here: the end of the 979 entry and
+     the opening of 1053). Each is kept as the paragraph it is, and counted. */
+  const rx = /VAR\{|\}VAR|POEM\{([\s\S]*?)\}POEM|<p>([\s\S]*?)<\/p>/g;
+  let m, last = 0, stray = 0;
+  while ((m = rx.exec(b))) {
+    const gap = b.slice(last, m.index);
+    if (ascInline(gap)) { stray++; flushPoem(); para(gap, depth > 0); }
+    last = rx.lastIndex;
+    if (m[0] === "VAR{") { flushPoem(); depth++; continue; }
+    if (m[0] === "}VAR") { flushPoem(); depth--; continue; }
+    if (m[1] != null) {
+      const lines = m[1].split(/<br\s*\/?>/).map((l) => l.replace(/^\s+|\s+$/g, ""));
+      if (!poem) poem = { lines: [], varnt: depth > 0 };
+      poem.lines.push(...lines);
+      continue;
+    }
+    /* ONE POEM'S TAGS ARRIVE ESCAPED. The 1065 poem's `<poem>` opens on one page and closes on the
+       next, so neither page's tag pairs and both reach the HTML as text. Read as the poem it is;
+       its lines are newline-separated, which is how the tag delimits them. */
+    const esc = /^\s*&lt;poem&gt;([\s\S]*?)&lt;\/poem&gt;\s*$/.exec(m[2]);
+    if (esc) {
+      flushPoem();
+      poem = { lines: esc[1].split("\n").map((l) => l.trim()), varnt: depth > 0 };
+      counts.escPoems = (counts.escPoems || 0) + 1;
+      flushPoem();
+      continue;
+    }
+    flushPoem();
+    para(m[2], depth > 0);
+  }
+  flushPoem();
+  if (ascInline(b.slice(last))) para(b.slice(last), depth > 0);
+  /* The cut. See the block above for why the NEXT annal's year is asked too. */
+  const parts = Object.keys(ASC_SPANS).map((n) => ({ n: +n, rows: [] }));
+  let k = 0;
+  const years = out.map((r) => r.year);
+  for (let i = 0; i < out.length; i++) {
+    const r = out[i];
+    if (r.year != null && k + 1 < parts.length) {
+      const next = years.slice(i + 1).find((y) => y != null);
+      const start = ASC_SPANS[k + 2][0];
+      if (r.year >= start && (next == null || next >= start)) {
+        k++;
+        counts.cuts.push(start + " at “" + r.html.replace(/<[^>]+>/g, "").slice(0, 24) + "”");
+      }
+    }
+    parts[k].rows.push(r);
+  }
+  if (k !== parts.length - 1) warn("only " + (k + 1) + " of " + parts.length + " parts were reached");
+  const cited = new Set();
+  const chapters = parts.map((p) => {
+    const keep = [];
+    const html = p.rows.map((r) => r.poem
+      ? "<blockquote" + (r.varnt ? ' class="bk-var"' : "") + ">" + r.html + "</blockquote>"
+      : "<p" + (r.varnt ? ' class="bk-var"' : "") + ">" + r.html + "</p>").join("\n")
+      .replace(/<sup class="fn" data-fn="([^"]+)"><\/sup>/g, (w, id) => {
+        if (!(id in notes)) { warn("a marker points at a note the list has not got: " + id); return ""; }
+        let i = keep.indexOf(id);
+        if (i < 0) { keep.push(id); i = keep.length - 1; }
+        cited.add(id);
+        return '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+      });
+    const lo = p.rows.find((r) => r.year != null), hi = [...p.rows].reverse().find((r) => r.year != null);
+    return { n: p.n, t: ascTitle(p.n), html: html, notes: keep.map((id) => notes[id]),
+      annals: p.rows.filter((r) => r.year != null).length, first: lo && lo.year, last: hi && hi.year };
+  });
+  counts.uncited = Object.keys(notes).filter((id) => !cited.has(id)).length;
+  counts.stray = stray;
+  return { chapters: chapters, counts: counts };
+}
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -29321,6 +30351,38 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* THE ANGLO-SAXON CHRONICLE — one Wikisource page holding the whole volume, cut into parts by
+     year. Cached whole, like every other single-file book, so --from/--to cost nothing and a
+     re-extract needs no network. See the block above extractAnnals for the fetch and the cut. */
+  if (BOOK.layout === "annals") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
+    const got = extractAnnals(raw, warn);
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " parts, " + c.annals + " paragraphs opening on a year, " +
+      c.variants + " small-type paragraph(s) — the other manuscripts' versions — " + (c.split || 0) +
+      " of them split off the body entry before it, " + c.poems + " poem(s) holding " + c.poemLines +
+      " line(s), " + (c.varBlocks || 0) + " small-type block(s) and " + (c.rhymes || 0) +
+      " quoted rhyme(s) set small, " + (c.stray || 0) + " bare run(s) kept as paragraphs, " + c.marks +
+      " footnote marker(s) into an apparatus of " + c.notes + " (" + c.uncited +
+      " belong to the preface and the title this book does not carry), " + c.pages +
+      " printed page mark(s) removed");
+    console.log("  cuts: " + c.cuts.join("; "));
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      console.log("  " + BOOK.chapterWord + " " + ch.n + " — " + ch.t + ": " + ch.annals + " annals, " +
+        ch.first + " to " + ch.last + ", " + ch.notes.length + " notes, " + ch.html.length + " chars");
+      chapters.push({ n: ch.n, t: titles[ch.n] || ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   /* THE ECCLESIASTICAL HISTORY — one Gutenberg HTML page, five books, 140 chapters and an
      apparatus of 1,081 notes numbered across the whole volume. Cached whole, like every other
      single-file book, so --from/--to cost nothing and a re-extract needs no network. See the block
@@ -29404,6 +30466,28 @@ async function fetchEnglish() {
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: s.html, notes: s.notes });
     });
     chapters.sort((x, y) => x.n - y.n);
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* MAGNA CARTA — the charter's sixty-three chapters out of McKechnie's commentary; one page, cached
+     whole, and read twice: once here for the English, once by fetchOriginal for the Latin. */
+  if (BOOK.layout === "mckechnie") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = correctGot(extractMcKechnie(raw, BOOK, warn));
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " chapters (the preamble printed with chapter 1); " + c.notes +
+      " notes on the translation, " + c.marks + " marker(s); " + c.latinMarks + " marker(s) dropped from the Latin; " +
+      c.pages + " printed page number(s) and " + c.corrections + " duplicated correction(s) removed");
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
+    });
     return writeEnglish(chapters, warnings);
   }
 
@@ -29525,6 +30609,49 @@ async function fetchEnglish() {
     }
     console.log("  " + chapters.length + " books, " + marks + " chapter numbers, " + notes + " notes, " +
       unref + " uncited");
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* LACUSCURTIUS — a run of HTML pages per Folio chapter, each cached as served. That host drops
+     connections mid-page, and a cut page is still well-formed up to where it stops, so a page counts
+     as fetched only once its closing </HTML> has arrived. The per-chapter record is written too: the
+     original's pairing reads the English back from it, as it does for a wiki book. See extractThayer. */
+  if (BOOK.layout === "thayer") {
+    const warn = (m) => warnings.push(m);
+    const pages = {};
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      pages[n] = [];
+      for (const pid of BOOK.pages[n]) {
+        const cf = path.join(CACHE, "en-" + pid + ".html");
+        let h = !FORCE && fs.existsSync(cf) ? fs.readFileSync(cf, "utf8") : "";
+        for (let a = 0; !/<\/HTML>/i.test(h); a++) {
+          if (a === 6) throw new Error("could not fetch a whole page " + pid + " from " + BOOK.sourceName);
+          if (a) await sleep(4000 * a);
+          try { h = await fetchText(BOOK.pageUrl(pid)); } catch (e) { h = ""; }
+        }
+        fs.writeFileSync(cf, h);
+        pages[n].push({ id: pid, html: h });
+      }
+    }
+    const g = extractThayer(pages, BOOK, warn);
+    const c = g.counts;
+    g.chapters.forEach((ch) => {
+      if (ch.html.length < 200) throw new Error(BOOK.chapterWord + " " + ch.n + " came back short");
+      const rec = { n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes };
+      fs.writeFileSync(path.join(CACHE, ch.n + ".json"), JSON.stringify(rec));
+      chapters.push(rec);
+      console.log("  " + BOOK.chapterWord + " " + ch.n + " — " + ch.count + " chapters (to " + ch.last + "), " +
+        ch.notes.length + " notes (" + (ch.html.length / 1024).toFixed(0) + " KB)");
+    });
+    console.log("  " + c.secs + " section marks not carried (the columns pair on the chapter); " + c.carried +
+      " chapter(s) carried over a page break, marked again in brackets, kept as one; " + c.contents +
+      " ancient tables of contents left out; " + c.emend + " of Thayer's corrections to the printed Loeb kept, " +
+      (c.correction + c.comment) + " of his tooltip marks removed; " + c.myNotes + " of his notes inside Loeb " +
+      "notes, " + c.thayerLists + " list(s) of his own notes and " + c.myRefs + " marker(s) citing them dropped " +
+      "(his, and not public domain)");
+    // at import every one of these was cited only from a book's left-out table of contents — read them if the count moves
+    if (c.unused.length) console.log("  " + c.unused.length + " Loeb note(s) no marker in the text cites: " + c.unused.join(", "));
     return writeEnglish(chapters, warnings);
   }
 
@@ -29914,6 +31041,24 @@ function versifyNewlines(chapters) {
 }
 const VERSE_LINE_MAX = 100;
 
+/* A LIST SET A NAME TO A LINE, INSIDE A BLOCK THAT HOLDS NO PARAGRAPH (Oct 2026, adding the
+   Declaration of Independence). The Goddard broadside prints its fifty-five signers in a brace table,
+   a state to the left and its delegates beside it; `stripTags` leaves each row as a bare line inside
+   one blockquote, and HTML collapses the newlines, so the list would read as one run-on line of
+   names. `versifyNewlines` cannot reach it — it looks only inside <p> — so this does the same thing
+   for a blockquote that carries no block of its own: every internal newline becomes a <br>. Gated per
+   book (`lineBlocks`), because on any book that does not declare it a newline means nothing. */
+function lineateBlocks(chapters) {
+  let n = 0;
+  const fix = (html) => String(html || "").replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, (whole, inner) => {
+    if (/<(?:p|div|blockquote|br)\b/i.test(inner) || !/\S\n\S/.test(inner.trim())) return whole;
+    n++;
+    return "<blockquote>\n" + inner.trim().replace(/\s*\n\s*/g, "<br>\n") + "\n</blockquote>";
+  });
+  chapters.forEach((c) => { c.html = fix(c.html); });
+  if (n) console.log("  lineated " + n + " list block" + (n === 1 ? "" : "s") + " set a line to an entry");
+}
+
 /* TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER IS INVISIBLE TO THE READER (Sep 2026, batch E26).
    `bookSections` in app.js walks `box.children` — ELEMENTS — to split a chapter at its section
    markers, so a bare text node between two blocks belongs to no section and is silently dropped from
@@ -30073,6 +31218,7 @@ function writeEnglish(chapters, warnings) {
   if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
 
   if (BOOK.verseNewlines) versifyNewlines(chapters);
+  if (BOOK.lineBlocks) lineateBlocks(chapters);
   wrapLooseText(chapters);
   joinBrokenParas(chapters);
 
@@ -30367,6 +31513,25 @@ async function fetchOriginal() {
     }
     return writeOriginal(byNum, warnings);
   }
+  /* MAGNA CARTA'S LATIN — printed above each chapter's English on the same page, so it is read back
+     out of the English side's own cache (fetched if a clean checkout has none). Both columns carry the
+     same single marker per chapter, written by the extractor. */
+  if (O.layout === "mckechnie") {
+    console.log("\nReading the " + O.langName + " original out of the same page — " + O.edition);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractMcKechnie(raw, BOOK, warn);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.latin.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.latin.length + " chars)");
+      byNum[ch.n] = ch.latin;
+    });
+    console.log("  " + Object.keys(byNum).length + " chapters");
+    return writeOriginal(byNum, warnings);
+  }
   if (O.source === "text" && O.layout === "skeat") {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
     const cf = path.join(cacheDir, "text.txt");
@@ -30439,10 +31604,18 @@ async function fetchOriginal() {
 
   if (O.source === "tei") {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
-    const cf = path.join(cacheDir, "tei.xml");
-    let xml;
-    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
-    else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+    /* AN ORIGINAL IN SEVERAL FILES (Oct 2026, Diodorus): Perseus has his Greek as three editions —
+       Books 1–5, 11–17 and 18–20, from three printings — so `urls` lists them and each is cached
+       apart. Only the `chaptered` reader below takes a list; it reads each file and merges the books,
+       which never overlap. */
+    if (O.urls && O.layout !== "chaptered") throw new Error("`urls` is read by the chaptered layout only");
+    const xmls = [];
+    for (const [k, u] of (O.urls || [O.url]).entries()) {
+      const cf = path.join(cacheDir, O.urls ? "tei-" + (k + 1) + ".xml" : "tei.xml");
+      if (!FORCE && fs.existsSync(cf)) xmls.push(fs.readFileSync(cf, "utf8"));
+      else { const t = await fetchText(u); fs.writeFileSync(cf, t); xmls.push(t); }
+    }
+    const xml = xmls[0];
 
     /* THE SECTION IS THE CHAPTER, so there is nothing below it to reconcile — the pairing question
        this branch usually answers ("do the two columns state the same numbers inside each chapter?")
@@ -30586,7 +31759,7 @@ async function fetchOriginal() {
          rather than skipped in silence, since a quietly absent English book would read as a clean
          pairing of the ones that remain. */
       let en;
-      if (BOOK.source === "wiki") {
+      if (BOOK.source === "wiki" || BOOK.layout === "thayer") {
         en = {};
         for (const n of BOOK.chapters) {
           const cf = path.join(CACHE, n + ".json");
@@ -30601,8 +31774,8 @@ async function fetchOriginal() {
         en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
           fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn);
       }
-      const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
-        fence: O.fence, preface: O.preface, crossBook: O.crossBookChapters }, warn);
+      const or = Object.assign({}, ...xmls.map((x) => teiBookChapters(O.teiRaw ? O.teiRaw(x) : x, { pairOn: BOOK.pairOn,
+        sectionChapters: BOOK.sectionChapters, fence: O.fence, preface: O.preface, crossBook: O.crossBookChapters }, warn)));
       /* AN ORIGINAL FOR SOME BOOKS ONLY (Oct 2026, Polybius). Where two editions number a book's
          chapters alike but mean different passages by the numbers, a pairing on the number sets each
          English passage beside Greek that is not its counterpart — worse than no column. `only`
@@ -30616,6 +31789,10 @@ async function fetchOriginal() {
         console.log("  original kept for " + O.only.length + " " + BOOK.chapterWord.toLowerCase() +
           "s only: " + O.only.join(", "));
       }
+      // a division numbered with a word is not a chapter (Diodorus's `arg`, each book's contents) — said, not hidden
+      const skippedOrig = Object.keys(or).filter((n) => or[n].skipped.length)
+        .map((n) => n + ": " + or[n].skipped.join(", "));
+      if (skippedOrig.length) console.log("  skipped non-chapter division(s) in the original — " + skippedOrig.join("; "));
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the

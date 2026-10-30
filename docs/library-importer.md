@@ -2479,6 +2479,54 @@ note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifti
 Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
 `node .claude/check-pairing.js` (it should list no row for the book).
 
+## The `annals` layout — one transcluded page cut into parts by year (Oct 2026, the Anglo-Saxon Chronicle)
+
+`layout: "annals"` → `extractAnnals` (with `ASC_SPANS`, `ascTitle`, `ascInline`). Giles's 1914 volume is ONE
+Wikisource page, so the book is one request, cached whole as `en-page.html`, and the edition has no divisions:
+739 year-entries in a single run. The parts are Folio's, cut at the year, and each tab is its span. Five
+things it settled:
+
+- **Fetch the legacy parser through index.php when the API refuses.** `action=render` now returns Parsoid
+  markup — different page markers, transclusion JSON in attributes — unless `useparsoid=0` is passed, which
+  returns exactly what `action=parse` returns. The API answered 429 to every request for an hour; index.php
+  did not. `url` on the entry is that address, read by `fetchText`.
+- **A cut keyed on the first year past a boundary is wrong once in this book.** The printing has "A. 1101."
+  for 1011 (between 1010 and 1012), and the manuscripts' own misdatings put 698 before 694 and 855 before
+  853. A part begins only where an annal AND the next annal both reach the boundary; every cut is printed.
+- **Small type is the apparatus, in three shapes.** A `font-size:83%` span filling a paragraph (matched
+  balanced — a variant can hold a small "A.D." of its own), a `wst-smaller` block of several, and once a
+  variant run onto the body paragraph before it (no blank line in the wikitext), split off because its span
+  opens on an annal mark. All ship as `class="bk-var"`. A short small span inside a sentence ("XII") is
+  typography and is unwrapped; a long one is reported. **A small block set CENTRED is not a variant** —
+  the two couplets the Peterborough writer quotes are small and centred in a `wst-block-center`, and none
+  of the eleven variant blocks is; they stay plain verse.
+- **Bare runs again** (the Art of War's finding): a run after a closing `</div>` arrives with no `<p>`. Text
+  between blocks is kept as a paragraph, never dropped.
+- **A poem whose tags straddle a page arrives ESCAPED** (`&lt;poem&gt;`), and the importer's
+  `dropEscapedTags` would then delete the tags and leave the verse as one prose paragraph. It is read as the
+  poem; a line over 120 characters is a run the transcription never broke and is set as its own paragraph
+  inside the quotation. Page marks become a newline, not nothing, so a page break cannot join two verse lines.
+
+## The `mckechnie` layout — a charter and its translation out of a commentary (Oct 2026, Magna Carta)
+
+McKechnie's *Magna Carta* (Glasgow, 1905; Gutenberg 65363) prints the charter a chapter at a time inside a book
+about it: a head (`<h3 class="c015">PREAMBLE.` then `<h3 class="c014" id="c_N">`), one or two Latin paragraphs
+(`c016`, or `c008` with a `lang` span), a `<div class="translate">` holding the English, then the commentary.
+`extractMcKechnie` cuts at the heads between PREAMBLE and the APPENDIX `h2`, takes the Latin that stands BEFORE
+the translate block (chapter 39's commentary has a later `c016` that is a citation), and keeps only the
+footnotes a translate block cites. What it settled:
+
+- **Count the blocks before trusting the shape**: 64 heads, 64 translate blocks, one paragraph each, Latin
+  before every one. The extractor throws if the heads are not 0–63 in order or a chapter has no Latin.
+- **Gutenberg prints each correction twice** — an `htmlonly` copy and an `epubonly` copy side by side — so a
+  naive strip reads "postponementpostponement". Drop the `epubonly` span.
+- **`stripTags` keeps `<p>`**: a footnote's text must have its paragraph tags removed before the printed
+  number ("323. ") is cut off, or every note ships wrapped in `<p>` with its number.
+- **Chapter 0 is taken** by the reader's front matter, so a preamble cannot be its own tab without a collision;
+  it is printed at the head of chapter 1 in both columns and pairs as a leading row.
+- Re-run after touching: `node .claude/fetch-book.js magna-carta` (both columns, from one cached page), then
+  `node .claude/check-pairing.js` (no row for the book) and `node .claude/check-cutoff.js`.
+
 ## An original for some books only, and three chaptered-reader fixes (Oct 2026, Polybius)
 
 - **`original.only: [n, …]`** (chaptered originals) — the books that get the original column. Polybius's two
@@ -2512,6 +2560,37 @@ and the collapse of `<quote><q>…</q></quote>` into one `<q>`. **Measure a new 
 source against output** (heads, `<del>` and skipped chapters removed from the source; the original's notes too).
 Re-run after touching: `node .claude/fetch-book.js strabo-geography` (both columns, from cache), `node
 .claude/test-library.js` (the `[strabo-geography]` checks) and `node .claude/check-pairing.js`.
+## The `thayer` layout — a Loeb retyped on LacusCurtius, beside a Greek in three Perseus files (Oct 2026, Diodorus)
+
+`layout: "thayer"` → `extractThayer` / `thayerPage` / `thayerParas` / `thayerSpans`; `original.urls` (a list)
+on the `chaptered` reader. Bill Thayer's pages state the apparatus in markup — `<A CLASS="chapter" NAME="12">`,
+`<A CLASS="sec" NAME="12.3">`, `<A CLASS="ref" HREF="…#note7">` — so nothing is read out of the prose; the work
+is in what to leave behind and in his hand-typed slips. What is worth carrying:
+
+- **Leave out what is Thayer's own.** His notes (`<DIV CLASS="mynote">` inside a Loeb note, and the whole list
+  after `<A ID="endnotes_T">`) are his copyright, not public domain; they go, counted, and so does every marker
+  in the text that cites one (`#note:slug` and the letter-keyed `#noteB`). His `º` tooltip links
+  (`CLASS="correction"`, `"comment"`) go; his `<SPAN CLASS="emend">` repairs of the printed Loeb stay.
+- **Strip the `onMouseOver`/`onMouseOut` attributes before any tag regex.** Their values carry markup
+  (`'…<BR>omits…'`), which ends a `<[^>]*>` match in the middle of the attribute. No value holds a `"`.
+- **Find a note by its back-link, not its id.** Thayer types each note's anchor by hand: note 11 of page 1D
+  is `NAME="31"`, note 28 is `ID="A"`, 3E's rule above the list is `<HR CLASS="62">`. Each note links back to
+  its marker (`#ref11`) and the marker names its note (`ID="ref11" …#note11`), so the list is cut at its
+  fleurons (`<P CLASS="ivy">`) and joined that way. `NAME` is not always quoted either (`NAME=92`), and a
+  reader requiring the quote loses that chapter into the one before it.
+- **`<P>` is never closed** (HTML 4). Cut at each opening tag and give `stripTags` one paragraph at a time,
+  having first removed every block and link tag — an unclosed `<DIV>` left on its stack swallows the next `</i>`.
+- **A page counts as fetched only when `</HTML>` has arrived.** The host drops connections mid-page, and a cut
+  page is well-formed up to where it stops.
+- **The unit is Diodorus's chapter, on both sides** (`data-n` = chapter × 100, which is what
+  `teiBookChapters` writes for the Greek); the sections are not carried, as Herodotus's are not. Each book's
+  ancient table of contents is left out on both sides (Perseus numbers it `arg`; the reader now logs it).
+- **A chapter carried over a page break is marked again, in brackets** (13B opens `(19)` on 19.4) and is the same
+  chapter; read as a mark it gives Book 13 a second chapter 19.
+- Measured at import: 1,414 chapters on each side over the fifteen books, every one paired; 3,707 Loeb notes.
+- Re-run after touching: `node .claude/fetch-book.js diodorus-library` (both halves read the cache;
+  `--force` re-extracts), `node .claude/test-library.js` and `node .claude/check-pairing.js`.
+
 ## The `lacus` layout — a Loeb transcribed on LacusCurtius (Oct 2026, Cassius Dio)
 
 `extractLacus` / `lacusInline` / `lacusColumns` / `lacusDateTable`; one page per book under
@@ -2533,4 +2612,3 @@ LacusCurtius book:
   its label the first time it holds text. `WIDTH="500"` tables are consul lists, one line per row.
 - Re-run after touching: `node .claude/fetch-book.js cassius-dio-roman-history` (reads the cache), then compare
   words per page against the raw body and look for leaked furniture (`Thayer`, `º`, `•`, `Ebox`, `http`).
-
