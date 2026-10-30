@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"51bbeb4897c9f81b","counts":{"terms":926,"points":689,"countries":237,"windows":1421,"faces":380,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"8269cde2f1f36c04","counts":{"terms":926,"points":689,"countries":237,"windows":1422,"faces":380,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1148,6 +1148,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"51bbeb4897c9f81b","counts":
 "Chad":[18.65,15.14,"country","adm0:tcd",0,4.29],
 "Chalcis":[23.595,38.463,"city",0,0,0],
 "Chang'an":[108.858,34.308,"site",0,0,0],
+"Changi_Prison":[103.974,1.357,"coord",0,0,0],
 "Chauvet_Cave":[4.416,44.388,"site",0,0,0],
 "Chechnya":[45.757,43.215,"admin1","adm1:rus:ru-ce",0,40],
 "Chelyabinsk":[60.238,54.113,"admin1","adm1:rus:ru-che",0,15.63],

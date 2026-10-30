@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1194", released: "2026-10-30T20:39Z" };
+window.FOLIO_VERSION = { v: "1.1195", released: "2026-10-30T20:51Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
-    t: "How far? minigame, 240 Second World War cards, 13 Library books",
+    t: "How far? minigame, 340 Second World War cards, 13 Library books",
     items: [
       "A new <b>Japanese</b> language collection: hiragana, katakana, JLPT N5 to N1, phrases and idioms, with <b>furigana</b> over the kanji and romaji.",
       "A tenth daily minigame, <b>How far?</b>: guess the straight-line distance between two places on the globe, five rounds a day, within 10% to win.",
@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "<b>36 new glossary terms</b>, linked from 11 cards across Egypt, Japan, World History, Greece, the Second World War, Korea, Rome and the United States.",
       "Atlas windows on 3 cards: one in Russia now shows the Mongol Empire's borders in 1227, and Korea and the United States each gain one.",
       "A World Geography card's date line and background now give its city's founding dates under its two earlier names.",
-      "<b>240 new cards</b> in eight Second World War decks, from <i>Poland and the outbreak</i> to <i>The road to Berlin</i>, with 230 new glossary terms.",
+      "<b>340 new cards</b> in eleven Second World War decks, from <i>Poland and the outbreak</i> to <i>The Pacific counter-offensive</i>, with 312 new glossary terms.",
       "585 <b>Ancient Greece</b>, 590 <b>Ancient Rome</b> and 112 other cards (World History, Egypt, China, Russia, Geography) now quote the source their background cites, from the Library.",
       "<b>Library</b>: Plutarch's <i>Parallel Lives</i>, Pausanias's <i>Description of Greece</i> and Strabo's <i>Geography</i> join the shelf, each complete with the Greek beside it.",
       "<b>Livy's <i>History of Rome</i></b> (<i>Ab Urbe Condita</i>) is in the Library: all 35 surviving books, with the Latin beside the English.",
