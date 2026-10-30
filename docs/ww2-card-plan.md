@@ -764,16 +764,16 @@ definitions, which exist precisely because the wording matters.
     ww2-248  Battle of Cape Matapan
     ww2-249  Siege of Malta
     ww2-250  The German intervention in the Balkans  → written as *Balkan campaign*
-    ww2-251  The Yugoslav coup of 1941
+    ww2-251  The Yugoslav coup of 1941  → written as *Yugoslav coup d'état*
     ww2-252  The invasion of Yugoslavia
-    ww2-253  The German invasion of Greece
+    ww2-253  The German invasion of Greece  → written as *Battle of Greece*
     ww2-254  Battle of Crete
     ww2-255  The partition of Yugoslavia
     ww2-256  Independent State of Croatia
-    ww2-257  The Anglo-Iraqi War and the Syria-Lebanon campaign
+    ww2-257  The Anglo-Iraqi War and the Syria-Lebanon campaign  → written as *Anglo-Iraqi War*
     ww2-258  Anglo-Soviet invasion of Iran
     ww2-259  The Persian Corridor
-    ww2-260  Did the Balkans delay Barbarossa?
+    ww2-260  Did the Balkans delay Barbarossa?  → written as *Operation 25*
 
 ## The Eastern Front
 

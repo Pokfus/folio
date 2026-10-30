@@ -7586,7 +7586,16 @@ window.GLOSSARY = {
 "Anderson_shelter": "",
 "Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": "",
 "Blitz_spirit": "",
-"War_cabinet": ""
+"War_cabinet": "",
+"Yugoslav_coup_d'état": "",
+"Invasion_of_Yugoslavia": "",
+"Battle_of_Greece": "",
+"Battle_of_Crete": "",
+"Partition_of_Yugoslavia": "",
+"Independent_State_of_Croatia": "",
+"Anglo-Iraqi_War": "",
+"Anglo-Soviet_invasion_of_Iran": "",
+"Persian_Corridor": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11321,7 +11330,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Air_Raid_Precautions": "1935–1941",
 "Anderson_shelter": "1939",
 "Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": "1939–1945",
-"Blitz_spirit": "1940–1941"
+"Blitz_spirit": "1940–1941",
+"Yugoslav_coup_d'état": "27 March 1941",
+"Invasion_of_Yugoslavia": "6–18 April 1941",
+"Battle_of_Greece": "6–30 April 1941",
+"Battle_of_Crete": "20 May – 1 June 1941",
+"Partition_of_Yugoslavia": "1941",
+"Independent_State_of_Croatia": "1941–1945",
+"Anglo-Iraqi_War": "2–31 May 1941",
+"Anglo-Soviet_invasion_of_Iran": "25 August – 17 September 1941",
+"Persian_Corridor": "1941–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16137,7 +16155,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Anderson_shelter": ["Anderson shelters","Anderson"],
 "Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": ["Government Evacuation Scheme","Operation Pied Piper","evacuation of British children"],
 "Blitz_spirit": ["Blitz spirit","myth of the Blitz"],
-"War_cabinet": ["War Cabinet"]
+"War_cabinet": ["War Cabinet"],
+"Yugoslav_coup_d'état": ["Yugoslav coup of 1941","Belgrade coup"],
+"Invasion_of_Yugoslavia": ["April War","Operation 25"],
+"Battle_of_Greece": ["Operation Marita","German invasion of Greece"],
+"Battle_of_Crete": ["Operation Merkur","Operation Mercury"],
+"Partition_of_Yugoslavia": ["Axis partition of Yugoslavia"],
+"Independent_State_of_Croatia": ["NDH","Nezavisna Država Hrvatska"],
+"Anglo-Iraqi_War": ["Rashid Ali coup","Iraq campaign of 1941"],
+"Anglo-Soviet_invasion_of_Iran": ["Anglo-Soviet occupation of Iran","Operation Countenance"],
+"Persian_Corridor": ["Persian Gulf supply route"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23868,7 +23895,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Anderson_shelter": ["object","history","warfare","britain","civil defence"],
 "Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": ["event","history","society","second world war","britain"],
 "Blitz_spirit": ["concept","history","society","second world war","britain"],
-"War_cabinet": ["institution","history","politics","government"]
+"War_cabinet": ["institution","history","politics","government"],
+"Yugoslav_coup_d'état": ["event","history","politics","yugoslavia","serbia"],
+"Invasion_of_Yugoslavia": ["war","history","warfare","yugoslavia","germany"],
+"Battle_of_Greece": ["battle","history","warfare","greece","germany"],
+"Battle_of_Crete": ["battle","history","warfare","greece","germany"],
+"Partition_of_Yugoslavia": ["event","history","politics","yugoslavia"],
+"Independent_State_of_Croatia": ["state","history","politics","croatia","holocaust"],
+"Anglo-Iraqi_War": ["war","history","warfare","iraq","britain"],
+"Anglo-Soviet_invasion_of_Iran": ["event","history","warfare","iran"],
+"Persian_Corridor": ["place","history","warfare","iran"]
 });
 
 /* ============================================================================

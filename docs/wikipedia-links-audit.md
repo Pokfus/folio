@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5325 | the title is the article |
+| `ok` | 5332 | the title is the article |
 | `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 500 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 502 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 139 | only a disambiguation page; no link could be chosen |
+| `disambiguation` | 140 | only a disambiguation page; no link could be chosen |
 | `none` | 969 | nothing matched; no link |
 
-**6250 of 7481 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6259 of 7491 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (500)
+## Redirected to a differently named article — check each (502)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -535,6 +535,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-184` **Rotterdam Blitz** → [German bombing of Rotterdam](https://en.wikipedia.org/wiki/German_bombing_of_Rotterdam) (from `Rotterdam Blitz`)
 - `ww2-202` **May 1940 war cabinet crisis** → [1940 British war cabinet crisis](https://en.wikipedia.org/wiki/1940_British_war_cabinet_crisis) (from `May 1940 war cabinet crisis`)
 - `ww2-228` **Government Evacuation Scheme** → [Evacuations of civilians in the United Kingdom during the Second World War](https://en.wikipedia.org/wiki/Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War) (from `Government Evacuation Scheme`)
+- `ww2-253` **Battle of Greece** → [German invasion of Greece](https://en.wikipedia.org/wiki/German_invasion_of_Greece) (from `Battle of Greece`)
+- `ww2-260` **Operation 25** → [Invasion of Yugoslavia](https://en.wikipedia.org/wiki/Invasion_of_Yugoslavia) (from `Operation 25`)
 - `ww2-269` **Tukhachevsky affair** → [Case of the Trotskyist Anti-Soviet Military Organization](https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization) (from `Tukhachevsky affair`)
 - `ww2-270` **Kesselschlacht** → [Encirclement](https://en.wikipedia.org/wiki/Encirclement) (from `Kesselschlacht`)
 - `ww2-274` **First Battle of Kiev** → [Battle of Kiev (1941)](https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)) (from `First Battle of Kiev`)
@@ -640,7 +642,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (139)
+## Disambiguation pages that could not be settled (140)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -783,6 +785,7 @@ Pick the right article by hand, or leave the card without a link.
 - `wh-722` **Unification of Japan** — `Unification of Japan` is a disambiguation page
 - `ww2-132` **Neutrality Acts** — `Neutrality Act` is a disambiguation page; its links: `Neutrality Act of 1794`, `Neutrality Act of 1818`, `Neutrality Acts of the 1930s`
 - `ww2-201` **Their finest hour** — `Finest hour` is a disambiguation page; its links: `This was their finest hour`, `Their Finest Hour (video game)`, `Hearts of Iron III: Their Finest Hour`
+- `ww2-255` **Partition of Yugoslavia** — `Partition of Yugoslavia` is a disambiguation page
 
 ## Index pages — no dedicated article (6)
 
