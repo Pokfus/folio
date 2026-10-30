@@ -561,6 +561,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Antonine Plague: outbreak / reached Rome | c. 165 – 180 CE / 166 CE | `rm-518` |
 | the Marcomannic Wars: usual dating / Italy invaded / renewed | 166 – 180 CE / 170 CE (or 169 CE) / 177 CE | `rm-519` |
 | the Meditations: Book 3 written (a modern inference) / first printed | 171 – 173 CE / 1558 | `rm-520` |
+| procurators salaried | 27 BCE (the Loeb editor's margin date for Dio 53.15) | `rm-531` |
+| Dio Chrysostom: born / exiled / last attested | c. 40 CE (Cohoon's estimate) / c. 82 – 96 CE / c. 111 CE | `rm-533` |
+| Monte Testaccio's dated labels | 140 – 251 CE (Platner–Ashby; Lanciani: 140 – 255 CE) | `rm-534` |
+| the Forma Urbis Romae: carved / first fragments found | 203 – 211 CE / 1562 | `rm-535` |
+| the Year of the Five Emperors / the civil wars ended | 193 CE / 197 CE | `rm-536` |
+| Pertinax: born / reigned / killed | 1 August 126 CE / 193 CE / 28 March 193 CE | `rm-537` |
+| Didius Julianus: born / reigned | 133 CE (Dio; the Historia Augusta implies 137 CE) / 28 March – 1 June 193 CE | `rm-538` |
+| Septimius Severus: born / reigned / died | 11 April 145 or 146 CE / 193 – 211 CE / 4 February 211 CE | `rm-539` |
+| the Battle of Lugdunum | 19 February 197 CE (the day from the Historia Augusta) | `rm-540` |
 
 ## Late Antiquity
 
@@ -1076,4 +1085,13 @@ rm-517: 161; 166; 163; 165
 rm-518: 165; 180; 166
 rm-519: 166; 180; 170; 177
 rm-520: 171; 173; 1558
+rm-531: 27
+rm-533: 40; 82; 96; 111
+rm-534: 140; 251; 255
+rm-535: 203; 211; 1562
+rm-536: 193; 197
+rm-537: 126; 193
+rm-538: 133; 193
+rm-539: 145; 146; 193; 211
+rm-540: 197
 ```

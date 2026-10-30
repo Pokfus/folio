@@ -185,7 +185,7 @@ order unless the user says otherwise.
 | B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | **done 2026-10-30** |
 | B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | **done 2026-10-30** |
 | B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | open |
-| B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | open |
+| B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | **done 2026-10-30** |
 | B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | open |
 | B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | open |
 | B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | open |
@@ -790,6 +790,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-518` Antonine Plague | none | not re-checked: the card has no picture |
 | `rm-519` Marcomannic Wars | the Roman inscription on the castle rock at Trenčín | acceptable: one document for the war; the Carnuntum locator belongs to `rm-520` and `rm-576` as much |
 | `rm-520` Meditations | the title page of the first printed edition, 1558 | ok, though lettering is burned in by nature |
+| `rm-531` procurator | the tombstone of Julius Alpinus Classicianus | ok; its src shares a generic file key with 19 cards (`I.duplicate`) |
+| `rm-532` curator rei publicae | the Roman theatre of Nicaea | wrong: Pliny's building complaints, not the office; the Nicaea locator is wrong for an office too |
+| `rm-533` Dio Chrysostom | a page of his speeches in a 14th-century manuscript | ok |
+| `rm-534` Monte Testaccio | the hill | ok |
+| `rm-535` Forma Urbis Romae | fragments showing the Basilica Ulpia, laid on a modern drawing | acceptable; the "Rome" locator should be the Templum Pacis wall |
+| `rm-536` Year of the Five Emperors | a denarius of Clodius Albinus as Caesar | acceptable: one claimant for the year |
+| `rm-537` Pertinax | a sestertius of 193 CE | ok |
+| `rm-538` Didius Julianus | a denarius of 193 CE | ok |
+| `rm-539` Septimius Severus | the Munich bust | ok; the "Rome" locator is generic |
+| `rm-540` Battle of Lugdunum | a denarius of Albinus from the Lugdunum mint | weak: a coin for a battle |
 
 ## Glossary candidates
 
@@ -2081,3 +2091,22 @@ Applied before B51 (its drafts came in first), with `batch.sh`'s built-in URL ch
 | `rm-520` Meditations | 8 | 6 → 8 | **"At Carnuntum 171 – 173 CE" is a modern inference for Book 3, labelled**; the book headings are one manuscript's; the Suda a 10th-century encyclopaedia; the title credited to Arethas, no source putting it in the manuscripts. |
 
 **Read by eye.** *Confusability:* `rm-511`/`rm-512` the revolt (Dio's causes, Severus from Britain) and the colony (the ploughing coin, Justin's ban); `rm-513`/`rm-514` the emperor (the lost books) and the wall (the distance slabs); `rm-515`/`rm-516`/`rm-517` the usurper (the false report), the co-emperor (Antioch) and the war (Elegeia, Artaxata); `rm-518` the plague (Galen); `rm-519`/`rm-520` the war (the frozen Danube, Trenčín) and the book (Rusticus, the Suda). *Legend:* the opened shrine at Seleucia and Faustina's letter are their authors'. *Overlap:* `wh-368` shares no clue with `rm-506`'s neighbours here; no `gr-` or `wh-` card disagrees.
+
+### B54 — `rm-531`–`rm-540`, The high empire to the Severans: the procurator to Lugdunum (2026-10-30)
+
+Run as B52. `batch.sh` stopped at `rm-533`'s glossary entry (a source no marker pointed at; a marker was added) and the verification then showed `rm-534` – `rm-540` unapplied, so `apply.js` was re-run for `rm-533` – `rm-540`; after that every draft matched its card. Checks: `rm-audit.js --range=rm-531:rm-540` reads clean on eight cards; `rm-531` carries `I.duplicate` (the current picture's generic file key) and `rm-533` `S.chip?` (an English BMCR review of a German-titled book). `rm-536`'s `timeline` moved from 193 – May 194 CE to 193 – 197 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` was re-run on the re-applied cards. **The old date lines carried another man's reign or a name ("Knights at court Hadrian, 117 – 138 CE", "First known Nerva or Trajan, 96 – 117 CE"), a later event ("Eastern war won c. May 194 CE") and a battle's day read as Dio's (it is the Historia Augusta's).** `rm-532`'s Nicaea locator marks Pliny's province, not the office; `add-locators.js` cannot remove it.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-531` procurator | 7 | 6 → 7 | **"Salaries fixed 27 BCE" is the Loeb editor's margin, not Dio's (he says "at this time"), and the line says so in prose; the Historia Augusta's Hadrianic court change attributed**; Pilate a prefect on the Caesarea stone and a procurator in Tacitus; the salary grades are Greenidge's scale. |
+| `rm-532` curator rei publicae | 5 | 5 → 5 | **No open source prints a first year: the line is empty, "Nerva or Trajan" in prose**; Pliny's province is not the office; the 4th-century change into a town magistracy. |
+| `rm-533` Dio Chrysostom | 6 | 7 → 9 | **Born c. 40 CE is Cohoon's estimate, the exile from 82 CE an inference from Flavius Sabinus's execution**; Trajan's chariot is Philostratus's, improbable in the Loeb editor's view; doubts about Dio's own account of his conversion. |
+| `rm-534` Monte Testaccio | 6 | 5 → 7 | **The dated labels 140 – 251 CE (Platner–Ashby) and 140 – 255 CE (Lanciani), both attributed**; no height or jar count without a source; the Historia Augusta's oil claim flagged; one Spanish source, not two. |
+| `rm-535` Forma Urbis Romae | 6 | 6 → 6 | The unsourced "a million people" goes; **only the first fragments were found in 1562**; the Flavian predecessor a modern debate; questions without dates, counts or Severus. |
+| `rm-536` Year of the Five Emperors | 7 | 7 → 7 | **The label is modern, after 69; Albinus counts only by convention (Caesar on his coins until 195, Augustus in 196)**; the auction told as Dio's with Bingham's reading; the civil wars to 197 CE. |
+| `rm-537` Pertinax | 6 | 6 → 8 | **Dio's 87 days set against the Historia Augusta's two months and 25 days**; the freedman father and the name's origin are the Historia Augusta's; born 1 August 126 CE (Livius). |
+| `rm-538` Didius Julianus | 6 | 5 → 7 | **The auction's figures are Dio's, with Herodian's version beside them**; born 133 CE (Dio) against the Historia Augusta's 137 CE; killed 1 or 2 June after Dio's 66 days. |
+| `rm-539` Septimius Severus | 7 | 7 → 8 | **Eboracum off the line and out of the questions; the unsourced 195 CE for the self-adoption goes**; the "pay rise" is not in Herodian (he speaks of rations) and is left out; Dio's hundred thousand captives at Ctesiphon attributed. |
+| `rm-540` Battle of Lugdunum | 6 | 7 → 6 | **Dio prints no day: 19 February is the Historia Augusta's, 197 CE the modern year**; Dio's 150,000 a side against Platnauer's 50,000; Herodian's fall from the horse and Laetus's cavalry; Albinus's end told both ways. |
+
+**Read by eye.** *Confusability:* `rm-531`/`rm-532` the agent (the salary titles) and the city overseer (the logistes); `rm-533`/`rm-534`/`rm-535` the orator (the chariot), the hill (the painted labels) and the plan (the clamp holes); `rm-536`/`rm-537`/`rm-538`/`rm-539`/`rm-540` the label (Issus), the 87 days, the auction, the African senator (Ctesiphon) and the battle (the pits). *Legend:* the auction and Albinus's end are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
