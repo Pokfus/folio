@@ -411,6 +411,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Julian calendar: the reform year / in force / the Gregorian reform | 46 BCE / 1 January 45 BCE / 1582 | `rm-368` |
 | the Ides of March | 15 March 44 BCE | `rm-369` |
 | Brutus: born / urban praetor / died | c. 85 BCE (disputed) / 44 BCE / 42 BCE | `rm-370` |
+| the cohort in use (Polybius at Ilipa) | 206 BCE | `rm-643` |
+| the cohortal legion (a modern name): cohorts in use | 206 BCE | `rm-645` |
+| the sacramentum: the tribunes' oath before Cannae (Livy) | 216 BCE | `rm-648` |
 | the auxilia: a levy of allied troops recorded by Livy | 171 BCE | `rm-651` |
 | the ala: the grant at Asculum to the turma Salluitana | 89 BCE | `rm-652` |
 | the gladius: adopted (one modern view) / the oldest finds | c. 216 – 209 BCE / c. 175 BCE | `rm-657` |
@@ -608,6 +611,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Aurelian Walls: begun / restored | 271 CE / 401 – 403 CE | `rm-564` |
 | Probus: born / reigned / killed | 232 CE / 276 – 282 CE / 282 CE | `rm-565` |
 | the Altar of Victory: Augustus's statue in the Curia Julia | 29 BCE (Dio dates it by Augustus's fifth consulship) | `rm-607` |
+| the legionary: service terms fixed / rewards revised | 13 BCE / 5 CE | `rm-646` |
+| the sacramentum: the Upper German legions refuse Galba | 1 January 69 CE | `rm-648` |
+| legionary pay: the mutineers' rate | 14 CE | `rm-649` |
+| military diplomas: the Malpas diploma / the Chesters diploma / the last auxiliary diplomas | 19 January 103 CE / 145 or 146 CE / 203 CE | `rm-650` |
 | the vigiles: founded / still attested | 6 CE / 362 CE | `rm-654` |
 | the standing fleets (Starr's frame) | 31 BCE – 324 CE | `rm-655` |
 | the fleet at Misenum: founded (an assumption) / defected / the rescue voyage | c. 27 – 15 BCE / 69 CE / 79 CE | `rm-656` |
@@ -1315,6 +1322,12 @@ rm-635: 476; 493
 rm-636: 493; 526; 552; 562
 rm-637: 395; 1453
 rm-638: 535; 540; 552; 554
+rm-643: 206
+rm-645: 206
+rm-646: 13; 5
+rm-648: 216; 69
+rm-649: 14
+rm-650: 103; 145; 146; 203
 rm-651: 171
 rm-652: 89
 rm-654: 6; 362

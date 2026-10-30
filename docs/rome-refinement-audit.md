@@ -196,7 +196,7 @@ order unless the user says otherwise.
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | **done 2026-10-30** |
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | **done 2026-10-30** |
 | B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | **done 2026-10-30** |
-| B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | open |
+| B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | **done 2026-10-30** |
 | B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | **done 2026-10-30** |
 | B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | open |
 | B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | open |
@@ -409,6 +409,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-638` Gothic War | none | not re-checked: the card has no picture |
 | `rm-639` Historiography of the fall of the Western Roman Empire | none | not re-checked: the card has no picture |
 | `rm-640` Legacy of the Roman Empire | none | not re-checked: the card has no picture |
+| `rm-641` Roman army | none | not re-checked: the card has no picture |
+| `rm-642` Roman legion | none | not re-checked: the card has no picture |
+| `rm-643` cohort | none | not re-checked: the card has no picture |
+| `rm-644` centurion | none | not re-checked: the card has no picture; the Colchester tombstone (RIB 200) would do |
+| `rm-645` cohortal legion | none | not re-checked: the card has no picture |
+| `rm-646` legionary | none | not re-checked: the card has no picture |
+| `rm-647` dilectus | none | not re-checked: the card has no picture |
+| `rm-648` sacramentum | none | not re-checked: the card has no picture |
+| `rm-649` legionary pay | none | not re-checked: the card has no picture |
+| `rm-650` military diploma | none | not re-checked: the card has no picture; the Malpas diploma would do |
 | `rm-651` auxilia | none | not re-checked: the card has no picture |
 | `rm-652` ala | none | not re-checked: the card has no picture |
 | `rm-653` urban cohorts | none | not re-checked: the card has no picture |
@@ -2458,6 +2468,25 @@ Run as B63 and applied with it (B64's drafts finished first). Before applying, t
 | `rm-640` Legacy of the Roman Empire | 8 | 8 → 8 | **The years out of the questions (1523/1524, 800, 1806); Justinian's law left to `rm-730`**; the Romance languages, Einhard's coronation, Philotheus's Third Rome; Saint-Denis and the Roman liturgy replace a thin sentence on English. |
 
 **Read by eye.** *Confusability:* `rm-631`/`rm-632` the battle (the ridge) and the sack (the Capitol's roof); `rm-633`/`rm-634`/`rm-635`/`rm-636` the kingmaker (Tortona), the boy (the diminutive), the king (Severinus) and the kingdom (the fish's head); `rm-637`/`rm-638` the East (the Isaurians) and the war (the women at Ravenna's gate); `rm-639`/`rm-640` the debate (Orosius's commission) and the legacy (Philotheus). *Legend:* Leo turning Attila and Theoderic's fish are their authors'. *Overlap:* `wh-436` dates the Byzantine Empire 330 – 1453; `rm-637` gives 395 with 330 as another start; `wh-438` agrees on 535 – 552.
+
+### B65 — `rm-641`–`rm-650`, The Roman army: the army to the military diploma (2026-10-30)
+
+Run as B64; applied after B66. Before applying, `rm-641`'s second phrasing (Polybius's levy, which `rm-647` also uses) was replaced with Suetonius on Augustus's pay and pensions; `rm-643`'s "Ilipa battle", `rm-645`'s "Cohorts at Ilipa" and `rm-648`'s "Galba refused" became "In use by", "Cohorts in use" and "Oath refused"; and `rm-649`'s "Rise costed 218 CE" row was cut, because 218 is Cary's margin year, not Dio's. LacusCurtius did not answer: every source on it was replaced, and Polybius, Suetonius, Tacitus and Josephus are read on Perseus. **The old date lines carried counts ("Tacitus's count 25 legions, 23 CE", "Term set 16 years"), another card's clue (Marius's levy of 107 BCE, `rm-295`'s), a poll-tax law of 325 on the cohort, commentary ("ten asses a day", "a quarter more") and two emperors' reigns on pay.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-641` Roman army | 9 | 12 → 11 | **The line's counts and Marius's 107 BCE go: no date line, as on `wh-344`; "Marian reform" a modern label**; Josephus's bloodless battles framed by his own purpose; 15,000 recruits a year one modern estimate. |
+| `rm-642` Roman legion | 9 | 9 → 10 | **The line was a count: empty; the legion's strength a modern reconstruction**; Dio's Gemina and Tacitus's list read in the Loeb and on Perseus; the legate, not the governor, commands; the late legion's smaller bases. |
+| `rm-643` cohort | 7 | 10 → 9 | **The poll-tax law of 325 (`rm-589`'s) and an unsourced 216 BCE go; the line is Ilipa, 206 BCE**; 480 men the modern figure, against Hyginus's 80-man century and Vegetius's 555 and 1,105. |
+| `rm-644` centurion | 8 | 9 → 10 | **Pullo and Vorenus were each other's rivals, not Caesar's; the Ligustinus question (a `rm-681` clue) replaced; the 15× and 30× pay an uncertain modern reckoning**; RIB 200 and Caelius's tombstone added. |
+| `rm-645` cohortal legion | 6 | 8 → 7 | **A modern name; the Marian credit the older modern view, against an allied origin; "Rhine mutiny 14 CE" leaves the line**; Velleius's thirty formations his; the old line names surviving only as officers' titles. |
+| `rm-646` legionary | 8 | 8 → 9 | **Dio 55.23 records a reward after twenty years, not a twenty-year enlistment; the line's counts become "Terms fixed 13 BCE" and "Rewards revised 5 CE"**; the two Latin Vegetius sources merged (one per language); Josephus's kit list. |
+| `rm-647` dilectus | 6 | 8 → 8 | **Polybius's levy one observer's picture that scholars dispute; Tiberius's complaint Tacitus's report**; 15,000 recruits a modern estimate; Vegetius's date debated; Ammianus on Valens's Gothic recruits; the modern share from one to four. |
+| `rm-648` sacramentum | 6 | 8 → 8 | **Vitellius's circle, not Tacitus, thought the oath idle; "two days later" is his "third of January"; Livy's tribunes' oath set against the older sacramentum**; 216 BCE and 1 January 69 CE. |
+| `rm-649` legionary pay | 7 | 8 → 9 | **The line's commentary and two reigns go: the mutineers' rate of 14 CE alone; Macrinus's 218 (Cary's margin) cut**; every figure in the questions attributed; Polybius's rates and the pay days dropped (no source read). |
+| `rm-650` military diploma | 6 | 6 → 6 | **The years out of the questions; the change after 140 one modern view; no source read dates the first diplomas under Claudius, so that start is left out**; Malpas 19 January 103 CE, Chesters 145 or 146 CE, the last auxiliary 203 CE. |
+
+**Read by eye.** *Confusability:* `rm-641`/`rm-642` the army (Zosimus on Constantine) and the legion (Gemina); `rm-643`/`rm-644`/`rm-645`/`rm-646` the unit (the Tungrians' report), the officer ("Bring another"), the organisation (Velleius's formations) and the soldier (Josephus's kit); `rm-647`/`rm-648` the levy (Tiberius's pretext) and the oath (the first man's words); `rm-649`/`rm-650` the pay (Domitian's quarter) and the diploma (the temple of Augustus). *Legend:* Josephus's drill and Vegetius's ancient legion are their authors' ideals. *Overlap:* `wh-344` (Roman legion) agrees.
 
 ### B66 — `rm-651`–`rm-660`, The Roman army: the auxilia to the lorica segmentata (2026-10-30)
 
