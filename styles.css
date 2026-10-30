@@ -10651,6 +10651,9 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .hf-input::-webkit-outer-spin-button, .hf-input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
 .hf-unit{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-faint);}
 .hf-country{font-weight:400; color:var(--ink-soft);}
+/* the reader's guess on the reveal: green inside the 10 % margin, red outside it — the games' own pair (True or False's verdict, Multiple Choice's options) */
+.hf-guess.ok{color:var(--good);}
+.hf-guess.no{color:var(--zh);}
 
 /* True or False: the admin's Edit / Remove beside a statement in the game and on its results (Oct 2026) */
 .tf-adminbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:10px 0 16px;}
