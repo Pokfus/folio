@@ -970,5 +970,6 @@ The request: "the user is shown an atlas window where a line is straightly drawn
 - **The judging**: one guess a round; won when |guess − distance| ≤ 10 % of the distance. An empty guess is refused, not scored. A reader on imperial units (`unitSystem()`) guesses in miles; the margin is a ratio, so nothing else changes. A perfect run is 5 / 5.
 - **A round answered stays answered**: `setGameProgress("howfar", …)` after every guess, cleared at the end; the lock is `gameLockedToday`.
 - **The board**: the card sits at the FOOT of the board (`.howfar .hf-game`) and `fitOf` zooms and centres the line in the free area above it. The distance label appears on the line only after the guess.
+- **The reveal colours the guess** (2026-10-30, on request): the reader's number is `.hf-guess.ok` (`--good`, green) inside the margin and `.hf-guess.no` (`--zh`, the games' red) outside it — the pair True or False and Multiple Choice already use, so it follows every theme.
 
 Re-run after touching `howFar`, `hfRounds` or `PAGES.howfar`: `node .claude/test-howfar.js` (and `test-minigames.js` for the wiring).

@@ -22516,6 +22516,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the geography one, so the two never read as one row split in two. If it is to change, draw it and
        look at it. */
     "geo-russia": "mountain",
+    /* India in the Geography section (2026-10-30) takes the EXISTING `drop`: the monsoon and the great rivers are what
+       its physical geography turns on. `lotus` is the India HISTORY collection's and is deliberately not reused (the
+       two Chinas' rule). Not drawn new, so not looked at small beyond what every other `drop` row already shows. */
+    "geo-india": "drop",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -27747,7 +27751,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        below, which is what keeps them out of History and gives the daily-study list its mark for them, and
        the Collections page draws them at the head of the Shared decks section (`specialCollections`). */
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -27836,6 +27840,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        DRAW cards — two decks that were World Geography's for a week and are a collection of their own
        again (Sep 2026, on request). See docs/flags-card-plan.md and docs/flags-draw-card-plan.md. */
     "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 466, "geo-russia": 163,
+    /* India's 190 planned (docs/india-geography-card-plan.md): 36 states and union territories, 34 capitals, 40 cities, 40 + 40 physical. */
+    "geo-india": 190,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -28846,6 +28852,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the Baltic amber coast is Kaliningrad Oblast, one of the 83 — and it takes none of the flag's
        colours, which on this shelf would be a claim rather than a decoration. */
     "geo-russia": { bg: "#815100" },
+    /* laterite (India, in the Geography section, 2026-10-30) — MEASURED like the rest: swept in CIELAB inside the shelf's band (L 28-55,
+       chroma 25-62, 4.5:1 against white), with the magenta band's standing rejection kept and the greens left out (the section already has
+       two, `geo-us` and `geo-world`). The best free hue was a dark leaf green, and a third green on one shelf is what Russia's note refused.
+       This is ΔE 17 from its nearest neighbour (German's brown), 36 from `col-43`'s saffron (so "India" under History and under Geography
+       never read as one row), 29 from Russia's amber; 6.2:1 against white. Laterite is the subject's own argument: the word was coined
+       for the red building earth of Malabar (Buchanan, 1807), and it takes none of the flag's colours. */
+    "geo-india": { bg: "#934E3F" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -28910,7 +28923,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
     ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
     japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
-    flags: "2026-09-18", gga: "2026-10-10",
+    flags: "2026-09-18", gga: "2026-10-10", "geo-india": "2026-10-30",
   };
   function fmtYmd(s) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
