@@ -12003,6 +12003,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which would put a ninth colour inside a cluster the shelf already struggles to tell apart. It
      reads 4.52:1 on the tightest light paper, which is the margin the band is cut to. */
   "Lu Yu": "#96009F",
+  /* THE FOURTH WIDENING OF THE CHROMA CEILING (Oct 2026, adding Diodorus — forty-six colours placed).
+     Measured as every row above: CIELAB distance, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. Inside the shipped band (L 12.3–47.8, chroma
+     18–85) the best-separated colour clears its nearest by 16.5, under the shelf's own tightest pair
+     (16.6), so the band is full again. WHICH AXIS BINDS was measured, the Marco Polo row's method:
+     opening lightness to 8–55 returns the same top five; lowering the chroma floor to 12 reaches 16.9
+     with near-greys; only the CEILING opens the field — 88 gives 18.7, 90 gives 20.0, 92 gives 22.0.
+     The smallest step that clears the tightest pair with room was taken, 85 → 90. Of the two best at
+     90 this royal blue reads 5.19:1 on the tightest light paper where the other scrapes 4.52. THE
+     KINSHIP TEST: the books read with Diodorus are Herodotus and Thucydides, the other Greek
+     historians, and this sits 37.5 from Herodotus's indigo and 59.5 from Thucydides' mulberry — a
+     different blue, not a neighbour. Its nearest is Luo Guanzhong, 20.0. */
+  "Diodorus Siculus": "#2136C9",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -14962,6 +14975,52 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "diodorus-library",
+      title: "The Library of History",
+      // the work's own Greek title, as Perseus's three editions of the Greek column give it
+      subtitle: "Βιβλιοθήκη ἱστορική",
+      author: "Diodorus Siculus",
+      /* Oldfather's dating in the Loeb's introduction: at work by 56 BCE (1.44), in Egypt in 59, and the
+         latest event named is the Roman colony at Tauromenium, 36 BCE or a little later (16.7.1). The
+         sort year is the middle of that span, and the front matter carries the reasoning. */
+      written: "c. 60–30 BCE",
+      year: -45,
+      translator: "C. H. Oldfather and others",
+      edition: "Loeb Classical Library, 1933–1963",
+      /* PUBLIC DOMAIN BY NON-RENEWAL, the Classic of Tea's ground on ten volumes. Each was published
+         before 1964 and needed renewing in its 28th year; Bill Thayer, whose retyping this is, records
+         that none was, and the Catalog of Copyright Entries lists no renewal in the windows it covers
+         (1960–1977, searched for this import). Renewals from 1978 on were not searched, and nothing is
+         claimed outside the United States. See .claude/fetch-book.js for the full account. */
+      rights:
+        "Public domain in the United States, by non-renewal. This is the Loeb Classical Library " +
+        "translation, published in ten volumes between 1933 and 1963 by C. H. Oldfather (Books 1 to " +
+        "15.19), C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20). " +
+        "Each volume was published before 1964 and needed its copyright renewed in its twenty-eighth " +
+        "year; none was, as Bill Thayer of LacusCurtius records volume by volume, and the Catalog of " +
+        "Copyright Entries lists no renewal in the years it covers (1960 to 1977). Outside the United " +
+        "States the term is usually counted from a translator's death, and no claim is made there. " +
+        "The text is Thayer's careful retyping, with his corrections of the printed volumes' slips; his " +
+        "own notes are his copyright and are not included. Diodorus wrote the work in Greek in the first " +
+        "century BCE. (The fragments of Books 33 to 40, in the Loeb's twelfth volume of 1967, are still " +
+        "in copyright and are not used here; neither are the modern translations by Robin Waterfield, " +
+        "2019, and Peter Green, 2010.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/home.html",
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the fifteen books that survive whole, of the forty Diodorus wrote; the fragments are not carried
+      count: 15,
+      total: 40,
+      // Diodorus's own three groups (1.4.6–7), shortened from his words; the gap is Books 6–10, lost
+      parts: [
+        { n: 1, label: "Before the Trojan War", note: "Books 1–5" },
+        { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
+        { n: 3, label: "After Alexander", note: "Books 18–20" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};

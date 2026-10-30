@@ -16819,6 +16819,158 @@ const BOOKS = {
     },
   },
 
+  "diodorus-library": {
+    title: "The Library of History",
+    // the work's own Greek title, as Perseus's three editions give it
+    subtitle: "Βιβλιοθήκη ἱστορική",
+    author: "Diodorus Siculus",
+    translator: "C. H. Oldfather, C. L. Sherman, C. B. Welles and R. M. Geer",
+    edition: "Diodorus of Sicily, with an English translation, Loeb Classical Library, Harvard University Press and William Heinemann, 1933–1963 (vols. I–X)",
+    written: "c. 60–30 BCE",
+
+    /* ---------- WHICH ENGLISH, AND WHY THIS ONE ----------
+       Three English translations exist that anyone could reach for. George Booth's of 1700 (reprinted
+       1814) is public domain on every ground, and the Internet Archive holds six scans of it — but only
+       as OCR, of a quality that reads "hb" for "his" and "tbe" for "the" on every page, and with no
+       chapter numbers, so nothing could pair it with the Greek. Perseus shows part of the Loeb English
+       on its own site but not in the open repository the shelf reads, and the Loeb's last volume
+       (XII, 1967, the fragments of Books 33–40) is in copyright. What remains is the Loeb of 1933–1963
+       as Bill Thayer retyped and proofread it on LacusCurtius — volumes I–XI, the whole of Books 1–32 —
+       with the Loeb's chapter and section numbers set in the markup and every Loeb note kept. That is
+       the text taken.
+
+       THE GROUND IS NON-RENEWAL, the Classic of Tea's, and it was checked as well as read. Every
+       volume here was published in the United States before 1964 and so needed renewing in its 28th
+       year; Thayer's home page for the work states that none was, volume by volume, with the year each
+       renewal would have fallen due, and that only volume XII (1967, renewed automatically under the
+       1992 act) is still in copyright — which is why he does not carry Books 33–40. CHECKED, not only
+       read: the Catalog of Copyright Entries, Third Series, Part 1 (Books), on the Internet Archive,
+       for both halves of 1960, 1961, 1962, 1963, 1966, 1967, 1974, 1975 and 1977 and for 1973 (the
+       first half whole, the second half's renewal section) — the windows for volumes I, II, III, IV,
+       IX and half of V's — was searched for "Diodor" and "Oldfather" and holds no renewal of any of
+       them, while the same volumes do list renewals by Harvard of its other series, so the OCR can see
+       one. What turns up is the 1963 registration of volume VIII (AI-8466) and the 1967 one of volume
+       XII (AI-10641), the two dates Thayer's account depends on. THE LIMIT, stated: renewals from
+       1978 on (volumes V's second year, VI, VII, VIII and X) are in the Copyright Office's online
+       records rather than the printed catalogue, and those were not searched from here — the Stanford
+       renewal database that indexes them answers with a bot challenge. For those five the ground is
+       Thayer's statement alone. ONE MORE LIMIT: the registrations carry the ad interim prefix and the title
+       pages name Cambridge, Mass. and London together. The 1996 restoration of foreign works does not reach
+       a work published in the US within thirty days of its first publication; that the two printings were
+       simultaneous is read off the title page and was not established further. Nothing is claimed for
+       countries that count a term from a translator's
+       death: Oldfather died in 1954, and the others' dates were not established.
+
+       THE FIFTEEN BOOKS THAT SURVIVE WHOLE AND NOTHING ELSE. Diodorus wrote forty; 1–5 and 11–20 come
+       down entire and the rest as excerpts and quotations. Thayer carries the fragments of 6–10 and
+       21–32 too, but Perseus has no Greek for them, they are not continuous text, and they are not
+       what a reader opening "Diodorus" expects to read through — so `count` is 15 of a `total` of 40
+       and the front matter says what is missing. */
+    rights:
+      "Public domain in the United States, by non-renewal. This is the Loeb Classical Library " +
+      "translation, published in ten volumes between 1933 and 1963 by C. H. Oldfather (Books 1 to " +
+      "15.19), C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20). " +
+      "Each volume was published before 1964 and needed its copyright renewed in its twenty-eighth " +
+      "year; none was, as Bill Thayer of LacusCurtius records volume by volume, and the Catalog of " +
+      "Copyright Entries lists no renewal in the years it covers (1960 to 1977). Outside the United " +
+      "States the term is usually counted from a translator's death, and no claim is made there. " +
+      "The text is Thayer's careful retyping, with his corrections of the printed volumes' slips; his " +
+      "own notes are his copyright and are not included. Diodorus wrote the work in Greek in the first " +
+      "century BCE. (The fragments of Books 33 to 40, in the Loeb's twelfth volume of 1967, are still " +
+      "in copyright and are not used here; neither are the modern translations by Robin Waterfield, " +
+      "2019, and Peter Green, 2010.)",
+    sourceName: "LacusCurtius",
+    sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/home.html",
+    source: "html",
+    layout: "thayer",
+    pageUrl: (p) => "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/" + p + "*.html",
+    // Thayer's pages, in reading order, for each book: Book I on 1A–1D, and so on
+    pages: Object.fromEntries([[1, 4], [2, 2], [3, 5], [4, 4], [5, 4], [11, 4], [12, 4], [13, 5], [14, 7],
+      [15, 5], [16, 4], [17, 6], [18, 3], [19, 6], [20, 5]].map(([b, k]) =>
+      [b, Array.from({ length: k }, (_, i) => b + "ABCDEFG"[i])])),
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    /* Diodorus's own plan of the work, at 1.4.6–7, in Oldfather's words: the first six books "embrace
+       the events and legends previous to the Trojan War", the next eleven "a universal history of
+       events from the Trojan War to the death of Alexander", and the rest "all subsequent events".
+       The three groups are his; the labels are his phrases shortened, not composed. */
+    parts: [
+      { n: 1, from: 1, to: 5, t: "Before the Trojan War" },
+      { n: 2, from: 11, to: 17, t: "From the Trojan War to the death of Alexander" },
+      { n: 3, from: 18, to: 20, t: "After Alexander" },
+    ],
+    /* THE FRONT MATTER — chapter 0. Every fact in it is Diodorus's own, cited to the passage, or
+       Oldfather's General Introduction to the Loeb (vol. I, pp. vii–xxiii, on LacusCurtius): what the
+       work is and how little of it survives, who he was and when he wrote, what the fifteen books hold,
+       how far to trust him, and what this edition is. */
+    about: [
+      "<b>The Library of History</b> is a history of the whole known world, from the myths of the " +
+        "gods to the author's own lifetime, written in Greek by Diodorus of Sicily in the first " +
+        "century BCE. He set out its plan himself (1.4.6–7): six books on the events and legends " +
+        "before the Trojan War, the first three on the non-Greek peoples and the next three on the " +
+        "Greeks; eleven more from the Trojan War to the death of Alexander; and twenty-three on " +
+        "everything after, down to the beginning of Julius Caesar's war in Gaul. Of the forty books, " +
+        "only <b>Books 1 to 5 and 11 to 20</b> survive whole. The rest come down only as excerpts " +
+        "and quotations in later writers, and this edition carries the fifteen complete books.",
+      "Almost everything known about Diodorus comes from the book itself. He was born at Agyrium, " +
+        "a town in the interior of Sicily (1.4.4), and says he spent thirty years on the work, " +
+        "travelling in Asia and Europe to see the places he wrote about and living for a long time " +
+        "in Rome, which supplied his material in abundance (1.4.1–4). He was in Egypt in the 180th " +
+        "Olympiad, the years 60 to 56 BCE (1.44.1), and saw a crowd there demand the death of a " +
+        "Roman who had killed a cat by accident (1.83.8). The latest event he mentions is the " +
+        "settling of a Roman colony at Tauromenium in Sicily (16.7.1), probably in 36 BCE or soon " +
+        "after, so the work was written between the 50s and the 30s BCE.",
+      "The fifteen books divide in two. <b>Books 1 to 5</b> are geography, myth and the customs of " +
+        "peoples: Egypt in Book 1; Assyria, India, Scythia and Arabia in Book 2; Ethiopia, the " +
+        "Amazons of Africa and the first gods in Book 3; the Greek gods and heroes, the Argonauts and " +
+        "Theseus in Book 4; and the islands and peoples of the West, Rhodes and Crete in Book 5. " +
+        "<b>Books 11 to 20</b> are history told year by year, from Xerxes' invasion of Greece in " +
+        "480 BCE to 302 BCE: the Persian Wars, the rise of Athens, the tyrants of Sicily, Philip of " +
+        "Macedon (Book 16), Alexander (Book 17) and the wars of his successors (Books 18 to 20).",
+      "Diodorus called his book a library, and he meant it: it gathers and condenses what earlier " +
+        "historians had written, most of whose works are now lost. His translator Oldfather judged " +
+        "that he used good sources and reproduced them faithfully, but that his method made " +
+        "trouble. From Book 11 on he files events under the year they happened, so a long war is " +
+        "broken into pieces, and he matches the Roman consular year to the Athenian one, which " +
+        "began in midsummer, so his dates are sometimes a year out. Even so, for long stretches he " +
+        "is the only continuous account to survive: the fifty years after 480 BCE, to which " +
+        "Thucydides gives little more than thirty chapters; the years from 362 to 302 BCE; and the wars after Alexander's death, " +
+        "for which Books 18 to 20 are the chief source. Without him, Oldfather notes, no history of " +
+        "ancient Sicily could be written.",
+      "This is the Loeb Classical Library translation, by C. H. Oldfather (Books 1 to 15.19), " +
+        "C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20), " +
+        "published between 1933 and 1963, as retyped and proofread by Bill Thayer on his site " +
+        "LacusCurtius. The small figures in the margin are Diodorus's chapter numbers, by which the " +
+        "work is cited (\"Diodorus 12.53\" is Book 12, chapter 53); the finer section numbers are " +
+        "not shown. The notes are the Loeb editors'; Thayer's own notes are not included. The short " +
+        "table of contents printed at the head of each book is left out, since the book's tabs do " +
+        "the same job. The Greek column is the text Perseus publishes: the Teubner " +
+        "edition of Vogel for Books 1 to 5 and of Fischer for Books 18 to 20, and the Greek printed " +
+        "in the Loeb volumes themselves for Books 11 to 17.",
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Ancient Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Bibliotheca Historica, edited by Immanuel Bekker, Ludwig Dindorf and Friedrich Vogel (Books 1–5, Teubner, Leipzig, 1888–1890) and Curt Theodor Fischer (Books 18–20, Teubner, 1903–1906); Books 11–17 as printed in the Loeb volumes, 1946–1963",
+      rights:
+        "Diodorus wrote in Greek in the first century BCE, so the words themselves are in the public " +
+        "domain everywhere. Books 1 to 5 are the Teubner text of Bekker, Dindorf and Vogel (1888–1890) " +
+        "and Books 18 to 20 that of Bekker, Dindorf and Fischer (1903–1906), both published before 1929 " +
+        "and so public domain in the United States. Books 11 to 17 are the Greek printed facing the " +
+        "translation in the same Loeb volumes (1946–1963), public domain in the United States on the " +
+        "same non-renewal ground as the English. The digital editions are prepared by the Perseus " +
+        "Digital Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0060.tlg001/",
+      urls: ["grc5", "grc4", "grc6"].map((e) =>
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0060/tlg001/tlg0060.tlg001.perseus-" + e + ".xml"),
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -23225,6 +23377,188 @@ function extractSkeat(text, warn) {
     rubrics: rubrics, verseLines: verseLines, tyrwhitt: tyrwhitt, crossRefs: crossRefs };
 }
 
+/* ============================================================
+   A LOEB RETYPED BY HAND ON LACUSCURTIUS — one HTML page per run of chapters     (layout: "thayer")
+   ============================================================
+   Oct 2026, adding Diodorus Siculus. Bill Thayer retyped the Loeb translation and proofread it, and
+   his markup states the citation apparatus outright: `<A CLASS="chapter" NAME="12">` opens chapter
+   12, `<A CLASS="sec" NAME="12.3">` its section 3, `<A CLASS="ref" HREF="…#note7">` cites the Loeb
+   editor's note 7, kept at the foot of the same page. So nothing is read back out of the prose; what
+   this reader has to get right is what to LEAVE BEHIND, and five things are left:
+   · THAYER'S OWN WORDS. His notes (`<DIV CLASS="mynote">` inside a Loeb note, and the whole list after
+     the second `<HR CLASS="endnotes">`) are his and are copyright him, not public domain — his site
+     says so on every page. Each is dropped and counted, and a marker in the text that cites one goes
+     with it.
+   · HIS TOOLTIP MARKS. A small `º` link (`CLASS="correction"` or `"comment"`) sits after every word he
+     corrected or remarked on, the remark itself in a mouse-over. The mark goes; the CORRECTION stays
+     (`<SPAN CLASS="emend">`, his repair of a slip in the printed Loeb — "derives its name from that
+     <of> Antaeus", the Loeb having dropped the word), because it restores what the edition meant.
+     Both are counted.
+   · THE BOOK'S ANCIENT TABLE OF CONTENTS, printed before chapter 1 of each book, which Folio's own
+     chapter tabs and the reader's panel replace — and which the Greek side skips as well, being the
+     division Perseus numbers `arg`.
+   · THE SECTION NUMBERS. A Folio chapter here is a whole BOOK of Diodorus and the unit both columns
+     pair on is his CHAPTER, which is what Herodotus pairs on too; the sections inside a chapter are
+     not carried on either side.
+   · THE LOEB PAGE NUMBERS (`<SPAN CLASS="pagenum">`), which are the printed volume's furniture.
+   Thayer's HTML leaves `<P>` unclosed, as HTML 4 allows, so the text is cut into paragraphs at each
+   opening tag rather than handed to `stripTags` as it stands — whose stack would read every paragraph
+   as nested inside the one before it. Verse (a `<TABLE CLASS="verse">`, a line per `<P>`) becomes a
+   blockquote with a line break per line. */
+const THAYER_ITALIC = /^(?:translit_Greek|archaic|source)$/i;
+function thayerSpans(s) {
+  // Spans become <i>, <sup> or nothing, through a STACK so a nested span closes the right thing.
+  const out = [], stack = [];
+  let pos = 0, m;
+  const rx = /<(\/?)SPAN\b([^>]*)>/gi;
+  while ((m = rx.exec(s))) {
+    out.push(s.slice(pos, m.index));
+    pos = rx.lastIndex;
+    if (m[1]) { out.push(stack.length ? stack.pop() : ""); continue; }
+    const cls = (/CLASS="([^"]*)"/i.exec(m[2]) || [])[1] || "";
+    const lang = (/LANG="([^"]*)"/i.exec(m[2]) || [])[1] || "";
+    if (/\bbk-n\b/.test(cls)) { out.push(m[0]); stack.push("</span>"); }
+    else if (THAYER_ITALIC.test(cls) || lang === "la") { out.push("<i>"); stack.push("</i>"); }
+    else if (/^superscript$/i.test(cls)) { out.push("<sup>"); stack.push("</sup>"); }
+    else stack.push("");
+  }
+  out.push(s.slice(pos));
+  return out.join("");
+}
+function thayerVerse(t) {
+  return t.split(/<P\b[^>]*>/i).map((l) => stripTags(thayerSpans(l)).replace(/\s+/g, " ").trim())
+    .filter(Boolean).join("<br>");
+}
+// one stretch of Thayer's HTML down to Folio's tag set; `verse` says what a verse table becomes
+function thayerClean(s, inNote) {
+  let b = s.replace(/<SPAN CLASS="pagenum">[^<]*<\/SPAN>/gi, "");
+  b = b.replace(/&#8288;|&shy;/g, "");
+  b = b.replace(/(?:<DIV[^>]*>\s*)?<TABLE CLASS="verse\d?"[^>]*>([\s\S]*?)<\/TABLE>(?:\s*<\/DIV>)?/gi,
+    (w, inner) => (inNote ? " " + thayerVerse(inner) + " " : "\u0001" + thayerVerse(inner) + "\u0002"));
+  /* Every block and link tag goes HERE, before `stripTags` sees a paragraph: an unclosed <DIV> whose
+     closer sits in another paragraph would stay on its stack and swallow the next </i>. */
+  return b.replace(/<\/?(?:DIV|TABLE|TBODY|TR|TD|TH|A|IMG|FONT|CENTER|H\d|HR|UL|OL|LI|DL|DT|DD)\b[^>]*>/gi, " ");
+}
+/* A link's text sits on its own lines in Thayer's source ("(<I>Solon</I>, 31)</A>, on the authority"),
+   so the line break before the closing tag survives as a space in front of the punctuation after it —
+   "Athenaeus 104B , where". Closed up here, and only before a closing mark. */
+function thayerTidy(t) {
+  return t.replace(/\s+/g, " ").replace(/ ([,.;:!?)\]])/g, "$1").replace(/([(\[]) /g, "$1").trim();
+}
+function thayerParas(b) {
+  // unclosed <P>s: cut at every paragraph opening, and a verse block stands between paragraphs
+  const out = [];
+  b.replace(/<\/P>/gi, "").split(/<P\b[^>]*>/i).forEach((piece) => {
+    piece.split(/(\u0001[\s\S]*?\u0002)/).forEach((bit) => {
+      if (bit[0] === "\u0001") { out.push("<blockquote>" + bit.slice(1, -1) + "</blockquote>"); return; }
+      const t = thayerTidy(stripTags(thayerSpans(bit)));
+      if (t) out.push("<p>" + t + "</p>");
+    });
+  });
+  return out;
+}
+function thayerPage(h, where, c, warn) {
+  let s = h.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  // The mouse-over remarks carry markup INSIDE an attribute value ('…<BR>omits…'), which would end
+  // any `<[^>]*>` match early, so the attributes go first; none of their values holds a double quote.
+  s = s.replace(/\s*onMouse(?:Over|Out)="[^"]*"/gi, "");
+  s = s.replace(/<A CLASS="(correction|comment)"[^>]*>[^<]*<\/A>/gi, (w, k) => { c[k]++; return ""; });
+  c.emend += (s.match(/<SPAN CLASS="emend">/gi) || []).length;
+  // NAME is not always quoted (`NAME=92` in 1D), so neither quote is required anywhere below
+  const first = s.search(/<A CLASS="chapter" NAME="?\d+"?>|<A NAME="1\.1"><\/A>/i);
+  if (first < 0) throw new Error(where + ": no chapter mark on the page");
+  const pOpen = s.slice(0, first).search(/<P\b[^>]*>(?![\s\S]*<P\b)/i);
+  const start = pOpen >= 0 ? pOpen : first;
+  if (/<DIV CLASS="small">/i.test(s.slice(0, start))) c.contents++;
+  /* THE NOTES ARE FOUND BY THEIR BACK-REFERENCE, NOT BY THEIR ID. Thayer types each note's anchor by
+     hand and a few are slips — note 11 of 1D is `NAME="31"`, note 28 `ID="A"`, and 3E's rule above
+     the list is `<HR CLASS="62">` — so a reader keyed on `ID="noteN"` or on the rule's class loses
+     those notes and every marker citing them. What every note does carry is a link back to its
+     marker (`#ref11`), and the marker in the text names the note it cites (`ID="ref11" …#note11`),
+     so the list is cut at its fleurons and each piece is joined to the note its back-link names. */
+  const foot = s.search(/<TABLE CLASS="footer"/i);
+  const nStart = s.search(/<A ID="endnotes"><\/A>/i);
+  const textEnd = nStart >= 0 ? nStart : foot;
+  if (textEnd < start) throw new Error(where + ": the text has no end");
+  const refTo = {};
+  for (const m of s.slice(start, textEnd).matchAll(/<A CLASS="ref" ID="ref([^"]+)"[^>]*?HREF="[^"#]*#note([^"\s]+)/gi))
+    refTo[m[1]] = m[2];
+  // the notes in Thayer's own list, after `endnotes_T`, so that a marker citing one goes with it
+  const tAt = s.search(/<A ID="endnotes_T">/i);
+  const mine = new Set(tAt < 0 ? [] : [...s.slice(tAt).matchAll(/<A CLASS="note"[^>]*?HREF="[^"#]*#ref([^"\s]+)/gi)]
+    .map((m) => refTo[m[1]] || m[1]));
+  const notes = {};
+  if (nStart >= 0) {
+    const rest = s.slice(nStart);
+    const tEnd = [rest.search(/<A ID="endnotes_T">/i), rest.search(/<TABLE CLASS="footer"/i)].filter((x) => x >= 0);
+    const region = rest.slice(0, tEnd.length ? Math.min(...tEnd) : rest.length).replace(/<H2>[\s\S]*?<\/H2>/gi, "");
+    if (/<A ID="endnotes_T">/i.test(rest)) c.thayerLists++;
+    region.split(/<P CLASS="ivy">[^<]*<\/P>/i).forEach((t) => {
+      const backs = [...t.matchAll(/<A CLASS="note"[^>]*?HREF="[^"#]*#ref([^"\s]+)\s*"[^>]*>[^<]*<\/A>/gi)].map((m) => m[1]);
+      if (!backs.length) {
+        if (stripTags(t).trim()) warn(where + ": a block in the notes links back to no marker");
+        return;
+      }
+      const ids = [...new Set(backs.map((r) => refTo[r] || r.replace(/[a-z]$/, "")))];
+      if (ids.length > 1) warn(where + ": one note links back to markers of " + ids.join(", "));
+      t = t.replace(/<A CLASS="note"[^>]*>[^<]*<\/A>/gi, "");
+      t = t.replace(/<DIV CLASS="mynote">[\s\S]*?<\/DIV>/gi, () => { c.myNotes++; return ""; });
+      t = thayerTidy(stripTags(thayerSpans(thayerClean(t, true).replace(/<P\b[^>]*>/gi, " "))));
+      if (!t) warn(where + ": note " + ids[0] + " came back empty");
+      if (ids[0] in notes) warn(where + ": note " + ids[0] + " appears twice");
+      notes[ids[0]] = t;
+    });
+  }
+  let text = s.slice(start, textEnd);
+  text = text.replace(/<A CLASS="sec" NAME="?[^">]*"?>[^<]*<\/A>\s*/gi, () => { c.secs++; return ""; });
+  const used = [];
+  text = text.replace(/<A CLASS="ref"[^>]*HREF="[^"#]*#note([^"\s]+)\s*"[^>]*>[^<]*<\/A>/gi, (w, id) => {
+    if (id[0] === ":" || mine.has(id)) { c.myRefs++; return ""; }
+    if (!(id in notes)) { warn(where + ": a marker cites note " + id + ", which the page does not carry"); return ""; }
+    used.push(id);
+    return "\u0003" + id + "\u0004";
+  });
+  const chs = [];
+  text = text.replace(/<A CLASS="chapter" NAME="?([^">]*)"?>([^<]*)<\/A>|<A NAME="1\.1"><\/A>/gi, (w, n, shown) => {
+    /* A chapter carried over a page break is marked again at the head of the next page IN BRACKETS —
+       13B opens "(19)" on 19.4 — and is the same chapter, not a second one with that number. */
+    if (/^\s*\(\d+\)\s*$/.test(shown || "")) { c.carried++; return ""; }
+    const k = n === undefined ? 1 : +n;
+    if (!(k >= 0)) { warn(where + ": chapter mark " + JSON.stringify(n) + " is not a number"); return ""; }
+    if (n === undefined && /<A CLASS="chapter" NAME="?1"?>/i.test(s)) return "";
+    chs.push(k);
+    return '<span class="bk-n" data-n="' + k * 100 + '">' + k + "</span> ";
+  });
+  Object.keys(notes).forEach((id) => { if (!used.includes(id)) c.unused.push(where + " " + id); });
+  return { paras: thayerParas(thayerClean(text, false)), notes: notes, chapters: chs };
+}
+function extractThayer(pages, book, warn) {
+  const c = { correction: 0, comment: 0, emend: 0, contents: 0, thayerLists: 0, myNotes: 0, myRefs: 0,
+    secs: 0, carried: 0, unused: [] };
+  const out = [];
+  for (const n of book.chapters) {
+    if (!pages[n]) continue;
+    const notes = [], index = {};
+    let html = [], chs = [];
+    pages[n].forEach((pg) => {
+      const where = book.chapterWord + " " + n + " (" + pg.id + ")";
+      const got = thayerPage(pg.html, where, c, warn);
+      // a marker carries the entry it points at, renumbered across the whole book; a note cited twice
+      // on a page (Thayer's `1a`, `1b`) is ONE entry with two markers
+      html = html.concat(got.paras.map((p) => p.replace(/\u0003([^\u0004]+)\u0004/g, (w, id) => {
+        const key = pg.id + "#" + id;
+        if (!(key in index)) { notes.push(got.notes[id]); index[key] = notes.length; }
+        return '<sup class="fn" data-fn="' + index[key] + '"></sup>';
+      })));
+      chs = chs.concat(got.chapters);
+    });
+    for (let i = 1; i < chs.length; i++)
+      if (chs[i] !== chs[i - 1] + 1) warn(book.chapterWord + " " + n + ": chapter " + chs[i] + " follows " + chs[i - 1]);
+    out.push({ n: n, html: html.join("\n"), notes: notes, count: chs.length, last: chs[chs.length - 1] });
+  }
+  return { chapters: out, counts: c };
+}
+
 function extractTablets(h, book, warn) {
   /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
      the page with Windows line endings; every other source on the shelf does not, so `esc` — which
@@ -27916,6 +28250,49 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* LACUSCURTIUS — a run of HTML pages per Folio chapter, each cached as served. That host drops
+     connections mid-page, and a cut page is still well-formed up to where it stops, so a page counts
+     as fetched only once its closing </HTML> has arrived. The per-chapter record is written too: the
+     original's pairing reads the English back from it, as it does for a wiki book. See extractThayer. */
+  if (BOOK.layout === "thayer") {
+    const warn = (m) => warnings.push(m);
+    const pages = {};
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      pages[n] = [];
+      for (const pid of BOOK.pages[n]) {
+        const cf = path.join(CACHE, "en-" + pid + ".html");
+        let h = !FORCE && fs.existsSync(cf) ? fs.readFileSync(cf, "utf8") : "";
+        for (let a = 0; !/<\/HTML>/i.test(h); a++) {
+          if (a === 6) throw new Error("could not fetch a whole page " + pid + " from " + BOOK.sourceName);
+          if (a) await sleep(4000 * a);
+          try { h = await fetchText(BOOK.pageUrl(pid)); } catch (e) { h = ""; }
+        }
+        fs.writeFileSync(cf, h);
+        pages[n].push({ id: pid, html: h });
+      }
+    }
+    const g = extractThayer(pages, BOOK, warn);
+    const c = g.counts;
+    g.chapters.forEach((ch) => {
+      if (ch.html.length < 200) throw new Error(BOOK.chapterWord + " " + ch.n + " came back short");
+      const rec = { n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes };
+      fs.writeFileSync(path.join(CACHE, ch.n + ".json"), JSON.stringify(rec));
+      chapters.push(rec);
+      console.log("  " + BOOK.chapterWord + " " + ch.n + " — " + ch.count + " chapters (to " + ch.last + "), " +
+        ch.notes.length + " notes (" + (ch.html.length / 1024).toFixed(0) + " KB)");
+    });
+    console.log("  " + c.secs + " section marks not carried (the columns pair on the chapter); " + c.carried +
+      " chapter(s) carried over a page break, marked again in brackets, kept as one; " + c.contents +
+      " ancient tables of contents left out; " + c.emend + " of Thayer's corrections to the printed Loeb kept, " +
+      (c.correction + c.comment) + " of his tooltip marks removed; " + c.myNotes + " of his notes inside Loeb " +
+      "notes, " + c.thayerLists + " list(s) of his own notes and " + c.myRefs + " marker(s) citing them dropped " +
+      "(his, and not public domain)");
+    // at import every one of these was cited only from a book's left-out table of contents — read them if the count moves
+    if (c.unused.length) console.log("  " + c.unused.length + " Loeb note(s) no marker in the text cites: " + c.unused.join(", "));
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "tablets") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -28825,10 +29202,18 @@ async function fetchOriginal() {
 
   if (O.source === "tei") {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
-    const cf = path.join(cacheDir, "tei.xml");
-    let xml;
-    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
-    else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+    /* AN ORIGINAL IN SEVERAL FILES (Oct 2026, Diodorus): Perseus has his Greek as three editions —
+       Books 1–5, 11–17 and 18–20, from three printings — so `urls` lists them and each is cached
+       apart. Only the `chaptered` reader below takes a list; it reads each file and merges the books,
+       which never overlap. */
+    if (O.urls && O.layout !== "chaptered") throw new Error("`urls` is read by the chaptered layout only");
+    const xmls = [];
+    for (const [k, u] of (O.urls || [O.url]).entries()) {
+      const cf = path.join(cacheDir, O.urls ? "tei-" + (k + 1) + ".xml" : "tei.xml");
+      if (!FORCE && fs.existsSync(cf)) xmls.push(fs.readFileSync(cf, "utf8"));
+      else { const t = await fetchText(u); fs.writeFileSync(cf, t); xmls.push(t); }
+    }
+    const xml = xmls[0];
 
     /* THE SECTION IS THE CHAPTER, so there is nothing below it to reconcile — the pairing question
        this branch usually answers ("do the two columns state the same numbers inside each chapter?")
@@ -28972,7 +29357,7 @@ async function fetchOriginal() {
          rather than skipped in silence, since a quietly absent English book would read as a clean
          pairing of the ones that remain. */
       let en;
-      if (BOOK.source === "wiki") {
+      if (BOOK.source === "wiki" || BOOK.layout === "thayer") {
         en = {};
         for (const n of BOOK.chapters) {
           const cf = path.join(CACHE, n + ".json");
@@ -28986,7 +29371,11 @@ async function fetchOriginal() {
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
         en = teiBookChapters(enXml, {}, warn);
       }
-      const or = teiBookChapters(xml, {}, warn);
+      const or = Object.assign({}, ...xmls.map((x) => teiBookChapters(x, {}, warn)));
+      // a division numbered with a word is not a chapter (Diodorus's `arg`, each book's contents) — said, not hidden
+      const skippedOrig = Object.keys(or).filter((n) => or[n].skipped.length)
+        .map((n) => n + ": " + or[n].skipped.join(", "));
+      if (skippedOrig.length) console.log("  skipped non-chapter division(s) in the original — " + skippedOrig.join("; "));
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the

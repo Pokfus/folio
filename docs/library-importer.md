@@ -2448,3 +2448,34 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   means: here 482 runs over 6,889 characters, most of them variant forms.
 - Re-run after touching: `node .claude/fetch-book.js classic-of-tea` (English, then Chinese; both read the
   cache), `node .claude/test-library.js` (33 `[classic-of-tea]` checks) and `node .claude/check-pairing.js`.
+
+## The `thayer` layout — a Loeb retyped on LacusCurtius, beside a Greek in three Perseus files (Oct 2026, Diodorus)
+
+`layout: "thayer"` → `extractThayer` / `thayerPage` / `thayerParas` / `thayerSpans`; `original.urls` (a list)
+on the `chaptered` reader. Bill Thayer's pages state the apparatus in markup — `<A CLASS="chapter" NAME="12">`,
+`<A CLASS="sec" NAME="12.3">`, `<A CLASS="ref" HREF="…#note7">` — so nothing is read out of the prose; the work
+is in what to leave behind and in his hand-typed slips. What is worth carrying:
+
+- **Leave out what is Thayer's own.** His notes (`<DIV CLASS="mynote">` inside a Loeb note, and the whole list
+  after `<A ID="endnotes_T">`) are his copyright, not public domain; they go, counted, and so does every marker
+  in the text that cites one (`#note:slug` and the letter-keyed `#noteB`). His `º` tooltip links
+  (`CLASS="correction"`, `"comment"`) go; his `<SPAN CLASS="emend">` repairs of the printed Loeb stay.
+- **Strip the `onMouseOver`/`onMouseOut` attributes before any tag regex.** Their values carry markup
+  (`'…<BR>omits…'`), which ends a `<[^>]*>` match in the middle of the attribute. No value holds a `"`.
+- **Find a note by its back-link, not its id.** Thayer types each note's anchor by hand: note 11 of page 1D
+  is `NAME="31"`, note 28 is `ID="A"`, 3E's rule above the list is `<HR CLASS="62">`. Each note links back to
+  its marker (`#ref11`) and the marker names its note (`ID="ref11" …#note11`), so the list is cut at its
+  fleurons (`<P CLASS="ivy">`) and joined that way. `NAME` is not always quoted either (`NAME=92`), and a
+  reader requiring the quote loses that chapter into the one before it.
+- **`<P>` is never closed** (HTML 4). Cut at each opening tag and give `stripTags` one paragraph at a time,
+  having first removed every block and link tag — an unclosed `<DIV>` left on its stack swallows the next `</i>`.
+- **A page counts as fetched only when `</HTML>` has arrived.** The host drops connections mid-page, and a cut
+  page is well-formed up to where it stops.
+- **The unit is Diodorus's chapter, on both sides** (`data-n` = chapter × 100, which is what
+  `teiBookChapters` writes for the Greek); the sections are not carried, as Herodotus's are not. Each book's
+  ancient table of contents is left out on both sides (Perseus numbers it `arg`; the reader now logs it).
+- **A chapter carried over a page break is marked again, in brackets** (13B opens `(19)` on 19.4) and is the same
+  chapter; read as a mark it gives Book 13 a second chapter 19.
+- Measured at import: 1,414 chapters on each side over the fifteen books, every one paired; 3,707 Loeb notes.
+- Re-run after touching: `node .claude/fetch-book.js diodorus-library` (both halves read the cache;
+  `--force` re-extracts), `node .claude/test-library.js` and `node .claude/check-pairing.js`.
