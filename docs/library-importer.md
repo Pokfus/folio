@@ -2612,3 +2612,31 @@ LacusCurtius book:
   its label the first time it holds text. `WIDTH="500"` tables are consul lists, one line per row.
 - Re-run after touching: `node .claude/fetch-book.js cassius-dio-roman-history` (reads the cache), then compare
   words per page against the raw body and look for leaked furniture (`Thayer`, `º`, `•`, `Ebox`, `http`).
+## The `treaty` block pass — a legal instrument (Oct 2026, the Treaty of Versailles)
+
+`blocks: "treaty"` → `treatyBlocks` (in `cleanBody`, before the centred divs become blockquotes) and
+`treatyFinish` (after `stripTags`). The first book whose page is built of headings and tables rather than prose
+interrupted by them; each of its three shapes fails quietly on the ordinary path:
+
+- **Every centred block is a heading** (752: 440 "Article N.", Parts, Sections, Chapters, Annexes, an annex's
+  numbered paragraphs, Part V's ship names). Left to the generic pass they become a column of indented
+  QUOTATIONS. Set as `<p class="bk-head">`, bold when structural, carried through the tag stripper behind the
+  `@@TVH@@` sentinel (the Book of Rites' pattern). A centred block over 200 characters is kept as text and reported.
+- **A table is usually a list** — lettered clauses ("(a) | will endeavour…"), the League's members in columns.
+  With no `<th>` and no row of more than two filled cells it becomes one paragraph per row (label + clause) or
+  per column (lines kept by `<br>`), innermost first, so a table in a cell is plain markup by the time its host
+  is read. Otherwise `stripTags` runs it into one paragraph with the letters lost in it.
+- **A table is sometimes a table** — Part V's army establishments (header cells, rowspan/colspan) and Part VIII's
+  coal schedule. Rebuilt as clean `<table>` markup (cells, header cells, spans, nothing else), stashed, and put
+  back by `treatyFinish` behind `@@TVT<k>@@`, because `stripTags` keeps no table tags. Dot-leader cells
+  (`wst-dtpl`) give their entry text; a `{{ditto}}` gives the word its hidden half names.
+- Lists (ul/ol/dl) become a paragraph per item; every other div is unwrapped, innermost first, a div holding no
+  `<p>` becoming one (the Preamble's hanging-indent list of the Powers was a bare run). The page's licence
+  banner is inside the slice on these pages and is cut; the volume's "[41]" mark is dropped and reported.
+- **`treatyFinish` also guards the numbering**: an "Article N." typed as a plain paragraph or run on after a full
+  stop is promoted only where N is the next article after the last heading (127 and 129); and a heading whose
+  neighbours prove a misprint (before + 2 = after) is renumbered and REPORTED — the printing's own "Article 125"
+  for 123. After a run, count the headings: all 440, once each, in order.
+
+Re-run after touching: `node .claude/fetch-book.js treaty-of-versailles --force` (no raw cache on this path —
+it refetches 17 pages), then `node .claude/book-audit.js` and `node .claude/check-cutoff.js`.
