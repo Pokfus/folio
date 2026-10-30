@@ -12054,6 +12054,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      27 or more from every book that is — Thucydides 27.4, Herodotus 34.7, Strabo 37.0, Plutarch 48.1,
      Livy 56.6, Suetonius 84.8, Caesar 85.3. It reads 8.14:1 on the tightest light paper. */
   "Polybius": "#5A0051",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-one colours placed (Oct 2026, adding the Annals): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1
+     on every light paper, card and second paper. This dark plum-wine is the band's best, clearing its
+     nearest — the Book of Rites, Plato and Beowulf — by 16.1, above the shelf's tightest pair
+     (Snorri Sturluson and Polybius, 15.6), so nothing was widened. THE EURIPIDES TEST: the books a
+     reader sets beside Tacitus are SUETONIUS, the other source for the same emperors, then Livy and
+     Polybius before him, Strabo his contemporary, Plutarch, Caesar, Seneca (whose death is in book
+     15) and Petronius (book 16), and it stands 19.9 or more from all of them — Strabo 19.9, Polybius
+     24.6, Livy 33.5, Seneca 52.3, Petronius 54.0, Suetonius 60.4, Caesar 61.5, Plutarch 68.5. Virgil
+     sits at 16.7, an Augustan poet and not a book read with a historian of the emperors. It reads
+     6.42:1 on the tightest light paper. */
+  "Tacitus": "#6C2442",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -12444,6 +12456,55 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 6, label: "Book VI", note: "Nero" },
         { n: 7, label: "Book VII", note: "Galba, Otho, Vitellius" },
         { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
+      ],
+    },
+    {
+      id: "tacitus-annals",
+      title: "The Annals",
+      // the work's own Latin title, as Fisher's edition prints it — what the Latin column is an edition of
+      subtitle: "Ab excessu divi Augusti",
+      author: "Tacitus",
+      written: "early 2nd century CE",
+      /* A sort key, not a date: the Annals were written in the second decade of the second century and
+         no year inside it is attested, so this sits in that span — Plutarch's position exactly. */
+      year: 115,
+      translator: "Alfred John Church and William Jackson Brodribb",
+      edition: "Annals of Tacitus, translated into English, Macmillan and Co., London, 1869",
+      /* Two layers on both columns, the Suetonius position. The ground is the publication dates —
+         1869 for the English (the 1895 reprint's verso) and 1906 for Fisher's Latin — and no death year
+         is claimed. Perseus's header says its English follows a 1942 reprint "with significant
+         changes", so it was measured against the 1895 printing before this was written: 90% of its
+         six-word runs are verbatim and the gaps read are OCR noise and spelling, not revision. See
+         .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Alfred John Church and William Jackson Brodribb's translation was " +
+        "first published by Macmillan in 1869, and the Latin printed beside it is Charles Dennis " +
+        "Fisher's Oxford text of 1906 — both long before 1929 — so the copyright in both has expired. " +
+        "Tacitus wrote the work in Latin in the early second century. The digital editions both " +
+        "columns are taken from are prepared by the Perseus Digital Library at Tufts University and " +
+        "are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The " +
+        "modern translations by Michael Grant, 1956, A. J. Woodman, 2004, and Cynthia Damon, 2012, are " +
+        "still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1351.phi005/",
+      /* Fisher's Latin by way of Perseus, paired on the CHAPTER — the Gallic War's handle. Measured over
+         both files: 721 chapters on each side, identical numbers in every one of the twelve books, every
+         one paired. Book 6 opens on 5.6–5.11, the end of book 5, where Fisher prints it; see
+         .claude/fetch-book.js (`crossBookChapters`). */
+      origLang: "la",
+      origName: "Latin",
+      chapterWord: "Book",
+      /* Twelve books survive of a work that probably ran to sixteen or eighteen — nobody knows which —
+         so `total` is the twelve that exist rather than a guess at the whole; "12 of 16" would assert
+         a figure. The numbers skip from 6 to 11, which `chapterNums` tells the progress line. */
+      count: 12,
+      total: 12,
+      chapterNums: [1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16],
+      /* The two halves the work survives in, each in its own medieval manuscript, and the two halves
+         of its subject, with the four lost books between them. */
+      parts: [
+        { n: 1, label: "Books I–VI", note: "Tiberius" },
+        { n: 2, label: "Books XI–XVI", note: "Claudius and Nero" },
       ],
     },
     {
