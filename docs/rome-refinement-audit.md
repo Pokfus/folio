@@ -187,7 +187,7 @@ order unless the user says otherwise.
 | B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | **done 2026-10-30** |
 | B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | **done 2026-10-30** |
 | B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | **done 2026-10-30** |
-| B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | open |
+| B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | **done 2026-10-30** |
 | B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | open |
 | B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | open |
 | B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | open |
@@ -820,6 +820,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-548` Severus Alexander | a bust in the Louvre | ok |
 | `rm-549` Julia Mamaea | a portrait head in the Louvre | ok |
 | `rm-550` Crisis of the Third Century | an antoninianus of Gallienus | acceptable: a coin for the age |
+| `rm-551` Maximinus Thrax | a bust in the Capitoline Museums | ok |
+| `rm-552` Philip the Arab | a bust in the Vatican Museums | ok |
+| `rm-553` Sasanian Empire | Flandin's drawing of Ardashir's victory relief at Firuzabad | weak: a drawing of one victory, not the empire; a photograph of the relief would do |
+| `rm-554` Shapur I | the equestrian relief at Naqsh-e Rajab | ok; a triumph relief would show the Roman clue |
+| `rm-555` Valerian | the Paris cameo of a Persian king seizing an emperor | ok |
+| `rm-556` Battle of Abritus | the ruins of the Roman town at Razgrad | acceptable; the battlefield's site is disputed, so the locator may go |
+| `rm-557` antoninianus | three antoniniani from Gordian III to Probus | acceptable: shows the debasement |
+| `rm-558` Aurelian's coinage reform | a reformed coin of Siscia with XX·I | ok |
+| `rm-559` Gallic Empire | an aureus of Tetricus | acceptable: a coin for the state; the hand-drawn region leaves out Spain and Raetia |
+| `rm-560` Postumus | a gold coin in Berlin | ok |
 
 ## Glossary candidates
 
@@ -2168,3 +2178,22 @@ Run as B54, with no stop. Every draft compared with its card after `batch.sh`: n
 | `rm-550` Crisis of the Third Century | 7 | 7 → 8 | **The label is modern and 235 – 284 CE a convention; the Plague of Cyprian c. 251 – 266 CE attributed (also c. 249 – 270)**; no count of emperors without a source; death tolls go. |
 
 **Read by eye.** *Confusability:* `rm-542`/`rm-549` the two Syrian empresses (Philostratus's commission, Origen); `rm-544`/`rm-545`/`rm-546` the emperor (the cloak), the grant (the Giessen papyrus) and the baths (Geta's bricks); `rm-541`/`rm-543` the legion (the Alban camp) and the fortress (Lunaris); `rm-547`/`rm-548` the cousins (the black stone, the herald's rule); `rm-550` the age (Eutropius's empire in three). *Legend:* Geta in his mother's arms, the violets and the model prince are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B56 — `rm-551`–`rm-560`, The Severans and the third-century crisis: Maximinus Thrax to Postumus (2026-10-30)
+
+Run as B55. Every draft compared with its card after `batch.sh`: no mismatch. `check-cards` refused `rm-552`'s second phrasing for "Naqsh-e Rustam" (it reads a hyphenated capitalised name as a scholar); it now says "a Persian rock relief near Persepolis", and the card was re-applied. Checks: `rm-audit.js --range=rm-551:rm-560` reads clean on six cards; the rest carry `S.chip?` (English BMCR reviews of German-titled books, four cards). `rm-558`'s `timeline` moved from 272 – 273 CE to 274 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched except `rm-559` and `rm-560`, whose one "mismatch" is the spacing of the initials "Yu. V." against Crossref's "Yu.V." Kulikova. The URL check's one failure is an MDPI DOI on `rm-557`, read in Europe PMC. **The old date lines carried places ("before Aquileia", "near Verona", "at Cologne", "at Mainz"), another man's reign ("Decius reigned 249 – 251 CE"), a later war under a modern label ("Byzantine war 622 – 628 CE"), another man's capture on Shapur's card and a figure and a name ("Below 5% silver Gallienus, 260 – 268 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-551` Maximinus Thrax | 7 | 8 → 7 | **"First soldier-emperor" goes; the Historia Augusta's giant (the thumb-ring, credited to its invented "Cordus") is flagged, with an editor's verdict that it copies Herodian and invents**; Herodian has him killed outside the tent, not in it. |
+| `rm-552` Philip the Arab | 7 | 6 → 7 | **Gordian's death disputed: Shapur's inscription claims Misiche, the Roman writers blame Philip**; the invented "50 million sesterces" becomes the inscription's 500,000 denarii; the games of 248 on Varro's era; the Christian emperor Eusebius's story. |
+| `rm-553` Sasanian Empire | 7 | 6 → 7 | **Ardashir's Achaemenid claim is Dio's and Herodian's, with the modern debate (a Roman projection or a cultivated link)**; ruled 224 – 651 CE, Ctesiphon taken 226 CE (Livius); the Heraclian war off the line. |
+| `rm-554` Shapur I | 6 | 5 → 7 | **Reigned c. 241 – 272 CE (Sprengling 241 – 271 in prose); Valerian's capture only as the inscription's claim, the footstool Lactantius's**; the Shushtar dam (Rawlinson) goes; the Sprengling link pointed at the wrong book and is fixed. |
+| `rm-555` Valerian | 7 | 8 → 9 | **Captured 260 CE, also dated 259; no birth year (c. 200 is an estimate)**; the persecution from Cyprian's own letter; Shapur's "own hands" and 70,000 his inscription's, Zosimus's parley beside them; the footstool and the flayed skin Lactantius's polemic. |
+| `rm-556` Battle of Abritus | 6 | 7 → 7 | **"First emperor killed by barbarians" was cited to a study that does not say it and goes**; the date and the battlefield disputed; Victor's manuscript reading *Bruti fraude*; the treasury theory. |
+| `rm-557` antoninianus | 6 | 5 → 6 | **The name is modern, from the Historia Augusta's gold "Antoniniani" (no warrant beyond those letters, says Magie); the two-denarius value an inference from the radiate crown**; introduced c. 214 – 215 CE; the Gallienus row goes. |
+| `rm-558` Aurelian's coinage reform | 5 | 7 → 6 | **The reform 274 CE (Livius), after Tetricus's defeat in Zosimus; the old 272 – 273 CE goes**; the XXI and KA readings a debate; the 7,000 dead of the mint revolt the Historia Augusta's, "greatly exaggerated" (Magie). |
+| `rm-559` Gallic Empire | 7 | 7 → 8 | **The name is later custom's: its rulers styled themselves Roman emperors; ended 273 or 274 CE, whose each year is said**; the Augsburg altar (Ubi Erat Lupa 6338); Tetricus's betrayal Eutropius's and Victor's. |
+| `rm-560` Postumus | 6 | 8 → 8 | **The places leave the line; the Cologne killing Zosimus's, the Mainz mutiny Victor's and Eutropius's; "governor of Lower Germany" a modern guess**; his coins from OCRE. |
+
+**Read by eye.** *Confusability:* `rm-551`/`rm-552` the shepherd (Herodian's Thrace) and the Arab (the Easter vigil); `rm-553`/`rm-554`/`rm-555` the empire (Dio's warning), the king (the inscription's Misiche) and the captive (Cyprian's rescript); `rm-556` the battle (the marsh); `rm-557`/`rm-558` the coin (its invented name) and the reform (XXI); `rm-559`/`rm-560` the state (the Augsburg altar) and the man (Cologne, Mainz). *Legend:* Maximinus's thumb, Philip at the vigil and Valerian as footstool are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

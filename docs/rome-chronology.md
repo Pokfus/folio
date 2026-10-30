@@ -588,6 +588,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Severus Alexander: born / reigned / the Persian war / died | 208 CE / 222 – 235 CE / 231 – 233 CE / 235 CE | `rm-548` |
 | Julia Mamaea: mater castrorum / mater senatus / killed | 224 CE / 226 CE / 235 CE | `rm-549` |
 | the Crisis of the Third Century (a modern label): the usual span / the Plague of Cyprian | 235 – 284 CE / c. 251 – 266 CE (also c. 249 – 270 CE) | `rm-550` |
+| Maximinus Thrax: reigned / killed | 235 – 238 CE / 238 CE | `rm-551` |
+| Philip the Arab: reigned / the millennial games / died | 244 – 249 CE / 248 CE / 249 CE | `rm-552` |
+| the Sasanian Empire: ruled / Ctesiphon taken | 224 – 651 CE / 226 CE | `rm-553` |
+| Shapur I: co-ruler / reigned | c. 240 CE / c. 241 – 272 CE (Sprengling: 241 – 271 CE) | `rm-554` |
+| Valerian: reigned / captured | 253 – 260 CE / 260 CE (also dated 259 CE) | `rm-555` |
+| the Battle of Abritus | 251 CE | `rm-556` |
+| the antoninianus: introduced / revived | c. 214 – 215 CE / 238 CE | `rm-557` |
+| Aurelian's coinage reform | 274 CE | `rm-558` |
+| the Gallic Empire (a modern label): began / ended | 260 CE / 273 or 274 CE | `rm-559` |
+| Postumus: reigned / died | 260 – 269 CE / 269 CE | `rm-560` |
 
 ## Late Antiquity
 
@@ -1130,4 +1140,14 @@ rm-547: 218; 222
 rm-548: 208; 222; 235; 231; 233
 rm-549: 224; 226; 235
 rm-550: 235; 284; 251; 266
+rm-551: 235; 238
+rm-552: 244; 248; 249
+rm-553: 224; 651; 226
+rm-554: 240; 241; 272
+rm-555: 253; 260; 259
+rm-556: 251
+rm-557: 214; 215; 238
+rm-558: 274
+rm-559: 260; 273; 274
+rm-560: 260; 269
 ```
