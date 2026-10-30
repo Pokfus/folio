@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T15:41Z",
+ "generated": "2026-10-30T15:46Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5372,
+  "ok": 5381,
   "redirect-broader": 507,
   "redirect-variant": 333,
   "section-redirect": 107,
   "disambiguation": 142,
-  "none": 971,
+  "none": 972,
   "disambig-resolved": 80,
   "list-page": 6,
   "search-match": 6,
@@ -61231,6 +61231,76 @@
    "answer": "Operation Koltso",
    "title": "Operation Koltso",
    "url": "https://en.wikipedia.org/wiki/Operation_Koltso",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-361": {
+   "answer": "Baltic offensive",
+   "title": "Baltic offensive",
+   "url": "https://en.wikipedia.org/wiki/Baltic_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-362": {
+   "answer": "Fester Platz",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-363": {
+   "answer": "20 July plot",
+   "title": "20 July plot",
+   "url": "https://en.wikipedia.org/wiki/20_July_plot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-364": {
+   "answer": "Claus von Stauffenberg",
+   "title": "Claus von Stauffenberg",
+   "url": "https://en.wikipedia.org/wiki/Claus_von_Stauffenberg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-365": {
+   "answer": "Henning von Tresckow",
+   "title": "Henning von Tresckow",
+   "url": "https://en.wikipedia.org/wiki/Henning_von_Tresckow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-366": {
+   "answer": "People's Court",
+   "title": "People's Court (Germany)",
+   "url": "https://en.wikipedia.org/wiki/People's_Court_(Germany)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-367": {
+   "answer": "Volkssturm",
+   "title": "Volkssturm",
+   "url": "https://en.wikipedia.org/wiki/Volkssturm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-368": {
+   "answer": "Albert Speer",
+   "title": "Albert Speer",
+   "url": "https://en.wikipedia.org/wiki/Albert_Speer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-369": {
+   "answer": "Ostarbeiter",
+   "title": "Ostarbeiter",
+   "url": "https://en.wikipedia.org/wiki/Ostarbeiter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-370": {
+   "answer": "Wunderwaffe",
+   "title": "Wunderwaffe",
+   "url": "https://en.wikipedia.org/wiki/Wunderwaffe",
    "via": "glossary",
    "status": "ok"
   }

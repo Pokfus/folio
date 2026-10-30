@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5372 | the title is the article |
+| `ok` | 5381 | the title is the article |
 | `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 80 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 971 | nothing matched; no link |
+| `none` | 972 | nothing matched; no link |
 
-**6305 of 7541 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6314 of 7551 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -918,7 +918,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-227` **Anderson shelter** — `Anderson shelter` only redirects into `Air raid shelter#Anderson shelter`
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 
-## No article found (971)
+## No article found (972)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1893,3 +1893,4 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-296` **stand-fast order** — search suggests `Military history of Italy during World War II`, `Scandinavian theatre of World War II`, `British merchant seamen of World War II`, `Soviet Union in World War II`, `Australia in World War II`
 - `ww2-307` **Stalingrad airlift** — search suggests `Battle of Stalingrad`, `List of World War II battles`, `Declarations of war during World War II`, `Pacific War`, `Stopped at Stalingrad`
 - `ww2-335` **Radical turning point**
+- `ww2-362` **Fester Platz**

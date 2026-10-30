@@ -7680,7 +7680,17 @@ window.GLOSSARY = {
 "Stalingrad_airlift": "",
 "Friedrich_Paulus": "",
 "Operation_Winter_Storm": "",
-"Operation_Koltso": ""
+"Operation_Koltso": "",
+"Baltic_offensive": "",
+"German_World_War_II_fortresses": "",
+"20_July_plot": "",
+"Claus_von_Stauffenberg": "",
+"Henning_von_Tresckow": "",
+"People's_Court_(Germany)": "",
+"Volkssturm": "",
+"Albert_Speer": "",
+"Ostarbeiter": "",
+"Wunderwaffe": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11480,7 +11490,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Stalingrad_airlift": "1942–1943",
 "Friedrich_Paulus": "1890–1957",
 "Operation_Winter_Storm": "12–23 December 1942",
-"Operation_Koltso": "10 January – 2 February 1943"
+"Operation_Koltso": "10 January – 2 February 1943",
+"Baltic_offensive": "September – October 1944",
+"German_World_War_II_fortresses": "1944 – 1945",
+"20_July_plot": "20 July 1944",
+"Claus_von_Stauffenberg": "1907 – 1944",
+"Henning_von_Tresckow": "1901 – 1944",
+"People's_Court_(Germany)": "1934 – 1945",
+"Volkssturm": "1944 – 1945",
+"Albert_Speer": "1905 – 1981",
+"Ostarbeiter": "1942 – 1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16358,7 +16377,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Volgograd_Tractor_Plant": ["Stalingrad Tractor Factory","Stalingrad Tractor Plant"],
 "6th_Army_(Wehrmacht)": ["German Sixth Army"],
 "Operation_Winter_Storm": ["Wintergewitter"],
-"Operation_Koltso": ["Operation Ring"]
+"Operation_Koltso": ["Operation Ring"],
+"German_World_War_II_fortresses": ["Fester Platz","fortified place"],
+"Claus_von_Stauffenberg": ["Claus Schenk Graf von Stauffenberg","Stauffenberg"],
+"People's_Court_(Germany)": ["People's Court","Volksgerichtshof"],
+"Ostarbeiter": ["Eastern workers"],
+"Wunderwaffe": ["wonder weapon","wonder weapons"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24183,7 +24207,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Stalingrad_airlift": ["event","history","warfare","aviation","germany"],
 "Friedrich_Paulus": ["person","history","warfare","germany"],
 "Operation_Winter_Storm": ["event","history","warfare","second world war","germany"],
-"Operation_Koltso": ["event","history","warfare","second world war","russia"]
+"Operation_Koltso": ["event","history","warfare","second world war","russia"],
+"Baltic_offensive": ["event","history","warfare","russia","germany","estonia","latvia"],
+"German_World_War_II_fortresses": ["concept","history","warfare","germany"],
+"20_July_plot": ["event","history","politics","warfare","germany"],
+"Claus_von_Stauffenberg": ["person","history","politics","warfare","germany"],
+"Henning_von_Tresckow": ["person","history","politics","warfare","germany"],
+"People's_Court_(Germany)": ["institution","history","politics","law","germany"],
+"Volkssturm": ["institution","history","warfare","germany"],
+"Albert_Speer": ["person","history","politics","economics","germany"],
+"Ostarbeiter": ["people","history","economics","germany","russia"],
+"Wunderwaffe": ["concept","history","warfare","technology","germany"]
 });
 
 /* ============================================================================
