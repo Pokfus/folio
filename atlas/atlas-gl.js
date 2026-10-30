@@ -133,7 +133,7 @@
   // viewport is outside the halo and every fragment there was a discard (measured in software GL:
   // the sphere pass was a sixth of a globe frame)
   const VS_SPHERE = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     uniform vec2 uCenter, uSize; uniform float uRadius, uHaloW;
     const vec2 Q[6] = vec2[6](vec2(-1.0, -1.0), vec2(1.0, -1.0), vec2(1.0, 1.0), vec2(-1.0, -1.0), vec2(1.0, 1.0), vec2(-1.0, 1.0));
     out vec3 vWorld; out float vZ; out vec2 vUV;   // unused here; declared so the relief fragment shader links with this vertex shader too
@@ -143,7 +143,7 @@
       vWorld = vec3(0.0); vZ = 1.0; vUV = vec2(0.0);
     }`;
   const FS_SPHERE = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     uniform vec2 uCenter;      // device px, y down
     uniform float uRadius;     // device px
     uniform float uHeight;     // device px
@@ -186,7 +186,7 @@
      from the L0 sheet over the whole disc (uFromRay = 1, the sphere's quad) or from one tile's texture
      over its patch mesh (uFromRay = 0) */
   const VS_PATCH = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in vec3 aPos; in float aFace; in vec2 aUV;
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
     out vec3 vWorld; out float vZ; out vec2 vUV;
@@ -202,7 +202,7 @@
      from one L1 tile over its patch mesh (uFromRay = 0: the mesh carries its texture coordinate per vertex, so
      no atan or asin runs per fragment — the costliest part of a relief frame, measured; Phase 1c) */
   const FS_RELIEF = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in vec3 vWorld; in float vZ; in vec2 vUV;
     uniform vec2 uCenter; uniform float uRadius, uHeight; uniform mat3 uRotT;
     uniform float uFromRay, uMode, uStrength, uFade;
@@ -245,7 +245,7 @@
      shade mixed toward the detail's by uMix (0 → 1 as the zoom passes RELIEF_DETAIL_KM_PER_PX), so the detail fades in
      rather than popping. The detail texture is R8, LINEAR and mipmapped: one tap. */
   const FS_DETAIL = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in vec3 vWorld; in float vZ; in vec2 vUV;
     uniform float uRadius, uStrength, uFade, uMix;
     uniform vec2 uCoarseOff, uCoarseScale;
@@ -267,7 +267,7 @@
     }`;
 
   const VS_FACE = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in vec3 aPos; in float aFace;
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
     out float vZ; flat out float vFace;
@@ -278,7 +278,7 @@
       vZ = p.z; vFace = aFace;
     }`;
   const FS_FACE = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in float vZ; flat in float vFace;
     uniform sampler2D uStyle; uniform float uIdPass; uniform vec4 uFlat; uniform float uUseFlat;
     uniform float uIdOffset;         // the history faces live above 2^18 in the id space (Phase 2a)
@@ -302,7 +302,7 @@
     }`;
   // the stencil pass: tile extents as triangles on the sphere, colour writes off; only z matters
   const FS_EXTENT = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in float vZ; flat in float vFace;
     out vec4 o;
     void main() { if (vZ < 0.0) discard; o = vec4(0.0); }`;
@@ -325,7 +325,7 @@
     return { n, F: Math.cos(a) * Math.pow(Math.tan(Math.PI / 4 + a / 2), n) / n, lon0: 15 * d, XL: -2271, XR: 2582, YB: 4556, YT: 8841, fadeKm: 450 };
   })();
   const VS_PRES = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in vec3 aPos; in float aFace;
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
     out float vZ; out float vA; out vec3 vP;
@@ -337,7 +337,7 @@
       vZ = p.z; vA = aFace;
     }`;
   const FS_PRES = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     in float vZ; in float vA; in vec3 vP;
     uniform float uIdPass; uniform float uIdValue;
     uniform vec3 uColor; uniform float uWash; uniform float uDotA; uniform float uPitch; uniform float uDotR;
@@ -393,7 +393,7 @@
   uniform sampler2D uCover; uniform float uDim, uCoverOn; in vec2 vUv; out vec4 o;
   void main() { float c = uCoverOn > 0.5 ? texture(uCover, vUv).r : 0.0; float f = uDim + (1.0 - uDim) * c; o = vec4(f, f, f, 1.0); }`;
   const VS_ARC = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     uniform sampler2D uSeg;          // RGBA32F, two texels per segment: (a.xyz, tag) (b.xyz, 0)
     uniform int uTexW;
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
@@ -425,8 +425,11 @@
       gl_Position = vec4(p.x / uSize.x * 2.0 - 1.0, 1.0 - p.y / uSize.y * 2.0, 0.0, 1.0);
       vA = sa; vB = sb; vHw = w * 0.5; vKind = kind; vFlags = flags; vArc = floor(tag / 64.0); vZ = vec2(pa.z, pb.z);
     }`;
+  /* `precision highp int` in every shader (2026-10-30, the owner's Galaxy S24 Ultra): a fragment shader's ints default to MEDIUMP, which an Adreno GPU runs as 16 bits, and every
+     country border and admin-1 arc id is above 32 767 (34 093 … 35 224), so the arc mask read the wrong texel and the Personal Atlas lost every present-day border there — desktop GPUs
+     and SwiftShader run mediump ints as 32 bits and never showed it. GLSL ES 3.00 guarantees highp in a fragment shader. */
   const FS_ARC = `#version 300 es
-    precision highp float;
+    precision highp float; precision highp int;
     flat in vec2 vA; flat in vec2 vB; flat in float vHw; flat in float vKind; flat in float vFlags; flat in float vArc; flat in vec2 vZ;
     uniform float uHeight; uniform vec3 uColor[8]; uniform float uIdPass; uniform float uIdBase; uniform float uIdPad;
     uniform sampler2D uArcTab; uniform float uArcTabOn;   // Phase 2a: per-arc alpha for the historical borders (0 = not alive this year)

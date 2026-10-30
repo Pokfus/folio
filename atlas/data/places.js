@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-10-29","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":79,"site":419,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-10-29","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":91,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":79,"site":418,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -797,7 +797,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-10-29","generator":"folio at
 ["pl:q2663651","Peking Legation Quarter","site",0,2663651,0,[116.4017,39.9031],
 ["Beijing Legation Quarter"],1],
 ["pl:q213679","Pella","site","site",213679,0,[22.5256,40.76],0,1],
-["pl:q1145715","Pelusium","site","site",1145715,0,[32.6,31.05],0,1],
 ["pl:q719815","Perga","site","site",719815,0,[30.8551,36.9622],0,1],
 ["pl:q18986","Pergamon","site","site",18986,0,[27.1841,39.1295],0,1],
 ["pl:q129072","Persepolis","site","site",129072,0,[52.89,29.935],0,1],

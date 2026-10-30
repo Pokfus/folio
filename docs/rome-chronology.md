@@ -341,11 +341,110 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 
 | event | the collection says | source |
 |---|---|---|
+| the consulships of Marius: in succession / the seventh | 104 – 100 BCE / 86 BCE (the law against iteration of about 151 BCE is Greenidge's and Mommsen's dating) | `rm-301` |
+| Saturninus: tribune / again / killed | 103 BCE / 100 BCE / 100 BCE | `rm-302` |
+| the Second Servile War / Aquillius's ovation | 104 – 100 BCE (the Cambridge Ancient History puts the turn in 101) / 99 BCE | `rm-303` |
+| Marcus Livius Drusus: tribune and killed | 91 BCE | `rm-304` |
+| the Social War / Asculum taken | 91 – 88 BCE (the Samnites and Lucanians still in arms in 87) / 89 BCE | `rm-305` |
+| the Italian demand: Flaccus's bill / Gracchus's bill / the expulsion law / Drusus's promise | 125 BCE / 122 BCE / 95 BCE / 91 BCE (all Heitland's) | `rm-306` |
+| the lex Julia | 90 BCE | `rm-307` |
+| the enfranchisement of Italy: the laws / the vote by decree / the census | 90 – 89 BCE / 84 BCE / 70 BCE | `rm-308` |
+| Sulla: lived / quaestor / consul / dictator | c. 138 – 78 BCE / 107 BCE / 88 BCE / 82 – 79 BCE (the praetorship 93 BCE in Broughton, 97 BCE in Badian; no row) | `rm-309` |
+| the First Mithridatic War / Asia overrun / Athens taken / the peace of Dardanus | 89 – 85 BCE (some start it in 88) / 88 BCE / 86 BCE (1 March is the Cambridge Ancient History's conversion of Plutarch's Kalends of March) / 85 BCE | `rm-310` |
+| Mithridates VI: born / reigned / died | c. 135 – 132 BCE (Reinach and Magowska differ) / c. 120 – 63 BCE / 63 BCE (the Cambridge Ancient History, not Lendering's bracket) | `rm-311` |
+| the Asiatic Vespers | 88 BCE | `rm-312` |
+| Sulla's march on Rome | 88 BCE | `rm-313` |
+| Cinna: consul / killed | 87 – 84 BCE / 84 BCE | `rm-314` |
+| the Marian terror: the killings / Marius died | 87 BCE / January 86 BCE | `rm-315` |
+| the civil war of 83 BCE / Sacriportus | 83 – 82 BCE / 82 BCE (no ancient author gives the spring of 83 for the landing) | `rm-316` |
+| the Battle of the Colline Gate | 1 November 82 BCE (Velleius's Kalends of November, pre-Julian) | `rm-317` |
+| Sulla's proscriptions / the lists closed | 82 – 81 BCE / 1 June 81 BCE (Cicero, pleading for Roscius) | `rm-318` |
+| Sulla's dictatorship / consul again / laid down by / died | 82 BCE / 80 BCE / 79 BCE (end of 81 in Badian; Vervaet has 79) / 78 BCE | `rm-319` |
+| Sulla's laws / largely undone | 81 – 80 BCE / 70 BCE | `rm-320` |
+| the fall of the Roman Republic: usual start / civil war / usual end | 133 BCE / 49 BCE / 27 BCE (each a convention; 88 Appian's, 60 Pollio's, 44 the first Cambridge Ancient History's) | `rm-321` |
+| the revolt of Lepidus: consul / revolt | 78 BCE / 78 – 77 BCE | `rm-322` |
+| Sertorius: born / to Spain / killed | c. 126 – 123 BCE / 83 BCE / 72 BCE (also dated 73) | `rm-323` |
+| the Sertorian War / Pompey appointed / Lauron / Sucro | c. 82 – 72 BCE (some start it in 80) / 77 BCE / 76 BCE / 75 BCE | `rm-324` |
+| Pompey: born / consul / killed | 106 BCE / 70, 55 and 52 BCE / 48 BCE (the first triumph 81 BCE in Smith, 79 in the Cambridge Ancient History; no row) | `rm-325` |
+| Crassus: consul / again / killed | 70 BCE / 55 BCE / 53 BCE | `rm-326` |
+| Spartacus: led the rising / died | 73 – 71 BCE / 71 BCE | `rm-327` |
+| the Third Servile War / both consuls beaten | 73 – 71 BCE / 72 BCE | `rm-328` |
+| the consulship of Pompey and Crassus | 70 BCE | `rm-329` |
+| the tribunate: partly restored / fully restored | 75 BCE / 70 BCE | `rm-330` |
+| Cilician piracy: Antonius's campaign / the Cretan command / the seas cleared | 102 BCE / 74 BCE / 67 BCE | `rm-331` |
+| the lex Gabinia | 67 BCE | `rm-332` |
+| the Third Mithridatic War / the lex Manilia | 74 – 63 BCE (Kallet-Marx and Lendering: 73 – 63) / 66 BCE | `rm-333` |
+| Lucullus: consul / eastern command / triumph | 74 BCE / 74 – 66 BCE / 63 BCE | `rm-334` |
+| Pompey's settlement of the East / Syria annexed / Jerusalem taken / ratified | 66 – 62 BCE / 64 BCE / 63 BCE / 59 BCE | `rm-335` |
+| Cicero: born / consul / died | 106 BCE / 63 BCE / 43 BCE | `rm-336` |
+| the trial of Verres / his governorship | 70 BCE / 73 – 71 BCE | `rm-337` |
+| Cicero's consulship / elected | 63 BCE / 64 BCE | `rm-338` |
+| Catiline: praetor / consular bids / died | 68 BCE / 66 – 63 BCE / January 62 BCE | `rm-339` |
+| the Catilinarian conspiracy: the Senate's decree / the First Catilinarian / the arrests | 21 October / 8 November / 3 December 63 BCE (pre-Julian Roman dates in modern dress) | `rm-340` |
+| the debate on the conspirators | 5 December 63 BCE (the Nones of December) | `rm-341` |
+| Cato the Younger: born / tribune / praetor / died | 95 BCE / 62 BCE / 54 BCE / 46 BCE (quaestor 64 or 65; no row) | `rm-342` |
+| Julius Caesar: born / consul / in Gaul / died | 100 BCE (Cary; Mommsen and Holmes 102) / 59 BCE / 58 – 50 BCE / 15 March 44 BCE | `rm-343` |
+| the First Triumvirate: formed / renewed / ended | 60 – 59 BCE / 56 BCE / 53 BCE | `rm-344` |
+| Caesar's first consulship | 59 BCE | `rm-345` |
+| Clodius: the Bona Dea affair / tribune / killed | 62 BCE / 58 BCE / 18 January 52 BCE (the Cambridge Ancient History; Purton's Asconius has the 20th) | `rm-346` |
+| Cicero's exile: left Rome / the recall law / back in Rome | 58 BCE / 4 August 57 BCE / 4 September 57 BCE (Cicero's own letter; the Cambridge Ancient History has the 9th) | `rm-347` |
+| political violence: Appian's start / Clodius's gangs / the Curia burned | 133 BCE / 58 – 52 BCE / 52 BCE | `rm-348` |
+| the conference at Luca / the laws that followed | 56 BCE / 55 BCE | `rm-349` |
+| the Gallic Wars / the command ended | 58 – 51 BCE / 50 BCE | `rm-350` |
+| Caesar's Commentaries: the campaigns told / in circulation | 58 – 52 BCE / by 46 BCE (Holmes) | `rm-351` |
+| Vercingetorix: the rising / executed | 52 BCE / 46 BCE | `rm-352` |
+| the siege of Alesia / re-excavated | 52 BCE / 1991 – 1997 | `rm-353` |
+| Caesar's crossings to Britain | 55 BCE and 54 BCE | `rm-354` |
+| Crassus's Parthian campaign: Syria voted / first crossing / Crassus killed | 55 BCE / 54 BCE / 53 BCE | `rm-355` |
+| the Battle of Carrhae / the standards returned | 53 BCE (9 June is Ovid's, which Holmes accepts) / 20 BCE | `rm-356` |
+| Milo: tribune / Clodius killed / condemned / died | 57 BCE / 18 January 52 BCE / 52 BCE / 48 BCE | `rm-357` |
+| Pompey's sole consulship | 52 BCE | `rm-358` |
+| the crossing of the Rubicon | January 49 BCE (7 January and the night of 10/11 January are modern reckonings) | `rm-359` |
+| Caesar's civil war / Pharsalus / Thapsus / Munda | 49 – 45 BCE / 48 BCE / 46 BCE / 45 BCE | `rm-360` |
+| the Battle of Dyrrhachium | 48 BCE | `rm-361` |
+| the Battle of Pharsalus | 9 August 48 BCE (the inscribed calendars' Roman date, usually given as 6 June Julian) | `rm-362` |
+| the death of Pompey | 28 September 48 BCE (a Roman date of the time) | `rm-363` |
+| the Alexandrian War | 48 – 47 BCE | `rm-364` |
+| the Battle of Thapsus | 6 April 46 BCE (pre-reform; modern historians put it in February) | `rm-365` |
+| the Battle of Munda | 17 March 45 BCE (after the Julian reform of 1 January 45) | `rm-366` |
+| Caesar's dictatorship: held / named again / for ten years / for life | 49 – 44 BCE / 48 BCE / 46 BCE / 44 BCE | `rm-367` |
+| the Julian calendar: the reform year / in force / the Gregorian reform | 46 BCE / 1 January 45 BCE / 1582 | `rm-368` |
+| the Ides of March | 15 March 44 BCE | `rm-369` |
+| Brutus: born / urban praetor / died | c. 85 BCE (disputed) / 44 BCE / 42 BCE | `rm-370` |
 
 ## The Principate
 
 | event | the collection says | source |
 |---|---|---|
+| Augustus: born / named Augustus / died | 23 September 63 BCE (Suetonius) / 16 January 27 BCE / 19 August 14 CE | `rm-371` |
+| Caesar's will: made / opened | 13 September 45 BCE (Suetonius's Ides) / March 44 BCE | `rm-372` |
+| the War of Mutina / Forum Gallorum / Mutina / Octavian consul | 44 – 43 BCE / 14 April 43 BCE / 21 April 43 BCE / 19 August 43 BCE (not 22 September) | `rm-373` |
+| the Second Triumvirate: the lex Titia / renewed / Lepidus removed / ended | 27 November 43 BCE / 37 BCE / 36 BCE / 33 – 32 BCE (moderns differ) | `rm-374`, `rm-375` |
+| the death of Cicero | 7 December 43 BCE (Tacitus, citing Tiro) | `rm-376` |
+| the Battle of Philippi | October – November 42 BCE (Holmes: about 23 October and 16 November; the Cambridge Ancient History: the second on 23 October) | `rm-377` |
+| the Perusine War / the surrender | 41 – 40 BCE / 40 BCE | `rm-378` |
+| the Pact of Brundisium | 40 BCE (September in Syme, early October in the Cambridge Ancient History) | `rm-379` |
+| Sextus Pompey: fleet command / the Misenum pact / died | 43 BCE / 39 BCE / 35 BCE | `rm-380` |
+| the Battle of Naulochus | 3 September 36 BCE (the Fasti Amiternini) | `rm-381` |
+| Agrippa: born / aedile / married Julia / died | c. 64 – 63 BCE / 33 BCE / 21 BCE / 12 BCE | `rm-382` |
+| Mark Antony: born / consul / triumvir / died | 83 BCE / 44 BCE / 43 BCE / 1 August 30 BCE | `rm-383` |
+| Cleopatra VII: born / reigned / died | 69 BCE / 51 – 30 BCE / 30 BCE (12 August in one modern chronology) | `rm-384` |
+| the Donations of Alexandria / the despatch shelved | 34 BCE / 32 BCE | `rm-385` |
+| Antony's will seized and read / war declared | 32 BCE | `rm-386` |
+| the Battle of Actium | 2 September 31 BCE (Dio) | `rm-387` |
+| Egypt: Alexandria taken / the Philae stele | 1 August 30 BCE / April 29 BCE | `rm-388` |
+| the first settlement / named Augustus | 13 January 27 BCE / 16 January 27 BCE | `rm-389` |
+| the clipeus virtutis: voted / the Arles copy / found | 27 BCE / 26 BCE / 1951 | `rm-390` |
+| Augustus as princeps senatus | 28 BCE – 14 CE | `rm-391` |
+| the second settlement / the consulship resigned | 23 BCE / 1 July 23 BCE (the moderns' day; Dio gives none) | `rm-392` |
+| the tribunician power: sacrosanct / rights voted / counted from | 36 BCE / 30 BCE / 23 BCE | `rm-393` |
+| the greater imperium / the Cyrene edicts | 23 BCE / 7 – 6 BCE | `rm-394` |
+| the Principate: usual start / usual end / other end | 27 BCE / 284 CE / 235 CE (each a modern convention) | `rm-395` |
+| the Res Gestae: completed / found at Ankara | 14 CE / 1555 | `rm-396` |
+| the imperial provinces: division / first transfers | 27 BCE / 22 – 11 BCE | `rm-397` |
+| the discharge terms fixed / rates set / the fund created | 13 BCE / 5 CE (one modern account: 6 CE) / 6 CE | `rm-398` |
+| the Praetorian Guard: double pay / first prefects / abolished | 27 BCE / 2 BCE / 312 CE | `rm-399` |
+| the aerarium militare founded | 6 CE | `rm-400` |
 
 ## Late Antiquity
 
@@ -641,4 +740,104 @@ rm-297: 120; 113; 101
 rm-298: 105
 rm-299: 102
 rm-300: 101
+rm-301: 104; 100; 86
+rm-302: 103; 100
+rm-303: 104; 100; 99
+rm-304: 91
+rm-305: 91; 88; 89
+rm-306: 125; 122; 95; 91
+rm-307: 90
+rm-308: 90; 89; 84; 70
+rm-309: 138; 78; 107; 88; 82; 79
+rm-310: 89; 85; 88; 86
+rm-311: 135; 132; 120; 63
+rm-312: 88
+rm-313: 88
+rm-314: 87; 84
+rm-315: 87; 86
+rm-316: 83; 82
+rm-317: 82
+rm-318: 82; 81
+rm-319: 82; 80; 79; 78
+rm-320: 81; 80; 70
+rm-321: 133; 49; 27
+rm-322: 78; 77
+rm-323: 126; 123; 83; 72; 73
+rm-324: 82; 72; 77; 76; 75
+rm-325: 106; 70; 55; 52; 48
+rm-326: 70; 55; 53
+rm-327: 73; 71
+rm-328: 73; 71; 72
+rm-329: 70
+rm-330: 75; 70
+rm-331: 102; 74; 67
+rm-332: 67
+rm-333: 74; 63; 73; 66
+rm-334: 74; 66; 63
+rm-335: 66; 62; 64; 63; 59
+rm-336: 106; 63; 43
+rm-337: 70; 73; 71
+rm-338: 63; 64
+rm-339: 68; 66; 63; 62
+rm-340: 63
+rm-341: 63
+rm-342: 95; 62; 54; 46
+rm-343: 100; 59; 58; 50; 44
+rm-344: 60; 59; 56; 53
+rm-345: 59
+rm-346: 62; 58; 52
+rm-347: 58; 57
+rm-348: 133; 58; 52
+rm-349: 56; 55
+rm-350: 58; 51; 50
+rm-351: 58; 52; 46
+rm-352: 52; 46
+rm-353: 52; 1991; 1997
+rm-354: 55; 54
+rm-355: 55; 54; 53
+rm-356: 53; 20
+rm-357: 57; 52; 48
+rm-358: 52
+rm-359: 49
+rm-360: 49; 45; 48; 46
+rm-361: 48
+rm-362: 48
+rm-363: 48
+rm-364: 48; 47
+rm-365: 46
+rm-366: 45
+rm-367: 49; 44; 48; 46
+rm-368: 46; 45; 1582
+rm-369: 44
+rm-370: 85; 44; 42
+rm-371: 63; 27; 14
+rm-372: 45; 44
+rm-373: 44; 43; 14; 21; 19
+rm-374: 27; 43; 37; 36; 33; 32
+rm-375: 27; 43
+rm-376: 7; 43
+rm-377: 42
+rm-378: 41; 40
+rm-379: 40
+rm-380: 43; 39; 35
+rm-381: 36
+rm-382: 64; 63; 33; 21; 12
+rm-383: 83; 44; 43; 30
+rm-384: 69; 51; 30
+rm-385: 34; 32
+rm-386: 32
+rm-387: 31
+rm-388: 30; 29
+rm-389: 27
+rm-390: 27; 26; 1951
+rm-391: 28; 14
+rm-392: 23
+rm-393: 36; 30; 23
+rm-394: 23; 7; 6
+rm-395: 27; 284; 235
+rm-396: 14; 1555
+rm-397: 27; 22; 11
+rm-398: 13; 5; 6
+rm-399: 27; 2; 312
+rm-400: 6
 ```

@@ -35,16 +35,28 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1164", released: "2026-10-30T04:05Z" };
+window.FOLIO_VERSION = { v: "1.1182", released: "2026-10-30T04:05Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
-    t: "140 new Second World War cards, and borders back on the Personal Atlas",
+    t: "140 Second World War cards, Atlas borders back, 13 Library books",
     items: [
-      "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again; they had vanished.",
-      "<b>140 new cards</b> in five Second World War decks, from <i>Poland and the outbreak</i> to <i>Barbarossa and 1941</i>, with 132 new glossary terms."
-    ]
+      "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again, on Snapdragon phones such as the Galaxy S24 Ultra too.",
+      "<b>140 new cards</b> in five Second World War decks, from <i>Poland and the outbreak</i> to <i>Barbarossa and 1941</i>, with 132 new glossary terms.",
+      "585 <b>Ancient Greece</b>, 590 <b>Ancient Rome</b> and 112 other cards (World History, Egypt, China, Russia, Geography) now quote the source their background cites, from the Library.",
+      "<b>Library</b>: Plutarch's <i>Parallel Lives</i>, Pausanias's <i>Description of Greece</i> and Strabo's <i>Geography</i> join the shelf, each complete with the Greek beside it.",
+      "<b>Livy's <i>History of Rome</i></b> (<i>Ab Urbe Condita</i>) is in the Library: all 35 surviving books, with the Latin beside the English.",
+      "<b>Polybius's <i>Histories</i></b> is in the Library: every surviving book, with the Greek beside books 1 to 5.",
+      "<b>Tacitus's <i>Annals</i></b> is in the Library: every surviving book, with the Latin beside the English.",
+      "<b><i>Magna Carta</i></b> is in the Library: the charter of 1215 in McKechnie's translation, with the Latin beside it.",
+      "<b>Diodorus Siculus' <i>Library of History</i></b> is in the Library: all fifteen surviving books, with the Greek beside the English.",
+      "<b><i>The Declaration of Independence</i></b> is in the Library, in the 1777 printing that first named its signers.",
+      "<b><i>The Anglo-Saxon Chronicle</i></b> is in the Library: every year from the first entries to 1154, in J. A. Giles's translation.",
+      "<b>Cassius Dio's <i>Roman History</i></b> is in the Library: all eighty books, whole or in fragments and summaries, in Earnest Cary's translation.",
+      "<b>Library</b>: the <i>Treaty of Versailles</i> joins the shelf, all fifteen Parts and 440 articles in the official English text of 1919.",
+      "<b><i>The Russian Primary Chronicle</i></b> is in the Library: every year from the first entries to 1110, in Samuel H. Cross's translation of 1930.",
+    ],
   },
   {
     d: "2026-10-29",
@@ -411,7 +423,7 @@ window.CHANGELOG = [
       "<b>Continue with</b>: the completion screen now shows every banner of your active decks list still unfinished today, as those banners, skipping anything folded away.",
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
-      "<b>300 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars and the Gracchi to Marius, with more sources, corrected dates and legend told as legend.",
+      "<b>400 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars, the fall of the Republic and Augustus, with more sources, corrected dates and legend told as legend.",
       "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
       "<b>Unfolded collections show no counts of their own</b>: only the decks inside carry them, and the daily study banner now totals just the rows you can see.",
       "<b>Card preview</b>: the fanned cards beside the daily study banner are now shown on desktop only; on a tablet the banner's level bar and figures spread across the full width instead.",
