@@ -2467,3 +2467,18 @@ And one shared fix: `teiSectionProse` now removes XML comments and self-closed `
 note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifting the prose between into the fold.
 Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
 `node .claude/check-pairing.js` (it should list no row for the book).
+
+## Section pairing for the chaptered reader (Oct 2026, Strabo)
+
+`pairOn: "section"` sends a `chaptered` book through `teiBookSections`: one row per `section` division instead of
+per `chapter`, for a work whose chapters are too long to face each other (Strabo's run to 70 sections). The marker
+prints `chapter.section` and carries `data-n` = chapter × 1000 + section × 10 + letter; `sectionChapters` maps a
+chapter numbered with a word to a key and a label (`{ fragments: { k: 8, label: "Fr. " } }`), and any other word
+(Hamilton's `argument`) is skipped and reported. A note between a chapter's heading and its first section is carried
+into that section's first paragraph. Two repairs live on this path only, so no shipped book is touched:
+`teiParaFlatten` (a `<p>` inside a `<p>` becomes a line break; a bare run outside every `<p>` is wrapped in one —
+`teiSectionProse` keeps only what is inside a paragraph and stops at the first `</p>`, so both lose words silently)
+and the collapse of `<quote><q>…</q></quote>` into one `<q>`. **Measure a new book on this path by letter count,
+source against output** (heads, `<del>` and skipped chapters removed from the source; the original's notes too).
+Re-run after touching: `node .claude/fetch-book.js strabo-geography` (both columns, from cache), `node
+.claude/test-library.js` (the `[strabo-geography]` checks) and `node .claude/check-pairing.js`.
