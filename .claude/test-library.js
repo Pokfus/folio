@@ -922,6 +922,44 @@ function chajingChecks() {
   return o;
 }
 
+/* STRABO'S GEOGRAPHY, read off the two files that shipped. Its reader is the chaptered TEI reader's
+   section path (teiBookSections in fetch-book.js), which no other book takes, so this sweep stands in
+   for re-running a sibling. What it can see: the 1,573 English sections and 1,580 Greek ones (the
+   seven extra are fragments of book 7 the translation leaves out), every marker carrying its
+   `data-n` key and keys rising within a book, every English key present in the Greek, notes that
+   resolve both ways, a doubled `<q><q>` that has crept back past the ten genuine interrupted quotes,
+   and paragraphs that balance — the two silent faults the reader was written against. */
+function straboChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "strabo-geography.js"), grF = path.join(dir, "strabo-geography.grc.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(grF)) return null;
+  global.window = {};
+  [enF, grF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "strabo-geography");
+  const gr = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "strabo-geography");
+  if (!en || !gr) return null;
+  const keys = (h) => [...h.matchAll(/class="bk-n"( data-n="(\d+)")?/g)].map((m) => (m[2] ? +m[2] : NaN));
+  const o = { n: en.chapters.length, ng: gr.chapters.length, secEn: 0, secGr: 0, nokey: 0, disorder: [],
+              enOnly: [], dead: 0, unref: 0, qq: 0, bal: [], intro: en.intro || "" };
+  en.chapters.forEach((c) => {
+    const g = gr.chapters.find((x) => x.n === c.n);
+    const a = keys(c.html), b = g ? keys(g.html) : [];
+    o.secEn += a.length; o.secGr += b.length;
+    o.nokey += a.concat(b).filter((v) => isNaN(v)).length;
+    [a, b].forEach((k) => { if (k.some((v, i) => i && v <= k[i - 1])) o.disorder.push(c.n); });
+    const sb = new Set(b);
+    a.forEach((v) => { if (!sb.has(v)) o.enOnly.push(c.n + ":" + v); });
+    const ns = c.notes || [];
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    ms.forEach((v) => { if (v < 1 || v > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    o.qq += (c.html.match(/<q><q>/g) || []).length;
+    const open = (c.html.match(/<p>/g) || []).length, shut = (c.html.match(/<\/p>/g) || []).length;
+    if (open !== shut) o.bal.push(c.n + " " + open + "/" + shut);
+  });
+  return o;
+}
+
 /* THE RAMAYANA, read off the two files that shipped. Its reader serves ONE book — a Project Gutenberg
    TEI on the English side and a four-shaped wiki on the Sanskrit — so it cannot be proved inert by
    re-running a sibling, and the shipped-data sweep is what stands in for that check.
@@ -2023,6 +2061,25 @@ function aeneidChecks() {
       check("[classic-of-tea] Chinese: the full text is there (about 9,300 characters)", ct.zhLen > 9000 && ct.zhLen < 9600, String(ct.zhLen));
     } else {
       check("[classic-of-tea] both halves of the book are on disk", false, "missing books/classic-of-tea*.js");
+    }
+
+    /* STRABO'S GEOGRAPHY — see straboChecks above for what each of these can see. */
+    const st = straboChecks();
+    if (st) {
+      check("[strabo-geography] seventeen books on each side", st.n === 17 && st.ng === 17, st.n + "/" + st.ng);
+      check("[strabo-geography] 1,573 sections in the English and 1,580 in the Greek",
+        st.secEn === 1573 && st.secGr === 1580, st.secEn + "/" + st.secGr);
+      check("[strabo-geography] every marker carries a data-n key, rising within its book",
+        st.nokey === 0 && st.disorder.length === 0, st.nokey + " unkeyed; " + st.disorder.join(","));
+      check("[strabo-geography] every English section has its Greek", st.enOnly.length === 0, st.enOnly.slice(0, 8).join(", "));
+      check("[strabo-geography] every footnote marker resolves and every note is referenced",
+        st.dead === 0 && st.unref === 0, st.dead + " dead / " + st.unref + " unreferenced");
+      check("[strabo-geography] no quotation set twice beyond the ten interrupted ones", st.qq <= 10, String(st.qq));
+      check("[strabo-geography] paragraphs balance", st.bal.length === 0, st.bal.join("; "));
+      check("[strabo-geography] the front matter names both translators and the lost end of book 7",
+        /Hamilton/.test(st.intro) && /Falconer/.test(st.intro) && /book 7 is lost/.test(st.intro), String(st.intro.length));
+    } else {
+      check("[strabo-geography] both halves of the book are on disk", false, "missing books/strabo-geography*.js");
     }
 
     /* THE MAXIMS OF PTAHHOTEP — see ptahhotepChecks above for what each of these can see. */

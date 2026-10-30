@@ -2449,6 +2449,17 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
 - Re-run after touching: `node .claude/fetch-book.js classic-of-tea` (English, then Chinese; both read the
   cache), `node .claude/test-library.js` (33 `[classic-of-tea]` checks) and `node .claude/check-pairing.js`.
 
+## `teiBookChapters`' two opt-in options (Oct 2026, Livy)
+
+- **`preface: "<label>"`** (BOOK and/or `original`) — a chapter division whose `n` is that label (Livy's `pr`, in
+  both editions) is kept as key 0, printing the label, instead of being skipped as a word.
+- **`fence: true`** — a book's slice ends at the next `book`, `part` or `index` division of ANY number, not only
+  at the next numbered book. Weissenborn–Müller's Latin interleaves the periochae (`subtype="book" n="1s"`) and
+  Teubner's sigla index between the books; unfenced, they are appended to each book's last chapter with nothing
+  thrown. A fenced book with no chapters (Livy 46–142, summaries only) is reported in ONE warning, not one per book.
+- Both default off, so no shipped book's output changes. `books/livy-history-of-rome*.js` are the first users;
+  docs/library-books.md has the entry.
+
 ## Four TEI options from the Parallel Lives (Oct 2026, Plutarch)
 
 Perseus's Perrin files are the Dialogues' encoding with a `chapter`/`section` grid, and four things in them needed
@@ -2477,11 +2488,27 @@ Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns
   30 agrees chapter for chapter to 13 and then drifts, which no count shows; a proper-name overlap per chapter
   (English capitals against transliterated Greek, same number against a random chapter) is what separated the
   aligned books from the rest, and the doubtful ones were then read side by side.
-- **`xmlFix: (xml) => xml`** on the ENGLISH side of a chaptered book — the original's option, now read by the
-  English branch and by the original branch's re-read of the English, so the two see the same file.
+- Shuckburgh's apparatus (marginal summaries, corrigenda, the pedigree) is removed by the English-side
+  **`teiRaw`** hook that arrived with Pausanias, read by both the English branch and the original branch's re-read.
 - **teiBookChapters ends a book at ANY `book` division**, numbered or not: Shuckburgh's file closes on a book
   numbered `fragments`, which otherwise ran on as book 39's chapters. It also reads a **lower-case** chapter
-  letter (`4b`) as it reads `2.121A`. Both proved inert on every other chaptered file.
+  letter (`4b`) as it reads `2.121A`. Both proved inert on every other chaptered file (Strabo's English `front`
+  book stands before book 1; Livy's Latin is fenced).
 - The chaptered English branch now honours `minChars` (Polybius's book 26 is one short passage).
 Re-run after touching: `node .claude/fetch-book.js polybius-histories` and `node .claude/fetch-book.js herodotus-histories`
 (both from cache), then `node .claude/check-pairing.js`.
+
+## Section pairing for the chaptered reader (Oct 2026, Strabo)
+
+`pairOn: "section"` sends a `chaptered` book through `teiBookSections`: one row per `section` division instead of
+per `chapter`, for a work whose chapters are too long to face each other (Strabo's run to 70 sections). The marker
+prints `chapter.section` and carries `data-n` = chapter × 1000 + section × 10 + letter; `sectionChapters` maps a
+chapter numbered with a word to a key and a label (`{ fragments: { k: 8, label: "Fr. " } }`), and any other word
+(Hamilton's `argument`) is skipped and reported. A note between a chapter's heading and its first section is carried
+into that section's first paragraph. Two repairs live on this path only, so no shipped book is touched:
+`teiParaFlatten` (a `<p>` inside a `<p>` becomes a line break; a bare run outside every `<p>` is wrapped in one —
+`teiSectionProse` keeps only what is inside a paragraph and stops at the first `</p>`, so both lose words silently)
+and the collapse of `<quote><q>…</q></quote>` into one `<q>`. **Measure a new book on this path by letter count,
+source against output** (heads, `<del>` and skipped chapters removed from the source; the original's notes too).
+Re-run after touching: `node .claude/fetch-book.js strabo-geography` (both columns, from cache), `node
+.claude/test-library.js` (the `[strabo-geography]` checks) and `node .claude/check-pairing.js`.

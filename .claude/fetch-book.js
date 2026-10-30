@@ -4345,6 +4345,147 @@ const BOOKS = {
     },
   },
 
+  "livy-history-of-rome": {
+    title: "The History of Rome",
+    // the work's own Latin title, as the Gallic War, Lucretius and Herodotus give theirs
+    subtitle: "Ab Urbe Condita",
+    author: "Livy",
+    translator: "D. Spillan, Cyrus Edmonds and W. A. McDevitte",
+    edition: "The History of Rome by Titus Livius, literally translated, with notes and illustrations, by D. Spillan, Cyrus Edmonds and William A. McDevitte, Bohn's Classical Library, Henry G. Bohn, London, 1849–1857 (four volumes)",
+    // begun early in Augustus's reign and worked on for the rest of Livy's life; no end date is stated
+    written: "begun c. 27 BCE",
+
+    /* ---------- THE LICENCE, and it is the Gallic War's judgement a second time ----------
+       The certain half covers everything: the four Bohn volumes were published in London in 1849, 1850,
+       1850 and 1857 (the dates Perseus's own header gives for each), and the Latin beside them is
+       Weissenborn and Müller's Teubner text, Leipzig 1884–1911 — all well before 1929, so the United
+       States copyright in both has expired.
+       THE THREE TRANSLATORS DO NOT ALL HAVE DATES, and the entry says so rather than rounding up.
+       D. Spillan is Daniel Spillan, d. 1854 (Online Books Page / library authority, 1796 or 1797–1854);
+       William A. McDevitte is the Gallic War's translator, 1834–1909. Cyrus R. Edmonds, who shares
+       books 9–26 and has 27–36 alone, has a byline, a Cicero for Bohn in 1850 and no dates in anything
+       openable — so, exactly as with the Gallic War's W. S. Bohn, no life-plus-seventy date is claimed
+       for his books, and the ground relied on is the publication date, which anyone can check.
+       The Latin's editors: Perseus's titleStmt names "Moritz Müller", its sourceDesc (the bibliographic
+       record) "H. J. Müller"; the sourceDesc is followed. Wilhelm Weissenborn lived 1803–1878 and
+       Hermann Johannes Müller 1844–1912 (GND authority record) — and Moritz Müller, had he been meant,
+       died in 1902 — so the Latin clears life-plus-seventy whichever is right.
+       THE PERSEUS LICENCE IS STATED BY THE REPOSITORY, NOT THE FILE: unlike the Gallic War's files,
+       neither of these headers carries an <availability> statement; canonical-latinLit's README licenses
+       everything in it "unless otherwise indicated" under CC BY-SA 4.0, and that is the ground given.
+       Perseus also has the Loeb (Foster, Moore, Sage, Schlesinger, 1919–1959) as perseus-eng1; its
+       later volumes are not safely public domain everywhere, and it is not used. The modern
+       translations — Aubrey de Sélincourt's and Betty Radice's Penguins, T. J. Luce's and J. C. Yardley's
+       Oxford World's Classics — are in copyright and named so nobody reaches for one later. */
+    rights:
+      "Public domain in the United States on the publication rule, with one gap stated plainly. This " +
+      "translation was published in four volumes by Henry G. Bohn in London between 1849 and 1857, and " +
+      "the Latin printed beside it is Wilhelm Weissenborn and H. J. Müller's Teubner text, Leipzig, " +
+      "1884–1911 — all well before 1929 — so the copyright in both has expired. Livy wrote the work in " +
+      "Latin some two thousand years ago. Of the translators, Daniel Spillan died in 1854 and William A. " +
+      "McDevitte lived from 1834 to 1909, and of the Latin's editors Weissenborn lived from 1803 to 1878 " +
+      "and Müller from 1844 to 1912, so they are also out of copyright wherever the term is the author's " +
+      "life plus seventy years; nothing is recorded of the third translator, Cyrus Edmonds, beyond his " +
+      "name and his work for Bohn, so for the books that are his no life-plus-seventy date can honestly " +
+      "be given, and the ground relied on here is the date of publication. The digital editions of both " +
+      "texts are prepared by the Perseus Digital Library at Tufts University, whose repository releases " +
+      "them under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+      "translations by Aubrey de Sélincourt, T. J. Luce and J. C. Yardley are still in copyright and are " +
+      "not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0914.phi001/",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should be told first: what the work was and how
+       little of it survives, what Livy says he is doing (the Preface), how far the early books are
+       history at all, who he was, and what the two columns, the missing books and the dropped
+       summaries are. Where scholarship divides — on the early books' reliability — it says so. */
+    about: [
+      "<b>The History of Rome</b> — in Latin <i>Ab Urbe Condita</i>, \"from the founding of the city\" — " +
+        "is Livy's history of Rome from its legendary beginnings down to his own lifetime. He began it early " +
+        "in the reign of the emperor Augustus and worked on it for the rest of his life, and in the end it ran to 142 books, " +
+        "reaching the death of Augustus's stepson Drusus in 9 BCE. Only 35 of them survive: books 1 to " +
+        "10, from the arrival of Aeneas to 293 BCE, and books 21 to 45, from the outbreak of the war " +
+        "with Hannibal in 218 to 167 BCE. Everything else is known only from short summaries made in " +
+        "late antiquity, and the last of the surviving books, 41 and 43 to 45, are damaged and have gaps.",
+      "Livy says plainly what he is for, in a Preface that is one of the most quoted pages in Latin. " +
+        "He offers the reader the record of the past as a set of examples — what to imitate, and what to " +
+        "avoid — and he presents Roman history as the story of a people that grew great by its virtues " +
+        "and was being undone in his own day by wealth and luxury. That moral purpose shapes the book " +
+        "throughout. Its heroes and villains are drawn to be remembered, and the stories that later " +
+        "readers took as the image of Rome itself come from here: Romulus and Remus, the Sabine women, " +
+        "Lucretia and the fall of the kings, Horatius at the bridge, Cincinnatus called from his plough, " +
+        "and Hannibal's crossing of the Alps and the disaster at Cannae.",
+      "How far the early books are history is a real question, and Livy raises it himself: he says the " +
+        "stories of the founding are better suited to poetry than to a reliable record, and that most " +
+        "written evidence for the first centuries was lost when the Gauls sacked the city. He wrote from " +
+        "earlier Roman historians, not from documents or sites, and he reports versions he does not " +
+        "believe. Scholars broadly agree that the first books preserve legend and later reconstruction " +
+        "far more than a record of events, and divide over how much genuine tradition lies inside them. " +
+        "From the war with Hannibal onwards he is on much firmer ground, often following the Greek " +
+        "historian Polybius closely, and the later books are a main source for the period.",
+      "Titus Livius was born at Patavium, modern Padua, traditionally in 59 BCE, and died there, " +
+        "traditionally in 17 CE. Unlike almost every other Roman historian he held no public office and " +
+        "commanded no army: he was a writer and nothing else. He was known to Augustus, who according " +
+        "to Tacitus teased him as a supporter of Pompey, and Suetonius records that he encouraged the " +
+        "young Claudius, the future emperor, to write history. His work became the standard history of " +
+        "the Republic almost at once and largely displaced the histories he had drawn on.",
+      "The translation is the Victorian literal one of Bohn's Classical Library, published in four " +
+        "volumes between 1849 and 1857: books 1 to 8 are by D. Spillan, books 9 to 26 by Spillan and " +
+        "Cyrus Edmonds together, books 27 to 36 by Edmonds and books 37 to 45 by William A. McDevitte. " +
+        "It keeps close to the Latin, and its notes are set in the fold at the foot of each book. Where " +
+        "the Latin is lost in the last books, the translators supplied reconstructions of the missing passages, " +
+        "chiefly from the eighteenth-century French historian Jean-Baptiste Crévier, and these too are in the " +
+        "notes, not in Livy's text.",
+      "Each tab is one of Livy's books, numbered as every edition numbers them, so the shelf runs from " +
+        "Book 10 straight to Book 21: books 11 to 20 are not missing from this edition but from the " +
+        "world. Book 1 opens with the Preface, marked <i>pr</i>. The Latin beside the English is " +
+        "Wilhelm Weissenborn and H. J. Müller's Teubner text, and the small figures running through " +
+        "both columns are the chapter numbers by which any passage of Livy is cited, which is what the " +
+        "two columns are paired on. Two things are left out: the short summary Bohn's translators " +
+        "printed at the head of each book, and the ancient summaries (<i>periochae</i>) the Latin " +
+        "edition prints beside the books, since neither is Livy.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS: the Gallic War's layout, with two new options ----------
+       Both columns are Perseus TEI in the CTS book / chapter / section shape, so teiBookChapters reads
+       them as it reads Herodotus and the Gallic War. The two options are opt-in and change no other book:
+       · `preface: "pr"` — book 1 opens on a chapter numbered `pr` in BOTH editions, the Preface, which
+         the integer guard would otherwise skip. It is kept as key 0, printing "pr".
+       · `fence` (the Latin only needs it; set on both for symmetry) — the Latin interleaves the
+         periochae as `subtype="book" n="1s"` divisions and Teubner's sigla as `subtype="index"`, which an
+         unfenced slice appends to the last chapter of the book before them.
+       The English's per-book `argument` (the translators' summary) sits before chapter 1 and so outside
+       every slice, as the Gallic War's Latin heads do — luck of the markup, stated rather than relied on
+       silently. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0914/phi001/phi0914.phi001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    fence: true,
+    preface: "pr",
+    // the thirty-five surviving books; 11–20 and 46–142 are lost
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1).concat(Array.from({ length: 25 }, (_, i) => i + 21)),
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "chaptered",
+      fence: true,
+      preface: "pr",
+      edition: "Titi Livi ab urbe condita, edited by W. Weissenborn and H. J. Müller, Teubner, Leipzig, 1884–1911",
+      rights:
+        "Two layers, both stated. Livy wrote in Latin in the first century BCE, so the words themselves " +
+        "are in the public domain everywhere, and Weissenborn and Müller's edition of them was published " +
+        "in 1884–1911, before 1929; its editors died in 1878 and 1912. The digital edition it is taken " +
+        "from is prepared by the Perseus Digital Library at Tufts University, whose repository releases " +
+        "it under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0914.phi001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0914/phi001/phi0914.phi001.perseus-lat2.xml",
+    },
+  },
+
   "thucydides-peloponnesian-war": {
     title: "The History of the Peloponnesian War",
     /* NOT the work's own Greek title, which is the one thing it cannot be. Thucydides' history and
@@ -4727,7 +4868,7 @@ const BOOKS = {
        · the one `<figure>`, a family tree of the Scipios inside a note, encoded as a pedigree graph
          that flattens to a run of names; replaced by a sentence saying it is not reproduced.
        Notes nest (four marginal notes contain one), so they are removed by depth, not by regex. */
-    xmlFix: (xml) => {
+    teiRaw: (xml) => {
       const out = [];
       let i = 0, applied = 0;
       const open = /<note\b([^>]*)>/g;
@@ -17278,6 +17419,326 @@ const BOOKS = {
     },
   },
 
+  "pausanias-description-of-greece": {
+    title: "Description of Greece",
+    // the work's own Greek title, as Herodotus's and the Oedipus Rex's entries give theirs
+    subtitle: "Ἑλλάδος Περιήγησις",
+    author: "Pausanias",
+    translator: "W. H. S. Jones and H. A. Ormerod",
+    edition: "Pausanias, Description of Greece, with an English translation by W. H. S. Jones (Volume II with H. A. Ormerod), Loeb Classical Library, William Heinemann and Harvard University Press, 1918–1935",
+    written: "c. 155–180 CE",
+
+    /* ---------- THE LICENCE: two grounds, by volume, and one limit stated ----------
+       The Loeb prints the translation in four volumes and they do not stand on the same footing.
+       Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain in the United
+       States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books VIII.22–X, 1935) are
+       NOT clear by date, and the ground for them is NON-RENEWAL, checked rather than assumed — the
+       Classic of Tea's method: a 1933 book had to be renewed in 1960–61 and a 1935 one in 1962–63,
+       and the Catalog of Copyright Entries, Third Series, Part 1, for both halves of 1960, 1961, 1962
+       and 1963 (the Internet Archive's OCR) holds no entry for "Pausanias" or "Description of Greece".
+       The same volumes do list Harvard's renewals (as "President & Fellows of Harvard College") and
+       a NEW registration for Jones's Pliny (1963), so the search can see this claimant and this
+       translator; its limit is the OCR's, and `rights` says "lists no renewal", not "was never
+       renewed".
+       THE URAA QUESTION, said out loud because the Poetic Edda's note in docs/library-gaps.md turns
+       on it: Volume IV's title page reads "London: William Heinemann Ltd; Cambridge, Massachusetts:
+       Harvard University Press, MCMXXXV" and "Printed in Great Britain". A work first published
+       abroad and not in the US within thirty days would have had its copyright restored in 1996;
+       one published in the US at the same time is a US work and is not restored. The imprint names
+       the American publisher on the title page, which is the evidence for the second. English
+       Wikisource hosts all ten books of this translation under {{PD-US}}; that is a second opinion,
+       not the evidence relied on.
+       THE LIMIT: Jones died on 4 February 1963 and Ormerod in 1964 (Wikidata, Q52156216 and
+       Q52305975), so the translation is NOT public domain in countries that count life plus seventy
+       until 1 January 2034 (Volume II, Ormerod's share, 2035) — the Nicomachean Ethics' position
+       with Ross (2042). The Greek is Friedrich Spiro's Teubner text of 1903, clear by date. The
+       Perseus layer is the usual one — the digital edition, CC BY-SA 4.0 — with no modernised prose
+       (the file's header says nothing like Herodotus's "modernized by Steven Ott"); the spelling is
+       American in the file ("harbor", "honor") and the reader's spelling pass handles it.
+       Peter Levi's Penguin of 1971 is in copyright and is named so nobody reaches for it. J. G.
+       Frazer's of 1898 and Thomas Taylor's of the 1790s are free, but English Wikisource lists both
+       with no transcription behind either link (checked Oct 2026), and Perseus's Jones is already structured
+       and paired with a Greek text, which neither of them is. */
+    rights:
+      "Public domain in the United States, on two grounds by volume, with one limit stated. W. H. S. " +
+      "Jones's translation (Volume II with H. A. Ormerod) was published in the Loeb Classical Library " +
+      "in four volumes. Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain " +
+      "in the United States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books " +
+      "VIII.22–X, 1935) were published by Heinemann in London and Harvard University Press in " +
+      "Cambridge, Massachusetts, and their copyright was not renewed — the Catalog of Copyright Entries " +
+      "for 1960–1963 lists no renewal — so they are public domain in the United States too. Jones died " +
+      "in 1963 and Ormerod in 1964, so the translation is still in copyright in countries whose term " +
+      "is the author's life plus seventy years, until 2034 (2035 for Volume II). The Greek beside it " +
+      "is Friedrich Spiro's Teubner edition of 1903, public domain on every ground. Both columns are " +
+      "taken from the digital editions prepared by the Perseus Digital Library at Tufts University, " +
+      "which are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+      "Pausanias wrote the work in Greek in the second century CE. (Peter Levi's translation, 1971, " +
+      "is still in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should know before starting: what kind of book this
+       is (a guide, not a history), when and by whom it was written and how little is known of him,
+       why archaeologists still carry it, how the ten books run, and what the edition and its figures
+       are. The three quotations are from this translation, checked against the file (1.26.4,
+       7.20.6, 10.34.5). */
+    about: [
+      "<b>Description of Greece</b> is a traveller's account of mainland Greece as it stood in the " +
+        "second century CE, under Roman rule, written by a Greek who went to see it for himself. It " +
+        "moves region by region and road by road — out of a city gate, past the tombs along the way, " +
+        "to the next town, its sanctuaries and what stands in them — and stops at each place worth " +
+        "seeing to tell the stories attached to it: who founded the city, which god was worshipped " +
+        "there and why, what happened in its wars. Pausanias states his purpose in passing, when he " +
+        "catches himself lingering: \"my narrative must not loiter, as my task is a general " +
+        "description of all Greece.\"",
+      "Almost nothing is known of the man beyond what the book lets slip. He seems to have come from " +
+        "Lydia, in the west of what is now Turkey, and he had travelled in Palestine, Egypt and Italy " +
+        "as well as Greece. The book was written over a long stretch of years, and he dates it " +
+        "himself in two places: he explains in Book VII that he left the great music hall Herodes " +
+        "Atticus built at Athens out of his book on Attica because \"my account of the Athenians was " +
+        "finished before Herodes began the building\", and near the end of Book X he mentions " +
+        "\"bandits, called the Costoboes, who overran Greece in my day\" — a raid of about 170 CE. So " +
+        "the work is usually dated from the 150s to the 170s or a little later.",
+      "His interests are religion, art and the past rather than the life around him. He has little " +
+        "to say about the Roman province he was walking through and a great deal about temples, " +
+        "statues, paintings, tombs and the local versions of myths that no other source preserves. " +
+        "For centuries he was read as a compiler of other men's books; excavation has largely " +
+        "reversed that verdict, because the buildings and monuments he describes have turned up, " +
+        "over and over, where he says they stand — at Olympia and Delphi, at Athens and Corinth — and " +
+        "the book is still carried on site by archaeologists and visitors.",
+      "There are ten books, each named after the region it covers: Attica (with Megara), Corinth " +
+        "(with the Argolid), Laconia, Messenia, two on Elis, which give most of their length to " +
+        "Olympia, then Achaia, Arcadia, Boeotia, and Phocis, which includes Delphi, with Ozolian " +
+        "Locri. The book titles in the tabs are the edition's own. The tour is not the whole of " +
+        "Greece — Thessaly, Macedonia, the islands and the north-west are missing — and the work ends " +
+        "abruptly enough that some readers think it unfinished.",
+      "The translation is W. H. S. Jones's, made for the Loeb Classical Library and published in " +
+        "four volumes between 1918 and 1935; H. A. Ormerod shared the second. The Greek beside it is " +
+        "Friedrich Spiro's Teubner edition of 1903. The small raised figures running through both " +
+        "columns are CHAPTER numbers, which is how a passage of Pausanias is cited in any language: " +
+        "\"Pausanias 2.16.6\" means book 2, chapter 16, section 6, and the two columns are set side by " +
+        "side on the chapter. The numbered notes are the edition's own: many are dates, and many " +
+        "name the poem a quoted verse comes from. Fifteen slips in the digital transcription are " +
+        "corrected against a second transcription of the same edition.",
+    ],
+
+    /* PROSE IN BOOKS OF NUMBERED CHAPTERS — Herodotus's layout (teiBookChapters): a Folio chapter is
+       one of the ten books, the pairing runs on the chapter numbers inside it, and the sections are
+       concatenated into their chapter. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0525/tlg001/tlg0525.tlg001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+    /* The edition's own book heads, transcribed — every book is headed by its region in both files
+       ("Attica", Ἀττικά …), and the two books on Elis "Elis 1" and "Elis 2" (Ἠλιακῶν Α, Β). */
+    titleOf: (n) => ["Attica", "Corinth", "Laconia", "Messenia", "Elis I", "Elis II", "Achaia",
+      "Arcadia", "Boeotia", "Phocis and Ozolian Locri"][n - 1],
+    /* THREE THINGS IN PERSEUS'S MARKUP THAT THE SHARED READER WOULD WELD, put right in this file's
+       own TEI before it is read (`teiRaw`, which no other book declares, so no other book changes).
+       · A PARAGRAPH BREAK INSIDE A SECTION. The file marks the printed page's paragraphs as
+         `<milestone unit="para" ed="P"/>`, 979 of them; 914 open a `<p>` and cost nothing, but 65
+         stand inside one, and unwrapped they weld two sentences — "hold Artemis Leucophryne in
+         honor.But my narrative must not loiter". A milestone after a full stop becomes the paragraph
+         break it marks; one after a letter or a comma (six, all mid-sentence — "blind to
+         the<milestone/>danger") becomes a space, since a break there is not the printed page's.
+       · THE SOURCE OF A QUOTATION, IN THE PROSE. Each verse Pausanias quotes is followed by a
+         `<bibl>` naming it ("Hom. Il. 14.490"), which the Loeb prints at the foot of the page and
+         which unwrapped reads as part of his sentence: "…wealth in abundance.Hom. Il. 14.490 The
+         story told at the mysteries". Outside a note it becomes a note, so it lands in the fold
+         with a marker after the quotation; inside a note (the cross-references, "Paus. 1.35.6") it
+         is already where it belongs.
+       · THE WORD AFTER A QUOTATION, welded to it — `</quote>The` — gets its space. */
+    /* THE TRANSCRIPTION'S SLIPS, each one read against the second transcription of the same Loeb —
+       English Wikisource's, proofread against the scan, book by book (fetched Oct 2026) — which
+       sets every one of these as below. Ten are a space lost after a comma or semicolon; three are
+       a letter or hyphen misread. One row has no witness: Book III is not transcribed on
+       Wikisource, and "he cured it.I saw" is a full stop and a capital with the space between them
+       gone, which no reading can dispute. Seen and LEFT: "Magas was in formed that" (1.7.2), which
+       the Wikisource transcription also prints, so the second witness does not say the page differs. */
+    fixes: [
+      ["Peloponnesus</placeName>,and the", "Peloponnesus</placeName>, and the", "1.3.4 — the space after the comma (Wikisource)"],
+      ["the Marmaridae,a tribe", "the Marmaridae, a tribe", "1.7.2 — the space after the comma (Wikisource)"],
+      ["territory of Haliartus,where", "territory of Haliartus, where", "1.27.5 — the space after the comma (Wikisource)"],
+      ["was Anaxibi ,sister of Agamemnon", "was Anaxibia, sister of Agamemnon", "2.29.4 — a letter dropped from the name (Wikisource: Anaxibia)"],
+      ["he cured it.I saw", "he cured it. I saw", "3.25.7 — the space after the full stop (Book III has no second transcription)"],
+      ["cross the Alpheius,there", "cross the Alpheius, there", "5.6.7 — the space after the comma (Wikisource)"],
+      ["the images in it,were", "the images in it, were", "6.19.15 — the space after the comma (Wikisource)"],
+      ["boys' boxing.match, Hellan", "boys' boxing-match, Hellan", "6.7.8 — a hyphen read as a full stop (Wikisource: boxing-match)"],
+      ["through good.will", "through good-will", "7.4.2 — a hyphen read as a full stop (Wikisource: good-will)"],
+      ["Herodes, an Athenian,in memory", "Herodes, an Athenian, in memory", "7.20.6 — the space after the comma (Wikisource)"],
+      ["by the Sicyonians;it is", "by the Sicyonians; it is", "7.26.13 — the space after the semicolon (Wikisource)"],
+      ["the same board ;the good", "the same board; the good", "8.2.4 — the space on the wrong side of the semicolon (Wikisource)"],
+      ["is Buphagium,and here", "is Buphagium, and here", "8.26.8 — the space after the comma (Wikisource)"],
+      ["him. Heracles,thinking", "him. Heracles, thinking", "9.27.6 — the space after the comma (Wikisource)"],
+      ["into the shrine,while", "into the shrine, while", "10.32.17 — the space after the comma (Wikisource)"],
+    ],
+    teiRaw: (xml) => xml
+      .replace(/<note\b[\s\S]*?<\/note>|<quote\b[\s\S]*?<\/quote>|<bibl\b[^>]*>([\s\S]*?)<\/bibl>|(?<=([\s\S]))<milestone unit="para" ed="P"\/>/g,
+        (whole, cite, before) => {
+          // a citation may name a place, so its own tags go ("Chersias of <placeName>Orchomenus</placeName>")
+          if (cite !== undefined) return '<note anchored="true">' + cite.replace(/<[^>]*>/g, "").trim() + "</note>";
+          if (before !== undefined) return /[\p{L},;]/u.test(before) ? " " : "</p><p>";
+          return whole;
+        })
+      .replace(/\s*<\/quote>(\s*<note anchored="true">[^<]*<\/note>)?\s*(?=[\p{L}\p{N}“‘"(\[])/gu, "</quote>$1 ")
+      // …and the word BEFORE one: "the verse:<quote>Orneae was their home" (46 of them)
+      .replace(/(?<=[\p{L}\p{N}.,;:!?])<quote\b/gu, " <quote"),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Friedrich Spiro, Pausaniae Graeciae Descriptio, 3 volumes, Teubner, Leipzig, 1903",
+      rights:
+        "Two layers, both stated. Pausanias wrote the work in Greek in the second century CE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is Friedrich " +
+        "Spiro's Teubner edition, published in Leipzig in 1903, whose copyright has expired. The " +
+        "digital edition is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0525/tlg001/tlg0525.tlg001.perseus-grc2.xml",
+      /* The Greek carries the same `<bibl>` after its quotations, 85 of them, and here they are not
+         Spiro's — a Teubner text prints no such references in its text — and the original column
+         has no note fold to move them to, so they go, and the word after a quotation gets its space. */
+      teiRaw: (xml) => xml
+        .replace(/<note\b[\s\S]*?<\/note>|<bibl\b[^>]*>[\s\S]*?<\/bibl>/g, (whole) => (/^<note/.test(whole) ? whole : " "))
+        .replace(/\s*<\/quote>\s*(?=[\p{L}\p{N}“‘"(\[])/gu, "</quote> "),
+    },
+  },
+
+  "strabo-geography": {
+    title: "Geography",
+    // the work's own Greek title, as the Herodotus entry gives his
+    subtitle: "Γεωγραφικά",
+    author: "Strabo",
+    translator: "H. C. Hamilton and W. Falconer",
+    edition: "The Geography of Strabo, literally translated, with notes, by H. C. Hamilton and W. Falconer, Bohn's Classical Library, Henry G. Bohn, London, 1854–1857",
+    // the range Perseus's own header gives the work's creation, 7–24 CE
+    written: "c. 7–24 CE",
+
+    /* ---------- THE LICENCE: expired on every ground, plus Perseus's digital edition ----------
+       Bohn published the translation in three volumes between 1854 and 1857, so it is public domain in
+       the United States on the pre-1929 rule. Its two translators are Hans Claude Hamilton, books 1–6,
+       and William Falconer, books 7–17 (the publisher's Notice at the head of volume 1 tells how the two
+       undertakings were merged). Falconer lived 1801–1885 (Wikisource's author page) and Hamilton
+       1811–1895 (the Library of Congress name heading as the University of Pennsylvania's catalogue
+       prints it), so the term of a joint work, run from the last to die, expired in 1965 under life plus
+       seventy and 1995 under life plus a hundred. The Greek is August Meineke's Teubner text in the 1877
+       printing; Meineke lived 1790–1870, looked up rather than recalled. Perseus's digital editions are
+       CC BY-SA 4.0: the English file says so in its own <availability>, and the Greek carries none and
+       falls under the repository's statement, as the Herodotus entry records for his.
+       THE MODERN TRANSLATION a reader is likeliest to be pointed at, Duane W. Roller's (Cambridge,
+       2014), is in copyright and is not used. Horace Leonard Jones's Loeb (1917–1932), which Perseus
+       also carries for books 6–14, is not used either: one complete translation by one pair of hands
+       beats a patchwork, and the later Loeb volumes fall after 1928. */
+    rights:
+      "Public domain on every ground, in both columns. Strabo wrote the Geography in Greek two " +
+      "thousand years ago. The English is the translation by H. C. Hamilton and W. Falconer, " +
+      "published by Henry G. Bohn in London in three volumes between 1854 and 1857, so it is public " +
+      "domain in the United States as a pre-1929 publication; Falconer died in 1885 and Hamilton in " +
+      "1895, so it is also public domain wherever copyright lasts for the author's life plus seventy " +
+      "or a hundred years. The Greek is the text edited by August Meineke (1790–1870) for Teubner, in " +
+      "the Leipzig printing of 1877, and is public domain on the same grounds. The digital editions of " +
+      "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+      "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (Duane W. Roller's " +
+      "translation of 2014 is in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-eng4.xml",
+    layout: "chaptered",
+    /* Paired on the SECTION, not the chapter — see the block above teiBookSections for the measurement.
+       Hamilton's one-paragraph "Summary" at the head of each book is his, not Strabo's, has no Greek
+       to face, and is skipped and reported; the Fragments of book 7 are Strabo, and come after its
+       chapter 7 as they do in both editions. */
+    pairOn: "section",
+    sectionChapters: { fragments: { k: 8, label: "Fr. " } },
+    chapterWord: "Book",
+    chapters: Array.from({ length: 17 }, (_, i) => i + 1),
+    /* No `titleOf`: Hamilton heads nine of the seventeen books with a region ("BOOK III. SPAIN.") and
+       the other eight with nothing, and composing names for those eight would be an apparatus this
+       edition does not have. The front matter says what each book covers instead. The three volumes
+       ARE the edition's own division, stated on its title pages, so they are the parts. */
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 7 },
+      { n: 2, label: "Volume II", from: 8, to: 13 },
+      { n: 3, label: "Volume III", from: 14, to: 17 },
+    ],
+
+    /* THE FRONT MATTER. Strabo's dates and travels are from Wikipedia's article on him (born 64 or 63
+       BCE at Amaseia, up the Nile to Philae with Aelius Gallus, a lost history before this); the
+       work's date, and the contents of each book, from its article on the Geographica; the two
+       translators' story from the publisher's own Notice in volume 1; the Fragments from Hamilton's
+       note at their head. Nothing here is recalled. */
+    about: [
+      "This is the oldest description of the whole known world to have come down to us complete, " +
+        "and it was written by a man who had seen a surprising amount of it. Strabo was born in 64 " +
+        "or 63 BCE at Amaseia in Pontus, on the southern shore of the Black Sea, into a wealthy " +
+        "Greek-speaking family; he studied in Rome, travelled widely, and went up the Nile as far as " +
+        "Philae in the company of Aelius Gallus, the Roman prefect of Egypt. He wrote a history " +
+        "first, which is lost. This is the work he wrote after it, in seventeen books, and he was " +
+        "still working on it under Tiberius, past the age of eighty.",
+
+      "The first two books are an argument about what geography is: Homer is claimed as its " +
+        "founder, and Eratosthenes, Hipparchus, Polybius and Posidonius are taken on one after " +
+        "another, measured, corrected and occasionally mocked. Then the tour begins in the far " +
+        "west and goes round the Mediterranean: Spain in book 3; Gaul, Britain and the Alps in 4; " +
+        "Italy and Sicily in 5 and 6; northern and eastern Europe in 7; Greece and its islands in 8 " +
+        "to 10; Asia from the Caucasus to the Aegean in 11 to 14; Persia and India in 15; the Near " +
+        "East and Arabia in 16; and Egypt and North Africa in 17. It is less a map than a reading of " +
+        "places — who founded them, what grows there, which line of Homer they explain — and it is " +
+        "a principal source for many of the regions it covers.",
+
+      "The translation is the one Henry Bohn published in London between 1854 and 1857, the first " +
+        "complete Strabo in English. Its own Notice tells how it came to have two names on it: Bohn " +
+        "gave the work to H. C. Hamilton, whose official duties let him reach only the end of the " +
+        "sixth book in three years, and meanwhile learned that W. Falconer — son of the editor of the " +
+        "Oxford edition of the Greek — had a finished translation of his own. The two were combined, " +
+        "so books 1 to 6 are Hamilton's and the rest Falconer's. The notes are theirs, citing the " +
+        "French and German scholars who had worked on the text, and there are over five thousand " +
+        "of them; most are a single line giving a place its modern name or finding the line of Homer " +
+        "being quoted.",
+
+      "<b>The small figures in the text are the citation numbers, chapter and section.</b> " +
+        "Strabo is cited by book, chapter and section — “Strabo 4.5.2” is book 4, chapter " +
+        "5, section 2 — so within a book a figure like 5.2 marks the place, and each row of the " +
+        "two-column page is one section. The Greek beside the English is August Meineke's text, " +
+        "printed by Teubner in 1877; the translators followed the earlier text of Gustav Kramer, so " +
+        "the two columns are different editions of the same work and now and then disagree about a " +
+        "word. Words Meineke bracketed as not Strabo's are left out of the Greek column, and the " +
+        "Greek's own apparatus is not carried.",
+
+      "The end of book 7 is lost. What stands after its seventh chapter, marked <i>Fr.</i>, are " +
+        "the passages that survive in two medieval digests of the work, gathered by Kramer; seven of " +
+        "them appear in Meineke's Greek with no English beside them, because this translation does " +
+        "not include them. What is not here is everything Bohn printed around the text: the Notice, " +
+        "the account of Strabo's life and manuscripts in the third volume, the index of places, and " +
+        "the short summary the translators set at the head of each book, which is theirs and not " +
+        "Strabo's.",
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Strabonis Geographica, edited by August Meineke, Teubner, Leipzig, 1877",
+      rights:
+        "Public domain on both grounds. Strabo wrote in Greek at the turn of the eras. The text printed " +
+        "here is August Meineke's Teubner edition in its Leipzig printing of 1877 — before 1929, so its " +
+        "United States copyright has expired — and Meineke died in 1870, so it is public domain " +
+        "everywhere else too. The digital edition is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 International " +
+        "licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-grc2.xml",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -24441,17 +24902,37 @@ function teiBookChapters(xml, opts, warn) {
      closes on a book numbered `fragments` — 110 passages no editor could place — and measuring the
      end from the next NUMBERED book alone ran book 39 on to the end of the file, swallowing them as
      chapters 1–110 of book 39 behind its own 18. Proved inert on every chaptered file on the shelf:
-     none of Herodotus's, the Gallic War's or Thucydides' carries an unnumbered book division. */
+     Herodotus's, the Gallic War's, Thucydides', Pausanias's and Strabo's Greek carry no unnumbered
+     book division, Strabo's English only a `front` standing before book 1, and Livy's Latin is fenced. */
   const bookEnds = divs.filter((d) => d.sub === "book").map((d) => d.at);
 
+  /* opts.fence (Oct 2026, Livy): a book's slice ends at the next division of ANY book, part or index
+     kind, numbered or not. Weissenborn–Müller's Latin interleaves the ancient summaries of each book
+     (`subtype="book" n="1s"`, the periochae) and Teubner's sigla index (`subtype="index"`) between the
+     books themselves, and an unfenced slice runs on through them, so the summary of book 2 would be
+     appended to the last chapter of book 1 with nothing thrown. Opt-in, so no shipped book changes. */
+  const fences = opts.fence
+    ? divs.filter((d) => d.sub === "book" || d.sub === "part" || d.sub === "index").map((d) => d.at)
+    : [];
   const out = {};
   books.forEach((b) => {
-    const end = bookEnds.find((at) => at > b.at) || body.length;
+    let end = bookEnds.find((at) => at > b.at) || body.length;
+    for (const f of fences) if (f > b.at && f < end) { end = f; break; }
     const chs = divs.filter((d) => d.sub === "chapter" && d.at > b.at && d.at < end);
-    if (!chs.length) { warn("book " + b.n + " has no chapter divisions"); return; }
+    if (!chs.length) {
+      // a fenced edition's chapterless books are its summaries of lost ones (Livy 46–142): one line for all
+      if (opts.fence) { (out.summaryOnly = out.summaryOnly || []).push(b.n); return; }
+      warn("book " + b.n + " has no chapter divisions"); return;
+    }
 
     const notes = [];
     const skipped = [];
+    if (opts.pairOn === "section") {
+      const got = teiBookSections(body, b, end, chs, divs, opts, notes, skipped, warn);
+      const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
+      out[b.n] = { html: tidy(got.html), notes: notes.map(tidy), chapters: got.kept, skipped: skipped };
+      return;
+    }
     /* SEQ STARTS BELOW ZERO BECAUSE A CHAPTER MAY LEGITIMATELY BE NUMBERED 0, which the Gallic War is
        the first book here to do: Hirtius's covering letter to Balbus stands at the head of book 8,
        numbered apart from the war it introduces, and both editions print it that way. With the
@@ -24474,8 +24955,11 @@ function teiBookChapters(xml, opts, warn) {
          So the guard now admits a trailing letter, and anything else is still skipped and reported. */
       /* LOWER CASE IS THE SAME LETTER (Oct 2026, Polybius): Büttner-Wobst and Shuckburgh letter their
          inserted fragments `4a`, `25e`, where Herodotus's editors write 2.121A. Upper-case only, the
-         reader skipped 24 of them across the two columns. No other chaptered file carries one. */
-      const key = /^(\d+)([A-Za-z])?$/.exec(ch.n);
+         reader skipped 24 of them across the two columns. No other chaptered file carries one.
+         opts.preface names a division label that stands for an author's preface before chapter 1 —
+         Livy's `pr`, numbered so in both editions — and it is kept as chapter 0, sorting first and
+         printing its own label, rather than skipped as a word (Oct 2026). */
+      const key = opts.preface && ch.n === opts.preface ? [ch.n, "0", undefined] : /^(\d+)([A-Za-z])?$/.exec(ch.n);
       if (!key) { skipped.push(ch.n); return; }
       /* THE NUMBER SHOWN AND THE NUMBER SORTED ON COME APART the moment a letter is allowed, which is
          the Nicomachean Ethics' Bekker-page problem in a second work: parseInt reads 121, 121A and
@@ -24504,7 +24988,99 @@ function teiBookChapters(xml, opts, warn) {
     const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
     out[b.n] = { html: tidy(html), notes: notes.map(tidy), chapters: kept, skipped: skipped };
   });
+  if (out.summaryOnly) {
+    const s = out.summaryOnly;
+    warn(s.length + " book division(s) carry no chapters, only a summary (books " + s[0] + "–" + s[s.length - 1] + ")");
+    delete out.summaryOnly;
+  }
   return out;
+}
+
+/* ONE ROW PER SECTION, FOR A WORK WHOSE CHAPTERS ARE TOO LONG TO PAIR ON (a book declaring
+   `pairOn: "section"`; Oct 2026, adding Strabo). Herodotus pairs on the chapter because his 1,578
+   chapters are short and his two editions disagree about nine chapters' sections. Strabo is the
+   opposite case, MEASURED over both Perseus files before this was written: 96 chapters in 17 books,
+   some of them 70 sections long (13.1, 15.1), so a chapter row would set ten pages of English beside
+   ten pages of Greek; and the 1,580 sections agree in number and order in every chapter of both
+   editions, the only difference being seven lettered Greek fragments (7.fr.11a, 16a, 16b, 23a, 58a,
+   58b and a 1) the English does not translate. So the section is the unit here, and a chapter shows
+   only as the first figure of its markers: "2.14" is chapter 2, section 14 of the book on screen,
+   which is how "Strabo 1.2.14" is cited.
+   The key is chapter × 1000 + section × 10 + letter, which keeps a lettered section (1a, 16b) after
+   its plain neighbour; `sectionChapters` admits a chapter numbered with a word under a key and a
+   label of its own (Strabo's Fragments of book 7, which Kramer collected from the two epitomes and
+   both editions print after chapter 7). Anything else numbered with a word — Hamilton's "argument"
+   summary at the head of each book, the editor's apparatus — is skipped and reported.
+   A CHAPTER'S OWN NOTE stands between its heading and its first section (the Fragments open on
+   Hamilton's account of where they come from), outside every section; it is carried into the first
+   section's opening paragraph so its marker has a sentence to stand in. */
+function teiBookSections(body, b, end, chs, divs, opts, notes, skipped, warn) {
+  const named = opts.sectionChapters || {};
+  let html = "", seq = -1, kept = 0;
+  chs.forEach((ch, j) => {
+    const chEnd = j + 1 < chs.length ? chs[j + 1].at : end;
+    const ck = /^\d+$/.test(ch.n) ? +ch.n : (named[ch.n] || {}).k;
+    if (ck == null) { skipped.push(ch.n); return; }
+    const label = /^\d+$/.test(ch.n) ? ch.n + "." : named[ch.n].label;
+    const secs = divs.filter((d) => d.sub === "section" && d.at > ch.at && d.at < chEnd);
+    if (!secs.length) { warn("book " + b.n + " chapter " + ch.n + " has no sections"); return; }
+    const pre = (body.slice(ch.at, secs[0].at).match(/<note\b[^>]*>[\s\S]*?<\/note>/g) || []).join("");
+    secs.forEach((s, i) => {
+      const key = /^(\d+)([a-z])?$/.exec(s.n);
+      if (!key) { skipped.push(ch.n + "." + s.n); return; }
+      const n = ck * 1000 + +key[1] * 10 + (key[2] ? key[2].charCodeAt(0) - 96 : 0);
+      if (n <= seq) warn("book " + b.n + ": section " + ch.n + "." + s.n + " follows " + seq + " — out of order");
+      seq = n;
+      /* A QUOTATION SET TWICE: Hamilton's file wraps a quoted sentence as `<quote><q rend="double">`
+         (233 times), and since teiInline makes each a `<q>`, the reader would print it inside two
+         pairs of quotation marks. One element, one pair; a line break left by a paragraph inside
+         the quote is dropped with it, and a note standing after the `</q>` keeps its place. */
+      let raw = teiParaFlatten(body.slice(s.at, i + 1 < secs.length ? secs[i + 1].at : chEnd))
+        .replace(/<quote\b[^>]*>(?:\s|<lb\/>)*<q\b[^>]*>((?:(?!<\/?q\b)[\s\S])*?)<\/q>((?:\s|<lb\/>|<note\b[^>]*>[\s\S]*?<\/note>)*)<\/quote>/g,
+          (w, q, tail) => "<q>" + q + "</q>" + tail.replace(/<lb\/>/g, ""));
+      if (i === 0 && pre) raw = raw.replace(/<p\b[^>]*>/, (t) => t + pre);
+      const text = teiSectionProse(raw, notes);
+      if (!text) { warn("book " + b.n + " section " + ch.n + "." + s.n + " came back empty"); return; }
+      kept++;
+      html += (html ? "\n" : "") +
+        text.replace(/^<p>/, '<p><span class="bk-n" data-n="' + n + '">' + label + s.n + "</span> ");
+    });
+  });
+  return { html: html, kept: kept };
+}
+
+/* PARAGRAPHS AS teiSectionProse NEEDS THEM: never nested, and nothing left outside one. Hamilton's
+   English breaks both rules, five times between them, and each costs words in silence — the `<p>`
+   sweep keeps only what sits inside a `<p>` and stops at the FIRST `</p>`, so a paragraph set inside
+   a `<quote>` inside a paragraph (Heracleitus on the Ephesians, 14.1.25) ends the outer one early
+   and the rest of the section falls outside every paragraph, and a stanza or a sentence standing
+   between two paragraphs (6.1.12, 10.3.13, 14.1.18) was never in one. Measured by letter count,
+   source against output, after the fix and not before it.
+   So a `<p>` opened inside another becomes a line break, and a run of text or inline markup at the
+   top level is wrapped in a paragraph of its own. A `<note>` is passed over whole — it is lifted out
+   before the sweep, and its own paragraphs are its business — and so is a `<head>`. */
+function teiParaFlatten(raw) {
+  const toks = raw.split(/(<note\b[^>]*>[\s\S]*?<\/note>|<head\b[^>]*>[\s\S]*?<\/head>|<[^>]+>)/);
+  let out = "", depth = 0, open = false;
+  const block = /^<\/?(div|head)\b/;
+  for (const t of toks) {
+    if (!t) continue;
+    if (/^<p\b/.test(t)) {
+      if (depth > 0) out += "<lb/>";
+      else { if (open) { out += "</p>"; open = false; } out += t; }
+      depth++;
+    } else if (/^<\/p>/.test(t)) {
+      if (depth === 0) continue;                 // a stray close: nothing to end
+      depth--;
+      out += depth > 0 ? "" : t;
+    } else if (depth === 0 && !open && !block.test(t) && !/^<head\b/.test(t) &&
+               (/^<(?!\/)/.test(t) ? !/^<pb\b/.test(t) : /\S/.test(t))) {
+      out += "<p>" + t; open = true;
+    } else if (depth === 0 && open && block.test(t)) {
+      out += "</p>" + t; open = false;
+    } else out += t;
+  }
+  return out + (open ? "</p>" : "");
 }
 
 /* ============================================================
@@ -27823,12 +28399,10 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
-    /* A targeted repair of the translation's raw XML before extraction — the original's `xmlFix`, on
-       the English side (Oct 2026, Polybius: Shuckburgh's marginal summaries and the reprint's
-       corrigenda, which are apparatus and not text). */
-    if (BOOK.xmlFix) xml = BOOK.xmlFix(xml);
-    const books = teiBookChapters(xml, {}, warn);
+    // `teiRaw` — a book's own transform of its TEI before anything reads it (Pausanias, Oct 2026)
+    xml = correctRaw(BOOK.teiRaw ? BOOK.teiRaw(xml) : xml);
+    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+      fence: BOOK.fence, preface: BOOK.preface }, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -29498,9 +30072,11 @@ async function fetchOriginal() {
         let enXml;
         if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(BOOK.xmlFix ? BOOK.xmlFix(enXml) : enXml, {}, warn);
+        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+          fence: BOOK.fence, preface: BOOK.preface }, warn);
       }
-      const or = teiBookChapters(xml, {}, warn);
+      const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+        fence: O.fence, preface: O.preface }, warn);
       /* AN ORIGINAL FOR SOME BOOKS ONLY (Oct 2026, Polybius). Where two editions number a book's
          chapters alike but mean different passages by the numbers, a pairing on the number sets each
          English passage beside Greek that is not its counterpart — worse than no column. `only`
