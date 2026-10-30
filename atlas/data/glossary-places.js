@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a09f5f90c4792df","counts":{"terms":925,"points":688,"countries":237,"windows":1413,"faces":380,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0edd4ef590b439f2","counts":{"terms":926,"points":689,"countries":237,"windows":1417,"faces":380,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -834,6 +834,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a09f5f90c4792df","counts":
 "Tiryns":"pl:q217379",
 "Tiwanaku":"pl:q61750",
 "Togo":"adm0:tgo",
+"Tokyo":"city:1159151609",
 "Tomsk":"adm1:rus:ru-tom",
 "Tonga":"adm0:ton",
 "Trajan's_Forum":"pl:q211295",
@@ -1042,6 +1043,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a09f5f90c4792df","counts":
 "Babylon":[44.421,32.542,"site",0,0,0],
 "Bactria":[66.899,36.758,"region",0,0,0],
 "Badain_Jaran_Desert":[102.21,40.073,"coord",0,0,0],
+"Badayev_warehouses":[30.309,59.938,"coord",0,0,0],
 "Badlands":[-102.5,43.75,"region",0,0,0],
 "Baekje":[127.228,36.584,"polity","pol:baekje",347,16.99],
 "Baghdad":[44.392,33.341,"capital",0,0,0],
@@ -1897,6 +1899,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a09f5f90c4792df","counts":
 "Pereyaslavets":[27.261,44.117,"coord",0,0,0],
 "Perm_Krai":[56.588,58.874,"admin1","adm1:rus:ru-per",0,12.27],
 "Persepolis":[52.89,29.935,"site",0,0,0],
+"Persian_Corridor":[48.678,31.305,"coord",0,0,0],
 "Persian_Gulf":[52,26,"coord",0,0,0],
 "Peru":[-72.9,-12.98,"country","adm0:per",0,3.74],
 "Petras":[26.115,35.197,"site",0,0,0],
@@ -1974,6 +1977,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a09f5f90c4792df","counts":
 "Rhine":[4.093,51.981,"coord",0,0,0],
 "Rhode_Island":[-71.508,41.624,"admin1","adm1:usa:us-ri",0,40],
 "Rio_Grande":[-104.681,30.134,"river",0,0,0],
+"Road_of_Life":[31.5,61,"coord",0,0,0],
 "Rocky_Mountains":[-108.688,41.985,"range",0,0,0],
 "Roman_Dacia":[22.783,45.517,"coord",0,0,0],
 "Roman_gardens":[12.497,41.908,"coord",0,0,0],
@@ -2192,6 +2196,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a09f5f90c4792df","counts":
 "Tiwanaku":[-68.673,-16.555,"site",0,0,0],
 "Togo":[1.06,8.81,"country","adm0:tgo",0,13.62],
 "Tokugawa_shogunate":[138.569,36.984,"polity","pol:tokugawa",1865,2.65],
+"Tokyo":[139.749,35.687,"capital",0,0,0],
 "Tolbachik":[160.326,55.831,"coord",0,0,0],
 "Tomb_100":[32.779,25.097,"coord",0,0,0],
 "Tomb_U-j":[31.908,26.175,"coord",0,0,0],
