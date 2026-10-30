@@ -12015,6 +12015,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* Measured as Plutarch's row was, over the same band (L 12.3–47.8, chroma 18–85, 22 or more from
+     every light theme's ink, 4.5:1 on every light paper). The band's best still clears only 16.6, at
+     the shelf's own tightest pair (Luo Guanzhong and Plutarch, 16.5), and the top of that list is
+     magentas beside Thucydides and wines beside Ovid, Sophocles and Aristophanes. This dark brown
+     clears its nearest, Augustine, Vyasa and Sophocles, by 16.4–16.6 and passes the Euripides test:
+     the books read beside Dio — Suetonius, Caesar, Plutarch, Thucydides, Herodotus, and Marcus
+     Aurelius, whose reign he narrates — all stand 35 or more away. A teal at 16.2 was rejected for
+     sitting nearest Marcus Aurelius. It reads 8.6:1 on the tightest light paper. */
+  "Cassius Dio": "#602004",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -12469,6 +12478,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 21, label: "Demetrius and Antony" },
         { n: 22, label: "Dion and Brutus" },
         { n: 23, label: "The single Lives" },
+      ],
+    },
+    {
+      id: "cassius-dio-roman-history",
+      title: "Roman History",
+      author: "Cassius Dio",
+      written: "early 3rd century CE",
+      // he carried the history to his own second consulship, in 229
+      year: 229,
+      translator: "Earnest Cary",
+      edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1927",
+      /* Two layers, and the second is not Perseus's: the translation is public domain on its
+         publication dates (1914–1927), and the transcription is Bill Thayer's on LacusCurtius, whose
+         one-asterisk pages he states are in the public domain. His own notes are not taken. No
+         death-year claim is made for Cary. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Earnest Cary's translation, made on the basis of the version of " +
+        "Herbert Baldwin Foster, was published in the nine volumes of the Loeb Classical Library " +
+        "between 1914 and 1927 — all before 1929 — so its copyright has expired in the United States. " +
+        "The text is taken from Bill Thayer's transcription on LacusCurtius, which states that its " +
+        "pages of this kind are in the public domain; Thayer's own notes on those pages are not " +
+        "reproduced. (The modern Penguin selection translated by Ian Scott-Kilvert, 1987, is still in " +
+        "copyright and is not used here.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/home.html",
+      /* English only: the one open Greek text (Perseus) covers Books 36–55, a third of the work, and
+         the front matter says why there is no facing column. */
+      chapterWord: "Book",
+      /* Seventy-five parts for eighty books: Books 22–29 are cut at their own heads, but the fragments
+         of Books 30–35 carry one continuous run of numbers and no book heads, so they are one part
+         numbered 30. */
+      count: 75,
+      total: 75,
+      // the nine Loeb volumes, which is how the edition divides the work
+      parts: [
+        { n: 1, label: "Volume I", note: "Books I–XI" },
+        { n: 2, label: "Volume II", note: "Books XII–XXXV" },
+        { n: 3, label: "Volume III", note: "Books XXXVI–XL" },
+        { n: 4, label: "Volume IV", note: "Books XLI–XLV" },
+        { n: 5, label: "Volume V", note: "Books XLVI–L" },
+        { n: 6, label: "Volume VI", note: "Books LI–LV" },
+        { n: 7, label: "Volume VII", note: "Books LVI–LX" },
+        { n: 8, label: "Volume VIII", note: "Books LXI–LXX" },
+        { n: 9, label: "Volume IX", note: "Books LXXI–LXXX" },
       ],
     },
     {
