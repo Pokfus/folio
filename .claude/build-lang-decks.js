@@ -63,6 +63,7 @@ const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
   { word: "Spanish", name: "Spanish", l1: 486 },
   { word: "Portuguese", name: "Portuguese", l1: 236 },
+  { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
@@ -75,6 +76,9 @@ LANGS.forEach((L) => { L1[L.name] = L.l1; });
    not a rung on the ladder and a learner meets it once the words are in hand. */
 const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
 function levelRank(title) {
+  /* AN ALPHABET COMES BEFORE EVERY LEVEL (Oct 2026, Russian): its level decks carry no
+     transliteration, so the alphabet is the first thing a learner opens, not a phrase book after them. */
+  if (/\bAlphabet\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
   const u = /\bUKBI (\d)\b/.exec(title);          // Indonesian's own seven predicates, numbered from the bottom

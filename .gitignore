@@ -143,3 +143,4 @@ countries-info.json
 # statement about the network from wherever it was run, so committing one machine's would tell another
 # machine's run that a wall it cannot see has just appeared. Deleting it costs the next run a full sweep.
 .claude/.linkcheck.json
+.claude/torfl-cache/

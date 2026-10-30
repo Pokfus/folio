@@ -28860,6 +28860,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
+    /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
+       shelf's band (L 28–55, chroma 7–62) and taken as far as possible from every hue already placed — a
+       deep magenta, 37 from its nearest neighbour (Indonesian's red), against a tightest existing pair of
+       12.9. Not a flag colour, and not the RUSSIA history collection's lacquer, which it clears. */
+    "lang-russian":    { bg: "#AE2A7E" }, // measured magenta
     "lang-spanish":    { bg: "#AE5A33" }, // orange
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)

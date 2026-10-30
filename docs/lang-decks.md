@@ -3191,6 +3191,16 @@ changed was the one that had been wrong all along.
   EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
   every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
   changelog line and no version bump. Not part of the site.
+- `.claude/torfl/` — the generator behind the **Russian** decks (Oct 2026): `decks/Russian-Alphabet.folio-deck.json`
+  (33 letters, `alphabet.py`, hand-written, no sources) and `decks/TORFL-A1-Russian.folio-deck.json` (500 notes /
+  1,000 cards). `python3 .claude/torfl/run.py [--level a2] [--no-fetch]`, cache `.claude/torfl-cache/` (gitignored,
+  ~1.3 GB), checker `node .claude/torfl/check-torfl.js a1|alphabet`. PYTHON and ONE LEVEL PER RUN, like UKBI, and
+  ASSEMBLED like UKBI: TORFL's lexical minimum is a copyrighted book, so a hand-written inventory of the level's
+  topics (`supplement.py`) is topped up by LEMMA frequency — the subtitle list's word-form counts summed over each
+  Wiktionary paradigm, since the list ranks `книгу` above `книга`. An aspect pair is one note (`де́лать / сде́лать`),
+  stress is printed on every headword and form and stripped from everything spoken or compared, ё is folded for
+  matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
+  decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
