@@ -210,7 +210,7 @@ order unless the user says otherwise.
 | B76 | Provinces and frontiers (`rm-provinces`) | `rm-751`–`rm-760` | 10 | 80 | **done 2026-10-30** |
 | B77 | Provinces and frontiers (`rm-provinces`) | `rm-761`–`rm-770` | 10 | 92 | **done 2026-10-30** |
 | B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | **done 2026-10-30** |
-| B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | open |
+| B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | **done 2026-10-30** |
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | open |
 | B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | open |
 | B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | open |
@@ -1050,6 +1050,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-778` lex Hieronica | none | not re-checked: the card has no picture |
 | `rm-779` concilium provinciae | none | not re-checked: the card has no picture |
 | `rm-780` ius Italicum | none | not re-checked: the card has no picture; a Severan coin of Tyre would do |
+| `rm-781` Calleva Atrebatum | none | not re-checked: the card has no picture; the town wall would do |
+| `rm-782` Romanisation | none | not re-checked: the card has no picture |
+| `rm-783` Tacfarinas | none | not re-checked: the card has no picture; the glossary's "Mausoleum of Tacfarinas" is so named only by tradition |
+| `rm-784` Muziris | none | not re-checked: the card has no picture; Pattanam's trenches or amphora sherds would do |
+| `rm-785` Seres | none | not re-checked: the card has no picture; Han silk found in the Roman world would do |
+| `rm-786` capitis deminutio | none | not re-checked: the card has no picture |
+| `rm-787` familia | none | not re-checked: the card has no picture; a family funerary relief would do |
+| `rm-788` pater familias | none | not re-checked: the card has no picture |
+| `rm-789` patria potestas | none | not re-checked: the card has no picture |
+| `rm-790` matrimonium | none | not re-checked: the card has no picture; a sarcophagus relief of the joined right hands would do |
 
 ## Glossary candidates
 
@@ -2873,3 +2883,22 @@ Run as B77. The agents of this batch and the next stopped on a usage limit and w
 | `rm-780` ius Italicum | 6 | 6 → 8 | **Ulpian's Tyre as he wrote it, "Severus and the reigning emperor", not Severus alone; "full Roman ownership" goes and what the right gave is hedged**; Pliny's Liburnian peoples; Paul on Caesarea; Paoli (1938, in French) on Marsyas; Tyre out of `rm-727`'s questions. |
 
 **Read by eye.** *Confusability:* `rm-771`/`rm-772`/`rm-773` the king (Caesarea), the wars (Orobazus) and the empire (Nisa); `rm-774`/`rm-775`/`rm-776`/`rm-777` Bithynia (the firemen), Achaea (Claudius's studies), Pannonia (the Breuci) and Dacia (Alburnus Maior); `rm-778`/`rm-779`/`rm-780` the tithe law (Verres), the council (Timarchus) and the Italian right (Tyre). *Legend:* Matthew's massacre and Macrobius's joke are their authors'. *Overlap:* `gr-877` (Achaea) and `gr-781` (Seleucia) agree.
+
+### B79 — `rm-781`–`rm-790`, Provinces and frontiers to Family, household and slavery: Calleva to matrimonium (2026-10-30)
+
+Run as B78, the agents resumed after the usage limit. Before applying, `rm-787`'s third question was reworded: "the will by bronze and balance" pointed at `rm-731`'s clue. Agricola 21 is `rm-782`'s alone (`rm-757` gave it up). `rm-784`'s dating rests on Ahlawat and others (2023), read in Europe PMC. The family cards split Ulpian's definitions (Digest 50.16.195) between `rm-787` (the Twelve Tables' two senses) and `rm-788` (the child who becomes head at his father's death), with the three sales and the power of life and death kept for `rm-789`. **The old date lines carried the Roman conquest on a town ("Roman conquest 43 CE"), a range for walls and one for an abandonment no source states, a vague range for the Periplus and a papyrus's "c. 150 CE", and two labels naming men ("Gan Ying's trip").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-781` Calleva Atrebatum | 6 | 6 → 7 | **The line now dates the town itself: founded c. 20 – 10 BCE, the street grid c. 70 – 80 CE, the stone wall c. 270 CE, abandoned c. 550 – 650 CE (English Heritage; Millett 2025)**; the client-kingdom link to the grid hedged; the ogham stone redated to the 4th–5th century (Fulford and others); baths and amphitheatre before the grid. |
+| `rm-782` Romanisation | 7 | 7 → 7 | **A modern term (Mommsen, Haverfield) and contested; two Latin texts and two LacusCurtius pages replaced; the modern share from two to five**; Agricola 21 kept here; Strabo's Turdetani and togati; the Greek east's "exotic plants" (one classic account). |
+| `rm-783` Tacfarinas | 6 | 6 → 6 | **Velleius (LacusCurtius) goes: who named the war what rests on a review; the causes debated (Vacanti 2025, in French)**; Tiberius's Spartacus retort; the deserter who led the Musulamii; his death at Dolabella's dawn attack; the glossary's claim cited to a passage that does not say it corrected. |
+| `rm-784` Muziris | 6 | 6 → 7 | **"About July" is the Periplus's, not Pliny's: each attributed; the port flourished c. 100 BCE – 300 CE**; Pliny's nearest mart and its pirates; the Muziris papyrus's sea loan; Pattanam's identification hedged; "a third of revenue" McLaughlin's estimate; the Templum Augusti and the Hermapollon values left out (no open source). |
+| `rm-785` Seres | 6 | 7 → 8 | **A vague Roman idea, probably the Chinese; Florus's embassy his report (an older view: merchants); 97 CE and 166 CE marked as Chinese records; "Silk Road" Richthofen's of 1877**; Florus without the four years; Virgil's silk combed from leaves; Pliny's 100 million sesterces (`wh-409`'s) out of the questions. |
+| `rm-786` capitis deminutio | 6 | 6 → 6 | **The three-degree scheme fairly late, its origin disputed (Buckland)**; Gaius's definition; Paul on the emancipated son; the Vestal and the priest of Jupiter; the Ovid claim (Smith only) goes; `rm-716`, `rm-719`, `rm-789`, `rm-791` and `rm-798` kept out. |
+| `rm-787` familia | 7 | 7 → 8 | **The orphans figure the cited review does not give goes**; the Twelve Tables' two senses (Ulpian); the urban and rustic slaves told apart by their work (Pomponius); the friend who took the dying man's familia in the old will; Smith's familiares go. |
+| `rm-788` pater familias | 7 | 7 → 8 | **Cato's farm (`rm-860`'s) and two claims the cited review does not make go**; the young ward who is head on his father's death; the household's one owner; Valerius Maximus's former censor judging his son with the senate as his council. |
+| `rm-789` patria potestas | 7 | 7 → 8 | **Dionysius's Romulus his claim; the unsourced "around the time of Augustus" for soldiers' earnings replaced by Gaius 2.106**; the three sales; Gaius's Galatians; a question that mixed up Fulvius and Dionysius rewritten. |
+| `rm-790` matrimonium | 7 | 7 → 8 | **The wedding customs (flammeum, torch, threshold) rested only on Smith and go; ages at marriage a modern model's**; Ulpian's consent maxim; Modestinus's definition; Pomponius on marrying an absent man by letter. |
+
+**Read by eye.** *Confusability:* `rm-781`/`rm-782` the town (the ogham stone) and the idea (the Turdetani); `rm-783`/`rm-784`/`rm-785` the rebel (the Musulamii), the port (the sea loan) and the silk people (Virgil's leaves); `rm-786`/`rm-787`/`rm-788`/`rm-789`/`rm-790` status (the Vestal), the household (the urban slaves), its head (the censor's court), his power (the three sales) and marriage (Modestinus). *Legend:* Dionysius's Romulus and Florus's Seres embassy are their authors'. *Overlap:* `wh-409` and `cnh-230` (the Silk Road) agree.

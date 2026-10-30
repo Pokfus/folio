@@ -474,6 +474,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Herod: made king / reigned | 40 BCE / 37 – 4 BCE (a minority: died 1 BCE) | `rm-771` |
 | the Roman–Parthian Wars (a modern name): Rome's first defeat | 53 BCE | `rm-772` |
 | Bithynia: bequeathed / joined to Pontus | 74 BCE / 64 BCE | `rm-774` |
+| Muziris: the port flourished | c. 100 BCE – 300 CE | `rm-784` |
 
 ## The Principate
 
@@ -726,6 +727,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Achaea: created / under the emperor | 27 BCE / 15 – 44 CE | `rm-775` |
 | Pannonia: the first war / the revolt | 12 – 10 BCE / 6 – 9 CE | `rm-776` |
 | Roman Dacia: made a province / given up | 106 CE / c. 271 – 275 CE | `rm-777` |
+| Calleva: founded / the street grid / the stone wall | c. 20 – 10 BCE / c. 70 – 80 CE / c. 270 CE | `rm-781` |
+| Tacfarinas's revolt | 17 – 24 CE | `rm-783` |
+| the Seres: the Han envoy sent / the Da Qin envoys (Chinese records) | 97 CE / 166 CE | `rm-785` |
 
 ## Late Antiquity
 
@@ -819,6 +823,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Carthage taken by the Vandals | 439 CE | `rm-763` |
 | Leptis Magna taken by the Vandals | 455 CE | `rm-764` |
 | Roman Egypt and Alexandria: the end of Roman rule | 641 CE | `rm-765`, `rm-766` |
+| Calleva abandoned | c. 550 – 650 CE | `rm-781` |
 
 ## Chronology pins
 
@@ -1544,4 +1549,8 @@ rm-774: 74; 64; 109; 111
 rm-775: 27; 15; 44
 rm-776: 12; 10; 6; 9
 rm-777: 106; 271; 275
+rm-781: 20; 10; 70; 80; 270; 550; 650
+rm-783: 17; 24
+rm-784: 100; 300
+rm-785: 97; 166
 ```
