@@ -12003,6 +12003,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which would put a ninth colour inside a cluster the shelf already struggles to tell apart. It
      reads 4.52:1 on the tightest light paper, which is the margin the band is cut to. */
   "Lu Yu": "#96009F",
+  /* THE FOURTH WIDENING OF THE CHROMA CEILING, 85 → 90 (Oct 2026, adding Strabo's Geography; forty-six
+     colours placed). Measured as every row above — CIELAB distance, L 12.3–47.8, 22 or more from all
+     fifteen light themes' inks, 4.5:1 on every light paper, card and second paper — the best colour
+     inside the 85 ceiling clears 16.5, under the shelf's own tightest pair (Aristotle and Ptahhotep,
+     16.6), and it is a violet whose nearest neighbour is MARCO POLO: the other traveller-geographer,
+     the one kinship this book must not claim. So the ceiling was raised by the smallest step that
+     opens the field, as the Marco Polo row raised it: at 90 the best clears 20.0. This royal blue
+     sits 20.0 from Luo Guanzhong, 21.4 from Marco Polo and 22.6 from Shakespeare, and 37.5 from
+     HERODOTUS, the Greek it is most often read against; it reads 5.19:1 on the tightest light paper. */
+  "Strabo": "#2136C9",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -14962,6 +14972,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "strabo-geography",
+      title: "Geography",
+      // the work's own Greek title, as the Histories gives Herodotus's
+      subtitle: "Γεωγραφικά",
+      author: "Strabo",
+      // the range Perseus's header gives the work; still being revised under Tiberius
+      written: "c. 7–24 CE",
+      year: 7,
+      translator: "H. C. Hamilton and W. Falconer",
+      edition: "Bohn's Classical Library, 1854–1857",
+      /* Expired on every ground: Bohn's three volumes of 1854–57 are pre-1929, Falconer died in 1885 and
+         Hamilton in 1895, and Meineke, whose 1877 Teubner text faces it, in 1870. Perseus's digital
+         editions are CC BY-SA 4.0. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Strabo wrote the Geography in Greek two " +
+        "thousand years ago. The English is the translation by H. C. Hamilton and W. Falconer, " +
+        "published by Henry G. Bohn in London in three volumes between 1854 and 1857, so it is public " +
+        "domain in the United States as a pre-1929 publication; Falconer died in 1885 and Hamilton in " +
+        "1895, so it is also public domain wherever copyright lasts for the author's life plus seventy " +
+        "or a hundred years. The Greek is the text edited by August Meineke (1790–1870) for Teubner, in " +
+        "the Leipzig printing of 1877, and is public domain on the same grounds. The digital editions of " +
+        "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (Duane W. Roller's " +
+        "translation of 2014 is in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+      /* Paired on the SECTION — "Strabo 4.5.2" is book, chapter, section, and a marker reads "5.2"
+         inside book 4 — because the chapters run to 70 sections, and the two editions agree on all
+         1,573 sections the English has. Seven Greek fragments of book 7 (marked "Fr.") have no
+         English and draw an empty cell. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      count: 17,
+      total: 17,
+      // the edition's own three volumes, stated on its title pages
+      parts: [
+        { n: 1, label: "Volume I", note: "Books 1–7" },
+        { n: 2, label: "Volume II", note: "Books 8–13" },
+        { n: 3, label: "Volume III", note: "Books 14–17" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};

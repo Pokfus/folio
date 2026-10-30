@@ -16819,6 +16819,136 @@ const BOOKS = {
     },
   },
 
+  "strabo-geography": {
+    title: "Geography",
+    // the work's own Greek title, as the Herodotus entry gives his
+    subtitle: "Γεωγραφικά",
+    author: "Strabo",
+    translator: "H. C. Hamilton and W. Falconer",
+    edition: "The Geography of Strabo, literally translated, with notes, by H. C. Hamilton and W. Falconer, Bohn's Classical Library, Henry G. Bohn, London, 1854–1857",
+    // the range Perseus's own header gives the work's creation, 7–24 CE
+    written: "c. 7–24 CE",
+
+    /* ---------- THE LICENCE: expired on every ground, plus Perseus's digital edition ----------
+       Bohn published the translation in three volumes between 1854 and 1857, so it is public domain in
+       the United States on the pre-1929 rule. Its two translators are Hans Claude Hamilton, books 1–6,
+       and William Falconer, books 7–17 (the publisher's Notice at the head of volume 1 tells how the two
+       undertakings were merged). Falconer lived 1801–1885 (Wikisource's author page) and Hamilton
+       1811–1895 (the Library of Congress name heading as the University of Pennsylvania's catalogue
+       prints it), so the term of a joint work, run from the last to die, expired in 1965 under life plus
+       seventy and 1995 under life plus a hundred. The Greek is August Meineke's Teubner text in the 1877
+       printing; Meineke lived 1790–1870, looked up rather than recalled. Perseus's digital editions are
+       CC BY-SA 4.0: the English file says so in its own <availability>, and the Greek carries none and
+       falls under the repository's statement, as the Herodotus entry records for his.
+       THE MODERN TRANSLATION a reader is likeliest to be pointed at, Duane W. Roller's (Cambridge,
+       2014), is in copyright and is not used. Horace Leonard Jones's Loeb (1917–1932), which Perseus
+       also carries for books 6–14, is not used either: one complete translation by one pair of hands
+       beats a patchwork, and the later Loeb volumes fall after 1928. */
+    rights:
+      "Public domain on every ground, in both columns. Strabo wrote the Geography in Greek two " +
+      "thousand years ago. The English is the translation by H. C. Hamilton and W. Falconer, " +
+      "published by Henry G. Bohn in London in three volumes between 1854 and 1857, so it is public " +
+      "domain in the United States as a pre-1929 publication; Falconer died in 1885 and Hamilton in " +
+      "1895, so it is also public domain wherever copyright lasts for the author's life plus seventy " +
+      "or a hundred years. The Greek is the text edited by August Meineke (1790–1870) for Teubner, in " +
+      "the Leipzig printing of 1877, and is public domain on the same grounds. The digital editions of " +
+      "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+      "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (Duane W. Roller's " +
+      "translation of 2014 is in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-eng4.xml",
+    layout: "chaptered",
+    /* Paired on the SECTION, not the chapter — see the block above teiBookSections for the measurement.
+       Hamilton's one-paragraph "Summary" at the head of each book is his, not Strabo's, has no Greek
+       to face, and is skipped and reported; the Fragments of book 7 are Strabo, and come after its
+       chapter 7 as they do in both editions. */
+    pairOn: "section",
+    sectionChapters: { fragments: { k: 8, label: "Fr. " } },
+    chapterWord: "Book",
+    chapters: Array.from({ length: 17 }, (_, i) => i + 1),
+    /* No `titleOf`: Hamilton heads nine of the seventeen books with a region ("BOOK III. SPAIN.") and
+       the other eight with nothing, and composing names for those eight would be an apparatus this
+       edition does not have. The front matter says what each book covers instead. The three volumes
+       ARE the edition's own division, stated on its title pages, so they are the parts. */
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 7 },
+      { n: 2, label: "Volume II", from: 8, to: 13 },
+      { n: 3, label: "Volume III", from: 14, to: 17 },
+    ],
+
+    /* THE FRONT MATTER. Strabo's dates and travels are from Wikipedia's article on him (born 64 or 63
+       BCE at Amaseia, up the Nile to Philae with Aelius Gallus, a lost history before this); the
+       work's date, and the contents of each book, from its article on the Geographica; the two
+       translators' story from the publisher's own Notice in volume 1; the Fragments from Hamilton's
+       note at their head. Nothing here is recalled. */
+    about: [
+      "This is the oldest description of the whole known world to have come down to us complete, " +
+        "and it was written by a man who had seen a surprising amount of it. Strabo was born in 64 " +
+        "or 63 BCE at Amaseia in Pontus, on the southern shore of the Black Sea, into a wealthy " +
+        "Greek-speaking family; he studied in Rome, travelled widely, and went up the Nile as far as " +
+        "Philae in the company of Aelius Gallus, the Roman prefect of Egypt. He wrote a history " +
+        "first, which is lost. This is the work he wrote after it, in seventeen books, and he was " +
+        "still working on it under Tiberius, past the age of eighty.",
+
+      "The first two books are an argument about what geography is: Homer is claimed as its " +
+        "founder, and Eratosthenes, Hipparchus, Polybius and Posidonius are taken on one after " +
+        "another, measured, corrected and occasionally mocked. Then the tour begins in the far " +
+        "west and goes round the Mediterranean: Spain in book 3; Gaul, Britain and the Alps in 4; " +
+        "Italy and Sicily in 5 and 6; northern and eastern Europe in 7; Greece and its islands in 8 " +
+        "to 10; Asia from the Caucasus to the Aegean in 11 to 14; Persia and India in 15; the Near " +
+        "East and Arabia in 16; and Egypt and North Africa in 17. It is less a map than a reading of " +
+        "places — who founded them, what grows there, which line of Homer they explain — and it is " +
+        "a principal source for many of the regions it covers.",
+
+      "The translation is the one Henry Bohn published in London between 1854 and 1857, the first " +
+        "complete Strabo in English. Its own Notice tells how it came to have two names on it: Bohn " +
+        "gave the work to H. C. Hamilton, whose official duties let him reach only the end of the " +
+        "sixth book in three years, and meanwhile learned that W. Falconer — son of the editor of the " +
+        "Oxford edition of the Greek — had a finished translation of his own. The two were combined, " +
+        "so books 1 to 6 are Hamilton's and the rest Falconer's. The notes are theirs, citing the " +
+        "French and German scholars who had worked on the text, and there are over five thousand " +
+        "of them; most are a single line giving a place its modern name or finding the line of Homer " +
+        "being quoted.",
+
+      "<b>The small figures in the text are the citation numbers, chapter and section.</b> " +
+        "Strabo is cited by book, chapter and section — “Strabo 4.5.2” is book 4, chapter " +
+        "5, section 2 — so within a book a figure like 5.2 marks the place, and each row of the " +
+        "two-column page is one section. The Greek beside the English is August Meineke's text, " +
+        "printed by Teubner in 1877; the translators followed the earlier text of Gustav Kramer, so " +
+        "the two columns are different editions of the same work and now and then disagree about a " +
+        "word. Words Meineke bracketed as not Strabo's are left out of the Greek column, and the " +
+        "Greek's own apparatus is not carried.",
+
+      "The end of book 7 is lost. What stands after its seventh chapter, marked <i>Fr.</i>, are " +
+        "the passages that survive in two medieval digests of the work, gathered by Kramer; seven of " +
+        "them appear in Meineke's Greek with no English beside them, because this translation does " +
+        "not include them. What is not here is everything Bohn printed around the text: the Notice, " +
+        "the account of Strabo's life and manuscripts in the third volume, the index of places, and " +
+        "the short summary the translators set at the head of each book, which is theirs and not " +
+        "Strabo's.",
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Strabonis Geographica, edited by August Meineke, Teubner, Leipzig, 1877",
+      rights:
+        "Public domain on both grounds. Strabo wrote in Greek at the turn of the eras. The text printed " +
+        "here is August Meineke's Teubner edition in its Leipzig printing of 1877 — before 1929, so its " +
+        "United States copyright has expired — and Meineke died in 1870, so it is public domain " +
+        "everywhere else too. The digital edition is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 International " +
+        "licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-grc2.xml",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -23987,6 +24117,12 @@ function teiBookChapters(xml, opts, warn) {
 
     const notes = [];
     const skipped = [];
+    if (opts.pairOn === "section") {
+      const got = teiBookSections(body, b, end, chs, divs, opts, notes, skipped, warn);
+      const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
+      out[b.n] = { html: tidy(got.html), notes: notes.map(tidy), chapters: got.kept, skipped: skipped };
+      return;
+    }
     /* SEQ STARTS BELOW ZERO BECAUSE A CHAPTER MAY LEGITIMATELY BE NUMBERED 0, which the Gallic War is
        the first book here to do: Hirtius's covering letter to Balbus stands at the head of book 8,
        numbered apart from the war it introduces, and both editions print it that way. With the
@@ -24037,6 +24173,93 @@ function teiBookChapters(xml, opts, warn) {
     out[b.n] = { html: tidy(html), notes: notes.map(tidy), chapters: kept, skipped: skipped };
   });
   return out;
+}
+
+/* ONE ROW PER SECTION, FOR A WORK WHOSE CHAPTERS ARE TOO LONG TO PAIR ON (a book declaring
+   `pairOn: "section"`; Oct 2026, adding Strabo). Herodotus pairs on the chapter because his 1,578
+   chapters are short and his two editions disagree about nine chapters' sections. Strabo is the
+   opposite case, MEASURED over both Perseus files before this was written: 96 chapters in 17 books,
+   some of them 70 sections long (13.1, 15.1), so a chapter row would set ten pages of English beside
+   ten pages of Greek; and the 1,580 sections agree in number and order in every chapter of both
+   editions, the only difference being seven lettered Greek fragments (7.fr.11a, 16a, 16b, 23a, 58a,
+   58b and a 1) the English does not translate. So the section is the unit here, and a chapter shows
+   only as the first figure of its markers: "2.14" is chapter 2, section 14 of the book on screen,
+   which is how "Strabo 1.2.14" is cited.
+   The key is chapter × 1000 + section × 10 + letter, which keeps a lettered section (1a, 16b) after
+   its plain neighbour; `sectionChapters` admits a chapter numbered with a word under a key and a
+   label of its own (Strabo's Fragments of book 7, which Kramer collected from the two epitomes and
+   both editions print after chapter 7). Anything else numbered with a word — Hamilton's "argument"
+   summary at the head of each book, the editor's apparatus — is skipped and reported.
+   A CHAPTER'S OWN NOTE stands between its heading and its first section (the Fragments open on
+   Hamilton's account of where they come from), outside every section; it is carried into the first
+   section's opening paragraph so its marker has a sentence to stand in. */
+function teiBookSections(body, b, end, chs, divs, opts, notes, skipped, warn) {
+  const named = opts.sectionChapters || {};
+  let html = "", seq = -1, kept = 0;
+  chs.forEach((ch, j) => {
+    const chEnd = j + 1 < chs.length ? chs[j + 1].at : end;
+    const ck = /^\d+$/.test(ch.n) ? +ch.n : (named[ch.n] || {}).k;
+    if (ck == null) { skipped.push(ch.n); return; }
+    const label = /^\d+$/.test(ch.n) ? ch.n + "." : named[ch.n].label;
+    const secs = divs.filter((d) => d.sub === "section" && d.at > ch.at && d.at < chEnd);
+    if (!secs.length) { warn("book " + b.n + " chapter " + ch.n + " has no sections"); return; }
+    const pre = (body.slice(ch.at, secs[0].at).match(/<note\b[^>]*>[\s\S]*?<\/note>/g) || []).join("");
+    secs.forEach((s, i) => {
+      const key = /^(\d+)([a-z])?$/.exec(s.n);
+      if (!key) { skipped.push(ch.n + "." + s.n); return; }
+      const n = ck * 1000 + +key[1] * 10 + (key[2] ? key[2].charCodeAt(0) - 96 : 0);
+      if (n <= seq) warn("book " + b.n + ": section " + ch.n + "." + s.n + " follows " + seq + " — out of order");
+      seq = n;
+      /* A QUOTATION SET TWICE: Hamilton's file wraps a quoted sentence as `<quote><q rend="double">`
+         (233 times), and since teiInline makes each a `<q>`, the reader would print it inside two
+         pairs of quotation marks. One element, one pair; a line break left by a paragraph inside
+         the quote is dropped with it, and a note standing after the `</q>` keeps its place. */
+      let raw = teiParaFlatten(body.slice(s.at, i + 1 < secs.length ? secs[i + 1].at : chEnd))
+        .replace(/<quote\b[^>]*>(?:\s|<lb\/>)*<q\b[^>]*>((?:(?!<\/?q\b)[\s\S])*?)<\/q>((?:\s|<lb\/>|<note\b[^>]*>[\s\S]*?<\/note>)*)<\/quote>/g,
+          (w, q, tail) => "<q>" + q + "</q>" + tail.replace(/<lb\/>/g, ""));
+      if (i === 0 && pre) raw = raw.replace(/<p\b[^>]*>/, (t) => t + pre);
+      const text = teiSectionProse(raw, notes);
+      if (!text) { warn("book " + b.n + " section " + ch.n + "." + s.n + " came back empty"); return; }
+      kept++;
+      html += (html ? "\n" : "") +
+        text.replace(/^<p>/, '<p><span class="bk-n" data-n="' + n + '">' + label + s.n + "</span> ");
+    });
+  });
+  return { html: html, kept: kept };
+}
+
+/* PARAGRAPHS AS teiSectionProse NEEDS THEM: never nested, and nothing left outside one. Hamilton's
+   English breaks both rules, five times between them, and each costs words in silence — the `<p>`
+   sweep keeps only what sits inside a `<p>` and stops at the FIRST `</p>`, so a paragraph set inside
+   a `<quote>` inside a paragraph (Heracleitus on the Ephesians, 14.1.25) ends the outer one early
+   and the rest of the section falls outside every paragraph, and a stanza or a sentence standing
+   between two paragraphs (6.1.12, 10.3.13, 14.1.18) was never in one. Measured by letter count,
+   source against output, after the fix and not before it.
+   So a `<p>` opened inside another becomes a line break, and a run of text or inline markup at the
+   top level is wrapped in a paragraph of its own. A `<note>` is passed over whole — it is lifted out
+   before the sweep, and its own paragraphs are its business — and so is a `<head>`. */
+function teiParaFlatten(raw) {
+  const toks = raw.split(/(<note\b[^>]*>[\s\S]*?<\/note>|<head\b[^>]*>[\s\S]*?<\/head>|<[^>]+>)/);
+  let out = "", depth = 0, open = false;
+  const block = /^<\/?(div|head)\b/;
+  for (const t of toks) {
+    if (!t) continue;
+    if (/^<p\b/.test(t)) {
+      if (depth > 0) out += "<lb/>";
+      else { if (open) { out += "</p>"; open = false; } out += t; }
+      depth++;
+    } else if (/^<\/p>/.test(t)) {
+      if (depth === 0) continue;                 // a stray close: nothing to end
+      depth--;
+      out += depth > 0 ? "" : t;
+    } else if (depth === 0 && !open && !block.test(t) && !/^<head\b/.test(t) &&
+               (/^<(?!\/)/.test(t) ? !/^<pb\b/.test(t) : /\S/.test(t))) {
+      out += "<p>" + t; open = true;
+    } else if (depth === 0 && open && block.test(t)) {
+      out += "</p>" + t; open = false;
+    } else out += t;
+  }
+  return out + (open ? "</p>" : "");
 }
 
 /* ============================================================
@@ -27316,7 +27539,7 @@ async function fetchEnglish() {
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
     xml = correctRaw(xml);
-    const books = teiBookChapters(xml, {}, warn);
+    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters }, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -28984,9 +29207,9 @@ async function fetchOriginal() {
         let enXml;
         if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(enXml, {}, warn);
+        en = teiBookChapters(enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters }, warn);
       }
-      const or = teiBookChapters(xml, {}, warn);
+      const or = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters }, warn);
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
