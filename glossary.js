@@ -7710,7 +7710,17 @@ window.GLOSSARY = {
 "Władysław_Sikorski": "",
 "Operation_Sledgehammer": "",
 "Moscow_Conference_(1943)": "",
-"Casablanca_Conference": ""
+"Casablanca_Conference": "",
+"Eastern_Front_(World_War_II)": "",
+"Franz_Halder": "",
+"Victory_Day_(9_May)": "",
+"Yalta_repatriation_agreement": "",
+"Filtration_camps_in_the_Soviet_Union": "",
+"Soviet_Military_Administration_in_Germany": "",
+"Sowjetische_Aktiengesellschaft": "",
+"Allied_Control_Commission": "",
+"Stalin's_election_speech": "",
+"Oder–Neisse_line": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11532,7 +11542,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Katyn_Commission": "April 1943",
 "Operation_Sledgehammer": "1942",
 "Moscow_Conference_(1943)": "19–30 October 1943",
-"Casablanca_Conference": "14–24 January 1943"
+"Casablanca_Conference": "14–24 January 1943",
+"Eastern_Front_(World_War_II)": "1941–1945",
+"Victory_Day_(9_May)": "9 May 1945",
+"Yalta_repatriation_agreement": "11 February 1945",
+"Filtration_camps_in_the_Soviet_Union": "1942–1946",
+"Soviet_Military_Administration_in_Germany": "1945–1949",
+"Sowjetische_Aktiengesellschaft": "1946–1954",
+"Stalin's_election_speech": "9 February 1946",
+"Oder–Neisse_line": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16428,7 +16446,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Operational_level_of_war": ["Operational art","operational art","operational level of war"],
 "Operation_Lentil_(Caucasus)": ["Operation Lentil"],
 "Katyn_Commission": ["International Katyn Commission"],
-"Moscow_Conference_(1943)": ["Moscow Conference","Moscow Conference of 1943"]
+"Moscow_Conference_(1943)": ["Moscow Conference","Moscow Conference of 1943"],
+"Eastern_Front_(World_War_II)": ["German-Soviet War","Soviet-German War"],
+"Victory_Day_(9_May)": ["Victory Day"],
+"Yalta_repatriation_agreement": ["Yalta repatriation agreements"],
+"Filtration_camps_in_the_Soviet_Union": ["filtration camps","filtration camp"],
+"Soviet_Military_Administration_in_Germany": ["SVAG","SMAD"],
+"Sowjetische_Aktiengesellschaft": ["Soviet joint-stock company"],
+"Allied_Control_Commission": ["Allied Control Commissions"],
+"Stalin's_election_speech": ["Stalin's speech of 9 February 1946"],
+"Oder–Neisse_line": ["Oder-Neisse line"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24283,7 +24310,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Władysław_Sikorski": ["person","history","politics","warfare","poland"],
 "Operation_Sledgehammer": ["event","history","warfare","politics","united kingdom","united states"],
 "Moscow_Conference_(1943)": ["event","history","politics","diplomacy","russia","united kingdom","united states"],
-"Casablanca_Conference": ["event","history","politics","warfare","united states","united kingdom"]
+"Casablanca_Conference": ["event","history","politics","warfare","united states","united kingdom"],
+"Eastern_Front_(World_War_II)": ["war","history","warfare","russia","germany","europe"],
+"Franz_Halder": ["person","history","warfare","germany","second world war"],
+"Victory_Day_(9_May)": ["event","history","memory","russia","soviet union"],
+"Yalta_repatriation_agreement": ["event","history","politics","russia","united states"],
+"Filtration_camps_in_the_Soviet_Union": ["institution","history","politics","russia","soviet union"],
+"Soviet_Military_Administration_in_Germany": ["institution","history","politics","germany","russia","cold war"],
+"Sowjetische_Aktiengesellschaft": ["institution","history","economics","germany","russia"],
+"Allied_Control_Commission": ["institution","history","politics","europe","second world war"],
+"Stalin's_election_speech": ["event","history","politics","russia","cold war"],
+"Oder–Neisse_line": ["place","geography","politics","history","poland","germany"]
 });
 
 /* ============================================================================

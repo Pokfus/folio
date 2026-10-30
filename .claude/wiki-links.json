@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-30T15:57Z",
+ "generated": "2026-10-30T16:01Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5397,
-  "redirect-broader": 510,
+  "ok": 5401,
+  "redirect-broader": 512,
   "redirect-variant": 334,
   "section-redirect": 107,
   "disambiguation": 142,
-  "none": 972,
-  "disambig-resolved": 80,
+  "none": 975,
+  "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -61445,6 +61445,79 @@
    "answer": "Casablanca Conference",
    "title": "Casablanca Conference",
    "url": "https://en.wikipedia.org/wiki/Casablanca_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-391": {
+   "answer": "German-Soviet War",
+   "title": "Eastern Front (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Front_(World_War_II)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "German-Soviet War"
+  },
+  "ww2-392": {
+   "answer": "Franz Halder",
+   "title": "Franz Halder",
+   "url": "https://en.wikipedia.org/wiki/Franz_Halder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-393": {
+   "answer": "Victory Day",
+   "title": "Victory Day (9 May)",
+   "url": "https://en.wikipedia.org/wiki/Victory_Day_(9_May)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-394": {
+   "answer": "Yalta repatriation agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-395": {
+   "answer": "filtration camps",
+   "title": "NKVD filtration camps",
+   "url": "https://en.wikipedia.org/wiki/NKVD_filtration_camps",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Filtration camp"
+  },
+  "ww2-396": {
+   "answer": "Soviet Military Administration in Germany",
+   "title": "Soviet Military Administration in Germany",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Military_Administration_in_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-397": {
+   "answer": "Sowjetische Aktiengesellschaft",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-398": {
+   "answer": "Allied Control Commission",
+   "title": "Allied Commission",
+   "url": "https://en.wikipedia.org/wiki/Allied_Commission",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Allied Control Commission"
+  },
+  "ww2-399": {
+   "answer": "Stalin's election speech",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-400": {
+   "answer": "Oder–Neisse line",
+   "title": "Oder–Neisse line",
+   "url": "https://en.wikipedia.org/wiki/Oder%E2%80%93Neisse_line",
    "via": "glossary",
    "status": "ok"
   }
