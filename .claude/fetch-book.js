@@ -223,6 +223,107 @@ const DIALOGUE = (n) => DIALOGUES[n - 1];
 const TETRALOGY = (d) => Math.ceil(parseInt(d.w.slice(3), 10) / 4);
 const TET_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
+/* ---------- PLUTARCH'S LIVES, and this table IS the book (Oct 2026) ----------
+   The Dialogues' shape a second time: every Life is its own Perseus work, with its own id, so both
+   halves of the book are addressed through this one table. The titles are TRANSCRIBED — Perseus's
+   catalogue names for the works, which are Perrin's — except where one file holds two lives (`b`, see
+   teiNamedBook), whose titles are the edition's own heads for them: AGIS, CLEOMENES, TIBERIUS
+   GRACCHUS, CAIUS GRACCHUS.
+
+   THE ORDER IS THE CATALOGUE'S, the order of the printed editions since the Renaissance, and it is
+   NOT Plutarch's. He numbered his pairs, and the text says so: Pericles opens by calling itself "this
+   tenth book", where it stands fifth here, and Demosthenes and Dion name their own numbers too. That
+   original sequence is not recoverable, so the inherited one is kept and the front matter says so.
+
+   `pair` is the part a Life sits in: the two lives Plutarch set side by side and, where it survives,
+   the comparison he wrote after them. Four pairs have lost theirs (Themistocles–Camillus,
+   Pyrrhus–Marius, Alexander–Caesar, Phocion–Cato); the last four Lives stand alone. */
+const PLUTARCH_LIVES = [
+  { t: "Theseus", w: "tlg001", en: "eng3", pair: 1 },
+  { t: "Romulus", w: "tlg002", pair: 1 },
+  { t: "Comparison of Theseus and Romulus", w: "tlg003", pair: 1 },
+  { t: "Lycurgus", w: "tlg004", pair: 2 },
+  { t: "Numa", w: "tlg005", pair: 2 },
+  { t: "Comparison of Lycurgus and Numa", w: "tlg006", pair: 2 },
+  { t: "Solon", w: "tlg007", pair: 3 },
+  { t: "Publicola", w: "tlg008", pair: 3 },
+  { t: "Comparison of Solon and Publicola", w: "tlg009", pair: 3 },
+  { t: "Themistocles", w: "tlg010", pair: 4 },
+  { t: "Camillus", w: "tlg011", pair: 4 },
+  { t: "Pericles", w: "tlg012", pair: 5 },
+  { t: "Fabius Maximus", w: "tlg013", pair: 5 },
+  { t: "Comparison of Pericles and Fabius Maximus", w: "tlg014", pair: 5 },
+  { t: "Alcibiades", w: "tlg015", pair: 6 },
+  { t: "Caius Marcius Coriolanus", w: "tlg016", pair: 6 },
+  { t: "Comparison of Alcibiades and Coriolanus", w: "tlg017", pair: 6 },
+  { t: "Timoleon", w: "tlg018", pair: 7 },
+  { t: "Aemilius Paulus", w: "tlg019", pair: 7 },
+  { t: "Comparison of Timoleon and Aemilius", w: "tlg020", pair: 7 },
+  { t: "Pelopidas", w: "tlg021", pair: 8 },
+  { t: "Marcellus", w: "tlg022", pair: 8 },
+  { t: "Comparison of Pelopidas and Marcellus", w: "tlg023", pair: 8 },
+  { t: "Aristides", w: "tlg024", pair: 9 },
+  { t: "Marcus Cato", w: "tlg025", pair: 9 },
+  { t: "Comparison of Aristides and Marcus Cato", w: "tlg026", pair: 9 },
+  { t: "Philopoemen", w: "tlg027", pair: 10 },
+  { t: "Titus Flamininus", w: "tlg028", pair: 10 },
+  { t: "Comparison of Philopoemen and Titus", w: "tlg029", pair: 10 },
+  { t: "Pyrrhus", w: "tlg030", pair: 11 },
+  { t: "Caius Marius", w: "tlg031", pair: 11 },
+  { t: "Lysander", w: "tlg032", pair: 12 },
+  { t: "Sulla", w: "tlg033", pair: 12 },
+  { t: "Comparison of Lysander and Sulla", w: "tlg034", pair: 12 },
+  { t: "Cimon", w: "tlg035", pair: 13 },
+  { t: "Lucullus", w: "tlg036", pair: 13 },
+  { t: "Comparison of Lucullus and Cimon", w: "tlg037", pair: 13 },
+  { t: "Nicias", w: "tlg038", pair: 14 },
+  { t: "Crassus", w: "tlg039", pair: 14 },
+  { t: "Comparison of Nicias and Crassus", w: "tlg040", pair: 14 },
+  { t: "Eumenes", w: "tlg041", pair: 15 },
+  { t: "Sertorius", w: "tlg042", pair: 15 },
+  { t: "Comparison of Sertorius and Eumenes", w: "tlg043", pair: 15 },
+  { t: "Agesilaus", w: "tlg044", pair: 16 },
+  { t: "Pompey", w: "tlg045", pair: 16 },
+  { t: "Comparison of Agesilaus and Pompey", w: "tlg046", pair: 16 },
+  { t: "Alexander", w: "tlg047", pair: 17 },
+  { t: "Caesar", w: "tlg048", pair: 17 },
+  { t: "Phocion", w: "tlg049", pair: 18 },
+  { t: "Cato the Younger", w: "tlg050", pair: 18 },
+  { t: "Agis", w: "tlg051", b: "Agis", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Cleomenes", w: "tlg051", b: "Cleomenes", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Tiberius Gracchus", w: "tlg052", b: "Tiberius", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Caius Gracchus", w: "tlg052", b: "Caius", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Comparison of Agis and Cleomenes and the Gracchi", w: "tlg053", pair: 19 },
+  { t: "Demosthenes", w: "tlg054", pair: 20 },
+  { t: "Cicero", w: "tlg055", pair: 20 },
+  { t: "Comparison of Demosthenes and Cicero", w: "tlg056", pair: 20 },
+  { t: "Demetrius", w: "tlg057", pair: 21 },
+  { t: "Antony", w: "tlg058", pair: 21 },
+  { t: "Comparison of Demetrius and Antony", w: "tlg059", pair: 21 },
+  { t: "Dion", w: "tlg060", pair: 22 },
+  { t: "Brutus", w: "tlg061", pair: 22 },
+  { t: "Comparison of Dion and Brutus", w: "tlg062", pair: 22 },
+  { t: "Aratus", w: "tlg063", pair: 23 },
+  { t: "Artaxerxes", w: "tlg064", pair: 23 },
+  { t: "Galba", w: "tlg065", pair: 23 },
+  { t: "Otho", w: "tlg066", pair: 23 },
+];
+const PLUTARCH_LIFE = (n) => PLUTARCH_LIVES[n - 1];
+const PLUTARCH_PAIRS = [
+  "Theseus and Romulus", "Lycurgus and Numa", "Solon and Publicola", "Themistocles and Camillus",
+  "Pericles and Fabius Maximus", "Alcibiades and Coriolanus", "Timoleon and Aemilius Paulus",
+  "Pelopidas and Marcellus", "Aristides and Cato the Elder", "Philopoemen and Flamininus",
+  "Pyrrhus and Marius", "Lysander and Sulla", "Cimon and Lucullus", "Nicias and Crassus",
+  "Eumenes and Sertorius", "Agesilaus and Pompey", "Alexander and Caesar",
+  "Phocion and Cato the Younger", "Agis and Cleomenes, and the Gracchi", "Demosthenes and Cicero",
+  "Demetrius and Antony", "Dion and Brutus", "The single Lives",
+];
+const PLUTARCH_URL = (n, side) => {
+  const L = PLUTARCH_LIFE(n);
+  return "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0007/" + L.w +
+    "/tlg0007." + L.w + ".perseus-" + (side === "grc" ? L.grc || "grc2" : L.en || "eng2") + ".xml";
+};
+
 /* ---------- THE 313 FABLES, IN THE ORDER THIS EDITION PRINTS THEM ----------
    A table rather than arithmetic, because there is no arithmetic to do: the fables are reached by
    NAME, one Wikisource subpage each, and the only thing that says what order they come in is the
@@ -2584,6 +2685,153 @@ const BOOKS = {
         [/uulgo cane bantur/g, "uulgo canebantur",
          "a line break kept as a space, Divus Julius 80 — `et illa uulgo cane bantur`"],
       ],
+    },
+  },
+
+  "plutarch-lives": {
+    title: "Parallel Lives",
+    author: "Plutarch",
+    translator: "Bernadotte Perrin",
+    edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1926",
+    written: "early 2nd century CE",
+
+    /* ---------- THE LICENCE, the Plato shape: two layers on both sides ----------
+       The expired-copyright half rests on the date of publication and on nothing else. Every one of
+       the sixty-six Perseus files names its Loeb volume and its year in its own sourceDesc — volumes 1
+       to 11, 1914 to 1926 — so all of it was published before 1929 and is public domain in the United
+       States. Perrin made the Greek text as well as the translation (the Greek files name him as
+       editor, with the same volumes and years), so the facing column rests on the same ground.
+       WHAT IS NOT CLAIMED is a life-plus-seventy term: Perrin's dates are not in anything this session
+       could open, so no death year is asserted — the Ovid discipline, a licence never held up by a
+       fact that had to be guessed at.
+       The SECOND layer is Perseus's: every file carries a `<licence>` element for Creative Commons
+       Attribution-ShareAlike 4.0, which is named in `rights`, printed on the book's page and credited. */
+    rights:
+      "Two layers, both stated. Bernadotte Perrin's translation, and the Greek text printed beside " +
+      "it, which he also edited, were published in the eleven volumes of the Loeb Classical Library " +
+      "between 1914 and 1926 — all before 1929 — so their copyright has expired in the United " +
+      "States. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+      "Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations — Ian " +
+      "Scott-Kilvert's and others' Penguin Classics volumes and Robin Waterfield's Oxford World's " +
+      "Classics selections — are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0007/",
+
+    /* THE FRONT MATTER — chapter 0. Three things a reader should be told rather than discover: the
+       order is not Plutarch's, the work is moral portraiture rather than history (he says so himself,
+       quoted from this translation), and the numbers in the margin are the chapters a Life is cited
+       by, which are also what pair the two columns. */
+    about: [
+      "<b>Parallel Lives</b> is a set of biographies of famous Greeks and Romans, written in pairs: " +
+        "a Greek statesman or general set beside a Roman whose life and character seemed to Plutarch " +
+        "to answer it — Theseus and Romulus, the founders; Demosthenes and Cicero, the orators; " +
+        "Alexander and Caesar. Most pairs end with a short essay comparing the two men. Twenty-two " +
+        "pairs survive, together with four Lives that stand alone, fifty Lives in all; at least one " +
+        "pair, Epaminondas and Scipio, is lost.",
+      "Plutarch was a Greek from Chaeronea in Boeotia, born in the middle of the first century CE, " +
+        "who lived into the reign of Hadrian. He studied at Athens, travelled to Rome, held Roman " +
+        "citizenship, and served for many years as a priest at Delphi. Besides the Lives he wrote a " +
+        "great body of essays and dialogues on ethics, religion and philosophy, gathered as the " +
+        "<i>Moralia</i>, and the Lives come from the same mind: he wanted to show virtue and vice at " +
+        "work in real men. He says so at the opening of the <i>Alexander</i>: ‘For it is not " +
+        "Histories that I am writing, but Lives; and in the most illustrious deeds there is not " +
+        "always a manifestation of virtue or vice, nay, a slight thing like a phrase or a jest often " +
+        "makes a greater revelation of character than battles where thousands fall.’",
+      "The Lives have been among the most read books of antiquity ever since. Thomas North's English " +
+        "version of 1579 was Shakespeare's source for <i>Julius Caesar</i>, <i>Antony and " +
+        "Cleopatra</i> and <i>Coriolanus</i>, and much of what is commonly known about the men here " +
+        "comes from Plutarch alone. He is a moralist and a storyteller rather than a critical " +
+        "historian, and he often says which of his sources he doubts; his facts are best read with " +
+        "that in mind.",
+      "<b>The order here is not Plutarch's.</b> He numbered his pairs, and the text says so — the " +
+        "<i>Pericles</i> calls itself the tenth book, the <i>Demosthenes</i> the fifth and the " +
+        "<i>Dion</i> the twelfth — but his sequence is lost, and the Lives are given in the order of " +
+        "the printed editions, which the standard catalogue keeps. Each pair is one part of the " +
+        "book: its two Lives and, where it survives, the comparison that follows them. Four pairs " +
+        "have lost their comparison. The last part holds the four single Lives: Aratus, Artaxerxes, " +
+        "and Galba and Otho, the two survivors of a series on the Roman emperors.",
+      "The translation is Bernadotte Perrin's, from the Loeb Classical Library of 1914–1926, and " +
+        "the Greek beside it is the text he printed with it. The small raised figures in both " +
+        "columns are the chapter numbers by which a Life is cited, so that a reference such as " +
+        "‘Pericles 24’ is a number you can find on the page; an English chapter and a Greek " +
+        "one carrying the same figure are the same place in the book. The numbered notes folded " +
+        "under each Life are Perrin's.",
+    ],
+
+    /* ---------- ONE TEI FILE PER LIFE, both columns, from Perseus ----------
+       The Dialogues' encoding exactly — the same publisher, the same CTS scheme — with Plutarch's
+       citation grid: `chapter` divisions holding `section` divisions. A Folio chapter is one Life (or
+       one comparison) and the columns pair on its CHAPTERS, the unit a Life is cited by ("Pericles
+       24"); the Loeb sections inside are joined into the chapter's one paragraph (`joinParagraphs`,
+       see teiSections), because Perseus gives each its own `<p>` and they cut sentences in half.
+
+       MEASURED BEFORE IT WAS BELIEVED, all sixty-six files on both sides: 1,966 English chapters
+       against 1,970 Greek, identical numbers in identical order in sixty-five files. The sixty-sixth
+       is the Comparison of Lysander and Sulla, whose GREEK file tags four of chapter 5's sections as
+       `subtype="chapter"` n=2–5 — which would read as chapters 2–5 a second time and set four Greek
+       passages against the wrong English. `xmlFix` below retags them; it touches that one file only.
+
+       TWO FILES HOLD TWO LIVES EACH — Agis with Cleomenes, Tiberius with Caius Gracchus — as named
+       `book` divisions whose chapters each start again from 1. Each life is a chapter of its own
+       here (`teiBook`, teiNamedBook), which is also how they are cited: "Cleomenes 10", not 31.
+
+       THE NOTES. Perrin's footnotes are all marked `place="inline"` in these files, which on the
+       Suetonius shape means an omission mark set in the flow; here they are true footnotes, so
+       `inlineNotes: "foot"` lifts them into the fold. The Greek files' notes (Perrin's apparatus, in
+       English) go the way every original's notes go — see writeOriginal. */
+    /* ---------- A NOTE WHOSE TEXT LANDED IN THE PROSE (Oct 2026) ----------
+       Phocion 33.7, in Perseus's English: Hegemon's footnote marker is a self-closed `<note/>` and
+       Perrin's note on him — "One of Phocion's party, and, like him, under accusation of treachery" —
+       stands run on to the end of the sentence, with no space ("a spear.One of Phocion's party"). It
+       is a gloss on a name and not Plutarch, so it is put back where the marker is. */
+    reFixes: [
+      [/Hegemon<note resp="editor" place="inline" anchored="true"\/>/g,
+       'Hegemon<note resp="editor" place="inline" anchored="true">One of Phocion\u2019s party, and, like him, ' +
+       "under accusation of treachery, i.e. of favouring Cassander rather than Polysperchon.</note>",
+       "Phocion 33.7 — an empty note on Hegemon, its text stranded after the sentence (see above)"],
+      [/a spear\.One of Phocion\u2019s party, and, like him, under accusation of treachery, i\.e\. of favouring Cassander rather than Polysperchon\. /g,
+       "a spear. ",
+       "Phocion 33.7 — the same note's text, taken out of the prose"],
+    ],
+    source: "tei",
+    perChapter: true,
+    inlineNotes: "foot",
+    joinParagraphs: true,
+    teiBook: (n) => PLUTARCH_LIFE(n).b,
+    url: (n) => PLUTARCH_URL(n, "eng"),
+    chapterWord: "Life",
+    titleOf: (n) => PLUTARCH_LIFE(n).t,
+    chapters: PLUTARCH_LIVES.map((_, i) => i + 1),
+    /* The pairs, DERIVED from the table so the groups and the order cannot come to disagree. */
+    parts: PLUTARCH_PAIRS.map((label, i) => {
+      const idx = PLUTARCH_LIVES.map((L, k) => (L.pair === i + 1 ? k + 1 : 0)).filter(Boolean);
+      return { n: i + 1, label: label, from: idx[0], to: idx[idx.length - 1] };
+    }),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      perChapter: true,
+      inlineNotes: "foot",
+      joinParagraphs: true,
+      teiBook: (n) => PLUTARCH_LIFE(n).b,
+      url: (n) => PLUTARCH_URL(n, "grc"),
+      // the Comparison of Lysander and Sulla — see the note above `source`
+      xmlFix: (xml, n) => (PLUTARCH_LIFE(n).w === "tlg034"
+        ? xml.replace(/<div type="textpart" subtype="chapter" n="([2-5])">/g,
+          '<div type="textpart" subtype="section" n="$1">')
+        : xml),
+      edition: "Bernadotte Perrin's Loeb text (Harvard University Press and William Heinemann, 1914–1926), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. Plutarch wrote in Greek in the early second century, so the words " +
+        "themselves are in the public domain everywhere, and Bernadotte Perrin's edition of them was " +
+        "published in the Loeb Classical Library between 1914 and 1926 — before 1929. The digital " +
+        "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and " +
+        "is released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0007/",
     },
   },
 
@@ -24095,6 +24343,25 @@ function teiBookSlices(xml) {
   return out;
 }
 
+/* ONE NAMED `book` DIVISION OF A TEI FILE, re-headed with `<body>` for teiSections (Oct 2026,
+   Plutarch). Perseus files two pairs of lives as one work each — Agis with Cleomenes, Tiberius with
+   Caius Gracchus — as two `subtype="book"` divisions NAMED for the man (`n="Agis"`), each numbering
+   its chapters from 1 again, which is how each life is cited ("Cleomenes 10"). Read whole, the second
+   life's numbers would collide with the first's; sliced, each is a chapter of its own. */
+function teiNamedBook(xml, name) {
+  const body = xml.slice(xml.indexOf("<body"));
+  const at = [];
+  const dre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = dre.exec(body))) {
+    const st = (/subtype="([^"]*)"/i.exec(m[1]) || [])[1] || "";
+    if (st.toLowerCase() === "book") at.push({ n: (/\bn="([^"]*)"/.exec(m[1]) || [])[1], at: m.index });
+  }
+  const i = at.findIndex((b) => b.n === name);
+  if (i < 0) throw new Error("no book division named " + name + " in the TEI file");
+  return "<body>" + body.slice(at[i].at, i + 1 < at.length ? at[i + 1].at : body.length);
+}
+
 function teiSections(xml, opts, warn) {
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 500) throw new Error("no <body> in the TEI file");
@@ -24118,7 +24385,9 @@ function teiSections(xml, opts, warn) {
 
   const notes = [];
   const skipped = [];
-  let html = "", seq = 0, kept = 0;
+  /* -1, not 0: a unit numbered 0 is an edition's prologue (Plutarch's Timoleon opens on one, in both
+     columns), and starting at 0 reported it as going backwards. */
+  let html = "", seq = -1, kept = 0;
   marks.forEach((c, i) => {
     const raw = body.slice(c.at, i + 1 < marks.length ? marks[i + 1].at : body.length);
     // the appended essay, filed as a division with a word for a number
@@ -24129,7 +24398,13 @@ function teiSections(xml, opts, warn) {
        check that the repair has not crossed two chapters over each other. */
     if (n <= seq) warn("section " + n + " follows " + seq + " — out of order");
     seq = n;
-    const text = teiSectionProse(raw, notes);
+    let text = teiSectionProse(raw, notes, opts);
+    /* ONE PARAGRAPH PER NUMBERED UNIT, where the edition's paragraphs are its SUB-sections (Oct 2026,
+       Plutarch). Perseus wraps each Loeb section in its own `<p>`, and those sections are a citation
+       grid laid over running prose — "Pericles 1.3" opens mid-sentence on "but in the exercise of his
+       mind" — so kept as paragraphs they break sentences in two all down the page. The Loeb sets a
+       chapter as one paragraph, which is what `joinParagraphs` restores. */
+    if (opts.joinParagraphs && text) text = "<p>" + text.replace(/^<p>|<\/p>$/g, "").replace(/<\/p>\n<p>/g, " ") + "</p>";
     if (!text) { warn("section " + n + " came back empty"); return; }
     kept++;
     // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
@@ -24159,8 +24434,13 @@ function teiSections(xml, opts, warn) {
    Seneca's letter 114 five deleted markers. Notes are collected per LIFE, which is the unit Folio
    folds them under, so the entry number and the reading order do agree here — the attribute is
    written anyway rather than relied upon not to be needed. */
-function teiSectionProse(raw, notes) {
-  const b = raw.replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
+function teiSectionProse(raw, notes, opts) {
+  /* AN EMPTY NOTE, OR ONE COMMENTED OUT, IS NOT A NOTE (Oct 2026, Plutarch). Perseus's Perrin files
+     carry `<note … />` self-closed twice and `<!--<note/>-->` three times, and the note pass below
+     reads a self-closed tag as an OPENING one — so it ran on to the next `</note>` in the chapter
+     and lifted the prose between into the fold: a Greek sentence of the Lycurgus vanished from the
+     page that way, sitting in a note list the original column throws away. Both are cleared first. */
+  const b = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/<note\b[^>]*\/>/g, "").replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
     const t = teiInline(inner);
     if (!t) return "";
     /* A NOTE MARKED place="inline" IS NOT A FOOTNOTE, and this edition has ten of them: the asterisk
@@ -24172,7 +24452,12 @@ function teiSectionProse(raw, notes) {
        Latin's chapter 29 was left facing nothing — which is how the first run of this book shipped 56
        of Nero's 57 chapters with one line of warning to say so. Set in italic, as an editorial
        interpolation in someone else's text should be. */
-    if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    /* EXCEPT WHERE AN EDITION MARKS EVERY FOOTNOTE SO (Oct 2026, Plutarch). Perseus's Perrin files
+       carry `place="inline"` on their notes, and they are the Loeb's footnotes — dates ("Soon after
+       468 B.C."), cross-references ("Cf. Hdt. 6.131"), glosses — printed at the foot of the page. Set
+       in italic mid-sentence they would interrupt the prose every few lines, so a book declaring
+       `inlineNotes: "foot"` lifts them into the fold like any other note. */
+    if (/place="inline"/.test(attrs) && !(opts && opts.inlineNotes === "foot")) return " <i>" + t + "</i> ";
     /* NEITHER IS A NOTE MARKED type="Com", WHICH IS THE EDITION'S ARGUMENT OF THE WORK (Sep 2026,
        batch E48). There is exactly one on the shelf — Perseus's Lysis opens section 203 with
        "Socrates relates a conversation he had in a wrestling-school", the one-line summary the Loeb
@@ -27172,9 +27457,12 @@ async function fetchEnglish() {
          (see the note in teiSections): which word an edition uses for its numbered unit is the
          edition's business, and Suetonius says `chapter` where Burnet's and the Loeb Plato say
          `section`. It defaults to "chapter" inside teiSections, so the twelve lives are untouched. */
+      if (BOOK.teiBook && BOOK.teiBook(n)) xml = teiNamedBook(xml, BOOK.teiBook(n));
       const got = teiSections(xml, {
         subtype: BOOK.subtype,
         renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s),
+        inlineNotes: BOOK.inlineNotes,
+        joinParagraphs: BOOK.joinParagraphs,
       }, warn);
       if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
       /* Say what was left out, every run. The appended "Remarks on …" essay is skipped deliberately
@@ -28791,7 +29079,9 @@ async function fetchOriginal() {
       let xml;
       if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
       else { xml = await fetchText(O.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
-      const got = teiSections(xml, { subtype: O.subtype }, w);
+      if (O.xmlFix) xml = O.xmlFix(xml, n);
+      if (O.teiBook && O.teiBook(n)) xml = teiNamedBook(xml, O.teiBook(n));
+      const got = teiSections(xml, { subtype: O.subtype, inlineNotes: O.inlineNotes, joinParagraphs: O.joinParagraphs }, w);
       if (!got.html) { w("came back empty"); continue; }
       if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
       byNum[n] = got.html;
