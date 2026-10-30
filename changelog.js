@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1196", released: "2026-10-30T23:37Z" };
+window.FOLIO_VERSION = { v: "1.1197", released: "2026-10-30T23:43Z" };
 
 window.CHANGELOG = [
   {
@@ -47,7 +47,7 @@ window.CHANGELOG = [
       "<b>How far?</b>: when the answer is revealed, your guess shows in green if it was within 10% and in red if it was not.",
       "<b>How far?</b> on a phone: the globe now fills the whole screen behind the question, with no frame of page around it.",
       "The <b>Picture round</b> minigame is retired for now, so the daily sweep counts nine games.",
-      "A quotation on a card now names the book's <b>author</b> instead of its translator.",
+      "A quotation on a card now names the book's <b>author</b> instead of its translator, and when the book was written.",
       "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again, on Snapdragon phones such as the Galaxy S24 Ultra too.",
       "The menu bar now lists the <b>Atlas</b> before the <b>Library</b>.",
       "<b>36 new glossary terms</b>, linked from 11 cards across Egypt, Japan, World History, Greece, the Second World War, Korea, Rome and the United States.",

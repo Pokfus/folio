@@ -36718,7 +36718,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return { book: book, n: n, text: text, cite: String(q.cite || "").trim() };
   }
   /* The blockquote itself. It carries the book's TITLE and its AUTHOR (2026-10-30, on request: the author, not the
-     translator — Herodotus, not A. D. Godley; the translator stays on the book's own page), because a quotation whose
+     translator — Herodotus, not A. D. Godley; the translator stays on the book's own page) and, later the same day, when it was
+     WRITTEN (`b.written`, the prose the book page's byline already prints: "c. 430 BCE"), because a quotation whose
      attribution is a button the reader has not pressed is an unattributed quotation — and the button says
      where it goes rather than what it is ("Read it in the Library"), the title being right above it. */
   function cardQuoteHTML(c) {
@@ -36730,10 +36731,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the section is checked only where the text is already HERE: the book is lazy, and holding a card's
     // prose behind a book download to validate a reference would make every such card slower to read
     if (q.n && chs && !chs.some((ch) => String(ch.n) === q.n)) return "";
-    const who = esc(b.author || "");
+    const who = esc(b.author || ""), when = esc(b.written || "");
     return '<figure class="card-quote">' +
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
       '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
+      (when ? '<span class="cq-when">' + when + "</span>" : "") +
       (q.cite ? '<span class="cq-where">' + esc(q.cite) + "</span>" : "") +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
         (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +

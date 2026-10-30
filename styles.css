@@ -2440,7 +2440,7 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
   color:var(--ink-faint);
 }
 .card-quote cite{font-style:normal; color:var(--ink-soft);}
-.cq-who, .cq-where{white-space:nowrap;}
+.cq-who, .cq-when, .cq-where{white-space:nowrap;}
 /* the way through to the passage. A quiet link rather than a filled button: it sits under a quotation
    inside a card's prose, and a primary control there would out-shout the words it is attached to. */
 .cq-go{
