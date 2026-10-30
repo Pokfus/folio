@@ -1153,7 +1153,7 @@ body.night .game-tile{ --gt-gold:#D8B355; }
 }
 .sweep-meter{display:flex; align-items:center; gap:9px;}
 .sweep-chips{
-  display:grid; grid-template-columns:repeat(3, auto); gap:3px;
+  display:grid; grid-template-columns:repeat(5, auto); gap:3px;   /* ten games since How far? (2026-10-30): two rows of five */
 }
 .sw-chip{
   display:block; width:calc(15px * var(--fs)); height:calc(4.5px * var(--fs)); border-radius:99px;
@@ -10641,6 +10641,19 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .fi2-cartouche{display:block !important;}
 .fi2-loading{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--paper-2);}
 .fi2-loading[hidden]{display:none;}
+/* HOW FAR? (2026-10-30): Find it's board and card; the card sits at the FOOT of the board, so it never covers the line, which the view centres */
+.howfar .hf-game{top:auto; bottom:14px;}
+.hf-form{display:flex; align-items:center; gap:8px;}
+.hf-form[hidden]{display:none;}
+.hf-field{flex:1; min-width:0; display:flex; align-items:center; gap:6px; border:1px solid var(--rule); border-radius:9px; background:var(--paper); padding:0 10px;}
+.hf-field:focus-within{border-color:var(--indigo); box-shadow:0 0 0 2px color-mix(in srgb, var(--indigo) 25%, transparent);}
+.hf-input{flex:1; min-width:0; border:0; outline:none; background:transparent; color:var(--ink); font:inherit; font-size:max(16px, calc(16px * var(--fs))); padding:8px 0; -moz-appearance:textfield; appearance:textfield;}
+.hf-input::-webkit-outer-spin-button, .hf-input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+.hf-unit{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-faint);}
+.hf-country{font-weight:400; color:var(--ink-soft);}
+/* the reader's guess on the reveal: green inside the 10 % margin, red outside it — the games' own pair (True or False's verdict, Multiple Choice's options) */
+.hf-guess.ok{color:var(--good);}
+.hf-guess.no{color:var(--zh);}
 
 /* True or False: the admin's Edit / Remove beside a statement in the game and on its results (Oct 2026) */
 .tf-adminbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:10px 0 16px;}
