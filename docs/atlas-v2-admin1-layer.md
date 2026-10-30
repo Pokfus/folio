@@ -57,8 +57,21 @@ core as it stands. `topology.bin`, the tiles, water, relief, history, the slices
 ### 3.1 The file
 
 - **Built by `.claude/atlas-build/build-admin1.js`** from **Natural Earth 10m admin-1** (`ne-10m-admin1`, already pinned,
-  public domain), reusing `build-history.js`'s conflation. Whether that means calling its `conflate` or moving it into a
-  `lib/` module both builders share is decided in step 1 by reading it; **never a copy of it**.
+  public domain), writing `history.bin`'s format (`coreRef` arcs into the core, own arcs for the rest) so the engine reads it with the
+  code it has. **How it conflates — read 2026-10-30, and the recommendation:** `build-history.js`'s `conflate()` cannot
+  simply be called. It is top-level code over globals (the arc, face and entity registries, the strip index, the snap
+  log), takes Cliopatria rows (`prepareRow` reads GeoJSON features and `geometry-fixes.json`), and its tolerances are
+  Cliopatria's (`TOLERANCE_M` 15 km, `D1`/`D2`/`D3`, the nesting and contest rules). Moving it into a shared `lib/` module
+  would put `history.bin` at risk: the refactor has to be proved byte-identical by a `--no-cache` rebuild of the whole
+  history. **Recommended instead: a smaller builder for a smaller problem.** Admin-1 units TILE their country, and the
+  country's outline is already in the core from the same source (India: every admin-1 vertex within 1 km of Natural
+  Earth's admin-0). So the job is not conflating free polygons onto a coast. It is SPLITTING one core face by the units'
+  shared interior lines: (1) take each pair of neighbouring units' shared boundary from the source; (2) snap its two
+  ends onto the core's boundary of the country face (a tolerance measured, of the order of the 1 km above); (3) walk the
+  core face's rings plus those lines into faces; (4) label each face by the unit containing an interior point;
+  (5) simplify the own arcs per level (`LOD_M`, as the history does). It reuses `lib/rings.js`, `lib/segindex.js`,
+  `lib/geo.js` and the format writer, and copies nothing of `conflate()`. Islands (Lakshadweep, the Andamans) are the
+  core's own island faces, labelled whole; enclaves (Puducherry's four) are the same step 4.
 - **Rows from `.claude/atlas-build/admin1-spec.json`**, one per country: its ISO alpha-3, the units' DECLARED English names
   and kinds (Natural Earth's `type_en` is wrong on several Indian units, as its names were on Russian ones — the Russia
   plan's rule), and any recorded correction. A country's whole set of units must tile its admin-0 face, checked (India:
