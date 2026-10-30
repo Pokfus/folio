@@ -202,7 +202,7 @@ order unless the user says otherwise.
 | B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | **done 2026-10-30** |
 | B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | **done 2026-10-30** |
 | B70 | The Roman army (`rm-army`) / Government, law and citizenship (`rm-government`) | `rm-691`–`rm-700` | 10 | 98 | **done 2026-10-30** |
-| B71 | Government, law and citizenship (`rm-government`) | `rm-701`–`rm-710` | 10 | 88 | open |
+| B71 | Government, law and citizenship (`rm-government`) | `rm-701`–`rm-710` | 10 | 88 | **done 2026-10-30** |
 | B72 | Government, law and citizenship (`rm-government`) | `rm-711`–`rm-720` | 10 | 79 | open |
 | B73 | Government, law and citizenship (`rm-government`) | `rm-721`–`rm-730` | 10 | 81 | open |
 | B74 | Government, law and citizenship (`rm-government`) | `rm-731`–`rm-740` | 10 | 80 | open |
@@ -970,6 +970,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-598` School Edict | none | not re-checked: the card has no picture |
 | `rm-599` Julian's Persian expedition | none | not re-checked: the card has no picture |
 | `rm-600` Valentinian I | none | not re-checked: the card has no picture; the Naissus locator is generic (Brigetio, where he died, or Nicaea) |
+| `rm-701` comitia tributa | none | not re-checked: the card has no picture; the Longinus voting denarius (RRC 413/1) or the Saepta site would do |
+| `rm-702` leges tabellariae | none | not re-checked: the card has no picture; the Longinus voting denarius (RRC 413/1) would do |
+| `rm-703` Commentariolum Petitionis | none | not re-checked: the card has no picture; a manuscript page would do |
+| `rm-704` ambitus | none | not re-checked: the card has no picture; a coin with a voting scene would do |
+| `rm-705` curule chair | none | not re-checked: the card has no picture; the X-legged chair on a relief or on the Crassipes denarius would do |
+| `rm-706` suffect consul | none | not re-checked: the card has no picture; a Fasti fragment listing a year's later consuls would do |
+| `rm-707` praetor | none | not re-checked: the card has no picture |
+| `rm-708` aedile | none | not re-checked: the card has no picture |
+| `rm-709` quaestor | none | not re-checked: the card has no picture; a coin naming a quaestor would do |
+| `rm-710` Roman censor | none | not re-checked: the card has no picture; the census relief of the so-called Altar of Domitius Ahenobarbus would do |
 
 ## Glossary candidates
 
@@ -2642,3 +2652,21 @@ Overlap notes for the owner (nothing was edited): `wh-436` dates the Byzantine E
 
 None was added or moved: every place, building and battle in `rm-601`–`rm-700` that has somewhere to stand already had a locator with the right point (Adrianople, Thessalonica, the Curia Julia, Sant'Ambrogio, Hippo Regius, Bethlehem, Chalcedon, Mainz, Toulouse, Carthage's Byrsa, Misenum, Vetera, Malpas, Mérida, Vindolanda and the Comitium among them), so `migrate-places.js` was not run. The six `L.missing` are deliberate: the Catalaunian Plains and Caesar's Rhine bridges have disputed sites, the Ostrogothic Kingdom wants a hand-drawn shape (Ravenna its anchor), and canabae, the valetudinarium and the horreum are kinds of building with no single place. For a later pass, eight labels read as the card's own term where a place name belongs: `rm-607` (Curia Julia), `rm-613` (Scetis, at Wadi El Natrun), `rm-618` (Chalcedon), `rm-625` (Mainz), `rm-626` (Toulouse), `rm-632` (Rome), `rm-637` (Constantinople) and `rm-689` (Vindolanda). `rm-602`'s point is the city; the battle article may carry a better one.
 
+### B71 — `rm-701`–`rm-710`, Government, law and citizenship: the tribal assembly to the censor (2026-10-30)
+
+Run as B70, from a fresh branch off `main` after #603 merged. The notes for every pair named the siblings' clues to keep apart (`rm-700`'s Forum move and the elections given to the Senate, `rm-105`'s concilium, the peregrine praetor kept for `rm-719`, the ballot laws against the bribery laws, the Commentariolum's "novus sum" kept for `rm-703`). After `batch.sh`, `rm-706`'s first question was reworded: `check-cards` read "Caninius Rebilus" as a modern scholar's name. Five glossary entries rested on LacusCurtius pages that no longer answer and were rewritten; `rm-709`'s and `rm-710`'s agree with the new cards and were left. **The old date lines carried counts on the line ("35 tribes", "Most in a year 25", "In Pomponius' day 18", "Number 6 a year", "Sulla's 20", "26 pairs"), labels naming men ("Gabinian law", "Coelian law"), Commodus's reign on the suffect consul and a year Dio does not print (45 BCE for the aediles of Ceres, Cary's margin).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-701` comitia tributa | 6 | 7 → 6 | **"35 tribes from 241 BCE" a count: now the traditional 447 BCE (the quaestors first elected by the tribes, as `rm-118`) and 241 BCE, the last tribes made**; the jurist in Gellius's three kinds of assembly; the modern doubt whether a separate whole-people tribal assembly existed; the vote on the manumission tax in camp. |
+| `rm-702` leges tabellariae | 6 | 6 → 7 | **The labels name no law-giver: "First ballot law 139 BCE", "Last ballot law 107 BCE"**; Cicero's four laws from his dialogue, his brother's complaint and his own showing of the tablet; the Longinus voting denarius of 63 BCE; the jurors' tablets and "puncta" go (no source read). |
+| `rm-703` Commentariolum Petitionis | 6 | 6 → 8 | **64 BCE "if genuine": the authorship left open (a later exercise, or even Marcus himself)**; the title from its own last sentence; "novus sum, consulatum peto, Roma est" kept here; the whitened toga and the nomenclator left to `rm-704`. |
+| `rm-704` ambitus | 6 | 7 → 8 | **Polybius's death penalty his claim, set against late Republican practice; Livy's first law of 432 BCE labelled Traditional**; the consular law of 67 BCE and the ten years' exile of 63 BCE Dio's; Smith's middlemen and Augustus go; the `quote` block (Suetonius on Augustus's election law) is another pass's and stays. |
+| `rm-705` curule chair | 7 | 7 → 9 | **The folding stool, the gold overlay and the chairs sent to kings rested only on Smith: cut**; Livy's Etruscan borrowing his belief; Gellius on the name; Plutarch on the patron's tie at Marius's trial; the Furius Crassipes denarius of 84 BCE (RRC 356/1). |
+| `rm-706` suffect consul | 6 | 6 → 8 | **The old line was counts and Commodus's reign: now the one-day consulship of 31 December 45 BCE**; Cicero's joke his; Dio's twenty-five consuls under Cleander his epitome's, not the Historia Augusta's; terms of six, then two or four months under the emperors. |
+| `rm-707` praetor | 7 | 7 → 8 | **"In Pomponius' day 18" a count: prose only; the peregrine praetor left to `rm-719`**; the traditional 366 BCE, the provincial pair of 227 BCE and six a year from 197 BCE; Messala on the lesser authority (Gellius); Dio's fourteen and sixteen under Caesar. |
+| `rm-708` aedile | 7 | 7 → 8 | **45 BCE for the aediles of Ceres was Cary's margin: 44 BCE as one modern account brackets Pomponius**; the plebeian pair of 494 BCE by tradition; Mancinus stoned at a courtesan's door (Gellius) and the Ogulnii's she-wolf replace the slave-sale ticket (`rm-804`'s) and Agrippa (`rm-382`'s). |
+| `rm-709` quaestor | 7 | 7 → 8 | **Sulla's twenty and Caesar's forty Tacitus's and Dio's, off the line; 447 BCE by tradition and the plebs admitted 421 BCE, as `rm-118`**; the "office for sale" was Tacitus's complaint at Dolabella's proposal, not Claudius's act; Cato the Younger and his clerks. |
+| `rm-710` Roman censor | 7 | 7 → 8 | **"26 pairs, 443 – 294 BCE, per Livy" a count and a range from a list: now 443 BCE by tradition, the first plebeian censor 351 BCE and the last Republican pair 22 BCE**; Gellius's joke from a speech of Scipio Aemilianus; Cato and Manilius; Domitian censor for life (Dio). |
+
+**Read by eye.** *Confusability:* `rm-701`/`rm-702` the assembly (the jurist's three kinds) and the ballot laws (the Longinus coin); `rm-703`/`rm-704` the handbook ("this is Rome") and the crime (Polybius's Carthage); `rm-705`/`rm-706` the chair (Crassipes's coin) and the replacement (Caninius); `rm-707`/`rm-708`/`rm-709`/`rm-710` the judge (Messala), the city's officer (Mancinus), the paymaster (Cato's clerks) and the moral review (Gellius's jester). *Legend:* the regal and early-Republic first years of the offices are tradition, labelled so. *Overlap:* no `gr-` or `wh-` card disagrees.

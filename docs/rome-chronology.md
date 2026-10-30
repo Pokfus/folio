@@ -336,6 +336,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Marius's levy of the poorest | 107 BCE (modern accounts; Sallust gives the consulship, not a BCE year; `rm-664` prints 104 BCE for the eagle standard, which Pliny does not give) | `rm-295` |
 | the Cimbri and Teutones: set out / first clash / last battle | c. 120 BCE / 113 BCE / 101 BCE (all from Last) | `rm-297` |
 | the Battle of Arausio / Aquae Sextiae / Vercellae | 6 October 105 BCE (Last) / 102 BCE / 101 BCE (30 July is a modern conversion of Plutarch's Roman day) | `rm-298`, `rm-299`, `rm-300` |
+| the comitia tributa: quaestors first elected by the tribes (tradition) | 447 BCE | `rm-701` |
+| ambitus: Livy's first law (tradition) | 432 BCE | `rm-704` |
+| the praetorship created (tradition) | 366 BCE | `rm-707` |
+| the aediles: the plebeian pair (tradition) / the curule pair | 494 BCE / 366 BCE | `rm-708` |
+| the quaestorship: elected by the people (tradition) / opened to the plebs | 447 BCE / 421 BCE | `rm-709` |
+| the censorship: created (tradition) / the first plebeian censor | 443 BCE / 351 BCE | `rm-710` |
 
 ## The middle and late Republic
 
@@ -429,6 +435,13 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | senatus consulta: the Bacchanalian decree | 7 October 186 BCE | `rm-698` |
 | the senatorial order: the ship law | 218 BCE | `rm-699` |
 | the comitia: lawmaking moves from the Comitium to the Forum | 145 BCE | `rm-700` |
+| the comitia tributa: the last two tribes created | 241 BCE (a modern handbook's year; the Periochae print none) | `rm-701` |
+| the ballot laws: Gabinian / Cassian / Papirian / Coelian | 139 BCE / 137 BCE / 131 BCE / 107 BCE | `rm-702` |
+| the Commentariolum Petitionis: the campaign it belongs to, if genuine | 64 BCE | `rm-703` |
+| ambitus: the consular law / ten years' exile added | 67 BCE / 63 BCE | `rm-704` |
+| the suffect consul: the one-day consulship | 31 December 45 BCE | `rm-706` |
+| the praetors: the provincial pair / six a year | 227 BCE / 197 BCE | `rm-707` |
+| the aediles of Ceres (a modern bracket in Pomponius) | 44 BCE | `rm-708` |
 
 ## The Principate
 
@@ -648,6 +661,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | senatus consulta: the decree on Piso | 10 December 20 CE | `rm-698` |
 | the senatorial order reshaped | 18 BCE | `rm-699` |
 | the comitia: elections moved to the Senate | 14 CE | `rm-700` |
+| the censorship: the last Republican censors | 22 BCE | `rm-710` |
 
 ## Late Antiquity
 
@@ -1398,4 +1412,13 @@ rm-697: 18
 rm-698: 186; 20
 rm-699: 218; 18
 rm-700: 145; 14
+rm-701: 447; 241
+rm-702: 139; 107
+rm-703: 64
+rm-704: 432; 67; 63
+rm-706: 45
+rm-707: 366; 227; 197
+rm-708: 494; 366; 44
+rm-709: 447; 421
+rm-710: 443; 351; 22
 ```
