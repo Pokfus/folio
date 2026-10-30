@@ -12089,6 +12089,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Tacitus 51.0, Polybius 75.0, Thucydides 78.7, Herodotus 88.3, Plutarch 115.7. It reads 5.14:1 on
      the tightest light paper. */
   "Diodorus Siculus": "#634806",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-four colours placed (Oct 2026, adding the Declaration of
+     Independence; first measured as an oxblood before Strabo's row took that very colour). The band's
+     best is this dark teal at 15.8, above the shelf's tightest pair (Snorri Sturluson and Polybius,
+     15.6). Livy's row declined a teal for joining the green cluster; it is taken here on the Euripides
+     test, which the alternatives fail: the navies at 15.7–15.8 stand nearest MACHIAVELLI, and the
+     mauve at 15.7 sits 16.1 from PLATO, the two books a reader of the Declaration would set beside it.
+     Its nearest neighbours are Aesop, Chaucer and Kalidasa, which assert no kinship, it stands 33 or
+     more from every political book on the shelf (Aristotle 33.8, Machiavelli 57.9, Plato 63.0), and it
+     reads 5.61:1 on the tightest light paper. */
+  "Thomas Jefferson": "#005142",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15252,6 +15262,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },    {
+      id: "declaration-of-independence",
+      title: "The Declaration of Independence",
+      subtitle: "In Congress, July 4, 1776",
+      /* Jefferson wrote the draft and Congress rewrote it; the front matter says so. */
+      author: "Thomas Jefferson",
+      written: "1776",
+      year: 1776,
+      /* NO `translator` — written in English, so the rights box names the printing instead. */
+      edition: "The Goddard broadside, printed by order of Congress by Mary Katharine Goddard, Baltimore, 1777",
+      /* A LIMIT ON NOTHING: a text of 1776 in a printing of 1777. The Wikisource transcription is not
+         proofread and was collated against a scan of the broadside; see .claude/fetch-book.js. */
+      rights:
+        "Public domain. The Declaration was adopted by the Continental Congress in 1776, and this printing " +
+        "of it was made in Baltimore in 1777, so it has never been in copyright anywhere. The text is the " +
+        "Wikisource transcription of the Goddard broadside, corrected against a scan of the broadside " +
+        "itself wherever the two differ.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/United_States_Declaration_of_Independence_(Goddard_Broadside)",
+      /* NO `origLang`: the English is the original. The broadside prints the Declaration in one piece,
+         so the book is one part: the text, the signers by state, and Congress's order of 1777. */
+      chapterWord: "Part",
+      count: 1,
+      total: 1,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page (every `.ttip`). `Jersey` is
+         the Channel Island, reached through "New-Jersey"; `Settlement` is the archaeologist's word, on
+         "our Emigration and Settlement here"; `Providence` is the city, where the broadside means
+         Providence Plantations ("Rhode-Island and Providence, &c.") or DIVINE PROVIDENCE. */
+      glossOff: ["Jersey", "Settlement", "Providence"],
     },
     {
       id: "magna-carta",

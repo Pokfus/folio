@@ -18174,6 +18174,151 @@ const BOOKS = {
         "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0060/tlg001/tlg0060.tlg001.perseus-" + e + ".xml"),
     },
   },
+
+  "declaration-of-independence": {
+    title: "The Declaration of Independence",
+    subtitle: "In Congress, July 4, 1776",
+    /* THE NAME THE SHELF CAN PRINT, and the front matter says what it hides: Jefferson wrote the draft,
+       Adams and Franklin revised it and Congress cut it by about a quarter, so the words are the
+       Congress's. Wikisource heads this transcription "Thomas Jefferson et al." for the same reason. */
+    author: "Thomas Jefferson",
+    /* NO `translator`: written in English, as Macbeth was, so the run header names the printing. */
+    edition: "The Goddard broadside, printed by order of Congress by Mary Katharine Goddard, Baltimore, 1777",
+    written: "1776",
+    year: 1776,
+
+    /* ---------- WHY THIS PRINTING, AND WHY NOT THE PARCHMENT ----------
+       Wikisource's versions page offers the engrossed parchment, the Dunlap broadside of 5 July 1776
+       and this one. The parchment's transcription is DIPLOMATIC — italic throughout to stand for the
+       hand, the scribe's line-filling dashes kept as rows of underscores, the whole text one paragraph
+       and the signatures in unlabelled columns — and that is the wrong page for a reader. Dunlap's
+       carries two names. Goddard's is the printing Congress itself ordered sent to every state with
+       the names of the signers: set in type, one grievance to a paragraph, the signers grouped by
+       state, and its own order of 18 January 1777 and imprint at the foot.
+
+       THE TRANSCRIPTION IS NOT PROOFREAD, and it was collated before it was trusted. It is a
+       single-image page with no quality mark, and read line by line against the scan on Commons
+       (File:Goddard broadside.jpg, 1920-pixel copy) it departs from the print some forty times: words
+       modernised (Bonds for Bands, Connections for Connexions), dropped (alter or abolish, by the
+       Authority), changed (in these Colonies for into), misspelt (tese, teh, subsribing, Tayler) and
+       punctuation the broadside does not have. Each is a row in `fixes`, and the scan is the witness
+       for every one; nothing was corrected from memory of another printing. Thomas McKean's name is
+       absent because the broadside omits it — he added his signature to the parchment later — and it
+       is not supplied. */
+    rights:
+      "Public domain. The Declaration was adopted by the Continental Congress in 1776, and this printing " +
+      "of it was made in Baltimore in 1777, so it has never been in copyright anywhere. The text is the " +
+      "Wikisource transcription of the Goddard broadside, corrected against a scan of the broadside " +
+      "itself wherever the two differ.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/United_States_Declaration_of_Independence_(Goddard_Broadside)",
+
+    about: [
+      "<b>The Declaration of Independence</b> is the statement in which thirteen British colonies in " +
+        "North America announced that they were no longer part of the British Empire. The Second " +
+        "Continental Congress, meeting in Philadelphia more than a year into the war with Britain, voted " +
+        "for independence on 2 July 1776, and two days later, on 4 July, it adopted the text that " +
+        "explained why. That is the date at the head of the document, and the one the United States " +
+        "keeps as its birthday.",
+      "It is short — about 1,300 words — and it has a clear shape. An opening sentence says that a " +
+        "people breaking with another owes the world its reasons. A paragraph of principle follows, " +
+        "beginning <i>We hold these Truths to be self-evident</i>: that all men are created equal, that " +
+        "they have rights no government can take away, among them life, liberty and the pursuit of " +
+        "happiness, and that a government which destroys those rights may be replaced. Then come the " +
+        "reasons, set out as a list of charges against King George III, nearly every one beginning " +
+        "<i>He has</i>; a paragraph on the colonists' appeals to the British people; and the " +
+        "declaration itself, that <i>these United Colonies are, and of Right ought to be, Free and " +
+        "Independent States</i>, closed by the signers' pledge of <i>our Lives, our Fortunes, and our " +
+        "sacred Honour</i>.",
+      "Congress gave the drafting to a committee of five — John Adams, Benjamin Franklin, Thomas " +
+        "Jefferson, Robert R. Livingston and Roger Sherman — and the committee gave it to Jefferson. " +
+        "Adams and Franklin made changes to his draft, and Congress then cut and rewrote it, removing " +
+        "about a quarter, including a long passage blaming the king for the slave trade. Jefferson is " +
+        "named as the author on this shelf because he wrote the draft; the words that were adopted are " +
+        "the Congress's.",
+      "The text here is not the famous parchment. The night it was adopted, Congress had the " +
+        "Declaration printed as a broadside by John Dunlap in Philadelphia, bearing only the names of " +
+        "John Hancock, its president, and Charles Thomson, its secretary. A fair copy was then written " +
+        "out on parchment, and most of the delegates signed it on 2 August 1776; that is the copy now " +
+        "shown in the National Archives in Washington, and it has faded badly. For months the signers' " +
+        "names were not made public, since signing was treason. Then, on 18 January 1777, Congress — " +
+        "sitting in Baltimore, having left Philadelphia as the British army approached — ordered an " +
+        "authenticated copy <i>with the Names of the MEMBERS of CONGRESS, subscribing the same</i> sent " +
+        "to every state. This is that printing, and its order is printed at the foot.",
+      "It was printed by <b>Mary Katharine Goddard</b>, Baltimore's printer and postmaster, and her " +
+        "full name stands in the imprint on the last line, which is why it is called the Goddard " +
+        "broadside. It names fifty-five signers, grouped by state. The fifty-sixth name on the " +
+        "parchment, Thomas McKean of Delaware, is missing because he signed later; it is left missing " +
+        "here.",
+      "The words are given as the broadside prints them. The spelling and the capital letters are " +
+        "1777's — <i>Connexion</i>, <i>harrass</i>, <i>Honour</i>, a capital on almost every noun — and " +
+        "the printer's long s is shown as an ordinary s. The names of the signers keep the " +
+        "abbreviations they were printed with (<i>Tho<sup>s.</sup></i>, <i>Benja.</i>). The text comes " +
+        "from Wikisource and was checked line by line against a photograph of the broadside; where the " +
+        "two disagreed, about forty times, the broadside's reading is the one shown.",
+    ],
+
+    page: () => "United States Declaration of Independence (Goddard Broadside)",
+    chapterWord: "Part",
+    // the broadside's own heading, which is the only title it has — it is printed in one piece, with no
+    // divisions, so the book is one part
+    titleOf: () => "The Unanimous Declaration",
+    chapters: [1],
+    // the signers' list arrives as one block, a name to a line, with nothing but newlines between them
+    lineBlocks: true,
+    // the wiki's licence banner under the transcription, and its machine-readable twin
+    dropTail: [/^This work was published before/i, /^Public domain/i],
+    /* THE BROADSIDE'S OWN READINGS, every row read off the scan (see above). The left side is the
+       transcription exactly as extracted; each carries enough context to match once. */
+    fixes: [
+      ["ThirteenUnitedStatesofAMERICA.", "Thirteen United States of AMERICA."],
+      ["the Political Bonds", "the Political Bands"],
+      ["We hold tese Truths", "We hold these Truths"],
+      ["the pursuit of Happiness", "the Pursuit of Happiness"],
+      ["the Pursuit of Happiness—That", "the Pursuit of Happiness.—That"],
+      ["to alter or abolish it", "to alter or to abolish it"],
+      ["to institute a new Government", "to institute new Government"],
+      ["will dictate that Governments", "will dictate, that Governments"],
+      ["Governments long established should not", "Governments long established, should not"],
+      ["The History of the Present King", "The History of the present King"],
+      ["large Districts of People; unless", "large Districts of People, unless"],
+      ["the State remaining in the mean time exposed", "the State remaining, in the mean Time, exposed"],
+      ["and Amount and Payment", "and the Amount and Payment"],
+      ["Officers to harass our People", "Officers to harrass our People"],
+      ["without the consent of our Legislature.", "without the Consent of our Legislatures."],
+      ["For imposing taxes on us", "For imposing Taxes on us"],
+      ["absolute Rule in these Colonies", "absolute Rule into these Colonies"],
+      ["invested with Powers to legislate", "invested with Power to legislate"],
+      ["out of his Protection and waging", "out of his Protection, and waging"],
+      ["Mercenaries to compleat the Works", "Mercenaries to complete the Works"],
+      ["begun with circumstances of Cruelty", "begun with Circumstances of Cruelty"],
+      ["our fellow Citizens taken Captive on the high Seas to bear",
+        "our Fellow-Citizens, taken Captive on the high Seas, to bear"],
+      ["domestic Insurrections among us", "domestic Insurrections amongst us"],
+      ["of all Ages, Sexes and Conditions", "of all Ages, Sexes, and Conditions"],
+      ["In every stage of these", "In every Stage of these"],
+      ["marked by every act which", "marked by every Act which"],
+      ["warned them from Time to Time of Attempts", "warned them, from Time to Time, of Attempts"],
+      ["Usurpations, which, would inevitably interrupt our Connections",
+        "Usurpations, which would inevitably interrupt our Connexions"],
+      ["the rest of Mankind, Enemies in War, in Peace, Friends.",
+        "the Rest of Mankind, Enemies in War, in Peace Friends."],
+      ["in GENERAL CONGRESS, Assembled,", "in GENERAL CONGRESS Assembled,"],
+      ["and by the Authority of the good People", "and by Authority of the good People"],
+      ["all political Connection between", "all political Connexion between"],
+      ["is and ought to be totally dissolved", "is, and ought to be, totally dissolved"],
+      ["which INDEPENDENT STATES may of right do", "which INDEPENDENT STATES may of Right do"],
+      ["the Protection of the DIVINE PROVIDENCE", "the Protection of DIVINE PROVIDENCE"],
+      ["Banj<sup>a.</sup> Harrison", "Benj<sup>a.</sup> Harrison"],
+      ["Geo. Tayler,", "Geo. Taylor,"],
+      ["Providence, <i>&amp;c.</i>,", "Providence, <i>&amp;c.</i>"],
+      ["MEMBERS of CONGRESS, subsribing the same", "MEMBERS of CONGRESS, subscribing the same"],
+      ["to have teh same put on RECORD", "to have the same put on RECORD"],
+      ["DECLARATION of INDEPENDANCY", "DECLARATION of INDEPENDENCY"],
+      ["Baltimore in Maryland:", "Baltimore, in Maryland:"],
+    ].map((row) => row.concat("read off the scan of the broadside (Commons, File:Goddard broadside.jpg)")),
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -30203,6 +30348,24 @@ function versifyNewlines(chapters) {
 }
 const VERSE_LINE_MAX = 100;
 
+/* A LIST SET A NAME TO A LINE, INSIDE A BLOCK THAT HOLDS NO PARAGRAPH (Oct 2026, adding the
+   Declaration of Independence). The Goddard broadside prints its fifty-five signers in a brace table,
+   a state to the left and its delegates beside it; `stripTags` leaves each row as a bare line inside
+   one blockquote, and HTML collapses the newlines, so the list would read as one run-on line of
+   names. `versifyNewlines` cannot reach it — it looks only inside <p> — so this does the same thing
+   for a blockquote that carries no block of its own: every internal newline becomes a <br>. Gated per
+   book (`lineBlocks`), because on any book that does not declare it a newline means nothing. */
+function lineateBlocks(chapters) {
+  let n = 0;
+  const fix = (html) => String(html || "").replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, (whole, inner) => {
+    if (/<(?:p|div|blockquote|br)\b/i.test(inner) || !/\S\n\S/.test(inner.trim())) return whole;
+    n++;
+    return "<blockquote>\n" + inner.trim().replace(/\s*\n\s*/g, "<br>\n") + "\n</blockquote>";
+  });
+  chapters.forEach((c) => { c.html = fix(c.html); });
+  if (n) console.log("  lineated " + n + " list block" + (n === 1 ? "" : "s") + " set a line to an entry");
+}
+
 /* TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER IS INVISIBLE TO THE READER (Sep 2026, batch E26).
    `bookSections` in app.js walks `box.children` — ELEMENTS — to split a chapter at its section
    markers, so a bare text node between two blocks belongs to no section and is silently dropped from
@@ -30362,6 +30525,7 @@ function writeEnglish(chapters, warnings) {
   if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
 
   if (BOOK.verseNewlines) versifyNewlines(chapters);
+  if (BOOK.lineBlocks) lineateBlocks(chapters);
   wrapLooseText(chapters);
   joinBrokenParas(chapters);
 
