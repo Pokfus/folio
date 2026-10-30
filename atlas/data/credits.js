@@ -7,9 +7,9 @@
    files' headers name them (build-history.js, geometry-fixes.json). */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-10-30T08:27:44.590Z",
+ "generated": "2026-10-30T15:07:26.252Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
- "filesRead": 668,
+ "filesRead": 670,
  "sources": [
   {
    "id": "cbs-wijken-buurten-2024",
@@ -222,6 +222,14 @@ window.ATLAS_CREDITS = {
      "shareAlike": false,
      "files": [
       {
+       "path": "atlas/data/admin1.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/admin1.bin.js",
+       "count": 1
+      },
+      {
        "path": "atlas/data/card-faces.js",
        "count": 1
       },
@@ -291,6 +299,14 @@ window.ATLAS_CREDITS = {
      "sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
      "shareAlike": false,
      "files": [
+      {
+       "path": "atlas/data/admin1.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/admin1.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/card-faces.js",
        "count": 1
@@ -526,6 +542,14 @@ window.ATLAS_CREDITS = {
      "sha256": "923f1542c8df65c48303859a9cf556cabf3b9078e786bcf00183ed454e272c78",
      "shareAlike": true,
      "files": [
+      {
+       "path": "atlas/data/admin1.bin",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/admin1.bin.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/gazetteer.js",
        "count": 1
