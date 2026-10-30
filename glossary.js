@@ -7720,7 +7720,16 @@ window.GLOSSARY = {
 "Sowjetische_Aktiengesellschaft": "",
 "Allied_Control_Commission": "",
 "Stalin's_election_speech": "",
-"Oder–Neisse_line": ""
+"Oder–Neisse_line": "",
+"Helmuth_Weidling": "",
+"Führerbunker": "",
+"Death_of_Adolf_Hitler": "",
+"Raising_a_Flag_over_the_Reichstag": "",
+"Hans_Krebs_(Wehrmacht_general)": "",
+"German_Instrument_of_Surrender": "",
+"Victory_in_Europe_Day": "",
+"Extraordinary_State_Commission": "",
+"World_War_II_casualties_of_the_Soviet_Union": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11550,7 +11559,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Soviet_Military_Administration_in_Germany": "1945–1949",
 "Sowjetische_Aktiengesellschaft": "1946–1954",
 "Stalin's_election_speech": "9 February 1946",
-"Oder–Neisse_line": "1945"
+"Oder–Neisse_line": "1945",
+"Führerbunker": "1945",
+"Death_of_Adolf_Hitler": "30 April 1945",
+"Raising_a_Flag_over_the_Reichstag": "2 May 1945",
+"German_Instrument_of_Surrender": "7–9 May 1945",
+"Victory_in_Europe_Day": "8 May 1945",
+"Extraordinary_State_Commission": "1942–1946"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16455,7 +16470,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sowjetische_Aktiengesellschaft": ["Soviet joint-stock company"],
 "Allied_Control_Commission": ["Allied Control Commissions"],
 "Stalin's_election_speech": ["Stalin's speech of 9 February 1946"],
-"Oder–Neisse_line": ["Oder-Neisse line"]
+"Oder–Neisse_line": ["Oder-Neisse line"],
+"Death_of_Adolf_Hitler": ["death of Adolf Hitler"],
+"Hans_Krebs_(Wehrmacht_general)": ["Hans Krebs"],
+"Victory_in_Europe_Day": ["VE Day","V-E Day"],
+"World_War_II_casualties_of_the_Soviet_Union": ["Soviet war dead"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24320,7 +24339,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sowjetische_Aktiengesellschaft": ["institution","history","economics","germany","russia"],
 "Allied_Control_Commission": ["institution","history","politics","europe","second world war"],
 "Stalin's_election_speech": ["event","history","politics","russia","cold war"],
-"Oder–Neisse_line": ["place","geography","politics","history","poland","germany"]
+"Oder–Neisse_line": ["place","geography","politics","history","poland","germany"],
+"Helmuth_Weidling": ["person","history","warfare","second world war","germany","berlin"],
+"Führerbunker": ["building","history","second world war","germany","berlin"],
+"Death_of_Adolf_Hitler": ["event","history","politics","second world war","germany","berlin"],
+"Raising_a_Flag_over_the_Reichstag": ["object","art","history","second world war","russia","berlin"],
+"Hans_Krebs_(Wehrmacht_general)": ["person","history","warfare","second world war","germany","berlin"],
+"German_Instrument_of_Surrender": ["text","history","politics","second world war","germany"],
+"Victory_in_Europe_Day": ["event","history","second world war","united kingdom","united states"],
+"Extraordinary_State_Commission": ["institution","history","law","second world war","russia"],
+"World_War_II_casualties_of_the_Soviet_Union": ["concept","history","demography","second world war","russia"]
 });
 
 /* ============================================================================

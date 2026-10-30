@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5401 | the title is the article |
+| `ok` | 5410 | the title is the article |
 | `redirect-variant` | 334 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 975 | nothing matched; no link |
+| `none` | 976 | nothing matched; no link |
 
-**6341 of 7581 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6350 of 7591 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -924,7 +924,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-227` **Anderson shelter** — `Anderson shelter` only redirects into `Air raid shelter#Anderson shelter`
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 
-## No article found (975)
+## No article found (976)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1900,6 +1900,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-307` **Stalingrad airlift** — search suggests `Battle of Stalingrad`, `List of World War II battles`, `Declarations of war during World War II`, `Pacific War`, `Stopped at Stalingrad`
 - `ww2-335` **Radical turning point**
 - `ww2-362` **Fester Platz**
+- `ww2-390` **Soviet war dead**
 - `ww2-394` **Yalta repatriation agreement**
 - `ww2-397` **Sowjetische Aktiengesellschaft**
 - `ww2-399` **Stalin's election speech**

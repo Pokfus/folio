@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T16:01Z",
+ "generated": "2026-10-30T16:04Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5401,
+  "ok": 5410,
   "redirect-broader": 512,
   "redirect-variant": 334,
   "section-redirect": 107,
   "disambiguation": 142,
-  "none": 975,
+  "none": 976,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 6,
@@ -61520,6 +61520,77 @@
    "url": "https://en.wikipedia.org/wiki/Oder%E2%80%93Neisse_line",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-381": {
+   "answer": "Battle of Berlin",
+   "title": "Battle of Berlin",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Berlin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-382": {
+   "answer": "Helmuth Weidling",
+   "title": "Helmuth Weidling",
+   "url": "https://en.wikipedia.org/wiki/Helmuth_Weidling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-383": {
+   "answer": "Führerbunker",
+   "title": "Führerbunker",
+   "url": "https://en.wikipedia.org/wiki/F%C3%BChrerbunker",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-384": {
+   "answer": "death of Adolf Hitler",
+   "title": "Death of Adolf Hitler",
+   "url": "https://en.wikipedia.org/wiki/Death_of_Adolf_Hitler",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-385": {
+   "answer": "Raising a Flag over the Reichstag",
+   "title": "Raising a Flag over the Reichstag",
+   "url": "https://en.wikipedia.org/wiki/Raising_a_Flag_over_the_Reichstag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-386": {
+   "answer": "Hans Krebs",
+   "title": "Hans Krebs (Wehrmacht general)",
+   "url": "https://en.wikipedia.org/wiki/Hans_Krebs_(Wehrmacht_general)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-387": {
+   "answer": "German Instrument of Surrender",
+   "title": "German Instrument of Surrender",
+   "url": "https://en.wikipedia.org/wiki/German_Instrument_of_Surrender",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-388": {
+   "answer": "Victory in Europe Day",
+   "title": "Victory in Europe Day",
+   "url": "https://en.wikipedia.org/wiki/Victory_in_Europe_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-389": {
+   "answer": "Extraordinary State Commission",
+   "title": "Extraordinary State Commission",
+   "url": "https://en.wikipedia.org/wiki/Extraordinary_State_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-390": {
+   "answer": "Soviet war dead",
+   "title": "World War II casualties of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/World_War_II_casualties_of_the_Soviet_Union",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   }
  }
 }
