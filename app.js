@@ -28870,6 +28870,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-german":     { bg: "#633318" }, // brown
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
+    /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
+       27.2 from its nearest neighbour. 9.9:1 against white. */
+    "lang-japanese":   { bg: "#780F75" },
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
     "lang-spanish":    { bg: "#AE5A33" }, // orange
