@@ -192,7 +192,7 @@ order unless the user says otherwise.
 | B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | **done 2026-10-30** |
 | B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | **done 2026-10-30** |
 | B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | **done 2026-10-30** |
-| B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | open |
+| B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | **done 2026-10-30** |
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | open |
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | open |
 | B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | open |
@@ -369,6 +369,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-097` Horatius Cocles | a painting by Le Brun | acceptable, labelled an imagining |
 | `rm-098` Lars Porsena | a Rubens-workshop Mucius Scaevola | shows Mucius rather than Porsena |
 | `rm-099` Battle of Lake Regillus | a fresco by Laureti | shows the room's plaques and statues too |
+| `rm-601` Tervingi | none | not re-checked: the card has no picture |
+| `rm-602` Battle of Adrianople | none | not re-checked: the card has no picture; the locator is the city, the battle article may have a better point |
+| `rm-603` Theodosius I | none | not re-checked: the card has no picture; the glossary's solidus would do |
+| `rm-604` foederati | none | not re-checked: the card has no picture |
+| `rm-605` Edict of Thessalonica | none | not re-checked: the card has no picture |
+| `rm-606` Theodosian decrees | none | not re-checked: the card has no picture |
+| `rm-607` Altar of Victory | none | not re-checked: the card has no picture |
+| `rm-608` Ambrose | none | not re-checked: the card has no picture; the glossary's mosaic would do |
+| `rm-609` Massacre of Thessalonica | none | not re-checked: the card has no picture |
+| `rm-610` Arcadius | none | not re-checked: the card has no picture; the glossary's marble head would do |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2332,3 +2342,22 @@ Overlap notes for the owner (nothing was edited): `wh-371` gives Diocletian's de
 ### Locators (2026-10-30, the sixth hundred)
 
 None was added or moved: every place, building and battle in `rm-501`–`rm-600` already had a locator (Ctesiphon, Bostra, Housesteads, Lambaesis, the Pantheon, Hadrian's Villa, Betar, Rough Castle, Timgad, Monte Testaccio, Lugdunum, Eboracum, Abritus, Split, Carnuntum, the Milvian Bridge, Chrysopolis, Nicaea, Constantinople, the Lateran, the Vatican and the Arch of Constantine among them), so `migrate-places.js` was not run. For a later pass: the generic "Rome" points on `rm-513`, `rm-523`, `rm-525`, `rm-535` (the Templum Pacis wall would be right) and `rm-539`; `rm-546`'s and `rm-564`'s labels (the points are right, the label "Rome"; Porta San Sebastiano for the walls); `rm-532`'s Nicaea (an office, not a place); `rm-556`'s Abritus (the battlefield is disputed); `rm-574`'s Nicomedia, `rm-596`'s Antioch and `rm-600`'s Naissus (generic for the men).
+
+### B61 — `rm-601`–`rm-610`, The Christian empire: the Tervingi to Arcadius (2026-10-30)
+
+Run as B60, applied with B62 in one `batch.sh` run. Before applying, two date labels were changed by hand (`rm-601`'s "Peace on Danube" to "Peace made", `rm-606`'s "Sent to Egypt" to "Second law"; a place is not a date) and `rm-610`'s "Reigned (East)" became "Ruled the East". Commons answered 429 at the session's one test call: no picture was touched. The De Imperatoribus Romanis site, the main old source for `rm-603`, `rm-604` and `rm-610`, did not answer: every claim resting on it alone was dropped or re-sourced. **The old date lines carried places ("at Cauca", "at Milan", "at Thessalonica"), another event (the synod of 381 on the edict), an unconverted Roman day printed as a modern one ("3 October 382"), a birth year no source prints ("c. 346") and a list of laws standing for one decree.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-601` Tervingi | 6 | 8 → 7 | **The war of 367 – 369 and the revolt of 377 leave the line (no source opened gives them); Constantine's treaty of 332 one study's reconstruction**; Athanaric's peace on the ships, the dog-for-a-slave trade and Fritigern's creed each their author's. |
+| `rm-602` Battle of Adrianople | 7 | 8 → 7 | **"Barely a third escaped" is Ammianus's, and so are both of Valens's deaths (an arrow, or a burned cottage)**; the city Hadrianopolis in prose. |
+| `rm-603` Theodosius I | 7 | 7 → 8 | **Born 347 (Livius) with the Epitome's and Socrates's ages, not "c. 346"; proclaimed 19 January 379 (Socrates 16)**; the places leave the line; Zosimus hostile, Ambrose's oration a eulogy, Pacatus a panegyric. |
+| `rm-604` foederati | 7 | 8 → 9 | **"Foederati" a modern category, the treaty's terms argued; Jordanes ties the name to Athanaric's death, not to the treaty**; the Consularia's day not converted, so 382 alone; the Social War confusion goes. |
+| `rm-605` Edict of Thessalonica | 7 | 7 → 8 | **27 February 380 CE, the day the Grenoble edition prints for "III kal. Mart."; the place and the synod of 381 leave the line**; the heading's addressees, the people of Constantinople; Sozomen's reasons his. |
+| `rm-606` Theodosian decrees | 6 | 7 → 9 | **A modern label for three laws (CTh 16.10.10 – 12), each its own row**; the Serapeum told as Socrates tells it, 391 or 391/2; Zosimus's "394" goes (not in his text). |
+| `rm-607` Altar of Victory | 7 | 8 → 9 | **29 BCE from the Colosseum park (Dio dates it by Augustus's fifth consulship; "B.C. 29" is Cary's margin)**; Constantius's removal Ambrose's claim; "the following year's harvests" was "last year" in Letter 18; Eugenius's grant Paulinus's. |
+| `rm-608` Ambrose | 7 | 8 → 9 | **"Barred Theodosius from communion" (Theodoret's, and `rm-609`'s) becomes the letter urging penance**; the child's cry Paulinus's story; Augustine's baptism added. |
+| `rm-609` Massacre of Thessalonica | 7 | 7 → 8 | **The 7,000 is Theodoret's ("it is said"), not Sozomen's; the church-door scene the church historians', against Ambrose's private letter**; 390, also 391; the 30-day law's "382" goes (the Code gives consuls only). |
+| `rm-610` Arcadius | 6 | 7 → 8 | **"The division of 395" a modern way of speaking; born 377 (Livius), Augustus January 383 (16 in Socrates, 19 in Livius)**; Stilicho out of the questions; Synesius's speech no longer explains a purge. |
+
+**Read by eye.** *Confusability:* `rm-601`/`rm-602`/`rm-604` the people (Athanaric's ships), the battle (Cannae's comparison) and the status (Jordanes's renaming); `rm-603`/`rm-605`/`rm-606` the emperor (Frigidus), the law (the two bishops) and the laws (the shrines); `rm-607`/`rm-608`/`rm-609` the altar (Symmachus), the bishop (the basilica) and the massacre (Butheric); `rm-610` Eutropius's portrait. *Legend:* the child's cry, the church-door scene and Valens's cottage are their authors'. *Overlap:* `wh-488` dates the crossing 376 CE, as `rm-601` does; `gr-802` dates the Serapeum 391 only, against `rm-606`'s 391 or 391/2.

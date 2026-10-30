@@ -603,6 +603,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Aurelian: reigned / killed | 270 – 275 CE / 275 CE | `rm-563` |
 | the Aurelian Walls: begun / restored | 271 CE / 401 – 403 CE | `rm-564` |
 | Probus: born / reigned / killed | 232 CE / 276 – 282 CE / 282 CE | `rm-565` |
+| the Altar of Victory: Augustus's statue in the Curia Julia | 29 BCE (Dio dates it by Augustus's fifth consulship) | `rm-607` |
 
 ## Late Antiquity
 
@@ -643,6 +644,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the School Edict | 17 June 362 CE | `rm-598` |
 | Julian's Persian expedition: set out / Julian died / the peace | 5 March 363 CE / 26 June 363 CE / 363 CE | `rm-599` |
 | Valentinian I: born / proclaimed / named Valens co-ruler / died | 321 CE / 25 February 364 CE / 28 March 364 CE / 17 November 375 CE | `rm-600` |
+| the Tervingi: Constantine's treaty (one reconstruction) / peace with Valens / crossed the Danube | 332 CE / 369 CE / 376 CE | `rm-601` |
+| the Battle of Adrianople | 9 August 378 CE | `rm-602` |
+| Theodosius I: born / proclaimed / died | 347 CE (Livius; the Epitome's and Socrates's ages differ) / 19 January 379 CE (Socrates: 16 January) / 17 January 395 CE | `rm-603` |
+| the Gothic treaty (foederati, a modern category) | 382 CE | `rm-604` |
+| the Edict of Thessalonica (a modern name): dated | 27 February 380 CE | `rm-605` |
+| the "Theodosian decrees" (a modern label): CTh 16.10.10 / 16.10.11 / 16.10.12 | 24 February 391 CE / 16 June 391 CE / 8 November 392 CE | `rm-606` |
+| the Altar of Victory: removed by Gratian / Symmachus's plea / restored under Eugenius | 382 CE / 384 CE / 393 CE (one modern reckoning) | `rm-607` |
+| Ambrose: born / bishop / died | c. 340 CE / 374 CE / 4 April 397 CE | `rm-608` |
+| the Massacre of Thessalonica | 390 CE (391 CE in one review) | `rm-609` |
+| Arcadius: born / Augustus / ruled the East / died | 377 CE / January 383 CE / 395 – 408 CE / 1 May 408 CE | `rm-610` |
 
 ## Chronology pins
 
@@ -1230,4 +1241,14 @@ rm-597: 331; 355; 360; 363
 rm-598: 362
 rm-599: 363
 rm-600: 321; 364; 375
+rm-601: 332; 369; 376
+rm-602: 378
+rm-603: 347; 379; 395
+rm-604: 382
+rm-605: 380
+rm-606: 391; 392
+rm-607: 29; 382; 384; 393
+rm-608: 340; 374; 397
+rm-609: 390; 391
+rm-610: 377; 383; 395; 408
 ```
