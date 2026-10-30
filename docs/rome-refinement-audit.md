@@ -180,7 +180,7 @@ order unless the user says otherwise.
 | B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | **done 2026-10-30** |
 | B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | **done 2026-10-30** |
 | B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | **done 2026-10-30** |
-| B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | open |
+| B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | **done 2026-10-30** |
 | B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | open |
 | B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | open |
 | B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | open |
@@ -750,6 +750,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-468` adlectio | none | no picture (`I.none`); an adlection inscription would suit |
 | `rm-469` Siege of Jerusalem | David Roberts's chromolithograph | acceptable: a 19th-century reconstruction, said so |
 | `rm-470` Second Temple | the temple warning inscription | weak: one object for the whole temple |
+| `rm-481` Domitian | Domitian in Pentelic marble | ok; the "Rome" locator is generic |
+| `rm-482` delator | none | no picture (`I.none`); the "Rome" locator is generic |
+| `rm-483` Domitian's Dacian War | the sanctuary at Sarmizegetusa Regia | acceptable: the Dacian royal centre, not the war |
+| `rm-484` Agricola | the Verulamium forum inscription | ok |
+| `rm-485` Battle of Mons Graupius | Calgacus addressing the Caledonians (1859) | wrong: an engraving of an imagined scene for a composed speech |
+| `rm-486` Inchtuthil | the fortress from the air | ok |
+| `rm-487` Flavian Palace | the throne room on the Palatine | ok |
+| `rm-488` damnatio memoriae | an inscription with the name cut out | ok; the "Rome" locator is generic |
+| `rm-489` Stephanus | none | no picture (`I.none`) |
+| `rm-490` Flavian dynasty | a Flavian state relief (Cancelleria) | acceptable: a procession, not the family; the "Rome" locator is generic |
 
 ## Glossary candidates
 
@@ -1947,3 +1957,22 @@ Run as B46 (applied after B48, whose drafts were ready first); every draft compa
 | `rm-470` Second Temple | 8 | 8 → 9 | **Built 520 – 516 BCE in the Cambridge Ancient History (no open source prints 515); Herod's eighteenth year is Josephus's (his Jewish War says the fifteenth)**; 10 Lous is Josephus's day, not converted; Titus's order is Josephus against Sulpicius Severus. |
 
 **Read by eye.** *Confusability:* `rm-461`/`rm-462` the battle (the rising sun) and the brother (the Capitol); `rm-463`/`rm-464` the secret and the revolt; `rm-465`/`rm-466`/`rm-467`/`rm-468` the emperor (Alexandria), the law (Cola), the treasury (the basket) and the enrolment (the censors); `rm-469`/`rm-470` the siege (the wall of circumvallation) and the Temple (the brand through the window). *Legend:* Vespasian's healings, Mary's infant and the soldier's brand are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B49 — `rm-481`–`rm-490`, Civil war and the Flavians: Domitian to the Flavian dynasty (2026-10-30)
+
+Run as B47; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-481:rm-490` reads clean on four cards; the rest carry `I.none` (`rm-482`, `rm-489`), `S.chip?` on `rm-483` (an English BMCR review of a Latin-titled book: the known false positive), `L.missing` on `rm-485` (the site is unknown, as for `rm-366` Munda) and `W.not-why` (advisory, two cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read. `rm-490`'s third phrasing (Tacitus's career under the Flavians and his promise of impartiality) near-duplicated `rm-966`'s and was replaced by Suetonius's account of the family's origins at Reate before applying. **The old date lines carried another man's reign ("Under Domitian 81-96 CE" for the war), slashed years ("77/78-83/84", "83/84"), Tacitus's battle figures ("Britons over 30,000", "Roman dead 360"), a name and a century ("Architect Rabirius, 1st century CE"), a list of names, a count of years and another event ("Books burnt 93 CE" for damnatio memoriae).** The generic "Rome" locators on `rm-481`, `rm-482`, `rm-488` and `rm-490` mark nothing a card is about; `add-locators.js` adds and moves but does not remove, so they are noted here for a later pass.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-481` Domitian | 8 | 9 → 8 | **"Master and god" was stated as fact: it is now Suetonius's procurators' letter and Dio's pride in the titles, against a modern reviewer who calls the demand a slander**; every full account was written under his successors; the reassessment (Jones, Schulz, the undebased coinage) attributed. |
+| `rm-482` delator | 6 | 7 → 8 | "Worst years 93 – 96" is Tacitus's framing and goes; **no public prosecutor at Rome, the quarter of the estate as the reward (Annals 4.20), Tacitus's verdict (4.30)**; Afer, Marcellus and Regulus; Titus's and Nerva's punishments. |
+| `rm-483` Domitian's Dacian War | 6 | 6 → 8 | **The war's own years, 85 – 89 CE, and Tapae 88 CE (Soria Molina 2017) replace Domitian's reign**; Sabinus killed in 85 or 86 by one translator's reckoning; Jordanes's Dorpaneus not simply Decebalus; the peace a capitulation to Mommsen, a face-saver to a recent study. |
+| `rm-484` Agricola | 7 | 9 → 9 | **Governor 77 – 84 or 78 – 85, "evenly balanced" (Jarrett), two rows**; the Chester lead pipes of 79 naming him governor; the poison rumour Tacitus's, Dio's murder flat; Romanisation left to `rm-757` and `rm-782`. |
+| `rm-485` Battle of Mons Graupius | 7 | 8 → 8 | **83 CE (Breeze) or 84 CE (Burn, Woolliscroft); Tacitus's 10,000 British dead and 360 Romans are his figures, from the general's son-in-law**; Calgacus's speech is Tacitus's composition; the site unknown (Raedykes to Bennachie), so no locator. |
+| `rm-486` Inchtuthil | 6 | 5 → 8 | **In use c. 83 – 87 CE, demolished 86 or 87 CE from the coins of 86 (Jarrett)**; "about a million nails" and "the Twentieth Legion" had no open source: the nail study's "several hundred thousand" and no legion. |
+| `rm-487` Flavian Palace | 6 | 6 → 6 | **Begun c. 81 and completed c. 92 are modern dates (Martial, brick stamps)**; Martial tells Domitian to smile at the pyramids, not at "Rome"; Rabirius's praise is a court poet's; Statius's banquet hall. |
+| `rm-488` damnatio memoriae | 7 | 6 → 7 | **A modern Latin phrase, not the Romans'**; "Books burnt 93 CE" was another event and goes; the practice (erasures, recut portraits), Nero, Domitian in 96 (Suetonius, Pliny's Panegyric), Messalina, Geta; Flower and Varner through BMCR. |
+| `rm-489` Stephanus | 6 | 5 → 6 | The count leaves the line; **Dio's claim that Domitia and the prefects knew is Dio's tradition, Nerva's part a modern debate**; the misread "stood in amazement" (it is Domitian who is astonished) goes; Domitilla's exile as the motive. |
+| `rm-490` Flavian dynasty | 8 | 6 → 9 | **The label is the historians'; Suetonius says gens Flavia, and Tacitus's "new dynasty" is the Loeb translator's rendering of imperio**; the unsourced "first family from outside the old nobility" and a sentence Tacitus does not say go; Josephus's dynastic framing added. |
+
+**Read by eye.** *Confusability:* `rm-481`/`rm-482`/`rm-488`/`rm-489` the emperor (the flies), the informer (the quarter), the erasure (the ladders) and the assassin (the bandaged arm); `rm-483`/`rm-484`/`rm-485`/`rm-486` the war (Fuscus), the governor (the fleet round Britain), the battle (the figures) and the fortress (the nails); `rm-487`/`rm-490` the palace and the house. *Legend:* Calgacus's speech, the flies and "master and god" are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

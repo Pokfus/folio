@@ -522,6 +522,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | adlectio: Claudius censor / the Flavian censors / Domitian censor for life | 47 – 48 CE / 73 – 74 CE / 85 CE | `rm-468` |
 | the siege of Jerusalem / the outer wall taken | April – September 70 CE / May 70 CE | `rm-469` |
 | the Second Temple: built / Herod's rebuilding / destroyed | 520 – 516 BCE / 20 – 19 BCE / 70 CE | `rm-470` |
+| Domitian: born / reigned / killed | 24 October 51 CE / 81 – 96 CE / 18 September 96 CE | `rm-481`, `rm-489`, `rm-490` |
+| the informers curbed by Nerva | 96 CE | `rm-482` |
+| Domitian's Dacian War / Tapae | 85 – 89 CE / 88 CE (Soria Molina) | `rm-483` |
+| Agricola: born / governor of Britain / died | 13 June 40 CE / 77 – 84 CE or 78 – 85 CE / 23 August 93 CE | `rm-484` |
+| the Battle of Mons Graupius | 83 CE (Breeze) or 84 CE (Burn, Woolliscroft) | `rm-485` |
+| Inchtuthil: in use / demolished | c. 83 – 87 CE / 86 or 87 CE | `rm-486` |
+| the Flavian Palace: begun / completed | c. 81 CE / c. 92 CE | `rm-487` |
+| Domitian's memory condemned | 96 CE | `rm-488` |
+| the Flavians ruled | 69 – 96 CE | `rm-490` |
 
 ## Late Antiquity
 
@@ -997,4 +1006,14 @@ rm-467: 41; 54; 53
 rm-468: 47; 48; 73; 74; 85
 rm-469: 70; 70
 rm-470: 520; 516; 20; 19; 70
+rm-481: 51; 81; 96; 96
+rm-482: 96
+rm-483: 85; 89; 88
+rm-484: 40; 77; 84; 78; 85; 93
+rm-485: 83; 84
+rm-486: 83; 87; 86; 87
+rm-487: 81; 92
+rm-488: 96
+rm-489: 96
+rm-490: 69; 96; 96
 ```
