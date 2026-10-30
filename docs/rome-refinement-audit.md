@@ -203,8 +203,8 @@ order unless the user says otherwise.
 | B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | **done 2026-10-30** |
 | B70 | The Roman army (`rm-army`) / Government, law and citizenship (`rm-government`) | `rm-691`–`rm-700` | 10 | 98 | **done 2026-10-30** |
 | B71 | Government, law and citizenship (`rm-government`) | `rm-701`–`rm-710` | 10 | 88 | **done 2026-10-30** |
-| B72 | Government, law and citizenship (`rm-government`) | `rm-711`–`rm-720` | 10 | 79 | open |
-| B73 | Government, law and citizenship (`rm-government`) | `rm-721`–`rm-730` | 10 | 81 | open |
+| B72 | Government, law and citizenship (`rm-government`) | `rm-711`–`rm-720` | 10 | 79 | **done 2026-10-30** |
+| B73 | Government, law and citizenship (`rm-government`) | `rm-721`–`rm-730` | 10 | 81 | **done 2026-10-30** |
 | B74 | Government, law and citizenship (`rm-government`) | `rm-731`–`rm-740` | 10 | 80 | open |
 | B75 | Government, law and citizenship (`rm-government`) | `rm-741`–`rm-750` | 10 | 86 | open |
 | B76 | Provinces and frontiers (`rm-provinces`) | `rm-751`–`rm-760` | 10 | 80 | open |
@@ -980,6 +980,26 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-708` aedile | none | not re-checked: the card has no picture |
 | `rm-709` quaestor | none | not re-checked: the card has no picture; a coin naming a quaestor would do |
 | `rm-710` Roman censor | none | not re-checked: the card has no picture; the census relief of the so-called Altar of Domitius Ahenobarbus would do |
+| `rm-711` promagistrate | none | not re-checked: the card has no picture; a coin or inscription reading PRO COS would do |
+| `rm-712` auctoritas | none | not re-checked: the card has no picture; the Res Gestae at Ankara would do |
+| `rm-713` dignitas | none | not re-checked: the card has no picture |
+| `rm-714` clientela | none | not re-checked: the card has no picture; a freedmen's relief set up to their patron would do |
+| `rm-715` novus homo | none | not re-checked: the card has no picture |
+| `rm-716` Roman citizenship | none | not re-checked: the card has no picture; the glossary keeps its papyrus |
+| `rm-717` provocatio | none | not re-checked: the card has no picture; the PROVOCO denarius (RRC 301/1) would do |
+| `rm-718` lex Plautia Papiria | none | not re-checked: the card has no picture |
+| `rm-719` peregrinus | none | not re-checked: the card has no picture; a provincial tombstone with a single name and patronymic would do |
+| `rm-720` Roman law | none | not re-checked: the card has no picture; the glossary's Littera Florentina is fine |
+| `rm-721` ius civile | none | not re-checked: the card has no picture |
+| `rm-722` ius gentium | none | not re-checked: the card has no picture |
+| `rm-723` edictum perpetuum | none | not re-checked: the card has no picture |
+| `rm-724` formulary procedure | none | not re-checked: the card has no picture; a leaf of the Verona Gaius would do |
+| `rm-725` ius respondendi | none | not re-checked: the card has no picture |
+| `rm-726` Institutes of Gaius | none | not re-checked: the card has no picture; a leaf of the Verona palimpsest would do |
+| `rm-727` Ulpian | none | not re-checked: the card has no picture; the glossary's Brussels statue is a modern imagining |
+| `rm-728` Papinian | none | not re-checked: the card has no picture; the glossary's statue in Rome is modern |
+| `rm-729` Digest | none | not re-checked: the card has no picture; an opening of the Littera Florentina would do |
+| `rm-730` Codex Justinianus | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -2670,3 +2690,41 @@ Run as B70, from a fresh branch off `main` after #603 merged. The notes for ever
 | `rm-710` Roman censor | 7 | 7 → 8 | **"26 pairs, 443 – 294 BCE, per Livy" a count and a range from a list: now 443 BCE by tradition, the first plebeian censor 351 BCE and the last Republican pair 22 BCE**; Gellius's joke from a speech of Scipio Aemilianus; Cato and Manilius; Domitian censor for life (Dio). |
 
 **Read by eye.** *Confusability:* `rm-701`/`rm-702` the assembly (the jurist's three kinds) and the ballot laws (the Longinus coin); `rm-703`/`rm-704` the handbook ("this is Rome") and the crime (Polybius's Carthage); `rm-705`/`rm-706` the chair (Crassipes's coin) and the replacement (Caninius); `rm-707`/`rm-708`/`rm-709`/`rm-710` the judge (Messala), the city's officer (Mancinus), the paymaster (Cato's clerks) and the moral review (Gellius's jester). *Legend:* the regal and early-Republic first years of the offices are tradition, labelled so. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B72 — `rm-711`–`rm-720`, Government, law and citizenship: the promagistrate to Roman law (2026-10-30)
+
+Applied with B73 in one `batch.sh` run. The notes split two clashes inside the hundred before any draft: Publilius Philo's command and Pompey's five-year law went to `rm-740`, leaving `rm-711` the idea of prorogation (Polybius, Scipio in Spain); Gaius's spondeo was taken out of `rm-719`'s questions by hand (it is `rm-732`'s). After `batch.sh`, `rm-717`'s second question was reworded ("Porcius Laeca" read as a modern scholar's name) and re-applied, and `rm-712`'s Livy question cut to 34 words. **The old date lines carried another man's election on the new man ("Varro elected 216 BCE"), Augustus's naming on auctoritas (16 January 27 BCE, another event), a man and a wrong year on the appeal ("Publicola's law 508 BCE") and Scipio's election and Pompey's law on the promagistrate.** `rm-711` dates the first prorogation 326 BCE, the year it took effect as a modern review prints it, where Livy puts the vote in the consular year Varro's count makes 327; `rm-740` follows.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-711` promagistrate | 7 | 7 → 8 | **The first prorogation 326 BCE (the vote in 327, Livy's consular year) and routine from 146 BCE, one modern view**; Polybius's lever of the senate; Scipio chosen for Spain holding no office; a Marcus Antonius pro consule on a Corinth verse inscription; Philo and the five-year law left to `rm-740`. |
+| `rm-712` auctoritas | 7 | 8 → 9 | **"Named Augustus 16 January 27 BCE" dated another event: no date line**; Res Gestae 34 read on Livius and The Latin Library (one translator renders the word "rank"); the auctoritas patrum in Livy; the guardian's sanction and the seller's warranty from Gaius; the golden shield kept out. |
+| `rm-713` dignitas | 7 | 7 → 8 | **Caesar's claim his own self-justification, set beside Cicero's private scorn to Atticus**; "cum dignitate otium"; dignitas always relative (an English review of Rilinger); the nine years and the morning callers go (`rm-814`'s). |
+| `rm-714` clientela | 7 | 7 → 8 | **Dionysius's Romulus his own account under Augustus, an ideal not a record; "patronage" the historians' word**; the Twelve Tables' accursed patron; Greek cities' senatorial patrons; an unsourced inheritance claim goes. |
+| `rm-715` novus homo | 7 | 7 → 9 | **"Varro elected 216 BCE" another man's event: no date line**; Plutarch's Cato, Sallust's hand-to-hand consulship (Marius's scars are `rm-294`'s), Cicero's speech on the agrarian law (the Commentariolum left to `rm-703`); "never a patrician" and "Sextius the first new man" go. |
+| `rm-716` Roman citizenship | 9 | 9 → 10 | **212 CE in prose only, as `rm-545`; every LacusCurtius source replaced**; Livia's Gaul, the officer who bought his citizenship in Acts 22, Claudius's false citizens beheaded; grants rare under the Republic (one study). |
+| `rm-717` provocatio | 6 | 7 → 7 | **"Publicola's law 508 BCE": now Traditional 509 BCE, the third Valerian law of 300 BCE and the PROVOCO denarius of 110 – 109 BCE (RRC 301/1)**; the first two laws doubted by modern historians; Gavius and Paul out of the questions; Smith goes. |
+| `rm-718` lex Plautia Papiria | 5 | 7 → 5 | **"Of 89 BCE" out of a question; Smith's consuls, "plebiscite" and late enrolments go**; Weber's open Tyche article sets it beside the lex Julia; Cicero quotes only the clause his case needed; Archias probably acquitted (an English review of Coşkun). |
+| `rm-719` peregrinus | 6 | 7 → 8 | **"Between a citizen and a peregrinus" is in neither Gaius nor Pomponius: the question rests on Gaius's home and foreign praetor**; Harpocras and Pliny's letter; the Latins sent home (one view); single names on Lusitanian stones; the spondeo question replaced (`rm-732`'s). |
+| `rm-720` Roman law | 9 | 9 → 10 | **Two Latin sources broke the one-per-language rule: the Law of Citations and its Papinian question go (`rm-728`'s)**; Gnaeus Flavius's calendar; the casuistic style beside Exodus and Deuteronomy; the Reception and England's common law; the formulary and Augustan jurist questions left to `rm-724` and `rm-725`. |
+
+**Read by eye.** *Confusability:* `rm-711`/`rm-712` the extended command (Scipio) and the standing (the Res Gestae); `rm-713`/`rm-714`/`rm-715` the honour (Caesar's soldiers), the bond (the accursed patron) and the outsider (Plutarch's Cato); `rm-716`/`rm-717`/`rm-718`/`rm-719` the status (Livia's Gaul), the appeal (the Valerii), the grant (the sixty days) and the foreigner (Harpocras); `rm-720` the law (Flavius). *Legend:* the first two Valerian laws of appeal are tradition. *Overlap:* `wh-363` (Roman law) and `wh-364` (Roman citizenship) agree.
+
+### B73 — `rm-721`–`rm-730`, Government, law and citizenship: the civil law to Justinian's Code (2026-10-30)
+
+Applied with B72. The law deck read its texts on the Grenoble Roman Law Library (Gaius in Poste's English, the Digest and the Theodosian Code in Latin, Justinian's Institutes in Moyle's English) and Roby's and Greenidge's handbooks on archive.org, one Latin source a card at most. The notes kept Gaius 1.1 for `rm-721` and Hermogenian and Ulpian's slavery for `rm-722`, the Law of Citations for `rm-728`, Ulpian on Tyre for `rm-780` and Tribonian for `rm-729`. `rm-724`'s formulas law is cited as CJ 2.58.1 in Scott's numbering (2.57.1 in Krueger's). **The old date lines carried another office on the law of nations ("Foreign praetor 242 BCE"), a range from a century guess ("Lex Aebutia c. 200 – 100 BCE"), a vague range for Gaius ("c. 150 – 200 CE"), an unsourced prefecture ("Guard prefect 205 CE") and "Confirmed 533 CE" for the Digest's promulgation.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-721` ius civile | 6 | 7 → 7 | **The mancipation question used `rm-731`'s clue: replaced by Quintus Mucius's eighteen books (Pomponius)**; Gaius's opening definition; Justinian's Institutes on Solon, Draco and the Quirites; Papinian on the honorary law; Smith goes. |
+| `rm-722` ius gentium | 6 | 7 → 8 | **"Foreign praetor 242 BCE" another office: no date line; Gaius 1.1 left to `rm-721`**; Hermogenian's wars and kingdoms; Ulpian's slavery and manumission; Cicero's ancestors in the De officiis; the Clusium question (`rm-123`'s) replaced. |
+| `rm-723` edictum perpetuum | 6 | 6 → 8 | **67 BCE from Greenidge, not Cary's margin; "Cornelian law" becomes "Edicts binding"; Julianus's revision under Hadrian given no year**: `wh-363`'s "c. 130 CE" has no source the agent could find; Cicero's "annual law" against Verres. |
+| `rm-724` formulary procedure | 6 | 6 → 6 | **The invented range goes: the Julian law of 17 BCE that ended most old actions and the law of 342 CE that banned the formulas; the Aebutian law's date disputed**; "formulary procedure" the modern name; Gaius's vines and trees; the four parts of a formula. |
+| `rm-725` ius respondendi | 5 | 6 → 7 | **Pomponius a 2nd-century account surviving only as a Digest excerpt, one view that he projected his own age back; what the grant meant still disputed**; Augustus, Masurius Sabinus under Tiberius, Hadrian's rescript; the Law of Citations left to `rm-728`. |
+| `rm-726` Institutes of Gaius | 6 | 6 → 7 | **Written c. 161 CE: Antoninus Pius is not "divus" in book 1 but is in book 2 (Greenidge's introduction to Poste)**; recognised at Verona in 1816 under Jerome's letters; the Oxyrhynchus and Cairo leaves; Justinian's commissioners kept its words; the gall-nut story goes. |
+| `rm-727` Ulpian | 7 | 8 → 7 | **"Guard prefect 222 CE": now his rise in 222 CE and his murder, 223 CE or 228 CE (the year disputed)**; Dio the narrator, not a witness in Rome; "more than a third of the Digest" becomes about a third, 2,462 excerpts by one 19th-century count; Tyre and the life table kept out. |
+| `rm-728` Papinian | 6 | 7 → 7 | **"Guard prefect 205 CE" rests only on a Loeb footnote: cut; killed 212 CE; the Historia Augusta named as late, with forgeries, and its own doubt of the fratricide story**; the notes annulled in 321 CE (or 324); the Law of Citations of 426 CE; the old glossary's "treasury advocate under Severus" corrected. |
+| `rm-729` Digest | 7 | 7 → 7 | **"Confirmed 533 CE" becomes the commission of 15 December 530, the promulgation of 16 December 533 and force on 30 December 533**; the 2,000 books, three million lines and 150,000 lines Justinian's own figures; interpolations an open debate; the manuscript taken from Pisa in 1406. |
+| `rm-730` Codex Justinianus | 7 | 7 → 7 | **Two editions, each dated: commissioned 13 February 528, first edition 7 April 529, second 16 November 534, in force 29 December 534**; Tribonian out of the questions; the Fifty Decisions and the index of the lost first edition on an Oxyrhynchus papyrus; the unsourced "12 books" goes. |
+
+**Read by eye.** *Confusability:* `rm-721`/`rm-722` the citizens' law (Mucius) and the law of nations (Hermogenian); `rm-723`/`rm-724`/`rm-725` the edict (Cicero's annual law), the formula (the four parts) and the right to answer (Sabinus); `rm-726`/`rm-727`/`rm-728` the textbook (Verona), the jurist killed by the guard (Dio's night attack) and the jurist killed by the axe; `rm-729`/`rm-730` the anthology (Pisa's manuscript) and the code (the lost first edition). *Legend:* the Historia Augusta's Papinian is its claim. *Overlap:* `wh-363` dates Julianus's edict c. 130 CE, which no source read here gives; `wh-438` agrees.

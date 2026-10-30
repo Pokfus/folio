@@ -342,6 +342,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the aediles: the plebeian pair (tradition) / the curule pair | 494 BCE / 366 BCE | `rm-708` |
 | the quaestorship: elected by the people (tradition) / opened to the plebs | 447 BCE / 421 BCE | `rm-709` |
 | the censorship: created (tradition) / the first plebeian censor | 443 BCE / 351 BCE | `rm-710` |
+| prorogation: the first extended command | 326 BCE (a modern review; Livy's vote falls in the consular year Varro's count makes 327) | `rm-711` |
+| provocatio: the first Valerian law (tradition) / the second (tradition) / the third | 509 BCE / 449 BCE / 300 BCE | `rm-717` |
 
 ## The middle and late Republic
 
@@ -442,6 +444,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the suffect consul: the one-day consulship | 31 December 45 BCE | `rm-706` |
 | the praetors: the provincial pair / six a year | 227 BCE / 197 BCE | `rm-707` |
 | the aediles of Ceres (a modern bracket in Pomponius) | 44 BCE | `rm-708` |
+| prorogation routine (one modern view) | 146 BCE | `rm-711` |
+| provocatio: the PROVOCO denarius of Porcius Laeca | 110 – 109 BCE | `rm-717` |
+| the lex Plautia Papiria | 89 BCE | `rm-718` |
+| the praetors' edicts made binding | 67 BCE | `rm-723` |
 
 ## The Principate
 
@@ -662,6 +668,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the senatorial order reshaped | 18 BCE | `rm-699` |
 | the comitia: elections moved to the Senate | 14 CE | `rm-700` |
 | the censorship: the last Republican censors | 22 BCE | `rm-710` |
+| the formulary procedure: the Julian law ending most old actions | 17 BCE | `rm-724` |
+| the Institutes of Gaius written | c. 161 CE (begun under Antoninus Pius, finished under Marcus Aurelius) | `rm-726` |
+| Ulpian: chief adviser / killed | 222 CE / 223 CE (228 CE in a 19th-century dictionary) | `rm-727` |
+| Papinian killed | 212 CE | `rm-728` |
 
 ## Late Antiquity
 
@@ -745,6 +755,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the laeti: first attested / the land law / the levy law | 296 CE or 297 CE / 5 April 399 CE / 30 January 400 CE | `rm-691` |
 | the clibanarii: Nazarius's panegyric / in Constantius II's procession at Rome | 1 March 321 CE / 357 CE | `rm-692` |
 | Vegetius's Epitoma written (a modern bracket) | 383 – 450 CE | `rm-694` |
+| the formulas banned | 342 CE | `rm-724` |
+| Papinian: the notes annulled / the Law of Citations | 321 CE (possibly 324) / 426 CE | `rm-728` |
+| the Digest: commissioned / promulgated / in force / its manuscript taken from Pisa | 15 December 530 CE / 16 December 533 CE / 30 December 533 CE / 1406 | `rm-729` |
+| the Codex Justinianus: commissioned / first edition / second edition / in force | 13 February 528 CE / 7 April 529 CE / 16 November 534 CE / 29 December 534 CE | `rm-730` |
 
 ## Chronology pins
 
@@ -1421,4 +1435,14 @@ rm-707: 366; 227; 197
 rm-708: 494; 366; 44
 rm-709: 447; 421
 rm-710: 443; 351; 22
+rm-711: 326; 146
+rm-717: 509; 300; 110; 109
+rm-718: 89
+rm-723: 67
+rm-724: 17; 342
+rm-726: 161; 1816
+rm-727: 222; 223; 228
+rm-728: 212; 321; 426
+rm-729: 530; 533; 1406
+rm-730: 528; 529; 534
 ```
