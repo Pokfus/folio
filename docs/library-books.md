@@ -12,7 +12,68 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-six:
+  matter (chapter 0 — see the Library bullet). Currently sixty-two:
+  `treaty-of-versailles` (~500 KB, **15 chapters** — the treaty's fifteen Parts, the Preamble at the head of Part I
+  and the signatures at the foot of Part XV, through `page(n)` arrays — **no notes, no original**; the official
+  English text as printed at Ottawa in 1919, Canada's Sessional Paper No. 41, the one whole-treaty transcription on
+  Wikisource, scan-backed and proofread). **The first legal instrument on the shelf, and the first book with
+  PARTIES rather than an author** (`author: "The Allied and Associated Powers and Germany"`, keyed as such in
+  `BOOK_AUTHOR_COLOR`). `blocks: "treaty"` (`treatyBlocks` / `treatyFinish`, in `docs/library-importer.md`) sets
+  all 752 centred blocks as `bk-head` headings, reads 11 clause tables as paragraphs and keeps 7 real tables as
+  `<div class="bk-table"><table>` (the first table markup on the shelf; styled in `styles.css`). **Checked: all
+  440 article headings present, once each, in order** — two (127, 129) are typed as ordinary paragraphs on the
+  wiki and are promoted on a forward-only guard, and the PRINTING heads Article 123 "Article 125" (scan p. 56),
+  repaired on the neighbours' evidence and reported every run. Nine `fixes`, each read against the Commons scan
+  (four are damaged letters in the print); `book-scan.js`'s six candidates were all looked at ("properly",
+  "hearing" are right). "Masssey", "Montague" and "C.B" are the page's own and stay. Left behind: the volume's
+  title page and contents, the Protocol (41a), the maps. The French text (equally authentic) is not transcribed
+  whole anywhere this importer reads, so there is no second column. `glossOff` holds 21 entries from a rendered
+  sweep — a treaty cites by number, so NATO's Article 5 and Weimar's Article 48 fired on this treaty's own.
+  `cassius-dio-roman-history` (~3.3 MB English, **75 chapters for 80 books**, **568 notes**, no original column;
+  Earnest Cary's Loeb, 1914–1927, from **Bill Thayer's LacusCurtius** — the first book from that site, `layout: "lacus"`
+  → `extractLacus`; Wikisource has one page of it and Perseus only the Greek of Books 36–55). A chapter is a Loeb book;
+  the shared page of Books 22–29 is cut at its H3 heads, the fragments of 30–35 have one run of numbers and no heads, so
+  they are one chapter numbered 30 (the tabs go 30, 36). Parts are the nine Loeb volumes. **Only Cary's notes are
+  taken** — anchored `#noteN`; Thayer's (`#note:slug`, `#noteA`, the `mynote` blocks appended to a Loeb note, his `º`
+  comment and correction pop-ups, glossary and metric-conversion bullets, photographs) are not. Many pages carry no
+  Loeb notes at all (44, 59, 64, 79 …): Thayer did not transcribe them there, so the count is what the site has.
+  Checked: words per page against the page body within the soft-hyphen splits (559,824 raw, 559,132 shipped), every
+  tag balanced, every marker resolving and every Loeb note cited. Two traps, both silent: an `onMouseOver` gloss can
+  hold markup whose `>` ends the tag early and spills it into the prose (69.2's `<SPAN CLASS=goof>`), so event
+  attributes are stripped before any tag is read, including ones written with no space after the previous quote; and
+  the host is slow and the proxy cut transfers at 16/32/64 KB, so a page is accepted only ending in `</HTML>` with the
+  site's title — prime the cache with parallel `curl -C -` (one 100 KB page took a minute, sixteen at once were fine).
+  In Books 61–80 Thayer's H3 numerals (*LXIII*) give the standard numbering's book for the chapter numbers that follow;
+  they are kept as headings and the front matter explains them.
+  `anglo-saxon-chronicle` (~486 KB, the whole Chronicle from the description of Britain to 1154 as **9 parts cut
+  by year**, 741 annal paragraphs, **307 notes**, no original — J. A. Giles's translation of 1847 in the 1914 Bell
+  reissue, one Wikisource page with all 206 printed pages VALIDATED; `layout: "annals"` → `extractAnnals`, the
+  parts in `ASC_SPANS`). **The edition has no divisions**, so the parts are Folio's and the front matter says so;
+  each tab is its span of years. **The cut asks the NEXT annal's year too**: the printing has "A. 1101." for 1011
+  between 1010 and 1012, and a first-year-past-the-boundary cut would have moved ninety years into the wrong tab.
+  **Giles's smaller type is the apparatus** — the other manuscripts' versions of a year, by his own first note —
+  and ships as `class="bk-var"` (102 paragraphs and quotations; `styles.css` sets it smaller): two shapes, a
+  `font-size:83%` span filling a paragraph and eleven `wst-smaller` blocks, plus one variant the wikitext ran onto
+  the body entry before it (1023), split off because its span opens on an annal mark. Two more small blocks are
+  CENTRED couplets the body entry quotes (the bride-ale, the hedge), and stay plain verse. 14 poems, the
+  Brunanburh poem's two page halves joined; the 1065 poem crosses a page with its `<poem>` tags unpaired (they
+  arrive escaped) and its second half typed as one run, which is set as one paragraph inside the quotation rather
+  than broken where nobody can say the printer broke it. Two bare runs after a closing div are kept as paragraphs.
+  **Fetched by `index.php?action=render&useparsoid=0`**, not the API: `action=render` now returns Parsoid unless
+  asked, and the API answered 429 to every request for an hour on the import day. Gutenberg 657 was refused: a
+  1996 collation of Ingram (1823) with Giles by its preparer, not a printed edition. No Old English column: the
+  only complete free text is Thorpe's six-column Rolls Series edition, and no one column of it faces a conflation.
+  `magna-carta` (~42 KB English, ~30 KB Latin, **63 chapters**, **12 notes**, original **Latin** — the charter of
+  1215 in William Sharp McKechnie's translation, from his *Magna Carta: A Commentary* (Glasgow, 1905), Project
+  Gutenberg ebook 65363; `layout: "mckechnie"` → `extractMcKechnie`). **The shelf's first document, and its first
+  text read out of a commentary**: the volume prints each chapter as Latin, then a `<div class="translate">` of
+  English, then pages of commentary; the commentary, introduction and appendix are left behind and only the
+  footnotes cited from inside a translation block ship. Both columns come out of ONE cached page and **pair
+  chapter for chapter, 63 a side** (one `bk-n` per chapter). The **preamble is printed with chapter 1**, ahead of
+  its marker in both columns, because the edition calls the break "a purely arbitrary one" and because chapter 0
+  is the reader's front matter. Gutenberg's other Magna Carta
+  (ebook 10000) is the British Library's modern translation and is not free to take. McKechnie (1863–1930) clears
+  the pre-1929 rule and life + 70, not life + 100 (2031). Author "Anonymous", colour keyed by id.
   `tacitus-annals` (~947 KB English, ~687 KB Latin, **12 chapters** — the surviving books 1–6 and 11–16, books 7–10
   being lost — **1 note**, original **Latin**; Church and Brodribb's translation, Macmillan 1869, beside C. D.
   Fisher's Oxford text of 1906, both from Perseus's TEI; `layout: "chaptered"`, the Gallic War's shape, with
@@ -107,6 +168,38 @@ book added later will meet the same traps.
   16.6). `glossOff` drops 29 of the 451 terms the auto-linker made, after a headless `.ttip` sweep of every book:
   modern places on ancient ones (Pisa, Tripoli, Mali, Apia, Jordan), namesakes (Pope Damasus, Flavius Aetius, the
   Brennus who took Rome) and common nouns on names (ion on Ion, xenia on Xenias). Re-run after a glossary batch.
+  `diodorus-library` (~3.8 MB English, ~5.2 MB Greek, **Books 1–5 and 11–20 as 15 chapters** — the fifteen of
+  Diodorus's forty that survive whole —, **1,414 chapters as sections**, **3,707 notes**, original **Ancient Greek**;
+  `layout: "thayer"` → `extractThayer`; the Greek from THREE Perseus files through `original.urls`). The Loeb of
+  1933–1963 (Oldfather, Sherman, Welles, Geer) as Bill Thayer retyped it on LacusCurtius. Five things it settled.
+  · **PUBLIC DOMAIN BY NON-RENEWAL, THE SECOND TIME, AND ON TEN VOLUMES.** Thayer's home page for the work states
+  that no volume I–XI was renewed and that XII (1967) is in copyright. Checked in the *Catalog of Copyright Entries*
+  (Internet Archive OCR) for the renewal windows of volumes I, II, III, IV, IX and half of V (1960–63, 1966–67,
+  1973–75, 1977): no Diodorus or Oldfather renewal, while Harvard's renewals of its other series do appear, and
+  the 1963 registration of vol. VIII and the 1967 one of vol. XII are there. Renewals from 1978 on (V's second
+  year, VI, VII, VIII, X) are in the Copyright Office's online records, not searched (Stanford's index is behind a
+  bot wall), so for those the ground is Thayer's word. The registrations carry the ad interim prefix and the title
+  pages name Cambridge, Mass. and London; the 1996 restoration of foreign works does not reach a work published
+  in the US within 30 days of its first publication, and simultaneity was not established beyond the title page.
+  Nothing is claimed outside the US. Booth's 1700 English (PD everywhere) was rejected: OCR only, and unnumbered.
+  · **THAYER'S OWN NOTES ARE HIS COPYRIGHT** and are dropped with every marker citing them (95 inside Loeb notes, 24
+  lists, 40 markers); his `º` tooltips go and his 38 `emend` repairs of the printed Loeb stay.
+  · **HIS HAND-TYPED ANCHORS HAVE SLIPS** — `NAME="31"` and `ID="A"` for notes 11 and 28 of 1D, `<HR CLASS="62">`,
+  an unquoted `NAME=92`, a chapter carried over a page break marked again as `(19)` — so notes are joined by
+  their back-links and every anchor rule tolerates the variants. See `docs/library-importer.md` "The `thayer` layout".
+  · **THE PAIRING IS THE CHAPTER**, Herodotus's rule: 1,414 on each side, all paired; sections are not carried.
+  Each book's ancient table of contents is left out on both sides (16 Loeb notes are cited only from it).
+  · **ITS COLOUR stays inside the band** (`#634806`, an olive-bronze 15.7 from Vyasa against a tightest pair of
+  15.6): the band's best blues stand 19–20 from Herodotus and were refused on the Euripides test. No `glossOff`
+  sweep was run at import.
+  `declaration-of-independence` (~15 KB, **one part**, no notes, no original — written in English): the **Goddard
+  broadside** (Baltimore, 1777), the first printing with the signers' names, chosen over the engrossed parchment
+  because that transcription is diplomatic (italic throughout, the scribe's filler dashes as underscores, one paragraph,
+  unlabelled signature columns). **The Wikisource transcription is NOT proofread**: collated line by line against the
+  Commons scan it departed from the print 41 times (Bonds/Bands, `alter or abolish`, `in these Colonies`, `tese`, `teh`…),
+  each now a `fixes` row with the scan as witness; McKean's absence is the broadside's and is not supplied. Two importer
+  options arrived with it: `lineBlocks` (`lineateBlocks`: a paragraph-less blockquote's newlines become `<br>`, for the
+  signers' brace table) and a `dropTail` for the PD banner. `glossOff`: Jersey, Settlement, Providence.
   `classic-of-tea` (~34 KB English, ~13 KB Chinese, all ten parts, **8 notes**, original **Chinese** — Lu Yu's
   *Cha Jing* in **a condensation**: the "Translation Digest of Ch'a Ching" William H. Ukers printed in *All
   About Tea* (1935), pp. 15–22, from a translation of a Ming copy by Z. L. Yih; `layout: "chajing"` →
