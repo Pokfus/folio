@@ -57,8 +57,28 @@ CASES = ('nominative', 'genitive', 'dative', 'accusative', 'instrumental',
          'prepositional')
 
 
+# WHAT MAKES A `form of` SENSE AN INFLECTED FORM.  Wiktionary marks derived
+# words the same way -- `родитель` "parent" is a `form-of` its verb with the tag
+# `noun-from-verb`, `внучка` the feminine of `внук` -- and those are words a
+# learner learns, with paradigms of their own.  So a `form of` sense is dropped
+# only when it carries a tag of inflection or spelling (`книгу`: accusative,
+# singular), and kept when all it says is how the word was derived.
+FORM_TAGS = {'nominative', 'genitive', 'dative', 'accusative', 'instrumental',
+             'prepositional', 'locative', 'vocative', 'partitive', 'present', 'past',
+             'future', 'imperative', 'infinitive', 'participle', 'short-form',
+             'comparative', 'superlative', 'first-person', 'second-person',
+             'third-person', 'singular', 'plural', 'alternative', 'misspelling',
+             'pre-reform', 'obsolete', 'abbreviation', 'adverbial', 'gerund',
+             'inflection-of', 'nonstandard', 'dated', 'archaic', 'rare', 'colloquial'}
+
+
 def is_formof(s):
-    return 'form_of' in s or 'alt_of' in s or 'form-of' in (s.get('tags') or [])
+    t = set(s.get('tags') or [])
+    if 'alt_of' in s:
+        return True
+    if 'form_of' in s or 'form-of' in t:
+        return bool(t & FORM_TAGS) or not (t - {'form-of'})
+    return False
 
 
 def compact(d):

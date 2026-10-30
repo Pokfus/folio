@@ -171,11 +171,13 @@ def main():
         """Two of one note's sentences may not be one sentence twice -- `Не
         принимайте это на свой счёт` and `Не прими это на свой счёт`, or the same
         line in the masculine and the feminine.  More than half the words shared
-        (folded, the hits aside) is the same sentence."""
+        (folded, the hits aside) is the same sentence; a short pair sharing three of
+        five words is one sentence twice too (`Дети и пьяные говорят правду` and
+        `…не врут`, A2)."""
         a = set(sents[si][2])
         for c in got:
             b = set(sents[c[1]][2])
-            if len(a & b) * 2 > min(len(a), len(b)) + 1:
+            if len(a & b) * 2 >= min(len(a), len(b)) + 1:
                 return True
         return False
 

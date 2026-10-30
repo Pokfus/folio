@@ -6,11 +6,11 @@ Portuguese CAPLE, Italian CILS, Indonesian UKBI …); `docs/lang-decks.md` is th
 were built, and every rule there applies here unless this file says otherwise. Asked for on 2026-10-30: "In the same style, we made other language vocabulary collections for
 several foreign languages. Start planning a collection for learning Russian."
 
-**STATUS (2026-10-30): the alphabet deck and A1 are built** (`.claude/torfl/`, §10). The owner's
+**STATUS (2026-10-30): the alphabet deck, A1 and A2 are built** (`.claude/torfl/`, §10). The owner's
 answers to §9: sizes as below; **an alphabet deck, yes**; **titles in English**; word source as
 recommended (assembled). The owner is supplying TORFL's own level descriptions; until they are written
-into `SCOPE` in `torfl_level.py`, A1 is scoped to the CEFR A1 global descriptor and says so in its
-description.
+into `SCOPE` in `torfl_level.py`, A1 and A2 are scoped to the CEFR global descriptors for their bands
+and say so in their descriptions.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version
 bump** for any deck this plan produces. Only a change to the APP that Russian forces (below, §8) would
@@ -26,7 +26,7 @@ itself, and each maps to a CEFR band:
 |---|---|---|---|
 | `Russian-Alphabet` (built) | — | — | 33 |
 | `TORFL-A1-Russian` (built) | Элементарный уровень (ТЭУ) | A1 | 500 |
-| `TORFL-A2-Russian` | Базовый уровень (ТБУ) | A2 | 750 |
+| `TORFL-A2-Russian` (built) | Базовый уровень (ТБУ) | A2 | 750 |
 | `TORFL-B1-Russian` | ТРКИ-1 | B1 | 1,000 |
 | `TORFL-B2-Russian` | ТРКИ-2 | B2 | 1,500 |
 | `TORFL-C1-Russian` | ТРКИ-3 | C1 | 1,500 |
@@ -197,7 +197,7 @@ personal pronouns' cases), `extract_kaikki.py`, `supplement.py` (the A1 inventor
 
 What the build found, in the order the stages meet it:
 
-- **Wiktionary holds 53,882 Russian lemma entries** of a teachable part of speech, each with stressed
+- **Wiktionary holds 55,708 Russian lemma entries** (53,882 before §11's fix) of a teachable part of speech, each with stressed
   forms, the full paradigm and the aspect partner. Pre-reform spellings (`дѣ́лать`) and romanisations
   are dropped from the forms; a cell's footnote digit (`него́ ²`) is stripped.
 - **The lemma frequency needs two rules beyond summing.** A form that is some entry's HEADWORD belongs
@@ -215,7 +215,7 @@ What the build found, in the order the stages meet it:
   "hotly"), the predicative first only where it is the "it is…" sense.
 - **Aspect pairs: only mutual pairings are taken**, plus four the textbook gives that Wiktionary does
   not reach (`видеть / увидеть`, not `завидеть`; `просить`, `ждать`, `нравиться`). The по- verbs of
-  "doing it for a while" are refused as partners (`стоять / постоять`). 78 pairs in A1.
+  "doing it for a while" are refused as partners (`стоять / постоять`). 79 pairs in A1.
 - **The personal pronouns share one table in Wiktionary** — `я`'s entry lists `ты`, `нас`, `их` — so
   their six cases are written out in `russian.py` (`PRONOUN_CASES`), or every pronoun would claim
   every other's sentences.
@@ -233,5 +233,39 @@ What the build found, in the order the stages meet it:
 - **No typed-answer path exists for deck cards** (checked 2026-10-30), so §8's worry about a reader
   typing `рука` for `рука́` does not arise; the site's search already folds combining marks.
 
-**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the A1
-inventory's sections against them) when the owner's text arrives; then A2.
+## 11. As built (2026-10-30): A2
+
+750 notes / 1,500 cards on top of A1: 295 from `SECTIONS_A2` (the CEFR A2 descriptor's "personal and
+family information, shopping, local geography, employment", plus narration and opinion), 455 by
+frequency; 169 aspect pairs; three sentences for all 750. What A2 found, beyond A1's rules:
+
+- **Wiktionary marks DERIVED words as `form of`** — `родитель` is a `form-of` its verb (`noun-from-verb`),
+  `внучка` and `студентка` the feminines of `внук` and `студент` — so the extractor had been dropping
+  1,826 real lemmas along with the inflected forms. A `form of` sense is now an inflected form only
+  when it carries a tag of inflection or spelling (`FORM_TAGS` in `extract_kaikki.py`). This changed
+  `lex.json` and therefore A1: A1 was rebuilt and differs from its first commit by `оружие` and `милый`
+  out (the first refused, the second displaced to A2), `бросать / бросить` and `студентка` in.
+- **Past the commonest 500 words the subtitle corpus chooses crime drama.** `REFUSED` became themed
+  groups, each with one reason (crime drama, coarse, dubbing's forms of address, hesitation sounds,
+  inflected forms filed as entries); a refused verb is caught as the SECOND member of a pair too
+  (`затыкаться / заткнуться` came in through `заткнуться`); an entry whose first sense is coarse is
+  refused even untagged (`шлюха`); given names Wiktionary lists in lower case (`генри`) are refused
+  with letter names. These bind the frequency fill only — a later inventory may name `суд` or `война`.
+- **The coarse filter matched inside words**: `ass\w*` caught "assistance", "assemble", "assent", so
+  `помощь`, `собираться` and `согласиться` were refused and `помощь`'s gloss "help" was filtered away.
+  Both copies (`select.py`, `build_deck.py`) are whole-word now.
+- **More false pairs**: the по- delimitatives (`курить / покурить`, `мечтать / помечтать`), the
+  inchoatives (`плакать / заплакать`, `кричать / закричать`), and `мешать / смешать` (to hinder, to
+  mix) — all in `NO_PAIR`.
+- **ё folding picked the wrong word**: `небо` (sky) folded onto `нёбо` (palate); the inventory now
+  prefers the entry spelt exactly as written.
+- **Glosses**: proper-name senses (`Otvet (Russian anti-submarine missile)`), a letter's old name,
+  `diminutive of …:` and `female equivalent of …:` prefixes, `passive of …` on reflexives and
+  square-bracket construction notes are stripped; short forms are shown only when the masculine
+  exists (`взрослый` has none in use).
+- **Two of one card's sentences sharing three of five words** are one sentence twice (`Дети и пьяные
+  говорят правду` / `…не врут`); the similarity rule is one step stricter.
+
+**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the A1 and A2
+inventories against them) when the owner's text arrives; then B1 (1,000 notes), where the fill will
+choose even more of the words and the refused groups will need extending.

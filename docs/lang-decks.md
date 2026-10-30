@@ -3192,9 +3192,9 @@ changed was the one that had been wrong all along.
   every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
   changelog line and no version bump. Not part of the site.
 - `.claude/torfl/` — the generator behind the **Russian** decks (Oct 2026): `decks/Russian-Alphabet.folio-deck.json`
-  (33 letters, `alphabet.py`, hand-written, no sources) and `decks/TORFL-A1-Russian.folio-deck.json` (500 notes /
-  1,000 cards). `python3 .claude/torfl/run.py [--level a2] [--no-fetch]`, cache `.claude/torfl-cache/` (gitignored,
-  ~1.3 GB), checker `node .claude/torfl/check-torfl.js a1|alphabet`. PYTHON and ONE LEVEL PER RUN, like UKBI, and
+  (33 letters, `alphabet.py`, hand-written, no sources), `decks/TORFL-A1-Russian.folio-deck.json` (500 notes /
+  1,000 cards) and `decks/TORFL-A2-Russian.folio-deck.json` (750 / 1,500). `python3 .claude/torfl/run.py [--level a2] [--no-fetch]`, cache `.claude/torfl-cache/` (gitignored,
+  ~1.3 GB), checker `node .claude/torfl/check-torfl.js a1|a2|alphabet`. PYTHON and ONE LEVEL PER RUN, like UKBI, and
   ASSEMBLED like UKBI: TORFL's lexical minimum is a copyrighted book, so a hand-written inventory of the level's
   topics (`supplement.py`) is topped up by LEMMA frequency — the subtitle list's word-form counts summed over each
   Wiktionary paradigm, since the list ranks `книгу` above `книга`. An aspect pair is one note (`де́лать / сде́лать`),

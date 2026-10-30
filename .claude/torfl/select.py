@@ -35,7 +35,7 @@ single words both corpora count -- CAPLE's arrangement.
 import collections, json, os, re, statistics, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from russian import fold, tokens
+from russian import fold, tokens, bare
 from torfl_level import LEVEL, TARGET, f as lvlf, words_below
 from supplement import inventory
 
@@ -51,13 +51,20 @@ JUNK_TAGS = {'obsolete', 'archaic', 'dated', 'rare', 'dialectal', 'abbreviation'
 NO_PAIR = {'стоять', 'держать', 'бояться', 'надеяться', 'искать', 'сидеть',
            'лежать', 'гулять', 'работать', 'спать', 'жить', 'играть', 'болеть',
            'любить', 'помнить', 'знать', 'хотеть', 'мочь', 'бежать',
-           'волноваться'}
+           'волноваться', 'означать', 'существовать', 'дышать', 'бороться'}
+# and pairs whose "perfective" is the verb of STARTING (`закричать`, to cry out;
+# `замолчать`, to fall silent) -- a real verb, but not the one paired with the
+# imperfective in a textbook
+NO_PAIR |= {'кричать', 'молчать', 'злиться', 'общаться', 'плакать', 'смеяться'}
+# and the по- delimitatives the A2 read found (`курить / покурить`, to have a
+# smoke), and a "pair" that is two verbs (`мешать` to hinder, `смешать` to mix)
+NO_PAIR |= {'мечтать', 'курить', 'участвовать', 'путешествовать', 'мешать'}
 # …AND PAIRS WIKTIONARY DOES NOT LIST BOTH WAYS, or lists behind a rarer verb
 # (`видеть` reaches `завидеть`, "to catch sight of", before `увидеть`).  Each is
 # the pair every textbook gives.
 PAIRS = {'видеть': 'увидеть', 'просить': 'попросить', 'ждать': 'подождать',
          'нравиться': 'понравиться'}
-ROUND_TRIP = {'ходить', 'ездить', 'бегать', 'летать', 'плавать', 'носить',
+ROUND_TRIP = {'летать', 'ходить', 'ездить', 'бегать', 'летать', 'плавать', 'носить',
               'водить', 'возить', 'бродить', 'лазить', 'катать', 'таскать', 'гонять'}
 
 # WORDS THE FREQUENCY FILL MAY NOT TAKE, each with its reason.  The inventory
@@ -90,9 +97,44 @@ REFUSED = {
     'том': 'mostly the prepositional of тот',
     'капитан': 'film and television plot vocabulary',
     'ненавидеть': 'film vocabulary; "to hate" is not a first-year verb',
+    'миссис': 'dubbing\'s rendering of English "Mrs"',
     'мисс': 'dubbing\'s rendering of English "Miss"',
     'мёртвый': 'film violence',
 }
+
+
+# …AND THE SAME TURNED AWAY BY THEME, once the corpus starts choosing (A2, Oct
+# 2026): with the commonest 500 words gone, a subtitle list's next few hundred
+# are what crime drama is made of.  Each group has one reason; a word here is
+# not banned from the set, only from being chosen BY FREQUENCY -- a later
+# level's inventory can name `суд` or `война` where its scope reaches them.
+for _reason, _words in [
+    ('crime-drama vocabulary, which a subtitle corpus over-counts',
+     'убийца убивать жертва тюрьма стрелять агент суд преступление пистолет свидетель '
+     'офицер детектив адвокат полицейский наркотик бомба погибать уничтожать сделка '
+     'война оружие умирать заложник труп пуля охрана коп расследование арестовывать '
+     'арестовать приказ враг нападать бить ударять удар убираться обвинение судить '
+     'армия солдат военный сержант лейтенант преступник улика подозреваемый отпечаток '
+     'генерал'),
+    ('coarse or slang', 'задница мужик идиот детка чёртов затыкаться ад секс член дерьмо '
+     'сука придурок урод дурак ублюдок сексуальный'),
+    ('dubbing\'s rendering of an English form of address, or of an American thing',
+     'мэм леди босс сэр шеф окей штат доллар ник колледж генри месье величество вау '
+     'эрика джим'),
+    ('a hesitation sound, not vocabulary', 'эм хм ох'),
+    ('an inflected form Wiktionary also files as an entry, taught on its lemma\'s card',
+     'стал начал смог вся минуту секунду милая черта придти постоять рада'),
+    ('taught inside a set phrase (добро пожаловать, welcome)', 'жаловать'),
+]:
+    for _w in _words.split():
+        REFUSED.setdefault(_w, _reason)
+
+
+# WHOLE WORDS: a bare `ass\w*` matched "assistance", "assemble" and "assent", and turned
+# away `помощь`, `собираться` and `согласиться` (found at A2, Oct 2026).
+COARSE = re.compile(r'\b(fuck\w*|shit\w*|cunts?|dicks?|cocks?|pricks?|arse|arsehole|ass|asshole|'
+                    r'bitch\w*|whores?|sluts?|piss\w*|bollocks|wank\w*|screw(ing)?|bang(ing)?|'
+                    r'sex(ual)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
 
 
 def closed(e):
@@ -109,8 +151,14 @@ def senses_ok(e):
 
 
 def letter_name(e):
-    return any('letter' in g.lower() and 'script' in g.lower()
-               for s in e['senses'] for g in s['g'])
+    """A letter's name -- or a given name, which Wiktionary may list in lower
+    case as an ordinary entry (`генри`, `эрика`, caught at A2)."""
+    if any('letter' in g.lower() and ('script' in g.lower() or 'cyrillic' in g.lower()
+                                      or 'roman' in g.lower())
+           for s in e['senses'] for g in s['g']):
+        return True
+    return all(re.search(r'\b(male|female|a) given name|\bsurname\b', s['g'][-1].lower())
+               for s in e['senses'])
 
 
 def main():
@@ -223,7 +271,9 @@ def main():
                 fr = phrase_freq(e['word'])
             return {'entries': members, 'pair': False, 'freq': fr, 'key': key}
         used.add(i)
-        return {'entries': [i], 'pair': False, 'freq': e['freq'], 'key': key}
+        # a multi-word noun (`день рождения`) has no row in a segmented list
+        fr = phrase_freq(e['word']) if ' ' in e['word'] else e['freq']
+        return {'entries': [i], 'pair': False, 'freq': fr, 'key': key}
 
     below = words_below()
     units, missing = [], []
@@ -239,6 +289,9 @@ def main():
             # the letter's name or an abbreviation spelt the same way
             good = [i for i in cands if senses_ok(lex[i]) and lex[i]['word'] == lex[i]['word'].lower()]
             cands = good or cands
+        # ё IS FOLDED TO MATCH, SO PREFER THE SPELLING AS WRITTEN: `небо` (sky)
+        # and `нёбо` (palate) fold alike, and the inventory means the one it wrote
+        cands.sort(key=lambda i: 0 if bare(lex[i]['word']).lower() == word.lower() else 1)
         if not cands:
             missing.append(f'{sec}: {word}' + (f':{pos}' if pos else '') + (f'#{key}' if key else ''))
             continue
@@ -255,6 +308,7 @@ def main():
     taken = {fold(lex[m]['word']) for u in units for m in u['entries']}
 
     refused_seen = []
+    REFUSED_F = {fold(x) for x in REFUSED}
     order = sorted(range(len(lex)), key=lambda i: -lex[i]['freq'])
     for i in order:
         if len(units) >= TARGET[LEVEL]:
@@ -268,6 +322,15 @@ def main():
         if e['pos'] in OPEN and not closed(e) and shadowed(i):
             continue
         if e['pos'] in ('proverb', 'phrase'):
+            continue
+        # a word whose FIRST sense is coarse (`шлюха`, untagged in Wiktionary) --
+        # the same pattern build_deck.py filters glosses with
+        if COARSE.search(e['senses'][0]['g'][-1]):
+            refused_seen.append(w)
+            continue
+        # an `adj` entry glossed as a verb (`звучать` "to sound right") is a
+        # mis-filed sense, and the verb is its own entry
+        if e['pos'] == 'adj' and e['senses'][0]['g'][-1].startswith('to '):
             continue
         # ONE NOTE PER SPELLING ACROSS THE DECK: `пора` the noun and `пора` "it is
         # time" both rank, and two notes with one front is two schedules for a
@@ -289,12 +352,18 @@ def main():
         if any(j < i and lex[j]['pos'] == e['pos'] and j not in used
                for j in by_word[fold(w)]):
             continue
-        if w in REFUSED or fold(w) in {fold(x) for x in REFUSED}:
+        if fold(w) in REFUSED_F:
             refused_seen.append(w)
             used.add(i)
             continue
         u = unit_of(i)
         if any(fold(lex[m]['word']) in below for m in u['entries']):
+            continue
+        # a refused verb can arrive as the SECOND member of a pair (`затыкаться /
+        # заткнуться` reaches the list through `заткнуться`)
+        bad = [lex[m]['word'] for m in u['entries'] if fold(lex[m]['word']) in REFUSED_F]
+        if bad:
+            refused_seen.extend(bad)
             continue
         u['source'], u['sec'] = 'frequency', ''
         units.append(u)

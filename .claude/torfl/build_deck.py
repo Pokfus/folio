@@ -95,6 +95,16 @@ GLOSS = {
     'нельзя': ['it is not allowed, one must not', 'it is impossible, one cannot'],
     'пора': ['it is time (пора идти, it is time to go)', 'time, season, period'],
     'откуда': ['where from'],
+    'подруга': ['female friend', 'girlfriend'],
+    'полагать': ['to suppose, to think, to believe'],
+    'задание': ['task, assignment', 'homework (домашнее задание)'],
+    'согласный': ['agreeing (я согласен, I agree)', 'consonant (a speech sound)'],
+    'неприятность': ['trouble, unpleasantness'],
+    'водитель': ['driver'],
+    'апельсин': ['orange (the fruit)'],
+    'мечта': ['dream (something hoped for)', 'daydream'],
+    'подружка': ['girlfriend, (female) friend'],
+    'холодильник': ['fridge, refrigerator'],
     # THE PREPOSITIONS, WITH THE CASE EACH SENSE TAKES.  Wiktionary splits a
     # preposition's senses under headings ("[with prepositional]") that do not
     # survive as glosses, and the case IS the lesson: в + prepositional is where,
@@ -134,8 +144,11 @@ def override(e):
     return None
 
 
-COARSE = re.compile(r'\b(fuck|shit|cunt|dick|cock|prick|arse|ass|bitch|whore|piss|'
-                    r'bollocks|wank|screw|bang|sex)\w*', re.I)
+# WHOLE WORDS: a bare `ass\w*` matched "assistance", "assemble" and "assent", and turned
+# away `помощь`, `собираться` and `согласиться` (found at A2, Oct 2026).
+COARSE = re.compile(r'\b(fuck\w*|shit\w*|cunts?|dicks?|cocks?|pricks?|arse|arsehole|ass|asshole|'
+                    r'bitch\w*|whores?|sluts?|piss\w*|bollocks|wank\w*|screw(ing)?|bang(ing)?|'
+                    r'sex(ual)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
 
 
 def clean_gloss(g):
@@ -148,8 +161,20 @@ def clean_gloss(g):
         label = label or text[1:text.index(']')]
         text = text[text.index(']') + 1:].strip()
     text = re.sub(r'\s+', ' ', text).strip().rstrip('.')
+    # a reflexive verb's derived senses name their base verb: `passive of пыта́ть
+    # (pytátʹ)` says nothing a learner can use, and `reflexive of учи́ть (učítʹ);
+    # to study` keeps only what follows the semicolon
+    if re.match(r'^(passive|reflexive) of ', text):
+        text = text.split(';', 1)[1].strip() if ';' in text else ''
+    # a feminine noun's gloss names its masculine first: `female equivalent of
+    # внук (vnuk): granddaughter` -> `granddaughter`
+    text = re.sub(r'^female equivalent of [^:]*:\s*', '', text)
     # Wiktionary's editorial asides: `(perfective поговорить)`, `one (1)`
-    text = re.sub(r'\s*\((?:im)?perfective [^)]*\)|\s*\(\d+\)', '', text).strip()
+    text = re.sub(r'\s*\((?:im)?perfective [^)]*\)|\s*\(\d+\)|\s*\(verbal noun of [^)]*\)+',
+                  '', text).strip()
+    # a construction note in square brackets, often cut off by the length limit
+    text = re.sub(r'\s*\[[^\]]*(\]|$)', '', text).strip()
+    text = re.sub(r'^(diminutive|augmentative|endearing form|pejorative) of [^:]*:\s*', '', text)
     if len(text) > 90:
         first = re.split(r'(?<=[a-z\)])[.;] ', text)[0]
         text = first if len(first) <= 90 else text[:87].rsplit(' ', 1)[0] + '…'
@@ -166,6 +191,10 @@ def glosses(e, key=None, limit=4, fallback=True):
     out = []
     for s in ss:
         t = clean_gloss(s['g'])
+        # a later sense that is a proper name (`Otvet (Russian anti-submarine
+        # missile)`) or a letter's old name
+        if out and (re.match(r'[A-Z][a-z]+ \(', t) or 'name of the letter' in t):
+            continue
         if COARSE.search(t) or re.fullmatch(r'\+ \w+( or \w+)?', t):
             continue          # a heading left as a gloss: `+ prepositional`
         if len(t) > 60 and out:
@@ -277,7 +306,9 @@ def adj_parts(e):
     forms = []
     short = [form(e, 'short-form', g, exclude=('plural',)) for g in ('masculine', 'feminine', 'neuter')]
     short.append(form(e, 'short-form', 'plural'))
-    if any(short) and not bare(e['word']).endswith(('щий', 'щийся')):
+    # only a full set: an adjective Wiktionary gives short forms for but no
+    # masculine (`взро́слый`, `кра́йний`) has no short form in use
+    if short[0] and not bare(e['word']).endswith(('щий', 'щийся')):
         forms.append(fi('short', ', '.join(show(x) for x in short if x)))
     # the comparative a learner says is the adverbial one in -е (`лу́чше`), not
     # the adjective in -ий that Wiktionary may list first (`лу́чший`)
