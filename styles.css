@@ -8366,6 +8366,15 @@ body.night .book-tile, body.night .gloss-book{
    somebody's greeting. Both are written on by the importer AFTER the tag stripper, which drops
    attributes from every tag it keeps. */
 .bk-salut,.bk-head{font-style:italic; color:var(--ink-soft);}
+/* A TABLE IN A BOOK (Oct 2026, the Treaty of Versailles — the first book whose text holds tables that are
+   tables: the German army's permitted establishments, the coal to be delivered year by year). Plain rules
+   and the page's own ink; it scrolls sideways inside its box rather than widening a phone's page. */
+.bk-prose .bk-table{overflow-x:auto; margin:1.2em 0;}
+.bk-prose .bk-table table{border-collapse:collapse; font-size:.86em; line-height:1.45;}
+.bk-prose .bk-table th,.bk-prose .bk-table td{padding:5px 10px; border-bottom:1px solid var(--rule); text-align:left; vertical-align:top;}
+.bk-prose .bk-table th{font-weight:600; color:var(--ink-soft); vertical-align:bottom;}
+/* the unit's name keeps a readable measure on a phone; the box scrolls rather than the column folding to a word a line */
+.bk-prose .bk-table td:first-child{min-width:12em;}
 /* Gummere's section numbers — how this text is cited, so they are kept and set apart rather than
    folded into the prose */
 .bk-prose .bk-n{

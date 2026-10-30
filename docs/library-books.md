@@ -12,7 +12,23 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  `treaty-of-versailles` (~500 KB, **15 chapters** — the treaty's fifteen Parts, the Preamble at the head of Part I
+  and the signatures at the foot of Part XV, through `page(n)` arrays — **no notes, no original**; the official
+  English text as printed at Ottawa in 1919, Canada's Sessional Paper No. 41, the one whole-treaty transcription on
+  Wikisource, scan-backed and proofread). **The first legal instrument on the shelf, and the first book with
+  PARTIES rather than an author** (`author: "The Allied and Associated Powers and Germany"`, keyed as such in
+  `BOOK_AUTHOR_COLOR`). `blocks: "treaty"` (`treatyBlocks` / `treatyFinish`, in `docs/library-importer.md`) sets
+  all 752 centred blocks as `bk-head` headings, reads 11 clause tables as paragraphs and keeps 7 real tables as
+  `<div class="bk-table"><table>` (the first table markup on the shelf; styled in `styles.css`). **Checked: all
+  440 article headings present, once each, in order** — two (127, 129) are typed as ordinary paragraphs on the
+  wiki and are promoted on a forward-only guard, and the PRINTING heads Article 123 "Article 125" (scan p. 56),
+  repaired on the neighbours' evidence and reported every run. Nine `fixes`, each read against the Commons scan
+  (four are damaged letters in the print); `book-scan.js`'s six candidates were all looked at ("properly",
+  "hearing" are right). "Masssey", "Montague" and "C.B" are the page's own and stay. Left behind: the volume's
+  title page and contents, the Protocol (41a), the maps. The French text (equally authentic) is not transcribed
+  whole anywhere this importer reads, so there is no second column. `glossOff` holds 21 entries from a rendered
+  sweep — a treaty cites by number, so NATO's Article 5 and Weimar's Article 48 fired on this treaty's own.
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,

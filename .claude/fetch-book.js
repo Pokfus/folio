@@ -1115,6 +1115,25 @@ const DQ_TITLES = [
   /* II.74 */ "Of how Don Quixote fell sick, and of the will he made, and how he died",
 ];
 
+/* The Treaty of Versailles' fifteen Parts, as the printing heads them (set in the casing of the wiki's
+   own contents list, which notes that it is not in the original). Transcribed, never composed. */
+const TREATY_PARTS = [
+  "The Covenant of the League of Nations",
+  "Boundaries of Germany",
+  "Political Clauses for Europe",
+  "German Rights and Interests outside Germany",
+  "Military, Naval and Air Clauses",
+  "Prisoners of War and Graves",
+  "Penalties",
+  "Reparation",
+  "Financial Clauses",
+  "Economic Clauses",
+  "Aerial Navigation",
+  "Ports, Waterways and Railways",
+  "Labour",
+  "Guarantees",
+  "Miscellaneous Provisions",
+];
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -17067,6 +17086,143 @@ const BOOKS = {
     },
   },
 
+  "treaty-of-versailles": {
+    title: "The Treaty of Versailles",
+    subtitle: "Treaty of Peace between the Allied and Associated Powers and Germany",
+    /* A TREATY HAS PARTIES, NOT AN AUTHOR. Named as the transcription's own header names them, and as
+       the treaty's preamble does: the Allied and Associated Powers on one side, Germany on the other.
+       NO `translator`: the English is one of the treaty's two authentic texts (Article 440's closing
+       clause — "of which the French and English texts are both authentic"), so it is the original,
+       as Macbeth's English is, and the run header names the EDITION. */
+    author: "The Allied and Associated Powers and Germany",
+    edition: "Treaty of Peace between the Allied and Associated Powers and Germany, signed at Versailles, " +
+      "June 28, 1919, printed by order of Parliament, Ottawa, 1919",
+    written: "1919",
+    year: 1919,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The treaty is an act of governments and the printing is a government's: the volume is Canada's
+       Sessional Paper No. 41, printed by J. de Labroquerie Taché, Printer to the King, at Ottawa in
+       1919 (its title page, transcluded on the wiki's main page for the work). Published in 1919, it
+       is public domain in the United States under the pre-1929 rule, which is what Wikisource tags it
+       with; Canada's own Crown copyright in a government printing runs fifty years from publication
+       and so ended long ago. Nobody's life term is in play: no editor or translator is named.
+
+       WHAT ELSE WAS LOOKED AT. Wikisource carries exactly ONE transcription of the whole treaty, this
+       one, backed by a scan of the Ottawa volume page by page (171 pages, every one proofread); its
+       header names the British printing (Treaty Series 1919 No. 4, Cmd. 153) and the Australian
+       Treaty Series as the other official English texts, neither of which is transcribed there. The
+       French text, equally authentic, is not on French Wikisource as a whole text, so the book has
+       no second column.
+
+       WHAT IS TAKEN: the treaty itself, from the preamble to the signatures — fifteen Parts, 440
+       articles and their annexes. The Preamble is set at the head of Part I and the signatures at the
+       foot of Part XV, which is where they stand in the printing, so the fifteen tabs are the treaty's
+       own fifteen Parts. LEFT BEHIND: the Ottawa volume's title page and contents, the Protocol signed
+       the same day (a separate sessional paper, 41a, which the wiki does not transcribe with the
+       treaty), and the maps the treaty refers to, which are not in the transcription.
+
+       HOW IT IS SET is the `treaty` block pass (treatyBlocks, above cleanBody): every centred block is
+       a heading — Part, Section, Chapter, Annex, Article, or an annex's numbered paragraph — and is
+       set as one rather than as a quotation; a table whose rows are a lettered clause and its text is
+       read as the paragraphs it is printed to look like; and the few tables that are tables (the
+       army's establishments, the livestock and coal deliveries) are kept as tables. */
+    rights:
+      "Public domain. The Treaty of Versailles was signed on 28 June 1919. The text here is the " +
+      "official English text as printed by order of the Canadian Parliament at Ottawa in 1919 " +
+      "(Sessional Paper No. 41, printed by J. de Labroquerie Taché, Printer to the King). As a work " +
+      "published in 1919 it is in the public domain in the United States under the rule for works " +
+      "published before 1929, and the Crown copyright Canada holds in its government printings lasts " +
+      "fifty years from publication, so it has expired there as well. What is taken is the treaty " +
+      "from its preamble to its signatures; the volume's title page and contents, the Protocol signed " +
+      "the same day and the treaty's maps are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Treaty_of_Versailles",
+
+    about: [
+      "<b>The Treaty of Versailles</b> is the peace treaty between Germany and the Allied and " +
+        "Associated Powers that ended the First World War. It was signed in the Hall of Mirrors of " +
+        "the Palace of Versailles on 28 June 1919 — five years to the day after the assassination of " +
+        "Archduke Franz Ferdinand at Sarajevo — and came into force on 10 January 1920. The fighting " +
+        "had stopped with the armistice of 11 November 1918; this is the document that turned the " +
+        "armistice into a peace, and the first of the treaties the Paris Peace Conference made with " +
+        "each of the defeated powers in turn.",
+      "It was written by the victors. The terms were worked out in Paris over the first half of 1919, " +
+        "above all by the leaders of the United States, Britain, France and Italy — Woodrow Wilson, " +
+        "David Lloyd George, Georges Clemenceau and Vittorio Emanuele Orlando — and Germany was not " +
+        "admitted to the negotiations. Its delegation was handed the draft in May, was allowed to " +
+        "answer only in writing, and signed under the threat that the war would otherwise resume. " +
+        "In Germany the treaty was called a <i>Diktat</i>, a dictated peace, from the start.",
+      "What it says is set out in fifteen Parts and 440 articles. Part I is the Covenant of the " +
+        "League of Nations, the new international organisation Wilson had made the centre of his " +
+        "peace. Then come Germany's new borders: Alsace-Lorraine returned to France, territory to " +
+        "Belgium and to the restored Poland, Danzig made a Free City under the League, the Saar Basin " +
+        "put under the League for fifteen years with its coal mines given to France, and plebiscites " +
+        "to settle Schleswig, parts of East Prussia and Upper Silesia. Germany gave up all its " +
+        "colonies. Its army was cut to 100,000 men with no conscription, tanks or military aircraft, " +
+        "its navy to a handful of ships and no submarines, and the Rhineland was demilitarised and " +
+        "occupied by Allied troops.",
+      "The most argued-over article is the shortest kind. In <b>Article 231</b>, at the head of Part " +
+        "VIII on reparation, Germany accepts “the responsibility of Germany and her allies” for all " +
+        "the loss and damage the Allies suffered in a war “imposed upon them by the aggression of " +
+        "Germany and her allies”. " +
+        "It was written to found a legal claim to reparations, and it was read in Germany as a " +
+        "verdict of guilt for the war. The treaty itself fixes no total: it sets up a Reparation " +
+        "Commission to decide it later. Other Parts deal with prisoners of war and graves, the trial " +
+        "of the former Kaiser, Germany's debts and trade, its rivers and railways, and — in Part " +
+        "XIII — the founding of the International Labour Organization, which still exists.",
+      "The treaty was attacked as soon as it was published, from both sides: as too harsh to be " +
+        "accepted by the Germans who had to live under it, most famously by the economist John " +
+        "Maynard Keynes in <i>The Economic Consequences of the Peace</i> (1919), and as too weak to " +
+        "keep Germany from rising again. The United States signed it but its Senate never ratified " +
+        "it, so the United States never joined the League its own president had designed, and made " +
+        "a separate peace with Germany in 1921. In the 1930s Hitler broke the treaty's military and " +
+        "territorial terms one after another. Whether the peace made in 1919 led to the war of 1939 " +
+        "is still argued by historians.",
+      "The text here is the official English text — one of the treaty's two authentic texts, the " +
+        "other being French — as printed by order of the Canadian Parliament at Ottawa in 1919. " +
+        "Each Part is one tab, with the Preamble at the head of Part I and the signatures at the foot " +
+        "of Part XV, as the printing has them. The headings and numbering are the treaty's own. " +
+        "The maps the treaty refers to are not reproduced, and the tables of the army's permitted " +
+        "strength, set with dot leaders in the printing, are given as plain tables. The printing " +
+        "heads Article 123 “Article 125” by mistake, and that heading is set right here; nine slips " +
+        "in the Wikisource transcription were corrected against the scan of the printed page. The " +
+        "transcription is proofread but has not had a second, full check, so other small slips may remain.",
+    ],
+
+    /* ---------- ONE PAGE PER PART, THE PREAMBLE AND SIGNATURES ON PAGES OF THEIR OWN ----------
+       `page(n)` returns an array for the two Parts that carry one of them, which is the multi-page
+       chapter the Book of Documents introduced: the pages are cleaned in order and joined. */
+    page: (n) => {
+      const part = "Treaty of Versailles/Part " + n;
+      if (n === 1) return ["Treaty of Versailles/Preamble", part];
+      if (n === 15) return [part, "Treaty of Versailles/Signatures"];
+      return part;
+    },
+    /* Each read against the page image of the Ottawa scan on Commons (the file the transcription is
+       made from), which prints the corrected reading; a damaged or broken letter in the print is what
+       the transcriber misread in four of them. "Masssey" and "Montague" in the preamble ARE what the
+       page prints, and are left. */
+    fixes: [
+      ["open, Just and honourable relations nations", "open, just and honourable relations between nations",
+        "Part I, the Covenant's preamble, scan p. 9 \u2014 the page reads \u201copen, just and honourable relations betweeen nations\u201d, misprint and all; the transcription capitalises \u201cjust\u201d and drops the misprinted word entirely, so the corrected word is restored"],
+      ["Saar Basin with Gerinany", "Saar Basin with Germany", "Part III, Saar annex \u00a736, scan p. 32 \u2014 a broken m in the print"],
+      ["immovable pioperty of public", "immovable property of public", "Part III, Article 56, scan p. 34 \u2014 a broken r in the print"],
+      ["crosses the riyer Bartsch", "crosses the river Bartsch", "Part II, Article 27, scan p. 18"],
+      ["the course or chanriel which", "the course or channel which", "Part II, Article 30, scan p. 20 \u2014 a damaged n in the print"],
+      ["from November 11, 191S.", "from November 11, 1918.", "Part III, Alsace-Lorraine annex \u00a73, scan p. 40 \u2014 this type's 8 read as an S"],
+      ["February 26, 1S85", "February 26, 1885", "Part IV, Article 126, scan p. 57 \u2014 the General Act of Berlin"],
+      ["September 23, 1912, relating to Equatorial Africa", "September 28, 1912, relating to Equatorial Africa", "Part IV, Article 125, scan p. 57 \u2014 the page prints 28"],
+      ["which ate situated or may be", "which are situated or may be", "Part IV, Article 130, scan p. 58 \u2014 a damaged r in the print"],
+    ],
+    blocks: "treaty",
+    // the blank line a page sets under its last block, which would ride on the end of the article above
+    dropBlankParas: true,
+    chapterWord: "Part",
+    // the Parts' titles as the printing heads them, in the wiki's own contents-list casing
+    titleOf: (n) => TREATY_PARTS[n - 1],
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+  },
 };
 
 /* ---------- args ---------- */
@@ -18250,6 +18406,231 @@ function markEddaSections(b, warn) {
   return b;
 }
 
+/* ============================================================
+   A TREATY: HEADINGS, CLAUSE TABLES AND DATA TABLES     (blocks: "treaty")
+   ============================================================
+   Oct 2026, adding the Treaty of Versailles — the first book here that is a legal instrument, and the
+   first whose page is built of headings and tables rather than of prose interrupted by them. Three
+   shapes, each of which the ordinary path gets quietly wrong:
+
+   · EVERY CENTRED BLOCK IS A HEADING. 752 of them over the seventeen pages: 438 "Article N.", the
+     Parts, Sections, Chapters and Annexes, and an annex's numbered paragraphs ("1.", "2."). The
+     generic pass turns a centred div into a <blockquote>, so the whole treaty would read as a column
+     of indented QUOTATIONS of its own article numbers. Each is set as a `bk-head` instead — bold for a
+     structural heading, the style's own italic for anything else — carried through the tag stripper
+     behind a sentinel, as the Book of Rites' half-titles are. A centred block holding more than a
+     heading's worth of text is left alone and reported, since that would be prose nobody has looked at.
+   · A TABLE IS USUALLY A LIST. The scan lays out lettered clauses — "(a) | will endeavour to secure…"
+     — and the League's member states as two-cell or columned tables, and stripTags unwraps a table
+     into one run-on paragraph with the clause letters lost in it. A table with no header cell and no
+     row of more than two filled cells is read as the paragraphs it is printed to look like: one per
+     row, the label and its clause joined with a space, a columned list one paragraph per column with
+     its lines kept.
+   · A TABLE IS SOMETIMES A TABLE. Part V's establishments of the German army and Part VIII's
+     deliveries of coal carry header cells or three and more figures to a row, and flattened they
+     would be numbers with every relation between them gone. Those are rebuilt as clean HTML tables —
+     cells, header cells, colspan and rowspan, nothing else — and put back after the tag stripper,
+     which keeps no table tags. The dot leaders of the printing are dropped (their divs are `ws-noexport`
+     and have gone before this runs); a "ditto" mark is written as the word the transcription says it
+     stands for.
+   Lists (ul/ol/dl) become one paragraph per item, and every other div — hanging indents, a plain
+   list, the Covenant's opening verse-like block — is unwrapped, since in a treaty none of them is a
+   quotation. Gated on `blocks: "treaty"`, so it cannot execute for any book already shipped. */
+const TREATY_HEAD = "@@TVH@@";
+const TREATY_TABLE = "@@TVT";
+const TREATY_STASH = [];
+function treatyText(html) {
+  return html.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;|&#8203;|&#32;/g, " ").replace(/\s+/g, " ").trim();
+}
+// a cell's or a heading's contents, reduced to the inline markup the reader keeps
+function treatyInline(html) {
+  return html
+    .replace(/<link[^>]*>/g, "")
+    // every block boundary is a line: a paragraph, a list item, the dominions indented under the
+    // British Empire in the League's list of members
+    .replace(/<\/?(?:p|dd|dt|dl|li|ul|ol|div)\b[^>]*>/g, "\u0001")
+    .replace(/<br\s*\/?>/g, "\u0001")
+    .replace(/<(\/?)(i|b|sup)\b[^>]*>/g, "\u0002$1$2\u0003")
+    .replace(/<[^>]*>/g, "")
+    .replace(/\u0002/g, "<").replace(/\u0003/g, ">")
+    .replace(/&#160;|&nbsp;|&#8203;|&#8288;|&#32;/g, " ")
+    .replace(/[ \t\r\n]+/g, " ")
+    .replace(/\s*(?:\u0001\s*)+/g, "<br>")
+    .replace(/^(?:<br>)+|(?:<br>)+$/g, "")
+    .trim();
+}
+function treatyBlocks(b, warn) {
+  /* THE PAGE'S LICENCE BANNER is inside the slice: the part pages put their {{PD-LN}} or {{PD-US}}
+     template after the transclusion, and nothing upstream bounds the body at the wrapper's end. It is
+     the wiki's statement about the text, not the text. */
+  for (let k = 0; k < 4; k++) {
+    const m = /<div class="[^"]*\blicenseContainer\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn("the licence banner is not closed — left as it stands"); break; }
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  // the volume's sessional-paper number, printed in brackets at the head of the first page
+  b = b.replace(/<p>\s*\[\d+\]\s*<\/p>/g, () => { warn("dropped the sessional-paper number at the head of a page"); return ""; });
+  // a ditto mark: the word it stands for is in the template's hidden half; the visible half is a dash
+  b = b.replace(/<span class="&#95;&#95;ditto"><span class="&#95;&#95;ditto&#95;hidden">([\s\S]*?)<\/span><span class="&#95;&#95;ditto&#95;text[^"]*"><s>[\s\S]*?<\/s><\/span><\/span>/g,
+    (m, word) => word);
+  if (/ditto/.test(b)) warn("a ditto mark in a shape the treaty pass does not know was left as it stands");
+  // a fraction set as a template — 4 1/2 — read as the plain figures it renders as
+  b = b.replace(/<span class="sfrac[^"]*">([\s\S]*?)<\/span><\/span><\/span>(?=)/g, (m) => {
+    const num = (m.match(/<span class="num">([^<]*)<\/span>/) || [])[1];
+    const den = (m.match(/<span class="den">([^<]*)<\/span>/) || [])[1];
+    const whole = treatyText(m.replace(/<span class="tion">[\s\S]*$/, "").replace(/<span class="sr-only">[\s\S]*?<\/span>/g, ""));
+    return num && den ? (whole ? whole + " " : "") + num + "/" + den : m;
+  });
+
+  // the tables, innermost first, so a table inside a cell is already plain markup when its host is read
+  let tables = 0, kept = 0, lists = 0;
+  for (let g = 0; g < 400; g++) {
+    const rx = /<table\b[^>]*>(?:(?!<table\b)[\s\S])*?<\/table>/;
+    const m = rx.exec(b);
+    if (!m) break;
+    const t = m[0];
+    let out;
+    if (/wst-dtpl/.test(t.slice(0, 200))) {
+      // a dot-leader line: the entry text alone, the page cell beside it empty
+      const e = /<div class="toc-line-entry-text[^"]*">([\s\S]*?)<\/div>/.exec(t);
+      out = e ? treatyInline(e[1]) : treatyInline(t);
+    } else {
+      tables++;
+      const rows = [];
+      for (const r of t.match(/<tr\b[\s\S]*?<\/tr>/g) || []) {
+        const cells = [];
+        for (const c of r.matchAll(/<(t[dh])\b([^>]*)>([\s\S]*?)<\/\1>/g)) {
+          const span = (c[2].match(/\b(?:col|row)span="\d+"/g) || []).join(" ");
+          cells.push({ th: c[1] === "th", span, html: treatyInline(c[3]) });
+        }
+        rows.push(cells);
+      }
+      const hasTh = rows.some((r) => r.some((c) => c.th));
+      const wide = rows.some((r) => r.filter((c) => c.html).length > 2);
+      if (hasTh || wide) {
+        kept++;
+        const html = '<div class="bk-table"><table>' + rows.map((r) =>
+          "<tr>" + r.map((c) => {
+            const tag = c.th ? "th" : "td";
+            return "<" + tag + (c.span ? " " + c.span : "") + ">" + c.html + "</" + tag + ">";
+          }).join("") + "</tr>").join("") + "</table></div>";
+        TREATY_STASH.push(html);
+        out = "<p>" + TREATY_TABLE + (TREATY_STASH.length - 1) + "@@</p>";
+      } else {
+        lists++;
+        const paras = [];
+        for (const r of rows) {
+          const filled = r.map((c) => c.html).filter(Boolean);
+          if (!filled.length) continue;
+          // a clause and its letter, or a heading and its figure: one line
+          if (filled.length === 2 && treatyText(filled[0]).length <= 14) paras.push(filled[0] + " " + filled[1]);
+          else filled.forEach((x) => paras.push(x));
+        }
+        out = paras.map((x) => "<p>" + x + "</p>").join("\n");
+      }
+    }
+    b = b.slice(0, m.index) + out + b.slice(m.index + t.length);
+  }
+  if (/<\/?t(?:able|r|d|h)\b/.test(b)) warn("table markup left over after the treaty pass");
+
+  // the centred blocks: every one a heading
+  let heads = 0, at = 0;
+  for (let k = 0; k < 2000; k++) {
+    const rx = /<div class="(?:wst-center|wst-block-center)[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = b.slice(m.index + m[0].length, end - "</div>".length);
+    const text = treatyText(inner);
+    let out;
+    if (!text) out = "";
+    else if (text.length > 200 || /<p>@@TVT|<table/.test(inner)) {
+      warn('a centred block is not a heading and was kept as text: "' + text.slice(0, 60) + '"');
+      out = inner;
+    } else {
+      heads++;
+      const h = treatyInline(inner.replace(/<\/div>\s*<div[^>]*>|<\/?div[^>]*>/g, "<br>"));
+      const strong = /^(?:PART|SECTION|CHAPTER|ANNEX|TABLE|Article)\b/i.test(text);
+      out = "<p>" + TREATY_HEAD + (strong ? "<b>" + h.replace(/<\/?b>/g, "") + "</b>" : h) + TREATY_HEAD + "</p>";
+    }
+    b = b.slice(0, m.index) + out + b.slice(end);
+    at = m.index + out.length;
+  }
+
+  // lists: one paragraph per item
+  b = b.replace(/<(?:li|dd|dt)\b[^>]*>/g, "<p>").replace(/<\/(?:li|dd|dt)>/g, "</p>");
+  b = b.replace(/<\/?(?:ul|ol|dl)\b[^>]*>/g, "");
+  b = b.replace(/<p>(\s*<p[^>]*>)/g, "$1").replace(/(<\/p>\s*)<\/p>/g, "$1");
+  /* every other block is unwrapped, innermost first: in a treaty none of them is a quotation. A block
+     holding no paragraph of its own — a hanging indent round a bold list of the Powers, "of the one
+     part;" set to the right — becomes one, or it would reach the page as a bare run of text. */
+  for (let k = 0; k < 5000; k++) {
+    const m = /<div\b[^>]*>((?:(?!<div\b|<\/div>)[\s\S])*)<\/div>/.exec(b);
+    if (!m) break;
+    const inner = m[1];
+    const out = /<p\b/.test(inner) || !treatyText(inner) ? "\n" + inner + "\n" : "\n<p>" + inner.trim() + "</p>\n";
+    b = b.slice(0, m.index) + out + b.slice(m.index + m[0].length);
+  }
+  // the closers of the wrapper the body was sliced out of, whose openers the slice took off
+  if (/<div\b/.test(b)) warn("an unclosed div was left over after the treaty pass");
+  b = b.replace(/<\/div>/g, "\n");
+  console.log("  treaty: " + heads + " headings, " + lists + " list tables read as paragraphs, " + kept + " tables kept");
+  return b;
+}
+// after stripTags, which keeps neither the heading's class nor any table tag
+function treatyFinish(b) {
+  b = b.replace(new RegExp("<p>\\s*" + TREATY_HEAD + "([\\s\\S]*?)" + TREATY_HEAD + "\\s*</p>", "g"),
+    (m, h) => '<p class="bk-head">' + h.trim() + "</p>");
+  b = b.replace(/<b>([\s\S]*?)\s+<\/b><\/p>/g, "<b>$1</b></p>");
+  b = b.replace(/<p>\s*@@TVT(\d+)@@\s*<\/p>/g, (m, k) => TREATY_STASH[+k]);
+  /* AN ARTICLE'S HEADING THAT IS NOT CENTRED. Two of the 440 (127 and 129, Part IV) are typed on the
+     wiki as an ordinary paragraph, or run on after the previous article's last sentence, so the
+     article reads as more of its predecessor. Set as a heading where the number is exactly the NEXT
+     article after the heading before it — the forward-only guard every section rule in this file
+     uses — and, run on, only after a full stop and before a capital, so a cross-reference ("Article
+     260 of Part IX") never can be. */
+  let last = 0, split = 0;
+  b = b.replace(/<p class="bk-head"><b>Article\.? (\d+)\.<\/b><\/p>|<p>Article (\d+)\.<\/p>|\.\s+Article (\d+)\.\s+(?=[A-Z(])/g,
+    (m, head, own, inl) => {
+      if (head) { last = +head; return m; }
+      const v = +(own || inl);
+      if (v !== last + 1) return m;
+      last = v; split++;
+      const h = '<p class="bk-head"><b>Article ' + v + ".</b></p>";
+      return own ? h : ".</p>\n" + h + "\n<p>";
+    });
+  if (split) console.log("  treaty: " + split + " article heading(s) split out of the paragraph above");
+  /* AN ARTICLE NUMBER MISPRINTED IN THE EDITION, which is a different thing from a slip in the
+     transcription and is repaired differently. The Ottawa printing heads Article 123 "Article 125"
+     (scan page 56: 122, 125, 124, 125, 126), and the transcription faithfully copies it, so a reader
+     looking for Article 123 would find two 125s and no 123. Repaired only where the neighbours on both
+     sides prove it — the number before plus two is the number after — and REPORTED on every run, as
+     the Analects' misprinted chapter numeral is: it restores the treaty's own numbering rather than
+     composing anything, but it is a repair, so it is said out loud (and the front matter says so). */
+  const nums = [];
+  b.replace(/<p class="bk-head"><b>Article\.? (\d+)\.<\/b><\/p>/g, (m, d) => { nums.push(+d); return m; });
+  const fix = new Map();
+  for (let k = 1; k + 1 < nums.length; k++) {
+    if (nums[k] !== nums[k - 1] + 1 && nums[k + 1] === nums[k - 1] + 2) fix.set(k, nums[k - 1] + 1);
+  }
+  if (fix.size) {
+    let k = -1;
+    b = b.replace(/<p class="bk-head"><b>Article\.? (\d+)\.<\/b><\/p>/g, (m, d) => {
+      k++;
+      if (!fix.has(k)) return m;
+      console.log("  treaty: the printing heads Article " + fix.get(k) + " \u201cArticle " + d + "\u201d (between " +
+        nums[k - 1] + " and " + nums[k + 1] + ") \u2014 set as " + fix.get(k));
+      return '<p class="bk-head"><b>Article ' + fix.get(k) + ".</b></p>";
+    });
+  }
+  if (/@@TV/.test(b)) throw new Error("a treaty sentinel survived the tag stripper");
+  return b;
+}
+
 function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   /* WHERE THE TEXT STARTS, and until Thucydides there was only one answer (Aug 2026). Every wiki book
@@ -18701,6 +19082,9 @@ function cleanBody(h, noteIds, book, warn) {
      markMaloryHeads, which reads the chapter number off one of them and Caxton's rubric off another.
      Gated per book, so it is provably inert on the forty-five already shipped. */
   if (book && book.sections === "malory") b = markMaloryHeads(b, book, warn || (() => {}));
+  /* Before the centred divs become blockquotes and the tables are unwrapped — see treatyBlocks. Gated
+     per book, so it is provably inert on every book already shipped. */
+  if (book && book.blocks === "treaty") b = treatyBlocks(b, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -18713,6 +19097,7 @@ function cleanBody(h, noteIds, book, warn) {
     b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
   }
   b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+  if (book && book.blocks === "treaty") b = treatyFinish(b);
   /* THE SCAN'S OWN RUNNING HEAD, which is not part of the text and must not be read as part of it.
      Seneca's is handled above, where it arrives as a centred div holding a bare Roman numeral. Haines's
      survives that rule — his heads are "BOOK IV" and, on the first page, the volume's half-title

@@ -12015,6 +12015,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-seven colours placed (Oct 2026, adding the Treaty of
+     Versailles — the first book here with PARTIES rather than an author, keyed by the string its entry
+     names them by): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light
+     themes' inks and 4.5:1 on every light paper, card and second paper. The band's best clears 16.4,
+     a tenth under the shelf's own tightest pair (16.5), and this wine red is it. Its nearest
+     neighbours are Sophocles, Ovid and Aristophanes, and no reader sets a peace treaty of 1919 beside
+     any of them, so the Euripides test asks nothing of it. The tone is the right one besides: the
+     treaty's last page is seventy signatures each beside "(L. S.)", the place of the seal, and this is
+     sealing wax. It reads 6.74:1 on the tightest light paper. */
+  "The Allied and Associated Powers and Germany": "#7B002A",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15038,6 +15048,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "treaty-of-versailles",
+      title: "The Treaty of Versailles",
+      subtitle: "Treaty of Peace between the Allied and Associated Powers and Germany",
+      /* A TREATY HAS PARTIES, NOT AN AUTHOR — named as the Wikisource header and the preamble name
+         them. Keyed in BOOK_AUTHOR_COLOR by this string, like any author. */
+      author: "The Allied and Associated Powers and Germany",
+      // signed on 28 June 1919; in force on 10 January 1920
+      written: "1919",
+      year: 1919,
+      /* NO `translator`: the English is one of the treaty's two authentic texts (Article 440), so the
+         rights box names the edition, as for Macbeth. */
+      edition:
+        "Treaty of Peace between the Allied and Associated Powers and Germany, signed at Versailles, " +
+        "June 28, 1919, printed by order of Parliament, Ottawa, 1919",
+      /* A government's printing of an act of governments, published in 1919: the pre-1929 rule in the
+         United States, and Canada's fifty-year Crown copyright long run out. No editor or translator,
+         so no life term. See .claude/fetch-book.js for the editions looked at. */
+      rights:
+        "Public domain. The Treaty of Versailles was signed on 28 June 1919. The text here is the " +
+        "official English text as printed by order of the Canadian Parliament at Ottawa in 1919 " +
+        "(Sessional Paper No. 41, printed by J. de Labroquerie Taché, Printer to the King). As a work " +
+        "published in 1919 it is in the public domain in the United States under the rule for works " +
+        "published before 1929, and the Crown copyright Canada holds in its government printings lasts " +
+        "fifty years from publication, so it has expired there as well. What is taken is the treaty " +
+        "from its preamble to its signatures; the volume's title page and contents, the Protocol signed " +
+        "the same day and the treaty's maps are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Treaty_of_Versailles",
+      /* NO `origLang`: the French text is equally authentic but is not transcribed as a whole anywhere
+         this importer reads. */
+      /* The treaty's own division: fifteen Parts, the Preamble at the head of Part I and the signatures
+         at the foot of Part XV, so the tab's number is the Part's. */
+      chapterWord: "Part",
+      count: 15,
+      total: 15,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of all fifteen Parts (a
+         headless run listing every `.ttip`), not written from imagination. A treaty cites by number,
+         so `Article_5_of_the_North_Atlantic_Treaty` and `Article_48_of_the_Weimar_Constitution` fired
+         on this treaty's own Articles 5 and 48; `Article_231_of_the_Treaty_of_Versailles` is right in
+         place and stays. Names inside names: `Ganges` on the Maharaja Ganga Singh, `Ion` on Ion
+         Bratiano, `Lansing` (the city in Michigan) on Robert Lansing, `Commonwealth_of_Nations` on
+         the Commonwealth of Australia, `Council_of_the_European_Union` on Japan's Council of
+         Ministers, `European_Commission` on the European Commission of the Danube, `Iron` on the Iron
+         Gates, `Horse` on horse artillery, `Roman_legion` on the Foreign Legion, `Stadion_(unit)` on
+         the Stade Toll, `Reconstruction_era` on reconstruction materials, `Ancient_Egypt` on the
+         Egyptian law of 1919, and `Slovakia` and `Slovenia` on the Czecho-Slovak and Serb-Croat-
+         Slovene States of 1919, which the modern countries' entries are not. And the warships Part V
+         lists: `Nassau` and `Munich` fired on the battleship Nassau and the light cruiser München of
+         Article 185, `Oracle_of_Ammon`, `Bosnia_and_Herzegovina` and `Swabia` on the auxiliaries Ammon,
+         Bosnia and Schwaben of Article 187 (Munich's one right link, in Part VIII, goes with them). */
+      glossOff: ["Article_5_of_the_North_Atlantic_Treaty", "Article_48_of_the_Weimar_Constitution",
+        "Ganges", "Ion", "Lansing", "Commonwealth_of_Nations", "Council_of_the_European_Union",
+        "European_Commission", "Iron", "Horse", "Roman_legion", "Stadion_(unit)", "Reconstruction_era",
+        "Ancient_Egypt", "Slovakia", "Slovenia", "Oracle_of_Ammon", "Bosnia_and_Herzegovina", "Nassau",
+        "Swabia", "Munich"],
     },
   ];
   const BOOK_BY_ID = {};
