@@ -189,7 +189,7 @@ order unless the user says otherwise.
 | B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | **done 2026-10-30** |
 | B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | **done 2026-10-30** |
 | B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | **done 2026-10-30** |
-| B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | open |
+| B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | **done 2026-10-30** |
 | B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | open |
 | B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | open |
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | open |
@@ -840,6 +840,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-568` Dominate | the Missorium of Theodosius (a replica) | weak: a later emperor's ceremonial |
 | `rm-569` Laterculus Veronensis | Kiepert's 1892 map of the later dioceses | wrong: the later system, with burned-in labels |
 | `rm-570` Roman diocese | the insignia of the vicar of Spain in the Notitia Dignitatum | ok |
+| `rm-571` capitatio-iugatio | none | not re-checked: no picture depicts a tax assessment |
+| `rm-572` Edict on Maximum Prices | the copy on the round building at Aizanoi | ok |
+| `rm-573` Diocletianic Persecution | Anthimus of Nicomedia in the Menologion of Basil II | acceptable: a 10th-century miniature |
+| `rm-574` Galerius | the porphyry head at Zaječar | ok; the Nicomedia locator is generic for him |
+| `rm-575` Diocletian's Palace | the palace and old Split from the air | ok |
+| `rm-576` Conference of Carnuntum | the emperors' Mithras altar | ok |
+| `rm-577` Constantine the Great | the York head | ok |
+| `rm-578` Battle of the Milvian Bridge | Giulio Romano's Vatican fresco | acceptable: a Renaissance painting where no ancient image exists |
+| `rm-579` labarum | a follis of Constantinople with the labarum and serpent | ok |
+| `rm-580` Edict of Milan | the letter in Christopherson's Latin Eusebius of 1570 | weak: the card no longer makes the 1570 claim; a Milan plaque would suit |
 
 ## Glossary candidates
 
@@ -2226,3 +2236,22 @@ Run as B56. Every draft compared with its card after `batch.sh`: no mismatch. `c
 | `rm-570` Roman diocese | 6 | 8 → 6 | **The Notitia's list c. 395 – 407 CE replaces "early 5th century"**; Lactantius's deputies of the prefects against a permanent diocese only under Constantine, before 19 July 325; the Verona List one mention. |
 
 **Read by eye.** *Confusability:* `rm-561`/`rm-562` the realm (Vaballathus Augustus) and the queen (the camel); `rm-563`/`rm-564`/`rm-565` the emperor (the forged list), the walls (Honorius's gates) and his successor (the vines); `rm-566`/`rm-567`/`rm-568` the man (Aper), the college (the porphyry groups) and the ceremonial (adoration); `rm-569`/`rm-570` the list (the Numidias) and the unit (the vicarius). *Legend:* Zenobia's chains and descent, Aurelian's god-and-lord and Diocletian's boar are their authors'. *Overlap:* `wh-371` gives Diocletian's death as 313 – 316 CE against this card's c. 311 – 313 CE; nothing else disagrees.
+
+### B58 — `rm-571`–`rm-580`, Diocletian and Constantine: capitatio-iugatio to the Edict of Milan (2026-10-30)
+
+Run as B57. Every draft compared with its card after `batch.sh`: no mismatch. Before applying, `rm-571`'s claim that the joined name is modern (no source says so) became "some modern scholars preferred to write of capitatio and iugatio as two words"; `rm-572`'s unattributed "more than forty copies" became "dozens"; `rm-575`'s third phrasing and `rm-580`'s third (which shared `rm-581`'s marriage at Milan) were reworded. One research agent ran `add-glossary.js --dry-run` (the script has no such flag) and wrote the Carnuntum entry into the repo; it restored the two lines, and `git diff` against main shows no change to that entry. Checks: `rm-audit.js --range=rm-571:rm-580` reads clean on nine cards; `rm-571` carries `I.none`. `rm-576`'s `timeline` moved from October – November to November 308 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. **The old date lines carried a reign for a tax ("Diocletian 284 – 305 CE"), a place ("at York"), Eusebius's story as a record ("Made 312 CE" for the labarum) and days no open source prints ("c. February 313", "13 June 313", "October 308"); one old card was the plan's "abdication of Diocletian" line under Galerius's name.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-571` capitatio-iugatio | 5 | 5 → 5 | **The reign leaves the line: the edict of Aristius Optatus, 16 March 297 CE, and the indiction epoch 312 CE**; one tax or two, a debate (Savigny and Seeck against Piganiol and Bury, Jones's "much controversy"); the annona questions go to `rm-686`. |
+| `rm-572` Edict on Maximum Prices | 7 | 5 → 7 | **20 November – 9 December 301 CE is Lafaurie's reading of the titles (via Bernier 2025), with Crawford's order of the reforms beside it**; "over 1,400 entries" Crawford's, the wages Kropff's translation; the "six times" ratio, worked from a dollar table, goes. |
+| `rm-573` Diocletianic Persecution | 7 | 7 → 9 | **Lactantius's blame of Galerius set against Diocletian's own conservatism (Shin); no death toll, the Christian accounts overplaying the scale**; Maximinus Daia to 313; the Terminalia and Eusebius's western two years. |
+| `rm-574` Galerius | 6 | 6 → 7 | **Rebuilt as his life: Caesar 293 (1 March or 21 May), Callinicum and the Armenian victory, the arch, the edict and his death**; Lactantius's hatred named; the herdsman and Lake Pelso claims, on sources not re-read, go. |
+| `rm-575` Diocletian's Palace | 7 | 7 → 7 | **No open source prints construction years: the line is the retirement and the World Heritage row**; Porphyrogenitus from the Moravcsik–Jenkins text; the cabbages one attributed mention. |
+| `rm-576` Conference of Carnuntum | 5 | 10 → 7 | **"October" goes; the cabbages too (the Epitome names no place)**; Maximian's refused plea is Zosimus's, Lactantius's murder plot his; the Mithras altar ILS 659, which Dessau's note ties to 307 against Hekster's and Livius's 308. |
+| `rm-577` Constantine the Great | 9 | 6 → 11 | **Born c. 273 CE, the year uncertain; the York and sole-ruler rows go**; Eusebius names no bishop at the baptism (Eusebius of Nicomedia is later tradition); the Crispus and Fausta story is hostile Zosimus's; the vision one sentence. |
+| `rm-578` Battle of the Milvian Bridge | 7 | 7 → 8 | **The old card summed Zosimus's figures; now his own (90,000 foot and 8,000 horse against 170,000 and 18,000)**; Lactantius's dream against Eusebius's sky-cross; the bridge's collapse told three ways. |
+| `rm-579` labarum | 6 | 7 → 6 | **"Made 312 CE" was Eusebius's story: the line is the coin of 327 CE (OCRE) and his description, 337 – 340 CE**; the word comes from a chapter heading an editor added; its origin uncertain, not "Celtic". |
+| `rm-580` Edict of Milan | 8 | 6 → 8 | **Neither an edict nor issued at Milan (Kahlos's review), the debate shown; Lactantius gives "the ides of June", unconverted, so June 313 CE**; the 16th-century-translation origin of the name rested on an unreachable article and goes. |
+
+**Read by eye.** *Confusability:* `rm-571`/`rm-572` the tax (Optatus's edict) and the prices (the labourer's 25 denarii); `rm-573`/`rm-574` the persecution (the Terminalia) and the persecutor (the run beside the chariot); `rm-575`/`rm-576` the palace (Salona's refugees) and the conference (the Mithras altar); `rm-577`/`rm-578`/`rm-579`/`rm-580` the emperor (the portrait at York), the battle (the games), the standard (fifty bearers) and the letter (Nicomedia). *Legend:* Constantine's vision, Galerius's illness and Fausta's bath are their authors'. *Overlap:* `wh-372` gives Constantine's birth as c. 271 – 273 CE; nothing disagrees outright.

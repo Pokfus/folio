@@ -613,6 +613,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Dominate (a modern label): dated from / the Milan panegyric | 284 CE / 291 CE | `rm-568` |
 | the Laterculus Veronensis: contents / the manuscript | c. 314 CE (other dates argued, 297 to 320 CE) / c. 600 – 700 CE | `rm-569` |
 | the dioceses: the earliest list / the Notitia's list | c. 314 CE / c. 395 – 407 CE | `rm-570` |
+| capitatio-iugatio: the edict in Egypt / the indiction epoch | 16 March 297 CE / 312 CE | `rm-571` |
+| the Edict on Maximum Prices | 301 CE (usual dating 20 November – 9 December 301 CE) | `rm-572` |
+| the Great Persecution: began / Galerius's edict / ended | February 303 CE / 30 April 311 CE / 313 CE | `rm-573` |
+| Galerius: Caesar / Augustus / the toleration edict / died | 293 CE (1 March or 21 May) / 1 May 305 CE / 30 April 311 CE / May 311 CE | `rm-574` |
+| Diocletian's Palace: the emperor retired / World Heritage | 305 CE / 1979 | `rm-575` |
+| the Conference of Carnuntum / Licinius raised | November 308 CE / 11 November 308 CE | `rm-576` |
+| Constantine: born / reigned / died | c. 273 CE / 306 – 337 CE / 22 May 337 CE | `rm-577` |
+| the Battle of the Milvian Bridge | 28 October 312 CE | `rm-578` |
+| the labarum: on a coin / described by Eusebius | 327 CE / 337 – 340 CE | `rm-579` |
+| the "Edict of Milan": the meeting / the letter posted | 313 CE / June 313 CE | `rm-580` |
 
 ## Chronology pins
 
@@ -1170,4 +1180,14 @@ rm-567: 293; 305; 306; 313
 rm-568: 284; 291
 rm-569: 314; 600; 700
 rm-570: 314; 395; 407
+rm-571: 297; 312
+rm-572: 301
+rm-573: 303; 311; 313
+rm-574: 293; 305; 311
+rm-575: 305; 1979
+rm-576: 308
+rm-577: 273; 306; 337
+rm-578: 312
+rm-579: 327; 337; 340
+rm-580: 313
 ```
