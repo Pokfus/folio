@@ -1,10 +1,10 @@
 {
- "generated": "2026-10-30T15:46Z",
+ "generated": "2026-10-30T15:50Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5381,
-  "redirect-broader": 507,
-  "redirect-variant": 333,
+  "ok": 5388,
+  "redirect-broader": 509,
+  "redirect-variant": 334,
   "section-redirect": 107,
   "disambiguation": 142,
   "none": 972,
@@ -61303,6 +61303,79 @@
    "url": "https://en.wikipedia.org/wiki/Wunderwaffe",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-311": {
+   "answer": "Sword of Stalingrad",
+   "title": "Sword of Stalingrad",
+   "url": "https://en.wikipedia.org/wiki/Sword_of_Stalingrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-312": {
+   "answer": "Mamayev Kurgan",
+   "title": "Mamayev Kurgan",
+   "url": "https://en.wikipedia.org/wiki/Mamayev_Kurgan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-313": {
+   "answer": "Battle of the Caucasus",
+   "title": "Battle of the Caucasus",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Caucasus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-314": {
+   "answer": "Operation Little Saturn",
+   "title": "Operation Little Saturn",
+   "url": "https://en.wikipedia.org/wiki/Operation_Little_Saturn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-315": {
+   "answer": "Third Battle of Kharkov",
+   "title": "Third Battle of Kharkov",
+   "url": "https://en.wikipedia.org/wiki/Third_Battle_of_Kharkov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-316": {
+   "answer": "Soviet Guards",
+   "title": "Guards unit (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/Guards_unit_(Soviet_Union)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Soviet Guards"
+  },
+  "ww2-317": {
+   "answer": "Tankograd",
+   "title": "Chelyabinsk Tractor Plant",
+   "url": "https://en.wikipedia.org/wiki/Chelyabinsk_Tractor_Plant",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tankograd"
+  },
+  "ww2-318": {
+   "answer": "T-34",
+   "title": "T-34",
+   "url": "https://en.wikipedia.org/wiki/T-34",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-319": {
+   "answer": "Moscow Protocol",
+   "title": "Moscow Protocol",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Protocol",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-320": {
+   "answer": "Arctic convoys",
+   "title": "Arctic convoys of World War II",
+   "url": "https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Arctic convoys"
   }
  }
 }

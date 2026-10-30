@@ -7690,7 +7690,17 @@ window.GLOSSARY = {
 "Volkssturm": "",
 "Albert_Speer": "",
 "Ostarbeiter": "",
-"Wunderwaffe": ""
+"Wunderwaffe": "",
+"Sword_of_Stalingrad": "",
+"Mamayev_Kurgan": "",
+"Battle_of_the_Caucasus": "",
+"Operation_Little_Saturn": "",
+"Third_Battle_of_Kharkov": "",
+"Guards_unit_(Soviet_Union)": "",
+"Chelyabinsk_Tractor_Plant": "",
+"T-34": "",
+"Moscow_Conference_(1941)": "",
+"Arctic_convoys_of_World_War_II": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11499,7 +11509,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "People's_Court_(Germany)": "1934 – 1945",
 "Volkssturm": "1944 – 1945",
 "Albert_Speer": "1905 – 1981",
-"Ostarbeiter": "1942 – 1945"
+"Ostarbeiter": "1942 – 1945",
+"Sword_of_Stalingrad": "1943",
+"Battle_of_the_Caucasus": "July 1942 – October 1943",
+"Operation_Little_Saturn": "16–30 December 1942",
+"Third_Battle_of_Kharkov": "19 February – 18 March 1943",
+"Moscow_Conference_(1941)": "28 September – 1 October 1941",
+"Arctic_convoys_of_World_War_II": "1941–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16382,7 +16398,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Claus_von_Stauffenberg": ["Claus Schenk Graf von Stauffenberg","Stauffenberg"],
 "People's_Court_(Germany)": ["People's Court","Volksgerichtshof"],
 "Ostarbeiter": ["Eastern workers"],
-"Wunderwaffe": ["wonder weapon","wonder weapons"]
+"Wunderwaffe": ["wonder weapon","wonder weapons"],
+"Battle_of_the_Caucasus": ["Caucasus campaign"],
+"Operation_Little_Saturn": ["Little Saturn","Middle Don offensive"],
+"Third_Battle_of_Kharkov": ["Manstein's counterstroke"],
+"Guards_unit_(Soviet_Union)": ["Soviet Guards","Guards unit"],
+"Chelyabinsk_Tractor_Plant": ["Tankograd","Chelyabinsk Kirov Plant"],
+"Moscow_Conference_(1941)": ["Moscow Protocol","First Protocol","Beaverbrook–Harriman mission"],
+"Arctic_convoys_of_World_War_II": ["Arctic convoys","Russian convoys","PQ convoys"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24217,7 +24240,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Volkssturm": ["institution","history","warfare","germany"],
 "Albert_Speer": ["person","history","politics","economics","germany"],
 "Ostarbeiter": ["people","history","economics","germany","russia"],
-"Wunderwaffe": ["concept","history","warfare","technology","germany"]
+"Wunderwaffe": ["concept","history","warfare","technology","germany"],
+"Sword_of_Stalingrad": ["object","history","politics","russia","united kingdom"],
+"Mamayev_Kurgan": ["place","history","warfare","russia"],
+"Battle_of_the_Caucasus": ["battle","history","warfare","russia","germany","caucasus"],
+"Operation_Little_Saturn": ["battle","history","warfare","russia","italy"],
+"Third_Battle_of_Kharkov": ["battle","history","warfare","russia","germany","ukraine"],
+"Guards_unit_(Soviet_Union)": ["institution","history","warfare","russia"],
+"Chelyabinsk_Tractor_Plant": ["industry","history","russia","technology"],
+"T-34": ["technology","history","warfare","russia"],
+"Moscow_Conference_(1941)": ["event","history","politics","russia","united states","united kingdom"],
+"Arctic_convoys_of_World_War_II": ["event","history","warfare","russia","united kingdom"]
 });
 
 /* ============================================================================

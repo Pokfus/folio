@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5381 | the title is the article |
-| `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5388 | the title is the article |
+| `redirect-variant` | 334 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 80 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 507 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 509 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
 | `none` | 972 | nothing matched; no link |
 
-**6314 of 7551 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6324 of 7561 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (507)
+## Redirected to a differently named article — check each (509)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -549,6 +549,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)
 - `ww2-295` **clean Wehrmacht myth** → [Myth of the clean Wehrmacht](https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht) (from `Clean Wehrmacht myth`)
 - `ww2-303` **Stalingrad Tractor Factory** → [Volgograd Tractor Plant](https://en.wikipedia.org/wiki/Volgograd_Tractor_Plant) (from `Stalingrad Tractor Factory`)
+- `ww2-316` **Soviet Guards** → [Guards unit (Soviet Union)](https://en.wikipedia.org/wiki/Guards_unit_(Soviet_Union)) (from `Soviet Guards`)
+- `ww2-317` **Tankograd** → [Chelyabinsk Tractor Plant](https://en.wikipedia.org/wiki/Chelyabinsk_Tractor_Plant) (from `Tankograd`)
 - `ww2-355` **King Michael's Coup** → [1944 Romanian coup d'état](https://en.wikipedia.org/wiki/1944_Romanian_coup_d'%C3%A9tat) (from `King Michael's Coup`)
 - `ww2-374` **Mass suicide in Demmin** → [Demmin mass suicide](https://en.wikipedia.org/wiki/Demmin_mass_suicide) (from `Mass suicide in Demmin`)
 
