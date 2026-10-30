@@ -7510,7 +7510,17 @@ window.GLOSSARY = {
 "Blitzkrieg_legend": "",
 "Heinz_Guderian": "",
 "Erich_von_Manstein": "",
-"Panzer_Group_Kleist": ""
+"Panzer_Group_Kleist": "",
+"Mediterranean_and_Middle_East_theatre_of_World_War_II": "",
+"Greco-Italian_War": "",
+"Battle_of_Pindus": "",
+"Operation_Compass": "",
+"Battle_of_Beda_Fomm": "",
+"East_African_campaign_(World_War_II)": "",
+"Battle_of_Taranto": "",
+"Battle_of_Cape_Matapan": "",
+"Siege_of_Malta_(World_War_II)": "",
+"Balkan_campaign_(World_War_II)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11179,7 +11189,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Sedan_(1940)": "12–15 May 1940",
 "Heinz_Guderian": "1888–1954",
 "Erich_von_Manstein": "1887–1973",
-"Panzer_Group_Kleist": "1940"
+"Panzer_Group_Kleist": "1940",
+"Greco-Italian_War": "1940–1941",
+"Battle_of_Pindus": "28 October – November 1940",
+"Operation_Compass": "9 December 1940 – 7 February 1941",
+"Battle_of_Beda_Fomm": "5–7 February 1941",
+"East_African_campaign_(World_War_II)": "1940–1941",
+"Battle_of_Taranto": "11–12 November 1940",
+"Battle_of_Cape_Matapan": "28–29 March 1941",
+"Siege_of_Malta_(World_War_II)": "1940–1942",
+"Balkan_campaign_(World_War_II)": "April 1941"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15937,7 +15956,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dyle_Plan": ["Plan D"],
 "Battle_of_Sedan_(1940)": ["Battle of Sedan"],
 "Blitzkrieg_legend": ["Blitzkrieg legend"],
-"Panzer_Group_Kleist": ["Panzergruppe Kleist","Kleist Group"]
+"Panzer_Group_Kleist": ["Panzergruppe Kleist","Kleist Group"],
+"Mediterranean_and_Middle_East_theatre_of_World_War_II": ["Mediterranean and Middle East theatre"],
+"East_African_campaign_(World_War_II)": ["East African campaign"],
+"Siege_of_Malta_(World_War_II)": ["Siege of Malta"],
+"Balkan_campaign_(World_War_II)": ["Balkan campaign"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23592,7 +23615,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Blitzkrieg_legend": ["theory","history","historiography","warfare","germany"],
 "Heinz_Guderian": ["person","history","warfare","germany","second world war"],
 "Erich_von_Manstein": ["person","history","warfare","germany","war crimes","second world war"],
-"Panzer_Group_Kleist": ["institution","history","warfare","germany","second world war"]
+"Panzer_Group_Kleist": ["institution","history","warfare","germany","second world war"],
+"Mediterranean_and_Middle_East_theatre_of_World_War_II": ["era","history","warfare","mediterranean"],
+"Greco-Italian_War": ["war","history","warfare","greece","italy"],
+"Battle_of_Pindus": ["battle","history","warfare","greece","italy"],
+"Operation_Compass": ["battle","history","warfare","egypt","libya","italy"],
+"Battle_of_Beda_Fomm": ["battle","history","warfare","libya","italy"],
+"East_African_campaign_(World_War_II)": ["war","history","warfare","ethiopia","eritrea","italy"],
+"Battle_of_Taranto": ["battle","history","warfare","italy","united kingdom"],
+"Battle_of_Cape_Matapan": ["battle","history","warfare","italy","united kingdom"],
+"Siege_of_Malta_(World_War_II)": ["battle","history","warfare","malta","mediterranean"],
+"Balkan_campaign_(World_War_II)": ["war","history","warfare","germany","greece","yugoslavia"]
 });
 
 /* ============================================================================

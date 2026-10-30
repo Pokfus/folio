@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-29T23:59Z",
+ "generated": "2026-10-30T01:14Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5271,
+  "ok": 5279,
   "redirect-broader": 489,
-  "redirect-variant": 331,
+  "redirect-variant": 332,
   "section-redirect": 105,
   "disambiguation": 138,
   "none": 960,
-  "disambig-resolved": 78,
+  "disambig-resolved": 79,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -60138,6 +60138,78 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Panzer Group Kleist"
+  },
+  "ww2-241": {
+   "answer": "Mediterranean and Middle East theatre",
+   "title": "Mediterranean and Middle East theatre of World War II",
+   "url": "https://en.wikipedia.org/wiki/Mediterranean_and_Middle_East_theatre_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Mediterranean and Middle East theatre"
+  },
+  "ww2-242": {
+   "answer": "Greco-Italian War",
+   "title": "Greco-Italian War",
+   "url": "https://en.wikipedia.org/wiki/Greco-Italian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-243": {
+   "answer": "Battle of Pindus",
+   "title": "Battle of Pindus",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Pindus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-244": {
+   "answer": "Operation Compass",
+   "title": "Operation Compass",
+   "url": "https://en.wikipedia.org/wiki/Operation_Compass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-245": {
+   "answer": "Battle of Beda Fomm",
+   "title": "Battle of Beda Fomm",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Beda_Fomm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-246": {
+   "answer": "East African campaign",
+   "title": "East African campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/East_African_campaign_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-247": {
+   "answer": "Battle of Taranto",
+   "title": "Battle of Taranto",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Taranto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-248": {
+   "answer": "Battle of Cape Matapan",
+   "title": "Battle of Cape Matapan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Cape_Matapan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-249": {
+   "answer": "Siege of Malta",
+   "title": "Siege of Malta (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Malta_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-250": {
+   "answer": "Balkan campaign",
+   "title": "Balkans campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Balkans_campaign_(World_War_II)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Balkans campaign"
   }
  }
 }
