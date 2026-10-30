@@ -2070,11 +2070,11 @@
   // daily minigame results — each home game records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all of them are won on the same day.
   // "findit" joined July 2026, "thread" in Aug 2026, and the crossword, the picture round and What year?
-  // later that month — a new daily game joins the sweep, so the badge now needs all NINE. Nobody loses one
+  // later that month, and How far? on 2026-10-30 — a new daily game joins the sweep, so the badge now needs all TEN. Nobody loses one
   // they already hold (checkAchievements only ever adds), and a sweep that skipped a game on the grid would
   // be claiming something it had not measured. The badge does get harder each time the grid grows; that is
   // the honest reading of "every game today" and the alternative is a sweep that means less every year.
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear"];
+  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "howfar"];
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
      this many times a day, so the lifetime tally has to count ONE play for the day and ONE win however
@@ -10922,6 +10922,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        bounding box (atlas/data/card-faces.js, generated), and rivers.js alone for a river locator's own river. None is on the eager path; the engine itself is the `atlas2` bundle above and
        topology.bin is fetched by it. A window asks for all of them when it is mounted behind the preview switch (`startCardWindow2`); `warmAtlas2Windows` asks at idle. */
     atlas2embed: { files: ["atlas/atlas-embed.js", "atlas/atlas-windows.js"] },
+    atlas2gaz: { files: ["atlas/data/gazetteer.js"] },   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
@@ -16010,6 +16011,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     crossword: ["Crossword — Folio", "Today's crossword, clued from the cards' own questions."],
     picture:   ["Picture round — Folio", "Name what is in each of today's five pictures."],
     whatyear:  ["What year? — Folio", "Five things from one year — place it on the timeline."],
+    howfar:    ["How far? — Folio", "Guess the distance between two places on the globe."],
     admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
@@ -16275,7 +16277,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (prefersReducedMotion()) return null;
     const old = view.firstElementChild;
     if (!old || !old.classList.contains("page")) return null;
-    if (current.name === "admin" || current.name === "map" || current.name === "findit") return null;
+    if (current.name === "admin" || current.name === "map" || current.name === "findit" || current.name === "howfar") return null;
     if (old.querySelector(".atlas, .atlas2")) return null;   // the Atlas (since Phase 5 the v2 page, `.atlas2`) is full-bleed and holds live canvases: no copy of it
     if (!dir && old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
     if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
@@ -19244,7 +19246,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
         "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
-        "ribbon on the home page shows that one filling up), and for finishing all nine minigames in a day. " +
+        "ribbon on the home page shows that one filling up), and for finishing all ten minigames in a day. " +
         "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
@@ -25219,6 +25221,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.6" cy="10" r="1.8" fill="currentColor" stroke="none"/><polyline points="21 16.5 15.4 10.9 6.2 19.5"/></svg>',
     // What year? — a question mark standing over a ruled rail, so it is read as "which point on this
     // scale" rather than as Timeline's line of three dots
+    // How far? — two places and the dashed line between them, which is the round in one mark; diagonal, so it is not read as Timeline's row of dots
+    howfar:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="18.5" r="2.5" fill="currentColor" stroke="none"/><circle cx="18.5" cy="5.5" r="2.5"/><line x1="7.6" y1="16.4" x2="16.4" y2="7.6" stroke-dasharray="2.2 2.8"/></svg>',
     whatyear:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="18" x2="21" y2="18"/><line x1="7" y1="15.2" x2="7" y2="20.8"/><line x1="12" y1="15.2" x2="12" y2="20.8"/><line x1="17" y1="15.2" x2="17" y2="20.8"/><path d="M9.3 5.9a2.9 2.9 0 0 1 5.4 1.5c0 2-2.7 2.4-2.7 4"/><line x1="12" y1="13.2" x2="12" y2="13.2"/></svg>',
   };
@@ -26108,8 +26113,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedCrosswordToday = gamePlayedToday("crossword");
     const playedPictureToday = gamePlayedToday("picture");
     const playedWhatYearToday = gamePlayedToday("whatyear");
+    const playedHowFarToday = gamePlayedToday("howfar");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar") };
     /* The day's completion mark is at module scope, beside ICON — see `doneMarkHTML`. */
     /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
        page, the tile should flip around and reveal the user's general stats and site-wide average
@@ -26169,7 +26175,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE NINE TILE HUES, IN ONE PLACE (Oct 2026): the grid below reads them for its tiles and the
        tablet's rail (sweepRowHTML) reads them for its glyph discs, so a re-coloured game changes in both. The
        values and the reasoning for each are unchanged — see the tile calls in gameGrid. */
-    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802" };
+    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E" };
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
       /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
@@ -26216,11 +26222,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
-            : ready ? "Open the chest for finishing all nine today"
-            : "Finish all nine of today's minigames to unlock a chest") + '"' +
+            : ready ? "Open the chest for finishing all ten today"
+            : "Finish all ten of today's minigames to unlock a chest") + '"' +
           ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
             : ready ? "Open today's minigame chest"
-            : "Locked: finish all nine minigames to unlock today's chest") + '">' +
+            : "Locked: finish all ten minigames to unlock today's chest") + '">' +
           CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
         "</button></div>";
     };
@@ -26270,6 +26276,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${tile({ id: "g-crossword", key: "crossword", cls: "g-crossword", color: GAME_HUE.crossword, glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
       ${tile({ id: "g-picture", key: "picture", cls: "g-picture", color: GAME_HUE.picture, glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
       ${tile({ id: "g-whatyear", key: "whatyear", cls: "g-whatyear", color: GAME_HUE.whatyear, glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
+      ${/* HOW FAR? (2026-10-30) is a tenth tile, so the desktop's 3 × 3 gains a fourth row of one. Its terracotta is the sweep's answer outside the yellows (which the What year?
+            note above rules out): 28.9 from its nearest neighbour against the palette's tightest pair at 27.8, so it does not crowd the grid, and white reads 4.15:1 on the fill. */""}
+      ${tile({ id: "g-howfar", key: "howfar", cls: "g-howfar", color: GAME_HUE.howfar, glyph: ICON.howfar, title: "How far?", sub: gameSub("howfar"), done: playedHowFarToday, won: wonToday.howfar })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -35541,7 +35550,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
-      availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr };
+      availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr, unitSystem, gameProgress, setGameProgress };
   }
   PAGES.findit2 = function (root) {
     root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>';
@@ -38406,8 +38415,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     challenge: ["Multiple Choice", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
     chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
     crossword: ["Crossword", ICON.crossword], picture: ["Picture round", ICON.picture], whatyear: ["What year?", ICON.whatyear],
+    howfar: ["How far?", ICON.howfar],
   };
-  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "year" };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "year", howfar: "five distances" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
      stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
      is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
@@ -41251,6 +41261,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.findit = function (root) {
     if (gameLockedToday(root, "findit")) return;
     PAGES.findit2(root);
+  };
+  /* HOW FAR? (2026-10-30, on request): five pairs of places joined by a straight line on the globe; a guess within 10 % of the distance wins the round. The game is
+     `howFar` in atlas/atlas-windows.js (it plays on the card windows' engine, as Find it does); docs/minigames.md "How far?" has the rules. */
+  PAGES.howfar = function (root) {
+    if (gameLockedToday(root, "howfar")) return;
+    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five distances</strong></div>';
+    ensureData("atlas2embed").then((ok) => {
+      if (!root.isConnected) return;
+      if (!ok || !window.AtlasWindows || !window.AtlasWindows.howFar) { root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>How far? could not be set up</strong><span class="dl-note">The map did not load. Check your connection and try again.</span><button class="btn" type="button" id="hfReload">Reload</button></div>'; const b = root.querySelector("#hfReload"); if (b) b.addEventListener("click", () => location.reload()); return; }
+      window.AtlasWindows.howFar(root, atlas2Ctx());
+    });
   };
 
   /* ============================================================
@@ -47857,7 +47878,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "howfar", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
