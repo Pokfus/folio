@@ -181,7 +181,7 @@ order unless the user says otherwise.
 | B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | **done 2026-10-30** |
 | B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | **done 2026-10-30** |
 | B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | **done 2026-10-30** |
-| B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | open |
+| B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | **done 2026-10-30** |
 | B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | open |
 | B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | open |
 | B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | open |
@@ -760,6 +760,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-488` damnatio memoriae | an inscription with the name cut out | ok; the "Rome" locator is generic |
 | `rm-489` Stephanus | none | no picture (`I.none`) |
 | `rm-490` Flavian dynasty | a Flavian state relief (Cancelleria) | acceptable: a procession, not the family; the "Rome" locator is generic |
+| `rm-491` Nerva–Antonine dynasty | emperors of the line side by side at Cologne | ok |
+| `rm-492` Nerva | an elderly emperor in marble | ok |
+| `rm-493` Plotina | a portrait head in the Glyptothek | ok |
+| `rm-494` optimus princeps | the title on an imperial coin | ok |
+| `rm-495` Trajan's Dacian Wars | the Danube at the opening of the campaign (a Column cast) | acceptable; the description names Cichorius and 1896 |
+| `rm-496` Decebalus | the last scene of the king (a Column cast) | ok; the description names its plate |
+| `rm-497` Trajan's Column | the column above the modern square | ok |
+| `rm-498` Forum of Trajan | columns of the Basilica Ulpia | acceptable: Platner–Ashby says these shafts do not belong to the basilica |
+| `rm-499` Trajan's Market | the Via Biberatica | weak: one street; the Great Hemicycle's façade would show the whole |
+| `rm-500` alimenta | the bronze table from Veleia | ok |
 
 ## Glossary candidates
 
@@ -1976,3 +1986,40 @@ Run as B47; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-490` Flavian dynasty | 8 | 6 → 9 | **The label is the historians'; Suetonius says gens Flavia, and Tacitus's "new dynasty" is the Loeb translator's rendering of imperio**; the unsourced "first family from outside the old nobility" and a sentence Tacitus does not say go; Josephus's dynastic framing added. |
 
 **Read by eye.** *Confusability:* `rm-481`/`rm-482`/`rm-488`/`rm-489` the emperor (the flies), the informer (the quarter), the erasure (the ladders) and the assassin (the bandaged arm); `rm-483`/`rm-484`/`rm-485`/`rm-486` the war (Fuscus), the governor (the fleet round Britain), the battle (the figures) and the fortress (the nails); `rm-487`/`rm-490` the palace and the house. *Legend:* Calgacus's speech, the flies and "master and god" are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B50 — `rm-491`–`rm-500`, The high empire: the Nerva–Antonines to the alimenta (2026-10-30)
+
+Run as B49; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-491:rm-500` reads clean on four cards once `rm-499`'s glossary date ("under Trajan, 98 - 117 CE") was changed to match the card; the rest carry `S.chip?` (English BMCR reviews of German- and French-titled books: the known false positive, five cards) and `W.not-why` (advisory, three cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read. `rm-499`'s first date row ("Trajan reigned 98 – 117 CE", another man's reign standing in for a building span no open source prints) was cut by hand before applying; the card now opens on the forum's dedication. **The old cards were nearly all-ancient (`rm-491`'s eight, `rm-492`'s seven); their date lines carried a count ("Emperors 6, Nerva to Commodus"), measurements ("Height 29.77 m shaft, 38 m with pedestal", "Square 116 by 95 m") and Trajan's reign for a title ("Reigned 98-117 CE" on `rm-494`).** The generic "Rome" locators on `rm-491` – `rm-494` are noted for the same later pass as B49's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-491` Nerva–Antonine dynasty | 7 | 8 → 8 | **The name is the one now given ("Antonine" a family name only from Antoninus Pius on); the golden age is Dio's, Machiavelli's and Gibbon's verdict, with the Cambridge Ancient History's reply**; adoption as policy or necessity is a debate; the glossary's "first five successions by adoption" was wrong (there were four). |
+| `rm-492` Nerva | 7 | 7 → 8 | Born 8 November 30 CE (Longden; Livius says 30 November); **the death day is left off (25 January in Longden, "27 (?)" in Livius; no source gives 28)**; the praetorians' revolt and the adoption of Trajan; Tacitus's "sovereignty and freedom". |
+| `rm-493` Plotina | 6 | 7 → 8 | **"c. 123" had no source: died c. 122 in one modern account**; her entrance words are Dio's; the forged adoption is Dio's father's story, the Historia Augusta's rumour and Eutropius's, and the moderns are divided; the Epicurean letter at Athens (121 CE). Nemausus as her home has no source read. |
+| `rm-494` optimus princeps | 6 | 6 → 8 | **SPQR OPTIMO PRINCIPI coins already run 103 – 111; what begins in 114 is OPTIMVS inside his official name** (two OCRE records); first used c. 100 (Pliny's Panegyric); Eutropius's "better than Trajan". |
+| `rm-495` Trajan's Dacian Wars | 7 | 8 → 7 | The old lead question carried the campaign years; **Lydus's spoils (quoting Crito) are attributed, and the Cambridge Ancient History calls them "frankly impossible"**; the Historia Augusta's diamond story and "held 165 years" go; abandoned c. 271 (a BMCR review; Eutropius names Aurelian, no year). |
+| `rm-496` Decebalus | 7 | 7 → 8 | **"c. 87" had no source: king by 86 CE (Syme favours 86 for Fuscus's expedition)**; the head on the Gemonian stairs is the restored Fasti of Ostia, not Dio; Tiberius Claudius Maximus's gravestone (Grammeni, 1965) through an open 2021 edition. |
+| `rm-497` Trajan's Column | 8 | 7 → 8 | The height row goes; **Eutropius's 144 feet are his; "Parian" marble is older accounts' (two recent reviews say Luna)**; dedicated 113 CE from the inscription; the frieze as record or stock scenes; Saint Peter set 1588. A question too close to `rm-521` is replaced. |
+| `rm-498` Forum of Trajan | 8 | 6 → 9 | **"A ridge cut away" was false as fact (Platner–Ashby: the geology shows none), now "slopes cut back"**; dedicated January 112 from the Fasti Ostienses (the Cambridge Ancient History's reading); the temple's site debated; Ammianus's Constantius scene is his telling. |
+| `rm-499` Trajan's Market | 7 | 6 → 9 | **"Built c. 100 – 112" had no source and goes; the name is modern (an 1897 guide still called it the baths of Aemilius Paulus)**; Apollodorus a traditional attribution; the brick stamps against a Domitianic start; offices or shops, a debate; cleared 1926 – 1934. |
+| `rm-500` alimenta | 6 | 6 → 6 | **Nerva's plan 97 CE (the Cambridge Ancient History) or Trajan's start 99 CE (Barron), both attributed**; the Baebian tablet 101 CE, Veleia's 103 or 103 – 114 CE; the 5 per cent interest and the boys' and girls' rates; the purpose debated; ALIM ITAL. |
+
+**Read by eye.** *Confusability:* `rm-491`/`rm-492`/`rm-493`/`rm-494` the line (Dio's gold to iron), the founder (his oath), the empress (her entrance) and the title (Eutropius's acclamation; its alimentary-tablet clue kept off `rm-500`); `rm-495`/`rm-496` the wars (the mushroom, Lydus) and the king (Maximus's gravestone); `rm-497`/`rm-498`/`rm-499` the column (the hill cut away), the forum (Gellius's gilded horses) and the market (the museum); `rm-500` the scheme. *Legend:* Plotina's forged adoption and Constantius's awe are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### The fifth hundred, in sum
+
+`rm-401`–`rm-500` (the end of Augustus, the Julio-Claudians, the civil war of 69 and the Flavians, and the start of the high empire) are done: 732 sources became 751 and 87 glossary entries were rewritten. `rm-audit.js --range=rm-401:rm-500` reads 56 of 100 cards clean; the rest are 24 advisory `W.not-why`, 13 `S.chip?` false positives (English BMCR reviews of German, Italian, French and Latin titles), 13 cards with no picture (`I.none`), `rm-485`'s `L.missing` (the site is unknown) and `rm-466`'s advisory `Q.sibling`. Every picture is still the bulk-written one (Commons answered 429 at the session's one test call): the "Pictures to redo" table holds a verdict for each. The research agents were stopped once by a usage limit and resumed on their saved pages; B48 was applied before B47.
+
+What the fifth hundred found, again and again:
+- **An anecdote as history.** Livia's poisonings, the smothering of Tiberius, Caligula's horse as consul (never done), the mushroom, Messalina's wedding, Nero singing as Rome burned (no fiddle), Boudica's and Calgacus's speeches, Masada's suicide and Eleazar's speeches, Vespasian's healings and Plotina's forged adoption are each their author's now, with the author named.
+- **The narrators named for what they are.** Velleius a Tiberian partisan; Tacitus hostile, writing under Nerva and Trajan, and Agricola's son-in-law; Suetonius and Dio late and hostile to "bad" emperors; Josephus a captured rebel general on Titus's staff and a Flavian pensioner; Philo a hostile contemporary; Pliny the Younger an eyewitness writing 25 years on; Martial a court poet; the Apocolocyntosis a satire.
+- **A count, a place or another man's reign on the date line.** "Aged 75", "Reign 95 days", "Roman losses 3 legions", "Interval 110 years", "Burned 6 days, then again", "Regions hurt 10 of 14", "Roman dead 70,000, says Tacitus", "Height 29.77 m", "at Philippi", "to Pandateria", "Tiberius's reign 14 – 37 CE", "Claudius's reign 41 – 54 CE", "Under Domitian 81 – 96 CE" — all prose now, each figure its author's.
+- **A converted or invented day.** "8 Gorpiaeus, September 70 CE", "c. 18 BCE" for Arminius, "c. 38 CE" for Messalina's marriage, "Lived c. 14 – 97 CE", "c. 87" for Decebalus, "c. 123" for Plotina, the Teutoburg Forest's September (a modern reconstruction), the Great Fire's 19 July (the day Tacitus says some noted), the eruption's 24 August against 24 October.
+- **Wrong facts the old cards stated.** Augustus the first ruler made a god (Julius Caesar in 42 BCE), Piso "acquitted" of poisoning, the Aqua Claudia's 46,606 paces (46,406), Tacitus's "four emperors" as the year 69 (the whole Histories), the hostis list that was the emergency decree's, "Dio dates 17 BCE" (Dio gives consular years), the colossus's "37 m", the "ridge cut away" for Trajan's Forum, a Russian article on Chaerea's card that never names him, and a review on Caratacus's that never mentions him.
+- **The modern half.** The old cards were nearly all-ancient. The modern half is mostly the Cambridge Ancient History (vols. 10 and 11), Furneaux, Henderson, Platner–Ashby, Syme, Livius and BMCR reviews, with open recent work where it existed (Renne et al. 2026 and Dellino et al. on the eruption, Petrone and Giordano on Herculaneum, Pilli et al. 2024 on the Pompeii casts, Soria Molina 2017, Găzdac 2021, Lovenjak 2018).
+
+Overlap notes for the owner (nothing was edited): `wh-362` states Alföldy's reconstructed Colosseum inscription and the hundred days of games as plain fact; `wh-365`'s Pompeii colony phrasing is close to `rm-478`'s.
+
+### Locators (2026-10-30)
+
+None was added or moved this hundred: every place, site, building and battle in `rm-401`–`rm-500` already had one (Kalkriese, Camulodunum, Bedriacum, Cremona, Masada, Jerusalem, Pompeii, Herculaneum, Inchtuthil, the Colosseum, the Ara Pacis, the Mausoleum, Capreae among them), so `migrate-places.js` was not run. `rm-485` Mons Graupius and `rm-445` Rhandeia get none (the sites are unknown). For a later pass: `rm-403`'s point is the modern museum, not the ancient site under Palazzo Fiano; `rm-424`'s Gemonian Stairs and `rm-428`'s Circus Maximus belong to other stories; the generic "Rome" points on `rm-481`, `rm-482`, `rm-488` and `rm-490` – `rm-494` mark nothing the cards are about. Still without one: `rm-195`, `rm-263`, `rm-303`, `rm-324`, `rm-360`, `rm-366`.

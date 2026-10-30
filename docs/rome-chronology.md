@@ -531,6 +531,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Flavian Palace: begun / completed | c. 81 CE / c. 92 CE | `rm-487` |
 | Domitian's memory condemned | 96 CE | `rm-488` |
 | the Flavians ruled | 69 – 96 CE | `rm-490` |
+| the Nerva–Antonines / Commodus died | 96 – 192 CE / 31 December 192 CE | `rm-491` |
+| Nerva: born / reigned / adopted Trajan / died | 8 November 30 CE (Longden; Livius: 30 November) / 96 – 98 CE / October 97 CE / January 98 CE | `rm-492` |
+| Plotina: empress / the Epicurean letter / died | 98 – 117 CE / 121 CE / c. 122 CE (one modern account) | `rm-493` |
+| optimus princeps: first used / on coins / in the official name | 100 CE / 103 – 111 CE / 114 CE | `rm-494` |
+| Trajan's Dacian Wars: first / second / the province / abandoned | 101 – 102 CE / 105 – 106 CE / 106 CE / c. 271 CE | `rm-495` |
+| Decebalus: king by / died | 86 CE / 106 CE | `rm-496` |
+| Trajan's Column: dedicated / Saint Peter set on it | 113 CE / 1588 | `rm-497` |
+| the Forum of Trajan dedicated | January 112 CE | `rm-498`, `rm-499` |
+| Trajan's Market cleared | 1926 – 1934 | `rm-499` |
+| the alimenta: Nerva's plan / Trajan's start / the Baebian tablet / the Veleia tablet | 97 CE / 99 CE / 101 CE / 103 – 114 CE | `rm-500` |
 
 ## Late Antiquity
 
@@ -1016,4 +1026,14 @@ rm-487: 81; 92
 rm-488: 96
 rm-489: 96
 rm-490: 69; 96; 96
+rm-491: 96; 192; 192
+rm-492: 30; 96; 98; 97; 98
+rm-493: 98; 117; 121; 122
+rm-494: 100; 103; 111; 114
+rm-495: 101; 102; 105; 106; 106; 271
+rm-496: 86; 106
+rm-497: 113; 1588
+rm-498: 112
+rm-499: 112; 1926; 1934
+rm-500: 97; 99; 101; 103; 114
 ```
