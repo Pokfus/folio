@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T01:16Z",
+ "generated": "2026-10-30T01:18Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5285,
-  "redirect-broader": 491,
+  "ok": 5292,
+  "redirect-broader": 493,
   "redirect-variant": 332,
   "section-redirect": 106,
   "disambiguation": 138,
-  "none": 961,
+  "none": 962,
   "disambig-resolved": 79,
   "list-page": 6,
   "search-match": 6,
@@ -60291,6 +60291,85 @@
    "status": "section-redirect",
    "from": "Operation Edelweiss",
    "target": "Battle of the Caucasus#German operations"
+  },
+  "ww2-261": {
+   "answer": "Operation Barbarossa",
+   "title": "Operation Barbarossa",
+   "url": "https://en.wikipedia.org/wiki/Operation_Barbarossa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-262": {
+   "answer": "Directive No. 21",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "End of World War II in Europe",
+    "Führer Directive No. 25",
+    "Aftermath of World War II",
+    "World War II by country"
+   ]
+  },
+  "ww2-263": {
+   "answer": "Barbarossa decree",
+   "title": "Barbarossa decree",
+   "url": "https://en.wikipedia.org/wiki/Barbarossa_decree",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-264": {
+   "answer": "Generalplan Ost",
+   "title": "Generalplan Ost",
+   "url": "https://en.wikipedia.org/wiki/Generalplan_Ost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-265": {
+   "answer": "Hunger Plan",
+   "title": "Hunger Plan",
+   "url": "https://en.wikipedia.org/wiki/Hunger_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-266": {
+   "answer": "Commissar Order",
+   "title": "Commissar Order",
+   "url": "https://en.wikipedia.org/wiki/Commissar_Order",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-267": {
+   "answer": "Red Army",
+   "title": "Red Army",
+   "url": "https://en.wikipedia.org/wiki/Red_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-268": {
+   "answer": "Richard Sorge",
+   "title": "Richard Sorge",
+   "url": "https://en.wikipedia.org/wiki/Richard_Sorge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-269": {
+   "answer": "Tukhachevsky affair",
+   "title": "Case of the Trotskyist Anti-Soviet Military Organization",
+   "url": "https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tukhachevsky affair"
+  },
+  "ww2-270": {
+   "answer": "Kesselschlacht",
+   "title": "Encirclement",
+   "url": "https://en.wikipedia.org/wiki/Encirclement",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Kesselschlacht"
   }
  }
 }

@@ -7530,7 +7530,16 @@ window.GLOSSARY = {
 "Rasputitsa": "",
 "Russian_Winter": "",
 "Case_Blue": "",
-"Operation_Edelweiss": ""
+"Operation_Edelweiss": "",
+"Directive_No._21": "",
+"Barbarossa_decree": "",
+"Generalplan_Ost": "",
+"Hunger_Plan": "",
+"Commissar_Order": "",
+"Red_Army": "",
+"Richard_Sorge": "",
+"Tukhachevsky_affair": "",
+"Kesselschlacht": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11215,7 +11224,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Severity_Order": "10 October 1941",
 "Stand-fast_order": "December 1941",
 "Case_Blue": "1942",
-"Operation_Edelweiss": "1942"
+"Operation_Edelweiss": "1942",
+"Directive_No._21": "18 December 1940",
+"Barbarossa_decree": "13 May 1941",
+"Generalplan_Ost": "1941–1942",
+"Hunger_Plan": "1941",
+"Commissar_Order": "1941–1942",
+"Tukhachevsky_affair": "1937"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15987,7 +16002,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Rasputitsa": ["rasputitsa"],
 "Russian_Winter": ["General Winter","Russian winter"],
 "Case_Blue": ["Fall Blau","Operation Blue","Case Blau"],
-"Operation_Edelweiss": ["Edelweiss"]
+"Operation_Edelweiss": ["Edelweiss"],
+"Directive_No._21": ["Directive 21","Führer Directive No. 21"],
+"Barbarossa_decree": ["Kriegsgerichtsbarkeitserlass"],
+"Generalplan_Ost": ["General Plan East"],
+"Commissar_Order": ["Kommissarbefehl"],
+"Tukhachevsky_affair": ["Case of the Trotskyist Anti-Soviet Military Organization"],
+"Kesselschlacht": ["cauldron battle"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23662,7 +23683,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Rasputitsa": ["concept","geography","history","russia"],
 "Russian_Winter": ["concept","history","warfare","geography","russia"],
 "Case_Blue": ["event","history","warfare","russia","germany"],
-"Operation_Edelweiss": ["event","history","warfare","russia","germany"]
+"Operation_Edelweiss": ["event","history","warfare","russia","germany"],
+"Directive_No._21": ["text","history","warfare","germany","russia","second world war"],
+"Barbarossa_decree": ["text","history","warfare","law","germany","russia","second world war"],
+"Generalplan_Ost": ["text","history","politics","germany","poland","russia","second world war"],
+"Hunger_Plan": ["text","history","politics","economics","germany","russia","second world war"],
+"Commissar_Order": ["text","history","warfare","law","germany","russia","second world war"],
+"Red_Army": ["institution","history","warfare","russia","soviet union","second world war"],
+"Richard_Sorge": ["person","history","espionage","russia","japan","germany","second world war"],
+"Tukhachevsky_affair": ["event","history","politics","warfare","russia","soviet union"],
+"Kesselschlacht": ["concept","history","warfare","germany"]
 });
 
 /* ============================================================================

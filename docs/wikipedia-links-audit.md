@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5285 | the title is the article |
+| `ok` | 5292 | the title is the article |
 | `redirect-variant` | 332 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 491 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 493 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 106 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
-| `none` | 961 | nothing matched; no link |
+| `none` | 962 | nothing matched; no link |
 
-**6200 of 7421 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6209 of 7431 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (491)
+## Redirected to a differently named article — check each (493)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -533,6 +533,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-173` **Dyle Plan** → [French war planning 1920–1940](https://en.wikipedia.org/wiki/French_war_planning_1920%E2%80%931940) (from `Dyle Plan`)
 - `ww2-180` **Panzer Group Kleist** → [XXII Army Corps (Wehrmacht)](https://en.wikipedia.org/wiki/XXII_Army_Corps_(Wehrmacht)) (from `Panzer Group Kleist`)
 - `ww2-184` **Rotterdam Blitz** → [German bombing of Rotterdam](https://en.wikipedia.org/wiki/German_bombing_of_Rotterdam) (from `Rotterdam Blitz`)
+- `ww2-269` **Tukhachevsky affair** → [Case of the Trotskyist Anti-Soviet Military Organization](https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization) (from `Tukhachevsky affair`)
+- `ww2-270` **Kesselschlacht** → [Encirclement](https://en.wikipedia.org/wiki/Encirclement) (from `Kesselschlacht`)
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)
 - `ww2-295` **clean Wehrmacht myth** → [Myth of the clean Wehrmacht](https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht) (from `Clean Wehrmacht myth`)
 
@@ -896,7 +898,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 
-## No article found (961)
+## No article found (962)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1860,4 +1862,5 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-177` **Blitzkrieg legend** — search suggests `List of World War II feature films`, `Blitzkrieg`, `Tanks in World War II`, `List of World War II video games`, `Western Front (World War II)`
 - `ww2-188` **Halt order**
 - `ww2-191` **Exode** — search suggests `Evacuation of the Louvre collection during World War II`, `The Exodus (1940)`, `Écouché in World War II`, `List of Spanish Civil War films`, `1390`
+- `ww2-262` **Directive No. 21** — search suggests `World War II`, `End of World War II in Europe`, `Führer Directive No. 25`, `Aftermath of World War II`, `World War II by country`
 - `ww2-296` **stand-fast order** — search suggests `Military history of Italy during World War II`, `Scandinavian theatre of World War II`, `British merchant seamen of World War II`, `Soviet Union in World War II`, `Australia in World War II`
