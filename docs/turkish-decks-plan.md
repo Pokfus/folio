@@ -1,8 +1,8 @@
 # The Turkish language decks — plan
 
 Started 2026-10-30, on request: "In the same form that we have several language vocabulary collections,
-start planning a Turkish language collection." **Built so far: A1** (`decks/Turkish-A1.folio-deck.json`,
-2026-10-30, generator `.claude/turkish/`, findings in `docs/lang-decks.md` under `.claude/turkish/`).
+start planning a Turkish language collection." **Built so far: A1 and A2** (`decks/Turkish-A1.folio-deck.json`,
+`decks/Turkish-A2.folio-deck.json`, 2026-10-30, generator `.claude/turkish/`, findings in `docs/lang-decks.md` under `.claude/turkish/`).
 The owner's decisions (2026-10-30): use the programme's vocabulary; fold B1+ into B1; English names for the
 collection and decks. This file is the plan the remaining levels are built from. Read `docs/lang-decks.md` first: everything there about community decks, the shelf
 (`lang-decks.js`, `build-lang-decks.js`) and the generators' standing rules applies here unchanged. This
@@ -16,7 +16,7 @@ per CEFR level plus a deck that is not a level:
 | deck file | level | source of its scope | target notes |
 |---|---|---|---|
 | `Turkish-A1.folio-deck.json` | A1 | Programme A1 themes + its *söz varlığı* | **500, built** |
-| `Turkish-A2.folio-deck.json` | A2 | Programme A2 | ~600 |
+| `Turkish-A2.folio-deck.json` | A2 | Programme A2 themes and topics (no vocabulary column — see §2) | **600, built** |
 | `Turkish-B1.folio-deck.json` | B1 | Programme B1 **and B1+** (one deck, see §6) | ~1,000 |
 | `Turkish-B2.folio-deck.json` | B2 | Programme B2 | ~1,200 |
 | `Turkish-C1.folio-deck.json` | C1 | Programme C1 | ~1,000 |
@@ -56,6 +56,14 @@ asked on 2026-10-30:
     (vocabulary) column and a **Dil İfadeleri** (set phrases) column. The **Ortaöğretim** (secondary,
     adult-like) tables are the ones to read: A1, A2, B1, B1+, B2, C1, pp. 243–306, ten themes each
     (A1 "Tanışalım … Tatil Planım", C1 "İletişim … Sanatın Dili").
+  - **FROM A2 UP THERE IS NO VOCABULARY COLUMN AT ALL** — found while building A2. The A2 table's
+    "Açıklamalar" (p. 255) says the section was left out on purpose: "A1 izlence tablolarında 'söz
+    varlığı' verilmesine karşın seviye ve konular göz önünde bulundurularak sınırlama olmaması açısından
+    A2'de 'Söz Varlığı' kısmı verilmemiştir." B1, B1+, B2 and C1 have none either; they mention vocabulary
+    only in outcomes ("Söz varlığı unsurlarını bağlamdan hareketle anlamlandırır"). So **only A1's inventory
+    is the programme's own words**; from A2 each level's inventory is written for Folio for the topics its
+    themes suggest ("Örnek Konular"), plus the closed classes its grammar list names, and the description
+    says so. The owner's "use the program's vocabulary" is followed to the letter where there is one.
   - **What it does NOT carry is a single alphabetical word list per level.** The vocabulary is scattered
     through the theme tables, often as examples ("Alfabe öğretimi için örnek kelimeler: A: araba, ayna …")
     and the programme says itself that its themes are suggestions and that "farklı kelime ve yapılar
@@ -158,8 +166,11 @@ Each step is one session's work, and each ends with the deck's own check passing
    `tr.py` for the fold and the dictionary rules, `tr_level.py` for the level's facts and the description).
 2. ~~A1~~ — done; all 500 cards read.
 3. ~~Shelf~~ — done.
-4. **A2 → C1** (next: A2 — add `A2` to `supplement.LEVELS`, `SIZE["a2"]` in `select.py` and `SCOPE["a2"]`
-   in `tr_level.py`, then `run.py --level a2`), one per session, each taught on top of the shipped decks below it (no word on two levels).
+4. ~~A2~~ — done; all 600 cards read. **B1 → C1** next, one per session (next: B1 + B1+ — read the
+   "Örnek Konular" of pp. 265–284, write `B1` in `supplement.LEVELS` with the pages, add `SIZE["b1"]` in
+   `select.py` and `SCOPE["b1"]` (`listed: False`, both page ranges) in `tr_level.py`, then
+   `run.py --level b1`). The topics column is cropped as the vocabulary column was, at the "Konular"
+   header; widen the crop to the left, where a line comes out clipped., one per session, each taught on top of the shipped decks below it (no word on two levels).
 5. **Phrases**: the programme's *dil ifadeleri* as the scope; Wiktionary's Turkish idioms and proverbs
    (with English glosses) as the content; the CAPLE phrases deck is the model.
 6. Optional: a combined `Turkish-A1-C1` (gitignored, `combine.py`, as French/Spanish/Italian/Indonesian).

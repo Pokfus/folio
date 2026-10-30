@@ -27,6 +27,20 @@ HOW AN ENTRY IS WRITTEN.
     `değil`, `gibi/kadar`, `göre`, and "temel soru ifadeleri" -- are listed under
     `GRAMMAR_A1` with the same marking.
 
+FROM A2 UP THE PROGRAMME GIVES NO VOCABULARY, and says so.  Its A2 table
+(p. 255, "Açıklamalar") reads: "A1 izlence tablolarında 'söz varlığı'
+verilmesine karşın seviye ve konular göz önünde bulundurularak sınırlama
+olmaması açısından A2'de 'Söz Varlığı' kısmı verilmemiştir" -- the column was
+left out so as not to LIMIT the level -- and B1, B2 and C1 have none either.
+What each level still states is its SCOPE: ten themes, each with "Örnek
+Konular" (suggested topics), and the grammar list.  So from A2 the inventory is
+FOLIO'S, written here for the programme's own topics, theme by theme with the
+page -- the UKBI arrangement, where the board states the scope and the generator
+writes the words -- and the deck's description says exactly that.  Only the
+closed classes the A2 grammar list itself names (`GRAMMAR_A2`) are the
+programme's words.  This was found while building A2 (Oct 2026); the plan had
+assumed every level carried a column.
+
 THE ALPHABET WORDS ARE KEPT.  Theme 1's column is a list of example words for
 each letter (`J: Japon, jeton, jet`), chosen for their letter rather than their
 level, and a few are odd at A1 (`iskelet`, `zürafa`).  They are the programme's
@@ -128,8 +142,74 @@ GRAMMAR_A1 = [  # category
     "saat", "buçuk", "yarım", "var", "yok", "değil", "gibi", "kadar", "göre", "beri",
 ]
 
-LEVELS = {"a1": A1}
-GRAMMAR = {"a1": GRAMMAR_A1}
+
+# Ortaöğretim A2, pp. 255-264.  FOLIO'S words for the programme's "Örnek Konular" (the topics quoted in
+# each theme's line); the programme lists no A2 vocabulary.  Words A1 taught are dropped by `select.py`.
+A2 = [
+    (255, "1 Tatil Dönüşü — holiday memories and places, the first week at school, new friends", [
+        "anı", "plaj", "kumsal", "otel", "köy", "şehir", "kasaba", "ada", "göl", "nehir", "fotoğraf",
+        "hediye", "dönem", "ders", "sınav", "not", "tanış-", "tanıştır-", "tanı-", "öğren-", "öğret-",
+        "anlat-", "hatırla-", "unut-", "eğlen-", "eğlenceli", "sıkıcı", "memnun", "tekrar",
+    ]),
+    (256, "2 Hafta Sonu Planın Ne? — weekend plans, clubs, cinema, theatre, concerts, posters, tickets", [
+        "gezi", "etkinlik", "kulüp", "kurs", "sinema", "tiyatro", "konser", "film", "sergi", "afiş",
+        "program", "gişe", "davet", "buluş-", "katıl-", "izle-", "seyret-", "gez-", "bit-", "bitir-",
+        "boş", "eğlence", "ücretsiz",
+    ]),
+    (257, "3 Bir Günüm — daily routines, hobbies, the timetable, after-school activities", [
+        "kahvaltı", "satranç", "şarkı", "çizelge", "teneffüs", "ödev", "kalk-", "hazırlan-", "duş",
+        "fırça", "fırçala-", "erken", "geç", "dakika", "saniye", "çeyrek", "hobi",
+    ]),
+    (258, "4 Şimdi Haberler — the news (technology, music, art, sport), the weather, the seasons", [
+        "haber", "gazete", "dergi", "televizyon", "internet", "teknoloji", "sanat", "sanatçı", "şarkıcı",
+        "takım", "maç", "kazan-", "kaybet-", "yarışma", "ödül", "olay", "kaza", "yangın", "deprem",
+        "derece", "fırtına", "şimşek", "niçin", "niye",
+    ]),
+    (259, "5 Dedemin Mesleği Bana Göre mi? — careers, professions, the extended family, preferences", [
+        "meslek", "kariyer", "işçi", "memur", "avukat", "hâkim", "mimar", "çiftçi", "satıcı", "kuaför",
+        "berber", "pilot", "gazeteci", "yazar", "ressam", "eczacı", "aile", "akraba", "kuzen", "yeğen",
+        "torun", "eş", "koca", "enişte", "yenge", "abla", "ağabey", "abi", "anneanne", "babaanne",
+        "evli", "bekâr", "evlen-", "tercih", "seç-", "beğen-", "hayal", "maaş", "şirket", "ofis",
+        "çalışkan", "tembel",
+    ]),
+    (260, "6 Hayat Birlikte Güzel — rules at home, at school, in traffic, in shops", [
+        "kural", "yasak", "uy-", "dikkat", "dikkatli", "çöp", "temiz", "kirli", "temizle-", "sessiz",
+        "gürültü", "saygı", "komşu", "apartman", "misafir", "paylaş-", "ceza", "kask", "hız", "yavaş",
+        "hızlı", "kasa", "fiş", "indirim", "öde-",
+    ]),
+    (261, "7 Akıllı İletişim — technology, smartphones, games, instructions, complaints", [
+        "telefon", "akıllı", "bilgisayar", "tablet", "ekran", "uygulama", "mesaj", "şifre", "şarj", "pil",
+        "kablo", "düğme", "aç-", "kapat-", "indir-", "yükle-", "gönder-", "kullan-", "talimat", "oyun",
+        "şikâyet", "dilekçe", "bozuk", "bozul-", "tamir", "garanti",
+    ]),
+    (262, "8 Spor Yapıyorum Sağlıklı Besleniyorum — sports, games, healthy eating, habits, shopping", [
+        "futbol", "basketbol", "voleybol", "tenis", "yüzme", "koşu", "antrenman", "sağlık", "sağlıklı",
+        "sağlıksız", "beslenme", "beslen-", "diyet", "vitamin", "sebze", "meyve", "kalori", "yağlı",
+        "şişman", "zayıf", "alışkanlık", "egzersiz", "blog",
+    ]),
+    (263, "9 Bir Hikâyem Var — tales, stories, fables (animal names), memories, feelings", [
+        "masal", "hikâye", "kahraman", "prens", "prenses", "kral", "kraliçe", "aslan", "kurt", "tilki",
+        "ayı", "kaplan", "tavşan", "kaplumbağa", "karga", "yılan", "maymun", "kuş", "eşek", "duygu",
+        "korku", "kork-", "sevinç", "sevin-", "kız-", "ağla-", "gül-", "şaşır-", "utan-", "mutluluk",
+        "üzüntü", "merak", "meraklı",
+    ]),
+    (264, "10 Gezi-Yorum — travel, work, transport and accommodation, tourism, camping and nature", [
+        "seyahat", "yolculuk", "turist", "turizm", "rehber", "harita", "pasaport", "vize", "havalimanı",
+        "istasyon", "liman", "otogar", "bavul", "çadır", "tabiat", "doğa", "çiçek", "şelale", "kıyı",
+        "tur", "kirala-", "kültür", "kültürel", "tarih", "tarihi",
+    ]),
+]
+
+# §7, A2 (p. 83): the closed classes and fixed words its grammar list names (and theme 8's indefinites).
+GRAMMAR_A2 = [  # the programme's own words
+    "hem", "veya", "belki", "ya", "mesela", "örneğin", "sebep", "gerek", "lazım", "zorunda",
+    "kesinlikle", "mutlaka", "sadece", "ayrıca", "aynı", "beğen-", "tercih", "seç-", "hoşlan-",
+    "cevap", "birkaç", "birçok", "çoğu", "hepsi", "hiçbiri",
+]
+
+LEVELS = {"a1": A1, "a2": A2}
+GRAMMAR = {"a1": GRAMMAR_A1, "a2": GRAMMAR_A2}
+LISTED = {"a1"}        # the levels whose inventory is the programme's own column (the rest are Folio's)
 
 BACK = set("aıou")
 VOWELS = set("aeıioöuüâîû")

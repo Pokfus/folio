@@ -40,7 +40,7 @@ def forms_of(D, word):
         if tr.live(e):
             # a pronoun's table carries its plural as cells (`ben` -> `biz`, `bizim`), and those are
             # other cards' words; a noun's plural is its own word's plural and stays
-            out |= {tr.fold(f) for f, t in tr.table_forms(e)
+            out |= {tr.fold(f) for f, t in tr.table_forms(e, word)
                     if " " not in f and not (e["pos"] == "pron" and "plural" in t)}
     return out
 

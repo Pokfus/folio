@@ -45,10 +45,15 @@ TEACH_POS = {"noun", "verb", "adj", "adv", "pron", "num", "postp", "conj", "det"
              "classifier"}       # `tane` "piece", the counter word, is filed under it
 # A gloss that only names a grammatical relation is a pointer, even untagged: `ağrısı` is glossed
 # "third-person singular single-possession possessive of ağrı" with no form-of tag at all.
-GRAM_GLOSS = re.compile(r"^(?:(?:first|second|third)-person|plural|accusative|dative|locative|ablative|genitive|"
-                        r"inflection|definite)\b[^;]* of (\S+?)[.:]?$")
+GRAM_PREFIX = (r"^(?:(?:first|second|third)-person|plural|accusative|dative|locative|ablative|genitive|"
+               r"inflection|definite|possessive)\b[^;]* of (\S+?)[.:]?")
+GRAM_GLOSS = re.compile(GRAM_PREFIX + "$")
+# ...and a gloss may carry the pointer AND the meaning, joined by a semicolon:
+# `hepimiz` "first-person plural single-possession of hep; all of us" -- the meaning is kept, the pointer cut.
+GRAM_HEAD = re.compile(GRAM_PREFIX + r";\s*")
 # A letter's name is not the word's meaning: `ve` opened on "The name of the Latin script letter V/v".
-LETTER_GLOSS = re.compile(r"name of the Latin(?:-script)? (?:script )?letter", re.I)
+# And Wiktionary files the Arabic letters' names as nouns too (`nun`, `be`, `ha`).
+LETTER_GLOSS = re.compile(r"name of the Latin(?:-script)? (?:script )?letter|^letter of the \w+ alphabet", re.I)
 META_FORMS = {"no-table-tags"}
 
 
@@ -73,10 +78,17 @@ def live(entry):
     return entry["pos"] in TEACH_POS and any(sense_ok(s) for s in entry["senses"])
 
 
-def table_forms(entry):
-    """[(form, tags)] of an entry's inflection table, template rows dropped, ORDER kept."""
-    return [(f, t) for f, t in entry["forms"]
-            if f and f not in META_FORMS and "inflection-template" not in t and "table-tags" not in t]
+def table_forms(entry, word=None):
+    """[(form, tags)] of an entry's inflection table, template rows dropped, ORDER kept.
+
+    Given the headword, a cell that is shorter than two letters or does not begin with the headword's
+    first letter is dropped too: Turkish suffixes never touch the first letter, and `santur`'s table
+    carries a bare `u` that made a Persian dulcimer one of the commonest words of the subtitles."""
+    out = [(f, t) for f, t in entry["forms"]
+           if f and f not in META_FORMS and "inflection-template" not in t and "table-tags" not in t]
+    if word:
+        out = [(f, t) for f, t in out if len(f) > 1 and fold(f)[0] == fold(word)[0]]
+    return out
 
 
 def load_dict():

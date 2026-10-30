@@ -3193,7 +3193,8 @@ changed was the one that had been wrong all along.
   changelog line and no version bump. Not part of the site.
 - `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
-  deck."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes / 1,000 cards, 0.7 MB).
+  deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
+  1,000 cards, 0.7 MB) **and A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB).
   `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
   `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
   run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
@@ -3206,6 +3207,11 @@ changed was the one that had been wrong all along.
   example sentence of it reaches a card. Its multi-column tables interleave under `pdftotext -layout`; a
   crop to the column (`pdftotext -x -y -W -H` at the "Söz Varlığı" header's position, which moves page to
   page) extracts it cleanly — widen the crop where a word comes out clipped (`eyze` for `teyze`).
+  **AND FROM A2 THE PROGRAMME GIVES NO WORDS AT ALL**: its A2 table says the vocabulary column was left out
+  "so as not to limit" the level, and B1–C1 have none. A2's inventory (260 words) is therefore Folio's,
+  written for the topics each A2 theme suggests, plus 17 closed-class words its grammar list names; the
+  description says so in those words, and its first sentence was templated so as not to say an unlisted
+  level's tables "list vocabulary" (`SCOPE[...]["listed"]`). Every level from here is the UKBI shape.
   **THE VERB TABLE'S PERSON TAGS ARE SHIFTED BY ONE ROW in the kaikki extract** — `giderim` tagged third
   person singular, `gidersin` first plural — while the TENSE tags are right and the table is the same
   949-cell template for every verb. So a tense's 3sg is the THIRD row of the first block carrying that
@@ -3219,6 +3225,24 @@ changed was the one that had been wrong all along.
   "if" to `eğmek`, `ile` "with" to `ilmek`; (3) the circumflex is folded only as a fallback — folding it
   always made `ama` "but" a count for `âmâ` "blind". An inflected pronoun (`bana`, `beni`, `benim`) has an
   entry of its own and is folded into its pronoun, whose card shows it.
+  **A2's subtitle fill brought the forms-as-words fault in bulk**, and two rules came of it.
+  (4) A fill word that is an IMPERATIVE, PAST, PARTICIPLE or PREDICATIVE cell of a commoner word's table,
+  or a case of a pronoun, is skipped (`gitme`, `yapma`, `bak`, `oldu`, `değilim`, `gelen`, `neyi` — 26 at
+  A2) — **the slot decides, not the count**: skipping every cell of a commoner table first lost `işte` (a
+  locative), `bile` and `diye` (optatives), `olarak`, `gerek` and `getirmek`, and a word with an adverb,
+  conjunction, postposition, determiner or numeral entry is kept as lexicalised. (5) A table cell shorter
+  than two letters or not starting with its headword's first letter is dropped (`tr.table_forms(e, word)`):
+  `santur`'s table carries a bare `u`, which made a Persian dulcimer one of the commonest words. Hand
+  exclusions, each with its reason in `select.EXCLUDE`: swearing (`bok`, `ulan`, `kahretmek`, `lanet`),
+  counts that belong to another form (`azı`, `un`, `bırak`), `sensin`, `adamım`, and `karı`. These changed
+  A1's fill by six words (`bak`, `oldu`, `yapma` out; `bayan`, `hemen`, `inanmak` in) before A2 was built
+  on it; A1 had not yet been merged.
+  The Arabic letters' names are dropped like the Latin ones (`nun`, `be`, `ha`); `possessive` joined the
+  grammatical-gloss pattern (`beyin` carried "possessive second singular of bey"), and a gloss that is a
+  pointer AND a meaning joined by a semicolon keeps the meaning (`hepimiz` "… of hep; all of us",
+  `tr.GRAM_HEAD`). A verb whose first entry has no table takes the first verb entry that has one
+  (`dokunmak`). `check-turkish.js`'s pointer test is anchored at the gloss's start: "sides (Arabized plural
+  of taraf)" is English with a note.
   **A FORMS ROW COMES FROM THE WORD'S MAIN ENTRY ONLY.** Taken from any entry with a table, `hayır` "no"
   showed the cases of `hayır` "charity" and `en` (the superlative) those of `en` "width"; a noun row is
   also withheld where the word has any closed-class reading (`önce`, `sonra`, `olur`). A compound's table is
@@ -3232,8 +3256,10 @@ changed was the one that had been wrong all along.
   **THE DOTTED AND DOTLESS I**: every fold is `tr.fold` (`İ → i`, `I → ı`, then lower), never bare `lower()`.
   The `l1` row is Wikipedia's 85 million (Ethnologue 2022, as relayed, says 77.6; either sorts it above
   German). The collection's hue is MEASURED, French's way, not named: `#780F75`, 27.2 from its nearest of 41.
-  Known, left: `ben` and `biz` also show their noun homographs (birthmark, awl), and `şurası` / `orası` both
-  gloss "that place" and are told apart only by the shared "not …" label.
+  Known, left: `ben` and `biz` also show their noun homographs (birthmark, awl); `şurası` / `orası` both
+  gloss "that place" and are told apart only by the shared "not …" label; `misafir` opens on Wiktionary's
+  first sense, "leucoma", before "guest"; and A2's fill carries the subtitles' crime-drama vocabulary
+  (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

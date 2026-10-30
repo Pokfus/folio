@@ -45,7 +45,7 @@ from collections import defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tr, supplement
 
-SIZE = {"a1": 500}
+SIZE = {"a1": 500, "a2": 600}
 TOP_SURFACES = 80000
 
 # An inventory entry the dictionary does not carry, mapped to what it does, with the reason.
@@ -63,6 +63,14 @@ EXCLUDE = {
     "ora", "nere", "bura",       # bound stems: never said alone, only as ora-da, nere-de, bura-sı
     "misin", "misiniz", "musun", "mısın",  # the question particle with a person ending: grammar
     "in",                        # "lair": its count is inmek's imperative "get off!" and English "in"
+    "bok", "ulan", "kahretmek", "lanet",  # swearing: its count is dubbed-film dialogue, and `bok`'s
+                                 # one standard sense left is "slag" (the `kejam` shape)
+    "azı",                       # "molar": its count is `az`'s accusative, "the little" (en azı, "at least")
+    "un",                        # "flour": its count is the French and Spanish `un` in the subtitles
+    "bırak",                     # "let alone": its count is the imperative "leave it!" of bırakmak (A1)
+    "sensin",                    # "it's you": `sen` with the copula, a form rather than a word
+    "adamım",                    # "my man": subtitle slang, the possessive of adam (A1)
+    "karı",                      # "wife": pejorative in modern use (except in karı koca), untagged in the source
     "tabi",                      # "subject to": its count is the subtitles' misspelling of `tabii`, "of course"
 }
 
@@ -88,7 +96,7 @@ def lemma_counts(D, freq):
         for e in entries:
             if tr.live(e):
                 exact[tr.fold(w)].add(w)
-                for f, _ in tr.table_forms(e):
+                for f, _ in tr.table_forms(e, w):
                     k = tr.fold(f)
                     if k in surfaces or tr.strip_circ(k) in plain:
                         exact[k].add(w)
@@ -102,7 +110,7 @@ def lemma_counts(D, freq):
     for w, entries in D.items():
         for e in entries:
             if e["pos"] == "pron" and tr.live(e):
-                for f, _ in tr.table_forms(e):
+                for f, _ in tr.table_forms(e, w):
                     if tr.fold(f) != tr.fold(w):
                         pron_cells[tr.fold(f)].add(w)
     for k, owners in pron_cells.items():
@@ -155,7 +163,7 @@ def main():
     a = ap.parse_args()
     D = tr.load_dict()
     freq = read_frequency()
-    counts, by_key = lemma_counts(D, freq)
+    counts, exact = lemma_counts(D, freq)
     below = taught_below(a.level)
 
     def resolve(h):
@@ -188,14 +196,41 @@ def main():
     if unresolved:
         print("! the dictionary does not carry (dropped): " + ", ".join(unresolved), file=sys.stderr)
 
+    # A FILL WORD MAY NOT BE A FORM OF A COMMONER WORD SAID AS A WHOLE.  `gitme`, `yapma`, `bak`, `oldu`,
+    # `değilim`, `gelen`, `neyi` carry entries of their own (a verbal noun, an interjection) and are also
+    # an imperative, a past, a predicative, a participle or a pronoun's case of `gitmek`, `yapmak`,
+    # `bakmak`, `olmak`, `değil`, `gelmek`, `ne`; their count is mostly that word's, so ranking them on it
+    # teaches a form as a word.  THE SLOT DECIDES, not the count alone: the first version skipped any cell
+    # of a commoner table and lost `işte` (a locative of `iş`), `bile` and `diye` (optatives), `olarak`,
+    # `gerek` and `getirmek` -- particles and words in their own right.  So a word with an adverb,
+    # conjunction, postposition, determiner or numeral entry is lexicalised and kept, and only the slots
+    # below shadow.  The inventory is not filtered: a word the level names is taught.
+    SHADOW_SLOTS = {"imperative", "past", "participle", "predicative"}
+    LEXICAL = {"adv", "conj", "postp", "det", "num"}
+    slot_owners = defaultdict(set)
+    for o, entries in D.items():
+        for e in entries:
+            if not tr.live(e) or o != tr.fold(o):
+                continue
+            for f, tg in tr.table_forms(e, o):
+                k = tr.fold(f)
+                if k != tr.fold(o) and (e["pos"] == "pron" or set(tg) & SHADOW_SLOTS):
+                    slot_owners[k].add(o)
+    shadowed = []
     fill = []
     for w, n in sorted(counts.items(), key=lambda x: (-x[1], x[0])):
         if len(inventory) + len(fill) >= SIZE[a.level]:
             break
         if w in seen or w in EXCLUDE or len(w) < 2 and w != "o":
             continue
+        if (not any(e["pos"] in LEXICAL for e in D.get(w, []) if tr.live(e))
+                and any(counts.get(o, 0) > n for o in slot_owners.get(tr.fold(w), ()))):
+            shadowed.append(w)
+            continue
         seen.add(w)
         fill.append({"word": w})
+    print("  fill skipped as forms of a commoner word: %d (e.g. %s)" % (len(shadowed), ", ".join(shadowed[:12])),
+          file=sys.stderr)
     words = inventory + fill
     for x in words:
         x["count"] = round(counts.get(x["word"], 0))

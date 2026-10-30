@@ -10,7 +10,8 @@ const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
 const LABELS = new Set(["plural", "accusative", "dative", "locative", "ablative", "genitive",
   "present", "aorist", "past", "future"]);
-const POINTER = /\b(?:possessive|accusative|dative|locative|ablative|genitive|plural|inflection) of \S+$|synonym of \S+$|Latin(?:-script)? (?:script )?letter/i;
+// a gloss that IS a pointer, anchored at its start: "sides (Arabized plural of taraf)" is English with a note
+const POINTER = /^(?:(?:first|second|third)-person|plural|accusative|dative|locative|ablative|genitive|inflection|definite|possessive)\b[^;]* of \S+$|^(?:synonym|alternative form) of \S+$|Latin(?:-script)? (?:script )?letter|^letter of the \w+ alphabet/i;
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Turkish-.*\.folio-deck\.json$/.test(f)).sort();

@@ -20,6 +20,16 @@ SCOPE = {
         "themes": "introductions, the classroom, family and home, a daily routine, getting about a city, "
                   "shopping and food, the weather and clothes, illness and the body, invitations, and a holiday",
         "pages": "pp. 243–254",
+        "listed": True,
+    },
+    "a2": {
+        "themes": "coming back from a holiday, weekend plans, a daily routine, the news, careers and the family, "
+                  "living together by rules, technology, sport and healthy eating, telling a story, and travel",
+        "topics": "holiday memories, clubs, cinema and concerts, timetables, the news and the weather, "
+                  "professions and the extended family, rules at school and on the road, phones and computers, "
+                  "sports and food, fables and their animals, feelings, transport, tourism and camping",
+        "pages": "pp. 255–264",
+        "listed": False,
     },
 }
 
@@ -52,19 +62,30 @@ def describe(level, n, inv, stats, cards):
          "(TYS) certifies only B2 and C1 and publishes no vocabulary list. The scope of this deck is taken instead from the "
          "Turkish as a Foreign Language Teaching Programme (Türkçenin Yabancı Dil Olarak Öğretimi Programı; "
          "Türkiye Maarif Foundation, 2nd edition, 2020, approved by Turkey's Ministry of National Education), "
-         "a CEFR-based syllabus whose %s tables for secondary school (%s) list vocabulary under ten themes: %s."
-         % (lv, sc["pages"], sc["themes"])]
-    s.append("%d of the %d words are that vocabulary, together with the members of the categories it names "
-             "without listing them (the days of the week, the months, the seasons, the numbers) and the "
-             "pronouns, question words and connectives its %s grammar list names. The programme presents its "
-             "themes as suggestions rather than a fixed list, so this is not an official word list and is not "
-             "presented as one." % (inv, n, lv))
+         "a CEFR-based syllabus whose %s tables for secondary school (%s) %s ten themes: %s."
+         % (lv, sc["pages"], "list vocabulary under" if sc["listed"] else "are organised in", sc["themes"])]
+    if sc["listed"]:
+        s.append("%d of the %d words are that vocabulary, together with the members of the categories it names "
+                 "without listing them (the days of the week, the months, the seasons, the numbers) and the "
+                 "pronouns, question words and connectives its %s grammar list names. The programme presents "
+                 "its themes as suggestions rather than a fixed list, so this is not an official word list and "
+                 "is not presented as one." % (inv, n, lv))
+    else:
+        s.append("FROM A2 UP THE PROGRAMME LISTS NO VOCABULARY AT ALL: its %s table says the vocabulary section "
+                 "was left out so as not to limit the level, and gives instead each theme's suggested topics — "
+                 "%s. So %d of the %d words were written for Folio for those topics, a theme at a time, and are "
+                 "Folio's choice rather than the programme's; %s This is not an official word list and is not "
+                 "presented as one." % (lv, sc["topics"], inv - stats["grammar"], n,
+                     ("%d more are the connectives and indefinites (hem, veya, mutlaka, birkaç, hepsi …) its %s "
+                      "grammar list names." % (stats["grammar"], lv)) if stats["grammar"] else ""))
+        s.append("No word taught in the levels below is repeated.")
     if fill:
         s.append("The other %d are the commonest words of everyday Turkish, from a frequency list built from "
                  "film and television subtitles." % fill)
     s.append("The cards are ordered by that frequency, so the words met most often come first%s." % (
-        "; the %d two-word expressions, which a list of single words cannot count, come last" % stats["phrases"]
-        if stats["phrases"] else ""))
+        ("; the %d two-word expressions, which a list of single words cannot count, come last" % stats["phrases"]
+         if stats["phrases"] > 1 else "; the one two-word expression, which a list of single words cannot count, "
+         "comes last") if stats["phrases"] else ""))
     # the examples show what the sentence says cannot be guessed: a stem that changes before the suffix
     nouns = [c for c in cards if len(_row(c)) == 6 and "plural" in c["fields"]["Forms"]]
     verbs = [c for c in cards if len(_row(c)) == 4 and "present" in c["fields"]["Forms"]]
