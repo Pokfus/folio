@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1188", released: "2026-10-30T16:20Z" };
+window.FOLIO_VERSION = { v: "1.1190", released: "2026-10-30T16:20Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
     t: "How far? minigame, 240 Second World War cards, 13 Library books",
     items: [
+      "A new <b>Japanese</b> language collection: hiragana, katakana, JLPT N5 to N1, phrases and idioms, with <b>furigana</b> over the kanji and romaji.",
       "A tenth daily minigame, <b>How far?</b>: guess the straight-line distance between two places on the globe, five rounds a day, within 10% to win.",
       "<b>How far?</b>: when the answer is revealed, your guess shows in green if it was within 10% and in red if it was not.",
       "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again, on Snapdragon phones such as the Galaxy S24 Ultra too.",
@@ -54,6 +55,7 @@ window.CHANGELOG = [
       "<b>Library</b>: Plutarch's <i>Parallel Lives</i>, Pausanias's <i>Description of Greece</i> and Strabo's <i>Geography</i> join the shelf, each complete with the Greek beside it.",
       "<b>Livy's <i>History of Rome</i></b> (<i>Ab Urbe Condita</i>) is in the Library: all 35 surviving books, with the Latin beside the English.",
       "<b>Polybius's <i>Histories</i></b> is in the Library: every surviving book, with the Greek beside books 1 to 5.",
+      "A new <b>India</b> collection is planned under Geography: states, capitals, great cities, rivers and mountains, with cards to come.",
       "<b>Tacitus's <i>Annals</i></b> is in the Library: every surviving book, with the Latin beside the English.",
       "<b><i>Magna Carta</i></b> is in the Library: the charter of 1215 in McKechnie's translation, with the Latin beside it.",
       "<b>Diodorus Siculus' <i>Library of History</i></b> is in the Library: all fifteen surviving books, with the Greek beside the English.",
