@@ -1112,7 +1112,10 @@ the highlights.**
     the reader something untrue about the sentence in front of them. It cannot be fixed by a term blocklist:
     the SAME key is right or wrong depending on the sentence, and only the matched surface can tell you
     which. Deliberately narrower than a card's linking and **books-only** — a card's background is written
-    against this glossary and should keep linking `knapping`. A book may still name keys in `glossOff`.
+    against this glossary and should keep linking `knapping`. A book may still name keys in `glossOff`,
+    and — since the Russian Primary Chronicle (Oct 2026) — in `glossOffIn`, which switches a key off in
+    named chapters only (`{ key: [n, [first, last], …] }`, resolved by `bookGlossOff`): a chronicle reuses a
+    ruler's name for later princes, so Oleg the Wise is right in 912 and wrong in 1078.
   · **WRITING IN THE BOOK — the marker's notes, kept** (`BOOK INK` block: `BOOK_INK_KEY` / `bookInkMount` /
     `inkRecord` / `inkReplay`; `setupWhiteboard({fixed:true})`; Aug 2026, on request). The same floating
     marker as a study card's, over the book instead — but the storage underneath is different, and it had

@@ -922,6 +922,78 @@ function chajingChecks() {
   return o;
 }
 
+/* ============================================================
+   THE RUSSIAN PRIMARY CHRONICLE (Oct 2026) — Cross's 1930 translation, read off the Internet Archive OCR's
+   word coordinates. Its faults are the silent kind, so each check names one: a year head whose figures
+   disagree (AM − 5508 is the year of our era, and the printer misnumbered three), a Karski page marker out
+   of its run, a quotation mark doubled by the OCR (`“‘` where the page has “), a speck read as a word, a
+   footnote whose mark went missing. The repaired strings are asserted present and the damaged ones absent,
+   as the Classic of Tea's are.
+   ============================================================ */
+function chronicleChecks() {
+  const f = path.join(ROOT, "books", "russian-primary-chronicle.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === "russian-primary-chronicle");
+  if (!b) return null;
+  const ch = b.chapters;
+  const all = ch.map((c) => c.html + " " + (c.notes || []).join(" ")).join("\n");
+  const o = { n: ch.length, heads: 0, badHeads: [], karski: [], dead: 0, unref: 0, notes: 0, bal: [], damaged: [], missing: [],
+    intro: b.intro || "", first: ch[0] && ch[0].t, appx: ch.slice(-4).map((c) => c.t) };
+  let prev = 0, prevK = 1;
+  ch.forEach((c, i) => {
+    const m = /^(\d{4})(?:–(\d{4}))? \((\d{3,4})(?:–(\d{3,4}))?\)$/.exec(c.t);
+    if (m) {
+      o.heads++;
+      const a = +m[1], z = +(m[2] || m[1]), ad = +m[3], adz = +(m[4] || m[3]);
+      // printed "6542–6543 (1034–1036)" is Cross's own and is left as printed
+      if ((a - 5508 !== ad || z - 5508 !== adz) && c.t !== "6542–6543 (1034–1036)") o.badHeads.push(c.t);
+      if (a < prev || (a === prev && c.t !== "6453 (945)")) o.badHeads.push("out of order: " + c.t);
+      prev = z;
+    }
+    // Karski's pages run up through the annals; the appendices restart at 240 (the Testament) and Appendix
+    // III gives the Hypatian text's own columns.
+    if (i === ch.length - 4) prevK = 239;
+    if (i === ch.length - 1) prevK = 258;
+    for (const k of c.html.matchAll(/class="bk-n" data-n="(\d+)"/g)) {
+      const n = +k[1];
+      if (n < prevK || n > prevK + 1) { if (!(n === 256 && prevK === 240) && !(n === 66)) o.karski.push(c.t + ": " + prevK + "→" + n); }
+      prevK = n;
+    }
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, k) => { if (!ms.includes(k + 1)) o.unref++; });
+    ["p", "sup", "span", "i", "b"].forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(c.t + " " + t + " " + open + "/" + shut);
+    });
+  });
+  [[/⟦|\|/, "a footnote placeholder or a gutter bar"],
+   [/“‘(?!In the third year)|‘‘|’’|”’’|”“/, "a doubled quotation mark"],
+   [/\[\d{1,3}\s*\](?!\d)/, "a Karski number left in brackets in the prose"],
+   [/[A-Za-z]- [a-z]/, "a line-end hyphen left in"],
+   [/\d-\d/, "a hyphen where the page has an en dash"],
+   [/\bisa\b|\bIam\b|lamhere|\bvou\b|\bina\b|witha|donot|thoughtssin|difhculty|SvyatopoJk|Iimen|Ilyricum|\(Js\.|\(Mait\.|Zdzd|Jbid/, "a misread word"],
+   [/Lacuna of 4[34] lines/, "the lacuna note as both OCRs misread it"],
+   [/9493 \(985\)|6694 \(986\)|6686–6688|\(2064\)|\(g91\)/, "a misnumbered year head"]]
+    .forEach(([rx, why]) => { if (rx.test(all)) o.damaged.push(why); });
+  [["Arabia the Mighty", "Arabia the Mighty"], ["Lacuna of 4½ lines.", "the lacuna note"],
+   ["Chios, Lesbos, Cythera, Zacynthus, Cephallenia, Ithaca, and Corcyra", "a textfloat line the first pass lost"],
+   ["fled from Vsevolod to Tmutorakan on April 10", "a line-end hyphen across a textfloat line"],
+   ["In the hope of God’s grace, I Sylvester", "Sylvester's colophon"],
+   ["toward the close of [66]18.", "Cross's supplied figures, not a page marker"],
+   ["“Woe is me! how am I driven out hence!", "a quotation the OCR doubled"],
+   ["forever.’”", "a nested close"]]
+    .forEach(([s, why]) => { if (!all.includes(s)) o.missing.push(why); });
+  return o;
+}
+
+
 /* THE RAMAYANA, read off the two files that shipped. Its reader serves ONE book — a Project Gutenberg
    TEI on the English side and a four-shaped wiki on the Sanskrit — so it cannot be proved inert by
    re-running a sibling, and the shipped-data sweep is what stands in for that check.
@@ -2023,6 +2095,28 @@ function aeneidChecks() {
       check("[classic-of-tea] both halves of the book are on disk", false, "missing books/classic-of-tea*.js");
     }
 
+    /* THE RUSSIAN PRIMARY CHRONICLE — see chronicleChecks above. */
+    const rpc = chronicleChecks();
+    if (rpc) {
+      check("[primary-chronicle] 153 chapters: the opening, 148 entries and four appendix texts", rpc.n === 153 && rpc.heads === 148,
+        rpc.n + " / " + rpc.heads);
+      check("[primary-chronicle] the opening and the appendices carry the printed titles",
+        rpc.first === "These Are the Narratives of Bygone Years" && rpc.appx[0] === "The Testament of Vladimir Monomakh" &&
+        rpc.appx[3] === "Events of 1110–1113 from the Hypatian Text", rpc.first + " | " + rpc.appx.join(" | "));
+      check("[primary-chronicle] every year head's two figures agree and the heads run in order", rpc.badHeads.length === 0,
+        rpc.badHeads.join("; "));
+      check("[primary-chronicle] Karski's page markers run without a gap or a step back", rpc.karski.length === 0, rpc.karski.join("; "));
+      check("[primary-chronicle] seven notes, every marker resolves and every note is cited",
+        rpc.notes === 7 && rpc.dead === 0 && rpc.unref === 0, rpc.notes + " notes, " + rpc.dead + " dead, " + rpc.unref + " unref");
+      check("[primary-chronicle] every tag is closed", rpc.bal.length === 0, rpc.bal.join("; "));
+      check("[primary-chronicle] none of the OCR's faults survives", rpc.damaged.length === 0, rpc.damaged.join("; "));
+      check("[primary-chronicle] every string the OCR had wrong is repaired", rpc.missing.length === 0, rpc.missing.join("; "));
+      check("[primary-chronicle] the front matter names the translator, the repairs and what is left out",
+        /Cross/.test(rpc.intro) && /misprints/.test(rpc.intro) && /not included/.test(rpc.intro), String(rpc.intro.length));
+    } else {
+      check("[primary-chronicle] the book is on disk", false, "missing books/russian-primary-chronicle.js");
+    }
+
     /* THE MAXIMS OF PTAHHOTEP — see ptahhotepChecks above for what each of these can see. */
     const pt = ptahhotepChecks();
     if (pt) {
@@ -2906,6 +3000,15 @@ function aeneidChecks() {
       if (m[1]) continue;                                    /* corrects the extracted prose */
       const above = english.slice(Math.max(0, m.index - 1400), m.index);
       if (/\b(h|raw|xml)\s*=\s*correctRaw\(/.test(above)) continue;   /* corrects the page */
+      /* A THIRD SHAPE: the extractor runs the chain itself, over the prose it has assembled (`chajing`,
+         `chronicle` — an OCR's blocks or paragraphs, where a row is written against a sentence rather
+         than against the scan's line breaks). Read off the extractor's own body, not off the lines
+         above the call: the Classic of Tea passed until Oct 2026 only because the Bede branch's
+         correctRaw happened to sit within the 1,400 characters before it, and adding the chronicle's
+         branch between them moved it out of reach. */
+      const def = english.indexOf("function extract" + m[2] + "(");
+      const next = def < 0 ? -1 : english.indexOf("\nfunction ", def + 10);
+      if (def >= 0 && /correctRaw\(/.test(english.slice(def, next < 0 ? english.length : next))) continue;
       bare.push(m[2]);
     }
     check("[chain] every English branch is in the correction chain",
