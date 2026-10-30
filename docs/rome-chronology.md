@@ -336,6 +336,20 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Marius's levy of the poorest | 107 BCE (modern accounts; Sallust gives the consulship, not a BCE year; `rm-664` prints 104 BCE for the eagle standard, which Pliny does not give) | `rm-295` |
 | the Cimbri and Teutones: set out / first clash / last battle | c. 120 BCE / 113 BCE / 101 BCE (all from Last) | `rm-297` |
 | the Battle of Arausio / Aquae Sextiae / Vercellae | 6 October 105 BCE (Last) / 102 BCE / 101 BCE (30 July is a modern conversion of Plutarch's Roman day) | `rm-298`, `rm-299`, `rm-300` |
+| the comitia tributa: quaestors first elected by the tribes (tradition) | 447 BCE | `rm-701` |
+| ambitus: Livy's first law (tradition) | 432 BCE | `rm-704` |
+| the praetorship created (tradition) | 366 BCE | `rm-707` |
+| the aediles: the plebeian pair (tradition) / the curule pair | 494 BCE / 366 BCE | `rm-708` |
+| the quaestorship: elected by the people (tradition) / opened to the plebs | 447 BCE / 421 BCE | `rm-709` |
+| the censorship: created (tradition) / the first plebeian censor | 443 BCE / 351 BCE | `rm-710` |
+| prorogation: the first extended command | 326 BCE (a modern review; Livy's vote falls in the consular year Varro's count makes 327) | `rm-711` |
+| provocatio: the first Valerian law (tradition) / the second (tradition) / the third | 509 BCE / 449 BCE / 300 BCE | `rm-717` |
+| mancipatio: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-731` |
+| the first proconsul | 326 BCE (as `rm-711`; the vote in Livy's consular year, 327 BCE) | `rm-740` |
+| the aerarium: the manumission tax (Livy; a modern reckoning) | 357 BCE | `rm-745` |
+| the denarius: Pliny's year, as one modern history converts it | 269 BCE | `rm-748` |
+| the Parthian Empire: the Arsacid era begins | 247 BCE | `rm-773` |
+| tutela mulierum: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-795` |
 
 ## The middle and late Republic
 
@@ -429,6 +443,41 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | senatus consulta: the Bacchanalian decree | 7 October 186 BCE | `rm-698` |
 | the senatorial order: the ship law | 218 BCE | `rm-699` |
 | the comitia: lawmaking moves from the Comitium to the Forum | 145 BCE | `rm-700` |
+| the comitia tributa: the last two tribes created | 241 BCE (a modern handbook's year; the Periochae print none) | `rm-701` |
+| the ballot laws: Gabinian / Cassian / Papirian / Coelian | 139 BCE / 137 BCE / 131 BCE / 107 BCE | `rm-702` |
+| the Commentariolum Petitionis: the campaign it belongs to, if genuine | 64 BCE | `rm-703` |
+| ambitus: the consular law / ten years' exile added | 67 BCE / 63 BCE | `rm-704` |
+| the suffect consul: the one-day consulship | 31 December 45 BCE | `rm-706` |
+| the praetors: the provincial pair / six a year | 227 BCE / 197 BCE | `rm-707` |
+| the aediles of Ceres (a modern bracket in Pomponius) | 44 BCE | `rm-708` |
+| prorogation routine (one modern view) | 146 BCE | `rm-711` |
+| provocatio: the PROVOCO denarius of Porcius Laeca | 110 – 109 BCE | `rm-717` |
+| the lex Plautia Papiria | 89 BCE | `rm-718` |
+| the praetors' edicts made binding | 67 BCE | `rm-723` |
+| the lex Cornelia de sicariis et veneficis | 81 BCE (one recent study; older handbooks print 82) | `rm-734` |
+| the standing courts: the first / extended / the jury law | 149 BCE / 81 BCE / 70 BCE | `rm-735` |
+| the poena cullei: the first recorded case | 101 BCE | `rm-736` |
+| the proconsulship: the five-year law | 52 BCE | `rm-740` |
+| the portorium abolished in Italy's harbours | 60 BCE | `rm-742` |
+| tributum: citizens exempt / levied again | 167 BCE / 43 BCE | `rm-743` |
+| the aerarium seized | 49 BCE | `rm-745` |
+| the sestertius and denarius first struck in silver | 211 BCE (the coin catalogue; debated) | `rm-747`, `rm-748` |
+| the lex Julia de repetundis | 59 BCE | `rm-750` |
+| Gallia Narbonensis: conquered / the first colony | 121 BCE / 118 BCE | `rm-759` |
+| Lugdunum founded | 43 BCE | `rm-760` |
+| Hispania: two provinces | 197 BCE | `rm-761` |
+| Africa: the province formed | 146 BCE | `rm-762` |
+| Roman Carthage: the colony attempted / planned | 122 BCE / 44 BCE | `rm-763` |
+| the cura annonae: Pompey's grain command | 57 BCE | `rm-767` |
+| Roman Syria annexed | 64 BCE | `rm-768` |
+| Palmyra: the cavalry raid | 41 BCE | `rm-769` |
+| Judaea taken by Rome | 63 BCE | `rm-770` |
+| Herod: made king / reigned | 40 BCE / 37 – 4 BCE (a minority: died 1 BCE) | `rm-771` |
+| the Roman–Parthian Wars (a modern name): Rome's first defeat | 53 BCE | `rm-772` |
+| Bithynia: bequeathed / joined to Pontus | 74 BCE / 64 BCE | `rm-774` |
+| Muziris: the port flourished | c. 100 BCE – 300 CE | `rm-784` |
+| divortium: Carvilius's first divorce (tradition; Gellius's years on Varro's epoch) | 231 BCE / also 235 BCE | `rm-793` |
+| the grammaticus: Crates's first lectures (Suetonius: about the time Ennius died) | 168 BCE | `rm-800` |
 
 ## The Principate
 
@@ -648,6 +697,42 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | senatus consulta: the decree on Piso | 10 December 20 CE | `rm-698` |
 | the senatorial order reshaped | 18 BCE | `rm-699` |
 | the comitia: elections moved to the Senate | 14 CE | `rm-700` |
+| the censorship: the last Republican censors | 22 BCE | `rm-710` |
+| the formulary procedure: the Julian law ending most old actions | 17 BCE | `rm-724` |
+| the Institutes of Gaius written | c. 161 CE (begun under Antoninus Pius, finished under Marcus Aurelius) | `rm-726` |
+| Ulpian: chief adviser / killed | 222 CE / 223 CE (228 CE in a 19th-century dictionary) | `rm-727` |
+| Papinian killed | 212 CE | `rm-728` |
+| appellatio: the senate's grant to Octavian | 30 BCE | `rm-739` |
+| the customs law of Asia copied | 9 July 62 CE | `rm-742` |
+| the Census of Quirinius | 6 CE (Josephus; Matthew's Herod died c. 4 BCE) | `rm-744` |
+| the aerarium: the prefects created / settled under Nero | 28 BCE / 56 CE | `rm-745` |
+| the sestertius: the brass reform | 23 BCE | `rm-747` |
+| vectigalia: Nero's proposed repeal | 58 CE | `rm-749` |
+| the senatorial provinces divided | January 27 BCE | `rm-751` |
+| the Lower Germanic Limes: the first legions / the Alphen timbers felled | c. 19 BCE / winter 40 – 41 CE | `rm-753` |
+| Germania Superior: made a province / the legate's revolt | c. 85 CE / 89 CE | `rm-755` |
+| the Agri Decumates: conquered / given up (a debated modern dating) | 73 – 74 CE / c. 260 CE | `rm-756` |
+| Roman Britain: the invasion / the four provinces | 43 CE / 296 CE | `rm-757` |
+| Londinium: the earliest dated tablet / burned | 8 January 57 CE / 60 CE or 61 CE | `rm-758` |
+| Gallia Narbonensis handed to the people | 22 BCE (Cary's margin year for Dio's consuls) | `rm-759` |
+| Lugdunum: the altar dedicated / the persecution | 12 BCE / 177 CE | `rm-760` |
+| Hispania: the provinces shared / the conquest ended | 27 BCE / 19 BCE | `rm-761` |
+| Africa: given to the senate / enlarged | 27 BCE / 25 BCE | `rm-762` |
+| Leptis Magna made a colony | c. 109 – 110 CE | `rm-764` |
+| Roman Egypt and Roman Alexandria: Roman rule begins | 30 BCE | `rm-765`, `rm-766` |
+| the cura annonae: taken up / the prefect created | 22 BCE / 8 – 14 CE | `rm-767` |
+| Roman Syria divided | c. 198 CE | `rm-768` |
+| Palmyra: the tax law / sacked | 137 CE / 273 CE | `rm-769` |
+| Judaea: a province / again | 6 CE / 44 CE | `rm-770` |
+| the Roman–Parthian Wars: the standards returned / the Arsacids fall | 20 BCE / 224 CE | `rm-772` |
+| the Parthian Empire ends | 224 CE | `rm-773` |
+| Bithynia and Pontus: Pliny's special mission | c. 109 – 111 CE | `rm-774` |
+| Achaea: created / under the emperor | 27 BCE / 15 – 44 CE | `rm-775` |
+| Pannonia: the first war / the revolt | 12 – 10 BCE / 6 – 9 CE | `rm-776` |
+| Roman Dacia: made a province / given up | 106 CE / c. 271 – 275 CE | `rm-777` |
+| Calleva: founded / the street grid / the stone wall | c. 20 – 10 BCE / c. 70 – 80 CE / c. 270 CE | `rm-781` |
+| Tacfarinas's revolt | 17 – 24 CE | `rm-783` |
+| the Seres: the Han envoy sent / the Da Qin envoys (Chinese records) | 97 CE / 166 CE | `rm-785` |
 
 ## Late Antiquity
 
@@ -731,6 +816,19 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the laeti: first attested / the land law / the levy law | 296 CE or 297 CE / 5 April 399 CE / 30 January 400 CE | `rm-691` |
 | the clibanarii: Nazarius's panegyric / in Constantius II's procession at Rome | 1 March 321 CE / 357 CE | `rm-692` |
 | Vegetius's Epitoma written (a modern bracket) | 383 – 450 CE | `rm-694` |
+| the formulas banned | 342 CE | `rm-724` |
+| Papinian: the notes annulled / the Law of Citations | 321 CE (possibly 324) / 426 CE | `rm-728` |
+| the Digest: commissioned / promulgated / in force / its manuscript taken from Pisa | 15 December 530 CE / 16 December 533 CE / 30 December 533 CE / 1406 | `rm-729` |
+| the Codex Justinianus: commissioned / first edition / second edition / in force | 13 February 528 CE / 7 April 529 CE / 16 November 534 CE / 29 December 534 CE | `rm-730` |
+| mancipatio: the res mancipi abolished | 531 CE | `rm-731` |
+| the poena cullei made the regular penalty | 318 CE or 319 CE | `rm-736` |
+| Roman Britain: the traditional end | 410 CE (409 CE in one recent history) | `rm-757` |
+| Carthage taken by the Vandals | 439 CE | `rm-763` |
+| Leptis Magna taken by the Vandals | 455 CE | `rm-764` |
+| Roman Egypt and Alexandria: the end of Roman rule | 641 CE | `rm-765`, `rm-766` |
+| Calleva abandoned | c. 550 – 650 CE | `rm-781` |
+| tutela mulierum: still in force / likely abolished (one argument) | c. 318 CE / c. 320 – 325 CE | `rm-795` |
+| the grammaticus: the salary law (CTh 13.3.11) | 376 CE | `rm-800` |
 
 ## Chronology pins
 
@@ -1398,4 +1496,69 @@ rm-697: 18
 rm-698: 186; 20
 rm-699: 218; 18
 rm-700: 145; 14
+rm-701: 447; 241
+rm-702: 139; 107
+rm-703: 64
+rm-704: 432; 67; 63
+rm-706: 45
+rm-707: 366; 227; 197
+rm-708: 494; 366; 44
+rm-709: 447; 421
+rm-710: 443; 351; 22
+rm-711: 326; 146
+rm-717: 509; 300; 110; 109
+rm-718: 89
+rm-723: 67
+rm-724: 17; 342
+rm-726: 161; 1816
+rm-727: 222; 223; 228
+rm-728: 212; 321; 426
+rm-729: 530; 533; 1406
+rm-730: 528; 529; 534
+rm-731: 451; 450; 531
+rm-734: 81
+rm-735: 149; 81; 70
+rm-736: 101; 318; 319
+rm-739: 30
+rm-740: 326; 52
+rm-742: 60; 62
+rm-743: 167; 43
+rm-744: 6
+rm-745: 357; 49; 28; 56
+rm-747: 211; 23
+rm-748: 211; 269
+rm-749: 58
+rm-750: 59
+rm-751: 27
+rm-753: 19; 40; 41; 2021
+rm-755: 85; 89; 2005
+rm-756: 73; 74; 260
+rm-757: 43; 296; 410
+rm-758: 57; 60; 61
+rm-759: 121; 118; 22
+rm-760: 43; 12; 177
+rm-761: 197; 27; 19
+rm-762: 146; 27; 25
+rm-763: 122; 44; 439
+rm-764: 109; 110; 455
+rm-765: 30; 641
+rm-766: 30; 641
+rm-767: 57; 22; 8; 14
+rm-768: 64; 198
+rm-769: 41; 137; 273
+rm-770: 63; 6; 44
+rm-771: 40; 37; 4
+rm-772: 53; 20; 224
+rm-773: 247; 224
+rm-774: 74; 64; 109; 111
+rm-775: 27; 15; 44
+rm-776: 12; 10; 6; 9
+rm-777: 106; 271; 275
+rm-781: 20; 10; 70; 80; 270; 550; 650
+rm-783: 17; 24
+rm-784: 100; 300
+rm-785: 97; 166
+rm-793: 231; 235
+rm-795: 451; 450; 318; 320; 325
+rm-800: 168; 376
 ```
