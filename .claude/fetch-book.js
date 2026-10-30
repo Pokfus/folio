@@ -2995,6 +2995,115 @@ const BOOKS = {
     },
   },
 
+  "cassius-dio-roman-history": {
+    title: "Roman History",
+    author: "Cassius Dio",
+    translator: "Earnest Cary",
+    edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1927",
+    written: "early 3rd century CE",
+
+    /* ---------- THE LICENCE: two layers, and the second is not Perseus's ----------
+       The expired-copyright half rests on the date of publication and on nothing else. Cary's
+       translation (made "on the basis of the version of Herbert Baldwin Foster", as its title page
+       says) was published in nine Loeb volumes from 1914 to 1927 — all before 1929 — so it is public
+       domain in the United States. LacusCurtius's own entry page says the same and adds why for the
+       later volumes: their copyright was not renewed. WHAT IS NOT CLAIMED is a life-plus-seventy
+       term: Cary's death year is not in anything this session opened, so none is asserted — the Ovid
+       discipline.
+       The SECOND layer is the transcription, which is Bill Thayer's. His site states its own rule: a
+       page whose address carries ONE asterisk is in the public domain (two asterisks mark someone
+       else's copyright, none his own). Every page taken here is a one-asterisk page. Thayer's own notes
+       on those pages are his commentary rather than the edition, and they are not taken; nor are his
+       links, glossary bullets or photographs.
+       NO GREEK COLUMN YET. Perseus carries Cary's Greek for Books 36–55 only (tlg0385.tlg001.perseus-grc2,
+       one file), about a third of the work. It could be set beside those books with `original.only`, as
+       Polybius's Greek is beside his books 1–5, pairing on Boissevain's chapter numbers; that is left
+       for a later pass, and the front matter says there is none.
+       The modern translation a reader is likeliest to own — Ian Scott-Kilvert's Penguin selection of
+       1987 — is in copyright and is named so that nobody reaches for it. */
+    rights:
+      "Two layers, both stated. Earnest Cary's translation, made on the basis of the version of " +
+      "Herbert Baldwin Foster, was published in the nine volumes of the Loeb Classical Library " +
+      "between 1914 and 1927 — all before 1929 — so its copyright has expired in the United States. " +
+      "The text is taken from Bill Thayer's transcription on LacusCurtius, which states that its " +
+      "pages of this kind are in the public domain; Thayer's own notes on those pages are not " +
+      "reproduced. (The modern Penguin selection translated by Ian Scott-Kilvert, 1987, is still in " +
+      "copyright and is not used here.)",
+    sourceName: "LacusCurtius",
+    sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/home.html",
+
+    /* THE FRONT MATTER — chapter 0. What a reader needs before opening a book that is mostly NOT what
+       Dio wrote: that a third of it survives whole, and the rest is fragments and Byzantine summaries;
+       then who he was, since his own career is part of the last books; then how the numbers work,
+       which is the thing every reader of Dio trips on. */
+    about: [
+      "<b>Roman History</b> is the history of Rome from the landing of Aeneas in Italy to the " +
+        "author's own consulship in 229 CE — close to a thousand years, in eighty books, written in " +
+        "Greek. It is the fullest continuous account of the end of the Roman Republic and the reign of " +
+        "Augustus to survive from antiquity, and for much of the second and early third centuries it " +
+        "is the main narrative source there is.",
+      "Cassius Dio was a Greek from Nicaea in Bithynia and a Roman senator, the son of a senator. He " +
+        "lived through the reigns from Marcus Aurelius to Severus Alexander, held the consulship twice — " +
+        "the second time with the emperor as his colleague — and governed provinces in Africa and on " +
+        "the Danube. From the reign of Commodus on he writes as an eyewitness, from his seat in the " +
+        "senate, and the last books are history told by a man who watched it happen. He says that he spent ten years gathering material and twelve " +
+        "more writing.",
+      "<b>Most of the work is lost, and what stands here is of three kinds.</b> Books 36 to 60, " +
+        "from 69 BCE to the reign of Claudius, survive in Dio's own words, with gaps from Book 55 on. " +
+        "Books 1 to 35 survive only as fragments — quotations and excerpts made by later writers — " +
+        "set beside the summary of them that the twelfth-century Byzantine historian John Zonaras " +
+        "made, and other late writers who used Dio, each under its own small heading. Books 61 to 80 " +
+        "survive mainly in the abridgement made in the eleventh century by the monk John Xiphilinus, " +
+        "headed <i>Epitome</i> here, with excerpts and a few pages of the original beside it. Where a " +
+        "reader meets a summary, the words are the epitomator's and the matter is Dio's.",
+      "The translation is Earnest Cary's, from the Loeb Classical Library of 1914–1927, made on the " +
+        "basis of an earlier version by Herbert Baldwin Foster; the numbered notes under each book are " +
+        "Cary's. The text is the transcription Bill Thayer made for his site LacusCurtius, where it " +
+        "can be read with his own commentary, which is not reproduced here. A book of the Loeb opens " +
+        "with the argument of the book and the consuls of the years it covers, set in small type.",
+      "<b>The numbers.</b> The small raised figures are the chapter numbers of the standard edition, " +
+        "Ursul Philip Boissevain's, by which Dio is cited — ‘Dio 44.19’ is Book 44, chapter 19. In " +
+        "the fragmentary books they number the fragments rather than chapters, and Cary sometimes " +
+        "printed a fragment in a different book from the one whose number it keeps. In the epitomised " +
+        "books the abridgement does not divide where Dio did, and two numberings of the books are in " +
+        "use: the tabs follow Cary's books, and a small heading such as <i>LXIII</i> inside one marks " +
+        "where the passages begin that the standard numbering assigns to that book, which is how " +
+        "their chapter numbers are to be read. Books 30 to 35 are fragments enough to share one part, " +
+        "followed by the fragments no book can be assigned to.",
+      "There is no Greek column: the one open edition of Dio's Greek covers only Books 36 to 55, about " +
+        "a third of what is here, and it is not yet set beside this translation.",
+    ],
+
+    source: "html",
+    layout: "lacus",
+    pageUrl: (p) => "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/" +
+      (p === "home" ? "home" : p + "*") + ".html",
+    /* One entry per LacusCurtius page, in reading order. `n` is the Folio chapter, which is Dio's book
+       number; the two shared pages are Books XXII–XXIX, cut at their own book heads (`split`), and
+       Books XXX–XXXV, whose fragments carry one continuous run of numbers and no book heads, so they
+       stay one chapter numbered 30 and the tabs go 30, 36. */
+    pages: [].concat(
+      Array.from({ length: 21 }, (_, i) => ({ page: String(i + 1), n: i + 1 })),
+      [{ page: "22-29", split: true }, { page: "30-35", n: 30 }],
+      Array.from({ length: 45 }, (_, i) => ({ page: String(i + 36), n: i + 36 }))
+    ),
+    chapterWord: "Book",
+    chapters: [].concat(Array.from({ length: 30 }, (_, i) => i + 1), Array.from({ length: 45 }, (_, i) => i + 36)),
+    /* The nine Loeb volumes, which is how the edition itself divides the work; the volume a book
+       opens in is printed in its first page number on LacusCurtius ("Vol. VI p1"). */
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 11 },
+      { n: 2, label: "Volume II", from: 12, to: 35 },
+      { n: 3, label: "Volume III", from: 36, to: 40 },
+      { n: 4, label: "Volume IV", from: 41, to: 45 },
+      { n: 5, label: "Volume V", from: 46, to: 50 },
+      { n: 6, label: "Volume VI", from: 51, to: 55 },
+      { n: 7, label: "Volume VII", from: 56, to: 60 },
+      { n: 8, label: "Volume VIII", from: 61, to: 70 },
+      { n: 9, label: "Volume IX", from: 71, to: 80 },
+    ],
+  },
+
   "lucretius-nature-of-things": {
     title: "On the Nature of Things",
     // the work's own Latin title, which is what its Latin column is an edition of
@@ -29218,6 +29327,198 @@ function chapterTitle(n) {
 }
 
 /* ============================================================
+   A LOEB TRANSCRIBED BY LACUSCURTIUS, ONE HTML PAGE PER BOOK          (layout: "lacus")
+   ============================================================
+   Oct 2026, adding Cassius Dio's Roman History. The first book here from Bill Thayer's LacusCurtius
+   (penelope.uchicago.edu), the only complete transcription of Cary's Loeb anywhere: Wikisource holds a
+   contents page and one page of volume 1, Perseus the Greek of books 36–55 and no English at all.
+
+   THE PAGE IS HTML 4 WITH UNCLOSED <P>s, so the stack in `stripTags` cannot be handed it as it stands —
+   every paragraph would open and never close. The body is cut into BLOCKS at the block-level tags
+   instead, each block's inline markup is reduced on its own, and the block is re-wrapped. A block is one
+   of three kinds: prose (`<p>`), a heading (Thayer's `reference` labels naming the epitomator a passage
+   comes from — "Zonaras", "Tzetzes, Chil. 5, 21" — the H3 book heads inside a combined page, and in the
+   epitomised books the standard numbering's book numerals), or a QUOTE, the argument and consul list
+   the Loeb sets in small type above a book.
+
+   TWO KINDS OF NOTE, AND ONLY ONE OF THEM IS THE EDITION'S. The Loeb's footnotes are anchored `#noteN`
+   (N a number) and stand under "The Loeb Editor's Notes" or a heading like it — the wording varies
+   from page to page, so the ANCHOR decides, never the heading. Thayer's own notes are anchored
+   `#note:<slug>` or `#noteA` and are his commentary rather than Cary's: they and their markers are left
+   out. So are his glossary bullets, his links and his page numbers. A Loeb note cited twice (`ref2a`,
+   `ref2b`) is one note with two markers, resolved through the marker's HREF.
+
+   FIXED TABLES. The epitomators are set side by side in a two-row table, a row of labels over a row of
+   columns; they are read column by column, each under its own label, which is the order the eye reads
+   them in. The consul lists (`WIDTH="500"`) become one line per year. */
+function lacusDropBalanced(s, openRx, tag) {
+  const rx = new RegExp(openRx.source, "gi");
+  let out = "", pos = 0, m;
+  while ((m = rx.exec(s))) {
+    if (m.index < pos) continue;
+    out += s.slice(pos, m.index);
+    const t = new RegExp("<(/?)" + tag + "\\b[^>]*>", "gi");
+    t.lastIndex = m.index + m[0].length;
+    let depth = 1, e;
+    while (depth && (e = t.exec(s))) depth += e[1] ? -1 : 1;
+    pos = e ? t.lastIndex : s.length;
+    rx.lastIndex = pos;
+  }
+  return out + s.slice(pos);
+}
+
+function lacusInline(s) {
+  s = s.replace(/&shy;|­|&#8288;|⁠/g, "");
+  s = lacusDropBalanced(s, /<SPAN CLASS="pagenum(?:_left)?">/, "SPAN");
+  // the bullets that open Thayer's glossary links and his metric conversions ("•fifty miles")
+  s = s.replace(/<A\b[^>]*?\bCLASS="(?:glossary|conversion)"[^>]*>[\s\S]*?<\/A>/gi, "");
+  // his "º" markers: a pop-up comment, or a note that he corrected a misprint in the Loeb
+  s = s.replace(/<A\b[^>]*?\bCLASS="(?:comment|correction)"[^>]*>[\s\S]*?<\/A>/gi, "");
+  s = s.replace(/<A\b[^>]*?\bCLASS="ref"[^>]*?HREF="\s*[^"#]*#note(\d+)\s*"[^>]*>[\s\S]*?<\/A>/gi, "⟦fn:$1⟧");
+  s = s.replace(/<A\b[^>]*?\bCLASS="ref"[^>]*>[\s\S]*?<\/A>/gi, "");
+  s = s.replace(/<A\b[^>]*?\bCLASS="chapter"[^>]*>([\s\S]*?)<\/A>/gi, (_, x) =>
+    '<span class="bk-n">' + x.replace(/<[^>]*>/g, "").replace(/\s+/g, "") + "</span> ");
+  s = s.replace(/<A\b[^>]*?\bCLASS="sec[^"]*"[^>]*>[\s\S]*?<\/A>/gi, "");
+  s = s.replace(/<SPAN LANG="la"[^>]*>((?:(?!<\/?SPAN)[\s\S])*)<\/SPAN>/gi, "<i>$1</i>");
+  s = stripTags(s);
+  return decodeEntitiesLacus(s).replace(/\s+/g, " ").replace(/ +(<\/(?:i|b)>)/g, "$1")
+    .replace(/ ?<br> ?/g, "<br>").trim();
+}
+
+// the named entities this site uses, and numeric ones; `&amp;`, `&lt;` and `&gt;` stay escaped
+function decodeEntitiesLacus(s) {
+  const N = { nbsp: " ", mdash: "—", ndash: "–", lsquo: "‘", rsquo: "’", ldquo: "“", rdquo: "”",
+    hellip: "…", eacute: "é", egrave: "è", ecirc: "ê", euml: "ë", aacute: "á", agrave: "à", acirc: "â",
+    auml: "ä", iacute: "í", icirc: "î", iuml: "ï", oacute: "ó", ocirc: "ô", ouml: "ö", uacute: "ú",
+    ucirc: "û", uuml: "ü", ccedil: "ç", aelig: "æ", AElig: "Æ", oelig: "œ", times: "×", frac12: "½",
+    frac14: "¼", frac34: "¾", middot: "·", sect: "§", deg: "°", dagger: "†", Dagger: "‡", para: "¶",
+    laquo: "«", raquo: "»", quot: '"', lt: "&lt;", gt: "&gt;" };
+  return s
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d))
+    .replace(/&([a-zA-Z]+);/g, (m, k) => (k in N ? N[k] : m));
+}
+
+// a consul list: one line per row, the era (B.C. / A.D.) on a row of its own above the years
+function lacusDateTable(t) {
+  const rows = t.split(/<TR[^>]*>/i).slice(1).map((r) =>
+    r.split(/<TD[^>]*>/i).slice(1).map((c) => lacusInline(c)).filter(Boolean));
+  return "<BLOCKQ>" + rows.filter((r) => r.length).map((r) => r.join(" ")).join("<BR>") + "</BLOCKQ>";
+}
+
+// the epitomators side by side: a row of labels over rows of columns, read column by column. A column
+// carries its label the first time it holds any text (7.25–26 runs Curtius over three rows).
+function lacusColumns(t, warn) {
+  const rows = t.split(/<TR[^>]*>/i).slice(1).map((r) => r.split(/<TD[^>]*>/i).slice(1));
+  const labelRow = rows.length >= 2 && !rows[0].some((c) => /<P\b/i.test(c));
+  if (!labelRow) {
+    if (rows.length !== 1) warn("a table of " + rows.length + " rows read cell by cell");
+    return rows.flat().map((c) => "<P>" + c).join("");
+  }
+  const labels = rows[0].map((c) => lacusInline(c)), done = [];
+  return rows.slice(1).map((r) => r.map((c, i) => {
+    if (!lacusInline(c)) return "";
+    const head = labels[i] && !done[i] ? '<DIV CLASS="reference">' + labels[i] + "</DIV>" : "";
+    done[i] = true;
+    return head + "<P>" + c;
+  }).join("")).join("");
+}
+
+/* One page in, one or more chapters out: { n, t, html, notes, refs, missing }. `split` cuts the body at
+   its H3 book heads (the Loeb's Books XXII–XXIX are fragments enough to share a page). */
+function extractLacus(h, page, opts, warn) {
+  /* Thayer's pop-up glosses live in onMouseOver attributes, and some hold markup of their own — 69.2's
+     "<SPAN CLASS=goof>Trajan&lt;/SPAN&gt;" — whose `>` would end the tag early and spill the gloss into
+     the prose. The attributes go before any tag is read. */
+  h = h.replace(/<!--[\s\S]*?-->/g, "").replace(/(["\s])on[A-Z][A-Za-z]+="[^"]*"/g, "$1");
+  const h1 = h.match(/<H1\b[^>]*>([\s\S]*?)<\/H1>/i);
+  if (!h1) throw new Error("page " + page + ": no H1");
+  const title = lacusInline(lacusDropBalanced(h1[1], /<SPAN CLASS="pagenum">/, "SPAN"))
+    .replace(/^\(Vol\. [IVX]+\)\s*/, "").replace(/ thru /, "–");
+  const start = h1.index + h1[0].length;
+  const end = h.slice(start).search(/<HR\b|<TABLE CLASS="footer"/i);
+  if (end < 0) throw new Error("page " + page + ": no end to the body");
+  let body = lacusDropBalanced(h.slice(start, start + end), /<DIV CLASS="mynote">/, "DIV");
+  const tail = h.slice(start + end);
+
+  // the Loeb's notes, keyed by number; Thayer's (`note:` and lettered) are not taken
+  const notes = {};
+  /* A note shared by two markers carries its id on the PARAGRAPH and one backlink per marker (16.2,
+     17.8, 30–35's 6), so the id may sit on a <P> as well as on the usual anchor. */
+  const nrx = /<(?:A CLASS="note"|P)[^>]*\bID="note(\d+)"[^>]*>(?:[^<]*<\/A>)?/gi;
+  let m;
+  while ((m = nrx.exec(tail))) {
+    const rest = tail.slice(m.index + m[0].length).replace(/^(\s*<A CLASS="note"[^>]*>[\s\S]*?<\/A>)+/i, "");
+    // Thayer's own comment on a Loeb note is a `mynote` block after it, and it is not the edition's
+    const stop = rest.search(/<A CLASS="note" ID=|<P[^>]*\bID="note|<P CLASS="ivy"|<DIV CLASS="mynote"|<HR\b|<TABLE CLASS="footer"/i);
+    const txt = lacusInline((stop < 0 ? rest : rest.slice(0, stop)).replace(/<\/?(P|DIV|BLOCKQUOTE)\b[^>]*>/gi, " "));
+    if (notes[m[1]]) warn("page " + page + ": note " + m[1] + " printed twice");
+    notes[m[1]] = txt;
+  }
+
+  // tables first, innermost out, so a block boundary never falls inside one
+  let guard = 0;
+  while (/<TABLE\b/i.test(body) && guard++ < 50) {
+    body = body.replace(/<TABLE\b([^>]*)>((?:(?!<TABLE\b)[\s\S])*?)<\/TABLE>/gi, (_, attrs, t) =>
+      /<IMG\b/i.test(t) ? "" // Thayer's photographs and their captions (Antinous at 69.11)
+      : /WIDTH="500"/i.test(attrs) ? lacusDateTable(t) : lacusColumns(t, (x) => warn("page " + page + ": " + x)));
+  }
+
+  // cut into blocks: a block runs from one block-level tag to the next
+  const parts = [];
+  const brx = /<(\/?)(P|DIV|H1|H2|H3|H4|TD|TR|TABLE|BLOCKQ|BLOCKQUOTE|CENTER|UL|OL|LI)\b([^>]*)>/gi;
+  let pos = 0, kind = "p", b;
+  const push = (raw) => {
+    if (!raw.replace(/<[^>]*>|\s|&nbsp;/g, "")) return;
+    let k = kind;
+    // the page number Thayer sets before the argument is not part of it (44 opens "p309 <small>…")
+    if (k === "p" && /^\s*<SPAN CLASS="small">/i.test(lacusDropBalanced(raw, /<SPAN CLASS="pagenum[^"]*">/, "SPAN"))) k = "quote";
+    parts.push({ kind: k, raw: raw });
+  };
+  while ((b = brx.exec(body))) {
+    push(body.slice(pos, b.index));
+    pos = brx.lastIndex;
+    const close = !!b[1], tag = b[2].toUpperCase(), attrs = b[3];
+    if (close) { kind = "p"; continue; }
+    if (tag === "H1" || tag === "H3" || (tag === "DIV" && /CLASS="reference"/i.test(attrs))) kind = "head";
+    else if (tag === "BLOCKQ") kind = "quote";
+    else kind = "p";
+  }
+  push(body.slice(pos));
+
+  // render, and cut at the H3 heads where the page holds several books
+  const out = [];
+  let cur = { n: null, t: title, blocks: [] };
+  const open = (n, t) => { cur = { n: n, t: t, blocks: [] }; out.push(cur); };
+  if (!opts.split) open(opts.n, title);
+  parts.forEach((p) => {
+    const txt = lacusInline(p.raw);
+    if (!txt) return;
+    if (opts.split && p.kind === "head") {
+      const bk = txt.match(/^Book ([IVXL]+)$/);
+      if (bk) { open(roman(bk[1]), "Fragments of Book " + bk[1]); return; }
+    }
+    if (!out.length) { warn("page " + page + ": text before the first book head, dropped: " + txt.slice(0, 60)); return; }
+    cur.blocks.push(p.kind === "head" ? '<p class="bk-head">' + txt + "</p>"
+      : p.kind === "quote" ? "<blockquote>" + txt + "</blockquote>"
+      : "<p>" + txt + "</p>");
+  });
+
+  return out.map((c) => {
+    let html = c.blocks.join("\n");
+    const order = [], missing = [];
+    html = html.replace(/⟦fn:(\d+)⟧/g, (_, k) => {
+      if (!(k in notes)) { missing.push(k); return ""; }
+      let i = order.indexOf(k);
+      if (i < 0) { order.push(k); i = order.length - 1; }
+      return '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+    });
+    return { n: c.n, t: c.t, html: html, notes: order.map((k) => notes[k]), ids: order, missing: missing,
+      pageNotes: Object.keys(notes) };
+  });
+}
+
+/* ============================================================
    A DIGEST READ OFF A SCAN'S OCR, AND A CHINESE TEXT READ OFF A WIKI'S WIKITEXT     (layout: "chajing")
    ============================================================
    Oct 2026, adding the Classic of Tea. The first book whose English is a section of a printed
@@ -30264,6 +30565,50 @@ async function fetchEnglish() {
       got.chapters.filter((c) => c.gaps).map((c) => c.t).join(", "));
     console.log("  the mark is printed " + got.rawGaps.length + " different ways by the scan: " +
       got.rawGaps.map((s) => JSON.stringify(s)).join(" "));
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* LacusCurtius: one page per book (two pages hold several), cached as served. The host is slow —
+     a 100 KB page took a minute in Oct 2026 — and the proxy cut transfers short, so a page is only
+     accepted COMPLETE: ending in </HTML> and carrying the site's own title. A truncated page would
+     otherwise ship a book that stops mid-sentence with nothing to say so. */
+  if (BOOK.layout === "lacus") {
+    const warn = (m) => warnings.push(m);
+    const dir = path.join(CACHE, "en");
+    fs.mkdirSync(dir, { recursive: true });
+    let notes = 0, marks = 0, unref = 0;
+    for (const pg of BOOK.pages) {
+      const cf = path.join(dir, pg.page + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else {
+        h = await fetchText(BOOK.pageUrl(pg.page));
+        await sleep(1000);
+        if (!/<\/HTML>\s*$/i.test(h) || !/LacusCurtius/.test(h))
+          throw new Error("page " + pg.page + " arrived incomplete (" + h.length + " bytes); the host is slow — " +
+            "fetch it with `curl -C -` into " + cf + " and re-run");
+        fs.writeFileSync(cf, h);
+      }
+      const got = correctGot(extractLacus(h, pg.page, pg, warn));
+      got.forEach((c) => {
+        if (c.n < FROM || c.n > TO) return;
+        if (c.html.length < (BOOK.minChars || 200))
+          throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+        if (c.missing.length) warn(c.t + ": marker(s) for note(s) " + c.missing.join(", ") + " with no note");
+        notes += c.notes.length;
+        const m = (c.html.match(/class="bk-n"/g) || []).length;
+        marks += m;
+        chapters.push({ n: c.n, t: c.t, p: partOf(c.n), html: c.html, notes: c.notes });
+        console.log("  " + BOOK.chapterWord + " " + c.n + " — " + c.t + " (" + (c.html.length / 1024).toFixed(0) +
+          " KB, " + m + " chapter numbers, " + c.notes.length + " notes)");
+      });
+      // every Loeb note on the page must be cited from somewhere on it
+      const cited = new Set(got.flatMap((c) => c.ids));
+      const lost = got.length ? got[0].pageNotes.length - cited.size : 0;
+      if (lost > 0) { unref += lost; warn("page " + pg.page + ": " + lost + " Loeb note(s) no marker cites"); }
+    }
+    console.log("  " + chapters.length + " books, " + marks + " chapter numbers, " + notes + " notes, " +
+      unref + " uncited");
     return writeEnglish(chapters, warnings);
   }
 

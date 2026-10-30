@@ -12111,6 +12111,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      more from every political book on the shelf (Aristotle 33.8, Machiavelli 57.9, Plato 63.0), and it
      reads 5.61:1 on the tightest light paper. */
   "Thomas Jefferson": "#005142",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-six colours placed (Oct 2026, adding Cassius Dio, measured
+     again after Magna Carta, Diodorus and the Declaration took their rows): CIELAB distance, L 12.3–47.8
+     and chroma 18–85, 22 or more from every light theme's ink and 4.5:1 on every light paper, card and
+     second paper. The band's top two are magentas, refused on the Euripides test — 16.6 and 17.1 from
+     THUCYDIDES, the historian Dio set out to imitate — and the teals next are 16–18 from MARCUS
+     AURELIUS, whose reign Dio narrates. This muted violet-grey is the best left, clearing the Song of
+     Roland by 16.1 and the Classic of Poetry by 16.8, neither read beside Dio, above the shelf's
+     tightest pair (Snorri Sturluson and Polybius, 15.6). It stands 28 or more from every book that is —
+     Tacitus 28.9, Herodotus 36.0, Polybius 39.5, Marcus Aurelius 43.3, Thucydides 44.8, Strabo 47.0,
+     Livy 50.2, Diodorus 53.7, Suetonius 60.1, Plutarch 65.5, Caesar 71.7. It reads 4.54:1 on the
+     tightest light paper. */
+  "Cassius Dio": "#685874",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -12614,6 +12626,52 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 21, label: "Demetrius and Antony" },
         { n: 22, label: "Dion and Brutus" },
         { n: 23, label: "The single Lives" },
+      ],
+    },
+    {
+      id: "cassius-dio-roman-history",
+      title: "Roman History",
+      author: "Cassius Dio",
+      written: "early 3rd century CE",
+      // he carried the history to his own second consulship, in 229
+      year: 229,
+      translator: "Earnest Cary",
+      edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1927",
+      /* Two layers, and the second is not Perseus's: the translation is public domain on its
+         publication dates (1914–1927), and the transcription is Bill Thayer's on LacusCurtius, whose
+         one-asterisk pages he states are in the public domain. His own notes are not taken. No
+         death-year claim is made for Cary. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Earnest Cary's translation, made on the basis of the version of " +
+        "Herbert Baldwin Foster, was published in the nine volumes of the Loeb Classical Library " +
+        "between 1914 and 1927 — all before 1929 — so its copyright has expired in the United States. " +
+        "The text is taken from Bill Thayer's transcription on LacusCurtius, which states that its " +
+        "pages of this kind are in the public domain; Thayer's own notes on those pages are not " +
+        "reproduced. (The modern Penguin selection translated by Ian Scott-Kilvert, 1987, is still in " +
+        "copyright and is not used here.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/home.html",
+      /* English only: the one open Greek text (Perseus) covers Books 36–55, a third of the work, and
+         is not set beside it yet; the front matter says so. */
+      chapterWord: "Book",
+      /* Seventy-five parts for eighty books: Books 22–29 are cut at their own heads, but the fragments
+         of Books 30–35 carry one continuous run of numbers and no book heads, so they are one part
+         numbered 30. */
+      count: 75,
+      total: 75,
+      // the numbers skip from 30 to 36, which `chapterNums` tells the progress line
+      chapterNums: Array.from({ length: 30 }, (_, i) => i + 1).concat(Array.from({ length: 45 }, (_, i) => i + 36)),
+      // the nine Loeb volumes, which is how the edition divides the work
+      parts: [
+        { n: 1, label: "Volume I", note: "Books I–XI" },
+        { n: 2, label: "Volume II", note: "Books XII–XXXV" },
+        { n: 3, label: "Volume III", note: "Books XXXVI–XL" },
+        { n: 4, label: "Volume IV", note: "Books XLI–XLV" },
+        { n: 5, label: "Volume V", note: "Books XLVI–L" },
+        { n: 6, label: "Volume VI", note: "Books LI–LV" },
+        { n: 7, label: "Volume VII", note: "Books LVI–LX" },
+        { n: 8, label: "Volume VIII", note: "Books LXI–LXX" },
+        { n: 9, label: "Volume IX", note: "Books LXXI–LXXX" },
       ],
     },
     {

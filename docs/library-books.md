@@ -12,7 +12,23 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty:
+  matter (chapter 0 — see the Library bullet). Currently sixty-one:
+  `cassius-dio-roman-history` (~3.3 MB English, **75 chapters for 80 books**, **568 notes**, no original column;
+  Earnest Cary's Loeb, 1914–1927, from **Bill Thayer's LacusCurtius** — the first book from that site, `layout: "lacus"`
+  → `extractLacus`; Wikisource has one page of it and Perseus only the Greek of Books 36–55). A chapter is a Loeb book;
+  the shared page of Books 22–29 is cut at its H3 heads, the fragments of 30–35 have one run of numbers and no heads, so
+  they are one chapter numbered 30 (the tabs go 30, 36). Parts are the nine Loeb volumes. **Only Cary's notes are
+  taken** — anchored `#noteN`; Thayer's (`#note:slug`, `#noteA`, the `mynote` blocks appended to a Loeb note, his `º`
+  comment and correction pop-ups, glossary and metric-conversion bullets, photographs) are not. Many pages carry no
+  Loeb notes at all (44, 59, 64, 79 …): Thayer did not transcribe them there, so the count is what the site has.
+  Checked: words per page against the page body within the soft-hyphen splits (559,824 raw, 559,132 shipped), every
+  tag balanced, every marker resolving and every Loeb note cited. Two traps, both silent: an `onMouseOver` gloss can
+  hold markup whose `>` ends the tag early and spills it into the prose (69.2's `<SPAN CLASS=goof>`), so event
+  attributes are stripped before any tag is read, including ones written with no space after the previous quote; and
+  the host is slow and the proxy cut transfers at 16/32/64 KB, so a page is accepted only ending in `</HTML>` with the
+  site's title — prime the cache with parallel `curl -C -` (one 100 KB page took a minute, sixteen at once were fine).
+  In Books 61–80 Thayer's H3 numerals (*LXIII*) give the standard numbering's book for the chapter numbers that follow;
+  they are kept as headings and the front matter explains them.
   `anglo-saxon-chronicle` (~486 KB, the whole Chronicle from the description of Britain to 1154 as **9 parts cut
   by year**, 741 annal paragraphs, **307 notes**, no original — J. A. Giles's translation of 1847 in the 1914 Bell
   reissue, one Wikisource page with all 206 printed pages VALIDATED; `layout: "annals"` → `extractAnnals`, the

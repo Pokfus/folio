@@ -2590,3 +2590,25 @@ is in what to leave behind and in his hand-typed slips. What is worth carrying:
 - Measured at import: 1,414 chapters on each side over the fifteen books, every one paired; 3,707 Loeb notes.
 - Re-run after touching: `node .claude/fetch-book.js diodorus-library` (both halves read the cache;
   `--force` re-extracts), `node .claude/test-library.js` and `node .claude/check-pairing.js`.
+
+## The `lacus` layout — a Loeb transcribed on LacusCurtius (Oct 2026, Cassius Dio)
+
+`extractLacus` / `lacusInline` / `lacusColumns` / `lacusDateTable`; one page per book under
+`.claude/book-cache/cassius-dio-roman-history/en/<page>.html`, as served. What is worth carrying to the next
+LacusCurtius book:
+
+- **HTML 4 with unclosed `<P>`s**: the body (H1 to the first `<HR>` or the footer table) is cut into blocks at the
+  block-level tags and each block reduced on its own; `stripTags` is never handed a whole page.
+- **Strip every `on…=` attribute first.** Thayer's pop-ups hold markup, and a `>` inside one ends the tag early.
+  The attribute can follow the previous quote with no space (`HREF="…"onMouseOver=`).
+- **The anchor decides whose note it is, never the heading** (it reads "The Loeb Editor's Notes", "The Editor's
+  Notes", "The Loeb Edition's Note" …): `#noteN` is the edition's; `#note:slug` and `#noteA` are Thayer's and go,
+  with their markers. A note cited twice puts its id on the `<P>` and one backlink per marker; Thayer's comment on a
+  Loeb note is a `<DIV CLASS="mynote">` after it, cut off.
+- **Furniture to drop**: `pagenum` and `pagenum_left` spans (nested spans inside: drop balanced), `sec` anchors
+  (and `sec_for_proofing`), glossary and conversion bullets, `comment`/`correction` `º` markers, any table holding an
+  `<IMG>`. Chapter anchors become `bk-n` with their visible text (`15a`, `1b`).
+- **Side-by-side epitomators** are a row of labels over rows of cells; read column by column, each column under
+  its label the first time it holds text. `WIDTH="500"` tables are consul lists, one line per row.
+- Re-run after touching: `node .claude/fetch-book.js cassius-dio-roman-history` (reads the cache), then compare
+  words per page against the raw body and look for leaked furniture (`Thayer`, `º`, `•`, `Ebox`, `http`).
