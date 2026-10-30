@@ -12044,6 +12044,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      book read beside Livy, and stands 25 or more from every one that is: Virgil 25, Strabo 27, Caesar
      35, Suetonius 38, Thucydides 61, Herodotus 79, Plutarch 102. It reads 7.22:1 on the tightest paper. */
   "Livy": "#632106",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty colours placed (Oct 2026, adding Polybius): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1
+     on every light paper, card and second paper. The band's best clears 16.1 (a dull wine) against
+     the shelf's tightest pair of 15.9, and is refused on the Euripides test: it stands 19.9 from
+     STRABO, who continued Polybius's history, so the two would read as a set. This plum is taken
+     instead, as Plutarch's, Strabo's and Livy's rows took a candidate a few tenths under the top: it
+     clears Snorri Sturluson by 15.6 and Wu Cheng'en by 15.7, neither read beside Polybius, and stands
+     27 or more from every book that is — Thucydides 27.4, Herodotus 34.7, Strabo 37.0, Plutarch 48.1,
+     Livy 56.6, Suetonius 84.8, Caesar 85.3. It reads 8.14:1 on the tightest light paper. */
+  "Polybius": "#5A0051",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -13318,6 +13328,53 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          further. The Sicilian expedition of books six and seven is the movement every reader
          remembers, but grouping the books under headings of that kind would be a modern reader's
          arrangement rather than a division the edition prints — the Gallic War's position exactly. */
+    },
+    {
+      id: "polybius-histories",
+      title: "The Histories",
+      // not Ἱστορίαι, which Herodotus already carries on this shelf — Thucydides' reason; taken from
+      // the question Polybius sets himself on his first page
+      subtitle: "How Rome Came to Rule the World",
+      author: "Polybius",
+      /* Written over the second half of the second century BCE: begun in Rome after Polybius was
+         deported there in 167 and carried on to the events of 146. `year` is the single number the
+         shelf sorts by, a round figure inside that span rather than a date anything records. */
+      written: "2nd century BCE",
+      year: -150,
+      translator: "Evelyn S. Shuckburgh",
+      edition: "Macmillan and Co., London, 1889",
+      /* Both layers long expired and checked rather than recalled: Shuckburgh 1843–1906 (Online Books
+         Page authority record, Times obituary), Büttner-Wobst 1854–1905 (Deutsche Biographie). Unlike
+         Herodotus's English, this one is NOT modernized by Perseus — their layer is the digital
+         edition only. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Polybius wrote the work in Greek in the " +
+        "second century BCE. Evelyn S. Shuckburgh's translation was published in 1889 and he lived " +
+        "from 1843 to 1906, so it is out of copyright under the pre-1929 publication rule and wherever " +
+        "the term is the translator's life plus seventy or a hundred years. The Greek printed beside " +
+        "books 1 to 5 is Theodor Büttner-Wobst's Teubner text, published at Leipzig in the 1890s by an " +
+        "editor who died in 1905, so it is public domain on both rules too. The digital editions of " +
+        "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+        "translations by Ian Scott-Kilvert, 1979, and Robin Waterfield, 2010, and the revised Loeb of " +
+        "2010–2012, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0543.tlg001/",
+      /* Paired on the CHAPTER, Herodotus's rule — but in books 1–5 ONLY. Those survive whole and the
+         two editions agree on every chapter number but one (Greek 4.54, which Shuckburgh's 4.53 runs
+         through, draws an empty English cell). In the fragment books the editors arranged and
+         numbered the excerpts differently, so the same number marks different passages; the Greek
+         file holds books 1–5 and the other 33 books read as plain English. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      /* Forty books were written. 1–5 survive whole, 6–39 as excerpts, 17 in nothing at all and 40
+         (an index) not at all — so 38 books are here, and 38 is what survives, Seneca's sense of
+         `total`. The 110 fragments no editor can place are not imported; the front matter says so. */
+      count: 38,
+      total: 38,
+      /* No `parts`. The edition prints two volumes but they are a binding, not a division of the
+         work, and the front matter carries the one real division — whole books, then fragments. */
     },
     {
       id: "aesop-fables",

@@ -4723,6 +4723,217 @@ const BOOKS = {
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0003/tlg001/tlg0003.tlg001.perseus-grc2.xml",
     },
   },
+  "polybius-histories": {
+    title: "The Histories",
+    /* NOT the work's own Greek title, for Thucydides' reason: it is Ἱστορίαι, and Herodotus is
+       already on this shelf under exactly that subtitle. Descriptive instead, and taken from what
+       Polybius says the book is for (1.1: "by what means, and under what kind of polity, almost the
+       whole inhabited world was conquered and brought under the dominion of the single city of
+       Rome"). */
+    subtitle: "How Rome Came to Rule the World",
+    author: "Polybius",
+    translator: "Evelyn S. Shuckburgh",
+    edition: "The Histories of Polybius, translated from the text of F. Hultsch by Evelyn S. Shuckburgh, Macmillan and Co., London and New York, 1889",
+    written: "2nd century BCE",
+
+    /* ---------- THE LICENCE, and both expired layers are the easy kind ----------
+       Shuckburgh published this translation in two volumes in 1889 and lived from 1843 to 1906 —
+       dates checked against the Online Books Page's authority record and his Times obituary rather
+       than recalled, for the Hugo Magnus reason — so it is public domain on the pre-1929 rule, on
+       life-plus-seventy and on life-plus-a-hundred. The Greek is Theodor Büttner-Wobst's Teubner
+       (the Perseus header gives Leipzig, 1893), and Büttner-Wobst lived 1854–1905 (Deutsche
+       Biographie), so it clears every rule too. Perseus's layer is the digital edition only — this
+       English is NOT modernized, unlike Herodotus's — and the file carries its own CC BY-SA 4.0
+       <availability>. Walbank's 1962 reprint introduction is in copyright and is not used; what
+       Perseus took from that reprint is its running heads (as chapter titles, not imported) and its
+       seven corrigenda, applied below.
+       The translations a reader is likeliest to own — W. R. Paton's Loeb (1922–27, revised by
+       Walbank and Habicht 2010–12), Ian Scott-Kilvert's Penguin selection (1979) and Robin
+       Waterfield's Oxford (2010) — are named so that nobody reaches for one: the revised Loeb and
+       the last two are firmly in copyright. */
+    rights:
+      "Public domain on every ground, in both columns. Polybius wrote the work in Greek in the second " +
+      "century BCE. Evelyn S. Shuckburgh's translation was published in 1889 and he lived from 1843 to " +
+      "1906, so it is out of copyright under the pre-1929 publication rule and wherever the term is the " +
+      "translator's life plus seventy or a hundred years. The Greek printed beside books 1 to 5 is " +
+      "Theodor Büttner-Wobst's Teubner text, published at Leipzig in the 1890s by an editor who died in " +
+      "1905, so it is public domain on both rules too. The digital editions of both texts are prepared " +
+      "by the Perseus Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Ian " +
+      "Scott-Kilvert, 1979, and Robin Waterfield, 2010, and the revised Loeb of 2010–2012, are still " +
+      "in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0543.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0. What a reader needs before starting: what the book argues and
+       over what years, that only five of its forty books survive whole and the rest is excerpts,
+       who Polybius was and why he was in Rome, what he thought history was for, and exactly what
+       this edition leaves out and why the Greek stops after book 5. */
+    about: [
+      "<b>The Histories</b> sets out to answer one question, and Polybius puts it on his first page: " +
+        "\"by what means, and under what kind of polity, almost the whole inhabited world was " +
+        "conquered and brought under the dominion of the single city of Rome, and that too within a " +
+        "period of not quite fifty-three years.\" The fifty-three years run from 220 BCE, on the eve " +
+        "of Hannibal's war, to 167, when Macedon had been broken and abolished as a kingdom. Polybius " +
+        "later carried the story on to 146, the year Rome destroyed both Carthage and Corinth. The " +
+        "first two books are a preface reaching back to the First Punic War; book 3 is Hannibal — the " +
+        "crossing of the Alps, Trebia, Lake Trasimene and Cannae — and it is the reason most readers " +
+        "come to the book.",
+      "Only a fraction of it survives. The work was forty books long. Books 1 to 5 have come down " +
+        "whole; everything after them exists only as excerpts, the largest share copied out by " +
+        "Byzantine compilers who cut the books into extracts arranged by topic — embassies, virtues " +
+        "and vices, military tactics — and kept what suited each heading. So from book 6 on you are " +
+        "reading pieces: some long, some a sentence, the gaps between them sometimes years. Nothing at " +
+        "all survives of book 17, and the fortieth book is lost too. The most famous of the " +
+        "fragments is book 6, on the Roman constitution, which Polybius explains as a mixture of " +
+        "monarchy, aristocracy and democracy, each part checking the others — an analysis that " +
+        "political thinkers have returned to ever since.",
+      "Polybius was a Greek, born around 200 BCE at Megalopolis in the Peloponnese, the son of a " +
+        "leader of the Achaean League, and he served the League as a cavalry commander. After Rome " +
+        "defeated Macedon in 168 he was one of a thousand prominent Achaeans deported to Italy as " +
+        "hostages, and he spent the next sixteen years there. In Rome he became the friend and mentor " +
+        "of the young Scipio Aemilianus, and he was with Scipio at the siege and destruction of " +
+        "Carthage in 146. He is therefore a Greek writing for Greeks about the power that had " +
+        "conquered them, and one who knew its governing class from the inside. He tells his own part " +
+        "in the story in the third person, and his admiration for Scipio's family colours what he " +
+        "writes about it.",
+      "He had firm views about what history is for, and states them often. It should be useful: " +
+        "the study of what actually happened, and why, is in his words the best training for public " +
+        "life, and the only way to learn to bear the changes of fortune is to remember what happened " +
+        "to others. He insists on inquiry, on knowing the ground, and on experience of politics and " +
+        "war, and he spends a good deal of the book attacking historians who lacked them — book 12 " +
+        "is largely a polemic against Timaeus. He also writes, as he says, a \"universal\" history: " +
+        "events in Italy, Africa, Spain, Greece, Asia and Egypt are told side by side, year by year, " +
+        "because his argument is that from 220 onwards they had become one story.",
+      "The translation is Evelyn S. Shuckburgh's, published in 1889 — the first complete English " +
+        "Polybius — and made from Friedrich Hultsch's Greek text. Four things about this edition " +
+        "should be said. The numbered notes are Shuckburgh's own. Where whole passages are lost, " +
+        "Shuckburgh supplies a short summary of what happened in between; these are set in italics " +
+        "and are his words, not Polybius's. His marginal summaries and the chapter titles added to " +
+        "the digital edition are not reproduced, and neither are the 110 short fragments that no " +
+        "editor has been able to assign to a book; and seven corrections printed in the 1962 reprint " +
+        "have been made in the text. The small raised figures in the prose are chapter numbers, by " +
+        "which Polybius is cited: \"Polybius 3.47\" is book 3, chapter 47.",
+      "The Greek column, from Theodor Büttner-Wobst's Teubner edition, is printed beside books 1 to " +
+        "5 only. Those five books survive whole, and the two editions number their chapters alike, " +
+        "with one exception: Shuckburgh's chapter 53 of book 4 runs on through what the Greek numbers " +
+        "54, so that Greek chapter stands beside an empty English cell. In the fragmentary books the two editors arranged the surviving pieces " +
+        "differently and number them differently — in book 8 the same number marks passages two " +
+        "chapters apart, and in books 31, 32 and 37 to 39 the numbers barely correspond at all — so " +
+        "pairing them by number would set the English beside Greek that is not its original. From " +
+        "book 6 on the English stands alone.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS — Herodotus's layout ----------
+       MEASURED over both files before anything was believed (Oct 2026):
+         · 39 numbered books on each side plus, in the English only, a book numbered `fragments`
+           (110 unplaced passages) — not imported, and teiBookChapters now ends a book at ANY book
+           division so they cannot run on into book 39. Book 17 is empty in both editions.
+         · books 1–5: 474 English chapters, every one with its Greek counterpart at the same number,
+           and one Greek chapter more — 4.54, which Shuckburgh's 4.53 runs on through (its last
+           sentence, the fall of Lyttos, is the Greek 4.54), so it draws an empty English cell; and a
+           proper-name overlap test (each English chapter's capitalised names against the Greek's,
+           transliterated) scoring 0.33–0.52 at the same number against 0.02–0.07 for an unrelated
+           chapter of the same book. That is the evidence for the Greek column.
+         · books 6–39: the editors' arrangements of the fragments diverge. Book 8 runs about two
+           chapters out from chapter 3 (English 8.5, "When Epicydes and Hippocrates had occupied
+           Syracuse", is Greek 8.3); book 30 agrees to chapter 13 and then drifts; books 31, 32 and
+           37–39 score at chance. So `original.only` keeps the Greek to books 1–5 — the fragment
+           books would need a concordance between Hultsch's and Büttner-Wobst's numbering, which
+           neither file carries.
+         · 24 chapters across both files carry a LOWER-CASE letter (`4b`, `25e`); teiBookChapters
+           now reads those as it reads Herodotus's 2.121A.
+       Book 19's English is a single passage the edition numbers 0 — kept, as the Gallic War's
+       chapter 0 is. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0543/tlg001/tlg0543.tlg001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    // forty books were written; 17 survives in nothing at all and 40 is lost, so 38 are here
+    chapters: Array.from({ length: 39 }, (_, i) => i + 1).filter((n) => n !== 17),
+    /* No `titleOf`: the edition gives its books no names, so they are Book 1 to Book 39. */
+    minChars: 100,
+
+    /* THE TRANSLATION'S APPARATUS, removed or applied before extraction. Four kinds:
+       · `<note place="margin">` — 2,011 of Shuckburgh's marginal summaries ("Introduction. The
+         importance and magnitude of the subject."). A margin Folio's reader has not got; left to the
+         note pass they would become 2,011 footnotes repeating the prose beside them.
+       · `<note resp="fww">` — the seven corrigenda of Walbank's 1962 reprint ("line 10: 'past' should
+         read 'passed'"), each set straight after the error. Six are mechanical and are APPLIED to
+         the last occurrence of the wrong reading in the 600 characters before the note; one
+         ("'former' and 'latter' should be reversed in these two sentences") cannot be applied
+         without guessing which two sentences, so it stays a footnote with its line number dropped.
+       · `<note resp="aem">` — one identification of an unattributed quotation by Perseus's markup
+         editor, which is not Shuckburgh's.
+       · the one `<figure>`, a family tree of the Scipios inside a note, encoded as a pedigree graph
+         that flattens to a run of names; replaced by a sentence saying it is not reproduced.
+       Notes nest (four marginal notes contain one), so they are removed by depth, not by regex. */
+    teiRaw: (xml) => {
+      const out = [];
+      let i = 0, applied = 0;
+      const open = /<note\b([^>]*)>/g;
+      for (;;) {
+        open.lastIndex = i;
+        const m = open.exec(xml);
+        if (!m) { out.push(xml.slice(i)); break; }
+        const kind = /place="margin"/.test(m[1]) ? "margin" : /resp="fww"/.test(m[1]) ? "fww"
+          : /resp="aem"/.test(m[1]) ? "aem" : "";
+        if (!kind) { out.push(xml.slice(i, open.lastIndex)); i = open.lastIndex; continue; }
+        let depth = 1, j = open.lastIndex;
+        const tag = /<note\b[^>]*>|<\/note>/g;
+        while (depth) {
+          tag.lastIndex = j;
+          const t = tag.exec(xml);
+          if (!t) throw new Error("unclosed <note> in the translation");
+          depth += t[0] === "</note>" ? -1 : 1;
+          j = tag.lastIndex;
+        }
+        let before = xml.slice(i, m.index);
+        if (kind === "fww") {
+          const inner = xml.slice(open.lastIndex, j - 7);
+          const q = [...inner.matchAll(/<q[^>]*>([\s\S]*?)<\/q>/g)].map((x) => x[1]);
+          const at = q.length === 2 && /should read/.test(inner) ? before.lastIndexOf(q[0]) : -1;
+          if (at >= 0 && at > before.length - 600) {
+            before = before.slice(0, at) + q[1] + before.slice(at + q[0].length);
+            applied++;
+          } else {
+            before += "<note>" + inner.replace(/^\s*lines? [\d and]+:\s*/, "") + "</note>";
+          }
+        }
+        out.push(before);
+        i = j;
+      }
+      if (applied !== 6) throw new Error("expected 6 of the reprint's corrigenda to apply, got " + applied);
+      /* ONE OF SHUCKBURGH'S NOTES HANGS ON A CHAPTER TITLE (16.10, a Livy parallel), and the titles
+         are Perseus's, outside every <p>, so it would reach the fold with no marker. It is moved to
+         the head of the chapter's first paragraph, which is where the title it was set on stood. */
+      return out.join("")
+        .replace(/(<head>(?:(?!<\/head>)[\s\S])*?)(<note>[\s\S]*?<\/note>)(<\/head>\s*<p>)/g, "$1$3$2")
+        .replace(/<figure\b[\s\S]*?<\/figure>/g,
+          "<p><i>(The pedigree printed here in the edition is not reproduced.)</i></p>");
+    },
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      // the Greek is paired only where the numbering was verified to agree — see the measurement above
+      only: [1, 2, 3, 4, 5],
+      edition: "Polybii Historiae, edited by Theodor Büttner-Wobst, Bibliotheca Teubneriana, Leipzig, 1893",
+      rights:
+        "Two layers, both stated. Polybius wrote the work in Greek in the second century BCE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is Theodor " +
+        "Büttner-Wobst's Teubner edition, published at Leipzig in the 1890s by an editor who died in " +
+        "1905, so its copyright has expired on every rule. The digital edition is prepared by the " +
+        "Perseus Digital Library at Tufts University and is released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0543.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0543/tlg001/tlg0543.tlg001.perseus-grc2.xml",
+    },
+  },
+
   "aesop-fables": {
     title: "Aesop's Fables",
     /* The edition's own title page, which claims three hundred and prints three hundred and
@@ -24687,6 +24898,13 @@ function teiBookChapters(xml, opts, warn) {
   }
   const books = divs.filter((d) => d.sub === "book" && /^\d+$/.test(d.n));
   if (!books.length) throw new Error("no book divisions in the TEI file");
+  /* A BOOK ENDS AT THE NEXT `book` DIVISION, NUMBERED OR NOT (Oct 2026, Polybius). Shuckburgh's file
+     closes on a book numbered `fragments` — 110 passages no editor could place — and measuring the
+     end from the next NUMBERED book alone ran book 39 on to the end of the file, swallowing them as
+     chapters 1–110 of book 39 behind its own 18. Proved inert on every chaptered file on the shelf:
+     Herodotus's, the Gallic War's, Thucydides', Pausanias's and Strabo's Greek carry no unnumbered
+     book division, Strabo's English only a `front` standing before book 1, and Livy's Latin is fenced. */
+  const bookEnds = divs.filter((d) => d.sub === "book").map((d) => d.at);
 
   /* opts.fence (Oct 2026, Livy): a book's slice ends at the next division of ANY book, part or index
      kind, numbered or not. Weissenborn–Müller's Latin interleaves the ancient summaries of each book
@@ -24697,8 +24915,8 @@ function teiBookChapters(xml, opts, warn) {
     ? divs.filter((d) => d.sub === "book" || d.sub === "part" || d.sub === "index").map((d) => d.at)
     : [];
   const out = {};
-  books.forEach((b, i) => {
-    let end = i + 1 < books.length ? books[i + 1].at : body.length;
+  books.forEach((b) => {
+    let end = bookEnds.find((at) => at > b.at) || body.length;
     for (const f of fences) if (f > b.at && f < end) { end = f; break; }
     const chs = divs.filter((d) => d.sub === "chapter" && d.at > b.at && d.at < end);
     if (!chs.length) {
@@ -24735,10 +24953,13 @@ function teiBookChapters(xml, opts, warn) {
          from both columns — nothing threw, every book was present, and the run reported a clean
          1,533-for-1,533 pairing of a book missing forty-five of its chapters.
          So the guard now admits a trailing letter, and anything else is still skipped and reported. */
-      /* opts.preface names a division label that stands for an author's preface before chapter 1 —
+      /* LOWER CASE IS THE SAME LETTER (Oct 2026, Polybius): Büttner-Wobst and Shuckburgh letter their
+         inserted fragments `4a`, `25e`, where Herodotus's editors write 2.121A. Upper-case only, the
+         reader skipped 24 of them across the two columns. No other chaptered file carries one.
+         opts.preface names a division label that stands for an author's preface before chapter 1 —
          Livy's `pr`, numbered so in both editions — and it is kept as chapter 0, sorting first and
          printing its own label, rather than skipped as a word (Oct 2026). */
-      const key = opts.preface && ch.n === opts.preface ? [ch.n, "0", undefined] : /^(\d+)([A-Z])?$/.exec(ch.n);
+      const key = opts.preface && ch.n === opts.preface ? [ch.n, "0", undefined] : /^(\d+)([A-Za-z])?$/.exec(ch.n);
       if (!key) { skipped.push(ch.n); return; }
       /* THE NUMBER SHOWN AND THE NUMBER SORTED ON COME APART the moment a letter is allowed, which is
          the Nicomachean Ethics' Bekker-page problem in a second work: parseInt reads 121, 121A and
@@ -24748,7 +24969,7 @@ function teiBookChapters(xml, opts, warn) {
          IT IS WRITTEN ON EVERY MARKER IN THIS BOOK, not only the lettered ones, and that is the part
          to keep: bookSections falls back to parsing the text where the attribute is absent, so a
          book mixing bare 121 with data-n="12101" would be sorting two scales against each other. */
-      const n = +key[1] * 100 + (key[2] ? key[2].charCodeAt(0) - 64 : 0);
+      const n = +key[1] * 100 + (key[2] ? key[2].toUpperCase().charCodeAt(0) - 64 : 0);
       /* A number that goes BACKWARDS is a fault worth hearing about; a gap is not, an edition being
          entitled to have none. Both columns run this, so the two can only disagree loudly. */
       if (n <= seq) warn("book " + b.n + ": chapter " + ch.n + " follows " + seq + " — out of order");
@@ -28186,7 +28407,7 @@ async function fetchEnglish() {
       if (n < FROM || n > TO) continue;
       const got = books[n];
       if (!got) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
-      if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
+      if (got.html.length < (BOOK.minChars || 200)) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
       console.log("  " + BOOK.chapterWord + " " + n + " — " + got.chapters + " chapters, " +
         got.notes.length + " notes (" + (got.html.length / 1024).toFixed(0) + " KB)");
@@ -29856,6 +30077,19 @@ async function fetchOriginal() {
       }
       const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
         fence: O.fence, preface: O.preface }, warn);
+      /* AN ORIGINAL FOR SOME BOOKS ONLY (Oct 2026, Polybius). Where two editions number a book's
+         chapters alike but mean different passages by the numbers, a pairing on the number sets each
+         English passage beside Greek that is not its counterpart — worse than no column. `only`
+         lists the books whose numbering was verified to agree; the rest ship without an original,
+         which app.js already draws as plain prose. Both sides are pruned so the reconciliation below
+         measures exactly what ships. */
+      if (O.only) {
+        const keep = new Set(O.only);
+        Object.keys(or).forEach((n) => { if (!keep.has(+n)) delete or[n]; });
+        Object.keys(en).forEach((n) => { if (!keep.has(+n)) delete en[n]; });
+        console.log("  original kept for " + O.only.length + " " + BOOK.chapterWord.toLowerCase() +
+          "s only: " + O.only.join(", "));
+      }
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
