@@ -205,8 +205,8 @@ order unless the user says otherwise.
 | B71 | Government, law and citizenship (`rm-government`) | `rm-701`–`rm-710` | 10 | 88 | **done 2026-10-30** |
 | B72 | Government, law and citizenship (`rm-government`) | `rm-711`–`rm-720` | 10 | 79 | **done 2026-10-30** |
 | B73 | Government, law and citizenship (`rm-government`) | `rm-721`–`rm-730` | 10 | 81 | **done 2026-10-30** |
-| B74 | Government, law and citizenship (`rm-government`) | `rm-731`–`rm-740` | 10 | 80 | open |
-| B75 | Government, law and citizenship (`rm-government`) | `rm-741`–`rm-750` | 10 | 86 | open |
+| B74 | Government, law and citizenship (`rm-government`) | `rm-731`–`rm-740` | 10 | 80 | **done 2026-10-30** |
+| B75 | Government, law and citizenship (`rm-government`) | `rm-741`–`rm-750` | 10 | 86 | **done 2026-10-30** |
 | B76 | Provinces and frontiers (`rm-provinces`) | `rm-751`–`rm-760` | 10 | 80 | open |
 | B77 | Provinces and frontiers (`rm-provinces`) | `rm-761`–`rm-770` | 10 | 92 | open |
 | B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | open |
@@ -1000,6 +1000,26 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-728` Papinian | none | not re-checked: the card has no picture; the glossary's statue in Rome is modern |
 | `rm-729` Digest | none | not re-checked: the card has no picture; an opening of the Littera Florentina would do |
 | `rm-730` Codex Justinianus | none | not re-checked: the card has no picture |
+| `rm-731` mancipatio | none | not re-checked: the card has no picture; a Roman bronze balance would do |
+| `rm-732` stipulatio | none | not re-checked: the card has no picture; a Murecine wax tablet would do |
+| `rm-733` testamentum | none | not re-checked: the card has no picture; a will on wax tablets or papyrus would do |
+| `rm-734` lex Cornelia de sicariis et veneficis | none | not re-checked: the card has no picture |
+| `rm-735` quaestio perpetua | none | not re-checked: the card has no picture; the Cassius Longinus voting denarius would do |
+| `rm-736` poena cullei | none | not re-checked: the card has no picture; a later woodcut only if labelled as later |
+| `rm-737` crucifixion | none | not re-checked: the card has no picture; the nailed heel bone would do |
+| `rm-738` rescript | none | not re-checked: the card has no picture; the Skaptopara inscription would do |
+| `rm-739` appellatio | none | not re-checked: the card has no picture |
+| `rm-740` proconsul | none | not re-checked: the card has no picture; a PRO COS inscription would do |
+| `rm-741` legatus | none | not re-checked: the card has no picture; an inscription naming a legate would do |
+| `rm-742` portorium | none | not re-checked: the card has no picture; the customs law of Asia at Selçuk would do |
+| `rm-743` tributum | none | not re-checked: the card has no picture; the census relief would do |
+| `rm-744` Census of Quirinius | none | not re-checked: the card has no picture; the Lapis Venetus would do |
+| `rm-745` aerarium | none | not re-checked: the card has no picture; the Temple of Saturn's columns would do |
+| `rm-746` patrimonium | none | not re-checked: the card has no picture |
+| `rm-747` sestertius | none | not re-checked: the card has no picture; an Augustan brass sestertius would do |
+| `rm-748` denarius | none | not re-checked: the card has no picture; an early Roma and Dioscuri denarius would do |
+| `rm-749` vectigal | none | not re-checked: the card has no picture |
+| `rm-750` lex Julia de repetundis | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -2728,3 +2748,41 @@ Applied with B72. The law deck read its texts on the Grenoble Roman Law Library 
 | `rm-730` Codex Justinianus | 7 | 7 → 7 | **Two editions, each dated: commissioned 13 February 528, first edition 7 April 529, second 16 November 534, in force 29 December 534**; Tribonian out of the questions; the Fifty Decisions and the index of the lost first edition on an Oxyrhynchus papyrus; the unsourced "12 books" goes. |
 
 **Read by eye.** *Confusability:* `rm-721`/`rm-722` the citizens' law (Mucius) and the law of nations (Hermogenian); `rm-723`/`rm-724`/`rm-725` the edict (Cicero's annual law), the formula (the four parts) and the right to answer (Sabinus); `rm-726`/`rm-727`/`rm-728` the textbook (Verona), the jurist killed by the guard (Dio's night attack) and the jurist killed by the axe; `rm-729`/`rm-730` the anthology (Pisa's manuscript) and the code (the lost first edition). *Legend:* the Historia Augusta's Papinian is its claim. *Overlap:* `wh-363` dates Julianus's edict c. 130 CE, which no source read here gives; `wh-438` agrees.
+
+### B74 — `rm-731`–`rm-740`, Government, law and citizenship: mancipatio to the proconsul (2026-10-30)
+
+Applied with B75 in one `batch.sh` run. The notes kept the bronze and scales for `rm-731` (out of `rm-733`'s questions), Gaius's spondeo for `rm-732`, Cicero's sky, sun, water and earth for `rm-736`, Gavius for `rm-737`, Trajan's reply on the Christians for `rm-738` (his firemen letter for `rm-774`), Paul's appeal (Acts 25) for `rm-739` and Publilius Philo and Pompey's five-year law for `rm-740`. `rm-740`'s first proconsul is dated 326 BCE, as `rm-711`'s first prorogation; the prose gives the vote's consular year, 327 BCE. One `rm-731` source (an open article in *Fundamina*) answered 503 at the curl sweep and passed `check-citations`. **The old date lines carried a day converted from the Roman calendar ("18 October 531 CE"), Smith's 82 BCE for a law the readable sources put in 81 BCE, a trial for a punishment ("Roscius trial 80 BCE"), another code's years on the rescript ("Code compiled 293 – 324 CE") and labels naming men ("Cotta's jury law", "Pompey's law", "Octavian's grant").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-731` mancipatio | 6 | 6 → 8 | **"18 October 531 CE" a conversion no source prints: the year only; the Twelve Tables row labelled Traditional**; Gaius's five witnesses and the bronze; elephants and camels outside the res mancipi; the claim that the rite is older than the Twelve Tables rested only on Long and goes. |
+| `rm-732` stipulatio | 6 | 6 → 8 | **Gaius's other forms no longer called "the law of nations" in the card's voice (`rm-722`'s ground)**; Ulpian's "quid ni" binds, a nod does not; Leo's constitution; the Murecine tablets; the Babatha archive's "106 CE" goes (the review gives none). |
+| `rm-733` testamentum | 6 | 6 → 6 | **The unsourced date of the bronze-and-balance will goes; Antonius Silvanus's will of 142 CE (Nowak, in Polish)**; the comitia calata and the will in battle array; the Falcidian quarter; the Vestals (`rm-386`'s) and the deaf and dumb (`rm-732`'s) out of the questions. |
+| `rm-734` lex Cornelia de sicariis et veneficis | 5 | 6 → 6 | **82 BCE was Smith's: 81 BCE as Gregor's article dates it**; Marcian's terms in the Digest; Hadrian's rescript on intent; whether it was a true murder law debated; Roscius and the courts' creation left to `rm-736` and `rm-735`. |
+| `rm-735` quaestio perpetua | 6 | 6 → 8 | **"149 BCE" out of a question; the Gracchan and Sullan clues (`rm-287`'s, `rm-320`'s) replaced by Carbo's youth, Cotta's three orders and the majority verdict**; "Cotta's jury law" becomes "Jury law"; Sulla's courts one study's five named laws. |
+| `rm-736` poena cullei | 6 | 7 → 8 | **"Roscius trial 80 BCE" dated a trial: now the first recorded case, 101 BCE (the Livian epitome), and Constantine's law of 318 or 319 CE**; the animals vary by source and period; Modestinus's dog, cock, viper and ape his. |
+| `rm-737` crucifixion | 9 | 9 → 9 | **Josephus gives 500 captured a day, not a count of crosses; Appian's 6,000 (`rm-328`'s) out of the questions**; the heel bone from Jerusalem (1968) and Fenstanton (2017); the Puteoli contractors' law; Constantine's abolition inferred from silence. |
+| `rm-738` rescript | 6 | 6 → 7 | **The old line dated Hermogenian's code, not the rescript: no date line; the codes left to `rm-730`**; Trajan's reply to Pliny; Antoninus Pius on Julius Sabinus's slaves; the Skaptopara petition (no open page gives its year, so none is stated); a staff of clerks behind the replies (one view). |
+| `rm-739` appellatio | 6 | 6 → 8 | **"Octavian's grant" becomes "Senate's grant", 30 BCE as `rm-393`**; Athena's vote (Dio); Augustus's yearly delegation of appeals (Suetonius); Paul's appeal to Caesar Luke's account; Ulpian on why appeals were needed. |
+| `rm-740` proconsul | 7 | 7 → 8 | **First holder 326 BCE with `rm-711` (the vote in 327); "Pompey's law" becomes "Five-year law", 52 BCE**; Philo's triumph after office (Livy); Cicero's edict in Cilicia; the lot and the unarmed governor left to `rm-751`. |
+
+**Read by eye.** *Confusability:* `rm-731`/`rm-732`/`rm-733` the sale (elephants and camels), the promise ("quid ni") and the will (the comitia calata); `rm-734`/`rm-735`/`rm-736`/`rm-737` the statute (Marcian), the court (Carbo's youth), the sack (Modestinus's beasts) and the cross (Fenstanton); `rm-738`/`rm-739`/`rm-740` the reply (Skaptopara), the appeal (Festus) and the governor (Cilicia's edict). *Legend:* Constantine's abolition of the cross is inferred, not recorded. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B75 — `rm-741`–`rm-750`, Government, law and citizenship: the legate to the extortion law (2026-10-30)
+
+Applied with B74, closing the deck. Two drafts were fixed by hand before applying: `rm-745`'s Livy question (the manumission tax voted in camp) repeated `rm-701`'s and was replaced by the treasury's standards and archives; the glossary markers of `rm-747` and `rm-748` pointed into the card's source list and were re-numbered into the glossary's own. Quirinius and Judas were kept for `rm-744` (out of `rm-770`); Nero's proposal for `rm-749` (out of `rm-742`); the lex Calpurnia for `rm-735` (out of `rm-750`). **The old date lines carried a Loeb margin year (406 BCE, the soldiers' pay, `rm-122`'s), a man in every other label ("Seized by Caesar", "In Pliny", "Nero's proposal"), a count on the line and "Augustan bronze by 18 BCE" for a reform the metallurgy dates to 23 BCE.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-741` legatus | 6 | 8 → 8 | **LacusCurtius and two Latin texts replaced; envoys and deputies set apart**; Cicero's charge against Vatinius; Caesar's legate and quaestor over each legion; Dio's one or three legates for a people's province; the legionary legate against the governor; the governor of Syria's 4,000 men goes. |
+| `rm-742` portorium | 6 | 7 → 7 | **60 BCE on Smith's own printed year, not Cary's margin; the 62 CE row "Law copied", the date the customs law of Asia was copied (9 July 62)**; the fortieth (2.5 per cent) and the Fortieth of the Gauls from ostia-antica.org; Livy's mention framed as legend; Nero's proposal left to `rm-749`. |
+| `rm-743` tributum | 6 | 7 → 8 | **"Soldiers paid 406 BCE" a Loeb margin and `rm-122`'s: cut; 167 BCE and the levy of 43 BCE (Perrin's note to Plutarch)**; Ulpian's Syrian poll-tax ages; Smith's rate and "debts not deducted" go. |
+| `rm-744` Census of Quirinius | 7 | 8 → 9 | **Herod's death c. 4 BCE against a census of 6 CE written as the classic debate, Matthew against Josephus**; Luke's decree of Augustus; Judas of Gamala; the Lapis Venetus through Ramsay's printed text (EDCS would not connect); a question carrying a count of years replaced. |
+| `rm-745` aerarium | 6 | 8 → 8 | **The 5 per cent tax Livy's, 357 BCE the modern reckoning; Caesar breaking the door Plutarch's and Appian's story, which his own Civil War omits**; the prefects of 28 BCE and Nero's settlement of 56 CE (Greenidge); the camp vote (`rm-701`'s) and Polybius (`rm-697`'s) out of the questions. |
+| `rm-746` patrimonium | 5 | 7 → 6 | **Laurensis and Commodus's body the Historia Augusta's, named as late, with forged documents**; Tiberius's rebuke of Capito (Tacitus); the res privata; the modern debate over the terms; the Res Gestae and fiscus clues (`rm-400`'s, `rm-467`'s) replaced. |
+| `rm-747` sestertius | 7 | 7 → 9 | **"Augustan bronze by 18 BCE": the brass reform of 23 BCE (Di Fazio and others, 2019), the 18 BCE coin in prose**; Varro's two and a half asses; HS as II and S (Seyffert) and the IIS mark on RRC 44/7; Pliny's Corduban copper. |
+| `rm-748` denarius | 7 | 7 → 9 | **211 BCE the ANS catalogue's and debated; Pliny's year 269 BCE as Forsythe converts it, labelled "Literary date"**; Tacitus's serrati and bigati; Matthew's tribute coin; the imperial debasement kept apart from `rm-550` and `rm-557`; no open source names Morgantina, so neither coin card does. |
+| `rm-749` vectigal | 5 | 8 → 8 | **"Nero's proposal" becomes "Repeal proposed", 58 CE out of the questions**; Cicero's sinews of the republic; Polybius on the senate's relief of contractors; Smith's figures go. |
+| `rm-750` lex Julia de repetundis | 5 | 8 → 8 | **The Latin Digest replaced by Scott's English; 59 BCE sourced; Caesar's authorship Dio's**; Cicero against Piso; Pliny and Tacitus against Marius Priscus; "governors rarely prosecuted" goes. |
+
+**Read by eye.** *Confusability:* `rm-741`/`rm-742` the deputy (Vatinius) and the customs (the honest tax-farmer); `rm-743`/`rm-744` the levy (Paullus's spoils) and the census (Judas and Sadduc); `rm-745`/`rm-746` the treasury (the smiths at the door) and the emperor's estate (Capito); `rm-747`/`rm-748` the reckoning coin (HS) and the silver coin (Tacitus's Germans); `rm-749`/`rm-750` the revenue (Nero's doubt) and the law (Marius Priscus). *Legend:* Livy's first portorium and the Historia Augusta's Laurensis are framed as such. *Overlap:* no `gr-` or `wh-` card disagrees.

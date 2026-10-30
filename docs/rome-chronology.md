@@ -344,6 +344,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the censorship: created (tradition) / the first plebeian censor | 443 BCE / 351 BCE | `rm-710` |
 | prorogation: the first extended command | 326 BCE (a modern review; Livy's vote falls in the consular year Varro's count makes 327) | `rm-711` |
 | provocatio: the first Valerian law (tradition) / the second (tradition) / the third | 509 BCE / 449 BCE / 300 BCE | `rm-717` |
+| mancipatio: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-731` |
+| the first proconsul | 326 BCE (as `rm-711`; the vote in Livy's consular year, 327 BCE) | `rm-740` |
+| the aerarium: the manumission tax (Livy; a modern reckoning) | 357 BCE | `rm-745` |
+| the denarius: Pliny's year, as one modern history converts it | 269 BCE | `rm-748` |
 
 ## The middle and late Republic
 
@@ -448,6 +452,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | provocatio: the PROVOCO denarius of Porcius Laeca | 110 – 109 BCE | `rm-717` |
 | the lex Plautia Papiria | 89 BCE | `rm-718` |
 | the praetors' edicts made binding | 67 BCE | `rm-723` |
+| the lex Cornelia de sicariis et veneficis | 81 BCE (one recent study; older handbooks print 82) | `rm-734` |
+| the standing courts: the first / extended / the jury law | 149 BCE / 81 BCE / 70 BCE | `rm-735` |
+| the poena cullei: the first recorded case | 101 BCE | `rm-736` |
+| the proconsulship: the five-year law | 52 BCE | `rm-740` |
+| the portorium abolished in Italy's harbours | 60 BCE | `rm-742` |
+| tributum: citizens exempt / levied again | 167 BCE / 43 BCE | `rm-743` |
+| the aerarium seized | 49 BCE | `rm-745` |
+| the sestertius and denarius first struck in silver | 211 BCE (the coin catalogue; debated) | `rm-747`, `rm-748` |
+| the lex Julia de repetundis | 59 BCE | `rm-750` |
 
 ## The Principate
 
@@ -672,6 +685,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Institutes of Gaius written | c. 161 CE (begun under Antoninus Pius, finished under Marcus Aurelius) | `rm-726` |
 | Ulpian: chief adviser / killed | 222 CE / 223 CE (228 CE in a 19th-century dictionary) | `rm-727` |
 | Papinian killed | 212 CE | `rm-728` |
+| appellatio: the senate's grant to Octavian | 30 BCE | `rm-739` |
+| the customs law of Asia copied | 9 July 62 CE | `rm-742` |
+| the Census of Quirinius | 6 CE (Josephus; Matthew's Herod died c. 4 BCE) | `rm-744` |
+| the aerarium: the prefects created / settled under Nero | 28 BCE / 56 CE | `rm-745` |
+| the sestertius: the brass reform | 23 BCE | `rm-747` |
+| vectigalia: Nero's proposed repeal | 58 CE | `rm-749` |
 
 ## Late Antiquity
 
@@ -759,6 +778,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Papinian: the notes annulled / the Law of Citations | 321 CE (possibly 324) / 426 CE | `rm-728` |
 | the Digest: commissioned / promulgated / in force / its manuscript taken from Pisa | 15 December 530 CE / 16 December 533 CE / 30 December 533 CE / 1406 | `rm-729` |
 | the Codex Justinianus: commissioned / first edition / second edition / in force | 13 February 528 CE / 7 April 529 CE / 16 November 534 CE / 29 December 534 CE | `rm-730` |
+| mancipatio: the res mancipi abolished | 531 CE | `rm-731` |
+| the poena cullei made the regular penalty | 318 CE or 319 CE | `rm-736` |
 
 ## Chronology pins
 
@@ -1445,4 +1466,18 @@ rm-727: 222; 223; 228
 rm-728: 212; 321; 426
 rm-729: 530; 533; 1406
 rm-730: 528; 529; 534
+rm-731: 451; 450; 531
+rm-734: 81
+rm-735: 149; 81; 70
+rm-736: 101; 318; 319
+rm-739: 30
+rm-740: 326; 52
+rm-742: 60; 62
+rm-743: 167; 43
+rm-744: 6
+rm-745: 357; 49; 28; 56
+rm-747: 211; 23
+rm-748: 211; 269
+rm-749: 58
+rm-750: 59
 ```
