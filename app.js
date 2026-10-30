@@ -2070,11 +2070,15 @@
   // daily minigame results — each home game records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all of them are won on the same day.
   // "findit" joined July 2026, "thread" in Aug 2026, and the crossword, the picture round and What year?
-  // later that month, and How far? on 2026-10-30 — a new daily game joins the sweep, so the badge now needs all TEN. Nobody loses one
+  // later that month, and How far? on 2026-10-30 — a new daily game joins the sweep, so the badge needed all TEN (nine since the Picture round went dormant the same day). Nobody loses one
   // they already hold (checkAchievements only ever adds), and a sweep that skipped a game on the grid would
   // be claiming something it had not measured. The badge does get harder each time the grid grows; that is
   // the honest reading of "every game today" and the alternative is a sweep that means less every year.
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "howfar"];
+  /* PICTURE ROUND IS DORMANT (2026-10-30, on request: "Remove the picture round minigame. Make it dormant for now"). It is out
+     of DAILY_GAMES (so the sweep needs nine), off the home grid and refused by `route` (see DORMANT_GAMES); PAGES.picture, its pool,
+     its name, icon and meta all stay, so reviving it is putting "picture" back here, in `valid`, and its tile back on the home grid. */
+  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar"];
+  const DORMANT_GAMES = ["picture"];
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
      this many times a day, so the lifetime tally has to count ONE play for the day and ONE win however
@@ -16053,6 +16057,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
        else (applyMode), but a hidden tab is not a guard — the address is typeable. */
     if (ADMIN_ROUTES.indexOf(name) >= 0 && !isAdmin()) name = "home";
+    if (DORMANT_GAMES.indexOf(name) >= 0) name = "home";   // a dormant game's address is typeable too (see DAILY_GAMES)
     /* THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT (see PAGES.order). One choke point rather
        than a guard in `PAGES.study`, so the home page's rows, the review banner, the Collections page and
        a pasted `#study` link are all covered by the same line — and RESUME is exempt, since a reader
@@ -19249,7 +19254,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
         "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
-        "ribbon on the home page shows that one filling up), and for finishing all ten minigames in a day. " +
+        "ribbon on the home page shows that one filling up), and for finishing all nine minigames in a day. " +
         "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
@@ -26118,7 +26123,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedFindItToday = gamePlayedToday("findit");
     const playedThreadToday = gamePlayedToday("thread");
     const playedCrosswordToday = gamePlayedToday("crossword");
-    const playedPictureToday = gamePlayedToday("picture");
     const playedWhatYearToday = gamePlayedToday("whatyear");
     const playedHowFarToday = gamePlayedToday("howfar");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
@@ -26229,11 +26233,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
-            : ready ? "Open the chest for finishing all ten today"
-            : "Finish all ten of today's minigames to unlock a chest") + '"' +
+            : ready ? "Open the chest for finishing all nine today"
+            : "Finish all nine of today's minigames to unlock a chest") + '"' +
           ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
             : ready ? "Open today's minigame chest"
-            : "Locked: finish all ten minigames to unlock today's chest") + '">' +
+            : "Locked: finish all nine minigames to unlock today's chest") + '">' +
           CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
         "</button></div>";
     };
@@ -26281,7 +26285,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             THE RULE FOR THE NEXT TILE: sweep for the shortlist, then RENDER it beside its neighbours in
             the unplayed state before believing the winner. */""}
       ${tile({ id: "g-crossword", key: "crossword", cls: "g-crossword", color: GAME_HUE.crossword, glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
-      ${tile({ id: "g-picture", key: "picture", cls: "g-picture", color: GAME_HUE.picture, glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
       ${tile({ id: "g-whatyear", key: "whatyear", cls: "g-whatyear", color: GAME_HUE.whatyear, glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
       ${/* HOW FAR? (2026-10-30) is a tenth tile, so the desktop's 3 × 3 gains a fourth row of one. Its terracotta is the sweep's answer outside the yellows (which the What year?
             note above rules out): 28.9 from its nearest neighbour against the palette's tightest pair at 27.8, so it does not crowd the grid, and white reads 4.15:1 on the fill. */""}
@@ -36714,7 +36717,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const n = q.n == null ? "" : String(q.n).trim();
     return { book: book, n: n, text: text, cite: String(q.cite || "").trim() };
   }
-  /* The blockquote itself. It carries the book's TITLE and its translator, because a quotation whose
+  /* The blockquote itself. It carries the book's TITLE and its AUTHOR (2026-10-30, on request: the author, not the
+     translator — Herodotus, not A. D. Godley; the translator stays on the book's own page), because a quotation whose
      attribution is a button the reader has not pressed is an unattributed quotation — and the button says
      where it goes rather than what it is ("Read it in the Library"), the title being right above it. */
   function cardQuoteHTML(c) {
@@ -36726,7 +36730,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // the section is checked only where the text is already HERE: the book is lazy, and holding a card's
     // prose behind a book download to validate a reference would make every such card slower to read
     if (q.n && chs && !chs.some((ch) => String(ch.n) === q.n)) return "";
-    const who = b.translator ? "translated by " + esc(b.translator) : esc(b.edition || "");
+    const who = esc(b.author || "");
     return '<figure class="card-quote">' +
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
       '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
@@ -47911,7 +47915,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "howfar", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
@@ -48267,6 +48271,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // from inside a page function — a page that routes while it is being rendered re-enters render().
     if (hh === "community") { route("decks"); return; }
     const bare = hh.replace(/\?.*$/, "");   // #map?perf: the query rides on the name (see the boot parse above); route() rewrites the hash to the bare name
+    if (DORMANT_GAMES.includes(bare)) { route("home"); return; }   // a dormant game's link (see DAILY_GAMES) lands on home, address corrected
     if (valid.includes(bare) && bare !== current.name) route(bare);
     else if (!hh && current.name !== "home") route("home");
   });

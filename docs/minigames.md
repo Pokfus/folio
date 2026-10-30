@@ -282,6 +282,10 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
     over 13 squares a side, 730 distinct grids, and no unclued run or unnumbered entry anywhere.** A
     generator can be flawless on the day it is written and degenerate on a date nobody tried, which is what
     a one-day browser test cannot see.
+- **PICTURE ROUND IS DORMANT (2026-10-30, on request).** Out of `DAILY_GAMES` (the sweep needs nine), no home tile,
+  not in `valid`, and `DORMANT_GAMES` in `app.js` sends `#picture` home in `route` and the hashchange reader. Its page,
+  pool, name, icon and meta stay; `test-minigames.js` §4 asserts the dormancy and keeps the game's own checks behind
+  `PICTURE_DORMANT`. To revive: put it back in `DAILY_GAMES` and `valid`, re-add its tile, empty `DORMANT_GAMES`, flip the flag.
 - **PICTURE ROUND — the eighth daily game** (`PAGES.picture` at `#picture`; 2026-08-09, on request). Five
   pictures, four options each, drawn **from the ARTEFACTS and from nothing else** since Sep 2026.
   · **IT WAS EVERY ILLUSTRATION FOLIO HOLDS UNTIL THEN** — a card's `image`, a glossary term's

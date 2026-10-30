@@ -46,7 +46,7 @@ const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", 
   // the three games added Aug 2026. The crossword's board is a grid of <input>s written with an inline
   // `grid-template-columns`, and the picture round loads an image from whatever host credited it — inline
   // style and img-src are both things the policy has an opinion about, so both routes are walked
-  "crossword", "picture", "whatyear",
+  "crossword", "whatyear",   // the picture round is dormant (2026-10-30): #picture lands on home
   "howfar",   // How far? (2026-10-30): the engine board, as findit
   "mission", "studio", "community", "deck/does-not-exist",
   // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
