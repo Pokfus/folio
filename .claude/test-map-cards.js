@@ -217,8 +217,10 @@ function staticChecks() {
   withMem.forEach((c) => {
     const m = c.members, keys = Array.isArray(m.keys) ? m.keys : [];
     ok(String(m.name || "").trim().length > 0 && keys.length > 0, c.id + ": the members block names its group and lists countries");
-    const missing = keys.filter((k) => !world.has(k));
-    ok(!missing.length, c.id + ": every member is a country of the world layer", missing.join(", "));
+    const lay = m.layer && FZ[m.layer] ? new Set(names(m.layer)) : world;   // `members.layer` (2026-10-30): another map-card layer's names
+    ok(!m.layer || !!FZ[m.layer], c.id + ": its `layer` is a map-card layer", m.layer);
+    const missing = keys.filter((k) => !lay.has(k));
+    ok(!missing.length, c.id + ": every member is a name of its layer", missing.join(", "));
     ok(new Set(keys).size === keys.length, c.id + ": …and none is listed twice");
   });
   ok(/o\.members\s*=\s*c\.members/.test(ser), "serializeCardData carries `members` through");
@@ -476,7 +478,7 @@ async function browserChecks(page) {
      but does change this line, so the pattern names it rather than being loosened to match anything. */
   ok(dotBack.png !== dotBefore, "the reveal repainted the map");
   const WIN = fs.readFileSync(path.join(ROOT, "atlas", "atlas-windows.js"), "utf8");   // the engine's window (Phase 5: the earlier window's expression `const nm = gameCapFirst(dot ? dot.n : target ? target.n : "")` is gone with it)
-  ok(/const nm0 = gameCapFirst\(dot \? dot\.n : targets\.length \? targets\[0\]\.n : ""\)/.test(WIN), "the revealed label names the dot where there is one");
+  ok(/const nm0 = gameCapFirst\(dot \? dot\.n : isMembers && host\.getAttribute\("data-map-name"\) \? host\.getAttribute\("data-map-name"\) : targets\.length \? targets\[0\]\.n : ""\)/.test(WIN), "the revealed label names the dot where there is one");
 
   /* 8. THE LOCATOR (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place, saying
      where it is. It is not a map card — it has no shape to shade and no question to hold back — and the
