@@ -1263,7 +1263,9 @@ function aeneidChecks() {
     const starred = await page.evaluate(async () => {
       document.querySelector('.deck-menu [data-act="fav"]').click();
       await new Promise((z) => setTimeout(z, 600));
-      const titles = [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent);
+      /* By the book's id, not its title: two works on the shelf are both "The Histories" (Herodotus
+         and Polybius, Oct 2026), so a title count reads two books as one listed twice. */
+      const titles = [...document.querySelectorAll(".book-tile")].map((t) => t.dataset.book);
       return {
         heads: [...document.querySelectorAll(".lib-sec-head")].map((h) => h.textContent),
         first: [...document.querySelectorAll(".lib-sec")][0].querySelectorAll(".book-tile").length,
