@@ -81,8 +81,9 @@ core as it stands. `topology.bin`, the tiles, water, relief, history, the slices
   making those take a slot rather than reading the global, then sending the meshes and segments tagged by slot.
 - **When it loads.** Never at boot. (a) The Personal Atlas, when the studied set holds an `adm1:` id that is not in the
   core's entity table (the light `card-places.js` index says so without loading the cards). (b) A card window whose
-  card-faces row names an `admin1.bin` entity (`hubOptions.needAdmin1`, alongside `needHistory`). (c) Map and Full: see
-  Q1 below.
+  card-faces row names an `admin1.bin` entity (`hubOptions.needAdmin1`, alongside `needHistory`). (c) Map, Personal and Full,
+  through the legend's **Provinces** switch (§7, decided): when it is on, the year is the present and the view is zoomed in
+  past `ADMIN1_KM_PER_PX` (4 km/px) over a country the file carries — the moment the core's own admin-1 lines appear today.
 - **The present day.** At `time.present` the page draws only the core's faces today, and the Personal Atlas's present-day
   filter (`refreshPersonalPresent`) keeps core faces whose entity, or whose parent, is discovered. It gains the slot's
   faces and inner lines, by the same rule: a discovered state's face and its border, its name at the face's label point.
@@ -123,14 +124,20 @@ core as it stands. `topology.bin`, the tiles, water, relief, history, the slices
 2. **The engine slot and the card windows**: the worker's second slot, the window path, the India layer in
    `build-card-faces.js` (+ the capitals' dot table, coordinates FETCHED), `CARD_MAP_LAYERS`, `add-card.js`'s
    `MAP_LAYERS`, `test-map-cards.js` and a window test. **From here the India states and capitals decks can be written.**
-3. **The Personal Atlas and the present day**: drawing the discovered states, the registry ids, a Personal suite case,
-   the frame gate.
+3. **The Atlas page at the present day**: the file's states under the legend's Provinces switch in Map, Full and
+   Personal (D1: every line in Map and Full, a discovered state's in Personal), the registry ids, a Personal suite case,
+   the frame gate over India zoomed in.
 4. **The next country** is a spec row and step 1's rebuild — the test of requirement 3.
 
-## 7. Questions for the owner
+## 7. The owner's decisions (2026-10-30)
 
-- **Q1 — Map and Full.** Should the Map and Full views also draw these countries' state lines at the present day, as they
-  draw the US, Chinese and Russian ones? (a) ★ Only when the view is zoomed into one of those countries, so the file
-  loads for readers who look there; (b) always, which loads the file for every Atlas visitor; (c) never: the Personal
-  Atlas and card windows only, so the four core countries keep lines the others lack.
-- **Q2 — which countries go in the first spec**: India alone, or India plus the countries planned next.
+- **D1 — the legend owns it, in all three views, on by default.** Map, Personal and Full draw the states as an option in
+  the legend, switched on by default. That switch EXISTS: the legend's **Provinces** (`DEFAULT_LAYERS.provinces: true`,
+  `view.admin1` in `atlas.js`), which draws the core's US, Chinese, Russian and UK lines at the present day below
+  `ADMIN1_KM_PER_PX`. The file's states join it — **one switch for every country's states, whichever file they come
+  from**, the saved `provinces` key unchanged so no reader's setting is lost. Map and Full draw every state line of the
+  file's countries; Personal only a discovered state's (§3.2). Being on by default does not make the file load at boot:
+  it loads the first time the switch is on, the year is the present and the view is zoomed in over one of its countries
+  (or a Personal Atlas holds one of its ids, or a card window needs one). Whether the switch's label should become
+  "States and provinces" now that it covers India's states and union territories is a wording call for step 3.
+- **D2 — the first build is India alone.** `admin1-spec.json` starts with India's 36 units; step 4 adds the next country.
