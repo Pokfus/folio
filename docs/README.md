@@ -100,6 +100,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
 | `world-geography-card-plan.md` | World Geography (`geo-world`) — 571 cards: countries and capitals by population, plus the water and mountains decks | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
+| `india-geography-card-plan.md` | India (`geo-india`) — 190 planned: states and union territories, capitals (both waiting for India's admin-1 in the Atlas), other great cities, water, mountains | `gin-` |
 | `russia-geography-card-plan.md` | Russia (`geo-russia`) — 163 map cards sorted by population, plus the water and mountains decks (`gru-801`–`940`) | `gru-` |
 | `flags-card-plan.md` | The flags (`flags-world`) — the first deck of the Flags collection (`flags`); 233 cards, the answer side is its twin's | `fl-` |
 | `flags-draw-card-plan.md` | Draw the flags (`flags-draw`) — the Flags deck run backwards; the reader draws the flag and judges themselves | `fd-` |

@@ -21691,6 +21691,44 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "geo-india",
+      "title": "India",
+      "total": 0,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "geo-india-states",
+          "title": "The states and union territories",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-india-capitals",
+          "title": "The capitals",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-india-cities",
+          "title": "Other great cities",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-india-water",
+          "title": "Rivers, lakes and seas",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-india-mountains",
+          "title": "Mountains, deserts and caves",
+          "placeholder": false,
+          "cardIds": []
+        }
+      ]
+    },
+    {
       "id": "art",
       "title": "Visual Art",
       "total": 30,
