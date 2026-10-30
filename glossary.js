@@ -7577,7 +7577,16 @@ window.GLOSSARY = {
 "Badayev_warehouses": "",
 "Road_of_Life": "",
 "Operation_Typhoon": "",
-"Battle_of_Moscow": ""
+"Battle_of_Moscow": "",
+"The_Few": "",
+"No._303_Squadron_RAF": "",
+"The_bomber_will_always_get_through": "",
+"Coventry_Blitz": "",
+"Air_Raid_Precautions": "",
+"Anderson_shelter": "",
+"Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": "",
+"Blitz_spirit": "",
+"War_cabinet": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11304,7 +11313,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Badayev_warehouses": "8 September 1941",
 "Road_of_Life": "1941–1943",
 "Operation_Typhoon": "30 September – 5 December 1941",
-"Battle_of_Moscow": "October 1941 – January 1942"
+"Battle_of_Moscow": "October 1941 – January 1942",
+"The_Few": "1940",
+"No._303_Squadron_RAF": "1940",
+"The_bomber_will_always_get_through": "10 November 1932",
+"Coventry_Blitz": "1940–1941",
+"Air_Raid_Precautions": "1935–1941",
+"Anderson_shelter": "1939",
+"Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": "1939–1945",
+"Blitz_spirit": "1940–1941"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16111,7 +16128,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Army_Group_North": ["Heeresgruppe Nord"],
 "Badayev_warehouses": ["Badaev warehouses"],
 "Road_of_Life": ["Road of Life (Leningrad)"],
-"Operation_Typhoon": ["Unternehmen Taifun"]
+"Operation_Typhoon": ["Unternehmen Taifun"],
+"The_Few": ["Few","The Few"],
+"No._303_Squadron_RAF": ["No. 303 Squadron","303 Squadron","Kościuszko Squadron"],
+"The_bomber_will_always_get_through": ["bomber will always get through","The bomber will always get through"],
+"Coventry_Blitz": ["Coventry Blitz"],
+"Air_Raid_Precautions": ["ARP","A.R.P."],
+"Anderson_shelter": ["Anderson shelters","Anderson"],
+"Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": ["Government Evacuation Scheme","Operation Pied Piper","evacuation of British children"],
+"Blitz_spirit": ["Blitz spirit","myth of the Blitz"],
+"War_cabinet": ["War Cabinet"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23833,7 +23859,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Badayev_warehouses": ["building","history","second world war","russia","famine"],
 "Road_of_Life": ["place","history","second world war","russia","famine"],
 "Operation_Typhoon": ["battle","history","warfare","second world war","russia","germany"],
-"Battle_of_Moscow": ["battle","history","warfare","second world war","russia","germany"]
+"Battle_of_Moscow": ["battle","history","warfare","second world war","russia","germany"],
+"The_Few": ["people","history","warfare","second world war","britain"],
+"No._303_Squadron_RAF": ["institution","history","warfare","second world war","poland","britain"],
+"The_bomber_will_always_get_through": ["concept","history","warfare","politics","britain"],
+"Coventry_Blitz": ["event","history","warfare","second world war","britain"],
+"Air_Raid_Precautions": ["institution","history","warfare","britain","civil defence"],
+"Anderson_shelter": ["object","history","warfare","britain","civil defence"],
+"Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War": ["event","history","society","second world war","britain"],
+"Blitz_spirit": ["concept","history","society","second world war","britain"],
+"War_cabinet": ["institution","history","politics","government"]
 });
 
 /* ============================================================================
