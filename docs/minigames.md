@@ -958,3 +958,18 @@ under each row of the results. Both doors write through the same functions — `
 `tfToggleRemoved` beside `truefalsePool` in `app.js` — into `ADMIN_EDITS.truefalse`, keyed by the statement's shipped
 English `q` (null = removed), so an edit travels through `content_overrides` like every other. The game keeps each pick's
 shipped key (`truefalseKeyed`), so a saved edit rewrites the round in place; a removal takes effect from the next draw.
+
+## How far? — the distance game (2026-10-30, on request)
+
+The request: "the user is shown an atlas window where a line is straightly drawn between 2 random locations on the atlas. The user must guess how far the distance is between these 2 points in a straight line. If the user is within a 10% margin of the correct answer, they win. If it is outside of that margin, they lose the round." Five rounds.
+
+- **Route and wiring**: `PAGES.howfar` (key `howfar`) in `app.js`, wired in all six places (`PAGES`, `valid`, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, the tile in `PAGES.home`). The game itself is `howFar` in `atlas/atlas-windows.js`, beside Find it, on the same headless hub (`AtlasEmbed.view`); the places come from the lazy bundle `atlas2gaz` (`atlas/data/gazetteer.js`, the file the Atlas page already loads). It is the TENTH daily game, so the Clean Sweep badge and the daily chest now ask for ten, the home grid's desktop 3 × 3 gains a fourth row of one tile, and the sweep miniature is two rows of five.
+- **"Random locations" are named places, not random coordinates**: a random point is open ocean most of the time and has no name to ask about. The pool is the gazetteer's capitals of rank ≤ 3 and cities of rank ≤ 1 (197 names); a question names each with its country.
+- **The draw**: seeded on `"howfar-" + todayStr()` (the same five for everyone). One round per distance band, shortest first — 300–1,500, 1,500–3,500, 3,500–6,000, 6,000–9,000, 9,000–12,500 km — ten different places. Swept over 730 days: every day deals five.
+- **"A straight line" is the great circle** (the shortest path over the surface, drawn as a slerp of the two points); the distance is the haversine on a 6,371 km sphere, within about 0.5 % of the ellipsoid — far inside the margin.
+- **The judging**: one guess a round; won when |guess − distance| ≤ 10 % of the distance. An empty guess is refused, not scored. A reader on imperial units (`unitSystem()`) guesses in miles; the margin is a ratio, so nothing else changes. A perfect run is 5 / 5.
+- **A round answered stays answered**: `setGameProgress("howfar", …)` after every guess, cleared at the end; the lock is `gameLockedToday`.
+- **The board**: the card sits at the FOOT of the board (`.howfar .hf-game`) and `fitOf` zooms and centres the line in the free area above it. The distance label appears on the line only after the guess.
+- **The reveal colours the guess** (2026-10-30, on request): the reader's number is `.hf-guess.ok` (`--good`, green) inside the margin and `.hf-guess.no` (`--zh`, the games' red) outside it — the pair True or False and Multiple Choice already use, so it follows every theme.
+
+Re-run after touching `howFar`, `hfRounds` or `PAGES.howfar`: `node .claude/test-howfar.js` (and `test-minigames.js` for the wiring).

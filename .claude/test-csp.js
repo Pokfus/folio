@@ -47,6 +47,7 @@ const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", 
   // `grid-template-columns`, and the picture round loads an image from whatever host credited it — inline
   // style and img-src are both things the policy has an opinion about, so both routes are walked
   "crossword", "picture", "whatyear",
+  "howfar",   // How far? (2026-10-30): the engine board, as findit
   "mission", "studio", "community", "deck/does-not-exist",
   // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
   // exactly the kind of thing script-src 'self' is there to police) and a book that does not exist
@@ -71,7 +72,7 @@ const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", 
 
   for (const r of ROUTES) {
     await page.goto(base + (r ? "#" + r : ""), { waitUntil: "load" });
-    await page.waitForTimeout(r === "map" || r === "map2" || r === "findit" ? 3500 : 900);
+    await page.waitForTimeout(r === "map" || r === "map2" || r === "findit" || r === "howfar" ? 3500 : 900);
     process.stdout.write("  visited #" + (r || "home") + "\n");
   }
   // exercise a study session + a glossary popup, the two paths that touch the code changed in this phase

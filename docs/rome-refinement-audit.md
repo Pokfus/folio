@@ -172,26 +172,26 @@ order unless the user says otherwise.
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | **done 2026-10-30** |
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | **done 2026-10-30** |
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | **done 2026-10-30** |
-| B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | open |
-| B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | open |
-| B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | open |
-| B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | open |
-| B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | open |
-| B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | open |
-| B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | open |
-| B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | open |
-| B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | open |
-| B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | open |
-| B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | open |
-| B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | open |
-| B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | open |
-| B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | open |
-| B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | open |
-| B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | open |
-| B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | open |
-| B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | open |
-| B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | open |
-| B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | open |
+| B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | **done 2026-10-30** |
+| B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | **done 2026-10-30** |
+| B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | **done 2026-10-30** |
+| B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | **done 2026-10-30** |
+| B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | **done 2026-10-30** |
+| B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | **done 2026-10-30** |
+| B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | **done 2026-10-30** |
+| B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | **done 2026-10-30** |
+| B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | **done 2026-10-30** |
+| B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | **done 2026-10-30** |
+| B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | **done 2026-10-30** |
+| B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | **done 2026-10-30** |
+| B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | **done 2026-10-30** |
+| B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | **done 2026-10-30** |
+| B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | **done 2026-10-30** |
+| B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | **done 2026-10-30** |
+| B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | **done 2026-10-30** |
+| B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | **done 2026-10-30** |
+| B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | **done 2026-10-30** |
+| B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | **done 2026-10-30** |
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | open |
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | open |
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | open |
@@ -670,6 +670,206 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-398` discharge gratuity | a discharged soldier's gravestone | weak: one worn tombstone |
 | `rm-399` Praetorian Guard | a Claudian relief of praetorians | ok |
 | `rm-400` aerarium militare | a gold aureus of Augustus | weak: tied to the fund only by association |
+| `rm-401` Temple of Apollo Palatinus | the podium on the Palatine | ok |
+| `rm-402` Forum of Augustus | the square and its back wall | ok |
+| `rm-403` Ara Pacis | the procession and the scrollwork | ok; the locator marks the modern museum, not the ancient site under Palazzo Fiano |
+| `rm-404` Mausoleum of Augustus | the tomb from the entrance side | ok |
+| `rm-405` Augustus of Prima Porta | the statue in the Vatican | ok |
+| `rm-406` ludi saeculares | none | no picture (`I.none`); the Acta pillar in the Museo Nazionale Romano would suit |
+| `rm-407` ius trium liberorum | children in the Ara Pacis procession | acceptable stand-in for a legal right |
+| `rm-408` Julia the Elder | Pandateria, where she was sent | weak: a place, not the person; a denarius with her head between Gaius and Lucius would show her |
+| `rm-409` Lares Augusti | the Ara dei Vicomagistri | weak: a ward procession of c. 30 – 40 CE, not an Augustan Lares altar; the Belvedere or Vicus Sandaliarius altar would show the Lares |
+| `rm-410` princeps iuventutis | Augustus between his grandsons (Corinth) | ok |
+| `rm-411` Livia | a portrait head of Livia | ok |
+| `rm-412` Agrippa Postumus | a bust identified as Agrippa Postumus | ok (the identification is modern, and the description says so) |
+| `rm-413` Nero Claudius Drusus | a portrait of Drusus the Elder | ok |
+| `rm-414` Battle of the Teutoburg Forest | the iron face mask from Kalkriese | acceptable: an object from the site, not the battle |
+| `rm-415` Divus Augustus | a coin of the deified Augustus | ok; the alt text's "bearded-free" should read "beardless" |
+| `rm-416` Julio-Claudian dynasty | the Gemma Claudia | ok |
+| `rm-417` Tiberius | a portrait of Tiberius | ok |
+| `rm-418` dies imperii | a Roman public calendar (the Fasti Praenestini) | acceptable stand-in: it shows no dies imperii entry |
+| `rm-419` Germanicus | a portrait bust of Germanicus | ok |
+| `rm-420` Percennius | none | no picture (`I.none`): no portrait of a private soldier exists |
+| `rm-421` Arminius | the gravestone of Marcus Caelius | wrong subject: a centurion who died in the Varian war (it suits `rm-414`) |
+| `rm-422` Gnaeus Calpurnius Piso | none | no picture (`I.none`) |
+| `rm-423` Sejanus | the wall of the praetorian camp | weak: the camp (`rm-399`'s subject), not the man |
+| `rm-424` Macro | none | no picture (`I.none`); no certain portrait exists. The Gemonian Stairs locator belongs to Sejanus |
+| `rm-425` Capreae | ruins on the heights of Capri | ok |
+| `rm-426` maiestas | the senate house in the Roman Forum | weak: a building for a legal concept |
+| `rm-427` Caligula | a portrait bust of Gaius | ok; the credit names no author |
+| `rm-428` Incitatus | a named racehorse in a Roman mosaic | wrong: the Sousse mosaic shows another horse (Amator); the Circus Maximus locator is in neither source |
+| `rm-429` Cassius Chaerea | a covered passage on the Palatine | wrong in kind: a Neronian cryptoporticus built after Gaius's death |
+| `rm-430` Claudius | Claudius in the guise of Jupiter | ok |
+| `rm-431` donativum | an aureus showing the praetorian camp | ok |
+| `rm-432` Camulodunum | the Balkerne Gate at Colchester | acceptable: a gate of the later town |
+| `rm-433` Caratacus | an 18th-century view of the scene at Rome | acceptable: an imagined scene, labelled as one |
+| `rm-434` Pallas | none | no picture (`I.none`): no portrait is identified |
+| `rm-435` Lyon Tablet | the bronze at Lyon | ok |
+| `rm-436` Aqua Claudia | arches of the branch across the Caelian | weak: the Neronian branch, not the main arcades or the Porta Maggiore |
+| `rm-437` Messalina | a statue identified as Messalina | acceptable: heavily restored, and the description says so |
+| `rm-438` Agrippina the Younger | a portrait head of the empress | ok |
+| `rm-439` Britannicus | a bust identified as Britannicus | weak: identified only by a later base, as the description says |
+| `rm-440` Burrus | none | no picture (`I.none`); the glossary's Wallgren picture is an imagined scene that calls him Nero's tutor |
+| `rm-441` Anicetus | the fleet's cistern at Misenum | weak: the fleet base, not the man (it suits `rm-656`) |
+| `rm-442` Boudican revolt | a cavalryman's tombstone from Camulodunum | weak: an object from before the revolt |
+| `rm-443` Boudica | Boadicea and Her Daughters (Thornycroft) | ok: the description says it is a Victorian imagining |
+| `rm-444` Corbulo | none | no picture (`I.none`): the Louvre bust's attribution is withdrawn |
+| `rm-445` Rhandeia | the gates of Janus shut (a sestertius) | weak: the Janus coin, not the settlement |
+| `rm-446` Great Fire of Rome | Hubert Robert's painting | acceptable: an imagined scene |
+| `rm-447` Domus Aurea | the octagonal room of the Golden House | ok |
+| `rm-448` Neronian persecution | Siemiradzki's Nero's Torches | acceptable: a 19th-century painting, and the description says so |
+| `rm-449` Pisonian conspiracy | Epicharis carried to the torture (Doepler) | weak: one episode, not the plot |
+| `rm-450` Periodonikes | the stadium at Olympia | acceptable; the description hard-codes 67 CE |
+| `rm-451` First Jewish–Roman War | the hill of Yodfat, ancient Jotapata | acceptable: one episode; the description's "forty-seven days" is Josephus's figure |
+| `rm-452` Vindex | a silver denarius struck during the revolt | ok |
+| `rm-453` Nymphidius Sabinus | the north wall of the Castra Praetoria | weak: a place picture |
+| `rm-454` Hostis | the Curia Julia | weak: the senate house as rebuilt under Diocletian |
+| `rm-455` Verginius Rufus | none | no picture (`I.none`); the glossary's tomb photograph would do |
+| `rm-456` Year of the Four Emperors | the four emperors of 69 on their own gold | ok |
+| `rm-457` Galba | a gold aureus of Galba | ok |
+| `rm-458` Otho | a silver denarius of Otho found in West Sussex | ok; the description names its recording scheme |
+| `rm-459` First Battle of Bedriacum | none | no picture (`I.none`) |
+| `rm-460` Vitellius | a gold aureus of Vitellius | ok; the description's "the Caesar he refused" should go |
+| `rm-471` Titus | a marble head of Titus | ok; the description names the holding museum |
+| `rm-472` Masada | the Roman ramp at Masada | ok |
+| `rm-473` fiscus Iudaicus | none | no picture (`I.none`); Nerva's FISCI IVDAICI sestertius would suit |
+| `rm-474` Arch of Titus | the Arch of Titus | ok |
+| `rm-475` Colosseum | the outer wall of the Colosseum | ok |
+| `rm-476` Liber Spectaculorum | the opening of the epigrams on the shows | ok |
+| `rm-477` Plinian eruption | an eruption column (Mount St Helens) | acceptable: no photograph of 79 can exist |
+| `rm-478` Pompeii | plaster casts of two of the dead | wrong: the casts, not the town; the Forum with Vesuvius behind would show it |
+| `rm-479` Herculaneum | skeletons in a waterfront chamber | ok; the description's "flows of the second day" should go |
+| `rm-480` Pliny the Elder | the dedication to Titus (a manuscript page) | acceptable: no ancient likeness exists |
+| `rm-461` Second Battle of Bedriacum | painted wall plaster from Roman Cremona | weak: the town, not the battle |
+| `rm-462` Titus Flavius Sabinus | the Capitol seen from the Roman Forum | acceptable: the place of his last stand |
+| `rm-463` arcanum imperii | a page of the Second Medicean manuscript of Tacitus | weak: the page shows the Annals, not Histories 1.4 |
+| `rm-464` Revolt of the Batavi | Rembrandt's Conspiracy of Claudius Civilis | acceptable: a painting of 1661 |
+| `rm-465` Vespasian | a portrait of Vespasian | ok |
+| `rm-466` Lex de imperio Vespasiani | the bronze tablet | ok |
+| `rm-467` fiscus | Flavian coinage in the Altes Museum | acceptable stand-in |
+| `rm-468` adlectio | none | no picture (`I.none`); an adlection inscription would suit |
+| `rm-469` Siege of Jerusalem | David Roberts's chromolithograph | acceptable: a 19th-century reconstruction, said so |
+| `rm-470` Second Temple | the temple warning inscription | weak: one object for the whole temple |
+| `rm-481` Domitian | Domitian in Pentelic marble | ok; the "Rome" locator is generic |
+| `rm-482` delator | none | no picture (`I.none`); the "Rome" locator is generic |
+| `rm-483` Domitian's Dacian War | the sanctuary at Sarmizegetusa Regia | acceptable: the Dacian royal centre, not the war |
+| `rm-484` Agricola | the Verulamium forum inscription | ok |
+| `rm-485` Battle of Mons Graupius | Calgacus addressing the Caledonians (1859) | wrong: an engraving of an imagined scene for a composed speech |
+| `rm-486` Inchtuthil | the fortress from the air | ok |
+| `rm-487` Flavian Palace | the throne room on the Palatine | ok |
+| `rm-488` damnatio memoriae | an inscription with the name cut out | ok; the "Rome" locator is generic |
+| `rm-489` Stephanus | none | no picture (`I.none`) |
+| `rm-490` Flavian dynasty | a Flavian state relief (Cancelleria) | acceptable: a procession, not the family; the "Rome" locator is generic |
+| `rm-491` Nerva–Antonine dynasty | emperors of the line side by side at Cologne | ok |
+| `rm-492` Nerva | an elderly emperor in marble | ok |
+| `rm-493` Plotina | a portrait head in the Glyptothek | ok |
+| `rm-494` optimus princeps | the title on an imperial coin | ok |
+| `rm-495` Trajan's Dacian Wars | the Danube at the opening of the campaign (a Column cast) | acceptable; the description names Cichorius and 1896 |
+| `rm-496` Decebalus | the last scene of the king (a Column cast) | ok; the description names its plate |
+| `rm-497` Trajan's Column | the column above the modern square | ok |
+| `rm-498` Forum of Trajan | columns of the Basilica Ulpia | acceptable: Platner–Ashby says these shafts do not belong to the basilica |
+| `rm-499` Trajan's Market | the Via Biberatica | weak: one street; the Great Hemicycle's façade would show the whole |
+| `rm-500` alimenta | the bronze table from Veleia | ok |
+| `rm-501` Trajan's Parthian campaign | a sestertius of Trajan crowning a king for the Parthians | shows `rm-504`'s crowning; the ARMENIA ET MESOPOTAMIA coin (RIC 642) would fit this card |
+| `rm-502` Arabia Petraea | a denarius of Trajan, ARAB ADQ | ok |
+| `rm-503` Hadrian | a marble bust in military dress | ok |
+| `rm-504` Parthamaspates | the REX PARTHIS DATVS sestertius reverse | ok, though worn |
+| `rm-505` Panhellenion | the Temple of Olympian Zeus, Athens | weak: the temple, not the league; an inscription of the Panhellenion would show the term |
+| `rm-506` Hadrian's Wall | the Vallum near Milecastle 42 | wrong: the earthwork behind the wall, not the wall |
+| `rm-507` Lambaesis | the headquarters forehall | ok |
+| `rm-508` Pantheon | the porch with Agrippa's inscription | ok |
+| `rm-509` Hadrian's Villa | the Canopus | ok |
+| `rm-510` Antinous | a marble head crowned with ivy | ok |
+| `rm-511` Bar Kokhba revolt | a rebel silver tetradrachm with the Temple façade | ok |
+| `rm-512` Aelia Capitolina | the Roman arch beneath the Damascus Gate | ok; the Commons file name carries an uploader's date |
+| `rm-513` Antoninus Pius | a marble portrait head | ok; the "Rome" locator is generic |
+| `rm-514` Antonine Wall | the ditch at Rough Castle | acceptable: part of the line |
+| `rm-515` Avidius Cassius | none | not re-checked: the card has no picture |
+| `rm-516` Lucius Verus | a marble bust in Venice | ok |
+| `rm-517` Roman–Parthian War of 161–166 | a sestertius of Verus crowning the Armenian king | acceptable: one episode of the war |
+| `rm-518` Antonine Plague | none | not re-checked: the card has no picture |
+| `rm-519` Marcomannic Wars | the Roman inscription on the castle rock at Trenčín | acceptable: one document for the war; the Carnuntum locator belongs to `rm-520` and `rm-576` as much |
+| `rm-520` Meditations | the title page of the first printed edition, 1558 | ok, though lettering is burned in by nature |
+| `rm-521` Column of Marcus Aurelius | the rain-miracle scene | acceptable: one scene; the glossary's whole-column photo would show the term |
+| `rm-522` Commodus | a marble bust | ok |
+| `rm-523` secutor | the Nennig mosaic, secutor and retiarius | ok; the "Rome" locator is generic and should go |
+| `rm-524` Marcia | none | not re-checked; the glossary's engraved cameo is of another woman (the Anagnia identification is untenable) |
+| `rm-525` Pax Romana | Nero's aureus with the temple of Janus shut | acceptable; the "Rome" locator is generic and should go |
+| `rm-526` Herodes Atticus | the Odeion at Athens | acceptable: his building; the glossary's portrait head would show the man |
+| `rm-527` Timgad | the so-called Arch of Trajan | acceptable: one monument for the city |
+| `rm-528` imperial cult | a sestertius with the Lugdunum altar | ok |
+| `rm-529` honestiores | a red-slip plate with a condemned man and a lion | weak: an indirect picture; its src shares a generic file key (`I.duplicate`) |
+| `rm-530` consilium principis | the Tabula Banasitana | ok |
+| `rm-531` procurator | the tombstone of Julius Alpinus Classicianus | ok; its src shares a generic file key with 19 cards (`I.duplicate`) |
+| `rm-532` curator rei publicae | the Roman theatre of Nicaea | wrong: Pliny's building complaints, not the office; the Nicaea locator is wrong for an office too |
+| `rm-533` Dio Chrysostom | a page of his speeches in a 14th-century manuscript | ok |
+| `rm-534` Monte Testaccio | the hill | ok |
+| `rm-535` Forma Urbis Romae | fragments showing the Basilica Ulpia, laid on a modern drawing | acceptable; the "Rome" locator should be the Templum Pacis wall |
+| `rm-536` Year of the Five Emperors | a denarius of Clodius Albinus as Caesar | acceptable: one claimant for the year |
+| `rm-537` Pertinax | a sestertius of 193 CE | ok |
+| `rm-538` Didius Julianus | a denarius of 193 CE | ok |
+| `rm-539` Septimius Severus | the Munich bust | ok; the "Rome" locator is generic |
+| `rm-540` Battle of Lugdunum | a denarius of Albinus from the Lugdunum mint | weak: a coin for a battle |
+| `rm-541` Legio II Parthica | the Porta Praetoria of the camp at Albano | ok |
+| `rm-542` Julia Domna | the Severan Tondo | acceptable: the whole family, Geta's face erased; a portrait of her alone would be better |
+| `rm-543` Eboracum | the Multangular Tower | ok |
+| `rm-544` Caracalla | the Naples bust | ok |
+| `rm-545` Antonine Constitution | Papyrus Gissensis 40 | ok |
+| `rm-546` Baths of Caracalla | the central block's ruins | ok; the locator's point is at the baths, its label the generic "Rome" |
+| `rm-547` Elagabalus | a portrait head in the Capitoline Museums | ok |
+| `rm-548` Severus Alexander | a bust in the Louvre | ok |
+| `rm-549` Julia Mamaea | a portrait head in the Louvre | ok |
+| `rm-550` Crisis of the Third Century | an antoninianus of Gallienus | acceptable: a coin for the age |
+| `rm-551` Maximinus Thrax | a bust in the Capitoline Museums | ok |
+| `rm-552` Philip the Arab | a bust in the Vatican Museums | ok |
+| `rm-553` Sasanian Empire | Flandin's drawing of Ardashir's victory relief at Firuzabad | weak: a drawing of one victory, not the empire; a photograph of the relief would do |
+| `rm-554` Shapur I | the equestrian relief at Naqsh-e Rajab | ok; a triumph relief would show the Roman clue |
+| `rm-555` Valerian | the Paris cameo of a Persian king seizing an emperor | ok |
+| `rm-556` Battle of Abritus | the ruins of the Roman town at Razgrad | acceptable; the battlefield's site is disputed, so the locator may go |
+| `rm-557` antoninianus | three antoniniani from Gordian III to Probus | acceptable: shows the debasement |
+| `rm-558` Aurelian's coinage reform | a reformed coin of Siscia with XX·I | ok |
+| `rm-559` Gallic Empire | an aureus of Tetricus | acceptable: a coin for the state; the hand-drawn region leaves out Spain and Raetia |
+| `rm-560` Postumus | a gold coin in Berlin | ok |
+| `rm-561` Palmyrene Empire | a coin of Alexandria naming Aurelian and Vaballathus | ok |
+| `rm-562` Zenobia | an antoninianus of Antioch | ok |
+| `rm-563` Aurelian | a coin with Sol | ok; its src shares a generic file key (`I.duplicate`) |
+| `rm-564` Aurelian Walls | the Porta San Sebastiano | acceptable: one gate; the glossary's wall and tower show more; the "Rome" label on the locator should name the gate |
+| `rm-565` Probus | a radiate coin in Berlin | ok |
+| `rm-566` Diocletian | an aureus with Jupiter | ok |
+| `rm-567` Tetrarchy | an argenteus of Maximian with the four rulers | ok |
+| `rm-568` Dominate | the Missorium of Theodosius (a replica) | weak: a later emperor's ceremonial |
+| `rm-569` Laterculus Veronensis | Kiepert's 1892 map of the later dioceses | wrong: the later system, with burned-in labels |
+| `rm-570` Roman diocese | the insignia of the vicar of Spain in the Notitia Dignitatum | ok |
+| `rm-571` capitatio-iugatio | none | not re-checked: no picture depicts a tax assessment |
+| `rm-572` Edict on Maximum Prices | the copy on the round building at Aizanoi | ok |
+| `rm-573` Diocletianic Persecution | Anthimus of Nicomedia in the Menologion of Basil II | acceptable: a 10th-century miniature |
+| `rm-574` Galerius | the porphyry head at Zaječar | ok; the Nicomedia locator is generic for him |
+| `rm-575` Diocletian's Palace | the palace and old Split from the air | ok |
+| `rm-576` Conference of Carnuntum | the emperors' Mithras altar | ok |
+| `rm-577` Constantine the Great | the York head | ok |
+| `rm-578` Battle of the Milvian Bridge | Giulio Romano's Vatican fresco | acceptable: a Renaissance painting where no ancient image exists |
+| `rm-579` labarum | a follis of Constantinople with the labarum and serpent | ok |
+| `rm-580` Edict of Milan | the letter in Christopherson's Latin Eusebius of 1570 | weak: the card no longer makes the 1570 claim; a Milan plaque would suit |
+| `rm-581` Licinius | none | not re-checked: the card has no picture |
+| `rm-582` Battle of Chrysopolis | none | not re-checked: the card has no picture |
+| `rm-583` First Council of Nicaea | none | not re-checked: the card has no picture |
+| `rm-584` Nicene Creed | none | not re-checked: the card has no picture |
+| `rm-585` Arianism | none | not re-checked: the card has no picture |
+| `rm-586` Constantinople | none | not re-checked: the card has no picture; the glossary's Column of Constantine would do |
+| `rm-587` solidus | none | not re-checked: the card has no picture (the plan suggests a Met CC0 solidus) |
+| `rm-588` magister militum | none | not re-checked: the card has no picture |
+| `rm-589` comitatenses | none | not re-checked: the card has no picture |
+| `rm-590` magister officiorum | none | not re-checked: the card has no picture |
+| `rm-591` colonate | none | not re-checked: the card has no picture |
+| `rm-592` Lateran Basilica | none | not re-checked: the card has no picture |
+| `rm-593` Old St Peter's Basilica | none | not re-checked: the card has no picture |
+| `rm-594` Arch of Constantine | none | not re-checked: the card has no picture |
+| `rm-595` Constantine II | none | not re-checked: the card has no picture; the glossary's statue would do |
+| `rm-596` Constantius II | none | not re-checked: the card has no picture; the glossary's bust would do; the Antioch locator is generic |
+| `rm-597` Julian the Apostate | none | not re-checked: the card has no picture |
+| `rm-598` School Edict | none | not re-checked: the card has no picture |
+| `rm-599` Julian's Persian expedition | none | not re-checked: the card has no picture |
+| `rm-600` Valentinian I | none | not re-checked: the card has no picture; the Naissus locator is generic (Brigetio, where he died, or Nicaea) |
 
 ## Glossary candidates
 
@@ -1715,3 +1915,420 @@ Overlap notes for the owner (nothing was edited): `wh-354` ends the Gallic Wars 
 ### Locators added (2026-10-30)
 
 `add-locators.js` (one title per request, retried through Wikipedia's rate limit) gave **`rm-356` Carrhae (fetched from Harran, because the battle's article carries no coordinate), `rm-361` Dyrrhachium, `rm-362` Pharsalus and `rm-365` Thapsus** battle locators at zoom 8, **`rm-364` Alexandria**, and moved **`rm-388`** from Pelusium to Alexandria. `rm-366` Munda gets none: the site is disputed and no sure place stands near it. `migrate-places.js` (offline) derived `places` for `rm-364` and `rm-388`; its offline run also dropped `gr-794`'s Rafah place (its toponym is not in the offline cache), so that card and its `places-spec.json` row were restored by hand and only the Pelusium row, which no card now uses, was removed; `build-places --install`, `build-card-places --install`, `migrate-places --check` and `check-places` pass. Still without one: `rm-303`, `rm-324` and `rm-360` (wars across a region) and `rm-366`.
+
+### B41 — `rm-401`–`rm-410`, Augustus: the monuments, the games, the laws and the heirs (2026-10-30)
+
+Run as B40; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-401:rm-410` reads clean on eight cards; `rm-402` carries `S.chip?` (an English BMCR review of a German-titled book: the known false positive) and `rm-406` `I.none`. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages (the host refused the sandbox; each page was read and saved when it answered) and three Perseus dictionary entries that now answer a script 403 without a cookie (each saved when the agent fetched it). **Nine of the ten old cards were all-ancient or nearly so; the old date lines carried a place ("Vowed 42 BCE, at Philippi", "Exiled 2 BCE, to Pandateria"), a name ("First burial Marcellus, 23 BCE"), a count ("Interval 110 years") or another event's date ("Event shown Parthian standards, 20 BCE", "Pontifex maximus 12 BCE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-401` Temple of Apollo Palatinus | 6 | 6 → 6 | The vow of 36 rests on Velleius, now said to be a partisan; **9 October 28 is the stone calendars' day; the fire is Ammianus's "night before 19 March" 363** (the old 18 March is Platner's reading, so the line prints the year); the temple and the "House of Augustus" are modern identifications. |
+| `rm-402` Forum of Augustus | 7 | 8 → 8 | **The vow at Philippi is Suetonius's and Ovid's, and one modern view holds it was invented later; the dedication day (1 August from Dio, 12 May from Ovid) is argued, so the line prints 2 BCE**; the summi viri elogia added. |
+| `rm-403` Ara Pacis | 7 | 6 → 9 | 4 July 13 and 30 January 9 are the calendars' days ("Decreed", not "Voted"); **the old card argued its own reading ("peace as yield") and it goes**; Tellus or Italia, Aeneas or Numa are modern readings; 1938 in one sentence. |
+| `rm-404` Mausoleum of Augustus | 7 | 5 → 7 | **"Built 28 BCE" was the year Suetonius says it was begun**; Marcellus laid in it unfinished (Dio); Strabo's description, the Colonna fortress and the concert hall added. |
+| `rm-405` Augustus of Prima Porta | 7 | 6 → 7 | **The old line dated the breastplate's scene; it now dates the statue** (a bronze original soon after 20 BCE in one museum's account, the marble 15 CE in another, found 1863); every breastplate figure is a modern reading; the paint traces added. |
+| `rm-406` ludi saeculares | 6 | 6 → 6 | **The 110-year saeculum is the Augustan priests' reckoning, not a fact**; 31 May – 3 June 17 BCE from the Acta (found 1890), the choir of 27 and 27 the Acta's; Claudius's games of 47 on another count, with Suetonius's herald. |
+| `rm-407` ius trium liberorum | 6 | 6 → 10 | The old card spent its space on an anecdote and Horace; **it now says what the right gave (Gaius: three children for the freeborn, four for a freedwoman)**, the grant as a favour (Pliny, Trajan), Dio's unmarried consuls and Tacitus's "no effect". |
+| `rm-408` Julia the Elder | 7 | 7 → 9 | Places off the line; **the revels in the Forum are Dio's and Seneca's, the conspiracy with Iullus Antonius a modern reading**; Tacitus's slow death is his claim. The marriage-list question (`rm-382`'s clue) is replaced. |
+| `rm-409` Lares Augusti | 5 | 6 → 6 | **The old card stated as fact Taylor's view that Augustus gave the wards his own household gods and Genius; the Lares Augusti as the old street gods renamed is now set against it**; the Vicus Sandaliarius altar (2 BCE) is the contemporary evidence. |
+| `rm-410` princeps iuventutis | 6 | 6 → 6 | **"Dio dates … 17 BCE" was wrong: Dio gives consular years**, so the years are the Cambridge Ancient History's; each brother's naming and death on the line; the C L CAESARES denarius and Nero's coin as OCRE records. |
+
+**Read by eye.** *Confusability:* `rm-401`/`rm-402`/`rm-403`/`rm-404` the temple (the Danaids, the library), the forum (the elogia, the fire wall), the altar (the calendar days, Aeneas or Numa) and the tomb (Strabo's trees); `rm-405` the statue (the find, the paint); `rm-406`/`rm-407` the games and the right; `rm-408`/`rm-410` the daughter and her sons (the firebrands kept for `rm-408`); `rm-409` the wards. *Legend:* Julia's revels and Augustus's "Phoebe" remark are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B42 — `rm-411`–`rm-420`, Augustus to the Julio-Claudians: Livia to the Pannonian mutiny (2026-10-30)
+
+Run as B41; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-411:rm-420` reads clean on five cards; the rest carry `W.not-why` (advisory, four cards), `S.chip?` on `rm-414` (an English BMCR review of a German-titled book: the known false positive) and `I.none` on `rm-420`. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Every failure in the URL check is a LacusCurtius page saved when the host answered. No `timeline` moved (`rm-414` keeps 9 CE). **The old cards were all-ancient or nearly so (Livia's nine sources were all ancient); their date lines carried ages ("aged 29", "aged 33", "Aged 75"), counts ("Roman losses 3 legions", "Reign counted 23 years", "Legions 3, in Pannonia") and other men's reigns.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-411` Livia | 7 | 9 → 8 | **The poisonings (the figs among them) are rumours Tacitus and Dio pass on, and the Cambridge Ancient History reads them as her enemies' propaganda**; born 58 BCE (no open source prints 59), married 17 January 38; deified 42 in one modern chronology (the Cambridge Ancient History says 41). |
+| `rm-412` Agrippa Postumus | 6 | 8 → 8 | **Adopted 27 June 4 CE is Velleius's day** (one modern account 26 June); the reasons for his banishment are the authors' words; who ordered the killing stays open (Tacitus blames Tiberius and Livia; the Cambridge Ancient History and Syme allow Augustus's own order). |
+| `rm-413` Nero Claudius Drusus | 6 | 5 → 6 | **The gossip that Octavian was his father is Suetonius's, the woman at the Elbe Dio's tale; the death is two accounts (Livy's summary: a fall from his horse; Dio: disease)**; the canals' course is argued. |
+| `rm-414` Battle of the Teutoburg Forest | 7 | 6 → 8 | **No ancient writer names the month: September is a modern reconstruction; no total of dead is given** (Velleius counts the units lost); Augustus's "give me back my legions" is Suetonius's hearsay; Kalkriese since 1987 – 89, with the doubts. |
+| `rm-415` Divus Augustus | 6 | 7 → 7 | **The old card called Augustus the first ruler Rome made a god; Julius Caesar had been voted among the state's gods in 42 BCE.** 17 September from the Fasti Amiternini through a modern account; the ex-praetor is Suetonius's, his name and Livia's million Dio's. |
+| `rm-416` Julio-Claudian dynasty | 7 | 8 → 9 | **"Julio-Claudian" is the historians' name; Tacitus's Galba speaks of "the family of the Julii and the Claudii"**; 27 BCE – 68 CE with Livius's 31 BCE; 9 June 68 is a modern day (Suetonius gives none). |
+| `rm-417` Tiberius | 8 | 7 → 9 | Velleius served under him, Tacitus is hostile, each said; **the smothering by Macro is Tacitus's own claim, beside Suetonius's variants; 16 March 37 rests on the Arval acts (Dio is ten days late)**; no question uses Capri, Sejanus, maiestas or the mutiny. |
+| `rm-418` dies imperii | 5 | 7 → 6 | **The old card told Tiberius's accession; it now explains the concept** (the Arval acts for Gaius, Vespasian's 1 July 69); Tiberius's own day is a modern dispute (17 September in the Cambridge Ancient History, early September in Wellesley 1967, read in abstract). The "23 years" row goes. |
+| `rm-419` Germanicus | 7 | 7 → 8 | The poisoning and the spells in the walls are Tacitus's report; **the Senate's decree on Piso treats the murder only as the dying man's accusation**; the Tabula Siarensis added; 10 October 19 from the Antium calendar. |
+| `rm-420` Percennius | 5 | 7 → 5 | **His speech is Tacitus's composition; the eclipse is 27 September 14 CE in NASA's catalogue (Furneaux: 26 September), Tacitus gives no day**; the Rhine mutiny is kept for `rm-644`. |
+
+**Read by eye.** *Confusability:* `rm-411`/`rm-412` the wife (the figs) and the grandson (Clemens); `rm-413`/`rm-414`/`rm-419` the father (the Elbe), the battle (the bones) and the son (the Antioch spells); `rm-415`/`rm-418` the cult (Atticus's oath) and the counting day (the Arval acts); `rm-416`/`rm-417` the house and the man; `rm-420` the mutineer. *Legend:* the woman at the Elbe, Augustus's cry for his legions and the smothering of Tiberius are their authors'. *Overlap:* `wh-366` gives Nero's death as 9 June 68 CE, as `rm-416` does.
+
+### B43 — `rm-421`–`rm-430`, the Julio-Claudians: Arminius to Claudius (2026-10-30)
+
+Run as B42 (the research agents were stopped by a usage limit mid-hundred and resumed on their saved pages); every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-421:rm-430` reads clean on four cards; the rest carry `S.chip?` on `rm-421` and `rm-423` (English BMCR reviews of German-titled books: the known false positive), `I.none` on `rm-422` and `rm-424`, and `W.not-why` (advisory, three cards). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when the host answered and one Perseus dictionary entry (Lewis and Short) that answers a script 403. **The old cards leaned on one ancient author three or four times (Suetonius four times on Capreae, three times on Chaerea and Macro); their date lines carried another man's reign ("Tiberius's reign 14 – 37 CE", "Owner died 24 January 41 CE"), an omen ("Lighthouse fell 37 CE") and a back-calculated birth ("c. 18 BCE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-421` Arminius | 8 | 9 → 9 | **"c. 18 BCE" was a back-calculation from Tacitus's thirty-seven years and goes; the death is 19 CE (the Cambridge Ancient History) or 21 CE (Furneaux's count), both shown**; "liberator of Germany" is Tacitus's verdict; "Strabo watched the triumph" was wrong (he lists the captives). |
+| `rm-422` Gnaeus Calpurnius Piso | 5 | 9 → 6 | **The old card and glossary said the Senate "acquitted" him of poisoning: Tacitus says only that the charge seemed answered, and the decree shows no formal murder charge** (Flower's review); the decree's 10 December 20 CE on the line; Celenderis, the fort he held, keeps its locator. |
+| `rm-423` Sejanus | 7 | 9 → 7 | **"Camp built by 23 CE" dated nothing a source prints and goes**; executed 18 October 31 (the Cambridge Ancient History's day: Dio gives none); Drusus's poisoning is Tacitus's report from Apicata's statement and confessions under torture; Velleius wrote at Sejanus's height. |
+| `rm-424` Macro | 5 | 8 → 6 | The letter scene from Macro's side only (Dio); **the smothering of Tiberius is Tacitus's version against Dio's, with the Cambridge Ancient History's doubt**; Ennia in three conflicting versions; Egypt and the suicide of 38. The Gemonian Stairs locator was Sejanus's. |
+| `rm-425` Capreae | 7 | 10 → 8 | **The lighthouse omen leaves the line; Tacitus's twelve villas are his count, from a passage whose text is unstable**; the debauchery is Tacitus's and Suetonius's, set against the Cambridge Ancient History's note that no first-century writer tells it; the exchange with Naples added. |
+| `rm-426` maiestas | 6 | 9 → 8 | The line is now the law's own: the lex Appuleia (100 BCE, Furneaux), the revival of 15 CE and Gaius's of 39 CE (the Loeb translator's margin, said so); **Tacitus's framing is called hostile**; the informers' reward is left to `rm-482`. |
+| `rm-427` Caligula | 9 | 9 → 9 | **31 August and 24 January are the moderns' forms of Suetonius's Roman days**; the "little boots" question goes to `rm-662`; the illness of 37 (Philo, a hostile contemporary), the bridge at Baiae, the shells with Winterling's reading, the Temple statue. |
+| `rm-428` Incitatus | 7 | 7 → 8 | **The consulship never happened, said plainly; the name means "swift", not "at full gallop"**; Dio's fellow-priest added; a satire on the Senate or a joke, both modern readings; the line is Gaius's reign, the period the anecdote belongs to. |
+| `rm-429` Cassius Chaerea | 6 | 8 → 8 | **The old card cited a Russian article that never names him**; the Rhine-mutiny row is Tacitus's mention; the taunts and watchwords Suetonius's; Josephus the fullest narrative, probably drawing on Cluvius Rufus (Wiseman, via BMCR). |
+| `rm-430` Claudius | 9 | 9 → 9 | **"Died 54 CE" is now 13 October (Suetonius's third day before the Ides)**; the poisoning is the ancient authors' report, with Suetonius's own admission that the poisoner and method were disputed; the siblings' clues (aqueduct, Fucine lake, maiestas) are dropped. |
+
+**Read by eye.** *Confusability:* `rm-421`/`rm-422` the German (Flavus across the Weser) and the governor (the decree at Seville); `rm-423`/`rm-424` the fallen prefect (Apicata) and his successor (the letter, Ennia); `rm-425`/`rm-426` the island and the law; `rm-427`/`rm-428`/`rm-429` the emperor, the horse and the killer; `rm-430` Claudius behind the curtain. *Legend:* Tiberius on Capri, the horse as consul, the smothering of Tiberius and the mushroom are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B44 — `rm-431`–`rm-440`, the Julio-Claudians: Claudius's reign to Burrus (2026-10-30)
+
+Run as B43; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-431:rm-440` reads clean on six cards; the rest carry `I.none` (`rm-434`, `rm-440`), `S.chip?` on `rm-435` (an English BMCR review of a German-titled book: the known false positive) and `W.not-why` (advisory, two cards); `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages and two Platner–Ashby entries on Perseus (a script 403 without a cookie), each saved when the agent read it. **The old cards were mostly all-ancient (Messalina's and Agrippina's eight or nine ancient sources); their date lines carried other men's reigns ("Claudius's reign 41 – 54 CE", "Under Claudius 41 – 54 CE"), a census and a censorship for a bronze tablet, and "c. 38 CE" for a marriage no source dates.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-431` donativum | 6 | 8 → 8 | **Suetonius's 15,000 sesterces and Josephus's 5,000 drachmas stand apart, never summed**; the IMPER RECEPT aureus as the contemporary evidence; Nero's promise of 54 from Tacitus; the reign row goes. |
+| `rm-432` Camulodunum | 6 | 8 → 8 | The card is now the place, not the invasion story: Cunobelinus's CAMVL coins, Dio's elephants, **the colony "c. 49 CE" as a modern inference from Tacitus and the pottery**, the circus (Crummy 2008) and a 2024 survey; destroyed 61 CE. |
+| `rm-433` Caratacus | 7 | 7 → 7 | **The speech before Claudius is Tacitus's composition (Furneaux); the battle-eve speech, told in the card's voice, goes**; the last stand's site is unknown; Dio's "poor tents" in Cary's words. Millett's review, which never names him, is dropped. |
+| `rm-434` Pallas | 5 | 9 → 7 | His own years on the line (honoured 52, dismissed 55, died 62); **Tacitus's 300 million and Dio's 400 million kept apart**; his death a rumour in Tacitus and a fact in Dio; Pliny's scorn is one senator's. |
+| `rm-435` Lyon Tablet | 5 | 8 → 5 | **Found in November 1528 in Roland Gribaud's vineyard on the côte Saint-Sébastien (the council minutes, printed by Fabia)**; the comparison with Tacitus's rewriting is the card's centre; the censorship rows go. |
+| `rm-436` Aqua Claudia | 6 | 7 → 6 | **The card and glossary said 46,606 paces; Frontinus says 46,406.** Frontinus gives 1 August and the consuls, not a year (52 CE from the moderns; his own founding count gives 50); the Porta Maggiore inscription; Pliny's 350 million is his, and covers the Anio Novus too. |
+| `rm-437` Messalina | 7 | 9 → 8 | **"Married c. 38" had no source: probably 39 (the Cambridge Ancient History)**; the wedding to Silius is Tacitus's, with his own warning that it will seem a fable; Juvenal is satire; the Senate's removal of her name added. |
+| `rm-438` Agrippina the Younger | 7 | 9 → 9 | Three ancient versions of the mushroom and the modern doubt; **the ship, the death and "strike the womb" are Tacitus's and Dio's**; her memoirs added; a phrasing that near-duplicated `rm-959`'s is replaced. |
+| `rm-439` Britannicus | 6 | 7 → 7 | **Born 41 or 42 (Henderson's note), both on the line**; the Saturnalia song, Locusta, the cooled drink and the epilepsy are their authors'; one sentence on the doubt that he was poisoned at all. |
+| `rm-440` Burrus | 6 | 9 → 9 | Tacitus was over the limit; **"Nero's accession" becomes Burrus's own act (13 October 54, Tacitus's day)**; the Vaison inscription; his death open in Tacitus, poison in Suetonius and Dio. |
+
+**Read by eye.** *Confusability:* `rm-431`/`rm-440` the gift and the prefect who presented Nero; `rm-432`/`rm-433` the town and the king's son; `rm-434`/`rm-435`/`rm-436` the freedman, the speech and the aqueduct; `rm-437`/`rm-438`/`rm-439` the two wives and the son (the adoption clue kept for `rm-416`). *Legend:* Messalina's wedding, the mushroom and the cooled drink are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B45 — `rm-441`–`rm-450`, the Julio-Claudians: Anicetus to Nero's Greek tour (2026-10-30)
+
+Run as B44; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-441:rm-450` reads clean on seven cards; the rest carry `S.chip?` on `rm-444` and `rm-447` (English BMCR reviews of German- and Italian-titled books: the known false positive), `I.none` on `rm-444` and `W.not-why` (advisory, one card). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages and one Platner–Ashby entry on Perseus (a script 403), saved when read. `rm-445`'s first tag was moved from `place` to `event` (the card is the surrender and the meeting, the site unknown, and its glossary entry already had `event`). **The old cards were nearly all-ancient (Rhandeia's six of seven, the Great Fire's six of seven, Periodonikes's five Dio entries); their date lines carried counts ("Burned 6 days, then again", "Regions hurt 10 of 14", "Roman dead 70,000, says Tacitus", "Executions 65 CE, dozens") and words ("site unknown", "of poison or illness", "at Rome").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-441` Anicetus | 5 | 7 → 6 | **Two claims the old card made about Dio's account were wrong and go**; March 59 is Tacitus's festival of Minerva (Furneaux: 19 – 23 March); a freedman as fleet prefect was unusual; the confession of 62 and the comfortable exile. |
+| `rm-442` Boudican revolt | 7 | 8 → 8 | **61 CE is Tacitus's year, 60 Henderson's argument: the line prints "60 or 61 CE"**; Tacitus's 70,000 and Dio's 80,000, Tacitus's "some accounts" of 80,000 Britons against 400 Romans and Dio's 230,000 all stand apart; the speeches are compositions; Mona, Catus Decianus and Classicianus's tombstone. |
+| `rm-443` Boudica | 9 | 7 → 9 | The lead question shared `rm-442`'s flogging clue and is replaced; **Dio's portrait survives only in Xiphilinus's summary; Tacitus says poison, Dio illness**; "Boadicea rests on no authority" (Furneaux); the "victory" etymology hedged. |
+| `rm-444` Corbulo | 6 | 9 → 7 | **"Eastern command 54 – 66 CE" had no source for either end: Furneaux and the Cambridge Ancient History send him east early in 55**; "Your due!" is Dio's story; Tacitus may draw on Corbulo's own memoirs; Domitia Longina and the Vinician plot added. |
+| `rm-445` Rhandeia | 5 | 7 → 6 | **"Treaty of Rhandeia" is a later name; the yoke is Tacitus's rumour and Suetonius's fact**; the claim that the Janus closure of 66 proves the settlement goes (Henderson dates the closure to 64); the years are Anderson's and Henderson's. |
+| `rm-446` Great Fire of Rome | 9 | 7 → 9 | **19 July is the day Tacitus says some noted, the anniversary of the Senones' fire (Momigliano: the night of 18 July)**; the regions are Tacitus's count, which his translator calls too sweeping; Nero's singing is Suetonius's and Dio's, a rumour in Tacitus, and the fiddle a legend. |
+| `rm-447` Domus Aurea | 7 | 6 → 8 | **The unattributed "37 m" colossus is now Suetonius's 120 feet; "Built over 70s – 109 CE" had a decade and an unsourced year**; the fire of 104; Momigliano's "unfinished"; the grotesques; the revolving dining room's site left open. |
+| `rm-448` Neronian persecution | 6 | 6 → 6 | **Tacitus is the one narrative linking the punishments to the fire; Suetonius lists them without it**; the modern debates attributed (Shaw's "myth" argument, read in abstract; Houston on the legal basis); Peter and Paul a later Christian tradition. |
+| `rm-449` Pisonian conspiracy | 7 | 7 → 7 | Tacitus was cited three times; **April is the moderns' placing of the games of Ceres that Tacitus names**; 19 executed and 13 exiled are Momigliano's figures, off the line; Seneca's guilt is debated; Dio's version of Subrius Flavus's retort kept apart. |
+| `rm-450` Periodonikes | 5 | 7 → 6 | **The freedom of Achaea is 28 November 67 (Henderson, after Holleaux) or 66 (Momigliano): both on the line**, from the Acraephia stone; the ten-horse team, the judges' million and Dio's 1,808 crowns are each attributed. |
+
+**Read by eye.** *Confusability:* `rm-441` the boat's builder (the confession); `rm-442`/`rm-443` the revolt (Mona, Classicianus) and the queen (Dio's portrait, her end); `rm-444`/`rm-445` the general and the settlement (the diadem); `rm-446`/`rm-447`/`rm-448` the fire, the palace and the punishments; `rm-449`/`rm-450` the plot and the tour. *Legend:* Nero singing the sack of Troy, Boudica's speech, "strike the womb" and "Your due!" are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B46 — `rm-451`–`rm-460`, the Julio-Claudians to civil war: the Jewish War to Vitellius (2026-10-30)
+
+Run as B45; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-451:rm-460` reads clean on five cards; the rest carry `I.none` (`rm-455`, `rm-459`) and `W.not-why` (advisory, four cards). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read and one archive.org text (Schürer) that timed out on the re-check and was read whole by the agent. No `timeline` moved. **The old cards leaned on one author three or four times (Suetonius four times on Galba, three times on hostis; Plutarch three times on Nymphidius); their date lines carried counts ("Reign 95 days" twice, "Otho's reign 95 days"), a slash year ("66 – 73/74 CE") and a lifespan no source prints ("Lived c. 14 – 97 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-451` First Jewish–Roman War | 8 | 8 → 8 | **Josephus is the one narrator, a rebel commander turned Vespasian's pensioner; his 1,100,000 dead are his figure**; Masada's fall is 73 (Momigliano, Schürer) or 74 (Mason, Magness), two rows, not "73/74"; his months are left as his. |
+| `rm-452` Vindex | 6 | 7 → 6 | Three Dio entries become one; **March and May 68 are the moderns' months; Dio's agreed terms at Vesontio are his guess, against Plutarch and Tacitus**; the revolt's coins hedged; Plutarch's 20,000 dead attributed. |
+| `rm-453` Nymphidius Sabinus | 5 | 8 → 8 | **Plutarch's 7,500 drachmas beside the Cambridge Ancient History's 30,000 sesterces**; the reward of 65 (Tacitus); the claim to be Gaius's son is his own boast; "Killed 68 CE" had no source, June 68 is the Cambridge Ancient History's. |
+| `rm-454` Hostis | 6 | 8 → 7 | **The old list (Gracchans, Saturninus, Catiline) was the senate's emergency decree, not public-enemy votes**; Marius 88 BCE (Appian), Antony 43 BCE, Nero 68 CE; no source dates Galba's vote, so its row goes; 9 June 68 a modern day. |
+| `rm-455` Verginius Rufus | 6 | 9 → 7 | **"Lived c. 14 – 97" becomes Born 14 – 15 CE (Bellomo; Pliny's "eighty-third year" agrees) and Died 97 CE**; the epitaph through Pliny; Dio's parley and Tacitus's doubt are theirs. |
+| `rm-456` Year of the Four Emperors | 8 | 10 → 8 | **Tacitus's "four emperors perished by the sword" covers the whole Histories (Ramsay: Galba, Otho, Vitellius and Domitian), not 69**; the name is modern; the Dialogue's "one long year"; 16 April (Henderson) and 20 December (the Cambridge Ancient History) said whose. |
+| `rm-457` Galba | 7 | 9 → 7 | **"Aged seventy-two" contradicted Tacitus and Suetonius and goes**; 24 December 3 BCE is Livius's form of Suetonius's consular day, 2 April 68 Stevenson's; the glossary's "six days" after the adoption was wrong. |
+| `rm-458` Otho | 7 | 8 → 8 | **The 95 days are Suetonius's count, off the line; 16 April is one modern reckoning**; Poppaea in Suetonius's and Tacitus's separate versions; Martial's Cato comparison. |
+| `rm-459` First Battle of Bedriacum | 6 | 8 → 6 | **Tacitus gives no day: 15 April is Henderson's (Bellomo 2021: 12 April)**; Orfidius commanded the First Adiutrix; the glossary's broken centre came from the Batavian flank charge, not the false report. |
+| `rm-460` Vitellius | 7 | 9 → 7 | **A year was in a question; Suetonius gives two birthdays (Rolfe's 24 and 7 September)**; 20 December is the Cambridge Ancient History's (Moore: 20 or 21); the gluttony is Suetonius's and the refusal of "Caesar" his claim. |
+
+**Read by eye.** *Confusability:* `rm-451` the war (Florus, Jotapata, Beth-horon); `rm-452`/`rm-455` the rebel and the general who beat him (the epitaph, the hip); `rm-453`/`rm-454` the prefect and the declaration; `rm-456`/`rm-457`/`rm-458`/`rm-459`/`rm-460` the year (the Dialogue), Galba (capax imperii), Otho (Martial), the battle (the eagle, the gable) and Vitellius (the Gemonian stairs). *Legend:* Josephus's prophecy to Vespasian and Nero's last words at Phaon's villa are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B48 — `rm-471`–`rm-480`, Civil war and the Flavians: Titus to Pliny the Elder (2026-10-30)
+
+Run as B47's neighbours (applied before B47, whose last pair was still out); every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-471:rm-480` reads clean on six cards; the rest carry `I.none` on `rm-473` and `W.not-why` (advisory, three cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read, two *Science Advances* DOIs that answer a script 403 (both read in Europe PMC full text) and two *Scientific Reports* DOIs that answered 429 on the re-check. **The old date lines carried durations and phases ("Pumice fall about 8 hours" twice, "Column collapse 2nd day", "Flows 2nd day"), ages and places ("Aged 41, near Reate", "aged 55"), a day with no year ("Fell 15th of Xanthicus"), "c." inside a date, and the Colosseum's start as Vespasian's reign.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-471` Titus | 8 | 8 → 8 | **Born 30 December 39 CE, the year most scholars accept (Price), against Suetonius's "year Gaius died", which gives 41**; the accession day from the Cambridge Ancient History; "I have lost a day" and Berenice are Suetonius's and Dio's; Britannicus's cup left to `rm-439`. |
+| `rm-472` Masada | 8 | 6 → 8 | **Fell 73 CE (Schürer, Momigliano) or 74 CE, both on the line; the suicide, Eleazar's speeches, the lots and the 960 are Josephus's**; the 1963 bones and Yadin's nationalist reading added; an unreachable source and its claims dropped. |
+| `rm-473` fiscus Iudaicus | 6 | 6 → 8 | Josephus's two drachmas; **Nerva's FISCI IVDAICI CALVMNIA SVBLATA coin (an OCRE record) and the Edfu receipts are the contemporary evidence, and three modern readings of the legend are each attributed**; "Eased 96 CE" goes; no source prints 71 for the start. |
+| `rm-474` Arch of Titus | 8 | 6 → 8 | **The dedication under Domitian is a modern inference from DIVO TITO**; the triumph of 71 is labelled as the scene shown; rebuilt 1822 (Platner–Ashby, Lanciani); the lost arch in the Circus Maximus and the menorah's later meaning added. |
+| `rm-475` Colosseum | 9 | 7 → 9 | **Begun c. 70 CE, not "under Vespasian, 69 – 79"; the hundred days are Dio's; the capacity is Platner–Ashby's estimate (about 45,000 seated and 5,000 standing) and the 87,000 places doubted**; Alföldy's "ex manubiis" a reconstruction others doubt. `wh-362` states both as fact. |
+| `rm-476` Liber Spectaculorum | 6 | 6 → 6 | **The hundred days are a count of the games, not Martial's: off the line**; the second half is now Martial's poems (Pasiphae, Laureolus, the rhinoceros, Carpophorus); Titus or Domitian is Coleman's question. |
+| `rm-477` Plinian eruption | 7 | 6 → 7 | **"Plinian" is the volcanologists' term; 24 August is the manuscripts' (defended by Renne et al. 2026), 24 October the autumn case (the 2018 charcoal note, fruits, clothing): two rows**; Pliny wrote some 25 years later; the eight hours are one modern reconstruction. |
+| `rm-478` Pompeii | 9 | 7 → 9 | The card is now the town: Oscans and Samnites, Sulla's colony of 80 BCE, **the earthquake as Seneca's 63 against Tacitus's 62**, found 1748 and named 1763, the population as attributed ranges, Fiorelli's casts and the 2024 DNA result. |
+| `rm-479` Herculaneum | 8 | 6 → 8 | **The 300 dead at the waterfront are one study's count**; the vitrified brain (2025); the theatre 1709, the dig 1738, the papyri 1752; the Villa of the Papyri, Philodemus and the hedged X-ray and AI reading. The glossary's "4,000 – 5,000 people" had no source. |
+| `rm-480` Pliny the Elder | 8 | 6 → 8 | **Born 23 or 24 CE is worked from his nephew's "fifty-sixth year"; letter 6.16 is the nephew's tribute written for Tacitus; the fumes are the nephew's guess, asthma one modern account**; his career and the preface's claims added. |
+
+**Read by eye.** *Confusability:* `rm-471`/`rm-474`/`rm-475`/`rm-476` the emperor (the lost day), the arch (DIVO TITO), the amphitheatre (the quarry) and the poems (the rhinoceros); `rm-472`/`rm-473` the rock and the tax; `rm-477`/`rm-478`/`rm-479`/`rm-480` the eruption (the term, the date), the town (the colony, the earthquake), the second town (the boathouses, the scrolls) and the admiral (the books). *Legend:* Masada's suicide and speeches and Titus's "lost day" are their authors'. *Overlap:* `wh-362` states Alföldy's inscription and the hundred days as plain fact; `wh-365`'s Pompeii colony phrasing is close to `rm-478`'s second.
+
+### B47 — `rm-461`–`rm-470`, Civil war and the Flavians: Second Bedriacum to the Second Temple (2026-10-30)
+
+Run as B46 (applied after B48, whose drafts were ready first); every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-461:rm-470` reads clean on seven cards; the rest carry `I.none` on `rm-468`, `W.not-why` (advisory, two cards) and `Q.sibling` on `rm-466` (43 per cent of a phrasing's content words shared with `rm-966`, only through the run of emperor names: advisory, kept). `check-cards` read "Hither Spain" in `rm-463`'s third phrasing as a scholar's name; it was reworded and re-applied. No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages and Platner–Ashby entries on Perseus, saved when read. **The old date lines carried another event ("Cremona founded 218 BCE"), counts ("Prefect of city 12 years", "Governed Moesia 7 years", "Clauses Eight, plus a sanction", "Shortfall declared 40,000 million sesterces", "Taken on the 15th day"), a citation as a date ("Histories Book 1, chapter 4"), a converted Macedonian day ("8 Gorpiaeus, September 70 CE") and a place and an age ("Died Cutiliae, aged 69").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-461` Second Battle of Bedriacum | 6 | 7 → 7 | **The 50,000 dead are Dio's figure for the battle and the sack together, not Tacitus's**; "end of October" (the Cambridge Ancient History), the sack ending 31 October (Henderson); the four days are Tacitus's; the ballista left to `rm-669`. |
+| `rm-462` Titus Flavius Sabinus | 6 | 7 → 6 | Tacitus's counts (35 years' service, Moesia seven, the city prefecture twelve) go to the prose; **killed 19 December 69 (Henderson; the Cambridge Ancient History implies the same day)**; no source prints 20 December. |
+| `rm-463` arcanum imperii | 6 | 8 → 6 | **"Written c. 105 – 110" had no source: the Loeb editor's 104 – 109 is one modern dating**; the idea is Tacitus's own interpretation; *Annals* 2.36 uses the phrase in another sense (Furneaux). The glossary's date was a citation. |
+| `rm-464` Revolt of the Batavi | 6 | 8 → 6 | **Tacitus is the one narrative, and Civilis as a new Sertorius or Hannibal is his framing**; "Autumn" and "Fell by famine" leave the line; Frontinus's 70,000 and the question's year go; Vetera's massacre, Veleda, the empire of the Gauls. |
+| `rm-465` Vespasian | 8 | 9 → 8 | **The old question carried a year and an unsourced "first emperor succeeded by his own son"**; the god-joke, the urine tax and the Alexandria healings are Suetonius's and Tacitus's; "pecunia non olet" is not Suetonius's phrase and is not used. The card's quote block gives 24 June from an older translation; the line follows the Loeb's 23 June. |
+| `rm-466` Lex de imperio Vespasiani | 6 | 6 → 6 | **No source says the tablet was dug up: Cola di Rienzo's own letter says Boniface VIII had hidden it as an altar**; matching it to the decree in Tacitus is the moderns'; the Senate's vote 69 CE (the people's law may be 70); to the Capitol 1576. |
+| `rm-467` fiscus | 6 | 9 → 8 | The old card was Vespasian's money-raising (Suetonius four times, Dio three); **it is now the institution: the basket, the aerarium beside it, Tacitus's "as if there was any difference", and two modern views**; Suetonius's 40,000 million is his (Budé proposed 4,000 million). |
+| `rm-468` adlectio | 5 | 7 → 8 | Names off the line and the year out of the question; **the censor-for-life year follows the CENS PER coins of 85, not the Loeb margin's 84**; two career inscriptions (ILS 1024, 1378). |
+| `rm-469` Siege of Jerusalem | 8 | 8 → 8 | **"8 Gorpiaeus, September 70 CE" was a conversion; the line is April – September 70 (Schürer, the Cambridge Ancient History)**; Josephus a captured rebel general on Titus's staff; Mary's infant his set piece; Dio's deserters; the 1,100,000 his figure. |
+| `rm-470` Second Temple | 8 | 8 → 9 | **Built 520 – 516 BCE in the Cambridge Ancient History (no open source prints 515); Herod's eighteenth year is Josephus's (his Jewish War says the fifteenth)**; 10 Lous is Josephus's day, not converted; Titus's order is Josephus against Sulpicius Severus. |
+
+**Read by eye.** *Confusability:* `rm-461`/`rm-462` the battle (the rising sun) and the brother (the Capitol); `rm-463`/`rm-464` the secret and the revolt; `rm-465`/`rm-466`/`rm-467`/`rm-468` the emperor (Alexandria), the law (Cola), the treasury (the basket) and the enrolment (the censors); `rm-469`/`rm-470` the siege (the wall of circumvallation) and the Temple (the brand through the window). *Legend:* Vespasian's healings, Mary's infant and the soldier's brand are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B49 — `rm-481`–`rm-490`, Civil war and the Flavians: Domitian to the Flavian dynasty (2026-10-30)
+
+Run as B47; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-481:rm-490` reads clean on four cards; the rest carry `I.none` (`rm-482`, `rm-489`), `S.chip?` on `rm-483` (an English BMCR review of a Latin-titled book: the known false positive), `L.missing` on `rm-485` (the site is unknown, as for `rm-366` Munda) and `W.not-why` (advisory, two cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read. `rm-490`'s third phrasing (Tacitus's career under the Flavians and his promise of impartiality) near-duplicated `rm-966`'s and was replaced by Suetonius's account of the family's origins at Reate before applying. **The old date lines carried another man's reign ("Under Domitian 81-96 CE" for the war), slashed years ("77/78-83/84", "83/84"), Tacitus's battle figures ("Britons over 30,000", "Roman dead 360"), a name and a century ("Architect Rabirius, 1st century CE"), a list of names, a count of years and another event ("Books burnt 93 CE" for damnatio memoriae).** The generic "Rome" locators on `rm-481`, `rm-482`, `rm-488` and `rm-490` mark nothing a card is about; `add-locators.js` adds and moves but does not remove, so they are noted here for a later pass.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-481` Domitian | 8 | 9 → 8 | **"Master and god" was stated as fact: it is now Suetonius's procurators' letter and Dio's pride in the titles, against a modern reviewer who calls the demand a slander**; every full account was written under his successors; the reassessment (Jones, Schulz, the undebased coinage) attributed. |
+| `rm-482` delator | 6 | 7 → 8 | "Worst years 93 – 96" is Tacitus's framing and goes; **no public prosecutor at Rome, the quarter of the estate as the reward (Annals 4.20), Tacitus's verdict (4.30)**; Afer, Marcellus and Regulus; Titus's and Nerva's punishments. |
+| `rm-483` Domitian's Dacian War | 6 | 6 → 8 | **The war's own years, 85 – 89 CE, and Tapae 88 CE (Soria Molina 2017) replace Domitian's reign**; Sabinus killed in 85 or 86 by one translator's reckoning; Jordanes's Dorpaneus not simply Decebalus; the peace a capitulation to Mommsen, a face-saver to a recent study. |
+| `rm-484` Agricola | 7 | 9 → 9 | **Governor 77 – 84 or 78 – 85, "evenly balanced" (Jarrett), two rows**; the Chester lead pipes of 79 naming him governor; the poison rumour Tacitus's, Dio's murder flat; Romanisation left to `rm-757` and `rm-782`. |
+| `rm-485` Battle of Mons Graupius | 7 | 8 → 8 | **83 CE (Breeze) or 84 CE (Burn, Woolliscroft); Tacitus's 10,000 British dead and 360 Romans are his figures, from the general's son-in-law**; Calgacus's speech is Tacitus's composition; the site unknown (Raedykes to Bennachie), so no locator. |
+| `rm-486` Inchtuthil | 6 | 5 → 8 | **In use c. 83 – 87 CE, demolished 86 or 87 CE from the coins of 86 (Jarrett)**; "about a million nails" and "the Twentieth Legion" had no open source: the nail study's "several hundred thousand" and no legion. |
+| `rm-487` Flavian Palace | 6 | 6 → 6 | **Begun c. 81 and completed c. 92 are modern dates (Martial, brick stamps)**; Martial tells Domitian to smile at the pyramids, not at "Rome"; Rabirius's praise is a court poet's; Statius's banquet hall. |
+| `rm-488` damnatio memoriae | 7 | 6 → 7 | **A modern Latin phrase, not the Romans'**; "Books burnt 93 CE" was another event and goes; the practice (erasures, recut portraits), Nero, Domitian in 96 (Suetonius, Pliny's Panegyric), Messalina, Geta; Flower and Varner through BMCR. |
+| `rm-489` Stephanus | 6 | 5 → 6 | The count leaves the line; **Dio's claim that Domitia and the prefects knew is Dio's tradition, Nerva's part a modern debate**; the misread "stood in amazement" (it is Domitian who is astonished) goes; Domitilla's exile as the motive. |
+| `rm-490` Flavian dynasty | 8 | 6 → 9 | **The label is the historians'; Suetonius says gens Flavia, and Tacitus's "new dynasty" is the Loeb translator's rendering of imperio**; the unsourced "first family from outside the old nobility" and a sentence Tacitus does not say go; Josephus's dynastic framing added. |
+
+**Read by eye.** *Confusability:* `rm-481`/`rm-482`/`rm-488`/`rm-489` the emperor (the flies), the informer (the quarter), the erasure (the ladders) and the assassin (the bandaged arm); `rm-483`/`rm-484`/`rm-485`/`rm-486` the war (Fuscus), the governor (the fleet round Britain), the battle (the figures) and the fortress (the nails); `rm-487`/`rm-490` the palace and the house. *Legend:* Calgacus's speech, the flies and "master and god" are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B50 — `rm-491`–`rm-500`, The high empire: the Nerva–Antonines to the alimenta (2026-10-30)
+
+Run as B49; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-491:rm-500` reads clean on four cards once `rm-499`'s glossary date ("under Trajan, 98 - 117 CE") was changed to match the card; the rest carry `S.chip?` (English BMCR reviews of German- and French-titled books: the known false positive, five cards) and `W.not-why` (advisory, three cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read. `rm-499`'s first date row ("Trajan reigned 98 – 117 CE", another man's reign standing in for a building span no open source prints) was cut by hand before applying; the card now opens on the forum's dedication. **The old cards were nearly all-ancient (`rm-491`'s eight, `rm-492`'s seven); their date lines carried a count ("Emperors 6, Nerva to Commodus"), measurements ("Height 29.77 m shaft, 38 m with pedestal", "Square 116 by 95 m") and Trajan's reign for a title ("Reigned 98-117 CE" on `rm-494`).** The generic "Rome" locators on `rm-491` – `rm-494` are noted for the same later pass as B49's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-491` Nerva–Antonine dynasty | 7 | 8 → 8 | **The name is the one now given ("Antonine" a family name only from Antoninus Pius on); the golden age is Dio's, Machiavelli's and Gibbon's verdict, with the Cambridge Ancient History's reply**; adoption as policy or necessity is a debate; the glossary's "first five successions by adoption" was wrong (there were four). |
+| `rm-492` Nerva | 7 | 7 → 8 | Born 8 November 30 CE (Longden; Livius says 30 November); **the death day is left off (25 January in Longden, "27 (?)" in Livius; no source gives 28)**; the praetorians' revolt and the adoption of Trajan; Tacitus's "sovereignty and freedom". |
+| `rm-493` Plotina | 6 | 7 → 8 | **"c. 123" had no source: died c. 122 in one modern account**; her entrance words are Dio's; the forged adoption is Dio's father's story, the Historia Augusta's rumour and Eutropius's, and the moderns are divided; the Epicurean letter at Athens (121 CE). Nemausus as her home has no source read. |
+| `rm-494` optimus princeps | 6 | 6 → 8 | **SPQR OPTIMO PRINCIPI coins already run 103 – 111; what begins in 114 is OPTIMVS inside his official name** (two OCRE records); first used c. 100 (Pliny's Panegyric); Eutropius's "better than Trajan". |
+| `rm-495` Trajan's Dacian Wars | 7 | 8 → 7 | The old lead question carried the campaign years; **Lydus's spoils (quoting Crito) are attributed, and the Cambridge Ancient History calls them "frankly impossible"**; the Historia Augusta's diamond story and "held 165 years" go; abandoned c. 271 (a BMCR review; Eutropius names Aurelian, no year). |
+| `rm-496` Decebalus | 7 | 7 → 8 | **"c. 87" had no source: king by 86 CE (Syme favours 86 for Fuscus's expedition)**; the head on the Gemonian stairs is the restored Fasti of Ostia, not Dio; Tiberius Claudius Maximus's gravestone (Grammeni, 1965) through an open 2021 edition. |
+| `rm-497` Trajan's Column | 8 | 7 → 8 | The height row goes; **Eutropius's 144 feet are his; "Parian" marble is older accounts' (two recent reviews say Luna)**; dedicated 113 CE from the inscription; the frieze as record or stock scenes; Saint Peter set 1588. A question too close to `rm-521` is replaced. |
+| `rm-498` Forum of Trajan | 8 | 6 → 9 | **"A ridge cut away" was false as fact (Platner–Ashby: the geology shows none), now "slopes cut back"**; dedicated January 112 from the Fasti Ostienses (the Cambridge Ancient History's reading); the temple's site debated; Ammianus's Constantius scene is his telling. |
+| `rm-499` Trajan's Market | 7 | 6 → 9 | **"Built c. 100 – 112" had no source and goes; the name is modern (an 1897 guide still called it the baths of Aemilius Paulus)**; Apollodorus a traditional attribution; the brick stamps against a Domitianic start; offices or shops, a debate; cleared 1926 – 1934. |
+| `rm-500` alimenta | 6 | 6 → 6 | **Nerva's plan 97 CE (the Cambridge Ancient History) or Trajan's start 99 CE (Barron), both attributed**; the Baebian tablet 101 CE, Veleia's 103 or 103 – 114 CE; the 5 per cent interest and the boys' and girls' rates; the purpose debated; ALIM ITAL. |
+
+**Read by eye.** *Confusability:* `rm-491`/`rm-492`/`rm-493`/`rm-494` the line (Dio's gold to iron), the founder (his oath), the empress (her entrance) and the title (Eutropius's acclamation; its alimentary-tablet clue kept off `rm-500`); `rm-495`/`rm-496` the wars (the mushroom, Lydus) and the king (Maximus's gravestone); `rm-497`/`rm-498`/`rm-499` the column (the hill cut away), the forum (Gellius's gilded horses) and the market (the museum); `rm-500` the scheme. *Legend:* Plotina's forged adoption and Constantius's awe are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### The fifth hundred, in sum
+
+`rm-401`–`rm-500` (the end of Augustus, the Julio-Claudians, the civil war of 69 and the Flavians, and the start of the high empire) are done: 732 sources became 751 and 87 glossary entries were rewritten. `rm-audit.js --range=rm-401:rm-500` reads 56 of 100 cards clean; the rest are 24 advisory `W.not-why`, 13 `S.chip?` false positives (English BMCR reviews of German, Italian, French and Latin titles), 13 cards with no picture (`I.none`), `rm-485`'s `L.missing` (the site is unknown) and `rm-466`'s advisory `Q.sibling`. Every picture is still the bulk-written one (Commons answered 429 at the session's one test call): the "Pictures to redo" table holds a verdict for each. The research agents were stopped once by a usage limit and resumed on their saved pages; B48 was applied before B47.
+
+What the fifth hundred found, again and again:
+- **An anecdote as history.** Livia's poisonings, the smothering of Tiberius, Caligula's horse as consul (never done), the mushroom, Messalina's wedding, Nero singing as Rome burned (no fiddle), Boudica's and Calgacus's speeches, Masada's suicide and Eleazar's speeches, Vespasian's healings and Plotina's forged adoption are each their author's now, with the author named.
+- **The narrators named for what they are.** Velleius a Tiberian partisan; Tacitus hostile, writing under Nerva and Trajan, and Agricola's son-in-law; Suetonius and Dio late and hostile to "bad" emperors; Josephus a captured rebel general on Titus's staff and a Flavian pensioner; Philo a hostile contemporary; Pliny the Younger an eyewitness writing 25 years on; Martial a court poet; the Apocolocyntosis a satire.
+- **A count, a place or another man's reign on the date line.** "Aged 75", "Reign 95 days", "Roman losses 3 legions", "Interval 110 years", "Burned 6 days, then again", "Regions hurt 10 of 14", "Roman dead 70,000, says Tacitus", "Height 29.77 m", "at Philippi", "to Pandateria", "Tiberius's reign 14 – 37 CE", "Claudius's reign 41 – 54 CE", "Under Domitian 81 – 96 CE" — all prose now, each figure its author's.
+- **A converted or invented day.** "8 Gorpiaeus, September 70 CE", "c. 18 BCE" for Arminius, "c. 38 CE" for Messalina's marriage, "Lived c. 14 – 97 CE", "c. 87" for Decebalus, "c. 123" for Plotina, the Teutoburg Forest's September (a modern reconstruction), the Great Fire's 19 July (the day Tacitus says some noted), the eruption's 24 August against 24 October.
+- **Wrong facts the old cards stated.** Augustus the first ruler made a god (Julius Caesar in 42 BCE), Piso "acquitted" of poisoning, the Aqua Claudia's 46,606 paces (46,406), Tacitus's "four emperors" as the year 69 (the whole Histories), the hostis list that was the emergency decree's, "Dio dates 17 BCE" (Dio gives consular years), the colossus's "37 m", the "ridge cut away" for Trajan's Forum, a Russian article on Chaerea's card that never names him, and a review on Caratacus's that never mentions him.
+- **The modern half.** The old cards were nearly all-ancient. The modern half is mostly the Cambridge Ancient History (vols. 10 and 11), Furneaux, Henderson, Platner–Ashby, Syme, Livius and BMCR reviews, with open recent work where it existed (Renne et al. 2026 and Dellino et al. on the eruption, Petrone and Giordano on Herculaneum, Pilli et al. 2024 on the Pompeii casts, Soria Molina 2017, Găzdac 2021, Lovenjak 2018).
+
+Overlap notes for the owner (nothing was edited): `wh-362` states Alföldy's reconstructed Colosseum inscription and the hundred days of games as plain fact; `wh-365`'s Pompeii colony phrasing is close to `rm-478`'s.
+
+### Locators (2026-10-30)
+
+None was added or moved this hundred: every place, site, building and battle in `rm-401`–`rm-500` already had one (Kalkriese, Camulodunum, Bedriacum, Cremona, Masada, Jerusalem, Pompeii, Herculaneum, Inchtuthil, the Colosseum, the Ara Pacis, the Mausoleum, Capreae among them), so `migrate-places.js` was not run. `rm-485` Mons Graupius and `rm-445` Rhandeia get none (the sites are unknown). For a later pass: `rm-403`'s point is the modern museum, not the ancient site under Palazzo Fiano; `rm-424`'s Gemonian Stairs and `rm-428`'s Circus Maximus belong to other stories; the generic "Rome" points on `rm-481`, `rm-482`, `rm-488` and `rm-490` – `rm-494` mark nothing the cards are about. Still without one: `rm-195`, `rm-263`, `rm-303`, `rm-324`, `rm-360`, `rm-366`.
+
+### B51 — `rm-501`–`rm-510`, The high empire: Trajan's East to Antinous (2026-10-30)
+
+Applied after B52, with the parallel curl over the drafts' 74 URLs in place of `batch.sh`'s check (no failure). Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-501:rm-510` reads clean on six cards; the rest carry `S.chip?` (Kouremenos's English BMCR review of a German-titled book, on `rm-503`, `rm-508` and `rm-510`: the known false positive) and `W.not-why` (advisory, two cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. **The old date lines carried places ("at Baiae", "Antinoöpolis"), another man's reign for a building ("Rebuilt under Hadrian, 117 – 138 CE" on the Pantheon; "Built c. 118 – 138 CE", Hadrian's death, on the Villa), the Islamic conquest for a province ("Roman rule ends 636 CE") and the Loeb translator's margin years read as Dio's (`rm-501`).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-501` Trajan's Parthian campaign | 6 | 6 → 7 | **The rows rested on Cary's margin dates; now begun 114 CE and Ctesiphon 116 CE (Parfyonov), the revolts 116 – 117 CE**; the India wish is Dio's, as epitomised; Assyria is Eutropius's, set against the coin naming only Armenia and Mesopotamia; Hadrian's withdrawal forced (Isaac) or chosen (Potter). |
+| `rm-502` Arabia Petraea | 6 | 6 → 8 | The 636 CE row goes; **annexed 106 CE with one line of Dio and one of Ammianus, the ARAB ADQ coin from OCRE, the Via Nova Traiana milestones 111 – 114 CE**; Bostra as capital is one modern account's. |
+| `rm-503` Hadrian | 8 | 8 → 8 | **Born at Rome (the Historia Augusta) or Italica (Dio's tradition)**, the day the Loeb editor's conversion; the Plotina letters Dio's father's story; three new questions (the travels, the beard and the poem to his soul, the archonship and "Greekling") off the siblings' clues. |
+| `rm-504` Parthamaspates | 5 | 6 → 6 | **"Expelled 117" and "Given a realm 117" had no source: crowned 116 CE only**; the realm Osroene (Magie, Livius) or Armenia (Rawlinson, who thought the coin evidence weak); the Historia Augusta's "Parthamasiris" flagged. |
+| `rm-505` Panhellenion | 5 | 6 → 7 | **"Games recorded c. 250 CE" had no source and goes; founded 131 – 132 CE from the Olympieion's year**; membership by proven descent attributed; the Cyrene letter hedged. |
+| `rm-506` Hadrian's Wall | 9 | 5 → 9 | **Begun c. 122 CE as the broadly accepted inference, with one study arguing earlier; the Historia Augusta's 80 miles replace an unattributed 117 km**; the 403 – 406 coins row had no source (now the withdrawal c. 407 – 411 CE, from a review of Breeze); RIB 1666 and 1935 name Platorius Nepos. |
+| `rm-507` Lambaesis | 5 | 5 → 6 | **Hadrian's review 1 July 128 CE from Henderson (Dessau's note says "about 129")**; the legion's arrival c. 125 CE and its disbandment and return 238 – 253 CE; "capital of Numidia" rested on an article that would not open and goes. |
+| `rm-508` Pantheon | 8 | 10 → 9 | **Rebuilt 118 – 125 CE (Livius) replaces Hadrian's reign; a late-Trajanic start is attributed**; Dio's guess at the name and the Historia Augusta's restorations are theirs; made a church 609 CE (the Liber Pontificalis names Boniface IV and Phocas); the dome a survey range. |
+| `rm-509` Hadrian's Villa | 7 | 7 → 7 | **Begun 118 CE (the brick stamps); 138 was Hadrian's death, not the building's end**; the unsourced 120 ha becomes a survey's 56 ha; the Historia Augusta's names attributed, today's labels traced to Pirro Ligorio. |
+| `rm-510` Antinous | 7 | 5 → 7 | **The city founded 30 October 130 CE is an emendation of the Chronicon Paschale**, the place off the line; the drowning as accident (Hadrian) or sacrifice (Dio's rumour); the lion-hunt poem on papyrus; a Balkan temple resting on an article that would not open goes. |
+
+**Read by eye.** *Confusability:* `rm-501`/`rm-504` the war (the India wish, Eutropius's three provinces) and the king (REX PARTHIS DATVS); `rm-502`/`rm-507` the province (the milestones) and the fortress (the address to the army); `rm-503`/`rm-505`/`rm-509`/`rm-510` the emperor (the travels), the league (descent), the villa (the Historia Augusta's names) and the favourite (the star); `rm-506`/`rm-508` the wall (Nepos) and the temple (Agrippa's name). *Legend:* Antinous's sacrifice and the forged adoption are their authors'. *Overlap:* `wh-368` keeps its own reading of Hadrian's Wall from the building inscriptions; no `gr-` or `wh-` card disagrees.
+
+### B52 — `rm-511`–`rm-520`, The high empire: Bar Kokhba to the Meditations (2026-10-30)
+
+Applied before B51 (its drafts came in first), with `batch.sh`'s built-in URL check switched off for the run and a parallel curl over the drafts' 68 URLs instead (one failure: the Science Advances DOI, which answers 403 and was read in Europe PMC). Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-511:rm-520` reads clean on eight cards; `rm-515` carries `S.chip?` (two English BMCR reviews of German-titled books: the known false positive) and `I.none`, `rm-518` `I.none`. `rm-518`'s `timeline` moved from 165 CE to 165 – 180 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. LacusCurtius did not answer this session: Dio, the Historia Augusta and Ammianus are cited from the archive.org scans of the Loeb volumes (Cary, Magie, Rolfe). **The old date lines carried a place ("near Altinum"), another card's event ("Triumph 166 CE" on Verus, "Syria Palaestina first attested 139 CE", "Bishop of Aelia named at Nicaea, 325 CE", "Faustina died 141 CE", "Marcus died March 180 CE") and a later outbreak as the plague's ("Dio's outbreak c. 189 CE").** `rm-512`'s book-quote block (Dio 69.12, the colony as the war's cause) repeats `rm-511`'s clue; quote blocks are not this audit's, so it is noted here.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-511` Bar Kokhba revolt | 7 | 7 → 8 | **The end is 135 or 136 CE, two rows**; Dio's 50 outposts, 985 villages and 580,000 dead are his, as epitomised, never summed; the Historia Augusta's circumcision ban flagged; Shimon bar Kosiba of the letters against the nickname; the causes clue kept here only. |
+| `rm-512` Aelia Capitolina | 6 | 7 → 6 | **Founded c. 130 CE from the ploughing coins found in rebel hoards, against Eusebius's colony after the revolt**; the Nicaea row and the Dio clue go; the temple of Jupiter on the Temple Mount hedged as disputed. |
+| `rm-513` Antoninus Pius | 7 | 6 → 7 | **Dio's books on the reign are lost (his abridger says so): the story is the Historia Augusta's and the coins'**; the three explanations of "Pius" attributed; the wall, the temple and the column left to their cards. |
+| `rm-514` Antonine Wall | 7 | 7 → 9 | **Begun c. 142 CE from the Historia Augusta's one line and RIB 2139; given up c. 158 – 164 CE, three modern views**; 60 km a modern measurement; the unsourced "7,000 men" goes. |
+| `rm-515` Avidius Cassius | 6 | 6 → 6 | **Faustina's part is Dio's rumour, doubted by the moderns; the Historia Augusta's letters are fictions**; "three months and six days" and the legion counts attributed; Seleucia left to `rm-517`. |
+| `rm-516` Lucius Verus | 6 | 7 → 6 | **The place and the war's triumph leave the line; born 15 December 130 CE (Livius)**; the Antioch luxuries, the apoplexy and the poison rumours are the Historia Augusta's; Fronto's letters as the contemporary voice. |
+| `rm-517` Roman–Parthian War of 161–166 | 5 | 7 → 7 | **The line now rests on modern work, with Livius's 164 CE for Ctesiphon in prose**; the Antioch clue goes to `rm-516`; Priscus at Artaxata and Sohaemus's crowning; Lucian's mocked historians. |
+| `rm-518` Antonine Plague | 6 | 8 → 6 | **The death toll is a range with whose each figure is (Gilliam 1 – 2 %, Harper 8 – 10 %, Scheidel about 25 %)**; the Seleucia shrine is Ammianus's and the Historia Augusta's story; smallpox a modern identification; Dio's outbreak of c. 189 CE off the line. |
+| `rm-519` Marcomannic Wars | 6 | 10 → 6 | **The name is modern (bellum Germanicum); Italy invaded 170 CE as the usual date, 169 CE the other**; the renewal of 177 CE from the coins; the rain miracle and Carnuntum left to `rm-521` and `rm-520`; the Historia Augusta's provinces its own claim. |
+| `rm-520` Meditations | 8 | 6 → 8 | **"At Carnuntum 171 – 173 CE" is a modern inference for Book 3, labelled**; the book headings are one manuscript's; the Suda a 10th-century encyclopaedia; the title credited to Arethas, no source putting it in the manuscripts. |
+
+**Read by eye.** *Confusability:* `rm-511`/`rm-512` the revolt (Dio's causes, Severus from Britain) and the colony (the ploughing coin, Justin's ban); `rm-513`/`rm-514` the emperor (the lost books) and the wall (the distance slabs); `rm-515`/`rm-516`/`rm-517` the usurper (the false report), the co-emperor (Antioch) and the war (Elegeia, Artaxata); `rm-518` the plague (Galen); `rm-519`/`rm-520` the war (the frozen Danube, Trenčín) and the book (Rusticus, the Suda). *Legend:* the opened shrine at Seleucia and Faustina's letter are their authors'. *Overlap:* `wh-368` shares no clue with `rm-506`'s neighbours here; no `gr-` or `wh-` card disagrees.
+
+### B53 — `rm-521`–`rm-530`, The high empire: the Column of Marcus Aurelius to the emperor's council (2026-10-30)
+
+Applied after B54, as B52. Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-521:rm-530` reads clean on five cards; the rest carry `S.chip?` (English BMCR reviews of German-titled books, `rm-529` and `rm-530`: the known false positive), `I.duplicate` on `rm-529` (the current picture's generic file key), `I.none` on `rm-524` and `W.not-why` (advisory, two cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. **The old date lines carried another man's reign for a gladiator type ("Commodus rules 180 – 192 CE" and the 193 anecdote on `rm-523`) and for two institutions ("Under Hadrian 117 – 138 CE" on `rm-529` and `rm-530`), a count ("Janus shut 3 times"), a name ("Callistratus c. 200 CE"), a place ("Lanuvium") and a name on an execution.** `rm-525` shares one citation with `wh-359` (Drake 2017, the one open source found for the conventional span), against the plan's note that the pair share none.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-521` Column of Marcus Aurelius | 7 | 5 → 8 | **The rain miracle is Dio's Egyptian magician (as epitomised) and the Christians' Thundering Legion, with the legion's name older than the story**; raised c. 176 CE (Lanciani), standing by 193 CE (the Adrastus letters); war memorial or tomb monument, a debate. |
+| `rm-522` Commodus | 8 | 6 → 9 | **Dio an eyewitness senator, read in Xiphilinus's abridgement**; Lanuvium and the twin are the Historia Augusta's; Hercules Romanus from a coin of 192; the arena one sentence; Lucilla's plot without a year (181 or 182). |
+| `rm-523` secutor | 6 | 6 → 7 | **The card is now the gladiator type (the Tomis stone, the reliefs, the Pompeii graffiti, Suetonius on Caligula's net-fighters), not Commodus's reign; the line is empty**; Commodus one sentence from Dio. |
+| `rm-524` Marcia | 5 | 9 → 6 | **Herodian's tablet list, Dio's poisoned beef and Hippolytus's Sardinian martyrs are each their author's**; the Historia Augusta dropped; Narcissus not the lead clue. |
+| `rm-525` Pax Romana | 8 | 11 → 9 | **The name is modern historians', the span 27 BCE – 180 CE a convention; Augustus spoke of a pax Augusta, and Pliny's and Seneca's "Roman peace" meant the reach of Rome**; Aristides 143 CE (or 144); Janus, the Ara Pacis and a summed death toll leave. |
+| `rm-526` Herodes Atticus | 6 | 8 → 6 | **Marathon off the line; the Sirmium hearing c. 174 CE, with 171 CE in prose; died c. 179 CE, no source giving 177**; Philostratus named as the partisan main witness; Regilla's death told as her brother's charge. |
+| `rm-527` Timgad | 6 | 5 → 7 | **The founding rests on the inscription (EDH HD031135)**; "Trajan's arch" is Cagnat's name; the World Heritage row and unsourced figures go; Procopius on the Moors' razing. |
+| `rm-528` imperial cult | 7 | 9 → 9 | **"Imperial cult" is a modern catch-all, and the line between divus and living emperor a modern, debated one**; 29 BCE from a modern source, not Cary's margin; the Narbo stone a later copy; Pliny's letter and Dio's "Rome and Italy" left to other cards. |
+| `rm-529` honestiores | 6 | 8 → 8 | **No law created the divide; the line is the jurists' c. 200 CE**; the Sentences of Paul a later compilation; the reign and the jurist's name leave the line. |
+| `rm-530` consilium principis | 6 | 7 → 8 | **The Historia Augusta was in four sources, now one; the line is empty (no source read prints the Banasa date)**; Juvenal's turbot council is satire; the Banasa seals as the council a reading of many scholars. |
+
+**Read by eye.** *Confusability:* `rm-521`/`rm-519` the column (the rain god) and the war; `rm-522`/`rm-523`/`rm-524` the emperor (Commodiana), the gladiator type (the low crest) and the concubine (the tablet); `rm-525`/`rm-528` the peace (Pliny's plants) and the cult (Smyrna); `rm-526` the benefactor (the stadium); `rm-527` the colony (Munatius Gallus); `rm-529`/`rm-530` the legal class (beating with rods) and the council (the turbot). *Legend:* the rain miracle, Herodian's tablet and Calgacus's speech are their authors'. *Overlap:* `rm-525` and `wh-359` share Drake 2017; no `gr-` or `wh-` card disagrees.
+
+### B54 — `rm-531`–`rm-540`, The high empire to the Severans: the procurator to Lugdunum (2026-10-30)
+
+Run as B52. `batch.sh` stopped at `rm-533`'s glossary entry (a source no marker pointed at; a marker was added) and the verification then showed `rm-534` – `rm-540` unapplied, so `apply.js` was re-run for `rm-533` – `rm-540`; after that every draft matched its card. Checks: `rm-audit.js --range=rm-531:rm-540` reads clean on eight cards; `rm-531` carries `I.duplicate` (the current picture's generic file key) and `rm-533` `S.chip?` (an English BMCR review of a German-titled book). `rm-536`'s `timeline` moved from 193 – May 194 CE to 193 – 197 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` was re-run on the re-applied cards. **The old date lines carried another man's reign or a name ("Knights at court Hadrian, 117 – 138 CE", "First known Nerva or Trajan, 96 – 117 CE"), a later event ("Eastern war won c. May 194 CE") and a battle's day read as Dio's (it is the Historia Augusta's).** `rm-532`'s Nicaea locator marks Pliny's province, not the office; `add-locators.js` cannot remove it.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-531` procurator | 7 | 6 → 7 | **"Salaries fixed 27 BCE" is the Loeb editor's margin, not Dio's (he says "at this time"), and the line says so in prose; the Historia Augusta's Hadrianic court change attributed**; Pilate a prefect on the Caesarea stone and a procurator in Tacitus; the salary grades are Greenidge's scale. |
+| `rm-532` curator rei publicae | 5 | 5 → 5 | **No open source prints a first year: the line is empty, "Nerva or Trajan" in prose**; Pliny's province is not the office; the 4th-century change into a town magistracy. |
+| `rm-533` Dio Chrysostom | 6 | 7 → 9 | **Born c. 40 CE is Cohoon's estimate, the exile from 82 CE an inference from Flavius Sabinus's execution**; Trajan's chariot is Philostratus's, improbable in the Loeb editor's view; doubts about Dio's own account of his conversion. |
+| `rm-534` Monte Testaccio | 6 | 5 → 7 | **The dated labels 140 – 251 CE (Platner–Ashby) and 140 – 255 CE (Lanciani), both attributed**; no height or jar count without a source; the Historia Augusta's oil claim flagged; one Spanish source, not two. |
+| `rm-535` Forma Urbis Romae | 6 | 6 → 6 | The unsourced "a million people" goes; **only the first fragments were found in 1562**; the Flavian predecessor a modern debate; questions without dates, counts or Severus. |
+| `rm-536` Year of the Five Emperors | 7 | 7 → 7 | **The label is modern, after 69; Albinus counts only by convention (Caesar on his coins until 195, Augustus in 196)**; the auction told as Dio's with Bingham's reading; the civil wars to 197 CE. |
+| `rm-537` Pertinax | 6 | 6 → 8 | **Dio's 87 days set against the Historia Augusta's two months and 25 days**; the freedman father and the name's origin are the Historia Augusta's; born 1 August 126 CE (Livius). |
+| `rm-538` Didius Julianus | 6 | 5 → 7 | **The auction's figures are Dio's, with Herodian's version beside them**; born 133 CE (Dio) against the Historia Augusta's 137 CE; killed 1 or 2 June after Dio's 66 days. |
+| `rm-539` Septimius Severus | 7 | 7 → 8 | **Eboracum off the line and out of the questions; the unsourced 195 CE for the self-adoption goes**; the "pay rise" is not in Herodian (he speaks of rations) and is left out; Dio's hundred thousand captives at Ctesiphon attributed. |
+| `rm-540` Battle of Lugdunum | 6 | 7 → 6 | **Dio prints no day: 19 February is the Historia Augusta's, 197 CE the modern year**; Dio's 150,000 a side against Platnauer's 50,000; Herodian's fall from the horse and Laetus's cavalry; Albinus's end told both ways. |
+
+**Read by eye.** *Confusability:* `rm-531`/`rm-532` the agent (the salary titles) and the city overseer (the logistes); `rm-533`/`rm-534`/`rm-535` the orator (the chariot), the hill (the painted labels) and the plan (the clamp holes); `rm-536`/`rm-537`/`rm-538`/`rm-539`/`rm-540` the label (Issus), the 87 days, the auction, the African senator (Ctesiphon) and the battle (the pits). *Legend:* the auction and Albinus's end are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B55 — `rm-541`–`rm-550`, The Severans and the third-century crisis: Legio II Parthica to the crisis (2026-10-30)
+
+Run as B54, with no stop. Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-541:rm-550` reads clean on nine cards; `rm-548` carries `S.chip?` (an English BMCR review of a German-titled commentary). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's two failures are the MDPI and Wiley DOIs on `rm-546`, which answer 403 to a script and were read in Europe PMC. **The old date lines carried other people's deaths for an empress ("Geta killed 212 CE", "Caracalla killed 217 CE" on `rm-542`), a son's reign for a mother ("Son's reign 222 – 235 CE"), Severus's death and Constantine's acclamation on a fortress, another man's defeat ("Macrinus beaten 8 June 218 CE"), Ulpian's citation for an edict and the translator's note for a legion's year ("Gates shut 212 CE").** `rm-549`'s glossary entry rested on a Spanish article that no longer opens and was rewritten from the card's own sources.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-541` Legio II Parthica | 5 | 8 → 6 | **"Gates shut 212 CE" came from Magie's note; the gates story is the Historia Augusta's, flagged**; at Apamea 217 – 218 CE (Livius); the fortress at Albano from Formato 2016. |
+| `rm-542` Julia Domna | 7 | 8 → 8 | **Her own dates replace two men's deaths**; Geta killed in her arms is Dio's and Herodian's, kept out of the questions; the "circle" a debated construction (Bowersock, through Silva); the Historia Augusta's horoscope goes. |
+| `rm-543` Eboracum | 6 | 7 → 6 | **The line is the fortress's (founded c. 71, rebuilt 197, the court 208 – 211, a colonia by 237 CE)**; Lunaris's Bordeaux altar and the Serapis temple replace Severus's death as clues; the York acclamation 306 (RCHME) or 305 (VCH), in notes. |
+| `rm-544` Caracalla | 8 | 7 → 9 | **Born 4 April 188 CE from Dio's figures (Platnauer), Livius 186 CE; Geta's murder December 211 (Livius) or 212 (the Loeb editor)**; the cloak nickname leads; the 280 million sesterces and the antoninianus go. |
+| `rm-545` Antonine Constitution | 6 | 5 → 6 | **c. 212 CE, with later years to 215 argued; Dio's tax motive in his hostile voice**; the dediticii reading of the Giessen papyrus uncertain; the Aurelii a modern dating tool; the papyrus's width had no source. |
+| `rm-546` Baths of Caracalla | 7 | 6 → 8 | **Begun c. 211 – 212 CE from Geta's brick stamps; dedicated 216 CE from Jerome as read by Platner–Ashby; the baths stopped when the aqueducts were cut in 537 (the Soprintendenza)**; the 35 m dome, 1,600 bathers and 1546 had no source. |
+| `rm-547` Elagabalus | 7 | 7 → 7 | **The banquet is the Historia Augusta's, and its flowers are violets: the roses are Alma-Tadema's of 1888**; killed 11 or 12 March 222 CE; the Vestal marriage Dio's. |
+| `rm-548` Severus Alexander | 7 | 7 → 7 | **The model prince is largely the Historia Augusta's invention; Herodian's failed three-pronged invasion against the Latin victory**; died probably near Mogontiacum; Dio on the renaming and Ulpian. |
+| `rm-549` Julia Mamaea | 6 | 7 → 7 | **Her titles 224 and 226 CE replace her son's reign**; the Historia Augusta's claims and an unreachable Spanish source go; Herodian on her avarice and the exiled daughter-in-law, Eusebius on Origen. |
+| `rm-550` Crisis of the Third Century | 7 | 7 → 8 | **The label is modern and 235 – 284 CE a convention; the Plague of Cyprian c. 251 – 266 CE attributed (also c. 249 – 270)**; no count of emperors without a source; death tolls go. |
+
+**Read by eye.** *Confusability:* `rm-542`/`rm-549` the two Syrian empresses (Philostratus's commission, Origen); `rm-544`/`rm-545`/`rm-546` the emperor (the cloak), the grant (the Giessen papyrus) and the baths (Geta's bricks); `rm-541`/`rm-543` the legion (the Alban camp) and the fortress (Lunaris); `rm-547`/`rm-548` the cousins (the black stone, the herald's rule); `rm-550` the age (Eutropius's empire in three). *Legend:* Geta in his mother's arms, the violets and the model prince are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B56 — `rm-551`–`rm-560`, The Severans and the third-century crisis: Maximinus Thrax to Postumus (2026-10-30)
+
+Run as B55. Every draft compared with its card after `batch.sh`: no mismatch. `check-cards` refused `rm-552`'s second phrasing for "Naqsh-e Rustam" (it reads a hyphenated capitalised name as a scholar); it now says "a Persian rock relief near Persepolis", and the card was re-applied. Checks: `rm-audit.js --range=rm-551:rm-560` reads clean on six cards; the rest carry `S.chip?` (English BMCR reviews of German-titled books, four cards). `rm-558`'s `timeline` moved from 272 – 273 CE to 274 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched except `rm-559` and `rm-560`, whose one "mismatch" is the spacing of the initials "Yu. V." against Crossref's "Yu.V." Kulikova. The URL check's one failure is an MDPI DOI on `rm-557`, read in Europe PMC. **The old date lines carried places ("before Aquileia", "near Verona", "at Cologne", "at Mainz"), another man's reign ("Decius reigned 249 – 251 CE"), a later war under a modern label ("Byzantine war 622 – 628 CE"), another man's capture on Shapur's card and a figure and a name ("Below 5% silver Gallienus, 260 – 268 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-551` Maximinus Thrax | 7 | 8 → 7 | **"First soldier-emperor" goes; the Historia Augusta's giant (the thumb-ring, credited to its invented "Cordus") is flagged, with an editor's verdict that it copies Herodian and invents**; Herodian has him killed outside the tent, not in it. |
+| `rm-552` Philip the Arab | 7 | 6 → 7 | **Gordian's death disputed: Shapur's inscription claims Misiche, the Roman writers blame Philip**; the invented "50 million sesterces" becomes the inscription's 500,000 denarii; the games of 248 on Varro's era; the Christian emperor Eusebius's story. |
+| `rm-553` Sasanian Empire | 7 | 6 → 7 | **Ardashir's Achaemenid claim is Dio's and Herodian's, with the modern debate (a Roman projection or a cultivated link)**; ruled 224 – 651 CE, Ctesiphon taken 226 CE (Livius); the Heraclian war off the line. |
+| `rm-554` Shapur I | 6 | 5 → 7 | **Reigned c. 241 – 272 CE (Sprengling 241 – 271 in prose); Valerian's capture only as the inscription's claim, the footstool Lactantius's**; the Shushtar dam (Rawlinson) goes; the Sprengling link pointed at the wrong book and is fixed. |
+| `rm-555` Valerian | 7 | 8 → 9 | **Captured 260 CE, also dated 259; no birth year (c. 200 is an estimate)**; the persecution from Cyprian's own letter; Shapur's "own hands" and 70,000 his inscription's, Zosimus's parley beside them; the footstool and the flayed skin Lactantius's polemic. |
+| `rm-556` Battle of Abritus | 6 | 7 → 7 | **"First emperor killed by barbarians" was cited to a study that does not say it and goes**; the date and the battlefield disputed; Victor's manuscript reading *Bruti fraude*; the treasury theory. |
+| `rm-557` antoninianus | 6 | 5 → 6 | **The name is modern, from the Historia Augusta's gold "Antoniniani" (no warrant beyond those letters, says Magie); the two-denarius value an inference from the radiate crown**; introduced c. 214 – 215 CE; the Gallienus row goes. |
+| `rm-558` Aurelian's coinage reform | 5 | 7 → 6 | **The reform 274 CE (Livius), after Tetricus's defeat in Zosimus; the old 272 – 273 CE goes**; the XXI and KA readings a debate; the 7,000 dead of the mint revolt the Historia Augusta's, "greatly exaggerated" (Magie). |
+| `rm-559` Gallic Empire | 7 | 7 → 8 | **The name is later custom's: its rulers styled themselves Roman emperors; ended 273 or 274 CE, whose each year is said**; the Augsburg altar (Ubi Erat Lupa 6338); Tetricus's betrayal Eutropius's and Victor's. |
+| `rm-560` Postumus | 6 | 8 → 8 | **The places leave the line; the Cologne killing Zosimus's, the Mainz mutiny Victor's and Eutropius's; "governor of Lower Germany" a modern guess**; his coins from OCRE. |
+
+**Read by eye.** *Confusability:* `rm-551`/`rm-552` the shepherd (Herodian's Thrace) and the Arab (the Easter vigil); `rm-553`/`rm-554`/`rm-555` the empire (Dio's warning), the king (the inscription's Misiche) and the captive (Cyprian's rescript); `rm-556` the battle (the marsh); `rm-557`/`rm-558` the coin (its invented name) and the reform (XXI); `rm-559`/`rm-560` the state (the Augsburg altar) and the man (Cologne, Mainz). *Legend:* Maximinus's thumb, Philip at the vigil and Valerian as footstool are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B57 — `rm-561`–`rm-570`, The third-century crisis to Diocletian: the Palmyrene Empire to the diocese (2026-10-30)
+
+Run as B56. Every draft compared with its card after `batch.sh`: no mismatch. `check-cards` read `rm-561`'s two English ZPE articles (Swain, Potter) as German for the journal's title; the pair is added to `SAME_LANGUAGE_OK` with its reason. `rm-564`'s first phrasing gave the answer away ("begun under Aurelian") and was reworded before applying. Checks: `rm-audit.js --range=rm-561:rm-570` reads clean on three cards; the rest carry `S.chip?` (the ZPE articles and English BMCR reviews of German-titled books, five cards), `I.duplicate` on `rm-563` (the current picture's generic file key) and `W.not-why` (advisory). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Rows from `rm-566` go in "Late Antiquity". **The old date lines carried a man's name for a state ("Odaenathus c. 260 – 267"), another card's event ("Walls begun 271 CE" on Aurelian), places ("near Byzantium", "at Sirmium", "near Nicomedia"), a reign standing for a tax and centuries ("Manuscript 7th century", "Notitia early 5th century").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-561` Palmyrene Empire | 7 | 8 → 9 | **The name is modern (German *Teilreich*); Odaenathus's "corrector" title a debate (Swain against Potter); Egypt taken 270 or 269**; Vaballathus's coins from OCRE; two claims resting on an unreachable host go. |
+| `rm-562` Zenobia | 8 | 7 → 8 | **Cleopatra's descent, the golden chains and Tibur are the Historia Augusta's; the death on the road west Zosimus's; the triumph itself uncertain**; the camel and Longinus's death Zosimus's; Odaenathus killed 267 or 268. |
+| `rm-563` Aurelian | 7 | 6 → 9 | **Every Historia Augusta-only claim goes; "god and lord" rests on one Serdica coin (RIC V 305), with only three known**; the 25 December link one sentence, much doubted; Caenophrurium (Eutropius, Lactantius) against Zosimus's Perinthus. |
+| `rm-564` Aurelian Walls | 7 | 7 → 7 | **Begun 271 CE as Richmond reads the sources; 19 km a modern measurement; 16 large gates, not 18**; the 401 – 403 restoration from the gate inscriptions; the heightening Honorius's, not Maxentius's. |
+| `rm-565` Probus | 6 | 5 → 7 | **The marsh-draining cause is Victor's alone (Eutropius has the iron tower); 60 or 70 recovered cities and the "Carus tradition" had no source**; born 232 CE (Livius); proclaimed in Illyricum or the East. |
+| `rm-566` Diocletian | 8 | 6 → 9 | **Died c. 311 – 313 CE (Livius prints both); the glossary's "313 or 316" corrected**; the boar story rests on the Historia Augusta alone and goes; the cabbages in prose only (`rm-576` asks it); Diocles from the Epitome. |
+| `rm-567` Tetrarchy | 7 | 7 → 8 | **The name is modern; 1 March 293 from the panegyric's Kalends, 21 May argued for Galerius**; Lactantius a hostile polemicist; the porphyry groups "from Constantinople" (no source for the Philadelphion read). |
+| `rm-568` Dominate | 6 | 8 → 7 | **The label's history attributed (Sardinha; Mommsen as Bury reports him), continuity (Kolb) against a break (Bury)**; the Milan panegyric of 291 CE, its year from a review; adoration Eutropius's "first". |
+| `rm-569` Laterculus Veronensis | 5 | 6 → 6 | **Contents c. 314 CE and copied c. 600 – 700 CE (Smorczewski), with Mommsen's 297, Keyes's 304 – 314, Jones's 312 – 320 and Bury's split dates**; the unchecked 109 provinces go (96 Mommsen's, 94 Ohnesorge's); the roll of peoples added. |
+| `rm-570` Roman diocese | 6 | 8 → 6 | **The Notitia's list c. 395 – 407 CE replaces "early 5th century"**; Lactantius's deputies of the prefects against a permanent diocese only under Constantine, before 19 July 325; the Verona List one mention. |
+
+**Read by eye.** *Confusability:* `rm-561`/`rm-562` the realm (Vaballathus Augustus) and the queen (the camel); `rm-563`/`rm-564`/`rm-565` the emperor (the forged list), the walls (Honorius's gates) and his successor (the vines); `rm-566`/`rm-567`/`rm-568` the man (Aper), the college (the porphyry groups) and the ceremonial (adoration); `rm-569`/`rm-570` the list (the Numidias) and the unit (the vicarius). *Legend:* Zenobia's chains and descent, Aurelian's god-and-lord and Diocletian's boar are their authors'. *Overlap:* `wh-371` gives Diocletian's death as 313 – 316 CE against this card's c. 311 – 313 CE; nothing else disagrees.
+
+### B58 — `rm-571`–`rm-580`, Diocletian and Constantine: capitatio-iugatio to the Edict of Milan (2026-10-30)
+
+Run as B57. Every draft compared with its card after `batch.sh`: no mismatch. Before applying, `rm-571`'s claim that the joined name is modern (no source says so) became "some modern scholars preferred to write of capitatio and iugatio as two words"; `rm-572`'s unattributed "more than forty copies" became "dozens"; `rm-575`'s third phrasing and `rm-580`'s third (which shared `rm-581`'s marriage at Milan) were reworded. One research agent ran `add-glossary.js --dry-run` (the script has no such flag) and wrote the Carnuntum entry into the repo; it restored the two lines, and `git diff` against main shows no change to that entry. Checks: `rm-audit.js --range=rm-571:rm-580` reads clean on nine cards; `rm-571` carries `I.none`. `rm-576`'s `timeline` moved from October – November to November 308 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. **The old date lines carried a reign for a tax ("Diocletian 284 – 305 CE"), a place ("at York"), Eusebius's story as a record ("Made 312 CE" for the labarum) and days no open source prints ("c. February 313", "13 June 313", "October 308"); one old card was the plan's "abdication of Diocletian" line under Galerius's name.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-571` capitatio-iugatio | 5 | 5 → 5 | **The reign leaves the line: the edict of Aristius Optatus, 16 March 297 CE, and the indiction epoch 312 CE**; one tax or two, a debate (Savigny and Seeck against Piganiol and Bury, Jones's "much controversy"); the annona questions go to `rm-686`. |
+| `rm-572` Edict on Maximum Prices | 7 | 5 → 7 | **20 November – 9 December 301 CE is Lafaurie's reading of the titles (via Bernier 2025), with Crawford's order of the reforms beside it**; "over 1,400 entries" Crawford's, the wages Kropff's translation; the "six times" ratio, worked from a dollar table, goes. |
+| `rm-573` Diocletianic Persecution | 7 | 7 → 9 | **Lactantius's blame of Galerius set against Diocletian's own conservatism (Shin); no death toll, the Christian accounts overplaying the scale**; Maximinus Daia to 313; the Terminalia and Eusebius's western two years. |
+| `rm-574` Galerius | 6 | 6 → 7 | **Rebuilt as his life: Caesar 293 (1 March or 21 May), Callinicum and the Armenian victory, the arch, the edict and his death**; Lactantius's hatred named; the herdsman and Lake Pelso claims, on sources not re-read, go. |
+| `rm-575` Diocletian's Palace | 7 | 7 → 7 | **No open source prints construction years: the line is the retirement and the World Heritage row**; Porphyrogenitus from the Moravcsik–Jenkins text; the cabbages one attributed mention. |
+| `rm-576` Conference of Carnuntum | 5 | 10 → 7 | **"October" goes; the cabbages too (the Epitome names no place)**; Maximian's refused plea is Zosimus's, Lactantius's murder plot his; the Mithras altar ILS 659, which Dessau's note ties to 307 against Hekster's and Livius's 308. |
+| `rm-577` Constantine the Great | 9 | 6 → 11 | **Born c. 273 CE, the year uncertain; the York and sole-ruler rows go**; Eusebius names no bishop at the baptism (Eusebius of Nicomedia is later tradition); the Crispus and Fausta story is hostile Zosimus's; the vision one sentence. |
+| `rm-578` Battle of the Milvian Bridge | 7 | 7 → 8 | **The old card summed Zosimus's figures; now his own (90,000 foot and 8,000 horse against 170,000 and 18,000)**; Lactantius's dream against Eusebius's sky-cross; the bridge's collapse told three ways. |
+| `rm-579` labarum | 6 | 7 → 6 | **"Made 312 CE" was Eusebius's story: the line is the coin of 327 CE (OCRE) and his description, 337 – 340 CE**; the word comes from a chapter heading an editor added; its origin uncertain, not "Celtic". |
+| `rm-580` Edict of Milan | 8 | 6 → 8 | **Neither an edict nor issued at Milan (Kahlos's review), the debate shown; Lactantius gives "the ides of June", unconverted, so June 313 CE**; the 16th-century-translation origin of the name rested on an unreachable article and goes. |
+
+**Read by eye.** *Confusability:* `rm-571`/`rm-572` the tax (Optatus's edict) and the prices (the labourer's 25 denarii); `rm-573`/`rm-574` the persecution (the Terminalia) and the persecutor (the run beside the chariot); `rm-575`/`rm-576` the palace (Salona's refugees) and the conference (the Mithras altar); `rm-577`/`rm-578`/`rm-579`/`rm-580` the emperor (the portrait at York), the battle (the games), the standard (fifty bearers) and the letter (Nicomedia). *Legend:* Constantine's vision, Galerius's illness and Fausta's bath are their authors'. *Overlap:* `wh-372` gives Constantine's birth as c. 271 – 273 CE; nothing disagrees outright.
+
+### B59 — `rm-581`–`rm-590`, Diocletian and Constantine: Licinius to the magister officiorum (2026-10-30)
+
+Run as B58. Every draft compared with its card after `batch.sh`: no mismatch. Before applying, `rm-585`'s third phrasing (it carried "Arian") and `rm-588`'s first date row ("c. 320 – 330 CE", a range made from "the 320s") were changed by hand; after applying, `check-cards` read "Gothic Christians" in `rm-585`'s second phrasing as a scholar, and the card was reworded and re-applied. Checks: `rm-audit.js --range=rm-581:rm-590` reports `I.none` on all ten (none of these cards has a picture) and `W.not-why` (advisory, one card). `rm-582`'s `timeline` stays at 18 September 324 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The De Imperatoribus Romanis site answered 502 or was refused all session; its pages were replaced. **The old date lines carried another battle ("Adrianople 3 July 324 CE" on Chrysopolis), a later edict that is another card's (`Cunctos populos` on Arianism), a Justinianic law two centuries on ("African law 13 April 534 CE", "Justinian's law 531 – 534 CE") and a writer's own tenure for an office ("Cassiodorus c. 526 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-581` Licinius | 6 | 7 → 8 | **The war of Cibalae and Mardia 314 or 316; Lactantius's angel-dictated prayer and his 30,000 against 70,000 are his**; the persecution Eusebius's, hostile; the unsourced synod ban goes; the death told three ways. |
+| `rm-582` Battle of Chrysopolis | 6 | 6 → 8 | **Adrianople off the line; the day is the Consularia's "XIIII kal. Oct." as Livius reads it**; every army and loss figure is Zosimus's or the Origo's. |
+| `rm-583` First Council of Nicaea | 8 | 8 → 9 | **The bishops counted by each witness, none chosen (Eusebius over 250, Athanasius about 300, Socrates 318)**; 20 May from Socrates, 19 June for the creed in the acts of Chalcedon; Sozomen's 320, the burned petitions and the low stool go. |
+| `rm-584` Nicene Creed | 8 | 8 → 10 | **"Nicene Creed" today means the longer text, credited to Constantinople 381 only from Chalcedon in 451**; the curses and homoousios; the five who refused; the filioque one sentence. |
+| `rm-585` Arianism | 7 | 8 → 8 | **The name is its enemies' (Athanasius's "Ario-maniacs"; Löhr, Webb), the record polemical (Gwynn)**; the dispute c. 318 – 321 CE; Jerome's groaning world attributed; `Cunctos populos` left to `rm-605`. |
+| `rm-586` Constantinople | 8 | 8 → 9 | **No dates in the questions; "New Rome" from Socrates (the 381 canon not read); no population without a source**; consecrated 8 November 324 CE (Livius), the yearly procession of 11 May (Berger); the senate first of *clari*, then Constantius's. |
+| `rm-587` solidus | 7 | 8 → 8 | **"The rest of the empire's history" was wrong: debased in the 11th century, put on a new standard in 1092 (Grierson)**; about 4.5 g (Grierson, Schibille); the Trier row an issue, not the coin's first year. |
+| `rm-588` magister militum | 6 | 8 → 7 | **The office is "probably of the 320s" in prose, not a range on the line**; the eastern Notitia c. 395 or c. 450 CE; Silvanus left to `rm-590`; Arbogast and Stilicho as later holders. |
+| `rm-589` comitatenses | 6 | 7 → 6 | **Named in the law of 17 June 325 CE, posted at Antioch; the law of 534 and Procopius go**; the unsourced 25,000 men for Galerius's field force go; Zosimus a pagan who blamed Constantine. |
+| `rm-590` magister officiorum | 6 | 7 → 6 | **The first law 320 or 321 CE (the edition's 320/1, Boak's 321); the arsenals 396 CE replace Cassiodorus's tenure**; Lydus one historian's reading of a partisan source. |
+
+**Read by eye.** *Confusability:* `rm-581`/`rm-582` the emperor (New Dacia, the angel's prayer) and his last battle (Alica's Goths); `rm-583`/`rm-584`/`rm-585` the council (Easter, the counts), the creed (homoousios) and the movement (its name); `rm-586`/`rm-587` the city (New Rome) and the coin (the zygostates); `rm-588`/`rm-589`/`rm-590` the general (Zosimus's split command), the field army (the palatini) and the palace master (the agentes in rebus). *Legend:* Lactantius's angel and Constantine's golden chair are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B60 — `rm-591`–`rm-600`, Diocletian and Constantine to the Christian empire: the colonate to Valentinian I (2026-10-30)
+
+Run as B59. Every draft compared with its card after `batch.sh`: no mismatch. `rm-599`'s first phrasing named Julian beside an answer that carries his name and was changed to "the emperor" before applying. Checks: `rm-audit.js --range=rm-591:rm-600` reports `I.none` on all ten (none has a picture), `S.chip?` on `rm-599` (an English BMCR review of a German-titled book) and `W.not-why` (advisory, three cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. `rm-593`'s first row, "Apse rebuilt after 337 CE", is a terminus, not a date: no open source read gives a founding year (c. 319 – 322 is argued), and a later pass with one should add a "Begun" row. **The old date lines carried a reign standing for a policy ("Restoration 361 – 363 CE"), the battle on its arch ("Victory 312 CE"), a Justinianic law, an unconverted Roman day ("30 October 332"), another man's reign (Valens's rows) and the wrong day for a proclamation (26 February for 25).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-591` colonate | 6 | 6 → 6 | **The name is the historians', traced to 19th-century German scholarship; Carrié's "myth?" set against Sirks's legal status**; "30 October" goes (the Code's day, unconverted) and the Justinian row with it. |
+| `rm-592` Lateran Basilica | 7 | 7 → 7 | **The synod's day is Optatus's, its year the Liber Pontificalis translator's note (Optatus's and Augustine's consuls disagree)**; the razed guards' fort the archaeologists'; the gifts and the baptism story the late Liber Pontificalis's; Borromini's 1650. |
+| `rm-593` Old St Peter's Basilica | 7 | 7 → 9 | **"Begun after 324 CE" rested on a review that would not open; the founding is debated (the arch inscription, Gem's apse after 337, Westall's Constantius II)**; Gaius's trophies Eusebius's quotation. |
+| `rm-594` Arch of Constantine | 8 | 8 → 8 | **The battle leaves the line: dedicated 315 CE, with 316 in prose**; "instinctu divinitatis" and the re-cut heads attributed and debated; the older-arch theories given as rejected; the bronze-letter clue left to `rm-986`. |
+| `rm-595` Constantine II | 6 | 7 → 6 | **Born c. 316 CE (Livius) or days before 1 March 317 at Arles (Zosimus); his mother Fausta in Livius, "another woman" in Zosimus**; Eutropius's rash battle against Zosimus's ambush; the massacre of 337 left to `rm-596`. |
+| `rm-596` Constantius II | 7 | 8 → 9 | **The massacre told by Ammianus, Julian and Eutropius ("sanctioned rather than commanded")**; "stopped every major invasion" becomes Eutropius's admission he never beat Shapur in battle; "Arian" the Nicene party's label; the death's day disputed, the year alone on the line. |
+| `rm-597` Julian the Apostate | 7 | 7 → 8 | **"Apostate" is the Christians' word, from Gregory's invectives; "You have won, Galilean" Theodoret's legend**; Ammianus an admiring former officer, his 13,000 men his; the sign from Zeus Julian's own claim. |
+| `rm-598` School Edict | 6 | 7 → 7 | **The reign leaves the line: the law of 17 June 362 CE (CTh 13.3.5)**; Ammianus's two verdicts; Victorinus from Augustine, Prohaeresius from Eunapius and the Apollinarii from Sozomen, as the Loeb editor reports. |
+| `rm-599` Julian's Persian expedition | 6 | 8 → 8 | **"Killed by an enemy spear" was one version: Ammianus's spear from no one knows whence, the Persians' rumour of a Roman weapon, Libanius's Christian**; the armies Zosimus's and Ammianus's; twelve ships kept (Ammianus) or 22 (Zosimus). |
+| `rm-600` Valentinian I | 7 | 7 → 8 | **Proclaimed 25 February 364 CE, not 26 (Woods, Livius)**; Valens's rows go; the Rhine forts, the bears Goldflake and Innocence, his neutrality in religion; the stroke before the Quadi envoys. |
+
+**Read by eye.** *Confusability:* `rm-591` the tenants (Constantine's chains); `rm-592`/`rm-593`/`rm-594` the cathedral (the guards' fort), the basilica (Gaius's trophies) and the arch (the re-cut heads); `rm-595`/`rm-596` the brothers (Aquileia, the stiff neck); `rm-597`/`rm-598`/`rm-599` the emperor (Lutetia), the law (Matthew and Luke) and the campaign (the burned fleet); `rm-600` the bears. *Legend:* "You have won, Galilean", the deathbed spear's thrower and the bears' release are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### The sixth hundred, in sum
+
+`rm-501`–`rm-600` (the high empire from Trajan's East, the Severans, the third-century crisis, Diocletian and Constantine, and the opening of the Christian empire to Valentinian I) are done: 687 sources became 740 and 67 glossary entries were rewritten. `rm-audit.js --range=rm-501:rm-600` reads 54 of 100 cards clean; the rest are 24 cards with no picture (`I.none`, mostly the Constantinian cards, which never had one), 18 `S.chip?` false positives (English BMCR reviews of German-titled books, and two English ZPE articles), 9 advisory `W.not-why` and 3 `I.duplicate` (the current pictures share a generic file key). Commons answered 429 at the session's one test call, so every picture is still the bulk-written one and "Pictures to redo" holds a verdict for each. LacusCurtius, the De Imperatoribus Romanis site, OpenEdition and Persée did not answer all session: Dio, the Historia Augusta, Ammianus, Julian and Herodian are read in the archive.org Loeb scans. Batches were applied in the order their drafts finished (B52, B51, B54, B53, then B55 – B60).
+
+What the sixth hundred found, again and again:
+- **The narrators named for what they are.** Dio a senator and from Commodus an eyewitness, but read in Xiphilinus's abridgement (his books on Antoninus Pius are lost, and the abridger says so); Herodian contemporary and rhetorical; the Historia Augusta late and partly invented (Maximinus's thumb credited to its own "Cordus", Severus Alexander's model prince, Avidius Cassius's forged letters, Elagabalus's flowers — violets, the roses being Alma-Tadema's); Lactantius a hostile polemicist on the persecutors; Eusebius Constantine's panegyrist; Zosimus a pagan hostile to Constantine; Ammianus an admiring officer.
+- **A modern label as ancient fact.** Pax Romana, the Year of the Five Emperors, the Crisis of the Third Century, the Gallic and Palmyrene Empires, the Tetrarchy, the Dominate, the Marcomannic Wars, the antoninianus, the colonate, capitatio-iugatio, Arianism and the Edict of Milan (neither an edict nor issued at Milan) are each said to be modern, or their opponents', with whose they are.
+- **A translator's margin or note read as the author's.** Cary's margin years for Trajan's war and the procurators' salaries, Magie's note for the legion's "gates shut 212", the Historia Augusta's day for Lugdunum given as Dio's, the Loeb editor's conversion of Hadrian's birthday.
+- **Another man's reign or event on the line.** Hadrian's reign for the Pantheon and the Villa, Commodus's for the secutor, Diocletian's for a tax, a son's reign for Julia Mamaea, two men's deaths for Julia Domna, Severus's death and Constantine's acclamation on Eboracum, the battle on the Arch of Constantine.
+- **A figure no source gives, or two authors' figures summed.** The Antonine Plague's deaths (now Gilliam's, Harper's and Scheidel's estimates), Zosimus's armies at the Milvian Bridge summed, "50 million sesterces" for Philip's peace (the inscription says 500,000 denarii), "more than forty" copies of the Price Edict, Hadrian's Wall's unattributed 117 km, "over a million" Romans on the Marble Plan, "60 or 70" cities for Probus.
+- **Wrong facts the old cards stated.** The solidus's standard "for the rest of the empire's history" (debased in the 11th century), Julian "killed by an enemy spear" (one of three versions), Valentinian proclaimed on 26 February (25), Decius "the first emperor killed by barbarians" (cited to a study that does not say it), Herodian's Maximinus killed inside his tent (outside it).
+- **The modern half.** The modern half is mostly BMCR reviews, Livius, the Judaism and Rome project's commentaries, OCRE coin records, the Loeb introductions, Platnauer, Bury, Jones and Grierson, with open recent work where it existed (Vukadinović and Tošović 2023, Zonneveld et al. 2024, Karasaridis and Chalupa 2025, Smorczewski 2021, Kosiński 2024).
+
+Overlap notes for the owner (nothing was edited): `wh-371` gives Diocletian's death as 313 – 316 CE against `rm-566`'s c. 311 – 313 CE; `wh-372` gives Constantine's birth as c. 271 – 273 CE against `rm-577`'s c. 273 CE; `rm-525` shares Drake 2017 with `wh-359`.
+
+### Locators (2026-10-30, the sixth hundred)
+
+None was added or moved: every place, building and battle in `rm-501`–`rm-600` already had a locator (Ctesiphon, Bostra, Housesteads, Lambaesis, the Pantheon, Hadrian's Villa, Betar, Rough Castle, Timgad, Monte Testaccio, Lugdunum, Eboracum, Abritus, Split, Carnuntum, the Milvian Bridge, Chrysopolis, Nicaea, Constantinople, the Lateran, the Vatican and the Arch of Constantine among them), so `migrate-places.js` was not run. For a later pass: the generic "Rome" points on `rm-513`, `rm-523`, `rm-525`, `rm-535` (the Templum Pacis wall would be right) and `rm-539`; `rm-546`'s and `rm-564`'s labels (the points are right, the label "Rome"; Porta San Sebastiano for the walls); `rm-532`'s Nicaea (an office, not a place); `rm-556`'s Abritus (the battlefield is disputed); `rm-574`'s Nicomedia, `rm-596`'s Antioch and `rm-600`'s Naissus (generic for the men).

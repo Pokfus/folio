@@ -342,7 +342,7 @@
         return at;
       };
       const droppedNames = [];
-      const nm0 = gameCapFirst(dot ? dot.n : targets.length ? targets[0].n : "");
+      const nm0 = gameCapFirst(dot ? dot.n : isMembers && host.getAttribute("data-map-name") ? host.getAttribute("data-map-name") : targets.length ? targets[0].n : "");   // a seatless members window: its group's name (app.js cardLocatorWindowHTML)
       // ---- the marks ----
       let sibAt = [], anchorAt = null;
       if (sibCard && !isWar) {
@@ -865,5 +865,178 @@
     }
     run(rootEl);
   }
-  W.AtlasWindows = { startCardWindow, findIt, warFrontCards: () => [...WAR_FRONT_CARDS], timelineSteps, startStep, stepText };
+  /* ---------- HOW FAR? (2026-10-30, on request: "the user is shown an atlas window where a line is straightly drawn between 2 random locations … the user must guess how far the distance is … within a 10% margin they win") ----------
+     Five rounds a day, the same five for every reader (seeded on `todayStr`, as every daily game is). A round is two places joined by the SHORTEST line over the earth's surface — the great circle,
+     which is what "a straight line" between two points on a globe is — and the reader types a distance; a guess within 10 % of the true distance wins the round, one guess a round.
+     THE PLACES ARE THE GAZETTEER'S CAPITALS AND LARGEST CITIES, not random coordinates: a random point is open ocean seven times in ten and has no name to ask about. The pool is the
+     capitals of Natural Earth rank 3 or better and the cities of rank 1 or better (`HF_CAP_RANK`, `HF_CITY_RANK`), about two hundred names.
+     THE FIVE ROUNDS CLIMB THROUGH FIVE DISTANCE BANDS (`HF_BANDS`), so a day is never five intercontinental hops or five neighbours. The distance is the haversine on a sphere of 6,371 km (the mean
+     radius), which is within about half a per cent of the ellipsoid's — far inside the 10 % margin. A reader on imperial units guesses in miles; the margin is a ratio, so the unit changes nothing. */
+  const HF_ROUNDS = 5, HF_MARGIN = 0.1, HF_KM_PER_MI = 1.609344, HF_CAP_RANK = 3, HF_CITY_RANK = 1;
+  const HF_BANDS = [[300, 1500], [1500, 3500], [3500, 6000], [6000, 9000], [9000, 12500]];
+  const hfHav = (lon1, lat1, lon2, lat2) => { const DEG = Math.PI / 180, dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG; const a = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLo / 2) * Math.sin(dLo / 2); return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(a))); };
+  const HF_COUNTRY = { "United States of America": "United States", "United Republic of Tanzania": "Tanzania", "Republic of Serbia": "Serbia" };   // the gazetteer's formal names, as a question says them
+  function hfPool() {
+    const G = window.ATLAS_GAZETTEER; if (!G || !G.rows || !G.cols) return [];
+    const c = (k) => G.cols.indexOf(k), I = { id: c("id"), name: c("name"), kind: c("kind"), rank: c("rank"), within: c("within"), at: c("at") };
+    const countryOf = (r) => { let w = r[I.within]; for (let k = 0; w && k < 3; k++) { const p = G.rows[w - 1]; if (!p) return ""; if (p[I.kind] === "country") return p[I.name]; w = p[I.within]; } return ""; };   // `within` is the container's row index + 1 (0 = none): a city's admin-1 unit or its country
+    const out = [], names = new Set();
+    for (const r of G.rows) {
+      const kind = r[I.kind], rank = r[I.rank], at = r[I.at];
+      if (!((kind === "capital" && rank <= HF_CAP_RANK) || (kind === "city" && rank <= HF_CITY_RANK))) continue;
+      if (!Array.isArray(at) || !isFinite(at[0]) || !isFinite(at[1]) || names.has(r[I.name])) continue;
+      names.add(r[I.name]);
+      const country = HF_COUNTRY[countryOf(r)] || countryOf(r);
+      out.push({ n: r[I.name], country: country && country.indexOf(r[I.name]) !== 0 ? country : "", lon: at[0], lat: at[1] });   // no "(Singapore)" after Singapore, no "(Hong Kong S.A.R.)" after Hong Kong
+    }
+    return out;
+  }
+  function hfRounds(X) {
+    const pool = hfPool(), rng = X.mulberry32(X.hashStr("howfar-" + X.todayStr())), used = new Set(), rounds = [];
+    for (const [lo, hi] of HF_BANDS) {
+      for (let t = 0; t < 60; t++) {
+        const a = pool[Math.floor(rng() * pool.length)]; if (!a || used.has(a.n)) continue;
+        const cands = pool.filter((b) => b !== a && !used.has(b.n) && (() => { const d = hfHav(a.lon, a.lat, b.lon, b.lat); return d >= lo && d <= hi; })());
+        if (!cands.length) continue;
+        const b = cands[Math.floor(rng() * cands.length)];
+        used.add(a.n); used.add(b.n);
+        rounds.push({ a, b, km: hfHav(a.lon, a.lat, b.lon, b.lat) });
+        break;
+      }
+    }
+    return rounds;
+  }
+  /* the points of the great circle from a to b, `n` steps (a slerp of the two unit vectors) */
+  function hfArc(a, b, n) {
+    const D = Math.PI / 180, v = (p) => [Math.cos(p.lat * D) * Math.cos(p.lon * D), Math.cos(p.lat * D) * Math.sin(p.lon * D), Math.sin(p.lat * D)];
+    const p = v(a), q = v(b), om = Math.acos(Math.max(-1, Math.min(1, p[0] * q[0] + p[1] * q[1] + p[2] * q[2]))), s = Math.sin(om) || 1, out = [];
+    for (let i = 0; i <= n; i++) { const t = i / n, ka = Math.sin((1 - t) * om) / s, kb = Math.sin(t * om) / s, x = ka * p[0] + kb * q[0], y = ka * p[1] + kb * q[1], z = ka * p[2] + kb * q[2]; out.push([Math.atan2(y, x) / D, Math.atan2(z, Math.hypot(x, y)) / D]); }
+    return { pts: out, om };
+  }
+  function howFar(rootEl, X) {
+    const { ensureData, esc, markGamePlayed, prefersReducedMotion, route, save, sfx, checkAchievements } = X;
+    const imperial = !!(X.unitSystem && X.unitSystem() === "imperial"), unit = imperial ? "mi" : "km", unitWord = imperial ? "miles" : "kilometres";
+    const fmt = (km) => Math.round(imperial ? km / HF_KM_PER_MI : km).toLocaleString("en-US") + " " + unit;
+    const root = rootEl;
+    root.innerHTML = `
+      <div class="findit2 howfar" id="howfar">
+        <canvas class="fi2-board" id="hfBoard" tabindex="0" role="application" aria-label="Interactive globe — drag to turn it, scroll or pinch to zoom, arrow keys turn it, plus and minus zoom. A line joins the two places of this round."></canvas>
+        <div class="fi2-zoom" role="group" aria-label="Zoom"><button type="button" class="mc-btn" data-hf="in" aria-label="Zoom in" title="Zoom in">+</button><button type="button" class="mc-btn" data-hf="out" aria-label="Zoom out" title="Zoom out">&minus;</button><button type="button" class="mc-btn" data-hf="home" aria-label="Back to the line" title="Back to the line">&#8962;</button></div>
+        <div class="map-game hf-game" id="hfGame" hidden>
+          <div class="mg-card">
+            <div class="mg-head"><span class="mg-round" id="hfRound"></span><span class="mg-score" id="hfScore"></span></div>
+            <div class="mg-q" id="hfQ"></div>
+            <form class="hf-form" id="hfForm" novalidate>
+              <label class="hf-field"><input class="hf-input" id="hfIn" type="number" inputmode="numeric" min="1" step="any" autocomplete="off" aria-label="Your guess, in ${unitWord}" placeholder="Your guess"><span class="hf-unit" aria-hidden="true">${unit}</span></label>
+              <button class="btn mg-confirm" id="hfGo" type="submit">Guess</button>
+            </form>
+            <div class="mg-feedback" id="hfFb" role="status" aria-live="polite" hidden></div>
+            <div class="mg-acts"><button class="btn mg-next" id="hfNext" type="button" hidden></button></div>
+          </div>
+        </div>
+        <div class="data-loading fi2-loading" id="hfLoading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five distances</strong></div>
+      </div>`;
+    const $ = (s) => root.querySelector(s);
+    const board = $("#hfBoard"), gameEl = $("#hfGame"), roundEl = $("#hfRound"), scoreEl = $("#hfScore"), qEl = $("#hfQ"), formEl = $("#hfForm"), inEl = $("#hfIn"), fbEl = $("#hfFb"), nextEl = $("#hfNext"), loadEl = $("#hfLoading");
+    let rounds = [], ri = 0, results = [], answered = false, over = false, win = null, disposed = false, arc = null, flyId = 0;
+    const fail = () => { if (!root.isConnected) return; root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>How far? could not be set up</strong><span class="dl-note">The map did not load. Check your connection and try again.</span><button class="btn" type="button" id="hfRetry">Reload</button></div>'; const b = root.querySelector("#hfRetry"); if (b) b.addEventListener("click", () => location.reload()); };
+    Promise.all([ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2gaz")]).then((ok) => {
+      if (!root.isConnected) return;
+      if (!ok.every(Boolean) || !window.AtlasEmbed) { fail(); return; }
+      rounds = hfRounds(X);
+      if (rounds.length < HF_ROUNDS) { fail(); return; }
+      root._howfarApi = { rounds: () => rounds.map((r) => ({ a: r.a.n, b: r.b.n, km: r.km })), round: () => ri, win: () => win };   // read by the suite
+      return window.AtlasEmbed.ensure({ host: {} }).then((hub) => {
+        if (!root.isConnected) return; if (!hub) { fail(); return; }
+        loadEl.hidden = true;
+        win = window.AtlasEmbed.view(board, { zmin: 0.6, zmax: 400, spec: () => ({ layers: { borders: true, provinces: false, peoples: "off" }, highlights: [] }), draw: (st, api, ctx) => overlay(api, ctx), minDrag: 6 });
+        for (const t of ["pointerdown", "wheel", "keydown"]) board.addEventListener(t, () => { flyId++; }, { passive: true });
+        root.querySelectorAll("[data-hf]").forEach((b) => b.addEventListener("click", () => { const w = b.getAttribute("data-hf"); if (w === "home") frame(true); else win.zoomBy(w === "in" ? 1.45 : 1 / 1.45); }));
+        formEl.addEventListener("submit", (e) => { e.preventDefault(); commit(); });
+        nextEl.addEventListener("click", () => { if (over) { route("home"); return; } ri++; if (ri >= rounds.length) end(); else showRound(); });
+        const held = (X.gameProgress && X.gameProgress("howfar")) || [];   // A ROUND ANSWERED STAYS ANSWERED: a run left half way resumes where it stopped
+        results = held.slice(0, rounds.length); ri = results.length;
+        gameEl.hidden = false;
+        if (ri >= rounds.length) end(); else showRound();
+      });
+    }).catch(() => { if (!disposed) fail(); });
+    new MutationObserver(() => { if (!root.isConnected) { disposed = true; if (win) win.stop(); } }).observe(document.body, { childList: true, subtree: true });
+    const won = () => results.filter(Boolean).length;
+    /* the view that shows the whole line in the board's FREE area, above the card: zoomed so each end sits at 0.36 of that area's short side from the line's midpoint (the globe's radius is
+       0.46 × the board's short side × zoom, and an end lies radius × sin(half the arc) from the midpoint), and the centre moved south so the midpoint stands in the middle of the free area */
+    function fitOf() {
+      const mid = arc.pts[Math.floor(arc.pts.length / 2)], half = Math.max(0.005, Math.sin(arc.om / 2));
+      const bw = board.clientWidth || 800, bh = board.clientHeight || 600, card = gameEl.hidden ? 0 : gameEl.getBoundingClientRect().height + 14, freeH = Math.max(120, bh - card - 14);
+      const zoom = Math.min(80, Math.max(0.6, 0.36 * Math.min(bw, freeH) / (0.46 * Math.min(bw, bh) * half)));
+      const offPx = (bh - freeH) / 2, degPx = 180 / Math.PI / (0.46 * Math.min(bw, bh) * zoom);
+      return { lon: mid[0], lat: Math.max(-85, Math.min(85, mid[1] - offPx * degPx)), zoom };
+    }
+    function frame(animate) {
+      const r = rounds[ri]; if (!r || !win) return; const f = fitOf();
+      if (!animate || prefersReducedMotion()) { win.setView(f.lon, f.lat, f.zoom); return; }
+      const my = ++flyId, s = win.st, from = { lon: s.lon, lat: s.lat, zoom: s.zoom }; let dl = f.lon - from.lon; if (dl > 180) dl -= 360; else if (dl < -180) dl += 360;
+      const t0 = performance.now(), D = 700; const step = (t) => { if (disposed || my !== flyId) return; const k = Math.min(1, (t - t0) / D), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; win.setView(from.lon + dl * e, from.lat + (f.lat - from.lat) * e, from.zoom * Math.pow(f.zoom / from.zoom, e), { fast: k < 1 }); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step);
+    }
+    function overlay(api, ctx) {
+      const r = rounds[ri]; if (!r || !arc) return;
+      ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
+      const pv = (getComputedStyle(document.body).getPropertyValue("--paper").trim() || "#ffffff").replace("#", ""), pn = parseInt(pv.length === 3 ? pv.replace(/./g, "$&$&") : pv.slice(0, 6), 16);
+      const dark = isFinite(pn) && (((pn >> 16) & 255) * 0.299 + ((pn >> 8) & 255) * 0.587 + (pn & 255) * 0.114) < 128;   // the theme's paper, as the card windows read it
+      const ink = answered ? (results[ri] ? (dark ? "#7fd39a" : "#2a8a4e") : (dark ? "#ec9e97" : "#b22a20")) : (dark ? "#ec9e97" : "#b22a20"), halo = dark ? "rgba(16,14,10,0.9)" : "rgba(255,255,255,0.92)", text = dark ? "#f4efe4" : "#1d160a";
+      const segs = []; let cur = null;
+      for (const q of arc.pts) { const p = api.project(q[0], q[1]); if (!p || p[2] < 0) { cur = null; continue; } if (!cur) { cur = []; segs.push(cur); } cur.push(p); }
+      const path = () => { ctx.beginPath(); for (const s of segs) s.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); };
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      path(); ctx.strokeStyle = halo; ctx.lineWidth = 6; ctx.stroke();
+      path(); ctx.strokeStyle = ink; ctx.lineWidth = 2.6; ctx.stroke();
+      const label = (txt, x, y, side, bold) => {
+        ctx.font = (bold ? "700 " : "600 ") + "13px system-ui, sans-serif"; ctx.textBaseline = "middle";
+        const w = ctx.measureText(txt).width, right = side === "auto" ? x + 12 + w < api.cw - 8 : side === "right";
+        const tx = right ? x + 11 : x - 11; ctx.textAlign = right ? "left" : "right";
+        ctx.lineWidth = 3.2; ctx.strokeStyle = halo; ctx.strokeText(txt, tx, y); ctx.fillStyle = text; ctx.fillText(txt, tx, y);
+      };
+      const ends = [r.a, r.b].map((e) => ({ e, p: api.project(e.lon, e.lat) }));
+      ends.forEach(({ e, p }, i) => {
+        if (!p || p[2] < 0) return;
+        ctx.beginPath(); ctx.arc(p[0], p[1], 6, 0, Math.PI * 2); ctx.fillStyle = ink; ctx.fill(); ctx.lineWidth = 2.6; ctx.strokeStyle = halo; ctx.stroke();
+        const o = ends[1 - i].p, side = o && o[2] >= 0 ? (p[0] >= o[0] ? "right" : "left") : "auto";   // each name on the side away from the other end, so the two never meet over the line
+        label(e.n, p[0], p[1], side, false);
+      });
+      if (answered) { const m = arc.pts[Math.floor(arc.pts.length / 2)], p = api.project(m[0], m[1]); if (p && p[2] >= 0) { ctx.textAlign = "center"; ctx.font = "700 14px system-ui, sans-serif"; ctx.textBaseline = "bottom"; const t = fmt(r.km); ctx.lineWidth = 3.4; ctx.strokeStyle = halo; ctx.strokeText(t, p[0], p[1] - 8); ctx.fillStyle = text; ctx.fillText(t, p[0], p[1] - 8); } }
+      ctx.restore();
+    }
+    const placeHTML = (e) => "<b>" + esc(e.n) + "</b>" + (e.country ? ' <span class="hf-country">(' + esc(e.country) + ")</span>" : "");
+    function showRound() {
+      const r = rounds[ri]; answered = false; arc = hfArc(r.a, r.b, Math.max(24, Math.ceil(r.km / 120)));
+      roundEl.textContent = "Round " + (ri + 1) + " / " + rounds.length; scoreEl.textContent = won() + " won";
+      qEl.innerHTML = "How far is it from " + placeHTML(r.a) + " to " + placeHTML(r.b) + " in a straight line?";
+      formEl.hidden = false; inEl.value = ""; inEl.disabled = false; fbEl.hidden = true; nextEl.hidden = true;
+      frame(ri > 0 || results.length > 0); win.schedule();
+      if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) inEl.focus({ preventScroll: true });   // never on a touch screen: the keyboard would cover the map
+    }
+    function commit() {
+      const r = rounds[ri]; if (!r || answered || over) return;
+      const g = parseFloat(String(inEl.value).replace(/,/g, ""));
+      if (!isFinite(g) || g <= 0) { fbEl.textContent = "Type a distance in " + unitWord + " first."; fbEl.hidden = false; inEl.focus(); return; }
+      const gKm = imperial ? g * HF_KM_PER_MI : g, off = (gKm - r.km) / r.km, ok = Math.abs(off) <= HF_MARGIN;
+      answered = true; results[ri] = ok; inEl.disabled = true; formEl.hidden = true;
+      if (X.setGameProgress) X.setGameProgress("howfar", results.slice(0, ri + 1));
+      sfx(ok ? "good" : "bad");
+      const raw = Math.abs(off) * 100, pct = raw < 20 ? Math.round(raw * 10) / 10 : Math.round(raw);   // a tenth near the edge, so 9.5 % never reads as the "10%" it beat
+      fbEl.innerHTML = "It is <b>" + esc(fmt(r.km)) + "</b>. You guessed <b class='hf-guess " + (ok ? "ok" : "no") + "'>" + esc(fmt(gKm)) + "</b> — " + (pct === 0 || fmt(gKm) === fmt(r.km) ? "spot on" : pct + "% " + (off > 0 ? "over" : "under")) + ". " + (ok ? "Within 10% — round won!" : "Outside 10% — round lost.");
+      fbEl.hidden = false; scoreEl.textContent = won() + " won";
+      nextEl.textContent = ri + 1 >= rounds.length ? "See your score" : "Next round"; nextEl.hidden = false; nextEl.focus({ preventScroll: true });
+      frame(true); win.schedule();
+    }
+    function end() {
+      over = true; arc = null; const n = rounds.length, s = won(), perfect = n >= HF_ROUNDS && s >= n;
+      markGamePlayed("howfar", perfect, s, n); if (X.setGameProgress) X.setGameProgress("howfar", null); save(); checkAchievements();
+      roundEl.textContent = "Done!"; scoreEl.textContent = "";
+      qEl.innerHTML = "<b>" + s + " / " + n + "</b> within 10%" + (perfect ? " — perfect!" : ".");
+      formEl.hidden = true; fbEl.textContent = "Come back tomorrow for five new distances."; fbEl.hidden = false;
+      nextEl.textContent = "Back to Home"; nextEl.hidden = false;
+      if (win) { win.setView(15, 20, 1); win.schedule(); }
+    }
+  }
+  W.AtlasWindows = { startCardWindow, findIt, howFar, warFrontCards: () => [...WAR_FRONT_CARDS], timelineSteps, startStep, stepText };
 })(window);
