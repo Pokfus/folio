@@ -12015,6 +12015,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-five colours placed (Oct 2026, adding the Anglo-Saxon
+     Chronicle): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from every light theme's
+     ink and 4.5:1 on every light paper, card and second paper. A dark wine was placed first and then
+     withdrawn when the branch met main: Strabo, shelved the same day, had taken #7B002A, 4.4 from it.
+     Re-measured against all fifty-five, the band's best is this steel blue at 15.8, from Machiavelli,
+     above the shelf's own tightest pair (Snorri and Polybius, 15.6), at 5.08:1 on the tightest light
+     paper. The Euripides test costs it one point: it sits 16 from the Song of Roland, a medieval
+     neighbour, but 70 from BEDE — the book a reader genuinely sets beside the Chronicle, its source
+     for the early centuries — 43 from Beowulf, 84 from the Poetic Edda and 31 from Snorri. The only
+     candidates clear of every medieval book by 25 are magentas at 15.4 and 4.5–4.8:1, tighter than
+     the shelf's own minimum and on the contrast bar, so they were refused. */
+  "anglo-saxon-chronicle": "#0C4E8D",
   /* Measured the same way inside the shelf's own lightness and chroma band: this dark slate-navy is
      the best-separated colour left anywhere in it, 19.8 from the Song of Roland and 20.1 from
      Ptahhotep (68.5 from Plutarch's violet, placed the same day), above the shelf's tightest pair
@@ -15494,6 +15506,39 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
         { n: 3, label: "After Alexander", note: "Books 18–20" },
       ],
+    },
+    {
+      id: "anglo-saxon-chronicle",
+      title: "The Anglo-Saxon Chronicle",
+      /* Annals kept by many anonymous hands, so the colour row keys on the id — see song-of-roland. */
+      author: "Anonymous",
+      /* Begun in Alfred's reign around 890, the last entry written at Peterborough in 1154. `year` is
+         the start, the single number the shelf's date sort needs; the span is in `written`. */
+      written: "c. 890–1154",
+      year: 890,
+      translator: "J. A. Giles",
+      edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
+      /* A LIMIT ON NOTHING. The annals are eight to eleven centuries old; Giles published the
+         translation in 1847 and died in 1884, so it clears the pre-1929 rule and life plus a
+         hundred alike. The 1914 reissue's editor signs only "E. B." and cannot be traced, but
+         nothing of that editor's is taken — the preface is left behind — and the edition was
+         published before 1929. See .claude/fetch-book.js for the editions measured and why this one. */
+      rights:
+        "Public domain. The annals were begun in the reign of Alfred the Great, around 890, and the " +
+        "last of them was written at Peterborough in 1154. J. A. Giles's translation was first " +
+        "published in London in 1847, and he died in 1884, so the English is out of copyright under " +
+        "the rule for works published before 1929, under the translator's life plus seventy years and " +
+        "under life plus a hundred. The text is that of the 1914 reissue, whose editor signs the " +
+        "preface only \"E. B.\"; that preface is not reproduced, and the edition was published before " +
+        "1929. The footnotes are Giles's own. (The modern translations by G. N. Garmonsway, 1953, " +
+        "Dorothy Whitelock, 1961, and Michael Swanton, 1996, are still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Anglo-Saxon_Chronicle_(Giles)",
+      /* NO `origLang`: Giles's English conflates several manuscripts, so no one Old English text
+         faces it — see the importer's entry. Nine parts cut by year, Folio's and not the edition's. */
+      chapterWord: "Part",
+      count: 9,
+      total: 9,
     },
   ];
   const BOOK_BY_ID = {};
