@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5239 | the title is the article |
+| `ok` | 5271 | the title is the article |
 | `redirect-variant` | 331 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 77 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 78 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 485 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 489 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 105 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 138 | only a disambiguation page; no link could be chosen |
-| `none` | 957 | nothing matched; no link |
+| `none` | 960 | nothing matched; no link |
 
-**6145 of 7361 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6182 of 7401 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (485)
+## Redirected to a differently named article — check each (489)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -529,8 +529,12 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-136` **Bewegungskrieg** → [Maneuver warfare](https://en.wikipedia.org/wiki/Maneuver_warfare) (from `Bewegungskrieg`)
 - `ww2-147` **German-Soviet Frontier Treaty** → [German–Soviet Boundary and Friendship Treaty](https://en.wikipedia.org/wiki/German%E2%80%93Soviet_Boundary_and_Friendship_Treaty) (from `German-Soviet Frontier Treaty`)
 - `ww2-153` **AB-Aktion** → [Aktion AB](https://en.wikipedia.org/wiki/Aktion_AB) (from `AB-Aktion`)
+- `ww2-172` **Fall Gelb** → [Manstein plan](https://en.wikipedia.org/wiki/Manstein_plan) (from `Fall Gelb`)
+- `ww2-173` **Dyle Plan** → [French war planning 1920–1940](https://en.wikipedia.org/wiki/French_war_planning_1920%E2%80%931940) (from `Dyle Plan`)
+- `ww2-180` **Panzer Group Kleist** → [XXII Army Corps (Wehrmacht)](https://en.wikipedia.org/wiki/XXII_Army_Corps_(Wehrmacht)) (from `Panzer Group Kleist`)
+- `ww2-184` **Rotterdam Blitz** → [German bombing of Rotterdam](https://en.wikipedia.org/wiki/German_bombing_of_Rotterdam) (from `Rotterdam Blitz`)
 
-## Settled from a disambiguation page (77)
+## Settled from a disambiguation page (78)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -611,6 +615,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `wh-691` **Siege of Vienna** → [Siege of Vienna (1529)](https://en.wikipedia.org/wiki/Siege_of_Vienna_(1529)) (via the disambiguation page `Siege of Vienna`)
 - `ww2-006` **reparations** → [World War I reparations](https://en.wikipedia.org/wiki/World_War_I_reparations) (via the disambiguation page `Reparation`)
 - `ww2-035` **Article 48** → [Article 48 of the Weimar Constitution](https://en.wikipedia.org/wiki/Article_48_of_the_Weimar_Constitution) (via the disambiguation page `Article 48`)
+- `ww2-185` **Leopold III** → [Leopold III of Belgium](https://en.wikipedia.org/wiki/Leopold_III_of_Belgium) (via the disambiguation page `Leopold III`)
 
 ## Matched by search — check each (6)
 
@@ -887,7 +892,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-054` **Machtergreifung** — `Machtergreifung` only redirects into `Adolf Hitler's rise to power#Seizure of control (1931–1933)`
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 
-## No article found (957)
+## No article found (960)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1848,3 +1853,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-102` **Southern Advance** — search suggests `Southern Rhodesia in World War II`, `World War II`, `France during World War II`, `World War II by country`, `Home front during World War II`
 - `ww2-126` **Anglo-French-Soviet negotiations** — search suggests `World War II`, `Anglo-Soviet invasion of Iran`, `Causes of World War II`, `Allies of World War II`, `Anglo-Soviet Treaty of 1942`
 - `ww2-143` **cordon defence** — search suggests `Military history of Gibraltar during World War II`, `World War I`, `Timeline of World War II (1940)`, `Olav V`, `Erich Raeder`
+- `ww2-177` **Blitzkrieg legend** — search suggests `List of World War II feature films`, `Blitzkrieg`, `Tanks in World War II`, `List of World War II video games`, `Western Front (World War II)`
+- `ww2-188` **Halt order**
+- `ww2-191` **Exode** — search suggests `Evacuation of the Louvre collection during World War II`, `The Exodus (1940)`, `Écouché in World War II`, `List of Spanish Civil War films`, `1390`

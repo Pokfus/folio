@@ -665,49 +665,49 @@ definitions, which exist precisely because the wording matters.
     ww2-158  The Polish armed forces in the West  → written as *Polish Armed Forces in the West*
     ww2-159  Winter War
     ww2-160  The Moscow Peace Treaty  → written as *Moscow Peace Treaty*
-    ww2-161  The Soviet annexation of the Baltic states
-    ww2-162  The Soviet annexation of Bessarabia
-    ww2-163  The Allied plans for Scandinavia
+    ww2-161  The Soviet annexation of the Baltic states  → written as *Soviet occupation of the Baltic states*
+    ww2-162  The Soviet annexation of Bessarabia  → written as *Soviet occupation of Bessarabia and Northern Bukovina*
+    ww2-163  The Allied plans for Scandinavia  → written as *Plan R 4*
     ww2-164  Operation Weserübung
-    ww2-165  The German invasion of Denmark and Norway
+    ww2-165  The German invasion of Denmark and Norway  → written as *Norwegian campaign*
     ww2-166  Battles of Narvik
     ww2-167  The Norway Debate
     ww2-168  Winston Churchill
-    ww2-169  The naval war in the first year
+    ww2-169  The naval war in the first year  → written as *Altmark incident*
     ww2-170  Battle of the River Plate
 
 ### The fall of the West — `ww2-west-1940`
 
     ww2-171  Battle of France
     ww2-172  Fall Gelb
-    ww2-173  The Allied plans of 1940
-    ww2-174  The breakthrough at Sedan
-    ww2-175  The Ardennes and the Allied assumptions about it
+    ww2-173  The Allied plans of 1940  → written as *Dyle Plan*
+    ww2-174  The breakthrough at Sedan  → written as *Battle of Sedan*
+    ww2-175  The Ardennes and the Allied assumptions about it  → written as *Ardennes*
     ww2-176  Blitzkrieg
-    ww2-177  The debate over the word Blitzkrieg
+    ww2-177  The debate over the word Blitzkrieg  → written as *Blitzkrieg legend*
     ww2-178  Heinz Guderian
     ww2-179  Erich von Manstein
-    ww2-180  The German panzer divisions of 1940
-    ww2-181  The French army in 1940
-    ww2-182  The failure of French command
-    ww2-183  The German invasion of the Low Countries
+    ww2-180  The German panzer divisions of 1940  → written as *Panzer Group Kleist*
+    ww2-181  The French army in 1940  → written as *French Army*
+    ww2-182  The failure of French command  → written as *Maurice Gamelin*
+    ww2-183  The German invasion of the Low Countries  → written as *German invasion of the Netherlands*
     ww2-184  Rotterdam Blitz
-    ww2-185  The Dutch and Belgian capitulations
-    ww2-186  The encirclement in the north
+    ww2-185  The Dutch and Belgian capitulations  → written as *Leopold III*
+    ww2-186  The encirclement in the north  → written as *Battle of Arras*
     ww2-187  Dunkirk evacuation
     ww2-188  The halt order
-    ww2-189  The Italian entry into the war
-    ww2-190  The fall of Paris
-    ww2-191  The French exodus of 1940
+    ww2-189  The Italian entry into the war  → written as *Italian invasion of France*
+    ww2-190  The fall of Paris  → written as *Open city*
+    ww2-191  The French exodus of 1940  → written as *Exode*
     ww2-192  Armistice of 22 June 1940
     ww2-193  Vichy France
     ww2-194  Philippe Pétain
-    ww2-195  The French empire divided
+    ww2-195  The French empire divided  → written as *Battle of Dakar*
     ww2-196  Free France
     ww2-197  Charles de Gaulle
     ww2-198  Attack on Mers-el-Kébir
-    ww2-199  The Channel Islands under German occupation
-    ww2-200  Explaining the fall of France
+    ww2-199  The Channel Islands under German occupation  → written as *German occupation of the Channel Islands*
+    ww2-200  Explaining the fall of France  → written as *Strange Defeat*
     ww2-201  Britain's position after the fall of France
     ww2-202  The British decision to fight on
     ww2-203  Destroyers-for-bases deal
