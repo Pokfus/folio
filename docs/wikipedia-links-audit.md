@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5340 | the title is the article |
-| `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 5419 | the title is the article |
+| `redirect-variant` | 335 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 504 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 513 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 140 | only a disambiguation page; no link could be chosen |
-| `none` | 969 | nothing matched; no link |
+| `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
+| `none` | 975 | nothing matched; no link |
 
-**6269 of 7501 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6361 of 7601 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (504)
+## Redirected to a differently named article — check each (513)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -548,8 +548,17 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-289` **German mistreatment of Soviet prisoners of war** → [German atrocities committed against Soviet prisoners of war](https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war) (from `German mistreatment of Soviet prisoners of war`)
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)
 - `ww2-295` **clean Wehrmacht myth** → [Myth of the clean Wehrmacht](https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht) (from `Clean Wehrmacht myth`)
+- `ww2-303` **Stalingrad Tractor Factory** → [Volgograd Tractor Plant](https://en.wikipedia.org/wiki/Volgograd_Tractor_Plant) (from `Stalingrad Tractor Factory`)
+- `ww2-316` **Soviet Guards** → [Guards unit (Soviet Union)](https://en.wikipedia.org/wiki/Guards_unit_(Soviet_Union)) (from `Soviet Guards`)
+- `ww2-317` **Tankograd** → [Chelyabinsk Tractor Plant](https://en.wikipedia.org/wiki/Chelyabinsk_Tractor_Plant) (from `Tankograd`)
+- `ww2-323` **Operational art** → [Operational level of war](https://en.wikipedia.org/wiki/Operational_level_of_war) (from `Operational art`)
+- `ww2-343` **Second Battle of Kiev** → [Battle of Kiev (1943)](https://en.wikipedia.org/wiki/Battle_of_Kiev_(1943)) (from `Second Battle of Kiev`)
+- `ww2-355` **King Michael's Coup** → [1944 Romanian coup d'état](https://en.wikipedia.org/wiki/1944_Romanian_coup_d'%C3%A9tat) (from `King Michael's Coup`)
+- `ww2-374` **Mass suicide in Demmin** → [Demmin mass suicide](https://en.wikipedia.org/wiki/Demmin_mass_suicide) (from `Mass suicide in Demmin`)
+- `ww2-391` **German-Soviet War** → [Eastern Front (World War II)](https://en.wikipedia.org/wiki/Eastern_Front_(World_War_II)) (from `German-Soviet War`)
+- `ww2-398` **Allied Control Commission** → [Allied Commission](https://en.wikipedia.org/wiki/Allied_Commission) (from `Allied Control Commission`)
 
-## Settled from a disambiguation page (79)
+## Settled from a disambiguation page (81)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -632,6 +641,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-035` **Article 48** → [Article 48 of the Weimar Constitution](https://en.wikipedia.org/wiki/Article_48_of_the_Weimar_Constitution) (via the disambiguation page `Article 48`)
 - `ww2-185` **Leopold III** → [Leopold III of Belgium](https://en.wikipedia.org/wiki/Leopold_III_of_Belgium) (via the disambiguation page `Leopold III`)
 - `ww2-250` **Balkan campaign** → [Balkans campaign (World War II)](https://en.wikipedia.org/wiki/Balkans_campaign_(World_War_II)) (via the disambiguation page `Balkans campaign`)
+- `ww2-354` **Jassy–Kishinev offensive** → [Second Jassy–Kishinev offensive](https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive) (via the disambiguation page `Jassy–Kishinev offensive`)
+- `ww2-395` **filtration camps** → [NKVD filtration camps](https://en.wikipedia.org/wiki/NKVD_filtration_camps) (via the disambiguation page `Filtration camp`)
 
 ## Matched by search — check each (6)
 
@@ -644,7 +655,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ko-071` **Han commanderies** → [Four Commanderies of Han](https://en.wikipedia.org/wiki/Four_Commanderies_of_Han)
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 
-## Disambiguation pages that could not be settled (140)
+## Disambiguation pages that could not be settled (142)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -788,6 +799,8 @@ Pick the right article by hand, or leave the card without a link.
 - `ww2-132` **Neutrality Acts** — `Neutrality Act` is a disambiguation page; its links: `Neutrality Act of 1794`, `Neutrality Act of 1818`, `Neutrality Acts of the 1930s`
 - `ww2-201` **Their finest hour** — `Finest hour` is a disambiguation page; its links: `This was their finest hour`, `Their Finest Hour (video game)`, `Hearts of Iron III: Their Finest Hour`
 - `ww2-255` **Partition of Yugoslavia** — `Partition of Yugoslavia` is a disambiguation page
+- `ww2-306` **German Sixth Army** — `Sixth Army` is a disambiguation page
+- `ww2-333` **Grand Alliance** — `Grand Alliance` is a disambiguation page; its links: `Grand Alliance (World War II)`, `Grand Alliance (1815)`, `Grand Alliance (Bangladesh)`, `Grand Alliance (1971)`, `Grand Alliance (HDTV)`, `Grand Alliance (1701)`
 
 ## Index pages — no dedicated article (6)
 
@@ -912,7 +925,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-227` **Anderson shelter** — `Anderson shelter` only redirects into `Air raid shelter#Anderson shelter`
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 
-## No article found (969)
+## No article found (975)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1885,3 +1898,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-282` **Moscow counter-offensive** — search suggests `Timeline of the Eastern Front of World War II`, `World War II`, `Finland in World War II`, `Brazil in World War II`, `Military history of Italy during World War II`
 - `ww2-286` **Soviet mobilisation** — search suggests `Soviet Union in World War II`, `Continuation War`, `Eastern Front (World War II)`, `European theatre of World War II`, `Winter War`
 - `ww2-296` **stand-fast order** — search suggests `Military history of Italy during World War II`, `Scandinavian theatre of World War II`, `British merchant seamen of World War II`, `Soviet Union in World War II`, `Australia in World War II`
+- `ww2-307` **Stalingrad airlift** — search suggests `Battle of Stalingrad`, `List of World War II battles`, `Declarations of war during World War II`, `Pacific War`, `Stopped at Stalingrad`
+- `ww2-335` **Radical turning point**
+- `ww2-362` **Fester Platz**
+- `ww2-394` **Yalta repatriation agreement**
+- `ww2-397` **Sowjetische Aktiengesellschaft**
+- `ww2-399` **Stalin's election speech**

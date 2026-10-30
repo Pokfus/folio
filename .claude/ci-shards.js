@@ -35,7 +35,7 @@ const MEASURED = {   // seconds
   "test-atlas-time": 46, "test-atlas-undiscovered": 168, "test-atlas-windows": 321, "test-atlas-zoom-layers": 238, "test-avatar": 6, "test-card-locator": 45,
   "test-card-quote": 11, "test-card-types": 78, "test-cards": 38, "test-char-network": 29, "test-community": 20, "test-csp": 31, "test-deck-glossary": 44,
   "test-deck-lazy": 35, "test-deck-trust": 7, "test-deck-update": 52, "test-deck-ux": 23, "test-draw-cards": 16, "test-feedback": 10, 
-  "test-findit-pick": 226, "test-flag-cards": 15, "test-gloss-image": 29, "test-glossary-page": 10, "test-i18n-lang": 11, "test-land-changes": 244,
+  "test-findit-pick": 226, "test-howfar": 40 /* 24 s on a cloud session, 2026-10-30, not yet a CI run */, "test-flag-cards": 15, "test-gloss-image": 29, "test-glossary-page": 10, "test-i18n-lang": 11, "test-land-changes": 244,
   "test-lang-decks": 44, "test-layout": 350, "test-learning": 203, "test-library": 137, "test-map-cards": 15, "test-media-source": 32, "test-minigames": 57,
   "test-polity-names": 22, "test-progress-registers": 23, "test-publish": 193, "test-reset": 9, "test-review-decks": 176, "test-revlog": 28, "test-sanitize": 1,
   "test-sources": 38, "test-speak": 63, "test-spelling": 23, "test-subdecks": 45, "test-tour": 65, "test-truefalse": 20, "test-units": 19, "test-video": 64,

@@ -14,7 +14,7 @@ import html, re
 
 FILE = "Turkish-%s.folio-deck.json"
 PHRASES_FILE = "Turkish-Phrases-and-Expressions.folio-deck.json"
-COLOR = "#780F75"   # the Turkish collection's hue, `lang-turkish` in app.js COLL_THEME
+COLOR = "#D5519F"   # the Turkish collection's hue, `lang-turkish` in app.js COLL_THEME
 
 SCOPE = {
     "a1": {

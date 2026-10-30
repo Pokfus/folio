@@ -448,6 +448,22 @@ picture of a batch exists where 84 single requests could not. **And give every c
 three neighbouring pairs in this run reached for the same Commons file (a Minsk prisoner column, the
 Rosenberg-in-Kiev group, the Heinkel over Wapping) and had to be split.
 
+**WHAT `ww2-301`–`ww2-400` LEARNED ABOUT HOSTS (Oct 2026).** The Eastern Front of 1942–45 runs on
+**Ziemke's *Stalingrad to Berlin* (CMH 30-5-1) on archive.org** — the CMH upload has clean OCR, the other
+copy does not, and its page numbers drift against the text, so cite a page range; HyperWar's copy of it
+404s. Beside it: **FRUS** for every conference (Casablanca, Tehran, Malta–Yalta, 1944–45 volumes III–V),
+**Avalon's IMT by date** (Paulus, Gisevius, Speer, Jodl, Kempka) and its armistice texts, **LeMO** (the
+20 July pages sit under `der-zweite-weltkrieg/widerstand-im-zweiten-weltkrieg/`), USHMM, and the German
+Resistance Memorial Center (`gdw-berlin.de`). **Two new routes into Russian scholarship**: cyberleninka's
+JSON search (`cyberleninka.ru/api/search`) reaches open Russian journal articles, and `istmat.org` carries
+Soviet documents; and **H-Net reviews** (searchable by GET) are an open way to cite a monograph's figures
+through a signed review. `pdftotext` is now present in the container. **Closed or walled this time:**
+`militera.lib.ru` (Krivosheev, 404/401), `encyclopedia.mil.ru` and `digitalarchive.wilsoncenter.org`
+(timeouts), `kremlin.ru` and `memo.ru` (refused by the proxy), `degruyterbrill.com` (a 202 bot wall),
+`cvce.eu`, `un.org`, OUP and Cambridge (403), OpenAlex (daily quota), and `historycommission.ee`, which is
+now a squatted domain and must not be cited. **Wikimedia's API answered 429 for the whole run**; HEAD
+requests to `Special:FilePath/<file>` (302 = exists) confirmed the pictures instead.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -845,111 +861,111 @@ definitions, which exist precisely because the wording matters.
 ### Stalingrad and the turn — `ww2-stalingrad`
 
     ww2-301  Battle of Stalingrad
-    ww2-302  The German advance to the Volga
-    ww2-303  The fighting inside Stalingrad
+    ww2-302  The German advance to the Volga  → written as *Operation Fischreiher*
+    ww2-303  The fighting inside Stalingrad  → written as *Stalingrad Tractor Factory*
     ww2-304  Vasily Chuikov
     ww2-305  Operation Uranus
-    ww2-306  The encirclement of the Sixth Army
-    ww2-307  The airlift to Stalingrad
+    ww2-306  The encirclement of the Sixth Army  → written as *German Sixth Army*
+    ww2-307  The airlift to Stalingrad  → written as *Stalingrad airlift*
     ww2-308  Friedrich Paulus
     ww2-309  Operation Winter Storm
-    ww2-310  The surrender at Stalingrad
-    ww2-311  The significance of Stalingrad
-    ww2-312  Stalingrad in memory
-    ww2-313  The Caucasus campaign
-    ww2-314  The Soviet winter offensive of 1942–1943
+    ww2-310  The surrender at Stalingrad  → written as *Operation Koltso*
+    ww2-311  The significance of Stalingrad  → written as *Sword of Stalingrad*
+    ww2-312  Stalingrad in memory  → written as *Mamayev Kurgan*
+    ww2-313  The Caucasus campaign  → written as *Battle of the Caucasus*
+    ww2-314  The Soviet winter offensive of 1942–1943  → written as *Operation Little Saturn*
     ww2-315  Third Battle of Kharkov
-    ww2-316  The rebuilding of the Red Army
-    ww2-317  Soviet weapons production
+    ww2-316  The rebuilding of the Red Army  → written as *Soviet Guards*
+    ww2-317  Soviet weapons production  → written as *Tankograd*
     ww2-318  T-34
-    ww2-319  Lend-Lease to the Soviet Union
+    ww2-319  Lend-Lease to the Soviet Union  → written as *Moscow Protocol*
     ww2-320  Arctic convoys
-    ww2-321  Soviet women in combat roles
-    ww2-322  Soviet wartime propaganda
-    ww2-323  Soviet operational art and deep battle
-    ww2-324  Soviet wartime deportations of nationalities
-    ww2-325  The Polish question in 1943
-    ww2-326  The discovery of the Katyn graves
-    ww2-327  The break in Soviet-Polish relations
-    ww2-328  The second front debate
-    ww2-329  The Allied conferences of 1943
+    ww2-321  Soviet women in combat roles  → written as *Night Witches*
+    ww2-322  Soviet wartime propaganda  → written as *Soviet Information Bureau*
+    ww2-323  Soviet operational art and deep battle  → written as *Operational art*
+    ww2-324  Soviet wartime deportations of nationalities  → written as *Operation Lentil*
+    ww2-325  The Polish question in 1943  → written as *Union of Polish Patriots*
+    ww2-326  The discovery of the Katyn graves  → written as *Katyn Commission*
+    ww2-327  The break in Soviet-Polish relations  → written as *Władysław Sikorski*
+    ww2-328  The second front debate  → written as *Operation Sledgehammer*
+    ww2-329  The Allied conferences of 1943  → written as *Moscow Conference*
     ww2-330  Casablanca Conference
     ww2-331  Unconditional surrender
     ww2-332  Tehran Conference
-    ww2-333  The Grand Alliance and its strains
-    ww2-334  Allied war aims
-    ww2-335  The turn of the war in 1943
+    ww2-333  The Grand Alliance and its strains  → written as *Grand Alliance*
+    ww2-334  Allied war aims  → written as *Declaration by United Nations*
+    ww2-335  The turn of the war in 1943  → written as *Radical turning point*
 
 ### Kursk to the Vistula — `ww2-east-1943`
 
     ww2-336  Battle of Kursk
     ww2-337  Operation Citadel
-    ww2-338  The Soviet defences at Kursk
+    ww2-338  The Soviet defences at Kursk  → written as *Steppe Front*
     ww2-339  Battle of Prokhorovka
-    ww2-340  The end of German offensive capability in the East
-    ww2-341  The Soviet advance to the Dnieper
+    ww2-340  The end of German offensive capability in the East  → written as *Operation Kutuzov*
+    ww2-341  The Soviet advance to the Dnieper  → written as *Panther–Wotan line*
     ww2-342  Battle of the Dnieper
-    ww2-343  The liberation of Kiev
-    ww2-344  The German scorched earth policy
-    ww2-345  The lifting of the siege of Leningrad
-    ww2-346  The Crimean campaign of 1944
+    ww2-343  The liberation of Kiev  → written as *Second Battle of Kiev*
+    ww2-344  The German scorched earth policy  → written as *scorched earth*
+    ww2-345  The lifting of the siege of Leningrad  → written as *Leningrad–Novgorod offensive*
+    ww2-346  The Crimean campaign of 1944  → written as *Crimean offensive*
     ww2-347  Operation Bagration
-    ww2-348  The destruction of Army Group Centre
+    ww2-348  The destruction of Army Group Centre  → written as *Army Group Centre*
     ww2-349  Deep operation
-    ww2-350  The Soviet advance into Poland
+    ww2-350  The Soviet advance into Poland  → written as *Lvov–Sandomierz offensive*
     ww2-351  Warsaw Uprising
-    ww2-352  The Red Army and the Warsaw Uprising
+    ww2-352  The Red Army and the Warsaw Uprising  → written as *Warsaw airlift*
     ww2-353  Polish Committee of National Liberation
-    ww2-354  The Soviet advance into the Balkans
-    ww2-355  The Romanian coup of August 1944
-    ww2-356  Bulgaria's change of sides
-    ww2-357  The liberation of Yugoslavia
+    ww2-354  The Soviet advance into the Balkans  → written as *Jassy–Kishinev offensive*
+    ww2-355  The Romanian coup of August 1944  → written as *King Michael's Coup*
+    ww2-356  Bulgaria's change of sides  → written as *1944 Bulgarian coup d'état*
+    ww2-357  The liberation of Yugoslavia  → written as *Belgrade offensive*
     ww2-358  Slovak National Uprising
     ww2-359  Siege of Budapest
-    ww2-360  Finland's exit from the war
-    ww2-361  The Baltic offensives of 1944
-    ww2-362  The German army in retreat
+    ww2-360  Finland's exit from the war  → written as *Moscow Armistice*
+    ww2-361  The Baltic offensives of 1944  → written as *Baltic offensive*
+    ww2-362  The German army in retreat  → written as *Fester Platz*
     ww2-363  20 July plot
     ww2-364  Claus von Stauffenberg
-    ww2-365  The German military opposition to Hitler
-    ww2-366  The aftermath of the July plot
+    ww2-365  The German military opposition to Hitler  → written as *Henning von Tresckow*
+    ww2-366  The aftermath of the July plot  → written as *People's Court*
     ww2-367  Volkssturm
-    ww2-368  Albert Speer and German war production
-    ww2-369  Foreign forced labour in Germany
-    ww2-370  Germany's position at the end of 1944
+    ww2-368  Albert Speer and German war production  → written as *Albert Speer*
+    ww2-369  Foreign forced labour in Germany  → written as *Ostarbeiter*
+    ww2-370  Germany's position at the end of 1944  → written as *Wunderwaffe*
 
 ### The road to Berlin — `ww2-berlin`
 
     ww2-371  Vistula–Oder offensive
-    ww2-372  The Soviet advance into Germany
-    ww2-373  The flight and expulsion of Germans from the East
-    ww2-374  Red Army violence against civilians in 1945
+    ww2-372  The Soviet advance into Germany  → written as *East Pomeranian offensive*
+    ww2-373  The flight and expulsion of Germans from the East  → written as *Evacuation of East Prussia*
+    ww2-374  Red Army violence against civilians in 1945  → written as *Mass suicide in Demmin*
     ww2-375  East Prussian offensive
     ww2-376  Yalta Conference
-    ww2-377  The Yalta agreements on Poland and Germany
-    ww2-378  The debate over Yalta
-    ww2-379  The Soviet advance into Hungary and Austria
+    ww2-377  The Yalta agreements on Poland and Germany  → written as *Curzon Line*
+    ww2-378  The debate over Yalta  → written as *Western betrayal*
+    ww2-379  The Soviet advance into Hungary and Austria  → written as *Vienna offensive*
     ww2-380  Battle of the Seelow Heights
     ww2-381  Battle of Berlin
-    ww2-382  The defence of Berlin
+    ww2-382  The defence of Berlin  → written as *Helmuth Weidling*
     ww2-383  Führerbunker
-    ww2-384  The death of Adolf Hitler
+    ww2-384  The death of Adolf Hitler  → written as *death of Adolf Hitler*
     ww2-385  Raising a Flag over the Reichstag
-    ww2-386  The surrender of Berlin
+    ww2-386  The surrender of Berlin  → written as *Hans Krebs*
     ww2-387  German Instrument of Surrender
     ww2-388  Victory in Europe Day
-    ww2-389  The Soviet cost of the war
-    ww2-390  Soviet casualties and their counting
-    ww2-391  The Eastern Front in the balance of the war
-    ww2-392  The Eastern Front in Western memory
-    ww2-393  The Great Patriotic War in Soviet and Russian memory
-    ww2-394  The returning Soviet prisoners
-    ww2-395  Soviet filtration camps
-    ww2-396  The Soviet occupation zone
-    ww2-397  The Soviet seizure of German industry
-    ww2-398  The Soviet Union's position in 1945
-    ww2-399  The Eastern Front and the origins of the Cold War
-    ww2-400  What the Eastern Front decided
+    ww2-389  The Soviet cost of the war  → written as *Extraordinary State Commission*
+    ww2-390  Soviet casualties and their counting  → written as *Soviet war dead*
+    ww2-391  The Eastern Front in the balance of the war  → written as *German-Soviet War*
+    ww2-392  The Eastern Front in Western memory  → written as *Franz Halder*
+    ww2-393  The Great Patriotic War in Soviet and Russian memory  → written as *Victory Day*
+    ww2-394  The returning Soviet prisoners  → written as *Yalta repatriation agreement*
+    ww2-395  Soviet filtration camps  → written as *filtration camps*
+    ww2-396  The Soviet occupation zone  → written as *Soviet Military Administration in Germany*
+    ww2-397  The Soviet seizure of German industry  → written as *Sowjetische Aktiengesellschaft*
+    ww2-398  The Soviet Union's position in 1945  → written as *Allied Control Commission*
+    ww2-399  The Eastern Front and the origins of the Cold War  → written as *Stalin's election speech*
+    ww2-400  What the Eastern Front decided  → written as *Oder–Neisse line*
 
 ## The War in Asia and the Pacific
 
