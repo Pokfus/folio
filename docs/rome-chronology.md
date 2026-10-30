@@ -598,11 +598,21 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Aurelian's coinage reform | 274 CE | `rm-558` |
 | the Gallic Empire (a modern label): began / ended | 260 CE / 273 or 274 CE | `rm-559` |
 | Postumus: reigned / died | 260 – 269 CE / 269 CE | `rm-560` |
+| the Palmyrene ascendancy (a modern label) / Palmyra razed | 260 – 272 CE / 273 CE | `rm-561` |
+| Zenobia: ruled / captured | c. 267 – 272 CE / 272 CE | `rm-562` |
+| Aurelian: reigned / killed | 270 – 275 CE / 275 CE | `rm-563` |
+| the Aurelian Walls: begun / restored | 271 CE / 401 – 403 CE | `rm-564` |
+| Probus: born / reigned / killed | 232 CE / 276 – 282 CE / 282 CE | `rm-565` |
 
 ## Late Antiquity
 
 | event | the collection says | source |
 |---|---|---|
+| Diocletian: proclaimed / sole ruler / abdicated / died | 20 November 284 CE / 285 CE / 1 May 305 CE / c. 311 – 313 CE | `rm-566` |
+| the Tetrarchy (a modern label): formed / the abdication / broke down | 1 March 293 CE (Galerius perhaps 21 May) / 1 May 305 CE / 306 – 313 CE | `rm-567` |
+| the Dominate (a modern label): dated from / the Milan panegyric | 284 CE / 291 CE | `rm-568` |
+| the Laterculus Veronensis: contents / the manuscript | c. 314 CE (other dates argued, 297 to 320 CE) / c. 600 – 700 CE | `rm-569` |
+| the dioceses: the earliest list / the Notitia's list | c. 314 CE / c. 395 – 407 CE | `rm-570` |
 
 ## Chronology pins
 
@@ -1150,4 +1160,14 @@ rm-557: 214; 215; 238
 rm-558: 274
 rm-559: 260; 273; 274
 rm-560: 260; 269
+rm-561: 260; 272; 273
+rm-562: 267; 272
+rm-563: 270; 275
+rm-564: 271; 401; 403
+rm-565: 232; 276; 282
+rm-566: 284; 285; 305; 311; 313
+rm-567: 293; 305; 306; 313
+rm-568: 284; 291
+rm-569: 314; 600; 700
+rm-570: 314; 395; 407
 ```

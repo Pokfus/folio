@@ -188,7 +188,7 @@ order unless the user says otherwise.
 | B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | **done 2026-10-30** |
 | B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | **done 2026-10-30** |
 | B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | **done 2026-10-30** |
-| B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | open |
+| B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | **done 2026-10-30** |
 | B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | open |
 | B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | open |
 | B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | open |
@@ -830,6 +830,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-558` Aurelian's coinage reform | a reformed coin of Siscia with XX·I | ok |
 | `rm-559` Gallic Empire | an aureus of Tetricus | acceptable: a coin for the state; the hand-drawn region leaves out Spain and Raetia |
 | `rm-560` Postumus | a gold coin in Berlin | ok |
+| `rm-561` Palmyrene Empire | a coin of Alexandria naming Aurelian and Vaballathus | ok |
+| `rm-562` Zenobia | an antoninianus of Antioch | ok |
+| `rm-563` Aurelian | a coin with Sol | ok; its src shares a generic file key (`I.duplicate`) |
+| `rm-564` Aurelian Walls | the Porta San Sebastiano | acceptable: one gate; the glossary's wall and tower show more; the "Rome" label on the locator should name the gate |
+| `rm-565` Probus | a radiate coin in Berlin | ok |
+| `rm-566` Diocletian | an aureus with Jupiter | ok |
+| `rm-567` Tetrarchy | an argenteus of Maximian with the four rulers | ok |
+| `rm-568` Dominate | the Missorium of Theodosius (a replica) | weak: a later emperor's ceremonial |
+| `rm-569` Laterculus Veronensis | Kiepert's 1892 map of the later dioceses | wrong: the later system, with burned-in labels |
+| `rm-570` Roman diocese | the insignia of the vicar of Spain in the Notitia Dignitatum | ok |
 
 ## Glossary candidates
 
@@ -2197,3 +2207,22 @@ Run as B55. Every draft compared with its card after `batch.sh`: no mismatch. `c
 | `rm-560` Postumus | 6 | 8 → 8 | **The places leave the line; the Cologne killing Zosimus's, the Mainz mutiny Victor's and Eutropius's; "governor of Lower Germany" a modern guess**; his coins from OCRE. |
 
 **Read by eye.** *Confusability:* `rm-551`/`rm-552` the shepherd (Herodian's Thrace) and the Arab (the Easter vigil); `rm-553`/`rm-554`/`rm-555` the empire (Dio's warning), the king (the inscription's Misiche) and the captive (Cyprian's rescript); `rm-556` the battle (the marsh); `rm-557`/`rm-558` the coin (its invented name) and the reform (XXI); `rm-559`/`rm-560` the state (the Augsburg altar) and the man (Cologne, Mainz). *Legend:* Maximinus's thumb, Philip at the vigil and Valerian as footstool are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B57 — `rm-561`–`rm-570`, The third-century crisis to Diocletian: the Palmyrene Empire to the diocese (2026-10-30)
+
+Run as B56. Every draft compared with its card after `batch.sh`: no mismatch. `check-cards` read `rm-561`'s two English ZPE articles (Swain, Potter) as German for the journal's title; the pair is added to `SAME_LANGUAGE_OK` with its reason. `rm-564`'s first phrasing gave the answer away ("begun under Aurelian") and was reworded before applying. Checks: `rm-audit.js --range=rm-561:rm-570` reads clean on three cards; the rest carry `S.chip?` (the ZPE articles and English BMCR reviews of German-titled books, five cards), `I.duplicate` on `rm-563` (the current picture's generic file key) and `W.not-why` (advisory). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Rows from `rm-566` go in "Late Antiquity". **The old date lines carried a man's name for a state ("Odaenathus c. 260 – 267"), another card's event ("Walls begun 271 CE" on Aurelian), places ("near Byzantium", "at Sirmium", "near Nicomedia"), a reign standing for a tax and centuries ("Manuscript 7th century", "Notitia early 5th century").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-561` Palmyrene Empire | 7 | 8 → 9 | **The name is modern (German *Teilreich*); Odaenathus's "corrector" title a debate (Swain against Potter); Egypt taken 270 or 269**; Vaballathus's coins from OCRE; two claims resting on an unreachable host go. |
+| `rm-562` Zenobia | 8 | 7 → 8 | **Cleopatra's descent, the golden chains and Tibur are the Historia Augusta's; the death on the road west Zosimus's; the triumph itself uncertain**; the camel and Longinus's death Zosimus's; Odaenathus killed 267 or 268. |
+| `rm-563` Aurelian | 7 | 6 → 9 | **Every Historia Augusta-only claim goes; "god and lord" rests on one Serdica coin (RIC V 305), with only three known**; the 25 December link one sentence, much doubted; Caenophrurium (Eutropius, Lactantius) against Zosimus's Perinthus. |
+| `rm-564` Aurelian Walls | 7 | 7 → 7 | **Begun 271 CE as Richmond reads the sources; 19 km a modern measurement; 16 large gates, not 18**; the 401 – 403 restoration from the gate inscriptions; the heightening Honorius's, not Maxentius's. |
+| `rm-565` Probus | 6 | 5 → 7 | **The marsh-draining cause is Victor's alone (Eutropius has the iron tower); 60 or 70 recovered cities and the "Carus tradition" had no source**; born 232 CE (Livius); proclaimed in Illyricum or the East. |
+| `rm-566` Diocletian | 8 | 6 → 9 | **Died c. 311 – 313 CE (Livius prints both); the glossary's "313 or 316" corrected**; the boar story rests on the Historia Augusta alone and goes; the cabbages in prose only (`rm-576` asks it); Diocles from the Epitome. |
+| `rm-567` Tetrarchy | 7 | 7 → 8 | **The name is modern; 1 March 293 from the panegyric's Kalends, 21 May argued for Galerius**; Lactantius a hostile polemicist; the porphyry groups "from Constantinople" (no source for the Philadelphion read). |
+| `rm-568` Dominate | 6 | 8 → 7 | **The label's history attributed (Sardinha; Mommsen as Bury reports him), continuity (Kolb) against a break (Bury)**; the Milan panegyric of 291 CE, its year from a review; adoration Eutropius's "first". |
+| `rm-569` Laterculus Veronensis | 5 | 6 → 6 | **Contents c. 314 CE and copied c. 600 – 700 CE (Smorczewski), with Mommsen's 297, Keyes's 304 – 314, Jones's 312 – 320 and Bury's split dates**; the unchecked 109 provinces go (96 Mommsen's, 94 Ohnesorge's); the roll of peoples added. |
+| `rm-570` Roman diocese | 6 | 8 → 6 | **The Notitia's list c. 395 – 407 CE replaces "early 5th century"**; Lactantius's deputies of the prefects against a permanent diocese only under Constantine, before 19 July 325; the Verona List one mention. |
+
+**Read by eye.** *Confusability:* `rm-561`/`rm-562` the realm (Vaballathus Augustus) and the queen (the camel); `rm-563`/`rm-564`/`rm-565` the emperor (the forged list), the walls (Honorius's gates) and his successor (the vines); `rm-566`/`rm-567`/`rm-568` the man (Aper), the college (the porphyry groups) and the ceremonial (adoration); `rm-569`/`rm-570` the list (the Numidias) and the unit (the vicarius). *Legend:* Zenobia's chains and descent, Aurelian's god-and-lord and Diocletian's boar are their authors'. *Overlap:* `wh-371` gives Diocletian's death as 313 – 316 CE against this card's c. 311 – 313 CE; nothing else disagrees.
