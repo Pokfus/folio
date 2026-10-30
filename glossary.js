@@ -10258,7 +10258,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Augusta_Emerita": "from 25 BCE",
 "Vindolanda_tablets": "c. 85–130",
 "Laeti": "296–5th century",
-"Strategemata": "c. 84–96 CE",
+"Strategemata": "84–96 CE",
 "Vegetius": "fl. 383–450 CE",
 "Emancipation_reform_of_1861": "1861",
 "American_Civil_War": "1861–1865",

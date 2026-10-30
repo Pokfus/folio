@@ -425,6 +425,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Caesar's Rhine bridges: the first / the second | 55 BCE / 53 BCE | `rm-675` |
 | decimation: Livy's first case (tradition) / Crassus revives it | 471 BCE / 71 BCE | `rm-677` |
 | ovations: Marcellus / Antony and Octavian / Octavian after Naulochus | 211 BCE / 40 BCE / 13 November 36 BCE | `rm-680` |
+| the Roman constitution (a modern name): the moment Polybius describes | 216 BCE | `rm-696` |
+| senatus consulta: the Bacchanalian decree | 7 October 186 BCE | `rm-698` |
+| the senatorial order: the ship law | 218 BCE | `rm-699` |
+| the comitia: lawmaking moves from the Comitium to the Forum | 145 BCE | `rm-700` |
 
 ## The Principate
 
@@ -638,6 +642,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | valetudinarium: the Vindolanda sick list / the hospital builders | c. 92 – 97 CE / 97 – 105 CE | `rm-687` |
 | horreum: South Shields rebuilt as a depot | 205 – 207 CE | `rm-688` |
 | the Vindolanda tablets: written / the birthday letter / first found | c. 85 – 130 CE / c. 97 – 105 CE / 1973 | `rm-689` |
+| the Strategemata written (a modern argument) | 84 – 96 CE | `rm-693` |
+| the Roman constitution: Augustus's claim to have handed back the state | 28 – 27 BCE | `rm-696` |
+| the Senate purged | 18 BCE | `rm-697` |
+| senatus consulta: the decree on Piso | 10 December 20 CE | `rm-698` |
+| the senatorial order reshaped | 18 BCE | `rm-699` |
+| the comitia: elections moved to the Senate | 14 CE | `rm-700` |
 
 ## Late Antiquity
 
@@ -718,6 +728,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Gothic War: began / Ravenna taken / Totila defeated / the settlement law | 535 CE / 540 CE / 552 CE / 554 CE | `rm-638` |
 | the annona militaris: three laws (CTh 7.4.1, 7.4.6, 7.4.30) | 19 October 325 CE / 17 May 360 CE / 23 March 409 CE | `rm-686` |
 | the limitanei: the frontier lands law (CTh 7.15.1) | 29 April 409 CE | `rm-690` |
+| the laeti: first attested / the land law / the levy law | 296 CE or 297 CE / 5 April 399 CE / 30 January 400 CE | `rm-691` |
+| the clibanarii: Nazarius's panegyric / in Constantius II's procession at Rome | 1 March 321 CE / 357 CE | `rm-692` |
+| Vegetius's Epitoma written (a modern bracket) | 383 – 450 CE | `rm-694` |
 
 ## Chronology pins
 
@@ -1376,4 +1389,13 @@ rm-687: 92; 97; 105
 rm-688: 205; 207
 rm-689: 85; 130; 97; 105; 1973
 rm-690: 409
+rm-691: 296; 297; 399; 400
+rm-692: 321; 357
+rm-693: 84; 96
+rm-694: 383; 450
+rm-696: 216; 28; 27
+rm-697: 18
+rm-698: 186; 20
+rm-699: 218; 18
+rm-700: 145; 14
 ```
