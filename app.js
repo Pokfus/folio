@@ -12015,6 +12015,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* MEASURED AS THE ROW ABOVE, with forty-seven colours placed (Oct 2026, adding the Declaration of
+     Independence): the band's best now clears 16.4, a wine just under the shelf's tightest pair (Luo
+     Guanzhong and Plutarch, 16.5). The obvious navy was measured and REFUSED on the Euripides test:
+     the best blue in the band (15.8) stands nearest Machiavelli, the one book here a reader of the
+     Declaration would set beside it, so it would assert exactly the kinship the shelf avoids. This
+     oxblood's nearest neighbours are Sophocles, Ovid and Aristophanes, who assert none, and it reads
+     6.74:1 on the tightest light paper. */
+  "Thomas Jefferson": "#7B002A",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15038,6 +15046,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },    {
+      id: "declaration-of-independence",
+      title: "The Declaration of Independence",
+      subtitle: "In Congress, July 4, 1776",
+      /* Jefferson wrote the draft and Congress rewrote it; the front matter says so. */
+      author: "Thomas Jefferson",
+      written: "1776",
+      year: 1776,
+      /* NO `translator` — written in English, so the rights box names the printing instead. */
+      edition: "The Goddard broadside, printed by order of Congress by Mary Katharine Goddard, Baltimore, 1777",
+      /* A LIMIT ON NOTHING: a text of 1776 in a printing of 1777. The Wikisource transcription is not
+         proofread and was collated against a scan of the broadside; see .claude/fetch-book.js. */
+      rights:
+        "Public domain. The Declaration was adopted by the Continental Congress in 1776, and this printing " +
+        "of it was made in Baltimore in 1777, so it has never been in copyright anywhere. The text is the " +
+        "Wikisource transcription of the Goddard broadside, corrected against a scan of the broadside " +
+        "itself wherever the two differ.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/United_States_Declaration_of_Independence_(Goddard_Broadside)",
+      /* NO `origLang`: the English is the original. The broadside prints the Declaration in one piece,
+         so the book is one part: the text, the signers by state, and Congress's order of 1777. */
+      chapterWord: "Part",
+      count: 1,
+      total: 1,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page (every `.ttip`). `Jersey` is
+         the Channel Island, reached through "New-Jersey"; `Settlement` is the archaeologist's word, on
+         "our Emigration and Settlement here"; `Providence` is the city, where the broadside means
+         Providence Plantations ("Rhode-Island and Providence, &c.") or DIVINE PROVIDENCE. */
+      glossOff: ["Jersey", "Settlement", "Providence"],
     },
   ];
   const BOOK_BY_ID = {};

@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-two:
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,
@@ -25,6 +25,14 @@ book added later will meet the same traps.
   back by two `reFixes`. Timoleon opens on a chapter 0 (Plutarch's preface) in both columns. Checked: word counts
   against the source within 0.003 % (English) and exact (Greek). The order is the printed editions', not Plutarch's
   (the Pericles calls itself his tenth book), and the front matter says so.
+  `declaration-of-independence` (~15 KB, **one part**, no notes, no original — written in English): the **Goddard
+  broadside** (Baltimore, 1777), the first printing with the signers' names, chosen over the engrossed parchment
+  because that transcription is diplomatic (italic throughout, the scribe's filler dashes as underscores, one paragraph,
+  unlabelled signature columns). **The Wikisource transcription is NOT proofread**: collated line by line against the
+  Commons scan it departed from the print 41 times (Bonds/Bands, `alter or abolish`, `in these Colonies`, `tese`, `teh`…),
+  each now a `fixes` row with the scan as witness; McKean's absence is the broadside's and is not supplied. Two importer
+  options arrived with it: `lineBlocks` (`lineateBlocks`: a paragraph-less blockquote's newlines become `<br>`, for the
+  signers' brace table) and a `dropTail` for the PD banner. `glossOff`: Jersey, Settlement, Providence.
   `classic-of-tea` (~34 KB English, ~13 KB Chinese, all ten parts, **8 notes**, original **Chinese** — Lu Yu's
   *Cha Jing* in **a condensation**: the "Translation Digest of Ch'a Ching" William H. Ukers printed in *All
   About Tea* (1935), pp. 15–22, from a translation of a Ming copy by Z. L. Yih; `layout: "chajing"` →
