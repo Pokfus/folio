@@ -7739,7 +7739,16 @@ window.GLOSSARY = {
 "Operation_Bagration": "",
 "Army_Group_Centre": "",
 "Deep_operation": "",
-"Lvov–Sandomierz_offensive": ""
+"Lvov–Sandomierz_offensive": "",
+"Burma_Railway": "",
+"Doolittle_Raid": "",
+"Battle_of_the_Coral_Sea": "",
+"Station_HYPO": "",
+"1st_Air_Fleet": "",
+"Guadalcanal_campaign": "",
+"Naval_Battle_of_Guadalcanal": "",
+"New_Guinea_campaign": "",
+"Kokoda_Track_campaign": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16502,7 +16511,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Operation_Bagration": ["Bagration","Belorussian offensive","Belorussian strategic offensive"],
 "Army_Group_Centre": ["Army Group Center","Heeresgruppe Mitte"],
 "Deep_operation": ["deep operation","deep operations","operation in depth","deep battle"],
-"Lvov–Sandomierz_offensive": ["Lvov-Sandomierz offensive","Lwów–Sandomierz offensive","Lviv–Sandomierz offensive"]
+"Lvov–Sandomierz_offensive": ["Lvov-Sandomierz offensive","Lwów–Sandomierz offensive","Lviv–Sandomierz offensive"],
+"1st_Air_Fleet": ["First Air Fleet"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24386,7 +24396,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Operation_Bagration": ["battle","history","warfare","second world war","belarus","russia"],
 "Army_Group_Centre": ["institution","history","warfare","second world war","germany"],
 "Deep_operation": ["concept","history","warfare","russia"],
-"Lvov–Sandomierz_offensive": ["battle","history","warfare","second world war","poland","ukraine"]
+"Lvov–Sandomierz_offensive": ["battle","history","warfare","second world war","poland","ukraine"],
+"Burma_Railway": ["event","history","warfare","japan","burma","thailand"],
+"Doolittle_Raid": ["event","history","warfare","japan","united states","aviation"],
+"Battle_of_the_Coral_Sea": ["battle","history","warfare","japan","united states","australia"],
+"Station_HYPO": ["institution","history","warfare","intelligence","united states","japan"],
+"1st_Air_Fleet": ["institution","history","warfare","japan","navy"],
+"Guadalcanal_campaign": ["battle","history","warfare","japan","united states","solomon islands"],
+"Naval_Battle_of_Guadalcanal": ["battle","history","warfare","navy","japan","united states"],
+"New_Guinea_campaign": ["battle","history","warfare","japan","australia","united states"],
+"Kokoda_Track_campaign": ["battle","history","warfare","australia","japan","papua new guinea"]
 });
 
 /* ============================================================================
