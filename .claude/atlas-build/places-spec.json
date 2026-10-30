@@ -18166,6 +18166,30 @@
    },
    "cards": 1
   },
+  "pl:q8037403": {
+   "name": "Wounded Knee",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q8037403",
+   "at": [
+    -102.3649,
+    43.1424
+   ],
+   "within": "",
+   "aliases": [
+    "Wounded Knee Battlefield",
+    "Wounded Knee National Historic Landmark"
+   ],
+   "wiki": "Wounded Knee Battlefield",
+   "manual": true,
+   "reason": "Wounded Knee: the site of us-093's massacre, the card's locator",
+   "evidence": {
+    "classes": [
+     "Q839954"
+    ],
+    "via": "add-place"
+   }
+  },
   "pl:q8044256": {
    "name": "Xiaogang, Anhui",
    "kind": "town",

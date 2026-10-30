@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-29",
+ "retrieved": "2026-10-30",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -92336,6 +92336,17 @@
    ],
    "label": "Rosetta",
    "title": "Rosetta"
+  },
+  "Q8037403": {
+   "coord": [
+    -102.3649,
+    43.1424
+   ],
+   "classes": [
+    "Q839954"
+   ],
+   "label": "Wounded Knee National Historic Landmark",
+   "title": "Wounded Knee Battlefield"
   }
  },
  "links": {
