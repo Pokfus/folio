@@ -39,54 +39,21 @@ admin-1 units for four countries only — the United States, China, Russia and t
 there is no shape for a state card to shade and no layer for a capital's dot to sit in. Measured 2026-10-30:
 the header's entity table holds 0 entities with an `IN-` code and 0 children of `adm0:ind`.
 
-Adding them is **not a card task**. It is an Atlas rebuild: `IND` added to `ADMIN1`, `build-admin.js` (~20 min)
-and `pack.js`, and because every other generated file is pinned to the land build — `water.bin` names the land
-build it was snapped to, `history.bin` and both war slices carry the core's `buildId`, the IndexedDB core cache
-is keyed by `CORE_CACHE_REV` — the water, history, slices, gazetteer checks, credits and core cache all follow,
-under the frame gate (`test-atlas-perf.js`). It reverses a recorded design decision, so it is the owner's call,
-and it gets its own PR. 📖 `docs/atlas-v2-build.md` (the order) and `docs/atlas-v2-design.md` Q-A7.
+**The route is decided (2026-10-30): a lazy admin-1 layer, not a rebuild.** 📖 **`docs/atlas-v2-admin1-layer.md`** —
+India's 36 units go into `atlas/data/admin1.bin`, a file in `history.bin`'s format conflated onto the committed core, so
+`topology.bin` and everything pinned to it stay untouched, the states are shaded in card windows AND drawn on the Personal
+Atlas, and a later country is a spec row and a rebuild of that one file. The decks become writable at **step 2** of that
+plan (the engine slot and the card windows); until then no `gin-0NN` or `gin-5NN` card is written, and `add-card.js`
+would refuse the unknown layer anyway.
 
-**When it lands**, the shape decks need, in this order: the `india-states` layer in `frozen/layers.json`
-(names, label points, near-ring boxes, the neighbour lists — computed from the new entities, since there was
-never a v1 shape file to freeze), a `LAYERS` row in `build-card-faces.js` joining on ISO 3166-2:IN, the dot
-table (the capitals below, coordinates FETCHED), the matching rows in `CARD_MAP_LAYERS` (`app.js`) and
-`MAP_LAYERS` (`.claude/add-card.js`), and `test-map-cards.js`. Until then **no `gin-0NN` or `gin-5NN` card is
-written** — `add-card.js` would refuse an unknown layer anyway.
-
-### The cheaper route: a separate outline file (investigated 2026-10-30, not built)
-
-**Recommended over the rebuild.** The Atlas already keeps things out of `topology.bin` so its bytes never
-change (water, `land-changes.js`), and the card windows already paint polygons of their own: a locator's
-authored `area` is drawn by `atlas/atlas-windows.js` itself (`marks()` → `paintMasked`, `addPath`), on the
-window's 2D canvas, clipped to the engine's land mask, on both the WebGL2 and the Canvas 2D paths. A state can
-be shaded the same way, from a lazy file of its own, with nothing in the land, water, history or core cache
-touched. Measured:
-
-- **The source is ready.** Natural Earth 10m admin-1 **5.1.1, the version already pinned** in `sources.json`
-  (`ne-10m-admin1`, sha256 `efc59726…`), has exactly the 36 current units with their ISO codes — Ladakh, the
-  merged Dadra and Nagar Haveli and Daman and Diu, Telangana as `IN-TG`. Its `type_en` is wrong on some (Himachal
-  Pradesh "Union Territory", Gujarat blank), so the names and kinds are declared in the builder, as planned.
-- **It fits India's border.** Of its 32,884 vertices, none lies more than 1 km outside Natural Earth's admin-0
-  India — the source the engine's India border comes from — so the states tile the country the engine draws,
-  Jammu and Kashmir and Ladakh as the area India administers (73.8–76.7° E and 75.3–79.6° E).
-- **It is small and lazy.** Unsimplified at 3 decimals (≈100 m, the old `us-states.js` grid): ~450 KB raw,
-  ~150 KB gzipped, fetched only when a `gin-` map card opens. Unsimplified on purpose: simplifying each ring
-  apart opens slivers between neighbours (0.002° would be 290 KB / 97 KB).
-
-**What it takes** (an estimate, not done): (1) a builder, `.claude/atlas-build/build-india-states.js`, writing
-`atlas/data/india-states.js` with a `sources` header (rings, label points, near-ring boxes, the neighbour lists
-by the grid rule), then `build-credits.js --install`; (2) `build-card-faces.js` accepting a layer whose keys
-resolve to that file rather than to an engine entity, plus the capitals' dot table (coordinates FETCHED);
-(3) `atlas-windows.js`: load the file (a `DATA_BUNDLES` entry in `app.js`), paint the target's rings in
-`TINT_SEL`'s gold with a solid edge and glow, stroke the other 35 as the thin interior lines, and keep the
-target out of the engine's `highlights`; (4) the `CARD_MAP_LAYERS` and `add-card.js` `MAP_LAYERS` rows, and
-`test-map-cards.js` plus a window test. `atlas-worker.js` is untouched, so `CORE_CACHE_REV` is not.
-
-**Its limits, stated:** the Personal Atlas cannot outline a studied Indian state — it draws only engine
-entities, so a card's `places` can at most be a point row (`add-place.js`) giving the state's name; at the
-window's closest zooms the outline's coast (Natural Earth's) and the engine's (OSM's) can differ by a few
-hundred metres, leaving a thin untinted strip where Natural Earth's coast lies inland; and the outline is
-drawn by the window, so its edge is the window's 2D stroke rather than the engine's mask pass.
+Two routes were measured and set aside, and the design note records both: India's admin-1 inside `topology.bin` (a
+whole-Atlas rebuild per country; the every-country trial grew the first download by about a megabyte and did not pack),
+and an outline file the card window paints itself (it cannot reach the Personal Atlas). **What the outline-file
+investigation measured still holds for the new layer's input:** Natural Earth admin-1 5.1.1, already pinned, has exactly
+the 36 current units with their codes (Ladakh, the merged Dadra and Nagar Haveli and Daman and Diu, Telangana as `IN-TG`);
+its `type_en` is wrong on some (Himachal Pradesh "Union Territory", Gujarat blank), so names and kinds are declared; and
+none of its 32,884 vertices lies more than 1 km outside Natural Earth's admin-0 India, so the units tile the country the
+engine draws, Jammu and Kashmir and Ladakh as the area India administers.
 
 The other three decks are locator questions (a point or a river line on the existing engine) and **can be
 written now**.
