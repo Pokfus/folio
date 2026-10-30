@@ -7549,7 +7549,16 @@ window.GLOSSARY = {
 "Directive_No._16": "",
 "Operation_Sea_Lion": "",
 "Blitzkrieg_economy": "",
-"Directive_No._18": ""
+"Directive_No._18": "",
+"RAF_Fighter_Command": "",
+"Dowding_system": "",
+"Chain_Home": "",
+"Hugh_Dowding": "",
+"Luftwaffe": "",
+"Adlertag": "",
+"Keith_Park": "",
+"Hermann_Göring": "",
+"Battle_of_Britain_Day": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11250,7 +11259,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Directive_No._16": "16 July 1940",
 "Operation_Sea_Lion": "1940",
 "Blitzkrieg_economy": "1939–1942",
-"Directive_No._18": "12 November 1940"
+"Directive_No._18": "12 November 1940",
+"RAF_Fighter_Command": "1936–1968",
+"Dowding_system": "1936–1940",
+"Chain_Home": "1935–1945",
+"Hugh_Dowding": "1882–1970",
+"Luftwaffe": "1935–1945",
+"Adlertag": "13 August 1940",
+"Hermann_Göring": "1893–1946",
+"Battle_of_Britain_Day": "15 September 1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16036,7 +16053,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Directive_No._16": ["Führer Directive No. 16","General Order No. 16"],
 "Operation_Sea_Lion": ["Unternehmen Seelöwe","Seeloewe"],
 "Blitzkrieg_economy": ["Blitzkriegswirtschaft"],
-"Directive_No._18": ["Führer Directive No. 18"]
+"Directive_No._18": ["Führer Directive No. 18"],
+"Hugh_Dowding": ["Lord Dowding"],
+"Adlertag": ["Eagle Day"],
+"Hermann_Göring": ["Hermann Goering","Göring"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23730,7 +23750,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Directive_No._16": ["text","history","warfare","germany","second world war"],
 "Operation_Sea_Lion": ["event","history","warfare","germany","second world war"],
 "Blitzkrieg_economy": ["concept","history","economics","germany","second world war"],
-"Directive_No._18": ["text","history","warfare","germany","second world war"]
+"Directive_No._18": ["text","history","warfare","germany","second world war"],
+"RAF_Fighter_Command": ["institution","history","warfare","second world war","britain"],
+"Dowding_system": ["technology","history","warfare","second world war","britain"],
+"Chain_Home": ["technology","history","warfare","science","second world war","britain"],
+"Hugh_Dowding": ["person","history","warfare","second world war","britain"],
+"Luftwaffe": ["institution","history","warfare","second world war","germany"],
+"Adlertag": ["event","history","warfare","second world war","germany","britain"],
+"Keith_Park": ["person","history","warfare","second world war","britain"],
+"Hermann_Göring": ["person","history","politics","warfare","second world war","germany"],
+"Battle_of_Britain_Day": ["event","history","warfare","second world war","britain"]
 });
 
 /* ============================================================================

@@ -1,8 +1,8 @@
 {
- "generated": "2026-10-30T01:20Z",
+ "generated": "2026-10-30T01:22Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5297,
+  "ok": 5307,
   "redirect-broader": 494,
   "redirect-variant": 332,
   "section-redirect": 106,
@@ -60468,6 +60468,76 @@
     "World War II by country",
     "Aftermath of World War II"
    ]
+  },
+  "ww2-211": {
+   "answer": "Battle of Britain",
+   "title": "Battle of Britain",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Britain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-212": {
+   "answer": "RAF Fighter Command",
+   "title": "RAF Fighter Command",
+   "url": "https://en.wikipedia.org/wiki/RAF_Fighter_Command",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-213": {
+   "answer": "Dowding system",
+   "title": "Dowding system",
+   "url": "https://en.wikipedia.org/wiki/Dowding_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-214": {
+   "answer": "Chain Home",
+   "title": "Chain Home",
+   "url": "https://en.wikipedia.org/wiki/Chain_Home",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-215": {
+   "answer": "Hugh Dowding",
+   "title": "Hugh Dowding",
+   "url": "https://en.wikipedia.org/wiki/Hugh_Dowding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-216": {
+   "answer": "Luftwaffe",
+   "title": "Luftwaffe",
+   "url": "https://en.wikipedia.org/wiki/Luftwaffe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-217": {
+   "answer": "Adlertag",
+   "title": "Adlertag",
+   "url": "https://en.wikipedia.org/wiki/Adlertag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-218": {
+   "answer": "Keith Park",
+   "title": "Keith Park",
+   "url": "https://en.wikipedia.org/wiki/Keith_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-219": {
+   "answer": "Hermann Göring",
+   "title": "Hermann Göring",
+   "url": "https://en.wikipedia.org/wiki/Hermann_G%C3%B6ring",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-220": {
+   "answer": "Battle of Britain Day",
+   "title": "Battle of Britain Day",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Britain_Day",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
