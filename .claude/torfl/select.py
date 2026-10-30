@@ -115,15 +115,21 @@ for _reason, _words in [
      'война оружие умирать заложник труп пуля охрана коп расследование арестовывать '
      'арестовать приказ враг нападать бить ударять удар убираться обвинение судить '
      'армия солдат военный сержант лейтенант преступник улика подозреваемый отпечаток '
-     'генерал'),
+     'генерал заключённый присяжный допрос насилие сенатор федеральный взрываться '
+     'взрывать мстить дракон охранник шпион террорист кража яд правосудие губернатор '
+     'майор'),
     ('coarse or slang', 'задница мужик идиот детка чёртов затыкаться ад секс член дерьмо '
-     'сука придурок урод дурак ублюдок сексуальный'),
+     'сука придурок урод дурак ублюдок сексуальный грёбаный фигня сволочь отстой дура '
+     'чокнутый хрен козёл трахаться трахнуться трахать'),
     ('dubbing\'s rendering of an English form of address, or of an American thing',
      'мэм леди босс сэр шеф окей штат доллар ник колледж генри месье величество вау '
      'эрика джим'),
     ('a hesitation sound, not vocabulary', 'эм хм ох'),
     ('an inflected form Wiktionary also files as an entry, taught on its lemma\'s card',
-     'стал начал смог вся минуту секунду милая черта придти постоять рада'),
+     'стал начал смог вся минуту секунду милая черта придти постоять рада волос любимая '
+     'созданный говориться несмотря тише воздуха'),
+    ('the plural of a noun this set already teaches, filed as its own entry',
+     'кости уши мозги карты небеса леса'),
     ('taught inside a set phrase (добро пожаловать, welcome)', 'жаловать'),
 ]:
     for _w in _words.split():
@@ -134,7 +140,45 @@ for _reason, _words in [
 # away `помощь`, `собираться` and `согласиться` (found at A2, Oct 2026).
 COARSE = re.compile(r'\b(fuck\w*|shit\w*|cunts?|dicks?|cocks?|pricks?|arse|arsehole|ass|asshole|'
                     r'bitch\w*|whores?|sluts?|piss\w*|bollocks|wank\w*|screw(ing)?|bang(ing)?|'
-                    r'sex(ual)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
+                    r'sex(ual|ually)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
+
+
+# WHAT FILMS ARE ABOUT, BY THE GLOSS (B1, Oct 2026).  At B1 the fill chooses four
+# words in five, and naming film vocabulary one word at a time stops scaling:
+# the 807 it first chose held shootings and prosecutors, princes and vampires,
+# colonels and sheriffs.  So the fill also refuses a word whose FIRST sense is
+# about violence, crime, war, the supernatural or rank -- matched on whole
+# English words in Wiktionary's gloss (never "general" or "major", which are "in general"
+# and "main" as often as rank -- they cost A1 `вообще` and `должен`).  It binds the fill only; an inventory can
+# still name `полиция` or `армия` where a level's scope reaches them.
+FILM_GLOSS = re.compile(
+    r'\b(kill\w*|murder\w*|shoot\w*|shot|gun\w*|pistol|rifle|cannon|sword|bomb\w*|'
+    r'explo\w+|weapon\w*|bullet|blood\w*|corpse|grave|funeral|suicide|wound\w*|'
+    r'attack\w*|assault\w*|battle|combat|fight\w*|warrior|soldier|army|military|'
+    r'colonel|sergeant|lieutenant|captain|officer|commander|'
+    r'police\w*|sheriff|detective|inspector|prosecutor|juror|jury|court|judge|'
+    r'arrest\w*|prison\w*|jail|convict|criminal|crime|gang|bandit|robbery|rob|'
+    r'kidnap\w*|hostage|accus(e|ed|es|ing|ation)|guilty|trap|'
+    r'vampire|witch|ghost|monster|demon|devil|magic|spell|curse[ds]?|damned|'
+    r'prince|princess|lord|lady|gentleman|majesty|king|queen|'
+    r'buck|bucks|mile|miles|pound|sir|madam|mister|'
+    r'pig|rat|slut|drunk\w*|booze|naked|sleep with)\b', re.I)
+FILM_NAMES = {'крис', 'стив', 'скотт', 'алан', 'дина', 'боб', 'картер', 'док', 'джин',
+              'люк', 'де', 'э', 'мм', 'угу', 'нет-нет', 'пойдёмте', 'спас', 'малышка',
+              'дружище', 'отваливать', 'переспать', 'чертовски', 'американец',
+              'пола', 'донна', 'мак', 'хан', 'пенни', 'эль', 'сан', 'аминь'}
+for _w in FILM_NAMES:
+    REFUSED.setdefault(_w, 'an English name, a filler sound or film slang')
+
+
+# WHICH OF TWO SAME-SPELT ENTRIES THE FILL TAKES, where Wiktionary lists the rare
+# one first (`клуб` "puff of smoke" before `клуб` "club"; `повод` "rein" before
+# `повод` "reason").  Otherwise the first entry is taken.
+PICK = {'клуб': 'club', 'повод': 'reason'}
+# A predicative goes before its adverb only where it is the "it is…" sense a
+# learner says; these two are adverbs first (`совершенно`, quite; `довольно`,
+# rather), whatever the predicative's gloss looks like.
+ADV_FIRST = {'совершенно', 'довольно'}
 
 
 def closed(e):
@@ -262,7 +306,7 @@ def main():
                              and senses_ok(lex[j]) and not letter_name(lex[j])]
             # the predicative first only where it is the "it is…" sense a beginner
             # says (`жарко`, it is hot) -- not `очень`'s `не очень`, "not very good"
-            if key is None:
+            if key is None and fold(e['word']) not in ADV_FIRST:
                 members.sort(key=lambda m: 0 if lex[m]['pos'] == 'adj' and re.match(
                     r"(it is|it's|one is|one can|one must)", lex[m]['senses'][0]['g'][-1]) else 1)
             used.update(members)
@@ -323,6 +367,9 @@ def main():
             continue
         if e['pos'] in ('proverb', 'phrase'):
             continue
+        if FILM_GLOSS.search(e['senses'][0]['g'][-1]):
+            refused_seen.append(w)
+            continue
         # a word whose FIRST sense is coarse (`шлюха`, untagged in Wiktionary) --
         # the same pattern build_deck.py filters glosses with
         if COARSE.search(e['senses'][0]['g'][-1]):
@@ -349,8 +396,11 @@ def main():
             continue
         # one entry per spelling and part of speech: the first, which is
         # Wiktionary's principal etymology (`есть` "to eat" before `есть` "there is")
-        if any(j < i and lex[j]['pos'] == e['pos'] and j not in used
-               for j in by_word[fold(w)]):
+        if fold(w) in PICK:
+            if not any(PICK[fold(w)] in g for sn in e['senses'] for g in sn['g']):
+                continue
+        elif any(j < i and lex[j]['pos'] == e['pos'] and j not in used
+                 for j in by_word[fold(w)]):
             continue
         if fold(w) in REFUSED_F:
             refused_seen.append(w)

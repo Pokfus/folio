@@ -81,6 +81,20 @@ SCOPE = {
                   'character, free time, telling what happened and when, giving an opinion, the '
                   'numbers to a million, and the everyday verbs of moving, dressing and doing',
     },
+    'b1': {
+        'source': 'cefr',
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences, events, '
+                 'dreams, hopes and ambitions and briefly give reasons for opinions and plans',
+        'topics': 'jobs and the workplace, school and university subjects, the media and the '
+                  'internet, travel and what goes wrong on it, experiences and the stages of a '
+                  'life, plans and ambitions, the words that give reasons and weigh opinions, '
+                  'society and the environment, money and the bank, renting a home, '
+                  'relationships, health and treatment, feelings, and the adjectives and verbs '
+                  'that describe change and character',
+    },
 }
 
 

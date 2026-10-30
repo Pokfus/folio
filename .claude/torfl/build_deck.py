@@ -105,6 +105,10 @@ GLOSS = {
     'мечта': ['dream (something hoped for)', 'daydream'],
     'подружка': ['girlfriend, (female) friend'],
     'холодильник': ['fridge, refrigerator'],
+    'ерунда': ['nonsense, rubbish', 'a trifle'],
+    'болтать': ['to chat, to chatter', 'to dangle, to shake'],
+    'парочка': ['a couple, a pair (informal)'],
+    'волнение': ['excitement, nervousness', 'unrest', 'choppiness (of water)'],
     # THE PREPOSITIONS, WITH THE CASE EACH SENSE TAKES.  Wiktionary splits a
     # preposition's senses under headings ("[with prepositional]") that do not
     # survive as glosses, and the case IS the lesson: в + prepositional is where,
@@ -148,7 +152,7 @@ def override(e):
 # away `помощь`, `собираться` and `согласиться` (found at A2, Oct 2026).
 COARSE = re.compile(r'\b(fuck\w*|shit\w*|cunts?|dicks?|cocks?|pricks?|arse|arsehole|ass|asshole|'
                     r'bitch\w*|whores?|sluts?|piss\w*|bollocks|wank\w*|screw(ing)?|bang(ing)?|'
-                    r'sex(ual)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
+                    r'sex(ual|ually)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
 
 
 def clean_gloss(g):
@@ -170,7 +174,8 @@ def clean_gloss(g):
     # внук (vnuk): granddaughter` -> `granddaughter`
     text = re.sub(r'^female equivalent of [^:]*:\s*', '', text)
     # Wiktionary's editorial asides: `(perfective поговорить)`, `one (1)`
-    text = re.sub(r'\s*\((?:im)?perfective [^)]*\)|\s*\(\d+\)|\s*\(verbal noun of [^)]*\)+',
+    text = re.sub(r'\s*\((?:im)?perfective:? [^)]*\)|\s*\(only (?:im)?perfective\)|\s*\(\d+\)'
+                  r'|\s*\(verbal noun of [^)]*\)+|\s*\(nomen [^)]*\)+',
                   '', text).strip()
     # a construction note in square brackets, often cut off by the length limit
     text = re.sub(r'\s*\[[^\]]*(\]|$)', '', text).strip()

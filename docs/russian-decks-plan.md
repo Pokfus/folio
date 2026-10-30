@@ -6,10 +6,10 @@ Portuguese CAPLE, Italian CILS, Indonesian UKBI …); `docs/lang-decks.md` is th
 were built, and every rule there applies here unless this file says otherwise. Asked for on 2026-10-30: "In the same style, we made other language vocabulary collections for
 several foreign languages. Start planning a collection for learning Russian."
 
-**STATUS (2026-10-30): the alphabet deck, A1 and A2 are built** (`.claude/torfl/`, §10). The owner's
+**STATUS (2026-10-30): the alphabet deck, A1, A2 and B1 are built** (`.claude/torfl/`, §10). The owner's
 answers to §9: sizes as below; **an alphabet deck, yes**; **titles in English**; word source as
 recommended (assembled). The owner is supplying TORFL's own level descriptions; until they are written
-into `SCOPE` in `torfl_level.py`, A1 and A2 are scoped to the CEFR global descriptors for their bands
+into `SCOPE` in `torfl_level.py`, A1, A2 and B1 are scoped to the CEFR global descriptors for their bands
 and say so in their descriptions.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version
@@ -27,7 +27,7 @@ itself, and each maps to a CEFR band:
 | `Russian-Alphabet` (built) | — | — | 33 |
 | `TORFL-A1-Russian` (built) | Элементарный уровень (ТЭУ) | A1 | 500 |
 | `TORFL-A2-Russian` (built) | Базовый уровень (ТБУ) | A2 | 750 |
-| `TORFL-B1-Russian` | ТРКИ-1 | B1 | 1,000 |
+| `TORFL-B1-Russian` (built) | ТРКИ-1 | B1 | 1,000 |
 | `TORFL-B2-Russian` | ТРКИ-2 | B2 | 1,500 |
 | `TORFL-C1-Russian` | ТРКИ-3 | C1 | 1,500 |
 | `TORFL-C2-Russian` | ТРКИ-4 | C2 | 1,000 |
@@ -266,6 +266,32 @@ frequency; 169 aspect pairs; three sentences for all 750. What A2 found, beyond 
 - **Two of one card's sentences sharing three of five words** are one sentence twice (`Дети и пьяные
   говорят правду` / `…не врут`); the similarity rule is one step stricter.
 
-**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the A1 and A2
-inventories against them) when the owner's text arrives; then B1 (1,000 notes), where the fill will
-choose even more of the words and the refused groups will need extending.
+## 12. As built (2026-10-30): B1
+
+1,000 notes / 2,000 cards on top of A2: 189 from `SECTIONS_B1` (the CEFR B1 descriptor's own domains —
+work, school, leisure, travel, experiences and ambitions, reasons and opinions — plus society, money and
+health), 811 by frequency; 229 aspect pairs; three sentences for 991 of the 1,000 and one or two for the rest.
+
+- **The fill chooses four words in five at B1**, and naming film vocabulary word by word stopped
+  scaling. `FILM_GLOSS` in `select.py` refuses a fill word whose FIRST English sense is about violence,
+  crime, war, the supernatural or rank, matched on whole words. Two words were taken out of it after
+  they cost A1 real words: "general" ("in general" — `вообще`) and "major" ("main"); and `accus\w+`
+  became the verb's own forms after it matched "accusative" in `должен`'s grammar note. English names
+  in the subtitles (`крис`, `стив`, `скотт`) and filler sounds are a short list beside it. This changed
+  A1 and A2 a little: `господин` left A1 for the fill rule, and A2 lost `король`, `королева`, `дама`,
+  `госпожа`, `пьяный`, `бороться`, `править`.
+- **The fill may now choose between two same-spelt entries** (`PICK`): Wiktionary lists `клуб` "puff
+  of smoke" before `клуб` "club", and `повод` "rein" before "reason".
+- **Plurals filed as their own entries** (`кости`, `уши`, `мозги`, `карты`, `небеса`) duplicate a noun
+  the set already teaches and are refused, as are participles and adjective forms filed as nouns
+  (`любимая`, `созданный`).
+- **`совершенно` and `довольно` are adverbs first** (`ADV_FIRST`) although their predicative's gloss
+  begins "it is…".
+- **The example filter refused "kiss", "girlfriend" and "boyfriend"**, which left `поцелуй` and
+  `целовать` with no sentences; those are ordinary words and the filter no longer names them. It now
+  names "whore" and "slut", which one translation carried.
+
+**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the A1, A2 and
+B1 inventories against them) when the owner's text arrives; then B2 (1,500 notes). At B2 the subtitle
+list's counts thin out (a word ranked 4,000th is said a few hundred times in the whole corpus), so the
+inventory will have to carry more of the level, as UKBI's upper levels found.

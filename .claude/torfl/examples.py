@@ -47,8 +47,8 @@ BAD_RU = {fold(w) for w in '''
 '''.split()}
 BAD_EN = re.compile(r"\b(kill\w*|murder\w*|dead|death|die[sd]?|dying|suicide|blood\w*|gun\w*|"
                     r"shoot\w*|shot|sex\w*|naked|drug\w*|drunk|fuck\w*|shit\w*|damn\w*|hell|"
-                    r"bitch\w*|rape\w*|idiot\w*|stupid|hate[sd]?|war|bomb\w*|prison|jail|god|"
-                    r"girlfriend|boyfriend|kiss\w*|Tom|Mary|John|Alice)\b", re.I)
+                    r"bitch\w*|whore\w*|slut\w*|rape\w*|idiot\w*|stupid|hate[sd]?|war|bomb\w*|prison|jail|god|"
+                    r"Tom|Mary|John|Alice)\b", re.I)
 # The last names are Tatoeba's house characters: a third of its English sentences
 # are about Tom and Mary, and a deck in which every third example is about Tom
 # reads as a corpus artefact rather than as Russian.  They are not refused --

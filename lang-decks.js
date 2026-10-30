@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 157 MB of decks. The file itself is fetched on Add. */
+   section without fetching 160 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -28,8 +28,9 @@ window.LANG_DECKS = [
   { lang: "Portuguese", file: "CAPLE-C2-Portuguese.folio-deck.json", id: "caplec2", title: "CAPLE C2 — Portuguese", sub: "700 words · European Portuguese · both directions", notes: 700, cards: 1400, ex: 58, bytes: 1974986, rev: "901aa60fc313" },
   { lang: "Portuguese", file: "Portuguese-Phrases-and-Expressions.folio-deck.json", id: "ptphrase", title: "Portuguese Phrases and Expressions", sub: "1,342 expressions · European Portuguese · both directions", notes: 1342, cards: 2684, subs: 2, tree: [{"n":"Expressions","c":2254,"x":34},{"n":"Proverbs","c":430,"x":30}], flat: true, ex: 33, bytes: 2149382, rev: "24e61af10300" },
   { lang: "Russian", file: "Russian-Alphabet.folio-deck.json", id: "ruabc", title: "Russian Alphabet", sub: "33 letters · both directions, as two cards per letter", notes: 33, cards: 66, ex: 0, bytes: 12340, rev: "9558c3d92472" },
-  { lang: "Russian", file: "TORFL-A1-Russian.folio-deck.json", id: "torfla1", title: "TORFL A1 Elementary — Russian", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1418471, rev: "a46822ec9825" },
-  { lang: "Russian", file: "TORFL-A2-Russian.folio-deck.json", id: "torfla2", title: "TORFL A2 Basic — Russian", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 2561358, rev: "798d5eb13c62" },
+  { lang: "Russian", file: "TORFL-A1-Russian.folio-deck.json", id: "torfla1", title: "TORFL A1 Elementary — Russian", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1420550, rev: "34f5e9f986b7" },
+  { lang: "Russian", file: "TORFL-A2-Russian.folio-deck.json", id: "torfla2", title: "TORFL A2 Basic — Russian", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 2561283, rev: "ef7f5ae19785" },
+  { lang: "Russian", file: "TORFL-B1-Russian.folio-deck.json", id: "torflb1", title: "TORFL B1 Certificate Level 1 — Russian", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 100, bytes: 3468285, rev: "07f7b9296b23" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },

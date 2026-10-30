@@ -231,7 +231,102 @@ SECTIONS_A2 = {
     'verbs': A2_VERBS, 'adjectives': A2_ADJECTIVES,
 }
 
-SECTIONS = {'a1': SECTIONS_A1, 'a2': SECTIONS_A2}.get(LEVEL, {})
+# ---------------------------------------------------------------- B1
+# THE CEFR B1 DESCRIPTOR NAMES ITS OWN DOMAINS: "familiar matters regularly
+# encountered in work, school, leisure", "most situations likely to arise whilst
+# travelling", describing "experiences and events, dreams, hopes and ambitions",
+# and giving "reasons and explanations for opinions and plans".  So the sections
+# below are those, in that order, plus the society, money and health vocabulary
+# a connected text on a familiar topic reaches for.  The reasons-and-opinions
+# section is the one a frequency list serves worst: `несмотря на`, `благодаря`,
+# `во-первых` are the joints of an argument and rare one by one.
+
+B1_WORK = '''
+работник сотрудник должность карьера резюме договор обязанность пенсия безработный
+предприятие завод производство покупатель заказ совещание расписание срок задача
+зарабатывать руководить
+'''
+
+B1_SCHOOL = '''
+образование школьник оценка предмет математика литература химия физика биология
+география лекция семинар диплом учёба знание наука учёный:noun готовиться
+'''
+
+B1_MEDIA = '''
+телевидение радио интернет сайт сеть экран реклама статья передача канал сериал
+техника пароль
+'''
+
+B1_TRAVEL = '''
+рейс багаж вагон бронировать гид достопримечательность путеводитель маршрут
+направление пересадка опоздание посольство виза таможня обмен валюта
+'''
+
+B1_LIFE = '''
+происшествие приключение впечатление воспоминание детство молодость юность старость
+праздновать отмечать юбилей
+'''
+
+B1_PLANS = '''
+намерение стремиться планировать
+'''
+
+B1_REASONS = '''
+так_как благодаря несмотря_на однако зато во-первых во-вторых точка_зрения спорить
+вероятно видимо значит
+'''
+
+B1_SOCIETY = '''
+государство гражданин выборы политика экономика экология загрязнение мусор климат
+'''
+
+B1_MONEY = '''
+кредит наличные сдача#change скидка стоимость экономить копить налог расход
+'''
+
+B1_HOME = '''
+аренда ремонт подъезд двор отопление электричество
+'''
+
+B1_PEOPLE = '''
+дружба брак развод ссориться мириться доверие
+'''
+
+B1_HEALTH = '''
+медсестра лечение анализ давление аллергия кашель насморк простуда грипп рана
+травма страховка
+'''
+
+B1_FEELINGS = '''
+страх обида стыд гордость ревность удивление разочарование волнение интерес скука
+одиночество грустить обижаться
+'''
+
+B1_ADVERBS = '''
+постоянно регулярно обязательно именно особенно совершенно абсолютно примерно почти
+довольно достаточно наоборот
+'''
+
+B1_ADJECTIVES = '''
+сложный современный старинный популярный необходимый возможный обязательный
+полезный вредный безопасный ответственный активный самостоятельный вежливый грубый
+щедрый жадный ленивый трудолюбивый
+'''
+
+B1_VERBS = '''
+развивать развиваться улучшать ухудшать увеличивать уменьшать сравнивать описывать
+организовывать исследовать изобретать повышать снижать влиять зависеть
+'''
+
+SECTIONS_B1 = {
+    'work': B1_WORK, 'school': B1_SCHOOL, 'media': B1_MEDIA, 'travel': B1_TRAVEL,
+    'life': B1_LIFE, 'plans': B1_PLANS, 'reasons': B1_REASONS, 'society': B1_SOCIETY,
+    'money': B1_MONEY, 'home': B1_HOME, 'people': B1_PEOPLE, 'health': B1_HEALTH,
+    'feelings': B1_FEELINGS, 'adverbs': B1_ADVERBS, 'adjectives': B1_ADJECTIVES,
+    'verbs': B1_VERBS,
+}
+
+SECTIONS = {'a1': SECTIONS_A1, 'a2': SECTIONS_A2, 'b1': SECTIONS_B1}.get(LEVEL, {})
 
 
 def inventory():
