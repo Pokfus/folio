@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T01:22Z",
+ "generated": "2026-10-30T01:25Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5307,
-  "redirect-broader": 494,
+  "ok": 5312,
+  "redirect-broader": 496,
   "redirect-variant": 332,
   "section-redirect": 106,
   "disambiguation": 139,
-  "none": 965,
+  "none": 968,
   "disambig-resolved": 79,
   "list-page": 6,
   "search-match": 6,
@@ -60536,6 +60536,99 @@
    "answer": "Battle of Britain Day",
    "title": "Battle of Britain Day",
    "url": "https://en.wikipedia.org/wiki/Battle_of_Britain_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-281": {
+   "answer": "Evacuation Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Evacuations of civilians in the United Kingdom during the Second World War",
+    "Evacuation in the Soviet Union",
+    "World War II casualties",
+    "War crimes in World War II",
+    "World War II"
+   ]
+  },
+  "ww2-282": {
+   "answer": "Moscow counter-offensive",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Timeline of the Eastern Front of World War II",
+    "World War II",
+    "Finland in World War II",
+    "Brazil in World War II",
+    "Military history of Italy during World War II"
+   ]
+  },
+  "ww2-283": {
+   "answer": "Georgy Zhukov",
+   "title": "Georgy Zhukov",
+   "url": "https://en.wikipedia.org/wiki/Georgy_Zhukov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-284": {
+   "answer": "State Defence Committee",
+   "title": "State Defense Committee",
+   "url": "https://en.wikipedia.org/wiki/State_Defense_Committee",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "State Defence Committee"
+  },
+  "ww2-285": {
+   "answer": "Stavka",
+   "title": "Stavka",
+   "url": "https://en.wikipedia.org/wiki/Stavka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-286": {
+   "answer": "Soviet mobilisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Soviet Union in World War II",
+    "Continuation War",
+    "Eastern Front (World War II)",
+    "European theatre of World War II",
+    "Winter War"
+   ]
+  },
+  "ww2-287": {
+   "answer": "Order No. 227",
+   "title": "Order No. 227",
+   "url": "https://en.wikipedia.org/wiki/Order_No._227",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-288": {
+   "answer": "Shtrafbat",
+   "title": "Shtrafbat",
+   "url": "https://en.wikipedia.org/wiki/Shtrafbat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-289": {
+   "answer": "German mistreatment of Soviet prisoners of war",
+   "title": "German atrocities committed against Soviet prisoners of war",
+   "url": "https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "German mistreatment of Soviet prisoners of war"
+  },
+  "ww2-290": {
+   "answer": "Reich Ministry for the Occupied Eastern Territories",
+   "title": "Reich Ministry for the Occupied Eastern Territories",
+   "url": "https://en.wikipedia.org/wiki/Reich_Ministry_for_the_Occupied_Eastern_Territories",
    "via": "glossary",
    "status": "ok"
   }

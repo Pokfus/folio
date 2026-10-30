@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5307 | the title is the article |
+| `ok` | 5312 | the title is the article |
 | `redirect-variant` | 332 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 494 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 496 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 106 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 139 | only a disambiguation page; no link could be chosen |
-| `none` | 965 | nothing matched; no link |
+| `none` | 968 | nothing matched; no link |
 
-**6225 of 7451 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6232 of 7461 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (494)
+## Redirected to a differently named article — check each (496)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -536,6 +536,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-202` **May 1940 war cabinet crisis** → [1940 British war cabinet crisis](https://en.wikipedia.org/wiki/1940_British_war_cabinet_crisis) (from `May 1940 war cabinet crisis`)
 - `ww2-269` **Tukhachevsky affair** → [Case of the Trotskyist Anti-Soviet Military Organization](https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization) (from `Tukhachevsky affair`)
 - `ww2-270` **Kesselschlacht** → [Encirclement](https://en.wikipedia.org/wiki/Encirclement) (from `Kesselschlacht`)
+- `ww2-284` **State Defence Committee** → [State Defense Committee](https://en.wikipedia.org/wiki/State_Defense_Committee) (from `State Defence Committee`)
+- `ww2-289` **German mistreatment of Soviet prisoners of war** → [German atrocities committed against Soviet prisoners of war](https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war) (from `German mistreatment of Soviet prisoners of war`)
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)
 - `ww2-295` **clean Wehrmacht myth** → [Myth of the clean Wehrmacht](https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht) (from `Clean Wehrmacht myth`)
 
@@ -900,7 +902,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-114` **Non-Intervention Committee** — `Non-Intervention Committee` only redirects into `Non-intervention in the Spanish Civil War#Non-Intervention Committee`
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 
-## No article found (965)
+## No article found (968)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1868,4 +1870,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-209` **Blitzkrieg economy** — search suggests `Blitzkrieg`, `Military history of Italy during World War II`, `World War II`, `World War II casualties`, `World War II by country`
 - `ww2-210` **Directive No. 18** — search suggests `World War II`, `End of World War II in Europe`, `War crimes in World War II`, `World War II by country`, `Aftermath of World War II`
 - `ww2-262` **Directive No. 21** — search suggests `World War II`, `End of World War II in Europe`, `Führer Directive No. 25`, `Aftermath of World War II`, `World War II by country`
+- `ww2-281` **Evacuation Council** — search suggests `Evacuations of civilians in the United Kingdom during the Second World War`, `Evacuation in the Soviet Union`, `World War II casualties`, `War crimes in World War II`, `World War II`
+- `ww2-282` **Moscow counter-offensive** — search suggests `Timeline of the Eastern Front of World War II`, `World War II`, `Finland in World War II`, `Brazil in World War II`, `Military history of Italy during World War II`
+- `ww2-286` **Soviet mobilisation** — search suggests `Soviet Union in World War II`, `Continuation War`, `Eastern Front (World War II)`, `European theatre of World War II`, `Winter War`
 - `ww2-296` **stand-fast order** — search suggests `Military history of Italy during World War II`, `Scandinavian theatre of World War II`, `British merchant seamen of World War II`, `Soviet Union in World War II`, `Australia in World War II`

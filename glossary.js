@@ -7558,7 +7558,17 @@ window.GLOSSARY = {
 "Adlertag": "",
 "Keith_Park": "",
 "Hermann_Göring": "",
-"Battle_of_Britain_Day": ""
+"Battle_of_Britain_Day": "",
+"Evacuation_Council": "",
+"Moscow_counter-offensive": "",
+"Georgy_Zhukov": "",
+"State_Defense_Committee": "",
+"Stavka": "",
+"Soviet_mobilisation": "",
+"Order_No._227": "",
+"Shtrafbat": "",
+"German_atrocities_committed_against_Soviet_prisoners_of_war": "",
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11267,7 +11277,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Luftwaffe": "1935–1945",
 "Adlertag": "13 August 1940",
 "Hermann_Göring": "1893–1946",
-"Battle_of_Britain_Day": "15 September 1940"
+"Battle_of_Britain_Day": "15 September 1940",
+"Evacuation_Council": "1941",
+"Moscow_counter-offensive": "December 1941 – January 1942",
+"State_Defense_Committee": "1941–1945",
+"Stavka": "1941–1945",
+"Soviet_mobilisation": "1941",
+"Order_No._227": "28 July 1942",
+"Shtrafbat": "1942",
+"German_atrocities_committed_against_Soviet_prisoners_of_war": "1941–1945",
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": "1941"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16056,7 +16075,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Directive_No._18": ["Führer Directive No. 18"],
 "Hugh_Dowding": ["Lord Dowding"],
 "Adlertag": ["Eagle Day"],
-"Hermann_Göring": ["Hermann Goering","Göring"]
+"Hermann_Göring": ["Hermann Goering","Göring"],
+"Evacuation_Council": ["Council for Evacuation","Soviet Evacuation Council"],
+"Moscow_counter-offensive": ["Soviet counter-offensive of December 1941","Soviet winter counter-offensive"],
+"Georgy_Zhukov": ["Zhukov","Georgi Zhukov","Georgiy Zhukov"],
+"State_Defense_Committee": ["State Defence Committee","GKO","State Defense Committee"],
+"Stavka": ["Stavka of the Supreme High Command","Stavka VGK"],
+"Soviet_mobilisation": ["Mobilisation in the Soviet Union","Soviet mobilization"],
+"Order_No._227": ["Order 227","Not a step back","Ni shagu nazad"],
+"Shtrafbat": ["Penal battalion","Shtrafnoi batalon","Soviet penal battalions"],
+"German_atrocities_committed_against_Soviet_prisoners_of_war": ["German mistreatment of Soviet prisoners of war","Soviet prisoners of war in German captivity"],
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": ["Ostministerium","Reichsministerium für die besetzten Ostgebiete","Reich Ministry for the Occupied Eastern Territories"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23759,7 +23788,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Adlertag": ["event","history","warfare","second world war","germany","britain"],
 "Keith_Park": ["person","history","warfare","second world war","britain"],
 "Hermann_Göring": ["person","history","politics","warfare","second world war","germany"],
-"Battle_of_Britain_Day": ["event","history","warfare","second world war","britain"]
+"Battle_of_Britain_Day": ["event","history","warfare","second world war","britain"],
+"Evacuation_Council": ["institution","history","warfare","economics","russia"],
+"Moscow_counter-offensive": ["battle","history","warfare","russia","germany"],
+"Georgy_Zhukov": ["person","history","warfare","20th century","russia"],
+"State_Defense_Committee": ["institution","history","politics","warfare","russia"],
+"Stavka": ["institution","history","warfare","russia"],
+"Soviet_mobilisation": ["event","history","warfare","russia"],
+"Order_No._227": ["text","history","warfare","law","russia"],
+"Shtrafbat": ["institution","history","warfare","law","russia"],
+"German_atrocities_committed_against_Soviet_prisoners_of_war": ["event","history","warfare","war crimes","germany","russia"],
+"Reich_Ministry_for_the_Occupied_Eastern_Territories": ["institution","history","politics","occupation","germany"]
 });
 
 /* ============================================================================
