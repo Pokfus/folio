@@ -7671,7 +7671,16 @@ window.GLOSSARY = {
 "Operation_Citadel": "",
 "Steppe_Front": "",
 "Battle_of_Prokhorovka": "",
-"Operation_Kutuzov": ""
+"Operation_Kutuzov": "",
+"Operation_Fischreiher": "",
+"Volgograd_Tractor_Plant": "",
+"Vasily_Chuikov": "",
+"Operation_Uranus": "",
+"6th_Army_(Wehrmacht)": "",
+"Stalingrad_airlift": "",
+"Friedrich_Paulus": "",
+"Operation_Winter_Storm": "",
+"Operation_Koltso": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11462,7 +11471,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Operation_Citadel": "5–13 July 1943",
 "Steppe_Front": "1943",
 "Battle_of_Prokhorovka": "12 July 1943",
-"Operation_Kutuzov": "12 July – 18 August 1943"
+"Operation_Kutuzov": "12 July – 18 August 1943",
+"Operation_Fischreiher": "1942",
+"Volgograd_Tractor_Plant": "1930–",
+"Vasily_Chuikov": "1900–1982",
+"Operation_Uranus": "19–23 November 1942",
+"6th_Army_(Wehrmacht)": "1939–1944",
+"Stalingrad_airlift": "1942–1943",
+"Friedrich_Paulus": "1890–1957",
+"Operation_Winter_Storm": "12–23 December 1942",
+"Operation_Koltso": "10 January – 2 February 1943"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16336,7 +16354,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "1944_Bulgarian_coup_d'état": ["Bulgarian coup of 9 September 1944","Ninth of September coup"],
 "Siege_of_Budapest": ["siege of Budapest"],
 "Grand_Alliance_(World_War_II)": ["Grand Alliance"],
-"Operation_Citadel": ["Zitadelle"]
+"Operation_Citadel": ["Zitadelle"],
+"Volgograd_Tractor_Plant": ["Stalingrad Tractor Factory","Stalingrad Tractor Plant"],
+"6th_Army_(Wehrmacht)": ["German Sixth Army"],
+"Operation_Winter_Storm": ["Wintergewitter"],
+"Operation_Koltso": ["Operation Ring"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24152,7 +24174,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Operation_Citadel": ["battle","history","warfare","germany","russia"],
 "Steppe_Front": ["institution","history","warfare","russia"],
 "Battle_of_Prokhorovka": ["battle","history","warfare","russia","germany"],
-"Operation_Kutuzov": ["battle","history","warfare","russia","germany"]
+"Operation_Kutuzov": ["battle","history","warfare","russia","germany"],
+"Operation_Fischreiher": ["event","history","warfare","second world war","germany"],
+"Volgograd_Tractor_Plant": ["building","industry","history","russia"],
+"Vasily_Chuikov": ["person","history","warfare","russia"],
+"Operation_Uranus": ["event","history","warfare","second world war","russia"],
+"6th_Army_(Wehrmacht)": ["institution","history","warfare","germany"],
+"Stalingrad_airlift": ["event","history","warfare","aviation","germany"],
+"Friedrich_Paulus": ["person","history","warfare","germany"],
+"Operation_Winter_Storm": ["event","history","warfare","second world war","germany"],
+"Operation_Koltso": ["event","history","warfare","second world war","russia"]
 });
 
 /* ============================================================================
