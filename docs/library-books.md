@@ -12,7 +12,19 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  `tacitus-annals` (~947 KB English, ~687 KB Latin, **12 chapters** — the surviving books 1–6 and 11–16, books 7–10
+  being lost — **1 note**, original **Latin**; Church and Brodribb's translation, Macmillan 1869, beside C. D.
+  Fisher's Oxford text of 1906, both from Perseus's TEI; `layout: "chaptered"`, the Gallic War's shape, with
+  `chapters` listing the twelve and app.js's `chapterNums` telling `readingPct` the numbers skip). **Pairs on CHAPTER
+  numbers, 721 a side, identical in every book.** One importer option arrived with it: `crossBookChapters`, because
+  Fisher prints the end of book 5 (5.6–5.11) at the head of book 6 and both files number those divisions `5_6` …
+  `5_11` inside book 6, which `teiBookChapters` would have skipped as non-chapters; opted in, they stay where Fisher
+  prints them, marked "5.6", sorted ahead of 6.1. Licence ground is publication dates only; Perseus's header says its
+  English follows a 1942 reprint "with significant changes", so it was measured against the 1895 Macmillan printing
+  (90 % of six-word runs verbatim, the gaps read being OCR noise and spelling) before 1869 was relied on. Fisher's 15
+  `<del>` brackets (23 words) drop with the shared rule. Checked: word counts within one word (English) and exact
+  less the `<del>` words (Latin).
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,

@@ -2688,6 +2688,166 @@ const BOOKS = {
     },
   },
 
+  "tacitus-annals": {
+    title: "The Annals",
+    // the work's own Latin title, as Fisher's edition prints it — what the Latin column is an edition of
+    subtitle: "Ab excessu divi Augusti",
+    author: "Tacitus",
+    translator: "Alfred John Church and William Jackson Brodribb",
+    edition: "Annals of Tacitus, translated into English, Macmillan and Co., London, 1869",
+    written: "early 2nd century CE",
+
+    /* ---------- THE LICENCE, the Suetonius shape: two layers on both sides ----------
+       The expired-copyright half rests on the dates of publication and on nothing else, which is the
+       Ovid discipline: no death year is asserted because none was looked up here. Church and
+       Brodribb's Annals was first published by Macmillan in 1869 — read off the verso of the 1895
+       reprint's title page ("First Edition, 1869. Reprinted, 1870 … 1895"), which is the scan Perseus
+       itself cites — and Fisher's Oxford Latin text is of 1906. Both are long before 1929.
+
+       ONE THING WAS CHECKED BEFORE IT WAS BELIEVED, because Perseus's own header raises it: its
+       editorial note says the English "appears to be substantially based on the 1942 reprint, which
+       has significant changes from the earlier editions". A 1942 American reprint could in principle
+       carry new copyrightable revisions, so the Perseus English was MEASURED against the OCR of the
+       1895 Macmillan printing (archive.org, church-and-brodribb-annals-1895-en): 90% of its six-word
+       runs occur verbatim in the 1895 text, every one of the 721 chapters clears 60%, and the gaps in
+       the lowest chapters, read one by one (1.24, 4.75, 6.15, 11.1, 12.37, 16.23), are the scan's
+       OCR noise, its marginal summaries cut into the line, and spellings (prætorian / pretorian) —
+       not rewording. What ships is Church and Brodribb's Victorian text.
+
+       The SECOND layer is Perseus's: both files carry a `<licence>` element for Creative Commons
+       Attribution-ShareAlike 4.0, named in `rights`, printed on the book's page and credited.
+
+       The modern translations a reader is likeliest to own — Michael Grant's Penguin (1956), A. J.
+       Woodman's (2004) and Cynthia Damon's Penguin (2012) — are in copyright and are named so that
+       nobody reaches for one later. */
+    rights:
+      "Two layers, both stated. Alfred John Church and William Jackson Brodribb's translation was " +
+      "first published by Macmillan in 1869, and the Latin printed beside it is Charles Dennis " +
+      "Fisher's Oxford text of 1906 — both long before 1929 — so the copyright in both has expired. " +
+      "Tacitus wrote the work in Latin in the early second century. The digital editions both " +
+      "columns are taken from are prepared by the Perseus Digital Library at Tufts University and " +
+      "are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The " +
+      "modern translations by Michael Grant, 1956, A. J. Woodman, 2004, and Cynthia Damon, 2012, are " +
+      "still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1351.phi005/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. What a
+       reader should be told before the first page: what the book covers and that a third of it is
+       lost, the stance its opening sentence claims and how far to trust it, who Tacitus was, and what
+       the gaps, the numbers and the odd run of "5.6" at the head of book 6 are. Every chapter cited
+       below was found in this translation before it was cited. */
+    about: [
+      "<b>The Annals</b> is the history of Rome from the death of Augustus in 14 CE through the " +
+        "reigns of Tiberius, Caligula, Claudius and Nero, told year by year — which is what " +
+        "<i>annales</i> means — in the order of the consuls who gave each year its name. It is the " +
+        "last and greatest work of Cornelius Tacitus, and for most of what it covers it is the fullest " +
+        "account to survive: the slow poisoning of Tiberius's reign by suspicion and treason trials, " +
+        "Claudius ruled by his wives and freedmen, and Nero's murder of his mother, the great fire of " +
+        "Rome, and the deaths he forced on Seneca, Petronius and the senators who had stood up to him.",
+      "A third of it is lost. Books 7 to 10, which covered the whole of Caligula's reign and the first " +
+        "six years of Claudius's, are gone entirely; so are most of book 5, the opening of book 6, " +
+        "the opening of book 11 and the end of book 16, where the text breaks off in the middle of a " +
+        "sentence at the death of Thrasea Paetus in 66 CE. The work probably ran on to Nero's own " +
+        "death in 68, but how many books it had is not known for certain. What survives does so " +
+        "almost by luck: books 1 to 6 and books 11 to 16 each come down to us in essentially a single " +
+        "medieval manuscript, both now in Florence. Where the text has a gap, this page shows one.",
+      "The opening chapter promises to write \"without either bitterness or partiality\", and the " +
+        "phrase has been quoted ever since. It is a claim, not a description. Tacitus was a senator " +
+        "writing under later and better emperors about a century in which the senate had learned to " +
+        "flatter and to inform, and his book is a sustained study of what one-man rule does to the men " +
+        "around it. He rarely states a falsehood that can be caught; his art is in arrangement, in the " +
+        "rumour reported and then not quite denied, and in a compressed, ironic Latin that makes a " +
+        "plain sentence carry a verdict. Historians read him with admiration and with care in equal " +
+        "measure, and the portrait of Tiberius in particular is argued over to this day.",
+      "Some pages are famous beyond the book. Germanicus's army finds the unburied dead of Varus's " +
+        "legions in the German forest (1.61); Boudicea leads the revolt of the Iceni in Britain (14.31 " +
+        "to 14.37); Seneca dies at Nero's order (15.63); Petronius, Nero's arbiter of taste, takes his " +
+        "time over dying (16.18 to 16.19). And in the chapter on the fire of 64 CE Tacitus tells how " +
+        "Nero blamed a group \"called Christians by the populace\", and that their founder had suffered " +
+        "under Tiberius at the hands of Pontius Pilate (15.44) — one of the earliest mentions of Jesus " +
+        "by a writer who was not a Christian.",
+      "Cornelius Tacitus was born in the mid-50s CE, probably in northern Italy or southern Gaul, and " +
+        "rose through the senatorial career under the Flavian emperors; he married the daughter of " +
+        "Agricola, the governor of Britain, and wrote his life. He held the consulship in 97 and " +
+        "governed the province of Asia in the early 110s, and was a friend and correspondent of the " +
+        "younger Pliny. Besides the Agricola he wrote the Germania, a dialogue on oratory, and the " +
+        "Histories, which covered the years from 69 to 96 and of which only the beginning survives. " +
+        "The Annals came last, in the second decade of the second century; when he died is not known.",
+      "The translation is Alfred John Church and William Jackson Brodribb's, first published in 1869, " +
+        "and the Latin beside it is Charles Dennis Fisher's Oxford text of 1906. The small raised " +
+        "figures running through both columns are the CHAPTER numbers by which any passage is cited — " +
+        "\"Annals 15.44\" means book 15, chapter 44 — and they are also what pairs the two texts: the " +
+        "two editions agree on every chapter of all twelve surviving books, 721 on each side. Because " +
+        "books 7 to 10 are lost, the books here run from 6 straight to 11. One run of numbers will look " +
+        "odd: book 6 opens on chapters 5.6 to 5.11. They are the surviving end of book 5, which Fisher " +
+        "prints at the head of book 6 and this page keeps where he prints it, numbered as they are " +
+        "cited; an older numbering, which the editor's note at the end of 5.5 describes, put the break " +
+        "after them instead. The few notes folded under each book are later editors', not the translators'.",
+    ],
+
+    /* ---------- ONE TEI FILE PER LANGUAGE, BOOKS OF NUMBERED CHAPTERS — the Gallic War's shape ----------
+       So it needed no new reader: `layout: "chaptered"`, a Folio chapter is one of the twelve
+       surviving books, and the pairing runs on the CHAPTER numbers inside it.
+
+       MEASURED over both files before any of it was believed: 12 book divisions on each side (1–6 and
+       11–16; 7–10 are lost and neither file pretends otherwise), and 721 chapter divisions on each
+       side with identical numbers in identical order in every book — 81, 88, 76, 75, 5, 57, 38, 69,
+       58, 65, 74, 35. No duplicates, no gaps, no letters.
+
+       THE ONE THING THE READER COULD NOT TAKE AS IT STOOD is the head of book 6. Fisher prints the
+       surviving end of book 5 — Annals 5.6 to 5.11 — at the start of LIBER VI, labelled "V. 6" to
+       "V. 11", and both Perseus files keep it there as chapters numbered `5_6` … `5_11` inside the
+       book-6 division (the English file's own editorial note says the translation "has been edited to
+       match"). teiBookChapters skips any chapter that is not a number, so as shipped it would have
+       dropped all six from both columns and reported a clean pairing of 715. `crossBookChapters`
+       opts this book into reading them: they stay where both editions print them, the marker shows
+       the citation "5.6", and they sort ahead of 6.1. Moving them back into book 5 was considered and
+       refused — it is the older arrangement, but it is neither file's, and a reader paging the Latin
+       against Fisher's printed page would find them missing from the place he set them.
+
+       WHAT IS NOT IMPORTED: each book's second `<head>`, the year span ("A.D. 14, 15"), sits between
+       the book division and its first chapter, outside every slice, exactly as the Gallic War's
+       heads do; that is luck of the markup, noted for the next edition that puts its head inside
+       chapter 1. Perseus's `<name>` and `<rs>` tagging is unwrapped by the generic sweep.
+       THE <del> RULE IS LIVE IN THE LATIN, measured as Lucretius's entry asks: Fisher brackets 15 runs
+       he judges spurious, 23 words in all (5.6's `alienationem mentis simulans` among them), and they
+       drop with the shared rule, so what ships is the text the edition constitutes. CHECKED by word
+       count against both files: the English within one word of its source plus the two inline editor
+       notes (159,629 against 159,630), the Latin exact once those 23 are set aside. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi1351/phi005/phi1351.phi005.perseus-eng2.xml",
+    layout: "chaptered",
+    crossBookChapters: true,
+    chapterWord: "Book",
+    // the twelve books that survive; 7 to 10 are lost, and a chapter number is the book's own
+    chapters: [1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16],
+    /* The two halves the work survives in — each in its own medieval manuscript — and the two halves
+       its subject falls into: Tiberius, then Claudius and Nero with the lost books between. */
+    parts: [
+      { n: 1, label: "Books I–VI", from: 1, to: 6 },
+      { n: 2, label: "Books XI–XVI", from: 11, to: 16 },
+    ],
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "chaptered",
+      crossBookChapters: true,
+      edition: "Cornelii Taciti Annalium ab excessu divi Augusti libri, edited by C. D. Fisher, Scriptorum Classicorum Bibliotheca Oxoniensis, Clarendon Press, Oxford, 1906, from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. Tacitus wrote the work in Latin in the early second century, so the " +
+        "words themselves are in the public domain everywhere, and Charles Dennis Fisher's edition of " +
+        "them was published in 1906 — before 1929. The digital edition it is taken from is prepared by " +
+        "the Perseus Digital Library at Tufts University and is released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1351.phi005/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi1351/phi005/phi1351.phi005.perseus-lat2.xml",
+    },
+  },
+
   "plutarch-lives": {
     title: "Parallel Lives",
     author: "Plutarch",
@@ -24256,6 +24416,27 @@ function teiBookChapters(xml, opts, warn) {
          1,533-for-1,533 pairing of a book missing forty-five of its chapters.
          So the guard now admits a trailing letter, and anything else is still skipped and reported. */
       const key = /^(\d+)([A-Z])?$/.exec(ch.n);
+      /* A CHAPTER OF ANOTHER BOOK, FILED WHERE THE PRINTED PAGE PUTS IT (Oct 2026, the Annals). Fisher's
+         Latin prints the surviving end of book 5 — Annals 5.6 to 5.11 — at the HEAD of book 6, labelled
+         "V. 6" to "V. 11", and both Perseus files keep it there as chapters `5_6` … `5_11` inside the
+         book-6 division. The guard below would skip all six as non-chapters, which is six chapters of
+         Tacitus gone from both columns with only a "skipped" line to say so. Opted into by the book
+         (`crossBookChapters`), so no other edition's skips change: the marker prints the citation,
+         "5.6", and sorts on the bare chapter number, which on this scale falls before the host book's
+         chapter 1 (100) and keeps the forward-only check below honest. The Latin's own `<label>`
+         repeats what the marker says and is dropped with it. */
+      const cross = opts.crossBook && !key && /^(\d+)_(\d+)$/.exec(ch.n);
+      if (cross && +cross[1] !== +b.n && +cross[2] < 100) {
+        const k = +cross[2];
+        if (k <= seq) warn("book " + b.n + ": chapter " + ch.n + " follows " + seq + " — out of order");
+        seq = k;
+        const text = teiSectionProse(raw.replace(/<label>[^<]*<\/label>/, ""), notes);
+        if (!text) { warn("book " + b.n + " chapter " + ch.n + " came back empty"); return; }
+        kept++;
+        html += (html ? "\n" : "") + text.replace(/^<p>/,
+          '<p><span class="bk-n" data-n="' + k + '">' + cross[1] + "." + cross[2] + "</span> ");
+        return;
+      }
       if (!key) { skipped.push(ch.n); return; }
       /* THE NUMBER SHOWN AND THE NUMBER SORTED ON COME APART the moment a letter is allowed, which is
          the Nicomachean Ethics' Bekker-page problem in a second work: parseInt reads 121, 121A and
@@ -27604,7 +27785,7 @@ async function fetchEnglish() {
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
     xml = correctRaw(xml);
-    const books = teiBookChapters(xml, {}, warn);
+    const books = teiBookChapters(xml, { crossBook: BOOK.crossBookChapters }, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -29274,9 +29455,9 @@ async function fetchOriginal() {
         let enXml;
         if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(enXml, {}, warn);
+        en = teiBookChapters(enXml, { crossBook: BOOK.crossBookChapters }, warn);
       }
-      const or = teiBookChapters(xml, {}, warn);
+      const or = teiBookChapters(xml, { crossBook: O.crossBookChapters }, warn);
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
