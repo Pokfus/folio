@@ -745,3 +745,12 @@ of its own — its present-day `keys` are only the fallback and the frame.
 - `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
   studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within
   0.03°) is never drawn a second time.
+
+### Another layer's names (`members.layer`, 2026-10-30, on request)
+
+> "[Manchuria's] card should have an atlas window."
+
+`members.layer` (optional) names the map-card layer the `keys` belong to — `china-provinces`, `us-states` or
+`russia-subjects` — instead of `world`; `ko-006` shades Heilongjiang, Jilin and Liaoning as Manchuria. A present-day
+members window with no seat (`at`) now names its group (`data-map-name`, written by `cardLocatorWindowHTML`) rather
+than its first key. `test-map-cards.js` §1 checks the keys against the named layer.
