@@ -478,7 +478,7 @@ async function browserChecks(page) {
      but does change this line, so the pattern names it rather than being loosened to match anything. */
   ok(dotBack.png !== dotBefore, "the reveal repainted the map");
   const WIN = fs.readFileSync(path.join(ROOT, "atlas", "atlas-windows.js"), "utf8");   // the engine's window (Phase 5: the earlier window's expression `const nm = gameCapFirst(dot ? dot.n : target ? target.n : "")` is gone with it)
-  ok(/const nm0 = gameCapFirst\(dot \? dot\.n : targets\.length \? targets\[0\]\.n : ""\)/.test(WIN), "the revealed label names the dot where there is one");
+  ok(/const nm0 = gameCapFirst\(dot \? dot\.n : isMembers && host\.getAttribute\("data-map-name"\) \? host\.getAttribute\("data-map-name"\) : targets\.length \? targets\[0\]\.n : ""\)/.test(WIN), "the revealed label names the dot where there is one");
 
   /* 8. THE LOCATOR (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place, saying
      where it is. It is not a map card — it has no shape to shade and no question to hold back — and the

@@ -7537,7 +7537,16 @@ window.GLOSSARY = {
 "Books_of_Kings": "",
 "Israelites": "",
 "Halah": "",
-"Khabur_(Euphrates)": ""
+"Khabur_(Euphrates)": "",
+"Balhae": "",
+"Tumen_River": "",
+"Taejo_of_Joseon": "",
+"Paektu_Mountain": "",
+"Saitama_Prefecture": "",
+"Kumamoto_Prefecture": "",
+"Kana": "",
+"Tropical_cyclone": "",
+"Money_supply": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11214,7 +11223,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sargon_II": "722 – 705 BCE",
 "Samaria_(ancient_city)": "capital c. 880 – 720s BCE",
 "Sennacherib": "705 – 681 BCE",
-"Kingdom_of_Judah": "c. 931 – 587 BCE"
+"Kingdom_of_Judah": "c. 931 – 587 BCE",
+"Balhae": "698–926 CE",
+"Taejo_of_Joseon": "reigned 1392–1398"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15995,7 +16006,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Books_of_Kings": ["Book of Kings"],
 "Israelites": ["Israelite"],
 "Halah": ["Halah"],
-"Khabur_(Euphrates)": ["Habor","Khabur","Khabur River"]
+"Khabur_(Euphrates)": ["Habor","Khabur","Khabur River"],
+"Balhae": ["Bohai kingdom","Parhae"],
+"Tumen_River": ["Duman","Duman River"],
+"Taejo_of_Joseon": ["Yi Seonggye"],
+"Paektu_Mountain": ["Mount Baekdu","Baekdusan","Changbai Mountain","Mount Paektu"],
+"Saitama_Prefecture": ["Saitama"],
+"Kumamoto_Prefecture": ["Kumamoto"],
+"Kana": ["hiragana","katakana"],
+"Tropical_cyclone": ["tropical cyclone","tropical cyclones","cyclones"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23677,7 +23696,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Books_of_Kings": ["text","religion","history","literature"],
 "Israelites": ["people","history","religion","iron age"],
 "Halah": ["place","history","iron age","migration"],
-"Khabur_(Euphrates)": ["river","geography","nature","history","mesopotamia"]
+"Khabur_(Euphrates)": ["river","geography","nature","history","mesopotamia"],
+"Balhae": ["state","history","korea","asia"],
+"Tumen_River": ["place","geography","river","korea","asia"],
+"Taejo_of_Joseon": ["person","ruler","history","korea","asia"],
+"Paektu_Mountain": ["place","geography","mountain","korea","china","asia"],
+"Saitama_Prefecture": ["place","geography","province","japan","asia"],
+"Kumamoto_Prefecture": ["place","geography","province","japan","asia"],
+"Kana": ["concept","writing","language","japan"],
+"Tropical_cyclone": ["concept","science","nature","climate","geography"],
+"Money_supply": ["concept","economics","economy"]
 });
 
 /* ============================================================================
