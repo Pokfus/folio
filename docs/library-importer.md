@@ -2467,3 +2467,21 @@ And one shared fix: `teiSectionProse` now removes XML comments and self-closed `
 note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifting the prose between into the fold.
 Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
 `node .claude/check-pairing.js` (it should list no row for the book).
+
+## An original for some books only, and three chaptered-reader fixes (Oct 2026, Polybius)
+
+- **`original.only: [n, …]`** (chaptered originals) — the books that get the original column. Polybius's two
+  editions number books 1–5 alike and the fragment books 6–39 differently (the editors arranged the excerpts
+  differently), so a pairing on the number would put English beside Greek that is not its original. The other
+  books ship without one, which app.js draws as plain prose. **Verify alignment by CONTENT, not by count**: book
+  30 agrees chapter for chapter to 13 and then drifts, which no count shows; a proper-name overlap per chapter
+  (English capitals against transliterated Greek, same number against a random chapter) is what separated the
+  aligned books from the rest, and the doubtful ones were then read side by side.
+- **`xmlFix: (xml) => xml`** on the ENGLISH side of a chaptered book — the original's option, now read by the
+  English branch and by the original branch's re-read of the English, so the two see the same file.
+- **teiBookChapters ends a book at ANY `book` division**, numbered or not: Shuckburgh's file closes on a book
+  numbered `fragments`, which otherwise ran on as book 39's chapters. It also reads a **lower-case** chapter
+  letter (`4b`) as it reads `2.121A`. Both proved inert on every other chaptered file.
+- The chaptered English branch now honours `minChars` (Polybius's book 26 is one short passage).
+Re-run after touching: `node .claude/fetch-book.js polybius-histories` and `node .claude/fetch-book.js herodotus-histories`
+(both from cache), then `node .claude/check-pairing.js`.
