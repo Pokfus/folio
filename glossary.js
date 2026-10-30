@@ -9387,8 +9387,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Agis_IV": "reigned 245 – 241 BCE",
 "Torsion_siege_engine": "from the mid-4th century BCE",
 "Will_of_Julius_Caesar": "45 BCE",
-"War_of_Mutina": "43 BCE",
-"Second_Triumvirate": "from 43 BCE",
+"War_of_Mutina": "44 – 43 BCE",
+"Second_Triumvirate": "43 – 32 BCE",
 "Triumviral_proscription": "43 BCE",
 "Death_of_Cicero": "43 BCE",
 "Battle_of_Philippi": "42 BCE",
@@ -15855,7 +15855,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Deccan_Plateau": ["Deccan"],
 "Aoraki_/_Mount_Cook": ["Mount Cook","Aoraki","Aoraki/Mount Cook"],
 "Hang_Sơn_Đoòng": ["Son Doong Cave","Sơn Đoòng cave","Son Doong"],
-"Postojna_Cave": ["Postojnska jama"]
+"Postojna_Cave": ["Postojnska jama"],
+"Will_of_Julius_Caesar": ["Caesar's will"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

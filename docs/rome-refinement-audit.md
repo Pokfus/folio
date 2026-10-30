@@ -169,7 +169,7 @@ order unless the user says otherwise.
 | B35 | The fall of the Republic (`rm-fall-republic`) | `rm-341`–`rm-350` | 10 | 95 | **done 2026-10-29** |
 | B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | **done 2026-10-29** |
 | B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | **done 2026-10-29** |
-| B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | open |
+| B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | **done 2026-10-30** |
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | open |
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | open |
 | B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | open |
@@ -640,6 +640,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-368` Julian calendar | the Menologium Rusticum Colotianum | ok |
 | `rm-369` Ides of March | Camuccini's *Death of Caesar* (1804 – 05) | acceptable as a reconstruction |
 | `rm-370` Marcus Junius Brutus | the EID MAR denarius | ok; the description's "his bearded head, 42 BCE" is wrong (CRRO: 43 – 42 BCE, the head of L. Junius Brutus) |
+| `rm-371` Augustus | the Via Labicana statue | ok |
+| `rm-372` will of Julius Caesar | the Temple of Divus Julius | acceptable but loosely tied (the pyre, not the will) |
+| `rm-373` War of Mutina | a worn denarius of Pansa as moneyer | weak: one consul's coin of 48 BCE, not the war |
+| `rm-374` Second Triumvirate | an aureus of Antony and Octavian with III VIR R P C | ok |
+| `rm-375` triumviral proscription | none | no picture (`I.none`) |
+| `rm-376` death of Cicero | the so-called Tomb of Cicero at Formia | weak: no inscription ties it to him (the description says so) |
+| `rm-377` Battle of Philippi | the Philippi plain from Cassius's camp | ok |
+| `rm-378` Perusine War | the Etruscan Arch at Perugia | ok |
+| `rm-379` Pact of Brundisium | the Roman column at Brindisi | wrong: a place stands for an event |
+| `rm-380` Sextus Pompey | a denarius of Sextus Pompey | ok; the description names the findspot |
 
 ## Glossary candidates
 
@@ -1610,3 +1620,22 @@ Run as B36; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-370` Marcus Junius Brutus | 8 | 9 → 8 | Born c. 85 (disputed, said); Q. Caepio Brutus; the Salamis loan at 48 per cent from Cicero's letters; the EID MAR denarius (CRRO record); the Philippi ghost is Plutarch's. **"Served under Pompey" is softened to "sided with": we do not know that he fought.** |
 
 **Read by eye.** *Confusability:* `rm-361`/`rm-362`/`rm-363`/`rm-364` the siege lines, the battle, the killing and the Egyptian war; `rm-365`/`rm-366` the elephants and Juba, Labienus and the sons; `rm-367`/`rm-368` the office and the calendar; `rm-369`/`rm-370` the day and the man. *Legend:* the last words, the note never read, the ghost at Philippi, the swim with the papers and the fit at Thapsus are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B38 — `rm-371`–`rm-380`, Augustus: Octavian's rise to Sextus Pompey (2026-10-30)
+
+Run as B37; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-371:rm-380` reads clean on eight cards; the other two carry `W.not-why` (advisory). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; the URL check's 2 failures are a LacusCurtius *Res Gestae* page read when the host answered. Two phrasings were fixed by hand: `rm-371`'s third (Suetonius's "five civil wars" is now one biographer's count) and `rm-376`'s first (it shared the river-islet meeting near Bononia with `rm-374`). `timeline` was moved for `rm-376` (7 December 43) and `rm-377` (October – November 42). **All ten old cards were all-ancient or nearly so, and every old date line carried counts or words** ("Consul 13 times", "44 years", "Umpires 3", "Legions 19 on each side", "Reward 25,000 drachmas a head").
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-371` Augustus | 9 | 5 → 10 | The whole life now; **23 September is Suetonius's Roman day, 13 and 16 January 27 the calendars', 2 September 31 a modern chronology's**; the *Res Gestae* is his own case and Tacitus's two verdicts at the funeral are Tacitus's. The counts and "at Nola" leave the line. |
+| `rm-372` will of Julius Caesar | 8 | 5 → 10 | **Each author's legacy to the people is his own: Suetonius's 300 sesterces, Appian's 75 drachmas, Dio's two sums** (which his translator turned into 120 or 300 sesterces); whether a will could adopt is a modern debate. No modern source opened prints the day 13 September; it is Suetonius's Ides, said so. |
+| `rm-373` War of Mutina | 6 | 5 → 8 | **Octavian's first consulship was 19 August 43 (Holmes, the Cambridge Ancient History), not 22 September.** Forum Gallorum 14 April (the Fasti) and Mutina 21 April; the Philippics are a pleader's attacks; the murder rumour is Suetonius's and Tacitus's; "at his own expense" is Augustus's own account. |
+| `rm-374` Second Triumvirate | 8 | 5 → 8 | **"Second Triumvirate" is the modern historians' name**, with the official title; the lex Titia of 27 November 43, the renewal at Tarentum, Lepidus's fall, and the end in 33 or 32 as moderns differ. The glossary's "several hundred" proscribed had no source. |
+| `rm-375` triumviral proscription | 7 | 5 → 8 | **Appian gives "twelve, or, as some say, seventeen" for the first killings; the card had stated seventeen.** The edict is Appian's Greek rendering; his 300 senators and 2,000 knights stay his; Suetonius and Velleius disagree on Octavian's part; book 4's tales are a moralising collection. |
+| `rm-376` death of Cicero | 8 | 5 → 10 | **7 December 43 is Tacitus's day, citing Tiro (the Church and Brodribb translation's "5th" is wrong and is not cited).** Livy's account and verdict read in the elder Seneca; the killer as a client Cicero had defended is a later rhetoricians' invention (Gudeman); Fulvia's hairpin is Dio's. |
+| `rm-377` Battle of Philippi | 7 | 6 → 8 | Three count rows and "in Macedonia" leave the line; **the two modern dates disagree (Holmes about 23 October and 16 November, the Cambridge Ancient History the second on 23 October), both given**; Appian's figures are his; Octavian's illness and the dream are his own memoirs'. |
+| `rm-378` Perusine War | 6 | 6 → 8 | The sacrifice of 300 at the altar of Julius is a rumour (the Cambridge Ancient History and Holmes differ); the Perugia sling bullets are contemporary evidence (Zangemeister's corpus), no insult quoted; Octavian's age is Livy's summary's. |
+| `rm-379` Pact of Brundisium | 7 | 5 → 7 | **The year comes from the Cambridge Ancient History and Syme, not White's margin**; the month is September (Syme) or early October (the Cambridge Ancient History); the mediators are Appian's; the Fourth Eclogue gets one hedged sentence. |
+| `rm-380` Sextus Pompey | 7 | 5 → 9 | **His naval title is read off his own coin** (RRC 511/3a); the "pirate" picture is the winners', from the *Res Gestae*; the death year 35 is printed by a 2013 review of Welch. Menas's offer at Misenum is Plutarch's. |
+
+**Read by eye.** *Confusability:* `rm-371`/`rm-372` the man and the will; `rm-373`/`rm-374`/`rm-375`/`rm-376` the war, the board (the river-islet meeting only here), the lists and the death; `rm-377`/`rm-378`/`rm-379` the battle, the siege and the pact; `rm-380` the son. *Legend:* the altar of the 300, the dream before Philippi, the hairpin and Menas's offer are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

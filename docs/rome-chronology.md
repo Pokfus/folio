@@ -416,6 +416,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 
 | event | the collection says | source |
 |---|---|---|
+| Augustus: born / named Augustus / died | 23 September 63 BCE (Suetonius) / 16 January 27 BCE / 19 August 14 CE | `rm-371` |
+| Caesar's will: made / opened | 13 September 45 BCE (Suetonius's Ides) / March 44 BCE | `rm-372` |
+| the War of Mutina / Forum Gallorum / Mutina / Octavian consul | 44 – 43 BCE / 14 April 43 BCE / 21 April 43 BCE / 19 August 43 BCE (not 22 September) | `rm-373` |
+| the Second Triumvirate: the lex Titia / renewed / Lepidus removed / ended | 27 November 43 BCE / 37 BCE / 36 BCE / 33 – 32 BCE (moderns differ) | `rm-374`, `rm-375` |
+| the death of Cicero | 7 December 43 BCE (Tacitus, citing Tiro) | `rm-376` |
+| the Battle of Philippi | October – November 42 BCE (Holmes: about 23 October and 16 November; the Cambridge Ancient History: the second on 23 October) | `rm-377` |
+| the Perusine War / the surrender | 41 – 40 BCE / 40 BCE | `rm-378` |
+| the Pact of Brundisium | 40 BCE (September in Syme, early October in the Cambridge Ancient History) | `rm-379` |
+| Sextus Pompey: fleet command / the Misenum pact / died | 43 BCE / 39 BCE / 35 BCE | `rm-380` |
 
 ## Late Antiquity
 
@@ -781,4 +790,14 @@ rm-367: 49; 44; 48; 46
 rm-368: 46; 45; 1582
 rm-369: 44
 rm-370: 85; 44; 42
+rm-371: 63; 27; 14
+rm-372: 45; 44
+rm-373: 44; 43; 14; 21; 19
+rm-374: 27; 43; 37; 36; 33; 32
+rm-375: 27; 43
+rm-376: 7; 43
+rm-377: 42
+rm-378: 41; 40
+rm-379: 40
+rm-380: 43; 39; 35
 ```
