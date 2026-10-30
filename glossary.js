@@ -7539,7 +7539,17 @@ window.GLOSSARY = {
 "Red_Army": "",
 "Richard_Sorge": "",
 "Tukhachevsky_affair": "",
-"Kesselschlacht": ""
+"Kesselschlacht": "",
+"Their_finest_hour": "",
+"1940_British_war_cabinet_crisis": "",
+"Destroyers-for-bases_deal": "",
+"Lend-Lease": "",
+"Atlantic_Charter": "",
+"America_First_Committee": "",
+"Directive_No._16": "",
+"Operation_Sea_Lion": "",
+"Blitzkrieg_economy": "",
+"Directive_No._18": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11230,7 +11240,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Generalplan_Ost": "1941–1942",
 "Hunger_Plan": "1941",
 "Commissar_Order": "1941–1942",
-"Tukhachevsky_affair": "1937"
+"Tukhachevsky_affair": "1937",
+"Their_finest_hour": "18 June 1940",
+"1940_British_war_cabinet_crisis": "26–28 May 1940",
+"Destroyers-for-bases_deal": "2 September 1940",
+"Lend-Lease": "1941–1945",
+"Atlantic_Charter": "14 August 1941",
+"America_First_Committee": "1940–1941",
+"Directive_No._16": "16 July 1940",
+"Operation_Sea_Lion": "1940",
+"Blitzkrieg_economy": "1939–1942",
+"Directive_No._18": "12 November 1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16008,7 +16028,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Generalplan_Ost": ["General Plan East"],
 "Commissar_Order": ["Kommissarbefehl"],
 "Tukhachevsky_affair": ["Case of the Trotskyist Anti-Soviet Military Organization"],
-"Kesselschlacht": ["cauldron battle"]
+"Kesselschlacht": ["cauldron battle"],
+"Their_finest_hour": ["Their Finest Hour speech"],
+"1940_British_war_cabinet_crisis": ["May 1940 war cabinet crisis","May 1940 War Cabinet Crisis"],
+"Destroyers-for-bases_deal": ["Destroyers for Bases Agreement"],
+"Lend-Lease": ["Lend-Lease Act","Lend Lease"],
+"Directive_No._16": ["Führer Directive No. 16","General Order No. 16"],
+"Operation_Sea_Lion": ["Unternehmen Seelöwe","Seeloewe"],
+"Blitzkrieg_economy": ["Blitzkriegswirtschaft"],
+"Directive_No._18": ["Führer Directive No. 18"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23692,7 +23720,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Red_Army": ["institution","history","warfare","russia","soviet union","second world war"],
 "Richard_Sorge": ["person","history","espionage","russia","japan","germany","second world war"],
 "Tukhachevsky_affair": ["event","history","politics","warfare","russia","soviet union"],
-"Kesselschlacht": ["concept","history","warfare","germany"]
+"Kesselschlacht": ["concept","history","warfare","germany"],
+"Their_finest_hour": ["text","history","politics","britain","second world war"],
+"1940_British_war_cabinet_crisis": ["event","history","politics","britain","second world war"],
+"Destroyers-for-bases_deal": ["event","history","diplomacy","naval","second world war"],
+"Lend-Lease": ["institution","history","economics","diplomacy","united states","second world war"],
+"Atlantic_Charter": ["text","history","diplomacy","politics","second world war"],
+"America_First_Committee": ["institution","history","politics","united states","second world war"],
+"Directive_No._16": ["text","history","warfare","germany","second world war"],
+"Operation_Sea_Lion": ["event","history","warfare","germany","second world war"],
+"Blitzkrieg_economy": ["concept","history","economics","germany","second world war"],
+"Directive_No._18": ["text","history","warfare","germany","second world war"]
 });
 
 /* ============================================================================

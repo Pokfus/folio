@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T01:18Z",
+ "generated": "2026-10-30T01:20Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5292,
-  "redirect-broader": 493,
+  "ok": 5297,
+  "redirect-broader": 494,
   "redirect-variant": 332,
   "section-redirect": 106,
-  "disambiguation": 138,
-  "none": 962,
+  "disambiguation": 139,
+  "none": 965,
   "disambig-resolved": 79,
   "list-page": 6,
   "search-match": 6,
@@ -60370,6 +60370,104 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Kesselschlacht"
+  },
+  "ww2-201": {
+   "answer": "Their finest hour",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Finest hour",
+   "suggestions": [
+    "This was their finest hour",
+    "Their Finest Hour (video game)",
+    "Hearts of Iron III: Their Finest Hour"
+   ]
+  },
+  "ww2-202": {
+   "answer": "May 1940 war cabinet crisis",
+   "title": "1940 British war cabinet crisis",
+   "url": "https://en.wikipedia.org/wiki/1940_British_war_cabinet_crisis",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "May 1940 war cabinet crisis"
+  },
+  "ww2-203": {
+   "answer": "Destroyers-for-bases deal",
+   "title": "Destroyers-for-bases deal",
+   "url": "https://en.wikipedia.org/wiki/Destroyers-for-bases_deal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-204": {
+   "answer": "Lend-Lease",
+   "title": "Lend-Lease",
+   "url": "https://en.wikipedia.org/wiki/Lend-Lease",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-205": {
+   "answer": "Atlantic Charter",
+   "title": "Atlantic Charter",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_Charter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-206": {
+   "answer": "America First Committee",
+   "title": "America First Committee",
+   "url": "https://en.wikipedia.org/wiki/America_First_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-207": {
+   "answer": "Directive No. 16",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "War crimes in World War II",
+    "End of World War II in Europe",
+    "Oil campaign of World War II",
+    "Aftermath of World War II"
+   ]
+  },
+  "ww2-208": {
+   "answer": "Operation Sea Lion",
+   "title": "Operation Sea Lion",
+   "url": "https://en.wikipedia.org/wiki/Operation_Sea_Lion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-209": {
+   "answer": "Blitzkrieg economy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Blitzkrieg",
+    "Military history of Italy during World War II",
+    "World War II",
+    "World War II casualties",
+    "World War II by country"
+   ]
+  },
+  "ww2-210": {
+   "answer": "Directive No. 18",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "End of World War II in Europe",
+    "War crimes in World War II",
+    "World War II by country",
+    "Aftermath of World War II"
+   ]
   }
  }
 }
