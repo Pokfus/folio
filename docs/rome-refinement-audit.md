@@ -195,7 +195,7 @@ order unless the user says otherwise.
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | **done 2026-10-30** |
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | **done 2026-10-30** |
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | **done 2026-10-30** |
-| B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | open |
+| B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | **done 2026-10-30** |
 | B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | open |
 | B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | open |
 | B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | open |
@@ -399,6 +399,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-628` Genseric | none | not re-checked: the card has no picture |
 | `rm-629` Flavius Aetius | none | not re-checked: the card has no picture; the glossary's diptych is only possibly Aetius and its description names a modern historian |
 | `rm-630` Attila | none | not re-checked: the card has no picture; the glossary's credit lacks "via Wikimedia Commons" |
+| `rm-631` Battle of the Catalaunian Plains | none | not re-checked: the card has no picture; no locator (the site is disputed) |
+| `rm-632` Vandal sack of Rome | none | not re-checked: the card has no picture; the locator's label is the term, "Rome" would be right |
+| `rm-633` Ricimer | none | not re-checked: the card has no picture |
+| `rm-634` Romulus Augustulus | none | not re-checked: the card has no picture; the glossary's coin would do |
+| `rm-635` Odoacer | none | not re-checked: the card has no picture; the glossary's coin would do |
+| `rm-636` Ostrogothic Kingdom | none | not re-checked: the card has no picture; no locator (a state wants a shape; Ravenna the anchor) |
+| `rm-637` Eastern Roman Empire | none | not re-checked: the card has no picture; the locator's label is the term; four of the glossary's six sources are on the De Imperatoribus Romanis site |
+| `rm-638` Gothic War | none | not re-checked: the card has no picture |
+| `rm-639` Historiography of the fall of the Western Roman Empire | none | not re-checked: the card has no picture |
+| `rm-640` Legacy of the Roman Empire | none | not re-checked: the card has no picture |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2419,3 +2429,22 @@ Run as B62, applied with B64 in one `batch.sh` run. Before applying, `rm-626`'s 
 | `rm-630` Attila | 9 | 9 → 9 | **Joint rule c. 434 – 445, not "433 – 453"; the gold one historian's reckoning; Honoria's ring hedged**; Priscus's wooden trencher, Ildico's wedding night and Margus; the Mincius and the Catalaunian battle out of the questions. |
 
 **Read by eye.** *Confusability:* `rm-621`/`rm-622`/`rm-623`/`rm-624`/`rm-625` the process (the Britons' arms), the general (Rutilius's charge), the king (the Busentus), the sack (Sallust's house) and the crossing (Prosper's consuls); `rm-626`/`rm-627`/`rm-628` the two kingdoms (Aquitaine, the census) and the king (the fire ships); `rm-629`/`rm-630` the general (a hostage among the Huns) and the king (the trencher). *Legend:* the Busentus burial, Honorius's chicken and the frozen Rhine are their authors'. *Overlap:* `wh-488` agrees on 507 – 711; `wh-590` agrees with `rm-630`'s dates.
+
+### B64 — `rm-631`–`rm-640`, The end of the western empire: the Catalaunian Plains to the legacy of Rome (2026-10-30)
+
+Run as B63 and applied with it (B64's drafts finished first). Before applying, two of `rm-636`'s phrasings were reworded by hand ("the king of the Ostrogothic Kingdom" read badly with the answer in the blank). **The old date lines carried a Justinianic wall law ("City wall 413 CE") and the Lombards of 568 as the end of a war, the month of Ravenna's fall without a source, and an unsourced "493 – 553" for a kingdom.** `rm-639` and `rm-640` keep empty date lines (a debate and a legacy).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-631` Battle of the Catalaunian Plains | 7 | 7 → 7 | **Jordanes's 165,000 dead his, and Jordanes a mid-6th-century narrator of doubtful reliability; the site disputed (Prosper's continuation puts it at the fifth milestone from Troyes), so no locator**; "night ended the battle" was Hydatius's and goes; no day in any source. |
+| `rm-632` Vandal sack of Rome | 7 | 7 → 8 | **The fourteen days Prosper's; 2 June only a 1912 encyclopedia's "it is said", in a why answer**; the two Procopius sources merged; "vandalism" coined in 1794 left out (no page read says so); the modern share rises from two to five. |
+| `rm-633` Ricimer | 6 | 8 → 8 | **The command from 456, not 457; died 18 August 472 (Bury, from John of Antioch)**; the five-month siege and the claims resting only on the De Imperatoribus Romanis site go; the years out of the questions. |
+| `rm-634` Romulus Augustulus | 7 | 7 → 9 | **476 "habitually" the end, Nepos's 480 in a why answer; his father never named bare**; the senate's embassy to Zeno, which repeated `rm-635`, replaced; the modern share from one to five. |
+| `rm-635` Odoacer | 7 | 8 → 8 | **His people disputed (Edico, Torcilingi, Sciri); Severinus's prophecy a saint's life; killed 15 March 493 (Bury)**; "not a bone in this wretch" goes (its source not shown on the page read). |
+| `rm-636` Ostrogothic Kingdom | 7 | 7 → 8 | **"493 – 553" replaced by 493, Theoderic's death 30 August 526, the last king 552 and the last towns 562 (Bury)**; the reign lengths each author's (Procopius 37 years, the Anonymus 33); Amalasuntha left to `rm-638`. |
+| `rm-637` Eastern Roman Empire | 8 | 8 → 9 | **A modern name: two courts from 395 to 1453, with 330 and earlier starts given; the wall law of 413 leaves the line**; the 320,000-pound treasury goes; Anthemius's walls, Zeno the Isaurian and Anastasius's treasury. |
+| `rm-638` Gothic War | 6 | 6 → 7 | **Procopius's name for his history; each scene in his voice; the Lombards of 568 and May for Ravenna leave the line**; Narses's 30,000 goes; the settlement law of 554. |
+| `rm-639` Historiography of the fall of the Western Roman Empire | 6 | 6 → 8 | **The ancient share from four of six to fewer than half; Demandt's list "some two hundred reasons" (the review prints 201, the plan 210)**; the answer's words out of the questions; Gibbon's "immoderate greatness" in context. |
+| `rm-640` Legacy of the Roman Empire | 8 | 8 → 8 | **The years out of the questions (1523/1524, 800, 1806); Justinian's law left to `rm-730`**; the Romance languages, Einhard's coronation, Philotheus's Third Rome; Saint-Denis and the Roman liturgy replace a thin sentence on English. |
+
+**Read by eye.** *Confusability:* `rm-631`/`rm-632` the battle (the ridge) and the sack (the Capitol's roof); `rm-633`/`rm-634`/`rm-635`/`rm-636` the kingmaker (Tortona), the boy (the diminutive), the king (Severinus) and the kingdom (the fish's head); `rm-637`/`rm-638` the East (the Isaurians) and the war (the women at Ravenna's gate); `rm-639`/`rm-640` the debate (Orosius's commission) and the legacy (Philotheus). *Legend:* Leo turning Attila and Theoderic's fish are their authors'. *Overlap:* `wh-436` dates the Byzantine Empire 330 – 1453; `rm-637` gives 395 with 330 as another start; `wh-438` agrees on 535 – 552.

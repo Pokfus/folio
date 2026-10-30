@@ -674,6 +674,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Genseric: reigned / the eastern armada burned / died | 428 – 477 CE / 468 CE / January 477 CE | `rm-628` |
 | Flavius Aetius: first consulship / patrician / third consulship / killed | 432 CE / 434 CE / 446 CE / 21 September 454 CE | `rm-629` |
 | Attila: joint rule / Gaul / Italy / died | c. 434 – 445 CE / 451 CE / 452 CE / 453 CE | `rm-630` |
+| the Battle of the Catalaunian Plains | 451 CE (no day in any source read; the site disputed) | `rm-631` |
+| the Vandal sack of Rome | 455 CE (fourteen days, Prosper) | `rm-632` |
+| Ricimer: led the army / consul / died | 456 – 472 CE / 459 CE / 18 August 472 CE | `rm-633` |
+| Romulus Augustulus: proclaimed / deposed | 31 October 475 CE / 476 CE | `rm-634` |
+| Odoacer: king in Italy / killed | 476 – 493 CE / 15 March 493 CE | `rm-635` |
+| the Ostrogothic Kingdom: began / Theoderic died / the last king fell / the last towns taken | 493 CE / 30 August 526 CE / 552 CE / 562 CE | `rm-636` |
+| the Eastern Roman Empire (a modern name): two courts / Constantinople taken | 395 CE (330 CE in other reckonings) / 1453 | `rm-637` |
+| the Gothic War: began / Ravenna taken / Totila defeated / the settlement law | 535 CE / 540 CE / 552 CE / 554 CE | `rm-638` |
 
 ## Chronology pins
 
@@ -1291,4 +1299,12 @@ rm-627: 429; 435; 439; 442
 rm-628: 428; 477; 468
 rm-629: 432; 434; 446; 454
 rm-630: 434; 445; 451; 452; 453
+rm-631: 451
+rm-632: 455
+rm-633: 456; 472; 459
+rm-634: 475; 476
+rm-635: 476; 493
+rm-636: 493; 526; 552; 562
+rm-637: 395; 1453
+rm-638: 535; 540; 552; 554
 ```
