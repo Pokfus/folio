@@ -12133,6 +12133,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      treaty's last page is seventy signatures each beside "(L. S.)", the place of the seal, and this is
      sealing wax. It reads 6.74:1 on the tightest light paper. */
   "The Allied and Associated Powers and Germany": "#7B002A",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-eight colours placed (Oct 2026, adding the Russian Primary
+     Chronicle; re-measured when it met the eleven books that landed on main the same day): CIELAB distance,
+     L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on every light
+     paper, card and second paper. The dark wine first chosen (#7D002B) now sits 1 from Strabo and the
+     Treaty of Versailles, which share #7B002A. A sweep of the cube at a step of 3, refined to 1 around
+     the best, tops out at 15.9; this burnt brown takes 15.8 for better contrast (4.54:1 on the tightest
+     light paper, against 4.51), clearing Sun Tzu by 15.8, Julius Caesar by 15.9 and Malory by 16.4 —
+     above the shelf's tightest real pair (Polybius and Snorri, 15.6). The books a reader sets beside it
+     stand well off: the Anglo-Saxon Chronicle 92.9, Bede 43.9, Snorri 81.5, the Poetic Edda 20.7. Keyed by
+     id, the chronicle being anonymous. */
+  "russian-primary-chronicle": "#933700",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15665,6 +15676,75 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Ancient_Egypt", "Slovakia", "Slovenia", "Oracle_of_Ammon", "Bosnia_and_Herzegovina", "Nassau",
         "Swabia", "Munich"],
     },
+    {
+      id: "russian-primary-chronicle",
+      title: "The Russian Primary Chronicle",
+      subtitle: "The Tale of Bygone Years",
+      /* ANONYMOUS, as Beowulf and the Song of Roland are: the old ascription to Nestor is doubted, and the
+         prior Sylvester, who signs the redaction translated here in 1116, says that he wrote the book
+         out, not that he composed it. Keyed for colour by id — see bookColor. */
+      author: "Anonymous",
+      /* A RANGE: a first compilation of 1111 and Sylvester's redaction of 1116, on Cross's account of the
+         redactions after Shakhmatov. The key is the colophon's year. */
+      written: "c. 1111–1116",
+      year: 1116,
+      translator: "Samuel Hazzard Cross",
+      edition:
+        "Harvard Studies and Notes in Philology and Literature, vol. 12, Harvard University Press, " +
+        "Cambridge, Mass., 1930, pp. 136–320",
+      /* THE GROUND IS THE PUBLICATION DATE: a US work of 1930 entered the public domain on 1 January 2026,
+         and Cross died in 1946. The editions looked at and the reasons are in .claude/fetch-book.js. */
+      rights:
+        "Public domain. The chronicle was compiled in Kiev in the early twelfth century and is free " +
+        "everywhere. Samuel Hazzard Cross’s translation was published in 1930, in Harvard Studies and " +
+        "Notes in Philology and Literature, volume 12; its United States copyright term of 95 years ended " +
+        "on 1 January 2026. Cross died in 1946, so the translation is also public domain wherever the term " +
+        "is the author’s life plus 70 years or less. The revised translation by Cross and Olgerd P. " +
+        "Sherbowitz-Wetzor (1953) is a later text and is not used.",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/doncarlosthemeha0000fred",
+      /* NO `origLang` yet: the Old East Slavic is on Russian Wikisource and would pair on the years, but
+         it was not measured for this import. */
+      /* ONE ENTRY OF THE ANNALS PER TAB, titled with its printed year — the chronicle's only division —
+         after the undated opening; the last four are the appendix texts Cross prints after it. */
+      chapterWord: "Entry",
+      chapterWordPlural: "Entries",
+      count: 153,
+      total: 153,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of the front matter and all 153
+         chapters (a headless run listing every `.ttip`). Two kinds. MODERN STATES the chronicle's names are
+         not: its Greeks are Byzantines, its Bulgarians the Danube khanate and the Volga Bulgars, its Albania
+         the Caucasian one beside Media and Armenia, its Jordan the river and its Israel the biblical
+         people — against entries on present-day countries with their areas and populations. And NAMESAKES:
+         Wolf on the general "Wolf's Tail", the Amazon River on the Amazons, a unit of weight on Mina, the
+         bishop, the Oracle of Ammon on "the sons of Ammon", a battle on the city of Heraclea, Rome's
+         patrician class on "Phocas the Patrician", Julius Caesar on the Caesar of the Gospel, Euripides'
+         play on Hippolytus of Rome, a modern city on the Permians, Attila's Huns on the people Cross calls
+         Huns, Latium's Latins on Latin Christians, Vatican City on the ninth-century Holy See, and the
+         Internet on "Internet Archive". What stays is right where it stands: the Varangians, Khazars,
+         Pechenegs, Bulgars, Perun and Dazhbog, Rurik's brothers, the cities of Rus and the places of the
+         ancient world in the table of nations. Re-run the sweep after a batch of glossary terms. */
+      glossOff: ["Greece", "Bulgaria", "Poland", "Hungary", "Germany", "Italy", "Croatia", "Lithuania",
+        "Albania", "Armenia", "Egypt", "India", "Libya", "Syria", "Ethiopia", "Jordan", "Israel",
+        "State_of_Palestine", "Czech_Republic", "Great_Britain", "Russia", "Cyprus",
+        "Wolf", "Amazon_River", "Mina_(unit)", "Oracle_of_Ammon", "Battle_of_Heraclea", "Patrician",
+        "Julius_Caesar", "Hippolytus", "Perm", "Huns", "Latins", "Vatican_City", "Internet"],
+      /* AND THE SAME NAME ON A LATER PRINCE — see bookGlossOff. Each boundary is the first chapter whose
+         first mention is somebody else, read off the sweep: Oleg the Wise is linked to 6452 (944), where the
+         tribute "which Oleg had received" is still his, and the Oleg of 968 is Svyatoslav's son; Igor of Kiev
+         to Olga's revenge in 6453 (945), then Igor and David son of Igor of the 1050s on; Svyatoslav I to
+         6484–6485 (976–977), and from 978–980 the Svyatoslav named is Vladimir's son and then Yaroslav's;
+         Rurik in the 860s–880s, and in 1086 and 1092 a son of Rostislav; Yaroslav the Wise through his sons'
+         generation, but in 6478 (970) Cross writes "Yaroslav" where the chronicle means Yaropolk, and from
+         1096 the Yaroslavs are Svyatoslav's, Yaropolk's and Svyatopolk's sons. */
+      glossOffIn: {
+        "Oleg_the_Wise": [[31, 153]],
+        "Igor_of_Kiev": [[33, 153]],
+        "Sviatoslav_I": [[47, 153]],
+        "Rurik": [[11, 153]],
+        "Yaroslav_the_Wise": [42, [133, 153]],
+      },
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -15740,6 +15820,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const name = "bookOrig:" + b.id;
     if (!DATA_BUNDLES[name]) DATA_BUNDLES[name] = { files: ["books/" + b.id + "." + b.origLang + ".js"], after: bookOrigIngest };
     return name;
+  }
+  /* The glossary terms a chapter must not link: the book's `glossOff`, plus those of its `glossOffIn`
+     that name this chapter (Oct 2026, the Russian Primary Chronicle). A chronicle reuses a ruler's name
+     down the generations — the Oleg of 912 is the Oleg the glossary means, the Oleg of 1078 a prince of
+     Chernigov a century and a half later — so a book-wide switch would have to throw away the right links
+     with the wrong ones. `glossOffIn` maps a term to the chapters where its name is somebody else: a chapter number,
+     or a [first, last] range. */
+  function bookGlossOff(b, c) {
+    const off = (b.glossOff || []).slice();
+    const by = b.glossOffIn || {};
+    Object.keys(by).forEach((k) => {
+      if (by[k].some((r) => (Array.isArray(r) ? c.n >= r[0] && c.n <= r[1] : c.n === r))) off.push(k);
+    });
+    return off.length ? off : null;
   }
   function bookChapters(id) { return BOOK_TEXT[id] || null; }
   function bookOriginal(id) { return BOOK_ORIG[id] || null; }
@@ -30343,8 +30437,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          because that collision already bites in translated prose; in the original language it would be
          the rule rather than the exception. */
       const proseEn = rows ? pageEl.querySelectorAll(".bk-col-en") : pageEl.querySelectorAll(".bk-prose");
+      const glossOff = bookGlossOff(b, c);
       proseEn.forEach((el) => {
-        try { autoLinkGlossary(el, "", b.glossOff || null, "site"); linkProperNounsOnly(el); } catch (e) {}
+        try { autoLinkGlossary(el, "", glossOff, "site"); linkProperNounsOnly(el); } catch (e) {}
       });
       setupTooltips(pageEl);
       wireFootnotes(pageEl);

@@ -12,7 +12,39 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-two:
+  matter (chapter 0 — see the Library bullet). Currently sixty-three:
+  `russian-primary-chronicle` (~485 KB, **153 chapters** — the undated opening, 148 annal entries and Cross's
+  four appendix texts — **7 notes**, no original; Samuel H. Cross's translation of the Laurentian text,
+  *Harvard Studies and Notes in Philology and Literature* 12, 1930, pp. 136–320; `layout: "chronicle"` →
+  `extractChronicle` / `chronicleLines` / `chronicleQuotes`). **The first book read off an OCR's WORD
+  COORDINATES (`_djvu.xml`), and the first public domain by the expiry of 1 January 2026** (a 1930 US
+  work; Cross died 1946). Six things it settled.
+  · **THE PLAIN TEXT CANNOT TELL A PAGE BREAK FROM A PARAGRAPH BREAK**, and in annals a page often ends on a
+  full stop. The coordinates can: a paragraph opens on a ~45 px indent, measured against the LOCAL margin
+  (the edge a quarter of the way up the eight lines either side), because the pages are skewed 15–20 px
+  top to foot and a few lines are boxed from a speck in the gutter. 639 indents read.
+  · **THE XML HAS TWO TRAPS THAT LOSE TEXT IN SILENCE.** `<LINE>` may carry `x-struct="textfloat"` (90 lines
+  in this scan; a bare-tag pattern dropped them all, "Chios, Lesbos, Cythera …" among them), and those lines
+  sit in a column of their own, out of reading order (leaf 269) — so lines are matched with attributes and
+  sorted by their top. Found only by word-diffing against a SECOND OCR of the same page images (Tesseract 5,
+  run locally): the diff's insertions were whole lines.
+  · **THE ANNALS ARE THE CHAPTERS**, titled with the printed head ("6367 (859)"), never a composed name. Cross
+  prints 6453 (945) twice and merges empty years into ranges; both kept. THREE HEADS ARE THE PRINTER'S
+  MISPRINTS (6686–6688 for 6486–6488, 9493, 6694) and are corrected, as are six misprinted words; "6542–6543
+  (1034–1036)" is left, since which figure slipped cannot be read off the page. The front matter lists them.
+  · **KARSKI'S PAGE NUMBERS ARE THE SECTION MARKERS** (`bk-n`, 302 of them), checked as a run: five the OCR
+  mangled were found by its gaps (`Ls]`, `[ros]`, `{131 ]` …). "[66]18" in Appendix III is NOT one — Cross
+  supplying the digits of 6618 — so the marker pattern refuses a figure straight after the bracket.
+  · **THE QUOTATION MARKS WERE READ OFF THE PAGE, ALL OF THEM.** Cross's double quote is two commas and the
+  engine reads it as anything from `‘‘` to `’”’`: 342 words carry a run of marks, 321 are one double quote
+  and 21 are a genuine nested pair (`entry.quotes`, keyed leaf + OCR word); of 286 words with ONE mark, 51
+  are really a double and 8 are specks — read from contact sheets of word crops, not guessed. Every paragraph's double quotes then balance but two, which the page prints unbalanced.
+  · **TWO OCRs AGREEING IS NOT A WITNESS**: the lacuna note reads "43 lines" in one and "44" in the other;
+  the page sets 4½. A vocabulary scan (words no other book on the shelf uses) found the merges both missed
+  ("isa", "lamhere", "thoughtssiniscaused"). 118 `fixes` rows, each with its page.
+  Not taken: Cross's Introduction (pp. 77–135), his headnote to each appendix (its Cyrillic bibliography is
+  unreadable OCR), the map. The Old East Slavic is on Russian Wikisource and would pair on the years — not
+  measured yet.
   `treaty-of-versailles` (~500 KB, **15 chapters** — the treaty's fifteen Parts, the Preamble at the head of Part I
   and the signatures at the foot of Part XV, through `page(n)` arrays — **no notes, no original**; the official
   English text as printed at Ottawa in 1919, Canada's Sessional Paper No. 41, the one whole-treaty transcription on

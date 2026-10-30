@@ -2479,6 +2479,38 @@ note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifti
 Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
 `node .claude/check-pairing.js` (it should list no row for the book).
 
+## The `chronicle` layout — annals read off an OCR's word coordinates (Oct 2026, the Russian Primary Chronicle)
+
+Cross's 1930 translation is pp. 136–320 of a Harvard volume whose Internet Archive scan is open; the importer
+reads `_djvu.xml` (the OCR with a box for every word) rather than `_djvu.txt`, for paragraphing. What it settled:
+
+- **Paragraphs come from the indent, not from blank lines.** In the plain text a page break and a paragraph break
+  are the same blank line. `extractChronicle` takes a line as a paragraph's first when it stands > 25 px right of
+  the local margin — the x a quarter of the way up the sorted left edges of the eight lines either side — because
+  the pages are skewed and a few lines are boxed from a gutter speck. A centred line, or one in capitals across
+  the measure, is a heading; a centred speck of ≤ 3 characters is dirt.
+- **`<LINE>` can carry attributes and the file is not in reading order.** `x-struct="textfloat"` lines (90 here)
+  sit in a column of their own; match `<LINE\b[^>]*>` and sort each page's lines by their top. Missing either
+  loses lines of prose with nothing thrown — found only by diffing against a second OCR.
+- **Drop gutter specks at the WORD level, before taking the line's box**: a word that is only a bar (`|`, `|)`,
+  `_`), a leading punctuation-only word > 25 px from the next, a trailing dash / `»` / `}` / `\` ≥ 15 px from the
+  last (never a `]`, `)` or `!` — a footnote mark is one). Left in, they move the line's left edge and fake an
+  indent.
+- **The foot of the page**: lines after a gap > 1.35 × the page's line pitch, set smaller than its body, opening on
+  the mark (a digit, or `?`, `*`, `!` in the appendices). Notes are keyed `k@leaf` (k-th note on that leaf), and
+  each mark is placed by a `fixes` row as `⟦k@leaf⟧`, read off the page image.
+- **Quotation marks are a table plus a rule** (`chronicleQuotes`, `entry.quotes` keyed `leaf:OCR-word`, `#n` for
+  the n-th occurrence on the leaf): a run of marks at a word's head is “, at its end ”, unless the page shows a
+  nested pair. Every multi-mark word and every single-mark word was read from contact sheets of word crops.
+- **Check what a number sequence promises.** The year heads (each AM − 5508 = its AD year, Cross's own
+  conversion) and Karski's page markers were both walked for gaps and reversals; that found three printer's
+  misprints, three OCR-misread heads and five mangled markers.
+- **Page numbers**: leaf − 14 to leaf 311, leaf − 16 from leaf 317 (two unnumbered leaves of map between).
+  Images: `archive.org/download/doncarlosthemeha0000fred/page/n<leaf − 1>.jpg`.
+- `CHRONICLE_DUMP=<file>` writes every paragraph with its leaf, every dropped line and every note, for checking.
+- Re-run after touching: `node .claude/fetch-book.js russian-primary-chronicle` (reads the cache) and
+  `node .claude/test-library.js`.
+
 ## The `annals` layout — one transcluded page cut into parts by year (Oct 2026, the Anglo-Saxon Chronicle)
 
 `layout: "annals"` → `extractAnnals` (with `ASC_SPANS`, `ascTitle`, `ascInline`). Giles's 1914 volume is ONE

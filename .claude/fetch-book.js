@@ -17707,6 +17707,303 @@ const BOOKS = {
     },
   },
 
+  "russian-primary-chronicle": {
+    title: "The Russian Primary Chronicle",
+    subtitle: "The Tale of Bygone Years",
+    author: "Anonymous",
+    translator: "Samuel Hazzard Cross",
+    edition: "Harvard Studies and Notes in Philology and Literature, vol. 12, Harvard University Press, Cambridge, Mass., 1930, pp. 136–320",
+    /* A RANGE, on Cross's own account of the redactions (Introduction, pp. 90–91, after Shakhmatov): a
+       first compilation of 1111, the year after the last entry it carries, and the redaction the prior
+       Sylvester signs in 1116, which is the Laurentian text translated here. The key is the colophon's
+       year, so the book files at the date its own last page gives. */
+    written: "c. 1111–1116",
+    year: 1116,
+
+    /* ---------- THE LICENCE ----------
+       THE GROUND IS THE PUBLICATION DATE: Cross's translation was published in 1930, and a US work of
+       1930 entered the public domain on 1 January 2026, at the end of its 95-year term — the first book
+       on the shelf to arrive by that year's expiry rather than an older one. Cross lived 1891–1946 (the
+       Library of Congress name authority and Open Library agree), so the translation is also out of
+       copyright wherever the term is life plus seventy. The chronicle itself is twelfth-century.
+       WHAT WAS LOOKED AT AND WHY THIS ONE: English Wikisource, Project Gutenberg and the Internet Archive
+       were searched (Oct 2026) under "Primary Chronicle", "Tale of Bygone Years", "Chronicle of Nestor"
+       and Cross. Wikisource holds no English text of it; the Archive's copies of the revised edition by
+       Cross and Olgerd P. Sherbowitz-Wetzor (1953, reprinted 1973) are lending-library scans of a
+       different, later text and are not used. This scan of the 1930 volume is open: its OCR and page
+       images download freely, which is what made it checkable page by page.
+       NO ORIGINAL BESIDE IT, for now: the Laurentian text in Old East Slavic is on Russian Wikisource, and
+       the annals would pair on their years, but its transcription and its numbering were not measured
+       for this import. */
+    rights:
+      "Public domain. The chronicle was compiled in Kiev in the early twelfth century and is free " +
+      "everywhere. Samuel Hazzard Cross’s translation was published in 1930, in Harvard Studies and " +
+      "Notes in Philology and Literature, volume 12; its United States copyright term of 95 years ended " +
+      "on 1 January 2026. Cross died in 1946, so the translation is also public domain wherever the term " +
+      "is the author’s life plus 70 years or less. The revised translation by Cross and Olgerd P. " +
+      "Sherbowitz-Wetzor (1953) is a later text and is not used.",
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/doncarlosthemeha0000fred",
+    url: "https://archive.org/download/doncarlosthemeha0000fred/doncarlosthemeha0000fred_djvu.xml",
+    layout: "chronicle",
+    chapterWord: "Entry",
+    chapters: Array.from({ length: 153 }, (_, i) => i + 1),
+    leaves: [150, 336],
+    begin: /^These are the narratives of bygone years/,
+    mainEnd: /^In the hope of God’s grace, I Sylvester, Prior of St Michael’s, wrote this Chronicle/,
+    openingTitle: "These Are the Narratives of Bygone Years",
+    appendices: [
+      { head: /^APPENDIX I THE TESTAMENT/, start: /^\[240 ad fin\.\]/, title: "The Testament of Vladimir Monomakh" },
+      { head: /\bA\. LETTER OF VLADIMIR/, start: /^\[252\]/, title: "Letter of Vladimir Monomakh to Oleg, Son of Svyatoslav" },
+      { head: /^B\. PRAYER ATTRIBUTED/, start: /^Wise ruler, bestower of knowledge/, title: "Prayer Attributed to Vladimir Monomakh" },
+      { head: /^APPENDIX III EVENTS OF/, start: /^\[H 3 259\]/, title: "Events of 1110–1113 from the Hypatian Text" },
+    ],
+    /* A COMPOUND THAT KEEPS ITS HYPHEN WHERE IT FALLS AT A LINE END. Every one of the 727 line-end
+       hyphens was checked against the rest of this text and of the shelf: these are the words Cross sets
+       with a hyphen mid-line (`-in-law` eleven times, "city-elders", "marten-skins", "olive-groves",
+       "twenty-four"), and "church-door" and "market-place", whose joined forms he never uses — he writes
+       "market place" four times, and a line-end hyphen in a phrase of two words is a compound's. */
+    keepHyphens: ["in-law", "city-elders", "marten-skins", "olive-groves", "twenty-four", "church-door", "market-place"],
+    /* THE QUOTATION MARKS THAT ARE TWO MARKS — see chronicleQuotes. Each read off the page image; the key
+       is the leaf and the word exactly as the OCR reads it, and each must match one word. Two more rows
+       repair a letter beside the mark: "“I" read as "“‘T" twice. */
+    quotes: {
+      "190:forever.’”’": "forever.’”", "198:wood.’”": "wood.’”", "200:death.”’’": "death.”’",
+      "206:Jews.’’’": "Jews.”’", "206:thee.”’’": "thee.”’", "207:more.’’’": "more.”’",
+      "207:arise.”’": "arise.”’", "207:you.”’": "you.”’", "207:people.’’’": "people.”’",
+      "207:feet.”’": "feet.”’", "207:thee.”’": "thee.”’", "208:them.’’’": "them.”’", "208:man.’’’": "man.”’",
+      "250:manful.’”": "manful.’”", "250:God.’””": "God.’”", "289:north.’”’": "north.’”",
+      "298:Peremil.’”’": "Peremil.’”", "334:God.’”’": "God.’”", "334:‘‘‘In": "“‘In",
+      "334:prince.”’’": "prince.”’", "334:2-3).’”’": "2-3).’”",
+      "215:“‘T": "“I", "289:“‘T": "“I",
+      /* AND THE SINGLE MARKS THAT ARE NOT: 286 words open on one mark or close on one, and the page
+         prints a double for 51 of them (the engine dropping one comma of the pair) and a nested close
+         for one; eight are a speck of the paper read as a mark ("‘the", a lone "‘"). Read off the
+         page the same way. `#n` picks the n-th occurrence of that word on its leaf where it occurs more than once. */
+      "153:‘Wondrous": "“Wondrous", "156:‘Among": "“Among", "157:‘Evil": "“Evil", "171:miracles.’": "miracles.”",
+      "177:‘Those": "“Those", "181:‘Since": "“Since", "181:pigeons,’": "pigeons,”",
+      "182:descendants.’": "descendants.”", "183:‘Wisdom": "“Wisdom", "183:soul,’": "soul,”",
+      "183:‘Incline": "“Incline", "188:‘We": "“We", "188:own.’": "own.”", "190:‘If": "“If", "190:‘Thus": "“Thus",
+      "196:‘These": "“These", "197:‘May": "“May", "198:Christians.’": "Christians.”", "199:‘This#1": "“This",
+      "200:‘Subsequently,": "“Subsequently,", "214:‘better": "“better", "218:‘If": "“If", "218:it.’": "it.”",
+      "220:‘Who": "“Who", "220:‘Now,": "“Now,", "222:ready!’": "ready!”", "227:‘I": "“I", "234:kill.’": "kill.”",
+      "237:‘Oh": "“Oh", "243:‘God": "“God", "250:‘Therefore": "“Therefore", "256:‘What": "“What",
+      "260:‘God": "“God", "261:‘Go": "“Go", "266:‘Demon,": "“Demon,", "267:‘You": "“You", "268:it,’": "it,”",
+      "275:‘Kyrie": "“Kyrie", "278:‘My": "“My", "284:‘I": "“I", "291:‘I": "“I", "299:committed.’": "committed.”",
+      "303:‘Your": "“Your", "318:‘At": "“At", "318:‘Why#2": "“Why", "319:‘Hide": "“Hide", "322:‘Thou": "“Thou",
+      "327:unity!’": "unity!”", "330:‘Fear": "“Fear", "332:‘How": "“How", "335:‘Come,": "“Come,",
+      "168:‘Samuel": "Samuel", "186:‘the": "the", "206:‘said,": "said,", "213:‘": "", "216:‘Samuel": "Samuel",
+      "218:‘": "", "245:‘your": "your", "322:‘then": "then", "208:spitting.’": "spitting.”’",
+    },
+    fixes: [
+      /* THE SEVEN FOOTNOTE MARKS, each read off the page image: a raised figure the OCR reads as `1`, `!`
+         or `?` or drops. ⟦k@leaf⟧ names the k-th note at the foot of that leaf (see extractChronicle). */
+      ["against the Pechenegs. ] !", "against the Pechenegs.]⟦1@171⟧",
+        "note 1 on p. 157 (the Hypatian passage restored in brackets): its mark read as `!`, after a stray space"],
+      ["of the indiction.1", "of the indiction.⟦1@293⟧",
+        "note 1 on p. 279 (where the Testament of Vladimir Monomakh stands in the manuscript)"],
+      ["and mother! . . .", "and mother⟦1@318⟧ . . .",
+        "note 1 on p. 302 (the lacuna of 43 lines): its mark read as `!`"],
+      ["God’s commandment.” !", "God’s commandment.”⟦1@330⟧",
+        "note 1 on p. 314 (Epiphanius): its mark read as `!`"],
+      ["John Chrysostom ! has", "John Chrysostom⟦1@332⟧ has",
+        "note 1 on p. 316 (John Chrysostom): its mark read as `!`"],
+      ["great Epiphanius! said", "great Epiphanius⟦1@334⟧ said",
+        "note 1 on p. 318 (Georgius Hamartolus): its mark read as `!`"],
+      ["of Daniel: ? “‘In", "of Daniel:⟦2@334⟧ “‘In",
+        "note 2 on p. 318 (Hippolytus): its mark read as `?`"],
+      ["(Leipzig, 1863) LVN 272", "(Leipzig, 1863) IV, 27.",
+        "the volume and page at the end of note 1 on p. 314, read as `LVN 272`"],
+      /* THE YEAR HEADS (written with the scan's hyphens: the en-dash reFix runs after these rows). Three the OCR misread (old-style figures: a 9 read as 0, a 1 as 2, a 9 as g);
+         three more that CROSS'S PRINTER misnumbered, read off the page and corrected because the year
+         in brackets beside each, and the run of heads around it, leave no doubt — a misprinted head is
+         a chapter title, and a reader would meet "9493 (985)" in the contents. The front matter says so.
+         "6542–6543 (1034–1036)" is left as printed: the chronicle has entries for 6542, 6543 and 6544,
+         so whether the first figure or the second is the slip cannot be read off the page. */
+      ["6443-6449 (935-041).", "6443-6449 (935-941).", "the year 941 read as `041` (p. 157)"],
+      ["6572 (2064).", "6572 (1064).", "the year 1064 read as `2064` (p. 233)"],
+      ["6499 (g91).", "6499 (991).", "the year 991 read as `g91` (p. 207)"],
+      ["6686-6688 (978-980).", "6486-6488 (978-980).",
+        "PRINTED `6686–6688` (p. 178) — a misprint for 6486–6488, between 6484–6485 (976–977) and 6489 (981)"],
+      ["9493 (985).", "6493 (985).", "PRINTED `9493` (p. 183) — a misprint for 6493, between 6492 (984) and 6494 (986)"],
+      ["6694 (986).", "6494 (986).", "PRINTED `6694` (p. 183) — a misprint for 6494, between 6493 (985) and 6495 (987)"],
+      ["took to flight?”? They", "took to flight?” They",
+        "a second question mark after the closing quotation mark, which the page does not print (p. 316)"],
+
+      /* ---------- WHAT THE OCR GOT WRONG IN THE PROSE ----------
+         Found by word-diffing the Internet Archive's OCR against a second OCR of the same page images
+         (Tesseract 5, run here; 83,000 words, about 150 disagreements that were not the second run's own
+         noise) and by listing every word that neither this text elsewhere nor any other book on the shelf
+         uses; every row was then read against the page image. The second OCR is a prompt and not a witness:
+         where the two agreed and were both wrong (the lacuna's "4½ lines"), only the page caught it. */
+      ["Arabia the SHER", "Arabia the Mighty,", "`Mighty,` read as `SHER`, its comma lost (p. 136)"],
+      ["these Slavs, L6]", "these Slavs, [6]", "a Karski number's opening bracket read as `L` (p. 137)"],
+      ["Iimen", "Ilmen", "Lake Ilmen with a capital I for the l (p. 138)"],
+      ["destruction. ue survivors", "destruction. The survivors", "`The` read as `ue` (p. 146)"],
+      ["Ilyricum", "Illyricum", "a dropped l (p. 149)"],
+      ["Tsargrad, ne oe Thrace", "Tsargrad, ravaged Thrace", "`ravaged` read as `ne oe` (p. 157)"],
+      ["(Jbid.,", "(Ibid.,", "the italic I of Ibid. read as J (p. 169)"],
+      ["(Zdzd.", "(Ibid.", "italic Ibid. read as `Zdzd.` (p. 209)"],
+      ["(Ps. v, to-11.)", "(Ps. v, 10-11.)", "the old-style figures 10 read as `to` (p. 179)"],
+      ["has gone cut into", "has gone out into", "`out` read as `cut` (p. 187)"],
+      ["they reached the Sas", "they reached the shore,", "`shore,` read as `Sas` (p. 191)"],
+      ["his'son", "his son", "a speck between two words read as an apostrophe (p. 192)"],
+      ["(Psy cxviii, t:)", "(Ps. cxviii, 1.)", "italic Ps. and the figure 1 misread (p. 193)"],
+      ["[r10]", "[110]", "a Karski number's first figure read as `r` (p. 200)"],
+      ["the Spirit, I t approach", "the Spirit, I approach", "a speck at a line end read as `t` (p. 202)"],
+      ["how am IJ driven", "how am I driven", "`I` read as `IJ` (p. 205)"],
+      ["do IJ hear", "do I hear", "`I` read as `IJ` (p. 217)"],
+      ["(Mait.", "(Matt.", "italic Matt. read as `Mait.` (p. 209)"],
+      ["(Mai. vi, 15.)", "(Matt. vi, 15.)", "italic Matt. read as `Mai.` — the verse is Matthew 6:15 (p. 311)"],
+      ["where'the", "where the", "a speck between two words read as an apostrophe (p. 212)"],
+      ["(Ezek. XXxiii,", "(Ezek. xxxiii,", "the chapter's lower-case numeral read with capitals (p. 213)"],
+      ["(Ezek. Xxxvi,", "(Ezek. xxxvi,", "likewise (p. 206)"],
+      ["(Ps. Ixxviii,", "(Ps. lxxviii,", "a lower-case l read as capital I (p. 194)"],
+      ["(Ps. Ixiv,", "(Ps. lxiv,", "likewise (p. 303)"],
+      ["(Ps. cxxxili,", "(Ps. cxxxiii,", "an i read as l (p. 217)"],
+      ["(Ps. cxvili,", "(Ps. cxviii,", "an i read as l (p. 269)"],
+      ["(Ps. XXXvii, 1.)", "(Ps. xxxvii, 1.)", "the chapter's lower-case numeral read with capitals (p. 311)"],
+      ["(Js. 1, 5", "(Js. l, 5", "the chapter numeral l (Isaiah 50) read as the figure 1 (p. 194)"],
+      ["(J John,iv,", "(I John, iv,", "I John read as `J John`, and a dropped space (p. 257)"],
+      ["(J Cor.", "(I Cor.", "I Cor. read as `J Cor.` (p. 259)"],
+      ["(A poc.,", "(Apoc.,", "a space read inside Apoc. (p. 317)"],
+      ["WVsevolod", "Vsevolod", "a stray W (p. 232)"],
+      ["Jater", "later", "an l read as J (p. 258)"],
+      ["suffermg", "suffering", "`in` read as `m` (p. 259)"],
+      ["upon us aS a summons", "upon us as a summons", "a capital S in `as` (p. 264)"],
+      ["SvyatopoJk", "Svyatopolk", "an l read as J (p. 267; the second is in an appendix headnote, which is not taken)"],
+      ["On July ro following", "On July 10 following", "the old-style figures 10 read as `ro` (p. 235)"],
+      ["died on July ro and", "died on July 10 and", "likewise (p. 261)"],
+      ["such liberality i is", "such liberality is", "a speck read as `i` (p. 302)"],
+      ["aciecked", "attacked", "`attacked` read as `aciecked` (p. 308)"],
+      ["Lacuna of 43 lines.", "Lacuna of 4½ lines.",
+        "the footnote on p. 302 — BOTH OCRs misread it (43 and 44): the page sets 4½"],
+      ["isa devil", "is a devil", "two words run together (p. 241)"],
+      ["Give mea", "Give me a", "two words run together (p. 312)"],
+      ["sinner that Iam,", "sinner that I am,", "two words run together (p. 270)"],
+      ["that Iam!", "that I am!", "two words run together (p. 310)"],
+      ["But now Iam vanquished", "But now I am vanquished", "two words run together (p. 205)"],
+      ["Behold, lamhere.", "Behold, I am here.", "three words run together, the I read as l (p. 290)"],
+      ["andhe saw", "and he saw", "two words run together (p. 276)"],
+      ["witha pike", "with a pike", "two words run together (p. 221)"],
+      ["If we donot", "If we do not", "two words run together (p. 282)"],
+      ["thoughtssiniscaused", "thoughts sin is caused", "four words run together (p. 246)"],
+      ["boidness", "boldness", "an l read as i (p. 309)"],
+      ["[240 ad fin.] 1, wretched", "[240 ad fin.] I, wretched", "the pronoun I read as the figure 1 (p. 301)"],
+      ["his advict ,and", "his advice, and", "a broken e and a misplaced comma (p. 280)"],
+      ["he shal] thus", "he shall thus", "an l read as `]` (p. 303)"],
+      ["over to-this side", "over to this side", "a speck between two words read as a hyphen (p. 172)"],
+      ["why tthe stranger", "why the stranger", "a speck read as `t` (p. 243)"],
+      ["the pretext’of", "the pretext of", "a speck between two words read as an apostrophe (p. 153)"],
+      ["hath lifted’ up", "hath lifted up", "a speck read as an apostrophe (p. 179)"],
+      ["was killed “in Zavolochye", "was killed in Zavolochye", "a speck in the margin read as a quotation mark (p. 255)"],
+      ["the rug, I laid him", "the rug, laid him", "a speck at a line's start read as `I` (p. 282)"],
+      ["Creator of ail things", "Creator of all things", "`all` read as `ail` (p. 297)"],
+      ["flowers called /epki.", "flowers called lepki.", "the italic l of lepki read as `/` (p. 250)"],
+      ["with difhculty", "with difficulty", "the fi ligature read as `fh` (p. 225)"],
+      ["the inhabi-~ tants", "the inhabitants", "a speck after a line-end hyphen read as `~`, which kept the halves apart (p. 256)"],
+      ["a man ot Kherson", "a man of Kherson", "`of` read as `ot` (p. 199)"],
+      ["laid it ina marble", "laid it in a marble", "two words run together (p. 232)"],
+      ["settled ina house", "settled in a house", "two words run together (p. 291)"],
+      ["[203] vou have called", "[203] you have called", "`you` read as `vou` (p. 257)"],
+      ["for vou are my brother", "for you are my brother", "likewise (p. 257)"],
+      ["friendly regard for vou", "friendly regard for you", "likewise (p. 312)"],
+      ["his brother, it isa lie", "his brother, it is a lie", "two words run together (p. 257)"],
+      ["Derevlians reéntered", "Derevlians reëntered", "the diaeresis the page sets read as an acute (p. 167)"],
+      ["On August ro of", "On August 10 of", "the old-style figures 10 read as `ro` (p. 289)"],
+      ["Thursday February 9g,", "Thursday February 9,", "a comma read as `g` after the figure (p. 319)"],
+      ["662z (1113). On March roth,", "6621 (1113). On March 19th,",
+        "the old-style figures of 6621 and 19th read as `662z` and `roth` (p. 319)"],
+      ["6489 (981). Wladimir", "6489 (981). Vladimir", "a V read as W (p. 182)"],
+      ["“Tf", "“If", "an I read as T after a quotation mark (pp. 153, 280)"],
+      ["“TI will", "“I will", "the same, with the I read twice (pp. 178, 192)"],
+      ["(JJ Cor.", "(II Cor.", "II Cor. read as `JJ Cor.` (p. 206)"],
+      ["(Ps. xxxvii, 1, 90-17,", "(Ps. xxxvii, 1, 9-17,", "the verse 9 read as `90` (p. 302)"],
+      ["As THE prophet David says", "As the prophet David says",
+        "the opening words Cross sets in small capitals, which the OCR reads as capitals (p. 314)"],
+      /* KARSKI'S PAGE NUMBERS THE OCR MANGLED — found by walking the run of markers for gaps (the run is
+         1–286, with 241–255 standing in Appendix I, where the Testament stands in the manuscript). */
+      ["Ls] Thus Shem, Ham", "[5] Thus Shem, Ham", "[5] read as `Ls]` (p. 137)"],
+      ["she left to pay 60] tribute", "she left to pay [60] tribute", "[60] with its opening bracket lost (p. 168)"],
+      ["tree of life. [ros] As", "tree of life. [105] As", "[105] in old-style figures read as `[ros]` (p. 196)"],
+      ["baptized himself {131 ] and", "baptized himself [131] and", "[131] read as `{131 ]` (p. 213)"],
+      ["for vassals L199] can", "for vassals [199] can", "[199] read as `L199]` (p. 254)"],
+      ["toward the close of [66] 18.", "toward the close of [66]18.",
+        "NOT a page number: Cross supplies in brackets the figures of the year 6618 that the Hypatian text omits, and the space is the OCR's (p. 315)"],
+      /* SPECKS BETWEEN TWO WORDS read as a stop, a colon, a comma or a tilde, with the space lost — found
+         by listing every punctuation mark with a letter on both sides, and each read off the page. */
+      ["may they be.in bondage", "may they be in bondage", "a speck read as a full stop (p. 160)"],
+      ["the structure:under them", "the structure under them", "a speck read as a colon (p. 183)"],
+      ["as high:as heaven", "as high as heaven", "a speck read as a colon (p. 188)"],
+      ["brethren return,to the sons", "brethren return to the sons", "a speck read as a comma (p. 194)"],
+      ["to seek.succor", "to seek succor", "a speck read as a full stop (p. 238)"],
+      ["the years to.come", "the years to come", "a speck read as a full stop (p. 306)"],
+      ["let~us rejoice", "let us rejoice", "a speck read as a tilde (p. 206)"],
+      ["Derevlians arrived , Olga", "Derevlians arrived, Olga", "a space the page does not set (p. 166)"],
+      ["Rostov, and .Byeloozero", "Rostov, and Byeloozero", "a speck read as a full stop (p. 278)"],
+
+      /* ---------- WHAT CROSS'S PRINTER GOT WRONG ----------
+         Six words the page itself misprints, read off the image to be sure the scan is right: a letter
+         dropped or added in a word that is not a word. Corrected for the same reason as the three year
+         heads, and listed in the front matter. "centurians" is left: it is an old spelling, not a slip. */
+      ["the prince’s daugher,", "the prince’s daughter,", "PRINTED `daugher` (p. 178)"],
+      ["of our inquities,", "of our iniquities,", "PRINTED `inquities` (p. 269)"],
+      ["Prince Syvatopolk", "Prince Svyatopolk", "PRINTED `Syvatopolk` (p. 319)"],
+      ["supplication of whoseover", "supplication of whosoever", "PRINTED `whoseover` (p. 209)"],
+      ["Nikita at Bvelgorod.", "Nikita at Byelgorod.", "PRINTED `Bvelgorod`, the last word of the book (p. 320); Byelgorod seven times elsewhere"],
+      ["their reconcilation with", "their reconciliation with", "PRINTED `reconcilation`, across a line break (pp. 173–174)"],
+    ],
+    reFixes: [
+      [/\((?:Js|Zs|\/s|1S)\. /g, "(Is. ",
+        "Isaiah's italic Is. in a citation, read as `Js.` (eleven times), `Zs.`, `/s.` or `1S.`"],
+      [/(?<=\d)-(?=\d)/g, "–", "a range of years or of verses, which the print sets with an en dash"],
+    ],
+    about: [
+      "The Russian Primary Chronicle — in Russian the <i>Povest’ vremennykh let</i>, the Tale of Bygone " +
+        "Years, after the words it opens with — is the history of the Eastern Slavs and of the state " +
+        "centred on Kiev that historians call Kievan Rus’, and almost every later Russian chronicle " +
+        "opens with a copy of it. It starts with Noah’s sons dividing the " +
+        "earth, places the Slavs among the nations, tells how Kii founded Kiev, and then, from the year " +
+        "852, goes on year by year: the Varangians invited to rule at Novgorod, Oleg’s and Igor’s " +
+        "campaigns against Constantinople and their treaties with the Greeks, Olga’s revenge on the " +
+        "Derevlians and her baptism, Svyatoslav’s wars, Vladimir’s choice of a faith and the baptism of " +
+        "Kiev, the murders of Boris and Gleb, the reign of Yaroslav, the monks of the Crypt Monastery, " +
+        "the blinding of Vasilko and the wars with the Polovcians, to 1110.",
+      "It was long credited to Nestor, a monk of the Crypt Monastery at Kiev. The introduction of Samuel " +
+        "H. Cross, whose translation this is, reports that modern scholars doubt it and read the chronicle " +
+        "as a compilation from older ones, and sets out the view of the Russian scholar A. A. Shakhmatov: " +
+        "that a first version was finished in 1111 and revised in 1116 by Sylvester, prior of St Michael’s " +
+        "Monastery at Vydobichi, who signs the last page. This is " +
+        "Sylvester’s text as it survives in the Laurentian manuscript, which the monk Lawrence copied in " +
+        "1377 for Prince Dmitri Konstantinovich of Suzdal.",
+      "<b>How it is divided.</b> The chronicle has no chapters: it is a run of entries, each headed by " +
+        "its year counted from the Creation, and Cross gives the year of our era after it in brackets " +
+        "(6367 is 859). Each entry is a chapter here, under its own heading as Cross prints it. Where the " +
+        "chronicle records nothing for some years Cross runs them together (6378–6387 (870–879)), and he " +
+        "prints the year 6453 (945) twice; both are kept. The first chapter is the undated opening, up " +
+        "to the year 6360 (852).",
+      "<b>The small grey numbers</b> are the pages of E. F. Karski’s edition of the Laurentian text " +
+        "(1926), which Cross gives in brackets so that a reader can find each passage in the original. " +
+        "They jump after the entry for 1096 because the pages between hold the three texts by Vladimir " +
+        "Monomakh that stand there in the manuscript, printed here as appendices. Words in square " +
+        "brackets are Cross’s own; the long bracketed passage that opens in the entry for 880–882 and " +
+        "closes in the entry for 916–920 is missing from the Laurentian manuscript and supplied from the " +
+        "Hypatian, as his note there says.",
+      "<b>After the annals</b> come Cross’s appendices: the Testament of Vladimir Monomakh, his letter " +
+        "to his cousin Oleg and a prayer attributed to him — three texts the Laurentian manuscript " +
+        "carries after the year 1096 — and the Hypatian manuscript’s account of 1110 to 1113, which carries " +
+        "the story on past the point where the Laurentian text stops. In the Testament, the years in " +
+        "parentheses are Cross’s, from the chronicle. Cross’s long introduction, the short preface he sets " +
+        "before each appendix and his map are not included.",
+      "<b>About this text.</b> It was read from the Internet Archive’s scan of the 1930 printing, and the " +
+        "scanner’s misreadings were corrected against the page images. A few misprints in the printing " +
+        "itself have also been corrected: three year headings (6686–6688 for 6486–6488, 9493 for 6493, " +
+        "6694 for 6494) and six words (daugher, inquities, reconcilation, whoseover, Syvatopolk, " +
+        "Bvelgorod). The heading 6542–6543 (1034–1036) is left as printed. Cross’s italics are not " +
+        "reproduced.",
+    ],
+  },
+
   "anglo-saxon-chronicle": {
     title: "The Anglo-Saxon Chronicle",
     author: "Anonymous",
@@ -30048,6 +30345,307 @@ function extractChajing(raw, BOOK, warn) {
   return { chapters: chapters, counts: c };
 }
 
+/* ============================================================
+   AN ANNALISTIC TEXT READ OFF A SCAN'S WORD COORDINATES     (layout: "chronicle")
+   ============================================================
+   Oct 2026, adding the Russian Primary Chronicle — Samuel H. Cross's translation as printed in Harvard
+   Studies and Notes in Philology and Literature 12 (1930), pp. 136–320 of a 344-leaf volume that opens
+   with somebody else's study of Don Carlos. The second book read off an Internet Archive OCR, and the
+   first read off the OCR's WORD COORDINATES (`_djvu.xml`) rather than its plain text, for one reason.
+
+   THE PLAIN TEXT CANNOT SAY WHETHER A PAGE OPENS A PARAGRAPH. `_djvu.txt` separates blocks with a blank
+   line and a page break is one too, so a paragraph that crosses a page where the page happens to end on
+   a full stop is indistinguishable from two paragraphs. The Classic of Tea's rejoin test (open
+   punctuation, a lower-case opening, an unclosed bracket) catches the other crossings; this one it
+   cannot, and over ~160 pages of annals, where a page often ends on a sentence, it is the common case.
+   The coordinates answer it: Cross's paragraphs open on a first-line INDENT of about 45 px at the scan's
+   360 dpi, so a line is a paragraph's first line exactly when it stands right of the lines around it.
+   The margin is measured LOCALLY (the least left edge of the eight lines either side) because the pages
+   are skewed — the left edge drifts 15–20 px from the top of a page to its foot — and a page-wide
+   margin would take that drift for an indent.
+
+   WHAT A LINE IS, in order: the RUNNING HEAD (the first line of every page: the page number and "Samuel
+   H. Cross", "The Russian Primary Chronicle", "Appendix I", "Appendices" — matched on shape, the OCR
+   spelling the numbers differently on every page); MARGIN DIRT (no letter or digit, a speck in the gutter,
+   a line starting well left of the text block, the library's stamp — see the filter in the loop; specks
+   that the engine attached to a real line are dropped word by word in chronicleLines); a FOOTNOTE (from
+   the first line in the foot of the page set in smaller type than the page's body and opening on its
+   mark, to the end of the page — seven in the whole text); a HEADING (centred, or in capitals across the
+   measure); or prose.
+
+   THE ANNALS ARE THE CHAPTERS, which is the one division this work has. The chronicle is a run of
+   entries headed by the year from the Creation with Cross's conversion after it in brackets
+   ("6367 (859).") and nothing else — no books, no chapters, no titles — so a Folio chapter is one entry
+   and its title is its printed head, transcribed, never a name composed for it. Cross merges a run of
+   years in which the chronicle records nothing or little into one head ("6378–6387 (870–879)"), and
+   prints 6453 (945) twice, both are as printed. The undated opening (the Flood, the Slavs, Kii and the
+   Polyanians, the Khazar tribute) runs until "In the year 6360 (852)", which opens the dated reckoning
+   and is taken as the first entry's head; the opening's own title is its own first line, the work's
+   title as the manuscript gives it. A head is found at a paragraph's start only — a year mentioned in a
+   sentence ("When spring came, in 6480 (972), Svyatoslav approached the cataracts") is prose.
+
+   CROSS'S BRACKETED NUMBERS ARE THE PAGES OF KARSKI'S DIPLOMATIC EDITION, the 1926 second edition of the
+   Complete Collection of Russian Chronicles vol. 1 by which the Laurentian text is cited, and they are
+   kept as the text's section markers — `bk-n`, the small grey numeral every numbered book here uses —
+   rather than left as "[42]" mid-sentence. In Appendix III they are the columns of the Hypatian text, the
+   first printed "[H³ 259]" with the edition's siglum; the bare figure is kept. The OCR reads these
+   brackets as `|` or with a stray space ("[205 |", "[43 ]"), which chronicleLines and the marker pattern
+   allow for; five it mangled past that are `fixes` rows. "[66]18" is not one (see the fixes).
+
+   WHAT THE VOLUME PRINTS THAT IS NOT TAKEN: Cross's Introduction (pp. 77–135, his study of the
+   manuscripts, the redactions and the Varangian question), his note on the bracketed numbers (said in
+   the front matter instead), the folding map of Kievan Rus' adapted from Niederle, and the headnote
+   Cross sets before each appendix — his own prose about the text, with a bibliography whose Cyrillic
+   the OCR reads as Latin letters ("Ioeecms Bpemennux JIem") and which would need retyping from the page
+   rather than repairing. The appendices themselves ARE taken: the Testament of Vladimir Monomakh is part
+   of the Laurentian manuscript (it stands in the entry for 1096), and so are the letter and the prayer
+   that follow it; Appendix III is the Hypatian text's account of 1110–1113 that the Laurentian redaction
+   does not carry. */
+const CHRONICLE_HEAD = /^(?:\[\d{1,3}\] )?(\[?)(?:In the year )?(\d{4}(?:–\d{4})?) \((\d{3,4}(?:–\d{3,4})?)(?:\)[.,]|\.\))/;
+
+function chronicleEnt(s) {
+  return s.replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+}
+
+/* The OCR's pages as lines with their geometry. A `<LINE>` carries no box of its own, so it is the union
+   of its words', and its height is its words' median rather than the tallest (a line holding a capital
+   Q or a bracket stands a few pixels taller than its type). */
+function chronicleLines(xml, quotes) {
+  const pages = [];
+  for (const m of xml.matchAll(/<OBJECT[^>]*usemap="[^"]*_(\d{4})\.djvu"[^>]*>([\s\S]*?)<\/OBJECT>/g)) {
+    const lines = [];
+    /* `<LINE>` MAY CARRY ATTRIBUTES: the engine marks a line it thinks floats free of its paragraph
+       `x-struct="textfloat"`, and a pattern for the bare tag silently lost every such line — 90 in this scan, most of them prose. */
+    for (const l of m[2].matchAll(/<LINE\b[^>]*>([\s\S]*?)<\/LINE>/g)) {
+      /* The rule the binder's gutter casts down some pages, which the OCR reads as a word of its own —
+         `|`, `||`, `|)`, `|}`, `_` — at a line's start or end. No word of the text is a bar, so it is
+         dropped BEFORE the line's box is taken: left in, a `_` 60 px into the margin made the whole line
+         look as if it began outside the text block, and the dirt test below threw away three lines of
+         prose with it ("Chios, Lesbos, Cythera …"). A bar standing where a Karski number's closing
+         bracket should be ("[205 |") is that bracket. */
+      const ws = [];
+      for (const w of l[1].matchAll(/<WORD coords="(\d+),(\d+),(\d+),(\d+)"[^>]*>([^<]*)<\/WORD>/g)) {
+        const t = chronicleEnt(w[5]);
+        const prev = ws[ws.length - 1];
+        if (/^[|\]]$/.test(t) && prev && /^\[?\d{1,3}$/.test(prev.t) && /\[/.test(ws.map((x) => x.t).join(" ").slice(-6))) {
+          prev.t += "]"; continue;
+        }
+        if (/^[|_]+[)}]?$/.test(t)) continue;
+        const q = chronicleQuotes(t, +m[1], quotes);
+        if (q) ws.push({ x0: +w[1], y1: +w[2], x1: +w[3], y0: +w[4], t: q });
+      }
+      /* A speck in the gutter read as a mark of punctuation — `!`, `“` — standing well clear of the line it
+         was given to (leaf 269 has two, 40 px out). A mark that belongs to a word touches it. */
+      while (ws.length > 1 && !/[A-Za-z0-9]/.test(ws[0].t) && ws[1].x0 - ws[0].x1 > 25) ws.shift();
+      /* At a line's END the gutter's specks come closer — 15 to 35 px — and are read as a dash, `»`, `}`,
+         `\` or `©` (seven lines; "they forgot —" / "God", "the others were }" / "eating"). Only those shapes
+         go: a `]`, `)` or `!` at the end of a line is the text's own (a footnote mark among them). */
+      while (ws.length > 1 && /^[—\-»}{\\~^©_]+$/.test(ws[ws.length - 1].t) && ws[ws.length - 1].x0 - ws[ws.length - 2].x1 >= 15) ws.pop();
+      while (ws.length > 1 && !/[A-Za-z0-9]/.test(ws[ws.length - 1].t) && ws[ws.length - 1].x0 - ws[ws.length - 2].x1 > 40) ws.pop();
+      if (!ws.length) continue;
+      const hs = ws.map((w) => w.y1 - w.y0).sort((a, b) => a - b);
+      lines.push({
+        x0: ws[0].x0, x1: ws[ws.length - 1].x1, y0: Math.min(...ws.map((w) => w.y0)),
+        h: hs[hs.length >> 1],
+        t: ws.map((w) => w.t).join(" ").replace(/\[ ?(\d{1,3}) ?[|\]]/g, "[$1]").replace(/\s+/g, " ").trim()
+          .replace(/\|\]/g, "]"),
+      });
+    }
+    /* IN READING ORDER, which is not the file's order: a "textfloat" line sits in a column of its own,
+       and on leaf 269 four of them stand in the file after the lines below them on the page. */
+    lines.sort((a, b) => a.y0 - b.y0);
+    pages.push({ leaf: +m[1], lines: lines });
+  }
+  return pages;
+}
+
+/* THE QUOTATION MARKS. Cross's double quotes are set as two separate commas, and the engine reads one
+   of them as anything from `‘‘` and `’’` to `“‘`, `’”’` or `’’’` — 342 words in this text carry a run of
+   two or more marks, and every one was read off the page image. 321 are ONE double quotation mark; 21
+   are a double and a single together, a quotation closing inside another (`’”`, `”’`) or opening inside
+   one (`“‘`), and those are listed in the entry's `quotes`, keyed by leaf and the word as the OCR reads
+   it. So the rule is the common case and the table the exceptions: a run at the head of a word is “,
+   a run at its end ”. A `?` after a closing run is the engine's too (three words; none is printed). */
+function chronicleQuotes(t, leaf, quotes) {
+  const key = leaf + ":" + t;
+  const nth = key + "#" + (CHRONICLE_QUOTE_SEEN[key] = (CHRONICLE_QUOTE_SEEN[key] || 0) + 1);
+  for (const k of [nth, key]) if (k in quotes) { CHRONICLE_QUOTE_HITS[k] = (CHRONICLE_QUOTE_HITS[k] || 0) + 1; return quotes[k]; }
+  return t.replace(/^[‘’“”"']{2,}/, "“").replace(/[‘’“”"']{2,}\??$/, "”");
+}
+const CHRONICLE_QUOTE_HITS = {}, CHRONICLE_QUOTE_SEEN = {};
+
+function extractChronicle(xml, BOOK, warn) {
+  const c = { dropped: [], heads: 0, dirt: 0, notes: 0, marks: 0, indents: 0, hyphens: 0, kept: 0, pages: 0, entries: 0,
+    karski: 0, headnotes: 0 };
+  const pages = chronicleLines(xml, BOOK.quotes || {}).filter((p) => p.leaf >= BOOK.leaves[0] && p.leaf <= BOOK.leaves[1]);
+  if (pages.length !== BOOK.leaves[1] - BOOK.leaves[0] + 1)
+    throw new Error("the scan's text holds " + pages.length + " of leaves " + BOOK.leaves.join("–"));
+
+  /* Every line becomes one item of a single stream: { t, para, head, leaf }, `para` meaning that the line
+     opens a paragraph and `head` that it is a centred heading. Footnotes are lifted out per page. */
+  const stream = [];
+  const notes = [];
+  const runningHead = /(?:Samuel\.? H\. Cross|Primary Chronicle|^\S{0,5}\s*A ?ppendi(?:x|ces)\b)/i;
+  for (const p of pages) {
+    let ls = p.lines.slice();
+    const hi = ls.findIndex((l, i) => i < 3 && l.y0 < 230 && runningHead.test(l.t));
+    if (hi >= 0) { ls.splice(hi, 1); c.heads++; }
+    /* Dirt: a line with no letter or figure, a speck in the gutter, a line that starts well left of the
+       text block (the scan's edge), or one set far taller than the page's type BELOW the text block (the
+       library's stamp on the last leaf — a box's height alone is no test, the engine boxing the one word
+       "heavens." on leaf 239 at 62 px). */
+    /* The text block's left edge is the least x at which a quarter of the page's lines start (within
+       15 px) — not the median, since a page of one-line entries (leaf 239: 6536–6541) has as many
+       indented first lines as flush ones, and not the least x, since the last leaf carries three lines of
+       scan dirt at the very edge. */
+    const xs0 = ls.map((l) => l.x0).sort((a, b) => a - b);
+    const medX = xs0.find((x) => xs0.filter((y) => y >= x && y <= x + 15).length >= ls.length / 4) ?? xs0[0];
+    const medH = ls.map((l) => l.h).sort((a, b) => a - b)[ls.length >> 1];
+    ls = ls.filter((l) => {
+      const bare = !/[A-Za-z0-9]/.test(l.t) || (l.t.replace(/\s/g, "").length <= 2 && (l.x0 > 1500 || l.x1 < 200)) ||
+        l.x0 < medX - 40 || (l.h > 1.6 * medH && l.y0 > 2600);
+      if (bare) { c.dirt++; c.dropped.push(p.leaf + ": " + l.t); }
+      return !bare;
+    });
+    if (!ls.length) continue;
+    c.pages++;
+    const body = ls.map((l) => l.h).sort((a, b) => a - b)[ls.length >> 1];
+    /* The foot of the page: a block after a gap wider than the page's line pitch, set smaller than its
+       body, whose first line opens on the note's mark — a raised figure the OCR reads as a digit, or in
+       Appendix III as `?`, `*` or `!`. A note is keyed by its ORDER on its page, which is what a fixes row
+       citing it names (⟦1@171⟧ is the first note at the foot of leaf 171). */
+    const gaps = ls.slice(1).map((l, i) => l.y0 - ls[i].y0).sort((a, b) => a - b);
+    const pitch = gaps[gaps.length >> 1] || 60;
+    const noteMark = /^[\d?*!†]{1,2} (?=\S)/;
+    const fi = ls.findIndex((l, i) => i > ls.length / 2 && l.y0 - ls[i - 1].y0 > 1.35 * pitch && noteMark.test(l.t) &&
+      ls.slice(i).map((x) => x.h).sort((a, b) => a - b)[(ls.length - i - 1) >> 1] < body);
+    if (fi >= 0) {
+      let k = 0;
+      for (const l of ls.slice(fi)) {
+        if (noteMark.test(l.t)) notes.push({ leaf: p.leaf, k: ++k, t: l.t.replace(noteMark, "") });
+        else notes[notes.length - 1].t = chronicleJoin(notes[notes.length - 1].t, l.t, BOOK, c);
+      }
+      ls = ls.slice(0, fi);
+    }
+    const right = Math.max(...ls.map((l) => l.x1));
+    ls.forEach((l, i) => {
+      const near = ls.slice(Math.max(0, i - 8), i + 9).filter((x) => x !== l);
+      /* the edge a quarter of the way up, not the least, so that a line led by a speck in the margin cannot
+         make every line within reach of it look indented (leaf 213, where a speck before "fore we cannot
+         dwell" sits 35 px left of the text; leaf 279, where two lines' first words are boxed 40 px out) */
+      const xs = near.map((x) => x.x0).sort((a, b) => a - b);
+      const margin = xs.length ? xs[Math.floor(xs.length / 4)] : l.x0;
+      /* A heading is centred, or set in capitals across the measure (Appendix II's "A. LETTER OF VLADIMIR
+         MONOMAKH TO OLEG, SON OF SVYATOSLAV" is too long to stand clear of either margin). */
+      const caps = l.t.replace(/[^A-Za-z]/g, "");
+      const head = (l.x0 - margin > 150 && right - l.x1 > 150) ||
+        (caps.length >= 12 && caps.replace(/[^A-Z]/g, "").length >= 0.8 * caps.length);
+      /* A centred speck — a letter or two of show-through or a printer's mark — is dirt, not a heading. */
+      if (head && l.t.replace(/[^A-Za-z0-9]/g, "").length <= 3) { c.dirt++; c.dropped.push(p.leaf + ": " + l.t); return; }
+      const para = !head && l.x0 - margin > 25;
+      if (para) c.indents++;
+      stream.push({ t: l.t, para: para, head: head, leaf: p.leaf });
+    });
+  }
+
+  /* Lines into paragraphs. A heading is a paragraph of its own; so is a run of heading lines (the two-line
+     titles of the appendices), joined with a space. */
+  const paras = [];
+  for (const s of stream) {
+    const last = paras[paras.length - 1];
+    if (last && !s.para && !s.head && !last.head) { last.t = chronicleJoin(last.t, s.t, BOOK, c); continue; }
+    if (last && s.head && last.head && last.leaf === s.leaf) { last.t += " " + s.t; continue; }
+    paras.push({ t: s.t, head: s.head, leaf: s.leaf });
+  }
+
+  /* The corrections run over the paragraphs as a reader meets them, one per line, so a `fixes` row is
+     written against a sentence and never against the scan's line breaks. Headings go through too. */
+  const fixed = correctRaw(paras.map((p) => p.t).join("\n")).split("\n");
+  if (fixed.length !== paras.length) throw new Error("a fixes row added or removed a paragraph break");
+  fixed.forEach((t, i) => (paras[i].t = t));
+  const fixedNotes = notes.map((n) => correctRaw(n.t));
+
+  /* What the pass made of the scan, for checking it against the page: every paragraph with its leaf, every
+     line dropped as dirt, every note. Off unless asked for. */
+  if (process.env.CHRONICLE_DUMP) fs.writeFileSync(process.env.CHRONICLE_DUMP, paras.map((p) => (p.head ? "## " : "") + p.leaf + "| " + p.t).join("\n\n") + "\n\nDROPPED\n" + c.dropped.join("\n") + "\n\nNOTES\n" + notes.map((n, i) => n.k + "@" + n.leaf + " " + fixedNotes[i]).join("\n"));
+  const text = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const startAt = paras.findIndex((p) => BOOK.begin.test(p.t));
+  const endAt = paras.findIndex((p) => BOOK.mainEnd.test(p.t));
+  if (startAt < 0 || endAt < startAt) throw new Error("the translation's first or last paragraph is not where the entry says");
+
+  /* The chapters: the opening, every entry, then the four appendix texts. */
+  const chapters = [];
+  let cur = { t: BOOK.openingTitle, ps: [] };
+  chapters.push(cur);
+  for (let i = startAt; i <= endAt; i++) {
+    const p = paras[i];
+    if (p.head) { warn("a centred line inside the annals: " + p.t.slice(0, 60)); continue; }
+    const m = CHRONICLE_HEAD.exec(p.t);
+    if (m) {
+      cur = { t: m[2] + " (" + m[3] + ")", ps: [] };
+      chapters.push(cur);
+      c.entries++;
+    }
+    cur.ps.push(p);
+  }
+  for (const a of BOOK.appendices) {
+    const hi = paras.findIndex((p, i) => i > endAt && p.head && a.head.test(p.t));
+    if (hi < 0) { warn("the appendix heading " + a.head + " is not in the scan's text"); continue; }
+    let si = paras.findIndex((p, i) => i > hi && a.start.test(p.t));
+    if (si < 0) { warn("the first paragraph of " + a.title + " is not in the scan's text"); continue; }
+    c.headnotes += si - hi - 1;
+    const ps = [];
+    for (let i = si; i < paras.length && !paras[i].head; i++) ps.push(paras[i]);
+    chapters.push({ t: a.title, ps: ps });
+  }
+
+  /* Notes: each must be cited exactly once, by a ⟦k@leaf⟧ written into the fixes where the page sets its
+     mark (the marks are a raised figure the OCR reads as `1`, `!` or nothing at all). */
+  const noteAt = {};
+  notes.forEach((n, i) => (noteAt[n.k + "@" + n.leaf] = fixedNotes[i]));
+  c.notes = notes.length;
+  const cited = {};
+  const out = chapters.map((ch, i) => {
+    const seen = [];
+    const body = ch.ps.map((p) => {
+      let h = text(p.t).replace(/⟦(\d+)@(\d+)⟧/g, (w, k, leaf) => {
+        const key = k + "@" + leaf;
+        if (!(key in noteAt)) { warn("a mark cites note " + key + ", which the scan does not print"); return ""; }
+        cited[key] = (cited[key] || 0) + 1;
+        seen.push(text(noteAt[key]));
+        c.marks++;
+        return '<sup class="fn" data-fn="' + seen.length + '"></sup>';
+      });
+      h = h.replace(/\[ ?(?:H ?\d+ )?(\d{1,3})(?: ad fin\.)? ?[\]|](?!\d)\s*/g, (w, n) => {
+        c.karski++;
+        return '<span class="bk-n" data-n="' + n + '">' + n + "</span> ";
+      });
+      return "<p>" + h.trim() + "</p>";
+    });
+    return { n: i + 1, t: ch.t, html: body.join("\n"), notes: seen };
+  });
+  for (const k of Object.keys(BOOK.quotes || {}))
+    if (CHRONICLE_QUOTE_HITS[k] !== 1) warn("the quotes row " + k + " matched " + (CHRONICLE_QUOTE_HITS[k] || 0) + " word(s), not one");
+  for (const k of Object.keys(noteAt)) if (cited[k] !== 1) warn("footnote " + k + " is cited " + (cited[k] || 0) + " time(s), not once");
+  const left = (out.map((x) => x.html).join(" ").match(/⟦|\[\d+\s*[|\]](?!\d)|\|/g) || []);
+  if (left.length) warn(left.length + " stray mark(s) left in the text: " + [...new Set(left)].join(" "));
+  return { chapters: out, counts: c };
+}
+
+/* One line onto the paragraph before it. A line-end hyphen is removed unless the word keeps one —
+   `keepHyphens`, and a hyphen before a capital ("Pereyaslavl- Russian" never occurs; "Byelo- Ozero"
+   would). */
+function chronicleJoin(a, b, BOOK, c) {
+  const m = /([A-Za-z’']+)-$/.exec(a);
+  if (!m) return a + " " + b;
+  const first = /^[A-Za-z’']+/.exec(b);
+  const word = (m[1] + "-" + (first ? first[0] : "")).toLowerCase();
+  if (/^[A-Z]/.test(b) || (BOOK.keepHyphens || []).includes(word)) { c.kept++; return a + b; }
+  c.hyphens++;
+  return a.slice(0, -1) + b;
+}
+
 /* A MediaWiki page's WIKITEXT, as the API serves it, with the revision it came from. Cached as served, so
    the revision id and timestamp are in the cache beside the text. The wiki answers a fast walk with a
    plain-text rate-limit notice, which fails the JSON parse and retries here — and for far longer than
@@ -30792,6 +31390,29 @@ async function fetchEnglish() {
       if (b.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
       chapters.push({ n: b.n, t: titles[b.n] || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.layout === "chronicle") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-djvu.xml");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractChronicle(raw, BOOK, warn);
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " chapters (the opening, " + c.entries + " entries, " +
+      (got.chapters.length - 1 - c.entries) + " appendix texts) from " + c.pages + " pages; dropped " +
+      c.heads + " running head(s), " + c.dirt + " line(s) of margin dirt and " + c.headnotes +
+      " paragraph(s) of Cross's appendix headnotes; " + c.indents + " paragraph indent(s) read; " +
+      c.notes + " footnote(s), " + c.marks + " mark(s); " + c.karski + " Karski page number(s) kept as markers; " +
+      c.hyphens + " line-end hyphen(s) removed, " + c.kept + " kept");
+    if (got.chapters.length !== BOOK.chapters.length)
+      warnings.push("the scan gave " + got.chapters.length + " chapters where the entry declares " + BOOK.chapters.length);
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }
