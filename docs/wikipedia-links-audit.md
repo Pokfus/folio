@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5458 | the title is the article |
+| `ok` | 5501 | the title is the article |
 | `redirect-variant` | 335 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 517 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 521 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 109 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 979 | nothing matched; no link |
+| `none` | 982 | nothing matched; no link |
 
-**6405 of 7651 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6452 of 7701 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (517)
+## Redirected to a differently named article — check each (521)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -560,7 +560,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-401` **China Incident** → [Marco Polo Bridge incident](https://en.wikipedia.org/wiki/Marco_Polo_Bridge_incident) (from `China Incident`)
 - `ww2-411` **First Battle of Changsha** → [Battle of Changsha (1939)](https://en.wikipedia.org/wiki/Battle_of_Changsha_(1939)) (from `First Battle of Changsha`)
 - `ww2-418` **Shaan-Gan-Ning Border Region** → [Yan'an Soviet](https://en.wikipedia.org/wiki/Yan'an_Soviet) (from `Shaan-Gan-Ning Border Region`)
+- `ww2-426` **Sino-American Treaty for the Relinquishment of Extraterritorial Rights in China** → [Treaty between the United States and China for the Relinquishment of Extraterritorial Rights in China](https://en.wikipedia.org/wiki/Treaty_between_the_United_States_and_China_for_the_Relinquishment_of_Extraterritorial_Rights_in_China) (from `Sino-American Treaty for the Relinquishment of Extraterritorial Rights in China`)
+- `ww2-430` **fabi** → [Chinese National Currency](https://en.wikipedia.org/wiki/Chinese_National_Currency) (from `Fabi (currency)`)
+- `ww2-455` **Japanese conquest of Burma** → [Japanese invasion of Burma](https://en.wikipedia.org/wiki/Japanese_invasion_of_Burma) (from `Japanese conquest of Burma`)
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
+- `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
 
 ## Settled from a disambiguation page (81)
 
@@ -932,7 +936,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 
-## No article found (979)
+## No article found (982)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1915,3 +1919,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-438` **Executive Order 8832** — search suggests `Preparatory Committee for Philippine Independence`, `List of executive actions by Franklin D. Roosevelt`, `History of Italy`, `1st Congress of the Commonwealth of the Philippines`, `Foreign relations of Spain`
 - `ww2-442` **Combined Fleet Operation Order No. 1** — search suggests `United States Pacific Fleet`, `Spain during World War II`, `Home Fleet`, `United States Fourth Fleet`, `2nd Fleet (Imperial Japanese Navy)`
 - `ww2-447` **Southern Operation** — search suggests `List of World War II military operations`, `List of military operations on the Eastern Front of World War II`, `World War II`, `Operation Southern Spear`, `Southern Rhodesia in World War II`
+- `ww2-457` **Absolute National Defence Sphere** — search suggests `World War II`, `Thailand in World War II`, `European theatre of World War II`, `Eastern Front (World War II)`, `Nazi Germany`
+- `ww2-499` **Imperial General Headquarters Announcement** — search suggests `Imperial General Headquarters`, `Pacific War`, `Nicholas II`, `Home front during World War II`, `War crimes in World War II`
+- `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`

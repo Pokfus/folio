@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T20:29Z",
+ "generated": "2026-10-30T20:47Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5458,
-  "redirect-broader": 517,
+  "ok": 5501,
+  "redirect-broader": 521,
   "redirect-variant": 335,
   "section-redirect": 109,
   "disambiguation": 142,
-  "none": 979,
+  "none": 982,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62049,6 +62049,381 @@
    "url": "https://en.wikipedia.org/wiki/Fall_of_Singapore",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-421": {
+   "answer": "Comfort women",
+   "title": "Comfort women",
+   "url": "https://en.wikipedia.org/wiki/Comfort_women",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-422": {
+   "answer": "Burma Road",
+   "title": "Burma Road",
+   "url": "https://en.wikipedia.org/wiki/Burma_Road",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-423": {
+   "answer": "Hump",
+   "title": "The Hump",
+   "url": "https://en.wikipedia.org/wiki/The_Hump",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-424": {
+   "answer": "Flying Tigers",
+   "title": "Flying Tigers",
+   "url": "https://en.wikipedia.org/wiki/Flying_Tigers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-425": {
+   "answer": "Joseph Stilwell",
+   "title": "Joseph Stilwell",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Stilwell",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-426": {
+   "answer": "Sino-American Treaty for the Relinquishment of Extraterritorial Rights in China",
+   "title": "Treaty between the United States and China for the Relinquishment of Extraterritorial Rights in China",
+   "url": "https://en.wikipedia.org/wiki/Treaty_between_the_United_States_and_China_for_the_Relinquishment_of_Extraterritorial_Rights_in_China",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Sino-American Treaty for the Relinquishment of Extraterritorial Rights in China"
+  },
+  "ww2-427": {
+   "answer": "Cairo Conference",
+   "title": "Cairo Conference",
+   "url": "https://en.wikipedia.org/wiki/Cairo_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-428": {
+   "answer": "Chinese famine of 1942–1943",
+   "title": "Chinese famine of 1942–1943",
+   "url": "https://en.wikipedia.org/wiki/Chinese_famine_of_1942%E2%80%931943",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-429": {
+   "answer": "Operation Ichi-Go",
+   "title": "Operation Ichi-Go",
+   "url": "https://en.wikipedia.org/wiki/Operation_Ichi-Go",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-430": {
+   "answer": "fabi",
+   "title": "Chinese National Currency",
+   "url": "https://en.wikipedia.org/wiki/Chinese_National_Currency",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Fabi (currency)"
+  },
+  "ww2-451": {
+   "answer": "Battle of Bataan",
+   "title": "Battle of Bataan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bataan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-452": {
+   "answer": "Bataan Death March",
+   "title": "Bataan Death March",
+   "url": "https://en.wikipedia.org/wiki/Bataan_Death_March",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-453": {
+   "answer": "Dutch East Indies campaign",
+   "title": "Dutch East Indies campaign",
+   "url": "https://en.wikipedia.org/wiki/Dutch_East_Indies_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-454": {
+   "answer": "Battle of Hong Kong",
+   "title": "Battle of Hong Kong",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Hong_Kong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-455": {
+   "answer": "Japanese conquest of Burma",
+   "title": "Japanese invasion of Burma",
+   "url": "https://en.wikipedia.org/wiki/Japanese_invasion_of_Burma",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Japanese conquest of Burma"
+  },
+  "ww2-456": {
+   "answer": "Bombing of Darwin",
+   "title": "Bombing of Darwin",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Darwin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-457": {
+   "answer": "Absolute National Defence Sphere",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "Thailand in World War II",
+    "European theatre of World War II",
+    "Eastern Front (World War II)",
+    "Nazi Germany"
+   ]
+  },
+  "ww2-458": {
+   "answer": "Japanese invasion money",
+   "title": "Japanese invasion money",
+   "url": "https://en.wikipedia.org/wiki/Japanese_invasion_money",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-459": {
+   "answer": "Greater East Asia Conference",
+   "title": "Greater East Asia Conference",
+   "url": "https://en.wikipedia.org/wiki/Greater_East_Asia_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-460": {
+   "answer": "Changi Prison",
+   "title": "Changi Prison",
+   "url": "https://en.wikipedia.org/wiki/Changi_Prison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-471": {
+   "answer": "War Plan Orange",
+   "title": "War Plan Orange",
+   "url": "https://en.wikipedia.org/wiki/War_Plan_Orange",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-472": {
+   "answer": "Leapfrogging",
+   "title": "Leapfrogging (strategy)",
+   "url": "https://en.wikipedia.org/wiki/Leapfrogging_(strategy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-473": {
+   "answer": "Douglas MacArthur",
+   "title": "Douglas MacArthur",
+   "url": "https://en.wikipedia.org/wiki/Douglas_MacArthur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-474": {
+   "answer": "Chester W. Nimitz",
+   "title": "Chester W. Nimitz",
+   "url": "https://en.wikipedia.org/wiki/Chester_W._Nimitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-475": {
+   "answer": "United States Pacific Fleet",
+   "title": "United States Pacific Fleet",
+   "url": "https://en.wikipedia.org/wiki/United_States_Pacific_Fleet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-476": {
+   "answer": "Fast Carrier Task Force",
+   "title": "Fast Carrier Task Force",
+   "url": "https://en.wikipedia.org/wiki/Fast_Carrier_Task_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-477": {
+   "answer": "unrestricted submarine warfare",
+   "title": "Unrestricted submarine warfare",
+   "url": "https://en.wikipedia.org/wiki/Unrestricted_submarine_warfare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-478": {
+   "answer": "Joint Army–Navy Assessment Committee",
+   "title": "Joint Army–Navy Assessment Committee",
+   "url": "https://en.wikipedia.org/wiki/Joint_Army%E2%80%93Navy_Assessment_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-479": {
+   "answer": "Aleutian Islands campaign",
+   "title": "Aleutian Islands campaign",
+   "url": "https://en.wikipedia.org/wiki/Aleutian_Islands_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-480": {
+   "answer": "Battle of Tarawa",
+   "title": "Battle of Tarawa",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Tarawa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-481": {
+   "answer": "Gilbert and Marshall Islands campaign",
+   "title": "Gilbert and Marshall Islands campaign",
+   "url": "https://en.wikipedia.org/wiki/Gilbert_and_Marshall_Islands_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-482": {
+   "answer": "Battle of Saipan",
+   "title": "Battle of Saipan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Saipan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-483": {
+   "answer": "Battle of the Philippine Sea",
+   "title": "Battle of the Philippine Sea",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Philippine_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-484": {
+   "answer": "Hideki Tojo",
+   "title": "Hideki Tojo",
+   "url": "https://en.wikipedia.org/wiki/Hideki_Tojo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-485": {
+   "answer": "Battle of Peleliu",
+   "title": "Battle of Peleliu",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Peleliu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-486": {
+   "answer": "Battle of Luzon",
+   "title": "Battle of Luzon",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Luzon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-487": {
+   "answer": "Battle of Leyte Gulf",
+   "title": "Battle of Leyte Gulf",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leyte_Gulf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-488": {
+   "answer": "Kamikaze",
+   "title": "Kamikaze",
+   "url": "https://en.wikipedia.org/wiki/Kamikaze",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-489": {
+   "answer": "Battle of Manila",
+   "title": "Battle of Manila (1945)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Manila_(1945)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-490": {
+   "answer": "Battle of Iwo Jima",
+   "title": "Battle of Iwo Jima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Iwo_Jima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-491": {
+   "answer": "Raising the Flag on Iwo Jima",
+   "title": "Raising the Flag on Iwo Jima",
+   "url": "https://en.wikipedia.org/wiki/Raising_the_Flag_on_Iwo_Jima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-492": {
+   "answer": "Battle of Okinawa",
+   "title": "Battle of Okinawa",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Okinawa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-493": {
+   "answer": "Himeyuri students",
+   "title": "Himeyuri students",
+   "url": "https://en.wikipedia.org/wiki/Himeyuri_students",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-494": {
+   "answer": "Air raids on Japan",
+   "title": "Air raids on Japan",
+   "url": "https://en.wikipedia.org/wiki/Air_raids_on_Japan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-495": {
+   "answer": "Operation Meetinghouse",
+   "title": "Bombing of Tokyo (10 March 1945)",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Operation Meetinghouse"
+  },
+  "ww2-496": {
+   "answer": "Curtis LeMay",
+   "title": "Curtis LeMay",
+   "url": "https://en.wikipedia.org/wiki/Curtis_LeMay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-497": {
+   "answer": "Tonarigumi",
+   "title": "Tonarigumi",
+   "url": "https://en.wikipedia.org/wiki/Tonarigumi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-498": {
+   "answer": "Ministry of Munitions",
+   "title": "Ministry of Munitions (Japan)",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_Munitions_(Japan)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-499": {
+   "answer": "Imperial General Headquarters Announcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Imperial General Headquarters",
+    "Pacific War",
+    "Nicholas II",
+    "Home front during World War II",
+    "War crimes in World War II"
+   ]
+  },
+  "ww2-500": {
+   "answer": "Kominka movement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Korea under Japanese rule",
+    "Japanization",
+    "Imperial Subject Public Service Association",
+    "Taiwan under Japanese rule",
+    "Shinto in Taiwan"
+   ]
   }
  }
 }
