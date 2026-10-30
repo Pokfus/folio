@@ -12,7 +12,18 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  `magna-carta` (~42 KB English, ~30 KB Latin, **63 chapters**, **12 notes**, original **Latin** — the charter of
+  1215 in William Sharp McKechnie's translation, from his *Magna Carta: A Commentary* (Glasgow, 1905), Project
+  Gutenberg ebook 65363; `layout: "mckechnie"` → `extractMcKechnie`). **The shelf's first document, and its first
+  text read out of a commentary**: the volume prints each chapter as Latin, then a `<div class="translate">` of
+  English, then pages of commentary; the commentary, introduction and appendix are left behind and only the
+  footnotes cited from inside a translation block ship. Both columns come out of ONE cached page and **pair
+  chapter for chapter, 63 a side** (one `bk-n` per chapter). The **preamble is printed with chapter 1**, ahead of
+  its marker in both columns, because the edition calls the break "a purely arbitrary one" and because chapter 0
+  is the reader's front matter. Gutenberg's other Magna Carta
+  (ebook 10000) is the British Library's modern translation and is not free to take. McKechnie (1863–1930) clears
+  the pre-1929 rule and life + 70, not life + 100 (2031). Author "Anonymous", colour keyed by id.
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,

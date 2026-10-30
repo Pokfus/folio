@@ -2467,3 +2467,23 @@ And one shared fix: `teiSectionProse` now removes XML comments and self-closed `
 note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifting the prose between into the fold.
 Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
 `node .claude/check-pairing.js` (it should list no row for the book).
+
+## The `mckechnie` layout — a charter and its translation out of a commentary (Oct 2026, Magna Carta)
+
+McKechnie's *Magna Carta* (Glasgow, 1905; Gutenberg 65363) prints the charter a chapter at a time inside a book
+about it: a head (`<h3 class="c015">PREAMBLE.` then `<h3 class="c014" id="c_N">`), one or two Latin paragraphs
+(`c016`, or `c008` with a `lang` span), a `<div class="translate">` holding the English, then the commentary.
+`extractMcKechnie` cuts at the heads between PREAMBLE and the APPENDIX `h2`, takes the Latin that stands BEFORE
+the translate block (chapter 39's commentary has a later `c016` that is a citation), and keeps only the
+footnotes a translate block cites. What it settled:
+
+- **Count the blocks before trusting the shape**: 64 heads, 64 translate blocks, one paragraph each, Latin
+  before every one. The extractor throws if the heads are not 0–63 in order or a chapter has no Latin.
+- **Gutenberg prints each correction twice** — an `htmlonly` copy and an `epubonly` copy side by side — so a
+  naive strip reads "postponementpostponement". Drop the `epubonly` span.
+- **`stripTags` keeps `<p>`**: a footnote's text must have its paragraph tags removed before the printed
+  number ("323. ") is cut off, or every note ships wrapped in `<p>` with its number.
+- **Chapter 0 is taken** by the reader's front matter, so a preamble cannot be its own tab without a collision;
+  it is printed at the head of chapter 1 in both columns and pairs as a leading row.
+- Re-run after touching: `node .claude/fetch-book.js magna-carta` (both columns, from one cached page), then
+  `node .claude/check-pairing.js` (no row for the book) and `node .claude/check-cutoff.js`.
