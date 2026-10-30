@@ -12077,6 +12077,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      from Malory. Shakespeare's navy, the other English king, is 22.6 away. Keyed by id, the charter
      being anonymous. It reads 5.25:1 on the tightest light paper. */
   "magna-carta": "#632D9F",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-three colours placed (Oct 2026, adding Diodorus): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band's best clears 15.8 against the shelf's tightest
+     pair of 15.6, so nothing was widened, and a candidate a tenth under is taken, as the Plutarch,
+     Strabo and Livy rows did. THE EURIPIDES TEST refused the top of the list: its blues stand 19–20
+     from HERODOTUS, and two Greek universal historians in neighbouring blues would read as a set; its
+     green joins the cluster the Classic of Tea and Livy rows declined; and its rust is 16.3 from
+     Caesar. This olive-bronze clears Vyasa by 15.7, not a book read beside Diodorus, and stands 26 or
+     more from every one that is — Livy 26.4, Julius Caesar 32.8, Pausanias 62.1, Strabo 50.7,
+     Tacitus 51.0, Polybius 75.0, Thucydides 78.7, Herodotus 88.3, Plutarch 115.7. It reads 5.14:1 on
+     the tightest light paper. */
+  "Diodorus Siculus": "#634806",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15396,6 +15408,52 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 1, label: "Volume I", note: "Books 1–7" },
         { n: 2, label: "Volume II", note: "Books 8–13" },
         { n: 3, label: "Volume III", note: "Books 14–17" },
+      ],
+    },
+    {
+      id: "diodorus-library",
+      title: "The Library of History",
+      // the work's own Greek title, as Perseus's three editions of the Greek column give it
+      subtitle: "Βιβλιοθήκη ἱστορική",
+      author: "Diodorus Siculus",
+      /* Oldfather's dating in the Loeb's introduction: at work by 56 BCE (1.44), in Egypt in 59, and the
+         latest event named is the Roman colony at Tauromenium, 36 BCE or a little later (16.7.1). The
+         sort year is the middle of that span, and the front matter carries the reasoning. */
+      written: "c. 60–30 BCE",
+      year: -45,
+      translator: "C. H. Oldfather and others",
+      edition: "Loeb Classical Library, 1933–1963",
+      /* PUBLIC DOMAIN BY NON-RENEWAL, the Classic of Tea's ground on ten volumes. Each was published
+         before 1964 and needed renewing in its 28th year; Bill Thayer, whose retyping this is, records
+         that none was, and the Catalog of Copyright Entries lists no renewal in the windows it covers
+         (1960–1977, searched for this import). Renewals from 1978 on were not searched, and nothing is
+         claimed outside the United States. See .claude/fetch-book.js for the full account. */
+      rights:
+        "Public domain in the United States, by non-renewal. This is the Loeb Classical Library " +
+        "translation, published in ten volumes between 1933 and 1963 by C. H. Oldfather (Books 1 to " +
+        "15.19), C. L. Sherman (15.20 to 16.65), C. B. Welles (16.66 to 17) and R. M. Geer (18 to 20). " +
+        "Each volume was published before 1964 and needed its copyright renewed in its twenty-eighth " +
+        "year; none was, as Bill Thayer of LacusCurtius records volume by volume, and the Catalog of " +
+        "Copyright Entries lists no renewal in the years it covers (1960 to 1977). Outside the United " +
+        "States the term is usually counted from a translator's death, and no claim is made there. " +
+        "The text is Thayer's careful retyping, with his corrections of the printed volumes' slips; his " +
+        "own notes are his copyright and are not included. Diodorus wrote the work in Greek in the first " +
+        "century BCE. (The fragments of Books 33 to 40, in the Loeb's twelfth volume of 1967, are still " +
+        "in copyright and are not used here; neither are the modern translations by Robin Waterfield, " +
+        "2019, and Peter Green, 2010.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/home.html",
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the fifteen books that survive whole, of the forty Diodorus wrote; the fragments are not carried
+      count: 15,
+      total: 40,
+      // Diodorus's own three groups (1.4.6–7), shortened from his words; the gap is Books 6–10, lost
+      parts: [
+        { n: 1, label: "Before the Trojan War", note: "Books 1–5" },
+        { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
+        { n: 3, label: "After Alexander", note: "Books 18–20" },
       ],
     },
   ];
