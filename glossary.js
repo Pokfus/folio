@@ -7661,7 +7661,17 @@ window.GLOSSARY = {
 "Belgrade_offensive": "",
 "Slovak_National_Uprising": "",
 "Siege_of_Budapest": "",
-"Moscow_Armistice": ""
+"Moscow_Armistice": "",
+"Unconditional_surrender": "",
+"Tehran_Conference": "",
+"Grand_Alliance_(World_War_II)": "",
+"Declaration_by_United_Nations": "",
+"Radical_turning_point": "",
+"Battle_of_Kursk": "",
+"Operation_Citadel": "",
+"Steppe_Front": "",
+"Battle_of_Prokhorovka": "",
+"Operation_Kutuzov": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11442,7 +11452,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Belgrade_offensive": "October 1944",
 "Slovak_National_Uprising": "29 August – 28 October 1944",
 "Siege_of_Budapest": "26 December 1944 – 13 February 1945",
-"Moscow_Armistice": "19 September 1944"
+"Moscow_Armistice": "19 September 1944",
+"Unconditional_surrender": "1943–1945",
+"Tehran_Conference": "28 November – 1 December 1943",
+"Grand_Alliance_(World_War_II)": "1941–1945",
+"Declaration_by_United_Nations": "1 January 1942",
+"Radical_turning_point": "1942–1943",
+"Battle_of_Kursk": "July – August 1943",
+"Operation_Citadel": "5–13 July 1943",
+"Steppe_Front": "1943",
+"Battle_of_Prokhorovka": "12 July 1943",
+"Operation_Kutuzov": "12 July – 18 August 1943"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16314,7 +16334,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Second_Jassy–Kishinev_offensive": ["Jassy–Kishinev offensive","Jassy-Kishinev offensive","Jassy–Kishinev operation"],
 "1944_Romanian_coup_d'état": ["King Michael's Coup","Romanian coup of 23 August 1944"],
 "1944_Bulgarian_coup_d'état": ["Bulgarian coup of 9 September 1944","Ninth of September coup"],
-"Siege_of_Budapest": ["siege of Budapest"]
+"Siege_of_Budapest": ["siege of Budapest"],
+"Grand_Alliance_(World_War_II)": ["Grand Alliance"],
+"Operation_Citadel": ["Zitadelle"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24120,7 +24142,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Belgrade_offensive": ["battle","warfare","history","yugoslavia","serbia"],
 "Slovak_National_Uprising": ["event","warfare","history","slovakia","resistance"],
 "Siege_of_Budapest": ["battle","warfare","history","hungary","holocaust"],
-"Moscow_Armistice": ["event","politics","history","finland","russia"]
+"Moscow_Armistice": ["event","politics","history","finland","russia"],
+"Unconditional_surrender": ["concept","history","politics","warfare"],
+"Tehran_Conference": ["event","history","politics","diplomacy","iran"],
+"Grand_Alliance_(World_War_II)": ["concept","history","politics","diplomacy"],
+"Declaration_by_United_Nations": ["text","history","politics","diplomacy"],
+"Radical_turning_point": ["era","history","warfare","russia"],
+"Battle_of_Kursk": ["battle","history","warfare","russia","germany"],
+"Operation_Citadel": ["battle","history","warfare","germany","russia"],
+"Steppe_Front": ["institution","history","warfare","russia"],
+"Battle_of_Prokhorovka": ["battle","history","warfare","russia","germany"],
+"Operation_Kutuzov": ["battle","history","warfare","russia","germany"]
 });
 
 /* ============================================================================
