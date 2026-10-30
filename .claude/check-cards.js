@@ -512,6 +512,9 @@ const SAME_LANGUAGE_OK = new Map([
      coinage and his review of the one English monograph. Read Sep 2026. */
   /* Not German at all: Swain (1993) and Potter (1996) on Odaenathus's titles are English articles in the
      Zeitschrift für Papyrologie und Epigraphik, whose German title the language test reads. Oct 2026. */
+  /* Not French at all: Graafstal (2018) and Scholz and Flügel (2023) are English articles in HiMA, the
+     Revue internationale d'Histoire Militaire Ancienne, whose French title the language test reads. Oct 2026. */
+  ["rm-755|French|2", "HiMA: Graafstal and Scholz–Flügel, two English articles on the Rhine and the Limesfall"],
   ["rm-561|German|2", "ZPE: Swain and Potter, two English articles on Odaenathus's titulature"],
   ["rm-559|French|2", "Revue numismatique: Lafaurie's chronology of the Gallic emperors and Christol's review of Drinkwater"],
   ["rm-560|French|2", "Revue numismatique: Christol on Postumus's Hercules coinage and Lafaurie's chronology"],

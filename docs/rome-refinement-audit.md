@@ -207,8 +207,8 @@ order unless the user says otherwise.
 | B73 | Government, law and citizenship (`rm-government`) | `rm-721`–`rm-730` | 10 | 81 | **done 2026-10-30** |
 | B74 | Government, law and citizenship (`rm-government`) | `rm-731`–`rm-740` | 10 | 80 | **done 2026-10-30** |
 | B75 | Government, law and citizenship (`rm-government`) | `rm-741`–`rm-750` | 10 | 86 | **done 2026-10-30** |
-| B76 | Provinces and frontiers (`rm-provinces`) | `rm-751`–`rm-760` | 10 | 80 | open |
-| B77 | Provinces and frontiers (`rm-provinces`) | `rm-761`–`rm-770` | 10 | 92 | open |
+| B76 | Provinces and frontiers (`rm-provinces`) | `rm-751`–`rm-760` | 10 | 80 | **done 2026-10-30** |
+| B77 | Provinces and frontiers (`rm-provinces`) | `rm-761`–`rm-770` | 10 | 92 | **done 2026-10-30** |
 | B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | open |
 | B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | open |
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | open |
@@ -1020,6 +1020,26 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-748` denarius | none | not re-checked: the card has no picture; an early Roma and Dioscuri denarius would do |
 | `rm-749` vectigal | none | not re-checked: the card has no picture |
 | `rm-750` lex Julia de repetundis | none | not re-checked: the card has no picture |
+| `rm-751` senatorial province | none | not re-checked: the card has no picture; a map of the people's and Caesar's provinces would do |
+| `rm-752` limes | none | not re-checked: the card has no picture; a reconstructed frontier road with tower and palisade would do |
+| `rm-753` Lower Germanic Limes | none | not re-checked: the card has no picture |
+| `rm-754` Danubian Limes | none | not re-checked: the card has no picture; the Heidentor would do |
+| `rm-755` Germania Superior | none | not re-checked: the card has no picture; the Drususstein at Mainz would do |
+| `rm-756` Agri Decumates | none | not re-checked: the card has no picture |
+| `rm-757` Roman Britain | none | not re-checked: the card has no picture; a town wall would do |
+| `rm-758` Londinium | none | not re-checked: the card has no picture; the Tower Hill wall would do |
+| `rm-759` Gallia Narbonensis | none | not re-checked: the card has no picture; the via Domitia at Narbonne would do |
+| `rm-760` Lugdunum | none | not re-checked: the card has no picture; the Fourvière theatre would do |
+| `rm-761` Hispania | none | not re-checked: the card has no picture; the theatre at Mérida would do |
+| `rm-762` Africa Proconsularis | none | not re-checked: the card has no picture; Dougga would do |
+| `rm-763` Carthage | none | not re-checked: the card has no picture; the Antonine Baths would do |
+| `rm-764` Leptis Magna | none | not re-checked: the card has no picture; the Severan arch would do |
+| `rm-765` Roman Egypt | none | not re-checked: the card has no picture; an Oxyrhynchus papyrus would do |
+| `rm-766` Alexandria | none | not re-checked: the card has no picture; the Kom el-Dikka theatre would do |
+| `rm-767` cura annonae | none | not re-checked: the card has no picture; an ANNONA AVGVSTA sestertius would do |
+| `rm-768` Roman Syria | none | not re-checked: the card has no picture |
+| `rm-769` Palmyra | none | not re-checked: the card has no picture; the tariff stone would do |
+| `rm-770` Judaea | none | not re-checked: the card has no picture; the Pilate stone would do |
 
 ## Glossary candidates
 
@@ -2786,3 +2806,41 @@ Applied with B74, closing the deck. Two drafts were fixed by hand before applyin
 | `rm-750` lex Julia de repetundis | 5 | 8 → 8 | **The Latin Digest replaced by Scott's English; 59 BCE sourced; Caesar's authorship Dio's**; Cicero against Piso; Pliny and Tacitus against Marius Priscus; "governors rarely prosecuted" goes. |
 
 **Read by eye.** *Confusability:* `rm-741`/`rm-742` the deputy (Vatinius) and the customs (the honest tax-farmer); `rm-743`/`rm-744` the levy (Paullus's spoils) and the census (Judas and Sadduc); `rm-745`/`rm-746` the treasury (the smiths at the door) and the emperor's estate (Capito); `rm-747`/`rm-748` the reckoning coin (HS) and the silver coin (Tacitus's Germans); `rm-749`/`rm-750` the revenue (Nero's doubt) and the law (Marius Priscus). *Legend:* Livy's first portorium and the Historia Augusta's Laurensis are framed as such. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B76 — `rm-751`–`rm-760`, Provinces and frontiers: the senatorial province to Lugdunum (2026-10-30)
+
+Applied with B77 in one `batch.sh` run. The notes moved Tacitus's Agricola 21 from `rm-757` to `rm-782`, kept Dio's legates for a people's province with `rm-741` and Germania 29's "limite acto" out of `rm-756`'s questions (sent to the running agents as they arose). After `batch.sh`, `check-cards` counted two French sources on `rm-755`: both are English articles in *HiMA*, whose title is French, and a `SAME_LANGUAGE_OK` entry with that reason was added. UNESCO did not answer: the World Heritage years rest on the Dutch and German limes bodies. **The old date lines carried a queried translator's margin ("83 A.D. ?", Bennett's Frontinus) as Domitian's line, a war on a frontier ("First Dacian war 101 CE"), "Given up after 260 CE" (a terminus that dates nothing), a place in a label ("Narbo founded") and a span with no source for its end.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-751` senatorial province | 7 | 7 → 8 | **A modern usage: Strabo's translator says provinces of the People, Dio of the people and the senate, some historians public provinces; the ten Strabo lists are "consular governments", not "praetorian"**; the division of January 27 BCE; Dio's unarmed proconsul and his view of it as a disguise. |
+| `rm-752` limes | 7 | 7 → 7 | **"Domitian's line 83 CE" rested on Bennett's queried margin: no date line**; the word a path or field boundary first; the modern "limes" for whole frontier systems and the Limes Congress; the zone-not-line debate; Tacitus Agricola 41; Isaac's view only through a review (his JRS article is paywalled). |
+| `rm-753` Lower Germanic Limes | 6 | 7 → 6 | **A modern heritage name; the labels name no place: c. 19 BCE at the Hunerberg, timbers felled in the winter of 40 – 41 CE at Alphen, World Heritage 27 July 2021**; Claudius's withdrawal of 47 CE no longer its start; Corbulo (`rm-444`, `rm-674`) out of the questions. |
+| `rm-754` Danubian Limes | 6 | 6 → 6 | **"First Dacian war 101 CE" dated a war: no date line (no source gives the frontier a start year)**; Res Gestae 30; Eugippius's unpaid garrisons; the Austrian heritage guide; the 2021 listing of the western stretch without Hungary; Trajan's bridge (`rm-495`) and Hadrian's friends (`rm-777`) go. |
+| `rm-755` Germania Superior | 6 | 8 → 8 | **Made a province c. 85 CE, the legate's revolt of 89 CE, the Limes listed 2005, each sourced; "c. 83 – 85 CE" would join a war and a province, so 83 is in prose**; Suetonius's thawed Rhine; the Limesfall later than Raetia's (Scholz and Flügel). |
+| `rm-756` Agri Decumates | 6 | 8 → 8 | **"After 260 CE": now conquered 73 – 74 CE and given up c. 260 CE, a debated modern dating**; "decumates" only in Germania 29; the Laterculus Veronensis on Gallienus (the one Latin source); the Historia Augusta goes. |
+| `rm-757` Roman Britain | 8 | 8 → 8 | **Agricola 21 left to `rm-782`; "43 – 410 CE" becomes the invasion, the reorganisation of 296 CE (the RIB editors) and the traditional end in 410 CE (409 in prose)**; Dio's mutinous army and Narcissus; Herodian's two provinces; Honorius's letter; "five provinces" goes. |
+| `rm-758` Londinium | 8 | 8 → 8 | **Tacitus's merchants in one question only; the tablet's date out of the question**; the Bloomberg tablet of 8 January 57 CE; Ammianus's Augusta; the population an estimate with whose; Southwark and Allectus go (no source). |
+| `rm-759` Gallia Narbonensis | 6 | 7 → 7 | **"Narbo founded" named a place: conquered 121 BCE, the first colony 118 BCE, handed to the people 22 BCE (Cary's margin year for Dio's consuls, said so; the collection holds 22 BCE)**; Pliny's "Italy rather than a province"; senators' estates; Nemausus's Latin right. |
+| `rm-760` Lugdunum | 7 | 7 → 8 | **The martyrs of 177 CE added; Seneca's fire without the "hundredth year" count**; Claudius born there; Nero's four million sesterces; the council (`rm-779`), the battle of 197 (`rm-540`) and the bronze tablet's find (`rm-435`) out of the questions. |
+
+**Read by eye.** *Confusability:* `rm-751`/`rm-752` the province (Dio's unarmed proconsul) and the word (Frontinus); `rm-753`/`rm-754`/`rm-755`/`rm-756` the lower Rhine (Alphen's timbers), the Danube (Eugippius), the upper Rhine (the thaw) and the angle between (Tacitus's adventurers); `rm-757`/`rm-758` the province (Narcissus) and the town (the merchants); `rm-759`/`rm-760` the province (Pliny's Italy) and the colony (Seneca's fire). *Legend:* none. *Overlap:* `wh-368` (Hadrian's Wall) agrees.
+
+### B77 — `rm-761`–`rm-770`, Provinces and frontiers: Hispania to Judaea (2026-10-30)
+
+Applied with B76. Before applying, `rm-765`'s Strabo question (the governor with a king's rank) was replaced by the Res Gestae's line on Egypt: the prefect is `rm-811`'s card. The notes kept the census and Quirinius for `rm-744` (out of `rm-770`), Ulpian's Syrian poll-tax ages for `rm-743` (out of `rm-768`), and Strabo's Masinissa and the move from Utica for `rm-762` (out of `rm-763`); the senator rule and the Nile grain stayed with `rm-388`. The Carthage glossary term (shared with `rm-181`) is now dated c. 814 BCE – 698 CE and adds the Roman refoundation; `rm-766` leaves the shared Alexandria term (founded 331 BCE, `gr-801`'s) as it is. One `rm-767` source is an EGUsphere preprint, said so. **The old date lines carried 640 CE for Egypt's end (no source: 641 CE, the treaty of 8 November 641), "Civic era begins 63 BCE" resting only on Smith, "Oea feud settled 70 CE" (Tacitus prints no year), "Destroyed 273 CE" for a city sacked, and men in labels ("Pompey's charge", "Taken by Augustus").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-761` Hispania | 7 | 7 → 9 | **27 BCE was given to the three provinces: now the two provinces of 197 BCE, the shares of 27 BCE and the end of the conquest in 19 BCE, all from one table**; Strabo's Baetica; Agrippa and the Cantabri (Dio); Baetica's gold statue in the Forum of Augustus; Vespasian's Latin right (`rm-145`) and Livy's six praetors (`rm-707`) out of the questions. |
+| `rm-762` Africa Proconsularis | 6 | 7 → 8 | **Formed 146 BCE, to the senate 27 BCE, enlarged 25 BCE; Dio blames Piso where Tacitus blames Silanus for the legion's transfer**; Strabo on Masinissa's share; the move from Utica; Pliny's six landowners (`rm-277`) and the grain rumour (near `rm-767`) replaced. |
+| `rm-763` Carthage | 9 | 9 → 9 | **The card is Roman Carthage: the colony attempted in 122 BCE, planned in 44 BCE, taken by the Vandals in 439 CE**; Herodian's second city; Plutarch's omens at the Gracchan colony; Appian's dream of Caesar; Strabo's figures, the Piso episode and the proconsul on the Byrsa go; the shared glossary term redrafted. |
+| `rm-764` Leptis Magna | 7 | 7 → 8 | **"Oea feud settled 70 CE" goes (no year in Tacitus, a place in the label): a colony c. 109 – 110 CE and the Vandal conquest of 455 CE (the Inscriptions of Roman Tripolitania)**; the oil fine the African War's; Sallust's Sidonians; "municipium under Vespasian" called disproved by that source. |
+| `rm-765` Roman Egypt | 8 | 8 → 8 | **30 BCE – 641 CE (the treaty of Amr and Cyrus), not 640**; the Res Gestae's "Egypt I added"; the Gnomon of the Idios Logos; papyri as the evidence; the senator ban, the Nile grain, Germanicus and the prefect (`rm-388`, `rm-811`) out of the questions. |
+| `rm-766` Alexandria | 9 | 9 → 9 | **The same 641 CE; Diodorus's 300,000 free residents his**; Strabo's greatest mart; Claudius's letter to the Alexandrians (41 CE); Caracalla's massacre with no year or figure, since Dio gives neither; the Ptolemaic Library and Pharos left to `gr-802` and `gr-804`. |
+| `rm-767` cura annonae | 6 | 7 → 8 | **The labels name no man: the grain command of 57 BCE, taken up in 22 BCE, the prefect created between 8 and 14 CE**; Res Gestae 5; Cicero to Atticus on Pompey's command; Turranius beside the guard prefect (Tacitus); "a prefect from the knights" was said of the Ostia procurators and goes. |
+| `rm-768` Roman Syria | 7 | 7 → 8 | **Appian's 1 per cent was a hundredth of each man's assessment paid in Appian's own day, not set by Pompey; "Civic era begins 63 BCE" goes**; annexed 64 BCE and divided c. 198 CE; Tacitus's four legions; Severus's two provinces after Niger. |
+| `rm-769` Palmyra | 8 | 8 → 9 | **"Destroyed 273 CE" becomes "Sacked": Zosimus says razed, the archaeology shows little trace**; Pliny's city between two empires; the merchants who fled Antony's raid of 41 BCE; the tariff of 137 CE (the Getty's page); Zenobia and Aurelian in prose only. |
+| `rm-770` Judaea | 8 | 8 → 10 | **Quirinius and the census out of the questions (`rm-744`'s); taken by Rome 63 BCE added**; the Caesarea stone naming Pilate prefect; Tacitus's "under Tiberius all was quiet"; Agrippa I's grant; the renaming to Syria Palaestina in prose with no year (no source read gives one). |
+
+**Read by eye.** *Confusability:* `rm-761`/`rm-762` Spain (Agrippa) and Africa (the legion); `rm-763`/`rm-764` the colony (Appian's dream) and the Tripolitanian city (the oil fine); `rm-765`/`rm-766`/`rm-767` the province (the Gnomon), the city (Claudius's letter) and the grain care (Turranius); `rm-768`/`rm-769`/`rm-770` Syria (the four legions), Palmyra (the tariff) and Judaea (Pilate's stone). *Legend:* Appian's dream of Caesar is a story he repeats. *Overlap:* `gr-801` (Alexandria) and `wh-295`/`wh-348` (Carthage) agree.

@@ -461,6 +461,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the aerarium seized | 49 BCE | `rm-745` |
 | the sestertius and denarius first struck in silver | 211 BCE (the coin catalogue; debated) | `rm-747`, `rm-748` |
 | the lex Julia de repetundis | 59 BCE | `rm-750` |
+| Gallia Narbonensis: conquered / the first colony | 121 BCE / 118 BCE | `rm-759` |
+| Lugdunum founded | 43 BCE | `rm-760` |
+| Hispania: two provinces | 197 BCE | `rm-761` |
+| Africa: the province formed | 146 BCE | `rm-762` |
+| Roman Carthage: the colony attempted / planned | 122 BCE / 44 BCE | `rm-763` |
+| the cura annonae: Pompey's grain command | 57 BCE | `rm-767` |
+| Roman Syria annexed | 64 BCE | `rm-768` |
+| Palmyra: the cavalry raid | 41 BCE | `rm-769` |
+| Judaea taken by Rome | 63 BCE | `rm-770` |
 
 ## The Principate
 
@@ -691,6 +700,22 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the aerarium: the prefects created / settled under Nero | 28 BCE / 56 CE | `rm-745` |
 | the sestertius: the brass reform | 23 BCE | `rm-747` |
 | vectigalia: Nero's proposed repeal | 58 CE | `rm-749` |
+| the senatorial provinces divided | January 27 BCE | `rm-751` |
+| the Lower Germanic Limes: the first legions / the Alphen timbers felled | c. 19 BCE / winter 40 – 41 CE | `rm-753` |
+| Germania Superior: made a province / the legate's revolt | c. 85 CE / 89 CE | `rm-755` |
+| the Agri Decumates: conquered / given up (a debated modern dating) | 73 – 74 CE / c. 260 CE | `rm-756` |
+| Roman Britain: the invasion / the four provinces | 43 CE / 296 CE | `rm-757` |
+| Londinium: the earliest dated tablet / burned | 8 January 57 CE / 60 CE or 61 CE | `rm-758` |
+| Gallia Narbonensis handed to the people | 22 BCE (Cary's margin year for Dio's consuls) | `rm-759` |
+| Lugdunum: the altar dedicated / the persecution | 12 BCE / 177 CE | `rm-760` |
+| Hispania: the provinces shared / the conquest ended | 27 BCE / 19 BCE | `rm-761` |
+| Africa: given to the senate / enlarged | 27 BCE / 25 BCE | `rm-762` |
+| Leptis Magna made a colony | c. 109 – 110 CE | `rm-764` |
+| Roman Egypt and Roman Alexandria: Roman rule begins | 30 BCE | `rm-765`, `rm-766` |
+| the cura annonae: taken up / the prefect created | 22 BCE / 8 – 14 CE | `rm-767` |
+| Roman Syria divided | c. 198 CE | `rm-768` |
+| Palmyra: the tax law / sacked | 137 CE / 273 CE | `rm-769` |
+| Judaea: a province / again | 6 CE / 44 CE | `rm-770` |
 
 ## Late Antiquity
 
@@ -780,6 +805,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Codex Justinianus: commissioned / first edition / second edition / in force | 13 February 528 CE / 7 April 529 CE / 16 November 534 CE / 29 December 534 CE | `rm-730` |
 | mancipatio: the res mancipi abolished | 531 CE | `rm-731` |
 | the poena cullei made the regular penalty | 318 CE or 319 CE | `rm-736` |
+| Roman Britain: the traditional end | 410 CE (409 CE in one recent history) | `rm-757` |
+| Carthage taken by the Vandals | 439 CE | `rm-763` |
+| Leptis Magna taken by the Vandals | 455 CE | `rm-764` |
+| Roman Egypt and Alexandria: the end of Roman rule | 641 CE | `rm-765`, `rm-766` |
 
 ## Chronology pins
 
@@ -1480,4 +1509,22 @@ rm-747: 211; 23
 rm-748: 211; 269
 rm-749: 58
 rm-750: 59
+rm-751: 27
+rm-753: 19; 40; 41; 2021
+rm-755: 85; 89; 2005
+rm-756: 73; 74; 260
+rm-757: 43; 296; 410
+rm-758: 57; 60; 61
+rm-759: 121; 118; 22
+rm-760: 43; 12; 177
+rm-761: 197; 27; 19
+rm-762: 146; 27; 25
+rm-763: 122; 44; 439
+rm-764: 109; 110; 455
+rm-765: 30; 641
+rm-766: 30; 641
+rm-767: 57; 22; 8; 14
+rm-768: 64; 198
+rm-769: 41; 137; 273
+rm-770: 63; 6; 44
 ```
