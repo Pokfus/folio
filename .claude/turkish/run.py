@@ -4,6 +4,7 @@
     python3 .claude/turkish/run.py                 # A1
     python3 .claude/turkish/run.py --level a2      # on top of the shipped A1
     python3 .claude/turkish/run.py --no-fetch      # reuse whatever is cached
+    python3 .claude/turkish/run.py --level phr     # the phrases deck, after all five levels
 
 ONE LEVEL PER RUN, and a level is built on top of the SHIPPED decks below it
 (`select.taught_below`), the DELE / UKBI arrangement.  Caches in
@@ -14,6 +15,7 @@ THE STAGES, in order, each writing into the cache for the next:
 
     extract_kaikki.py  the whole Turkish Wiktionary, reduced
     select.py          the level's words: the programme's inventory + frequency fill
+                       (phrases.py instead, for --level phr)
     examples.py        three Tatoeba sentences each
     build_deck.py      meanings, forms rows, sentence markup, the deck file
 """
@@ -51,7 +53,7 @@ def main():
                 subprocess.run(["curl", "-sSfL", "-o", p, url], check=True)
     if not os.path.exists(os.path.join(CACHE, "dict.json")):
         run("extract_kaikki.py")
-    run("select.py", "--level", a.level)
+    run("phrases.py") if a.level == "phr" else run("select.py", "--level", a.level)
     run("examples.py", "--level", a.level)
     run("build_deck.py", "--level", a.level)
 

@@ -1,7 +1,7 @@
 # The Turkish language decks — plan
 
 Started 2026-10-30, on request: "In the same form that we have several language vocabulary collections,
-start planning a Turkish language collection." **Built so far: all five levels, A1–C1** (`decks/Turkish-A1.folio-deck.json` … `Turkish-C1.folio-deck.json`,
+start planning a Turkish language collection." **Built: all six decks** — the five levels A1–C1 and the phrases deck (`decks/Turkish-*.folio-deck.json`,
 2026-10-30, generator `.claude/turkish/`, findings in `docs/lang-decks.md` under `.claude/turkish/`).
 The owner's decisions (2026-10-30): use the programme's vocabulary; fold B1+ into B1; English names for the
 collection and decks. This file is the plan the remaining levels are built from. Read `docs/lang-decks.md` first: everything there about community decks, the shelf
@@ -20,7 +20,7 @@ per CEFR level plus a deck that is not a level:
 | `Turkish-B1.folio-deck.json` | B1 | Programme B1 **and B1+** themes and topics (one deck, see §6) | **999, built** |
 | `Turkish-B2.folio-deck.json` | B2 | Programme B2 themes and topics | **1,197, built** |
 | `Turkish-C1.folio-deck.json` | C1 | Programme C1 themes and topics | **997, built** |
-| `Turkish-Phrases-and-Expressions.folio-deck.json` | — | Programme *dil ifadeleri* + Wiktionary idioms and proverbs | ~400 |
+| `Turkish-Phrases-and-Expressions.folio-deck.json` | — | Wiktionary's set phrases, idioms and proverbs; the programme's dialogues as the phrases' scope | **483, built** |
 
 **No C2 deck**: the programme stops at C1 and the only Turkish exam with an international quality mark
 (Yunus Emre Enstitüsü's TYS) certifies only B2 and C1. A C2 deck would have no source for its scope, so
@@ -169,8 +169,11 @@ Each step is one session's work, and each ends with the deck's own check passing
 4. ~~A2~~, ~~B1 (+ B1+)~~, ~~B2~~, ~~C1~~ — done; every card of every level read. C1's topic inventory kept
    95 words of ~210 written (Wiktionary lacks 36, and the levels below had taught many), so its subtitle
    fill is 90% of the deck. **The phrases deck (step 5) is next.**
-5. **Phrases**: the programme's *dil ifadeleri* as the scope; Wiktionary's Turkish idioms and proverbs
-   (with English glosses) as the content; the CAPLE phrases deck is the model.
+5. ~~Phrases~~ — done (`phrases.py`, `run.py --level phr`): three subdecks as the Indonesian deck has —
+   Phrases (set phrases Wiktionary does not mark idiomatic: the everyday formulas, 43 of which occur in
+   the programme's example dialogues, and a few sayings filed the same way), Idioms (entries tagged
+   `idiomatic`) and Proverbs (part of speech `proverb`); none taught by a level deck; ordered within each by
+   Tatoeba occurrences. Every card read.
 6. Optional: a combined `Turkish-A1-C1` (gitignored, `combine.py`, as French/Spanish/Italian/Indonesian).
 
 ## 8. Decisions (settled 2026-10-30)

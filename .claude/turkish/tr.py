@@ -43,10 +43,12 @@ NONSTANDARD = {"colloquial", "slang", "dialectal", "archaic", "obsolete", "vulga
 FORM_TAGS = {"form-of", "alt-of", "abbreviation", "clipping", "initialism", "acronym"}
 TEACH_POS = {"noun", "verb", "adj", "adv", "pron", "num", "postp", "conj", "det", "intj", "particle",
              "classifier"}       # `tane` "piece", the counter word, is filed under it
+# (case-insensitive, hyphen or space, a target of up to three words: `yemin et` is "Second person singular
+# imperative tense of yemin etmek.")
 # A gloss that only names a grammatical relation is a pointer, even untagged: `ağrısı` is glossed
 # "third-person singular single-possession possessive of ağrı" with no form-of tag at all.
-GRAM_PREFIX = (r"^(?:(?:first|second|third)(?:/(?:first|second|third))?-person|plural|accusative|dative|locative|ablative|genitive|"
-               r"inflection|definite|possessive)\b[^;]* of (\S+?)[.:]?")
+GRAM_PREFIX = (r"(?i)^(?:(?:first|second|third)(?:/(?:first|second|third))?[- ]person|plural|accusative|dative|locative|ablative|genitive|"
+               r"inflection|definite|possessive)\b[^;]* of (\S+(?: \S+){0,2}?)[.:]?")
 GRAM_GLOSS = re.compile(GRAM_PREFIX + "$")
 # ...and a gloss may carry the pointer AND the meaning, joined by a semicolon:
 # `hepimiz` "first-person plural single-possession of hep; all of us" -- the meaning is kept, the pointer cut.

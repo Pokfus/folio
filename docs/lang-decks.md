@@ -3196,8 +3196,9 @@ changed was the one that had been wrong all along.
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
   1,000 cards, 0.7 MB) **A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB) **B1 (with the programme's B1+),
   `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB) **B2, `decks/Turkish-B2.folio-deck.json`**
-  (1,197 / 2,394, 1.6 MB) **and C1, `decks/Turkish-C1.folio-deck.json`** (997 / 1,994, 1.4 MB) — all five
-  levels the programme has.
+  (1,197 / 2,394, 1.6 MB) **C1, `decks/Turkish-C1.folio-deck.json`** (997 / 1,994, 1.4 MB) — all five
+  levels the programme has — **and the phrases deck, `decks/Turkish-Phrases-and-Expressions.folio-deck.json`**
+  (483 / 966, 0.35 MB; 118 phrases, 304 idioms, 61 proverbs, `run.py --level phr`).
   `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
   `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
   run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
@@ -3275,6 +3276,26 @@ changed was the one that had been wrong all along.
   semicolon when N was zero — the derived-clause-at-zero lesson once more. Hand list: `amcık`, `yavşak`,
   `oha`; English in the subtitles (`story`, `bank`, `post`, `has`, `men`, `jeday`); forms with entries
   (`çekmen`, `araştırman`, `iple`, `bitmez`).
+  **THE PHRASES DECK** (`phrases.py`; `--level phr` switches `build_deck.py` to the phrase parts of speech,
+  the `sub` field and `tr_level.meta_phrases`) is the Indonesian arrangement: Phrases / Idioms / Proverbs,
+  the shelf unwrapping them as three rows. Four things are findings, not plumbing.
+  (a) **An expression ending in a verb is matched with that verb in any of its forms** (`Fransız kaldım`,
+  `ziyaret ettik`) — in `examples.py` for every deck, which gave B1's `ziyaret etmek` and B2's `farz etmek`
+  inflected sentences and changed nothing else — **but only when the expression IS a verb**: `ne demek`
+  ("you're welcome") ends in a verb-shaped word and was matched to "Ne dediniz" ("what did you say?").
+  (b) **A set phrase is often a whole two-word sentence** ("Bol şans!"), so the phrases deck alone admits
+  them, and an expression is tokenised before matching (`bir varmış, bir yokmuş` carried its comma).
+  (c) **Wiktionary's "phrase" category is a phrasebook plus a junk drawer**: mnemonics, a pangram, a
+  tongue-twister, advertising slogans, an internet meme ("we're so Barack"), a game's name, Arabic
+  honorifics and curses sit beside `afiyet olsun`, so `phrases.EXCLUDE` is long and every line has its
+  reason; templates ("... yaşındayım") go by rule. Some sayings are filed as plain phrases rather than
+  idioms, and the description says so rather than calling every Phrases card an everyday formula.
+  (d) **"Used other than figuratively or idiomatically: see X, Y."** is appended to many an idiom's meaning
+  and to A2's `yoksa` and B1's `öncelikle` — a pointer to the literal words, cut from every gloss
+  (`LITERAL_SEE`); and the grammatical-gloss pattern is now case-insensitive, takes "person" after a
+  space, and a target of up to three words (`yemin et`: "Second person singular imperative tense of yemin
+  etmek."). Known, left: a fixed phrase's example may show its LITERAL twin (`ne demek` beside "What does
+  'Tatoeba' mean?"), which no sentence matcher can tell apart; 202 of the 483 have no Tatoeba sentence.
   **The description must not claim a table says what only another table says**: B1's first draft read "its
   B1 table says the vocabulary section was left out" — only A2's says so; B1's simply has none.
   The Arabic letters' names are dropped like the Latin ones (`nun`, `be`, `ha`); `possessive` joined the

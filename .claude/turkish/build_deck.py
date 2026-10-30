@@ -35,7 +35,11 @@ import tr, tr_level
 
 POS_NAME = {"noun": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb", "pron": "pronoun",
             "num": "numeral", "postp": "postposition", "conj": "conjunction", "det": "determiner",
-            "intj": "interjection", "particle": "particle", "classifier": "counter word"}
+            "intj": "interjection", "particle": "particle", "classifier": "counter word",
+            "phrase": "phrase", "proverb": "proverb", "prep_phrase": "phrase"}
+# The phrases deck's parts of speech, accepted there and only there: a level deck never meets them, and
+# letting them in everywhere would add a phrase reading to a level word without anyone asking for it.
+PHRASE_POS = set()
 MAX_SENSES = 5
 XREF = re.compile(r"^(?:synonym|alternative form|(?:\w+ )?spelling|variant) of (\S+)(?:\s*\(“([^”]+)”\))?", re.I)
 DROP_GLOSS = re.compile(r"^(only used in|used in the form|used in|\(used in)", re.I)
@@ -43,19 +47,23 @@ STAMP = 1793318400000                  # 2026-10-30, fixed so a re-run is byte-i
 E = lambda s: html.escape(s, quote=True)
 REPORT = []
 DATED_TERMS = {"Negro", "negro"}
+LITERAL_SEE = re.compile(r";?\s*Used other than figuratively or idiomatically: see [^;]*")
 
 
 def senses_of(word, D):
     """[(pos, [gloss])] for the live entries of the word, dictionary order, glosses de-duplicated."""
     out = []
     for e in D.get(word, []):
-        if not tr.live(e):
+        if not (tr.live(e) or e["pos"] in PHRASE_POS and any(tr.sense_ok(x) for x in e["senses"])):
             continue
         gl = []
         for s in e["senses"]:
             if not tr.sense_ok(s):
                 continue
             g = tr.GRAM_HEAD.sub("", s["g"][-1].strip())
+            # "Used other than figuratively or idiomatically: see oruç, tutmak." is a pointer to the
+            # literal words, appended to an idiom's meaning (and to A2's `yoksa`): cut, the meaning kept
+            g = LITERAL_SEE.sub("", g).strip().rstrip(";").strip()
             m = XREF.match(g)
             if m:
                 if not m.group(2):
@@ -263,7 +271,10 @@ def main():
     D = tr.load_dict()
     wl = json.load(open(os.path.join(tr.CACHE, "wordlist-%s.json" % lv), encoding="utf-8"))
     ex = json.load(open(os.path.join(tr.CACHE, "examples-%s.json" % lv), encoding="utf-8"))
-    deck_id = "turkish" + lv
+    phr = lv == "phr"
+    if phr:
+        PHRASE_POS.update({"phrase", "proverb", "prep_phrase"})
+    deck_id = "trphrase" if phr else "turkish" + lv
     cards, refused = [], []
     stats = {"nouns": 0, "verbs": 0, "pron": 0, "ex3": 0, "ex0": 0, "phrases": 0, "grammar": 0}
     for x in wl["words"]:
@@ -291,13 +302,21 @@ def main():
             "id": "u_%s_%d" % (deck_id, len(cards) + 1),
             "type": "turkish",
         })
+        if phr:
+            cards[-1]["sub"] = x["sub"]
     n = len(cards)
     inv = sum(1 for x in wl["words"] if "page" in x and x["word"] not in refused)
     gram = [x["word"] for x in wl["words"] if x.get("theme") == "grammar list" and x["word"] not in refused]
     stats["grammar"] = len(gram)
     stats["grammar_eg"] = [x["word"] for x in sorted((y for y in wl["words"] if y["word"] in gram),
                                                      key=lambda y: -y["count"])][:5]
-    meta = tr_level.meta(lv, n, inv, stats, open(os.path.join(tr.HERE, "card.css"), encoding="utf-8").read(), STAMP, cards)
+    css = open(os.path.join(tr.HERE, "card.css"), encoding="utf-8").read()
+    if phr:
+        kept = {c["fields"]["Word"] for c in cards}
+        meta = tr_level.meta_phrases(cards, sum(1 for x in wl["words"] if x.get("programme") and x["word"] in kept),
+                                     stats, css, STAMP)
+    else:
+        meta = tr_level.meta(lv, n, inv, stats, css, STAMP, cards)
     deck = {"folioDeck": 1, "exportedAt": STAMP, "meta": meta, "cards": cards, "gloss": {}}
 
     # EVERY ENGLISH SIDE UNIQUE, as on every deck of the shelf: the shared pass, last of all.
@@ -309,7 +328,8 @@ def main():
     if st["groups"]:
         print("  labelled %d notes in %d groups that shared an English side" % (st["labelled"], st["groups"]))
 
-    out = os.path.abspath(os.path.join(tr.HERE, "..", "..", "decks", tr_level.FILE % lv.upper()))
+    out = os.path.abspath(os.path.join(tr.HERE, "..", "..", "decks",
+                                       tr_level.PHRASES_FILE if phr else tr_level.FILE % lv.upper()))
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(deck, fh, ensure_ascii=False)
     for r in REPORT:

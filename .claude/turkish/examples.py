@@ -11,7 +11,8 @@ A WORD IS FOUND BY ITS OWN FORMS.  The forms are the dictionary's table for
 the entries the card teaches (so `kitap` is found in `kitabı`, `gitmek` in
 `gidiyorum`), matched as whole tokens after the Turkish fold -- never by
 prefix, since Turkish words are long and a prefix match finds `ev` in `evet`.
-A compound (`meyve suyu`) is matched as consecutive tokens.
+A compound (`meyve suyu`) is matched as consecutive tokens, and an expression
+ending in a verb (`ziyaret etmek`) with that verb in any of its forms.
 
 WHICH THREE.  Shortest first between 3 and 12 words, then by Tatoeba id so a
 re-run is identical; one sentence per Turkish text, and no two sharing an
@@ -67,7 +68,8 @@ def main():
             continue
         toks = tr.tokens(text)
         toks = [t.split("'")[0] for t in toks]
-        if not (MIN_W <= len(toks) <= MAX_W):
+        # a set phrase is often a whole sentence of two words ("Bol şans!"), so the phrases deck admits them
+        if not ((2 if a.level == "phr" else MIN_W) <= len(toks) <= MAX_W):
             continue
         r = len(en[0]) / max(1, len(text))
         if r > 3 or r < 1 / 3:
@@ -81,12 +83,24 @@ def main():
 
     out, none = {}, []
     for w in words:
-        parts = [tr.fold(p) for p in w.split()]
+        parts = tr.tokens(w) if " " in w else [tr.fold(w)]   # `bir varmış, bir yokmuş`: no comma kept
         if len(parts) > 1:
+            # AN EXPRESSION THAT ENDS IN A VERB is met inflected (`Fransız kaldım` for `Fransız kalmak`,
+            # `ziyaret ettik`), so its last token may be any cell of that verb's table; the hit is the
+            # tokens actually matched, which is what the markup looks for
+            last = {parts[-1]}
+            # ...only when the expression IS a verb: `ne demek` ("you're welcome") is not `demek` inflected
+            if parts[-1].endswith(("mak", "mek")) and parts[-1] in D and \
+                    any(e["pos"] == "verb" for e in D.get(w, [])):
+                last = forms_of(D, parts[-1])
+            head = parts[:-1]
             cand = sorted(set(index.get(parts[0], [])))
-            match = lambda toks: next((toks[i] for i in range(len(toks) - len(parts) + 1)
-                                       if toks[i:i + len(parts)] == parts), None)
-            hit_of = lambda toks: " ".join(parts) if match(toks) else None
+
+            def hit_of(toks, head=head, last=last, n=len(parts)):
+                for i in range(len(toks) - n + 1):
+                    if toks[i:i + n - 1] == head and toks[i + n - 1] in last:
+                        return " ".join(toks[i:i + n])
+                return None
         else:
             fs = forms_of(D, w)
             cand = sorted({i for f in fs for i in index.get(f, [])})

@@ -13,6 +13,7 @@ certifying only B2 and C1.
 import html, re
 
 FILE = "Turkish-%s.folio-deck.json"
+PHRASES_FILE = "Turkish-Phrases-and-Expressions.folio-deck.json"
 COLOR = "#780F75"   # the Turkish collection's hue, `lang-turkish` in app.js COLL_THEME
 
 SCOPE = {
@@ -168,6 +169,56 @@ def meta(level, n, inv, stats, css, stamp, cards):
         "language": "en",
         "color": COLOR,
         "tags": ["turkish", "türkçe", level, "vocabulary"],
+        "glossMode": "site",
+        "types": {"turkish": {"id": "turkish", "name": "Turkish vocabulary", "speechLang": "tr-TR",
+                              "fields": FIELDS, "cards": CARDS, "css": css}},
+        "version": 1,
+        "createdAt": stamp,
+        "updatedAt": stamp,
+        "forkedFrom": None,
+    }
+
+
+def meta_phrases(cards, in_programme, stats, css, stamp):
+    """The phrases deck: not a level, so none of `SCOPE`; every number read off the built deck."""
+    from collections import Counter
+    c = Counter(card["sub"] for card in cards)
+    n = len(cards)
+    eg = {sub: [card["fields"]["Word"] for card in cards if card["sub"] == sub][:3] for sub in c}
+    have = n - stats["ex0"]
+    s = ["%d Turkish set phrases, idioms and proverbs, in three subdecks: %d everyday phrases, %d idioms and "
+         "%d proverbs. Both study directions come as two cards of one expression — Turkish → English (see the "
+         "Turkish, recall the meaning) and English → Turkish (see an English meaning, recall the Turkish) — "
+         "each with a schedule of its own." % (n, c["Phrases"], c["Idioms"], c["Proverbs"]),
+         "This is a companion to the five level decks, Turkish A1 to C1, and not one of them: a level is an "
+         "inventory of words, and an expression is a unit a list of words cannot see. Nothing here is taught "
+         "by any of the five, so the two can be studied together without repeating an entry.",
+         "The PHRASES are the set phrases Wiktionary does not mark as idiomatic — mostly the everyday formulas a "
+         "Turkish speaker uses as one piece (%s …), with a few sayings it files the same way. %d of them occur "
+         "in the example dialogues of the Turkish as a Foreign Language Teaching Programme (Türkiye Maarif "
+         "Foundation, 2020), the syllabus the level decks are scoped by. The IDIOMS are expressions whose "
+         "meaning is not their words' (%s …), and the PROVERBS complete sayings with a moral (%s …)."
+         % (", ".join(eg.get("Phrases", [])), in_programme, ", ".join(eg.get("Idioms", [])),
+            ", ".join(eg.get("Proverbs", []))),
+         "Within each subdeck the expressions are ordered by how often they occur in Tatoeba's Turkish "
+         "sentences, an expression ending in a verb being counted in any form of that verb, so the ones met "
+         "most often come first."]
+    if have:
+        s.append("Real example sentences come with %d of the %d expressions%s, with the expression picked out in "
+                 "colour and a speaker beside the sentence and the headword." % (
+                     have, n, ", three apiece for %d" % stats["ex3"] if stats["ex3"] else ""))
+    s.append("Expressions, meanings and the idiom and proverb labels: English Wiktionary, via the kaikki.org "
+             "extraction (CC BY-SA 4.0). Example sentences and the order: Tatoeba (tatoeba.org), CC BY 2.0 FR.")
+    return {
+        "id": "trphrase",
+        "title": "Turkish Phrases and Expressions",
+        "subtitle": "%d expressions · %d everyday, %d idioms, %d proverbs · both directions" % (
+            n, c["Phrases"], c["Idioms"], c["Proverbs"]),
+        "desc": " ".join(s),
+        "author": "",
+        "language": "en",
+        "color": COLOR,
+        "tags": ["turkish", "türkçe", "phrases", "idioms", "proverbs", "deyimler", "atasözleri", "expressions"],
         "glossMode": "site",
         "types": {"turkish": {"id": "turkish", "name": "Turkish vocabulary", "speechLang": "tr-TR",
                               "fields": FIELDS, "cards": CARDS, "css": css}},
