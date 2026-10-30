@@ -16819,6 +16819,195 @@ const BOOKS = {
     },
   },
 
+  "pausanias-description-of-greece": {
+    title: "Description of Greece",
+    // the work's own Greek title, as Herodotus's and the Oedipus Rex's entries give theirs
+    subtitle: "Ἑλλάδος Περιήγησις",
+    author: "Pausanias",
+    translator: "W. H. S. Jones and H. A. Ormerod",
+    edition: "Pausanias, Description of Greece, with an English translation by W. H. S. Jones (Volume II with H. A. Ormerod), Loeb Classical Library, William Heinemann and Harvard University Press, 1918–1935",
+    written: "c. 155–180 CE",
+
+    /* ---------- THE LICENCE: two grounds, by volume, and one limit stated ----------
+       The Loeb prints the translation in four volumes and they do not stand on the same footing.
+       Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain in the United
+       States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books VIII.22–X, 1935) are
+       NOT clear by date, and the ground for them is NON-RENEWAL, checked rather than assumed — the
+       Classic of Tea's method: a 1933 book had to be renewed in 1960–61 and a 1935 one in 1962–63,
+       and the Catalog of Copyright Entries, Third Series, Part 1, for both halves of 1960, 1961, 1962
+       and 1963 (the Internet Archive's OCR) holds no entry for "Pausanias" or "Description of Greece".
+       The same volumes do list Harvard's renewals (as "President & Fellows of Harvard College") and
+       a NEW registration for Jones's Pliny (1963), so the search can see this claimant and this
+       translator; its limit is the OCR's, and `rights` says "lists no renewal", not "was never
+       renewed".
+       THE URAA QUESTION, said out loud because the Poetic Edda's note in docs/library-gaps.md turns
+       on it: Volume IV's title page reads "London: William Heinemann Ltd; Cambridge, Massachusetts:
+       Harvard University Press, MCMXXXV" and "Printed in Great Britain". A work first published
+       abroad and not in the US within thirty days would have had its copyright restored in 1996;
+       one published in the US at the same time is a US work and is not restored. The imprint names
+       the American publisher on the title page, which is the evidence for the second. English
+       Wikisource hosts all ten books of this translation under {{PD-US}}; that is a second opinion,
+       not the evidence relied on.
+       THE LIMIT: Jones died on 4 February 1963 and Ormerod in 1964 (Wikidata, Q52156216 and
+       Q52305975), so the translation is NOT public domain in countries that count life plus seventy
+       until 1 January 2034 (Volume II, Ormerod's share, 2035) — the Nicomachean Ethics' position
+       with Ross (2042). The Greek is Friedrich Spiro's Teubner text of 1903, clear by date. The
+       Perseus layer is the usual one — the digital edition, CC BY-SA 4.0 — with no modernised prose
+       (the file's header says nothing like Herodotus's "modernized by Steven Ott"); the spelling is
+       American in the file ("harbor", "honor") and the reader's spelling pass handles it.
+       Peter Levi's Penguin of 1971 is in copyright and is named so nobody reaches for it. J. G.
+       Frazer's of 1898 and Thomas Taylor's of the 1790s are free, but English Wikisource lists both
+       with no transcription behind either link (checked Oct 2026), and Perseus's Jones is already structured
+       and paired with a Greek text, which neither of them is. */
+    rights:
+      "Public domain in the United States, on two grounds by volume, with one limit stated. W. H. S. " +
+      "Jones's translation (Volume II with H. A. Ormerod) was published in the Loeb Classical Library " +
+      "in four volumes. Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain " +
+      "in the United States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books " +
+      "VIII.22–X, 1935) were published by Heinemann in London and Harvard University Press in " +
+      "Cambridge, Massachusetts, and their copyright was not renewed — the Catalog of Copyright Entries " +
+      "for 1960–1963 lists no renewal — so they are public domain in the United States too. Jones died " +
+      "in 1963 and Ormerod in 1964, so the translation is still in copyright in countries whose term " +
+      "is the author's life plus seventy years, until 2034 (2035 for Volume II). The Greek beside it " +
+      "is Friedrich Spiro's Teubner edition of 1903, public domain on every ground. Both columns are " +
+      "taken from the digital editions prepared by the Perseus Digital Library at Tufts University, " +
+      "which are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+      "Pausanias wrote the work in Greek in the second century CE. (Peter Levi's translation, 1971, " +
+      "is still in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should know before starting: what kind of book this
+       is (a guide, not a history), when and by whom it was written and how little is known of him,
+       why archaeologists still carry it, how the ten books run, and what the edition and its figures
+       are. The three quotations are from this translation, checked against the file (1.26.4,
+       7.20.6, 10.34.5). */
+    about: [
+      "<b>Description of Greece</b> is a traveller's account of mainland Greece as it stood in the " +
+        "second century CE, under Roman rule, written by a Greek who went to see it for himself. It " +
+        "moves region by region and road by road — out of a city gate, past the tombs along the way, " +
+        "to the next town, its sanctuaries and what stands in them — and stops at each place worth " +
+        "seeing to tell the stories attached to it: who founded the city, which god was worshipped " +
+        "there and why, what happened in its wars. Pausanias states his purpose in passing, when he " +
+        "catches himself lingering: \"my narrative must not loiter, as my task is a general " +
+        "description of all Greece.\"",
+      "Almost nothing is known of the man beyond what the book lets slip. He seems to have come from " +
+        "Lydia, in the west of what is now Turkey, and he had travelled in Palestine, Egypt and Italy " +
+        "as well as Greece. The book was written over a long stretch of years, and he dates it " +
+        "himself in two places: he explains in Book VII that he left the great music hall Herodes " +
+        "Atticus built at Athens out of his book on Attica because \"my account of the Athenians was " +
+        "finished before Herodes began the building\", and near the end of Book X he mentions " +
+        "\"bandits, called the Costoboes, who overran Greece in my day\" — a raid of about 170 CE. So " +
+        "the work is usually dated from the 150s to the 170s or a little later.",
+      "His interests are religion, art and the past rather than the life around him. He has little " +
+        "to say about the Roman province he was walking through and a great deal about temples, " +
+        "statues, paintings, tombs and the local versions of myths that no other source preserves. " +
+        "For centuries he was read as a compiler of other men's books; excavation has largely " +
+        "reversed that verdict, because the buildings and monuments he describes have turned up, " +
+        "over and over, where he says they stand — at Olympia and Delphi, at Athens and Corinth — and " +
+        "the book is still carried on site by archaeologists and visitors.",
+      "There are ten books, each named after the region it covers: Attica (with Megara), Corinth " +
+        "(with the Argolid), Laconia, Messenia, two on Elis, which give most of their length to " +
+        "Olympia, then Achaia, Arcadia, Boeotia, and Phocis, which includes Delphi, with Ozolian " +
+        "Locri. The book titles in the tabs are the edition's own. The tour is not the whole of " +
+        "Greece — Thessaly, Macedonia, the islands and the north-west are missing — and the work ends " +
+        "abruptly enough that some readers think it unfinished.",
+      "The translation is W. H. S. Jones's, made for the Loeb Classical Library and published in " +
+        "four volumes between 1918 and 1935; H. A. Ormerod shared the second. The Greek beside it is " +
+        "Friedrich Spiro's Teubner edition of 1903. The small raised figures running through both " +
+        "columns are CHAPTER numbers, which is how a passage of Pausanias is cited in any language: " +
+        "\"Pausanias 2.16.6\" means book 2, chapter 16, section 6, and the two columns are set side by " +
+        "side on the chapter. The numbered notes are the edition's own: many are dates, and many " +
+        "name the poem a quoted verse comes from. Fifteen slips in the digital transcription are " +
+        "corrected against a second transcription of the same edition.",
+    ],
+
+    /* PROSE IN BOOKS OF NUMBERED CHAPTERS — Herodotus's layout (teiBookChapters): a Folio chapter is
+       one of the ten books, the pairing runs on the chapter numbers inside it, and the sections are
+       concatenated into their chapter. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0525/tlg001/tlg0525.tlg001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+    /* The edition's own book heads, transcribed — every book is headed by its region in both files
+       ("Attica", Ἀττικά …), and the two books on Elis "Elis 1" and "Elis 2" (Ἠλιακῶν Α, Β). */
+    titleOf: (n) => ["Attica", "Corinth", "Laconia", "Messenia", "Elis I", "Elis II", "Achaia",
+      "Arcadia", "Boeotia", "Phocis and Ozolian Locri"][n - 1],
+    /* THREE THINGS IN PERSEUS'S MARKUP THAT THE SHARED READER WOULD WELD, put right in this file's
+       own TEI before it is read (`teiRaw`, which no other book declares, so no other book changes).
+       · A PARAGRAPH BREAK INSIDE A SECTION. The file marks the printed page's paragraphs as
+         `<milestone unit="para" ed="P"/>`, 979 of them; 914 open a `<p>` and cost nothing, but 65
+         stand inside one, and unwrapped they weld two sentences — "hold Artemis Leucophryne in
+         honor.But my narrative must not loiter". A milestone after a full stop becomes the paragraph
+         break it marks; one after a letter or a comma (six, all mid-sentence — "blind to
+         the<milestone/>danger") becomes a space, since a break there is not the printed page's.
+       · THE SOURCE OF A QUOTATION, IN THE PROSE. Each verse Pausanias quotes is followed by a
+         `<bibl>` naming it ("Hom. Il. 14.490"), which the Loeb prints at the foot of the page and
+         which unwrapped reads as part of his sentence: "…wealth in abundance.Hom. Il. 14.490 The
+         story told at the mysteries". Outside a note it becomes a note, so it lands in the fold
+         with a marker after the quotation; inside a note (the cross-references, "Paus. 1.35.6") it
+         is already where it belongs.
+       · THE WORD AFTER A QUOTATION, welded to it — `</quote>The` — gets its space. */
+    /* THE TRANSCRIPTION'S SLIPS, each one read against the second transcription of the same Loeb —
+       English Wikisource's, proofread against the scan, book by book (fetched Oct 2026) — which
+       sets every one of these as below. Ten are a space lost after a comma or semicolon; three are
+       a letter or hyphen misread. One row has no witness: Book III is not transcribed on
+       Wikisource, and "he cured it.I saw" is a full stop and a capital with the space between them
+       gone, which no reading can dispute. Seen and LEFT: "Magas was in formed that" (1.7.2), which
+       the Wikisource transcription also prints, so the second witness does not say the page differs. */
+    fixes: [
+      ["Peloponnesus</placeName>,and the", "Peloponnesus</placeName>, and the", "1.3.4 — the space after the comma (Wikisource)"],
+      ["the Marmaridae,a tribe", "the Marmaridae, a tribe", "1.7.2 — the space after the comma (Wikisource)"],
+      ["territory of Haliartus,where", "territory of Haliartus, where", "1.27.5 — the space after the comma (Wikisource)"],
+      ["was Anaxibi ,sister of Agamemnon", "was Anaxibia, sister of Agamemnon", "2.29.4 — a letter dropped from the name (Wikisource: Anaxibia)"],
+      ["he cured it.I saw", "he cured it. I saw", "3.25.7 — the space after the full stop (Book III has no second transcription)"],
+      ["cross the Alpheius,there", "cross the Alpheius, there", "5.6.7 — the space after the comma (Wikisource)"],
+      ["the images in it,were", "the images in it, were", "6.19.15 — the space after the comma (Wikisource)"],
+      ["boys' boxing.match, Hellan", "boys' boxing-match, Hellan", "6.7.8 — a hyphen read as a full stop (Wikisource: boxing-match)"],
+      ["through good.will", "through good-will", "7.4.2 — a hyphen read as a full stop (Wikisource: good-will)"],
+      ["Herodes, an Athenian,in memory", "Herodes, an Athenian, in memory", "7.20.6 — the space after the comma (Wikisource)"],
+      ["by the Sicyonians;it is", "by the Sicyonians; it is", "7.26.13 — the space after the semicolon (Wikisource)"],
+      ["the same board ;the good", "the same board; the good", "8.2.4 — the space on the wrong side of the semicolon (Wikisource)"],
+      ["is Buphagium,and here", "is Buphagium, and here", "8.26.8 — the space after the comma (Wikisource)"],
+      ["him. Heracles,thinking", "him. Heracles, thinking", "9.27.6 — the space after the comma (Wikisource)"],
+      ["into the shrine,while", "into the shrine, while", "10.32.17 — the space after the comma (Wikisource)"],
+    ],
+    teiRaw: (xml) => xml
+      .replace(/<note\b[\s\S]*?<\/note>|<quote\b[\s\S]*?<\/quote>|<bibl\b[^>]*>([\s\S]*?)<\/bibl>|(?<=([\s\S]))<milestone unit="para" ed="P"\/>/g,
+        (whole, cite, before) => {
+          // a citation may name a place, so its own tags go ("Chersias of <placeName>Orchomenus</placeName>")
+          if (cite !== undefined) return '<note anchored="true">' + cite.replace(/<[^>]*>/g, "").trim() + "</note>";
+          if (before !== undefined) return /[\p{L},;]/u.test(before) ? " " : "</p><p>";
+          return whole;
+        })
+      .replace(/\s*<\/quote>(\s*<note anchored="true">[^<]*<\/note>)?\s*(?=[\p{L}\p{N}“‘"(\[])/gu, "</quote>$1 ")
+      // …and the word BEFORE one: "the verse:<quote>Orneae was their home" (46 of them)
+      .replace(/(?<=[\p{L}\p{N}.,;:!?])<quote\b/gu, " <quote"),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Friedrich Spiro, Pausaniae Graeciae Descriptio, 3 volumes, Teubner, Leipzig, 1903",
+      rights:
+        "Two layers, both stated. Pausanias wrote the work in Greek in the second century CE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is Friedrich " +
+        "Spiro's Teubner edition, published in Leipzig in 1903, whose copyright has expired. The " +
+        "digital edition is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0525/tlg001/tlg0525.tlg001.perseus-grc2.xml",
+      /* The Greek carries the same `<bibl>` after its quotations, 85 of them, and here they are not
+         Spiro's — a Teubner text prints no such references in its text — and the original column
+         has no note fold to move them to, so they go, and the word after a quotation gets its space. */
+      teiRaw: (xml) => xml
+        .replace(/<note\b[\s\S]*?<\/note>|<bibl\b[^>]*>[\s\S]*?<\/bibl>/g, (whole) => (/^<note/.test(whole) ? whole : " "))
+        .replace(/\s*<\/quote>\s*(?=[\p{L}\p{N}“‘"(\[])/gu, "</quote> "),
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -27315,7 +27504,8 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
+    // `teiRaw` — a book's own transform of its TEI before anything reads it (Pausanias, Oct 2026)
+    xml = correctRaw(BOOK.teiRaw ? BOOK.teiRaw(xml) : xml);
     const books = teiBookChapters(xml, {}, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
@@ -28984,9 +29174,9 @@ async function fetchOriginal() {
         let enXml;
         if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(enXml, {}, warn);
+        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, {}, warn);
       }
-      const or = teiBookChapters(xml, {}, warn);
+      const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, {}, warn);
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
