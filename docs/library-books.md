@@ -12,7 +12,19 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
+  **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
+  per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,
+  identical in every Life.** Four importer options arrived with it: `inlineNotes: "foot"` (Perseus marks all of
+  Perrin's footnotes `place="inline"`), `joinParagraphs` (each Loeb section is its own `<p>` and they split
+  sentences), `teiBook` (Agis/Cleomenes and the Gracchi are two named `book` divisions in one file, each counting
+  from 1), and the original's `xmlFix` (the Greek Comparison of Lysander and Sulla tags four sections of chapter 5
+  as chapters). `teiSectionProse` now drops comments and self-closed `<note/>`s before its note pass — five in these
+  files, one of which had swallowed a Greek sentence of the Lycurgus — and Phocion 33.7's stranded note text is put
+  back by two `reFixes`. Timoleon opens on a chapter 0 (Plutarch's preface) in both columns. Checked: word counts
+  against the source within 0.003 % (English) and exact (Greek). The order is the printed editions', not Plutarch's
+  (the Pericles calls itself his tenth book), and the front matter says so.
   `pausanias-description-of-greece` (~1.6 MB English, ~1.4 MB Greek, all ten books, **811 notes**, original
   **Greek** — W. H. S. Jones's Loeb translation, Volume II with H. A. Ormerod, 1918–1935, beside Spiro's Teubner
   text of 1903, both from Perseus; `layout: "chaptered"`, Herodotus's). Paired on the CHAPTER: 357 on each side,

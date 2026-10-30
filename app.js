@@ -12003,10 +12003,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which would put a ninth colour inside a cluster the shelf already struggles to tell apart. It
      reads 4.52:1 on the tightest light paper, which is the margin the band is cut to. */
   "Lu Yu": "#96009F",
-  /* Measured the same way over the 46 colours then on the shelf and inside its own lightness and
-     chroma band: this dark slate-navy is the best-separated colour left anywhere in it, 19.8 from the
-     Song of Roland and 20.1 from Ptahhotep, above the shelf's tightest pair (Aristotle and Ptahhotep,
-     16.6), and it reads 9.7:1 or better on all 43 light papers. Every brighter colour that clears 4.5
+  /* MEASURED AS EVERY ROW ABOVE, with forty-six colours placed (Oct 2026, adding the Parallel Lives):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band's best now clears only 16.5, a tenth
+     under the shelf's own tightest pair (Aristotle and Ptahhotep, 16.6); lifting the chroma ceiling
+     is what opens it (95 → 24.9, 110 → 32.8) and every colour it opens is a saturated blue of the
+     kind the ceiling exists to keep off a muted shelf, so it was not lifted. Of the candidates at
+     16.2–16.5 this violet is taken on the Euripides test: the books a reader sets beside Plutarch are
+     SUETONIUS, the other biographer of the Caesars, then Thucydides, Herodotus, Plato and Homer, and
+     it stands 29.5 or more from all five, where the dark wines at 16.4 sit nearest Sophocles and
+     Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
+     the tightest light paper. */
+  "Plutarch": "#5139C3",
+  /* Measured the same way inside the shelf's own lightness and chroma band: this dark slate-navy is
+     the best-separated colour left anywhere in it, 19.8 from the Song of Roland and 20.1 from
+     Ptahhotep (68.5 from Plutarch's violet, placed the same day), above the shelf's tightest pair
+     (Luo Guanzhong and Plutarch, 16.5), and it reads 9.7:1 or better on all 43 light papers. Every brighter colour that clears 4.5
      lands at 17 or under — the blues beside Marco Polo and Luo Guanzhong, the reds beside Ovid and
      Sophocles. Neither near neighbour is a book anyone reads against Pausanias. */
   "Pausanias": "#14203C",
@@ -12400,6 +12412,70 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 6, label: "Book VI", note: "Nero" },
         { n: 7, label: "Book VII", note: "Galba, Otho, Vitellius" },
         { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
+      ],
+    },
+    {
+      id: "plutarch-lives",
+      title: "Parallel Lives",
+      author: "Plutarch",
+      written: "early 2nd century CE",
+      // files just before Suetonius (121): the Lives belong to the first two decades of the century
+      year: 110,
+      translator: "Bernadotte Perrin",
+      edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1926",
+      /* Two layers on both columns, the Plato position. The ground is the publication date alone:
+         every Perseus file names its Loeb volume and year, 1914 to 1926, and Perrin edited the Greek
+         as well as translating it. No life-plus-seventy claim is made, Perrin's dates not being in
+         anything this session could open. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Bernadotte Perrin's translation, and the Greek text printed beside " +
+        "it, which he also edited, were published in the eleven volumes of the Loeb Classical Library " +
+        "between 1914 and 1926 — all before 1929 — so their copyright has expired in the United " +
+        "States. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+        "Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations — Ian " +
+        "Scott-Kilvert's and others' Penguin Classics volumes and Robin Waterfield's Oxford World's " +
+        "Classics selections — are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0007/",
+      /* Both columns are the same TEI encoding from the same publisher, so the pairing is by
+         construction, and was measured anyway: 1,966 chapter numbers on each side across all 68,
+         identical in every Life, once the Greek Comparison of Lysander and Sulla had four sections
+         that its file mislabels as chapters retagged. See .claude/fetch-book.js. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Life",
+      chapterWordPlural: "Lives",
+      /* Fifty Lives and eighteen comparisons; Agis, Cleomenes and the two Gracchi are a Life each,
+         though Perseus files them two to a work. */
+      count: 68,
+      total: 68,
+      /* Plutarch's pairs, in the printed editions' order (his own numbering is lost — the front
+         matter says so): each part is two Lives and, where it survives, their comparison. */
+      parts: [
+        { n: 1, label: "Theseus and Romulus" },
+        { n: 2, label: "Lycurgus and Numa" },
+        { n: 3, label: "Solon and Publicola" },
+        { n: 4, label: "Themistocles and Camillus", note: "comparison lost" },
+        { n: 5, label: "Pericles and Fabius Maximus" },
+        { n: 6, label: "Alcibiades and Coriolanus" },
+        { n: 7, label: "Timoleon and Aemilius Paulus" },
+        { n: 8, label: "Pelopidas and Marcellus" },
+        { n: 9, label: "Aristides and Cato the Elder" },
+        { n: 10, label: "Philopoemen and Flamininus" },
+        { n: 11, label: "Pyrrhus and Marius", note: "comparison lost" },
+        { n: 12, label: "Lysander and Sulla" },
+        { n: 13, label: "Cimon and Lucullus" },
+        { n: 14, label: "Nicias and Crassus" },
+        { n: 15, label: "Eumenes and Sertorius" },
+        { n: 16, label: "Agesilaus and Pompey" },
+        { n: 17, label: "Alexander and Caesar", note: "comparison lost" },
+        { n: 18, label: "Phocion and Cato the Younger", note: "comparison lost" },
+        { n: 19, label: "Agis and Cleomenes, and the Gracchi" },
+        { n: 20, label: "Demosthenes and Cicero" },
+        { n: 21, label: "Demetrius and Antony" },
+        { n: 22, label: "Dion and Brutus" },
+        { n: 23, label: "The single Lives" },
       ],
     },
     {

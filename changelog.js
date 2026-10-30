@@ -35,17 +35,18 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1164", released: "2026-10-30T00:52Z" };
+window.FOLIO_VERSION = { v: "1.1168", released: "2026-10-30T01:09Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
-    t: "Forty new Second World War cards, and borders back on the Personal Atlas",
+    t: "Forty Second World War cards, Atlas borders back, and Plutarch's Lives",
     items: [
       "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again; they had vanished.",
       "<b>40 new cards</b> in the Second World War's <i>Poland and the outbreak</i> and <i>The fall of the West</i> decks, with 37 new glossary terms.",
-      "<b>Library</b>: Pausanias's <i>Description of Greece</i> joins the shelf, all ten books in W. H. S. Jones's translation, with the Greek beside it."
-    ]
+      "298 more <b>Ancient Greece</b> cards and 192 <b>Ancient Rome</b> cards now quote the ancient author their background cites, from the book in the Library.",
+      "<b>Library</b>: Plutarch's <i>Parallel Lives</i> (all fifty Lives) and Pausanias's <i>Description of Greece</i> (all ten books) join the shelf, each with the Greek beside it.",
+    ],
   },
   {
     d: "2026-10-29",
@@ -412,7 +413,7 @@ window.CHANGELOG = [
       "<b>Continue with</b>: the completion screen now shows every banner of your active decks list still unfinished today, as those banners, skipping anything folded away.",
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
-      "<b>300 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars and the Gracchi to Marius, with more sources, corrected dates and legend told as legend.",
+      "<b>400 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars, the fall of the Republic and Augustus, with more sources, corrected dates and legend told as legend.",
       "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
       "<b>Unfolded collections show no counts of their own</b>: only the decks inside carry them, and the daily study banner now totals just the rows you can see.",
       "<b>Card preview</b>: the fanned cards beside the daily study banner are now shown on desktop only; on a tablet the banner's level bar and figures spread across the full width instead.",

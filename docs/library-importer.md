@@ -2448,3 +2448,22 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   means: here 482 runs over 6,889 characters, most of them variant forms.
 - Re-run after touching: `node .claude/fetch-book.js classic-of-tea` (English, then Chinese; both read the
   cache), `node .claude/test-library.js` (33 `[classic-of-tea]` checks) and `node .claude/check-pairing.js`.
+
+## Four TEI options from the Parallel Lives (Oct 2026, Plutarch)
+
+Perseus's Perrin files are the Dialogues' encoding with a `chapter`/`section` grid, and four things in them needed
+an option rather than a new layout (all declared per book, and per side where they apply to the original):
+
+- **`inlineNotes: "foot"`** — every Perrin footnote is marked `place="inline"`, which `teiSectionProse` otherwise
+  sets in italic in the flow (right for Suetonius's omission marks, wrong for real footnotes).
+- **`joinParagraphs`** — each Loeb section is its own `<p>`, and sections open mid-sentence; the chapter (the unit
+  the columns pair on) is joined into one paragraph, as the Loeb prints it.
+- **`teiBook: (n) => name`** — a file holding two lives as named `book` divisions, each numbering its chapters from
+  1 (`teiNamedBook` slices one out). Without it the second life's numbers collide with the first's.
+- **`original.xmlFix: (xml, n) => xml`** — a targeted repair of the original's raw XML before extraction; used once,
+  for four sections the Greek Comparison of Lysander and Sulla tags as chapters.
+
+And one shared fix: `teiSectionProse` now removes XML comments and self-closed `<note/>` before lifting notes. The
+note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifting the prose between into the fold.
+Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
+`node .claude/check-pairing.js` (it should list no row for the book).
