@@ -172,7 +172,7 @@ order unless the user says otherwise.
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | **done 2026-10-30** |
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | **done 2026-10-30** |
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | **done 2026-10-30** |
-| B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | open |
+| B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | **done 2026-10-30** |
 | B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | open |
 | B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | open |
 | B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | open |
@@ -670,6 +670,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-398` discharge gratuity | a discharged soldier's gravestone | weak: one worn tombstone |
 | `rm-399` Praetorian Guard | a Claudian relief of praetorians | ok |
 | `rm-400` aerarium militare | a gold aureus of Augustus | weak: tied to the fund only by association |
+| `rm-401` Temple of Apollo Palatinus | the podium on the Palatine | ok |
+| `rm-402` Forum of Augustus | the square and its back wall | ok |
+| `rm-403` Ara Pacis | the procession and the scrollwork | ok; the locator marks the modern museum, not the ancient site under Palazzo Fiano |
+| `rm-404` Mausoleum of Augustus | the tomb from the entrance side | ok |
+| `rm-405` Augustus of Prima Porta | the statue in the Vatican | ok |
+| `rm-406` ludi saeculares | none | no picture (`I.none`); the Acta pillar in the Museo Nazionale Romano would suit |
+| `rm-407` ius trium liberorum | children in the Ara Pacis procession | acceptable stand-in for a legal right |
+| `rm-408` Julia the Elder | Pandateria, where she was sent | weak: a place, not the person; a denarius with her head between Gaius and Lucius would show her |
+| `rm-409` Lares Augusti | the Ara dei Vicomagistri | weak: a ward procession of c. 30 – 40 CE, not an Augustan Lares altar; the Belvedere or Vicus Sandaliarius altar would show the Lares |
+| `rm-410` princeps iuventutis | Augustus between his grandsons (Corinth) | ok |
 
 ## Glossary candidates
 
@@ -1715,3 +1725,22 @@ Overlap notes for the owner (nothing was edited): `wh-354` ends the Gallic Wars 
 ### Locators added (2026-10-30)
 
 `add-locators.js` (one title per request, retried through Wikipedia's rate limit) gave **`rm-356` Carrhae (fetched from Harran, because the battle's article carries no coordinate), `rm-361` Dyrrhachium, `rm-362` Pharsalus and `rm-365` Thapsus** battle locators at zoom 8, **`rm-364` Alexandria**, and moved **`rm-388`** from Pelusium to Alexandria. `rm-366` Munda gets none: the site is disputed and no sure place stands near it. `migrate-places.js` (offline) derived `places` for `rm-364` and `rm-388`; its offline run also dropped `gr-794`'s Rafah place (its toponym is not in the offline cache), so that card and its `places-spec.json` row were restored by hand and only the Pelusium row, which no card now uses, was removed; `build-places --install`, `build-card-places --install`, `migrate-places --check` and `check-places` pass. Still without one: `rm-303`, `rm-324` and `rm-360` (wars across a region) and `rm-366`.
+
+### B41 — `rm-401`–`rm-410`, Augustus: the monuments, the games, the laws and the heirs (2026-10-30)
+
+Run as B40; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-401:rm-410` reads clean on eight cards; `rm-402` carries `S.chip?` (an English BMCR review of a German-titled book: the known false positive) and `rm-406` `I.none`. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages (the host refused the sandbox; each page was read and saved when it answered) and three Perseus dictionary entries that now answer a script 403 without a cookie (each saved when the agent fetched it). **Nine of the ten old cards were all-ancient or nearly so; the old date lines carried a place ("Vowed 42 BCE, at Philippi", "Exiled 2 BCE, to Pandateria"), a name ("First burial Marcellus, 23 BCE"), a count ("Interval 110 years") or another event's date ("Event shown Parthian standards, 20 BCE", "Pontifex maximus 12 BCE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-401` Temple of Apollo Palatinus | 6 | 6 → 6 | The vow of 36 rests on Velleius, now said to be a partisan; **9 October 28 is the stone calendars' day; the fire is Ammianus's "night before 19 March" 363** (the old 18 March is Platner's reading, so the line prints the year); the temple and the "House of Augustus" are modern identifications. |
+| `rm-402` Forum of Augustus | 7 | 8 → 8 | **The vow at Philippi is Suetonius's and Ovid's, and one modern view holds it was invented later; the dedication day (1 August from Dio, 12 May from Ovid) is argued, so the line prints 2 BCE**; the summi viri elogia added. |
+| `rm-403` Ara Pacis | 7 | 6 → 9 | 4 July 13 and 30 January 9 are the calendars' days ("Decreed", not "Voted"); **the old card argued its own reading ("peace as yield") and it goes**; Tellus or Italia, Aeneas or Numa are modern readings; 1938 in one sentence. |
+| `rm-404` Mausoleum of Augustus | 7 | 5 → 7 | **"Built 28 BCE" was the year Suetonius says it was begun**; Marcellus laid in it unfinished (Dio); Strabo's description, the Colonna fortress and the concert hall added. |
+| `rm-405` Augustus of Prima Porta | 7 | 6 → 7 | **The old line dated the breastplate's scene; it now dates the statue** (a bronze original soon after 20 BCE in one museum's account, the marble 15 CE in another, found 1863); every breastplate figure is a modern reading; the paint traces added. |
+| `rm-406` ludi saeculares | 6 | 6 → 6 | **The 110-year saeculum is the Augustan priests' reckoning, not a fact**; 31 May – 3 June 17 BCE from the Acta (found 1890), the choir of 27 and 27 the Acta's; Claudius's games of 47 on another count, with Suetonius's herald. |
+| `rm-407` ius trium liberorum | 6 | 6 → 10 | The old card spent its space on an anecdote and Horace; **it now says what the right gave (Gaius: three children for the freeborn, four for a freedwoman)**, the grant as a favour (Pliny, Trajan), Dio's unmarried consuls and Tacitus's "no effect". |
+| `rm-408` Julia the Elder | 7 | 7 → 9 | Places off the line; **the revels in the Forum are Dio's and Seneca's, the conspiracy with Iullus Antonius a modern reading**; Tacitus's slow death is his claim. The marriage-list question (`rm-382`'s clue) is replaced. |
+| `rm-409` Lares Augusti | 5 | 6 → 6 | **The old card stated as fact Taylor's view that Augustus gave the wards his own household gods and Genius; the Lares Augusti as the old street gods renamed is now set against it**; the Vicus Sandaliarius altar (2 BCE) is the contemporary evidence. |
+| `rm-410` princeps iuventutis | 6 | 6 → 6 | **"Dio dates … 17 BCE" was wrong: Dio gives consular years**, so the years are the Cambridge Ancient History's; each brother's naming and death on the line; the C L CAESARES denarius and Nero's coin as OCRE records. |
+
+**Read by eye.** *Confusability:* `rm-401`/`rm-402`/`rm-403`/`rm-404` the temple (the Danaids, the library), the forum (the elogia, the fire wall), the altar (the calendar days, Aeneas or Numa) and the tomb (Strabo's trees); `rm-405` the statue (the find, the paint); `rm-406`/`rm-407` the games and the right; `rm-408`/`rm-410` the daughter and her sons (the firebrands kept for `rm-408`); `rm-409` the wards. *Legend:* Julia's revels and Augustus's "Phoebe" remark are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

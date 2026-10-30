@@ -445,6 +445,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the discharge terms fixed / rates set / the fund created | 13 BCE / 5 CE (one modern account: 6 CE) / 6 CE | `rm-398` |
 | the Praetorian Guard: double pay / first prefects / abolished | 27 BCE / 2 BCE / 312 CE | `rm-399` |
 | the aerarium militare founded | 6 CE | `rm-400` |
+| the Temple of Apollo Palatinus: vowed / dedicated / burned | 36 BCE / 9 October 28 BCE (the stone calendars' day) / 363 CE (Ammianus: the night before 19 March) | `rm-401` |
+| the Forum of Augustus: vowed / dedicated | 42 BCE (Suetonius's and Ovid's vow at Philippi; one modern view: invented later) / 2 BCE (the day disputed: 1 August from Dio, 12 May from Ovid) | `rm-402` |
+| the Ara Pacis: decreed / dedicated | 4 July 13 BCE / 30 January 9 BCE (the calendars' days) | `rm-403` |
+| the Mausoleum of Augustus: begun / first burial / Augustus laid there | 28 BCE / 23 BCE / 14 CE | `rm-404` |
+| the Augustus of Prima Porta: the bronze original / the marble / found | c. 20 BCE / 15 CE (one museum's date; the Vatican: early 1st century CE) / 1863 | `rm-405` |
+| the ludi saeculares: Augustan / Claudian / last / the Acta found | 31 May – 3 June 17 BCE / 47 CE / 248 CE / 20 September 1890 | `rm-406` |
+| the marriage laws: lex Julia / lex Papia Poppaea | 18 BCE / 9 CE | `rm-407` |
+| Julia the Elder: born / exiled / died | 39 BCE / 2 BCE / 14 CE | `rm-408` |
+| the ward reform / the Vicus Sandaliarius altar / the fire duty ended | 7 BCE / 2 BCE / 6 CE | `rm-409` |
+| principes iuventutis: Gaius named / Lucius named / Lucius died / Gaius died | 5 BCE / 2 BCE / 2 CE / 4 CE | `rm-410` |
 
 ## Late Antiquity
 
@@ -840,4 +850,14 @@ rm-397: 27; 22; 11
 rm-398: 13; 5; 6
 rm-399: 27; 2; 312
 rm-400: 6
+rm-401: 36; 28; 363
+rm-402: 42; 2
+rm-403: 13; 9
+rm-404: 28; 23; 14
+rm-405: 20; 15; 1863
+rm-406: 17; 47; 248; 1890
+rm-407: 18; 9
+rm-408: 39; 2; 14
+rm-409: 7; 2; 6
+rm-410: 5; 2; 2; 4
 ```
