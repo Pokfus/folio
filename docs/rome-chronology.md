@@ -455,6 +455,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Julia the Elder: born / exiled / died | 39 BCE / 2 BCE / 14 CE | `rm-408` |
 | the ward reform / the Vicus Sandaliarius altar / the fire duty ended | 7 BCE / 2 BCE / 6 CE | `rm-409` |
 | principes iuventutis: Gaius named / Lucius named / Lucius died / Gaius died | 5 BCE / 2 BCE / 2 CE / 4 CE | `rm-410` |
+| Livia: born / married Octavian / died / deified | 58 BCE / 17 January 38 BCE / 29 CE / 42 CE (one modern chronology; the Cambridge Ancient History: 41) | `rm-411` |
+| Agrippa Postumus: born / adopted / banished / killed | 12 BCE / 27 June 4 CE (Velleius; one modern account 26 June) / 7 CE / 14 CE | `rm-412` |
+| Drusus the Elder: born / campaigns / died | 38 BCE / 12 – 9 BCE / 9 BCE | `rm-413` |
+| the Teutoburg Forest / the dead buried | 9 CE (September a modern reconstruction) / 15 CE | `rm-414` |
+| Augustus consecrated | 17 September 14 CE (the Fasti Amiternini) | `rm-415` |
+| the Julio-Claudians / also dated / Nero died | 27 BCE – 68 CE / 31 BCE – 68 CE / 9 June 68 CE (a modern day) | `rm-416` |
+| Tiberius: born / reigned / died | 16 November 42 BCE / 14 – 37 CE / 16 March 37 CE (the Arval acts; Dio ten days later) | `rm-417` |
+| dies imperii: Vespasian's | 1 July 69 CE (Tacitus); Tiberius's disputed (17 September or early September 14 CE) | `rm-418` |
+| Germanicus: born / adopted / triumph / died | 24 May 15 BCE / 4 CE / 26 May 17 CE / 10 October 19 CE | `rm-419` |
+| the Pannonian mutiny / the eclipse | 14 CE / 27 September 14 CE (NASA's catalogue; Furneaux: 26 September) | `rm-420` |
 
 ## Late Antiquity
 
@@ -860,4 +870,14 @@ rm-407: 18; 9
 rm-408: 39; 2; 14
 rm-409: 7; 2; 6
 rm-410: 5; 2; 2; 4
+rm-411: 58; 38; 29; 42
+rm-412: 12; 4; 7; 14
+rm-413: 38; 12; 9
+rm-414: 9; 15
+rm-415: 14
+rm-416: 27; 68; 31
+rm-417: 42; 14; 37
+rm-418: 14; 69
+rm-419: 15; 4; 17; 19
+rm-420: 14
 ```

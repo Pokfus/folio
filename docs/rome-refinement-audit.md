@@ -173,7 +173,7 @@ order unless the user says otherwise.
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | **done 2026-10-30** |
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | **done 2026-10-30** |
 | B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | **done 2026-10-30** |
-| B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | open |
+| B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | **done 2026-10-30** |
 | B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | open |
 | B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | open |
 | B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | open |
@@ -680,6 +680,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-408` Julia the Elder | Pandateria, where she was sent | weak: a place, not the person; a denarius with her head between Gaius and Lucius would show her |
 | `rm-409` Lares Augusti | the Ara dei Vicomagistri | weak: a ward procession of c. 30 – 40 CE, not an Augustan Lares altar; the Belvedere or Vicus Sandaliarius altar would show the Lares |
 | `rm-410` princeps iuventutis | Augustus between his grandsons (Corinth) | ok |
+| `rm-411` Livia | a portrait head of Livia | ok |
+| `rm-412` Agrippa Postumus | a bust identified as Agrippa Postumus | ok (the identification is modern, and the description says so) |
+| `rm-413` Nero Claudius Drusus | a portrait of Drusus the Elder | ok |
+| `rm-414` Battle of the Teutoburg Forest | the iron face mask from Kalkriese | acceptable: an object from the site, not the battle |
+| `rm-415` Divus Augustus | a coin of the deified Augustus | ok; the alt text's "bearded-free" should read "beardless" |
+| `rm-416` Julio-Claudian dynasty | the Gemma Claudia | ok |
+| `rm-417` Tiberius | a portrait of Tiberius | ok |
+| `rm-418` dies imperii | a Roman public calendar (the Fasti Praenestini) | acceptable stand-in: it shows no dies imperii entry |
+| `rm-419` Germanicus | a portrait bust of Germanicus | ok |
+| `rm-420` Percennius | none | no picture (`I.none`): no portrait of a private soldier exists |
 
 ## Glossary candidates
 
@@ -1744,3 +1754,22 @@ Run as B40; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-410` princeps iuventutis | 6 | 6 → 6 | **"Dio dates … 17 BCE" was wrong: Dio gives consular years**, so the years are the Cambridge Ancient History's; each brother's naming and death on the line; the C L CAESARES denarius and Nero's coin as OCRE records. |
 
 **Read by eye.** *Confusability:* `rm-401`/`rm-402`/`rm-403`/`rm-404` the temple (the Danaids, the library), the forum (the elogia, the fire wall), the altar (the calendar days, Aeneas or Numa) and the tomb (Strabo's trees); `rm-405` the statue (the find, the paint); `rm-406`/`rm-407` the games and the right; `rm-408`/`rm-410` the daughter and her sons (the firebrands kept for `rm-408`); `rm-409` the wards. *Legend:* Julia's revels and Augustus's "Phoebe" remark are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B42 — `rm-411`–`rm-420`, Augustus to the Julio-Claudians: Livia to the Pannonian mutiny (2026-10-30)
+
+Run as B41; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-411:rm-420` reads clean on five cards; the rest carry `W.not-why` (advisory, four cards), `S.chip?` on `rm-414` (an English BMCR review of a German-titled book: the known false positive) and `I.none` on `rm-420`. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. Every failure in the URL check is a LacusCurtius page saved when the host answered. No `timeline` moved (`rm-414` keeps 9 CE). **The old cards were all-ancient or nearly so (Livia's nine sources were all ancient); their date lines carried ages ("aged 29", "aged 33", "Aged 75"), counts ("Roman losses 3 legions", "Reign counted 23 years", "Legions 3, in Pannonia") and other men's reigns.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-411` Livia | 7 | 9 → 8 | **The poisonings (the figs among them) are rumours Tacitus and Dio pass on, and the Cambridge Ancient History reads them as her enemies' propaganda**; born 58 BCE (no open source prints 59), married 17 January 38; deified 42 in one modern chronology (the Cambridge Ancient History says 41). |
+| `rm-412` Agrippa Postumus | 6 | 8 → 8 | **Adopted 27 June 4 CE is Velleius's day** (one modern account 26 June); the reasons for his banishment are the authors' words; who ordered the killing stays open (Tacitus blames Tiberius and Livia; the Cambridge Ancient History and Syme allow Augustus's own order). |
+| `rm-413` Nero Claudius Drusus | 6 | 5 → 6 | **The gossip that Octavian was his father is Suetonius's, the woman at the Elbe Dio's tale; the death is two accounts (Livy's summary: a fall from his horse; Dio: disease)**; the canals' course is argued. |
+| `rm-414` Battle of the Teutoburg Forest | 7 | 6 → 8 | **No ancient writer names the month: September is a modern reconstruction; no total of dead is given** (Velleius counts the units lost); Augustus's "give me back my legions" is Suetonius's hearsay; Kalkriese since 1987 – 89, with the doubts. |
+| `rm-415` Divus Augustus | 6 | 7 → 7 | **The old card called Augustus the first ruler Rome made a god; Julius Caesar had been voted among the state's gods in 42 BCE.** 17 September from the Fasti Amiternini through a modern account; the ex-praetor is Suetonius's, his name and Livia's million Dio's. |
+| `rm-416` Julio-Claudian dynasty | 7 | 8 → 9 | **"Julio-Claudian" is the historians' name; Tacitus's Galba speaks of "the family of the Julii and the Claudii"**; 27 BCE – 68 CE with Livius's 31 BCE; 9 June 68 is a modern day (Suetonius gives none). |
+| `rm-417` Tiberius | 8 | 7 → 9 | Velleius served under him, Tacitus is hostile, each said; **the smothering by Macro is Tacitus's own claim, beside Suetonius's variants; 16 March 37 rests on the Arval acts (Dio is ten days late)**; no question uses Capri, Sejanus, maiestas or the mutiny. |
+| `rm-418` dies imperii | 5 | 7 → 6 | **The old card told Tiberius's accession; it now explains the concept** (the Arval acts for Gaius, Vespasian's 1 July 69); Tiberius's own day is a modern dispute (17 September in the Cambridge Ancient History, early September in Wellesley 1967, read in abstract). The "23 years" row goes. |
+| `rm-419` Germanicus | 7 | 7 → 8 | The poisoning and the spells in the walls are Tacitus's report; **the Senate's decree on Piso treats the murder only as the dying man's accusation**; the Tabula Siarensis added; 10 October 19 from the Antium calendar. |
+| `rm-420` Percennius | 5 | 7 → 5 | **His speech is Tacitus's composition; the eclipse is 27 September 14 CE in NASA's catalogue (Furneaux: 26 September), Tacitus gives no day**; the Rhine mutiny is kept for `rm-644`. |
+
+**Read by eye.** *Confusability:* `rm-411`/`rm-412` the wife (the figs) and the grandson (Clemens); `rm-413`/`rm-414`/`rm-419` the father (the Elbe), the battle (the bones) and the son (the Antioch spells); `rm-415`/`rm-418` the cult (Atticus's oath) and the counting day (the Arval acts); `rm-416`/`rm-417` the house and the man; `rm-420` the mutineer. *Legend:* the woman at the Elbe, Augustus's cry for his legions and the smothering of Tiberius are their authors'. *Overlap:* `wh-366` gives Nero's death as 9 June 68 CE, as `rm-416` does.
