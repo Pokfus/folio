@@ -445,6 +445,102 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the discharge terms fixed / rates set / the fund created | 13 BCE / 5 CE (one modern account: 6 CE) / 6 CE | `rm-398` |
 | the Praetorian Guard: double pay / first prefects / abolished | 27 BCE / 2 BCE / 312 CE | `rm-399` |
 | the aerarium militare founded | 6 CE | `rm-400` |
+| the Temple of Apollo Palatinus: vowed / dedicated / burned | 36 BCE / 9 October 28 BCE (the stone calendars' day) / 363 CE (Ammianus: the night before 19 March) | `rm-401` |
+| the Forum of Augustus: vowed / dedicated | 42 BCE (Suetonius's and Ovid's vow at Philippi; one modern view: invented later) / 2 BCE (the day disputed: 1 August from Dio, 12 May from Ovid) | `rm-402` |
+| the Ara Pacis: decreed / dedicated | 4 July 13 BCE / 30 January 9 BCE (the calendars' days) | `rm-403` |
+| the Mausoleum of Augustus: begun / first burial / Augustus laid there | 28 BCE / 23 BCE / 14 CE | `rm-404` |
+| the Augustus of Prima Porta: the bronze original / the marble / found | c. 20 BCE / 15 CE (one museum's date; the Vatican: early 1st century CE) / 1863 | `rm-405` |
+| the ludi saeculares: Augustan / Claudian / last / the Acta found | 31 May – 3 June 17 BCE / 47 CE / 248 CE / 20 September 1890 | `rm-406` |
+| the marriage laws: lex Julia / lex Papia Poppaea | 18 BCE / 9 CE | `rm-407` |
+| Julia the Elder: born / exiled / died | 39 BCE / 2 BCE / 14 CE | `rm-408` |
+| the ward reform / the Vicus Sandaliarius altar / the fire duty ended | 7 BCE / 2 BCE / 6 CE | `rm-409` |
+| principes iuventutis: Gaius named / Lucius named / Lucius died / Gaius died | 5 BCE / 2 BCE / 2 CE / 4 CE | `rm-410` |
+| Livia: born / married Octavian / died / deified | 58 BCE / 17 January 38 BCE / 29 CE / 42 CE (one modern chronology; the Cambridge Ancient History: 41) | `rm-411` |
+| Agrippa Postumus: born / adopted / banished / killed | 12 BCE / 27 June 4 CE (Velleius; one modern account 26 June) / 7 CE / 14 CE | `rm-412` |
+| Drusus the Elder: born / campaigns / died | 38 BCE / 12 – 9 BCE / 9 BCE | `rm-413` |
+| the Teutoburg Forest / the dead buried | 9 CE (September a modern reconstruction) / 15 CE | `rm-414` |
+| Augustus consecrated | 17 September 14 CE (the Fasti Amiternini) | `rm-415` |
+| the Julio-Claudians / also dated / Nero died | 27 BCE – 68 CE / 31 BCE – 68 CE / 9 June 68 CE (a modern day) | `rm-416` |
+| Tiberius: born / reigned / died | 16 November 42 BCE / 14 – 37 CE / 16 March 37 CE (the Arval acts; Dio ten days later) | `rm-417` |
+| dies imperii: Vespasian's | 1 July 69 CE (Tacitus); Tiberius's disputed (17 September or early September 14 CE) | `rm-418` |
+| Germanicus: born / adopted / triumph / died | 24 May 15 BCE / 4 CE / 26 May 17 CE / 10 October 19 CE | `rm-419` |
+| the Pannonian mutiny / the eclipse | 14 CE / 27 September 14 CE (NASA's catalogue; Furneaux: 26 September) | `rm-420` |
+| Arminius: Varus defeated / Idistaviso / killed | 9 CE / 16 CE / 19 CE (the Cambridge Ancient History; Furneaux: 21 CE) | `rm-421` |
+| Gnaeus Piso: consul / legate of Syria / the Senate's decree | 7 BCE / 17 CE / 10 December 20 CE | `rm-422` |
+| Sejanus: prefect / consul / executed | 14 – 31 CE / 31 CE / 18 October 31 CE (the Cambridge Ancient History) | `rm-423` |
+| Macro: prefect / died | 31 – 38 CE / 38 CE | `rm-424` |
+| Tiberius on Capreae | 27 – 37 CE | `rm-425` |
+| maiestas: the lex Appuleia / revived / revived by Gaius | 100 BCE / 15 CE / 39 CE (the Loeb translator's margin) | `rm-426` |
+| Caligula: born / reigned / killed | 31 August 12 CE / 37 – 41 CE / 24 January 41 CE | `rm-427` |
+| Cassius Chaerea: the Rhine mutiny / executed | 14 CE (Tacitus's mention) / 41 CE | `rm-429` |
+| Claudius: born / reigned / died | 1 August 10 BCE / 41 – 54 CE / 13 October 54 CE | `rm-430` |
+| the donativum: first promised / Nero's | 41 CE / 54 CE | `rm-431` |
+| Camulodunum: royal seat / taken / colony / destroyed | c. 10 – 43 CE / 43 CE / c. 49 CE (a modern inference) / 61 CE | `rm-432` |
+| Caratacus: resisted / handed over | 43 – 51 CE / 51 CE | `rm-433` |
+| Pallas: honoured / dismissed / died | 52 CE / 55 CE / 62 CE | `rm-434` |
+| the Lyon Tablet: the speech / found | 48 CE / 1528 | `rm-435` |
+| the Aqua Claudia: begun / dedicated / restored | 38 CE / 1 August 52 CE (Frontinus's day; the year from the moderns) / 71 CE | `rm-436` |
+| Messalina: born / married Claudius / killed | c. 25 CE / c. 39 CE / 48 CE | `rm-437` |
+| Agrippina the Younger: born / married Claudius / Augusta / killed | 6 November 15 CE / 49 CE / 50 CE / March 59 CE | `rm-438` |
+| Britannicus: born / Nero adopted / died | 41 CE (also dated 42) / 50 CE / 55 CE | `rm-439` |
+| Burrus: prefect / hailed Nero / died | 51 – 62 CE / 13 October 54 CE (Tacitus's day) / 62 CE | `rm-440` |
+| Anicetus: Agrippina killed / exiled | March 59 CE / 62 CE | `rm-441` |
+| the Boudican revolt | 60 or 61 CE (Tacitus's year 61; Henderson argues 60) | `rm-442`, `rm-443` |
+| Corbulo: in Germany / sent east / Artaxata / died | 47 CE / 55 CE / 58 CE / 67 CE | `rm-444` |
+| Rhandeia: Paetus's surrender / the diadem laid down / Tiridates crowned at Rome | 62 CE / 63 CE / 66 CE | `rm-445` |
+| the Great Fire | 19 July 64 CE (the day Tacitus says some noted; Momigliano: the night of 18 July) | `rm-446` |
+| the Domus Aurea: begun / dedicated / the fire | 64 CE / by 68 CE / 104 CE | `rm-447` |
+| the Neronian persecution | 64 CE | `rm-448` |
+| the Pisonian conspiracy betrayed | April 65 CE | `rm-449` |
+| Nero in Greece / Achaea freed | 66 – 68 CE / 28 November 67 CE (Henderson; Momigliano: 66) | `rm-450` |
+| the First Jewish–Roman War: outbreak / Masada falls | 66 CE / 73 CE (Momigliano, Schürer; Mason and Magness: 74 CE) | `rm-451` |
+| Vindex: revolt / Vesontio and his death | March 68 CE / May 68 CE (both the moderns' months) | `rm-452` |
+| Nymphidius Sabinus: prefect / turned the guard | 65 – 68 CE / June 68 CE | `rm-453` |
+| hostis: Marius / Antony / Nero | 88 BCE / 43 BCE / 68 CE (Nero died 9 June 68 CE, a modern day) | `rm-454` |
+| Verginius Rufus: born / consul / Vesontio / died | 14 – 15 CE / 63 CE / 68 CE / 97 CE | `rm-455` |
+| 69 CE: Galba killed / Otho died / Vitellius killed | 15 January / 16 April (Henderson) / 20 December 69 CE (the Cambridge Ancient History; Henderson: 21) | `rm-456`, `rm-457`, `rm-458`, `rm-460` |
+| Galba: born / hailed / reigned | 24 December 3 BCE (Livius's form of Suetonius's day) / 2 April 68 CE (Stevenson) / June 68 – January 69 CE | `rm-457` |
+| Otho: born / hailed | 28 April 32 CE / 15 January 69 CE | `rm-458` |
+| the First Battle of Bedriacum / the camp surrendered | 15 April 69 CE / 16 April 69 CE (Henderson's days; Bellomo: 12 April) | `rm-459` |
+| Vitellius: born / proclaimed | 15 CE / 2 January 69 CE | `rm-460` |
+| Titus: born / reigned / died | 30 December 39 CE (most scholars; Suetonius's year gives 41) / 24 June 79 – 13 September 81 CE / 13 September 81 CE | `rm-471` |
+| Masada: seized / fell | 66 CE / 73 CE (Schürer, Momigliano; others 74 CE) | `rm-472` |
+| the fiscus Iudaicus: imposed / Domitian's exaction / Nerva's coins | 70 CE / 81 – 96 CE / 96 CE | `rm-473` |
+| the Arch of Titus: built / the triumph shown / rebuilt | after 81 CE / 71 CE / 1822 | `rm-474` |
+| the Colosseum: begun / dedicated / last hunts | c. 70 CE / 80 CE / 523 CE | `rm-475`, `rm-476` |
+| the eruption of Vesuvius | 24 August 79 CE (the manuscripts) or 24 October 79 CE (the autumn case) | `rm-477` |
+| Pompeii: colony / earthquake / buried / found | 80 BCE / 62 CE (Tacitus; Seneca's consuls give 63) / 79 CE / 1748 | `rm-478` |
+| Herculaneum: buried / theatre found / dig began / papyri found | 79 CE / 1709 / 1738 / 1752 | `rm-479` |
+| Pliny the Elder: born / the Natural History published / died | 23 or 24 CE / 77 CE / 79 CE | `rm-480` |
+| the Second Battle of Bedriacum / the sack of Cremona ended | October 69 CE / 31 October 69 CE (Henderson) | `rm-461` |
+| Titus Flavius Sabinus killed | 19 December 69 CE (Henderson) | `rm-462` |
+| the arcanum imperii: the years / the Histories written | 68 – 69 CE / c. 104 – 109 CE (the Loeb editor) | `rm-463` |
+| the revolt of the Batavi | 69 – 70 CE | `rm-464` |
+| Vespasian: born / reigned / died | 17 November 9 CE / 69 – 79 CE / 23 June 79 CE | `rm-465` |
+| the lex de imperio Vespasiani: the Senate's vote / shown by Cola di Rienzo / to the Capitol | 69 CE / 1347 / 1576 | `rm-466` |
+| the fiscus: a central chest / fiscal courts | 41 – 54 CE (one older view) / 53 CE | `rm-467` |
+| adlectio: Claudius censor / the Flavian censors / Domitian censor for life | 47 – 48 CE / 73 – 74 CE / 85 CE | `rm-468` |
+| the siege of Jerusalem / the outer wall taken | April – September 70 CE / May 70 CE | `rm-469` |
+| the Second Temple: built / Herod's rebuilding / destroyed | 520 – 516 BCE / 20 – 19 BCE / 70 CE | `rm-470` |
+| Domitian: born / reigned / killed | 24 October 51 CE / 81 – 96 CE / 18 September 96 CE | `rm-481`, `rm-489`, `rm-490` |
+| the informers curbed by Nerva | 96 CE | `rm-482` |
+| Domitian's Dacian War / Tapae | 85 – 89 CE / 88 CE (Soria Molina) | `rm-483` |
+| Agricola: born / governor of Britain / died | 13 June 40 CE / 77 – 84 CE or 78 – 85 CE / 23 August 93 CE | `rm-484` |
+| the Battle of Mons Graupius | 83 CE (Breeze) or 84 CE (Burn, Woolliscroft) | `rm-485` |
+| Inchtuthil: in use / demolished | c. 83 – 87 CE / 86 or 87 CE | `rm-486` |
+| the Flavian Palace: begun / completed | c. 81 CE / c. 92 CE | `rm-487` |
+| Domitian's memory condemned | 96 CE | `rm-488` |
+| the Flavians ruled | 69 – 96 CE | `rm-490` |
+| the Nerva–Antonines / Commodus died | 96 – 192 CE / 31 December 192 CE | `rm-491` |
+| Nerva: born / reigned / adopted Trajan / died | 8 November 30 CE (Longden; Livius: 30 November) / 96 – 98 CE / October 97 CE / January 98 CE | `rm-492` |
+| Plotina: empress / the Epicurean letter / died | 98 – 117 CE / 121 CE / c. 122 CE (one modern account) | `rm-493` |
+| optimus princeps: first used / on coins / in the official name | 100 CE / 103 – 111 CE / 114 CE | `rm-494` |
+| Trajan's Dacian Wars: first / second / the province / abandoned | 101 – 102 CE / 105 – 106 CE / 106 CE / c. 271 CE | `rm-495` |
+| Decebalus: king by / died | 86 CE / 106 CE | `rm-496` |
+| Trajan's Column: dedicated / Saint Peter set on it | 113 CE / 1588 | `rm-497` |
+| the Forum of Trajan dedicated | January 112 CE | `rm-498`, `rm-499` |
+| Trajan's Market cleared | 1926 – 1934 | `rm-499` |
+| the alimenta: Nerva's plan / Trajan's start / the Baebian tablet / the Veleia tablet | 97 CE / 99 CE / 101 CE / 103 – 114 CE | `rm-500` |
 
 ## Late Antiquity
 
@@ -840,4 +936,104 @@ rm-397: 27; 22; 11
 rm-398: 13; 5; 6
 rm-399: 27; 2; 312
 rm-400: 6
+rm-401: 36; 28; 363
+rm-402: 42; 2
+rm-403: 13; 9
+rm-404: 28; 23; 14
+rm-405: 20; 15; 1863
+rm-406: 17; 47; 248; 1890
+rm-407: 18; 9
+rm-408: 39; 2; 14
+rm-409: 7; 2; 6
+rm-410: 5; 2; 2; 4
+rm-411: 58; 38; 29; 42
+rm-412: 12; 4; 7; 14
+rm-413: 38; 12; 9
+rm-414: 9; 15
+rm-415: 14
+rm-416: 27; 68; 31
+rm-417: 42; 14; 37
+rm-418: 14; 69
+rm-419: 15; 4; 17; 19
+rm-420: 14
+rm-421: 9; 16; 19; 21
+rm-422: 7; 17; 20
+rm-423: 14; 31
+rm-424: 31; 38
+rm-425: 27; 37
+rm-426: 100; 15; 39
+rm-427: 12; 37; 41
+rm-428: 37; 41
+rm-429: 14; 41
+rm-430: 10; 41; 54
+rm-431: 41; 54
+rm-432: 10; 43; 43; 49; 61
+rm-433: 43; 51; 51
+rm-434: 52; 55; 62
+rm-435: 48; 1528
+rm-436: 38; 52; 71
+rm-437: 25; 39; 48
+rm-438: 15; 49; 50; 59
+rm-439: 41; 42; 50; 55
+rm-440: 51; 62; 54; 62
+rm-441: 59; 62
+rm-442: 60; 61
+rm-443: 60; 61
+rm-444: 47; 55; 58; 67
+rm-445: 62; 63; 66
+rm-446: 64
+rm-447: 64; 68; 104
+rm-448: 64
+rm-449: 65
+rm-450: 66; 68; 67; 66
+rm-451: 66; 73; 74
+rm-452: 68; 68
+rm-453: 65; 68; 68
+rm-454: 88; 43; 68; 68
+rm-455: 14; 15; 63; 68; 97
+rm-456: 69; 69; 69
+rm-457: 3; 68; 68; 69; 69
+rm-458: 32; 69; 69
+rm-459: 69; 69
+rm-460: 15; 69; 69
+rm-471: 39; 79; 81; 81
+rm-472: 66; 73; 74
+rm-473: 70; 81; 96; 96
+rm-474: 81; 71; 1822
+rm-475: 70; 80; 523
+rm-476: 80
+rm-477: 79; 79
+rm-478: 80; 62; 79; 1748
+rm-479: 79; 1709; 1738; 1752
+rm-480: 23; 24; 77; 79
+rm-461: 69; 69
+rm-462: 69
+rm-463: 68; 69; 104; 109
+rm-464: 69; 70
+rm-465: 9; 69; 79; 79
+rm-466: 69; 1347; 1576
+rm-467: 41; 54; 53
+rm-468: 47; 48; 73; 74; 85
+rm-469: 70; 70
+rm-470: 520; 516; 20; 19; 70
+rm-481: 51; 81; 96; 96
+rm-482: 96
+rm-483: 85; 89; 88
+rm-484: 40; 77; 84; 78; 85; 93
+rm-485: 83; 84
+rm-486: 83; 87; 86; 87
+rm-487: 81; 92
+rm-488: 96
+rm-489: 96
+rm-490: 69; 96; 96
+rm-491: 96; 192; 192
+rm-492: 30; 96; 98; 97; 98
+rm-493: 98; 117; 121; 122
+rm-494: 100; 103; 111; 114
+rm-495: 101; 102; 105; 106; 106; 271
+rm-496: 86; 106
+rm-497: 113; 1588
+rm-498: 112
+rm-499: 112; 1926; 1934
+rm-500: 97; 99; 101; 103; 114
 ```
