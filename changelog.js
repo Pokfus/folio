@@ -35,15 +35,19 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1181", released: "2026-10-30T02:51Z" };
+window.FOLIO_VERSION = { v: "1.1183", released: "2026-10-30T04:27Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
-    t: "Forty Second World War cards, Atlas borders back, 13 Library books",
+    t: "140 Second World War cards, Atlas borders back, 13 Library books",
     items: [
       "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again, on Snapdragon phones such as the Galaxy S24 Ultra too.",
-      "<b>40 new cards</b> in the Second World War's <i>Poland and the outbreak</i> and <i>The fall of the West</i> decks, with 37 new glossary terms.",
+      "The menu bar now lists the <b>Atlas</b> before the <b>Library</b>.",
+      "<b>36 new glossary terms</b>, linked from 11 cards across Egypt, Japan, World History, Greece, the Second World War, Korea, Rome and the United States.",
+      "Atlas windows on 3 cards: one in Russia now shows the Mongol Empire's borders in 1227, and Korea and the United States each gain one.",
+      "A World Geography card's date line and background now give its city's founding dates under its two earlier names.",
+      "<b>140 new cards</b> in five Second World War decks, from <i>Poland and the outbreak</i> to <i>Barbarossa and 1941</i>, with 132 new glossary terms.",
       "585 <b>Ancient Greece</b>, 590 <b>Ancient Rome</b> and 112 other cards (World History, Egypt, China, Russia, Geography) now quote the source their background cites, from the Library.",
       "<b>Library</b>: Plutarch's <i>Parallel Lives</i>, Pausanias's <i>Description of Greece</i> and Strabo's <i>Geography</i> join the shelf, each complete with the Greek beside it.",
       "<b>Livy's <i>History of Rome</i></b> (<i>Ab Urbe Condita</i>) is in the Library: all 35 surviving books, with the Latin beside the English.",

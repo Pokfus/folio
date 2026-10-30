@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-29T23:59Z",
+ "generated": "2026-10-30T04:03Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5271,
-  "redirect-broader": 489,
-  "redirect-variant": 331,
-  "section-redirect": 105,
-  "disambiguation": 138,
-  "none": 960,
-  "disambig-resolved": 78,
+  "ok": 5340,
+  "redirect-broader": 504,
+  "redirect-variant": 333,
+  "section-redirect": 107,
+  "disambiguation": 140,
+  "none": 969,
+  "disambig-resolved": 79,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -60138,6 +60138,799 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Panzer Group Kleist"
+  },
+  "ww2-241": {
+   "answer": "Mediterranean and Middle East theatre",
+   "title": "Mediterranean and Middle East theatre of World War II",
+   "url": "https://en.wikipedia.org/wiki/Mediterranean_and_Middle_East_theatre_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Mediterranean and Middle East theatre"
+  },
+  "ww2-242": {
+   "answer": "Greco-Italian War",
+   "title": "Greco-Italian War",
+   "url": "https://en.wikipedia.org/wiki/Greco-Italian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-243": {
+   "answer": "Battle of Pindus",
+   "title": "Battle of Pindus",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Pindus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-244": {
+   "answer": "Operation Compass",
+   "title": "Operation Compass",
+   "url": "https://en.wikipedia.org/wiki/Operation_Compass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-245": {
+   "answer": "Battle of Beda Fomm",
+   "title": "Battle of Beda Fomm",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Beda_Fomm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-246": {
+   "answer": "East African campaign",
+   "title": "East African campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/East_African_campaign_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-247": {
+   "answer": "Battle of Taranto",
+   "title": "Battle of Taranto",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Taranto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-248": {
+   "answer": "Battle of Cape Matapan",
+   "title": "Battle of Cape Matapan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Cape_Matapan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-249": {
+   "answer": "Siege of Malta",
+   "title": "Siege of Malta (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Malta_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-250": {
+   "answer": "Balkan campaign",
+   "title": "Balkans campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Balkans_campaign_(World_War_II)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Balkans campaign"
+  },
+  "ww2-291": {
+   "answer": "Reichskommissariat Ukraine",
+   "title": "Reichskommissariat Ukraine",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat_Ukraine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-292": {
+   "answer": "Soviet partisans",
+   "title": "Soviet partisans",
+   "url": "https://en.wikipedia.org/wiki/Soviet_partisans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-293": {
+   "answer": "Hilfswillige",
+   "title": "Hiwi (volunteer)",
+   "url": "https://en.wikipedia.org/wiki/Hiwi_(volunteer)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hilfswillige"
+  },
+  "ww2-294": {
+   "answer": "Severity Order",
+   "title": "Severity Order",
+   "url": "https://en.wikipedia.org/wiki/Severity_Order",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-295": {
+   "answer": "clean Wehrmacht myth",
+   "title": "Myth of the clean Wehrmacht",
+   "url": "https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Clean Wehrmacht myth"
+  },
+  "ww2-296": {
+   "answer": "stand-fast order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Military history of Italy during World War II",
+    "Scandinavian theatre of World War II",
+    "British merchant seamen of World War II",
+    "Soviet Union in World War II",
+    "Australia in World War II"
+   ]
+  },
+  "ww2-297": {
+   "answer": "rasputitsa",
+   "title": "Rasputitsa",
+   "url": "https://en.wikipedia.org/wiki/Rasputitsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-298": {
+   "answer": "Russian Winter",
+   "title": "Russian Winter",
+   "url": "https://en.wikipedia.org/wiki/Russian_Winter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-299": {
+   "answer": "Case Blue",
+   "title": "Case Blue",
+   "url": "https://en.wikipedia.org/wiki/Case_Blue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-300": {
+   "answer": "Operation Edelweiss",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Operation Edelweiss",
+   "target": "Battle of the Caucasus#German operations"
+  },
+  "ww2-261": {
+   "answer": "Operation Barbarossa",
+   "title": "Operation Barbarossa",
+   "url": "https://en.wikipedia.org/wiki/Operation_Barbarossa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-262": {
+   "answer": "Directive No. 21",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "End of World War II in Europe",
+    "Führer Directive No. 25",
+    "Aftermath of World War II",
+    "World War II by country"
+   ]
+  },
+  "ww2-263": {
+   "answer": "Barbarossa decree",
+   "title": "Barbarossa decree",
+   "url": "https://en.wikipedia.org/wiki/Barbarossa_decree",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-264": {
+   "answer": "Generalplan Ost",
+   "title": "Generalplan Ost",
+   "url": "https://en.wikipedia.org/wiki/Generalplan_Ost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-265": {
+   "answer": "Hunger Plan",
+   "title": "Hunger Plan",
+   "url": "https://en.wikipedia.org/wiki/Hunger_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-266": {
+   "answer": "Commissar Order",
+   "title": "Commissar Order",
+   "url": "https://en.wikipedia.org/wiki/Commissar_Order",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-267": {
+   "answer": "Red Army",
+   "title": "Red Army",
+   "url": "https://en.wikipedia.org/wiki/Red_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-268": {
+   "answer": "Richard Sorge",
+   "title": "Richard Sorge",
+   "url": "https://en.wikipedia.org/wiki/Richard_Sorge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-269": {
+   "answer": "Tukhachevsky affair",
+   "title": "Case of the Trotskyist Anti-Soviet Military Organization",
+   "url": "https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tukhachevsky affair"
+  },
+  "ww2-270": {
+   "answer": "Kesselschlacht",
+   "title": "Encirclement",
+   "url": "https://en.wikipedia.org/wiki/Encirclement",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Kesselschlacht"
+  },
+  "ww2-201": {
+   "answer": "Their finest hour",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Finest hour",
+   "suggestions": [
+    "This was their finest hour",
+    "Their Finest Hour (video game)",
+    "Hearts of Iron III: Their Finest Hour"
+   ]
+  },
+  "ww2-202": {
+   "answer": "May 1940 war cabinet crisis",
+   "title": "1940 British war cabinet crisis",
+   "url": "https://en.wikipedia.org/wiki/1940_British_war_cabinet_crisis",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "May 1940 war cabinet crisis"
+  },
+  "ww2-203": {
+   "answer": "Destroyers-for-bases deal",
+   "title": "Destroyers-for-bases deal",
+   "url": "https://en.wikipedia.org/wiki/Destroyers-for-bases_deal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-204": {
+   "answer": "Lend-Lease",
+   "title": "Lend-Lease",
+   "url": "https://en.wikipedia.org/wiki/Lend-Lease",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-205": {
+   "answer": "Atlantic Charter",
+   "title": "Atlantic Charter",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_Charter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-206": {
+   "answer": "America First Committee",
+   "title": "America First Committee",
+   "url": "https://en.wikipedia.org/wiki/America_First_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-207": {
+   "answer": "Directive No. 16",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "War crimes in World War II",
+    "End of World War II in Europe",
+    "Oil campaign of World War II",
+    "Aftermath of World War II"
+   ]
+  },
+  "ww2-208": {
+   "answer": "Operation Sea Lion",
+   "title": "Operation Sea Lion",
+   "url": "https://en.wikipedia.org/wiki/Operation_Sea_Lion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-209": {
+   "answer": "Blitzkrieg economy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Blitzkrieg",
+    "Military history of Italy during World War II",
+    "World War II",
+    "World War II casualties",
+    "World War II by country"
+   ]
+  },
+  "ww2-210": {
+   "answer": "Directive No. 18",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II",
+    "End of World War II in Europe",
+    "War crimes in World War II",
+    "World War II by country",
+    "Aftermath of World War II"
+   ]
+  },
+  "ww2-211": {
+   "answer": "Battle of Britain",
+   "title": "Battle of Britain",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Britain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-212": {
+   "answer": "RAF Fighter Command",
+   "title": "RAF Fighter Command",
+   "url": "https://en.wikipedia.org/wiki/RAF_Fighter_Command",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-213": {
+   "answer": "Dowding system",
+   "title": "Dowding system",
+   "url": "https://en.wikipedia.org/wiki/Dowding_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-214": {
+   "answer": "Chain Home",
+   "title": "Chain Home",
+   "url": "https://en.wikipedia.org/wiki/Chain_Home",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-215": {
+   "answer": "Hugh Dowding",
+   "title": "Hugh Dowding",
+   "url": "https://en.wikipedia.org/wiki/Hugh_Dowding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-216": {
+   "answer": "Luftwaffe",
+   "title": "Luftwaffe",
+   "url": "https://en.wikipedia.org/wiki/Luftwaffe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-217": {
+   "answer": "Adlertag",
+   "title": "Adlertag",
+   "url": "https://en.wikipedia.org/wiki/Adlertag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-218": {
+   "answer": "Keith Park",
+   "title": "Keith Park",
+   "url": "https://en.wikipedia.org/wiki/Keith_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-219": {
+   "answer": "Hermann Göring",
+   "title": "Hermann Göring",
+   "url": "https://en.wikipedia.org/wiki/Hermann_G%C3%B6ring",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-220": {
+   "answer": "Battle of Britain Day",
+   "title": "Battle of Britain Day",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Britain_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-281": {
+   "answer": "Evacuation Council",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Evacuations of civilians in the United Kingdom during the Second World War",
+    "Evacuation in the Soviet Union",
+    "World War II casualties",
+    "War crimes in World War II",
+    "World War II"
+   ]
+  },
+  "ww2-282": {
+   "answer": "Moscow counter-offensive",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Timeline of the Eastern Front of World War II",
+    "World War II",
+    "Finland in World War II",
+    "Brazil in World War II",
+    "Military history of Italy during World War II"
+   ]
+  },
+  "ww2-283": {
+   "answer": "Georgy Zhukov",
+   "title": "Georgy Zhukov",
+   "url": "https://en.wikipedia.org/wiki/Georgy_Zhukov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-284": {
+   "answer": "State Defence Committee",
+   "title": "State Defense Committee",
+   "url": "https://en.wikipedia.org/wiki/State_Defense_Committee",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "State Defence Committee"
+  },
+  "ww2-285": {
+   "answer": "Stavka",
+   "title": "Stavka",
+   "url": "https://en.wikipedia.org/wiki/Stavka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-286": {
+   "answer": "Soviet mobilisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Soviet Union in World War II",
+    "Continuation War",
+    "Eastern Front (World War II)",
+    "European theatre of World War II",
+    "Winter War"
+   ]
+  },
+  "ww2-287": {
+   "answer": "Order No. 227",
+   "title": "Order No. 227",
+   "url": "https://en.wikipedia.org/wiki/Order_No._227",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-288": {
+   "answer": "Shtrafbat",
+   "title": "Shtrafbat",
+   "url": "https://en.wikipedia.org/wiki/Shtrafbat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-289": {
+   "answer": "German mistreatment of Soviet prisoners of war",
+   "title": "German atrocities committed against Soviet prisoners of war",
+   "url": "https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "German mistreatment of Soviet prisoners of war"
+  },
+  "ww2-290": {
+   "answer": "Reich Ministry for the Occupied Eastern Territories",
+   "title": "Reich Ministry for the Occupied Eastern Territories",
+   "url": "https://en.wikipedia.org/wiki/Reich_Ministry_for_the_Occupied_Eastern_Territories",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-271": {
+   "answer": "Battle of Białystok–Minsk",
+   "title": "Battle of Białystok–Minsk",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bia%C5%82ystok%E2%80%93Minsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-272": {
+   "answer": "Battle of Smolensk",
+   "title": "Battle of Smolensk (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Smolensk_(1941)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-273": {
+   "answer": "Kaunas pogrom",
+   "title": "Kaunas pogrom",
+   "url": "https://en.wikipedia.org/wiki/Kaunas_pogrom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-274": {
+   "answer": "First Battle of Kiev",
+   "title": "Battle of Kiev (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First Battle of Kiev"
+  },
+  "ww2-275": {
+   "answer": "Army Group North",
+   "title": "Army Group North",
+   "url": "https://en.wikipedia.org/wiki/Army_Group_North",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-276": {
+   "answer": "Siege of Leningrad",
+   "title": "Siege of Leningrad",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-277": {
+   "answer": "Badayev warehouses",
+   "title": "Siege of Leningrad",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Badayev warehouses"
+  },
+  "ww2-278": {
+   "answer": "Road of Life",
+   "title": "Road of Life",
+   "url": "https://en.wikipedia.org/wiki/Road_of_Life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-279": {
+   "answer": "Operation Typhoon",
+   "title": "Battle of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Moscow",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Operation Typhoon"
+  },
+  "ww2-280": {
+   "answer": "Battle of Moscow",
+   "title": "Battle of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-221": {
+   "answer": "Few",
+   "title": "The Few",
+   "url": "https://en.wikipedia.org/wiki/The_Few",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-222": {
+   "answer": "No. 303 Squadron",
+   "title": "No. 303 Squadron RAF",
+   "url": "https://en.wikipedia.org/wiki/No._303_Squadron_RAF",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "No. 303 Squadron"
+  },
+  "ww2-223": {
+   "answer": "Blitz",
+   "title": "The Blitz",
+   "url": "https://en.wikipedia.org/wiki/The_Blitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-224": {
+   "answer": "bomber will always get through",
+   "title": "The bomber will always get through",
+   "url": "https://en.wikipedia.org/wiki/The_bomber_will_always_get_through",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-225": {
+   "answer": "Coventry Blitz",
+   "title": "Coventry Blitz",
+   "url": "https://en.wikipedia.org/wiki/Coventry_Blitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-226": {
+   "answer": "Air Raid Precautions",
+   "title": "Air Raid Precautions",
+   "url": "https://en.wikipedia.org/wiki/Air_Raid_Precautions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-227": {
+   "answer": "Anderson shelter",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Anderson shelter",
+   "target": "Air raid shelter#Anderson shelter"
+  },
+  "ww2-228": {
+   "answer": "Government Evacuation Scheme",
+   "title": "Evacuations of civilians in the United Kingdom during the Second World War",
+   "url": "https://en.wikipedia.org/wiki/Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Government Evacuation Scheme"
+  },
+  "ww2-229": {
+   "answer": "Blitz spirit",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Blitz",
+    "List of World War II video games",
+    "Blitz (2024 film)",
+    "Blitz!",
+    "Evacuations of civilians in the United Kingdom during the Second World War"
+   ]
+  },
+  "ww2-230": {
+   "answer": "War Cabinet",
+   "title": "War cabinet",
+   "url": "https://en.wikipedia.org/wiki/War_cabinet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-251": {
+   "answer": "Yugoslav coup d'état",
+   "title": "Yugoslav coup d'état",
+   "url": "https://en.wikipedia.org/wiki/Yugoslav_coup_d'%C3%A9tat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-252": {
+   "answer": "Invasion of Yugoslavia",
+   "title": "Invasion of Yugoslavia",
+   "url": "https://en.wikipedia.org/wiki/Invasion_of_Yugoslavia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-253": {
+   "answer": "Battle of Greece",
+   "title": "German invasion of Greece",
+   "url": "https://en.wikipedia.org/wiki/German_invasion_of_Greece",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Battle of Greece"
+  },
+  "ww2-254": {
+   "answer": "Battle of Crete",
+   "title": "Battle of Crete",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Crete",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-255": {
+   "answer": "Partition of Yugoslavia",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Partition of Yugoslavia",
+   "suggestions": []
+  },
+  "ww2-256": {
+   "answer": "Independent State of Croatia",
+   "title": "Independent State of Croatia",
+   "url": "https://en.wikipedia.org/wiki/Independent_State_of_Croatia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-257": {
+   "answer": "Anglo-Iraqi War",
+   "title": "Anglo-Iraqi War",
+   "url": "https://en.wikipedia.org/wiki/Anglo-Iraqi_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-258": {
+   "answer": "Anglo-Soviet invasion of Iran",
+   "title": "Anglo-Soviet invasion of Iran",
+   "url": "https://en.wikipedia.org/wiki/Anglo-Soviet_invasion_of_Iran",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-259": {
+   "answer": "Persian Corridor",
+   "title": "Persian Corridor",
+   "url": "https://en.wikipedia.org/wiki/Persian_Corridor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-260": {
+   "answer": "Operation 25",
+   "title": "Invasion of Yugoslavia",
+   "url": "https://en.wikipedia.org/wiki/Invasion_of_Yugoslavia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Operation 25"
+  },
+  "ww2-231": {
+   "answer": "Minister of Defence",
+   "title": "Minister of Defence (United Kingdom)",
+   "url": "https://en.wikipedia.org/wiki/Minister_of_Defence_(United_Kingdom)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-232": {
+   "answer": "BBC Home Service",
+   "title": "BBC Home Service",
+   "url": "https://en.wikipedia.org/wiki/BBC_Home_Service",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-233": {
+   "answer": "Dominion",
+   "title": "Dominion",
+   "url": "https://en.wikipedia.org/wiki/Dominion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-234": {
+   "answer": "National Resources Mobilization Act",
+   "title": "National Resources Mobilization Act",
+   "url": "https://en.wikipedia.org/wiki/National_Resources_Mobilization_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-235": {
+   "answer": "Singapore strategy",
+   "title": "Singapore strategy",
+   "url": "https://en.wikipedia.org/wiki/Singapore_strategy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-236": {
+   "answer": "Union Defence Force",
+   "title": "Union Defence Force (South Africa)",
+   "url": "https://en.wikipedia.org/wiki/Union_Defence_Force_(South_Africa)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-237": {
+   "answer": "British Commonwealth Air Training Plan",
+   "title": "British Commonwealth Air Training Plan",
+   "url": "https://en.wikipedia.org/wiki/British_Commonwealth_Air_Training_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-238": {
+   "answer": "King's African Rifles",
+   "title": "King's African Rifles",
+   "url": "https://en.wikipedia.org/wiki/King's_African_Rifles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-239": {
+   "answer": "Anglo-American Caribbean Commission",
+   "title": "Caribbean Commission",
+   "url": "https://en.wikipedia.org/wiki/Caribbean_Commission",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Anglo-American Caribbean Commission"
+  },
+  "ww2-240": {
+   "answer": "Ministry of Aircraft Production",
+   "title": "Minister of Aircraft Production",
+   "url": "https://en.wikipedia.org/wiki/Minister_of_Aircraft_Production",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Ministry of Aircraft Production"
   }
  }
 }

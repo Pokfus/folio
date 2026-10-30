@@ -426,6 +426,28 @@ meeting has no picture of itself).
 here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
 men outside a French grocer's shop. **Look at the picture.**
 
+**WHAT `ww2-201`–`ww2-300` LEARNED ABOUT HOSTS (Oct 2026).** The military decks of 1940–41 run on four
+open spines, all of which answered: **HyperWar on ibiblio** (Collier's *Defence of the United Kingdom*,
+Playfair's *Mediterranean and Middle East* I–II, Hancock and Gowing) — **over `http://` only**, since its
+https certificate fails through the proxy; **archive.org full texts** of the US Army's German Report
+Series pamphlets (20-260, 20-261a, 20-290, 20-291), Ziemke and Bauer's *Moscow to Stalingrad*, the
+Halder War Journal and *Nazi Conspiracy and Aggression* — where two uploads of one book exist, try the
+second, whose OCR is often far cleaner; **Avalon's IMT proceedings by date** for the commanders'
+testimony; and **the *London Gazette* despatches** (Dowding, Wavell, Cunningham), read through each
+page's `/data.pdf`. Two finds worth keeping: **the JPRS translations of *Voyenno-istoricheskiy
+zhurnal*** on archive.org carry the full text of Order No. 227 and Mikoyan's own account of the
+Evacuation Council, and **`tile.loc.gov`** serves the *Trials of War Criminals* PDFs whose `loc.gov/item`
+pages answer 403 (the item's `?fo=json` form also works). **Closed or walled:** `yadvashem.org`,
+`iwm.org.uk`, `raf.mod.uk`, Te Ara and `nzhistory.govt.nz` (403); NZETC now redirects into an
+Incapsula-walled web archive, so the New Zealand official histories cannot be read here; the old
+`nationalarchives.gov.uk/education/resources` pages 404; `ghdi.ghi-dc.org` timed out all session.
+**Wikimedia rate-limits ten agents at once almost completely** — the API and `upload.wikimedia.org`
+originals answer 429 for hours, while Commons file pages, thumbnails and `Special:FilePath` come through
+with pauses; one batched `api.php?prop=imageinfo&titles=…` call (up to 50 titles) confirms that every
+picture of a batch exists where 84 single requests could not. **And give every card its own picture**:
+three neighbouring pairs in this run reached for the same Commons file (a Minsk prisoner column, the
+Rosenberg-in-Kiev group, the Heinkel over Wapping) and had to be split.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -708,16 +730,16 @@ definitions, which exist precisely because the wording matters.
     ww2-198  Attack on Mers-el-Kébir
     ww2-199  The Channel Islands under German occupation  → written as *German occupation of the Channel Islands*
     ww2-200  Explaining the fall of France  → written as *Strange Defeat*
-    ww2-201  Britain's position after the fall of France
-    ww2-202  The British decision to fight on
+    ww2-201  Britain's position after the fall of France  → written as *Their finest hour*
+    ww2-202  The British decision to fight on  → written as *May 1940 war cabinet crisis*
     ww2-203  Destroyers-for-bases deal
     ww2-204  Lend-Lease
     ww2-205  Atlantic Charter
-    ww2-206  American opinion in 1940 and 1941
-    ww2-207  German planning for the invasion of Britain
+    ww2-206  American opinion in 1940 and 1941  → written as *America First Committee*
+    ww2-207  German planning for the invasion of Britain  → written as *Directive No. 16*
     ww2-208  Operation Sea Lion
-    ww2-209  Was there a Blitzkrieg economy?
-    ww2-210  Hitler's strategic choice after France
+    ww2-209  Was there a Blitzkrieg economy?  → written as *Blitzkrieg economy*
+    ww2-210  Hitler's strategic choice after France  → written as *Directive No. 18*
 
 ### Britain alone — `ww2-britain`
 
@@ -726,99 +748,99 @@ definitions, which exist precisely because the wording matters.
     ww2-213  Dowding system
     ww2-214  Chain Home
     ww2-215  Hugh Dowding
-    ww2-216  The Luftwaffe in 1940
-    ww2-217  The attack on the airfields
-    ww2-218  The crisis of Fighter Command
-    ww2-219  The switch to bombing London
+    ww2-216  The Luftwaffe in 1940  → written as *Luftwaffe*
+    ww2-217  The attack on the airfields  → written as *Adlertag*
+    ww2-218  The crisis of Fighter Command  → written as *Keith Park*
+    ww2-219  The switch to bombing London  → written as *Hermann Göring*
     ww2-220  Battle of Britain Day
     ww2-221  The Few
-    ww2-222  Polish and Commonwealth pilots in the Battle of Britain
+    ww2-222  Polish and Commonwealth pilots in the Battle of Britain  → written as *No. 303 Squadron*
     ww2-223  The Blitz
-    ww2-224  The failure of the Blitz
+    ww2-224  The failure of the Blitz  → written as *bomber will always get through*
     ww2-225  Coventry Blitz
-    ww2-226  British civil defence
-    ww2-227  Air raid shelters
-    ww2-228  The evacuation of British children
-    ww2-229  The myth of the Blitz spirit
-    ww2-230  The British war cabinet
-    ww2-231  Churchill as war leader
-    ww2-232  The BBC and wartime broadcasting
-    ww2-233  The British Empire and Commonwealth at war
-    ww2-234  Canada in the Second World War
-    ww2-235  Australia and New Zealand at war
-    ww2-236  South Africa in the Second World War
-    ww2-237  The Empire Air Training Scheme
-    ww2-238  African troops in the Allied armies
-    ww2-239  The Caribbean and the war
-    ww2-240  The British war economy in 1940 and 1941
+    ww2-226  British civil defence  → written as *Air Raid Precautions*
+    ww2-227  Air raid shelters  → written as *Anderson shelter*
+    ww2-228  The evacuation of British children  → written as *Government Evacuation Scheme*
+    ww2-229  The myth of the Blitz spirit  → written as *Blitz spirit*
+    ww2-230  The British war cabinet  → written as *War Cabinet*
+    ww2-231  Churchill as war leader  → written as *Minister of Defence*
+    ww2-232  The BBC and wartime broadcasting  → written as *BBC Home Service*
+    ww2-233  The British Empire and Commonwealth at war  → written as *Dominion*
+    ww2-234  Canada in the Second World War  → written as *National Resources Mobilization Act*
+    ww2-235  Australia and New Zealand at war  → written as *Singapore strategy*
+    ww2-236  South Africa in the Second World War  → written as *Union Defence Force*
+    ww2-237  The Empire Air Training Scheme  → written as *British Commonwealth Air Training Plan*
+    ww2-238  African troops in the Allied armies  → written as *King's African Rifles*
+    ww2-239  The Caribbean and the war  → written as *Anglo-American Caribbean Commission*
+    ww2-240  The British war economy in 1940 and 1941  → written as *Ministry of Aircraft Production*
 
 ### The Mediterranean and the Balkans — `ww2-mediterranean-early`
 
-    ww2-241  The Mediterranean theatre
+    ww2-241  The Mediterranean theatre  → written as *Mediterranean and Middle East theatre*
     ww2-242  Greco-Italian War
-    ww2-243  The Greek defence of 1940
+    ww2-243  The Greek defence of 1940  → written as *Battle of Pindus*
     ww2-244  Operation Compass
-    ww2-245  The Italian defeat in Cyrenaica
+    ww2-245  The Italian defeat in Cyrenaica  → written as *Battle of Beda Fomm*
     ww2-246  East African campaign
     ww2-247  Battle of Taranto
     ww2-248  Battle of Cape Matapan
     ww2-249  Siege of Malta
-    ww2-250  The German intervention in the Balkans
-    ww2-251  The Yugoslav coup of 1941
+    ww2-250  The German intervention in the Balkans  → written as *Balkan campaign*
+    ww2-251  The Yugoslav coup of 1941  → written as *Yugoslav coup d'état*
     ww2-252  The invasion of Yugoslavia
-    ww2-253  The German invasion of Greece
+    ww2-253  The German invasion of Greece  → written as *Battle of Greece*
     ww2-254  Battle of Crete
     ww2-255  The partition of Yugoslavia
     ww2-256  Independent State of Croatia
-    ww2-257  The Anglo-Iraqi War and the Syria-Lebanon campaign
+    ww2-257  The Anglo-Iraqi War and the Syria-Lebanon campaign  → written as *Anglo-Iraqi War*
     ww2-258  Anglo-Soviet invasion of Iran
     ww2-259  The Persian Corridor
-    ww2-260  Did the Balkans delay Barbarossa?
+    ww2-260  Did the Balkans delay Barbarossa?  → written as *Operation 25*
 
 ## The Eastern Front
 
 ### Barbarossa and 1941 — `ww2-barbarossa`
 
     ww2-261  Operation Barbarossa
-    ww2-262  The German plan for the invasion of the Soviet Union
-    ww2-263  The ideological character of the war in the East
+    ww2-262  The German plan for the invasion of the Soviet Union  → written as *Directive No. 21*
+    ww2-263  The ideological character of the war in the East  → written as *Barbarossa decree*
     ww2-264  Generalplan Ost
     ww2-265  Hunger Plan
     ww2-266  Commissar Order
-    ww2-267  The Red Army in June 1941
-    ww2-268  The warnings Stalin ignored
-    ww2-269  The purge of the Red Army and its effects
-    ww2-270  The encirclement battles of 1941
+    ww2-267  The Red Army in June 1941  → written as *Red Army*
+    ww2-268  The warnings Stalin ignored  → written as *Richard Sorge*
+    ww2-269  The purge of the Red Army and its effects  → written as *Tukhachevsky affair*
+    ww2-270  The encirclement battles of 1941  → written as *Kesselschlacht*
     ww2-271  Battle of Białystok–Minsk
     ww2-272  Battle of Smolensk
-    ww2-273  The Baltic states under German occupation
+    ww2-273  The Baltic states under German occupation  → written as *Kaunas pogrom*
     ww2-274  First Battle of Kiev
-    ww2-275  The German advance on Leningrad
+    ww2-275  The German advance on Leningrad  → written as *Army Group North*
     ww2-276  Siege of Leningrad
-    ww2-277  The starvation of Leningrad
+    ww2-277  The starvation of Leningrad  → written as *Badayev warehouses*
     ww2-278  The Road of Life
     ww2-279  Operation Typhoon
     ww2-280  Battle of Moscow
-    ww2-281  The Soviet evacuation of industry
-    ww2-282  The Soviet counter-offensive of December 1941
+    ww2-281  The Soviet evacuation of industry  → written as *Evacuation Council*
+    ww2-282  The Soviet counter-offensive of December 1941  → written as *Moscow counter-offensive*
     ww2-283  Georgy Zhukov
-    ww2-284  Stalin as war leader
+    ww2-284  Stalin as war leader  → written as *State Defence Committee*
     ww2-285  Stavka
     ww2-286  Soviet mobilisation
     ww2-287  Order No. 227
-    ww2-288  Penal battalions and blocking detachments
-    ww2-289  Soviet prisoners of war in German captivity
-    ww2-290  The German occupation regime in the East
-    ww2-291  Reichskommissariat Ostland and Ukraine
+    ww2-288  Penal battalions and blocking detachments  → written as *Shtrafbat*
+    ww2-289  Soviet prisoners of war in German captivity  → written as *German mistreatment of Soviet prisoners of war*
+    ww2-290  The German occupation regime in the East  → written as *Reich Ministry for the Occupied Eastern Territories*
+    ww2-291  Reichskommissariat Ostland and Ukraine  → written as *Reichskommissariat Ukraine*
     ww2-292  Soviet partisans
-    ww2-293  Collaboration in the occupied Soviet territories
-    ww2-294  The Wehrmacht and the war of annihilation
+    ww2-293  Collaboration in the occupied Soviet territories  → written as *Hilfswillige*
+    ww2-294  The Wehrmacht and the war of annihilation  → written as *Severity Order*
     ww2-295  Clean Wehrmacht myth
-    ww2-296  The German failure before Moscow
-    ww2-297  German logistics in the East
-    ww2-298  The winter of 1941–1942
+    ww2-296  The German failure before Moscow  → written as *stand-fast order*
+    ww2-297  German logistics in the East  → written as *rasputitsa*
+    ww2-298  The winter of 1941–1942  → written as *Russian Winter*
     ww2-299  Case Blue
-    ww2-300  The German drive to the Caucasus
+    ww2-300  The German drive to the Caucasus  → written as *Operation Edelweiss*
 
 ### Stalingrad and the turn — `ww2-stalingrad`
 
