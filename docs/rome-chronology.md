@@ -512,6 +512,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Pompeii: colony / earthquake / buried / found | 80 BCE / 62 CE (Tacitus; Seneca's consuls give 63) / 79 CE / 1748 | `rm-478` |
 | Herculaneum: buried / theatre found / dig began / papyri found | 79 CE / 1709 / 1738 / 1752 | `rm-479` |
 | Pliny the Elder: born / the Natural History published / died | 23 or 24 CE / 77 CE / 79 CE | `rm-480` |
+| the Second Battle of Bedriacum / the sack of Cremona ended | October 69 CE / 31 October 69 CE (Henderson) | `rm-461` |
+| Titus Flavius Sabinus killed | 19 December 69 CE (Henderson) | `rm-462` |
+| the arcanum imperii: the years / the Histories written | 68 – 69 CE / c. 104 – 109 CE (the Loeb editor) | `rm-463` |
+| the revolt of the Batavi | 69 – 70 CE | `rm-464` |
+| Vespasian: born / reigned / died | 17 November 9 CE / 69 – 79 CE / 23 June 79 CE | `rm-465` |
+| the lex de imperio Vespasiani: the Senate's vote / shown by Cola di Rienzo / to the Capitol | 69 CE / 1347 / 1576 | `rm-466` |
+| the fiscus: a central chest / fiscal courts | 41 – 54 CE (one older view) / 53 CE | `rm-467` |
+| adlectio: Claudius censor / the Flavian censors / Domitian censor for life | 47 – 48 CE / 73 – 74 CE / 85 CE | `rm-468` |
+| the siege of Jerusalem / the outer wall taken | April – September 70 CE / May 70 CE | `rm-469` |
+| the Second Temple: built / Herod's rebuilding / destroyed | 520 – 516 BCE / 20 – 19 BCE / 70 CE | `rm-470` |
 
 ## Late Antiquity
 
@@ -977,4 +987,14 @@ rm-477: 79; 79
 rm-478: 80; 62; 79; 1748
 rm-479: 79; 1709; 1738; 1752
 rm-480: 23; 24; 77; 79
+rm-461: 69; 69
+rm-462: 69
+rm-463: 68; 69; 104; 109
+rm-464: 69; 70
+rm-465: 9; 69; 79; 79
+rm-466: 69; 1347; 1576
+rm-467: 41; 54; 53
+rm-468: 47; 48; 73; 74; 85
+rm-469: 70; 70
+rm-470: 520; 516; 20; 19; 70
 ```

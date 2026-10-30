@@ -178,7 +178,7 @@ order unless the user says otherwise.
 | B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | **done 2026-10-30** |
 | B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | **done 2026-10-30** |
 | B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | **done 2026-10-30** |
-| B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | open |
+| B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | **done 2026-10-30** |
 | B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | **done 2026-10-30** |
 | B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | open |
 | B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | open |
@@ -740,6 +740,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-478` Pompeii | plaster casts of two of the dead | wrong: the casts, not the town; the Forum with Vesuvius behind would show it |
 | `rm-479` Herculaneum | skeletons in a waterfront chamber | ok; the description's "flows of the second day" should go |
 | `rm-480` Pliny the Elder | the dedication to Titus (a manuscript page) | acceptable: no ancient likeness exists |
+| `rm-461` Second Battle of Bedriacum | painted wall plaster from Roman Cremona | weak: the town, not the battle |
+| `rm-462` Titus Flavius Sabinus | the Capitol seen from the Roman Forum | acceptable: the place of his last stand |
+| `rm-463` arcanum imperii | a page of the Second Medicean manuscript of Tacitus | weak: the page shows the Annals, not Histories 1.4 |
+| `rm-464` Revolt of the Batavi | Rembrandt's Conspiracy of Claudius Civilis | acceptable: a painting of 1661 |
+| `rm-465` Vespasian | a portrait of Vespasian | ok |
+| `rm-466` Lex de imperio Vespasiani | the bronze tablet | ok |
+| `rm-467` fiscus | Flavian coinage in the Altes Museum | acceptable stand-in |
+| `rm-468` adlectio | none | no picture (`I.none`); an adlection inscription would suit |
+| `rm-469` Siege of Jerusalem | David Roberts's chromolithograph | acceptable: a 19th-century reconstruction, said so |
+| `rm-470` Second Temple | the temple warning inscription | weak: one object for the whole temple |
 
 ## Glossary candidates
 
@@ -1918,3 +1928,22 @@ Run as B47's neighbours (applied before B47, whose last pair was still out); eve
 | `rm-480` Pliny the Elder | 8 | 6 → 8 | **Born 23 or 24 CE is worked from his nephew's "fifty-sixth year"; letter 6.16 is the nephew's tribute written for Tacitus; the fumes are the nephew's guess, asthma one modern account**; his career and the preface's claims added. |
 
 **Read by eye.** *Confusability:* `rm-471`/`rm-474`/`rm-475`/`rm-476` the emperor (the lost day), the arch (DIVO TITO), the amphitheatre (the quarry) and the poems (the rhinoceros); `rm-472`/`rm-473` the rock and the tax; `rm-477`/`rm-478`/`rm-479`/`rm-480` the eruption (the term, the date), the town (the colony, the earthquake), the second town (the boathouses, the scrolls) and the admiral (the books). *Legend:* Masada's suicide and speeches and Titus's "lost day" are their authors'. *Overlap:* `wh-362` states Alföldy's inscription and the hundred days as plain fact; `wh-365`'s Pompeii colony phrasing is close to `rm-478`'s second.
+
+### B47 — `rm-461`–`rm-470`, Civil war and the Flavians: Second Bedriacum to the Second Temple (2026-10-30)
+
+Run as B46 (applied after B48, whose drafts were ready first); every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-461:rm-470` reads clean on seven cards; the rest carry `I.none` on `rm-468`, `W.not-why` (advisory, two cards) and `Q.sibling` on `rm-466` (43 per cent of a phrasing's content words shared with `rm-966`, only through the run of emperor names: advisory, kept). `check-cards` read "Hither Spain" in `rm-463`'s third phrasing as a scholar's name; it was reworded and re-applied. No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages and Platner–Ashby entries on Perseus, saved when read. **The old date lines carried another event ("Cremona founded 218 BCE"), counts ("Prefect of city 12 years", "Governed Moesia 7 years", "Clauses Eight, plus a sanction", "Shortfall declared 40,000 million sesterces", "Taken on the 15th day"), a citation as a date ("Histories Book 1, chapter 4"), a converted Macedonian day ("8 Gorpiaeus, September 70 CE") and a place and an age ("Died Cutiliae, aged 69").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-461` Second Battle of Bedriacum | 6 | 7 → 7 | **The 50,000 dead are Dio's figure for the battle and the sack together, not Tacitus's**; "end of October" (the Cambridge Ancient History), the sack ending 31 October (Henderson); the four days are Tacitus's; the ballista left to `rm-669`. |
+| `rm-462` Titus Flavius Sabinus | 6 | 7 → 6 | Tacitus's counts (35 years' service, Moesia seven, the city prefecture twelve) go to the prose; **killed 19 December 69 (Henderson; the Cambridge Ancient History implies the same day)**; no source prints 20 December. |
+| `rm-463` arcanum imperii | 6 | 8 → 6 | **"Written c. 105 – 110" had no source: the Loeb editor's 104 – 109 is one modern dating**; the idea is Tacitus's own interpretation; *Annals* 2.36 uses the phrase in another sense (Furneaux). The glossary's date was a citation. |
+| `rm-464` Revolt of the Batavi | 6 | 8 → 6 | **Tacitus is the one narrative, and Civilis as a new Sertorius or Hannibal is his framing**; "Autumn" and "Fell by famine" leave the line; Frontinus's 70,000 and the question's year go; Vetera's massacre, Veleda, the empire of the Gauls. |
+| `rm-465` Vespasian | 8 | 9 → 8 | **The old question carried a year and an unsourced "first emperor succeeded by his own son"**; the god-joke, the urine tax and the Alexandria healings are Suetonius's and Tacitus's; "pecunia non olet" is not Suetonius's phrase and is not used. The card's quote block gives 24 June from an older translation; the line follows the Loeb's 23 June. |
+| `rm-466` Lex de imperio Vespasiani | 6 | 6 → 6 | **No source says the tablet was dug up: Cola di Rienzo's own letter says Boniface VIII had hidden it as an altar**; matching it to the decree in Tacitus is the moderns'; the Senate's vote 69 CE (the people's law may be 70); to the Capitol 1576. |
+| `rm-467` fiscus | 6 | 9 → 8 | The old card was Vespasian's money-raising (Suetonius four times, Dio three); **it is now the institution: the basket, the aerarium beside it, Tacitus's "as if there was any difference", and two modern views**; Suetonius's 40,000 million is his (Budé proposed 4,000 million). |
+| `rm-468` adlectio | 5 | 7 → 8 | Names off the line and the year out of the question; **the censor-for-life year follows the CENS PER coins of 85, not the Loeb margin's 84**; two career inscriptions (ILS 1024, 1378). |
+| `rm-469` Siege of Jerusalem | 8 | 8 → 8 | **"8 Gorpiaeus, September 70 CE" was a conversion; the line is April – September 70 (Schürer, the Cambridge Ancient History)**; Josephus a captured rebel general on Titus's staff; Mary's infant his set piece; Dio's deserters; the 1,100,000 his figure. |
+| `rm-470` Second Temple | 8 | 8 → 9 | **Built 520 – 516 BCE in the Cambridge Ancient History (no open source prints 515); Herod's eighteenth year is Josephus's (his Jewish War says the fifteenth)**; 10 Lous is Josephus's day, not converted; Titus's order is Josephus against Sulpicius Severus. |
+
+**Read by eye.** *Confusability:* `rm-461`/`rm-462` the battle (the rising sun) and the brother (the Capitol); `rm-463`/`rm-464` the secret and the revolt; `rm-465`/`rm-466`/`rm-467`/`rm-468` the emperor (Alexandria), the law (Cola), the treasury (the basket) and the enrolment (the censors); `rm-469`/`rm-470` the siege (the wall of circumvallation) and the Temple (the brand through the window). *Legend:* Vespasian's healings, Mary's infant and the soldier's brand are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
