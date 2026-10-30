@@ -426,6 +426,28 @@ meeting has no picture of itself).
 here is the other one: a file in the category *Assemblies of the League of Nations* turned out to be six
 men outside a French grocer's shop. **Look at the picture.**
 
+**WHAT `ww2-201`–`ww2-300` LEARNED ABOUT HOSTS (Oct 2026).** The military decks of 1940–41 run on four
+open spines, all of which answered: **HyperWar on ibiblio** (Collier's *Defence of the United Kingdom*,
+Playfair's *Mediterranean and Middle East* I–II, Hancock and Gowing) — **over `http://` only**, since its
+https certificate fails through the proxy; **archive.org full texts** of the US Army's German Report
+Series pamphlets (20-260, 20-261a, 20-290, 20-291), Ziemke and Bauer's *Moscow to Stalingrad*, the
+Halder War Journal and *Nazi Conspiracy and Aggression* — where two uploads of one book exist, try the
+second, whose OCR is often far cleaner; **Avalon's IMT proceedings by date** for the commanders'
+testimony; and **the *London Gazette* despatches** (Dowding, Wavell, Cunningham), read through each
+page's `/data.pdf`. Two finds worth keeping: **the JPRS translations of *Voyenno-istoricheskiy
+zhurnal*** on archive.org carry the full text of Order No. 227 and Mikoyan's own account of the
+Evacuation Council, and **`tile.loc.gov`** serves the *Trials of War Criminals* PDFs whose `loc.gov/item`
+pages answer 403 (the item's `?fo=json` form also works). **Closed or walled:** `yadvashem.org`,
+`iwm.org.uk`, `raf.mod.uk`, Te Ara and `nzhistory.govt.nz` (403); NZETC now redirects into an
+Incapsula-walled web archive, so the New Zealand official histories cannot be read here; the old
+`nationalarchives.gov.uk/education/resources` pages 404; `ghdi.ghi-dc.org` timed out all session.
+**Wikimedia rate-limits ten agents at once almost completely** — the API and `upload.wikimedia.org`
+originals answer 429 for hours, while Commons file pages, thumbnails and `Special:FilePath` come through
+with pauses; one batched `api.php?prop=imageinfo&titles=…` call (up to 50 titles) confirms that every
+picture of a batch exists where 84 single requests could not. **And give every card its own picture**:
+three neighbouring pairs in this run reached for the same Commons file (a Minsk prisoner column, the
+Rosenberg-in-Kiev group, the Heinkel over Wapping) and had to be split.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
