@@ -20,6 +20,7 @@
      3  a tap on five interior points of the Roman Republic (200 BCE), a Greek polity (Macedon), a Chinese dynasty (Han) and a modern country (India, 2026) selects it and opens its popup, in the Personal Atlas
         and in the plain Map; a tap on an interior point of an undiscovered state (Carthage; China for the India reader) does nothing in Personal
      4  no console error
+     2b the discovered countries' borders ARE drawn in Personal at 2026 (East Asia: the India–China line) — a mask that hides every border passed every check above
    Re-run after touching `aliveShown`, `refreshPersonalPresent`, atlas-gl.js's `setPersonalPresent` / the keep pass / the arc mask, the worker's `arc-faces`, or `stackAt`. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -87,7 +88,11 @@ const scan = (page) => A(page, (c) => {
   for (let y = 9; y < H - 8; y += STEP) for (let x = 6; x < W - 6; x += STEP) {
     if (inChrome(x, y)) continue;
     const k = at(x, y); out.n++; out[k]++;
-    if (k === "plain" && x % 18 === 0 && y % 18 === 0) out.plainPts.push([x, y]);
+    if (k === "plain" && x % 18 === 0 && y % 18 === 0) {   // a tap point: clear of a river by 12 px (a river's tap area wins in the Map)
+      let nearWater = false;
+      for (let dy = -12; dy <= 12 && !nearWater; dy += STEP) for (let dx = -12; dx <= 12; dx += STEP) if (at(x + dx, y + dy) === "water") { nearWater = true; break; }
+      if (!nearWater) out.plainPts.push([x, y]);
+    }
     if (k === "empty" && x % 18 === 0 && y % 18 === 0) out.emptyPts.push([x, y]);
     if (k !== "border") continue;
     let nearPlain = false;
@@ -152,6 +157,7 @@ const stats = (page) => A(page, (c) => { const s = c.statsNow(); return { faces:
         }
         if (ids.length && (name === "East Asia" || name === "California")) {
           check(`${where}: …and the discovered country IS drawn (plain land)`, s.plain > 100, counts(s));
+          if (name === "East Asia") check(`${where}: …and its border IS drawn (the 2026-10-30 report: the arc mask's 1 read as 1/255 and hid every border)`, s.border > 20, counts(s));
           await mode(page, "map"); const m = await scan(page);
           check(`${where}: the plain Map at the same view draws every country's border and plain land (${counts(m)}) — so the check above is not vacuous`, m.empty === 0 && m.plain > s.plain && m.border > 40, counts(m));
           await mode(page, "full"); const f = await scan(page);
