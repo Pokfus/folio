@@ -211,7 +211,7 @@ order unless the user says otherwise.
 | B77 | Provinces and frontiers (`rm-provinces`) | `rm-761`–`rm-770` | 10 | 92 | **done 2026-10-30** |
 | B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | **done 2026-10-30** |
 | B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | **done 2026-10-30** |
-| B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | open |
+| B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | **done 2026-10-30** |
 | B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | open |
 | B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | open |
 | B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | open |
@@ -1060,6 +1060,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-788` pater familias | none | not re-checked: the card has no picture |
 | `rm-789` patria potestas | none | not re-checked: the card has no picture |
 | `rm-790` matrimonium | none | not re-checked: the card has no picture; a sarcophagus relief of the joined right hands would do |
+| `rm-791` conventio in manum | none | not re-checked: the card has no picture; a marriage relief would do |
+| `rm-792` res uxoria | none | not re-checked: the card has no picture |
+| `rm-793` divortium | none | not re-checked: the card has no picture |
+| `rm-794` matrona | none | not re-checked: the card has no picture; a statue of a woman in the stola would do |
+| `rm-795` tutela mulierum | none | not re-checked: the card has no picture |
+| `rm-796` bulla | none | not re-checked: the card has no picture; a gold bulla or a boy's bust wearing one would do |
+| `rm-797` toga virilis | none | not re-checked: the card has no picture; a togate youth would do |
+| `rm-798` adrogatio | none | not re-checked: the card has no picture |
+| `rm-799` ludi magister | none | not re-checked: the card has no picture; the Neumagen school relief would do |
+| `rm-800` grammaticus | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -2902,3 +2912,41 @@ Run as B78, the agents resumed after the usage limit. Before applying, `rm-787`'
 | `rm-790` matrimonium | 7 | 7 → 8 | **The wedding customs (flammeum, torch, threshold) rested only on Smith and go; ages at marriage a modern model's**; Ulpian's consent maxim; Modestinus's definition; Pomponius on marrying an absent man by letter. |
 
 **Read by eye.** *Confusability:* `rm-781`/`rm-782` the town (the ogham stone) and the idea (the Turdetani); `rm-783`/`rm-784`/`rm-785` the rebel (the Musulamii), the port (the sea loan) and the silk people (Virgil's leaves); `rm-786`/`rm-787`/`rm-788`/`rm-789`/`rm-790` status (the Vestal), the household (the urban slaves), its head (the censor's court), his power (the three sales) and marriage (Modestinus). *Legend:* Dionysius's Romulus and Florus's Seres embassy are their authors'. *Overlap:* `wh-409` and `cnh-230` (the Silk Road) agree.
+
+### B80 — `rm-791`–`rm-800`, Family, household and slavery: conventio in manum to the grammaticus (2026-10-30)
+
+Run as B79. Carvilius Ruga's divorce was kept for `rm-793` alone (cut from `rm-792`'s line), and his freedman's school for `rm-799` alone; the bulla's dedication at the toga virilis stayed out of both cards' questions. `rm-793`'s 231 and 235 BCE are Gellius's 523rd and 519th years from the founding converted on Varro's epoch, as the chronology's conventions prescribe; the prose says whose each is. **The old date lines carried Carvilius's divorce on the dowry ("Security needed 231 BCE"), a "last attested 293 CE" no source read gives, and labels naming a man and a place ("Crates at Rome", "Gallic pay law").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-791` conventio in manum | 6 | 7 → 6 | **Manus like a father's power, and the three ways already in the Twelve Tables, now credited to modern writers; Dionysius, Gellius and Smith go**; Gaius's three roads; the three nights away; Tiberius on the old rite (worded to Tacitus). |
+| `rm-792` res uxoria | 5 | 7 → 7 | **"Security needed 231 BCE" was Carvilius's divorce (`rm-793`'s): no date line; the gift was called dos, "res uxoria" the name of the action for it**; Ulpian's sixths for children; the Julian law on dotal land (Gaius); the Scipio dowry question (`rm-266`'s) replaced, the story kept in prose. |
+| `rm-793` divortium | 6 | 7 → 8 | **"First divorce 231 BCE" becomes Traditional 231 BCE with 235 BCE also given, each year's source named, and an earlier divorce in Valerius Maximus and Livy noted**; "keep your things for yourself"; Caesar and Pompeia; the freedman's school left to `rm-799`. |
+| `rm-794` matrona | 6 | 6 → 8 | **The toga comparison (`rm-818`'s) out of the main question**; the stola denied to prostitutes and adulteresses; the Matronalia of 1 March; the gold for Apollo's bowl, Livy's and Plutarch's rewards side by side; the Oppian protest in prose only (`rm-275`, `rm-845`). |
+| `rm-795` tutela mulierum | 5 | 5 → 5 | **"Last attested 293 CE" could not be sourced: Traditional 451 – 450 BCE, still in force c. 318 CE, likely abolished c. 320 – 325 CE (Arjava's argument, under Constantine)**; Gaius's "specious rather than true"; Cicero's trustees; Claudius and the agnates; the three-children question (`rm-407`'s) dropped. |
+| `rm-796` bulla | 6 | 7 → 8 | **The Tarquinius story legend, Pliny's and Macrobius's; the freedmen's sons' leather strap dated by Macrobius to the war with Hannibal**; Laevinus's gold (Livy); Juvenal's Etruscan bulla; two Met records of Etruscan gold bullae; Plutarch (LacusCurtius) goes. |
+| `rm-797` toga virilis | 7 | 7 → 9 | **"Toga pura", "tirocinium fori" and "sixteen" could no longer be sourced: 14 or 15, sometimes later; the broad stripe (`rm-699`'s) goes**; Augustus's twelfth and thirteenth consulships; Claudius carried to the Capitol at midnight; Ovid on the Liberalia (17 March); Sardis's embassy for Gaius. |
+| `rm-798` adrogatio | 5 | 5 → 8 | **"A sale before a magistrate" becomes Gaius's adoption "by a magistrate's authority"; Cicero's speech marked partisan; "twenty-year-old" out of a question**; Gellius's rogatio; Clodius's adoption; the adrogated man's children as grandchildren; Galba and Piso (Tacitus). |
+| `rm-799` ludi magister | 6 | 7 → 8 | **Livy's Verginia and Falerii told as tradition; the patron's divorce left to `rm-793`**; Plutarch's Spurius Carvilius; Martial's noisy schoolmaster; the Price Edict's 50 denarii a pupil a month. |
+| `rm-800` grammaticus | 6 | 7 → 9 | **"Crates at Rome" and "Gallic pay law" renamed: first lectures 168 BCE (Suetonius says only "about the time Ennius died"; two modern accounts give the year) and the salary law of 376 CE, its rates from the Latin text**; Crates's broken leg; Juvenal's smoky lamps; Orbilius; the Edict's 200 denarii. |
+
+**Read by eye.** *Confusability:* `rm-791`/`rm-792`/`rm-793`/`rm-794` the wife's passing into power (the spelt cake), the dowry (Ulpian's sixths), the divorce (Pompeia) and the matron (the Matronalia); `rm-795`/`rm-796`/`rm-797`/`rm-798` the guardianship (Cicero's trustees), the amulet (Laevinus), the coming of age (Claudius at midnight) and the adoption (Clodius); `rm-799`/`rm-800` the elementary teacher (Martial) and the literature teacher (Crates). *Legend:* Carvilius's first divorce, Tarquinius's bulla, Verginia and the schoolmaster of Falerii are told as tradition. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### The eighth hundred, in sum
+
+`rm-701`–`rm-800` (the close of Government, law and citizenship, the whole of Provinces and frontiers and the opening of Family, household and slavery) are done: 704 sources became 776 and 88 glossary entries were rewritten. `rm-audit.js --range=rm-701:rm-800` reads no card clean only because every card lacks a picture (`I.none`: Commons answered 429 at the session's one test call, and "Pictures to redo" holds a verdict for each); the rest are 34 `S.chip?` false positives (English BMCR reviews of German-, French- and Italian-titled books), 6 advisory `W.not-why`, one note-only `Q.sibling` (`rm-727`'s guard against `rm-538`'s auction), 2 `G.date` that are deliberate (`rm-763`'s and `rm-766`'s glossary terms are the whole cities, shared with `rm-181` and `gr-801`) and 7 `L.missing` that are deliberate (below). LacusCurtius, which carried most of the old cards' sources (Smith's dictionaries, the Loebs), did not answer all session; the law deck was read on the Grenoble Roman Law Library and Roby's, Greenidge's and Poste's books on archive.org, the provinces on Perseus, Livius, archive.org and open journals. The agents of B78 – B80 stopped on a usage limit and were resumed after the reset. B71 was applied alone, then B72 – B79 two batches to a run (one commit each run), then B80.
+
+What the eighth hundred found, again and again:
+- **A dictionary standing in for the evidence.** The old cards rested on Smith's dictionaries at LacusCurtius for claims no ancient text bears out: the folding curule chair and its gold, the wedding torch and threshold, "toga pura" and "sixteen" for the toga virilis, the extortion middlemen, the lex Cornelia in 82 BCE (the readable sources say 81), the civic era of Syria, "full Roman ownership" under the ius Italicum. Each was re-sourced or cut.
+- **A modern label as ancient fact.** The senatorial province ("the provinces of the People"), the limes as a line, the Lower Germanic and Danubian Limes (heritage names), the Roman–Parthian Wars, Romanisation (Mommsen's and Haverfield's), patronage for clientela, formulary procedure, res uxoria (the action, not the gift), the Law of Citations and the Silk Road (Richthofen's) are each said to be modern.
+- **A translator's margin or a dictionary's year read as the author's.** Bennett's queried "83 A.D. ?" for Domitian's limites; Cary's 45 BCE for the aediles of Ceres, 67 BCE for the binding edicts and 22 BCE for Narbonensis (kept only as the collection's standing year, said so); a Loeb margin's 406 BCE for the soldiers' pay; "Guard prefect 205 CE" from a footnote. Each was cut or labelled.
+- **Counts and men on the date line.** "35 tribes", "Most in a year 25", "In Pomponius' day 18", "Sulla's 20", "26 pairs", "Tithe a 10th", "2 federate, 5 free"; and "Gabinian law", "Cotta's jury law", "Pompey's law", "Seized by Caesar", "In Pliny", "Nero's proposal", "Gan Ying's trip", "Crates at Rome", "Narbo founded", "Gallic pay law", "Oea feud settled". All went to prose or were renamed.
+- **Another event on the line.** Augustus's naming on auctoritas; Varro's election on the new man; Commodus's reign on the suffect consul; Scipio's election and Pompey's law on the promagistrate; the Roscius trial on the sack; Hermogenian's code on the rescript; Hiero II's reign on his law; the Dacian war on the Danube; Carvilius's divorce on the dowry.
+- **Wrong facts the old cards stated.** The peregrine praetor judging "between a citizen and a peregrinus" (in neither Gaius nor Pomponius); Appian's 1 per cent "set by Pompey" (paid in Appian's day); Velleius's 800,000 as men under arms (the rebel peoples); "more than a third of the Digest" (about a third); Papinian a treasury advocate "under Severus" (he succeeded him); Strabo's ten provinces "praetorian" (his translator's consular governments); "about July" as Pliny's (the Periplus's); Ulpian's Tyre granted by "Severus" alone (Severus and the reigning emperor); Egypt's end in 640 (641).
+- **Siblings sharing a clue, caught before applying.** Publilius Philo on `rm-711` and `rm-740`; Ulpian's Tyre on `rm-727` and `rm-780`; Agricola 21 on `rm-757` and `rm-782`; Quirinius on `rm-744` and `rm-770`; Carvilius on `rm-792` and `rm-793`; Gaius's spondeo on `rm-719`; Livy's camp vote on `rm-745`; the bronze and balance on `rm-787`; the prefect of Egypt (`rm-811`) on `rm-765`.
+
+Overlap notes for the owner (nothing was edited): `wh-363` dates Salvius Julianus's edict c. 130 CE, which no source read here gives (`rm-723` gives no year); `wh-364`, `wh-438`, `wh-368`, `wh-409`, `cnh-230`, `gr-801`, `gr-877`, `wh-295` and `wh-348` agree. The plan's note that `rm-734`'s law is "82 BCE as Smith gives it" is now out of date (81 BCE). `rm-792`'s agent suggests the card might be retitled "dos": the plan's term stands until the owner decides.
+
+### Locators (2026-10-30, the eighth hundred)
+
+None was added or moved, so `migrate-places.js` was not run. The seven `L.missing` are provinces or regions that want a hand-drawn `area`, and no sourced outline was found for any: the Agri Decumates (`rm-756`), Roman Britain (`rm-757`), Hispania (`rm-761`), Africa Proconsularis (`rm-762`), Roman Egypt (`rm-765`), Roman Syria (`rm-768`) and Judaea (`rm-770`). The cities and sites already had their points (Londinium, Lugdunum, Narbo, Mogontiacum, Carthage, Leptis Magna, Alexandria, Palmyra, Caesarea Maritima, Corinth, Sarmizegetusa, Calleva and Muziris among them). For a later pass: `rm-776` Pannonia's point sits near Sirmium on the province's south-east edge; `rm-742` portorium (Ephesus, the customs law's findspot), `rm-778` lex Hieronica (Syracuse), `rm-726` Gaius (Verona), `rm-729` the Digest (Florence) and `rm-727` Ulpian (Tyre) carry points for a law, a text or a man that a later pass may prefer to drop.

@@ -349,6 +349,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the aerarium: the manumission tax (Livy; a modern reckoning) | 357 BCE | `rm-745` |
 | the denarius: Pliny's year, as one modern history converts it | 269 BCE | `rm-748` |
 | the Parthian Empire: the Arsacid era begins | 247 BCE | `rm-773` |
+| tutela mulierum: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-795` |
 
 ## The middle and late Republic
 
@@ -475,6 +476,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Roman–Parthian Wars (a modern name): Rome's first defeat | 53 BCE | `rm-772` |
 | Bithynia: bequeathed / joined to Pontus | 74 BCE / 64 BCE | `rm-774` |
 | Muziris: the port flourished | c. 100 BCE – 300 CE | `rm-784` |
+| divortium: Carvilius's first divorce (tradition; Gellius's years on Varro's epoch) | 231 BCE / also 235 BCE | `rm-793` |
+| the grammaticus: Crates's first lectures (Suetonius: about the time Ennius died) | 168 BCE | `rm-800` |
 
 ## The Principate
 
@@ -824,6 +827,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Leptis Magna taken by the Vandals | 455 CE | `rm-764` |
 | Roman Egypt and Alexandria: the end of Roman rule | 641 CE | `rm-765`, `rm-766` |
 | Calleva abandoned | c. 550 – 650 CE | `rm-781` |
+| tutela mulierum: still in force / likely abolished (one argument) | c. 318 CE / c. 320 – 325 CE | `rm-795` |
+| the grammaticus: the salary law (CTh 13.3.11) | 376 CE | `rm-800` |
 
 ## Chronology pins
 
@@ -1553,4 +1558,7 @@ rm-781: 20; 10; 70; 80; 270; 550; 650
 rm-783: 17; 24
 rm-784: 100; 300
 rm-785: 97; 166
+rm-793: 231; 235
+rm-795: 451; 450; 318; 320; 325
+rm-800: 168; 376
 ```
