@@ -223,6 +223,107 @@ const DIALOGUE = (n) => DIALOGUES[n - 1];
 const TETRALOGY = (d) => Math.ceil(parseInt(d.w.slice(3), 10) / 4);
 const TET_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
+/* ---------- PLUTARCH'S LIVES, and this table IS the book (Oct 2026) ----------
+   The Dialogues' shape a second time: every Life is its own Perseus work, with its own id, so both
+   halves of the book are addressed through this one table. The titles are TRANSCRIBED — Perseus's
+   catalogue names for the works, which are Perrin's — except where one file holds two lives (`b`, see
+   teiNamedBook), whose titles are the edition's own heads for them: AGIS, CLEOMENES, TIBERIUS
+   GRACCHUS, CAIUS GRACCHUS.
+
+   THE ORDER IS THE CATALOGUE'S, the order of the printed editions since the Renaissance, and it is
+   NOT Plutarch's. He numbered his pairs, and the text says so: Pericles opens by calling itself "this
+   tenth book", where it stands fifth here, and Demosthenes and Dion name their own numbers too. That
+   original sequence is not recoverable, so the inherited one is kept and the front matter says so.
+
+   `pair` is the part a Life sits in: the two lives Plutarch set side by side and, where it survives,
+   the comparison he wrote after them. Four pairs have lost theirs (Themistocles–Camillus,
+   Pyrrhus–Marius, Alexander–Caesar, Phocion–Cato); the last four Lives stand alone. */
+const PLUTARCH_LIVES = [
+  { t: "Theseus", w: "tlg001", en: "eng3", pair: 1 },
+  { t: "Romulus", w: "tlg002", pair: 1 },
+  { t: "Comparison of Theseus and Romulus", w: "tlg003", pair: 1 },
+  { t: "Lycurgus", w: "tlg004", pair: 2 },
+  { t: "Numa", w: "tlg005", pair: 2 },
+  { t: "Comparison of Lycurgus and Numa", w: "tlg006", pair: 2 },
+  { t: "Solon", w: "tlg007", pair: 3 },
+  { t: "Publicola", w: "tlg008", pair: 3 },
+  { t: "Comparison of Solon and Publicola", w: "tlg009", pair: 3 },
+  { t: "Themistocles", w: "tlg010", pair: 4 },
+  { t: "Camillus", w: "tlg011", pair: 4 },
+  { t: "Pericles", w: "tlg012", pair: 5 },
+  { t: "Fabius Maximus", w: "tlg013", pair: 5 },
+  { t: "Comparison of Pericles and Fabius Maximus", w: "tlg014", pair: 5 },
+  { t: "Alcibiades", w: "tlg015", pair: 6 },
+  { t: "Caius Marcius Coriolanus", w: "tlg016", pair: 6 },
+  { t: "Comparison of Alcibiades and Coriolanus", w: "tlg017", pair: 6 },
+  { t: "Timoleon", w: "tlg018", pair: 7 },
+  { t: "Aemilius Paulus", w: "tlg019", pair: 7 },
+  { t: "Comparison of Timoleon and Aemilius", w: "tlg020", pair: 7 },
+  { t: "Pelopidas", w: "tlg021", pair: 8 },
+  { t: "Marcellus", w: "tlg022", pair: 8 },
+  { t: "Comparison of Pelopidas and Marcellus", w: "tlg023", pair: 8 },
+  { t: "Aristides", w: "tlg024", pair: 9 },
+  { t: "Marcus Cato", w: "tlg025", pair: 9 },
+  { t: "Comparison of Aristides and Marcus Cato", w: "tlg026", pair: 9 },
+  { t: "Philopoemen", w: "tlg027", pair: 10 },
+  { t: "Titus Flamininus", w: "tlg028", pair: 10 },
+  { t: "Comparison of Philopoemen and Titus", w: "tlg029", pair: 10 },
+  { t: "Pyrrhus", w: "tlg030", pair: 11 },
+  { t: "Caius Marius", w: "tlg031", pair: 11 },
+  { t: "Lysander", w: "tlg032", pair: 12 },
+  { t: "Sulla", w: "tlg033", pair: 12 },
+  { t: "Comparison of Lysander and Sulla", w: "tlg034", pair: 12 },
+  { t: "Cimon", w: "tlg035", pair: 13 },
+  { t: "Lucullus", w: "tlg036", pair: 13 },
+  { t: "Comparison of Lucullus and Cimon", w: "tlg037", pair: 13 },
+  { t: "Nicias", w: "tlg038", pair: 14 },
+  { t: "Crassus", w: "tlg039", pair: 14 },
+  { t: "Comparison of Nicias and Crassus", w: "tlg040", pair: 14 },
+  { t: "Eumenes", w: "tlg041", pair: 15 },
+  { t: "Sertorius", w: "tlg042", pair: 15 },
+  { t: "Comparison of Sertorius and Eumenes", w: "tlg043", pair: 15 },
+  { t: "Agesilaus", w: "tlg044", pair: 16 },
+  { t: "Pompey", w: "tlg045", pair: 16 },
+  { t: "Comparison of Agesilaus and Pompey", w: "tlg046", pair: 16 },
+  { t: "Alexander", w: "tlg047", pair: 17 },
+  { t: "Caesar", w: "tlg048", pair: 17 },
+  { t: "Phocion", w: "tlg049", pair: 18 },
+  { t: "Cato the Younger", w: "tlg050", pair: 18 },
+  { t: "Agis", w: "tlg051", b: "Agis", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Cleomenes", w: "tlg051", b: "Cleomenes", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Tiberius Gracchus", w: "tlg052", b: "Tiberius", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Caius Gracchus", w: "tlg052", b: "Caius", en: "eng1", grc: "grc1", pair: 19 },
+  { t: "Comparison of Agis and Cleomenes and the Gracchi", w: "tlg053", pair: 19 },
+  { t: "Demosthenes", w: "tlg054", pair: 20 },
+  { t: "Cicero", w: "tlg055", pair: 20 },
+  { t: "Comparison of Demosthenes and Cicero", w: "tlg056", pair: 20 },
+  { t: "Demetrius", w: "tlg057", pair: 21 },
+  { t: "Antony", w: "tlg058", pair: 21 },
+  { t: "Comparison of Demetrius and Antony", w: "tlg059", pair: 21 },
+  { t: "Dion", w: "tlg060", pair: 22 },
+  { t: "Brutus", w: "tlg061", pair: 22 },
+  { t: "Comparison of Dion and Brutus", w: "tlg062", pair: 22 },
+  { t: "Aratus", w: "tlg063", pair: 23 },
+  { t: "Artaxerxes", w: "tlg064", pair: 23 },
+  { t: "Galba", w: "tlg065", pair: 23 },
+  { t: "Otho", w: "tlg066", pair: 23 },
+];
+const PLUTARCH_LIFE = (n) => PLUTARCH_LIVES[n - 1];
+const PLUTARCH_PAIRS = [
+  "Theseus and Romulus", "Lycurgus and Numa", "Solon and Publicola", "Themistocles and Camillus",
+  "Pericles and Fabius Maximus", "Alcibiades and Coriolanus", "Timoleon and Aemilius Paulus",
+  "Pelopidas and Marcellus", "Aristides and Cato the Elder", "Philopoemen and Flamininus",
+  "Pyrrhus and Marius", "Lysander and Sulla", "Cimon and Lucullus", "Nicias and Crassus",
+  "Eumenes and Sertorius", "Agesilaus and Pompey", "Alexander and Caesar",
+  "Phocion and Cato the Younger", "Agis and Cleomenes, and the Gracchi", "Demosthenes and Cicero",
+  "Demetrius and Antony", "Dion and Brutus", "The single Lives",
+];
+const PLUTARCH_URL = (n, side) => {
+  const L = PLUTARCH_LIFE(n);
+  return "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0007/" + L.w +
+    "/tlg0007." + L.w + ".perseus-" + (side === "grc" ? L.grc || "grc2" : L.en || "eng2") + ".xml";
+};
+
 /* ---------- THE 313 FABLES, IN THE ORDER THIS EDITION PRINTS THEM ----------
    A table rather than arithmetic, because there is no arithmetic to do: the fables are reached by
    NAME, one Wikisource subpage each, and the only thing that says what order they come in is the
@@ -2584,6 +2685,153 @@ const BOOKS = {
         [/uulgo cane bantur/g, "uulgo canebantur",
          "a line break kept as a space, Divus Julius 80 — `et illa uulgo cane bantur`"],
       ],
+    },
+  },
+
+  "plutarch-lives": {
+    title: "Parallel Lives",
+    author: "Plutarch",
+    translator: "Bernadotte Perrin",
+    edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1926",
+    written: "early 2nd century CE",
+
+    /* ---------- THE LICENCE, the Plato shape: two layers on both sides ----------
+       The expired-copyright half rests on the date of publication and on nothing else. Every one of
+       the sixty-six Perseus files names its Loeb volume and its year in its own sourceDesc — volumes 1
+       to 11, 1914 to 1926 — so all of it was published before 1929 and is public domain in the United
+       States. Perrin made the Greek text as well as the translation (the Greek files name him as
+       editor, with the same volumes and years), so the facing column rests on the same ground.
+       WHAT IS NOT CLAIMED is a life-plus-seventy term: Perrin's dates are not in anything this session
+       could open, so no death year is asserted — the Ovid discipline, a licence never held up by a
+       fact that had to be guessed at.
+       The SECOND layer is Perseus's: every file carries a `<licence>` element for Creative Commons
+       Attribution-ShareAlike 4.0, which is named in `rights`, printed on the book's page and credited. */
+    rights:
+      "Two layers, both stated. Bernadotte Perrin's translation, and the Greek text printed beside " +
+      "it, which he also edited, were published in the eleven volumes of the Loeb Classical Library " +
+      "between 1914 and 1926 — all before 1929 — so their copyright has expired in the United " +
+      "States. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+      "Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations — Ian " +
+      "Scott-Kilvert's and others' Penguin Classics volumes and Robin Waterfield's Oxford World's " +
+      "Classics selections — are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0007/",
+
+    /* THE FRONT MATTER — chapter 0. Three things a reader should be told rather than discover: the
+       order is not Plutarch's, the work is moral portraiture rather than history (he says so himself,
+       quoted from this translation), and the numbers in the margin are the chapters a Life is cited
+       by, which are also what pair the two columns. */
+    about: [
+      "<b>Parallel Lives</b> is a set of biographies of famous Greeks and Romans, written in pairs: " +
+        "a Greek statesman or general set beside a Roman whose life and character seemed to Plutarch " +
+        "to answer it — Theseus and Romulus, the founders; Demosthenes and Cicero, the orators; " +
+        "Alexander and Caesar. Most pairs end with a short essay comparing the two men. Twenty-two " +
+        "pairs survive, together with four Lives that stand alone, fifty Lives in all; at least one " +
+        "pair, Epaminondas and Scipio, is lost.",
+      "Plutarch was a Greek from Chaeronea in Boeotia, born in the middle of the first century CE, " +
+        "who lived into the reign of Hadrian. He studied at Athens, travelled to Rome, held Roman " +
+        "citizenship, and served for many years as a priest at Delphi. Besides the Lives he wrote a " +
+        "great body of essays and dialogues on ethics, religion and philosophy, gathered as the " +
+        "<i>Moralia</i>, and the Lives come from the same mind: he wanted to show virtue and vice at " +
+        "work in real men. He says so at the opening of the <i>Alexander</i>: ‘For it is not " +
+        "Histories that I am writing, but Lives; and in the most illustrious deeds there is not " +
+        "always a manifestation of virtue or vice, nay, a slight thing like a phrase or a jest often " +
+        "makes a greater revelation of character than battles where thousands fall.’",
+      "The Lives have been among the most read books of antiquity ever since. Thomas North's English " +
+        "version of 1579 was Shakespeare's source for <i>Julius Caesar</i>, <i>Antony and " +
+        "Cleopatra</i> and <i>Coriolanus</i>, and much of what is commonly known about the men here " +
+        "comes from Plutarch alone. He is a moralist and a storyteller rather than a critical " +
+        "historian, and he often says which of his sources he doubts; his facts are best read with " +
+        "that in mind.",
+      "<b>The order here is not Plutarch's.</b> He numbered his pairs, and the text says so — the " +
+        "<i>Pericles</i> calls itself the tenth book, the <i>Demosthenes</i> the fifth and the " +
+        "<i>Dion</i> the twelfth — but his sequence is lost, and the Lives are given in the order of " +
+        "the printed editions, which the standard catalogue keeps. Each pair is one part of the " +
+        "book: its two Lives and, where it survives, the comparison that follows them. Four pairs " +
+        "have lost their comparison. The last part holds the four single Lives: Aratus, Artaxerxes, " +
+        "and Galba and Otho, the two survivors of a series on the Roman emperors.",
+      "The translation is Bernadotte Perrin's, from the Loeb Classical Library of 1914–1926, and " +
+        "the Greek beside it is the text he printed with it. The small raised figures in both " +
+        "columns are the chapter numbers by which a Life is cited, so that a reference such as " +
+        "‘Pericles 24’ is a number you can find on the page; an English chapter and a Greek " +
+        "one carrying the same figure are the same place in the book. The numbered notes folded " +
+        "under each Life are Perrin's.",
+    ],
+
+    /* ---------- ONE TEI FILE PER LIFE, both columns, from Perseus ----------
+       The Dialogues' encoding exactly — the same publisher, the same CTS scheme — with Plutarch's
+       citation grid: `chapter` divisions holding `section` divisions. A Folio chapter is one Life (or
+       one comparison) and the columns pair on its CHAPTERS, the unit a Life is cited by ("Pericles
+       24"); the Loeb sections inside are joined into the chapter's one paragraph (`joinParagraphs`,
+       see teiSections), because Perseus gives each its own `<p>` and they cut sentences in half.
+
+       MEASURED BEFORE IT WAS BELIEVED, all sixty-six files on both sides: 1,966 English chapters
+       against 1,970 Greek, identical numbers in identical order in sixty-five files. The sixty-sixth
+       is the Comparison of Lysander and Sulla, whose GREEK file tags four of chapter 5's sections as
+       `subtype="chapter"` n=2–5 — which would read as chapters 2–5 a second time and set four Greek
+       passages against the wrong English. `xmlFix` below retags them; it touches that one file only.
+
+       TWO FILES HOLD TWO LIVES EACH — Agis with Cleomenes, Tiberius with Caius Gracchus — as named
+       `book` divisions whose chapters each start again from 1. Each life is a chapter of its own
+       here (`teiBook`, teiNamedBook), which is also how they are cited: "Cleomenes 10", not 31.
+
+       THE NOTES. Perrin's footnotes are all marked `place="inline"` in these files, which on the
+       Suetonius shape means an omission mark set in the flow; here they are true footnotes, so
+       `inlineNotes: "foot"` lifts them into the fold. The Greek files' notes (Perrin's apparatus, in
+       English) go the way every original's notes go — see writeOriginal. */
+    /* ---------- A NOTE WHOSE TEXT LANDED IN THE PROSE (Oct 2026) ----------
+       Phocion 33.7, in Perseus's English: Hegemon's footnote marker is a self-closed `<note/>` and
+       Perrin's note on him — "One of Phocion's party, and, like him, under accusation of treachery" —
+       stands run on to the end of the sentence, with no space ("a spear.One of Phocion's party"). It
+       is a gloss on a name and not Plutarch, so it is put back where the marker is. */
+    reFixes: [
+      [/Hegemon<note resp="editor" place="inline" anchored="true"\/>/g,
+       'Hegemon<note resp="editor" place="inline" anchored="true">One of Phocion\u2019s party, and, like him, ' +
+       "under accusation of treachery, i.e. of favouring Cassander rather than Polysperchon.</note>",
+       "Phocion 33.7 — an empty note on Hegemon, its text stranded after the sentence (see above)"],
+      [/a spear\.One of Phocion\u2019s party, and, like him, under accusation of treachery, i\.e\. of favouring Cassander rather than Polysperchon\. /g,
+       "a spear. ",
+       "Phocion 33.7 — the same note's text, taken out of the prose"],
+    ],
+    source: "tei",
+    perChapter: true,
+    inlineNotes: "foot",
+    joinParagraphs: true,
+    teiBook: (n) => PLUTARCH_LIFE(n).b,
+    url: (n) => PLUTARCH_URL(n, "eng"),
+    chapterWord: "Life",
+    titleOf: (n) => PLUTARCH_LIFE(n).t,
+    chapters: PLUTARCH_LIVES.map((_, i) => i + 1),
+    /* The pairs, DERIVED from the table so the groups and the order cannot come to disagree. */
+    parts: PLUTARCH_PAIRS.map((label, i) => {
+      const idx = PLUTARCH_LIVES.map((L, k) => (L.pair === i + 1 ? k + 1 : 0)).filter(Boolean);
+      return { n: i + 1, label: label, from: idx[0], to: idx[idx.length - 1] };
+    }),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      perChapter: true,
+      inlineNotes: "foot",
+      joinParagraphs: true,
+      teiBook: (n) => PLUTARCH_LIFE(n).b,
+      url: (n) => PLUTARCH_URL(n, "grc"),
+      // the Comparison of Lysander and Sulla — see the note above `source`
+      xmlFix: (xml, n) => (PLUTARCH_LIFE(n).w === "tlg034"
+        ? xml.replace(/<div type="textpart" subtype="chapter" n="([2-5])">/g,
+          '<div type="textpart" subtype="section" n="$1">')
+        : xml),
+      edition: "Bernadotte Perrin's Loeb text (Harvard University Press and William Heinemann, 1914–1926), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. Plutarch wrote in Greek in the early second century, so the words " +
+        "themselves are in the public domain everywhere, and Bernadotte Perrin's edition of them was " +
+        "published in the Loeb Classical Library between 1914 and 1926 — before 1929. The digital " +
+        "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and " +
+        "is released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0007/",
     },
   },
 
@@ -16960,6 +17208,326 @@ const BOOKS = {
     },
   },
 
+  "pausanias-description-of-greece": {
+    title: "Description of Greece",
+    // the work's own Greek title, as Herodotus's and the Oedipus Rex's entries give theirs
+    subtitle: "Ἑλλάδος Περιήγησις",
+    author: "Pausanias",
+    translator: "W. H. S. Jones and H. A. Ormerod",
+    edition: "Pausanias, Description of Greece, with an English translation by W. H. S. Jones (Volume II with H. A. Ormerod), Loeb Classical Library, William Heinemann and Harvard University Press, 1918–1935",
+    written: "c. 155–180 CE",
+
+    /* ---------- THE LICENCE: two grounds, by volume, and one limit stated ----------
+       The Loeb prints the translation in four volumes and they do not stand on the same footing.
+       Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain in the United
+       States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books VIII.22–X, 1935) are
+       NOT clear by date, and the ground for them is NON-RENEWAL, checked rather than assumed — the
+       Classic of Tea's method: a 1933 book had to be renewed in 1960–61 and a 1935 one in 1962–63,
+       and the Catalog of Copyright Entries, Third Series, Part 1, for both halves of 1960, 1961, 1962
+       and 1963 (the Internet Archive's OCR) holds no entry for "Pausanias" or "Description of Greece".
+       The same volumes do list Harvard's renewals (as "President & Fellows of Harvard College") and
+       a NEW registration for Jones's Pliny (1963), so the search can see this claimant and this
+       translator; its limit is the OCR's, and `rights` says "lists no renewal", not "was never
+       renewed".
+       THE URAA QUESTION, said out loud because the Poetic Edda's note in docs/library-gaps.md turns
+       on it: Volume IV's title page reads "London: William Heinemann Ltd; Cambridge, Massachusetts:
+       Harvard University Press, MCMXXXV" and "Printed in Great Britain". A work first published
+       abroad and not in the US within thirty days would have had its copyright restored in 1996;
+       one published in the US at the same time is a US work and is not restored. The imprint names
+       the American publisher on the title page, which is the evidence for the second. English
+       Wikisource hosts all ten books of this translation under {{PD-US}}; that is a second opinion,
+       not the evidence relied on.
+       THE LIMIT: Jones died on 4 February 1963 and Ormerod in 1964 (Wikidata, Q52156216 and
+       Q52305975), so the translation is NOT public domain in countries that count life plus seventy
+       until 1 January 2034 (Volume II, Ormerod's share, 2035) — the Nicomachean Ethics' position
+       with Ross (2042). The Greek is Friedrich Spiro's Teubner text of 1903, clear by date. The
+       Perseus layer is the usual one — the digital edition, CC BY-SA 4.0 — with no modernised prose
+       (the file's header says nothing like Herodotus's "modernized by Steven Ott"); the spelling is
+       American in the file ("harbor", "honor") and the reader's spelling pass handles it.
+       Peter Levi's Penguin of 1971 is in copyright and is named so nobody reaches for it. J. G.
+       Frazer's of 1898 and Thomas Taylor's of the 1790s are free, but English Wikisource lists both
+       with no transcription behind either link (checked Oct 2026), and Perseus's Jones is already structured
+       and paired with a Greek text, which neither of them is. */
+    rights:
+      "Public domain in the United States, on two grounds by volume, with one limit stated. W. H. S. " +
+      "Jones's translation (Volume II with H. A. Ormerod) was published in the Loeb Classical Library " +
+      "in four volumes. Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain " +
+      "in the United States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books " +
+      "VIII.22–X, 1935) were published by Heinemann in London and Harvard University Press in " +
+      "Cambridge, Massachusetts, and their copyright was not renewed — the Catalog of Copyright Entries " +
+      "for 1960–1963 lists no renewal — so they are public domain in the United States too. Jones died " +
+      "in 1963 and Ormerod in 1964, so the translation is still in copyright in countries whose term " +
+      "is the author's life plus seventy years, until 2034 (2035 for Volume II). The Greek beside it " +
+      "is Friedrich Spiro's Teubner edition of 1903, public domain on every ground. Both columns are " +
+      "taken from the digital editions prepared by the Perseus Digital Library at Tufts University, " +
+      "which are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+      "Pausanias wrote the work in Greek in the second century CE. (Peter Levi's translation, 1971, " +
+      "is still in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should know before starting: what kind of book this
+       is (a guide, not a history), when and by whom it was written and how little is known of him,
+       why archaeologists still carry it, how the ten books run, and what the edition and its figures
+       are. The three quotations are from this translation, checked against the file (1.26.4,
+       7.20.6, 10.34.5). */
+    about: [
+      "<b>Description of Greece</b> is a traveller's account of mainland Greece as it stood in the " +
+        "second century CE, under Roman rule, written by a Greek who went to see it for himself. It " +
+        "moves region by region and road by road — out of a city gate, past the tombs along the way, " +
+        "to the next town, its sanctuaries and what stands in them — and stops at each place worth " +
+        "seeing to tell the stories attached to it: who founded the city, which god was worshipped " +
+        "there and why, what happened in its wars. Pausanias states his purpose in passing, when he " +
+        "catches himself lingering: \"my narrative must not loiter, as my task is a general " +
+        "description of all Greece.\"",
+      "Almost nothing is known of the man beyond what the book lets slip. He seems to have come from " +
+        "Lydia, in the west of what is now Turkey, and he had travelled in Palestine, Egypt and Italy " +
+        "as well as Greece. The book was written over a long stretch of years, and he dates it " +
+        "himself in two places: he explains in Book VII that he left the great music hall Herodes " +
+        "Atticus built at Athens out of his book on Attica because \"my account of the Athenians was " +
+        "finished before Herodes began the building\", and near the end of Book X he mentions " +
+        "\"bandits, called the Costoboes, who overran Greece in my day\" — a raid of about 170 CE. So " +
+        "the work is usually dated from the 150s to the 170s or a little later.",
+      "His interests are religion, art and the past rather than the life around him. He has little " +
+        "to say about the Roman province he was walking through and a great deal about temples, " +
+        "statues, paintings, tombs and the local versions of myths that no other source preserves. " +
+        "For centuries he was read as a compiler of other men's books; excavation has largely " +
+        "reversed that verdict, because the buildings and monuments he describes have turned up, " +
+        "over and over, where he says they stand — at Olympia and Delphi, at Athens and Corinth — and " +
+        "the book is still carried on site by archaeologists and visitors.",
+      "There are ten books, each named after the region it covers: Attica (with Megara), Corinth " +
+        "(with the Argolid), Laconia, Messenia, two on Elis, which give most of their length to " +
+        "Olympia, then Achaia, Arcadia, Boeotia, and Phocis, which includes Delphi, with Ozolian " +
+        "Locri. The book titles in the tabs are the edition's own. The tour is not the whole of " +
+        "Greece — Thessaly, Macedonia, the islands and the north-west are missing — and the work ends " +
+        "abruptly enough that some readers think it unfinished.",
+      "The translation is W. H. S. Jones's, made for the Loeb Classical Library and published in " +
+        "four volumes between 1918 and 1935; H. A. Ormerod shared the second. The Greek beside it is " +
+        "Friedrich Spiro's Teubner edition of 1903. The small raised figures running through both " +
+        "columns are CHAPTER numbers, which is how a passage of Pausanias is cited in any language: " +
+        "\"Pausanias 2.16.6\" means book 2, chapter 16, section 6, and the two columns are set side by " +
+        "side on the chapter. The numbered notes are the edition's own: many are dates, and many " +
+        "name the poem a quoted verse comes from. Fifteen slips in the digital transcription are " +
+        "corrected against a second transcription of the same edition.",
+    ],
+
+    /* PROSE IN BOOKS OF NUMBERED CHAPTERS — Herodotus's layout (teiBookChapters): a Folio chapter is
+       one of the ten books, the pairing runs on the chapter numbers inside it, and the sections are
+       concatenated into their chapter. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0525/tlg001/tlg0525.tlg001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+    /* The edition's own book heads, transcribed — every book is headed by its region in both files
+       ("Attica", Ἀττικά …), and the two books on Elis "Elis 1" and "Elis 2" (Ἠλιακῶν Α, Β). */
+    titleOf: (n) => ["Attica", "Corinth", "Laconia", "Messenia", "Elis I", "Elis II", "Achaia",
+      "Arcadia", "Boeotia", "Phocis and Ozolian Locri"][n - 1],
+    /* THREE THINGS IN PERSEUS'S MARKUP THAT THE SHARED READER WOULD WELD, put right in this file's
+       own TEI before it is read (`teiRaw`, which no other book declares, so no other book changes).
+       · A PARAGRAPH BREAK INSIDE A SECTION. The file marks the printed page's paragraphs as
+         `<milestone unit="para" ed="P"/>`, 979 of them; 914 open a `<p>` and cost nothing, but 65
+         stand inside one, and unwrapped they weld two sentences — "hold Artemis Leucophryne in
+         honor.But my narrative must not loiter". A milestone after a full stop becomes the paragraph
+         break it marks; one after a letter or a comma (six, all mid-sentence — "blind to
+         the<milestone/>danger") becomes a space, since a break there is not the printed page's.
+       · THE SOURCE OF A QUOTATION, IN THE PROSE. Each verse Pausanias quotes is followed by a
+         `<bibl>` naming it ("Hom. Il. 14.490"), which the Loeb prints at the foot of the page and
+         which unwrapped reads as part of his sentence: "…wealth in abundance.Hom. Il. 14.490 The
+         story told at the mysteries". Outside a note it becomes a note, so it lands in the fold
+         with a marker after the quotation; inside a note (the cross-references, "Paus. 1.35.6") it
+         is already where it belongs.
+       · THE WORD AFTER A QUOTATION, welded to it — `</quote>The` — gets its space. */
+    /* THE TRANSCRIPTION'S SLIPS, each one read against the second transcription of the same Loeb —
+       English Wikisource's, proofread against the scan, book by book (fetched Oct 2026) — which
+       sets every one of these as below. Ten are a space lost after a comma or semicolon; three are
+       a letter or hyphen misread. One row has no witness: Book III is not transcribed on
+       Wikisource, and "he cured it.I saw" is a full stop and a capital with the space between them
+       gone, which no reading can dispute. Seen and LEFT: "Magas was in formed that" (1.7.2), which
+       the Wikisource transcription also prints, so the second witness does not say the page differs. */
+    fixes: [
+      ["Peloponnesus</placeName>,and the", "Peloponnesus</placeName>, and the", "1.3.4 — the space after the comma (Wikisource)"],
+      ["the Marmaridae,a tribe", "the Marmaridae, a tribe", "1.7.2 — the space after the comma (Wikisource)"],
+      ["territory of Haliartus,where", "territory of Haliartus, where", "1.27.5 — the space after the comma (Wikisource)"],
+      ["was Anaxibi ,sister of Agamemnon", "was Anaxibia, sister of Agamemnon", "2.29.4 — a letter dropped from the name (Wikisource: Anaxibia)"],
+      ["he cured it.I saw", "he cured it. I saw", "3.25.7 — the space after the full stop (Book III has no second transcription)"],
+      ["cross the Alpheius,there", "cross the Alpheius, there", "5.6.7 — the space after the comma (Wikisource)"],
+      ["the images in it,were", "the images in it, were", "6.19.15 — the space after the comma (Wikisource)"],
+      ["boys' boxing.match, Hellan", "boys' boxing-match, Hellan", "6.7.8 — a hyphen read as a full stop (Wikisource: boxing-match)"],
+      ["through good.will", "through good-will", "7.4.2 — a hyphen read as a full stop (Wikisource: good-will)"],
+      ["Herodes, an Athenian,in memory", "Herodes, an Athenian, in memory", "7.20.6 — the space after the comma (Wikisource)"],
+      ["by the Sicyonians;it is", "by the Sicyonians; it is", "7.26.13 — the space after the semicolon (Wikisource)"],
+      ["the same board ;the good", "the same board; the good", "8.2.4 — the space on the wrong side of the semicolon (Wikisource)"],
+      ["is Buphagium,and here", "is Buphagium, and here", "8.26.8 — the space after the comma (Wikisource)"],
+      ["him. Heracles,thinking", "him. Heracles, thinking", "9.27.6 — the space after the comma (Wikisource)"],
+      ["into the shrine,while", "into the shrine, while", "10.32.17 — the space after the comma (Wikisource)"],
+    ],
+    teiRaw: (xml) => xml
+      .replace(/<note\b[\s\S]*?<\/note>|<quote\b[\s\S]*?<\/quote>|<bibl\b[^>]*>([\s\S]*?)<\/bibl>|(?<=([\s\S]))<milestone unit="para" ed="P"\/>/g,
+        (whole, cite, before) => {
+          // a citation may name a place, so its own tags go ("Chersias of <placeName>Orchomenus</placeName>")
+          if (cite !== undefined) return '<note anchored="true">' + cite.replace(/<[^>]*>/g, "").trim() + "</note>";
+          if (before !== undefined) return /[\p{L},;]/u.test(before) ? " " : "</p><p>";
+          return whole;
+        })
+      .replace(/\s*<\/quote>(\s*<note anchored="true">[^<]*<\/note>)?\s*(?=[\p{L}\p{N}“‘"(\[])/gu, "</quote>$1 ")
+      // …and the word BEFORE one: "the verse:<quote>Orneae was their home" (46 of them)
+      .replace(/(?<=[\p{L}\p{N}.,;:!?])<quote\b/gu, " <quote"),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Friedrich Spiro, Pausaniae Graeciae Descriptio, 3 volumes, Teubner, Leipzig, 1903",
+      rights:
+        "Two layers, both stated. Pausanias wrote the work in Greek in the second century CE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is Friedrich " +
+        "Spiro's Teubner edition, published in Leipzig in 1903, whose copyright has expired. The " +
+        "digital edition is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0525/tlg001/tlg0525.tlg001.perseus-grc2.xml",
+      /* The Greek carries the same `<bibl>` after its quotations, 85 of them, and here they are not
+         Spiro's — a Teubner text prints no such references in its text — and the original column
+         has no note fold to move them to, so they go, and the word after a quotation gets its space. */
+      teiRaw: (xml) => xml
+        .replace(/<note\b[\s\S]*?<\/note>|<bibl\b[^>]*>[\s\S]*?<\/bibl>/g, (whole) => (/^<note/.test(whole) ? whole : " "))
+        .replace(/\s*<\/quote>\s*(?=[\p{L}\p{N}“‘"(\[])/gu, "</quote> "),
+    },
+  },
+
+  "strabo-geography": {
+    title: "Geography",
+    // the work's own Greek title, as the Herodotus entry gives his
+    subtitle: "Γεωγραφικά",
+    author: "Strabo",
+    translator: "H. C. Hamilton and W. Falconer",
+    edition: "The Geography of Strabo, literally translated, with notes, by H. C. Hamilton and W. Falconer, Bohn's Classical Library, Henry G. Bohn, London, 1854–1857",
+    // the range Perseus's own header gives the work's creation, 7–24 CE
+    written: "c. 7–24 CE",
+
+    /* ---------- THE LICENCE: expired on every ground, plus Perseus's digital edition ----------
+       Bohn published the translation in three volumes between 1854 and 1857, so it is public domain in
+       the United States on the pre-1929 rule. Its two translators are Hans Claude Hamilton, books 1–6,
+       and William Falconer, books 7–17 (the publisher's Notice at the head of volume 1 tells how the two
+       undertakings were merged). Falconer lived 1801–1885 (Wikisource's author page) and Hamilton
+       1811–1895 (the Library of Congress name heading as the University of Pennsylvania's catalogue
+       prints it), so the term of a joint work, run from the last to die, expired in 1965 under life plus
+       seventy and 1995 under life plus a hundred. The Greek is August Meineke's Teubner text in the 1877
+       printing; Meineke lived 1790–1870, looked up rather than recalled. Perseus's digital editions are
+       CC BY-SA 4.0: the English file says so in its own <availability>, and the Greek carries none and
+       falls under the repository's statement, as the Herodotus entry records for his.
+       THE MODERN TRANSLATION a reader is likeliest to be pointed at, Duane W. Roller's (Cambridge,
+       2014), is in copyright and is not used. Horace Leonard Jones's Loeb (1917–1932), which Perseus
+       also carries for books 6–14, is not used either: one complete translation by one pair of hands
+       beats a patchwork, and the later Loeb volumes fall after 1928. */
+    rights:
+      "Public domain on every ground, in both columns. Strabo wrote the Geography in Greek two " +
+      "thousand years ago. The English is the translation by H. C. Hamilton and W. Falconer, " +
+      "published by Henry G. Bohn in London in three volumes between 1854 and 1857, so it is public " +
+      "domain in the United States as a pre-1929 publication; Falconer died in 1885 and Hamilton in " +
+      "1895, so it is also public domain wherever copyright lasts for the author's life plus seventy " +
+      "or a hundred years. The Greek is the text edited by August Meineke (1790–1870) for Teubner, in " +
+      "the Leipzig printing of 1877, and is public domain on the same grounds. The digital editions of " +
+      "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+      "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (Duane W. Roller's " +
+      "translation of 2014 is in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-eng4.xml",
+    layout: "chaptered",
+    /* Paired on the SECTION, not the chapter — see the block above teiBookSections for the measurement.
+       Hamilton's one-paragraph "Summary" at the head of each book is his, not Strabo's, has no Greek
+       to face, and is skipped and reported; the Fragments of book 7 are Strabo, and come after its
+       chapter 7 as they do in both editions. */
+    pairOn: "section",
+    sectionChapters: { fragments: { k: 8, label: "Fr. " } },
+    chapterWord: "Book",
+    chapters: Array.from({ length: 17 }, (_, i) => i + 1),
+    /* No `titleOf`: Hamilton heads nine of the seventeen books with a region ("BOOK III. SPAIN.") and
+       the other eight with nothing, and composing names for those eight would be an apparatus this
+       edition does not have. The front matter says what each book covers instead. The three volumes
+       ARE the edition's own division, stated on its title pages, so they are the parts. */
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 7 },
+      { n: 2, label: "Volume II", from: 8, to: 13 },
+      { n: 3, label: "Volume III", from: 14, to: 17 },
+    ],
+
+    /* THE FRONT MATTER. Strabo's dates and travels are from Wikipedia's article on him (born 64 or 63
+       BCE at Amaseia, up the Nile to Philae with Aelius Gallus, a lost history before this); the
+       work's date, and the contents of each book, from its article on the Geographica; the two
+       translators' story from the publisher's own Notice in volume 1; the Fragments from Hamilton's
+       note at their head. Nothing here is recalled. */
+    about: [
+      "This is the oldest description of the whole known world to have come down to us complete, " +
+        "and it was written by a man who had seen a surprising amount of it. Strabo was born in 64 " +
+        "or 63 BCE at Amaseia in Pontus, on the southern shore of the Black Sea, into a wealthy " +
+        "Greek-speaking family; he studied in Rome, travelled widely, and went up the Nile as far as " +
+        "Philae in the company of Aelius Gallus, the Roman prefect of Egypt. He wrote a history " +
+        "first, which is lost. This is the work he wrote after it, in seventeen books, and he was " +
+        "still working on it under Tiberius, past the age of eighty.",
+
+      "The first two books are an argument about what geography is: Homer is claimed as its " +
+        "founder, and Eratosthenes, Hipparchus, Polybius and Posidonius are taken on one after " +
+        "another, measured, corrected and occasionally mocked. Then the tour begins in the far " +
+        "west and goes round the Mediterranean: Spain in book 3; Gaul, Britain and the Alps in 4; " +
+        "Italy and Sicily in 5 and 6; northern and eastern Europe in 7; Greece and its islands in 8 " +
+        "to 10; Asia from the Caucasus to the Aegean in 11 to 14; Persia and India in 15; the Near " +
+        "East and Arabia in 16; and Egypt and North Africa in 17. It is less a map than a reading of " +
+        "places — who founded them, what grows there, which line of Homer they explain — and it is " +
+        "a principal source for many of the regions it covers.",
+
+      "The translation is the one Henry Bohn published in London between 1854 and 1857, the first " +
+        "complete Strabo in English. Its own Notice tells how it came to have two names on it: Bohn " +
+        "gave the work to H. C. Hamilton, whose official duties let him reach only the end of the " +
+        "sixth book in three years, and meanwhile learned that W. Falconer — son of the editor of the " +
+        "Oxford edition of the Greek — had a finished translation of his own. The two were combined, " +
+        "so books 1 to 6 are Hamilton's and the rest Falconer's. The notes are theirs, citing the " +
+        "French and German scholars who had worked on the text, and there are over five thousand " +
+        "of them; most are a single line giving a place its modern name or finding the line of Homer " +
+        "being quoted.",
+
+      "<b>The small figures in the text are the citation numbers, chapter and section.</b> " +
+        "Strabo is cited by book, chapter and section — “Strabo 4.5.2” is book 4, chapter " +
+        "5, section 2 — so within a book a figure like 5.2 marks the place, and each row of the " +
+        "two-column page is one section. The Greek beside the English is August Meineke's text, " +
+        "printed by Teubner in 1877; the translators followed the earlier text of Gustav Kramer, so " +
+        "the two columns are different editions of the same work and now and then disagree about a " +
+        "word. Words Meineke bracketed as not Strabo's are left out of the Greek column, and the " +
+        "Greek's own apparatus is not carried.",
+
+      "The end of book 7 is lost. What stands after its seventh chapter, marked <i>Fr.</i>, are " +
+        "the passages that survive in two medieval digests of the work, gathered by Kramer; seven of " +
+        "them appear in Meineke's Greek with no English beside them, because this translation does " +
+        "not include them. What is not here is everything Bohn printed around the text: the Notice, " +
+        "the account of Strabo's life and manuscripts in the third volume, the index of places, and " +
+        "the short summary the translators set at the head of each book, which is theirs and not " +
+        "Strabo's.",
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Strabonis Geographica, edited by August Meineke, Teubner, Leipzig, 1877",
+      rights:
+        "Public domain on both grounds. Strabo wrote in Greek at the turn of the eras. The text printed " +
+        "here is August Meineke's Teubner edition in its Leipzig printing of 1877 — before 1929, so its " +
+        "United States copyright has expired — and Meineke died in 1870, so it is public domain " +
+        "everywhere else too. The digital edition is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 International " +
+        "licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0099/tlg001/tlg0099.tlg001.perseus-grc2.xml",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -24141,6 +24709,12 @@ function teiBookChapters(xml, opts, warn) {
 
     const notes = [];
     const skipped = [];
+    if (opts.pairOn === "section") {
+      const got = teiBookSections(body, b, end, chs, divs, opts, notes, skipped, warn);
+      const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
+      out[b.n] = { html: tidy(got.html), notes: notes.map(tidy), chapters: got.kept, skipped: skipped };
+      return;
+    }
     /* SEQ STARTS BELOW ZERO BECAUSE A CHAPTER MAY LEGITIMATELY BE NUMBERED 0, which the Gallic War is
        the first book here to do: Hirtius's covering letter to Balbus stands at the head of book 8,
        numbered apart from the war it introduces, and both editions print it that way. With the
@@ -24201,6 +24775,93 @@ function teiBookChapters(xml, opts, warn) {
   return out;
 }
 
+/* ONE ROW PER SECTION, FOR A WORK WHOSE CHAPTERS ARE TOO LONG TO PAIR ON (a book declaring
+   `pairOn: "section"`; Oct 2026, adding Strabo). Herodotus pairs on the chapter because his 1,578
+   chapters are short and his two editions disagree about nine chapters' sections. Strabo is the
+   opposite case, MEASURED over both Perseus files before this was written: 96 chapters in 17 books,
+   some of them 70 sections long (13.1, 15.1), so a chapter row would set ten pages of English beside
+   ten pages of Greek; and the 1,580 sections agree in number and order in every chapter of both
+   editions, the only difference being seven lettered Greek fragments (7.fr.11a, 16a, 16b, 23a, 58a,
+   58b and a 1) the English does not translate. So the section is the unit here, and a chapter shows
+   only as the first figure of its markers: "2.14" is chapter 2, section 14 of the book on screen,
+   which is how "Strabo 1.2.14" is cited.
+   The key is chapter × 1000 + section × 10 + letter, which keeps a lettered section (1a, 16b) after
+   its plain neighbour; `sectionChapters` admits a chapter numbered with a word under a key and a
+   label of its own (Strabo's Fragments of book 7, which Kramer collected from the two epitomes and
+   both editions print after chapter 7). Anything else numbered with a word — Hamilton's "argument"
+   summary at the head of each book, the editor's apparatus — is skipped and reported.
+   A CHAPTER'S OWN NOTE stands between its heading and its first section (the Fragments open on
+   Hamilton's account of where they come from), outside every section; it is carried into the first
+   section's opening paragraph so its marker has a sentence to stand in. */
+function teiBookSections(body, b, end, chs, divs, opts, notes, skipped, warn) {
+  const named = opts.sectionChapters || {};
+  let html = "", seq = -1, kept = 0;
+  chs.forEach((ch, j) => {
+    const chEnd = j + 1 < chs.length ? chs[j + 1].at : end;
+    const ck = /^\d+$/.test(ch.n) ? +ch.n : (named[ch.n] || {}).k;
+    if (ck == null) { skipped.push(ch.n); return; }
+    const label = /^\d+$/.test(ch.n) ? ch.n + "." : named[ch.n].label;
+    const secs = divs.filter((d) => d.sub === "section" && d.at > ch.at && d.at < chEnd);
+    if (!secs.length) { warn("book " + b.n + " chapter " + ch.n + " has no sections"); return; }
+    const pre = (body.slice(ch.at, secs[0].at).match(/<note\b[^>]*>[\s\S]*?<\/note>/g) || []).join("");
+    secs.forEach((s, i) => {
+      const key = /^(\d+)([a-z])?$/.exec(s.n);
+      if (!key) { skipped.push(ch.n + "." + s.n); return; }
+      const n = ck * 1000 + +key[1] * 10 + (key[2] ? key[2].charCodeAt(0) - 96 : 0);
+      if (n <= seq) warn("book " + b.n + ": section " + ch.n + "." + s.n + " follows " + seq + " — out of order");
+      seq = n;
+      /* A QUOTATION SET TWICE: Hamilton's file wraps a quoted sentence as `<quote><q rend="double">`
+         (233 times), and since teiInline makes each a `<q>`, the reader would print it inside two
+         pairs of quotation marks. One element, one pair; a line break left by a paragraph inside
+         the quote is dropped with it, and a note standing after the `</q>` keeps its place. */
+      let raw = teiParaFlatten(body.slice(s.at, i + 1 < secs.length ? secs[i + 1].at : chEnd))
+        .replace(/<quote\b[^>]*>(?:\s|<lb\/>)*<q\b[^>]*>((?:(?!<\/?q\b)[\s\S])*?)<\/q>((?:\s|<lb\/>|<note\b[^>]*>[\s\S]*?<\/note>)*)<\/quote>/g,
+          (w, q, tail) => "<q>" + q + "</q>" + tail.replace(/<lb\/>/g, ""));
+      if (i === 0 && pre) raw = raw.replace(/<p\b[^>]*>/, (t) => t + pre);
+      const text = teiSectionProse(raw, notes);
+      if (!text) { warn("book " + b.n + " section " + ch.n + "." + s.n + " came back empty"); return; }
+      kept++;
+      html += (html ? "\n" : "") +
+        text.replace(/^<p>/, '<p><span class="bk-n" data-n="' + n + '">' + label + s.n + "</span> ");
+    });
+  });
+  return { html: html, kept: kept };
+}
+
+/* PARAGRAPHS AS teiSectionProse NEEDS THEM: never nested, and nothing left outside one. Hamilton's
+   English breaks both rules, five times between them, and each costs words in silence — the `<p>`
+   sweep keeps only what sits inside a `<p>` and stops at the FIRST `</p>`, so a paragraph set inside
+   a `<quote>` inside a paragraph (Heracleitus on the Ephesians, 14.1.25) ends the outer one early
+   and the rest of the section falls outside every paragraph, and a stanza or a sentence standing
+   between two paragraphs (6.1.12, 10.3.13, 14.1.18) was never in one. Measured by letter count,
+   source against output, after the fix and not before it.
+   So a `<p>` opened inside another becomes a line break, and a run of text or inline markup at the
+   top level is wrapped in a paragraph of its own. A `<note>` is passed over whole — it is lifted out
+   before the sweep, and its own paragraphs are its business — and so is a `<head>`. */
+function teiParaFlatten(raw) {
+  const toks = raw.split(/(<note\b[^>]*>[\s\S]*?<\/note>|<head\b[^>]*>[\s\S]*?<\/head>|<[^>]+>)/);
+  let out = "", depth = 0, open = false;
+  const block = /^<\/?(div|head)\b/;
+  for (const t of toks) {
+    if (!t) continue;
+    if (/^<p\b/.test(t)) {
+      if (depth > 0) out += "<lb/>";
+      else { if (open) { out += "</p>"; open = false; } out += t; }
+      depth++;
+    } else if (/^<\/p>/.test(t)) {
+      if (depth === 0) continue;                 // a stray close: nothing to end
+      depth--;
+      out += depth > 0 ? "" : t;
+    } else if (depth === 0 && !open && !block.test(t) && !/^<head\b/.test(t) &&
+               (/^<(?!\/)/.test(t) ? !/^<pb\b/.test(t) : /\S/.test(t))) {
+      out += "<p>" + t; open = true;
+    } else if (depth === 0 && open && block.test(t)) {
+      out += "</p>" + t; open = false;
+    } else out += t;
+  }
+  return out + (open ? "</p>" : "");
+}
+
 /* ============================================================
    TEI, ONE FILE PER CHAPTER   (a book declaring source:"tei" with perChapter)
    ============================================================
@@ -24257,6 +24918,25 @@ function teiBookSlices(xml) {
   return out;
 }
 
+/* ONE NAMED `book` DIVISION OF A TEI FILE, re-headed with `<body>` for teiSections (Oct 2026,
+   Plutarch). Perseus files two pairs of lives as one work each — Agis with Cleomenes, Tiberius with
+   Caius Gracchus — as two `subtype="book"` divisions NAMED for the man (`n="Agis"`), each numbering
+   its chapters from 1 again, which is how each life is cited ("Cleomenes 10"). Read whole, the second
+   life's numbers would collide with the first's; sliced, each is a chapter of its own. */
+function teiNamedBook(xml, name) {
+  const body = xml.slice(xml.indexOf("<body"));
+  const at = [];
+  const dre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = dre.exec(body))) {
+    const st = (/subtype="([^"]*)"/i.exec(m[1]) || [])[1] || "";
+    if (st.toLowerCase() === "book") at.push({ n: (/\bn="([^"]*)"/.exec(m[1]) || [])[1], at: m.index });
+  }
+  const i = at.findIndex((b) => b.n === name);
+  if (i < 0) throw new Error("no book division named " + name + " in the TEI file");
+  return "<body>" + body.slice(at[i].at, i + 1 < at.length ? at[i + 1].at : body.length);
+}
+
 function teiSections(xml, opts, warn) {
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 500) throw new Error("no <body> in the TEI file");
@@ -24280,7 +24960,9 @@ function teiSections(xml, opts, warn) {
 
   const notes = [];
   const skipped = [];
-  let html = "", seq = 0, kept = 0;
+  /* -1, not 0: a unit numbered 0 is an edition's prologue (Plutarch's Timoleon opens on one, in both
+     columns), and starting at 0 reported it as going backwards. */
+  let html = "", seq = -1, kept = 0;
   marks.forEach((c, i) => {
     const raw = body.slice(c.at, i + 1 < marks.length ? marks[i + 1].at : body.length);
     // the appended essay, filed as a division with a word for a number
@@ -24291,7 +24973,13 @@ function teiSections(xml, opts, warn) {
        check that the repair has not crossed two chapters over each other. */
     if (n <= seq) warn("section " + n + " follows " + seq + " — out of order");
     seq = n;
-    const text = teiSectionProse(raw, notes);
+    let text = teiSectionProse(raw, notes, opts);
+    /* ONE PARAGRAPH PER NUMBERED UNIT, where the edition's paragraphs are its SUB-sections (Oct 2026,
+       Plutarch). Perseus wraps each Loeb section in its own `<p>`, and those sections are a citation
+       grid laid over running prose — "Pericles 1.3" opens mid-sentence on "but in the exercise of his
+       mind" — so kept as paragraphs they break sentences in two all down the page. The Loeb sets a
+       chapter as one paragraph, which is what `joinParagraphs` restores. */
+    if (opts.joinParagraphs && text) text = "<p>" + text.replace(/^<p>|<\/p>$/g, "").replace(/<\/p>\n<p>/g, " ") + "</p>";
     if (!text) { warn("section " + n + " came back empty"); return; }
     kept++;
     // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
@@ -24321,8 +25009,13 @@ function teiSections(xml, opts, warn) {
    Seneca's letter 114 five deleted markers. Notes are collected per LIFE, which is the unit Folio
    folds them under, so the entry number and the reading order do agree here — the attribute is
    written anyway rather than relied upon not to be needed. */
-function teiSectionProse(raw, notes) {
-  const b = raw.replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
+function teiSectionProse(raw, notes, opts) {
+  /* AN EMPTY NOTE, OR ONE COMMENTED OUT, IS NOT A NOTE (Oct 2026, Plutarch). Perseus's Perrin files
+     carry `<note … />` self-closed twice and `<!--<note/>-->` three times, and the note pass below
+     reads a self-closed tag as an OPENING one — so it ran on to the next `</note>` in the chapter
+     and lifted the prose between into the fold: a Greek sentence of the Lycurgus vanished from the
+     page that way, sitting in a note list the original column throws away. Both are cleared first. */
+  const b = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/<note\b[^>]*\/>/g, "").replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
     const t = teiInline(inner);
     if (!t) return "";
     /* A NOTE MARKED place="inline" IS NOT A FOOTNOTE, and this edition has ten of them: the asterisk
@@ -24334,7 +25027,12 @@ function teiSectionProse(raw, notes) {
        Latin's chapter 29 was left facing nothing — which is how the first run of this book shipped 56
        of Nero's 57 chapters with one line of warning to say so. Set in italic, as an editorial
        interpolation in someone else's text should be. */
-    if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    /* EXCEPT WHERE AN EDITION MARKS EVERY FOOTNOTE SO (Oct 2026, Plutarch). Perseus's Perrin files
+       carry `place="inline"` on their notes, and they are the Loeb's footnotes — dates ("Soon after
+       468 B.C."), cross-references ("Cf. Hdt. 6.131"), glosses — printed at the foot of the page. Set
+       in italic mid-sentence they would interrupt the prose every few lines, so a book declaring
+       `inlineNotes: "foot"` lifts them into the fold like any other note. */
+    if (/place="inline"/.test(attrs) && !(opts && opts.inlineNotes === "foot")) return " <i>" + t + "</i> ";
     /* NEITHER IS A NOTE MARKED type="Com", WHICH IS THE EDITION'S ARGUMENT OF THE WORK (Sep 2026,
        batch E48). There is exactly one on the shelf — Perseus's Lysis opens section 203 with
        "Socrates relates a conversation he had in a wrestling-school", the one-line summary the Loeb
@@ -27334,9 +28032,12 @@ async function fetchEnglish() {
          (see the note in teiSections): which word an edition uses for its numbered unit is the
          edition's business, and Suetonius says `chapter` where Burnet's and the Loeb Plato say
          `section`. It defaults to "chapter" inside teiSections, so the twelve lives are untouched. */
+      if (BOOK.teiBook && BOOK.teiBook(n)) xml = teiNamedBook(xml, BOOK.teiBook(n));
       const got = teiSections(xml, {
         subtype: BOOK.subtype,
         renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s),
+        inlineNotes: BOOK.inlineNotes,
+        joinParagraphs: BOOK.joinParagraphs,
       }, warn);
       if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
       /* Say what was left out, every run. The appended "Remarks on …" essay is skipped deliberately
@@ -27477,8 +28178,10 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
-    const books = teiBookChapters(xml, { fence: BOOK.fence, preface: BOOK.preface }, warn);
+    // `teiRaw` — a book's own transform of its TEI before anything reads it (Pausanias, Oct 2026)
+    xml = correctRaw(BOOK.teiRaw ? BOOK.teiRaw(xml) : xml);
+    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+      fence: BOOK.fence, preface: BOOK.preface }, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -28953,7 +29656,9 @@ async function fetchOriginal() {
       let xml;
       if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
       else { xml = await fetchText(O.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
-      const got = teiSections(xml, { subtype: O.subtype }, w);
+      if (O.xmlFix) xml = O.xmlFix(xml, n);
+      if (O.teiBook && O.teiBook(n)) xml = teiNamedBook(xml, O.teiBook(n));
+      const got = teiSections(xml, { subtype: O.subtype, inlineNotes: O.inlineNotes, joinParagraphs: O.joinParagraphs }, w);
       if (!got.html) { w("came back empty"); continue; }
       if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
       byNum[n] = got.html;
@@ -29146,9 +29851,11 @@ async function fetchOriginal() {
         let enXml;
         if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(enXml, { fence: BOOK.fence, preface: BOOK.preface }, warn);
+        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+          fence: BOOK.fence, preface: BOOK.preface }, warn);
       }
-      const or = teiBookChapters(xml, { fence: O.fence, preface: O.preface }, warn);
+      const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+        fence: O.fence, preface: O.preface }, warn);
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the

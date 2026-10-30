@@ -12003,17 +12003,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      which would put a ninth colour inside a cluster the shelf already struggles to tell apart. It
      reads 4.52:1 on the tightest light paper, which is the margin the band is cut to. */
   "Lu Yu": "#96009F",
-  /* MEASURED AS EVERY ROW ABOVE, with forty-six colours placed (Oct 2026, adding Livy): CIELAB
-     distance, 22 or more from all fifteen light themes' inks, 4.5:1 on every light paper, card and
-     second paper. INSIDE the shipped band (L 12.3–47.8, chroma 18–85) the best colour clears 16.5,
-     a tenth under the shelf's own tightest pair (16.6) — so, on the Marco Polo row's rule, the axis
-     that binds was found and only it was moved: the chroma ceiling 85 → 90 opens 20.0, and nothing
-     else changes. This deep blue clears Luo Guanzhong by 20.0 and Marco Polo by 21.4, reads 5.19:1 on
-     the tightest light paper, and passes the Euripides test against the books a reader takes with
-     Livy: Herodotus 37, Thucydides 60, Virgil 89, Suetonius and Caesar over 130. The best reds in the
-     band were refused on that test — they sit 16–20 from VIRGIL, the other Augustan telling of Rome's
-     beginnings. */
-  "Livy": "#2136C9",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-six colours placed (Oct 2026, adding the Parallel Lives):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band's best now clears only 16.5, a tenth
+     under the shelf's own tightest pair (Aristotle and Ptahhotep, 16.6); lifting the chroma ceiling
+     is what opens it (95 → 24.9, 110 → 32.8) and every colour it opens is a saturated blue of the
+     kind the ceiling exists to keep off a muted shelf, so it was not lifted. Of the candidates at
+     16.2–16.5 this violet is taken on the Euripides test: the books a reader sets beside Plutarch are
+     SUETONIUS, the other biographer of the Caesars, then Thucydides, Herodotus, Plato and Homer, and
+     it stands 29.5 or more from all five, where the dark wines at 16.4 sit nearest Sophocles and
+     Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
+     the tightest light paper. */
+  "Plutarch": "#5139C3",
+  /* Measured the same way inside the shelf's own lightness and chroma band: this dark slate-navy is
+     the best-separated colour left anywhere in it, 19.8 from the Song of Roland and 20.1 from
+     Ptahhotep (68.5 from Plutarch's violet, placed the same day), above the shelf's tightest pair
+     (Luo Guanzhong and Plutarch, 16.5), and it reads 9.7:1 or better on all 43 light papers. Every brighter colour that clears 4.5
+     lands at 17 or under — the blues beside Marco Polo and Luo Guanzhong, the reds beside Ovid and
+     Sophocles. Neither near neighbour is a book anyone reads against Pausanias. */
+  "Pausanias": "#14203C",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-eight colours placed (Oct 2026, adding Strabo's Geography):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band's best clears 16.4, a tenth under the
+     shelf's tightest pair (Luo Guanzhong and Plutarch, 16.5) — the Plutarch row's position, and its
+     refusal to lift the ceiling into saturated blues stands. The candidates near the top are dark
+     wines and one violet, and the violet sits beside MARCO POLO, the other traveller-geographer; on
+     the Euripides test this wine is taken instead. Its nearest neighbours are Sophocles (16.4) and
+     Ovid (16.9), which assert no kinship with a geographer, and it stands 38 or more from every book
+     a reader sets beside Strabo — Thucydides 38.4, Pausanias 55.3, Herodotus 65.4, Homer 69.3, Marco
+     Polo 75.0, Plutarch 82.2. It reads 6.74:1 on the tightest light paper. */
+  "Strabo": "#7B002A",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-nine colours placed (Oct 2026, adding Livy): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band's best clears 16.1 against the shelf's tightest
+     pair of 16.4, and the Plutarch row's refusal to lift the ceiling into saturated blues stands, so a
+     candidate a few tenths under is taken, as Plutarch's and Strabo's were. On the Euripides test the
+     band's top two are refused — dark wines 17 from VIRGIL, the other Augustan telling of Rome's
+     beginnings — and so is the teal at 15.8, which joins the green cluster the Classic of Tea row
+     declined. This dark rust clears the Poetic Edda by 15.9 and Sophocles and Vyasa by 16.2, none a
+     book read beside Livy, and stands 25 or more from every one that is: Virgil 25, Strabo 27, Caesar
+     35, Suetonius 38, Thucydides 61, Herodotus 79, Plutarch 102. It reads 7.22:1 on the tightest paper. */
+  "Livy": "#632106",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -12404,6 +12434,70 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 6, label: "Book VI", note: "Nero" },
         { n: 7, label: "Book VII", note: "Galba, Otho, Vitellius" },
         { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
+      ],
+    },
+    {
+      id: "plutarch-lives",
+      title: "Parallel Lives",
+      author: "Plutarch",
+      written: "early 2nd century CE",
+      // files just before Suetonius (121): the Lives belong to the first two decades of the century
+      year: 110,
+      translator: "Bernadotte Perrin",
+      edition: "Loeb Classical Library, Harvard University Press and William Heinemann, 1914–1926",
+      /* Two layers on both columns, the Plato position. The ground is the publication date alone:
+         every Perseus file names its Loeb volume and year, 1914 to 1926, and Perrin edited the Greek
+         as well as translating it. No life-plus-seventy claim is made, Perrin's dates not being in
+         anything this session could open. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Bernadotte Perrin's translation, and the Greek text printed beside " +
+        "it, which he also edited, were published in the eleven volumes of the Loeb Classical Library " +
+        "between 1914 and 1926 — all before 1929 — so their copyright has expired in the United " +
+        "States. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+        "Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations — Ian " +
+        "Scott-Kilvert's and others' Penguin Classics volumes and Robin Waterfield's Oxford World's " +
+        "Classics selections — are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0007/",
+      /* Both columns are the same TEI encoding from the same publisher, so the pairing is by
+         construction, and was measured anyway: 1,966 chapter numbers on each side across all 68,
+         identical in every Life, once the Greek Comparison of Lysander and Sulla had four sections
+         that its file mislabels as chapters retagged. See .claude/fetch-book.js. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Life",
+      chapterWordPlural: "Lives",
+      /* Fifty Lives and eighteen comparisons; Agis, Cleomenes and the two Gracchi are a Life each,
+         though Perseus files them two to a work. */
+      count: 68,
+      total: 68,
+      /* Plutarch's pairs, in the printed editions' order (his own numbering is lost — the front
+         matter says so): each part is two Lives and, where it survives, their comparison. */
+      parts: [
+        { n: 1, label: "Theseus and Romulus" },
+        { n: 2, label: "Lycurgus and Numa" },
+        { n: 3, label: "Solon and Publicola" },
+        { n: 4, label: "Themistocles and Camillus", note: "comparison lost" },
+        { n: 5, label: "Pericles and Fabius Maximus" },
+        { n: 6, label: "Alcibiades and Coriolanus" },
+        { n: 7, label: "Timoleon and Aemilius Paulus" },
+        { n: 8, label: "Pelopidas and Marcellus" },
+        { n: 9, label: "Aristides and Cato the Elder" },
+        { n: 10, label: "Philopoemen and Flamininus" },
+        { n: 11, label: "Pyrrhus and Marius", note: "comparison lost" },
+        { n: 12, label: "Lysander and Sulla" },
+        { n: 13, label: "Cimon and Lucullus" },
+        { n: 14, label: "Nicias and Crassus" },
+        { n: 15, label: "Eumenes and Sertorius" },
+        { n: 16, label: "Agesilaus and Pompey" },
+        { n: 17, label: "Alexander and Caesar", note: "comparison lost" },
+        { n: 18, label: "Phocion and Cato the Younger", note: "comparison lost" },
+        { n: 19, label: "Agis and Cleomenes, and the Gracchi" },
+        { n: 20, label: "Demosthenes and Cicero" },
+        { n: 21, label: "Demetrius and Antony" },
+        { n: 22, label: "Dion and Brutus" },
+        { n: 23, label: "The single Lives" },
       ],
     },
     {
@@ -15017,6 +15111,113 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "pausanias-description-of-greece",
+      title: "Description of Greece",
+      // the work's own Greek title, which is what its Greek column is an edition of — Herodotus's pattern
+      subtitle: "Ἑλλάδος Περιήγησις",
+      author: "Pausanias",
+      /* Written over many years and dated by the text itself: Book I was finished before Herodes
+         Atticus began his music hall at Athens (7.20.6), and Book X mentions the Costoboci's raid of
+         about 170 (10.34.5). The key is a single year inside the span. */
+      written: "c. 155–180 CE",
+      year: 170,
+      translator: "W. H. S. Jones and H. A. Ormerod",
+      edition: "Loeb Classical Library, 1918–1935",
+      /* TWO GROUNDS BY VOLUME AND ONE LIMIT. Volumes I–II (1918, 1926) are clear in the United States
+         by date; Volumes III–IV (1933, 1935) by NON-RENEWAL, shown rather than assumed — the Classic
+         of Tea's method, over the Catalog of Copyright Entries for 1960–1963. Jones died in 1963 and
+         Ormerod in 1964, so nothing is claimed for life-plus-seventy countries before 2034. The whole
+         of the reasoning, the URAA question included, is in .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, on two grounds by volume, with one limit stated. W. H. S. " +
+        "Jones's translation (Volume II with H. A. Ormerod) was published in the Loeb Classical Library " +
+        "in four volumes. Volume I (Books I–II, 1918) and Volume II (Books III–V, 1926) are public domain " +
+        "in the United States by date. Volume III (Books VI–VIII.21, 1933) and Volume IV (Books " +
+        "VIII.22–X, 1935) were published by Heinemann in London and Harvard University Press in " +
+        "Cambridge, Massachusetts, and their copyright was not renewed — the Catalog of Copyright Entries " +
+        "for 1960–1963 lists no renewal — so they are public domain in the United States too. Jones died " +
+        "in 1963 and Ormerod in 1964, so the translation is still in copyright in countries whose term " +
+        "is the author's life plus seventy years, until 2034 (2035 for Volume II). The Greek beside it " +
+        "is Friedrich Spiro's Teubner edition of 1903, public domain on every ground. Both columns are " +
+        "taken from the digital editions prepared by the Perseus Digital Library at Tufts University, " +
+        "which are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+        "Pausanias wrote the work in Greek in the second century CE. (Peter Levi's translation, 1971, " +
+        "is still in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0525.tlg001/",
+      /* Paired on the CHAPTER, as Herodotus is: 357 on each side, the same numbers in the same order in
+         all ten books. The sections inside a chapter are not the unit. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the whole work: ten books, each named after its region in both editions
+      count: 10,
+      total: 10,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered front matter and all ten books (a
+         headless run listing every `.ttip`, 451 distinct terms). Each of these told the reader
+         something untrue about the sentence in front of it: a modern place on an ancient one (Pisa in
+         Tuscany for Pisa in Elis, Tripoli for Arcadian Tripolis, Mali for the Malians of Malis, Jordan
+         the country for the river, Apia in Samoa for the old name of the Peloponnese, Providence and
+         Concord for the words, the Commonwealth of Nations for a city's "commonwealth", Germany for
+         the Germans of Marcus Aurelius's wars, Paris for Priam's son); a namesake (Alcmaeon of Croton
+         for Amphiaraus's son, the atomist Leucippus for the mythical one, Pope Damasus, Flavius Aetius
+         and Marcus Antonius Pallas for heroes of Troezen and Arcadia, the Brennus who took Rome for the
+         one who led the Gauls against Delphi, Cretan Ida mostly on Idas son of Aphareus); a battle on
+         its town or a man (Telamon, Heraclea the festival, Himera); and a common noun on a name or a
+         building (the electric ion on Ion, xenia on Xenias, the hippopotamus on Hippo, polites on
+         Polites, hippeis on Hippeus, the tholos tomb on the Tholos at Athens, Egyptian Abydos on the
+         Hellespont's, the Athenians' Egyptian expedition of the 450s on Ptolemy's of the 260s, the
+         Amazon River on the Amazons). Re-run the sweep after a batch of glossary terms. */
+      glossOff: ["Pisa", "Tripoli", "Mali", "Jordan", "Apia", "Providence", "Concord",
+        "Commonwealth_of_Nations", "Germany", "Paris", "Alcmaeon_of_Croton", "Leucippus", "Pope_Damasus_I",
+        "Flavius_Aetius", "Marcus_Antonius_Pallas", "Brennus_(leader_of_the_Senones)", "Mount_Ida",
+        "Battle_of_Telamon", "Battle_of_Heraclea", "Battle_of_Himera", "Ion", "Xenia", "Hippopotamus",
+        "Polites", "Hippeis", "Tholos_tomb", "Abydos,_Egypt", "Egyptian_expedition", "Amazon_River"],
+    },
+    {
+      id: "strabo-geography",
+      title: "Geography",
+      // the work's own Greek title, as the Histories gives Herodotus's
+      subtitle: "Γεωγραφικά",
+      author: "Strabo",
+      // the range Perseus's header gives the work; still being revised under Tiberius
+      written: "c. 7–24 CE",
+      year: 7,
+      translator: "H. C. Hamilton and W. Falconer",
+      edition: "Bohn's Classical Library, 1854–1857",
+      /* Expired on every ground: Bohn's three volumes of 1854–57 are pre-1929, Falconer died in 1885 and
+         Hamilton in 1895, and Meineke, whose 1877 Teubner text faces it, in 1870. Perseus's digital
+         editions are CC BY-SA 4.0. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Strabo wrote the Geography in Greek two " +
+        "thousand years ago. The English is the translation by H. C. Hamilton and W. Falconer, " +
+        "published by Henry G. Bohn in London in three volumes between 1854 and 1857, so it is public " +
+        "domain in the United States as a pre-1929 publication; Falconer died in 1885 and Hamilton in " +
+        "1895, so it is also public domain wherever copyright lasts for the author's life plus seventy " +
+        "or a hundred years. The Greek is the text edited by August Meineke (1790–1870) for Teubner, in " +
+        "the Leipzig printing of 1877, and is public domain on the same grounds. The digital editions of " +
+        "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (Duane W. Roller's " +
+        "translation of 2014 is in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0099.tlg001/",
+      /* Paired on the SECTION — "Strabo 4.5.2" is book, chapter, section, and a marker reads "5.2"
+         inside book 4 — because the chapters run to 70 sections, and the two editions agree on all
+         1,573 sections the English has. Seven Greek fragments of book 7 (marked "Fr.") have no
+         English and draw an empty cell. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      count: 17,
+      total: 17,
+      // the edition's own three volumes, stated on its title pages
+      parts: [
+        { n: 1, label: "Volume I", note: "Books 1–7" },
+        { n: 2, label: "Volume II", note: "Books 8–13" },
+        { n: 3, label: "Volume III", note: "Books 14–17" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};

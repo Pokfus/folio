@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-four:
   `livy-history-of-rome` (~5.3 MB English, ~3.7 MB Latin, the **35 surviving books** 1–10 and 21–45, **1,765
   chapter numbers**, **363 notes**, original **Latin** — Livy's *Ab Urbe Condita* in the Bohn literal translation
   by D. Spillan, Cyrus Edmonds and W. A. McDevitte, 1849–1857, beside Weissenborn and H. J. Müller's Teubner
@@ -32,8 +32,56 @@ book added later will meet the same traps.
   ground is publication before 1929. Perseus's titleStmt says "Moritz Müller", its sourceDesc "H. J.
   Müller"; the sourceDesc is followed (GND: 1844–1912). Neither file has an `<availability>`; CC BY-SA 4.0
   comes from the canonical-latinLit README. The Loeb (`perseus-eng1`, 1919–1959) was not used.
-  · Colour `#2136C9`: the band's best inside chroma 85 was 16.5, under the shelf's tightest pair, so the
-  ceiling went 85 → 90 (the Marco Polo rule); the reds were refused on the Euripides test (Virgil).
+  · Colour `#632106`, a dark rust: the band's best is 16.1 against a tightest pair of 16.4, and the Plutarch
+  row's refusal to lift the ceiling stands; the wines were refused on the Euripides test (17 from Virgil).
+  `strabo-geography` (~3.1 MB English, ~1.8 MB Greek, all seventeen books, **5,479 notes**, original **Greek**;
+  Hamilton and Falconer's translation, Bohn 1854–57, beside Meineke's Teubner text of 1877, both from Perseus's TEI;
+  parts are Bohn's three volumes). **Pairs on SECTIONS, not chapters** — the chapters run to 70 sections — through
+  `pairOn: "section"` (`teiBookSections`): a marker reads `chapter.section` ("5.2" inside book 4 is Strabo 4.5.2),
+  `data-n` = chapter × 1000 + section × 10 + letter. 1,573 English sections against 1,580 Greek, the same numbers
+  in every chapter; the seven Greek-only rows are fragments of book 7 (`sectionChapters` admits the Fragments as
+  "Fr.", keyed after chapter 7). Hamilton's per-book "Summary" is skipped as his. Two silent faults in the English
+  were fixed in the reader: five passages standing outside any `<p>` or inside a nested one (`teiParaFlatten`), and
+  233 quotations doubled as `<quote><q>` (ten genuinely interrupted quotes keep both). Checked: letter counts source
+  against output are EXACT in both columns. Its colour is a dark wine inside the 85 ceiling (Plutarch's refusal to
+  lift it stands); the violet the band offered sat beside Marco Polo.
+  `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
+  **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
+  per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,
+  identical in every Life.** Four importer options arrived with it: `inlineNotes: "foot"` (Perseus marks all of
+  Perrin's footnotes `place="inline"`), `joinParagraphs` (each Loeb section is its own `<p>` and they split
+  sentences), `teiBook` (Agis/Cleomenes and the Gracchi are two named `book` divisions in one file, each counting
+  from 1), and the original's `xmlFix` (the Greek Comparison of Lysander and Sulla tags four sections of chapter 5
+  as chapters). `teiSectionProse` now drops comments and self-closed `<note/>`s before its note pass — five in these
+  files, one of which had swallowed a Greek sentence of the Lycurgus — and Phocion 33.7's stranded note text is put
+  back by two `reFixes`. Timoleon opens on a chapter 0 (Plutarch's preface) in both columns. Checked: word counts
+  against the source within 0.003 % (English) and exact (Greek). The order is the printed editions', not Plutarch's
+  (the Pericles calls itself his tenth book), and the front matter says so.
+  `pausanias-description-of-greece` (~1.6 MB English, ~1.4 MB Greek, all ten books, **811 notes**, original
+  **Greek** — W. H. S. Jones's Loeb translation, Volume II with H. A. Ormerod, 1918–1935, beside Spiro's Teubner
+  text of 1903, both from Perseus; `layout: "chaptered"`, Herodotus's). Paired on the CHAPTER: 357 on each side,
+  the same numbers in every book. The tabs are the edition's own region heads (Attica … Phocis and Ozolian Locri).
+  · **THE LICENCE IS TWO GROUNDS BY VOLUME.** Volumes I–II (1918, 1926) are US public domain by date; III–IV
+  (1933, 1935) by NON-RENEWAL — the Catalog of Copyright Entries for both halves of 1960–1963 was searched (IA
+  OCR) for "Pausanias" and "Description of Greece" and holds nothing, while it does show Harvard's renewals and a
+  new Jones registration, so the search could see this claimant and translator. **The URAA question is open and
+  said so**: Volume IV is "Printed in Great Britain", but its title page names Harvard University Press,
+  Cambridge, Mass., as co-publisher, which is the evidence for simultaneous US publication (no restoration).
+  Jones died 1963, Ormerod 1964: not public domain in life-plus-seventy countries until 2034/2035, stated in
+  `rights`. English Wikisource hosts the whole translation under PD-US — a second opinion, not the evidence.
+  · **`teiRaw`, A NEW, OPTIONAL HOOK** on the `chaptered` branch (English and original): a book's own transform of
+  its TEI before the shared reader sees it; absent on every other book, so they are unchanged. Pausanias uses it
+  for three things the shared reader welds: 65 mid-paragraph `<milestone unit="para"/>` (a break after a stop, a
+  space after a letter or comma), 83 in-text `<bibl>` citations after verse quotations (made notes in the English,
+  dropped in the Greek, which has no fold and whose Teubner prints none), and the missing space on either side of
+  a `<quote>`. The hook exists because `reFixes` replaces with a literal string and cannot use a group.
+  · **FIFTEEN `fixes`, each read against English Wikisource's proofread transcription of the same Loeb** (spaces
+  lost after commas, `Anaxibi` for Anaxibia, `.` read for a hyphen twice). Book III has no Wikisource page; its
+  one row is a lost space between a full stop and a capital. `in formed` (1.7.2) is LEFT: Wikisource has it too.
+  · **Its colour** `"Pausanias": "#14203C"` is the best-separated left in the shelf's band (19.8; tightest pair
+  16.6). `glossOff` drops 29 of the 451 terms the auto-linker made, after a headless `.ttip` sweep of every book:
+  modern places on ancient ones (Pisa, Tripoli, Mali, Apia, Jordan), namesakes (Pope Damasus, Flavius Aetius, the
+  Brennus who took Rome) and common nouns on names (ion on Ion, xenia on Xenias). Re-run after a glossary batch.
   `classic-of-tea` (~34 KB English, ~13 KB Chinese, all ten parts, **8 notes**, original **Chinese** — Lu Yu's
   *Cha Jing* in **a condensation**: the "Translation Digest of Ch'a Ching" William H. Ukers printed in *All
   About Tea* (1935), pp. 15–22, from a translation of a Ming copy by Z. L. Yih; `layout: "chajing"` →

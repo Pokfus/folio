@@ -2459,3 +2459,37 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   thrown. A fenced book with no chapters (Livy 46–142, summaries only) is reported in ONE warning, not one per book.
 - Both default off, so no shipped book's output changes. `books/livy-history-of-rome*.js` are the first users;
   docs/library-books.md has the entry.
+
+## Four TEI options from the Parallel Lives (Oct 2026, Plutarch)
+
+Perseus's Perrin files are the Dialogues' encoding with a `chapter`/`section` grid, and four things in them needed
+an option rather than a new layout (all declared per book, and per side where they apply to the original):
+
+- **`inlineNotes: "foot"`** — every Perrin footnote is marked `place="inline"`, which `teiSectionProse` otherwise
+  sets in italic in the flow (right for Suetonius's omission marks, wrong for real footnotes).
+- **`joinParagraphs`** — each Loeb section is its own `<p>`, and sections open mid-sentence; the chapter (the unit
+  the columns pair on) is joined into one paragraph, as the Loeb prints it.
+- **`teiBook: (n) => name`** — a file holding two lives as named `book` divisions, each numbering its chapters from
+  1 (`teiNamedBook` slices one out). Without it the second life's numbers collide with the first's.
+- **`original.xmlFix: (xml, n) => xml`** — a targeted repair of the original's raw XML before extraction; used once,
+  for four sections the Greek Comparison of Lysander and Sulla tags as chapters.
+
+And one shared fix: `teiSectionProse` now removes XML comments and self-closed `<note/>` before lifting notes. The
+note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifting the prose between into the fold.
+Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
+`node .claude/check-pairing.js` (it should list no row for the book).
+
+## Section pairing for the chaptered reader (Oct 2026, Strabo)
+
+`pairOn: "section"` sends a `chaptered` book through `teiBookSections`: one row per `section` division instead of
+per `chapter`, for a work whose chapters are too long to face each other (Strabo's run to 70 sections). The marker
+prints `chapter.section` and carries `data-n` = chapter × 1000 + section × 10 + letter; `sectionChapters` maps a
+chapter numbered with a word to a key and a label (`{ fragments: { k: 8, label: "Fr. " } }`), and any other word
+(Hamilton's `argument`) is skipped and reported. A note between a chapter's heading and its first section is carried
+into that section's first paragraph. Two repairs live on this path only, so no shipped book is touched:
+`teiParaFlatten` (a `<p>` inside a `<p>` becomes a line break; a bare run outside every `<p>` is wrapped in one —
+`teiSectionProse` keeps only what is inside a paragraph and stops at the first `</p>`, so both lose words silently)
+and the collapse of `<quote><q>…</q></quote>` into one `<q>`. **Measure a new book on this path by letter count,
+source against output** (heads, `<del>` and skipped chapters removed from the source; the original's notes too).
+Re-run after touching: `node .claude/fetch-book.js strabo-geography` (both columns, from cache), `node
+.claude/test-library.js` (the `[strabo-geography]` checks) and `node .claude/check-pairing.js`.
