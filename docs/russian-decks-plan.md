@@ -6,7 +6,7 @@ Portuguese CAPLE, Italian CILS, Indonesian UKBI …); `docs/lang-decks.md` is th
 were built, and every rule there applies here unless this file says otherwise. Asked for on 2026-10-30: "In the same style, we made other language vocabulary collections for
 several foreign languages. Start planning a collection for learning Russian."
 
-**STATUS (2026-10-30): the alphabet deck and all six levels, A1 to C2, are built** (`.claude/torfl/`, §10). The owner's
+**STATUS (2026-10-30): the alphabet deck, all six levels (A1 to C2) and the phrases deck are built** (`.claude/torfl/`, §10). The owner's
 answers to §9: sizes as below; **an alphabet deck, yes**; **titles in English**; word source as
 recommended (assembled). The owner is supplying TORFL's own level descriptions; until they are written
 into `SCOPE` in `torfl_level.py`, every level is scoped to the CEFR global descriptors for their bands
@@ -31,7 +31,7 @@ itself, and each maps to a CEFR band:
 | `TORFL-B2-Russian` (built) | ТРКИ-2 | B2 | 1,500 |
 | `TORFL-C1-Russian` (built) | ТРКИ-3 | C1 | 1,500 |
 | `TORFL-C2-Russian` (built) | ТРКИ-4 | C2 | 1,000 |
-| `Russian-Phrases-and-Expressions` | — | — | whatever the pool holds (CAPLE's held 1,342) |
+| `Russian-Phrases-and-Expressions` (built) | — | — | the whole pool the levels leave (482) |
 
 The sizes follow UKBI's and CAPLE's (A1 498–500, B2 1,400–1,500) and are the owner's (confirmed
 2026-10-30). The file names put the CEFR band in the name, so `levelRank` in
@@ -345,6 +345,29 @@ bookish verbs, verbs of nuance, abstract distinctions, temperament, landscape, f
 **C1 and C2 were read as an automated sweep for known bad gloss shapes plus a random 120 cards each**,
 not one by one; strays will remain in their frequency remainders.
 
+## 15. As built (2026-10-30): the phrases deck
+
+`decks/Russian-Phrases-and-Expressions.folio-deck.json` (`TORFL_LEVEL=phr`; `phrases_level` in
+`select.py`): every multi-word expression the six levels do not teach — 482 phrases, idioms and
+proverbs (77 proverbs). CAPLE's two tests: a part of speech only a phrase has (`phrase`, `proverb`,
+`prep_phrase`), OR a sense Wiktionary tags `idiomatic` on a multi-word entry (`ходить вокруг да около`
+is filed as a verb, `головная боль` as a noun; their cards say "idiom, verb"). Oaths are refused on
+the spelling (`OATH`: `какого хрена`, `к чёрту`). Ordered by how many Tatoeba sentences use each, on
+whole words, in one pass; **the 114 the corpus never uses are kept and dealt last**, not dropped (the
+DELE/CAPLE finding: the corpus must not set the syllabus). Many have no example sentence: a phrase's
+Tatoeba sentences often have no English translation, or run past ten words.
+
+**Two faults it found in the shared stages, both fixed for every level:**
+
+- **Every level's description said its TORFL level "is aligned to A1"** of the CEFR — the band was typed
+  into the sentence when A1 was written. `check-torfl.js` now asserts each deck names its own band.
+- **The near-duplicate guard compared the note's own words too**, though its docstring said "the hits
+  aside": two sentences sharing a three-word phrase always looked like one sentence twice. At the
+  levels it was merely a little strict; here it left 233 of 484 notes without a sentence. The guard now
+  sets the hits aside, which changes some sentences on every level.
+- The example filter no longer refuses `бог` or "God" (`слава богу`, `не дай бог` are the deck's
+  own phrases; religion is ordinary content), and a word Wiktionary marks on two syllables
+  (`исклю́че́ние`) keeps the last mark.
+
 **Open:** write TORFL's own level descriptions into `SCOPE` and the inventories against them when the
-owner's text arrives; a phrases-and-expressions deck (§1); and a full one-by-one read of B2–C2 of the
-kind DELE's decks had.
+owner's text arrives; a full one-by-one read of B2–C2 and the phrases deck of the kind DELE's decks had.

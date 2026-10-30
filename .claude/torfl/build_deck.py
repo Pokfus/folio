@@ -406,7 +406,12 @@ def english_block(e, key, limit, first=True):
     # a second part of speech whose every sense is a usage note is left off,
     # where the note's FIRST block must say something
     gl = override(e) or glosses(e, key, limit, fallback=first)
-    if e['pos'] == 'adj' and not e['forms']:
+    if ' ' in e['word'] and e['pos'] not in ('phrase', 'proverb', 'prep_phrase', 'intj',
+                                             'conj', 'prep', 'adv', 'pron'):
+        # a multi-word entry filed as a verb or a noun is an idiom (`ходить вокруг да
+        # около`, `головная боль`), and the card says so before the part of speech
+        lab = 'idiom, ' + POS_NAME.get(e['pos'], e['pos'])
+    elif e['pos'] == 'adj' and not e['forms']:
         lab = 'predicative'
     elif e['pos'] == 'noun':
         lab = noun_label(e)

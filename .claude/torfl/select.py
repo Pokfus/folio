@@ -228,6 +228,60 @@ PICK = {'клуб': 'club', 'повод': 'reason', 'притворяться': 
 ADV_FIRST = {'совершенно', 'довольно'}
 
 
+# THE PHRASES DECK (`TORFL_LEVEL=phr`) -- the set's seventh deck, which is not a
+# level: CAPLE's arrangement.  An entry is an expression by either of two tests,
+# each catching what the other misses: a part of speech only a phrase has
+# (`phrase`, `proverb`, `prep_phrase`), or a sense Wiktionary tags `idiomatic`
+# (`ходить вокруг да около` is a VERB, `головная боль` a NOUN).  It must be more
+# than one word -- the tag alone would bring in single words used figuratively.
+PHRASE_POS = {'phrase', 'proverb', 'prep_phrase'}
+OATH = re.compile(r'ч[её]рт|бля|хуй|хер|хрен|жоп|сук[аи]|дерьм|говн|пизд|еба|ёба')
+
+
+def phrases_level(lex, by_word, below, sent_toks, scale):
+    """Every multi-word expression the levels do not teach, ordered by how many
+    Tatoeba sentences use it (counted on word boundaries, in one pass).  NOT
+    truncated to what the corpus attests: an idiom is literary where a
+    sentence-pair corpus is conversational, and letting the corpus choose would
+    let it set the syllabus -- the DELE and CAPLE finding.  The ones it never
+    uses come last, and the deck says how many."""
+    pool, seen = [], set()
+    for i, e in enumerate(lex):
+        w = e['word']
+        if ' ' not in w:
+            continue
+        if not (e['pos'] in PHRASE_POS or any('idiomatic' in sn['t'] for sn in e['senses'])):
+            continue
+        k = fold(w)
+        if k in seen or k in below or OATH.search(k) or not senses_ok(e):
+            continue
+        if COARSE.search(' '.join(g for sn in e['senses'] for g in sn['g'])):
+            continue
+        seen.add(k)
+        pool.append(i)
+    keys = {i: tuple(fold(x) for x in tokens(lex[i]['word'])) for i in pool}
+    first = collections.defaultdict(list)
+    for i, k in keys.items():
+        first[k[0]].append(i)
+    count = collections.Counter()
+    for t in sent_toks:
+        hit = set()
+        for a, w in enumerate(t):
+            for i in first.get(w, ()):
+                k = keys[i]
+                if tuple(t[a:a + len(k)]) == k:
+                    hit.add(i)
+        count.update(hit)
+    units = [{'entries': [i], 'pair': False, 'freq': count[i] * scale, 'key': None,
+              'source': 'phrases', 'sec': lex[i]['pos'], 'words': [lex[i]['word']]}
+             for i in pool]
+    units.sort(key=lambda u: (-u['freq'], lex[u['entries'][0]]['word']))
+    json.dump(units, open(lvlf('selected.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+    none = sum(1 for i in pool if not count[i])
+    print(f'  {len(units)} expressions; {none} not found in any Tatoeba sentence')
+    print('  commonest: ' + ', '.join(u['words'][0] for u in units[:40]))
+
+
 def closed(e):
     """A function word -- or a PREDICATIVE, which Wiktionary files as an `adj`
     with no forms (`можно`, `жарко` "it is hot", `холодно` "one is cold").  A
@@ -369,6 +423,8 @@ def main():
         return {'entries': [i], 'pair': False, 'freq': fr, 'key': key}
 
     below = words_below()
+    if LEVEL == 'phr':
+        return phrases_level(lex, by_word, below, sent_toks, SCALE)
     units, missing = [], []
     for sec, word, pos, key in inventory():
         cands = [i for i in by_word.get(fold(word), ())

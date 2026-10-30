@@ -199,6 +199,9 @@ def main():
     ex3 = sum(1 for e in entries if e['examples'] == 3)
     ex0 = sum(1 for e in entries if e['examples'] == 0)
     phrases = [e['word'] for e in entries if e['phrase']][:3]
+    if LEVEL == 'phr':
+        return emit_deck(cards, phrases_desc(entries, n, ex3, ex0), f'{n} phrases', DECK,
+                         ['russian', 'phrases', 'idioms', 'proverbs'])
     EN, RU, ABBR = NAMES[LEVEL]
     SC = SCOPE[LEVEL]
     # A DECK'S DESCRIPTION SAYS WHICH DESCRIPTOR IT WAS BUILT TO -- the UKBI
@@ -206,7 +209,10 @@ def main():
     # round: until TORFL's own descriptions are written into `SCOPE`, A1 quotes
     # the Council of Europe's, and says so.
     if SC['source'] == 'cefr':
-        scope_txt = (f"TORFL's {EN} level is aligned to A1 of the Common European Framework of "
+        # THE BAND IS THE LEVEL'S, NOT A1's: this sentence was written for A1 with
+        # the band typed in, and A2 to C2 all went out saying they were aligned to
+        # A1 -- caught at the phrases deck, Oct 2026.
+        scope_txt = (f"TORFL's {EN} level is aligned to {LEVEL.upper()} of the Common European Framework of "
                      f"Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
                      f"is {SC['gloss']}. ")
     else:
@@ -258,11 +264,50 @@ def main():
         "CC BY 2.0 FR."
     )
 
+    return emit_deck(cards, DESC, f'{n} words', DECK,
+                     ['russian', 'torfl', 'трки', EN.lower(), LEVEL, 'vocabulary'])
+
+
+def phrases_desc(entries, n, ex3, ex0):
+    """The phrases deck is not a level, so it says what it is instead (CAPLE's)."""
+    none = sum(1 for e in entries if not e['freq'])
+    pos = {}
+    for e in entries:
+        pos[e['pos']] = pos.get(e['pos'], 0) + 1
+    eg = ', '.join(e['word'] for e in entries[:4])
+    return (
+        "Both study directions in one deck: Russian → English and English → Russian, each a "
+        "card with its own schedule. " + f"{n} Russian set phrases, idioms and proverbs — the "
+        "layer a list of single words cannot carry, and the one thing the six TORFL level decks "
+        "beside this one leave out (an expression one of them already teaches is not repeated "
+        f"here). The commonest come first: {eg}. "
+        "WHAT COUNTS AS AN EXPRESSION is two tests, each catching what the other misses: an "
+        "entry English Wiktionary files as a phrase or a proverb, or any entry of more than one "
+        "word with a sense it marks as idiomatic — so ходи́ть вокру́г да о́коло, a verb, and "
+        f"головна́я боль, a noun, are both here. {pos.get('proverb', 0)} of the entries are "
+        "proverbs. Oaths and coarse expressions are left out. "
+        "THE ORDER is how many sentences of the Tatoeba corpus use each expression, counted on "
+        "whole words. " + (f"{none} of the {n} appear in no sentence there at all, and they are "
+        "kept and dealt last rather than dropped: an idiom is literary where a corpus of "
+        "everyday sentence pairs is conversational, and letting the corpus choose would let it "
+        "set the syllabus. " if none else "") +
+        (f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for "
+         f"{ex3} of them. " if ex0 or ex3 != n else "Every expression carries three example "
+         "sentences. ") +
+        "Every Russian word is printed with its stress mark; the sentences are printed as they "
+        "were written. Sources. Expressions, meanings and stress: English Wiktionary, via the "
+        "kaikki.org extraction (CC BY-SA 4.0). Order and example sentences: Tatoeba "
+        "(tatoeba.org), CC BY 2.0 FR."
+    )
+
+
+def emit_deck(cards, DESC, count_txt, DECK, tags):
+    n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
+        'subtitle': f'{count_txt} · both directions, as two cards per {count_txt.split()[-1][:-1]}',
         'desc': DESC, 'author': '', 'language': 'en', 'color': '#2E5C9A',
-        'tags': ['russian', 'torfl', 'трки', EN.lower(), LEVEL, 'vocabulary'],
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Russian vocabulary', 'speechLang': 'ru-RU',
@@ -294,8 +339,7 @@ def main():
     with open(out, 'w', encoding='utf-8') as fh:
         json.dump(deck, fh, ensure_ascii=False)
     print('  wrote', out)
-    print(f'  notes {n} = cards {n * 2} | pairs {pairs} | nouns {nouns} | from the inventory '
-          f'{from_inv} | three sentences {ex3} | none {ex0} | bytes {os.path.getsize(out)}')
+    print(f'  notes {n} = cards {n * 2} | bytes {os.path.getsize(out)}')
 
 
 if __name__ == '__main__':

@@ -22,6 +22,7 @@ const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
 const BANDS = ["a1", "a2", "b1", "b2", "c1", "c2"];
 const FILE = LEVEL === "alphabet" ? "Russian-Alphabet.folio-deck.json"
+  : LEVEL === "phrases" ? "Russian-Phrases-and-Expressions.folio-deck.json"
   : "TORFL-" + LEVEL.toUpperCase() + "-Russian.folio-deck.json";
 let fails = 0, checks = 0;
 const ok = (c, m, extra) => {
@@ -67,9 +68,9 @@ for (const c of cards) for (const w of c.fields.Word.split(/\s*,\s*/)) {
 }
 ok(!dup.length, "no word is taught by two notes", dup.slice(0, 8).join(", "));
 
-if (BANDS.includes(LEVEL)) {
+if (BANDS.includes(LEVEL) || LEVEL === "phrases") {
   const below = new Set();
-  for (const b of BANDS.slice(0, BANDS.indexOf(LEVEL))) {
+  for (const b of (LEVEL === "phrases" ? BANDS : BANDS.slice(0, BANDS.indexOf(LEVEL)))) {
     const p = path.join(ROOT, "decks", "TORFL-" + b.toUpperCase() + "-Russian.folio-deck.json");
     for (const c of JSON.parse(fs.readFileSync(p, "utf8")).cards)
       for (const w of c.fields.Word.split(/\s*,\s*/)) below.add(fold(w));
@@ -85,10 +86,16 @@ if (BANDS.includes(LEVEL)) {
   const unbold = sents.filter(([, s]) => !/<b>/.test(s));
   ok(!unbold.length, "every example sentence shows its word in bold", unbold.slice(0, 3).map((x) => x[0]).join(", "));
   const ex3 = cards.filter((c) => (c.fields.Examples.match(/uc-exi/g) || []).length === 3).length;
-  ok(deck.meta.desc.includes(cards.length + " words"), "the description states the deck's own size");
+  ok(deck.meta.desc.includes(cards.length + (LEVEL === "phrases" ? " Russian set phrases" : " words")),
+     "the description states the deck's own size");
+  // …and its own CEFR band (A2 to C2 all said "A1" until Oct 2026)
+  if (LEVEL !== "phrases")
+    ok(deck.meta.desc.includes("aligned to " + LEVEL.toUpperCase() + " of the Common European"),
+       "the description names the deck's own CEFR band");
   console.log("   · three sentences: " + ex3 + " of " + cards.length);
   const nouns = cards.filter((c) => /uc-pos">noun/.test(c.fields.English));
-  const noGen = nouns.filter((c) => !/indeclinable|plural only/.test(c.fields.English) && !/>genitive</.test(c.fields.Forms));
+  const noGen = nouns.filter((c) => !/indeclinable|plural only/.test(c.fields.English) && !/>genitive</.test(c.fields.Forms)
+    && !/ /.test(c.fields.Word));   // a multi-word noun idiom (`головная боль`) has no one genitive
   ok(!noGen.length, "every declinable noun shows its genitive", noGen.slice(0, 5).map((c) => c.fields.Word).join(", "));
   const pairs = cards.filter((c) => /imperfective \/ perfective/.test(c.fields.English));
   // a pair that differs only in stress (`отреза́ть / отре́зать`) names its spelling once in `Word`

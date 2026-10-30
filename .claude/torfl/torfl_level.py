@@ -48,9 +48,16 @@ DECK_IDS = {k: f'torfl{k}' for k in BANDS}
 DECK_FILES = {k: f'TORFL-{k.upper()}-Russian.folio-deck.json' for k in BANDS}
 
 # The owner's sizes (2026-10-30), in NOTES; an aspect pair is one note.
+# THE PHRASES DECK is the seventh and not a level (CAPLE's arrangement): every
+# multi-word expression the six levels do not teach.  `phr` is its key.
+TITLES['phr'] = 'Russian Phrases and Expressions'
+DECK_IDS['phr'] = 'ruphrase'
+DECK_FILES['phr'] = 'Russian-Phrases-and-Expressions.folio-deck.json'
+
 TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500, 'c2': 1000}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
+BELOW['phr'] = list(BANDS)
 
 SCOPE = {
     'a1': {

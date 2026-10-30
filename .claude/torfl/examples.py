@@ -43,11 +43,11 @@ BAD_RU = {fold(w) for w in '''
 пистолет пистолета застрелить застрелил стрелять повеситься самоубийство изнасилование
 блядь бля хуй хуя пизда ебать ебал сука суки жопа жопу дерьмо говно чёрт черт проклятый
 идиот идиотка дура дурак тупой ненавижу ненавидит голый голая пьяный пьяная
-война войны бомба тюрьма тюрьме бог бога богу боже
+война войны бомба тюрьма тюрьме
 '''.split()}
 BAD_EN = re.compile(r"\b(kill\w*|murder\w*|dead|death|die[sd]?|dying|suicide|blood\w*|gun\w*|"
                     r"shoot\w*|shot|sex\w*|naked|drug\w*|drunk|fuck\w*|shit\w*|damn\w*|hell|"
-                    r"bitch\w*|whore\w*|slut\w*|rape\w*|idiot\w*|stupid|hate[sd]?|war|bomb\w*|prison|jail|god|"
+                    r"bitch\w*|whore\w*|slut\w*|rape\w*|idiot\w*|stupid|hate[sd]?|war|bomb\w*|prison|jail|"
                     r"Tom|Mary|John|Alice)\b", re.I)
 # The last names are Tatoeba's house characters: a third of its English sentences
 # are about Tom and Mary, and a deck in which every third example is about Tom
@@ -167,16 +167,21 @@ def main():
                     cands[n].append((score(ft, set(hit), ru, en), si, hit, {0}))
                     break
 
-    def near(si, got):
+    def near(si, hit, got):
         """Two of one note's sentences may not be one sentence twice -- `Не
         принимайте это на свой счёт` and `Не прими это на свой счёт`, or the same
         line in the masculine and the feminine.  More than half the words shared
         (folded, the hits aside) is the same sentence; a short pair sharing three of
         five words is one sentence twice too (`Дети и пьяные говорят правду` and
         `…не врут`, A2)."""
-        a = set(sents[si][2])
+        # THE HITS ASIDE, AS THIS SAYS -- the code compared them too until the
+        # phrases deck, where every pair of sentences holding one three-word
+        # phrase looked like a duplicate and 233 of 484 notes went without one.
+        def rest(si, hit):
+            return {t for k, t in enumerate(sents[si][2]) if k not in hit}
+        a = rest(si, hit)
         for c in got:
-            b = set(sents[c[1]][2])
+            b = rest(c[1], c[2])
             if len(a & b) * 2 >= min(len(a), len(b)) + 1:
                 return True
         return False
@@ -190,14 +195,14 @@ def main():
         # first one per member (both verbs of a pair), then the best of the rest
         for m in want_members:
             for c in pool:
-                if c[1] not in used and m in c[3] and c not in got and not near(c[1], got):
+                if c[1] not in used and m in c[3] and c not in got and not near(c[1], c[2], got):
                     got.append(c)
                     used.add(c[1])
                     break
         for c in pool:
             if len(got) >= 3:
                 break
-            if c[1] not in used and not near(c[1], got):
+            if c[1] not in used and not near(c[1], c[2], got):
                 got.append(c)
                 used.add(c[1])
         got.sort(key=lambda c: c[0])

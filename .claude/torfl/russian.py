@@ -78,6 +78,15 @@ def show(s):
     # back on the vowel before it; any other mark not after a letter is dropped.
     s = re.sub(r'([аеиоуыэюяАЕИОУЫЭЮЯ])\s+([\u0301\u0300])', r'\1\2', s)
     s = re.sub(r'(?<![А-Яа-яЁё])[\u0301\u0300]', '', s)
+    # A WORD MARKED ON TWO SYLLABLES (`исклю́че́ние`, a Wiktionary slip) keeps the
+    # last mark; a hyphenated compound marks each half and is left alone
+    def one(m):
+        w = m.group(0)
+        if w.count(ACUTE) > 1:
+            k = w.rfind(ACUTE)
+            w = w[:k].replace(ACUTE, '') + w[k:]
+        return w
+    s = re.sub(r'[^\s\-/,()]+', one, s)
     if syllables(s) <= 1 or 'ё' in s.lower():
         if ' ' not in s:
             return bare(s)
