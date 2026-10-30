@@ -7520,7 +7520,17 @@ window.GLOSSARY = {
 "Battle_of_Taranto": "",
 "Battle_of_Cape_Matapan": "",
 "Siege_of_Malta_(World_War_II)": "",
-"Balkan_campaign_(World_War_II)": ""
+"Balkan_campaign_(World_War_II)": "",
+"Reichskommissariat_Ukraine": "",
+"Soviet_partisans": "",
+"Hiwi_(volunteer)": "",
+"Severity_Order": "",
+"Myth_of_the_clean_Wehrmacht": "",
+"Stand-fast_order": "",
+"Rasputitsa": "",
+"Russian_Winter": "",
+"Case_Blue": "",
+"Operation_Edelweiss": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11198,7 +11208,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Taranto": "11–12 November 1940",
 "Battle_of_Cape_Matapan": "28–29 March 1941",
 "Siege_of_Malta_(World_War_II)": "1940–1942",
-"Balkan_campaign_(World_War_II)": "April 1941"
+"Balkan_campaign_(World_War_II)": "April 1941",
+"Reichskommissariat_Ukraine": "1941–1944",
+"Soviet_partisans": "1941–1944",
+"Hiwi_(volunteer)": "1941–1945",
+"Severity_Order": "10 October 1941",
+"Stand-fast_order": "December 1941",
+"Case_Blue": "1942",
+"Operation_Edelweiss": "1942"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15960,7 +15977,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mediterranean_and_Middle_East_theatre_of_World_War_II": ["Mediterranean and Middle East theatre"],
 "East_African_campaign_(World_War_II)": ["East African campaign"],
 "Siege_of_Malta_(World_War_II)": ["Siege of Malta"],
-"Balkan_campaign_(World_War_II)": ["Balkan campaign"]
+"Balkan_campaign_(World_War_II)": ["Balkan campaign"],
+"Reichskommissariat_Ukraine": ["RKU"],
+"Soviet_partisans": ["Soviet partisan"],
+"Hiwi_(volunteer)": ["Hilfswillige","Hiwi","Hiwis"],
+"Severity_Order": ["Reichenau Order","Reichenau order"],
+"Myth_of_the_clean_Wehrmacht": ["clean Wehrmacht myth","myth of the clean Wehrmacht","clean Wehrmacht"],
+"Stand-fast_order": ["stand-fast order","stand fast order"],
+"Rasputitsa": ["rasputitsa"],
+"Russian_Winter": ["General Winter","Russian winter"],
+"Case_Blue": ["Fall Blau","Operation Blue","Case Blau"],
+"Operation_Edelweiss": ["Edelweiss"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23625,7 +23652,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Taranto": ["battle","history","warfare","italy","united kingdom"],
 "Battle_of_Cape_Matapan": ["battle","history","warfare","italy","united kingdom"],
 "Siege_of_Malta_(World_War_II)": ["battle","history","warfare","malta","mediterranean"],
-"Balkan_campaign_(World_War_II)": ["war","history","warfare","germany","greece","yugoslavia"]
+"Balkan_campaign_(World_War_II)": ["war","history","warfare","germany","greece","yugoslavia"],
+"Reichskommissariat_Ukraine": ["state","history","politics","warfare","ukraine","germany"],
+"Soviet_partisans": ["people","history","warfare","russia","ukraine","belarus"],
+"Hiwi_(volunteer)": ["people","history","warfare","russia","germany"],
+"Severity_Order": ["text","history","warfare","holocaust","germany"],
+"Myth_of_the_clean_Wehrmacht": ["concept","history","warfare","holocaust","germany"],
+"Stand-fast_order": ["text","history","warfare","russia","germany"],
+"Rasputitsa": ["concept","geography","history","russia"],
+"Russian_Winter": ["concept","history","warfare","geography","russia"],
+"Case_Blue": ["event","history","warfare","russia","germany"],
+"Operation_Edelweiss": ["event","history","warfare","russia","germany"]
 });
 
 /* ============================================================================

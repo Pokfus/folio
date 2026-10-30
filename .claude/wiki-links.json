@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T01:14Z",
+ "generated": "2026-10-30T01:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5279,
-  "redirect-broader": 489,
+  "ok": 5285,
+  "redirect-broader": 491,
   "redirect-variant": 332,
-  "section-redirect": 105,
+  "section-redirect": 106,
   "disambiguation": 138,
-  "none": 960,
+  "none": 961,
   "disambig-resolved": 79,
   "list-page": 6,
   "search-match": 6,
@@ -60210,6 +60210,87 @@
    "via": "disambiguation",
    "status": "disambig-resolved",
    "from": "Balkans campaign"
+  },
+  "ww2-291": {
+   "answer": "Reichskommissariat Ukraine",
+   "title": "Reichskommissariat Ukraine",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat_Ukraine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-292": {
+   "answer": "Soviet partisans",
+   "title": "Soviet partisans",
+   "url": "https://en.wikipedia.org/wiki/Soviet_partisans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-293": {
+   "answer": "Hilfswillige",
+   "title": "Hiwi (volunteer)",
+   "url": "https://en.wikipedia.org/wiki/Hiwi_(volunteer)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hilfswillige"
+  },
+  "ww2-294": {
+   "answer": "Severity Order",
+   "title": "Severity Order",
+   "url": "https://en.wikipedia.org/wiki/Severity_Order",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-295": {
+   "answer": "clean Wehrmacht myth",
+   "title": "Myth of the clean Wehrmacht",
+   "url": "https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Clean Wehrmacht myth"
+  },
+  "ww2-296": {
+   "answer": "stand-fast order",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Military history of Italy during World War II",
+    "Scandinavian theatre of World War II",
+    "British merchant seamen of World War II",
+    "Soviet Union in World War II",
+    "Australia in World War II"
+   ]
+  },
+  "ww2-297": {
+   "answer": "rasputitsa",
+   "title": "Rasputitsa",
+   "url": "https://en.wikipedia.org/wiki/Rasputitsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-298": {
+   "answer": "Russian Winter",
+   "title": "Russian Winter",
+   "url": "https://en.wikipedia.org/wiki/Russian_Winter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-299": {
+   "answer": "Case Blue",
+   "title": "Case Blue",
+   "url": "https://en.wikipedia.org/wiki/Case_Blue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-300": {
+   "answer": "Operation Edelweiss",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Operation Edelweiss",
+   "target": "Battle of the Caucasus#German operations"
   }
  }
 }
