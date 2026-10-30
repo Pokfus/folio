@@ -23,6 +23,8 @@ const deps = `
 
 const VECTORS = [
   // [name, input, mustNotContain[], mustContain[]]
+  ["furigana survives", '<ruby>学校<rp>(</rp><rt>がっこう</rt><rp>)</rp></ruby>', [], ["<ruby>学校", "<rt>がっこう</rt>", "<rp>(</rp>"]],
+  ["ruby keeps no handler", '<ruby onclick="alert(1)">字<rt onmouseover="alert(2)">じ</rt></ruby>', ["onclick", "onmouseover", "alert"], ["<rt>じ</rt>"]],
   ["script tag", '<script>alert(1)</script>hello', ["<script", "alert(1)"], ["hello"]],
   ["img onerror", '<img src=x onerror=alert(1)>', ["onerror", "alert"], []],
   ["svg onload", '<svg/onload=alert(1)>', ["<svg", "onload"], []],

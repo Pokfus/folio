@@ -46,7 +46,9 @@ changed was the one that had been wrong all along.
   phrases, idioms and proverbs (228) — by `.claude/ukbi/`: see their own bullets below. The Indonesian
   one is the odd one out and its bullet says why: **its exam board publishes no word list at all**, so
   unlike every other deck here its vocabulary is assembled rather than read, and the deck's own
-  description states that in those words. **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
+  description states that in those words. The **Japanese set** (Oct 2026) is in the same position, the
+  JLPT having published no list since 2010: five JLPT levels, hiragana, katakana, phrases and idioms, built by
+  `.claude/jlpt/` (its own bullet below). **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
   and Indonesian alike: it is an artefact of the levels it combines rather than another deck, so
   committing it duplicates every megabyte the repo already carries for them, and its own `combine.py`
   regenerates it byte for byte.
@@ -2471,6 +2473,61 @@ changed was the one that had been wrong all along.
   current description. The browser checkers are `check-delf.js <level>` for a level,
   **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
   the site.
+- `.claude/jlpt/` — the generator behind the **Japanese** set (Oct 2026, on request; the plan, the owner's
+  answers and what building it changed are in `docs/japanese-decks-plan.md`): **five JLPT levels**
+  `JLPT-N5…N1-Japanese.folio-deck.json`, **two kana decks** `Japanese-Hiragana` and `Japanese-Katakana`,
+  `Japanese-Phrases-and-Expressions` and `Japanese-Idioms` (four-character idioms and proverbs). The counts are
+  in each deck's own subtitle and in `lang-decks.js`. PYTHON, like `.claude/ukbi/`. `run.py` runs every
+  stage in order, and **re-running it must reproduce every shipped file byte for byte**.
+  `PYTHONPATH=<fugashi + unidic_lite> python3 .claude/jlpt/run.py [--no-extract]` (about 20 minutes).
+  **The downloads** go into `.claude/jlpt-cache/` (gitignored, ~450 MB unpacked):
+  `https://www.edrdg.org/pub/Nihongo/JMdict_e.gz`, `https://www.edrdg.org/kanjidic/kanjidic2.xml.gz`, Tatoeba's
+  `per_language/jpn/jpn_sentences.tsv.bz2`, `per_language/eng/eng_sentences.tsv.bz2` and `links.tar.bz2`,
+  `JmdictFurigana.json` (its GitHub release), and git clones of `KanjiVG/kanjivg` and
+  `stephenmk/yomitan-jlpt-vocab` into `jlpt-cache/src/`. **fugashi and unidic-lite** are pip-installed
+  OUTSIDE the repo. unidic-lite's wheel fails to build under the current setuptools, so unpack its sdist and
+  put `unidic_lite/` on the same `PYTHONPATH`.
+  · **THE JLPT PUBLISHES NO WORD LIST** (its own FAQ, read 2026-10-30), so the membership is Jonathan Waller's
+    lists (CC BY), as joined to JMdict by stephenmk/yomitan-jlpt-vocab (CC BY-SA 4.0). Every level's
+    description says the list is unofficial. A JMdict entry is ONE note per deck (いく / ゆく are one card,
+    with "also"), and an entry carded at a lower level is not carded again. The lower levels are read out of
+    the SHIPPED decks' `jmdict` key on every note.
+  · **THE JOIN IS CHECKED, NOT TRUSTED** (`resolve.py`). コップ was joined to "cop", これ to "hey" and ボタン
+    to the tree peony: nothing fails on a wrong join, and the card simply teaches another word. **Waller's own
+    definition is sometimes the mistake** (そっと "face of the earth", どうか "copper coin", せめて
+    "offense"), so a row moves only when its definition shares no word with the joined entry, another entry
+    with the same spelling and reading does share one, and that entry is marked common for the spelling while
+    the joined one is not. Ten rows move. Read the list `resolve.py` prints before trusting a change to it.
+  · **THE FREQUENCY ORDER IS MADE HERE.** hermitdave's `ja_full.txt` (there is no `ja_50k.txt`) splits verbs
+    and adjectives from their kana endings; its top rows include 言, 多 and 始. So `extract.py` segments
+    Tatoeba's Japanese with MeCab + UniDic and counts dictionary forms.
+  · **THE ANALYSER IS TRUSTED FOR SEGMENTATION, NOT FOR READINGS.** It reads the 母 of お母さん as はは and
+    the 日 of 月曜日 as ひ. So the headword inside an example carries JMdict's furigana (`_sentence_html`), and
+    a kanji spelling matches without a reading check, except the `HOMO` spellings that two common words share
+    (一日 いちにち / ついたち, 165 of them), where a reading mismatch is a different word. A word written in
+    kana is matched against UniDic's LEMMA, which carries the kanji: いる "to need" (要る) must not collect the
+    sentences of いる "to be" (居る). It did, until the lemma check was added. いる / ある / みる / おく after
+    て/で are auxiliaries, not the word (`AUX_TE`). 私 is read わたくし by UniDic everywhere, so example
+    sentences show わたし (`PLAIN_READING`). The readings over example sentences are still the machine's,
+    and every description says so.
+  · **ROMAJI IS ALWAYS SHOWN** (the owner's answer) and is Hepburn from the kana. A long vowel is marked only
+    where the KANA marks it: ー becomes a macron, but おう stays "ou", because kana alone cannot tell
+    とうきょう (one long ō) from おもう (o-mo-u). A particle は / へ / を is "wa" / "e" / "o", but only
+    where the segmentation's kana agree with the reading (`romaji_phrase`). こんにちは and こんばんは are a
+    two-row table, since no segmenter splits their fused particle.
+  · **THE BACK RENDERS {{FrontSide}} AND HIDES IT.** A back without `{{FrontSide}}` makes the study shell
+    draw the question above it, so the word appeared twice. Card 1's back wraps `{{FrontSide}}` in
+    `.uc-back`, the CSS hides the bare word inside it, and the furigana headword stands in its place.
+  · **A FRONT TWO NOTES SHARE SHOWS ITS FURIGANA** (私 わたし and 私 わたくし are separate JMdict entries):
+    a front that cannot say which word it asks is unanswerable. Every other front is bare.
+  · **THE IDIOMS DECK LEAVES OUT JMdict's `id` TAG**: 花が咲く, 頭が痛い and 手を出す have literal twins, and
+    the corpus's sentences for them are nearly all literal. **THE PHRASES DECK LEAVES OUT pure particle +
+    auxiliary chunks** (には, ですか, だった), which a substring count would put at the top.
+  · **`node .claude/jlpt/check-jlpt.js [n5…n1|hiragana|katakana|phrases|idioms]` is the browser half.** It
+    runs the file assertions (unique ids, every English side unique, no JMdict entry at two levels), imports
+    the deck through the Studio, studies it at phone width, and asserts **`<rt>` on the rendered card**.
+    Furigana that the sanitizer strips leaves a card that still reads, with the reading beside the kanji
+    instead of over them.
 - `.claude/ukbi/` — the generator behind the UKBI Indonesian decks: **level 1
   `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB), **level 2
   `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 / 1,500, 789 KB), **level 3
