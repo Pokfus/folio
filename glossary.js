@@ -10248,7 +10248,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sack_of_Rome_(455)": "455 CE",
 "Ricimer": "d. 472 CE",
 "Odoacer": "d. 493 CE",
-"Ostrogothic_Kingdom": "493–553 CE",
+"Ostrogothic_Kingdom": "493–552 CE",
 "Gothic_War_(535–554)": "535–552 CE",
 "Auxilia": "c. 200 BCE – 400 CE",
 "Ala_(Roman_cavalry_unit)": "c. 50 BCE – 400 CE",

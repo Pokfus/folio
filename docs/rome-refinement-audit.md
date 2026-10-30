@@ -194,7 +194,7 @@ order unless the user says otherwise.
 | B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | **done 2026-10-30** |
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | **done 2026-10-30** |
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | **done 2026-10-30** |
-| B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | open |
+| B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | **done 2026-10-30** |
 | B64 | The end of the western empire (`rm-fall-west`) | `rm-631`–`rm-640` | 10 | 90 | open |
 | B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | open |
 | B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | open |
@@ -389,6 +389,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-618` Council of Chalcedon | none | not re-checked: the card has no picture; the locator's label is the term |
 | `rm-619` Damasus I | none | not re-checked: the card has no picture; the glossary's illumination would do |
 | `rm-620` Pope Leo I | none | not re-checked: the card has no picture; the glossary's Herrera painting would do |
+| `rm-621` Fall of the Western Roman Empire | none | not re-checked: the card has no picture; the glossary's Odoacer coin does not show the whole term |
+| `rm-622` Stilicho | none | not re-checked: the card has no picture; the glossary's diptych would do (who it shows is debated) |
+| `rm-623` Alaric I | none | not re-checked: the card has no picture; the glossary's is an imagined engraving with a printed caption: replace |
+| `rm-624` Gothic sack of Rome | none | not re-checked: the card has no picture |
+| `rm-625` Crossing of the Rhine | none | not re-checked: the card has no picture; the locator's label is the term (Mainz is right) |
+| `rm-626` Visigothic Kingdom | none | not re-checked: the card has no picture |
+| `rm-627` Vandal Kingdom | none | not re-checked: the card has no picture |
+| `rm-628` Genseric | none | not re-checked: the card has no picture |
+| `rm-629` Flavius Aetius | none | not re-checked: the card has no picture; the glossary's diptych is only possibly Aetius and its description names a modern historian |
+| `rm-630` Attila | none | not re-checked: the card has no picture; the glossary's credit lacks "via Wikimedia Commons" |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2390,3 +2400,22 @@ Run as B61 and applied with it. No draft needed a hand change. **The old date li
 | `rm-620` Pope Leo I | 7 | 8 → 7 | **The meeting with Attila told through Prosper and Jordanes; the vision of Peter and Paul a later legend; Genseric "is said to"**; Kirsch's days; Raphael's fresco set at Rome, the meeting near Mantua. |
 
 **Read by eye.** *Confusability:* `rm-611`/`rm-612` the process (Pliny, Victorinus) and the office (the provincial capital); `rm-613`/`rm-614`/`rm-615`/`rm-616` the monks (Pambo), the Bible (Oea's ivy), the man (the pears) and the book (Marcellinus); `rm-617`/`rm-618` the schism (the almoners) and the council (Proterius); `rm-619`/`rm-620` the two bishops of Rome (the basilica of Sicininus, the Mincius ford). *Legend:* the child's voice in the garden is Augustine's own telling, the vision of the apostles over Attila a later legend. *Overlap:* `wh-492` (Christian monasticism) and `rm-613` no longer share a clue; no `wh-` card covers Augustine.
+
+### B63 — `rm-621`–`rm-630`, The end of the western empire: the fall of the West to Attila (2026-10-30)
+
+Run as B62, applied with B64 in one `batch.sh` run. Before applying, `rm-626`'s labels "Vouillé" and "Islamic invasion" became "Defeated" and "Invaded" (a place is not a date) and `rm-628`'s "Leo's armada" became "Armada burned" (another man's name). `rm-621`'s `timeline` moved from 406 to 395 to match its new first row. **The old date lines carried a name ("Deposition Romulus Augustulus, 476 CE"), a later usurper's death ("Nepos killed 480 CE"), a king's title assumed from 395 and a day no source fetched prints (25 January 477).** The live `Alaric_I` term already carries the bare alias "Alaric", which the card plan says it should not claim (`wh-488`/`489` name Alaric II): left for the owner.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-621` Fall of the Western Roman Empire | 9 | 9 → 9 | **"Fall" a later label (Gibbon); 476 a convention; the provinces lost one by one in each source's voice (Britain and Gaul Zosimus's, Spain Orosius's, Africa 439 Marcellinus's)**; the name off the line. |
+| `rm-622` Stilicho | 7 | 8 → 7 | **The years out of the questions; Pollentia, Verona and Radagaisus go (their years disputed, and Pollentia is `rm-623`'s)**; Claudian's scene, Zosimus's death and Rutilius's charge each their author's. |
+| `rm-623` Alaric I | 7 | 9 → 8 | **The Busentus burial Jordanes's story; "king from 395" uncertain; "Visigoths" an identity that formed around him**; the ransom Zosimus's list without figures. |
+| `rm-624` Gothic sack of Rome | 8 | 8 → 9 | **24 August from one manuscript of Prosper (Bury); the third day Orosius's; Procopius's chicken hearsay in a why answer**; Augustine left to `rm-616`; the ancient share falls from six of eight to four of nine. |
+| `rm-625` Crossing of the Rhine | 6 | 7 → 8 | **31 December 406, also dated 405 (a view its author later gave up); the frozen river Gibbon's, not the sources'**; Prosper's consuls; into Spain autumn 409, Hydatius's day left out. |
+| `rm-626` Visigothic Kingdom | 7 | 8 → 9 | **418, Vouillé 507 and 711 on the line; "host and guest" and Cassiodorus coining "Visigoths" go (no page read supports them)**; the 418 or 419 dispute; Sidonius's Theoderic II. |
+| `rm-627` Vandal Kingdom | 7 | 7 → 7 | **The 80,000 is Victor of Vita's, counting every age, set against Procopius's 80 "chiliarchs"; Bury's 15,000 one estimate**; Boniface's invitation perhaps a legend; Carthage 19 October 439 from Prosper. |
+| `rm-628` Genseric | 7 | 7 → 7 | **Died January 477 (Bury), not 25 January; the succession rule no longer rests on Jordanes**; Carthage and the sack of 455 out of the questions. |
+| `rm-629` Flavius Aetius | 7 | 8 → 8 | **"The last of the Romans" Procopius's, of Aetius and Boniface together; the killing by the emperor's own hand Prosper's, not Procopius's**; patrician 434 one historian's date. |
+| `rm-630` Attila | 9 | 9 → 9 | **Joint rule c. 434 – 445, not "433 – 453"; the gold one historian's reckoning; Honoria's ring hedged**; Priscus's wooden trencher, Ildico's wedding night and Margus; the Mincius and the Catalaunian battle out of the questions. |
+
+**Read by eye.** *Confusability:* `rm-621`/`rm-622`/`rm-623`/`rm-624`/`rm-625` the process (the Britons' arms), the general (Rutilius's charge), the king (the Busentus), the sack (Sallust's house) and the crossing (Prosper's consuls); `rm-626`/`rm-627`/`rm-628` the two kingdoms (Aquitaine, the census) and the king (the fire ships); `rm-629`/`rm-630` the general (a hostage among the Huns) and the king (the trencher). *Legend:* the Busentus burial, Honorius's chicken and the frozen Rhine are their authors'. *Overlap:* `wh-488` agrees on 507 – 711; `wh-590` agrees with `rm-630`'s dates.

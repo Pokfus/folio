@@ -664,6 +664,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Council of Chalcedon: met / the Ephesus synod it undid | 8 October – 1 November 451 CE / 449 CE | `rm-618` |
 | Damasus I: born / bishop of Rome / died | c. 304 CE (one older account) / 366 – 384 CE / 11 December 384 CE | `rm-619` |
 | Leo I, bishop of Rome: consecrated / died | 29 September 440 CE / 10 November 461 CE | `rm-620` |
+| the fall of the Western Roman Empire (a modern label): the provinces lost / Carthage taken / the usual end | 395 – 476 CE (one recent outline) / 439 CE / 476 CE (a convention) | `rm-621` |
+| Stilicho: in power / executed | 395 – 408 CE / 22 August 408 CE | `rm-622` |
+| Alaric I: led the Goths / Pollentia / besieged Rome / died | 395 – 410 CE / 402 CE / 408 – 410 CE / 410 CE | `rm-623` |
+| the Gothic sack of Rome: the Goths entered | 24 August 410 CE (one manuscript of Prosper) | `rm-624` |
+| the crossing of the Rhine / into Spain | 31 December 406 CE (405 CE argued, then conceded) / autumn 409 CE | `rm-625` |
+| the Visigothic Kingdom: settled in Aquitaine / Vouillé / the Islamic invasion | 418 CE (419 CE argued) / 507 CE / 711 CE | `rm-626` |
+| the Vandal Kingdom: the crossing / first treaty / Carthage taken / second treaty | May 429 CE / 435 CE / 19 October 439 CE / 442 CE | `rm-627` |
+| Genseric: reigned / the eastern armada burned / died | 428 – 477 CE / 468 CE / January 477 CE | `rm-628` |
+| Flavius Aetius: first consulship / patrician / third consulship / killed | 432 CE / 434 CE / 446 CE / 21 September 454 CE | `rm-629` |
+| Attila: joint rule / Gaul / Italy / died | c. 434 – 445 CE / 451 CE / 452 CE / 453 CE | `rm-630` |
 
 ## Chronology pins
 
@@ -1271,4 +1281,14 @@ rm-617: 311; 313; 314; 411
 rm-618: 451; 449
 rm-619: 304; 366; 384
 rm-620: 440; 461
+rm-621: 395; 476; 439
+rm-622: 395; 408
+rm-623: 395; 410; 402; 408
+rm-624: 410
+rm-625: 406; 405; 409
+rm-626: 418; 507; 711
+rm-627: 429; 435; 439; 442
+rm-628: 428; 477; 468
+rm-629: 432; 434; 446; 454
+rm-630: 434; 445; 451; 452; 453
 ```
