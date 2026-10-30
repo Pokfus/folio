@@ -12,7 +12,18 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  matter (chapter 0 — see the Library bullet). Currently fifty-three:
+  `strabo-geography` (~3.1 MB English, ~1.8 MB Greek, all seventeen books, **5,479 notes**, original **Greek**;
+  Hamilton and Falconer's translation, Bohn 1854–57, beside Meineke's Teubner text of 1877, both from Perseus's TEI;
+  parts are Bohn's three volumes). **Pairs on SECTIONS, not chapters** — the chapters run to 70 sections — through
+  `pairOn: "section"` (`teiBookSections`): a marker reads `chapter.section` ("5.2" inside book 4 is Strabo 4.5.2),
+  `data-n` = chapter × 1000 + section × 10 + letter. 1,573 English sections against 1,580 Greek, the same numbers
+  in every chapter; the seven Greek-only rows are fragments of book 7 (`sectionChapters` admits the Fragments as
+  "Fr.", keyed after chapter 7). Hamilton's per-book "Summary" is skipped as his. Two silent faults in the English
+  were fixed in the reader: five passages standing outside any `<p>` or inside a nested one (`teiParaFlatten`), and
+  233 quotations doubled as `<quote><q>` (ten genuinely interrupted quotes keep both). Checked: letter counts source
+  against output are EXACT in both columns. Its colour is a dark wine inside the 85 ceiling (Plutarch's refusal to
+  lift it stands); the violet the band offered sat beside Marco Polo.
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,
