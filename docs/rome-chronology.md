@@ -425,6 +425,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Perusine War / the surrender | 41 – 40 BCE / 40 BCE | `rm-378` |
 | the Pact of Brundisium | 40 BCE (September in Syme, early October in the Cambridge Ancient History) | `rm-379` |
 | Sextus Pompey: fleet command / the Misenum pact / died | 43 BCE / 39 BCE / 35 BCE | `rm-380` |
+| the Battle of Naulochus | 3 September 36 BCE (the Fasti Amiternini) | `rm-381` |
+| Agrippa: born / aedile / married Julia / died | c. 64 – 63 BCE / 33 BCE / 21 BCE / 12 BCE | `rm-382` |
+| Mark Antony: born / consul / triumvir / died | 83 BCE / 44 BCE / 43 BCE / 1 August 30 BCE | `rm-383` |
+| Cleopatra VII: born / reigned / died | 69 BCE / 51 – 30 BCE / 30 BCE (12 August in one modern chronology) | `rm-384` |
+| the Donations of Alexandria / the despatch shelved | 34 BCE / 32 BCE | `rm-385` |
+| Antony's will seized and read / war declared | 32 BCE | `rm-386` |
+| the Battle of Actium | 2 September 31 BCE (Dio) | `rm-387` |
+| Egypt: Alexandria taken / the Philae stele | 1 August 30 BCE / April 29 BCE | `rm-388` |
+| the first settlement / named Augustus | 13 January 27 BCE / 16 January 27 BCE | `rm-389` |
+| the clipeus virtutis: voted / the Arles copy / found | 27 BCE / 26 BCE / 1951 | `rm-390` |
 
 ## Late Antiquity
 
@@ -800,4 +810,14 @@ rm-377: 42
 rm-378: 41; 40
 rm-379: 40
 rm-380: 43; 39; 35
+rm-381: 36
+rm-382: 64; 63; 33; 21; 12
+rm-383: 83; 44; 43; 30
+rm-384: 69; 51; 30
+rm-385: 34; 32
+rm-386: 32
+rm-387: 31
+rm-388: 30; 29
+rm-389: 27
+rm-390: 27; 26; 1951
 ```

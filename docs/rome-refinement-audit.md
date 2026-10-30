@@ -170,7 +170,7 @@ order unless the user says otherwise.
 | B36 | The fall of the Republic (`rm-fall-republic`) | `rm-351`–`rm-360` | 10 | 84 | **done 2026-10-29** |
 | B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | **done 2026-10-29** |
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | **done 2026-10-30** |
-| B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | open |
+| B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | **done 2026-10-30** |
 | B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | open |
 | B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | open |
 | B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | open |
@@ -650,6 +650,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-378` Perusine War | the Etruscan Arch at Perugia | ok |
 | `rm-379` Pact of Brundisium | the Roman column at Brindisi | wrong: a place stands for an event |
 | `rm-380` Sextus Pompey | a denarius of Sextus Pompey | ok; the description names the findspot |
+| `rm-381` Battle of Naulochus | the coast from Tindari towards Capo Milazzo | ok |
+| `rm-382` Marcus Agrippa | the Gabii portrait | ok |
+| `rm-383` Mark Antony | the Chiaramonti bust | ok |
+| `rm-384` Cleopatra VII | the Berlin marble head | ok |
+| `rm-385` Donations of Alexandria | the Dendera relief of Cleopatra and Caesarion | wrong: not the ceremony, and the description says the Donations made Caesarion co-ruler (he already was) |
+| `rm-386` will of Mark Antony | the Temple of Vesta | acceptable stand-in; the description's "commonly lodged with the Vestals" is unsourced |
+| `rm-387` Battle of Actium | Octavian's campsite memorial at Nikopolis | ok |
+| `rm-388` annexation of Egypt | an AEGVPTO CAPTA denarius | ok; the description's "about 27 BCE" and named mint are wrong (COS VI is 28 BCE; the mint is uncertain). Locator moved to Alexandria. |
+| `rm-389` first settlement | the Curia Julia | ok |
+| `rm-390` clipeus virtutis | the marble shield from Arles | ok; the description says Carrara marble, one record Luna |
 
 ## Glossary candidates
 
@@ -1639,3 +1649,22 @@ Run as B37; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-380` Sextus Pompey | 7 | 5 → 9 | **His naval title is read off his own coin** (RRC 511/3a); the "pirate" picture is the winners', from the *Res Gestae*; the death year 35 is printed by a 2013 review of Welch. Menas's offer at Misenum is Plutarch's. |
 
 **Read by eye.** *Confusability:* `rm-371`/`rm-372` the man and the will; `rm-373`/`rm-374`/`rm-375`/`rm-376` the war, the board (the river-islet meeting only here), the lists and the death; `rm-377`/`rm-378`/`rm-379` the battle, the siege and the pact; `rm-380` the son. *Legend:* the altar of the 300, the dream before Philippi, the hairpin and Menas's offer are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B39 — `rm-381`–`rm-390`, Augustus: Naulochus to the first settlement and the golden shield (2026-10-30)
+
+Run as B38; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-381:rm-390` reads clean on nine cards; `rm-388` carries `S.chip?` (an English BMCR review of the German-titled Gallus-stele edition: the known false positive). `check-questions`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-cards` flagged `rm-386`'s third phrasing ("Whether Octavian…" reads to it as a scholar), which was reworded and re-applied. `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. Two more phrasings were fixed by hand before applying: `rm-383`'s first (it read as if the consul and Antony were two men) and `rm-387`'s first (Cleopatra's sixty ships are now one ancient count). `rm-388`'s locator was moved from Pelusium to Alexandria through `add-locators.js` (the coordinate fetched from the article). `timeline` was moved for `rm-381` (3 September 36), `rm-387` (2 September 31) and `rm-388` (1 August 30). The old cards were all-ancient; most of their date lines held counts ("Ships 300 on each side", "Children by Antony 3", "Thrones 2 of gold", "Informers 2", "Virtues named 4").
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-381` Battle of Naulochus | 6 | 5 → 6 | **3 September 36 is the Fasti Amiternini's day**; Appian's ship counts are his, and the Cambridge Ancient History doubts his 300 a side (Sextus had about 200 at most); Mylae, Tauromenium and Lepidus's fall added. |
+| `rm-382` Marcus Agrippa | 8 | 6 → 9 | **"The first Roman given one" (the naval crown) is Velleius's claim**; the Pantheon inscription stands on Hadrian's rebuilding, now said; the aqueducts (Frontinus), Julia and their sons, tribunician power, the world map (Pliny), death in 12. The glossary dated him by the naval crown. |
+| `rm-383` Mark Antony | 9 | 6 → 9 | The old card covered only the eastern decade. **Born 83 (Livius) beside Plutarch's age at death (56 or 53); the Median losses are Plutarch's, whose account comes from Antony's officer Dellius**; Cicero is a hostile pleader on the Lupercalia; 1 August 30 from the Cambridge Ancient History (Livius's timeline puts his death after Cleopatra's and is not cited for it). |
+| `rm-384` Cleopatra VII | 9 | 5 → 9 | **The bed-sack is Plutarch's (*Caesar*); the asp is Plutarch's "no one knows" with Strabo's two accounts**; her coins and the "let it be done" papyrus are cited through BMCR reviews (the papyrus and coin databases refused); no open source gives 10 August, so the line prints 30 BCE and 12 August is one modern chronology's day. |
+| `rm-385` Donations of Alexandria | 6 | 5 → 7 | **"Donations" is a modern label; the thrones and the gymnasium are Plutarch's alone (Dio puts the proclamation "in the assembly")**; the "Queen of Kings" denarius is dated 32 by its ANS record, so it is not said to be struck at the ceremony; the grants' effect is a modern debate. |
+| `rm-386` will of Mark Antony | 7 | 5 → 8 | **It is Dio, not Plutarch, who calls the seizure "most lawless"**; the forgery debate (Rostovtzeff forged, Holmes genuine, Syme a partial forgery not ruled out); Dio's fetial rite; *Res Gestae* 25 as Augustus's own account. |
+| `rm-387` Battle of Actium | 9 | 6 → 10 | **2 September 31 is Dio's date; the "1 Sept. 2" in the Plutarch scan is the translator's margin.** The blockade, disease and desertions; Plutarch's "flight" against Dio's and the moderns' planned breakout; Horace and Virgil are propaganda; the campsite memorial with its ram sockets is the contemporary evidence. |
+| `rm-388` annexation of Egypt | 7 | 5 → 9 | **Gallus's Philae stele (April 29 BCE) is his own boast**; Alexandria taken 1 August 30 (a modern account); the AEGVPTO CAPTA coin; the *Res Gestae*'s "added to the empire" is his own account; senators barred without leave (Tacitus, Dio). |
+| `rm-389` first settlement | 7 | 5 → 8 | **"First settlement" is a modern label; Dio's speech is his own composition and his province list his.** 13 and 16 January 27 (the Fasti Praenestini); the Cambridge Ancient History puts the honours three days after the 13th, Holmes and the Fasti put the oak crown on the 13th (the card follows the Fasti). The Egypt-knight row goes. |
+| `rm-390` clipeus virtutis | 5 | 5 → 7 | The old abstract was half the name Augustus. **The shield itself now: the four virtues (*Res Gestae* 34, his own account), the Arles copy dated by the eighth consulship (26 BCE), found in 1951**, and the CL V coins. |
+
+**Read by eye.** *Confusability:* `rm-381`/`rm-382` the battle (the grapnel) and the admiral (the crown, the water); `rm-383`/`rm-384` the two lives; `rm-385`/`rm-386`/`rm-387`/`rm-388` the ceremony, the will, the battle and the province; `rm-389`/`rm-390` the session and the shield. *Legend:* the bed-sack, the barge on the Cydnus, the asp and the flight at Actium are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
