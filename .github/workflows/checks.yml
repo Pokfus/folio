@@ -269,6 +269,17 @@ jobs:
       - name: check-history (Atlas v2, the step topology)
         if: ${{ !cancelled() }}
         run: node --max-old-space-size=4000 .claude/atlas-build/check-history.js
+      # THE LAZY ADMIN-1 LAYER (2026-10-30, step 1 of docs/atlas-v2-admin1-layer.md): atlas/data/admin1.bin, India's states and union
+      # territories in history.bin's format, split off the committed core's India face. --check rebuilds it offline from admin1-spec.json,
+      # the committed Natural Earth cache admin1-source.json and the core, and fails when the file or its twin lags; check-admin1.js proves
+      # the core's buildId, every core reference, the rings closed and planar at every level, the units tiling their country, the spec's
+      # entities and corrections, the capitals inside their units, and the size and twin budgets.
+      - name: build-admin1 --check (Atlas v2, the lazy admin-1 layer is what its inputs build)
+        if: ${{ !cancelled() }}
+        run: node .claude/atlas-build/build-admin1.js --check
+      - name: check-admin1 (Atlas v2, the lazy admin-1 layer)
+        if: ${{ !cancelled() }}
+        run: node .claude/atlas-build/check-admin1.js
       # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
       # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
       # for every visitor -- and the only symptom is a slower site.

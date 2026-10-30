@@ -1,9 +1,9 @@
-# Atlas v2 — a lazy admin-1 layer (design, 2026-10-30, not built)
+# Atlas v2 — a lazy admin-1 layer (design, 2026-10-30; step 1 built the same day)
 
 > **📖 READ BEFORE ADDING A COUNTRY'S STATES OR PROVINCES TO THE ATLAS, OR BUILDING ANY PART OF THIS.** The design for
 > giving more countries their states and provinces — shaded in a map card's window and drawn on the Personal Atlas —
 > **without rebuilding `topology.bin`**. India (`geo-india`, 📖 `docs/india-geography-card-plan.md`) is the first country.
-> Nothing here is built yet; the steps in §6 are each their own PR.
+> Step 1 (the file, India only) is built — §8 is its as-built note; the other steps in §6 are each their own PR.
 
 ## 1. The owner's requirements (2026-10-30)
 
@@ -154,3 +154,59 @@ core as it stands. `topology.bin`, the tiles, water, relief, history, the slices
   (or a Personal Atlas holds one of its ids, or a card window needs one). Whether the switch's label should become
   "States and provinces" now that it covers India's states and union territories is a wording call for step 3.
 - **D2 — the first build is India alone.** `admin1-spec.json` starts with India's 36 units; step 4 adds the next country.
+
+## 8. Step 1 — as built (2026-10-30)
+
+**What exists.** `atlas/data/admin1.bin` (54,284 bytes) and its gzip `file://` twin `admin1.bin.js` (54,000 bytes; the five twins
+now total 10.89 MB of the 12 MB rule), built by `.claude/atlas-build/build-admin1.js` from `admin1-spec.json` and the committed
+Natural Earth cache `admin1-source.json` (232 KB: India's quantised rings, with the pin's sha256), checked by `check-admin1.js`.
+Both `build-admin1.js --check` (offline: rebuild from the cache and the core, compare bytes and twin) and `check-admin1.js` run in
+CI's fast job. `credits.js` was regenerated (the file is listed under the OSM ODbL statement: it references the OSM coast). The
+build takes about 2 s, the checker 0.5 s. `topology.bin`, `tiles/`, `water*`, `relief/` and `history.bin` are byte-identical
+(`sha256sum` before and after). **Nothing in the site reads the file yet** (step 2).
+
+**The file.** 36 entities `adm1:ind:<iso>` (kind `admin1`, parent `adm0:ind`, `qid`, `iso`, `type` "State" / "Union territory"),
+one face and one step `[2022, null]` each; 542 arcs: 433 coast and 38 border references into the core (the outline, so the states
+meet the OSM coast and the country's borders exactly at every level) and 71 own `admin1` lines with 12,591 vertices (795 / 2,836 /
+12,591 at the three levels). Header extras as the worker reads them for `history.bin`: `core.buildId`, `arcEmpty`, `faceKm2`,
+`faceAnchor` (the sample point farthest inside the unit's largest piece).
+
+**The ids use the CURRENT ISO 3166-2 codes**, which Natural Earth 5.1.1 predates: ISO changed four on 2023-11-23 (Wikidata P300,
+preferred rank): Chhattisgarh `in-cg` (NE `IN-CT`), Odisha `in-od` (`IN-OR`), Telangana `in-ts` (`IN-TG`), Uttarakhand `in-uk`
+(`IN-UT`). Step 2's card-faces layer and the cards' `places` must use these. Delhi's and Chandigarh's `qid` is the territory's
+item (Q9357528, Q120971341), not the city Natural Earth names.
+
+**How the split went (measured).** Natural Earth's interior segments chain into 71 lines (one closed loop: Yanam inside Andhra
+Pradesh, a hole in it). Every line is clipped where it crosses the core's LOD 2 outline (14 tails in the sea or over a border, 2
+cuts in mid-line at Diu's creek); 23 ends still inside the face are extended to the nearest outline point. 39 junctions, 18 on the
+coast and 21 on borders; **the largest move 1,244 m** (Goa–Maharashtra at the Terekhol mouth), the median 25 m, all within
+`SNAP_M` = 1,500 m. (Natural Earth's own outline is much farther from the OSM coast — median 229 m, 90th percentile 5.9 km in the
+deltas and the Rann — but only the lines' ends are snapped, never the outline.) The walk gives 295 faces and one hole; 95 core
+islands Natural Earth lacks (490 km² in all, the largest 47 km² in the Sundarbans) take the nearest unit, at most 32 km away (an
+Andaman islet); no face was labelled with under 0.9 of its samples. One quantisation knot (Yanam's ring) undone; the planarity
+repair re-added 2 vertices (the Punjab–Rajasthan line against the coarse Pakistan border); **0 crossings at every level.** The
+units' area equals the core face's at LOD 2 (3,158,385 km², within 0.1 km²). The core's two zero-area two-arc rings at Sir
+Creek (arcs 33006/34196, 33008/34197) are left out: they draw nothing.
+
+**The small units.** Chandigarh (119 km²) and Delhi (1,485 km²) are wholly inland: Natural Earth's lines unchanged, both capitals
+inside. Puducherry has three pieces — Puducherry (183 km²), Karaikal (196 km²) and Yanam (37 km², the hole in Andhra Pradesh) —
+and **no Mahé** (below). Dadra and Nagar Haveli and Daman and Diu has four: Dadra and Nagar Haveli (517 km²), Daman (47 km²),
+Diu Island (32 km²) and Ghoghla on the mainland. Lakshadweep is 11 islands (27 km²), Andaman and Nicobar 92 (7,422 km²), each the
+core's own island ring labelled whole.
+
+**Three source faults, corrected in the spec** (`corrections`, each verified by the build and the checker):
+1. **Mahé is dropped.** Natural Earth's ring for Puducherry's Kerala enclave covers about 125 km² and lies, at its nearest, 40.8 km
+   north-north-west of Mahé (Wikidata Q639279: 75.533°E, 11.700°N); the territory is about 9 km². The ground stays Kerala's until
+   a sourced outline replaces it.
+2. **Pulicat Lake is joined.** Natural Earth leaves the lagoon out of both states, so its Andhra Pradesh–Tamil Nadu line stops at
+   the two shores; the core's OSM land counts the lagoon as land. The two ends are joined by a straight 5.2 km chord — Folio's
+   approximation, said so in the spec.
+3. **Diu Island is Diu's.** Natural Earth's coarse Diu ring left most of the island to Gujarat; Wikidata (Q5283744, P131 Diu
+   district) puts the island in Diu, so the core's island ring is given to the territory whole.
+
+**Point assertions.** 45 cities from the gazetteer (found by name and Wikidata item) inside their own unit at LOD 2: 26 capitals
+(every one the gazetteer carries; it has no row for Itanagar, Dispur, Panaji, Gangtok, Kohima, Leh, Kavaratti or Daman) and 19
+large cities.
+
+**Budget.** `check-admin1.js` holds the file to 512 KB (India alone is 54 KB, so several countries fit before it is raised
+deliberately) and every twin together to 12 MB. The worker's mesh memory and the frame gate are step 2's and step 3's (§4).

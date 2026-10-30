@@ -44,7 +44,7 @@ India's 36 units go into `atlas/data/admin1.bin`, a file in `history.bin`'s form
 `topology.bin` and everything pinned to it stay untouched, the states are shaded in card windows AND drawn on the Personal
 Atlas, and a later country is a spec row and a rebuild of that one file. The decks become writable at **step 2** of that
 plan (the engine slot and the card windows); until then no `gin-0NN` or `gin-5NN` card is written, and `add-card.js`
-would refuse the unknown layer anyway.
+would refuse the unknown layer anyway. **Step 1 is built (2026-10-30)**: `atlas/data/admin1.bin` holds the 36 units as `adm1:ind:<iso>` with the CURRENT ISO codes (`in-ts` Telangana, `in-od` Odisha, `in-cg` Chhattisgarh, `in-uk` Uttarakhand — not Natural Earth's older ones), and Mahé is not drawn (Natural Earth misplaces it): `docs/atlas-v2-admin1-layer.md` §8.
 
 Two routes were measured and set aside, and the design note records both: India's admin-1 inside `topology.bin` (a
 whole-Atlas rebuild per country; the every-country trial grew the first download by about a megabyte and did not pack),
