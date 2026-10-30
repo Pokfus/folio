@@ -209,7 +209,7 @@ order unless the user says otherwise.
 | B75 | Government, law and citizenship (`rm-government`) | `rm-741`–`rm-750` | 10 | 86 | **done 2026-10-30** |
 | B76 | Provinces and frontiers (`rm-provinces`) | `rm-751`–`rm-760` | 10 | 80 | **done 2026-10-30** |
 | B77 | Provinces and frontiers (`rm-provinces`) | `rm-761`–`rm-770` | 10 | 92 | **done 2026-10-30** |
-| B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | open |
+| B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | **done 2026-10-30** |
 | B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | open |
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | open |
 | B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | open |
@@ -1040,6 +1040,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-768` Roman Syria | none | not re-checked: the card has no picture |
 | `rm-769` Palmyra | none | not re-checked: the card has no picture; the tariff stone would do |
 | `rm-770` Judaea | none | not re-checked: the card has no picture; the Pilate stone would do |
+| `rm-771` Herod the Great | none | not re-checked: the card has no picture; Herodium or Caesarea's harbour would do |
+| `rm-772` Roman–Parthian Wars | none | not re-checked: the card has no picture; the Prima Porta breastplate would do |
+| `rm-773` Parthian Empire | none | not re-checked: the card has no picture; a Parthian drachm would do |
+| `rm-774` Bithynia and Pontus | none | not re-checked: the card has no picture; Nicaea's walls would do |
+| `rm-775` Roman Achaea | none | not re-checked: the card has no picture; the Roman forum of Corinth would do |
+| `rm-776` Pannonia | none | not re-checked: the card has no picture; Carnuntum's Heidentor would do |
+| `rm-777` Roman Dacia | none | not re-checked: the card has no picture; the forum of Sarmizegetusa would do |
+| `rm-778` lex Hieronica | none | not re-checked: the card has no picture |
+| `rm-779` concilium provinciae | none | not re-checked: the card has no picture |
+| `rm-780` ius Italicum | none | not re-checked: the card has no picture; a Severan coin of Tyre would do |
 
 ## Glossary candidates
 
@@ -2844,3 +2854,22 @@ Applied with B76. Before applying, `rm-765`'s Strabo question (the governor with
 | `rm-770` Judaea | 8 | 8 → 10 | **Quirinius and the census out of the questions (`rm-744`'s); taken by Rome 63 BCE added**; the Caesarea stone naming Pilate prefect; Tacitus's "under Tiberius all was quiet"; Agrippa I's grant; the renaming to Syria Palaestina in prose with no year (no source read gives one). |
 
 **Read by eye.** *Confusability:* `rm-761`/`rm-762` Spain (Agrippa) and Africa (the legion); `rm-763`/`rm-764` the colony (Appian's dream) and the Tripolitanian city (the oil fine); `rm-765`/`rm-766`/`rm-767` the province (the Gnomon), the city (Claudius's letter) and the grain care (Turranius); `rm-768`/`rm-769`/`rm-770` Syria (the four legions), Palmyra (the tariff) and Judaea (Pilate's stone). *Legend:* Appian's dream of Caesar is a story he repeats. *Overlap:* `gr-801` (Alexandria) and `wh-295`/`wh-348` (Carthage) agree.
+
+### B78 — `rm-771`–`rm-780`, Provinces and frontiers: Herod the Great to the ius Italicum (2026-10-30)
+
+Run as B77. The agents of this batch and the next stopped on a usage limit and were resumed with `SendMessage` after the reset; one (`rm-775`/`rm-776`) had been stopped at launch for running an eleventh agent and was relaunched fresh. Before applying, `rm-778`'s first question was reworded: "King Hiero's rule" gave the answer away. `rm-771` cites one paywalled *Classical Quarterly* note (Fernández 2020) for the minority date of Herod's death, read from its abstract page. **The old date lines carried a place in a value ("by the Senate at Rome", "by Pompey"), a battle for a war series, Hiero II's reign on a law (another man's dates), counts on the line ("Tithe a 10th", "2 federate, 5 free") and a `c.` inside a range ("106 – c. 271 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-771` Herod the Great | 8 | 8 → 10 | **"By the Senate at Rome" out of the value: made king 40 BCE, reigned 37 – 4 BCE (a minority puts his death in 1 BCE)**; Matthew's massacre and Macrobius's pig joke told in their own words (Macrobius ties the joke to boys killed in Syria, so the card does not call the massacre Matthew's alone); Caesarea's harbour; Masada's wall (`rm-472`'s) kept out. |
+| `rm-772` Roman–Parthian Wars | 7 | 8 → 9 | **A modern name, the wars numbered differently by historians; "Carrhae 53 BCE" becomes "Rome defeated", with the standards' return of 20 BCE and the Arsacids' fall in 224 CE (Ardashir's revolt 220 CE in one review)**; Sulla and Orobazus; Macrinus's costly peace (no source prints its year); the Euphrates "agreed border" goes. |
+| `rm-773` Parthian Empire | 7 | 8 → 7 | **The Arsacid era from 247 BCE and the end in 224 CE now sourced (Livius, Wheeler; Iranica is down)**; Strabo's Ctesiphon; the Nisa wine ostraca; Justin's slave cavalry; the "noble families" claim goes. |
+| `rm-774` Bithynia and Pontus | 6 | 8 → 8 | **"64 BCE, by Pompey": now bequeathed 74 BCE (late 75 or early 74 in the CAH), joined 64 BCE, and Pliny's special mission c. 109 – 111 CE**; the Nicomedia fire brigade refused; Trajan's Christian rescript left to `rm-738`. |
+| `rm-775` Roman Achaea | 7 | 7 → 9 | **"With Thessaly and Epirus" stated as fact now marked disputed; under the emperor 15 – 44 CE (Furneaux prints both years)**; Tacitus Annals 1.76; Claudius's kindred studies; Corinth the seat; the glossary's flat 44 BCE for Corinth and its Nero sentence go. |
+| `rm-776` Pannonia | 7 | 8 → 8 | **Velleius's 800,000 counts the rebel peoples, not men under arms (he gives about 200,000 infantry and 9,000 cavalry); Velleius an eyewitness who praises Tiberius**; the first war 12 – 10 BCE and the revolt 6 – 9 CE; the Breuci and Sirmium (Dio); Trajan's split in prose, with no year. |
+| `rm-777` Roman Dacia | 7 | 8 → 8 | **"106 – c. 271 CE" had a `c.` inside: two rows, 106 CE and c. 271 – 275 CE, the year debated (around 271 or 275)**; Eutropius's settlers; the Alburnus Maior miners; Aurelian's new Dacia south of the Danube. |
+| `rm-778` lex Hieronica | 6 | 6 → 7 | **Hiero II's reign and the counts off the line: no date line; the city counts Cicero's**; Verres the first to overturn it (Cicero's charge); Rome kept the king's name for the law; Smith goes; the question that named Hiero reworded. |
+| `rm-779` concilium provinciae | 6 | 7 → 6 | **Dio's Pergamum and Nicomedia story is `rm-528`'s: replaced; Pliny in English, not Latin**; Timarchus the Cretan (Tacitus); city delegates and a yearly priest; the modern split of koina and concilia; the Three Gauls in a Think-it-through answer only (`rm-760`'s ground). |
+| `rm-780` ius Italicum | 6 | 6 → 8 | **Ulpian's Tyre as he wrote it, "Severus and the reigning emperor", not Severus alone; "full Roman ownership" goes and what the right gave is hedged**; Pliny's Liburnian peoples; Paul on Caesarea; Paoli (1938, in French) on Marsyas; Tyre out of `rm-727`'s questions. |
+
+**Read by eye.** *Confusability:* `rm-771`/`rm-772`/`rm-773` the king (Caesarea), the wars (Orobazus) and the empire (Nisa); `rm-774`/`rm-775`/`rm-776`/`rm-777` Bithynia (the firemen), Achaea (Claudius's studies), Pannonia (the Breuci) and Dacia (Alburnus Maior); `rm-778`/`rm-779`/`rm-780` the tithe law (Verres), the council (Timarchus) and the Italian right (Tyre). *Legend:* Matthew's massacre and Macrobius's joke are their authors'. *Overlap:* `gr-877` (Achaea) and `gr-781` (Seleucia) agree.

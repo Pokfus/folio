@@ -348,6 +348,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the first proconsul | 326 BCE (as `rm-711`; the vote in Livy's consular year, 327 BCE) | `rm-740` |
 | the aerarium: the manumission tax (Livy; a modern reckoning) | 357 BCE | `rm-745` |
 | the denarius: Pliny's year, as one modern history converts it | 269 BCE | `rm-748` |
+| the Parthian Empire: the Arsacid era begins | 247 BCE | `rm-773` |
 
 ## The middle and late Republic
 
@@ -470,6 +471,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Roman Syria annexed | 64 BCE | `rm-768` |
 | Palmyra: the cavalry raid | 41 BCE | `rm-769` |
 | Judaea taken by Rome | 63 BCE | `rm-770` |
+| Herod: made king / reigned | 40 BCE / 37 – 4 BCE (a minority: died 1 BCE) | `rm-771` |
+| the Roman–Parthian Wars (a modern name): Rome's first defeat | 53 BCE | `rm-772` |
+| Bithynia: bequeathed / joined to Pontus | 74 BCE / 64 BCE | `rm-774` |
 
 ## The Principate
 
@@ -716,6 +720,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Roman Syria divided | c. 198 CE | `rm-768` |
 | Palmyra: the tax law / sacked | 137 CE / 273 CE | `rm-769` |
 | Judaea: a province / again | 6 CE / 44 CE | `rm-770` |
+| the Roman–Parthian Wars: the standards returned / the Arsacids fall | 20 BCE / 224 CE | `rm-772` |
+| the Parthian Empire ends | 224 CE | `rm-773` |
+| Bithynia and Pontus: Pliny's special mission | c. 109 – 111 CE | `rm-774` |
+| Achaea: created / under the emperor | 27 BCE / 15 – 44 CE | `rm-775` |
+| Pannonia: the first war / the revolt | 12 – 10 BCE / 6 – 9 CE | `rm-776` |
+| Roman Dacia: made a province / given up | 106 CE / c. 271 – 275 CE | `rm-777` |
 
 ## Late Antiquity
 
@@ -1527,4 +1537,11 @@ rm-767: 57; 22; 8; 14
 rm-768: 64; 198
 rm-769: 41; 137; 273
 rm-770: 63; 6; 44
+rm-771: 40; 37; 4
+rm-772: 53; 20; 224
+rm-773: 247; 224
+rm-774: 74; 64; 109; 111
+rm-775: 27; 15; 44
+rm-776: 12; 10; 6; 9
+rm-777: 106; 271; 275
 ```
