@@ -182,7 +182,7 @@ order unless the user says otherwise.
 | B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | **done 2026-10-30** |
 | B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | **done 2026-10-30** |
 | B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | **done 2026-10-30** |
-| B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | open |
+| B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | **done 2026-10-30** |
 | B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | **done 2026-10-30** |
 | B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | open |
 | B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | open |
@@ -770,6 +770,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-498` Forum of Trajan | columns of the Basilica Ulpia | acceptable: Platner–Ashby says these shafts do not belong to the basilica |
 | `rm-499` Trajan's Market | the Via Biberatica | weak: one street; the Great Hemicycle's façade would show the whole |
 | `rm-500` alimenta | the bronze table from Veleia | ok |
+| `rm-501` Trajan's Parthian campaign | a sestertius of Trajan crowning a king for the Parthians | shows `rm-504`'s crowning; the ARMENIA ET MESOPOTAMIA coin (RIC 642) would fit this card |
+| `rm-502` Arabia Petraea | a denarius of Trajan, ARAB ADQ | ok |
+| `rm-503` Hadrian | a marble bust in military dress | ok |
+| `rm-504` Parthamaspates | the REX PARTHIS DATVS sestertius reverse | ok, though worn |
+| `rm-505` Panhellenion | the Temple of Olympian Zeus, Athens | weak: the temple, not the league; an inscription of the Panhellenion would show the term |
+| `rm-506` Hadrian's Wall | the Vallum near Milecastle 42 | wrong: the earthwork behind the wall, not the wall |
+| `rm-507` Lambaesis | the headquarters forehall | ok |
+| `rm-508` Pantheon | the porch with Agrippa's inscription | ok |
+| `rm-509` Hadrian's Villa | the Canopus | ok |
+| `rm-510` Antinous | a marble head crowned with ivy | ok |
 | `rm-511` Bar Kokhba revolt | a rebel silver tetradrachm with the Temple façade | ok |
 | `rm-512` Aelia Capitolina | the Roman arch beneath the Damascus Gate | ok; the Commons file name carries an uploader's date |
 | `rm-513` Antoninus Pius | a marble portrait head | ok; the "Rome" locator is generic |
@@ -2033,6 +2043,25 @@ Overlap notes for the owner (nothing was edited): `wh-362` states Alföldy's rec
 ### Locators (2026-10-30)
 
 None was added or moved this hundred: every place, site, building and battle in `rm-401`–`rm-500` already had one (Kalkriese, Camulodunum, Bedriacum, Cremona, Masada, Jerusalem, Pompeii, Herculaneum, Inchtuthil, the Colosseum, the Ara Pacis, the Mausoleum, Capreae among them), so `migrate-places.js` was not run. `rm-485` Mons Graupius and `rm-445` Rhandeia get none (the sites are unknown). For a later pass: `rm-403`'s point is the modern museum, not the ancient site under Palazzo Fiano; `rm-424`'s Gemonian Stairs and `rm-428`'s Circus Maximus belong to other stories; the generic "Rome" points on `rm-481`, `rm-482`, `rm-488` and `rm-490` – `rm-494` mark nothing the cards are about. Still without one: `rm-195`, `rm-263`, `rm-303`, `rm-324`, `rm-360`, `rm-366`.
+
+### B51 — `rm-501`–`rm-510`, The high empire: Trajan's East to Antinous (2026-10-30)
+
+Applied after B52, with the parallel curl over the drafts' 74 URLs in place of `batch.sh`'s check (no failure). Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-501:rm-510` reads clean on six cards; the rest carry `S.chip?` (Kouremenos's English BMCR review of a German-titled book, on `rm-503`, `rm-508` and `rm-510`: the known false positive) and `W.not-why` (advisory, two cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. **The old date lines carried places ("at Baiae", "Antinoöpolis"), another man's reign for a building ("Rebuilt under Hadrian, 117 – 138 CE" on the Pantheon; "Built c. 118 – 138 CE", Hadrian's death, on the Villa), the Islamic conquest for a province ("Roman rule ends 636 CE") and the Loeb translator's margin years read as Dio's (`rm-501`).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-501` Trajan's Parthian campaign | 6 | 6 → 7 | **The rows rested on Cary's margin dates; now begun 114 CE and Ctesiphon 116 CE (Parfyonov), the revolts 116 – 117 CE**; the India wish is Dio's, as epitomised; Assyria is Eutropius's, set against the coin naming only Armenia and Mesopotamia; Hadrian's withdrawal forced (Isaac) or chosen (Potter). |
+| `rm-502` Arabia Petraea | 6 | 6 → 8 | The 636 CE row goes; **annexed 106 CE with one line of Dio and one of Ammianus, the ARAB ADQ coin from OCRE, the Via Nova Traiana milestones 111 – 114 CE**; Bostra as capital is one modern account's. |
+| `rm-503` Hadrian | 8 | 8 → 8 | **Born at Rome (the Historia Augusta) or Italica (Dio's tradition)**, the day the Loeb editor's conversion; the Plotina letters Dio's father's story; three new questions (the travels, the beard and the poem to his soul, the archonship and "Greekling") off the siblings' clues. |
+| `rm-504` Parthamaspates | 5 | 6 → 6 | **"Expelled 117" and "Given a realm 117" had no source: crowned 116 CE only**; the realm Osroene (Magie, Livius) or Armenia (Rawlinson, who thought the coin evidence weak); the Historia Augusta's "Parthamasiris" flagged. |
+| `rm-505` Panhellenion | 5 | 6 → 7 | **"Games recorded c. 250 CE" had no source and goes; founded 131 – 132 CE from the Olympieion's year**; membership by proven descent attributed; the Cyrene letter hedged. |
+| `rm-506` Hadrian's Wall | 9 | 5 → 9 | **Begun c. 122 CE as the broadly accepted inference, with one study arguing earlier; the Historia Augusta's 80 miles replace an unattributed 117 km**; the 403 – 406 coins row had no source (now the withdrawal c. 407 – 411 CE, from a review of Breeze); RIB 1666 and 1935 name Platorius Nepos. |
+| `rm-507` Lambaesis | 5 | 5 → 6 | **Hadrian's review 1 July 128 CE from Henderson (Dessau's note says "about 129")**; the legion's arrival c. 125 CE and its disbandment and return 238 – 253 CE; "capital of Numidia" rested on an article that would not open and goes. |
+| `rm-508` Pantheon | 8 | 10 → 9 | **Rebuilt 118 – 125 CE (Livius) replaces Hadrian's reign; a late-Trajanic start is attributed**; Dio's guess at the name and the Historia Augusta's restorations are theirs; made a church 609 CE (the Liber Pontificalis names Boniface IV and Phocas); the dome a survey range. |
+| `rm-509` Hadrian's Villa | 7 | 7 → 7 | **Begun 118 CE (the brick stamps); 138 was Hadrian's death, not the building's end**; the unsourced 120 ha becomes a survey's 56 ha; the Historia Augusta's names attributed, today's labels traced to Pirro Ligorio. |
+| `rm-510` Antinous | 7 | 5 → 7 | **The city founded 30 October 130 CE is an emendation of the Chronicon Paschale**, the place off the line; the drowning as accident (Hadrian) or sacrifice (Dio's rumour); the lion-hunt poem on papyrus; a Balkan temple resting on an article that would not open goes. |
+
+**Read by eye.** *Confusability:* `rm-501`/`rm-504` the war (the India wish, Eutropius's three provinces) and the king (REX PARTHIS DATVS); `rm-502`/`rm-507` the province (the milestones) and the fortress (the address to the army); `rm-503`/`rm-505`/`rm-509`/`rm-510` the emperor (the travels), the league (descent), the villa (the Historia Augusta's names) and the favourite (the star); `rm-506`/`rm-508` the wall (Nepos) and the temple (Agrippa's name). *Legend:* Antinous's sacrifice and the forged adoption are their authors'. *Overlap:* `wh-368` keeps its own reading of Hadrian's Wall from the building inscriptions; no `gr-` or `wh-` card disagrees.
 
 ### B52 — `rm-511`–`rm-520`, The high empire: Bar Kokhba to the Meditations (2026-10-30)
 

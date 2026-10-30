@@ -541,6 +541,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Forum of Trajan dedicated | January 112 CE | `rm-498`, `rm-499` |
 | Trajan's Market cleared | 1926 – 1934 | `rm-499` |
 | the alimenta: Nerva's plan / Trajan's start / the Baebian tablet / the Veleia tablet | 97 CE / 99 CE / 101 CE / 103 – 114 CE | `rm-500` |
+| Trajan's Parthian campaign: begun / Ctesiphon taken / the revolts | 114 CE / 116 CE / 116 – 117 CE | `rm-501` |
+| Arabia Petraea annexed / the Via Nova Traiana | 106 CE / 111 – 114 CE | `rm-502` |
+| Hadrian: born / reigned / died | 24 January 76 CE (the Historia Augusta's day, as its Loeb editor converts it) / 117 – 138 CE / 10 July 138 CE | `rm-503` |
+| Parthamaspates crowned | 116 CE | `rm-504` |
+| the Panhellenion founded | 131 – 132 CE | `rm-505` |
+| Hadrian's Wall: begun / complete by / garrisons left | c. 122 CE (an inference; one study argues earlier) / 138 CE / c. 407 – 411 CE | `rm-506` |
+| Lambaesis: the legion arrives / Hadrian's review / the legion disbanded and re-formed | c. 125 CE / 1 July 128 CE / 238 – 253 CE | `rm-507` |
+| the Pantheon: Agrippa's temple / rebuilt / made a church | 27 – 25 BCE / 118 – 125 CE (a late-Trajanic start also argued) / 609 CE | `rm-508` |
+| Hadrian's Villa: begun / bought by Italy | 118 CE / 1871 | `rm-509` |
+| Antinous drowned / Antinoöpolis founded | 130 CE / 30 October 130 CE (an emendation of the Chronicon Paschale) | `rm-510` |
 | the Bar Kokhba revolt | 132 – 135 CE (also dated 132 – 136 CE) | `rm-511` |
 | Aelia Capitolina founded | c. 130 CE (Eusebius puts it after the revolt) | `rm-512` |
 | Antoninus Pius: born / reigned / died | 19 September 86 CE / 138 – 161 CE / 7 March 161 CE | `rm-513` |
@@ -1046,6 +1056,16 @@ rm-497: 113; 1588
 rm-498: 112
 rm-499: 112; 1926; 1934
 rm-500: 97; 99; 101; 103; 114
+rm-501: 114; 116; 117
+rm-502: 106; 111; 114
+rm-503: 76; 117; 138
+rm-504: 116
+rm-505: 131; 132
+rm-506: 122; 138; 407; 411
+rm-507: 125; 128; 238; 253
+rm-508: 27; 25; 118; 125; 609
+rm-509: 118; 1871
+rm-510: 130
 rm-511: 132; 135; 136
 rm-512: 130
 rm-513: 86; 138; 161
