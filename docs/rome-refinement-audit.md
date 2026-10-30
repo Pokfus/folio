@@ -184,7 +184,7 @@ order unless the user says otherwise.
 | B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | **done 2026-10-30** |
 | B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | **done 2026-10-30** |
 | B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | **done 2026-10-30** |
-| B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | open |
+| B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | **done 2026-10-30** |
 | B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | **done 2026-10-30** |
 | B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | open |
 | B56 | The Severans and the third-century crisis (`rm-third-century`) | `rm-551`–`rm-560` | 10 | 95 | open |
@@ -790,6 +790,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-518` Antonine Plague | none | not re-checked: the card has no picture |
 | `rm-519` Marcomannic Wars | the Roman inscription on the castle rock at Trenčín | acceptable: one document for the war; the Carnuntum locator belongs to `rm-520` and `rm-576` as much |
 | `rm-520` Meditations | the title page of the first printed edition, 1558 | ok, though lettering is burned in by nature |
+| `rm-521` Column of Marcus Aurelius | the rain-miracle scene | acceptable: one scene; the glossary's whole-column photo would show the term |
+| `rm-522` Commodus | a marble bust | ok |
+| `rm-523` secutor | the Nennig mosaic, secutor and retiarius | ok; the "Rome" locator is generic and should go |
+| `rm-524` Marcia | none | not re-checked; the glossary's engraved cameo is of another woman (the Anagnia identification is untenable) |
+| `rm-525` Pax Romana | Nero's aureus with the temple of Janus shut | acceptable; the "Rome" locator is generic and should go |
+| `rm-526` Herodes Atticus | the Odeion at Athens | acceptable: his building; the glossary's portrait head would show the man |
+| `rm-527` Timgad | the so-called Arch of Trajan | acceptable: one monument for the city |
+| `rm-528` imperial cult | a sestertius with the Lugdunum altar | ok |
+| `rm-529` honestiores | a red-slip plate with a condemned man and a lion | weak: an indirect picture; its src shares a generic file key (`I.duplicate`) |
+| `rm-530` consilium principis | the Tabula Banasitana | ok |
 | `rm-531` procurator | the tombstone of Julius Alpinus Classicianus | ok; its src shares a generic file key with 19 cards (`I.duplicate`) |
 | `rm-532` curator rei publicae | the Roman theatre of Nicaea | wrong: Pliny's building complaints, not the office; the Nicaea locator is wrong for an office too |
 | `rm-533` Dio Chrysostom | a page of his speeches in a 14th-century manuscript | ok |
@@ -2091,6 +2101,25 @@ Applied before B51 (its drafts came in first), with `batch.sh`'s built-in URL ch
 | `rm-520` Meditations | 8 | 6 → 8 | **"At Carnuntum 171 – 173 CE" is a modern inference for Book 3, labelled**; the book headings are one manuscript's; the Suda a 10th-century encyclopaedia; the title credited to Arethas, no source putting it in the manuscripts. |
 
 **Read by eye.** *Confusability:* `rm-511`/`rm-512` the revolt (Dio's causes, Severus from Britain) and the colony (the ploughing coin, Justin's ban); `rm-513`/`rm-514` the emperor (the lost books) and the wall (the distance slabs); `rm-515`/`rm-516`/`rm-517` the usurper (the false report), the co-emperor (Antioch) and the war (Elegeia, Artaxata); `rm-518` the plague (Galen); `rm-519`/`rm-520` the war (the frozen Danube, Trenčín) and the book (Rusticus, the Suda). *Legend:* the opened shrine at Seleucia and Faustina's letter are their authors'. *Overlap:* `wh-368` shares no clue with `rm-506`'s neighbours here; no `gr-` or `wh-` card disagrees.
+
+### B53 — `rm-521`–`rm-530`, The high empire: the Column of Marcus Aurelius to the emperor's council (2026-10-30)
+
+Applied after B54, as B52. Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-521:rm-530` reads clean on five cards; the rest carry `S.chip?` (English BMCR reviews of German-titled books, `rm-529` and `rm-530`: the known false positive), `I.duplicate` on `rm-529` (the current picture's generic file key), `I.none` on `rm-524` and `W.not-why` (advisory, two cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. **The old date lines carried another man's reign for a gladiator type ("Commodus rules 180 – 192 CE" and the 193 anecdote on `rm-523`) and for two institutions ("Under Hadrian 117 – 138 CE" on `rm-529` and `rm-530`), a count ("Janus shut 3 times"), a name ("Callistratus c. 200 CE"), a place ("Lanuvium") and a name on an execution.** `rm-525` shares one citation with `wh-359` (Drake 2017, the one open source found for the conventional span), against the plan's note that the pair share none.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-521` Column of Marcus Aurelius | 7 | 5 → 8 | **The rain miracle is Dio's Egyptian magician (as epitomised) and the Christians' Thundering Legion, with the legion's name older than the story**; raised c. 176 CE (Lanciani), standing by 193 CE (the Adrastus letters); war memorial or tomb monument, a debate. |
+| `rm-522` Commodus | 8 | 6 → 9 | **Dio an eyewitness senator, read in Xiphilinus's abridgement**; Lanuvium and the twin are the Historia Augusta's; Hercules Romanus from a coin of 192; the arena one sentence; Lucilla's plot without a year (181 or 182). |
+| `rm-523` secutor | 6 | 6 → 7 | **The card is now the gladiator type (the Tomis stone, the reliefs, the Pompeii graffiti, Suetonius on Caligula's net-fighters), not Commodus's reign; the line is empty**; Commodus one sentence from Dio. |
+| `rm-524` Marcia | 5 | 9 → 6 | **Herodian's tablet list, Dio's poisoned beef and Hippolytus's Sardinian martyrs are each their author's**; the Historia Augusta dropped; Narcissus not the lead clue. |
+| `rm-525` Pax Romana | 8 | 11 → 9 | **The name is modern historians', the span 27 BCE – 180 CE a convention; Augustus spoke of a pax Augusta, and Pliny's and Seneca's "Roman peace" meant the reach of Rome**; Aristides 143 CE (or 144); Janus, the Ara Pacis and a summed death toll leave. |
+| `rm-526` Herodes Atticus | 6 | 8 → 6 | **Marathon off the line; the Sirmium hearing c. 174 CE, with 171 CE in prose; died c. 179 CE, no source giving 177**; Philostratus named as the partisan main witness; Regilla's death told as her brother's charge. |
+| `rm-527` Timgad | 6 | 5 → 7 | **The founding rests on the inscription (EDH HD031135)**; "Trajan's arch" is Cagnat's name; the World Heritage row and unsourced figures go; Procopius on the Moors' razing. |
+| `rm-528` imperial cult | 7 | 9 → 9 | **"Imperial cult" is a modern catch-all, and the line between divus and living emperor a modern, debated one**; 29 BCE from a modern source, not Cary's margin; the Narbo stone a later copy; Pliny's letter and Dio's "Rome and Italy" left to other cards. |
+| `rm-529` honestiores | 6 | 8 → 8 | **No law created the divide; the line is the jurists' c. 200 CE**; the Sentences of Paul a later compilation; the reign and the jurist's name leave the line. |
+| `rm-530` consilium principis | 6 | 7 → 8 | **The Historia Augusta was in four sources, now one; the line is empty (no source read prints the Banasa date)**; Juvenal's turbot council is satire; the Banasa seals as the council a reading of many scholars. |
+
+**Read by eye.** *Confusability:* `rm-521`/`rm-519` the column (the rain god) and the war; `rm-522`/`rm-523`/`rm-524` the emperor (Commodiana), the gladiator type (the low crest) and the concubine (the tablet); `rm-525`/`rm-528` the peace (Pliny's plants) and the cult (Smyrna); `rm-526` the benefactor (the stadium); `rm-527` the colony (Munatius Gallus); `rm-529`/`rm-530` the legal class (beating with rods) and the council (the turbot). *Legend:* the rain miracle, Herodian's tablet and Calgacus's speech are their authors'. *Overlap:* `rm-525` and `wh-359` share Drake 2017; no `gr-` or `wh-` card disagrees.
 
 ### B54 — `rm-531`–`rm-540`, The high empire to the Severans: the procurator to Lugdunum (2026-10-30)
 

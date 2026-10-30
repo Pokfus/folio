@@ -561,6 +561,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Antonine Plague: outbreak / reached Rome | c. 165 – 180 CE / 166 CE | `rm-518` |
 | the Marcomannic Wars: usual dating / Italy invaded / renewed | 166 – 180 CE / 170 CE (or 169 CE) / 177 CE | `rm-519` |
 | the Meditations: Book 3 written (a modern inference) / first printed | 171 – 173 CE / 1558 | `rm-520` |
+| the Column of Marcus Aurelius: raised / standing by / Saint Paul set on it | c. 176 CE / 193 CE / 1589 | `rm-521` |
+| Commodus: born / Augustus / reigned alone / died | 31 August 161 CE / 177 CE / 180 – 192 CE / 31 December 192 CE | `rm-522` |
+| Marcia: the plot / executed | 31 December 192 CE / 193 CE | `rm-524` |
+| the Pax Romana: a conventional span / Aelius Aristides' To Rome | 27 BCE – 180 CE / 143 CE (others: 144 CE) | `rm-525` |
+| Herodes Atticus: born / consul / the Sirmium hearing / died | 101 – 103 CE / 143 CE / c. 174 CE (an older view: 171 CE) / c. 179 CE | `rm-526` |
+| Timgad: founded / excavated from | 100 CE / 1881 | `rm-527` |
+| the imperial cult: precincts at Pergamum and Nicomedia / the Lugdunum altar / Smyrna chosen | 29 BCE / 12 BCE / 26 CE | `rm-528` |
+| honestiores in the jurists | c. 200 CE | `rm-529` |
 | procurators salaried | 27 BCE (the Loeb editor's margin date for Dio 53.15) | `rm-531` |
 | Dio Chrysostom: born / exiled / last attested | c. 40 CE (Cohoon's estimate) / c. 82 – 96 CE / c. 111 CE | `rm-533` |
 | Monte Testaccio's dated labels | 140 – 251 CE (Platner–Ashby; Lanciani: 140 – 255 CE) | `rm-534` |
@@ -1085,6 +1093,14 @@ rm-517: 161; 166; 163; 165
 rm-518: 165; 180; 166
 rm-519: 166; 180; 170; 177
 rm-520: 171; 173; 1558
+rm-521: 176; 193; 1589
+rm-522: 161; 177; 180; 192
+rm-524: 192; 193
+rm-525: 27; 180; 143
+rm-526: 101; 103; 143; 174; 179
+rm-527: 100; 1881
+rm-528: 29; 12; 26
+rm-529: 200
 rm-531: 27
 rm-533: 40; 82; 96; 111
 rm-534: 140; 251; 255
