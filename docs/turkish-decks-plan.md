@@ -1,8 +1,10 @@
 # The Turkish language decks — plan
 
 Started 2026-10-30, on request: "In the same form that we have several language vocabulary collections,
-start planning a Turkish language collection." **Nothing is built yet**; this file is the plan a building
-session works from. Read `docs/lang-decks.md` first: everything there about community decks, the shelf
+start planning a Turkish language collection." **Built so far: A1** (`decks/Turkish-A1.folio-deck.json`,
+2026-10-30, generator `.claude/turkish/`, findings in `docs/lang-decks.md` under `.claude/turkish/`).
+The owner's decisions (2026-10-30): use the programme's vocabulary; fold B1+ into B1; English names for the
+collection and decks. This file is the plan the remaining levels are built from. Read `docs/lang-decks.md` first: everything there about community decks, the shelf
 (`lang-decks.js`, `build-lang-decks.js`) and the generators' standing rules applies here unchanged. This
 file only says what is different about Turkish and what was checked before anything was built.
 
@@ -13,7 +15,7 @@ per CEFR level plus a deck that is not a level:
 
 | deck file | level | source of its scope | target notes |
 |---|---|---|---|
-| `Turkish-A1.folio-deck.json` | A1 | Programme A1 themes + its *söz varlığı* | ~500 |
+| `Turkish-A1.folio-deck.json` | A1 | Programme A1 themes + its *söz varlığı* | **500, built** |
 | `Turkish-A2.folio-deck.json` | A2 | Programme A2 | ~600 |
 | `Turkish-B1.folio-deck.json` | B1 | Programme B1 **and B1+** (one deck, see §6) | ~1,000 |
 | `Turkish-B2.folio-deck.json` | B2 | Programme B2 | ~1,200 |
@@ -26,12 +28,12 @@ none is planned. The target counts are the siblings' order of magnitude, not a p
 own counts are what the description will state.
 
 Each file name carries `Turkish` and the level, which is all `build-lang-decks.js` needs: `levelRank`
-already ranks `A1`…`C1` and sorts the phrases deck last. **The shelf change is one row in `LANGS`**
-(`{ word: "Turkish", name: "Turkish", l1: <millions of L1 speakers> }`) — the `l1` figure is to be read
-from the same source the other rows used when the row is added, not typed from memory.
+already ranks `A1`…`C1` and sorts the phrases deck last. **The shelf change was one row in `LANGS`**
+(`{ word: "Turkish", name: "Turkish", l1: 85 }`) plus the collection's hue in `COLL_THEME` (`lang-turkish`).
+Deck titles are English: "Turkish A1".
 
-A community deck is not a change to Folio: **no changelog line, no version bump** for the decks
-themselves (the CLAUDE.md rule). Only an app change a deck forces gets one.
+A community deck is not a change to Folio: **no changelog line, no version bump** for a further deck. The
+collection's arrival on the shelf (a new `LANGS` row and hue) was reader-facing and got one, as Indonesian's did.
 
 ## 2. Where the words come from — checked before anything was built
 
@@ -85,10 +87,10 @@ card.** Meanings come from Wiktionary, sentences from Tatoeba. **Owner's decisio
 
 Probed: the frequency list answers (`bir 6034903`, `bu`, `ne`, `ve`, `için` …), kaikki's Turkish JSONL
 answers and a noun carries its full declension (`pound` → `poundu` accusative, `pounda` dative,
-`poundda` locative, `pounddan` ablative, plurals), Tatoeba's Turkish export answers. **Not yet measured**:
-how many Turkish verbs carry a conjugation table in the extract, how many Tatoeba Turkish sentences have
-an English translation, and how cleanly the programme's multi-column tables extract (`pdftotext -layout`
-interleaves the columns — see §5).
+`poundda` locative, `pounddan` ablative, plurals), Tatoeba's Turkish export answers. **Measured at A1**: every
+verb carries the same 949-cell `tr-conj` table (with shifted person tags — see `docs/lang-decks.md`);
+616,337 Tatoeba Turkish sentences of 3–12 words have an English translation, and all 500 A1 words found at
+least one; the programme's column extracts cleanly with a `pdftotext` crop (not `-layout` of the page).
 
 ## 4. The card — what Turkish spends it on
 
@@ -135,42 +137,35 @@ Turkish), so a corrected gloss is corrected both ways at once.
 5. **"SYNONYM OF X" IS NOT A MEANING.** Resolve a cross-reference to English (parenthetical first, then
    one hop to the target's glosses) or refuse the word — the 62 Indonesian cards defined in Indonesian.
 6. **THE PROGRAMME'S TABLES ARE MULTI-COLUMN.** `pdftotext -layout` interleaves outcomes, functions,
-   grammar, themes and vocabulary on one line. The inventory is therefore **typed in by hand from reading
-   the tables**, a theme at a time, into `supplement.py` with the page number beside each theme — not
-   scraped. That is also what keeps the reading of a copyrighted document to headwords.
+   grammar, themes and vocabulary on one line; a crop to the "Söz Varlığı" column extracts it. The
+   inventory is then **typed in from reading the column**, a theme at a time, into `supplement.py` with the
+   page number beside each theme — not scraped into the deck. Where the next level's pages are: A2
+   pp. 255–264, B1 265–274, B1+ 275–284, B2 285–294, C1 295–306 (the Ortaöğretim tables).
 7. **A DESCRIPTION STATES TRUE THINGS ABOUT ITS OWN LEVEL** — templated claims per level from one `SCOPE`
    table (`tr_level.py`), and every derived clause read at both ends of its range (zero phrases, etc.).
 
 ## 6. Levels and the B1+ question
 
-The Ortaöğretim tables have a **B1+** between B1 and B2. The shelf's levels are CEFR's six, and a seventh
-rung would need `levelRank` to learn it. **Proposed: fold B1+ into the B1 deck** (it is the programme's own
-continuation of B1, ten more themes), and say so in the B1 description. Alternative: a separate
-`Turkish-B1plus` deck and a `levelRank` change — an app change, so it would get a changelog line.
+The Ortaöğretim tables have a **B1+** between B1 and B2. **Decided: B1+ is folded into the B1 deck** (the
+programme's own continuation of B1, ten more themes); the B1 description must say so, and `SCOPE["b1"]` in
+`tr_level.py` names both page ranges.
 
 ## 7. Build order
 
 Each step is one session's work, and each ends with the deck's own check passing and the shelf rebuilt.
 
-1. **Scaffold** `.claude/turkish/` from `.claude/caple/` (Python, one level per run, caches in
-   `.claude/turkish-cache/`, gitignored): `extract_kaikki.py` (Turkish), `tr_level.py` (`SCOPE`, the
-   Turkish case fold), `select.py` (the inverted form table, the frequency lemmatiser), `examples.py`
-   (Tatoeba), `build_deck.py`, `emit.py`, `run.py`, `check-turkish.js`. Measure, and record here:
-   lemma coverage of the top 5,000, verbs with a conjugation table, Tatoeba sentences with English.
-2. **A1**: type the A1 inventory from the programme's ten themes into `supplement.py`; build; read every
-   card of the first 100; write the findings into a `.claude/turkish/` bullet in `docs/lang-decks.md`.
-3. **Shelf**: add the `LANGS` row, run `node .claude/build-lang-decks.js`, run `test-lang-decks.js`.
-4. **A2 → C1**, one per session, each taught on top of the shipped decks below it (no word on two levels).
+1. ~~Scaffold `.claude/turkish/`~~ — done (written fresh rather than copied from `caple/`: four stages,
+   `tr.py` for the fold and the dictionary rules, `tr_level.py` for the level's facts and the description).
+2. ~~A1~~ — done; all 500 cards read.
+3. ~~Shelf~~ — done.
+4. **A2 → C1** (next: A2 — add `A2` to `supplement.LEVELS`, `SIZE["a2"]` in `select.py` and `SCOPE["a2"]`
+   in `tr_level.py`, then `run.py --level a2`), one per session, each taught on top of the shipped decks below it (no word on two levels).
 5. **Phrases**: the programme's *dil ifadeleri* as the scope; Wiktionary's Turkish idioms and proverbs
    (with English glosses) as the content; the CAPLE phrases deck is the model.
 6. Optional: a combined `Turkish-A1-C1` (gitignored, `combine.py`, as French/Spanish/Italian/Indonesian).
 
-## 8. Decisions for the owner (open)
+## 8. Decisions (settled 2026-10-30)
 
-- **a. The spine.** Use the Maarif/MEB programme's per-theme vocabulary as each level's inventory,
-  reading only headwords from an all-rights-reserved document (recommended — it is the one official,
-  CEFR-aligned Turkish syllabus found), or build on frequency plus Folio-written inventories alone, as the
-  Indonesian decks were.
-- **b. B1+**: fold into B1 (recommended) or a seventh deck.
-- **c. File names**: plain `Turkish-<level>` (recommended — no Turkish exam board's name fits A1–C1:
-  TYS certifies only B2 and C1, and the programme is not an exam), or a programme-based prefix.
+- **a. The spine**: the programme's per-theme vocabulary, headwords only.
+- **b. B1+**: folded into B1.
+- **c. Names**: English — the collection "Turkish", decks "Turkish A1" … in files `Turkish-<level>`.

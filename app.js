@@ -28861,6 +28861,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 41 already on the page. The
+       plum below clears its nearest neighbour by 27.2, against a tightest existing pair of 4.0. */
+    "lang-turkish":    { bg: "#780F75" }, // measured plum
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

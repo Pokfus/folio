@@ -3191,6 +3191,49 @@ changed was the one that had been wrong all along.
   EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
   every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
   changelog line and no version bump. Not part of the site.
+- `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
+  vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
+  deck."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes / 1,000 cards, 0.7 MB).
+  `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
+  `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
+  run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
+  check; a re-run is byte-identical. The plan, the sources checked and the open steps are
+  📖 `docs/turkish-decks-plan.md`. The Goethe/CAPLE shape: one note, two templates.
+  **THE SCOPE IS A SYLLABUS, NOT AN EXAM.** TYS publishes no word list, so each level's inventory is read
+  from the vocabulary columns of the Maarif programme's secondary-school tables (`supplement.py`, a theme at
+  a time with its page) — 405 of A1's 500 words; the rest is subtitle frequency. The programme is all
+  rights reserved: only headwords are read, the PDF stays in the cache, and no outcome, theme text or
+  example sentence of it reaches a card. Its multi-column tables interleave under `pdftotext -layout`; a
+  crop to the column (`pdftotext -x -y -W -H` at the "Söz Varlığı" header's position, which moves page to
+  page) extracts it cleanly — widen the crop where a word comes out clipped (`eyze` for `teyze`).
+  **THE VERB TABLE'S PERSON TAGS ARE SHIFTED BY ONE ROW in the kaikki extract** — `giderim` tagged third
+  person singular, `gidersin` first plural — while the TENSE tags are right and the table is the same
+  949-cell template for every verb. So a tense's 3sg is the THIRD row of the first block carrying that
+  tense tag and no other (`verb_row`), and every cell is checked against its tense's shape (`-yor`, `-r`,
+  `-DI`, `-AcAk`) before it is printed; none failed at A1. Noun case tags are right and are read as tags.
+  **THE FREQUENCY LIST IS SURFACE FORMS AND TURKISH IS AGGLUTINATIVE**, so each surface is credited to the
+  words whose INVERTED inflection tables contain it. Three rules came out of reading the ranking, each for a
+  fault it produced: (1) an ambiguous surface is split IN PROPORTION to each word's unambiguous count — an
+  equal split made `banmak` "to dip" a top-100 word on the strength of `bana` "to me"; (2) a surface that is
+  a live headword's own spelling is that headword's first — `var` "there is" had gone to `varmak`, `eğer`
+  "if" to `eğmek`, `ile` "with" to `ilmek`; (3) the circumflex is folded only as a fallback — folding it
+  always made `ama` "but" a count for `âmâ` "blind". An inflected pronoun (`bana`, `beni`, `benim`) has an
+  entry of its own and is folded into its pronoun, whose card shows it.
+  **A FORMS ROW COMES FROM THE WORD'S MAIN ENTRY ONLY.** Taken from any entry with a table, `hayır` "no"
+  showed the cases of `hayır` "charity" and `en` (the superlative) those of `en` "width"; a noun row is
+  also withheld where the word has any closed-class reading (`önce`, `sonra`, `olur`). A compound's table is
+  generated and one is wrong (`diş ağrısıları`), so compounds get none.
+  **A GLOSS THAT NAMES A GRAMMATICAL RELATION IS A POINTER EVEN UNTAGGED** — `ağrısı` is glossed
+  "third-person singular single-possession possessive of ağrı" with no form-of tag, and shipped as a card
+  until `tr.GRAM_GLOSS` caught it; a split compound (`kulak ağrısı`, not in the dictionary) now resolves such
+  a word to its target. Letter names are dropped (`ve` opened on "the name of the Latin script letter V").
+  **THE COUNTER WORD IS A PART OF SPEECH OF ITS OWN** in the extract (`classifier`), and leaving it out lost
+  `tane`'s "piece" — the sense the programme lists it for.
+  **THE DOTTED AND DOTLESS I**: every fold is `tr.fold` (`İ → i`, `I → ı`, then lower), never bare `lower()`.
+  The `l1` row is Wikipedia's 85 million (Ethnologue 2022, as relayed, says 77.6; either sorts it above
+  German). The collection's hue is MEASURED, French's way, not named: `#780F75`, 27.2 from its nearest of 41.
+  Known, left: `ben` and `biz` also show their noun homographs (birthmark, awl), and `şurası` / `orası` both
+  gloss "that place" and are told apart only by the shared "not …" label.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
