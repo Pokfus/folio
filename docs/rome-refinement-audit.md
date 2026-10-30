@@ -183,7 +183,7 @@ order unless the user says otherwise.
 | B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | **done 2026-10-30** |
 | B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | **done 2026-10-30** |
 | B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | open |
-| B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | open |
+| B52 | The high empire (`rm-high-empire`) | `rm-511`–`rm-520` | 10 | 80 | **done 2026-10-30** |
 | B53 | The high empire (`rm-high-empire`) | `rm-521`–`rm-530` | 10 | 93 | open |
 | B54 | The high empire (`rm-high-empire`) / The Severans and the third-century crisis (`rm-third-century`) | `rm-531`–`rm-540` | 10 | 78 | open |
 | B55 | The Severans and the third-century crisis (`rm-third-century`) | `rm-541`–`rm-550` | 10 | 94 | open |
@@ -770,6 +770,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-498` Forum of Trajan | columns of the Basilica Ulpia | acceptable: Platner–Ashby says these shafts do not belong to the basilica |
 | `rm-499` Trajan's Market | the Via Biberatica | weak: one street; the Great Hemicycle's façade would show the whole |
 | `rm-500` alimenta | the bronze table from Veleia | ok |
+| `rm-511` Bar Kokhba revolt | a rebel silver tetradrachm with the Temple façade | ok |
+| `rm-512` Aelia Capitolina | the Roman arch beneath the Damascus Gate | ok; the Commons file name carries an uploader's date |
+| `rm-513` Antoninus Pius | a marble portrait head | ok; the "Rome" locator is generic |
+| `rm-514` Antonine Wall | the ditch at Rough Castle | acceptable: part of the line |
+| `rm-515` Avidius Cassius | none | not re-checked: the card has no picture |
+| `rm-516` Lucius Verus | a marble bust in Venice | ok |
+| `rm-517` Roman–Parthian War of 161–166 | a sestertius of Verus crowning the Armenian king | acceptable: one episode of the war |
+| `rm-518` Antonine Plague | none | not re-checked: the card has no picture |
+| `rm-519` Marcomannic Wars | the Roman inscription on the castle rock at Trenčín | acceptable: one document for the war; the Carnuntum locator belongs to `rm-520` and `rm-576` as much |
+| `rm-520` Meditations | the title page of the first printed edition, 1558 | ok, though lettering is burned in by nature |
 
 ## Glossary candidates
 
@@ -2023,3 +2033,22 @@ Overlap notes for the owner (nothing was edited): `wh-362` states Alföldy's rec
 ### Locators (2026-10-30)
 
 None was added or moved this hundred: every place, site, building and battle in `rm-401`–`rm-500` already had one (Kalkriese, Camulodunum, Bedriacum, Cremona, Masada, Jerusalem, Pompeii, Herculaneum, Inchtuthil, the Colosseum, the Ara Pacis, the Mausoleum, Capreae among them), so `migrate-places.js` was not run. `rm-485` Mons Graupius and `rm-445` Rhandeia get none (the sites are unknown). For a later pass: `rm-403`'s point is the modern museum, not the ancient site under Palazzo Fiano; `rm-424`'s Gemonian Stairs and `rm-428`'s Circus Maximus belong to other stories; the generic "Rome" points on `rm-481`, `rm-482`, `rm-488` and `rm-490` – `rm-494` mark nothing the cards are about. Still without one: `rm-195`, `rm-263`, `rm-303`, `rm-324`, `rm-360`, `rm-366`.
+
+### B52 — `rm-511`–`rm-520`, The high empire: Bar Kokhba to the Meditations (2026-10-30)
+
+Applied before B51 (its drafts came in first), with `batch.sh`'s built-in URL check switched off for the run and a parallel curl over the drafts' 68 URLs instead (one failure: the Science Advances DOI, which answers 403 and was read in Europe PMC). Every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-511:rm-520` reads clean on eight cards; `rm-515` carries `S.chip?` (two English BMCR reviews of German-titled books: the known false positive) and `I.none`, `rm-518` `I.none`. `rm-518`'s `timeline` moved from 165 CE to 165 – 180 CE. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. LacusCurtius did not answer this session: Dio, the Historia Augusta and Ammianus are cited from the archive.org scans of the Loeb volumes (Cary, Magie, Rolfe). **The old date lines carried a place ("near Altinum"), another card's event ("Triumph 166 CE" on Verus, "Syria Palaestina first attested 139 CE", "Bishop of Aelia named at Nicaea, 325 CE", "Faustina died 141 CE", "Marcus died March 180 CE") and a later outbreak as the plague's ("Dio's outbreak c. 189 CE").** `rm-512`'s book-quote block (Dio 69.12, the colony as the war's cause) repeats `rm-511`'s clue; quote blocks are not this audit's, so it is noted here.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-511` Bar Kokhba revolt | 7 | 7 → 8 | **The end is 135 or 136 CE, two rows**; Dio's 50 outposts, 985 villages and 580,000 dead are his, as epitomised, never summed; the Historia Augusta's circumcision ban flagged; Shimon bar Kosiba of the letters against the nickname; the causes clue kept here only. |
+| `rm-512` Aelia Capitolina | 6 | 7 → 6 | **Founded c. 130 CE from the ploughing coins found in rebel hoards, against Eusebius's colony after the revolt**; the Nicaea row and the Dio clue go; the temple of Jupiter on the Temple Mount hedged as disputed. |
+| `rm-513` Antoninus Pius | 7 | 6 → 7 | **Dio's books on the reign are lost (his abridger says so): the story is the Historia Augusta's and the coins'**; the three explanations of "Pius" attributed; the wall, the temple and the column left to their cards. |
+| `rm-514` Antonine Wall | 7 | 7 → 9 | **Begun c. 142 CE from the Historia Augusta's one line and RIB 2139; given up c. 158 – 164 CE, three modern views**; 60 km a modern measurement; the unsourced "7,000 men" goes. |
+| `rm-515` Avidius Cassius | 6 | 6 → 6 | **Faustina's part is Dio's rumour, doubted by the moderns; the Historia Augusta's letters are fictions**; "three months and six days" and the legion counts attributed; Seleucia left to `rm-517`. |
+| `rm-516` Lucius Verus | 6 | 7 → 6 | **The place and the war's triumph leave the line; born 15 December 130 CE (Livius)**; the Antioch luxuries, the apoplexy and the poison rumours are the Historia Augusta's; Fronto's letters as the contemporary voice. |
+| `rm-517` Roman–Parthian War of 161–166 | 5 | 7 → 7 | **The line now rests on modern work, with Livius's 164 CE for Ctesiphon in prose**; the Antioch clue goes to `rm-516`; Priscus at Artaxata and Sohaemus's crowning; Lucian's mocked historians. |
+| `rm-518` Antonine Plague | 6 | 8 → 6 | **The death toll is a range with whose each figure is (Gilliam 1 – 2 %, Harper 8 – 10 %, Scheidel about 25 %)**; the Seleucia shrine is Ammianus's and the Historia Augusta's story; smallpox a modern identification; Dio's outbreak of c. 189 CE off the line. |
+| `rm-519` Marcomannic Wars | 6 | 10 → 6 | **The name is modern (bellum Germanicum); Italy invaded 170 CE as the usual date, 169 CE the other**; the renewal of 177 CE from the coins; the rain miracle and Carnuntum left to `rm-521` and `rm-520`; the Historia Augusta's provinces its own claim. |
+| `rm-520` Meditations | 8 | 6 → 8 | **"At Carnuntum 171 – 173 CE" is a modern inference for Book 3, labelled**; the book headings are one manuscript's; the Suda a 10th-century encyclopaedia; the title credited to Arethas, no source putting it in the manuscripts. |
+
+**Read by eye.** *Confusability:* `rm-511`/`rm-512` the revolt (Dio's causes, Severus from Britain) and the colony (the ploughing coin, Justin's ban); `rm-513`/`rm-514` the emperor (the lost books) and the wall (the distance slabs); `rm-515`/`rm-516`/`rm-517` the usurper (the false report), the co-emperor (Antioch) and the war (Elegeia, Artaxata); `rm-518` the plague (Galen); `rm-519`/`rm-520` the war (the frozen Danube, Trenčín) and the book (Rusticus, the Suda). *Legend:* the opened shrine at Seleucia and Faustina's letter are their authors'. *Overlap:* `wh-368` shares no clue with `rm-506`'s neighbours here; no `gr-` or `wh-` card disagrees.

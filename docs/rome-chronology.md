@@ -541,6 +541,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Forum of Trajan dedicated | January 112 CE | `rm-498`, `rm-499` |
 | Trajan's Market cleared | 1926 – 1934 | `rm-499` |
 | the alimenta: Nerva's plan / Trajan's start / the Baebian tablet / the Veleia tablet | 97 CE / 99 CE / 101 CE / 103 – 114 CE | `rm-500` |
+| the Bar Kokhba revolt | 132 – 135 CE (also dated 132 – 136 CE) | `rm-511` |
+| Aelia Capitolina founded | c. 130 CE (Eusebius puts it after the revolt) | `rm-512` |
+| Antoninus Pius: born / reigned / died | 19 September 86 CE / 138 – 161 CE / 7 March 161 CE | `rm-513` |
+| the Antonine Wall: begun / given up / World Heritage | c. 142 CE / c. 158 – 164 CE (debated) / 2008 | `rm-514` |
+| Avidius Cassius: revolt and death | 175 CE | `rm-515` |
+| Lucius Verus: born / reigned / died | 15 December 130 CE / 161 – 169 CE / 169 CE | `rm-516` |
+| the Parthian war of Lucius Verus: war / Artaxata / Ctesiphon / triumph | 161 – 166 CE / 163 CE / 165 CE (Livius: 164 CE) / 166 CE | `rm-517` |
+| the Antonine Plague: outbreak / reached Rome | c. 165 – 180 CE / 166 CE | `rm-518` |
+| the Marcomannic Wars: usual dating / Italy invaded / renewed | 166 – 180 CE / 170 CE (or 169 CE) / 177 CE | `rm-519` |
+| the Meditations: Book 3 written (a modern inference) / first printed | 171 – 173 CE / 1558 | `rm-520` |
 
 ## Late Antiquity
 
@@ -1036,4 +1046,14 @@ rm-497: 113; 1588
 rm-498: 112
 rm-499: 112; 1926; 1934
 rm-500: 97; 99; 101; 103; 114
+rm-511: 132; 135; 136
+rm-512: 130
+rm-513: 86; 138; 161
+rm-514: 142; 158; 164; 2008
+rm-515: 175
+rm-516: 130; 161; 169
+rm-517: 161; 166; 163; 165
+rm-518: 165; 180; 166
+rm-519: 166; 180; 170; 177
+rm-520: 171; 173; 1558
 ```

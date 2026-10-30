@@ -10131,7 +10131,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Avidius_Cassius": "died 175 CE",
 "Lucius_Verus": "161 – 169 CE",
 "Roman–Parthian_War_of_161–166": "161 – 166 CE",
-"Antonine_Plague": "c. 165 – 189 CE",
+"Antonine_Plague": "c. 165 – 180 CE",
 "Marcomannic_Wars": "166 – 180 CE",
 "Column_of_Marcus_Aurelius": "c. 176 – 193 CE",
 "Commodus": "161 – 192 CE",
