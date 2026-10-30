@@ -12,7 +12,28 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-three:
+  matter (chapter 0 — see the Library bullet). Currently fifty-four:
+  `livy-history-of-rome` (~5.3 MB English, ~3.7 MB Latin, the **35 surviving books** 1–10 and 21–45, **1,765
+  chapter numbers**, **363 notes**, original **Latin** — Livy's *Ab Urbe Condita* in the Bohn literal translation
+  by D. Spillan, Cyrus Edmonds and W. A. McDevitte, 1849–1857, beside Weissenborn and H. J. Müller's Teubner
+  text, 1884–1911, both Perseus TEI; `layout: "chaptered"`, the Gallic War's reader). Oct 2026, on request.
+  · **The chapter numbers are the book numbers, gap and all** — tabs run Book 10 → Book 21, like Beowulf's
+  fitts. The tile's reading percentage assumed 1…N, so the registry entry declares `chapterNums` and
+  `readingPct` measures by position.
+  · **Two opt-in options on `teiBookChapters`**: `preface: "pr"` keeps the Preface (numbered `pr` in both
+  editions) as key 0 instead of skipping it; `fence` ends a book's slice at the next book/part/index
+  division of any number, because the Latin interleaves the periochae (`n="1s"`) and Teubner's sigla
+  index between the books and an unfenced slice appends them to the book's last chapter. The 97
+  periocha-only books (46–142) are reported in one warning.
+  · **Paired 1,765 of 1,765**, no empty cell on either side. The English's per-book `argument` (the
+  translators' summary) and the Latin's periochae are left out, and the front matter says so.
+  · **Licence: the Gallic War's judgement again.** Spillan (d. 1854) and McDevitte (1834–1909) have dates;
+  Cyrus Edmonds (books 9–36) has none findable, so life-plus-seventy is not claimed for his books and the
+  ground is publication before 1929. Perseus's titleStmt says "Moritz Müller", its sourceDesc "H. J.
+  Müller"; the sourceDesc is followed (GND: 1844–1912). Neither file has an `<availability>`; CC BY-SA 4.0
+  comes from the canonical-latinLit README. The Loeb (`perseus-eng1`, 1919–1959) was not used.
+  · Colour `#632106`, a dark rust: the band's best is 16.1 against a tightest pair of 16.4, and the Plutarch
+  row's refusal to lift the ceiling stands; the wines were refused on the Euripides test (17 from Virgil).
   `strabo-geography` (~3.1 MB English, ~1.8 MB Greek, all seventeen books, **5,479 notes**, original **Greek**;
   Hamilton and Falconer's translation, Bohn 1854–57, beside Meineke's Teubner text of 1877, both from Perseus's TEI;
   parts are Bohn's three volumes). **Pairs on SECTIONS, not chapters** — the chapters run to 70 sections — through

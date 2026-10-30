@@ -2449,6 +2449,17 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
 - Re-run after touching: `node .claude/fetch-book.js classic-of-tea` (English, then Chinese; both read the
   cache), `node .claude/test-library.js` (33 `[classic-of-tea]` checks) and `node .claude/check-pairing.js`.
 
+## `teiBookChapters`' two opt-in options (Oct 2026, Livy)
+
+- **`preface: "<label>"`** (BOOK and/or `original`) — a chapter division whose `n` is that label (Livy's `pr`, in
+  both editions) is kept as key 0, printing the label, instead of being skipped as a word.
+- **`fence: true`** — a book's slice ends at the next `book`, `part` or `index` division of ANY number, not only
+  at the next numbered book. Weissenborn–Müller's Latin interleaves the periochae (`subtype="book" n="1s"`) and
+  Teubner's sigla index between the books; unfenced, they are appended to each book's last chapter with nothing
+  thrown. A fenced book with no chapters (Livy 46–142, summaries only) is reported in ONE warning, not one per book.
+- Both default off, so no shipped book's output changes. `books/livy-history-of-rome*.js` are the first users;
+  docs/library-books.md has the entry.
+
 ## Four TEI options from the Parallel Lives (Oct 2026, Plutarch)
 
 Perseus's Perrin files are the Dialogues' encoding with a `chapter`/`section` grid, and four things in them needed

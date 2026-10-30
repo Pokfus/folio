@@ -12033,6 +12033,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      a reader sets beside Strabo — Thucydides 38.4, Pausanias 55.3, Herodotus 65.4, Homer 69.3, Marco
      Polo 75.0, Plutarch 82.2. It reads 6.74:1 on the tightest light paper. */
   "Strabo": "#7B002A",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-nine colours placed (Oct 2026, adding Livy): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band's best clears 16.1 against the shelf's tightest
+     pair of 16.4, and the Plutarch row's refusal to lift the ceiling into saturated blues stands, so a
+     candidate a few tenths under is taken, as Plutarch's and Strabo's were. On the Euripides test the
+     band's top two are refused — dark wines 17 from VIRGIL, the other Augustan telling of Rome's
+     beginnings — and so is the teal at 15.8, which joins the green cluster the Classic of Tea row
+     declined. This dark rust clears the Poetic Edda by 15.9 and Sophocles and Vyasa by 16.2, none a
+     book read beside Livy, and stands 25 or more from every one that is: Virgil 25, Strabo 27, Caesar
+     35, Suetonius 38, Thucydides 61, Herodotus 79, Plutarch 102. It reads 7.22:1 on the tightest paper. */
+  "Livy": "#632106",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -13204,6 +13215,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          no further; the two British expeditions and the revolt of Vercingetorix are the movements a
          reader remembers, but grouping the books under those would be a modern reader's arrangement
          rather than a division the edition prints. The Analects' and The Prince's position exactly. */
+    },
+    {
+      id: "livy-history-of-rome",
+      title: "The History of Rome",
+      // the work's own Latin title, as the Gallic War, Lucretius and Herodotus give theirs
+      subtitle: "Ab Urbe Condita",
+      author: "Livy",
+      /* Begun early in Augustus's reign (the first books by about 27–25 BCE) and worked on for the rest
+         of Livy's life; no end date is stated, since his own death date is itself only traditional. */
+      written: "begun c. 27 BCE",
+      year: -27,
+      translator: "D. Spillan, Cyrus Edmonds and W. A. McDevitte",
+      edition: "Bohn's Classical Library, 1849–1857",
+      /* THE GALLIC WAR'S LICENCE AGAIN, one translator without dates. Spillan d. 1854 and McDevitte
+         1834–1909 are known; Cyrus Edmonds, who has books 9–36, is a byline only, so life-plus-seventy
+         is not claimed for his books and the ground is the date of publication, 1849–1857. The Latin is
+         Weissenborn (1803–1878) and H. J. Müller (1844–1912), Teubner 1884–1911. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States on the publication rule, with one gap stated plainly. This " +
+        "translation was published in four volumes by Henry G. Bohn in London between 1849 and 1857, and " +
+        "the Latin printed beside it is Wilhelm Weissenborn and H. J. Müller's Teubner text, Leipzig, " +
+        "1884–1911 — all well before 1929 — so the copyright in both has expired. Livy wrote the work in " +
+        "Latin some two thousand years ago. Of the translators, Daniel Spillan died in 1854 and William A. " +
+        "McDevitte lived from 1834 to 1909, and of the Latin's editors Weissenborn lived from 1803 to 1878 " +
+        "and Müller from 1844 to 1912, so they are also out of copyright wherever the term is the author's " +
+        "life plus seventy years; nothing is recorded of the third translator, Cyrus Edmonds, beyond his " +
+        "name and his work for Bohn, so for the books that are his no life-plus-seventy date can honestly " +
+        "be given, and the ground relied on here is the date of publication. The digital editions of both " +
+        "texts are prepared by the Perseus Digital Library at Tufts University, whose repository releases " +
+        "them under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+        "translations by Aubrey de Sélincourt, T. J. Luce and J. C. Yardley are still in copyright and are " +
+        "not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0914.phi001/",
+      origLang: "la",
+      origName: "Latin",
+      chapterWord: "Book",
+      /* Every book that survives: 1–10 and 21–45, numbered as every edition numbers them, so the tabs
+         jump from 10 to 21. `total` is the 142 Livy wrote; 107 are lost but for late summaries. */
+      count: 35,
+      total: 142,
+      // which numbers those are, so the tile's reading percentage counts Book 21 as the eleventh (readingPct)
+      chapterNums: Array.from({ length: 10 }, (_, i) => i + 1).concat(Array.from({ length: 25 }, (_, i) => i + 21)),
+      /* No `parts`. The decades are a copyists' arrangement, not a division this edition prints. */
     },
     {
       id: "thucydides-peloponnesian-war",
@@ -29246,7 +29301,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function readingPct(b) {
     const r = readingPos(b.id);
     if (!r) return 0;
-    const i = Math.max(0, r.ch - 1);
+    // a book whose surviving chapters are not 1…N (Livy's 1–10, 21–45) declares them, and is measured by position
+    const i = b.chapterNums ? Math.max(0, b.chapterNums.indexOf(r.ch)) : Math.max(0, r.ch - 1);
     return Math.max(0, Math.min(100, Math.round(((i + (r.y || 0)) / Math.max(1, b.count)) * 100)));
   }
 

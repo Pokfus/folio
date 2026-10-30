@@ -4345,6 +4345,147 @@ const BOOKS = {
     },
   },
 
+  "livy-history-of-rome": {
+    title: "The History of Rome",
+    // the work's own Latin title, as the Gallic War, Lucretius and Herodotus give theirs
+    subtitle: "Ab Urbe Condita",
+    author: "Livy",
+    translator: "D. Spillan, Cyrus Edmonds and W. A. McDevitte",
+    edition: "The History of Rome by Titus Livius, literally translated, with notes and illustrations, by D. Spillan, Cyrus Edmonds and William A. McDevitte, Bohn's Classical Library, Henry G. Bohn, London, 1849–1857 (four volumes)",
+    // begun early in Augustus's reign and worked on for the rest of Livy's life; no end date is stated
+    written: "begun c. 27 BCE",
+
+    /* ---------- THE LICENCE, and it is the Gallic War's judgement a second time ----------
+       The certain half covers everything: the four Bohn volumes were published in London in 1849, 1850,
+       1850 and 1857 (the dates Perseus's own header gives for each), and the Latin beside them is
+       Weissenborn and Müller's Teubner text, Leipzig 1884–1911 — all well before 1929, so the United
+       States copyright in both has expired.
+       THE THREE TRANSLATORS DO NOT ALL HAVE DATES, and the entry says so rather than rounding up.
+       D. Spillan is Daniel Spillan, d. 1854 (Online Books Page / library authority, 1796 or 1797–1854);
+       William A. McDevitte is the Gallic War's translator, 1834–1909. Cyrus R. Edmonds, who shares
+       books 9–26 and has 27–36 alone, has a byline, a Cicero for Bohn in 1850 and no dates in anything
+       openable — so, exactly as with the Gallic War's W. S. Bohn, no life-plus-seventy date is claimed
+       for his books, and the ground relied on is the publication date, which anyone can check.
+       The Latin's editors: Perseus's titleStmt names "Moritz Müller", its sourceDesc (the bibliographic
+       record) "H. J. Müller"; the sourceDesc is followed. Wilhelm Weissenborn lived 1803–1878 and
+       Hermann Johannes Müller 1844–1912 (GND authority record) — and Moritz Müller, had he been meant,
+       died in 1902 — so the Latin clears life-plus-seventy whichever is right.
+       THE PERSEUS LICENCE IS STATED BY THE REPOSITORY, NOT THE FILE: unlike the Gallic War's files,
+       neither of these headers carries an <availability> statement; canonical-latinLit's README licenses
+       everything in it "unless otherwise indicated" under CC BY-SA 4.0, and that is the ground given.
+       Perseus also has the Loeb (Foster, Moore, Sage, Schlesinger, 1919–1959) as perseus-eng1; its
+       later volumes are not safely public domain everywhere, and it is not used. The modern
+       translations — Aubrey de Sélincourt's and Betty Radice's Penguins, T. J. Luce's and J. C. Yardley's
+       Oxford World's Classics — are in copyright and named so nobody reaches for one later. */
+    rights:
+      "Public domain in the United States on the publication rule, with one gap stated plainly. This " +
+      "translation was published in four volumes by Henry G. Bohn in London between 1849 and 1857, and " +
+      "the Latin printed beside it is Wilhelm Weissenborn and H. J. Müller's Teubner text, Leipzig, " +
+      "1884–1911 — all well before 1929 — so the copyright in both has expired. Livy wrote the work in " +
+      "Latin some two thousand years ago. Of the translators, Daniel Spillan died in 1854 and William A. " +
+      "McDevitte lived from 1834 to 1909, and of the Latin's editors Weissenborn lived from 1803 to 1878 " +
+      "and Müller from 1844 to 1912, so they are also out of copyright wherever the term is the author's " +
+      "life plus seventy years; nothing is recorded of the third translator, Cyrus Edmonds, beyond his " +
+      "name and his work for Bohn, so for the books that are his no life-plus-seventy date can honestly " +
+      "be given, and the ground relied on here is the date of publication. The digital editions of both " +
+      "texts are prepared by the Perseus Digital Library at Tufts University, whose repository releases " +
+      "them under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+      "translations by Aubrey de Sélincourt, T. J. Luce and J. C. Yardley are still in copyright and are " +
+      "not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0914.phi001/",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should be told first: what the work was and how
+       little of it survives, what Livy says he is doing (the Preface), how far the early books are
+       history at all, who he was, and what the two columns, the missing books and the dropped
+       summaries are. Where scholarship divides — on the early books' reliability — it says so. */
+    about: [
+      "<b>The History of Rome</b> — in Latin <i>Ab Urbe Condita</i>, \"from the founding of the city\" — " +
+        "is Livy's history of Rome from its legendary beginnings down to his own lifetime. He began it early " +
+        "in the reign of the emperor Augustus and worked on it for the rest of his life, and in the end it ran to 142 books, " +
+        "reaching the death of Augustus's stepson Drusus in 9 BCE. Only 35 of them survive: books 1 to " +
+        "10, from the arrival of Aeneas to 293 BCE, and books 21 to 45, from the outbreak of the war " +
+        "with Hannibal in 218 to 167 BCE. Everything else is known only from short summaries made in " +
+        "late antiquity, and the last of the surviving books, 41 and 43 to 45, are damaged and have gaps.",
+      "Livy says plainly what he is for, in a Preface that is one of the most quoted pages in Latin. " +
+        "He offers the reader the record of the past as a set of examples — what to imitate, and what to " +
+        "avoid — and he presents Roman history as the story of a people that grew great by its virtues " +
+        "and was being undone in his own day by wealth and luxury. That moral purpose shapes the book " +
+        "throughout. Its heroes and villains are drawn to be remembered, and the stories that later " +
+        "readers took as the image of Rome itself come from here: Romulus and Remus, the Sabine women, " +
+        "Lucretia and the fall of the kings, Horatius at the bridge, Cincinnatus called from his plough, " +
+        "and Hannibal's crossing of the Alps and the disaster at Cannae.",
+      "How far the early books are history is a real question, and Livy raises it himself: he says the " +
+        "stories of the founding are better suited to poetry than to a reliable record, and that most " +
+        "written evidence for the first centuries was lost when the Gauls sacked the city. He wrote from " +
+        "earlier Roman historians, not from documents or sites, and he reports versions he does not " +
+        "believe. Scholars broadly agree that the first books preserve legend and later reconstruction " +
+        "far more than a record of events, and divide over how much genuine tradition lies inside them. " +
+        "From the war with Hannibal onwards he is on much firmer ground, often following the Greek " +
+        "historian Polybius closely, and the later books are a main source for the period.",
+      "Titus Livius was born at Patavium, modern Padua, traditionally in 59 BCE, and died there, " +
+        "traditionally in 17 CE. Unlike almost every other Roman historian he held no public office and " +
+        "commanded no army: he was a writer and nothing else. He was known to Augustus, who according " +
+        "to Tacitus teased him as a supporter of Pompey, and Suetonius records that he encouraged the " +
+        "young Claudius, the future emperor, to write history. His work became the standard history of " +
+        "the Republic almost at once and largely displaced the histories he had drawn on.",
+      "The translation is the Victorian literal one of Bohn's Classical Library, published in four " +
+        "volumes between 1849 and 1857: books 1 to 8 are by D. Spillan, books 9 to 26 by Spillan and " +
+        "Cyrus Edmonds together, books 27 to 36 by Edmonds and books 37 to 45 by William A. McDevitte. " +
+        "It keeps close to the Latin, and its notes are set in the fold at the foot of each book. Where " +
+        "the Latin is lost in the last books, the translators supplied reconstructions of the missing passages, " +
+        "chiefly from the eighteenth-century French historian Jean-Baptiste Crévier, and these too are in the " +
+        "notes, not in Livy's text.",
+      "Each tab is one of Livy's books, numbered as every edition numbers them, so the shelf runs from " +
+        "Book 10 straight to Book 21: books 11 to 20 are not missing from this edition but from the " +
+        "world. Book 1 opens with the Preface, marked <i>pr</i>. The Latin beside the English is " +
+        "Wilhelm Weissenborn and H. J. Müller's Teubner text, and the small figures running through " +
+        "both columns are the chapter numbers by which any passage of Livy is cited, which is what the " +
+        "two columns are paired on. Two things are left out: the short summary Bohn's translators " +
+        "printed at the head of each book, and the ancient summaries (<i>periochae</i>) the Latin " +
+        "edition prints beside the books, since neither is Livy.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS: the Gallic War's layout, with two new options ----------
+       Both columns are Perseus TEI in the CTS book / chapter / section shape, so teiBookChapters reads
+       them as it reads Herodotus and the Gallic War. The two options are opt-in and change no other book:
+       · `preface: "pr"` — book 1 opens on a chapter numbered `pr` in BOTH editions, the Preface, which
+         the integer guard would otherwise skip. It is kept as key 0, printing "pr".
+       · `fence` (the Latin only needs it; set on both for symmetry) — the Latin interleaves the
+         periochae as `subtype="book" n="1s"` divisions and Teubner's sigla as `subtype="index"`, which an
+         unfenced slice appends to the last chapter of the book before them.
+       The English's per-book `argument` (the translators' summary) sits before chapter 1 and so outside
+       every slice, as the Gallic War's Latin heads do — luck of the markup, stated rather than relied on
+       silently. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0914/phi001/phi0914.phi001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    fence: true,
+    preface: "pr",
+    // the thirty-five surviving books; 11–20 and 46–142 are lost
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1).concat(Array.from({ length: 25 }, (_, i) => i + 21)),
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "chaptered",
+      fence: true,
+      preface: "pr",
+      edition: "Titi Livi ab urbe condita, edited by W. Weissenborn and H. J. Müller, Teubner, Leipzig, 1884–1911",
+      rights:
+        "Two layers, both stated. Livy wrote in Latin in the first century BCE, so the words themselves " +
+        "are in the public domain everywhere, and Weissenborn and Müller's edition of them was published " +
+        "in 1884–1911, before 1929; its editors died in 1878 and 1912. The digital edition it is taken " +
+        "from is prepared by the Perseus Digital Library at Tufts University, whose repository releases " +
+        "it under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0914.phi001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0914/phi001/phi0914.phi001.perseus-lat2.xml",
+    },
+  },
+
   "thucydides-peloponnesian-war": {
     title: "The History of the Peloponnesian War",
     /* NOT the work's own Greek title, which is the one thing it cannot be. Thucydides' history and
@@ -24547,11 +24688,24 @@ function teiBookChapters(xml, opts, warn) {
   const books = divs.filter((d) => d.sub === "book" && /^\d+$/.test(d.n));
   if (!books.length) throw new Error("no book divisions in the TEI file");
 
+  /* opts.fence (Oct 2026, Livy): a book's slice ends at the next division of ANY book, part or index
+     kind, numbered or not. Weissenborn–Müller's Latin interleaves the ancient summaries of each book
+     (`subtype="book" n="1s"`, the periochae) and Teubner's sigla index (`subtype="index"`) between the
+     books themselves, and an unfenced slice runs on through them, so the summary of book 2 would be
+     appended to the last chapter of book 1 with nothing thrown. Opt-in, so no shipped book changes. */
+  const fences = opts.fence
+    ? divs.filter((d) => d.sub === "book" || d.sub === "part" || d.sub === "index").map((d) => d.at)
+    : [];
   const out = {};
   books.forEach((b, i) => {
-    const end = i + 1 < books.length ? books[i + 1].at : body.length;
+    let end = i + 1 < books.length ? books[i + 1].at : body.length;
+    for (const f of fences) if (f > b.at && f < end) { end = f; break; }
     const chs = divs.filter((d) => d.sub === "chapter" && d.at > b.at && d.at < end);
-    if (!chs.length) { warn("book " + b.n + " has no chapter divisions"); return; }
+    if (!chs.length) {
+      // a fenced edition's chapterless books are its summaries of lost ones (Livy 46–142): one line for all
+      if (opts.fence) { (out.summaryOnly = out.summaryOnly || []).push(b.n); return; }
+      warn("book " + b.n + " has no chapter divisions"); return;
+    }
 
     const notes = [];
     const skipped = [];
@@ -24581,7 +24735,10 @@ function teiBookChapters(xml, opts, warn) {
          from both columns — nothing threw, every book was present, and the run reported a clean
          1,533-for-1,533 pairing of a book missing forty-five of its chapters.
          So the guard now admits a trailing letter, and anything else is still skipped and reported. */
-      const key = /^(\d+)([A-Z])?$/.exec(ch.n);
+      /* opts.preface names a division label that stands for an author's preface before chapter 1 —
+         Livy's `pr`, numbered so in both editions — and it is kept as chapter 0, sorting first and
+         printing its own label, rather than skipped as a word (Oct 2026). */
+      const key = opts.preface && ch.n === opts.preface ? [ch.n, "0", undefined] : /^(\d+)([A-Z])?$/.exec(ch.n);
       if (!key) { skipped.push(ch.n); return; }
       /* THE NUMBER SHOWN AND THE NUMBER SORTED ON COME APART the moment a letter is allowed, which is
          the Nicomachean Ethics' Bekker-page problem in a second work: parseInt reads 121, 121A and
@@ -24610,6 +24767,11 @@ function teiBookChapters(xml, opts, warn) {
     const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
     out[b.n] = { html: tidy(html), notes: notes.map(tidy), chapters: kept, skipped: skipped };
   });
+  if (out.summaryOnly) {
+    const s = out.summaryOnly;
+    warn(s.length + " book division(s) carry no chapters, only a summary (books " + s[0] + "–" + s[s.length - 1] + ")");
+    delete out.summaryOnly;
+  }
   return out;
 }
 
@@ -28018,7 +28180,8 @@ async function fetchEnglish() {
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
     // `teiRaw` — a book's own transform of its TEI before anything reads it (Pausanias, Oct 2026)
     xml = correctRaw(BOOK.teiRaw ? BOOK.teiRaw(xml) : xml);
-    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters }, warn);
+    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+      fence: BOOK.fence, preface: BOOK.preface }, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -29688,9 +29851,11 @@ async function fetchOriginal() {
         let enXml;
         if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
         else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters }, warn);
+        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+          fence: BOOK.fence, preface: BOOK.preface }, warn);
       }
-      const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters }, warn);
+      const or = teiBookChapters(O.teiRaw ? O.teiRaw(xml) : xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+        fence: O.fence, preface: O.preface }, warn);
       /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
          label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
          the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
