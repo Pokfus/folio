@@ -7748,7 +7748,10 @@ window.GLOSSARY = {
 "Guadalcanal_campaign": "",
 "Naval_Battle_of_Guadalcanal": "",
 "New_Guinea_campaign": "",
-"Kokoda_Track_campaign": ""
+"Kokoda_Track_campaign": "",
+"China_Incident": "",
+"National_Revolutionary_Army": "",
+"Eighth_Route_Army": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -24405,7 +24408,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Guadalcanal_campaign": ["battle","history","warfare","japan","united states","solomon islands"],
 "Naval_Battle_of_Guadalcanal": ["battle","history","warfare","navy","japan","united states"],
 "New_Guinea_campaign": ["battle","history","warfare","japan","australia","united states"],
-"Kokoda_Track_campaign": ["battle","history","warfare","australia","japan","papua new guinea"]
+"Kokoda_Track_campaign": ["battle","history","warfare","australia","japan","papua new guinea"],
+"China_Incident": ["event","history","warfare","politics","japan","china"],
+"National_Revolutionary_Army": ["institution","history","military","warfare","china"],
+"Eighth_Route_Army": ["institution","history","military","warfare","china"]
 });
 
 /* ============================================================================

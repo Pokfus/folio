@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5428 | the title is the article |
+| `ok` | 5437 | the title is the article |
 | `redirect-variant` | 335 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 514 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 515 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
 | `none` | 975 | nothing matched; no link |
 
-**6371 of 7611 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6381 of 7621 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (514)
+## Redirected to a differently named article — check each (515)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -557,6 +557,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-374` **Mass suicide in Demmin** → [Demmin mass suicide](https://en.wikipedia.org/wiki/Demmin_mass_suicide) (from `Mass suicide in Demmin`)
 - `ww2-391` **German-Soviet War** → [Eastern Front (World War II)](https://en.wikipedia.org/wiki/Eastern_Front_(World_War_II)) (from `German-Soviet War`)
 - `ww2-398` **Allied Control Commission** → [Allied Commission](https://en.wikipedia.org/wiki/Allied_Commission) (from `Allied Control Commission`)
+- `ww2-401` **China Incident** → [Marco Polo Bridge incident](https://en.wikipedia.org/wiki/Marco_Polo_Bridge_incident) (from `China Incident`)
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 
 ## Settled from a disambiguation page (81)

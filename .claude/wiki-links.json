@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-30T17:50Z",
+ "generated": "2026-10-30T20:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5428,
-  "redirect-broader": 514,
+  "ok": 5437,
+  "redirect-broader": 515,
   "redirect-variant": 335,
   "section-redirect": 107,
   "disambiguation": 142,
@@ -61732,6 +61732,77 @@
    "answer": "Kokoda Track campaign",
    "title": "Kokoda Track campaign",
    "url": "https://en.wikipedia.org/wiki/Kokoda_Track_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-401": {
+   "answer": "China Incident",
+   "title": "Marco Polo Bridge incident",
+   "url": "https://en.wikipedia.org/wiki/Marco_Polo_Bridge_incident",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "China Incident"
+  },
+  "ww2-402": {
+   "answer": "Nanjing decade",
+   "title": "Nanjing decade",
+   "url": "https://en.wikipedia.org/wiki/Nanjing_decade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-403": {
+   "answer": "National Revolutionary Army",
+   "title": "National Revolutionary Army",
+   "url": "https://en.wikipedia.org/wiki/National_Revolutionary_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-404": {
+   "answer": "Eighth Route Army",
+   "title": "Eighth Route Army",
+   "url": "https://en.wikipedia.org/wiki/Eighth_Route_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-405": {
+   "answer": "Free China",
+   "title": "Free China (Second Sino-Japanese War)",
+   "url": "https://en.wikipedia.org/wiki/Free_China_(Second_Sino-Japanese_War)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-406": {
+   "answer": "Chongqing",
+   "title": "Chongqing",
+   "url": "https://en.wikipedia.org/wiki/Chongqing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-407": {
+   "answer": "Bombing of Chongqing",
+   "title": "Bombing of Chongqing",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Chongqing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-408": {
+   "answer": "Battle of Taierzhuang",
+   "title": "Battle of Taierzhuang",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Taierzhuang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-409": {
+   "answer": "1938 Yellow River flood",
+   "title": "1938 Yellow River flood",
+   "url": "https://en.wikipedia.org/wiki/1938_Yellow_River_flood",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-410": {
+   "answer": "Battle of Wuhan",
+   "title": "Battle of Wuhan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Wuhan",
    "via": "glossary",
    "status": "ok"
   }
