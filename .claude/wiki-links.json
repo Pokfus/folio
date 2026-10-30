@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-30T15:26Z",
+ "generated": "2026-10-30T15:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5349,
-  "redirect-broader": 505,
+  "ok": 5357,
+  "redirect-broader": 506,
   "redirect-variant": 333,
   "section-redirect": 107,
   "disambiguation": 140,
   "none": 969,
-  "disambig-resolved": 79,
+  "disambig-resolved": 80,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -61000,6 +61000,78 @@
    "answer": "Battle of the Seelow Heights",
    "title": "Battle of the Seelow Heights",
    "url": "https://en.wikipedia.org/wiki/Battle_of_the_Seelow_Heights",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-351": {
+   "answer": "Warsaw Uprising",
+   "title": "Warsaw Uprising",
+   "url": "https://en.wikipedia.org/wiki/Warsaw_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-352": {
+   "answer": "Warsaw airlift",
+   "title": "Warsaw airlift",
+   "url": "https://en.wikipedia.org/wiki/Warsaw_airlift",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-353": {
+   "answer": "Polish Committee of National Liberation",
+   "title": "Polish Committee of National Liberation",
+   "url": "https://en.wikipedia.org/wiki/Polish_Committee_of_National_Liberation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-354": {
+   "answer": "Jassy–Kishinev offensive",
+   "title": "Second Jassy–Kishinev offensive",
+   "url": "https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Jassy–Kishinev offensive"
+  },
+  "ww2-355": {
+   "answer": "King Michael's Coup",
+   "title": "1944 Romanian coup d'état",
+   "url": "https://en.wikipedia.org/wiki/1944_Romanian_coup_d'%C3%A9tat",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "King Michael's Coup"
+  },
+  "ww2-356": {
+   "answer": "1944 Bulgarian coup d'état",
+   "title": "1944 Bulgarian coup d'état",
+   "url": "https://en.wikipedia.org/wiki/1944_Bulgarian_coup_d'%C3%A9tat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-357": {
+   "answer": "Belgrade offensive",
+   "title": "Belgrade offensive",
+   "url": "https://en.wikipedia.org/wiki/Belgrade_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-358": {
+   "answer": "Slovak National Uprising",
+   "title": "Slovak National Uprising",
+   "url": "https://en.wikipedia.org/wiki/Slovak_National_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-359": {
+   "answer": "siege of Budapest",
+   "title": "Siege of Budapest",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Budapest",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-360": {
+   "answer": "Moscow Armistice",
+   "title": "Moscow Armistice",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Armistice",
    "via": "glossary",
    "status": "ok"
   }

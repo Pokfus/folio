@@ -7651,7 +7651,17 @@ window.GLOSSARY = {
 "Curzon_Line": "",
 "Western_betrayal": "",
 "Vienna_offensive": "",
-"Battle_of_the_Seelow_Heights": ""
+"Battle_of_the_Seelow_Heights": "",
+"Warsaw_Uprising": "",
+"Warsaw_airlift": "",
+"Polish_Committee_of_National_Liberation": "",
+"Second_Jassy–Kishinev_offensive": "",
+"1944_Romanian_coup_d'état": "",
+"1944_Bulgarian_coup_d'état": "",
+"Belgrade_offensive": "",
+"Slovak_National_Uprising": "",
+"Siege_of_Budapest": "",
+"Moscow_Armistice": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11422,7 +11432,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Yalta_Conference": "1945",
 "Curzon_Line": "1919–1945",
 "Vienna_offensive": "1945",
-"Battle_of_the_Seelow_Heights": "1945"
+"Battle_of_the_Seelow_Heights": "1945",
+"Warsaw_Uprising": "1 August – 2 October 1944",
+"Warsaw_airlift": "August – September 1944",
+"Polish_Committee_of_National_Liberation": "July – December 1944",
+"Second_Jassy–Kishinev_offensive": "20 August – 4 September 1944",
+"1944_Romanian_coup_d'état": "23 August 1944",
+"1944_Bulgarian_coup_d'état": "9 September 1944",
+"Belgrade_offensive": "October 1944",
+"Slovak_National_Uprising": "29 August – 28 October 1944",
+"Siege_of_Budapest": "26 December 1944 – 13 February 1945",
+"Moscow_Armistice": "19 September 1944"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16289,7 +16309,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yalta_Conference": ["Crimea Conference"],
 "Western_betrayal": ["Yalta betrayal"],
 "Vienna_offensive": ["Vienna Offensive"],
-"Battle_of_the_Seelow_Heights": ["Seelow Heights"]
+"Battle_of_the_Seelow_Heights": ["Seelow Heights"],
+"Polish_Committee_of_National_Liberation": ["Lublin Committee","PKWN"],
+"Second_Jassy–Kishinev_offensive": ["Jassy–Kishinev offensive","Jassy-Kishinev offensive","Jassy–Kishinev operation"],
+"1944_Romanian_coup_d'état": ["King Michael's Coup","Romanian coup of 23 August 1944"],
+"1944_Bulgarian_coup_d'état": ["Bulgarian coup of 9 September 1944","Ninth of September coup"],
+"Siege_of_Budapest": ["siege of Budapest"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24085,7 +24110,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Curzon_Line": ["place","history","politics","diplomacy","poland","russia"],
 "Western_betrayal": ["concept","history","politics","diplomacy"],
 "Vienna_offensive": ["battle","history","warfare","austria","hungary","russia"],
-"Battle_of_the_Seelow_Heights": ["battle","history","warfare","germany","russia","poland"]
+"Battle_of_the_Seelow_Heights": ["battle","history","warfare","germany","russia","poland"],
+"Warsaw_Uprising": ["event","history","warfare","poland","resistance"],
+"Warsaw_airlift": ["event","history","warfare","poland","aviation"],
+"Polish_Committee_of_National_Liberation": ["institution","politics","history","poland","communism"],
+"Second_Jassy–Kishinev_offensive": ["battle","warfare","history","romania","moldova"],
+"1944_Romanian_coup_d'état": ["event","politics","history","romania","warfare"],
+"1944_Bulgarian_coup_d'état": ["event","politics","history","bulgaria","warfare"],
+"Belgrade_offensive": ["battle","warfare","history","yugoslavia","serbia"],
+"Slovak_National_Uprising": ["event","warfare","history","slovakia","resistance"],
+"Siege_of_Budapest": ["battle","warfare","history","hungary","holocaust"],
+"Moscow_Armistice": ["event","politics","history","finland","russia"]
 });
 
 /* ============================================================================

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5349 | the title is the article |
+| `ok` | 5357 | the title is the article |
 | `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 80 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 505 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 506 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 140 | only a disambiguation page; no link could be chosen |
 | `none` | 969 | nothing matched; no link |
 
-**6279 of 7511 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6289 of 7521 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (505)
+## Redirected to a differently named article — check each (506)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -548,9 +548,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-289` **German mistreatment of Soviet prisoners of war** → [German atrocities committed against Soviet prisoners of war](https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war) (from `German mistreatment of Soviet prisoners of war`)
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)
 - `ww2-295` **clean Wehrmacht myth** → [Myth of the clean Wehrmacht](https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht) (from `Clean Wehrmacht myth`)
+- `ww2-355` **King Michael's Coup** → [1944 Romanian coup d'état](https://en.wikipedia.org/wiki/1944_Romanian_coup_d'%C3%A9tat) (from `King Michael's Coup`)
 - `ww2-374` **Mass suicide in Demmin** → [Demmin mass suicide](https://en.wikipedia.org/wiki/Demmin_mass_suicide) (from `Mass suicide in Demmin`)
 
-## Settled from a disambiguation page (79)
+## Settled from a disambiguation page (80)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -633,6 +634,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-035` **Article 48** → [Article 48 of the Weimar Constitution](https://en.wikipedia.org/wiki/Article_48_of_the_Weimar_Constitution) (via the disambiguation page `Article 48`)
 - `ww2-185` **Leopold III** → [Leopold III of Belgium](https://en.wikipedia.org/wiki/Leopold_III_of_Belgium) (via the disambiguation page `Leopold III`)
 - `ww2-250` **Balkan campaign** → [Balkans campaign (World War II)](https://en.wikipedia.org/wiki/Balkans_campaign_(World_War_II)) (via the disambiguation page `Balkans campaign`)
+- `ww2-354` **Jassy–Kishinev offensive** → [Second Jassy–Kishinev offensive](https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive) (via the disambiguation page `Jassy–Kishinev offensive`)
 
 ## Matched by search — check each (6)
 
