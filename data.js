@@ -7397,7 +7397,17 @@ window.CARD_DATA = [
 {"id":"ww2-167","num":"167","category":"World War II · History","question":"Leo Amery borrowed Cromwell's words, 'In the name of God, go', against Chamberlain on the first day of the <span class=\"blank\">_____</span>, which turned an inquest on Norway into a test of confidence.","answer":"Norway Debate","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Debated</span><span class=\"dt-v\">7 – 8 May 1940</span><span class=\"dt-k\">Vote</span><span class=\"dt-v\">281 to 200, 8 May 1940</span><span class=\"dt-k\">Churchill PM</span><span class=\"dt-v\">10 May 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Norway Debate","tags":["event","history","politics","britain","parliament"],"difficulty":3,"locator":{"name":"Norway Debate","at":[-0.1247,51.4992],"zoom":10},"timeline":{"from":"1940-05-07","to":"1940-05-08"}},
 {"id":"ww2-168","num":"168","category":"World War II · History","question":"Recalled to the Admiralty on the outbreak of war in 1939, the post he had held from 1911 to 1915, <span class=\"blank\">_____</span> pressed within a month for mining Norway's coastal waters.","answer":"Winston Churchill","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Born</span><span class=\"dt-v\">30 November 1874</span><span class=\"dt-k\">First Lord</span><span class=\"dt-v\">1911 – 1915, 1939 – 1940</span><span class=\"dt-k\">Prime Minister</span><span class=\"dt-v\">1940 – 1945, 1951 – 1955</span><span class=\"dt-k\">Died</span><span class=\"dt-v\">24 January 1965</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Winston Churchill","tags":["person","history","politics","warfare","britain","20th century"],"difficulty":1},
 {"id":"ww2-169","num":"169","category":"World War II · History","question":"A boarding party from HMS Cossack freed 299 British merchant seamen in Jøssingfjord on 16 February 1940 in the <span class=\"blank\">_____</span>, which Norway protested as a breach of its waters.","answer":"Altmark incident","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Boarded</span><span class=\"dt-v\">16 February 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Altmark incident","tags":["event","history","warfare","naval","norway","britain","germany"],"difficulty":4,"locator":{"name":"Altmark incident","at":[6.3444,58.3176],"zoom":7},"timeline":{"at":"1940-02-16"}},
-{"id":"ww2-170","num":"170","category":"World War II · History","question":"Commodore Harwood attacked in two divisions at the <span class=\"blank\">_____</span>, forcing the German captain either to divide his main armament or to leave one of his adversaries unengaged.","answer":"Battle of the River Plate","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Fought</span><span class=\"dt-v\">13 December 1939</span><span class=\"dt-k\">Scuttled</span><span class=\"dt-v\">17 December 1939</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Battle of the River Plate","tags":["battle","history","warfare","naval","uruguay","britain","germany"],"difficulty":2,"locator":{"name":"Battle of the River Plate","at":[-55.7833,-35.6667],"zoom":6,"kind":"battle"},"timeline":{"at":"1939-12-13"}}
+{"id":"ww2-170","num":"170","category":"World War II · History","question":"Commodore Harwood attacked in two divisions at the <span class=\"blank\">_____</span>, forcing the German captain either to divide his main armament or to leave one of his adversaries unengaged.","answer":"Battle of the River Plate","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Fought</span><span class=\"dt-v\">13 December 1939</span><span class=\"dt-k\">Scuttled</span><span class=\"dt-v\">17 December 1939</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Battle of the River Plate","tags":["battle","history","warfare","naval","uruguay","britain","germany"],"difficulty":2,"locator":{"name":"Battle of the River Plate","at":[-55.7833,-35.6667],"zoom":6,"kind":"battle"},"timeline":{"at":"1939-12-13"}},
+{"id":"ww2-171","num":"171","category":"World War II · History","question":"Holland fell in five days and Belgium in eighteen, but France held out for 46 in the <span class=\"blank\">_____</span> that Germany opened against the West on 10 May 1940.","answer":"Battle of France","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Attack began</span><span class=\"dt-v\">10 May 1940</span><span class=\"dt-k\">Paris fell</span><span class=\"dt-v\">14 June 1940</span><span class=\"dt-k\">Armistice signed</span><span class=\"dt-v\">22 June 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Battle of France","tags":["battle","history","warfare","france","germany","europe","second world war"],"difficulty":2,"locator":{"name":"Battle of France","at":[4.9388,49.7034],"zoom":6,"kind":"battle"},"timeline":{"from":"1940-05-10","to":"1940-06-22"}},
+{"id":"ww2-172","num":"172","category":"World War II · History","question":"First issued by the army general staff on 19 October 1939, <span class=\"blank\">_____</span> aimed the German armour across central Belgium until a fifth version moved the main weight south to the Ardennes.","answer":"Fall Gelb","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Directive</span><span class=\"dt-v\">9 October 1939</span><span class=\"dt-k\">First version</span><span class=\"dt-v\">19 October 1939</span><span class=\"dt-k\">Final version</span><span class=\"dt-v\">24 February 1940</span><span class=\"dt-k\">Launched</span><span class=\"dt-v\">10 May 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Fall Gelb","tags":["event","history","warfare","germany","france","belgium","second world war"],"difficulty":3,"timeline":{"from":"1939-10-09","to":"1940-05-10"}},
+{"id":"ww2-173","num":"173","category":"World War II · History","question":"Known to the Allied staffs as Plan D, the <span class=\"blank\">_____</span> sent the best British and French troops forward into Belgium to a river line east of Brussels in May 1940.","answer":"Dyle Plan","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Options settled</span><span class=\"dt-v\">mid-November 1939</span><span class=\"dt-k\">Put into effect</span><span class=\"dt-v\">10 May 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dyle Plan","tags":["event","history","warfare","france","britain","belgium","second world war"],"difficulty":4,"timeline":{"at":"1940-05-10"}},
+{"id":"ww2-174","num":"174","category":"World War II · History","question":"Infantry in rubber boats crossed the Meuse on the night of 12 May 1940, and dive-bombing the next afternoon opened the <span class=\"blank\">_____</span> that split the French front in two.","answer":"Battle of Sedan","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Meuse reached</span><span class=\"dt-v\">12 May 1940</span><span class=\"dt-k\">Main crossing</span><span class=\"dt-v\">13 May 1940</span><span class=\"dt-k\">Air attacks</span><span class=\"dt-v\">14 May 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Battle of Sedan","tags":["battle","history","warfare","france","germany","second world war"],"difficulty":3,"locator":{"name":"Battle of Sedan","at":[4.9388,49.7034],"zoom":8,"kind":"battle"},"timeline":{"from":"1940-05-12","to":"1940-05-15"}},
+{"id":"ww2-175","num":"175","category":"World War II · History","question":"Judged by the French high command impracticable for tanks and held only by a screen of horsed cavalry, the <span class=\"blank\">_____</span> carried seven panzer divisions to the Meuse in May 1940.","answer":"Ardennes","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ardennes","tags":["place","history","warfare","geography","belgium","luxembourg","second world war"],"difficulty":2,"undatable":true},
+{"id":"ww2-176","num":"176","category":"World War II · History","question":"Massing tanks and aircraft on a narrow front to break through and encircle, <span class=\"blank\">_____</span> carried Germany from Poland to the Channel coast but stalled in the Soviet Union in 1941.","answer":"Blitzkrieg","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Blitzkrieg","tags":["concept","history","warfare","germany","europe","second world war"],"difficulty":2,"undatable":true},
+{"id":"ww2-177","num":"177","category":"World War II · History","question":"German officers writing in 1940 still put the word in quotation marks as a buzzword, evidence used for the <span class=\"blank\">_____</span>, the case that no lightning-war doctrine existed.","answer":"Blitzkrieg legend","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Word in print</span><span class=\"dt-v\">October 1938</span><span class=\"dt-k\">Still in quotes</span><span class=\"dt-v\">August 1940</span><span class=\"dt-k\">Quotes dropped</span><span class=\"dt-v\">1941</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Blitzkrieg legend","tags":["theory","history","warfare","historiography","germany","second world war"],"difficulty":5},
+{"id":"ww2-178","num":"178","category":"World War II · History","question":"Insisting on a radio in every armoured vehicle, <span class=\"blank\">_____</span> built the German panzer arm and led the corps that crossed the Meuse at Sedan on 13 May 1940.","answer":"Heinz Guderian","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">17 June 1888 – 14 May 1954</span><span class=\"dt-k\">Sedan crossing</span><span class=\"dt-v\">13 May 1940</span><span class=\"dt-k\">Chief of staff</span><span class=\"dt-v\">21 July 1944 – 28 March 1945</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Heinz Guderian","tags":["person","history","warfare","germany","second world war"],"difficulty":3},
+{"id":"ww2-179","num":"179","category":"World War II · History","question":"Chief of staff to Rundstedt’s army group in the winter of 1939, <span class=\"blank\">_____</span> argued that the main weight of the attack in the west should fall on the southern wing.","answer":"Erich von Manstein","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">24 November 1887 – 11 June 1973</span><span class=\"dt-k\">Met Hitler</span><span class=\"dt-v\">17 February 1940</span><span class=\"dt-k\">Sentenced</span><span class=\"dt-v\">December 1949</span><span class=\"dt-k\">Released</span><span class=\"dt-v\">7 May 1953</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Erich von Manstein","tags":["person","history","warfare","germany","war crimes","second world war"],"difficulty":3},
+{"id":"ww2-180","num":"180","category":"World War II · History","question":"Seven of Germany’s ten panzer divisions crossed the Ardennes on a narrow front in May 1940, and the armour of <span class=\"blank\">_____</span> led Army Group A over the Meuse.","answer":"Panzer Group Kleist","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Attack began</span><span class=\"dt-v\">10 May 1940</span><span class=\"dt-k\">Meuse crossed</span><span class=\"dt-v\">13 May 1940</span><span class=\"dt-k\">Grouping recorded</span><span class=\"dt-v\">24 May 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Panzer Group Kleist","tags":["institution","history","warfare","germany","france","second world war"],"difficulty":4}
 ];
 
 window.COLLECTION_TREE = {
@@ -13905,7 +13915,7 @@ window.COLLECTION_TREE = {
     {
       "id": "ww2",
       "title": "World War II",
-      "total": 190,
+      "total": 200,
       "children": [
         {
           "id": "ww2-road",
@@ -14129,16 +14139,16 @@ window.COLLECTION_TREE = {
               "title": "The fall of the West",
               "total": 40,
               "cardIds": [
-                "ww2-191",
-                "ww2-192",
-                "ww2-193",
-                "ww2-194",
-                "ww2-195",
-                "ww2-196",
-                "ww2-197",
-                "ww2-198",
-                "ww2-199",
-                "ww2-200",
+                "ww2-171",
+                "ww2-172",
+                "ww2-173",
+                "ww2-174",
+                "ww2-175",
+                "ww2-176",
+                "ww2-177",
+                "ww2-178",
+                "ww2-179",
+                "ww2-180",
                 "ww2-181",
                 "ww2-182",
                 "ww2-183",
@@ -14148,7 +14158,17 @@ window.COLLECTION_TREE = {
                 "ww2-187",
                 "ww2-188",
                 "ww2-189",
-                "ww2-190"
+                "ww2-190",
+                "ww2-191",
+                "ww2-192",
+                "ww2-193",
+                "ww2-194",
+                "ww2-195",
+                "ww2-196",
+                "ww2-197",
+                "ww2-198",
+                "ww2-199",
+                "ww2-200"
               ]
             },
             {

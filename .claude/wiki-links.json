@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-29T23:39Z",
+ "generated": "2026-10-29T23:59Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5265,
-  "redirect-broader": 486,
+  "ok": 5271,
+  "redirect-broader": 489,
   "redirect-variant": 331,
   "section-redirect": 105,
   "disambiguation": 138,
-  "none": 959,
+  "none": 960,
   "disambig-resolved": 78,
   "list-page": 6,
   "search-match": 6,
@@ -60058,6 +60058,86 @@
    "url": "https://en.wikipedia.org/wiki/Battle_of_the_River_Plate",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-171": {
+   "answer": "Battle of France",
+   "title": "Battle of France",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_France",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-172": {
+   "answer": "Fall Gelb",
+   "title": "Manstein plan",
+   "url": "https://en.wikipedia.org/wiki/Manstein_plan",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Fall Gelb"
+  },
+  "ww2-173": {
+   "answer": "Dyle Plan",
+   "title": "French war planning 1920–1940",
+   "url": "https://en.wikipedia.org/wiki/French_war_planning_1920%E2%80%931940",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Dyle Plan"
+  },
+  "ww2-174": {
+   "answer": "Battle of Sedan",
+   "title": "Battle of Sedan (1940)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Sedan_(1940)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-175": {
+   "answer": "Ardennes",
+   "title": "Ardennes",
+   "url": "https://en.wikipedia.org/wiki/Ardennes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-176": {
+   "answer": "Blitzkrieg",
+   "title": "Blitzkrieg",
+   "url": "https://en.wikipedia.org/wiki/Blitzkrieg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-177": {
+   "answer": "Blitzkrieg legend",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of World War II feature films",
+    "Blitzkrieg",
+    "Tanks in World War II",
+    "List of World War II video games",
+    "Western Front (World War II)"
+   ]
+  },
+  "ww2-178": {
+   "answer": "Heinz Guderian",
+   "title": "Heinz Guderian",
+   "url": "https://en.wikipedia.org/wiki/Heinz_Guderian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-179": {
+   "answer": "Erich von Manstein",
+   "title": "Erich von Manstein",
+   "url": "https://en.wikipedia.org/wiki/Erich_von_Manstein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-180": {
+   "answer": "Panzer Group Kleist",
+   "title": "XXII Army Corps (Wehrmacht)",
+   "url": "https://en.wikipedia.org/wiki/XXII_Army_Corps_(Wehrmacht)",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Panzer Group Kleist"
   }
  }
 }

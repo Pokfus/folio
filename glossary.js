@@ -7502,7 +7502,15 @@ window.GLOSSARY = {
 "Norway_Debate": "",
 "Winston_Churchill": "",
 "Altmark_incident": "",
-"Battle_of_the_River_Plate": ""
+"Battle_of_the_River_Plate": "",
+"Fall_Gelb": "",
+"Dyle_Plan": "",
+"Battle_of_Sedan_(1940)": "",
+"Ardennes": "",
+"Blitzkrieg_legend": "",
+"Heinz_Guderian": "",
+"Erich_von_Manstein": "",
+"Panzer_Group_Kleist": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11165,7 +11173,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Norway_Debate": "1940",
 "Winston_Churchill": "1874–1965",
 "Altmark_incident": "1940",
-"Battle_of_the_River_Plate": "1939"
+"Battle_of_the_River_Plate": "1939",
+"Fall_Gelb": "1939–1940",
+"Dyle_Plan": "1939–1940",
+"Battle_of_Sedan_(1940)": "12–15 May 1940",
+"Heinz_Guderian": "1888–1954",
+"Erich_von_Manstein": "1887–1973",
+"Panzer_Group_Kleist": "1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15918,7 +15932,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "German_bombing_of_Rotterdam": ["Rotterdam Blitz"],
 "Leopold_III_of_Belgium": ["Leopold III"],
 "Soviet_occupation_of_the_Baltic_states_(1940)": ["Soviet occupation of the Baltic states","Soviet annexation of the Baltic states"],
-"Operation_Weserübung": ["Weserübung","Weser Exercise"]
+"Operation_Weserübung": ["Weserübung","Weser Exercise"],
+"Fall_Gelb": ["Case Yellow","Plan Yellow"],
+"Dyle_Plan": ["Plan D"],
+"Battle_of_Sedan_(1940)": ["Battle of Sedan"],
+"Blitzkrieg_legend": ["Blitzkrieg legend"],
+"Panzer_Group_Kleist": ["Panzergruppe Kleist","Kleist Group"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23565,7 +23584,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Norway_Debate": ["event","history","politics","britain","parliament"],
 "Winston_Churchill": ["person","history","politics","britain"],
 "Altmark_incident": ["event","history","warfare","norway","britain"],
-"Battle_of_the_River_Plate": ["battle","history","warfare","uruguay"]
+"Battle_of_the_River_Plate": ["battle","history","warfare","uruguay"],
+"Fall_Gelb": ["event","history","warfare","germany","second world war"],
+"Dyle_Plan": ["event","history","warfare","france","belgium","second world war"],
+"Battle_of_Sedan_(1940)": ["battle","history","warfare","france","germany","second world war"],
+"Ardennes": ["place","geography","history","belgium","luxembourg"],
+"Blitzkrieg_legend": ["theory","history","historiography","warfare","germany"],
+"Heinz_Guderian": ["person","history","warfare","germany","second world war"],
+"Erich_von_Manstein": ["person","history","warfare","germany","war crimes","second world war"],
+"Panzer_Group_Kleist": ["institution","history","warfare","germany","second world war"]
 });
 
 /* ============================================================================
