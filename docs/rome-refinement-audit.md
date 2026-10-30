@@ -179,7 +179,7 @@ order unless the user says otherwise.
 | B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | **done 2026-10-30** |
 | B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | **done 2026-10-30** |
 | B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | open |
-| B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | open |
+| B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | **done 2026-10-30** |
 | B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | open |
 | B50 | The high empire (`rm-high-empire`) | `rm-491`–`rm-500` | 10 | 78 | open |
 | B51 | The high empire (`rm-high-empire`) | `rm-501`–`rm-510` | 10 | 81 | open |
@@ -730,6 +730,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-458` Otho | a silver denarius of Otho found in West Sussex | ok; the description names its recording scheme |
 | `rm-459` First Battle of Bedriacum | none | no picture (`I.none`) |
 | `rm-460` Vitellius | a gold aureus of Vitellius | ok; the description's "the Caesar he refused" should go |
+| `rm-471` Titus | a marble head of Titus | ok; the description names the holding museum |
+| `rm-472` Masada | the Roman ramp at Masada | ok |
+| `rm-473` fiscus Iudaicus | none | no picture (`I.none`); Nerva's FISCI IVDAICI sestertius would suit |
+| `rm-474` Arch of Titus | the Arch of Titus | ok |
+| `rm-475` Colosseum | the outer wall of the Colosseum | ok |
+| `rm-476` Liber Spectaculorum | the opening of the epigrams on the shows | ok |
+| `rm-477` Plinian eruption | an eruption column (Mount St Helens) | acceptable: no photograph of 79 can exist |
+| `rm-478` Pompeii | plaster casts of two of the dead | wrong: the casts, not the town; the Forum with Vesuvius behind would show it |
+| `rm-479` Herculaneum | skeletons in a waterfront chamber | ok; the description's "flows of the second day" should go |
+| `rm-480` Pliny the Elder | the dedication to Titus (a manuscript page) | acceptable: no ancient likeness exists |
 
 ## Glossary candidates
 
@@ -1889,3 +1899,22 @@ Run as B45; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-460` Vitellius | 7 | 9 → 7 | **A year was in a question; Suetonius gives two birthdays (Rolfe's 24 and 7 September)**; 20 December is the Cambridge Ancient History's (Moore: 20 or 21); the gluttony is Suetonius's and the refusal of "Caesar" his claim. |
 
 **Read by eye.** *Confusability:* `rm-451` the war (Florus, Jotapata, Beth-horon); `rm-452`/`rm-455` the rebel and the general who beat him (the epitaph, the hip); `rm-453`/`rm-454` the prefect and the declaration; `rm-456`/`rm-457`/`rm-458`/`rm-459`/`rm-460` the year (the Dialogue), Galba (capax imperii), Otho (Martial), the battle (the eagle, the gable) and Vitellius (the Gemonian stairs). *Legend:* Josephus's prophecy to Vespasian and Nero's last words at Phaon's villa are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B48 — `rm-471`–`rm-480`, Civil war and the Flavians: Titus to Pliny the Elder (2026-10-30)
+
+Run as B47's neighbours (applied before B47, whose last pair was still out); every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-471:rm-480` reads clean on six cards; the rest carry `I.none` on `rm-473` and `W.not-why` (advisory, three cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read, two *Science Advances* DOIs that answer a script 403 (both read in Europe PMC full text) and two *Scientific Reports* DOIs that answered 429 on the re-check. **The old date lines carried durations and phases ("Pumice fall about 8 hours" twice, "Column collapse 2nd day", "Flows 2nd day"), ages and places ("Aged 41, near Reate", "aged 55"), a day with no year ("Fell 15th of Xanthicus"), "c." inside a date, and the Colosseum's start as Vespasian's reign.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-471` Titus | 8 | 8 → 8 | **Born 30 December 39 CE, the year most scholars accept (Price), against Suetonius's "year Gaius died", which gives 41**; the accession day from the Cambridge Ancient History; "I have lost a day" and Berenice are Suetonius's and Dio's; Britannicus's cup left to `rm-439`. |
+| `rm-472` Masada | 8 | 6 → 8 | **Fell 73 CE (Schürer, Momigliano) or 74 CE, both on the line; the suicide, Eleazar's speeches, the lots and the 960 are Josephus's**; the 1963 bones and Yadin's nationalist reading added; an unreachable source and its claims dropped. |
+| `rm-473` fiscus Iudaicus | 6 | 6 → 8 | Josephus's two drachmas; **Nerva's FISCI IVDAICI CALVMNIA SVBLATA coin (an OCRE record) and the Edfu receipts are the contemporary evidence, and three modern readings of the legend are each attributed**; "Eased 96 CE" goes; no source prints 71 for the start. |
+| `rm-474` Arch of Titus | 8 | 6 → 8 | **The dedication under Domitian is a modern inference from DIVO TITO**; the triumph of 71 is labelled as the scene shown; rebuilt 1822 (Platner–Ashby, Lanciani); the lost arch in the Circus Maximus and the menorah's later meaning added. |
+| `rm-475` Colosseum | 9 | 7 → 9 | **Begun c. 70 CE, not "under Vespasian, 69 – 79"; the hundred days are Dio's; the capacity is Platner–Ashby's estimate (about 45,000 seated and 5,000 standing) and the 87,000 places doubted**; Alföldy's "ex manubiis" a reconstruction others doubt. `wh-362` states both as fact. |
+| `rm-476` Liber Spectaculorum | 6 | 6 → 6 | **The hundred days are a count of the games, not Martial's: off the line**; the second half is now Martial's poems (Pasiphae, Laureolus, the rhinoceros, Carpophorus); Titus or Domitian is Coleman's question. |
+| `rm-477` Plinian eruption | 7 | 6 → 7 | **"Plinian" is the volcanologists' term; 24 August is the manuscripts' (defended by Renne et al. 2026), 24 October the autumn case (the 2018 charcoal note, fruits, clothing): two rows**; Pliny wrote some 25 years later; the eight hours are one modern reconstruction. |
+| `rm-478` Pompeii | 9 | 7 → 9 | The card is now the town: Oscans and Samnites, Sulla's colony of 80 BCE, **the earthquake as Seneca's 63 against Tacitus's 62**, found 1748 and named 1763, the population as attributed ranges, Fiorelli's casts and the 2024 DNA result. |
+| `rm-479` Herculaneum | 8 | 6 → 8 | **The 300 dead at the waterfront are one study's count**; the vitrified brain (2025); the theatre 1709, the dig 1738, the papyri 1752; the Villa of the Papyri, Philodemus and the hedged X-ray and AI reading. The glossary's "4,000 – 5,000 people" had no source. |
+| `rm-480` Pliny the Elder | 8 | 6 → 8 | **Born 23 or 24 CE is worked from his nephew's "fifty-sixth year"; letter 6.16 is the nephew's tribute written for Tacitus; the fumes are the nephew's guess, asthma one modern account**; his career and the preface's claims added. |
+
+**Read by eye.** *Confusability:* `rm-471`/`rm-474`/`rm-475`/`rm-476` the emperor (the lost day), the arch (DIVO TITO), the amphitheatre (the quarry) and the poems (the rhinoceros); `rm-472`/`rm-473` the rock and the tax; `rm-477`/`rm-478`/`rm-479`/`rm-480` the eruption (the term, the date), the town (the colony, the earthquake), the second town (the boathouses, the scrolls) and the admiral (the books). *Legend:* Masada's suicide and speeches and Titus's "lost day" are their authors'. *Overlap:* `wh-362` states Alföldy's inscription and the hundred days as plain fact; `wh-365`'s Pompeii colony phrasing is close to `rm-478`'s second.

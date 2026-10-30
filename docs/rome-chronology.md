@@ -503,6 +503,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Otho: born / hailed | 28 April 32 CE / 15 January 69 CE | `rm-458` |
 | the First Battle of Bedriacum / the camp surrendered | 15 April 69 CE / 16 April 69 CE (Henderson's days; Bellomo: 12 April) | `rm-459` |
 | Vitellius: born / proclaimed | 15 CE / 2 January 69 CE | `rm-460` |
+| Titus: born / reigned / died | 30 December 39 CE (most scholars; Suetonius's year gives 41) / 24 June 79 – 13 September 81 CE / 13 September 81 CE | `rm-471` |
+| Masada: seized / fell | 66 CE / 73 CE (Schürer, Momigliano; others 74 CE) | `rm-472` |
+| the fiscus Iudaicus: imposed / Domitian's exaction / Nerva's coins | 70 CE / 81 – 96 CE / 96 CE | `rm-473` |
+| the Arch of Titus: built / the triumph shown / rebuilt | after 81 CE / 71 CE / 1822 | `rm-474` |
+| the Colosseum: begun / dedicated / last hunts | c. 70 CE / 80 CE / 523 CE | `rm-475`, `rm-476` |
+| the eruption of Vesuvius | 24 August 79 CE (the manuscripts) or 24 October 79 CE (the autumn case) | `rm-477` |
+| Pompeii: colony / earthquake / buried / found | 80 BCE / 62 CE (Tacitus; Seneca's consuls give 63) / 79 CE / 1748 | `rm-478` |
+| Herculaneum: buried / theatre found / dig began / papyri found | 79 CE / 1709 / 1738 / 1752 | `rm-479` |
+| Pliny the Elder: born / the Natural History published / died | 23 or 24 CE / 77 CE / 79 CE | `rm-480` |
 
 ## Late Antiquity
 
@@ -958,4 +967,14 @@ rm-457: 3; 68; 68; 69; 69
 rm-458: 32; 69; 69
 rm-459: 69; 69
 rm-460: 15; 69; 69
+rm-471: 39; 79; 81; 81
+rm-472: 66; 73; 74
+rm-473: 70; 81; 96; 96
+rm-474: 81; 71; 1822
+rm-475: 70; 80; 523
+rm-476: 80
+rm-477: 79; 79
+rm-478: 80; 62; 79; 1748
+rm-479: 79; 1709; 1738; 1752
+rm-480: 23; 24; 77; 79
 ```
