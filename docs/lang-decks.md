@@ -3248,6 +3248,16 @@ changed was the one that had been wrong all along.
   EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
   every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
   changelog line and no version bump. Not part of the site.
+- `.claude/torfl/` — the generator behind the **Russian** decks (Oct 2026): `decks/Russian-Alphabet.folio-deck.json`
+  (33 letters, `alphabet.py`, hand-written, no sources), `decks/TORFL-A1-Russian.folio-deck.json` (500 notes /
+  1,000 cards) `decks/TORFL-A2-Russian.folio-deck.json` (750 / 1,500) `decks/TORFL-B1-Russian.folio-deck.json` (1,000 / 2,000) `decks/TORFL-B2-Russian.folio-deck.json` (1,500 / 3,000), `decks/TORFL-C1-Russian.folio-deck.json` (1,500 / 3,000) and `decks/TORFL-C2-Russian.folio-deck.json` (1,000 / 2,000) — C1 and C2 mostly hand-written inventory, on the owner's decision — and `decks/Russian-Phrases-and-Expressions.folio-deck.json` (482 / 964, `--level phr`). `python3 .claude/torfl/run.py [--level a2] [--no-fetch]`, cache `.claude/torfl-cache/` (gitignored,
+  ~1.3 GB), checker `node .claude/torfl/check-torfl.js a1|a2|b1|b2|c1|c2|phrases|alphabet`. PYTHON and ONE LEVEL PER RUN, like UKBI, and
+  ASSEMBLED like UKBI: TORFL's lexical minimum is a copyrighted book, so a hand-written inventory of the level's
+  topics (`supplement.py`) is topped up by LEMMA frequency — the subtitle list's word-form counts summed over each
+  Wiktionary paradigm, since the list ranks `книгу` above `книга`. An aspect pair is one note (`де́лать / сде́лать`),
+  stress is printed on every headword and form and stripped from everything spoken or compared, ё is folded for
+  matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
+  decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
 - `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
