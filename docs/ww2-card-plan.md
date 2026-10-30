@@ -763,16 +763,16 @@ definitions, which exist precisely because the wording matters.
     ww2-228  The evacuation of British children  → written as *Government Evacuation Scheme*
     ww2-229  The myth of the Blitz spirit  → written as *Blitz spirit*
     ww2-230  The British war cabinet  → written as *War Cabinet*
-    ww2-231  Churchill as war leader
-    ww2-232  The BBC and wartime broadcasting
-    ww2-233  The British Empire and Commonwealth at war
-    ww2-234  Canada in the Second World War
-    ww2-235  Australia and New Zealand at war
-    ww2-236  South Africa in the Second World War
-    ww2-237  The Empire Air Training Scheme
-    ww2-238  African troops in the Allied armies
-    ww2-239  The Caribbean and the war
-    ww2-240  The British war economy in 1940 and 1941
+    ww2-231  Churchill as war leader  → written as *Minister of Defence*
+    ww2-232  The BBC and wartime broadcasting  → written as *BBC Home Service*
+    ww2-233  The British Empire and Commonwealth at war  → written as *Dominion*
+    ww2-234  Canada in the Second World War  → written as *National Resources Mobilization Act*
+    ww2-235  Australia and New Zealand at war  → written as *Singapore strategy*
+    ww2-236  South Africa in the Second World War  → written as *Union Defence Force*
+    ww2-237  The Empire Air Training Scheme  → written as *British Commonwealth Air Training Plan*
+    ww2-238  African troops in the Allied armies  → written as *King's African Rifles*
+    ww2-239  The Caribbean and the war  → written as *Anglo-American Caribbean Commission*
+    ww2-240  The British war economy in 1940 and 1941  → written as *Ministry of Aircraft Production*
 
 ### The Mediterranean and the Balkans — `ww2-mediterranean-early`
 

@@ -7595,7 +7595,17 @@ window.GLOSSARY = {
 "Independent_State_of_Croatia": "",
 "Anglo-Iraqi_War": "",
 "Anglo-Soviet_invasion_of_Iran": "",
-"Persian_Corridor": ""
+"Persian_Corridor": "",
+"Minister_of_Defence_(United_Kingdom)": "",
+"BBC_Home_Service": "",
+"Dominion": "",
+"National_Resources_Mobilization_Act": "",
+"Singapore_strategy": "",
+"Union_Defence_Force_(South_Africa)": "",
+"British_Commonwealth_Air_Training_Plan": "",
+"King's_African_Rifles": "",
+"Anglo-American_Caribbean_Commission": "",
+"Ministry_of_Aircraft_Production": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11339,7 +11349,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Independent_State_of_Croatia": "1941–1945",
 "Anglo-Iraqi_War": "2–31 May 1941",
 "Anglo-Soviet_invasion_of_Iran": "25 August – 17 September 1941",
-"Persian_Corridor": "1941–1945"
+"Persian_Corridor": "1941–1945",
+"Minister_of_Defence_(United_Kingdom)": "from 1940",
+"BBC_Home_Service": "from 1939",
+"National_Resources_Mobilization_Act": "1940",
+"Singapore_strategy": "1919–1942",
+"Union_Defence_Force_(South_Africa)": "1912",
+"British_Commonwealth_Air_Training_Plan": "1939–1945",
+"Anglo-American_Caribbean_Commission": "1942",
+"Ministry_of_Aircraft_Production": "from 1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16164,7 +16182,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Independent_State_of_Croatia": ["NDH","Nezavisna Država Hrvatska"],
 "Anglo-Iraqi_War": ["Rashid Ali coup","Iraq campaign of 1941"],
 "Anglo-Soviet_invasion_of_Iran": ["Anglo-Soviet occupation of Iran","Operation Countenance"],
-"Persian_Corridor": ["Persian Gulf supply route"]
+"Persian_Corridor": ["Persian Gulf supply route"],
+"Minister_of_Defence_(United_Kingdom)": ["Minister of Defence"],
+"Union_Defence_Force_(South_Africa)": ["Union Defence Force"],
+"British_Commonwealth_Air_Training_Plan": ["Empire Air Training Scheme"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23904,7 +23925,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Independent_State_of_Croatia": ["state","history","politics","croatia","holocaust"],
 "Anglo-Iraqi_War": ["war","history","warfare","iraq","britain"],
 "Anglo-Soviet_invasion_of_Iran": ["event","history","warfare","iran"],
-"Persian_Corridor": ["place","history","warfare","iran"]
+"Persian_Corridor": ["place","history","warfare","iran"],
+"Minister_of_Defence_(United_Kingdom)": ["title","history","politics","warfare","united kingdom"],
+"BBC_Home_Service": ["institution","history","media","united kingdom"],
+"Dominion": ["concept","history","politics","commonwealth"],
+"National_Resources_Mobilization_Act": ["text","history","politics","warfare","canada"],
+"Singapore_strategy": ["concept","history","warfare","united kingdom","australia"],
+"Union_Defence_Force_(South_Africa)": ["institution","history","warfare","south africa"],
+"British_Commonwealth_Air_Training_Plan": ["institution","history","warfare","aviation","canada"],
+"King's_African_Rifles": ["institution","history","warfare","africa","kenya"],
+"Anglo-American_Caribbean_Commission": ["institution","history","politics","caribbean"],
+"Ministry_of_Aircraft_Production": ["institution","history","economy","aviation","united kingdom"]
 });
 
 /* ============================================================================

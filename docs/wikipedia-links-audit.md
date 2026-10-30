@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5332 | the title is the article |
+| `ok` | 5340 | the title is the article |
 | `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 502 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 504 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 140 | only a disambiguation page; no link could be chosen |
 | `none` | 969 | nothing matched; no link |
 
-**6259 of 7491 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6269 of 7501 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (502)
+## Redirected to a differently named article — check each (504)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -535,6 +535,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-184` **Rotterdam Blitz** → [German bombing of Rotterdam](https://en.wikipedia.org/wiki/German_bombing_of_Rotterdam) (from `Rotterdam Blitz`)
 - `ww2-202` **May 1940 war cabinet crisis** → [1940 British war cabinet crisis](https://en.wikipedia.org/wiki/1940_British_war_cabinet_crisis) (from `May 1940 war cabinet crisis`)
 - `ww2-228` **Government Evacuation Scheme** → [Evacuations of civilians in the United Kingdom during the Second World War](https://en.wikipedia.org/wiki/Evacuations_of_civilians_in_the_United_Kingdom_during_the_Second_World_War) (from `Government Evacuation Scheme`)
+- `ww2-239` **Anglo-American Caribbean Commission** → [Caribbean Commission](https://en.wikipedia.org/wiki/Caribbean_Commission) (from `Anglo-American Caribbean Commission`)
+- `ww2-240` **Ministry of Aircraft Production** → [Minister of Aircraft Production](https://en.wikipedia.org/wiki/Minister_of_Aircraft_Production) (from `Ministry of Aircraft Production`)
 - `ww2-253` **Battle of Greece** → [German invasion of Greece](https://en.wikipedia.org/wiki/German_invasion_of_Greece) (from `Battle of Greece`)
 - `ww2-260` **Operation 25** → [Invasion of Yugoslavia](https://en.wikipedia.org/wiki/Invasion_of_Yugoslavia) (from `Operation 25`)
 - `ww2-269` **Tukhachevsky affair** → [Case of the Trotskyist Anti-Soviet Military Organization](https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization) (from `Tukhachevsky affair`)
