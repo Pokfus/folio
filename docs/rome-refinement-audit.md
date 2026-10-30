@@ -191,7 +191,7 @@ order unless the user says otherwise.
 | B57 | The Severans and the third-century crisis (`rm-third-century`) / Diocletian and Constantine (`rm-dominate`) | `rm-561`–`rm-570` | 10 | 94 | **done 2026-10-30** |
 | B58 | Diocletian and Constantine (`rm-dominate`) | `rm-571`–`rm-580` | 10 | 77 | **done 2026-10-30** |
 | B59 | Diocletian and Constantine (`rm-dominate`) | `rm-581`–`rm-590` | 10 | 89 | **done 2026-10-30** |
-| B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | open |
+| B60 | Diocletian and Constantine (`rm-dominate`) / The Christian empire (`rm-christian-empire`) | `rm-591`–`rm-600` | 10 | 93 | **done 2026-10-30** |
 | B61 | The Christian empire (`rm-christian-empire`) | `rm-601`–`rm-610` | 10 | 97 | open |
 | B62 | The Christian empire (`rm-christian-empire`) | `rm-611`–`rm-620` | 10 | 93 | open |
 | B63 | The end of the western empire (`rm-fall-west`) | `rm-621`–`rm-630` | 10 | 92 | open |
@@ -860,6 +860,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-588` magister militum | none | not re-checked: the card has no picture |
 | `rm-589` comitatenses | none | not re-checked: the card has no picture |
 | `rm-590` magister officiorum | none | not re-checked: the card has no picture |
+| `rm-591` colonate | none | not re-checked: the card has no picture |
+| `rm-592` Lateran Basilica | none | not re-checked: the card has no picture |
+| `rm-593` Old St Peter's Basilica | none | not re-checked: the card has no picture |
+| `rm-594` Arch of Constantine | none | not re-checked: the card has no picture |
+| `rm-595` Constantine II | none | not re-checked: the card has no picture; the glossary's statue would do |
+| `rm-596` Constantius II | none | not re-checked: the card has no picture; the glossary's bust would do; the Antioch locator is generic |
+| `rm-597` Julian the Apostate | none | not re-checked: the card has no picture |
+| `rm-598` School Edict | none | not re-checked: the card has no picture |
+| `rm-599` Julian's Persian expedition | none | not re-checked: the card has no picture |
+| `rm-600` Valentinian I | none | not re-checked: the card has no picture; the Naissus locator is generic (Brigetio, where he died, or Nicaea) |
 
 ## Glossary candidates
 
@@ -2284,3 +2294,41 @@ Run as B58. Every draft compared with its card after `batch.sh`: no mismatch. Be
 | `rm-590` magister officiorum | 6 | 7 → 6 | **The first law 320 or 321 CE (the edition's 320/1, Boak's 321); the arsenals 396 CE replace Cassiodorus's tenure**; Lydus one historian's reading of a partisan source. |
 
 **Read by eye.** *Confusability:* `rm-581`/`rm-582` the emperor (New Dacia, the angel's prayer) and his last battle (Alica's Goths); `rm-583`/`rm-584`/`rm-585` the council (Easter, the counts), the creed (homoousios) and the movement (its name); `rm-586`/`rm-587` the city (New Rome) and the coin (the zygostates); `rm-588`/`rm-589`/`rm-590` the general (Zosimus's split command), the field army (the palatini) and the palace master (the agentes in rebus). *Legend:* Lactantius's angel and Constantine's golden chair are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B60 — `rm-591`–`rm-600`, Diocletian and Constantine to the Christian empire: the colonate to Valentinian I (2026-10-30)
+
+Run as B59. Every draft compared with its card after `batch.sh`: no mismatch. `rm-599`'s first phrasing named Julian beside an answer that carries his name and was changed to "the emperor" before applying. Checks: `rm-audit.js --range=rm-591:rm-600` reports `I.none` on all ten (none has a picture), `S.chip?` on `rm-599` (an English BMCR review of a German-titled book) and `W.not-why` (advisory, three cards). No `timeline` moved. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. `rm-593`'s first row, "Apse rebuilt after 337 CE", is a terminus, not a date: no open source read gives a founding year (c. 319 – 322 is argued), and a later pass with one should add a "Begun" row. **The old date lines carried a reign standing for a policy ("Restoration 361 – 363 CE"), the battle on its arch ("Victory 312 CE"), a Justinianic law, an unconverted Roman day ("30 October 332"), another man's reign (Valens's rows) and the wrong day for a proclamation (26 February for 25).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-591` colonate | 6 | 6 → 6 | **The name is the historians', traced to 19th-century German scholarship; Carrié's "myth?" set against Sirks's legal status**; "30 October" goes (the Code's day, unconverted) and the Justinian row with it. |
+| `rm-592` Lateran Basilica | 7 | 7 → 7 | **The synod's day is Optatus's, its year the Liber Pontificalis translator's note (Optatus's and Augustine's consuls disagree)**; the razed guards' fort the archaeologists'; the gifts and the baptism story the late Liber Pontificalis's; Borromini's 1650. |
+| `rm-593` Old St Peter's Basilica | 7 | 7 → 9 | **"Begun after 324 CE" rested on a review that would not open; the founding is debated (the arch inscription, Gem's apse after 337, Westall's Constantius II)**; Gaius's trophies Eusebius's quotation. |
+| `rm-594` Arch of Constantine | 8 | 8 → 8 | **The battle leaves the line: dedicated 315 CE, with 316 in prose**; "instinctu divinitatis" and the re-cut heads attributed and debated; the older-arch theories given as rejected; the bronze-letter clue left to `rm-986`. |
+| `rm-595` Constantine II | 6 | 7 → 6 | **Born c. 316 CE (Livius) or days before 1 March 317 at Arles (Zosimus); his mother Fausta in Livius, "another woman" in Zosimus**; Eutropius's rash battle against Zosimus's ambush; the massacre of 337 left to `rm-596`. |
+| `rm-596` Constantius II | 7 | 8 → 9 | **The massacre told by Ammianus, Julian and Eutropius ("sanctioned rather than commanded")**; "stopped every major invasion" becomes Eutropius's admission he never beat Shapur in battle; "Arian" the Nicene party's label; the death's day disputed, the year alone on the line. |
+| `rm-597` Julian the Apostate | 7 | 7 → 8 | **"Apostate" is the Christians' word, from Gregory's invectives; "You have won, Galilean" Theodoret's legend**; Ammianus an admiring former officer, his 13,000 men his; the sign from Zeus Julian's own claim. |
+| `rm-598` School Edict | 6 | 7 → 7 | **The reign leaves the line: the law of 17 June 362 CE (CTh 13.3.5)**; Ammianus's two verdicts; Victorinus from Augustine, Prohaeresius from Eunapius and the Apollinarii from Sozomen, as the Loeb editor reports. |
+| `rm-599` Julian's Persian expedition | 6 | 8 → 8 | **"Killed by an enemy spear" was one version: Ammianus's spear from no one knows whence, the Persians' rumour of a Roman weapon, Libanius's Christian**; the armies Zosimus's and Ammianus's; twelve ships kept (Ammianus) or 22 (Zosimus). |
+| `rm-600` Valentinian I | 7 | 7 → 8 | **Proclaimed 25 February 364 CE, not 26 (Woods, Livius)**; Valens's rows go; the Rhine forts, the bears Goldflake and Innocence, his neutrality in religion; the stroke before the Quadi envoys. |
+
+**Read by eye.** *Confusability:* `rm-591` the tenants (Constantine's chains); `rm-592`/`rm-593`/`rm-594` the cathedral (the guards' fort), the basilica (Gaius's trophies) and the arch (the re-cut heads); `rm-595`/`rm-596` the brothers (Aquileia, the stiff neck); `rm-597`/`rm-598`/`rm-599` the emperor (Lutetia), the law (Matthew and Luke) and the campaign (the burned fleet); `rm-600` the bears. *Legend:* "You have won, Galilean", the deathbed spear's thrower and the bears' release are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### The sixth hundred, in sum
+
+`rm-501`–`rm-600` (the high empire from Trajan's East, the Severans, the third-century crisis, Diocletian and Constantine, and the opening of the Christian empire to Valentinian I) are done: 687 sources became 740 and 67 glossary entries were rewritten. `rm-audit.js --range=rm-501:rm-600` reads 54 of 100 cards clean; the rest are 24 cards with no picture (`I.none`, mostly the Constantinian cards, which never had one), 18 `S.chip?` false positives (English BMCR reviews of German-titled books, and two English ZPE articles), 9 advisory `W.not-why` and 3 `I.duplicate` (the current pictures share a generic file key). Commons answered 429 at the session's one test call, so every picture is still the bulk-written one and "Pictures to redo" holds a verdict for each. LacusCurtius, the De Imperatoribus Romanis site, OpenEdition and Persée did not answer all session: Dio, the Historia Augusta, Ammianus, Julian and Herodian are read in the archive.org Loeb scans. Batches were applied in the order their drafts finished (B52, B51, B54, B53, then B55 – B60).
+
+What the sixth hundred found, again and again:
+- **The narrators named for what they are.** Dio a senator and from Commodus an eyewitness, but read in Xiphilinus's abridgement (his books on Antoninus Pius are lost, and the abridger says so); Herodian contemporary and rhetorical; the Historia Augusta late and partly invented (Maximinus's thumb credited to its own "Cordus", Severus Alexander's model prince, Avidius Cassius's forged letters, Elagabalus's flowers — violets, the roses being Alma-Tadema's); Lactantius a hostile polemicist on the persecutors; Eusebius Constantine's panegyrist; Zosimus a pagan hostile to Constantine; Ammianus an admiring officer.
+- **A modern label as ancient fact.** Pax Romana, the Year of the Five Emperors, the Crisis of the Third Century, the Gallic and Palmyrene Empires, the Tetrarchy, the Dominate, the Marcomannic Wars, the antoninianus, the colonate, capitatio-iugatio, Arianism and the Edict of Milan (neither an edict nor issued at Milan) are each said to be modern, or their opponents', with whose they are.
+- **A translator's margin or note read as the author's.** Cary's margin years for Trajan's war and the procurators' salaries, Magie's note for the legion's "gates shut 212", the Historia Augusta's day for Lugdunum given as Dio's, the Loeb editor's conversion of Hadrian's birthday.
+- **Another man's reign or event on the line.** Hadrian's reign for the Pantheon and the Villa, Commodus's for the secutor, Diocletian's for a tax, a son's reign for Julia Mamaea, two men's deaths for Julia Domna, Severus's death and Constantine's acclamation on Eboracum, the battle on the Arch of Constantine.
+- **A figure no source gives, or two authors' figures summed.** The Antonine Plague's deaths (now Gilliam's, Harper's and Scheidel's estimates), Zosimus's armies at the Milvian Bridge summed, "50 million sesterces" for Philip's peace (the inscription says 500,000 denarii), "more than forty" copies of the Price Edict, Hadrian's Wall's unattributed 117 km, "over a million" Romans on the Marble Plan, "60 or 70" cities for Probus.
+- **Wrong facts the old cards stated.** The solidus's standard "for the rest of the empire's history" (debased in the 11th century), Julian "killed by an enemy spear" (one of three versions), Valentinian proclaimed on 26 February (25), Decius "the first emperor killed by barbarians" (cited to a study that does not say it), Herodian's Maximinus killed inside his tent (outside it).
+- **The modern half.** The modern half is mostly BMCR reviews, Livius, the Judaism and Rome project's commentaries, OCRE coin records, the Loeb introductions, Platnauer, Bury, Jones and Grierson, with open recent work where it existed (Vukadinović and Tošović 2023, Zonneveld et al. 2024, Karasaridis and Chalupa 2025, Smorczewski 2021, Kosiński 2024).
+
+Overlap notes for the owner (nothing was edited): `wh-371` gives Diocletian's death as 313 – 316 CE against `rm-566`'s c. 311 – 313 CE; `wh-372` gives Constantine's birth as c. 271 – 273 CE against `rm-577`'s c. 273 CE; `rm-525` shares Drake 2017 with `wh-359`.
+
+### Locators (2026-10-30, the sixth hundred)
+
+None was added or moved: every place, building and battle in `rm-501`–`rm-600` already had a locator (Ctesiphon, Bostra, Housesteads, Lambaesis, the Pantheon, Hadrian's Villa, Betar, Rough Castle, Timgad, Monte Testaccio, Lugdunum, Eboracum, Abritus, Split, Carnuntum, the Milvian Bridge, Chrysopolis, Nicaea, Constantinople, the Lateran, the Vatican and the Arch of Constantine among them), so `migrate-places.js` was not run. For a later pass: the generic "Rome" points on `rm-513`, `rm-523`, `rm-525`, `rm-535` (the Templum Pacis wall would be right) and `rm-539`; `rm-546`'s and `rm-564`'s labels (the points are right, the label "Rome"; Porta San Sebastiano for the walls); `rm-532`'s Nicaea (an office, not a place); `rm-556`'s Abritus (the battlefield is disputed); `rm-574`'s Nicomedia, `rm-596`'s Antioch and `rm-600`'s Naissus (generic for the men).

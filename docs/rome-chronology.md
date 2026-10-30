@@ -633,6 +633,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the magister militum in the eastern Notitia | c. 395 CE (also dated c. 450 CE) | `rm-588` |
 | comitatenses named in a law | 17 June 325 CE | `rm-589` |
 | the magister officiorum: named in a law / gained the arsenals | 320 or 321 CE / 396 CE | `rm-590` |
+| the colonate (a modern name): the oldest law | 332 CE | `rm-591` |
+| the Lateran Basilica: begun / the synod / remodelled | c. 313 CE / 2 October 313 CE / 1650 | `rm-592` |
+| Old St Peter's: the apse rebuilt / demolished | after 337 CE (Gem; the founding is debated) / 1506 – 1615 | `rm-593` |
+| the Arch of Constantine dedicated | 315 CE (316 CE in one older reading) | `rm-594` |
+| Constantine II: born / Caesar / Augustus / killed | c. 316 CE / 1 March 317 CE / 9 September 337 CE / April 340 CE | `rm-595` |
+| Constantius II: born / Augustus / sole ruler / died | 7 August 317 CE / 9 September 337 CE / 353 CE / 361 CE (5 October in Ammianus, 3 November in Livius) | `rm-596` |
+| Julian: born / Caesar / reigned / died | 331 CE / 6 November 355 CE / 360 – 363 CE / 26 June 363 CE | `rm-597` |
+| the School Edict | 17 June 362 CE | `rm-598` |
+| Julian's Persian expedition: set out / Julian died / the peace | 5 March 363 CE / 26 June 363 CE / 363 CE | `rm-599` |
+| Valentinian I: born / proclaimed / named Valens co-ruler / died | 321 CE / 25 February 364 CE / 28 March 364 CE / 17 November 375 CE | `rm-600` |
 
 ## Chronology pins
 
@@ -1210,4 +1220,14 @@ rm-587: 310; 313; 325; 363; 1092
 rm-588: 395; 450
 rm-589: 325
 rm-590: 320; 321; 396
+rm-591: 332
+rm-592: 313; 1650
+rm-593: 337; 1506; 1615
+rm-594: 315
+rm-595: 316; 317; 337; 340
+rm-596: 317; 337; 353; 361
+rm-597: 331; 355; 360; 363
+rm-598: 362
+rm-599: 363
+rm-600: 321; 364; 375
 ```
