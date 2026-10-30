@@ -693,7 +693,7 @@
       for (let i = 0; i < personal.keep.length; i++) if (personal.keep[i]) { px[4 * i] = land[0] * 255; px[4 * i + 1] = land[1] * 255; px[4 * i + 2] = land[2] * 255; px[4 * i + 3] = 255; }
       const tex = (t, fmt, ifmt, w, hh, bytes) => { gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, ifmt, w, hh, 0, fmt, gl.UNSIGNED_BYTE, bytes); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); };
       tex(keepTex, gl.RGBA, gl.RGBA, 256, h, px);
-      const mh = Math.max(1, Math.ceil(personal.arcMask.length / 256)), mb = new Uint8Array(256 * mh); mb.set(personal.arcMask);
+      const mh = Math.max(1, Math.ceil(personal.arcMask.length / 256)), mb = new Uint8Array(256 * mh); for (let i = 0; i < personal.arcMask.length; i++) if (personal.arcMask[i]) mb[i] = 255;   // R8 is normalised: a 1 would read as 1/255, under the shader's 0.5, and hide every border
       gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1); tex(maskTex, gl.RED, gl.R8, 256, mh, mb); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
     }
     function buildStyle() {
