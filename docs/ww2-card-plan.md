@@ -708,16 +708,16 @@ definitions, which exist precisely because the wording matters.
     ww2-198  Attack on Mers-el-Kébir
     ww2-199  The Channel Islands under German occupation  → written as *German occupation of the Channel Islands*
     ww2-200  Explaining the fall of France  → written as *Strange Defeat*
-    ww2-201  Britain's position after the fall of France
-    ww2-202  The British decision to fight on
+    ww2-201  Britain's position after the fall of France  → written as *Their finest hour*
+    ww2-202  The British decision to fight on  → written as *May 1940 war cabinet crisis*
     ww2-203  Destroyers-for-bases deal
     ww2-204  Lend-Lease
     ww2-205  Atlantic Charter
-    ww2-206  American opinion in 1940 and 1941
-    ww2-207  German planning for the invasion of Britain
+    ww2-206  American opinion in 1940 and 1941  → written as *America First Committee*
+    ww2-207  German planning for the invasion of Britain  → written as *Directive No. 16*
     ww2-208  Operation Sea Lion
-    ww2-209  Was there a Blitzkrieg economy?
-    ww2-210  Hitler's strategic choice after France
+    ww2-209  Was there a Blitzkrieg economy?  → written as *Blitzkrieg economy*
+    ww2-210  Hitler's strategic choice after France  → written as *Directive No. 18*
 
 ### Britain alone — `ww2-britain`
 
@@ -726,10 +726,10 @@ definitions, which exist precisely because the wording matters.
     ww2-213  Dowding system
     ww2-214  Chain Home
     ww2-215  Hugh Dowding
-    ww2-216  The Luftwaffe in 1940
-    ww2-217  The attack on the airfields
-    ww2-218  The crisis of Fighter Command
-    ww2-219  The switch to bombing London
+    ww2-216  The Luftwaffe in 1940  → written as *Luftwaffe*
+    ww2-217  The attack on the airfields  → written as *Adlertag*
+    ww2-218  The crisis of Fighter Command  → written as *Keith Park*
+    ww2-219  The switch to bombing London  → written as *Hermann Göring*
     ww2-220  Battle of Britain Day
     ww2-221  The Few
     ww2-222  Polish and Commonwealth pilots in the Battle of Britain
@@ -754,16 +754,16 @@ definitions, which exist precisely because the wording matters.
 
 ### The Mediterranean and the Balkans — `ww2-mediterranean-early`
 
-    ww2-241  The Mediterranean theatre
+    ww2-241  The Mediterranean theatre  → written as *Mediterranean and Middle East theatre*
     ww2-242  Greco-Italian War
-    ww2-243  The Greek defence of 1940
+    ww2-243  The Greek defence of 1940  → written as *Battle of Pindus*
     ww2-244  Operation Compass
-    ww2-245  The Italian defeat in Cyrenaica
+    ww2-245  The Italian defeat in Cyrenaica  → written as *Battle of Beda Fomm*
     ww2-246  East African campaign
     ww2-247  Battle of Taranto
     ww2-248  Battle of Cape Matapan
     ww2-249  Siege of Malta
-    ww2-250  The German intervention in the Balkans
+    ww2-250  The German intervention in the Balkans  → written as *Balkan campaign*
     ww2-251  The Yugoslav coup of 1941
     ww2-252  The invasion of Yugoslavia
     ww2-253  The German invasion of Greece
@@ -780,45 +780,45 @@ definitions, which exist precisely because the wording matters.
 ### Barbarossa and 1941 — `ww2-barbarossa`
 
     ww2-261  Operation Barbarossa
-    ww2-262  The German plan for the invasion of the Soviet Union
-    ww2-263  The ideological character of the war in the East
+    ww2-262  The German plan for the invasion of the Soviet Union  → written as *Directive No. 21*
+    ww2-263  The ideological character of the war in the East  → written as *Barbarossa decree*
     ww2-264  Generalplan Ost
     ww2-265  Hunger Plan
     ww2-266  Commissar Order
-    ww2-267  The Red Army in June 1941
-    ww2-268  The warnings Stalin ignored
-    ww2-269  The purge of the Red Army and its effects
-    ww2-270  The encirclement battles of 1941
+    ww2-267  The Red Army in June 1941  → written as *Red Army*
+    ww2-268  The warnings Stalin ignored  → written as *Richard Sorge*
+    ww2-269  The purge of the Red Army and its effects  → written as *Tukhachevsky affair*
+    ww2-270  The encirclement battles of 1941  → written as *Kesselschlacht*
     ww2-271  Battle of Białystok–Minsk
     ww2-272  Battle of Smolensk
-    ww2-273  The Baltic states under German occupation
+    ww2-273  The Baltic states under German occupation  → written as *Kaunas pogrom*
     ww2-274  First Battle of Kiev
-    ww2-275  The German advance on Leningrad
+    ww2-275  The German advance on Leningrad  → written as *Army Group North*
     ww2-276  Siege of Leningrad
-    ww2-277  The starvation of Leningrad
+    ww2-277  The starvation of Leningrad  → written as *Badayev warehouses*
     ww2-278  The Road of Life
     ww2-279  Operation Typhoon
     ww2-280  Battle of Moscow
-    ww2-281  The Soviet evacuation of industry
-    ww2-282  The Soviet counter-offensive of December 1941
+    ww2-281  The Soviet evacuation of industry  → written as *Evacuation Council*
+    ww2-282  The Soviet counter-offensive of December 1941  → written as *Moscow counter-offensive*
     ww2-283  Georgy Zhukov
-    ww2-284  Stalin as war leader
+    ww2-284  Stalin as war leader  → written as *State Defence Committee*
     ww2-285  Stavka
     ww2-286  Soviet mobilisation
     ww2-287  Order No. 227
-    ww2-288  Penal battalions and blocking detachments
-    ww2-289  Soviet prisoners of war in German captivity
-    ww2-290  The German occupation regime in the East
-    ww2-291  Reichskommissariat Ostland and Ukraine
+    ww2-288  Penal battalions and blocking detachments  → written as *Shtrafbat*
+    ww2-289  Soviet prisoners of war in German captivity  → written as *German mistreatment of Soviet prisoners of war*
+    ww2-290  The German occupation regime in the East  → written as *Reich Ministry for the Occupied Eastern Territories*
+    ww2-291  Reichskommissariat Ostland and Ukraine  → written as *Reichskommissariat Ukraine*
     ww2-292  Soviet partisans
-    ww2-293  Collaboration in the occupied Soviet territories
-    ww2-294  The Wehrmacht and the war of annihilation
+    ww2-293  Collaboration in the occupied Soviet territories  → written as *Hilfswillige*
+    ww2-294  The Wehrmacht and the war of annihilation  → written as *Severity Order*
     ww2-295  Clean Wehrmacht myth
-    ww2-296  The German failure before Moscow
-    ww2-297  German logistics in the East
-    ww2-298  The winter of 1941–1942
+    ww2-296  The German failure before Moscow  → written as *stand-fast order*
+    ww2-297  German logistics in the East  → written as *rasputitsa*
+    ww2-298  The winter of 1941–1942  → written as *Russian Winter*
     ww2-299  Case Blue
-    ww2-300  The German drive to the Caucasus
+    ww2-300  The German drive to the Caucasus  → written as *Operation Edelweiss*
 
 ### Stalingrad and the turn — `ww2-stalingrad`
 
