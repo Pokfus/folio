@@ -7528,7 +7528,16 @@ window.GLOSSARY = {
 "Dachau_concentration_camp": "",
 "Pogrom": "",
 "Imaging_radar": "",
-"Core_sample": ""
+"Core_sample": "",
+"Tiglath-Pileser_III": "",
+"Sargon_II": "",
+"Samaria_(ancient_city)": "",
+"Sennacherib": "",
+"Kingdom_of_Judah": "",
+"Books_of_Kings": "",
+"Israelites": "",
+"Halah": "",
+"Khabur_(Euphrates)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11200,7 +11209,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Panzer_Group_Kleist": "1940",
 "War_of_1812": "1812–1815",
 "Little_Turtle": "c. 1752–1812",
-"Dachau_concentration_camp": "1933–1945"
+"Dachau_concentration_camp": "1933–1945",
+"Tiglath-Pileser_III": "745 – 727 BCE",
+"Sargon_II": "722 – 705 BCE",
+"Samaria_(ancient_city)": "capital c. 880 – 720s BCE",
+"Sennacherib": "705 – 681 BCE",
+"Kingdom_of_Judah": "c. 931 – 587 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -15974,7 +15988,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dachau_concentration_camp": ["Dachau"],
 "Pogrom": ["pogrom","pogroms"],
 "Imaging_radar": ["radar imaging","imaging radar","synthetic aperture radar"],
-"Core_sample": ["soil coring","coring","sediment core","core sample"]
+"Core_sample": ["soil coring","coring","sediment core","core sample"],
+"Tiglath-Pileser_III": ["Tiglath-pileser III","Tiglath Pileser III"],
+"Samaria_(ancient_city)": ["Samaria"],
+"Kingdom_of_Judah": ["Judah"],
+"Books_of_Kings": ["Book of Kings"],
+"Israelites": ["Israelite"],
+"Halah": ["Halah"],
+"Khabur_(Euphrates)": ["Habor","Khabur","Khabur River"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23647,7 +23668,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Dachau_concentration_camp": ["place","germany","20th century","second world war","history"],
 "Pogrom": ["event","history","society","europe","russia"],
 "Imaging_radar": ["technology","science","research methods","archaeology"],
-"Core_sample": ["science","archaeology","geology","research methods"]
+"Core_sample": ["science","archaeology","geology","research methods"],
+"Tiglath-Pileser_III": ["ruler","person","history","iron age","iraq"],
+"Sargon_II": ["ruler","person","history","iron age","iraq"],
+"Samaria_(ancient_city)": ["city","place","history","archaeology","iron age"],
+"Sennacherib": ["ruler","person","history","iron age","iraq"],
+"Kingdom_of_Judah": ["state","history","iron age","religion"],
+"Books_of_Kings": ["text","religion","history","literature"],
+"Israelites": ["people","history","religion","iron age"],
+"Halah": ["place","history","iron age","migration"],
+"Khabur_(Euphrates)": ["river","geography","nature","history","mesopotamia"]
 });
 
 /* ============================================================================

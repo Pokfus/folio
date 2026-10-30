@@ -37105,6 +37105,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (at ? ' data-map-at="' + at[0] + "," + at[1] + '"' : "") +
       (atName ? ' data-map-atname="' + esc(atName) + '"' : "") +
       (m ? ' data-map-key="' + esc(m.keys.join("|")) + '"' : "") +
+      // a present-day members window with no seat names its group, never its first key (Manchuria, not "Heilongjiang"; 2026-10-30)
+      (m && !at && !m.groups.length ? ' data-map-name="' + esc(m.name) + '"' : "") +
       (m && m.groups.length ? ' data-map-year="' + m.year + '" data-map-groups="' + esc(m.groups.map((g) => g.ids.join("|")).join(";")) + '"' + (m.span ? ' data-map-span="' + m.span[0] + "," + m.span[1] + '"' : "") : "") +
       (l && l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
       (l && l.within ? ' data-map-within="' + esc(l.within) + '"' : "") +

@@ -342,7 +342,7 @@
         return at;
       };
       const droppedNames = [];
-      const nm0 = gameCapFirst(dot ? dot.n : targets.length ? targets[0].n : "");
+      const nm0 = gameCapFirst(dot ? dot.n : isMembers && host.getAttribute("data-map-name") ? host.getAttribute("data-map-name") : targets.length ? targets[0].n : "");   // a seatless members window: its group's name (app.js cardLocatorWindowHTML)
       // ---- the marks ----
       let sibAt = [], anchorAt = null;
       if (sibCard && !isWar) {
