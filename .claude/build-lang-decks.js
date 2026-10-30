@@ -64,6 +64,7 @@ const LANGS = [
   { word: "Spanish", name: "Spanish", l1: 486 },
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
+  { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },

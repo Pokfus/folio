@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 170 MB of decks. The file itself is fetched on Add. */
+   section without fetching 176 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -36,6 +36,12 @@ window.LANG_DECKS = [
   { lang: "Japanese", file: "JLPT-N1-Japanese.folio-deck.json", id: "jlptn1", title: "Japanese — JLPT N1", sub: "3,055 more words, taking you to about 7,740 — study after N2", notes: 3055, cards: 6110, ex: 88, bytes: 6307850, rev: "a1f578de2226" },
   { lang: "Japanese", file: "Japanese-Idioms.folio-deck.json", id: "jaidiom", title: "Japanese — Idioms and Proverbs", sub: "206 four-character idioms and proverbs — after the levels", notes: 206, cards: 412, ex: 100, bytes: 550049, rev: "7607b21b3be7" },
   { lang: "Japanese", file: "Japanese-Phrases-and-Expressions.folio-deck.json", id: "japhr", title: "Japanese — Phrases and Expressions", sub: "292 set phrases and grammatical chunks — alongside any level", notes: 292, cards: 584, ex: 100, bytes: 450618, rev: "22a95d9c0774" },
+  { lang: "Turkish", file: "Turkish-A1.folio-deck.json", id: "turkisha1", title: "Turkish A1", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, say: false, bytes: 680115, rev: "b3805cd5a9f2" },
+  { lang: "Turkish", file: "Turkish-A2.folio-deck.json", id: "turkisha2", title: "Turkish A2", sub: "600 words · both directions, as two cards per word", notes: 600, cards: 1200, ex: 100, say: false, bytes: 823051, rev: "d697af4b1cc4" },
+  { lang: "Turkish", file: "Turkish-B1.folio-deck.json", id: "turkishb1", title: "Turkish B1", sub: "999 words · both directions, as two cards per word", notes: 999, cards: 1998, ex: 100, say: false, bytes: 1381438, rev: "b7c339f5de77" },
+  { lang: "Turkish", file: "Turkish-B2.folio-deck.json", id: "turkishb2", title: "Turkish B2", sub: "1,197 words · both directions, as two cards per word", notes: 1197, cards: 2394, ex: 99, say: false, bytes: 1649241, rev: "f219332787cc" },
+  { lang: "Turkish", file: "Turkish-C1.folio-deck.json", id: "turkishc1", title: "Turkish C1", sub: "997 words · both directions, as two cards per word", notes: 997, cards: 1994, ex: 98, say: false, bytes: 1370437, rev: "1777e5e08258" },
+  { lang: "Turkish", file: "Turkish-Phrases-and-Expressions.folio-deck.json", id: "trphrase", title: "Turkish Phrases and Expressions", sub: "483 expressions · 118 everyday, 304 idioms, 61 proverbs · both directions", notes: 483, cards: 966, subs: 3, tree: [{"n":"Phrases","c":236,"x":66},{"n":"Idioms","c":608,"x":56},{"n":"Proverbs","c":122,"x":54}], flat: true, ex: 58, say: false, bytes: 353426, rev: "1e2fecf0b8ef" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },

@@ -55,6 +55,11 @@ __pycache__/
 # of the Tatoeba corpus being most of it), plus the intermediate files between its stages. The
 # deck it writes IS committed — this is only the working cache behind it.
 .claude/ukbi-cache/
+# the corpora .claude/turkish/run.py builds the Turkish decks from (~800 MB, the
+# Wiktionary extract being most of it), plus the teaching programme's PDF it reads the
+# inventory off -- all rights reserved, so it is never committed -- and the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/turkish-cache/
 
 # The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by
