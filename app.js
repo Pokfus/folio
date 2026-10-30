@@ -12015,6 +12015,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ovid. Its nearest neighbours, Luo Guanzhong and Marco Polo, assert no kinship. It reads 4.64:1 on
      the tightest light paper. */
   "Plutarch": "#5139C3",
+  /* MEASURED AS EVERY ROW ABOVE, with forty-seven colours placed (Oct 2026, adding the Anglo-Saxon
+     Chronicle): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from every light theme's
+     ink and 4.5:1 on every light paper, card and second paper. As at the Plutarch row the band's
+     best clears only 16.2–16.4, now just under the shelf's own tightest pair (Luo Guanzhong and
+     Plutarch, 16.5), and the ceiling was not lifted for the reason given there. Of those candidates
+     this dark wine is taken on the Euripides test: the books a reader sets beside the Chronicle are
+     BEDE, its main source for the early centuries, then Beowulf and the two Eddas, and it stands 50
+     from Bede, 29 from Beowulf, 24 from the Poetic Edda and 45 from Snorri, where the band's best,
+     a shade lighter, sits 21 from the Poetic Edda. Its nearest neighbour is Sophocles at 16.3, which
+     asserts no kinship; that is now the shelf's tightest pair, by two tenths. It reads 7.2:1 on the
+     tightest light paper. */
+  "anglo-saxon-chronicle": "#72002A",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15038,6 +15050,39 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          — a new term whose name is a common syllable ("Wei", "Chin", "Han") will start linking here. */
       glossOff: ["Digest_(Roman_law)", "Yuan_dynasty", "Shang_dynasty", "Wu_Zhou", "Yao",
         "Liu_Yan_(Tang_dynasty)", "Emperor_Wu_of_Han"],
+    },
+    {
+      id: "anglo-saxon-chronicle",
+      title: "The Anglo-Saxon Chronicle",
+      /* Annals kept by many anonymous hands, so the colour row keys on the id — see song-of-roland. */
+      author: "Anonymous",
+      /* Begun in Alfred's reign around 890, the last entry written at Peterborough in 1154. `year` is
+         the start, the single number the shelf's date sort needs; the span is in `written`. */
+      written: "c. 890–1154",
+      year: 890,
+      translator: "J. A. Giles",
+      edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
+      /* A LIMIT ON NOTHING. The annals are eight to eleven centuries old; Giles published the
+         translation in 1847 and died in 1884, so it clears the pre-1929 rule and life plus a
+         hundred alike. The 1914 reissue's editor signs only "E. B." and cannot be traced, but
+         nothing of that editor's is taken — the preface is left behind — and the edition was
+         published before 1929. See .claude/fetch-book.js for the editions measured and why this one. */
+      rights:
+        "Public domain. The annals were begun in the reign of Alfred the Great, around 890, and the " +
+        "last of them was written at Peterborough in 1154. J. A. Giles's translation was first " +
+        "published in London in 1847, and he died in 1884, so the English is out of copyright under " +
+        "the rule for works published before 1929, under the translator's life plus seventy years and " +
+        "under life plus a hundred. The text is that of the 1914 reissue, whose editor signs the " +
+        "preface only \"E. B.\"; that preface is not reproduced, and the edition was published before " +
+        "1929. The footnotes are Giles's own. (The modern translations by G. N. Garmonsway, 1953, " +
+        "Dorothy Whitelock, 1961, and Michael Swanton, 1996, are still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Anglo-Saxon_Chronicle_(Giles)",
+      /* NO `origLang`: Giles's English conflates several manuscripts, so no one Old English text
+         faces it — see the importer's entry. Nine parts cut by year, Folio's and not the edition's. */
+      chapterWord: "Part",
+      count: 9,
+      total: 9,
     },
   ];
   const BOOK_BY_ID = {};

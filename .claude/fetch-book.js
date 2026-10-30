@@ -17067,6 +17067,97 @@ const BOOKS = {
     },
   },
 
+  "anglo-saxon-chronicle": {
+    title: "The Anglo-Saxon Chronicle",
+    author: "Anonymous",
+    translator: "J. A. Giles",
+    edition: "Edited from the translation in Monumenta Historica Britannica and other versions, new edition, G. Bell and Sons, London, 1914",
+    written: "c. 890–1154",
+    year: 890,
+
+    /* ---------- THE LICENCE ----------
+       The annals were begun in Alfred's reign, around 890, and the last was written at Peterborough
+       in 1154, so the work is free everywhere on any reading. Giles's translation first appeared in
+       1847, in the same Bohn volume as his Bede, and he died in 1884 — so the English clears the
+       pre-1929 rule, life plus seventy and life plus a hundred alike. The 1914 reissue was prepared
+       by an editor who signs the preface "E. B." and cannot be identified, which is the Gallic War's
+       and Bede's position in miniature; it matters less here, because what is taken from that
+       editor is nothing — the preface is left behind — and the edition itself was published in 1914,
+       before 1929. The footnotes are Giles's: every one that names an authority names Ingram (1823),
+       Petrie, Gibson, Lye or Miss Gurney (1819), all before 1847, and the two that cite Plummer's
+       edition of 1892–99 are E. B.'s and belong to the preface.
+
+       WHY GILES AND NOT INGRAM. Project Gutenberg's text (ebook 657) is the other free English most
+       readers are pointed at, and it is not an edition at all: it is a 1996 collation by its
+       preparer of Ingram's translation of 1823 with passages from Giles's, merged by him and marked
+       with doubled brackets. Its every page is a modern editor's choice between two Victorian
+       translators, which is a fine thing to read and the wrong thing to present as a printed book.
+       Giles's 1914 volume is one translation as it was printed, transcribed from its scan, and every
+       one of its 206 pages is VALIDATED on Wikisource — proofread twice — which is the best state a
+       transcription there can be in. Anna Gurney's 1819 version is on Wikisource too, and is a
+       translation of Gibson's text alone.
+
+       THE MODERN TRANSLATIONS are in copyright and are not used: G. N. Garmonsway's Everyman of 1953,
+       Dorothy Whitelock's of 1961 and Michael Swanton's of 1996, each of which sets the manuscripts
+       side by side as this one does not.
+
+       THERE IS NO OLD ENGLISH COLUMN, and that is a measurement too. The one complete public-domain
+       text on Wikisource is Thorpe's Rolls Series edition of 1861, which prints up to six manuscripts
+       in parallel columns, year by year; Giles's English is a conflation of those manuscripts, one at
+       a time, so no single column of Thorpe faces it, and pairing a conflation against a chosen
+       manuscript would put Old English beside English that does not translate it. */
+    rights:
+      "Public domain. The annals were begun in the reign of Alfred the Great, around 890, and the " +
+      "last of them was written at Peterborough in 1154. J. A. Giles's translation was first " +
+      "published in London in 1847, and he died in 1884, so the English is out of copyright under " +
+      "the rule for works published before 1929, under the translator's life plus seventy years and " +
+      "under life plus a hundred. The text is that of the 1914 reissue, whose editor signs the " +
+      "preface only \"E. B.\"; that preface is not reproduced, and the edition was published before " +
+      "1929. The footnotes are Giles's own. (The modern translations by G. N. Garmonsway, 1953, " +
+      "Dorothy Whitelock, 1961, and Michael Swanton, 1996, are still in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Anglo-Saxon_Chronicle_(Giles)",
+    url: "https://en.wikisource.org/w/index.php?title=The_Anglo-Saxon_Chronicle_(Giles)&action=render&useparsoid=0",
+
+    layout: "annals",
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    /* The tab carries the span of years each part holds — see ASC_SPANS above extractAnnals. */
+    titleOf: (n) => ascTitle(n),
+    /* The shortest part is the first, at about 19,000 characters: the description of Britain and
+       six centuries of mostly one-line entries. 10,000 is well below it and far above what a failed
+       extraction returns. */
+    minChars: 10000,
+
+    about: [
+      "The Chronicle is a year-by-year record of England, kept in English by monks for more than " +
+        "two and a half centuries. It was begun in the reign of <b>Alfred the Great</b>, around 890, " +
+        "when someone gathered what was known from Bede, from lists of kings and bishops and from " +
+        "older annals into one book, and copies were then sent to monasteries that went on adding " +
+        "to them. The last entry was written at Peterborough in 1154. It is the first continuous " +
+        "history of a European people written in its own language rather than in Latin.",
+      "It does not read like a history. Each year has an entry, sometimes a single line — a bishop " +
+        "died, a comet was seen — and sometimes several pages. Many years have nothing at all, and " +
+        "this edition keeps those empty years as the manuscripts do. Where something happened, the " +
+        "Chronicle is often the only witness: the Viking raids, Alfred's war with the Danes, the " +
+        "reign of Cnut, the year 1066 and the hard years under the Norman kings, which the last " +
+        "Peterborough writer describes with open bitterness. A handful of entries are poems, the " +
+        "best known the battle of Brunanburh in 937.",
+      "No two of the surviving manuscripts are the same, and this <b>translation</b> by J. A. Giles, " +
+        "first published in 1847, does not follow just one. It takes one manuscript at a time as " +
+        "the main text and prints the other manuscripts' versions of a year beside it <b>in smaller " +
+        "type</b>, so the same year can appear twice with different details. That is the edition " +
+        "working as intended, not a mistake. Words in square brackets are added from other " +
+        "manuscripts or by the translator. The dates are the manuscripts' own: for part of the eighth " +
+        "and ninth centuries they run two or three years early, and a few entries stand out of order.",
+      "The Chronicle has no chapters, so the <b>nine parts</b> here are Folio's, cut by year so that " +
+        "each is a comfortable length; each part's tab gives the years it covers. The text is the " +
+        "1914 reissue of Giles's translation, with his footnotes. Its unsigned preface is not " +
+        "included, and there is no Old English beside it, because Giles's English combines several " +
+        "manuscripts and no one Old English text matches it.",
+    ],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -27201,6 +27292,231 @@ function reconcileCards(enBooks, laBooks, warn, log, langName) {
 
 /* ---------- serialize ---------- */
 function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n"); }
+/* ---------- THE ANGLO-SAXON CHRONICLE: one transcluded page, cut into parts by year ----------
+   Giles's translation is ONE Wikisource page — the whole 1914 volume transcluded from its scan, all
+   206 printed pages validated — and the edition has no division of its own between the title and
+   the last annal: it is a single run of 739 year-entries from the description of Britain to 1154.
+   So the parts a reader moves between are Folio's, cut at the year (`ASC_SPANS`), and the front
+   matter says so; each is a span of years and its tab says which, which is a label of what the
+   part holds rather than a title the work does not have (the Meditations' rule is about inventing a
+   NAME, and nothing here is named).
+
+   FOUR THINGS ABOUT THIS PRINTING WERE MEASURED BEFORE A LINE WAS WRITTEN.
+
+   THE PAGE IS FETCHED WITH THE LEGACY PARSER, AND BY INDEX.PHP RATHER THAN THE API. Wikisource's
+   `action=render` now answers with Parsoid's markup unless asked otherwise, whose page markers and
+   transclusion data are different objects from the ones every other wiki book here is read
+   through; `useparsoid=0` returns the markup `action=parse` has always returned. It was taken
+   through index.php because the API refused this host outright for an hour on the day of the
+   import (HTTP 429 on every request), and one plain request for the whole book is the politest
+   thing to send a host that is saying that. Cached whole like every other single-file book.
+
+   GILES SETS THE OTHER MANUSCRIPTS' VERSIONS IN SMALLER TYPE, AND THAT TYPE IS THE APPARATUS. His
+   own first note says so: the text follows one manuscript at a time, and "such portions of the
+   different MSS. as are concurrent with the text, but will not conveniently admit of collation, are
+   given separately in a smaller type" — so the same year can stand twice, once in the body and once
+   small, and the second is a different chronicle's account. The transcription keeps the distinction
+   in two shapes, a `font-size:83%` span filling a paragraph and a `wst-smaller` block holding a run
+   of paragraphs (eleven of them, the longest the whole of a manuscript's 1052). Both become
+   `class="bk-var"`, which the reader sets smaller, because flattening them into body text would print
+   two contradictory entries for one year as if one scribe wrote both. Two more `wst-smaller` blocks
+   hold nothing but a two-line rhyme the body entry quotes, and those stay plain verse.
+
+   THE POEMS ARE VERSE IN THE PRINTING, and the Brunanburh poem is cut in two by a page break, which
+   arrives as two adjacent `poem` divs. Adjacent poems are joined into one quotation, as the printed
+   page reads them; a blank line inside a poem is its stanza break and becomes a paragraph break
+   inside the quotation, which is how every other book here sets verse in prose.
+
+   THE YEAR IS READ OFF THE TEXT AND IS NOT ALWAYS IN ORDER, AND TWICE ON PURPOSE. The printing dates
+   698 before 694 and 855 before 853 because its manuscripts do, and once it prints "A. 1101." for
+   1011 between 1010 and 1012 — a printer's slip the transcription reproduces faithfully. A cut keyed
+   on the first year past a boundary would start the twelfth century in the eleventh and put ninety
+   years in the wrong tab. So a part begins at the first annal whose year reaches the boundary AND
+   whose next annal's year does too, which no slip of one entry can satisfy; every cut is reported. */
+const ASC_SPANS = {
+  1: [-Infinity, 599], 2: [600, 699], 3: [700, 799], 4: [800, 899], 5: [900, 999],
+  6: [1000, 1049], 7: [1050, 1066], 8: [1067, 1099], 9: [1100, 1154],
+};
+function ascTitle(n) {
+  const s = ASC_SPANS[n];
+  return s[0] === -Infinity ? "To " + s[1] : s[0] + "–" + s[1];
+}
+function ascInline(s) {
+  return bedeEnt(s
+    .replace(/<span class="wst-bar"[^>]*><span class="wst-bar-inner">([^<]*)<\/span><\/span>/g, "$1")
+    .replace(/<(?!\/?(?:i|b|br)\b|sup class="fn"|\/sup)[^>]*>/g, ""))
+    .replace(/​/g, "").replace(/\s+/g, " ").replace(/\s+([,.;:!?])/g, "$1").trim();
+}
+function extractAnnals(h, warn) {
+  const counts = { annals: 0, variants: 0, poems: 0, poemLines: 0, marks: 0, notes: 0, uncited: 0, pages: 0, cuts: [] };
+  const got = notesOf(h);
+  const notes = {};
+  got.ids.forEach((id, i) => { notes[id.replace(/^cite_note-/, "")] = got.notes[i]; });
+  counts.notes = got.notes.length;
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  /* The text starts under the work's own heading — the title Giles prints over the description of
+     Britain, which carries his note on the manuscripts — and everything above it (the title page,
+     E. B.'s preface to the 1914 reissue) is the editor's, left behind as front matter is on every
+     book here. It ends where the note list begins. */
+  const head = /ANGLO-SAXON CHRONICLE\s*(?:<\/span>\s*)?<sup id="cite_ref-[^"]*"[\s\S]*?<\/sup>/.exec(b);
+  if (!head) throw new Error("the work's heading is not on the page");
+  const end = b.indexOf('<div class="reflist');
+  if (end < 0) throw new Error("the note list is not on the page");
+  b = b.slice(head.index + head[0].length, end);
+  /* A page mark becomes a NEWLINE rather than nothing: in prose that is whitespace and collapses,
+     and in the one poem a page break cuts mid-stanza it is what keeps the last line of one page
+     from running into the first of the next. */
+  b = b.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, () => { counts.pages++; return "\n"; });
+  b = b.replace(/<sup id="cite_ref-[^"]*" class="reference"><a href="#cite_note-([^"]+)">[\s\S]*?<\/a><\/sup>/g,
+    (w, k) => { counts.marks++; return '<sup class="fn" data-fn="' + k + '"></sup>'; });
+  for (let g = 0; g < 20; g++) {
+    const m = /<div class="[^"]*\bwst-smaller\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) { warn("a small-type block is unbalanced and was left in place"); break; }
+    const inner = b.slice(m.index + m[0].length, e - 6);
+    /* A SMALL BLOCK SET CENTRED IS A QUOTED RHYME, NOT ANOTHER MANUSCRIPT: the Peterborough
+       writer's two couplets ("There was that bride-ale / The source of man's bale", and the
+       proverb "The hedge still stands / That parts the lands"), set small and centred inside the
+       body entry that quotes them. The centring is the discriminator — none of the eleven variant
+       blocks is centred — and the couplet is kept as verse, one of them typed as a poem and the
+       other as a paragraph broken by lines. */
+    const rhyme = /<div class="wst-block-center"[^>]*>\s*(?:<link[^>]*>\s*)?$/.test(b.slice(Math.max(0, m.index - 300), m.index));
+    if (rhyme) counts.rhymes = (counts.rhymes || 0) + 1;
+    else counts.varBlocks = (counts.varBlocks || 0) + 1;
+    b = b.slice(0, m.index) +
+      (rhyme ? (/<div class="poem">/.test(inner) ? inner : inner.replace(/<p>([\s\S]*?)<\/p>/g, " POEM{$1}POEM "))
+        : " VAR{ " + inner + " }VAR ") + b.slice(e);
+  }
+  b = b.replace(/<div class="poem">\s*<p>([\s\S]*?)<\/p>\s*<\/div>/g, " POEM{$1}POEM ");
+  const out = [];
+  let depth = 0, cur = null, poem = null;
+  /* A LINE LONGER THAN ANY VERSE LINE IS A RUN THE TRANSCRIPTION DID NOT BREAK, and it stands as a
+     paragraph of its own inside the quotation. It happens once: the poem on Edward's death in 1065
+     crosses a page, the second page's half is typed as one run, and the line breaks it had in print
+     are not in the transcription to recover — so it is set as the run it is, after the lines, rather
+     than joined onto the last of them or broken where nobody can say the printer broke it. */
+  const flushPoem = () => {
+    if (!poem) return;
+    const stanzas = [];
+    poem.lines.join("\n").split(/\n\s*\n/).forEach((st) => {
+      let run = [];
+      st.split("\n").map(ascInline).filter(Boolean).forEach((l) => {
+        if (l.replace(/<[^>]+>/g, "").length > 120) {
+          if (run.length) stanzas.push(run.join("<br>"));
+          stanzas.push(l); run = [];
+          counts.longLines = (counts.longLines || 0) + 1;
+        } else run.push(l);
+      });
+      if (run.length) stanzas.push(run.join("<br>"));
+    });
+    counts.poems++;
+    counts.poemLines += stanzas.reduce((a, s) => a + s.split("<br>").length, 0);
+    out.push({ poem: true, varnt: poem.varnt, html: stanzas.map((s) => "<p>" + s + "</p>").join("") });
+    poem = null;
+  };
+  /* One paragraph, as the printed page has it. A SMALL-TYPE SPAN THAT FILLS IT makes it a variant
+     (matched BALANCED, since a variant can carry a small "A.D." of its own inside it). A small span
+     that opens on an annal mark and runs to the paragraph's end is a variant the wikitext set on
+     the same line as the body entry before it — the 1023 entry — and is split off as its own. Any
+     other small span is typography — a small "XII" in a date — and is simply unwrapped. */
+  const SMALL = '<span style="font-size:83%;">';
+  const para = (p, varnt) => {
+    p = p.trim();
+    if (p.startsWith(SMALL) && blockEnd(p, 0, "span") === p.length) {
+      p = p.slice(SMALL.length, -7); varnt = true;
+    } else {
+      const i = p.lastIndexOf(SMALL);
+      const tail = i > 0 ? ascInline(p.slice(i)) : "";
+      if (i > 0 && blockEnd(p, i, "span") === p.length && /^A[.,]?\s*(?:D\.\s*)?\d/.test(tail)) {
+        counts.split = (counts.split || 0) + 1;
+        para(p.slice(0, i), varnt);
+        para(p.slice(i), varnt);
+        return;
+      }
+      for (const x of p.matchAll(/<span style="font-size:83%;">([\s\S]*?)<\/span>/g))
+        if (ascInline(x[1]).length > 12) warn("a long small-type span inside a paragraph: " + JSON.stringify(ascInline(x[1]).slice(0, 60)));
+    }
+    const t = ascInline(p);
+    if (!t) return;
+    const y = /^\[?\s*A[.,]?\s*(?:D\.\s*)?(\d{1,4})\b/.exec(t.replace(/<[^>]+>/g, ""));
+    if (varnt) counts.variants++;
+    if (y) counts.annals++;
+    out.push({ year: y ? +y[1] : null, varnt: varnt, html: t });
+  };
+  /* TEXT BETWEEN BLOCKS IS A PARAGRAPH TOO. MediaWiki wraps a run in `<p>` only where the wikitext
+     had a blank line before it, so a run that follows a closing div — a poem's, or a small-type
+     block's — arrives bare (the Art of War's finding, met twice here: the end of the 979 entry and
+     the opening of 1053). Each is kept as the paragraph it is, and counted. */
+  const rx = /VAR\{|\}VAR|POEM\{([\s\S]*?)\}POEM|<p>([\s\S]*?)<\/p>/g;
+  let m, last = 0, stray = 0;
+  while ((m = rx.exec(b))) {
+    const gap = b.slice(last, m.index);
+    if (ascInline(gap)) { stray++; flushPoem(); para(gap, depth > 0); }
+    last = rx.lastIndex;
+    if (m[0] === "VAR{") { flushPoem(); depth++; continue; }
+    if (m[0] === "}VAR") { flushPoem(); depth--; continue; }
+    if (m[1] != null) {
+      const lines = m[1].split(/<br\s*\/?>/).map((l) => l.replace(/^\s+|\s+$/g, ""));
+      if (!poem) poem = { lines: [], varnt: depth > 0 };
+      poem.lines.push(...lines);
+      continue;
+    }
+    /* ONE POEM'S TAGS ARRIVE ESCAPED. The 1065 poem's `<poem>` opens on one page and closes on the
+       next, so neither page's tag pairs and both reach the HTML as text. Read as the poem it is;
+       its lines are newline-separated, which is how the tag delimits them. */
+    const esc = /^\s*&lt;poem&gt;([\s\S]*?)&lt;\/poem&gt;\s*$/.exec(m[2]);
+    if (esc) {
+      flushPoem();
+      poem = { lines: esc[1].split("\n").map((l) => l.trim()), varnt: depth > 0 };
+      counts.escPoems = (counts.escPoems || 0) + 1;
+      flushPoem();
+      continue;
+    }
+    flushPoem();
+    para(m[2], depth > 0);
+  }
+  flushPoem();
+  if (ascInline(b.slice(last))) para(b.slice(last), depth > 0);
+  /* The cut. See the block above for why the NEXT annal's year is asked too. */
+  const parts = Object.keys(ASC_SPANS).map((n) => ({ n: +n, rows: [] }));
+  let k = 0;
+  const years = out.map((r) => r.year);
+  for (let i = 0; i < out.length; i++) {
+    const r = out[i];
+    if (r.year != null && k + 1 < parts.length) {
+      const next = years.slice(i + 1).find((y) => y != null);
+      const start = ASC_SPANS[k + 2][0];
+      if (r.year >= start && (next == null || next >= start)) {
+        k++;
+        counts.cuts.push(start + " at “" + r.html.replace(/<[^>]+>/g, "").slice(0, 24) + "”");
+      }
+    }
+    parts[k].rows.push(r);
+  }
+  if (k !== parts.length - 1) warn("only " + (k + 1) + " of " + parts.length + " parts were reached");
+  const cited = new Set();
+  const chapters = parts.map((p) => {
+    const keep = [];
+    const html = p.rows.map((r) => r.poem
+      ? "<blockquote" + (r.varnt ? ' class="bk-var"' : "") + ">" + r.html + "</blockquote>"
+      : "<p" + (r.varnt ? ' class="bk-var"' : "") + ">" + r.html + "</p>").join("\n")
+      .replace(/<sup class="fn" data-fn="([^"]+)"><\/sup>/g, (w, id) => {
+        if (!(id in notes)) { warn("a marker points at a note the list has not got: " + id); return ""; }
+        let i = keep.indexOf(id);
+        if (i < 0) { keep.push(id); i = keep.length - 1; }
+        cited.add(id);
+        return '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+      });
+    const lo = p.rows.find((r) => r.year != null), hi = [...p.rows].reverse().find((r) => r.year != null);
+    return { n: p.n, t: ascTitle(p.n), html: html, notes: keep.map((id) => notes[id]),
+      annals: p.rows.filter((r) => r.year != null).length, first: lo && lo.year, last: hi && hi.year };
+  });
+  counts.uncited = Object.keys(notes).filter((id) => !cited.has(id)).length;
+  counts.stray = stray;
+  return { chapters: chapters, counts: counts };
+}
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -28037,6 +28353,38 @@ async function fetchEnglish() {
       if (ch.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
       chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* THE ANGLO-SAXON CHRONICLE — one Wikisource page holding the whole volume, cut into parts by
+     year. Cached whole, like every other single-file book, so --from/--to cost nothing and a
+     re-extract needs no network. See the block above extractAnnals for the fetch and the cut. */
+  if (BOOK.layout === "annals") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
+    const got = extractAnnals(raw, warn);
+    const c = got.counts;
+    console.log("  " + got.chapters.length + " parts, " + c.annals + " paragraphs opening on a year, " +
+      c.variants + " small-type paragraph(s) — the other manuscripts' versions — " + (c.split || 0) +
+      " of them split off the body entry before it, " + c.poems + " poem(s) holding " + c.poemLines +
+      " line(s), " + (c.varBlocks || 0) + " small-type block(s) and " + (c.rhymes || 0) +
+      " quoted rhyme(s) set small, " + (c.stray || 0) + " bare run(s) kept as paragraphs, " + c.marks +
+      " footnote marker(s) into an apparatus of " + c.notes + " (" + c.uncited +
+      " belong to the preface and the title this book does not carry), " + c.pages +
+      " printed page mark(s) removed");
+    console.log("  cuts: " + c.cuts.join("; "));
+    got.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      console.log("  " + BOOK.chapterWord + " " + ch.n + " — " + ch.t + ": " + ch.annals + " annals, " +
+        ch.first + " to " + ch.last + ", " + ch.notes.length + " notes, " + ch.html.length + " chars");
+      chapters.push({ n: ch.n, t: titles[ch.n] || ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
     return writeEnglish(chapters, warnings);
   }

@@ -2467,3 +2467,31 @@ And one shared fix: `teiSectionProse` now removes XML comments and self-closed `
 note regex read `<note/>` as an opening tag and ran to the next `</note>`, lifting the prose between into the fold.
 Re-run after touching: `node .claude/fetch-book.js plutarch-lives` (both columns, from cache), then
 `node .claude/check-pairing.js` (it should list no row for the book).
+
+## The `annals` layout — one transcluded page cut into parts by year (Oct 2026, the Anglo-Saxon Chronicle)
+
+`layout: "annals"` → `extractAnnals` (with `ASC_SPANS`, `ascTitle`, `ascInline`). Giles's 1914 volume is ONE
+Wikisource page, so the book is one request, cached whole as `en-page.html`, and the edition has no divisions:
+739 year-entries in a single run. The parts are Folio's, cut at the year, and each tab is its span. Five
+things it settled:
+
+- **Fetch the legacy parser through index.php when the API refuses.** `action=render` now returns Parsoid
+  markup — different page markers, transclusion JSON in attributes — unless `useparsoid=0` is passed, which
+  returns exactly what `action=parse` returns. The API answered 429 to every request for an hour; index.php
+  did not. `url` on the entry is that address, read by `fetchText`.
+- **A cut keyed on the first year past a boundary is wrong once in this book.** The printing has "A. 1101."
+  for 1011 (between 1010 and 1012), and the manuscripts' own misdatings put 698 before 694 and 855 before
+  853. A part begins only where an annal AND the next annal both reach the boundary; every cut is printed.
+- **Small type is the apparatus, in three shapes.** A `font-size:83%` span filling a paragraph (matched
+  balanced — a variant can hold a small "A.D." of its own), a `wst-smaller` block of several, and once a
+  variant run onto the body paragraph before it (no blank line in the wikitext), split off because its span
+  opens on an annal mark. All ship as `class="bk-var"`. A short small span inside a sentence ("XII") is
+  typography and is unwrapped; a long one is reported. **A small block set CENTRED is not a variant** —
+  the two couplets the Peterborough writer quotes are small and centred in a `wst-block-center`, and none
+  of the eleven variant blocks is; they stay plain verse.
+- **Bare runs again** (the Art of War's finding): a run after a closing `</div>` arrives with no `<p>`. Text
+  between blocks is kept as a paragraph, never dropped.
+- **A poem whose tags straddle a page arrives ESCAPED** (`&lt;poem&gt;`), and the importer's
+  `dropEscapedTags` would then delete the tags and leave the verse as one prose paragraph. It is read as the
+  poem; a line over 120 characters is a run the transcription never broke and is set as its own paragraph
+  inside the quotation. Page marks become a newline, not nothing, so a page break cannot join two verse lines.

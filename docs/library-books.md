@@ -12,7 +12,25 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently fifty-one:
+  matter (chapter 0 — see the Library bullet). Currently fifty-two:
+  `anglo-saxon-chronicle` (~486 KB, the whole Chronicle from the description of Britain to 1154 as **9 parts cut
+  by year**, 741 annal paragraphs, **307 notes**, no original — J. A. Giles's translation of 1847 in the 1914 Bell
+  reissue, one Wikisource page with all 206 printed pages VALIDATED; `layout: "annals"` → `extractAnnals`, the
+  parts in `ASC_SPANS`). **The edition has no divisions**, so the parts are Folio's and the front matter says so;
+  each tab is its span of years. **The cut asks the NEXT annal's year too**: the printing has "A. 1101." for 1011
+  between 1010 and 1012, and a first-year-past-the-boundary cut would have moved ninety years into the wrong tab.
+  **Giles's smaller type is the apparatus** — the other manuscripts' versions of a year, by his own first note —
+  and ships as `class="bk-var"` (102 paragraphs and quotations; `styles.css` sets it smaller): two shapes, a
+  `font-size:83%` span filling a paragraph and eleven `wst-smaller` blocks, plus one variant the wikitext ran onto
+  the body entry before it (1023), split off because its span opens on an annal mark. Two more small blocks are
+  CENTRED couplets the body entry quotes (the bride-ale, the hedge), and stay plain verse. 14 poems, the
+  Brunanburh poem's two page halves joined; the 1065 poem crosses a page with its `<poem>` tags unpaired (they
+  arrive escaped) and its second half typed as one run, which is set as one paragraph inside the quotation rather
+  than broken where nobody can say the printer broke it. Two bare runs after a closing div are kept as paragraphs.
+  **Fetched by `index.php?action=render&useparsoid=0`**, not the API: `action=render` now returns Parsoid unless
+  asked, and the API answered 429 to every request for an hour on the import day. Gutenberg 657 was refused: a
+  1996 collation of Ingram (1823) with Giles by its preparer, not a printed edition. No Old English column: the
+  only complete free text is Thorpe's six-column Rolls Series edition, and no one column of it faces a conflation.
   `plutarch-lives` (~4.5 MB English, ~3.3 MB Greek, **68 chapters** — the fifty Lives and eighteen comparisons —
   **2,423 notes**, original **Greek**; Bernadotte Perrin's Loeb, 1914–1926, both columns from Perseus's TEI, one file
   per Life through the `PLUTARCH_LIVES` table; parts are Plutarch's pairs). **Pairs on CHAPTER numbers, 1,966 a side,
