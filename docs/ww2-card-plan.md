@@ -732,15 +732,15 @@ definitions, which exist precisely because the wording matters.
     ww2-219  The switch to bombing London  → written as *Hermann Göring*
     ww2-220  Battle of Britain Day
     ww2-221  The Few
-    ww2-222  Polish and Commonwealth pilots in the Battle of Britain
+    ww2-222  Polish and Commonwealth pilots in the Battle of Britain  → written as *No. 303 Squadron*
     ww2-223  The Blitz
-    ww2-224  The failure of the Blitz
+    ww2-224  The failure of the Blitz  → written as *bomber will always get through*
     ww2-225  Coventry Blitz
-    ww2-226  British civil defence
-    ww2-227  Air raid shelters
-    ww2-228  The evacuation of British children
-    ww2-229  The myth of the Blitz spirit
-    ww2-230  The British war cabinet
+    ww2-226  British civil defence  → written as *Air Raid Precautions*
+    ww2-227  Air raid shelters  → written as *Anderson shelter*
+    ww2-228  The evacuation of British children  → written as *Government Evacuation Scheme*
+    ww2-229  The myth of the Blitz spirit  → written as *Blitz spirit*
+    ww2-230  The British war cabinet  → written as *War Cabinet*
     ww2-231  Churchill as war leader
     ww2-232  The BBC and wartime broadcasting
     ww2-233  The British Empire and Commonwealth at war
