@@ -3415,7 +3415,10 @@
     /* the platform's own disclosure widget, so a card type can fold a long section away without script —
        which is the only way it could, deck CSS being scoped and deck JS not existing. Neither element has a
        scripting surface or takes a URL; `open` is the one attribute and it is a boolean. */
-    "details", "summary"]);
+    "details", "summary",
+    /* ruby annotation — furigana, the small kana over a Japanese word's kanji (the Japanese decks, Oct 2026). Text
+       containers like <sub>; none of the three takes an attribute of its own, so they get only the "*" set. */
+    "ruby", "rt", "rp"]);
   const SANITIZE_ATTRS = {
     "*": new Set(["class", "dir", "lang", "title", "style"]),
     a: new Set(["href", "rel", "target"]),
@@ -8461,7 +8464,7 @@
      BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES — sanitizePass, sanitizeHTML, sanitizePlain,
      sanitizeCSSText, sanitizeUrl or any of the SANITIZE_* / UTYPE_* allowlists. Forgetting to leaves
      already-stored decks cleaned by the old rules, which is the one way this can be wrong. */
-  const SANITIZE_REV = 1;
+  const SANITIZE_REV = 2;   // 2: <ruby>, <rt> and <rp> allowed (furigana, Oct 2026)
   let _uTrusted = false;   // set ONLY inside uDeckNormalize, around a synchronous body, and restored in a finally
   const uSH = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeHTML(v));
   const uSP = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizePlain(v));
