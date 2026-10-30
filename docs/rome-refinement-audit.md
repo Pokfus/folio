@@ -176,7 +176,7 @@ order unless the user says otherwise.
 | B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | **done 2026-10-30** |
 | B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | **done 2026-10-30** |
 | B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | **done 2026-10-30** |
-| B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | open |
+| B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | **done 2026-10-30** |
 | B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | open |
 | B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | open |
 | B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | open |
@@ -710,6 +710,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-438` Agrippina the Younger | a portrait head of the empress | ok |
 | `rm-439` Britannicus | a bust identified as Britannicus | weak: identified only by a later base, as the description says |
 | `rm-440` Burrus | none | no picture (`I.none`); the glossary's Wallgren picture is an imagined scene that calls him Nero's tutor |
+| `rm-441` Anicetus | the fleet's cistern at Misenum | weak: the fleet base, not the man (it suits `rm-656`) |
+| `rm-442` Boudican revolt | a cavalryman's tombstone from Camulodunum | weak: an object from before the revolt |
+| `rm-443` Boudica | Boadicea and Her Daughters (Thornycroft) | ok: the description says it is a Victorian imagining |
+| `rm-444` Corbulo | none | no picture (`I.none`): the Louvre bust's attribution is withdrawn |
+| `rm-445` Rhandeia | the gates of Janus shut (a sestertius) | weak: the Janus coin, not the settlement |
+| `rm-446` Great Fire of Rome | Hubert Robert's painting | acceptable: an imagined scene |
+| `rm-447` Domus Aurea | the octagonal room of the Golden House | ok |
+| `rm-448` Neronian persecution | Siemiradzki's Nero's Torches | acceptable: a 19th-century painting, and the description says so |
+| `rm-449` Pisonian conspiracy | Epicharis carried to the torture (Doepler) | weak: one episode, not the plot |
+| `rm-450` Periodonikes | the stadium at Olympia | acceptable; the description hard-codes 67 CE |
 
 ## Glossary candidates
 
@@ -1831,3 +1841,22 @@ Run as B43; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-440` Burrus | 6 | 9 → 9 | Tacitus was over the limit; **"Nero's accession" becomes Burrus's own act (13 October 54, Tacitus's day)**; the Vaison inscription; his death open in Tacitus, poison in Suetonius and Dio. |
 
 **Read by eye.** *Confusability:* `rm-431`/`rm-440` the gift and the prefect who presented Nero; `rm-432`/`rm-433` the town and the king's son; `rm-434`/`rm-435`/`rm-436` the freedman, the speech and the aqueduct; `rm-437`/`rm-438`/`rm-439` the two wives and the son (the adoption clue kept for `rm-416`). *Legend:* Messalina's wedding, the mushroom and the cooled drink are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B45 — `rm-441`–`rm-450`, the Julio-Claudians: Anicetus to Nero's Greek tour (2026-10-30)
+
+Run as B44; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-441:rm-450` reads clean on seven cards; the rest carry `S.chip?` on `rm-444` and `rm-447` (English BMCR reviews of German- and Italian-titled books: the known false positive), `I.none` on `rm-444` and `W.not-why` (advisory, one card). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages and one Platner–Ashby entry on Perseus (a script 403), saved when read. `rm-445`'s first tag was moved from `place` to `event` (the card is the surrender and the meeting, the site unknown, and its glossary entry already had `event`). **The old cards were nearly all-ancient (Rhandeia's six of seven, the Great Fire's six of seven, Periodonikes's five Dio entries); their date lines carried counts ("Burned 6 days, then again", "Regions hurt 10 of 14", "Roman dead 70,000, says Tacitus", "Executions 65 CE, dozens") and words ("site unknown", "of poison or illness", "at Rome").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-441` Anicetus | 5 | 7 → 6 | **Two claims the old card made about Dio's account were wrong and go**; March 59 is Tacitus's festival of Minerva (Furneaux: 19 – 23 March); a freedman as fleet prefect was unusual; the confession of 62 and the comfortable exile. |
+| `rm-442` Boudican revolt | 7 | 8 → 8 | **61 CE is Tacitus's year, 60 Henderson's argument: the line prints "60 or 61 CE"**; Tacitus's 70,000 and Dio's 80,000, Tacitus's "some accounts" of 80,000 Britons against 400 Romans and Dio's 230,000 all stand apart; the speeches are compositions; Mona, Catus Decianus and Classicianus's tombstone. |
+| `rm-443` Boudica | 9 | 7 → 9 | The lead question shared `rm-442`'s flogging clue and is replaced; **Dio's portrait survives only in Xiphilinus's summary; Tacitus says poison, Dio illness**; "Boadicea rests on no authority" (Furneaux); the "victory" etymology hedged. |
+| `rm-444` Corbulo | 6 | 9 → 7 | **"Eastern command 54 – 66 CE" had no source for either end: Furneaux and the Cambridge Ancient History send him east early in 55**; "Your due!" is Dio's story; Tacitus may draw on Corbulo's own memoirs; Domitia Longina and the Vinician plot added. |
+| `rm-445` Rhandeia | 5 | 7 → 6 | **"Treaty of Rhandeia" is a later name; the yoke is Tacitus's rumour and Suetonius's fact**; the claim that the Janus closure of 66 proves the settlement goes (Henderson dates the closure to 64); the years are Anderson's and Henderson's. |
+| `rm-446` Great Fire of Rome | 9 | 7 → 9 | **19 July is the day Tacitus says some noted, the anniversary of the Senones' fire (Momigliano: the night of 18 July)**; the regions are Tacitus's count, which his translator calls too sweeping; Nero's singing is Suetonius's and Dio's, a rumour in Tacitus, and the fiddle a legend. |
+| `rm-447` Domus Aurea | 7 | 6 → 8 | **The unattributed "37 m" colossus is now Suetonius's 120 feet; "Built over 70s – 109 CE" had a decade and an unsourced year**; the fire of 104; Momigliano's "unfinished"; the grotesques; the revolving dining room's site left open. |
+| `rm-448` Neronian persecution | 6 | 6 → 6 | **Tacitus is the one narrative linking the punishments to the fire; Suetonius lists them without it**; the modern debates attributed (Shaw's "myth" argument, read in abstract; Houston on the legal basis); Peter and Paul a later Christian tradition. |
+| `rm-449` Pisonian conspiracy | 7 | 7 → 7 | Tacitus was cited three times; **April is the moderns' placing of the games of Ceres that Tacitus names**; 19 executed and 13 exiled are Momigliano's figures, off the line; Seneca's guilt is debated; Dio's version of Subrius Flavus's retort kept apart. |
+| `rm-450` Periodonikes | 5 | 7 → 6 | **The freedom of Achaea is 28 November 67 (Henderson, after Holleaux) or 66 (Momigliano): both on the line**, from the Acraephia stone; the ten-horse team, the judges' million and Dio's 1,808 crowns are each attributed. |
+
+**Read by eye.** *Confusability:* `rm-441` the boat's builder (the confession); `rm-442`/`rm-443` the revolt (Mona, Classicianus) and the queen (Dio's portrait, her end); `rm-444`/`rm-445` the general and the settlement (the diadem); `rm-446`/`rm-447`/`rm-448` the fire, the palace and the punishments; `rm-449`/`rm-450` the plot and the tour. *Legend:* Nero singing the sack of Troy, Boudica's speech, "strike the womb" and "Your due!" are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

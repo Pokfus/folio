@@ -484,6 +484,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Agrippina the Younger: born / married Claudius / Augusta / killed | 6 November 15 CE / 49 CE / 50 CE / March 59 CE | `rm-438` |
 | Britannicus: born / Nero adopted / died | 41 CE (also dated 42) / 50 CE / 55 CE | `rm-439` |
 | Burrus: prefect / hailed Nero / died | 51 – 62 CE / 13 October 54 CE (Tacitus's day) / 62 CE | `rm-440` |
+| Anicetus: Agrippina killed / exiled | March 59 CE / 62 CE | `rm-441` |
+| the Boudican revolt | 60 or 61 CE (Tacitus's year 61; Henderson argues 60) | `rm-442`, `rm-443` |
+| Corbulo: in Germany / sent east / Artaxata / died | 47 CE / 55 CE / 58 CE / 67 CE | `rm-444` |
+| Rhandeia: Paetus's surrender / the diadem laid down / Tiridates crowned at Rome | 62 CE / 63 CE / 66 CE | `rm-445` |
+| the Great Fire | 19 July 64 CE (the day Tacitus says some noted; Momigliano: the night of 18 July) | `rm-446` |
+| the Domus Aurea: begun / dedicated / the fire | 64 CE / by 68 CE / 104 CE | `rm-447` |
+| the Neronian persecution | 64 CE | `rm-448` |
+| the Pisonian conspiracy betrayed | April 65 CE | `rm-449` |
+| Nero in Greece / Achaea freed | 66 – 68 CE / 28 November 67 CE (Henderson; Momigliano: 66) | `rm-450` |
 
 ## Late Antiquity
 
@@ -919,4 +928,14 @@ rm-437: 25; 39; 48
 rm-438: 15; 49; 50; 59
 rm-439: 41; 42; 50; 55
 rm-440: 51; 62; 54; 62
+rm-441: 59; 62
+rm-442: 60; 61
+rm-443: 60; 61
+rm-444: 47; 55; 58; 67
+rm-445: 62; 63; 66
+rm-446: 64
+rm-447: 64; 68; 104
+rm-448: 64
+rm-449: 65
+rm-450: 66; 68; 67; 66
 ```
