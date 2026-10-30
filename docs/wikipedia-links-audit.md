@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5340 | the title is the article |
+| `ok` | 5349 | the title is the article |
 | `redirect-variant` | 333 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 79 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 6 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 504 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 505 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 107 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 140 | only a disambiguation page; no link could be chosen |
 | `none` | 969 | nothing matched; no link |
 
-**6269 of 7501 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6279 of 7511 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (504)
+## Redirected to a differently named article — check each (505)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -548,6 +548,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-289` **German mistreatment of Soviet prisoners of war** → [German atrocities committed against Soviet prisoners of war](https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war) (from `German mistreatment of Soviet prisoners of war`)
 - `ww2-293` **Hilfswillige** → [Hiwi (volunteer)](https://en.wikipedia.org/wiki/Hiwi_(volunteer)) (from `Hilfswillige`)
 - `ww2-295` **clean Wehrmacht myth** → [Myth of the clean Wehrmacht](https://en.wikipedia.org/wiki/Myth_of_the_clean_Wehrmacht) (from `Clean Wehrmacht myth`)
+- `ww2-374` **Mass suicide in Demmin** → [Demmin mass suicide](https://en.wikipedia.org/wiki/Demmin_mass_suicide) (from `Mass suicide in Demmin`)
 
 ## Settled from a disambiguation page (79)
 

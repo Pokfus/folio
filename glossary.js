@@ -7641,7 +7641,17 @@ window.GLOSSARY = {
 "Tiglath-Pileser_III": "",
 "Tropical_cyclone": "",
 "Tumen_River": "",
-"War_of_1812": ""
+"War_of_1812": "",
+"Vistula–Oder_offensive": "",
+"East_Pomeranian_offensive": "",
+"Evacuation_of_East_Prussia": "",
+"Mass_suicide_in_Demmin": "",
+"East_Prussian_offensive": "",
+"Yalta_Conference": "",
+"Curzon_Line": "",
+"Western_betrayal": "",
+"Vienna_offensive": "",
+"Battle_of_the_Seelow_Heights": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11403,7 +11413,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sennacherib": "705 – 681 BCE",
 "Taejo_of_Joseon": "reigned 1392–1398",
 "Tiglath-Pileser_III": "745 – 727 BCE",
-"War_of_1812": "1812–1815"
+"War_of_1812": "1812–1815",
+"Vistula–Oder_offensive": "1945",
+"East_Pomeranian_offensive": "1945",
+"Evacuation_of_East_Prussia": "1944–1945",
+"Mass_suicide_in_Demmin": "1945",
+"East_Prussian_offensive": "1945",
+"Yalta_Conference": "1945",
+"Curzon_Line": "1919–1945",
+"Vienna_offensive": "1945",
+"Battle_of_the_Seelow_Heights": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16262,7 +16281,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Taejo_of_Joseon": ["Yi Seonggye"],
 "Tiglath-Pileser_III": ["Tiglath-pileser III","Tiglath Pileser III"],
 "Tropical_cyclone": ["tropical cyclone","tropical cyclones","cyclones"],
-"Tumen_River": ["Duman","Duman River"]
+"Tumen_River": ["Duman","Duman River"],
+"Vistula–Oder_offensive": ["Vistula-Oder offensive","Vistula–Oder Offensive"],
+"East_Pomeranian_offensive": ["East Pomeranian Offensive"],
+"Mass_suicide_in_Demmin": ["Demmin mass suicide"],
+"East_Prussian_offensive": ["East Prussian Offensive"],
+"Yalta_Conference": ["Crimea Conference"],
+"Western_betrayal": ["Yalta betrayal"],
+"Vienna_offensive": ["Vienna Offensive"],
+"Battle_of_the_Seelow_Heights": ["Seelow Heights"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24048,7 +24075,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tiglath-Pileser_III": ["ruler","person","history","iron age","iraq"],
 "Tropical_cyclone": ["concept","science","nature","climate","geography"],
 "Tumen_River": ["place","geography","river","korea","asia"],
-"War_of_1812": ["war","event","united states","britain","north america","19th century"]
+"War_of_1812": ["war","event","united states","britain","north america","19th century"],
+"Vistula–Oder_offensive": ["battle","history","warfare","germany","poland","russia"],
+"East_Pomeranian_offensive": ["battle","history","warfare","germany","poland","russia"],
+"Evacuation_of_East_Prussia": ["event","history","warfare","germany","russia"],
+"Mass_suicide_in_Demmin": ["event","history","warfare","germany"],
+"East_Prussian_offensive": ["battle","history","warfare","germany","russia"],
+"Yalta_Conference": ["event","history","politics","diplomacy","russia","united states","united kingdom"],
+"Curzon_Line": ["place","history","politics","diplomacy","poland","russia"],
+"Western_betrayal": ["concept","history","politics","diplomacy"],
+"Vienna_offensive": ["battle","history","warfare","austria","hungary","russia"],
+"Battle_of_the_Seelow_Heights": ["battle","history","warfare","germany","russia","poland"]
 });
 
 /* ============================================================================

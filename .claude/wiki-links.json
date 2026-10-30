@@ -1,9 +1,9 @@
 {
- "generated": "2026-10-30T04:03Z",
+ "generated": "2026-10-30T15:26Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5340,
-  "redirect-broader": 504,
+  "ok": 5349,
+  "redirect-broader": 505,
   "redirect-variant": 333,
   "section-redirect": 107,
   "disambiguation": 140,
@@ -60931,6 +60931,77 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Ministry of Aircraft Production"
+  },
+  "ww2-371": {
+   "answer": "Vistula–Oder offensive",
+   "title": "Vistula–Oder offensive",
+   "url": "https://en.wikipedia.org/wiki/Vistula%E2%80%93Oder_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-372": {
+   "answer": "East Pomeranian offensive",
+   "title": "East Pomeranian offensive",
+   "url": "https://en.wikipedia.org/wiki/East_Pomeranian_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-373": {
+   "answer": "Evacuation of East Prussia",
+   "title": "Evacuation of East Prussia",
+   "url": "https://en.wikipedia.org/wiki/Evacuation_of_East_Prussia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-374": {
+   "answer": "Mass suicide in Demmin",
+   "title": "Demmin mass suicide",
+   "url": "https://en.wikipedia.org/wiki/Demmin_mass_suicide",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Mass suicide in Demmin"
+  },
+  "ww2-375": {
+   "answer": "East Prussian offensive",
+   "title": "East Prussian offensive",
+   "url": "https://en.wikipedia.org/wiki/East_Prussian_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-376": {
+   "answer": "Yalta Conference",
+   "title": "Yalta Conference",
+   "url": "https://en.wikipedia.org/wiki/Yalta_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-377": {
+   "answer": "Curzon Line",
+   "title": "Curzon Line",
+   "url": "https://en.wikipedia.org/wiki/Curzon_Line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-378": {
+   "answer": "Western betrayal",
+   "title": "Western betrayal",
+   "url": "https://en.wikipedia.org/wiki/Western_betrayal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-379": {
+   "answer": "Vienna offensive",
+   "title": "Vienna offensive",
+   "url": "https://en.wikipedia.org/wiki/Vienna_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-380": {
+   "answer": "Battle of the Seelow Heights",
+   "title": "Battle of the Seelow Heights",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Seelow_Heights",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
