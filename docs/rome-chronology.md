@@ -493,6 +493,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Neronian persecution | 64 CE | `rm-448` |
 | the Pisonian conspiracy betrayed | April 65 CE | `rm-449` |
 | Nero in Greece / Achaea freed | 66 – 68 CE / 28 November 67 CE (Henderson; Momigliano: 66) | `rm-450` |
+| the First Jewish–Roman War: outbreak / Masada falls | 66 CE / 73 CE (Momigliano, Schürer; Mason and Magness: 74 CE) | `rm-451` |
+| Vindex: revolt / Vesontio and his death | March 68 CE / May 68 CE (both the moderns' months) | `rm-452` |
+| Nymphidius Sabinus: prefect / turned the guard | 65 – 68 CE / June 68 CE | `rm-453` |
+| hostis: Marius / Antony / Nero | 88 BCE / 43 BCE / 68 CE (Nero died 9 June 68 CE, a modern day) | `rm-454` |
+| Verginius Rufus: born / consul / Vesontio / died | 14 – 15 CE / 63 CE / 68 CE / 97 CE | `rm-455` |
+| 69 CE: Galba killed / Otho died / Vitellius killed | 15 January / 16 April (Henderson) / 20 December 69 CE (the Cambridge Ancient History; Henderson: 21) | `rm-456`, `rm-457`, `rm-458`, `rm-460` |
+| Galba: born / hailed / reigned | 24 December 3 BCE (Livius's form of Suetonius's day) / 2 April 68 CE (Stevenson) / June 68 – January 69 CE | `rm-457` |
+| Otho: born / hailed | 28 April 32 CE / 15 January 69 CE | `rm-458` |
+| the First Battle of Bedriacum / the camp surrendered | 15 April 69 CE / 16 April 69 CE (Henderson's days; Bellomo: 12 April) | `rm-459` |
+| Vitellius: born / proclaimed | 15 CE / 2 January 69 CE | `rm-460` |
 
 ## Late Antiquity
 
@@ -938,4 +948,14 @@ rm-447: 64; 68; 104
 rm-448: 64
 rm-449: 65
 rm-450: 66; 68; 67; 66
+rm-451: 66; 73; 74
+rm-452: 68; 68
+rm-453: 65; 68; 68
+rm-454: 88; 43; 68; 68
+rm-455: 14; 15; 63; 68; 97
+rm-456: 69; 69; 69
+rm-457: 3; 68; 68; 69; 69
+rm-458: 32; 69; 69
+rm-459: 69; 69
+rm-460: 15; 69; 69
 ```

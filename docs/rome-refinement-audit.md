@@ -177,7 +177,7 @@ order unless the user says otherwise.
 | B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | **done 2026-10-30** |
 | B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | **done 2026-10-30** |
 | B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | **done 2026-10-30** |
-| B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | open |
+| B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | **done 2026-10-30** |
 | B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | open |
 | B48 | Civil war and the Flavians (`rm-flavians`) | `rm-471`–`rm-480` | 10 | 70 | open |
 | B49 | Civil war and the Flavians (`rm-flavians`) | `rm-481`–`rm-490` | 10 | 65 | open |
@@ -720,6 +720,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-448` Neronian persecution | Siemiradzki's Nero's Torches | acceptable: a 19th-century painting, and the description says so |
 | `rm-449` Pisonian conspiracy | Epicharis carried to the torture (Doepler) | weak: one episode, not the plot |
 | `rm-450` Periodonikes | the stadium at Olympia | acceptable; the description hard-codes 67 CE |
+| `rm-451` First Jewish–Roman War | the hill of Yodfat, ancient Jotapata | acceptable: one episode; the description's "forty-seven days" is Josephus's figure |
+| `rm-452` Vindex | a silver denarius struck during the revolt | ok |
+| `rm-453` Nymphidius Sabinus | the north wall of the Castra Praetoria | weak: a place picture |
+| `rm-454` Hostis | the Curia Julia | weak: the senate house as rebuilt under Diocletian |
+| `rm-455` Verginius Rufus | none | no picture (`I.none`); the glossary's tomb photograph would do |
+| `rm-456` Year of the Four Emperors | the four emperors of 69 on their own gold | ok |
+| `rm-457` Galba | a gold aureus of Galba | ok |
+| `rm-458` Otho | a silver denarius of Otho found in West Sussex | ok; the description names its recording scheme |
+| `rm-459` First Battle of Bedriacum | none | no picture (`I.none`) |
+| `rm-460` Vitellius | a gold aureus of Vitellius | ok; the description's "the Caesar he refused" should go |
 
 ## Glossary candidates
 
@@ -1860,3 +1870,22 @@ Run as B44; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-450` Periodonikes | 5 | 7 → 6 | **The freedom of Achaea is 28 November 67 (Henderson, after Holleaux) or 66 (Momigliano): both on the line**, from the Acraephia stone; the ten-horse team, the judges' million and Dio's 1,808 crowns are each attributed. |
 
 **Read by eye.** *Confusability:* `rm-441` the boat's builder (the confession); `rm-442`/`rm-443` the revolt (Mona, Classicianus) and the queen (Dio's portrait, her end); `rm-444`/`rm-445` the general and the settlement (the diadem); `rm-446`/`rm-447`/`rm-448` the fire, the palace and the punishments; `rm-449`/`rm-450` the plot and the tour. *Legend:* Nero singing the sack of Troy, Boudica's speech, "strike the womb" and "Your due!" are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B46 — `rm-451`–`rm-460`, the Julio-Claudians to civil war: the Jewish War to Vitellius (2026-10-30)
+
+Run as B45; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-451:rm-460` reads clean on five cards; the rest carry `I.none` (`rm-455`, `rm-459`) and `W.not-why` (advisory, four cards). `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages saved when read and one archive.org text (Schürer) that timed out on the re-check and was read whole by the agent. No `timeline` moved. **The old cards leaned on one author three or four times (Suetonius four times on Galba, three times on hostis; Plutarch three times on Nymphidius); their date lines carried counts ("Reign 95 days" twice, "Otho's reign 95 days"), a slash year ("66 – 73/74 CE") and a lifespan no source prints ("Lived c. 14 – 97 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-451` First Jewish–Roman War | 8 | 8 → 8 | **Josephus is the one narrator, a rebel commander turned Vespasian's pensioner; his 1,100,000 dead are his figure**; Masada's fall is 73 (Momigliano, Schürer) or 74 (Mason, Magness), two rows, not "73/74"; his months are left as his. |
+| `rm-452` Vindex | 6 | 7 → 6 | Three Dio entries become one; **March and May 68 are the moderns' months; Dio's agreed terms at Vesontio are his guess, against Plutarch and Tacitus**; the revolt's coins hedged; Plutarch's 20,000 dead attributed. |
+| `rm-453` Nymphidius Sabinus | 5 | 8 → 8 | **Plutarch's 7,500 drachmas beside the Cambridge Ancient History's 30,000 sesterces**; the reward of 65 (Tacitus); the claim to be Gaius's son is his own boast; "Killed 68 CE" had no source, June 68 is the Cambridge Ancient History's. |
+| `rm-454` Hostis | 6 | 8 → 7 | **The old list (Gracchans, Saturninus, Catiline) was the senate's emergency decree, not public-enemy votes**; Marius 88 BCE (Appian), Antony 43 BCE, Nero 68 CE; no source dates Galba's vote, so its row goes; 9 June 68 a modern day. |
+| `rm-455` Verginius Rufus | 6 | 9 → 7 | **"Lived c. 14 – 97" becomes Born 14 – 15 CE (Bellomo; Pliny's "eighty-third year" agrees) and Died 97 CE**; the epitaph through Pliny; Dio's parley and Tacitus's doubt are theirs. |
+| `rm-456` Year of the Four Emperors | 8 | 10 → 8 | **Tacitus's "four emperors perished by the sword" covers the whole Histories (Ramsay: Galba, Otho, Vitellius and Domitian), not 69**; the name is modern; the Dialogue's "one long year"; 16 April (Henderson) and 20 December (the Cambridge Ancient History) said whose. |
+| `rm-457` Galba | 7 | 9 → 7 | **"Aged seventy-two" contradicted Tacitus and Suetonius and goes**; 24 December 3 BCE is Livius's form of Suetonius's consular day, 2 April 68 Stevenson's; the glossary's "six days" after the adoption was wrong. |
+| `rm-458` Otho | 7 | 8 → 8 | **The 95 days are Suetonius's count, off the line; 16 April is one modern reckoning**; Poppaea in Suetonius's and Tacitus's separate versions; Martial's Cato comparison. |
+| `rm-459` First Battle of Bedriacum | 6 | 8 → 6 | **Tacitus gives no day: 15 April is Henderson's (Bellomo 2021: 12 April)**; Orfidius commanded the First Adiutrix; the glossary's broken centre came from the Batavian flank charge, not the false report. |
+| `rm-460` Vitellius | 7 | 9 → 7 | **A year was in a question; Suetonius gives two birthdays (Rolfe's 24 and 7 September)**; 20 December is the Cambridge Ancient History's (Moore: 20 or 21); the gluttony is Suetonius's and the refusal of "Caesar" his claim. |
+
+**Read by eye.** *Confusability:* `rm-451` the war (Florus, Jotapata, Beth-horon); `rm-452`/`rm-455` the rebel and the general who beat him (the epitaph, the hip); `rm-453`/`rm-454` the prefect and the declaration; `rm-456`/`rm-457`/`rm-458`/`rm-459`/`rm-460` the year (the Dialogue), Galba (capax imperii), Otho (Martial), the battle (the eagle, the gable) and Vitellius (the Gemonian stairs). *Legend:* Josephus's prophecy to Vespasian and Nero's last words at Phaon's villa are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
