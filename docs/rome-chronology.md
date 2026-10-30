@@ -435,6 +435,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Egypt: Alexandria taken / the Philae stele | 1 August 30 BCE / April 29 BCE | `rm-388` |
 | the first settlement / named Augustus | 13 January 27 BCE / 16 January 27 BCE | `rm-389` |
 | the clipeus virtutis: voted / the Arles copy / found | 27 BCE / 26 BCE / 1951 | `rm-390` |
+| Augustus as princeps senatus | 28 BCE – 14 CE | `rm-391` |
+| the second settlement / the consulship resigned | 23 BCE / 1 July 23 BCE (the moderns' day; Dio gives none) | `rm-392` |
+| the tribunician power: sacrosanct / rights voted / counted from | 36 BCE / 30 BCE / 23 BCE | `rm-393` |
+| the greater imperium / the Cyrene edicts | 23 BCE / 7 – 6 BCE | `rm-394` |
+| the Principate: usual start / usual end / other end | 27 BCE / 284 CE / 235 CE (each a modern convention) | `rm-395` |
+| the Res Gestae: completed / found at Ankara | 14 CE / 1555 | `rm-396` |
+| the imperial provinces: division / first transfers | 27 BCE / 22 – 11 BCE | `rm-397` |
+| the discharge terms fixed / rates set / the fund created | 13 BCE / 5 CE (one modern account: 6 CE) / 6 CE | `rm-398` |
+| the Praetorian Guard: double pay / first prefects / abolished | 27 BCE / 2 BCE / 312 CE | `rm-399` |
+| the aerarium militare founded | 6 CE | `rm-400` |
 
 ## Late Antiquity
 
@@ -820,4 +830,14 @@ rm-387: 31
 rm-388: 30; 29
 rm-389: 27
 rm-390: 27; 26; 1951
+rm-391: 28; 14
+rm-392: 23
+rm-393: 36; 30; 23
+rm-394: 23; 7; 6
+rm-395: 27; 284; 235
+rm-396: 14; 1555
+rm-397: 27; 22; 11
+rm-398: 13; 5; 6
+rm-399: 27; 2; 312
+rm-400: 6
 ```

@@ -171,7 +171,7 @@ order unless the user says otherwise.
 | B37 | The fall of the Republic (`rm-fall-republic`) | `rm-361`–`rm-370` | 10 | 76 | **done 2026-10-29** |
 | B38 | Augustus (`rm-augustus`) | `rm-371`–`rm-380` | 10 | 84 | **done 2026-10-30** |
 | B39 | Augustus (`rm-augustus`) | `rm-381`–`rm-390` | 10 | 91 | **done 2026-10-30** |
-| B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | open |
+| B40 | Augustus (`rm-augustus`) | `rm-391`–`rm-400` | 10 | 91 | **done 2026-10-30** |
 | B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | open |
 | B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | open |
 | B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | open |
@@ -660,6 +660,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-388` annexation of Egypt | an AEGVPTO CAPTA denarius | ok; the description's "about 27 BCE" and named mint are wrong (COS VI is 28 BCE; the mint is uncertain). Locator moved to Alexandria. |
 | `rm-389` first settlement | the Curia Julia | ok |
 | `rm-390` clipeus virtutis | the marble shield from Arles | ok; the description says Carrara marble, one record Luna |
+| `rm-391` princeps | a marble Augustus in the civic crown | acceptable stand-in: the man, not the word; the description carries commentary |
+| `rm-392` second settlement | a denarius of Augustus | weak: the man, not the settlement |
+| `rm-393` tribunicia potestas | none | no picture (`I.none`); an aureus with TR POT would suit |
+| `rm-394` imperium proconsulare maius | the Tropaeum Alpium | wrong: a monument, not the power |
+| `rm-395` Principate | the Via Labicana Augustus | ok (shared in kind with `rm-371`) |
+| `rm-396` Res Gestae Divi Augusti | the Latin text at Ancyra | wrong: the description names Mommsen's edition and the credit gives a book as author |
+| `rm-397` imperial province | a modern map of the provinces in 14 CE | wrong: a coloured map, and the description names Dio |
+| `rm-398` discharge gratuity | a discharged soldier's gravestone | weak: one worn tombstone |
+| `rm-399` Praetorian Guard | a Claudian relief of praetorians | ok |
+| `rm-400` aerarium militare | a gold aureus of Augustus | weak: tied to the fund only by association |
 
 ## Glossary candidates
 
@@ -1668,3 +1678,40 @@ Run as B38; every draft compared with its card after `batch.sh`: no mismatch. Ch
 | `rm-390` clipeus virtutis | 5 | 5 → 7 | The old abstract was half the name Augustus. **The shield itself now: the four virtues (*Res Gestae* 34, his own account), the Arles copy dated by the eighth consulship (26 BCE), found in 1951**, and the CL V coins. |
 
 **Read by eye.** *Confusability:* `rm-381`/`rm-382` the battle (the grapnel) and the admiral (the crown, the water); `rm-383`/`rm-384` the two lives; `rm-385`/`rm-386`/`rm-387`/`rm-388` the ceremony, the will, the battle and the province; `rm-389`/`rm-390` the session and the shield. *Legend:* the bed-sack, the barge on the Cydnus, the asp and the flight at Actium are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B40 — `rm-391`–`rm-400`, Augustus: princeps to the military treasury (2026-10-30)
+
+Run as B39; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-391:rm-400` reads clean on all ten cards once `rm-400`'s second phrasing, which shared 53 per cent of its words with `rm-746`'s (Augustus's 170 million sesterces from his patrimony), was replaced by the fund's three ex-praetor prefects and re-applied. `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card; every citation URL answers 2xx. One more phrasing was fixed by hand before applying: `rm-398`'s second (Dio's twelve thousand sesterces is now one ancient count). **Six of the ten subjects are modern labels and the cards now say so**: "second settlement", "imperium proconsulare maius", "Principate", "imperial" and "senatorial" provinces; the dates the old cards gave their beginnings and ends ("In use 28 BCE – 284 CE", "Era 27 BCE – 284 CE", "Tribune for life 23 BCE") are conventions or errors, each now attributed or dropped. LacusCurtius refused every connection, so Dio and the *Res Gestae* were read in archive.org Loeb scans.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-391` princeps | 7 | 6 → 8 | **The 284 CE end is a convention no opened source states, and goes**; the line is *princeps senatus* 28 BCE – 14 CE. Tacitus's "neither kingdom nor dictatorship" (*Annals* 1.9) is what some men said at the funeral, not Tacitus's own verdict; the old citation of *Annals* 1.2 for the name is corrected to 1.1. The old lead phrasing used `rm-712`'s *Res Gestae* 34 clue. |
+| `rm-392` second settlement | 6 | 5 → 7 | **"Tribune for life" was wrong: he was never a tribune**; the label is modern. Consul resigned on the Alban Mount on 1 July 23 (Dio gives no day; the date is the moderns'); Sestius, Marcellus and Agrippa; the Caepio–Murena plot in 22 (Dio) or 23 (three modern works). |
+| `rm-393` tribunicia potestas | 6 | 6 → 7 | **The *Res Gestae*'s "for as long as I lived" has no date, and the Cambridge Ancient History calls Dio's "tribune for life" in 23 inaccurate**: the line is sacrosanct 36, rights voted 30, counted from 23. TR POT on coins (two OCRE records); Tacitus's "summi fastigii vocabulum". The unsourced "patrician by adoption" goes. |
+| `rm-394` imperium proconsulare maius | 5 | 5 → 6 | **The Latin name is the modern scholars' label**; the Cambridge Ancient History calls Dio's "once and for all" incorrect; the Cyrene edicts (7 – 6 BCE) are the evidence; the debate in three attributed sentences (McFayden 1928 open access). Last's 1947 article and the SC de Pisone were not read and are not cited. |
+| `rm-395` Principate | 7 | 6 → 9 | **A modern name built on *princeps*; the start (27 BCE, since Mommsen) and the ends (235 in Mackay, 284 at Diocletian's accession) are each attributed.** Tacitus's and Dio's verdicts are theirs; Mommsen's dyarchy, Syme and Wiseman in three sentences. |
+| `rm-396` Res Gestae Divi Augusti | 7 | 8 → 7 | **"Deposited 13 CE, with his will" is printed by no source read**; the line is completed 14 CE and found at Ankara 1555. The Apollonia, Antioch and Sardis copies; the omissions as modern readings; the text is Augustus's own case. No source read says it omits the proscriptions, so the card does not. |
+| `rm-397` imperial province | 7 | 6 → 7 | Dio was cited four times. **Strabo 17.3.25 and Dio 53.12 are now apart, and they differ** (Strabo has Narbonensis and Cyprus with the people from the start; Dio has them handed back); the armed-province rule is qualified (proconsuls led legions in Africa, Macedonia and Illyricum). |
+| `rm-398` discharge gratuity | 6 | 6 → 7 | **The old "about 860 million" summed the *Res Gestae*'s 600 and 260 million; it is dropped and each figure is its author's.** One modern account dates the rise to twenty years to 6 CE, not 5, and the card says so. |
+| `rm-399` Praetorian Guard | 8 | 7 → 9 | The count rows go. **No modern source read prints 27 BCE as the guard's founding or 23 CE for the camp**: the line is double pay 27 BCE (Dio's settlement, the Cambridge Ancient History's year), first prefects 2 BCE, abolished 312 CE. Tacitus's nine cohorts are a count for Tiberius's reign; the auction of 193 is hedged. |
+| `rm-400` aerarium militare | 6 | 6 → 7 | **Dio 55.25 names only the inheritance tax, not the 1 per cent sales tax**, which rests on the Cambridge Ancient History, Smith and Tacitus (the sources record neither its date nor its manner); the *Res Gestae*'s 170 million is Augustus's own account. |
+
+**Read by eye.** *Confusability:* `rm-391` the word, `rm-395` the regime, `rm-392` the year 23, `rm-393`/`rm-394` the two powers (the TR POT numbering and the Cyrene edicts), `rm-396` the text, `rm-397` the provinces, `rm-398`/`rm-399`/`rm-400` the bounty, the guard and the fund (the 170 million kept for `rm-746`). *Legend:* none on these cards; the speeches are Dio's compositions. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### The fourth hundred, in sum
+
+`rm-301`–`rm-400` (the Republic in crisis from Marius's consulships, the fall of the Republic and Augustus) are done: 670 sources became 796 and 49 glossary entries were rewritten. `rm-audit.js --range=rm-301:rm-400` reads 59 of 100 cards clean; the rest are 37 cards with no picture (`I.none`), 4 `S.chip?` false positives (English BMCR reviews of foreign-titled books) and 7 advisory `W.not-why`. Every picture is still the bulk-written one (Commons answered 429): the "Pictures to redo" table holds a verdict for each.
+
+What the fourth hundred found, again and again:
+- **A count on the date line.** Nearly every old line carried an ancient author's figure as a row (Velleius's 300,000 Italian dead, Appian's legions and ships, Plutarch's 7,100 talents, Caesar's 80,000 men and 23 redoubts, Suetonius's 23 wounds, Appian's "Reward 25,000 drachmas a head"). They are prose now, each given to its author, and where two authors disagree (Asiatic Vespers 80,000 against 150,000; Pharsalus 15,000 against 6,000; Brundisium 1,600 ships against 1,200) both stand apart, never as a range.
+- **A modern label as ancient fact.** "Asiatic Vespers", "Marian terror", "Sullan constitution", "fall of the Republic", "First" and "Second Triumvirate", "Pompey's settlement", "Donations of Alexandria", the "first" and "second settlement", "imperium proconsulare maius", "Principate", "imperial province" and "civil war of 83 BCE" are each said to be modern.
+- **A Roman day in modern dress.** The Colline Gate's 1 November, the debate's 5 December, Pharsalus's 9 August, Pompey's 28 September and Thapsus's 6 April are pre-Julian Roman dates, now said; Munda's 17 March and Naulochus's 3 September fall after the reform; Actium's 2 September is Dio's.
+- **The contemporary voices named for what they are.** Cicero's speeches are a pleader's case (Verres, Roscius, Balbus, Rabirius, the Catilinarians, the Philippics), his letters his own fears and self-presentation; Caesar's Commentaries his own account and advocacy (and silent on the Rubicon); Sallust's speeches his compositions; the *Res Gestae* Augustus's own case.
+- **Wrong facts the old cards stated.** Saturninus "stoned on the Capitol", Sulla "praetor by 95", Catiline killed fighting Antonius (Petreius commanded), Cato proposing Pompey's sole consulship (Bibulus did), Octavian's first consulship on 22 September (19 August), "Tribune for life" for Augustus, Appian's "120 years" (a translator's footnote), and the "about 860 million" that summed two of Augustus's figures.
+- **The modern half.** Almost every old card was all-ancient. The modern half is mostly the 1932 – 34 Cambridge Ancient History (vols. 9 and 10), Holmes, Heitland, Greenidge, Mommsen, Syme (1939) and BMCR reviews, with a few recent open articles (Tatum 2020, the 2022 *Journal of Roman Archaeology* survey, Ładoń 2021, McFayden 1928); a pass with a library could replace them.
+
+Overlap notes for the owner (nothing was edited): `wh-354` ends the Gallic Wars in 50 BCE (the card ends the fighting in 51 and the command in 50).
+
+### Locators added (2026-10-30)
+
+`add-locators.js` (one title per request, retried through Wikipedia's rate limit) gave **`rm-356` Carrhae (fetched from Harran, because the battle's article carries no coordinate), `rm-361` Dyrrhachium, `rm-362` Pharsalus and `rm-365` Thapsus** battle locators at zoom 8, **`rm-364` Alexandria**, and moved **`rm-388`** from Pelusium to Alexandria. `rm-366` Munda gets none: the site is disputed and no sure place stands near it. `migrate-places.js` (offline) derived `places` for `rm-364` and `rm-388`; its offline run also dropped `gr-794`'s Rafah place (its toponym is not in the offline cache), so that card and its `places-spec.json` row were restored by hand and only the Pelusium row, which no card now uses, was removed; `build-places --install`, `build-card-places --install`, `migrate-places --check` and `check-places` pass. Still without one: `rm-303`, `rm-324` and `rm-360` (wars across a region) and `rm-366`.
