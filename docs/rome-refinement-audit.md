@@ -199,7 +199,7 @@ order unless the user says otherwise.
 | B65 | The Roman army (`rm-army`) | `rm-641`–`rm-650` | 10 | 93 | **done 2026-10-30** |
 | B66 | The Roman army (`rm-army`) | `rm-651`–`rm-660` | 10 | 90 | **done 2026-10-30** |
 | B67 | The Roman army (`rm-army`) | `rm-661`–`rm-670` | 10 | 78 | **done 2026-10-30** |
-| B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | open |
+| B68 | The Roman army (`rm-army`) | `rm-671`–`rm-680` | 10 | 87 | **done 2026-10-30** |
 | B69 | The Roman army (`rm-army`) | `rm-681`–`rm-690` | 10 | 105 | open |
 | B70 | The Roman army (`rm-army`) / Government, law and citizenship (`rm-government`) | `rm-691`–`rm-700` | 10 | 98 | open |
 | B71 | Government, law and citizenship (`rm-government`) | `rm-701`–`rm-710` | 10 | 88 | open |
@@ -439,6 +439,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-668` battering ram | none | not re-checked: the card has no picture |
 | `rm-669` ballista | A reconstructed Roman ballista at Yodfat | not re-checked (CC BY-SA, kept) |
 | `rm-670` siege tower | none | not re-checked: the card has no picture |
+| `rm-671` circumvallation | none | not re-checked: the card has no picture |
+| `rm-672` testudo | none | not re-checked: the card has no picture; Trajan's Column's testudo would do |
+| `rm-673` triplex acies | none | not re-checked: the card has no picture |
+| `rm-674` Roman military engineering | none | not re-checked: the card has no picture |
+| `rm-675` Caesar's Rhine bridges | none | not re-checked: the card has no picture; no locator (the site is unknown) |
+| `rm-676` disciplina militaris | none | not re-checked: the card has no picture |
+| `rm-677` decimation | none | not re-checked: the card has no picture |
+| `rm-678` dona militaria | none | not re-checked: the card has no picture; Caelius's tombstone would do |
+| `rm-679` corona civica | none | not re-checked: the card has no picture |
+| `rm-680` ovation | none | not re-checked: the card has no picture |
 | `rm-100` Foedus Cassianum | the Temple of Castor's columns | `rm-099`/`rm-894`'s subject, not the treaty |
 | `rm-101` Conflict of the Orders | a wood engraving of the first secession | shows one episode (`rm-102`'s), not the whole struggle |
 | `rm-102` first secession | a river photograph | weak; the description argues and gives a derived figure; the audit's `I.caption-source` hit is the word "commons" |
@@ -2535,3 +2545,22 @@ Run as B66. Before applying, `rm-666`'s "Pyrrhus defeated" and `rm-667`'s "Veter
 | `rm-670` siege tower | 8 | 8 → 10 | **The line's three sieges go; the metre conversions go; Masada's year is whose (73 or 74) in prose**; the Masada question (close to `rm-472`'s) replaced by Vespasian's iron-plated towers. |
 
 **Read by eye.** *Confusability:* `rm-661`/`rm-662` the helmet (Isidore's cassis) and the boots (Josephus's centurion); `rm-663`/`rm-664`/`rm-665` the standard (Parthia's return), the eagle (Pliny's four beasts) and the flag (Agrippa's sea-green); `rm-666`/`rm-667` the camp (Pyrrhus) and the fortress (Domitian's rule); `rm-668`/`rm-669`/`rm-670` the ram (Caesar's terms), the engine (the Cremona ballista) and the tower (the jeering defenders). *Legend:* Marius's sole eagle and Frontinus's lesson from Pyrrhus are their authors'. *Overlap:* `gr-800` (torsion catapult) agrees with `rm-669`.
+
+### B68 — `rm-671`–`rm-680`, The Roman army: circumvallation to the ovation (2026-10-30)
+
+Run as B67. Before applying, `rm-673`'s "Caesar's phrase" and `rm-674`'s "Corbulo's canal" became "Phrase attested" and "Canal dug". `rm-680`'s rows still name the men whose ovations they date (Marcellus, Antony and Octavian, Plautius): each is the card's own matter, an instance of the rite, and is kept. **The old date lines carried four sieges for a technique, three battles for a battle order, three episodes for the testudo (one, Heracleum's 169 BCE, only a translator's margin year), Cary's margin year for a Tigris bridge (116 CE), two single uses of decimation that no source read prints, a man's death for decorations, and two ovations dated by the wrong war ("After Philippi 40 BCE" was the joint ovation of Antony and Octavian).** The card plan's note that bare "military engineering" is `wh-627`'s is out of date: `wh-627` is now Leonardo da Vinci.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-671` circumvallation | 7 | 7 → 9 | **The four sieges become "First attested 262 BCE" (Agrigentum, as `rm-190`); the ring rare, a modern count finds**; Josephus's three-day wall left to `rm-469`; the Alesia distances (the card's own conversion) go; Scipio's ring at Numantia Appian's. |
+| `rm-672` testudo | 7 | 7 → 8 | **The line's episodes go, the card undatable (Heracleum's 169 BCE a margin year); Polybius's "picked" maniples corrected**; Plutarch's kneeling men, Livy's circus testudo and Tacitus at Cremona each their author's; Dio dropped; the modern share from none to four. |
+| `rm-673` triplex acies | 6 | 7 → 7 | **Caesar's phrase (58 BCE), and a fixed drill-book formation a modern habit**; Livy 8.8 contradictory; Polybius's numbers his; the Ilerda question goes; no clue of `rm-645`'s or `rm-155`'s. |
+| `rm-674` Roman military engineering | 7 | 7 → 8 | **"Tigris bridged 116 CE" goes: 116 is Cary's margin, Dio says "at the beginning of spring"**; Corbulo's canal 47 CE (as `rm-444`); the Saldae tunnel inscription (EDH); Plutarch's Marius and Josephus dropped. |
+| `rm-675` Caesar's Rhine bridges | 7 | 7 → 7 | **Caesar the sole and self-promoting narrator, his ten days his; the Neuwied piles date by tree rings to the 15th or 16th century, so the site is unknown and no locator**; the answer's words out of the questions; Cato's call to hand Caesar over. |
+| `rm-676` disciplina militaris | 6 | 8 → 8 | **All three old questions gave the answer away; rewritten, decimation kept out**; two modern views (an ethic of restraint; elite control); Hadrian's DISCIPLINA AVG coin (OCRE); the altar century without a source goes. |
+| `rm-677` decimation | 7 | 8 → 8 | **Its rarity stressed; "commoner in the civil wars and under the emperors" goes; the line Livy's 471 BCE (tradition) and Crassus's revival of 71 BCE**; Polybius's procedure, Apronius and Antony each their author's. |
+| `rm-678` dona militaria | 6 | 7 → 7 | **"Caelius killed 9 CE" dated a man: no date line**; Caelius's tombstone (CIL XIII 8648) read on Ubi Erat Lupa; Polybius's spear and cup; Cato on Nobilior's cheap crowns; the corona civica out of the questions. |
+| `rm-679` corona civica | 7 | 7 → 8 | **The glossary's "saviour of the citizens" cited Pliny 16.5, which does not say it**; Scipio at the Trebia, Lepidus at fifteen, the OB CIVIS SERVATOS denarius; 27 BCE for Augustus's door; the ancient share from six of seven to four. |
+| `rm-680` ovation | 7 | 8 → 8 | **"After Philippi 40 BCE" was the joint ovation for not fighting each other (Lange); 13 November 36 BCE from Shipley's note; Postumius's ovation in Dionysius's voice, Cary's "503 B.C." another consulship's**; Marcellus 211 BCE and Plautius 47 CE added; the triumph left to `rm-176`. |
+
+**Read by eye.** *Confusability:* `rm-671`/`rm-672`/`rm-673` the ring (Numantia), the formation (Antony's kneeling men) and the battle order (the Helvetii); `rm-674`/`rm-675` engineering (the Saldae tunnel) and the bridges (the slanting piles); `rm-676`/`rm-677`/`rm-678` discipline (the sentry), decimation (Apronius) and decorations (Caelius); `rm-679`/`rm-680` the oak crown (Scipio) and the lesser triumph (myrtle). *Legend:* Manlius beheading his son, Postumius's ovation and Crassus scorning myrtle are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

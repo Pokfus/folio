@@ -420,6 +420,11 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the pilum: adopted (one reconstruction) / Marius's pin | c. 390 – 360 BCE / 101 BCE | `rm-658` |
 | the aquila the legions' sole standard (Pliny; the year from a modern edition) | 104 BCE | `rm-664` |
 | the marching camp: the lesson from Pyrrhus's camp (Frontinus's claim) | 275 BCE | `rm-666` |
+| circumvallation first attested (Agrigentum) | 262 BCE | `rm-671` |
+| triplex acies: Caesar's phrase | 58 BCE | `rm-673` |
+| Caesar's Rhine bridges: the first / the second | 55 BCE / 53 BCE | `rm-675` |
+| decimation: Livy's first case (tradition) / Crassus revives it | 471 BCE / 71 BCE | `rm-677` |
+| ovations: Marcellus / Antony and Octavian / Octavian after Naulochus | 211 BCE / 40 BCE / 13 November 36 BCE | `rm-680` |
 
 ## The Principate
 
@@ -624,6 +629,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the standards returned by Parthia / the temple of Mars Ultor dedicated | 20 BCE / 2 BCE | `rm-663` |
 | the aquila: three lost with Varus / the first recovered | 9 CE / 15 CE | `rm-664` |
 | legionary fortresses: Vetera besieged / rebuilt in stone in Britain | 69 CE / 99 – 108 CE | `rm-667` |
+| Roman military engineering: Corbulo's canal | 47 CE | `rm-674` |
+| the corona civica over Augustus's door | 27 BCE | `rm-679` |
+| the ovation of Aulus Plautius | 47 CE | `rm-680` |
 
 ## Late Antiquity
 
@@ -1345,4 +1353,11 @@ rm-663: 20; 2
 rm-664: 104; 9; 15
 rm-666: 275
 rm-667: 69; 99; 108
+rm-671: 262
+rm-673: 58
+rm-674: 47
+rm-675: 55; 53
+rm-677: 471; 71
+rm-679: 27
+rm-680: 211; 40; 36; 47
 ```
