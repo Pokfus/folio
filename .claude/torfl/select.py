@@ -162,11 +162,40 @@ FILM_GLOSS = re.compile(
     r'vampire|witch|ghost|monster|demon|devil|magic|spell|curse[ds]?|damned|'
     r'prince|princess|lord|lady|gentleman|majesty|king|queen|'
     r'buck|bucks|mile|miles|pound|sir|madam|mister|'
-    r'pig|rat|slut|drunk\w*|booze|naked|sleep with)\b', re.I)
+    r'pig|rat|slut|drunk\w*|booze|naked|sleep with|'
+    # …and what B2's fill added (Oct 2026): procedure, drugs, abuse and the fantastic
+    r'rape\w*|beat up|interrogat\w*|frisk\w*|hack\w*|burgl\w*|autopsy|verdict|'
+    r'testimony|cocaine|heroin|marijuana|drug addict|torture\w*|execute|marshal|'
+    r'headquarters|regiment|troops|invasion|patrol|handcuffs|morgue|commissar|fed|'
+    r'zombie|alien|fairy|pirate|wizard|Christ|throne|highness|darling|babe|bro|'
+    r'boob\w*|tits?|breast|croak|pervert|scoundrel|bastard|blockhead|idiot\w*|'
+    r'swindler|crook|robber|thief|semen|sperm|porn\w*|panties|underpants|'
+    r'mistress|lover|fiend|villain|dead person|deceased)\b', re.I)
 FILM_NAMES = {'крис', 'стив', 'скотт', 'алан', 'дина', 'боб', 'картер', 'док', 'джин',
               'люк', 'де', 'э', 'мм', 'угу', 'нет-нет', 'пойдёмте', 'спас', 'малышка',
               'дружище', 'отваливать', 'переспать', 'чертовски', 'американец',
-              'пола', 'донна', 'мак', 'хан', 'пенни', 'эль', 'сан', 'аминь'}
+              'пола', 'донна', 'мак', 'хан', 'пенни', 'эль', 'сан', 'аминь',
+              # B2's: names and Greek letters out of the subtitles, and a form
+              'мик', 'мари', 'ти', 'тина', 'хён', 'ян', 'финн', 'соня', 'лан', 'кон', 'мин',
+              'бей', 'тара', 'мю', 'бета', 'альфа', 'бостон', 'мена', 'чан', 'рой', 'хо',
+              'кара', 'бра', 'идёмте', 'фу', 'пак', 'си', 'п', 'км', 'сет', 'рака', 'марс',
+              'дева', 'мамин', 'папаша', 'матушка', 'братец', 'братишка', 'сестрёнка',
+              'дорогуша', 'красавчик', 'красотка', 'милашка', 'бабуля', 'баба', 'братан',
+              'дрянь', 'негодяй', 'извращенец', 'идиотка', 'тупица', 'лжец', 'гадость',
+              'тусоваться', 'прикольный', 'травка', 'пялиться', 'фотка', 'короче',
+              'преподобный', 'граф', 'царь', 'повелитель', 'клан', 'страж', 'кладбище',
+              'гроб', 'плоть', 'приканчивать', 'прикончить', 'расследовать', 'вскрытие',
+              'приговор', 'показание', 'слушание', 'разведка', 'побег', 'обыск', 'взлом',
+              'вламываться', 'опознавать', 'выслеживать', 'досье', 'зацепка', 'федерал',
+              'штаб', 'полк', 'оборона', 'вторжение', 'войска', 'пытать', 'пытка',
+              'казнить', 'наркоман', 'кокаин', 'героин', 'отравлять', 'смертельный',
+              'смертный', 'орудие', 'сдыхать', 'сдохнуть', 'шпионить', 'злодей',
+              'покойник', 'наручники', 'морг', 'сперма', 'порно', 'трусы', 'кайф', 'тачка',
+              'сосать', 'засада', 'криминалист', 'констебль', 'информатор', 'снайпер',
+              'адмирал', 'маньяк', 'оборотень', 'шантажировать', 'останки', 'марсель', 'вика',
+              'лука', 'синьор', 'сеньора', 'морда', 'не-а', 'а-а', 'ха-ха', 'калибр', 'рация',
+              'целиться', 'рядовой', 'мор', 'гад', 'бармен', 'бойфренд', 'паб', 'сити', 'гм',
+              'тоня', 'избивать', 'избить', 'обыскивать', 'обыскать'}
 for _w in FILM_NAMES:
     REFUSED.setdefault(_w, 'an English name, a filler sound or film slang')
 
@@ -174,7 +203,7 @@ for _w in FILM_NAMES:
 # WHICH OF TWO SAME-SPELT ENTRIES THE FILL TAKES, where Wiktionary lists the rare
 # one first (`клуб` "puff of smoke" before `клуб` "club"; `повод` "rein" before
 # `повод` "reason").  Otherwise the first entry is taken.
-PICK = {'клуб': 'club', 'повод': 'reason'}
+PICK = {'клуб': 'club', 'повод': 'reason', 'притворяться': 'pretend'}
 # A predicative goes before its adverb only where it is the "it is…" sense a
 # learner says; these two are adverbs first (`совершенно`, quite; `довольно`,
 # rather), whatever the predicative's gloss looks like.
@@ -271,7 +300,9 @@ def main():
                     return j
         for w, asp in e['partners']:
             for j in by_word.get(fold(w), ()):
-                if lex[j]['pos'] != 'verb' or j in used:
+                # never itself: a pair may differ only in stress (`отреза́ть /
+                # отре́зать`), and both spellings fold to one key
+                if lex[j]['pos'] != 'verb' or j in used or j == i:
                     continue
                 if fold(lex[j]['word']) in NO_PAIR:
                     continue
@@ -368,6 +399,11 @@ def main():
         if e['pos'] in ('proverb', 'phrase'):
             continue
         if FILM_GLOSS.search(e['senses'][0]['g'][-1]):
+            refused_seen.append(w)
+            continue
+        # a word whose first sense Wiktionary itself tags as slang or abuse
+        # (`кайф`, `тачка`, `сдыхать` at B2)
+        if set(e['senses'][0]['t']) & {'slang', 'vulgar', 'derogatory', 'offensive'}:
             refused_seen.append(w)
             continue
         # a word whose FIRST sense is coarse (`шлюха`, untagged in Wiktionary) --

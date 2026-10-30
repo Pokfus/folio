@@ -95,6 +95,20 @@ SCOPE = {
                   'relationships, health and treatment, feelings, and the adjectives and verbs '
                   'that describe change and character',
     },
+    'b2': {
+        'source': 'cefr',
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible, and to produce clear, detailed '
+                 'text on a wide range of subjects, explaining a viewpoint on a topical issue '
+                 'with the advantages and disadvantages of various options',
+        'topics': 'the language of argument (advantages and drawbacks, conclusions, objections, '
+                  'and the connectives that join them), abstract concepts, society and politics, '
+                  'the economy, science and technology, the environment, culture and the arts, '
+                  'the media, education and expertise, medicine, character and the mind, and '
+                  'the verbs, adjectives and adverbs of analysis and judgement',
+    },
 }
 
 

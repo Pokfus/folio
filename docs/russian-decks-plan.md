@@ -6,10 +6,10 @@ Portuguese CAPLE, Italian CILS, Indonesian UKBI …); `docs/lang-decks.md` is th
 were built, and every rule there applies here unless this file says otherwise. Asked for on 2026-10-30: "In the same style, we made other language vocabulary collections for
 several foreign languages. Start planning a collection for learning Russian."
 
-**STATUS (2026-10-30): the alphabet deck, A1, A2 and B1 are built** (`.claude/torfl/`, §10). The owner's
+**STATUS (2026-10-30): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/torfl/`, §10). The owner's
 answers to §9: sizes as below; **an alphabet deck, yes**; **titles in English**; word source as
 recommended (assembled). The owner is supplying TORFL's own level descriptions; until they are written
-into `SCOPE` in `torfl_level.py`, A1, A2 and B1 are scoped to the CEFR global descriptors for their bands
+into `SCOPE` in `torfl_level.py`, A1 to B2 are scoped to the CEFR global descriptors for their bands
 and say so in their descriptions.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version
@@ -28,7 +28,7 @@ itself, and each maps to a CEFR band:
 | `TORFL-A1-Russian` (built) | Элементарный уровень (ТЭУ) | A1 | 500 |
 | `TORFL-A2-Russian` (built) | Базовый уровень (ТБУ) | A2 | 750 |
 | `TORFL-B1-Russian` (built) | ТРКИ-1 | B1 | 1,000 |
-| `TORFL-B2-Russian` | ТРКИ-2 | B2 | 1,500 |
+| `TORFL-B2-Russian` (built) | ТРКИ-2 | B2 | 1,500 |
 | `TORFL-C1-Russian` | ТРКИ-3 | C1 | 1,500 |
 | `TORFL-C2-Russian` | ТРКИ-4 | C2 | 1,000 |
 | `Russian-Phrases-and-Expressions` | — | — | whatever the pool holds (CAPLE's held 1,342) |
@@ -291,7 +291,31 @@ health), 811 by frequency; 229 aspect pairs; three sentences for 991 of the 1,00
   `целовать` with no sentences; those are ordinary words and the filter no longer names them. It now
   names "whore" and "slut", which one translation carried.
 
-**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the A1, A2 and
-B1 inventories against them) when the owner's text arrives; then B2 (1,500 notes). At B2 the subtitle
-list's counts thin out (a word ranked 4,000th is said a few hundred times in the whole corpus), so the
-inventory will have to carry more of the level, as UKBI's upper levels found.
+## 13. As built (2026-10-30): B2
+
+1,500 notes / 3,000 cards on top of B1: 186 from `SECTIONS_B2` (the CEFR B2 descriptor's "complex text
+on both concrete and abstract topics" and "a viewpoint … giving the advantages and disadvantages": the
+language of argument first, then society, the economy, science, the environment, culture, the media,
+expertise, medicine and the mind), the rest by frequency; three sentences for nearly all.
+
+- **The fill is now nine words in ten, and its tail is the corpus's least reliable part.** The subject
+  rule (`FILM_GLOSS`) gained procedure, drugs, abuse and the fantastic (interrogations, autopsies,
+  verdicts, cocaine, zombies, highnesses); a fill word whose first sense Wiktionary tags slang, vulgar,
+  derogatory or offensive is refused (`кайф`, `тачка`); and `FILM_NAMES` grew by some ninety entries —
+  subtitle names (`мик`, `хён`, `финн`), Greek letters, dubbing's endearments (`дорогуша`,
+  `красавчик`), crime procedure the gloss rule cannot see from its first sense (`вскрытие`,
+  `приговор`, `избивать`). **This is still a list, and B2's tail will hold strays the read missed**:
+  1,500 cards were read as a sweep for known bad gloss shapes plus every inventory card and a random
+  250 of the fill, not one by one.
+- **A pair can differ only in stress** (`отреза́ть / отре́зать`, `выреза́ть / вы́резать`), and the
+  partner search had paired such a verb with itself (both spellings fold alike). It skips itself now;
+  the `Word` field names a stress-only pair's spelling once.
+- **Diminutives glossed only as "diminutive of X"** take the base word's own gloss (`паренёк`: "fellow,
+  lad … (diminutive)"); a later proper-name sense with a number (`Molniya 1 (…)`), a "see …"
+  cross-reference and a "filter-avoidance spelling" are dropped.
+- `притворяться` joins `PICK` ("pretend", not "to shut").
+
+**Open, for the next session:** write TORFL's own level descriptions into `SCOPE` (and the inventories
+against them) when the owner's text arrives; then C1 (1,500 notes) and C2 (1,000). Past B2 the subtitle
+counts no longer rank anything, so C1 and C2 should be mostly inventory — the UKBI finding — or take
+their order from the RNC frequency dictionary once its licence is confirmed (§3).

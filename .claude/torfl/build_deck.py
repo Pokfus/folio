@@ -108,6 +108,8 @@ GLOSS = {
     'ерунда': ['nonsense, rubbish', 'a trifle'],
     'болтать': ['to chat, to chatter', 'to dangle, to shake'],
     'парочка': ['a couple, a pair (informal)'],
+    'утверждение': ['statement, assertion, claim', 'approval, confirmation'],
+    'вывод': ['conclusion, inference', 'withdrawal, removal'],
     'волнение': ['excitement, nervousness', 'unrest', 'choppiness (of water)'],
     # THE PREPOSITIONS, WITH THE CASE EACH SENSE TAKES.  Wiktionary splits a
     # preposition's senses under headings ("[with prepositional]") that do not
@@ -155,6 +157,24 @@ COARSE = re.compile(r'\b(fuck\w*|shit\w*|cunts?|dicks?|cocks?|pricks?|arse|arseh
                     r'sex(ual|ually)?|genital\w*|vagina|vulva|penis|syphilis|lesbian|homosexual)\b', re.I)
 
 
+# headword (folded) -> its first plain gloss, for a diminutive glossed only as
+# `diminutive of раз (raz)`; filled in main()
+BASE_GLOSS = {}
+
+
+def diminutive(text):
+    """`diminutive of па́рень (párenʹ)` -> `guy, lad (diminutive)`, from the base's
+    own gloss; a gloss that says more after the name keeps what it says."""
+    m = re.match(r'^(?:endearing )?diminutive of (\S+)(?: \([^)]*\))?[,:;]?\s*(.*)$', text)
+    if not m:
+        return text
+    rest = m.group(2).strip()
+    if rest:
+        return rest
+    base = BASE_GLOSS.get(fold(m.group(1)))
+    return f'{base} (diminutive)' if base else text
+
+
 def clean_gloss(g):
     """One gloss line out of a Wiktionary sense's gloss list."""
     label = ''
@@ -179,7 +199,8 @@ def clean_gloss(g):
                   '', text).strip()
     # a construction note in square brackets, often cut off by the length limit
     text = re.sub(r'\s*\[[^\]]*(\]|$)', '', text).strip()
-    text = re.sub(r'^(diminutive|augmentative|endearing form|pejorative) of [^:]*:\s*', '', text)
+    text = re.sub(r'^(augmentative|endearing form|pejorative) of [^:]*:\s*', '', text)
+    text = diminutive(text)
     if len(text) > 90:
         first = re.split(r'(?<=[a-z\)])[.;] ', text)[0]
         text = first if len(first) <= 90 else text[:87].rsplit(' ', 1)[0] + '…'
@@ -198,7 +219,10 @@ def glosses(e, key=None, limit=4, fallback=True):
         t = clean_gloss(s['g'])
         # a later sense that is a proper name (`Otvet (Russian anti-submarine
         # missile)`) or a letter's old name
-        if out and (re.match(r'[A-Z][a-z]+ \(', t) or 'name of the letter' in t):
+        if out and (re.match(r'[A-Z][a-z]+( \d+)? \(', t) or 'name of the letter' in t
+                    or re.search(r'(^|, )see \S', t)):
+            continue
+        if re.search(r'filter-avoidance|euphemis', t, re.I):
             continue
         if COARSE.search(t) or re.fullmatch(r'\+ \w+( or \w+)?', t):
             continue          # a heading left as a gloss: `+ prepositional`
@@ -426,6 +450,12 @@ def main():
     units = json.load(open(lvlf('selected.json'), encoding='utf-8'))
     exs = json.load(open(lvlf('examples.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
+    for e in lex:
+        k = fold(e['word'])
+        if k not in BASE_GLOSS and e['senses'] and e['pos'] in ('noun', 'adj', 'verb', 'adv'):
+            g = re.sub(r'\s*\([^)]*\)', '', e['senses'][0]['g'][-1]).strip()
+            if g and len(g) <= 40 and not g.lower().startswith(('diminutive', 'used', 'form')):
+                BASE_GLOSS[k] = g
     cards, entries = [], []
     for n, u in enumerate(units):
         members = [lex[m] for m in u['entries']]
@@ -433,7 +463,9 @@ def main():
         heads = [show(m['head']) for m in members]
         if u['pair']:
             headword = ' / '.join(heads)
-            word = ', '.join(bare(m['word']) for m in members)
+            # a pair may differ only in stress (`отреза́ть / отре́зать`): the headword
+            # shows both, the unstressed Word field names the spelling once
+            word = ', '.join(dict.fromkeys(bare(m['word']) for m in members))
         else:
             headword = heads[0]
             word = bare(e0['word'])

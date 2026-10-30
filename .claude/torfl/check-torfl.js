@@ -91,7 +91,8 @@ if (BANDS.includes(LEVEL)) {
   const noGen = nouns.filter((c) => !/indeclinable|plural only/.test(c.fields.English) && !/>genitive</.test(c.fields.Forms));
   ok(!noGen.length, "every declinable noun shows its genitive", noGen.slice(0, 5).map((c) => c.fields.Word).join(", "));
   const pairs = cards.filter((c) => /imperfective \/ perfective/.test(c.fields.English));
-  ok(pairs.every((c) => c.fields.Word.split(",").length === 2), "every aspect pair names two verbs");
+  // a pair that differs only in stress (`отреза́ть / отре́зать`) names its spelling once in `Word`
+ok(pairs.every((c) => c.fields.Russian.split(" / ").length === 2), "every aspect pair names two verbs");
   console.log("   · aspect pairs: " + pairs.length + ", nouns: " + nouns.length);
 } else {
   ok(cards.length === 33, "the alphabet has 33 letters");
