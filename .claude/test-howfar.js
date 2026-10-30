@@ -5,6 +5,7 @@
    What it guards (docs/minigames.md "How far?"):
    · the day deals FIVE rounds, the same for every reader, one per distance band, two different places each;
    · a guess within 10 % of the great-circle distance wins the round and one outside it loses it — exactly at the edges (+9.5 %, −11 %);
+   · the reveal prints the reader's guess green on a win and red on a loss (the theme's --good and --zh);
    · an empty guess is refused, not scored;
    · a round answered stays answered: a reload resumes at the next round with the score kept;
    · the end writes S.games.howfar (played, s, n), clears the progress and locks the game for the day;
@@ -75,10 +76,16 @@ function serve() {
     check("[judge] an empty guess is refused, not scored", /Type a distance/.test(st.fb) && !st.next, st.fb);
     st = await guess(page, Math.round(rounds[0].km));
     check("[judge] the exact distance wins", /round won/.test(st.fb) && st.score === "1 won" && st.next === "Next round", st.fb);
+    { const c = await page.evaluate(() => { const g = document.querySelector("#hfFb .hf-guess"), cs = getComputedStyle(document.body); return g && { cls: g.className, col: getComputedStyle(g).color, good: cs.getPropertyValue("--good").trim(), zh: cs.getPropertyValue("--zh").trim() }; });
+      const hex = (h) => { const n = parseInt(h.replace("#", ""), 16); return "rgb(" + ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255) + ")"; };
+      check("[reveal] the guess is green on a win (--good)", !!c && c.cls === "hf-guess ok" && c.col === hex(c.good), JSON.stringify(c)); }
     await shot(page, "howfar-desktop-reveal");
     await page.click("#hfNext"); await page.waitForTimeout(150);
     st = await guess(page, Math.round(rounds[1].km * 1.25));
     check("[judge] 25 % over loses", /round lost/.test(st.fb) && /25% over/.test(st.fb) && st.score === "1 won", st.fb);
+    { const c = await page.evaluate(() => { const g = document.querySelector("#hfFb .hf-guess"), cs = getComputedStyle(document.body); return g && { cls: g.className, col: getComputedStyle(g).color, good: cs.getPropertyValue("--good").trim(), zh: cs.getPropertyValue("--zh").trim() }; });
+      const hex = (h) => { const n = parseInt(h.replace("#", ""), 16); return "rgb(" + ((n >> 16) & 255) + ", " + ((n >> 8) & 255) + ", " + (n & 255) + ")"; };
+      check("[reveal] the guess is red on a loss (--zh)", !!c && c.cls === "hf-guess no" && c.col === hex(c.zh), JSON.stringify(c)); }
 
     // ---- 3. a round answered stays answered ----
     await page.reload({ waitUntil: "load" });

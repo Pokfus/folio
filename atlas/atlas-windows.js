@@ -1023,7 +1023,7 @@
       if (X.setGameProgress) X.setGameProgress("howfar", results.slice(0, ri + 1));
       sfx(ok ? "good" : "bad");
       const raw = Math.abs(off) * 100, pct = raw < 20 ? Math.round(raw * 10) / 10 : Math.round(raw);   // a tenth near the edge, so 9.5 % never reads as the "10%" it beat
-      fbEl.innerHTML = "It is <b>" + esc(fmt(r.km)) + "</b>. You guessed " + esc(fmt(gKm)) + " — " + (pct === 0 || fmt(gKm) === fmt(r.km) ? "spot on" : pct + "% " + (off > 0 ? "over" : "under")) + ". " + (ok ? "Within 10% — round won!" : "Outside 10% — round lost.");
+      fbEl.innerHTML = "It is <b>" + esc(fmt(r.km)) + "</b>. You guessed <b class='hf-guess " + (ok ? "ok" : "no") + "'>" + esc(fmt(gKm)) + "</b> — " + (pct === 0 || fmt(gKm) === fmt(r.km) ? "spot on" : pct + "% " + (off > 0 ? "over" : "under")) + ". " + (ok ? "Within 10% — round won!" : "Outside 10% — round lost.");
       fbEl.hidden = false; scoreEl.textContent = won() + " won";
       nextEl.textContent = ri + 1 >= rounds.length ? "See your score" : "Next round"; nextEl.hidden = false; nextEl.focus({ preventScroll: true });
       frame(true); win.schedule();
