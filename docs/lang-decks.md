@@ -46,7 +46,9 @@ changed was the one that had been wrong all along.
   phrases, idioms and proverbs (228) — by `.claude/ukbi/`: see their own bullets below. The Indonesian
   one is the odd one out and its bullet says why: **its exam board publishes no word list at all**, so
   unlike every other deck here its vocabulary is assembled rather than read, and the deck's own
-  description states that in those words. **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
+  description states that in those words. The **Japanese set** (Oct 2026) is in the same position, the
+  JLPT having published no list since 2010: five JLPT levels, hiragana, katakana, phrases and idioms, built by
+  `.claude/jlpt/` (its own bullet below). **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
   and Indonesian alike: it is an artefact of the levels it combines rather than another deck, so
   committing it duplicates every megabyte the repo already carries for them, and its own `combine.py`
   regenerates it byte for byte.
@@ -2471,6 +2473,61 @@ changed was the one that had been wrong all along.
   current description. The browser checkers are `check-delf.js <level>` for a level,
   **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
   the site.
+- `.claude/jlpt/` — the generator behind the **Japanese** set (Oct 2026, on request; the plan, the owner's
+  answers and what building it changed are in `docs/japanese-decks-plan.md`): **five JLPT levels**
+  `JLPT-N5…N1-Japanese.folio-deck.json`, **two kana decks** `Japanese-Hiragana` and `Japanese-Katakana`,
+  `Japanese-Phrases-and-Expressions` and `Japanese-Idioms` (four-character idioms and proverbs). The counts are
+  in each deck's own subtitle and in `lang-decks.js`. PYTHON, like `.claude/ukbi/`. `run.py` runs every
+  stage in order, and **re-running it must reproduce every shipped file byte for byte**.
+  `PYTHONPATH=<fugashi + unidic_lite> python3 .claude/jlpt/run.py [--no-extract]` (about 20 minutes).
+  **The downloads** go into `.claude/jlpt-cache/` (gitignored, ~450 MB unpacked):
+  `https://www.edrdg.org/pub/Nihongo/JMdict_e.gz`, `https://www.edrdg.org/kanjidic/kanjidic2.xml.gz`, Tatoeba's
+  `per_language/jpn/jpn_sentences.tsv.bz2`, `per_language/eng/eng_sentences.tsv.bz2` and `links.tar.bz2`,
+  `JmdictFurigana.json` (its GitHub release), and git clones of `KanjiVG/kanjivg` and
+  `stephenmk/yomitan-jlpt-vocab` into `jlpt-cache/src/`. **fugashi and unidic-lite** are pip-installed
+  OUTSIDE the repo. unidic-lite's wheel fails to build under the current setuptools, so unpack its sdist and
+  put `unidic_lite/` on the same `PYTHONPATH`.
+  · **THE JLPT PUBLISHES NO WORD LIST** (its own FAQ, read 2026-10-30), so the membership is Jonathan Waller's
+    lists (CC BY), as joined to JMdict by stephenmk/yomitan-jlpt-vocab (CC BY-SA 4.0). Every level's
+    description says the list is unofficial. A JMdict entry is ONE note per deck (いく / ゆく are one card,
+    with "also"), and an entry carded at a lower level is not carded again. The lower levels are read out of
+    the SHIPPED decks' `jmdict` key on every note.
+  · **THE JOIN IS CHECKED, NOT TRUSTED** (`resolve.py`). コップ was joined to "cop", これ to "hey" and ボタン
+    to the tree peony: nothing fails on a wrong join, and the card simply teaches another word. **Waller's own
+    definition is sometimes the mistake** (そっと "face of the earth", どうか "copper coin", せめて
+    "offense"), so a row moves only when its definition shares no word with the joined entry, another entry
+    with the same spelling and reading does share one, and that entry is marked common for the spelling while
+    the joined one is not. Ten rows move. Read the list `resolve.py` prints before trusting a change to it.
+  · **THE FREQUENCY ORDER IS MADE HERE.** hermitdave's `ja_full.txt` (there is no `ja_50k.txt`) splits verbs
+    and adjectives from their kana endings; its top rows include 言, 多 and 始. So `extract.py` segments
+    Tatoeba's Japanese with MeCab + UniDic and counts dictionary forms.
+  · **THE ANALYSER IS TRUSTED FOR SEGMENTATION, NOT FOR READINGS.** It reads the 母 of お母さん as はは and
+    the 日 of 月曜日 as ひ. So the headword inside an example carries JMdict's furigana (`_sentence_html`), and
+    a kanji spelling matches without a reading check, except the `HOMO` spellings that two common words share
+    (一日 いちにち / ついたち, 165 of them), where a reading mismatch is a different word. A word written in
+    kana is matched against UniDic's LEMMA, which carries the kanji: いる "to need" (要る) must not collect the
+    sentences of いる "to be" (居る). It did, until the lemma check was added. いる / ある / みる / おく after
+    て/で are auxiliaries, not the word (`AUX_TE`). 私 is read わたくし by UniDic everywhere, so example
+    sentences show わたし (`PLAIN_READING`). The readings over example sentences are still the machine's,
+    and every description says so.
+  · **ROMAJI IS ALWAYS SHOWN** (the owner's answer) and is Hepburn from the kana. A long vowel is marked only
+    where the KANA marks it: ー becomes a macron, but おう stays "ou", because kana alone cannot tell
+    とうきょう (one long ō) from おもう (o-mo-u). A particle は / へ / を is "wa" / "e" / "o", but only
+    where the segmentation's kana agree with the reading (`romaji_phrase`). こんにちは and こんばんは are a
+    two-row table, since no segmenter splits their fused particle.
+  · **THE BACK RENDERS {{FrontSide}} AND HIDES IT.** A back without `{{FrontSide}}` makes the study shell
+    draw the question above it, so the word appeared twice. Card 1's back wraps `{{FrontSide}}` in
+    `.uc-back`, the CSS hides the bare word inside it, and the furigana headword stands in its place.
+  · **A FRONT TWO NOTES SHARE SHOWS ITS FURIGANA** (私 わたし and 私 わたくし are separate JMdict entries):
+    a front that cannot say which word it asks is unanswerable. Every other front is bare.
+  · **THE IDIOMS DECK LEAVES OUT JMdict's `id` TAG**: 花が咲く, 頭が痛い and 手を出す have literal twins, and
+    the corpus's sentences for them are nearly all literal. **THE PHRASES DECK LEAVES OUT pure particle +
+    auxiliary chunks** (には, ですか, だった), which a substring count would put at the top.
+  · **`node .claude/jlpt/check-jlpt.js [n5…n1|hiragana|katakana|phrases|idioms]` is the browser half.** It
+    runs the file assertions (unique ids, every English side unique, no JMdict entry at two levels), imports
+    the deck through the Studio, studies it at phone width, and asserts **`<rt>` on the rendered card**.
+    Furigana that the sanitizer strips leaves a card that still reads, with the reading beside the kanji
+    instead of over them.
 - `.claude/ukbi/` — the generator behind the UKBI Indonesian decks: **level 1
   `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB), **level 2
   `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 / 1,500, 789 KB), **level 3
@@ -3201,6 +3258,136 @@ changed was the one that had been wrong all along.
   stress is printed on every headword and form and stripped from everything spoken or compared, ё is folded for
   matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
   decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
+- `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
+  vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
+  deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
+  1,000 cards, 0.7 MB) **A2, `decks/Turkish-A2.folio-deck.json`** (600 / 1,200, 0.8 MB) **B1 (with the programme's B1+),
+  `decks/Turkish-B1.folio-deck.json`** (999 / 1,998, 1.4 MB) **B2, `decks/Turkish-B2.folio-deck.json`**
+  (1,197 / 2,394, 1.6 MB) **C1, `decks/Turkish-C1.folio-deck.json`** (997 / 1,994, 1.4 MB) — all five
+  levels the programme has — **and the phrases deck, `decks/Turkish-Phrases-and-Expressions.folio-deck.json`**
+  (483 / 966, 0.35 MB; 118 phrases, 304 idioms, 61 proverbs, `run.py --level phr`).
+  `python3 .claude/turkish/run.py [--level a1] [--no-fetch]`; four stages (`extract_kaikki.py`, `select.py`,
+  `examples.py`, `build_deck.py`), caching in `.claude/turkish-cache/` (~800 MB, gitignored), one level per
+  run, a level built on top of the SHIPPED decks below it; `node .claude/turkish/check-turkish.js` is its
+  check; a re-run is byte-identical. The plan, the sources checked and the open steps are
+  📖 `docs/turkish-decks-plan.md`. The Goethe/CAPLE shape: one note, two templates.
+  **THE SCOPE IS A SYLLABUS, NOT AN EXAM.** TYS publishes no word list, so each level's inventory is read
+  from the vocabulary columns of the Maarif programme's secondary-school tables (`supplement.py`, a theme at
+  a time with its page) — 405 of A1's 500 words; the rest is subtitle frequency. The programme is all
+  rights reserved: only headwords are read, the PDF stays in the cache, and no outcome, theme text or
+  example sentence of it reaches a card. Its multi-column tables interleave under `pdftotext -layout`; a
+  crop to the column (`pdftotext -x -y -W -H` at the "Söz Varlığı" header's position, which moves page to
+  page) extracts it cleanly — widen the crop where a word comes out clipped (`eyze` for `teyze`).
+  **AND FROM A2 THE PROGRAMME GIVES NO WORDS AT ALL**: its A2 table says the vocabulary column was left out
+  "so as not to limit" the level, and B1–C1 have none. A2's inventory (260 words) is therefore Folio's,
+  written for the topics each A2 theme suggests, plus 17 closed-class words its grammar list names; the
+  description says so in those words, and its first sentence was templated so as not to say an unlisted
+  level's tables "list vocabulary" (`SCOPE[...]["listed"]`). Every level from here is the UKBI shape.
+  **THE VERB TABLE'S PERSON TAGS ARE SHIFTED BY ONE ROW in the kaikki extract** — `giderim` tagged third
+  person singular, `gidersin` first plural — while the TENSE tags are right and the table is the same
+  949-cell template for every verb. So a tense's 3sg is the THIRD row of the first block carrying that
+  tense tag and no other (`verb_row`), and every cell is checked against its tense's shape (`-yor`, `-r`,
+  `-DI`, `-AcAk`) before it is printed; none failed at A1. Noun case tags are right and are read as tags.
+  **THE FREQUENCY LIST IS SURFACE FORMS AND TURKISH IS AGGLUTINATIVE**, so each surface is credited to the
+  words whose INVERTED inflection tables contain it. Three rules came out of reading the ranking, each for a
+  fault it produced: (1) an ambiguous surface is split IN PROPORTION to each word's unambiguous count — an
+  equal split made `banmak` "to dip" a top-100 word on the strength of `bana` "to me"; (2) a surface that is
+  a live headword's own spelling is that headword's first — `var` "there is" had gone to `varmak`, `eğer`
+  "if" to `eğmek`, `ile` "with" to `ilmek`; (3) the circumflex is folded only as a fallback — folding it
+  always made `ama` "but" a count for `âmâ` "blind". An inflected pronoun (`bana`, `beni`, `benim`) has an
+  entry of its own and is folded into its pronoun, whose card shows it.
+  **A2's subtitle fill brought the forms-as-words fault in bulk**, and two rules came of it.
+  (4) A fill word that is an IMPERATIVE, PAST, PARTICIPLE or PREDICATIVE cell of a commoner word's table,
+  or a case of a pronoun, is skipped (`gitme`, `yapma`, `bak`, `oldu`, `değilim`, `gelen`, `neyi` — 26 at
+  A2) — **the slot decides, not the count**: skipping every cell of a commoner table first lost `işte` (a
+  locative), `bile` and `diye` (optatives), `olarak`, `gerek` and `getirmek`, and a word with an adverb,
+  conjunction, postposition, determiner or numeral entry is kept as lexicalised. (5) A table cell shorter
+  than two letters or not starting with its headword's first letter is dropped (`tr.table_forms(e, word)`):
+  `santur`'s table carries a bare `u`, which made a Persian dulcimer one of the commonest words. Hand
+  exclusions, each with its reason in `select.EXCLUDE`: swearing (`bok`, `ulan`, `kahretmek`, `lanet`),
+  counts that belong to another form (`azı`, `un`, `bırak`), `sensin`, `adamım`, and `karı`. These changed
+  A1's fill by six words (`bak`, `oldu`, `yapma` out; `bayan`, `hemen`, `inanmak` in) before A2 was built
+  on it; A1 had not yet been merged.
+  **B1's fill is two-thirds of the deck, and reading it found the `tau` shape a dozen times over.** Three more
+  rules: (6) a word whose live entries are all nouns is skipped when it is ANY case cell of a commoner noun
+  — `kanı` "opinion" was counted from `kan` "blood"'s accusative, `testi` "water jug" from `test`'s, `hale`
+  "halo" from `hal`'s dative, and A2 lost `adım` "step" to `ad`'s "my name" by the same rule; (7) a spelling
+  listed as another word's "alternative" is that word's; (8) **an aorist cell is checked against the
+  corpus** — `değmek`'s table says `değir` (5 in the subtitles) where Turkish says `değer` (20,762), so an
+  aorist under 50 whose other vowel is ten times commoner is dropped and reported (`aorist_doubtful`). The
+  grammatical-gloss pattern now reads "second/third-person …" (`anlamına`, `haline`). And the hand list grew
+  by the cases no rule can see: a missing circumflex (`hal` for hâl, `aşık` for âşık, `hakim`), a rarer
+  homograph (`geleni` "ground squirrel"), a dictionary that carries only the uncommon sense (`dahil`
+  "involvement", `açılmak` "to leave port", `vurulmak` "to fall in love" — its count is "to be shot"),
+  English and names in the subtitles (`is`, `ten`, `don`, `sara`, `han`), and slurs and insults (`zenci`,
+  `piç`, `fahişe`). None changed A1; A2 lost `adım` and gained `fırsat`.
+  **B2: the forms rows needed two more checks, each a rule of Turkish rather than a list.** (9) A vowel-final
+  noun's case cell must carry a consonant before its case vowel (`kapı-y-ı`, `havalimanı-n-ı`, `su-y-un`):
+  Wiktionary's table gives `belirtii`, `komploa`, `ezgii`, and those cells are dropped and reported — a
+  first draft demanded the REGULAR consonant (`y` / `n`) and refused every lexicalised possessive
+  (`havalimanını`, `birisine`, `hangisini`) and `suyun`, so the rule is only "not a vowel". (10) The aorist
+  check has a SECOND WITNESS, the closed rule — a one-syllable consonant stem takes -Ar except thirteen (`al`,
+  `bil`, `bul`, `dur`, `gel`, `gör`, `kal`, `ol`, `öl`, `san`, `var`, `ver`, `vur`) that take -Ir — so a rare
+  aorist the rule contradicts goes too (`burır`); and the corpus witness no longer counts an alternative
+  that is ANOTHER verb's cell, after it dropped the correct `incelir` because `inceler` (incelemek's aorist)
+  is common. Neither changed A1–B1 by a byte. "dated spelling of X" is a pointer (`özgeçmiş`). The hand
+  list took B2's subtitle fragments (`me` "baa", `do`, `si`, `mars`), aorists filed as nouns (`tutar`,
+  `geçer`, `keser` — not a rule, since A1's `olur` "OK" and A2's `yeter` "enough!" have the same shape and
+  are real interjections), possessive and instrumental forms with entries (`içim`, `babamla`, `hocam`), and
+  slurs and slang (`ibne`, `şerefsiz`, `gerizekâlı`, `kanka`).
+  **C1** added no rule and changed no lower deck by a byte. Its grammar list names register topics, not
+  words, except three loanwords given as spelling examples (`gayrimenkul`, `hıfzıssıha`, `fakruzaruret`;
+  only the first is in the dictionary). A dated English term inside a sound gloss is dropped, not shown
+  (`siyahi`, the neutral Turkish word, was glossed "black person of African descent, Negro";
+  `DATED_TERMS`). The description's "N more are words its grammar list names" clause left a bare
+  semicolon when N was zero — the derived-clause-at-zero lesson once more. Hand list: `amcık`, `yavşak`,
+  `oha`; English in the subtitles (`story`, `bank`, `post`, `has`, `men`, `jeday`); forms with entries
+  (`çekmen`, `araştırman`, `iple`, `bitmez`).
+  **THE PHRASES DECK** (`phrases.py`; `--level phr` switches `build_deck.py` to the phrase parts of speech,
+  the `sub` field and `tr_level.meta_phrases`) is the Indonesian arrangement: Phrases / Idioms / Proverbs,
+  the shelf unwrapping them as three rows. Four things are findings, not plumbing.
+  (a) **An expression ending in a verb is matched with that verb in any of its forms** (`Fransız kaldım`,
+  `ziyaret ettik`) — in `examples.py` for every deck, which gave B1's `ziyaret etmek` and B2's `farz etmek`
+  inflected sentences and changed nothing else — **but only when the expression IS a verb**: `ne demek`
+  ("you're welcome") ends in a verb-shaped word and was matched to "Ne dediniz" ("what did you say?").
+  (b) **A set phrase is often a whole two-word sentence** ("Bol şans!"), so the phrases deck alone admits
+  them, and an expression is tokenised before matching (`bir varmış, bir yokmuş` carried its comma).
+  (c) **Wiktionary's "phrase" category is a phrasebook plus a junk drawer**: mnemonics, a pangram, a
+  tongue-twister, advertising slogans, an internet meme ("we're so Barack"), a game's name, Arabic
+  honorifics and curses sit beside `afiyet olsun`, so `phrases.EXCLUDE` is long and every line has its
+  reason; templates ("... yaşındayım") go by rule. Some sayings are filed as plain phrases rather than
+  idioms, and the description says so rather than calling every Phrases card an everyday formula.
+  (d) **"Used other than figuratively or idiomatically: see X, Y."** is appended to many an idiom's meaning
+  and to A2's `yoksa` and B1's `öncelikle` — a pointer to the literal words, cut from every gloss
+  (`LITERAL_SEE`); and the grammatical-gloss pattern is now case-insensitive, takes "person" after a
+  space, and a target of up to three words (`yemin et`: "Second person singular imperative tense of yemin
+  etmek."). Known, left: a fixed phrase's example may show its LITERAL twin (`ne demek` beside "What does
+  'Tatoeba' mean?"), which no sentence matcher can tell apart; 202 of the 483 have no Tatoeba sentence.
+  **The description must not claim a table says what only another table says**: B1's first draft read "its
+  B1 table says the vocabulary section was left out" — only A2's says so; B1's simply has none.
+  The Arabic letters' names are dropped like the Latin ones (`nun`, `be`, `ha`); `possessive` joined the
+  grammatical-gloss pattern (`beyin` carried "possessive second singular of bey"), and a gloss that is a
+  pointer AND a meaning joined by a semicolon keeps the meaning (`hepimiz` "… of hep; all of us",
+  `tr.GRAM_HEAD`). A verb whose first entry has no table takes the first verb entry that has one
+  (`dokunmak`). `check-turkish.js`'s pointer test is anchored at the gloss's start: "sides (Arabized plural
+  of taraf)" is English with a note.
+  **A FORMS ROW COMES FROM THE WORD'S MAIN ENTRY ONLY.** Taken from any entry with a table, `hayır` "no"
+  showed the cases of `hayır` "charity" and `en` (the superlative) those of `en` "width"; a noun row is
+  also withheld where the word has any closed-class reading (`önce`, `sonra`, `olur`). A compound's table is
+  generated and one is wrong (`diş ağrısıları`), so compounds get none.
+  **A GLOSS THAT NAMES A GRAMMATICAL RELATION IS A POINTER EVEN UNTAGGED** — `ağrısı` is glossed
+  "third-person singular single-possession possessive of ağrı" with no form-of tag, and shipped as a card
+  until `tr.GRAM_GLOSS` caught it; a split compound (`kulak ağrısı`, not in the dictionary) now resolves such
+  a word to its target. Letter names are dropped (`ve` opened on "the name of the Latin script letter V").
+  **THE COUNTER WORD IS A PART OF SPEECH OF ITS OWN** in the extract (`classifier`), and leaving it out lost
+  `tane`'s "piece" — the sense the programme lists it for.
+  **THE DOTTED AND DOTLESS I**: every fold is `tr.fold` (`İ → i`, `I → ı`, then lower), never bare `lower()`.
+  The `l1` row is Wikipedia's 85 million (Ethnologue 2022, as relayed, says 77.6; either sorts it above
+  German). The collection's hue is MEASURED, French's way, not named: first `#780F75` (27.2 from its nearest of 41) — which Japanese's parallel sweep also chose, so on merging Turkish was re-swept with Japanese on the shelf: `#D5519F`, 25.0 from its nearest of 43. **Two sessions measuring the same shelf find the same hue; re-sweep after merging.**
+  Known, left: `ben` and `biz` also show their noun homographs (birthmark, awl); `şurası` / `orası` both
+  gloss "that place" and are told apart only by the shared "not …" label; `misafir` opens on Wiktionary's
+  first sense, "leucoma", before "guest"; and A2's fill carries the subtitles' crime-drama vocabulary
+  (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

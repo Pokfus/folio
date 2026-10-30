@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-30T04:03Z",
+ "generated": "2026-10-30T16:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5340,
-  "redirect-broader": 504,
-  "redirect-variant": 333,
+  "ok": 5419,
+  "redirect-broader": 513,
+  "redirect-variant": 335,
   "section-redirect": 107,
-  "disambiguation": 140,
-  "none": 969,
-  "disambig-resolved": 79,
+  "disambiguation": 142,
+  "none": 975,
+  "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 6,
   "no-article": 17
@@ -60931,6 +60931,738 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Ministry of Aircraft Production"
+  },
+  "ww2-371": {
+   "answer": "Vistula–Oder offensive",
+   "title": "Vistula–Oder offensive",
+   "url": "https://en.wikipedia.org/wiki/Vistula%E2%80%93Oder_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-372": {
+   "answer": "East Pomeranian offensive",
+   "title": "East Pomeranian offensive",
+   "url": "https://en.wikipedia.org/wiki/East_Pomeranian_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-373": {
+   "answer": "Evacuation of East Prussia",
+   "title": "Evacuation of East Prussia",
+   "url": "https://en.wikipedia.org/wiki/Evacuation_of_East_Prussia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-374": {
+   "answer": "Mass suicide in Demmin",
+   "title": "Demmin mass suicide",
+   "url": "https://en.wikipedia.org/wiki/Demmin_mass_suicide",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Mass suicide in Demmin"
+  },
+  "ww2-375": {
+   "answer": "East Prussian offensive",
+   "title": "East Prussian offensive",
+   "url": "https://en.wikipedia.org/wiki/East_Prussian_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-376": {
+   "answer": "Yalta Conference",
+   "title": "Yalta Conference",
+   "url": "https://en.wikipedia.org/wiki/Yalta_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-377": {
+   "answer": "Curzon Line",
+   "title": "Curzon Line",
+   "url": "https://en.wikipedia.org/wiki/Curzon_Line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-378": {
+   "answer": "Western betrayal",
+   "title": "Western betrayal",
+   "url": "https://en.wikipedia.org/wiki/Western_betrayal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-379": {
+   "answer": "Vienna offensive",
+   "title": "Vienna offensive",
+   "url": "https://en.wikipedia.org/wiki/Vienna_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-380": {
+   "answer": "Battle of the Seelow Heights",
+   "title": "Battle of the Seelow Heights",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Seelow_Heights",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-351": {
+   "answer": "Warsaw Uprising",
+   "title": "Warsaw Uprising",
+   "url": "https://en.wikipedia.org/wiki/Warsaw_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-352": {
+   "answer": "Warsaw airlift",
+   "title": "Warsaw airlift",
+   "url": "https://en.wikipedia.org/wiki/Warsaw_airlift",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-353": {
+   "answer": "Polish Committee of National Liberation",
+   "title": "Polish Committee of National Liberation",
+   "url": "https://en.wikipedia.org/wiki/Polish_Committee_of_National_Liberation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-354": {
+   "answer": "Jassy–Kishinev offensive",
+   "title": "Second Jassy–Kishinev offensive",
+   "url": "https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Jassy–Kishinev offensive"
+  },
+  "ww2-355": {
+   "answer": "King Michael's Coup",
+   "title": "1944 Romanian coup d'état",
+   "url": "https://en.wikipedia.org/wiki/1944_Romanian_coup_d'%C3%A9tat",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "King Michael's Coup"
+  },
+  "ww2-356": {
+   "answer": "1944 Bulgarian coup d'état",
+   "title": "1944 Bulgarian coup d'état",
+   "url": "https://en.wikipedia.org/wiki/1944_Bulgarian_coup_d'%C3%A9tat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-357": {
+   "answer": "Belgrade offensive",
+   "title": "Belgrade offensive",
+   "url": "https://en.wikipedia.org/wiki/Belgrade_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-358": {
+   "answer": "Slovak National Uprising",
+   "title": "Slovak National Uprising",
+   "url": "https://en.wikipedia.org/wiki/Slovak_National_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-359": {
+   "answer": "siege of Budapest",
+   "title": "Siege of Budapest",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Budapest",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-360": {
+   "answer": "Moscow Armistice",
+   "title": "Moscow Armistice",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Armistice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-331": {
+   "answer": "Unconditional surrender",
+   "title": "Unconditional surrender",
+   "url": "https://en.wikipedia.org/wiki/Unconditional_surrender",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-332": {
+   "answer": "Tehran Conference",
+   "title": "Tehran Conference",
+   "url": "https://en.wikipedia.org/wiki/Tehran_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-333": {
+   "answer": "Grand Alliance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Grand Alliance",
+   "suggestions": [
+    "Grand Alliance (World War II)",
+    "Grand Alliance (1815)",
+    "Grand Alliance (Bangladesh)",
+    "Grand Alliance (1971)",
+    "Grand Alliance (HDTV)",
+    "Grand Alliance (1701)"
+   ]
+  },
+  "ww2-334": {
+   "answer": "Declaration by United Nations",
+   "title": "Declaration by United Nations",
+   "url": "https://en.wikipedia.org/wiki/Declaration_by_United_Nations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-335": {
+   "answer": "Radical turning point",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-336": {
+   "answer": "Battle of Kursk",
+   "title": "Battle of Kursk",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kursk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-337": {
+   "answer": "Operation Citadel",
+   "title": "Operation Citadel",
+   "url": "https://en.wikipedia.org/wiki/Operation_Citadel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-338": {
+   "answer": "Steppe Front",
+   "title": "Steppe Front",
+   "url": "https://en.wikipedia.org/wiki/Steppe_Front",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-339": {
+   "answer": "Battle of Prokhorovka",
+   "title": "Battle of Prokhorovka",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Prokhorovka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-340": {
+   "answer": "Operation Kutuzov",
+   "title": "Operation Kutuzov",
+   "url": "https://en.wikipedia.org/wiki/Operation_Kutuzov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-301": {
+   "answer": "Battle of Stalingrad",
+   "title": "Battle of Stalingrad",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Stalingrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-302": {
+   "answer": "Operation Fischreiher",
+   "title": "Operation Fischreiher",
+   "url": "https://en.wikipedia.org/wiki/Operation_Fischreiher",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-303": {
+   "answer": "Stalingrad Tractor Factory",
+   "title": "Volgograd Tractor Plant",
+   "url": "https://en.wikipedia.org/wiki/Volgograd_Tractor_Plant",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Stalingrad Tractor Factory"
+  },
+  "ww2-304": {
+   "answer": "Vasily Chuikov",
+   "title": "Vasily Chuikov",
+   "url": "https://en.wikipedia.org/wiki/Vasily_Chuikov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-305": {
+   "answer": "Operation Uranus",
+   "title": "Operation Uranus",
+   "url": "https://en.wikipedia.org/wiki/Operation_Uranus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-306": {
+   "answer": "German Sixth Army",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Sixth Army",
+   "suggestions": []
+  },
+  "ww2-307": {
+   "answer": "Stalingrad airlift",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Battle of Stalingrad",
+    "List of World War II battles",
+    "Declarations of war during World War II",
+    "Pacific War",
+    "Stopped at Stalingrad"
+   ]
+  },
+  "ww2-308": {
+   "answer": "Friedrich Paulus",
+   "title": "Friedrich Paulus",
+   "url": "https://en.wikipedia.org/wiki/Friedrich_Paulus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-309": {
+   "answer": "Operation Winter Storm",
+   "title": "Operation Winter Storm",
+   "url": "https://en.wikipedia.org/wiki/Operation_Winter_Storm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-310": {
+   "answer": "Operation Koltso",
+   "title": "Operation Koltso",
+   "url": "https://en.wikipedia.org/wiki/Operation_Koltso",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-361": {
+   "answer": "Baltic offensive",
+   "title": "Baltic offensive",
+   "url": "https://en.wikipedia.org/wiki/Baltic_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-362": {
+   "answer": "Fester Platz",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-363": {
+   "answer": "20 July plot",
+   "title": "20 July plot",
+   "url": "https://en.wikipedia.org/wiki/20_July_plot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-364": {
+   "answer": "Claus von Stauffenberg",
+   "title": "Claus von Stauffenberg",
+   "url": "https://en.wikipedia.org/wiki/Claus_von_Stauffenberg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-365": {
+   "answer": "Henning von Tresckow",
+   "title": "Henning von Tresckow",
+   "url": "https://en.wikipedia.org/wiki/Henning_von_Tresckow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-366": {
+   "answer": "People's Court",
+   "title": "People's Court (Germany)",
+   "url": "https://en.wikipedia.org/wiki/People's_Court_(Germany)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-367": {
+   "answer": "Volkssturm",
+   "title": "Volkssturm",
+   "url": "https://en.wikipedia.org/wiki/Volkssturm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-368": {
+   "answer": "Albert Speer",
+   "title": "Albert Speer",
+   "url": "https://en.wikipedia.org/wiki/Albert_Speer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-369": {
+   "answer": "Ostarbeiter",
+   "title": "Ostarbeiter",
+   "url": "https://en.wikipedia.org/wiki/Ostarbeiter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-370": {
+   "answer": "Wunderwaffe",
+   "title": "Wunderwaffe",
+   "url": "https://en.wikipedia.org/wiki/Wunderwaffe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-311": {
+   "answer": "Sword of Stalingrad",
+   "title": "Sword of Stalingrad",
+   "url": "https://en.wikipedia.org/wiki/Sword_of_Stalingrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-312": {
+   "answer": "Mamayev Kurgan",
+   "title": "Mamayev Kurgan",
+   "url": "https://en.wikipedia.org/wiki/Mamayev_Kurgan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-313": {
+   "answer": "Battle of the Caucasus",
+   "title": "Battle of the Caucasus",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Caucasus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-314": {
+   "answer": "Operation Little Saturn",
+   "title": "Operation Little Saturn",
+   "url": "https://en.wikipedia.org/wiki/Operation_Little_Saturn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-315": {
+   "answer": "Third Battle of Kharkov",
+   "title": "Third Battle of Kharkov",
+   "url": "https://en.wikipedia.org/wiki/Third_Battle_of_Kharkov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-316": {
+   "answer": "Soviet Guards",
+   "title": "Guards unit (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/Guards_unit_(Soviet_Union)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Soviet Guards"
+  },
+  "ww2-317": {
+   "answer": "Tankograd",
+   "title": "Chelyabinsk Tractor Plant",
+   "url": "https://en.wikipedia.org/wiki/Chelyabinsk_Tractor_Plant",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tankograd"
+  },
+  "ww2-318": {
+   "answer": "T-34",
+   "title": "T-34",
+   "url": "https://en.wikipedia.org/wiki/T-34",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-319": {
+   "answer": "Moscow Protocol",
+   "title": "Moscow Protocol",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Protocol",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-320": {
+   "answer": "Arctic convoys",
+   "title": "Arctic convoys of World War II",
+   "url": "https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Arctic convoys"
+  },
+  "ww2-321": {
+   "answer": "Night Witches",
+   "title": "Night Witches",
+   "url": "https://en.wikipedia.org/wiki/Night_Witches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-322": {
+   "answer": "Soviet Information Bureau",
+   "title": "Soviet Information Bureau",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Information_Bureau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-323": {
+   "answer": "Operational art",
+   "title": "Operational level of war",
+   "url": "https://en.wikipedia.org/wiki/Operational_level_of_war",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Operational art"
+  },
+  "ww2-324": {
+   "answer": "Operation Lentil",
+   "title": "Operation Lentil (Caucasus)",
+   "url": "https://en.wikipedia.org/wiki/Operation_Lentil_(Caucasus)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-325": {
+   "answer": "Union of Polish Patriots",
+   "title": "Union of Polish Patriots",
+   "url": "https://en.wikipedia.org/wiki/Union_of_Polish_Patriots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-326": {
+   "answer": "Katyn Commission",
+   "title": "Katyn Commission",
+   "url": "https://en.wikipedia.org/wiki/Katyn_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-327": {
+   "answer": "Władysław Sikorski",
+   "title": "Władysław Sikorski",
+   "url": "https://en.wikipedia.org/wiki/W%C5%82adys%C5%82aw_Sikorski",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-328": {
+   "answer": "Operation Sledgehammer",
+   "title": "Operation Sledgehammer",
+   "url": "https://en.wikipedia.org/wiki/Operation_Sledgehammer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-329": {
+   "answer": "Moscow Conference",
+   "title": "Moscow Conference (1943)",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Conference_(1943)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-330": {
+   "answer": "Casablanca Conference",
+   "title": "Casablanca Conference",
+   "url": "https://en.wikipedia.org/wiki/Casablanca_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-391": {
+   "answer": "German-Soviet War",
+   "title": "Eastern Front (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Front_(World_War_II)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "German-Soviet War"
+  },
+  "ww2-392": {
+   "answer": "Franz Halder",
+   "title": "Franz Halder",
+   "url": "https://en.wikipedia.org/wiki/Franz_Halder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-393": {
+   "answer": "Victory Day",
+   "title": "Victory Day (9 May)",
+   "url": "https://en.wikipedia.org/wiki/Victory_Day_(9_May)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-394": {
+   "answer": "Yalta repatriation agreement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-395": {
+   "answer": "filtration camps",
+   "title": "NKVD filtration camps",
+   "url": "https://en.wikipedia.org/wiki/NKVD_filtration_camps",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Filtration camp"
+  },
+  "ww2-396": {
+   "answer": "Soviet Military Administration in Germany",
+   "title": "Soviet Military Administration in Germany",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Military_Administration_in_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-397": {
+   "answer": "Sowjetische Aktiengesellschaft",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-398": {
+   "answer": "Allied Control Commission",
+   "title": "Allied Commission",
+   "url": "https://en.wikipedia.org/wiki/Allied_Commission",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Allied Control Commission"
+  },
+  "ww2-399": {
+   "answer": "Stalin's election speech",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "ww2-400": {
+   "answer": "Oder–Neisse line",
+   "title": "Oder–Neisse line",
+   "url": "https://en.wikipedia.org/wiki/Oder%E2%80%93Neisse_line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-381": {
+   "answer": "Battle of Berlin",
+   "title": "Battle of Berlin",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Berlin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-382": {
+   "answer": "Helmuth Weidling",
+   "title": "Helmuth Weidling",
+   "url": "https://en.wikipedia.org/wiki/Helmuth_Weidling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-383": {
+   "answer": "Führerbunker",
+   "title": "Führerbunker",
+   "url": "https://en.wikipedia.org/wiki/F%C3%BChrerbunker",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-384": {
+   "answer": "death of Adolf Hitler",
+   "title": "Death of Adolf Hitler",
+   "url": "https://en.wikipedia.org/wiki/Death_of_Adolf_Hitler",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-385": {
+   "answer": "Raising a Flag over the Reichstag",
+   "title": "Raising a Flag over the Reichstag",
+   "url": "https://en.wikipedia.org/wiki/Raising_a_Flag_over_the_Reichstag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-386": {
+   "answer": "Hans Krebs",
+   "title": "Hans Krebs (Wehrmacht general)",
+   "url": "https://en.wikipedia.org/wiki/Hans_Krebs_(Wehrmacht_general)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-387": {
+   "answer": "German Instrument of Surrender",
+   "title": "German Instrument of Surrender",
+   "url": "https://en.wikipedia.org/wiki/German_Instrument_of_Surrender",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-388": {
+   "answer": "Victory in Europe Day",
+   "title": "Victory in Europe Day",
+   "url": "https://en.wikipedia.org/wiki/Victory_in_Europe_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-389": {
+   "answer": "Extraordinary State Commission",
+   "title": "Extraordinary State Commission",
+   "url": "https://en.wikipedia.org/wiki/Extraordinary_State_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-390": {
+   "answer": "Soviet war dead",
+   "title": "World War II casualties of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/World_War_II_casualties_of_the_Soviet_Union",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-341": {
+   "answer": "Panther–Wotan line",
+   "title": "Panther–Wotan line",
+   "url": "https://en.wikipedia.org/wiki/Panther%E2%80%93Wotan_line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-342": {
+   "answer": "Battle of the Dnieper",
+   "title": "Battle of the Dnieper",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Dnieper",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-343": {
+   "answer": "Second Battle of Kiev",
+   "title": "Battle of Kiev (1943)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kiev_(1943)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Second Battle of Kiev"
+  },
+  "ww2-344": {
+   "answer": "scorched earth",
+   "title": "Scorched earth",
+   "url": "https://en.wikipedia.org/wiki/Scorched_earth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-345": {
+   "answer": "Leningrad–Novgorod offensive",
+   "title": "Leningrad–Novgorod offensive",
+   "url": "https://en.wikipedia.org/wiki/Leningrad%E2%80%93Novgorod_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-346": {
+   "answer": "Crimean offensive",
+   "title": "Crimean offensive",
+   "url": "https://en.wikipedia.org/wiki/Crimean_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-347": {
+   "answer": "Operation Bagration",
+   "title": "Operation Bagration",
+   "url": "https://en.wikipedia.org/wiki/Operation_Bagration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-348": {
+   "answer": "Army Group Centre",
+   "title": "Army Group Centre",
+   "url": "https://en.wikipedia.org/wiki/Army_Group_Centre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-349": {
+   "answer": "deep operation",
+   "title": "Deep operation",
+   "url": "https://en.wikipedia.org/wiki/Deep_operation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-350": {
+   "answer": "Lvov–Sandomierz offensive",
+   "title": "Lvov-Sandomierz Offensive",
+   "url": "https://en.wikipedia.org/wiki/Lvov-Sandomierz_Offensive",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Lvov–Sandomierz offensive"
   }
  }
 }

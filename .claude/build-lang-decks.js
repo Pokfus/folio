@@ -64,6 +64,8 @@ const LANGS = [
   { word: "Spanish", name: "Spanish", l1: 486 },
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
+  { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
+  { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
@@ -81,6 +83,15 @@ function levelRank(title) {
   if (/\bAlphabet\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
+  /* THE KANA COME BEFORE EVERY LEVEL: Japanese cannot be read at all until hiragana and katakana are learnt, so
+     those two decks are the rung below N5, not a phrase book after the ladder. Hiragana first, as it is taught. */
+  if (/\bHiragana\b/.test(title)) return -2;
+  if (/\bKatakana\b/.test(title)) return -1;
+  /* THE JLPT COUNTS DOWNWARD — N5 is the first level and N1 the last — so its number is inverted, as UKBI's
+     peringkat would be. Left to the rules below, "JLPT N5" matches none, ranks 90 and the shelf sorts the five
+     alphabetically: N1 first, upside down, with nothing to say so. */
+  const j = /\bJLPT N([1-5])\b/.exec(title);
+  if (j) return 5 - Number(j[1]);
   const u = /\bUKBI (\d)\b/.exec(title);          // Indonesian's own seven predicates, numbered from the bottom
   if (u) return Number(u[1]) - 1;
   /* THE LEVEL IS TESTED BEFORE THE STANDARD, and the order is load-bearing: every Mandarin title reads

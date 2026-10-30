@@ -510,6 +510,9 @@ const SAME_LANGUAGE_OK = new Map([
   /* The Gallic emperors' chronology is built from their coinage, and the work that fixed it is French
      numismatics in the Revue numismatique: Lafaurie's 1964 chronology beside Christol's work on Postumus's
      coinage and his review of the one English monograph. Read Sep 2026. */
+  /* Not German at all: Swain (1993) and Potter (1996) on Odaenathus's titles are English articles in the
+     Zeitschrift für Papyrologie und Epigraphik, whose German title the language test reads. Oct 2026. */
+  ["rm-561|German|2", "ZPE: Swain and Potter, two English articles on Odaenathus's titulature"],
   ["rm-559|French|2", "Revue numismatique: Lafaurie's chronology of the Gallic emperors and Christol's review of Drinkwater"],
   ["rm-560|French|2", "Revue numismatique: Christol on Postumus's Hercules coinage and Lafaurie's chronology"],
   ["gr-040|French|2",  "BCH: Touchais' excavation note and Faure's review, where the kouros was published"],

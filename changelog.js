@@ -35,23 +35,27 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1185", released: "2026-10-30T20:21Z" };
+window.FOLIO_VERSION = { v: "1.1193", released: "2026-10-30T20:30Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-10-30",
-    t: "140 Second World War cards, Atlas borders back, 13 Library books",
+    t: "How far? minigame, 240 Second World War cards, 13 Library books",
     items: [
+      "A new <b>Japanese</b> language collection: hiragana, katakana, JLPT N5 to N1, phrases and idioms, with <b>furigana</b> over the kanji and romaji.",
+      "A tenth daily minigame, <b>How far?</b>: guess the straight-line distance between two places on the globe, five rounds a day, within 10% to win.",
+      "<b>How far?</b>: when the answer is revealed, your guess shows in green if it was within 10% and in red if it was not.",
       "The <b>Personal Atlas</b> draws the borders of the modern countries you have studied again, on Snapdragon phones such as the Galaxy S24 Ultra too.",
       "The menu bar now lists the <b>Atlas</b> before the <b>Library</b>.",
       "<b>36 new glossary terms</b>, linked from 11 cards across Egypt, Japan, World History, Greece, the Second World War, Korea, Rome and the United States.",
       "Atlas windows on 3 cards: one in Russia now shows the Mongol Empire's borders in 1227, and Korea and the United States each gain one.",
       "A World Geography card's date line and background now give its city's founding dates under its two earlier names.",
-      "<b>140 new cards</b> in five Second World War decks, from <i>Poland and the outbreak</i> to <i>Barbarossa and 1941</i>, with 132 new glossary terms.",
+      "<b>240 new cards</b> in eight Second World War decks, from <i>Poland and the outbreak</i> to <i>The road to Berlin</i>, with 230 new glossary terms.",
       "585 <b>Ancient Greece</b>, 590 <b>Ancient Rome</b> and 112 other cards (World History, Egypt, China, Russia, Geography) now quote the source their background cites, from the Library.",
       "<b>Library</b>: Plutarch's <i>Parallel Lives</i>, Pausanias's <i>Description of Greece</i> and Strabo's <i>Geography</i> join the shelf, each complete with the Greek beside it.",
       "<b>Livy's <i>History of Rome</i></b> (<i>Ab Urbe Condita</i>) is in the Library: all 35 surviving books, with the Latin beside the English.",
       "<b>Polybius's <i>Histories</i></b> is in the Library: every surviving book, with the Greek beside books 1 to 5.",
+      "A new <b>India</b> collection is planned under Geography: states, capitals, great cities, rivers and mountains, with cards to come.",
       "<b>Tacitus's <i>Annals</i></b> is in the Library: every surviving book, with the Latin beside the English.",
       "<b><i>Magna Carta</i></b> is in the Library: the charter of 1215 in McKechnie's translation, with the Latin beside it.",
       "<b>Diodorus Siculus' <i>Library of History</i></b> is in the Library: all fifteen surviving books, with the Greek beside the English.",
@@ -60,6 +64,7 @@ window.CHANGELOG = [
       "<b>Cassius Dio's <i>Roman History</i></b> is in the Library: all eighty books, whole or in fragments and summaries, in Earnest Cary's translation.",
       "<b>Library</b>: the <i>Treaty of Versailles</i> joins the shelf, all fifteen Parts and 440 articles in the official English text of 1919.",
       "<b><i>The Russian Primary Chronicle</i></b> is in the Library: every year from the first entries to 1110, in Samuel H. Cross's translation of 1930.",
+      "A new <b>Turkish</b> language collection: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
       "<b>Russian</b> joins the Languages section: an alphabet deck, all six levels (A1 to C2; 6,250 words) and 482 phrases and idioms, with stress marks.",
     ],
   },
@@ -428,7 +433,7 @@ window.CHANGELOG = [
       "<b>Continue with</b>: the completion screen now shows every banner of your active decks list still unfinished today, as those banners, skipping anything folded away.",
       "<b>100 more Ancient Greece cards are rewritten</b>, finishing the Athenian Empire and the Peloponnesian War and starting Classical arts and thought, with more sources and new pictures.",
       "<b>A hundred more World History cards are rewritten</b>, from Persia through Greece, Rome and Ancient India to early China, with more sources and corrected dates.",
-      "<b>500 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars, the fall of the Republic and Augustus to Trajan, with more sources, corrected dates and legend told as legend.",
+      "<b>700 Ancient Rome cards are rewritten</b>, from Italy before Rome through the Punic Wars, the fall of the Republic and Augustus to the Roman army and the assemblies, with more sources, corrected dates and legend told as legend.",
       "<b>Daily study banner</b>: no Start button and nothing to press; its counts and time estimate now total what every active collection still has left today.",
       "<b>Unfolded collections show no counts of their own</b>: only the decks inside carry them, and the daily study banner now totals just the rows you can see.",
       "<b>Card preview</b>: the fanned cards beside the daily study banner are now shown on desktop only; on a tablet the banner's level bar and figures spread across the full width instead.",
