@@ -7729,7 +7729,17 @@ window.GLOSSARY = {
 "German_Instrument_of_Surrender": "",
 "Victory_in_Europe_Day": "",
 "Extraordinary_State_Commission": "",
-"World_War_II_casualties_of_the_Soviet_Union": ""
+"World_War_II_casualties_of_the_Soviet_Union": "",
+"Panther–Wotan_line": "",
+"Battle_of_the_Dnieper": "",
+"Battle_of_Kiev_(1943)": "",
+"Scorched_earth": "",
+"Leningrad–Novgorod_offensive": "",
+"Crimean_offensive": "",
+"Operation_Bagration": "",
+"Army_Group_Centre": "",
+"Deep_operation": "",
+"Lvov–Sandomierz_offensive": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11565,7 +11575,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Raising_a_Flag_over_the_Reichstag": "2 May 1945",
 "German_Instrument_of_Surrender": "7–9 May 1945",
 "Victory_in_Europe_Day": "8 May 1945",
-"Extraordinary_State_Commission": "1942–1946"
+"Extraordinary_State_Commission": "1942–1946",
+"Panther–Wotan_line": "1943–1944",
+"Battle_of_the_Dnieper": "August – December 1943",
+"Battle_of_Kiev_(1943)": "3 November – 22 December 1943",
+"Leningrad–Novgorod_offensive": "14 January – 1 March 1944",
+"Crimean_offensive": "8 April – 12 May 1944",
+"Operation_Bagration": "22 June – 29 August 1944",
+"Army_Group_Centre": "1941–1945",
+"Lvov–Sandomierz_offensive": "13 July – 29 August 1944"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16474,7 +16492,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Death_of_Adolf_Hitler": ["death of Adolf Hitler"],
 "Hans_Krebs_(Wehrmacht_general)": ["Hans Krebs"],
 "Victory_in_Europe_Day": ["VE Day","V-E Day"],
-"World_War_II_casualties_of_the_Soviet_Union": ["Soviet war dead"]
+"World_War_II_casualties_of_the_Soviet_Union": ["Soviet war dead"],
+"Panther–Wotan_line": ["Panther-Wotan line","Panther Line","Wotan Line","East Wall","Ostwall"],
+"Battle_of_the_Dnieper": ["Battle for the Dnieper","Dnieper offensive"],
+"Battle_of_Kiev_(1943)": ["Second Battle of Kiev","Kiev offensive","Battle of Kyiv (1943)"],
+"Scorched_earth": ["scorched earth","scorched-earth policy","scorched earth policy"],
+"Leningrad–Novgorod_offensive": ["Leningrad-Novgorod offensive","Leningrad–Novgorod strategic offensive"],
+"Crimean_offensive": ["Crimean offensive of 1944","Crimean strategic offensive","Battle of the Crimea"],
+"Operation_Bagration": ["Bagration","Belorussian offensive","Belorussian strategic offensive"],
+"Army_Group_Centre": ["Army Group Center","Heeresgruppe Mitte"],
+"Deep_operation": ["deep operation","deep operations","operation in depth","deep battle"],
+"Lvov–Sandomierz_offensive": ["Lvov-Sandomierz offensive","Lwów–Sandomierz offensive","Lviv–Sandomierz offensive"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24348,7 +24376,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "German_Instrument_of_Surrender": ["text","history","politics","second world war","germany"],
 "Victory_in_Europe_Day": ["event","history","second world war","united kingdom","united states"],
 "Extraordinary_State_Commission": ["institution","history","law","second world war","russia"],
-"World_War_II_casualties_of_the_Soviet_Union": ["concept","history","demography","second world war","russia"]
+"World_War_II_casualties_of_the_Soviet_Union": ["concept","history","demography","second world war","russia"],
+"Panther–Wotan_line": ["building","history","warfare","second world war","germany","russia"],
+"Battle_of_the_Dnieper": ["battle","history","warfare","second world war","ukraine","russia"],
+"Battle_of_Kiev_(1943)": ["battle","history","warfare","second world war","ukraine","russia"],
+"Scorched_earth": ["practice","history","warfare","law"],
+"Leningrad–Novgorod_offensive": ["battle","history","warfare","second world war","russia"],
+"Crimean_offensive": ["battle","history","warfare","second world war","ukraine","russia"],
+"Operation_Bagration": ["battle","history","warfare","second world war","belarus","russia"],
+"Army_Group_Centre": ["institution","history","warfare","second world war","germany"],
+"Deep_operation": ["concept","history","warfare","russia"],
+"Lvov–Sandomierz_offensive": ["battle","history","warfare","second world war","poland","ukraine"]
 });
 
 /* ============================================================================

@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T16:04Z",
+ "generated": "2026-10-30T16:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5410,
-  "redirect-broader": 512,
-  "redirect-variant": 334,
+  "ok": 5419,
+  "redirect-broader": 513,
+  "redirect-variant": 335,
   "section-redirect": 107,
   "disambiguation": 142,
-  "none": 976,
+  "none": 975,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 6,
@@ -61591,6 +61591,78 @@
    "via": "manual",
    "status": "ok",
    "manual": true
+  },
+  "ww2-341": {
+   "answer": "Panther–Wotan line",
+   "title": "Panther–Wotan line",
+   "url": "https://en.wikipedia.org/wiki/Panther%E2%80%93Wotan_line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-342": {
+   "answer": "Battle of the Dnieper",
+   "title": "Battle of the Dnieper",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Dnieper",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-343": {
+   "answer": "Second Battle of Kiev",
+   "title": "Battle of Kiev (1943)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kiev_(1943)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Second Battle of Kiev"
+  },
+  "ww2-344": {
+   "answer": "scorched earth",
+   "title": "Scorched earth",
+   "url": "https://en.wikipedia.org/wiki/Scorched_earth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-345": {
+   "answer": "Leningrad–Novgorod offensive",
+   "title": "Leningrad–Novgorod offensive",
+   "url": "https://en.wikipedia.org/wiki/Leningrad%E2%80%93Novgorod_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-346": {
+   "answer": "Crimean offensive",
+   "title": "Crimean offensive",
+   "url": "https://en.wikipedia.org/wiki/Crimean_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-347": {
+   "answer": "Operation Bagration",
+   "title": "Operation Bagration",
+   "url": "https://en.wikipedia.org/wiki/Operation_Bagration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-348": {
+   "answer": "Army Group Centre",
+   "title": "Army Group Centre",
+   "url": "https://en.wikipedia.org/wiki/Army_Group_Centre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-349": {
+   "answer": "deep operation",
+   "title": "Deep operation",
+   "url": "https://en.wikipedia.org/wiki/Deep_operation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-350": {
+   "answer": "Lvov–Sandomierz offensive",
+   "title": "Lvov-Sandomierz Offensive",
+   "url": "https://en.wikipedia.org/wiki/Lvov-Sandomierz_Offensive",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Lvov–Sandomierz offensive"
   }
  }
 }
