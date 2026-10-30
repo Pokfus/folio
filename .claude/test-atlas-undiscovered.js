@@ -21,6 +21,8 @@
         and in the plain Map; a tap on an interior point of an undiscovered state (Carthage; China for the India reader) does nothing in Personal
      4  no console error
      2b the discovered countries' borders ARE drawn in Personal at 2026 (East Asia: the India–China line) — a mask that hides every border passed every check above
+     0  (static) every shader in atlas-gl.js that declares a precision declares `highp int`: the border arc ids are above 32 767, a fragment shader's ints default to mediump, and an
+        Adreno GPU (the owner's Galaxy S24 Ultra) runs mediump ints as 16 bits — the mask read the wrong texel and hid every border there, which no headless GPU reproduces
    Re-run after touching `aliveShown`, `refreshPersonalPresent`, atlas-gl.js's `setPersonalPresent` / the keep pass / the arc mask, the worker's `arc-faces`, or `stackAt`. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -110,6 +112,14 @@ const stats = (page) => A(page, (c) => { const s = c.statsNow(); return { faces:
   await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch(LAUNCH);
   const allErrors = [];
+
+  /* ------------------------------------------------------------------ 0  shader int precision (static) */
+  console.log("\n\x1b[1m0) every atlas-gl.js shader declares highp int (a mediump int is 16 bits on Adreno; the border arc ids exceed 32 767)\x1b[0m\n");
+  {
+    const src = fs.readFileSync(path.join(ROOT, "atlas", "atlas-gl.js"), "utf8"), shaders = src.split("#version 300 es").slice(1).map((s) => s.slice(0, s.indexOf("`")));
+    const usesInt = shaders.filter((s) => /\bint\b|ivec|texelFetch/.test(s)), bad = usesInt.filter((s) => !/precision highp int;/.test(s));
+    check(`all ${usesInt.length} shaders that use an int or texelFetch declare precision highp int`, usesInt.length > 5 && bad.length === 0, bad.map((s) => s.slice(0, 60).replace(/\s+/g, " ")).join(" | "));
+  }
 
   /* ------------------------------------------------------------------ 1  859 CE */
   console.log("\n\x1b[1m1) 859 CE: a reader with no Tang card sees no Chinese state border at all; a reader of the Tang card sees only the Tang's edge\x1b[0m\n");
