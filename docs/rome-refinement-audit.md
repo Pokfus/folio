@@ -175,7 +175,7 @@ order unless the user says otherwise.
 | B41 | Augustus (`rm-augustus`) | `rm-401`–`rm-410` | 10 | 61 | **done 2026-10-30** |
 | B42 | Augustus (`rm-augustus`) / The Julio-Claudians (`rm-julio-claudians`) | `rm-411`–`rm-420` | 10 | 79 | **done 2026-10-30** |
 | B43 | The Julio-Claudians (`rm-julio-claudians`) | `rm-421`–`rm-430` | 10 | 72 | **done 2026-10-30** |
-| B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | open |
+| B44 | The Julio-Claudians (`rm-julio-claudians`) | `rm-431`–`rm-440` | 10 | 73 | **done 2026-10-30** |
 | B45 | The Julio-Claudians (`rm-julio-claudians`) | `rm-441`–`rm-450` | 10 | 76 | open |
 | B46 | The Julio-Claudians (`rm-julio-claudians`) / Civil war and the Flavians (`rm-flavians`) | `rm-451`–`rm-460` | 10 | 70 | open |
 | B47 | Civil war and the Flavians (`rm-flavians`) | `rm-461`–`rm-470` | 10 | 80 | open |
@@ -700,6 +700,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-428` Incitatus | a named racehorse in a Roman mosaic | wrong: the Sousse mosaic shows another horse (Amator); the Circus Maximus locator is in neither source |
 | `rm-429` Cassius Chaerea | a covered passage on the Palatine | wrong in kind: a Neronian cryptoporticus built after Gaius's death |
 | `rm-430` Claudius | Claudius in the guise of Jupiter | ok |
+| `rm-431` donativum | an aureus showing the praetorian camp | ok |
+| `rm-432` Camulodunum | the Balkerne Gate at Colchester | acceptable: a gate of the later town |
+| `rm-433` Caratacus | an 18th-century view of the scene at Rome | acceptable: an imagined scene, labelled as one |
+| `rm-434` Pallas | none | no picture (`I.none`): no portrait is identified |
+| `rm-435` Lyon Tablet | the bronze at Lyon | ok |
+| `rm-436` Aqua Claudia | arches of the branch across the Caelian | weak: the Neronian branch, not the main arcades or the Porta Maggiore |
+| `rm-437` Messalina | a statue identified as Messalina | acceptable: heavily restored, and the description says so |
+| `rm-438` Agrippina the Younger | a portrait head of the empress | ok |
+| `rm-439` Britannicus | a bust identified as Britannicus | weak: identified only by a later base, as the description says |
+| `rm-440` Burrus | none | no picture (`I.none`); the glossary's Wallgren picture is an imagined scene that calls him Nero's tutor |
 
 ## Glossary candidates
 
@@ -1802,3 +1812,22 @@ Run as B42 (the research agents were stopped by a usage limit mid-hundred and re
 | `rm-430` Claudius | 9 | 9 → 9 | **"Died 54 CE" is now 13 October (Suetonius's third day before the Ides)**; the poisoning is the ancient authors' report, with Suetonius's own admission that the poisoner and method were disputed; the siblings' clues (aqueduct, Fucine lake, maiestas) are dropped. |
 
 **Read by eye.** *Confusability:* `rm-421`/`rm-422` the German (Flavus across the Weser) and the governor (the decree at Seville); `rm-423`/`rm-424` the fallen prefect (Apicata) and his successor (the letter, Ennia); `rm-425`/`rm-426` the island and the law; `rm-427`/`rm-428`/`rm-429` the emperor, the horse and the killer; `rm-430` Claudius behind the curtain. *Legend:* Tiberius on Capri, the horse as consul, the smothering of Tiberius and the mushroom are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B44 — `rm-431`–`rm-440`, the Julio-Claudians: Claudius's reign to Burrus (2026-10-30)
+
+Run as B43; every draft compared with its card after `batch.sh`: no mismatch. Checks: `rm-audit.js --range=rm-431:rm-440` reads clean on six cards; the rest carry `I.none` (`rm-434`, `rm-440`), `S.chip?` on `rm-435` (an English BMCR review of a German-titled book: the known false positive) and `W.not-why` (advisory, two cards); `check-questions`, `check-cards`, `check-docs`, `split-cards --check` and `test-card-plans` pass; `check-citations --card` 0 mismatched on every card. The URL check's failures are LacusCurtius pages and two Platner–Ashby entries on Perseus (a script 403 without a cookie), each saved when the agent read it. **The old cards were mostly all-ancient (Messalina's and Agrippina's eight or nine ancient sources); their date lines carried other men's reigns ("Claudius's reign 41 – 54 CE", "Under Claudius 41 – 54 CE"), a census and a censorship for a bronze tablet, and "c. 38 CE" for a marriage no source dates.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-431` donativum | 6 | 8 → 8 | **Suetonius's 15,000 sesterces and Josephus's 5,000 drachmas stand apart, never summed**; the IMPER RECEPT aureus as the contemporary evidence; Nero's promise of 54 from Tacitus; the reign row goes. |
+| `rm-432` Camulodunum | 6 | 8 → 8 | The card is now the place, not the invasion story: Cunobelinus's CAMVL coins, Dio's elephants, **the colony "c. 49 CE" as a modern inference from Tacitus and the pottery**, the circus (Crummy 2008) and a 2024 survey; destroyed 61 CE. |
+| `rm-433` Caratacus | 7 | 7 → 7 | **The speech before Claudius is Tacitus's composition (Furneaux); the battle-eve speech, told in the card's voice, goes**; the last stand's site is unknown; Dio's "poor tents" in Cary's words. Millett's review, which never names him, is dropped. |
+| `rm-434` Pallas | 5 | 9 → 7 | His own years on the line (honoured 52, dismissed 55, died 62); **Tacitus's 300 million and Dio's 400 million kept apart**; his death a rumour in Tacitus and a fact in Dio; Pliny's scorn is one senator's. |
+| `rm-435` Lyon Tablet | 5 | 8 → 5 | **Found in November 1528 in Roland Gribaud's vineyard on the côte Saint-Sébastien (the council minutes, printed by Fabia)**; the comparison with Tacitus's rewriting is the card's centre; the censorship rows go. |
+| `rm-436` Aqua Claudia | 6 | 7 → 6 | **The card and glossary said 46,606 paces; Frontinus says 46,406.** Frontinus gives 1 August and the consuls, not a year (52 CE from the moderns; his own founding count gives 50); the Porta Maggiore inscription; Pliny's 350 million is his, and covers the Anio Novus too. |
+| `rm-437` Messalina | 7 | 9 → 8 | **"Married c. 38" had no source: probably 39 (the Cambridge Ancient History)**; the wedding to Silius is Tacitus's, with his own warning that it will seem a fable; Juvenal is satire; the Senate's removal of her name added. |
+| `rm-438` Agrippina the Younger | 7 | 9 → 9 | Three ancient versions of the mushroom and the modern doubt; **the ship, the death and "strike the womb" are Tacitus's and Dio's**; her memoirs added; a phrasing that near-duplicated `rm-959`'s is replaced. |
+| `rm-439` Britannicus | 6 | 7 → 7 | **Born 41 or 42 (Henderson's note), both on the line**; the Saturnalia song, Locusta, the cooled drink and the epilepsy are their authors'; one sentence on the doubt that he was poisoned at all. |
+| `rm-440` Burrus | 6 | 9 → 9 | Tacitus was over the limit; **"Nero's accession" becomes Burrus's own act (13 October 54, Tacitus's day)**; the Vaison inscription; his death open in Tacitus, poison in Suetonius and Dio. |
+
+**Read by eye.** *Confusability:* `rm-431`/`rm-440` the gift and the prefect who presented Nero; `rm-432`/`rm-433` the town and the king's son; `rm-434`/`rm-435`/`rm-436` the freedman, the speech and the aqueduct; `rm-437`/`rm-438`/`rm-439` the two wives and the son (the adoption clue kept for `rm-416`). *Legend:* Messalina's wedding, the mushroom and the cooled drink are their authors'. *Overlap:* no `gr-` or `wh-` card disagrees.

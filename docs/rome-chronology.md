@@ -474,6 +474,16 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Caligula: born / reigned / killed | 31 August 12 CE / 37 – 41 CE / 24 January 41 CE | `rm-427` |
 | Cassius Chaerea: the Rhine mutiny / executed | 14 CE (Tacitus's mention) / 41 CE | `rm-429` |
 | Claudius: born / reigned / died | 1 August 10 BCE / 41 – 54 CE / 13 October 54 CE | `rm-430` |
+| the donativum: first promised / Nero's | 41 CE / 54 CE | `rm-431` |
+| Camulodunum: royal seat / taken / colony / destroyed | c. 10 – 43 CE / 43 CE / c. 49 CE (a modern inference) / 61 CE | `rm-432` |
+| Caratacus: resisted / handed over | 43 – 51 CE / 51 CE | `rm-433` |
+| Pallas: honoured / dismissed / died | 52 CE / 55 CE / 62 CE | `rm-434` |
+| the Lyon Tablet: the speech / found | 48 CE / 1528 | `rm-435` |
+| the Aqua Claudia: begun / dedicated / restored | 38 CE / 1 August 52 CE (Frontinus's day; the year from the moderns) / 71 CE | `rm-436` |
+| Messalina: born / married Claudius / killed | c. 25 CE / c. 39 CE / 48 CE | `rm-437` |
+| Agrippina the Younger: born / married Claudius / Augusta / killed | 6 November 15 CE / 49 CE / 50 CE / March 59 CE | `rm-438` |
+| Britannicus: born / Nero adopted / died | 41 CE (also dated 42) / 50 CE / 55 CE | `rm-439` |
+| Burrus: prefect / hailed Nero / died | 51 – 62 CE / 13 October 54 CE (Tacitus's day) / 62 CE | `rm-440` |
 
 ## Late Antiquity
 
@@ -899,4 +909,14 @@ rm-427: 12; 37; 41
 rm-428: 37; 41
 rm-429: 14; 41
 rm-430: 10; 41; 54
+rm-431: 41; 54
+rm-432: 10; 43; 43; 49; 61
+rm-433: 43; 51; 51
+rm-434: 52; 55; 62
+rm-435: 48; 1528
+rm-436: 38; 52; 71
+rm-437: 25; 39; 48
+rm-438: 15; 49; 50; 59
+rm-439: 41; 42; 50; 55
+rm-440: 51; 62; 54; 62
 ```
