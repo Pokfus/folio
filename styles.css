@@ -2434,13 +2434,14 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 }
 .card-quote blockquote p{margin:0 0 .5em;}
 .card-quote blockquote p:last-child{margin-bottom:0;}
+/* one line each — title, author, year, section, the link (2026-10-31, on request); a column, so the link stays as wide as its words */
 .card-quote figcaption{
-  display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; margin-top:9px;
+  display:flex; flex-direction:column; align-items:flex-start; gap:4px; margin-top:9px;
   font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint);
 }
 .card-quote cite{font-style:normal; color:var(--ink-soft);}
-.cq-who, .cq-when, .cq-where{white-space:nowrap;}
+.cq-who, .cq-when, .cq-where{overflow-wrap:anywhere;}
 /* the way through to the passage. A quiet link rather than a filled button: it sits under a quotation
    inside a card's prose, and a primary control there would out-shout the words it is attached to. */
 .cq-go{
