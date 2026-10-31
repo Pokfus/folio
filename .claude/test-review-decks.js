@@ -706,8 +706,10 @@ const SETTINGS = {
      right there and wrong here, where the round is answered from four options rather than from recall, so
      the phrasing has to be the one written to stand on its own. It sits beside section 3's chevrons for
      that reason: both are about which phrasing a card is asked with, and this one is invisible from the
-     outside, a second phrasing being a perfectly good sentence. */
-  {
+     outside, a second phrasing being a perfectly good sentence.
+     DORMANT since 2026-10-31 (Multiple Choice is out of play; #challenge lands on home): skipped, revive with the game. */
+  const MC_DORMANT = true;
+  if (!MC_DORMANT) {
     const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: {} });
     /* A FIXED DAY. The five rounds are seeded on the day (`dayPick`), so which cards this section met changed with the date: the "genuinely carry other phrasings" check below failed on the days the five
        drawn carried none that had been read yet. The clock stands still at a chosen noon (Date only; timers run) so the draw is the same on every run. */

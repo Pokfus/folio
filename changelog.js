@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1203", released: "2026-10-31T18:31Z" };
+window.FOLIO_VERSION = { v: "1.1204", released: "2026-10-31T23:24Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,8 @@ window.CHANGELOG = [
     t: "What share? minigame; card quotations one detail per line",
     items: [
       "A new daily minigame, <b>What share?</b>: drag out a slice of a pie chart to guess a percentage, five questions a day, within 10 points to win, each answer explained and sourced.",
+      "<b>What share?</b> has 16 new questions on psychology, biology and society, among them famous experiments and how common some conditions are.",
+      "The <b>Multiple Choice</b> minigame is resting for now: it is off the home page, and the daily chest asks for nine games again.",
       "A card's quotation now gives its book's title, author, date, section and Library link on separate lines, aligned right.",
       "Admins can now take a term out of the <b>Timeline</b> game, or put it back, straight from the puzzle's own rows.",
       "<b>Find it</b> now counts a tap anywhere inside a sea or an ocean, not just near one point, and fills the whole screen on a phone.",
