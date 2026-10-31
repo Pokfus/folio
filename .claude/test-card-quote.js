@@ -77,6 +77,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
       quote: (fig.querySelector("blockquote") || {}).textContent || "",
       cite: (fig.querySelector("cite") || {}).textContent || "",
       who: (fig.querySelector(".cq-who") || {}).textContent || "",
+      when: (fig.querySelector(".cq-when") || {}).textContent || "",
       where: (fig.querySelector(".cq-where") || {}).textContent || "",
       btn: (fig.querySelector(".cq-go") || {}).textContent || "",
       paras: paras.length,
@@ -90,7 +91,8 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("the card shows the passage it cites", q.there, JSON.stringify({ answer: q.answer }));
   if (q.there) {
     check("...quoted from the Library's own edition", /Lacedaemon were to become desolate/.test(q.quote), q.quote.slice(0, 60));
-    check("...attributed to the book and its translator", /Peloponnesian War/i.test(q.cite) && /Crawley/i.test(q.who), JSON.stringify({ cite: q.cite, who: q.who }));
+    check("...attributed to the book and its author, not its translator", /Peloponnesian War/i.test(q.cite) && /Thucydides/i.test(q.who) && !/Crawley/i.test(q.who), JSON.stringify({ cite: q.cite, who: q.who }));
+    check("...and dated by when the book was written", /BCE/.test(q.when) && /\d/.test(q.when), q.when);
     check("...and to the passage", /1\.10/.test(q.where), q.where);
     check("...sitting BETWEEN the two blocks of the background", q.between && q.paras === 2, JSON.stringify({ between: q.between, paras: q.paras, order: q.order }));
     check("...clear of the floated illustration", q.clears === "both", q.clears);

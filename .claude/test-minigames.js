@@ -94,7 +94,6 @@ function registry() {
 
 const NEW_GAMES = [
   { key: "crossword", title: "Crossword", id: "g-crossword" },
-  { key: "picture", title: "Picture round", id: "g-picture" },
   { key: "whatyear", title: "What year?", id: "g-whatyear" },
 ];
 
@@ -736,7 +735,30 @@ function crosswordForPage(cells) {
   }
 
   /* ============================ 4. the picture round ============================ */
-  {
+  /* DORMANT since 2026-10-30 (on request): no tile, not in DAILY_GAMES, and #picture lands on home. The game's
+     own checks below are kept, skipped, so reviving it is flipping PICTURE_DORMANT with the app.js change. */
+  const PICTURE_DORMANT = true;
+  if (PICTURE_DORMANT) {
+    const r = registry();
+    check("[pic] dormant: not in DAILY_GAMES and not a route", r.daily.indexOf("picture") < 0 && r.valid.indexOf("picture") < 0);
+    const [ctx, page] = await fresh();
+    watch(page, "[pic]");
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1000);
+    const tile = await page.evaluate(() => !!document.querySelector("#g-picture"));
+    check("[pic] dormant: no tile on the home grid", !tile);
+    await page.evaluate(() => { location.hash = "#picture"; });
+    await page.waitForTimeout(700);
+    const at = await page.evaluate(() => ({ hash: location.hash, pic: !!document.querySelector(".pic-img, #picOpts") }));
+    check("[pic] dormant: #picture followed mid-session lands on home", at.hash === "" && !at.pic, JSON.stringify(at));
+    await page.goto(base + "#picture", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1000);
+    const at2 = await page.evaluate(() => ({ hash: location.hash, pic: !!document.querySelector(".pic-img, #picOpts") }));
+    check("[pic] dormant: a #picture link at boot lands on home", !at2.pic, JSON.stringify(at2));
+    await ctx.close();
+  }
+  if (!PICTURE_DORMANT) {
     /* The shipped corpus carried ONE picture when this game was written and now carries hundreds, so
        this asserts the PAIR rather than either state — see the check's own comment below. */
     const [ctx, page] = await fresh();
