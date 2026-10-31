@@ -17695,7 +17695,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // only where something in this entry can HAVE siblings — a curated card is one card, and a switch that
       // cannot change anything is the thing the read-aloud row's own note warns against
       (entryHasSiblings(id) ? swRow("pair", "Both directions together",
-        "The day's new words arrive both ways, shuffled",
+        "The day's new words arrive both ways, spaced apart",
         "Each direction is introduced in its own pass, forward first", deckPairNew(id), false,
         fromMark(["pairNew"])) : "") +
       (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
@@ -17829,7 +17829,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           markOwn(rowEl);
           if (rowEl.dataset.act === "pair") {
             setDeckPairNew(id, on);
-            note.textContent = on ? "The day's new words arrive both ways, shuffled"
+            note.textContent = on ? "The day's new words arrive both ways, spaced apart"
                                   : "Each direction is introduced in its own pass, forward first";
             syncBury();
             toast(on ? "Both directions together" : "One direction at a time");
@@ -29286,43 +29286,84 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     spreadNoteSiblings(queue);
     return { queue, where, scope };
   }
-  /* A NOTE'S TWO SIDES ARE NEVER DEALT BACK TO BACK, WHERE THERE IS ANYTHING ELSE TO DEAL (Sep 2026, on
+  /* A NOTE'S TWO SIDES ARE SPACED APART, AT RANDOM, WHERE THERE IS ANYTHING ELSE TO DEAL (Sep 2026, on
      request: "the two sides of a card should never be shown in consecutive order where possible, unless
-     they are the last two cards left"). A vocabulary note studied both ways is two cards with two
-     schedules, and every branch above orders by deck, pile and difficulty without asking which NOTE a
-     card came from — so a word could be asked Spanish→English and then, on the very next card,
-     English→Spanish, with the answer still on the screen. One tail pass rather than a rule in each of
-     the six branches, for the reason the learn-ahead is: a rule written six times is the one the seventh
-     branch forgets.
-     IT DEFERS RATHER THAN SHUFFLES. Walking the queue in its own order, a card that would follow its
-     sibling is held back and the next card that is not a sibling is dealt first, so every ordering
-     promise the branches made — deck order, the due/new interleave, difficulty — is kept except at the
-     one seam that had to move. When nothing but siblings is left they go together, which is the
-     request's own exception. And the reader's own "ask a word's cards together" policy (`deckPairNew`)
-     is honoured: pairing is the deliberate opposite of this, so a card whose deck pairs is left where
-     `pairOrder` put it. Curated cards have no siblings and pass straight through.
+     they are the last two cards left"; widened Oct 2026, on request: back to back was not enough, since a
+     word asked one way and then the other two cards later is still answered out of short-term memory).
+     A vocabulary note studied both ways is two cards with two schedules, and every branch above orders by
+     deck, pile and difficulty without asking which NOTE a card came from. One tail pass rather than a rule
+     in each of the six branches, for the reason the learn-ahead is: a rule written six times is the one
+     the seventh branch forgets.
+     THE GAP IS A THIRD OF THE SESSION (`SIB_GAP_MIN`..`SIB_GAP_MAX` cards): a later side closer than that to
+     the side before it is moved to a RANDOM place at least that far on. A side already far enough away is
+     left exactly where its branch put it, so every ordering promise the branches made — deck order, the
+     due/new interleave, difficulty, template-major — is kept except for the cards that had to move. Where
+     nothing lies far enough on, the card goes to the end — or to the head, where the end would still be
+     next to its sibling and the head is farther — which is the request's own "unless they are the last two left".
+     PAIRING NO LONGER EXEMPTS A DECK. "Both directions together" (`deckPairNew`, on by default on every
+     language deck) decides WHICH words the day brings — each new word both ways — and this decides how far
+     apart the two arrive; it used to leave a paired deck's sides where `pairOrder` put them, side by side.
+     AND ON A PAIRED DECK A NEW WORD'S DIRECTION IS DRAWN AT RANDOM (Oct 2026, on request), so "foreign word
+     first" is not a pattern the reader can lean on: two sides that are both unseen swap places half the
+     time before the gap is applied. A deck that is not paired keeps forward first, which is what its own
+     switch promises ("each direction is introduced in its own pass, forward first").
      IN PLACE, because the queue carries `_sd` / `_ud` / `_unseen` as properties on the array and a copy
-     would silently drop the "push on with extra cards" affordance. */
-  function spreadNoteSiblings(queue) {
+     would silently drop the "push on with extra cards" affordance. `rnd` is for the tests. */
+  const SIB_GAP_MIN = 2, SIB_GAP_MAX = 10;
+  function sibGap(n) { return Math.min(SIB_GAP_MAX, Math.max(SIB_GAP_MIN, Math.round(n / 3))); }
+  function spreadNoteSiblings(queue, rnd) {
     if (!Array.isArray(queue) || queue.length < 3) return queue;
+    const rand = typeof rnd === "function" ? rnd : Math.random;
     const paired = {};
     const pairs = (id) => {
       const e = cardEntryId(id) || "";
       if (!(e in paired)) paired[e] = !!(e && deckPairNew(e));
       return paired[e];
     };
-    const sib = (a, b) => a !== b && isCommunityCard(a) && isCommunityCard(b) &&
-      uCardBaseId(a) === uCardBaseId(b) && !pairs(a);
-    const rest = queue.slice(), out = [];
-    while (rest.length) {
-      let k = 0;
-      if (out.length) {
-        const last = out[out.length - 1];
-        while (k < rest.length && sib(last, rest[k])) k++;
-        if (k === rest.length) k = 0;   // only siblings remain: the last two go together
+    // the queue's notes with more than one side in it, each a list of its slots in queue order
+    const slots = new Map();
+    queue.forEach((id, i) => {
+      if (!isCommunityCard(id)) return;
+      const b = uCardBaseId(id);
+      let a = slots.get(b);
+      if (!a) slots.set(b, a = []);
+      a.push(i);
+    });
+    const groups = [...slots.values()].filter((a) => a.length > 1);
+    if (!groups.length) return queue;
+    // a paired deck's new word: its sides trade slots at random (Fisher–Yates over the slots)
+    groups.forEach((a) => {
+      const ids = a.map((i) => queue[i]);
+      if (!pairs(ids[0]) || ids.some((id) => isSeen(id))) return;
+      for (let k = ids.length - 1; k > 0; k--) {
+        const j = Math.floor(rand() * (k + 1));
+        const t = ids[k]; ids[k] = ids[j]; ids[j] = t;
       }
-      out.push(rest.splice(k, 1)[0]);
-    }
+      a.forEach((i, k) => { queue[i] = ids[k]; });
+    });
+    const gap = sibGap(queue.length);
+    const orig = new Map(queue.map((id, i) => [id, i]));
+    const held = new Set();
+    groups.forEach((a) => a.slice(1).forEach((i) => held.add(i)));
+    const out = queue.filter((id, i) => !held.has(i));
+    queue.forEach((id, i) => {
+      if (!held.has(i)) return;
+      const b = uCardBaseId(id);
+      // the side before it: the nearest earlier side of the same note already placed
+      let p = -1;
+      for (let k = out.length - 1; k >= 0; k--) {
+        if (isCommunityCard(out[k]) && uCardBaseId(out[k]) === b) { p = k; break; }
+      }
+      // where its branch put it: before the first placed card that came after it
+      let nat = out.findIndex((x) => orig.get(x) > i);
+      if (nat < 0) nat = out.length;
+      let at;
+      if (p < 0 || nat - p >= gap) at = nat;
+      else if (p + gap <= out.length) at = p + gap + Math.floor(rand() * (out.length - p - gap + 1));
+      // nowhere far enough on: the end, unless that is still next to its sibling and the head is farther
+      else at = (out.length - p >= 2 || out.length - p >= p + 1) ? out.length : 0;
+      out.splice(at, 0, id);
+    });
     for (let i = 0; i < out.length; i++) queue[i] = out[i];
     return queue;
   }
@@ -33467,7 +33508,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              are all correct, which is why it survived: the only symptom is a card with nothing on it.
              (It predates the scope fix above — the old whole-deck pile was unwarmed too — and was found by
              the test written for that one.) */
-          const start = () => { queue = remainingUnseen.slice(); startLoop(); };
+          // …and spaced like a session's queue, since it never passes through buildSession's tail
+          const start = () => { queue = spreadNoteSiblings(remainingUnseen.slice()); startLoop(); };
           if (uWarmed(remainingUnseen)) return start();
           root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' +
             esc(sess.where || "") + "</h1></div>" +

@@ -921,14 +921,20 @@ two sessions rather than one.
 — the order, FSRS, read-aloud, question variety, pairing — means the same thing wherever it is applied
 and is handed down to subdecks and directions; a LIMIT handed down to nine levels becomes nine times
 itself, which is the exact bug the per-deck limits were built to fix.
-· **A NOTE'S TWO SIDES ARE NEVER DEALT BACK TO BACK** (`spreadNoteSiblings`, one tail pass in
-`buildSession`; Sep 2026, on request, "unless they are the last two cards left"). A vocabulary note
+· **A NOTE'S TWO SIDES ARE SPACED APART AT RANDOM** (`spreadNoteSiblings`, one tail pass in
+`buildSession` and on the "Study N ahead" pile; Sep 2026, on request, "unless they are the last two cards
+left"; widened Oct 2026, on request). **Since Oct 2026** a later side closer than a third of the session
+(`sibGap`: 2–10 cards) to the side before it moves to a RANDOM place at least that far on, a side already far
+enough away stays put, and **a paired deck is no longer exempt** — "both directions together" decides which
+words the day brings, this decides how far apart their sides arrive; on a paired deck a NEW word's sides
+also trade places half the time, so the direction asked first is random (an unpaired deck keeps forward
+first). `test-learning.js` §2b and `test-deck-ux.js` §8 guard it. The paragraph below is the Sep 2026 form. A vocabulary note
 studied both ways is two cards with two schedules, and every branch orders by deck, pile and
 difficulty without asking which NOTE a card came from — so a word could be asked one way and then, on
 the very next card, the other, with the answer still on screen. **It DEFERS rather than shuffles**: a
 card that would follow its sibling is held back and the next non-sibling dealt first, so every
-ordering promise the branches made is kept except at the one seam that had to move. It honours
-`deckPairNew`, which is the deliberate opposite of this, and works **IN PLACE**, the queue carrying
+ordering promise the branches made is kept except at the one seam that had to move. It honoured
+`deckPairNew` until Oct 2026 (no longer), and works **IN PLACE**, the queue carrying
 `_sd` / `_ud` / `_unseen` as properties a copy would drop.
 · **THREE ORDERS** (`DECK_ORDERS`): Ordered, Random, By difficulty, per entry with a global default,
 reached by a CYCLER on the deck's long-press sheet. **`studyOrder` deals a multi-subdeck entry

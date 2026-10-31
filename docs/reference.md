@@ -4728,9 +4728,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     — the order, FSRS, read-aloud, question variety, pairing — means the same thing wherever it is applied
     and is handed down to subdecks and directions; a LIMIT handed down to nine levels becomes nine times
     itself, which is the exact bug the per-deck limits were built to fix.
-  · **A NOTE'S TWO SIDES ARE NEVER DEALT BACK TO BACK** (`spreadNoteSiblings`, one tail pass in
-    `buildSession`) unless they are the last two cards left. **It DEFERS rather than shuffles**, honours
-    `deckPairNew`, which is the deliberate opposite of this, and works **IN PLACE**, the queue carrying
+  · **A NOTE'S TWO SIDES ARE SPACED APART AT RANDOM** (`spreadNoteSiblings`, one tail pass in
+    `buildSession` and on the "Study N ahead" pile; Oct 2026 widened from "never back to back"): a side
+    closer than `sibGap` (a third of the session, 2–10 cards) to its sibling moves to a random place at least
+    that far on, others stay put; a paired deck (`deckPairNew`) is NO LONGER exempt, and its new words' sides
+    trade places half the time (random direction). Works **IN PLACE**, the queue carrying
     `_sd` / `_ud` / `_unseen` as properties a copy would drop.
   · **THREE ORDERS** (`DECK_ORDERS`): Ordered, Random, By difficulty, per entry with a global default,
     reached by a CYCLER on the deck's long-press sheet. **`studyOrder` deals a multi-subdeck entry
