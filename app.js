@@ -10933,7 +10933,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
-    atlas2findit: { files: ["atlas/data/findit-areas.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
+    atlas2findit: { files: ["atlas/data/findit-areas.js", "atlas/data/findit-waters.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
     atlas2places: { files: ["atlas/data/card-places.js"] },   // card → registry places (62 KB): the "Discovered!" chip on a card's window asks it
     /* THE PRESENT-DAY COUNTRIES (Phase 5; atlas/data/country-names.js, generated): the account page's countries meter, the Cartographer and Circumnavigator badges and the Settings Atlas-home picker read it where they read world.js. `after`
        runs the one-way migration of `placesSeen` — v1's panels keyed a country by world.js's spelling ("S. Sudan"), the new Atlas by the gazetteer's ("South Sudan") — see atlasPlacesSeenMigrate. Warmed at idle. */
@@ -39374,11 +39374,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               tracked by its card id, so nothing downstream sees the capital. */""}
         <span class="ci-name">${chronoNameHTML(x)}</span>
         <span class="ci-year"></span>
+        ${chronoAdminBtn(id)}
         <div class="ci-arrows">
           <button class="ci-up" aria-label="Move earlier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
           <button class="ci-dn" aria-label="Move later"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         </div>
       </div>`;
+    }
+    /* THE ADMIN'S REMOVE BUTTON (Oct 2026, on request). It writes the same `undatable` flag the editor's
+       "no single date" box does (see cardUndatable) — Timeline's own pool filter, so the term leaves this
+       game and nothing else, and the delta publishes like any card edit. Today's five are not redrawn under
+       the admin: the row is struck through and offers Restore, and the puzzle redraws on the next visit. */
+    function chronoAdminBtn(id) {
+      if (!isAdmin()) return "";
+      const off = cardUndatable(id);
+      return '<button type="button" class="mini-btn ci-admin' + (off ? "" : " danger") + '" data-ci-off="' + esc(id) + '" title="' +
+        (off ? "Put this term back into the Timeline game" : "Take this term out of the Timeline game (admin)") + '">' + (off ? "Restore" : "Remove") + "</button>";
+    }
+    function chronoAdminToggle(b) {
+      const id = b.dataset.ciOff, p = PRISTINE_CARDS[id];
+      const off = !cardUndatable(id);
+      // restoring goes back to the shipped value where that is "datable" (deleting the delta), else a real false
+      setCardEdit(id, "undatable", off ? true : (p && !p.undatable ? p.undatable : false));
+      const item = b.closest(".chrono-item");
+      if (item) { item.classList.toggle("ci-removed", off); b.outerHTML = chronoAdminBtn(id); wireAdmin(item); }
+      toast(off ? "Removed from Timeline — today's puzzle redraws on the next visit" : "Restored to Timeline");
+    }
+    function wireAdmin(scope) {
+      scope.querySelectorAll("[data-ci-off]").forEach((b) => b.addEventListener("click", () => chronoAdminToggle(b)));
     }
     function render() {
       root.innerHTML = `
@@ -39431,6 +39454,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         item.querySelector(".ci-dn").addEventListener("click", () => move(item, 1));
       });
       setupChronoDrag(root.querySelector("#chrono-list"), clearMarks);
+      wireAdmin(root);
       root.querySelector("#chrono-check").addEventListener("click", check);
       root.querySelector("#chrono-home").addEventListener("click", () => route("home"));
     }
