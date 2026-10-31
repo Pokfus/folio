@@ -104,6 +104,38 @@ head("2) the warm-up defers rather than shuffles");
     src.indexOf("warmUpFirst(queue);") < src.indexOf("spreadNoteSiblings(queue);"));
 }
 
+head("2b) a note's sides are spaced apart at random, and a paired deck's new word has a random direction");
+{
+  /* Oct 2026, on request: a word asked one way and then the other a card or two later is answered out of
+     short-term memory. The pass now keeps a note's sides a third of the session apart (2..10 cards),
+     moving a too-close side to a RANDOM later place; on a "both directions together" deck (the default
+     on every language deck) a new word's two sides also trade places half the time. */
+  const make = (pairNew, seenIds) => new Function("isCommunityCard", "uCardBaseId", "cardEntryId", "deckPairNew", "isSeen",
+    konst("const SIB_GAP_MIN") + konst("function sibGap(") + fn("spreadNoteSiblings") + "\nreturn { spreadNoteSiblings, sibGap };")(
+    (id) => id.startsWith("u_"), (id) => id.split("~")[0], () => "u:d", () => pairNew, (id) => (seenIds || []).includes(id)).spreadNoteSiblings;
+  const minGap = (q) => { let m = Infinity; q.forEach((a, i) => q.forEach((b, j) => { if (j > i && a.split("~")[0] === b.split("~")[0]) m = Math.min(m, j - i); })); return m; };
+  const run = (f, base, n) => { const out = []; for (let t = 0; t < n; t++) { const q = base.slice(); f(q); out.push(q); } return out; };
+  const pairedQ = ["u_1", "u_1~2", "u_2", "u_2~2", "u_3", "u_3~2"];   // what pairOrder deals: side by side
+  const P = run(make(true), pairedQ, 400);
+  check("a paired deck's sides are no longer side by side", P.every((q) => minGap(q) >= 2), JSON.stringify(P.find((q) => minGap(q) < 2)));
+  check("…nothing is lost or doubled", P.every((q) => q.length === 6 && new Set(q).size === 6));
+  const fwdFirst = P.filter((q) => q.indexOf("u_1") < q.indexOf("u_1~2")).length;
+  check("…and a new word's direction is drawn at random (both orders, roughly evenly)", fwdFirst > 120 && fwdFirst < 280, fwdFirst + " of 400 forward first");
+  const S = run(make(true, ["u_1", "u_1~2"]), pairedQ, 200);
+  check("…but a word already met keeps the order its branch dealt", S.every((q) => q.indexOf("u_1") < q.indexOf("u_1~2")));
+  const long = ["c1", "u_1", "u_1~2", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10"];
+  const L = run(make(false), long, 400);
+  check("a longer session spaces them a third of its length apart", L.every((q) => minGap(q) >= 4), JSON.stringify(L.find((q) => minGap(q) < 4)));
+  check("…at a random place, not a fixed one", new Set(L.map((q) => q.indexOf("u_1~2"))).size > 3);
+  check("…and an unpaired deck keeps forward first", L.every((q) => q.indexOf("u_1") < q.indexOf("u_1~2")));
+  check("…and every other card keeps its order", L.every((q) => q.filter((x) => x[0] === "c").join() === "c1,c2,c3,c4,c5,c6,c7,c8,c9,c10"));
+  const tm = ["u_1", "u_2", "u_3", "u_4", "u_1~2", "u_2~2", "u_3~2"];
+  const T = run(make(false), tm, 50);
+  check("a template-major queue already far enough apart is left exactly as it was", T.every((q) => q.join() === tm.join()), JSON.stringify(T[0]));
+  const two = ["u_1", "u_1~2"]; make(true)(two);
+  check("a queue of two is left alone", two.length === 2);
+}
+
 head("3) the one-slip matcher forgives a slip and nothing more");
 {
   const M = new Function(fn("nearMiss") + fn("editDistanceLE1") + "\nreturn { nearMiss };")();

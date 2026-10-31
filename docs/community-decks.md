@@ -756,7 +756,9 @@ The nine sections below are the bullets as they stood in CLAUDE.md, verbatim.
   · **IT SHUFFLES ITS OWN NEW RUN, and that is not a second setting hiding in this one.** Note-major
     unshuffled deals 杯子 → cup then cup → 杯子 adjacently, which is exactly the "teaches the answer rather
     than testing it" that template-major exists to prevent. **The slice comes first and the shuffle after**,
-    so pairing decides WHICH words arrive and the shuffle only their order; shuffling first would make the
+    so pairing decides WHICH words arrive and the shuffle only their order (and since Oct 2026
+    `spreadNoteSiblings` no longer exempts a paired deck: a word's sides are kept a third of the session
+    apart and a new word's direction is random — `docs/daily-study.md`); shuffling first would make the
     day's cards a random handful of the whole deck. The pooled review `seededShuffle`s its pool across decks
     already, so `buildSession` is the one place that has to do it, and the Random-order switch beside it
     still governs the WHOLE queue, reviews included.

@@ -509,16 +509,17 @@ const deck = {
     ok(seen.length > 0 && seen.every((x) => x.note >= 1 && x.note <= 4),
       "…all of them from the subdeck being studied, none from its neighbour",
       JSON.stringify(seen.map((x) => x.note + x.dir)));
-    /* "both directions together" is ON, so studyOrder pairs a note's two cards. Without studyOrder the
-       raw template-major expansion deals every forward card first — which is the reported symptom. */
-    const dirs = seen.map((x) => x.dir).join("");
-    ok(/r/.test(dirs.slice(0, 2)), "…and both directions arrive together rather than every forward first", dirs);
+    /* "both directions together" is ON, so studyOrder pairs a note's two cards: the pile is the day's WORDS,
+       each both ways. Without studyOrder the raw template-major expansion deals every forward card first —
+       which is the reported symptom — and the six would be six different words' forward cards. */
     const keys = seen.map((x) => x.note + x.dir);
     ok(new Set(keys).size === seen.length, "…each a different card, so the walk really stepped", keys.join(" "));
-    const paired = seen.length === 6 && seen[0].note === seen[1].note &&
-      seen[2].note === seen[3].note && seen[4].note === seen[5].note;
-    ok(paired, "…each word's two cards side by side, which is what the switch asks for",
-      JSON.stringify(seen.map((x) => x.note + x.dir)));
+    const notes = new Set(seen.map((x) => x.note));
+    ok(seen.length === 6 && notes.size === 3, "…three words, each both ways, rather than every forward first", keys.join(" "));
+    /* …and SINCE OCT 2026 NEVER SIDE BY SIDE (on request): spreadNoteSiblings keeps a word's two sides a
+       third of the session apart (2 places here) and no longer exempts a paired deck. */
+    const near = seen.some((x, i) => i > 0 && seen[i - 1].note === x.note);
+    ok(!near, "…and no word's two sides are dealt back to back", keys.join(" "));
   }
 
   console.log("\nconsole errors: " + errs.length + (errs.length ? " " + JSON.stringify(errs.slice(0, 3)) : ""));
