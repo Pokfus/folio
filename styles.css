@@ -2983,6 +2983,34 @@ body.grading .stage{padding-bottom:150px;}
 .wy-readout{font-family:var(--display); font-weight:600; font-size:calc(30px * var(--fs)); line-height:1.1; text-align:center; color:var(--ink); flex:1; min-width:0;}
 .wy-step{appearance:none; flex:none; width:40px; height:40px; border-radius:11px; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease);}
 .wy-step svg{width:19px; height:19px;}
+/* WHAT SHARE? (2026-10-31): the pie is a slider — the reader's slice in the theme's accent, the answer drawn over it after the guess as a dashed outline, so both stay readable */
+.pie-wrap{display:flex; flex-direction:column; align-items:center; margin:6px 0 4px;}
+.pie-chart{width:min(280px, 72vw); height:auto; aspect-ratio:1; touch-action:none; cursor:pointer; user-select:none; -webkit-user-select:none; border-radius:50%; outline:none; overflow:visible;}
+.pie-chart:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb, var(--indigo) 35%, transparent);}
+.pie-chart.locked{cursor:default;}
+.pie-base{fill:var(--paper-2); stroke:var(--rule); stroke-width:1.5;}
+.pie-slice{fill:color-mix(in srgb, var(--indigo) 72%, transparent); stroke:var(--indigo); stroke-width:1.5; stroke-linejoin:round;}
+.pie-answer{fill:none; stroke:var(--ink); stroke-width:3; stroke-dasharray:6 5; stroke-linejoin:round;}
+.pie-edge{stroke:var(--indigo); stroke-width:2;}
+.pie-zero{stroke:var(--ink-faint); stroke-width:1.5;}
+.pie-knob{fill:var(--card); stroke:var(--indigo); stroke-width:3;}
+.pie-chart.locked .pie-knob, .pie-chart.locked .pie-edge{display:none;}
+.pie-chart.ok .pie-slice{fill:color-mix(in srgb, var(--good) 55%, transparent); stroke:var(--good);}
+.pie-chart.no .pie-slice{fill:color-mix(in srgb, var(--zh) 45%, transparent); stroke:var(--zh);}
+.pie-readrow{display:flex; align-items:center; gap:10px; width:min(280px, 72vw); margin-top:12px;}
+.pie-readout{font-family:var(--display); font-weight:600; font-size:calc(30px * var(--fs)); line-height:1.1; text-align:center; color:var(--ink); flex:1; min-width:0; font-variant-numeric:tabular-nums;}
+.pie-hint{font-size:calc(13px * var(--fs)); color:var(--ink-soft); margin:8px 0 0; display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:center;}
+.pie-key{display:inline-block; width:14px; height:10px; border-radius:3px;}
+.pie-hint .pie-key-ans{margin-left:8px;}
+.pie-key-you{background:color-mix(in srgb, var(--indigo) 72%, transparent);}
+.pie-chart.ok ~ .pie-hint .pie-key-you{background:color-mix(in srgb, var(--good) 55%, transparent);}
+.pie-chart.no ~ .pie-hint .pie-key-you{background:color-mix(in srgb, var(--zh) 45%, transparent);}
+.pie-key-ans{border:2px dashed var(--ink);}
+.pie-actions{justify-content:center; margin-top:14px;}
+.pie-actions .btn{min-width:160px;}
+.pie-guess{font-weight:700;}
+.pie-guess.ok{color:var(--good);}
+.pie-guess.no{color:var(--zh);}
 .wy-step:hover:not(:disabled){border-color:var(--indigo); color:var(--indigo);}
 .wy-step:disabled{opacity:.35; cursor:default;}
 .wy-step:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}

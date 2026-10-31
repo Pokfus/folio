@@ -993,3 +993,17 @@ The request: "the user is shown an atlas window where a line is straightly drawn
 - **The reveal colours the guess** (2026-10-30, on request): the reader's number is `.hf-guess.ok` (`--good`, green) inside the margin and `.hf-guess.no` (`--zh`, the games' red) outside it — the pair True or False and Multiple Choice already use, so it follows every theme.
 
 Re-run after touching `howFar`, `hfRounds` or `PAGES.howfar`: `node .claude/test-howfar.js` (and `test-minigames.js` for the wiring).
+
+## What share? — the pie-chart game (2026-10-31, on request)
+
+The request: "a new minigame where users have to guess percentages. They are shown a pie chart and have to drag within this pie chart to select a certain portion of it to answer a question. For example, what percentage of the world population lives in India? If they are within a 10% margin of the correct answer, then they pass. There should be 5 questions per. And each time the answer is revealed, it should have a small explanation paragraph and cite at least 2 sources to ensure that the information is accurate."
+
+- **Route and wiring**: `PAGES.pie` (key `pie`) in `app.js`, wired in all six places (`PAGES`, `valid`, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, the tile in `PAGES.home`). The tenth game in play (the Picture round is dormant), so the Clean Sweep badge and the daily chest ask for ten again; the sweep miniature's two rows of five fit it.
+- **The pool is `pie.js`**, lazy (bundle `pie`, `ensureData("pie")`), never on the eager path: `{ q, a, why, cat, src }`, `a` a whole per cent from 2 to 98. The reveal reuses True or False's apparatus (`tfWhyHTML`, `sourcesHTML(…, { shut: true })`, `tfWireWhy`), so the explanation carries footnotes, glossary links, units and spelling exactly as that game's does.
+- **Two sources at least, checked**: `node .claude/check-pie.js` (CI's fast gate) refuses a question with fewer than two DIFFERENT works (counted on the URL), a marker with no source or a source with no marker, American spelling, markup the sanitiser drops, an explanation over 600 characters and an answer outside 2–98. A figure that moves with time names its year in the question.
+- **The margin is ten PERCENTAGE POINTS**, not ten per cent of the answer: the answer is already a percentage, and a relative margin would give a 3 % answer a window of 0.3 of a point. |guess − answer| ≤ 10 wins; 10 off wins, 11 off loses.
+- **The pie is a slider**: a press or drag anywhere on it sets the slice from twelve o'clock clockwise to the pointer, in whole per cent, and a drag over twelve o'clock stops at 0 or 100 rather than wrapping (a fresh press is taken where it lands). `role="slider"` with arrows ±1, Page Up/Down ±10, Home, End and Enter to lock in; the ‹ › buttons step one point. It starts at 50 %.
+- **The reveal**: the reader's slice turns green inside the margin and red outside it (`--good` / `--zh`), the answer is drawn over it as a dashed outline, the verdict names both figures and how far off, then the explanation and its sources (shut by default, as on the Picture round).
+- **The draw**: `dayPick("pie", …, 5)` — the same five for everyone. A round answered stays answered (`setGameProgress("pie", …)`), cleared at the end; the lock is `gameLockedToday`. A perfect run is 5 / 5.
+
+Re-run after touching `PAGES.pie`, `pieSlicePath` or `pie.js`: `node .claude/check-pie.js` and `node .claude/test-pie.js` (and `test-minigames.js` for the wiring).
