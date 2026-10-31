@@ -10933,7 +10933,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
-    atlas2findit: { files: ["atlas/data/findit-areas.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
+    atlas2findit: { files: ["atlas/data/findit-areas.js", "atlas/data/findit-waters.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
     atlas2places: { files: ["atlas/data/card-places.js"] },   // card → registry places (62 KB): the "Discovered!" chip on a card's window asks it
     /* THE PRESENT-DAY COUNTRIES (Phase 5; atlas/data/country-names.js, generated): the account page's countries meter, the Cartographer and Circumnavigator badges and the Settings Atlas-home picker read it where they read world.js. `after`
        runs the one-way migration of `placesSeen` — v1's panels keyed a country by world.js's spelling ("S. Sudan"), the new Atlas by the gazetteer's ("South Sudan") — see atlasPlacesSeenMigrate. Warmed at idle. */

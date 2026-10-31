@@ -10647,11 +10647,13 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .fi2-loading[hidden]{display:none;}
 /* HOW FAR? (2026-10-30): Find it's board and card; the card sits at the FOOT of the board, so it never covers the line, which the view centres */
 .howfar .hf-game{top:auto; bottom:14px;}
-/* …and on a phone the board is the whole page behind its controls, full-bleed exactly as the Atlas page is (2026-10-30, on request: no padding of page background around it) */
+/* …and on a phone the board is the whole page behind its controls, full-bleed exactly as the Atlas page is (2026-10-30, on request: no padding of page background around it);
+   Find it's own board too since 2026-10-31 (on request), its zoom stack moved to the foot because its card covers the top */
 @media (max-width:640px){
-  .stage:has(.howfar){padding:0; max-width:none;}
-  html:has(.howfar), body:has(.howfar){overscroll-behavior:none;}
-  .findit2.howfar{border-radius:0; min-height:0; margin-top:env(safe-area-inset-top); height:calc(100vh - var(--tabbar-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); height:calc(100dvh - var(--tabbar-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom));}
+  .stage:has(.findit2){padding:0; max-width:none;}
+  html:has(.findit2), body:has(.findit2){overscroll-behavior:none;}
+  .findit2:not(.howfar) .fi2-zoom{top:auto; bottom:12px;}
+  .findit2{border-radius:0; min-height:0; margin-top:env(safe-area-inset-top); height:calc(100vh - var(--tabbar-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom)); height:calc(100dvh - var(--tabbar-h) - env(safe-area-inset-top) - env(safe-area-inset-bottom));}
 }
 .hf-form{display:flex; align-items:center; gap:8px;}
 .hf-form[hidden]{display:none;}
