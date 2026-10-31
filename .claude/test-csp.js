@@ -48,6 +48,7 @@ const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", 
   // style and img-src are both things the policy has an opinion about, so both routes are walked
   "crossword", "whatyear",   // the picture round is dormant (2026-10-30): #picture lands on home
   "howfar",   // How far? (2026-10-30): the engine board, as findit
+  "pie",      // What share? (2026-10-31): an inline SVG slider and a lazily injected pool
   "mission", "studio", "community", "deck/does-not-exist",
   // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
   // exactly the kind of thing script-src 'self' is there to police) and a book that does not exist

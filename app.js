@@ -2077,7 +2077,8 @@
   /* PICTURE ROUND IS DORMANT (2026-10-30, on request: "Remove the picture round minigame. Make it dormant for now"). It is out
      of DAILY_GAMES (so the sweep needs nine), off the home grid and refused by `route` (see DORMANT_GAMES); PAGES.picture, its pool,
      its name, icon and meta all stay, so reviving it is putting "picture" back here, in `valid`, and its tile back on the home grid. */
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar"];
+  /* WHAT SHARE? (2026-10-31) joins the sweep, so it needs ten again. */
+  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie"];
   const DORMANT_GAMES = ["picture"];
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
@@ -10929,7 +10930,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        bounding box (atlas/data/card-faces.js, generated), and rivers.js alone for a river locator's own river. None is on the eager path; the engine itself is the `atlas2` bundle above and
        topology.bin is fetched by it. A window asks for all of them when it is mounted behind the preview switch (`startCardWindow2`); `warmAtlas2Windows` asks at idle. */
     atlas2embed: { files: ["atlas/atlas-embed.js", "atlas/atlas-windows.js"] },
-    atlas2gaz: { files: ["atlas/data/gazetteer.js"] },   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
+    atlas2gaz: { files: ["atlas/data/gazetteer.js"] },
+    pie: { files: ["pie.js"] },   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
@@ -16019,6 +16021,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     picture:   ["Picture round — Folio", "Name what is in each of today's five pictures."],
     whatyear:  ["What year? — Folio", "Five things from one year — place it on the timeline."],
     howfar:    ["How far? — Folio", "Guess the distance between two places on the globe."],
+    pie:       ["What share? — Folio", "Drag out a slice of the pie: what share of the whole is it?"],
     admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
@@ -19254,7 +19257,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
         "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
-        "ribbon on the home page shows that one filling up), and for finishing all nine minigames in a day. " +
+        "ribbon on the home page shows that one filling up), and for finishing all ten minigames in a day. " +
         "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
@@ -25234,6 +25237,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // What year? — a question mark standing over a ruled rail, so it is read as "which point on this
     // scale" rather than as Timeline's line of three dots
     // How far? — two places and the dashed line between them, which is the round in one mark; diagonal, so it is not read as Timeline's row of dots
+    // What share? — a pie with one slice drawn out of it, which is the answer the reader gives
+    pie:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 4.6A8 8 0 1 0 19.4 13.5H10.5z"/><path d="M13.5 2.6a8 8 0 0 1 7.9 7.9h-7.9z" fill="currentColor"/></svg>',
     howfar:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="18.5" r="2.5" fill="currentColor" stroke="none"/><circle cx="18.5" cy="5.5" r="2.5"/><line x1="7.6" y1="16.4" x2="16.4" y2="7.6" stroke-dasharray="2.2 2.8"/></svg>',
     whatyear:
@@ -26125,8 +26131,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedCrosswordToday = gamePlayedToday("crossword");
     const playedWhatYearToday = gamePlayedToday("whatyear");
     const playedHowFarToday = gamePlayedToday("howfar");
+    const playedPieToday = gamePlayedToday("pie");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar"), pie: gameWonToday("pie") };
     /* The day's completion mark is at module scope, beside ICON — see `doneMarkHTML`. */
     /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
        page, the tile should flip around and reveal the user's general stats and site-wide average
@@ -26186,7 +26193,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE NINE TILE HUES, IN ONE PLACE (Oct 2026): the grid below reads them for its tiles and the
        tablet's rail (sweepRowHTML) reads them for its glyph discs, so a re-coloured game changes in both. The
        values and the reasoning for each are unchanged — see the tile calls in gameGrid. */
-    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E" };
+    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E", pie: "#A0186C" };
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
       /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
@@ -26233,11 +26240,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
-            : ready ? "Open the chest for finishing all nine today"
-            : "Finish all nine of today's minigames to unlock a chest") + '"' +
+            : ready ? "Open the chest for finishing all ten today"
+            : "Finish all ten of today's minigames to unlock a chest") + '"' +
           ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
             : ready ? "Open today's minigame chest"
-            : "Locked: finish all nine minigames to unlock today's chest") + '">' +
+            : "Locked: finish all ten minigames to unlock today's chest") + '">' +
           CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
         "</button></div>";
     };
@@ -26289,6 +26296,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${/* HOW FAR? (2026-10-30) is a tenth tile, so the desktop's 3 × 3 gains a fourth row of one. Its terracotta is the sweep's answer outside the yellows (which the What year?
             note above rules out): 28.9 from its nearest neighbour against the palette's tightest pair at 27.8, so it does not crowd the grid, and white reads 4.15:1 on the fill. */""}
       ${tile({ id: "g-howfar", key: "howfar", cls: "g-howfar", color: GAME_HUE.howfar, glyph: ICON.howfar, title: "How far?", sub: gameSub("howfar"), done: playedHowFarToday, won: wonToday.howfar })}
+      ${/* WHAT SHARE? (2026-10-31) is the eleventh tile, the tenth in play. Its berry is the sweep's farthest colour from all ten hues (Lab 37 from its nearest, against the
+            palette's tightest pair at 27.8) inside the palette's own lightness and chroma, and white reads above 7:1 on it. */""}
+      ${tile({ id: "g-pie", key: "pie", cls: "g-pie", color: GAME_HUE.pie, glyph: ICON.pie, title: "What share?", sub: gameSub("pie"), done: playedPieToday, won: wonToday.pie })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -38496,9 +38506,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     challenge: ["Multiple Choice", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
     chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
     crossword: ["Crossword", ICON.crossword], picture: ["Picture round", ICON.picture], whatyear: ["What year?", ICON.whatyear],
-    howfar: ["How far?", ICON.howfar],
+    howfar: ["How far?", ICON.howfar], pie: ["What share?", ICON.pie],
   };
-  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "year", howfar: "five distances" };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "year", howfar: "five distances", pie: "five questions" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
      stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
      is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
@@ -41377,6 +41387,193 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!ok || !window.AtlasWindows || !window.AtlasWindows.howFar) { root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>How far? could not be set up</strong><span class="dl-note">The map did not load. Check your connection and try again.</span><button class="btn" type="button" id="hfReload">Reload</button></div>'; const b = root.querySelector("#hfReload"); if (b) b.addEventListener("click", () => location.reload()); return; }
       window.AtlasWindows.howFar(root, atlas2Ctx());
     });
+  };
+  /* WHAT SHARE? (2026-10-31, on request: "a new minigame where users have to guess percentages. They are shown a pie chart and have to drag
+     within this pie chart to select a certain portion of it to answer a question … If they are within a 10% margin of the correct answer, then they
+     pass. There should be 5 questions per. And each time the answer is revealed, it should have a small explanation paragraph and cite at least 2
+     sources"). docs/minigames.md "What share?" has the rules; the pool is `pie.js` (lazy, bundle `pie`), checked by `.claude/check-pie.js`.
+     · **THE MARGIN IS TEN PERCENTAGE POINTS**, not ten per cent of the answer: the answer is itself a percentage, and a relative margin would give a
+       question whose answer is 3 % a window of 0.3 of a point, which no drag on a pie can hit. |guess − answer| ≤ 10 wins the round.
+     · **THE PIE IS A SLIDER**: a drag anywhere on it sets the slice from twelve o'clock clockwise to the pointer, in whole per cent; the slice never
+       wraps past the top (a drag over twelve o'clock stops at 0 or 100). It is `role="slider"`, so arrows (±1), Page Up/Down (±10), Home and End work,
+       and the ‹ › buttons step one point for the last nudge a finger cannot make.
+     · The day's five come through `dayPick` (the same five for everyone); a round answered stays answered (`setGameProgress`), and the reveal uses
+       True or False's own explanation and source apparatus (`tfWhyHTML`, `sourcesHTML`, `tfWireWhy`). */
+  const PIE_ROUNDS = 5, PIE_MARGIN = 10;
+  function piePool() {
+    return (window.PIE_QUESTIONS || []).filter((x) => x && typeof x.q === "string" && x.q && typeof x.a === "number" && x.a >= 0 && x.a <= 100 && x.why);
+  }
+  // the slice from twelve o'clock clockwise to `pct` per cent, as an SVG path on a circle of radius R about (C, C)
+  function pieSlicePath(pct, C, R) {
+    const p = Math.max(0, Math.min(100, pct));
+    if (p <= 0) return "";
+    if (p >= 100) return "M" + C + " " + (C - R) + "A" + R + " " + R + " 0 1 1 " + C + " " + (C + R) + "A" + R + " " + R + " 0 1 1 " + C + " " + (C - R) + "Z";
+    const a = (p / 100) * Math.PI * 2, x = C + R * Math.sin(a), y = C - R * Math.cos(a);
+    return "M" + C + " " + C + "L" + C + " " + (C - R) + "A" + R + " " + R + " 0 " + (p > 50 ? 1 : 0) + " 1 " + x.toFixed(2) + " " + y.toFixed(2) + "Z";
+  }
+  PAGES.pie = function (root) {
+    detachKeys();
+    if (gameLockedToday(root, "pie")) return;
+    if (!dataReady("pie")) {
+      root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five questions</strong></div>';
+      ensureData("pie").then((ok) => {
+        if (!root.isConnected || current.name !== "pie") return;
+        if (ok) { PAGES.pie(root); return; }
+        root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>What share? could not be set up</strong><span class="dl-note">Its questions did not load. Check your connection and try again.</span><button class="btn" type="button" id="pieReload">Reload</button></div>';
+        const b = root.querySelector("#pieReload"); if (b) b.addEventListener("click", () => location.reload());
+      });
+      return;
+    }
+    const POOL = piePool();
+    if (POOL.length < PIE_ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", ICON.pie, "Not enough questions to play yet.", () => route("home"), "Back home"); return; }
+    const picks = dayPick("pie", POOL.map((_, i) => i), PIE_ROUNDS).map((i) => POOL[i]);
+    const results = gameProgress("pie") || [];   // a round answered stays answered: a run left half way resumes at the next round
+    const guesses = [];                          // this visit's guesses, for the summary (a resumed round's guess is not kept)
+    let r = Math.min(results.length, PIE_ROUNDS), val = 50, answered = false;
+    const C = 100, R = 90;
+    root._pieApi = { answers: () => picks.map((x) => x.a) };   // for .claude/test-pie.js: the day's answers, which the page never shows before a guess
+    if (r >= PIE_ROUNDS) return finish();
+    renderRound();
+
+    function pips() { return `<div class="tf-pips">${picks.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
+    function chev(pts) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="' + pts + '"/></svg>'; }
+    function renderRound() {
+      const it = picks[r];
+      val = 50; answered = false;
+      root.innerHTML = `
+        <div class="dc-shell pie-game">
+          <div class="page-head" style="margin-bottom:14px">
+            <span class="eyebrow">What share?</span>
+            <h1 style="font-size:28px">Round ${r + 1} <span style="color:var(--ink-faint)">/ ${PIE_ROUNDS}</span></h1>
+          </div>
+          ${pips()}
+          <div class="dc-q">
+            <div class="dc-meta"><span>${esc(it.cat || "")}</span><span>Within ${PIE_MARGIN} points to win</span></div>
+            <p class="qtext" style="font-size:21px">${esc(it.q)}</p>
+            <div class="pie-wrap">
+              <svg class="pie-chart" id="pieChart" viewBox="0 0 200 200" role="slider" tabindex="0" aria-label="Your answer, in per cent" aria-valuemin="0" aria-valuemax="100">
+                <circle class="pie-base" cx="${C}" cy="${C}" r="${R}"/>
+                <path class="pie-slice" id="pieSlice" d=""/>
+                <path class="pie-answer" id="pieAnswer" d=""/>
+                <line class="pie-edge" id="pieEdge" x1="${C}" y1="${C}" x2="${C}" y2="${C - R}"/>
+                <line class="pie-zero" x1="${C}" y1="${C}" x2="${C}" y2="${C - R}"/>
+                <circle class="pie-knob" id="pieKnob" r="7"/>
+              </svg>
+              <div class="pie-readrow">
+                <button class="wy-step" id="piePrev" type="button" aria-label="One per cent less">${chev("15 18 9 12 15 6")}</button>
+                <div class="pie-readout" id="pieRead" aria-hidden="true"></div>
+                <button class="wy-step" id="pieNext" type="button" aria-label="One per cent more">${chev("9 6 15 12 9 18")}</button>
+              </div>
+              <p class="pie-hint" id="pieHint">Drag around the pie to cut your slice.</p>
+            </div>
+            <div class="tf-actions pie-actions" id="pieActions"><button class="btn" id="pieLock" type="button">Lock in</button></div>
+            <div class="tf-reveal" id="pieReveal" hidden></div>
+          </div>
+        </div>`;
+      wirePie();
+      paint();
+      root.querySelector("#pieLock").addEventListener("click", lockIn);
+    }
+    function paint() {
+      const svg = root.querySelector("#pieChart");
+      if (!svg) return;
+      root.querySelector("#pieSlice").setAttribute("d", pieSlicePath(val, C, R));
+      const a = (val / 100) * Math.PI * 2, x = C + R * Math.sin(a), y = C - R * Math.cos(a);
+      const edge = root.querySelector("#pieEdge"); edge.setAttribute("x2", x.toFixed(2)); edge.setAttribute("y2", y.toFixed(2));
+      const knob = root.querySelector("#pieKnob"); knob.setAttribute("cx", x.toFixed(2)); knob.setAttribute("cy", y.toFixed(2));
+      root.querySelector("#pieRead").textContent = val + "%";
+      svg.setAttribute("aria-valuenow", String(val));
+      svg.setAttribute("aria-valuetext", val + " per cent");
+      svg.classList.toggle("locked", answered);
+      if (answered) svg.setAttribute("aria-disabled", "true");
+      const prev = root.querySelector("#piePrev"), next = root.querySelector("#pieNext");
+      prev.disabled = answered || val <= 0; next.disabled = answered || val >= 100;
+    }
+    function setVal(v) {
+      if (answered) return;
+      v = Math.max(0, Math.min(100, Math.round(v)));
+      if (v !== val) { val = v; paint(); }
+    }
+    function wirePie() {
+      const svg = root.querySelector("#pieChart");
+      let dragging = false;
+      const pctAt = (e) => {
+        const b = svg.getBoundingClientRect();
+        const dx = e.clientX - (b.left + b.width / 2), dy = e.clientY - (b.top + b.height / 2);
+        let ang = Math.atan2(dx, -dy);   // 0 at twelve o'clock, clockwise positive
+        if (ang < 0) ang += Math.PI * 2;
+        let p = Math.round((ang / (Math.PI * 2)) * 100);
+        // no wrap past twelve o'clock: from the last quarter to the first is 100, the other way 0
+        if (dragging && val >= 75 && p <= 25) p = 100;
+        else if (dragging && val <= 25 && p >= 75) p = 0;
+        return p;
+      };
+      svg.addEventListener("pointerdown", (e) => {
+        if (answered) return;
+        e.preventDefault();
+        try { svg.setPointerCapture(e.pointerId); } catch (err) {}
+        svg.focus({ preventScroll: true });
+        dragging = false;   // the first point jumps straight to where the reader pressed, wrap guard off
+        setVal(pctAt(e));
+        dragging = true;
+      });
+      svg.addEventListener("pointermove", (e) => { if (dragging && !answered) setVal(pctAt(e)); });
+      const end = () => { dragging = false; };
+      svg.addEventListener("pointerup", end);
+      svg.addEventListener("pointercancel", end);
+      svg.addEventListener("keydown", (e) => {
+        if (answered) return;
+        const d = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1, PageUp: 10, PageDown: -10 }[e.key];
+        if (d) { e.preventDefault(); setVal(val + d); return; }
+        if (e.key === "Home") { e.preventDefault(); setVal(0); }
+        else if (e.key === "End") { e.preventDefault(); setVal(100); }
+        else if (e.key === "Enter") { e.preventDefault(); lockIn(); }
+      });
+      root.querySelector("#piePrev").addEventListener("click", () => { setVal(val - 1); sfx("click"); });
+      root.querySelector("#pieNext").addEventListener("click", () => { setVal(val + 1); sfx("click"); });
+    }
+    function lockIn() {
+      if (answered) return;
+      answered = true;
+      const it = picks[r], off = Math.abs(val - it.a), ok = off <= PIE_MARGIN;
+      results[r] = ok; guesses[r] = val;
+      sfx(ok ? "good" : "bad");
+      setGameProgress("pie", results.slice(0, r + 1));
+      paint();
+      root.querySelector("#pieAnswer").setAttribute("d", pieSlicePath(it.a, C, R));
+      root.querySelector("#pieChart").classList.add(ok ? "ok" : "no");
+      root.querySelector("#pieHint").innerHTML = `<span class="pie-key pie-key-you"></span>Your slice <span class="pie-key pie-key-ans"></span>The answer`;
+      root.querySelector("#pieActions").innerHTML = "";
+      const rev = root.querySelector("#pieReveal"); rev.hidden = false;
+      rev.innerHTML = `
+        <div class="tf-verdict ${ok ? "ok" : "no"}">${ok ? "Within the margin" : "Not quite"} — it's <b>${it.a}%</b>. You said <span class="pie-guess ${ok ? "ok" : "no"}">${val}%</span>${off ? ", " + off + " point" + (off === 1 ? "" : "s") + " " + (val > it.a ? "over" : "under") : ", exactly"}.</div>
+        <p class="tf-why">${tfWhyHTML(it)}</p>
+        ${sourcesHTML(it.src, { shut: true })}
+        <button class="btn" id="pieNextRound" type="button">${r + 1 < PIE_ROUNDS ? "Next question" : "See results"}</button>`;
+      tfWireWhy(rev);
+      rev.querySelector("#pieNextRound").addEventListener("click", () => { r++; if (r < PIE_ROUNDS) renderRound(); else finish(); });
+    }
+    function finish() {
+      const score = results.filter(Boolean).length;
+      markGamePlayed("pie", score === PIE_ROUNDS, score, PIE_ROUNDS);
+      setGameProgress("pie", null);
+      save(); checkAchievements();
+      const msg = score === 5 ? "Five out of five — a sharp eye for proportion." : score >= 4 ? "Excellent — nearly every slice right." : score >= 3 ? "Solid — most of your slices were close." : score >= 2 ? "Some of those shares are surprising." : "The world’s proportions are full of surprises.";
+      root.innerHTML = `
+        <div class="dc-shell pie-game">
+          <div class="page-head"><span class="eyebrow">What share?</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${PIE_ROUNDS}</span></h1></div>
+          <p style="color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif)">${msg}</p>
+          <div class="tf-summary">${picks.map((it, k) => `
+            <div class="tf-sum-row">
+              <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
+              <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a}%</b>${typeof guesses[k] === "number" ? ` (you said <span class="pie-guess ${results[k] ? "ok" : "no"}">${guesses[k]}%</span>)` : ""}. ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
+            </div>`).join("")}</div>
+          <p class="tf-tomorrow">Five fresh questions arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="pie-home" type="button">Home</button></div>
+        </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));
+      root.querySelector("#pie-home").addEventListener("click", () => route("home"));
+    }
   };
 
   /* ============================================================
@@ -47983,7 +48180,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
