@@ -285,6 +285,11 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
     over 13 squares a side, 730 distinct grids, and no unclued run or unnumbered entry anywhere.** A
     generator can be flawless on the day it is written and degenerate on a date nobody tried, which is what
     a one-day browser test cannot see.
+- **MULTIPLE CHOICE IS DORMANT (2026-10-31, on request: "Make the multiple choice minigame dormant").** The Picture round's
+  recipe: out of `DAILY_GAMES` (the sweep needs nine), no home tile, not in `valid`, in `DORMANT_GAMES` (so `#challenge` lands on
+  home). `PAGES.challenge`, its dealer, name, icon and meta stay, and `test-minigames.js`'s Node sweep still deals it; §3b asserts
+  the dormancy, and the browser checks that played it (the `[seed]` row, `test-review-decks.js` §10 behind `MC_DORMANT`) are
+  parked. To revive: the same four steps as the Picture round below, plus those two.
 - **PICTURE ROUND IS DORMANT (2026-10-30, on request).** Out of `DAILY_GAMES` (the sweep needs nine), no home tile,
   not in `valid`, and `DORMANT_GAMES` in `app.js` sends `#picture` home in `route` and the hashchange reader. Its page,
   pool, name, icon and meta stay; `test-minigames.js` §4 asserts the dormancy and keeps the game's own checks behind
@@ -998,7 +1003,7 @@ Re-run after touching `howFar`, `hfRounds` or `PAGES.howfar`: `node .claude/test
 
 The request: "a new minigame where users have to guess percentages. They are shown a pie chart and have to drag within this pie chart to select a certain portion of it to answer a question. For example, what percentage of the world population lives in India? If they are within a 10% margin of the correct answer, then they pass. There should be 5 questions per. And each time the answer is revealed, it should have a small explanation paragraph and cite at least 2 sources to ensure that the information is accurate."
 
-- **Route and wiring**: `PAGES.pie` (key `pie`) in `app.js`, wired in all six places (`PAGES`, `valid`, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, the tile in `PAGES.home`). The tenth game in play (the Picture round is dormant), so the Clean Sweep badge and the daily chest ask for ten again; the sweep miniature's two rows of five fit it.
+- **Route and wiring**: `PAGES.pie` (key `pie`) in `app.js`, wired in all six places (`PAGES`, `valid`, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, the tile in `PAGES.home`). The tenth game in play (the Picture round is dormant), so the Clean Sweep badge and the daily chest asked for ten again (nine since Multiple Choice went dormant the next day); the sweep miniature's two rows of five fit it.
 - **The pool is `pie.js`**, lazy (bundle `pie`, `ensureData("pie")`), never on the eager path: `{ q, a, why, cat, src }`, `a` a whole per cent from 2 to 98. The reveal reuses True or False's apparatus (`tfWhyHTML`, `sourcesHTML(…, { shut: true })`, `tfWireWhy`), so the explanation carries footnotes, glossary links, units and spelling exactly as that game's does.
 - **Two sources at least, checked**: `node .claude/check-pie.js` (CI's fast gate) refuses a question with fewer than two DIFFERENT works (counted on the URL), a marker with no source or a source with no marker, American spelling, markup the sanitiser drops, an explanation over 600 characters and an answer outside 2–98. A figure that moves with time names its year in the question.
 - **The margin is ten PERCENTAGE POINTS**, not ten per cent of the answer: the answer is already a percentage, and a relative margin would give a 3 % answer a window of 0.3 of a point. |guess − answer| ≤ 10 wins; 10 off wins, 11 off loses.

@@ -2078,8 +2078,11 @@
      of DAILY_GAMES (so the sweep needs nine), off the home grid and refused by `route` (see DORMANT_GAMES); PAGES.picture, its pool,
      its name, icon and meta all stay, so reviving it is putting "picture" back here, in `valid`, and its tile back on the home grid. */
   /* WHAT SHARE? (2026-10-31) joins the sweep, so it needs ten again. */
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie"];
-  const DORMANT_GAMES = ["picture"];
+  /* MULTIPLE CHOICE IS DORMANT (2026-10-31, on request: "Make the multiple choice minigame dormant"), exactly as the Picture round is:
+     out of DAILY_GAMES (the sweep needs nine again), off the home grid and refused by `route`; PAGES.challenge, its name, icon and meta
+     stay, so reviving it is putting "challenge" back here, in `valid`, and its tile back on the home grid. */
+  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie"];
+  const DORMANT_GAMES = ["picture", "challenge"];
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
      this many times a day, so the lifetime tally has to count ONE play for the day and ONE win however
@@ -19257,7 +19260,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
         "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
-        "ribbon on the home page shows that one filling up), and for finishing all ten minigames in a day. " +
+        "ribbon on the home page shows that one filling up), and for finishing all nine minigames in a day. " +
         "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
@@ -26122,7 +26125,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        reading a different field from the thing it depicts is one that will eventually contradict it. The
        legacy writes stay — `S.chrono.best` and the rest are read elsewhere — but nothing decides a tile's
        state from them any more. */
-    const playedChallengeToday = gamePlayedToday("challenge");
     const playedChronoToday = gamePlayedToday("chrono");
     const playedTrueFalseToday = gamePlayedToday("truefalse");
     const playedWhoSaidToday = gamePlayedToday("whosaid");
@@ -26240,16 +26242,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
-            : ready ? "Open the chest for finishing all ten today"
-            : "Finish all ten of today's minigames to unlock a chest") + '"' +
+            : ready ? "Open the chest for finishing all nine today"
+            : "Finish all nine of today's minigames to unlock a chest") + '"' +
           ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
             : ready ? "Open today's minigame chest"
-            : "Locked: finish all ten minigames to unlock today's chest") + '">' +
+            : "Locked: finish all nine minigames to unlock today's chest") + '">' +
           CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
         "</button></div>";
     };
     const gameGrid = `<div class="game-grid">
-      ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: GAME_HUE.challenge, glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
+      ${/* MULTIPLE CHOICE IS DORMANT (2026-10-31): its tile is gone; see DORMANT_GAMES. */""}
       ${tile({ id: "g-chrono", key: "chrono", cls: "g-chrono", color: GAME_HUE.chrono, glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
       ${tile({ id: "g-truefalse", key: "truefalse", cls: "g-truefalse", color: GAME_HUE.truefalse, glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
       ${tile({ id: "g-whosaid", key: "whosaid", cls: "g-whosaid", color: GAME_HUE.whosaid, glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
@@ -48180,7 +48182,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }

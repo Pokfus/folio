@@ -179,7 +179,7 @@ async function typeField(page, field, text) {
   check("no community ids in the tree", !isolation.tree);
   check("no community terms in the glossary", isolation.gloss === 0);
   check("nothing written to the admin overlay", !isolation.admin);
-  for (const g of ["challenge", "truefalse", "whosaid", "chrono"]) {
+  for (const g of ["truefalse", "whosaid", "chrono"]) {
     await page.goto(base + "#" + g, { waitUntil: "load" });
     await page.waitForTimeout(500);
   }

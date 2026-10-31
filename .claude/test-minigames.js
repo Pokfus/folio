@@ -734,6 +734,24 @@ function crosswordForPage(cells) {
     await ctx.close();
   }
 
+  /* ====================== 3b. Multiple Choice is dormant (2026-10-31, on request) ======================
+     No tile, not in DAILY_GAMES, not a route, and #challenge lands on home — as the Picture round below. Its page and
+     its dealer stay (the Node sweep above still deals it), so reviving it is the app.js change plus this block's removal. */
+  {
+    const r = registry();
+    check("[mc] dormant: not in DAILY_GAMES and not a route", r.daily.indexOf("challenge") < 0 && r.valid.indexOf("challenge") < 0);
+    const [ctx, page] = await fresh();
+    watch(page, "[mc]");
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1000);
+    check("[mc] dormant: no tile on the home grid", !(await page.evaluate(() => !!document.querySelector("#g-challenge"))));
+    await page.evaluate(() => { location.hash = "#challenge"; });
+    await page.waitForTimeout(700);
+    const at = await page.evaluate(() => ({ hash: location.hash, mc: !!document.querySelector("#opts .opt, #mc-next") }));
+    check("[mc] dormant: #challenge followed mid-session lands on home", at.hash === "" && !at.mc, JSON.stringify(at));
+    await ctx.close();
+  }
+
   /* ============================ 4. the picture round ============================ */
   /* DORMANT since 2026-10-30 (on request): no tile, not in DAILY_GAMES, and #picture lands on home. The game's
      own checks below are kept, skipped, so reviving it is flipping PICTURE_DORMANT with the app.js change. */
@@ -1269,7 +1287,7 @@ function crosswordForPage(cells) {
     };
     const GAMES = [
       ["True or False",   "#truefalse", { q: ".qtext", o: "#tfopts .opt", next: "#tf-next" }],
-      ["Multiple Choice", "#challenge", { q: ".qtext", o: "#opts .opt",   next: "#mc-next" }],
+      // Multiple Choice is dormant since 2026-10-31 (#challenge lands on home); its row returns with the game
       ["Who said it?",    "#whosaid",   { q: ".ws-quote", o: "#opts .opt", next: "#ws-next" }],
     ];
     for (const [name, hash, sel] of GAMES) {
