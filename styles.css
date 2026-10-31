@@ -5941,6 +5941,9 @@ button.game-tile .gt-glyph{opacity:.14;}
    pointer-events alone would still leave the keyboard able to press an arrow. */
 .chrono-list.chrono-done .ci-grip,.chrono-list.chrono-done .ci-arrows{opacity:.32; pointer-events:none;}
 .chrono-list.chrono-done .ci-grip{cursor:default;}
+/* the admin's Remove / Restore (see chronoAdminBtn); a removed row stays in today's list, struck through */
+.ci-admin{flex:none; padding:5px 8px;}
+.chrono-item.ci-removed .ci-name{text-decoration:line-through; color:var(--ink-faint);}
 .chrono-actions{display:flex; gap:12px; margin-top:18px;}
 .chrono-result{overflow:hidden; max-height:0; opacity:0; transition:max-height .35s var(--ease), opacity .3s, margin .3s; text-align:center; margin-top:0;}
 .chrono-result.show{max-height:220px; opacity:1; margin-top:18px;}

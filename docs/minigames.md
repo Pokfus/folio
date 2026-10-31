@@ -31,6 +31,9 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
   also the only one that asks WHEN rather than what, so a term that does not happen at a time — `human
   evolution`, `Tiber`, `Ice age` — is kept out of it and out of nothing else. See "SOME TERMS DO NOT
   HAPPEN AT A TIME" above.
+  **An admin sets that flag from the game itself** (Oct 2026, on request): each row carries Remove / Restore
+  (`chronoAdminBtn`), writing the same `undatable` delta as the editor's "no single date" box; today's rows
+  stay put, struck through, and the day's five are redrawn from the smaller pool on the next visit.
   **Its DRAG was rewritten in Aug 2026, on a report that it felt unpleasant** (`setupChronoDrag`). The old
   one called `insertBefore` on every `pointermove` and did nothing else, so the row being dragged never
   went anywhere under the finger — it was re-inserted at the new index and appeared there — and every other
