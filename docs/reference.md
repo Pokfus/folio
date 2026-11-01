@@ -6955,7 +6955,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE CROSSWORD IS NOT CARD-FED, AND IS THE ONLY GAME THAT WAS AND STOPPED** (`crossword.js`,
     `xwPool`): a card question is a CLOZE of 20–34 words carrying markup where a grid wants a phrase, the
     pool was whatever the deck happened to hold, and a reader who had studied the card had already seen the
-    clue. `crossword.js` is the game's own bank of 907 answers of 4–11 letters with a short clue each, on
+    clue. `crossword.js` is the game's own bank of 1237 answers of 4–11 letters with a short clue each, on
     `whatyear.js`'s model and under the rules in its header. `check-style.js` reads the file (rule 4 only)
     and `test-difficulty.js` asserts the game no longer reaches for the cards.
   · **`event` IS TOO BROAD TO BE A COMMON THREAD CATEGORY** — it is the site's kind tag for anything that

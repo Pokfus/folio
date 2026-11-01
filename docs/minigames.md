@@ -928,7 +928,7 @@ form.
   create completely unique, simple history-based crossword puzzles"). A card question is a CLOZE written
   round a blank, 20–34 words by house rule and carrying markup — a paragraph where a grid wants a phrase
   — the pool was whatever the deck happened to hold, and a reader who had studied the card had already
-  seen the clue. `crossword.js` is the game's own bank of 907 answers of 4–11 letters with a short clue
+  seen the clue. `crossword.js` is the game's own bank of 1237 answers of 4–11 letters with a short clue
   each, on `whatyear.js`'s model and under the rules in its header. **Measured over 730 days: no blank
   day, all nine entries every day, and 730 DISTINCT grids** where the card pool had collapsed to 60.
   `check-style.js` reads the file (rule 4 only — a four-word clue has no business carrying a card's
