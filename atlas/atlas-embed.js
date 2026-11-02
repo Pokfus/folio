@@ -76,6 +76,7 @@
         historyOK: () => E.historyOK(),
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id, year) => E.warSides(id, year),
+        statesAt: (year) => (E.statesAt ? E.statesAt(year) : []),   // the polities alive in a year, their faces and their names in it (Find it's reveal, Nov 2026)
         warTimeline: (id) => E.warTimeline(id),
         entsTimeline: (ids, span) => (E.entsTimeline ? E.entsTimeline(ids, span) : null),   // a members window's steps: the years its states change inside its span (2026-10-29)   // the war's dated steps (years of change; the front's plate dates when the file has them): a war window's timeline
         /* a point inside each of the faces, on the visible part of the view the hub is in now (the worker's label anchor; `near`, [{ face, lon, lat }], searches a face in the piece nearest that point — a war window passes each side's principal's capital): Promise of [{ face, v: unit vector | null (the best point), pts: [{ v, clear }] (up to twelve, best first), clear (px of the view it was asked in), vis, km2 }] — a point on the sphere, not a screen

@@ -742,7 +742,7 @@
         <div class="data-loading fi2-loading" id="fi2Loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>
       </div>`;
     const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), loadEl = root.querySelector("#fi2Loading");
-    let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null;   // shown: an area round's rings, drawn by the window on the still renderer
+    let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null, named = null;   // named: an area round's other states, named after the reveal (stateNames); shown: an area round's rings, drawn by the window on the still renderer
     const reduced = () => prefersReducedMotion();
     const MAXY2 = new Date().getFullYear();
     const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards"), ensureData("atlas2prose"), ensureData("atlas2findit"), ensureData("atlas2countries")];
@@ -752,7 +752,7 @@
       if (!ok.every(Boolean) || !window.AtlasEmbed) { fail(); return; }
       return window.AtlasEmbed.ensure({ host: {}, needHistory: "full" }).then((hub) => {
         if (!root.isConnected) return; if (!hub) { fail(); return; }
-        hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { panel: (r) => revealPanel(r), win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
+        hubRef = hub; rounds = fi2Rounds(); root._finditRounds = () => rounds.map((r) => ({ kind: r.kind, n: r.n, year: r.year })); root._finditApi = { names: () => namedNow.slice(), panel: (r) => revealPanel(r), win: () => win, rounds: () => rounds, round: () => ri };   // read by test-atlas-embed.js
         if (!rounds.length) { route("map"); return; }
         loadEl.hidden = true;
         win = window.AtlasEmbed.view(board, {
@@ -798,13 +798,52 @@
         ctx.save(); ctx.fillStyle = "rgba(" + SEL.rgb + "," + SEL.fillA + ")"; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = SEL.line; ctx.lineWidth = 2.6; ctx.shadowColor = SEL.glow; ctx.shadowBlur = 9; ctx.beginPath(); ctx.arc(p[0], p[1], 9, 0, Math.PI * 2); ctx.moveTo(p[0] - 15, p[1]); ctx.lineTo(p[0] - 5, p[1]); ctx.moveTo(p[0] + 5, p[1]); ctx.lineTo(p[0] + 15, p[1]); ctx.moveTo(p[0], p[1] - 15); ctx.lineTo(p[0], p[1] - 5); ctx.moveTo(p[0], p[1] + 5); ctx.lineTo(p[0], p[1] + 15); ctx.stroke(); ctx.restore(); } }
       if (pin) { const p = api.project(pin.lon, pin.lat); if (p[2] >= 0) { ctx.beginPath(); ctx.arc(p[0], p[1], 6, 0, Math.PI * 2); ctx.fillStyle = pin.col; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.font = "600 13px system-ui, sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.lineWidth = 3; ctx.strokeStyle = "rgba(255,255,255,0.94)"; ctx.strokeText(pin.name, p[0] + 11, p[1]); ctx.fillStyle = "#221808"; ctx.fillText(pin.name, p[0] + 11, p[1]); } }
+      if (named) stateNames(st, api, ctx);
       if (pulse) { const k = reduced() ? 0.5 : Math.min(1, (performance.now() - pulse.t0) / 900); const p = api.project(pulse.lon, pulse.lat); if (p[2] >= 0) ring(p[0], p[1], 8 + 36 * k, pulse.col.replace(/1\)$/, (1 - k).toFixed(2) + ")"), 3); if (k < 1) { win.schedule(); } else pulse = null; }
+      ctx.restore();
+    }
+    /* AFTER THE REVEAL, EVERY OTHER STATE OF THE YEAR IS NAMED (Nov 2026, on request: "once an answer has been revealed for a question, all the other states on the map of that year should show their
+       names"). An area round only, and only once it is over, so nothing is given away before the guess. The states are the hub's `statesAt(year)` (each polity alive then, with the name the Atlas shows for it
+       that year) less the answer itself, which the question has already named; each name stands on a point inside its own face (`faceAnchors`, the war windows' label anchor, asked at rest and carried as a
+       point on the sphere through a pan or a pinch), the biggest faces on screen first, and a name whose box would leave the frame or meet a name already placed is left out. The still renderer has no
+       history and names nothing. `root._finditApi.names()` is what a suite reads. */
+    let namedNow = [];
+    function stateNames(st, api, ctx) {
+      if (!hubRef || hubRef.canvas2d || !hubRef.statesAt || !hubRef.faceAnchors) return;
+      const W = api.cw, H = api.ch;
+      if (!named.states) { named.states = hubRef.statesAt(named.year).filter((s) => !named.skip.has(s.id) && String(s.n || "").trim()); named.byFace = new Map(named.states.map((s) => [s.face, s])); }
+      if (!named.states.length) return;
+      const key = [st.lon.toFixed(3), st.lat.toFixed(3), st.zoom.toFixed(3), W, H, api.level].join();
+      if (!api.fast && named.asked !== key) {
+        named.asked = key; const mine = named;
+        hubRef.faceAnchors(named.states.map((s) => s.face)).then((rows) => { if (named !== mine || mine.asked !== key) return; mine.rows = rows; if (win) win.schedule(); }, () => {});
+      }
+      if (!named.rows) return;
+      const pv = (getComputedStyle(document.body).getPropertyValue("--paper").trim() || "#ffffff").replace("#", ""), pn = parseInt(pv.length === 3 ? pv.replace(/./g, "$&$&") : pv.slice(0, 6), 16);
+      const dark = isFinite(pn) && (((pn >> 16) & 255) * 0.299 + ((pn >> 8) & 255) * 0.587 + (pn & 255) * 0.114) < 128;
+      ctx.save(); ctx.font = "600 12px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3.2;
+      ctx.strokeStyle = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)"; ctx.fillStyle = dark ? "#ffffff" : "#221808";
+      const placed = [], out = [], hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
+      const rows = named.rows.filter((r) => r.v && named.byFace.has(r.face)).sort((a, b) => (b.km2 || 1) * Math.max(0.02, b.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
+      for (const r of rows) {
+        const s = named.byFace.get(r.face), text = String(s.n).trim();
+        let at = null; const bw = ctx.measureText(text).width / 2 + 3, bh = 8;
+        for (const q of r.pts && r.pts.length ? r.pts : [{ v: r.v }]) {
+          const p = api.projectV(q.v[0], q.v[1], q.v[2]); if (p[2] <= 0.02) continue;
+          const b = [p[0] - bw, p[1] - bh, p[0] + bw, p[1] + bh];
+          if (b[0] < 3 || b[2] > W - 3 || b[1] < 3 || b[3] > H - 3 || placed.some((o) => hit(b, o))) continue;
+          at = p; placed.push(b); break;
+        }
+        if (!at) continue;
+        ctx.strokeText(text, at[0], at[1]); ctx.fillText(text, at[0], at[1]); out.push({ id: s.id, n: text, x: at[0], y: at[1] });
+      }
+      namedNow = out;
       ctx.restore();
     }
     // ---- the game (rules, scoring and wording as v1's) ----
     function clearPick() { pick = null; pickPin = null; marks = marks.filter((m) => !m.pick); confirmEl.hidden = true; clearEl.hidden = true; }
     function showRound() {
-      const r = rounds[ri]; tries = 0; lock = false; pulse = null; marks = []; pin = null; shown = null; clearPick();
+      const r = rounds[ri]; tries = 0; lock = false; pulse = null; marks = []; pin = null; shown = null; named = null; namedNow = []; clearPick();
       roundEl.textContent = "Round " + (ri + 1) + " / " + rounds.length; scoreEl.textContent = found + " found";
       qEl.innerHTML = r.kind === "area" ? "Find <b>" + esc(r.n) + "</b> — as it stood in " + fi2Year(r.shown) : (r.kind === "point" && r.cap ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(fi2Name(r.n)) + "</b>") + " on today's map";
       cart.textContent = r.kind === "area" ? "FULL ATLAS · " + fi2Year(r.shown) : "TODAY";
@@ -858,7 +897,7 @@
       lock = true; clearPick();
       const tgt = fi2Target(r), tint = ok ? TINT.found : TINT.answer, col = ok ? GREEN : GOLD;
       if (r.kind === "entity") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); }
-      else if (r.kind === "area") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); else if (hubRef && hubRef.canvas2d && r.rings) shown = { rings: r.rings, tint }; }
+      else if (r.kind === "area") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); else if (hubRef && hubRef.canvas2d && r.rings) shown = { rings: r.rings, tint }; named = { year: r.shown, skip: new Set(t), states: null, rows: null, asked: "" }; }
       else { pin = { lon: r.lon, lat: r.lat, name: r.n, col }; }
       pulse = { lon: tgt ? tgt[0] : r.lon, lat: tgt ? tgt[1] : r.lat, t0: performance.now(), col };
       if (tgt) fly(tgt[0], tgt[1], Math.max(win.st.zoom, r.kind === "point" ? 2.8 : 1.5));
