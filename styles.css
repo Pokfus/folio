@@ -5943,6 +5943,9 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ci-grip{flex:none; cursor:grab; color:var(--ink-faint); display:inline-flex; align-items:center; justify-content:center; touch-action:none; padding:8px; margin:-8px 0 -8px -6px;}
 .ci-grip:active{cursor:grabbing;}
 .ci-grip svg{width:18px; height:18px;}
+/* the term and, under it, its clue (Nov 2026 — see chronoClue): the pair is the row's one flexible column */
+.ci-text{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.ci-clue{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); line-height:1.3;}
 .ci-name{flex:1; min-width:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); line-height:1.3;}
 /* A LITERARY WORK'S AUTHOR, after the italic title (Sep 2026, on request) — see CHRONO_WORKS in app.js.
    It is quieter than the title and never a second line of its own: the row is a thing to be ordered, and
@@ -6540,6 +6543,11 @@ body.admin-mode .page{animation:none;}
 .admin-tab[data-atab="quotes"].active{color:#fff; background:#118e96; border-color:#118e96; box-shadow:0 5px 15px -7px rgba(15,138,145,.9);}
 .admin-tab[data-atab="artefacts"]{color:#a8478f; background:rgba(168,71,143,.13); border-color:rgba(168,71,143,.32);}
 .admin-tab[data-atab="artefacts"].active{color:#fff; background:#a8478f; border-color:#a8478f; box-shadow:0 5px 15px -7px rgba(168,71,143,.9);}
+/* True or False (Nov 2026) took the one family still free on the wheel, a slate blue; and with an eighth
+   tab the two-column grid had one left over, so Feedback, the last, spans both like Dashboard. */
+.admin-tab[data-atab="truefalse"]{color:#4d6a8f; background:rgba(77,106,143,.13); border-color:rgba(77,106,143,.32);}
+.admin-tab[data-atab="truefalse"].active{color:#fff; background:#4d6a8f; border-color:#4d6a8f; box-shadow:0 5px 15px -7px rgba(77,106,143,.9);}
+.admin-tab[data-atab="feedback"]{grid-column:1 / -1;}
 .admin-tab[data-atab="themes"]{color:#6d8f1f; background:rgba(109,143,31,.14); border-color:rgba(109,143,31,.33);}
 .admin-tab[data-atab="themes"].active{color:#fff; background:#6d8f1f; border-color:#6d8f1f; box-shadow:0 5px 15px -7px rgba(109,143,31,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}

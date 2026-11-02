@@ -5515,7 +5515,7 @@
      `ms` is how long the reader spent on the card — measured by the caller, since only the study page knows
      when the question appeared. It is optional: a grade applied with no timing logs a 0 rather than refusing,
      because a missing duration must never be able to cost the schedule. */
-  function grade(id, g, ms) {
+  function grade(id, g, ms, activeMs) {
     const fresh = !S.cards[id];
     let c = S.cards[id] || schedBlank();
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
@@ -5536,7 +5536,7 @@
        of which are already in hand at this point and neither of which the scheduler is allowed to see. */
     if (g !== "again" && firstToday) critMark(c);
     bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
-    logReview(preStatus === "review", g !== "again", ms);
+    logReview(preStatus === "review", g !== "again", activeMs != null ? activeMs : ms, activeMs != null);
     logReviewDay(firstToday, g !== "again");
     /* The per-review row, and the object it returns is kept so an undo can take back THIS row rather than
        "the last one" or "one row off the end". Identity is the only exact handle: the log prunes from the
@@ -5762,14 +5762,21 @@
      clamped deciseconds the per-review row keeps (`REV_MAX_DS`), so the two can never disagree about an
      answer; a row written before this release has three slots, and homeWeekHTML falls back to the window
      for such a day rather than calling it empty. */
-  function logReview(mature, correct, ms) {
+  /* THE DAY'S TIME IS NO LONGER CAPPED AT 60 SECONDS AN ANSWER (Nov 2026, on request: "if a user spends longer on a card,
+     that should all be added to the time"). The study page now passes the card's ACTIVE time (`uncapped`): the seconds it
+     was on screen with the tab visible and the reader not idle past STUDY_IDLE_MS, counted by the same ticker as the day's
+     study clock (startTimeTicker) — so a card read for four minutes adds four minutes, and a card left open over lunch
+     still adds nothing for lunch. The per-review row keeps REV_MAX_DS: it is the review log's "time taken", which the
+     FSRS optimiser and Anki's export read with Anki's own 60 s ceiling, and is not the day's study time. */
+  function logReview(mature, correct, ms, uncapped) {
     if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};   // back-fill for saves made before the log existed
     const d = todayStr();
     const e = S.reviewLog[d] || [0, 0, 0];
     e[0] += 1;
     if (mature) { e[2] += 1; if (correct) e[1] += 1; }
     if (e.length < 6) { e[3] = e[3] | 0; e[4] = e[4] | 0; e[5] = e[5] | 0; }
-    e[3] += Math.max(0, Math.min(REV_MAX_DS, Math.round((Number(ms) || 0) / 100)));
+    const ds = Math.max(0, Math.round((Number(ms) || 0) / 100));
+    e[3] += uncapped ? ds : Math.min(REV_MAX_DS, ds);
     e[5] += 1; if (correct) e[4] += 1;
     S.reviewLog[d] = e;
     // prune on the day-roll only — cheap, and the log can't grow without bound
@@ -10934,6 +10941,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        topology.bin is fetched by it. A window asks for all of them when it is mounted behind the preview switch (`startCardWindow2`); `warmAtlas2Windows` asks at idle. */
     atlas2embed: { files: ["atlas/atlas-embed.js", "atlas/atlas-windows.js"] },
     atlas2gaz: { files: ["atlas/data/gazetteer.js"] },
+    /* TIMELINE'S CLUES (Nov 2026, on request: "every answer term should have a 1 to 5 word description below it"):
+       one short line per datable card saying what the term IS, read by the Timeline game alone, so never eager. */
+    chronoClues: { files: ["timeline-clues.js"] },
     pie: { files: ["pie.js"] },   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
@@ -33268,6 +33278,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        A resumed session stamps afresh on the render that resumes it, so a card left open in a closed tab
        reports the time spent looking at it after coming back rather than the hours in between. */
     let shownAt = 0;
+    /* …and the card's ACTIVE time (Nov 2026): what the day's study ticker counted while this card was on screen — tab
+       visible, reader not idle — plus the few seconds since its last tick. This, uncapped, is what the day's "time
+       studied" adds for the answer (see logReview); `shownAt` still times the per-review row. */
+    let cardActiveMs = 0, cardTickAt = 0;
+    const cardActiveNow = () => {
+      if (!shownAt) return 0;
+      const since = Date.now() - Math.max(cardTickAt, shownAt);
+      return cardActiveMs + (document.hidden ? 0 : Math.max(0, Math.min(since, STUDY_TICK_MS * 2)));
+    };
     let buriedToldThisSession = false;   // see doGrade: the sibling-burying note is worth making once
     /* A TIME BOX (Sep 2026). Folio budgets a session in CARDS, which is the unit it thinks in and not the
        unit a commute is measured in — a reader with ten minutes has no way to say so. `boxMs` is how long
@@ -33362,7 +33381,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // …and the ticker itself is `startTimeTicker`, shared with the Library's reading clock — see there for
     // every rule it keeps. "Alive" here is a card actually painted: the completion screen and the
     // caught-up placard are not studying.
-    startTimeTicker(root, () => !!root.querySelector(".study-card"), studyTimeAdd);
+    startTimeTicker(root, () => !!root.querySelector(".study-card"), (ms) => {
+      studyTimeAdd(ms);
+      // the share of this tick that belongs to the card on screen (a tick can straddle the moment it was painted)
+      const now = Date.now(); if (shownAt) cardActiveMs += Math.max(0, Math.min(ms, now - Math.max(cardTickAt, shownAt))); cardTickAt = now;
+    });
 
     /* ---------- undoing the last grade ----------
        A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
@@ -33736,6 +33759,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          element under it. `null` while the policy is off, which is most cards. */
       let syncAttempt = null;
       shownAt = Date.now();   // the question is on screen — the per-review log times from here (see the declaration)
+      cardActiveMs = 0; cardTickAt = shownAt;
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
       mountCardMaps(cardRoot);   // a map card's question is a canvas — see the MAP CARDS block
@@ -34116,8 +34140,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const wasSeen = isSeen(id);
         /* How long this card took, measured from the moment its question was painted (`shownAt`). It is the
            reader's own thinking time, so a card revealed and left for lunch is CAPPED rather than counted —
-           the cap lives in logReviewEntry, which is where the figure is stored and where the reason is. */
-        const res = grade(id, g, shownAt ? Date.now() - shownAt : 0);
+           the cap lives in logReviewEntry, which is where the figure is stored and where the reason is. The
+           day's time studied takes `cardActiveNow()` instead, uncapped (Nov 2026, see logReview). */
+        const res = grade(id, g, shownAt ? Date.now() - shownAt : 0, cardActiveNow());
         // …and the row that logged it, onto the snapshot the grade could not yet see (see undoRevRow)
         snap.revRow = lastRevRow;
         // …and the grade itself, so undoGrade can take it back out of the community pool without reading
@@ -39244,6 +39269,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const by = CHRONO_WORKS[x.id];
     return "<i>" + name + "</i>" + (by ? '<span class="ci-by"> · ' + esc(by) + "</span>" : "");
   }
+  /* THE CLUE UNDER EACH TERM (Nov 2026, on request: "every answer term should have a 1 to 5 word description
+     below it, describing what the answer term is"). Written per card in timeline-clues.js (the lazy bundle
+     `chronoClues`, checked by .claude/check-timeline-clues.js: one to five words, no digit, never a word of
+     the term itself) — it says what kind of thing the term is and never when, so it helps without giving
+     the order away. A card written after the table falls back to its kind tag and its collection
+     ("Battle · Ancient Rome"), so no row is ever bare. */
+  function chronoClue(id) {
+    const t = window.TIMELINE_CLUES;
+    if (t && typeof t[id] === "string" && t[id].trim()) return t[id].trim();
+    const c = CARD_BY_ID[id];
+    if (!c) return "";
+    const kind = String((c.tags || [])[0] || "").trim();
+    const deck = String(c.category || "").split("·")[0].trim();
+    return [kind ? gameCapFirst(kind) : "", deck].filter(Boolean).join(" · ");
+  }
   /* A US STATE IS PLACED AT ITS STATEHOOD (Sep 2026, on request: "in the Timeline minigame, US states
      should use the dates of when they became states"). A card whose answer is a state — `us-033`
      California, answered by a card about its first peoples and its first European landfall — sorts at
@@ -39407,6 +39447,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.chrono = function (root) {
     detachKeys();
     if (gameLockedToday(root, "chrono")) return;
+    /* the clues are a nicety, not the puzzle: wait for them once, and if they cannot load play without them */
+    if (!dataReady("chronoClues") && !PAGES.chrono._cluesTried) {
+      root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s Timeline</strong></div>';
+      ensureData("chronoClues").then(() => {
+        PAGES.chrono._cluesTried = true;
+        if (root.isConnected && current.name === "chrono") PAGES.chrono(root);
+      });
+      return;
+    }
     const N = 5;
     const set = dailyChronoSet(N);
     if (set.length < N) {
@@ -39432,7 +39481,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               the same reason: a row of a list is a heading naming the thing, not a word inside a sentence,
               and half the deck's answers are common nouns stored lower-case. Display only — the row is
               tracked by its card id, so nothing downstream sees the capital. */""}
-        <span class="ci-name">${chronoNameHTML(x)}</span>
+        <span class="ci-text"><span class="ci-name">${chronoNameHTML(x)}</span>${(() => { const cl = chronoClue(id); return cl ? `<span class="ci-clue">${esc(cl)}</span>` : ""; })()}</span>
         <span class="ci-year"></span>
         ${chronoAdminBtn(id)}
         <div class="ci-arrows">
@@ -46871,6 +46920,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             '<button class="admin-tab" type="button" data-atab="cards">Cards</button>' +
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
+            '<button class="admin-tab" type="button" data-atab="truefalse">True or False</button>' +
             '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
             '<button class="admin-tab" type="button" data-atab="themes">Themes</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
@@ -47396,8 +47446,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           "</div>";
         }).join("") + "</div></div>";
     }
-    /* The True or False pool — "Myth or fact?" on the reader's side — a third list on this tab, beside
-       the other two game-and-quotation pools. Every statement is listed in file order with Edit and Remove;
+    /* The True or False pool — "Myth or fact?" on the reader's side — drawn on its own admin tab since
+       Nov 2026 (adminRenderTrueFalse; it was a third list on the Quotes tab). Every statement is listed in file order with Edit and Remove;
        Edit opens a form in place of the row. See truefalsePool for the overlay's shape. */
     let _tfEditing = null;   // the shipped `q` of the statement whose form is open
     function tfAdminHTML() {
@@ -47424,28 +47474,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function wireTfAdmin(items) {
       const ov = () => ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
       items.querySelectorAll("[data-tfedit]").forEach((b) => b.addEventListener("click", () => {
-        _tfEditing = b.dataset.tfedit; adminRenderQuotes();
+        _tfEditing = b.dataset.tfedit; adminRenderTrueFalse();
         const f = items.querySelector(".tf-form"); if (f) f.scrollIntoView({ block: "nearest" });
       }));
       items.querySelectorAll("[data-tfoff]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfoff, off = tfToggleRemoved(k);
         if (_tfEditing === k) _tfEditing = null;
-        adminRenderQuotes();
+        adminRenderTrueFalse();
         toast(off ? "Removed from True or False" : "Restored to True or False");
       }));
-      items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderQuotes(); }));
+      items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderTrueFalse(); }));
       items.querySelectorAll("[data-tfrevert]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfrevert;
         inlineConfirm("Put this statement back to its shipped wording?", () => {
-          delete ov()[k]; _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Reverted");
+          delete ov()[k]; _tfEditing = null; saveAdminEdits(); adminRenderTrueFalse(); toast("Reverted");
         }, "Revert");
       }));
       items.querySelectorAll("[data-tfsave]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfsave, f = b.closest(".tf-form"); if (!f) return;
         const err = tfFormSave(k, f);
         if (err) { toast(err); return; }
-        _tfEditing = null; adminRenderQuotes(); toast("Statement saved");
+        _tfEditing = null; adminRenderTrueFalse(); toast("Statement saved");
       }));
+    }
+    /* TRUE OR FALSE HAS A TAB OF ITS OWN (Nov 2026, on request: "add a new tab for it with a full list of all
+       the possible questions so I can delete them from there"). The list used to be the third section of the
+       Quotes tab, under two other pools; it is the same list, the same overlay and the same buttons, drawn
+       alone. The tab borrows `quotes-mode` (see adminRefresh) for its full-width layout. */
+    function adminRenderTrueFalse() {
+      const items = root.querySelector("#adminListItems");
+      const countEl = root.querySelector("#adminListCount");
+      const n = truefalsePool().length;
+      if (countEl) countEl.textContent = n + (n === 1 ? " statement" : " statements") + " in play";
+      if (!items) return;
+      items.innerHTML = '<div class="q-page">' + tfAdminHTML() + "</div>";
+      wireTfAdmin(items);
     }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
@@ -47533,9 +47596,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
           whoSaidAdminHTML() +
-          tfAdminHTML() +
         "</div>";
-      wireTfAdmin(items);
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
@@ -47905,12 +47966,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", tfTab = adminState.tab === "truefalse", quotes = adminState.tab === "quotes" || tfTab, artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
       const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); admEl.classList.toggle("themes-mode", themes); }
       // the feedback branch returns before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
+      if (tfTab) { adminState.selected.clear(); adminRenderTrueFalse(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
       if (themes) { adminState.selected.clear(); adminRenderThemes(); return; }
