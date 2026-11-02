@@ -5305,7 +5305,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `PROGRESS_FIELDS`; the last three since Oct 2026, on a bug report — "when I switched to another device, it reset my
   time for the day" — because the home page's Today / This week time and recall were read off `S.revlog`, the
   device-local window that is never pulled, so a second device showed the day at zero; `homeWeekHTML` now reads
-  them here and falls back to the window only for a day whose row still has three slots). **This log has to exist**: a card record keeps only its *last* review, so past-day
+  them here and falls back to the window only for a day whose row still has three slots). **The day's deciseconds are NOT capped at 60 s an answer** (Nov 2026, on request): the study page passes each card's ACTIVE time — the study ticker's own count while it was on screen, tab visible, reader not idle past `STUDY_IDLE_MS` (`cardActiveNow`) — and `logReview` adds it whole; the per-review row's `ds` keeps `REV_MAX_DS`. **This log has to exist**: a card record keeps only its *last* review, so past-day
   history is unreconstructable from `S.cards`. "Mature" = the status was `review` *before* the grade (hence
   `preStatus`); correct = anything but Again. Pruned to `REVIEW_LOG_DAYS` (400). Rendered by
   **`reviewStatsHTML`** as a study heatmap, a 90-day true-retention figure (`—` when nothing mature has been

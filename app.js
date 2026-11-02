@@ -5515,7 +5515,7 @@
      `ms` is how long the reader spent on the card — measured by the caller, since only the study page knows
      when the question appeared. It is optional: a grade applied with no timing logs a 0 rather than refusing,
      because a missing duration must never be able to cost the schedule. */
-  function grade(id, g, ms) {
+  function grade(id, g, ms, activeMs) {
     const fresh = !S.cards[id];
     let c = S.cards[id] || schedBlank();
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
@@ -5536,7 +5536,7 @@
        of which are already in hand at this point and neither of which the scheduler is allowed to see. */
     if (g !== "again" && firstToday) critMark(c);
     bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
-    logReview(preStatus === "review", g !== "again", ms);
+    logReview(preStatus === "review", g !== "again", activeMs != null ? activeMs : ms, activeMs != null);
     logReviewDay(firstToday, g !== "again");
     /* The per-review row, and the object it returns is kept so an undo can take back THIS row rather than
        "the last one" or "one row off the end". Identity is the only exact handle: the log prunes from the
@@ -5762,14 +5762,21 @@
      clamped deciseconds the per-review row keeps (`REV_MAX_DS`), so the two can never disagree about an
      answer; a row written before this release has three slots, and homeWeekHTML falls back to the window
      for such a day rather than calling it empty. */
-  function logReview(mature, correct, ms) {
+  /* THE DAY'S TIME IS NO LONGER CAPPED AT 60 SECONDS AN ANSWER (Nov 2026, on request: "if a user spends longer on a card,
+     that should all be added to the time"). The study page now passes the card's ACTIVE time (`uncapped`): the seconds it
+     was on screen with the tab visible and the reader not idle past STUDY_IDLE_MS, counted by the same ticker as the day's
+     study clock (startTimeTicker) — so a card read for four minutes adds four minutes, and a card left open over lunch
+     still adds nothing for lunch. The per-review row keeps REV_MAX_DS: it is the review log's "time taken", which the
+     FSRS optimiser and Anki's export read with Anki's own 60 s ceiling, and is not the day's study time. */
+  function logReview(mature, correct, ms, uncapped) {
     if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};   // back-fill for saves made before the log existed
     const d = todayStr();
     const e = S.reviewLog[d] || [0, 0, 0];
     e[0] += 1;
     if (mature) { e[2] += 1; if (correct) e[1] += 1; }
     if (e.length < 6) { e[3] = e[3] | 0; e[4] = e[4] | 0; e[5] = e[5] | 0; }
-    e[3] += Math.max(0, Math.min(REV_MAX_DS, Math.round((Number(ms) || 0) / 100)));
+    const ds = Math.max(0, Math.round((Number(ms) || 0) / 100));
+    e[3] += uncapped ? ds : Math.min(REV_MAX_DS, ds);
     e[5] += 1; if (correct) e[4] += 1;
     S.reviewLog[d] = e;
     // prune on the day-roll only — cheap, and the log can't grow without bound
@@ -33271,6 +33278,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        A resumed session stamps afresh on the render that resumes it, so a card left open in a closed tab
        reports the time spent looking at it after coming back rather than the hours in between. */
     let shownAt = 0;
+    /* …and the card's ACTIVE time (Nov 2026): what the day's study ticker counted while this card was on screen — tab
+       visible, reader not idle — plus the few seconds since its last tick. This, uncapped, is what the day's "time
+       studied" adds for the answer (see logReview); `shownAt` still times the per-review row. */
+    let cardActiveMs = 0, cardTickAt = 0;
+    const cardActiveNow = () => {
+      if (!shownAt) return 0;
+      const since = Date.now() - Math.max(cardTickAt, shownAt);
+      return cardActiveMs + (document.hidden ? 0 : Math.max(0, Math.min(since, STUDY_TICK_MS * 2)));
+    };
     let buriedToldThisSession = false;   // see doGrade: the sibling-burying note is worth making once
     /* A TIME BOX (Sep 2026). Folio budgets a session in CARDS, which is the unit it thinks in and not the
        unit a commute is measured in — a reader with ten minutes has no way to say so. `boxMs` is how long
@@ -33365,7 +33381,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // …and the ticker itself is `startTimeTicker`, shared with the Library's reading clock — see there for
     // every rule it keeps. "Alive" here is a card actually painted: the completion screen and the
     // caught-up placard are not studying.
-    startTimeTicker(root, () => !!root.querySelector(".study-card"), studyTimeAdd);
+    startTimeTicker(root, () => !!root.querySelector(".study-card"), (ms) => {
+      studyTimeAdd(ms);
+      // the share of this tick that belongs to the card on screen (a tick can straddle the moment it was painted)
+      const now = Date.now(); if (shownAt) cardActiveMs += Math.max(0, Math.min(ms, now - Math.max(cardTickAt, shownAt))); cardTickAt = now;
+    });
 
     /* ---------- undoing the last grade ----------
        A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
@@ -33739,6 +33759,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          element under it. `null` while the policy is off, which is most cards. */
       let syncAttempt = null;
       shownAt = Date.now();   // the question is on screen — the per-review log times from here (see the declaration)
+      cardActiveMs = 0; cardTickAt = shownAt;
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
       mountCardMaps(cardRoot);   // a map card's question is a canvas — see the MAP CARDS block
@@ -34119,8 +34140,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const wasSeen = isSeen(id);
         /* How long this card took, measured from the moment its question was painted (`shownAt`). It is the
            reader's own thinking time, so a card revealed and left for lunch is CAPPED rather than counted —
-           the cap lives in logReviewEntry, which is where the figure is stored and where the reason is. */
-        const res = grade(id, g, shownAt ? Date.now() - shownAt : 0);
+           the cap lives in logReviewEntry, which is where the figure is stored and where the reason is. The
+           day's time studied takes `cardActiveNow()` instead, uncapped (Nov 2026, see logReview). */
+        const res = grade(id, g, shownAt ? Date.now() - shownAt : 0, cardActiveNow());
         // …and the row that logged it, onto the snapshot the grade could not yet see (see undoRevRow)
         snap.revRow = lastRevRow;
         // …and the grade itself, so undoGrade can take it back out of the community pool without reading
