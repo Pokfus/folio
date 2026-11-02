@@ -513,6 +513,11 @@ vocabulary on the site, this collection will add more glossary terms than any ot
 
 ### Cells and cell theory — `bio-celltheory`
 
+**`bio-091` WAS RETIRED IN NOV 2026, ON REQUEST** ("each collection should include every answer term only
+once"): it was written with the answer *cell*, which `bio-004` (The cell as the unit of life) already
+answers. Do not write *cell* into the slot again; it may take a topic of its own whose answer no other
+`bio-` card carries.
+
     bio-091  What every cell has in common
     bio-092  Cell theory
     bio-093  The discovery of the cell

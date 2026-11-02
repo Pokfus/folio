@@ -176,7 +176,7 @@ function simulate(days) {
     const day = new Date(d0 + i * 86400000).toISOString().slice(0, 10);
     const M = build(day);
     out.xw.push(M.dailyCrossword());
-    out.wy.push(M.dailyWhatYear());
+    out.wy.push(M.dailyWhatYear());   // five rounds a day since Nov 2026, or null
   }
   return out;
 }
@@ -266,8 +266,10 @@ function crosswordForPage(cells) {
     });
     check("[sim] …with no unclued run and no unnumbered entry in " + DAYS + " grids", bad === 0, bad + " bad grids");
 
-    const wys = sim.wy.filter(Boolean);
-    check("[sim] What year? deals a puzzle every day", wys.length === DAYS, wys.length + " of " + DAYS);
+    const days = sim.wy.filter((d) => Array.isArray(d) && d.length === 5);
+    check("[sim] What year? deals five rounds every day", days.length === DAYS, days.length + " of " + DAYS);
+    check("[sim] …five different years each day", days.every((d) => new Set(d.map((p) => p.year)).size === 5));
+    const wys = [].concat(...days);   // the rounds in the order they are played, day after day
     /* THE ANSWER MUST BE ON A TICK — off the lattice the rail cannot express it and the puzzle is
        unwinnable every day, with nothing on screen to say so. */
     check("[sim] …the answer always on a tick of its own rail",
@@ -286,7 +288,7 @@ function crosswordForPage(cells) {
     let closest = Infinity;
     for (let i = 1; i < seq.length; i++) for (let j = i - 1; j >= 0 && i - j < pool; j--) if (seq[j] === seq[i]) { closest = Math.min(closest, i - j); break; }
     check("[sim] …and no answer repeating inside half a cycle", closest >= Math.ceil(pool / 2),
-      "closest repeat " + closest + " days apart over a pool of " + pool);
+      "closest repeat " + closest + " rounds apart over a pool of " + pool);
     // …spread evenly over the pool rather than clumping: the busiest year within a couple of turns of the quietest
     const hits = {};
     seq.forEach((y) => { hits[y] = (hits[y] || 0) + 1; });
@@ -371,8 +373,9 @@ function crosswordForPage(cells) {
       // ---- the two puzzle builders, over this same window ----
       const xw = M.dailyCrossword();
       if (!xw || !xw.entries || xw.entries.length < 5) note(bad.xw, i, "no full crossword");
-      const wy = M.dailyWhatYear();
-      if (!wy || !wy.events || wy.events.length !== 5 || wy.from + wy.at * wy.step !== wy.year) note(bad.wy, i, "What year? unplayable");
+      const wyd = M.dailyWhatYear();
+      if (!Array.isArray(wyd) || wyd.length !== 5) note(bad.wy, i, "What year? has not five rounds");
+      else wyd.forEach((wy, k) => { if (!wy || !wy.events || wy.events.length !== 5 || wy.from + wy.at * wy.step !== wy.year) note(bad.wy, i, "What year? round " + (k + 1) + " unplayable"); });
     }
     check("[sweep] Who said it? deals " + SWEEP_DAYS + " days of five playable rounds, the answer among four and the ladder obeyed",
       bad.ws.length === 0, bad.ws.join("\n         "));
@@ -699,8 +702,17 @@ function crosswordForPage(cells) {
       }
       const end = await state();
       check("[wy] a guess that is too early rules out everything at or below it", narrowed, "min ended at " + end.min);
-      check("[wy] …three misses end the puzzle and name the year", end.disabled && /it was/i.test(end.res) && end.marks === 3, end.res.slice(0, 60));
+      check("[wy] …three misses end the round and name the year", end.disabled && /it was/i.test(end.res) && end.marks === 3, end.res.slice(0, 60));
       check("[wy] …and only THEN does the rail show where it was", end.answerMark);
+      /* FIVE ROUNDS (Nov 2026, on request): the round's end offers the next one, and the head counts them. */
+      const r2 = await page.evaluate(async () => {
+        const h1 = () => (document.querySelector(".page-head h1") || {}).textContent || "";
+        const first = h1(), b = document.querySelector("#wy-next");
+        if (!b) return { first: first, next: false };
+        b.click(); await new Promise((r) => setTimeout(r, 200));
+        return { first: first, next: true, second: h1(), fresh: !!document.querySelector("#wy-guess") && !document.querySelector(".wy-answer") };
+      });
+      check("[wy] …a round of five, and the next round follows", /Round 1\s*\/\s*5/.test(r2.first) && r2.next && /Round 2\s*\/\s*5/.test(r2.second) && r2.fresh, JSON.stringify(r2));
       wyYear = (/It was ([^A-Z]*[\d.,]+\s*(?:BCE|CE|kya|Mya|Gya))/.exec(end.res) || [])[1];
       wyRail = { lo: start.lo, hi: start.hi, max: start.max };
       check("[wy] …and the answer is a readable year", !!wyYear, String(wyYear));

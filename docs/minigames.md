@@ -393,6 +393,10 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
   **that one gives five different years and asks for their ORDER, this one gives five things from ONE year
   and asks what the year was.** Ordering needs no absolute knowledge at all — a Timeline puzzle is solvable
   knowing only which came first — and this cannot be solved without it.
+  · **FIVE ROUNDS SINCE NOV 2026, on request** ("like the other minigames"): `dailyWhatYear` returns five
+    puzzles, five different years, round r of day d being step 5d + r of the year ring (`wyRotation`'s
+    half-cycle floor holds over the flattened rounds); a round's outcome is kept by `setGameProgress`, so a
+    run left half way resumes; the score is years found of five, and five of five is the perfect run.
   · **IT LEFT THE CARDS IN AUG 2026, on request** (`wyPool`, `whatyear.js` — the reasoning is in that file's
     map entry). It was built on `chronoPool` and the cards were the wrong material twice over: a card names
     a TERM where this wants an EVENT, and the game needs five things sharing one exact year, which a corpus
