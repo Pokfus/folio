@@ -7,8 +7,9 @@
    FAILS (exit 1) when a clue
      · is not 1–5 words (a hyphenated word counts as one), or ends in a full stop, or carries quotation marks;
      · contains a digit — a year, a century or an ordinal number would give the puzzle's order away;
-     · repeats a distinctive word of its own term (the clue says WHAT the term is, it must not name it) —
-       generic nouns such as "battle", "river" or "dynasty" are allowed, see GENERIC;
+     · repeats a word of its own term's NAME — a capitalised word of the term that is not a generic noun (the clue
+       says WHAT the term is, it must not name it); "battle", "river", "dynasty" (GENERIC) and lower-case words
+       of the term ("offensive", "script") may recur;
      · belongs to an id that is not a card.
    REPORTS (and with --strict fails) a datable card with no clue: the game then falls back to the card's kind
    tag and collection (chronoClue in app.js), so a new card is never bare, but the table should catch up.
@@ -35,8 +36,15 @@ const GENERIC = new Set(("battle battles siege war wars dynasty empire kingdom r
   "national north south east west northern southern eastern western central upper lower greater lesser grand holy " +
   "royal imperial federal general art style theory principle doctrine policy declaration constitution charter " +
   "inscription text book poem play novel epic statue sculpture painting mosque shrine monastery abbey basilica " +
-  "festival games olympic stone bronze iron golden house hall square park garden forest coast cape harbour port").split(/\s+/));
+  "festival games olympic stone bronze iron golden house hall square park garden forest coast cape harbour port " +
+  "mask tunnel marquis principality persecution arch pagoda ethnic ideological implementation fund reservoir").split(/\s+/));
 
+/* AN ORDINARY WORD is one the cards' own questions use in lower case at least three times ("trade", "army",
+   "offensive", "power"); a name (Hastings, Ming, Kyoto) is almost never written that way. Read from the corpus so
+   the list never needs keeping. */
+const lowerSeen = new Map();
+for (const c of CARDS) for (const w of String(c.question || "").replace(/<[^>]+>/g, " ").match(/(?<![\p{L}])[\p{Ll}][\p{L}'’-]*/gu) || []) lowerSeen.set(w, (lowerSeen.get(w) || 0) + 1);
+const ordinary = (w) => GENERIC.has(w) || (lowerSeen.get(w) || 0) >= 3;
 const words = (s) => String(s || "").replace(/<[^>]+>/g, " ").toLowerCase().match(/[\p{L}][\p{L}'’-]*/gu) || [];
 let fails = 0, missing = 0;
 const fail = (id, why, clue) => { fails++; console.log("FAIL  " + id + "  " + why + "  — " + JSON.stringify(clue)); };
@@ -50,7 +58,10 @@ for (const [id, clue] of Object.entries(CLUES)) {
   if (/\d/.test(clue)) fail(id, "contains a digit", clue);
   if (/[.]$/.test(clue.trim())) fail(id, "ends in a full stop", clue);
   if (/["“”]/.test(clue)) fail(id, "quotation marks", clue);
-  const own = new Set(words(c.answerText || c.answer).filter((w) => w.length > 3 && !GENERIC.has(w)));
+  // a word of the term counts as its NAME when the term writes it with a capital (Hastings, Ming, Kyoto) and it is not a
+  // generic noun; a lower-case word of the term ("offensive", "script", "trade") describes a kind of thing and may recur
+  const raw = String(c.answerText || c.answer || "").replace(/<[^>]+>/g, " ").match(/[\p{L}][\p{L}'’-]*/gu) || [];
+  const own = new Set(raw.filter((w) => /^\p{Lu}/u.test(w)).map((w) => w.toLowerCase()).filter((w) => w.length > 3 && !ordinary(w)));
   const shared = words(clue).filter((w) => own.has(w));
   if (shared.length) fail(id, "repeats its own term (" + shared.join(", ") + ")", clue);
 }
