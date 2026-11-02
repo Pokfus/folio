@@ -10934,6 +10934,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        topology.bin is fetched by it. A window asks for all of them when it is mounted behind the preview switch (`startCardWindow2`); `warmAtlas2Windows` asks at idle. */
     atlas2embed: { files: ["atlas/atlas-embed.js", "atlas/atlas-windows.js"] },
     atlas2gaz: { files: ["atlas/data/gazetteer.js"] },
+    /* TIMELINE'S CLUES (Nov 2026, on request: "every answer term should have a 1 to 5 word description below it"):
+       one short line per datable card saying what the term IS, read by the Timeline game alone, so never eager. */
+    chronoClues: { files: ["timeline-clues.js"] },
     pie: { files: ["pie.js"] },   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
@@ -39244,6 +39247,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const by = CHRONO_WORKS[x.id];
     return "<i>" + name + "</i>" + (by ? '<span class="ci-by"> · ' + esc(by) + "</span>" : "");
   }
+  /* THE CLUE UNDER EACH TERM (Nov 2026, on request: "every answer term should have a 1 to 5 word description
+     below it, describing what the answer term is"). Written per card in timeline-clues.js (the lazy bundle
+     `chronoClues`, checked by .claude/check-timeline-clues.js: one to five words, no digit, never a word of
+     the term itself) — it says what kind of thing the term is and never when, so it helps without giving
+     the order away. A card written after the table falls back to its kind tag and its collection
+     ("Battle · Ancient Rome"), so no row is ever bare. */
+  function chronoClue(id) {
+    const t = window.TIMELINE_CLUES;
+    if (t && typeof t[id] === "string" && t[id].trim()) return t[id].trim();
+    const c = CARD_BY_ID[id];
+    if (!c) return "";
+    const kind = String((c.tags || [])[0] || "").trim();
+    const deck = String(c.category || "").split("·")[0].trim();
+    return [kind ? gameCapFirst(kind) : "", deck].filter(Boolean).join(" · ");
+  }
   /* A US STATE IS PLACED AT ITS STATEHOOD (Sep 2026, on request: "in the Timeline minigame, US states
      should use the dates of when they became states"). A card whose answer is a state — `us-033`
      California, answered by a card about its first peoples and its first European landfall — sorts at
@@ -39407,6 +39425,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.chrono = function (root) {
     detachKeys();
     if (gameLockedToday(root, "chrono")) return;
+    /* the clues are a nicety, not the puzzle: wait for them once, and if they cannot load play without them */
+    if (!dataReady("chronoClues") && !PAGES.chrono._cluesTried) {
+      root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s Timeline</strong></div>';
+      ensureData("chronoClues").then(() => {
+        PAGES.chrono._cluesTried = true;
+        if (root.isConnected && current.name === "chrono") PAGES.chrono(root);
+      });
+      return;
+    }
     const N = 5;
     const set = dailyChronoSet(N);
     if (set.length < N) {
@@ -39432,7 +39459,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               the same reason: a row of a list is a heading naming the thing, not a word inside a sentence,
               and half the deck's answers are common nouns stored lower-case. Display only — the row is
               tracked by its card id, so nothing downstream sees the capital. */""}
-        <span class="ci-name">${chronoNameHTML(x)}</span>
+        <span class="ci-text"><span class="ci-name">${chronoNameHTML(x)}</span>${(() => { const cl = chronoClue(id); return cl ? `<span class="ci-clue">${esc(cl)}</span>` : ""; })()}</span>
         <span class="ci-year"></span>
         ${chronoAdminBtn(id)}
         <div class="ci-arrows">
