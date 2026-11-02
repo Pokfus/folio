@@ -16022,7 +16022,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     thread:    ["Common Thread — Folio", "Sort today's sixteen glossary terms into their four hidden groups."],
     crossword: ["Crossword — Folio", "Today's crossword, clued from the cards' own questions."],
     picture:   ["Picture round — Folio", "Name what is in each of today's five pictures."],
-    whatyear:  ["What year? — Folio", "Five things from one year — place it on the timeline."],
+    whatyear:  ["What year? — Folio", "Five rounds of five things from one year — place each year on the timeline."],
     howfar:    ["How far? — Folio", "Guess the distance between two places on the globe."],
     pie:       ["What share? — Folio", "Drag out a slice of the pie: what share of the whole is it?"],
     admin:     ["Admin — Folio", "Folio's content editor."],
@@ -24463,12 +24463,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      ONCE A BOOK HAS BEEN OPENED THE BOX ALTERNATES (Oct 2026, on request: "it should then switch every minute
      on the same timer as the daily quote at the top of the page between continue reading and a random
      suggested reading. Swiping left and right within that banner should also allow the user to manually
-     switch"). The page is built on Continue reading; the suggestion is one book drawn at random per build (any
-     other book of the shelf where there is one), so swiping back and forth shows the same two and a fresh book
+     switch"). The page is built on Continue reading; the suggestion is the day's book (homeDailyBook, the same
+     for every reader, Nov 2026), so swiping back and forth shows the same two and a fresh book
      file is not fetched every other minute. The swap is homeReadingSwap: wireDailyQuote's advance calls it as
      the quote moves on (one timer, held while the tab is hidden, as the quote is), and a horizontal swipe or
      the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone. */
   let _hrPair = null;   // { cont, sug, mode } — the two books of this build's box; null when it has one face
+  /* ONE SUGGESTED READING A DAY, THE SAME FOR EVERY READER (Nov 2026, on request: "there should be one
+     suggested reading for the whole website displayed every day and changed to a random new section the
+     following day"). The book, its chapter and the passage were each drawn with Math.random — per page build,
+     and the passage again on every turn of the box, so it changed once a minute. All three now come from
+     dayPick, the site's one seeded daily draw: everyone sharing a date is offered the same passage all day. */
+  function homeDailyBook() { return BOOKS.length ? dayPick("home-reading-book", BOOKS, 1)[0] : null; }
   function homeReadingHTML() {
     const R = S.reading || {};
     let best = null, at = 0;
@@ -24476,8 +24482,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const b = best ? BOOKS.find((x) => x.id === best) : null;
     _hrPair = null;
     if (!b) return homeSuggestedHTML();
-    const others = BOOKS.filter((x) => x.id !== b.id), pool = others.length ? others : BOOKS;
-    _hrPair = { cont: b, sug: pool[Math.floor(Math.random() * pool.length)], mode: "cont" };
+    _hrPair = { cont: b, sug: homeDailyBook(), mode: "cont" };
     return homeContinueHTML(b);
   }
   // the two dots at the box's top right that say it has a second face (none when it has one)
@@ -24510,7 +24515,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      because the file is a whole book and nobody asked for this one. A press opens the book at its start (the click handler reads
      `data-book` as it does for a book in progress); a press on the passage opens its chapter. */
   function homeSuggestedHTML(pick) {
-    const b = pick || (BOOKS.length ? BOOKS[Math.floor(Math.random() * BOOKS.length)] : null);
+    const b = pick || homeDailyBook();
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
       '<span class="hb-empty">Nothing on the shelf yet.</span></button>';
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
@@ -24532,8 +24537,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function homeReadingNextHTML(b, pos, opts) {
     const shipped = bookChapters(b.id);
     if (!shipped || !shipped.length) return "";
-    const random = !!(opts && opts.random);   // the Suggested reading box: a random chapter, a random paragraph of some length
-    const c = random ? shipped[Math.floor(Math.random() * shipped.length)] : (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
+    const random = !!(opts && opts.random);   // the Suggested reading box: the day's chapter, the day's paragraph of some length (homeDailyBook)
+    const c = random ? dayPick("home-reading-ch-" + b.id, shipped, 1)[0] : (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
     const same = !random && !!(pos && c.n === pos.ch);
     const d = document.createElement("div");
     d.innerHTML = c.html || "";
@@ -24542,7 +24547,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     let i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
     if (random) {   // a paragraph long enough to read as a passage, where the chapter has one; else any
       const long = []; ps.forEach((x, j) => { if ((x.textContent || "").trim().length >= 160) long.push(j); });
-      i = long.length ? long[Math.floor(Math.random() * long.length)] : Math.floor(Math.random() * ps.length);
+      const from = long.length ? long : Array.from(ps, (_, j) => j);
+      i = dayPick("home-reading-p-" + b.id + "-" + c.n, from, 1)[0];
     }
     /* TWICE AS LONG (Oct 2026, on request: "make the next up excerpts twice as long"): 600 characters where it
        was 300, and the box shows six and a half lines where it showed three (.hb-next-p). A paragraph shorter
@@ -26224,8 +26230,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            rendered designs for each, docs/mockups/chest-meter-designs). The 3×3 above is a miniature of the
            DESKTOP's grid; a tablet lays the tiles two to a row and a phone one to a row, so there it was a
            miniature of nothing. The rail is one strip in DAILY_GAMES order with the chest capping its right
-           end: on a tablet (T4) nine glyph discs, each lit in its own tile's hue once played and gold when
-           perfect, joined by a line that turns green between two played neighbours; on a phone (P4) the same
+           end: on a tablet (T4) nine glyph discs, each lit green once played (Nov 2026, on request — it was each
+           tile's own hue) and gold when perfect, joined by a line that turns green between two played neighbours; on a phone (P4) the same
            nine as plain segments stretched across the row under the heading, the glyphs hidden. It is ONE
            markup and the CSS decides which it is — `.sweep-rail` is display:none on the desktop and the
            miniature is hidden below 1024px — so there is one chest button and one click handler. */
@@ -26234,7 +26240,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<span class="sweep-count sr-count"><b>' + n + "</b> of " + all + "</span>" +
           '<div class="sr-steps">' + done.map((d, i) => {
             const key = DAILY_GAMES[i], name = (GAME_NAMES[key] || [])[0] || key;
-            return '<span class="sr-step' + (d ? " on" : "") + (won[i] ? " won" : "") + '" style="--c:' + (GAME_HUE[key] || "currentColor") + '" title="' +
+            return '<span class="sr-step' + (d ? " on" : "") + (won[i] ? " won" : "") + '" title="' +
               esc(name) + (won[i] ? " — a perfect run today" : d ? " — finished today" : "") + '">' + ((GAME_NAMES[key] || [])[1] || "") + "</span>" +
               (i < all - 1 ? '<span class="sr-link' + (d && done[i + 1] ? " on" : "") + '"></span>' : "");
           }).join("") + "</div>" +
@@ -38510,7 +38516,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     crossword: ["Crossword", ICON.crossword], picture: ["Picture round", ICON.picture], whatyear: ["What year?", ICON.whatyear],
     howfar: ["How far?", ICON.howfar], pie: ["What share?", ICON.pie],
   };
-  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "year", howfar: "five distances", pie: "five questions" };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "five years", howfar: "five distances", pie: "five questions" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
      stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
      is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
@@ -41082,45 +41088,77 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      A month-only key sorts before that month's dated entries, which is the honest place for "some time in
      April" among things known to the day. Ties keep the drawn order, `Array.sort` being stable. */
   const wyOrder = (a, b) => (a.d || "99").localeCompare(b.d || "99");
+  /* FIVE ROUNDS, LIKE THE OTHER GAMES (Nov 2026, on request: "The minigame What Year should have 5 rounds,
+     like the other minigames"). A day is five years now, each its own puzzle of five events on its own rail.
+     The ring walk is unchanged — it simply takes five steps a day instead of one, so round r of day d is
+     ring step 5d + r, and the half-cycle floor between repeats (wyRotation) still holds over the flattened
+     sequence of rounds; with 15 years that floor is eight steps, so no year can come twice in one day. The
+     rotation of a cycle is cumulative, so it is computed once for the day's first step and advanced by
+     one turn where the day's five cross into the next cycle. */
+  const WY_ROUNDS = 5;
+  function wyRound(year, events, key) {
+    const rng = mulberry32(hashStr(key));
+    // the shuffle chooses WHICH five (a repeated year must not be a repeated puzzle); the sort decides the
+    // order they are read in, so the two do different jobs and both are needed
+    const five = seededShuffle(events, rng).slice(0, WY_EVENTS).sort(wyOrder);
+    const step = wyStep(year, WY_TICKS);
+    const at = WY_EDGE + Math.floor(rng() * (WY_TICKS - WY_EDGE * 2));
+    return { year: year, step: step, at: at, ticks: WY_TICKS, from: year - at * step, events: five };
+  }
   function dailyWhatYear() {
     const byYear = new Map();
     wyPool().forEach((x) => { const a = byYear.get(x.year) || []; a.push(x); byYear.set(x.year, a); });
     const years = [...byYear.keys()].filter((y) => byYear.get(y).length >= WY_EVENTS).sort((a, b) => a - b);
-    if (!years.length) return null;
+    const n = years.length;
+    if (n < WY_ROUNDS) return null;
     const day = todayStr().split("-").map(Number);
     const dayNo = Math.floor(Date.UTC(day[0], (day[1] || 1) - 1, day[2] || 1) / 86400000);
-    const n = years.length, cycle = Math.floor(dayNo / n);
     const ring = seededShuffle(years, mulberry32(hashStr("whatyear-ring")));   // one base order, turned per cycle
-    const year = ring[(((dayNo % n) + wyRotation(cycle, n)) % n + n) % n];
-    const rng = mulberry32(hashStr("whatyear-" + todayStr()));
-    // the shuffle chooses WHICH five (a repeated year must not be a repeated puzzle); the sort decides the
-    // order they are read in, so the two do different jobs and both are needed
-    const events = seededShuffle(byYear.get(year), rng).slice(0, WY_EVENTS).sort(wyOrder);
-    const step = wyStep(year, WY_TICKS);
-    const at = WY_EDGE + Math.floor(rng() * (WY_TICKS - WY_EDGE * 2));
-    return { year: year, step: step, at: at, ticks: WY_TICKS, from: year - at * step, events: events };
+    const maxR = Math.max(1, n - Math.ceil(n / 2));
+    const k0 = dayNo * WY_ROUNDS, c0 = Math.floor(k0 / n);
+    let cyc = c0, rot = wyRotation(c0, n);
+    const out = [], seen = new Set();
+    for (let k = k0; out.length < WY_ROUNDS && k < k0 + n * 2; k++) {
+      const c = Math.floor(k / n);
+      while (cyc < c) { cyc++; rot = (rot + 1 + Math.floor(mulberry32(hashStr("whatyear-turn-" + cyc))() * maxR)) % n; }
+      const year = ring[(((k % n) + rot) % n + n) % n];
+      if (seen.has(year)) continue;   // the half-cycle floor makes this unreachable at 15 years; a guard for a smaller pool
+      seen.add(year);
+      out.push(wyRound(year, byYear.get(year), "whatyear-" + todayStr() + "-" + out.length));
+    }
+    return out.length === WY_ROUNDS ? out : null;
   }
   PAGES.whatyear = function (root) {
     detachKeys();
     if (gameLockedToday(root, "whatyear")) return;
-    const puz = dailyWhatYear();
-    if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have five events from one year to build today's puzzle from.", () => route("home"), "Back home"); return; }
+    const puzzles = dailyWhatYear();
+    if (!puzzles) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have enough years of five events to build today's puzzle from.", () => route("home"), "Back home"); return; }
 
     const wyChev = (pts) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="' + pts + '"/></svg>';
+    // five rounds (dailyWhatYear); a round answered stays answered, so a run left half way resumes at the next round
+    const results = (gameProgress("whatyear") || []).slice(0, WY_ROUNDS);
+    let r = results.length, puz = null, lo = 0, hi = 0, tries = 0, over = false, pos = 0;
+    let guesses = [];   // tick indexes already tried this round, so the rail can mark them
     const yearAt = (i) => puz.from + i * puz.step;
-    let lo = 0, hi = puz.ticks - 1, tries = 0, over = false;
-    const guesses = [];   // tick indexes already tried, so the rail can mark them
-    let pos = Math.round((lo + hi) / 2);
-    renderAll();
+    if (r >= WY_ROUNDS) { finishGame(); return; }
+    startRound();
 
+    function startRound() {
+      puz = puzzles[r];
+      lo = 0; hi = puz.ticks - 1; tries = 0; over = false; guesses = [];
+      pos = Math.round((lo + hi) / 2);
+      renderAll();
+    }
+    function pips() { return `<div class="tf-pips">${puzzles.map((_, k) => `<span class="tf-pip ${k < results.length ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
     function renderAll() {
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head" style="margin-bottom:14px">
-            <span class="eyebrow">Daily puzzle</span>
-            <h1>What year?</h1>
+            <span class="eyebrow">What year?</span>
+            <h1 style="font-size:28px">Round ${r + 1} <span style="color:var(--ink-faint)">/ ${WY_ROUNDS}</span></h1>
             <p>These five all belong to one year. Slide the marker to it — you get ${WY_TRIES} guesses.</p>
           </div>
+          <div id="wyPips">${pips()}</div>
           <ul class="wy-events">${puz.events.map((e) => `<li><span class="wy-dot"></span>${esc(e.name)}</li>`).join("")}</ul>
           <div class="wy-rail" id="wyRail">
             ${/* ---- THE YEAR IS STEPPED AS WELL AS DRAGGED (Aug 2026, on request: "the year should also
@@ -41189,8 +41227,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function wireActions() {
       const acts = root.querySelector("#wyActions");
-      acts.innerHTML = over ? `<button class="btn" id="wy-home">Home</button>` : `<button class="btn" id="wy-guess">Guess</button><button class="btn ghost" id="wy-back">Back home</button>`;
-      if (over) { acts.querySelector("#wy-home").addEventListener("click", () => route("home")); return; }
+      acts.innerHTML = over ? `<button class="btn" id="wy-next">${r + 1 < WY_ROUNDS ? "Next round" : "See results"}</button>` : `<button class="btn" id="wy-guess">Guess</button><button class="btn ghost" id="wy-back">Back home</button>`;
+      if (over) { acts.querySelector("#wy-next").addEventListener("click", () => { r++; if (r < WY_ROUNDS) startRound(); else finishGame(); }); return; }
       acts.querySelector("#wy-guess").addEventListener("click", guess);
       acts.querySelector("#wy-back").addEventListener("click", () => route("home"));
     }
@@ -41211,20 +41249,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function finish(win) {
       over = true;
-      // the score is the guesses left when it landed — first go is a perfect run and the gold tile
-      const score = win ? WY_TRIES - tries + 1 : 0;
       if (win) sfx("good");
-      markGamePlayed("whatyear", win && tries === 1, score, WY_TRIES);
-      save();
-      checkAchievements();
+      results[r] = win;
+      setGameProgress("whatyear", results);
       paint();
       wireActions();
+      root.querySelector("#wyPips").innerHTML = pips();
       const res = root.querySelector("#wyResult");
       res.className = "chrono-result show" + (win ? " win" : "");
       const label = yearLabel(puz.year);
       res.innerHTML = win
-        ? `<div class="cr-title">${esc(label)} — ${tries === 1 ? "first guess!" : "got it in " + tries + "."}</div><div class="cr-sub">All five belong to ${esc(label)}. A fresh year arrives tomorrow.</div>`
-        : `<div class="cr-title">It was ${esc(label)}</div><div class="cr-sub">All five belong to ${esc(label)}. A fresh year arrives tomorrow.</div>`;
+        ? `<div class="cr-title">${esc(label)} — ${tries === 1 ? "first guess!" : "got it in " + tries + "."}</div><div class="cr-sub">All five belong to ${esc(label)}.</div>`
+        : `<div class="cr-title">It was ${esc(label)}</div><div class="cr-sub">All five belong to ${esc(label)}.</div>`;
+    }
+    // the score is the years found out of five; all five is a perfect run and the gold tile
+    function finishGame() {
+      const score = results.filter(Boolean).length;
+      markGamePlayed("whatyear", score === WY_ROUNDS, score, WY_ROUNDS);
+      setGameProgress("whatyear", null);
+      save();
+      checkAchievements();
+      const msg = score === 5 ? "Five years out of five — a sure sense of when." : score >= 3 ? "Well placed — most of those years found." : score >= 1 ? "Some of those years are harder to pin down than they look." : "History keeps its dates close. Try again tomorrow.";
+      root.innerHTML = `
+        <div class="dc-shell">
+          <div class="page-head"><span class="eyebrow">What year?</span><h1>You found ${score} <span style="color:var(--ink-faint)">/ ${WY_ROUNDS}</span></h1></div>
+          <p style="color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif)">${msg}</p>
+          <div class="tf-summary">${puzzles.map((p, k) => `
+            <div class="tf-sum-row">
+              <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
+              <div><p class="tf-sum-q"><b>${esc(yearLabel(p.year))}</b></p><p class="tf-sum-a">${p.events.map((e) => esc(e.name)).join(" · ")}</p></div>
+            </div>`).join("")}</div>
+          <p class="tf-tomorrow">Five fresh years arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="wy-home" type="button">Home</button></div>
+        </div>`;
+      root.querySelector("#wy-home").addEventListener("click", () => route("home"));
     }
   };
 

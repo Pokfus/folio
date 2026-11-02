@@ -9957,7 +9957,8 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
     transition:background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
   }
   .games-sec .sr-step svg{width:calc(15px * var(--fs)); height:calc(15px * var(--fs)); display:block;}
-  .games-sec .sr-step.on{border-color:var(--c); background:color-mix(in srgb, var(--c) 16%, var(--card)); color:var(--c);}
+  /* a finished game is green, every one alike (Nov 2026, on request: not each game's own hue); gold when perfect */
+  .games-sec .sr-step.on{border-color:var(--good, #4F9D67); background:color-mix(in srgb, var(--good, #4F9D67) 16%, var(--card)); color:var(--good, #4F9D67);}
   /* gold is the seal's pair of stops, as on the desktop's pips (`.sw-chip.won`) */
   .games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47; border-color:#BE9829; color:#fff;}
   body.night .games-sec .sr-step.won{color:var(--paper);}
