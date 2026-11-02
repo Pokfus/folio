@@ -46871,6 +46871,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             '<button class="admin-tab" type="button" data-atab="cards">Cards</button>' +
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
+            '<button class="admin-tab" type="button" data-atab="truefalse">True or False</button>' +
             '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
             '<button class="admin-tab" type="button" data-atab="themes">Themes</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
@@ -47396,8 +47397,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           "</div>";
         }).join("") + "</div></div>";
     }
-    /* The True or False pool — "Myth or fact?" on the reader's side — a third list on this tab, beside
-       the other two game-and-quotation pools. Every statement is listed in file order with Edit and Remove;
+    /* The True or False pool — "Myth or fact?" on the reader's side — drawn on its own admin tab since
+       Nov 2026 (adminRenderTrueFalse; it was a third list on the Quotes tab). Every statement is listed in file order with Edit and Remove;
        Edit opens a form in place of the row. See truefalsePool for the overlay's shape. */
     let _tfEditing = null;   // the shipped `q` of the statement whose form is open
     function tfAdminHTML() {
@@ -47424,28 +47425,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function wireTfAdmin(items) {
       const ov = () => ADMIN_EDITS.truefalse || (ADMIN_EDITS.truefalse = {});
       items.querySelectorAll("[data-tfedit]").forEach((b) => b.addEventListener("click", () => {
-        _tfEditing = b.dataset.tfedit; adminRenderQuotes();
+        _tfEditing = b.dataset.tfedit; adminRenderTrueFalse();
         const f = items.querySelector(".tf-form"); if (f) f.scrollIntoView({ block: "nearest" });
       }));
       items.querySelectorAll("[data-tfoff]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfoff, off = tfToggleRemoved(k);
         if (_tfEditing === k) _tfEditing = null;
-        adminRenderQuotes();
+        adminRenderTrueFalse();
         toast(off ? "Removed from True or False" : "Restored to True or False");
       }));
-      items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderQuotes(); }));
+      items.querySelectorAll("[data-tfcancel]").forEach((b) => b.addEventListener("click", () => { _tfEditing = null; adminRenderTrueFalse(); }));
       items.querySelectorAll("[data-tfrevert]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfrevert;
         inlineConfirm("Put this statement back to its shipped wording?", () => {
-          delete ov()[k]; _tfEditing = null; saveAdminEdits(); adminRenderQuotes(); toast("Reverted");
+          delete ov()[k]; _tfEditing = null; saveAdminEdits(); adminRenderTrueFalse(); toast("Reverted");
         }, "Revert");
       }));
       items.querySelectorAll("[data-tfsave]").forEach((b) => b.addEventListener("click", () => {
         const k = b.dataset.tfsave, f = b.closest(".tf-form"); if (!f) return;
         const err = tfFormSave(k, f);
         if (err) { toast(err); return; }
-        _tfEditing = null; adminRenderQuotes(); toast("Statement saved");
+        _tfEditing = null; adminRenderTrueFalse(); toast("Statement saved");
       }));
+    }
+    /* TRUE OR FALSE HAS A TAB OF ITS OWN (Nov 2026, on request: "add a new tab for it with a full list of all
+       the possible questions so I can delete them from there"). The list used to be the third section of the
+       Quotes tab, under two other pools; it is the same list, the same overlay and the same buttons, drawn
+       alone. The tab borrows `quotes-mode` (see adminRefresh) for its full-width layout. */
+    function adminRenderTrueFalse() {
+      const items = root.querySelector("#adminListItems");
+      const countEl = root.querySelector("#adminListCount");
+      const n = truefalsePool().length;
+      if (countEl) countEl.textContent = n + (n === 1 ? " statement" : " statements") + " in play";
+      if (!items) return;
+      items.innerHTML = '<div class="q-page">' + tfAdminHTML() + "</div>";
+      wireTfAdmin(items);
     }
     function adminRenderQuotes() {
       const items = root.querySelector("#adminListItems");
@@ -47533,9 +47547,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
           whoSaidAdminHTML() +
-          tfAdminHTML() +
         "</div>";
-      wireTfAdmin(items);
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
@@ -47905,12 +47917,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", tfTab = adminState.tab === "truefalse", quotes = adminState.tab === "quotes" || tfTab, artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
       const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); admEl.classList.toggle("themes-mode", themes); }
       // the feedback branch returns before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
+      if (tfTab) { adminState.selected.clear(); adminRenderTrueFalse(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
       if (themes) { adminState.selected.clear(); adminRenderThemes(); return; }
