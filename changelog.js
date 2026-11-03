@@ -35,9 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1212", released: "2026-11-02T03:54Z" };
+window.FOLIO_VERSION = { v: "1.1213", released: "2026-11-03T17:25Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-11-03",
+    t: "137 new glossary terms; How far? in random order; a Who said it? tab",
+    items: [
+      "137 new glossary terms, and new glossary links on 30 cards across 13 collections.",
+      "A card's Background now links glossary terms in the paragraph after a quotation too, not only before it.",
+      "<b>How far?</b> now deals its five distances in a random order instead of shortest first.",
+      "The home page shows <b>Suggested reading</b> first, then Continue reading.",
+      "<b>True or False</b> gains 13 new statements, each with at least three sources.",
+      "Every <b>Who said it?</b> explanation now cites at least three sources.",
+      "Admin: <b>Who said it?</b> has its own tab listing every quotation, each with Edit and Remove.",
+      "Admin: a glossary popup shows its term's key at the foot, as a card shows its id.",
+      "The word \u201cfew\u201d no longer opens the glossary entry for the Battle of Britain pilots.",
+      "The Nile Delta's outline on its map is more accurate, and the Dunkirk card's map is labelled Dunkirk.",
+      "Clearer date lines on 2 cards (Russia and World Geography)."
+    ]
+  },
   {
     d: "2026-11-02",
     t: "What year? in five rounds; one suggested reading a day",
