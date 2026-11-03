@@ -556,6 +556,8 @@
       // the "Who said it?" pool's REMOVALS, keyed by each entry's English `q` → true (see whoSaidPool).
       // Removal only: the pool is quotes.js, and an entry comes back by deleting its key.
       whosaidOff: o.whosaidOff && typeof o.whosaidOff === "object" ? o.whosaidOff : {},
+      // …and its EDITS (Nov 2026), keyed the same way → a whole replacement { q, who, cat, era, context, src } (see whoSaidPool)
+      whosaid: o.whosaid && typeof o.whosaid === "object" ? o.whosaid : {},
       // the True or False ("Myth or fact?") pool's EDITS, keyed by each statement's SHIPPED English `q`
       // (see truefalsePool): a whole replacement { q, a, why, cat, src }, or null to take it out of play.
       truefalse: o.truefalse && typeof o.truefalse === "object" ? o.truefalse : {},
@@ -39094,9 +39096,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      quotation's SPEAKER stays available as a decoy only if another of their lines is still in the pool,
      the decoys being drawn from this same filtered list. */
   const WS_ROUNDS = 5;
+  /* …AND EDIT ONE (Nov 2026, on request: "add a new tab with all the Who Said It quotes so i can edit or remove
+     them manually"). `ADMIN_EDITS.whosaid` holds whole replacement entries keyed by the SHIPPED `q`, the shape
+     `ADMIN_EDITS.truefalse` has; a removal is still `whosaidOff`. quotes.js itself is never rewritten. */
   function whoSaidPool() {
     const off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
-    return (window.QUOTEGAME || []).filter((x) => x && !off[x.q]);
+    const ed = (ADMIN_EDITS && ADMIN_EDITS.whosaid) || {};
+    return (window.QUOTEGAME || []).filter((x) => x && !off[x.q])
+      .map((x) => (Object.prototype.hasOwnProperty.call(ed, x.q) && ed[x.q] && ed[x.q].q ? ed[x.q] : x));
   }
   function buildWhoSaidRounds() {
     const RAW = whoSaidPool();
@@ -46938,6 +46945,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
             '<button class="admin-tab" type="button" data-atab="truefalse">True or False</button>' +
+            '<button class="admin-tab" type="button" data-atab="whosaid">Who said it?</button>' +
             '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
             '<button class="admin-tab" type="button" data-atab="themes">Themes</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
@@ -47446,22 +47454,100 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        A quote is identified by its SHIPPED text throughout (`data-qk`), never by its position — see
        quotesMerged for why. */
     let _qEditing = null;   // the shipped key of the quote whose form is open, or "" for a new one
+    /* "WHO SAID IT?" HAS A TAB OF ITS OWN (Nov 2026, on request: "add a new tab with all the Who Said It quotes
+       so i can edit or remove them manually"). It was a remove-only list under the daily quotes; it is now
+       drawn alone, as True or False is, with Edit (a form in place of the row) beside Remove. */
+    let _wsEditing = null;   // the shipped `q` of the entry whose form is open
+    const WS_CATS = ["philosophy", "statecraft", "science", "reform", "letters"];
+    const WS_ERAS = ["ancient", "medieval", "earlymodern", "modern", "contemporary"];
+    function wsFormHTML(k, it, edited) {
+      const sel = (name, list, v) => '<select class="af-input" data-wsf="' + name + '">' + list.map((o) => '<option value="' + o + '"' + (o === v ? " selected" : "") + ">" + o + "</option>").join("") + "</select>";
+      return '<div class="q-form tf-form ws-form" data-wsform="' + esc(k) + '">' +
+        '<div class="q-form-head"><b>Edit quotation</b><span class="q-form-note">The explanation is HTML: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code> and an empty <code>&lt;sup class="fn" data-fn="1"&gt;&lt;/sup&gt;</code> marker pointing at a source.</span></div>' +
+        '<label class="admin-field"><span class="af-label">the quotation</span><textarea class="af-input" data-wsf="q" rows="3">' + esc(it.q || "") + "</textarea></label>" +
+        '<label class="admin-field"><span class="af-label">who said it</span><input class="af-input" type="text" data-wsf="who" value="' + esc(it.who || "") + '" /></label>' +
+        '<label class="admin-field"><span class="af-label">known for <small>— the decoys are drawn from the same family</small></span>' + sel("cat", WS_CATS, it.cat) + "</label>" +
+        '<label class="admin-field"><span class="af-label">era</span>' + sel("era", WS_ERAS, it.era) + "</label>" +
+        '<label class="admin-field"><span class="af-label">the explanation</span><textarea class="af-input" data-wsf="context" rows="5">' + esc(it.context || "") + "</textarea></label>" +
+        '<label class="admin-field"><span class="af-label">sources <small>— one Chicago note per line, each ending in its URL</small></span><textarea class="af-input" data-wsf="src" rows="4">' + esc(Array.isArray(it.src) ? it.src.join("\n") : "") + "</textarea></label>" +
+        '<div class="q-form-acts">' +
+          '<button class="mini-btn" type="button" data-wscancel>Cancel</button>' +
+          (edited ? '<button class="mini-btn" type="button" data-wsrevert="' + esc(k) + '">Revert</button>' : "") +
+          '<button class="admin-new" type="button" data-wssave="' + esc(k) + '">Save</button>' +
+        "</div></div>";
+    }
+    function wsFormSave(k, f) {
+      const v = (n) => (f.querySelector('[data-wsf="' + n + '"]').value || "").trim();
+      const q = v("q").replace(/\s+/g, " "), who = v("who").replace(/\s+/g, " "), context = v("context");
+      if (!q) return "A quotation needs its words.";
+      if (!who) return "A quotation needs its speaker.";
+      if (!context) return "A quotation needs its explanation.";
+      const src = v("src").split(/\n+/).map((x) => x.trim()).filter(Boolean);
+      const bad = src.find((x) => !/https?:\/\/\S+\.?(\s*\[[^\]]+\])*$/.test(x));
+      if (bad) return "Every source must end in the URL a reader can check it at.";
+      const marks = (context.match(/data-fn="(\d+)"/g) || []).map((m) => +m.replace(/\D/g, ""));
+      if (marks.some((n) => n < 1 || n > src.length)) return "A footnote marker points past the end of the sources.";
+      const it = { q: q, who: who, cat: v("cat"), era: v("era"), context: context };
+      if (src.length) it.src = src;
+      const orig = (window.QUOTEGAME || []).find((x) => x && x.q === k), ov = ADMIN_EDITS.whosaid || (ADMIN_EDITS.whosaid = {});
+      const same = orig && ["q", "who", "cat", "era", "context"].every((f2) => (orig[f2] || "") === it[f2]) && JSON.stringify(orig.src || []) === JSON.stringify(it.src || []);
+      if (same) delete ov[k]; else ov[k] = it;
+      saveAdminEdits();
+      return null;
+    }
     function whoSaidAdminHTML() {
-      const all = window.QUOTEGAME || [], off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {};
+      const all = window.QUOTEGAME || [], off = (ADMIN_EDITS && ADMIN_EDITS.whosaidOff) || {}, ed = (ADMIN_EDITS && ADMIN_EDITS.whosaid) || {};
       const live = all.filter((x) => !off[x.q]).length;
       return '<div class="ws-admin">' +
         '<div class="ws-admin-head"><b>Who said it?</b> <span class="ws-admin-count">' + live + " of " + all.length + " in play</span></div>" +
-        '<div class="tl-intro">The minigame\'s own pool, from <code>quotes.js</code>. Remove a quotation to take it out of every reader\'s game from the next draw; it stays in the file and comes back with Restore. The game needs at least four in play.</div>' +
+        '<div class="tl-intro">The minigame\'s own pool, from <code>quotes.js</code>. An edit or a removal takes effect at once and travels to every reader from the next draw; the file is untouched, so Revert or Restore brings back the shipped quotation. The game needs at least four in play.</div>' +
         '<div class="q-list">' + all.map((x) => {
-          const isOff = !!off[x.q];
+          const k = x.q, isOff = !!off[k], edited = Object.prototype.hasOwnProperty.call(ed, k) && !!ed[k];
+          const it = edited ? ed[k] : x;
+          if (_wsEditing === k && !isOff) return wsFormHTML(k, it, edited);
+          const nSrc = Array.isArray(it.src) ? it.src.length : 0;
           return '<div class="q-row ws-row' + (isOff ? " ws-off" : "") + '">' +
-            '<div class="q-main"><span class="q-text verbatim">' + esc(x.q) + "</span>" +
-              '<span class="q-meta"><b>' + esc(x.who || "—") + "</b>" +
-                (Array.isArray(x.src) && x.src.length ? '<span class="q-pill q-orig">cited</span>' : '<span class="q-pill q-noorig">uncited</span>') +
-                (isOff ? '<span class="q-pill q-edited">removed</span>' : "") + "</span></div>" +
-            '<button type="button" class="mini-btn' + (isOff ? "" : " danger") + '" data-wsoff="' + esc(x.q) + '">' + (isOff ? "Restore" : "Remove") + "</button>" +
+            '<div class="q-main"><span class="q-text verbatim">' + esc(it.q) + "</span>" +
+              '<span class="q-meta"><b>' + esc(it.who || "—") + "</b>" +
+                (nSrc ? '<span class="q-pill q-orig">' + nSrc + (nSrc === 1 ? " source" : " sources") + "</span>" : '<span class="q-pill q-noorig">uncited</span>') +
+                (isOff ? '<span class="q-pill q-edited">removed</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") + "</span></div>" +
+            (isOff ? "" : '<button type="button" class="mini-btn" data-wsedit="' + esc(k) + '">Edit</button>') +
+            '<button type="button" class="mini-btn' + (isOff ? "" : " danger") + '" data-wsoff="' + esc(k) + '">' + (isOff ? "Restore" : "Remove") + "</button>" +
           "</div>";
         }).join("") + "</div></div>";
+    }
+    function adminRenderWhoSaid() {
+      const items = root.querySelector("#adminListItems");
+      const countEl = root.querySelector("#adminListCount");
+      const n = whoSaidPool().length;
+      if (countEl) countEl.textContent = n + (n === 1 ? " quotation" : " quotations") + " in play";
+      if (!items) return;
+      items.innerHTML = '<div class="q-page">' + whoSaidAdminHTML() + "</div>";
+      items.querySelectorAll("[data-wsoff]").forEach((b) => b.addEventListener("click", () => {
+        const q = b.dataset.wsoff, off = ADMIN_EDITS.whosaidOff || (ADMIN_EDITS.whosaidOff = {});
+        if (off[q]) delete off[q]; else off[q] = true;
+        if (_wsEditing === q) _wsEditing = null;
+        saveAdminEdits();
+        adminRenderWhoSaid();
+        toast(off[q] ? "Removed from Who said it?" : "Restored to Who said it?");
+      }));
+      items.querySelectorAll("[data-wsedit]").forEach((b) => b.addEventListener("click", () => {
+        _wsEditing = b.dataset.wsedit; adminRenderWhoSaid();
+        const f = items.querySelector(".ws-form"); if (f) f.scrollIntoView({ block: "nearest" });
+      }));
+      items.querySelectorAll("[data-wscancel]").forEach((b) => b.addEventListener("click", () => { _wsEditing = null; adminRenderWhoSaid(); }));
+      items.querySelectorAll("[data-wsrevert]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.wsrevert;
+        inlineConfirm("Put this quotation back to its shipped wording?", () => {
+          delete (ADMIN_EDITS.whosaid || {})[k]; _wsEditing = null; saveAdminEdits(); adminRenderWhoSaid(); toast("Reverted");
+        }, "Revert");
+      }));
+      items.querySelectorAll("[data-wssave]").forEach((b) => b.addEventListener("click", () => {
+        const k = b.dataset.wssave, f = b.closest(".ws-form"); if (!f) return;
+        const err = wsFormSave(k, f);
+        if (err) { toast(err); return; }
+        _wsEditing = null; adminRenderWhoSaid(); toast("Quotation saved");
+      }));
     }
     /* The True or False pool — "Myth or fact?" on the reader's side — drawn on its own admin tab since
        Nov 2026 (adminRenderTrueFalse; it was a third list on the Quotes tab). Every statement is listed in file order with Edit and Remove;
@@ -47612,22 +47698,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           "</div>" +
           formHTML() +
           '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
-          whoSaidAdminHTML() +
         "</div>";
 
       items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
         _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
         adminRenderQuotes();
-      }));
-      /* The "Who said it?" pool — a second list under the daily quotes, since both are quotation pools and
-         a tab of its own would be one more colour pair and `*-mode` class for a list of switches. Removing
-         is a toggle and writes the overlay at once (see whoSaidPool). */
-      items.querySelectorAll("[data-wsoff]").forEach((b) => b.addEventListener("click", () => {
-        const q = b.dataset.wsoff, off = ADMIN_EDITS.whosaidOff || (ADMIN_EDITS.whosaidOff = {});
-        if (off[q]) delete off[q]; else off[q] = true;
-        saveAdminEdits();
-        adminRenderQuotes();
-        toast(off[q] ? "Removed from Who said it?" : "Restored to Who said it?");
       }));
       const nb = items.querySelector("#qNew");
       if (nb) nb.addEventListener("click", () => { _qEditing = ""; adminRenderQuotes(); });
@@ -47983,13 +48058,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", tfTab = adminState.tab === "truefalse", quotes = adminState.tab === "quotes" || tfTab, artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", dash = adminState.tab === "dashboard", tfTab = adminState.tab === "truefalse", wsTab = adminState.tab === "whosaid", quotes = adminState.tab === "quotes" || tfTab || wsTab, artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
       const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); admEl.classList.toggle("themes-mode", themes); }
       // the feedback branch returns before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (tfTab) { adminState.selected.clear(); adminRenderTrueFalse(); return; }
+      if (wsTab) { adminState.selected.clear(); adminRenderWhoSaid(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
       if (themes) { adminState.selected.clear(); adminRenderThemes(); return; }
