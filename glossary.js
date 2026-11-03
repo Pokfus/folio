@@ -7821,7 +7821,27 @@ window.GLOSSARY = {
 "Tonarigumi": "",
 "Ministry_of_Munitions_(Japan)": "",
 "Imperial_General_Headquarters_Announcement": "",
-"Kominka_movement": ""
+"Kominka_movement": "",
+"Silt": "",
+"Pelusium": "",
+"Canopus,_Egypt": "",
+"Samannud": "",
+"Observer_bias": "",
+"Ego_depletion": "",
+"Neuropsychology": "",
+"Psychotherapy": "",
+"Behavioral_neuroscience": "",
+"Tetrahedral_molecular_geometry": "",
+"Angstrom": "",
+"Penicillin": "",
+"Beta-lactam_antibiotic": "",
+"Sodium_chloride": "",
+"Potassium": "",
+"Magnesium": "",
+"Chogha_Golan": "",
+"Giza_East_Field": "",
+"Seven_Wonders_of_the_Ancient_World": "",
+"Iry-Hor": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11665,7 +11685,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Crimean_offensive": "8 April – 12 May 1944",
 "Operation_Bagration": "22 June – 29 August 1944",
 "Army_Group_Centre": "1941–1945",
-"Lvov–Sandomierz_offensive": "13 July – 29 August 1944"
+"Lvov–Sandomierz_offensive": "13 July – 29 August 1944",
+"Penicillin": "discovered 1928",
+"Chogha_Golan": "c. 11,700–9,600 years ago"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16605,7 +16627,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Operation_Meetinghouse": ["Operation MEETINGHOUSE"],
 "Ministry_of_Munitions_(Japan)": ["Ministry of Munitions"],
 "Imperial_General_Headquarters_Announcement": ["Daihon’ei happyō"],
-"Kominka_movement": ["Kominka","Kōminka"]
+"Kominka_movement": ["Kominka","Kōminka"],
+"Canopus,_Egypt": ["Canobus"],
+"Samannud": ["Sebennytos","Sebennytus"],
+"Neuropsychology": ["neuropsychologist"],
+"Behavioral_neuroscience": ["behavioural neuroscience","biopsychology","biological psychology"],
+"Tetrahedral_molecular_geometry": ["tetrahedral geometry"],
+"Angstrom": ["ångström","ångströms","angstroms"],
+"Beta-lactam_antibiotic": ["beta-lactam","beta-lactams","β-lactam","β-lactams","beta-lactam antibiotics"],
+"Giza_East_Field": ["Giza Eastern Cemetery","Eastern Field at Giza"],
+"Seven_Wonders_of_the_Ancient_World": ["Seven Wonders of the World","seven wonders"],
+"Iry-Hor": ["Irj-Hor"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24572,7 +24604,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tonarigumi": ["institution","history","japan","home front"],
 "Ministry_of_Munitions_(Japan)": ["institution","history","economy","japan"],
 "Imperial_General_Headquarters_Announcement": ["text","history","propaganda","japan"],
-"Kominka_movement": ["concept","history","politics","japan","colonialism"]
+"Kominka_movement": ["concept","history","politics","japan","colonialism"],
+"Silt": ["concept","science","geology","geography"],
+"Pelusium": ["city","place","history","egypt","africa"],
+"Canopus,_Egypt": ["city","place","history","egypt","africa","archaeology"],
+"Samannud": ["city","place","history","egypt","africa"],
+"Observer_bias": ["concept","science","research methods","psychology","medicine"],
+"Ego_depletion": ["concept","science","psychology","research methods"],
+"Neuropsychology": ["concept","science","psychology","medicine"],
+"Psychotherapy": ["practice","science","psychology","medicine"],
+"Behavioral_neuroscience": ["concept","science","psychology","biology"],
+"Tetrahedral_molecular_geometry": ["concept","science","chemistry"],
+"Angstrom": ["concept","science","physics","unit","measurement"],
+"Penicillin": ["concept","science","medicine","biology","chemistry"],
+"Beta-lactam_antibiotic": ["concept","science","medicine","biology","chemistry"],
+"Sodium_chloride": ["concept","science","chemistry"],
+"Potassium": ["concept","science","chemistry","biology"],
+"Magnesium": ["concept","science","chemistry","biology"],
+"Chogha_Golan": ["place","archaeology","history","iran","agriculture"],
+"Giza_East_Field": ["place","archaeology","history","egypt","old kingdom"],
+"Seven_Wonders_of_the_Ancient_World": ["concept","history","classical","architecture","greece"],
+"Iry-Hor": ["person","ruler","history","egypt","predynastic","kingship"]
 });
 
 /* ============================================================================
