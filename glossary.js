@@ -16474,7 +16474,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Badayev_warehouses": ["Badaev warehouses"],
 "Road_of_Life": ["Road of Life (Leningrad)"],
 "Operation_Typhoon": ["Unternehmen Taifun"],
-"The_Few": ["Few","The Few"],
+"The_Few": ["The Few","the Few"],
 "No._303_Squadron_RAF": ["No. 303 Squadron","303 Squadron","Kościuszko Squadron"],
 "The_bomber_will_always_get_through": ["bomber will always get through","The bomber will always get through"],
 "Coventry_Blitz": ["Coventry Blitz"],
@@ -16610,6 +16610,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"The_Few": true,
 "Do_no_harm": true,
 "SWIFT": true,
 "Anarchy_(international_relations)": true,

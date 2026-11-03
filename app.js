@@ -4406,7 +4406,11 @@
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
-      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-atlas" hidden></div><div class="gloss-srcslot"></div></div>';
+      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-atlas" hidden></div><div class="gloss-srcslot"></div>' +
+        /* THE TERM'S KEY, FOR AN ADMIN (Nov 2026, on request): the gloss popup's counterpart of a card's
+           `card-admin-id` — the key at the foot, so a term met while reading can be named in a request. */
+        (isAdmin() && !isDeckGlossKey(key) ? '<div class="card-admin-id gloss-admin-id" translate="no">' + esc(key) + "</div>" : "") +
+      '</div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
@@ -24492,8 +24496,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const b = best ? BOOKS.find((x) => x.id === best) : null;
     _hrPair = null;
     if (!b) return homeSuggestedHTML();
-    _hrPair = { cont: b, sug: homeDailyBook(), mode: "cont" };
-    return homeContinueHTML(b);
+    /* SUGGESTED FIRST (Nov 2026, on request: "switch around the Suggested Reading and the Continue Reading,
+       so the Suggested is displayed first"): the page is built on the day's suggestion, Continue reading is
+       its second face, and the dots read in that order. */
+    _hrPair = { cont: b, sug: homeDailyBook(), mode: "sug" };
+    return homeSuggestedHTML(_hrPair.sug);
   }
   // the two dots at the box's top right that say it has a second face (none when it has one)
   function homeReadingDots(on) {
@@ -24505,7 +24512,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // request: the "About this book" line is gone)
     const where = pos && pos.ch > 0 ? " \u00b7 " + b.chapterWord + " " + pos.ch : "";
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
-      '<span class="hb-k">Continue reading</span>' + homeReadingDots(0) +
+      '<span class="hb-k">Continue reading</span>' + homeReadingDots(1) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + esc(where) + "</span>" +
         '<span class="hb-bar"><span style="width:' + pct + '%"></span></span><em>' + pct + "% read</em></span></span>" +
@@ -24529,7 +24536,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!b) return '<button class="home-box home-reading" id="b-reading" type="button"><span class="hb-k">Suggested reading</span>' +
       '<span class="hb-empty">Nothing on the shelf yet.</span></button>';
     return '<button class="home-box home-reading" id="b-reading" type="button" data-book="' + esc(b.id) + '" data-suggest="1"' + (_hrPair ? " data-own-swipe" : "") + ' style="--tile:' + esc(bookColor(b)) + '">' +
-      '<span class="hb-k">Suggested reading</span>' + homeReadingDots(1) +
+      '<span class="hb-k">Suggested reading</span>' + homeReadingDots(0) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
         "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span></button>";
@@ -34352,10 +34359,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // a community card's background links against ITS deck's glossary, not the curated one
     const scope = glossScopeForCard(card && card.id);
     const off = glossOffList(card && card.id);
-    const abs = container.querySelector(".abstract");
-    if (abs) {
-      const first = abs.querySelector("b, strong");
-      if (first) first.classList.add("ans-term");
+    /* EVERY PARAGRAPH OF THE BACKGROUND, NOT ONLY THE FIRST (Nov 2026, on a bug report: "the second
+       paragraph never has any glossary links"). A card with a book quotation renders its abstract as TWO
+       `p.abstract` with the `figure.card-quote` between them, and this used `querySelector` — so the
+       paragraph after the quotation was never linked. The paragraphs are one Background, so a term is
+       still linked at its FIRST occurrence across both: what the first paragraph linked is passed on to
+       the second as already taken. The quotation itself is left alone (it is verbatim). */
+    const absAll = Array.from(container.querySelectorAll(".abstract"));
+    const absTaken = off ? off.slice() : [];
+    absAll.forEach((abs, i) => {
+      if (i === 0) {
+        const first = abs.querySelector("b, strong");
+        if (first) first.classList.add("ans-term");
+      }
       const G = glossSourcesFor(scope).G;
       abs.querySelectorAll(".ttip").forEach((el) => {
         const k = el.getAttribute("data-k");
@@ -34364,8 +34380,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (el.hasAttribute("data-auto") || !k || !(k in G)) el.replaceWith(document.createTextNode(el.textContent));
       });
       abs.normalize();
-      autoLinkGlossary(abs, card && card.answer, off, scope);
-    }
+      autoLinkGlossary(abs, card && card.answer, absTaken, scope);
+      abs.querySelectorAll(".ttip[data-k]").forEach((sp) => absTaken.push(sp.getAttribute("data-k")));
+    });
     /* THE "THINK IT THROUGH" ANSWERS LINK THEIR TERMS TOO (Sep 2026, on request: "add gloss links in the
        Think It Through sections"). Those answers are the card's own cited prose written out in a
        sentence or two, so they name exactly the terms the background names — and a reader met one of
