@@ -963,6 +963,9 @@
         break;
       }
     }
+    /* …AND THEN DEALT IN A RANDOM ORDER (Nov 2026, on request: "the distances are sorted from small to big"). The bands still guarantee the spread; the order no longer gives the answer's size away.
+       Shuffled with the same seeded generator, so every reader still plays the same five in the same order. */
+    for (let i = rounds.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); const t = rounds[i]; rounds[i] = rounds[j]; rounds[j] = t; }
     return rounds;
   }
   /* the points of the great circle from a to b, `n` steps (a slerp of the two unit vectors) */

@@ -3,7 +3,7 @@
      NODE_PATH=<playwright>/node_modules node .claude/test-howfar.js     (HF_SHOTS=<dir> also writes screenshots)
 
    What it guards (docs/minigames.md "How far?"):
-   · the day deals FIVE rounds, the same for every reader, one per distance band, two different places each;
+   · the day deals FIVE rounds, the same for every reader, one per distance band (in a seeded random order), two different places each;
    · a guess within 10 % of the great-circle distance wins the round and one outside it loses it — exactly at the edges (+9.5 %, −11 %);
    · the reveal prints the reader's guess green on a win and red on a loss (the theme's --good and --zh);
    · an empty guess is refused, not scored;
@@ -63,7 +63,8 @@ function serve() {
     const rounds = await api(page, "a.rounds()");
     check("[deal] five rounds", rounds.length === 5, JSON.stringify(rounds.map((r) => r.a + "→" + r.b)));
     const BANDS = [[300, 1500], [1500, 3500], [3500, 6000], [6000, 9000], [9000, 12500]];
-    check("[deal] one round per distance band, shortest first", rounds.every((r, i) => r.km >= BANDS[i][0] && r.km <= BANDS[i][1]), rounds.map((r) => Math.round(r.km)).join(", "));
+    const inBand = BANDS.map(([lo, hi]) => rounds.filter((r) => r.km >= lo && r.km <= hi).length);
+    check("[deal] one round per distance band, in a shuffled order (Nov 2026)", inBand.every((n) => n === 1), rounds.map((r) => Math.round(r.km)).join(", "));
     const names = rounds.flatMap((r) => [r.a, r.b]);
     check("[deal] ten different places", new Set(names).size === 10, names.join(", "));
     let st = await state(page);

@@ -232,3 +232,14 @@ count and how many markers the description carries.
 is the only copy of it once the file has been round-tripped, and a serializer that drops the documentation
 is how a file stops explaining itself. It is wired into `autoSaveFiles`, `adminExport` (including its
 download fallback) and `folioSave.files`, each gated on the overlay actually holding something.
+
+## Who said it? — its own tab (Nov 2026, on request)
+
+"Add a new tab with all the Who Said It quotes so I can edit or remove them manually." The remove-only list
+that sat under the daily quotes on the Quotes tab moved to a tab of its own (`data-atab="whosaid"`,
+`adminRenderWhoSaid`), drawn the way True or False's is: every entry of `quotes.js` in file order, Edit (a
+form in place of the row: quotation, speaker, family, era, explanation, sources) and Remove/Restore. Edits are
+the overlay `ADMIN_EDITS.whosaid` — whole replacement entries keyed by the SHIPPED `q`, the shape of
+`ADMIN_EDITS.truefalse` — and removals stay `ADMIN_EDITS.whosaidOff`; `whoSaidPool` applies both, so they
+travel through `content_overrides` like every other delta and `quotes.js` is never rewritten. Typing the
+shipped entry back clears the edit rather than storing a copy.

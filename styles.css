@@ -1636,6 +1636,7 @@ body[data-theme="folio"].night .collection-deco{
    and the label in `.q-lead` makes the left column ONE item, which is what makes the grid possible. */
 /* the card's id, for an admin only (cardAdminIdHTML, Oct 2026, on request) */
 .card-admin-id{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:calc(11.5px * var(--fs)); line-height:1.3; color:var(--ink-faint); letter-spacing:.02em; margin:14px 0 0; user-select:all;}
+.gloss-admin-id{clear:both; margin:12px 0 0;}
 .study-card .q-head{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; margin:0 0 7px;}
 .study-card .q-head .q-lead{display:flex; align-items:center; gap:12px; min-width:0; overflow:hidden;}
 /* ...AND THE LABEL IS A FLEX ROW OF ITS OWN (Aug 2026, on a bug report that the dot, the word, the
@@ -6547,7 +6548,9 @@ body.admin-mode .page{animation:none;}
    tab the two-column grid had one left over, so Feedback, the last, spans both like Dashboard. */
 .admin-tab[data-atab="truefalse"]{color:#4d6a8f; background:rgba(77,106,143,.13); border-color:rgba(77,106,143,.32);}
 .admin-tab[data-atab="truefalse"].active{color:#fff; background:#4d6a8f; border-color:#4d6a8f; box-shadow:0 5px 15px -7px rgba(77,106,143,.9);}
-.admin-tab[data-atab="feedback"]{grid-column:1 / -1;}
+/* Who said it? (Nov 2026) takes a terracotta; with a ninth tab the grid is even again, so Feedback no longer spans. */
+.admin-tab[data-atab="whosaid"]{color:#b5533c; background:rgba(181,83,60,.13); border-color:rgba(181,83,60,.32);}
+.admin-tab[data-atab="whosaid"].active{color:#fff; background:#b5533c; border-color:#b5533c; box-shadow:0 5px 15px -7px rgba(181,83,60,.9);}
 .admin-tab[data-atab="themes"]{color:#6d8f1f; background:rgba(109,143,31,.14); border-color:rgba(109,143,31,.33);}
 .admin-tab[data-atab="themes"].active{color:#fff; background:#6d8f1f; border-color:#6d8f1f; box-shadow:0 5px 15px -7px rgba(109,143,31,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}
