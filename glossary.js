@@ -7958,7 +7958,31 @@ window.GLOSSARY = {
 "Kabardians": "",
 "Turkic_peoples": "",
 "Tatars": "",
-"Priut_11": ""
+"Priut_11": "",
+"Aga_of_Kish": "",
+"Alexander_Helios": "",
+"Apollodorus_the_Sicilian": "",
+"Berossus": "",
+"Bitumen": "",
+"Cilicia": "",
+"Classical_order": "",
+"Cleopatra_Selene_II": "",
+"David_Stronach": "",
+"Dumuzid_the_Fisherman": "",
+"Enlil": "",
+"Inanna": "",
+"Jordan_Valley": "",
+"Josephus": "",
+"Kisiri": "",
+"Kullaba": "",
+"Lugalbanda": "",
+"Mesannepada": "",
+"Nippur": "",
+"Nur_Mountains": "",
+"Robert_Koldewey": "",
+"Stephanie_Dalley": "",
+"Tell_es-Sultan": "",
+"William_Shakespeare": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11840,7 +11864,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Florence_Crauford_Grove": "died 1902",
 "Alpine_Club_(UK)": "founded 1857",
 "Killar": "fl. 1829",
-"Horace_Walker": "1838–1908"
+"Horace_Walker": "1838–1908",
+"Alexander_Helios": "born 40 BCE",
+"Apollodorus_the_Sicilian": "fl. 48 BCE",
+"Berossus": "3rd century BCE",
+"Cleopatra_Selene_II": "born 40 BCE",
+"David_Stronach": "1931 – 2020",
+"Josephus": "born 37/38 CE",
+"William_Shakespeare": "1564 – 1616"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -12409,7 +12440,6 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dog_domestication": ["domestication of the dog"],
 "Pre-Pottery_Neolithic": ["PPNA","PPNB","aceramic Neolithic"],
 "Göbekli_Tepe": ["Gobekli Tepe"],
-"Jericho": ["Tell es-Sultan"],
 "Çatalhöyük": ["Catalhoyuk","Çatal Höyük"],
 "'Ain_Ghazal": ["Ain Ghazal"],
 "Sedentism": ["sedentary","settling down"],
@@ -16863,7 +16893,24 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Florence_Crauford_Grove": ["Craufurd Grove","F. Craufurd Grove","F. C. Grove"],
 "Ossetians": ["Ossetes","Ossetian"],
 "Kabardians": ["Kabardins","Kabardian"],
-"Priut_11": ["Priut-11","Priyut 11"]
+"Priut_11": ["Priut-11","Priyut 11"],
+"Aga_of_Kish": ["Agga of Kish","Agga"],
+"Berossus": ["Berosus","Berossos"],
+"Bitumen": ["natural bitumen"],
+"Cilicia": ["Cilician"],
+"Classical_order": ["architectural orders","architectural order","classical orders"],
+"Cleopatra_Selene_II": ["Cleopatra Selene"],
+"Dumuzid_the_Fisherman": ["Dumuzid, the Fisherman"],
+"Enlil": ["Ellil"],
+"Inanna": ["Inana"],
+"Jordan_Valley": ["al-Ghawr"],
+"Josephus": ["Flavius Josephus"],
+"Kullaba": ["Kullab","Kulaba"],
+"Mesannepada": ["Mesannepadda","Mesannepada of Ur"],
+"Nippur": ["Nuffar"],
+"Nur_Mountains": ["Mount Amanus","Amanus Mountains","Amanus"],
+"Robert_Koldewey": ["Koldewey"],
+"William_Shakespeare": ["Shakespeare"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24971,7 +25018,31 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kabardians": ["people","caucasus","russia","history","society"],
 "Turkic_peoples": ["people","language","asia","russia","history"],
 "Tatars": ["people","russia","asia","history","language"],
-"Priut_11": ["building","mountain","russia","caucasus","second world war"]
+"Priut_11": ["building","mountain","russia","caucasus","second world war"],
+"Aga_of_Kish": ["person","ruler","history","mythology","bronze age","iraq"],
+"Alexander_Helios": ["person","history","politics","egypt","hellenistic","rome"],
+"Apollodorus_the_Sicilian": ["person","history","rome","egypt","hellenistic"],
+"Berossus": ["person","historian","literature","history","hellenistic","iraq"],
+"Bitumen": ["concept","geology","chemistry","technology","archaeology"],
+"Cilicia": ["place","region","geography","history","anatolia","turkey"],
+"Classical_order": ["concept","architecture","building","art","greece","rome"],
+"Cleopatra_Selene_II": ["person","ruler","history","politics","egypt","hellenistic"],
+"David_Stronach": ["person","archaeology","history","iran","iraq"],
+"Dumuzid_the_Fisherman": ["person","ruler","mythology","history","bronze age","iraq"],
+"Enlil": ["deity","religion","mythology","history","bronze age","iraq"],
+"Inanna": ["deity","religion","mythology","history","bronze age","iraq"],
+"Jordan_Valley": ["place","geography","region","geology","jordan","palestine"],
+"Josephus": ["person","historian","literature","history","rome","judaism"],
+"Kisiri": ["place","city","archaeology","history","iron age","iraq"],
+"Kullaba": ["place","city","archaeology","history","bronze age","iraq"],
+"Lugalbanda": ["person","ruler","mythology","history","bronze age","iraq"],
+"Mesannepada": ["person","ruler","history","bronze age","iraq"],
+"Nippur": ["place","city","religion","archaeology","bronze age","iraq"],
+"Nur_Mountains": ["place","mountain","geography","geology","anatolia","turkey"],
+"Robert_Koldewey": ["person","archaeology","history","germany","iraq"],
+"Stephanie_Dalley": ["person","archaeology","history","iraq","mesopotamia"],
+"Tell_es-Sultan": ["place","archaeology","prehistory","history","palestine"],
+"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"]
 });
 
 /* ============================================================================
