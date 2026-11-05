@@ -8321,6 +8321,10 @@ body.night .book-tile, body.night .gloss-book{
    the shape. `box-decoration-break:clone` keeps the rounding on every line a highlight wraps onto
    instead of only its first and last. */
 .bk-hl{border-radius:2px; padding:.05em 0; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+/* the paragraph a link addressed (#book/<id>/<n>/<p>, the home page's passage): a brief wash that fades out */
+.bk-target{animation:bk-target 2.6s var(--ease) both; border-radius:4px;}
+@keyframes bk-target{0%,45%{background:var(--indigo-wash); box-shadow:0 0 0 6px var(--indigo-wash);} 100%{background:transparent; box-shadow:0 0 0 6px transparent;}}
+@media (prefers-reduced-motion:reduce){.bk-target{animation:none; background:var(--indigo-wash);}}
 .bk-bar{
   display:flex; align-items:center; gap:6px; padding:7px 8px;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
@@ -9558,6 +9562,39 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
 }
 body.night .page .rv-banner, body.night .page .rv-banner:hover{--sky:#1A1F4D; --sky-2:#0F1230; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
 .page .rv-banner.done, .page .rv-banner.won{background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+/* EACH THEME DRESSES THE STUDY BANNER IN ITS OWN COLOURS (Nov 2026, on request: "the banner … looks identical
+   in each one"). The deep indigo above is Folio's; every other theme sets the same five tokens to a deep version
+   of its own signature hue (and a night pair darker still), so the white title, the three piles and the white
+   button keep the contrast the indigo measured. Marble's stone-slab background for `.banner` outranked the
+   indigo outright and drew white text on pale stone; these rules outrank it in turn. */
+body[data-theme="synth"] .page .rv-banner, body[data-theme="synth"] .page .rv-banner:hover{--sky:#43197A; --sky-2:#1F0A40; --sky-rose:#FF9AD0; --sky-blue:#CDB0FF; --sky-green:#6FF0CF; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="synth"].night .page .rv-banner, body[data-theme="synth"].night .page .rv-banner:hover{--sky:#2C0F56; --sky-2:#120620; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="arcade"] .page .rv-banner, body[data-theme="arcade"] .page .rv-banner:hover{--sky:#0B5299; --sky-2:#062C57; --sky-rose:#FF9C8F; --sky-blue:#8FD3FF; --sky-green:#8FE0A0; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="arcade"].night .page .rv-banner, body[data-theme="arcade"].night .page .rv-banner:hover{--sky:#093C72; --sky-2:#04182E; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="academy"] .page .rv-banner, body[data-theme="academy"] .page .rv-banner:hover{--sky:#6A1E2D; --sky-2:#16305B; --sky-rose:#F2B8C2; --sky-blue:#A9C2EE; --sky-green:#9CD3A2; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="academy"].night .page .rv-banner, body[data-theme="academy"].night .page .rv-banner:hover{--sky:#4A1520; --sky-2:#0E1B33; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="marble"] .page .rv-banner, body[data-theme="marble"] .page .rv-banner:hover{--sky:#5C452B; --sky-2:#2F2316; --sky-rose:#F2B9A8; --sky-blue:#B9CCF5; --sky-green:#B7D99A; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="marble"].night .page .rv-banner, body[data-theme="marble"].night .page .rv-banner:hover{--sky:#3B2C1B; --sky-2:#18110A; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="gazette"] .page .rv-banner, body[data-theme="gazette"] .page .rv-banner:hover{--sky:#2B2A26; --sky-2:#121210; --sky-rose:#FF9483; --sky-blue:#B4C6F0; --sky-green:#9CD49E; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="gazette"].night .page .rv-banner, body[data-theme="gazette"].night .page .rv-banner:hover{--sky:#22211E; --sky-2:#0B0B0A; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="diamond"] .page .rv-banner, body[data-theme="diamond"] .page .rv-banner:hover{--sky:#22557A; --sky-2:#0F2A3F; --sky-rose:#F6B5B0; --sky-blue:#A8D8F7; --sky-green:#93DDB8; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="diamond"].night .page .rv-banner, body[data-theme="diamond"].night .page .rv-banner:hover{--sky:#183E5B; --sky-2:#091A28; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="ruby"] .page .rv-banner, body[data-theme="ruby"] .page .rv-banner:hover{--sky:#7E1528; --sky-2:#3E0912; --sky-rose:#FFB3BF; --sky-blue:#B9C8FF; --sky-green:#A6DCA0; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="ruby"].night .page .rv-banner, body[data-theme="ruby"].night .page .rv-banner:hover{--sky:#5C0F1D; --sky-2:#24050B; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="jade"] .page .rv-banner, body[data-theme="jade"] .page .rv-banner:hover{--sky:#21614E; --sky-2:#0E3027; --sky-rose:#F5B6A8; --sky-blue:#A9C8FF; --sky-green:#C9E7A3; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="jade"].night .page .rv-banner, body[data-theme="jade"].night .page .rv-banner:hover{--sky:#174838; --sky-2:#081D17; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="emerald"] .page .rv-banner, body[data-theme="emerald"] .page .rv-banner:hover{--sky:#0C5E40; --sky-2:#04301F; --sky-rose:#F7B3A9; --sky-blue:#A9C8FF; --sky-green:#A7E8B5; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="emerald"].night .page .rv-banner, body[data-theme="emerald"].night .page .rv-banner:hover{--sky:#084731; --sky-2:#021A11; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="amber"] .page .rv-banner, body[data-theme="amber"] .page .rv-banner:hover{--sky:#7C4B10; --sky-2:#3D2406; --sky-rose:#FFB89A; --sky-blue:#B9CCFF; --sky-green:#C9DC8C; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="amber"].night .page .rv-banner, body[data-theme="amber"].night .page .rv-banner:hover{--sky:#5C380C; --sky-2:#231503; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="amethyst"] .page .rv-banner, body[data-theme="amethyst"] .page .rv-banner:hover{--sky:#53308A; --sky-2:#2A1647; --sky-rose:#F7B3D2; --sky-blue:#D2B8FA; --sky-green:#9CDDBE; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="amethyst"].night .page .rv-banner, body[data-theme="amethyst"].night .page .rv-banner:hover{--sky:#3C2264; --sky-2:#170C2A; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="aquamarine"] .page .rv-banner, body[data-theme="aquamarine"] .page .rv-banner:hover{--sky:#0C5F76; --sky-2:#05303D; --sky-rose:#F7B5B9; --sky-blue:#A9D2FF; --sky-green:#95E3C8; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="aquamarine"].night .page .rv-banner, body[data-theme="aquamarine"].night .page .rv-banner:hover{--sky:#08475A; --sky-2:#031B23; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="bloodstone"] .page .rv-banner, body[data-theme="bloodstone"] .page .rv-banner:hover{--sky:#25503E; --sky-2:#10261C; --sky-rose:#FF9C91; --sky-blue:#A9C4FF; --sky-green:#A9DF9A; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="bloodstone"].night .page .rv-banner, body[data-theme="bloodstone"].night .page .rv-banner:hover{--sky:#1B3B2D; --sky-2:#09150F; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="carnelian"] .page .rv-banner, body[data-theme="carnelian"] .page .rv-banner:hover{--sky:#8E3615; --sky-2:#481907; --sky-rose:#FFC0A4; --sky-blue:#BFD0FF; --sky-green:#CCDB8E; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
+body[data-theme="carnelian"].night .page .rv-banner, body[data-theme="carnelian"].night .page .rv-banner:hover{--sky:#682710; --sky-2:#290D03; background:var(--sky-2) linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);}
 .rv-banner .body{flex:1; min-width:0;}
 /* the eyebrow is GREY (Oct 2026, on request) — at .62 it still clears 4.5:1 on the gradient's lighter end */
 .rv-banner .hero-eyebrow{display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:rgba(242,243,255,.62);}

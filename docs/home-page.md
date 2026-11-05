@@ -311,6 +311,9 @@ Composed on request from six rounds of mockups (`docs/mockups/home-redesigns/`, 
 reading from "Tabular", the This week box and the active-deck rows from "Keys". What it changed in
 `PAGES.home`, and the rules that came with it:
 
+- **The banner's colours are per theme** (Nov 2026, on request): Folio's deep indigo, and in every other theme a deep
+  tone of that theme's own hue with a darker night pair — the `--sky*` tokens set per `body[data-theme]` in
+  styles.css, after the indigo; New stays a light blue, Learning a rose and Review a green in all of them.
 - **The banner** (`.banner.rv-banner`) counts the three piles with an **estimate beside them**:
   `reviewEstimateMs(ids)` sums, per card, the reader's own median seconds in that card's collection
   (`paceTable()`, read off the last `PACE_ROWS` rows of `S.revlog`; `PACE_DEFAULT_S` where there is no
@@ -356,8 +359,10 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   real `border-left` for the accent (the tests read the bar's colour, an inset shadow is invisible to
   them).
 - **Continue reading** (`homeReadingHTML`, from `S.reading[id].at` — `+r.at || 0`, since `| 0` wraps a
-  millisecond stamp; a reader who has never opened a book gets **Suggested reading** instead, `homeSuggestedHTML`: a random book of
-  the shelf and a random passage filled at idle, Oct 2026) and **This week** (`homeWeekHTML`, from `S.reviewLog`; its contents centred, its
+  millisecond stamp; a reader who has never opened a book gets **Suggested reading** instead, `homeSuggestedHTML`: since Nov 2026
+  the day's row of `HOME_EXCERPTS` — one famous passage per book, copied verbatim from the shipped edition with its
+  chapter `n` and paragraph index `p`, drawn whole with the title (no fetch) and opening `#book/<id>/<n>/<p>`, which
+  scrolls to and briefly marks that paragraph; a re-imported book needs its row's `p` re-checked) and **This week** (`homeWeekHTML`, from `S.reviewLog`; its contents centred, its
   title not, on request).
 - **Nothing dated at the top left** (on request): the version line lives in the page's foot with the
   About and Changelog links, centred on a phone. The tagline under the logo is hidden on a phone.

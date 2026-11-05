@@ -1280,19 +1280,19 @@ function aeneidChecks() {
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1200);
     check("no book text is fetched on boot", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
-    /* THE ONE DELIBERATE EXCEPTION: the Home page's Suggested reading box (a reader who has never opened a book)
-       shows a random passage, which needs its book's text. It is fetched when the box is SEEN, never on boot: the
-       box sits below the fold at this size, so the boot above asked for nothing; scrolling it into view asks for
-       exactly the one book it names, and the passage appears. */
+    /* THE HOME PAGE'S SUGGESTED READING BOX (a reader who has never opened a book) shows a passage — and since
+       Nov 2026 it is the day's row of HOME_EXCERPTS, drawn WITH the title and author, so even scrolling the box
+       into view fetches no book text. Its passage carries the paragraph it opens (data-p). */
     {
       const sug = await page.evaluate(() => { const b = document.querySelector("#b-reading[data-suggest]"); return b ? b.dataset.book : ""; });
       check("...the home page shows a Suggested reading box for a reader who has opened no book", !!sug, sug);
       if (sug) {
+        const pas = await page.evaluate(() => { const n = document.querySelector("#b-reading .hb-next"); return n ? { len: n.querySelector(".hb-next-p").textContent.length, n: n.dataset.n, p: n.dataset.p } : null; });
+        check("...its passage is drawn with the title and author, addressed to a paragraph", !!pas && pas.len > 40 && pas.n != null && /^\d+$/.test(pas.p || ""), JSON.stringify(pas));
         await page.evaluate(() => document.querySelector("#b-reading").scrollIntoView({ block: "center" }));
-        await page.waitForSelector("#b-reading .hb-next", { timeout: 8000 }).catch(() => {});
+        await page.waitForTimeout(1200);
         const got = asked.filter((u) => u.startsWith("/books/"));
-        check("...scrolling the box into view fetches that one book, and its passage appears",
-          got.length === 1 && got[0] === "/books/" + sug + ".js" && !!(await page.$("#b-reading .hb-next")), got.join(","));
+        check("...and scrolling the box into view fetches no book text", got.length === 0, got.join(","));
       }
       asked.length = 0;   // the suggested book is accounted for; what follows is judged on its own
     }

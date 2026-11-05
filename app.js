@@ -16100,7 +16100,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          contents list addresses, so there was nothing to invent. */
       : name === "book" && current.params.id
         ? "book/" + encodeURIComponent(current.params.id) +
-          (current.params.n != null && current.params.n !== "" ? "/" + encodeURIComponent(current.params.n) : "")
+          (current.params.n != null && current.params.n !== "" ? "/" + encodeURIComponent(current.params.n) +
+            // …and the paragraph inside it, when one was asked for (the home page's passage, Nov 2026)
+            (current.params.p != null && current.params.p !== "" ? "/" + encodeURIComponent(current.params.p) : "") : "")
       /* #card/<id> — a card at a stable address (Sep 2026). Every other kind of content on the site
          could be linked to and a card could not, which is the one thing a reader wants to send
          somebody. It is READ-ONLY and spends no schedule: opening it is not studying it. */
@@ -24490,7 +24492,162 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      following day"). The book, its chapter and the passage were each drawn with Math.random — per page build,
      and the passage again on every turn of the box, so it changed once a minute. All three now come from
      dayPick, the site's one seeded daily draw: everyone sharing a date is offered the same passage all day. */
-  function homeDailyBook() { return BOOKS.length ? dayPick("home-reading-book", BOOKS, 1)[0] : null; }
+  /* ONE FAMOUS PASSAGE PER BOOK, CHOSEN AHEAD OF TIME (Nov 2026, on request: "for every book in the library,
+     select the most famous excerpt … every day one on the list is randomly chosen, shown the whole day, and
+     ensure it loads in at the same time as the title and author"). The passage used to be drawn from the
+     book's own lazy file once the box was seen, so it arrived after the title. Each book's best-known passage
+     is now copied here, VERBATIM from the edition the shelf ships (books/<id>.js — Seneca on time, the cave,
+     the Rubicon, Roland's horn …), with the chapter `n` and the index `p` of its paragraph among that
+     chapter's <p>s, so the box is drawn whole from this list with no fetch, and a press on the passage opens
+     the book at that paragraph (#book/<id>/<n>/<p>, PAGES.book). The day's entry is a dayPick, the same for
+     every reader all day. A book added to the shelf gets a row here; one without a row is simply never the
+     day's suggestion. Re-check a row's `p` after re-importing its book. */
+  const HOME_EXCERPTS = [
+    { book: "seneca-letters", n: 1, t: "On Saving Time", p: 2,
+      text: "Nothing, Lucilius, is ours, except time. We were entrusted by nature with the ownership of this single thing, so fleeting and slippery that anyone who will can oust us from possession. What fools these mortals be! They allow the cheapest and most useless things, which can easily be replaced, to be charged in the reckoning, after they have acquired them; but they never regard themselves as in debt when they have received some of that precious commodity,—time! And yet time is the one loan which even a grateful recipient cannot repay. You may desire to know how I, who preach to you so freely, am…" },
+    { book: "marcus-aurelius-meditations", n: 2, t: "Book II", p: 0,
+      text: "Say to thyself at daybreak: I shall come across the busy-body, the thankless, the bully, the treacherous, the envious, the unneighbourly. All this has befallen them because they know not good from evil. But I, in that I have comprehended the nature of the Good that it is beautiful, and the nature of Evil that it is ugly, and the nature of the wrong-doer himself that it is akin to me, not as partaker of the same blood and seed but of intelligence and a morsel of the Divine, can neither be injured by any of them—for no one can involve me in what is debasing—nor can I be wroth with my kinsman…" },
+    { book: "sun-tzu-art-of-war", n: 1, t: "Laying Plans", p: 23,
+      text: "All warfare is based on deception. Hence, when able to attack, we must seem unable; when using our forces, we must seem inactive; when we are near, we must make the enemy believe we are far away; when far away, we must make him believe we are near. Hold out baits to entice the enemy. Feign disorder, and crush him. If he is secure at all points, be prepared for him. If he is in superior strength, evade him. If your opponent is of choleric temper, seek to irritate him. Pretend to be weak, that he may grow arrogant. If he is taking his ease, give him no rest. If his forces are united, separate…" },
+    { book: "plato-republic", n: 7, t: "Book VII", p: 0,
+      text: "Picture men dwelling in a sort of subterranean cavern with a long entrance open to the light on its entire width. Conceive them as having their legs and necks fettered from childhood, so that they remain in the same spot, able to look forward only, and prevented by the fetters from turning their heads. Picture further the light from a fire burning higher up and at a distance behind them, and between the fire and the prisoners and above them a road along which a low wall has been built, as the exhibitors of puppet-shows have partitions before the men themselves, above which they show the…" },
+    { book: "plato-dialogues", n: 2, t: "Apology", p: 21,
+      text: "For if I say that such conduct would be disobedience to the god and that therefore I cannot keep quiet, you will think I am jesting and will not believe me; and if again I say that to talk every day about virtue and the other things about which you hear me talking and examining myself and others is the greatest good to man, and that the unexamined life is not worth living, you will believe me still less. This is as I say, gentlemen, but it is not easy to convince you. Besides, I am not accustomed to think that I deserve anything bad. If I had money, I would have proposed a fine, as large as I…" },
+    { book: "ovid-metamorphoses", n: 3, t: "Book III", p: 51,
+      text: "Here Narcissus, tired of hunting and the heated noon, lay down, attracted by the peaceful solitudes and by the glassy spring. There as he stooped to quench his thirst another thirst increased. While he is drinking he beholds himself reflected in the mirrored pool—and loves; loves an imagined body which contains no substance, for he deems the mirrored shade a thing of life to love. He cannot move, for so he marvels at himself, and lies with countenance unchanged, as if indeed a statue carved of Parian marble. Long, supine upon the bank, his gaze is fixed on his own eyes, twin stars; his…" },
+    { book: "suetonius-twelve-caesars", n: 1, t: "Julius Caesar", p: 63,
+      text: "Coming up with his troops on the banks of the Rubicon, which was the boundary of his province, he halted for a while, and, revolving in his mind the importance of the step he was on the point of taking, he turned to those about him, and said: We may still retreat: but if we pass this little bridge, nothing is left for us but to fight it out in arms. While he was thus hesitating, the following incident occurred. A person remarkable for his noble mien and graceful aspect, appeared close at hand, sitting and playing upon a pipe. When, not only the shepherds, but a number of soldiers also flocked…" },
+    { book: "tacitus-annals", n: 1, t: "Book 1", p: 0,
+      text: "Hence my purpose is to relate a few facts about Augustus—more particularly his last acts, then the reign of Tiberius, and all which follows, without either bitterness or partiality, from any motives to which I am far removed. When after the destruction of Brutus and Cassius there was no longer any army of the Commonwealth, when Pompeius was crushed in Sicily, and when, with Lepidus pushed aside and Antonius slain, even the Julian faction had only Cæsar left to lead it, then, dropping the title of triumvir, and giving out that he was a Consul, and was satisfied with a tribune’s authority for…" },
+    { book: "plutarch-lives", n: 47, t: "Alexander", p: 17,
+      text: "After this, he overpowered such of the Pisidians as had offered him resistance, and subdued Phrygia; and after he had taken the city of Gordium, reputed to have been the home of the ancient Midas, he saw the much-talked-of waggon bound fast to its yoke with bark of the cornel-tree, and heard a story confidently told about it by the Barbarians, to the effect that whosoever loosed the fastening was destined to become king of the whole world. Well, then, most writers say that since the fastenings had their ends concealed, and were intertwined many times in crooked coils, Alexander was at a loss…" },
+    { book: "cassius-dio-roman-history", n: 72, t: "Epitome of Book LXXII", p: 49,
+      text: "This matter must be our next topic; for our history now descends from a kingdom of gold to one of iron and rust, as affairs did for the Romans of that day." },
+    { book: "lucretius-nature-of-things", n: 1, t: "Book I", p: 0,
+      text: "Mother of Rome, delight of Gods and men, Dear Venus that beneath the gliding stars Makest to teem the many-voyaged main And fruitful lands- for all of living things Through thee alone are evermore conceived, Through thee are risen to visit the great sun- Before thee, Goddess, and thy coming on, Flee stormy wind and massy cloud away, For thee the daedal Earth bears scented flowers, For thee waters of the unvexed deep Smile, and the hollows of the serene sky Glow with diffused radiance for thee! For soon as comes the springtime face of day, And procreant gales blow from the West unbarred, First…" },
+    { book: "aristotle-nicomachean-ethics", n: 1, t: "Book I", p: 18,
+      text: "But we must add 'in a complete life'. For one swallow does not make a summer, nor does one day; and so too one day, or a short time, does not make a man blessed and happy. Let this serve as an outline of the good; for we must presumably first sketch it roughly, and then later fill in the details. But it would seem that any one is capable of carrying on and articulating what has once been well outlined, and that time is a good discoverer or partner in such a work; to which facts the advances of the arts are due; for any one can add what is lacking. And we must also remember what has been said…" },
+    { book: "sophocles-oedipus-rex", n: 15, t: "Episode, lines 1367–1530", p: 62,
+      text: "Residents of our native Thebes, behold, this is Oedipus, who knew the renowned riddle, and was a most mighty man. What citizen did not gaze on his fortune with envy? See into what a stormy sea of troubles he has come! Therefore, while our eyes wait to see the final destined day, we must call no mortal happy until he has crossed life’s border free from pain." },
+    { book: "euripides-medea", n: 3, t: "Episode, lines 214–409", p: 4,
+      text: "Of all things that have life and sense we women are the most hapless creatures; first must we buy a husband at an exorbitant price, and o’er ourselves a tyrant set which is an evil worse than the first; and herein lies the most important issue, whether our choice be good or bad. For divorce is discreditable to women, nor can we disown our lords. Next must the wife, coming as she does to ways and customs new, since she hath not learnt the lesson in her home, have a diviner’s eye to see how best to treat the partner of her life. If haply we perform these tasks with thoroughness and tact, and…" },
+    { book: "sophocles-antigone", n: 4, t: "Choral ode, lines 332–383", p: 0,
+      text: "Wonders are many, and none is more wonderful than man. This power spans the sea, even when it surges white before the gales of the south-wind, and makes a path under swells that threaten to engulf him. Earth, too, the eldest of the gods, the immortal, the unwearied, he wears away to his own ends, turning the soil with the offspring of horses as the plows weave to and fro year after year. Chorus The light-hearted tribe of birds and the clans of wild beasts and the sea-brood of the deep he snares in the meshes of his twisted nets, and he leads them captive, very-skilled man. He masters by his…" },
+    { book: "aristophanes-lysistrata", n: 2, t: "Lysistrata", p: 86,
+      text: "Lampito And I too; why, to secure Peace, I would climb to the top of Mount Taygetus. Lysistrata Then I will out with it at last, my mighty secret! Oh! sister women, if we would compel our husbands to make peace, we must refrain . . . Myrrhiné Refrain from what? tell us, tell us! Lysistrata But will you do it? Myrrhiné We will, we will, though we should die of it. Lysistrata We must refrain from the male organ altogether. . . . Nay, why do you turn your backs on me? Where are you going? So, you bite your lips, and shake your heads, eh? Why these pale, sad looks? why these tears? Come, will you…" },
+    { book: "beowulf", n: 0, t: "Prelude", p: 0,
+      text: "Lo, praise of the prowess of people-kings of spear-armed Danes, in days long sped, we have heard, and what honor the athelings won! Oft Scyld the Scefing from squadroned foes, from many a tribe, the mead-bench tore, awing the earls. Since erst he lay friendless, a foundling, fate repaid him: for he waxed under welkin, in wealth he throve, till before him the folk, both far and near, who house by the whale-path, heard his mandate, gave him gifts: a good king he! To him an heir was afterward born, a son in his halls, whom heaven sent to favor the folk, feeling their woe that erst they had…" },
+    { book: "herodotus-histories", n: 1, t: "Book 1", p: 0,
+      text: "This is the display of the inquiry of Herodotus of Halicarnassus, so that things done by man not be forgotten in time, and that great and marvelous deeds, some displayed by the Hellenes, some by the barbarians, not lose their glory, including among others what was the cause of their waging war on each other. The Persian learned men say that the Phoenicians were the cause of the dispute. These (they say) came to our seas from the sea which is called Red, and having settled in the country which they still occupy, at once began to make long voyages. Among other places to which they carried…" },
+    { book: "confucius-analects", n: 1, t: "Xue Er.", p: 0,
+      text: "The Master said, \"Is it not pleasant to learn with a constant perseverance and application? 2. \"Is it not delightful to have friends coming from distant quarters? 3. \"Is he not a man of complete virtue, who feels no discomposure though men may take no note of him?\"" },
+    { book: "machiavelli-prince", n: 17, t: "Concerning Cruelty and Clemency, and Whether It Is Better to Be Loved Than Feared", p: 4,
+      text: "Upon this a question arises: whether it be better to be loved than feared or feared than loved? It may be answered that one should wish to be both, but, because it is difficult to unite them in one person, it is much safer to be feared than loved, when, of the two, either must be dispensed with. Because this is to be asserted in general of men, that they are ungrateful, fickle, false, cowards, covetous, and as long as you succeed they are yours entirely; they will offer you their blood, property, life, and children, as is said above, when the need is far distant; but when it approaches they…" },
+    { book: "caesar-gallic-war", n: 1, t: "Book 1", p: 0,
+      text: "All Gaul is divided into three parts, one of which the Belgae inhabit, the Aquitani another, those who in their own language are called Celts, in our Gauls, the third. All these differ from each other in language, customs and laws. The river Garonne separates the Gauls from the Aquitani; the Marne and the Seine separate them from the Belgae. Of all these, the Belgae are the bravest, because they are furthest from the civilization and refinement of [our] Province, and merchants least frequently resort to them, and import those things which tend to effeminate the mind; and they are the nearest…" },
+    { book: "livy-history-of-rome", n: 5, t: "Book 5", p: 466,
+      text: "To a transaction very humiliating in itself, insult was added. False weights were brought by the Gauls, and on the tribune objecting, his sword was thrown in in addition to the weight by the insolent Gaul, and an expression was heard intolerable to the Romans, Woe to the vanquished! But both gods and men interfered to prevent the Romans from living on the condition of being ransomed; for by some chance, before the execrable price was completed, all the gold being not yet weighed in consequence of the altercation, the dictator comes up, and orders the gold to be removed, and the Gauls to clear…" },
+    { book: "thucydides-peloponnesian-war", n: 1, t: "Book 1", p: 21,
+      text: "The absence of romance in my history will, I fear, detract somewhat from its interest; but if it be judged useful by those inquirers who desire an exact knowledge of the past as an aid to the interpretation of the future, which in the course of human things must resemble if it does not reflect it, I shall be content. In fine, I have written my work, not as an essay which is to win the applause of the moment, but as a possession for all time. The Median War, the greatest achievement of past times, yet found a speedy decision in two actions by sea and two by land. The Peloponnesian War was…" },
+    { book: "polybius-histories", n: 1, t: "Book 1", p: 0,
+      text: "Can any one be so indifferent or idle as not to care to know by what means, and under what kind of polity, almost the whole inhabited world was conquered and brought under the dominion of the single city of Rome, and that too within a period of not quite fifty-three years? Or who again can be so completely absorbed in other subjects of contemplation or study, as to think any of them superior in importance to the accurate understanding of an event for which the past affords no precedent. We shall best show how marvellous and vast our subject is by comparing the most famous Empires which…" },
+    { book: "aesop-fables", n: 12, t: "The Hare and the Tortoise", p: 0,
+      text: "A Hare one day ridiculed the short feet and slow pace of the Tortoise. The latter, laughing, said: \"Though you be swift as the wind, I will beat you in a race.\" The Hare, deeming her assertion to be simply impossible, assented to the proposal; and they agreed that the Fox should choose the course, and fix the goal. On the day appointed for the race they started together. The Tortoise never for a moment stopped, but went on with a slow but steady pace straight to the end of the course. The Hare, trusting to his native swiftness, cared little about the race, and lying down by the wayside, fell…" },
+    { book: "song-of-roland", n: 84, t: "Laisse 84", p: 0,
+      text: "“Comrade Rollanz, sound the olifant, I pray; If Charlès hear, the host he’ll turn again; Will succour us our King and baronage.” Answers Rollanz: “Never, by God, I say, For my misdeed shall kinsmen hear the blame, Nor France the Douce fall into evil fame! Rather stout blows with Durendal I’ll lay, ​ With my good sword that by my side doth sway; Till bloodied o’er you shall behold the blade. Felon pagans are gathered to their shame; I pledge you now, to death they’re doomed to-day.”" },
+    { book: "epic-of-gilgamesh", n: 11, t: "The Flood", p: 25,
+      text: "Broke they their fast at the fortieth hour: at the sixtieth rested. Gilgamish spied out a pool of cool water, (and) therein descending Bathed in the water. (But here was) a serpent who snuff’d the plant’s fragrance, Darted he up [from the water (?)], and snatch’d the plant, uttering malison As he drew back. Then Gilgamish sate him, (and) burst into weeping. Over his cheeks flow’d his tears: to the boatman Ur -Shanabi [spake he(?)] “(Pr’ythee), [for] whom have toiléd mine arms, O Ur-Shanabi, (tell me), (Pr’ythee), for whom hath my heart’s blood been spent? (yea), not for mine own self, Have I…" },
+    { book: "bhagavad-gita", n: 2, t: "YOGA BY THE SANKHYA", p: 46,
+      text: "Thy business is with the action only, never with its fruits; so let not the fruit of action be thy motive, nor be thou to inaction attached. Perform action, O Dhananjaya, dwelling in union with the divine, renouncing attachments and balanced evenly in success and failure: equilibrium is called yoga. Far lower than the Yoga of Discrimination is action, O Dhananjaya. Take thou refuge in the Pure Reason; pitiable are they who work for fruit. United to the Pure Reason one abandoneth here both good and evil deeds; therefore cleave thou to yoga; yoga is skill in action. The Sages, united to the…" },
+    { book: "classic-of-poetry", n: 65, t: "The Shû Lî, Stanza 1", p: 4,
+      text: "There was the millet with its drooping heads; There was the sacrificial millet coming into blade. Slowly I moved about, In my heart all-agitated. Those who knew me Said I was sad at heart. Those who did not know me, Said I was seeking for something. O thou distant and azure Heaven! By what man was this (brought about)?" },
+    { book: "book-of-documents", n: 29, t: "The Great Declaration, Section ii", p: 3,
+      text: "Though he has his nearest relatives with him, they are not like my virtuous men. Heaven sees as my people see; Heaven hears as my people hear. The people are blaming me, the One man, for my delay;—I must now go forward. My military prowess is displayed, and I enter his territories to take the wicked tyrant. My punishment (of evil) will be great, and more glorious than that executed by Tang. Rouse ye, my heroes! Do not think that he is not to be feared;—better think that he cannot be withstood. (His) people stand in trembling awe of him, as if the horns were falling from their heads. Oh! unite…" },
+    { book: "book-of-rites", n: 7, t: "The Li Yun — Ceremonial Usages; their Origin, Development, and Intention", p: 2,
+      text: "When the Grand course was pursued, a public and common spirit ruled all under the sky; they chose men of talents, virtue, and ability; their words were sincere, and what they cultivated was harmony. Thus men did not love their parents only, nor treat as children only their own sons. A competent provision was secured for the aged till their death, employment for the able-bodied, and the means of growing up to the young. They showed kindness and compassion to widows, orphans, childless men, and those who were disabled by disease, so that they were all sufficiently maintained. Males had their…" },
+    { book: "prose-edda", n: 2, t: "Gylfaginning", p: 170,
+      text: "Then shall happen what seems great tidings: the Wolf shall swallow the sun; and this shall seem to men a great harm. Then the other wolf shall seize the moon, and he also shall work great ruin; the stars shall vanish from the heavens. Then shall come to pass these tidings also: all the earth shall tremble so, and the crags, that trees shall be torn up from the earth, and the crags fall to ruin; and all fetters and bonds shall be broken and rent. Then shall Fenris-Wolf get loose; then the sea shall gush forth upon the land, because the Midgard Serpent stirs in giant wrath and advances up onto…" },
+    { book: "poetic-edda", n: 2, t: "Hovamol", p: 84,
+      text: "Cattle die, and kinsmen die, And so one dies one's self; But a noble name will never die, If good renown one gets. Cattle die, and kinsmen die, And so one dies one's self; One thing I know that never dies, The fame of a dead man's deeds. Certain is that which is sought from runes, That the gods so great have made, And the Master-Poet painted; . . . . . . . . . . . . . . . . . . . . . of the race of gods: Silence is safest and best. An unwise man, if a maiden's love Or wealth he chances to win, His pride will wax, but his wisdom never, Straight forward he fares in conceit. Give praise to the…" },
+    { book: "don-quixote", n: 8, t: "I.8 Of the good fortune which the valiant Don Quixote had in the terrible and undreamt-of adventure of the windmills, with other occurrences worthy to be fitly recorded", p: 0,
+      text: "At this point they came in sight of thirty or forty windmills that there are on that plain, and as soon as Don Quixote saw them he said to his squire, “Fortune is arranging matters for us better than we could have shaped our desires ourselves, for look there, friend Sancho Panza, where thirty or more monstrous giants present themselves, all of whom I mean to engage in battle and slay, and with whose spoils we shall begin to make our fortunes; for this is righteous warfare, and it is God’s good service to sweep so evil a breed from off the face of the earth.” “What giants?” said Sancho Panza.…" },
+    { book: "satyricon", n: 111, t: "Section 111", p: 0,
+      text: "There was a married woman in Ephesus of such famous virtue that she drew women even from the neighbouring states to gaze upon her. So when she had buried her husband, the common fashion of following the procession with loose hair, and beating the naked breast in front of the crowd, did not satisfy her. She followed the dead man even to his resting-place, and began to watch and weep night and day over the body, which was laid in an underground vault in the Greek fashion. Neither her parents nor her relations could divert her from thus torturing herself, and courting death by starvation; the…" },
+    { book: "ramayana", n: 2, t: "1.2 · Brahmá's Visit", p: 1,
+      text: "Close by the bank he saw a pair Of curlews sporting fearless there. But suddenly with evil mind An outcast fowler stole behind, And, with an aim too sure and true, The male bird near the hermit slew. The wretched hen in wild despair With fluttering pinions beat the air, And shrieked a long and bitter cry When low on earth she saw him lie, Her loved companion, quivering, dead, His dear wings with his lifeblood red; And for her golden crested mate She mourned, and was disconsolate. The hermit saw the slaughtered bird, And all his heart with ruth was stirred. The fowler's impious deed distressed…" },
+    { book: "ptahhotep", n: 3, t: "§ 1", p: 0,
+      text: "Be not proud because thou art learned; but discourse with the ignorant man, as with the sage. For no limit can be set to skill, neither is there any craftsman that possesseth full advantages. Fair speech is more rare than the emerald that is found by slave-maidens on the pebbles." },
+    { book: "boethius-consolation", n: 2, t: "THE VANITY OF FORTUNE'S GIFTS", p: 8,
+      text: "This is my art, this the game I never cease to play. I turn the wheel that spins. I delight to see the high come down and the low ascend. Mount up, if thou wilt, but only on condition that thou wilt not think it a hardship to come down when the rules of my game require it. Wert thou ignorant of my character? Didst not know how Crœsus, King of the Lydians, erstwhile the dreaded rival of Cyrus, was afterwards pitiably consigned to the flame of the pyre, and only saved by a shower sent from heaven? Has it 'scaped thee how Paullus paid a meed of pious tears to the misfortunes of King Perseus, his…" },
+    { book: "morte-darthur", n: 1, t: "Book I", p: 11,
+      text: "Whoso pulleth out this sword of this stone and anvil, is rightwise king born of all England. Then the people marvelled, and told it to the Archbishop. I command, said the Archbishop, that ye keep you within your church, and pray unto God still; that no man touch the sword till the high mass be all done. So when all masses were done all the lords went to behold the stone and the sword. And when they saw the scripture, some assayed; such as would have been king. But none might stir the sword nor move it. He is not here, said the Archbishop, that shall achieve the sword, but doubt not God will…" },
+    { book: "marco-polo", n: 79, t: "I 61 — Of the City of Chandu, and the Kaan’s Palace there.", p: 0,
+      text: "And when you have ridden three days from the city last mentioned, between north-east and north, you come to a city called Chandu, which was built by the Kaan now reigning. There is at this place a very fine marble Palace, the rooms of which are all gilt and painted with figures of men and beasts and birds, and with a variety of trees and flowers, all executed with such exquisite art that you regard them with delight and astonishment. Round this Palace a wall is built, inclosing a compass of 16 miles, and inside the Park there are fountains and rivers and brooks, and beautiful meadows, with…" },
+    { book: "bede-history", n: 2, t: "Book II", p: 76,
+      text: "Another of the king's chief men, approving of his wise words and exhortations, added thereafter: “The present life of man upon earth, O king, seems to me, in comparison with that time which is unknown to us, like to the swift flight of a sparrow through the house wherein you sit at supper in winter, with your ealdormen and thegns, while the fire blazes in the midst, and the hall is warmed, but the wintry storms of rain or snow are raging abroad. The sparrow, flying in at one door and immediately out at another, whilst he is within, is safe from the wintry tempest; but after a short space of…" },
+    { book: "rigveda", n: 966, t: "10.129", p: 0,
+      text: "THEN was not non-existent nor existent: there was no realm of air, no sky beyond it. What covered in, and where? and what gave shelter? Was water there, unfathomed depth of water? Death was not then, nor was there aught immortal: no sign was there, the day's and night's divider. That One Thing, breathless, breathed by its own nature: apart from it was nothing whatsoever. Darkness there was: at first concealed in darkness this All was indiscriminate chaos. All that existed then was void and formless: by the great power of Warmth was born that Unit. Thereafter rose Desire in the beginning,…" },
+    { book: "summa-theologica", n: 2, t: "I q. 2 — THE EXISTENCE OF GOD", p: 26,
+      text: "I answer that, The existence of God can be proved in five ways. The first and more manifest way is the argument from motion. It is certain, and evident to our senses, that in the world some things are in motion. Now whatever is in motion is put in motion by another, for nothing can be in motion except it is in potentiality to that towards which it is in motion; whereas a thing moves inasmuch as it is in act. For motion is nothing else than the reduction of something from potentiality to actuality. But nothing can be reduced from potentiality to actuality, except by something in a state of…" },
+    { book: "confessions", n: 1, t: "Book I", p: 1,
+      text: "Great art Thou, O Lord, and greatly to be praised; great is Thy power, and of Thy wisdom there is no end. And man, being a part of Thy creation, desires to praise Thee, man, who bears about with him his mortality, the witness of his sin, even the witness that Thou “resistest the proud,”—yet man, this part of Thy creation, desires to praise Thee. Thou movest us to delight in praising Thee; for Thou hast formed us for Thyself, and our hearts are restless till they find rest in Thee. Lord, teach me to know and understand which of these should be first, to call on Thee, or to praise Thee; and…" },
+    { book: "city-of-god", n: 14, t: "Book XIV", p: 96,
+      text: "Accordingly, two cities have been formed by two loves: the earthly by the love of self, even to the contempt of God; the heavenly by the love of God, even to the contempt of self. The former, in a word, glories in itself, the latter in the Lord. For the one seeks glory from men; but the greatest glory of the other is God, the witness of conscience. The one lifts up its head in its own glory; the other says to its God, “Thou art my glory, and the lifter up of mine head.” In the one, the princes and the nations it subdues are ruled by the love of ruling; in the other, the princes and the…" },
+    { book: "homer-iliad", n: 1, t: "Book I", p: 0,
+      text: "The wrath sing, goddess, of Peleus' son, Achilles, that destructive wrath which brought countless woes upon the Achaeans, and sent forth to Hades many valiant souls of heroes, and made them themselves spoil for dogs and every bird; thus the plan of Zeus came to fulfillment, from the time when first they parted in strife Atreus' son, king of men, and brilliant Achilles. Who then of the gods was it that brought these two together to contend? The son of Leto and Zeus; for he in anger against the king roused throughout the host an evil pestilence, and the people began to perish, because upon the…" },
+    { book: "homer-odyssey", n: 1, t: "Book I", p: 0,
+      text: "Tell me, O Muse, of the man of many devices, who wandered full many ways after he had sacked the sacred citadel of Troy. Many were the men whose cities he saw and whose mind he learned, aye, and many the woes he suffered in his heart upon the sea, seeking to win his own life and the return of his comrades. Yet even so he saved not his comrades, though he desired it sore, for through their own blind folly they perished—fools, who devoured the kine of Helios Hyperion; but he took from them the day of their returning. Of these things, goddess, daughter of Zeus, beginning where thou wilt, tell…" },
+    { book: "virgil-aeneid", n: 1, t: "Book I", p: 0,
+      text: "Arms and the man I sing, who first made way, predestined exile, from the Trojan shore to Italy, the blest Lavinian strand. Smitten of storms he was on land and sea by violence of Heaven, to satisfy stern Juno's sleepless wrath; and much in war he suffered, seeking at the last to found the city, and bring o'er his fathers' gods to safe abode in Latium; whence arose the Latin race, old Alba's reverend lords, and from her hills wide-walled, imperial Rome. O Muse, the causes tell! What sacrilege, or vengeful sorrow, moved the heavenly Queen to thrust on dangers dark and endless toil a man whose…" },
+    { book: "journey-to-the-west", n: 1, t: "SEARCH FOR IMMORTALITY", p: 7,
+      text: "On the top of that mountain there was a living stone, 36 ft. 5 ins. high, and divided into 365 degrees like the heavens, and it was 24 feet in circumference, from which went forth 24 different influences. Above it there were 9 openings and 8 holes, according to the 9 mansions and 8 diagrams of the Book of Changes. Since the beginning of time it had been animated by the best forces of heaven and earth. Sun and moon had long influenced it, so that it had a living force, as a child in its mother's womb. On a certain day it split open and produced a stone egg, round like a big ball. After…" },
+    { book: "three-kingdoms", n: 1, t: "Feast in the Garden of Peaches: Brotherhood Sworn: Slaughter of Rebels: The Brothers Heroes.", p: 30,
+      text: "Said Fei, “The peach trees in the orchard behind the house are just in full flower. Tomorrow we will institute a sacrifice there and solemnly declare our intention before Heaven and Earth. And we three will swear brotherhood and unity of aims and sentiments; thus will we enter upon our great task.” All three being of one mind, next day they prepared the sacrifices, a black ox, a white horse and wine for libation. Beneath the smoke of the incense burning on the altar they bowed their heads and recited this oath:—“We three, Liu Bei, Guan Yu and Zhang Fei, though of different families, swear…" },
+    { book: "canterbury-tales", n: 1, t: "The Prologue", p: 3,
+      text: "When the sweet showers of April have pierced to the root the dryness of March, and bathed every vein in moisture whose quickening brings forth the flowers ; when Zephyr also with his sweet breath has quickened the tender new shoots in holt and moor, and the young sun has run his half-course in the Ram, and little birds make melody and sleep all night with eyes open, so nature pricks them in their hearts : then folk long to go on pilgrimage to renowned shrines in sundry distant lands, and palmers to seek strange shores. And especially from every shire’s end in England they go their way to…" },
+    { book: "divine-comedy", n: 1, t: "Inferno I", p: 0,
+      text: "MIDWAY upon the journey of our life I found myself within a forest dark, For the straightforward pathway had been lost. Ah me! how hard a thing it is to say What was this forest savage, rough, and stern, Which in the very thought renews the fear. So bitter is it, death is little more; But of the good to treat, which there I found, Speak will I of the other things I saw there. I cannot well repeat how there I entered, So full was I of slumber at the moment In which I had abandoned the true way. But after I had reached a mountain's foot, At that point where the valley terminated, Which had with…" },
+    { book: "macbeth", n: 5, t: "Act V", p: 101,
+      text: "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day, To the last syllable of recorded time; And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage, And then is heard no more; it is a tale Told by an idiot, full of sound and fury, Signifying nothing. Enter a Messenger. Thou com'st to use thy tongue; thy story quickly. Mess Gracious my lord, I should report that…" },
+    { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
+      text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
+    { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
+      text: "No freeman shall be arrested, or detained in prison, or deprived of his freehold, or outlawed, or banished, or in any way molested; and we will not set forth against him, nor send against him, unless by the lawful judgment of his peers and by the law of the land." },
+    { book: "pausanias-description-of-greece", n: 1, t: "Attica", p: 152,
+      text: "Their ritual, then, is such as I have described. As you enter the temple that they name the Parthenon, all the sculptures you see on what is called the pediment refer to the birth of Athena, those on the rear pediment represent the contest for the land between Athena and Poseidon. The statue itself is made of ivory and gold. On the middle of her helmet is placed a likeness of the Sphinx—the tale of the Sphinx I will give when I come to my description of Boeotia—and on either side of the helmet are griffins in relief. These griffins, Aristeas of Proconnesus says in his poem, fight for the gold…" },
+    { book: "strabo-geography", n: 1, t: "Book 1", p: 0,
+      text: "IF the scientific investigation of any subject be the proper avocation of the philosopher, Geography, the science of which we propose to treat, is certainly entitled to a high place; and this is evident from many considerations. They who first ventured to handle the matter were distinguished men. Homer, Anaximander the Milesian, and Hecataeus, (his fellow-citizen according to Eratosthenes,) Democritus, Eudoxus, Dicaearchus, Ephorus, with many others, and after these Erastosthenes, Polybius, and Posidonius, all of them philosophers. Nor is the great learning, through which alone this subject…" },
+    { book: "diodorus-library", n: 2, t: "Book 2", p: 5,
+      text: "Since after the founding of this city Ninus made a campaign against Bactriana, where he married Semiramis, the most renowned of all women of whom we have any record, it is necessary first of all to tell how she rose from a lowly fortune to such fame. Now there is in Syria a city known as Ascalon, and not far from it a large and deep lake, full of fish. On its shore is a precinct of a famous goddess whom the Syrians call Derceto; and this goddess has the head of a woman but all the rest of her body is that of a fish, the reason being something like this. The story as given by the most learned…" },
+    { book: "anglo-saxon-chronicle", n: 1, t: "To 599", p: 0,
+      text: "[The island of Britain is eight hundred miles long and two hundred miles broad: and here in this island are five tongues; English, British, Scottish, Pictish, and Latin. The first inhabitants of this land were Britons; they came from Armenia, and first settled in the south of Britain. Then befell it that Picts came from the south from Scythia, with long ships, not many, and first landed in North Hibernia, and there entreated the Scots that they might there abide. But they would not permit them, for they said that they could not all abide there together. And then the Scots said, 'We may…" },
+    { book: "treaty-of-versailles", n: 8, t: "Reparation", p: 3,
+      text: "The Allied and Associated Governments affirm and Germany accepts the responsibility of Germany and her allies for causing all the loss and damage to which the Allied and Associated Governments and their nationals have been subjected as a consequence of the war imposed upon them by the aggression of Germany and her allies. Article 232. The Allied and Associated Governments recognize that the resources of Germany are not adequate, after taking into account permanent diminutions of such resources which will result from other provisions of the present Treaty, to make complete reparation for all…" },
+    { book: "russian-primary-chronicle", n: 5, t: "6368–6370 (860–862)", p: 0,
+      text: "The tributaries of the Varangians drove them back beyond the sea and, refusing them further tribute, set out to govern themselves. There was no law among them, but tribe rose against tribe. Discord thus ensued among them, and they began to war one against another. They said to themselves, “Let us seek a prince who may rule over us, and judge us according to the law.” They accordingly went overseas to the Varangian Russes: these particular Varangians were known as Russes, just as some are called Swedes, and others Normans, Angles, and Goths, for they were thus named. The Chuds, the Slavs, and…" },
+    { book: "declaration-of-independence", n: 1, t: "The Unanimous Declaration", p: 6,
+      text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
+    { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
+      text: "Hear, my daughter—When thou art settled in the mansion of thy husband, show due reverence to him, and to those whom he reveres: though he have other wives, be rather an affectionate handmaid to them than a rival.—Should he displease thee, let not thy resentment lead thee to disobedience.—In thy conduct to thy domesticks be rigidly just and impartial; and seek not eagerly thy own gratifications.—By such behaviour young women become respectable; but perverse wives are the bane of a family.—What thinks Gautamí of this lesson ? Gaut. It is incomparable:—my child, be sure to remember it. Can.…" },
+  ];
+  function homeDailyExcerpt() {
+    const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
+    return list.length ? dayPick("home-reading-excerpt", list, 1)[0] : null;
+  }
+  function homeDailyBook() {
+    const e = homeDailyExcerpt();
+    return e ? BOOK_BY_ID[e.book] : BOOKS.length ? dayPick("home-reading-book", BOOKS, 1)[0] : null;
+  }
+  // the day's passage as the box's lower half: chapter label, then the text, all from HOME_EXCERPTS
+  function homeExcerptHTML(b) {
+    const e = HOME_EXCERPTS.find((x) => x.book === b.id);
+    if (!e) return "";
+    const num = b.chapterWord + " " + e.n;
+    const label = String(e.n) === "0" && e.t ? e.t : num + (e.t && e.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + e.t : "");
+    return '<span class="hb-next" data-n="' + esc(String(e.n)) + '" data-p="' + esc(String(e.p)) + '" title="Open ' + esc(label) + '">' +
+      '<span class="hb-next-k">A passage \u00b7 ' + esc(label) + "</span>" +
+      '<span class="hb-next-p">' + esc(e.text) + "</span></span>";
+  }
   function homeReadingHTML() {
     const R = S.reading || {};
     let best = null, at = 0;
@@ -24541,7 +24698,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="hb-k">Suggested reading</span>' + homeReadingDots(0) +
       '<span class="hb-book"><span class="hb-spine" aria-hidden="true"></span><span class="hb-body">' +
         "<b>" + esc(b.title) + "</b><span>" + esc(b.author) + (b.written ? " \u00b7 " + esc(b.written) : "") + "</span>" +
-        "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span></button>";
+        "<em>Free to read \u00b7 " + (b.origLang && b.origName ? esc(b.origName) + " and English" : "English translation") + "</em></span></span>" +
+      homeExcerptHTML(b) + "</button>";
   }
   /* A GLIMPSE OF THE NEXT PARAGRAPH (Oct 2026, on request: "show a brief preview of a next paragraph to read in
      the book, which fades out vertically downwards and can be clicked to go straight to that chapter"). The place
@@ -24553,22 +24711,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      on the element (`data-n`) and the box's click handler reads it: a press on the preview opens that chapter
      at its top, as any addressed chapter does, where a press anywhere else resumes at the saved depth. It is
      a span, not a button, because the box is a button and a button cannot hold another. */
-  function homeReadingNextHTML(b, pos, opts) {
+  function homeReadingNextHTML(b, pos) {
     const shipped = bookChapters(b.id);
     if (!shipped || !shipped.length) return "";
-    const random = !!(opts && opts.random);   // the Suggested reading box: the day's chapter, the day's paragraph of some length (homeDailyBook)
-    const c = random ? dayPick("home-reading-ch-" + b.id, shipped, 1)[0] : (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
-    const same = !random && !!(pos && c.n === pos.ch);
+    // (the Suggested reading box's passage is no longer drawn from here: it is the day's HOME_EXCERPTS row)
+    const c = (pos && shipped.find((x) => x.n === pos.ch)) || shipped[0];
+    const same = !!(pos && c.n === pos.ch);
     const d = document.createElement("div");
     d.innerHTML = c.html || "";
     const ps = d.querySelectorAll("p");
     if (!ps.length) return "";
-    let i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
-    if (random) {   // a paragraph long enough to read as a passage, where the chapter has one; else any
-      const long = []; ps.forEach((x, j) => { if ((x.textContent || "").trim().length >= 160) long.push(j); });
-      const from = long.length ? long : Array.from(ps, (_, j) => j);
-      i = dayPick("home-reading-p-" + b.id + "-" + c.n, from, 1)[0];
-    }
+    const i = same ? Math.min(ps.length - 1, Math.floor((pos.y || 0) * ps.length)) : 0;
     /* TWICE AS LONG (Oct 2026, on request: "make the next up excerpts twice as long"): 600 characters where it
        was 300, and the box shows six and a half lines where it showed three (.hb-next-p). A paragraph shorter
        than that is followed by the next ones of the chapter, so a short paragraph does not leave the box
@@ -24586,34 +24739,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const num = b.chapterWord + " " + c.n;
     const label = num + (c.t && c.t.trim().toLowerCase() !== num.toLowerCase() ? " \u00b7 " + c.t : "");   // a title that is only the number is said once
     return '<span class="hb-next" data-n="' + esc(String(c.n)) + '" title="Open ' + esc(label) + '">' +
-      '<span class="hb-next-k">' + (random ? "A passage" : same ? "Next up" : "Begin") + " \u00b7 " + esc(label) + "</span>" +
+      '<span class="hb-next-k">' + (same ? "Next up" : "Begin") + " \u00b7 " + esc(label) + "</span>" +
       '<span class="hb-next-p">' + esc(text) + "</span></span>";
   }
   function homeReadingNextFill(root) {
     const rd = root.querySelector("#b-reading");
     const id = rd && rd.dataset.book;
     if (!id || rd.querySelector(".hb-next")) return;
-    const suggest = rd.dataset.suggest === "1";   // the Suggested reading box: a random passage, fetched at idle, never in light mode (homeSuggestedHTML)
-    if (suggest && (lightMode() || onCellular())) return;
-    const fill = () => ensureData(bookBundle(id)).then((ok) => {
+    /* The Suggested reading box carries its passage in its own markup (HOME_EXCERPTS, Nov 2026), so nothing is
+       fetched for it — no book text loads with the page (test-library §2). Only Continue reading fills in. */
+    if (rd.dataset.suggest === "1") return;
+    ensureData(bookBundle(id)).then((ok) => {
       const b = ok && rd.isConnected ? BOOK_BY_ID[id] : null;
       if (!b) return;
-      const h = homeReadingNextHTML(b, suggest ? null : readingPos(id), { random: suggest });
+      const h = homeReadingNextHTML(b, readingPos(id));
       if (h) rd.insertAdjacentHTML("beforeend", h);
     });
-    if (!suggest) { fill(); return; }
-    /* THE SUGGESTED PASSAGE IS FETCHED WHEN THE BOX IS SEEN, NEVER ON BOOT (Oct 2026, a CI fault: the first cut
-       fetched a random book's whole file at idle on every home load, which broke the rule that no book text
-       loads with the page — test-library §2). The box itself (title, author, languages) needs only the light
-       shelf index; the passage waits until the box is in the viewport, and a browser without
-       IntersectionObserver shows the box without one. */
-    if (!("IntersectionObserver" in window)) return;
-    const obs = new IntersectionObserver((entries) => {
-      if (!entries.some((e) => e.isIntersecting)) return;
-      obs.disconnect();
-      whenIdle(fill);
-    });
-    obs.observe(rd);
   }
   /* Turn the box to its other face (see homeReadingHTML): `dir` is the side the new face comes in from, 1 the
      right (the timer, a swipe to the left), -1 the left. The element is rebuilt and rewired, and its passage is
@@ -24640,7 +24781,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     rd.addEventListener("click", (e) => {
       if (swiped) { swiped = false; e.preventDefault(); return; }   // the click a swipe ends with is not a press
       const nx = e.target && e.target.closest ? e.target.closest(".hb-next") : null;
-      if (nx && rd.dataset.book) route("book", { id: rd.dataset.book, n: nx.dataset.n });
+      if (nx && rd.dataset.book) route("book", nx.dataset.p != null ? { id: rd.dataset.book, n: nx.dataset.n, p: nx.dataset.p } : { id: rd.dataset.book, n: nx.dataset.n });
       else if (rd.dataset.book) route("book", { id: rd.dataset.book }); else route("library");
     });
     if (_hrPair) {
@@ -30434,7 +30575,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        wherever they were in this book last week. Compared as STRINGS, since a section number need not be
        an integer — a Bekker page is `1094a` — which is the same reason `c.n` is not a number here. */
     const wantN = params && params.n != null && params.n !== "" ? String(params.n) : "";
-    const addressed = wantN ? chapters.find((c) => String(c.n) === wantN) : null;
+    /* …and an addressed PARAGRAPH (Nov 2026, the home page's Suggested reading passage): `p` is the index of a
+       <p> among the chapter's own, scrolled to and briefly marked on the first paint only. A chapter numbered 0
+       (Beowulf's Prelude) shares its number with the front matter, so a paragraph address skips the front matter. */
+    let wantP = params && params.p != null && /^\d+$/.test(String(params.p)) ? +params.p : -1;
+    const addressed = wantN ? (wantP >= 0 && chapters.find((c) => String(c.n) === wantN && !c.intro)) || chapters.find((c) => String(c.n) === wantN) : null;
     // resume on the chapter the reader left, falling back to the first if that chapter is not shipped yet
     let cur = addressed || chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
     const partOf = (n) => (b.parts || []).find((p) => p.n === n);
@@ -30589,8 +30734,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       [root.querySelector("#bkNext"), root.querySelector("#bkNext2")].forEach((el) => el && (el.disabled = i >= chapters.length - 1));
 
       // restore the reader's place within the chapter, once the browser has laid the prose out
+      const targetP = wantP >= 0 && c === addressed ? wantP : -1;
+      wantP = -1;   // the paragraph is asked for once; a later move to another chapter starts at its top
       requestAnimationFrame(() => {
-        if (restoreFrac > 0) {
+        const tp = targetP >= 0 ? Array.from(proseEn).flatMap((el) => Array.from(el.querySelectorAll("p")))[targetP] : null;
+        if (tp) {
+          const row = tp.closest(".bk-row") || tp;
+          // measured by offsets, not getBoundingClientRect: the page's entry transition is still translating it
+          let top = 0; for (let el = row; el; el = el.offsetParent) top += el.offsetTop;
+          window.scrollTo({ top: Math.max(0, top - 120), behavior: "auto" });
+          tp.classList.add("bk-target");
+          setTimeout(() => tp.classList.remove("bk-target"), 2600);
+        } else if (restoreFrac > 0) {
           const top = pageEl.offsetTop + pageEl.offsetHeight * restoreFrac;
           window.scrollTo({ top: Math.max(0, top - 80), behavior: "auto" });
         }
@@ -39683,11 +39838,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Greece too, and those terms name a state, a period, a people and a literature as much as a culture: a
      reader asked to put Ancient Rome in the "Cultures" row is being asked to agree to one reading of a word
      that has several. The same request asked for every category to be read that strictly — see
-     THREAD_DESCRIBES below — and this was the one it named outright. */
+     THREAD_DESCRIBES below — and this was the one it named outright.
+     `practice` FOLLOWED IN NOV 2026, ON REQUEST ("remove the category 'practices'"). */
   const THREAD_BROAD = new Set([
     "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
     "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
-    "event", "literature", "culture",
+    "event", "literature", "culture", "practice",
   ]);
   // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
@@ -40036,7 +40192,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const THREAD_LABELS = {
     title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
     building: "Buildings", art: "Art", fossil: "Fossils", animal: "Animals",
-    practice: "Practices", people: "Peoples and groups",   // the kind holds a class, a family and a movement too
+    people: "Peoples and groups",   // the kind holds a class, a family and a movement too
     warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
     deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
     // the Oct 2026 strictness pass narrowed these three to what their kind sets admit, and the label says so
@@ -48427,6 +48583,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // …and the optional section it was opened at. Left ABSENT rather than defaulted, so a plain #book/<id>
     // still resumes where the reader left off and only an explicit fragment overrides that.
     if (hParts.length > 2 && hParts[2] !== "") { try { initParams.n = decodeURIComponent(hParts[2]); } catch (e) { initParams.n = hParts[2]; } }
+    if (initParams.n != null && hParts.length > 3 && /^\d+$/.test(hParts[3])) initParams.p = hParts[3];
   }
   /* A reload on #study picks the session back up where it was — same card, same phrasing, and revealed if
      it was revealed. The scope lives in the record rather than the hash because a queue is not an address:
@@ -48729,15 +48886,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (parts[0] === "book") {   // #book/<id>[/<n>] pasted or followed mid-session
-      let bid = "", bn = "";
+      let bid = "", bn = "", bp = "";
       try { bid = decodeURIComponent(parts[1] || ""); } catch (e) { bid = parts[1] || ""; }
       if (parts.length > 2 && parts[2] !== "") { try { bn = decodeURIComponent(parts[2]); } catch (e) { bn = parts[2]; } }
+      if (bn && parts.length > 3 && /^\d+$/.test(parts[3])) bp = parts[3];
       /* The SECTION is part of the address, so following the same book at a different section has to
          re-render — otherwise a reader who pressed one quotation's button and then another's would be
          carried to the first passage twice. */
       const same = current.name === "book" && current.params.id === bid &&
-        String(current.params.n == null ? "" : current.params.n) === bn;
-      if (!same) route("book", bn ? { id: bid, n: bn } : { id: bid });
+        String(current.params.n == null ? "" : current.params.n) === bn &&
+        String(current.params.p == null ? "" : current.params.p) === bp;
+      if (!same) route("book", bp ? { id: bid, n: bn, p: bp } : bn ? { id: bid, n: bn } : { id: bid });
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
