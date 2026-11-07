@@ -505,6 +505,27 @@ officialgazette.gov.ph (403); Wiley and Brill (paywalls); `singaporewarcrimestri
 maintenance or squatted page and must not be cited. Wikimedia's API answered 429 throughout again;
 category pages, `action=raw`, MediaSearch and `Special:FilePath` worked.
 
+**WHAT `ww2-701`–`ww2-800` LEARNED ABOUT HOSTS (Nov 2026).** Resistance, the Holocaust and the crimes run on
+**USHMM's Holocaust Encyclopedia** (many slugs in its sitemap 404 — fetch before citing) and the memorial sites'
+own pages: `auschwitz.org` (history and Stop Denial pages), `belzec.eu`, `sobibor-memorial.eu`,
+`muzeumtreblinka.eu`, `chelmno-muzeum.eu`, `majdanek.eu`, `mauthausen-memorial.org`, the Hadamar memorial
+(its `en/wp-json` lists every page), `stiftung-denkmal.de`, `topographie.de` and `kazernedossin.eu`; the
+Wiener Holocaust Library's **`theholocaustexplained.org`** (its `wp-sitemap.xml` finds pages) while
+`wienerholocaustlibrary.org` itself is 403; **`hdot.org`** for the Irving judgment by paragraph and the
+Browning, van Pelt and Longerich expert reports; the **YIVO Encyclopedia**, whose text comes from
+`encyclopedia.yivo.org/api/article?id=N` (cite `/article/N`); LeMO's `voelkermord/` pages; `jhi.pl`;
+IPN's `przystanekhistoria.pl`; Store norske leksikon; the Hrvatski biografski leksikon; Ordre de la
+Libération biographies; `defense.gouv.fr/chemins-memoire/…` (the old `cheminsdememoire.gouv.fr` is
+refused); and archive.org for Foot's *SOE in France*, the OSS War Report, the *History of the War Refugee
+Board*, DA Pam 20-243 and *German Crimes in Poland* (1946), with *Trials of War Criminals* vols. II–V and VIII
+and the UNWCC *Law Reports* on `tile.loc.gov`. **Yad Vashem's www pages are still 403, but its Shoah
+Resource Center PDFs answer on `wwv.yadvashem.org`.** H-Net's review search answers only as
+`h-net.org/reviews/review_search.php?all=<terms>&submit=Search`, and not on every attempt. **Closed this
+time:** `holocaustremembrance.com`, `polin.pl`, `sztetl.org.pl`, `nizkor.org`, `yahadinunum.org`,
+`britannica.com`, `culture.pl` and `facinghistory.org` (403); `ghwk.de` (401); `wollheim-memorial.de` (TLS);
+`encyclopedia.pwn.pl` (inactive). **archive.org searches on the railways and the camps return denial
+material** (*Historische Tatsachen*) — read what an upload is before citing it.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -1344,13 +1365,13 @@ definitions, which exist precisely because the wording matters.
 ### Resistance — `ww2-resistance`
 
     ww2-701  Resistance during the Second World War
-    ww2-702  The forms of resistance
+    ww2-702  Sabotage
     ww2-703  French Resistance
     ww2-704  Jean Moulin
     ww2-705  Maquis
     ww2-706  Special Operations Executive
     ww2-707  Office of Strategic Services
-    ww2-708  Allied support for resistance movements
+    ww2-708  Operation Jedburgh
     ww2-709  Polish Underground State
     ww2-710  Home Army
     ww2-711  Polish intelligence in the Second World War
@@ -1358,21 +1379,21 @@ definitions, which exist precisely because the wording matters.
     ww2-713  Josip Broz Tito
     ww2-714  The Chetniks and the Yugoslav civil war
     ww2-715  Greek Resistance
-    ww2-716  Italian resistance fighters
-    ww2-717  Resistance in Norway, Denmark and the Low Countries
+    ww2-716  Garibaldi Brigades
+    ww2-717  Norwegian resistance movement
     ww2-718  Jewish resistance in German-occupied Europe
     ww2-719  Warsaw Ghetto Uprising
     ww2-720  Jewish partisans
-    ww2-721  Resistance inside the camps
+    ww2-721  Kampfgruppe Auschwitz
     ww2-722  The Treblinka and Sobibór uprisings
     ww2-723  German resistance to Nazism
     ww2-724  White Rose
-    ww2-725  The rescue of Jews in occupied Europe
+    ww2-725  Żegota
     ww2-726  Rescue of the Danish Jews
     ww2-727  Righteous Among the Nations
-    ww2-728  Women in the resistance
-    ww2-729  The cost of resistance
-    ww2-730  Resistance in postwar memory
+    ww2-728  Kashariyot
+    ww2-729  Nacht und Nebel
+    ww2-730  Résistancialisme
 
 ### The Holocaust — `ww2-holocaust`
 
@@ -1385,14 +1406,14 @@ definitions, which exist precisely because the wording matters.
     ww2-737  Ghettos in Nazi-occupied Europe
     ww2-738  Warsaw Ghetto
     ww2-739  Łódź Ghetto
-    ww2-740  Conditions in the ghettos
+    ww2-740  Typhus in the ghettos
     ww2-741  Judenrat
     ww2-742  The territorial schemes and the Madagascar Plan
     ww2-743  Einsatzgruppen
-    ww2-744  The mass shootings in the occupied Soviet Union
+    ww2-744  Kamianets-Podilskyi massacre
     ww2-745  Babi Yar
-    ww2-746  The Wehrmacht and the mass shootings
-    ww2-747  Local participation in the killings
+    ww2-746  Mogilev Conference
+    ww2-747  Jedwabne pogrom
     ww2-748  Holocaust by bullets
     ww2-749  The decision for the Final Solution
     ww2-750  The intentionalist and functionalist debate
@@ -1409,7 +1430,7 @@ definitions, which exist precisely because the wording matters.
     ww2-761  The deportations
     ww2-762  The role of the railways
     ww2-763  Majdanek concentration camp
-    ww2-764  The Nazi concentration camp system
+    ww2-764  Concentration Camps Inspectorate
     ww2-765  Extermination through labour
     ww2-766  IG Farben and Auschwitz
     ww2-767  Nazi human experimentation
@@ -1418,37 +1439,37 @@ definitions, which exist precisely because the wording matters.
     ww2-770  The destruction of Polish Jewry
     ww2-771  The destruction of Soviet Jewry
     ww2-772  The deportation of the Jews of Hungary
-    ww2-773  The Jews of France, Belgium and the Netherlands
+    ww2-773  The Holocaust in the Netherlands
     ww2-774  Anne Frank
-    ww2-775  The Jews of Greece and the Balkans
+    ww2-775  The Holocaust in Greece
     ww2-776  The Jews of Italy
-    ww2-777  Denmark, Bulgaria and the limits of deportation
-    ww2-778  The perpetrators
+    ww2-777  The Holocaust in Bulgaria
+    ww2-778  Reich Security Main Office
     ww2-779  Heinrich Himmler
     ww2-780  Adolf Eichmann
-    ww2-781  The question of perpetrator motivation
-    ww2-782  What the Allies knew
-    ww2-783  The Allied response to the Holocaust
+    ww2-781  Reserve Police Battalion 101
+    ww2-782  Riegner Telegram
+    ww2-783  War Refugee Board
     ww2-784  The debate over bombing Auschwitz
     ww2-785  Death marches
     ww2-786  The liberation of the camps
     ww2-787  Survivors of the Holocaust
     ww2-788  The evidence for the Holocaust
     ww2-789  Holocaust denial and why it fails
-    ww2-790  Holocaust memory
+    ww2-790  International Holocaust Remembrance Day
 
 ### Other crimes and mass violence — `ww2-crimes`
 
     ww2-791  War crimes in the Second World War
-    ww2-792  Nazi persecution of Roma people
+    ww2-792  Zigeunerlager
     ww2-793  Porajmos
-    ww2-794  The Nazi murder of disabled people
-    ww2-795  The persecution of gay men under Nazism
+    ww2-794  Hadamar killing centre
+    ww2-795  Pink triangle
     ww2-796  Jehovah's Witnesses under Nazi persecution
-    ww2-797  The treatment of Soviet prisoners of war
+    ww2-797  Order No. 270
     ww2-798  Japanese war crimes
-    ww2-799  The Japanese treatment of prisoners of war
-    ww2-800  Japanese atrocities against Asian civilians
+    ww2-799  Hell ships
+    ww2-800  Kempeitai
     ww2-801  Manila massacre
     ww2-802  Sandakan death marches
     ww2-803  Reprisal killings in occupied Europe

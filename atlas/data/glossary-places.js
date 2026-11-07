@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":{"terms":934,"points":697,"countries":237,"windows":1446,"faces":376,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ef22c04ac9255491","counts":{"terms":934,"points":697,"countries":237,"windows":1451,"faces":376,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1037,6 +1037,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":
 "Attica":[23.8,38,"region",0,0,0],
 "Augusta_Emerita":[-6.333,38.9,"coord",0,0,0],
 "Aurelian_Walls":[12.499,41.873,"coord",0,0,0],
+"Auschwitz_II-Birkenau":[19.178,50.036,"coord",0,0,0],
 "Auschwitz_concentration_camp":[19.221,50.038,"city",0,0,0],
 "Australia":[134.05,-24.13,"country","adm0:aus",0,1.88],
 "Austria":[14.13,47.52,"country","adm0:aut",0,13.34],
@@ -1166,6 +1167,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":
 "Chen_dynasty":[114.975,26.981,"polity","pol:chen",587,4.59],
 "Chengdu":[104.068,30.672,"city",0,0,0],
 "Chesapeake_Bay":[-76.092,38.028,"gulf",0,0,0],
+"Chełmno_extermination_camp":[18.723,52.154,"coord",0,0,0],
 "Chicago":[-87.752,41.832,"city",0,0,0],
 "Chichen_Itza":[-88.569,20.683,"site",0,0,0],
 "Chile":[-72.32,-38.15,"country","adm0:chl",0,1.78],
@@ -1392,6 +1394,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":
 "Gupta_Empire":[78.075,25.021,"polity","pol:gupta",410,2.86],
 "Guyana":[-58.94,5.12,"country","adm0:guy",0,9.3],
 "Göbekli_Tepe":[38.923,37.223,"site",0,0,0],
+"Hadamar_killing_centre":[8.042,50.451,"coord",0,0,0],
 "Hadar,_Ethiopia":[40.6,11.193,"site",0,0,0],
 "Hadrian's_Villa":[12.775,41.942,"site",0,0,0],
 "Hadrians_Wall":[-2.283,55.017,"coord",0,0,0],
@@ -1675,6 +1678,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":
 "Maine":[-69.197,45.148,"admin1","adm1:usa:us-me",0,15.65],
 "Maison_Carrée":[4.356,43.838,"coord",0,0,0],
 "Majapahit":[101.327,-0.868,"polity","pol:majapahit",1402,1.92],
+"Majdanek_concentration_camp":[22.599,51.221,"coord",0,0,0],
 "Makuria":[32.62,21.193,"polity","pol:makuria",682,11.7],
 "Malacca_Sultanate":[103.768,1.582,"polity","pol:malacca",1475,40],
 "Malawi":[33.61,-13.39,"country","adm0:mwi",0,8.83],
@@ -2313,6 +2317,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":
 "Wall_Street":[-74.01,40.707,"coord",0,0,0],
 "Wallis_and_Futuna":[-178.14,-14.29,"country","adm0:wlf",0,34.24],
 "Warsaw":[20.998,52.252,"capital",0,0,0],
+"Warsaw_Ghetto":[21,52.25,"coord",0,0,0],
 "Washington_(state)":[-77.011,38.901,"capital",0,0,0],
 "Wei_River":[110.289,34.612,"river",0,0,0],
 "Weimar_Republic":[11.757,51.579,"polity","pol:weimar",1932,6.5],

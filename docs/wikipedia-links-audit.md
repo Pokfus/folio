@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6191 | the title is the article |
-| `redirect-variant` | 375 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
-| `search-match` | 8 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 591 | redirected to a differently named article — listed below, a glance each |
+| `ok` | 6275 | the title is the article |
+| `redirect-variant` | 380 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 84 | chosen from a disambiguation page by hint words — listed below |
+| `search-match` | 9 | a search hit with the answer's words in another order — listed below |
+| `redirect-broader` | 601 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 127 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1005 | nothing matched; no link |
+| `none` | 1004 | nothing matched; no link |
 
-**7255 of 8550 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7356 of 8650 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (591)
+## Redirected to a differently named article — check each (601)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -635,8 +635,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-687` **SS Division Wiking** → [5th SS Panzer Division Wiking](https://en.wikipedia.org/wiki/5th_SS_Panzer_Division_Wiking) (from `SS Division Wiking`)
 - `ww2-692` **hidden children** → [Hidden children during the Holocaust](https://en.wikipedia.org/wiki/Hidden_children_during_the_Holocaust) (from `Hidden children`)
 - `ww2-698` **non-belligerence** → [Non-belligerent](https://en.wikipedia.org/wiki/Non-belligerent) (from `Non-belligerence`)
+- `ww2-716` **Garibaldi Brigades** → [Brigate Garibaldi](https://en.wikipedia.org/wiki/Brigate_Garibaldi) (from `Garibaldi Brigades`)
+- `ww2-721` **Kampfgruppe Auschwitz** → [Auschwitz Combat Group](https://en.wikipedia.org/wiki/Auschwitz_Combat_Group) (from `Kampfgruppe Auschwitz`)
+- `ww2-732` **Holocaust historiography** → [Holocaust studies](https://en.wikipedia.org/wiki/Holocaust_studies) (from `Holocaust historiography`)
+- `ww2-734` **anti-Jewish legislation** → [Anti-Jewish laws](https://en.wikipedia.org/wiki/Anti-Jewish_laws) (from `Anti-Jewish legislation`)
+- `ww2-735` **European Jewry** → [History of the Jews in Europe](https://en.wikipedia.org/wiki/History_of_the_Jews_in_Europe) (from `European Jewry`)
+- `ww2-736` **Polish Jews** → [History of the Jews in Poland](https://en.wikipedia.org/wiki/History_of_the_Jews_in_Poland) (from `Polish Jews`)
+- `ww2-737` **Nazi ghettos** → [Jewish ghettos established by Nazi Germany](https://en.wikipedia.org/wiki/Jewish_ghettos_established_by_Nazi_Germany) (from `Nazi ghettos`)
+- `ww2-748` **Holocaust by bullets** → [The Holocaust in Belarus](https://en.wikipedia.org/wiki/The_Holocaust_in_Belarus) (from `Holocaust by bullet`)
+- `ww2-763` **Majdanek** → [Majdanek concentration camp](https://en.wikipedia.org/wiki/Majdanek_concentration_camp) (from `Majdanek`)
+- `ww2-793` **Porajmos** → [Romani Holocaust](https://en.wikipedia.org/wiki/Romani_Holocaust) (from `Porajmos`)
 
-## Settled from a disambiguation page (83)
+## Settled from a disambiguation page (84)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -723,8 +733,9 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-250` **Balkan campaign** → [Balkans campaign (World War II)](https://en.wikipedia.org/wiki/Balkans_campaign_(World_War_II)) (via the disambiguation page `Balkans campaign`)
 - `ww2-354` **Jassy–Kishinev offensive** → [Second Jassy–Kishinev offensive](https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive) (via the disambiguation page `Jassy–Kishinev offensive`)
 - `ww2-395` **filtration camps** → [NKVD filtration camps](https://en.wikipedia.org/wiki/NKVD_filtration_camps) (via the disambiguation page `Filtration camp`)
+- `ww2-718` **Jewish resistance** → [Jewish resistance in German-occupied Europe](https://en.wikipedia.org/wiki/Jewish_resistance_in_German-occupied_Europe) (via the disambiguation page `Jewish resistance`)
 
-## Matched by search — check each (8)
+## Matched by search — check each (9)
 
 No title was the answer, but one search hit has exactly the answer's words in another order or punctuation.
 
@@ -736,6 +747,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
+- `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
 ## Disambiguation pages that could not be settled (147)
 
@@ -1030,9 +1042,9 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
-- `ww2-685` **collaborationism** — `Collaborationism` only redirects into `Wartime collaboration#Definitions`
+- `ww2-756` **Auschwitz II-Birkenau** — `Auschwitz II-Birkenau` only redirects into `Auschwitz concentration camp#Auschwitz II-Birkenau`
 
-## No article found (1005)
+## No article found (1004)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2037,7 +2049,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
 - `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
 - `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`
-- `ww2-655` **broad front strategy** — search suggests `Broad front versus narrow front controversy in World War II`, `Western Front (World War II)`, `British home front during World War II`, `World War I`, `Scandinavian theatre of World War II`
 - `ww2-663` **occupation costs** — search suggests `Axis occupation of Greece`, `Occupation of the Baltic states`, `World War II reparations`, `World War I`, `List of World War II feature films`
-- `ww2-668` **Great Famine of Greece** — search suggests `Great Famine (Greece)`, `Declarations of war during World War II`, `World War II casualties`, `Greco-Italian War`, `World War II reparations`
-- `ww2-691` **Wehrmacht brothels** — search suggests `German military brothels in World War II`, `German camp brothels in World War II`, `East African campaign (World War II)`, `Australia in World War II`, `Italian campaign (World War II)`
+- `ww2-728` **kashariyot** — search suggests `Bela Yaari Hazan`, `Frumka Płotnicka`
+- `ww2-786` **Liberation of Nazi concentration camps** — search suggests `List of Nazi concentration camps`, `Nazi Concentration Camps (film)`, `Female guards in Nazi concentration camps`, `Auschwitz concentration camp`, `Gross-Rosen concentration camp`
