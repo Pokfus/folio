@@ -8769,7 +8769,17 @@ window.GLOSSARY = {
 "Dutch_famine_of_1944–1945": "",
 "Great_Famine_(Greece)": "",
 "Military_Administration_in_France_(Nazi_Germany)": "",
-"Pierre_Laval": ""
+"Pierre_Laval": "",
+"Milice": "",
+"Occupation_of_Denmark": "",
+"Vidkun_Quisling": "",
+"Reichskommissariat_Niederlande": "",
+"Reichsgau_Wartheland": "",
+"Germanisation": "",
+"Lebensborn": "",
+"Konstantin_von_Neurath": "",
+"Reinhard_Heydrich": "",
+"Operation_Anthropoid": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12999,7 +13009,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Dutch_famine_of_1944–1945": "1944–1945",
 "Great_Famine_(Greece)": "1941–1944",
 "Military_Administration_in_France_(Nazi_Germany)": "1940–1944",
-"Pierre_Laval": "1883–1945"
+"Pierre_Laval": "1883–1945",
+"Milice": "1943–1944",
+"Occupation_of_Denmark": "1940–1945",
+"Vidkun_Quisling": "1887–1945",
+"Reichskommissariat_Niederlande": "1940–1945",
+"Reichsgau_Wartheland": "1939–1945",
+"Lebensborn": "1935–1945",
+"Konstantin_von_Neurath": "1873–1956",
+"Reinhard_Heydrich": "1904–1942",
+"Operation_Anthropoid": "1941–1942"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18514,7 +18533,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Requisition": ["requisition"],
 "Dutch_famine_of_1944–1945": ["Hunger Winter","Dutch famine of 1944–1945"],
 "Great_Famine_(Greece)": ["Great Famine of Greece"],
-"Military_Administration_in_France_(Nazi_Germany)": ["Military Administration in France","Militärbefehlshaber in Frankreich"]
+"Military_Administration_in_France_(Nazi_Germany)": ["Military Administration in France","Militärbefehlshaber in Frankreich"],
+"Milice": ["Milice française","French Militia"],
+"Occupation_of_Denmark": ["German occupation of Denmark"],
+"Reichsgau_Wartheland": ["Warthegau"],
+"Germanisation": ["Germanization"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27437,7 +27460,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Dutch_famine_of_1944–1945": ["event","history","netherlands","second world war","famine"],
 "Great_Famine_(Greece)": ["event","history","greece","second world war","famine"],
 "Military_Administration_in_France_(Nazi_Germany)": ["institution","history","politics","france","second world war"],
-"Pierre_Laval": ["person","history","politics","france","second world war"]
+"Pierre_Laval": ["person","history","politics","france","second world war"],
+"Milice": ["institution","history","politics","france","second world war","collaboration"],
+"Occupation_of_Denmark": ["era","history","politics","denmark","second world war","occupation"],
+"Vidkun_Quisling": ["person","history","politics","norway","second world war","collaboration"],
+"Reichskommissariat_Niederlande": ["state","history","politics","netherlands","second world war","occupation"],
+"Reichsgau_Wartheland": ["state","history","politics","poland","second world war","occupation"],
+"Germanisation": ["practice","history","politics","germany","second world war"],
+"Lebensborn": ["institution","history","germany","second world war"],
+"Konstantin_von_Neurath": ["person","history","politics","germany","second world war"],
+"Reinhard_Heydrich": ["person","history","politics","germany","second world war","holocaust"],
+"Operation_Anthropoid": ["event","history","warfare","czechoslovakia","second world war","resistance"]
 });
 
 /* ============================================================================

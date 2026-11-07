@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6169 | the title is the article |
+| `ok` | 6177 | the title is the article |
 | `redirect-variant` | 375 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 586 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 588 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1004 | nothing matched; no link |
 
-**7227 of 8520 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7237 of 8530 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (586)
+## Redirected to a differently named article — check each (588)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -630,6 +630,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-619` **Bombing of Berlin** → [Bombing of Berlin in World War II](https://en.wikipedia.org/wiki/Bombing_of_Berlin_in_World_War_II) (from `Bombing of Berlin`)
 - `ww2-631` **Mittelbau-Dora** → [Mittelbau-Dora concentration camp](https://en.wikipedia.org/wiki/Mittelbau-Dora_concentration_camp) (from `Mittelbau-Dora`)
 - `ww2-669` **Military Administration in France** → [German military administration in occupied France during World War II](https://en.wikipedia.org/wiki/German_military_administration_in_occupied_France_during_World_War_II) (from `Military Administration in France (Nazi Germany)`)
+- `ww2-672` **Occupation of Denmark** → [Denmark in World War II](https://en.wikipedia.org/wiki/Denmark_in_World_War_II) (from `Occupation of Denmark`)
+- `ww2-680` **Operation Anthropoid** → [Assassination of Reinhard Heydrich](https://en.wikipedia.org/wiki/Assassination_of_Reinhard_Heydrich) (from `Operation Anthropoid`)
 
 ## Settled from a disambiguation page (83)
 

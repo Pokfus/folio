@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-07T19:55Z",
+ "generated": "2026-11-07T19:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6169,
-  "redirect-broader": 586,
+  "ok": 6177,
+  "redirect-broader": 588,
   "redirect-variant": 375,
   "section-redirect": 126,
   "disambiguation": 147,
@@ -68501,6 +68501,78 @@
    "url": "https://en.wikipedia.org/wiki/Pierre_Laval",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-671": {
+   "answer": "Milice",
+   "title": "Milice",
+   "url": "https://en.wikipedia.org/wiki/Milice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-672": {
+   "answer": "Occupation of Denmark",
+   "title": "Denmark in World War II",
+   "url": "https://en.wikipedia.org/wiki/Denmark_in_World_War_II",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Occupation of Denmark"
+  },
+  "ww2-673": {
+   "answer": "Vidkun Quisling",
+   "title": "Vidkun Quisling",
+   "url": "https://en.wikipedia.org/wiki/Vidkun_Quisling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-674": {
+   "answer": "Reichskommissariat Niederlande",
+   "title": "Reichskommissariat Niederlande",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat_Niederlande",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-675": {
+   "answer": "Reichsgau Wartheland",
+   "title": "Reichsgau Wartheland",
+   "url": "https://en.wikipedia.org/wiki/Reichsgau_Wartheland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-676": {
+   "answer": "Germanisation",
+   "title": "Germanisation",
+   "url": "https://en.wikipedia.org/wiki/Germanisation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-677": {
+   "answer": "Lebensborn",
+   "title": "Lebensborn",
+   "url": "https://en.wikipedia.org/wiki/Lebensborn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-678": {
+   "answer": "Konstantin von Neurath",
+   "title": "Konstantin von Neurath",
+   "url": "https://en.wikipedia.org/wiki/Konstantin_von_Neurath",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-679": {
+   "answer": "Reinhard Heydrich",
+   "title": "Reinhard Heydrich",
+   "url": "https://en.wikipedia.org/wiki/Reinhard_Heydrich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-680": {
+   "answer": "Operation Anthropoid",
+   "title": "Assassination of Reinhard Heydrich",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_Reinhard_Heydrich",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Operation Anthropoid"
   }
  }
 }
