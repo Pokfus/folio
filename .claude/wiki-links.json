@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T03:59Z",
+ "generated": "2026-11-07T04:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5971,
-  "redirect-broader": 553,
-  "redirect-variant": 363,
-  "section-redirect": 119,
+  "ok": 6041,
+  "redirect-broader": 567,
+  "redirect-variant": 368,
+  "section-redirect": 124,
   "disambiguation": 145,
-  "none": 986,
+  "none": 992,
   "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
@@ -65700,6 +65700,782 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Age of the Solar System"
+  },
+  "ps-101": {
+   "answer": "WEIRD",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "WEIRD",
+   "target": "Psychology#WEIRD bias"
+  },
+  "ps-102": {
+   "answer": "indigenous psychology",
+   "title": "Indigenous psychology",
+   "url": "https://en.wikipedia.org/wiki/Indigenous_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-103": {
+   "answer": "feminist psychology",
+   "title": "Feminist psychology",
+   "url": "https://en.wikipedia.org/wiki/Feminist_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-104": {
+   "answer": "critical psychology",
+   "title": "Critical psychology",
+   "url": "https://en.wikipedia.org/wiki/Critical_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-105": {
+   "answer": "biopsychosocial model",
+   "title": "Biopsychosocial model",
+   "url": "https://en.wikipedia.org/wiki/Biopsychosocial_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-106": {
+   "answer": "behavioural economics",
+   "title": "Behavioral economics",
+   "url": "https://en.wikipedia.org/wiki/Behavioral_economics",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Behavioural economics"
+  },
+  "ps-107": {
+   "answer": "Decade of the Brain",
+   "title": "Decade of the Brain",
+   "url": "https://en.wikipedia.org/wiki/Decade_of_the_Brain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-108": {
+   "answer": "cognitive modelling",
+   "title": "Cognitive model",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_model",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cognitive modelling"
+  },
+  "ps-109": {
+   "answer": "big data",
+   "title": "Big data",
+   "url": "https://en.wikipedia.org/wiki/Big_data",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-110": {
+   "answer": "scientist–practitioner model",
+   "title": "Scientist–practitioner model",
+   "url": "https://en.wikipedia.org/wiki/Scientist%E2%80%93practitioner_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-111": {
+   "answer": "experiment",
+   "title": "Experiment",
+   "url": "https://en.wikipedia.org/wiki/Experiment",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-112": {
+   "answer": "independent variable",
+   "title": "Dependent and independent variables",
+   "url": "https://en.wikipedia.org/wiki/Dependent_and_independent_variables",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Independent variable"
+  },
+  "ps-113": {
+   "answer": "confounding variable",
+   "title": "Confounding",
+   "url": "https://en.wikipedia.org/wiki/Confounding",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Confounding variable"
+  },
+  "ps-114": {
+   "answer": "random assignment",
+   "title": "Random assignment",
+   "url": "https://en.wikipedia.org/wiki/Random_assignment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-115": {
+   "answer": "control group",
+   "title": "Treatment and control groups",
+   "url": "https://en.wikipedia.org/wiki/Treatment_and_control_groups",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Control group"
+  },
+  "ps-116": {
+   "answer": "within-subjects design",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Repeated measures design",
+    "Between-group design experiment",
+    "Mixed-design analysis of variance",
+    "Single-subject design",
+    "Experimental psychology"
+   ]
+  },
+  "ps-117": {
+   "answer": "counterbalancing",
+   "title": "Counterweight",
+   "url": "https://en.wikipedia.org/wiki/Counterweight",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Counterbalancing"
+  },
+  "ps-118": {
+   "answer": "placebo effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Placebo effect",
+   "target": "Placebo#Effects"
+  },
+  "ps-119": {
+   "answer": "double-blind procedure",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Double-blind procedure",
+   "target": "Blinded experiment#Double-blind trials"
+  },
+  "ps-120": {
+   "answer": "demand characteristics",
+   "title": "Demand characteristics",
+   "url": "https://en.wikipedia.org/wiki/Demand_characteristics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-121": {
+   "answer": "experimenter expectancy effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Observer-expectancy effect",
+    "Hawthorne effect",
+    "Placebo",
+    "Pygmalion effect",
+    "Nocebo"
+   ]
+  },
+  "ps-122": {
+   "answer": "Hawthorne effect",
+   "title": "Hawthorne effect",
+   "url": "https://en.wikipedia.org/wiki/Hawthorne_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-123": {
+   "answer": "quasi-experiment",
+   "title": "Quasi-experiment",
+   "url": "https://en.wikipedia.org/wiki/Quasi-experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-124": {
+   "answer": "correlational research",
+   "title": "Correlation",
+   "url": "https://en.wikipedia.org/wiki/Correlation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Correlational research"
+  },
+  "ps-125": {
+   "answer": "correlation does not imply causation",
+   "title": "Correlation does not imply causation",
+   "url": "https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-126": {
+   "answer": "third-variable problem",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psychology",
+    "Birthday problem",
+    "Moderation (statistics)",
+    "Mediation (statistics)",
+    "Instrumental variables"
+   ]
+  },
+  "ps-127": {
+   "answer": "longitudinal study",
+   "title": "Longitudinal study",
+   "url": "https://en.wikipedia.org/wiki/Longitudinal_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-128": {
+   "answer": "cross-sectional study",
+   "title": "Cross-sectional study",
+   "url": "https://en.wikipedia.org/wiki/Cross-sectional_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-129": {
+   "answer": "cohort effect",
+   "title": "Cohort effect",
+   "url": "https://en.wikipedia.org/wiki/Cohort_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-130": {
+   "answer": "case study",
+   "title": "Case study (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Case_study_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-131": {
+   "answer": "naturalistic observation",
+   "title": "Naturalistic observation",
+   "url": "https://en.wikipedia.org/wiki/Naturalistic_observation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-132": {
+   "answer": "survey research",
+   "title": "Survey (human research)",
+   "url": "https://en.wikipedia.org/wiki/Survey_(human_research)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Survey research"
+  },
+  "ps-133": {
+   "answer": "sampling frame",
+   "title": "Sampling frame",
+   "url": "https://en.wikipedia.org/wiki/Sampling_frame",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-134": {
+   "answer": "random sampling",
+   "title": "Sampling (statistics)",
+   "url": "https://en.wikipedia.org/wiki/Sampling_(statistics)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Random sampling"
+  },
+  "ps-135": {
+   "answer": "convenience sampling",
+   "title": "Convenience sampling",
+   "url": "https://en.wikipedia.org/wiki/Convenience_sampling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-136": {
+   "answer": "response bias",
+   "title": "Response bias",
+   "url": "https://en.wikipedia.org/wiki/Response_bias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-137": {
+   "answer": "social desirability bias",
+   "title": "Social-desirability bias",
+   "url": "https://en.wikipedia.org/wiki/Social-desirability_bias",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Social desirability bias"
+  },
+  "ps-138": {
+   "answer": "single-case experimental design",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Case study (psychology)",
+    "Experimental psychology",
+    "Single-subject design",
+    "Design of experiments",
+    "Gestalt psychology"
+   ]
+  },
+  "ps-139": {
+   "answer": "field experiment",
+   "title": "Field experiment",
+   "url": "https://en.wikipedia.org/wiki/Field_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-140": {
+   "answer": "meta-analysis",
+   "title": "Meta-analysis",
+   "url": "https://en.wikipedia.org/wiki/Meta-analysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-141": {
+   "answer": "latent variable",
+   "title": "Latent and observable variables",
+   "url": "https://en.wikipedia.org/wiki/Latent_and_observable_variables",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Latent variable"
+  },
+  "ps-142": {
+   "answer": "levels of measurement",
+   "title": "Level of measurement",
+   "url": "https://en.wikipedia.org/wiki/Level_of_measurement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Levels of measurement"
+  },
+  "ps-143": {
+   "answer": "reliability",
+   "title": "Reliability (statistics)",
+   "url": "https://en.wikipedia.org/wiki/Reliability_(statistics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-144": {
+   "answer": "test–retest reliability",
+   "title": "Repeatability",
+   "url": "https://en.wikipedia.org/wiki/Repeatability",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Test–retest reliability"
+  },
+  "ps-145": {
+   "answer": "internal consistency",
+   "title": "Internal consistency",
+   "url": "https://en.wikipedia.org/wiki/Internal_consistency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-146": {
+   "answer": "Cronbach's alpha",
+   "title": "Cronbach's alpha",
+   "url": "https://en.wikipedia.org/wiki/Cronbach's_alpha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-147": {
+   "answer": "inter-rater reliability",
+   "title": "Inter-rater reliability",
+   "url": "https://en.wikipedia.org/wiki/Inter-rater_reliability",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-148": {
+   "answer": "validity",
+   "title": "Validity (logic)",
+   "url": "https://en.wikipedia.org/wiki/Validity_(logic)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-149": {
+   "answer": "construct validity",
+   "title": "Construct validity",
+   "url": "https://en.wikipedia.org/wiki/Construct_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-150": {
+   "answer": "content validity",
+   "title": "Content validity",
+   "url": "https://en.wikipedia.org/wiki/Content_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-151": {
+   "answer": "criterion validity",
+   "title": "Criterion validity",
+   "url": "https://en.wikipedia.org/wiki/Criterion_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-152": {
+   "answer": "face validity",
+   "title": "Face validity",
+   "url": "https://en.wikipedia.org/wiki/Face_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-153": {
+   "answer": "internal validity",
+   "title": "Internal validity",
+   "url": "https://en.wikipedia.org/wiki/Internal_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-154": {
+   "answer": "external validity",
+   "title": "External validity",
+   "url": "https://en.wikipedia.org/wiki/External_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-155": {
+   "answer": "ecological validity",
+   "title": "Ecological validity",
+   "url": "https://en.wikipedia.org/wiki/Ecological_validity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-156": {
+   "answer": "standardisation",
+   "title": "Standardization",
+   "url": "https://en.wikipedia.org/wiki/Standardization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Standardisation"
+  },
+  "ps-157": {
+   "answer": "norm-referenced test",
+   "title": "Norm-referenced test",
+   "url": "https://en.wikipedia.org/wiki/Norm-referenced_test",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-158": {
+   "answer": "item response theory",
+   "title": "Item response theory",
+   "url": "https://en.wikipedia.org/wiki/Item_response_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-159": {
+   "answer": "classical test theory",
+   "title": "Classical test theory",
+   "url": "https://en.wikipedia.org/wiki/Classical_test_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-160": {
+   "answer": "factor analysis",
+   "title": "Factor analysis",
+   "url": "https://en.wikipedia.org/wiki/Factor_analysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-161": {
+   "answer": "psychometrics",
+   "title": "Psychometrics",
+   "url": "https://en.wikipedia.org/wiki/Psychometrics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-162": {
+   "answer": "self-report",
+   "title": "Self-report study",
+   "url": "https://en.wikipedia.org/wiki/Self-report_study",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Self-report"
+  },
+  "ps-163": {
+   "answer": "implicit measure",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Implicit-association test",
+    "Implicit attitude",
+    "Attitude (psychology)",
+    "Implicit stereotype",
+    "Implicit theories of intelligence"
+   ]
+  },
+  "ps-164": {
+   "answer": "behavioural measure",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Behavioural sciences",
+    "Behavioural finance",
+    "Behavioral economics",
+    "Behaviour therapy",
+    "Developmental psychology"
+   ]
+  },
+  "ps-165": {
+   "answer": "electrodermal activity",
+   "title": "Electrodermal activity",
+   "url": "https://en.wikipedia.org/wiki/Electrodermal_activity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-166": {
+   "answer": "descriptive statistics",
+   "title": "Descriptive statistics",
+   "url": "https://en.wikipedia.org/wiki/Descriptive_statistics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-167": {
+   "answer": "arithmetic mean",
+   "title": "Arithmetic mean",
+   "url": "https://en.wikipedia.org/wiki/Arithmetic_mean",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-168": {
+   "answer": "standard deviation",
+   "title": "Standard deviation",
+   "url": "https://en.wikipedia.org/wiki/Standard_deviation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-169": {
+   "answer": "normal distribution",
+   "title": "Normal distribution",
+   "url": "https://en.wikipedia.org/wiki/Normal_distribution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-170": {
+   "answer": "skewness",
+   "title": "Skewness",
+   "url": "https://en.wikipedia.org/wiki/Skewness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-171": {
+   "answer": "z-score",
+   "title": "Standard score",
+   "url": "https://en.wikipedia.org/wiki/Standard_score",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Z-score"
+  },
+  "ps-172": {
+   "answer": "percentile",
+   "title": "Percentile",
+   "url": "https://en.wikipedia.org/wiki/Percentile",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-173": {
+   "answer": "correlation coefficient",
+   "title": "Correlation coefficient",
+   "url": "https://en.wikipedia.org/wiki/Correlation_coefficient",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-174": {
+   "answer": "linear regression",
+   "title": "Linear regression",
+   "url": "https://en.wikipedia.org/wiki/Linear_regression",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-175": {
+   "answer": "multiple regression",
+   "title": "Multiple linear regression",
+   "url": "https://en.wikipedia.org/wiki/Multiple_linear_regression",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Multiple regression"
+  },
+  "ps-176": {
+   "answer": "inferential statistics",
+   "title": "Statistical inference",
+   "url": "https://en.wikipedia.org/wiki/Statistical_inference",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Inferential statistics"
+  },
+  "ps-177": {
+   "answer": "null hypothesis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Null hypothesis",
+   "target": "Statistical hypothesis test#Definition of terms"
+  },
+  "ps-178": {
+   "answer": "statistical significance",
+   "title": "Statistical significance",
+   "url": "https://en.wikipedia.org/wiki/Statistical_significance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-179": {
+   "answer": "p-value",
+   "title": "P-value",
+   "url": "https://en.wikipedia.org/wiki/P-value",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-180": {
+   "answer": "misuse of p-values",
+   "title": "Misuse of p-values",
+   "url": "https://en.wikipedia.org/wiki/Misuse_of_p-values",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-181": {
+   "answer": "Type I error",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Type I error",
+   "target": "Type I and type II errors#Type I error"
+  },
+  "ps-182": {
+   "answer": "statistical power",
+   "title": "Power (statistics)",
+   "url": "https://en.wikipedia.org/wiki/Power_(statistics)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Statistical power"
+  },
+  "ps-183": {
+   "answer": "effect size",
+   "title": "Effect size",
+   "url": "https://en.wikipedia.org/wiki/Effect_size",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-184": {
+   "answer": "Cohen's d",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Cohen's d",
+   "target": "Effect size#Cohen's d"
+  },
+  "ps-185": {
+   "answer": "confidence interval",
+   "title": "Confidence interval",
+   "url": "https://en.wikipedia.org/wiki/Confidence_interval",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-186": {
+   "answer": "Student's t-test",
+   "title": "Student's t-test",
+   "url": "https://en.wikipedia.org/wiki/Student's_t-test",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-187": {
+   "answer": "analysis of variance",
+   "title": "Analysis of variance",
+   "url": "https://en.wikipedia.org/wiki/Analysis_of_variance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-188": {
+   "answer": "chi-squared test",
+   "title": "Chi-squared test",
+   "url": "https://en.wikipedia.org/wiki/Chi-squared_test",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-189": {
+   "answer": "non-parametric test",
+   "title": "Nonparametric statistics",
+   "url": "https://en.wikipedia.org/wiki/Nonparametric_statistics",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Non-parametric test"
+  },
+  "ps-190": {
+   "answer": "multiple comparisons problem",
+   "title": "Multiple comparisons problem",
+   "url": "https://en.wikipedia.org/wiki/Multiple_comparisons_problem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-191": {
+   "answer": "Bayesian inference",
+   "title": "Bayesian inference",
+   "url": "https://en.wikipedia.org/wiki/Bayesian_inference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-192": {
+   "answer": "Bayes factor",
+   "title": "Bayes factor",
+   "url": "https://en.wikipedia.org/wiki/Bayes_factor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-193": {
+   "answer": "structural equation modelling",
+   "title": "Structural equation modeling",
+   "url": "https://en.wikipedia.org/wiki/Structural_equation_modeling",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Structural equation modelling"
+  },
+  "ps-194": {
+   "answer": "mediator variable",
+   "title": "Mediation (statistics)",
+   "url": "https://en.wikipedia.org/wiki/Mediation_(statistics)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mediator variable"
+  },
+  "ps-195": {
+   "answer": "error bar",
+   "title": "Error bar",
+   "url": "https://en.wikipedia.org/wiki/Error_bar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-196": {
+   "answer": "Nuremberg Code",
+   "title": "Nuremberg Code",
+   "url": "https://en.wikipedia.org/wiki/Nuremberg_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-197": {
+   "answer": "informed consent",
+   "title": "Informed consent",
+   "url": "https://en.wikipedia.org/wiki/Informed_consent",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-198": {
+   "answer": "deception",
+   "title": "Deception",
+   "url": "https://en.wikipedia.org/wiki/Deception",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-199": {
+   "answer": "debriefing",
+   "title": "Debriefing",
+   "url": "https://en.wikipedia.org/wiki/Debriefing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-200": {
+   "answer": "right to withdraw",
+   "title": "Right to withdraw",
+   "url": "https://en.wikipedia.org/wiki/Right_to_withdraw",
+   "via": "glossary",
+   "status": "ok"
   },
   "us-201": {
    "answer": "Battle of the Plains of Abraham",
