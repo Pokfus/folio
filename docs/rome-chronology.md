@@ -361,6 +361,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the quindecimviri: raised to ten (by tradition) | 367 BCE | `rm-895` |
 | the pontifex maximus: the first plebeian | 254 BCE | `rm-896` |
 | the College of Pontiffs opened to plebeians / the augurs raised to nine (the Ogulnian law) | 300 BCE | `rm-897`, `rm-898` |
+| the Temple of Saturn dedicated (tradition, Livy) / also dated | 497 BCE / 498 BCE | `rm-912` |
+| the Saturnalia instituted with the temple (tradition, Livy) | 497 BCE | `rm-917` |
 
 ## The middle and late Republic
 
@@ -506,6 +508,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Temple of Castor and Pollux restored | 117 BCE | `rm-894` |
 | the College of Pontiffs enlarged to fifteen (a dictionary's year) | 81 BCE | `rm-897` |
 | Spurinna's warning to Caesar | 44 BCE | `rm-900` |
+| the Temple of Saturn rebuilt by Munatius Plancus | 42 BCE | `rm-912` |
+| the Saturnalia reorganised: the public banquet and the cry (Livy) | 217 BCE | `rm-917` |
+| the Lupercalia at which Antony offered Caesar the diadem | 44 BCE | `rm-918` |
 
 ## The Principate
 
@@ -887,6 +892,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Circus of Maxentius built (Maxentius's reign) | c. 306 – 312 CE | `rm-877` |
 | the Baths of Diocletian: ordered / dedicated / made a church | 298 CE / 305 – 306 CE / 1563 – 1566 | `rm-884` |
 | the pontifex maximus: renounced by the emperor / also dated | 376 CE / 375 CE | `rm-896` |
+| the Lupercalia abolished at Rome under Gelasius (Fowler's year) | 494 CE | `rm-918` |
 
 ## Chronology pins
 
@@ -1666,4 +1672,7 @@ rm-898: 300
 rm-900: 44
 rm-903: 21; 304
 rm-907: 509
+rm-912: 497; 498; 42
+rm-917: 497; 217
+rm-918: 44; 494
 ```

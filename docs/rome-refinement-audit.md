@@ -223,7 +223,7 @@ order unless the user says otherwise.
 | B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | **done 2026-11-07** |
 | B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | **done 2026-11-07** |
 | B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | **done 2026-11-07** |
-| B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | open |
+| B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | **done 2026-11-07** |
 | B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | open |
 | B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | open |
 | B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | open |
@@ -1180,6 +1180,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-908` Mars | none | not re-checked: the card has no picture |
 | `rm-909` Venus | none | not re-checked: the card has no picture |
 | `rm-910` Vesta | none | not re-checked: the card has no picture; the round temple in the Forum would do |
+| `rm-911` Janus | none | not re-checked: the card has no picture; a coin with the two-faced head would do |
+| `rm-912` Temple of Saturn | none | not re-checked: the card has no picture; the eight standing columns would do |
+| `rm-913` Lares | none | not re-checked: the card has no picture; a bronze dancing Lar would do |
+| `rm-914` Genius | none | not re-checked: the card has no picture |
+| `rm-915` lararium | none | not re-checked: the card has no picture; a painted Pompeian lararium would do |
+| `rm-916` feriae | none | not re-checked: the card has no picture |
+| `rm-917` Saturnalia | none | not re-checked: the card has no picture |
+| `rm-918` Lupercalia | none | not re-checked: the card has no picture |
+| `rm-919` Parentalia | none | not re-checked: the card has no picture |
+| `rm-920` prodigium | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -3288,3 +3298,22 @@ Run as B90: the hundred prepped up front, one notes file with a line per pair, a
 | `rm-910` Vesta | 8 | 8 → 8 | **Modern share 1 → 5; Smith-only claims cut; the archaeology and its dispute, the penus, the Vestalia on 9 June and the sweeping-out on 15 June, Augustus's Palatine shrine of 12 BCE (prose)**; Ovid's living flame; the loaves on wreathed donkeys; Metellus in the burning temple. |
 
 **Read by eye.** *Confusability:* `rm-901`/`rm-910` the priestesses (Cornelia) and the goddess (the living flame); `rm-902`/`rm-903` the single priests (the Dialis's taboos) and the brotherhood (the dance in the grove); `rm-904`/`rm-905`/`rm-906`/`rm-907` Jupiter (Stator), Juno (Moneta), Minerva (the nail) and the three together (Domitian's crown); `rm-908`/`rm-909` Mars (the Salii) and Venus (Verticordia). *Legend:* Numa's Vestals, flamines and Salii, Romulus's Arval Brethren and his spolia, and Metellus's rescue are told as what the sources report. *Overlap:* `gr-899` (Ares) may lean on the old glossary's Ares link, which `rm-908` cut for want of a second source; no other `gr-` or `wh-` card read disagrees. Quote blocks: `rm-905`'s (Livy on Veii) no longer matches a question; `rm-910`'s (Plutarch's round temple as the universe) sits beside a why answer giving Ovid's earth (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flags are English BMCR reviews of French and German books. Locators: `rm-901`'s point is labelled "Vestal Virgin" and `rm-910`'s "Vesta"; both should read as the House of the Vestals and the Temple of Vesta (for a later pass).
+
+### B92 — `rm-911`–`rm-920`, Roman religion and myth: Janus to the prodigies (2026-11-07)
+
+Run as B91. The oil-filled statue went to `rm-912` and the feast of Saturn to `rm-917` (each out of the other's questions), the Lar of the *Aulularia* to `rm-913`, Censorinus's birthday wine to `rm-914`, the painted shrines and their snakes to `rm-915` (out of `rm-913`/`rm-914`), the heralds ahead of the flamines to `rm-916` (out of `rm-902`), Antony's diadem stayed `rm-383`'s (out of `rm-918`), Augustus's flowers for the Lares and Ovid's thousand Lares stayed `rm-409`'s (out of `rm-913` and `rm-914`), and the Etruscan diviners stayed `rm-029`'s (out of `rm-920`). `rm-918`'s first row, "Diadem offered", was relabelled "Celebrated" before applying (a label naming another man's act). **The old date lines gave the Temple of Saturn's and the Saturnalia's 497 BCE without the word Traditional (one of them as "Established"), and most of these cards' old claims rested on Smith's dictionary: three kinds of public feriae (Macrobius gives four), Severus Alexander's lararium as fact, talking cows and offerings to Ceres among the prodigies.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-911` Janus | 7 | 7 → 8 | **Numa's shrine told as Livy's tale (a modern source notes it first appears a century after the first closing); "god of beginnings" a rhetoricians' idea; the Livy/Numa question gone (`rm-061`'s)**; staff and key, incense first; the first month and Cicero's "to go"; Nero's gold coins with the shut doors. |
+| `rm-912` Temple of Saturn | 6 | 7 → 8 | **Traditional 497 BCE and Also dated 498 BCE (Livy against Dionysius's Titus Larcius), Rebuilt 42 BCE (Plancus); Plutarch cut from three sources to two; the Saturnalia and Caesar's break-in out of the questions**; the oil-filled statue; Gracchus's seal on the treasury; the envoys registering with the treasury prefects. |
+| `rm-913` Lares | 6 | 8 → 8 | **Ovid framed as a poem that explains customs; the Penates a separate set of gods (Cicero's penus); the Compitalia, the paired crossroads Lares and the 7 BCE renaming in prose; "spirits of the dead" a modern view one study rejects; the Lara question (it gave the answer away) and Cato's flowers go**; the *Aulularia* prologue; the slaves' neighbourhood cult; the Guardian Lares' stone dog. |
+| `rm-914` Genius | 6 | 7 → 8 | **Seneca's "a Genius or a Juno" and the two Genii of a married house; three modern views on Augustus's Genius at the crossroads; the senate's refused sacrifices to Caligula's Genius; the Arval bull to the emperor's Genius from Nero's reign**; Censorinus's birthday wine; Caligula's punishments. |
+| `rm-915` lararium | 6 | 6 → 8 | **Severus Alexander's lararium the Historia Augusta's claim (most scholars read the work as one author's fiction), and the word first met there; Smith and the House of the Vettii (`rm-976`'s) go**; the newly found Pompeii lararium with pinecone and eggs; the lararia of Augst. |
+| `rm-916` feriae | 5 | 5 → 7 | **Macrobius gives four kinds of public feriae, not Smith's three (the fourth the market days); Numa's division of the days told as his account; Columella and Suetonius go; glossary redrafted off the same error**; the herald stopping work; the flaminica resting at thunder; Theodosius's legal calendar. |
+| `rm-917` Saturnalia | 7 | 7 → 9 | **"Established 497 BCE" becomes Traditional 497 BCE and Reorganised 217 BCE (Livy, both printed by Fowler); Seneca off Wikisource (a Wikimedia host) onto the Loeb; Macrobius a 5th-century literary compilation; Smith never alone**; the slaves' dinner; Seneca's December sweat; the banquet and cry in the war with Hannibal. |
+| `rm-918` Lupercalia | 7 | 7 → 9 | **Celebrated 44 BCE and Abolished 494 CE (Fowler's single year; Gelasius's letter otherwise undated in the sources read); Ovid dropped as a source; the diadem left to `rm-383`; the Constantinople survival in prose**; the wives and the thongs; Augustus's ban on beardless runners; Gelasius's letter to Andromachus. |
+| `rm-919` Parentalia | 6 | 6 → 6 | **The days 13–21 February and the Caristia on the 22nd from Fowler; Ovid a poem ("Ovid says"); the Vestal's rite at Tarpeia's tomb from the calendars of 354 and 448 CE; the Lemuria kept apart; Smith's "Funus" goes**; Ovid's tile and violets; Ausonius's book. |
+| `rm-920` prodigium | 6 | 6 → 7 | **Talking cows, the lectisternium definition and the offerings to Ceres and Proserpina cut (no page read supports them); the procedure from reviewed studies (prodigies saved up for the incoming consuls); the Etruscan-diviners question left to `rm-029`**; the infant's "Io triumphe"; Obsequens's list culled from Livy. |
+
+**Read by eye.** *Confusability:* `rm-911`/`rm-912` the god of doors (Nero's coins) and Saturn's temple (the treasury); `rm-913`/`rm-914`/`rm-915` the guardian gods (the *Aulularia*), the personal god (Censorinus) and the shrine (the Historia Augusta); `rm-916`/`rm-917`/`rm-918`/`rm-919` the holy days (Macrobius), the December feast (Seneca), the February run (Gelasius) and the days of the dead (Ausonius); `rm-920` the prodigy (Obsequens). *Legend:* Numa's Janus and his division of the days, and the origins of the Lupercalia and the Parentalia, are told as the sources' accounts. *Overlap:* `wh-359` (Pax Romana) uses Augustus's closures of Janus, which `rm-911` keeps in prose; `rm-757`'s Io Saturnalia (the soldiers' jeer in Gaul) is a different clue from `rm-917`'s war-time banquet; no `gr-` or `wh-` card read disagrees. Quote blocks: `rm-913`'s (Suetonius on the Lares' flowers) is `rm-409`'s clue; `rm-916`'s (Livy's rain of stones) duplicates `rm-920`'s chapter (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flags are English BMCR reviews of German and Italian books.
