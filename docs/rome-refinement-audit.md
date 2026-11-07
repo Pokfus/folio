@@ -212,7 +212,7 @@ order unless the user says otherwise.
 | B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | **done 2026-10-30** |
 | B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | **done 2026-10-30** |
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | **done 2026-10-30** |
-| B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | open |
+| B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | **done 2026-11-07** |
 | B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | open |
 | B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | open |
 | B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | open |
@@ -1070,6 +1070,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-798` adrogatio | none | not re-checked: the card has no picture |
 | `rm-799` ludi magister | none | not re-checked: the card has no picture; the Neumagen school relief would do |
 | `rm-800` grammaticus | none | not re-checked: the card has no picture |
+| `rm-801` declamation | none | not re-checked: the card has no picture; a relief of a teacher with pupils would do |
+| `rm-802` servus | none | not re-checked: the card has no picture |
+| `rm-803` sub corona | none | not re-checked: the card has no picture; a relief of chained captives would do |
+| `rm-804` catasta | none | not re-checked: the card has no picture; the Capua slave-dealer's relief would do |
+| `rm-805` verna | none | not re-checked: the card has no picture |
+| `rm-806` ergastulum | none | not re-checked: the card has no picture |
+| `rm-807` manumission | none | not re-checked: the card has no picture; a manumission relief (the Mariemont relief) would do |
+| `rm-808` libertus | none | not re-checked: the card has no picture; a freedman's funerary relief would do |
+| `rm-809` senatus consultum Silanianum | none | not re-checked: the card has no picture |
+| `rm-810` ordo decurionum | none | not re-checked: the card has no picture; the Canusium album would do |
 
 ## Glossary candidates
 
@@ -2950,3 +2960,22 @@ Overlap notes for the owner (nothing was edited): `wh-363` dates Salvius Julianu
 ### Locators (2026-10-30, the eighth hundred)
 
 None was added or moved, so `migrate-places.js` was not run. The seven `L.missing` are provinces or regions that want a hand-drawn `area`, and no sourced outline was found for any: the Agri Decumates (`rm-756`), Roman Britain (`rm-757`), Hispania (`rm-761`), Africa Proconsularis (`rm-762`), Roman Egypt (`rm-765`), Roman Syria (`rm-768`) and Judaea (`rm-770`). The cities and sites already had their points (Londinium, Lugdunum, Narbo, Mogontiacum, Carthage, Leptis Magna, Alexandria, Palmyra, Caesarea Maritima, Corinth, Sarmizegetusa, Calleva and Muziris among them). For a later pass: `rm-776` Pannonia's point sits near Sirmium on the province's south-east edge; `rm-742` portorium (Ephesus, the customs law's findspot), `rm-778` lex Hieronica (Syracuse), `rm-726` Gaius (Verona), `rm-729` the Digest (Florence) and `rm-727` Ulpian (Tyre) carry points for a law, a text or a man that a later pass may prefer to drop.
+
+### B81 — `rm-801`–`rm-810`, Family, household and slavery: declamation to the ordo decurionum (2026-11-07)
+
+Run as B80, with one notes line per pair and a running list of used clues passed to later agents. Commons answered this session's one test call (200), but the agents made no Wikimedia calls and every card still lacks a picture ("Pictures to redo"). LacusCurtius, down in every earlier session, answered too. Before drafting, three clashes were moved: Hadrian's rules on slaves went to `rm-806` alone (out of `rm-802`), the Silanianum debate's Cassius to `rm-809` (out of `rm-805`), and two questions that repeated other cards were dropped — `rm-807`'s tax voted in camp (`rm-701`'s) and `rm-808`'s Augustales (word for word `rm-925`'s). **The old date lines carried "Passed c. 10 CE / Extended 57 CE" (no source read prints 57) and "Recall laws 325 – 326 CE", a range built from two laws.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-801` declamation | 6 | 6 → 8 | **The senate decree of 161 BCE (Rolfe's margin, and about rhetoric in general) goes; the Tacitus line is a speaker's in the *Dialogue*, Juvenal satire**; the suasoria and the controversia; the elder Seneca's collection; Suetonius's Ostia fish-haul case; the *Minor Declamations*. |
+| `rm-802` servus | 6 | 6 → 7 | **The jurists' derivation from servare is their own etymology; Hadrian and the Historia Augusta go to `rm-806`; Italy's slave numbers a modern debate, no figure**; Varro's articulate equipment; Musicus Scurranus and his sixteen slaves; Antoninus Pius's rule in a why answer. |
+| `rm-803` sub corona | 5 | 7 → 6 | **Caesar 3.16 read in the Loeb whose Latin says "sub corona"; the quaestor and cheap-dealer claims (Smith only) and Strabo's Delos (`rm-279`'s) go**; Sabinus's garland against the cap (Gellius); the ring of soldiers; Livy's 150,000 from Epirus as his figure. |
+| `rm-804` catasta | 5 | 7 → 8 | **Stripping, doctors and the dealers' bad name (Smith only) go; no securely identified slave-market building (Trümper, reviewed)**; Martial's Mamurra (satire); Tibullus's barbarians' platform; the aediles' edict from Gellius and the Digest. |
+| `rm-805` verna | 6 | 6 → 6 | **Cassius's speech (`rm-809`'s) goes; the free-at-any-moment rule credited to Hadrian's decision, as Buckland says**; Nepos's Atticus; Columella's mother of three sons; the epitaph of Vitalis. |
+| `rm-806` ergastulum | 6 | 7 → 8 | **Hadrian's abolition hedged as the Historia Augusta's; Diodorus's mines, Juvenal and the "ergastularius" (Smith only) go**; Columella's underground prison; Suetonius on kidnapped travellers and Tiberius's clearing; Pliny's "worst plan"; the archaeology's limits. |
+| `rm-807` manumission | 7 | 7 → 8 | **Vindicius Livy's story, its etymology wrong by his editor; the tax voted in camp (`rm-701`'s) goes; modern share 0 → 4**; Gaius's three forms; the lex Aelia Sentia (4 CE) and the Fufia Caninia's cap of 100; Dionysius's complaint. |
+| `rm-808` libertus | 6 | 7 → 8 | **The Augustales question (`rm-925`'s) and the praetorian honours (`rm-434`'s) go; Pliny's chalked feet his sneer**; Nero's senate's "widely spread class"; Isidorus's will; sworn services and re-enslavement (Buckland). |
+| `rm-809` senatus consultum Silanianum | 5 | 6 → 7 | **"Extended 57 CE" cut (no source read prints it): Passed 10 CE, "usually dated"; the year out of a question; Hadrian's rescript from the Digest, not the Historia Augusta**; Cassius's speech as Tacitus gives it; Pliny 3.14 and Smith go. |
+| `rm-810` ordo decurionum | 6 | 6 → 8 | **"Recall laws 325 – 326 CE" cut (no line): Constantine's laws of 320, 325 and 326 CE in prose, one by one; "decurions chose the magistrates" and Augustus's sealed votes (Smith only) go**; Paulus on the duumvir; the Canusium album; Philippi's 70 – 75 members as one estimate. |
+
+**Read by eye.** *Confusability:* `rm-801` the declamation (Hannibal's theme) against `rm-799`/`rm-800`; `rm-802`/`rm-803`/`rm-804`/`rm-805`/`rm-806` the slave (Varro's tools), the captive sale (the garland), the stand (Mamurra), the home-born slave (Atticus) and the farm prison (Columella); `rm-807`/`rm-808` freeing (Gaius's three forms) and the freedman (Isidorus); `rm-809`/`rm-810` the murdered master's household (Pedanius) and the town council (Canusium). *Legend:* Vindicius is Livy's story. *Overlap:* no `gr-` or `wh-` card disagrees. `rm-806`'s `L.missing` is deliberate: an ergastulum is a kind of building with no one site.

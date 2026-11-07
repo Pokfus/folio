@@ -733,6 +733,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Calleva: founded / the street grid / the stone wall | c. 20 – 10 BCE / c. 70 – 80 CE / c. 270 CE | `rm-781` |
 | Tacfarinas's revolt | 17 – 24 CE | `rm-783` |
 | the Seres: the Han envoy sent / the Da Qin envoys (Chinese records) | 97 CE / 166 CE | `rm-785` |
+| the senatus consultum Silanianum passed (usually dated so) | 10 CE | `rm-809` |
 
 ## Late Antiquity
 
@@ -1561,4 +1562,5 @@ rm-785: 97; 166
 rm-793: 231; 235
 rm-795: 451; 450; 318; 320; 325
 rm-800: 168; 376
+rm-809: 10
 ```
