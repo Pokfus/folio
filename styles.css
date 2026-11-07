@@ -10750,3 +10750,10 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .dc-q .tf-form, .tf-summary .tf-form{margin:6px 0 14px; text-align:left;}
 .gp-more{padding:8px 9px; color:var(--ink-faint); font-family:var(--sans); font-size:calc(11.5px * var(--fs)); text-align:center;}
 .gp-list > *{flex-shrink:0;}
+/* THE ACTIVE LIST'S SECTION HEADERS (Nov 2026, on request): one per kind of collection — History, Geography,
+   Languages, Shared decks… — a small mono caps label and a rule, as the Collections page heads its sections.
+   Not a row: no drag, fold or tap (adSectionHeadHTML in app.js). */
+.active-decks .dk-sec{display:flex; align-items:center; gap:12px; margin:14px 2px 2px; padding:0;}
+.active-decks .dk-sec:first-child{margin-top:0;}
+.dk-sec-label{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); font-weight:600; flex:none;}
+.dk-sec-line{flex:1; height:1px; background:var(--rule);}
