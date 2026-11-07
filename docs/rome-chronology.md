@@ -357,6 +357,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | gladiators: the first show at Rome | 264 BCE | `rm-868` |
 | the munus: the first show at Rome | 264 BCE | `rm-871` |
 | venatio: elephants slain in the Circus (Pliny's year 502 from the founding) | 252 BCE | `rm-873` |
+| the Temple of Castor and Pollux: vowed / dedicated (tradition) | 499 BCE / 484 BCE | `rm-894` |
+| the quindecimviri: raised to ten (by tradition) | 367 BCE | `rm-895` |
+| the pontifex maximus: the first plebeian | 254 BCE | `rm-896` |
+| the College of Pontiffs opened to plebeians / the augurs raised to nine (the Ogulnian law) | 300 BCE | `rm-897`, `rm-898` |
 
 ## The middle and late Republic
 
@@ -499,6 +503,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the naumachia: the first large show | 46 BCE | `rm-875` |
 | the Theatre of Pompey: dedicated / the temple inscribed | 55 BCE / 52 BCE | `rm-880` |
 | Decimus Laberius died (Smith after Jerome) | 43 BCE | `rm-882` |
+| the Temple of Castor and Pollux restored | 117 BCE | `rm-894` |
+| the College of Pontiffs enlarged to fifteen (a dictionary's year) | 81 BCE | `rm-897` |
+| Spurinna's warning to Caesar | 44 BCE | `rm-900` |
 
 ## The Principate
 
@@ -773,6 +780,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | pantomime becomes a separate art (Friedländer) | c. 22 BCE | `rm-881` |
 | the Fasti Praenestini set up (one view) / found | c. 10 CE / 1770 | `rm-887` |
 | Seneca's Epistulae Morales written | c. 62 – 65 CE | `rm-890` |
+| the Temple of Castor and Pollux rebuilt | 6 CE | `rm-894` |
+| the pontifex maximus: Augustus elected | 12 BCE | `rm-896` |
 
 ## Late Antiquity
 
@@ -876,6 +885,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | venatio: last recorded | 537 CE | `rm-873` |
 | the Circus of Maxentius built (Maxentius's reign) | c. 306 – 312 CE | `rm-877` |
 | the Baths of Diocletian: ordered / dedicated / made a church | 298 CE / 305 – 306 CE / 1563 – 1566 | `rm-884` |
+| the pontifex maximus: renounced by the emperor / also dated | 376 CE / 375 CE | `rm-896` |
 
 ## Chronology pins
 
@@ -1647,4 +1657,10 @@ rm-882: 43
 rm-884: 298; 305; 306; 1563; 1566
 rm-887: 10; 1770
 rm-890: 62; 65
+rm-894: 499; 484; 117; 6
+rm-895: 367
+rm-896: 254; 12; 376; 375
+rm-897: 300; 81
+rm-898: 300
+rm-900: 44
 ```
