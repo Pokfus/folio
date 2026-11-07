@@ -215,7 +215,7 @@ order unless the user says otherwise.
 | B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | **done 2026-11-07** |
 | B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | **done 2026-11-07** |
 | B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | **done 2026-11-07** |
-| B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | open |
+| B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | **done 2026-11-07** |
 | B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | open |
 | B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | open |
 | B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | open |
@@ -1100,6 +1100,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-828` fourteen regions | none | not re-checked: the card has no picture; a map of the regions would do |
 | `rm-829` insula | none | not re-checked: the card has no picture; the House of Diana at Ostia would do |
 | `rm-830` domus | none | not re-checked: the card has no picture; the House of the Faun at Pompeii would do |
+| `rm-831` atrium | none | not re-checked: the card has no picture; the atrium of the House of the Menander would do |
+| `rm-832` Roman villa | none | not re-checked: the card has no picture |
+| `rm-833` hortus | none | not re-checked: the card has no picture; the garden fresco from Livia's villa would do |
+| `rm-834` Tabula Heracleensis | none | not re-checked: the card has no picture; the bronze itself would do |
+| `rm-835` Marcus Egnatius Rufus | none | not re-checked: the card has no picture |
+| `rm-836` curatores alvei Tiberis | none | not re-checked: the card has no picture; one of the curators' boundary stones would do |
+| `rm-837` Cloacina | none | not re-checked: the card has no picture; a denarius of Mussidius Longus would do |
+| `rm-838` forica | none | not re-checked: the card has no picture; the latrine at Ostia would do |
+| `rm-839` castellum aquae | none | not re-checked: the card has no picture; the castellum at Pompeii would do |
+| `rm-840` hora | none | not re-checked: the card has no picture; a Roman sundial would do |
 
 ## Glossary candidates
 
@@ -3037,3 +3047,22 @@ Run as B82, closing `rm-society` and opening `rm-daily-life`. Clues were handed 
 | `rm-830` domus | 7 | 7 → 8 | **Smith's one family per house, thatched roofs and Eastern splendour go; "housefuls" of kin, slaves and tenants (one study); Lepidus's house Pliny's claim (no line)**; Octavius's Palatine house (Cicero); Vitruvius's office-holders; the House of the Faun's size from the park. |
 
 **Read by eye.** *Confusability:* `rm-821`/`rm-822` the doctor (Archagathus) and Galen (the pig); `rm-823`/`rm-824`/`rm-825` the annuity rule (Macer), the masks (Junia) and the urn tomb (Livia's household); `rm-826`/`rm-827`/`rm-828` the plain (the twelve floods), the lists (Region XI) and the regions (the fire tally); `rm-829`/`rm-830`/`rm-831` the block (Juvenal's tenant), the house (Octavius) and the hall (`rm-831`, B84). *Legend:* the Campus's consecration is told as Livy's and Dionysius's. *Overlap:* no `gr-` or `wh-` card on Galen or the doctors disagrees. `rm-825`'s, `rm-829`'s and `rm-830`'s `L.missing` are deliberate: building types with no one site.
+
+### B84 — `rm-831`–`rm-840`, The Roman city and daily life: atrium to hora (2026-11-07)
+
+Run as B83. `rm-831` was given three new questions (all three old ones were siblings' clues); `rm-832` gave Columella's three-part estate to `rm-861` and Piazza Armerina to `rm-978`; `rm-837` dropped Livy's Verginia (`rm-113`'s) and the "Cloaca Maxima" that gave the answer away. **The old date lines carried one man's garden ("Lucullus c. 60 BCE" on the hortus), a letter of Cicero's beside the tablet's date, a label joining two things ("Flood, board 15 CE"), and Cary's margin years on Egnatius Rufus.** `rm-835`'s second year was labelled "Or aedile" by its agent and renamed "Also dated" before applying.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-831` atrium | 7 | 7 → 8 | **All three questions new; the first kitchen and the Atrium Publicum's lightning (Smith only) and the ancestor masks (`rm-824`'s) go**; Vitruvius's five roofs; Asconius on the looms in Lepidus's atrium; front halls "fairly utilitarian" (one archaeologist, reviewed). |
+| `rm-832` Roman villa | 8 | 8 → 8 | **"Villa urbana / rustica" a modern definition; Columella and Cato go (Cato could not be read)**; Varro's seaside house near Ostia without presses; Pliny's Saturnalia suite at Laurentum; Vitruvius's country peristyle first. |
+| `rm-833` hortus | 6 | 6 → 8 | **"Lucullus c. 60 BCE" dated one man's garden: no line; the Twelve Tables used hortus for a farm and heredium for a garden (Pliny)**; Pliny's Tuscan topiary; gardens by shops, inns, temples and tombs; the glossary's "planting pits" (no source) goes. |
+| `rm-834` Tabula Heracleensis | 5 | 5 → 6 | **Dated 80 – 43 BCE (Crawford's range) and Found 1732; the "In Cicero" row goes; "Lex Julia Municipalis" a 19th-century identification, rejected by Legras (1907, in French)**; the Greek face's decree; wagons till the tenth hour; frontage upkeep (Hardy's translation). |
+| `rm-835` Marcus Egnatius Rufus | 5 | 6 → 7 | **The 600 slaves came later (Dio 54.2): the link to Egnatius is Syme's argument; Aedile 26 BCE, Also dated 21 BCE, Executed 19 BCE from Syme and Stuart Jones, no Cary margin**; Velleius's gladiator jibe; the consul Saturninus's oath. |
+| `rm-836` curatores alvei Tiberis | 5 | 6 → 7 | **Tacitus names two senators, Dio five by lot, and a boundary stone backs Dio's five; "Flood, board" becomes Board set up 15 CE**; Tiberius's "too much water"; Trajan's single curator with the drains; Smith goes. |
+| `rm-837` Cloacina | 6 | 6 → 7 | **Pliny's myrtle and Lactantius's Tatius told as legend; the coins of Mussidius Longus (42 BCE, CLOACIN) as the contemporary evidence**; Platner on the cult's early date; Hülsen (in Italian); Plautus's stage manager; the glossary stands. |
+| `rm-838` forica | 6 | 6 → 6 | **The century out of a question; the sponge on a stick a modern debate; Juvenal's "conducunt foricas" the word in use**; keyhole seats by baths; Eirene at Lepcis; Vespasian's tax in Suetonius's translator's words. |
+| `rm-839` castellum aquae | 6 | 6 → 7 | **Pompeii's three pipes served the eastern, central and western districts (Olsson), not Vitruvius's fountains, baths and houses: his scheme a recommendation**; Frontinus's 247 his count; Smith goes. |
+| `rm-840` hora | 6 | 6 → 7 | **Seasonal hours lasted through antiquity into the Middle Ages (the old "equal hours in late antiquity" goes); the parasite's play one Gellius believed Plautus's**; Martial's day; Pliny's sundials of 263, 164 and 159 BCE in prose, not on the line. |
+
+**Read by eye.** *Confusability:* `rm-831`/`rm-832`/`rm-833` the hall (the five roofs), the villa (Laurentum) and the garden (the topiary names); `rm-834`/`rm-835`/`rm-836` the street law (the wagons), the fire-fighting aedile (the gladiator jibe) and the river board (the boundary stone); `rm-837`/`rm-838`/`rm-839` the sewer goddess (the coins), the latrine (Juvenal's contracts) and the water tower (Frontinus's 247); `rm-840`/`rm-841` the hour (Martial) and the obelisk (the gilded ball). *Legend:* Cloacina's myrtle and Tatius. *Overlap:* no `gr-` or `wh-` card disagrees. The `L.missing` on `rm-831`, `rm-832`, `rm-838` and `rm-840` is deliberate: a room, a building type, a latrine and an hour have no one site. The hortus's and the river board's existing points go to the locator note at the end of the hundred.

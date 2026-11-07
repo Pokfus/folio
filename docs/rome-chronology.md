@@ -481,6 +481,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | collegia: senate decree suppressing them / Clodius's law restoring them | 64 BCE / 58 BCE | `rm-813` |
 | the frumentatio: cheap sales / made free / the roll cut | 123 BCE / 58 BCE / 46 BCE | `rm-815` |
 | Archagathus, the first Greek physician at Rome (Pliny after Cassius Hemina; the year 535 from the founding on Varro's epoch) | 219 BCE | `rm-821` |
+| the Tabula Heracleensis's Latin law (Crawford's range) | 80 – 43 BCE | `rm-834` |
 
 ## The Principate
 
@@ -742,6 +743,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the frumentatio: the roll fixed at about 200,000 | 2 BCE | `rm-815` |
 | Galen: born (a modern date; an older reckoning 131) / died (traditional) / also dated | 129 CE / c. 200 CE / after 210 CE | `rm-822` |
 | the fourteen regions created | 7 BCE | `rm-828` |
+| Marcus Egnatius Rufus: aedile (Dio's placing, per Syme and Stuart Jones) / also dated (Stuart Jones) / executed | 26 BCE / 21 BCE / 19 BCE | `rm-835` |
+| curatores alvei Tiberis: the first standing board | 15 CE | `rm-836` |
 
 ## Late Antiquity
 
@@ -1580,4 +1583,7 @@ rm-821: 219
 rm-822: 129; 200; 210
 rm-827: 300; 400; 334; 357
 rm-828: 7
+rm-834: 80; 43; 1732
+rm-835: 26; 21; 19
+rm-836: 15
 ```
