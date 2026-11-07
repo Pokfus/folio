@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5545 | the title is the article |
-| `redirect-variant` | 339 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5611 | the title is the article |
+| `redirect-variant` | 345 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 522 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 538 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 109 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 115 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 982 | nothing matched; no link |
+| `none` | 988 | nothing matched; no link |
 
-**6501 of 7750 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6589 of 7850 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (522)
+## Redirected to a differently named article — check each (538)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -348,6 +348,22 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
 - `ps-037` **Gustav Theodor Fechner** → [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner) (from `Gustav Theodor Fechner`)
 - `ps-095` **existential psychology** → [Existential therapy](https://en.wikipedia.org/wiki/Existential_therapy) (from `Existential psychology`)
+- `ps-108` **cognitive modelling** → [Cognitive model](https://en.wikipedia.org/wiki/Cognitive_model) (from `Cognitive modelling`)
+- `ps-112` **independent variable** → [Dependent and independent variables](https://en.wikipedia.org/wiki/Dependent_and_independent_variables) (from `Independent variable`)
+- `ps-113` **confounding variable** → [Confounding](https://en.wikipedia.org/wiki/Confounding) (from `Confounding variable`)
+- `ps-115` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
+- `ps-117` **counterbalancing** → [Counterweight](https://en.wikipedia.org/wiki/Counterweight) (from `Counterbalancing`)
+- `ps-124` **correlational research** → [Correlation](https://en.wikipedia.org/wiki/Correlation) (from `Correlational research`)
+- `ps-132` **survey research** → [Survey (human research)](https://en.wikipedia.org/wiki/Survey_(human_research)) (from `Survey research`)
+- `ps-134` **random sampling** → [Sampling (statistics)](https://en.wikipedia.org/wiki/Sampling_(statistics)) (from `Random sampling`)
+- `ps-137` **social desirability bias** → [Social-desirability bias](https://en.wikipedia.org/wiki/Social-desirability_bias) (from `Social desirability bias`)
+- `ps-141` **latent variable** → [Latent and observable variables](https://en.wikipedia.org/wiki/Latent_and_observable_variables) (from `Latent variable`)
+- `ps-144` **test–retest reliability** → [Repeatability](https://en.wikipedia.org/wiki/Repeatability) (from `Test–retest reliability`)
+- `ps-171` **z-score** → [Standard score](https://en.wikipedia.org/wiki/Standard_score) (from `Z-score`)
+- `ps-176` **inferential statistics** → [Statistical inference](https://en.wikipedia.org/wiki/Statistical_inference) (from `Inferential statistics`)
+- `ps-182` **statistical power** → [Power (statistics)](https://en.wikipedia.org/wiki/Power_(statistics)) (from `Statistical power`)
+- `ps-189` **non-parametric test** → [Nonparametric statistics](https://en.wikipedia.org/wiki/Nonparametric_statistics) (from `Non-parametric test`)
+- `ps-194` **mediator variable** → [Mediation (statistics)](https://en.wikipedia.org/wiki/Mediation_(statistics)) (from `Mediator variable`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -823,7 +839,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (109)
+## Section redirects — no dedicated page (115)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -890,6 +906,12 @@ Wikipedia treats these as part of another article. No link.
 - `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
 - `ps-025` **substance dualism** — `Substance dualism` only redirects into `Mind–body dualism#Substance dualism`
 - `ps-050` **imageless thought** — `Imageless thought` only redirects into `Oswald Külpe#Imageless thought`
+- `ps-101` **WEIRD** — `WEIRD` only redirects into `Psychology#WEIRD bias`
+- `ps-118` **placebo effect** — `Placebo effect` only redirects into `Placebo#Effects`
+- `ps-119` **double-blind procedure** — `Double-blind procedure` only redirects into `Blinded experiment#Double-blind trials`
+- `ps-177` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
+- `ps-181` **Type I error** — `Type I error` only redirects into `Type I and type II errors#Type I error`
+- `ps-184` **Cohen's d** — `Cohen's d` only redirects into `Effect size#Cohen's d`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -937,7 +959,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 
-## No article found (982)
+## No article found (988)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1723,6 +1745,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-002` **behaviour and mental processes** — search suggests `Compulsive sexual behaviour disorder`, `Social science`, `Mind`, `Structuralism (psychology)`, `Ironic process theory`
 - `ps-030` **localisation of function** — search suggests `Id, ego and superego`, `Functional specialization (brain)`, `Neuropsychology`, `Lateralization of brain function`, `Interaural time difference`
 - `ps-033` **specific nerve energies** — search suggests `Perception`, `Pain theories`, `Sense`, `Physiological psychology`, `Parasympathetic nervous system`
+- `ps-116` **within-subjects design** — search suggests `Repeated measures design`, `Between-group design experiment`, `Mixed-design analysis of variance`, `Experimental psychology`, `Single-subject design`
+- `ps-121` **experimenter expectancy effect** — search suggests `Observer-expectancy effect`, `Hawthorne effect`, `Placebo`, `Nocebo`, `Pygmalion effect`
+- `ps-126` **third-variable problem** — search suggests `Psychology`, `Birthday problem`, `Moderation (statistics)`, `Collective action problem`, `Mediation (statistics)`
+- `ps-138` **single-case experimental design** — search suggests `Case study (psychology)`, `Experimental psychology`, `Single-subject design`, `Design of experiments`, `Gestalt psychology`
+- `ps-163` **implicit measure** — search suggests `Implicit-association test`, `Implicit attitude`, `Attitude (psychology)`, `Implicit stereotype`, `Implicit theories of intelligence`
+- `ps-164` **behavioural measure** — search suggests `Behavioural sciences`, `Behavioural finance`, `Behavioral economics`, `Behaviour therapy`, `Developmental psychology`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`

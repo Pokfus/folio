@@ -593,10 +593,10 @@ more work here than in any collection since Greece.
     ps-104  Critical psychology
     ps-105  The biopsychosocial model
     ps-106  Behavioural economics
-    ps-107  The rise of neuroscience within psychology
-    ps-108  Computational modelling of behaviour
+    ps-107  The Decade of the Brain
+    ps-108  Cognitive modelling
     ps-109  Big data and psychological research
-    ps-110  Psychology as a profession today
+    ps-110  The scientist–practitioner model
 
 ## Research Methods and Statistics
 
@@ -624,7 +624,7 @@ more work here than in any collection since Greece.
     ps-130  The case study
     ps-131  Naturalistic observation
     ps-132  Survey research
-    ps-133  Sampling
+    ps-133  The sampling frame
     ps-134  Random sampling
     ps-135  Convenience sampling
     ps-136  Response bias
@@ -635,7 +635,7 @@ more work here than in any collection since Greece.
 
 ### Measurement and psychometrics — `ps-measure`
 
-    ps-141  Measurement in psychology
+    ps-141  Latent variables
     ps-142  Scales of measurement
     ps-143  Reliability
     ps-144  Test–retest reliability
@@ -651,7 +651,7 @@ more work here than in any collection since Greece.
     ps-154  External validity
     ps-155  Ecological validity
     ps-156  Standardisation
-    ps-157  Test norms
+    ps-157  Norm-referenced tests
     ps-158  Item response theory
     ps-159  Classical test theory
     ps-160  Factor analysis
@@ -677,7 +677,7 @@ more work here than in any collection since Greece.
     ps-177  The null hypothesis
     ps-178  Statistical significance
     ps-179  The p value
-    ps-180  What a p value does not mean
+    ps-180  The misuse of p values
     ps-181  Type I and Type II errors
     ps-182  Statistical power
     ps-183  Effect size
