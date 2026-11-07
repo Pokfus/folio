@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6154 | the title is the article |
+| `ok` | 6163 | the title is the article |
 | `redirect-variant` | 375 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 146 | only a disambiguation page; no link could be chosen |
-| `none` | 1001 | nothing matched; no link |
+| `none` | 1002 | nothing matched; no link |
 
-**7211 of 8500 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7220 of 8510 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1023,7 +1023,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (1001)
+## No article found (1002)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2028,3 +2028,4 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
 - `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
 - `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`
+- `ww2-655` **broad front strategy** — search suggests `Broad front versus narrow front controversy in World War II`, `Western Front (World War II)`, `British home front during World War II`, `World War I`, `Scandinavian theatre of World War II`

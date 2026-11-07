@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T19:50Z",
+ "generated": "2026-11-07T19:53Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6154,
+  "ok": 6163,
   "redirect-broader": 585,
   "redirect-variant": 375,
   "section-redirect": 126,
   "disambiguation": 146,
-  "none": 1001,
+  "none": 1002,
   "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
@@ -68333,6 +68333,83 @@
    "answer": "Battle of the Scheldt",
    "title": "Battle of the Scheldt",
    "url": "https://en.wikipedia.org/wiki/Battle_of_the_Scheldt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-651": {
+   "answer": "Red Ball Express",
+   "title": "Red Ball Express",
+   "url": "https://en.wikipedia.org/wiki/Red_Ball_Express",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-652": {
+   "answer": "Battle of the Bulge",
+   "title": "Battle of the Bulge",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Bulge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-653": {
+   "answer": "Malmedy massacre",
+   "title": "Malmedy massacre",
+   "url": "https://en.wikipedia.org/wiki/Malmedy_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-654": {
+   "answer": "Dwight D. Eisenhower",
+   "title": "Dwight D. Eisenhower",
+   "url": "https://en.wikipedia.org/wiki/Dwight_D._Eisenhower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-655": {
+   "answer": "broad front strategy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Broad front versus narrow front controversy in World War II",
+    "Western Front (World War II)",
+    "British home front during World War II",
+    "World War I",
+    "Scandinavian theatre of World War II"
+   ]
+  },
+  "ww2-656": {
+   "answer": "Operation Plunder",
+   "title": "Operation Plunder",
+   "url": "https://en.wikipedia.org/wiki/Operation_Plunder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-657": {
+   "answer": "Ruhr pocket",
+   "title": "Ruhr pocket",
+   "url": "https://en.wikipedia.org/wiki/Ruhr_pocket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-658": {
+   "answer": "Western Allied invasion of Germany",
+   "title": "Western Allied invasion of Germany",
+   "url": "https://en.wikipedia.org/wiki/Western_Allied_invasion_of_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-659": {
+   "answer": "Elbe Day",
+   "title": "Elbe Day",
+   "url": "https://en.wikipedia.org/wiki/Elbe_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-660": {
+   "answer": "two-front war",
+   "title": "Two-front war",
+   "url": "https://en.wikipedia.org/wiki/Two-front_war",
    "via": "glossary",
    "status": "ok"
   }

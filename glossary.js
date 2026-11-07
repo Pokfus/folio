@@ -8751,7 +8751,15 @@ window.GLOSSARY = {
 "Operation_Cobra": "",
 "Operation_Dragoon": "",
 "Operation_Goodwood": "",
-"Operation_Market_Garden": ""
+"Operation_Market_Garden": "",
+"Red_Ball_Express": "",
+"Malmedy_massacre": "",
+"Broad_front_versus_narrow_front_controversy_in_World_War_II": "",
+"Operation_Plunder": "",
+"Ruhr_pocket": "",
+"Western_Allied_invasion_of_Germany": "",
+"Elbe_Day": "",
+"Two-front_war": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12965,7 +12973,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Operation_Fortitude": "1944",
 "Atlantic_Wall": "1942–1944",
 "Omaha_Beach": "1944",
-"Operation_Tonga": "1944"
+"Operation_Tonga": "1944",
+"Red_Ball_Express": "1944",
+"Malmedy_massacre": "1944",
+"Broad_front_versus_narrow_front_controversy_in_World_War_II": "1944–1945",
+"Operation_Plunder": "1945",
+"Ruhr_pocket": "1945",
+"Western_Allied_invasion_of_Germany": "1945",
+"Elbe_Day": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18472,7 +18487,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "V-2_rocket": ["V-2","A4","Aggregat 4"],
 "Mittelbau-Dora_concentration_camp": ["Mittelbau-Dora","Dora-Mittelbau"],
 "Operation_Roundup_(1942)": ["Operation Roundup","Roundup"],
-"Operation_Overlord": ["Overlord"]
+"Operation_Overlord": ["Overlord"],
+"Broad_front_versus_narrow_front_controversy_in_World_War_II": ["broad front strategy","broad front"],
+"Ruhr_pocket": ["Ruhr Pocket"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27377,7 +27394,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Operation_Cobra": ["battle","history","warfare","france","second world war"],
 "Operation_Dragoon": ["battle","history","warfare","france","second world war"],
 "Operation_Goodwood": ["battle","history","warfare","france","second world war"],
-"Operation_Market_Garden": ["battle","history","warfare","netherlands","second world war"]
+"Operation_Market_Garden": ["battle","history","warfare","netherlands","second world war"],
+"Red_Ball_Express": ["event","history","warfare","logistics","second world war","france","united states"],
+"Malmedy_massacre": ["event","history","warfare","war crimes","second world war","belgium"],
+"Broad_front_versus_narrow_front_controversy_in_World_War_II": ["concept","history","warfare","strategy","second world war"],
+"Operation_Plunder": ["battle","history","warfare","second world war","germany"],
+"Ruhr_pocket": ["battle","history","warfare","second world war","germany"],
+"Western_Allied_invasion_of_Germany": ["event","history","warfare","second world war","germany"],
+"Elbe_Day": ["event","history","warfare","second world war","germany"],
+"Two-front_war": ["concept","history","warfare","strategy"]
 });
 
 /* ============================================================================
