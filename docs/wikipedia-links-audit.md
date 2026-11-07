@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5558 | the title is the article |
+| `ok` | 5567 | the title is the article |
 | `redirect-variant` | 341 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 82 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 530 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 531 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 112 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
 | `none` | 984 | nothing matched; no link |
 
-**6525 of 7780 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6535 of 7790 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (530)
+## Redirected to a differently named article — check each (531)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -51,6 +51,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `astro-044` **precession of the equinoxes** → [Axial precession](https://en.wikipedia.org/wiki/Axial_precession) (from `Precession of the equinoxes`)
 - `astro-051` **retrograde motion** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Retrograde motion`)
 - `astro-057` **88 modern constellations** → [IAU designated constellations](https://en.wikipedia.org/wiki/IAU_designated_constellations) (from `88 modern constellations`)
+- `astro-062` **Southern Cross** → [Crux](https://en.wikipedia.org/wiki/Crux) (from `Southern Cross`)
 - `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
 - `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
 - `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)

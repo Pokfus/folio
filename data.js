@@ -7786,7 +7786,17 @@ window.CARD_DATA = [
 {"id":"astro-057","num":"57","category":"Astronomy","question":"Agreed at the first General Assembly of the International Astronomical Union in Rome in 1922, the <span class=\"blank\">_____</span> each received a three-letter abbreviation of their Latin names.","answer":"88 modern constellations","answerDate":"<div class=\"dt\"><span class=\"dt-k\">List agreed</span><span class=\"dt-v\">1922</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"88 modern constellations","tags":["concept","science","astronomy","constellations","stars"],"difficulty":3},
 {"id":"astro-058","num":"58","category":"Astronomy","question":"Drawn along lines of right ascension and declination for the year 1875, the <span class=\"blank\">_____</span> approved in 1928 place every point of the sky in exactly one constellation.","answer":"constellation boundaries","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Approved</span><span class=\"dt-v\">1928</span><span class=\"dt-k\">Published</span><span class=\"dt-v\">1930</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"constellation boundaries","tags":["concept","science","astronomy","constellations","coordinates"],"difficulty":4},
 {"id":"astro-059","num":"59","category":"Astronomy","question":"The Summer Triangle joins Altair, Deneb and Vega from three different constellations, which makes it an <span class=\"blank\">_____</span> rather than an official constellation in its own right.","answer":"asterism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"asterism","tags":["concept","science","astronomy","constellations","stars","culture"],"difficulty":3,"undatable":true},
-{"id":"astro-060","num":"60","category":"Astronomy","question":"The Plough or Big Dipper is not itself a constellation but seven bright stars forming the rump and tail of <span class=\"blank\">_____</span>, the third-largest constellation in the sky.","answer":"Ursa Major","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ursa Major","tags":["object","science","astronomy","constellations","stars","greece"],"difficulty":2,"undatable":true}
+{"id":"astro-060","num":"60","category":"Astronomy","question":"The Plough or Big Dipper is not itself a constellation but seven bright stars forming the rump and tail of <span class=\"blank\">_____</span>, the third-largest constellation in the sky.","answer":"Ursa Major","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ursa Major","tags":["object","science","astronomy","constellations","stars","greece"],"difficulty":2,"undatable":true},
+{"id":"astro-061","num":"61","category":"Astronomy","question":"Hesiod told Greek farmers to winnow their grain when strong <span class=\"blank\">_____</span> first appears, the hunter whose belt is a short, straight line of three bright stars.","answer":"Orion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Orion","tags":["object","science","astronomy","constellation","star","greece"],"difficulty":2,"undatable":true},
+{"id":"astro-062","num":"62","category":"Astronomy","question":"Ptolemy counted the stars of the <span class=\"blank\">_____</span> in the hind legs of the Centaur, but the group later sank below Mediterranean horizons and was found again by sailors heading south.","answer":"Southern Cross","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Southern Cross","tags":["object","science","astronomy","constellation","navigation","australia"],"difficulty":2,"undatable":true},
+{"id":"astro-063","num":"63","category":"Astronomy","question":"Lying opposite the Big Dipper across the pole, the W of <span class=\"blank\">_____</span> leads to Polaris along a line that splits the angle of its first V in half.","answer":"Cassiopeia","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Cassiopeia","tags":["object","science","astronomy","constellation","navigation","greece"],"difficulty":2,"undatable":true},
+{"id":"astro-064","num":"64","category":"Astronomy","question":"Lying less than a degree from the north celestial pole, <span class=\"blank\">_____</span> barely moves as the sky turns, so its height above the horizon gives a navigator's latitude.","answer":"Polaris","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Polaris","tags":["object","science","astronomy","star","navigation"],"difficulty":2,"undatable":true},
+{"id":"astro-065","num":"65","category":"Astronomy","question":"On the modern boundaries the Sun spends late November and early December in <span class=\"blank\">_____</span>, the serpent-bearer, a 13th constellation on the ecliptic that astrology's twelve signs leave out.","answer":"Ophiuchus","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ophiuchus","tags":["object","science","astronomy","constellation","zodiac"],"difficulty":3,"undatable":true},
+{"id":"astro-066","num":"66","category":"Astronomy","question":"No bright star marks the pole of the <span class=\"blank\">_____</span>, the half of the sky south of the celestial equator, which the ancient Greeks could only partly see.","answer":"southern celestial hemisphere","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"southern celestial hemisphere","tags":["concept","science","astronomy","constellation","navigation"],"difficulty":3,"undatable":true},
+{"id":"astro-067","num":"67","category":"Astronomy","question":"Treating each society's star patterns as evidence of its own culture, the field of <span class=\"blank\">_____</span> divides into archaeoastronomy for past peoples and ethnoastronomy for living ones.","answer":"cultural astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cultural astronomy","tags":["concept","science","astronomy","culture","constellation"],"difficulty":4,"undatable":true},
+{"id":"astro-068","num":"68","category":"Astronomy","question":"The Emu in the Sky, a figure of dark dust whose seasonal shape tells the Kamilaroi when emus lay, is an example of <span class=\"blank\">_____</span>, held in oral tradition and ceremony.","answer":"Australian Aboriginal astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Australian Aboriginal astronomy","tags":["culture","science","astronomy","australia","indigenous"],"difficulty":3,"undatable":true},
+{"id":"astro-069","num":"69","category":"Astronomy","question":"Built from 283 small asterisms of 1,464 stars, the <span class=\"blank\">_____</span> pictured the emperor, his officials and even kitchens and stores of grain among the stars.","answer":"Chinese constellations","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chinese constellations","tags":["culture","science","astronomy","china","constellation"],"difficulty":3,"undatable":true},
+{"id":"astro-070","num":"70","category":"Astronomy","question":"Dividing the horizon into 32 houses 11.25 degrees apart, the star compass at the heart of <span class=\"blank\">_____</span> exists only in the navigator's mind, not as an object.","answer":"Polynesian navigation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Polynesian navigation","tags":["practice","science","astronomy","navigation","polynesia","pacific"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16859,7 +16869,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 80,
+      "total": 90,
       "children": [
         {
           "id": "astro-sky",
@@ -16951,7 +16961,17 @@ window.COLLECTION_TREE = {
                 "astro-057",
                 "astro-058",
                 "astro-059",
-                "astro-060"
+                "astro-060",
+                "astro-061",
+                "astro-062",
+                "astro-063",
+                "astro-064",
+                "astro-065",
+                "astro-066",
+                "astro-067",
+                "astro-068",
+                "astro-069",
+                "astro-070"
               ]
             },
             {

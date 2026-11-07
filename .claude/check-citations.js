@@ -205,6 +205,10 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // This IAU Transactions commission report is in French, and its byline "M. F. Schlesinger" is
+  // "Monsieur F. Schlesinger" (the co-authors are "MM." Bosler and the rest): Crossref deposited the
+  // honorific as an initial. Read Nov 2026 for astro-065.
+  ["10.1017/S0251107X00016345", "F. Schlesinger", "M. F. Schlesinger"],
   // Ecosystem Transformation publishes its bylines in LATIN and deposits the RUSSIAN ones:
   // Crossref carries \u0421.\u0410. \u041b\u0438\u0442\u0432\u0438\u043d\u0441\u043a\u0430\u044f and her six co-authors in Cyrillic, where the article's own
   // first page prints "S.A. Litvinskaya, S.N. Gorbov, S.S. Tagiverdiev, N.V. Salnik, D.A. Kozyrev,

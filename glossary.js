@@ -8060,7 +8060,17 @@ window.GLOSSARY = {
 "IAU_designated_constellations": "",
 "Constellation_boundaries": "",
 "Asterism_(astronomy)": "",
-"Ursa_Major": ""
+"Ursa_Major": "",
+"Orion_(constellation)": "",
+"Crux": "",
+"Cassiopeia_(constellation)": "",
+"Polaris": "",
+"Ophiuchus": "",
+"Southern_celestial_hemisphere": "",
+"Cultural_astronomy": "",
+"Australian_Aboriginal_astronomy": "",
+"Chinese_constellations": "",
+"Polynesian_navigation": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17044,7 +17054,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "IAU_designated_constellations": ["88 modern constellations","88 constellations","IAU constellations"],
 "Constellation_boundaries": ["IAU constellation boundaries"],
 "Asterism_(astronomy)": ["asterism"],
-"Ursa_Major": ["Great Bear"]
+"Ursa_Major": ["Great Bear"],
+"Orion_(constellation)": ["Orion constellation"],
+"Crux": ["Southern Cross"],
+"Cassiopeia_(constellation)": ["Cassiopeia constellation"],
+"Cultural_astronomy": ["ethnoastronomy"],
+"Australian_Aboriginal_astronomy": ["Aboriginal astronomy"],
+"Polynesian_navigation": ["Polynesian wayfinding"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25254,7 +25270,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "IAU_designated_constellations": ["concept","science","astronomy","constellations"],
 "Constellation_boundaries": ["concept","science","astronomy","constellations"],
 "Asterism_(astronomy)": ["concept","science","astronomy","stars"],
-"Ursa_Major": ["object","science","astronomy","constellations"]
+"Ursa_Major": ["object","science","astronomy","constellations"],
+"Orion_(constellation)": ["object","science","astronomy","constellation"],
+"Crux": ["object","science","astronomy","constellation"],
+"Cassiopeia_(constellation)": ["object","science","astronomy","constellation"],
+"Polaris": ["object","science","astronomy","star"],
+"Ophiuchus": ["object","science","astronomy","constellation","zodiac"],
+"Southern_celestial_hemisphere": ["concept","science","astronomy"],
+"Cultural_astronomy": ["concept","science","astronomy","culture"],
+"Australian_Aboriginal_astronomy": ["culture","science","astronomy","australia"],
+"Chinese_constellations": ["culture","science","astronomy","china"],
+"Polynesian_navigation": ["practice","science","astronomy","navigation","pacific"]
 });
 
 /* ============================================================================

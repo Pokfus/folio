@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-07T02:18Z",
+ "generated": "2026-11-07T02:19Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5558,
-  "redirect-broader": 530,
+  "ok": 5567,
+  "redirect-broader": 531,
   "redirect-variant": 341,
   "section-redirect": 112,
   "disambiguation": 143,
@@ -63020,6 +63020,77 @@
    "answer": "Ursa Major",
    "title": "Ursa Major",
    "url": "https://en.wikipedia.org/wiki/Ursa_Major",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-061": {
+   "answer": "Orion",
+   "title": "Orion (constellation)",
+   "url": "https://en.wikipedia.org/wiki/Orion_(constellation)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-062": {
+   "answer": "Southern Cross",
+   "title": "Crux",
+   "url": "https://en.wikipedia.org/wiki/Crux",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Southern Cross"
+  },
+  "astro-063": {
+   "answer": "Cassiopeia",
+   "title": "Cassiopeia (constellation)",
+   "url": "https://en.wikipedia.org/wiki/Cassiopeia_(constellation)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-064": {
+   "answer": "Polaris",
+   "title": "Polaris",
+   "url": "https://en.wikipedia.org/wiki/Polaris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-065": {
+   "answer": "Ophiuchus",
+   "title": "Ophiuchus",
+   "url": "https://en.wikipedia.org/wiki/Ophiuchus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-066": {
+   "answer": "southern celestial hemisphere",
+   "title": "Southern celestial hemisphere",
+   "url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-067": {
+   "answer": "cultural astronomy",
+   "title": "Cultural astronomy",
+   "url": "https://en.wikipedia.org/wiki/Cultural_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-068": {
+   "answer": "Australian Aboriginal astronomy",
+   "title": "Australian Aboriginal astronomy",
+   "url": "https://en.wikipedia.org/wiki/Australian_Aboriginal_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-069": {
+   "answer": "Chinese constellations",
+   "title": "Chinese constellations",
+   "url": "https://en.wikipedia.org/wiki/Chinese_constellations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-070": {
+   "answer": "Polynesian navigation",
+   "title": "Polynesian navigation",
+   "url": "https://en.wikipedia.org/wiki/Polynesian_navigation",
    "via": "glossary",
    "status": "ok"
   }
