@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5554 | the title is the article |
-| `redirect-variant` | 339 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 5558 | the title is the article |
+| `redirect-variant` | 341 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 82 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 528 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 530 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 111 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 112 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
 | `none` | 984 | nothing matched; no link |
 
-**6516 of 7770 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6525 of 7780 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (528)
+## Redirected to a differently named article — check each (530)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -49,6 +49,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `astro-030` **angular size** → [Angular diameter](https://en.wikipedia.org/wiki/Angular_diameter) (from `Angular size`)
 - `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
 - `astro-044` **precession of the equinoxes** → [Axial precession](https://en.wikipedia.org/wiki/Axial_precession) (from `Precession of the equinoxes`)
+- `astro-051` **retrograde motion** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Retrograde motion`)
+- `astro-057` **88 modern constellations** → [IAU designated constellations](https://en.wikipedia.org/wiki/IAU_designated_constellations) (from `88 modern constellations`)
 - `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
 - `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
 - `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)
@@ -573,10 +575,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 - `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
 
-## Settled from a disambiguation page (81)
+## Settled from a disambiguation page (82)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
+- `astro-054` **transit** → [Astronomical transit](https://en.wikipedia.org/wiki/Astronomical_transit) (via the disambiguation page `Transit`)
 - `bio-035` **buffer** → [Buffer solution](https://en.wikipedia.org/wiki/Buffer_solution) (via the disambiguation page `Buffer`)
 - `cnh-011` **Shun** → [Shun dynasty](https://en.wikipedia.org/wiki/Shun_dynasty) (via the disambiguation page `Shun`)
 - `cnh-113` **King Wen** → [King Wen of Zhou](https://en.wikipedia.org/wiki/King_Wen_of_Zhou) (via the disambiguation page `King Wen`)
@@ -830,11 +833,12 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (111)
+## Section redirects — no dedicated page (112)
 
 Wikipedia treats these as part of another article. No link.
 
 - `astro-049` **synodic month** — `Synodic month` only redirects into `Lunar month#Synodic month`
+- `astro-058` **constellation boundaries** — `Constellation boundaries` only redirects into `Constellation#Boundaries`
 - `astro-083` **spring tide** — `Spring tide` only redirects into `Tide#Spring`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`

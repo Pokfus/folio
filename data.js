@@ -7776,7 +7776,17 @@ window.CARD_DATA = [
 {"id":"astro-017","num":"17","category":"Astronomy","question":"Seen from San Francisco, at a latitude of 38 degrees north, the north <span class=\"blank\">_____</span> stands 38 degrees above the horizon, because its height always equals the observer's latitude.","answer":"celestial pole","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"celestial pole","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":3,"undatable":true},
 {"id":"astro-018","num":"18","category":"Astronomy","question":"Halfway between the two celestial poles lies the <span class=\"blank\">_____</span>, a great circle in the same plane as the Earth's own equator, from which declination is measured north or south.","answer":"celestial equator","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"celestial equator","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":3,"undatable":true},
 {"id":"astro-019","num":"19","category":"Astronomy","question":"The <span class=\"blank\">_____</span> is the path the Sun appears to trace around the sky in a year, moving about one degree a day eastwards against the background stars as the Earth orbits.","answer":"ecliptic","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ecliptic","tags":["concept","science","astronomy","coordinates","sun"],"difficulty":3,"undatable":true},
-{"id":"astro-020","num":"20","category":"Astronomy","question":"The point on the sky directly above an observer's head is the <span class=\"blank\">_____</span>, found by extending a plumb line upwards, and the point directly beneath the feet is the nadir.","answer":"zenith","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"zenith","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":2,"undatable":true}
+{"id":"astro-020","num":"20","category":"Astronomy","question":"The point on the sky directly above an observer's head is the <span class=\"blank\">_____</span>, found by extending a plumb line upwards, and the point directly beneath the feet is the nadir.","answer":"zenith","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"zenith","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":2,"undatable":true},
+{"id":"astro-051","num":"51","category":"Astronomy","question":"When the faster-moving Earth overtakes Mars on its smaller orbit, the red planet seems to drift westward among the stars for a couple of months in <span class=\"blank\">_____</span> before resuming its course.","answer":"retrograde motion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"retrograde motion","tags":["concept","science","astronomy","planets","solar system"],"difficulty":3,"undatable":true},
+{"id":"astro-052","num":"52","category":"Astronomy","question":"Mercury and Venus each have two kinds of <span class=\"blank\">_____</span> with the Sun, inferior when the planet passes between Earth and the Sun and superior when it lies beyond.","answer":"conjunction","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"conjunction","tags":["concept","science","astronomy","planets","solar system"],"difficulty":3,"undatable":true},
+{"id":"astro-053","num":"53","category":"Astronomy","question":"Mercury never strays more than about 28° from the Sun in Earth's sky, so its greatest <span class=\"blank\">_____</span> offers the best chance to glimpse the planet in twilight.","answer":"elongation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"elongation","tags":["concept","science","astronomy","planets","venus","mercury"],"difficulty":4,"undatable":true},
+{"id":"astro-054","num":"54","category":"Astronomy","question":"Seen from Earth, only Mercury and Venus can make a <span class=\"blank\">_____</span> across the face of the Sun, because only their orbits lie between Earth and the Sun.","answer":"transit","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"transit","tags":["concept","science","astronomy","planets","venus","mercury","sun"],"difficulty":3,"undatable":true},
+{"id":"astro-055","num":"55","category":"Astronomy","question":"When the Moon passes in front of a star, the star vanishes almost at once at the lunar edge, an <span class=\"blank\">_____</span> whose timing can even reveal that the star is double.","answer":"occultation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"occultation","tags":["concept","science","astronomy","moon","solar system"],"difficulty":4,"undatable":true},
+{"id":"astro-056","num":"56","category":"Astronomy","question":"The ancient Chinese, Egyptians and Greeks each grouped bright stars into their own figures, so a <span class=\"blank\">_____</span> began as a pattern that a particular culture saw and named.","answer":"constellation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"constellation","tags":["concept","science","astronomy","stars","constellations","culture"],"difficulty":1,"undatable":true},
+{"id":"astro-057","num":"57","category":"Astronomy","question":"Agreed at the first General Assembly of the International Astronomical Union in Rome in 1922, the <span class=\"blank\">_____</span> each received a three-letter abbreviation of their Latin names.","answer":"88 modern constellations","answerDate":"<div class=\"dt\"><span class=\"dt-k\">List agreed</span><span class=\"dt-v\">1922</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"88 modern constellations","tags":["concept","science","astronomy","constellations","stars"],"difficulty":3},
+{"id":"astro-058","num":"58","category":"Astronomy","question":"Drawn along lines of right ascension and declination for the year 1875, the <span class=\"blank\">_____</span> approved in 1928 place every point of the sky in exactly one constellation.","answer":"constellation boundaries","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Approved</span><span class=\"dt-v\">1928</span><span class=\"dt-k\">Published</span><span class=\"dt-v\">1930</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"constellation boundaries","tags":["concept","science","astronomy","constellations","coordinates"],"difficulty":4},
+{"id":"astro-059","num":"59","category":"Astronomy","question":"The Summer Triangle joins Altair, Deneb and Vega from three different constellations, which makes it an <span class=\"blank\">_____</span> rather than an official constellation in its own right.","answer":"asterism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"asterism","tags":["concept","science","astronomy","constellations","stars","culture"],"difficulty":3,"undatable":true},
+{"id":"astro-060","num":"60","category":"Astronomy","question":"The Plough or Big Dipper is not itself a constellation but seven bright stars forming the rump and tail of <span class=\"blank\">_____</span>, the third-largest constellation in the sky.","answer":"Ursa Major","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ursa Major","tags":["object","science","astronomy","constellations","stars","greece"],"difficulty":2,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16849,7 +16859,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 70,
+      "total": 80,
       "children": [
         {
           "id": "astro-sky",
@@ -16924,14 +16934,25 @@ window.COLLECTION_TREE = {
                 "astro-047",
                 "astro-048",
                 "astro-049",
-                "astro-050"
+                "astro-050",
+                "astro-051",
+                "astro-052",
+                "astro-053",
+                "astro-054",
+                "astro-055"
               ]
             },
             {
               "id": "astro-constellations",
               "title": "Constellations and star names",
               "total": 20,
-              "cardIds": []
+              "cardIds": [
+                "astro-056",
+                "astro-057",
+                "astro-058",
+                "astro-059",
+                "astro-060"
+              ]
             },
             {
               "id": "astro-calendar",

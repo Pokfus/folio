@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T02:17Z",
+ "generated": "2026-11-07T02:18Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5554,
-  "redirect-broader": 528,
-  "redirect-variant": 339,
-  "section-redirect": 111,
+  "ok": 5558,
+  "redirect-broader": 530,
+  "redirect-variant": 341,
+  "section-redirect": 112,
   "disambiguation": 143,
   "none": 984,
-  "disambig-resolved": 81,
+  "disambig-resolved": 82,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -62943,6 +62943,83 @@
    "answer": "zenith",
    "title": "Zenith",
    "url": "https://en.wikipedia.org/wiki/Zenith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-051": {
+   "answer": "retrograde motion",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Retrograde motion"
+  },
+  "astro-052": {
+   "answer": "conjunction",
+   "title": "Conjunction (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Conjunction_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-053": {
+   "answer": "elongation",
+   "title": "Elongation (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Elongation_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-054": {
+   "answer": "transit",
+   "title": "Astronomical transit",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_transit",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Transit"
+  },
+  "astro-055": {
+   "answer": "occultation",
+   "title": "Occultation",
+   "url": "https://en.wikipedia.org/wiki/Occultation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Occultation (astronomy)"
+  },
+  "astro-056": {
+   "answer": "constellation",
+   "title": "Constellation",
+   "url": "https://en.wikipedia.org/wiki/Constellation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Constellation (astronomy)"
+  },
+  "astro-057": {
+   "answer": "88 modern constellations",
+   "title": "IAU designated constellations",
+   "url": "https://en.wikipedia.org/wiki/IAU_designated_constellations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "88 modern constellations"
+  },
+  "astro-058": {
+   "answer": "constellation boundaries",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Constellation boundaries",
+   "target": "Constellation#Boundaries"
+  },
+  "astro-059": {
+   "answer": "asterism",
+   "title": "Asterism (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Asterism_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-060": {
+   "answer": "Ursa Major",
+   "title": "Ursa Major",
+   "url": "https://en.wikipedia.org/wiki/Ursa_Major",
    "via": "glossary",
    "status": "ok"
   }

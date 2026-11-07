@@ -8050,7 +8050,17 @@ window.GLOSSARY = {
 "Celestial_pole": "",
 "Celestial_equator": "",
 "Ecliptic": "",
-"Zenith": ""
+"Zenith": "",
+"Apparent_retrograde_motion": "",
+"Conjunction_(astronomy)": "",
+"Elongation_(astronomy)": "",
+"Astronomical_transit": "",
+"Occultation_(astronomy)": "",
+"Constellation_(astronomy)": "",
+"IAU_designated_constellations": "",
+"Constellation_boundaries": "",
+"Asterism_(astronomy)": "",
+"Ursa_Major": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17024,7 +17034,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Frost_line_(astrophysics)": ["frost line"],
 "Core-accretion_theory": ["core accretion","core accretion model"],
 "Twinkling": ["stellar scintillation","astronomical scintillation"],
-"Celestial_pole": ["celestial poles","north celestial pole","south celestial pole"]
+"Celestial_pole": ["celestial poles","north celestial pole","south celestial pole"],
+"Apparent_retrograde_motion": ["retrograde motion","apparent retrograde motion"],
+"Conjunction_(astronomy)": ["astronomical conjunction","planetary conjunction","inferior conjunction","superior conjunction"],
+"Elongation_(astronomy)": ["greatest elongation","solar elongation"],
+"Astronomical_transit": ["astronomical transit","planetary transit","transit of Venus","transit of Mercury"],
+"Occultation_(astronomy)": ["astronomical occultation","lunar occultation","grazing occultation","stellar occultation"],
+"Constellation_(astronomy)": ["astronomical constellation"],
+"IAU_designated_constellations": ["88 modern constellations","88 constellations","IAU constellations"],
+"Constellation_boundaries": ["IAU constellation boundaries"],
+"Asterism_(astronomy)": ["asterism"],
+"Ursa_Major": ["Great Bear"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25224,7 +25244,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Celestial_pole": ["concept","science","astronomy","coordinates"],
 "Celestial_equator": ["concept","science","astronomy","coordinates"],
 "Ecliptic": ["concept","science","astronomy","coordinates"],
-"Zenith": ["concept","science","astronomy","coordinates"]
+"Zenith": ["concept","science","astronomy","coordinates"],
+"Apparent_retrograde_motion": ["concept","science","astronomy","planets"],
+"Conjunction_(astronomy)": ["concept","science","astronomy","planets"],
+"Elongation_(astronomy)": ["concept","science","astronomy","planets"],
+"Astronomical_transit": ["concept","science","astronomy","planets"],
+"Occultation_(astronomy)": ["concept","science","astronomy","solar system"],
+"Constellation_(astronomy)": ["concept","science","astronomy","stars"],
+"IAU_designated_constellations": ["concept","science","astronomy","constellations"],
+"Constellation_boundaries": ["concept","science","astronomy","constellations"],
+"Asterism_(astronomy)": ["concept","science","astronomy","stars"],
+"Ursa_Major": ["object","science","astronomy","constellations"]
 });
 
 /* ============================================================================
