@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T02:55Z",
+ "generated": "2026-11-07T03:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5805,
-  "redirect-broader": 539,
-  "redirect-variant": 352,
-  "section-redirect": 115,
-  "disambiguation": 143,
-  "none": 984,
-  "disambig-resolved": 82,
+  "ok": 5880,
+  "redirect-broader": 549,
+  "redirect-variant": 359,
+  "section-redirect": 118,
+  "disambiguation": 145,
+  "none": 986,
+  "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -64945,6 +64945,761 @@
    "url": "https://en.wikipedia.org/wiki/Afrika_Korps",
    "via": "glossary",
    "status": "ok"
+  },
+  "astro-001": {
+   "answer": "astronomy",
+   "title": "Astronomy",
+   "url": "https://en.wikipedia.org/wiki/Astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-002": {
+   "answer": "astronomical object",
+   "title": "Astronomical object",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_object",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-003": {
+   "answer": "astrophysics",
+   "title": "Astrophysics",
+   "url": "https://en.wikipedia.org/wiki/Astrophysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-004": {
+   "answer": "observational astronomy",
+   "title": "Observational astronomy",
+   "url": "https://en.wikipedia.org/wiki/Observational_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-005": {
+   "answer": "scientific notation",
+   "title": "Scientific notation",
+   "url": "https://en.wikipedia.org/wiki/Scientific_notation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-006": {
+   "answer": "astronomical unit",
+   "title": "Astronomical unit",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_unit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-007": {
+   "answer": "light-year",
+   "title": "Light-year",
+   "url": "https://en.wikipedia.org/wiki/Light-year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-008": {
+   "answer": "parsec",
+   "title": "Parsec",
+   "url": "https://en.wikipedia.org/wiki/Parsec",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-009": {
+   "answer": "speed of light",
+   "title": "Speed of light",
+   "url": "https://en.wikipedia.org/wiki/Speed_of_light",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-010": {
+   "answer": "double star",
+   "title": "Double star",
+   "url": "https://en.wikipedia.org/wiki/Double_star",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-011": {
+   "answer": "night sky",
+   "title": "Night sky",
+   "url": "https://en.wikipedia.org/wiki/Night_sky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-012": {
+   "answer": "light pollution",
+   "title": "Light pollution",
+   "url": "https://en.wikipedia.org/wiki/Light_pollution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-013": {
+   "answer": "twinkling",
+   "title": "Twinkling",
+   "url": "https://en.wikipedia.org/wiki/Twinkling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-014": {
+   "answer": "amateur astronomy",
+   "title": "Amateur astronomy",
+   "url": "https://en.wikipedia.org/wiki/Amateur_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-015": {
+   "answer": "astrology",
+   "title": "Astrology",
+   "url": "https://en.wikipedia.org/wiki/Astrology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-016": {
+   "answer": "celestial sphere",
+   "title": "Celestial sphere",
+   "url": "https://en.wikipedia.org/wiki/Celestial_sphere",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-017": {
+   "answer": "celestial pole",
+   "title": "Celestial pole",
+   "url": "https://en.wikipedia.org/wiki/Celestial_pole",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-018": {
+   "answer": "celestial equator",
+   "title": "Celestial equator",
+   "url": "https://en.wikipedia.org/wiki/Celestial_equator",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-019": {
+   "answer": "ecliptic",
+   "title": "Ecliptic",
+   "url": "https://en.wikipedia.org/wiki/Ecliptic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-020": {
+   "answer": "zenith",
+   "title": "Zenith",
+   "url": "https://en.wikipedia.org/wiki/Zenith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-021": {
+   "answer": "horizontal coordinate system",
+   "title": "Horizontal coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Horizontal_coordinate_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-022": {
+   "answer": "equatorial coordinate system",
+   "title": "Equatorial coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Equatorial_coordinate_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-023": {
+   "answer": "First Point of Aries",
+   "title": "First point of Aries",
+   "url": "https://en.wikipedia.org/wiki/First_point_of_Aries",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-024": {
+   "answer": "celestial meridian",
+   "title": "Meridian (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Meridian_(astronomy)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Celestial meridian"
+  },
+  "astro-025": {
+   "answer": "circumpolar star",
+   "title": "Circumpolar star",
+   "url": "https://en.wikipedia.org/wiki/Circumpolar_star",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-026": {
+   "answer": "latitude",
+   "title": "Latitude",
+   "url": "https://en.wikipedia.org/wiki/Latitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-027": {
+   "answer": "star chart",
+   "title": "Star chart",
+   "url": "https://en.wikipedia.org/wiki/Star_chart",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-028": {
+   "answer": "magnitude scale",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Magnitude (astronomy)",
+    "Apparent magnitude",
+    "Order of magnitude",
+    "Magnitude",
+    "First-magnitude star"
+   ]
+  },
+  "astro-029": {
+   "answer": "absolute magnitude",
+   "title": "Absolute magnitude",
+   "url": "https://en.wikipedia.org/wiki/Absolute_magnitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-030": {
+   "answer": "angular size",
+   "title": "Angular diameter",
+   "url": "https://en.wikipedia.org/wiki/Angular_diameter",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angular size"
+  },
+  "astro-031": {
+   "answer": "angular separation",
+   "title": "Angular distance",
+   "url": "https://en.wikipedia.org/wiki/Angular_distance",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angular separation"
+  },
+  "astro-032": {
+   "answer": "parallax",
+   "title": "Parallax",
+   "url": "https://en.wikipedia.org/wiki/Parallax",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-033": {
+   "answer": "sidereal time",
+   "title": "Sidereal time",
+   "url": "https://en.wikipedia.org/wiki/Sidereal_time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-034": {
+   "answer": "zodiac",
+   "title": "Zodiac",
+   "url": "https://en.wikipedia.org/wiki/Zodiac",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-035": {
+   "answer": "galactic coordinates",
+   "title": "Galactic coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Galactic_coordinate_system",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Galactic coordinates"
+  },
+  "astro-036": {
+   "answer": "diurnal motion",
+   "title": "Diurnal motion",
+   "url": "https://en.wikipedia.org/wiki/Diurnal_motion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-037": {
+   "answer": "Earth's rotation",
+   "title": "Earth's rotation",
+   "url": "https://en.wikipedia.org/wiki/Earth's_rotation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-038": {
+   "answer": "Earth's orbit",
+   "title": "Earth's orbit",
+   "url": "https://en.wikipedia.org/wiki/Earth's_orbit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-039": {
+   "answer": "heliacal rising",
+   "title": "Heliacal rising",
+   "url": "https://en.wikipedia.org/wiki/Heliacal_rising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-040": {
+   "answer": "solstice",
+   "title": "Solstice",
+   "url": "https://en.wikipedia.org/wiki/Solstice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-041": {
+   "answer": "equinox",
+   "title": "Equinox",
+   "url": "https://en.wikipedia.org/wiki/Equinox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-042": {
+   "answer": "axial tilt",
+   "title": "Axial tilt",
+   "url": "https://en.wikipedia.org/wiki/Axial_tilt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-043": {
+   "answer": "analemma",
+   "title": "Analemma",
+   "url": "https://en.wikipedia.org/wiki/Analemma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-044": {
+   "answer": "precession of the equinoxes",
+   "title": "Axial precession",
+   "url": "https://en.wikipedia.org/wiki/Axial_precession",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Precession of the equinoxes"
+  },
+  "astro-045": {
+   "answer": "nutation",
+   "title": "Nutation",
+   "url": "https://en.wikipedia.org/wiki/Nutation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "astro-046": {
+   "answer": "proper motion",
+   "title": "Proper motion",
+   "url": "https://en.wikipedia.org/wiki/Proper_motion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-047": {
+   "answer": "fixed stars",
+   "title": "Fixed stars",
+   "url": "https://en.wikipedia.org/wiki/Fixed_stars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-048": {
+   "answer": "lunar phase",
+   "title": "Lunar phase",
+   "url": "https://en.wikipedia.org/wiki/Lunar_phase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-049": {
+   "answer": "synodic month",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Synodic month",
+   "target": "Lunar month#Synodic month"
+  },
+  "astro-050": {
+   "answer": "classical planets",
+   "title": "Classical planet",
+   "url": "https://en.wikipedia.org/wiki/Classical_planet",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Classical planets"
+  },
+  "astro-051": {
+   "answer": "retrograde motion",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Retrograde motion"
+  },
+  "astro-052": {
+   "answer": "conjunction",
+   "title": "Conjunction (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Conjunction_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-053": {
+   "answer": "elongation",
+   "title": "Elongation (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Elongation_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-054": {
+   "answer": "transit",
+   "title": "Astronomical transit",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_transit",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Transit"
+  },
+  "astro-055": {
+   "answer": "occultation",
+   "title": "Occultation",
+   "url": "https://en.wikipedia.org/wiki/Occultation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Occultation (astronomy)"
+  },
+  "astro-056": {
+   "answer": "constellation",
+   "title": "Constellation",
+   "url": "https://en.wikipedia.org/wiki/Constellation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Constellation (astronomy)"
+  },
+  "astro-057": {
+   "answer": "88 modern constellations",
+   "title": "IAU designated constellations",
+   "url": "https://en.wikipedia.org/wiki/IAU_designated_constellations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "88 modern constellations"
+  },
+  "astro-058": {
+   "answer": "constellation boundaries",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Constellation boundaries",
+   "target": "Constellation#Boundaries"
+  },
+  "astro-059": {
+   "answer": "asterism",
+   "title": "Asterism (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Asterism_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-060": {
+   "answer": "Ursa Major",
+   "title": "Ursa Major",
+   "url": "https://en.wikipedia.org/wiki/Ursa_Major",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-061": {
+   "answer": "Orion",
+   "title": "Orion (constellation)",
+   "url": "https://en.wikipedia.org/wiki/Orion_(constellation)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-062": {
+   "answer": "Southern Cross",
+   "title": "Crux",
+   "url": "https://en.wikipedia.org/wiki/Crux",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Southern Cross"
+  },
+  "astro-063": {
+   "answer": "Cassiopeia",
+   "title": "Cassiopeia (constellation)",
+   "url": "https://en.wikipedia.org/wiki/Cassiopeia_(constellation)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-064": {
+   "answer": "Polaris",
+   "title": "Polaris",
+   "url": "https://en.wikipedia.org/wiki/Polaris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-065": {
+   "answer": "Ophiuchus",
+   "title": "Ophiuchus",
+   "url": "https://en.wikipedia.org/wiki/Ophiuchus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-066": {
+   "answer": "southern celestial hemisphere",
+   "title": "Southern celestial hemisphere",
+   "url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-067": {
+   "answer": "cultural astronomy",
+   "title": "Cultural astronomy",
+   "url": "https://en.wikipedia.org/wiki/Cultural_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-068": {
+   "answer": "Australian Aboriginal astronomy",
+   "title": "Australian Aboriginal astronomy",
+   "url": "https://en.wikipedia.org/wiki/Australian_Aboriginal_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-069": {
+   "answer": "Chinese constellations",
+   "title": "Chinese constellations",
+   "url": "https://en.wikipedia.org/wiki/Chinese_constellations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-070": {
+   "answer": "Polynesian navigation",
+   "title": "Polynesian navigation",
+   "url": "https://en.wikipedia.org/wiki/Polynesian_navigation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-071": {
+   "answer": "Bayer designation",
+   "title": "Bayer designation",
+   "url": "https://en.wikipedia.org/wiki/Bayer_designation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-072": {
+   "answer": "Flamsteed designation",
+   "title": "Flamsteed designation",
+   "url": "https://en.wikipedia.org/wiki/Flamsteed_designation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-073": {
+   "answer": "Working Group on Star Names",
+   "title": "IAU Working Group on Star Names",
+   "url": "https://en.wikipedia.org/wiki/IAU_Working_Group_on_Star_Names",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Working Group on Star Names"
+  },
+  "astro-074": {
+   "answer": "Henry Draper Catalogue",
+   "title": "Henry Draper Catalogue",
+   "url": "https://en.wikipedia.org/wiki/Henry_Draper_Catalogue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-075": {
+   "answer": "Sirius",
+   "title": "Sirius",
+   "url": "https://en.wikipedia.org/wiki/Sirius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-076": {
+   "answer": "solar eclipse",
+   "title": "Solar eclipse",
+   "url": "https://en.wikipedia.org/wiki/Solar_eclipse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-077": {
+   "answer": "lunar eclipse",
+   "title": "Lunar eclipse",
+   "url": "https://en.wikipedia.org/wiki/Lunar_eclipse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-078": {
+   "answer": "lunar node",
+   "title": "Lunar node",
+   "url": "https://en.wikipedia.org/wiki/Lunar_node",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-079": {
+   "answer": "saros",
+   "title": "Saros (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Saros_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-080": {
+   "answer": "totality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Totality",
+   "suggestions": [
+    "Plan Totality",
+    "Totality and Infinity",
+    "Totality principle",
+    "Totality (album)",
+    "Totality Corporation"
+   ]
+  },
+  "astro-081": {
+   "answer": "eclipse of Thales",
+   "title": "Eclipse of Thales",
+   "url": "https://en.wikipedia.org/wiki/Eclipse_of_Thales",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-082": {
+   "answer": "tides",
+   "title": "Tide",
+   "url": "https://en.wikipedia.org/wiki/Tide",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Tides"
+  },
+  "astro-083": {
+   "answer": "spring tide",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Spring tide",
+   "target": "Tide#Spring"
+  },
+  "astro-084": {
+   "answer": "tidal locking",
+   "title": "Tidal locking",
+   "url": "https://en.wikipedia.org/wiki/Tidal_locking",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-085": {
+   "answer": "solar day",
+   "title": "Synodic day",
+   "url": "https://en.wikipedia.org/wiki/Synodic_day",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Solar day"
+  },
+  "astro-086": {
+   "answer": "tropical year",
+   "title": "Tropical year",
+   "url": "https://en.wikipedia.org/wiki/Tropical_year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-087": {
+   "answer": "lunar calendar",
+   "title": "Lunar calendar",
+   "url": "https://en.wikipedia.org/wiki/Lunar_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-088": {
+   "answer": "Gregorian calendar",
+   "title": "Gregorian calendar",
+   "url": "https://en.wikipedia.org/wiki/Gregorian_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-089": {
+   "answer": "leap second",
+   "title": "Leap second",
+   "url": "https://en.wikipedia.org/wiki/Leap_second",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-090": {
+   "answer": "Julian date",
+   "title": "Julian day",
+   "url": "https://en.wikipedia.org/wiki/Julian_day",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Julian date"
+  },
+  "astro-091": {
+   "answer": "Solar System",
+   "title": "Solar System",
+   "url": "https://en.wikipedia.org/wiki/Solar_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-092": {
+   "answer": "nebular hypothesis",
+   "title": "Nebular hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Nebular_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-093": {
+   "answer": "protoplanetary disc",
+   "title": "Protoplanetary disk",
+   "url": "https://en.wikipedia.org/wiki/Protoplanetary_disk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Protoplanetary disc"
+  },
+  "astro-094": {
+   "answer": "planetesimal",
+   "title": "Planetesimal",
+   "url": "https://en.wikipedia.org/wiki/Planetesimal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-095": {
+   "answer": "volatiles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Volatility",
+   "suggestions": [
+    "Volatile (astrogeology)",
+    "Volatile acid",
+    "Volatile anaesthetic",
+    "Volatile memory",
+    "Volatile variable",
+    "Volatile organic compound"
+   ]
+  },
+  "astro-096": {
+   "answer": "frost line",
+   "title": "Frost line (astrophysics)",
+   "url": "https://en.wikipedia.org/wiki/Frost_line_(astrophysics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-097": {
+   "answer": "core accretion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accretion (astrophysics)",
+    "Accretion disk",
+    "Earth's outer core",
+    "Black hole",
+    "Nebular hypothesis"
+   ]
+  },
+  "astro-098": {
+   "answer": "Nice model",
+   "title": "Nice model",
+   "url": "https://en.wikipedia.org/wiki/Nice_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-099": {
+   "answer": "Late Heavy Bombardment",
+   "title": "Late Heavy Bombardment",
+   "url": "https://en.wikipedia.org/wiki/Late_Heavy_Bombardment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-100": {
+   "answer": "age of the Solar System",
+   "title": "Formation and evolution of the Solar System",
+   "url": "https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Age of the Solar System"
   }
  }
 }

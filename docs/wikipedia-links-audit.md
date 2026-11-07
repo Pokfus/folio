@@ -26,25 +26,35 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5714 | the title is the article |
-| `redirect-variant` | 348 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 82 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 5880 | the title is the article |
+| `redirect-variant` | 359 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 537 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 549 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 113 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
-| `none` | 983 | nothing matched; no link |
+| `section-redirect` | 118 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 145 | only a disambiguation page; no link could be chosen |
+| `none` | 986 | nothing matched; no link |
 
-**6695 of 7950 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6885 of 8150 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (537)
+## Redirected to a differently named article — check each (549)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
+- `astro-024` **celestial meridian** → [Meridian (astronomy)](https://en.wikipedia.org/wiki/Meridian_(astronomy)) (from `Celestial meridian`)
+- `astro-030` **angular size** → [Angular diameter](https://en.wikipedia.org/wiki/Angular_diameter) (from `Angular size`)
+- `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
+- `astro-044` **precession of the equinoxes** → [Axial precession](https://en.wikipedia.org/wiki/Axial_precession) (from `Precession of the equinoxes`)
+- `astro-051` **retrograde motion** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Retrograde motion`)
+- `astro-057` **88 modern constellations** → [IAU designated constellations](https://en.wikipedia.org/wiki/IAU_designated_constellations) (from `88 modern constellations`)
+- `astro-062` **Southern Cross** → [Crux](https://en.wikipedia.org/wiki/Crux) (from `Southern Cross`)
+- `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
+- `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
+- `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -345,7 +355,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `pea-216` **China Dream** → [Chinese Dream](https://en.wikipedia.org/wiki/Chinese_Dream) (from `China Dream`)
 - `ph-010` **conceptual analysis** → [Philosophical analysis](https://en.wikipedia.org/wiki/Philosophical_analysis) (from `Conceptual analysis`)
 - `ph-021` **logical argument** → [Argument](https://en.wikipedia.org/wiki/Argument) (from `Logical argument`)
-- `ph-023` **deductive validity** → [Deductive reasoning](https://en.wikipedia.org/wiki/Deductive_reasoning) (from `Deductive validity`)
 - `ph-029` **inference to the best explanation** → [Abductive reasoning](https://en.wikipedia.org/wiki/Abductive_reasoning) (from `Inference to the best explanation`)
 - `ph-030` **necessary and sufficient conditions** → [Necessity and sufficiency](https://en.wikipedia.org/wiki/Necessity_and_sufficiency) (from `Necessary and sufficient conditions`)
 - `ph-040` **appeal to authority** → [Argument from authority](https://en.wikipedia.org/wiki/Argument_from_authority) (from `Appeal to authority`)
@@ -581,11 +590,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-455` **Japanese conquest of Burma** → [Japanese invasion of Burma](https://en.wikipedia.org/wiki/Japanese_invasion_of_Burma) (from `Japanese conquest of Burma`)
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 - `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
+- `ww2-529` **INA trials** → [Indian National Army trials](https://en.wikipedia.org/wiki/Indian_National_Army_trials) (from `INA trials`)
+- `ww2-581` **Darlan deal** → [Clark-Darlan Accords](https://en.wikipedia.org/wiki/Clark-Darlan_Accords) (from `Darlan deal`)
+- `ww2-585` **Operation Husky** → [Allied invasion of Sicily](https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily) (from `Operation Husky`)
 
-## Settled from a disambiguation page (82)
+## Settled from a disambiguation page (83)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
+- `astro-054` **transit** → [Astronomical transit](https://en.wikipedia.org/wiki/Astronomical_transit) (via the disambiguation page `Transit`)
 - `bio-035` **buffer** → [Buffer solution](https://en.wikipedia.org/wiki/Buffer_solution) (via the disambiguation page `Buffer`)
 - `cnh-011` **Shun** → [Shun dynasty](https://en.wikipedia.org/wiki/Shun_dynasty) (via the disambiguation page `Shun`)
 - `cnh-113` **King Wen** → [King Wen of Zhou](https://en.wikipedia.org/wiki/King_Wen_of_Zhou) (via the disambiguation page `King Wen`)
@@ -681,10 +694,12 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
-## Disambiguation pages that could not be settled (143)
+## Disambiguation pages that could not be settled (145)
 
 Pick the right article by hand, or leave the card without a link.
 
+- `astro-080` **totality** — `Totality` is a disambiguation page; its links: `Plan Totality`, `Totality and Infinity`, `Totality principle`, `Totality (album)`, `Totality Corporation`
+- `astro-095` **volatiles** — `Volatility` is a disambiguation page; its links: `Volatile (astrogeology)`, `Volatile acid`, `Volatile anaesthetic`, `Volatile memory`, `Volatile variable`, `Volatile organic compound`
 - `bio-012` **resolution** — `Resolution` is a disambiguation page; its links: `Resolutions (Not Going Out)`, `Resolution (debate)`, `Resolution (law)`, `Dispute resolution`, `Resolution (algebra)`, `Resolution (logic)`
 - `bio-072` **ATP** — `ATP` is a disambiguation page; its links: `ATP Tour`, `ATP Recordings`, `ATP (treaty)`, `ATP architects engineers`, `ATP Oil and Gas`, `British Aerospace ATP`
 - `cnh-010` **Yao** — `Yao` is a disambiguation page; its links: `Andrew Yao`, `Emperor Yao`, `Yao, Chad`, `Yao, Osaka`, `Yao (Gnosticism)`, `Yao Ming`
@@ -840,10 +855,13 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (113)
+## Section redirects — no dedicated page (118)
 
 Wikipedia treats these as part of another article. No link.
 
+- `astro-049` **synodic month** — `Synodic month` only redirects into `Lunar month#Synodic month`
+- `astro-058` **constellation boundaries** — `Constellation boundaries` only redirects into `Constellation#Boundaries`
+- `astro-083` **spring tide** — `Spring tide` only redirects into `Tide#Spring`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`
@@ -957,8 +975,10 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
+- `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
+- `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (983)
+## No article found (986)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -978,6 +998,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-026` **Jericho Skull** — search suggests `Plastered human skulls`, `Jericho`, `Tell es-Sultan`, `Kirk Baltz`, `Ossuary`
 - `art-027` **Praroditeljka** — search suggests `Lepenski Vir`
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
+- `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `First-magnitude star`
+- `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Earth's outer core`, `Black hole`, `Nebular hypothesis`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`
@@ -1741,7 +1763,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `pea-206` **Black Island Nation Youth Front** — search suggests `Sent-down youth`, `Sunflower Student Movement`, `GANEFO`, `Spratly Islands dispute`, `World Skate Games`
 - `pea-209` **Anti-media monopoly movement** — search suggests `New Brandeis movement`, `American Communist Party (2024)`, `Monopoly (game)`, `Jackson Hinkle`, `China Media Group`
 - `pea-213` **Eyre Crowe memorandum** — search suggests `Paris Peace Conference (1919–1920)`, `Levant Company`, `International relations (1919–1939)`, `Robert Cecil, Viscount Cecil of Chelwood`, `Defensively equipped merchant ship`
-- `ph-022` **premises and conclusion** — search suggests `Premise`, `Deductive reasoning`, `Logical reasoning`, `Philosophy of logic`, `Argument`
 - `ps-002` **behaviour and mental processes** — search suggests `Compulsive sexual behaviour disorder`, `Social science`, `Mind`, `Structuralism (psychology)`, `Ironic process theory`
 - `ps-030` **localisation of function** — search suggests `Id, ego and superego`, `Functional specialization (brain)`, `Neuropsychology`, `Lateralization of brain function`, `Interaural time difference`
 - `ps-033` **specific nerve energies** — search suggests `Perception`, `Pain theories`, `Sense`, `Physiological psychology`, `Parasympathetic nervous system`
@@ -1945,3 +1966,5 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-457` **Absolute National Defence Sphere** — search suggests `World War II`, `Thailand in World War II`, `European theatre of World War II`, `Eastern Front (World War II)`, `Nazi Germany`
 - `ww2-499` **Imperial General Headquarters Announcement** — search suggests `Imperial General Headquarters`, `Pacific War`, `Nicholas II`, `Home front during World War II`, `War crimes in World War II`
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
+- `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
+- `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`

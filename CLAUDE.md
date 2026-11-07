@@ -251,7 +251,7 @@ have not this session.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | live: 100 cards, contiguous — next is `ph-101` |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | live |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty |
-| Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty |
+| Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | live: `astro-001`–`100` written, next is `astro-101` |
 | Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | live |
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
