@@ -863,28 +863,28 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-200  Albany Plan
     us-201  Battle of the Plains of Abraham
     us-202  Treaty of Paris (1763)
-    us-203  What British victory changed
-    us-204  The colonial militia
-    us-205  Colonial identity on the eve of the crisis
+    us-203  Province of Quebec
+    us-204  Colonial militia
+    us-205  Rights of Englishmen
 
 ## Revolution and Founding, 1763–1800
 
 ### The imperial crisis — `us-imperial-crisis`
 
-    us-206  The imperial crisis
-    us-207  The cost of the Seven Years' War
+    us-206  George III
+    us-207  George Grenville
     us-208  Sugar Act
-    us-209  Stamp Act 1765
+    us-209  Stamp Act
     us-210  Stamp Act Congress
     us-211  Sons of Liberty
     us-212  No taxation without representation
     us-213  Virtual representation
     us-214  Declaratory Act
     us-215  Townshend Acts
-    us-216  The non-importation movement
-    us-217  Colonial women and the boycotts
+    us-216  Boston Non-Importation Agreement
+    us-217  Daughters of Liberty
     us-218  Boston Massacre
-    us-219  The trial of the soldiers
+    us-219  Thomas Preston
     us-220  Gaspee Affair
     us-221  Committees of correspondence
     us-222  Tea Act
@@ -893,63 +893,63 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-225  Quebec Act
     us-226  First Continental Congress
     us-227  Continental Association
-    us-228  Loyalists in the American Revolution
+    us-228  Loyalists
     us-229  Common Sense
     us-230  Thomas Paine
     us-231  Battles of Lexington and Concord
-    us-232  The shot heard round the world
+    us-232  Concord Hymn
     us-233  Second Continental Congress
     us-234  Olive Branch Petition
-    us-235  Why the colonies rebelled
+    us-235  Declaration of the Causes and Necessity of Taking Up Arms
 
 ### The War of Independence — `us-revolution`
 
     us-236  American Revolutionary War
     us-237  Siege of Boston
     us-238  Battle of Bunker Hill
-    us-239  Washington takes command of the army
+    us-239  George Washington
     us-240  Continental Army
-    us-241  The invasion of Quebec, 1775
+    us-241  Invasion of Quebec
     us-242  United States Declaration of Independence
-    us-243  The drafting of the Declaration
+    us-243  Committee of Five
     us-244  Thomas Jefferson
     us-245  All men are created equal
-    us-246  The grievances in the Declaration
-    us-247  The New York campaign of 1776
-    us-248  Washington's retreat across New Jersey
+    us-246  Grievances of the United States Declaration of Independence
+    us-247  Battle of Long Island
+    us-248  American Crisis
     us-249  Battle of Trenton
     us-250  Battle of Princeton
     us-251  Saratoga campaign
     us-252  Battles of Saratoga
-    us-253  The Franco-American alliance
-    us-254  Benjamin Franklin in Paris
+    us-253  Franco-American alliance
+    us-254  Treaty of Amity and Commerce
     us-255  Valley Forge
     us-256  Friedrich Wilhelm von Steuben
-    us-257  The war in the South
+    us-257  Southern theatre of the American Revolutionary War
     us-258  Siege of Charleston
     us-259  Battle of Camden
     us-260  Nathanael Greene
-    us-261  Partisan war in the Carolinas
+    us-261  Francis Marion
     us-262  Battle of Cowpens
     us-263  Battle of Guilford Court House
-    us-264  The naval war of the Revolution
+    us-264  Continental Navy
     us-265  John Paul Jones
     us-266  Benedict Arnold
     us-267  Siege of Yorktown
-    us-268  The surrender at Yorktown
+    us-268  Surrender of Lord Cornwallis
     us-269  Treaty of Paris (1783)
-    us-270  Black soldiers in the Revolutionary War
+    us-270  1st Rhode Island Regiment
     us-271  Dunmore's Proclamation
-    us-272  Women in the American Revolution
-    us-273  The loyalist exodus
-    us-274  The cost of the Revolutionary War
-    us-275  How radical was the American Revolution?
+    us-272  Deborah Sampson
+    us-273  United Empire Loyalist
+    us-274  Continental currency
+    us-275  Pennsylvania Constitution of 1776
 
 ### The Constitution — `us-constitution`
 
     us-276  Articles of Confederation
-    us-277  The Confederation Congress
-    us-278  The weaknesses of the Confederation
+    us-277  Congress of the Confederation
+    us-278  Newburgh Conspiracy
     us-279  Land Ordinance of 1785
     us-280  Northwest Ordinance
     us-281  Shays' Rebellion
@@ -959,19 +959,19 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-285  New Jersey Plan
     us-286  Connecticut Compromise
     us-287  Three-fifths Compromise
-    us-288  The Constitution and slavery
+    us-288  Fugitive Slave Clause
     us-289  Separation of powers
-    us-290  Checks and balances
-    us-291  Federalism in the United States
-    us-292  Article One and the Congress
-    us-293  Article Two and the presidency
-    us-294  United States Electoral College
-    us-295  Article Three and the judiciary
+    us-290  Federalist No. 51
+    us-291  Federalism
+    us-292  Article One of the United States Constitution
+    us-293  Article Two of the United States Constitution
+    us-294  Electoral College
+    us-295  Article Three of the United States Constitution
     us-296  Supremacy Clause
-    us-297  The amendment process
+    us-297  Article Five of the United States Constitution
     us-298  James Madison
     us-299  Alexander Hamilton
-    us-300  The Federalist Papers
+    us-300  Federalist Papers
     us-301  Federalist No. 10
     us-302  Anti-Federalism
     us-303  The ratification debate

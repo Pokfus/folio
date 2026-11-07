@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-07T03:16Z",
+ "generated": "2026-11-07T03:59Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5880,
-  "redirect-broader": 549,
-  "redirect-variant": 359,
-  "section-redirect": 118,
+  "ok": 5971,
+  "redirect-broader": 553,
+  "redirect-variant": 363,
+  "section-redirect": 119,
   "disambiguation": 145,
   "none": 986,
   "disambig-resolved": 83,
@@ -65700,6 +65700,720 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Age of the Solar System"
+  },
+  "us-201": {
+   "answer": "Battle of the Plains of Abraham",
+   "title": "Battle of the Plains of Abraham",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Plains_of_Abraham",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-202": {
+   "answer": "Treaty of Paris (1763)",
+   "title": "Treaty of Paris (1763)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1763)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-203": {
+   "answer": "Province of Quebec",
+   "title": "Province of Quebec (1763–1791)",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Quebec_(1763%E2%80%931791)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-204": {
+   "answer": "colonial militia",
+   "title": "Militia (United States)",
+   "url": "https://en.wikipedia.org/wiki/Militia_(United_States)",
+   "via": "manual",
+   "status": "ok",
+   "from": "Colonial militia",
+   "manual": true
+  },
+  "us-205": {
+   "answer": "rights of Englishmen",
+   "title": "Rights of Englishmen",
+   "url": "https://en.wikipedia.org/wiki/Rights_of_Englishmen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-206": {
+   "answer": "George III",
+   "title": "George III",
+   "url": "https://en.wikipedia.org/wiki/George_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-207": {
+   "answer": "George Grenville",
+   "title": "George Grenville",
+   "url": "https://en.wikipedia.org/wiki/George_Grenville",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-208": {
+   "answer": "Sugar Act",
+   "title": "Sugar Act",
+   "url": "https://en.wikipedia.org/wiki/Sugar_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-209": {
+   "answer": "Stamp Act",
+   "title": "Stamp Act 1765",
+   "url": "https://en.wikipedia.org/wiki/Stamp_Act_1765",
+   "via": "manual",
+   "status": "ok",
+   "from": "Stamp Act",
+   "manual": true
+  },
+  "us-210": {
+   "answer": "Stamp Act Congress",
+   "title": "Stamp Act Congress",
+   "url": "https://en.wikipedia.org/wiki/Stamp_Act_Congress",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-211": {
+   "answer": "Sons of Liberty",
+   "title": "Sons of Liberty",
+   "url": "https://en.wikipedia.org/wiki/Sons_of_Liberty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-212": {
+   "answer": "No taxation without representation",
+   "title": "No taxation without representation",
+   "url": "https://en.wikipedia.org/wiki/No_taxation_without_representation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-213": {
+   "answer": "Virtual representation",
+   "title": "Virtual representation",
+   "url": "https://en.wikipedia.org/wiki/Virtual_representation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-214": {
+   "answer": "Declaratory Act",
+   "title": "Declaratory Act",
+   "url": "https://en.wikipedia.org/wiki/Declaratory_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-215": {
+   "answer": "Townshend Acts",
+   "title": "Townshend Acts",
+   "url": "https://en.wikipedia.org/wiki/Townshend_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-216": {
+   "answer": "Boston Non-Importation Agreement",
+   "title": "Boston Non-importation agreement",
+   "url": "https://en.wikipedia.org/wiki/Boston_Non-importation_agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-217": {
+   "answer": "Daughters of Liberty",
+   "title": "Daughters of Liberty",
+   "url": "https://en.wikipedia.org/wiki/Daughters_of_Liberty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-218": {
+   "answer": "Boston Massacre",
+   "title": "Boston Massacre",
+   "url": "https://en.wikipedia.org/wiki/Boston_Massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-219": {
+   "answer": "Thomas Preston",
+   "title": "Thomas Preston (British Army officer)",
+   "url": "https://en.wikipedia.org/wiki/Thomas_Preston_(British_Army_officer)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-220": {
+   "answer": "Gaspee Affair",
+   "title": "Gaspee affair",
+   "url": "https://en.wikipedia.org/wiki/Gaspee_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-221": {
+   "answer": "committees of correspondence",
+   "title": "Committees of correspondence",
+   "url": "https://en.wikipedia.org/wiki/Committees_of_correspondence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-222": {
+   "answer": "Tea Act",
+   "title": "Tea Act",
+   "url": "https://en.wikipedia.org/wiki/Tea_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-223": {
+   "answer": "Boston Tea Party",
+   "title": "Boston Tea Party",
+   "url": "https://en.wikipedia.org/wiki/Boston_Tea_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-224": {
+   "answer": "Intolerable Acts",
+   "title": "Intolerable Acts",
+   "url": "https://en.wikipedia.org/wiki/Intolerable_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-225": {
+   "answer": "Quebec Act",
+   "title": "Quebec Act",
+   "url": "https://en.wikipedia.org/wiki/Quebec_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-226": {
+   "answer": "First Continental Congress",
+   "title": "First Continental Congress",
+   "url": "https://en.wikipedia.org/wiki/First_Continental_Congress",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-227": {
+   "answer": "Continental Association",
+   "title": "Continental Association",
+   "url": "https://en.wikipedia.org/wiki/Continental_Association",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-228": {
+   "answer": "Loyalists",
+   "title": "Loyalist (American Revolution)",
+   "url": "https://en.wikipedia.org/wiki/Loyalist_(American_Revolution)",
+   "via": "manual",
+   "status": "ok",
+   "from": "Loyalists",
+   "manual": true
+  },
+  "us-229": {
+   "answer": "Common Sense",
+   "title": "Common Sense",
+   "url": "https://en.wikipedia.org/wiki/Common_Sense",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Common Sense (pamphlet)"
+  },
+  "us-230": {
+   "answer": "Thomas Paine",
+   "title": "Thomas Paine",
+   "url": "https://en.wikipedia.org/wiki/Thomas_Paine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-231": {
+   "answer": "Battles of Lexington and Concord",
+   "title": "Battles of Lexington and Concord",
+   "url": "https://en.wikipedia.org/wiki/Battles_of_Lexington_and_Concord",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-232": {
+   "answer": "Concord Hymn",
+   "title": "Concord Hymn",
+   "url": "https://en.wikipedia.org/wiki/Concord_Hymn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-233": {
+   "answer": "Second Continental Congress",
+   "title": "Second Continental Congress",
+   "url": "https://en.wikipedia.org/wiki/Second_Continental_Congress",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-234": {
+   "answer": "Olive Branch Petition",
+   "title": "Olive Branch Petition",
+   "url": "https://en.wikipedia.org/wiki/Olive_Branch_Petition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-235": {
+   "answer": "Declaration of the Causes and Necessity of Taking Up Arms",
+   "title": "Declaration of the Causes and Necessity of Taking Up Arms",
+   "url": "https://en.wikipedia.org/wiki/Declaration_of_the_Causes_and_Necessity_of_Taking_Up_Arms",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-236": {
+   "answer": "American Revolutionary War",
+   "title": "American Revolutionary War",
+   "url": "https://en.wikipedia.org/wiki/American_Revolutionary_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-237": {
+   "answer": "Siege of Boston",
+   "title": "Siege of Boston",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Boston",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-238": {
+   "answer": "Battle of Bunker Hill",
+   "title": "Battle of Bunker Hill",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bunker_Hill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-239": {
+   "answer": "George Washington",
+   "title": "George Washington",
+   "url": "https://en.wikipedia.org/wiki/George_Washington",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-240": {
+   "answer": "Continental Army",
+   "title": "Continental Army",
+   "url": "https://en.wikipedia.org/wiki/Continental_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-241": {
+   "answer": "Invasion of Quebec",
+   "title": "Invasion of Quebec (1775)",
+   "url": "https://en.wikipedia.org/wiki/Invasion_of_Quebec_(1775)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-242": {
+   "answer": "United States Declaration of Independence",
+   "title": "United States Declaration of Independence",
+   "url": "https://en.wikipedia.org/wiki/United_States_Declaration_of_Independence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-243": {
+   "answer": "Committee of Five",
+   "title": "Committee of Five",
+   "url": "https://en.wikipedia.org/wiki/Committee_of_Five",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-244": {
+   "answer": "Thomas Jefferson",
+   "title": "Thomas Jefferson",
+   "url": "https://en.wikipedia.org/wiki/Thomas_Jefferson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-245": {
+   "answer": "All men are created equal",
+   "title": "All men are created equal",
+   "url": "https://en.wikipedia.org/wiki/All_men_are_created_equal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-246": {
+   "answer": "Grievances of the United States Declaration of Independence",
+   "title": "Grievances of the United States Declaration of Independence",
+   "url": "https://en.wikipedia.org/wiki/Grievances_of_the_United_States_Declaration_of_Independence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-247": {
+   "answer": "Battle of Long Island",
+   "title": "Battle of Long Island",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Long_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-248": {
+   "answer": "American Crisis",
+   "title": "The American Crisis",
+   "url": "https://en.wikipedia.org/wiki/The_American_Crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-249": {
+   "answer": "Battle of Trenton",
+   "title": "Battle of Trenton",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Trenton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-250": {
+   "answer": "Battle of Princeton",
+   "title": "Battle of Princeton",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Princeton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-251": {
+   "answer": "Saratoga campaign",
+   "title": "Saratoga campaign",
+   "url": "https://en.wikipedia.org/wiki/Saratoga_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-252": {
+   "answer": "Battles of Saratoga",
+   "title": "Battles of Saratoga",
+   "url": "https://en.wikipedia.org/wiki/Battles_of_Saratoga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-253": {
+   "answer": "Franco-American alliance",
+   "title": "Franco-American alliance",
+   "url": "https://en.wikipedia.org/wiki/Franco-American_alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-254": {
+   "answer": "Treaty of Amity and Commerce",
+   "title": "Treaty of Amity and Commerce (France–United States)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Amity_and_Commerce_(France%E2%80%93United_States)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Treaty of Amity and Commerce (United States–France)"
+  },
+  "us-255": {
+   "answer": "Valley Forge",
+   "title": "Valley Forge",
+   "url": "https://en.wikipedia.org/wiki/Valley_Forge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-256": {
+   "answer": "Friedrich Wilhelm von Steuben",
+   "title": "Friedrich Wilhelm von Steuben",
+   "url": "https://en.wikipedia.org/wiki/Friedrich_Wilhelm_von_Steuben",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-257": {
+   "answer": "Southern theatre of the American Revolutionary War",
+   "title": "Southern theater of the American Revolutionary War",
+   "url": "https://en.wikipedia.org/wiki/Southern_theater_of_the_American_Revolutionary_War",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Southern theatre of the American Revolutionary War"
+  },
+  "us-258": {
+   "answer": "Siege of Charleston",
+   "title": "Siege of Charleston",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Charleston",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-259": {
+   "answer": "Battle of Camden",
+   "title": "Battle of Camden",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Camden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-260": {
+   "answer": "Nathanael Greene",
+   "title": "Nathanael Greene",
+   "url": "https://en.wikipedia.org/wiki/Nathanael_Greene",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-261": {
+   "answer": "Francis Marion",
+   "title": "Francis Marion",
+   "url": "https://en.wikipedia.org/wiki/Francis_Marion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-262": {
+   "answer": "Battle of Cowpens",
+   "title": "Battle of Cowpens",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Cowpens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-263": {
+   "answer": "Battle of Guilford Court House",
+   "title": "Battle of Guilford Court House",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Guilford_Court_House",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-264": {
+   "answer": "Continental Navy",
+   "title": "Continental Navy",
+   "url": "https://en.wikipedia.org/wiki/Continental_Navy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-265": {
+   "answer": "John Paul Jones",
+   "title": "John Paul Jones",
+   "url": "https://en.wikipedia.org/wiki/John_Paul_Jones",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-266": {
+   "answer": "Benedict Arnold",
+   "title": "Benedict Arnold",
+   "url": "https://en.wikipedia.org/wiki/Benedict_Arnold",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-267": {
+   "answer": "Siege of Yorktown",
+   "title": "Siege of Yorktown",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Yorktown",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-268": {
+   "answer": "Surrender of Lord Cornwallis",
+   "title": "Surrender of Lord Cornwallis",
+   "url": "https://en.wikipedia.org/wiki/Surrender_of_Lord_Cornwallis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-269": {
+   "answer": "Treaty of Paris (1783)",
+   "title": "Treaty of Paris (1783)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1783)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-270": {
+   "answer": "1st Rhode Island Regiment",
+   "title": "1st Rhode Island Regiment",
+   "url": "https://en.wikipedia.org/wiki/1st_Rhode_Island_Regiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-271": {
+   "answer": "Dunmore's Proclamation",
+   "title": "Dunmore's Proclamation",
+   "url": "https://en.wikipedia.org/wiki/Dunmore's_Proclamation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-272": {
+   "answer": "Deborah Sampson",
+   "title": "Deborah Sampson",
+   "url": "https://en.wikipedia.org/wiki/Deborah_Sampson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-273": {
+   "answer": "United Empire Loyalist",
+   "title": "United Empire Loyalist",
+   "url": "https://en.wikipedia.org/wiki/United_Empire_Loyalist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-274": {
+   "answer": "Continental currency",
+   "title": "Early American currency",
+   "url": "https://en.wikipedia.org/wiki/Early_American_currency",
+   "via": "manual",
+   "status": "ok",
+   "from": "Continental currency",
+   "target": "Early American currency#Continental currency",
+   "manual": true
+  },
+  "us-275": {
+   "answer": "Pennsylvania Constitution of 1776",
+   "title": "Pennsylvania Constitution of 1776",
+   "url": "https://en.wikipedia.org/wiki/Pennsylvania_Constitution_of_1776",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-276": {
+   "answer": "Articles of Confederation",
+   "title": "Articles of Confederation",
+   "url": "https://en.wikipedia.org/wiki/Articles_of_Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-277": {
+   "answer": "Congress of the Confederation",
+   "title": "Congress of the Confederation",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_the_Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-278": {
+   "answer": "Newburgh Conspiracy",
+   "title": "Newburgh Conspiracy",
+   "url": "https://en.wikipedia.org/wiki/Newburgh_Conspiracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-279": {
+   "answer": "Land Ordinance of 1785",
+   "title": "Land Ordinance of 1785",
+   "url": "https://en.wikipedia.org/wiki/Land_Ordinance_of_1785",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-280": {
+   "answer": "Northwest Ordinance",
+   "title": "Northwest Ordinance",
+   "url": "https://en.wikipedia.org/wiki/Northwest_Ordinance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-281": {
+   "answer": "Shays' Rebellion",
+   "title": "Shays's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Shays's_Rebellion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Shays' Rebellion"
+  },
+  "us-282": {
+   "answer": "Annapolis Convention",
+   "title": "Annapolis Convention (1786)",
+   "url": "https://en.wikipedia.org/wiki/Annapolis_Convention_(1786)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-283": {
+   "answer": "Constitutional Convention",
+   "title": "Constitutional Convention (United States)",
+   "url": "https://en.wikipedia.org/wiki/Constitutional_Convention_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-284": {
+   "answer": "Virginia Plan",
+   "title": "Virginia Plan",
+   "url": "https://en.wikipedia.org/wiki/Virginia_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-285": {
+   "answer": "New Jersey Plan",
+   "title": "New Jersey Plan",
+   "url": "https://en.wikipedia.org/wiki/New_Jersey_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-286": {
+   "answer": "Connecticut Compromise",
+   "title": "Connecticut Compromise",
+   "url": "https://en.wikipedia.org/wiki/Connecticut_Compromise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-287": {
+   "answer": "Three-fifths Compromise",
+   "title": "Three-fifths Compromise",
+   "url": "https://en.wikipedia.org/wiki/Three-fifths_Compromise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-288": {
+   "answer": "Fugitive Slave Clause",
+   "title": "Fugitive Slave Clause",
+   "url": "https://en.wikipedia.org/wiki/Fugitive_Slave_Clause",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-289": {
+   "answer": "separation of powers",
+   "title": "Separation of powers",
+   "url": "https://en.wikipedia.org/wiki/Separation_of_powers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-290": {
+   "answer": "Federalist No. 51",
+   "title": "Federalist No. 51",
+   "url": "https://en.wikipedia.org/wiki/Federalist_No._51",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-291": {
+   "answer": "federalism",
+   "title": "Federalism",
+   "url": "https://en.wikipedia.org/wiki/Federalism",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-292": {
+   "answer": "Article One of the United States Constitution",
+   "title": "Article One of the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Article_One_of_the_United_States_Constitution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-293": {
+   "answer": "Article Two of the United States Constitution",
+   "title": "Article Two of the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Article_Two_of_the_United_States_Constitution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-294": {
+   "answer": "Electoral College",
+   "title": "Electoral college",
+   "url": "https://en.wikipedia.org/wiki/Electoral_college",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Electoral College"
+  },
+  "us-295": {
+   "answer": "Article Three of the United States Constitution",
+   "title": "Article Three of the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Article_Three_of_the_United_States_Constitution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-296": {
+   "answer": "Supremacy Clause",
+   "title": "Supremacy Clause",
+   "url": "https://en.wikipedia.org/wiki/Supremacy_Clause",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-297": {
+   "answer": "Article Five of the United States Constitution",
+   "title": "Article Five of the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Article_Five_of_the_United_States_Constitution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-298": {
+   "answer": "James Madison",
+   "title": "James Madison",
+   "url": "https://en.wikipedia.org/wiki/James_Madison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-299": {
+   "answer": "Alexander Hamilton",
+   "title": "Alexander Hamilton",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Hamilton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-300": {
+   "answer": "Federalist Papers",
+   "title": "The Federalist Papers",
+   "url": "https://en.wikipedia.org/wiki/The_Federalist_Papers",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

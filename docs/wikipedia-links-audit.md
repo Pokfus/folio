@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5880 | the title is the article |
-| `redirect-variant` | 359 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5971 | the title is the article |
+| `redirect-variant` | 363 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 549 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 553 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 118 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 119 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 145 | only a disambiguation page; no link could be chosen |
 | `none` | 986 | nothing matched; no link |
 
-**6885 of 8150 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6984 of 8250 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (549)
+## Redirected to a differently named article — check each (553)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -479,6 +479,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-136` **headright system** → [Headright](https://en.wikipedia.org/wiki/Headright) (from `Headright system`)
 - `us-171` **Observations Concerning the Increase of Mankind** → [Observations Concerning the Increase of Mankind, Peopling of Countries, etc.](https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.) (from `Observations Concerning the Increase of Mankind`)
 - `us-173` **Eliza Lucas Pinckney** → [Eliza Lucas](https://en.wikipedia.org/wiki/Eliza_Lucas) (from `Eliza Lucas Pinckney`)
+- `us-204` **colonial militia** → [Colonial troops](https://en.wikipedia.org/wiki/Colonial_troops) (from `Colonial militia`)
+- `us-228` **Loyalists** → [Loyalism](https://en.wikipedia.org/wiki/Loyalism) (from `Loyalists`)
+- `us-257` **Southern theatre of the American Revolutionary War** → [Southern theater of the American Revolutionary War](https://en.wikipedia.org/wiki/Southern_theater_of_the_American_Revolutionary_War) (from `Southern theatre of the American Revolutionary War`)
+- `us-281` **Shays' Rebellion** → [Shays's Rebellion](https://en.wikipedia.org/wiki/Shays's_Rebellion) (from `Shays' Rebellion`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -855,7 +859,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (118)
+## Section redirects — no dedicated page (119)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -961,6 +965,7 @@ Wikipedia treats these as part of another article. No link.
 - `rm-930` **superstitio** — `Superstitio` only redirects into `Glossary of ancient Roman religion#superstitio`
 - `rm-938` **satura** — `Satura` only redirects into `Satire#Term`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
+- `us-274` **Continental currency** — `Continental currency` only redirects into `Early American currency#Continental currency`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
