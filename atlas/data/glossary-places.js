@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0fb9d4d3b03f37c1","counts":{"terms":931,"points":694,"countries":237,"windows":1428,"faces":380,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3efe9dfeaec65c87","counts":{"terms":931,"points":694,"countries":237,"windows":1429,"faces":380,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1747,6 +1747,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0fb9d4d3b03f37c1","counts":
 "Mont_Blanc":[6.865,45.833,"coord",0,0,0],
 "Montana":[-110.044,46.997,"admin1","adm1:usa:us-mt",0,8.31],
 "Monte_Albán":[-96.768,17.044,"coord",0,0,0],
+"Monte_Cassino":[13.814,41.49,"coord",0,0,0],
 "Monte_Testaccio":[12.476,41.876,"site",0,0,0],
 "Monte_Verde":[-73.204,-41.505,"site",0,0,0],
 "Montenegro":[19.14,42.8,"country","adm0:mne",0,40],
