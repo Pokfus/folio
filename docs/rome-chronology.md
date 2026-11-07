@@ -350,6 +350,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the denarius: Pliny's year, as one modern history converts it | 269 BCE | `rm-748` |
 | the Parthian Empire: the Arsacid era begins | 247 BCE | `rm-773` |
 | tutela mulierum: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-795` |
+| Ostia founded (tradition) / the castrum built | 620 BCE / c. 400 – 200 BCE | `rm-847` |
 
 ## The middle and late Republic
 
@@ -482,6 +483,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the frumentatio: cheap sales / made free / the roll cut | 123 BCE / 58 BCE / 46 BCE | `rm-815` |
 | Archagathus, the first Greek physician at Rome (Pliny after Cassius Hemina; the year 535 from the founding on Varro's epoch) | 219 BCE | `rm-821` |
 | the Tabula Heracleensis's Latin law (Crawford's range) | 80 – 43 BCE | `rm-834` |
+| the macellum: the first market at Rome burned | 210 BCE | `rm-842` |
+| the lex Claudia: dated (Livy's narrative) / also dated (one modern view) | 218 BCE / 219 BCE | `rm-845` |
 
 ## The Principate
 
@@ -745,6 +748,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the fourteen regions created | 7 BCE | `rm-828` |
 | Marcus Egnatius Rufus: aedile (Dio's placing, per Syme and Stuart Jones) / also dated (Stuart Jones) / executed | 26 BCE / 21 BCE / 19 BCE | `rm-835` |
 | curatores alvei Tiberis: the first standing board | 15 CE | `rm-836` |
+| the Horologium Augusti: the obelisk set up / the meridian found | 10 BCE / 1980 | `rm-841` |
+| Portus begun / Trajan's hexagon built | 42 CE / 100 – 112 CE | `rm-848` |
+| terra sigillata first made at Arezzo | c. 40 – 30 BCE | `rm-850` |
 
 ## Late Antiquity
 
@@ -1586,4 +1592,10 @@ rm-828: 7
 rm-834: 80; 43; 1732
 rm-835: 26; 21; 19
 rm-836: 15
+rm-841: 10; 1980
+rm-842: 210
+rm-845: 218; 219
+rm-847: 620; 400; 200
+rm-848: 42; 100; 112
+rm-850: 40; 30
 ```

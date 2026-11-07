@@ -10956,7 +10956,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Marcus_Egnatius_Rufus": "died 19 BCE",
 "Solarium_Augusti": "10 BCE",
 "Lex_Claudia_(218_BC)": "218 BCE",
-"Terra_sigillata": "c. 1 – 300 CE",
+"Terra_sigillata": "c. 40 – 30 BCE",
 "Circus_of_Maxentius": "c. 306–312 CE",
 "Decimus_Laberius": "died 43 BCE",
 "Baths_of_Diocletian": "298–306 CE",

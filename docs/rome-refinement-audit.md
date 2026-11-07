@@ -216,7 +216,7 @@ order unless the user says otherwise.
 | B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | **done 2026-11-07** |
 | B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | **done 2026-11-07** |
 | B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | **done 2026-11-07** |
-| B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | open |
+| B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | **done 2026-11-07** |
 | B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | open |
 | B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | open |
 | B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | open |
@@ -1110,6 +1110,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-838` forica | none | not re-checked: the card has no picture; the latrine at Ostia would do |
 | `rm-839` castellum aquae | none | not re-checked: the card has no picture; the castellum at Pompeii would do |
 | `rm-840` hora | none | not re-checked: the card has no picture; a Roman sundial would do |
+| `rm-841` Horologium Augusti | none | not re-checked: the card has no picture; the obelisk at Montecitorio would do |
+| `rm-842` macellum | none | not re-checked: the card has no picture; the macellum at Pozzuoli would do |
+| `rm-843` taberna | none | not re-checked: the card has no picture; a shop front at Ostia or Herculaneum would do |
+| `rm-844` fullonica | none | not re-checked: the card has no picture; the Fullonica of Stephanus would do |
+| `rm-845` lex Claudia | none | not re-checked: the card has no picture |
+| `rm-846` navicularius | none | not re-checked: the card has no picture; a shippers' mosaic from the Square of the Corporations would do |
+| `rm-847` Ostia | none | not re-checked: the card has no picture |
+| `rm-848` Portus | none | not re-checked: the card has no picture; Trajan's hexagonal basin would do |
+| `rm-849` amphora | none | not re-checked: the card has no picture; its glossary term's picture is a Greek Panathenaic prize amphora with a description naming the museum and licence, worth replacing |
+| `rm-850` terra sigillata | none | not re-checked: the card has no picture; an Arretine bowl would do |
 
 ## Glossary candidates
 
@@ -3066,3 +3076,22 @@ Run as B83. `rm-831` was given three new questions (all three old ones were sibl
 | `rm-840` hora | 6 | 6 → 7 | **Seasonal hours lasted through antiquity into the Middle Ages (the old "equal hours in late antiquity" goes); the parasite's play one Gellius believed Plautus's**; Martial's day; Pliny's sundials of 263, 164 and 159 BCE in prose, not on the line. |
 
 **Read by eye.** *Confusability:* `rm-831`/`rm-832`/`rm-833` the hall (the five roofs), the villa (Laurentum) and the garden (the topiary names); `rm-834`/`rm-835`/`rm-836` the street law (the wagons), the fire-fighting aedile (the gladiator jibe) and the river board (the boundary stone); `rm-837`/`rm-838`/`rm-839` the sewer goddess (the coins), the latrine (Juvenal's contracts) and the water tower (Frontinus's 247); `rm-840`/`rm-841` the hour (Martial) and the obelisk (the gilded ball). *Legend:* Cloacina's myrtle and Tatius. *Overlap:* no `gr-` or `wh-` card disagrees. The `L.missing` on `rm-831`, `rm-832`, `rm-838` and `rm-840` is deliberate: a room, a building type, a latrine and an hour have no one site. The hortus's and the river board's existing points go to the locator note at the end of the hundred.
+
+### B85 — `rm-841`–`rm-850`, The Roman city and daily life: the Horologium Augusti to terra sigillata (2026-11-07)
+
+Run as B84. The 300-amphora law stayed with `rm-845` (out of `rm-849`), the Square of the Corporations with `rm-846` (out of `rm-847`), Monte Testaccio with `rm-534` and the Ancus inscription with `rm-065`. After applying, two questions were re-worded and re-applied because check-cards read a two-word capitalised phrase as a modern scholar: `rm-842`'s "MAC AVG" and `rm-844`'s "Mercury Street". `rm-842`'s second row ("Great market 59 CE", Nero's building) was cut before applying: one building's dedication does not date the market type. **The old date lines carried another event three times ("Shields hung 310 BCE", Livy's Samnite shields, on the taberna; "Storm 62 CE" on Portus; the Metilian law's dictionary year on the fullery), two men in labels ("Fulvius' market", "Nero's market"), an unsourced "Main period c. 1 – 300 CE" and a range of two events for Ostia's fort.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-841` Horologium Augusti | 6 | 7 → 7 | **Obelisk set up 10 BCE and Meridian found 1980; Buchner's sundial reaching the Ara Pacis is his reading, against the meridian-only view and a possible Flavian rebuild; the obelisk's 6th century BCE, not Platner's 7th**; Pliny's gilded ball; the Sun dedication; earthquake or floods. |
+| `rm-842` macellum | 6 | 6 → 8 | **The men out of the line: Market burned 210 BCE only; Fulvius's market of 179 BCE in prose; the Santo Stefano and "macellarius" claims go**; Terence's sponger; Varro's merged markets and the thief Macellus; Nero's coins. |
+| `rm-843` taberna | 6 | 6 → 7 | **"Shields hung 310 BCE" was Livy's shields: no line; the state-owned shops left to `rm-853`; Martial a flatterer of Domitian, Livy's Tarquinius tradition**; shutters and mezzanines; the standard street-front row spreading from Pompeii. |
+| `rm-844` fullonica | 6 | 6 → 6 | **The Metilian law's year a modern reckoning (Pliny names only the censors): no line; Martial, Varro and the urine tax go**; Seneca's fuller's jump in its list of exercises; the Pompeian paintings; the Fullonica of Stephanus. |
+| `rm-845` lex Claudia | 5 | 5 → 6 | **The tribune is Quintus Claudius (Roberts's "Gaius" a slip); Dated 218 BCE and Also dated 219 BCE (Wolny); the year out of a question**; Livy's 300 amphorae; Flaminius alone; Cicero's "old and dead laws". The card's quote block says "father of a senator", a mistranslation the card does not follow (not edited). |
+| `rm-846` navicularius | 5 | 5 → 6 | **The 10,000 pecks and six years are Gaius's, not Suetonius's: the glossary corrected; Dio goes; the 4th-century compulsory and hereditary guilds (Waltzing, in French)**; the Square of the Corporations; the Digest's exemption. |
+| `rm-847` Ostia | 7 | 7 → 7 | **Traditional 620 BCE and Castrum built c. 400 – 200 BCE (a 4th- or 3rd-century fort), not "c. 292 – 278 BCE", one hypothesis; Smith and the quaestor passage go**; Strabo's harbourless shore; Hadrian as chief magistrate; no simple late decline (Boin, reviewed). |
+| `rm-848` Portus | 6 | 6 → 8 | **"Storm 62 CE" another event: Begun 42 CE and Hexagon built 100 – 112 CE; Tacitus's 200 ships his figure, a tsunami one modern view**; the lighthouse on the obelisk ship; Dio's architects; Nero's sestertius (OCRE). |
+| `rm-849` amphora | 7 | 7 → 7 | **The Capitoline standard rests on Festus's Silian law; the Historia Augusta's amphora hedged; the coffins (one 1825 find) and the glossary's Homeric gold go**; tituli picti; the pitch lining and pointed foot. |
+| `rm-850` terra sigillata | 6 | 6 → 6 | **First made c. 40 – 30 BCE at Arezzo (a 2026 study), not an unsourced main period; the name a faux-Latin 19th-century label; slave labour a modern inference from the stamps; the 7 by 7 m kiln goes**; La Graufesenque's firing lists; Martial's Arretine vases. |
+
+**Read by eye.** *Confusability:* `rm-841`/`rm-840` the obelisk and the hour; `rm-842`/`rm-843`/`rm-844` the market (Terence), the shop (the shutters) and the fullery (the jump); `rm-845`/`rm-846`/`rm-847`/`rm-848`/`rm-849` the shipping law (the 300 amphorae), the shipper (Gaius's 10,000 pecks), Ostia (the harbourless shore), Portus (the obelisk ship) and the jar (Festus's standard); `rm-850` the red ware. *Legend:* Ostia's founding by Ancus is tradition. *Overlap:* no `gr-` or `wh-` card disagrees. The `L.missing` on `rm-842`, `rm-843`, `rm-844` and `rm-850` is deliberate (building types and a ware).
