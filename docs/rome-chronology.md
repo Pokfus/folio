@@ -535,6 +535,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Propertius born (a guess) | c. 50 BCE | `rm-957` |
 | the Tomb of Eurysaces built (the Capitoline Museums) / found | c. 40 – 30 BCE / 1838 | `rm-971` |
 | the Pompeian styles (Mau): the first / the second begins / the fourth / the scheme published | c. 200 – 90 BCE / c. 80 BCE / c. 50 – 79 CE / 1882 | `rm-977` |
+| the Basilica Aemilia: contracted / rebuilt by Paullus / burned | 179 BCE / 55 – 34 BCE / 14 BCE | `rm-984` |
+| the Aqua Marcia: built / restored by Titus (Platner) | 144 – 140 BCE / 79 CE | `rm-988` |
 
 ## The Principate
 
@@ -835,6 +837,11 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Farnese Hercules: the Greek type / the copy carved / the Farnese dig began / the legs replaced | c. 400 – 300 BCE / c. 200 – 300 CE / 1545 / 1787 | `rm-975` |
 | the House of the Vettii: buried / excavated / also dated / reopened | 79 CE / 1894 – 1895 / 1894 – 1896 / 2023 | `rm-976` |
 | the Maison Carrée: one dating (Livius) / the inscription read / Jefferson's Capitol design | 20 BCE / 1758 / 1785 | `rm-979` |
+| the Composite order codified (Serlio's fourth book) | 1537 | `rm-983` |
+| the Arch of Septimius Severus dedicated | 203 CE | `rm-986` |
+| the Column of Antoninus Pius: shaft quarried / dedicated / base found | 106 CE / c. 161 CE / 1703 | `rm-987` |
+| the Pont du Gard: built (the 1984–90 research) / World Heritage | c. 40 – 80 CE / 1985 | `rm-989` |
+| Frontinus: urban praetor / water commissioner / died / also dated | 70 CE / 97 CE / 103 CE / 104 CE | `rm-990` |
 
 ## Late Antiquity
 
@@ -1774,4 +1781,11 @@ rm-976: 79; 1894; 1895; 1896; 2023
 rm-977: 200; 90; 80; 50; 79; 1882
 rm-978: 320; 330; 370; 395; 380; 1950; 1954
 rm-979: 20; 1758; 1785
+rm-983: 1537
+rm-984: 179; 55; 34; 14
+rm-986: 203
+rm-987: 106; 161; 1703
+rm-988: 144; 140; 79
+rm-989: 40; 80; 1985
+rm-990: 70; 97; 103; 104
 ```
