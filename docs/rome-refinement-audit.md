@@ -226,7 +226,7 @@ order unless the user says otherwise.
 | B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | **done 2026-11-07** |
 | B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | **done 2026-11-07** |
 | B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | **done 2026-11-07** |
-| B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | open |
+| B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | **done 2026-11-07** |
 | B96 | Latin literature and thought (`rm-literature`) | `rm-951`–`rm-960` | 10 | 83 | open |
 | B97 | Latin literature and thought (`rm-literature`) | `rm-961`–`rm-970` | 10 | 67 | open |
 | B98 | Art, architecture and engineering (`rm-arts`) | `rm-971`–`rm-980` | 10 | 86 | open |
@@ -1210,6 +1210,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-938` satura | none | not re-checked: the card has no picture |
 | `rm-939` Gaius Lucilius | none | not re-checked: the card has no picture |
 | `rm-940` Quintus Fabius Pictor | none | not re-checked: the card has no picture |
+| `rm-941` Philippicae | none | not re-checked: the card has no picture |
+| `rm-942` Epistulae ad Atticum | none | not re-checked: the card has no picture |
+| `rm-943` De officiis | none | not re-checked: the card has no picture; a page of the 1465 Mainz printing would do |
+| `rm-944` Rhetorica ad Herennium | none | not re-checked: the card has no picture |
+| `rm-945` De rerum natura | none | not re-checked: the card has no picture |
+| `rm-946` Catullus | none | not re-checked: the card has no picture; the glossary's Sirmione bust is a modern likeness |
+| `rm-947` neoterics | none | not re-checked: the card has no picture |
+| `rm-948` Sallust | none | not re-checked: the card has no picture; the glossary's engraving is an imagined likeness |
+| `rm-949` Virgil | none | not re-checked: the card has no picture; the glossary's Posillipo bust is a modern likeness |
+| `rm-950` Aeneid | none | not re-checked: the card has no picture; the Vergilius Vaticanus or the Virgil mosaic from Sousse would do |
 
 ## Glossary candidates
 
@@ -3375,3 +3385,22 @@ Run as B93, opening `rm-literature`. Livius's first play went to `rm-933` alone 
 | `rm-940` Quintus Fabius Pictor | 6 | 8 → 8 | **"Gallic war 225 BCE" goes (Smith alone); Embassy 216 BCE; the painter grandfather named; Cicero's dream of Aeneas dropped (another Fabius); the Taormina library list left out (behind a paywall)**; Delphi after Cannae; Polybius's "lover"; Livy's "oldest of our historians". |
 
 **Read by eye.** *Confusability:* `rm-931`/`rm-932` the period label (Velleius) and the early language (the brooch); `rm-933`/`rm-934` the first poet (the Daedalus statues) and the epic poet (the Sardinian voyage); `rm-935`/`rm-936`/`rm-937` the genre (the costume), Plautus (Varro's list) and Terence (the Hecyra); `rm-938`/`rm-939` the genre (Quintilian) and its first master (the muddy river); `rm-940` the historian (Delphi). *Legend:* Plautus's mill and Livy's account of the stage satura are the sources' stories. *Overlap:* `gr-132` agrees on Ennius's hexameter; no `gr-` card covers New Comedy's Menander (only `gr-785`, the Indo-Greek king of the name). Every card lacks a picture (`I.none`). Locators for a later pass: `rm-934`'s point is the Tomb of the Scipios (Rudiae, his birthplace, would suit a person better) and `rm-940`'s is Delphi, an embassy town, not his home.
+
+### B95 — `rm-941`–`rm-950`, Latin literature and thought: the Philippics to the Aeneid (2026-11-07)
+
+Run as B94. Antony's diadem stayed `rm-383`'s and the hands on the Rostra `rm-376`'s (out of `rm-941`), Cicero's taunt at Antony as the deified Julius's priest stayed `rm-902`'s, the Commentariolum, the exile letters and Poggio stayed off `rm-942`, Regulus stayed `rm-196`'s (out of `rm-943`), the five parts of rhetoric went to one phrasing of `rm-944` (kept off `rm-965`), Lucretius's Ennius passage to `rm-934` and Poggio's find to `rm-970` (both out of `rm-945`'s questions), Apuleius's Lesbia went (`rm-957` keeps his Cynthia), and the Life's anecdotes were shared out: the birth and epitaph to `rm-949`, the burning and Marcellus to `rm-950`, the Atella reading to `rm-951`. **The old date lines named men in labels ("Cicero's praise", "Cicero's jibe"), a place ("In Bithynia"), dated a group by one letter, and left Sallust with a death year alone; the old cards credited Nepos with sixteen books of letters (his manuscripts read eleven), called all fourteen Philippics delivered, and stated the burning of the Aeneid as fact.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-941` Philippicae | 7 | 7 → 7 | **Years out of the questions; the name attributed (Cicero accepts Brutus's jest in letters whose authenticity is doubted; Plutarch says he chose it); First speech 2 September 44 BCE and Last surviving 21 April 43 BCE (Ker's Loeb); the glossary's "all delivered" fixed; Cicero kept to two sources**; the jest; the undelivered Second; the Fourteenth after Mutina. |
+| `rm-942` Epistulae ad Atticum | 6 | 6 → 7 | **Nepos's sixteen books are Aldus's correction (the manuscripts read eleven; Rolfe's apparatus); Nepos's "from his consulship" against the real start; how they were published a debate; First letters 68 BCE, Last letters 44 BCE, Rediscovered 1345 (Petrarch at Verona, after Sandys); tertullian.org and Wikisource replaced**; Nepos's "no need of a history"; the letter to the dead Cicero; the abandoned letter to Caesar. |
+| `rm-943` De officiis | 7 | 7 → 7 | **Written 44 BCE (a reviewed edition); Panaetius's unwritten third part and Posidonius's thirty years from Book 3; the four sources of goodness and the just war added; Ambrose's 391 CE credited to his editors; the Second Philippic phrasing (`rm-941`'s) and a phrasing carrying a year go**; Cratippus; Apelles's Venus; Ambrose. |
+| `rm-944` Rhetorica ad Herennium | 6 | 6 → 7 | **The old main question gave the answer away (Herennius is in the title); Probably written c. 86 – 82 BCE (Caplan's "c.", Calboli's years); Cornificius a strong conjecture (Calboli) against Caplan's later Cornificius; Caplan's Loeb introduction added**; the poisoning-case memory image; the busy author and the five faculties; the "Second Rhetoric". |
+| `rm-945` De rerum natura | 7 | 7 → 7 | **"Cicero's praise 54 BCE" becomes First mentioned 54 BCE (the poem's own date unknown), then Rediscovered 1417; Jerome's love potion his, called a fable by modern scholars; Jerome and the Life of Vergil off the list**; the hymn to Venus; the honeyed cup; the swerve. |
+| `rm-946` Catullus | 7 | 7 → 7 | **"In Bithynia 57 BCE" becomes Lived c. 84 – 54 BCE (Jerome's 57 BCE death against the poems' 55 BCE Britain); Apuleius's Lesbia out of the questions; the Verona manuscript in prose; glossary redrafted (it cited the dead tertullian.org)**; the sparrow; Mamurra and the dinner; Sirmio. |
+| `rm-947` neoterics | 6 | 7 → 8 | **"Cicero's jibe 50 BCE" goes (a man in the label; the year a Loeb sidenote's); the label modern, some doubting the poets were ever one school; Valerius Cato, Laevius and poem 64 added**; the spondaic line at Brundisium; the singers of Euphorion; Cinna's Zmyrna. |
+| `rm-948` Sallust | 7 | 7 → 7 | **Born 86 BCE, Governor 46 BCE, Died 35 – 34 BCE (Rolfe's introduction; the birth hedged); the decline-after-Carthage phrasing goes (`rm-276`, `rm-291`); the disputed Letters to Caesar and the Invective added**; Appius Claudius and the Numidian plunder; Lenaeus's satire; the gardens. |
+| `rm-949` Virgil | 8 | 8 → 8 | **The Life's laurel dream, Megara fever and epitaph told as the Life's (Duff: the epitaph "credulously alleged by Donatus"); Jerome, the Lucretius entry, Pliny and Aeneid 6 replaced by Duff, Sellar and three reviews; Born 15 October 70 BCE, Died 19 BCE; glossary redrafted (it stated the burning as fact)**; the Puteoli epitaph; the ditch at Andes; Brundisium. |
+| `rm-950` Aeneid | 8 | 8 → 9 | **The burning attributed, with a reviewer calling it possibly invented; Left unfinished becomes Composed c. 29 – 19 BCE (Sellar); a phrasing naming Aeneas (a give-away) reworded; glossary redrafted**; the book-boxes; Octavia at the Marcellus lines; Pallas's belt. |
+
+**Read by eye.** *Confusability:* `rm-941`/`rm-942`/`rm-943`/`rm-944` the speeches (Brutus's jest), the letters (Nepos), the treatise to his son (Cratippus) and the handbook (the memory image); `rm-945`/`rm-946`/`rm-947` the poem (the honeyed cup), Catullus (the sparrow) and the school (Cinna's Zmyrna); `rm-948` the historian (Appius Claudius); `rm-949`/`rm-950` the poet (the Life's epitaph) and the poem (Octavia). *Legend:* the Life of Virgil's stories and Jerome's Lucretius are told as theirs. *Overlap:* `gr-693` (Demosthenes's Philippics) and `gr-641`, `gr-841`, `gr-842` (atomism, Epicurus) agree. Quote blocks: `rm-941`'s (Plutarch on the hands and the title) touches `rm-376`'s ground (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flag is an English BMCR review of a German book.

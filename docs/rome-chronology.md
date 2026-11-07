@@ -521,6 +521,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Terence: plays staged / died | 166 – 160 BCE / 159 BCE | `rm-937` |
 | Gaius Lucilius: born (the editors) / Jerome's year / died (Warmington) | c. 180 BCE / 148 BCE / 103 – 101 BCE | `rm-939` |
 | Fabius Pictor's embassy to Delphi after Cannae | 216 BCE | `rm-940` |
+| the Philippics: the first / the last surviving | 2 September 44 BCE / 21 April 43 BCE | `rm-941` |
+| the letters to Atticus: the first / the last | 68 BCE / 44 BCE | `rm-942` |
+| De officiis written | 44 BCE | `rm-943` |
+| the Rhetorica ad Herennium probably written (Caplan; Calboli) | c. 86 – 82 BCE | `rm-944` |
+| De rerum natura: first mentioned (Cicero to Quintus) | 54 BCE | `rm-945` |
+| Catullus lived | c. 84 – 54 BCE | `rm-946` |
+| Sallust: born / governor of Africa Nova / died (Rolfe) | 86 BCE / 46 BCE / 35 – 34 BCE | `rm-948` |
+| Virgil: born (the Life) / died | 15 October 70 BCE / 19 BCE | `rm-949` |
+| the Aeneid composed (Sellar) | c. 29 – 19 BCE | `rm-950` |
 
 ## The Principate
 
@@ -1703,4 +1712,13 @@ rm-936: 200; 191; 184
 rm-937: 166; 160; 159
 rm-939: 180; 148; 103; 101
 rm-940: 216
+rm-941: 44; 43
+rm-942: 68; 44; 1345
+rm-943: 44
+rm-944: 86; 82
+rm-945: 54; 1417
+rm-946: 84; 54
+rm-948: 86; 46; 35; 34
+rm-949: 70; 19
+rm-950: 29; 19
 ```
