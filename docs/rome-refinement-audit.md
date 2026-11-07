@@ -220,7 +220,7 @@ order unless the user says otherwise.
 | B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | **done 2026-11-07** |
 | B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | **done 2026-11-07** |
 | B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | **done 2026-11-07** |
-| B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | open |
+| B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | **done 2026-11-07** |
 | B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | open |
 | B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | open |
 | B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | open |
@@ -1150,6 +1150,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-878` circus factions | none | not re-checked: the card has no picture; a mosaic of the four colours' drivers would do |
 | `rm-879` Gaius Appuleius Diocles | none | not re-checked: the card has no picture |
 | `rm-880` Theatre of Pompey | none | not re-checked: the card has no picture; a plan or model of the theatre would do |
+| `rm-881` pantomimus | none | not re-checked: the card has no picture; a relief of a pantomime with masks would do |
+| `rm-882` Decimus Laberius | none | not re-checked: the card has no picture |
+| `rm-883` thermae | none | not re-checked: the card has no picture; the Baths of Caracalla or a caldarium would do |
+| `rm-884` Baths of Diocletian | none | not re-checked: the card has no picture; Santa Maria degli Angeli's hall would do |
+| `rm-885` ludus duodecim scriptorum | none | not re-checked: the card has no picture; an inscribed gaming board would do |
+| `rm-886` palaestra | none | not re-checked: the card has no picture; the Large Palaestra at Pompeii would do |
+| `rm-887` Fasti Praenestini | none | not re-checked: the card has no picture; the surviving fragments would do |
+| `rm-888` panem et circenses | none | not re-checked: the card has no picture |
+| `rm-889` pulvinar | none | not re-checked: the card has no picture |
+| `rm-890` Epistulae Morales ad Lucilium | none | not re-checked: the card has no picture; a manuscript page of the letters would do |
 
 ## Glossary candidates
 
@@ -3182,3 +3192,22 @@ Run as B87. The pity for Pompey's elephants went to `rm-873` alone (out of `rm-8
 | `rm-880` Theatre of Pompey | 7 | 8 → 8 | **All three questions named Pompey and two used siblings' clues: replaced; the temple-as-cover story Tertullian's, with Hill's doubt; Dedicated 55 BCE, Inscribed 52 BCE (Gellius), Restored 32 BCE (Platner's year; the Res Gestae gives none)**; Plutarch's Mytilene plans; Cicero's four letters. |
 
 **Read by eye.** *Confusability:* `rm-871`/`rm-868` the show (Tertullian) and the fighter; `rm-872`/`rm-875` the arena (Curio's theatres) and the sea fight (the Fucine Lake); `rm-873`/`rm-874` the hunt (the elephants' pity) and the execution (Selurus); `rm-876`/`rm-877`/`rm-878`/`rm-879` the racing (the egg markers), the circus (the Romulus inscriptions), the companies (the swapped tunics) and the driver (the monument); `rm-880` the theatre (the temple of Venus). *Legend:* none. *Overlap:* no `gr-` or `wh-` card on gladiators, chariot racing or the Colosseum disagrees.
+
+### B89 — `rm-881`–`rm-890`, Spectacle and leisure: pantomimus to the Epistulae Morales (2026-11-07)
+
+Run as B88, closing `rm-spectacle`. The catalogue's 856 balnea stayed out of `rm-883`'s questions (`rm-827`'s count), the Res Gestae's grain and shows out of `rm-888`'s (`rm-396`'s and `rm-767`'s ground) and Juvenal's "commands and consulships" out of them too (`rm-964`'s), the lectisternium out of `rm-889` (`rm-076`'s), and Seneca's arena letter 7 kept for `rm-890` alone. `rm-883`'s notes line was wrong: the 170 free baths are Pliny's figure from Agrippa's own record, not Dio's, and the card says so. **The old date lines carried a Caesar in a label ("On Caesar's stage 45 BCE"), a range for the baths' building that the inscription does not support, and no line at all on the calendar; the old cards leaned on Smith's and Harper's dictionaries for the gambling penalties, the dice, the palaestra's "contempt", the pulvinar's best view and the pantomime's mime.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-881` pantomimus | 6 | 7 → 8 | **Became an art c. 22 BCE (Friedländer's "about 22 B.C."; Jerome could not be read); pantomime is not mime; Smith and Harper go**; Pylades's retort (Dio); Lucian's five masks; Tacitus's ban on senators visiting the dancers; Macrobius (in Latin). |
+| `rm-882` Decimus Laberius | 5 | 7 → 7 | **Died 43 BCE (Smith after Jerome); the stage year 45 BCE Smith's, in prose (Suetonius gives none); "after 60 years" out of the questions; 44 titles, not Harper's 43**; the whipped Syrian's cry; the Dyrrachium jibe; "beaten by the Syrian". |
+| `rm-883` thermae | 7 | 8 → 8 | **Agrippa's 170 free baths are Pliny's figure (Dio gives none); Hadrian's separate baths the Historia Augusta's; Smith and Seneca go; five modern sources**; Dio on Agrippa's bequest; balnea against thermae; the 856 balnea in prose only. |
+| `rm-884` Baths of Diocletian | 7 | 7 → 7 | **Ordered 298 CE, Dedicated 305 – 306 CE (the inscription's titles, printed in full by Paribeni 1920, in Italian; Jerome's 302 CE judged wrong), Made a church 1563 – 1566; the size the 1929 dictionary's; the cleared area, the mound and Ammianus go**; Maximian on his return from Africa; Pius IV and the Carthusians. |
+| `rm-885` ludus duodecim scriptorum | 6 | 8 → 8 | **The Augustus clue was wrong: his loss was at the Quinquatria and Suetonius names no game; the fourfold penalty, three dice and gambling emperors (Smith only) go; the gambling law from Digest 11.5**; Ovid's board; Antonius on Mucius; the catacomb boards; two or three dice a debate. |
+| `rm-886` palaestra | 7 | 8 → 8 | **Smith's villas copying it, "held in contempt" and "never rivalled the thermae" go; the 140 m square the Pompeii park's (the only size read)**; Vitruvius's "not used in Italy" and the philosophers' recesses; Pompeii's plane trees and pool; the Campus question and Seneca go. |
+| `rm-887` Fasti Praenestini | 5 | 6 → 8 | **Set up c. 10 CE ("not much before", one view reported in a review; a 2026 study's c. 4 CE could not be read, so the date is called debated) and Found 1770; Ovid, Gellius and the Kalends go to their own cards**; Verrius's statue by the hemicycle; the temple of Flora; the A–H letters. |
+| `rm-888` panem et circenses | 8 | 8 → 8 | **A satirist's jibe, not a description or a policy; the grain figures, the Res Gestae and Pylades go; the phrase's modern use and the elite stereotype (reviewed studies)**; Sejanus's statues melted into pots; Fronto's dictum. The quote block (Suetonius) now matches no sentence (not edited). |
+| `rm-889` pulvinar | 6 | 6 → 8 | **Smith's "cubiculum" and "best view" go: the box faced the finish with the barrier's monuments in the way (a 2021 study, reviewed); built or restored by Augustus (Platner's caution)**; Augustus's letter on Claudius; the Res Gestae's list; the gods' emblems in the box; Cicero on Caesar's pulvinar. |
+| `rm-890` Epistulae Morales ad Lucilium | 7 | 7 → 8 | **Wikisource (a Wikimedia host) replaced by the Loeb on archive.org; Written c. 62 – 65 CE (the Stanford Encyclopedia), Gummere's 63 – 65 in prose; real letters or a literary fiction debated; the suicide question goes**; letter 7's midday show; Gellius's 22nd book; letter 79's Etna. |
+
+**Read by eye.** *Confusability:* `rm-881`/`rm-882` the dancer (Pylades) and the mime-writer (the Syrian slave); `rm-883`/`rm-884`/`rm-886` the baths (Agrippa's bequest), Diocletian's baths (Maximian) and the exercise court (Vitruvius); `rm-885`/`rm-887` the board game (Ovid) and the calendar (Verrius); `rm-888`/`rm-889`/`rm-890` the phrase (Sejanus), the imperial box (Claudius) and Seneca's letters (the midday show). *Legend:* none. *Overlap:* no `gr-` or `wh-` card on Roman baths disagrees. The `L.missing` on `rm-883` and `rm-886` is deliberate (building types).

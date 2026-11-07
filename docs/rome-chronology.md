@@ -498,6 +498,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | damnatio ad bestias: deserters thrown to the beasts after Carthage fell | 146 BCE | `rm-874` |
 | the naumachia: the first large show | 46 BCE | `rm-875` |
 | the Theatre of Pompey: dedicated / the temple inscribed | 55 BCE / 52 BCE | `rm-880` |
+| Decimus Laberius died (Smith after Jerome) | 43 BCE | `rm-882` |
 
 ## The Principate
 
@@ -769,6 +770,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the naumachia: the permanent basin | 2 BCE | `rm-875` |
 | Diocles: first drove / his monument (the inscription's consulships) | 122 CE / 146 CE | `rm-879` |
 | the Theatre of Pompey: restored (Platner's year) | 32 BCE | `rm-880` |
+| pantomime becomes a separate art (Friedländer) | c. 22 BCE | `rm-881` |
+| the Fasti Praenestini set up (one view) / found | c. 10 CE / 1770 | `rm-887` |
+| Seneca's Epistulae Morales written | c. 62 – 65 CE | `rm-890` |
 
 ## Late Antiquity
 
@@ -871,6 +875,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the munus: last recorded | c. 430 CE | `rm-871` |
 | venatio: last recorded | 537 CE | `rm-873` |
 | the Circus of Maxentius built (Maxentius's reign) | c. 306 – 312 CE | `rm-877` |
+| the Baths of Diocletian: ordered / dedicated / made a church | 298 CE / 305 – 306 CE / 1563 – 1566 | `rm-884` |
 
 ## Chronology pins
 
@@ -1637,4 +1642,9 @@ rm-875: 46; 2
 rm-877: 306; 312
 rm-879: 122; 146
 rm-880: 55; 52; 32
+rm-881: 22
+rm-882: 43
+rm-884: 298; 305; 306; 1563; 1566
+rm-887: 10; 1770
+rm-890: 62; 65
 ```

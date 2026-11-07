@@ -10960,7 +10960,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Circus_of_Maxentius": "c. 306–312 CE",
 "Decimus_Laberius": "died 43 BCE",
 "Baths_of_Diocletian": "298–306 CE",
-"Epistulae_Morales_ad_Lucilium": "c. 63–65 CE",
+"Epistulae_Morales_ad_Lucilium": "c. 62–65 CE",
 "Golden_Age_of_Latin_literature": "c. 70 BCE–14 CE",
 "Plautus": "c. 255–184 BCE",
 "Terence": "c. 194–159 BCE",
