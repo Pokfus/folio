@@ -8011,7 +8011,16 @@ window.GLOSSARY = {
 "Star_chart": "",
 "Magnitude_(astronomy)": "",
 "Absolute_magnitude": "",
-"Angular_diameter": ""
+"Angular_diameter": "",
+"Equinox": "",
+"Axial_tilt": "",
+"Analemma": "",
+"Astronomical_nutation": "",
+"Proper_motion": "",
+"Fixed_stars": "",
+"Lunar_phase": "",
+"Lunar_month": "",
+"Classical_planet": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16964,7 +16973,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Circumpolar_star": ["circumpolar stars","circumpolar constellation"],
 "Star_chart": ["star map","sky chart","celestial chart"],
 "Magnitude_(astronomy)": ["magnitude scale","stellar magnitude","apparent magnitude"],
-"Angular_diameter": ["angular size","apparent size"]
+"Angular_diameter": ["angular size","apparent size"],
+"Equinox": ["equinoxes"],
+"Axial_tilt": ["obliquity","obliquity of the ecliptic"],
+"Astronomical_nutation": ["nutation"],
+"Fixed_stars": ["fixed star"],
+"Lunar_phase": ["phases of the Moon","phase of the Moon","lunar phases"],
+"Lunar_month": ["synodic month","sidereal month"],
+"Classical_planet": ["classical planets"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25125,7 +25141,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Star_chart": ["object","science","astronomy","maps"],
 "Magnitude_(astronomy)": ["concept","science","astronomy","brightness"],
 "Absolute_magnitude": ["concept","science","astronomy","brightness"],
-"Angular_diameter": ["concept","science","astronomy","measurement"]
+"Angular_diameter": ["concept","science","astronomy","measurement"],
+"Equinox": ["concept","science","astronomy","sun","seasons"],
+"Axial_tilt": ["concept","science","astronomy","earth","seasons"],
+"Analemma": ["concept","science","astronomy","sun","timekeeping"],
+"Astronomical_nutation": ["concept","science","astronomy","earth","moon"],
+"Proper_motion": ["concept","science","astronomy","stars","astrometry"],
+"Fixed_stars": ["concept","science","astronomy","stars"],
+"Lunar_phase": ["concept","science","astronomy","moon"],
+"Lunar_month": ["concept","science","astronomy","moon","calendar"],
+"Classical_planet": ["concept","science","astronomy","planets"]
 });
 
 /* ============================================================================

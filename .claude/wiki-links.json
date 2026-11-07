@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-07T02:10Z",
+ "generated": "2026-11-07T02:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5521,
-  "redirect-broader": 526,
-  "redirect-variant": 337,
-  "section-redirect": 110,
+  "ok": 5528,
+  "redirect-broader": 527,
+  "redirect-variant": 338,
+  "section-redirect": 111,
   "disambiguation": 142,
   "none": 983,
   "disambig-resolved": 81,
@@ -62643,6 +62643,80 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Angular size"
+  },
+  "astro-041": {
+   "answer": "equinox",
+   "title": "Equinox",
+   "url": "https://en.wikipedia.org/wiki/Equinox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-042": {
+   "answer": "axial tilt",
+   "title": "Axial tilt",
+   "url": "https://en.wikipedia.org/wiki/Axial_tilt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-043": {
+   "answer": "analemma",
+   "title": "Analemma",
+   "url": "https://en.wikipedia.org/wiki/Analemma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-044": {
+   "answer": "precession of the equinoxes",
+   "title": "Axial precession",
+   "url": "https://en.wikipedia.org/wiki/Axial_precession",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Precession of the equinoxes"
+  },
+  "astro-045": {
+   "answer": "nutation",
+   "title": "Nutation",
+   "url": "https://en.wikipedia.org/wiki/Nutation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "astro-046": {
+   "answer": "proper motion",
+   "title": "Proper motion",
+   "url": "https://en.wikipedia.org/wiki/Proper_motion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-047": {
+   "answer": "fixed stars",
+   "title": "Fixed stars",
+   "url": "https://en.wikipedia.org/wiki/Fixed_stars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-048": {
+   "answer": "lunar phase",
+   "title": "Lunar phase",
+   "url": "https://en.wikipedia.org/wiki/Lunar_phase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-049": {
+   "answer": "synodic month",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Synodic month",
+   "target": "Lunar month#Synodic month"
+  },
+  "astro-050": {
+   "answer": "classical planets",
+   "title": "Classical planet",
+   "url": "https://en.wikipedia.org/wiki/Classical_planet",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Classical planets"
   }
  }
 }

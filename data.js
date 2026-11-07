@@ -7736,7 +7736,17 @@ window.CARD_DATA = [
 {"id":"astro-027","num":"27","category":"Astronomy","question":"Flattening the inside of the celestial sphere onto paper always distorts it somewhere, so a <span class=\"blank\">_____</span> often splits the sky into bands along the equator and a separate map centred on the pole.","answer":"star chart","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"star chart","tags":["object","science","astronomy","maps","history"],"difficulty":2,"undatable":true},
 {"id":"astro-028","num":"28","category":"Astronomy","question":"On the <span class=\"blank\">_____</span>, which runs backwards so that larger numbers mean fainter objects, a difference of five steps corresponds to a brightness ratio of exactly 100.","answer":"magnitude scale","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Catalogued</span><span class=\"dt-v\">c. 137 CE</span><span class=\"dt-k\">Redefined</span><span class=\"dt-v\">1856</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"magnitude scale","tags":["concept","science","astronomy","brightness","photometry"],"difficulty":3},
 {"id":"astro-029","num":"29","category":"Astronomy","question":"Placed at a standard distance of 10 parsecs, the Sun would shine at about magnitude 4.8, its <span class=\"blank\">_____</span>, a modest figure beside its overwhelming apparent magnitude of about −26.7.","answer":"absolute magnitude","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"absolute magnitude","tags":["concept","science","astronomy","brightness","luminosity","distance"],"difficulty":3,"undatable":true},
-{"id":"astro-030","num":"30","category":"Astronomy","question":"The Sun and the full Moon share an <span class=\"blank\">_____</span> of about half a degree, roughly the width of a little finger held at arm's length against the sky.","answer":"angular size","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"angular size","tags":["concept","science","astronomy","angles","measurement"],"difficulty":3,"undatable":true}
+{"id":"astro-030","num":"30","category":"Astronomy","question":"The Sun and the full Moon share an <span class=\"blank\">_____</span> of about half a degree, roughly the width of a little finger held at arm's length against the sky.","answer":"angular size","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"angular size","tags":["concept","science","astronomy","angles","measurement"],"difficulty":3,"undatable":true},
+{"id":"astro-041","num":"41","category":"Astronomy","question":"Twice a year, in March and in September, the centre of the Sun crosses the celestial equator, and astronomers call that instant an <span class=\"blank\">_____</span>, after which the Sun favours the other hemisphere.","answer":"equinox","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"equinox","tags":["concept","science","astronomy","sun","seasons"],"difficulty":2,"undatable":true},
+{"id":"astro-042","num":"42","category":"Astronomy","question":"Seasons do not come from the Earth's changing distance from the Sun, which varies by only about 3%, but from its <span class=\"blank\">_____</span> of roughly 23.4° to the perpendicular of its orbit.","answer":"axial tilt","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"axial tilt","tags":["concept","science","astronomy","earth","seasons","climate"],"difficulty":2,"undatable":true},
+{"id":"astro-043","num":"43","category":"Astronomy","question":"Photographed from one spot at the same clock time every clear day for a year, the Sun traces a lopsided figure eight, the <span class=\"blank\">_____</span>, whose height measures its seasonal swing.","answer":"analemma","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"analemma","tags":["concept","science","astronomy","sun","timekeeping"],"difficulty":4,"undatable":true},
+{"id":"astro-044","num":"44","category":"Astronomy","question":"Thuban marked the north celestial pole about 5,000 years ago and Vega will mark it in some 14,000 years, a shift that is the work of the <span class=\"blank\">_____</span>, a 26,000-year cycle.","answer":"precession of the equinoxes","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"precession of the equinoxes","tags":["concept","science","astronomy","earth","stars"],"difficulty":3,"undatable":true},
+{"id":"astro-045","num":"45","category":"Astronomy","question":"Laid on top of the slow precession of the Earth's axis is a smaller nodding called <span class=\"blank\">_____</span>, whose main term repeats every 18.6 years as the Moon's orbital nodes regress.","answer":"nutation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"nutation","tags":["concept","science","astronomy","earth","moon"],"difficulty":4,"undatable":true},
+{"id":"astro-046","num":"46","category":"Astronomy","question":"Measured in arcseconds per year, a star's <span class=\"blank\">_____</span> records only the part of its motion across our line of sight, never its approach towards us or its retreat.","answer":"proper motion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"proper motion","tags":["concept","science","astronomy","stars","astrometry"],"difficulty":3,"undatable":true},
+{"id":"astro-047","num":"47","category":"Astronomy","question":"Greek astronomers set the wandering planets against the <span class=\"blank\">_____</span>, which kept the same patterns among themselves through many generations, though measurement shows the patterns slowly drift.","answer":"fixed stars","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fixed stars","tags":["concept","science","astronomy","stars","constellations"],"difficulty":3,"undatable":true},
+{"id":"astro-048","num":"48","category":"Astronomy","question":"Half the Moon is always lit by the Sun, so each <span class=\"blank\">_____</span> we see, from new through full and back, depends only on how much of that lit half faces the Earth.","answer":"lunar phase","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lunar phase","tags":["concept","science","astronomy","moon"],"difficulty":1,"undatable":true},
+{"id":"astro-049","num":"49","category":"Astronomy","question":"Because the Earth moves along its orbit while the Moon circles it, the <span class=\"blank\">_____</span> of about 29.53 days runs some two days longer than the Moon's 27.32-day trip around the stars.","answer":"synodic month","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"synodic month","tags":["concept","science","astronomy","moon","calendar"],"difficulty":3,"undatable":true},
+{"id":"astro-050","num":"50","category":"Astronomy","question":"The Sun, the Moon, Mercury, Venus, Mars, Jupiter and Saturn, the seven <span class=\"blank\">_____</span> that ancient observers saw move among the stars, gave their names to the days of the week.","answer":"classical planets","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"classical planets","tags":["concept","science","astronomy","planets","solar system"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16809,7 +16819,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 30,
+      "total": 40,
       "children": [
         {
           "id": "astro-sky",
@@ -16853,7 +16863,17 @@ window.COLLECTION_TREE = {
                 "astro-037",
                 "astro-038",
                 "astro-039",
-                "astro-040"
+                "astro-040",
+                "astro-041",
+                "astro-042",
+                "astro-043",
+                "astro-044",
+                "astro-045",
+                "astro-046",
+                "astro-047",
+                "astro-048",
+                "astro-049",
+                "astro-050"
               ]
             },
             {
