@@ -353,6 +353,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Ostia founded (tradition) / the castrum built | 620 BCE / c. 400 – 200 BCE | `rm-847` |
 | the as: earliest type in the coin catalogue | 280 – 276 BCE | `rm-852` |
 | argentarii: Livy's banks at Rome first attested | 310 BCE | `rm-853` |
+| the ludi Romani: repeated after Latinius's dream (tradition) / Varro's year for it | 491 BCE / 280 BCE | `rm-867` |
+| gladiators: the first show at Rome | 264 BCE | `rm-868` |
 
 ## The middle and late Republic
 
@@ -489,6 +491,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the lex Claudia: dated (Livy's narrative) / also dated (one modern view) | 218 BCE / 219 BCE | `rm-845` |
 | the as: the struck as of the denarius system | 211 BCE | `rm-852` |
 | De agri cultura written (one modern dating) | c. 160 BCE | `rm-860` |
+| the lex Roscia theatralis carried | 67 BCE | `rm-866` |
 
 ## The Principate
 
@@ -756,6 +759,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Portus begun / Trajan's hexagon built | 42 CE / 100 – 112 CE | `rm-848` |
 | terra sigillata first made at Arezzo | c. 40 – 30 BCE | `rm-850` |
 | glassblowing: invented (the Getty's dating) / mould-blowing | c. 50 BCE / c. 25 BCE | `rm-851` |
+| the Ludus Magnus built (Domitian's reign) / rediscovered | c. 81 – 96 CE / 1937 | `rm-869` |
 
 ## Late Antiquity
 
@@ -854,6 +858,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the grammaticus: the salary law (CTh 13.3.11) | 376 CE | `rm-800` |
 | the Regionary Catalogues compiled / one study's bracket | c. 300 – 400 CE / 334 – 357 CE | `rm-827` |
 | the cursus publicus: the name first attested / first in a law | 310 CE / 315 CE | `rm-858` |
+| gladiators: the last combats reported | 434 CE or 435 CE | `rm-868` |
 
 ## Chronology pins
 
@@ -1609,4 +1614,8 @@ rm-852: 280; 276; 211
 rm-853: 310
 rm-858: 310; 315
 rm-860: 160
+rm-866: 67
+rm-867: 491; 280
+rm-868: 264; 434; 435
+rm-869: 81; 96; 1937
 ```

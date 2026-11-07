@@ -218,7 +218,7 @@ order unless the user says otherwise.
 | B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | **done 2026-11-07** |
 | B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | **done 2026-11-07** |
 | B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | **done 2026-11-07** |
-| B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | open |
+| B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | **done 2026-11-07** |
 | B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | open |
 | B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | open |
 | B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | open |
@@ -1130,6 +1130,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-858` cursus publicus | none | not re-checked: the card has no picture |
 | `rm-859` popina | none | not re-checked: the card has no picture; a Pompeian counter with set-in jars would do |
 | `rm-860` De agri cultura | none | not re-checked: the card has no picture |
+| `rm-861` villa rustica | none | not re-checked: the card has no picture; the Settefinestre or Boscoreale farm buildings would do |
+| `rm-862` Falernian wine | none | not re-checked: the card has no picture |
+| `rm-863` trapetum | none | not re-checked: the card has no picture; a stone trapetum at Pompeii or Stabiae would do |
+| `rm-864` Las Médulas | none | not re-checked: the card has no picture; the red pinnacles would do |
+| `rm-865` tegula | none | not re-checked: the card has no picture; a tegula-and-imbrex roof would do |
+| `rm-866` lex Roscia theatralis | none | not re-checked: the card has no picture |
+| `rm-867` ludi Romani | none | not re-checked: the card has no picture |
+| `rm-868` gladiator | none | not re-checked: the card has no picture; the Zliten or Nennig gladiator mosaic would do |
+| `rm-869` Ludus Magnus | none | not re-checked: the card has no picture; the excavated cells by the Colosseum would do |
+| `rm-870` retiarius | none | not re-checked: the card has no picture; a mosaic of a retiarius would do |
 
 ## Glossary candidates
 
@@ -3124,3 +3134,22 @@ Run as B85. Hedone's price graffito went to `rm-852` alone (out of `rm-859` and 
 | `rm-860` De agri cultura | 6 | 6 → 8 | **"Written c. 200 – 100 BCE / Author consul 195 BCE" becomes Written c. 160 BCE, one modern dating; Plutarch goes**; the vineyard first and the old slave sold; Columella's "speak Latin" and Varro's thirteen slaves; the overseer and the fortune-tellers. |
 
 **Read by eye.** *Confusability:* `rm-851`/`rm-852`/`rm-853` the glass (Seneca and Posidonius), the coin (Hedone) and the banker (Hannibal's sale); `rm-854`/`rm-855`/`rm-856` the hand (the London strokes), the painted notice (Vatia) and the tablet (the triple cord); `rm-857`/`rm-858`/`rm-859` the route list (Vegetius), the post (Nerva's mules) and the cookshop (Lateranus); `rm-860`/`rm-861`/`rm-863` Cato's book (the fortune-tellers), the farmhouse (Columella) and the olive mill (B87). *Legend:* none. *Overlap:* no `gr-` or `wh-` card disagrees. `rm-859`'s `L.missing` is deliberate (a kind of eating house).
+
+### B87 — `rm-861`–`rm-870`, The Roman city and daily life to Spectacle and leisure: villa rustica to retiarius (2026-11-07)
+
+Run as B86, closing `rm-daily-life` and opening `rm-spectacle`. The Brutus show of 264 BCE and Tertullian's "munus" went to `rm-871` (out of `rm-868`); Trimalchio stayed with `rm-962` (out of `rm-862`); Caligula 30 stayed `rm-523`'s (out of `rm-870`); Columella's three-part estate came to `rm-861` from `rm-832`. `rm-867`'s first label ("Repeated, trad.") was renamed "Traditional" before applying, and `rm-869`'s glossary was trimmed to 110 words. `rm-866`'s timeline moved from 68 to 67 BCE with `set-timeline.js` (`test-card-timeline.js`'s two failures are a layout check on a 1919 card, failing the same way without this change). **The old date lines carried two books' years on the farmhouse ("Cato writes … / Varro writes 37 BCE"), the Opimian vintage (every wine of 121 BCE, not just Falernian), an unrelated event ("Oil exported 52 BCE") on the olive mill, an end with no start on Las Médulas, Foster's Loeb margin for Tarquinius Priscus's reign as the games' founding, a man in two labels and reign ranges for the Ludus Magnus.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-861` villa rustica | 7 | 7 → 8 | **Columella's name for one part of an estate, made a building type by 20th-century scholars; the books' years off the line (no line); the Cato question claimed what Cato never says**; Columella's three parts and high kitchen; Varro's overseer by the door; read in Europe PMC where an MDPI DOI refuses a script. |
+| `rm-862` Falernian wine | 6 | 7 → 8 | **"Opimian vintage 121 BCE" goes (Pliny: every wine of that year was Opimian); Trimalchio out of questions, prose and sources; "second after the Caecuban" corrected**; the only wine that burns; Strabo's ranking; Diocletian's edict at Aphrodisias. The card's Petronius quote block now clashes with it (not edited). |
+| `rm-863` trapetum | 5 | 5 → 7 | **"Oil exported 52 BCE" another event (no line); every price Cato's own, the 60 sesterces for assembly added so the 724 adds up; no Olynthus claim (no open source)**; Varro's mellowing heaps; Columella's adjustable mill; a lava trapetum near Pompeii. |
+| `rm-864` Las Médulas | 6 | 6 → 7 | **"Ruina montium" the modern name, arrugiae Pliny's word; the end disputed and no start printed (no line); the 700 km of channels a mining engineer's survey and the 20,000 pounds Pliny's "some authorities"**; the Aquilianos channels; the flooded tunnels (Wilson 2025; Navarro and others 2026). |
+| `rm-865` tegula | 6 | 6 → 8 | **Suetonius's brick-to-marble boast and Vitruvius's brick-making (about bricks) go; the shingles-until-Pyrrhus story Pliny's report of Nepos**; the flanged tile and imbrex; Vitruvius's walls of old tiles; the Rhine legions' stamps (Ehmig, in German, and Buora, in Italian, both reviewed). |
+| `rm-866` lex Roscia theatralis | 5 | 7 → 8 | **"68 BCE or 67 BCE" becomes Carried 67 BCE: the 68 rests on a translator's bracket and Smith, the Loeb notes print 67; both in prose; timeline moved**; Livy's summaries and the fourteen rows; Plutarch's hissing crowd and Bellona; Cicero's taunt of Antony. The card's quote block calls him "Marcus Otho" and "praetor" (Perrin's note: tribune; not edited). |
+| `rm-867` ludi Romani | 6 | 7 → 8 | **The founding row was Foster's margin for a reign: cut; Traditional 491 BCE (the dream's repetition) and Also dated 280 BCE (Varro's year), each said whose; Smith's "4 – 12 September" becomes 5 – 19 (Fowler)**; Tarquinius marking the Circus as Livy's tradition; Dionysius's procession. |
+| `rm-868` gladiator | 9 | 9 → 10 | **Constantine's "ban" only sent criminals to the mines; First show 264 BCE and Last reported 434 CE or 435 CE; the Brutus show and Tertullian left to `rm-871`; "more than seventy bouts" a reviewer's report of Jacobelli, out of the questions**; Seneca's oath; the Res Gestae's 10,000; the Ephesus barley and ash drink. |
+| `rm-869` Ludus Magnus | 6 | 7 → 6 | **Built c. 81 – 96 CE, Domitian's reign as the only dating, and Rediscovered 1937; Trajan's restoration "is said to"; the 3,000 seats the Rome heritage office's (in Italian)**; matched to the marble plan; Herodian's Commodus; Capua, Spartacus and Caesar's private training go. |
+| `rm-870` retiarius | 7 | 7 → 8 | **Caligula 30 (`rm-523`'s) goes; Smith-only tactics now backed by Ramsay's note to Juvenal; the bare face read as bad character (reviewed studies)**; Juvenal's Gracchus; the Ephesus trident wounds (Kanz, read in its Europe PMC abstract); the Burdur relief. |
+
+**Read by eye.** *Confusability:* `rm-861`/`rm-862`/`rm-863`/`rm-864`/`rm-865` the farmhouse (Columella), the wine (it burns), the olive mill (the Pompeii price), the gold mine (the Aquilianos channels) and the tile (the flange); `rm-866`/`rm-867` the seating law (Bellona) and the games (Latinius's dream); `rm-868`/`rm-869`/`rm-870`/`rm-871` the fighter (Seneca's oath), the school (the marble plan), the net-fighter (Gracchus) and the show (Tertullian). *Legend:* the ludi's founding by Tarquinius and Latinius's dream are told as tradition. *Overlap:* no `gr-` or `wh-` card on gladiators disagrees. The `L.missing` on `rm-861` and `rm-870` is deliberate.
