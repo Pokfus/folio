@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T02:25Z",
+ "generated": "2026-11-07T02:33Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5584,
-  "redirect-broader": 527,
-  "redirect-variant": 339,
+  "ok": 5634,
+  "redirect-broader": 526,
+  "redirect-variant": 343,
   "section-redirect": 110,
-  "disambiguation": 144,
+  "disambiguation": 143,
   "none": 982,
-  "disambig-resolved": 84,
+  "disambig-resolved": 82,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -62417,6 +62417,363 @@
     "Taiwan under Japanese rule",
     "Shinto in Taiwan"
    ]
+  },
+  "ps-051": {
+   "answer": "Hermann Ebbinghaus",
+   "title": "Hermann Ebbinghaus",
+   "url": "https://en.wikipedia.org/wiki/Hermann_Ebbinghaus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-052": {
+   "answer": "forgetting curve",
+   "title": "Forgetting curve",
+   "url": "https://en.wikipedia.org/wiki/Forgetting_curve",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-053": {
+   "answer": "William James",
+   "title": "William James",
+   "url": "https://en.wikipedia.org/wiki/William_James",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-054": {
+   "answer": "Principles of Psychology",
+   "title": "The Principles of Psychology",
+   "url": "https://en.wikipedia.org/wiki/The_Principles_of_Psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-055": {
+   "answer": "functionalism",
+   "title": "Functional psychology",
+   "url": "https://en.wikipedia.org/wiki/Functional_psychology",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-056": {
+   "answer": "stream of consciousness",
+   "title": "Stream of consciousness (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Stream_of_consciousness_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-057": {
+   "answer": "James–Lange theory",
+   "title": "James–Lange theory",
+   "url": "https://en.wikipedia.org/wiki/James%E2%80%93Lange_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-058": {
+   "answer": "Mary Whiton Calkins",
+   "title": "Mary Whiton Calkins",
+   "url": "https://en.wikipedia.org/wiki/Mary_Whiton_Calkins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-059": {
+   "answer": "Margaret Floy Washburn",
+   "title": "Margaret Floy Washburn",
+   "url": "https://en.wikipedia.org/wiki/Margaret_Floy_Washburn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-060": {
+   "answer": "Society of Experimental Psychologists",
+   "title": "Society of Experimental Psychologists",
+   "url": "https://en.wikipedia.org/wiki/Society_of_Experimental_Psychologists",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-081": {
+   "answer": "cognitive revolution",
+   "title": "Cognitive revolution",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-082": {
+   "answer": "computational theory of mind",
+   "title": "Computational theory of mind",
+   "url": "https://en.wikipedia.org/wiki/Computational_theory_of_mind",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-083": {
+   "answer": "information processing",
+   "title": "Information processing (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Information_processing_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-084": {
+   "answer": "magical number seven",
+   "title": "The Magical Number Seven, Plus or Minus Two",
+   "url": "https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-085": {
+   "answer": "Verbal Behavior",
+   "title": "Verbal Behavior",
+   "url": "https://en.wikipedia.org/wiki/Verbal_Behavior",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-071": {
+   "answer": "Sigmund Freud",
+   "title": "Sigmund Freud",
+   "url": "https://en.wikipedia.org/wiki/Sigmund_Freud",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-072": {
+   "answer": "psychoanalysis",
+   "title": "Psychoanalysis",
+   "url": "https://en.wikipedia.org/wiki/Psychoanalysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-073": {
+   "answer": "unconscious",
+   "title": "Unconscious mind",
+   "url": "https://en.wikipedia.org/wiki/Unconscious_mind",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-074": {
+   "answer": "id, ego and super-ego",
+   "title": "Id, ego and superego",
+   "url": "https://en.wikipedia.org/wiki/Id,_ego_and_superego",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Id, ego and super-ego"
+  },
+  "ps-075": {
+   "answer": "defence mechanisms",
+   "title": "Defence mechanism",
+   "url": "https://en.wikipedia.org/wiki/Defence_mechanism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Defence mechanisms"
+  },
+  "ps-091": {
+   "answer": "cognitive neuroscience",
+   "title": "Cognitive neuroscience",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_neuroscience",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-092": {
+   "answer": "humanistic psychology",
+   "title": "Humanistic psychology",
+   "url": "https://en.wikipedia.org/wiki/Humanistic_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-093": {
+   "answer": "Carl Rogers",
+   "title": "Carl Rogers",
+   "url": "https://en.wikipedia.org/wiki/Carl_Rogers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-094": {
+   "answer": "Abraham Maslow",
+   "title": "Abraham Maslow",
+   "url": "https://en.wikipedia.org/wiki/Abraham_Maslow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-095": {
+   "answer": "existential psychology",
+   "title": "Existential therapy",
+   "url": "https://en.wikipedia.org/wiki/Existential_therapy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Existential psychology"
+  },
+  "ps-096": {
+   "answer": "positive psychology",
+   "title": "Positive psychology",
+   "url": "https://en.wikipedia.org/wiki/Positive_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-097": {
+   "answer": "evolutionary psychology",
+   "title": "Evolutionary psychology",
+   "url": "https://en.wikipedia.org/wiki/Evolutionary_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-098": {
+   "answer": "sociobiology",
+   "title": "Sociobiology",
+   "url": "https://en.wikipedia.org/wiki/Sociobiology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-099": {
+   "answer": "cross-cultural psychology",
+   "title": "Cross-cultural psychology",
+   "url": "https://en.wikipedia.org/wiki/Cross-cultural_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-100": {
+   "answer": "cultural psychology",
+   "title": "Cultural psychology",
+   "url": "https://en.wikipedia.org/wiki/Cultural_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-061": {
+   "answer": "Ivan Pavlov",
+   "title": "Ivan Pavlov",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Pavlov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-062": {
+   "answer": "classical conditioning",
+   "title": "Classical conditioning",
+   "url": "https://en.wikipedia.org/wiki/Classical_conditioning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-063": {
+   "answer": "John B. Watson",
+   "title": "John B. Watson",
+   "url": "https://en.wikipedia.org/wiki/John_B._Watson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-064": {
+   "answer": "behaviourism",
+   "title": "Behaviorism",
+   "url": "https://en.wikipedia.org/wiki/Behaviorism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Behaviourism"
+  },
+  "ps-065": {
+   "answer": "Little Albert experiment",
+   "title": "Little Albert experiment",
+   "url": "https://en.wikipedia.org/wiki/Little_Albert_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-066": {
+   "answer": "Edward Thorndike",
+   "title": "Edward Thorndike",
+   "url": "https://en.wikipedia.org/wiki/Edward_Thorndike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-067": {
+   "answer": "law of effect",
+   "title": "Law of effect",
+   "url": "https://en.wikipedia.org/wiki/Law_of_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-068": {
+   "answer": "B. F. Skinner",
+   "title": "B. F. Skinner",
+   "url": "https://en.wikipedia.org/wiki/B._F._Skinner",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-069": {
+   "answer": "radical behaviourism",
+   "title": "Radical behaviorism",
+   "url": "https://en.wikipedia.org/wiki/Radical_behaviorism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Radical behaviourism"
+  },
+  "ps-070": {
+   "answer": "operant conditioning chamber",
+   "title": "Operant conditioning chamber",
+   "url": "https://en.wikipedia.org/wiki/Operant_conditioning_chamber",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-076": {
+   "answer": "Carl Jung",
+   "title": "Carl Jung",
+   "url": "https://en.wikipedia.org/wiki/Carl_Jung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-077": {
+   "answer": "Alfred Adler",
+   "title": "Alfred Adler",
+   "url": "https://en.wikipedia.org/wiki/Alfred_Adler",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-078": {
+   "answer": "neo-Freudianism",
+   "title": "Neo-Freudianism",
+   "url": "https://en.wikipedia.org/wiki/Neo-Freudianism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-079": {
+   "answer": "Gestalt psychology",
+   "title": "Gestalt psychology",
+   "url": "https://en.wikipedia.org/wiki/Gestalt_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-080": {
+   "answer": "Kurt Lewin",
+   "title": "Kurt Lewin",
+   "url": "https://en.wikipedia.org/wiki/Kurt_Lewin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-086": {
+   "answer": "Ulric Neisser",
+   "title": "Ulric Neisser",
+   "url": "https://en.wikipedia.org/wiki/Ulric_Neisser",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-087": {
+   "answer": "Donald Broadbent",
+   "title": "Donald Broadbent",
+   "url": "https://en.wikipedia.org/wiki/Donald_Broadbent",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-088": {
+   "answer": "cybernetics",
+   "title": "Cybernetics",
+   "url": "https://en.wikipedia.org/wiki/Cybernetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-089": {
+   "answer": "Logic Theorist",
+   "title": "Logic Theorist",
+   "url": "https://en.wikipedia.org/wiki/Logic_Theorist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-090": {
+   "answer": "cognitive science",
+   "title": "Cognitive science",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_science",
+   "via": "glossary",
+   "status": "ok"
   },
   "us-101": {
    "answer": "Spanish Florida",
