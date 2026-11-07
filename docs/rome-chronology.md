@@ -350,6 +350,17 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the denarius: Pliny's year, as one modern history converts it | 269 BCE | `rm-748` |
 | the Parthian Empire: the Arsacid era begins | 247 BCE | `rm-773` |
 | tutela mulierum: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-795` |
+| Ostia founded (tradition) / the castrum built | 620 BCE / c. 400 – 200 BCE | `rm-847` |
+| the as: earliest type in the coin catalogue | 280 – 276 BCE | `rm-852` |
+| argentarii: Livy's banks at Rome first attested | 310 BCE | `rm-853` |
+| the ludi Romani: repeated after Latinius's dream (tradition) / Varro's year for it | 491 BCE / 280 BCE | `rm-867` |
+| gladiators: the first show at Rome | 264 BCE | `rm-868` |
+| the munus: the first show at Rome | 264 BCE | `rm-871` |
+| venatio: elephants slain in the Circus (Pliny's year 502 from the founding) | 252 BCE | `rm-873` |
+| the Temple of Castor and Pollux: vowed / dedicated (tradition) | 499 BCE / 484 BCE | `rm-894` |
+| the quindecimviri: raised to ten (by tradition) | 367 BCE | `rm-895` |
+| the pontifex maximus: the first plebeian | 254 BCE | `rm-896` |
+| the College of Pontiffs opened to plebeians / the augurs raised to nine (the Ogulnian law) | 300 BCE | `rm-897`, `rm-898` |
 
 ## The middle and late Republic
 
@@ -478,6 +489,23 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Muziris: the port flourished | c. 100 BCE – 300 CE | `rm-784` |
 | divortium: Carvilius's first divorce (tradition; Gellius's years on Varro's epoch) | 231 BCE / also 235 BCE | `rm-793` |
 | the grammaticus: Crates's first lectures (Suetonius: about the time Ennius died) | 168 BCE | `rm-800` |
+| collegia: senate decree suppressing them / Clodius's law restoring them | 64 BCE / 58 BCE | `rm-813` |
+| the frumentatio: cheap sales / made free / the roll cut | 123 BCE / 58 BCE / 46 BCE | `rm-815` |
+| Archagathus, the first Greek physician at Rome (Pliny after Cassius Hemina; the year 535 from the founding on Varro's epoch) | 219 BCE | `rm-821` |
+| the Tabula Heracleensis's Latin law (Crawford's range) | 80 – 43 BCE | `rm-834` |
+| the macellum: the first market at Rome burned | 210 BCE | `rm-842` |
+| the lex Claudia: dated (Livy's narrative) / also dated (one modern view) | 218 BCE / 219 BCE | `rm-845` |
+| the as: the struck as of the denarius system | 211 BCE | `rm-852` |
+| De agri cultura written (one modern dating) | c. 160 BCE | `rm-860` |
+| the lex Roscia theatralis carried | 67 BCE | `rm-866` |
+| venatio: lions and panthers hunted at Fulvius's games | 186 BCE | `rm-873` |
+| damnatio ad bestias: deserters thrown to the beasts after Carthage fell | 146 BCE | `rm-874` |
+| the naumachia: the first large show | 46 BCE | `rm-875` |
+| the Theatre of Pompey: dedicated / the temple inscribed | 55 BCE / 52 BCE | `rm-880` |
+| Decimus Laberius died (Smith after Jerome) | 43 BCE | `rm-882` |
+| the Temple of Castor and Pollux restored | 117 BCE | `rm-894` |
+| the College of Pontiffs enlarged to fifteen (a dictionary's year) | 81 BCE | `rm-897` |
+| Spurinna's warning to Caesar | 44 BCE | `rm-900` |
 
 ## The Principate
 
@@ -733,6 +761,27 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Calleva: founded / the street grid / the stone wall | c. 20 – 10 BCE / c. 70 – 80 CE / c. 270 CE | `rm-781` |
 | Tacfarinas's revolt | 17 – 24 CE | `rm-783` |
 | the Seres: the Han envoy sent / the Da Qin envoys (Chinese records) | 97 CE / 166 CE | `rm-785` |
+| the senatus consultum Silanianum passed (usually dated so) | 10 CE | `rm-809` |
+| the prefect of Egypt: office created | 30 BCE | `rm-811` |
+| plebs urbana: Augustus's cash gift to 320,000 (Res Gestae 15) | 5 BCE | `rm-812` |
+| the frumentatio: the roll fixed at about 200,000 | 2 BCE | `rm-815` |
+| Galen: born (a modern date; an older reckoning 131) / died (traditional) / also dated | 129 CE / c. 200 CE / after 210 CE | `rm-822` |
+| the fourteen regions created | 7 BCE | `rm-828` |
+| Marcus Egnatius Rufus: aedile (Dio's placing, per Syme and Stuart Jones) / also dated (Stuart Jones) / executed | 26 BCE / 21 BCE / 19 BCE | `rm-835` |
+| curatores alvei Tiberis: the first standing board | 15 CE | `rm-836` |
+| the Horologium Augusti: the obelisk set up / the meridian found | 10 BCE / 1980 | `rm-841` |
+| Portus begun / Trajan's hexagon built | 42 CE / 100 – 112 CE | `rm-848` |
+| terra sigillata first made at Arezzo | c. 40 – 30 BCE | `rm-850` |
+| glassblowing: invented (the Getty's dating) / mould-blowing | c. 50 BCE / c. 25 BCE | `rm-851` |
+| the Ludus Magnus built (Domitian's reign) / rediscovered | c. 81 – 96 CE / 1937 | `rm-869` |
+| the naumachia: the permanent basin | 2 BCE | `rm-875` |
+| Diocles: first drove / his monument (the inscription's consulships) | 122 CE / 146 CE | `rm-879` |
+| the Theatre of Pompey: restored (Platner's year) | 32 BCE | `rm-880` |
+| pantomime becomes a separate art (Friedländer) | c. 22 BCE | `rm-881` |
+| the Fasti Praenestini set up (one view) / found | c. 10 CE / 1770 | `rm-887` |
+| Seneca's Epistulae Morales written | c. 62 – 65 CE | `rm-890` |
+| the Temple of Castor and Pollux rebuilt | 6 CE | `rm-894` |
+| the pontifex maximus: Augustus elected | 12 BCE | `rm-896` |
 
 ## Late Antiquity
 
@@ -829,6 +878,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Calleva abandoned | c. 550 – 650 CE | `rm-781` |
 | tutela mulierum: still in force / likely abolished (one argument) | c. 318 CE / c. 320 – 325 CE | `rm-795` |
 | the grammaticus: the salary law (CTh 13.3.11) | 376 CE | `rm-800` |
+| the Regionary Catalogues compiled / one study's bracket | c. 300 – 400 CE / 334 – 357 CE | `rm-827` |
+| the cursus publicus: the name first attested / first in a law | 310 CE / 315 CE | `rm-858` |
+| gladiators: the last combats reported | 434 CE or 435 CE | `rm-868` |
+| the munus: last recorded | c. 430 CE | `rm-871` |
+| venatio: last recorded | 537 CE | `rm-873` |
+| the Circus of Maxentius built (Maxentius's reign) | c. 306 – 312 CE | `rm-877` |
+| the Baths of Diocletian: ordered / dedicated / made a church | 298 CE / 305 – 306 CE / 1563 – 1566 | `rm-884` |
+| the pontifex maximus: renounced by the emperor / also dated | 376 CE / 375 CE | `rm-896` |
 
 ## Chronology pins
 
@@ -1561,4 +1618,49 @@ rm-785: 97; 166
 rm-793: 231; 235
 rm-795: 451; 450; 318; 320; 325
 rm-800: 168; 376
+rm-809: 10
+rm-811: 30
+rm-812: 5
+rm-813: 64; 58
+rm-815: 123; 58; 46; 2
+rm-821: 219
+rm-822: 129; 200; 210
+rm-827: 300; 400; 334; 357
+rm-828: 7
+rm-834: 80; 43; 1732
+rm-835: 26; 21; 19
+rm-836: 15
+rm-841: 10; 1980
+rm-842: 210
+rm-845: 218; 219
+rm-847: 620; 400; 200
+rm-848: 42; 100; 112
+rm-850: 40; 30
+rm-851: 50; 25
+rm-852: 280; 276; 211
+rm-853: 310
+rm-858: 310; 315
+rm-860: 160
+rm-866: 67
+rm-867: 491; 280
+rm-868: 264; 434; 435
+rm-869: 81; 96; 1937
+rm-871: 264; 430
+rm-873: 252; 186; 537
+rm-874: 146
+rm-875: 46; 2
+rm-877: 306; 312
+rm-879: 122; 146
+rm-880: 55; 52; 32
+rm-881: 22
+rm-882: 43
+rm-884: 298; 305; 306; 1563; 1566
+rm-887: 10; 1770
+rm-890: 62; 65
+rm-894: 499; 484; 117; 6
+rm-895: 367
+rm-896: 254; 12; 376; 375
+rm-897: 300; 81
+rm-898: 300
+rm-900: 44
 ```
