@@ -8030,7 +8030,17 @@ window.GLOSSARY = {
 "Light-year": "",
 "Parsec": "",
 "Speed_of_light": "",
-"Double_star": ""
+"Double_star": "",
+"Solar_System": "",
+"Nebular_hypothesis": "",
+"Protoplanetary_disk": "",
+"Planetesimal": "",
+"Volatile_(astrogeology)": "",
+"Frost_line_(astrophysics)": "",
+"Core-accretion_theory": "",
+"Nice_model": "",
+"Late_Heavy_Bombardment": "",
+"Age_of_the_Solar_System": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11922,7 +11932,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "William_Shakespeare": "1564 – 1616",
 "Galactic_coordinate_system": "1958",
 "Eclipse_of_Thales": "585 BCE",
-"Gregorian_calendar": "1582"
+"Gregorian_calendar": "1582",
+"Nice_model": "2005",
+"Age_of_the_Solar_System": "c. 4.57 Gya"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16996,7 +17008,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Astronomical_unit": ["astronomical units"],
 "Light-year": ["light-years","light year"],
 "Parsec": ["parsecs"],
-"Double_star": ["double stars","optical double"]
+"Double_star": ["double stars","optical double"],
+"Protoplanetary_disk": ["protoplanetary disc"],
+"Volatile_(astrogeology)": ["volatiles"],
+"Frost_line_(astrophysics)": ["frost line"],
+"Core-accretion_theory": ["core accretion","core accretion model"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25176,7 +25192,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Light-year": ["concept","science","astronomy","measurement"],
 "Parsec": ["concept","science","astronomy","measurement"],
 "Speed_of_light": ["concept","science","physics","light"],
-"Double_star": ["object","science","astronomy","stars"]
+"Double_star": ["object","science","astronomy","stars"],
+"Solar_System": ["object","science","astronomy","solar system"],
+"Nebular_hypothesis": ["theory","science","astronomy","planet formation"],
+"Protoplanetary_disk": ["object","science","astronomy","planet formation"],
+"Planetesimal": ["object","science","astronomy","planet formation"],
+"Volatile_(astrogeology)": ["concept","science","astronomy","chemistry"],
+"Frost_line_(astrophysics)": ["concept","science","astronomy","planet formation"],
+"Core-accretion_theory": ["theory","science","astronomy","planet formation"],
+"Nice_model": ["theory","science","astronomy","solar system"],
+"Late_Heavy_Bombardment": ["event","science","astronomy","solar system","moon"],
+"Age_of_the_Solar_System": ["concept","science","astronomy","solar system"]
 });
 
 /* ============================================================================

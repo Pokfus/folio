@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5538 | the title is the article |
-| `redirect-variant` | 338 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5544 | the title is the article |
+| `redirect-variant` | 339 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 527 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 528 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 111 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 983 | nothing matched; no link |
+| `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
+| `none` | 984 | nothing matched; no link |
 
-**6498 of 7750 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6506 of 7760 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (527)
+## Redirected to a differently named article — check each (528)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -51,6 +51,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `astro-044` **precession of the equinoxes** → [Axial precession](https://en.wikipedia.org/wiki/Axial_precession) (from `Precession of the equinoxes`)
 - `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
 - `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
+- `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -670,10 +671,11 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
-## Disambiguation pages that could not be settled (142)
+## Disambiguation pages that could not be settled (143)
 
 Pick the right article by hand, or leave the card without a link.
 
+- `astro-095` **volatiles** — `Volatility` is a disambiguation page; its links: `Volatile (astrogeology)`, `Volatile acid`, `Volatile anaesthetic`, `Volatile memory`, `Volatile variable`, `Volatile organic compound`
 - `bio-012` **resolution** — `Resolution` is a disambiguation page; its links: `Resolutions (Not Going Out)`, `Resolution (debate)`, `Resolution (law)`, `Dispute resolution`, `Resolution (algebra)`, `Resolution (logic)`
 - `bio-072` **ATP** — `ATP` is a disambiguation page; its links: `ATP Tour`, `ATP Recordings`, `ATP (treaty)`, `ATP architects engineers`, `ATP Oil and Gas`, `British Aerospace ATP`
 - `cnh-010` **Yao** — `Yao` is a disambiguation page; its links: `Andrew Yao`, `Emperor Yao`, `Yao, Chad`, `Yao, Osaka`, `Yao (Gnosticism)`, `Yao Ming`
@@ -944,7 +946,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 
-## No article found (983)
+## No article found (984)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -965,6 +967,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-027` **Praroditeljka** — search suggests `Lepenski Vir`
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
 - `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `Absolute magnitude`
+- `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Nebular hypothesis`, `Black hole`, `Earth's outer core`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`

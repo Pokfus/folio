@@ -7756,7 +7756,17 @@ window.CARD_DATA = [
 {"id":"astro-007","num":"7","category":"Astronomy","question":"Although its name seems to name a span of time, the <span class=\"blank\">_____</span> measures distance, about 9.46 trillion kilometres (5.88 trillion miles), the length light covers in a vacuum in one year.","answer":"light-year","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"light-year","tags":["concept","science","astronomy","measurement"],"difficulty":1,"undatable":true},
 {"id":"astro-008","num":"8","category":"Astronomy","question":"A star whose yearly parallax is exactly one arcsecond lies one <span class=\"blank\">_____</span> away from the Sun, a distance of about 206,265 astronomical units or 3.26 light-years.","answer":"parsec","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"parsec","tags":["concept","science","astronomy","measurement"],"difficulty":3,"undatable":true},
 {"id":"astro-009","num":"9","category":"Astronomy","question":"Because the <span class=\"blank\">_____</span> is finite, astronomers who look billions of light-years out into space see galaxies as they were billions of years ago rather than as they are now.","answer":"speed of light","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"speed of light","tags":["concept","science","astronomy","physics","light"],"difficulty":1,"undatable":true},
-{"id":"astro-010","num":"10","category":"Astronomy","question":"Two stars that look close together in the sky make a <span class=\"blank\">_____</span> whether they really orbit each other or merely line up by chance at very different distances from the Earth.","answer":"double star","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"double star","tags":["object","science","astronomy","stars"],"difficulty":3,"undatable":true}
+{"id":"astro-010","num":"10","category":"Astronomy","question":"Two stars that look close together in the sky make a <span class=\"blank\">_____</span> whether they really orbit each other or merely line up by chance at very different distances from the Earth.","answer":"double star","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"double star","tags":["object","science","astronomy","stars"],"difficulty":3,"undatable":true},
+{"id":"astro-091","num":"91","category":"Astronomy","question":"Holding about 99.8 per cent of all its mass, the Sun dominates the <span class=\"blank\">_____</span> so completely that Jupiter, the largest planet, accounts for most of what little remains.","answer":"Solar System","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Solar System","tags":["object","science","astronomy","solar system","planets"],"difficulty":1,"undatable":true},
+{"id":"astro-092","num":"92","category":"Astronomy","question":"First proposed in the 18th century, the <span class=\"blank\">_____</span> explains the Sun and its planets as condensing together out of one rotating cloud of gas and dust that collapsed and flattened.","answer":"nebular hypothesis","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed</span><span class=\"dt-v\">1755</span><span class=\"dt-k\">Developed</span><span class=\"dt-v\">1796</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"nebular hypothesis","tags":["theory","science","astronomy","solar system","planet formation"],"difficulty":3},
+{"id":"astro-093","num":"93","category":"Astronomy","question":"Found around almost all young low-mass stars, a <span class=\"blank\">_____</span> of cool gas and dust may stretch tens to hundreds of astronomical units and supplies the raw material for planets.","answer":"protoplanetary disc","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"protoplanetary disc","tags":["object","science","astronomy","planet formation","stars"],"difficulty":3,"undatable":true},
+{"id":"astro-094","num":"94","category":"Astronomy","question":"Each <span class=\"blank\">_____</span> in the young disc was a solid body from about a kilometre to hundreds of kilometres across, and leftovers survive today as asteroids, comets and Kuiper Belt objects.","answer":"planetesimal","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"planetesimal","tags":["object","science","astronomy","planet formation","solar system"],"difficulty":3,"undatable":true},
+{"id":"astro-095","num":"95","category":"Astronomy","question":"Near the young Sun the disc never cooled enough for <span class=\"blank\">_____</span> such as water ice and methane to condense, so the planets built there were made mostly of metal and silicate rock.","answer":"volatiles","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"volatiles","tags":["concept","science","astronomy","planet formation","chemistry"],"difficulty":4,"undatable":true},
+{"id":"astro-096","num":"96","category":"Astronomy","question":"Beyond the <span class=\"blank\">_____</span> of a young planetary disc it is cold enough, at about 150 K, for water vapour to freeze into ice grains that greatly enlarge the supply of solids.","answer":"frost line","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"frost line","tags":["concept","science","astronomy","planet formation","solar system"],"difficulty":3,"undatable":true},
+{"id":"astro-097","num":"97","category":"Astronomy","question":"In the <span class=\"blank\">_____</span> model, a giant planet starts as a solid core of perhaps ten Earth masses, built from planetesimals, that then pulls in a vast envelope of hydrogen and helium.","answer":"core accretion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"core accretion","tags":["theory","science","astronomy","planet formation","planets"],"difficulty":4,"undatable":true},
+{"id":"astro-098","num":"98","category":"Astronomy","question":"Named after a city in southern France, the <span class=\"blank\">_____</span> simulates how the giant planets spread outwards from a compact arrangement, scattering a disc of icy planetesimals as they moved.","answer":"Nice model","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed</span><span class=\"dt-v\">2005</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Nice model","tags":["theory","science","astronomy","solar system","planet formation","giant planets"],"difficulty":4},
+{"id":"astro-099","num":"99","category":"Astronomy","question":"Apollo samples dating the Moon's great basins to between about 4.0 and 3.7 billion years ago gave rise to the <span class=\"blank\">_____</span>, a proposed spike in impacts long after the planets formed.","answer":"Late Heavy Bombardment","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed spike</span><span class=\"dt-v\">c. 3.9 Gya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Late Heavy Bombardment","tags":["event","science","astronomy","solar system","moon","impacts"],"difficulty":3},
+{"id":"astro-100","num":"100","category":"Astronomy","question":"Counted from the first solid grains to condense around the young Sun, the <span class=\"blank\">_____</span> is estimated at about 4.567 billion years, a figure rounded to 4.5 or 4.6 in most summaries.","answer":"age of the Solar System","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First solids</span><span class=\"dt-v\">c. 4.57 Gya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"age of the Solar System","tags":["concept","science","astronomy","solar system","dating"],"difficulty":2}
 ];
 
 window.COLLECTION_TREE = {
@@ -16829,7 +16839,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 50,
+      "total": 60,
       "children": [
         {
           "id": "astro-sky",
@@ -16931,7 +16941,18 @@ window.COLLECTION_TREE = {
               "id": "astro-formation",
               "title": "How the Solar System formed",
               "total": 20,
-              "cardIds": []
+              "cardIds": [
+                "astro-091",
+                "astro-092",
+                "astro-093",
+                "astro-094",
+                "astro-095",
+                "astro-096",
+                "astro-097",
+                "astro-098",
+                "astro-099",
+                "astro-100"
+              ]
             },
             {
               "id": "astro-inner",

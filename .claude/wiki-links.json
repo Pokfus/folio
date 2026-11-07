@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T02:12Z",
+ "generated": "2026-11-07T02:15Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5538,
-  "redirect-broader": 527,
-  "redirect-variant": 338,
+  "ok": 5544,
+  "redirect-broader": 528,
+  "redirect-variant": 339,
   "section-redirect": 111,
-  "disambiguation": 142,
-  "none": 983,
+  "disambiguation": 143,
+  "none": 984,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62787,6 +62787,94 @@
    "url": "https://en.wikipedia.org/wiki/Double_star",
    "via": "glossary",
    "status": "ok"
+  },
+  "astro-091": {
+   "answer": "Solar System",
+   "title": "Solar System",
+   "url": "https://en.wikipedia.org/wiki/Solar_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-092": {
+   "answer": "nebular hypothesis",
+   "title": "Nebular hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Nebular_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-093": {
+   "answer": "protoplanetary disc",
+   "title": "Protoplanetary disk",
+   "url": "https://en.wikipedia.org/wiki/Protoplanetary_disk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Protoplanetary disc"
+  },
+  "astro-094": {
+   "answer": "planetesimal",
+   "title": "Planetesimal",
+   "url": "https://en.wikipedia.org/wiki/Planetesimal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-095": {
+   "answer": "volatiles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Volatility",
+   "suggestions": [
+    "Volatile (astrogeology)",
+    "Volatile acid",
+    "Volatile anaesthetic",
+    "Volatile memory",
+    "Volatile variable",
+    "Volatile organic compound"
+   ]
+  },
+  "astro-096": {
+   "answer": "frost line",
+   "title": "Frost line (astrophysics)",
+   "url": "https://en.wikipedia.org/wiki/Frost_line_(astrophysics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-097": {
+   "answer": "core accretion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accretion (astrophysics)",
+    "Accretion disk",
+    "Nebular hypothesis",
+    "Black hole",
+    "Earth's outer core"
+   ]
+  },
+  "astro-098": {
+   "answer": "Nice model",
+   "title": "Nice model",
+   "url": "https://en.wikipedia.org/wiki/Nice_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-099": {
+   "answer": "Late Heavy Bombardment",
+   "title": "Late Heavy Bombardment",
+   "url": "https://en.wikipedia.org/wiki/Late_Heavy_Bombardment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-100": {
+   "answer": "age of the Solar System",
+   "title": "Formation and evolution of the Solar System",
+   "url": "https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Age of the Solar System"
   }
  }
 }
