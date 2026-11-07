@@ -363,6 +363,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the College of Pontiffs opened to plebeians / the augurs raised to nine (the Ogulnian law) | 300 BCE | `rm-897`, `rm-898` |
 | the Temple of Saturn dedicated (tradition, Livy) / also dated | 497 BCE / 498 BCE | `rm-912` |
 | the Saturnalia instituted with the temple (tradition, Livy) | 497 BCE | `rm-917` |
+| the cult of Aesculapius arrives on the Tiber Island / also dated (Platner and Ashby give both) | 291 BCE / 292 BCE | `rm-921` |
 
 ## The middle and late Republic
 
@@ -511,6 +512,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Temple of Saturn rebuilt by Munatius Plancus | 42 BCE | `rm-912` |
 | the Saturnalia reorganised: the public banquet and the cry (Livy) | 217 BCE | `rm-917` |
 | the Lupercalia at which Antony offered Caesar the diadem | 44 BCE | `rm-918` |
+| Magna Mater: arrived / her Palatine temple dedicated (Livy) | 204 BCE / 191 BCE | `rm-922` |
 
 ## The Principate
 
@@ -788,6 +790,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Temple of Castor and Pollux rebuilt | 6 CE | `rm-894` |
 | the pontifex maximus: Augustus elected | 12 BCE | `rm-896` |
 | the Arval Brethren: their inscribed acts run (Scheid's corpus) | 21 BCE – 304 CE | `rm-903` |
+| the Iseum Campense burned in the fire under Titus | 80 CE | `rm-923` |
+| the Mithraic cult: first evidence (a reviewed study) | c. 90 CE | `rm-924` |
+| the Dura-Europos church: house converted (White) / buried under the earth bank / found | c. 240 CE / c. 256 CE / 1932 | `rm-928` |
+| the Decian persecution: the edict / the certificates | 249 CE / 250 CE | `rm-929` |
 
 ## Late Antiquity
 
@@ -1675,4 +1681,10 @@ rm-907: 509
 rm-912: 497; 498; 42
 rm-917: 497; 217
 rm-918: 44; 494
+rm-921: 291; 292
+rm-922: 204; 191
+rm-923: 80
+rm-924: 90
+rm-928: 240; 256; 1932
+rm-929: 249; 250
 ```

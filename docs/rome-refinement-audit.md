@@ -224,7 +224,7 @@ order unless the user says otherwise.
 | B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | **done 2026-11-07** |
 | B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | **done 2026-11-07** |
 | B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | **done 2026-11-07** |
-| B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | open |
+| B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | **done 2026-11-07** |
 | B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | open |
 | B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | open |
 | B96 | Latin literature and thought (`rm-literature`) | `rm-951`–`rm-960` | 10 | 83 | open |
@@ -1190,6 +1190,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-918` Lupercalia | none | not re-checked: the card has no picture |
 | `rm-919` Parentalia | none | not re-checked: the card has no picture |
 | `rm-920` prodigium | none | not re-checked: the card has no picture |
+| `rm-921` Tiber Island | none | not re-checked: the card has no picture; the travertine ship's prow would do |
+| `rm-922` Magna Mater | none | not re-checked: the card has no picture |
+| `rm-923` Iseum Campense | none | not re-checked: the card has no picture; the Nile statue or an obelisk from the precinct would do |
+| `rm-924` Mithraism | none | not re-checked: the card has no picture; a tauroctony relief would do |
+| `rm-925` Augustales | none | not re-checked: the card has no picture |
+| `rm-926` consecratio | none | not re-checked: the card has no picture; a CONSECRATIO coin would do |
+| `rm-927` God-fearers | none | not re-checked: the card has no picture; the Aphrodisias donor list would do |
+| `rm-928` Dura-Europos church | none | not re-checked: the card has no picture; the baptistery's paintings at Yale would do |
+| `rm-929` Decian persecution | none | not re-checked: the card has no picture; a libellus papyrus would do |
+| `rm-930` superstitio | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -3317,3 +3327,22 @@ Run as B91. The oil-filled statue went to `rm-912` and the feast of Saturn to `r
 | `rm-920` prodigium | 6 | 6 → 7 | **Talking cows, the lectisternium definition and the offerings to Ceres and Proserpina cut (no page read supports them); the procedure from reviewed studies (prodigies saved up for the incoming consuls); the Etruscan-diviners question left to `rm-029`**; the infant's "Io triumphe"; Obsequens's list culled from Livy. |
 
 **Read by eye.** *Confusability:* `rm-911`/`rm-912` the god of doors (Nero's coins) and Saturn's temple (the treasury); `rm-913`/`rm-914`/`rm-915` the guardian gods (the *Aulularia*), the personal god (Censorinus) and the shrine (the Historia Augusta); `rm-916`/`rm-917`/`rm-918`/`rm-919` the holy days (Macrobius), the December feast (Seneca), the February run (Gelasius) and the days of the dead (Ausonius); `rm-920` the prodigy (Obsequens). *Legend:* Numa's Janus and his division of the days, and the origins of the Lupercalia and the Parentalia, are told as the sources' accounts. *Overlap:* `wh-359` (Pax Romana) uses Augustus's closures of Janus, which `rm-911` keeps in prose; `rm-757`'s Io Saturnalia (the soldiers' jeer in Gaul) is a different clue from `rm-917`'s war-time banquet; no `gr-` or `wh-` card read disagrees. Quote blocks: `rm-913`'s (Suetonius on the Lares' flowers) is `rm-409`'s clue; `rm-916`'s (Livy's rain of stones) duplicates `rm-920`'s chapter (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flags are English BMCR reviews of German and Italian books.
+
+### B93 — `rm-921`–`rm-930`, Roman religion and myth: the Tiber Island to superstitio (2026-11-07)
+
+Run as B92, closing `rm-religion`. The Pons Fabricius went to `rm-993` (out of `rm-921`'s line and questions), the Dura mithraeum out of `rm-924` (`rm-928`'s town), Apuleius's Isis Campensis out of `rm-923` (`rm-968` needs his Isis book), Trimalchio out of `rm-925` (`rm-962`'s), Caesar's star out of `rm-926` (`rm-954`'s), the apotheosis relief of Antoninus and Faustina left to `rm-987`, Livia's paid senator stayed `rm-415`'s, Abritus stayed `rm-556`'s (out of `rm-929`), Suetonius's and Pliny's words on the Christians stayed `rm-448`'s and `rm-611`'s (out of `rm-930`), and Seneca's lost book on superstition went to `rm-930` (kept off `rm-959`). `rm-921`'s first row ("Plague 293 BCE", dating the island by another event) was cut before applying. **The old date lines carried another card's bridge on the Tiber Island, a place in a label ("Dura shrine"), an Egyptian-rites ban and a vote that may not concern this temple on the Iseum, a count-free "c. 400 CE" no source prints on Mithraism, and the town's capture as the church's date.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-921` Tiber Island | 6 | 7 → 6 | **The bridge row goes (`rm-993`'s); the serpent's landing "the story ran"; Cult arrives 291 BCE and Also dated 292 BCE (Platner and Ashby give both); Ovid, Plutarch and a French review go**; Claudius's abandoned sick slaves; the serpent leaving the envoys' ship; the ship-shaped wall and obelisk mast. |
+| `rm-922` Magna Mater | 7 | 7 → 7 | **Claudia Quinta towing the ship labelled legend; Pessinus or Pergamum hedged; a question carrying "191 BCE" and the name's own translation goes; the Cybele glossary redrafted general (four `gr-` cards link it)**; Scipio the best man at Ostia; Dionysius on the senate's ban; Claudia among the matrons. |
+| `rm-923` Iseum Campense | 5 | 6 → 8 | **"Temple voted 43 BCE" goes (whether Dio's vote was for this temple, or built, is unknown — said in prose) and "Pomerium ban 28 BCE" (rites, not the building); Burned 80 CE alone; Domitian's rebuilding credited to Eutropius; the Paulina tale Josephus's, about "a temple of Isis"**; Vespasian's coin; the fire and Eutropius's list; the Nile with sixteen children. |
+| `rm-924` Mithraism | 7 | 8 → 7 | **The direct Persian descent "largely overturned" (a reviewed study); First evidence c. 90 CE; the Dura row and "c. 400" go (prose: by the end of the 4th century); the only count the eighteen mithraea at Ostia**; Jerome's grades and the smashed grotto; Tertullian's soldier and the crown; the Felicissimus mosaic. |
+| `rm-925` Augustales | 5 | 6 → 7 | **The old card mixed in the sodales Augustales, a separate priestly college at Rome (its second question was theirs); Trimalchio goes; Smith's three ranks and six seviri go**; Ostia's epitaphs putting the rank first; the Misenum feasts; three honorary women. |
+| `rm-926` consecratio | 5 | 6 → 7 | **The coin span from Caesar to Constantine from a named coin record, not Smith; Caesar's 42 BCE left off the line (the source read prints no year)**; Herodian's storeyed pyre and eagle; Hadrian's tomb on private land; Marciana's eagle on a sceptre. |
+| `rm-927` God-fearers | 6 | 8 → 6 | **Whether they were a fixed group is debated (the old doubt that they existed at all, answered by Aphrodisias); the stone's date attributed: early 3rd century by its editors, after c. 250 CE by Chaniotis; Tiberius, Fulvia and Clemens cut (Jews at Rome, not God-fearers)**; the councillors, boxer and fullers; Cornelius at Caesarea; Gregorios. |
+| `rm-928` Dura-Europos church | 6 | 6 → 6 | **Converted c. 240 CE, Buried c. 256 CE, Found 1932; the house's 232/233 date and the conversion credited to White (through Peppard); the town's capture no longer the church's date**; Proclus above David and Goliath; fifteen years as a church; the women in procession. |
+| `rm-929` Decian persecution | 6 | 6 → 7 | **The edict's novelty set against the view that it was an ordinary call for prayer; no single count of certificates (catalogues differ); Abritus and Fabian's death date go; the glossary's "risked death" was cited to a review that does not say it**; Aurelia Charis's certificate; Cyprian on the market-place; Dionysius's trembling Christians. |
+| `rm-930` superstitio | 6 | 7 → 7 | **Modern share 1 → 4; the etymology Balbus's in Cicero's dialogue, not Cicero's own; Livy, Tacitus and Suetonius go**; the superstes etymology; the close of *On Divination*; Seneca's lost book through Augustine. |
+
+**Read by eye.** *Confusability:* `rm-921`/`rm-922`/`rm-923`/`rm-924` the island (Claudius's slaves), the Mother (Scipio), Isis's precinct (Vespasian's coin) and Mithras (the grades); `rm-925`/`rm-926` the freedmen's colleges (Ostia's epitaphs) and the deification (Herodian's pyre); `rm-927`/`rm-928`/`rm-929` the sympathisers (Aphrodisias), the house church (Proclus) and the decree (Aurelia Charis); `rm-920`/`rm-930` the prodigy and the superstition. *Legend:* the serpent of Aesculapius and Claudia Quinta are told as the sources' stories. *Overlap:* `gr-889` (Rhea), `gr-995` (Asclepius) and `gr-997` (incubation) agree. Quote blocks that now clash, for the owner: `rm-925`'s (Satyricon 57, Trimalchio's dinner) and `rm-926`'s (Suetonius on Caesar's star, `rm-954`'s ground). Every card lacks a picture (`I.none`); the `S.chip?` flags are English BMCR reviews of French books. Locators: `rm-923` has none and wants one (the temple stood west of the Saepta); `rm-928`'s point is the town's centre, not the house by the west wall.

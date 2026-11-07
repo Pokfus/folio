@@ -15909,7 +15909,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cybele": ["Magna Mater","Mater Idaea"],
 "Temple_of_Isis_and_Serapis": ["Iseum Campense","Iseum and Serapeum"],
 "Mithraic_mysteries": ["Mithraism","Mithraic mysteries"],
-"Augustales": ["Augustales","sodales Augustales","seviri Augustales"],
+"Augustales": ["Augustales","seviri Augustales"],
 "Consecratio": ["consecratio"],
 "God-fearer": ["God-fearers","God-fearer","godfearers","theosebeis"],
 "Dura-Europos_church": ["Dura-Europos church","Dura-Europos house church"],
