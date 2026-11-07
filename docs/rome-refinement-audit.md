@@ -214,7 +214,7 @@ order unless the user says otherwise.
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | **done 2026-10-30** |
 | B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | **done 2026-11-07** |
 | B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | **done 2026-11-07** |
-| B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | open |
+| B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | **done 2026-11-07** |
 | B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | open |
 | B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | open |
 | B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | open |
@@ -1090,6 +1090,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-818` toga | none | not re-checked: the card has no picture; a togate statue would do |
 | `rm-819` garum | none | not re-checked: the card has no picture; Scaurus's garum-jar mosaic would do |
 | `rm-820` convivium | none | not re-checked: the card has no picture; a banquet fresco would do |
+| `rm-821` medicus | none | not re-checked: the card has no picture; a relief of a doctor's instruments would do |
+| `rm-822` Galen | none | not re-checked: the card has no picture (any portrait is imagined) |
+| `rm-823` Ulpian's life table | none | not re-checked: the card has no picture |
+| `rm-824` imagines maiorum | none | not re-checked: the card has no picture; the Barberini togatus with his ancestors' busts would do |
+| `rm-825` columbarium | none | not re-checked: the card has no picture; a photograph of a columbarium's niched walls would do |
+| `rm-826` Campus Martius | none | not re-checked: the card has no picture; a model or plan of the Campus would do |
+| `rm-827` Regionary Catalogues | none | not re-checked: the card has no picture |
+| `rm-828` fourteen regions | none | not re-checked: the card has no picture; a map of the regions would do |
+| `rm-829` insula | none | not re-checked: the card has no picture; the House of Diana at Ostia would do |
+| `rm-830` domus | none | not re-checked: the card has no picture; the House of the Faun at Pompeii would do |
 
 ## Glossary candidates
 
@@ -3008,3 +3018,22 @@ Run as B81. The 320,000 of Augustus's cash gift went to `rm-812` alone, so `rm-8
 | `rm-820` convivium | 6 | 6 → 7 | **Cicero's word is "communion of life" in Falconer, not "living together"; Varro as Gellius reports him; Smith and Juvenal go**; Pliny's three wines; the posture debate (Vössing, reviewed). |
 
 **Read by eye.** *Confusability:* `rm-811` the prefect (Tiberius Alexander) against `rm-765`/`rm-766`; `rm-812`/`rm-815` the city plebs (the cash gift) and the grain dole (Caesar's count); `rm-813`/`rm-814` the club (Lanuvium) and the morning call (Seneca's Gracchus); `rm-816`/`rm-825` the pits (Varro) and the columbarium; `rm-817`/`rm-818` the tunic (Gellius's sleeves) and the toga (the dark cloaks); `rm-819`/`rm-820` the sauce (allec) and the dinner (the Graces). *Legend:* none. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B83 — `rm-821`–`rm-830`, Family, household and slavery to The Roman city and daily life: medicus to domus (2026-11-07)
+
+Run as B82, closing `rm-society` and opening `rm-daily-life`. Clues were handed between siblings before drafting: the Esquiline pits and Horace's Priapus to `rm-816` (out of `rm-825`), the 46,602 insulae and 1,790 domus to `rm-827` (out of `rm-829` and `rm-830`), Polybius's masks to `rm-824`, Vitruvius's men of middling station to `rm-830` and the morning callers to `rm-814` (all three out of `rm-831`, which got three new questions), Columella's three-part estate to `rm-861` (out of `rm-832`), and Livius Drusus's house stayed out of `rm-830`'s questions (`rm-304`'s). **The old date lines carried another law's year twice ("Lex Falcidia 40 BCE / Inheritance tax 6 CE" on Ulpian's rule), other buildings' dates ("Pompey's theatre 55 BCE / Saepta Julia 26 BCE" on the Campus Martius), a man's house ("Lepidus's house 78 BCE"), a fire law on the insula, the catalogues' count on two cards and a 7th-century "Replaced" no source bears out.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-821` medicus | 6 | 7 → 7 | **"First at Rome 219 BCE" becomes First physician 219 BCE, Pliny's year 535 from the founding after Cassius Hemina, on Varro's epoch; Smith and Celsus go**; Caesar's citizenship for doctors; Archagathus the "Executioner"; Cato's recipe book (Plutarch); Stertinius's fee Pliny's figure. |
+| `rm-822` Galen | 7 | 7 → 8 | **"Library burnt 192 CE" off the line: Born 129 CE (a modern date; Brock gave 131), Died c. 200 CE, Also dated after 210 CE; only Galen says he was Marcus Aurelius's physician**; the Suda's 70 years; the gladiators at Pergamon; the pig's spinal cord; *Avoiding Distress*. |
+| `rm-823` Ulpian's life table | 5 | 6 → 6 | **A modern label for a rule valuing annuities, not a record of deaths (Floris and others 2021); the two other laws' years off the line (no line); the figure of years out of a question**; Macer's commentary in the Digest; the lex Falcidia's quarter; the demography debate. |
+| `rm-824` imagines maiorum | 6 | 8 → 8 | **Masks for office-holding families (from the aedileship up), not all Romans; "ius imaginis" a modern term built on a line of Cicero**; Polybius's funeral; Junia's funeral (Tacitus); Pliny's halls; Smith's "images made a family noble" goes. |
+| `rm-825` columbarium | 7 | 7 → 7 | **"First built c. 20 BCE" was Lanciani's guess and "Company tomb 6 BCE" one tomb: no line; the company's 36 members and 180 niches Lanciani's report; the Esquiline clue goes**; Livia's household tomb; Pomponius Hylas; Ostia and Puteoli against the crowding explanation. |
+| `rm-826` Campus Martius | 7 | 7 → 7 | **The theatre's and the Saepta's dates go (no line); the consecration Livy's story, with Dionysius's rival version**; Livy's twelve floods; the palus Caprae; ambassadors outside the pomerium and Sulla's sale (Orosius); Livy's grain-island story left to `rm-921`. |
+| `rm-827` Regionary Catalogues | 5 | 6 → 5 | **All modern now; Compiled c. 300 – 400 CE, Also dated 334 – 357 CE (one study); the insula debate says whose view is whose; "nearest thing to a census" goes**; the Curiosum and the Notitia; Region XI and the Circus Maximus; the totals that do not add up. |
+| `rm-828` fourteen regions | 6 | 7 → 7 | **"Replaced c. 600 – 700 CE" was wrong: the church's seven regions arose beside them from the 3rd century and the Augustan regions lapsed after the Gothic wars (Goodman 2020); Created 7 BCE**; Tacitus's fire tally by region; Pliny's crossroads; Domitian's Vulcan altar. |
+| `rm-829` insula | 7 | 7 → 8 | **Not simply an apartment block: a street block, a unit, a funerary enclosure or a unit of property; the 46,602 and the year in a question go (no line)**; Juvenal's tenant; Vitruvius's floors on piers; Strabo's height rule; the House of Diana at Ostia; 80 per cent of buildings one or two floors (one reading of the Marble Plan). |
+| `rm-830` domus | 7 | 7 → 8 | **Smith's one family per house, thatched roofs and Eastern splendour go; "housefuls" of kin, slaves and tenants (one study); Lepidus's house Pliny's claim (no line)**; Octavius's Palatine house (Cicero); Vitruvius's office-holders; the House of the Faun's size from the park. |
+
+**Read by eye.** *Confusability:* `rm-821`/`rm-822` the doctor (Archagathus) and Galen (the pig); `rm-823`/`rm-824`/`rm-825` the annuity rule (Macer), the masks (Junia) and the urn tomb (Livia's household); `rm-826`/`rm-827`/`rm-828` the plain (the twelve floods), the lists (Region XI) and the regions (the fire tally); `rm-829`/`rm-830`/`rm-831` the block (Juvenal's tenant), the house (Octavius) and the hall (`rm-831`, B84). *Legend:* the Campus's consecration is told as Livy's and Dionysius's. *Overlap:* no `gr-` or `wh-` card on Galen or the doctors disagrees. `rm-825`'s, `rm-829`'s and `rm-830`'s `L.missing` are deliberate: building types with no one site.

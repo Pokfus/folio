@@ -480,6 +480,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the grammaticus: Crates's first lectures (Suetonius: about the time Ennius died) | 168 BCE | `rm-800` |
 | collegia: senate decree suppressing them / Clodius's law restoring them | 64 BCE / 58 BCE | `rm-813` |
 | the frumentatio: cheap sales / made free / the roll cut | 123 BCE / 58 BCE / 46 BCE | `rm-815` |
+| Archagathus, the first Greek physician at Rome (Pliny after Cassius Hemina; the year 535 from the founding on Varro's epoch) | 219 BCE | `rm-821` |
 
 ## The Principate
 
@@ -739,6 +740,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the prefect of Egypt: office created | 30 BCE | `rm-811` |
 | plebs urbana: Augustus's cash gift to 320,000 (Res Gestae 15) | 5 BCE | `rm-812` |
 | the frumentatio: the roll fixed at about 200,000 | 2 BCE | `rm-815` |
+| Galen: born (a modern date; an older reckoning 131) / died (traditional) / also dated | 129 CE / c. 200 CE / after 210 CE | `rm-822` |
+| the fourteen regions created | 7 BCE | `rm-828` |
 
 ## Late Antiquity
 
@@ -835,6 +838,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Calleva abandoned | c. 550 – 650 CE | `rm-781` |
 | tutela mulierum: still in force / likely abolished (one argument) | c. 318 CE / c. 320 – 325 CE | `rm-795` |
 | the grammaticus: the salary law (CTh 13.3.11) | 376 CE | `rm-800` |
+| the Regionary Catalogues compiled / one study's bracket | c. 300 – 400 CE / 334 – 357 CE | `rm-827` |
 
 ## Chronology pins
 
@@ -1572,4 +1576,8 @@ rm-811: 30
 rm-812: 5
 rm-813: 64; 58
 rm-815: 123; 58; 46; 2
+rm-821: 219
+rm-822: 129; 200; 210
+rm-827: 300; 400; 334; 357
+rm-828: 7
 ```
