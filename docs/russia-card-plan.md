@@ -1249,6 +1249,61 @@ the fetch is worth making, but it is a fetch-and-look pass on thirty or forty ca
 in its own batch. Thirty of the collection's hundred cards are now uncaptioned.
 
 
+### What carried this batch — `ru-101` to `ru-200`
+
+A hundred cards in one session (2026-11-07): the rest of `ru-horde`, all of `ru-moscow-rise`, all of
+`ru-ivan-iii` and the first ten of `ru-ivan-iv`, written by ten parallel research passes of ten cards
+each into JSON batches and imported serially with `import-batch.js`, so `data.js` never saw two
+writers. **Every line's SUBJECT stands, so the list below is unchanged**; where the answer term is not
+the line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-103 | vykhod | ru-145 | Northern Thebaid |
+| ru-110 | Livonian Order | ru-147 | Principality of Nizhny Novgorod-Suzdal |
+| ru-111 | Swedish–Novgorodian Wars | ru-148 | Muscovite War of Succession |
+| ru-114 | Algirdas | ru-150 | Dmitry Shemyaka |
+| ru-116 | Berke | ru-152 | Isidore of Kiev |
+| ru-118 | Diocese of Sarai | ru-153 | autocephaly |
+| ru-119 | tamga | ru-158 | Boyar Duma |
+| ru-123 | Battle of the Terek River | ru-163 | Battle of Shelon |
+| ru-124 | Edigu | ru-164 | Marfa Boretskaya |
+| ru-125 | Khanate of Kazan | ru-165 | Principality of Tver |
+| ru-126 | Grand Principality of Moscow | ru-167 | Great Horde |
+| ru-127 | Moscow | ru-169 | sovereign of all Rus' |
+| ru-131 | Metropolis of Kiev and all Rus' | ru-173 | service class people |
+| ru-134 | Mikhail of Tver | ru-178 | Mengli Giray |
+| ru-137 | Black Death in Russia | ru-182 | non-possessors |
+| ru-139 | Moscow Kremlin Wall | ru-185 | Pskov Republic |
+| ru-142 | siege of Moscow | ru-186 | Grand Principality of Ryazan |
+| ru-187 | siege of Smolensk | ru-189 | prikaz |
+| ru-190 | Rerum Moscoviticarum Commentarii | ru-192 | Elena Glinskaya |
+| ru-193 | boyar rule | ru-194 | coronation of Ivan IV |
+| ru-196 | Moscow uprising of 1547 | | |
+
+**FOUR ANSWER CLASHES WERE CAUGHT BEFORE IMPORT, AND THE CHECK IS WORTH REPEATING FOR ANY PARALLEL
+BATCH.** Two passes both reached for *Principality of Tver* (`ru-134`, `ru-165`) and two for *Great
+Horde* (`ru-124`, `ru-167`); `ru-164` first answered *veche*, which `ru-077` already does; and `ru-119`
+first answered *yam*, whose surface the Egyptian `Yam_(Nubia)` term already owns. Each was rewritten
+(Mikhail of Tver, Edigu, Marfa Boretskaya, tamga). **`ru-203` WILL CLASH WITH `ru-125`**: *Khanate of
+Kazan* is now taken, so the annexation wants *conquest of Kazan* or the siege of 1552.
+
+**FOUR GLOSSARY KEYS ARE NOT ARTICLE SLUGS**, because English Wikipedia has no article: `Boyar_rule`,
+`Diocese_of_Sarai`, `Vykhod` and `Mongol_census`; `Boyar_Duma` and `Tatar_yoke` are redirects. Nothing builds a link from a glossary key, so they
+work; they are listed so a later pass can re-key them if an article appears.
+
+**THE SOURCES ARE MOSTLY RUSSIAN-LANGUAGE OPEN ACCESS**, cited with ` [in Russian]`: cyberleninka
+copies of Vestnik and university journals, plus *Golden Horde Review*, against an English spine of
+the Novgorod chronicle, Kluchevsky in Hogarth's translation, Herberstein in Major's Hakluyt volumes
+and Fletcher in Bond's. **Herberstein and Fletcher are not in `check-cards.js`'s `ANCIENT` list**, so
+the questions avoid naming them; adding both would be the honest fix. `ru-109`'s Henry of Livonia
+links an archive.org upload of Brundage's 1961 translation whose copyright status wants a look.
+
+**`migrate-places.js` RUN UNDER WIKIDATA RATE LIMITING DROPPED UNRELATED REGISTRY ROWS** (Tarsus and
+others) and changed a Greek card; the drift was reverted, the new cards' derived ids kept, and
+`card-places.js` and `glossary-places.js` rebuilt with `--install`. Read `git status` after a migration.
+
+
 ---
 
 # The list

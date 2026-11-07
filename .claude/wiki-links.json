@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T20:47Z",
+ "generated": "2026-11-07T02:49Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5501,
-  "redirect-broader": 521,
-  "redirect-variant": 335,
-  "section-redirect": 109,
-  "disambiguation": 142,
-  "none": 982,
+  "ok": 5570,
+  "redirect-broader": 535,
+  "redirect-variant": 339,
+  "section-redirect": 111,
+  "disambiguation": 143,
+  "none": 991,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62417,6 +62417,792 @@
     "Taiwan under Japanese rule",
     "Shinto in Taiwan"
    ]
+  },
+  "ru-101": {
+   "answer": "Sarai",
+   "title": "Sarai (city)",
+   "url": "https://en.wikipedia.org/wiki/Sarai_(city)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-102": {
+   "answer": "yarlyk",
+   "title": "Jarlig",
+   "url": "https://en.wikipedia.org/wiki/Jarlig",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Yarlyk"
+  },
+  "ru-103": {
+   "answer": "vykhod",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nataliya Medvedeva (singer)",
+    "Sudebnik of 1497",
+    "Landed Army",
+    "Golden Horde",
+    "Battle of Kozelsk"
+   ]
+  },
+  "ru-104": {
+   "answer": "Mongol census",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mongol invasion of Kievan Rus'",
+    "2010 Russian census",
+    "Mongols",
+    "Mongol Empire",
+    "2021 Russian census"
+   ]
+  },
+  "ru-105": {
+   "answer": "baskak",
+   "title": "Darughachi",
+   "url": "https://en.wikipedia.org/wiki/Darughachi",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Baskak"
+  },
+  "ru-106": {
+   "answer": "Tatar yoke",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Tatar yoke",
+   "target": "Mongol invasion of Kievan Rus'#Legacy"
+  },
+  "ru-107": {
+   "answer": "Alexander Nevsky",
+   "title": "Alexander Nevsky",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Nevsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-108": {
+   "answer": "Battle of the Neva",
+   "title": "Battle of the Neva",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Neva",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-109": {
+   "answer": "Battle on the Ice",
+   "title": "Battle on the Ice",
+   "url": "https://en.wikipedia.org/wiki/Battle_on_the_Ice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-110": {
+   "answer": "Livonian Order",
+   "title": "Livonian Order",
+   "url": "https://en.wikipedia.org/wiki/Livonian_Order",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-111": {
+   "answer": "Swedish–Novgorodian Wars",
+   "title": "Swedish–Novgorodian Wars",
+   "url": "https://en.wikipedia.org/wiki/Swedish%E2%80%93Novgorodian_Wars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-112": {
+   "answer": "Daniel of Galicia",
+   "title": "Daniel of Galicia",
+   "url": "https://en.wikipedia.org/wiki/Daniel_of_Galicia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-113": {
+   "answer": "Grand Duchy of Lithuania",
+   "title": "Grand Duchy of Lithuania",
+   "url": "https://en.wikipedia.org/wiki/Grand_Duchy_of_Lithuania",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-114": {
+   "answer": "Algirdas",
+   "title": "Algirdas",
+   "url": "https://en.wikipedia.org/wiki/Algirdas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-115": {
+   "answer": "Union of Krewo",
+   "title": "Union of Krewo",
+   "url": "https://en.wikipedia.org/wiki/Union_of_Krewo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-116": {
+   "answer": "Berke",
+   "title": "Berke",
+   "url": "https://en.wikipedia.org/wiki/Berke",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-117": {
+   "answer": "Uzbeg Khan",
+   "title": "Özbeg Khan",
+   "url": "https://en.wikipedia.org/wiki/%C3%96zbeg_Khan",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Uzbeg Khan"
+  },
+  "ru-118": {
+   "answer": "Diocese of Sarai",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sarai (city)",
+    "Krutitsy",
+    "Turkic Christians",
+    "Juvenal Poyarkov",
+    "Ivan I of Moscow"
+   ]
+  },
+  "ru-119": {
+   "answer": "tamga",
+   "title": "Tamga",
+   "url": "https://en.wikipedia.org/wiki/Tamga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-120": {
+   "answer": "Great Troubles",
+   "title": "Great Troubles",
+   "url": "https://en.wikipedia.org/wiki/Great_Troubles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-121": {
+   "answer": "Mamai",
+   "title": "Mamai",
+   "url": "https://en.wikipedia.org/wiki/Mamai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-122": {
+   "answer": "Tokhtamysh",
+   "title": "Tokhtamysh",
+   "url": "https://en.wikipedia.org/wiki/Tokhtamysh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-123": {
+   "answer": "Battle of the Terek River",
+   "title": "Battle of the Terek River",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Terek_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-124": {
+   "answer": "Edigu",
+   "title": "Edigu",
+   "url": "https://en.wikipedia.org/wiki/Edigu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-125": {
+   "answer": "Khanate of Kazan",
+   "title": "Khanate of Kazan",
+   "url": "https://en.wikipedia.org/wiki/Khanate_of_Kazan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-126": {
+   "answer": "Grand Principality of Moscow",
+   "title": "Grand Principality of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Grand_Principality_of_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-127": {
+   "answer": "Moscow",
+   "title": "Moscow",
+   "url": "https://en.wikipedia.org/wiki/Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-128": {
+   "answer": "Daniel of Moscow",
+   "title": "Daniel of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Daniel_of_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-129": {
+   "answer": "Yury of Moscow",
+   "title": "Yury of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Yury_of_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-130": {
+   "answer": "Ivan Kalita",
+   "title": "Ivan I of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Ivan_I_of_Moscow",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Ivan Kalita"
+  },
+  "ru-131": {
+   "answer": "Metropolis of Kiev and all Rus'",
+   "title": "Metropolis of Kiev and all Rus'",
+   "url": "https://en.wikipedia.org/wiki/Metropolis_of_Kiev_and_all_Rus'",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-132": {
+   "answer": "Metropolitan Peter",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Metropolitan Peter",
+   "suggestions": []
+  },
+  "ru-133": {
+   "answer": "Metropolitan Alexius",
+   "title": "Alexius, Metropolitan of Kiev",
+   "url": "https://en.wikipedia.org/wiki/Alexius,_Metropolitan_of_Kiev",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Metropolitan Alexius"
+  },
+  "ru-134": {
+   "answer": "Mikhail of Tver",
+   "title": "Mikhail of Tver",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_of_Tver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-135": {
+   "answer": "Tver uprising",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tver Uprising of 1327",
+    "Principality of Tver",
+    "Aleksandr of Tver",
+    "Mikhail of Tver",
+    "Ivan I of Moscow"
+   ]
+  },
+  "ru-136": {
+   "answer": "Simeon the Proud",
+   "title": "Simeon of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Simeon_of_Moscow",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Simeon the Proud"
+  },
+  "ru-137": {
+   "answer": "Black Death in Russia",
+   "title": "Black Death in Russia",
+   "url": "https://en.wikipedia.org/wiki/Black_Death_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-138": {
+   "answer": "Dmitry Donskoy",
+   "title": "Dmitry Donskoy",
+   "url": "https://en.wikipedia.org/wiki/Dmitry_Donskoy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-139": {
+   "answer": "Moscow Kremlin Wall",
+   "title": "Moscow Kremlin Wall",
+   "url": "https://en.wikipedia.org/wiki/Moscow_Kremlin_Wall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-140": {
+   "answer": "Battle of the Vozha River",
+   "title": "Battle of the Vozha River",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Vozha_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-141": {
+   "answer": "Battle of Kulikovo",
+   "title": "Battle of Kulikovo",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kulikovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-142": {
+   "answer": "siege of Moscow",
+   "title": "Siege of Moscow (1382)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Moscow_(1382)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-143": {
+   "answer": "Sergius of Radonezh",
+   "title": "Sergius of Radonezh",
+   "url": "https://en.wikipedia.org/wiki/Sergius_of_Radonezh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-144": {
+   "answer": "Trinity Lavra of St Sergius",
+   "title": "Trinity Lavra of St. Sergius",
+   "url": "https://en.wikipedia.org/wiki/Trinity_Lavra_of_St._Sergius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-145": {
+   "answer": "Northern Thebaid",
+   "title": "Northern Thebaid",
+   "url": "https://en.wikipedia.org/wiki/Northern_Thebaid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-146": {
+   "answer": "Vasily I",
+   "title": "Vasily I of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Vasily_I_of_Moscow",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Vasily I"
+  },
+  "ru-147": {
+   "answer": "Principality of Nizhny Novgorod-Suzdal",
+   "title": "Principality of Nizhny Novgorod-Suzdal",
+   "url": "https://en.wikipedia.org/wiki/Principality_of_Nizhny_Novgorod-Suzdal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-148": {
+   "answer": "Muscovite War of Succession",
+   "title": "Muscovite War of Succession",
+   "url": "https://en.wikipedia.org/wiki/Muscovite_War_of_Succession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-149": {
+   "answer": "Vasily II",
+   "title": "Vasily II of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Vasily_II_of_Moscow",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Vasily II"
+  },
+  "ru-150": {
+   "answer": "Dmitry Shemyaka",
+   "title": "Dmitry Shemyaka",
+   "url": "https://en.wikipedia.org/wiki/Dmitry_Shemyaka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-151": {
+   "answer": "Council of Florence",
+   "title": "Council of Florence",
+   "url": "https://en.wikipedia.org/wiki/Council_of_Florence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-152": {
+   "answer": "Isidore of Kiev",
+   "title": "Isidore of Kiev",
+   "url": "https://en.wikipedia.org/wiki/Isidore_of_Kiev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-153": {
+   "answer": "autocephaly",
+   "title": "Autocephaly",
+   "url": "https://en.wikipedia.org/wiki/Autocephaly",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-154": {
+   "answer": "fall of Constantinople",
+   "title": "Fall of Constantinople",
+   "url": "https://en.wikipedia.org/wiki/Fall_of_Constantinople",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-155": {
+   "answer": "Theophanes the Greek",
+   "title": "Theophanes the Greek",
+   "url": "https://en.wikipedia.org/wiki/Theophanes_the_Greek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-156": {
+   "answer": "Andrei Rublev",
+   "title": "Andrei Rublev",
+   "url": "https://en.wikipedia.org/wiki/Andrei_Rublev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-157": {
+   "answer": "Trinity",
+   "title": "Trinity (Andrei Rublev)",
+   "url": "https://en.wikipedia.org/wiki/Trinity_(Andrei_Rublev)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-158": {
+   "answer": "Boyar Duma",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Boyar Duma",
+   "target": "Duma#Boyar duma"
+  },
+  "ru-159": {
+   "answer": "boyar",
+   "title": "Boyar",
+   "url": "https://en.wikipedia.org/wiki/Boyar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-160": {
+   "answer": "mestnichestvo",
+   "title": "Mestnichestvo",
+   "url": "https://en.wikipedia.org/wiki/Mestnichestvo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-161": {
+   "answer": "Ivan III",
+   "title": "Ivan III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Ivan_III_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Ivan III"
+  },
+  "ru-162": {
+   "answer": "gathering of the Russian lands",
+   "title": "Gathering of the Russian lands",
+   "url": "https://en.wikipedia.org/wiki/Gathering_of_the_Russian_lands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-163": {
+   "answer": "Battle of Shelon",
+   "title": "Battle of Shelon",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Shelon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-164": {
+   "answer": "Marfa Boretskaya",
+   "title": "Marfa Boretskaya",
+   "url": "https://en.wikipedia.org/wiki/Marfa_Boretskaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-165": {
+   "answer": "Principality of Tver",
+   "title": "Principality of Tver",
+   "url": "https://en.wikipedia.org/wiki/Principality_of_Tver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-166": {
+   "answer": "Great Stand on the Ugra River",
+   "title": "Great Stand on the Ugra River",
+   "url": "https://en.wikipedia.org/wiki/Great_Stand_on_the_Ugra_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-167": {
+   "answer": "Great Horde",
+   "title": "Great Horde",
+   "url": "https://en.wikipedia.org/wiki/Great_Horde",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-168": {
+   "answer": "Sophia Palaiologina",
+   "title": "Sophia Palaiologina",
+   "url": "https://en.wikipedia.org/wiki/Sophia_Palaiologina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-169": {
+   "answer": "sovereign of all Rus'",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sovereign of all Russia",
+    "Tsar of all Russia",
+    "Ivan III of Russia",
+    "List of Russian monarchs",
+    "Great Russia"
+   ]
+  },
+  "ru-170": {
+   "answer": "double-headed eagle",
+   "title": "Double-headed eagle",
+   "url": "https://en.wikipedia.org/wiki/Double-headed_eagle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-171": {
+   "answer": "Sudebnik of 1497",
+   "title": "Sudebnik of 1497",
+   "url": "https://en.wikipedia.org/wiki/Sudebnik_of_1497",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-172": {
+   "answer": "pomestie",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ivan III of Russia",
+    "Novgorod Republic",
+    "Matvei Bashkin",
+    "Boyar scions"
+   ]
+  },
+  "ru-173": {
+   "answer": "service class people",
+   "title": "Service class people",
+   "url": "https://en.wikipedia.org/wiki/Service_class_people",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-174": {
+   "answer": "Moscow Kremlin",
+   "title": "Kremlin",
+   "url": "https://en.wikipedia.org/wiki/Kremlin",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Moscow Kremlin"
+  },
+  "ru-175": {
+   "answer": "Dormition Cathedral",
+   "title": "Dormition Cathedral, Moscow",
+   "url": "https://en.wikipedia.org/wiki/Dormition_Cathedral,_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-176": {
+   "answer": "Aristotele Fioravanti",
+   "title": "Aristotele Fioravanti",
+   "url": "https://en.wikipedia.org/wiki/Aristotele_Fioravanti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-177": {
+   "answer": "Muscovite–Lithuanian Wars",
+   "title": "Muscovite–Lithuanian Wars",
+   "url": "https://en.wikipedia.org/wiki/Muscovite%E2%80%93Lithuanian_Wars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-178": {
+   "answer": "Mengli Giray",
+   "title": "Meñli I Giray",
+   "url": "https://en.wikipedia.org/wiki/Me%C3%B1li_I_Giray",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mengli Giray"
+  },
+  "ru-179": {
+   "answer": "Judaisers",
+   "title": "Judaizers",
+   "url": "https://en.wikipedia.org/wiki/Judaizers",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Judaisers"
+  },
+  "ru-180": {
+   "answer": "Joseph of Volokolamsk",
+   "title": "Joseph Volotsky",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Volotsky",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Joseph of Volokolamsk"
+  },
+  "ru-181": {
+   "answer": "Nil Sorsky",
+   "title": "Nilus of Sora",
+   "url": "https://en.wikipedia.org/wiki/Nilus_of_Sora",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Nil Sorsky"
+  },
+  "ru-182": {
+   "answer": "non-possessors",
+   "title": "Non-possessors",
+   "url": "https://en.wikipedia.org/wiki/Non-possessors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-183": {
+   "answer": "Third Rome",
+   "title": "Succession of the Roman Empire",
+   "url": "https://en.wikipedia.org/wiki/Succession_of_the_Roman_Empire",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Third Rome"
+  },
+  "ru-184": {
+   "answer": "Vasily III",
+   "title": "Vasili III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Vasili_III_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Vasily III"
+  },
+  "ru-185": {
+   "answer": "Pskov Republic",
+   "title": "Pskov Republic",
+   "url": "https://en.wikipedia.org/wiki/Pskov_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-186": {
+   "answer": "Grand Principality of Ryazan",
+   "title": "Principality of Ryazan",
+   "url": "https://en.wikipedia.org/wiki/Principality_of_Ryazan",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Grand Principality of Ryazan"
+  },
+  "ru-187": {
+   "answer": "siege of Smolensk",
+   "title": "Siege of Smolensk (1514)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Smolensk_(1514)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-188": {
+   "answer": "Maximus the Greek",
+   "title": "Maximus the Greek",
+   "url": "https://en.wikipedia.org/wiki/Maximus_the_Greek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-189": {
+   "answer": "prikaz",
+   "title": "Prikaz",
+   "url": "https://en.wikipedia.org/wiki/Prikaz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-190": {
+   "answer": "Rerum Moscoviticarum Commentarii",
+   "title": "Notes on Muscovite Affairs",
+   "url": "https://en.wikipedia.org/wiki/Notes_on_Muscovite_Affairs",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rerum Moscoviticarum Commentarii"
+  },
+  "ru-191": {
+   "answer": "Ivan the Terrible",
+   "title": "Ivan the Terrible",
+   "url": "https://en.wikipedia.org/wiki/Ivan_the_Terrible",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-192": {
+   "answer": "Elena Glinskaya",
+   "title": "Elena Glinskaya",
+   "url": "https://en.wikipedia.org/wiki/Elena_Glinskaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-193": {
+   "answer": "boyar rule",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Boyar",
+    "Good tsar, bad boyars",
+    "Seven Boyars",
+    "Tsardom of Russia",
+    "Feodor I of Russia"
+   ]
+  },
+  "ru-194": {
+   "answer": "coronation of Ivan IV",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Feodor I of Russia",
+    "Ivan the Terrible",
+    "Ivan III of Russia",
+    "Tsar of all Russia",
+    "Coronation of the Russian monarch"
+   ]
+  },
+  "ru-195": {
+   "answer": "tsar",
+   "title": "Tsar",
+   "url": "https://en.wikipedia.org/wiki/Tsar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-196": {
+   "answer": "Moscow uprising of 1547",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Moscow Uprising",
+    "Moscow",
+    "Fire of Moscow (1547)",
+    "Tsardom of Russia",
+    "List of Russian monarchs"
+   ]
+  },
+  "ru-197": {
+   "answer": "Chosen Council",
+   "title": "Chosen Council",
+   "url": "https://en.wikipedia.org/wiki/Chosen_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-198": {
+   "answer": "Sudebnik of 1550",
+   "title": "Sudebnik of 1550",
+   "url": "https://en.wikipedia.org/wiki/Sudebnik_of_1550",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-199": {
+   "answer": "Stoglav",
+   "title": "Stoglav",
+   "url": "https://en.wikipedia.org/wiki/Stoglav",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-200": {
+   "answer": "streltsy",
+   "title": "Streltsy",
+   "url": "https://en.wikipedia.org/wiki/Streltsy",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
