@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5946 | the title is the article |
-| `redirect-variant` | 365 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6111 | the title is the article |
+| `redirect-variant` | 372 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 565 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 581 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 124 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 145 | only a disambiguation page; no link could be chosen |
-| `none` | 992 | nothing matched; no link |
+| `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 146 | only a disambiguation page; no link could be chosen |
+| `none` | 1001 | nothing matched; no link |
 
-**6973 of 8250 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7161 of 8450 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (565)
+## Redirected to a differently named article — check each (581)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -481,6 +481,20 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-031` **Normanist controversy** → [Anti-Normanism](https://en.wikipedia.org/wiki/Anti-Normanism) (from `Normanist controversy`)
 - `ru-065` **birch bark letter** → [Birch bark manuscript](https://en.wikipedia.org/wiki/Birch_bark_manuscript) (from `Birch bark letter`)
 - `ru-083` **Galicia–Volhynia** → [Kingdom of Galicia–Volhynia](https://en.wikipedia.org/wiki/Kingdom_of_Galicia%E2%80%93Volhynia) (from `Galicia–Volhynia`)
+- `ru-102` **yarlyk** → [Jarlig](https://en.wikipedia.org/wiki/Jarlig) (from `Yarlyk`)
+- `ru-105` **baskak** → [Darughachi](https://en.wikipedia.org/wiki/Darughachi) (from `Baskak`)
+- `ru-130` **Ivan Kalita** → [Ivan I of Moscow](https://en.wikipedia.org/wiki/Ivan_I_of_Moscow) (from `Ivan Kalita`)
+- `ru-133` **Metropolitan Alexius** → [Alexius, Metropolitan of Kiev](https://en.wikipedia.org/wiki/Alexius,_Metropolitan_of_Kiev) (from `Metropolitan Alexius`)
+- `ru-136` **Simeon the Proud** → [Simeon of Moscow](https://en.wikipedia.org/wiki/Simeon_of_Moscow) (from `Simeon the Proud`)
+- `ru-174` **Moscow Kremlin** → [Kremlin](https://en.wikipedia.org/wiki/Kremlin) (from `Moscow Kremlin`)
+- `ru-178` **Mengli Giray** → [Meñli I Giray](https://en.wikipedia.org/wiki/Me%C3%B1li_I_Giray) (from `Mengli Giray`)
+- `ru-179` **Judaisers** → [Judaizers](https://en.wikipedia.org/wiki/Judaizers) (from `Judaisers`)
+- `ru-180` **Joseph of Volokolamsk** → [Joseph Volotsky](https://en.wikipedia.org/wiki/Joseph_Volotsky) (from `Joseph of Volokolamsk`)
+- `ru-181` **Nil Sorsky** → [Nilus of Sora](https://en.wikipedia.org/wiki/Nilus_of_Sora) (from `Nil Sorsky`)
+- `ru-183` **Third Rome** → [Succession of the Roman Empire](https://en.wikipedia.org/wiki/Succession_of_the_Roman_Empire) (from `Third Rome`)
+- `ru-184` **Vasily III** → [Vasili III of Russia](https://en.wikipedia.org/wiki/Vasili_III_of_Russia) (from `Vasily III`)
+- `ru-186` **Grand Principality of Ryazan** → [Principality of Ryazan](https://en.wikipedia.org/wiki/Principality_of_Ryazan) (from `Grand Principality of Ryazan`)
+- `ru-190` **Rerum Moscoviticarum Commentarii** → [Notes on Muscovite Affairs](https://en.wikipedia.org/wiki/Notes_on_Muscovite_Affairs) (from `Rerum Moscoviticarum Commentarii`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -495,6 +509,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-136` **headright system** → [Headright](https://en.wikipedia.org/wiki/Headright) (from `Headright system`)
 - `us-171` **Observations Concerning the Increase of Mankind** → [Observations Concerning the Increase of Mankind, Peopling of Countries, etc.](https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.) (from `Observations Concerning the Increase of Mankind`)
 - `us-173` **Eliza Lucas Pinckney** → [Eliza Lucas](https://en.wikipedia.org/wiki/Eliza_Lucas) (from `Eliza Lucas Pinckney`)
+- `us-257` **Southern theatre of the American Revolutionary War** → [Southern theater of the American Revolutionary War](https://en.wikipedia.org/wiki/Southern_theater_of_the_American_Revolutionary_War) (from `Southern theatre of the American Revolutionary War`)
+- `us-281` **Shays' Rebellion** → [Shays's Rebellion](https://en.wikipedia.org/wiki/Shays's_Rebellion) (from `Shays' Rebellion`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -710,7 +726,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
-## Disambiguation pages that could not be settled (145)
+## Disambiguation pages that could not be settled (146)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -845,6 +861,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ru-018` **Itil** — `Itil` is a disambiguation page; its links: `ITIL`, `Itil (river)`
 - `ru-027` **Merya** — `Merya` is a disambiguation page; its links: `Merya people`, `Merya language`, `Merya (Tanzanian ward)`
 - `ru-043` **Rus'–Byzantine Treaty** — `Rus'–Byzantine Treaty` is a disambiguation page; its links: `Rus'–Byzantine Treaty (907)`, `Rus'–Byzantine Treaty (911)`, `Rus'–Byzantine Treaty (945)`
+- `ru-132` **Metropolitan Peter** — `Metropolitan Peter` is a disambiguation page
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
@@ -871,7 +888,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (124)
+## Section redirects — no dedicated page (126)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -982,6 +999,8 @@ Wikipedia treats these as part of another article. No link.
 - `rm-920` **prodigium** — `Prodigium` only redirects into `Glossary of ancient Roman religion#prodigium`
 - `rm-930` **superstitio** — `Superstitio` only redirects into `Glossary of ancient Roman religion#superstitio`
 - `rm-938` **satura** — `Satura` only redirects into `Satire#Term`
+- `ru-106` **Tatar yoke** — `Tatar yoke` only redirects into `Mongol invasion of Kievan Rus'#Legacy`
+- `ru-158` **Boyar Duma** — `Boyar Duma` only redirects into `Duma#Boyar duma`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
@@ -1000,7 +1019,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (992)
+## No article found (1001)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1927,6 +1946,15 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `rm-997` **fabri tignarii**
 - `ru-073` **Instruction of Vladimir Monomakh** — search suggests `Vladimir II Monomakh`, `Nicholas II`, `Social security system in Russia`, `Gytha of Wessex`, `Coat of arms of Russia`
 - `ru-081` **sack of Kyiv** — search suggests `Kyiv`, `Battle of Kyiv`, `Timeline of Kyiv`, `Siege of Kiev (1240)`, `Kyiv Pechersk Lavra`
+- `ru-103` **vykhod** — search suggests `Nataliya Medvedeva (singer)`, `Sudebnik of 1497`, `Landed Army`, `Golden Horde`, `Battle of Kozelsk`
+- `ru-104` **Mongol census** — search suggests `Mongol invasion of Kievan Rus'`, `2010 Russian census`, `Mongols`, `Mongol Empire`, `2021 Russian census`
+- `ru-118` **Diocese of Sarai** — search suggests `Sarai (city)`, `Krutitsy`, `Turkic Christians`, `Juvenal Poyarkov`, `Ivan I of Moscow`
+- `ru-135` **Tver uprising** — search suggests `Tver Uprising of 1327`, `Principality of Tver`, `Aleksandr of Tver`, `Mikhail of Tver`, `Ivan I of Moscow`
+- `ru-169` **sovereign of all Rus'** — search suggests `Sovereign of all Russia`, `Tsar of all Russia`, `Ivan III of Russia`, `List of Russian monarchs`, `Great Russia`
+- `ru-172` **pomestie** — search suggests `Ivan III of Russia`, `Novgorod Republic`, `Matvei Bashkin`, `Boyar scions`
+- `ru-193` **boyar rule** — search suggests `Boyar`, `Good tsar, bad boyars`, `Seven Boyars`, `Tsardom of Russia`, `Feodor I of Russia`
+- `ru-194` **coronation of Ivan IV** — search suggests `Feodor I of Russia`, `Ivan the Terrible`, `Ivan III of Russia`, `Tsar of all Russia`, `Coronation of the Russian monarch`
+- `ru-196` **Moscow uprising of 1547** — search suggests `Moscow Uprising`, `Moscow`, `Fire of Moscow (1547)`, `Tsardom of Russia`, `List of Russian monarchs`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`
