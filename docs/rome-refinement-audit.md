@@ -212,16 +212,16 @@ order unless the user says otherwise.
 | B78 | Provinces and frontiers (`rm-provinces`) | `rm-771`–`rm-780` | 10 | 78 | **done 2026-10-30** |
 | B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | **done 2026-10-30** |
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | **done 2026-10-30** |
-| B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | open |
-| B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | open |
-| B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | open |
-| B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | open |
-| B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | open |
-| B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | open |
-| B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | open |
-| B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | open |
-| B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | open |
-| B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | open |
+| B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | **done 2026-11-07** |
+| B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | **done 2026-11-07** |
+| B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | **done 2026-11-07** |
+| B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | **done 2026-11-07** |
+| B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | **done 2026-11-07** |
+| B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | **done 2026-11-07** |
+| B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | **done 2026-11-07** |
+| B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | **done 2026-11-07** |
+| B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | **done 2026-11-07** |
+| B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | **done 2026-11-07** |
 | B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | open |
 | B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | open |
 | B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | open |
@@ -1070,6 +1070,106 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-798` adrogatio | none | not re-checked: the card has no picture |
 | `rm-799` ludi magister | none | not re-checked: the card has no picture; the Neumagen school relief would do |
 | `rm-800` grammaticus | none | not re-checked: the card has no picture |
+| `rm-801` declamation | none | not re-checked: the card has no picture; a relief of a teacher with pupils would do |
+| `rm-802` servus | none | not re-checked: the card has no picture |
+| `rm-803` sub corona | none | not re-checked: the card has no picture; a relief of chained captives would do |
+| `rm-804` catasta | none | not re-checked: the card has no picture; the Capua slave-dealer's relief would do |
+| `rm-805` verna | none | not re-checked: the card has no picture |
+| `rm-806` ergastulum | none | not re-checked: the card has no picture |
+| `rm-807` manumission | none | not re-checked: the card has no picture; a manumission relief (the Mariemont relief) would do |
+| `rm-808` libertus | none | not re-checked: the card has no picture; a freedman's funerary relief would do |
+| `rm-809` senatus consultum Silanianum | none | not re-checked: the card has no picture |
+| `rm-810` ordo decurionum | none | not re-checked: the card has no picture; the Canusium album would do |
+| `rm-811` prefect of Egypt | none | not re-checked: the card has no picture; the Philae stele of Gallus would do |
+| `rm-812` plebs urbana | none | not re-checked: the card has no picture |
+| `rm-813` collegium | none | not re-checked: the card has no picture; the Lanuvium inscription would do |
+| `rm-814` salutatio | none | not re-checked: the card has no picture |
+| `rm-815` frumentatio | none | not re-checked: the card has no picture; a coin showing the grain dole would do |
+| `rm-816` puticuli | none | not re-checked: the card has no picture |
+| `rm-817` tunica | none | not re-checked: the card has no picture; a surviving Roman tunic would do |
+| `rm-818` toga | none | not re-checked: the card has no picture; a togate statue would do |
+| `rm-819` garum | none | not re-checked: the card has no picture; Scaurus's garum-jar mosaic would do |
+| `rm-820` convivium | none | not re-checked: the card has no picture; a banquet fresco would do |
+| `rm-821` medicus | none | not re-checked: the card has no picture; a relief of a doctor's instruments would do |
+| `rm-822` Galen | none | not re-checked: the card has no picture (any portrait is imagined) |
+| `rm-823` Ulpian's life table | none | not re-checked: the card has no picture |
+| `rm-824` imagines maiorum | none | not re-checked: the card has no picture; the Barberini togatus with his ancestors' busts would do |
+| `rm-825` columbarium | none | not re-checked: the card has no picture; a photograph of a columbarium's niched walls would do |
+| `rm-826` Campus Martius | none | not re-checked: the card has no picture; a model or plan of the Campus would do |
+| `rm-827` Regionary Catalogues | none | not re-checked: the card has no picture |
+| `rm-828` fourteen regions | none | not re-checked: the card has no picture; a map of the regions would do |
+| `rm-829` insula | none | not re-checked: the card has no picture; the House of Diana at Ostia would do |
+| `rm-830` domus | none | not re-checked: the card has no picture; the House of the Faun at Pompeii would do |
+| `rm-831` atrium | none | not re-checked: the card has no picture; the atrium of the House of the Menander would do |
+| `rm-832` Roman villa | none | not re-checked: the card has no picture |
+| `rm-833` hortus | none | not re-checked: the card has no picture; the garden fresco from Livia's villa would do |
+| `rm-834` Tabula Heracleensis | none | not re-checked: the card has no picture; the bronze itself would do |
+| `rm-835` Marcus Egnatius Rufus | none | not re-checked: the card has no picture |
+| `rm-836` curatores alvei Tiberis | none | not re-checked: the card has no picture; one of the curators' boundary stones would do |
+| `rm-837` Cloacina | none | not re-checked: the card has no picture; a denarius of Mussidius Longus would do |
+| `rm-838` forica | none | not re-checked: the card has no picture; the latrine at Ostia would do |
+| `rm-839` castellum aquae | none | not re-checked: the card has no picture; the castellum at Pompeii would do |
+| `rm-840` hora | none | not re-checked: the card has no picture; a Roman sundial would do |
+| `rm-841` Horologium Augusti | none | not re-checked: the card has no picture; the obelisk at Montecitorio would do |
+| `rm-842` macellum | none | not re-checked: the card has no picture; the macellum at Pozzuoli would do |
+| `rm-843` taberna | none | not re-checked: the card has no picture; a shop front at Ostia or Herculaneum would do |
+| `rm-844` fullonica | none | not re-checked: the card has no picture; the Fullonica of Stephanus would do |
+| `rm-845` lex Claudia | none | not re-checked: the card has no picture |
+| `rm-846` navicularius | none | not re-checked: the card has no picture; a shippers' mosaic from the Square of the Corporations would do |
+| `rm-847` Ostia | none | not re-checked: the card has no picture |
+| `rm-848` Portus | none | not re-checked: the card has no picture; Trajan's hexagonal basin would do |
+| `rm-849` amphora | none | not re-checked: the card has no picture; its glossary term's picture is a Greek Panathenaic prize amphora with a description naming the museum and licence, worth replacing |
+| `rm-850` terra sigillata | none | not re-checked: the card has no picture; an Arretine bowl would do |
+| `rm-851` glassblowing | none | not re-checked: the card has no picture; a free-blown Roman glass flask would do |
+| `rm-852` as | none | not re-checked: the card has no picture; a Republican bronze as (Janus and prow) would do |
+| `rm-853` argentarius | none | not re-checked: the card has no picture |
+| `rm-854` Roman cursive | none | not re-checked: the card has no picture; a cursive papyrus or tablet would do |
+| `rm-855` programma | none | not re-checked: the card has no picture; a painted electoral notice at Pompeii would do |
+| `rm-856` wax tablet | none | not re-checked: the card has no picture; a tablet with stylus would do |
+| `rm-857` itinerarium | none | not re-checked: the card has no picture; a section of the Peutinger map would do |
+| `rm-858` cursus publicus | none | not re-checked: the card has no picture |
+| `rm-859` popina | none | not re-checked: the card has no picture; a Pompeian counter with set-in jars would do |
+| `rm-860` De agri cultura | none | not re-checked: the card has no picture |
+| `rm-861` villa rustica | none | not re-checked: the card has no picture; the Settefinestre or Boscoreale farm buildings would do |
+| `rm-862` Falernian wine | none | not re-checked: the card has no picture |
+| `rm-863` trapetum | none | not re-checked: the card has no picture; a stone trapetum at Pompeii or Stabiae would do |
+| `rm-864` Las Médulas | none | not re-checked: the card has no picture; the red pinnacles would do |
+| `rm-865` tegula | none | not re-checked: the card has no picture; a tegula-and-imbrex roof would do |
+| `rm-866` lex Roscia theatralis | none | not re-checked: the card has no picture |
+| `rm-867` ludi Romani | none | not re-checked: the card has no picture |
+| `rm-868` gladiator | none | not re-checked: the card has no picture; the Zliten or Nennig gladiator mosaic would do |
+| `rm-869` Ludus Magnus | none | not re-checked: the card has no picture; the excavated cells by the Colosseum would do |
+| `rm-870` retiarius | none | not re-checked: the card has no picture; a mosaic of a retiarius would do |
+| `rm-871` munus | none | not re-checked: the card has no picture; a gladiator relief from a tomb would do |
+| `rm-872` amphitheatre | none | not re-checked: the card has no picture; the amphitheatre at Pompeii would do |
+| `rm-873` venatio | none | not re-checked: the card has no picture; a venatio mosaic would do |
+| `rm-874` damnatio ad bestias | none | not re-checked: the card has no picture; the Zliten mosaic's scene would do |
+| `rm-875` naumachia | none | not re-checked: the card has no picture |
+| `rm-876` chariot racing | none | not re-checked: the card has no picture; a circus mosaic would do |
+| `rm-877` Circus of Maxentius | none | not re-checked: the card has no picture; the ruins on the Via Appia would do |
+| `rm-878` circus factions | none | not re-checked: the card has no picture; a mosaic of the four colours' drivers would do |
+| `rm-879` Gaius Appuleius Diocles | none | not re-checked: the card has no picture |
+| `rm-880` Theatre of Pompey | none | not re-checked: the card has no picture; a plan or model of the theatre would do |
+| `rm-881` pantomimus | none | not re-checked: the card has no picture; a relief of a pantomime with masks would do |
+| `rm-882` Decimus Laberius | none | not re-checked: the card has no picture |
+| `rm-883` thermae | none | not re-checked: the card has no picture; the Baths of Caracalla or a caldarium would do |
+| `rm-884` Baths of Diocletian | none | not re-checked: the card has no picture; Santa Maria degli Angeli's hall would do |
+| `rm-885` ludus duodecim scriptorum | none | not re-checked: the card has no picture; an inscribed gaming board would do |
+| `rm-886` palaestra | none | not re-checked: the card has no picture; the Large Palaestra at Pompeii would do |
+| `rm-887` Fasti Praenestini | none | not re-checked: the card has no picture; the surviving fragments would do |
+| `rm-888` panem et circenses | none | not re-checked: the card has no picture |
+| `rm-889` pulvinar | none | not re-checked: the card has no picture |
+| `rm-890` Epistulae Morales ad Lucilium | none | not re-checked: the card has no picture; a manuscript page of the letters would do |
+| `rm-891` religio | none | not re-checked: the card has no picture |
+| `rm-892` pax deorum | none | not re-checked: the card has no picture |
+| `rm-893` suovetaurilia | none | not re-checked: the card has no picture; the Louvre census relief would do |
+| `rm-894` Temple of Castor and Pollux | none | not re-checked: the card has no picture; the three standing columns would do |
+| `rm-895` quindecimviri sacris faciundis | none | not re-checked: the card has no picture; a coin with Apollo's tripod would do |
+| `rm-896` pontifex maximus | none | not re-checked: the card has no picture; the Via Labicana Augustus (its glossary's picture) would do |
+| `rm-897` College of Pontiffs | none | not re-checked: the card has no picture |
+| `rm-898` augur | none | not re-checked: the card has no picture; a coin with the lituus would do |
+| `rm-899` auspices | none | not re-checked: the card has no picture; its glossary term's picture (an engraving of Numa's augury) has no licence and is wrong |
+| `rm-900` Spurinna | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -2950,3 +3050,212 @@ Overlap notes for the owner (nothing was edited): `wh-363` dates Salvius Julianu
 ### Locators (2026-10-30, the eighth hundred)
 
 None was added or moved, so `migrate-places.js` was not run. The seven `L.missing` are provinces or regions that want a hand-drawn `area`, and no sourced outline was found for any: the Agri Decumates (`rm-756`), Roman Britain (`rm-757`), Hispania (`rm-761`), Africa Proconsularis (`rm-762`), Roman Egypt (`rm-765`), Roman Syria (`rm-768`) and Judaea (`rm-770`). The cities and sites already had their points (Londinium, Lugdunum, Narbo, Mogontiacum, Carthage, Leptis Magna, Alexandria, Palmyra, Caesarea Maritima, Corinth, Sarmizegetusa, Calleva and Muziris among them). For a later pass: `rm-776` Pannonia's point sits near Sirmium on the province's south-east edge; `rm-742` portorium (Ephesus, the customs law's findspot), `rm-778` lex Hieronica (Syracuse), `rm-726` Gaius (Verona), `rm-729` the Digest (Florence) and `rm-727` Ulpian (Tyre) carry points for a law, a text or a man that a later pass may prefer to drop.
+
+### B81 — `rm-801`–`rm-810`, Family, household and slavery: declamation to the ordo decurionum (2026-11-07)
+
+Run as B80, with one notes line per pair and a running list of used clues passed to later agents. Commons answered this session's one test call (200), but the agents made no Wikimedia calls and every card still lacks a picture ("Pictures to redo"). LacusCurtius, down in every earlier session, answered too. Before drafting, three clashes were moved: Hadrian's rules on slaves went to `rm-806` alone (out of `rm-802`), the Silanianum debate's Cassius to `rm-809` (out of `rm-805`), and two questions that repeated other cards were dropped — `rm-807`'s tax voted in camp (`rm-701`'s) and `rm-808`'s Augustales (word for word `rm-925`'s). **The old date lines carried "Passed c. 10 CE / Extended 57 CE" (no source read prints 57) and "Recall laws 325 – 326 CE", a range built from two laws.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-801` declamation | 6 | 6 → 8 | **The senate decree of 161 BCE (Rolfe's margin, and about rhetoric in general) goes; the Tacitus line is a speaker's in the *Dialogue*, Juvenal satire**; the suasoria and the controversia; the elder Seneca's collection; Suetonius's Ostia fish-haul case; the *Minor Declamations*. |
+| `rm-802` servus | 6 | 6 → 7 | **The jurists' derivation from servare is their own etymology; Hadrian and the Historia Augusta go to `rm-806`; Italy's slave numbers a modern debate, no figure**; Varro's articulate equipment; Musicus Scurranus and his sixteen slaves; Antoninus Pius's rule in a why answer. |
+| `rm-803` sub corona | 5 | 7 → 6 | **Caesar 3.16 read in the Loeb whose Latin says "sub corona"; the quaestor and cheap-dealer claims (Smith only) and Strabo's Delos (`rm-279`'s) go**; Sabinus's garland against the cap (Gellius); the ring of soldiers; Livy's 150,000 from Epirus as his figure. |
+| `rm-804` catasta | 5 | 7 → 8 | **Stripping, doctors and the dealers' bad name (Smith only) go; no securely identified slave-market building (Trümper, reviewed)**; Martial's Mamurra (satire); Tibullus's barbarians' platform; the aediles' edict from Gellius and the Digest. |
+| `rm-805` verna | 6 | 6 → 6 | **Cassius's speech (`rm-809`'s) goes; the free-at-any-moment rule credited to Hadrian's decision, as Buckland says**; Nepos's Atticus; Columella's mother of three sons; the epitaph of Vitalis. |
+| `rm-806` ergastulum | 6 | 7 → 8 | **Hadrian's abolition hedged as the Historia Augusta's; Diodorus's mines, Juvenal and the "ergastularius" (Smith only) go**; Columella's underground prison; Suetonius on kidnapped travellers and Tiberius's clearing; Pliny's "worst plan"; the archaeology's limits. |
+| `rm-807` manumission | 7 | 7 → 8 | **Vindicius Livy's story, its etymology wrong by his editor; the tax voted in camp (`rm-701`'s) goes; modern share 0 → 4**; Gaius's three forms; the lex Aelia Sentia (4 CE) and the Fufia Caninia's cap of 100; Dionysius's complaint. |
+| `rm-808` libertus | 6 | 7 → 8 | **The Augustales question (`rm-925`'s) and the praetorian honours (`rm-434`'s) go; Pliny's chalked feet his sneer**; Nero's senate's "widely spread class"; Isidorus's will; sworn services and re-enslavement (Buckland). |
+| `rm-809` senatus consultum Silanianum | 5 | 6 → 7 | **"Extended 57 CE" cut (no source read prints it): Passed 10 CE, "usually dated"; the year out of a question; Hadrian's rescript from the Digest, not the Historia Augusta**; Cassius's speech as Tacitus gives it; Pliny 3.14 and Smith go. |
+| `rm-810` ordo decurionum | 6 | 6 → 8 | **"Recall laws 325 – 326 CE" cut (no line): Constantine's laws of 320, 325 and 326 CE in prose, one by one; "decurions chose the magistrates" and Augustus's sealed votes (Smith only) go**; Paulus on the duumvir; the Canusium album; Philippi's 70 – 75 members as one estimate. |
+
+**Read by eye.** *Confusability:* `rm-801` the declamation (Hannibal's theme) against `rm-799`/`rm-800`; `rm-802`/`rm-803`/`rm-804`/`rm-805`/`rm-806` the slave (Varro's tools), the captive sale (the garland), the stand (Mamurra), the home-born slave (Atticus) and the farm prison (Columella); `rm-807`/`rm-808` freeing (Gaius's three forms) and the freedman (Isidorus); `rm-809`/`rm-810` the murdered master's household (Pedanius) and the town council (Canusium). *Legend:* Vindicius is Livy's story. *Overlap:* no `gr-` or `wh-` card disagrees. `rm-806`'s `L.missing` is deliberate: an ergastulum is a kind of building with no one site.
+
+### B82 — `rm-811`–`rm-820`, Family, household and slavery: the prefect of Egypt to the convivium (2026-11-07)
+
+Run as B81. The 320,000 of Augustus's cash gift went to `rm-812` alone, so `rm-815`'s question on Caesar's count names no figure; the Nicomedia firemen stayed off `rm-813` (`rm-774`'s); the Gallus stele and the first prefect stayed off `rm-811` (`rm-958`'s); Tacitus on the Britons' toga stayed off `rm-818` (`rm-782`'s). `rm-816`'s agent asked to move its point to the pits by Piazza Vittorio Emanuele; the request was set aside for a later locator pass (below). **The old date lines carried a man's death ("Gallus died 26 BCE", read off Cary's Dio margin), a cash gift labelled a count ("Counted 5 BCE"), and "Capped 2 BCE" from Cary's margin, not Dio's text.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-811` prefect of Egypt | 6 | 8 → 8 | **"Gallus died 26 BCE" goes: Created 30 BCE; every LacusCurtius source replaced and Smith's "Equites" cut; the "viceroy of a private province" picture doubted (Jördens, reviewed)**; Tiberius Alexander; Strabo's prefect with the king's rank; Claudius's procurators against the one knight with legions; the Philae stele not the cause of Gallus's fall (one reviewer). |
+| `rm-812` plebs urbana | 6 | 6 → 7 | **"Counted 5 BCE" was a cash gift: Cash gift 5 BCE; the unsourced "about 10,000 voters" goes; the 320,000 city plebs set apart from the 200,000 grain receivers**; Tacitus's respectable plebs; Sallust's Catiline crowd; the Tiberian decrees' senate, knights and plebs. |
+| `rm-813` collegium | 6 | 7 → 8 | **Senate ban 64 BCE and Restored by law 58 BCE, Asconius's account (in Latin, with its chip) with the BCE years from two reviews; the "three persons" definition (Smith only) goes**; the Lanuvium rules of 136 CE; the Digest on lawful clubs; Trajan's Amisus fund. |
+| `rm-814` salutatio | 6 | 6 → 7 | **Smith's "Sportula" goes; Juvenal framed as satire and Seneca as a moralist; Gracchus as a turning point is one study's, with its own caveat**; the election handbook's callers; the atrium as the stage. |
+| `rm-815` frumentatio | 6 | 7 → 7 | **The line now dates the dole itself: Cheap sales 123 BCE, Made free 58 BCE, Roll cut 46 BCE, Roll fixed 2 BCE (the Res Gestae and Rickman, not Cary's margin); the unsourced five-modii law of 73 BCE goes; "from Claudius" becomes Claudius or Nero**; Caesar's street-by-street count; the Porticus Minucia doorways. |
+| `rm-816` puticuli | 5 | 6 → 5 | **Two off-topic sentences on poverty go; Lanciani's figures his own; a modern study doubts the mass-grave reading (Graham)**; Varro's two derivations in Kent's Loeb; Horace's Priapus; the praetor's boundary stones. |
+| `rm-817` tunica | 7 | 7 → 8 | **Six of seven sources were ancient: now four modern, among them a surviving Roman-period linen tunic (Verhecken-Lammens 2010); Caesar's fringed sleeves the story Suetonius repeats**; Gellius's long sleeves; Horace's tunic-clad crowd; the shared "Tunic" glossary entry rewritten in general terms. |
+| `rm-818` toga | 8 | 8 → 9 | **The semicircle an old reading of Quintilian and Dionysius; the Etruscan origin a tradition plus one modern view; Juvenal satire**; Augustus and the dark cloaks; Quintilian's cut; the glossary's unsourced "heavy" goes. |
+| `rm-819` garum | 7 | 7 → 9 | **Strabo's line was Pliny's: Strabo now says only that New Carthage had plenty of salted fish; the 1,000 sesterces Pliny's figure**; allec and the scaleless garum for Jewish rites; Seneca the moralist; Scaurus's mosaics; Pompeii's salteries closed by the Augustan period; the Tunisian tanks. |
+| `rm-820` convivium | 6 | 6 → 7 | **Cicero's word is "communion of life" in Falconer, not "living together"; Varro as Gellius reports him; Smith and Juvenal go**; Pliny's three wines; the posture debate (Vössing, reviewed). |
+
+**Read by eye.** *Confusability:* `rm-811` the prefect (Tiberius Alexander) against `rm-765`/`rm-766`; `rm-812`/`rm-815` the city plebs (the cash gift) and the grain dole (Caesar's count); `rm-813`/`rm-814` the club (Lanuvium) and the morning call (Seneca's Gracchus); `rm-816`/`rm-825` the pits (Varro) and the columbarium; `rm-817`/`rm-818` the tunic (Gellius's sleeves) and the toga (the dark cloaks); `rm-819`/`rm-820` the sauce (allec) and the dinner (the Graces). *Legend:* none. *Overlap:* no `gr-` or `wh-` card disagrees.
+
+### B83 — `rm-821`–`rm-830`, Family, household and slavery to The Roman city and daily life: medicus to domus (2026-11-07)
+
+Run as B82, closing `rm-society` and opening `rm-daily-life`. Clues were handed between siblings before drafting: the Esquiline pits and Horace's Priapus to `rm-816` (out of `rm-825`), the 46,602 insulae and 1,790 domus to `rm-827` (out of `rm-829` and `rm-830`), Polybius's masks to `rm-824`, Vitruvius's men of middling station to `rm-830` and the morning callers to `rm-814` (all three out of `rm-831`, which got three new questions), Columella's three-part estate to `rm-861` (out of `rm-832`), and Livius Drusus's house stayed out of `rm-830`'s questions (`rm-304`'s). **The old date lines carried another law's year twice ("Lex Falcidia 40 BCE / Inheritance tax 6 CE" on Ulpian's rule), other buildings' dates ("Pompey's theatre 55 BCE / Saepta Julia 26 BCE" on the Campus Martius), a man's house ("Lepidus's house 78 BCE"), a fire law on the insula, the catalogues' count on two cards and a 7th-century "Replaced" no source bears out.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-821` medicus | 6 | 7 → 7 | **"First at Rome 219 BCE" becomes First physician 219 BCE, Pliny's year 535 from the founding after Cassius Hemina, on Varro's epoch; Smith and Celsus go**; Caesar's citizenship for doctors; Archagathus the "Executioner"; Cato's recipe book (Plutarch); Stertinius's fee Pliny's figure. |
+| `rm-822` Galen | 7 | 7 → 8 | **"Library burnt 192 CE" off the line: Born 129 CE (a modern date; Brock gave 131), Died c. 200 CE, Also dated after 210 CE; only Galen says he was Marcus Aurelius's physician**; the Suda's 70 years; the gladiators at Pergamon; the pig's spinal cord; *Avoiding Distress*. |
+| `rm-823` Ulpian's life table | 5 | 6 → 6 | **A modern label for a rule valuing annuities, not a record of deaths (Floris and others 2021); the two other laws' years off the line (no line); the figure of years out of a question**; Macer's commentary in the Digest; the lex Falcidia's quarter; the demography debate. |
+| `rm-824` imagines maiorum | 6 | 8 → 8 | **Masks for office-holding families (from the aedileship up), not all Romans; "ius imaginis" a modern term built on a line of Cicero**; Polybius's funeral; Junia's funeral (Tacitus); Pliny's halls; Smith's "images made a family noble" goes. |
+| `rm-825` columbarium | 7 | 7 → 7 | **"First built c. 20 BCE" was Lanciani's guess and "Company tomb 6 BCE" one tomb: no line; the company's 36 members and 180 niches Lanciani's report; the Esquiline clue goes**; Livia's household tomb; Pomponius Hylas; Ostia and Puteoli against the crowding explanation. |
+| `rm-826` Campus Martius | 7 | 7 → 7 | **The theatre's and the Saepta's dates go (no line); the consecration Livy's story, with Dionysius's rival version**; Livy's twelve floods; the palus Caprae; ambassadors outside the pomerium and Sulla's sale (Orosius); Livy's grain-island story left to `rm-921`. |
+| `rm-827` Regionary Catalogues | 5 | 6 → 5 | **All modern now; Compiled c. 300 – 400 CE, Also dated 334 – 357 CE (one study); the insula debate says whose view is whose; "nearest thing to a census" goes**; the Curiosum and the Notitia; Region XI and the Circus Maximus; the totals that do not add up. |
+| `rm-828` fourteen regions | 6 | 7 → 7 | **"Replaced c. 600 – 700 CE" was wrong: the church's seven regions arose beside them from the 3rd century and the Augustan regions lapsed after the Gothic wars (Goodman 2020); Created 7 BCE**; Tacitus's fire tally by region; Pliny's crossroads; Domitian's Vulcan altar. |
+| `rm-829` insula | 7 | 7 → 8 | **Not simply an apartment block: a street block, a unit, a funerary enclosure or a unit of property; the 46,602 and the year in a question go (no line)**; Juvenal's tenant; Vitruvius's floors on piers; Strabo's height rule; the House of Diana at Ostia; 80 per cent of buildings one or two floors (one reading of the Marble Plan). |
+| `rm-830` domus | 7 | 7 → 8 | **Smith's one family per house, thatched roofs and Eastern splendour go; "housefuls" of kin, slaves and tenants (one study); Lepidus's house Pliny's claim (no line)**; Octavius's Palatine house (Cicero); Vitruvius's office-holders; the House of the Faun's size from the park. |
+
+**Read by eye.** *Confusability:* `rm-821`/`rm-822` the doctor (Archagathus) and Galen (the pig); `rm-823`/`rm-824`/`rm-825` the annuity rule (Macer), the masks (Junia) and the urn tomb (Livia's household); `rm-826`/`rm-827`/`rm-828` the plain (the twelve floods), the lists (Region XI) and the regions (the fire tally); `rm-829`/`rm-830`/`rm-831` the block (Juvenal's tenant), the house (Octavius) and the hall (`rm-831`, B84). *Legend:* the Campus's consecration is told as Livy's and Dionysius's. *Overlap:* no `gr-` or `wh-` card on Galen or the doctors disagrees. `rm-825`'s, `rm-829`'s and `rm-830`'s `L.missing` are deliberate: building types with no one site.
+
+### B84 — `rm-831`–`rm-840`, The Roman city and daily life: atrium to hora (2026-11-07)
+
+Run as B83. `rm-831` was given three new questions (all three old ones were siblings' clues); `rm-832` gave Columella's three-part estate to `rm-861` and Piazza Armerina to `rm-978`; `rm-837` dropped Livy's Verginia (`rm-113`'s) and the "Cloaca Maxima" that gave the answer away. **The old date lines carried one man's garden ("Lucullus c. 60 BCE" on the hortus), a letter of Cicero's beside the tablet's date, a label joining two things ("Flood, board 15 CE"), and Cary's margin years on Egnatius Rufus.** `rm-835`'s second year was labelled "Or aedile" by its agent and renamed "Also dated" before applying.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-831` atrium | 7 | 7 → 8 | **All three questions new; the first kitchen and the Atrium Publicum's lightning (Smith only) and the ancestor masks (`rm-824`'s) go**; Vitruvius's five roofs; Asconius on the looms in Lepidus's atrium; front halls "fairly utilitarian" (one archaeologist, reviewed). |
+| `rm-832` Roman villa | 8 | 8 → 8 | **"Villa urbana / rustica" a modern definition; Columella and Cato go (Cato could not be read)**; Varro's seaside house near Ostia without presses; Pliny's Saturnalia suite at Laurentum; Vitruvius's country peristyle first. |
+| `rm-833` hortus | 6 | 6 → 8 | **"Lucullus c. 60 BCE" dated one man's garden: no line; the Twelve Tables used hortus for a farm and heredium for a garden (Pliny)**; Pliny's Tuscan topiary; gardens by shops, inns, temples and tombs; the glossary's "planting pits" (no source) goes. |
+| `rm-834` Tabula Heracleensis | 5 | 5 → 6 | **Dated 80 – 43 BCE (Crawford's range) and Found 1732; the "In Cicero" row goes; "Lex Julia Municipalis" a 19th-century identification, rejected by Legras (1907, in French)**; the Greek face's decree; wagons till the tenth hour; frontage upkeep (Hardy's translation). |
+| `rm-835` Marcus Egnatius Rufus | 5 | 6 → 7 | **The 600 slaves came later (Dio 54.2): the link to Egnatius is Syme's argument; Aedile 26 BCE, Also dated 21 BCE, Executed 19 BCE from Syme and Stuart Jones, no Cary margin**; Velleius's gladiator jibe; the consul Saturninus's oath. |
+| `rm-836` curatores alvei Tiberis | 5 | 6 → 7 | **Tacitus names two senators, Dio five by lot, and a boundary stone backs Dio's five; "Flood, board" becomes Board set up 15 CE**; Tiberius's "too much water"; Trajan's single curator with the drains; Smith goes. |
+| `rm-837` Cloacina | 6 | 6 → 7 | **Pliny's myrtle and Lactantius's Tatius told as legend; the coins of Mussidius Longus (42 BCE, CLOACIN) as the contemporary evidence**; Platner on the cult's early date; Hülsen (in Italian); Plautus's stage manager; the glossary stands. |
+| `rm-838` forica | 6 | 6 → 6 | **The century out of a question; the sponge on a stick a modern debate; Juvenal's "conducunt foricas" the word in use**; keyhole seats by baths; Eirene at Lepcis; Vespasian's tax in Suetonius's translator's words. |
+| `rm-839` castellum aquae | 6 | 6 → 7 | **Pompeii's three pipes served the eastern, central and western districts (Olsson), not Vitruvius's fountains, baths and houses: his scheme a recommendation**; Frontinus's 247 his count; Smith goes. |
+| `rm-840` hora | 6 | 6 → 7 | **Seasonal hours lasted through antiquity into the Middle Ages (the old "equal hours in late antiquity" goes); the parasite's play one Gellius believed Plautus's**; Martial's day; Pliny's sundials of 263, 164 and 159 BCE in prose, not on the line. |
+
+**Read by eye.** *Confusability:* `rm-831`/`rm-832`/`rm-833` the hall (the five roofs), the villa (Laurentum) and the garden (the topiary names); `rm-834`/`rm-835`/`rm-836` the street law (the wagons), the fire-fighting aedile (the gladiator jibe) and the river board (the boundary stone); `rm-837`/`rm-838`/`rm-839` the sewer goddess (the coins), the latrine (Juvenal's contracts) and the water tower (Frontinus's 247); `rm-840`/`rm-841` the hour (Martial) and the obelisk (the gilded ball). *Legend:* Cloacina's myrtle and Tatius. *Overlap:* no `gr-` or `wh-` card disagrees. The `L.missing` on `rm-831`, `rm-832`, `rm-838` and `rm-840` is deliberate: a room, a building type, a latrine and an hour have no one site. The hortus's and the river board's existing points go to the locator note at the end of the hundred.
+
+### B85 — `rm-841`–`rm-850`, The Roman city and daily life: the Horologium Augusti to terra sigillata (2026-11-07)
+
+Run as B84. The 300-amphora law stayed with `rm-845` (out of `rm-849`), the Square of the Corporations with `rm-846` (out of `rm-847`), Monte Testaccio with `rm-534` and the Ancus inscription with `rm-065`. After applying, two questions were re-worded and re-applied because check-cards read a two-word capitalised phrase as a modern scholar: `rm-842`'s "MAC AVG" and `rm-844`'s "Mercury Street". `rm-842`'s second row ("Great market 59 CE", Nero's building) was cut before applying: one building's dedication does not date the market type. **The old date lines carried another event three times ("Shields hung 310 BCE", Livy's Samnite shields, on the taberna; "Storm 62 CE" on Portus; the Metilian law's dictionary year on the fullery), two men in labels ("Fulvius' market", "Nero's market"), an unsourced "Main period c. 1 – 300 CE" and a range of two events for Ostia's fort.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-841` Horologium Augusti | 6 | 7 → 7 | **Obelisk set up 10 BCE and Meridian found 1980; Buchner's sundial reaching the Ara Pacis is his reading, against the meridian-only view and a possible Flavian rebuild; the obelisk's 6th century BCE, not Platner's 7th**; Pliny's gilded ball; the Sun dedication; earthquake or floods. |
+| `rm-842` macellum | 6 | 6 → 8 | **The men out of the line: Market burned 210 BCE only; Fulvius's market of 179 BCE in prose; the Santo Stefano and "macellarius" claims go**; Terence's sponger; Varro's merged markets and the thief Macellus; Nero's coins. |
+| `rm-843` taberna | 6 | 6 → 7 | **"Shields hung 310 BCE" was Livy's shields: no line; the state-owned shops left to `rm-853`; Martial a flatterer of Domitian, Livy's Tarquinius tradition**; shutters and mezzanines; the standard street-front row spreading from Pompeii. |
+| `rm-844` fullonica | 6 | 6 → 6 | **The Metilian law's year a modern reckoning (Pliny names only the censors): no line; Martial, Varro and the urine tax go**; Seneca's fuller's jump in its list of exercises; the Pompeian paintings; the Fullonica of Stephanus. |
+| `rm-845` lex Claudia | 5 | 5 → 6 | **The tribune is Quintus Claudius (Roberts's "Gaius" a slip); Dated 218 BCE and Also dated 219 BCE (Wolny); the year out of a question**; Livy's 300 amphorae; Flaminius alone; Cicero's "old and dead laws". The card's quote block says "father of a senator", a mistranslation the card does not follow (not edited). |
+| `rm-846` navicularius | 5 | 5 → 6 | **The 10,000 pecks and six years are Gaius's, not Suetonius's: the glossary corrected; Dio goes; the 4th-century compulsory and hereditary guilds (Waltzing, in French)**; the Square of the Corporations; the Digest's exemption. |
+| `rm-847` Ostia | 7 | 7 → 7 | **Traditional 620 BCE and Castrum built c. 400 – 200 BCE (a 4th- or 3rd-century fort), not "c. 292 – 278 BCE", one hypothesis; Smith and the quaestor passage go**; Strabo's harbourless shore; Hadrian as chief magistrate; no simple late decline (Boin, reviewed). |
+| `rm-848` Portus | 6 | 6 → 8 | **"Storm 62 CE" another event: Begun 42 CE and Hexagon built 100 – 112 CE; Tacitus's 200 ships his figure, a tsunami one modern view**; the lighthouse on the obelisk ship; Dio's architects; Nero's sestertius (OCRE). |
+| `rm-849` amphora | 7 | 7 → 7 | **The Capitoline standard rests on Festus's Silian law; the Historia Augusta's amphora hedged; the coffins (one 1825 find) and the glossary's Homeric gold go**; tituli picti; the pitch lining and pointed foot. |
+| `rm-850` terra sigillata | 6 | 6 → 6 | **First made c. 40 – 30 BCE at Arezzo (a 2026 study), not an unsourced main period; the name a faux-Latin 19th-century label; slave labour a modern inference from the stamps; the 7 by 7 m kiln goes**; La Graufesenque's firing lists; Martial's Arretine vases. |
+
+**Read by eye.** *Confusability:* `rm-841`/`rm-840` the obelisk and the hour; `rm-842`/`rm-843`/`rm-844` the market (Terence), the shop (the shutters) and the fullery (the jump); `rm-845`/`rm-846`/`rm-847`/`rm-848`/`rm-849` the shipping law (the 300 amphorae), the shipper (Gaius's 10,000 pecks), Ostia (the harbourless shore), Portus (the obelisk ship) and the jar (Festus's standard); `rm-850` the red ware. *Legend:* Ostia's founding by Ancus is tradition. *Overlap:* no `gr-` or `wh-` card disagrees. The `L.missing` on `rm-842`, `rm-843`, `rm-844` and `rm-850` is deliberate (building types and a ware).
+
+### B86 — `rm-851`–`rm-860`, The Roman city and daily life: glassblowing to De agri cultura (2026-11-07)
+
+Run as B85. Hedone's price graffito went to `rm-852` alone (out of `rm-859` and `rm-862`), Caecilius Iucundus's tablets to `rm-853` (out of `rm-856`), Claudia Severa's letter stayed `rm-689`'s (out of `rm-854`'s questions, line and prose), and the Bordeaux pilgrim's relay stations stayed out of `rm-858`. **The old date lines carried Pliny's weight cuts as a range made of a war ("Two-ounce as 264 – 241 BCE"), a Smith misreading of Livy as the first bankers ("c. 350 BCE" was the state's mensarii), a woman in a label ("Severa's letter"), the eruption on a painted notice ("Buried 79 CE"), a pilgrim's route and a medieval copy on the itinerarium, and a century range and a man's consulship on Cato's book.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-851` glassblowing | 7 | 7 → 8 | **"Discovered near Jerusalem about 50 BCE" is the Getty's dating, said so: Invented c. 50 BCE, Mould-blowing c. 25 BCE; Strabo's copper-coin cup hearsay; the Severus Alexander tax (Historia Augusta via Smith) goes**; Seneca against Posidonius; Pliny's remelting; the raw-glass furnaces (Barfod and others 2020). |
+| `rm-852` as | 6 | 6 → 8 | **Pliny's dates told as his; the line from the coin catalogue: Earliest type 280 – 276 BCE and Denarius system 211 BCE**; Hedone's graffito; Polybius's half an as; Forsythe on the aes grave. `rm-140`'s aes grave "c. 300 BCE" (Mattingly) is a different reckoning of the first cast bronze, noted here. |
+| `rm-853` argentarius | 6 | 7 → 8 | **"c. 350 BCE" was the mensarii: First attested 310 BCE, Livy's banks (Kay 2022, with his doubt about deposit bankers so early); bills of exchange drawn on Athens go (Kay: never developed)**; Hannibal's sale of the Forum shops; Iucundus's auction receipts; the permutatio. |
+| `rm-854` Roman cursive | 6 | 6 → 6 | **Severa out of questions, line and prose (`rm-689`'s); "Roman cursive" a palaeographers' label (Bischoff's names differ); the line a range from "the first three centuries": no line**; the London tablets' separate strokes (the 57 CE debt note); the road to Caroline minuscule. |
+| `rm-855` programma | 5 | 6 → 7 | **A painted notice, not a graffito; "Buried 79 CE" and Vatia's year go (no line); Mau's count of some 1,600 notices his**; o.v.f.; Vatia's sneak thieves and late drinkers; the trades' endorsements; the Trebius Valens detail corrected. |
+| `rm-856` wax tablet | 7 | 7 → 7 | **The forgery rule is Suetonius's under Nero (any tablet, a cord passed three times), not a will "void" without it (Paulus via Smith); Smith goes**; the stylus's blunt end; Quintilian's drafts; drafts and fair copies (Cato); the Sulpicii archive. |
+| `rm-857` itinerarium | 6 | 7 → 8 | **The pilgrim's route and the Peutinger copy's c. 1200 went off the line (no line); the "disputed date" no cited review states goes; one study doubts the Antonine list was official**; Vegetius in Clarke's translation; the Bordeaux pilgrim's Gallic leagues; Greek sea guides in stades. |
+| `rm-858` cursus publicus | 6 | 6 → 8 | **Name attested 310 CE (the panegyric) and First in a law 315 CE (the Theodosian Code), both read through Coskun's review; the Historia Augusta's Hadrian and Smith go; Procopius's forty horses his claim in a hostile book**; Augustus's post-chaises; Nerva's vehiculatio coin (OCRE); Pliny's wife's permit. |
+| `rm-859` popina | 6 | 6 → 8 | **Smith carried the stools, the caupona split and the bans: now Le Guennec (2016, in French) and Martial; Juvenal's cookshop not "at Ostia"; Claudius's closures "fearing crowds" her view**; Nero's pulse rule; Lateranus's big cookshop; eighty bars at Pompeii (the park's count). |
+| `rm-860` De agri cultura | 6 | 6 → 8 | **"Written c. 200 – 100 BCE / Author consul 195 BCE" becomes Written c. 160 BCE, one modern dating; Plutarch goes**; the vineyard first and the old slave sold; Columella's "speak Latin" and Varro's thirteen slaves; the overseer and the fortune-tellers. |
+
+**Read by eye.** *Confusability:* `rm-851`/`rm-852`/`rm-853` the glass (Seneca and Posidonius), the coin (Hedone) and the banker (Hannibal's sale); `rm-854`/`rm-855`/`rm-856` the hand (the London strokes), the painted notice (Vatia) and the tablet (the triple cord); `rm-857`/`rm-858`/`rm-859` the route list (Vegetius), the post (Nerva's mules) and the cookshop (Lateranus); `rm-860`/`rm-861`/`rm-863` Cato's book (the fortune-tellers), the farmhouse (Columella) and the olive mill (B87). *Legend:* none. *Overlap:* no `gr-` or `wh-` card disagrees. `rm-859`'s `L.missing` is deliberate (a kind of eating house).
+
+### B87 — `rm-861`–`rm-870`, The Roman city and daily life to Spectacle and leisure: villa rustica to retiarius (2026-11-07)
+
+Run as B86, closing `rm-daily-life` and opening `rm-spectacle`. The Brutus show of 264 BCE and Tertullian's "munus" went to `rm-871` (out of `rm-868`); Trimalchio stayed with `rm-962` (out of `rm-862`); Caligula 30 stayed `rm-523`'s (out of `rm-870`); Columella's three-part estate came to `rm-861` from `rm-832`. `rm-867`'s first label ("Repeated, trad.") was renamed "Traditional" before applying, and `rm-869`'s glossary was trimmed to 110 words. `rm-866`'s timeline moved from 68 to 67 BCE with `set-timeline.js` (`test-card-timeline.js`'s two failures are a layout check on a 1919 card, failing the same way without this change). **The old date lines carried two books' years on the farmhouse ("Cato writes … / Varro writes 37 BCE"), the Opimian vintage (every wine of 121 BCE, not just Falernian), an unrelated event ("Oil exported 52 BCE") on the olive mill, an end with no start on Las Médulas, Foster's Loeb margin for Tarquinius Priscus's reign as the games' founding, a man in two labels and reign ranges for the Ludus Magnus.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-861` villa rustica | 7 | 7 → 8 | **Columella's name for one part of an estate, made a building type by 20th-century scholars; the books' years off the line (no line); the Cato question claimed what Cato never says**; Columella's three parts and high kitchen; Varro's overseer by the door; read in Europe PMC where an MDPI DOI refuses a script. |
+| `rm-862` Falernian wine | 6 | 7 → 8 | **"Opimian vintage 121 BCE" goes (Pliny: every wine of that year was Opimian); Trimalchio out of questions, prose and sources; "second after the Caecuban" corrected**; the only wine that burns; Strabo's ranking; Diocletian's edict at Aphrodisias. The card's Petronius quote block now clashes with it (not edited). |
+| `rm-863` trapetum | 5 | 5 → 7 | **"Oil exported 52 BCE" another event (no line); every price Cato's own, the 60 sesterces for assembly added so the 724 adds up; no Olynthus claim (no open source)**; Varro's mellowing heaps; Columella's adjustable mill; a lava trapetum near Pompeii. |
+| `rm-864` Las Médulas | 6 | 6 → 7 | **"Ruina montium" the modern name, arrugiae Pliny's word; the end disputed and no start printed (no line); the 700 km of channels a mining engineer's survey and the 20,000 pounds Pliny's "some authorities"**; the Aquilianos channels; the flooded tunnels (Wilson 2025; Navarro and others 2026). |
+| `rm-865` tegula | 6 | 6 → 8 | **Suetonius's brick-to-marble boast and Vitruvius's brick-making (about bricks) go; the shingles-until-Pyrrhus story Pliny's report of Nepos**; the flanged tile and imbrex; Vitruvius's walls of old tiles; the Rhine legions' stamps (Ehmig, in German, and Buora, in Italian, both reviewed). |
+| `rm-866` lex Roscia theatralis | 5 | 7 → 8 | **"68 BCE or 67 BCE" becomes Carried 67 BCE: the 68 rests on a translator's bracket and Smith, the Loeb notes print 67; both in prose; timeline moved**; Livy's summaries and the fourteen rows; Plutarch's hissing crowd and Bellona; Cicero's taunt of Antony. The card's quote block calls him "Marcus Otho" and "praetor" (Perrin's note: tribune; not edited). |
+| `rm-867` ludi Romani | 6 | 7 → 8 | **The founding row was Foster's margin for a reign: cut; Traditional 491 BCE (the dream's repetition) and Also dated 280 BCE (Varro's year), each said whose; Smith's "4 – 12 September" becomes 5 – 19 (Fowler)**; Tarquinius marking the Circus as Livy's tradition; Dionysius's procession. |
+| `rm-868` gladiator | 9 | 9 → 10 | **Constantine's "ban" only sent criminals to the mines; First show 264 BCE and Last reported 434 CE or 435 CE; the Brutus show and Tertullian left to `rm-871`; "more than seventy bouts" a reviewer's report of Jacobelli, out of the questions**; Seneca's oath; the Res Gestae's 10,000; the Ephesus barley and ash drink. |
+| `rm-869` Ludus Magnus | 6 | 7 → 6 | **Built c. 81 – 96 CE, Domitian's reign as the only dating, and Rediscovered 1937; Trajan's restoration "is said to"; the 3,000 seats the Rome heritage office's (in Italian)**; matched to the marble plan; Herodian's Commodus; Capua, Spartacus and Caesar's private training go. |
+| `rm-870` retiarius | 7 | 7 → 8 | **Caligula 30 (`rm-523`'s) goes; Smith-only tactics now backed by Ramsay's note to Juvenal; the bare face read as bad character (reviewed studies)**; Juvenal's Gracchus; the Ephesus trident wounds (Kanz, read in its Europe PMC abstract); the Burdur relief. |
+
+**Read by eye.** *Confusability:* `rm-861`/`rm-862`/`rm-863`/`rm-864`/`rm-865` the farmhouse (Columella), the wine (it burns), the olive mill (the Pompeii price), the gold mine (the Aquilianos channels) and the tile (the flange); `rm-866`/`rm-867` the seating law (Bellona) and the games (Latinius's dream); `rm-868`/`rm-869`/`rm-870`/`rm-871` the fighter (Seneca's oath), the school (the marble plan), the net-fighter (Gracchus) and the show (Tertullian). *Legend:* the ludi's founding by Tarquinius and Latinius's dream are told as tradition. *Overlap:* no `gr-` or `wh-` card on gladiators disagrees. The `L.missing` on `rm-861` and `rm-870` is deliberate.
+
+### B88 — `rm-871`–`rm-880`, Spectacle and leisure: munus to the Theatre of Pompey (2026-11-07)
+
+Run as B87. The pity for Pompey's elephants went to `rm-873` alone (out of `rm-880`), Seneca's arena letter 7 to `rm-890` (out of `rm-874`), the murder in Pompey's hall stayed `rm-369`'s (out of `rm-880`), and Juvenal's "the Green won" left `rm-876` (a colour clue for `rm-878`). The `rm-871`/`rm-872` agent was stopped once (an eleventh agent had been launched by mistake) and relaunched fresh. **The old date lines carried another man's games in a label ("Lepidus's games 216 BCE", a year no page fetched prints), two events and a man on the amphitheatre ("Fidenae collapse 27 CE", "Pompeii riot 59 CE"), "Nero's victims 64 CE" on the execution, a man and a place in the naumachia's labels and a 52 CE no source fetched prints, a man's death on a circus ("Romulus died 309 CE"), a range made of two things for Diocles and a year from Pliny's Felix story that Pliny does not give.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-871` munus | 6 | 8 → 8 | **Tertullian's origin a Christian polemicist's claim; Lepidus's games kept without a year; First show 264 BCE and Last recorded c. 430 CE**; Livy's summary of Brutus's show; the Urso charter's duty on the duumvirs (in Latin); Pompeii's painted notices and tomb friezes. |
+| `rm-872` amphitheatre | 8 | 8 → 8 | **The events off the line (no line, undatable); Taurus's 30 BCE is a translator's margin, Dio's "fourth consulship" in prose; Pompeii's c. 70 BCE left out (no source would open)**; Curio's swivelling theatres; Fidenae and the solid-ground decree; Welch's Roman-not-Campanian origin. |
+| `rm-873` venatio | 6 | 8 → 8 | **Elephants slain 252 BCE (Pliny's year 502 from the founding), Lions hunted 186 BCE (Livy), Last recorded 537 CE; Smith, Dio 66.25 and Pliny 8.7 go**; Cicero on the elephants' pity; the Res Gestae's 26 hunts; a lion bite on a York skeleton (Thompson and others 2025); Uçar 2022 (in Turkish). |
+| `rm-874` damnatio ad bestias | 7 | 8 → 8 | **"Nero's victims 64 CE" becomes Deserters thrown 146 BCE (Livy's summary); Seneca's letter 7 left to `rm-890`, Smith goes**; Strabo's Selurus on the fake Etna; Caligula's line of prisoners (Suetonius's claim); the noxii set apart from gladiators; Martial's Orpheus and Tacitus's Christians in prose only. |
+| `rm-875` naumachia | 6 | 8 → 8 | **First large show 46 BCE and Permanent basin 2 BCE (Platner), no man or place in a label; every figure attributed (Augustus's 30 ships and 3,000 men, Tacitus's 19,000, Suetonius's 12 triremes against Dio's fifty a side)**; "Or not"; the glossary's "largest recorded" goes. |
+| `rm-876` chariot racing | 8 | 8 → 8 | **"Seven wooden eggs" becomes Livy's censors' egg markers and Agrippa's dolphins (Dio); "Theoderic paid for the races" becomes one driver's allowance (Cassiodorus); the disputed Circus crowd figures go; Juvenal goes**; Martial's Scorpus. |
+| `rm-877` Circus of Maxentius | 5 | 5 → 6 | **"Romulus died 309 CE" cut: Built c. 306 – 312 CE, bounded by Maxentius's reign; 309 "probably" (Nibby, 1825, in Italian, "con molta verosimiglianza"); 10,000 seats and 513 × 91 m Livius.org's**; the Divus Romulus coin (OCRE); Domitian's obelisk in Bernini's fountain; the Caracalla misnomer. |
+| `rm-878` circus factions | 7 | 8 → 8 | **Companies, not parties (Alan Cameron's work overturned the party view); the Felix year off the line (no line)**; Pliny's swapped tunics; Dio's racing dogs; Tertullian's colours and seasons; Caligula and Cassiodorus go. |
+| `rm-879` Gaius Appuleius Diocles | 5 | 5 → 5 | **"Racing career 122 – 146 CE" was two things: First drove 122 CE (the inscription's consulship, as a sourcebook converts it) and Monument 146 CE; every figure the inscription's; no large figures in the questions**; Juvenal's Red driver as satire; Caligula goes. |
+| `rm-880` Theatre of Pompey | 7 | 8 → 8 | **All three questions named Pompey and two used siblings' clues: replaced; the temple-as-cover story Tertullian's, with Hill's doubt; Dedicated 55 BCE, Inscribed 52 BCE (Gellius), Restored 32 BCE (Platner's year; the Res Gestae gives none)**; Plutarch's Mytilene plans; Cicero's four letters. |
+
+**Read by eye.** *Confusability:* `rm-871`/`rm-868` the show (Tertullian) and the fighter; `rm-872`/`rm-875` the arena (Curio's theatres) and the sea fight (the Fucine Lake); `rm-873`/`rm-874` the hunt (the elephants' pity) and the execution (Selurus); `rm-876`/`rm-877`/`rm-878`/`rm-879` the racing (the egg markers), the circus (the Romulus inscriptions), the companies (the swapped tunics) and the driver (the monument); `rm-880` the theatre (the temple of Venus). *Legend:* none. *Overlap:* no `gr-` or `wh-` card on gladiators, chariot racing or the Colosseum disagrees.
+
+### B89 — `rm-881`–`rm-890`, Spectacle and leisure: pantomimus to the Epistulae Morales (2026-11-07)
+
+Run as B88, closing `rm-spectacle`. The catalogue's 856 balnea stayed out of `rm-883`'s questions (`rm-827`'s count), the Res Gestae's grain and shows out of `rm-888`'s (`rm-396`'s and `rm-767`'s ground) and Juvenal's "commands and consulships" out of them too (`rm-964`'s), the lectisternium out of `rm-889` (`rm-076`'s), and Seneca's arena letter 7 kept for `rm-890` alone. `rm-883`'s notes line was wrong: the 170 free baths are Pliny's figure from Agrippa's own record, not Dio's, and the card says so. **The old date lines carried a Caesar in a label ("On Caesar's stage 45 BCE"), a range for the baths' building that the inscription does not support, and no line at all on the calendar; the old cards leaned on Smith's and Harper's dictionaries for the gambling penalties, the dice, the palaestra's "contempt", the pulvinar's best view and the pantomime's mime.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-881` pantomimus | 6 | 7 → 8 | **Became an art c. 22 BCE (Friedländer's "about 22 B.C."; Jerome could not be read); pantomime is not mime; Smith and Harper go**; Pylades's retort (Dio); Lucian's five masks; Tacitus's ban on senators visiting the dancers; Macrobius (in Latin). |
+| `rm-882` Decimus Laberius | 5 | 7 → 7 | **Died 43 BCE (Smith after Jerome); the stage year 45 BCE Smith's, in prose (Suetonius gives none); "after 60 years" out of the questions; 44 titles, not Harper's 43**; the whipped Syrian's cry; the Dyrrachium jibe; "beaten by the Syrian". |
+| `rm-883` thermae | 7 | 8 → 8 | **Agrippa's 170 free baths are Pliny's figure (Dio gives none); Hadrian's separate baths the Historia Augusta's; Smith and Seneca go; five modern sources**; Dio on Agrippa's bequest; balnea against thermae; the 856 balnea in prose only. |
+| `rm-884` Baths of Diocletian | 7 | 7 → 7 | **Ordered 298 CE, Dedicated 305 – 306 CE (the inscription's titles, printed in full by Paribeni 1920, in Italian; Jerome's 302 CE judged wrong), Made a church 1563 – 1566; the size the 1929 dictionary's; the cleared area, the mound and Ammianus go**; Maximian on his return from Africa; Pius IV and the Carthusians. |
+| `rm-885` ludus duodecim scriptorum | 6 | 8 → 8 | **The Augustus clue was wrong: his loss was at the Quinquatria and Suetonius names no game; the fourfold penalty, three dice and gambling emperors (Smith only) go; the gambling law from Digest 11.5**; Ovid's board; Antonius on Mucius; the catacomb boards; two or three dice a debate. |
+| `rm-886` palaestra | 7 | 8 → 8 | **Smith's villas copying it, "held in contempt" and "never rivalled the thermae" go; the 140 m square the Pompeii park's (the only size read)**; Vitruvius's "not used in Italy" and the philosophers' recesses; Pompeii's plane trees and pool; the Campus question and Seneca go. |
+| `rm-887` Fasti Praenestini | 5 | 6 → 8 | **Set up c. 10 CE ("not much before", one view reported in a review; a 2026 study's c. 4 CE could not be read, so the date is called debated) and Found 1770; Ovid, Gellius and the Kalends go to their own cards**; Verrius's statue by the hemicycle; the temple of Flora; the A–H letters. |
+| `rm-888` panem et circenses | 8 | 8 → 8 | **A satirist's jibe, not a description or a policy; the grain figures, the Res Gestae and Pylades go; the phrase's modern use and the elite stereotype (reviewed studies)**; Sejanus's statues melted into pots; Fronto's dictum. The quote block (Suetonius) now matches no sentence (not edited). |
+| `rm-889` pulvinar | 6 | 6 → 8 | **Smith's "cubiculum" and "best view" go: the box faced the finish with the barrier's monuments in the way (a 2021 study, reviewed); built or restored by Augustus (Platner's caution)**; Augustus's letter on Claudius; the Res Gestae's list; the gods' emblems in the box; Cicero on Caesar's pulvinar. |
+| `rm-890` Epistulae Morales ad Lucilium | 7 | 7 → 8 | **Wikisource (a Wikimedia host) replaced by the Loeb on archive.org; Written c. 62 – 65 CE (the Stanford Encyclopedia), Gummere's 63 – 65 in prose; real letters or a literary fiction debated; the suicide question goes**; letter 7's midday show; Gellius's 22nd book; letter 79's Etna. |
+
+**Read by eye.** *Confusability:* `rm-881`/`rm-882` the dancer (Pylades) and the mime-writer (the Syrian slave); `rm-883`/`rm-884`/`rm-886` the baths (Agrippa's bequest), Diocletian's baths (Maximian) and the exercise court (Vitruvius); `rm-885`/`rm-887` the board game (Ovid) and the calendar (Verrius); `rm-888`/`rm-889`/`rm-890` the phrase (Sejanus), the imperial box (Claudius) and Seneca's letters (the midday show). *Legend:* none. *Overlap:* no `gr-` or `wh-` card on Roman baths disagrees. The `L.missing` on `rm-883` and `rm-886` is deliberate (building types).
+
+### B90 — `rm-891`–`rm-900`, Roman religion and myth: religio to Spurinna (2026-11-07)
+
+Run as B89, opening `rm-religion`. The Ogulnian law went to `rm-897`'s questions alone (`rm-898` keeps it on its line), the chickens to `rm-899` (out of `rm-898`), the lectisternium out of `rm-892` (`rm-076`'s), the Dioscuri at the spring out of `rm-894` (`rm-099`'s), the Sibyl's books out of `rm-895` (`rm-076`'s), and Suetonius's sixty plotters, the note and "Et tu, Brute" stayed `rm-369`'s (out of `rm-900`). `rm-897`'s second label ("Raised to 15") was renamed "Enlarged" before applying. **The old date lines carried a man in a label twice ("Augustus elected 12 BCE", "Sulla's fifteen 81 BCE"), legendary years without the word (the Castor temple's vow and dedication), and the murder on the soothsayer ("Ides of March 44 BCE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-891` religio | 6 | 6 → 8 | **Scruple and exact ritual, not "religion" (with the counter-view that the wider sense is already in Varro and Cicero); the etymology an ancient dispute (relegere against religare); Cicero's speech says the Romans were not stronger or more numerous**; Lucretius's Aulis line; six ancient sources became four ancient and four modern. |
+| `rm-892` pax deorum | 6 | 6 → 7 | **The pax deorum as a doctrine is modern: one 2022 study finds the phrase rare in the sources; the lectisternium goes; Smith goes**; the plague and the Etruscan dancers (Livy); Fabius after Flaminius's disaster. |
+| `rm-893` suovetaurilia | 6 | 7 → 6 | **Livy's Servius written centuries later; Smith's "commonest sacrifice" and Varro's shepherd go; the animals out of the questions (the word's own translation)**; Cato's prayer to Father Mars; Helvidius purifying the Capitol; the Iguvine parallel; the Louvre census reliefs (maker and date unknown). |
+| `rm-894` Temple of Castor and Pollux | 7 | 7 → 7 | **Traditional vow 499 BCE and Trad. dedication 484 BCE, then Restored 117 BCE and Rebuilt 6 CE; the twins at the spring "the story ran" and out of the questions (`rm-099`'s)**; Cicero's plumb-line columns; Caligula's vestibule; the censors' review of the knights and the railed platform. `rm-099`'s line still reads "Temple dedicated 484 BCE" without the word Traditional (not edited). |
+| `rm-895` quindecimviri sacris faciundis | 5 | 6 → 9 | **Ten by tradition 367 BCE (the conventional year; Livy prints none); fifteen under Sulla a modern guess (Smith: uncertain); Caesar's sixteenth and the college to the end of the 4th century**; Tacitus at the Secular Games; Tiberius and Caninius Gallus; Apollo's tripod on Augustus's coins (Wissowa, in German). |
+| `rm-896` pontifex maximus | 7 | 8 → 9 | **"Augustus elected" becomes Emperor elected 12 BCE (the Fasti Praenestini); First plebeian 254 BCE; Renounced 376 CE and Also dated 375 CE (Van Haeperen; Wissowa); Zosimus's robe story dropped (unreadable)**; Caesar's promise to his mother; the crowds from all Italy; Coruncanius. |
+| `rm-897` College of Pontiffs | 6 | 7 → 8 | **Numa's four pontiffs tradition; the year of the Domitian law dropped (Smith's articles say 104 and 103 BCE); 81 BCE for Sulla's fifteen credited to a dictionary; Tacitus on the haruspices goes**; Cicero's speech *On His House*; Decius Mus and the Ogulnian law; Lucullus on religion and law. |
+| `rm-898` augur | 7 | 7 → 9 | **Numa's inauguration and Attus Navius told as legend (Cicero calls the whetstone a myth); Raised to nine 300 BCE only; "Sulla's fifteen" goes (a man, and no source on the card gives 81 BCE for the augurs); Messala left to `rm-707`**; Cicero against Antony over Dolabella. |
+| `rm-899` auspices | 7 | 7 → 8 | **Modern share 0 → 4; Appius's claim a speech Livy wrote; the drowned chickens attributed to the Periochae and Cicero's speaker, Drepana and 249 BCE from a review; the glossary's Numa augury (`rm-898`'s) goes**; Cicero's forced auspice. |
+| `rm-900` Spurinna | 5 | 6 → 7 | **The murder's date off the line: Warning given 44 BCE; the heart portent in Quintus's mouth in Cicero's dialogue; the Tarquinia family claim and Valerius Maximus go (no open source)**; "come but not gone"; the haruspex catalogue's literary-only entry. |
+
+**Read by eye.** *Confusability:* `rm-891`/`rm-892`/`rm-893` the scruple (Cicero's piety), the gods' peace (the dancers) and the triple sacrifice (Cato's prayer); `rm-894` the temple (Verres's columns); `rm-895`/`rm-896`/`rm-897` the keepers of the books (the Secular Games), the chief priest (Caesar's mother) and the college (Cicero's house); `rm-898`/`rm-899`/`rm-900` the augur (the curved staff), the auspices (the chickens) and Spurinna (the Ides). *Legend:* Numa, Attus Navius, the Dioscuri and Servius's lustrum are told as legend. *Overlap:* no `gr-` or `wh-` card on Roman religion disagrees. One note-only `Q.sibling`: `rm-899`'s Appius question shares content words with `rm-115` (the Canuleian law); the clue is a different speech in a different debate (Livy's Appius against plebeian consuls), so it stands.
+
+### The ninth hundred, in sum
+
+`rm-801`–`rm-900` (the close of Family, household and slavery, the whole of The Roman city and daily life and of Spectacle and leisure, and the opening of Roman religion and myth) are done: 670 sources became 744 and 87 glossary entries were rewritten. `rm-audit.js --range=rm-801:rm-900` reads no card clean only because every card lacks a picture (`I.none`). Commons answered this session's one test call (200, real data) for the first time in the audit, but the drafting agents made no Wikimedia calls and no picture pass was run; "Pictures to redo" holds a line for each of the hundred. The rest are English BMCR reviews of foreign-titled books read as `S.chip?`, advisory `W.not-why`, and deliberate `L.missing` on building types and kinds (ergastulum, columbarium, insula, domus, atrium, villa, forica, macellum, taberna, fullonica, popina, thermae, palaestra and the like), which have no one site. LacusCurtius answered this session too and was used, but Smith's dictionaries no longer stand alone for a claim. Fifty agents worked two cards each, never more than ten at once (an eleventh was launched by mistake once, stopped and relaunched fresh); a running list of used clues was passed to every later agent. Each batch was applied alone and committed with its docs.
+
+What the ninth hundred found, again and again:
+- **Smith's dictionaries standing in for the evidence.** The fourfold gambling penalty and three dice, the palaestra "held in contempt", the pulvinar's best view, the dealers' bad name, the atrium as the first kitchen, the wills "void" without a triple cord, "decurions chose the magistrates", the three persons of a collegium, the quaestor at slave sales, one family to a domus, stripping at the catasta. Each was re-sourced or cut.
+- **A modern label as ancient fact.** Ulpian's life table (an annuity rule), terra sigillata (a 19th-century label), villa rustica as a building type (Columella's part of an estate), the insula as an apartment block, Roman cursive (a palaeographers' name), circus factions as parties (companies; Cameron), panem et circenses as a policy (Juvenal's jibe), pax deorum as a doctrine, religio as religion, "ruina montium" as Pliny's word, ius imaginis, the Lex Julia Municipalis.
+- **Another event or another thing on the line.** Livy's Samnite shields on the taberna, Pompey's theatre and the Saepta on the Campus Martius, the eruption on the programma, a storm on Portus, Nero's victims on the execution, Fidenae and the Pompeii riot on the amphitheatre, the murder on Spurinna, the lex Falcidia and the inheritance tax on Ulpian's rule, the catalogues' count on the insula and the domus, an olive-oil export on the trapetum, the Opimian vintage on Falernian.
+- **A translator's margin or a dictionary's year read as the author's.** Cary's margins for Gallus's death, the 200,000 cap and Egnatius Rufus; Foster's margin for Tarquinius Priscus as the ludi's founding; Rolfe's 161 BCE for the rhetors' decree; Taurus's 30 BCE; the lex Roscia's 68 BCE (a translator's bracket); the Metilian law's 220 BCE; the Domitian law's 104 or 103 BCE. Each was cut, labelled or replaced with the author's own reckoning.
+- **Men and counts in labels.** "Gallus died", "Lepidus's house", "Fulvius' market", "Nero's market", "Lucullus", "Cato writes", "Varro writes", "Augustus elected", "Sulla's fifteen", "Severa's letter", "Vatia's campaign", "Lepidus's games", "Romulus died", "Augustus's fight", "Fucine Lake", "On Caesar's stage", "Counted 5 BCE", "Raised to 15", "Or aedile". All renamed or moved to prose.
+- **Wrong facts the old cards stated.** Pompeii's castellum splitting its water Vitruvius's way (by district instead); Pliny's 1,000-sesterces garum as Strabo's; Agrippa's 170 baths as Dio's (Pliny's); the 10,000 pecks as Suetonius's (Gaius's); "Gaius" Claudius the tribune (Quintus); equal hours in late antiquity; a 7th-century end for the fourteen regions (they lapsed after the Gothic wars); Constantine's gladiator "ban"; Theoderic "paying for the races"; the Augustus gaming loss "at the Saturnalia"; "c. 350 BCE" for the first bankers (the mensarii).
+- **Siblings sharing a clue, caught before drafting or before applying.** Hadrian's slave rules on `rm-802` and `rm-806`; Cassius's speech on `rm-805` and `rm-809`; the camp-voted tax (`rm-701`) on `rm-807`; the Augustales (`rm-925`) on `rm-808`; the 320,000 on `rm-812` and `rm-815`; Polybius's masks, Vitruvius's middling station and the morning callers on `rm-831`; Columella's three-part estate on `rm-832` and `rm-861`; the 46,602 insulae on `rm-827` and `rm-829`; the 300-amphora law on `rm-845` and `rm-849`; the Square of the Corporations on `rm-846` and `rm-847`; Severa's letter (`rm-689`) on `rm-854`; the Brutus show on `rm-868` and `rm-871`; the elephants' pity on `rm-873` and `rm-880`; Seneca's letter 7 on `rm-874` and `rm-890`; the Ogulnian law on `rm-897` and `rm-898`.
+
+Quote blocks that now clash with their cards, for the owner (not this audit's to edit): `rm-845` ("father of a senator", a mistranslation of "son"), `rm-862` (Petronius's Trimalchio, now out of the card), `rm-866` ("Marcus Otho" as "praetor"; he was tribune), `rm-888` (Suetonius, matching no sentence now). Overlap notes (nothing was edited): `rm-140`'s aes grave "c. 300 BCE" (Mattingly) against `rm-852`'s earliest as type 280 – 276 BCE (the coin catalogue), two reckonings of different things; `rm-099`'s "Temple dedicated 484 BCE" lacks the word Traditional that `rm-894` now carries; `rm-878`'s Wikipedia link, "Demes in the Byzantine Empire", fits it poorly. No `gr-`, `wh-` or `cnh-` card read disagrees.
+
+### Locators (2026-11-07, the ninth hundred)
+
+None was added or moved, so `migrate-places.js` was not run. Every site in the hundred already had a point: the Campus Martius, Pergamon (Galen), Heraclea (the tablet), Ostia, Portus, Las Médulas, the Ludus Magnus, the Circus of Maxentius, the Theatre of Pompey, the Baths of Diocletian and the Temple of Castor and Pollux. For a later pass: points labelled with the card's own term on a concept, a practice or a board — `rm-816` puticuli (its agent asked to move it to the pits by Piazza Vittorio Emanuele, labelled "Esquiline burial pits"), `rm-833` hortus, `rm-836` curatores alvei Tiberis, `rm-839` castellum aquae (Pompeii's, fine as a site), `rm-855` programma (Pompeii; relabel "Pompeii"), `rm-862` Falernian wine, `rm-867` ludi Romani and `rm-876` chariot racing and `rm-889` pulvinar (all three the Circus Maximus), `rm-872` amphitheatre (Pompeii's) and `rm-875` naumachia (the Fucine Lake; the Naumachia of Augustus would be more representative); and labels naming a district or a road rather than the building: `rm-841` Horologium Augusti and `rm-880` Theatre of Pompey ("Campus Martius"), `rm-877` Circus of Maxentius ("Via Appia Antica").

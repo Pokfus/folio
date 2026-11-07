@@ -758,133 +758,133 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-101  Spanish Florida
     us-102  St. Augustine, Florida
     us-103  Juan Ponce de León
-    us-104  The de Soto expedition
-    us-105  The Coronado expedition
-    us-106  Spanish New Mexico
-    us-107  Santa Fe, New Mexico
-    us-108  The encomienda on the northern frontier
-    us-109  The Spanish mission system
-    us-110  The Spanish missions in California
+    us-104  Hernando de Soto
+    us-105  Coronado expedition
+    us-106  Santa Fe de Nuevo México
+    us-107  Palace of the Governors
+    us-108  Encomendero
+    us-109  Spanish missions in Florida
+    us-110  Spanish missions in California
     us-111  Junípero Serra and the argument about the missions
     us-112  Spanish Texas
-    us-113  New France
+    us-113  Company of One Hundred Associates
     us-114  Samuel de Champlain
-    us-115  Quebec and the St. Lawrence settlements
+    us-115  Quebec City
     us-116  Coureurs des bois
-    us-117  Jesuit missions in New France
-    us-118  The Jesuit Relations
-    us-119  Louisiana (New France)
-    us-120  New Orleans under the French
+    us-117  Sainte-Marie among the Hurons
+    us-118  Jesuit Relations
+    us-119  French Louisiana
+    us-120  French Quarter
     us-121  New Netherland
     us-122  New Amsterdam
     us-123  Peter Stuyvesant
-    us-124  The English conquest of New Netherland
-    us-125  What the Dutch and French left behind
+    us-124  Articles of Capitulation
+    us-125  Patroon
 
 ### The English colonies — `us-colonies`
 
     us-126  Roanoke Colony
-    us-127  The fate of the Roanoke colonists
-    us-128  Jamestown
+    us-127  Croatoan
+    us-128  James Fort
     us-129  Virginia Company
-    us-130  The Starving Time
+    us-130  Starving Time
     us-131  John Smith
     us-132  Powhatan
     us-133  Pocahontas
-    us-134  The Anglo-Powhatan Wars
-    us-135  Tobacco and the Virginia economy
+    us-134  Anglo-Powhatan Wars
+    us-135  Tobacco
     us-136  Headright
-    us-137  Indentured servitude in the American colonies
+    us-137  Indentured servitude
     us-138  House of Burgesses
     us-139  Bacon's Rebellion
     us-140  Plymouth Colony
     us-141  Mayflower
     us-142  Mayflower Compact
     us-143  William Bradford
-    us-144  The Pilgrims and the Separatists
+    us-144  Pilgrims
     us-145  Massachusetts Bay Colony
     us-146  John Winthrop
     us-147  The Great Migration to New England
     us-148  City upon a Hill
-    us-149  The New England town and the congregation
-    us-150  Roger Williams and Rhode Island
+    us-149  Town meeting
+    us-150  Roger Williams
     us-151  Anne Hutchinson
-    us-152  Connecticut and the Fundamental Orders
+    us-152  Fundamental Orders of Connecticut
     us-153  Pequot War
     us-154  Province of Maryland
     us-155  Maryland Toleration Act
     us-156  Province of Carolina
-    us-157  Barbados and the making of Carolina slavery
+    us-157  Barbados Slave Code
     us-158  Province of Georgia
     us-159  James Oglethorpe
     us-160  Province of Pennsylvania
     us-161  William Penn
-    us-162  Quakers in colonial America
-    us-163  New Jersey and Delaware
+    us-162  Quakers
+    us-163  Province of New Jersey
     us-164  New England Confederation
     us-165  Dominion of New England
-    us-166  The Glorious Revolution in the colonies
+    us-166  1689 Boston revolt
     us-167  Navigation Acts
     us-168  Salutary neglect
-    us-169  The colonial assemblies and colonial government
-    us-170  The English colonies compared
+    us-169  Royal governor
+    us-170  Thirteen Colonies
 
 ### Colonial society and the imperial wars — `us-colonial-society`
 
-    us-171  Colonial population growth
-    us-172  The colonial family
-    us-173  Women in colonial America
-    us-174  Colonial agriculture
-    us-175  The colonial economy and the Atlantic trade
-    us-176  Colonial cities
-    us-177  Colonial Boston, Philadelphia and New York
-    us-178  The colonial gentry
-    us-179  Poverty and dependence in the colonies
-    us-180  German immigration to colonial America
-    us-181  Scots-Irish immigration to colonial America
-    us-182  The colonial backcountry
-    us-183  Religion in the American colonies
+    us-171  Observations Concerning the Increase of Mankind
+    us-172  Coverture
+    us-173  Eliza Lucas Pinckney
+    us-174  Rice
+    us-175  Molasses Act
+    us-176  Newport
+    us-177  Faneuil Hall
+    us-178  William Byrd II
+    us-179  Warning out
+    us-180  Pennsylvania Dutch
+    us-181  Scotch-Irish
+    us-182  Great Wagon Road
+    us-183  Half-Way Covenant
     us-184  First Great Awakening
     us-185  George Whitefield
     us-186  Jonathan Edwards
-    us-187  The Old Lights and the New Lights
-    us-188  Colonial printing and the newspaper
+    us-187  New Lights
+    us-188  Boston News-Letter
     us-189  John Peter Zenger
     us-190  Benjamin Franklin
-    us-191  The American Enlightenment
+    us-191  American Enlightenment
     us-192  The colonial colleges
     us-193  Salem witch trials
-    us-194  What the Salem trials were about
-    us-195  Smallpox inoculation in colonial America
-    us-196  King William's War and Queen Anne's War
+    us-194  Spectral evidence
+    us-195  Variolation
+    us-196  Queen Anne's War
     us-197  King George's War
     us-198  French and Indian War
     us-199  Battle of the Monongahela
-    us-200  The Albany Congress and the Albany Plan
+    us-200  Albany Plan
     us-201  Battle of the Plains of Abraham
     us-202  Treaty of Paris (1763)
-    us-203  What British victory changed
-    us-204  The colonial militia
-    us-205  Colonial identity on the eve of the crisis
+    us-203  Province of Quebec
+    us-204  Colonial militia
+    us-205  Rights of Englishmen
 
 ## Revolution and Founding, 1763–1800
 
 ### The imperial crisis — `us-imperial-crisis`
 
-    us-206  The imperial crisis
-    us-207  The cost of the Seven Years' War
+    us-206  George III
+    us-207  George Grenville
     us-208  Sugar Act
-    us-209  Stamp Act 1765
+    us-209  Stamp Act
     us-210  Stamp Act Congress
     us-211  Sons of Liberty
     us-212  No taxation without representation
     us-213  Virtual representation
     us-214  Declaratory Act
     us-215  Townshend Acts
-    us-216  The non-importation movement
-    us-217  Colonial women and the boycotts
+    us-216  Boston Non-Importation Agreement
+    us-217  Daughters of Liberty
     us-218  Boston Massacre
-    us-219  The trial of the soldiers
+    us-219  Thomas Preston
     us-220  Gaspee Affair
     us-221  Committees of correspondence
     us-222  Tea Act
@@ -893,63 +893,63 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-225  Quebec Act
     us-226  First Continental Congress
     us-227  Continental Association
-    us-228  Loyalists in the American Revolution
+    us-228  Loyalists
     us-229  Common Sense
     us-230  Thomas Paine
     us-231  Battles of Lexington and Concord
-    us-232  The shot heard round the world
+    us-232  Concord Hymn
     us-233  Second Continental Congress
     us-234  Olive Branch Petition
-    us-235  Why the colonies rebelled
+    us-235  Declaration of the Causes and Necessity of Taking Up Arms
 
 ### The War of Independence — `us-revolution`
 
     us-236  American Revolutionary War
     us-237  Siege of Boston
     us-238  Battle of Bunker Hill
-    us-239  Washington takes command of the army
+    us-239  George Washington
     us-240  Continental Army
-    us-241  The invasion of Quebec, 1775
+    us-241  Invasion of Quebec
     us-242  United States Declaration of Independence
-    us-243  The drafting of the Declaration
+    us-243  Committee of Five
     us-244  Thomas Jefferson
     us-245  All men are created equal
-    us-246  The grievances in the Declaration
-    us-247  The New York campaign of 1776
-    us-248  Washington's retreat across New Jersey
+    us-246  Grievances of the United States Declaration of Independence
+    us-247  Battle of Long Island
+    us-248  American Crisis
     us-249  Battle of Trenton
     us-250  Battle of Princeton
     us-251  Saratoga campaign
     us-252  Battles of Saratoga
-    us-253  The Franco-American alliance
-    us-254  Benjamin Franklin in Paris
+    us-253  Franco-American alliance
+    us-254  Treaty of Amity and Commerce
     us-255  Valley Forge
     us-256  Friedrich Wilhelm von Steuben
-    us-257  The war in the South
+    us-257  Southern theatre of the American Revolutionary War
     us-258  Siege of Charleston
     us-259  Battle of Camden
     us-260  Nathanael Greene
-    us-261  Partisan war in the Carolinas
+    us-261  Francis Marion
     us-262  Battle of Cowpens
     us-263  Battle of Guilford Court House
-    us-264  The naval war of the Revolution
+    us-264  Continental Navy
     us-265  John Paul Jones
     us-266  Benedict Arnold
     us-267  Siege of Yorktown
-    us-268  The surrender at Yorktown
+    us-268  Surrender of Lord Cornwallis
     us-269  Treaty of Paris (1783)
-    us-270  Black soldiers in the Revolutionary War
+    us-270  1st Rhode Island Regiment
     us-271  Dunmore's Proclamation
-    us-272  Women in the American Revolution
-    us-273  The loyalist exodus
-    us-274  The cost of the Revolutionary War
-    us-275  How radical was the American Revolution?
+    us-272  Deborah Sampson
+    us-273  United Empire Loyalist
+    us-274  Continental currency
+    us-275  Pennsylvania Constitution of 1776
 
 ### The Constitution — `us-constitution`
 
     us-276  Articles of Confederation
-    us-277  The Confederation Congress
-    us-278  The weaknesses of the Confederation
+    us-277  Congress of the Confederation
+    us-278  Newburgh Conspiracy
     us-279  Land Ordinance of 1785
     us-280  Northwest Ordinance
     us-281  Shays' Rebellion
@@ -959,19 +959,19 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-285  New Jersey Plan
     us-286  Connecticut Compromise
     us-287  Three-fifths Compromise
-    us-288  The Constitution and slavery
+    us-288  Fugitive Slave Clause
     us-289  Separation of powers
-    us-290  Checks and balances
-    us-291  Federalism in the United States
-    us-292  Article One and the Congress
-    us-293  Article Two and the presidency
-    us-294  United States Electoral College
-    us-295  Article Three and the judiciary
+    us-290  Federalist No. 51
+    us-291  Federalism
+    us-292  Article One of the United States Constitution
+    us-293  Article Two of the United States Constitution
+    us-294  Electoral College
+    us-295  Article Three of the United States Constitution
     us-296  Supremacy Clause
-    us-297  The amendment process
+    us-297  Article Five of the United States Constitution
     us-298  James Madison
     us-299  Alexander Hamilton
-    us-300  The Federalist Papers
+    us-300  Federalist Papers
     us-301  Federalist No. 10
     us-302  Anti-Federalism
     us-303  The ratification debate

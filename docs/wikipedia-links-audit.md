@@ -26,25 +26,35 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5570 | the title is the article |
-| `redirect-variant` | 339 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6111 | the title is the article |
+| `redirect-variant` | 372 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 535 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 581 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 111 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
-| `none` | 991 | nothing matched; no link |
+| `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 146 | only a disambiguation page; no link could be chosen |
+| `none` | 1001 | nothing matched; no link |
 
-**6539 of 7800 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7161 of 8450 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (535)
+## Redirected to a differently named article — check each (581)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
+- `astro-024` **celestial meridian** → [Meridian (astronomy)](https://en.wikipedia.org/wiki/Meridian_(astronomy)) (from `Celestial meridian`)
+- `astro-030` **angular size** → [Angular diameter](https://en.wikipedia.org/wiki/Angular_diameter) (from `Angular size`)
+- `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
+- `astro-044` **precession of the equinoxes** → [Axial precession](https://en.wikipedia.org/wiki/Axial_precession) (from `Precession of the equinoxes`)
+- `astro-051` **retrograde motion** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Retrograde motion`)
+- `astro-057` **88 modern constellations** → [IAU designated constellations](https://en.wikipedia.org/wiki/IAU_designated_constellations) (from `88 modern constellations`)
+- `astro-062` **Southern Cross** → [Crux](https://en.wikipedia.org/wiki/Crux) (from `Southern Cross`)
+- `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
+- `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
+- `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -343,10 +353,37 @@ The answer redirects to an article with another name. Most are the same subject 
 - `pea-193` **Secret Speech** → [On the Cult of Personality and Its Consequences](https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences) (from `Secret Speech`)
 - `pea-200` **Partisan faction** → [Guerrilla faction](https://en.wikipedia.org/wiki/Guerrilla_faction) (from `Partisan faction`)
 - `pea-216` **China Dream** → [Chinese Dream](https://en.wikipedia.org/wiki/Chinese_Dream) (from `China Dream`)
+- `ph-010` **conceptual analysis** → [Philosophical analysis](https://en.wikipedia.org/wiki/Philosophical_analysis) (from `Conceptual analysis`)
+- `ph-021` **logical argument** → [Argument](https://en.wikipedia.org/wiki/Argument) (from `Logical argument`)
+- `ph-029` **inference to the best explanation** → [Abductive reasoning](https://en.wikipedia.org/wiki/Abductive_reasoning) (from `Inference to the best explanation`)
+- `ph-030` **necessary and sufficient conditions** → [Necessity and sufficiency](https://en.wikipedia.org/wiki/Necessity_and_sufficiency) (from `Necessary and sufficient conditions`)
+- `ph-040` **appeal to authority** → [Argument from authority](https://en.wikipedia.org/wiki/Argument_from_authority) (from `Appeal to authority`)
+- `ph-046` **formal logic** → [Mathematical logic](https://en.wikipedia.org/wiki/Mathematical_logic) (from `Formal logic`)
+- `ph-056` **predicate logic** → [First-order logic](https://en.wikipedia.org/wiki/First-order_logic) (from `Predicate logic`)
+- `ph-060` **syllogistic logic** → [Term logic](https://en.wikipedia.org/wiki/Term_logic) (from `Syllogistic logic`)
+- `ph-098` **actual infinity** → [Actual and potential infinity](https://en.wikipedia.org/wiki/Actual_and_potential_infinity) (from `Actual infinity`)
+- `ph-100` **unreasonable effectiveness of mathematics** → [The Unreasonable Effectiveness of Mathematics in the Natural Sciences](https://en.wikipedia.org/wiki/The_Unreasonable_Effectiveness_of_Mathematics_in_the_Natural_Sciences) (from `Unreasonable effectiveness of mathematics`)
 - `ps-004` **mental process** → [Cognition](https://en.wikipedia.org/wiki/Cognition) (from `Mental process`)
 - `ps-011` **nature and nurture** → [Nature versus nurture](https://en.wikipedia.org/wiki/Nature_versus_nurture) (from `Nature and nurture`)
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
 - `ps-037` **Gustav Theodor Fechner** → [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner) (from `Gustav Theodor Fechner`)
+- `ps-095` **existential psychology** → [Existential therapy](https://en.wikipedia.org/wiki/Existential_therapy) (from `Existential psychology`)
+- `ps-108` **cognitive modelling** → [Cognitive model](https://en.wikipedia.org/wiki/Cognitive_model) (from `Cognitive modelling`)
+- `ps-112` **independent variable** → [Dependent and independent variables](https://en.wikipedia.org/wiki/Dependent_and_independent_variables) (from `Independent variable`)
+- `ps-113` **confounding variable** → [Confounding](https://en.wikipedia.org/wiki/Confounding) (from `Confounding variable`)
+- `ps-115` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
+- `ps-117` **counterbalancing** → [Counterweight](https://en.wikipedia.org/wiki/Counterweight) (from `Counterbalancing`)
+- `ps-124` **correlational research** → [Correlation](https://en.wikipedia.org/wiki/Correlation) (from `Correlational research`)
+- `ps-132` **survey research** → [Survey (human research)](https://en.wikipedia.org/wiki/Survey_(human_research)) (from `Survey research`)
+- `ps-134` **random sampling** → [Sampling (statistics)](https://en.wikipedia.org/wiki/Sampling_(statistics)) (from `Random sampling`)
+- `ps-137` **social desirability bias** → [Social-desirability bias](https://en.wikipedia.org/wiki/Social-desirability_bias) (from `Social desirability bias`)
+- `ps-141` **latent variable** → [Latent and observable variables](https://en.wikipedia.org/wiki/Latent_and_observable_variables) (from `Latent variable`)
+- `ps-144` **test–retest reliability** → [Repeatability](https://en.wikipedia.org/wiki/Repeatability) (from `Test–retest reliability`)
+- `ps-171` **z-score** → [Standard score](https://en.wikipedia.org/wiki/Standard_score) (from `Z-score`)
+- `ps-176` **inferential statistics** → [Statistical inference](https://en.wikipedia.org/wiki/Statistical_inference) (from `Inferential statistics`)
+- `ps-182` **statistical power** → [Power (statistics)](https://en.wikipedia.org/wiki/Power_(statistics)) (from `Statistical power`)
+- `ps-189` **non-parametric test** → [Nonparametric statistics](https://en.wikipedia.org/wiki/Nonparametric_statistics) (from `Non-parametric test`)
+- `ps-194` **mediator variable** → [Mediation (statistics)](https://en.wikipedia.org/wiki/Mediation_(statistics)) (from `Mediator variable`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -468,6 +505,12 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-043` **Great Dying** → [Permian–Triassic extinction event](https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event) (from `Great Dying`)
 - `us-061` **Metacom** → [Metacomet](https://en.wikipedia.org/wiki/Metacomet) (from `Metacom`)
 - `us-062` **Indian slave trade** → [Slavery among Native Americans in the United States](https://en.wikipedia.org/wiki/Slavery_among_Native_Americans_in_the_United_States) (from `Indian slave trade`)
+- `us-108` **encomendero** → [Encomienda](https://en.wikipedia.org/wiki/Encomienda) (from `Encomendero`)
+- `us-136` **headright system** → [Headright](https://en.wikipedia.org/wiki/Headright) (from `Headright system`)
+- `us-171` **Observations Concerning the Increase of Mankind** → [Observations Concerning the Increase of Mankind, Peopling of Countries, etc.](https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.) (from `Observations Concerning the Increase of Mankind`)
+- `us-173` **Eliza Lucas Pinckney** → [Eliza Lucas](https://en.wikipedia.org/wiki/Eliza_Lucas) (from `Eliza Lucas Pinckney`)
+- `us-257` **Southern theatre of the American Revolutionary War** → [Southern theater of the American Revolutionary War](https://en.wikipedia.org/wiki/Southern_theater_of_the_American_Revolutionary_War) (from `Southern theatre of the American Revolutionary War`)
+- `us-281` **Shays' Rebellion** → [Shays's Rebellion](https://en.wikipedia.org/wiki/Shays's_Rebellion) (from `Shays' Rebellion`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -579,11 +622,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-455` **Japanese conquest of Burma** → [Japanese invasion of Burma](https://en.wikipedia.org/wiki/Japanese_invasion_of_Burma) (from `Japanese conquest of Burma`)
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 - `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
+- `ww2-529` **INA trials** → [Indian National Army trials](https://en.wikipedia.org/wiki/Indian_National_Army_trials) (from `INA trials`)
+- `ww2-581` **Darlan deal** → [Clark-Darlan Accords](https://en.wikipedia.org/wiki/Clark-Darlan_Accords) (from `Darlan deal`)
+- `ww2-585` **Operation Husky** → [Allied invasion of Sicily](https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily) (from `Operation Husky`)
 
-## Settled from a disambiguation page (81)
+## Settled from a disambiguation page (83)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
+- `astro-054` **transit** → [Astronomical transit](https://en.wikipedia.org/wiki/Astronomical_transit) (via the disambiguation page `Transit`)
 - `bio-035` **buffer** → [Buffer solution](https://en.wikipedia.org/wiki/Buffer_solution) (via the disambiguation page `Buffer`)
 - `cnh-011` **Shun** → [Shun dynasty](https://en.wikipedia.org/wiki/Shun_dynasty) (via the disambiguation page `Shun`)
 - `cnh-113` **King Wen** → [King Wen of Zhou](https://en.wikipedia.org/wiki/King_Wen_of_Zhou) (via the disambiguation page `King Wen`)
@@ -655,6 +702,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
 - `us-048` **Lakota** → [Lakota people](https://en.wikipedia.org/wiki/Lakota_people) (via the disambiguation page `Lakota`)
 - `us-097` **termination** → [Indian termination policy](https://en.wikipedia.org/wiki/Indian_termination_policy) (via the disambiguation page `Termination`)
+- `us-181` **Scotch-Irish** → [Scotch-Irish Americans](https://en.wikipedia.org/wiki/Scotch-Irish_Americans) (via the disambiguation page `Scotch-Irish`)
 - `wh-218` **Middle Kingdom** → [Middle Kingdom of Egypt](https://en.wikipedia.org/wiki/Middle_Kingdom_of_Egypt) (via the disambiguation page `Middle Kingdom`)
 - `wh-458` **Hijra** → [Hijra (South Asia)](https://en.wikipedia.org/wiki/Hijra_(South_Asia)) (via the disambiguation page `Hijra`)
 - `wh-522` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -678,10 +726,12 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
-## Disambiguation pages that could not be settled (143)
+## Disambiguation pages that could not be settled (146)
 
 Pick the right article by hand, or leave the card without a link.
 
+- `astro-080` **totality** — `Totality` is a disambiguation page; its links: `Plan Totality`, `Totality and Infinity`, `Totality principle`, `Totality (album)`, `Totality Corporation`
+- `astro-095` **volatiles** — `Volatility` is a disambiguation page; its links: `Volatile (astrogeology)`, `Volatile acid`, `Volatile anaesthetic`, `Volatile memory`, `Volatile variable`, `Volatile organic compound`
 - `bio-012` **resolution** — `Resolution` is a disambiguation page; its links: `Resolutions (Not Going Out)`, `Resolution (debate)`, `Resolution (law)`, `Dispute resolution`, `Resolution (algebra)`, `Resolution (logic)`
 - `bio-072` **ATP** — `ATP` is a disambiguation page; its links: `ATP Tour`, `ATP Recordings`, `ATP (treaty)`, `ATP architects engineers`, `ATP Oil and Gas`, `British Aerospace ATP`
 - `cnh-010` **Yao** — `Yao` is a disambiguation page; its links: `Andrew Yao`, `Emperor Yao`, `Yao, Chad`, `Yao, Osaka`, `Yao (Gnosticism)`, `Yao Ming`
@@ -815,6 +865,7 @@ Pick the right article by hand, or leave the card without a link.
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
+- `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
 - `wh-298` **coinage** — `Coinage` is a disambiguation page; its links: `COINage`, `Tin coinage`
@@ -837,10 +888,13 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (111)
+## Section redirects — no dedicated page (126)
 
 Wikipedia treats these as part of another article. No link.
 
+- `astro-049` **synodic month** — `Synodic month` only redirects into `Lunar month#Synodic month`
+- `astro-058` **constellation boundaries** — `Constellation boundaries` only redirects into `Constellation#Boundaries`
+- `astro-083` **spring tide** — `Spring tide` only redirects into `Tide#Spring`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`
@@ -902,8 +956,17 @@ Wikipedia treats these as part of another article. No link.
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
 - `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
+- `ph-020` **philosophical progress** — `Philosophical progress` only redirects into `Metaphilosophy#Progress`
+- `ph-055` **axiomatic method** — `Axiomatic method` only redirects into `Axiomatic system#Axiomatic method`
+- `ph-072` **semantic completeness** — `Semantic completeness` only redirects into `Completeness (logic)#Semantic completeness`
 - `ps-025` **substance dualism** — `Substance dualism` only redirects into `Mind–body dualism#Substance dualism`
 - `ps-050` **imageless thought** — `Imageless thought` only redirects into `Oswald Külpe#Imageless thought`
+- `ps-101` **WEIRD** — `WEIRD` only redirects into `Psychology#WEIRD bias`
+- `ps-118` **placebo effect** — `Placebo effect` only redirects into `Placebo#Effects`
+- `ps-119` **double-blind procedure** — `Double-blind procedure` only redirects into `Blinded experiment#Double-blind trials`
+- `ps-177` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
+- `ps-181` **Type I error** — `Type I error` only redirects into `Type I and type II errors#Type I error`
+- `ps-184` **Cohen's d** — `Cohen's d` only redirects into `Effect size#Cohen's d`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -938,6 +1001,7 @@ Wikipedia treats these as part of another article. No link.
 - `rm-938` **satura** — `Satura` only redirects into `Satire#Term`
 - `ru-106` **Tatar yoke** — `Tatar yoke` only redirects into `Mongol invasion of Kievan Rus'#Legacy`
 - `ru-158` **Boyar Duma** — `Boyar Duma` only redirects into `Duma#Boyar duma`
+- `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -952,8 +1016,10 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-300` **Operation Edelweiss** — `Operation Edelweiss` only redirects into `Battle of the Caucasus#German operations`
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
+- `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
+- `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (991)
+## No article found (1001)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -973,6 +1039,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-026` **Jericho Skull** — search suggests `Plastered human skulls`, `Jericho`, `Tell es-Sultan`, `Kirk Baltz`, `Ossuary`
 - `art-027` **Praroditeljka** — search suggests `Lepenski Vir`
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
+- `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `First-magnitude star`
+- `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Earth's outer core`, `Black hole`, `Nebular hypothesis`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`
@@ -1739,6 +1807,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-002` **behaviour and mental processes** — search suggests `Compulsive sexual behaviour disorder`, `Social science`, `Mind`, `Structuralism (psychology)`, `Ironic process theory`
 - `ps-030` **localisation of function** — search suggests `Id, ego and superego`, `Functional specialization (brain)`, `Neuropsychology`, `Lateralization of brain function`, `Interaural time difference`
 - `ps-033` **specific nerve energies** — search suggests `Perception`, `Pain theories`, `Sense`, `Physiological psychology`, `Parasympathetic nervous system`
+- `ps-116` **within-subjects design** — search suggests `Repeated measures design`, `Between-group design experiment`, `Mixed-design analysis of variance`, `Single-subject design`, `Experimental psychology`
+- `ps-121` **experimenter expectancy effect** — search suggests `Observer-expectancy effect`, `Hawthorne effect`, `Placebo`, `Pygmalion effect`, `Nocebo`
+- `ps-126` **third-variable problem** — search suggests `Psychology`, `Birthday problem`, `Moderation (statistics)`, `Mediation (statistics)`, `Instrumental variables`
+- `ps-138` **single-case experimental design** — search suggests `Case study (psychology)`, `Experimental psychology`, `Single-subject design`, `Design of experiments`, `Gestalt psychology`
+- `ps-163` **implicit measure** — search suggests `Implicit-association test`, `Implicit attitude`, `Attitude (psychology)`, `Implicit stereotype`, `Implicit theories of intelligence`
+- `ps-164` **behavioural measure** — search suggests `Behavioural sciences`, `Behavioural finance`, `Behavioral economics`, `Behaviour therapy`, `Developmental psychology`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`
@@ -1948,3 +2022,5 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-457` **Absolute National Defence Sphere** — search suggests `World War II`, `Thailand in World War II`, `European theatre of World War II`, `Eastern Front (World War II)`, `Nazi Germany`
 - `ww2-499` **Imperial General Headquarters Announcement** — search suggests `Imperial General Headquarters`, `Pacific War`, `Nicholas II`, `Home front during World War II`, `War crimes in World War II`
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
+- `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
+- `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`
