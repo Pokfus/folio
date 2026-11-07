@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f579a4fa897d6d03","counts":{"terms":934,"points":697,"countries":237,"windows":1445,"faces":376,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"e682df017f5640d7","counts":{"terms":934,"points":697,"countries":237,"windows":1446,"faces":376,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1311,6 +1311,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f579a4fa897d6d03","counts":
 "Flavian_Palace":[12.487,41.889,"site",0,0,0],
 "Florence":[11.25,43.78,"city",0,0,0],
 "Florida":[-81.623,28.157,"admin1","adm1:usa:us-fl",0,10.2],
+"Foggia_Airfield_Complex":[15.546,41.464,"coord",0,0,0],
 "Forbidden_City":[116.391,39.916,"site",0,0,0],
 "Former_Qin":[111.083,35.865,"polity","pol:former_qin",378,2.61],
 "Former_Yan":[116.753,37.92,"polity","pol:former_yan",353,5.82],
