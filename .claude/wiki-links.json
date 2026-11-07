@@ -1,10 +1,10 @@
 {
- "generated": "2026-10-30T20:47Z",
+ "generated": "2026-11-07T02:06Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5501,
-  "redirect-broader": 521,
-  "redirect-variant": 335,
+  "ok": 5508,
+  "redirect-broader": 522,
+  "redirect-variant": 336,
   "section-redirect": 109,
   "disambiguation": 142,
   "none": 982,
@@ -62417,6 +62417,78 @@
     "Taiwan under Japanese rule",
     "Shinto in Taiwan"
    ]
+  },
+  "astro-031": {
+   "answer": "angular separation",
+   "title": "Angular distance",
+   "url": "https://en.wikipedia.org/wiki/Angular_distance",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angular separation"
+  },
+  "astro-032": {
+   "answer": "parallax",
+   "title": "Parallax",
+   "url": "https://en.wikipedia.org/wiki/Parallax",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-033": {
+   "answer": "sidereal time",
+   "title": "Sidereal time",
+   "url": "https://en.wikipedia.org/wiki/Sidereal_time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-034": {
+   "answer": "zodiac",
+   "title": "Zodiac",
+   "url": "https://en.wikipedia.org/wiki/Zodiac",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-035": {
+   "answer": "galactic coordinates",
+   "title": "Galactic coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Galactic_coordinate_system",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Galactic coordinates"
+  },
+  "astro-036": {
+   "answer": "diurnal motion",
+   "title": "Diurnal motion",
+   "url": "https://en.wikipedia.org/wiki/Diurnal_motion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-037": {
+   "answer": "Earth's rotation",
+   "title": "Earth's rotation",
+   "url": "https://en.wikipedia.org/wiki/Earth's_rotation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-038": {
+   "answer": "Earth's orbit",
+   "title": "Earth's orbit",
+   "url": "https://en.wikipedia.org/wiki/Earth's_orbit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-039": {
+   "answer": "heliacal rising",
+   "title": "Heliacal rising",
+   "url": "https://en.wikipedia.org/wiki/Heliacal_rising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-040": {
+   "answer": "solstice",
+   "title": "Solstice",
+   "url": "https://en.wikipedia.org/wiki/Solstice",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

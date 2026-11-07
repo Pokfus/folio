@@ -7706,7 +7706,17 @@ window.CARD_DATA = [
 {"id":"ww2-497","num":"497","category":"World War II · History","question":"Ten to 20 households formed each <span class=\"blank\">_____</span>, which met once a month and supplied the bucket chains and hand pumps that were meant to fight fires before the brigades arrived.","answer":"Tonarigumi","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Tokyo network</span><span class=\"dt-v\">1939</span><span class=\"dt-k\">Nationwide</span><span class=\"dt-v\">11 September 1940</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tonarigumi","tags":["institution","history","warfare","japan","home front","civil defence"],"difficulty":4,"locator":{"name":"Tonarigumi","at":[139.6922,35.6897],"zoom":10}},
 {"id":"ww2-498","num":"498","category":"World War II · History","question":"Created on 1 November 1943 to end the rivalry of the army and navy over aircraft, Japan’s <span class=\"blank\">_____</span> took over control of industry from the old commerce and industry ministry.","answer":"Ministry of Munitions","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Emergency powers</span><span class=\"dt-v\">17 March 1943</span><span class=\"dt-k\">Established</span><span class=\"dt-v\">1 November 1943</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ministry of Munitions","tags":["institution","history","economy","warfare","japan","aircraft"],"difficulty":5,"locator":{"name":"Ministry of Munitions","at":[139.6922,35.6897],"zoom":10}},
 {"id":"ww2-499","num":"499","category":"World War II · History","question":"Read on the radio at 17.00 on 18 July 1944, the <span class=\"blank\">_____</span> on Saipan said the garrison had died to the last man and that Japanese civilians had largely shared its fate.","answer":"Imperial General Headquarters Announcement","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Saipan bulletin</span><span class=\"dt-v\">18 July 1944</span><span class=\"dt-k\">Leyte bulletin</span><span class=\"dt-v\">26 October 1944</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Imperial General Headquarters Announcement","tags":["text","history","propaganda","warfare","japan","radio"],"difficulty":4},
-{"id":"ww2-500","num":"500","category":"World War II · History","question":"Under the <span class=\"blank\">_____</span>, Taiwanese youth leagues pressed young men to volunteer, and 425,921 applied for about 1,000 places in the first intake of army volunteers in 1942.","answer":"Kominka movement","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Taiwan volunteers</span><span class=\"dt-v\">April 1942</span><span class=\"dt-k\">Imperial Subjects’ association</span><span class=\"dt-v\">April 1943</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kominka movement","tags":["concept","history","politics","japan","korea","taiwan","colonialism"],"difficulty":4}
+{"id":"ww2-500","num":"500","category":"World War II · History","question":"Under the <span class=\"blank\">_____</span>, Taiwanese youth leagues pressed young men to volunteer, and 425,921 applied for about 1,000 places in the first intake of army volunteers in 1942.","answer":"Kominka movement","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Taiwan volunteers</span><span class=\"dt-v\">April 1942</span><span class=\"dt-k\">Imperial Subjects’ association</span><span class=\"dt-v\">April 1943</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kominka movement","tags":["concept","history","politics","japan","korea","taiwan","colonialism"],"difficulty":4},
+{"id":"astro-031","num":"31","category":"Astronomy","question":"Two stars 18° apart span about a tenth of the dome of the sky, a figure for their <span class=\"blank\">_____</span> given in degrees rather than in any distance measured in kilometres.","answer":"angular separation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"angular separation","tags":["concept","science","astronomy","measurement","celestial sphere"],"difficulty":3,"undatable":true},
+{"id":"astro-032","num":"32","category":"Astronomy","question":"Seen from a moving train, nearby trees slide past distant hills, an everyday case of <span class=\"blank\">_____</span>, the shift in an object's direction that comes with a change of viewpoint.","answer":"parallax","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"parallax","tags":["concept","science","astronomy","measurement","distance"],"difficulty":3,"undatable":true},
+{"id":"astro-033","num":"33","category":"Astronomy","question":"Equal at any moment to the right ascension of whatever is crossing the meridian, local <span class=\"blank\">_____</span> tells an observer at a glance which stars stand highest in the sky.","answer":"sidereal time","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sidereal time","tags":["concept","science","astronomy","time","celestial sphere"],"difficulty":4,"undatable":true},
+{"id":"astro-034","num":"34","category":"Astronomy","question":"About 18° wide and centred on the ecliptic, the <span class=\"blank\">_____</span> is the band of sky within which the Sun, the Moon and the planets are always to be found.","answer":"zodiac","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"zodiac","tags":["concept","science","astronomy","ecliptic","constellations"],"difficulty":1,"undatable":true},
+{"id":"astro-035","num":"35","category":"Astronomy","question":"With the plane of the Milky Way as their equator and longitude counted from the direction of Sagittarius, <span class=\"blank\">_____</span> place the Sun at the centre of the sky.","answer":"galactic coordinates","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Adopted</span><span class=\"dt-v\">1958</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"galactic coordinates","tags":["concept","science","astronomy","milky way","celestial sphere"],"difficulty":4},
+{"id":"astro-036","num":"36","category":"Astronomy","question":"Caused by the Earth's rotation, the <span class=\"blank\">_____</span> of the sky makes stars rise in the east, wheel across the heavens and set in the west at about 15° an hour.","answer":"diurnal motion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"diurnal motion","tags":["concept","science","astronomy","earth","celestial sphere"],"difficulty":4,"undatable":true},
+{"id":"astro-037","num":"37","category":"Astronomy","question":"Demonstrated in 1851 by a long pendulum in Paris whose swing slowly turned, <span class=\"blank\">_____</span> takes about 23 hours 56 minutes when measured against the distant stars.","answer":"Earth's rotation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Earth's rotation","tags":["concept","science","astronomy","earth","time"],"difficulty":1,"undatable":true},
+{"id":"astro-038","num":"38","category":"Astronomy","question":"An ellipse with an eccentricity of about 0.0167, <span class=\"blank\">_____</span> brings the planet closest to the Sun in early January, in the middle of the northern winter.","answer":"Earth's orbit","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Earth's orbit","tags":["concept","science","astronomy","earth","orbits"],"difficulty":1,"undatable":true},
+{"id":"astro-039","num":"39","category":"Astronomy","question":"Because the Sun drifts about 1° east among the stars each day, every star has a yearly <span class=\"blank\">_____</span>, its first glimpse in the dawn sky after weeks hidden in sunlight.","answer":"heliacal rising","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"heliacal rising","tags":["concept","science","astronomy","stars","calendar"],"difficulty":4,"undatable":true},
+{"id":"astro-040","num":"40","category":"Astronomy","question":"From the Latin for 'Sun stands still', each <span class=\"blank\">_____</span> is the instant when the Sun's drift north or south along the horizon halts before turning back again.","answer":"solstice","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"solstice","tags":["concept","science","astronomy","seasons","earth"],"difficulty":2,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16779,7 +16789,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 0,
+      "total": 10,
       "children": [
         {
           "id": "astro-sky",
@@ -16796,13 +16806,25 @@ window.COLLECTION_TREE = {
               "id": "astro-sphere",
               "title": "The celestial sphere",
               "total": 20,
-              "cardIds": []
+              "cardIds": [
+                "astro-031",
+                "astro-032",
+                "astro-033",
+                "astro-034",
+                "astro-035"
+              ]
             },
             {
               "id": "astro-motion",
               "title": "The moving sky",
               "total": 20,
-              "cardIds": []
+              "cardIds": [
+                "astro-036",
+                "astro-037",
+                "astro-038",
+                "astro-039",
+                "astro-040"
+              ]
             },
             {
               "id": "astro-constellations",

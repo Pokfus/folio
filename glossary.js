@@ -7982,7 +7982,17 @@ window.GLOSSARY = {
 "Robert_Koldewey": "",
 "Stephanie_Dalley": "",
 "Tell_es-Sultan": "",
-"William_Shakespeare": ""
+"William_Shakespeare": "",
+"Angular_distance": "",
+"Parallax": "",
+"Sidereal_time": "",
+"Zodiac": "",
+"Galactic_coordinate_system": "",
+"Diurnal_motion": "",
+"Earth's_rotation": "",
+"Earth's_orbit": "",
+"Heliacal_rising": "",
+"Solstice": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11871,7 +11881,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cleopatra_Selene_II": "born 40 BCE",
 "David_Stronach": "1931 – 2020",
 "Josephus": "born 37/38 CE",
-"William_Shakespeare": "1564 – 1616"
+"William_Shakespeare": "1564 – 1616",
+"Galactic_coordinate_system": "1958"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16910,7 +16921,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nippur": ["Nuffar"],
 "Nur_Mountains": ["Mount Amanus","Amanus Mountains","Amanus"],
 "Robert_Koldewey": ["Koldewey"],
-"William_Shakespeare": ["Shakespeare"]
+"William_Shakespeare": ["Shakespeare"],
+"Angular_distance": ["angular separation"],
+"Galactic_coordinate_system": ["galactic coordinates"],
+"Earth's_rotation": ["Earth's rotation","rotation of the Earth"],
+"Earth's_orbit": ["Earth's orbit","orbit of the Earth"],
+"Solstice": ["solstices"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25042,7 +25058,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Robert_Koldewey": ["person","archaeology","history","germany","iraq"],
 "Stephanie_Dalley": ["person","archaeology","history","iraq","mesopotamia"],
 "Tell_es-Sultan": ["place","archaeology","prehistory","history","palestine"],
-"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"]
+"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"],
+"Angular_distance": ["concept","science","astronomy","measurement"],
+"Parallax": ["concept","science","astronomy","measurement"],
+"Sidereal_time": ["concept","science","astronomy","time"],
+"Zodiac": ["concept","science","astronomy","ecliptic"],
+"Galactic_coordinate_system": ["concept","science","astronomy","milky way"],
+"Diurnal_motion": ["concept","science","astronomy","earth"],
+"Earth's_rotation": ["concept","science","astronomy","earth"],
+"Earth's_orbit": ["concept","science","astronomy","earth","orbits"],
+"Heliacal_rising": ["concept","science","astronomy","calendar"],
+"Solstice": ["concept","science","astronomy","seasons"]
 });
 
 /* ============================================================================
