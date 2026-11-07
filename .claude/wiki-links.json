@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T19:39Z",
+ "generated": "2026-11-07T19:45Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6118,
-  "redirect-broader": 582,
-  "redirect-variant": 373,
+  "ok": 6136,
+  "redirect-broader": 584,
+  "redirect-variant": 374,
   "section-redirect": 126,
   "disambiguation": 146,
-  "none": 1002,
+  "none": 1001,
   "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
@@ -68047,6 +68047,150 @@
    "answer": "Eighth Air Force",
    "title": "Eighth Air Force",
    "url": "https://en.wikipedia.org/wiki/Eighth_Air_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-611": {
+   "answer": "Precision bombing",
+   "title": "Precision bombing",
+   "url": "https://en.wikipedia.org/wiki/Precision_bombing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-612": {
+   "answer": "Bombing of Hamburg",
+   "title": "Bombing of Hamburg in World War II",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Hamburg_in_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bombing of Hamburg"
+  },
+  "ww2-613": {
+   "answer": "Battle of the Ruhr",
+   "title": "Battle of the Ruhr",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Ruhr",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-614": {
+   "answer": "Operation Chastise",
+   "title": "Operation Chastise",
+   "url": "https://en.wikipedia.org/wiki/Operation_Chastise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-615": {
+   "answer": "Schweinfurt–Regensburg mission",
+   "title": "Schweinfurt–Regensburg mission",
+   "url": "https://en.wikipedia.org/wiki/Schweinfurt%E2%80%93Regensburg_mission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-616": {
+   "answer": "Second Schweinfurt raid",
+   "title": "Second Schweinfurt raid",
+   "url": "https://en.wikipedia.org/wiki/Second_Schweinfurt_raid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-617": {
+   "answer": "P-51 Mustang",
+   "title": "North American P-51 Mustang",
+   "url": "https://en.wikipedia.org/wiki/North_American_P-51_Mustang",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "P-51 Mustang"
+  },
+  "ww2-618": {
+   "answer": "Big Week",
+   "title": "Big Week",
+   "url": "https://en.wikipedia.org/wiki/Big_Week",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-619": {
+   "answer": "Bombing of Berlin",
+   "title": "Bombing of Berlin in World War II",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Berlin_in_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bombing of Berlin"
+  },
+  "ww2-620": {
+   "answer": "Bombing of Dresden",
+   "title": "Bombing of Dresden",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Dresden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-621": {
+   "answer": "George Bell",
+   "title": "George Bell (bishop)",
+   "url": "https://en.wikipedia.org/wiki/George_Bell_(bishop)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-622": {
+   "answer": "Kammhuber Line",
+   "title": "Kammhuber Line",
+   "url": "https://en.wikipedia.org/wiki/Kammhuber_Line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-623": {
+   "answer": "Defence of the Reich",
+   "title": "Defence of the Reich",
+   "url": "https://en.wikipedia.org/wiki/Defence_of_the_Reich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-624": {
+   "answer": "Jägerstab",
+   "title": "Jägerstab",
+   "url": "https://en.wikipedia.org/wiki/J%C3%A4gerstab",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-625": {
+   "answer": "oil campaign",
+   "title": "Oil campaign of World War II",
+   "url": "https://en.wikipedia.org/wiki/Oil_campaign_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Oil campaign"
+  },
+  "ww2-626": {
+   "answer": "Reichsluftschutzbund",
+   "title": "Reichsluftschutzbund",
+   "url": "https://en.wikipedia.org/wiki/Reichsluftschutzbund",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-627": {
+   "answer": "United States Strategic Bombing Survey",
+   "title": "United States Strategic Bombing Survey",
+   "url": "https://en.wikipedia.org/wiki/United_States_Strategic_Bombing_Survey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-628": {
+   "answer": "Lack of moral fibre",
+   "title": "Lack of Moral Fibre",
+   "url": "https://en.wikipedia.org/wiki/Lack_of_Moral_Fibre",
+   "via": "search",
+   "status": "ok"
+  },
+  "ww2-629": {
+   "answer": "V-1 flying bomb",
+   "title": "V-1 flying bomb",
+   "url": "https://en.wikipedia.org/wiki/V-1_flying_bomb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-630": {
+   "answer": "V-2 rocket",
+   "title": "V-2 rocket",
+   "url": "https://en.wikipedia.org/wiki/V-2_rocket",
    "via": "glossary",
    "status": "ok"
   }

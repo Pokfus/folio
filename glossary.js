@@ -8712,7 +8712,27 @@ window.GLOSSARY = {
 "Arthur_Harris": "",
 "Butt_Report": "",
 "Combined_Bomber_Offensive": "",
-"Eighth_Air_Force": ""
+"Eighth_Air_Force": "",
+"Precision_bombing": "",
+"Bombing_of_Hamburg_in_World_War_II": "",
+"Battle_of_the_Ruhr": "",
+"Operation_Chastise": "",
+"Schweinfurt–Regensburg_mission": "",
+"Second_Schweinfurt_raid": "",
+"North_American_P-51_Mustang": "",
+"Big_Week": "",
+"Bombing_of_Berlin_in_World_War_II": "",
+"Bombing_of_Dresden": "",
+"George_Bell_(bishop)": "",
+"Kammhuber_Line": "",
+"Defence_of_the_Reich": "",
+"Jägerstab": "",
+"Oil_campaign_of_World_War_II": "",
+"Reichsluftschutzbund": "",
+"United_States_Strategic_Bombing_Survey": "",
+"Lack_of_moral_fibre": "",
+"V-1_flying_bomb": "",
+"V-2_rocket": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12916,7 +12936,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Trident_Conference": "12–25 May 1943",
 "Area_Bombing_Directive": "14 February 1942",
 "Arthur_Harris": "1892–1984",
-"Butt_Report": "18 August 1941"
+"Butt_Report": "18 August 1941",
+"George_Bell_(bishop)": "1883–1958",
+"V-1_flying_bomb": "1944–1945",
+"V-2_rocket": "1944–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18407,7 +18430,20 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Foggia_Airfield_Complex": ["Foggia airfields"],
 "Strategic_bombing": ["strategic bombing"],
 "RAF_Bomber_Command": ["Bomber Command"],
-"Arthur_Harris": ["Bomber Harris"]
+"Arthur_Harris": ["Bomber Harris"],
+"Bombing_of_Hamburg_in_World_War_II": ["Bombing of Hamburg","Operation Gomorrah"],
+"Operation_Chastise": ["Dam Busters raid"],
+"North_American_P-51_Mustang": ["P-51 Mustang","Mustang"],
+"Bombing_of_Berlin_in_World_War_II": ["Bombing of Berlin"],
+"George_Bell_(bishop)": ["George Bell","G. K. A. Bell"],
+"Kammhuber_Line": ["Himmelbett"],
+"Jägerstab": ["Jaegerstab","Fighter Staff"],
+"Oil_campaign_of_World_War_II": ["oil campaign","Oil Plan"],
+"Reichsluftschutzbund": ["Reich Air Protection League","RLB"],
+"United_States_Strategic_Bombing_Survey": ["USSBS","Strategic Bombing Survey"],
+"Lack_of_moral_fibre": ["LMF"],
+"V-1_flying_bomb": ["V-1","Fieseler Fi 103","flying bomb","doodlebug"],
+"V-2_rocket": ["V-2","A4","Aggregat 4"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27273,7 +27309,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Arthur_Harris": ["person","history","warfare","united kingdom"],
 "Butt_Report": ["text","history","warfare","united kingdom","second world war"],
 "Combined_Bomber_Offensive": ["event","history","warfare","second world war"],
-"Eighth_Air_Force": ["institution","history","warfare","united states"]
+"Eighth_Air_Force": ["institution","history","warfare","united states"],
+"Precision_bombing": ["concept","warfare","history","second world war"],
+"Bombing_of_Hamburg_in_World_War_II": ["event","warfare","history","germany","second world war"],
+"Battle_of_the_Ruhr": ["battle","warfare","history","germany","second world war"],
+"Operation_Chastise": ["battle","warfare","history","germany","second world war"],
+"Schweinfurt–Regensburg_mission": ["battle","warfare","history","germany","second world war"],
+"Second_Schweinfurt_raid": ["battle","warfare","history","germany","second world war"],
+"North_American_P-51_Mustang": ["technology","warfare","history","second world war"],
+"Big_Week": ["event","warfare","history","germany","second world war"],
+"Bombing_of_Berlin_in_World_War_II": ["event","warfare","history","germany","second world war"],
+"Bombing_of_Dresden": ["event","warfare","history","germany","second world war"],
+"George_Bell_(bishop)": ["person","religion","history","second world war","britain"],
+"Kammhuber_Line": ["technology","warfare","history","second world war","germany"],
+"Defence_of_the_Reich": ["event","warfare","history","second world war","germany"],
+"Jägerstab": ["institution","warfare","industry","history","second world war","germany"],
+"Oil_campaign_of_World_War_II": ["event","warfare","industry","history","second world war","germany"],
+"Reichsluftschutzbund": ["institution","history","warfare","second world war","germany"],
+"United_States_Strategic_Bombing_Survey": ["institution","history","warfare","second world war","united states"],
+"Lack_of_moral_fibre": ["concept","history","warfare","second world war","britain"],
+"V-1_flying_bomb": ["technology","warfare","history","second world war","germany"],
+"V-2_rocket": ["technology","warfare","history","science","second world war","germany"]
 });
 
 /* ============================================================================

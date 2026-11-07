@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6118 | the title is the article |
-| `redirect-variant` | 373 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6136 | the title is the article |
+| `redirect-variant` | 374 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 582 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 584 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 146 | only a disambiguation page; no link could be chosen |
-| `none` | 1002 | nothing matched; no link |
+| `none` | 1001 | nothing matched; no link |
 
-**7170 of 8460 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7191 of 8480 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (582)
+## Redirected to a differently named article — check each (584)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -625,7 +625,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-529` **INA trials** → [Indian National Army trials](https://en.wikipedia.org/wiki/Indian_National_Army_trials) (from `INA trials`)
 - `ww2-581` **Darlan deal** → [Clark-Darlan Accords](https://en.wikipedia.org/wiki/Clark-Darlan_Accords) (from `Darlan deal`)
 - `ww2-585` **Operation Husky** → [Allied invasion of Sicily](https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily) (from `Operation Husky`)
-- `ww2-602` **Trident Conference** → [Washington Conference (1943)](https://en.wikipedia.org/wiki/Washington_Conference_(1943)) (from `Trident Conference`)
+- `ww2-612` **Bombing of Hamburg** → [Bombing of Hamburg in World War II](https://en.wikipedia.org/wiki/Bombing_of_Hamburg_in_World_War_II) (from `Bombing of Hamburg`)
+- `ww2-617` **P-51 Mustang** → [North American P-51 Mustang](https://en.wikipedia.org/wiki/North_American_P-51_Mustang) (from `P-51 Mustang`)
+- `ww2-619` **Bombing of Berlin** → [Bombing of Berlin in World War II](https://en.wikipedia.org/wiki/Bombing_of_Berlin_in_World_War_II) (from `Bombing of Berlin`)
 
 ## Settled from a disambiguation page (83)
 
@@ -1020,7 +1022,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (1002)
+## No article found (1001)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2025,4 +2027,3 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
 - `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
 - `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`
-- `ww2-603` **Foggia airfields** — search suggests `Foggia Airfield Complex`, `Foggia`, `Military history of the United Kingdom during World War II`, `Italian campaign (World War II)`, `Amendola Air Base`
