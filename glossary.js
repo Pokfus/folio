@@ -8058,7 +8058,17 @@ window.GLOSSARY = {
 "Italian_resistance_movement": "",
 "Italian_Civil_War": "",
 "Marzabotto_massacre": "",
-"Death_of_Benito_Mussolini": ""
+"Death_of_Benito_Mussolini": "",
+"Rōmusha": "",
+"Operation_Starvation": "",
+"Operation_Downfall": "",
+"Per_Jacobsson": "",
+"Potsdam_Declaration": "",
+"Europe_first": "",
+"Hakkō_ichiu": "",
+"Internment_of_Japanese_Americans": "",
+"442nd_Infantry_Regiment_(United_States)": "",
+"Ernest_King": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12001,7 +12011,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Italian_resistance_movement": "1943–1945",
 "Italian_Civil_War": "1943–1945",
 "Marzabotto_massacre": "1944",
-"Death_of_Benito_Mussolini": "1945"
+"Death_of_Benito_Mussolini": "1945",
+"Rōmusha": "1942–1945",
+"Operation_Starvation": "1945",
+"Operation_Downfall": "1945",
+"Per_Jacobsson": "1894–1963",
+"Potsdam_Declaration": "1945",
+"Internment_of_Japanese_Americans": "1942–1946",
+"442nd_Infantry_Regiment_(United_States)": "1943–1946",
+"Ernest_King": "1878–1956"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17089,7 +17107,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Proclamation_of_Indonesian_Independence": ["Proclamation of Indonesian independence"],
 "Allied_invasion_of_Italy": ["Operation Avalanche"],
 "Battle_of_Anzio": ["Operation Shingle"],
-"Marzabotto_massacre": ["Monte Sole massacre"]
+"Marzabotto_massacre": ["Monte Sole massacre"],
+"Rōmusha": ["Romusha"],
+"Hakkō_ichiu": ["Hakko ichiu"],
+"Internment_of_Japanese_Americans": ["internment of Japanese Americans","Japanese American internment","Japanese American incarceration"],
+"442nd_Infantry_Regiment_(United_States)": ["442nd Infantry Regiment","442nd Regimental Combat Team"],
+"Ernest_King": ["Ernest J. King"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25297,7 +25320,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Italian_resistance_movement": ["people","history","warfare","politics","italy"],
 "Italian_Civil_War": ["war","history","politics","italy","fascism"],
 "Marzabotto_massacre": ["event","history","warfare","italy","war crimes"],
-"Death_of_Benito_Mussolini": ["event","history","politics","italy","fascism"]
+"Death_of_Benito_Mussolini": ["event","history","politics","italy","fascism"],
+"Rōmusha": ["practice","history","warfare","japan","indonesia"],
+"Operation_Starvation": ["event","history","warfare","japan","united states"],
+"Operation_Downfall": ["text","history","warfare","united states","japan"],
+"Per_Jacobsson": ["person","history","economics","sweden"],
+"Potsdam_Declaration": ["text","history","politics","japan","united states"],
+"Europe_first": ["concept","history","warfare","politics","united states"],
+"Hakkō_ichiu": ["concept","history","politics","japan","propaganda"],
+"Internment_of_Japanese_Americans": ["event","history","politics","united states","civil liberties"],
+"442nd_Infantry_Regiment_(United_States)": ["institution","history","warfare","united states"],
+"Ernest_King": ["person","history","warfare","united states","navy"]
 });
 
 /* ============================================================================

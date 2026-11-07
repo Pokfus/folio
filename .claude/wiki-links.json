@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-07T02:29Z",
+ "generated": "2026-11-07T02:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5571,
+  "ok": 5579,
   "redirect-broader": 524,
-  "redirect-variant": 337,
+  "redirect-variant": 339,
   "section-redirect": 111,
   "disambiguation": 142,
   "none": 984,
@@ -63000,6 +63000,78 @@
    "url": "https://en.wikipedia.org/wiki/Death_of_Benito_Mussolini",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-501": {
+   "answer": "Rōmusha",
+   "title": "Rōmusha",
+   "url": "https://en.wikipedia.org/wiki/R%C5%8Dmusha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-502": {
+   "answer": "Operation Starvation",
+   "title": "Operation Starvation",
+   "url": "https://en.wikipedia.org/wiki/Operation_Starvation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-503": {
+   "answer": "Operation Downfall",
+   "title": "Operation Downfall",
+   "url": "https://en.wikipedia.org/wiki/Operation_Downfall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-504": {
+   "answer": "Per Jacobsson",
+   "title": "Per Jacobsson",
+   "url": "https://en.wikipedia.org/wiki/Per_Jacobsson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-505": {
+   "answer": "Potsdam Declaration",
+   "title": "Potsdam Declaration",
+   "url": "https://en.wikipedia.org/wiki/Potsdam_Declaration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-506": {
+   "answer": "Europe first",
+   "title": "Europe first",
+   "url": "https://en.wikipedia.org/wiki/Europe_first",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-507": {
+   "answer": "Hakkō ichiu",
+   "title": "Hakkō ichiu",
+   "url": "https://en.wikipedia.org/wiki/Hakk%C5%8D_ichiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-508": {
+   "answer": "internment of Japanese Americans",
+   "title": "Internment of Japanese Americans",
+   "url": "https://en.wikipedia.org/wiki/Internment_of_Japanese_Americans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-509": {
+   "answer": "442nd Infantry Regiment",
+   "title": "442nd Infantry Regiment",
+   "url": "https://en.wikipedia.org/wiki/442nd_Infantry_Regiment",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "442nd Infantry Regiment (United States)"
+  },
+  "ww2-510": {
+   "answer": "Ernest King",
+   "title": "Ernest J. King",
+   "url": "https://en.wikipedia.org/wiki/Ernest_J._King",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Ernest King"
   }
  }
 }
