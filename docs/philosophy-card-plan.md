@@ -412,14 +412,14 @@ other's, so that rule does more work here than anywhere.
 ### What philosophy is — `ph-what`
 
     ph-001  Philosophy
-    ph-002  The branches of philosophy
+    ph-002  Value theory and the branches of philosophy
     ph-003  Metaphysics
     ph-004  Epistemology
     ph-005  Ethics
     ph-006  Logic
     ph-007  Aesthetics
     ph-008  Political philosophy
-    ph-009  The philosophical question
+    ph-009  Aporia: the philosophical puzzle
     ph-010  Conceptual analysis
     ph-011  The thought experiment
     ph-012  Intuitions in philosophy
@@ -466,7 +466,7 @@ other's, so that rule does more work here than anywhere.
     ph-047  Propositional logic
     ph-048  Truth functions
     ph-049  The truth table
-    ph-050  Conjunction, disjunction and negation
+    ph-050  Logical connectives: conjunction, disjunction and negation
     ph-051  The material conditional
     ph-052  The paradoxes of material implication
     ph-053  Logical equivalence
@@ -480,7 +480,7 @@ other's, so that rule does more work here than anywhere.
     ph-061  The square of opposition
     ph-062  Modal logic
     ph-063  Possible worlds
-    ph-064  Necessity and possibility
+    ph-064  Metaphysical necessity and possibility
     ph-065  Deontic logic
     ph-066  Temporal logic
     ph-067  Epistemic logic
@@ -514,10 +514,10 @@ other's, so that rule does more work here than anywhere.
     ph-092  Russell's paradox
     ph-093  Formalism in mathematics
     ph-094  Intuitionism in mathematics
-    ph-095  Nominalism about mathematics
+    ph-095  Fictionalism about mathematics
     ph-096  The indispensability argument
     ph-097  Mathematical proof
-    ph-098  Infinity
+    ph-098  Actual and potential infinity
     ph-099  Cantor and the transfinite
     ph-100  The unreasonable effectiveness of mathematics
 

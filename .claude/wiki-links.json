@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T20:47Z",
+ "generated": "2026-11-07T02:25Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5501,
-  "redirect-broader": 521,
-  "redirect-variant": 335,
-  "section-redirect": 109,
+  "ok": 5580,
+  "redirect-broader": 532,
+  "redirect-variant": 340,
+  "section-redirect": 112,
   "disambiguation": 142,
-  "none": 982,
+  "none": 983,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62417,6 +62417,729 @@
     "Taiwan under Japanese rule",
     "Shinto in Taiwan"
    ]
+  },
+  "ph-021": {
+   "answer": "logical argument",
+   "title": "Argument",
+   "url": "https://en.wikipedia.org/wiki/Argument",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Logical argument"
+  },
+  "ph-022": {
+   "answer": "premises and conclusion",
+   "title": "Premise",
+   "url": "https://en.wikipedia.org/wiki/Premise",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ph-023": {
+   "answer": "deductive validity",
+   "title": "Validity (logic)",
+   "url": "https://en.wikipedia.org/wiki/Validity_(logic)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ph-024": {
+   "answer": "soundness",
+   "title": "Soundness",
+   "url": "https://en.wikipedia.org/wiki/Soundness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-025": {
+   "answer": "deductive reasoning",
+   "title": "Deductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Deductive_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-026": {
+   "answer": "inductive reasoning",
+   "title": "Inductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Inductive_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-027": {
+   "answer": "problem of induction",
+   "title": "Problem of induction",
+   "url": "https://en.wikipedia.org/wiki/Problem_of_induction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-028": {
+   "answer": "abductive reasoning",
+   "title": "Abductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Abductive_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-029": {
+   "answer": "inference to the best explanation",
+   "title": "Abductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Abductive_reasoning",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Inference to the best explanation"
+  },
+  "ph-030": {
+   "answer": "necessary and sufficient conditions",
+   "title": "Necessity and sufficiency",
+   "url": "https://en.wikipedia.org/wiki/Necessity_and_sufficiency",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Necessary and sufficient conditions"
+  },
+  "ph-031": {
+   "answer": "counterexample",
+   "title": "Counterexample",
+   "url": "https://en.wikipedia.org/wiki/Counterexample",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-032": {
+   "answer": "reductio ad absurdum",
+   "title": "Reductio ad absurdum",
+   "url": "https://en.wikipedia.org/wiki/Reductio_ad_absurdum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-033": {
+   "answer": "begging the question",
+   "title": "Begging the question",
+   "url": "https://en.wikipedia.org/wiki/Begging_the_question",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-034": {
+   "answer": "straw man",
+   "title": "Straw man",
+   "url": "https://en.wikipedia.org/wiki/Straw_man",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-035": {
+   "answer": "ad hominem",
+   "title": "Ad hominem",
+   "url": "https://en.wikipedia.org/wiki/Ad_hominem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-036": {
+   "answer": "genetic fallacy",
+   "title": "Genetic fallacy",
+   "url": "https://en.wikipedia.org/wiki/Genetic_fallacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-037": {
+   "answer": "equivocation",
+   "title": "Equivocation",
+   "url": "https://en.wikipedia.org/wiki/Equivocation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-038": {
+   "answer": "false dilemma",
+   "title": "False dilemma",
+   "url": "https://en.wikipedia.org/wiki/False_dilemma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-039": {
+   "answer": "slippery slope",
+   "title": "Slippery slope",
+   "url": "https://en.wikipedia.org/wiki/Slippery_slope",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-040": {
+   "answer": "appeal to authority",
+   "title": "Argument from authority",
+   "url": "https://en.wikipedia.org/wiki/Argument_from_authority",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Appeal to authority"
+  },
+  "ph-041": {
+   "answer": "circular reasoning",
+   "title": "Circular reasoning",
+   "url": "https://en.wikipedia.org/wiki/Circular_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-042": {
+   "answer": "naturalistic fallacy",
+   "title": "Naturalistic fallacy",
+   "url": "https://en.wikipedia.org/wiki/Naturalistic_fallacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-043": {
+   "answer": "formal fallacy",
+   "title": "Formal fallacy",
+   "url": "https://en.wikipedia.org/wiki/Formal_fallacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-044": {
+   "answer": "paradox",
+   "title": "Paradox",
+   "url": "https://en.wikipedia.org/wiki/Paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-045": {
+   "answer": "principle of charity",
+   "title": "Principle of charity",
+   "url": "https://en.wikipedia.org/wiki/Principle_of_charity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-046": {
+   "answer": "formal logic",
+   "title": "Mathematical logic",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_logic",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Formal logic"
+  },
+  "ph-047": {
+   "answer": "propositional logic",
+   "title": "Propositional logic",
+   "url": "https://en.wikipedia.org/wiki/Propositional_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-048": {
+   "answer": "truth function",
+   "title": "Truth function",
+   "url": "https://en.wikipedia.org/wiki/Truth_function",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-049": {
+   "answer": "truth table",
+   "title": "Truth table",
+   "url": "https://en.wikipedia.org/wiki/Truth_table",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-050": {
+   "answer": "logical connective",
+   "title": "Logical connective",
+   "url": "https://en.wikipedia.org/wiki/Logical_connective",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-051": {
+   "answer": "material conditional",
+   "title": "Material conditional",
+   "url": "https://en.wikipedia.org/wiki/Material_conditional",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-052": {
+   "answer": "paradoxes of material implication",
+   "title": "Paradoxes of material implication",
+   "url": "https://en.wikipedia.org/wiki/Paradoxes_of_material_implication",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-053": {
+   "answer": "logical equivalence",
+   "title": "Logical equivalence",
+   "url": "https://en.wikipedia.org/wiki/Logical_equivalence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-054": {
+   "answer": "natural deduction",
+   "title": "Natural deduction",
+   "url": "https://en.wikipedia.org/wiki/Natural_deduction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-055": {
+   "answer": "axiomatic method",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Axiomatic method",
+   "target": "Axiomatic system#Axiomatic method"
+  },
+  "ph-056": {
+   "answer": "predicate logic",
+   "title": "First-order logic",
+   "url": "https://en.wikipedia.org/wiki/First-order_logic",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Predicate logic"
+  },
+  "ph-057": {
+   "answer": "quantifier",
+   "title": "Quantifier (logic)",
+   "url": "https://en.wikipedia.org/wiki/Quantifier_(logic)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-058": {
+   "answer": "law of identity",
+   "title": "Law of identity",
+   "url": "https://en.wikipedia.org/wiki/Law_of_identity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-059": {
+   "answer": "definite description",
+   "title": "Definite description",
+   "url": "https://en.wikipedia.org/wiki/Definite_description",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-060": {
+   "answer": "syllogistic logic",
+   "title": "Term logic",
+   "url": "https://en.wikipedia.org/wiki/Term_logic",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Syllogistic logic"
+  },
+  "ph-061": {
+   "answer": "square of opposition",
+   "title": "Square of opposition",
+   "url": "https://en.wikipedia.org/wiki/Square_of_opposition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-062": {
+   "answer": "modal logic",
+   "title": "Modal logic",
+   "url": "https://en.wikipedia.org/wiki/Modal_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-063": {
+   "answer": "possible worlds",
+   "title": "Possible world",
+   "url": "https://en.wikipedia.org/wiki/Possible_world",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Possible worlds"
+  },
+  "ph-064": {
+   "answer": "metaphysical necessity",
+   "title": "Metaphysical necessity",
+   "url": "https://en.wikipedia.org/wiki/Metaphysical_necessity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-065": {
+   "answer": "deontic logic",
+   "title": "Deontic logic",
+   "url": "https://en.wikipedia.org/wiki/Deontic_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-066": {
+   "answer": "temporal logic",
+   "title": "Temporal logic",
+   "url": "https://en.wikipedia.org/wiki/Temporal_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-067": {
+   "answer": "epistemic logic",
+   "title": "Epistemic modal logic",
+   "url": "https://en.wikipedia.org/wiki/Epistemic_modal_logic",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Epistemic logic"
+  },
+  "ph-068": {
+   "answer": "many-valued logic",
+   "title": "Many-valued logic",
+   "url": "https://en.wikipedia.org/wiki/Many-valued_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-069": {
+   "answer": "intuitionistic logic",
+   "title": "Intuitionistic logic",
+   "url": "https://en.wikipedia.org/wiki/Intuitionistic_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-070": {
+   "answer": "paraconsistent logic",
+   "title": "Paraconsistent logic",
+   "url": "https://en.wikipedia.org/wiki/Paraconsistent_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-071": {
+   "answer": "second-order logic",
+   "title": "Second-order logic",
+   "url": "https://en.wikipedia.org/wiki/Second-order_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-072": {
+   "answer": "semantic completeness",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Semantic completeness",
+   "target": "Completeness (logic)#Semantic completeness"
+  },
+  "ph-073": {
+   "answer": "Gödel's incompleteness theorems",
+   "title": "Gödel's incompleteness theorems",
+   "url": "https://en.wikipedia.org/wiki/G%C3%B6del's_incompleteness_theorems",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-074": {
+   "answer": "Löwenheim–Skolem theorem",
+   "title": "Löwenheim–Skolem theorem",
+   "url": "https://en.wikipedia.org/wiki/L%C3%B6wenheim%E2%80%93Skolem_theorem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-075": {
+   "answer": "set theory",
+   "title": "Set theory",
+   "url": "https://en.wikipedia.org/wiki/Set_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-076": {
+   "answer": "philosophy of logic",
+   "title": "Philosophy of logic",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-077": {
+   "answer": "logical consequence",
+   "title": "Logical consequence",
+   "url": "https://en.wikipedia.org/wiki/Logical_consequence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-078": {
+   "answer": "logical form",
+   "title": "Logical form",
+   "url": "https://en.wikipedia.org/wiki/Logical_form",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-079": {
+   "answer": "logical constant",
+   "title": "Logical constant",
+   "url": "https://en.wikipedia.org/wiki/Logical_constant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-080": {
+   "answer": "truth",
+   "title": "Truth",
+   "url": "https://en.wikipedia.org/wiki/Truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-081": {
+   "answer": "correspondence theory of truth",
+   "title": "Correspondence theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Correspondence_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-082": {
+   "answer": "coherence theory of truth",
+   "title": "Coherence theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Coherence_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-083": {
+   "answer": "deflationary theory of truth",
+   "title": "Deflationary theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Deflationary_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-084": {
+   "answer": "liar paradox",
+   "title": "Liar paradox",
+   "url": "https://en.wikipedia.org/wiki/Liar_paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-085": {
+   "answer": "semantic theory of truth",
+   "title": "Semantic theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Semantic_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-086": {
+   "answer": "vagueness",
+   "title": "Vagueness",
+   "url": "https://en.wikipedia.org/wiki/Vagueness",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ph-087": {
+   "answer": "sorites paradox",
+   "title": "Sorites paradox",
+   "url": "https://en.wikipedia.org/wiki/Sorites_paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-088": {
+   "answer": "philosophy of mathematics",
+   "title": "Philosophy of mathematics",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_mathematics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-089": {
+   "answer": "mathematical Platonism",
+   "title": "Mathematical Platonism",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_Platonism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-090": {
+   "answer": "logicism",
+   "title": "Logicism",
+   "url": "https://en.wikipedia.org/wiki/Logicism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-091": {
+   "answer": "Frege's theorem",
+   "title": "Frege's theorem",
+   "url": "https://en.wikipedia.org/wiki/Frege's_theorem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-092": {
+   "answer": "Russell's paradox",
+   "title": "Russell's paradox",
+   "url": "https://en.wikipedia.org/wiki/Russell's_paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-093": {
+   "answer": "formalism",
+   "title": "Formalism (philosophy of mathematics)",
+   "url": "https://en.wikipedia.org/wiki/Formalism_(philosophy_of_mathematics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-094": {
+   "answer": "intuitionism",
+   "title": "Intuitionism",
+   "url": "https://en.wikipedia.org/wiki/Intuitionism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-095": {
+   "answer": "fictionalism",
+   "title": "Fictionalism",
+   "url": "https://en.wikipedia.org/wiki/Fictionalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-096": {
+   "answer": "indispensability argument",
+   "title": "Quine–Putnam indispensability argument",
+   "url": "https://en.wikipedia.org/wiki/Quine%E2%80%93Putnam_indispensability_argument",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Indispensability argument"
+  },
+  "ph-097": {
+   "answer": "mathematical proof",
+   "title": "Mathematical proof",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_proof",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-098": {
+   "answer": "actual infinity",
+   "title": "Actual and potential infinity",
+   "url": "https://en.wikipedia.org/wiki/Actual_and_potential_infinity",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Actual infinity"
+  },
+  "ph-099": {
+   "answer": "transfinite numbers",
+   "title": "Transfinite number",
+   "url": "https://en.wikipedia.org/wiki/Transfinite_number",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Transfinite numbers"
+  },
+  "ph-100": {
+   "answer": "unreasonable effectiveness of mathematics",
+   "title": "The Unreasonable Effectiveness of Mathematics in the Natural Sciences",
+   "url": "https://en.wikipedia.org/wiki/The_Unreasonable_Effectiveness_of_Mathematics_in_the_Natural_Sciences",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Unreasonable effectiveness of mathematics"
+  },
+  "ph-001": {
+   "answer": "philosophy",
+   "title": "Philosophy",
+   "url": "https://en.wikipedia.org/wiki/Philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-002": {
+   "answer": "value theory",
+   "title": "Value theory",
+   "url": "https://en.wikipedia.org/wiki/Value_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-003": {
+   "answer": "metaphysics",
+   "title": "Metaphysics",
+   "url": "https://en.wikipedia.org/wiki/Metaphysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-004": {
+   "answer": "epistemology",
+   "title": "Epistemology",
+   "url": "https://en.wikipedia.org/wiki/Epistemology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-005": {
+   "answer": "ethics",
+   "title": "Ethics",
+   "url": "https://en.wikipedia.org/wiki/Ethics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-006": {
+   "answer": "logic",
+   "title": "Logic",
+   "url": "https://en.wikipedia.org/wiki/Logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-007": {
+   "answer": "aesthetics",
+   "title": "Aesthetics",
+   "url": "https://en.wikipedia.org/wiki/Aesthetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-008": {
+   "answer": "political philosophy",
+   "title": "Political philosophy",
+   "url": "https://en.wikipedia.org/wiki/Political_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-009": {
+   "answer": "aporia",
+   "title": "Aporia",
+   "url": "https://en.wikipedia.org/wiki/Aporia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-010": {
+   "answer": "conceptual analysis",
+   "title": "Philosophical analysis",
+   "url": "https://en.wikipedia.org/wiki/Philosophical_analysis",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Conceptual analysis"
+  },
+  "ph-011": {
+   "answer": "thought experiment",
+   "title": "Thought experiment",
+   "url": "https://en.wikipedia.org/wiki/Thought_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-012": {
+   "answer": "intuition",
+   "title": "Intuition",
+   "url": "https://en.wikipedia.org/wiki/Intuition",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Intuition (philosophy)"
+  },
+  "ph-013": {
+   "answer": "naturalism",
+   "title": "Naturalism (philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Naturalism_(philosophy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-014": {
+   "answer": "philosophy of religion",
+   "title": "Philosophy of religion",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_religion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-015": {
+   "answer": "common sense",
+   "title": "Common sense",
+   "url": "https://en.wikipedia.org/wiki/Common_sense",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ph-016": {
+   "answer": "history of philosophy",
+   "title": "History of philosophy",
+   "url": "https://en.wikipedia.org/wiki/History_of_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-017": {
+   "answer": "continental philosophy",
+   "title": "Continental philosophy",
+   "url": "https://en.wikipedia.org/wiki/Continental_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-018": {
+   "answer": "philosophical methodology",
+   "title": "Philosophical methodology",
+   "url": "https://en.wikipedia.org/wiki/Philosophical_methodology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-019": {
+   "answer": "reflective equilibrium",
+   "title": "Reflective equilibrium",
+   "url": "https://en.wikipedia.org/wiki/Reflective_equilibrium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-020": {
+   "answer": "philosophical progress",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Philosophical progress",
+   "target": "Metaphilosophy#Progress"
   }
  }
 }
