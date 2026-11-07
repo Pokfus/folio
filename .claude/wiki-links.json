@@ -68366,17 +68366,11 @@
   },
   "ww2-655": {
    "answer": "broad front strategy",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Broad front versus narrow front controversy in World War II",
-    "Western Front (World War II)",
-    "British home front during World War II",
-    "World War I",
-    "Scandinavian theatre of World War II"
-   ]
+   "title": "Broad front versus narrow front controversy in World War II",
+   "url": "https://en.wikipedia.org/wiki/Broad_front_versus_narrow_front_controversy_in_World_War_II",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ww2-656": {
    "answer": "Operation Plunder",
@@ -68475,17 +68469,11 @@
   },
   "ww2-668": {
    "answer": "Great Famine of Greece",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Great Famine (Greece)",
-    "Declarations of war during World War II",
-    "World War II casualties",
-    "Greco-Italian War",
-    "World War II reparations"
-   ]
+   "title": "Great Famine (Greece)",
+   "url": "https://en.wikipedia.org/wiki/Great_Famine_(Greece)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ww2-669": {
    "answer": "Military Administration in France",
@@ -68604,12 +68592,12 @@
   },
   "ww2-685": {
    "answer": "collaborationism",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "section-redirect",
-   "from": "Collaborationism",
-   "target": "Wartime collaboration#Definitions"
+   "title": "Wartime collaboration",
+   "url": "https://en.wikipedia.org/wiki/Wartime_collaboration",
+   "via": "manual",
+   "status": "ok",
+   "target": "Wartime collaboration#Definitions",
+   "manual": true
   },
   "ww2-686": {
    "answer": "Schutzmannschaft",
@@ -68649,17 +68637,11 @@
   },
   "ww2-691": {
    "answer": "Wehrmacht brothels",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "German military brothels in World War II",
-    "German camp brothels in World War II",
-    "East African campaign (World War II)",
-    "Australia in World War II",
-    "Italian campaign (World War II)"
-   ]
+   "title": "German military brothels in World War II",
+   "url": "https://en.wikipedia.org/wiki/German_military_brothels_in_World_War_II",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ww2-692": {
    "answer": "hidden children",
