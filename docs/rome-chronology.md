@@ -537,6 +537,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Pompeian styles (Mau): the first / the second begins / the fourth / the scheme published | c. 200 – 90 BCE / c. 80 BCE / c. 50 – 79 CE / 1882 | `rm-977` |
 | the Basilica Aemilia: contracted / rebuilt by Paullus / burned | 179 BCE / 55 – 34 BCE / 14 BCE | `rm-984` |
 | the Aqua Marcia: built / restored by Titus (Platner) | 144 – 140 BCE / 79 CE | `rm-988` |
+| the Pons Fabricius: built / the consuls' inscription (read as a restoration or as an approval) | 62 BCE / 21 BCE | `rm-993` |
 
 ## The Principate
 
@@ -842,6 +843,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Column of Antoninus Pius: shaft quarried / dedicated / base found | 106 CE / c. 161 CE / 1703 | `rm-987` |
 | the Pont du Gard: built (the 1984–90 research) / World Heritage | c. 40 – 80 CE / 1985 | `rm-989` |
 | Frontinus: urban praetor / water commissioner / died / also dated | 70 CE / 97 CE / 103 CE / 104 CE | `rm-990` |
+| the Milliarium Aureum set up (Dio) | 20 BCE | `rm-991` |
+| the Via Domitiana completed | 95 CE | `rm-992` |
+| the fabri tignarii at Ostia: their hall built / the member list | c. 120 CE / 198 CE | `rm-997` |
+| the Barbegal mills built (the aqueduct diverted to them) | c. 120 – 130 CE | `rm-998` |
+| Portus Julius built | 37 BCE | `rm-999` |
+| the Four Books of Architecture: published / the first English edition | 1570 / 1715 – 1720 | `rm-1000` |
 
 ## Late Antiquity
 
@@ -1788,4 +1795,11 @@ rm-987: 106; 161; 1703
 rm-988: 144; 140; 79
 rm-989: 40; 80; 1985
 rm-990: 70; 97; 103; 104
+rm-991: 20
+rm-992: 95
+rm-993: 62; 21
+rm-997: 120; 198
+rm-998: 120; 130
+rm-999: 37
+rm-1000: 1570; 1715; 1720
 ```
