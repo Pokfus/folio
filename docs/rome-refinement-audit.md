@@ -225,7 +225,7 @@ order unless the user says otherwise.
 | B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | **done 2026-11-07** |
 | B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | **done 2026-11-07** |
 | B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | **done 2026-11-07** |
-| B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | open |
+| B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | **done 2026-11-07** |
 | B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | open |
 | B96 | Latin literature and thought (`rm-literature`) | `rm-951`–`rm-960` | 10 | 83 | open |
 | B97 | Latin literature and thought (`rm-literature`) | `rm-961`–`rm-970` | 10 | 67 | open |
@@ -1200,6 +1200,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-928` Dura-Europos church | none | not re-checked: the card has no picture; the baptistery's paintings at Yale would do |
 | `rm-929` Decian persecution | none | not re-checked: the card has no picture; a libellus papyrus would do |
 | `rm-930` superstitio | none | not re-checked: the card has no picture |
+| `rm-931` Golden Age of Latin literature | none | not re-checked: the card has no picture |
+| `rm-932` Old Latin | none | not re-checked: the card has no picture; the Scipio epitaph or the Praeneste brooch would do |
+| `rm-933` Livius Andronicus | an imagined engraving | not re-checked: an invented likeness |
+| `rm-934` Ennius | an imagined engraving | not re-checked: an invented likeness |
+| `rm-935` fabula palliata | none | not re-checked: the card has no picture; a comic mask or a Terence manuscript scene would do |
+| `rm-936` Plautus | none | not re-checked: the card has no picture; the glossary's engraving is an imagined likeness |
+| `rm-937` Terence | none | not re-checked: the card has no picture; the glossary's manuscript portrait would do |
+| `rm-938` satura | none | not re-checked: the card has no picture |
+| `rm-939` Gaius Lucilius | none | not re-checked: the card has no picture |
+| `rm-940` Quintus Fabius Pictor | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -3346,3 +3356,22 @@ Run as B92, closing `rm-religion`. The Pons Fabricius went to `rm-993` (out of `
 | `rm-930` superstitio | 6 | 7 → 7 | **Modern share 1 → 4; the etymology Balbus's in Cicero's dialogue, not Cicero's own; Livy, Tacitus and Suetonius go**; the superstes etymology; the close of *On Divination*; Seneca's lost book through Augustine. |
 
 **Read by eye.** *Confusability:* `rm-921`/`rm-922`/`rm-923`/`rm-924` the island (Claudius's slaves), the Mother (Scipio), Isis's precinct (Vespasian's coin) and Mithras (the grades); `rm-925`/`rm-926` the freedmen's colleges (Ostia's epitaphs) and the deification (Herodian's pyre); `rm-927`/`rm-928`/`rm-929` the sympathisers (Aphrodisias), the house church (Proclus) and the decree (Aurelia Charis); `rm-920`/`rm-930` the prodigy and the superstition. *Legend:* the serpent of Aesculapius and Claudia Quinta are told as the sources' stories. *Overlap:* `gr-889` (Rhea), `gr-995` (Asclepius) and `gr-997` (incubation) agree. Quote blocks that now clash, for the owner: `rm-925`'s (Satyricon 57, Trimalchio's dinner) and `rm-926`'s (Suetonius on Caesar's star, `rm-954`'s ground). Every card lacks a picture (`I.none`); the `S.chip?` flags are English BMCR reviews of French books. Locators: `rm-923` has none and wants one (the temple stood west of the Saepta); `rm-928`'s point is the town's centre, not the house by the west wall.
+
+### B94 — `rm-931`–`rm-940`, Latin literature and thought: the Golden Age to Fabius Pictor (2026-11-07)
+
+Run as B93, opening `rm-literature`. Livius's first play went to `rm-933` alone (out of `rm-935`), the guild at Minerva's temple to `rm-933` (out of `rm-906`), Varro's 21 plays to `rm-936` and the Hecyra's failures and Caecilius's dinner to `rm-937` (out of `rm-935`), Horace's muddy river to `rm-939` (out of `rm-938`), Quintilian's groves to `rm-934` (kept off `rm-965`), the Carmen Arvale to `rm-903` and the Salian hymns to `rm-932`, Polybius on the treaties stayed `rm-185`'s (out of `rm-932`) and the Bacchanal decree `rm-274`'s, and Ovid's myth of the ages was left to `rm-954` (out of `rm-931`). **The old date lines dated a genre by Livius's act ("First Latin play 240 BCE" on the palliata) and by a man's life ("Lucilius lived" on satura), built a range from an inscription and a play ("Earliest Latin c. 500 – 240 BCE"), carried another event and a place ("Numantia taken", "Gallic war"), and gave Plautus a birth year no ancient source prints.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-931` Golden Age of Latin literature | 7 | 7 → 8 | **A label of early modern handbooks (Walchius's golden, silver and bronze ages; Funccius's stages of a life, read in a Spanish study); Conventional 70 BCE – 14 CE (Duff) and Also dated 83 BCE – 17 CE (Teuffel); the Silver Age row goes, its ends in prose; years out of the question; glossary redrafted**; the Ciceronian and Augustan ages; Velleius on peak and decline; a reviewer's "tailpiece to Boethius". |
+| `rm-932` Old Latin | 6 | 6 → 7 | **A modern label; One convention c. 400 – 150 BCE (Clackson and Horrocks, through a review); the 500 – 240 BCE range and the Bacchanal decree row go**; the Scipio epitaph's "cosol"; Quintilian on the Salian hymns; the Praeneste brooch, called a forgery, then judged genuine. |
+| `rm-933` Livius Andronicus | 6 | 6 → 7 | **240 BCE is Cicero's date, from Atticus, against Accius's, which Cicero refutes; Hymn sung 207 BCE; "Livius Salinator" cut (an anachronism before 204 BCE); the lightning phrasing goes (`rm-905`'s)**; Cicero's statues of Daedalus; the voice worn out by recalls; Festus's guild. |
+| `rm-934` Ennius | 7 | 7 → 8 | **"239 BCE" out of the question; Died 169 BCE added and each date's author named; Cicero cut from three sources to one**; Cato bringing him from Sardinia; Lucretius's wreath from Helicon; Quintilian's sacred groves. |
+| `rm-935` fabula palliata | 5 | 7 → 8 | **"First Latin play 240 BCE" goes (no source gives the genre a span; line empty); "palliata" a scholars' name, Varro's through Diomedes (in Latin); Smith never alone**; Varro naming plays by costume; Volcacius Sedigitus's canon; Gellius on Caecilius beside Menander. |
+| `rm-936` Plautus | 7 | 7 → 8 | **"Born c. 255 BCE" goes (modern estimates work back from Cicero); Play staged 200 BCE, Late play staged 191 BCE, Died 184 BCE; the mill story Varro's, doubted; glossary redrafted**; the 21 of about 130 plays; the baker's mill; the epitaph with Laughter weeping. |
+| `rm-937` Terence | 7 | 7 → 7 | **The Life's Carthage birth, owner and death named as the Life's (which gives consuls, not 159 BCE); Plays staged 166 – 160 BCE and Died 159 BCE from Duff and Teuffel**; the Hecyra driven off; the first play read to Caecilius; the Brothers prologue. |
+| `rm-938` satura | 6 | 6 → 6 | **"Lucilius lived c. 148 – 103 BCE" goes (undatable); the lanx satura etymology Diomedes's; Livy 7.2 his story, "full of arbitrary conclusions" (Teuffel); Horace and Juvenal left to their cards**; Quintilian's "wholly Roman"; Livy's stage satura; Diomedes's dish, sausage and law. |
+| `rm-939` Gaius Lucilius | 6 | 6 → 6 | **"Numantia taken 133 BCE" goes; Born c. 180 BCE (the editors) with Jerome's 148 BCE as Also dated (impossible beside Velleius's Numantine service); Died 103 – 101 BCE; "800+ fragments" becomes about 1,300 lines; the glossary's Persius and Juvenal on Horace's lips cut**; the muddy river; great-uncle to Pompey; the council of the gods. |
+| `rm-940` Quintus Fabius Pictor | 6 | 8 → 8 | **"Gallic war 225 BCE" goes (Smith alone); Embassy 216 BCE; the painter grandfather named; Cicero's dream of Aeneas dropped (another Fabius); the Taormina library list left out (behind a paywall)**; Delphi after Cannae; Polybius's "lover"; Livy's "oldest of our historians". |
+
+**Read by eye.** *Confusability:* `rm-931`/`rm-932` the period label (Velleius) and the early language (the brooch); `rm-933`/`rm-934` the first poet (the Daedalus statues) and the epic poet (the Sardinian voyage); `rm-935`/`rm-936`/`rm-937` the genre (the costume), Plautus (Varro's list) and Terence (the Hecyra); `rm-938`/`rm-939` the genre (Quintilian) and its first master (the muddy river); `rm-940` the historian (Delphi). *Legend:* Plautus's mill and Livy's account of the stage satura are the sources' stories. *Overlap:* `gr-132` agrees on Ennius's hexameter; no `gr-` card covers New Comedy's Menander (only `gr-785`, the Indo-Greek king of the name). Every card lacks a picture (`I.none`). Locators for a later pass: `rm-934`'s point is the Tomb of the Scipios (Rudiae, his birthplace, would suit a person better) and `rm-940`'s is Delphi, an embassy town, not his home.

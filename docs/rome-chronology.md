@@ -513,6 +513,14 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Saturnalia reorganised: the public banquet and the cry (Livy) | 217 BCE | `rm-917` |
 | the Lupercalia at which Antony offered Caesar the diadem | 44 BCE | `rm-918` |
 | Magna Mater: arrived / her Palatine temple dedicated (Livy) | 204 BCE / 191 BCE | `rm-922` |
+| Latin literature: the conventional Golden Age (Duff) / Teuffel's span | 70 BCE – 14 CE / 83 BCE – 17 CE | `rm-931` |
+| Old Latin: one modern convention (Clackson and Horrocks) | c. 400 – 150 BCE | `rm-932` |
+| Livius Andronicus: first play (Cicero's date) / the girls' hymn | 240 BCE / 207 BCE | `rm-933` |
+| Ennius: born / died | 239 BCE / 169 BCE | `rm-934` |
+| Plautus: Stichus staged / Pseudolus staged / died | 200 BCE / 191 BCE / 184 BCE | `rm-936` |
+| Terence: plays staged / died | 166 – 160 BCE / 159 BCE | `rm-937` |
+| Gaius Lucilius: born (the editors) / Jerome's year / died (Warmington) | c. 180 BCE / 148 BCE / 103 – 101 BCE | `rm-939` |
+| Fabius Pictor's embassy to Delphi after Cannae | 216 BCE | `rm-940` |
 
 ## The Principate
 
@@ -1687,4 +1695,12 @@ rm-923: 80
 rm-924: 90
 rm-928: 240; 256; 1932
 rm-929: 249; 250
+rm-931: 70; 14; 83; 17
+rm-932: 400; 150
+rm-933: 240; 207
+rm-934: 239; 169
+rm-936: 200; 191; 184
+rm-937: 166; 160; 159
+rm-939: 180; 148; 103; 101
+rm-940: 216
 ```
