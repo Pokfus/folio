@@ -8020,7 +8020,15 @@ window.GLOSSARY = {
 "Battle_of_Imphal": "",
 "Battle_of_Kohima": "",
 "William_Slim,_1st_Viscount_Slim": "",
-"Battle_of_Meiktila_and_Mandalay": ""
+"Battle_of_Meiktila_and_Mandalay": "",
+"Erwin_Rommel": "",
+"Siege_of_Tobruk": "",
+"Operation_Crusader": "",
+"Battle_of_Gazala": "",
+"Axis_capture_of_Tobruk": "",
+"First_Battle_of_El_Alamein": "",
+"Bernard_Montgomery": "",
+"Khamsin": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11938,7 +11946,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Imphal": "1944",
 "Battle_of_Kohima": "1944",
 "William_Slim,_1st_Viscount_Slim": "1891–1970",
-"Battle_of_Meiktila_and_Mandalay": "1945"
+"Battle_of_Meiktila_and_Mandalay": "1945",
+"Erwin_Rommel": "1891–1944",
+"Siege_of_Tobruk": "1941",
+"Operation_Crusader": "1941–1942",
+"Battle_of_Gazala": "1942",
+"Axis_capture_of_Tobruk": "1942",
+"First_Battle_of_El_Alamein": "1942"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17001,7 +17015,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Operation_Rheinübung": ["Rheinübung","Rhine Exercise"],
 "Burma_Corps": ["Burcorps"],
 "Quinacrine": ["Mepacrine","Atabrine"],
-"William_Slim,_1st_Viscount_Slim": ["William Slim","Bill Slim"]
+"William_Slim,_1st_Viscount_Slim": ["William Slim","Bill Slim"],
+"Erwin_Rommel": ["Rommel"],
+"Siege_of_Tobruk": ["siege of Tobruk"],
+"Operation_Crusader": ["Crusader"],
+"Battle_of_Gazala": ["Gazala"],
+"Axis_capture_of_Tobruk": ["Fall of Tobruk","fall of Tobruk"],
+"First_Battle_of_El_Alamein": ["First Alamein"],
+"Bernard_Montgomery": ["Montgomery","Monty"],
+"Khamsin": ["khamsin","khamseen"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25171,7 +25193,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Imphal": ["battle","history","warfare","india","japan","united kingdom"],
 "Battle_of_Kohima": ["battle","history","warfare","india","japan","united kingdom"],
 "William_Slim,_1st_Viscount_Slim": ["person","history","warfare","united kingdom","burma"],
-"Battle_of_Meiktila_and_Mandalay": ["battle","history","warfare","burma","japan","united kingdom"]
+"Battle_of_Meiktila_and_Mandalay": ["battle","history","warfare","burma","japan","united kingdom"],
+"Erwin_Rommel": ["person","history","warfare","germany","north africa"],
+"Siege_of_Tobruk": ["battle","history","warfare","libya","australia"],
+"Operation_Crusader": ["event","history","warfare","libya","britain"],
+"Battle_of_Gazala": ["battle","history","warfare","libya","britain"],
+"Axis_capture_of_Tobruk": ["event","history","warfare","libya","south africa"],
+"First_Battle_of_El_Alamein": ["battle","history","warfare","egypt","britain"],
+"Bernard_Montgomery": ["person","history","warfare","britain"],
+"Khamsin": ["concept","climate","geography","egypt"]
 });
 
 /* ============================================================================

@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07T02:23Z",
+ "generated": "2026-11-07T02:24Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5533,
+  "ok": 5543,
   "redirect-broader": 523,
   "redirect-variant": 336,
   "section-redirect": 111,
@@ -62717,6 +62717,76 @@
    "title": "Battle of Meiktila and Mandalay",
    "url": "https://en.wikipedia.org/wiki/Battle_of_Meiktila_and_Mandalay",
    "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-571": {
+   "answer": "Erwin Rommel",
+   "title": "Erwin Rommel",
+   "url": "https://en.wikipedia.org/wiki/Erwin_Rommel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-572": {
+   "answer": "Siege of Tobruk",
+   "title": "Siege of Tobruk",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Tobruk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-573": {
+   "answer": "Operation Crusader",
+   "title": "Operation Crusader",
+   "url": "https://en.wikipedia.org/wiki/Operation_Crusader",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-574": {
+   "answer": "Battle of Gazala",
+   "title": "Battle of Gazala",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gazala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-575": {
+   "answer": "Axis capture of Tobruk",
+   "title": "Axis capture of Tobruk",
+   "url": "https://en.wikipedia.org/wiki/Axis_capture_of_Tobruk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-576": {
+   "answer": "First Battle of El Alamein",
+   "title": "First Battle of El Alamein",
+   "url": "https://en.wikipedia.org/wiki/First_Battle_of_El_Alamein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-577": {
+   "answer": "Bernard Montgomery",
+   "title": "Bernard Montgomery",
+   "url": "https://en.wikipedia.org/wiki/Bernard_Montgomery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-578": {
+   "answer": "Second Battle of El Alamein",
+   "title": "Second Battle of El Alamein",
+   "url": "https://en.wikipedia.org/wiki/Second_Battle_of_El_Alamein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-579": {
+   "answer": "khamsin",
+   "title": "Khamsin",
+   "url": "https://en.wikipedia.org/wiki/Khamsin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-580": {
+   "answer": "Operation Torch",
+   "title": "Operation Torch",
+   "url": "https://en.wikipedia.org/wiki/Operation_Torch",
+   "via": "answer",
    "status": "ok"
   }
  }
