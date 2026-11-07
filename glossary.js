@@ -8038,7 +8038,17 @@ window.GLOSSARY = {
 "Subhas_Chandra_Bose": "",
 "Indian_National_Army": "",
 "Indian_National_Army_trials": "",
-"State_of_Burma": ""
+"State_of_Burma": "",
+"Aung_San": "",
+"Free_Thai_Movement": "",
+"Japanese_coup_d'état_in_French_Indochina": "",
+"Vietnamese_famine_of_1944–1945": "",
+"Việt_Minh": "",
+"Defenders_of_the_Homeland": "",
+"Second_Philippine_Republic": "",
+"Malayan_Peoples'_Anti-Japanese_Army": "",
+"Sook_Ching": "",
+"Proclamation_of_Indonesian_Independence": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11970,7 +11980,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Quit_India_Movement": "1942",
 "Indian_National_Army": "1942–1945",
 "Indian_National_Army_trials": "1945–1946",
-"State_of_Burma": "1943–1945"
+"State_of_Burma": "1943–1945",
+"Sook_Ching": "1942",
+"Proclamation_of_Indonesian_Independence": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17048,7 +17060,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Subhas_Chandra_Bose": ["Netaji"],
 "Indian_National_Army": ["INA","Azad Hind Fauj"],
 "Indian_National_Army_trials": ["INA trials","Red Fort trials"],
-"State_of_Burma": ["Ba Maw government"]
+"State_of_Burma": ["Ba Maw government"],
+"Free_Thai_Movement": ["Seri Thai","Free Thai"],
+"Vietnamese_famine_of_1944–1945": ["Vietnamese famine of 1945","Vietnamese Famine of 1945"],
+"Việt_Minh": ["Viet Minh","Vietminh","League for the Independence of Vietnam"],
+"Defenders_of_the_Homeland": ["PETA","Pembela Tanah Air"],
+"Malayan_Peoples'_Anti-Japanese_Army": ["Malayan People's Anti-Japanese Army","MPAJA"],
+"Sook_Ching": ["Sook Ching massacre","Kakyo shukusei"],
+"Proclamation_of_Indonesian_Independence": ["Proclamation of Indonesian independence"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25236,7 +25255,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Subhas_Chandra_Bose": ["person","history","politics","india","nationalism"],
 "Indian_National_Army": ["institution","history","warfare","india","nationalism"],
 "Indian_National_Army_trials": ["event","history","law","india","nationalism"],
-"State_of_Burma": ["state","history","politics","burma","japanese empire"]
+"State_of_Burma": ["state","history","politics","burma","japanese empire"],
+"Aung_San": ["person","history","politics","burma","nationalism"],
+"Free_Thai_Movement": ["institution","history","politics","thailand","resistance"],
+"Japanese_coup_d'état_in_French_Indochina": ["event","history","warfare","vietnam","france"],
+"Vietnamese_famine_of_1944–1945": ["event","history","vietnam","japan","famine"],
+"Việt_Minh": ["institution","history","politics","vietnam","communism"],
+"Defenders_of_the_Homeland": ["institution","history","warfare","indonesia","nationalism"],
+"Second_Philippine_Republic": ["state","history","politics","philippines","japan"],
+"Malayan_Peoples'_Anti-Japanese_Army": ["institution","history","warfare","malaya","communism"],
+"Sook_Ching": ["event","history","warfare","singapore","atrocity"],
+"Proclamation_of_Indonesian_Independence": ["event","history","politics","indonesia","independence"]
 });
 
 /* ============================================================================

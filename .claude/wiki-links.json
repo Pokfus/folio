@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-07T02:25Z",
+ "generated": "2026-11-07T02:27Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5552,
+  "ok": 5561,
   "redirect-broader": 524,
-  "redirect-variant": 336,
+  "redirect-variant": 337,
   "section-redirect": 111,
   "disambiguation": 142,
   "none": 984,
@@ -62857,6 +62857,77 @@
    "answer": "State of Burma",
    "title": "State of Burma",
    "url": "https://en.wikipedia.org/wiki/State_of_Burma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-531": {
+   "answer": "Aung San",
+   "title": "Aung San",
+   "url": "https://en.wikipedia.org/wiki/Aung_San",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-532": {
+   "answer": "Free Thai Movement",
+   "title": "Free Thai Movement",
+   "url": "https://en.wikipedia.org/wiki/Free_Thai_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-533": {
+   "answer": "Japanese coup d'état in French Indochina",
+   "title": "Japanese coup d'état in French Indochina",
+   "url": "https://en.wikipedia.org/wiki/Japanese_coup_d'%C3%A9tat_in_French_Indochina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-534": {
+   "answer": "Vietnamese famine of 1944–1945",
+   "title": "Vietnamese famine of 1944–1945",
+   "url": "https://en.wikipedia.org/wiki/Vietnamese_famine_of_1944%E2%80%931945",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-535": {
+   "answer": "Việt Minh",
+   "title": "Viet Minh",
+   "url": "https://en.wikipedia.org/wiki/Viet_Minh",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Việt Minh"
+  },
+  "ww2-536": {
+   "answer": "Defenders of the Homeland",
+   "title": "Defenders of the Homeland",
+   "url": "https://en.wikipedia.org/wiki/Defenders_of_the_Homeland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-537": {
+   "answer": "Second Philippine Republic",
+   "title": "Second Philippine Republic",
+   "url": "https://en.wikipedia.org/wiki/Second_Philippine_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-538": {
+   "answer": "Malayan Peoples' Anti-Japanese Army",
+   "title": "Malayan Peoples' Anti-Japanese Army",
+   "url": "https://en.wikipedia.org/wiki/Malayan_Peoples'_Anti-Japanese_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-539": {
+   "answer": "Sook Ching",
+   "title": "Sook Ching",
+   "url": "https://en.wikipedia.org/wiki/Sook_Ching",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-540": {
+   "answer": "Proclamation of Indonesian Independence",
+   "title": "Proclamation of Indonesian Independence",
+   "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence",
    "via": "glossary",
    "status": "ok"
   }
