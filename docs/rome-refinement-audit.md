@@ -213,7 +213,7 @@ order unless the user says otherwise.
 | B79 | Provinces and frontiers (`rm-provinces`) / Family, household and slavery (`rm-society`) | `rm-781`–`rm-790` | 10 | 74 | **done 2026-10-30** |
 | B80 | Family, household and slavery (`rm-society`) | `rm-791`–`rm-800` | 10 | 71 | **done 2026-10-30** |
 | B81 | Family, household and slavery (`rm-society`) | `rm-801`–`rm-810` | 10 | 70 | **done 2026-11-07** |
-| B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | open |
+| B82 | Family, household and slavery (`rm-society`) | `rm-811`–`rm-820` | 10 | 82 | **done 2026-11-07** |
 | B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | open |
 | B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | open |
 | B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | open |
@@ -1080,6 +1080,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-808` libertus | none | not re-checked: the card has no picture; a freedman's funerary relief would do |
 | `rm-809` senatus consultum Silanianum | none | not re-checked: the card has no picture |
 | `rm-810` ordo decurionum | none | not re-checked: the card has no picture; the Canusium album would do |
+| `rm-811` prefect of Egypt | none | not re-checked: the card has no picture; the Philae stele of Gallus would do |
+| `rm-812` plebs urbana | none | not re-checked: the card has no picture |
+| `rm-813` collegium | none | not re-checked: the card has no picture; the Lanuvium inscription would do |
+| `rm-814` salutatio | none | not re-checked: the card has no picture |
+| `rm-815` frumentatio | none | not re-checked: the card has no picture; a coin showing the grain dole would do |
+| `rm-816` puticuli | none | not re-checked: the card has no picture |
+| `rm-817` tunica | none | not re-checked: the card has no picture; a surviving Roman tunic would do |
+| `rm-818` toga | none | not re-checked: the card has no picture; a togate statue would do |
+| `rm-819` garum | none | not re-checked: the card has no picture; Scaurus's garum-jar mosaic would do |
+| `rm-820` convivium | none | not re-checked: the card has no picture; a banquet fresco would do |
 
 ## Glossary candidates
 
@@ -2979,3 +2989,22 @@ Run as B80, with one notes line per pair and a running list of used clues passed
 | `rm-810` ordo decurionum | 6 | 6 → 8 | **"Recall laws 325 – 326 CE" cut (no line): Constantine's laws of 320, 325 and 326 CE in prose, one by one; "decurions chose the magistrates" and Augustus's sealed votes (Smith only) go**; Paulus on the duumvir; the Canusium album; Philippi's 70 – 75 members as one estimate. |
 
 **Read by eye.** *Confusability:* `rm-801` the declamation (Hannibal's theme) against `rm-799`/`rm-800`; `rm-802`/`rm-803`/`rm-804`/`rm-805`/`rm-806` the slave (Varro's tools), the captive sale (the garland), the stand (Mamurra), the home-born slave (Atticus) and the farm prison (Columella); `rm-807`/`rm-808` freeing (Gaius's three forms) and the freedman (Isidorus); `rm-809`/`rm-810` the murdered master's household (Pedanius) and the town council (Canusium). *Legend:* Vindicius is Livy's story. *Overlap:* no `gr-` or `wh-` card disagrees. `rm-806`'s `L.missing` is deliberate: an ergastulum is a kind of building with no one site.
+
+### B82 — `rm-811`–`rm-820`, Family, household and slavery: the prefect of Egypt to the convivium (2026-11-07)
+
+Run as B81. The 320,000 of Augustus's cash gift went to `rm-812` alone, so `rm-815`'s question on Caesar's count names no figure; the Nicomedia firemen stayed off `rm-813` (`rm-774`'s); the Gallus stele and the first prefect stayed off `rm-811` (`rm-958`'s); Tacitus on the Britons' toga stayed off `rm-818` (`rm-782`'s). `rm-816`'s agent asked to move its point to the pits by Piazza Vittorio Emanuele; the request was set aside for a later locator pass (below). **The old date lines carried a man's death ("Gallus died 26 BCE", read off Cary's Dio margin), a cash gift labelled a count ("Counted 5 BCE"), and "Capped 2 BCE" from Cary's margin, not Dio's text.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-811` prefect of Egypt | 6 | 8 → 8 | **"Gallus died 26 BCE" goes: Created 30 BCE; every LacusCurtius source replaced and Smith's "Equites" cut; the "viceroy of a private province" picture doubted (Jördens, reviewed)**; Tiberius Alexander; Strabo's prefect with the king's rank; Claudius's procurators against the one knight with legions; the Philae stele not the cause of Gallus's fall (one reviewer). |
+| `rm-812` plebs urbana | 6 | 6 → 7 | **"Counted 5 BCE" was a cash gift: Cash gift 5 BCE; the unsourced "about 10,000 voters" goes; the 320,000 city plebs set apart from the 200,000 grain receivers**; Tacitus's respectable plebs; Sallust's Catiline crowd; the Tiberian decrees' senate, knights and plebs. |
+| `rm-813` collegium | 6 | 7 → 8 | **Senate ban 64 BCE and Restored by law 58 BCE, Asconius's account (in Latin, with its chip) with the BCE years from two reviews; the "three persons" definition (Smith only) goes**; the Lanuvium rules of 136 CE; the Digest on lawful clubs; Trajan's Amisus fund. |
+| `rm-814` salutatio | 6 | 6 → 7 | **Smith's "Sportula" goes; Juvenal framed as satire and Seneca as a moralist; Gracchus as a turning point is one study's, with its own caveat**; the election handbook's callers; the atrium as the stage. |
+| `rm-815` frumentatio | 6 | 7 → 7 | **The line now dates the dole itself: Cheap sales 123 BCE, Made free 58 BCE, Roll cut 46 BCE, Roll fixed 2 BCE (the Res Gestae and Rickman, not Cary's margin); the unsourced five-modii law of 73 BCE goes; "from Claudius" becomes Claudius or Nero**; Caesar's street-by-street count; the Porticus Minucia doorways. |
+| `rm-816` puticuli | 5 | 6 → 5 | **Two off-topic sentences on poverty go; Lanciani's figures his own; a modern study doubts the mass-grave reading (Graham)**; Varro's two derivations in Kent's Loeb; Horace's Priapus; the praetor's boundary stones. |
+| `rm-817` tunica | 7 | 7 → 8 | **Six of seven sources were ancient: now four modern, among them a surviving Roman-period linen tunic (Verhecken-Lammens 2010); Caesar's fringed sleeves the story Suetonius repeats**; Gellius's long sleeves; Horace's tunic-clad crowd; the shared "Tunic" glossary entry rewritten in general terms. |
+| `rm-818` toga | 8 | 8 → 9 | **The semicircle an old reading of Quintilian and Dionysius; the Etruscan origin a tradition plus one modern view; Juvenal satire**; Augustus and the dark cloaks; Quintilian's cut; the glossary's unsourced "heavy" goes. |
+| `rm-819` garum | 7 | 7 → 9 | **Strabo's line was Pliny's: Strabo now says only that New Carthage had plenty of salted fish; the 1,000 sesterces Pliny's figure**; allec and the scaleless garum for Jewish rites; Seneca the moralist; Scaurus's mosaics; Pompeii's salteries closed by the Augustan period; the Tunisian tanks. |
+| `rm-820` convivium | 6 | 6 → 7 | **Cicero's word is "communion of life" in Falconer, not "living together"; Varro as Gellius reports him; Smith and Juvenal go**; Pliny's three wines; the posture debate (Vössing, reviewed). |
+
+**Read by eye.** *Confusability:* `rm-811` the prefect (Tiberius Alexander) against `rm-765`/`rm-766`; `rm-812`/`rm-815` the city plebs (the cash gift) and the grain dole (Caesar's count); `rm-813`/`rm-814` the club (Lanuvium) and the morning call (Seneca's Gracchus); `rm-816`/`rm-825` the pits (Varro) and the columbarium; `rm-817`/`rm-818` the tunic (Gellius's sleeves) and the toga (the dark cloaks); `rm-819`/`rm-820` the sauce (allec) and the dinner (the Graces). *Legend:* none. *Overlap:* no `gr-` or `wh-` card disagrees.

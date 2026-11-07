@@ -478,6 +478,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Muziris: the port flourished | c. 100 BCE – 300 CE | `rm-784` |
 | divortium: Carvilius's first divorce (tradition; Gellius's years on Varro's epoch) | 231 BCE / also 235 BCE | `rm-793` |
 | the grammaticus: Crates's first lectures (Suetonius: about the time Ennius died) | 168 BCE | `rm-800` |
+| collegia: senate decree suppressing them / Clodius's law restoring them | 64 BCE / 58 BCE | `rm-813` |
+| the frumentatio: cheap sales / made free / the roll cut | 123 BCE / 58 BCE / 46 BCE | `rm-815` |
 
 ## The Principate
 
@@ -734,6 +736,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Tacfarinas's revolt | 17 – 24 CE | `rm-783` |
 | the Seres: the Han envoy sent / the Da Qin envoys (Chinese records) | 97 CE / 166 CE | `rm-785` |
 | the senatus consultum Silanianum passed (usually dated so) | 10 CE | `rm-809` |
+| the prefect of Egypt: office created | 30 BCE | `rm-811` |
+| plebs urbana: Augustus's cash gift to 320,000 (Res Gestae 15) | 5 BCE | `rm-812` |
+| the frumentatio: the roll fixed at about 200,000 | 2 BCE | `rm-815` |
 
 ## Late Antiquity
 
@@ -1563,4 +1568,8 @@ rm-793: 231; 235
 rm-795: 451; 450; 318; 320; 325
 rm-800: 168; 376
 rm-809: 10
+rm-811: 30
+rm-812: 5
+rm-813: 64; 58
+rm-815: 123; 58; 46; 2
 ```
