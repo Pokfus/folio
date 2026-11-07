@@ -248,7 +248,7 @@ have not this session.
 | The Viking Age | `vikingage` | `vk-` | `docs/vikingage-card-plan.md` | 9 / 39 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | live |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | live |
-| Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty |
+| Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | live: 100 cards, contiguous — next is `ph-101` |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | live |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty |
