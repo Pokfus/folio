@@ -217,7 +217,7 @@ order unless the user says otherwise.
 | B83 | Family, household and slavery (`rm-society`) / The Roman city and daily life (`rm-daily-life`) | `rm-821`–`rm-830` | 10 | 96 | **done 2026-11-07** |
 | B84 | The Roman city and daily life (`rm-daily-life`) | `rm-831`–`rm-840` | 10 | 72 | **done 2026-11-07** |
 | B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | **done 2026-11-07** |
-| B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | open |
+| B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | **done 2026-11-07** |
 | B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | open |
 | B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | open |
 | B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | open |
@@ -1120,6 +1120,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-848` Portus | none | not re-checked: the card has no picture; Trajan's hexagonal basin would do |
 | `rm-849` amphora | none | not re-checked: the card has no picture; its glossary term's picture is a Greek Panathenaic prize amphora with a description naming the museum and licence, worth replacing |
 | `rm-850` terra sigillata | none | not re-checked: the card has no picture; an Arretine bowl would do |
+| `rm-851` glassblowing | none | not re-checked: the card has no picture; a free-blown Roman glass flask would do |
+| `rm-852` as | none | not re-checked: the card has no picture; a Republican bronze as (Janus and prow) would do |
+| `rm-853` argentarius | none | not re-checked: the card has no picture |
+| `rm-854` Roman cursive | none | not re-checked: the card has no picture; a cursive papyrus or tablet would do |
+| `rm-855` programma | none | not re-checked: the card has no picture; a painted electoral notice at Pompeii would do |
+| `rm-856` wax tablet | none | not re-checked: the card has no picture; a tablet with stylus would do |
+| `rm-857` itinerarium | none | not re-checked: the card has no picture; a section of the Peutinger map would do |
+| `rm-858` cursus publicus | none | not re-checked: the card has no picture |
+| `rm-859` popina | none | not re-checked: the card has no picture; a Pompeian counter with set-in jars would do |
+| `rm-860` De agri cultura | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -3095,3 +3105,22 @@ Run as B84. The 300-amphora law stayed with `rm-845` (out of `rm-849`), the Squa
 | `rm-850` terra sigillata | 6 | 6 → 6 | **First made c. 40 – 30 BCE at Arezzo (a 2026 study), not an unsourced main period; the name a faux-Latin 19th-century label; slave labour a modern inference from the stamps; the 7 by 7 m kiln goes**; La Graufesenque's firing lists; Martial's Arretine vases. |
 
 **Read by eye.** *Confusability:* `rm-841`/`rm-840` the obelisk and the hour; `rm-842`/`rm-843`/`rm-844` the market (Terence), the shop (the shutters) and the fullery (the jump); `rm-845`/`rm-846`/`rm-847`/`rm-848`/`rm-849` the shipping law (the 300 amphorae), the shipper (Gaius's 10,000 pecks), Ostia (the harbourless shore), Portus (the obelisk ship) and the jar (Festus's standard); `rm-850` the red ware. *Legend:* Ostia's founding by Ancus is tradition. *Overlap:* no `gr-` or `wh-` card disagrees. The `L.missing` on `rm-842`, `rm-843`, `rm-844` and `rm-850` is deliberate (building types and a ware).
+
+### B86 — `rm-851`–`rm-860`, The Roman city and daily life: glassblowing to De agri cultura (2026-11-07)
+
+Run as B85. Hedone's price graffito went to `rm-852` alone (out of `rm-859` and `rm-862`), Caecilius Iucundus's tablets to `rm-853` (out of `rm-856`), Claudia Severa's letter stayed `rm-689`'s (out of `rm-854`'s questions, line and prose), and the Bordeaux pilgrim's relay stations stayed out of `rm-858`. **The old date lines carried Pliny's weight cuts as a range made of a war ("Two-ounce as 264 – 241 BCE"), a Smith misreading of Livy as the first bankers ("c. 350 BCE" was the state's mensarii), a woman in a label ("Severa's letter"), the eruption on a painted notice ("Buried 79 CE"), a pilgrim's route and a medieval copy on the itinerarium, and a century range and a man's consulship on Cato's book.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-851` glassblowing | 7 | 7 → 8 | **"Discovered near Jerusalem about 50 BCE" is the Getty's dating, said so: Invented c. 50 BCE, Mould-blowing c. 25 BCE; Strabo's copper-coin cup hearsay; the Severus Alexander tax (Historia Augusta via Smith) goes**; Seneca against Posidonius; Pliny's remelting; the raw-glass furnaces (Barfod and others 2020). |
+| `rm-852` as | 6 | 6 → 8 | **Pliny's dates told as his; the line from the coin catalogue: Earliest type 280 – 276 BCE and Denarius system 211 BCE**; Hedone's graffito; Polybius's half an as; Forsythe on the aes grave. `rm-140`'s aes grave "c. 300 BCE" (Mattingly) is a different reckoning of the first cast bronze, noted here. |
+| `rm-853` argentarius | 6 | 7 → 8 | **"c. 350 BCE" was the mensarii: First attested 310 BCE, Livy's banks (Kay 2022, with his doubt about deposit bankers so early); bills of exchange drawn on Athens go (Kay: never developed)**; Hannibal's sale of the Forum shops; Iucundus's auction receipts; the permutatio. |
+| `rm-854` Roman cursive | 6 | 6 → 6 | **Severa out of questions, line and prose (`rm-689`'s); "Roman cursive" a palaeographers' label (Bischoff's names differ); the line a range from "the first three centuries": no line**; the London tablets' separate strokes (the 57 CE debt note); the road to Caroline minuscule. |
+| `rm-855` programma | 5 | 6 → 7 | **A painted notice, not a graffito; "Buried 79 CE" and Vatia's year go (no line); Mau's count of some 1,600 notices his**; o.v.f.; Vatia's sneak thieves and late drinkers; the trades' endorsements; the Trebius Valens detail corrected. |
+| `rm-856` wax tablet | 7 | 7 → 7 | **The forgery rule is Suetonius's under Nero (any tablet, a cord passed three times), not a will "void" without it (Paulus via Smith); Smith goes**; the stylus's blunt end; Quintilian's drafts; drafts and fair copies (Cato); the Sulpicii archive. |
+| `rm-857` itinerarium | 6 | 7 → 8 | **The pilgrim's route and the Peutinger copy's c. 1200 went off the line (no line); the "disputed date" no cited review states goes; one study doubts the Antonine list was official**; Vegetius in Clarke's translation; the Bordeaux pilgrim's Gallic leagues; Greek sea guides in stades. |
+| `rm-858` cursus publicus | 6 | 6 → 8 | **Name attested 310 CE (the panegyric) and First in a law 315 CE (the Theodosian Code), both read through Coskun's review; the Historia Augusta's Hadrian and Smith go; Procopius's forty horses his claim in a hostile book**; Augustus's post-chaises; Nerva's vehiculatio coin (OCRE); Pliny's wife's permit. |
+| `rm-859` popina | 6 | 6 → 8 | **Smith carried the stools, the caupona split and the bans: now Le Guennec (2016, in French) and Martial; Juvenal's cookshop not "at Ostia"; Claudius's closures "fearing crowds" her view**; Nero's pulse rule; Lateranus's big cookshop; eighty bars at Pompeii (the park's count). |
+| `rm-860` De agri cultura | 6 | 6 → 8 | **"Written c. 200 – 100 BCE / Author consul 195 BCE" becomes Written c. 160 BCE, one modern dating; Plutarch goes**; the vineyard first and the old slave sold; Columella's "speak Latin" and Varro's thirteen slaves; the overseer and the fortune-tellers. |
+
+**Read by eye.** *Confusability:* `rm-851`/`rm-852`/`rm-853` the glass (Seneca and Posidonius), the coin (Hedone) and the banker (Hannibal's sale); `rm-854`/`rm-855`/`rm-856` the hand (the London strokes), the painted notice (Vatia) and the tablet (the triple cord); `rm-857`/`rm-858`/`rm-859` the route list (Vegetius), the post (Nerva's mules) and the cookshop (Lateranus); `rm-860`/`rm-861`/`rm-863` Cato's book (the fortune-tellers), the farmhouse (Columella) and the olive mill (B87). *Legend:* none. *Overlap:* no `gr-` or `wh-` card disagrees. `rm-859`'s `L.missing` is deliberate (a kind of eating house).

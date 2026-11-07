@@ -351,6 +351,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Parthian Empire: the Arsacid era begins | 247 BCE | `rm-773` |
 | tutela mulierum: in the Twelve Tables (tradition) | 451 – 450 BCE | `rm-795` |
 | Ostia founded (tradition) / the castrum built | 620 BCE / c. 400 – 200 BCE | `rm-847` |
+| the as: earliest type in the coin catalogue | 280 – 276 BCE | `rm-852` |
+| argentarii: Livy's banks at Rome first attested | 310 BCE | `rm-853` |
 
 ## The middle and late Republic
 
@@ -485,6 +487,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Tabula Heracleensis's Latin law (Crawford's range) | 80 – 43 BCE | `rm-834` |
 | the macellum: the first market at Rome burned | 210 BCE | `rm-842` |
 | the lex Claudia: dated (Livy's narrative) / also dated (one modern view) | 218 BCE / 219 BCE | `rm-845` |
+| the as: the struck as of the denarius system | 211 BCE | `rm-852` |
+| De agri cultura written (one modern dating) | c. 160 BCE | `rm-860` |
 
 ## The Principate
 
@@ -751,6 +755,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Horologium Augusti: the obelisk set up / the meridian found | 10 BCE / 1980 | `rm-841` |
 | Portus begun / Trajan's hexagon built | 42 CE / 100 – 112 CE | `rm-848` |
 | terra sigillata first made at Arezzo | c. 40 – 30 BCE | `rm-850` |
+| glassblowing: invented (the Getty's dating) / mould-blowing | c. 50 BCE / c. 25 BCE | `rm-851` |
 
 ## Late Antiquity
 
@@ -848,6 +853,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | tutela mulierum: still in force / likely abolished (one argument) | c. 318 CE / c. 320 – 325 CE | `rm-795` |
 | the grammaticus: the salary law (CTh 13.3.11) | 376 CE | `rm-800` |
 | the Regionary Catalogues compiled / one study's bracket | c. 300 – 400 CE / 334 – 357 CE | `rm-827` |
+| the cursus publicus: the name first attested / first in a law | 310 CE / 315 CE | `rm-858` |
 
 ## Chronology pins
 
@@ -1598,4 +1604,9 @@ rm-845: 218; 219
 rm-847: 620; 400; 200
 rm-848: 42; 100; 112
 rm-850: 40; 30
+rm-851: 50; 25
+rm-852: 280; 276; 211
+rm-853: 310
+rm-858: 310; 315
+rm-860: 160
 ```
