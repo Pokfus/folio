@@ -364,6 +364,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Temple of Saturn dedicated (tradition, Livy) / also dated | 497 BCE / 498 BCE | `rm-912` |
 | the Saturnalia instituted with the temple (tradition, Livy) | 497 BCE | `rm-917` |
 | the cult of Aesculapius arrives on the Tiber Island / also dated (Platner and Ashby give both) | 291 BCE / 292 BCE | `rm-921` |
+| the Capitoline Brutus: the museum's dating / also dated (a review) / donated | c. 400 – 200 BCE / c. 125 – 75 BCE / 1564 | `rm-972` |
 
 ## The middle and late Republic
 
@@ -532,6 +533,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Aeneid composed (Sellar) | c. 29 – 19 BCE | `rm-950` |
 | the Georgics written (the handbooks) | c. 37 – 30 BCE | `rm-951` |
 | Propertius born (a guess) | c. 50 BCE | `rm-957` |
+| the Tomb of Eurysaces built (the Capitoline Museums) / found | c. 40 – 30 BCE / 1838 | `rm-971` |
+| the Pompeian styles (Mau): the first / the second begins / the fourth / the scheme published | c. 200 – 90 BCE / c. 80 BCE / c. 50 – 79 CE / 1882 | `rm-977` |
 
 ## The Principate
 
@@ -828,6 +831,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Institutio Oratoria published (Gwynn) | c. 93 – 95 CE | `rm-965` |
 | Tacitus: born / consul / governor of Asia (Livius) | c. 55 CE / 97 CE / 113 CE | `rm-966` |
 | the Lives of the Caesars published (Rolfe) | 120 CE | `rm-967` |
+| the Cancelleria Reliefs carved / also dated (Freyberger) / found | 81 – 96 CE / c. 90 CE / 1937 – 1939 | `rm-974` |
+| the Farnese Hercules: the Greek type / the copy carved / the Farnese dig began / the legs replaced | c. 400 – 300 BCE / c. 200 – 300 CE / 1545 / 1787 | `rm-975` |
+| the House of the Vettii: buried / excavated / also dated / reopened | 79 CE / 1894 – 1895 / 1894 – 1896 / 2023 | `rm-976` |
+| the Maison Carrée: one dating (Livius) / the inscription read / Jefferson's Capitol design | 20 BCE / 1758 / 1785 | `rm-979` |
 
 ## Late Antiquity
 
@@ -935,6 +942,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Lupercalia abolished at Rome under Gelasius (Fowler's year) | 494 CE | `rm-918` |
 | Ammianus Marcellinus: born / last attested | c. 330 CE / 391 CE | `rm-969` |
 | Poggio Bracciolini: born / Cicero's speeches found / Lucretius found / died | 1380 / 1415 / 1417 / 1459 | `rm-970` |
+| the Villa Romana del Casale: main phase / later phase / also dated (a review) / excavated | c. 320 – 330 CE / c. 370 – 395 CE / c. 370 – 380 CE / 1950 – 1954 | `rm-978` |
 
 ## Chronology pins
 
@@ -1758,4 +1766,12 @@ rm-966: 55; 97; 113
 rm-967: 120
 rm-969: 330; 391
 rm-970: 1380; 1415; 1417; 1459
+rm-971: 40; 30; 1838
+rm-972: 400; 200; 125; 75; 1564
+rm-974: 81; 96; 90; 1937; 1939
+rm-975: 400; 300; 200; 1545; 1787
+rm-976: 79; 1894; 1895; 1896; 2023
+rm-977: 200; 90; 80; 50; 79; 1882
+rm-978: 320; 330; 370; 395; 380; 1950; 1954
+rm-979: 20; 1758; 1785
 ```
