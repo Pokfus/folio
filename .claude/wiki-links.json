@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-07T02:19Z",
+ "generated": "2026-11-07T02:22Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5567,
+  "ok": 5575,
   "redirect-broader": 531,
-  "redirect-variant": 341,
+  "redirect-variant": 342,
   "section-redirect": 112,
-  "disambiguation": 143,
+  "disambiguation": 144,
   "none": 984,
   "disambig-resolved": 82,
   "list-page": 6,
@@ -63093,6 +63093,85 @@
    "url": "https://en.wikipedia.org/wiki/Polynesian_navigation",
    "via": "glossary",
    "status": "ok"
+  },
+  "astro-071": {
+   "answer": "Bayer designation",
+   "title": "Bayer designation",
+   "url": "https://en.wikipedia.org/wiki/Bayer_designation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-072": {
+   "answer": "Flamsteed designation",
+   "title": "Flamsteed designation",
+   "url": "https://en.wikipedia.org/wiki/Flamsteed_designation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-073": {
+   "answer": "Working Group on Star Names",
+   "title": "IAU Working Group on Star Names",
+   "url": "https://en.wikipedia.org/wiki/IAU_Working_Group_on_Star_Names",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Working Group on Star Names"
+  },
+  "astro-074": {
+   "answer": "Henry Draper Catalogue",
+   "title": "Henry Draper Catalogue",
+   "url": "https://en.wikipedia.org/wiki/Henry_Draper_Catalogue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-075": {
+   "answer": "Sirius",
+   "title": "Sirius",
+   "url": "https://en.wikipedia.org/wiki/Sirius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-076": {
+   "answer": "solar eclipse",
+   "title": "Solar eclipse",
+   "url": "https://en.wikipedia.org/wiki/Solar_eclipse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-077": {
+   "answer": "lunar eclipse",
+   "title": "Lunar eclipse",
+   "url": "https://en.wikipedia.org/wiki/Lunar_eclipse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-078": {
+   "answer": "lunar node",
+   "title": "Lunar node",
+   "url": "https://en.wikipedia.org/wiki/Lunar_node",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-079": {
+   "answer": "saros",
+   "title": "Saros (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Saros_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-080": {
+   "answer": "totality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Totality",
+   "suggestions": [
+    "Plan Totality",
+    "Totality and Infinity",
+    "Totality principle",
+    "Totality (album)",
+    "Totality Corporation"
+   ]
   }
  }
 }

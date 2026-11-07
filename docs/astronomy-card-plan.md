@@ -549,8 +549,8 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-070  Polynesian navigation by the stars
     astro-071  Bayer designations
     astro-072  Flamsteed numbers
-    astro-073  Proper names of stars
-    astro-074  Catalogue designations
+    astro-073  The IAU Working Group on Star Names
+    astro-074  The Henry Draper Catalogue and catalogue numbers
     astro-075  The brightest stars in the sky
 
 ### Eclipses, tides and calendars — `astro-calendar`

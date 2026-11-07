@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5567 | the title is the article |
-| `redirect-variant` | 341 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5575 | the title is the article |
+| `redirect-variant` | 342 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 82 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 531 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 112 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
+| `disambiguation` | 144 | only a disambiguation page; no link could be chosen |
 | `none` | 984 | nothing matched; no link |
 
-**6535 of 7790 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6544 of 7800 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -675,10 +675,11 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
-## Disambiguation pages that could not be settled (143)
+## Disambiguation pages that could not be settled (144)
 
 Pick the right article by hand, or leave the card without a link.
 
+- `astro-080` **totality** — `Totality` is a disambiguation page; its links: `Plan Totality`, `Totality and Infinity`, `Totality principle`, `Totality (album)`, `Totality Corporation`
 - `astro-095` **volatiles** — `Volatility` is a disambiguation page; its links: `Volatile (astrogeology)`, `Volatile acid`, `Volatile anaesthetic`, `Volatile memory`, `Volatile variable`, `Volatile organic compound`
 - `bio-012` **resolution** — `Resolution` is a disambiguation page; its links: `Resolutions (Not Going Out)`, `Resolution (debate)`, `Resolution (law)`, `Dispute resolution`, `Resolution (algebra)`, `Resolution (logic)`
 - `bio-072` **ATP** — `ATP` is a disambiguation page; its links: `ATP Tour`, `ATP Recordings`, `ATP (treaty)`, `ATP architects engineers`, `ATP Oil and Gas`, `British Aerospace ATP`

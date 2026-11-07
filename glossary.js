@@ -8070,7 +8070,16 @@ window.GLOSSARY = {
 "Cultural_astronomy": "",
 "Australian_Aboriginal_astronomy": "",
 "Chinese_constellations": "",
-"Polynesian_navigation": ""
+"Polynesian_navigation": "",
+"Bayer_designation": "",
+"Flamsteed_designation": "",
+"IAU_Working_Group_on_Star_Names": "",
+"Henry_Draper_Catalogue": "",
+"Sirius": "",
+"Solar_eclipse": "",
+"Lunar_eclipse": "",
+"Lunar_node": "",
+"Saros_(astronomy)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17060,7 +17069,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cassiopeia_(constellation)": ["Cassiopeia constellation"],
 "Cultural_astronomy": ["ethnoastronomy"],
 "Australian_Aboriginal_astronomy": ["Aboriginal astronomy"],
-"Polynesian_navigation": ["Polynesian wayfinding"]
+"Polynesian_navigation": ["Polynesian wayfinding"],
+"Bayer_designation": ["Bayer designations","Bayer letter","Bayer letters"],
+"Flamsteed_designation": ["Flamsteed designations","Flamsteed number","Flamsteed numbers"],
+"IAU_Working_Group_on_Star_Names": ["Working Group on Star Names","WGSN"],
+"Henry_Draper_Catalogue": ["Henry Draper Catalog","HD catalogue"],
+"Sirius": ["Alpha Canis Majoris"],
+"Solar_eclipse": ["solar eclipses","eclipse of the Sun","eclipses of the Sun","totality","path of totality"],
+"Lunar_eclipse": ["lunar eclipses","eclipse of the Moon","eclipses of the Moon"],
+"Lunar_node": ["lunar nodes"],
+"Saros_(astronomy)": ["saros","saros cycle"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25280,7 +25298,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cultural_astronomy": ["concept","science","astronomy","culture"],
 "Australian_Aboriginal_astronomy": ["culture","science","astronomy","australia"],
 "Chinese_constellations": ["culture","science","astronomy","china"],
-"Polynesian_navigation": ["practice","science","astronomy","navigation","pacific"]
+"Polynesian_navigation": ["practice","science","astronomy","navigation","pacific"],
+"Bayer_designation": ["concept","science","astronomy","stars","star names"],
+"Flamsteed_designation": ["concept","science","astronomy","stars","star names"],
+"IAU_Working_Group_on_Star_Names": ["institution","science","astronomy","star names"],
+"Henry_Draper_Catalogue": ["text","science","astronomy","stars","catalogues"],
+"Sirius": ["object","science","astronomy","stars"],
+"Solar_eclipse": ["concept","science","astronomy","sun","moon"],
+"Lunar_eclipse": ["concept","science","astronomy","moon","earth"],
+"Lunar_node": ["concept","science","astronomy","moon","orbits"],
+"Saros_(astronomy)": ["concept","science","astronomy","moon","eclipses"]
 });
 
 /* ============================================================================

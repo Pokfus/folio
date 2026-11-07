@@ -7796,7 +7796,17 @@ window.CARD_DATA = [
 {"id":"astro-067","num":"67","category":"Astronomy","question":"Treating each society's star patterns as evidence of its own culture, the field of <span class=\"blank\">_____</span> divides into archaeoastronomy for past peoples and ethnoastronomy for living ones.","answer":"cultural astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cultural astronomy","tags":["concept","science","astronomy","culture","constellation"],"difficulty":4,"undatable":true},
 {"id":"astro-068","num":"68","category":"Astronomy","question":"The Emu in the Sky, a figure of dark dust whose seasonal shape tells the Kamilaroi when emus lay, is an example of <span class=\"blank\">_____</span>, held in oral tradition and ceremony.","answer":"Australian Aboriginal astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Australian Aboriginal astronomy","tags":["culture","science","astronomy","australia","indigenous"],"difficulty":3,"undatable":true},
 {"id":"astro-069","num":"69","category":"Astronomy","question":"Built from 283 small asterisms of 1,464 stars, the <span class=\"blank\">_____</span> pictured the emperor, his officials and even kitchens and stores of grain among the stars.","answer":"Chinese constellations","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chinese constellations","tags":["culture","science","astronomy","china","constellation"],"difficulty":3,"undatable":true},
-{"id":"astro-070","num":"70","category":"Astronomy","question":"Dividing the horizon into 32 houses 11.25 degrees apart, the star compass at the heart of <span class=\"blank\">_____</span> exists only in the navigator's mind, not as an object.","answer":"Polynesian navigation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Polynesian navigation","tags":["practice","science","astronomy","navigation","polynesia","pacific"],"difficulty":3,"undatable":true}
+{"id":"astro-070","num":"70","category":"Astronomy","question":"Dividing the horizon into 32 houses 11.25 degrees apart, the star compass at the heart of <span class=\"blank\">_____</span> exists only in the navigator's mind, not as an object.","answer":"Polynesian navigation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Polynesian navigation","tags":["practice","science","astronomy","navigation","polynesia","pacific"],"difficulty":3,"undatable":true},
+{"id":"astro-071","num":"71","category":"Astronomy","question":"Because a star's <span class=\"blank\">_____</span> was assigned by magnitude class rather than strict brightness, Betelgeuse became Alpha Orionis even though Rigel, Beta Orionis, usually shines brighter.","answer":"Bayer designation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Introduced</span><span class=\"dt-v\">1603</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bayer designation","tags":["concept","science","astronomy","stars","star names","constellations"],"difficulty":3},
+{"id":"astro-072","num":"72","category":"Astronomy","question":"Because a star's <span class=\"blank\">_____</span> follows right ascension within its constellation, Betelgeuse is also 58 Orionis, and the number says nothing about how bright a star is.","answer":"Flamsteed designation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Catalogue</span><span class=\"dt-v\">1725</span><span class=\"dt-k\">Numbered</span><span class=\"dt-v\">1783</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Flamsteed designation","tags":["concept","science","astronomy","stars","star names","constellations"],"difficulty":4},
+{"id":"astro-073","num":"73","category":"Astronomy","question":"Set up by the International Astronomical Union in 2016, the <span class=\"blank\">_____</span> catalogues proper names such as Betelgeuse and Sirius and approves new ones drawn from the world's sky traditions.","answer":"Working Group on Star Names","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Established</span><span class=\"dt-v\">2016</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Working Group on Star Names","tags":["institution","science","astronomy","stars","star names"],"difficulty":4},
+{"id":"astro-074","num":"74","category":"Astronomy","question":"Betelgeuse is HD 39801 because of its number in the <span class=\"blank\">_____</span>, a Harvard list of stellar spectra published between 1918 and 1924 in nine volumes of the observatory's Annals.","answer":"Henry Draper Catalogue","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Published</span><span class=\"dt-v\">1918 – 1924</span><span class=\"dt-k\">Extended</span><span class=\"dt-v\">1934</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Henry Draper Catalogue","tags":["text","science","astronomy","stars","catalogues"],"difficulty":4},
+{"id":"astro-075","num":"75","category":"Astronomy","question":"Shining at about magnitude −1.46 in Canis Major, <span class=\"blank\">_____</span> is the brightest star in the night sky, outshone only by the Sun and a few objects of the Solar System.","answer":"Sirius","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Sirius","tags":["object","science","astronomy","stars","canis major"],"difficulty":2,"undatable":true},
+{"id":"astro-076","num":"76","category":"Astronomy","question":"Seen only at new moon, a <span class=\"blank\">_____</span> happens when the Moon passes between the Sun and the Earth and casts its shadow on a narrow part of the Earth's surface.","answer":"solar eclipse","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"solar eclipse","tags":["concept","science","astronomy","sun","moon","eclipses"],"difficulty":1,"undatable":true},
+{"id":"astro-077","num":"77","category":"Astronomy","question":"Seen from the whole night side of the Earth at once, a total <span class=\"blank\">_____</span> turns the full Moon a dull coppery red as sunlight bends through the Earth's atmosphere into its shadow.","answer":"lunar eclipse","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lunar eclipse","tags":["concept","science","astronomy","moon","earth","eclipses"],"difficulty":1,"undatable":true},
+{"id":"astro-078","num":"78","category":"Astronomy","question":"Because the Moon's orbit is tilted by about 5 degrees, eclipses happen only when a new or full moon falls close to a <span class=\"blank\">_____</span>, where that orbit crosses the ecliptic.","answer":"lunar node","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lunar node","tags":["concept","science","astronomy","moon","eclipses","orbits"],"difficulty":4,"undatable":true},
+{"id":"astro-079","num":"79","category":"Astronomy","question":"Lasting 223 lunar months, about 18 years and 11 days, the <span class=\"blank\">_____</span> brings eclipses back with almost the same geometry because three of the Moon's periods nearly coincide.","answer":"saros","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1691</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"saros","tags":["concept","science","astronomy","moon","eclipses","cycles"],"difficulty":3},
+{"id":"astro-080","num":"80","category":"Astronomy","question":"Only during <span class=\"blank\">_____</span>, when the Moon fully hides the Sun's bright disc, is it safe to look without eye protection, and only then does the faint pearly corona appear.","answer":"totality","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"totality","tags":["concept","science","astronomy","sun","moon","eclipses"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16869,7 +16879,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 90,
+      "total": 100,
       "children": [
         {
           "id": "astro-sky",
@@ -16971,7 +16981,12 @@ window.COLLECTION_TREE = {
                 "astro-067",
                 "astro-068",
                 "astro-069",
-                "astro-070"
+                "astro-070",
+                "astro-071",
+                "astro-072",
+                "astro-073",
+                "astro-074",
+                "astro-075"
               ]
             },
             {
@@ -16988,7 +17003,12 @@ window.COLLECTION_TREE = {
                 "astro-087",
                 "astro-088",
                 "astro-089",
-                "astro-090"
+                "astro-090",
+                "astro-076",
+                "astro-077",
+                "astro-078",
+                "astro-079",
+                "astro-080"
               ]
             }
           ]
