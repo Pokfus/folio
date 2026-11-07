@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6177 | the title is the article |
+| `ok` | 6185 | the title is the article |
 | `redirect-variant` | 375 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 588 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 589 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 127 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1004 | nothing matched; no link |
 
-**7237 of 8530 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7246 of 8540 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (588)
+## Redirected to a differently named article — check each (589)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -632,6 +632,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-669` **Military Administration in France** → [German military administration in occupied France during World War II](https://en.wikipedia.org/wiki/German_military_administration_in_occupied_France_during_World_War_II) (from `Military Administration in France (Nazi Germany)`)
 - `ww2-672` **Occupation of Denmark** → [Denmark in World War II](https://en.wikipedia.org/wiki/Denmark_in_World_War_II) (from `Occupation of Denmark`)
 - `ww2-680` **Operation Anthropoid** → [Assassination of Reinhard Heydrich](https://en.wikipedia.org/wiki/Assassination_of_Reinhard_Heydrich) (from `Operation Anthropoid`)
+- `ww2-687` **SS Division Wiking** → [5th SS Panzer Division Wiking](https://en.wikipedia.org/wiki/5th_SS_Panzer_Division_Wiking) (from `SS Division Wiking`)
 
 ## Settled from a disambiguation page (83)
 
@@ -896,7 +897,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (126)
+## Section redirects — no dedicated page (127)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1026,6 +1027,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
+- `ww2-685` **collaborationism** — `Collaborationism` only redirects into `Wartime collaboration#Definitions`
 
 ## No article found (1004)
 

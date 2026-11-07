@@ -8779,7 +8779,17 @@ window.GLOSSARY = {
 "Lebensborn": "",
 "Konstantin_von_Neurath": "",
 "Reinhard_Heydrich": "",
-"Operation_Anthropoid": ""
+"Operation_Anthropoid": "",
+"Lidice_massacre": "",
+"Territory_of_the_Military_Commander_in_Serbia": "",
+"Jasenovac_concentration_camp": "",
+"Axis_occupation_of_Greece": "",
+"Collaborationism": "",
+"Schutzmannschaft": "",
+"5th_SS_Panzer_Division_Wiking": "",
+"Attentisme": "",
+"Black_market": "",
+"Horizontal_collaboration": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13018,7 +13028,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lebensborn": "1935–1945",
 "Konstantin_von_Neurath": "1873–1956",
 "Reinhard_Heydrich": "1904–1942",
-"Operation_Anthropoid": "1941–1942"
+"Operation_Anthropoid": "1941–1942",
+"Lidice_massacre": "1942",
+"Territory_of_the_Military_Commander_in_Serbia": "1941–1944",
+"Jasenovac_concentration_camp": "1941–1945",
+"Axis_occupation_of_Greece": "1941–1944",
+"Schutzmannschaft": "1941–1944",
+"5th_SS_Panzer_Division_Wiking": "1941–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18537,7 +18553,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Milice": ["Milice française","French Militia"],
 "Occupation_of_Denmark": ["German occupation of Denmark"],
 "Reichsgau_Wartheland": ["Warthegau"],
-"Germanisation": ["Germanization"]
+"Germanisation": ["Germanization"],
+"Lidice_massacre": ["Destruction of Lidice"],
+"Territory_of_the_Military_Commander_in_Serbia": ["German-occupied Serbia","Nedić's Serbia"],
+"Jasenovac_concentration_camp": ["Jasenovac"],
+"Axis_occupation_of_Greece": ["Occupation of Greece"],
+"Collaborationism": ["collaborationist","collaborationists"],
+"Schutzmannschaft": ["Schutzmannschaften","Schuma"],
+"5th_SS_Panzer_Division_Wiking": ["SS Division Wiking","Wiking Division","Wiking"],
+"Attentisme": ["attentiste","wait-and-see"],
+"Black_market": ["black markets","black-market"],
+"Horizontal_collaboration": ["horizontal collaborators","femmes tondues","tondues","tyskertøser"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27470,7 +27496,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lebensborn": ["institution","history","germany","second world war"],
 "Konstantin_von_Neurath": ["person","history","politics","germany","second world war"],
 "Reinhard_Heydrich": ["person","history","politics","germany","second world war","holocaust"],
-"Operation_Anthropoid": ["event","history","warfare","czechoslovakia","second world war","resistance"]
+"Operation_Anthropoid": ["event","history","warfare","czechoslovakia","second world war","resistance"],
+"Lidice_massacre": ["event","history","warfare","czechoslovakia","second world war","occupation"],
+"Territory_of_the_Military_Commander_in_Serbia": ["state","history","politics","serbia","yugoslavia","second world war","occupation"],
+"Jasenovac_concentration_camp": ["place","history","holocaust","croatia","yugoslavia","second world war"],
+"Axis_occupation_of_Greece": ["era","history","warfare","greece","second world war","occupation"],
+"Collaborationism": ["concept","history","politics","europe","second world war","collaboration"],
+"Schutzmannschaft": ["institution","history","holocaust","belarus","ukraine","second world war","collaboration"],
+"5th_SS_Panzer_Division_Wiking": ["institution","history","warfare","germany","norway","denmark","second world war"],
+"Attentisme": ["concept","history","society","france","second world war","occupation"],
+"Black_market": ["practice","history","economics","europe","second world war","occupation"],
+"Horizontal_collaboration": ["practice","history","society","france","norway","second world war","occupation"]
 });
 
 /* ============================================================================

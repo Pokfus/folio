@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-07T19:57Z",
+ "generated": "2026-11-07T19:58Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6177,
-  "redirect-broader": 588,
+  "ok": 6185,
+  "redirect-broader": 589,
   "redirect-variant": 375,
-  "section-redirect": 126,
+  "section-redirect": 127,
   "disambiguation": 147,
   "none": 1004,
   "disambig-resolved": 83,
@@ -68573,6 +68573,79 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Operation Anthropoid"
+  },
+  "ww2-681": {
+   "answer": "Lidice massacre",
+   "title": "Lidice massacre",
+   "url": "https://en.wikipedia.org/wiki/Lidice_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-682": {
+   "answer": "Territory of the Military Commander in Serbia",
+   "title": "Territory of the Military Commander in Serbia",
+   "url": "https://en.wikipedia.org/wiki/Territory_of_the_Military_Commander_in_Serbia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-683": {
+   "answer": "Jasenovac concentration camp",
+   "title": "Jasenovac concentration camp",
+   "url": "https://en.wikipedia.org/wiki/Jasenovac_concentration_camp",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-684": {
+   "answer": "Axis occupation of Greece",
+   "title": "Axis occupation of Greece",
+   "url": "https://en.wikipedia.org/wiki/Axis_occupation_of_Greece",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-685": {
+   "answer": "collaborationism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Collaborationism",
+   "target": "Wartime collaboration#Definitions"
+  },
+  "ww2-686": {
+   "answer": "Schutzmannschaft",
+   "title": "Schutzmannschaft",
+   "url": "https://en.wikipedia.org/wiki/Schutzmannschaft",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-687": {
+   "answer": "SS Division Wiking",
+   "title": "5th SS Panzer Division Wiking",
+   "url": "https://en.wikipedia.org/wiki/5th_SS_Panzer_Division_Wiking",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "SS Division Wiking"
+  },
+  "ww2-688": {
+   "answer": "attentisme",
+   "title": "Attentisme",
+   "url": "https://en.wikipedia.org/wiki/Attentisme",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-689": {
+   "answer": "black market",
+   "title": "Black market",
+   "url": "https://en.wikipedia.org/wiki/Black_market",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-690": {
+   "answer": "Horizontal collaboration",
+   "title": "Horizontal collaboration",
+   "url": "https://en.wikipedia.org/wiki/Horizontal_collaboration",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
