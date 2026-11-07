@@ -1,13 +1,13 @@
 {
- "generated": "2026-10-30T20:47Z",
+ "generated": "2026-11-07T02:12Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5501,
+  "ok": 5508,
   "redirect-broader": 521,
   "redirect-variant": 335,
-  "section-redirect": 109,
+  "section-redirect": 110,
   "disambiguation": 142,
-  "none": 982,
+  "none": 983,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62417,6 +62417,85 @@
     "Taiwan under Japanese rule",
     "Shinto in Taiwan"
    ]
+  },
+  "ww2-541": {
+   "answer": "Battle of the Atlantic",
+   "title": "Battle of the Atlantic",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Atlantic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-542": {
+   "answer": "convoy system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Convoy battles of World War II",
+    "List of Allied convoys during World War II by region",
+    "Arctic convoys of World War II",
+    "Convoy HX 156",
+    "World War II"
+   ]
+  },
+  "ww2-543": {
+   "answer": "U-boat",
+   "title": "U-boat",
+   "url": "https://en.wikipedia.org/wiki/U-boat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-544": {
+   "answer": "Karl Dönitz",
+   "title": "Karl Dönitz",
+   "url": "https://en.wikipedia.org/wiki/Karl_D%C3%B6nitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-545": {
+   "answer": "wolfpack",
+   "title": "Wolfpack (naval tactic)",
+   "url": "https://en.wikipedia.org/wiki/Wolfpack_(naval_tactic)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-546": {
+   "answer": "First Happy Time",
+   "title": "First Happy Time",
+   "url": "https://en.wikipedia.org/wiki/First_Happy_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-547": {
+   "answer": "mid-Atlantic gap",
+   "title": "Mid-Atlantic gap",
+   "url": "https://en.wikipedia.org/wiki/Mid-Atlantic_gap",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-548": {
+   "answer": "escort carrier",
+   "title": "Escort carrier",
+   "url": "https://en.wikipedia.org/wiki/Escort_carrier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-549": {
+   "answer": "anti-submarine warfare",
+   "title": "Anti-submarine warfare",
+   "url": "https://en.wikipedia.org/wiki/Anti-submarine_warfare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-550": {
+   "answer": "ASDIC",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "ASDIC",
+   "target": "Sonar#ASDIC"
   }
  }
 }

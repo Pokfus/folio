@@ -7982,7 +7982,17 @@ window.GLOSSARY = {
 "Robert_Koldewey": "",
 "Stephanie_Dalley": "",
 "Tell_es-Sultan": "",
-"William_Shakespeare": ""
+"William_Shakespeare": "",
+"Battle_of_the_Atlantic": "",
+"Convoy": "",
+"U-boat": "",
+"Karl_Dönitz": "",
+"Wolfpack_(naval_tactic)": "",
+"First_Happy_Time": "",
+"Mid-Atlantic_gap": "",
+"Escort_carrier": "",
+"Anti-submarine_warfare": "",
+"ASDIC": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11871,7 +11881,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cleopatra_Selene_II": "born 40 BCE",
 "David_Stronach": "1931 – 2020",
 "Josephus": "born 37/38 CE",
-"William_Shakespeare": "1564 – 1616"
+"William_Shakespeare": "1564 – 1616",
+"Battle_of_the_Atlantic": "1939–1945",
+"Karl_Dönitz": "1891–1980",
+"First_Happy_Time": "1940"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16910,7 +16923,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nippur": ["Nuffar"],
 "Nur_Mountains": ["Mount Amanus","Amanus Mountains","Amanus"],
 "Robert_Koldewey": ["Koldewey"],
-"William_Shakespeare": ["Shakespeare"]
+"William_Shakespeare": ["Shakespeare"],
+"Convoy": ["convoy system"],
+"Karl_Dönitz": ["Doenitz"],
+"Wolfpack_(naval_tactic)": ["wolfpack","wolf pack","Rudeltaktik"],
+"First_Happy_Time": ["Happy Time"],
+"Mid-Atlantic_gap": ["mid-Atlantic gap","air gap","Greenland air gap","black pit"],
+"ASDIC": ["asdic","Asdic"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25042,7 +25061,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Robert_Koldewey": ["person","archaeology","history","germany","iraq"],
 "Stephanie_Dalley": ["person","archaeology","history","iraq","mesopotamia"],
 "Tell_es-Sultan": ["place","archaeology","prehistory","history","palestine"],
-"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"]
+"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"],
+"Battle_of_the_Atlantic": ["battle","history","warfare","atlantic","naval"],
+"Convoy": ["practice","history","warfare","naval"],
+"U-boat": ["technology","history","warfare","naval","germany"],
+"Karl_Dönitz": ["person","history","warfare","naval","germany"],
+"Wolfpack_(naval_tactic)": ["practice","history","warfare","naval","germany"],
+"First_Happy_Time": ["era","history","warfare","naval","germany"],
+"Mid-Atlantic_gap": ["place","history","warfare","naval","atlantic"],
+"Escort_carrier": ["technology","history","warfare","naval"],
+"Anti-submarine_warfare": ["practice","history","warfare","naval","science"],
+"ASDIC": ["technology","history","warfare","naval","science"]
 });
 
 /* ============================================================================
