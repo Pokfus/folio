@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T02:08Z",
+ "generated": "2026-11-07T02:10Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5514,
-  "redirect-broader": 524,
+  "ok": 5521,
+  "redirect-broader": 526,
   "redirect-variant": 337,
   "section-redirect": 110,
   "disambiguation": 142,
-  "none": 982,
+  "none": 983,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62564,6 +62564,85 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Julian date"
+  },
+  "astro-021": {
+   "answer": "horizontal coordinate system",
+   "title": "Horizontal coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Horizontal_coordinate_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-022": {
+   "answer": "equatorial coordinate system",
+   "title": "Equatorial coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Equatorial_coordinate_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-023": {
+   "answer": "First Point of Aries",
+   "title": "First point of Aries",
+   "url": "https://en.wikipedia.org/wiki/First_point_of_Aries",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-024": {
+   "answer": "celestial meridian",
+   "title": "Meridian (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Meridian_(astronomy)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Celestial meridian"
+  },
+  "astro-025": {
+   "answer": "circumpolar star",
+   "title": "Circumpolar star",
+   "url": "https://en.wikipedia.org/wiki/Circumpolar_star",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-026": {
+   "answer": "latitude",
+   "title": "Latitude",
+   "url": "https://en.wikipedia.org/wiki/Latitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-027": {
+   "answer": "star chart",
+   "title": "Star chart",
+   "url": "https://en.wikipedia.org/wiki/Star_chart",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-028": {
+   "answer": "magnitude scale",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Magnitude (astronomy)",
+    "Apparent magnitude",
+    "Order of magnitude",
+    "Magnitude",
+    "Absolute magnitude"
+   ]
+  },
+  "astro-029": {
+   "answer": "absolute magnitude",
+   "title": "Absolute magnitude",
+   "url": "https://en.wikipedia.org/wiki/Absolute_magnitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-030": {
+   "answer": "angular size",
+   "title": "Angular diameter",
+   "url": "https://en.wikipedia.org/wiki/Angular_diameter",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angular size"
   }
  }
 }

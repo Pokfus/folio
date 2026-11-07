@@ -8001,7 +8001,17 @@ window.GLOSSARY = {
 "Lunar_calendar": "",
 "Gregorian_calendar": "",
 "Leap_second": "",
-"Julian_day": ""
+"Julian_day": "",
+"Horizontal_coordinate_system": "",
+"Equatorial_coordinate_system": "",
+"First_point_of_Aries": "",
+"Meridian_(astronomy)": "",
+"Circumpolar_star": "",
+"Latitude": "",
+"Star_chart": "",
+"Magnitude_(astronomy)": "",
+"Absolute_magnitude": "",
+"Angular_diameter": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16946,7 +16956,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lunar_calendar": ["lunar calendars"],
 "Gregorian_calendar": ["Gregorian reform"],
 "Leap_second": ["leap seconds"],
-"Julian_day": ["Julian date","Julian dates","Julian day number","modified Julian date"]
+"Julian_day": ["Julian date","Julian dates","Julian day number","modified Julian date"],
+"Horizontal_coordinate_system": ["altitude-azimuth system","alt-azimuth system","horizon coordinate system"],
+"Equatorial_coordinate_system": ["equatorial coordinates"],
+"First_point_of_Aries": ["first point of Aries"],
+"Meridian_(astronomy)": ["celestial meridian","local meridian","meridian transit"],
+"Circumpolar_star": ["circumpolar stars","circumpolar constellation"],
+"Star_chart": ["star map","sky chart","celestial chart"],
+"Magnitude_(astronomy)": ["magnitude scale","stellar magnitude","apparent magnitude"],
+"Angular_diameter": ["angular size","apparent size"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25097,7 +25115,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lunar_calendar": ["concept","science","astronomy","calendars","moon"],
 "Gregorian_calendar": ["concept","science","astronomy","calendars","history"],
 "Leap_second": ["concept","science","astronomy","time","metrology"],
-"Julian_day": ["concept","science","astronomy","time","calendars"]
+"Julian_day": ["concept","science","astronomy","time","calendars"],
+"Horizontal_coordinate_system": ["concept","science","astronomy","coordinates"],
+"Equatorial_coordinate_system": ["concept","science","astronomy","coordinates"],
+"First_point_of_Aries": ["concept","science","astronomy","coordinates"],
+"Meridian_(astronomy)": ["concept","science","astronomy","coordinates"],
+"Circumpolar_star": ["concept","science","astronomy","stars"],
+"Latitude": ["concept","geography","science","navigation"],
+"Star_chart": ["object","science","astronomy","maps"],
+"Magnitude_(astronomy)": ["concept","science","astronomy","brightness"],
+"Absolute_magnitude": ["concept","science","astronomy","brightness"],
+"Angular_diameter": ["concept","science","astronomy","measurement"]
 });
 
 /* ============================================================================

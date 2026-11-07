@@ -7726,7 +7726,17 @@ window.CARD_DATA = [
 {"id":"astro-087","num":"87","category":"Astronomy","question":"Twelve months of about 29.5 days make a year some 11 days short of the solar one, so a pure <span class=\"blank\">_____</span> drifts right through the seasons in about 33 years.","answer":"lunar calendar","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lunar calendar","tags":["concept","science","astronomy","calendars","moon","time"],"difficulty":2,"undatable":true},
 {"id":"astro-088","num":"88","category":"Astronomy","question":"To bring the vernal equinox back to 21 March, the <span class=\"blank\">_____</span> dropped ten days in 1582, so that Thursday 4 October was followed by Friday 15 October.","answer":"Gregorian calendar","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Introduced</span><span class=\"dt-v\">1582</span><span class=\"dt-k\">In Britain</span><span class=\"dt-v\">1752</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Gregorian calendar","tags":["concept","science","astronomy","calendars","time","history"],"difficulty":2},
 {"id":"astro-089","num":"89","category":"Astronomy","question":"Whenever the Earth's spin lets atomic time drift close to 0.9 seconds from UT1, a <span class=\"blank\">_____</span> is inserted as 23:59:60 at the end of June or December.","answer":"leap second","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First added</span><span class=\"dt-v\">1972</span><span class=\"dt-k\">Latest added</span><span class=\"dt-v\">31 December 2016</span><span class=\"dt-k\">Gap widened by</span><span class=\"dt-v\">2035</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"leap second","tags":["concept","science","astronomy","time","earth","metrology"],"difficulty":3},
-{"id":"astro-090","num":"90","category":"Astronomy","question":"Astronomers count time as a <span class=\"blank\">_____</span> from noon on 1 January 4713 BCE, so that a date today is a single number of close to 2.5 million days.","answer":"Julian date","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Day zero</span><span class=\"dt-v\">1 January 4713 BCE</span><span class=\"dt-k\">Modified count</span><span class=\"dt-v\">from 17 November 1858</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Julian date","tags":["concept","science","astronomy","time","calendars"],"difficulty":4}
+{"id":"astro-090","num":"90","category":"Astronomy","question":"Astronomers count time as a <span class=\"blank\">_____</span> from noon on 1 January 4713 BCE, so that a date today is a single number of close to 2.5 million days.","answer":"Julian date","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Day zero</span><span class=\"dt-v\">1 January 4713 BCE</span><span class=\"dt-k\">Modified count</span><span class=\"dt-v\">from 17 November 1858</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Julian date","tags":["concept","science","astronomy","time","calendars"],"difficulty":4},
+{"id":"astro-021","num":"21","category":"Astronomy","question":"Giving a star's altitude above the horizon and its azimuth, measured clockwise from north, places it in the <span class=\"blank\">_____</span> that every observer builds from their own surroundings.","answer":"horizontal coordinate system","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"horizontal coordinate system","tags":["concept","science","astronomy","coordinates","celestial sphere"],"difficulty":3,"undatable":true},
+{"id":"astro-022","num":"22","category":"Astronomy","question":"Like longitude and latitude projected onto the sky, the right ascension and declination of the <span class=\"blank\">_____</span> give a star a position that does not depend on where or when it is seen.","answer":"equatorial coordinate system","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"equatorial coordinate system","tags":["concept","science","astronomy","coordinates","celestial sphere"],"difficulty":3,"undatable":true},
+{"id":"astro-023","num":"23","category":"Astronomy","question":"Nothing visible marks the <span class=\"blank\">_____</span>, the place where the Sun crosses the celestial equator heading north each March, yet every right ascension is counted eastward from it.","answer":"First Point of Aries","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"First Point of Aries","tags":["concept","science","astronomy","coordinates","equinox"],"difficulty":4,"undatable":true},
+{"id":"astro-024","num":"24","category":"Astronomy","question":"A star reaches its greatest altitude of the night as it crosses the observer's <span class=\"blank\">_____</span>, the great circle that runs from the north point of the horizon through the zenith to the south.","answer":"celestial meridian","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"celestial meridian","tags":["concept","science","astronomy","coordinates","time"],"difficulty":3,"undatable":true},
+{"id":"astro-025","num":"25","category":"Astronomy","question":"Seen from 38 degrees north, a <span class=\"blank\">_____</span> lies within 38 degrees of the north celestial pole, so it circles that pole all night without ever dipping below the horizon.","answer":"circumpolar star","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"circumpolar star","tags":["concept","science","astronomy","celestial sphere","stars"],"difficulty":3,"undatable":true},
+{"id":"astro-026","num":"26","category":"Astronomy","question":"The north celestial pole stands above the northern horizon at an altitude equal to the observer's <span class=\"blank\">_____</span>, which is why measuring the height of Polaris has long told navigators where they are.","answer":"latitude","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"latitude","tags":["concept","science","astronomy","geography","navigation"],"difficulty":2,"undatable":true},
+{"id":"astro-027","num":"27","category":"Astronomy","question":"Flattening the inside of the celestial sphere onto paper always distorts it somewhere, so a <span class=\"blank\">_____</span> often splits the sky into bands along the equator and a separate map centred on the pole.","answer":"star chart","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"star chart","tags":["object","science","astronomy","maps","history"],"difficulty":2,"undatable":true},
+{"id":"astro-028","num":"28","category":"Astronomy","question":"On the <span class=\"blank\">_____</span>, which runs backwards so that larger numbers mean fainter objects, a difference of five steps corresponds to a brightness ratio of exactly 100.","answer":"magnitude scale","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Catalogued</span><span class=\"dt-v\">c. 137 CE</span><span class=\"dt-k\">Redefined</span><span class=\"dt-v\">1856</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"magnitude scale","tags":["concept","science","astronomy","brightness","photometry"],"difficulty":3},
+{"id":"astro-029","num":"29","category":"Astronomy","question":"Placed at a standard distance of 10 parsecs, the Sun would shine at about magnitude 4.8, its <span class=\"blank\">_____</span>, a modest figure beside its overwhelming apparent magnitude of about −26.7.","answer":"absolute magnitude","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"absolute magnitude","tags":["concept","science","astronomy","brightness","luminosity","distance"],"difficulty":3,"undatable":true},
+{"id":"astro-030","num":"30","category":"Astronomy","question":"The Sun and the full Moon share an <span class=\"blank\">_____</span> of about half a degree, roughly the width of a little finger held at arm's length against the sky.","answer":"angular size","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"angular size","tags":["concept","science","astronomy","angles","measurement"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16799,7 +16809,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 20,
+      "total": 30,
       "children": [
         {
           "id": "astro-sky",
@@ -16821,7 +16831,17 @@ window.COLLECTION_TREE = {
                 "astro-032",
                 "astro-033",
                 "astro-034",
-                "astro-035"
+                "astro-035",
+                "astro-021",
+                "astro-022",
+                "astro-023",
+                "astro-024",
+                "astro-025",
+                "astro-026",
+                "astro-027",
+                "astro-028",
+                "astro-029",
+                "astro-030"
               ]
             },
             {

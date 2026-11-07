@@ -26,25 +26,27 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5514 | the title is the article |
+| `ok` | 5521 | the title is the article |
 | `redirect-variant` | 337 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 524 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 526 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 110 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 982 | nothing matched; no link |
+| `none` | 983 | nothing matched; no link |
 
-**6470 of 7720 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6479 of 7730 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (524)
+## Redirected to a differently named article — check each (526)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
+- `astro-024` **celestial meridian** → [Meridian (astronomy)](https://en.wikipedia.org/wiki/Meridian_(astronomy)) (from `Celestial meridian`)
+- `astro-030` **angular size** → [Angular diameter](https://en.wikipedia.org/wiki/Angular_diameter) (from `Angular size`)
 - `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
 - `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
 - `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
@@ -940,7 +942,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 
-## No article found (982)
+## No article found (983)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -960,6 +962,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-026` **Jericho Skull** — search suggests `Plastered human skulls`, `Jericho`, `Tell es-Sultan`, `Kirk Baltz`, `Ossuary`
 - `art-027` **Praroditeljka** — search suggests `Lepenski Vir`
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
+- `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `Absolute magnitude`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`
