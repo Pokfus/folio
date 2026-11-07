@@ -7992,7 +7992,16 @@ window.GLOSSARY = {
 "Earth's_rotation": "",
 "Earth's_orbit": "",
 "Heliacal_rising": "",
-"Solstice": ""
+"Solstice": "",
+"Eclipse_of_Thales": "",
+"Tide": "",
+"Tidal_locking": "",
+"Synodic_day": "",
+"Tropical_year": "",
+"Lunar_calendar": "",
+"Gregorian_calendar": "",
+"Leap_second": "",
+"Julian_day": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11882,7 +11891,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "David_Stronach": "1931 – 2020",
 "Josephus": "born 37/38 CE",
 "William_Shakespeare": "1564 – 1616",
-"Galactic_coordinate_system": "1958"
+"Galactic_coordinate_system": "1958",
+"Eclipse_of_Thales": "585 BCE",
+"Gregorian_calendar": "1582"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16926,7 +16937,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Galactic_coordinate_system": ["galactic coordinates"],
 "Earth's_rotation": ["Earth's rotation","rotation of the Earth"],
 "Earth's_orbit": ["Earth's orbit","orbit of the Earth"],
-"Solstice": ["solstices"]
+"Solstice": ["solstices"],
+"Eclipse_of_Thales": ["eclipse of Thales"],
+"Tide": ["tides","spring tide","spring tides","neap tide","neap tides"],
+"Tidal_locking": ["tidally locked","synchronous rotation"],
+"Synodic_day": ["solar day","solar days"],
+"Tropical_year": ["tropical years"],
+"Lunar_calendar": ["lunar calendars"],
+"Gregorian_calendar": ["Gregorian reform"],
+"Leap_second": ["leap seconds"],
+"Julian_day": ["Julian date","Julian dates","Julian day number","modified Julian date"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25068,7 +25088,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Earth's_rotation": ["concept","science","astronomy","earth"],
 "Earth's_orbit": ["concept","science","astronomy","earth","orbits"],
 "Heliacal_rising": ["concept","science","astronomy","calendar"],
-"Solstice": ["concept","science","astronomy","seasons"]
+"Solstice": ["concept","science","astronomy","seasons"],
+"Eclipse_of_Thales": ["event","science","astronomy","eclipses","greece"],
+"Tide": ["concept","science","astronomy","moon","oceans"],
+"Tidal_locking": ["concept","science","astronomy","gravity","orbits"],
+"Synodic_day": ["concept","science","astronomy","time"],
+"Tropical_year": ["concept","science","astronomy","time","calendars"],
+"Lunar_calendar": ["concept","science","astronomy","calendars","moon"],
+"Gregorian_calendar": ["concept","science","astronomy","calendars","history"],
+"Leap_second": ["concept","science","astronomy","time","metrology"],
+"Julian_day": ["concept","science","astronomy","time","calendars"]
 });
 
 /* ============================================================================

@@ -26,26 +26,28 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5508 | the title is the article |
-| `redirect-variant` | 336 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5514 | the title is the article |
+| `redirect-variant` | 337 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 522 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 524 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 109 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 110 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
 | `none` | 982 | nothing matched; no link |
 
-**6461 of 7710 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6470 of 7720 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (522)
+## Redirected to a differently named article — check each (524)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
 - `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
+- `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
+- `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -823,10 +825,11 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (109)
+## Section redirects — no dedicated page (110)
 
 Wikipedia treats these as part of another article. No link.
 
+- `astro-083` **spring tide** — `Spring tide` only redirects into `Tide#Spring`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`

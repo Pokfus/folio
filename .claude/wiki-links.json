@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-07T02:06Z",
+ "generated": "2026-11-07T02:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5508,
-  "redirect-broader": 522,
-  "redirect-variant": 336,
-  "section-redirect": 109,
+  "ok": 5514,
+  "redirect-broader": 524,
+  "redirect-variant": 337,
+  "section-redirect": 110,
   "disambiguation": 142,
   "none": 982,
   "disambig-resolved": 81,
@@ -62489,6 +62489,81 @@
    "url": "https://en.wikipedia.org/wiki/Solstice",
    "via": "glossary",
    "status": "ok"
+  },
+  "astro-081": {
+   "answer": "eclipse of Thales",
+   "title": "Eclipse of Thales",
+   "url": "https://en.wikipedia.org/wiki/Eclipse_of_Thales",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-082": {
+   "answer": "tides",
+   "title": "Tide",
+   "url": "https://en.wikipedia.org/wiki/Tide",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Tides"
+  },
+  "astro-083": {
+   "answer": "spring tide",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Spring tide",
+   "target": "Tide#Spring"
+  },
+  "astro-084": {
+   "answer": "tidal locking",
+   "title": "Tidal locking",
+   "url": "https://en.wikipedia.org/wiki/Tidal_locking",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-085": {
+   "answer": "solar day",
+   "title": "Synodic day",
+   "url": "https://en.wikipedia.org/wiki/Synodic_day",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Solar day"
+  },
+  "astro-086": {
+   "answer": "tropical year",
+   "title": "Tropical year",
+   "url": "https://en.wikipedia.org/wiki/Tropical_year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-087": {
+   "answer": "lunar calendar",
+   "title": "Lunar calendar",
+   "url": "https://en.wikipedia.org/wiki/Lunar_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-088": {
+   "answer": "Gregorian calendar",
+   "title": "Gregorian calendar",
+   "url": "https://en.wikipedia.org/wiki/Gregorian_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-089": {
+   "answer": "leap second",
+   "title": "Leap second",
+   "url": "https://en.wikipedia.org/wiki/Leap_second",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-090": {
+   "answer": "Julian date",
+   "title": "Julian day",
+   "url": "https://en.wikipedia.org/wiki/Julian_day",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Julian date"
   }
  }
 }

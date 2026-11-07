@@ -7716,7 +7716,17 @@ window.CARD_DATA = [
 {"id":"astro-037","num":"37","category":"Astronomy","question":"Demonstrated in 1851 by a long pendulum in Paris whose swing slowly turned, <span class=\"blank\">_____</span> takes about 23 hours 56 minutes when measured against the distant stars.","answer":"Earth's rotation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Earth's rotation","tags":["concept","science","astronomy","earth","time"],"difficulty":1,"undatable":true},
 {"id":"astro-038","num":"38","category":"Astronomy","question":"An ellipse with an eccentricity of about 0.0167, <span class=\"blank\">_____</span> brings the planet closest to the Sun in early January, in the middle of the northern winter.","answer":"Earth's orbit","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Earth's orbit","tags":["concept","science","astronomy","earth","orbits"],"difficulty":1,"undatable":true},
 {"id":"astro-039","num":"39","category":"Astronomy","question":"Because the Sun drifts about 1° east among the stars each day, every star has a yearly <span class=\"blank\">_____</span>, its first glimpse in the dawn sky after weeks hidden in sunlight.","answer":"heliacal rising","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"heliacal rising","tags":["concept","science","astronomy","stars","calendar"],"difficulty":4,"undatable":true},
-{"id":"astro-040","num":"40","category":"Astronomy","question":"From the Latin for 'Sun stands still', each <span class=\"blank\">_____</span> is the instant when the Sun's drift north or south along the horizon halts before turning back again.","answer":"solstice","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"solstice","tags":["concept","science","astronomy","seasons","earth"],"difficulty":2,"undatable":true}
+{"id":"astro-040","num":"40","category":"Astronomy","question":"From the Latin for 'Sun stands still', each <span class=\"blank\">_____</span> is the instant when the Sun's drift north or south along the horizon halts before turning back again.","answer":"solstice","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"solstice","tags":["concept","science","astronomy","seasons","earth"],"difficulty":2,"undatable":true},
+{"id":"astro-081","num":"81","category":"Astronomy","question":"Herodotus says the <span class=\"blank\">_____</span> turned day to night in the middle of a battle between the Lydians and the Medes, who stopped fighting and soon made peace.","answer":"eclipse of Thales","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Occurred</span><span class=\"dt-v\">28 May 585 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"eclipse of Thales","tags":["event","science","astronomy","eclipses","greece","ancient astronomy"],"difficulty":3},
+{"id":"astro-082","num":"82","category":"Astronomy","question":"Because water flows towards the points beneath and opposite the Moon, the <span class=\"blank\">_____</span> come twice a day, with a high-water bulge on the far side of the Earth as well.","answer":"tides","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"tides","tags":["concept","science","astronomy","moon","gravity","oceans"],"difficulty":1,"undatable":true},
+{"id":"astro-083","num":"83","category":"Astronomy","question":"At new moon and full moon the Sun's tide adds to the Moon's, giving the <span class=\"blank\">_____</span> with its higher high waters and lower low waters twice every lunar month.","answer":"spring tide","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"spring tide","tags":["concept","science","astronomy","moon","oceans","tides"],"difficulty":3,"undatable":true},
+{"id":"astro-084","num":"84","category":"Astronomy","question":"Because of <span class=\"blank\">_____</span>, the Moon turns once on its axis in exactly the time it takes to orbit the Earth, and so always shows us the same face.","answer":"tidal locking","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"tidal locking","tags":["concept","science","astronomy","moon","gravity","orbits"],"difficulty":3,"undatable":true},
+{"id":"astro-085","num":"85","category":"Astronomy","question":"Because the Earth moves about a degree along its orbit each day, the <span class=\"blank\">_____</span> from noon to noon runs about four minutes longer than one turn measured against the stars.","answer":"solar day","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"solar day","tags":["concept","science","astronomy","time","earth"],"difficulty":2,"undatable":true},
+{"id":"astro-086","num":"86","category":"Astronomy","question":"A calendar of 365 days slips about 24 days a century against the seasons, because the <span class=\"blank\">_____</span> runs to about 365.2422 days.","answer":"tropical year","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"tropical year","tags":["concept","science","astronomy","time","calendars","earth"],"difficulty":3,"undatable":true},
+{"id":"astro-087","num":"87","category":"Astronomy","question":"Twelve months of about 29.5 days make a year some 11 days short of the solar one, so a pure <span class=\"blank\">_____</span> drifts right through the seasons in about 33 years.","answer":"lunar calendar","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lunar calendar","tags":["concept","science","astronomy","calendars","moon","time"],"difficulty":2,"undatable":true},
+{"id":"astro-088","num":"88","category":"Astronomy","question":"To bring the vernal equinox back to 21 March, the <span class=\"blank\">_____</span> dropped ten days in 1582, so that Thursday 4 October was followed by Friday 15 October.","answer":"Gregorian calendar","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Introduced</span><span class=\"dt-v\">1582</span><span class=\"dt-k\">In Britain</span><span class=\"dt-v\">1752</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Gregorian calendar","tags":["concept","science","astronomy","calendars","time","history"],"difficulty":2},
+{"id":"astro-089","num":"89","category":"Astronomy","question":"Whenever the Earth's spin lets atomic time drift close to 0.9 seconds from UT1, a <span class=\"blank\">_____</span> is inserted as 23:59:60 at the end of June or December.","answer":"leap second","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First added</span><span class=\"dt-v\">1972</span><span class=\"dt-k\">Latest added</span><span class=\"dt-v\">31 December 2016</span><span class=\"dt-k\">Gap widened by</span><span class=\"dt-v\">2035</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"leap second","tags":["concept","science","astronomy","time","earth","metrology"],"difficulty":3},
+{"id":"astro-090","num":"90","category":"Astronomy","question":"Astronomers count time as a <span class=\"blank\">_____</span> from noon on 1 January 4713 BCE, so that a date today is a single number of close to 2.5 million days.","answer":"Julian date","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Day zero</span><span class=\"dt-v\">1 January 4713 BCE</span><span class=\"dt-k\">Modified count</span><span class=\"dt-v\">from 17 November 1858</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Julian date","tags":["concept","science","astronomy","time","calendars"],"difficulty":4}
 ];
 
 window.COLLECTION_TREE = {
@@ -16789,7 +16799,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 10,
+      "total": 20,
       "children": [
         {
           "id": "astro-sky",
@@ -16836,7 +16846,18 @@ window.COLLECTION_TREE = {
               "id": "astro-calendar",
               "title": "Eclipses, tides and calendars",
               "total": 15,
-              "cardIds": []
+              "cardIds": [
+                "astro-081",
+                "astro-082",
+                "astro-083",
+                "astro-084",
+                "astro-085",
+                "astro-086",
+                "astro-087",
+                "astro-088",
+                "astro-089",
+                "astro-090"
+              ]
             }
           ]
         },
