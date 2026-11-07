@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-07T02:12Z",
+ "generated": "2026-11-07T02:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5508,
-  "redirect-broader": 521,
+  "ok": 5516,
+  "redirect-broader": 523,
   "redirect-variant": 335,
   "section-redirect": 110,
   "disambiguation": 142,
@@ -62496,6 +62496,78 @@
    "status": "section-redirect",
    "from": "ASDIC",
    "target": "Sonar#ASDIC"
+  },
+  "ww2-581": {
+   "answer": "Darlan deal",
+   "title": "Clark-Darlan Accords",
+   "url": "https://en.wikipedia.org/wiki/Clark-Darlan_Accords",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Darlan deal"
+  },
+  "ww2-582": {
+   "answer": "Tunisian campaign",
+   "title": "Tunisian campaign",
+   "url": "https://en.wikipedia.org/wiki/Tunisian_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-583": {
+   "answer": "Battle of Kasserine Pass",
+   "title": "Battle of Kasserine Pass",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kasserine_Pass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-584": {
+   "answer": "Operation Strike",
+   "title": "Operation Strike",
+   "url": "https://en.wikipedia.org/wiki/Operation_Strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-585": {
+   "answer": "Operation Husky",
+   "title": "Allied invasion of Sicily",
+   "url": "https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Operation Husky"
+  },
+  "ww2-586": {
+   "answer": "Grand Council of Fascism",
+   "title": "Grand Council of Fascism",
+   "url": "https://en.wikipedia.org/wiki/Grand_Council_of_Fascism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-587": {
+   "answer": "Armistice of Cassibile",
+   "title": "Armistice of Cassibile",
+   "url": "https://en.wikipedia.org/wiki/Armistice_of_Cassibile",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-588": {
+   "answer": "Operation Achse",
+   "title": "Operation Achse",
+   "url": "https://en.wikipedia.org/wiki/Operation_Achse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-589": {
+   "answer": "Italian Social Republic",
+   "title": "Italian Social Republic",
+   "url": "https://en.wikipedia.org/wiki/Italian_Social_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-590": {
+   "answer": "Italian campaign",
+   "title": "Italian campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Italian_campaign_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

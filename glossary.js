@@ -7992,7 +7992,15 @@ window.GLOSSARY = {
 "Mid-Atlantic_gap": "",
 "Escort_carrier": "",
 "Anti-submarine_warfare": "",
-"ASDIC": ""
+"ASDIC": "",
+"Clark-Darlan_Accords": "",
+"Tunisian_campaign": "",
+"Battle_of_Kasserine_Pass": "",
+"Operation_Strike": "",
+"Allied_invasion_of_Sicily": "",
+"Armistice_of_Cassibile": "",
+"Operation_Achse": "",
+"Italian_campaign_(World_War_II)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11884,7 +11892,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "William_Shakespeare": "1564 – 1616",
 "Battle_of_the_Atlantic": "1939–1945",
 "Karl_Dönitz": "1891–1980",
-"First_Happy_Time": "1940"
+"First_Happy_Time": "1940",
+"Clark-Darlan_Accords": "1942",
+"Tunisian_campaign": "1942–1943",
+"Battle_of_Kasserine_Pass": "1943",
+"Operation_Strike": "1943",
+"Allied_invasion_of_Sicily": "1943",
+"Armistice_of_Cassibile": "1943",
+"Operation_Achse": "1943",
+"Italian_campaign_(World_War_II)": "1943–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16929,7 +16945,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wolfpack_(naval_tactic)": ["wolfpack","wolf pack","Rudeltaktik"],
 "First_Happy_Time": ["Happy Time"],
 "Mid-Atlantic_gap": ["mid-Atlantic gap","air gap","Greenland air gap","black pit"],
-"ASDIC": ["asdic","Asdic"]
+"ASDIC": ["asdic","Asdic"],
+"Clark-Darlan_Accords": ["Darlan deal","Clark–Darlan Agreement"],
+"Tunisian_campaign": ["Tunisia Campaign"],
+"Battle_of_Kasserine_Pass": ["Battle of the Kasserine Pass"],
+"Allied_invasion_of_Sicily": ["Operation Husky","Sicilian campaign"],
+"Operation_Achse": ["Fall Achse"],
+"Italian_campaign_(World_War_II)": ["Italian campaign"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25071,7 +25093,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mid-Atlantic_gap": ["place","history","warfare","naval","atlantic"],
 "Escort_carrier": ["technology","history","warfare","naval"],
 "Anti-submarine_warfare": ["practice","history","warfare","naval","science"],
-"ASDIC": ["technology","history","warfare","naval","science"]
+"ASDIC": ["technology","history","warfare","naval","science"],
+"Clark-Darlan_Accords": ["event","history","politics","france","algeria","united states"],
+"Tunisian_campaign": ["event","history","warfare","tunisia","united states","britain"],
+"Battle_of_Kasserine_Pass": ["battle","history","warfare","tunisia","united states","germany"],
+"Operation_Strike": ["battle","history","warfare","tunisia","britain"],
+"Allied_invasion_of_Sicily": ["battle","history","warfare","italy","united states","britain"],
+"Armistice_of_Cassibile": ["event","history","politics","italy","united states","britain"],
+"Operation_Achse": ["event","history","warfare","italy","germany","occupation"],
+"Italian_campaign_(World_War_II)": ["event","history","warfare","italy","germany","united states"]
 });
 
 /* ============================================================================
