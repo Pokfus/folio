@@ -8702,7 +8702,17 @@ window.GLOSSARY = {
 "Debriefing": "",
 "Right_to_withdraw": "",
 "Counterbalancing_(experimental_design)": "",
-"Deception_in_research": ""
+"Deception_in_research": "",
+"Surrender_at_Caserta": "",
+"Trident_Conference": "",
+"Foggia_Airfield_Complex": "",
+"Strategic_bombing": "",
+"RAF_Bomber_Command": "",
+"Area_Bombing_Directive": "",
+"Arthur_Harris": "",
+"Butt_Report": "",
+"Combined_Bomber_Offensive": "",
+"Eighth_Air_Force": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12901,7 +12911,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Construct_validity": "1955",
 "Ecological_validity": "1949",
 "Standard_deviation": "1893",
-"Nuremberg_Code": "1947"
+"Nuremberg_Code": "1947",
+"Surrender_at_Caserta": "29 April – 2 May 1945",
+"Trident_Conference": "12–25 May 1943",
+"Area_Bombing_Directive": "14 February 1942",
+"Arthur_Harris": "1892–1984",
+"Butt_Report": "18 August 1941"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18388,7 +18403,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nonparametric_statistics": ["non-parametric test"],
 "Structural_equation_modeling": ["structural equation modelling"],
 "Mediation_(statistics)": ["mediator variable"],
-"Counterbalancing_(experimental_design)": ["counterbalancing"]
+"Counterbalancing_(experimental_design)": ["counterbalancing"],
+"Foggia_Airfield_Complex": ["Foggia airfields"],
+"Strategic_bombing": ["strategic bombing"],
+"RAF_Bomber_Command": ["Bomber Command"],
+"Arthur_Harris": ["Bomber Harris"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27244,7 +27263,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Debriefing": ["practice","ethics","psychology","science"],
 "Right_to_withdraw": ["concept","ethics","science","psychology"],
 "Counterbalancing_(experimental_design)": ["practice","psychology","science","research methods"],
-"Deception_in_research": ["practice","psychology","ethics","research methods"]
+"Deception_in_research": ["practice","psychology","ethics","research methods"],
+"Surrender_at_Caserta": ["event","history","warfare","italy","second world war"],
+"Trident_Conference": ["event","history","warfare","politics","second world war"],
+"Foggia_Airfield_Complex": ["place","history","warfare","italy","second world war"],
+"Strategic_bombing": ["concept","history","warfare"],
+"RAF_Bomber_Command": ["institution","history","warfare","united kingdom"],
+"Area_Bombing_Directive": ["text","history","warfare","united kingdom","second world war"],
+"Arthur_Harris": ["person","history","warfare","united kingdom"],
+"Butt_Report": ["text","history","warfare","united kingdom","second world war"],
+"Combined_Bomber_Offensive": ["event","history","warfare","second world war"],
+"Eighth_Air_Force": ["institution","history","warfare","united states"]
 });
 
 /* ============================================================================

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T04:16Z",
+ "generated": "2026-11-07T19:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6111,
-  "redirect-broader": 581,
-  "redirect-variant": 372,
+  "ok": 6118,
+  "redirect-broader": 582,
+  "redirect-variant": 373,
   "section-redirect": 126,
   "disambiguation": 146,
-  "none": 1001,
+  "none": 1002,
   "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
@@ -67974,6 +67974,79 @@
    "answer": "streltsy",
    "title": "Streltsy",
    "url": "https://en.wikipedia.org/wiki/Streltsy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-601": {
+   "answer": "Surrender at Caserta",
+   "title": "Surrender at Caserta",
+   "url": "https://en.wikipedia.org/wiki/Surrender_at_Caserta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-602": {
+   "answer": "Trident Conference",
+   "title": "Washington Conference (1943)",
+   "url": "https://en.wikipedia.org/wiki/Washington_Conference_(1943)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-603": {
+   "answer": "Foggia airfields",
+   "title": "Foggia Airfield Complex",
+   "url": "https://en.wikipedia.org/wiki/Foggia_Airfield_Complex",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-604": {
+   "answer": "strategic bombing",
+   "title": "Strategic bombing",
+   "url": "https://en.wikipedia.org/wiki/Strategic_bombing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-605": {
+   "answer": "RAF Bomber Command",
+   "title": "RAF Bomber Command",
+   "url": "https://en.wikipedia.org/wiki/RAF_Bomber_Command",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-606": {
+   "answer": "Area Bombing Directive",
+   "title": "Area bombing directive",
+   "url": "https://en.wikipedia.org/wiki/Area_bombing_directive",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Area Bombing Directive"
+  },
+  "ww2-607": {
+   "answer": "Arthur Harris",
+   "title": "Arthur Harris",
+   "url": "https://en.wikipedia.org/wiki/Arthur_Harris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-608": {
+   "answer": "Butt Report",
+   "title": "Butt Report",
+   "url": "https://en.wikipedia.org/wiki/Butt_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-609": {
+   "answer": "Combined Bomber Offensive",
+   "title": "Combined Bomber Offensive",
+   "url": "https://en.wikipedia.org/wiki/Combined_Bomber_Offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-610": {
+   "answer": "Eighth Air Force",
+   "title": "Eighth Air Force",
+   "url": "https://en.wikipedia.org/wiki/Eighth_Air_Force",
    "via": "glossary",
    "status": "ok"
   }
