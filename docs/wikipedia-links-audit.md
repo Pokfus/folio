@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5880 | the title is the article |
-| `redirect-variant` | 359 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5957 | the title is the article |
+| `redirect-variant` | 363 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 549 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 560 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 118 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 145 | only a disambiguation page; no link could be chosen |
-| `none` | 986 | nothing matched; no link |
+| `none` | 994 | nothing matched; no link |
 
-**6885 of 8150 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6977 of 8250 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (549)
+## Redirected to a differently named article — check each (560)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -593,6 +593,17 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-529` **INA trials** → [Indian National Army trials](https://en.wikipedia.org/wiki/Indian_National_Army_trials) (from `INA trials`)
 - `ww2-581` **Darlan deal** → [Clark-Darlan Accords](https://en.wikipedia.org/wiki/Clark-Darlan_Accords) (from `Darlan deal`)
 - `ww2-585` **Operation Husky** → [Allied invasion of Sicily](https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily) (from `Operation Husky`)
+- `ww2-602` **Trident Conference** → [Washington Conference (1943)](https://en.wikipedia.org/wiki/Washington_Conference_(1943)) (from `Trident Conference`)
+- `ww2-612` **Bombing of Hamburg** → [Bombing of Hamburg in World War II](https://en.wikipedia.org/wiki/Bombing_of_Hamburg_in_World_War_II) (from `Bombing of Hamburg`)
+- `ww2-617` **P-51 Mustang** → [North American P-51 Mustang](https://en.wikipedia.org/wiki/North_American_P-51_Mustang) (from `P-51 Mustang`)
+- `ww2-619` **Bombing of Berlin** → [Bombing of Berlin in World War II](https://en.wikipedia.org/wiki/Bombing_of_Berlin_in_World_War_II) (from `Bombing of Berlin`)
+- `ww2-631` **Mittelbau-Dora** → [Mittelbau-Dora concentration camp](https://en.wikipedia.org/wiki/Mittelbau-Dora_concentration_camp) (from `Mittelbau-Dora`)
+- `ww2-638` **Operation Neptune** → [Normandy landings](https://en.wikipedia.org/wiki/Normandy_landings) (from `Operation Neptune`)
+- `ww2-672` **Occupation of Denmark** → [Denmark in World War II](https://en.wikipedia.org/wiki/Denmark_in_World_War_II) (from `Occupation of Denmark`)
+- `ww2-680` **Operation Anthropoid** → [Assassination of Reinhard Heydrich](https://en.wikipedia.org/wiki/Assassination_of_Reinhard_Heydrich) (from `Operation Anthropoid`)
+- `ww2-682` **Axis occupation of Yugoslavia** → [World War II in Yugoslavia](https://en.wikipedia.org/wiki/World_War_II_in_Yugoslavia) (from `Axis occupation of Yugoslavia`)
+- `ww2-692` **hidden children** → [Hidden children during the Holocaust](https://en.wikipedia.org/wiki/Hidden_children_during_the_Holocaust) (from `Hidden children`)
+- `ww2-698` **neutrality** → [Neutral country](https://en.wikipedia.org/wiki/Neutral_country) (from `Neutrality (international relations)`)
 
 ## Settled from a disambiguation page (83)
 
@@ -978,7 +989,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (986)
+## No article found (994)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1968,3 +1979,11 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
 - `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
 - `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`
+- `ww2-611` **Daylight precision bombing** — search suggests `Bombing of Berlin in World War II`, `The Blitz`, `Strategic bombing`, `Strategic bombing during World War II`, `Precision bombing`
+- `ww2-634` **COSSAC** — search suggests `Cossacks`, `Operation Overlord`, `Jacob L. Devers`, `Supreme Headquarters Allied Expeditionary Force`, `Ray Barker`
+- `ww2-655` **broad front strategy** — search suggests `Broad front versus narrow front controversy in World War II`, `Western Front (World War II)`, `British home front during World War II`, `Causes of World War II`, `World War I`
+- `ww2-663` **occupation costs** — search suggests `Axis occupation of Greece`, `World War II reparations`, `Occupation of the Baltic states`, `German military administration in occupied France during World War II`, `List of World War II feature films`
+- `ww2-664` **Forced labour under German rule** — search suggests `Forced labour under German rule during World War II`, `German camp brothels in World War II`, `Forced labour`, `German occupation of Byelorussia during World War II`, `Home front during World War II`
+- `ww2-668` **Great Famine of Greece** — search suggests `Great Famine (Greece)`, `Declarations of war during World War II`, `World War II casualties`, `Military history of Greece during World War II`, `Chinese famine of 1942–1943`
+- `ww2-669` **German military administration in occupied France** — search suggests `German military administration in occupied France during World War II`, `Military Administration in Belgium and Northern France`, `Military Administration (Nazi Germany)`, `Allied Military Government of Occupied Territories`, `France during World War II`
+- `ww2-677` **Kidnapping of Polish children** — search suggests `War crimes in World War II`, `Kidnapping of children by Nazi Germany`, `List of World War II feature films`, `Nazi crimes against children`, `List of kidnappings`

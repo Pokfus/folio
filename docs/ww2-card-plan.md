@@ -505,6 +505,20 @@ officialgazette.gov.ph (403); Wiley and Brill (paywalls); `singaporewarcrimestri
 maintenance or squatted page and must not be cited. Wikimedia's API answered 429 throughout again;
 category pages, `action=raw`, MediaSearch and `Special:FilePath` worked.
 
+**WHAT `ww2-601`–`ww2-700` LEARNED ABOUT HOSTS (Nov 2026).** The air war runs on **Webster and Frankland's
+*Strategic Air Offensive against Germany* in full on archive.org** (`strat-air-off-germ-vol-1` to `-4`), Craven
+and Cate on HyperWar, the Strategic Bombing Survey's *Summary Report* on archive.org (HyperWar's copy 404s),
+two open DTIC dissertations (flak; bomber crews and LMF), the Milch trial volume through `tile.loc.gov`, the
+Dresden historians' commission on `dresden.de` and GHDI for the Hamburg police report. Normandy to the Elbe
+runs on the US Army, Canadian and British official histories (HyperWar, archive.org), the 1949 Senate Malmedy
+report on archive.org, FRUS Tehran and the Eisenhower Library. Occupation runs on LeMO (its pages now sit under
+`/lemo/kapitel/zweiter-weltkrieg/…`), Avalon's *Nazi Conspiracy and Aggression* and Nuremberg judgment,
+Medlicott's *Economic Blockade* on archive.org, USHMM, CegeSoma's open **Belgium WWII** site, the Fondation de la
+Résistance's online museum, Treccani and the Bergier interim report; Europe PMC's REST full text reads what PMC
+walls behind a captcha. **Closed this time:** Cairn, OpenEdition and the French ministry sites (so the Milice card
+has no monograph), Historein, De Gruyter, the HAIT blog, and H-Net's review search (404). **`add-card.js` enforces a
+source floor by difficulty** (2 → 8, 3 → 7, 4 → 6, 5 → 5), which is stricter than the authoring spec's 5–8.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -1229,117 +1243,117 @@ definitions, which exist precisely because the wording matters.
     ww2-598  The Italian civil war
     ww2-599  German reprisals in Italy  → written as *Marzabotto massacre*
     ww2-600  The death of Mussolini  → written as *Death of Benito Mussolini*
-    ww2-601  The surrender in Italy
-    ww2-602  The Mediterranean strategy debate
-    ww2-603  What the Italian campaign achieved
+    ww2-601  The surrender in Italy  → written as *Surrender at Caserta*
+    ww2-602  The Mediterranean strategy debate  → written as *Trident Conference*
+    ww2-603  What the Italian campaign achieved  → written as *Foggia airfield complex*
 
 ### The air war over Europe — `ww2-air-war`
 
     ww2-604  Strategic bombing during the Second World War
     ww2-605  RAF Bomber Command
-    ww2-606  Area bombing
+    ww2-606  Area bombing  → written as *Area bombing directive*
     ww2-607  Arthur Harris
     ww2-608  Butt Report
     ww2-609  Combined Bomber Offensive
     ww2-610  The United States Eighth Air Force
-    ww2-611  Daylight and night bombing compared
+    ww2-611  Daylight and night bombing compared  → written as *Daylight precision bombing*
     ww2-612  Bombing of Hamburg
     ww2-613  The Battle of the Ruhr
     ww2-614  Operation Chastise
     ww2-615  Schweinfurt–Regensburg mission
-    ww2-616  The crisis of the daylight offensive
-    ww2-617  The long-range escort fighter
+    ww2-616  The crisis of the daylight offensive  → written as *Second Schweinfurt raid*
+    ww2-617  The long-range escort fighter  → written as *P-51 Mustang*
     ww2-618  Big Week
-    ww2-619  The bombing Battle of Berlin
+    ww2-619  The bombing Battle of Berlin  → written as *Bombing of Berlin*
     ww2-620  Bombing of Dresden
-    ww2-621  The debate over area bombing
-    ww2-622  German air defences
-    ww2-623  The defeat of the Luftwaffe
-    ww2-624  German aircraft production under bombing
-    ww2-625  The effects of bombing on German war production
-    ww2-626  German civilian casualties of bombing
+    ww2-621  The debate over area bombing  → written as *George Bell*
+    ww2-622  German air defences  → written as *Kammhuber Line*
+    ww2-623  The defeat of the Luftwaffe  → written as *Defence of the Reich*
+    ww2-624  German aircraft production under bombing  → written as *Jägerstab*
+    ww2-625  The effects of bombing on German war production  → written as *Oil campaign*
+    ww2-626  German civilian casualties of bombing  → written as *Firestorm*
     ww2-627  United States Strategic Bombing Survey
-    ww2-628  Bomber crews and their losses
+    ww2-628  Bomber crews and their losses  → written as *Lack of Moral Fibre*
     ww2-629  V-1 flying bomb
     ww2-630  V-2 rocket
-    ww2-631  The V-weapons and forced labour
-    ww2-632  The tactical air war
-    ww2-633  Air power and the outcome of the war
+    ww2-631  The V-weapons and forced labour  → written as *Mittelbau-Dora*
+    ww2-632  The tactical air war  → written as *Close air support*
+    ww2-633  Air power and the outcome of the war  → written as *Air supremacy*
 
 ### Normandy to the Elbe — `ww2-normandy`
 
-    ww2-634  The planning of the second front
+    ww2-634  The planning of the second front  → written as *COSSAC*
     ww2-635  Operation Overlord
     ww2-636  Operation Fortitude
     ww2-637  Atlantic Wall
-    ww2-638  Normandy landings
-    ww2-639  The D-Day beaches
-    ww2-640  The airborne landings in Normandy
+    ww2-638  Normandy landings  → written as *Operation Neptune*
+    ww2-639  The D-Day beaches  → written as *Omaha Beach*
+    ww2-640  The airborne landings in Normandy  → written as *6th Airborne Division*
     ww2-641  Mulberry harbour
-    ww2-642  Operation Overlord's breakout battles
+    ww2-642  Operation Overlord's breakout battles  → written as *Battle of Saint-Lô*
     ww2-643  Battle for Caen
     ww2-644  Operation Cobra
     ww2-645  Falaise pocket
     ww2-646  Liberation of Paris
     ww2-647  Operation Dragoon
-    ww2-648  The Allied advance to the German border
+    ww2-648  The Allied advance to the German border  → written as *Siegfried Line campaign*
     ww2-649  Operation Market Garden
     ww2-650  Battle of the Scheldt
-    ww2-651  The Allied supply problem
+    ww2-651  The Allied supply problem  → written as *Red Ball Express*
     ww2-652  Battle of the Bulge
     ww2-653  Malmedy massacre
     ww2-654  Dwight D. Eisenhower
-    ww2-655  The broad front controversy
-    ww2-656  Operation Plunder and the crossing of the Rhine
+    ww2-655  The broad front controversy  → written as *broad front strategy*
+    ww2-656  Operation Plunder and the crossing of the Rhine  → written as *Operation Plunder*
     ww2-657  Ruhr pocket
-    ww2-658  The Western Allies' advance into Germany
+    ww2-658  The Western Allies' advance into Germany  → written as *Western Allied invasion of Germany*
     ww2-659  Elbe Day
-    ww2-660  The Western Front in the balance of the war
+    ww2-660  The Western Front in the balance of the war  → written as *Western Front*
 
 ## Occupation, Resistance and the Holocaust
 
 ### Occupation and collaboration — `ww2-occupation`
 
     ww2-661  German-occupied Europe
-    ww2-662  The varieties of German occupation
-    ww2-663  The economic exploitation of occupied Europe
+    ww2-662  The varieties of German occupation  → written as *Reichskommissariat*
+    ww2-663  The economic exploitation of occupied Europe  → written as *occupation costs*
     ww2-664  Forced labour under German rule
     ww2-665  Fritz Sauckel
-    ww2-666  Requisitioning and hunger in occupied Europe
+    ww2-666  Requisitioning and hunger in occupied Europe  → written as *Herbert Backe*
     ww2-667  Dutch famine of 1944–1945
     ww2-668  Great Famine of Greece
     ww2-669  German military administration in occupied France
-    ww2-670  Vichy collaboration
+    ww2-670  Vichy collaboration  → written as *Pierre Laval*
     ww2-671  Milice
-    ww2-672  Occupied Norway and Denmark
+    ww2-672  Occupied Norway and Denmark  → written as *Occupation of Denmark*
     ww2-673  Vidkun Quisling
-    ww2-674  The occupied Low Countries
-    ww2-675  Occupied Poland under German rule
+    ww2-674  The occupied Low Countries  → written as *Reichskommissariat Niederlande*
+    ww2-675  Occupied Poland under German rule  → written as *General Government*
     ww2-676  Germanisation
     ww2-677  The kidnapping of Polish children
     ww2-678  Protectorate of Bohemia and Moravia
     ww2-679  Reinhard Heydrich
     ww2-680  Operation Anthropoid
     ww2-681  Lidice massacre
-    ww2-682  Occupied Yugoslavia
+    ww2-682  Occupied Yugoslavia  → written as *Axis occupation of Yugoslavia*
     ww2-683  Jasenovac concentration camp
     ww2-684  Axis occupation of Greece
-    ww2-685  Collaboration and its motives
-    ww2-686  Auxiliary police in occupied Europe
-    ww2-687  Foreign volunteers in the Waffen-SS
-    ww2-688  Everyday life under occupation
-    ww2-689  The black market in occupied Europe
-    ww2-690  Women under occupation
-    ww2-691  Sexual violence in the Second World War
-    ww2-692  Children in occupied Europe
-    ww2-693  Reprisals and hostage-taking
+    ww2-685  Collaboration and its motives  → written as *collaboration*
+    ww2-686  Auxiliary police in occupied Europe  → written as *auxiliary police*
+    ww2-687  Foreign volunteers in the Waffen-SS  → written as *Waffen-SS*
+    ww2-688  Everyday life under occupation  → written as *rationing*
+    ww2-689  The black market in occupied Europe  → written as *black market*
+    ww2-690  Women under occupation  → written as *horizontal collaboration*
+    ww2-691  Sexual violence in the Second World War  → written as *wartime sexual violence*
+    ww2-692  Children in occupied Europe  → written as *hidden children*
+    ww2-693  Reprisals and hostage-taking  → written as *Hostages Trial*
     ww2-694  Oradour-sur-Glane massacre
     ww2-695  Ardeatine massacre
-    ww2-696  German anti-partisan warfare
-    ww2-697  Deportation and population transfer under German rule
-    ww2-698  Neutral powers in the Second World War
-    ww2-699  Spain, Portugal, Sweden and Switzerland in the war
-    ww2-700  The end of occupation
+    ww2-696  German anti-partisan warfare  → written as *Bandenbekämpfung*
+    ww2-697  Deportation and population transfer under German rule  → written as *Reich Commissioner for the Consolidation of German Nationhood*
+    ww2-698  Neutral powers in the Second World War  → written as *neutrality*
+    ww2-699  Spain, Portugal, Sweden and Switzerland in the war  → written as *Nazi gold*
+    ww2-700  The end of occupation  → written as *Allied Military Government of Occupied Territories*
 
 ### Resistance — `ww2-resistance`
 
