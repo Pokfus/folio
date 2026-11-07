@@ -358,6 +358,14 @@ generalisations that were tried and abandoned. The RULES stay in `CLAUDE.md`, in
   **THE SIBLINGS ARE THE PLACES THE READER HAS ALREADY STUDIED** — a sibling is drawn once its card has
   a record in `S.cards`, which a card gets on its first grade — "so that the map fills up the more they
   study a collection". A fresh reader's map is the card's own mark and the world.
+  **A GEOGRAPHY MAP CARD IS A SIBLING TOO, AND ITS WINDOW DRAWS THEM** (2026-11-07, on request: "once a
+  card has been studied once, its location should be displayed within all other cards within that
+  collection"). `locatorSiblings` lists a map card beside the locators: a capital card (`map.dot`) is a red
+  dot and its name, a state or country card is its NAME alone at its card-faces label point (a shape is
+  drawn with its extent or not at all). The name is the card's answer, not Natural Earth's key. A map
+  card's window carries `data-map-sib` (never `data-map-card`, which makes a window a locator) and
+  `atlas-windows.js` resolves the coordinates off `ATLAS_CARD_FACES`. A sibling of the SAME shape as the
+  card (France's card and Paris's) is left off: it would answer the question. `test-atlas-windows.js` §8b.
   **AND A CITY IS ONE MARK, HOWEVER MANY CARDS ARE INSIDE IT.** A locator declares `within`, the city
   it stands in, and the studied siblings GROUP by it: thirty-nine Rome locators sit within four
   kilometres of each other and drew thirty-nine dots on one pixel. The group is drawn at the city's own

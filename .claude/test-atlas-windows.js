@@ -15,6 +15,7 @@
      6  THE FIT SWEEP (Task 7): the fifty-one states each open framed on themselves (neither a speck nor cut off), Alaska ignores the rings across the antimeridian, Rhode Island opens zoomed in and centred.
      7  THE FINE FRAMES (Task 7): the Italian and the Russian locator frames open on a level finer than the resident coarsest, and settle (their tiles in) — the engine's counterpart of V1's hi-res coast bundles.
      8  SIBLING REDS (Task 7): with studied cards, a locator window shows the collection's other studied places in red and names them; with none it shows none; the collection's home square is always there.
+     8b A GEOGRAPHY MAP CARD'S SIBLINGS (2026-11-07): a state or country card's window names the collection's studied states (names alone) and capitals (a dot and a name), never the capital card of its own shape.
      9  No console or page errors. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
@@ -391,6 +392,33 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
       check("a reader who has studied nothing sees none of the collection's EARNED places (the only red is one compact mark)", r.w < 16 * r.dpr && r.h < 16 * r.dpr, JSON.stringify(r));
       check("...but the collection's home city is always on the map, as a square", r.n > 30 && r.n < 130, JSON.stringify(r));
       await ctx.close();
+    }
+  }
+
+  /* ---------------- 8b) a geography map card's studied siblings (2026-11-07) ---------------- */
+  if (want("8b")) {
+    sect("8b) a geography map card names the collection's studied states and capitals; never one that answers it; none unstudied");
+    const namesOn = async (id, studied) => {
+      const { ctx, page } = await newPage(browser, { viewport: { width: 1200, height: 1000 }, studied });
+      await page.goto(url("#card/" + id), { waitUntil: "load" }); await page.reload({ waitUntil: "load" });
+      await windowReady(page); await windowSettled(page); await page.waitForTimeout(600);
+      const b = await page.evaluate(() => document.querySelector(".map-card")._folioMap.boxes());
+      await ctx.close();
+      return { names: b.names.filter((q) => !q.own).map((q) => q.text), marks: b.marks.length, dropped: b.dropped };   // the card's own name (the route shows the answer) is not a sibling
+    };
+    {
+      const r = await namesOn("geo-015", ["geo-001", "geo-024", "geo-025"]);   // Nevada; California, Oregon and Arizona studied
+      check("Nevada's window names the studied California, Oregon and Arizona", ["California", "Oregon", "Arizona"].every((n) => r.names.includes(n) || r.dropped.includes(n)) && r.names.length >= 2, JSON.stringify(r));
+      check("...as names alone, with no dot for a shape", r.marks === 0, JSON.stringify(r));
+    }
+    {
+      const r = await namesOn("gw-023", ["gw-019", "gw-519", "gw-523"]);   // France; Germany, Berlin and Paris studied
+      check("France's window names Germany and marks Berlin", r.names.includes("Germany") && r.names.includes("Berlin") && r.marks === 1, JSON.stringify(r));
+      check("...but never Paris, the capital card of the same shape (it would answer the question)", !r.names.includes("Paris") && !r.dropped.includes("Paris"), JSON.stringify(r));
+    }
+    {
+      const r = await namesOn("geo-015", null);
+      check("a reader who has studied nothing sees no sibling on a map card", r.names.length === 0 && r.marks === 0, JSON.stringify(r));
     }
   }
 

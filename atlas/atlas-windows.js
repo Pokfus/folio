@@ -123,7 +123,9 @@
     const onCellular = (() => { try { return !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.type === "cellular"); } catch (e) { return false; } })();
     const reliefNow = () => { const r = !lightReader && !onCellular && window.AtlasEmbed && window.AtlasEmbed.reliefSetting ? window.AtlasEmbed.reliefSetting() : null; return r && r.on ? { relief: true, strength: r.strength } : { relief: false }; };
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
-    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], termName: new Map(), own: new Set() };
+    /* a map card's window draws the collection's studied places too (app.js cardMapHTML `data-map-sib`, 2026-11-07); it stays a map card in everything else */
+    const sibOf = sibCard || (!isGloss && !isWar ? host.getAttribute("data-map-sib") || "" : "");
+    const sib = sibOf ? locatorSiblings(sibOf) : { dots: [], termName: new Map(), own: new Set() };
     const anchor = (() => {
       const a = sibCard && root0 ? CMAP_ANCHOR[root0.id] : null;
       if (!a || isWar) return null;   // a war window spends red on the defeated side
@@ -344,13 +346,22 @@
       const droppedNames = [];
       const nm0 = gameCapFirst(dot ? dot.n : isMembers && host.getAttribute("data-map-name") ? host.getAttribute("data-map-name") : targets.length ? targets[0].n : "");   // a seatless members window: its group's name (app.js cardLocatorWindowHTML)
       // ---- the marks ----
-      let sibAt = [], anchorAt = null;
-      if (sibCard && !isWar) {
+      let sibAt = [], anchorAt = null, faceAt = [];
+      if (sibOf && !isWar) {
         const groups = new Map();
-        const meLoc = cardLocator(CARD_BY_ID[sibCard]), hideSet = new Set((meLoc && meLoc.hide) || []);   // places this card's window leaves off (`locator.hide`)
-        for (const d of sib.dots) {
+        const meLoc = cardLocator(CARD_BY_ID[sibOf]), hideSet = new Set((meLoc && meLoc.hide) || []);   // places this card's window leaves off (`locator.hide`)
+        const myKeys = new Set(key ? key.split("|") : []);
+        for (let d of sib.dots) {
           if (hideSet.size && (hideSet.has(String(d.n || "").trim().toLowerCase()) || hideSet.has(String(d.within || "").trim().toLowerCase()))) continue;
           if (!S.cards || !S.cards[d.id]) continue;
+          if (d.map) {   // a geography map card (app.js locatorSiblings): resolved off the card-faces table
+            const L = FACES && FACES.layers[d.map.layer]; if (!L) continue;
+            // the same shape as this card's own (a country card and its capital's card): naming it here would answer this card's question
+            if (d.map.keys.some((k2) => myKeys.has(k2))) continue;
+            if (d.kind === "face") { const t = L[d.map.keys[0]]; if (t) { const p = api.project(t[1], t[2]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n]); } continue; }
+            const P = (FACES.dots[d.map.layer] || {})[d.map.dot]; if (!P) continue;
+            d = { id: d.id, n: d.n, c: [P[0], P[1]], kind: "point" };
+          }
           const k = String(d.within || d.n || "").trim().toLowerCase(); if (!k || (locWithin && k === locWithin)) continue; if (anchor && k === anchor.n.toLowerCase()) continue;
           // the card's OWN place, studied on another card (2026-10-29, the owner: "the atlas window seems to display the text label for Alexandria twice, possibly because i already discovered
           // the city in another card"): the sibling is the same city as the card's dot — by name, or within a few kilometres — so it is the dot already drawn, not a second mark and name
@@ -391,9 +402,12 @@
       if (anchorAt) placeName(anchor.n, "600 11.5px " + font, (w) => around(anchorAt[0], anchorAt[1], 5.6, w, 8), {});
       sibAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));   // the nearest to the window's centre first: they are the places the card is about
       for (const sa of sibAt) { const nm = gameCapFirst(sa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => around(sa[0], sa[1], 4.6, w, 7), {}); }
+      // a studied state's or country's name (a geography map card): centred on its label point, else just above or below it — never far from its own ground
+      faceAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));
+      for (const fa of faceAt) { const nm = gameCapFirst(fa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => [centred(fa[0], fa[1], w, 7), centred(fa[0], fa[1] - 14, w, 7), centred(fa[0], fa[1] + 14, w, 7)], {}); }
       lastBoxes = { names: nameBoxes.map((q) => ({ text: q.text, own: q.own, box: q.box.slice() })), marks: markBoxes.map((m) => ({ kind: m.kind, box: m.box.slice() })), dropped: droppedNames.slice(), ctl: ctlR ? ctlR.slice() : null };
       // ---- drawing: the marks, then the names ----
-      if (sibCard && !isWar) {
+      if (sibOf && !isWar) {
         for (const sa of sibAt) {
           if (sa[3] === "battle") paintSwords(ctx, sa[0], sa[1], 6.5);
           else { ctx.beginPath(); ctx.arc(sa[0], sa[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }

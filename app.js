@@ -35669,7 +35669,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!keys.length) return null;
     // `dot` names a point in the layer's own table — a city, on a card whose answer is one
     const dot = m.dot && layer.points ? String(m.dot) : "";
-    return { layer: m.layer, key: keys.join("|"), keys: keys, dot: dot, zoom: Number(m.zoom) || 0, def: layer };
+    return { id: String(c.id || ""), layer: m.layer, key: keys.join("|"), keys: keys, dot: dot, zoom: Number(m.zoom) || 0, def: layer };
   }
   /* The window's markup. It is built here and WIRED separately (mountCardMaps), the way `.card-img` is
      built here and opened by a delegated listener: a canvas cannot be started from a string. */
@@ -35684,7 +35684,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : "An interactive globe with one " + what + " shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?";
     return '<div class="map-card" data-map-layer="' + esc(spec.layer) + '" data-map-key="' + esc(spec.key) + '"' +
       (spec.dot ? ' data-map-dot="' + esc(spec.dot) + '"' : "") +
-      (spec.zoom ? ' data-map-zoom="' + spec.zoom + '"' : "") + ">" +
+      (spec.zoom ? ' data-map-zoom="' + spec.zoom + '"' : "") +
+      // the card, so its window can draw the collection's studied places (locatorSiblings) — NOT `data-map-card`, which makes a window a locator
+      (spec.id ? ' data-map-sib="' + esc(spec.id) + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
       '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
@@ -37335,6 +37337,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          would be a second mark for a thing already drawn, pinning a 400 km river to one arbitrary point
          on its course. */
       if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind, within: l.within });
+      /* A GEOGRAPHY MAP CARD IS A SIBLING TOO (2026-11-07, on request: "once a card has been studied once, its location should be displayed within all other
+         cards within that collection", as the history collections' places are). A capital card (`map.dot`) is a red dot with its name; a shaded state or country
+         is its NAME alone at its label point — a shape is drawn with its extent or not at all, so it gets no dot. The coordinates are in the lazy card-faces
+         table, so the window resolves them (atlas-windows.js); the name is the card's answer, what the collection teaches ("United States", not NE's
+         "United States of America"). */
+      else if (!l) { const ms = cardMapSpec(c); if (ms) dots.push({ id: cid, n: t || (ms.dot || ms.keys[0]), kind: ms.dot ? "point" : "face", map: { layer: ms.layer, keys: ms.keys, dot: ms.dot } }); }
     });
     _locSibCache.set(root.id, { dots: dots, termName: termName });
     return { dots: dots.filter((d) => d.id !== id), termName: termName, own: locOwnTerms(id) };
