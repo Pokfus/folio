@@ -8028,7 +8028,17 @@ window.GLOSSARY = {
 "Axis_capture_of_Tobruk": "",
 "First_Battle_of_El_Alamein": "",
 "Bernard_Montgomery": "",
-"Khamsin": ""
+"Khamsin": "",
+"British_Indian_Army": "",
+"Eastern_Group_Supply_Council": "",
+"Bombing_of_Calcutta": "",
+"Bengal_famine_of_1943": "",
+"Famine_Inquiry_Commission": "",
+"Quit_India_Movement": "",
+"Subhas_Chandra_Bose": "",
+"Indian_National_Army": "",
+"Indian_National_Army_trials": "",
+"State_of_Burma": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11952,7 +11962,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Operation_Crusader": "1941–1942",
 "Battle_of_Gazala": "1942",
 "Axis_capture_of_Tobruk": "1942",
-"First_Battle_of_El_Alamein": "1942"
+"First_Battle_of_El_Alamein": "1942",
+"Eastern_Group_Supply_Council": "1941–1943",
+"Bombing_of_Calcutta": "1942–1943",
+"Bengal_famine_of_1943": "1943–1944",
+"Famine_Inquiry_Commission": "1944–1945",
+"Quit_India_Movement": "1942",
+"Indian_National_Army": "1942–1945",
+"Indian_National_Army_trials": "1945–1946",
+"State_of_Burma": "1943–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17023,7 +17041,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Axis_capture_of_Tobruk": ["Fall of Tobruk","fall of Tobruk"],
 "First_Battle_of_El_Alamein": ["First Alamein"],
 "Bernard_Montgomery": ["Montgomery","Monty"],
-"Khamsin": ["khamsin","khamseen"]
+"Khamsin": ["khamsin","khamseen"],
+"British_Indian_Army": ["Indian Army"],
+"Famine_Inquiry_Commission": ["Woodhead Commission"],
+"Quit_India_Movement": ["Quit India","August Movement"],
+"Subhas_Chandra_Bose": ["Netaji"],
+"Indian_National_Army": ["INA","Azad Hind Fauj"],
+"Indian_National_Army_trials": ["INA trials","Red Fort trials"],
+"State_of_Burma": ["Ba Maw government"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25201,7 +25226,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Axis_capture_of_Tobruk": ["event","history","warfare","libya","south africa"],
 "First_Battle_of_El_Alamein": ["battle","history","warfare","egypt","britain"],
 "Bernard_Montgomery": ["person","history","warfare","britain"],
-"Khamsin": ["concept","climate","geography","egypt"]
+"Khamsin": ["concept","climate","geography","egypt"],
+"British_Indian_Army": ["institution","history","warfare","india","british empire"],
+"Eastern_Group_Supply_Council": ["institution","history","warfare","economy","british empire"],
+"Bombing_of_Calcutta": ["event","history","warfare","india","air war"],
+"Bengal_famine_of_1943": ["event","history","famine","india","bengal"],
+"Famine_Inquiry_Commission": ["institution","history","famine","india"],
+"Quit_India_Movement": ["event","history","politics","india","nationalism"],
+"Subhas_Chandra_Bose": ["person","history","politics","india","nationalism"],
+"Indian_National_Army": ["institution","history","warfare","india","nationalism"],
+"Indian_National_Army_trials": ["event","history","law","india","nationalism"],
+"State_of_Burma": ["state","history","politics","burma","japanese empire"]
 });
 
 /* ============================================================================

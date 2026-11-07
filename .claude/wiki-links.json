@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-07T02:24Z",
+ "generated": "2026-11-07T02:25Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5543,
-  "redirect-broader": 523,
+  "ok": 5552,
+  "redirect-broader": 524,
   "redirect-variant": 336,
   "section-redirect": 111,
   "disambiguation": 142,
@@ -62787,6 +62787,77 @@
    "title": "Operation Torch",
    "url": "https://en.wikipedia.org/wiki/Operation_Torch",
    "via": "answer",
+   "status": "ok"
+  },
+  "ww2-521": {
+   "answer": "British Indian Army",
+   "title": "British Indian Army",
+   "url": "https://en.wikipedia.org/wiki/British_Indian_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-522": {
+   "answer": "Eastern Group Supply Council",
+   "title": "Eastern Group Supply Council",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Group_Supply_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-523": {
+   "answer": "Bombing of Calcutta",
+   "title": "Bombing of Calcutta",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Calcutta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-524": {
+   "answer": "Bengal famine of 1943",
+   "title": "Bengal famine of 1943",
+   "url": "https://en.wikipedia.org/wiki/Bengal_famine_of_1943",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-525": {
+   "answer": "Famine Inquiry Commission",
+   "title": "Famine Inquiry Commission",
+   "url": "https://en.wikipedia.org/wiki/Famine_Inquiry_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-526": {
+   "answer": "Quit India Movement",
+   "title": "Quit India Movement",
+   "url": "https://en.wikipedia.org/wiki/Quit_India_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-527": {
+   "answer": "Subhas Chandra Bose",
+   "title": "Subhas Chandra Bose",
+   "url": "https://en.wikipedia.org/wiki/Subhas_Chandra_Bose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-528": {
+   "answer": "Indian National Army",
+   "title": "Indian National Army",
+   "url": "https://en.wikipedia.org/wiki/Indian_National_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-529": {
+   "answer": "INA trials",
+   "title": "Indian National Army trials",
+   "url": "https://en.wikipedia.org/wiki/Indian_National_Army_trials",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "INA trials"
+  },
+  "ww2-530": {
+   "answer": "State of Burma",
+   "title": "State of Burma",
+   "url": "https://en.wikipedia.org/wiki/State_of_Burma",
+   "via": "glossary",
    "status": "ok"
   }
  }

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5543 | the title is the article |
+| `ok` | 5552 | the title is the article |
 | `redirect-variant` | 336 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 523 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 524 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 111 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
 | `none` | 984 | nothing matched; no link |
 
-**6497 of 7750 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6507 of 7760 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (523)
+## Redirected to a differently named article — check each (524)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -565,6 +565,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-455` **Japanese conquest of Burma** → [Japanese invasion of Burma](https://en.wikipedia.org/wiki/Japanese_invasion_of_Burma) (from `Japanese conquest of Burma`)
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 - `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
+- `ww2-529` **INA trials** → [Indian National Army trials](https://en.wikipedia.org/wiki/Indian_National_Army_trials) (from `INA trials`)
 - `ww2-581` **Darlan deal** → [Clark-Darlan Accords](https://en.wikipedia.org/wiki/Clark-Darlan_Accords) (from `Darlan deal`)
 - `ww2-585` **Operation Husky** → [Allied invasion of Sicily](https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily) (from `Operation Husky`)
 
