@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07T02:22Z",
+ "generated": "2026-11-07T02:23Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5523,
+  "ok": 5533,
   "redirect-broader": 523,
   "redirect-variant": 336,
   "section-redirect": 111,
@@ -62646,6 +62646,76 @@
    "answer": "Operation Rheinübung",
    "title": "Operation Rheinübung",
    "url": "https://en.wikipedia.org/wiki/Operation_Rhein%C3%BCbung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-511": {
+   "answer": "Burma campaign",
+   "title": "Burma campaign",
+   "url": "https://en.wikipedia.org/wiki/Burma_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-512": {
+   "answer": "Burma Corps",
+   "title": "Burma Corps",
+   "url": "https://en.wikipedia.org/wiki/Burma_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-513": {
+   "answer": "Mepacrine",
+   "title": "Mepacrine",
+   "url": "https://en.wikipedia.org/wiki/Mepacrine",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-514": {
+   "answer": "Chindits",
+   "title": "Chindits",
+   "url": "https://en.wikipedia.org/wiki/Chindits",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-515": {
+   "answer": "Orde Wingate",
+   "title": "Orde Wingate",
+   "url": "https://en.wikipedia.org/wiki/Orde_Wingate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-516": {
+   "answer": "Battle of the Admin Box",
+   "title": "Battle of the Admin Box",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Admin_Box",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-517": {
+   "answer": "Battle of Imphal",
+   "title": "Battle of Imphal",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Imphal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-518": {
+   "answer": "Battle of Kohima",
+   "title": "Battle of Kohima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kohima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-519": {
+   "answer": "William Slim",
+   "title": "William Slim, 1st Viscount Slim",
+   "url": "https://en.wikipedia.org/wiki/William_Slim,_1st_Viscount_Slim",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-520": {
+   "answer": "Battle of Meiktila and Mandalay",
+   "title": "Battle of Meiktila and Mandalay",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Meiktila_and_Mandalay",
    "via": "glossary",
    "status": "ok"
   }

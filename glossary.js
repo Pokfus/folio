@@ -8010,7 +8010,17 @@ window.GLOSSARY = {
 "Liberty_ship": "",
 "Emergency_Shipbuilding_Program": "",
 "Auxiliary_cruiser": "",
-"Operation_Rheinübung": ""
+"Operation_Rheinübung": "",
+"Burma_campaign": "",
+"Burma_Corps": "",
+"Quinacrine": "",
+"Chindits": "",
+"Orde_Wingate": "",
+"Battle_of_the_Admin_Box": "",
+"Battle_of_Imphal": "",
+"Battle_of_Kohima": "",
+"William_Slim,_1st_Viscount_Slim": "",
+"Battle_of_Meiktila_and_Mandalay": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11918,7 +11928,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nortraship": "1940–1945",
 "Liberty_ship": "1941–1945",
 "Emergency_Shipbuilding_Program": "1941–1945",
-"Operation_Rheinübung": "1941"
+"Operation_Rheinübung": "1941",
+"Burma_campaign": "1942–1945",
+"Burma_Corps": "1942",
+"Quinacrine": "1930",
+"Chindits": "1942–1944",
+"Orde_Wingate": "died 1944",
+"Battle_of_the_Admin_Box": "1944",
+"Battle_of_Imphal": "1944",
+"Battle_of_Kohima": "1944",
+"William_Slim,_1st_Viscount_Slim": "1891–1970",
+"Battle_of_Meiktila_and_Mandalay": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16978,7 +16998,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Liberty_ship": ["Liberty ships","EC2"],
 "Emergency_Shipbuilding_Program": ["emergency shipbuilding programme"],
 "Auxiliary_cruiser": ["auxiliary cruisers","armed merchant raider","Hilfskreuzer"],
-"Operation_Rheinübung": ["Rheinübung","Rhine Exercise"]
+"Operation_Rheinübung": ["Rheinübung","Rhine Exercise"],
+"Burma_Corps": ["Burcorps"],
+"Quinacrine": ["Mepacrine","Atabrine"],
+"William_Slim,_1st_Viscount_Slim": ["William Slim","Bill Slim"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25138,7 +25161,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Liberty_ship": ["technology","shipping","shipbuilding","united states"],
 "Emergency_Shipbuilding_Program": ["event","industry","shipbuilding","united states"],
 "Auxiliary_cruiser": ["object","warfare","shipping","navy"],
-"Operation_Rheinübung": ["event","warfare","atlantic","germany"]
+"Operation_Rheinübung": ["event","warfare","atlantic","germany"],
+"Burma_campaign": ["war","history","warfare","burma","japan","united kingdom"],
+"Burma_Corps": ["institution","history","warfare","burma","india","united kingdom"],
+"Quinacrine": ["technology","medicine","history","warfare"],
+"Chindits": ["institution","history","warfare","burma","india","united kingdom"],
+"Orde_Wingate": ["person","history","warfare","united kingdom","burma"],
+"Battle_of_the_Admin_Box": ["battle","history","warfare","burma","india","japan"],
+"Battle_of_Imphal": ["battle","history","warfare","india","japan","united kingdom"],
+"Battle_of_Kohima": ["battle","history","warfare","india","japan","united kingdom"],
+"William_Slim,_1st_Viscount_Slim": ["person","history","warfare","united kingdom","burma"],
+"Battle_of_Meiktila_and_Mandalay": ["battle","history","warfare","burma","japan","united kingdom"]
 });
 
 /* ============================================================================
