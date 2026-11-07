@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5580 | the title is the article |
-| `redirect-variant` | 340 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 5714 | the title is the article |
+| `redirect-variant` | 348 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 82 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 532 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 537 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 112 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
+| `section-redirect` | 113 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 143 | only a disambiguation page; no link could be chosen |
 | `none` | 983 | nothing matched; no link |
 
-**6547 of 7800 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6695 of 7950 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (532)
+## Redirected to a differently named article — check each (537)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -358,6 +358,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-011` **nature and nurture** → [Nature versus nurture](https://en.wikipedia.org/wiki/Nature_versus_nurture) (from `Nature and nurture`)
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
 - `ps-037` **Gustav Theodor Fechner** → [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner) (from `Gustav Theodor Fechner`)
+- `ps-095` **existential psychology** → [Existential therapy](https://en.wikipedia.org/wiki/Existential_therapy) (from `Existential psychology`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -465,6 +466,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-043` **Great Dying** → [Permian–Triassic extinction event](https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event) (from `Great Dying`)
 - `us-061` **Metacom** → [Metacomet](https://en.wikipedia.org/wiki/Metacomet) (from `Metacom`)
 - `us-062` **Indian slave trade** → [Slavery among Native Americans in the United States](https://en.wikipedia.org/wiki/Slavery_among_Native_Americans_in_the_United_States) (from `Indian slave trade`)
+- `us-108` **encomendero** → [Encomienda](https://en.wikipedia.org/wiki/Encomienda) (from `Encomendero`)
+- `us-136` **headright system** → [Headright](https://en.wikipedia.org/wiki/Headright) (from `Headright system`)
+- `us-171` **Observations Concerning the Increase of Mankind** → [Observations Concerning the Increase of Mankind, Peopling of Countries, etc.](https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.) (from `Observations Concerning the Increase of Mankind`)
+- `us-173` **Eliza Lucas Pinckney** → [Eliza Lucas](https://en.wikipedia.org/wiki/Eliza_Lucas) (from `Eliza Lucas Pinckney`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -577,7 +582,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 - `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
 
-## Settled from a disambiguation page (81)
+## Settled from a disambiguation page (82)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -652,6 +657,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
 - `us-048` **Lakota** → [Lakota people](https://en.wikipedia.org/wiki/Lakota_people) (via the disambiguation page `Lakota`)
 - `us-097` **termination** → [Indian termination policy](https://en.wikipedia.org/wiki/Indian_termination_policy) (via the disambiguation page `Termination`)
+- `us-181` **Scotch-Irish** → [Scotch-Irish Americans](https://en.wikipedia.org/wiki/Scotch-Irish_Americans) (via the disambiguation page `Scotch-Irish`)
 - `wh-218` **Middle Kingdom** → [Middle Kingdom of Egypt](https://en.wikipedia.org/wiki/Middle_Kingdom_of_Egypt) (via the disambiguation page `Middle Kingdom`)
 - `wh-458` **Hijra** → [Hijra (South Asia)](https://en.wikipedia.org/wiki/Hijra_(South_Asia)) (via the disambiguation page `Hijra`)
 - `wh-522` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -675,7 +681,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `rm-349` **conference at Luca** → [Luca Conference](https://en.wikipedia.org/wiki/Luca_Conference)
 - `ww2-420` **Khabarovsk war crimes trial** → [Khabarovsk war crimes trials](https://en.wikipedia.org/wiki/Khabarovsk_war_crimes_trials)
 
-## Disambiguation pages that could not be settled (142)
+## Disambiguation pages that could not be settled (143)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -811,6 +817,7 @@ Pick the right article by hand, or leave the card without a link.
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
+- `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
 - `wh-298` **coinage** — `Coinage` is a disambiguation page; its links: `COINage`, `Tin coinage`
@@ -833,7 +840,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (112)
+## Section redirects — no dedicated page (113)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -935,6 +942,7 @@ Wikipedia treats these as part of another article. No link.
 - `rm-920` **prodigium** — `Prodigium` only redirects into `Glossary of ancient Roman religion#prodigium`
 - `rm-930` **superstitio** — `Superstitio` only redirects into `Glossary of ancient Roman religion#superstitio`
 - `rm-938` **satura** — `Satura` only redirects into `Satire#Term`
+- `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1733,7 +1741,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `pea-206` **Black Island Nation Youth Front** — search suggests `Sent-down youth`, `Sunflower Student Movement`, `GANEFO`, `Spratly Islands dispute`, `World Skate Games`
 - `pea-209` **Anti-media monopoly movement** — search suggests `New Brandeis movement`, `American Communist Party (2024)`, `Monopoly (game)`, `Jackson Hinkle`, `China Media Group`
 - `pea-213` **Eyre Crowe memorandum** — search suggests `Paris Peace Conference (1919–1920)`, `Levant Company`, `International relations (1919–1939)`, `Robert Cecil, Viscount Cecil of Chelwood`, `Defensively equipped merchant ship`
-- `ph-022` **premises and conclusion** — search suggests `Premise`, `Deductive reasoning`, `Logical reasoning`, `Philosophy of logic`, `List of fallacies`
+- `ph-022` **premises and conclusion** — search suggests `Premise`, `Deductive reasoning`, `Logical reasoning`, `Philosophy of logic`, `Argument`
 - `ps-002` **behaviour and mental processes** — search suggests `Compulsive sexual behaviour disorder`, `Social science`, `Mind`, `Structuralism (psychology)`, `Ironic process theory`
 - `ps-030` **localisation of function** — search suggests `Id, ego and superego`, `Functional specialization (brain)`, `Neuropsychology`, `Lateralization of brain function`, `Interaural time difference`
 - `ps-033` **specific nerve energies** — search suggests `Perception`, `Pain theories`, `Sense`, `Physiological psychology`, `Parasympathetic nervous system`

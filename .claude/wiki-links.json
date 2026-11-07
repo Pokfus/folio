@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T02:25Z",
+ "generated": "2026-11-07T02:48Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5580,
-  "redirect-broader": 532,
-  "redirect-variant": 340,
-  "section-redirect": 112,
-  "disambiguation": 142,
+  "ok": 5714,
+  "redirect-broader": 537,
+  "redirect-variant": 348,
+  "section-redirect": 113,
+  "disambiguation": 143,
   "none": 983,
-  "disambig-resolved": 81,
+  "disambig-resolved": 82,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -62418,6 +62418,1230 @@
     "Shinto in Taiwan"
    ]
   },
+  "ps-051": {
+   "answer": "Hermann Ebbinghaus",
+   "title": "Hermann Ebbinghaus",
+   "url": "https://en.wikipedia.org/wiki/Hermann_Ebbinghaus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-052": {
+   "answer": "forgetting curve",
+   "title": "Forgetting curve",
+   "url": "https://en.wikipedia.org/wiki/Forgetting_curve",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-053": {
+   "answer": "William James",
+   "title": "William James",
+   "url": "https://en.wikipedia.org/wiki/William_James",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-054": {
+   "answer": "Principles of Psychology",
+   "title": "The Principles of Psychology",
+   "url": "https://en.wikipedia.org/wiki/The_Principles_of_Psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-055": {
+   "answer": "functionalism",
+   "title": "Functional psychology",
+   "url": "https://en.wikipedia.org/wiki/Functional_psychology",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-056": {
+   "answer": "stream of consciousness",
+   "title": "Stream of consciousness (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Stream_of_consciousness_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-057": {
+   "answer": "James–Lange theory",
+   "title": "James–Lange theory",
+   "url": "https://en.wikipedia.org/wiki/James%E2%80%93Lange_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-058": {
+   "answer": "Mary Whiton Calkins",
+   "title": "Mary Whiton Calkins",
+   "url": "https://en.wikipedia.org/wiki/Mary_Whiton_Calkins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-059": {
+   "answer": "Margaret Floy Washburn",
+   "title": "Margaret Floy Washburn",
+   "url": "https://en.wikipedia.org/wiki/Margaret_Floy_Washburn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-060": {
+   "answer": "Society of Experimental Psychologists",
+   "title": "Society of Experimental Psychologists",
+   "url": "https://en.wikipedia.org/wiki/Society_of_Experimental_Psychologists",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-081": {
+   "answer": "cognitive revolution",
+   "title": "Cognitive revolution",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-082": {
+   "answer": "computational theory of mind",
+   "title": "Computational theory of mind",
+   "url": "https://en.wikipedia.org/wiki/Computational_theory_of_mind",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-083": {
+   "answer": "information processing",
+   "title": "Information processing (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Information_processing_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-084": {
+   "answer": "magical number seven",
+   "title": "The Magical Number Seven, Plus or Minus Two",
+   "url": "https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-085": {
+   "answer": "Verbal Behavior",
+   "title": "Verbal Behavior",
+   "url": "https://en.wikipedia.org/wiki/Verbal_Behavior",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-071": {
+   "answer": "Sigmund Freud",
+   "title": "Sigmund Freud",
+   "url": "https://en.wikipedia.org/wiki/Sigmund_Freud",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-072": {
+   "answer": "psychoanalysis",
+   "title": "Psychoanalysis",
+   "url": "https://en.wikipedia.org/wiki/Psychoanalysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-073": {
+   "answer": "unconscious",
+   "title": "Unconscious mind",
+   "url": "https://en.wikipedia.org/wiki/Unconscious_mind",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-074": {
+   "answer": "id, ego and super-ego",
+   "title": "Id, ego and superego",
+   "url": "https://en.wikipedia.org/wiki/Id,_ego_and_superego",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Id, ego and super-ego"
+  },
+  "ps-075": {
+   "answer": "defence mechanisms",
+   "title": "Defence mechanism",
+   "url": "https://en.wikipedia.org/wiki/Defence_mechanism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Defence mechanisms"
+  },
+  "ps-091": {
+   "answer": "cognitive neuroscience",
+   "title": "Cognitive neuroscience",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_neuroscience",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-092": {
+   "answer": "humanistic psychology",
+   "title": "Humanistic psychology",
+   "url": "https://en.wikipedia.org/wiki/Humanistic_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-093": {
+   "answer": "Carl Rogers",
+   "title": "Carl Rogers",
+   "url": "https://en.wikipedia.org/wiki/Carl_Rogers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-094": {
+   "answer": "Abraham Maslow",
+   "title": "Abraham Maslow",
+   "url": "https://en.wikipedia.org/wiki/Abraham_Maslow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-095": {
+   "answer": "existential psychology",
+   "title": "Existential therapy",
+   "url": "https://en.wikipedia.org/wiki/Existential_therapy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Existential psychology"
+  },
+  "ps-096": {
+   "answer": "positive psychology",
+   "title": "Positive psychology",
+   "url": "https://en.wikipedia.org/wiki/Positive_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-097": {
+   "answer": "evolutionary psychology",
+   "title": "Evolutionary psychology",
+   "url": "https://en.wikipedia.org/wiki/Evolutionary_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-098": {
+   "answer": "sociobiology",
+   "title": "Sociobiology",
+   "url": "https://en.wikipedia.org/wiki/Sociobiology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-099": {
+   "answer": "cross-cultural psychology",
+   "title": "Cross-cultural psychology",
+   "url": "https://en.wikipedia.org/wiki/Cross-cultural_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-100": {
+   "answer": "cultural psychology",
+   "title": "Cultural psychology",
+   "url": "https://en.wikipedia.org/wiki/Cultural_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-061": {
+   "answer": "Ivan Pavlov",
+   "title": "Ivan Pavlov",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Pavlov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-062": {
+   "answer": "classical conditioning",
+   "title": "Classical conditioning",
+   "url": "https://en.wikipedia.org/wiki/Classical_conditioning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-063": {
+   "answer": "John B. Watson",
+   "title": "John B. Watson",
+   "url": "https://en.wikipedia.org/wiki/John_B._Watson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-064": {
+   "answer": "behaviourism",
+   "title": "Behaviorism",
+   "url": "https://en.wikipedia.org/wiki/Behaviorism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Behaviourism"
+  },
+  "ps-065": {
+   "answer": "Little Albert experiment",
+   "title": "Little Albert experiment",
+   "url": "https://en.wikipedia.org/wiki/Little_Albert_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-066": {
+   "answer": "Edward Thorndike",
+   "title": "Edward Thorndike",
+   "url": "https://en.wikipedia.org/wiki/Edward_Thorndike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-067": {
+   "answer": "law of effect",
+   "title": "Law of effect",
+   "url": "https://en.wikipedia.org/wiki/Law_of_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-068": {
+   "answer": "B. F. Skinner",
+   "title": "B. F. Skinner",
+   "url": "https://en.wikipedia.org/wiki/B._F._Skinner",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-069": {
+   "answer": "radical behaviourism",
+   "title": "Radical behaviorism",
+   "url": "https://en.wikipedia.org/wiki/Radical_behaviorism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Radical behaviourism"
+  },
+  "ps-070": {
+   "answer": "operant conditioning chamber",
+   "title": "Operant conditioning chamber",
+   "url": "https://en.wikipedia.org/wiki/Operant_conditioning_chamber",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-076": {
+   "answer": "Carl Jung",
+   "title": "Carl Jung",
+   "url": "https://en.wikipedia.org/wiki/Carl_Jung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-077": {
+   "answer": "Alfred Adler",
+   "title": "Alfred Adler",
+   "url": "https://en.wikipedia.org/wiki/Alfred_Adler",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-078": {
+   "answer": "neo-Freudianism",
+   "title": "Neo-Freudianism",
+   "url": "https://en.wikipedia.org/wiki/Neo-Freudianism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-079": {
+   "answer": "Gestalt psychology",
+   "title": "Gestalt psychology",
+   "url": "https://en.wikipedia.org/wiki/Gestalt_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-080": {
+   "answer": "Kurt Lewin",
+   "title": "Kurt Lewin",
+   "url": "https://en.wikipedia.org/wiki/Kurt_Lewin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-086": {
+   "answer": "Ulric Neisser",
+   "title": "Ulric Neisser",
+   "url": "https://en.wikipedia.org/wiki/Ulric_Neisser",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-087": {
+   "answer": "Donald Broadbent",
+   "title": "Donald Broadbent",
+   "url": "https://en.wikipedia.org/wiki/Donald_Broadbent",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-088": {
+   "answer": "cybernetics",
+   "title": "Cybernetics",
+   "url": "https://en.wikipedia.org/wiki/Cybernetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-089": {
+   "answer": "Logic Theorist",
+   "title": "Logic Theorist",
+   "url": "https://en.wikipedia.org/wiki/Logic_Theorist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-090": {
+   "answer": "cognitive science",
+   "title": "Cognitive science",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_science",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-101": {
+   "answer": "Spanish Florida",
+   "title": "Spanish Florida",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Florida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-102": {
+   "answer": "St. Augustine",
+   "title": "St. Augustine, Florida",
+   "url": "https://en.wikipedia.org/wiki/St._Augustine,_Florida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-103": {
+   "answer": "Juan Ponce de León",
+   "title": "Juan Ponce de León",
+   "url": "https://en.wikipedia.org/wiki/Juan_Ponce_de_Le%C3%B3n",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-104": {
+   "answer": "Hernando de Soto",
+   "title": "Hernando de Soto",
+   "url": "https://en.wikipedia.org/wiki/Hernando_de_Soto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-105": {
+   "answer": "Coronado expedition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Coronado expedition",
+   "target": "Francisco Vázquez de Coronado#Coronado Expedition"
+  },
+  "us-106": {
+   "answer": "Santa Fe de Nuevo México",
+   "title": "Santa Fe de Nuevo México",
+   "url": "https://en.wikipedia.org/wiki/Santa_Fe_de_Nuevo_M%C3%A9xico",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-107": {
+   "answer": "Palace of the Governors",
+   "title": "Palace of the Governors",
+   "url": "https://en.wikipedia.org/wiki/Palace_of_the_Governors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-108": {
+   "answer": "encomendero",
+   "title": "Encomienda",
+   "url": "https://en.wikipedia.org/wiki/Encomienda",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Encomendero"
+  },
+  "us-109": {
+   "answer": "Spanish missions in Florida",
+   "title": "Missions in Spanish Florida",
+   "url": "https://en.wikipedia.org/wiki/Missions_in_Spanish_Florida",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Spanish missions in Florida"
+  },
+  "us-110": {
+   "answer": "Spanish missions in California",
+   "title": "Spanish missions in California",
+   "url": "https://en.wikipedia.org/wiki/Spanish_missions_in_California",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-111": {
+   "answer": "Junípero Serra",
+   "title": "Junípero Serra",
+   "url": "https://en.wikipedia.org/wiki/Jun%C3%ADpero_Serra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-112": {
+   "answer": "Spanish Texas",
+   "title": "Spanish Texas",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Texas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-113": {
+   "answer": "Company of One Hundred Associates",
+   "title": "Company of One Hundred Associates",
+   "url": "https://en.wikipedia.org/wiki/Company_of_One_Hundred_Associates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-114": {
+   "answer": "Samuel de Champlain",
+   "title": "Samuel de Champlain",
+   "url": "https://en.wikipedia.org/wiki/Samuel_de_Champlain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-115": {
+   "answer": "Quebec City",
+   "title": "Quebec City",
+   "url": "https://en.wikipedia.org/wiki/Quebec_City",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-116": {
+   "answer": "Coureurs des bois",
+   "title": "Coureur des bois",
+   "url": "https://en.wikipedia.org/wiki/Coureur_des_bois",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Coureurs des bois"
+  },
+  "us-117": {
+   "answer": "Sainte-Marie among the Hurons",
+   "title": "Sainte-Marie among the Hurons",
+   "url": "https://en.wikipedia.org/wiki/Sainte-Marie_among_the_Hurons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-118": {
+   "answer": "Jesuit Relations",
+   "title": "The Jesuit Relations",
+   "url": "https://en.wikipedia.org/wiki/The_Jesuit_Relations",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jesuit Relations"
+  },
+  "us-119": {
+   "answer": "French Louisiana",
+   "title": "French Louisiana",
+   "url": "https://en.wikipedia.org/wiki/French_Louisiana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-120": {
+   "answer": "French Quarter",
+   "title": "French Quarter",
+   "url": "https://en.wikipedia.org/wiki/French_Quarter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-121": {
+   "answer": "New Netherland",
+   "title": "New Netherland",
+   "url": "https://en.wikipedia.org/wiki/New_Netherland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-122": {
+   "answer": "New Amsterdam",
+   "title": "New Amsterdam",
+   "url": "https://en.wikipedia.org/wiki/New_Amsterdam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-123": {
+   "answer": "Peter Stuyvesant",
+   "title": "Peter Stuyvesant",
+   "url": "https://en.wikipedia.org/wiki/Peter_Stuyvesant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-124": {
+   "answer": "Articles of Capitulation",
+   "title": "Articles of Surrender of New Netherland",
+   "url": "https://en.wikipedia.org/wiki/Articles_of_Surrender_of_New_Netherland",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-125": {
+   "answer": "Patroon",
+   "title": "Patroon",
+   "url": "https://en.wikipedia.org/wiki/Patroon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-126": {
+   "answer": "Roanoke Colony",
+   "title": "Roanoke Colony",
+   "url": "https://en.wikipedia.org/wiki/Roanoke_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-127": {
+   "answer": "Croatoan",
+   "title": "Croatoan",
+   "url": "https://en.wikipedia.org/wiki/Croatoan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-128": {
+   "answer": "James Fort",
+   "title": "Jamestown",
+   "url": "https://en.wikipedia.org/wiki/Jamestown",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-129": {
+   "answer": "Virginia Company",
+   "title": "Virginia Company",
+   "url": "https://en.wikipedia.org/wiki/Virginia_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-130": {
+   "answer": "Starving Time",
+   "title": "Starving Time",
+   "url": "https://en.wikipedia.org/wiki/Starving_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-131": {
+   "answer": "John Smith",
+   "title": "John Smith (explorer)",
+   "url": "https://en.wikipedia.org/wiki/John_Smith_(explorer)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-132": {
+   "answer": "Powhatan",
+   "title": "Powhatan (Native American leader)",
+   "url": "https://en.wikipedia.org/wiki/Powhatan_(Native_American_leader)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-133": {
+   "answer": "Pocahontas",
+   "title": "Pocahontas",
+   "url": "https://en.wikipedia.org/wiki/Pocahontas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-134": {
+   "answer": "Anglo-Powhatan Wars",
+   "title": "Anglo-Powhatan Wars",
+   "url": "https://en.wikipedia.org/wiki/Anglo-Powhatan_Wars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-135": {
+   "answer": "Tobacco",
+   "title": "Tobacco",
+   "url": "https://en.wikipedia.org/wiki/Tobacco",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-136": {
+   "answer": "headright system",
+   "title": "Headright",
+   "url": "https://en.wikipedia.org/wiki/Headright",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Headright system"
+  },
+  "us-137": {
+   "answer": "indentured servitude",
+   "title": "Indentured servitude",
+   "url": "https://en.wikipedia.org/wiki/Indentured_servitude",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-138": {
+   "answer": "House of Burgesses",
+   "title": "House of Burgesses",
+   "url": "https://en.wikipedia.org/wiki/House_of_Burgesses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-139": {
+   "answer": "Bacon's Rebellion",
+   "title": "Bacon's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Bacon's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-140": {
+   "answer": "Plymouth Colony",
+   "title": "Plymouth Colony",
+   "url": "https://en.wikipedia.org/wiki/Plymouth_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-141": {
+   "answer": "Mayflower",
+   "title": "Mayflower",
+   "url": "https://en.wikipedia.org/wiki/Mayflower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-142": {
+   "answer": "Mayflower Compact",
+   "title": "Mayflower Compact",
+   "url": "https://en.wikipedia.org/wiki/Mayflower_Compact",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-143": {
+   "answer": "William Bradford",
+   "title": "William Bradford (governor)",
+   "url": "https://en.wikipedia.org/wiki/William_Bradford_(governor)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-144": {
+   "answer": "Pilgrims",
+   "title": "Pilgrims (Plymouth Colony)",
+   "url": "https://en.wikipedia.org/wiki/Pilgrims_(Plymouth_Colony)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-145": {
+   "answer": "Massachusetts Bay Colony",
+   "title": "Massachusetts Bay Colony",
+   "url": "https://en.wikipedia.org/wiki/Massachusetts_Bay_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-146": {
+   "answer": "John Winthrop",
+   "title": "John Winthrop",
+   "url": "https://en.wikipedia.org/wiki/John_Winthrop",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-147": {
+   "answer": "Great Migration",
+   "title": "Puritan migration to New England (1620–1640)",
+   "url": "https://en.wikipedia.org/wiki/Puritan_migration_to_New_England_(1620%E2%80%931640)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-148": {
+   "answer": "City upon a Hill",
+   "title": "City upon a Hill",
+   "url": "https://en.wikipedia.org/wiki/City_upon_a_Hill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-149": {
+   "answer": "Town meeting",
+   "title": "Town meeting",
+   "url": "https://en.wikipedia.org/wiki/Town_meeting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-150": {
+   "answer": "Roger Williams",
+   "title": "Roger Williams",
+   "url": "https://en.wikipedia.org/wiki/Roger_Williams",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-151": {
+   "answer": "Anne Hutchinson",
+   "title": "Anne Hutchinson",
+   "url": "https://en.wikipedia.org/wiki/Anne_Hutchinson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-152": {
+   "answer": "Fundamental Orders of Connecticut",
+   "title": "Fundamental Orders of Connecticut",
+   "url": "https://en.wikipedia.org/wiki/Fundamental_Orders_of_Connecticut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-153": {
+   "answer": "Pequot War",
+   "title": "Pequot War",
+   "url": "https://en.wikipedia.org/wiki/Pequot_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-154": {
+   "answer": "Province of Maryland",
+   "title": "Province of Maryland",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Maryland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-155": {
+   "answer": "Maryland Toleration Act",
+   "title": "Maryland Toleration Act",
+   "url": "https://en.wikipedia.org/wiki/Maryland_Toleration_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-156": {
+   "answer": "Province of Carolina",
+   "title": "Province of Carolina",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Carolina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-157": {
+   "answer": "Barbados Slave Code",
+   "title": "Barbados Slave Code",
+   "url": "https://en.wikipedia.org/wiki/Barbados_Slave_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-158": {
+   "answer": "Province of Georgia",
+   "title": "Province of Georgia",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Georgia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-159": {
+   "answer": "James Oglethorpe",
+   "title": "James Oglethorpe",
+   "url": "https://en.wikipedia.org/wiki/James_Oglethorpe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-160": {
+   "answer": "Province of Pennsylvania",
+   "title": "Province of Pennsylvania",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Pennsylvania",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-161": {
+   "answer": "William Penn",
+   "title": "William Penn",
+   "url": "https://en.wikipedia.org/wiki/William_Penn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-162": {
+   "answer": "Quakers",
+   "title": "Quakers",
+   "url": "https://en.wikipedia.org/wiki/Quakers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-163": {
+   "answer": "Province of New Jersey",
+   "title": "Province of New Jersey",
+   "url": "https://en.wikipedia.org/wiki/Province_of_New_Jersey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-164": {
+   "answer": "New England Confederation",
+   "title": "New England Confederation",
+   "url": "https://en.wikipedia.org/wiki/New_England_Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-165": {
+   "answer": "Dominion of New England",
+   "title": "Dominion of New England",
+   "url": "https://en.wikipedia.org/wiki/Dominion_of_New_England",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-166": {
+   "answer": "1689 Boston revolt",
+   "title": "1689 Boston revolt",
+   "url": "https://en.wikipedia.org/wiki/1689_Boston_revolt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-167": {
+   "answer": "Navigation Acts",
+   "title": "Navigation Acts",
+   "url": "https://en.wikipedia.org/wiki/Navigation_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-168": {
+   "answer": "Salutary neglect",
+   "title": "Salutary neglect",
+   "url": "https://en.wikipedia.org/wiki/Salutary_neglect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-169": {
+   "answer": "Royal governor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Royal governor",
+   "suggestions": [
+    "Royal Governor of Hawaii",
+    "Royal Governor of Kauai",
+    "Royal Governor of Maui",
+    "Royal Governor of Oahu"
+   ]
+  },
+  "us-170": {
+   "answer": "Thirteen Colonies",
+   "title": "Thirteen Colonies",
+   "url": "https://en.wikipedia.org/wiki/Thirteen_Colonies",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-171": {
+   "answer": "Observations Concerning the Increase of Mankind",
+   "title": "Observations Concerning the Increase of Mankind, Peopling of Countries, etc.",
+   "url": "https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Observations Concerning the Increase of Mankind"
+  },
+  "us-172": {
+   "answer": "coverture",
+   "title": "Coverture",
+   "url": "https://en.wikipedia.org/wiki/Coverture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-173": {
+   "answer": "Eliza Lucas Pinckney",
+   "title": "Eliza Lucas",
+   "url": "https://en.wikipedia.org/wiki/Eliza_Lucas",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Eliza Lucas Pinckney"
+  },
+  "us-174": {
+   "answer": "rice",
+   "title": "Rice",
+   "url": "https://en.wikipedia.org/wiki/Rice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-175": {
+   "answer": "Molasses Act",
+   "title": "Molasses Act",
+   "url": "https://en.wikipedia.org/wiki/Molasses_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-176": {
+   "answer": "Newport",
+   "title": "Newport, Rhode Island",
+   "url": "https://en.wikipedia.org/wiki/Newport,_Rhode_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-177": {
+   "answer": "Faneuil Hall",
+   "title": "Faneuil Hall",
+   "url": "https://en.wikipedia.org/wiki/Faneuil_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-178": {
+   "answer": "William Byrd II",
+   "title": "William Byrd II",
+   "url": "https://en.wikipedia.org/wiki/William_Byrd_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-179": {
+   "answer": "warning out",
+   "title": "Warning out of town",
+   "url": "https://en.wikipedia.org/wiki/Warning_out_of_town",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Warning out"
+  },
+  "us-180": {
+   "answer": "Pennsylvania Dutch",
+   "title": "Pennsylvania Dutch",
+   "url": "https://en.wikipedia.org/wiki/Pennsylvania_Dutch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-181": {
+   "answer": "Scotch-Irish",
+   "title": "Scotch-Irish Americans",
+   "url": "https://en.wikipedia.org/wiki/Scotch-Irish_Americans",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Scotch-Irish"
+  },
+  "us-182": {
+   "answer": "Great Wagon Road",
+   "title": "Great Wagon Road",
+   "url": "https://en.wikipedia.org/wiki/Great_Wagon_Road",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-183": {
+   "answer": "Half-Way Covenant",
+   "title": "Half-Way Covenant",
+   "url": "https://en.wikipedia.org/wiki/Half-Way_Covenant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-184": {
+   "answer": "First Great Awakening",
+   "title": "First Great Awakening",
+   "url": "https://en.wikipedia.org/wiki/First_Great_Awakening",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-185": {
+   "answer": "George Whitefield",
+   "title": "George Whitefield",
+   "url": "https://en.wikipedia.org/wiki/George_Whitefield",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-186": {
+   "answer": "Jonathan Edwards",
+   "title": "Jonathan Edwards (theologian)",
+   "url": "https://en.wikipedia.org/wiki/Jonathan_Edwards_(theologian)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-187": {
+   "answer": "New Lights",
+   "title": "Old and New Lights",
+   "url": "https://en.wikipedia.org/wiki/Old_and_New_Lights",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-188": {
+   "answer": "Boston News-Letter",
+   "title": "The Boston News-Letter",
+   "url": "https://en.wikipedia.org/wiki/The_Boston_News-Letter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-189": {
+   "answer": "John Peter Zenger",
+   "title": "John Peter Zenger",
+   "url": "https://en.wikipedia.org/wiki/John_Peter_Zenger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-190": {
+   "answer": "Benjamin Franklin",
+   "title": "Benjamin Franklin",
+   "url": "https://en.wikipedia.org/wiki/Benjamin_Franklin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-191": {
+   "answer": "American Enlightenment",
+   "title": "American Enlightenment",
+   "url": "https://en.wikipedia.org/wiki/American_Enlightenment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-192": {
+   "answer": "colonial colleges",
+   "title": "Colonial colleges",
+   "url": "https://en.wikipedia.org/wiki/Colonial_colleges",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-193": {
+   "answer": "Salem witch trials",
+   "title": "Salem witch trials",
+   "url": "https://en.wikipedia.org/wiki/Salem_witch_trials",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-194": {
+   "answer": "spectral evidence",
+   "title": "Spectral evidence",
+   "url": "https://en.wikipedia.org/wiki/Spectral_evidence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-195": {
+   "answer": "variolation",
+   "title": "Variolation",
+   "url": "https://en.wikipedia.org/wiki/Variolation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-196": {
+   "answer": "Queen Anne's War",
+   "title": "Queen Anne's War",
+   "url": "https://en.wikipedia.org/wiki/Queen_Anne's_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-197": {
+   "answer": "King George's War",
+   "title": "King George's War",
+   "url": "https://en.wikipedia.org/wiki/King_George's_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-198": {
+   "answer": "French and Indian War",
+   "title": "French and Indian War",
+   "url": "https://en.wikipedia.org/wiki/French_and_Indian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-199": {
+   "answer": "Battle of the Monongahela",
+   "title": "Battle of the Monongahela",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Monongahela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-200": {
+   "answer": "Albany Plan",
+   "title": "Albany Plan",
+   "url": "https://en.wikipedia.org/wiki/Albany_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-001": {
+   "answer": "philosophy",
+   "title": "Philosophy",
+   "url": "https://en.wikipedia.org/wiki/Philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-002": {
+   "answer": "value theory",
+   "title": "Value theory",
+   "url": "https://en.wikipedia.org/wiki/Value_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-003": {
+   "answer": "metaphysics",
+   "title": "Metaphysics",
+   "url": "https://en.wikipedia.org/wiki/Metaphysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-004": {
+   "answer": "epistemology",
+   "title": "Epistemology",
+   "url": "https://en.wikipedia.org/wiki/Epistemology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-005": {
+   "answer": "ethics",
+   "title": "Ethics",
+   "url": "https://en.wikipedia.org/wiki/Ethics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-006": {
+   "answer": "logic",
+   "title": "Logic",
+   "url": "https://en.wikipedia.org/wiki/Logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-007": {
+   "answer": "aesthetics",
+   "title": "Aesthetics",
+   "url": "https://en.wikipedia.org/wiki/Aesthetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-008": {
+   "answer": "political philosophy",
+   "title": "Political philosophy",
+   "url": "https://en.wikipedia.org/wiki/Political_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-009": {
+   "answer": "aporia",
+   "title": "Aporia",
+   "url": "https://en.wikipedia.org/wiki/Aporia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-010": {
+   "answer": "conceptual analysis",
+   "title": "Philosophical analysis",
+   "url": "https://en.wikipedia.org/wiki/Philosophical_analysis",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Conceptual analysis"
+  },
+  "ph-011": {
+   "answer": "thought experiment",
+   "title": "Thought experiment",
+   "url": "https://en.wikipedia.org/wiki/Thought_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-012": {
+   "answer": "intuition",
+   "title": "Intuition",
+   "url": "https://en.wikipedia.org/wiki/Intuition",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Intuition (philosophy)"
+  },
+  "ph-013": {
+   "answer": "naturalism",
+   "title": "Naturalism (philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Naturalism_(philosophy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-014": {
+   "answer": "philosophy of religion",
+   "title": "Philosophy of religion",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_religion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-015": {
+   "answer": "common sense",
+   "title": "Common sense",
+   "url": "https://en.wikipedia.org/wiki/Common_sense",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ph-016": {
+   "answer": "history of philosophy",
+   "title": "History of philosophy",
+   "url": "https://en.wikipedia.org/wiki/History_of_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-017": {
+   "answer": "continental philosophy",
+   "title": "Continental philosophy",
+   "url": "https://en.wikipedia.org/wiki/Continental_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-018": {
+   "answer": "philosophical methodology",
+   "title": "Philosophical methodology",
+   "url": "https://en.wikipedia.org/wiki/Philosophical_methodology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-019": {
+   "answer": "reflective equilibrium",
+   "title": "Reflective equilibrium",
+   "url": "https://en.wikipedia.org/wiki/Reflective_equilibrium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-020": {
+   "answer": "philosophical progress",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Philosophical progress",
+   "target": "Metaphilosophy#Progress"
+  },
   "ph-021": {
    "answer": "logical argument",
    "title": "Argument",
@@ -62996,150 +64220,6 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Unreasonable effectiveness of mathematics"
-  },
-  "ph-001": {
-   "answer": "philosophy",
-   "title": "Philosophy",
-   "url": "https://en.wikipedia.org/wiki/Philosophy",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-002": {
-   "answer": "value theory",
-   "title": "Value theory",
-   "url": "https://en.wikipedia.org/wiki/Value_theory",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-003": {
-   "answer": "metaphysics",
-   "title": "Metaphysics",
-   "url": "https://en.wikipedia.org/wiki/Metaphysics",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-004": {
-   "answer": "epistemology",
-   "title": "Epistemology",
-   "url": "https://en.wikipedia.org/wiki/Epistemology",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-005": {
-   "answer": "ethics",
-   "title": "Ethics",
-   "url": "https://en.wikipedia.org/wiki/Ethics",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-006": {
-   "answer": "logic",
-   "title": "Logic",
-   "url": "https://en.wikipedia.org/wiki/Logic",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-007": {
-   "answer": "aesthetics",
-   "title": "Aesthetics",
-   "url": "https://en.wikipedia.org/wiki/Aesthetics",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-008": {
-   "answer": "political philosophy",
-   "title": "Political philosophy",
-   "url": "https://en.wikipedia.org/wiki/Political_philosophy",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-009": {
-   "answer": "aporia",
-   "title": "Aporia",
-   "url": "https://en.wikipedia.org/wiki/Aporia",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-010": {
-   "answer": "conceptual analysis",
-   "title": "Philosophical analysis",
-   "url": "https://en.wikipedia.org/wiki/Philosophical_analysis",
-   "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Conceptual analysis"
-  },
-  "ph-011": {
-   "answer": "thought experiment",
-   "title": "Thought experiment",
-   "url": "https://en.wikipedia.org/wiki/Thought_experiment",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-012": {
-   "answer": "intuition",
-   "title": "Intuition",
-   "url": "https://en.wikipedia.org/wiki/Intuition",
-   "via": "glossary",
-   "status": "redirect-variant",
-   "from": "Intuition (philosophy)"
-  },
-  "ph-013": {
-   "answer": "naturalism",
-   "title": "Naturalism (philosophy)",
-   "url": "https://en.wikipedia.org/wiki/Naturalism_(philosophy)",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-014": {
-   "answer": "philosophy of religion",
-   "title": "Philosophy of religion",
-   "url": "https://en.wikipedia.org/wiki/Philosophy_of_religion",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-015": {
-   "answer": "common sense",
-   "title": "Common sense",
-   "url": "https://en.wikipedia.org/wiki/Common_sense",
-   "via": "answer",
-   "status": "ok"
-  },
-  "ph-016": {
-   "answer": "history of philosophy",
-   "title": "History of philosophy",
-   "url": "https://en.wikipedia.org/wiki/History_of_philosophy",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-017": {
-   "answer": "continental philosophy",
-   "title": "Continental philosophy",
-   "url": "https://en.wikipedia.org/wiki/Continental_philosophy",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-018": {
-   "answer": "philosophical methodology",
-   "title": "Philosophical methodology",
-   "url": "https://en.wikipedia.org/wiki/Philosophical_methodology",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-019": {
-   "answer": "reflective equilibrium",
-   "title": "Reflective equilibrium",
-   "url": "https://en.wikipedia.org/wiki/Reflective_equilibrium",
-   "via": "glossary",
-   "status": "ok"
-  },
-  "ph-020": {
-   "answer": "philosophical progress",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "section-redirect",
-   "from": "Philosophical progress",
-   "target": "Metaphilosophy#Progress"
   }
  }
 }

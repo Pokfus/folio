@@ -543,7 +543,7 @@ more work here than in any collection since Greece.
     ps-057  The James–Lange theory
     ps-058  Mary Whiton Calkins
     ps-059  Margaret Floy Washburn
-    ps-060  Women in the first generation of psychologists
+    ps-060  The Society of Experimental Psychologists and the first women psychologists
     ps-061  Ivan Pavlov
     ps-062  Classical conditioning
     ps-063  John B. Watson
