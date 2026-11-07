@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T02:21Z",
+ "generated": "2026-11-07T02:22Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5516,
+  "ok": 5523,
   "redirect-broader": 523,
-  "redirect-variant": 335,
-  "section-redirect": 110,
+  "redirect-variant": 336,
+  "section-redirect": 111,
   "disambiguation": 142,
-  "none": 983,
+  "none": 984,
   "disambig-resolved": 81,
   "list-page": 6,
   "search-match": 7,
@@ -62566,6 +62566,86 @@
    "answer": "Italian campaign",
    "title": "Italian campaign (World War II)",
    "url": "https://en.wikipedia.org/wiki/Italian_campaign_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-551": {
+   "answer": "High-frequency direction finding",
+   "title": "High-frequency direction finding",
+   "url": "https://en.wikipedia.org/wiki/High-frequency_direction_finding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-552": {
+   "answer": "Hut 8",
+   "title": "Hut 8",
+   "url": "https://en.wikipedia.org/wiki/Hut_8",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-553": {
+   "answer": "Convoys HX 229 and SC 122",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "HX convoys",
+    "Convoys HX 229/SC 122",
+    "Black May (World War II)",
+    "Convoys HX 229/SC 122 order of battle",
+    "Convoy HX 79"
+   ]
+  },
+  "ww2-554": {
+   "answer": "Black May",
+   "title": "Black May (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Black_May_(World_War_II)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Black May (1943)"
+  },
+  "ww2-555": {
+   "answer": "Type XXI submarine",
+   "title": "Type XXI submarine",
+   "url": "https://en.wikipedia.org/wiki/Type_XXI_submarine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-556": {
+   "answer": "Nortraship",
+   "title": "Nortraship",
+   "url": "https://en.wikipedia.org/wiki/Nortraship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-557": {
+   "answer": "Liberty ship",
+   "title": "Liberty ship",
+   "url": "https://en.wikipedia.org/wiki/Liberty_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-558": {
+   "answer": "Emergency Shipbuilding Program",
+   "title": "Emergency Shipbuilding Program",
+   "url": "https://en.wikipedia.org/wiki/Emergency_Shipbuilding_Program",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-559": {
+   "answer": "Auxiliary cruiser",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Auxiliary cruiser",
+   "target": "Armed merchantman#Auxiliary cruisers"
+  },
+  "ww2-560": {
+   "answer": "Operation Rheinübung",
+   "title": "Operation Rheinübung",
+   "url": "https://en.wikipedia.org/wiki/Operation_Rhein%C3%BCbung",
    "via": "glossary",
    "status": "ok"
   }

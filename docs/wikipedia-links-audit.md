@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5516 | the title is the article |
-| `redirect-variant` | 335 | spelling / plural / qualifier differed; same subject |
+| `ok` | 5523 | the title is the article |
+| `redirect-variant` | 336 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 523 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 110 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 111 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
-| `none` | 983 | nothing matched; no link |
+| `none` | 984 | nothing matched; no link |
 
-**6469 of 7720 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6477 of 7730 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -824,7 +824,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (110)
+## Section redirects — no dedicated page (111)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -938,8 +938,9 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-412` **New Order in East Asia** — `New Order in East Asia` only redirects into `Greater East Asia Co-Prosperity Sphere#Development of the concept`
 - `ww2-446` **Greer incident** — `Greer incident` only redirects into `USS Greer#The Greer incident, September 1941`
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
+- `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 
-## No article found (983)
+## No article found (984)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1926,3 +1927,4 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-499` **Imperial General Headquarters Announcement** — search suggests `Imperial General Headquarters`, `Pacific War`, `Nicholas II`, `Home front during World War II`, `War crimes in World War II`
 - `ww2-500` **Kominka movement** — search suggests `Korea under Japanese rule`, `Japanization`, `Imperial Subject Public Service Association`, `Taiwan under Japanese rule`, `Shinto in Taiwan`
 - `ww2-542` **convoy system** — search suggests `Convoy battles of World War II`, `List of Allied convoys during World War II by region`, `Arctic convoys of World War II`, `Convoy HX 156`, `World War II`
+- `ww2-553` **Convoys HX 229 and SC 122** — search suggests `HX convoys`, `Convoys HX 229/SC 122`, `Black May (World War II)`, `Convoys HX 229/SC 122 order of battle`, `Convoy HX 79`

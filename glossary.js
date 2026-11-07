@@ -8000,7 +8000,17 @@ window.GLOSSARY = {
 "Allied_invasion_of_Sicily": "",
 "Armistice_of_Cassibile": "",
 "Operation_Achse": "",
-"Italian_campaign_(World_War_II)": ""
+"Italian_campaign_(World_War_II)": "",
+"High-frequency_direction_finding": "",
+"Hut_8": "",
+"Convoys_HX_229/SC_122": "",
+"Black_May_(1943)": "",
+"Type_XXI_submarine": "",
+"Nortraship": "",
+"Liberty_ship": "",
+"Emergency_Shipbuilding_Program": "",
+"Auxiliary_cruiser": "",
+"Operation_Rheinübung": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11900,7 +11910,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Allied_invasion_of_Sicily": "1943",
 "Armistice_of_Cassibile": "1943",
 "Operation_Achse": "1943",
-"Italian_campaign_(World_War_II)": "1943–1945"
+"Italian_campaign_(World_War_II)": "1943–1945",
+"Hut_8": "1939–1945",
+"Convoys_HX_229/SC_122": "1943",
+"Black_May_(1943)": "1943",
+"Type_XXI_submarine": "1943–1945",
+"Nortraship": "1940–1945",
+"Liberty_ship": "1941–1945",
+"Emergency_Shipbuilding_Program": "1941–1945",
+"Operation_Rheinübung": "1941"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16951,7 +16969,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Kasserine_Pass": ["Battle of the Kasserine Pass"],
 "Allied_invasion_of_Sicily": ["Operation Husky","Sicilian campaign"],
 "Operation_Achse": ["Fall Achse"],
-"Italian_campaign_(World_War_II)": ["Italian campaign"]
+"Italian_campaign_(World_War_II)": ["Italian campaign"],
+"High-frequency_direction_finding": ["HF/DF","Huff-Duff"],
+"Convoys_HX_229/SC_122": ["Convoys HX 229 and SC 122","HX 229","SC 122"],
+"Black_May_(1943)": ["Black May"],
+"Type_XXI_submarine": ["Type XXI","Elektroboot"],
+"Nortraship": ["Norwegian Shipping and Trade Mission"],
+"Liberty_ship": ["Liberty ships","EC2"],
+"Emergency_Shipbuilding_Program": ["emergency shipbuilding programme"],
+"Auxiliary_cruiser": ["auxiliary cruisers","armed merchant raider","Hilfskreuzer"],
+"Operation_Rheinübung": ["Rheinübung","Rhine Exercise"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25101,7 +25128,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Allied_invasion_of_Sicily": ["battle","history","warfare","italy","united states","britain"],
 "Armistice_of_Cassibile": ["event","history","politics","italy","united states","britain"],
 "Operation_Achse": ["event","history","warfare","italy","germany","occupation"],
-"Italian_campaign_(World_War_II)": ["event","history","warfare","italy","germany","united states"]
+"Italian_campaign_(World_War_II)": ["event","history","warfare","italy","germany","united states"],
+"High-frequency_direction_finding": ["technology","radio","warfare","intelligence"],
+"Hut_8": ["institution","intelligence","warfare","britain"],
+"Convoys_HX_229/SC_122": ["battle","warfare","atlantic","convoys"],
+"Black_May_(1943)": ["event","warfare","atlantic","u-boats"],
+"Type_XXI_submarine": ["technology","warfare","germany","submarines"],
+"Nortraship": ["institution","shipping","norway","warfare"],
+"Liberty_ship": ["technology","shipping","shipbuilding","united states"],
+"Emergency_Shipbuilding_Program": ["event","industry","shipbuilding","united states"],
+"Auxiliary_cruiser": ["object","warfare","shipping","navy"],
+"Operation_Rheinübung": ["event","warfare","atlantic","germany"]
 });
 
 /* ============================================================================
