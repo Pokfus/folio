@@ -8741,7 +8741,17 @@ window.GLOSSARY = {
 "Operation_Fortitude": "",
 "Atlantic_Wall": "",
 "Omaha_Beach": "",
-"Operation_Tonga": ""
+"Operation_Tonga": "",
+"Battle_for_Caen": "",
+"Battle_of_Aachen": "",
+"Battle_of_the_Scheldt": "",
+"Falaise_pocket": "",
+"Liberation_of_Paris": "",
+"Mulberry_harbour": "",
+"Operation_Cobra": "",
+"Operation_Dragoon": "",
+"Operation_Goodwood": "",
+"Operation_Market_Garden": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -27357,7 +27367,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Operation_Fortitude": ["event","history","warfare","second world war"],
 "Atlantic_Wall": ["building","history","warfare","second world war","germany"],
 "Omaha_Beach": ["battle","history","warfare","second world war","france"],
-"Operation_Tonga": ["battle","history","warfare","second world war","united kingdom"]
+"Operation_Tonga": ["battle","history","warfare","second world war","united kingdom"],
+"Battle_for_Caen": ["battle","history","warfare","france","second world war"],
+"Battle_of_Aachen": ["battle","history","warfare","germany","second world war"],
+"Battle_of_the_Scheldt": ["battle","history","warfare","netherlands","second world war"],
+"Falaise_pocket": ["battle","history","warfare","france","second world war"],
+"Liberation_of_Paris": ["event","history","warfare","france","second world war"],
+"Mulberry_harbour": ["technology","history","warfare","france","second world war"],
+"Operation_Cobra": ["battle","history","warfare","france","second world war"],
+"Operation_Dragoon": ["battle","history","warfare","france","second world war"],
+"Operation_Goodwood": ["battle","history","warfare","france","second world war"],
+"Operation_Market_Garden": ["battle","history","warfare","netherlands","second world war"]
 });
 
 /* ============================================================================

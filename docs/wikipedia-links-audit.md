@@ -26,8 +26,8 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6145 | the title is the article |
-| `redirect-variant` | 374 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6154 | the title is the article |
+| `redirect-variant` | 375 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 585 | redirected to a differently named article — listed below, a glance each |
@@ -36,7 +36,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `disambiguation` | 146 | only a disambiguation page; no link could be chosen |
 | `none` | 1001 | nothing matched; no link |
 
-**7201 of 8490 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7211 of 8500 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 

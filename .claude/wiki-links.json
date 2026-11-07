@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-07T19:47Z",
+ "generated": "2026-11-07T19:50Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6145,
+  "ok": 6154,
   "redirect-broader": 585,
-  "redirect-variant": 374,
+  "redirect-variant": 375,
   "section-redirect": 126,
   "disambiguation": 146,
   "none": 1001,
@@ -68262,6 +68262,77 @@
    "answer": "Operation Tonga",
    "title": "Operation Tonga",
    "url": "https://en.wikipedia.org/wiki/Operation_Tonga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-641": {
+   "answer": "Mulberry harbour",
+   "title": "Mulberry harbours",
+   "url": "https://en.wikipedia.org/wiki/Mulberry_harbours",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Mulberry harbour"
+  },
+  "ww2-642": {
+   "answer": "Operation Goodwood",
+   "title": "Operation Goodwood",
+   "url": "https://en.wikipedia.org/wiki/Operation_Goodwood",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-643": {
+   "answer": "Battle for Caen",
+   "title": "Battle for Caen",
+   "url": "https://en.wikipedia.org/wiki/Battle_for_Caen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-644": {
+   "answer": "Operation Cobra",
+   "title": "Operation Cobra",
+   "url": "https://en.wikipedia.org/wiki/Operation_Cobra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-645": {
+   "answer": "Falaise pocket",
+   "title": "Falaise pocket",
+   "url": "https://en.wikipedia.org/wiki/Falaise_pocket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-646": {
+   "answer": "Liberation of Paris",
+   "title": "Liberation of Paris",
+   "url": "https://en.wikipedia.org/wiki/Liberation_of_Paris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-647": {
+   "answer": "Operation Dragoon",
+   "title": "Operation Dragoon",
+   "url": "https://en.wikipedia.org/wiki/Operation_Dragoon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-648": {
+   "answer": "Battle of Aachen",
+   "title": "Battle of Aachen",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Aachen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-649": {
+   "answer": "Operation Market Garden",
+   "title": "Operation Market Garden",
+   "url": "https://en.wikipedia.org/wiki/Operation_Market_Garden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-650": {
+   "answer": "Battle of the Scheldt",
+   "title": "Battle of the Scheldt",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Scheldt",
    "via": "glossary",
    "status": "ok"
   }
