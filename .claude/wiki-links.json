@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07T02:11Z",
+ "generated": "2026-11-07T02:12Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5528,
+  "ok": 5538,
   "redirect-broader": 527,
   "redirect-variant": 338,
   "section-redirect": 111,
@@ -62717,6 +62717,76 @@
    "via": "answer",
    "status": "redirect-variant",
    "from": "Classical planets"
+  },
+  "astro-001": {
+   "answer": "astronomy",
+   "title": "Astronomy",
+   "url": "https://en.wikipedia.org/wiki/Astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-002": {
+   "answer": "astronomical object",
+   "title": "Astronomical object",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_object",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-003": {
+   "answer": "astrophysics",
+   "title": "Astrophysics",
+   "url": "https://en.wikipedia.org/wiki/Astrophysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-004": {
+   "answer": "observational astronomy",
+   "title": "Observational astronomy",
+   "url": "https://en.wikipedia.org/wiki/Observational_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-005": {
+   "answer": "scientific notation",
+   "title": "Scientific notation",
+   "url": "https://en.wikipedia.org/wiki/Scientific_notation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-006": {
+   "answer": "astronomical unit",
+   "title": "Astronomical unit",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_unit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-007": {
+   "answer": "light-year",
+   "title": "Light-year",
+   "url": "https://en.wikipedia.org/wiki/Light-year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-008": {
+   "answer": "parsec",
+   "title": "Parsec",
+   "url": "https://en.wikipedia.org/wiki/Parsec",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-009": {
+   "answer": "speed of light",
+   "title": "Speed of light",
+   "url": "https://en.wikipedia.org/wiki/Speed_of_light",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-010": {
+   "answer": "double star",
+   "title": "Double star",
+   "url": "https://en.wikipedia.org/wiki/Double_star",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

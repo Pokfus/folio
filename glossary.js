@@ -8020,7 +8020,17 @@ window.GLOSSARY = {
 "Fixed_stars": "",
 "Lunar_phase": "",
 "Lunar_month": "",
-"Classical_planet": ""
+"Classical_planet": "",
+"Astronomy": "",
+"Astronomical_object": "",
+"Astrophysics": "",
+"Observational_astronomy": "",
+"Scientific_notation": "",
+"Astronomical_unit": "",
+"Light-year": "",
+"Parsec": "",
+"Speed_of_light": "",
+"Double_star": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16980,7 +16990,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fixed_stars": ["fixed star"],
 "Lunar_phase": ["phases of the Moon","phase of the Moon","lunar phases"],
 "Lunar_month": ["synodic month","sidereal month"],
-"Classical_planet": ["classical planets"]
+"Classical_planet": ["classical planets"],
+"Astronomical_object": ["astronomical objects","celestial object"],
+"Scientific_notation": ["powers-of-ten notation"],
+"Astronomical_unit": ["astronomical units"],
+"Light-year": ["light-years","light year"],
+"Parsec": ["parsecs"],
+"Double_star": ["double stars","optical double"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25150,7 +25166,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fixed_stars": ["concept","science","astronomy","stars"],
 "Lunar_phase": ["concept","science","astronomy","moon"],
 "Lunar_month": ["concept","science","astronomy","moon","calendar"],
-"Classical_planet": ["concept","science","astronomy","planets"]
+"Classical_planet": ["concept","science","astronomy","planets"],
+"Astronomy": ["concept","science","astronomy"],
+"Astronomical_object": ["concept","science","astronomy"],
+"Astrophysics": ["concept","science","astronomy","physics"],
+"Observational_astronomy": ["practice","science","astronomy"],
+"Scientific_notation": ["concept","science","mathematics"],
+"Astronomical_unit": ["concept","science","astronomy","measurement"],
+"Light-year": ["concept","science","astronomy","measurement"],
+"Parsec": ["concept","science","astronomy","measurement"],
+"Speed_of_light": ["concept","science","physics","light"],
+"Double_star": ["object","science","astronomy","stars"]
 });
 
 /* ============================================================================

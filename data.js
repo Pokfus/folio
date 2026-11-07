@@ -7746,7 +7746,17 @@ window.CARD_DATA = [
 {"id":"astro-047","num":"47","category":"Astronomy","question":"Greek astronomers set the wandering planets against the <span class=\"blank\">_____</span>, which kept the same patterns among themselves through many generations, though measurement shows the patterns slowly drift.","answer":"fixed stars","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fixed stars","tags":["concept","science","astronomy","stars","constellations"],"difficulty":3,"undatable":true},
 {"id":"astro-048","num":"48","category":"Astronomy","question":"Half the Moon is always lit by the Sun, so each <span class=\"blank\">_____</span> we see, from new through full and back, depends only on how much of that lit half faces the Earth.","answer":"lunar phase","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lunar phase","tags":["concept","science","astronomy","moon"],"difficulty":1,"undatable":true},
 {"id":"astro-049","num":"49","category":"Astronomy","question":"Because the Earth moves along its orbit while the Moon circles it, the <span class=\"blank\">_____</span> of about 29.53 days runs some two days longer than the Moon's 27.32-day trip around the stars.","answer":"synodic month","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"synodic month","tags":["concept","science","astronomy","moon","calendar"],"difficulty":3,"undatable":true},
-{"id":"astro-050","num":"50","category":"Astronomy","question":"The Sun, the Moon, Mercury, Venus, Mars, Jupiter and Saturn, the seven <span class=\"blank\">_____</span> that ancient observers saw move among the stars, gave their names to the days of the week.","answer":"classical planets","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"classical planets","tags":["concept","science","astronomy","planets","solar system"],"difficulty":3,"undatable":true}
+{"id":"astro-050","num":"50","category":"Astronomy","question":"The Sun, the Moon, Mercury, Venus, Mars, Jupiter and Saturn, the seven <span class=\"blank\">_____</span> that ancient observers saw move among the stars, gave their names to the days of the week.","answer":"classical planets","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"classical planets","tags":["concept","science","astronomy","planets","solar system"],"difficulty":3,"undatable":true},
+{"id":"astro-001","num":"1","category":"Astronomy","question":"Defined as the study of everything beyond the Earth and how those things interact, <span class=\"blank\">_____</span> also tries to tell one history of the universe from the Big Bang to today.","answer":"astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"astronomy","tags":["concept","science","astronomy"],"difficulty":1,"undatable":true},
+{"id":"astro-002","num":"2","category":"Astronomy","question":"A planet, a star, a cloud of interstellar gas and a cluster of galaxies are each counted by astronomers as an <span class=\"blank\">_____</span> despite having almost nothing else in common.","answer":"astronomical object","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"astronomical object","tags":["concept","science","astronomy"],"difficulty":3,"undatable":true},
+{"id":"astro-003","num":"3","category":"Astronomy","question":"Applying the laws of physics to stars and galaxies, <span class=\"blank\">_____</span> asks not only where an object sits in the sky but also what it is made of and how it shines.","answer":"astrophysics","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"astrophysics","tags":["concept","science","astronomy","physics"],"difficulty":2,"undatable":true},
+{"id":"astro-004","num":"4","category":"Astronomy","question":"Since no one can put a group of stars into a test tube, <span class=\"blank\">_____</span> tests its ideas by comparing many examples of one kind of object and noting how they differ.","answer":"observational astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"observational astronomy","tags":["practice","science","astronomy"],"difficulty":3,"undatable":true},
+{"id":"astro-005","num":"5","category":"Astronomy","question":"Written out in full the distance to the Orion Nebula runs to 17 digits, but <span class=\"blank\">_____</span> shrinks it to 1.34 × 10¹⁶ kilometres (8.3 × 10¹⁵ miles), a short figure times a power of ten.","answer":"scientific notation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scientific notation","tags":["concept","science","astronomy","mathematics"],"difficulty":2,"undatable":true},
+{"id":"astro-006","num":"6","category":"Astronomy","question":"Fixed in 2012 at exactly 149,597,870,700 metres, the <span class=\"blank\">_____</span> grew out of the average distance between the Earth and the Sun and measures distances across the Solar System.","answer":"astronomical unit","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Fixed in metres</span><span class=\"dt-v\">2012</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"astronomical unit","tags":["concept","science","astronomy","measurement"],"difficulty":2},
+{"id":"astro-007","num":"7","category":"Astronomy","question":"Although its name seems to name a span of time, the <span class=\"blank\">_____</span> measures distance, about 9.46 trillion kilometres (5.88 trillion miles), the length light covers in a vacuum in one year.","answer":"light-year","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"light-year","tags":["concept","science","astronomy","measurement"],"difficulty":1,"undatable":true},
+{"id":"astro-008","num":"8","category":"Astronomy","question":"A star whose yearly parallax is exactly one arcsecond lies one <span class=\"blank\">_____</span> away from the Sun, a distance of about 206,265 astronomical units or 3.26 light-years.","answer":"parsec","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"parsec","tags":["concept","science","astronomy","measurement"],"difficulty":3,"undatable":true},
+{"id":"astro-009","num":"9","category":"Astronomy","question":"Because the <span class=\"blank\">_____</span> is finite, astronomers who look billions of light-years out into space see galaxies as they were billions of years ago rather than as they are now.","answer":"speed of light","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"speed of light","tags":["concept","science","astronomy","physics","light"],"difficulty":1,"undatable":true},
+{"id":"astro-010","num":"10","category":"Astronomy","question":"Two stars that look close together in the sky make a <span class=\"blank\">_____</span> whether they really orbit each other or merely line up by chance at very different distances from the Earth.","answer":"double star","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"double star","tags":["object","science","astronomy","stars"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16819,7 +16829,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 40,
+      "total": 50,
       "children": [
         {
           "id": "astro-sky",
@@ -16830,7 +16840,18 @@ window.COLLECTION_TREE = {
               "id": "astro-what",
               "title": "What astronomy is",
               "total": 15,
-              "cardIds": []
+              "cardIds": [
+                "astro-001",
+                "astro-002",
+                "astro-003",
+                "astro-004",
+                "astro-005",
+                "astro-006",
+                "astro-007",
+                "astro-008",
+                "astro-009",
+                "astro-010"
+              ]
             },
             {
               "id": "astro-sphere",
