@@ -143,7 +143,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Servian Wall: earliest wall / rebuilt / repaired | c. 600 – 500 BCE / from 378 BCE (the Loeb margin at Livy 6.31; the old 377 was Platner's year for the tax) / 353 BCE | `rm-072` |
 | censors take over the census / Augustus's first census / the last lustrum | 443 BCE / 28 BCE / 74 CE | `rm-073` |
 | Tarquinius Superbus's reign / the monarchy's end | 532 – 507 BCE (Dionysius, as his translator converts it) / 509 BCE (the usual modern year) | `rm-074` |
-| Capitoline temple built / dedicated / burnt | c. 550 – 500 BCE (pottery from the foundation trench) / 509 BCE (tradition) / 83 BCE, 69 CE, 80 CE | `rm-075`, `rm-050` |
+| Capitoline temple built / dedicated / burnt | c. 550 – 500 BCE (pottery from the foundation trench) / 509 BCE (tradition) / 83 BCE, 69 CE, 80 CE | `rm-075`, `rm-050`, `rm-907` |
 | Sibylline keepers enlarged / books burnt / moved to the Palatine | c. 367 BCE / 83 BCE / 12 BCE | `rm-076` |
 | Lucretia; the expulsion of the kings; Brutus's consulship; the rex sacrorum created | 509 BCE (tradition); 507 BCE in Dionysius | `rm-077`–`rm-080` |
 | Brutus on Marcus Brutus's denarius / an inscription naming a rex sacrorum | 54 BCE / 43 – 70 CE | `rm-079`, `rm-080` |
@@ -361,6 +361,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the quindecimviri: raised to ten (by tradition) | 367 BCE | `rm-895` |
 | the pontifex maximus: the first plebeian | 254 BCE | `rm-896` |
 | the College of Pontiffs opened to plebeians / the augurs raised to nine (the Ogulnian law) | 300 BCE | `rm-897`, `rm-898` |
+| the Temple of Saturn dedicated (tradition, Livy) / also dated | 497 BCE / 498 BCE | `rm-912` |
+| the Saturnalia instituted with the temple (tradition, Livy) | 497 BCE | `rm-917` |
+| the cult of Aesculapius arrives on the Tiber Island / also dated (Platner and Ashby give both) | 291 BCE / 292 BCE | `rm-921` |
+| the Capitoline Brutus: the museum's dating / also dated (a review) / donated | c. 400 – 200 BCE / c. 125 – 75 BCE / 1564 | `rm-972` |
 
 ## The middle and late Republic
 
@@ -506,6 +510,34 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Temple of Castor and Pollux restored | 117 BCE | `rm-894` |
 | the College of Pontiffs enlarged to fifteen (a dictionary's year) | 81 BCE | `rm-897` |
 | Spurinna's warning to Caesar | 44 BCE | `rm-900` |
+| the Temple of Saturn rebuilt by Munatius Plancus | 42 BCE | `rm-912` |
+| the Saturnalia reorganised: the public banquet and the cry (Livy) | 217 BCE | `rm-917` |
+| the Lupercalia at which Antony offered Caesar the diadem | 44 BCE | `rm-918` |
+| Magna Mater: arrived / her Palatine temple dedicated (Livy) | 204 BCE / 191 BCE | `rm-922` |
+| Latin literature: the conventional Golden Age (Duff) / Teuffel's span | 70 BCE – 14 CE / 83 BCE – 17 CE | `rm-931` |
+| Old Latin: one modern convention (Clackson and Horrocks) | c. 400 – 150 BCE | `rm-932` |
+| Livius Andronicus: first play (Cicero's date) / the girls' hymn | 240 BCE / 207 BCE | `rm-933` |
+| Ennius: born / died | 239 BCE / 169 BCE | `rm-934` |
+| Plautus: Stichus staged / Pseudolus staged / died | 200 BCE / 191 BCE / 184 BCE | `rm-936` |
+| Terence: plays staged / died | 166 – 160 BCE / 159 BCE | `rm-937` |
+| Gaius Lucilius: born (the editors) / Jerome's year / died (Warmington) | c. 180 BCE / 148 BCE / 103 – 101 BCE | `rm-939` |
+| Fabius Pictor's embassy to Delphi after Cannae | 216 BCE | `rm-940` |
+| the Philippics: the first / the last surviving | 2 September 44 BCE / 21 April 43 BCE | `rm-941` |
+| the letters to Atticus: the first / the last | 68 BCE / 44 BCE | `rm-942` |
+| De officiis written | 44 BCE | `rm-943` |
+| the Rhetorica ad Herennium probably written (Caplan; Calboli) | c. 86 – 82 BCE | `rm-944` |
+| De rerum natura: first mentioned (Cicero to Quintus) | 54 BCE | `rm-945` |
+| Catullus lived | c. 84 – 54 BCE | `rm-946` |
+| Sallust: born / governor of Africa Nova / died (Rolfe) | 86 BCE / 46 BCE / 35 – 34 BCE | `rm-948` |
+| Virgil: born (the Life) / died | 15 October 70 BCE / 19 BCE | `rm-949` |
+| the Aeneid composed (Sellar) | c. 29 – 19 BCE | `rm-950` |
+| the Georgics written (the handbooks) | c. 37 – 30 BCE | `rm-951` |
+| Propertius born (a guess) | c. 50 BCE | `rm-957` |
+| the Tomb of Eurysaces built (the Capitoline Museums) / found | c. 40 – 30 BCE / 1838 | `rm-971` |
+| the Pompeian styles (Mau): the first / the second begins / the fourth / the scheme published | c. 200 – 90 BCE / c. 80 BCE / c. 50 – 79 CE / 1882 | `rm-977` |
+| the Basilica Aemilia: contracted / rebuilt by Paullus / burned | 179 BCE / 55 – 34 BCE / 14 BCE | `rm-984` |
+| the Aqua Marcia: built / restored by Titus (Platner) | 144 – 140 BCE / 79 CE | `rm-988` |
+| the Pons Fabricius: built / the consuls' inscription (read as a restoration or as an approval) | 62 BCE / 21 BCE | `rm-993` |
 
 ## The Principate
 
@@ -782,6 +814,41 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Seneca's Epistulae Morales written | c. 62 – 65 CE | `rm-890` |
 | the Temple of Castor and Pollux rebuilt | 6 CE | `rm-894` |
 | the pontifex maximus: Augustus elected | 12 BCE | `rm-896` |
+| the Arval Brethren: their inscribed acts run (Scheid's corpus) | 21 BCE – 304 CE | `rm-903` |
+| the Iseum Campense burned in the fire under Titus | 80 CE | `rm-923` |
+| the Mithraic cult: first evidence (a reviewed study) | c. 90 CE | `rm-924` |
+| the Dura-Europos church: house converted (White) / buried under the earth bank / found | c. 240 CE / c. 256 CE / 1932 | `rm-928` |
+| the Decian persecution: the edict / the certificates | 249 CE / 250 CE | `rm-929` |
+| Horace: born / the Secular Hymn / died | 8 December 65 BCE / 17 BCE / 27 November 8 BCE | `rm-952` |
+| Ovid: born / banished / died / also dated (Peck) | 43 BCE / 8 CE / 17 CE / 18 CE | `rm-953` |
+| the Metamorphoses nearly finished at the banishment (Ovid's claim) | 8 CE | `rm-954` |
+| the Tristia written | 9 – 13 CE | `rm-955` |
+| Livy: born / died | 59 BCE / 17 CE | `rm-956` |
+| Propertius still alive (the poem for Apollo's games, per Duff) | 16 BCE | `rm-957` |
+| Cornelius Gallus: the Philae stele / prefect renewed / died / Dio's year | 16 April 29 BCE / 27 BCE / 27 BCE / 26 BCE | `rm-958` |
+| Seneca the Younger: born / exiled / died | c. 4 BCE / 41 – 49 CE / 65 CE | `rm-959` |
+| Musonius Rufus: exiled / returned | 65 CE / 68 CE | `rm-960` |
+| Lucan's Civil War: writing ended with his death | 65 CE | `rm-961` |
+| Martial: born / in Rome / dead by (Ker) | c. 38 – 41 CE / c. 63 – 100 CE / 104 CE | `rm-963` |
+| Juvenal: Book 1 / Satire 15 | c. 100 – 110 CE / c. 127 CE | `rm-964` |
+| the Institutio Oratoria published (Gwynn) | c. 93 – 95 CE | `rm-965` |
+| Tacitus: born / consul / governor of Asia (Livius) | c. 55 CE / 97 CE / 113 CE | `rm-966` |
+| the Lives of the Caesars published (Rolfe) | 120 CE | `rm-967` |
+| the Cancelleria Reliefs carved / also dated (Freyberger) / found | 81 – 96 CE / c. 90 CE / 1937 – 1939 | `rm-974` |
+| the Farnese Hercules: the Greek type / the copy carved / the Farnese dig began / the legs replaced | c. 400 – 300 BCE / c. 200 – 300 CE / 1545 / 1787 | `rm-975` |
+| the House of the Vettii: buried / excavated / also dated / reopened | 79 CE / 1894 – 1895 / 1894 – 1896 / 2023 | `rm-976` |
+| the Maison Carrée: one dating (Livius) / the inscription read / Jefferson's Capitol design | 20 BCE / 1758 / 1785 | `rm-979` |
+| the Composite order codified (Serlio's fourth book) | 1537 | `rm-983` |
+| the Arch of Septimius Severus dedicated | 203 CE | `rm-986` |
+| the Column of Antoninus Pius: shaft quarried / dedicated / base found | 106 CE / c. 161 CE / 1703 | `rm-987` |
+| the Pont du Gard: built (the 1984–90 research) / World Heritage | c. 40 – 80 CE / 1985 | `rm-989` |
+| Frontinus: urban praetor / water commissioner / died / also dated | 70 CE / 97 CE / 103 CE / 104 CE | `rm-990` |
+| the Milliarium Aureum set up (Dio) | 20 BCE | `rm-991` |
+| the Via Domitiana completed | 95 CE | `rm-992` |
+| the fabri tignarii at Ostia: their hall built / the member list | c. 120 CE / 198 CE | `rm-997` |
+| the Barbegal mills built (the aqueduct diverted to them) | c. 120 – 130 CE | `rm-998` |
+| Portus Julius built | 37 BCE | `rm-999` |
+| the Four Books of Architecture: published / the first English edition | 1570 / 1715 – 1720 | `rm-1000` |
 
 ## Late Antiquity
 
@@ -886,6 +953,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Circus of Maxentius built (Maxentius's reign) | c. 306 – 312 CE | `rm-877` |
 | the Baths of Diocletian: ordered / dedicated / made a church | 298 CE / 305 – 306 CE / 1563 – 1566 | `rm-884` |
 | the pontifex maximus: renounced by the emperor / also dated | 376 CE / 375 CE | `rm-896` |
+| the Lupercalia abolished at Rome under Gelasius (Fowler's year) | 494 CE | `rm-918` |
+| Ammianus Marcellinus: born / last attested | c. 330 CE / 391 CE | `rm-969` |
+| Poggio Bracciolini: born / Cicero's speeches found / Lucretius found / died | 1380 / 1415 / 1417 / 1459 | `rm-970` |
+| the Villa Romana del Casale: main phase / later phase / also dated (a review) / excavated | c. 320 – 330 CE / c. 370 – 395 CE / c. 370 – 380 CE / 1950 – 1954 | `rm-978` |
 
 ## Chronology pins
 
@@ -1663,4 +1734,72 @@ rm-896: 254; 12; 376; 375
 rm-897: 300; 81
 rm-898: 300
 rm-900: 44
+rm-903: 21; 304
+rm-907: 509
+rm-912: 497; 498; 42
+rm-917: 497; 217
+rm-918: 44; 494
+rm-921: 291; 292
+rm-922: 204; 191
+rm-923: 80
+rm-924: 90
+rm-928: 240; 256; 1932
+rm-929: 249; 250
+rm-931: 70; 14; 83; 17
+rm-932: 400; 150
+rm-933: 240; 207
+rm-934: 239; 169
+rm-936: 200; 191; 184
+rm-937: 166; 160; 159
+rm-939: 180; 148; 103; 101
+rm-940: 216
+rm-941: 44; 43
+rm-942: 68; 44; 1345
+rm-943: 44
+rm-944: 86; 82
+rm-945: 54; 1417
+rm-946: 84; 54
+rm-948: 86; 46; 35; 34
+rm-949: 70; 19
+rm-950: 29; 19
+rm-951: 37; 30
+rm-952: 65; 17; 8
+rm-953: 43; 8; 17; 18
+rm-954: 8
+rm-955: 9; 13
+rm-956: 59; 17
+rm-957: 50; 16
+rm-958: 29; 27; 26
+rm-959: 4; 41; 49; 65
+rm-960: 65; 68
+rm-961: 65
+rm-963: 38; 41; 63; 100; 104
+rm-964: 100; 110; 127
+rm-965: 93; 95
+rm-966: 55; 97; 113
+rm-967: 120
+rm-969: 330; 391
+rm-970: 1380; 1415; 1417; 1459
+rm-971: 40; 30; 1838
+rm-972: 400; 200; 125; 75; 1564
+rm-974: 81; 96; 90; 1937; 1939
+rm-975: 400; 300; 200; 1545; 1787
+rm-976: 79; 1894; 1895; 1896; 2023
+rm-977: 200; 90; 80; 50; 79; 1882
+rm-978: 320; 330; 370; 395; 380; 1950; 1954
+rm-979: 20; 1758; 1785
+rm-983: 1537
+rm-984: 179; 55; 34; 14
+rm-986: 203
+rm-987: 106; 161; 1703
+rm-988: 144; 140; 79
+rm-989: 40; 80; 1985
+rm-990: 70; 97; 103; 104
+rm-991: 20
+rm-992: 95
+rm-993: 62; 21
+rm-997: 120; 198
+rm-998: 120; 130
+rm-999: 37
+rm-1000: 1570; 1715; 1720
 ```
