@@ -487,6 +487,24 @@ failures and timeouts all run), `history.army.mil`, `apjjf.org` (Japan Focus), `
 image-only or vertical-Japanese J-STAGE PDFs. Wikimedia's API again answered 429; `Special:FilePath` HEADs
 confirmed every picture.
 
+**WHAT `ww2-501`–`ww2-600` LEARNED ABOUT HOSTS (Nov 2026).** The Atlantic, Burma, India and the
+Mediterranean run on **archive.org full texts** of the British official histories — Roskill's *War at Sea*
+(HyperWar has only parts of vols 1–2 and 404s on vol. 3), Kirby's *War Against Japan* II–IV, Playfair III–V
+(HyperWar's III and IV are empty shells), Hinsley I, Behrens, Medlicott, Hammond's *Food*, Crew's medical
+history, the Indian official histories — and Morison; the US Army Green Books (Howe, Garland and Smyth,
+Blumenson, Fisher) on **HyperWar over http**, where the NSA's signals-intelligence studies also sit under
+`ETO/Ultra/`; **London Gazette** despatches (Alexander, Auchinleck, Giffard, Leese, Tovey, Wavell — issue by
+issue `/page/N/data.pdf` or `/supplement/N/data.pdf`, try both); the **Famine Inquiry Commission** reports and
+the *Indian Annual Register* on archive.org; the AWM's official-history chapters (step through
+`C14171xx` collection numbers — its site search is JavaScript-only); **Treccani** and the **Atlante delle
+stragi naziste e fasciste** (`straginazifasciste.it/?page_id=363&asn_campo=episodi&asn_ricerca=<term>`) for
+Italy; Store norske leksikon for Norway; the UNWCC *Law Reports* through `tile.loc.gov`. **Closed this time:**
+canada.ca (refused) and the DHH site (bad certificate), so the Canadian naval official history could not be
+read; `tnm.journals.yorku.ca` (Cloudflare), nsa.gov, maritime.dot.gov, CWGC, the ADB, Densho, apjjf.org and
+officialgazette.gov.ph (403); Wiley and Brill (paywalls); `singaporewarcrimestrials.com` is now a
+maintenance or squatted page and must not be cited. Wikimedia's API answered 429 throughout again;
+category pages, `action=raw`, MediaSearch and `Special:FilePath` worked.
+
 ## Living beside the other collections
 
 **World History is the survey and never waits for this collection.** The war gets 30 cards there
@@ -1100,49 +1118,49 @@ definitions, which exist precisely because the wording matters.
     ww2-498  The collapse of Japanese war production  → written as *Ministry of Munitions*
     ww2-499  Japanese wartime propaganda  → written as *Imperial General Headquarters Announcement*
     ww2-500  Korea and Taiwan in the Japanese war effort  → written as *Kominka movement*
-    ww2-501  Forced labour in the Japanese empire
-    ww2-502  The blockade of Japan
+    ww2-501  Forced labour in the Japanese empire  → written as *Rōmusha*
+    ww2-502  The blockade of Japan  → written as *Operation Starvation*
     ww2-503  Operation Downfall
-    ww2-504  The Japanese peace feelers of 1945
+    ww2-504  The Japanese peace feelers of 1945  → written as *Per Jacobsson*
     ww2-505  Potsdam Declaration
-    ww2-506  The Pacific war and the American public
-    ww2-507  Race and the Pacific war
+    ww2-506  The Pacific war and the American public  → written as *Europe first*
+    ww2-507  Race and the Pacific war  → written as *Hakkō ichiu*
     ww2-508  Internment of Japanese Americans
     ww2-509  442nd Infantry Regiment
-    ww2-510  The Pacific theatre in the balance of the war
+    ww2-510  The Pacific theatre in the balance of the war  → written as *Ernest King*
 
 ### Burma, India and Southeast Asia — `ww2-burma`
 
     ww2-511  Burma campaign
-    ww2-512  The Allied retreat from Burma
-    ww2-513  The conditions of the Burma theatre
+    ww2-512  The Allied retreat from Burma  → written as *Burma Corps*
+    ww2-513  The conditions of the Burma theatre  → written as *Mepacrine*
     ww2-514  Chindits
     ww2-515  Orde Wingate
-    ww2-516  The Arakan campaigns
+    ww2-516  The Arakan campaigns  → written as *Battle of the Admin Box*
     ww2-517  Battle of Imphal
     ww2-518  Battle of Kohima
     ww2-519  William Slim
-    ww2-520  The reconquest of Burma
-    ww2-521  British Indian Army in the Second World War
-    ww2-522  India's war effort
-    ww2-523  The Indian home front
+    ww2-520  The reconquest of Burma  → written as *Battle of Meiktila and Mandalay*
+    ww2-521  British Indian Army in the Second World War  → written as *British Indian Army*
+    ww2-522  India's war effort  → written as *Eastern Group Supply Council*
+    ww2-523  The Indian home front  → written as *Bombing of Calcutta*
     ww2-524  Bengal famine of 1943
-    ww2-525  The causes of the Bengal famine
+    ww2-525  The causes of the Bengal famine  → written as *Famine Inquiry Commission*
     ww2-526  Quit India Movement
     ww2-527  Subhas Chandra Bose
     ww2-528  Indian National Army
-    ww2-529  The INA trials
-    ww2-530  Burma under Japanese occupation
+    ww2-529  The INA trials  → written as *INA trials*
+    ww2-530  Burma under Japanese occupation  → written as *State of Burma*
     ww2-531  Aung San
-    ww2-532  Thailand in the Second World War
-    ww2-533  French Indochina under Japanese occupation
-    ww2-534  Vietnamese famine of 1945
+    ww2-532  Thailand in the Second World War  → written as *Free Thai Movement*
+    ww2-533  French Indochina under Japanese occupation  → written as *Japanese coup d'état in French Indochina*
+    ww2-534  Vietnamese famine of 1945  → written as *Vietnamese famine of 1944–1945*
     ww2-535  Việt Minh
-    ww2-536  The Dutch East Indies under Japanese occupation
-    ww2-537  The Philippines under Japanese occupation
-    ww2-538  Malaya and Singapore under occupation
+    ww2-536  The Dutch East Indies under Japanese occupation  → written as *Defenders of the Homeland*
+    ww2-537  The Philippines under Japanese occupation  → written as *Second Philippine Republic*
+    ww2-538  Malaya and Singapore under occupation  → written as *Malayan Peoples' Anti-Japanese Army*
     ww2-539  Sook Ching
-    ww2-540  The war and the end of empire in Asia
+    ww2-540  The war and the end of empire in Asia  → written as *Proclamation of Indonesian Independence*
 
 ## The Western Allies at War
 
@@ -1155,27 +1173,27 @@ definitions, which exist precisely because the wording matters.
     ww2-545  Wolfpack
     ww2-546  First Happy Time
     ww2-547  The mid-Atlantic gap
-    ww2-548  Escort carriers and very long range aircraft
+    ww2-548  Escort carriers and very long range aircraft  → written as *escort carrier*
     ww2-549  Anti-submarine warfare
     ww2-550  ASDIC
     ww2-551  High-frequency direction finding
-    ww2-552  Enigma and the U-boat war
-    ww2-553  The convoy battles of early 1943
+    ww2-552  Enigma and the U-boat war  → written as *Hut 8*
+    ww2-553  The convoy battles of early 1943  → written as *Convoys HX 229 and SC 122*
     ww2-554  Black May
-    ww2-555  The defeat of the U-boats
-    ww2-556  The merchant navies
+    ww2-555  The defeat of the U-boats  → written as *Type XXI submarine*
+    ww2-556  The merchant navies  → written as *Nortraship*
     ww2-557  Liberty ship
-    ww2-558  American wartime shipbuilding
-    ww2-559  German surface raiders
-    ww2-560  The sinking of the Bismarck
+    ww2-558  American wartime shipbuilding  → written as *Emergency Shipbuilding Program*
+    ww2-559  German surface raiders  → written as *Auxiliary cruiser*
+    ww2-560  The sinking of the Bismarck  → written as *Operation Rheinübung*
     ww2-561  Channel Dash
     ww2-562  Convoy PQ 17
-    ww2-563  The Royal Canadian Navy in the Atlantic
-    ww2-564  The Atlantic and Allied strategy
-    ww2-565  The Atlantic and the British food supply
-    ww2-566  Casualties of the Atlantic campaign
-    ww2-567  Neutral shipping and the war at sea
-    ww2-568  Why the Allies won the Atlantic
+    ww2-563  The Royal Canadian Navy in the Atlantic  → written as *Newfoundland Escort Force*
+    ww2-564  The Atlantic and Allied strategy  → written as *Plan Dog memo*
+    ww2-565  The Atlantic and the British food supply  → written as *National Loaf*
+    ww2-566  Casualties of the Atlantic campaign  → written as *Laconia incident*
+    ww2-567  Neutral shipping and the war at sea  → written as *navicert*
+    ww2-568  Why the Allies won the Atlantic  → written as *tonnage war*
 
 ### North Africa and Italy — `ww2-north-africa`
 
@@ -1185,32 +1203,32 @@ definitions, which exist precisely because the wording matters.
     ww2-572  Siege of Tobruk
     ww2-573  Operation Crusader
     ww2-574  Battle of Gazala
-    ww2-575  The fall of Tobruk
+    ww2-575  The fall of Tobruk  → written as *Axis capture of Tobruk*
     ww2-576  First Battle of El Alamein
     ww2-577  Bernard Montgomery
     ww2-578  Second Battle of El Alamein
-    ww2-579  The conditions of the desert war
+    ww2-579  The conditions of the desert war  → written as *khamsin*
     ww2-580  Operation Torch
-    ww2-581  The Darlan deal
+    ww2-581  The Darlan deal  → written as *Darlan deal*
     ww2-582  Tunisian campaign
     ww2-583  Battle of Kasserine Pass
-    ww2-584  The Axis surrender in Tunisia
-    ww2-585  Allied invasion of Sicily
-    ww2-586  The fall of Mussolini
+    ww2-584  The Axis surrender in Tunisia  → written as *Operation Strike*
+    ww2-585  Allied invasion of Sicily  → written as *Operation Husky*
+    ww2-586  The fall of Mussolini  → written as *Grand Council of Fascism*
     ww2-587  Armistice of Cassibile
-    ww2-588  The German occupation of Italy
+    ww2-588  The German occupation of Italy  → written as *Operation Achse*
     ww2-589  Italian Social Republic
     ww2-590  Italian campaign
     ww2-591  Allied invasion of Italy
     ww2-592  Battle of Monte Cassino
-    ww2-593  The destruction of the abbey of Monte Cassino
+    ww2-593  The destruction of the abbey of Monte Cassino  → written as *Monte Cassino*
     ww2-594  Battle of Anzio
     ww2-595  The liberation of Rome
     ww2-596  Gothic Line
     ww2-597  Italian resistance movement
     ww2-598  The Italian civil war
-    ww2-599  German reprisals in Italy
-    ww2-600  The death of Mussolini
+    ww2-599  German reprisals in Italy  → written as *Marzabotto massacre*
+    ww2-600  The death of Mussolini  → written as *Death of Benito Mussolini*
     ww2-601  The surrender in Italy
     ww2-602  The Mediterranean strategy debate
     ww2-603  What the Italian campaign achieved

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T02:48Z",
+ "generated": "2026-11-07T02:55Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5714,
-  "redirect-broader": 537,
-  "redirect-variant": 348,
-  "section-redirect": 113,
+  "ok": 5805,
+  "redirect-broader": 539,
+  "redirect-variant": 352,
+  "section-redirect": 115,
   "disambiguation": 143,
-  "none": 983,
+  "none": 984,
   "disambig-resolved": 82,
   "list-page": 6,
   "search-match": 7,
@@ -64220,6 +64220,731 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Unreasonable effectiveness of mathematics"
+  },
+  "ww2-541": {
+   "answer": "Battle of the Atlantic",
+   "title": "Battle of the Atlantic",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Atlantic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-542": {
+   "answer": "convoy system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Convoy battles of World War II",
+    "List of Allied convoys during World War II by region",
+    "Arctic convoys of World War II",
+    "Convoy HX 156",
+    "World War II"
+   ]
+  },
+  "ww2-543": {
+   "answer": "U-boat",
+   "title": "U-boat",
+   "url": "https://en.wikipedia.org/wiki/U-boat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-544": {
+   "answer": "Karl Dönitz",
+   "title": "Karl Dönitz",
+   "url": "https://en.wikipedia.org/wiki/Karl_D%C3%B6nitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-545": {
+   "answer": "wolfpack",
+   "title": "Wolfpack (naval tactic)",
+   "url": "https://en.wikipedia.org/wiki/Wolfpack_(naval_tactic)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-546": {
+   "answer": "First Happy Time",
+   "title": "First Happy Time",
+   "url": "https://en.wikipedia.org/wiki/First_Happy_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-547": {
+   "answer": "mid-Atlantic gap",
+   "title": "Mid-Atlantic gap",
+   "url": "https://en.wikipedia.org/wiki/Mid-Atlantic_gap",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-548": {
+   "answer": "escort carrier",
+   "title": "Escort carrier",
+   "url": "https://en.wikipedia.org/wiki/Escort_carrier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-549": {
+   "answer": "anti-submarine warfare",
+   "title": "Anti-submarine warfare",
+   "url": "https://en.wikipedia.org/wiki/Anti-submarine_warfare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-550": {
+   "answer": "ASDIC",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "ASDIC",
+   "target": "Sonar#ASDIC"
+  },
+  "ww2-581": {
+   "answer": "Darlan deal",
+   "title": "Clark-Darlan Accords",
+   "url": "https://en.wikipedia.org/wiki/Clark-Darlan_Accords",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Darlan deal"
+  },
+  "ww2-582": {
+   "answer": "Tunisian campaign",
+   "title": "Tunisian campaign",
+   "url": "https://en.wikipedia.org/wiki/Tunisian_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-583": {
+   "answer": "Battle of Kasserine Pass",
+   "title": "Battle of Kasserine Pass",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kasserine_Pass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-584": {
+   "answer": "Operation Strike",
+   "title": "Operation Strike",
+   "url": "https://en.wikipedia.org/wiki/Operation_Strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-585": {
+   "answer": "Operation Husky",
+   "title": "Allied invasion of Sicily",
+   "url": "https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Operation Husky"
+  },
+  "ww2-586": {
+   "answer": "Grand Council of Fascism",
+   "title": "Grand Council of Fascism",
+   "url": "https://en.wikipedia.org/wiki/Grand_Council_of_Fascism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-587": {
+   "answer": "Armistice of Cassibile",
+   "title": "Armistice of Cassibile",
+   "url": "https://en.wikipedia.org/wiki/Armistice_of_Cassibile",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-588": {
+   "answer": "Operation Achse",
+   "title": "Operation Achse",
+   "url": "https://en.wikipedia.org/wiki/Operation_Achse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-589": {
+   "answer": "Italian Social Republic",
+   "title": "Italian Social Republic",
+   "url": "https://en.wikipedia.org/wiki/Italian_Social_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-590": {
+   "answer": "Italian campaign",
+   "title": "Italian campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Italian_campaign_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-551": {
+   "answer": "High-frequency direction finding",
+   "title": "High-frequency direction finding",
+   "url": "https://en.wikipedia.org/wiki/High-frequency_direction_finding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-552": {
+   "answer": "Hut 8",
+   "title": "Hut 8",
+   "url": "https://en.wikipedia.org/wiki/Hut_8",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-553": {
+   "answer": "Convoys HX 229 and SC 122",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "HX convoys",
+    "Convoys HX 229/SC 122",
+    "Black May (World War II)",
+    "Convoys HX 229/SC 122 order of battle",
+    "Convoy HX 79"
+   ]
+  },
+  "ww2-554": {
+   "answer": "Black May",
+   "title": "Black May (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Black_May_(World_War_II)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Black May (1943)"
+  },
+  "ww2-555": {
+   "answer": "Type XXI submarine",
+   "title": "Type XXI submarine",
+   "url": "https://en.wikipedia.org/wiki/Type_XXI_submarine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-556": {
+   "answer": "Nortraship",
+   "title": "Nortraship",
+   "url": "https://en.wikipedia.org/wiki/Nortraship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-557": {
+   "answer": "Liberty ship",
+   "title": "Liberty ship",
+   "url": "https://en.wikipedia.org/wiki/Liberty_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-558": {
+   "answer": "Emergency Shipbuilding Program",
+   "title": "Emergency Shipbuilding Program",
+   "url": "https://en.wikipedia.org/wiki/Emergency_Shipbuilding_Program",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-559": {
+   "answer": "Auxiliary cruiser",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Auxiliary cruiser",
+   "target": "Armed merchantman#Auxiliary cruisers"
+  },
+  "ww2-560": {
+   "answer": "Operation Rheinübung",
+   "title": "Operation Rheinübung",
+   "url": "https://en.wikipedia.org/wiki/Operation_Rhein%C3%BCbung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-511": {
+   "answer": "Burma campaign",
+   "title": "Burma campaign",
+   "url": "https://en.wikipedia.org/wiki/Burma_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-512": {
+   "answer": "Burma Corps",
+   "title": "Burma Corps",
+   "url": "https://en.wikipedia.org/wiki/Burma_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-513": {
+   "answer": "Mepacrine",
+   "title": "Mepacrine",
+   "url": "https://en.wikipedia.org/wiki/Mepacrine",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-514": {
+   "answer": "Chindits",
+   "title": "Chindits",
+   "url": "https://en.wikipedia.org/wiki/Chindits",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-515": {
+   "answer": "Orde Wingate",
+   "title": "Orde Wingate",
+   "url": "https://en.wikipedia.org/wiki/Orde_Wingate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-516": {
+   "answer": "Battle of the Admin Box",
+   "title": "Battle of the Admin Box",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Admin_Box",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-517": {
+   "answer": "Battle of Imphal",
+   "title": "Battle of Imphal",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Imphal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-518": {
+   "answer": "Battle of Kohima",
+   "title": "Battle of Kohima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kohima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-519": {
+   "answer": "William Slim",
+   "title": "William Slim, 1st Viscount Slim",
+   "url": "https://en.wikipedia.org/wiki/William_Slim,_1st_Viscount_Slim",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-520": {
+   "answer": "Battle of Meiktila and Mandalay",
+   "title": "Battle of Meiktila and Mandalay",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Meiktila_and_Mandalay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-571": {
+   "answer": "Erwin Rommel",
+   "title": "Erwin Rommel",
+   "url": "https://en.wikipedia.org/wiki/Erwin_Rommel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-572": {
+   "answer": "Siege of Tobruk",
+   "title": "Siege of Tobruk",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Tobruk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-573": {
+   "answer": "Operation Crusader",
+   "title": "Operation Crusader",
+   "url": "https://en.wikipedia.org/wiki/Operation_Crusader",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-574": {
+   "answer": "Battle of Gazala",
+   "title": "Battle of Gazala",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gazala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-575": {
+   "answer": "Axis capture of Tobruk",
+   "title": "Axis capture of Tobruk",
+   "url": "https://en.wikipedia.org/wiki/Axis_capture_of_Tobruk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-576": {
+   "answer": "First Battle of El Alamein",
+   "title": "First Battle of El Alamein",
+   "url": "https://en.wikipedia.org/wiki/First_Battle_of_El_Alamein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-577": {
+   "answer": "Bernard Montgomery",
+   "title": "Bernard Montgomery",
+   "url": "https://en.wikipedia.org/wiki/Bernard_Montgomery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-578": {
+   "answer": "Second Battle of El Alamein",
+   "title": "Second Battle of El Alamein",
+   "url": "https://en.wikipedia.org/wiki/Second_Battle_of_El_Alamein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-579": {
+   "answer": "khamsin",
+   "title": "Khamsin",
+   "url": "https://en.wikipedia.org/wiki/Khamsin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-580": {
+   "answer": "Operation Torch",
+   "title": "Operation Torch",
+   "url": "https://en.wikipedia.org/wiki/Operation_Torch",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-521": {
+   "answer": "British Indian Army",
+   "title": "British Indian Army",
+   "url": "https://en.wikipedia.org/wiki/British_Indian_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-522": {
+   "answer": "Eastern Group Supply Council",
+   "title": "Eastern Group Supply Council",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Group_Supply_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-523": {
+   "answer": "Bombing of Calcutta",
+   "title": "Bombing of Calcutta",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Calcutta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-524": {
+   "answer": "Bengal famine of 1943",
+   "title": "Bengal famine of 1943",
+   "url": "https://en.wikipedia.org/wiki/Bengal_famine_of_1943",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-525": {
+   "answer": "Famine Inquiry Commission",
+   "title": "Famine Inquiry Commission",
+   "url": "https://en.wikipedia.org/wiki/Famine_Inquiry_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-526": {
+   "answer": "Quit India Movement",
+   "title": "Quit India Movement",
+   "url": "https://en.wikipedia.org/wiki/Quit_India_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-527": {
+   "answer": "Subhas Chandra Bose",
+   "title": "Subhas Chandra Bose",
+   "url": "https://en.wikipedia.org/wiki/Subhas_Chandra_Bose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-528": {
+   "answer": "Indian National Army",
+   "title": "Indian National Army",
+   "url": "https://en.wikipedia.org/wiki/Indian_National_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-529": {
+   "answer": "INA trials",
+   "title": "Indian National Army trials",
+   "url": "https://en.wikipedia.org/wiki/Indian_National_Army_trials",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "INA trials"
+  },
+  "ww2-530": {
+   "answer": "State of Burma",
+   "title": "State of Burma",
+   "url": "https://en.wikipedia.org/wiki/State_of_Burma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-531": {
+   "answer": "Aung San",
+   "title": "Aung San",
+   "url": "https://en.wikipedia.org/wiki/Aung_San",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-532": {
+   "answer": "Free Thai Movement",
+   "title": "Free Thai Movement",
+   "url": "https://en.wikipedia.org/wiki/Free_Thai_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-533": {
+   "answer": "Japanese coup d'état in French Indochina",
+   "title": "Japanese coup d'état in French Indochina",
+   "url": "https://en.wikipedia.org/wiki/Japanese_coup_d'%C3%A9tat_in_French_Indochina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-534": {
+   "answer": "Vietnamese famine of 1944–1945",
+   "title": "Vietnamese famine of 1944–1945",
+   "url": "https://en.wikipedia.org/wiki/Vietnamese_famine_of_1944%E2%80%931945",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-535": {
+   "answer": "Việt Minh",
+   "title": "Viet Minh",
+   "url": "https://en.wikipedia.org/wiki/Viet_Minh",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Việt Minh"
+  },
+  "ww2-536": {
+   "answer": "Defenders of the Homeland",
+   "title": "Defenders of the Homeland",
+   "url": "https://en.wikipedia.org/wiki/Defenders_of_the_Homeland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-537": {
+   "answer": "Second Philippine Republic",
+   "title": "Second Philippine Republic",
+   "url": "https://en.wikipedia.org/wiki/Second_Philippine_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-538": {
+   "answer": "Malayan Peoples' Anti-Japanese Army",
+   "title": "Malayan Peoples' Anti-Japanese Army",
+   "url": "https://en.wikipedia.org/wiki/Malayan_Peoples'_Anti-Japanese_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-539": {
+   "answer": "Sook Ching",
+   "title": "Sook Ching",
+   "url": "https://en.wikipedia.org/wiki/Sook_Ching",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-540": {
+   "answer": "Proclamation of Indonesian Independence",
+   "title": "Proclamation of Indonesian Independence",
+   "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-591": {
+   "answer": "Allied invasion of Italy",
+   "title": "Allied invasion of Italy",
+   "url": "https://en.wikipedia.org/wiki/Allied_invasion_of_Italy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-592": {
+   "answer": "Battle of Monte Cassino",
+   "title": "Battle of Monte Cassino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Monte_Cassino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-593": {
+   "answer": "Monte Cassino",
+   "title": "Monte Cassino",
+   "url": "https://en.wikipedia.org/wiki/Monte_Cassino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-594": {
+   "answer": "Battle of Anzio",
+   "title": "Battle of Anzio",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Anzio",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-595": {
+   "answer": "Liberation of Rome",
+   "title": "Liberation of Rome",
+   "url": "https://en.wikipedia.org/wiki/Liberation_of_Rome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-596": {
+   "answer": "Gothic Line",
+   "title": "Gothic Line",
+   "url": "https://en.wikipedia.org/wiki/Gothic_Line",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-597": {
+   "answer": "Italian resistance movement",
+   "title": "Italian resistance movement",
+   "url": "https://en.wikipedia.org/wiki/Italian_resistance_movement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-598": {
+   "answer": "Italian Civil War",
+   "title": "Italian Civil War",
+   "url": "https://en.wikipedia.org/wiki/Italian_Civil_War",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-599": {
+   "answer": "Marzabotto massacre",
+   "title": "Marzabotto massacre",
+   "url": "https://en.wikipedia.org/wiki/Marzabotto_massacre",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-600": {
+   "answer": "Death of Benito Mussolini",
+   "title": "Death of Benito Mussolini",
+   "url": "https://en.wikipedia.org/wiki/Death_of_Benito_Mussolini",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-501": {
+   "answer": "Rōmusha",
+   "title": "Rōmusha",
+   "url": "https://en.wikipedia.org/wiki/R%C5%8Dmusha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-502": {
+   "answer": "Operation Starvation",
+   "title": "Operation Starvation",
+   "url": "https://en.wikipedia.org/wiki/Operation_Starvation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-503": {
+   "answer": "Operation Downfall",
+   "title": "Operation Downfall",
+   "url": "https://en.wikipedia.org/wiki/Operation_Downfall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-504": {
+   "answer": "Per Jacobsson",
+   "title": "Per Jacobsson",
+   "url": "https://en.wikipedia.org/wiki/Per_Jacobsson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-505": {
+   "answer": "Potsdam Declaration",
+   "title": "Potsdam Declaration",
+   "url": "https://en.wikipedia.org/wiki/Potsdam_Declaration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-506": {
+   "answer": "Europe first",
+   "title": "Europe first",
+   "url": "https://en.wikipedia.org/wiki/Europe_first",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-507": {
+   "answer": "Hakkō ichiu",
+   "title": "Hakkō ichiu",
+   "url": "https://en.wikipedia.org/wiki/Hakk%C5%8D_ichiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-508": {
+   "answer": "internment of Japanese Americans",
+   "title": "Internment of Japanese Americans",
+   "url": "https://en.wikipedia.org/wiki/Internment_of_Japanese_Americans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-509": {
+   "answer": "442nd Infantry Regiment",
+   "title": "442nd Infantry Regiment",
+   "url": "https://en.wikipedia.org/wiki/442nd_Infantry_Regiment",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "442nd Infantry Regiment (United States)"
+  },
+  "ww2-510": {
+   "answer": "Ernest King",
+   "title": "Ernest J. King",
+   "url": "https://en.wikipedia.org/wiki/Ernest_J._King",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Ernest King"
+  },
+  "ww2-561": {
+   "answer": "Channel Dash",
+   "title": "Channel Dash",
+   "url": "https://en.wikipedia.org/wiki/Channel_Dash",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-562": {
+   "answer": "Convoy PQ 17",
+   "title": "Convoy PQ 17",
+   "url": "https://en.wikipedia.org/wiki/Convoy_PQ_17",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-563": {
+   "answer": "Newfoundland Escort Force",
+   "title": "Newfoundland Escort Force",
+   "url": "https://en.wikipedia.org/wiki/Newfoundland_Escort_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-564": {
+   "answer": "Plan Dog memo",
+   "title": "Plan Dog memo",
+   "url": "https://en.wikipedia.org/wiki/Plan_Dog_memo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-565": {
+   "answer": "National Loaf",
+   "title": "National Loaf",
+   "url": "https://en.wikipedia.org/wiki/National_Loaf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-566": {
+   "answer": "Laconia incident",
+   "title": "Laconia incident",
+   "url": "https://en.wikipedia.org/wiki/Laconia_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-567": {
+   "answer": "navicert",
+   "title": "Navicert",
+   "url": "https://en.wikipedia.org/wiki/Navicert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-568": {
+   "answer": "tonnage war",
+   "title": "Tonnage war",
+   "url": "https://en.wikipedia.org/wiki/Tonnage_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-569": {
+   "answer": "North African campaign",
+   "title": "North African campaign",
+   "url": "https://en.wikipedia.org/wiki/North_African_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-570": {
+   "answer": "Afrika Korps",
+   "title": "Afrika Korps",
+   "url": "https://en.wikipedia.org/wiki/Afrika_Korps",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
