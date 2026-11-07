@@ -822,6 +822,12 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Cornelius Gallus: the Philae stele / prefect renewed / died / Dio's year | 16 April 29 BCE / 27 BCE / 27 BCE / 26 BCE | `rm-958` |
 | Seneca the Younger: born / exiled / died | c. 4 BCE / 41 – 49 CE / 65 CE | `rm-959` |
 | Musonius Rufus: exiled / returned | 65 CE / 68 CE | `rm-960` |
+| Lucan's Civil War: writing ended with his death | 65 CE | `rm-961` |
+| Martial: born / in Rome / dead by (Ker) | c. 38 – 41 CE / c. 63 – 100 CE / 104 CE | `rm-963` |
+| Juvenal: Book 1 / Satire 15 | c. 100 – 110 CE / c. 127 CE | `rm-964` |
+| the Institutio Oratoria published (Gwynn) | c. 93 – 95 CE | `rm-965` |
+| Tacitus: born / consul / governor of Asia (Livius) | c. 55 CE / 97 CE / 113 CE | `rm-966` |
+| the Lives of the Caesars published (Rolfe) | 120 CE | `rm-967` |
 
 ## Late Antiquity
 
@@ -927,6 +933,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Baths of Diocletian: ordered / dedicated / made a church | 298 CE / 305 – 306 CE / 1563 – 1566 | `rm-884` |
 | the pontifex maximus: renounced by the emperor / also dated | 376 CE / 375 CE | `rm-896` |
 | the Lupercalia abolished at Rome under Gelasius (Fowler's year) | 494 CE | `rm-918` |
+| Ammianus Marcellinus: born / last attested | c. 330 CE / 391 CE | `rm-969` |
+| Poggio Bracciolini: born / Cicero's speeches found / Lucretius found / died | 1380 / 1415 / 1417 / 1459 | `rm-970` |
 
 ## Chronology pins
 
@@ -1742,4 +1750,12 @@ rm-957: 50; 16
 rm-958: 29; 27; 26
 rm-959: 4; 41; 49; 65
 rm-960: 65; 68
+rm-961: 65
+rm-963: 38; 41; 63; 100; 104
+rm-964: 100; 110; 127
+rm-965: 93; 95
+rm-966: 55; 97; 113
+rm-967: 120
+rm-969: 330; 391
+rm-970: 1380; 1415; 1417; 1459
 ```

@@ -228,7 +228,7 @@ order unless the user says otherwise.
 | B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | **done 2026-11-07** |
 | B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | **done 2026-11-07** |
 | B96 | Latin literature and thought (`rm-literature`) | `rm-951`–`rm-960` | 10 | 83 | **done 2026-11-07** |
-| B97 | Latin literature and thought (`rm-literature`) | `rm-961`–`rm-970` | 10 | 67 | open |
+| B97 | Latin literature and thought (`rm-literature`) | `rm-961`–`rm-970` | 10 | 67 | **done 2026-11-07** |
 | B98 | Art, architecture and engineering (`rm-arts`) | `rm-971`–`rm-980` | 10 | 86 | open |
 | B99 | Art, architecture and engineering (`rm-arts`) | `rm-981`–`rm-990` | 10 | 71 | open |
 | B100 | Art, architecture and engineering (`rm-arts`) | `rm-991`–`rm-1000` | 10 | 76 | open |
@@ -1230,6 +1230,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-958` Cornelius Gallus | none | not re-checked: the card has no picture; the glossary's Cleveland head is only perhaps Gallus; the Philae stele would do |
 | `rm-959` Seneca the Younger | none | not re-checked: the card has no picture |
 | `rm-960` Musonius Rufus | none | not re-checked: the card has no picture |
+| `rm-961` Pharsalia | none | not re-checked: the card has no picture |
+| `rm-962` Satyricon | none | not re-checked: the card has no picture |
+| `rm-963` Martial | none | not re-checked: the card has no picture; the glossary's gem engraving is an imagined likeness |
+| `rm-964` Juvenal | none | not re-checked: the card has no picture; the glossary's 1837 engraving is fictitious (its caption says so) |
+| `rm-965` Institutio Oratoria | none | not re-checked: the card has no picture |
+| `rm-966` Tacitus | none | not re-checked: the card has no picture; the glossary's engraving has his name printed under it |
+| `rm-967` Lives of the Caesars | none | not re-checked: the card has no picture |
+| `rm-968` Golden Ass | none | not re-checked: the card has no picture |
+| `rm-969` Ammianus Marcellinus | none | not re-checked: the card has no picture |
+| `rm-970` Poggio Bracciolini | none | not re-checked: the card has no picture; the glossary's portrait engraving would do |
 
 ## Glossary candidates
 
@@ -3433,3 +3443,22 @@ Run as B95. The Atella reading went to `rm-951` and the Lucrine lines to `rm-999
 | `rm-960` Musonius Rufus | 5 | 6 → 5 | **"65 CE" out of the question; the "before" rows go: Exiled 65 CE, Returned 68 CE; Piso's plot left to `rm-959`**; Gyaros under Nero; Vespasian's one spared philosopher and Epictetus; daughters taught philosophy. |
 
 **Read by eye.** *Confusability:* `rm-951`/`rm-952` the farming poem (Atella) and Horace (Maecenas); `rm-953`/`rm-954`/`rm-955` the poet (the consuls' year), the poem (Caesar's star) and the exile poems (the frozen sea); `rm-956` the historian (Patavinitas); `rm-957`/`rm-958` the elegist (Cynthia) and the first elegist (Philae); `rm-959`/`rm-960` Seneca (Paulina) and Musonius (Gyaros). *Legend:* the Lives' anecdotes and Ovid's account of himself are told as theirs. *Overlap:* no `gr-` or `wh-` card on these authors disagrees. Quote block: `rm-956`'s Suetonius spells Sulpicius "Flavus" where the card's Loeb has "Flavius" (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flag is an English BMCR review of a German book.
+
+### B97 — `rm-961`–`rm-970`, Latin literature and thought: the Pharsalia to Poggio (2026-11-07)
+
+Run as B96, closing `rm-literature`. Piso's plot stayed `rm-959`'s and Statius's Silvae `rm-970`'s (out of `rm-961`), Trimalchio went to `rm-962` (kept off `rm-925` and `rm-862`), Martial's epigrams to Juvenal were given to neither card, "panem et circenses" and "commands and consulships" stayed `rm-888`'s and Umbricius `rm-829`'s (out of `rm-964`), the five parts of rhetoric, declamation and Quintilian's groves stayed off `rm-965`, Tacitus at the Secular Games stayed `rm-895`'s and Pliny's Vesuvius letters `rm-477`'s (out of `rm-966`), Caesar's words to Brutus stayed `rm-369`'s (out of `rm-967`), "Metamorphoses" and Isis Campensis stayed off `rm-968`, and Poggio's finds went to `rm-970` alone (Quintilian, Vitruvius and Ammianus out of its questions). **The old date lines named men in labels ("Lucan died", "Petronius died", "Author lived"), dated texts by their authors' lives, gave the scope of a history ("History ends 378 CE") and a fallen city ("Amida falls") as dates, and named a place ("Cluny Cicero"); the old cards leaned on Jerome through tertullian.org (down) and put Quintilian's "reading for a lifetime" in the wrong book.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-961` Pharsalia | 6 | 8 → 8 | **"Lucan died 65 CE" becomes Writing ended 65 CE (the death in prose); the title explained: Suetonius's "Civil War", "Pharsalia" echoing 9.985, the title itself disputed; the missing gods, the "complete as it stands" view and Dante and Marlowe added**; Nero's jealous ban; Caesar at Troy; Cato's growing role. |
+| `rm-962` Satyricon | 7 | 8 → 8 | **"Petronius died 66 CE" goes (no source read dates the work; line empty); the author's identity with Tacitus's Petronius traditional, argued not proved; the 1669 Amsterdam edition (the first complete one) in prose**; Trimalchio's epitaph; the widow of Ephesus; Petronius's sealed list for Nero. |
+| `rm-963` Martial | 7 | 8 → 8 | **tertullian.org replaced by Ker's Loeb; "Book 7 issued 92 CE" becomes Born c. 38 – 41 CE, In Rome c. 63 – 100 CE, Dead by 104 CE (Ker), 92 CE in prose**; 34 summers and Bilbilis; Pliny's fare home; playful verse must be prurient. |
+| `rm-964` Juvenal | 7 | 7 → 7 | **Bread and games and the commands and consulships out of questions, abstract and whys (`rm-888`'s); Umbricius out (`rm-829`'s); the exile to Egypt the late Lives' and false; Book 1 c. 100 – 110 CE and Satire 15 c. 127 CE; Ramsay's Loeb replaces tertullian.org**; indignation; who will watch the warders; a sound mind in a sound body. |
+| `rm-965` Institutio Oratoria | 6 | 8 → 6 | **"Reading for a lifetime" was in book 1, not book 10 (the card's own review says so), and the glossary repeated it; book 10 from Gwynn; Published c. 93 – 95 CE (Gwynn); Jerome through Gwynn; a misread pyre passage dropped**; Cato's good man; the great-nephews and the grief of book 6; Calagurris and the salary. |
+| `rm-966` Tacitus | 8 | 8 → 8 | **The Vesuvius question goes (`rm-477`'s); Born c. 55 CE and Governor 113 CE added beside Consul 97 CE (Livius; the Mylasa record could not be opened); a dead page swapped for Livius.org**; Histories 1.1; Pliny's knight at the races; Annals 1.1. |
+| `rm-967` Lives of the Caesars | 7 | 8 → 8 | **"Author lived c. 69 – after 122 CE" becomes Published 120 CE (Rolfe's date, named in prose with his 119–121 CE prefecture of Septicius Clarus); the dismissal the Historia Augusta's; the Greek Kalends and Brutus questions go**; "by classes" and Einhard; the lost dedication; the Fulda copy. |
+| `rm-968` Golden Ass | 7 | 8 → 8 | **"Metamorphoses" gone from card and glossary (`rm-954`'s term); "Author lived" goes, the line empty (no source read dates the novel; Butler before the trial, Harrison the 170s or 180s); Butler's Apologia introduction added**; the witch's ointment; Augustine's landladies; the Greek ass tale. |
+| `rm-969` Ammianus Marcellinus | 6 | 8 → 7 | **"Amida falls" and "History ends" go: Born c. 330 CE, Last attested 391 CE; Antioch hedged (Barnes doubts it); Barnes's 36 books one argument; the work's date one study's view (Kelly); the Libanius letter's addressee disputed**; "a former soldier and a Greek"; the escape from Amida; Rome's libraries shut like tombs. |
+| `rm-970` Poggio Bracciolini | 6 | 7 → 7 | **"Cluny Cicero 1415" becomes Speeches found 1415; Born 1380, Lucretius found 1417, Died 1459 (Cast's open life); the Silvae range off the line; Vitruvius left out of his finds as the myth it is**; the Silvae at Saint Gall; Lucretius and Niccoli's copy; the new script. |
+
+**Read by eye.** *Confusability:* `rm-961`/`rm-962` the epic (Nero's ban) and the novel (Trimalchio); `rm-963`/`rm-964` the epigrammatist (Bilbilis) and the satirist (indignation); `rm-965`/`rm-966`/`rm-967` the rhetoric handbook (Cato's good man), the historian (Histories 1.1) and the biographies (by classes); `rm-968` the novel (the ointment); `rm-969`/`rm-970` the last historian (Amida) and the finder (Saint Gall). *Legend:* Juvenal's exile and the Satyricon's author are told as the late Lives' and the scholars' claims. *Overlap:* `rm-476` dates Martial's Spectacles 80 CE, as Ker does (not on this card's line); `rm-945` and `rm-970` both give 1417 for the Lucretius find. Quote block: `rm-967`'s (Augustus 87, the Greek Kalends) no longer matches anything on the card. Juvenal's glossary entry still cites tertullian.org (not redrafted: it agrees with the card). Every card lacks a picture (`I.none`).
