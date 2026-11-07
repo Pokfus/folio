@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5504 | the title is the article |
-| `redirect-variant` | 335 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 82 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 5545 | the title is the article |
+| `redirect-variant` | 339 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 81 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 521 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 522 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 109 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 142 | only a disambiguation page; no link could be chosen |
 | `none` | 982 | nothing matched; no link |
 
-**6456 of 7705 cards get a link.** The three "no link" rows are the honest state: a card whose
+**6501 of 7750 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (521)
+## Redirected to a differently named article — check each (522)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -347,6 +347,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-011` **nature and nurture** → [Nature versus nurture](https://en.wikipedia.org/wiki/Nature_versus_nurture) (from `Nature and nurture`)
 - `ps-024` **blank slate** → [Tabula rasa](https://en.wikipedia.org/wiki/Tabula_rasa) (from `Blank slate`)
 - `ps-037` **Gustav Theodor Fechner** → [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner) (from `Gustav Theodor Fechner`)
+- `ps-095` **existential psychology** → [Existential therapy](https://en.wikipedia.org/wiki/Existential_therapy) (from `Existential psychology`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -566,7 +567,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-466` **First Air Fleet** → [1st Air Fleet](https://en.wikipedia.org/wiki/1st_Air_Fleet) (from `First Air Fleet`)
 - `ww2-495` **Operation Meetinghouse** → [Bombing of Tokyo (10 March 1945)](https://en.wikipedia.org/wiki/Bombing_of_Tokyo_(10_March_1945)) (from `Operation Meetinghouse`)
 
-## Settled from a disambiguation page (82)
+## Settled from a disambiguation page (81)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -630,7 +631,6 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `pea-166` **Executive Council** → [Executive Council of Hong Kong](https://en.wikipedia.org/wiki/Executive_Council_of_Hong_Kong) (via the disambiguation page `Executive Council`)
 - `pea-203` **Referendum Act** → [Referendums in Taiwan](https://en.wikipedia.org/wiki/Referendums_in_Taiwan) (via the disambiguation page `Referendum Act`)
 - `ps-027` **nativism** → [Psychological nativism](https://en.wikipedia.org/wiki/Psychological_nativism) (via the disambiguation page `Nativism`)
-- `ps-055` **functionalism** → [Functionalism (philosophy of mind)](https://en.wikipedia.org/wiki/Functionalism_(philosophy_of_mind)) (via the disambiguation page `Functionalism`)
 - `rm-119` **legion** → [Roman legion](https://en.wikipedia.org/wiki/Roman_legion) (via the disambiguation page `Legion`)
 - `rm-144` **praefectura** → [Praefectura (Roman settlement)](https://en.wikipedia.org/wiki/Praefectura_(Roman_settlement)) (via the disambiguation page `Praefectura`)
 - `rm-434` **Pallas** → [Pallas (freedman)](https://en.wikipedia.org/wiki/Pallas_(freedman)) (via the disambiguation page `Pallas`)
