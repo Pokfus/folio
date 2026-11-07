@@ -472,7 +472,7 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-002  What astronomers study
     astro-003  Astronomy and astrophysics
     astro-004  Astronomy is an observational science
-    astro-005  The scale of the universe
+    astro-005  Scientific notation and the scale of the universe
     astro-006  The astronomical unit
     astro-007  The light-year
     astro-008  The parsec
@@ -480,7 +480,7 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-010  The night sky as a projection
     astro-011  Why the sky is dark at night
     astro-012  Light pollution
-    astro-013  Seeing and the atmosphere
+    astro-013  Twinkling and the atmosphere
     astro-014  Amateur astronomy
     astro-015  Astronomy and astrology
 
@@ -512,7 +512,7 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-036  The diurnal motion of the sky
     astro-037  The Earth's rotation
     astro-038  The Earth's orbit
-    astro-039  Why the stars change with the season
+    astro-039  Heliacal rising and the seasonal sky
     astro-040  The solstices
     astro-041  The equinoxes
     astro-042  Why there are seasons
@@ -520,10 +520,10 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-044  Precession of the equinoxes
     astro-045  Nutation
     astro-046  Proper motion
-    astro-047  The changing constellations over deep time
+    astro-047  The fixed stars over deep time
     astro-048  The phases of the Moon
     astro-049  The synodic and the sidereal month
-    astro-050  The motion of the planets against the stars
+    astro-050  The classical planets and their motion
     astro-051  Retrograde motion
     astro-052  Conjunction and opposition
     astro-053  Elongation and the inner planets
@@ -541,16 +541,16 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-062  The Southern Cross
     astro-063  Cassiopeia and finding the pole
     astro-064  Polaris
-    astro-065  The zodiacal constellations
+    astro-065  Ophiuchus and the zodiacal constellations
     astro-066  The southern sky
-    astro-067  Constellations in other cultures
+    astro-067  Cultural astronomy
     astro-068  Aboriginal Australian sky knowledge
     astro-069  The Chinese sky
     astro-070  Polynesian navigation by the stars
     astro-071  Bayer designations
     astro-072  Flamsteed numbers
-    astro-073  Proper names of stars
-    astro-074  Catalogue designations
+    astro-073  The IAU Working Group on Star Names
+    astro-074  The Henry Draper Catalogue and catalogue numbers
     astro-075  The brightest stars in the sky
 
 ### Eclipses, tides and calendars — `astro-calendar`
@@ -560,7 +560,7 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-078  Why eclipses do not happen every month
     astro-079  The saros cycle
     astro-080  Totality and the solar corona
-    astro-081  Eclipse prediction in the ancient world
+    astro-081  The eclipse of Thales
     astro-082  Tides
     astro-083  Spring and neap tides
     astro-084  Tidal locking

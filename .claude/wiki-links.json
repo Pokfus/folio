@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T02:07Z",
+ "generated": "2026-11-07T03:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5545,
-  "redirect-broader": 522,
-  "redirect-variant": 339,
-  "section-redirect": 109,
-  "disambiguation": 142,
-  "none": 982,
-  "disambig-resolved": 81,
+  "ok": 5880,
+  "redirect-broader": 549,
+  "redirect-variant": 359,
+  "section-redirect": 118,
+  "disambiguation": 145,
+  "none": 986,
+  "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -62774,6 +62774,2932 @@
    "url": "https://en.wikipedia.org/wiki/Cognitive_science",
    "via": "glossary",
    "status": "ok"
+  },
+  "us-101": {
+   "answer": "Spanish Florida",
+   "title": "Spanish Florida",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Florida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-102": {
+   "answer": "St. Augustine",
+   "title": "St. Augustine, Florida",
+   "url": "https://en.wikipedia.org/wiki/St._Augustine,_Florida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-103": {
+   "answer": "Juan Ponce de León",
+   "title": "Juan Ponce de León",
+   "url": "https://en.wikipedia.org/wiki/Juan_Ponce_de_Le%C3%B3n",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-104": {
+   "answer": "Hernando de Soto",
+   "title": "Hernando de Soto",
+   "url": "https://en.wikipedia.org/wiki/Hernando_de_Soto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-105": {
+   "answer": "Coronado expedition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Coronado expedition",
+   "target": "Francisco Vázquez de Coronado#Coronado Expedition"
+  },
+  "us-106": {
+   "answer": "Santa Fe de Nuevo México",
+   "title": "Santa Fe de Nuevo México",
+   "url": "https://en.wikipedia.org/wiki/Santa_Fe_de_Nuevo_M%C3%A9xico",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-107": {
+   "answer": "Palace of the Governors",
+   "title": "Palace of the Governors",
+   "url": "https://en.wikipedia.org/wiki/Palace_of_the_Governors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-108": {
+   "answer": "encomendero",
+   "title": "Encomienda",
+   "url": "https://en.wikipedia.org/wiki/Encomienda",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Encomendero"
+  },
+  "us-109": {
+   "answer": "Spanish missions in Florida",
+   "title": "Missions in Spanish Florida",
+   "url": "https://en.wikipedia.org/wiki/Missions_in_Spanish_Florida",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Spanish missions in Florida"
+  },
+  "us-110": {
+   "answer": "Spanish missions in California",
+   "title": "Spanish missions in California",
+   "url": "https://en.wikipedia.org/wiki/Spanish_missions_in_California",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-111": {
+   "answer": "Junípero Serra",
+   "title": "Junípero Serra",
+   "url": "https://en.wikipedia.org/wiki/Jun%C3%ADpero_Serra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-112": {
+   "answer": "Spanish Texas",
+   "title": "Spanish Texas",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Texas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-113": {
+   "answer": "Company of One Hundred Associates",
+   "title": "Company of One Hundred Associates",
+   "url": "https://en.wikipedia.org/wiki/Company_of_One_Hundred_Associates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-114": {
+   "answer": "Samuel de Champlain",
+   "title": "Samuel de Champlain",
+   "url": "https://en.wikipedia.org/wiki/Samuel_de_Champlain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-115": {
+   "answer": "Quebec City",
+   "title": "Quebec City",
+   "url": "https://en.wikipedia.org/wiki/Quebec_City",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-116": {
+   "answer": "Coureurs des bois",
+   "title": "Coureur des bois",
+   "url": "https://en.wikipedia.org/wiki/Coureur_des_bois",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Coureurs des bois"
+  },
+  "us-117": {
+   "answer": "Sainte-Marie among the Hurons",
+   "title": "Sainte-Marie among the Hurons",
+   "url": "https://en.wikipedia.org/wiki/Sainte-Marie_among_the_Hurons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-118": {
+   "answer": "Jesuit Relations",
+   "title": "The Jesuit Relations",
+   "url": "https://en.wikipedia.org/wiki/The_Jesuit_Relations",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jesuit Relations"
+  },
+  "us-119": {
+   "answer": "French Louisiana",
+   "title": "French Louisiana",
+   "url": "https://en.wikipedia.org/wiki/French_Louisiana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-120": {
+   "answer": "French Quarter",
+   "title": "French Quarter",
+   "url": "https://en.wikipedia.org/wiki/French_Quarter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-121": {
+   "answer": "New Netherland",
+   "title": "New Netherland",
+   "url": "https://en.wikipedia.org/wiki/New_Netherland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-122": {
+   "answer": "New Amsterdam",
+   "title": "New Amsterdam",
+   "url": "https://en.wikipedia.org/wiki/New_Amsterdam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-123": {
+   "answer": "Peter Stuyvesant",
+   "title": "Peter Stuyvesant",
+   "url": "https://en.wikipedia.org/wiki/Peter_Stuyvesant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-124": {
+   "answer": "Articles of Capitulation",
+   "title": "Articles of Surrender of New Netherland",
+   "url": "https://en.wikipedia.org/wiki/Articles_of_Surrender_of_New_Netherland",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-125": {
+   "answer": "Patroon",
+   "title": "Patroon",
+   "url": "https://en.wikipedia.org/wiki/Patroon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-126": {
+   "answer": "Roanoke Colony",
+   "title": "Roanoke Colony",
+   "url": "https://en.wikipedia.org/wiki/Roanoke_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-127": {
+   "answer": "Croatoan",
+   "title": "Croatoan",
+   "url": "https://en.wikipedia.org/wiki/Croatoan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-128": {
+   "answer": "James Fort",
+   "title": "Jamestown",
+   "url": "https://en.wikipedia.org/wiki/Jamestown",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-129": {
+   "answer": "Virginia Company",
+   "title": "Virginia Company",
+   "url": "https://en.wikipedia.org/wiki/Virginia_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-130": {
+   "answer": "Starving Time",
+   "title": "Starving Time",
+   "url": "https://en.wikipedia.org/wiki/Starving_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-131": {
+   "answer": "John Smith",
+   "title": "John Smith (explorer)",
+   "url": "https://en.wikipedia.org/wiki/John_Smith_(explorer)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-132": {
+   "answer": "Powhatan",
+   "title": "Powhatan (Native American leader)",
+   "url": "https://en.wikipedia.org/wiki/Powhatan_(Native_American_leader)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-133": {
+   "answer": "Pocahontas",
+   "title": "Pocahontas",
+   "url": "https://en.wikipedia.org/wiki/Pocahontas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-134": {
+   "answer": "Anglo-Powhatan Wars",
+   "title": "Anglo-Powhatan Wars",
+   "url": "https://en.wikipedia.org/wiki/Anglo-Powhatan_Wars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-135": {
+   "answer": "Tobacco",
+   "title": "Tobacco",
+   "url": "https://en.wikipedia.org/wiki/Tobacco",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-136": {
+   "answer": "headright system",
+   "title": "Headright",
+   "url": "https://en.wikipedia.org/wiki/Headright",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Headright system"
+  },
+  "us-137": {
+   "answer": "indentured servitude",
+   "title": "Indentured servitude",
+   "url": "https://en.wikipedia.org/wiki/Indentured_servitude",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-138": {
+   "answer": "House of Burgesses",
+   "title": "House of Burgesses",
+   "url": "https://en.wikipedia.org/wiki/House_of_Burgesses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-139": {
+   "answer": "Bacon's Rebellion",
+   "title": "Bacon's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Bacon's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-140": {
+   "answer": "Plymouth Colony",
+   "title": "Plymouth Colony",
+   "url": "https://en.wikipedia.org/wiki/Plymouth_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-141": {
+   "answer": "Mayflower",
+   "title": "Mayflower",
+   "url": "https://en.wikipedia.org/wiki/Mayflower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-142": {
+   "answer": "Mayflower Compact",
+   "title": "Mayflower Compact",
+   "url": "https://en.wikipedia.org/wiki/Mayflower_Compact",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-143": {
+   "answer": "William Bradford",
+   "title": "William Bradford (governor)",
+   "url": "https://en.wikipedia.org/wiki/William_Bradford_(governor)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-144": {
+   "answer": "Pilgrims",
+   "title": "Pilgrims (Plymouth Colony)",
+   "url": "https://en.wikipedia.org/wiki/Pilgrims_(Plymouth_Colony)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-145": {
+   "answer": "Massachusetts Bay Colony",
+   "title": "Massachusetts Bay Colony",
+   "url": "https://en.wikipedia.org/wiki/Massachusetts_Bay_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-146": {
+   "answer": "John Winthrop",
+   "title": "John Winthrop",
+   "url": "https://en.wikipedia.org/wiki/John_Winthrop",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-147": {
+   "answer": "Great Migration",
+   "title": "Puritan migration to New England (1620–1640)",
+   "url": "https://en.wikipedia.org/wiki/Puritan_migration_to_New_England_(1620%E2%80%931640)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-148": {
+   "answer": "City upon a Hill",
+   "title": "City upon a Hill",
+   "url": "https://en.wikipedia.org/wiki/City_upon_a_Hill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-149": {
+   "answer": "Town meeting",
+   "title": "Town meeting",
+   "url": "https://en.wikipedia.org/wiki/Town_meeting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-150": {
+   "answer": "Roger Williams",
+   "title": "Roger Williams",
+   "url": "https://en.wikipedia.org/wiki/Roger_Williams",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-151": {
+   "answer": "Anne Hutchinson",
+   "title": "Anne Hutchinson",
+   "url": "https://en.wikipedia.org/wiki/Anne_Hutchinson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-152": {
+   "answer": "Fundamental Orders of Connecticut",
+   "title": "Fundamental Orders of Connecticut",
+   "url": "https://en.wikipedia.org/wiki/Fundamental_Orders_of_Connecticut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-153": {
+   "answer": "Pequot War",
+   "title": "Pequot War",
+   "url": "https://en.wikipedia.org/wiki/Pequot_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-154": {
+   "answer": "Province of Maryland",
+   "title": "Province of Maryland",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Maryland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-155": {
+   "answer": "Maryland Toleration Act",
+   "title": "Maryland Toleration Act",
+   "url": "https://en.wikipedia.org/wiki/Maryland_Toleration_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-156": {
+   "answer": "Province of Carolina",
+   "title": "Province of Carolina",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Carolina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-157": {
+   "answer": "Barbados Slave Code",
+   "title": "Barbados Slave Code",
+   "url": "https://en.wikipedia.org/wiki/Barbados_Slave_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-158": {
+   "answer": "Province of Georgia",
+   "title": "Province of Georgia",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Georgia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-159": {
+   "answer": "James Oglethorpe",
+   "title": "James Oglethorpe",
+   "url": "https://en.wikipedia.org/wiki/James_Oglethorpe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-160": {
+   "answer": "Province of Pennsylvania",
+   "title": "Province of Pennsylvania",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Pennsylvania",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-161": {
+   "answer": "William Penn",
+   "title": "William Penn",
+   "url": "https://en.wikipedia.org/wiki/William_Penn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-162": {
+   "answer": "Quakers",
+   "title": "Quakers",
+   "url": "https://en.wikipedia.org/wiki/Quakers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-163": {
+   "answer": "Province of New Jersey",
+   "title": "Province of New Jersey",
+   "url": "https://en.wikipedia.org/wiki/Province_of_New_Jersey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-164": {
+   "answer": "New England Confederation",
+   "title": "New England Confederation",
+   "url": "https://en.wikipedia.org/wiki/New_England_Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-165": {
+   "answer": "Dominion of New England",
+   "title": "Dominion of New England",
+   "url": "https://en.wikipedia.org/wiki/Dominion_of_New_England",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-166": {
+   "answer": "1689 Boston revolt",
+   "title": "1689 Boston revolt",
+   "url": "https://en.wikipedia.org/wiki/1689_Boston_revolt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-167": {
+   "answer": "Navigation Acts",
+   "title": "Navigation Acts",
+   "url": "https://en.wikipedia.org/wiki/Navigation_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-168": {
+   "answer": "Salutary neglect",
+   "title": "Salutary neglect",
+   "url": "https://en.wikipedia.org/wiki/Salutary_neglect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-169": {
+   "answer": "Royal governor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Royal governor",
+   "suggestions": [
+    "Royal Governor of Hawaii",
+    "Royal Governor of Kauai",
+    "Royal Governor of Maui",
+    "Royal Governor of Oahu"
+   ]
+  },
+  "us-170": {
+   "answer": "Thirteen Colonies",
+   "title": "Thirteen Colonies",
+   "url": "https://en.wikipedia.org/wiki/Thirteen_Colonies",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-171": {
+   "answer": "Observations Concerning the Increase of Mankind",
+   "title": "Observations Concerning the Increase of Mankind, Peopling of Countries, etc.",
+   "url": "https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Observations Concerning the Increase of Mankind"
+  },
+  "us-172": {
+   "answer": "coverture",
+   "title": "Coverture",
+   "url": "https://en.wikipedia.org/wiki/Coverture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-173": {
+   "answer": "Eliza Lucas Pinckney",
+   "title": "Eliza Lucas",
+   "url": "https://en.wikipedia.org/wiki/Eliza_Lucas",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Eliza Lucas Pinckney"
+  },
+  "us-174": {
+   "answer": "rice",
+   "title": "Rice",
+   "url": "https://en.wikipedia.org/wiki/Rice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-175": {
+   "answer": "Molasses Act",
+   "title": "Molasses Act",
+   "url": "https://en.wikipedia.org/wiki/Molasses_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-176": {
+   "answer": "Newport",
+   "title": "Newport, Rhode Island",
+   "url": "https://en.wikipedia.org/wiki/Newport,_Rhode_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-177": {
+   "answer": "Faneuil Hall",
+   "title": "Faneuil Hall",
+   "url": "https://en.wikipedia.org/wiki/Faneuil_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-178": {
+   "answer": "William Byrd II",
+   "title": "William Byrd II",
+   "url": "https://en.wikipedia.org/wiki/William_Byrd_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-179": {
+   "answer": "warning out",
+   "title": "Warning out of town",
+   "url": "https://en.wikipedia.org/wiki/Warning_out_of_town",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Warning out"
+  },
+  "us-180": {
+   "answer": "Pennsylvania Dutch",
+   "title": "Pennsylvania Dutch",
+   "url": "https://en.wikipedia.org/wiki/Pennsylvania_Dutch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-181": {
+   "answer": "Scotch-Irish",
+   "title": "Scotch-Irish Americans",
+   "url": "https://en.wikipedia.org/wiki/Scotch-Irish_Americans",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Scotch-Irish"
+  },
+  "us-182": {
+   "answer": "Great Wagon Road",
+   "title": "Great Wagon Road",
+   "url": "https://en.wikipedia.org/wiki/Great_Wagon_Road",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-183": {
+   "answer": "Half-Way Covenant",
+   "title": "Half-Way Covenant",
+   "url": "https://en.wikipedia.org/wiki/Half-Way_Covenant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-184": {
+   "answer": "First Great Awakening",
+   "title": "First Great Awakening",
+   "url": "https://en.wikipedia.org/wiki/First_Great_Awakening",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-185": {
+   "answer": "George Whitefield",
+   "title": "George Whitefield",
+   "url": "https://en.wikipedia.org/wiki/George_Whitefield",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-186": {
+   "answer": "Jonathan Edwards",
+   "title": "Jonathan Edwards (theologian)",
+   "url": "https://en.wikipedia.org/wiki/Jonathan_Edwards_(theologian)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-187": {
+   "answer": "New Lights",
+   "title": "Old and New Lights",
+   "url": "https://en.wikipedia.org/wiki/Old_and_New_Lights",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-188": {
+   "answer": "Boston News-Letter",
+   "title": "The Boston News-Letter",
+   "url": "https://en.wikipedia.org/wiki/The_Boston_News-Letter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-189": {
+   "answer": "John Peter Zenger",
+   "title": "John Peter Zenger",
+   "url": "https://en.wikipedia.org/wiki/John_Peter_Zenger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-190": {
+   "answer": "Benjamin Franklin",
+   "title": "Benjamin Franklin",
+   "url": "https://en.wikipedia.org/wiki/Benjamin_Franklin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-191": {
+   "answer": "American Enlightenment",
+   "title": "American Enlightenment",
+   "url": "https://en.wikipedia.org/wiki/American_Enlightenment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-192": {
+   "answer": "colonial colleges",
+   "title": "Colonial colleges",
+   "url": "https://en.wikipedia.org/wiki/Colonial_colleges",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-193": {
+   "answer": "Salem witch trials",
+   "title": "Salem witch trials",
+   "url": "https://en.wikipedia.org/wiki/Salem_witch_trials",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-194": {
+   "answer": "spectral evidence",
+   "title": "Spectral evidence",
+   "url": "https://en.wikipedia.org/wiki/Spectral_evidence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-195": {
+   "answer": "variolation",
+   "title": "Variolation",
+   "url": "https://en.wikipedia.org/wiki/Variolation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-196": {
+   "answer": "Queen Anne's War",
+   "title": "Queen Anne's War",
+   "url": "https://en.wikipedia.org/wiki/Queen_Anne's_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-197": {
+   "answer": "King George's War",
+   "title": "King George's War",
+   "url": "https://en.wikipedia.org/wiki/King_George's_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-198": {
+   "answer": "French and Indian War",
+   "title": "French and Indian War",
+   "url": "https://en.wikipedia.org/wiki/French_and_Indian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-199": {
+   "answer": "Battle of the Monongahela",
+   "title": "Battle of the Monongahela",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Monongahela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-200": {
+   "answer": "Albany Plan",
+   "title": "Albany Plan",
+   "url": "https://en.wikipedia.org/wiki/Albany_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-001": {
+   "answer": "philosophy",
+   "title": "Philosophy",
+   "url": "https://en.wikipedia.org/wiki/Philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-002": {
+   "answer": "value theory",
+   "title": "Value theory",
+   "url": "https://en.wikipedia.org/wiki/Value_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-003": {
+   "answer": "metaphysics",
+   "title": "Metaphysics",
+   "url": "https://en.wikipedia.org/wiki/Metaphysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-004": {
+   "answer": "epistemology",
+   "title": "Epistemology",
+   "url": "https://en.wikipedia.org/wiki/Epistemology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-005": {
+   "answer": "ethics",
+   "title": "Ethics",
+   "url": "https://en.wikipedia.org/wiki/Ethics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-006": {
+   "answer": "logic",
+   "title": "Logic",
+   "url": "https://en.wikipedia.org/wiki/Logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-007": {
+   "answer": "aesthetics",
+   "title": "Aesthetics",
+   "url": "https://en.wikipedia.org/wiki/Aesthetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-008": {
+   "answer": "political philosophy",
+   "title": "Political philosophy",
+   "url": "https://en.wikipedia.org/wiki/Political_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-009": {
+   "answer": "aporia",
+   "title": "Aporia",
+   "url": "https://en.wikipedia.org/wiki/Aporia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-010": {
+   "answer": "conceptual analysis",
+   "title": "Philosophical analysis",
+   "url": "https://en.wikipedia.org/wiki/Philosophical_analysis",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Conceptual analysis"
+  },
+  "ph-011": {
+   "answer": "thought experiment",
+   "title": "Thought experiment",
+   "url": "https://en.wikipedia.org/wiki/Thought_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-012": {
+   "answer": "intuition",
+   "title": "Intuition",
+   "url": "https://en.wikipedia.org/wiki/Intuition",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Intuition (philosophy)"
+  },
+  "ph-013": {
+   "answer": "naturalism",
+   "title": "Naturalism (philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Naturalism_(philosophy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-014": {
+   "answer": "philosophy of religion",
+   "title": "Philosophy of religion",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_religion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-015": {
+   "answer": "common sense",
+   "title": "Common sense",
+   "url": "https://en.wikipedia.org/wiki/Common_sense",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ph-016": {
+   "answer": "history of philosophy",
+   "title": "History of philosophy",
+   "url": "https://en.wikipedia.org/wiki/History_of_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-017": {
+   "answer": "continental philosophy",
+   "title": "Continental philosophy",
+   "url": "https://en.wikipedia.org/wiki/Continental_philosophy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-018": {
+   "answer": "philosophical methodology",
+   "title": "Philosophical methodology",
+   "url": "https://en.wikipedia.org/wiki/Philosophical_methodology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-019": {
+   "answer": "reflective equilibrium",
+   "title": "Reflective equilibrium",
+   "url": "https://en.wikipedia.org/wiki/Reflective_equilibrium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-020": {
+   "answer": "philosophical progress",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Philosophical progress",
+   "target": "Metaphilosophy#Progress"
+  },
+  "ph-021": {
+   "answer": "logical argument",
+   "title": "Argument",
+   "url": "https://en.wikipedia.org/wiki/Argument",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Logical argument"
+  },
+  "ph-022": {
+   "answer": "premises and conclusion",
+   "title": "Premise",
+   "url": "https://en.wikipedia.org/wiki/Premise",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ph-023": {
+   "answer": "deductive validity",
+   "title": "Validity (logic)",
+   "url": "https://en.wikipedia.org/wiki/Validity_(logic)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ph-024": {
+   "answer": "soundness",
+   "title": "Soundness",
+   "url": "https://en.wikipedia.org/wiki/Soundness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-025": {
+   "answer": "deductive reasoning",
+   "title": "Deductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Deductive_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-026": {
+   "answer": "inductive reasoning",
+   "title": "Inductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Inductive_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-027": {
+   "answer": "problem of induction",
+   "title": "Problem of induction",
+   "url": "https://en.wikipedia.org/wiki/Problem_of_induction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-028": {
+   "answer": "abductive reasoning",
+   "title": "Abductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Abductive_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-029": {
+   "answer": "inference to the best explanation",
+   "title": "Abductive reasoning",
+   "url": "https://en.wikipedia.org/wiki/Abductive_reasoning",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Inference to the best explanation"
+  },
+  "ph-030": {
+   "answer": "necessary and sufficient conditions",
+   "title": "Necessity and sufficiency",
+   "url": "https://en.wikipedia.org/wiki/Necessity_and_sufficiency",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Necessary and sufficient conditions"
+  },
+  "ph-031": {
+   "answer": "counterexample",
+   "title": "Counterexample",
+   "url": "https://en.wikipedia.org/wiki/Counterexample",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-032": {
+   "answer": "reductio ad absurdum",
+   "title": "Reductio ad absurdum",
+   "url": "https://en.wikipedia.org/wiki/Reductio_ad_absurdum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-033": {
+   "answer": "begging the question",
+   "title": "Begging the question",
+   "url": "https://en.wikipedia.org/wiki/Begging_the_question",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-034": {
+   "answer": "straw man",
+   "title": "Straw man",
+   "url": "https://en.wikipedia.org/wiki/Straw_man",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-035": {
+   "answer": "ad hominem",
+   "title": "Ad hominem",
+   "url": "https://en.wikipedia.org/wiki/Ad_hominem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-036": {
+   "answer": "genetic fallacy",
+   "title": "Genetic fallacy",
+   "url": "https://en.wikipedia.org/wiki/Genetic_fallacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-037": {
+   "answer": "equivocation",
+   "title": "Equivocation",
+   "url": "https://en.wikipedia.org/wiki/Equivocation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-038": {
+   "answer": "false dilemma",
+   "title": "False dilemma",
+   "url": "https://en.wikipedia.org/wiki/False_dilemma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-039": {
+   "answer": "slippery slope",
+   "title": "Slippery slope",
+   "url": "https://en.wikipedia.org/wiki/Slippery_slope",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-040": {
+   "answer": "appeal to authority",
+   "title": "Argument from authority",
+   "url": "https://en.wikipedia.org/wiki/Argument_from_authority",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Appeal to authority"
+  },
+  "ph-041": {
+   "answer": "circular reasoning",
+   "title": "Circular reasoning",
+   "url": "https://en.wikipedia.org/wiki/Circular_reasoning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-042": {
+   "answer": "naturalistic fallacy",
+   "title": "Naturalistic fallacy",
+   "url": "https://en.wikipedia.org/wiki/Naturalistic_fallacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-043": {
+   "answer": "formal fallacy",
+   "title": "Formal fallacy",
+   "url": "https://en.wikipedia.org/wiki/Formal_fallacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-044": {
+   "answer": "paradox",
+   "title": "Paradox",
+   "url": "https://en.wikipedia.org/wiki/Paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-045": {
+   "answer": "principle of charity",
+   "title": "Principle of charity",
+   "url": "https://en.wikipedia.org/wiki/Principle_of_charity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-046": {
+   "answer": "formal logic",
+   "title": "Mathematical logic",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_logic",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Formal logic"
+  },
+  "ph-047": {
+   "answer": "propositional logic",
+   "title": "Propositional logic",
+   "url": "https://en.wikipedia.org/wiki/Propositional_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-048": {
+   "answer": "truth function",
+   "title": "Truth function",
+   "url": "https://en.wikipedia.org/wiki/Truth_function",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-049": {
+   "answer": "truth table",
+   "title": "Truth table",
+   "url": "https://en.wikipedia.org/wiki/Truth_table",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-050": {
+   "answer": "logical connective",
+   "title": "Logical connective",
+   "url": "https://en.wikipedia.org/wiki/Logical_connective",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-051": {
+   "answer": "material conditional",
+   "title": "Material conditional",
+   "url": "https://en.wikipedia.org/wiki/Material_conditional",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-052": {
+   "answer": "paradoxes of material implication",
+   "title": "Paradoxes of material implication",
+   "url": "https://en.wikipedia.org/wiki/Paradoxes_of_material_implication",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-053": {
+   "answer": "logical equivalence",
+   "title": "Logical equivalence",
+   "url": "https://en.wikipedia.org/wiki/Logical_equivalence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-054": {
+   "answer": "natural deduction",
+   "title": "Natural deduction",
+   "url": "https://en.wikipedia.org/wiki/Natural_deduction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-055": {
+   "answer": "axiomatic method",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Axiomatic method",
+   "target": "Axiomatic system#Axiomatic method"
+  },
+  "ph-056": {
+   "answer": "predicate logic",
+   "title": "First-order logic",
+   "url": "https://en.wikipedia.org/wiki/First-order_logic",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Predicate logic"
+  },
+  "ph-057": {
+   "answer": "quantifier",
+   "title": "Quantifier (logic)",
+   "url": "https://en.wikipedia.org/wiki/Quantifier_(logic)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-058": {
+   "answer": "law of identity",
+   "title": "Law of identity",
+   "url": "https://en.wikipedia.org/wiki/Law_of_identity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-059": {
+   "answer": "definite description",
+   "title": "Definite description",
+   "url": "https://en.wikipedia.org/wiki/Definite_description",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-060": {
+   "answer": "syllogistic logic",
+   "title": "Term logic",
+   "url": "https://en.wikipedia.org/wiki/Term_logic",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Syllogistic logic"
+  },
+  "ph-061": {
+   "answer": "square of opposition",
+   "title": "Square of opposition",
+   "url": "https://en.wikipedia.org/wiki/Square_of_opposition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-062": {
+   "answer": "modal logic",
+   "title": "Modal logic",
+   "url": "https://en.wikipedia.org/wiki/Modal_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-063": {
+   "answer": "possible worlds",
+   "title": "Possible world",
+   "url": "https://en.wikipedia.org/wiki/Possible_world",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Possible worlds"
+  },
+  "ph-064": {
+   "answer": "metaphysical necessity",
+   "title": "Metaphysical necessity",
+   "url": "https://en.wikipedia.org/wiki/Metaphysical_necessity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-065": {
+   "answer": "deontic logic",
+   "title": "Deontic logic",
+   "url": "https://en.wikipedia.org/wiki/Deontic_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-066": {
+   "answer": "temporal logic",
+   "title": "Temporal logic",
+   "url": "https://en.wikipedia.org/wiki/Temporal_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-067": {
+   "answer": "epistemic logic",
+   "title": "Epistemic modal logic",
+   "url": "https://en.wikipedia.org/wiki/Epistemic_modal_logic",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Epistemic logic"
+  },
+  "ph-068": {
+   "answer": "many-valued logic",
+   "title": "Many-valued logic",
+   "url": "https://en.wikipedia.org/wiki/Many-valued_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-069": {
+   "answer": "intuitionistic logic",
+   "title": "Intuitionistic logic",
+   "url": "https://en.wikipedia.org/wiki/Intuitionistic_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-070": {
+   "answer": "paraconsistent logic",
+   "title": "Paraconsistent logic",
+   "url": "https://en.wikipedia.org/wiki/Paraconsistent_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-071": {
+   "answer": "second-order logic",
+   "title": "Second-order logic",
+   "url": "https://en.wikipedia.org/wiki/Second-order_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-072": {
+   "answer": "semantic completeness",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Semantic completeness",
+   "target": "Completeness (logic)#Semantic completeness"
+  },
+  "ph-073": {
+   "answer": "Gödel's incompleteness theorems",
+   "title": "Gödel's incompleteness theorems",
+   "url": "https://en.wikipedia.org/wiki/G%C3%B6del's_incompleteness_theorems",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-074": {
+   "answer": "Löwenheim–Skolem theorem",
+   "title": "Löwenheim–Skolem theorem",
+   "url": "https://en.wikipedia.org/wiki/L%C3%B6wenheim%E2%80%93Skolem_theorem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-075": {
+   "answer": "set theory",
+   "title": "Set theory",
+   "url": "https://en.wikipedia.org/wiki/Set_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-076": {
+   "answer": "philosophy of logic",
+   "title": "Philosophy of logic",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_logic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-077": {
+   "answer": "logical consequence",
+   "title": "Logical consequence",
+   "url": "https://en.wikipedia.org/wiki/Logical_consequence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-078": {
+   "answer": "logical form",
+   "title": "Logical form",
+   "url": "https://en.wikipedia.org/wiki/Logical_form",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-079": {
+   "answer": "logical constant",
+   "title": "Logical constant",
+   "url": "https://en.wikipedia.org/wiki/Logical_constant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-080": {
+   "answer": "truth",
+   "title": "Truth",
+   "url": "https://en.wikipedia.org/wiki/Truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-081": {
+   "answer": "correspondence theory of truth",
+   "title": "Correspondence theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Correspondence_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-082": {
+   "answer": "coherence theory of truth",
+   "title": "Coherence theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Coherence_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-083": {
+   "answer": "deflationary theory of truth",
+   "title": "Deflationary theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Deflationary_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-084": {
+   "answer": "liar paradox",
+   "title": "Liar paradox",
+   "url": "https://en.wikipedia.org/wiki/Liar_paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-085": {
+   "answer": "semantic theory of truth",
+   "title": "Semantic theory of truth",
+   "url": "https://en.wikipedia.org/wiki/Semantic_theory_of_truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-086": {
+   "answer": "vagueness",
+   "title": "Vagueness",
+   "url": "https://en.wikipedia.org/wiki/Vagueness",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ph-087": {
+   "answer": "sorites paradox",
+   "title": "Sorites paradox",
+   "url": "https://en.wikipedia.org/wiki/Sorites_paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-088": {
+   "answer": "philosophy of mathematics",
+   "title": "Philosophy of mathematics",
+   "url": "https://en.wikipedia.org/wiki/Philosophy_of_mathematics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-089": {
+   "answer": "mathematical Platonism",
+   "title": "Mathematical Platonism",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_Platonism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-090": {
+   "answer": "logicism",
+   "title": "Logicism",
+   "url": "https://en.wikipedia.org/wiki/Logicism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-091": {
+   "answer": "Frege's theorem",
+   "title": "Frege's theorem",
+   "url": "https://en.wikipedia.org/wiki/Frege's_theorem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-092": {
+   "answer": "Russell's paradox",
+   "title": "Russell's paradox",
+   "url": "https://en.wikipedia.org/wiki/Russell's_paradox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-093": {
+   "answer": "formalism",
+   "title": "Formalism (philosophy of mathematics)",
+   "url": "https://en.wikipedia.org/wiki/Formalism_(philosophy_of_mathematics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-094": {
+   "answer": "intuitionism",
+   "title": "Intuitionism",
+   "url": "https://en.wikipedia.org/wiki/Intuitionism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-095": {
+   "answer": "fictionalism",
+   "title": "Fictionalism",
+   "url": "https://en.wikipedia.org/wiki/Fictionalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-096": {
+   "answer": "indispensability argument",
+   "title": "Quine–Putnam indispensability argument",
+   "url": "https://en.wikipedia.org/wiki/Quine%E2%80%93Putnam_indispensability_argument",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Indispensability argument"
+  },
+  "ph-097": {
+   "answer": "mathematical proof",
+   "title": "Mathematical proof",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_proof",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ph-098": {
+   "answer": "actual infinity",
+   "title": "Actual and potential infinity",
+   "url": "https://en.wikipedia.org/wiki/Actual_and_potential_infinity",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Actual infinity"
+  },
+  "ph-099": {
+   "answer": "transfinite numbers",
+   "title": "Transfinite number",
+   "url": "https://en.wikipedia.org/wiki/Transfinite_number",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Transfinite numbers"
+  },
+  "ph-100": {
+   "answer": "unreasonable effectiveness of mathematics",
+   "title": "The Unreasonable Effectiveness of Mathematics in the Natural Sciences",
+   "url": "https://en.wikipedia.org/wiki/The_Unreasonable_Effectiveness_of_Mathematics_in_the_Natural_Sciences",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Unreasonable effectiveness of mathematics"
+  },
+  "ww2-541": {
+   "answer": "Battle of the Atlantic",
+   "title": "Battle of the Atlantic",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Atlantic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-542": {
+   "answer": "convoy system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Convoy battles of World War II",
+    "List of Allied convoys during World War II by region",
+    "Arctic convoys of World War II",
+    "Convoy HX 156",
+    "World War II"
+   ]
+  },
+  "ww2-543": {
+   "answer": "U-boat",
+   "title": "U-boat",
+   "url": "https://en.wikipedia.org/wiki/U-boat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-544": {
+   "answer": "Karl Dönitz",
+   "title": "Karl Dönitz",
+   "url": "https://en.wikipedia.org/wiki/Karl_D%C3%B6nitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-545": {
+   "answer": "wolfpack",
+   "title": "Wolfpack (naval tactic)",
+   "url": "https://en.wikipedia.org/wiki/Wolfpack_(naval_tactic)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-546": {
+   "answer": "First Happy Time",
+   "title": "First Happy Time",
+   "url": "https://en.wikipedia.org/wiki/First_Happy_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-547": {
+   "answer": "mid-Atlantic gap",
+   "title": "Mid-Atlantic gap",
+   "url": "https://en.wikipedia.org/wiki/Mid-Atlantic_gap",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-548": {
+   "answer": "escort carrier",
+   "title": "Escort carrier",
+   "url": "https://en.wikipedia.org/wiki/Escort_carrier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-549": {
+   "answer": "anti-submarine warfare",
+   "title": "Anti-submarine warfare",
+   "url": "https://en.wikipedia.org/wiki/Anti-submarine_warfare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-550": {
+   "answer": "ASDIC",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "ASDIC",
+   "target": "Sonar#ASDIC"
+  },
+  "ww2-581": {
+   "answer": "Darlan deal",
+   "title": "Clark-Darlan Accords",
+   "url": "https://en.wikipedia.org/wiki/Clark-Darlan_Accords",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Darlan deal"
+  },
+  "ww2-582": {
+   "answer": "Tunisian campaign",
+   "title": "Tunisian campaign",
+   "url": "https://en.wikipedia.org/wiki/Tunisian_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-583": {
+   "answer": "Battle of Kasserine Pass",
+   "title": "Battle of Kasserine Pass",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kasserine_Pass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-584": {
+   "answer": "Operation Strike",
+   "title": "Operation Strike",
+   "url": "https://en.wikipedia.org/wiki/Operation_Strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-585": {
+   "answer": "Operation Husky",
+   "title": "Allied invasion of Sicily",
+   "url": "https://en.wikipedia.org/wiki/Allied_invasion_of_Sicily",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Operation Husky"
+  },
+  "ww2-586": {
+   "answer": "Grand Council of Fascism",
+   "title": "Grand Council of Fascism",
+   "url": "https://en.wikipedia.org/wiki/Grand_Council_of_Fascism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-587": {
+   "answer": "Armistice of Cassibile",
+   "title": "Armistice of Cassibile",
+   "url": "https://en.wikipedia.org/wiki/Armistice_of_Cassibile",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-588": {
+   "answer": "Operation Achse",
+   "title": "Operation Achse",
+   "url": "https://en.wikipedia.org/wiki/Operation_Achse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-589": {
+   "answer": "Italian Social Republic",
+   "title": "Italian Social Republic",
+   "url": "https://en.wikipedia.org/wiki/Italian_Social_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-590": {
+   "answer": "Italian campaign",
+   "title": "Italian campaign (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Italian_campaign_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-551": {
+   "answer": "High-frequency direction finding",
+   "title": "High-frequency direction finding",
+   "url": "https://en.wikipedia.org/wiki/High-frequency_direction_finding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-552": {
+   "answer": "Hut 8",
+   "title": "Hut 8",
+   "url": "https://en.wikipedia.org/wiki/Hut_8",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-553": {
+   "answer": "Convoys HX 229 and SC 122",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "HX convoys",
+    "Convoys HX 229/SC 122",
+    "Black May (World War II)",
+    "Convoys HX 229/SC 122 order of battle",
+    "Convoy HX 79"
+   ]
+  },
+  "ww2-554": {
+   "answer": "Black May",
+   "title": "Black May (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Black_May_(World_War_II)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Black May (1943)"
+  },
+  "ww2-555": {
+   "answer": "Type XXI submarine",
+   "title": "Type XXI submarine",
+   "url": "https://en.wikipedia.org/wiki/Type_XXI_submarine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-556": {
+   "answer": "Nortraship",
+   "title": "Nortraship",
+   "url": "https://en.wikipedia.org/wiki/Nortraship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-557": {
+   "answer": "Liberty ship",
+   "title": "Liberty ship",
+   "url": "https://en.wikipedia.org/wiki/Liberty_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-558": {
+   "answer": "Emergency Shipbuilding Program",
+   "title": "Emergency Shipbuilding Program",
+   "url": "https://en.wikipedia.org/wiki/Emergency_Shipbuilding_Program",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-559": {
+   "answer": "Auxiliary cruiser",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Auxiliary cruiser",
+   "target": "Armed merchantman#Auxiliary cruisers"
+  },
+  "ww2-560": {
+   "answer": "Operation Rheinübung",
+   "title": "Operation Rheinübung",
+   "url": "https://en.wikipedia.org/wiki/Operation_Rhein%C3%BCbung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-511": {
+   "answer": "Burma campaign",
+   "title": "Burma campaign",
+   "url": "https://en.wikipedia.org/wiki/Burma_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-512": {
+   "answer": "Burma Corps",
+   "title": "Burma Corps",
+   "url": "https://en.wikipedia.org/wiki/Burma_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-513": {
+   "answer": "Mepacrine",
+   "title": "Mepacrine",
+   "url": "https://en.wikipedia.org/wiki/Mepacrine",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-514": {
+   "answer": "Chindits",
+   "title": "Chindits",
+   "url": "https://en.wikipedia.org/wiki/Chindits",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-515": {
+   "answer": "Orde Wingate",
+   "title": "Orde Wingate",
+   "url": "https://en.wikipedia.org/wiki/Orde_Wingate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-516": {
+   "answer": "Battle of the Admin Box",
+   "title": "Battle of the Admin Box",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Admin_Box",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-517": {
+   "answer": "Battle of Imphal",
+   "title": "Battle of Imphal",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Imphal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-518": {
+   "answer": "Battle of Kohima",
+   "title": "Battle of Kohima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kohima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-519": {
+   "answer": "William Slim",
+   "title": "William Slim, 1st Viscount Slim",
+   "url": "https://en.wikipedia.org/wiki/William_Slim,_1st_Viscount_Slim",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-520": {
+   "answer": "Battle of Meiktila and Mandalay",
+   "title": "Battle of Meiktila and Mandalay",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Meiktila_and_Mandalay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-571": {
+   "answer": "Erwin Rommel",
+   "title": "Erwin Rommel",
+   "url": "https://en.wikipedia.org/wiki/Erwin_Rommel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-572": {
+   "answer": "Siege of Tobruk",
+   "title": "Siege of Tobruk",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Tobruk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-573": {
+   "answer": "Operation Crusader",
+   "title": "Operation Crusader",
+   "url": "https://en.wikipedia.org/wiki/Operation_Crusader",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-574": {
+   "answer": "Battle of Gazala",
+   "title": "Battle of Gazala",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gazala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-575": {
+   "answer": "Axis capture of Tobruk",
+   "title": "Axis capture of Tobruk",
+   "url": "https://en.wikipedia.org/wiki/Axis_capture_of_Tobruk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-576": {
+   "answer": "First Battle of El Alamein",
+   "title": "First Battle of El Alamein",
+   "url": "https://en.wikipedia.org/wiki/First_Battle_of_El_Alamein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-577": {
+   "answer": "Bernard Montgomery",
+   "title": "Bernard Montgomery",
+   "url": "https://en.wikipedia.org/wiki/Bernard_Montgomery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-578": {
+   "answer": "Second Battle of El Alamein",
+   "title": "Second Battle of El Alamein",
+   "url": "https://en.wikipedia.org/wiki/Second_Battle_of_El_Alamein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-579": {
+   "answer": "khamsin",
+   "title": "Khamsin",
+   "url": "https://en.wikipedia.org/wiki/Khamsin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-580": {
+   "answer": "Operation Torch",
+   "title": "Operation Torch",
+   "url": "https://en.wikipedia.org/wiki/Operation_Torch",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-521": {
+   "answer": "British Indian Army",
+   "title": "British Indian Army",
+   "url": "https://en.wikipedia.org/wiki/British_Indian_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-522": {
+   "answer": "Eastern Group Supply Council",
+   "title": "Eastern Group Supply Council",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Group_Supply_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-523": {
+   "answer": "Bombing of Calcutta",
+   "title": "Bombing of Calcutta",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Calcutta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-524": {
+   "answer": "Bengal famine of 1943",
+   "title": "Bengal famine of 1943",
+   "url": "https://en.wikipedia.org/wiki/Bengal_famine_of_1943",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-525": {
+   "answer": "Famine Inquiry Commission",
+   "title": "Famine Inquiry Commission",
+   "url": "https://en.wikipedia.org/wiki/Famine_Inquiry_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-526": {
+   "answer": "Quit India Movement",
+   "title": "Quit India Movement",
+   "url": "https://en.wikipedia.org/wiki/Quit_India_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-527": {
+   "answer": "Subhas Chandra Bose",
+   "title": "Subhas Chandra Bose",
+   "url": "https://en.wikipedia.org/wiki/Subhas_Chandra_Bose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-528": {
+   "answer": "Indian National Army",
+   "title": "Indian National Army",
+   "url": "https://en.wikipedia.org/wiki/Indian_National_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-529": {
+   "answer": "INA trials",
+   "title": "Indian National Army trials",
+   "url": "https://en.wikipedia.org/wiki/Indian_National_Army_trials",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "INA trials"
+  },
+  "ww2-530": {
+   "answer": "State of Burma",
+   "title": "State of Burma",
+   "url": "https://en.wikipedia.org/wiki/State_of_Burma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-531": {
+   "answer": "Aung San",
+   "title": "Aung San",
+   "url": "https://en.wikipedia.org/wiki/Aung_San",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-532": {
+   "answer": "Free Thai Movement",
+   "title": "Free Thai Movement",
+   "url": "https://en.wikipedia.org/wiki/Free_Thai_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-533": {
+   "answer": "Japanese coup d'état in French Indochina",
+   "title": "Japanese coup d'état in French Indochina",
+   "url": "https://en.wikipedia.org/wiki/Japanese_coup_d'%C3%A9tat_in_French_Indochina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-534": {
+   "answer": "Vietnamese famine of 1944–1945",
+   "title": "Vietnamese famine of 1944–1945",
+   "url": "https://en.wikipedia.org/wiki/Vietnamese_famine_of_1944%E2%80%931945",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-535": {
+   "answer": "Việt Minh",
+   "title": "Viet Minh",
+   "url": "https://en.wikipedia.org/wiki/Viet_Minh",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Việt Minh"
+  },
+  "ww2-536": {
+   "answer": "Defenders of the Homeland",
+   "title": "Defenders of the Homeland",
+   "url": "https://en.wikipedia.org/wiki/Defenders_of_the_Homeland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-537": {
+   "answer": "Second Philippine Republic",
+   "title": "Second Philippine Republic",
+   "url": "https://en.wikipedia.org/wiki/Second_Philippine_Republic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-538": {
+   "answer": "Malayan Peoples' Anti-Japanese Army",
+   "title": "Malayan Peoples' Anti-Japanese Army",
+   "url": "https://en.wikipedia.org/wiki/Malayan_Peoples'_Anti-Japanese_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-539": {
+   "answer": "Sook Ching",
+   "title": "Sook Ching",
+   "url": "https://en.wikipedia.org/wiki/Sook_Ching",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-540": {
+   "answer": "Proclamation of Indonesian Independence",
+   "title": "Proclamation of Indonesian Independence",
+   "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-591": {
+   "answer": "Allied invasion of Italy",
+   "title": "Allied invasion of Italy",
+   "url": "https://en.wikipedia.org/wiki/Allied_invasion_of_Italy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-592": {
+   "answer": "Battle of Monte Cassino",
+   "title": "Battle of Monte Cassino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Monte_Cassino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-593": {
+   "answer": "Monte Cassino",
+   "title": "Monte Cassino",
+   "url": "https://en.wikipedia.org/wiki/Monte_Cassino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-594": {
+   "answer": "Battle of Anzio",
+   "title": "Battle of Anzio",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Anzio",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-595": {
+   "answer": "Liberation of Rome",
+   "title": "Liberation of Rome",
+   "url": "https://en.wikipedia.org/wiki/Liberation_of_Rome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-596": {
+   "answer": "Gothic Line",
+   "title": "Gothic Line",
+   "url": "https://en.wikipedia.org/wiki/Gothic_Line",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-597": {
+   "answer": "Italian resistance movement",
+   "title": "Italian resistance movement",
+   "url": "https://en.wikipedia.org/wiki/Italian_resistance_movement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-598": {
+   "answer": "Italian Civil War",
+   "title": "Italian Civil War",
+   "url": "https://en.wikipedia.org/wiki/Italian_Civil_War",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-599": {
+   "answer": "Marzabotto massacre",
+   "title": "Marzabotto massacre",
+   "url": "https://en.wikipedia.org/wiki/Marzabotto_massacre",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-600": {
+   "answer": "Death of Benito Mussolini",
+   "title": "Death of Benito Mussolini",
+   "url": "https://en.wikipedia.org/wiki/Death_of_Benito_Mussolini",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-501": {
+   "answer": "Rōmusha",
+   "title": "Rōmusha",
+   "url": "https://en.wikipedia.org/wiki/R%C5%8Dmusha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-502": {
+   "answer": "Operation Starvation",
+   "title": "Operation Starvation",
+   "url": "https://en.wikipedia.org/wiki/Operation_Starvation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-503": {
+   "answer": "Operation Downfall",
+   "title": "Operation Downfall",
+   "url": "https://en.wikipedia.org/wiki/Operation_Downfall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-504": {
+   "answer": "Per Jacobsson",
+   "title": "Per Jacobsson",
+   "url": "https://en.wikipedia.org/wiki/Per_Jacobsson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-505": {
+   "answer": "Potsdam Declaration",
+   "title": "Potsdam Declaration",
+   "url": "https://en.wikipedia.org/wiki/Potsdam_Declaration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-506": {
+   "answer": "Europe first",
+   "title": "Europe first",
+   "url": "https://en.wikipedia.org/wiki/Europe_first",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-507": {
+   "answer": "Hakkō ichiu",
+   "title": "Hakkō ichiu",
+   "url": "https://en.wikipedia.org/wiki/Hakk%C5%8D_ichiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-508": {
+   "answer": "internment of Japanese Americans",
+   "title": "Internment of Japanese Americans",
+   "url": "https://en.wikipedia.org/wiki/Internment_of_Japanese_Americans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-509": {
+   "answer": "442nd Infantry Regiment",
+   "title": "442nd Infantry Regiment",
+   "url": "https://en.wikipedia.org/wiki/442nd_Infantry_Regiment",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "442nd Infantry Regiment (United States)"
+  },
+  "ww2-510": {
+   "answer": "Ernest King",
+   "title": "Ernest J. King",
+   "url": "https://en.wikipedia.org/wiki/Ernest_J._King",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Ernest King"
+  },
+  "ww2-561": {
+   "answer": "Channel Dash",
+   "title": "Channel Dash",
+   "url": "https://en.wikipedia.org/wiki/Channel_Dash",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-562": {
+   "answer": "Convoy PQ 17",
+   "title": "Convoy PQ 17",
+   "url": "https://en.wikipedia.org/wiki/Convoy_PQ_17",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-563": {
+   "answer": "Newfoundland Escort Force",
+   "title": "Newfoundland Escort Force",
+   "url": "https://en.wikipedia.org/wiki/Newfoundland_Escort_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-564": {
+   "answer": "Plan Dog memo",
+   "title": "Plan Dog memo",
+   "url": "https://en.wikipedia.org/wiki/Plan_Dog_memo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-565": {
+   "answer": "National Loaf",
+   "title": "National Loaf",
+   "url": "https://en.wikipedia.org/wiki/National_Loaf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-566": {
+   "answer": "Laconia incident",
+   "title": "Laconia incident",
+   "url": "https://en.wikipedia.org/wiki/Laconia_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-567": {
+   "answer": "navicert",
+   "title": "Navicert",
+   "url": "https://en.wikipedia.org/wiki/Navicert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-568": {
+   "answer": "tonnage war",
+   "title": "Tonnage war",
+   "url": "https://en.wikipedia.org/wiki/Tonnage_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-569": {
+   "answer": "North African campaign",
+   "title": "North African campaign",
+   "url": "https://en.wikipedia.org/wiki/North_African_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-570": {
+   "answer": "Afrika Korps",
+   "title": "Afrika Korps",
+   "url": "https://en.wikipedia.org/wiki/Afrika_Korps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-001": {
+   "answer": "astronomy",
+   "title": "Astronomy",
+   "url": "https://en.wikipedia.org/wiki/Astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-002": {
+   "answer": "astronomical object",
+   "title": "Astronomical object",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_object",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-003": {
+   "answer": "astrophysics",
+   "title": "Astrophysics",
+   "url": "https://en.wikipedia.org/wiki/Astrophysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-004": {
+   "answer": "observational astronomy",
+   "title": "Observational astronomy",
+   "url": "https://en.wikipedia.org/wiki/Observational_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-005": {
+   "answer": "scientific notation",
+   "title": "Scientific notation",
+   "url": "https://en.wikipedia.org/wiki/Scientific_notation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-006": {
+   "answer": "astronomical unit",
+   "title": "Astronomical unit",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_unit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-007": {
+   "answer": "light-year",
+   "title": "Light-year",
+   "url": "https://en.wikipedia.org/wiki/Light-year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-008": {
+   "answer": "parsec",
+   "title": "Parsec",
+   "url": "https://en.wikipedia.org/wiki/Parsec",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-009": {
+   "answer": "speed of light",
+   "title": "Speed of light",
+   "url": "https://en.wikipedia.org/wiki/Speed_of_light",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-010": {
+   "answer": "double star",
+   "title": "Double star",
+   "url": "https://en.wikipedia.org/wiki/Double_star",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-011": {
+   "answer": "night sky",
+   "title": "Night sky",
+   "url": "https://en.wikipedia.org/wiki/Night_sky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-012": {
+   "answer": "light pollution",
+   "title": "Light pollution",
+   "url": "https://en.wikipedia.org/wiki/Light_pollution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-013": {
+   "answer": "twinkling",
+   "title": "Twinkling",
+   "url": "https://en.wikipedia.org/wiki/Twinkling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-014": {
+   "answer": "amateur astronomy",
+   "title": "Amateur astronomy",
+   "url": "https://en.wikipedia.org/wiki/Amateur_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-015": {
+   "answer": "astrology",
+   "title": "Astrology",
+   "url": "https://en.wikipedia.org/wiki/Astrology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-016": {
+   "answer": "celestial sphere",
+   "title": "Celestial sphere",
+   "url": "https://en.wikipedia.org/wiki/Celestial_sphere",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-017": {
+   "answer": "celestial pole",
+   "title": "Celestial pole",
+   "url": "https://en.wikipedia.org/wiki/Celestial_pole",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-018": {
+   "answer": "celestial equator",
+   "title": "Celestial equator",
+   "url": "https://en.wikipedia.org/wiki/Celestial_equator",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-019": {
+   "answer": "ecliptic",
+   "title": "Ecliptic",
+   "url": "https://en.wikipedia.org/wiki/Ecliptic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-020": {
+   "answer": "zenith",
+   "title": "Zenith",
+   "url": "https://en.wikipedia.org/wiki/Zenith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-021": {
+   "answer": "horizontal coordinate system",
+   "title": "Horizontal coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Horizontal_coordinate_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-022": {
+   "answer": "equatorial coordinate system",
+   "title": "Equatorial coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Equatorial_coordinate_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-023": {
+   "answer": "First Point of Aries",
+   "title": "First point of Aries",
+   "url": "https://en.wikipedia.org/wiki/First_point_of_Aries",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-024": {
+   "answer": "celestial meridian",
+   "title": "Meridian (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Meridian_(astronomy)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Celestial meridian"
+  },
+  "astro-025": {
+   "answer": "circumpolar star",
+   "title": "Circumpolar star",
+   "url": "https://en.wikipedia.org/wiki/Circumpolar_star",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-026": {
+   "answer": "latitude",
+   "title": "Latitude",
+   "url": "https://en.wikipedia.org/wiki/Latitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-027": {
+   "answer": "star chart",
+   "title": "Star chart",
+   "url": "https://en.wikipedia.org/wiki/Star_chart",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-028": {
+   "answer": "magnitude scale",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Magnitude (astronomy)",
+    "Apparent magnitude",
+    "Order of magnitude",
+    "Magnitude",
+    "First-magnitude star"
+   ]
+  },
+  "astro-029": {
+   "answer": "absolute magnitude",
+   "title": "Absolute magnitude",
+   "url": "https://en.wikipedia.org/wiki/Absolute_magnitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-030": {
+   "answer": "angular size",
+   "title": "Angular diameter",
+   "url": "https://en.wikipedia.org/wiki/Angular_diameter",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angular size"
+  },
+  "astro-031": {
+   "answer": "angular separation",
+   "title": "Angular distance",
+   "url": "https://en.wikipedia.org/wiki/Angular_distance",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Angular separation"
+  },
+  "astro-032": {
+   "answer": "parallax",
+   "title": "Parallax",
+   "url": "https://en.wikipedia.org/wiki/Parallax",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-033": {
+   "answer": "sidereal time",
+   "title": "Sidereal time",
+   "url": "https://en.wikipedia.org/wiki/Sidereal_time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-034": {
+   "answer": "zodiac",
+   "title": "Zodiac",
+   "url": "https://en.wikipedia.org/wiki/Zodiac",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-035": {
+   "answer": "galactic coordinates",
+   "title": "Galactic coordinate system",
+   "url": "https://en.wikipedia.org/wiki/Galactic_coordinate_system",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Galactic coordinates"
+  },
+  "astro-036": {
+   "answer": "diurnal motion",
+   "title": "Diurnal motion",
+   "url": "https://en.wikipedia.org/wiki/Diurnal_motion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-037": {
+   "answer": "Earth's rotation",
+   "title": "Earth's rotation",
+   "url": "https://en.wikipedia.org/wiki/Earth's_rotation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-038": {
+   "answer": "Earth's orbit",
+   "title": "Earth's orbit",
+   "url": "https://en.wikipedia.org/wiki/Earth's_orbit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-039": {
+   "answer": "heliacal rising",
+   "title": "Heliacal rising",
+   "url": "https://en.wikipedia.org/wiki/Heliacal_rising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-040": {
+   "answer": "solstice",
+   "title": "Solstice",
+   "url": "https://en.wikipedia.org/wiki/Solstice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-041": {
+   "answer": "equinox",
+   "title": "Equinox",
+   "url": "https://en.wikipedia.org/wiki/Equinox",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-042": {
+   "answer": "axial tilt",
+   "title": "Axial tilt",
+   "url": "https://en.wikipedia.org/wiki/Axial_tilt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-043": {
+   "answer": "analemma",
+   "title": "Analemma",
+   "url": "https://en.wikipedia.org/wiki/Analemma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-044": {
+   "answer": "precession of the equinoxes",
+   "title": "Axial precession",
+   "url": "https://en.wikipedia.org/wiki/Axial_precession",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Precession of the equinoxes"
+  },
+  "astro-045": {
+   "answer": "nutation",
+   "title": "Nutation",
+   "url": "https://en.wikipedia.org/wiki/Nutation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "astro-046": {
+   "answer": "proper motion",
+   "title": "Proper motion",
+   "url": "https://en.wikipedia.org/wiki/Proper_motion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-047": {
+   "answer": "fixed stars",
+   "title": "Fixed stars",
+   "url": "https://en.wikipedia.org/wiki/Fixed_stars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-048": {
+   "answer": "lunar phase",
+   "title": "Lunar phase",
+   "url": "https://en.wikipedia.org/wiki/Lunar_phase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-049": {
+   "answer": "synodic month",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Synodic month",
+   "target": "Lunar month#Synodic month"
+  },
+  "astro-050": {
+   "answer": "classical planets",
+   "title": "Classical planet",
+   "url": "https://en.wikipedia.org/wiki/Classical_planet",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Classical planets"
+  },
+  "astro-051": {
+   "answer": "retrograde motion",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Retrograde motion"
+  },
+  "astro-052": {
+   "answer": "conjunction",
+   "title": "Conjunction (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Conjunction_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-053": {
+   "answer": "elongation",
+   "title": "Elongation (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Elongation_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-054": {
+   "answer": "transit",
+   "title": "Astronomical transit",
+   "url": "https://en.wikipedia.org/wiki/Astronomical_transit",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Transit"
+  },
+  "astro-055": {
+   "answer": "occultation",
+   "title": "Occultation",
+   "url": "https://en.wikipedia.org/wiki/Occultation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Occultation (astronomy)"
+  },
+  "astro-056": {
+   "answer": "constellation",
+   "title": "Constellation",
+   "url": "https://en.wikipedia.org/wiki/Constellation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Constellation (astronomy)"
+  },
+  "astro-057": {
+   "answer": "88 modern constellations",
+   "title": "IAU designated constellations",
+   "url": "https://en.wikipedia.org/wiki/IAU_designated_constellations",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "88 modern constellations"
+  },
+  "astro-058": {
+   "answer": "constellation boundaries",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Constellation boundaries",
+   "target": "Constellation#Boundaries"
+  },
+  "astro-059": {
+   "answer": "asterism",
+   "title": "Asterism (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Asterism_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-060": {
+   "answer": "Ursa Major",
+   "title": "Ursa Major",
+   "url": "https://en.wikipedia.org/wiki/Ursa_Major",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-061": {
+   "answer": "Orion",
+   "title": "Orion (constellation)",
+   "url": "https://en.wikipedia.org/wiki/Orion_(constellation)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-062": {
+   "answer": "Southern Cross",
+   "title": "Crux",
+   "url": "https://en.wikipedia.org/wiki/Crux",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Southern Cross"
+  },
+  "astro-063": {
+   "answer": "Cassiopeia",
+   "title": "Cassiopeia (constellation)",
+   "url": "https://en.wikipedia.org/wiki/Cassiopeia_(constellation)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-064": {
+   "answer": "Polaris",
+   "title": "Polaris",
+   "url": "https://en.wikipedia.org/wiki/Polaris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-065": {
+   "answer": "Ophiuchus",
+   "title": "Ophiuchus",
+   "url": "https://en.wikipedia.org/wiki/Ophiuchus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-066": {
+   "answer": "southern celestial hemisphere",
+   "title": "Southern celestial hemisphere",
+   "url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-067": {
+   "answer": "cultural astronomy",
+   "title": "Cultural astronomy",
+   "url": "https://en.wikipedia.org/wiki/Cultural_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-068": {
+   "answer": "Australian Aboriginal astronomy",
+   "title": "Australian Aboriginal astronomy",
+   "url": "https://en.wikipedia.org/wiki/Australian_Aboriginal_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-069": {
+   "answer": "Chinese constellations",
+   "title": "Chinese constellations",
+   "url": "https://en.wikipedia.org/wiki/Chinese_constellations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-070": {
+   "answer": "Polynesian navigation",
+   "title": "Polynesian navigation",
+   "url": "https://en.wikipedia.org/wiki/Polynesian_navigation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-071": {
+   "answer": "Bayer designation",
+   "title": "Bayer designation",
+   "url": "https://en.wikipedia.org/wiki/Bayer_designation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-072": {
+   "answer": "Flamsteed designation",
+   "title": "Flamsteed designation",
+   "url": "https://en.wikipedia.org/wiki/Flamsteed_designation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-073": {
+   "answer": "Working Group on Star Names",
+   "title": "IAU Working Group on Star Names",
+   "url": "https://en.wikipedia.org/wiki/IAU_Working_Group_on_Star_Names",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Working Group on Star Names"
+  },
+  "astro-074": {
+   "answer": "Henry Draper Catalogue",
+   "title": "Henry Draper Catalogue",
+   "url": "https://en.wikipedia.org/wiki/Henry_Draper_Catalogue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-075": {
+   "answer": "Sirius",
+   "title": "Sirius",
+   "url": "https://en.wikipedia.org/wiki/Sirius",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-076": {
+   "answer": "solar eclipse",
+   "title": "Solar eclipse",
+   "url": "https://en.wikipedia.org/wiki/Solar_eclipse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-077": {
+   "answer": "lunar eclipse",
+   "title": "Lunar eclipse",
+   "url": "https://en.wikipedia.org/wiki/Lunar_eclipse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-078": {
+   "answer": "lunar node",
+   "title": "Lunar node",
+   "url": "https://en.wikipedia.org/wiki/Lunar_node",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-079": {
+   "answer": "saros",
+   "title": "Saros (astronomy)",
+   "url": "https://en.wikipedia.org/wiki/Saros_(astronomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-080": {
+   "answer": "totality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Totality",
+   "suggestions": [
+    "Plan Totality",
+    "Totality and Infinity",
+    "Totality principle",
+    "Totality (album)",
+    "Totality Corporation"
+   ]
+  },
+  "astro-081": {
+   "answer": "eclipse of Thales",
+   "title": "Eclipse of Thales",
+   "url": "https://en.wikipedia.org/wiki/Eclipse_of_Thales",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-082": {
+   "answer": "tides",
+   "title": "Tide",
+   "url": "https://en.wikipedia.org/wiki/Tide",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Tides"
+  },
+  "astro-083": {
+   "answer": "spring tide",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Spring tide",
+   "target": "Tide#Spring"
+  },
+  "astro-084": {
+   "answer": "tidal locking",
+   "title": "Tidal locking",
+   "url": "https://en.wikipedia.org/wiki/Tidal_locking",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-085": {
+   "answer": "solar day",
+   "title": "Synodic day",
+   "url": "https://en.wikipedia.org/wiki/Synodic_day",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Solar day"
+  },
+  "astro-086": {
+   "answer": "tropical year",
+   "title": "Tropical year",
+   "url": "https://en.wikipedia.org/wiki/Tropical_year",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-087": {
+   "answer": "lunar calendar",
+   "title": "Lunar calendar",
+   "url": "https://en.wikipedia.org/wiki/Lunar_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-088": {
+   "answer": "Gregorian calendar",
+   "title": "Gregorian calendar",
+   "url": "https://en.wikipedia.org/wiki/Gregorian_calendar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-089": {
+   "answer": "leap second",
+   "title": "Leap second",
+   "url": "https://en.wikipedia.org/wiki/Leap_second",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-090": {
+   "answer": "Julian date",
+   "title": "Julian day",
+   "url": "https://en.wikipedia.org/wiki/Julian_day",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Julian date"
+  },
+  "astro-091": {
+   "answer": "Solar System",
+   "title": "Solar System",
+   "url": "https://en.wikipedia.org/wiki/Solar_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-092": {
+   "answer": "nebular hypothesis",
+   "title": "Nebular hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Nebular_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-093": {
+   "answer": "protoplanetary disc",
+   "title": "Protoplanetary disk",
+   "url": "https://en.wikipedia.org/wiki/Protoplanetary_disk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Protoplanetary disc"
+  },
+  "astro-094": {
+   "answer": "planetesimal",
+   "title": "Planetesimal",
+   "url": "https://en.wikipedia.org/wiki/Planetesimal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-095": {
+   "answer": "volatiles",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Volatility",
+   "suggestions": [
+    "Volatile (astrogeology)",
+    "Volatile acid",
+    "Volatile anaesthetic",
+    "Volatile memory",
+    "Volatile variable",
+    "Volatile organic compound"
+   ]
+  },
+  "astro-096": {
+   "answer": "frost line",
+   "title": "Frost line (astrophysics)",
+   "url": "https://en.wikipedia.org/wiki/Frost_line_(astrophysics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-097": {
+   "answer": "core accretion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Accretion (astrophysics)",
+    "Accretion disk",
+    "Earth's outer core",
+    "Black hole",
+    "Nebular hypothesis"
+   ]
+  },
+  "astro-098": {
+   "answer": "Nice model",
+   "title": "Nice model",
+   "url": "https://en.wikipedia.org/wiki/Nice_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-099": {
+   "answer": "Late Heavy Bombardment",
+   "title": "Late Heavy Bombardment",
+   "url": "https://en.wikipedia.org/wiki/Late_Heavy_Bombardment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-100": {
+   "answer": "age of the Solar System",
+   "title": "Formation and evolution of the Solar System",
+   "url": "https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Age of the Solar System"
   }
  }
 }
