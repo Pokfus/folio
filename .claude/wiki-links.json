@@ -1,16 +1,16 @@
 {
- "generated": "2026-11-07T04:16Z",
+ "generated": "2026-11-07T20:00Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6111,
-  "redirect-broader": 581,
-  "redirect-variant": 372,
-  "section-redirect": 126,
-  "disambiguation": 146,
-  "none": 1001,
+  "ok": 6191,
+  "redirect-broader": 591,
+  "redirect-variant": 375,
+  "section-redirect": 127,
+  "disambiguation": 147,
+  "none": 1005,
   "disambig-resolved": 83,
   "list-page": 6,
-  "search-match": 7,
+  "search-match": 8,
   "no-article": 17
  },
  "cards": {
@@ -67976,6 +67976,737 @@
    "url": "https://en.wikipedia.org/wiki/Streltsy",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-601": {
+   "answer": "Surrender at Caserta",
+   "title": "Surrender at Caserta",
+   "url": "https://en.wikipedia.org/wiki/Surrender_at_Caserta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-602": {
+   "answer": "Trident Conference",
+   "title": "Washington Conference (1943)",
+   "url": "https://en.wikipedia.org/wiki/Washington_Conference_(1943)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-603": {
+   "answer": "Foggia airfields",
+   "title": "Foggia Airfield Complex",
+   "url": "https://en.wikipedia.org/wiki/Foggia_Airfield_Complex",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-604": {
+   "answer": "strategic bombing",
+   "title": "Strategic bombing",
+   "url": "https://en.wikipedia.org/wiki/Strategic_bombing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-605": {
+   "answer": "RAF Bomber Command",
+   "title": "RAF Bomber Command",
+   "url": "https://en.wikipedia.org/wiki/RAF_Bomber_Command",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-606": {
+   "answer": "Area Bombing Directive",
+   "title": "Area bombing directive",
+   "url": "https://en.wikipedia.org/wiki/Area_bombing_directive",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Area Bombing Directive"
+  },
+  "ww2-607": {
+   "answer": "Arthur Harris",
+   "title": "Arthur Harris",
+   "url": "https://en.wikipedia.org/wiki/Arthur_Harris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-608": {
+   "answer": "Butt Report",
+   "title": "Butt Report",
+   "url": "https://en.wikipedia.org/wiki/Butt_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-609": {
+   "answer": "Combined Bomber Offensive",
+   "title": "Combined Bomber Offensive",
+   "url": "https://en.wikipedia.org/wiki/Combined_Bomber_Offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-610": {
+   "answer": "Eighth Air Force",
+   "title": "Eighth Air Force",
+   "url": "https://en.wikipedia.org/wiki/Eighth_Air_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-611": {
+   "answer": "Precision bombing",
+   "title": "Precision bombing",
+   "url": "https://en.wikipedia.org/wiki/Precision_bombing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-612": {
+   "answer": "Bombing of Hamburg",
+   "title": "Bombing of Hamburg in World War II",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Hamburg_in_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bombing of Hamburg"
+  },
+  "ww2-613": {
+   "answer": "Battle of the Ruhr",
+   "title": "Battle of the Ruhr",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Ruhr",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-614": {
+   "answer": "Operation Chastise",
+   "title": "Operation Chastise",
+   "url": "https://en.wikipedia.org/wiki/Operation_Chastise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-615": {
+   "answer": "Schweinfurt–Regensburg mission",
+   "title": "Schweinfurt–Regensburg mission",
+   "url": "https://en.wikipedia.org/wiki/Schweinfurt%E2%80%93Regensburg_mission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-616": {
+   "answer": "Second Schweinfurt raid",
+   "title": "Second Schweinfurt raid",
+   "url": "https://en.wikipedia.org/wiki/Second_Schweinfurt_raid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-617": {
+   "answer": "P-51 Mustang",
+   "title": "North American P-51 Mustang",
+   "url": "https://en.wikipedia.org/wiki/North_American_P-51_Mustang",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "P-51 Mustang"
+  },
+  "ww2-618": {
+   "answer": "Big Week",
+   "title": "Big Week",
+   "url": "https://en.wikipedia.org/wiki/Big_Week",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-619": {
+   "answer": "Bombing of Berlin",
+   "title": "Bombing of Berlin in World War II",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Berlin_in_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bombing of Berlin"
+  },
+  "ww2-620": {
+   "answer": "Bombing of Dresden",
+   "title": "Bombing of Dresden",
+   "url": "https://en.wikipedia.org/wiki/Bombing_of_Dresden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-621": {
+   "answer": "George Bell",
+   "title": "George Bell (bishop)",
+   "url": "https://en.wikipedia.org/wiki/George_Bell_(bishop)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-622": {
+   "answer": "Kammhuber Line",
+   "title": "Kammhuber Line",
+   "url": "https://en.wikipedia.org/wiki/Kammhuber_Line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-623": {
+   "answer": "Defence of the Reich",
+   "title": "Defence of the Reich",
+   "url": "https://en.wikipedia.org/wiki/Defence_of_the_Reich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-624": {
+   "answer": "Jägerstab",
+   "title": "Jägerstab",
+   "url": "https://en.wikipedia.org/wiki/J%C3%A4gerstab",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-625": {
+   "answer": "oil campaign",
+   "title": "Oil campaign of World War II",
+   "url": "https://en.wikipedia.org/wiki/Oil_campaign_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Oil campaign"
+  },
+  "ww2-626": {
+   "answer": "Reichsluftschutzbund",
+   "title": "Reichsluftschutzbund",
+   "url": "https://en.wikipedia.org/wiki/Reichsluftschutzbund",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-627": {
+   "answer": "United States Strategic Bombing Survey",
+   "title": "United States Strategic Bombing Survey",
+   "url": "https://en.wikipedia.org/wiki/United_States_Strategic_Bombing_Survey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-628": {
+   "answer": "Lack of moral fibre",
+   "title": "Lack of Moral Fibre",
+   "url": "https://en.wikipedia.org/wiki/Lack_of_Moral_Fibre",
+   "via": "search",
+   "status": "ok"
+  },
+  "ww2-629": {
+   "answer": "V-1 flying bomb",
+   "title": "V-1 flying bomb",
+   "url": "https://en.wikipedia.org/wiki/V-1_flying_bomb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-630": {
+   "answer": "V-2 rocket",
+   "title": "V-2 rocket",
+   "url": "https://en.wikipedia.org/wiki/V-2_rocket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-631": {
+   "answer": "Mittelbau-Dora",
+   "title": "Mittelbau-Dora concentration camp",
+   "url": "https://en.wikipedia.org/wiki/Mittelbau-Dora_concentration_camp",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mittelbau-Dora"
+  },
+  "ww2-632": {
+   "answer": "Ninth Air Force",
+   "title": "Ninth Air Force",
+   "url": "https://en.wikipedia.org/wiki/Ninth_Air_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-633": {
+   "answer": "air supremacy",
+   "title": "Air supremacy",
+   "url": "https://en.wikipedia.org/wiki/Air_supremacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-634": {
+   "answer": "Operation Roundup",
+   "title": "Operation Roundup (1942)",
+   "url": "https://en.wikipedia.org/wiki/Operation_Roundup_(1942)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-635": {
+   "answer": "Operation Overlord",
+   "title": "Operation Overlord",
+   "url": "https://en.wikipedia.org/wiki/Operation_Overlord",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-636": {
+   "answer": "Operation Fortitude",
+   "title": "Operation Fortitude",
+   "url": "https://en.wikipedia.org/wiki/Operation_Fortitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-637": {
+   "answer": "Atlantic Wall",
+   "title": "Atlantic Wall",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_Wall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-638": {
+   "answer": "Normandy landings",
+   "title": "Normandy landings",
+   "url": "https://en.wikipedia.org/wiki/Normandy_landings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-639": {
+   "answer": "Omaha Beach",
+   "title": "Omaha Beach",
+   "url": "https://en.wikipedia.org/wiki/Omaha_Beach",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-640": {
+   "answer": "Operation Tonga",
+   "title": "Operation Tonga",
+   "url": "https://en.wikipedia.org/wiki/Operation_Tonga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-641": {
+   "answer": "Mulberry harbour",
+   "title": "Mulberry harbours",
+   "url": "https://en.wikipedia.org/wiki/Mulberry_harbours",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Mulberry harbour"
+  },
+  "ww2-642": {
+   "answer": "Operation Goodwood",
+   "title": "Operation Goodwood",
+   "url": "https://en.wikipedia.org/wiki/Operation_Goodwood",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-643": {
+   "answer": "Battle for Caen",
+   "title": "Battle for Caen",
+   "url": "https://en.wikipedia.org/wiki/Battle_for_Caen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-644": {
+   "answer": "Operation Cobra",
+   "title": "Operation Cobra",
+   "url": "https://en.wikipedia.org/wiki/Operation_Cobra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-645": {
+   "answer": "Falaise pocket",
+   "title": "Falaise pocket",
+   "url": "https://en.wikipedia.org/wiki/Falaise_pocket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-646": {
+   "answer": "Liberation of Paris",
+   "title": "Liberation of Paris",
+   "url": "https://en.wikipedia.org/wiki/Liberation_of_Paris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-647": {
+   "answer": "Operation Dragoon",
+   "title": "Operation Dragoon",
+   "url": "https://en.wikipedia.org/wiki/Operation_Dragoon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-648": {
+   "answer": "Battle of Aachen",
+   "title": "Battle of Aachen",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Aachen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-649": {
+   "answer": "Operation Market Garden",
+   "title": "Operation Market Garden",
+   "url": "https://en.wikipedia.org/wiki/Operation_Market_Garden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-650": {
+   "answer": "Battle of the Scheldt",
+   "title": "Battle of the Scheldt",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Scheldt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-651": {
+   "answer": "Red Ball Express",
+   "title": "Red Ball Express",
+   "url": "https://en.wikipedia.org/wiki/Red_Ball_Express",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-652": {
+   "answer": "Battle of the Bulge",
+   "title": "Battle of the Bulge",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Bulge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-653": {
+   "answer": "Malmedy massacre",
+   "title": "Malmedy massacre",
+   "url": "https://en.wikipedia.org/wiki/Malmedy_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-654": {
+   "answer": "Dwight D. Eisenhower",
+   "title": "Dwight D. Eisenhower",
+   "url": "https://en.wikipedia.org/wiki/Dwight_D._Eisenhower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-655": {
+   "answer": "broad front strategy",
+   "title": "Broad front versus narrow front controversy in World War II",
+   "url": "https://en.wikipedia.org/wiki/Broad_front_versus_narrow_front_controversy_in_World_War_II",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-656": {
+   "answer": "Operation Plunder",
+   "title": "Operation Plunder",
+   "url": "https://en.wikipedia.org/wiki/Operation_Plunder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-657": {
+   "answer": "Ruhr pocket",
+   "title": "Ruhr pocket",
+   "url": "https://en.wikipedia.org/wiki/Ruhr_pocket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-658": {
+   "answer": "Western Allied invasion of Germany",
+   "title": "Western Allied invasion of Germany",
+   "url": "https://en.wikipedia.org/wiki/Western_Allied_invasion_of_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-659": {
+   "answer": "Elbe Day",
+   "title": "Elbe Day",
+   "url": "https://en.wikipedia.org/wiki/Elbe_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-660": {
+   "answer": "two-front war",
+   "title": "Two-front war",
+   "url": "https://en.wikipedia.org/wiki/Two-front_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-661": {
+   "answer": "German-occupied Europe",
+   "title": "German-occupied Europe",
+   "url": "https://en.wikipedia.org/wiki/German-occupied_Europe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-662": {
+   "answer": "Reichskommissariat",
+   "title": "Reichskommissariat",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-663": {
+   "answer": "occupation costs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Axis occupation of Greece",
+    "Occupation of the Baltic states",
+    "World War II reparations",
+    "World War I",
+    "List of World War II feature films"
+   ]
+  },
+  "ww2-664": {
+   "answer": "Service du travail obligatoire",
+   "title": "Service du travail obligatoire",
+   "url": "https://en.wikipedia.org/wiki/Service_du_travail_obligatoire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-665": {
+   "answer": "Fritz Sauckel",
+   "title": "Fritz Sauckel",
+   "url": "https://en.wikipedia.org/wiki/Fritz_Sauckel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-666": {
+   "answer": "requisition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Requisition",
+   "suggestions": [
+    "Purchase requisition"
+   ]
+  },
+  "ww2-667": {
+   "answer": "Dutch famine of 1944–1945",
+   "title": "Dutch famine of 1944–1945",
+   "url": "https://en.wikipedia.org/wiki/Dutch_famine_of_1944%E2%80%931945",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-668": {
+   "answer": "Great Famine of Greece",
+   "title": "Great Famine (Greece)",
+   "url": "https://en.wikipedia.org/wiki/Great_Famine_(Greece)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-669": {
+   "answer": "Military Administration in France",
+   "title": "German military administration in occupied France during World War II",
+   "url": "https://en.wikipedia.org/wiki/German_military_administration_in_occupied_France_during_World_War_II",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Military Administration in France (Nazi Germany)"
+  },
+  "ww2-670": {
+   "answer": "Pierre Laval",
+   "title": "Pierre Laval",
+   "url": "https://en.wikipedia.org/wiki/Pierre_Laval",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-671": {
+   "answer": "Milice",
+   "title": "Milice",
+   "url": "https://en.wikipedia.org/wiki/Milice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-672": {
+   "answer": "Occupation of Denmark",
+   "title": "Denmark in World War II",
+   "url": "https://en.wikipedia.org/wiki/Denmark_in_World_War_II",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Occupation of Denmark"
+  },
+  "ww2-673": {
+   "answer": "Vidkun Quisling",
+   "title": "Vidkun Quisling",
+   "url": "https://en.wikipedia.org/wiki/Vidkun_Quisling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-674": {
+   "answer": "Reichskommissariat Niederlande",
+   "title": "Reichskommissariat Niederlande",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat_Niederlande",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-675": {
+   "answer": "Reichsgau Wartheland",
+   "title": "Reichsgau Wartheland",
+   "url": "https://en.wikipedia.org/wiki/Reichsgau_Wartheland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-676": {
+   "answer": "Germanisation",
+   "title": "Germanisation",
+   "url": "https://en.wikipedia.org/wiki/Germanisation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-677": {
+   "answer": "Lebensborn",
+   "title": "Lebensborn",
+   "url": "https://en.wikipedia.org/wiki/Lebensborn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-678": {
+   "answer": "Konstantin von Neurath",
+   "title": "Konstantin von Neurath",
+   "url": "https://en.wikipedia.org/wiki/Konstantin_von_Neurath",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-679": {
+   "answer": "Reinhard Heydrich",
+   "title": "Reinhard Heydrich",
+   "url": "https://en.wikipedia.org/wiki/Reinhard_Heydrich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-680": {
+   "answer": "Operation Anthropoid",
+   "title": "Assassination of Reinhard Heydrich",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_Reinhard_Heydrich",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Operation Anthropoid"
+  },
+  "ww2-681": {
+   "answer": "Lidice massacre",
+   "title": "Lidice massacre",
+   "url": "https://en.wikipedia.org/wiki/Lidice_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-682": {
+   "answer": "Territory of the Military Commander in Serbia",
+   "title": "Territory of the Military Commander in Serbia",
+   "url": "https://en.wikipedia.org/wiki/Territory_of_the_Military_Commander_in_Serbia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-683": {
+   "answer": "Jasenovac concentration camp",
+   "title": "Jasenovac concentration camp",
+   "url": "https://en.wikipedia.org/wiki/Jasenovac_concentration_camp",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-684": {
+   "answer": "Axis occupation of Greece",
+   "title": "Axis occupation of Greece",
+   "url": "https://en.wikipedia.org/wiki/Axis_occupation_of_Greece",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-685": {
+   "answer": "collaborationism",
+   "title": "Wartime collaboration",
+   "url": "https://en.wikipedia.org/wiki/Wartime_collaboration",
+   "via": "manual",
+   "status": "ok",
+   "target": "Wartime collaboration#Definitions",
+   "manual": true
+  },
+  "ww2-686": {
+   "answer": "Schutzmannschaft",
+   "title": "Schutzmannschaft",
+   "url": "https://en.wikipedia.org/wiki/Schutzmannschaft",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-687": {
+   "answer": "SS Division Wiking",
+   "title": "5th SS Panzer Division Wiking",
+   "url": "https://en.wikipedia.org/wiki/5th_SS_Panzer_Division_Wiking",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "SS Division Wiking"
+  },
+  "ww2-688": {
+   "answer": "attentisme",
+   "title": "Attentisme",
+   "url": "https://en.wikipedia.org/wiki/Attentisme",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-689": {
+   "answer": "black market",
+   "title": "Black market",
+   "url": "https://en.wikipedia.org/wiki/Black_market",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-690": {
+   "answer": "Horizontal collaboration",
+   "title": "Horizontal collaboration",
+   "url": "https://en.wikipedia.org/wiki/Horizontal_collaboration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-691": {
+   "answer": "Wehrmacht brothels",
+   "title": "German military brothels in World War II",
+   "url": "https://en.wikipedia.org/wiki/German_military_brothels_in_World_War_II",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-692": {
+   "answer": "hidden children",
+   "title": "Hidden children during the Holocaust",
+   "url": "https://en.wikipedia.org/wiki/Hidden_children_during_the_Holocaust",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hidden children"
+  },
+  "ww2-693": {
+   "answer": "Kragujevac massacre",
+   "title": "Kragujevac massacre",
+   "url": "https://en.wikipedia.org/wiki/Kragujevac_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-694": {
+   "answer": "Oradour-sur-Glane massacre",
+   "title": "Oradour-sur-Glane massacre",
+   "url": "https://en.wikipedia.org/wiki/Oradour-sur-Glane_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-695": {
+   "answer": "Ardeatine massacre",
+   "title": "Ardeatine massacre",
+   "url": "https://en.wikipedia.org/wiki/Ardeatine_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-696": {
+   "answer": "Bandenbekämpfung",
+   "title": "Bandenbekämpfung",
+   "url": "https://en.wikipedia.org/wiki/Bandenbek%C3%A4mpfung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-697": {
+   "answer": "Heim ins Reich",
+   "title": "Heim ins Reich",
+   "url": "https://en.wikipedia.org/wiki/Heim_ins_Reich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-698": {
+   "answer": "non-belligerence",
+   "title": "Non-belligerent",
+   "url": "https://en.wikipedia.org/wiki/Non-belligerent",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Non-belligerence"
+  },
+  "ww2-699": {
+   "answer": "Nazi gold",
+   "title": "Nazi gold",
+   "url": "https://en.wikipedia.org/wiki/Nazi_gold",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-700": {
+   "answer": "Allied Military Government of Occupied Territory",
+   "title": "Allied Military Government of Occupied Territories",
+   "url": "https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories",
+   "via": "search",
+   "status": "search-match"
   }
  }
 }
