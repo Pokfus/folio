@@ -1,16 +1,16 @@
 {
- "generated": "2026-11-07T19:58Z",
+ "generated": "2026-11-07T20:00Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6185,
-  "redirect-broader": 589,
+  "ok": 6191,
+  "redirect-broader": 591,
   "redirect-variant": 375,
   "section-redirect": 127,
   "disambiguation": 147,
-  "none": 1004,
+  "none": 1005,
   "disambig-resolved": 83,
   "list-page": 6,
-  "search-match": 7,
+  "search-match": 8,
   "no-article": 17
  },
  "cards": {
@@ -68646,6 +68646,85 @@
    "url": "https://en.wikipedia.org/wiki/Horizontal_collaboration",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-691": {
+   "answer": "Wehrmacht brothels",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "German military brothels in World War II",
+    "German camp brothels in World War II",
+    "East African campaign (World War II)",
+    "Australia in World War II",
+    "Italian campaign (World War II)"
+   ]
+  },
+  "ww2-692": {
+   "answer": "hidden children",
+   "title": "Hidden children during the Holocaust",
+   "url": "https://en.wikipedia.org/wiki/Hidden_children_during_the_Holocaust",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hidden children"
+  },
+  "ww2-693": {
+   "answer": "Kragujevac massacre",
+   "title": "Kragujevac massacre",
+   "url": "https://en.wikipedia.org/wiki/Kragujevac_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-694": {
+   "answer": "Oradour-sur-Glane massacre",
+   "title": "Oradour-sur-Glane massacre",
+   "url": "https://en.wikipedia.org/wiki/Oradour-sur-Glane_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-695": {
+   "answer": "Ardeatine massacre",
+   "title": "Ardeatine massacre",
+   "url": "https://en.wikipedia.org/wiki/Ardeatine_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-696": {
+   "answer": "Bandenbekämpfung",
+   "title": "Bandenbekämpfung",
+   "url": "https://en.wikipedia.org/wiki/Bandenbek%C3%A4mpfung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-697": {
+   "answer": "Heim ins Reich",
+   "title": "Heim ins Reich",
+   "url": "https://en.wikipedia.org/wiki/Heim_ins_Reich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-698": {
+   "answer": "non-belligerence",
+   "title": "Non-belligerent",
+   "url": "https://en.wikipedia.org/wiki/Non-belligerent",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Non-belligerence"
+  },
+  "ww2-699": {
+   "answer": "Nazi gold",
+   "title": "Nazi gold",
+   "url": "https://en.wikipedia.org/wiki/Nazi_gold",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-700": {
+   "answer": "Allied Military Government of Occupied Territory",
+   "title": "Allied Military Government of Occupied Territories",
+   "url": "https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories",
+   "via": "search",
+   "status": "search-match"
   }
  }
 }

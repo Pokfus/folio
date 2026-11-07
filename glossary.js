@@ -8789,7 +8789,17 @@ window.GLOSSARY = {
 "5th_SS_Panzer_Division_Wiking": "",
 "Attentisme": "",
 "Black_market": "",
-"Horizontal_collaboration": ""
+"Horizontal_collaboration": "",
+"German_military_brothels_in_World_War_II": "",
+"Hidden_children_during_the_Holocaust": "",
+"Kragujevac_massacre": "",
+"Oradour-sur-Glane_massacre": "",
+"Ardeatine_massacre": "",
+"Bandenbekämpfung": "",
+"Heim_ins_Reich": "",
+"Non-belligerent": "",
+"Nazi_gold": "",
+"Allied_Military_Government_for_Occupied_Territories": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13034,7 +13044,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Jasenovac_concentration_camp": "1941–1945",
 "Axis_occupation_of_Greece": "1941–1944",
 "Schutzmannschaft": "1941–1944",
-"5th_SS_Panzer_Division_Wiking": "1941–1945"
+"5th_SS_Panzer_Division_Wiking": "1941–1945",
+"Kragujevac_massacre": "19–21 October 1941",
+"Oradour-sur-Glane_massacre": "10 June 1944",
+"Ardeatine_massacre": "24 March 1944",
+"Bandenbekämpfung": "1942–1945",
+"Allied_Military_Government_for_Occupied_Territories": "1943–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18563,7 +18578,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "5th_SS_Panzer_Division_Wiking": ["SS Division Wiking","Wiking Division","Wiking"],
 "Attentisme": ["attentiste","wait-and-see"],
 "Black_market": ["black markets","black-market"],
-"Horizontal_collaboration": ["horizontal collaborators","femmes tondues","tondues","tyskertøser"]
+"Horizontal_collaboration": ["horizontal collaborators","femmes tondues","tondues","tyskertøser"],
+"German_military_brothels_in_World_War_II": ["Wehrmacht brothels","Wehrmacht brothel"],
+"Hidden_children_during_the_Holocaust": ["hidden children","hidden child"],
+"Bandenbekämpfung": ["anti-partisan warfare","Bandenkampf"],
+"Non-belligerent": ["non-belligerence","non-belligerency","non-belligerents"],
+"Allied_Military_Government_for_Occupied_Territories": ["AMGOT","Allied Military Government of Occupied Territory","Allied Military Government"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27506,7 +27526,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "5th_SS_Panzer_Division_Wiking": ["institution","history","warfare","germany","norway","denmark","second world war"],
 "Attentisme": ["concept","history","society","france","second world war","occupation"],
 "Black_market": ["practice","history","economics","europe","second world war","occupation"],
-"Horizontal_collaboration": ["practice","history","society","france","norway","second world war","occupation"]
+"Horizontal_collaboration": ["practice","history","society","france","norway","second world war","occupation"],
+"German_military_brothels_in_World_War_II": ["institution","history","warfare","second world war","germany"],
+"Hidden_children_during_the_Holocaust": ["people","history","holocaust","second world war","europe"],
+"Kragujevac_massacre": ["event","history","warfare","second world war","serbia"],
+"Oradour-sur-Glane_massacre": ["event","history","warfare","second world war","france"],
+"Ardeatine_massacre": ["event","history","warfare","second world war","italy"],
+"Bandenbekämpfung": ["practice","history","warfare","second world war","germany"],
+"Heim_ins_Reich": ["practice","history","politics","second world war","germany"],
+"Non-belligerent": ["concept","history","politics","law","second world war"],
+"Nazi_gold": ["object","history","economics","second world war","switzerland"],
+"Allied_Military_Government_for_Occupied_Territories": ["institution","history","politics","second world war","italy"]
 });
 
 /* ============================================================================
