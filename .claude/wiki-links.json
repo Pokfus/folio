@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T02:07Z",
+ "generated": "2026-11-07T02:33Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5545,
-  "redirect-broader": 522,
-  "redirect-variant": 339,
-  "section-redirect": 109,
-  "disambiguation": 142,
+  "ok": 5634,
+  "redirect-broader": 526,
+  "redirect-variant": 343,
+  "section-redirect": 110,
+  "disambiguation": 143,
   "none": 982,
-  "disambig-resolved": 81,
+  "disambig-resolved": 82,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -62772,6 +62772,729 @@
    "answer": "cognitive science",
    "title": "Cognitive science",
    "url": "https://en.wikipedia.org/wiki/Cognitive_science",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-101": {
+   "answer": "Spanish Florida",
+   "title": "Spanish Florida",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Florida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-102": {
+   "answer": "St. Augustine",
+   "title": "St. Augustine, Florida",
+   "url": "https://en.wikipedia.org/wiki/St._Augustine,_Florida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-103": {
+   "answer": "Juan Ponce de León",
+   "title": "Juan Ponce de León",
+   "url": "https://en.wikipedia.org/wiki/Juan_Ponce_de_Le%C3%B3n",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-104": {
+   "answer": "Hernando de Soto",
+   "title": "Hernando de Soto",
+   "url": "https://en.wikipedia.org/wiki/Hernando_de_Soto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-105": {
+   "answer": "Coronado expedition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Coronado expedition",
+   "target": "Francisco Vázquez de Coronado#Coronado Expedition"
+  },
+  "us-106": {
+   "answer": "Santa Fe de Nuevo México",
+   "title": "Santa Fe de Nuevo México",
+   "url": "https://en.wikipedia.org/wiki/Santa_Fe_de_Nuevo_M%C3%A9xico",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-107": {
+   "answer": "Palace of the Governors",
+   "title": "Palace of the Governors",
+   "url": "https://en.wikipedia.org/wiki/Palace_of_the_Governors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-108": {
+   "answer": "encomendero",
+   "title": "Encomienda",
+   "url": "https://en.wikipedia.org/wiki/Encomienda",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Encomendero"
+  },
+  "us-109": {
+   "answer": "Spanish missions in Florida",
+   "title": "Missions in Spanish Florida",
+   "url": "https://en.wikipedia.org/wiki/Missions_in_Spanish_Florida",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Spanish missions in Florida"
+  },
+  "us-110": {
+   "answer": "Spanish missions in California",
+   "title": "Spanish missions in California",
+   "url": "https://en.wikipedia.org/wiki/Spanish_missions_in_California",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-111": {
+   "answer": "Junípero Serra",
+   "title": "Junípero Serra",
+   "url": "https://en.wikipedia.org/wiki/Jun%C3%ADpero_Serra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-112": {
+   "answer": "Spanish Texas",
+   "title": "Spanish Texas",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Texas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-113": {
+   "answer": "Company of One Hundred Associates",
+   "title": "Company of One Hundred Associates",
+   "url": "https://en.wikipedia.org/wiki/Company_of_One_Hundred_Associates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-114": {
+   "answer": "Samuel de Champlain",
+   "title": "Samuel de Champlain",
+   "url": "https://en.wikipedia.org/wiki/Samuel_de_Champlain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-115": {
+   "answer": "Quebec City",
+   "title": "Quebec City",
+   "url": "https://en.wikipedia.org/wiki/Quebec_City",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-116": {
+   "answer": "Coureurs des bois",
+   "title": "Coureur des bois",
+   "url": "https://en.wikipedia.org/wiki/Coureur_des_bois",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Coureurs des bois"
+  },
+  "us-117": {
+   "answer": "Sainte-Marie among the Hurons",
+   "title": "Sainte-Marie among the Hurons",
+   "url": "https://en.wikipedia.org/wiki/Sainte-Marie_among_the_Hurons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-118": {
+   "answer": "Jesuit Relations",
+   "title": "The Jesuit Relations",
+   "url": "https://en.wikipedia.org/wiki/The_Jesuit_Relations",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jesuit Relations"
+  },
+  "us-119": {
+   "answer": "French Louisiana",
+   "title": "French Louisiana",
+   "url": "https://en.wikipedia.org/wiki/French_Louisiana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-120": {
+   "answer": "French Quarter",
+   "title": "French Quarter",
+   "url": "https://en.wikipedia.org/wiki/French_Quarter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-121": {
+   "answer": "New Netherland",
+   "title": "New Netherland",
+   "url": "https://en.wikipedia.org/wiki/New_Netherland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-122": {
+   "answer": "New Amsterdam",
+   "title": "New Amsterdam",
+   "url": "https://en.wikipedia.org/wiki/New_Amsterdam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-123": {
+   "answer": "Peter Stuyvesant",
+   "title": "Peter Stuyvesant",
+   "url": "https://en.wikipedia.org/wiki/Peter_Stuyvesant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-124": {
+   "answer": "Articles of Capitulation",
+   "title": "Articles of Surrender of New Netherland",
+   "url": "https://en.wikipedia.org/wiki/Articles_of_Surrender_of_New_Netherland",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-125": {
+   "answer": "Patroon",
+   "title": "Patroon",
+   "url": "https://en.wikipedia.org/wiki/Patroon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-126": {
+   "answer": "Roanoke Colony",
+   "title": "Roanoke Colony",
+   "url": "https://en.wikipedia.org/wiki/Roanoke_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-127": {
+   "answer": "Croatoan",
+   "title": "Croatoan",
+   "url": "https://en.wikipedia.org/wiki/Croatoan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-128": {
+   "answer": "James Fort",
+   "title": "Jamestown",
+   "url": "https://en.wikipedia.org/wiki/Jamestown",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-129": {
+   "answer": "Virginia Company",
+   "title": "Virginia Company",
+   "url": "https://en.wikipedia.org/wiki/Virginia_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-130": {
+   "answer": "Starving Time",
+   "title": "Starving Time",
+   "url": "https://en.wikipedia.org/wiki/Starving_Time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-131": {
+   "answer": "John Smith",
+   "title": "John Smith (explorer)",
+   "url": "https://en.wikipedia.org/wiki/John_Smith_(explorer)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-132": {
+   "answer": "Powhatan",
+   "title": "Powhatan (Native American leader)",
+   "url": "https://en.wikipedia.org/wiki/Powhatan_(Native_American_leader)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-133": {
+   "answer": "Pocahontas",
+   "title": "Pocahontas",
+   "url": "https://en.wikipedia.org/wiki/Pocahontas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-134": {
+   "answer": "Anglo-Powhatan Wars",
+   "title": "Anglo-Powhatan Wars",
+   "url": "https://en.wikipedia.org/wiki/Anglo-Powhatan_Wars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-135": {
+   "answer": "Tobacco",
+   "title": "Tobacco",
+   "url": "https://en.wikipedia.org/wiki/Tobacco",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-136": {
+   "answer": "headright system",
+   "title": "Headright",
+   "url": "https://en.wikipedia.org/wiki/Headright",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Headright system"
+  },
+  "us-137": {
+   "answer": "indentured servitude",
+   "title": "Indentured servitude",
+   "url": "https://en.wikipedia.org/wiki/Indentured_servitude",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-138": {
+   "answer": "House of Burgesses",
+   "title": "House of Burgesses",
+   "url": "https://en.wikipedia.org/wiki/House_of_Burgesses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-139": {
+   "answer": "Bacon's Rebellion",
+   "title": "Bacon's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Bacon's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-140": {
+   "answer": "Plymouth Colony",
+   "title": "Plymouth Colony",
+   "url": "https://en.wikipedia.org/wiki/Plymouth_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-141": {
+   "answer": "Mayflower",
+   "title": "Mayflower",
+   "url": "https://en.wikipedia.org/wiki/Mayflower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-142": {
+   "answer": "Mayflower Compact",
+   "title": "Mayflower Compact",
+   "url": "https://en.wikipedia.org/wiki/Mayflower_Compact",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-143": {
+   "answer": "William Bradford",
+   "title": "William Bradford (governor)",
+   "url": "https://en.wikipedia.org/wiki/William_Bradford_(governor)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-144": {
+   "answer": "Pilgrims",
+   "title": "Pilgrims (Plymouth Colony)",
+   "url": "https://en.wikipedia.org/wiki/Pilgrims_(Plymouth_Colony)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-145": {
+   "answer": "Massachusetts Bay Colony",
+   "title": "Massachusetts Bay Colony",
+   "url": "https://en.wikipedia.org/wiki/Massachusetts_Bay_Colony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-146": {
+   "answer": "John Winthrop",
+   "title": "John Winthrop",
+   "url": "https://en.wikipedia.org/wiki/John_Winthrop",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-147": {
+   "answer": "Great Migration",
+   "title": "Puritan migration to New England (1620–1640)",
+   "url": "https://en.wikipedia.org/wiki/Puritan_migration_to_New_England_(1620%E2%80%931640)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-148": {
+   "answer": "City upon a Hill",
+   "title": "City upon a Hill",
+   "url": "https://en.wikipedia.org/wiki/City_upon_a_Hill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-149": {
+   "answer": "Town meeting",
+   "title": "Town meeting",
+   "url": "https://en.wikipedia.org/wiki/Town_meeting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-150": {
+   "answer": "Roger Williams",
+   "title": "Roger Williams",
+   "url": "https://en.wikipedia.org/wiki/Roger_Williams",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-151": {
+   "answer": "Anne Hutchinson",
+   "title": "Anne Hutchinson",
+   "url": "https://en.wikipedia.org/wiki/Anne_Hutchinson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-152": {
+   "answer": "Fundamental Orders of Connecticut",
+   "title": "Fundamental Orders of Connecticut",
+   "url": "https://en.wikipedia.org/wiki/Fundamental_Orders_of_Connecticut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-153": {
+   "answer": "Pequot War",
+   "title": "Pequot War",
+   "url": "https://en.wikipedia.org/wiki/Pequot_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-154": {
+   "answer": "Province of Maryland",
+   "title": "Province of Maryland",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Maryland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-155": {
+   "answer": "Maryland Toleration Act",
+   "title": "Maryland Toleration Act",
+   "url": "https://en.wikipedia.org/wiki/Maryland_Toleration_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-156": {
+   "answer": "Province of Carolina",
+   "title": "Province of Carolina",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Carolina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-157": {
+   "answer": "Barbados Slave Code",
+   "title": "Barbados Slave Code",
+   "url": "https://en.wikipedia.org/wiki/Barbados_Slave_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-158": {
+   "answer": "Province of Georgia",
+   "title": "Province of Georgia",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Georgia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-159": {
+   "answer": "James Oglethorpe",
+   "title": "James Oglethorpe",
+   "url": "https://en.wikipedia.org/wiki/James_Oglethorpe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-160": {
+   "answer": "Province of Pennsylvania",
+   "title": "Province of Pennsylvania",
+   "url": "https://en.wikipedia.org/wiki/Province_of_Pennsylvania",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-161": {
+   "answer": "William Penn",
+   "title": "William Penn",
+   "url": "https://en.wikipedia.org/wiki/William_Penn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-162": {
+   "answer": "Quakers",
+   "title": "Quakers",
+   "url": "https://en.wikipedia.org/wiki/Quakers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-163": {
+   "answer": "Province of New Jersey",
+   "title": "Province of New Jersey",
+   "url": "https://en.wikipedia.org/wiki/Province_of_New_Jersey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-164": {
+   "answer": "New England Confederation",
+   "title": "New England Confederation",
+   "url": "https://en.wikipedia.org/wiki/New_England_Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-165": {
+   "answer": "Dominion of New England",
+   "title": "Dominion of New England",
+   "url": "https://en.wikipedia.org/wiki/Dominion_of_New_England",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-166": {
+   "answer": "1689 Boston revolt",
+   "title": "1689 Boston revolt",
+   "url": "https://en.wikipedia.org/wiki/1689_Boston_revolt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-167": {
+   "answer": "Navigation Acts",
+   "title": "Navigation Acts",
+   "url": "https://en.wikipedia.org/wiki/Navigation_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-168": {
+   "answer": "Salutary neglect",
+   "title": "Salutary neglect",
+   "url": "https://en.wikipedia.org/wiki/Salutary_neglect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-169": {
+   "answer": "Royal governor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Royal governor",
+   "suggestions": [
+    "Royal Governor of Hawaii",
+    "Royal Governor of Kauai",
+    "Royal Governor of Maui",
+    "Royal Governor of Oahu"
+   ]
+  },
+  "us-170": {
+   "answer": "Thirteen Colonies",
+   "title": "Thirteen Colonies",
+   "url": "https://en.wikipedia.org/wiki/Thirteen_Colonies",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-171": {
+   "answer": "Observations Concerning the Increase of Mankind",
+   "title": "Observations Concerning the Increase of Mankind, Peopling of Countries, etc.",
+   "url": "https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Observations Concerning the Increase of Mankind"
+  },
+  "us-172": {
+   "answer": "coverture",
+   "title": "Coverture",
+   "url": "https://en.wikipedia.org/wiki/Coverture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-173": {
+   "answer": "Eliza Lucas Pinckney",
+   "title": "Eliza Lucas",
+   "url": "https://en.wikipedia.org/wiki/Eliza_Lucas",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Eliza Lucas Pinckney"
+  },
+  "us-174": {
+   "answer": "rice",
+   "title": "Rice",
+   "url": "https://en.wikipedia.org/wiki/Rice",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-175": {
+   "answer": "Molasses Act",
+   "title": "Molasses Act",
+   "url": "https://en.wikipedia.org/wiki/Molasses_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-176": {
+   "answer": "Newport",
+   "title": "Newport, Rhode Island",
+   "url": "https://en.wikipedia.org/wiki/Newport,_Rhode_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-177": {
+   "answer": "Faneuil Hall",
+   "title": "Faneuil Hall",
+   "url": "https://en.wikipedia.org/wiki/Faneuil_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-178": {
+   "answer": "William Byrd II",
+   "title": "William Byrd II",
+   "url": "https://en.wikipedia.org/wiki/William_Byrd_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-179": {
+   "answer": "warning out",
+   "title": "Warning out of town",
+   "url": "https://en.wikipedia.org/wiki/Warning_out_of_town",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Warning out"
+  },
+  "us-180": {
+   "answer": "Pennsylvania Dutch",
+   "title": "Pennsylvania Dutch",
+   "url": "https://en.wikipedia.org/wiki/Pennsylvania_Dutch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-181": {
+   "answer": "Scotch-Irish",
+   "title": "Scotch-Irish Americans",
+   "url": "https://en.wikipedia.org/wiki/Scotch-Irish_Americans",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Scotch-Irish"
+  },
+  "us-182": {
+   "answer": "Great Wagon Road",
+   "title": "Great Wagon Road",
+   "url": "https://en.wikipedia.org/wiki/Great_Wagon_Road",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-183": {
+   "answer": "Half-Way Covenant",
+   "title": "Half-Way Covenant",
+   "url": "https://en.wikipedia.org/wiki/Half-Way_Covenant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-184": {
+   "answer": "First Great Awakening",
+   "title": "First Great Awakening",
+   "url": "https://en.wikipedia.org/wiki/First_Great_Awakening",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-185": {
+   "answer": "George Whitefield",
+   "title": "George Whitefield",
+   "url": "https://en.wikipedia.org/wiki/George_Whitefield",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-186": {
+   "answer": "Jonathan Edwards",
+   "title": "Jonathan Edwards (theologian)",
+   "url": "https://en.wikipedia.org/wiki/Jonathan_Edwards_(theologian)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-187": {
+   "answer": "New Lights",
+   "title": "Old and New Lights",
+   "url": "https://en.wikipedia.org/wiki/Old_and_New_Lights",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-188": {
+   "answer": "Boston News-Letter",
+   "title": "The Boston News-Letter",
+   "url": "https://en.wikipedia.org/wiki/The_Boston_News-Letter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-189": {
+   "answer": "John Peter Zenger",
+   "title": "John Peter Zenger",
+   "url": "https://en.wikipedia.org/wiki/John_Peter_Zenger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-190": {
+   "answer": "Benjamin Franklin",
+   "title": "Benjamin Franklin",
+   "url": "https://en.wikipedia.org/wiki/Benjamin_Franklin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-191": {
+   "answer": "American Enlightenment",
+   "title": "American Enlightenment",
+   "url": "https://en.wikipedia.org/wiki/American_Enlightenment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-192": {
+   "answer": "colonial colleges",
+   "title": "Colonial colleges",
+   "url": "https://en.wikipedia.org/wiki/Colonial_colleges",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-193": {
+   "answer": "Salem witch trials",
+   "title": "Salem witch trials",
+   "url": "https://en.wikipedia.org/wiki/Salem_witch_trials",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-194": {
+   "answer": "spectral evidence",
+   "title": "Spectral evidence",
+   "url": "https://en.wikipedia.org/wiki/Spectral_evidence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-195": {
+   "answer": "variolation",
+   "title": "Variolation",
+   "url": "https://en.wikipedia.org/wiki/Variolation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-196": {
+   "answer": "Queen Anne's War",
+   "title": "Queen Anne's War",
+   "url": "https://en.wikipedia.org/wiki/Queen_Anne's_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-197": {
+   "answer": "King George's War",
+   "title": "King George's War",
+   "url": "https://en.wikipedia.org/wiki/King_George's_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-198": {
+   "answer": "French and Indian War",
+   "title": "French and Indian War",
+   "url": "https://en.wikipedia.org/wiki/French_and_Indian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-199": {
+   "answer": "Battle of the Monongahela",
+   "title": "Battle of the Monongahela",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Monongahela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-200": {
+   "answer": "Albany Plan",
+   "title": "Albany Plan",
+   "url": "https://en.wikipedia.org/wiki/Albany_Plan",
    "via": "glossary",
    "status": "ok"
   }
