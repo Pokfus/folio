@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07T02:15Z",
+ "generated": "2026-11-07T02:17Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5544,
+  "ok": 5554,
   "redirect-broader": 528,
   "redirect-variant": 339,
   "section-redirect": 111,
@@ -62875,6 +62875,76 @@
    "via": "glossary",
    "status": "redirect-broader",
    "from": "Age of the Solar System"
+  },
+  "astro-011": {
+   "answer": "night sky",
+   "title": "Night sky",
+   "url": "https://en.wikipedia.org/wiki/Night_sky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-012": {
+   "answer": "light pollution",
+   "title": "Light pollution",
+   "url": "https://en.wikipedia.org/wiki/Light_pollution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-013": {
+   "answer": "twinkling",
+   "title": "Twinkling",
+   "url": "https://en.wikipedia.org/wiki/Twinkling",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-014": {
+   "answer": "amateur astronomy",
+   "title": "Amateur astronomy",
+   "url": "https://en.wikipedia.org/wiki/Amateur_astronomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-015": {
+   "answer": "astrology",
+   "title": "Astrology",
+   "url": "https://en.wikipedia.org/wiki/Astrology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-016": {
+   "answer": "celestial sphere",
+   "title": "Celestial sphere",
+   "url": "https://en.wikipedia.org/wiki/Celestial_sphere",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-017": {
+   "answer": "celestial pole",
+   "title": "Celestial pole",
+   "url": "https://en.wikipedia.org/wiki/Celestial_pole",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-018": {
+   "answer": "celestial equator",
+   "title": "Celestial equator",
+   "url": "https://en.wikipedia.org/wiki/Celestial_equator",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-019": {
+   "answer": "ecliptic",
+   "title": "Ecliptic",
+   "url": "https://en.wikipedia.org/wiki/Ecliptic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-020": {
+   "answer": "zenith",
+   "title": "Zenith",
+   "url": "https://en.wikipedia.org/wiki/Zenith",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

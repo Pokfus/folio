@@ -7766,7 +7766,17 @@ window.CARD_DATA = [
 {"id":"astro-097","num":"97","category":"Astronomy","question":"In the <span class=\"blank\">_____</span> model, a giant planet starts as a solid core of perhaps ten Earth masses, built from planetesimals, that then pulls in a vast envelope of hydrogen and helium.","answer":"core accretion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"core accretion","tags":["theory","science","astronomy","planet formation","planets"],"difficulty":4,"undatable":true},
 {"id":"astro-098","num":"98","category":"Astronomy","question":"Named after a city in southern France, the <span class=\"blank\">_____</span> simulates how the giant planets spread outwards from a compact arrangement, scattering a disc of icy planetesimals as they moved.","answer":"Nice model","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed</span><span class=\"dt-v\">2005</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Nice model","tags":["theory","science","astronomy","solar system","planet formation","giant planets"],"difficulty":4},
 {"id":"astro-099","num":"99","category":"Astronomy","question":"Apollo samples dating the Moon's great basins to between about 4.0 and 3.7 billion years ago gave rise to the <span class=\"blank\">_____</span>, a proposed spike in impacts long after the planets formed.","answer":"Late Heavy Bombardment","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed spike</span><span class=\"dt-v\">c. 3.9 Gya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Late Heavy Bombardment","tags":["event","science","astronomy","solar system","moon","impacts"],"difficulty":3},
-{"id":"astro-100","num":"100","category":"Astronomy","question":"Counted from the first solid grains to condense around the young Sun, the <span class=\"blank\">_____</span> is estimated at about 4.567 billion years, a figure rounded to 4.5 or 4.6 in most summaries.","answer":"age of the Solar System","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First solids</span><span class=\"dt-v\">c. 4.57 Gya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"age of the Solar System","tags":["concept","science","astronomy","solar system","dating"],"difficulty":2}
+{"id":"astro-100","num":"100","category":"Astronomy","question":"Counted from the first solid grains to condense around the young Sun, the <span class=\"blank\">_____</span> is estimated at about 4.567 billion years, a figure rounded to 4.5 or 4.6 in most summaries.","answer":"age of the Solar System","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First solids</span><span class=\"dt-v\">c. 4.57 Gya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"age of the Solar System","tags":["concept","science","astronomy","solar system","dating"],"difficulty":2},
+{"id":"astro-011","num":"11","category":"Astronomy","question":"Even far from any town the <span class=\"blank\">_____</span> is never truly black, because airglow from the upper atmosphere, zodiacal light and the combined light of the stars all add to its faint natural glow.","answer":"night sky","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"night sky","tags":["concept","science","astronomy","sky","observing"],"difficulty":1,"undatable":true},
+{"id":"astro-012","num":"12","category":"Astronomy","question":"Near cities the air scatters the glare of artificial lights into a general glow, and astronomers call this <span class=\"blank\">_____</span> because it hides the faintest stars from telescopes and eyes alike.","answer":"light pollution","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"light pollution","tags":["concept","science","astronomy","observing","environment"],"difficulty":2,"undatable":true},
+{"id":"astro-013","num":"13","category":"Astronomy","question":"The <span class=\"blank\">_____</span> of a star seen with the naked eye comes from turbulence in the atmosphere, which bends its light so that the beam sometimes reaches the eye and sometimes misses it.","answer":"twinkling","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"twinkling","tags":["concept","science","astronomy","atmosphere","observing"],"difficulty":2,"undatable":true},
+{"id":"astro-014","num":"14","category":"Astronomy","question":"Most of the 5,000 comets found in images from the SOHO solar spacecraft were reported by volunteers, a striking case of <span class=\"blank\">_____</span> feeding results straight into professional science.","answer":"amateur astronomy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"amateur astronomy","tags":["practice","science","astronomy","observing","citizen science"],"difficulty":2,"undatable":true},
+{"id":"astro-015","num":"15","category":"Astronomy","question":"Ptolemy wrote the <i>Almagest</i> on the motions of the heavens and the <i>Tetrabiblos</i> on <span class=\"blank\">_____</span>, which he called a less self-sufficient method than the sure science of the first.","answer":"astrology","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"astrology","tags":["practice","science","astronomy","history","divination"],"difficulty":1,"undatable":true},
+{"id":"astro-016","num":"16","category":"Astronomy","question":"Astronomers still find it convenient to picture every star as fixed on the inside of a <span class=\"blank\">_____</span>, an imaginary globe of any radius centred on the observer or on the Earth.","answer":"celestial sphere","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"celestial sphere","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":3,"undatable":true},
+{"id":"astro-017","num":"17","category":"Astronomy","question":"Seen from San Francisco, at a latitude of 38 degrees north, the north <span class=\"blank\">_____</span> stands 38 degrees above the horizon, because its height always equals the observer's latitude.","answer":"celestial pole","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"celestial pole","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":3,"undatable":true},
+{"id":"astro-018","num":"18","category":"Astronomy","question":"Halfway between the two celestial poles lies the <span class=\"blank\">_____</span>, a great circle in the same plane as the Earth's own equator, from which declination is measured north or south.","answer":"celestial equator","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"celestial equator","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":3,"undatable":true},
+{"id":"astro-019","num":"19","category":"Astronomy","question":"The <span class=\"blank\">_____</span> is the path the Sun appears to trace around the sky in a year, moving about one degree a day eastwards against the background stars as the Earth orbits.","answer":"ecliptic","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ecliptic","tags":["concept","science","astronomy","coordinates","sun"],"difficulty":3,"undatable":true},
+{"id":"astro-020","num":"20","category":"Astronomy","question":"The point on the sky directly above an observer's head is the <span class=\"blank\">_____</span>, found by extending a plumb line upwards, and the point directly beneath the feet is the nadir.","answer":"zenith","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"zenith","tags":["concept","science","astronomy","coordinates","sky"],"difficulty":2,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -16839,7 +16849,7 @@ window.COLLECTION_TREE = {
     {
       "id": "astro",
       "title": "Astronomy",
-      "total": 60,
+      "total": 70,
       "children": [
         {
           "id": "astro-sky",
@@ -16860,7 +16870,12 @@ window.COLLECTION_TREE = {
                 "astro-007",
                 "astro-008",
                 "astro-009",
-                "astro-010"
+                "astro-010",
+                "astro-011",
+                "astro-012",
+                "astro-013",
+                "astro-014",
+                "astro-015"
               ]
             },
             {
@@ -16882,7 +16897,12 @@ window.COLLECTION_TREE = {
                 "astro-027",
                 "astro-028",
                 "astro-029",
-                "astro-030"
+                "astro-030",
+                "astro-016",
+                "astro-017",
+                "astro-018",
+                "astro-019",
+                "astro-020"
               ]
             },
             {

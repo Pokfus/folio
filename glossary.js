@@ -8040,7 +8040,17 @@ window.GLOSSARY = {
 "Core-accretion_theory": "",
 "Nice_model": "",
 "Late_Heavy_Bombardment": "",
-"Age_of_the_Solar_System": ""
+"Age_of_the_Solar_System": "",
+"Night_sky": "",
+"Light_pollution": "",
+"Twinkling": "",
+"Amateur_astronomy": "",
+"Astrology": "",
+"Celestial_sphere": "",
+"Celestial_pole": "",
+"Celestial_equator": "",
+"Ecliptic": "",
+"Zenith": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17012,7 +17022,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Protoplanetary_disk": ["protoplanetary disc"],
 "Volatile_(astrogeology)": ["volatiles"],
 "Frost_line_(astrophysics)": ["frost line"],
-"Core-accretion_theory": ["core accretion","core accretion model"]
+"Core-accretion_theory": ["core accretion","core accretion model"],
+"Twinkling": ["stellar scintillation","astronomical scintillation"],
+"Celestial_pole": ["celestial poles","north celestial pole","south celestial pole"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25202,7 +25214,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Core-accretion_theory": ["theory","science","astronomy","planet formation"],
 "Nice_model": ["theory","science","astronomy","solar system"],
 "Late_Heavy_Bombardment": ["event","science","astronomy","solar system","moon"],
-"Age_of_the_Solar_System": ["concept","science","astronomy","solar system"]
+"Age_of_the_Solar_System": ["concept","science","astronomy","solar system"],
+"Night_sky": ["concept","science","astronomy","sky"],
+"Light_pollution": ["concept","science","astronomy","environment"],
+"Twinkling": ["concept","science","astronomy","atmosphere"],
+"Amateur_astronomy": ["practice","science","astronomy","citizen science"],
+"Astrology": ["practice","religion","astronomy","history"],
+"Celestial_sphere": ["concept","science","astronomy","coordinates"],
+"Celestial_pole": ["concept","science","astronomy","coordinates"],
+"Celestial_equator": ["concept","science","astronomy","coordinates"],
+"Ecliptic": ["concept","science","astronomy","coordinates"],
+"Zenith": ["concept","science","astronomy","coordinates"]
 });
 
 /* ============================================================================
