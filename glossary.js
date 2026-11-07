@@ -8732,7 +8732,16 @@ window.GLOSSARY = {
 "United_States_Strategic_Bombing_Survey": "",
 "Lack_of_moral_fibre": "",
 "V-1_flying_bomb": "",
-"V-2_rocket": ""
+"V-2_rocket": "",
+"Mittelbau-Dora_concentration_camp": "",
+"Ninth_Air_Force": "",
+"Air_supremacy": "",
+"Operation_Roundup_(1942)": "",
+"Operation_Overlord": "",
+"Operation_Fortitude": "",
+"Atlantic_Wall": "",
+"Omaha_Beach": "",
+"Operation_Tonga": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12939,7 +12948,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Butt_Report": "18 August 1941",
 "George_Bell_(bishop)": "1883–1958",
 "V-1_flying_bomb": "1944–1945",
-"V-2_rocket": "1944–1945"
+"V-2_rocket": "1944–1945",
+"Mittelbau-Dora_concentration_camp": "1943–1945",
+"Operation_Roundup_(1942)": "1941–1943",
+"Operation_Overlord": "1944",
+"Operation_Fortitude": "1944",
+"Atlantic_Wall": "1942–1944",
+"Omaha_Beach": "1944",
+"Operation_Tonga": "1944"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18443,7 +18459,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "United_States_Strategic_Bombing_Survey": ["USSBS","Strategic Bombing Survey"],
 "Lack_of_moral_fibre": ["LMF"],
 "V-1_flying_bomb": ["V-1","Fieseler Fi 103","flying bomb","doodlebug"],
-"V-2_rocket": ["V-2","A4","Aggregat 4"]
+"V-2_rocket": ["V-2","A4","Aggregat 4"],
+"Mittelbau-Dora_concentration_camp": ["Mittelbau-Dora","Dora-Mittelbau"],
+"Operation_Roundup_(1942)": ["Operation Roundup","Roundup"],
+"Operation_Overlord": ["Overlord"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27329,7 +27348,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "United_States_Strategic_Bombing_Survey": ["institution","history","warfare","second world war","united states"],
 "Lack_of_moral_fibre": ["concept","history","warfare","second world war","britain"],
 "V-1_flying_bomb": ["technology","warfare","history","second world war","germany"],
-"V-2_rocket": ["technology","warfare","history","science","second world war","germany"]
+"V-2_rocket": ["technology","warfare","history","science","second world war","germany"],
+"Mittelbau-Dora_concentration_camp": ["place","history","second world war","germany","forced labour"],
+"Ninth_Air_Force": ["institution","history","warfare","united states"],
+"Air_supremacy": ["concept","warfare","history"],
+"Operation_Roundup_(1942)": ["event","history","warfare","second world war"],
+"Operation_Overlord": ["event","history","warfare","second world war","france"],
+"Operation_Fortitude": ["event","history","warfare","second world war"],
+"Atlantic_Wall": ["building","history","warfare","second world war","germany"],
+"Omaha_Beach": ["battle","history","warfare","second world war","france"],
+"Operation_Tonga": ["battle","history","warfare","second world war","united kingdom"]
 });
 
 /* ============================================================================

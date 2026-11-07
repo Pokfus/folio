@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-07T19:45Z",
+ "generated": "2026-11-07T19:47Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6136,
-  "redirect-broader": 584,
+  "ok": 6145,
+  "redirect-broader": 585,
   "redirect-variant": 374,
   "section-redirect": 126,
   "disambiguation": 146,
@@ -68191,6 +68191,77 @@
    "answer": "V-2 rocket",
    "title": "V-2 rocket",
    "url": "https://en.wikipedia.org/wiki/V-2_rocket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-631": {
+   "answer": "Mittelbau-Dora",
+   "title": "Mittelbau-Dora concentration camp",
+   "url": "https://en.wikipedia.org/wiki/Mittelbau-Dora_concentration_camp",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mittelbau-Dora"
+  },
+  "ww2-632": {
+   "answer": "Ninth Air Force",
+   "title": "Ninth Air Force",
+   "url": "https://en.wikipedia.org/wiki/Ninth_Air_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-633": {
+   "answer": "air supremacy",
+   "title": "Air supremacy",
+   "url": "https://en.wikipedia.org/wiki/Air_supremacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-634": {
+   "answer": "Operation Roundup",
+   "title": "Operation Roundup (1942)",
+   "url": "https://en.wikipedia.org/wiki/Operation_Roundup_(1942)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-635": {
+   "answer": "Operation Overlord",
+   "title": "Operation Overlord",
+   "url": "https://en.wikipedia.org/wiki/Operation_Overlord",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-636": {
+   "answer": "Operation Fortitude",
+   "title": "Operation Fortitude",
+   "url": "https://en.wikipedia.org/wiki/Operation_Fortitude",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-637": {
+   "answer": "Atlantic Wall",
+   "title": "Atlantic Wall",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_Wall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-638": {
+   "answer": "Normandy landings",
+   "title": "Normandy landings",
+   "url": "https://en.wikipedia.org/wiki/Normandy_landings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-639": {
+   "answer": "Omaha Beach",
+   "title": "Omaha Beach",
+   "url": "https://en.wikipedia.org/wiki/Omaha_Beach",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-640": {
+   "answer": "Operation Tonga",
+   "title": "Operation Tonga",
+   "url": "https://en.wikipedia.org/wiki/Operation_Tonga",
    "via": "glossary",
    "status": "ok"
   }

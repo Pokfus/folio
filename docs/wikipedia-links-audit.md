@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6136 | the title is the article |
+| `ok` | 6145 | the title is the article |
 | `redirect-variant` | 374 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 584 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 585 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 126 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 146 | only a disambiguation page; no link could be chosen |
 | `none` | 1001 | nothing matched; no link |
 
-**7191 of 8480 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7201 of 8490 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (584)
+## Redirected to a differently named article — check each (585)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -628,6 +628,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-612` **Bombing of Hamburg** → [Bombing of Hamburg in World War II](https://en.wikipedia.org/wiki/Bombing_of_Hamburg_in_World_War_II) (from `Bombing of Hamburg`)
 - `ww2-617` **P-51 Mustang** → [North American P-51 Mustang](https://en.wikipedia.org/wiki/North_American_P-51_Mustang) (from `P-51 Mustang`)
 - `ww2-619` **Bombing of Berlin** → [Bombing of Berlin in World War II](https://en.wikipedia.org/wiki/Bombing_of_Berlin_in_World_War_II) (from `Bombing of Berlin`)
+- `ww2-631` **Mittelbau-Dora** → [Mittelbau-Dora concentration camp](https://en.wikipedia.org/wiki/Mittelbau-Dora_concentration_camp) (from `Mittelbau-Dora`)
 
 ## Settled from a disambiguation page (83)
 
