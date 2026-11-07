@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07T02:30Z",
+ "generated": "2026-11-07T02:32Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5579,
+  "ok": 5589,
   "redirect-broader": 524,
   "redirect-variant": 339,
   "section-redirect": 111,
@@ -63072,6 +63072,76 @@
    "via": "glossary",
    "status": "redirect-variant",
    "from": "Ernest King"
+  },
+  "ww2-561": {
+   "answer": "Channel Dash",
+   "title": "Channel Dash",
+   "url": "https://en.wikipedia.org/wiki/Channel_Dash",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-562": {
+   "answer": "Convoy PQ 17",
+   "title": "Convoy PQ 17",
+   "url": "https://en.wikipedia.org/wiki/Convoy_PQ_17",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-563": {
+   "answer": "Newfoundland Escort Force",
+   "title": "Newfoundland Escort Force",
+   "url": "https://en.wikipedia.org/wiki/Newfoundland_Escort_Force",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-564": {
+   "answer": "Plan Dog memo",
+   "title": "Plan Dog memo",
+   "url": "https://en.wikipedia.org/wiki/Plan_Dog_memo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-565": {
+   "answer": "National Loaf",
+   "title": "National Loaf",
+   "url": "https://en.wikipedia.org/wiki/National_Loaf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-566": {
+   "answer": "Laconia incident",
+   "title": "Laconia incident",
+   "url": "https://en.wikipedia.org/wiki/Laconia_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-567": {
+   "answer": "navicert",
+   "title": "Navicert",
+   "url": "https://en.wikipedia.org/wiki/Navicert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-568": {
+   "answer": "tonnage war",
+   "title": "Tonnage war",
+   "url": "https://en.wikipedia.org/wiki/Tonnage_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-569": {
+   "answer": "North African campaign",
+   "title": "North African campaign",
+   "url": "https://en.wikipedia.org/wiki/North_African_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-570": {
+   "answer": "Afrika Korps",
+   "title": "Afrika Korps",
+   "url": "https://en.wikipedia.org/wiki/Afrika_Korps",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

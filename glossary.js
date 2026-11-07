@@ -8068,7 +8068,16 @@ window.GLOSSARY = {
 "Hakkō_ichiu": "",
 "Internment_of_Japanese_Americans": "",
 "442nd_Infantry_Regiment_(United_States)": "",
-"Ernest_King": ""
+"Ernest_King": "",
+"Channel_Dash": "",
+"Convoy_PQ_17": "",
+"Newfoundland_Escort_Force": "",
+"Plan_Dog_memo": "",
+"National_Loaf": "",
+"Laconia_incident": "",
+"Navicert": "",
+"Tonnage_war": "",
+"Afrika_Korps": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12019,7 +12028,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Potsdam_Declaration": "1945",
 "Internment_of_Japanese_Americans": "1942–1946",
 "442nd_Infantry_Regiment_(United_States)": "1943–1946",
-"Ernest_King": "1878–1956"
+"Ernest_King": "1878–1956",
+"Channel_Dash": "11–13 February 1942",
+"Convoy_PQ_17": "27 June – 24 July 1942",
+"Newfoundland_Escort_Force": "1941–1943",
+"Plan_Dog_memo": "November 1940",
+"National_Loaf": "1942",
+"Laconia_incident": "12–17 September 1942",
+"Afrika_Korps": "1941–1943"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17112,7 +17128,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hakkō_ichiu": ["Hakko ichiu"],
 "Internment_of_Japanese_Americans": ["internment of Japanese Americans","Japanese American internment","Japanese American incarceration"],
 "442nd_Infantry_Regiment_(United_States)": ["442nd Infantry Regiment","442nd Regimental Combat Team"],
-"Ernest_King": ["Ernest J. King"]
+"Ernest_King": ["Ernest J. King"],
+"Convoy_PQ_17": ["PQ 17","PQ-17"],
+"Plan_Dog_memo": ["Plan Dog","Plan Dog memorandum"],
+"Laconia_incident": ["Laconia order"],
+"Navicert": ["navicert","navicerts"],
+"Tonnage_war": ["tonnage war","tonnage warfare"],
+"Afrika_Korps": ["Deutsches Afrikakorps","German Africa Corps","DAK"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25330,7 +25352,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hakkō_ichiu": ["concept","history","politics","japan","propaganda"],
 "Internment_of_Japanese_Americans": ["event","history","politics","united states","civil liberties"],
 "442nd_Infantry_Regiment_(United_States)": ["institution","history","warfare","united states"],
-"Ernest_King": ["person","history","warfare","united states","navy"]
+"Ernest_King": ["person","history","warfare","united states","navy"],
+"Channel_Dash": ["event","history","warfare","germany","united kingdom","naval warfare"],
+"Convoy_PQ_17": ["event","history","warfare","united kingdom","united states","russia","naval warfare"],
+"Newfoundland_Escort_Force": ["institution","history","warfare","canada","naval warfare"],
+"Plan_Dog_memo": ["text","history","warfare","politics","united states"],
+"National_Loaf": ["object","history","home front","food","united kingdom"],
+"Laconia_incident": ["event","history","warfare","germany","naval warfare","law"],
+"Navicert": ["object","history","warfare","economics","naval warfare"],
+"Tonnage_war": ["concept","history","warfare","germany","naval warfare","economics"],
+"Afrika_Korps": ["institution","history","warfare","germany","africa"]
 });
 
 /* ============================================================================
