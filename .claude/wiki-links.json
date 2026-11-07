@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T19:53Z",
+ "generated": "2026-11-07T19:55Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6163,
-  "redirect-broader": 585,
+  "ok": 6169,
+  "redirect-broader": 586,
   "redirect-variant": 375,
   "section-redirect": 126,
-  "disambiguation": 146,
-  "none": 1002,
+  "disambiguation": 147,
+  "none": 1004,
   "disambig-resolved": 83,
   "list-page": 6,
   "search-match": 7,
@@ -68410,6 +68410,95 @@
    "answer": "two-front war",
    "title": "Two-front war",
    "url": "https://en.wikipedia.org/wiki/Two-front_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-661": {
+   "answer": "German-occupied Europe",
+   "title": "German-occupied Europe",
+   "url": "https://en.wikipedia.org/wiki/German-occupied_Europe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-662": {
+   "answer": "Reichskommissariat",
+   "title": "Reichskommissariat",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-663": {
+   "answer": "occupation costs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Axis occupation of Greece",
+    "Occupation of the Baltic states",
+    "World War II reparations",
+    "World War I",
+    "List of World War II feature films"
+   ]
+  },
+  "ww2-664": {
+   "answer": "Service du travail obligatoire",
+   "title": "Service du travail obligatoire",
+   "url": "https://en.wikipedia.org/wiki/Service_du_travail_obligatoire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-665": {
+   "answer": "Fritz Sauckel",
+   "title": "Fritz Sauckel",
+   "url": "https://en.wikipedia.org/wiki/Fritz_Sauckel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-666": {
+   "answer": "requisition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Requisition",
+   "suggestions": [
+    "Purchase requisition"
+   ]
+  },
+  "ww2-667": {
+   "answer": "Dutch famine of 1944–1945",
+   "title": "Dutch famine of 1944–1945",
+   "url": "https://en.wikipedia.org/wiki/Dutch_famine_of_1944%E2%80%931945",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-668": {
+   "answer": "Great Famine of Greece",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Great Famine (Greece)",
+    "Declarations of war during World War II",
+    "World War II casualties",
+    "Greco-Italian War",
+    "World War II reparations"
+   ]
+  },
+  "ww2-669": {
+   "answer": "Military Administration in France",
+   "title": "German military administration in occupied France during World War II",
+   "url": "https://en.wikipedia.org/wiki/German_military_administration_in_occupied_France_during_World_War_II",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Military Administration in France (Nazi Germany)"
+  },
+  "ww2-670": {
+   "answer": "Pierre Laval",
+   "title": "Pierre Laval",
+   "url": "https://en.wikipedia.org/wiki/Pierre_Laval",
    "via": "glossary",
    "status": "ok"
   }

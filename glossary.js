@@ -8759,7 +8759,17 @@ window.GLOSSARY = {
 "Ruhr_pocket": "",
 "Western_Allied_invasion_of_Germany": "",
 "Elbe_Day": "",
-"Two-front_war": ""
+"Two-front_war": "",
+"German-occupied_Europe": "",
+"Reichskommissariat": "",
+"Occupation_costs": "",
+"Service_du_travail_obligatoire": "",
+"Fritz_Sauckel": "",
+"Requisition": "",
+"Dutch_famine_of_1944–1945": "",
+"Great_Famine_(Greece)": "",
+"Military_Administration_in_France_(Nazi_Germany)": "",
+"Pierre_Laval": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -12980,7 +12990,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Operation_Plunder": "1945",
 "Ruhr_pocket": "1945",
 "Western_Allied_invasion_of_Germany": "1945",
-"Elbe_Day": "1945"
+"Elbe_Day": "1945",
+"German-occupied_Europe": "1939–1945",
+"Reichskommissariat": "1940–1945",
+"Occupation_costs": "1940–1944",
+"Service_du_travail_obligatoire": "1943–1944",
+"Fritz_Sauckel": "1894–1946",
+"Dutch_famine_of_1944–1945": "1944–1945",
+"Great_Famine_(Greece)": "1941–1944",
+"Military_Administration_in_France_(Nazi_Germany)": "1940–1944",
+"Pierre_Laval": "1883–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18489,7 +18508,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Operation_Roundup_(1942)": ["Operation Roundup","Roundup"],
 "Operation_Overlord": ["Overlord"],
 "Broad_front_versus_narrow_front_controversy_in_World_War_II": ["broad front strategy","broad front"],
-"Ruhr_pocket": ["Ruhr Pocket"]
+"Ruhr_pocket": ["Ruhr Pocket"],
+"Occupation_costs": ["occupation costs"],
+"Service_du_travail_obligatoire": ["STO"],
+"Requisition": ["requisition"],
+"Dutch_famine_of_1944–1945": ["Hunger Winter","Dutch famine of 1944–1945"],
+"Great_Famine_(Greece)": ["Great Famine of Greece"],
+"Military_Administration_in_France_(Nazi_Germany)": ["Military Administration in France","Militärbefehlshaber in Frankreich"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27402,7 +27427,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ruhr_pocket": ["battle","history","warfare","second world war","germany"],
 "Western_Allied_invasion_of_Germany": ["event","history","warfare","second world war","germany"],
 "Elbe_Day": ["event","history","warfare","second world war","germany"],
-"Two-front_war": ["concept","history","warfare","strategy"]
+"Two-front_war": ["concept","history","warfare","strategy"],
+"German-occupied_Europe": ["era","history","politics","europe","second world war"],
+"Reichskommissariat": ["institution","history","politics","second world war"],
+"Occupation_costs": ["practice","history","economics","second world war"],
+"Service_du_travail_obligatoire": ["institution","history","politics","france","second world war"],
+"Fritz_Sauckel": ["person","history","politics","germany","second world war"],
+"Requisition": ["practice","history","law","warfare"],
+"Dutch_famine_of_1944–1945": ["event","history","netherlands","second world war","famine"],
+"Great_Famine_(Greece)": ["event","history","greece","second world war","famine"],
+"Military_Administration_in_France_(Nazi_Germany)": ["institution","history","politics","france","second world war"],
+"Pierre_Laval": ["person","history","politics","france","second world war"]
 });
 
 /* ============================================================================
