@@ -219,7 +219,7 @@ order unless the user says otherwise.
 | B85 | The Roman city and daily life (`rm-daily-life`) | `rm-841`–`rm-850` | 10 | 84 | **done 2026-11-07** |
 | B86 | The Roman city and daily life (`rm-daily-life`) | `rm-851`–`rm-860` | 10 | 72 | **done 2026-11-07** |
 | B87 | The Roman city and daily life (`rm-daily-life`) / Spectacle and leisure (`rm-spectacle`) | `rm-861`–`rm-870` | 10 | 73 | **done 2026-11-07** |
-| B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | open |
+| B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | **done 2026-11-07** |
 | B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | open |
 | B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | open |
 | B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | open |
@@ -1140,6 +1140,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-868` gladiator | none | not re-checked: the card has no picture; the Zliten or Nennig gladiator mosaic would do |
 | `rm-869` Ludus Magnus | none | not re-checked: the card has no picture; the excavated cells by the Colosseum would do |
 | `rm-870` retiarius | none | not re-checked: the card has no picture; a mosaic of a retiarius would do |
+| `rm-871` munus | none | not re-checked: the card has no picture; a gladiator relief from a tomb would do |
+| `rm-872` amphitheatre | none | not re-checked: the card has no picture; the amphitheatre at Pompeii would do |
+| `rm-873` venatio | none | not re-checked: the card has no picture; a venatio mosaic would do |
+| `rm-874` damnatio ad bestias | none | not re-checked: the card has no picture; the Zliten mosaic's scene would do |
+| `rm-875` naumachia | none | not re-checked: the card has no picture |
+| `rm-876` chariot racing | none | not re-checked: the card has no picture; a circus mosaic would do |
+| `rm-877` Circus of Maxentius | none | not re-checked: the card has no picture; the ruins on the Via Appia would do |
+| `rm-878` circus factions | none | not re-checked: the card has no picture; a mosaic of the four colours' drivers would do |
+| `rm-879` Gaius Appuleius Diocles | none | not re-checked: the card has no picture |
+| `rm-880` Theatre of Pompey | none | not re-checked: the card has no picture; a plan or model of the theatre would do |
 
 ## Glossary candidates
 
@@ -3153,3 +3163,22 @@ Run as B86, closing `rm-daily-life` and opening `rm-spectacle`. The Brutus show 
 | `rm-870` retiarius | 7 | 7 → 8 | **Caligula 30 (`rm-523`'s) goes; Smith-only tactics now backed by Ramsay's note to Juvenal; the bare face read as bad character (reviewed studies)**; Juvenal's Gracchus; the Ephesus trident wounds (Kanz, read in its Europe PMC abstract); the Burdur relief. |
 
 **Read by eye.** *Confusability:* `rm-861`/`rm-862`/`rm-863`/`rm-864`/`rm-865` the farmhouse (Columella), the wine (it burns), the olive mill (the Pompeii price), the gold mine (the Aquilianos channels) and the tile (the flange); `rm-866`/`rm-867` the seating law (Bellona) and the games (Latinius's dream); `rm-868`/`rm-869`/`rm-870`/`rm-871` the fighter (Seneca's oath), the school (the marble plan), the net-fighter (Gracchus) and the show (Tertullian). *Legend:* the ludi's founding by Tarquinius and Latinius's dream are told as tradition. *Overlap:* no `gr-` or `wh-` card on gladiators disagrees. The `L.missing` on `rm-861` and `rm-870` is deliberate.
+
+### B88 — `rm-871`–`rm-880`, Spectacle and leisure: munus to the Theatre of Pompey (2026-11-07)
+
+Run as B87. The pity for Pompey's elephants went to `rm-873` alone (out of `rm-880`), Seneca's arena letter 7 to `rm-890` (out of `rm-874`), the murder in Pompey's hall stayed `rm-369`'s (out of `rm-880`), and Juvenal's "the Green won" left `rm-876` (a colour clue for `rm-878`). The `rm-871`/`rm-872` agent was stopped once (an eleventh agent had been launched by mistake) and relaunched fresh. **The old date lines carried another man's games in a label ("Lepidus's games 216 BCE", a year no page fetched prints), two events and a man on the amphitheatre ("Fidenae collapse 27 CE", "Pompeii riot 59 CE"), "Nero's victims 64 CE" on the execution, a man and a place in the naumachia's labels and a 52 CE no source fetched prints, a man's death on a circus ("Romulus died 309 CE"), a range made of two things for Diocles and a year from Pliny's Felix story that Pliny does not give.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-871` munus | 6 | 8 → 8 | **Tertullian's origin a Christian polemicist's claim; Lepidus's games kept without a year; First show 264 BCE and Last recorded c. 430 CE**; Livy's summary of Brutus's show; the Urso charter's duty on the duumvirs (in Latin); Pompeii's painted notices and tomb friezes. |
+| `rm-872` amphitheatre | 8 | 8 → 8 | **The events off the line (no line, undatable); Taurus's 30 BCE is a translator's margin, Dio's "fourth consulship" in prose; Pompeii's c. 70 BCE left out (no source would open)**; Curio's swivelling theatres; Fidenae and the solid-ground decree; Welch's Roman-not-Campanian origin. |
+| `rm-873` venatio | 6 | 8 → 8 | **Elephants slain 252 BCE (Pliny's year 502 from the founding), Lions hunted 186 BCE (Livy), Last recorded 537 CE; Smith, Dio 66.25 and Pliny 8.7 go**; Cicero on the elephants' pity; the Res Gestae's 26 hunts; a lion bite on a York skeleton (Thompson and others 2025); Uçar 2022 (in Turkish). |
+| `rm-874` damnatio ad bestias | 7 | 8 → 8 | **"Nero's victims 64 CE" becomes Deserters thrown 146 BCE (Livy's summary); Seneca's letter 7 left to `rm-890`, Smith goes**; Strabo's Selurus on the fake Etna; Caligula's line of prisoners (Suetonius's claim); the noxii set apart from gladiators; Martial's Orpheus and Tacitus's Christians in prose only. |
+| `rm-875` naumachia | 6 | 8 → 8 | **First large show 46 BCE and Permanent basin 2 BCE (Platner), no man or place in a label; every figure attributed (Augustus's 30 ships and 3,000 men, Tacitus's 19,000, Suetonius's 12 triremes against Dio's fifty a side)**; "Or not"; the glossary's "largest recorded" goes. |
+| `rm-876` chariot racing | 8 | 8 → 8 | **"Seven wooden eggs" becomes Livy's censors' egg markers and Agrippa's dolphins (Dio); "Theoderic paid for the races" becomes one driver's allowance (Cassiodorus); the disputed Circus crowd figures go; Juvenal goes**; Martial's Scorpus. |
+| `rm-877` Circus of Maxentius | 5 | 5 → 6 | **"Romulus died 309 CE" cut: Built c. 306 – 312 CE, bounded by Maxentius's reign; 309 "probably" (Nibby, 1825, in Italian, "con molta verosimiglianza"); 10,000 seats and 513 × 91 m Livius.org's**; the Divus Romulus coin (OCRE); Domitian's obelisk in Bernini's fountain; the Caracalla misnomer. |
+| `rm-878` circus factions | 7 | 8 → 8 | **Companies, not parties (Alan Cameron's work overturned the party view); the Felix year off the line (no line)**; Pliny's swapped tunics; Dio's racing dogs; Tertullian's colours and seasons; Caligula and Cassiodorus go. |
+| `rm-879` Gaius Appuleius Diocles | 5 | 5 → 5 | **"Racing career 122 – 146 CE" was two things: First drove 122 CE (the inscription's consulship, as a sourcebook converts it) and Monument 146 CE; every figure the inscription's; no large figures in the questions**; Juvenal's Red driver as satire; Caligula goes. |
+| `rm-880` Theatre of Pompey | 7 | 8 → 8 | **All three questions named Pompey and two used siblings' clues: replaced; the temple-as-cover story Tertullian's, with Hill's doubt; Dedicated 55 BCE, Inscribed 52 BCE (Gellius), Restored 32 BCE (Platner's year; the Res Gestae gives none)**; Plutarch's Mytilene plans; Cicero's four letters. |
+
+**Read by eye.** *Confusability:* `rm-871`/`rm-868` the show (Tertullian) and the fighter; `rm-872`/`rm-875` the arena (Curio's theatres) and the sea fight (the Fucine Lake); `rm-873`/`rm-874` the hunt (the elephants' pity) and the execution (Selurus); `rm-876`/`rm-877`/`rm-878`/`rm-879` the racing (the egg markers), the circus (the Romulus inscriptions), the companies (the swapped tunics) and the driver (the monument); `rm-880` the theatre (the temple of Venus). *Legend:* none. *Overlap:* no `gr-` or `wh-` card on gladiators, chariot racing or the Colosseum disagrees.

@@ -355,6 +355,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | argentarii: Livy's banks at Rome first attested | 310 BCE | `rm-853` |
 | the ludi Romani: repeated after Latinius's dream (tradition) / Varro's year for it | 491 BCE / 280 BCE | `rm-867` |
 | gladiators: the first show at Rome | 264 BCE | `rm-868` |
+| the munus: the first show at Rome | 264 BCE | `rm-871` |
+| venatio: elephants slain in the Circus (Pliny's year 502 from the founding) | 252 BCE | `rm-873` |
 
 ## The middle and late Republic
 
@@ -492,6 +494,10 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the as: the struck as of the denarius system | 211 BCE | `rm-852` |
 | De agri cultura written (one modern dating) | c. 160 BCE | `rm-860` |
 | the lex Roscia theatralis carried | 67 BCE | `rm-866` |
+| venatio: lions and panthers hunted at Fulvius's games | 186 BCE | `rm-873` |
+| damnatio ad bestias: deserters thrown to the beasts after Carthage fell | 146 BCE | `rm-874` |
+| the naumachia: the first large show | 46 BCE | `rm-875` |
+| the Theatre of Pompey: dedicated / the temple inscribed | 55 BCE / 52 BCE | `rm-880` |
 
 ## The Principate
 
@@ -760,6 +766,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | terra sigillata first made at Arezzo | c. 40 – 30 BCE | `rm-850` |
 | glassblowing: invented (the Getty's dating) / mould-blowing | c. 50 BCE / c. 25 BCE | `rm-851` |
 | the Ludus Magnus built (Domitian's reign) / rediscovered | c. 81 – 96 CE / 1937 | `rm-869` |
+| the naumachia: the permanent basin | 2 BCE | `rm-875` |
+| Diocles: first drove / his monument (the inscription's consulships) | 122 CE / 146 CE | `rm-879` |
+| the Theatre of Pompey: restored (Platner's year) | 32 BCE | `rm-880` |
 
 ## Late Antiquity
 
@@ -859,6 +868,9 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Regionary Catalogues compiled / one study's bracket | c. 300 – 400 CE / 334 – 357 CE | `rm-827` |
 | the cursus publicus: the name first attested / first in a law | 310 CE / 315 CE | `rm-858` |
 | gladiators: the last combats reported | 434 CE or 435 CE | `rm-868` |
+| the munus: last recorded | c. 430 CE | `rm-871` |
+| venatio: last recorded | 537 CE | `rm-873` |
+| the Circus of Maxentius built (Maxentius's reign) | c. 306 – 312 CE | `rm-877` |
 
 ## Chronology pins
 
@@ -1618,4 +1630,11 @@ rm-866: 67
 rm-867: 491; 280
 rm-868: 264; 434; 435
 rm-869: 81; 96; 1937
+rm-871: 264; 430
+rm-873: 252; 186; 537
+rm-874: 146
+rm-875: 46; 2
+rm-877: 306; 312
+rm-879: 122; 146
+rm-880: 55; 52; 32
 ```
