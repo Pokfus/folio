@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21de78272acc15b5","counts":{"terms":934,"points":697,"countries":237,"windows":1441,"faces":381,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"5a367bc3e2b8bcc9","counts":{"terms":934,"points":697,"countries":237,"windows":1442,"faces":381,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -2274,6 +2274,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"21de78272acc15b5","counts":
 "Utica,_Tunisia":[10.062,37.057,"site",0,0,0],
 "Uzbekistan":[64.01,41.69,"country","adm0:uzb",0,5.32],
 "Valdai_Hills":[33.5,57,"coord",0,0,0],
+"Valley_Forge":[-75.439,40.097,"coord",0,0,0],
 "Valley_of_Geysers":[160.139,54.431,"coord",0,0,0],
 "Valley_of_the_Kings":[32.602,25.74,"site",0,0,0],
 "Vanuatu":[166.91,-15.37,"country","adm0:vut",0,9.53],

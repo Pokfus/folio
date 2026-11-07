@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 5946 | the title is the article |
-| `redirect-variant` | 365 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6041 | the title is the article |
+| `redirect-variant` | 368 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 83 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 7 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 565 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 567 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 124 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 145 | only a disambiguation page; no link could be chosen |
 | `none` | 992 | nothing matched; no link |
 
-**6973 of 8250 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7073 of 8350 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (565)
+## Redirected to a differently named article — check each (567)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -495,6 +495,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-136` **headright system** → [Headright](https://en.wikipedia.org/wiki/Headright) (from `Headright system`)
 - `us-171` **Observations Concerning the Increase of Mankind** → [Observations Concerning the Increase of Mankind, Peopling of Countries, etc.](https://en.wikipedia.org/wiki/Observations_Concerning_the_Increase_of_Mankind,_Peopling_of_Countries,_etc.) (from `Observations Concerning the Increase of Mankind`)
 - `us-173` **Eliza Lucas Pinckney** → [Eliza Lucas](https://en.wikipedia.org/wiki/Eliza_Lucas) (from `Eliza Lucas Pinckney`)
+- `us-257` **Southern theatre of the American Revolutionary War** → [Southern theater of the American Revolutionary War](https://en.wikipedia.org/wiki/Southern_theater_of_the_American_Revolutionary_War) (from `Southern theatre of the American Revolutionary War`)
+- `us-281` **Shays' Rebellion** → [Shays's Rebellion](https://en.wikipedia.org/wiki/Shays's_Rebellion) (from `Shays' Rebellion`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
