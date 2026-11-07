@@ -530,6 +530,8 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Sallust: born / governor of Africa Nova / died (Rolfe) | 86 BCE / 46 BCE / 35 – 34 BCE | `rm-948` |
 | Virgil: born (the Life) / died | 15 October 70 BCE / 19 BCE | `rm-949` |
 | the Aeneid composed (Sellar) | c. 29 – 19 BCE | `rm-950` |
+| the Georgics written (the handbooks) | c. 37 – 30 BCE | `rm-951` |
+| Propertius born (a guess) | c. 50 BCE | `rm-957` |
 
 ## The Principate
 
@@ -811,6 +813,15 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | the Mithraic cult: first evidence (a reviewed study) | c. 90 CE | `rm-924` |
 | the Dura-Europos church: house converted (White) / buried under the earth bank / found | c. 240 CE / c. 256 CE / 1932 | `rm-928` |
 | the Decian persecution: the edict / the certificates | 249 CE / 250 CE | `rm-929` |
+| Horace: born / the Secular Hymn / died | 8 December 65 BCE / 17 BCE / 27 November 8 BCE | `rm-952` |
+| Ovid: born / banished / died / also dated (Peck) | 43 BCE / 8 CE / 17 CE / 18 CE | `rm-953` |
+| the Metamorphoses nearly finished at the banishment (Ovid's claim) | 8 CE | `rm-954` |
+| the Tristia written | 9 – 13 CE | `rm-955` |
+| Livy: born / died | 59 BCE / 17 CE | `rm-956` |
+| Propertius still alive (the poem for Apollo's games, per Duff) | 16 BCE | `rm-957` |
+| Cornelius Gallus: the Philae stele / prefect renewed / died / Dio's year | 16 April 29 BCE / 27 BCE / 27 BCE / 26 BCE | `rm-958` |
+| Seneca the Younger: born / exiled / died | c. 4 BCE / 41 – 49 CE / 65 CE | `rm-959` |
+| Musonius Rufus: exiled / returned | 65 CE / 68 CE | `rm-960` |
 
 ## Late Antiquity
 
@@ -1721,4 +1732,14 @@ rm-946: 84; 54
 rm-948: 86; 46; 35; 34
 rm-949: 70; 19
 rm-950: 29; 19
+rm-951: 37; 30
+rm-952: 65; 17; 8
+rm-953: 43; 8; 17; 18
+rm-954: 8
+rm-955: 9; 13
+rm-956: 59; 17
+rm-957: 50; 16
+rm-958: 29; 27; 26
+rm-959: 4; 41; 49; 65
+rm-960: 65; 68
 ```

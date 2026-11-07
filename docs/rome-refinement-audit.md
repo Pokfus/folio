@@ -227,7 +227,7 @@ order unless the user says otherwise.
 | B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | **done 2026-11-07** |
 | B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | **done 2026-11-07** |
 | B95 | Latin literature and thought (`rm-literature`) | `rm-941`–`rm-950` | 10 | 64 | **done 2026-11-07** |
-| B96 | Latin literature and thought (`rm-literature`) | `rm-951`–`rm-960` | 10 | 83 | open |
+| B96 | Latin literature and thought (`rm-literature`) | `rm-951`–`rm-960` | 10 | 83 | **done 2026-11-07** |
 | B97 | Latin literature and thought (`rm-literature`) | `rm-961`–`rm-970` | 10 | 67 | open |
 | B98 | Art, architecture and engineering (`rm-arts`) | `rm-971`–`rm-980` | 10 | 86 | open |
 | B99 | Art, architecture and engineering (`rm-arts`) | `rm-981`–`rm-990` | 10 | 71 | open |
@@ -1220,6 +1220,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-948` Sallust | none | not re-checked: the card has no picture; the glossary's engraving is an imagined likeness |
 | `rm-949` Virgil | none | not re-checked: the card has no picture; the glossary's Posillipo bust is a modern likeness |
 | `rm-950` Aeneid | none | not re-checked: the card has no picture; the Vergilius Vaticanus or the Virgil mosaic from Sousse would do |
+| `rm-951` Georgics | none | not re-checked: the card has no picture |
+| `rm-952` Horace | none | not re-checked: the card has no picture; the glossary's engraving has Latin text below it and wants replacing |
+| `rm-953` Ovid | none | not re-checked: the card has no picture; the glossary's bust is only assumed to be Ovid |
+| `rm-954` Metamorphoses | none | not re-checked: the card has no picture |
+| `rm-955` Tristia | none | not re-checked: the card has no picture |
+| `rm-956` Livy | none | not re-checked: the card has no picture |
+| `rm-957` Propertius | none | not re-checked: the card has no picture; the glossary's engraving is an imagined likeness |
+| `rm-958` Cornelius Gallus | none | not re-checked: the card has no picture; the glossary's Cleveland head is only perhaps Gallus; the Philae stele would do |
+| `rm-959` Seneca the Younger | none | not re-checked: the card has no picture |
+| `rm-960` Musonius Rufus | none | not re-checked: the card has no picture |
 
 ## Glossary candidates
 
@@ -3404,3 +3414,22 @@ Run as B94. Antony's diadem stayed `rm-383`'s and the hands on the Rostra `rm-37
 | `rm-950` Aeneid | 8 | 8 → 9 | **The burning attributed, with a reviewer calling it possibly invented; Left unfinished becomes Composed c. 29 – 19 BCE (Sellar); a phrasing naming Aeneas (a give-away) reworded; glossary redrafted**; the book-boxes; Octavia at the Marcellus lines; Pallas's belt. |
 
 **Read by eye.** *Confusability:* `rm-941`/`rm-942`/`rm-943`/`rm-944` the speeches (Brutus's jest), the letters (Nepos), the treatise to his son (Cratippus) and the handbook (the memory image); `rm-945`/`rm-946`/`rm-947` the poem (the honeyed cup), Catullus (the sparrow) and the school (Cinna's Zmyrna); `rm-948` the historian (Appius Claudius); `rm-949`/`rm-950` the poet (the Life's epitaph) and the poem (Octavia). *Legend:* the Life of Virgil's stories and Jerome's Lucretius are told as theirs. *Overlap:* `gr-693` (Demosthenes's Philippics) and `gr-641`, `gr-841`, `gr-842` (atomism, Epicurus) agree. Quote blocks: `rm-941`'s (Plutarch on the hands and the title) touches `rm-376`'s ground (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flag is an English BMCR review of a German book.
+
+### B96 — `rm-951`–`rm-960`, Latin literature and thought: the Georgics to Musonius Rufus (2026-11-07)
+
+Run as B95. The Atella reading went to `rm-951` and the Lucrine lines to `rm-999` (out of `rm-951`), the Acta of the Secular Games stayed `rm-406`'s (in `rm-952`'s prose only), the poem-and-mistake to `rm-955` and the burned copy to `rm-954` (both out of `rm-953`), Caesar's star to `rm-954` (out of `rm-926`), Apuleius's Hostia to `rm-957` (out of `rm-946`), Servius's praise of Gallus kept out of `rm-951`, Seneca's letter 7 stayed `rm-890`'s and his book on superstition `rm-930`'s (out of `rm-959`), and Piso's plot was given to `rm-959` alone: `rm-960`'s main question was reworded before applying to drop it. **The old date lines named a woman in a label ("Cynthia poems"), a place ("Philae stele"), gave "17 CE or 18 CE" as one value and "before 30 CE" and "before 101 – 102 CE" as dates, and put a year in three questions; the old cards leaned on Jerome through tertullian.org (down), stated Ovid's and Virgil's own claims as fact, and gave Seneca a birth year from one encyclopedia.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-951` Georgics | 7 | 7 → 7 | **Written c. 37 – 30 BCE credited to the handbooks; the seven years, the she-bear method and the Atella reading to the Suetonius–Donatus Life; the Lucrine passage (`rm-999`'s) and Quintilian go; Sellar on the models added**; Atella; toil conquering all; Aristaeus and Orpheus. |
+| `rm-952` Horace | 8 | 8 → 8 | **Ancient share 5 → 3; Jerome (tertullian.org) and Quintilian go; Born 8 December 65 BCE, Secular Hymn 17 BCE (the inscribed record of the games, through Lanciani), Died 27 November 8 BCE**; Virgil and Varius's introduction; Augustus's "parasitic table"; the monument more lasting than bronze. |
+| `rm-953` Ovid | 8 | 8 → 9 | **Born 43 BCE, Banished 8 CE, Died 17 CE and Also dated 18 CE (Peck); his autobiography "Ovid says"; Jerome's year left out (the translation read prints none for him); the poem-and-mistake out**; the consuls' year and equestrian rank; Quintilian on the lost Medea; Corinna. |
+| `rm-954` Metamorphoses | 7 | 8 → 7 | **The burning credited to Peck's handbook, revision in exile debated; Ovid kept to one source (the four ages and Golding go); glossary redrafted ("Ovid later wrote…")**; chaos to Caesar's star; the Narcissus wall painting; the NASO telestich. |
+| `rm-955` Tristia | 6 | 6 → 6 | **The exile known almost only from Ovid himself, and one view calling it a myth; the Letters from Pontus a separate collection; Jerome dropped; a phrasing printing "9 and 13 CE" replaced; the Latin of book 2 added**; carmen et error; the frozen sea; the book turned away from Apollo's library. |
+| `rm-956` Livy | 8 | 8 → 8 | **Ancient share 6 → 4 (Jerome and Pliny go, and the Cadiz phrasing); Foster, Livius.org and a review carry the facts; "Asinius Pollio" shortened (the checker reads a two-word name as a scholar); the 64 BCE birth left out (no open page prints it)**; Patavinitas; "the Pompeian"; young Claudius. |
+| `rm-957` Propertius | 6 | 8 → 6 | **"Cynthia poems" goes; Born c. 50 BCE (a guess) and Still alive 16 BCE (Duff); the confiscations moved from 42 to 41 BCE; Harper's, Suetonius and Ovid go**; Apuleius on Hostia; Pliny's descendant; Cynthia's ghost at Tibur. |
+| `rm-958` Cornelius Gallus | 5 | 8 → 7 | **"29 BCE" out of the question; Stele set up 16 April 29 BCE, Prefect renewed 27 BCE, Died 27 BCE, Also dated 26 BCE (Dio); the Qasr Ibrim papyrus and the obelisk's praefectus fabrum added; the glossary's "exiled, fell on his sword" fixed against Dio**; Philae; Lycoris; Augustus's tears. |
+| `rm-959` Seneca the Younger | 8 | 8 → 8 | **Born c. 4 BCE (the commonest estimate; c. 1 BCE and the 8–1 BCE spread in prose); Burrus no longer a clue; the 300 million sesterces Suilius's charge in Tacitus, not Dio's; glossary redrafted**; Agrippina's recall; the Pumpkinification; the opened veins beside Paulina. |
+| `rm-960` Musonius Rufus | 5 | 6 → 5 | **"65 CE" out of the question; the "before" rows go: Exiled 65 CE, Returned 68 CE; Piso's plot left to `rm-959`**; Gyaros under Nero; Vespasian's one spared philosopher and Epictetus; daughters taught philosophy. |
+
+**Read by eye.** *Confusability:* `rm-951`/`rm-952` the farming poem (Atella) and Horace (Maecenas); `rm-953`/`rm-954`/`rm-955` the poet (the consuls' year), the poem (Caesar's star) and the exile poems (the frozen sea); `rm-956` the historian (Patavinitas); `rm-957`/`rm-958` the elegist (Cynthia) and the first elegist (Philae); `rm-959`/`rm-960` Seneca (Paulina) and Musonius (Gyaros). *Legend:* the Lives' anecdotes and Ovid's account of himself are told as theirs. *Overlap:* no `gr-` or `wh-` card on these authors disagrees. Quote block: `rm-956`'s Suetonius spells Sulpicius "Flavus" where the card's Loeb has "Flavius" (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flag is an English BMCR review of a German book.

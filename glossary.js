@@ -11453,7 +11453,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Horace": "65–8 BCE",
 "Ovid": "43 BCE – 17 or 18 CE",
 "Tristia": "9–13 CE",
-"Seneca_the_Younger": "c. 1 BCE – 65 CE",
+"Seneca_the_Younger": "c. 4 BCE – 65 CE",
 "Frontinus": "c. 35 – 103 or 104 CE",
 "Milliarium_Aureum": "20 BCE",
 "Via_Domiziana": "95 CE",
