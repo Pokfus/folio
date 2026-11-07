@@ -1,14 +1,14 @@
 {
- "generated": "2026-10-30T20:47Z",
+ "generated": "2026-11-07T01:58Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5501,
+  "ok": 5504,
   "redirect-broader": 521,
   "redirect-variant": 335,
   "section-redirect": 109,
   "disambiguation": 142,
   "none": 982,
-  "disambig-resolved": 81,
+  "disambig-resolved": 82,
   "list-page": 6,
   "search-match": 7,
   "no-article": 17
@@ -62417,6 +62417,42 @@
     "Taiwan under Japanese rule",
     "Shinto in Taiwan"
    ]
+  },
+  "ps-051": {
+   "answer": "Hermann Ebbinghaus",
+   "title": "Hermann Ebbinghaus",
+   "url": "https://en.wikipedia.org/wiki/Hermann_Ebbinghaus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-052": {
+   "answer": "forgetting curve",
+   "title": "Forgetting curve",
+   "url": "https://en.wikipedia.org/wiki/Forgetting_curve",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-053": {
+   "answer": "William James",
+   "title": "William James",
+   "url": "https://en.wikipedia.org/wiki/William_James",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-054": {
+   "answer": "Principles of Psychology",
+   "title": "The Principles of Psychology",
+   "url": "https://en.wikipedia.org/wiki/The_Principles_of_Psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-055": {
+   "answer": "functionalism",
+   "title": "Functional psychology",
+   "url": "https://en.wikipedia.org/wiki/Functional_psychology",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   }
  }
 }

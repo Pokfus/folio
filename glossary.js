@@ -7982,7 +7982,12 @@ window.GLOSSARY = {
 "Robert_Koldewey": "",
 "Stephanie_Dalley": "",
 "Tell_es-Sultan": "",
-"William_Shakespeare": ""
+"William_Shakespeare": "",
+"Hermann_Ebbinghaus": "",
+"Forgetting_curve": "",
+"William_James": "",
+"The_Principles_of_Psychology": "",
+"Functional_psychology": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11871,7 +11876,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cleopatra_Selene_II": "born 40 BCE",
 "David_Stronach": "1931 – 2020",
 "Josephus": "born 37/38 CE",
-"William_Shakespeare": "1564 – 1616"
+"William_Shakespeare": "1564 – 1616",
+"Hermann_Ebbinghaus": "1850–1909",
+"William_James": "1842–1910",
+"The_Principles_of_Psychology": "1890"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -16910,7 +16918,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nippur": ["Nuffar"],
 "Nur_Mountains": ["Mount Amanus","Amanus Mountains","Amanus"],
 "Robert_Koldewey": ["Koldewey"],
-"William_Shakespeare": ["Shakespeare"]
+"William_Shakespeare": ["Shakespeare"],
+"Hermann_Ebbinghaus": ["Ebbinghaus"],
+"The_Principles_of_Psychology": ["Principles of Psychology"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25042,7 +25052,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Robert_Koldewey": ["person","archaeology","history","germany","iraq"],
 "Stephanie_Dalley": ["person","archaeology","history","iraq","mesopotamia"],
 "Tell_es-Sultan": ["place","archaeology","prehistory","history","palestine"],
-"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"]
+"William_Shakespeare": ["person","literature","theatre","poetry","england","europe"],
+"Hermann_Ebbinghaus": ["person","psychology","science","history","germany"],
+"Forgetting_curve": ["concept","psychology","science","memory"],
+"William_James": ["person","psychology","philosophy","history","united states"],
+"The_Principles_of_Psychology": ["text","psychology","philosophy","history","united states"],
+"Functional_psychology": ["theory","psychology","science","history","united states"]
 });
 
 /* ============================================================================
