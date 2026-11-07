@@ -758,109 +758,109 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-101  Spanish Florida
     us-102  St. Augustine, Florida
     us-103  Juan Ponce de León
-    us-104  The de Soto expedition
-    us-105  The Coronado expedition
-    us-106  Spanish New Mexico
-    us-107  Santa Fe, New Mexico
-    us-108  The encomienda on the northern frontier
-    us-109  The Spanish mission system
-    us-110  The Spanish missions in California
+    us-104  Hernando de Soto
+    us-105  Coronado expedition
+    us-106  Santa Fe de Nuevo México
+    us-107  Palace of the Governors
+    us-108  Encomendero
+    us-109  Spanish missions in Florida
+    us-110  Spanish missions in California
     us-111  Junípero Serra and the argument about the missions
     us-112  Spanish Texas
-    us-113  New France
+    us-113  Company of One Hundred Associates
     us-114  Samuel de Champlain
-    us-115  Quebec and the St. Lawrence settlements
+    us-115  Quebec City
     us-116  Coureurs des bois
-    us-117  Jesuit missions in New France
-    us-118  The Jesuit Relations
-    us-119  Louisiana (New France)
-    us-120  New Orleans under the French
+    us-117  Sainte-Marie among the Hurons
+    us-118  Jesuit Relations
+    us-119  French Louisiana
+    us-120  French Quarter
     us-121  New Netherland
     us-122  New Amsterdam
     us-123  Peter Stuyvesant
-    us-124  The English conquest of New Netherland
-    us-125  What the Dutch and French left behind
+    us-124  Articles of Capitulation
+    us-125  Patroon
 
 ### The English colonies — `us-colonies`
 
     us-126  Roanoke Colony
-    us-127  The fate of the Roanoke colonists
-    us-128  Jamestown
+    us-127  Croatoan
+    us-128  James Fort
     us-129  Virginia Company
-    us-130  The Starving Time
+    us-130  Starving Time
     us-131  John Smith
     us-132  Powhatan
     us-133  Pocahontas
-    us-134  The Anglo-Powhatan Wars
-    us-135  Tobacco and the Virginia economy
+    us-134  Anglo-Powhatan Wars
+    us-135  Tobacco
     us-136  Headright
-    us-137  Indentured servitude in the American colonies
+    us-137  Indentured servitude
     us-138  House of Burgesses
     us-139  Bacon's Rebellion
     us-140  Plymouth Colony
     us-141  Mayflower
     us-142  Mayflower Compact
     us-143  William Bradford
-    us-144  The Pilgrims and the Separatists
+    us-144  Pilgrims
     us-145  Massachusetts Bay Colony
     us-146  John Winthrop
     us-147  The Great Migration to New England
     us-148  City upon a Hill
-    us-149  The New England town and the congregation
-    us-150  Roger Williams and Rhode Island
+    us-149  Town meeting
+    us-150  Roger Williams
     us-151  Anne Hutchinson
-    us-152  Connecticut and the Fundamental Orders
+    us-152  Fundamental Orders of Connecticut
     us-153  Pequot War
     us-154  Province of Maryland
     us-155  Maryland Toleration Act
     us-156  Province of Carolina
-    us-157  Barbados and the making of Carolina slavery
+    us-157  Barbados Slave Code
     us-158  Province of Georgia
     us-159  James Oglethorpe
     us-160  Province of Pennsylvania
     us-161  William Penn
-    us-162  Quakers in colonial America
-    us-163  New Jersey and Delaware
+    us-162  Quakers
+    us-163  Province of New Jersey
     us-164  New England Confederation
     us-165  Dominion of New England
-    us-166  The Glorious Revolution in the colonies
+    us-166  1689 Boston revolt
     us-167  Navigation Acts
     us-168  Salutary neglect
-    us-169  The colonial assemblies and colonial government
-    us-170  The English colonies compared
+    us-169  Royal governor
+    us-170  Thirteen Colonies
 
 ### Colonial society and the imperial wars — `us-colonial-society`
 
-    us-171  Colonial population growth
-    us-172  The colonial family
-    us-173  Women in colonial America
-    us-174  Colonial agriculture
-    us-175  The colonial economy and the Atlantic trade
-    us-176  Colonial cities
-    us-177  Colonial Boston, Philadelphia and New York
-    us-178  The colonial gentry
-    us-179  Poverty and dependence in the colonies
-    us-180  German immigration to colonial America
-    us-181  Scots-Irish immigration to colonial America
-    us-182  The colonial backcountry
-    us-183  Religion in the American colonies
+    us-171  Observations Concerning the Increase of Mankind
+    us-172  Coverture
+    us-173  Eliza Lucas Pinckney
+    us-174  Rice
+    us-175  Molasses Act
+    us-176  Newport
+    us-177  Faneuil Hall
+    us-178  William Byrd II
+    us-179  Warning out
+    us-180  Pennsylvania Dutch
+    us-181  Scotch-Irish
+    us-182  Great Wagon Road
+    us-183  Half-Way Covenant
     us-184  First Great Awakening
     us-185  George Whitefield
     us-186  Jonathan Edwards
-    us-187  The Old Lights and the New Lights
-    us-188  Colonial printing and the newspaper
+    us-187  New Lights
+    us-188  Boston News-Letter
     us-189  John Peter Zenger
     us-190  Benjamin Franklin
-    us-191  The American Enlightenment
+    us-191  American Enlightenment
     us-192  The colonial colleges
     us-193  Salem witch trials
-    us-194  What the Salem trials were about
-    us-195  Smallpox inoculation in colonial America
-    us-196  King William's War and Queen Anne's War
+    us-194  Spectral evidence
+    us-195  Variolation
+    us-196  Queen Anne's War
     us-197  King George's War
     us-198  French and Indian War
     us-199  Battle of the Monongahela
-    us-200  The Albany Congress and the Albany Plan
+    us-200  Albany Plan
     us-201  Battle of the Plains of Abraham
     us-202  Treaty of Paris (1763)
     us-203  What British victory changed
