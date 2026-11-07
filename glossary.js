@@ -8048,7 +8048,17 @@ window.GLOSSARY = {
 "Second_Philippine_Republic": "",
 "Malayan_Peoples'_Anti-Japanese_Army": "",
 "Sook_Ching": "",
-"Proclamation_of_Indonesian_Independence": ""
+"Proclamation_of_Indonesian_Independence": "",
+"Allied_invasion_of_Italy": "",
+"Battle_of_Monte_Cassino": "",
+"Monte_Cassino": "",
+"Battle_of_Anzio": "",
+"Liberation_of_Rome": "",
+"Gothic_Line": "",
+"Italian_resistance_movement": "",
+"Italian_Civil_War": "",
+"Marzabotto_massacre": "",
+"Death_of_Benito_Mussolini": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -11982,7 +11992,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Indian_National_Army_trials": "1945–1946",
 "State_of_Burma": "1943–1945",
 "Sook_Ching": "1942",
-"Proclamation_of_Indonesian_Independence": "1945"
+"Proclamation_of_Indonesian_Independence": "1945",
+"Allied_invasion_of_Italy": "1943",
+"Battle_of_Monte_Cassino": "1944",
+"Battle_of_Anzio": "1944",
+"Liberation_of_Rome": "1944",
+"Gothic_Line": "1944–1945",
+"Italian_resistance_movement": "1943–1945",
+"Italian_Civil_War": "1943–1945",
+"Marzabotto_massacre": "1944",
+"Death_of_Benito_Mussolini": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17067,7 +17086,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Defenders_of_the_Homeland": ["PETA","Pembela Tanah Air"],
 "Malayan_Peoples'_Anti-Japanese_Army": ["Malayan People's Anti-Japanese Army","MPAJA"],
 "Sook_Ching": ["Sook Ching massacre","Kakyo shukusei"],
-"Proclamation_of_Indonesian_Independence": ["Proclamation of Indonesian independence"]
+"Proclamation_of_Indonesian_Independence": ["Proclamation of Indonesian independence"],
+"Allied_invasion_of_Italy": ["Operation Avalanche"],
+"Battle_of_Anzio": ["Operation Shingle"],
+"Marzabotto_massacre": ["Monte Sole massacre"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25265,7 +25287,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Second_Philippine_Republic": ["state","history","politics","philippines","japan"],
 "Malayan_Peoples'_Anti-Japanese_Army": ["institution","history","warfare","malaya","communism"],
 "Sook_Ching": ["event","history","warfare","singapore","atrocity"],
-"Proclamation_of_Indonesian_Independence": ["event","history","politics","indonesia","independence"]
+"Proclamation_of_Indonesian_Independence": ["event","history","politics","indonesia","independence"],
+"Allied_invasion_of_Italy": ["battle","warfare","history","italy","second world war"],
+"Battle_of_Monte_Cassino": ["battle","warfare","history","italy","second world war"],
+"Monte_Cassino": ["building","religion","history","italy","monasticism"],
+"Battle_of_Anzio": ["battle","warfare","history","italy","second world war"],
+"Liberation_of_Rome": ["event","warfare","history","italy","second world war"],
+"Gothic_Line": ["place","warfare","history","italy","second world war"],
+"Italian_resistance_movement": ["people","history","warfare","politics","italy"],
+"Italian_Civil_War": ["war","history","politics","italy","fascism"],
+"Marzabotto_massacre": ["event","history","warfare","italy","war crimes"],
+"Death_of_Benito_Mussolini": ["event","history","politics","italy","fascism"]
 });
 
 /* ============================================================================

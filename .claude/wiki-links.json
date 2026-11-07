@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-07T02:27Z",
+ "generated": "2026-11-07T02:29Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 5561,
+  "ok": 5571,
   "redirect-broader": 524,
   "redirect-variant": 337,
   "section-redirect": 111,
@@ -62928,6 +62928,76 @@
    "answer": "Proclamation of Indonesian Independence",
    "title": "Proclamation of Indonesian Independence",
    "url": "https://en.wikipedia.org/wiki/Proclamation_of_Indonesian_Independence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-591": {
+   "answer": "Allied invasion of Italy",
+   "title": "Allied invasion of Italy",
+   "url": "https://en.wikipedia.org/wiki/Allied_invasion_of_Italy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-592": {
+   "answer": "Battle of Monte Cassino",
+   "title": "Battle of Monte Cassino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Monte_Cassino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-593": {
+   "answer": "Monte Cassino",
+   "title": "Monte Cassino",
+   "url": "https://en.wikipedia.org/wiki/Monte_Cassino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-594": {
+   "answer": "Battle of Anzio",
+   "title": "Battle of Anzio",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Anzio",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-595": {
+   "answer": "Liberation of Rome",
+   "title": "Liberation of Rome",
+   "url": "https://en.wikipedia.org/wiki/Liberation_of_Rome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-596": {
+   "answer": "Gothic Line",
+   "title": "Gothic Line",
+   "url": "https://en.wikipedia.org/wiki/Gothic_Line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-597": {
+   "answer": "Italian resistance movement",
+   "title": "Italian resistance movement",
+   "url": "https://en.wikipedia.org/wiki/Italian_resistance_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-598": {
+   "answer": "Italian Civil War",
+   "title": "Italian Civil War",
+   "url": "https://en.wikipedia.org/wiki/Italian_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-599": {
+   "answer": "Marzabotto massacre",
+   "title": "Marzabotto massacre",
+   "url": "https://en.wikipedia.org/wiki/Marzabotto_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-600": {
+   "answer": "Death of Benito Mussolini",
+   "title": "Death of Benito Mussolini",
+   "url": "https://en.wikipedia.org/wiki/Death_of_Benito_Mussolini",
    "via": "glossary",
    "status": "ok"
   }
