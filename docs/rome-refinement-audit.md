@@ -222,7 +222,7 @@ order unless the user says otherwise.
 | B88 | Spectacle and leisure (`rm-spectacle`) | `rm-871`–`rm-880` | 10 | 77 | **done 2026-11-07** |
 | B89 | Spectacle and leisure (`rm-spectacle`) | `rm-881`–`rm-890` | 10 | 83 | **done 2026-11-07** |
 | B90 | Roman religion and myth (`rm-religion`) | `rm-891`–`rm-900` | 10 | 80 | **done 2026-11-07** |
-| B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | open |
+| B91 | Roman religion and myth (`rm-religion`) | `rm-901`–`rm-910` | 10 | 72 | **done 2026-11-07** |
 | B92 | Roman religion and myth (`rm-religion`) | `rm-911`–`rm-920` | 10 | 82 | open |
 | B93 | Roman religion and myth (`rm-religion`) | `rm-921`–`rm-930` | 10 | 83 | open |
 | B94 | Latin literature and thought (`rm-literature`) | `rm-931`–`rm-940` | 10 | 78 | open |
@@ -1170,6 +1170,16 @@ batch judged wrong. One line per card; a pictures pass works through it.
 | `rm-898` augur | none | not re-checked: the card has no picture; a coin with the lituus would do |
 | `rm-899` auspices | none | not re-checked: the card has no picture; its glossary term's picture (an engraving of Numa's augury) has no licence and is wrong |
 | `rm-900` Spurinna | none | not re-checked: the card has no picture |
+| `rm-901` Vestal Virgin | none | not re-checked: the card has no picture; its glossary's photo of the Atrium Vestae would do |
+| `rm-902` flamen | none | not re-checked: the card has no picture; a flamen's apex on the Ara Pacis procession would do |
+| `rm-903` Arval Brethren | none | not re-checked: the card has no picture |
+| `rm-904` Jupiter | none | not re-checked: the card has no picture |
+| `rm-905` Juno | none | not re-checked: the card has no picture |
+| `rm-906` Minerva | none | not re-checked: the card has no picture |
+| `rm-907` Capitoline Triad | none | not re-checked: the card has no picture |
+| `rm-908` Mars | none | not re-checked: the card has no picture |
+| `rm-909` Venus | none | not re-checked: the card has no picture |
+| `rm-910` Vesta | none | not re-checked: the card has no picture; the round temple in the Forum would do |
 
 ## Glossary candidates
 
@@ -3259,3 +3269,22 @@ Quote blocks that now clash with their cards, for the owner (not this audit's to
 ### Locators (2026-11-07, the ninth hundred)
 
 None was added or moved, so `migrate-places.js` was not run. Every site in the hundred already had a point: the Campus Martius, Pergamon (Galen), Heraclea (the tablet), Ostia, Portus, Las Médulas, the Ludus Magnus, the Circus of Maxentius, the Theatre of Pompey, the Baths of Diocletian and the Temple of Castor and Pollux. For a later pass: points labelled with the card's own term on a concept, a practice or a board — `rm-816` puticuli (its agent asked to move it to the pits by Piazza Vittorio Emanuele, labelled "Esquiline burial pits"), `rm-833` hortus, `rm-836` curatores alvei Tiberis, `rm-839` castellum aquae (Pompeii's, fine as a site), `rm-855` programma (Pompeii; relabel "Pompeii"), `rm-862` Falernian wine, `rm-867` ludi Romani and `rm-876` chariot racing and `rm-889` pulvinar (all three the Circus Maximus), `rm-872` amphitheatre (Pompeii's) and `rm-875` naumachia (the Fucine Lake; the Naumachia of Augustus would be more representative); and labels naming a district or a road rather than the building: `rm-841` Horologium Augusti and `rm-880` Theatre of Pompey ("Campus Martius"), `rm-877` Circus of Maxentius ("Via Appia Antica").
+
+### B91 — `rm-901`–`rm-910`, Roman religion and myth: the Vestal Virgins to Vesta (2026-11-07)
+
+Run as B90: the hundred prepped up front, one notes file with a line per pair, a running list of every clue a returned draft took, five agents a batch and never more than ten at once. The trial of a Vestal went to `rm-901` alone (out of `rm-909`'s Verticordia questions), the sacred fire and the burning temple to `rm-910`, Domitian's crown with the three gods to `rm-907` (out of `rm-902`), the temple of Mars the Avenger stayed `rm-402`'s (out of `rm-908`), Juno of Veii stayed `rm-177`'s and `rm-120`'s and the geese `rm-126`'s (out of `rm-905`), and Cicero's taunt at Antony as priest of the deified Julius was given to `rm-902` (and kept off `rm-941`). `rm-907`'s second question, which put the modern name in Livy's consul's mouth, was reworded before applying. **The old date lines dated an office by one man's suicide and another's appointment ("Merula dies / Office refilled"), named an emperor in a label ("Elagabalus joins"), and gave "at least 304 CE" as a value; the old cards leaned on Smith's dictionary for Mars as Ares, the Quinquatrus's five days and the Arval records' start.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `rm-901` Vestal Virgin | 8 | 8 → 11 | **Numa's founding and Servius's two more Vestals told as tradition (Plutarch); the 8th-century hut under the Vestals' house reported apart, its cult use disputed; the funds withdrawn in 382 CE and Coelia Concordia the last known name, in prose (undatable)**; Cornelia at the Alban villa; the "Amata" formula; the criminal spared by a chance meeting. The wills and the release from a father's power went (`rm-372`, `rm-396`, `rm-786`'s ground). |
+| `rm-902` flamen | 7 | 8 → 10 | **The line "Merula dies 87 BCE / Office refilled 11 BCE" goes (both years in prose); the fifteen flamines credited to Festus; Numa's founding tradition; whether the rules barred a career a debate**; Caesar nominated but never installed; Gellius's catalogue of the Dialis's taboos; Cicero's taunt at Antony. |
+| `rm-903` Arval Brethren | 6 | 6 → 8 | **Romulus and Acca Larentia's sons told as legend; "Elagabalus joins 218 CE" and "at least 304 CE" become Acts inscribed 21 BCE – 304 CE (the span of Scheid's corpus); Smith's impossible "Gordian, A.D. 325" goes**; the stamping dance with hymn booklets; Augustus joining beside former enemies; Pliny's corn-ear wreath. |
+| `rm-904` Jupiter | 9 | 9 → 11 | **Romulus's Feretrius and Stator vows told as tradition, with the modern view that Marcellus made the spolia opima and Livy's own admission that Romulus built nothing; the Stator temple vowed 294 BCE (prose)**; Cicero's senate in the Stator temple; the bells on Jupiter the Thunderer; the minium-red statue. |
+| `rm-905` Juno | 8 | 8 → 10 | **All three old clues belonged to other cards (Veii, the Matronalia, the golden basin); Moneta's vow and dedication from Livy; the ancient etymologies of Moneta called doubtful; the Matronalia an informal name**; the voice in the earthquake; Juno Sospita's goatskin and slippers; Virgil's Juno and Carthage. |
+| `rm-906` Minerva | 8 | 8 → 8 | **The Quinquatrus was one day, 19 March, read as five by Romans (Fowler); the five days are Ovid's; the writers' guild on the Aventine left to `rm-933`; the Etruscan Menrva origin undecided**; the nail law; the craftsmen's festival; Domitian's dream. |
+| `rm-907` Capitoline Triad | 7 | 8 → 9 | **"Capitoline Triad" the modern books' name, with Livy's "Jupiter Optimus Maximus, Queen Juno and Minerva"; Traditional 509 BCE; the Etruscan origin a debate**; Domitian's crown; Herdonius's slaves on the citadel; the colonies' Capitolia and Ostia's Hadrianic temple. |
+| `rm-908` Mars | 9 | 9 → 10 | **The Philippi vow out (`rm-402`'s), and Cato's prayer (`rm-893`'s); "identified with Ares" cut from card and glossary (Smith alone; the second source would not load)**; the Salii and the ancilia (Livy's Numa); the October Horse; the spears moving in the Regia. |
+| `rm-909` Venus | 9 | 9 → 10 | **"114 BCE" out of the questions; Smith-only claims, Cicero's etymology and Dio's Hadrian story go; 295 BCE dropped (Livy's page prints no year); modern share 1 → 6**; Sulpicia's statue for Verticordia; Fabius's vow of Erycina after Trasimene; the temple paid for with adultery fines. |
+| `rm-910` Vesta | 8 | 8 → 8 | **Modern share 1 → 5; Smith-only claims cut; the archaeology and its dispute, the penus, the Vestalia on 9 June and the sweeping-out on 15 June, Augustus's Palatine shrine of 12 BCE (prose)**; Ovid's living flame; the loaves on wreathed donkeys; Metellus in the burning temple. |
+
+**Read by eye.** *Confusability:* `rm-901`/`rm-910` the priestesses (Cornelia) and the goddess (the living flame); `rm-902`/`rm-903` the single priests (the Dialis's taboos) and the brotherhood (the dance in the grove); `rm-904`/`rm-905`/`rm-906`/`rm-907` Jupiter (Stator), Juno (Moneta), Minerva (the nail) and the three together (Domitian's crown); `rm-908`/`rm-909` Mars (the Salii) and Venus (Verticordia). *Legend:* Numa's Vestals, flamines and Salii, Romulus's Arval Brethren and his spolia, and Metellus's rescue are told as what the sources report. *Overlap:* `gr-899` (Ares) may lean on the old glossary's Ares link, which `rm-908` cut for want of a second source; no other `gr-` or `wh-` card read disagrees. Quote blocks: `rm-905`'s (Livy on Veii) no longer matches a question; `rm-910`'s (Plutarch's round temple as the universe) sits beside a why answer giving Ovid's earth (not edited). Every card lacks a picture (`I.none`); the `S.chip?` flags are English BMCR reviews of French and German books. Locators: `rm-901`'s point is labelled "Vestal Virgin" and `rm-910`'s "Vesta"; both should read as the House of the Vestals and the Temple of Vesta (for a later pass).

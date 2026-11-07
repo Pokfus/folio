@@ -143,7 +143,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Servian Wall: earliest wall / rebuilt / repaired | c. 600 – 500 BCE / from 378 BCE (the Loeb margin at Livy 6.31; the old 377 was Platner's year for the tax) / 353 BCE | `rm-072` |
 | censors take over the census / Augustus's first census / the last lustrum | 443 BCE / 28 BCE / 74 CE | `rm-073` |
 | Tarquinius Superbus's reign / the monarchy's end | 532 – 507 BCE (Dionysius, as his translator converts it) / 509 BCE (the usual modern year) | `rm-074` |
-| Capitoline temple built / dedicated / burnt | c. 550 – 500 BCE (pottery from the foundation trench) / 509 BCE (tradition) / 83 BCE, 69 CE, 80 CE | `rm-075`, `rm-050` |
+| Capitoline temple built / dedicated / burnt | c. 550 – 500 BCE (pottery from the foundation trench) / 509 BCE (tradition) / 83 BCE, 69 CE, 80 CE | `rm-075`, `rm-050`, `rm-907` |
 | Sibylline keepers enlarged / books burnt / moved to the Palatine | c. 367 BCE / 83 BCE / 12 BCE | `rm-076` |
 | Lucretia; the expulsion of the kings; Brutus's consulship; the rex sacrorum created | 509 BCE (tradition); 507 BCE in Dionysius | `rm-077`–`rm-080` |
 | Brutus on Marcus Brutus's denarius / an inscription naming a rex sacrorum | 54 BCE / 43 – 70 CE | `rm-079`, `rm-080` |
@@ -782,6 +782,7 @@ Filled batch by batch, from the source each row names. The legendary dates are g
 | Seneca's Epistulae Morales written | c. 62 – 65 CE | `rm-890` |
 | the Temple of Castor and Pollux rebuilt | 6 CE | `rm-894` |
 | the pontifex maximus: Augustus elected | 12 BCE | `rm-896` |
+| the Arval Brethren: their inscribed acts run (Scheid's corpus) | 21 BCE – 304 CE | `rm-903` |
 
 ## Late Antiquity
 
@@ -1663,4 +1664,6 @@ rm-896: 254; 12; 376; 375
 rm-897: 300; 81
 rm-898: 300
 rm-900: 44
+rm-903: 21; 304
+rm-907: 509
 ```
