@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3de0d9999ade286e","counts":{"terms":935,"points":698,"countries":237,"windows":1454,"faces":376,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":{"terms":935,"points":698,"countries":237,"windows":1455,"faces":376,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1172,6 +1172,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3de0d9999ade286e","counts":
 "Chełmno_extermination_camp":[18.723,52.154,"coord",0,0,0],
 "Chicago":[-87.752,41.832,"city",0,0,0],
 "Chichen_Itza":[-88.569,20.683,"site",0,0,0],
+"Chidorigafuchi_National_Cemetery":[139.747,35.69,"coord",0,0,0],
 "Chile":[-72.32,-38.15,"country","adm0:chl",0,1.78],
 "China":[106.34,32.5,"country","adm0:chn",0,1.38],
 "Chita":[116.559,52.159,"admin1","adm1:rus:ru-zab",0,7.39],
