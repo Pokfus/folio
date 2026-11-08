@@ -1350,7 +1350,7 @@ already shipped before adding it.
     cnh-861  Wang Fuzhi
     cnh-862  Lu Jiuyuan
     cnh-863  Investigation of things
-    cnh-864  Yan Ruoju
+    cnh-864  Yan Ruoqu
     cnh-865  Huang Zongxi
     cnh-866  Quanxue pian
     cnh-867  Science and Metaphysics debate

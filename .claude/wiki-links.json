@@ -3,15 +3,15 @@
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 6450,
-  "redirect-broader": 612,
+  "redirect-broader": 611,
   "redirect-variant": 386,
   "section-redirect": 131,
   "disambiguation": 147,
   "none": 1006,
-  "disambig-resolved": 86,
+  "disambig-resolved": 85,
   "list-page": 6,
   "search-match": 9,
-  "no-article": 17
+  "no-article": 19
  },
  "cards": {
   "wh-001": {
@@ -22745,10 +22745,11 @@
   },
   "gr-566": {
    "answer": "Lichas",
-   "title": "Lichas",
-   "url": "https://en.wikipedia.org/wiki/Lichas",
-   "via": "glossary",
-   "status": "ok"
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "no-article",
+   "manual": true
   },
   "gr-567": {
    "answer": "Colonus",
@@ -23245,10 +23246,11 @@
   },
   "gr-626": {
    "answer": "Antiphon",
-   "title": "Antiphon",
-   "url": "https://en.wikipedia.org/wiki/Antiphon",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Antiphon (orator)",
+   "url": "https://en.wikipedia.org/wiki/Antiphon_(orator)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-627": {
    "answer": "Socrates",
@@ -35778,10 +35780,11 @@
   },
   "gr-807": {
    "answer": "Callimachus",
-   "title": "Callimachus (polemarch)",
-   "url": "https://en.wikipedia.org/wiki/Callimachus_(polemarch)",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Callimachus",
+   "url": "https://en.wikipedia.org/wiki/Callimachus",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "gr-808": {
    "answer": "Aetia",
@@ -37947,11 +37950,11 @@
   },
   "cnh-322": {
    "answer": "Liu Yu",
-   "title": "Liu Yu (Western Jin)",
-   "url": "https://en.wikipedia.org/wiki/Liu_Yu_(Western_Jin)",
-   "via": "disambiguation",
-   "status": "disambig-resolved",
-   "from": "Liu Yu"
+   "title": "Emperor Wu of Song",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Wu_of_Song",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "cnh-323": {
    "answer": "Northern and Southern dynasties",
@@ -50904,10 +50907,11 @@
   },
   "eep-116": {
    "answer": "Henrik Larsen",
-   "title": "Henrik Larsen",
-   "url": "https://en.wikipedia.org/wiki/Henrik_Larsen",
-   "via": "answer",
-   "status": "ok"
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "no-article",
+   "manual": true
   },
   "eep-117": {
    "answer": "Othering",
@@ -56362,10 +56366,11 @@
   },
   "cnh-857": {
    "answer": "Li Ao",
-   "title": "Li Ao",
-   "url": "https://en.wikipedia.org/wiki/Li_Ao",
-   "via": "glossary",
-   "status": "ok"
+   "title": "Li Ao (philosopher)",
+   "url": "https://en.wikipedia.org/wiki/Li_Ao_(philosopher)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "cnh-858": {
    "answer": "Zhang Zai",
@@ -56419,12 +56424,11 @@
    ]
   },
   "cnh-864": {
-   "answer": "Yan Ruoju",
+   "answer": "Yan Ruoqu",
    "title": "Yan Ruoqu",
    "url": "https://en.wikipedia.org/wiki/Yan_Ruoqu",
    "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Yan Ruoju"
+   "status": "ok"
   },
   "cnh-865": {
    "answer": "Huang Zongxi",
@@ -56561,8 +56565,8 @@
   },
   "cnh-881": {
    "answer": "Wang Zhe",
-   "title": "Wang Zhe",
-   "url": "https://en.wikipedia.org/wiki/Wang_Zhe",
+   "title": "Wang Chongyang",
+   "url": "https://en.wikipedia.org/wiki/Wang_Chongyang",
    "via": "manual",
    "status": "ok",
    "manual": true
