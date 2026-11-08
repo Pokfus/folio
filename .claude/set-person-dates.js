@@ -19,7 +19,8 @@
     } } }
 
   Every part but `birth` is optional, and a place may be left out ("" or a one-item array) where the
-  sources do not give one — an unknown birthplace is a missing line, never a guess. `career` and
+  sources do not give one — an unknown birthplace is a missing line, never a guess. A place is written
+  "Town, Region" with commas, never brackets (the writer refuses brackets). `career` and
   `moment` are [label, date]; the label says WHAT the date is (Reigned, In office, Consul, Knossos dig)
   in at most 16 characters.
 
@@ -88,6 +89,8 @@ function rowsFor(id, spec) {
   if (!birth) die(id + ": the template opens with the birth — give \"birth\": [date, place]");
   if (career && career.length !== 2) die(id + " career: [label, \"from – to\"]");
   if (moment && moment.length !== 2) die(id + " moment: [label, date]");
+  // a place is "Town, Region" — commas, never brackets, so every card reads the same (Nov 2026, on request)
+  for (const [k, v] of [["birth", birth], ["death", death]]) if (v && v[1] && /[()]/.test(v[1])) die(id + " " + k + ": write the place as \"Town, Region\" with commas, not brackets: \"" + v[1] + "\"");
   const B = parseDate(id, "birth", birth[0]);
   const D = death ? parseDate(id, "death", death[0]) : null;
   const mid = [];
