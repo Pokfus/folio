@@ -18,11 +18,13 @@
         "death":  ["11 July 1941", "Youlbury, Berkshire"]
     } } }
 
-  Every part but `birth` is optional, and a place may be left out ("" or a one-item array) where the
+  Every part is optional — a person whose birth no source dates gets no Birth row, never an estimate,
+  and the line then opens with the term (at most 4 rows, as every other line) — and a place may be left out ("" or a one-item array) where the
   sources do not give one — an unknown birthplace is a missing line, never a guess. A place is written
   "Town, Region" with commas, never brackets (the writer refuses brackets). `career` and
   `moment` are [label, date]; the label says WHAT the date is (Reigned, In office, Consul, Knossos dig)
-  in at most 16 characters.
+  in at most 16 characters. A date may carry a qualifier after a comma ("390 BCE, by tradition",
+  "46 BCE, disputed"): it stays on the line and only the part before the comma is read.
 
   WHY A TOOL. Two things in the template are arithmetic a hand edit gets wrong without anything saying
   so: the AGES, and the ORDER ("All dates should be in chronological order"). This script computes the
@@ -50,7 +52,8 @@ const MDAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 /* A date as written on a date line -> { lo, hi, circa }, where lo / hi are [astronomicalYear, month, day]
    bounds. "8 July 1851", "July 1851", "1851", "c. 271 – 273 CE", "95 BCE", "15 March 44 BCE". */
 function parseDate(id, what, s) {
-  const t = String(s || "").trim().replace(/[‐-―−]/g, "-").replace(/\s*\(age[^)]*\)$/i, "");
+  // a qualifier after a comma is kept on the line and not read ("390 BCE, by tradition")
+  const t = String(s || "").trim().replace(/\s*\(age[^)]*\)$/i, "").split(",")[0].trim().replace(/[‐-―−]/g, "-");
   const m = t.match(/^(c\.\s*)?(?:(\d{1,2})\s+)?(?:([A-Za-z]+)\s+)?(\d{1,4})(?:\s*(BCE|CE))?(?:\s*-\s*(?:(\d{1,2})\s+)?(?:([A-Za-z]+)\s+)?(\d{1,4})(?:\s*(BCE|CE))?)?$/);
   if (!m) die(id + " " + what + ": cannot read the date \"" + s + "\" — write \"8 July 1851\", \"1851\", \"c. 271 – 273 CE\" or \"95 BCE\"");
   const [, circa, d1, mo1, y1, e1, d2, mo2, y2, e2] = m;
@@ -86,28 +89,27 @@ function rowsFor(id, spec) {
   for (const k of Object.keys(spec)) if (!["birth", "career", "moment", "death"].includes(k)) die(id + ": unknown part \"" + k + "\"");
   const pair = (k) => { const v = spec[k]; if (v == null) return null; if (!Array.isArray(v) || !v.length || v.length > 2) die(id + " " + k + ": give [date, place] or [label, date]"); return v.map((x) => String(x == null ? "" : x).trim()); };
   const birth = pair("birth"), death = pair("death"), career = pair("career"), moment = pair("moment");
-  if (!birth) die(id + ": the template opens with the birth — give \"birth\": [date, place]");
   if (career && career.length !== 2) die(id + " career: [label, \"from – to\"]");
   if (moment && moment.length !== 2) die(id + " moment: [label, date]");
   // a place is "Town, Region" — commas, never brackets, so every card reads the same (Nov 2026, on request)
   for (const [k, v] of [["birth", birth], ["death", death]]) if (v && v[1] && /[()]/.test(v[1])) die(id + " " + k + ": write the place as \"Town, Region\" with commas, not brackets: \"" + v[1] + "\"");
-  const B = parseDate(id, "birth", birth[0]);
+  const B = birth ? parseDate(id, "birth", birth[0]) : null;
   const D = death ? parseDate(id, "death", death[0]) : null;
   const mid = [];
   if (career) mid.push({ label: career[0], d: parseDate(id, "career", career[1]), value: career[1] });
-  if (moment) { const d = parseDate(id, "moment", moment[1]); const a = ageText(B, d); mid.push({ label: moment[0], d, value: moment[1] + (a ? " (" + a + ")" : "") }); }
+  if (moment) { const d = parseDate(id, "moment", moment[1]); const a = B && ageText(B, d); mid.push({ label: moment[0], d, value: moment[1] + (a ? " (" + a + ")" : "") }); }
   // chronological order: nothing before the birth, nothing after the death
   for (const r of mid) {
-    if (cmp(r.d.hi, B.lo) < 0) die(id + ": \"" + r.label + "\" (" + r.d.text + ") is before the birth (" + B.text + ")");
+    if (B && cmp(r.d.hi, B.lo) < 0) die(id + ": \"" + r.label + "\" (" + r.d.text + ") is before the birth (" + B.text + ")");
     if (D && cmp(r.d.lo, D.hi) > 0) die(id + ": \"" + r.label + "\" (" + r.d.text + ") is after the death (" + D.text + ")");
   }
-  if (D && cmp(D.hi, B.lo) < 0) die(id + ": the death (" + D.text + ") is before the birth (" + B.text + ")");
+  if (B && D && cmp(D.hi, B.lo) < 0) die(id + ": the death (" + D.text + ") is before the birth (" + B.text + ")");
   mid.sort((a, b) => cmp(a.d.lo, b.d.lo));
-  const rows = [["Birth", birth[0]]];
-  if (birth[1]) rows.push(["", birth[1]]);
+  const rows = [];
+  if (birth) { rows.push(["Birth", birth[0]]); if (birth[1]) rows.push(["", birth[1]]); }
   mid.forEach((r) => rows.push([r.label, r.value]));
   if (death) {
-    const a = ageText(B, D);
+    const a = B && ageText(B, D);
     rows.push(["Death", death[0] + (a ? " (" + a + ")" : "")]);
     if (death[1]) rows.push(["", death[1]]);
   }
