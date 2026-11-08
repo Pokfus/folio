@@ -69516,17 +69516,11 @@
   },
   "ww2-812": {
    "answer": "starvation of civilians",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "World War II casualties",
-    "Home front during World War II",
-    "Starvation (crime)",
-    "Minnesota Starvation Experiment",
-    "War crimes in World War II"
-   ]
+   "title": "Starvation (crime)",
+   "url": "https://en.wikipedia.org/wiki/Starvation_(crime)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ww2-813": {
    "answer": "wartime sexual violence",
@@ -69609,17 +69603,11 @@
   },
   "ww2-864": {
    "answer": "evacuation of Soviet industry",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Soviet industry in World War II",
-    "World War II",
-    "Repatriation of Soviet citizens after World War II",
-    "Evacuation in the Soviet Union",
-    "Eastern Front (World War II)"
-   ]
+   "title": "Evacuation in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Evacuation_in_the_Soviet_Union",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ww2-865": {
    "answer": "Ministry of Supply",
@@ -69717,11 +69705,11 @@
   },
   "ww2-848": {
    "answer": "prefab",
-   "title": "Prefabrication",
-   "url": "https://en.wikipedia.org/wiki/Prefabrication",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Prefab"
+   "title": "Prefabs in the United Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Prefabs_in_the_United_Kingdom",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ww2-849": {
    "answer": "1943 Detroit race riot",
