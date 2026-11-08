@@ -1,16 +1,16 @@
 {
- "generated": "2026-11-07T20:00Z",
+ "generated": "2026-11-07T23:38Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6191,
-  "redirect-broader": 591,
-  "redirect-variant": 375,
+  "ok": 6275,
+  "redirect-broader": 601,
+  "redirect-variant": 380,
   "section-redirect": 127,
   "disambiguation": 147,
-  "none": 1005,
-  "disambig-resolved": 83,
+  "none": 1004,
+  "disambig-resolved": 84,
   "list-page": 6,
-  "search-match": 8,
+  "search-match": 9,
   "no-article": 17
  },
  "cards": {
@@ -68707,6 +68707,735 @@
    "url": "https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories",
    "via": "search",
    "status": "search-match"
+  },
+  "ww2-701": {
+   "answer": "resistance movement",
+   "title": "Resistance movement",
+   "url": "https://en.wikipedia.org/wiki/Resistance_movement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-702": {
+   "answer": "Sabotage",
+   "title": "Sabotage",
+   "url": "https://en.wikipedia.org/wiki/Sabotage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-703": {
+   "answer": "French Resistance",
+   "title": "French Resistance",
+   "url": "https://en.wikipedia.org/wiki/French_Resistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-704": {
+   "answer": "Jean Moulin",
+   "title": "Jean Moulin",
+   "url": "https://en.wikipedia.org/wiki/Jean_Moulin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-705": {
+   "answer": "maquis",
+   "title": "Maquis (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Maquis_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-706": {
+   "answer": "Special Operations Executive",
+   "title": "Special Operations Executive",
+   "url": "https://en.wikipedia.org/wiki/Special_Operations_Executive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-707": {
+   "answer": "Office of Strategic Services",
+   "title": "Office of Strategic Services",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Strategic_Services",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-708": {
+   "answer": "Operation Jedburgh",
+   "title": "Operation Jedburgh",
+   "url": "https://en.wikipedia.org/wiki/Operation_Jedburgh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-709": {
+   "answer": "Polish Underground State",
+   "title": "Polish Underground State",
+   "url": "https://en.wikipedia.org/wiki/Polish_Underground_State",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-710": {
+   "answer": "Home Army",
+   "title": "Home Army",
+   "url": "https://en.wikipedia.org/wiki/Home_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-711": {
+   "answer": "Second Department of the Polish General Staff",
+   "title": "Second Department of Polish General Staff",
+   "url": "https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff",
+   "via": "search",
+   "status": "search-match"
+  },
+  "ww2-712": {
+   "answer": "Yugoslav Partisans",
+   "title": "Yugoslav Partisans",
+   "url": "https://en.wikipedia.org/wiki/Yugoslav_Partisans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-713": {
+   "answer": "Josip Broz Tito",
+   "title": "Josip Broz Tito",
+   "url": "https://en.wikipedia.org/wiki/Josip_Broz_Tito",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-714": {
+   "answer": "Chetniks",
+   "title": "Chetniks",
+   "url": "https://en.wikipedia.org/wiki/Chetniks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-715": {
+   "answer": "Greek Resistance",
+   "title": "Greek resistance",
+   "url": "https://en.wikipedia.org/wiki/Greek_resistance",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Greek Resistance"
+  },
+  "ww2-716": {
+   "answer": "Garibaldi Brigades",
+   "title": "Brigate Garibaldi",
+   "url": "https://en.wikipedia.org/wiki/Brigate_Garibaldi",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Garibaldi Brigades"
+  },
+  "ww2-717": {
+   "answer": "Norwegian resistance movement",
+   "title": "Norwegian resistance movement",
+   "url": "https://en.wikipedia.org/wiki/Norwegian_resistance_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-718": {
+   "answer": "Jewish resistance",
+   "title": "Jewish resistance in German-occupied Europe",
+   "url": "https://en.wikipedia.org/wiki/Jewish_resistance_in_German-occupied_Europe",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Jewish resistance"
+  },
+  "ww2-719": {
+   "answer": "Warsaw Ghetto Uprising",
+   "title": "Warsaw Ghetto Uprising",
+   "url": "https://en.wikipedia.org/wiki/Warsaw_Ghetto_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-720": {
+   "answer": "Jewish partisans",
+   "title": "Jewish partisans",
+   "url": "https://en.wikipedia.org/wiki/Jewish_partisans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-721": {
+   "answer": "Kampfgruppe Auschwitz",
+   "title": "Auschwitz Combat Group",
+   "url": "https://en.wikipedia.org/wiki/Auschwitz_Combat_Group",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kampfgruppe Auschwitz"
+  },
+  "ww2-722": {
+   "answer": "Sobibor uprising",
+   "title": "Sobibor uprising",
+   "url": "https://en.wikipedia.org/wiki/Sobibor_uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-723": {
+   "answer": "German resistance to Nazism",
+   "title": "German resistance to Nazism",
+   "url": "https://en.wikipedia.org/wiki/German_resistance_to_Nazism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-724": {
+   "answer": "White Rose",
+   "title": "White Rose",
+   "url": "https://en.wikipedia.org/wiki/White_Rose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-725": {
+   "answer": "Żegota",
+   "title": "Żegota",
+   "url": "https://en.wikipedia.org/wiki/%C5%BBegota",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-726": {
+   "answer": "rescue of the Danish Jews",
+   "title": "Rescue of the Danish Jews",
+   "url": "https://en.wikipedia.org/wiki/Rescue_of_the_Danish_Jews",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-727": {
+   "answer": "Righteous Among the Nations",
+   "title": "Righteous Among the Nations",
+   "url": "https://en.wikipedia.org/wiki/Righteous_Among_the_Nations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-728": {
+   "answer": "kashariyot",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bela Yaari Hazan",
+    "Frumka Płotnicka"
+   ]
+  },
+  "ww2-729": {
+   "answer": "Nacht und Nebel",
+   "title": "Nacht und Nebel",
+   "url": "https://en.wikipedia.org/wiki/Nacht_und_Nebel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-730": {
+   "answer": "résistancialisme",
+   "title": "Résistancialisme",
+   "url": "https://en.wikipedia.org/wiki/R%C3%A9sistancialisme",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-731": {
+   "answer": "Holocaust",
+   "title": "The Holocaust",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-732": {
+   "answer": "Holocaust historiography",
+   "title": "Holocaust studies",
+   "url": "https://en.wikipedia.org/wiki/Holocaust_studies",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Holocaust historiography"
+  },
+  "ww2-733": {
+   "answer": "antisemitism",
+   "title": "Antisemitism",
+   "url": "https://en.wikipedia.org/wiki/Antisemitism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-734": {
+   "answer": "anti-Jewish legislation",
+   "title": "Anti-Jewish laws",
+   "url": "https://en.wikipedia.org/wiki/Anti-Jewish_laws",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Anti-Jewish legislation"
+  },
+  "ww2-735": {
+   "answer": "European Jewry",
+   "title": "History of the Jews in Europe",
+   "url": "https://en.wikipedia.org/wiki/History_of_the_Jews_in_Europe",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "European Jewry"
+  },
+  "ww2-736": {
+   "answer": "Polish Jews",
+   "title": "History of the Jews in Poland",
+   "url": "https://en.wikipedia.org/wiki/History_of_the_Jews_in_Poland",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Polish Jews"
+  },
+  "ww2-737": {
+   "answer": "Nazi ghettos",
+   "title": "Jewish ghettos established by Nazi Germany",
+   "url": "https://en.wikipedia.org/wiki/Jewish_ghettos_established_by_Nazi_Germany",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Nazi ghettos"
+  },
+  "ww2-738": {
+   "answer": "Warsaw Ghetto",
+   "title": "Warsaw Ghetto",
+   "url": "https://en.wikipedia.org/wiki/Warsaw_Ghetto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-739": {
+   "answer": "Łódź Ghetto",
+   "title": "Łódź Ghetto",
+   "url": "https://en.wikipedia.org/wiki/%C5%81%C3%B3d%C5%BA_Ghetto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-740": {
+   "answer": "typhus",
+   "title": "Typhus",
+   "url": "https://en.wikipedia.org/wiki/Typhus",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-741": {
+   "answer": "Judenrat",
+   "title": "Judenrat",
+   "url": "https://en.wikipedia.org/wiki/Judenrat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-742": {
+   "answer": "Madagascar Plan",
+   "title": "Madagascar Plan",
+   "url": "https://en.wikipedia.org/wiki/Madagascar_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-743": {
+   "answer": "Einsatzgruppen",
+   "title": "Einsatzgruppen",
+   "url": "https://en.wikipedia.org/wiki/Einsatzgruppen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-744": {
+   "answer": "Kamianets-Podilskyi massacre",
+   "title": "Kamianets-Podilskyi massacre",
+   "url": "https://en.wikipedia.org/wiki/Kamianets-Podilskyi_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-745": {
+   "answer": "Babi Yar",
+   "title": "Babi Yar",
+   "url": "https://en.wikipedia.org/wiki/Babi_Yar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-746": {
+   "answer": "Mogilev Conference",
+   "title": "Mogilev Conference",
+   "url": "https://en.wikipedia.org/wiki/Mogilev_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-747": {
+   "answer": "Jedwabne pogrom",
+   "title": "Jedwabne pogrom",
+   "url": "https://en.wikipedia.org/wiki/Jedwabne_pogrom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-748": {
+   "answer": "Holocaust by bullets",
+   "title": "The Holocaust in Belarus",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_Belarus",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Holocaust by bullet"
+  },
+  "ww2-749": {
+   "answer": "Final Solution",
+   "title": "Final Solution",
+   "url": "https://en.wikipedia.org/wiki/Final_Solution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-750": {
+   "answer": "functionalism–intentionalism debate",
+   "title": "Functionalism–intentionalism debate",
+   "url": "https://en.wikipedia.org/wiki/Functionalism%E2%80%93intentionalism_debate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-751": {
+   "answer": "Wannsee Conference",
+   "title": "Wannsee Conference",
+   "url": "https://en.wikipedia.org/wiki/Wannsee_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-752": {
+   "answer": "Operation Reinhard",
+   "title": "Operation Reinhard",
+   "url": "https://en.wikipedia.org/wiki/Operation_Reinhard",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-753": {
+   "answer": "extermination camp",
+   "title": "Extermination camp",
+   "url": "https://en.wikipedia.org/wiki/Extermination_camp",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-754": {
+   "answer": "Chełmno extermination camp",
+   "title": "Chełmno extermination camp",
+   "url": "https://en.wikipedia.org/wiki/Che%C5%82mno_extermination_camp",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-755": {
+   "answer": "Auschwitz concentration camp",
+   "title": "Auschwitz concentration camp",
+   "url": "https://en.wikipedia.org/wiki/Auschwitz_concentration_camp",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-756": {
+   "answer": "Auschwitz II-Birkenau",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Auschwitz II-Birkenau",
+   "target": "Auschwitz concentration camp#Auschwitz II-Birkenau"
+  },
+  "ww2-757": {
+   "answer": "Selektion",
+   "title": "Selection (Holocaust)",
+   "url": "https://en.wikipedia.org/wiki/Selection_(Holocaust)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Selektion"
+  },
+  "ww2-758": {
+   "answer": "gas chamber",
+   "title": "Gas chamber",
+   "url": "https://en.wikipedia.org/wiki/Gas_chamber",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-759": {
+   "answer": "Zyklon B",
+   "title": "Zyklon B",
+   "url": "https://en.wikipedia.org/wiki/Zyklon_B",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-760": {
+   "answer": "Sonderkommando",
+   "title": "Sonderkommando",
+   "url": "https://en.wikipedia.org/wiki/Sonderkommando",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-761": {
+   "answer": "Holocaust trains",
+   "title": "Holocaust trains",
+   "url": "https://en.wikipedia.org/wiki/Holocaust_trains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-762": {
+   "answer": "Deutsche Reichsbahn",
+   "title": "Deutsche Reichsbahn",
+   "url": "https://en.wikipedia.org/wiki/Deutsche_Reichsbahn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-763": {
+   "answer": "Majdanek",
+   "title": "Majdanek concentration camp",
+   "url": "https://en.wikipedia.org/wiki/Majdanek_concentration_camp",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Majdanek"
+  },
+  "ww2-764": {
+   "answer": "Concentration Camps Inspectorate",
+   "title": "Concentration Camps Inspectorate",
+   "url": "https://en.wikipedia.org/wiki/Concentration_Camps_Inspectorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-765": {
+   "answer": "extermination through labour",
+   "title": "Extermination through labour",
+   "url": "https://en.wikipedia.org/wiki/Extermination_through_labour",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-766": {
+   "answer": "IG Farben",
+   "title": "IG Farben",
+   "url": "https://en.wikipedia.org/wiki/IG_Farben",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-767": {
+   "answer": "Nazi human experimentation",
+   "title": "Nazi human experimentation",
+   "url": "https://en.wikipedia.org/wiki/Nazi_human_experimentation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-768": {
+   "answer": "Nazi plunder",
+   "title": "Nazi plunder",
+   "url": "https://en.wikipedia.org/wiki/Nazi_plunder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-769": {
+   "answer": "Aryanisation",
+   "title": "Aryanization",
+   "url": "https://en.wikipedia.org/wiki/Aryanization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Aryanisation"
+  },
+  "ww2-770": {
+   "answer": "Holocaust in Poland",
+   "title": "The Holocaust in Poland",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-771": {
+   "answer": "Holocaust in the Soviet Union",
+   "title": "The Holocaust in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-772": {
+   "answer": "Holocaust in Hungary",
+   "title": "The Holocaust in Hungary",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_Hungary",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-773": {
+   "answer": "Holocaust in the Netherlands",
+   "title": "The Holocaust in the Netherlands",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_the_Netherlands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-774": {
+   "answer": "Anne Frank",
+   "title": "Anne Frank",
+   "url": "https://en.wikipedia.org/wiki/Anne_Frank",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-775": {
+   "answer": "Holocaust in Greece",
+   "title": "The Holocaust in Greece",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_Greece",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-776": {
+   "answer": "Holocaust in Italy",
+   "title": "The Holocaust in Italy",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_Italy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-777": {
+   "answer": "Holocaust in Bulgaria",
+   "title": "The Holocaust in Bulgaria",
+   "url": "https://en.wikipedia.org/wiki/The_Holocaust_in_Bulgaria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-778": {
+   "answer": "Reich Security Main Office",
+   "title": "Reich Security Main Office",
+   "url": "https://en.wikipedia.org/wiki/Reich_Security_Main_Office",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-779": {
+   "answer": "Heinrich Himmler",
+   "title": "Heinrich Himmler",
+   "url": "https://en.wikipedia.org/wiki/Heinrich_Himmler",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-780": {
+   "answer": "Adolf Eichmann",
+   "title": "Adolf Eichmann",
+   "url": "https://en.wikipedia.org/wiki/Adolf_Eichmann",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-781": {
+   "answer": "Reserve Police Battalion 101",
+   "title": "Reserve Police Battalion 101",
+   "url": "https://en.wikipedia.org/wiki/Reserve_Police_Battalion_101",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-782": {
+   "answer": "Riegner Telegram",
+   "title": "Riegner telegram",
+   "url": "https://en.wikipedia.org/wiki/Riegner_telegram",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Riegner Telegram"
+  },
+  "ww2-783": {
+   "answer": "War Refugee Board",
+   "title": "War Refugee Board",
+   "url": "https://en.wikipedia.org/wiki/War_Refugee_Board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-784": {
+   "answer": "Auschwitz bombing debate",
+   "title": "Auschwitz bombing debate",
+   "url": "https://en.wikipedia.org/wiki/Auschwitz_bombing_debate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-785": {
+   "answer": "Death marches",
+   "title": "Death march",
+   "url": "https://en.wikipedia.org/wiki/Death_march",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Death marches"
+  },
+  "ww2-786": {
+   "answer": "Liberation of Nazi concentration camps",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Nazi concentration camps",
+    "Nazi Concentration Camps (film)",
+    "Female guards in Nazi concentration camps",
+    "Auschwitz concentration camp",
+    "Gross-Rosen concentration camp"
+   ]
+  },
+  "ww2-787": {
+   "answer": "Holocaust survivors",
+   "title": "Holocaust survivors",
+   "url": "https://en.wikipedia.org/wiki/Holocaust_survivors",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-788": {
+   "answer": "Evidence and documentation for the Holocaust",
+   "title": "Evidence and documentation for the Holocaust",
+   "url": "https://en.wikipedia.org/wiki/Evidence_and_documentation_for_the_Holocaust",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-789": {
+   "answer": "Holocaust denial",
+   "title": "Holocaust denial",
+   "url": "https://en.wikipedia.org/wiki/Holocaust_denial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-790": {
+   "answer": "International Holocaust Remembrance Day",
+   "title": "International Holocaust Remembrance Day",
+   "url": "https://en.wikipedia.org/wiki/International_Holocaust_Remembrance_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-791": {
+   "answer": "war crime",
+   "title": "War crime",
+   "url": "https://en.wikipedia.org/wiki/War_crime",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-792": {
+   "answer": "Zigeunerlager",
+   "title": "Zigeunerlager",
+   "url": "https://en.wikipedia.org/wiki/Zigeunerlager",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-793": {
+   "answer": "Porajmos",
+   "title": "Romani Holocaust",
+   "url": "https://en.wikipedia.org/wiki/Romani_Holocaust",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Porajmos"
+  },
+  "ww2-794": {
+   "answer": "Hadamar killing centre",
+   "title": "Hadamar killing centre",
+   "url": "https://en.wikipedia.org/wiki/Hadamar_killing_centre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-795": {
+   "answer": "pink triangle",
+   "title": "Pink triangle",
+   "url": "https://en.wikipedia.org/wiki/Pink_triangle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-796": {
+   "answer": "Jehovah's Witnesses",
+   "title": "Jehovah's Witnesses",
+   "url": "https://en.wikipedia.org/wiki/Jehovah's_Witnesses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-797": {
+   "answer": "Order No. 270",
+   "title": "Order No. 270",
+   "url": "https://en.wikipedia.org/wiki/Order_No._270",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-798": {
+   "answer": "Japanese war crimes",
+   "title": "Japanese war crimes",
+   "url": "https://en.wikipedia.org/wiki/Japanese_war_crimes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-799": {
+   "answer": "hell ship",
+   "title": "Hell ship",
+   "url": "https://en.wikipedia.org/wiki/Hell_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-800": {
+   "answer": "Kempeitai",
+   "title": "Kempeitai",
+   "url": "https://en.wikipedia.org/wiki/Kempeitai",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
