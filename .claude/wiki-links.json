@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-08T03:52Z",
+ "generated": "2026-11-08T03:55Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6292,
-  "redirect-broader": 602,
+  "ok": 6300,
+  "redirect-broader": 603,
   "redirect-variant": 381,
   "section-redirect": 127,
   "disambiguation": 147,
-  "none": 1005,
+  "none": 1006,
   "disambig-resolved": 84,
   "list-page": 6,
   "search-match": 9,
@@ -69583,6 +69583,84 @@
    "answer": "genocide",
    "title": "Genocide",
    "url": "https://en.wikipedia.org/wiki/Genocide",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-861": {
+   "answer": "Reich Ministry of Armaments and War Production",
+   "title": "Reich Ministry of Armaments and War Production",
+   "url": "https://en.wikipedia.org/wiki/Reich_Ministry_of_Armaments_and_War_Production",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-862": {
+   "answer": "Sportpalast speech",
+   "title": "Sportpalast speech",
+   "url": "https://en.wikipedia.org/wiki/Sportpalast_speech",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-863": {
+   "answer": "Nikolai Voznesensky",
+   "title": "Nikolai Voznesensky",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Voznesensky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-864": {
+   "answer": "evacuation of Soviet industry",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Soviet industry in World War II",
+    "World War II",
+    "Repatriation of Soviet citizens after World War II",
+    "Evacuation in the Soviet Union",
+    "Eastern Front (World War II)"
+   ]
+  },
+  "ww2-865": {
+   "answer": "Ministry of Supply",
+   "title": "Ministry of Supply",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_Supply",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-866": {
+   "answer": "National Mobilization Law",
+   "title": "State General Mobilization Law",
+   "url": "https://en.wikipedia.org/wiki/State_General_Mobilization_Law",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "National Mobilization Law"
+  },
+  "ww2-867": {
+   "answer": "preclusive purchasing",
+   "title": "Preclusive purchasing",
+   "url": "https://en.wikipedia.org/wiki/Preclusive_purchasing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-868": {
+   "answer": "Big Inch",
+   "title": "Big Inch",
+   "url": "https://en.wikipedia.org/wiki/Big_Inch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-869": {
+   "answer": "Operation Tidal Wave",
+   "title": "Operation Tidal Wave",
+   "url": "https://en.wikipedia.org/wiki/Operation_Tidal_Wave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-870": {
+   "answer": "Bergius process",
+   "title": "Bergius process",
+   "url": "https://en.wikipedia.org/wiki/Bergius_process",
    "via": "glossary",
    "status": "ok"
   }

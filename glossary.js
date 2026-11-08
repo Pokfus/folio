@@ -8914,7 +8914,17 @@ window.GLOSSARY = {
 "Civilian_casualty": "",
 "Excess_mortality": "",
 "Crimes_against_humanity": "",
-"Genocide": ""
+"Genocide": "",
+"Reich_Ministry_of_Armaments_and_War_Production": "",
+"Sportpalast_speech": "",
+"Nikolai_Voznesensky": "",
+"Evacuation_in_the_Soviet_Union": "",
+"Ministry_of_Supply": "",
+"State_General_Mobilization_Law": "",
+"Preclusive_purchasing": "",
+"Big_Inch": "",
+"Operation_Tidal_Wave": "",
+"Bergius_process": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18855,7 +18865,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Baedeker_Blitz": ["Baedeker raids"],
 "United_Nations_Relief_and_Rehabilitation_Administration": ["UNRRA"],
 "Civilian_casualty": ["civilian casualties"],
-"Excess_mortality": ["excess deaths"]
+"Excess_mortality": ["excess deaths"],
+"Reich_Ministry_of_Armaments_and_War_Production": ["Speer Ministry","Reich Ministry for Armaments and Munitions"],
+"Sportpalast_speech": ["total war speech"],
+"Evacuation_in_the_Soviet_Union": ["evacuation of Soviet industry"],
+"State_General_Mobilization_Law": ["National Mobilization Law","National General Mobilization Law"],
+"Preclusive_purchasing": ["preemptive purchasing","pre-emptive buying"],
+"Big_Inch": ["Big Inch pipeline"],
+"Operation_Tidal_Wave": ["Tidal Wave raid","Ploiești raid"],
+"Bergius_process": ["coal hydrogenation"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27923,7 +27941,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Civilian_casualty": ["concept","warfare","law","demography"],
 "Excess_mortality": ["concept","demography","history"],
 "Crimes_against_humanity": ["concept","law","history","war crimes"],
-"Genocide": ["concept","law","history","war crimes"]
+"Genocide": ["concept","law","history","war crimes"],
+"Reich_Ministry_of_Armaments_and_War_Production": ["institution","history","second world war","germany"],
+"Sportpalast_speech": ["event","history","second world war","germany"],
+"Nikolai_Voznesensky": ["person","history","russia","economics","politics"],
+"Evacuation_in_the_Soviet_Union": ["event","history","second world war","russia","economics"],
+"Ministry_of_Supply": ["institution","history","second world war","united kingdom"],
+"State_General_Mobilization_Law": ["text","history","japan","law"],
+"Preclusive_purchasing": ["practice","history","economics","warfare"],
+"Big_Inch": ["technology","history","second world war","united states","oil"],
+"Operation_Tidal_Wave": ["event","history","second world war","air war","romania"],
+"Bergius_process": ["technology","science","industry","history"]
 });
 
 /* ============================================================================
