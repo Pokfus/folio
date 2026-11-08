@@ -8992,7 +8992,27 @@ window.GLOSSARY = {
 "Ministry_of_Information_(United_Kingdom)": "",
 "Office_of_Censorship": "",
 "Volksempfänger": "",
-"Why_We_Fight": ""
+"Why_We_Fight": "",
+"Arolsen_Archives": "",
+"World_War_II_casualties": "",
+"Trümmerfrau": "",
+"International_Refugee_Organization": "",
+"Flight_and_expulsion_of_Germans_(1944–1950)": "",
+"Harrison_Report": "",
+"United_Nations_Conference_on_International_Organization": "",
+"Potsdam_Agreement": "",
+"Allied-occupied_Germany": "",
+"Denazification": "",
+"London_Charter_of_the_International_Military_Tribunal": "",
+"Crimes_against_peace": "",
+"Nuremberg_principles": "",
+"Subsequent_Nuremberg_trials": "",
+"International_Military_Tribunal_for_the_Far_East": "",
+"Ratlines_(World_War_II)": "",
+"Belsen_trial": "",
+"Legal_purge_in_Norway_after_World_War_II": "",
+"Indignité_nationale": "",
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13333,7 +13353,21 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Geneva_Convention_on_Prisoners_of_War": "1929",
 "Deportation_of_the_Crimean_Tatars": "1944",
 "NKVD_prisoner_massacres": "1941",
-"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": "1943–1945"
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": "1943–1945",
+"Arolsen_Archives": "1948–",
+"Trümmerfrau": "1945–1947",
+"International_Refugee_Organization": "1946–1952",
+"Flight_and_expulsion_of_Germans_(1944–1950)": "1944–1950",
+"Harrison_Report": "1945",
+"United_Nations_Conference_on_International_Organization": "25 April – 26 June 1945",
+"Potsdam_Agreement": "1 August 1945",
+"Allied-occupied_Germany": "1945–1949",
+"London_Charter_of_the_International_Military_Tribunal": "8 August 1945",
+"Subsequent_Nuremberg_trials": "1946–1949",
+"International_Military_Tribunal_for_the_Far_East": "1946–1948",
+"Belsen_trial": "17 September – 17 November 1945",
+"Legal_purge_in_Norway_after_World_War_II": "1945–1957",
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": "10 September 1952"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -14269,7 +14303,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Scientific_theory": ["scientific theories"],
 "Empiricism": ["empiricist"],
 "Rationalism": ["rationalist"],
-"Rationing": ["ration card", "ration cards"],
+"Rationing": ["ration card","ration cards"],
 "Associationism": ["associationist"],
 "Tabula_rasa": ["blank slate"],
 "Mind-body_dualism": ["substance dualism","mind–body dualism","Cartesian dualism"],
@@ -19013,7 +19047,22 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Imperial_Rule_Assistance_Association": ["Taisei Yokusankai","IRAA"],
 "Ministry_of_Information_(United_Kingdom)": ["Ministry of Information"],
 "Office_of_Censorship": ["United States Office of Censorship"],
-"Volksempfänger": ["people's receiver","VE 301"]
+"Volksempfänger": ["people's receiver","VE 301"],
+"Arolsen_Archives": ["International Tracing Service"],
+"Trümmerfrau": ["Trümmerfrauen","rubble women"],
+"International_Refugee_Organization": ["IRO"],
+"Flight_and_expulsion_of_Germans_(1944–1950)": ["Flight and expulsion of Germans","expulsion of the Germans"],
+"United_Nations_Conference_on_International_Organization": ["San Francisco Conference"],
+"London_Charter_of_the_International_Military_Tribunal": ["London Charter","Nuremberg Charter"],
+"Crimes_against_peace": ["crime against peace"],
+"Nuremberg_principles": ["Nürnberg principles"],
+"Subsequent_Nuremberg_trials": ["Nuremberg Military Tribunals"],
+"International_Military_Tribunal_for_the_Far_East": ["Tokyo Trial","Tokyo War Crimes Trial"],
+"Ratlines_(World_War_II)": ["Ratlines","rat line"],
+"Belsen_trial": ["Bergen-Belsen trial"],
+"Legal_purge_in_Norway_after_World_War_II": ["Legal purge in Norway","landssvikoppgjøret"],
+"Indignité_nationale": ["national unworthiness"],
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ["Luxembourg Agreement","Reparations Agreement"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28162,7 +28211,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ministry_of_Information_(United_Kingdom)": ["institution","history","united kingdom","propaganda","second world war"],
 "Office_of_Censorship": ["institution","history","united states","censorship","second world war"],
 "Volksempfänger": ["object","history","germany","radio","propaganda"],
-"Why_We_Fight": ["object","history","united states","film","second world war"]
+"Why_We_Fight": ["object","history","united states","film","second world war"],
+"Arolsen_Archives": ["institution","history","second world war","holocaust","germany"],
+"World_War_II_casualties": ["event","history","second world war","demography"],
+"Trümmerfrau": ["people","history","second world war","germany","women"],
+"International_Refugee_Organization": ["institution","history","second world war","refugees","united nations"],
+"Flight_and_expulsion_of_Germans_(1944–1950)": ["event","history","second world war","germany","refugees"],
+"Harrison_Report": ["text","history","second world war","holocaust","united states"],
+"United_Nations_Conference_on_International_Organization": ["event","history","second world war","united nations","diplomacy"],
+"Potsdam_Agreement": ["text","history","second world war","germany","diplomacy"],
+"Allied-occupied_Germany": ["state","history","second world war","germany","occupation"],
+"Denazification": ["practice","history","second world war","germany","occupation"],
+"London_Charter_of_the_International_Military_Tribunal": ["text","history","second world war","law","war crimes"],
+"Crimes_against_peace": ["concept","history","second world war","law","war crimes"],
+"Nuremberg_principles": ["concept","history","second world war","law","war crimes"],
+"Subsequent_Nuremberg_trials": ["event","history","second world war","law","war crimes"],
+"International_Military_Tribunal_for_the_Far_East": ["institution","history","second world war","japan","law","war crimes"],
+"Ratlines_(World_War_II)": ["practice","history","second world war","war crimes"],
+"Belsen_trial": ["event","history","second world war","holocaust","law","war crimes"],
+"Legal_purge_in_Norway_after_World_War_II": ["event","history","second world war","norway","law"],
+"Indignité_nationale": ["concept","history","second world war","france","law"],
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ["text","history","second world war","israel","germany"]
 });
 
 /* ============================================================================

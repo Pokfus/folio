@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-08T04:08Z",
+ "generated": "2026-11-08T12:04Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6364,
-  "redirect-broader": 605,
-  "redirect-variant": 385,
+  "ok": 6379,
+  "redirect-broader": 608,
+  "redirect-variant": 386,
   "section-redirect": 128,
   "disambiguation": 147,
-  "none": 1004,
+  "none": 1005,
   "disambig-resolved": 85,
   "list-page": 6,
   "search-match": 9,
@@ -70150,6 +70150,153 @@
    "url": "https://en.wikipedia.org/wiki/Why_We_Fight",
    "via": "glossary",
    "status": "ok"
+  },
+  "ww2-961": {
+   "answer": "Arolsen Archives",
+   "title": "Arolsen Archives",
+   "url": "https://en.wikipedia.org/wiki/Arolsen_Archives",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-962": {
+   "answer": "World War II casualties",
+   "title": "World War II casualties",
+   "url": "https://en.wikipedia.org/wiki/World_War_II_casualties",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-963": {
+   "answer": "Trümmerfrauen",
+   "title": "Trümmerfrau",
+   "url": "https://en.wikipedia.org/wiki/Tr%C3%BCmmerfrau",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trümmerfrauen"
+  },
+  "ww2-964": {
+   "answer": "International Refugee Organization",
+   "title": "International Refugee Organization",
+   "url": "https://en.wikipedia.org/wiki/International_Refugee_Organization",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-965": {
+   "answer": "Flight and expulsion of Germans",
+   "title": "Flight and expulsion of Germans (1944–1950)",
+   "url": "https://en.wikipedia.org/wiki/Flight_and_expulsion_of_Germans_(1944%E2%80%931950)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-966": {
+   "answer": "Harrison Report",
+   "title": "Harrison Report",
+   "url": "https://en.wikipedia.org/wiki/Harrison_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-967": {
+   "answer": "United Nations Conference on International Organization",
+   "title": "United Nations Conference on International Organization",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_Conference_on_International_Organization",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-968": {
+   "answer": "Potsdam Agreement",
+   "title": "Potsdam Agreement",
+   "url": "https://en.wikipedia.org/wiki/Potsdam_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-969": {
+   "answer": "Allied-occupied Germany",
+   "title": "Allied-occupied Germany",
+   "url": "https://en.wikipedia.org/wiki/Allied-occupied_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-970": {
+   "answer": "denazification",
+   "title": "Denazification",
+   "url": "https://en.wikipedia.org/wiki/Denazification",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-971": {
+   "answer": "London Charter",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "London Charter",
+   "target": "Nuremberg trials#Nuremberg charter"
+  },
+  "ww2-972": {
+   "answer": "crimes against peace",
+   "title": "Crime of aggression",
+   "url": "https://en.wikipedia.org/wiki/Crime_of_aggression",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Crimes against peace"
+  },
+  "ww2-973": {
+   "answer": "Nuremberg principles",
+   "title": "Nuremberg principles",
+   "url": "https://en.wikipedia.org/wiki/Nuremberg_principles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-974": {
+   "answer": "Subsequent Nuremberg trials",
+   "title": "Subsequent Nuremberg trials",
+   "url": "https://en.wikipedia.org/wiki/Subsequent_Nuremberg_trials",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-975": {
+   "answer": "International Military Tribunal for the Far East",
+   "title": "International Military Tribunal for the Far East",
+   "url": "https://en.wikipedia.org/wiki/International_Military_Tribunal_for_the_Far_East",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-976": {
+   "answer": "Ratlines",
+   "title": "Ratlines (World War II)",
+   "url": "https://en.wikipedia.org/wiki/Ratlines_(World_War_II)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-977": {
+   "answer": "Belsen trial",
+   "title": "Belsen trials",
+   "url": "https://en.wikipedia.org/wiki/Belsen_trials",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Belsen trial"
+  },
+  "ww2-978": {
+   "answer": "Legal purge in Norway",
+   "title": "Legal purge in Norway after World War II",
+   "url": "https://en.wikipedia.org/wiki/Legal_purge_in_Norway_after_World_War_II",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-979": {
+   "answer": "indignité nationale",
+   "title": "Indignité nationale",
+   "url": "https://en.wikipedia.org/wiki/Indignit%C3%A9_nationale",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-980": {
+   "answer": "Luxembourg Agreement",
+   "title": "Reparations Agreement between Israel and the Federal Republic of Germany",
+   "url": "https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Luxembourg Agreement"
   }
  }
 }
