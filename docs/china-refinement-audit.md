@@ -171,15 +171,15 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Nüwa making people | moulding people from yellow earth; the *Fengsu tongyi* (Ying Shao, late 2nd century CE, known from quotation) — provisional, NOT confirmed in B1 (ctext shut; `cnh-004` names no text) | `cnh-004` | `cnh-001`, `cnh-002` | — |
 | Nüwa mending the sky | the five-coloured stones and the turtle's legs; the *Huainanzi* (presented 139 BCE) — confirmed B1 (`cnh-004`, Zürn) | `cnh-004` | `cnh-018` | — |
 | Nüwa and Fuxi as a pair | kept apart in the Warring States texts; first named in one passage by the *Huainanzi*; the serpent-tailed couple of Han tomb art (the Luoyang murals of 86–49 BCE a disputed identification; the first naming inscriptions Eastern Han); as siblings and spouses in much later texts (the Tang *Duyi zhi*) — confirmed B1 (`cnh-005`, Zhao 2019), the *Duyi zhi* still provisional | `cnh-005` | `cnh-004` | `cnh-848`, `cnh-851`, `cnh-857`, `cnh-874`, `cnh-969` (Fuxi) |
-| Gonggong breaking Mount Buzhou | Gonggong against Zhuanxu (the *Huainanzi*) or against Nüwa or others in later tellings; the tilt of heaven and earth — provisional | `cnh-018` | `cnh-004`, `cnh-016` | — |
+| Gonggong breaking Mount Buzhou | Gonggong against Zhuanxu (the *Huainanzi* and the *Liezi*); the *Liezi* tells Nüwa's mending first, and Sima Zhen (8th century CE) puts it after the fight; the tilt of heaven and earth — confirmed B2 (`cnh-018`) | `cnh-018` | `cnh-004`, `cnh-016` | — |
 | The Yellow Emperor and Chiyou at Zhuolu | the battle at Zhuolu in the *Shiji* (c. 100 BCE); the rain, wind and drought spirits Ying Long and Ba in the *Shanhaijing*, which sets the fight in the wilds of Jizhou, not at Zhuolu; the *Yi Zhoushu* "Chang Mai" version, with the Red Emperor (date disputed); Chiyou himself already in the *Shangshu* "Lü xing" — confirmed B1 (`cnh-009`, `cnh-008`) | `cnh-009` | `cnh-007`, `cnh-008`, `cnh-028`, `cnh-098` | `cnh-790` (Chiyou) |
 | Yao, Shun and the abdication | Yao passing over his son for Shun; the "Canon of Yao" of the *Shangshu*, the *Mencius*, and the excavated Chu-script manuscripts *Tang Yu zhi dao*, *Zigao* and *Rongchengshi* (middle Warring States) — confirmed B1 (`cnh-010`, Chik 2023); "c. 300 BCE" on no page read | `cnh-010`, `cnh-011` | `cnh-002`, `cnh-040` | `cnh-131`, `cnh-480` |
-| The flood: Gun and Yu | Gun stealing the swelling soil (*Shanhaijing*) or failing for nine years (*Shangshu*), Yu channelling the waters; Yu named on the Bin Gong / Sui Gong *xu* bronze (Western Zhou, c. 900 BCE, the earliest mention of Yu) — provisional | `cnh-013` | `cnh-012`, `cnh-010`, `cnh-011`, `cnh-056` | `wh-244`, `cnh-848`, `gc-802`, `gc-820` |
-| Houyi shooting the suns | the ten suns and the archer Yi; the *Chuci* "Tianwen" asks of it, the *Huainanzi* tells it — provisional | `cnh-014` | `cnh-015` | — |
-| Chang'e and the elixir | Heng'e (Chang'e) taking the elixir of the Queen Mother of the West and fleeing to the moon; the *Huainanzi*, with an earlier fragment in the excavated *Guicang* (Wangjiatai, Qin) — provisional | `cnh-015` | `cnh-014`, `cnh-020` | — |
-| Kuafu chasing the sun | Kuafu racing the sun and dying of thirst, his staff becoming the Deng Forest; the *Shanhaijing* (two tellings), the *Liezi* — provisional | `cnh-016` | `cnh-018`, `cnh-028` | — |
-| Jingwei filling the sea | the drowned daughter of Yandi become a bird carrying twigs and stones; the *Shanhaijing* "Classic of the Northern Mountains" — provisional | `cnh-017` | `cnh-028` | — |
-| The Queen Mother of the West and Kunlun | a fearsome figure with a leopard's tail in the *Shanhaijing*; a goddess of immortality by the Han; Kunlun as the axis mountain — provisional | `cnh-020`, `cnh-019` | `cnh-015`, `cnh-028`, `cnh-070`, `cnh-083` | `cnh-132`, `cnh-900`, `gc-911` |
+| The flood: Gun and Yu | Gun stealing the swelling soil (known only from Han works, the *Shanhaijing* and the *Huainanzi*) or failing for nine years (*Shangshu*), Yu channelling the waters; Yu named on the Bin Gong / Sui Gong *xu* bronze (middle Western Zhou, 9th century BCE, the earliest mention of Yu) — confirmed B2 (`cnh-012`, `cnh-013`: Cook, Chen, Bodde) | `cnh-013` | `cnh-012`, `cnh-010`, `cnh-011`, `cnh-056` | `wh-244`, `cnh-848`, `gc-802`, `gc-820` |
+| Houyi shooting the suns | the ten suns and the archer Yi; the *Chuci* "Tianwen" asks of it (at least 4th century BCE; one reading takes the line as one sun), the *Huainanzi* tells it in full (chapter 8); a second Yi, the usurper of Youqiong, in the *Zuo Zhuan* — confirmed B2 (`cnh-014`) | `cnh-014` | `cnh-015` | — |
+| Chang'e and the elixir | Heng'e (Chang'e) taking the elixir of the Queen Mother of the West and fleeing to the moon; the excavated *Guicang* slips (Wangjiatai, a Qin tomb, found 1993), then the *Huainanzi* (139 BCE); Zhang Heng's *Lingxian* quotes the oracle — confirmed B2 (`cnh-015`) | `cnh-015` | `cnh-014`, `cnh-020` | — |
+| Kuafu chasing the sun | Kuafu racing the sun and dying of thirst, his staff becoming the Deng Forest; the *Shanhaijing* (two tellings: thirst; Yinglong in the "Dahuang beijing"), the *Liezi* — confirmed B2 (`cnh-016`) | `cnh-016` | `cnh-018`, `cnh-028` | — |
+| Jingwei filling the sea | the drowned daughter of Yandi become a bird carrying twigs and stones; the *Shanhaijing* "Classic of the Northern Mountains" (the Mount Fajiu passage), the book existing by the early 1st century BCE — confirmed B2 (`cnh-017`) | `cnh-017` | `cnh-028` | — |
+| The Queen Mother of the West and Kunlun | named first in the *Zhuangzi* (c. 400 – 300 BCE); a fearsome figure with a leopard's tail in the *Shanhaijing*; the Jade Pool in the *Mu tianzi zhuan*; a goddess of immortality by the Han, with a mass cult in 3 BCE (*Hanshu*); the peaches Eastern Han; Kunlun as the axis mountain — confirmed B2 (`cnh-019`, `cnh-020`) | `cnh-020`, `cnh-019` | `cnh-015`, `cnh-028`, `cnh-070`, `cnh-083` | `cnh-132`, `cnh-900`, `gc-911` |
 | The Cowherd and the Weaver Girl | the two stars named in the *Shijing* "Da dong"; the lovers parted by the Milky Way in the Han "Nineteen Old Poems"; the magpie bridge on the seventh night later — provisional | `cnh-036` | — | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
@@ -256,7 +256,7 @@ otherwise.
 | batch | deck | cards | n | findings | state |
 |---|---|---|---|---|---|
 | B1 | Mythology (`cn-myth`) | `cnh-001`–`cnh-010` | 10 | 108 | **done 2026-11-08** |
-| B2 | Mythology (`cn-myth`) | `cnh-011`–`cnh-020` | 10 | 102 | to do |
+| B2 | Mythology (`cn-myth`) | `cnh-011`–`cnh-020` | 10 | 102 | **done 2026-11-08** |
 | B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | to do |
 | B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | to do |
 | B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | to do |
@@ -407,6 +407,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-008` | Han pictorial-stone rubbing of Chiyou with the five weapons | not re-checked (Commons 429): ok; the glossary copy's description names the licence — trim |
 | `cnh-009` | the plain at Zhuolu | not re-checked (Commons 429): ok: the place, since the battle cannot be pictured |
 | `cnh-010` | Ma Lin's portrait of Yao | not re-checked (Commons 429): ok |
+| `cnh-011` | album-leaf portrait of Shun | not re-checked (Commons 429): ok |
+| `cnh-012` | Ma Lin's standing portrait of Yu | not re-checked (Commons 429): ok |
+| `cnh-013` | Ming woodblock of Yu ordering the water works | not re-checked (Commons 429): ok as an illustration, but an audience scene, not the flood |
+| `cnh-014` | album leaf of an archer in the hunt | not re-checked (Commons 429): doubtful: the leaf is Taikang's cautionary hunting episode, so the rider may be Taikang, not Houyi — replace |
+| `cnh-015` | Wu Youru's drawing of Chang'e in the moon | not re-checked (Commons 429): ok; its inscription credits the story to the *Lunheng* |
+| `cnh-016` | woodcut of Kuafu striding after the sun | not re-checked (Commons 429): ok; the glossary copy's credit lacks author and licence — fix |
+| `cnh-017` | woodcut of the Jingwei bird | not re-checked (Commons 429): ok |
+| `cnh-018` | Ming woodblock of Gonggong butting the mountain | not re-checked (Commons 429): right subject, but its title is printed down both side panels — replace |
+| `cnh-019` | photograph of the modern Kunlun range | not re-checked (Commons 429): wrong: the modern range is a later identification, not the mythic mountain — replace with a Han or later depiction |
+| `cnh-020` | Peach Festival handscroll | not re-checked (Commons 429): ok, though late; a Han relief or mirror would show the early goddess |
 
 ## Glossary candidates
 
@@ -480,3 +490,47 @@ read; `cnh-010`'s three rows agree with the Canon and the traditional chronology
 lean on 19th-century reference works (Mayers, Giles, Werner) counted as modern under the half-modern rule, for
 want of open post-1950 work on these figures; the later batches were told to prefer post-1950 scholarship. Overlap:
 no `wh-` card read disagrees.
+
+### B2 — `cnh-011`–`cnh-020`, Mythology: Shun to the Queen Mother of the West (2026-11-08)
+
+Run as B1: five agents, two cards each; every draft prechecked, read by eye and spell-checked before `batch.sh`
+applied it; all 66 cited URLs answered 200. ctext.org stayed shut (403). Owner's fixes before applying: the Bin Gong
+xu went to one card only (`cnh-013`; `cnh-012`'s phrasing now asks about Yu's burial at Kuaiji), `cnh-013`'s second
+phrasing no longer repeats "flood", and `cnh-018`'s date (the *Huainanzi* dated by Liu An's death, 122 BCE) became
+139 BCE, its presentation, with Zürn's review added. Bodde's chapter is cited through the archive.org lending copy,
+not a user upload. **The old cards dated myths by other men's reigns ("Placed under Ku from 2436 BCE" on Chang'e,
+Yandi's 2737 BCE on Jingwei, Fuxi's 2852 BCE and an "Or" row on Gonggong, King Mu's 1001 and 985 BCE on Kunlun and
+the Queen Mother), called Zhang Heng's *Lingxian* the oldest telling of Chang'e, told one Yi where the sources have
+two, and drew on Legge alone — four of `cnh-013`'s five sources.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-011` Shun | 6 | 5 → 6 | **Shun known only from much later texts, said in the card's voice; the granary and well told as the *Mencius*'s, Sima Qian's additions marked as his; 2255 BCE one traditional reckoning beside the *Bamboo Annals*' 2042 BCE**; the Warring States abdication manuscripts added. Protected: the line stays. |
+| `cnh-012` Yu the Great | 7 | 5 → 7 | **The Bin Gong xu (9th century BCE) as the oldest mention of Yu; Gu Jiegang's view that Yu began as a spirit; the flood and Erlitou links stated as disputed**; "Shû King" in prose is the *Book of Documents*; the nine cauldrons left to `cnh-083`. Protected: the background carries 2205 and 1989. |
+| `cnh-013` Chinese flood myth | 8 | 5 → 8 | **`Attested c. 900 – 800 BCE` (the Bin Gong xu, after Cook) for "Set in the reigns of Yao and Shun, from 2357 BCE" and counts; the swelling soil told as known only from Han works (Bodde); the "1920 BCE flood" claim and its critics**; the flood as the raw state of the world, not a punishment. |
+| `cnh-014` Houyi | 7 | 5 → 7 | **Two Yis in the sources — the archer who shot the suns (the *Chuci* asks of it; the *Huainanzi* tells it) and the usurper of Youqiong (the *Zuo Zhuan*) — and a tradition that merged them**; the Songs of the Five Sons, an eclipse claim and Feng Meng dropped; pinyin Hòu Yì → Hòuyì. Protected: the background carries 2436 and 2188. |
+| `cnh-015` Chang'e | 7 | 6 → 8 | **The Qin-era Wangjiatai *Guicang* slips and then the *Huainanzi* as the oldest tellings, not Zhang Heng; `Attested 139 BCE` for Ku's reign, Zhang Heng's life and a festival**; the name taboo given both views (Han Wendi in modern study; a Tang and a Song emperor in the older handbooks). |
+| `cnh-016` Kuafu | 6 | 5 → 6 | **The two *Shanhaijing* tellings (thirst; Yinglong) and the *Liezi* told as their texts'; the second Chinese source replaced by Granet [in French]**. Protected: the background carries 2697 as Mayers's reckoning. |
+| `cnh-017` Jingwei | 6 | 5 → 6 | **`Attested c. 100 BCE` (the *Shanhaijing* existed by then) for Yandi's 2737 BCE and counts; the girl's name, spelt like the goddess Nüwa's in pinyin, said to be different characters**. |
+| `cnh-018` Gonggong | 6 | 6 → 7 | **Fuxi's 2852 BCE and an "Or" row off the line; in Sima Zhen's version the turtle's legs prop up the earth, not the sky; joining the sky-mending to the fight credited to Sima Zhen (8th century CE); the *Liezi* tells the mending first**. |
+| `cnh-019` Kunlun | 7 | 6 → 7 | **`Attested c. 400 – 300 BCE` and `Han accounts` for King Mu's 1001 BCE and "1 of the Shu King's documents"; unsourced heights, the *Erya*'s Sumeru and jade towers dropped; the Han belief that the dead climbed it**. `L.missing` is deliberate: a mythic mountain has no point. |
+| `cnh-020` Queen Mother of the West | 6 | 6 → 6 | **The Jade Pool given to the *Mu tianzi zhuan* (found with the *Bamboo Annals*), not the *Annals*; the peaches of immortality as Eastern Han; the *Zhuangzi* as her oldest record; the mass cult of 3 BCE from the *Hanshu***. |
+
+Read by eye. **Confusability**: the Bin Gong xu on `cnh-013` only; the ten suns `cnh-014`'s and the elixir
+`cnh-015`'s; Yinglong killing Kuafu `cnh-016`'s (kept out of `cnh-009`); the five-coloured stones `cnh-004`'s
+(kept out of `cnh-018`); Kunlun's tiers and river `cnh-019`'s, the Queen Mother's tail and cult `cnh-020`'s.
+**Legend**: every story told in its text's voice. **Chinese names corrected**: `cnh-014` pinyin Hòu Yì → Hòuyì (the
+house form); the other nine checked and unchanged. **Spellings fixed**: "Shao Kang" and "Tai Kang" in `cnh-014`'s
+background and the `Houyi` glossary date; "Shû King" in `cnh-012`'s background. The two hits left are on protected
+lines (`cnh-012` "In the Shû King", `cnh-014` "Tai Kang"), which stay. **Myth register: rows changed** — the flood
+(the swelling-soil theft known only from Han works; the Bin Gong xu confirmed as the earliest mention of Yu), Houyi
+(the *Chuci* line at least 4th century BCE; one reading takes it as a single sun), Chang'e (the Wangjiatai *Guicang*,
+then the *Huainanzi*, confirmed), Kuafu (confirmed), Jingwei (confirmed), Gonggong (against Zhuanxu in the *Liezi*
+and the *Huainanzi*), the Queen Mother (the *Zhuangzi* her oldest record). **The *Shanhaijing* is dated three ways
+across the batch** (existing by c. 100 BCE on `cnh-017`; its oldest parts c. 400 – 300 BCE in one account on
+`cnh-019`/`cnh-020`); each card attributes its date, and `docs/china-chronology.md` now says the book has no single
+date. **Protected lines: unchanged** (diffed after the apply). **For the owner**: `cnh-014`'s row "Confucius names 2
+men who did not die naturally" looks wrong — in the *Analects* (14.5) it is Nangong Kuo who names Yi and Ao, and
+Confucius does not reply; the row is left. `cnh-011`'s and `cnh-012`'s rows agree with the sources read. A citation
+mismatch on `cnh-012` (Chen Minzhen, Crossref "Minzhen Chen") is a Chinese name in its own order, kept. `cnh-012`'s
+point is the Xia dynasty's region on a mythic founder (locator note at the end of the hundred).

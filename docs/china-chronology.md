@@ -152,6 +152,15 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Shennong: traditional date / the *Shennong bencao jing* compiled | 2737 BCE / 25 – 220 CE | Mayers; the SEP (`cnh-006`) |
 | Chiyou: placed by the chronologers (protected line) | c. 2700 – 2600 BCE | Legge (`cnh-008`) |
 | Yao's accession in the later traditional chronology (protected line) | 2357 BCE | Bodde; Mayers (`cnh-010`) |
+| the *Shanhaijing*: no single date — its oldest parts c. 400 – 300 BCE in one account; existing by c. 100 BCE | c. 400 – 300 BCE / c. 100 BCE | Dorofeeva-Lichtmann; the BEFEO account (`cnh-017`, `cnh-019`, `cnh-020`) |
+| the Bin Gong xu cast (the earliest mention of Yu and the flood) | c. 900 – 800 BCE | Cook 2013; Chen 2019 (`cnh-012`, `cnh-013`) |
+| Chang'e first told in full (the *Huainanzi*) | 139 BCE | `cnh-015` |
+| the Queen Mother: the *Zhuangzi* / the mass cult / Han grave art | c. 400 – 300 BCE / 3 BCE / 206 BCE – 220 CE | `cnh-020` |
+| Kunlun: first attested / Han accounts | c. 400 – 300 BCE / 206 BCE – 220 CE | `cnh-019` |
+| Shun's accession in the great annals' system (protected line) / the *Bamboo Annals*' | 2255 BCE / 2042 BCE | `cnh-011` |
+| the Xia opens in the received systems (protected line) | 2205 BCE / 1989 BCE | `cnh-012` |
+| Houyi placed under Ku / under Taikang (protected line) | 2436 BCE / 2188 BCE | Giles (`cnh-014`) |
+| Kuafu placed in the Yellow Emperor's age (protected line) | c. 2697 BCE | Mayers (`cnh-016`) |
 
 ## Neolithic and the Xia
 
@@ -185,7 +194,13 @@ cnh-010: 2357
 cnh-011: 2255
 cnh-012: 2205; 1989
 cnh-014: 2436; 2188
+cnh-013: 900; 800
+cnh-015: 139
 cnh-016: 2697
+cnh-017: 100
+cnh-018: 139
+cnh-019: 400; 300; 206; 220
+cnh-020: 400; 300; 3; 206; 220
 cnh-039: 219; 1594; 1856
 cnh-055: 2070; 1600
 cnh-057: 2070; 1600
