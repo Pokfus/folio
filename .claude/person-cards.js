@@ -25,7 +25,8 @@ const CARDS = global.window.CARD_DATA;
 const LEGEND_TAGS = new Set(["mythology", "hero", "troy", "homer"]);
 const LEGEND_LABELS = /^(In Homer|Traditional|Iliad composed|Odyssey composed|Hesiod writing|In myth|Myth)/i;
 const label0 = (c) => ((String(c.answerDate || "").match(/dt-k">([^<]*)/) || [])[1] || "");
-const hasTemplate = (c) => label0(c) === "Birth";
+// the template opens with "Birth", or — where no birth is dated — carries a "Death" row (the old lines say Born / Died)
+const hasTemplate = (c) => label0(c) === "Birth" || /dt-k">Death</.test(String(c.answerDate || ""));
 
 function classify(c) {
   const a = String(c.answerText || c.answer || "");
