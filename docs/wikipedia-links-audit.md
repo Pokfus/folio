@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6353 | the title is the article |
+| `ok` | 6364 | the title is the article |
 | `redirect-variant` | 385 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 85 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 605 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 127 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 128 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1006 | nothing matched; no link |
+| `none` | 1004 | nothing matched; no link |
 
-**7444 of 8740 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7455 of 8750 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -646,8 +646,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-763` **Majdanek** → [Majdanek concentration camp](https://en.wikipedia.org/wiki/Majdanek_concentration_camp) (from `Majdanek`)
 - `ww2-793` **Porajmos** → [Romani Holocaust](https://en.wikipedia.org/wiki/Romani_Holocaust) (from `Porajmos`)
 - `ww2-814` **Einsatzstab Reichsleiter Rosenberg** → [Reichsleiter Rosenberg Taskforce](https://en.wikipedia.org/wiki/Reichsleiter_Rosenberg_Taskforce) (from `Einsatzstab Reichsleiter Rosenberg`)
+- `ww2-831` **Fremdarbeiter** → [Forced labour under German rule during World War II](https://en.wikipedia.org/wiki/Forced_labour_under_German_rule_during_World_War_II) (from `Fremdarbeiter`)
 - `ww2-845` **Kinderlandverschickung** → [Evacuations of children in Germany during World War II](https://en.wikipedia.org/wiki/Evacuations_of_children_in_Germany_during_World_War_II) (from `Kinderlandverschickung`)
-- `ww2-848` **prefab** → [Prefabrication](https://en.wikipedia.org/wiki/Prefabrication) (from `Prefab`)
 - `ww2-866` **National Mobilization Law** → [State General Mobilization Law](https://en.wikipedia.org/wiki/State_General_Mobilization_Law) (from `National Mobilization Law`)
 
 ## Settled from a disambiguation page (85)
@@ -917,7 +917,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (127)
+## Section redirects — no dedicated page (128)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1048,8 +1048,9 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-550` **ASDIC** — `ASDIC` only redirects into `Sonar#ASDIC`
 - `ww2-559` **Auxiliary cruiser** — `Auxiliary cruiser` only redirects into `Armed merchantman#Auxiliary cruisers`
 - `ww2-756` **Auschwitz II-Birkenau** — `Auschwitz II-Birkenau` only redirects into `Auschwitz concentration camp#Auschwitz II-Birkenau`
+- `ww2-833` **ration card** — `Ration card` only redirects into `Rationing#Ration stamp`
 
-## No article found (1006)
+## No article found (1004)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2057,5 +2058,3 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-663` **occupation costs** — search suggests `Axis occupation of Greece`, `Occupation of the Baltic states`, `World War II reparations`, `World War I`, `List of World War II feature films`
 - `ww2-728` **kashariyot** — search suggests `Bela Yaari Hazan`, `Frumka Płotnicka`
 - `ww2-786` **Liberation of Nazi concentration camps** — search suggests `List of Nazi concentration camps`, `Nazi Concentration Camps (film)`, `Female guards in Nazi concentration camps`, `Auschwitz concentration camp`, `Gross-Rosen concentration camp`
-- `ww2-812` **starvation of civilians** — search suggests `World War II casualties`, `Home front during World War II`, `Starvation (crime)`, `Minnesota Starvation Experiment`, `War crimes in World War II`
-- `ww2-864` **evacuation of Soviet industry** — search suggests `Soviet industry in World War II`, `World War II`, `Repatriation of Soviet citizens after World War II`, `Evacuation in the Soviet Union`, `Eastern Front (World War II)`

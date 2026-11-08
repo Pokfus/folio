@@ -255,8 +255,8 @@ on where you stand — 1937 in China, 1939 in Europe, 1940 for the Western Europ
 millions. Soviet war dead, Chinese war dead, civilian deaths under occupation, the toll of the strategic
 bombing and the numbers killed at individual camps all have live scholarly ranges. **Give the range and
 name whose it is**, and never pick the highest or lowest number available and state it flat. Three cards
-exist to teach this directly: `ww2-390 Soviet casualties and their counting`, `ww2-818 Counting the
-dead` and `ww2-962 The dead of the Second World War`.
+exist to teach this directly: `ww2-390 Soviet casualties and their counting`, `ww2-818 Excess
+mortality` and `ww2-962 The dead of the Second World War`.
 
 ## Sourcing
 
@@ -1505,16 +1505,16 @@ definitions, which exist precisely because the wording matters.
     ww2-828  Rosie the Riveter
     ww2-829  Executive Order 8802
     ww2-830  Double V campaign
-    ww2-831  The German home front
-    ww2-832  German women and the Nazi war effort
-    ww2-833  Rationing and shortage in Germany
-    ww2-834  Germany under bombing
-    ww2-835  Life on the Soviet home front
-    ww2-836  The Japanese home front in wartime
-    ww2-837  Propaganda in the Second World War
-    ww2-838  Wartime censorship
-    ww2-839  Radio in the Second World War
-    ww2-840  Film and the war
+    ww2-831  Fremdarbeiter
+    ww2-832  Cross of Honour of the German Mother
+    ww2-833  Ration card
+    ww2-834  Luftwaffenhelfer
+    ww2-835  Mother Heroine
+    ww2-836  Imperial Rule Assistance Association
+    ww2-837  Ministry of Information
+    ww2-838  Office of Censorship
+    ww2-839  Volksempfänger
+    ww2-840  Why We Fight
     ww2-841  War Artists' Advisory Committee
     ww2-842  War correspondent
     ww2-843  Selective Training and Service Act of 1940

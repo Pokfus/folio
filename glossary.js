@@ -8983,7 +8983,16 @@ window.GLOSSARY = {
 "Deportation_of_the_Crimean_Tatars": "",
 "NKVD_prisoner_massacres": "",
 "Ethnic_cleansing": "",
-"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ""
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": "",
+"Forced_labour_under_German_rule_during_World_War_II": "",
+"Cross_of_Honour_of_the_German_Mother": "",
+"Luftwaffenhelfer": "",
+"Mother_Heroine": "",
+"Imperial_Rule_Assistance_Association": "",
+"Ministry_of_Information_(United_Kingdom)": "",
+"Office_of_Censorship": "",
+"Volksempfänger": "",
+"Why_We_Fight": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14260,6 +14269,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Scientific_theory": ["scientific theories"],
 "Empiricism": ["empiricist"],
 "Rationalism": ["rationalist"],
+"Rationing": ["ration card", "ration cards"],
 "Associationism": ["associationist"],
 "Tabula_rasa": ["blank slate"],
 "Mind-body_dualism": ["substance dualism","mind–body dualism","Cartesian dualism"],
@@ -18995,7 +19005,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Geneva_Convention_on_Prisoners_of_War": ["Geneva Convention of 1929","1929 Geneva Convention"],
 "Deportation_of_the_Crimean_Tatars": ["Sürgün","Sürgünlik"],
 "NKVD_prisoner_massacres": ["NKVD prison massacres"],
-"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ["Volhynia massacre","Volhynian massacres"]
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ["Volhynia massacre","Volhynian massacres"],
+"Forced_labour_under_German_rule_during_World_War_II": ["Fremdarbeiter","forced labour in Nazi Germany"],
+"Cross_of_Honour_of_the_German_Mother": ["Mutterkreuz","Mother's Cross"],
+"Luftwaffenhelfer": ["Flakhelfer"],
+"Mother_Heroine": ["Mother-Heroine"],
+"Imperial_Rule_Assistance_Association": ["Taisei Yokusankai","IRAA"],
+"Ministry_of_Information_(United_Kingdom)": ["Ministry of Information"],
+"Office_of_Censorship": ["United States Office of Censorship"],
+"Volksempfänger": ["people's receiver","VE 301"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28135,7 +28153,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Deportation_of_the_Crimean_Tatars": ["event","history","second world war","soviet union","deportation"],
 "NKVD_prisoner_massacres": ["event","history","second world war","soviet union","war crimes"],
 "Ethnic_cleansing": ["concept","history","war crimes","deportation","genocide"],
-"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ["event","history","second world war","poland","ukraine","ethnic cleansing"]
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ["event","history","second world war","poland","ukraine","ethnic cleansing"],
+"Forced_labour_under_German_rule_during_World_War_II": ["practice","history","germany","forced labour","second world war"],
+"Cross_of_Honour_of_the_German_Mother": ["object","history","germany","women","second world war"],
+"Luftwaffenhelfer": ["title","history","germany","second world war","children"],
+"Mother_Heroine": ["title","history","soviet union","women","second world war"],
+"Imperial_Rule_Assistance_Association": ["institution","history","japan","politics","second world war"],
+"Ministry_of_Information_(United_Kingdom)": ["institution","history","united kingdom","propaganda","second world war"],
+"Office_of_Censorship": ["institution","history","united states","censorship","second world war"],
+"Volksempfänger": ["object","history","germany","radio","propaganda"],
+"Why_We_Fight": ["object","history","united states","film","second world war"]
 });
 
 /* ============================================================================

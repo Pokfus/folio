@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-08T04:03Z",
+ "generated": "2026-11-08T04:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6353,
+  "ok": 6364,
   "redirect-broader": 605,
   "redirect-variant": 385,
-  "section-redirect": 127,
+  "section-redirect": 128,
   "disambiguation": 147,
-  "none": 1006,
+  "none": 1004,
   "disambig-resolved": 85,
   "list-page": 6,
   "search-match": 9,
@@ -70076,6 +70076,78 @@
    "answer": "Massacres of Poles in Volhynia and Eastern Galicia",
    "title": "Massacres of Poles in Volhynia and Eastern Galicia",
    "url": "https://en.wikipedia.org/wiki/Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-831": {
+   "answer": "Fremdarbeiter",
+   "title": "Forced labour under German rule during World War II",
+   "url": "https://en.wikipedia.org/wiki/Forced_labour_under_German_rule_during_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fremdarbeiter"
+  },
+  "ww2-832": {
+   "answer": "Cross of Honour of the German Mother",
+   "title": "Cross of Honour of the German Mother",
+   "url": "https://en.wikipedia.org/wiki/Cross_of_Honour_of_the_German_Mother",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-833": {
+   "answer": "ration card",
+   "title": "Rationing",
+   "url": "https://en.wikipedia.org/wiki/Rationing",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-834": {
+   "answer": "Luftwaffenhelfer",
+   "title": "Luftwaffenhelfer",
+   "url": "https://en.wikipedia.org/wiki/Luftwaffenhelfer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-835": {
+   "answer": "Mother Heroine",
+   "title": "Mother Heroine",
+   "url": "https://en.wikipedia.org/wiki/Mother_Heroine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-836": {
+   "answer": "Imperial Rule Assistance Association",
+   "title": "Imperial Rule Assistance Association",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Rule_Assistance_Association",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-837": {
+   "answer": "Ministry of Information",
+   "title": "Ministry of Information (United Kingdom)",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_Information_(United_Kingdom)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-838": {
+   "answer": "Office of Censorship",
+   "title": "Office of Censorship",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Censorship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-839": {
+   "answer": "Volksempfänger",
+   "title": "Volksempfänger",
+   "url": "https://en.wikipedia.org/wiki/Volksempf%C3%A4nger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-840": {
+   "answer": "Why We Fight",
+   "title": "Why We Fight",
+   "url": "https://en.wikipedia.org/wiki/Why_We_Fight",
    "via": "glossary",
    "status": "ok"
   }
