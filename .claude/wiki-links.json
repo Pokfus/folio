@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-08T04:00Z",
+ "generated": "2026-11-08T04:03Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6344,
+  "ok": 6353,
   "redirect-broader": 605,
   "redirect-variant": 385,
   "section-redirect": 127,
   "disambiguation": 147,
   "none": 1006,
-  "disambig-resolved": 84,
+  "disambig-resolved": 85,
   "list-page": 6,
   "search-match": 9,
   "no-article": 17
@@ -70017,6 +70017,77 @@
    "answer": "Ultra",
    "title": "Ultra (cryptography)",
    "url": "https://en.wikipedia.org/wiki/Ultra_(cryptography)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-801": {
+   "answer": "Manila massacre",
+   "title": "Manila massacre",
+   "url": "https://en.wikipedia.org/wiki/Manila_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-802": {
+   "answer": "Sandakan death marches",
+   "title": "Sandakan death marches",
+   "url": "https://en.wikipedia.org/wiki/Sandakan_death_marches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-803": {
+   "answer": "Hostages Trial",
+   "title": "Hostages Trial",
+   "url": "https://en.wikipedia.org/wiki/Hostages_Trial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-804": {
+   "answer": "dehousing",
+   "title": "Dehousing",
+   "url": "https://en.wikipedia.org/wiki/Dehousing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-805": {
+   "answer": "Hague Conventions",
+   "title": "Hague Conventions of 1899 and 1907",
+   "url": "https://en.wikipedia.org/wiki/Hague_Conventions_of_1899_and_1907",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Hague Convention"
+  },
+  "ww2-806": {
+   "answer": "Geneva Convention on Prisoners of War",
+   "title": "Geneva Convention on Prisoners of War",
+   "url": "https://en.wikipedia.org/wiki/Geneva_Convention_on_Prisoners_of_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-807": {
+   "answer": "Deportation of the Crimean Tatars",
+   "title": "Deportation of the Crimean Tatars",
+   "url": "https://en.wikipedia.org/wiki/Deportation_of_the_Crimean_Tatars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-808": {
+   "answer": "NKVD prisoner massacres",
+   "title": "NKVD prisoner massacres",
+   "url": "https://en.wikipedia.org/wiki/NKVD_prisoner_massacres",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-809": {
+   "answer": "ethnic cleansing",
+   "title": "Ethnic cleansing",
+   "url": "https://en.wikipedia.org/wiki/Ethnic_cleansing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-810": {
+   "answer": "Massacres of Poles in Volhynia and Eastern Galicia",
+   "title": "Massacres of Poles in Volhynia and Eastern Galicia",
+   "url": "https://en.wikipedia.org/wiki/Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia",
    "via": "glossary",
    "status": "ok"
   }

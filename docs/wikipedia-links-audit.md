@@ -26,9 +26,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6344 | the title is the article |
+| `ok` | 6353 | the title is the article |
 | `redirect-variant` | 385 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 84 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 85 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 605 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
@@ -36,7 +36,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1006 | nothing matched; no link |
 
-**7434 of 8730 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7444 of 8740 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -650,7 +650,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-848` **prefab** → [Prefabrication](https://en.wikipedia.org/wiki/Prefabrication) (from `Prefab`)
 - `ww2-866` **National Mobilization Law** → [State General Mobilization Law](https://en.wikipedia.org/wiki/State_General_Mobilization_Law) (from `National Mobilization Law`)
 
-## Settled from a disambiguation page (84)
+## Settled from a disambiguation page (85)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -738,6 +738,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ww2-354` **Jassy–Kishinev offensive** → [Second Jassy–Kishinev offensive](https://en.wikipedia.org/wiki/Second_Jassy%E2%80%93Kishinev_offensive) (via the disambiguation page `Jassy–Kishinev offensive`)
 - `ww2-395` **filtration camps** → [NKVD filtration camps](https://en.wikipedia.org/wiki/NKVD_filtration_camps) (via the disambiguation page `Filtration camp`)
 - `ww2-718` **Jewish resistance** → [Jewish resistance in German-occupied Europe](https://en.wikipedia.org/wiki/Jewish_resistance_in_German-occupied_Europe) (via the disambiguation page `Jewish resistance`)
+- `ww2-805` **Hague Conventions** → [Hague Conventions of 1899 and 1907](https://en.wikipedia.org/wiki/Hague_Conventions_of_1899_and_1907) (via the disambiguation page `Hague Convention`)
 
 ## Matched by search — check each (9)
 

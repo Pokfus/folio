@@ -8973,7 +8973,17 @@ window.GLOSSARY = {
 "Bletchley_Park": "",
 "Alan_Turing": "",
 "Ultra_(cryptography)": "",
-"Gross_domestic_product": ""
+"Gross_domestic_product": "",
+"Manila_massacre": "",
+"Sandakan_death_marches": "",
+"Hostages_Trial": "",
+"Dehousing": "",
+"Hague_Conventions_of_1899_and_1907": "",
+"Geneva_Convention_on_Prisoners_of_War": "",
+"Deportation_of_the_Crimean_Tatars": "",
+"NKVD_prisoner_massacres": "",
+"Ethnic_cleansing": "",
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13305,7 +13315,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Enigma_machine": "1926–1945",
 "Bletchley_Park": "1939–1946",
 "Alan_Turing": "1912–1954",
-"Ultra_(cryptography)": "1941–1945"
+"Ultra_(cryptography)": "1941–1945",
+"Manila_massacre": "1945",
+"Sandakan_death_marches": "1945",
+"Hostages_Trial": "1947–1948",
+"Dehousing": "1942–1945",
+"Hague_Conventions_of_1899_and_1907": "1899–1907",
+"Geneva_Convention_on_Prisoners_of_War": "1929",
+"Deportation_of_the_Crimean_Tatars": "1944",
+"NKVD_prisoner_massacres": "1941",
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": "1943–1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18967,7 +18986,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Peenemünde_Army_Research_Center": ["Peenemünde"],
 "Operations_research": ["operational research","operations analysis"],
 "Enigma_machine": ["Enigma"],
-"Gross_domestic_product": ["GDP"]
+"Gross_domestic_product": ["GDP"],
+"Manila_massacre": ["Rape of Manila"],
+"Sandakan_death_marches": ["Sandakan death march","Sandakan–Ranau death marches"],
+"Hostages_Trial": ["Hostage Case","United States v. Wilhelm List et al."],
+"Dehousing": ["de-housing"],
+"Hague_Conventions_of_1899_and_1907": ["Hague Conventions","Hague Convention"],
+"Geneva_Convention_on_Prisoners_of_War": ["Geneva Convention of 1929","1929 Geneva Convention"],
+"Deportation_of_the_Crimean_Tatars": ["Sürgün","Sürgünlik"],
+"NKVD_prisoner_massacres": ["NKVD prison massacres"],
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ["Volhynia massacre","Volhynian massacres"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28097,7 +28125,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bletchley_Park": ["place","history","intelligence","britain"],
 "Alan_Turing": ["person","science","mathematics","computing"],
 "Ultra_(cryptography)": ["concept","history","intelligence","cryptography"],
-"Gross_domestic_product": ["concept","economics","history"]
+"Gross_domestic_product": ["concept","economics","history"],
+"Manila_massacre": ["event","history","second world war","philippines","war crimes"],
+"Sandakan_death_marches": ["event","history","second world war","borneo","prisoners of war"],
+"Hostages_Trial": ["event","history","second world war","law","war crimes"],
+"Dehousing": ["concept","history","second world war","warfare","strategic bombing"],
+"Hague_Conventions_of_1899_and_1907": ["concept","history","law","laws of war"],
+"Geneva_Convention_on_Prisoners_of_War": ["text","history","law","prisoners of war"],
+"Deportation_of_the_Crimean_Tatars": ["event","history","second world war","soviet union","deportation"],
+"NKVD_prisoner_massacres": ["event","history","second world war","soviet union","war crimes"],
+"Ethnic_cleansing": ["concept","history","war crimes","deportation","genocide"],
+"Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia": ["event","history","second world war","poland","ukraine","ethnic cleansing"]
 });
 
 /* ============================================================================
