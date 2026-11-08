@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6300 | the title is the article |
-| `redirect-variant` | 381 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6344 | the title is the article |
+| `redirect-variant` | 385 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 84 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 603 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 605 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 127 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1006 | nothing matched; no link |
 
-**7384 of 8680 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7434 of 8730 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (603)
+## Redirected to a differently named article — check each (605)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -646,6 +646,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-763` **Majdanek** → [Majdanek concentration camp](https://en.wikipedia.org/wiki/Majdanek_concentration_camp) (from `Majdanek`)
 - `ww2-793` **Porajmos** → [Romani Holocaust](https://en.wikipedia.org/wiki/Romani_Holocaust) (from `Porajmos`)
 - `ww2-814` **Einsatzstab Reichsleiter Rosenberg** → [Reichsleiter Rosenberg Taskforce](https://en.wikipedia.org/wiki/Reichsleiter_Rosenberg_Taskforce) (from `Einsatzstab Reichsleiter Rosenberg`)
+- `ww2-845` **Kinderlandverschickung** → [Evacuations of children in Germany during World War II](https://en.wikipedia.org/wiki/Evacuations_of_children_in_Germany_during_World_War_II) (from `Kinderlandverschickung`)
+- `ww2-848` **prefab** → [Prefabrication](https://en.wikipedia.org/wiki/Prefabrication) (from `Prefab`)
 - `ww2-866` **National Mobilization Law** → [State General Mobilization Law](https://en.wikipedia.org/wiki/State_General_Mobilization_Law) (from `National Mobilization Law`)
 
 ## Settled from a disambiguation page (84)
