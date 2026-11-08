@@ -7,6 +7,17 @@
   these numbers are the check.
 */
 const MAX_ROWS = 4;        // including continuation lines
+/* THE PERSON TEMPLATE (Nov 2026, on request) — a card about one individual carries
+     Birth  <date>  / <place>   (the place a continuation line, drawn at lowered opacity)
+     <Term or career label>  <from – to>
+     <Biggest moment label>  <date (age N)>
+     Death  <date (age N)>  / <place>
+   which is six rows, so a line whose FIRST label is "Birth" may carry PERSON_MAX_ROWS. Every other line
+   keeps MAX_ROWS: the exception is keyed to the template's own opening word, not loosened for everyone.
+   Write it with `set-person-dates.js`, which computes the ages and puts the rows in date order. */
+const PERSON_MAX_ROWS = 6;
+const PERSON_FIRST = "Birth";
+const maxRowsFor = (firstLabel) => (String(firstLabel || "").trim() === PERSON_FIRST ? PERSON_MAX_ROWS : MAX_ROWS);
 const LABEL_MAX = 16;      // "Way of life" was a category label; "Born" / "Named" / "In use" are date labels
 const VALUE_MAX = 64;
 const VALUE_MAX_WORDS = 10;
@@ -19,7 +30,8 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 function buildDateLine(id, rows, fail) {
   if (!Array.isArray(rows)) fail(id + ": value must be an array of [label, value] rows (or [] for no date line)");
   if (!rows.length) return "";
-  if (rows.length > MAX_ROWS) fail(id + ": " + rows.length + " rows — at most " + MAX_ROWS + ". Keep the dates worth memorising and drop the rest.");
+  const maxRows = maxRowsFor(Array.isArray(rows[0]) ? rows[0][0] : "");
+  if (rows.length > maxRows) fail(id + ": " + rows.length + " rows — at most " + maxRows + ". Keep the dates worth memorising and drop the rest.");
   let html = '<div class="dt">';
   rows.forEach((row, i) => {
     if (!Array.isArray(row) || row.length !== 2) fail(id + " row " + (i + 1) + ": each row is [label, value]");
@@ -54,7 +66,8 @@ function isDateList(html) {
   if (!html) return true;                                 // an empty line is a finished line
   if (!SHAPE.test(html)) return false;
   const vals = [...html.matchAll(/<span class="dt-v[^"]*">([^<]*)<\/span>/g)].map((m) => m[1]);
-  return vals.length <= MAX_ROWS && vals.every((v) => v.length <= VALUE_MAX && v.split(/\s+/).length <= VALUE_MAX_WORDS);
+  const first = (html.match(/^<div class="dt"><span class="dt-k">([^<]*)<\/span>/) || [])[1];
+  return vals.length <= maxRowsFor(first) && vals.every((v) => v.length <= VALUE_MAX && v.split(/\s+/).length <= VALUE_MAX_WORDS);
 }
 
-module.exports = { MAX_ROWS, LABEL_MAX, VALUE_MAX, VALUE_MAX_WORDS, buildDateLine, isDateList };
+module.exports = { MAX_ROWS, PERSON_MAX_ROWS, PERSON_FIRST, maxRowsFor, LABEL_MAX, VALUE_MAX, VALUE_MAX_WORDS, buildDateLine, isDateList };

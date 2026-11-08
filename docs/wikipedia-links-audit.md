@@ -28,9 +28,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 |---|---:|---|
 | `ok` | 6519 | the title is the article |
 | `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 87 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 86 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 621 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 620 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 132 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 150 | only a disambiguation page; no link could be chosen |
@@ -40,7 +40,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (621)
+## Redirected to a differently named article — check each (620)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -116,7 +116,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-832` **Zhongyong** → [Doctrine of the Mean](https://en.wikipedia.org/wiki/Doctrine_of_the_Mean) (from `Zhongyong`)
 - `cnh-833` **Wenmiao** → [Temple of Confucius](https://en.wikipedia.org/wiki/Temple_of_Confucius) (from `Wenmiao`)
 - `cnh-838` **Guodian Chu Slips** → [Bamboo Texts of Guodian](https://en.wikipedia.org/wiki/Bamboo_Texts_of_Guodian) (from `Guodian Chu Slips`)
-- `cnh-864` **Yan Ruoju** → [Yan Ruoqu](https://en.wikipedia.org/wiki/Yan_Ruoqu) (from `Yan Ruoju`)
 - `cnh-873` **Chinese almanac** → [Tung Shing](https://en.wikipedia.org/wiki/Tung_Shing) (from `Chinese almanac`)
 - `cnh-899` **Nestorian Stele** → [Xi'an Stele](https://en.wikipedia.org/wiki/Xi'an_Stele) (from `Nestorian Stele`)
 - `cnh-926` **Lienü zhuan** → [Biographies of Exemplary Women](https://en.wikipedia.org/wiki/Biographies_of_Exemplary_Women) (from `Lienü zhuan`)
@@ -666,7 +665,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (87)
+## Settled from a disambiguation page (86)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -678,7 +677,6 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-132` **King Mu** → [King Mu of Zhou](https://en.wikipedia.org/wiki/King_Mu_of_Zhou) (via the disambiguation page `King Mu`)
 - `cnh-135` **King Xuan** → [King Xuan of Zhou](https://en.wikipedia.org/wiki/King_Xuan_of_Zhou) (via the disambiguation page `King Xuan`)
 - `cnh-136` **King You** → [King You of Zhou](https://en.wikipedia.org/wiki/King_You_of_Zhou) (via the disambiguation page `King You`)
-- `cnh-322` **Liu Yu** → [Liu Yu (Western Jin)](https://en.wikipedia.org/wiki/Liu_Yu_(Western_Jin)) (via the disambiguation page `Liu Yu`)
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
 - `cnh-948` **Huang Quan** → [Huang Quan (painter)](https://en.wikipedia.org/wiki/Huang_Quan_(painter)) (via the disambiguation page `Huang Quan`)

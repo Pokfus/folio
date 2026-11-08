@@ -8339,7 +8339,10 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   it collapses to nothing (`.av-row:empty`), and a sentence apologising for the absence is not a date.
   Write it with **`node .claude/set-date-line.js <batch.json>`** rather than by hand (`[[label, value], …]`
   per card; the script builds the markup, so the shape cannot drift card to card). Both it and
-  `add-card.js` hold the field to `.claude/date-line.js`: at most 4 rows, a label of at most 16
+  `add-card.js` hold the field to `.claude/date-line.js`: at most 4 rows (6 for the **person template**, a
+  line whose first label is `Birth` — Birth/place, term, biggest moment with age, Death with age/place,
+  in date order; written by `.claude/set-person-dates.js`, which computes the ages with no year 0 and
+  refuses a line that runs backwards; `.claude/person-cards.js` inventories the individuals, Nov 2026), a label of at most 16
   characters, a value of at most 64 characters and 10 words, a number in every labelled row, and no
   sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
   `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in

@@ -153,6 +153,12 @@ value ≤64 characters and ≤10 words; every labelled row contains a number. Fo
   sorts cards by the year it can read here. Never "1930s".
 - Deep time: `c. 4.2 – 2 Mya`, `115,000 – 11,700 BP`.
 - No date at all → `""`.
+- **A card about one individual person uses the person template** (Nov 2026), up to 6 rows, in date
+  order: `Birth` date, its place beneath (an empty-label continuation row, drawn dimmer); the term or
+  career (`Reigned`, `In office`, … `from – to`); the biggest moment (its own label, date, `(age N)`);
+  `Death` date `(age N)`, its place beneath. Take the dates from the person's Wikipedia page. Write it
+  with `node .claude/set-person-dates.js <batch.json>`, which computes the ages and the order;
+  `node .claude/person-cards.js` lists which cards are individuals. Legendary figures keep their line.
 
 ### Sources
 
