@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6450 | the title is the article |
-| `redirect-variant` | 386 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 85 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6519 | the title is the article |
+| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 86 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 611 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 620 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 131 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1006 | nothing matched; no link |
+| `section-redirect` | 132 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 150 | only a disambiguation page; no link could be chosen |
+| `none` | 1012 | nothing matched; no link |
 
-**7550 of 8850 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7640 of 8950 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (611)
+## Redirected to a differently named article — check each (620)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -494,6 +494,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-184` **Vasily III** → [Vasili III of Russia](https://en.wikipedia.org/wiki/Vasili_III_of_Russia) (from `Vasily III`)
 - `ru-186` **Grand Principality of Ryazan** → [Principality of Ryazan](https://en.wikipedia.org/wiki/Principality_of_Ryazan) (from `Grand Principality of Ryazan`)
 - `ru-190` **Rerum Moscoviticarum Commentarii** → [Notes on Muscovite Affairs](https://en.wikipedia.org/wiki/Notes_on_Muscovite_Affairs) (from `Rerum Moscoviticarum Commentarii`)
+- `ru-214` **Metropolitan Philip** → [Philip II, Metropolitan of Moscow](https://en.wikipedia.org/wiki/Philip_II,_Metropolitan_of_Moscow) (from `Metropolitan Philip`)
+- `ru-235` **Vasily IV** → [Vasili IV of Russia](https://en.wikipedia.org/wiki/Vasili_IV_of_Russia) (from `Vasily IV`)
+- `ru-236` **Bolotnikov rebellion** → [Ivan Bolotnikov](https://en.wikipedia.org/wiki/Ivan_Bolotnikov) (from `Bolotnikov rebellion`)
+- `ru-252` **Michael Romanov** → [Michael of Russia](https://en.wikipedia.org/wiki/Michael_of_Russia) (from `Michael Romanov`)
+- `ru-255` **Alexis Mikhailovich** → [Alexis of Russia](https://en.wikipedia.org/wiki/Alexis_of_Russia) (from `Alexis Mikhailovich`)
+- `ru-256` **Salt Riot** → [Moscow uprising of 1648](https://en.wikipedia.org/wiki/Moscow_uprising_of_1648) (from `Salt Riot`)
+- `ru-262` **Raskol** → [Schism of the Russian Church](https://en.wikipedia.org/wiki/Schism_of_the_Russian_Church) (from `Raskol`)
+- `ru-272` **Stepan Razin** → [Stenka Razin](https://en.wikipedia.org/wiki/Stenka_Razin) (from `Stepan Razin`)
+- `ru-294` **Pruth River Campaign** → [Russo-Turkish War (1710–1713)](https://en.wikipedia.org/wiki/Russo-Turkish_War_(1710%E2%80%931713)) (from `Pruth River Campaign`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -656,7 +665,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (85)
+## Settled from a disambiguation page (86)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -726,6 +735,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `rm-805` **verna** → [Slavery in ancient Rome](https://en.wikipedia.org/wiki/Slavery_in_ancient_Rome) (via the disambiguation page `Verna`)
 - `rm-847` **Ostia** → [Ostia (Rome)](https://en.wikipedia.org/wiki/Ostia_(Rome)) (via the disambiguation page `Ostia`)
 - `rm-865` **tegula** → [Imbrex and tegula](https://en.wikipedia.org/wiki/Imbrex_and_tegula) (via the disambiguation page `Tegula`)
+- `ru-219` **Ivan Ivanovich** → [Tsarevich Ivan Ivanovich of Russia](https://en.wikipedia.org/wiki/Tsarevich_Ivan_Ivanovich_of_Russia) (via the disambiguation page `Ivan Ivanovich`)
 - `us-021` **Moundville** → [Moundville, Alabama](https://en.wikipedia.org/wiki/Moundville,_Alabama) (via the disambiguation page `Moundville`)
 - `us-028` **Mogollon** → [Mogollon, New Mexico](https://en.wikipedia.org/wiki/Mogollon,_New_Mexico) (via the disambiguation page `Mogollon`)
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
@@ -760,7 +770,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (147)
+## Disambiguation pages that could not be settled (150)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -896,6 +906,9 @@ Pick the right article by hand, or leave the card without a link.
 - `ru-027` **Merya** — `Merya` is a disambiguation page; its links: `Merya people`, `Merya language`, `Merya (Tanzanian ward)`
 - `ru-043` **Rus'–Byzantine Treaty** — `Rus'–Byzantine Treaty` is a disambiguation page; its links: `Rus'–Byzantine Treaty (907)`, `Rus'–Byzantine Treaty (911)`, `Rus'–Byzantine Treaty (945)`
 - `ru-132` **Metropolitan Peter** — `Metropolitan Peter` is a disambiguation page
+- `ru-223` **Yermak** — `Yermak` is a disambiguation page; its links: `Yermak Angarsk`, `Yermak Monument`, `Yermak Point`, `Yermak Stone`, `Yermak (1898 icebreaker)`, `Yermak (name)`
+- `ru-234` **Polish–Muscovite War** — `Polish–Muscovite War` is a disambiguation page; its links: `Polish–Muscovite War (1605–18)`
+- `ru-253` **Patriarch Filaret** — `Patriarch Filaret` is a disambiguation page; its links: `Patriarch Filaret of Moscow`
 - `us-038` **Algonquian** — `Algonquin` is a disambiguation page; its links: `Algonquian languages`, `Algonquian peoples`, `Algonquian language (disambiguation)`, `Virginia Algonquian (disambiguation)`
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
@@ -923,7 +936,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (131)
+## Section redirects — no dedicated page (132)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1036,6 +1049,7 @@ Wikipedia treats these as part of another article. No link.
 - `rm-938` **satura** — `Satura` only redirects into `Satire#Term`
 - `ru-106` **Tatar yoke** — `Tatar yoke` only redirects into `Mongol invasion of Kievan Rus'#Legacy`
 - `ru-158` **Boyar Duma** — `Boyar Duma` only redirects into `Duma#Boyar duma`
+- `ru-212` **oprichnik** — `Oprichnik` only redirects into `Oprichnina#Organization`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
@@ -1059,7 +1073,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1006)
+## No article found (1012)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1995,6 +2009,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-193` **boyar rule** — search suggests `Boyar`, `Good tsar, bad boyars`, `Seven Boyars`, `Tsardom of Russia`, `Feodor I of Russia`
 - `ru-194` **coronation of Ivan IV** — search suggests `Feodor I of Russia`, `Ivan the Terrible`, `Ivan III of Russia`, `Tsar of all Russia`, `Coronation of the Russian monarch`
 - `ru-196` **Moscow uprising of 1547** — search suggests `Moscow Uprising`, `Moscow`, `Fire of Moscow (1547)`, `Tsardom of Russia`, `List of Russian monarchs`
+- `ru-201` **Decree on Service** — search suggests `Orders, decorations, and medals of Russia`, `FSB Border Service of Russia`, `Federal Security Service`, `Decree`, `Special Communications Service of Russia`
+- `ru-215` **Moscow fire of 1571** — search suggests `Fire of Moscow (1571)`, `Russo-Crimean Wars`, `Moscow`, `History of Moscow`, `Ivan the Terrible`
+- `ru-258` **urochnye leta** — search suggests `Fixed years`, `Forbidden years`
+- `ru-268` **Russo-Polish War of 1654–1667** — search suggests `Polish–Russian War (1654–1667)`, `Polish–Cossack–Tatar War (1666–1671)`, `Russo-Turkish wars`, `Tsar Alexei's campaign of 1654–1655`, `Deluge (history)`
+- `ru-284` **Streltsy uprising of 1698** — search suggests `Streltsy uprising`, `Streltsy`, `Sophia Alekseyevna of Russia`, `Catherine the Great`, `1698`
+- `ru-298` **Petrine collegia** — search suggests `Twelve Collegia`, `Saint Petersburg`, `Government reform of Peter the Great`, `Tsarist Russia`, `History of Russia`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`
