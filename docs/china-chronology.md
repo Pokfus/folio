@@ -171,6 +171,15 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | the *Shanhaijing* begun (one view) | c. 300 – 200 BCE | `cnh-028` |
 | the *Chuci*: the core poems / gathered by Liu Xiang | c. 300 BCE / c. 77 – 6 BCE | `cnh-029` |
 | the Jade Emperor: the cult founded / also dated | 1012 / 1116 | `cnh-030` |
+| the ten courts take shape (the *Scripture on the Ten Kings*) | c. 800 – 1000 CE | the Met record; Zhang 2008 (`cnh-032`) |
+| the first court sacrifice to the stove | c. 133 BCE | Chavannes (`cnh-033`) |
+| the door gods attested (the *Lunheng*) | 76 – 84 CE | Forke (`cnh-034`) |
+| the zodiac animals attested (Shuihudi daybook) / years named by animals | c. 217 BCE / c. 100 CE | the Shuihudi daybook project; Hong Kong Observatory (`cnh-035`) |
+| the Cowherd and the Weaver Girl: the stars / the lovers | c. 800 BCE / c. 100 – 200 CE | Laing; Ouyang (`cnh-036`) |
+| the White Snake: the earliest tale / printed / the first play | c. 1200 – 1400 / 1624 / 1738 | `cnh-037` |
+| Mazu: traditional life / first honoured / named Tianfei / UNESCO listing | 960 – 987 CE / 1122 / 1281 / 30 September 2009 | the *Tianfei xiansheng lu*; Yao 2015 (`cnh-038`) |
+| Guan Yu dies / made a god / named a sage (protected line) | 219 CE / 1594 / 1856 | `cnh-039`; one study dates the Wanli title 1614 |
+| the legendary period: Fuxi's traditional year / the first sure year | 2852 BCE / 841 BCE | Mayers (`cnh-040`) |
 
 ## Neolithic and the Xia
 
@@ -221,7 +230,15 @@ cnh-027: 1500; 1300
 cnh-028: 300; 200
 cnh-029: 300; 77; 6
 cnh-030: 1012; 1116
+cnh-032: 800; 1000
+cnh-033: 133
+cnh-034: 76; 84
+cnh-035: 217; 100
+cnh-036: 800; 100; 200
+cnh-037: 1200; 1400; 1624; 1738
+cnh-038: 960; 987; 1122; 1281; 2009
 cnh-039: 219; 1594; 1856
+cnh-040: 2852; 841
 cnh-055: 2070; 1600
 cnh-057: 2070; 1600
 cnh-058: 2070; 1600

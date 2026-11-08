@@ -14444,7 +14444,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zao_Jun": ["Kitchen God","god of the kitchen","god of the stove","Zaoshen","Zaowang"],
 "Menshen": ["door gods","door god","gods of the door","Men-shen"],
 "Chinese_zodiac": ["twelve animals","cycle of twelve animals","twelve-animal cycle"],
-"Cowherd_and_Weaver_Girl": ["Cowherd and the Weaver Girl","Weaver Girl","Spinning Damsel","Herdsman and the Weaver-girl"],
+"Cowherd_and_Weaver_Girl": ["Cowherd and the Weaver Girl","Weaver Girl","Spinning Damsel","Herdsman and the Weaver-girl","Herd Boy and Weaving Maid","Niulang and Zhinü"],
 "Legend_of_the_White_Snake": ["White Snake","Madam White","Bai Suzhen","Madame White Snake","Baishe zhuan"],
 "Mazu": ["Tianhou","Tian Hou","Tin Hau","Mazupo"],
 "Guandi": ["Guan Gong","Kuan Ti","Kwan-ti","Lord Guan"],

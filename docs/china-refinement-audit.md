@@ -180,9 +180,11 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Kuafu chasing the sun | Kuafu racing the sun and dying of thirst, his staff becoming the Deng Forest; the *Shanhaijing* (two tellings: thirst; Yinglong in the "Dahuang beijing"), the *Liezi* — confirmed B2 (`cnh-016`) | `cnh-016` | `cnh-018`, `cnh-028` | — |
 | Jingwei filling the sea | the drowned daughter of Yandi become a bird carrying twigs and stones; the *Shanhaijing* "Classic of the Northern Mountains" (the Mount Fajiu passage), the book existing by the early 1st century BCE — confirmed B2 (`cnh-017`) | `cnh-017` | `cnh-028` | — |
 | The Queen Mother of the West and Kunlun | named first in the *Zhuangzi* (c. 400 – 300 BCE); a fearsome figure with a leopard's tail in the *Shanhaijing*; the Jade Pool in the *Mu tianzi zhuan*; a goddess of immortality by the Han, with a mass cult in 3 BCE (*Hanshu*); the peaches Eastern Han; Kunlun as the axis mountain — confirmed B2 (`cnh-019`, `cnh-020`) | `cnh-020`, `cnh-019` | `cnh-015`, `cnh-028`, `cnh-070`, `cnh-083` | `cnh-132`, `cnh-900`, `gc-911` |
-| The Cowherd and the Weaver Girl | the two stars named in the *Shijing* "Da dong"; the lovers parted by the Milky Way in the Han "Nineteen Old Poems"; the magpie bridge on the seventh night later — provisional | `cnh-036` | — | — |
+| The Cowherd and the Weaver Girl | the two stars named in the *Shijing* "Da dong"; the lovers parted by the Milky Way in the Han "Nineteen Old Poems"; the magpie bridge on the seventh night later (the seventh night attested by the early 2nd century CE, the magpie bridge by its end; the old card's *Huainanzi* line found in no text read) — confirmed B4 (`cnh-036`, Laing) | `cnh-036` | — | — |
 | Penglai and the isles of the immortals | the isles that sink as boats approach and the Qi and Yan kings' search, in the *Shiji* (c. 91 BCE, the earliest); the *Liezi*'s isles on turtles later (parts of the *Liezi* are 2nd century CE or later) — set B3 (`cnh-021`) | `cnh-021` | — | `cnh-210` (Xu Fu) |
 | The Eight Immortals as a group | the eight together first in Yuan drama and birthday pieces (Hu Yinglin's late Ming dating), at most the end of the Southern Song; members' own cults older — set B3 (`cnh-022`) | `cnh-022` | — | — |
+| The Legend of the White Snake | Tang snake-woman tales; a West Lake tale of three pagodas (13th–14th century, printed in the mid-16th); the settled form in Feng Menglong's collection (1624), with the umbrella and Leifeng Pagoda; the sympathetic heroine of the 18th-century plays — set B4 (`cnh-037`) | `cnh-037` | — | — |
+| Mazu | Lin Moniang's traditional life (960–987); the first court honour (1122) and the title Tianfei (1281), from the Qing *Tianfei xiansheng lu*; the loom legend in two versions — set B4 (`cnh-038`) | `cnh-038` | — | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
@@ -260,7 +262,7 @@ otherwise.
 | B1 | Mythology (`cn-myth`) | `cnh-001`–`cnh-010` | 10 | 108 | **done 2026-11-08** |
 | B2 | Mythology (`cn-myth`) | `cnh-011`–`cnh-020` | 10 | 102 | **done 2026-11-08** |
 | B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | **done 2026-11-08** |
-| B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | to do |
+| B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | **done 2026-11-08** |
 | B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | to do |
 | B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | to do |
 | B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | to do |
@@ -429,6 +431,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-028` | a page of an illustrated edition | not re-checked (Commons 429): ok, but the description names Commons (`I.caption-source`) — rewrite |
 | `cnh-029` | Xiao Yuncong's plate of the Mountain Spirit | not re-checked (Commons 429): ok: one poem, not the whole anthology |
 | `cnh-030` | the Jade Emperor enthroned | not re-checked (Commons 429): ok |
+| `cnh-031` | a king of hell holds court (the Ten Kings scroll) | not re-checked (Commons 429): ok |
+| `cnh-032` | a king of hell in his hall (Southern Song album leaf) | not re-checked (Commons 429): ok |
+| `cnh-033` | woodblock of the stove god and his clerk | not re-checked (Commons 429): ok; the description names the source compendium — trim |
+| `cnh-034` | the door gods on a pair of doors | not re-checked (Commons 429): ok |
+| `cnh-035` | Tang pottery figures of the zodiac animals | not re-checked (Commons 429): ok, though four of the twelve |
+| `cnh-036` | the meeting on the bridge of magpies | not re-checked (Commons 429): ok |
+| `cnh-037` | the tale on the Peking opera stage | not re-checked (Commons 429): ok, but the description ends on the photographer's name — trim; the glossary copy carries its credit in the description |
+| `cnh-038` | a Qing figure of the goddess | not re-checked (Commons 429): ok; the glossary copy's credit is a bare address — fix |
+| `cnh-039` | the god on a Qing scroll | not re-checked (Commons 429): ok |
+| `cnh-040` | Chavannes's plate of a Wu Liang shrine stone | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -582,3 +594,38 @@ from the Yuan, at most the end of the Southern Song; Hu Yinglin's dating); the f
 `cnh-021` c. 91 BCE (its completion, per Mayers); both are approximations of one book and both stand. **Protected
 lines: unchanged** (none in this batch). No `wh-`, `jp-` or `ko-` card read disagrees; the zodiac and the dragon on
 `jp-`/`ko-` cards are untouched.
+
+### B4 — `cnh-031`–`cnh-040`, Mythology: Diyu to the Chinese legendary period (2026-11-08)
+
+Run as before; all 72 cited URLs answered. Owner's fix before applying: `cnh-040`'s third phrasing said "the
+legendary history", a word of the answer, and now says "the account of high antiquity". **The old cards dated the
+underworld and the popular gods by emperors' reigns (Huizong and Wanli on Diyu, Han Wudi on Zao Jun, Taizong on the
+door gods), by men's lives (Wang Chong on the zodiac and the door gods, Feng Menglong on the White Snake, Bao Zheng on
+the ten courts) and by days of the lunar year, credited the ten courts to a Taoist handbook, made Wang Chong the
+zodiac's oldest witness, and rested Diyu and the zodiac wholly on 19th- and early-20th-century handbooks.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-031` Diyu | 7 | 7 → 7 | **Five modern sources where all seven were 1880–1920 handbooks; the reigns off the line, which is now empty (no source dates Diyu itself); an unsourced depth, the hell counts and term lengths dropped; the ten kings dated to the later Tang**. `L.missing` is deliberate. |
+| `cnh-032` ten courts of hell | 6 | 5 → 7 | **The scheme rests on the Buddhist *Scripture on the Ten Kings* (late Tang; Dunhuang scrolls and Sichuan carvings), not a Taoist handbook; the *Jade Record* a Ming–Qing retelling, with Granny Meng; `Took shape c. 800 – 1000 CE`; Chinese name 十殿阎罗 → 十殿阎王 (Shídiàn Yánwáng)**. |
+| `cnh-033` Zao Jun | 7 | 5 → 8 | **The lunar days and Han Wudi's reign off the line; `Imperial rite c. 133 BCE` (the first court sacrifice to the stove, as Chavannes places it); the claim that a magician began the cult, an "every family" figure and an unsourced honey custom dropped**; the *Analects*' stove saying and an older female stove spirit added. |
+| `cnh-034` Menshen | 7 | 7 → 7 | **`Attested 76 – 84 CE` (the *Lunheng*, as its translator dates it) for Wang Chong's life, Taizong's reign and an undated row; the spirits spelt Shenshu and Yulü**; the *Fengsu tongyi* detail dropped for want of an open page. |
+| `cnh-035` Chinese zodiac | 9 | 7 → 9 | **Wang Chong no longer the oldest witness: the Shuihudi daybook (`Attested c. 217 BCE`) already pairs branches with animals, a horse where the goat now stands; `Years by animal c. 100 CE`**; Fangmatan left out (no open page). |
+| `cnh-036` Cowherd and Weaver Girl | 7 | 6 → 7 | **The *Huainanzi* "magpie line" the old card cited is in no text read and is dropped; `Stars attested c. 800 BCE` (the *Shijing* "Da dong") and `Lovers attested c. 100 – 200 CE` (the Nineteen Old Poems)**; the glossary's "a Han treatise the oldest notice" corrected. |
+| `cnh-037` Legend of the White Snake | 7 | 5 → 7 | **`Earliest tale c. 1200 – 1400` / `Printed 1624` / `First play 1738` for Feng Menglong's life and a non-span; the rain and the borrowed umbrella already in Feng's 1624 text, not 18th-century additions; the maid a green fish, not a snake**; a Wayback-only source and two ctext sources replaced. |
+| `cnh-038` Mazu | 7 | 6 → 7 | **The Song dynasty's span and a 12th-century temple replaced by `Traditional 960 – 987 CE`, `First honoured 1122`, `Named Tianfei 1281` and the UNESCO listing; the loom legend in two versions with their sources; the mast fire attributed to sailors (no source calls it St Elmo's fire); "36 times" a modern count, the Qing list counting 24**. |
+| `cnh-039` Guandi | 7 | 6 → 7 | **Werner's folk tale of his youth, told as biography, dropped; Guan Yu the man (Chen Shou, 3rd century) kept apart from the god (the 14th-century novel); "about 1,600 official temples" credited to Doré**; the Macao guild hall added. Protected: the background carries 219, 1594 and 1856. |
+| `cnh-040` Chinese legendary period | 6 | 6 → 6 | **`Traditional 2852 BCE` (the legendary history prefaced to Sima Guang's chronicle, as Mayers prints it) and `First sure year 841 BCE` for labels naming men; Sima Qian's own refusal of dated genealogies; the term from Xu Xusheng's book; four modern sources where there were none**. |
+
+Read by eye. **Confusability**: the kings of hell split cleanly — the earth-prison and its entrance (`cnh-031`) against
+the judges' calendar, the Ningbo scrolls and Granny Meng (`cnh-032`); the stove god's report (`cnh-033`) against the
+door gods' peach tree (`cnh-034`). **Legend**: the White Snake and Mazu told by the dated texts that carry them; the
+Cowherd's magpie bridge dated by its sources, not the *Huainanzi*. **Chinese names corrected**: `cnh-032` 十殿阎罗 →
+十殿阎王 / 十殿閻王, Shídiàn Yánwáng (Doré's gloss); `cnh-037`'s `Z.reading?` is the polyphone 传 (zhuàn here), a false
+lead; the rest checked and unchanged. **Spellings fixed**: none needed; 0 hits. **Myth register: rows confirmed or
+added** — the Cowherd and the Weaver Girl confirmed (the stars in "Da dong", late Western Zhou; the lovers in the
+Nineteen Old Poems by the 2nd century CE; the seventh night by the early 2nd century and the magpie bridge by its end,
+after Laing); two rows added, the White Snake and Mazu. **Protected lines: unchanged**. **For the owner**: `cnh-039`'s
+row "Made a god 1594, by the Wanli emperor" — Zavidovskaya (2023) dates the Wanli title to 1614; the row "Named a sage
+1856" rests only on Doré (1920); both are left. `cnh-040`'s citation of Chen Minzhen keeps his name in Chinese order
+(Crossref's "Minzhen Chen"). The zodiac on `jp-`/`ko-` cards is untouched; no `wh-` card read disagrees.
