@@ -1581,114 +1581,114 @@ definitions, which exist precisely because the wording matters.
     ww2-898  Bletchley Park
     ww2-899  Alan Turing
     ww2-900  Ultra
-    ww2-901  The Polish contribution to breaking Enigma
+    ww2-901  Marian Rejewski
     ww2-902  Colossus computer
-    ww2-903  Magic and the Japanese codes
-    ww2-904  Code talker
-    ww2-905  Military deception in the Second World War
-    ww2-906  Espionage in the Second World War
+    ww2-903  Magic
+    ww2-904  Navajo code talkers
+    ww2-905  Ghost Army
+    ww2-906  Abwehr
     ww2-907  Double-Cross System
-    ww2-908  Soviet intelligence and the Western Allies
-    ww2-909  The race for the atomic bomb
+    ww2-908  Cambridge Five
+    ww2-909  Einstein–Szilard letter
     ww2-910  Manhattan Project
     ww2-911  J. Robert Oppenheimer
-    ww2-912  Trinity nuclear test
-    ww2-913  The German nuclear weapons programme
-    ww2-914  Scientists and the moral questions of the war
-    ww2-915  What the war did to science
+    ww2-912  Trinity test
+    ww2-913  Uranverein
+    ww2-914  Franck Report
+    ww2-915  Science, the Endless Frontier
 
 ### Soldiers, prisoners and civilians — `ww2-experience`
 
-    ww2-916  The experience of combat
-    ww2-917  Morale and motivation in the armies
+    ww2-916  Friendly fire
+    ww2-917  Unit cohesion
     ww2-918  Combat stress reaction
-    ww2-919  Military discipline and desertion
-    ww2-920  Life in the wartime armies
-    ww2-921  Prisoners of war in the Second World War
-    ww2-922  Prisoner-of-war camps in Europe
-    ww2-923  Escape and evasion
-    ww2-924  Women in the armed forces
-    ww2-925  Nurses and the medical services
-    ww2-926  Merchant seamen and the civilian services
-    ww2-927  Military casualties and their counting
-    ww2-928  War graves and commemoration
-    ww2-929  Letters home and wartime writing
-    ww2-930  Demobilisation and coming home
+    ww2-919  Eddie Slovik
+    ww2-920  K-ration
+    ww2-921  Prisoner of war
+    ww2-922  Stalag
+    ww2-923  MI9
+    ww2-924  Women's Army Corps
+    ww2-925  Army Nurse Corps
+    ww2-926  Merchant Navy
+    ww2-927  Missing in action
+    ww2-928  American Battle Monuments Commission
+    ww2-929  V-mail
+    ww2-930  Adjusted Service Rating Score
 
 ## Endings and Reckonings
 
 ### The defeat of Japan — `ww2-japan-end`
 
-    ww2-931  Japan in the summer of 1945
-    ww2-932  The Japanese leadership and the question of surrender
-    ww2-933  The Supreme War Council
-    ww2-934  The Soviet mediation attempt
+    ww2-931  Ketsu-Go
+    ww2-932  Kantarō Suzuki
+    ww2-933  Supreme Council for the Direction of the War
+    ww2-934  Naotake Satō
     ww2-935  Potsdam Conference
-    ww2-936  The decision to use the atomic bomb
-    ww2-937  The choice of targets
-    ww2-938  Atomic bombing of Hiroshima
-    ww2-939  Atomic bombing of Nagasaki
-    ww2-940  The immediate effects of the bombings
+    ww2-936  Interim Committee
+    ww2-937  Target Committee
+    ww2-938  Little Boy
+    ww2-939  Fat Man
+    ww2-940  Black rain
     ww2-941  Hibakusha
-    ww2-942  Radiation sickness and the long-term effects
+    ww2-942  Atomic Bomb Casualty Commission
     ww2-943  Soviet invasion of Manchuria
-    ww2-944  The Soviet campaign against Japan
-    ww2-945  The debate over what caused the Japanese surrender
-    ww2-946  The debate over the morality of the atomic bombings
-    ww2-947  Hirohito's surrender broadcast
+    ww2-944  Soviet invasion of the Kuril Islands
+    ww2-945  Soviet–Japanese Neutrality Pact
+    ww2-946  Shimoda case
+    ww2-947  Jewel Voice Broadcast
     ww2-948  Kyūjō incident
-    ww2-949  Surrender of Japan
-    ww2-950  The ceremony aboard USS Missouri
-    ww2-951  The Japanese surrenders across Asia
+    ww2-949  Japanese Instrument of Surrender
+    ww2-950  USS Missouri
+    ww2-951  General Order No. 1
     ww2-952  Occupation of Japan
     ww2-953  Supreme Commander for the Allied Powers
-    ww2-954  The emperor and the occupation
-    ww2-955  The demobilisation of the Japanese empire
-    ww2-956  The repatriation of Japanese from Asia
-    ww2-957  The division of Korea
-    ww2-958  The end of the Japanese empire
-    ww2-959  Japanese casualties of the war
+    ww2-954  Humanity Declaration
+    ww2-955  Japanese Surrendered Personnel
+    ww2-956  Japanese repatriation from Huludao
+    ww2-957  Division of Korea
+    ww2-958  Treaty of San Francisco
+    ww2-959  Chidorigafuchi National Cemetery
     ww2-960  Victory over Japan Day
 
 ### Reckonings and legacies — `ww2-aftermath`
 
-    ww2-961  The human cost of the Second World War
-    ww2-962  The dead of the Second World War
-    ww2-963  Europe in ruins
-    ww2-964  Displaced persons after the war
-    ww2-965  The expulsion of Germans from Central and Eastern Europe
-    ww2-966  Jewish survivors and the displaced persons camps
-    ww2-967  The founding of the United Nations
+    ww2-961  Arolsen Archives
+    ww2-962  World War II casualties
+    ww2-963  Trümmerfrauen
+    ww2-964  International Refugee Organization
+    ww2-965  Flight and expulsion of Germans
+    ww2-966  Harrison Report
+    ww2-967  United Nations Conference on International Organization
     ww2-968  Potsdam Agreement
     ww2-969  Allied-occupied Germany
     ww2-970  Denazification
-    ww2-971  Nuremberg trials
-    ww2-972  The charges at Nuremberg
-    ww2-973  The Nuremberg principles
+    ww2-971  London Charter
+    ww2-972  Crimes against peace
+    ww2-973  Nuremberg principles
     ww2-974  Subsequent Nuremberg trials
     ww2-975  International Military Tribunal for the Far East
-    ww2-976  The limits of postwar justice
-    ww2-977  The war crimes trials in occupied Europe
-    ww2-978  The purges of collaborators
-    ww2-979  Retribution after liberation
-    ww2-980  Reparations and restitution
-    ww2-981  Germany's reckoning with the Nazi past
-    ww2-982  Japan's reckoning with the war
-    ww2-983  Marshall Plan
-    ww2-984  The division of Europe
-    ww2-985  The origins of the Cold War
-    ww2-986  The war and decolonisation
-    ww2-987  The war and the founding of Israel
-    ww2-988  Universal Declaration of Human Rights
+    ww2-976  Ratlines
+    ww2-977  Belsen trial
+    ww2-978  Legal purge in Norway
+    ww2-979  Indignité nationale
+    ww2-980  Luxembourg Agreement
+    ww2-981  Vergangenheitsbewältigung
+    ww2-982  Murayama Statement
+    ww2-983  Economic Cooperation Administration
+    ww2-984  Inner German border
+    ww2-985  Containment
+    ww2-986  Sétif and Guelma massacre
+    ww2-987  SS Exodus
+    ww2-988  Fourth Geneva Convention
     ww2-989  Genocide Convention
-    ww2-990  The postwar international order
-    ww2-991  The war and the welfare state
-    ww2-992  Women after the war
-    ww2-993  Veterans and their return
-    ww2-994  War memorials of the Second World War
-    ww2-995  National memories of the war
-    ww2-996  The war in film and popular culture
-    ww2-997  The uses and misuses of the war
-    ww2-998  The historiography of the Second World War
-    ww2-999  The sources and what they leave out
-    ww2-1000 Why the Second World War still matters
+    ww2-990  General Agreement on Tariffs and Trade
+    ww2-991  National Insurance Act 1946
+    ww2-992  Marriage bar
+    ww2-993  GI Bill
+    ww2-994  National World War II Memorial
+    ww2-995  Greatest Generation
+    ww2-996  World at War
+    ww2-997  Memory law
+    ww2-998  Historikerstreit
+    ww2-999  Ringelblum Archive
+    ww2-1000 Rome Statute
