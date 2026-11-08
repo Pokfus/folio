@@ -125,7 +125,7 @@ const STOP = new Set("the a an of in on at to and or but for with by from as is 
 const content = (s) => new Set(toks(String(s).replace(/<span class="blank">_+<\/span>/g, " ")).filter((w) => w.length > 2 && !STOP.has(w)));
 function jacc(a, b) { let k = 0; a.forEach((w) => { if (b.has(w)) k++; }); return k / Math.max(1, Math.min(a.size, b.size)); }
 const QDATE = /\b\d{3,4}\b|\bB\.?C\.?E?\b|\bC\.?E\.?\b|\bA\.?D\.?\b|\b\w*centur\w*|\b\w*millenni\w*|\bdecades?\b|\b\d0s\b/i;
-const dateRows = (html) => [...String(html || "").matchAll(/<span class="dt-(k|v)(?: dt-sub)?">([^<]*)<\/span>/g)].map((m) => ({ k: m[1], t: m[2] }));
+const dateRows = (html) => [...String(html || "").matchAll(/<span class="dt-(k|v)( dt-sub)?">([^<]*)<\/span>/g)].map((m) => ({ k: m[1], t: m[3], sub: !!m[2] }));
 const PLACE_KINDS = new Set(["place", "site", "city", "building", "battle", "island", "sanctuary", "palace", "settlement", "tomb", "monument"].concat(CFG.extraPlaceKinds));
 const ALL_IMG = new Map();
 for (const c of cards) if (c.image && c.image.src) {
@@ -179,7 +179,8 @@ function audit(c) {
       const small = [...vy.matchAll(/(?<![\d,.])(\d{3})(?![\d,.])/g)].map((m) => +m[1]);
       if (small.length && !/\b(BCE|CE|BP|Mya|kya)\b/.test(vy)) finding(out, "D.era", "\"" + v + "\" has a year under 1000 with no era");
       // a row that states no date at all is a fact on the date line, not a date
-      if (!/\d{3,4}|\b(?:BCE|CE|BP|Mya|kya)\b|centur|millenni|Minoan|Helladic|Cycladic|Geometric|Olympiad|palatial/i.test(vy))
+      // a continuation line (the place under a birth or death) is not a date and need not state one
+      if (!r.sub && !/\d{3,4}|\b(?:BCE|CE|BP|Mya|kya)\b|centur|millenni|Minoan|Helladic|Cycladic|Geometric|Olympiad|palatial/i.test(vy))
         finding(out, "D.not-a-date", "\"" + v + "\" states no date");
       if (/\d\s*[–-]\s*c\.\s*\d/.test(v)) finding(out, "D.c-in-range", "\"" + v + "\" puts c. inside a range");
       if (/(^|\s)(c\.\s*)?\d[\d,]*\s*[–-]\s*$|[–-]\s*$/.test(v)) finding(out, "D.dangling", "\"" + v + "\" ends on a dash");
