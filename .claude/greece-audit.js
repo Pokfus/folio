@@ -81,7 +81,7 @@ const authorLib = new Function(
   sliceLine(CHECK, /^const surnameKey = .*$/m, "surnameKey in check-cards.js") + "\n" +
   "return { authorOf, surnameKey, ANCIENT };")();
 const { cardYears } = { cardYears: require("./card-links.js").loadCardYears(APP) };
-const { isDateList, MAX_ROWS, LABEL_MAX } = require("./date-line.js");
+const { isDateList, maxRowsFor, LABEL_MAX } = require("./date-line.js");
 const { srcTargetFor } = require("./src-target.js");
 const { count: shapeOf } = require("./split-abstract.js");
 const { declaredLang } = require("./src-langs.js");
@@ -168,7 +168,8 @@ function audit(c) {
     if (!isDateList(ad)) finding(out, "D.shape", "not a date list");
     const rows = dateRows(ad);
     const nRows = rows.filter((r) => r.k === "v").length;
-    if (nRows > MAX_ROWS) finding(out, "D.rows", nRows + " rows (≤" + MAX_ROWS + ")");
+    const maxRows = maxRowsFor((rows.find((r) => r.k === "k") || {}).t);
+    if (nRows > maxRows) finding(out, "D.rows", nRows + " rows (≤" + maxRows + ")");
     rows.filter((r) => r.k === "k").forEach((r) => { if (r.t.length > LABEL_MAX) finding(out, "D.label", "label \"" + r.t + "\" is " + r.t.length + " characters"); });
     rows.filter((r) => r.k === "v").forEach((r) => {
       const v = r.t;
