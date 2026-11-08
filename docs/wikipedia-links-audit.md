@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6496 | the title is the article |
-| `redirect-variant` | 395 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6519 | the title is the article |
+| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 87 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 619 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 621 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 132 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 150 | only a disambiguation page; no link could be chosen |
-| `none` | 1009 | nothing matched; no link |
+| `none` | 1012 | nothing matched; no link |
 
-**7613 of 8920 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7640 of 8950 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (619)
+## Redirected to a differently named article — check each (621)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -501,7 +501,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-252` **Michael Romanov** → [Michael of Russia](https://en.wikipedia.org/wiki/Michael_of_Russia) (from `Michael Romanov`)
 - `ru-255` **Alexis Mikhailovich** → [Alexis of Russia](https://en.wikipedia.org/wiki/Alexis_of_Russia) (from `Alexis Mikhailovich`)
 - `ru-256` **Salt Riot** → [Moscow uprising of 1648](https://en.wikipedia.org/wiki/Moscow_uprising_of_1648) (from `Salt Riot`)
+- `ru-262` **Raskol** → [Schism of the Russian Church](https://en.wikipedia.org/wiki/Schism_of_the_Russian_Church) (from `Raskol`)
 - `ru-272` **Stepan Razin** → [Stenka Razin](https://en.wikipedia.org/wiki/Stenka_Razin) (from `Stepan Razin`)
+- `ru-294` **Pruth River Campaign** → [Russo-Turkish War (1710–1713)](https://en.wikipedia.org/wiki/Russo-Turkish_War_(1710%E2%80%931713)) (from `Pruth River Campaign`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -1073,7 +1075,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1009)
+## No article found (1012)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2012,6 +2014,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-201` **Decree on Service** — search suggests `Orders, decorations, and medals of Russia`, `FSB Border Service of Russia`, `Federal Security Service`, `Decree`, `Special Communications Service of Russia`
 - `ru-215` **Moscow fire of 1571** — search suggests `Fire of Moscow (1571)`, `Russo-Crimean Wars`, `Moscow`, `History of Moscow`, `Ivan the Terrible`
 - `ru-258` **urochnye leta** — search suggests `Fixed years`, `Forbidden years`
+- `ru-268` **Russo-Polish War of 1654–1667** — search suggests `Polish–Russian War (1654–1667)`, `Polish–Cossack–Tatar War (1666–1671)`, `Russo-Turkish wars`, `Tsar Alexei's campaign of 1654–1655`, `Deluge (history)`
+- `ru-284` **Streltsy uprising of 1698** — search suggests `Streltsy uprising`, `Streltsy`, `Sophia Alekseyevna of Russia`, `Catherine the Great`, `1698`
+- `ru-298` **Petrine collegia** — search suggests `Twelve Collegia`, `Saint Petersburg`, `Government reform of Peter the Great`, `Tsarist Russia`, `History of Russia`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`

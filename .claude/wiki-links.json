@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-08T19:29Z",
+ "generated": "2026-11-08T19:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6496,
-  "redirect-broader": 619,
-  "redirect-variant": 395,
+  "ok": 6519,
+  "redirect-broader": 621,
+  "redirect-variant": 397,
   "section-redirect": 132,
   "disambiguation": 150,
-  "none": 1009,
+  "none": 1012,
   "disambig-resolved": 87,
   "list-page": 6,
   "search-match": 9,
@@ -70917,17 +70917,11 @@
   },
   "ru-215": {
    "answer": "Moscow fire of 1571",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Fire of Moscow (1571)",
-    "Russo-Crimean Wars",
-    "Moscow",
-    "History of Moscow",
-    "Ivan the Terrible"
-   ]
+   "title": "Fire of Moscow (1571)",
+   "url": "https://en.wikipedia.org/wiki/Fire_of_Moscow_(1571)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-216": {
    "answer": "Devlet I Giray",
@@ -71053,19 +71047,11 @@
   },
   "ru-223": {
    "answer": "Yermak",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "disambiguation",
-   "from": "Yermak",
-   "suggestions": [
-    "Yermak Angarsk",
-    "Yermak Monument",
-    "Yermak Point",
-    "Yermak Stone",
-    "Yermak (1898 icebreaker)",
-    "Yermak (name)"
-   ]
+   "title": "Yermak Timofeyevich",
+   "url": "https://en.wikipedia.org/wiki/Yermak_Timofeyevich",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-224": {
    "answer": "Khanate of Sibir",
@@ -71120,11 +71106,11 @@
   },
   "ru-231": {
    "answer": "St George's Day",
-   "title": "Saint George's Day",
-   "url": "https://en.wikipedia.org/wiki/Saint_George's_Day",
-   "via": "answer",
-   "status": "redirect-variant",
-   "from": "St George's Day"
+   "title": "Yuri's Day",
+   "url": "https://en.wikipedia.org/wiki/Yuri's_Day",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-232": {
    "answer": "Russian famine of 1601–1603",
@@ -71142,14 +71128,11 @@
   },
   "ru-234": {
    "answer": "Polish–Muscovite War",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "disambiguation",
-   "from": "Polish–Muscovite War",
-   "suggestions": [
-    "Polish–Muscovite War (1605–18)"
-   ]
+   "title": "Polish–Russian War (1609–1618)",
+   "url": "https://en.wikipedia.org/wiki/Polish%E2%80%93Russian_War_(1609%E2%80%931618)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-235": {
    "answer": "Vasily IV",
@@ -71363,14 +71346,11 @@
   },
   "ru-253": {
    "answer": "Patriarch Filaret",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "disambiguation",
-   "from": "Patriarch Filaret",
-   "suggestions": [
-    "Patriarch Filaret of Moscow"
-   ]
+   "title": "Patriarch Filaret of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_Filaret_of_Moscow",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-254": {
    "answer": "Smolensk War",
@@ -71427,6 +71407,223 @@
    "via": "answer",
    "status": "redirect-variant",
    "from": "Patriarch Nikon"
+  },
+  "ru-261": {
+   "answer": "Great Moscow Synod",
+   "title": "Great Moscow Synod",
+   "url": "https://en.wikipedia.org/wiki/Great_Moscow_Synod",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-262": {
+   "answer": "Raskol",
+   "title": "Schism of the Russian Church",
+   "url": "https://en.wikipedia.org/wiki/Schism_of_the_Russian_Church",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Raskol"
+  },
+  "ru-263": {
+   "answer": "Old Believers",
+   "title": "Old Believers",
+   "url": "https://en.wikipedia.org/wiki/Old_Believers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-264": {
+   "answer": "Avvakum",
+   "title": "Avvakum",
+   "url": "https://en.wikipedia.org/wiki/Avvakum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-265": {
+   "answer": "Solovetsky Monastery uprising",
+   "title": "Solovetsky Monastery uprising",
+   "url": "https://en.wikipedia.org/wiki/Solovetsky_Monastery_uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-266": {
+   "answer": "Khmelnytsky Uprising",
+   "title": "Khmelnytsky Uprising",
+   "url": "https://en.wikipedia.org/wiki/Khmelnytsky_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-267": {
+   "answer": "Pereiaslav Agreement",
+   "title": "Pereiaslav Agreement",
+   "url": "https://en.wikipedia.org/wiki/Pereiaslav_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-268": {
+   "answer": "Russo-Polish War of 1654–1667",
+   "title": "Polish–Russian War (1654–1667)",
+   "url": "https://en.wikipedia.org/wiki/Polish%E2%80%93Russian_War_(1654%E2%80%931667)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-269": {
+   "answer": "Truce of Andrusovo",
+   "title": "Truce of Andrusovo",
+   "url": "https://en.wikipedia.org/wiki/Truce_of_Andrusovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-270": {
+   "answer": "Cossacks",
+   "title": "Cossacks",
+   "url": "https://en.wikipedia.org/wiki/Cossacks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-281": {
+   "answer": "German Quarter",
+   "title": "German Quarter",
+   "url": "https://en.wikipedia.org/wiki/German_Quarter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-282": {
+   "answer": "Azov campaigns",
+   "title": "Azov campaigns (1695–1696)",
+   "url": "https://en.wikipedia.org/wiki/Azov_campaigns_(1695%E2%80%931696)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-283": {
+   "answer": "Grand Embassy",
+   "title": "Grand Embassy of Peter the Great",
+   "url": "https://en.wikipedia.org/wiki/Grand_Embassy_of_Peter_the_Great",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Grand Embassy"
+  },
+  "ru-284": {
+   "answer": "Streltsy uprising of 1698",
+   "title": "Streltsy uprising",
+   "url": "https://en.wikipedia.org/wiki/Streltsy_uprising",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-285": {
+   "answer": "beard tax",
+   "title": "Beard tax",
+   "url": "https://en.wikipedia.org/wiki/Beard_tax",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-286": {
+   "answer": "Great Northern War",
+   "title": "Great Northern War",
+   "url": "https://en.wikipedia.org/wiki/Great_Northern_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-287": {
+   "answer": "Charles XII",
+   "title": "Charles XII of Sweden",
+   "url": "https://en.wikipedia.org/wiki/Charles_XII_of_Sweden",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Charles XII"
+  },
+  "ru-288": {
+   "answer": "Battle of Narva",
+   "title": "Battle of Narva (1700)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Narva_(1700)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-289": {
+   "answer": "Peter and Paul Fortress",
+   "title": "Peter and Paul Fortress",
+   "url": "https://en.wikipedia.org/wiki/Peter_and_Paul_Fortress",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-290": {
+   "answer": "Vasilyevsky Island",
+   "title": "Vasilyevsky Island",
+   "url": "https://en.wikipedia.org/wiki/Vasilyevsky_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-291": {
+   "answer": "Imperial Russian Navy",
+   "title": "Imperial Russian Navy",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Russian_Navy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-292": {
+   "answer": "Battle of Poltava",
+   "title": "Battle of Poltava",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Poltava",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-293": {
+   "answer": "Ivan Mazepa",
+   "title": "Ivan Mazepa",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Mazepa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-294": {
+   "answer": "Pruth River Campaign",
+   "title": "Russo-Turkish War (1710–1713)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1710%E2%80%931713)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Pruth River Campaign"
+  },
+  "ru-295": {
+   "answer": "Treaty of Nystad",
+   "title": "Treaty of Nystad",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Nystad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-296": {
+   "answer": "Russian Empire",
+   "title": "Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-297": {
+   "answer": "Table of Ranks",
+   "title": "Table of Ranks",
+   "url": "https://en.wikipedia.org/wiki/Table_of_Ranks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-298": {
+   "answer": "Petrine collegia",
+   "title": "Collegium (ministry)",
+   "url": "https://en.wikipedia.org/wiki/Collegium_(ministry)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-299": {
+   "answer": "Governing Senate",
+   "title": "Governing Senate",
+   "url": "https://en.wikipedia.org/wiki/Governing_Senate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-300": {
+   "answer": "Most Holy Synod",
+   "title": "Most Holy Synod",
+   "url": "https://en.wikipedia.org/wiki/Most_Holy_Synod",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
