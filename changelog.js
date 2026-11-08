@@ -35,9 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1227", released: "2026-11-07T23:42Z" };
+window.FOLIO_VERSION = { v: "1.1228", released: "2026-11-08T03:15Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-11-08",
+    t: "100 new Second World War cards on resistance and the Holocaust",
+    items: [
+      "<b>100 new cards</b> in three Second World War decks, <i>Resistance</i>, <i>The Holocaust</i> and <i>Other crimes and mass violence</i>, with 95 new glossary terms."
+    ]
+  },
   {
     d: "2026-11-07",
     t: "Philosophy and Astronomy open; new WW2, US, Psychology and Russia cards",
@@ -46,9 +53,10 @@ window.CHANGELOG = [
       "200 new cards in <b>United States</b>, from Spanish, French and Dutch North America to the Revolution and the Constitution, with 189 new glossary terms.",
       "The new <b>Astronomy</b> collection opens with 100 cards, from the celestial sphere to how the Solar System formed, and 97 new glossary terms.",
       "The new <b>Philosophy</b> collection opens with 100 cards on argument, fallacies, logic and mathematics, and 97 new glossary terms.",
-      "<b>300 new cards</b> in ten Second World War decks, from <i>The Pacific counter-offensive</i> to <i>Other crimes and mass violence</i>, with 287 new glossary terms.",
+      "<b>200 new cards</b> in seven Second World War decks, from <i>The Pacific counter-offensive</i> to <i>Occupation and collaboration</i>, with 192 new glossary terms.",
       "100 new cards in <b>Russia</b>, from the Golden Horde and the rise of Moscow to Ivan III and the first of Ivan the Terrible, with 96 new glossary terms.",
-      "In the <b>geography</b> collections, every state, country and capital you have studied now appears on the maps of the other cards in its collection."
+      "In the <b>geography</b> collections, every state, country and capital you have studied now appears on the maps of the other cards in its collection.",
+      "On the home page, your active collections are grouped under headers by kind, and the <b>This week</b> bars now show time studied rather than cards."
     ]
   },
   {

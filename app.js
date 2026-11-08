@@ -24858,19 +24858,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     for (let d = 6; d >= 0; d--) {
       const t = now - d * DAY, k = dayKey(t), e = (S.reviewLog || {})[k], pd = per[k] || { secs: 0, right: 0, total: 0 };
       const g = figs(pd);
-      days.push({ n: e ? e[0] | 0 : 0, l: new Date(t).toLocaleDateString(undefined, { weekday: "short" }).slice(0, 2), cur: d === 0,
+      days.push({ n: e ? e[0] | 0 : 0, secs: pd.secs || 0, l: new Date(t).toLocaleDateString(undefined, { weekday: "short" }).slice(0, 2), cur: d === 0,
         full: d === 0 ? "Today" : new Date(t).toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "short" }),
         time: g.time, recall: g.recall });
     }
-    const max = Math.max(1, ...days.map((x) => x.n));
+    /* A BAR'S HEIGHT IS THE DAY'S TIME STUDIED, NOT ITS CARD COUNT (Nov 2026, on request: "the length of
+       those bars should be based on the time spent studying rather than the amount of cards"). The same
+       per-day seconds the bubble's time and the week's total read (`per`), so the tallest bar is the
+       longest day; the bubble still states all three figures. */
+    const max = Math.max(1, ...days.map((x) => x.secs));
     /* EACH BAR IS PRESSABLE (Oct 2026, on request: "clicking one of those bars should pop up a tiny text bubble
        which says the cards studied, time studied and correct rate of that particular day"). It is the stars'
        and the dots' own bubble (openInfoBubble, `data-info="day"`), since a tooltip is the one thing a phone
        cannot show; the day's three figures ride on the bar as data attributes, read off the same pass as the
        week's totals, so the bubble recomputes nothing and cannot disagree with the figures under it. A
        labelled GROUP rather than role="img", which would hide the bars inside it from a screen reader. */
-    const bars = '<div class="hw-bars" role="group" aria-label="' + esc("Cards studied each day this week: " + days.map((x) => x.l + " " + x.n).join(", ")) + '">' +
-      days.map((x) => '<i class="' + (x.cur ? "cur" : x.n ? "on" : "") + '" style="height:' + Math.max(4, Math.round((x.n / max) * 100)) + '%"' +
+    const bars = '<div class="hw-bars" role="group" aria-label="' + esc("Time studied each day this week: " + days.map((x) => x.l + " " + x.time).join(", ")) + '">' +
+      days.map((x) => '<i class="' + (x.cur ? "cur" : x.n || x.secs ? "on" : "") + '" style="height:' + Math.max(4, Math.round((x.secs / max) * 100)) + '%"' +
         ' role="button" tabindex="0" data-info="day" data-dl="' + esc(x.full) + '" data-n="' + x.n + '" data-time="' + esc(x.time) + '" data-recall="' + esc(x.recall) + '"' +
         ' aria-label="' + esc(x.full + ": " + x.n + (x.n === 1 ? " card" : " cards") + " studied, " + x.time + ", " + (x.recall === "\u2014" ? "no answers" : x.recall + " recalled")) + '"></i>').join("") + "</div>" +
       '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
@@ -25180,6 +25184,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const DECK_FLIP_MS = 200;
   function deckSetY(el, y) { el._ddy = y; el.style.transform = y ? "translateY(" + y + "px)" : ""; }
   function deckLayoutTop(el) { return el.getBoundingClientRect().top - (el._ddy || 0); }
+  /* The kinds of collection, in the order the home list's sections run (see secOf in PAGES.home), and the
+     header drawn above each. A header is not a row: it carries no `data-drag`, so the drag, the fold and the
+     completion screen's order (all read `.active-deck`) never see it. */
+  // a function, not a constant: COLLECTION_SECTIONS is declared further down this file
+  const adSectionOrder = () => COLLECTION_SECTIONS.map((x) => x.label).concat(["Courses", "Languages", "Shared decks", "Your groups", "Card of the day", "Other"]);
+  const adSectionHeadHTML = (sec) =>
+    `<div class="dk-sec" role="heading" aria-level="3" data-sec="${esc(sec)}"><span class="dk-sec-label">${esc(sec)}</span><span class="dk-sec-line" aria-hidden="true"></span></div>`;
+  // true when every header stands directly over the first top-level row of its own kind and no kind is split —
+  // what a drag at the top level can break, and what a repaint restores (see commit in setupDeckDrag)
+  function adSectionsIntact(listEl) {
+    if (!listEl.querySelector(".dk-sec")) return true;
+    let cur = "", fresh = false;
+    const seen = new Set();
+    for (const el of listEl.children) {
+      if (el.classList.contains("dk-sec")) {
+        if (fresh || seen.has(el.dataset.sec)) return false;
+        cur = el.dataset.sec; seen.add(cur); fresh = true;
+      } else if (el.classList.contains("active-deck") && !(+el.dataset.depth)) {
+        if (el.dataset.sec !== cur) return false;
+        fresh = false;
+      }
+    }
+    return !fresh;
+  }
   function setupDeckDrag(listEl, onDrop) {
     if (!listEl) return;
     const rows = () => [].slice.call(listEl.children).filter((el) => el.classList.contains("active-deck"));
@@ -25217,6 +25245,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the DOM has already moved, but the DOM is not the state, and this is the line that writes it
       setDeckOrder(el.dataset.parent || "", siblingsOf(el).map((r) => r.dataset.drag));
       adSyncFold(listEl);   // the rounded bottom corner belongs to whichever row is last NOW
+      // a row dragged across a section header is put back in its own kind's section by a repaint, once it has settled
+      if (!adSectionsIntact(listEl)) setTimeout(renderInPlace, DECK_FLIP_MS + 60);
       if (onDrop) onDrop();
     }
     /* ---------- DROPPING A ROW *INTO* ANOTHER (Aug 2026, on request) ----------
@@ -26024,7 +26054,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const isColl = (id) => TREE.collections.some((d) => d.id === id);
       const collsInPageOrder = run.filter(isColl).sort((x, y) => pageRank(x) - pageRank(y));
       let ci = 0;
-      run.map((id) => (isColl(id) ? collsInPageOrder[ci++] : id)).forEach((id) => emit(id, 0, "", ""));
+      /* THE KINDS OF COLLECTION EACH HAVE A HEADED SECTION (Nov 2026, on request: "in the active collections
+         list, the different types of collections have section dividers and headers"). The top level is
+         grouped by kind — the Collections page's sections in its order, then the courses, the languages,
+         the shared decks, the reader's groups and the Card-of-the-day list — keeping the reader's own order
+         WITHIN each kind (a stable sort), and a header with a rule is drawn where the kind changes (only
+         when the list holds two kinds or more; one header over a list of one kind says nothing). */
+      const secOf = (id) => (isColl(id) ? (sectionOf(id) === "Special" ? "Courses" : sectionOf(id))
+        : isLangCtxId(id) ? "Languages" : isGroupId(id) ? "Your groups" : id === COTD_ENTRY ? "Card of the day"
+        : uDeckIdOf(id) ? "Shared decks" : "Other");
+      const secOrder = adSectionOrder();
+      const secRank = (sec) => { const i = secOrder.indexOf(sec); return i < 0 ? secOrder.length : i; };
+      run.map((id) => (isColl(id) ? collsInPageOrder[ci++] : id))
+        .map((id, i) => ({ id, i, r: secRank(secOf(id)) }))
+        .sort((a, b) => a.r - b.r || a.i - b.i)
+        .forEach(({ id }) => { const at = rows.length; emit(id, 0, "", ""); if (rows[at]) rows[at].sec = secOf(id); });
+      const secHeads = new Set(rows.filter((r) => r.sec).map((r) => r.sec)).size > 1;
+      let lastSec = "";
       /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
          that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
          subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
@@ -26105,7 +26151,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              rather than storing a copy of it (see setEntryTitle); it is kept on the row because the only
              other way to recover the shipped name would be a second copy of the build's own title logic,
              which is the thing that drifts. */
-          const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}" data-shipname="${esc(r.title || (r.node ? nodeTitle(r.node) : r.drag))}"`;
+          const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}" data-shipname="${esc(r.title || (r.node ? nodeTitle(r.node) : r.drag))}"${r.sec ? ` data-sec="${esc(r.sec)}"` : ""}`;
+          // the kind's header, before the first top-level row of each kind (see secOf above)
+          const secHead = secHeads && r.sec && r.sec !== lastSec ? adSectionHeadHTML(r.sec) : "";
+          if (r.sec) lastSec = r.sec;
           // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
           // collapse in the reader's face on every visit to the page
           const shut = adChainVisible(r.parent, parentOf, drawn) ? "" : " dk-shut";
@@ -26147,7 +26196,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              row would have opened the sheet twice. (The earlier fix that walk was written for still
              stands: holding it must do something, and now it does what holding every other row does.) */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}${open}${day.cls}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            return secHead + `<div class="active-deck dk-langhead${shut}${open}${day.cls}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -26173,7 +26222,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              answer the same question two different ways. What still marks it as a header is the wash and the
              deeper indent of the rows beneath it. */
           if (r.group) {
-            return `<div class="active-deck deck-group${shut}${open}${day.cls}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
+            return secHead + `<div class="active-deck deck-group${shut}${open}${day.cls}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -26192,7 +26241,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              It is still an ordinary row in every other respect: the grip, the indent, the hue and the hold
              menu are the list's own, so it can be dragged into place and removed like anything else. */
           if (r.pending) {
-            return `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            return secHead + `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               <div class="dk-body">
@@ -26214,7 +26263,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                taking that away to advertise an update would be the worse trade. The button stops its own
                press, like Download's, or holding it would open the options sheet over the fetch. */
             const up = r.update ? `<button class="btn tiny dk-dl dk-up" type="button" data-langup="${esc(r.update)}" title="A newer copy of this deck has been published. Updating keeps your progress.">Update</button>` : "";
-            return `<div class="active-deck${r.coll ? " dk-coll" : ""}${shut}${open}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
+            return secHead + `<div class="active-deck${r.coll ? " dk-coll" : ""}${shut}${open}${day.cls}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
               ${grip}${day.mark}
               ${adIcon(r.drag, r.parent)}
               ${day.counts}
@@ -26227,7 +26276,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             </div>`;
           }
           if (r.active) {
-            return `<div class="active-deck${shut}${open}${day.cls}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
+            return secHead + `<div class="active-deck${shut}${open}${day.cls}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
               ${grip}${day.mark}
               ${adIcon(r.node.id, r.parent)}
               ${day.counts}
@@ -26264,7 +26313,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             const won = days.every((d) => d.cls.indexOf("dk-won") >= 0);
             return { cls: won ? " dk-done dk-won" : " dk-done", mark: doneMarkHTML(true, won, DK_DAY_LABELS) };
           })();
-          return `<div class="active-deck context${shut}${ctx.cls}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+          return secHead + `<div class="active-deck context${shut}${ctx.cls}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
             ${grip}${ctx.mark}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
