@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-08T12:08Z",
+ "generated": "2026-11-08T12:18Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6398,
-  "redirect-broader": 609,
+  "ok": 6418,
+  "redirect-broader": 610,
   "redirect-variant": 386,
   "section-redirect": 128,
   "disambiguation": 147,
-  "none": 1005,
+  "none": 1004,
   "disambig-resolved": 85,
   "list-page": 6,
   "search-match": 9,
@@ -70437,6 +70437,147 @@
    "answer": "Victory over Japan Day",
    "title": "Victory over Japan Day",
    "url": "https://en.wikipedia.org/wiki/Victory_over_Japan_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-981": {
+   "answer": "Vergangenheitsbewältigung",
+   "title": "Vergangenheitsbewältigung",
+   "url": "https://en.wikipedia.org/wiki/Vergangenheitsbew%C3%A4ltigung",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-982": {
+   "answer": "Murayama Statement",
+   "title": "Murayama Statement",
+   "url": "https://en.wikipedia.org/wiki/Murayama_Statement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-983": {
+   "answer": "Economic Cooperation Administration",
+   "title": "Economic Cooperation Administration",
+   "url": "https://en.wikipedia.org/wiki/Economic_Cooperation_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-984": {
+   "answer": "inner German border",
+   "title": "Inner German border",
+   "url": "https://en.wikipedia.org/wiki/Inner_German_border",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-985": {
+   "answer": "containment",
+   "title": "Containment",
+   "url": "https://en.wikipedia.org/wiki/Containment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-986": {
+   "answer": "Sétif and Guelma massacre",
+   "title": "Sétif and Guelma massacre",
+   "url": "https://en.wikipedia.org/wiki/S%C3%A9tif_and_Guelma_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-987": {
+   "answer": "SS Exodus",
+   "title": "SS Exodus",
+   "url": "https://en.wikipedia.org/wiki/SS_Exodus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-988": {
+   "answer": "Fourth Geneva Convention",
+   "title": "Fourth Geneva Convention",
+   "url": "https://en.wikipedia.org/wiki/Fourth_Geneva_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-989": {
+   "answer": "Genocide Convention",
+   "title": "Genocide Convention",
+   "url": "https://en.wikipedia.org/wiki/Genocide_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-990": {
+   "answer": "General Agreement on Tariffs and Trade",
+   "title": "General Agreement on Tariffs and Trade",
+   "url": "https://en.wikipedia.org/wiki/General_Agreement_on_Tariffs_and_Trade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-991": {
+   "answer": "National Insurance Act 1946",
+   "title": "National Insurance Act 1946",
+   "url": "https://en.wikipedia.org/wiki/National_Insurance_Act_1946",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-993": {
+   "answer": "GI Bill",
+   "title": "G.I. Bill",
+   "url": "https://en.wikipedia.org/wiki/G.I._Bill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-994": {
+   "answer": "National World War II Memorial",
+   "title": "World War II Memorial",
+   "url": "https://en.wikipedia.org/wiki/World_War_II_Memorial",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "National World War II Memorial"
+  },
+  "ww2-995": {
+   "answer": "Greatest Generation",
+   "title": "Greatest Generation",
+   "url": "https://en.wikipedia.org/wiki/Greatest_Generation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-996": {
+   "answer": "World at War",
+   "title": "The World at War",
+   "url": "https://en.wikipedia.org/wiki/The_World_at_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-997": {
+   "answer": "memory law",
+   "title": "Memory law",
+   "url": "https://en.wikipedia.org/wiki/Memory_law",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-998": {
+   "answer": "Historikerstreit",
+   "title": "Historikerstreit",
+   "url": "https://en.wikipedia.org/wiki/Historikerstreit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-999": {
+   "answer": "Ringelblum Archive",
+   "title": "Ringelblum Archive",
+   "url": "https://en.wikipedia.org/wiki/Ringelblum_Archive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-1000": {
+   "answer": "Rome Statute",
+   "title": "Rome Statute",
+   "url": "https://en.wikipedia.org/wiki/Rome_Statute",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-992": {
+   "answer": "marriage bar",
+   "title": "Marriage bar",
+   "url": "https://en.wikipedia.org/wiki/Marriage_bar",
    "via": "glossary",
    "status": "ok"
   }

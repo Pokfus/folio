@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6398 | the title is the article |
+| `ok` | 6418 | the title is the article |
 | `redirect-variant` | 386 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 85 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 609 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 610 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 128 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1005 | nothing matched; no link |
+| `none` | 1004 | nothing matched; no link |
 
-**7494 of 8790 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7515 of 8810 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (609)
+## Redirected to a differently named article — check each (610)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -653,6 +653,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-963` **Trümmerfrauen** → [Trümmerfrau](https://en.wikipedia.org/wiki/Tr%C3%BCmmerfrau) (from `Trümmerfrauen`)
 - `ww2-972` **crimes against peace** → [Crime of aggression](https://en.wikipedia.org/wiki/Crime_of_aggression) (from `Crimes against peace`)
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
+- `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
 ## Settled from a disambiguation page (85)
 
@@ -1054,7 +1055,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-756` **Auschwitz II-Birkenau** — `Auschwitz II-Birkenau` only redirects into `Auschwitz concentration camp#Auschwitz II-Birkenau`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1005)
+## No article found (1004)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2062,4 +2063,3 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-663` **occupation costs** — search suggests `Axis occupation of Greece`, `Occupation of the Baltic states`, `World War II reparations`, `World War I`, `List of World War II feature films`
 - `ww2-728` **kashariyot** — search suggests `Bela Yaari Hazan`, `Frumka Płotnicka`
 - `ww2-786` **Liberation of Nazi concentration camps** — search suggests `List of Nazi concentration camps`, `Nazi Concentration Camps (film)`, `Female guards in Nazi concentration camps`, `Auschwitz concentration camp`, `Gross-Rosen concentration camp`
-- `ww2-946` **Shimoda case** — search suggests `Treaty of Shimoda`, `Indiscriminate attack`, `Yuki Shimoda`, `Utako Shimoda`, `War crime`

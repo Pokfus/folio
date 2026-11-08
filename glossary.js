@@ -9031,7 +9031,26 @@ window.GLOSSARY = {
 "Division_of_Korea": "",
 "Treaty_of_San_Francisco": "",
 "Chidorigafuchi_National_Cemetery": "",
-"Victory_over_Japan_Day": ""
+"Victory_over_Japan_Day": "",
+"Vergangenheitsbewältigung": "",
+"Murayama_Statement": "",
+"Economic_Cooperation_Administration": "",
+"Inner_German_border": "",
+"Containment": "",
+"Sétif_and_Guelma_massacre": "",
+"SS_Exodus": "",
+"Fourth_Geneva_Convention": "",
+"Genocide_Convention": "",
+"National_Insurance_Act_1946": "",
+"G.I._Bill": "",
+"National_World_War_II_Memorial": "",
+"Greatest_Generation": "",
+"The_World_at_War": "",
+"Memory_law": "",
+"Historikerstreit": "",
+"Ringelblum_Archive": "",
+"Rome_Statute": "",
+"Marriage_bar": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19109,7 +19128,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "USS_Missouri_(BB-63)": ["USS Missouri","Mighty Mo"],
 "Japanese_Surrendered_Personnel": ["JSP"],
 "Treaty_of_San_Francisco": ["Treaty of Peace with Japan","San Francisco Treaty"],
-"Victory_over_Japan_Day": ["VJ Day","V-J Day"]
+"Victory_over_Japan_Day": ["VJ Day","V-J Day"],
+"Vergangenheitsbewältigung": ["coming to terms with the past"],
+"Inner_German_border": ["inner German border"],
+"Sétif_and_Guelma_massacre": ["Sétif massacre"],
+"SS_Exodus": ["Exodus 1947"],
+"G.I._Bill": ["GI Bill","G.I. Bill","Servicemen's Readjustment Act of 1944"],
+"The_World_at_War": ["World at War"],
+"Memory_law": ["memory laws"],
+"Historikerstreit": ["historians' quarrel"],
+"Ringelblum_Archive": ["Oneg Shabbat Archive","Underground Archive of the Warsaw Ghetto"],
+"Rome_Statute": ["Rome Statute of the International Criminal Court"],
+"Marriage_bar": ["marriage bars","marriage ban"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28297,7 +28327,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Division_of_Korea": ["event","history","politics","korea"],
 "Treaty_of_San_Francisco": ["text","history","diplomacy","japan","united states"],
 "Chidorigafuchi_National_Cemetery": ["place","history","second world war","japan"],
-"Victory_over_Japan_Day": ["event","history","second world war","united states","united kingdom"]
+"Victory_over_Japan_Day": ["event","history","second world war","united states","united kingdom"],
+"Vergangenheitsbewältigung": ["concept","history","germany","memory"],
+"Murayama_Statement": ["text","history","japan","memory"],
+"Economic_Cooperation_Administration": ["institution","history","united states","economics"],
+"Inner_German_border": ["place","history","germany","cold war"],
+"Containment": ["concept","history","united states","cold war"],
+"Sétif_and_Guelma_massacre": ["event","history","france","algeria"],
+"SS_Exodus": ["object","history","israel","refugees"],
+"Fourth_Geneva_Convention": ["text","law","human rights","history"],
+"Genocide_Convention": ["text","law","human rights","history"],
+"National_Insurance_Act_1946": ["text","history","britain","welfare"],
+"G.I._Bill": ["text","history","united states","veterans"],
+"National_World_War_II_Memorial": ["building","history","united states","memory"],
+"Greatest_Generation": ["people","history","united states","memory"],
+"The_World_at_War": ["text","history","britain","television"],
+"Memory_law": ["concept","law","memory","history"],
+"Historikerstreit": ["event","history","germany","historiography"],
+"Ringelblum_Archive": ["text","history","holocaust","poland"],
+"Rome_Statute": ["text","law","human rights","history"],
+"Marriage_bar": ["practice","history","women","work"]
 });
 
 /* ============================================================================
