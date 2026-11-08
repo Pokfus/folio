@@ -18,7 +18,9 @@
         "death":  ["11 July 1941", "Youlbury, Berkshire"]
     } } }
 
-  Every part is optional — a person whose birth no source dates gets no Birth row, never an estimate,
+  Every part is optional. Where a date is not known exactly, write the approximation Wikipedia gives
+  ("c. 106 BCE", "c. 160 – 155 BCE"; Nov 2026, on request: estimates are wanted, not forbidden); only a
+  person whose birth Wikipedia gives no date for at all, not even an approximate one, gets no Birth row,
   and the line then opens with the term (at most 4 rows, as every other line) — and a place may be left out ("" or a one-item array) where the
   sources do not give one — an unknown birthplace is a missing line, never a guess. A place is written
   "Town, Region" with commas, never brackets (the writer refuses brackets). `career` and
