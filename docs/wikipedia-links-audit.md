@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6379 | the title is the article |
+| `ok` | 6398 | the title is the article |
 | `redirect-variant` | 386 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 85 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 608 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 609 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 128 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1005 | nothing matched; no link |
 
-**7474 of 8770 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7494 of 8790 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (608)
+## Redirected to a differently named article — check each (609)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -649,6 +649,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-831` **Fremdarbeiter** → [Forced labour under German rule during World War II](https://en.wikipedia.org/wiki/Forced_labour_under_German_rule_during_World_War_II) (from `Fremdarbeiter`)
 - `ww2-845` **Kinderlandverschickung** → [Evacuations of children in Germany during World War II](https://en.wikipedia.org/wiki/Evacuations_of_children_in_Germany_during_World_War_II) (from `Kinderlandverschickung`)
 - `ww2-866` **National Mobilization Law** → [State General Mobilization Law](https://en.wikipedia.org/wiki/State_General_Mobilization_Law) (from `National Mobilization Law`)
+- `ww2-947` **Jewel Voice Broadcast** → [Hirohito surrender broadcast](https://en.wikipedia.org/wiki/Hirohito_surrender_broadcast) (from `Jewel Voice Broadcast`)
 - `ww2-963` **Trümmerfrauen** → [Trümmerfrau](https://en.wikipedia.org/wiki/Tr%C3%BCmmerfrau) (from `Trümmerfrauen`)
 - `ww2-972` **crimes against peace** → [Crime of aggression](https://en.wikipedia.org/wiki/Crime_of_aggression) (from `Crimes against peace`)
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
@@ -2061,4 +2062,4 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ww2-663` **occupation costs** — search suggests `Axis occupation of Greece`, `Occupation of the Baltic states`, `World War II reparations`, `World War I`, `List of World War II feature films`
 - `ww2-728` **kashariyot** — search suggests `Bela Yaari Hazan`, `Frumka Płotnicka`
 - `ww2-786` **Liberation of Nazi concentration camps** — search suggests `List of Nazi concentration camps`, `Nazi Concentration Camps (film)`, `Female guards in Nazi concentration camps`, `Auschwitz concentration camp`, `Gross-Rosen concentration camp`
-- `ww2-978` **Legal purge in Norway** — search suggests `Legal purge in Norway after World War II`, `Kitty Grande`, `Scandinavian theatre of World War II`, `Purges of Nazi collaborators`, `War crimes in World War II`
+- `ww2-946` **Shimoda case** — search suggests `Treaty of Shimoda`, `Indiscriminate attack`, `Yuki Shimoda`, `Utako Shimoda`, `War crime`

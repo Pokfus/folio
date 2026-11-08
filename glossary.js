@@ -9012,7 +9012,26 @@ window.GLOSSARY = {
 "Belsen_trial": "",
 "Legal_purge_in_Norway_after_World_War_II": "",
 "Indignité_nationale": "",
-"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ""
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": "",
+"Hibakusha": "",
+"Atomic_Bomb_Casualty_Commission": "",
+"Soviet_invasion_of_Manchuria": "",
+"Soviet_invasion_of_the_Kuril_Islands": "",
+"Soviet–Japanese_Neutrality_Pact": "",
+"Ryuichi_Shimoda_v._The_State": "",
+"Hirohito_surrender_broadcast": "",
+"Kyūjō_incident": "",
+"Japanese_Instrument_of_Surrender": "",
+"USS_Missouri_(BB-63)": "",
+"General_Order_No._1": "",
+"Occupation_of_Japan": "",
+"Humanity_Declaration": "",
+"Japanese_Surrendered_Personnel": "",
+"Japanese_repatriation_from_Huludao": "",
+"Division_of_Korea": "",
+"Treaty_of_San_Francisco": "",
+"Chidorigafuchi_National_Cemetery": "",
+"Victory_over_Japan_Day": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13367,7 +13386,25 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "International_Military_Tribunal_for_the_Far_East": "1946–1948",
 "Belsen_trial": "17 September – 17 November 1945",
 "Legal_purge_in_Norway_after_World_War_II": "1945–1957",
-"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": "10 September 1952"
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": "10 September 1952",
+"Atomic_Bomb_Casualty_Commission": "1947–1975",
+"Soviet_invasion_of_Manchuria": "1945",
+"Soviet_invasion_of_the_Kuril_Islands": "1945",
+"Soviet–Japanese_Neutrality_Pact": "1941–1945",
+"Ryuichi_Shimoda_v._The_State": "1955–1963",
+"Hirohito_surrender_broadcast": "1945",
+"Kyūjō_incident": "1945",
+"Japanese_Instrument_of_Surrender": "1945",
+"USS_Missouri_(BB-63)": "1944–1992",
+"General_Order_No._1": "1945",
+"Occupation_of_Japan": "1945–1952",
+"Humanity_Declaration": "1946",
+"Japanese_Surrendered_Personnel": "1945–1947",
+"Japanese_repatriation_from_Huludao": "1946–1947",
+"Division_of_Korea": "1945–1948",
+"Treaty_of_San_Francisco": "1951",
+"Chidorigafuchi_National_Cemetery": "1959",
+"Victory_over_Japan_Day": "1945"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19062,7 +19099,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Belsen_trial": ["Bergen-Belsen trial"],
 "Legal_purge_in_Norway_after_World_War_II": ["Legal purge in Norway","landssvikoppgjøret"],
 "Indignité_nationale": ["national unworthiness"],
-"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ["Luxembourg Agreement","Reparations Agreement"]
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ["Luxembourg Agreement","Reparations Agreement"],
+"Atomic_Bomb_Casualty_Commission": ["ABCC"],
+"Soviet_invasion_of_Manchuria": ["August Storm"],
+"Soviet–Japanese_Neutrality_Pact": ["Soviet-Japanese Neutrality Pact"],
+"Ryuichi_Shimoda_v._The_State": ["Shimoda case"],
+"Hirohito_surrender_broadcast": ["Jewel Voice Broadcast","Gyokuon-hoso"],
+"Kyūjō_incident": ["Kyujo incident"],
+"USS_Missouri_(BB-63)": ["USS Missouri","Mighty Mo"],
+"Japanese_Surrendered_Personnel": ["JSP"],
+"Treaty_of_San_Francisco": ["Treaty of Peace with Japan","San Francisco Treaty"],
+"Victory_over_Japan_Day": ["VJ Day","V-J Day"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28231,7 +28278,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Belsen_trial": ["event","history","second world war","holocaust","law","war crimes"],
 "Legal_purge_in_Norway_after_World_War_II": ["event","history","second world war","norway","law"],
 "Indignité_nationale": ["concept","history","second world war","france","law"],
-"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ["text","history","second world war","israel","germany"]
+"Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany": ["text","history","second world war","israel","germany"],
+"Hibakusha": ["people","history","second world war","japan","nuclear weapons"],
+"Atomic_Bomb_Casualty_Commission": ["institution","history","science","medicine","japan"],
+"Soviet_invasion_of_Manchuria": ["event","history","second world war","warfare","soviet union","japan"],
+"Soviet_invasion_of_the_Kuril_Islands": ["event","history","second world war","warfare","soviet union","japan"],
+"Soviet–Japanese_Neutrality_Pact": ["text","history","second world war","diplomacy","soviet union","japan"],
+"Ryuichi_Shimoda_v._The_State": ["event","history","law","nuclear weapons","japan"],
+"Hirohito_surrender_broadcast": ["event","history","second world war","japan"],
+"Kyūjō_incident": ["event","history","second world war","japan"],
+"Japanese_Instrument_of_Surrender": ["text","history","second world war","japan"],
+"USS_Missouri_(BB-63)": ["object","history","second world war","navy","united states"],
+"General_Order_No._1": ["text","history","second world war","politics","japan"],
+"Occupation_of_Japan": ["era","history","politics","japan","united states"],
+"Humanity_Declaration": ["text","history","japan","religion","politics"],
+"Japanese_Surrendered_Personnel": ["people","history","second world war","japan","united kingdom"],
+"Japanese_repatriation_from_Huludao": ["event","history","second world war","japan","china"],
+"Division_of_Korea": ["event","history","politics","korea"],
+"Treaty_of_San_Francisco": ["text","history","diplomacy","japan","united states"],
+"Chidorigafuchi_National_Cemetery": ["place","history","second world war","japan"],
+"Victory_over_Japan_Day": ["event","history","second world war","united states","united kingdom"]
 });
 
 /* ============================================================================

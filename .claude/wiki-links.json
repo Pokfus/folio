@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-08T12:04Z",
+ "generated": "2026-11-08T12:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6379,
-  "redirect-broader": 608,
+  "ok": 6398,
+  "redirect-broader": 609,
   "redirect-variant": 386,
   "section-redirect": 128,
   "disambiguation": 147,
@@ -70297,6 +70297,148 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Luxembourg Agreement"
+  },
+  "ww2-941": {
+   "answer": "Hibakusha",
+   "title": "Hibakusha",
+   "url": "https://en.wikipedia.org/wiki/Hibakusha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-942": {
+   "answer": "Atomic Bomb Casualty Commission",
+   "title": "Atomic Bomb Casualty Commission",
+   "url": "https://en.wikipedia.org/wiki/Atomic_Bomb_Casualty_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-943": {
+   "answer": "Soviet invasion of Manchuria",
+   "title": "Soviet invasion of Manchuria",
+   "url": "https://en.wikipedia.org/wiki/Soviet_invasion_of_Manchuria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-944": {
+   "answer": "Soviet invasion of the Kuril Islands",
+   "title": "Soviet invasion of the Kuril Islands",
+   "url": "https://en.wikipedia.org/wiki/Soviet_invasion_of_the_Kuril_Islands",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-945": {
+   "answer": "Soviet–Japanese Neutrality Pact",
+   "title": "Soviet–Japanese Neutrality Pact",
+   "url": "https://en.wikipedia.org/wiki/Soviet%E2%80%93Japanese_Neutrality_Pact",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-946": {
+   "answer": "Shimoda case",
+   "title": "Ryuichi Shimoda et al. v. The State",
+   "url": "https://en.wikipedia.org/wiki/Ryuichi_Shimoda_et_al._v._The_State",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-947": {
+   "answer": "Jewel Voice Broadcast",
+   "title": "Hirohito surrender broadcast",
+   "url": "https://en.wikipedia.org/wiki/Hirohito_surrender_broadcast",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jewel Voice Broadcast"
+  },
+  "ww2-948": {
+   "answer": "Kyūjō incident",
+   "title": "Kyūjō incident",
+   "url": "https://en.wikipedia.org/wiki/Ky%C5%ABj%C5%8D_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-949": {
+   "answer": "Japanese Instrument of Surrender",
+   "title": "Japanese Instrument of Surrender",
+   "url": "https://en.wikipedia.org/wiki/Japanese_Instrument_of_Surrender",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-950": {
+   "answer": "USS Missouri",
+   "title": "USS Missouri (BB-63)",
+   "url": "https://en.wikipedia.org/wiki/USS_Missouri_(BB-63)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-951": {
+   "answer": "General Order No. 1",
+   "title": "General Order No. 1",
+   "url": "https://en.wikipedia.org/wiki/General_Order_No._1",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-952": {
+   "answer": "Occupation of Japan",
+   "title": "Occupation of Japan",
+   "url": "https://en.wikipedia.org/wiki/Occupation_of_Japan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-953": {
+   "answer": "Supreme Commander for the Allied Powers",
+   "title": "Supreme Commander for the Allied Powers",
+   "url": "https://en.wikipedia.org/wiki/Supreme_Commander_for_the_Allied_Powers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-954": {
+   "answer": "Humanity Declaration",
+   "title": "Humanity Declaration",
+   "url": "https://en.wikipedia.org/wiki/Humanity_Declaration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-955": {
+   "answer": "Japanese Surrendered Personnel",
+   "title": "Japanese Surrendered Personnel",
+   "url": "https://en.wikipedia.org/wiki/Japanese_Surrendered_Personnel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-956": {
+   "answer": "Japanese repatriation from Huludao",
+   "title": "Japanese repatriation from Huludao",
+   "url": "https://en.wikipedia.org/wiki/Japanese_repatriation_from_Huludao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-957": {
+   "answer": "division of Korea",
+   "title": "Division of Korea",
+   "url": "https://en.wikipedia.org/wiki/Division_of_Korea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-958": {
+   "answer": "Treaty of San Francisco",
+   "title": "Treaty of San Francisco",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_San_Francisco",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-959": {
+   "answer": "Chidorigafuchi National Cemetery",
+   "title": "Chidorigafuchi National Cemetery",
+   "url": "https://en.wikipedia.org/wiki/Chidorigafuchi_National_Cemetery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-960": {
+   "answer": "Victory over Japan Day",
+   "title": "Victory over Japan Day",
+   "url": "https://en.wikipedia.org/wiki/Victory_over_Japan_Day",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
