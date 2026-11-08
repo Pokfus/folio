@@ -1472,22 +1472,22 @@ definitions, which exist precisely because the wording matters.
     ww2-800  Kempeitai
     ww2-801  Manila massacre
     ww2-802  Sandakan death marches
-    ww2-803  Reprisal killings in occupied Europe
-    ww2-804  The bombing of civilians
-    ww2-805  The law of war and its collapse
-    ww2-806  The Geneva Conventions in the Second World War
-    ww2-807  Soviet crimes during the war
-    ww2-808  The NKVD prisoner massacres of 1941
-    ww2-809  Ethnic cleansing during the war
+    ww2-803  Hostages Trial
+    ww2-804  Dehousing
+    ww2-805  Hague Conventions
+    ww2-806  Geneva Convention on Prisoners of War
+    ww2-807  Deportation of the Crimean Tatars
+    ww2-808  NKVD prisoner massacres
+    ww2-809  Ethnic cleansing
     ww2-810  Massacres of Poles in Volhynia and Eastern Galicia
-    ww2-811  Wartime expulsions and population transfers
-    ww2-812  Famine as an instrument of war
-    ww2-813  The record of wartime sexual violence
-    ww2-814  Nazi plunder of art and cultural property
-    ww2-815  The destruction of cultural heritage
-    ww2-816  Refugees and displacement during the war
-    ww2-817  Civilian casualties of the Second World War
-    ww2-818  Counting the dead
+    ww2-811  Population transfer
+    ww2-812  Starvation of civilians
+    ww2-813  Wartime sexual violence
+    ww2-814  Einsatzstab Reichsleiter Rosenberg
+    ww2-815  Baedeker Blitz
+    ww2-816  United Nations Relief and Rehabilitation Administration
+    ww2-817  Civilian casualties
+    ww2-818  Excess mortality
     ww2-819  Crimes against humanity
     ww2-820  Genocide
 
@@ -1495,15 +1495,15 @@ definitions, which exist precisely because the wording matters.
 
 ### The home fronts — `ww2-home-fronts`
 
-    ww2-821  The home front in the Second World War
+    ww2-821  War economy
     ww2-822  Total war
-    ww2-823  The British home front
+    ww2-823  Home Guard
     ww2-824  Rationing in the United Kingdom
-    ww2-825  British women and war work
-    ww2-826  The American home front
-    ww2-827  American war mobilisation
-    ww2-828  Women in American war work
-    ww2-829  African Americans and the Second World War
+    ww2-825  Women's Land Army
+    ww2-826  Office of Price Administration
+    ww2-827  War Production Board
+    ww2-828  Rosie the Riveter
+    ww2-829  Executive Order 8802
     ww2-830  Double V campaign
     ww2-831  The German home front
     ww2-832  German women and the Nazi war effort
@@ -1515,68 +1515,68 @@ definitions, which exist precisely because the wording matters.
     ww2-838  Wartime censorship
     ww2-839  Radio in the Second World War
     ww2-840  Film and the war
-    ww2-841  War art and photography
-    ww2-842  War correspondents
-    ww2-843  Conscription in the Second World War
-    ww2-844  Conscientious objection
-    ww2-845  Children in wartime
-    ww2-846  Education in wartime
-    ww2-847  Public health in wartime
-    ww2-848  Housing and bomb damage
-    ww2-849  Crime and disorder in wartime
-    ww2-850  Religion and the war
-    ww2-851  Marriage and family life in wartime
-    ww2-852  Internment of enemy aliens
-    ww2-853  Refugees before and during the war
+    ww2-841  War Artists' Advisory Committee
+    ww2-842  War correspondent
+    ww2-843  Selective Training and Service Act of 1940
+    ww2-844  Civilian Public Service
+    ww2-845  Kinderlandverschickung
+    ww2-846  Education Act 1944
+    ww2-847  Emergency Medical Service
+    ww2-848  Prefab
+    ww2-849  1943 Detroit race riot
+    ww2-850  Clemens August von Galen
+    ww2-851  War bride
+    ww2-852  Enemy alien
+    ww2-853  Bermuda Conference
     ww2-854  Kindertransport
-    ww2-855  The war and social change
+    ww2-855  Beveridge Report
 
 ### War economies and production — `ww2-war-economy`
 
-    ww2-856  The economics of the Second World War
-    ww2-857  The mobilisation of the war economies
-    ww2-858  The American war economy
-    ww2-859  American war production
+    ww2-856  Economic warfare
+    ww2-857  Shadow factory
+    ww2-858  Victory Program
+    ww2-859  Willow Run
     ww2-860  Arsenal of Democracy
-    ww2-861  The German war economy
-    ww2-862  The failure of German economic mobilisation
-    ww2-863  The Soviet war economy in the balance
-    ww2-864  The relocation of Soviet industry
-    ww2-865  The British war economy
-    ww2-866  The Japanese war economy
-    ww2-867  Raw materials and the war
-    ww2-868  Oil and the Second World War
-    ww2-869  The Ploiești oilfields
-    ww2-870  Synthetic fuel and rubber
-    ww2-871  Food and agriculture at war
-    ww2-872  Wartime finance and inflation
-    ww2-873  Allied economic cooperation
-    ww2-874  Shipping and the movement of supplies
-    ww2-875  Labour in the wartime economies
-    ww2-876  Slave labour and the German economy
-    ww2-877  The exploitation of the occupied economies
-    ww2-878  Allied and Axis production compared
-    ww2-879  The economic balance of the war
-    ww2-880  Did economics decide the war?
+    ww2-861  Reich Ministry of Armaments and War Production
+    ww2-862  Sportpalast speech
+    ww2-863  Nikolai Voznesensky
+    ww2-864  Evacuation of Soviet industry
+    ww2-865  Ministry of Supply
+    ww2-866  National Mobilization Law
+    ww2-867  Preclusive purchasing
+    ww2-868  Big Inch
+    ww2-869  Operation Tidal Wave
+    ww2-870  Bergius process
+    ww2-871  Rationing
+    ww2-872  War bond
+    ww2-873  Combined Munitions Assignments Board
+    ww2-874  War Shipping Administration
+    ww2-875  War Manpower Commission
+    ww2-876  Organisation Todt
+    ww2-877  Reichswerke Hermann Göring
+    ww2-878  Mass production
+    ww2-879  Gross domestic product
+    ww2-880  Attrition warfare
 
 ### Technology, intelligence and science — `ww2-technology`
 
-    ww2-881  Technology during World War II
+    ww2-881  Office of Scientific Research and Development
     ww2-882  Radar
     ww2-883  Cavity magnetron
-    ww2-884  Sonar
-    ww2-885  Military aircraft of the Second World War
-    ww2-886  The jet engine and the Messerschmitt Me 262
-    ww2-887  Tanks in the Second World War
-    ww2-888  Infantry weapons of the Second World War
+    ww2-884  Hedgehog
+    ww2-885  B-29 Superfortress
+    ww2-886  Messerschmitt Me 262
+    ww2-887  M4 Sherman
+    ww2-888  M1 Garand
     ww2-889  Proximity fuze
-    ww2-890  The German missile programme
+    ww2-890  Wernher von Braun
     ww2-891  Peenemünde
-    ww2-892  Military medicine in the Second World War
+    ww2-892  Military medicine
     ww2-893  Penicillin
-    ww2-894  Blood transfusion and battlefield surgery
+    ww2-894  Blood transfusion
     ww2-895  Operations research
-    ww2-896  Cryptanalysis in the Second World War
+    ww2-896  Cryptanalysis
     ww2-897  Enigma machine
     ww2-898  Bletchley Park
     ww2-899  Alan Turing
