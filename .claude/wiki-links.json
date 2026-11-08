@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-07T23:38Z",
+ "generated": "2026-11-08T03:52Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6275,
-  "redirect-broader": 601,
-  "redirect-variant": 380,
+  "ok": 6292,
+  "redirect-broader": 602,
+  "redirect-variant": 381,
   "section-redirect": 127,
   "disambiguation": 147,
-  "none": 1004,
+  "none": 1005,
   "disambig-resolved": 84,
   "list-page": 6,
   "search-match": 9,
@@ -69434,6 +69434,155 @@
    "answer": "Kempeitai",
    "title": "Kempeitai",
    "url": "https://en.wikipedia.org/wiki/Kempeitai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-821": {
+   "answer": "war economy",
+   "title": "War economy",
+   "url": "https://en.wikipedia.org/wiki/War_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-822": {
+   "answer": "total war",
+   "title": "Total war",
+   "url": "https://en.wikipedia.org/wiki/Total_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-823": {
+   "answer": "Home Guard",
+   "title": "Home Guard (United Kingdom)",
+   "url": "https://en.wikipedia.org/wiki/Home_Guard_(United_Kingdom)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-824": {
+   "answer": "rationing in the United Kingdom",
+   "title": "Rationing in the United Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Rationing_in_the_United_Kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-825": {
+   "answer": "Women's Land Army",
+   "title": "Women's Land Army",
+   "url": "https://en.wikipedia.org/wiki/Women's_Land_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-826": {
+   "answer": "Office of Price Administration",
+   "title": "Office of Price Administration",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Price_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-827": {
+   "answer": "War Production Board",
+   "title": "War Production Board",
+   "url": "https://en.wikipedia.org/wiki/War_Production_Board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-828": {
+   "answer": "Rosie the Riveter",
+   "title": "Rosie the Riveter",
+   "url": "https://en.wikipedia.org/wiki/Rosie_the_Riveter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-829": {
+   "answer": "Executive Order 8802",
+   "title": "Executive Order 8802",
+   "url": "https://en.wikipedia.org/wiki/Executive_Order_8802",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-830": {
+   "answer": "Double V campaign",
+   "title": "Double V campaign",
+   "url": "https://en.wikipedia.org/wiki/Double_V_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-811": {
+   "answer": "population transfer",
+   "title": "Population transfer",
+   "url": "https://en.wikipedia.org/wiki/Population_transfer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-812": {
+   "answer": "starvation of civilians",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II casualties",
+    "Home front during World War II",
+    "Starvation (crime)",
+    "Minnesota Starvation Experiment",
+    "War crimes in World War II"
+   ]
+  },
+  "ww2-813": {
+   "answer": "wartime sexual violence",
+   "title": "Wartime sexual violence",
+   "url": "https://en.wikipedia.org/wiki/Wartime_sexual_violence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-814": {
+   "answer": "Einsatzstab Reichsleiter Rosenberg",
+   "title": "Reichsleiter Rosenberg Taskforce",
+   "url": "https://en.wikipedia.org/wiki/Reichsleiter_Rosenberg_Taskforce",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Einsatzstab Reichsleiter Rosenberg"
+  },
+  "ww2-815": {
+   "answer": "Baedeker Blitz",
+   "title": "Baedeker Blitz",
+   "url": "https://en.wikipedia.org/wiki/Baedeker_Blitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-816": {
+   "answer": "United Nations Relief and Rehabilitation Administration",
+   "title": "United Nations Relief and Rehabilitation Administration",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_Relief_and_Rehabilitation_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-817": {
+   "answer": "civilian casualties",
+   "title": "Civilian casualty",
+   "url": "https://en.wikipedia.org/wiki/Civilian_casualty",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Civilian casualties"
+  },
+  "ww2-818": {
+   "answer": "excess mortality",
+   "title": "Excess mortality",
+   "url": "https://en.wikipedia.org/wiki/Excess_mortality",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-819": {
+   "answer": "crimes against humanity",
+   "title": "Crimes against humanity",
+   "url": "https://en.wikipedia.org/wiki/Crimes_against_humanity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-820": {
+   "answer": "genocide",
+   "title": "Genocide",
+   "url": "https://en.wikipedia.org/wiki/Genocide",
    "via": "glossary",
    "status": "ok"
   }

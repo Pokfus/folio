@@ -8894,7 +8894,27 @@ window.GLOSSARY = {
 "Order_No._270": "",
 "Japanese_war_crimes": "",
 "Hell_ship": "",
-"Kempeitai": ""
+"Kempeitai": "",
+"War_economy": "",
+"Total_war": "",
+"Home_Guard_(United_Kingdom)": "",
+"Rationing_in_the_United_Kingdom": "",
+"Women's_Land_Army": "",
+"Office_of_Price_Administration": "",
+"War_Production_Board": "",
+"Rosie_the_Riveter": "",
+"Executive_Order_8802": "",
+"Double_V_campaign": "",
+"Population_transfer": "",
+"Starvation_(crime)": "",
+"Wartime_sexual_violence": "",
+"Reichsleiter_Rosenberg_Taskforce": "",
+"Baedeker_Blitz": "",
+"United_Nations_Relief_and_Rehabilitation_Administration": "",
+"Civilian_casualty": "",
+"Excess_mortality": "",
+"Crimes_against_humanity": "",
+"Genocide": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13207,7 +13227,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pink_triangle": "1937–1945",
 "Order_No._270": "16 August 1941",
 "Japanese_war_crimes": "1937–1945",
-"Hell_ship": "1942–1945"
+"Hell_ship": "1942–1945",
+"Reichsleiter_Rosenberg_Taskforce": "1940–1945",
+"Baedeker_Blitz": "1942",
+"United_Nations_Relief_and_Rehabilitation_Administration": "1943–1947"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18819,7 +18842,20 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Romani_Holocaust": ["Porajmos","Roma genocide"],
 "Hadamar_killing_centre": ["Hadamar Euthanasia Centre"],
 "Hell_ship": ["hell ships","prison ship"],
-"Kempeitai": ["Kenpeitai"]
+"Kempeitai": ["Kenpeitai"],
+"War_economy": ["war economies"],
+"Home_Guard_(United_Kingdom)": ["Local Defence Volunteers","LDV","Home Guard"],
+"Rationing_in_the_United_Kingdom": ["British rationing"],
+"Women's_Land_Army": ["Land Army","Land Girls"],
+"Office_of_Price_Administration": ["OPA"],
+"War_Production_Board": ["WPB"],
+"Double_V_campaign": ["Double V","Double Victory campaign"],
+"Starvation_(crime)": ["starvation of civilians"],
+"Reichsleiter_Rosenberg_Taskforce": ["Einsatzstab Reichsleiter Rosenberg","Einsatzstab Rosenberg"],
+"Baedeker_Blitz": ["Baedeker raids"],
+"United_Nations_Relief_and_Rehabilitation_Administration": ["UNRRA"],
+"Civilian_casualty": ["civilian casualties"],
+"Excess_mortality": ["excess deaths"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27867,7 +27903,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Order_No._270": ["text","history","soviet union","warfare"],
 "Japanese_war_crimes": ["event","history","japan","law"],
 "Hell_ship": ["object","history","japan","prisoners of war"],
-"Kempeitai": ["institution","history","japan","warfare"]
+"Kempeitai": ["institution","history","japan","warfare"],
+"War_economy": ["concept","economics","history","warfare"],
+"Total_war": ["concept","warfare","history","politics"],
+"Home_Guard_(United_Kingdom)": ["institution","history","second world war","united kingdom"],
+"Rationing_in_the_United_Kingdom": ["practice","history","united kingdom","food","second world war"],
+"Women's_Land_Army": ["institution","history","united kingdom","agriculture","women"],
+"Office_of_Price_Administration": ["institution","history","united states","economics","second world war"],
+"War_Production_Board": ["institution","history","united states","economics","second world war"],
+"Rosie_the_Riveter": ["concept","history","united states","women","second world war"],
+"Executive_Order_8802": ["text","history","united states","civil rights","second world war"],
+"Double_V_campaign": ["event","history","united states","civil rights","second world war"],
+"Population_transfer": ["practice","history","politics","law"],
+"Starvation_(crime)": ["practice","history","law","warfare","famine"],
+"Wartime_sexual_violence": ["practice","history","law","warfare","women"],
+"Reichsleiter_Rosenberg_Taskforce": ["institution","history","second world war","art","looting"],
+"Baedeker_Blitz": ["event","history","second world war","bombing","cultural heritage"],
+"United_Nations_Relief_and_Rehabilitation_Administration": ["institution","history","second world war","refugees","united nations"],
+"Civilian_casualty": ["concept","warfare","law","demography"],
+"Excess_mortality": ["concept","demography","history"],
+"Crimes_against_humanity": ["concept","law","history","war crimes"],
+"Genocide": ["concept","law","history","war crimes"]
 });
 
 /* ============================================================================
