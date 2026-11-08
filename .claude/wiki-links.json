@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-08T12:18Z",
+ "generated": "2026-11-08T12:22Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6418,
-  "redirect-broader": 610,
+  "ok": 6450,
+  "redirect-broader": 612,
   "redirect-variant": 386,
-  "section-redirect": 128,
+  "section-redirect": 131,
   "disambiguation": 147,
-  "none": 1004,
-  "disambig-resolved": 85,
+  "none": 1006,
+  "disambig-resolved": 86,
   "list-page": 6,
   "search-match": 9,
   "no-article": 17
@@ -70578,6 +70578,309 @@
    "answer": "marriage bar",
    "title": "Marriage bar",
    "url": "https://en.wikipedia.org/wiki/Marriage_bar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-921": {
+   "answer": "prisoner of war",
+   "title": "Prisoner of war",
+   "url": "https://en.wikipedia.org/wiki/Prisoner_of_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-922": {
+   "answer": "Stalag",
+   "title": "Stalag",
+   "url": "https://en.wikipedia.org/wiki/Stalag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-923": {
+   "answer": "MI9",
+   "title": "MI9",
+   "url": "https://en.wikipedia.org/wiki/MI9",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-924": {
+   "answer": "Women's Army Corps",
+   "title": "Women's Army Corps",
+   "url": "https://en.wikipedia.org/wiki/Women's_Army_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-925": {
+   "answer": "Army Nurse Corps",
+   "title": "United States Army Nurse Corps",
+   "url": "https://en.wikipedia.org/wiki/United_States_Army_Nurse_Corps",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Army nursing"
+  },
+  "ww2-926": {
+   "answer": "Merchant Navy",
+   "title": "Merchant Navy (United Kingdom)",
+   "url": "https://en.wikipedia.org/wiki/Merchant_Navy_(United_Kingdom)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-927": {
+   "answer": "missing in action",
+   "title": "Missing in action",
+   "url": "https://en.wikipedia.org/wiki/Missing_in_action",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-928": {
+   "answer": "American Battle Monuments Commission",
+   "title": "American Battle Monuments Commission",
+   "url": "https://en.wikipedia.org/wiki/American_Battle_Monuments_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-929": {
+   "answer": "V-mail",
+   "title": "V-mail",
+   "url": "https://en.wikipedia.org/wiki/V-mail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-930": {
+   "answer": "Adjusted Service Rating Score",
+   "title": "Adjusted Service Rating Score",
+   "url": "https://en.wikipedia.org/wiki/Adjusted_Service_Rating_Score",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-931": {
+   "answer": "Ketsu-Go",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Ketsu-Go",
+   "target": "Operation Downfall#Operation Ketsugō"
+  },
+  "ww2-932": {
+   "answer": "Kantarō Suzuki",
+   "title": "Kantarō Suzuki",
+   "url": "https://en.wikipedia.org/wiki/Kantar%C5%8D_Suzuki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-933": {
+   "answer": "Supreme Council for the Direction of the War",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Supreme War Council (Japan)",
+    "Commanders of World War II",
+    "Timeline of the 2026 Iran war",
+    "Allied leaders of World War II",
+    "World War III"
+   ]
+  },
+  "ww2-934": {
+   "answer": "Naotake Satō",
+   "title": "Naotake Satō",
+   "url": "https://en.wikipedia.org/wiki/Naotake_Sat%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-935": {
+   "answer": "Potsdam Conference",
+   "title": "Potsdam Conference",
+   "url": "https://en.wikipedia.org/wiki/Potsdam_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-936": {
+   "answer": "Interim Committee",
+   "title": "Interim Committee",
+   "url": "https://en.wikipedia.org/wiki/Interim_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-937": {
+   "answer": "Target Committee",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Target Committee",
+   "target": "Military Policy Committee#Target Committee"
+  },
+  "ww2-938": {
+   "answer": "Little Boy",
+   "title": "Little Boy",
+   "url": "https://en.wikipedia.org/wiki/Little_Boy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-939": {
+   "answer": "Fat Man",
+   "title": "Fat Man",
+   "url": "https://en.wikipedia.org/wiki/Fat_Man",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-940": {
+   "answer": "black rain",
+   "title": "Black rain",
+   "url": "https://en.wikipedia.org/wiki/Black_rain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-901": {
+   "answer": "Marian Rejewski",
+   "title": "Marian Rejewski",
+   "url": "https://en.wikipedia.org/wiki/Marian_Rejewski",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-902": {
+   "answer": "Colossus computer",
+   "title": "Colossus computer",
+   "url": "https://en.wikipedia.org/wiki/Colossus_computer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-903": {
+   "answer": "Magic",
+   "title": "Magic (cryptography)",
+   "url": "https://en.wikipedia.org/wiki/Magic_(cryptography)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-904": {
+   "answer": "Navajo code talkers",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Navajo code talkers",
+   "target": "Code talker#Navajo"
+  },
+  "ww2-905": {
+   "answer": "Ghost Army",
+   "title": "Ghost Army",
+   "url": "https://en.wikipedia.org/wiki/Ghost_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-906": {
+   "answer": "Abwehr",
+   "title": "Abwehr",
+   "url": "https://en.wikipedia.org/wiki/Abwehr",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-907": {
+   "answer": "Double-Cross System",
+   "title": "Double-Cross System",
+   "url": "https://en.wikipedia.org/wiki/Double-Cross_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-908": {
+   "answer": "Cambridge Five",
+   "title": "Cambridge Five",
+   "url": "https://en.wikipedia.org/wiki/Cambridge_Five",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-909": {
+   "answer": "Einstein–Szilard letter",
+   "title": "Einstein–Szilard letter",
+   "url": "https://en.wikipedia.org/wiki/Einstein%E2%80%93Szilard_letter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-910": {
+   "answer": "Manhattan Project",
+   "title": "Manhattan Project",
+   "url": "https://en.wikipedia.org/wiki/Manhattan_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-911": {
+   "answer": "J. Robert Oppenheimer",
+   "title": "J. Robert Oppenheimer",
+   "url": "https://en.wikipedia.org/wiki/J._Robert_Oppenheimer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-912": {
+   "answer": "Trinity test",
+   "title": "Trinity (nuclear test)",
+   "url": "https://en.wikipedia.org/wiki/Trinity_(nuclear_test)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trinity test"
+  },
+  "ww2-913": {
+   "answer": "Uranverein",
+   "title": "German nuclear program during World War II",
+   "url": "https://en.wikipedia.org/wiki/German_nuclear_program_during_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Uranverein"
+  },
+  "ww2-914": {
+   "answer": "Franck Report",
+   "title": "Franck Report",
+   "url": "https://en.wikipedia.org/wiki/Franck_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-915": {
+   "answer": "Science, the Endless Frontier",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Vannevar Bush",
+    "United States home front during World War II",
+    "Egypt in World War II",
+    "Second Sino-Japanese War",
+    "Flight and expulsion of Germans (1944–1950)"
+   ]
+  },
+  "ww2-916": {
+   "answer": "Friendly fire",
+   "title": "Friendly fire",
+   "url": "https://en.wikipedia.org/wiki/Friendly_fire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-917": {
+   "answer": "Unit cohesion",
+   "title": "Unit cohesion",
+   "url": "https://en.wikipedia.org/wiki/Unit_cohesion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-918": {
+   "answer": "Combat stress reaction",
+   "title": "Combat stress reaction",
+   "url": "https://en.wikipedia.org/wiki/Combat_stress_reaction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-919": {
+   "answer": "Eddie Slovik",
+   "title": "Eddie Slovik",
+   "url": "https://en.wikipedia.org/wiki/Eddie_Slovik",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-920": {
+   "answer": "K-ration",
+   "title": "K-ration",
+   "url": "https://en.wikipedia.org/wiki/K-ration",
    "via": "glossary",
    "status": "ok"
   }
