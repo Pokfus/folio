@@ -161,6 +161,16 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | the Xia opens in the received systems (protected line) | 2205 BCE / 1989 BCE | `cnh-012` |
 | Houyi placed under Ku / under Taikang (protected line) | 2436 BCE / 2188 BCE | Giles (`cnh-014`) |
 | Kuafu placed in the Yellow Emperor's age (protected line) | c. 2697 BCE | Mayers (`cnh-016`) |
+| Penglai first attested (the *Shiji* finished) | c. 91 BCE | Mayers (`cnh-021`) |
+| the Eight Immortals grouped: the Yuan / also dated, the late Southern Song | 1271 – 1368 / c. 1250 – 1279 | Hu Yinglin, via the sources of `cnh-022` |
+| the Xishuipo clamshell dragon | c. 6,400 years ago | `cnh-023` |
+| the fenghuang: official cult (Huo Guang) / last reported | 84 BCE / 1368 | `cnh-024` |
+| the lin caught: the last entry of the *Spring and Autumn Annals* / the *Shuowen* | 481 BCE / c. 100 CE | Chavannes; Legge (`cnh-025`) |
+| the Four Symbols: the Zeng Hou Yi lacquer box / the full set | c. 433 BCE / c. 200 – 100 BCE | Hubei Museum; the *Huainanzi* (`cnh-026`) |
+| the taotie face first cast (Erligang) | c. 1500 – 1300 BCE | Bagley 2006 (`cnh-027`) |
+| the *Shanhaijing* begun (one view) | c. 300 – 200 BCE | `cnh-028` |
+| the *Chuci*: the core poems / gathered by Liu Xiang | c. 300 BCE / c. 77 – 6 BCE | `cnh-029` |
+| the Jade Emperor: the cult founded / also dated | 1012 / 1116 | `cnh-030` |
 
 ## Neolithic and the Xia
 
@@ -201,6 +211,16 @@ cnh-017: 100
 cnh-018: 139
 cnh-019: 400; 300; 206; 220
 cnh-020: 400; 300; 3; 206; 220
+cnh-021: 91
+cnh-022: 1271; 1368; 1250; 1279
+cnh-023: 6,400
+cnh-024: 84; 1368
+cnh-025: 481; 100
+cnh-026: 433; 200; 100
+cnh-027: 1500; 1300
+cnh-028: 300; 200
+cnh-029: 300; 77; 6
+cnh-030: 1012; 1116
 cnh-039: 219; 1594; 1856
 cnh-055: 2070; 1600
 cnh-057: 2070; 1600

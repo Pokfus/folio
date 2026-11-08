@@ -181,6 +181,8 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Jingwei filling the sea | the drowned daughter of Yandi become a bird carrying twigs and stones; the *Shanhaijing* "Classic of the Northern Mountains" (the Mount Fajiu passage), the book existing by the early 1st century BCE — confirmed B2 (`cnh-017`) | `cnh-017` | `cnh-028` | — |
 | The Queen Mother of the West and Kunlun | named first in the *Zhuangzi* (c. 400 – 300 BCE); a fearsome figure with a leopard's tail in the *Shanhaijing*; the Jade Pool in the *Mu tianzi zhuan*; a goddess of immortality by the Han, with a mass cult in 3 BCE (*Hanshu*); the peaches Eastern Han; Kunlun as the axis mountain — confirmed B2 (`cnh-019`, `cnh-020`) | `cnh-020`, `cnh-019` | `cnh-015`, `cnh-028`, `cnh-070`, `cnh-083` | `cnh-132`, `cnh-900`, `gc-911` |
 | The Cowherd and the Weaver Girl | the two stars named in the *Shijing* "Da dong"; the lovers parted by the Milky Way in the Han "Nineteen Old Poems"; the magpie bridge on the seventh night later — provisional | `cnh-036` | — | — |
+| Penglai and the isles of the immortals | the isles that sink as boats approach and the Qi and Yan kings' search, in the *Shiji* (c. 91 BCE, the earliest); the *Liezi*'s isles on turtles later (parts of the *Liezi* are 2nd century CE or later) — set B3 (`cnh-021`) | `cnh-021` | — | `cnh-210` (Xu Fu) |
+| The Eight Immortals as a group | the eight together first in Yuan drama and birthday pieces (Hu Yinglin's late Ming dating), at most the end of the Southern Song; members' own cults older — set B3 (`cnh-022`) | `cnh-022` | — | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
@@ -257,7 +259,7 @@ otherwise.
 |---|---|---|---|---|---|
 | B1 | Mythology (`cn-myth`) | `cnh-001`–`cnh-010` | 10 | 108 | **done 2026-11-08** |
 | B2 | Mythology (`cn-myth`) | `cnh-011`–`cnh-020` | 10 | 102 | **done 2026-11-08** |
-| B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | to do |
+| B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | **done 2026-11-08** |
 | B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | to do |
 | B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | to do |
 | B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | to do |
@@ -417,6 +419,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-018` | Ming woodblock of Gonggong butting the mountain | not re-checked (Commons 429): right subject, but its title is printed down both side panels — replace |
 | `cnh-019` | photograph of the modern Kunlun range | not re-checked (Commons 429): wrong: the modern range is a later identification, not the mythic mountain — replace with a Han or later depiction |
 | `cnh-020` | Peach Festival handscroll | not re-checked (Commons 429): ok, though late; a Han relief or mirror would show the early goddess |
+| `cnh-021` | Kuniyoshi's triptych of Xu Fu's fleet | not re-checked (Commons 429): wrong-ish: Xu Fu's fleet is `cnh-210`'s subject, not the isle — replace with a painting of the isle |
+| `cnh-022` | the Eight on a Yuan celadon vase | not re-checked (Commons 429): ok; the glossary copy's description names photographer and licence — trim |
+| `cnh-023` | two of Chen Rong's Nine Dragons | not re-checked (Commons 429): ok; the description names a source book — trim |
+| `cnh-024` | the fenghuang in the Imperial Encyclopaedia | not re-checked (Commons 429): ok |
+| `cnh-025` | the qilin in a Ming painting manual | not re-checked (Commons 429): ok |
+| `cnh-026` | the Suzhou planisphere | not re-checked (Commons 429): ok, but shows the sky, not the four creatures; a four-spirits mirror would show the term |
+| `cnh-027` | a taotie face laid in turquoise | not re-checked (Commons 429): ok |
+| `cnh-028` | a page of an illustrated edition | not re-checked (Commons 429): ok, but the description names Commons (`I.caption-source`) — rewrite |
+| `cnh-029` | Xiao Yuncong's plate of the Mountain Spirit | not re-checked (Commons 429): ok: one poem, not the whole anthology |
+| `cnh-030` | the Jade Emperor enthroned | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -534,3 +546,39 @@ men who did not die naturally" looks wrong — in the *Analects* (14.5) it is Na
 Confucius does not reply; the row is left. `cnh-011`'s and `cnh-012`'s rows agree with the sources read. A citation
 mismatch on `cnh-012` (Chen Minzhen, Crossref "Minzhen Chen") is a Chinese name in its own order, kept. `cnh-012`'s
 point is the Xia dynasty's region on a mythic founder (locator note at the end of the hundred).
+
+### B3 — `cnh-021`–`cnh-030`, Mythology: Penglai to the Jade Emperor (2026-11-08)
+
+Run as B1 and B2; all 72 cited URLs answered (one Czech PDF on a second try); `cnh-030`'s Europe PMC full-text
+address, which returned 500, was replaced by the article's DOI. ctext.org stayed shut. Owner's fix before applying:
+`cnh-030`'s line labels "Dated / Also dated" became "Cult founded / Also dated". **The old cards dated creatures and
+places by legendary kings (Fuxi's 2852 BCE on the dragon, Huangdi's 2697 BCE on the fenghuang and the qilin, Yao's
+7th year on the qilin), dated the *Shanhaijing* "Zhou at latest 1122 – 250 BCE", gave Qu Yuan dates no source
+prints, told the qilin's capture and the taotie's name as if the Shang had them, and leaned wholly on 1874–1922
+handbooks — the dragon's six sources all dated from those years.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-021` Penglai | 6 | 5 → 6 | **The myth dated by the *Shiji* (`Attested c. 91 BCE`), not the First Emperor's voyage (219 BCE, kept in prose); the *Liezi* no longer the 5th-century-BCE first mention (parts of it are 2nd century CE or later)**. `L.missing` is deliberate: a mythic isle. |
+| `cnh-022` Eight Immortals | 7 | 6 → 8 | **The "Or" row and counts replaced by `Dated 1271 – 1368` / `Also dated c. 1250 – 1279`; the Yuan dating credited to the late Ming critic Hu Yinglin, not Zhao Yi**; the Ming novel left off for want of a source. |
+| `cnh-023` Chinese dragon | 9 | 6 → 9 | **"The Chinese dragon as one creature" undone: the *long*, the *jiao* and others named apart, with Bagley's warning on the one English word; the line dates the Xishuipo shell figure (c. 6,400 years ago), not Fuxi; "only imperial robes had five claws" corrected (the Qing gave five to the three highest grades too)**; the "360 scaly creatures" dropped (the *Shuowen* unread). |
+| `cnh-024` Fenghuang | 7 | 6 → 8 | **Huangdi's 2697 BCE off the line; `Official cult 84 BCE` (Huo Guang's report) and `Last reported 1368`; the omen bird told as the *Shangshu* and the *Analects* tell it**; Mayers's entry number read correctly (134, not 184). |
+| `cnh-025` Qilin | 7 | 7 → 7 | **The *Bamboo Annals* legend and an unsourced 121 BCE off the line; `Annals entry 481 BCE` and `Described c. 100 CE` (the *Shuowen*); the *Zuo Zhuan*'s and the fuller commentary's versions told apart**; the 1414 giraffe left to `cnh-515`. |
+| `cnh-026` Four Symbols | 7 | 7 → 7 | **An empty line filled: `Earliest image c. 433 BCE` (the Zeng Hou Yi lacquer box) and `Full set c. 200 – 100 BCE`; Doré's demon-king tale, Mayers's tiger that whitens at 500 years and a claimed military origin dropped**; Xishuipo in prose only (`cnh-023`'s clue). |
+| `cnh-027` Taotie | 6 | 5 → 7 | **The name is later than the motif: the Shang left no word for the face; the *Zuo Zhuan* uses it for a man and the *Lüshi Chunqiu* puts the creature on Zhou cauldrons; `First cast c. 1500 – 1300 BCE` for a regnal year and a count**; Laufer's and Bushell's readings dropped; the split image left to `cnh-084`. |
+| `cnh-028` Classic of Mountains and Seas | 6 | 6 → 6 | **"Zhou at latest 1122 – 250 BCE" replaced by `Begun c. 300 – 200 BCE` (one view, attributed), with Liu Xin and Guo Pu in prose; Yu's charts given to tradition; pinyin Shānhǎi jīng → Shānhǎijīng**; Kuafu, Jingwei, the Queen Mother and Chiyou left to their own cards. |
+| `cnh-029` Chuci | 6 | 5 → 7 | **Qu Yuan's authorship and the dates 332 – 295 BCE (in no source read) made the traditional attribution, questioned, c. 300 BCE; `Compiled c. 77 – 6 BCE` (Liu Xiang's gathering, carried into Wang Yi's surviving edition)**; the Dragon Boat origin dropped. |
+| `cnh-030` Jade Emperor | 7 | 5 → 7 | **The birth legend credited to a Daoist scripture modelled on the Buddha's life; "humiliating peace" credited to one historian; `Cult founded 1012` / `Also dated 1116` for a birthday and a month**; the Chaoshan rites added. |
+
+Read by eye. **Confusability**: Xishuipo `cnh-023`'s (prose only on `cnh-026`); the split image `cnh-084`'s (out of
+`cnh-027`); the Tianwen `cnh-029`'s, not `cnh-014`'s; `cnh-023` and `cnh-025` both open a phrasing on a dictionary's
+description, with different creatures and clues. **Legend**: each creature and place now dated by its earliest
+object or text. **Chinese names corrected**: `cnh-028` pinyin Shānhǎi jīng → Shānhǎijīng (the house form); `cnh-026`
+pinyin Sìxiàng → sìxiàng (a common noun, as `lóng`); `cnh-030`'s 玉皇 confirmed on an open page, 大帝 not printed on
+one — kept as the standard full title. **Spellings fixed**: none needed; 0 hits before and after. **Myth register:
+rows added** — Penglai (the *Shiji* the earliest, c. 91 BCE; the *Liezi* later) and the Eight Immortals (the group
+from the Yuan, at most the end of the Southern Song; Hu Yinglin's dating); the fenghuang's earliest texts (the
+*Shangshu* "Yi ji", *Analects* 9.9) undated by any source read. **The *Shiji*'s date**: `cnh-009` writes c. 100 BCE,
+`cnh-021` c. 91 BCE (its completion, per Mayers); both are approximations of one book and both stand. **Protected
+lines: unchanged** (none in this batch). No `wh-`, `jp-` or `ko-` card read disagrees; the zodiac and the dragon on
+`jp-`/`ko-` cards are untouched.
