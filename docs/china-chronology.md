@@ -142,6 +142,16 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 
 | event | the collection says | source |
 |---|---|---|
+| the *Huainanzi* presented to the throne | 139 BCE | Zürn, review of Queen and Puett (`cnh-004`, `cnh-018`) |
+| the *Shiji* written (the first full telling of Zhuolu) | c. 100 BCE | Chavannes; Hanmo Zhang 2017 (`cnh-009`) |
+| the Three Sovereigns recalled at the Qin court; the First Emperor's title | 221 BCE | Mayers; the *Shiji*, Qin annals (`cnh-002`) |
+| Pangu first attested (Wei Zhao's fragment, Xu Zheng) | c. 200 – 300 CE | Lü Zongli; Kalinowski (`cnh-003`) |
+| Nüwa: Wei–Jin tomb murals / the Buddhist jewel between the deities at Pingcheng | 220 – 316 CE / 435 CE | Zhao 2019; Ou Li-chuan (`cnh-004`) |
+| Fuxi: traditional reign opening / also dated | 3322 BCE / 2852 BCE | Legge; Mayers (`cnh-005`) |
+| the *Yijing*'s commentaries (Fuxi's trigrams, Shennong's plough) | c. 500 – 100 BCE | Stanford Encyclopedia (`cnh-005`, `cnh-006`) |
+| Shennong: traditional date / the *Shennong bencao jing* compiled | 2737 BCE / 25 – 220 CE | Mayers; the SEP (`cnh-006`) |
+| Chiyou: placed by the chronologers (protected line) | c. 2700 – 2600 BCE | Legge (`cnh-008`) |
+| Yao's accession in the later traditional chronology (protected line) | 2357 BCE | Bodde; Mayers (`cnh-010`) |
 
 ## Neolithic and the Xia
 
@@ -164,7 +174,13 @@ figure that is on the date line is pinned. **A protected card is pinned to its l
 records what the other thread wrote, so a draft that drops one of its figures from the line is caught.
 
 ```chronology-pins
+cnh-002: 221
+cnh-003: 200; 300
+cnh-004: 139; 220; 316; 435
+cnh-005: 3322; 2852; 500; 100
+cnh-006: 2737; 500; 100; 25; 220
 cnh-008: 2700; 2600
+cnh-009: 100
 cnh-010: 2357
 cnh-011: 2255
 cnh-012: 2205; 1989

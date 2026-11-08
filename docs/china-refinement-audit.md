@@ -167,13 +167,13 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 
 | story | versions and earliest attestation | own card | mentioned on | outside the hundred |
 |---|---|---|---|---|
-| Pangu and the separation of heaven and earth | Pangu growing between heaven and earth, and the world made from his body; attested no earlier than the 3rd century CE (the lost *Sanwu liji* of Xu Zheng, known from later quotation) — provisional | `cnh-003` | `cnh-001`, `cnh-005` | `ko-047` |
-| Nüwa making people | moulding people from yellow earth; the *Fengsu tongyi* (Ying Shao, late 2nd century CE, known from quotation) — provisional | `cnh-004` | `cnh-001`, `cnh-002` | — |
-| Nüwa mending the sky | the five-coloured stones and the turtle's legs; the *Huainanzi* (presented 139 BCE) — provisional | `cnh-004` | `cnh-018` | — |
-| Nüwa and Fuxi as a pair | the serpent-tailed couple of Han tomb art (1st–2nd centuries CE); as siblings and spouses in much later texts (the Tang *Duyi zhi*) — provisional | `cnh-005` | `cnh-004` | `cnh-848`, `cnh-851`, `cnh-857`, `cnh-874`, `cnh-969` (Fuxi) |
+| Pangu and the separation of heaven and earth | Pangu growing between heaven and earth, and the world made from his body; attested no earlier than the 3rd century CE (Wei Zhao's *Dongji* fragment, Wei Zhao c. 204–273 CE, then Xu Zheng's lost *Sanwu liji*, both known from later quotation) — confirmed B1 (`cnh-003`, Lü Zongli) | `cnh-003` | `cnh-001`, `cnh-005` | `ko-047` |
+| Nüwa making people | moulding people from yellow earth; the *Fengsu tongyi* (Ying Shao, late 2nd century CE, known from quotation) — provisional, NOT confirmed in B1 (ctext shut; `cnh-004` names no text) | `cnh-004` | `cnh-001`, `cnh-002` | — |
+| Nüwa mending the sky | the five-coloured stones and the turtle's legs; the *Huainanzi* (presented 139 BCE) — confirmed B1 (`cnh-004`, Zürn) | `cnh-004` | `cnh-018` | — |
+| Nüwa and Fuxi as a pair | kept apart in the Warring States texts; first named in one passage by the *Huainanzi*; the serpent-tailed couple of Han tomb art (the Luoyang murals of 86–49 BCE a disputed identification; the first naming inscriptions Eastern Han); as siblings and spouses in much later texts (the Tang *Duyi zhi*) — confirmed B1 (`cnh-005`, Zhao 2019), the *Duyi zhi* still provisional | `cnh-005` | `cnh-004` | `cnh-848`, `cnh-851`, `cnh-857`, `cnh-874`, `cnh-969` (Fuxi) |
 | Gonggong breaking Mount Buzhou | Gonggong against Zhuanxu (the *Huainanzi*) or against Nüwa or others in later tellings; the tilt of heaven and earth — provisional | `cnh-018` | `cnh-004`, `cnh-016` | — |
-| The Yellow Emperor and Chiyou at Zhuolu | the battle at Zhuolu in the *Shiji* (c. 100 BCE); the rain, wind and drought spirits Ying Long and Ba in the *Shanhaijing* — provisional | `cnh-009` | `cnh-007`, `cnh-008`, `cnh-028`, `cnh-098` | `cnh-790` (Chiyou) |
-| Yao, Shun and the abdication | Yao passing over his son for Shun; the "Canon of Yao" of the *Shangshu*, the *Mencius*, and the excavated Guodian text *Tang Yu zhi dao* (c. 300 BCE) — provisional | `cnh-010`, `cnh-011` | `cnh-002`, `cnh-040` | `cnh-131`, `cnh-480` |
+| The Yellow Emperor and Chiyou at Zhuolu | the battle at Zhuolu in the *Shiji* (c. 100 BCE); the rain, wind and drought spirits Ying Long and Ba in the *Shanhaijing*, which sets the fight in the wilds of Jizhou, not at Zhuolu; the *Yi Zhoushu* "Chang Mai" version, with the Red Emperor (date disputed); Chiyou himself already in the *Shangshu* "Lü xing" — confirmed B1 (`cnh-009`, `cnh-008`) | `cnh-009` | `cnh-007`, `cnh-008`, `cnh-028`, `cnh-098` | `cnh-790` (Chiyou) |
+| Yao, Shun and the abdication | Yao passing over his son for Shun; the "Canon of Yao" of the *Shangshu*, the *Mencius*, and the excavated Chu-script manuscripts *Tang Yu zhi dao*, *Zigao* and *Rongchengshi* (middle Warring States) — confirmed B1 (`cnh-010`, Chik 2023); "c. 300 BCE" on no page read | `cnh-010`, `cnh-011` | `cnh-002`, `cnh-040` | `cnh-131`, `cnh-480` |
 | The flood: Gun and Yu | Gun stealing the swelling soil (*Shanhaijing*) or failing for nine years (*Shangshu*), Yu channelling the waters; Yu named on the Bin Gong / Sui Gong *xu* bronze (Western Zhou, c. 900 BCE, the earliest mention of Yu) — provisional | `cnh-013` | `cnh-012`, `cnh-010`, `cnh-011`, `cnh-056` | `wh-244`, `cnh-848`, `gc-802`, `gc-820` |
 | Houyi shooting the suns | the ten suns and the archer Yi; the *Chuci* "Tianwen" asks of it, the *Huainanzi* tells it — provisional | `cnh-014` | `cnh-015` | — |
 | Chang'e and the elixir | Heng'e (Chang'e) taking the elixir of the Queen Mother of the West and fleeing to the moon; the *Huainanzi*, with an earlier fragment in the excavated *Guicang* (Wangjiatai, Qin) — provisional | `cnh-015` | `cnh-014`, `cnh-020` | — |
@@ -181,7 +181,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Jingwei filling the sea | the drowned daughter of Yandi become a bird carrying twigs and stones; the *Shanhaijing* "Classic of the Northern Mountains" — provisional | `cnh-017` | `cnh-028` | — |
 | The Queen Mother of the West and Kunlun | a fearsome figure with a leopard's tail in the *Shanhaijing*; a goddess of immortality by the Han; Kunlun as the axis mountain — provisional | `cnh-020`, `cnh-019` | `cnh-015`, `cnh-028`, `cnh-070`, `cnh-083` | `cnh-132`, `cnh-900`, `gc-911` |
 | The Cowherd and the Weaver Girl | the two stars named in the *Shijing* "Da dong"; the lovers parted by the Milky Way in the Han "Nineteen Old Poems"; the magpie bridge on the seventh night later — provisional | `cnh-036` | — | — |
-| The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor in other texts — provisional | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
+| The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
 
@@ -255,7 +255,7 @@ otherwise.
 
 | batch | deck | cards | n | findings | state |
 |---|---|---|---|---|---|
-| B1 | Mythology (`cn-myth`) | `cnh-001`–`cnh-010` | 10 | 108 | to do |
+| B1 | Mythology (`cn-myth`) | `cnh-001`–`cnh-010` | 10 | 108 | **done 2026-11-08** |
 | B2 | Mythology (`cn-myth`) | `cnh-011`–`cnh-020` | 10 | 102 | to do |
 | B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | to do |
 | B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | to do |
@@ -397,6 +397,16 @@ whether its current picture looks wrong from its title, description and credit.
 
 | card | current | verdict |
 |---|---|---|
+| `cnh-001` | Fuxi and Nüwa painting | not re-checked (Commons 429): ok, but the description calls Fuxi her brother, a pairing the register dates to much later texts — rewrite the description |
+| `cnh-002` | Wu Family Shrine rubbing of the Yellow Emperor | not re-checked (Commons 429): shows one of the eight, not the group; the description's "Five Sovereigns" and its date are wrong — replace or rewrite |
+| `cnh-003` | Sancai tuhui woodblock portrait | not re-checked (Commons 429): ok, but his name is printed into the picture |
+| `cnh-004` | Xiao Yuncong's woodblock Nüwa | not re-checked (Commons 429): ok |
+| `cnh-005` | 1736 woodblock of Fuxi drawing the trigrams | not re-checked (Commons 429): ok; the glossary copy's description names the licence — trim |
+| `cnh-006` | ink painting of Shennong chewing herbs | not re-checked (Commons 429): ok; the glossary copy's description names the licence — trim |
+| `cnh-007` | portrait of the Yellow Emperor | not re-checked (Commons 429): ok, but the description names the holding museum and the glossary copy's the licence — trim |
+| `cnh-008` | Han pictorial-stone rubbing of Chiyou with the five weapons | not re-checked (Commons 429): ok; the glossary copy's description names the licence — trim |
+| `cnh-009` | the plain at Zhuolu | not re-checked (Commons 429): ok: the place, since the battle cannot be pictured |
+| `cnh-010` | Ma Lin's portrait of Yao | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -422,3 +432,51 @@ ordinary card to every tool. Nothing on any card changed.
 
 **The spellings baseline** (`check-cnh-spellings.js`, 2026-11-08): 176 variants of the house forms; 1000 card(s) read, 21 with a variant; 42 hit(s) in all; over `cnh-001`–`cnh-100` and the `china` glossary entries, 5 cards and 13 hits — Legge's "Shû King" in `cnh-012`'s background and date line (protected: the line is left; the background is the draft's), "Shao Kang" and "Tai Kang" in `cnh-014`'s background and line (protected line) and in the `Houyi` glossary date, "Lüshi chunqiu" in `cnh-001` and four glossary entries, "Zuozhuan" in `cnh-076` and the `Liu_Xin_(scholar)` entry, and a "Hwang-ti" outside a title in `cnh-024`'s second source.
 
+### B1 — `cnh-001`–`cnh-010`, Mythology: Chinese mythology to Yao (2026-11-08)
+
+All ten re-researched from scratch by five agents, two cards each, under `.claude/wh-refine/BRIEF.md`, the China
+addendum and the run's `AGENT.md`; every quoted passage was matched against its saved page by `precheck.js`,
+every draft went through `add-card.js --dry-run`, the audit and the spellings checker, and every draft was read by
+eye before `batch.sh` applied it. All 72 cited URLs answered 200. **Pictures were not touched**: Wikimedia
+answered 429 to the session's one test call. **ctext.org, which answered at the session's start, began answering
+403 to every agent mid-run**, so the classical texts were read in Chinese from Project Gutenberg's editions and in
+translation from Legge and Chavannes on archive.org; two claims went unsourced for want of it (below). Four drafts
+cited Bodde's 1961 chapter through a user upload of the in-copyright book; each now cites the archive.org lending
+copy instead (`[Paywalled]`). **The old cards told the sage kings and the gods as history in the card's own voice,
+dated myths by other men's reigns (Yao's 2357 BCE on the Three Sovereigns, Huangdi's 2697 BCE on Zhuolu, Ku's on
+Chang'e), put counts and places on the date lines ("Chaos endured 18,000 years", "at Luoyang", "in Shandong"), and
+broke the one-source-per-language cap on four cards — `cnh-001` cited five French articles, `cnh-002` five.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-001` Chinese mythology | 9 | 7 → 9 | **One French source (Kalinowski) where there were five; the euhemerist reading credited to modern scholars; the date line emptied (a body of myth has no one attestation; `undatable` kept)**; Nüwa told as the *Huainanzi* tells it, Pangu as first in the 3rd century CE; unsourced claims dropped (the Chu silk manuscript, six flood versions, a southern flood myth). |
+| `cnh-002` Three Sovereigns and Five Emperors | 7 | 5 → 7 | **The lists shown to differ by text (the *Shiji*'s five; Fuxi, Shennong and the Yellow Emperor; Fuxi, Nüwa and Shennong; Suiren or Zhurong; the Qin court's Heavenly, Earthly and Grand); the old claim that three sovereigns stood "before Huangdi" corrected (in the eight-reign scheme he is the third sovereign)**; the line `Attested 221 BCE` (the Qin court's memorial, Mayers's year) for Yao's accession and a century. |
+| `cnh-003` Pangu | 8 | 5 → 8 | **`Attested c. 200 – 300 CE` for a count ("18,000 years") and rows naming men; the earliest witness is Wei Zhao's *Dongji* fragment, then Xu Zheng (Lü Zongli [in Chinese])**; the body-into-world telling given to later texts of disputed date; three French sources cut to one. |
+| `cnh-004` Nüwa | 7 | 5 → 7 | **The mending of the sky told as the *Huainanzi*'s (presented 139 BCE); an unsourced "86 – 49 BCE" and places dropped from the line; the glossary's unsourced date and Turfan claim replaced**; she first appears apart from Fuxi. |
+| `cnh-005` Fuxi | 7 | 5 → 7 | **`Traditional 3322 BCE` / `Also dated 2852 BCE` (Legge's and Mayers's reckonings) / `Attested c. 500 – 100 BCE` (the *Yijing*'s commentaries) for a "from" value and places; King Wen given only the words of the hexagrams, not the hexagrams**; Chavannes's page reference corrected and chipped. |
+| `cnh-006` Shennong | 6 | 5 → 8 | **"Reigned 120 years, then buried at Changsha" off the line; the Yandi identification made later readers' (the *Guoyu* clashes with it); the herbal dated 25 – 220 CE as a book named after him**; the hundred plants from the *Huainanzi*. |
+| `cnh-007` Yellow Emperor | 7 | 5 → 7 | **Legend in the card's own voice; the legend traced before the *Shiji* (the *Zuo Zhuan*'s Banquan, Han Fei) and after it (Huang-Lao, the *Huangdi neijing*); the post-1902 "ancestor of the Han" claim and Gu Jiegang's attack**; a Pangu article that never names him dropped. Protected: the line stays empty. |
+| `cnh-008` Chiyou | 6 | 5 → 6 | **The 81 brothers attributed to the *Longyu hetu* as Zhang Shoujie quotes it; his absence from the oracle bones; the late Qing Miao-chief reading and today's Miao/Hmong festivals**. Protected: the background carries 2700 and 2600 as the chronologers' 27th century BCE. |
+| `cnh-009` Battle of Zhuolu | 6 | 5 → 6 | **The reign of the Yellow Emperor and a count off the line, `Attested c. 100 BCE` (the *Shiji*); three versions told as their texts' — the *Shiji*'s, the *Shanhaijing*'s weather battle (set in the wilds of Jizhou, not at Zhuolu) and the *Yi Zhoushu*'s Red Emperor version**; Banquan left to `cnh-007`. |
+| `cnh-010` Yao | 6 | 5 → 7 | **The Canon of Yao read as a later compilation, not a record; 2357 BCE carried as the later traditional chronology's, 70 years and 366 days as the Canon's**; Legge's astronomical dating of the Canon dropped; the Guodian-era abdication manuscripts added. Protected: the line stays. |
+
+Read by eye. **Confusability**: Banquan stayed `cnh-007`'s (out of `cnh-009`); the twined tails and the pairing
+stayed `cnh-005`'s (out of `cnh-004`); the egg, the clay and the trigrams stayed out of `cnh-001`; the Qin title
+angle was left to `cnh-194` (huangdi). **Legend**: every story is now told in its text's voice, and each card says
+when that text was written. **Chinese names corrected**: none — all ten checked against an open page (the Shiji and
+Huainanzi texts, the SEP, Lü, Ou Li-chuan, Hanmo Zhang); `中国神话` could not be matched on an open page and stays as
+the standard term. **Spellings fixed**: "Lüshi chunqiu" on `cnh-001` (now Lüshi Chunqiu);
+`check-cnh-spellings.js --range=cnh-001:cnh-010` now reads 0 card hits
+(the five glossary hits left are entries outside the batch: `Houyi`, `Liezi`, `Liu_Xin_(scholar)`, `Lü_Buwei`,
+`Wuxing_(Chinese_philosophy)`). **Myth register: rows changed** — Pangu (Wei Zhao's fragment before Xu Zheng, both
+3rd century CE), Nüwa mending the sky (the *Huainanzi*, 139 BCE, confirmed), Nüwa and Fuxi as a pair (the Warring
+States texts keep them apart; the *Huainanzi* first names them together; the Luoyang murals of 86–49 BCE a disputed
+identification), Zhuolu (the *Shiji* confirmed; the *Shanhaijing* sets it in Jizhou; the *Yi Zhoushu* version
+added), the Three Sovereigns (two more triads), Yao and Shun (the Tang Yu zhi dao a middle Warring States
+manuscript; "c. 300 BCE" on no page read). **Not confirmed**: the *Fengsu tongyi* as the source of Nüwa moulding
+people (ctext shut; `cnh-004` says "a separate legend" and names no text). **Protected lines: unchanged** (diffed
+after the apply). For the owner: `cnh-008`'s "In Sima Qian 4 lines" and "81 brothers" rows agree with the sources
+read; `cnh-010`'s three rows agree with the Canon and the traditional chronology. **Sources**: several cards still
+lean on 19th-century reference works (Mayers, Giles, Werner) counted as modern under the half-modern rule, for
+want of open post-1950 work on these figures; the later batches were told to prefer post-1950 scholarship. Overlap:
+no `wh-` card read disagrees.
