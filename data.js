@@ -8962,1358 +8962,6 @@ window.CARD_DATA = [
 window.COLLECTION_TREE = {
   "collections": [
     {
-      "id": "china",
-      "title": "China",
-      "hanzi": "中国",
-      "blurb": "Template deck — one example card. Generate more with Claude.",
-      "total": 1000,
-      "children": [
-        {
-          "id": "cn-myth",
-          "title": "Mythology",
-          "placeholder": false,
-          "cardIds": [
-            "cnh-001",
-            "cnh-002",
-            "cnh-003",
-            "cnh-004",
-            "cnh-005",
-            "cnh-006",
-            "cnh-007",
-            "cnh-008",
-            "cnh-009",
-            "cnh-010",
-            "cnh-011",
-            "cnh-012",
-            "cnh-013",
-            "cnh-014",
-            "cnh-015",
-            "cnh-016",
-            "cnh-017",
-            "cnh-018",
-            "cnh-019",
-            "cnh-020",
-            "cnh-021",
-            "cnh-022",
-            "cnh-023",
-            "cnh-024",
-            "cnh-025",
-            "cnh-026",
-            "cnh-027",
-            "cnh-028",
-            "cnh-029",
-            "cnh-030",
-            "cnh-031",
-            "cnh-032",
-            "cnh-033",
-            "cnh-034",
-            "cnh-035",
-            "cnh-036",
-            "cnh-037",
-            "cnh-038",
-            "cnh-039",
-            "cnh-040"
-          ]
-        },
-        {
-          "id": "col-1",
-          "title": "Ancient",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "col-2",
-              "title": "Neolithic China and the Xia",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-041",
-                "cnh-043",
-                "cnh-044",
-                "cnh-045",
-                "cnh-046",
-                "cnh-047",
-                "cnh-048",
-                "cnh-049",
-                "cnh-050",
-                "cnh-051",
-                "cnh-052",
-                "cnh-053",
-                "cnh-054",
-                "cnh-055",
-                "cnh-056",
-                "cnh-057",
-                "cnh-058",
-                "cnh-059",
-                "cnh-060",
-                "cnh-061",
-                "cnh-062",
-                "cnh-063",
-                "cnh-064",
-                "cnh-065",
-                "cnh-042"
-              ]
-            },
-            {
-              "id": "col-3",
-              "title": "Shang",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-066",
-                "cnh-067",
-                "cnh-068",
-                "cnh-069",
-                "cnh-071",
-                "cnh-072",
-                "cnh-073",
-                "cnh-074",
-                "cnh-075",
-                "cnh-076",
-                "cnh-077",
-                "cnh-078",
-                "cnh-079",
-                "cnh-080",
-                "cnh-081",
-                "cnh-082",
-                "cnh-083",
-                "cnh-084",
-                "cnh-085",
-                "cnh-086",
-                "cnh-087",
-                "cnh-088",
-                "cnh-089",
-                "cnh-090",
-                "cnh-091",
-                "cnh-092",
-                "cnh-093",
-                "cnh-094",
-                "cnh-095",
-                "cnh-096",
-                "cnh-097",
-                "cnh-098",
-                "cnh-099",
-                "cnh-100",
-                "cnh-101",
-                "cnh-102",
-                "cnh-103",
-                "cnh-104",
-                "cnh-105",
-                "cnh-106",
-                "cnh-107",
-                "cnh-108",
-                "cnh-109",
-                "cnh-110",
-                "cnh-070"
-              ]
-            },
-            {
-              "id": "col-14",
-              "title": "Zhou",
-              "placeholder": false,
-              "children": [
-                {
-                  "id": "col-4",
-                  "title": "Western Zhou",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-111",
-                    "cnh-112",
-                    "cnh-113",
-                    "cnh-114",
-                    "cnh-115",
-                    "cnh-116",
-                    "cnh-117",
-                    "cnh-118",
-                    "cnh-119",
-                    "cnh-120",
-                    "cnh-121",
-                    "cnh-122",
-                    "cnh-123",
-                    "cnh-124",
-                    "cnh-125",
-                    "cnh-126",
-                    "cnh-127",
-                    "cnh-128",
-                    "cnh-129",
-                    "cnh-130",
-                    "cnh-131",
-                    "cnh-132",
-                    "cnh-133",
-                    "cnh-134",
-                    "cnh-135",
-                    "cnh-136",
-                    "cnh-137",
-                    "cnh-138",
-                    "cnh-139",
-                    "cnh-140"
-                  ]
-                },
-                {
-                  "id": "col-5",
-                  "title": "Eastern Zhou",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-141",
-                    "cnh-142",
-                    "cnh-143",
-                    "cnh-144",
-                    "cnh-145",
-                    "cnh-146",
-                    "cnh-147",
-                    "cnh-148",
-                    "cnh-149",
-                    "cnh-150",
-                    "cnh-151",
-                    "cnh-152",
-                    "cnh-153",
-                    "cnh-154",
-                    "cnh-155",
-                    "cnh-156",
-                    "cnh-157",
-                    "cnh-158",
-                    "cnh-159",
-                    "cnh-160",
-                    "cnh-161",
-                    "cnh-162",
-                    "cnh-163",
-                    "cnh-164",
-                    "cnh-165",
-                    "cnh-166",
-                    "cnh-167",
-                    "cnh-168",
-                    "cnh-169",
-                    "cnh-170",
-                    "cnh-171",
-                    "cnh-172",
-                    "cnh-173",
-                    "cnh-174",
-                    "cnh-175",
-                    "cnh-176",
-                    "cnh-177",
-                    "cnh-178",
-                    "cnh-179",
-                    "cnh-180",
-                    "cnh-181",
-                    "cnh-182",
-                    "cnh-183",
-                    "cnh-184",
-                    "cnh-185",
-                    "cnh-186",
-                    "cnh-187",
-                    "cnh-188",
-                    "cnh-189",
-                    "cnh-190"
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "col-6",
-          "title": "Imperial",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "col-7",
-              "title": "Qin",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-191",
-                "cnh-192",
-                "cnh-193",
-                "cnh-194",
-                "cnh-195",
-                "cnh-196",
-                "cnh-197",
-                "cnh-198",
-                "cnh-199",
-                "cnh-200",
-                "cnh-201",
-                "cnh-202",
-                "cnh-203",
-                "cnh-204",
-                "cnh-205",
-                "cnh-206",
-                "cnh-207",
-                "cnh-208",
-                "cnh-209",
-                "cnh-210",
-                "cnh-211",
-                "cnh-212"
-              ]
-            },
-            {
-              "id": "col-15",
-              "title": "Han",
-              "placeholder": false,
-              "children": [
-                {
-                  "id": "col-10",
-                  "title": "Western Han",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-213",
-                    "cnh-214",
-                    "cnh-215",
-                    "cnh-216",
-                    "cnh-217",
-                    "cnh-218",
-                    "cnh-219",
-                    "cnh-220",
-                    "cnh-221",
-                    "cnh-222",
-                    "cnh-223",
-                    "cnh-224",
-                    "cnh-225",
-                    "cnh-226",
-                    "cnh-227",
-                    "cnh-228",
-                    "cnh-229",
-                    "cnh-230",
-                    "cnh-231",
-                    "cnh-232",
-                    "cnh-233",
-                    "cnh-234",
-                    "cnh-235",
-                    "cnh-236",
-                    "cnh-237",
-                    "cnh-238",
-                    "cnh-239",
-                    "cnh-240",
-                    "cnh-241",
-                    "cnh-242",
-                    "cnh-243",
-                    "cnh-244"
-                  ]
-                },
-                {
-                  "id": "col-11",
-                  "title": "Xin",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-245",
-                    "cnh-246",
-                    "cnh-247",
-                    "cnh-248",
-                    "cnh-249",
-                    "cnh-250",
-                    "cnh-251",
-                    "cnh-252"
-                  ]
-                },
-                {
-                  "id": "col-12",
-                  "title": "Eastern Han",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-253",
-                    "cnh-254",
-                    "cnh-255",
-                    "cnh-256",
-                    "cnh-257",
-                    "cnh-259",
-                    "cnh-260",
-                    "cnh-258",
-                    "cnh-261",
-                    "cnh-262",
-                    "cnh-263",
-                    "cnh-264",
-                    "cnh-265",
-                    "cnh-266",
-                    "cnh-267",
-                    "cnh-268",
-                    "cnh-269",
-                    "cnh-270",
-                    "cnh-271",
-                    "cnh-272"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "col-16",
-              "title": "Three Kingdoms",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-273",
-                "cnh-274",
-                "cnh-275",
-                "cnh-276",
-                "cnh-277",
-                "cnh-278",
-                "cnh-279",
-                "cnh-280",
-                "cnh-281",
-                "cnh-282",
-                "cnh-283",
-                "cnh-284",
-                "cnh-285",
-                "cnh-286",
-                "cnh-287",
-                "cnh-288",
-                "cnh-289",
-                "cnh-290",
-                "cnh-291",
-                "cnh-292"
-              ]
-            },
-            {
-              "id": "col-17",
-              "title": "Jin",
-              "placeholder": false,
-              "children": [
-                {
-                  "id": "col-18",
-                  "title": "Western Jin",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-293",
-                    "cnh-294",
-                    "cnh-295",
-                    "cnh-296",
-                    "cnh-297",
-                    "cnh-298",
-                    "cnh-299",
-                    "cnh-300",
-                    "cnh-301",
-                    "cnh-302"
-                  ]
-                },
-                {
-                  "id": "col-19",
-                  "title": "Sixteen Kingdoms",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-303",
-                    "cnh-304",
-                    "cnh-305",
-                    "cnh-306",
-                    "cnh-307",
-                    "cnh-308",
-                    "cnh-309",
-                    "cnh-310",
-                    "cnh-311",
-                    "cnh-312"
-                  ]
-                },
-                {
-                  "id": "col-20",
-                  "title": "Eastern Jin",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-313",
-                    "cnh-314",
-                    "cnh-315",
-                    "cnh-316",
-                    "cnh-317",
-                    "cnh-318",
-                    "cnh-319",
-                    "cnh-320",
-                    "cnh-321",
-                    "cnh-322"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "col-21",
-              "title": "Northern and Southern dynasties",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-323",
-                "cnh-324",
-                "cnh-325",
-                "cnh-326",
-                "cnh-327",
-                "cnh-328",
-                "cnh-329",
-                "cnh-330",
-                "cnh-331",
-                "cnh-332",
-                "cnh-333",
-                "cnh-334",
-                "cnh-335",
-                "cnh-336",
-                "cnh-337",
-                "cnh-338",
-                "cnh-339",
-                "cnh-340",
-                "cnh-341",
-                "cnh-342"
-              ]
-            },
-            {
-              "id": "col-22",
-              "title": "Sui",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-343",
-                "cnh-344",
-                "cnh-345",
-                "cnh-346",
-                "cnh-347",
-                "cnh-348",
-                "cnh-349",
-                "cnh-350",
-                "cnh-351",
-                "cnh-352",
-                "cnh-353",
-                "cnh-354"
-              ]
-            },
-            {
-              "id": "col-23",
-              "title": "Tang",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-355",
-                "cnh-356",
-                "cnh-357",
-                "cnh-358",
-                "cnh-359",
-                "cnh-360",
-                "cnh-361",
-                "cnh-362",
-                "cnh-363",
-                "cnh-364",
-                "cnh-365",
-                "cnh-366",
-                "cnh-367",
-                "cnh-368",
-                "cnh-369",
-                "cnh-370",
-                "cnh-371",
-                "cnh-372",
-                "cnh-373",
-                "cnh-374",
-                "cnh-375",
-                "cnh-376",
-                "cnh-377",
-                "cnh-378",
-                "cnh-379",
-                "cnh-380",
-                "cnh-381",
-                "cnh-382",
-                "cnh-383",
-                "cnh-384",
-                "cnh-385",
-                "cnh-386",
-                "cnh-387",
-                "cnh-388",
-                "cnh-389",
-                "cnh-390",
-                "cnh-391",
-                "cnh-392",
-                "cnh-393",
-                "cnh-394",
-                "cnh-395",
-                "cnh-396"
-              ]
-            },
-            {
-              "id": "col-24",
-              "title": "Five Dynasties and Ten Kingdoms",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-397",
-                "cnh-398",
-                "cnh-399",
-                "cnh-400",
-                "cnh-401",
-                "cnh-402",
-                "cnh-403",
-                "cnh-404",
-                "cnh-405",
-                "cnh-406",
-                "cnh-407",
-                "cnh-408",
-                "cnh-409",
-                "cnh-410"
-              ]
-            },
-            {
-              "id": "col-25",
-              "title": "Liao",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-411",
-                "cnh-412",
-                "cnh-413",
-                "cnh-414",
-                "cnh-415",
-                "cnh-416",
-                "cnh-417",
-                "cnh-418",
-                "cnh-419",
-                "cnh-420"
-              ]
-            },
-            {
-              "id": "col-26",
-              "title": "Song",
-              "placeholder": false,
-              "children": [
-                {
-                  "id": "col-27",
-                  "title": "Northern Song",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-421",
-                    "cnh-422",
-                    "cnh-423",
-                    "cnh-424",
-                    "cnh-425",
-                    "cnh-426",
-                    "cnh-427",
-                    "cnh-428",
-                    "cnh-429",
-                    "cnh-430",
-                    "cnh-431",
-                    "cnh-432",
-                    "cnh-433",
-                    "cnh-434",
-                    "cnh-435",
-                    "cnh-436",
-                    "cnh-437",
-                    "cnh-438",
-                    "cnh-439",
-                    "cnh-440",
-                    "cnh-441",
-                    "cnh-442",
-                    "cnh-443",
-                    "cnh-444",
-                    "cnh-445",
-                    "cnh-446"
-                  ]
-                },
-                {
-                  "id": "col-28",
-                  "title": "Southern Song",
-                  "placeholder": false,
-                  "cardIds": [
-                    "cnh-447",
-                    "cnh-448",
-                    "cnh-449",
-                    "cnh-450",
-                    "cnh-451",
-                    "cnh-452",
-                    "cnh-453",
-                    "cnh-454",
-                    "cnh-455",
-                    "cnh-456",
-                    "cnh-457",
-                    "cnh-458",
-                    "cnh-459",
-                    "cnh-460",
-                    "cnh-461",
-                    "cnh-462",
-                    "cnh-463",
-                    "cnh-464"
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "col-29",
-              "title": "Western Xia",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-465",
-                "cnh-466",
-                "cnh-467",
-                "cnh-468",
-                "cnh-469",
-                "cnh-470",
-                "cnh-471",
-                "cnh-472"
-              ]
-            },
-            {
-              "id": "col-30",
-              "title": "Jurchen Jin",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-473",
-                "cnh-474",
-                "cnh-475",
-                "cnh-476",
-                "cnh-477",
-                "cnh-478",
-                "cnh-479",
-                "cnh-480",
-                "cnh-481",
-                "cnh-482"
-              ]
-            },
-            {
-              "id": "col-31",
-              "title": "Yuan",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-483",
-                "cnh-484",
-                "cnh-485",
-                "cnh-486",
-                "cnh-487",
-                "cnh-488",
-                "cnh-489",
-                "cnh-490",
-                "cnh-491",
-                "cnh-492",
-                "cnh-493",
-                "cnh-494",
-                "cnh-495",
-                "cnh-496",
-                "cnh-497",
-                "cnh-498",
-                "cnh-499",
-                "cnh-500",
-                "cnh-501",
-                "cnh-502"
-              ]
-            },
-            {
-              "id": "col-32",
-              "title": "Ming",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-503",
-                "cnh-504",
-                "cnh-505",
-                "cnh-506",
-                "cnh-507",
-                "cnh-508",
-                "cnh-509",
-                "cnh-510",
-                "cnh-511",
-                "cnh-512",
-                "cnh-513",
-                "cnh-514",
-                "cnh-515",
-                "cnh-516",
-                "cnh-517",
-                "cnh-518",
-                "cnh-519",
-                "cnh-520",
-                "cnh-521",
-                "cnh-522",
-                "cnh-523",
-                "cnh-524",
-                "cnh-525",
-                "cnh-526",
-                "cnh-527",
-                "cnh-528",
-                "cnh-529",
-                "cnh-530",
-                "cnh-531",
-                "cnh-532",
-                "cnh-533",
-                "cnh-534"
-              ]
-            },
-            {
-              "id": "col-33",
-              "title": "Qing",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-535",
-                "cnh-536",
-                "cnh-537",
-                "cnh-538",
-                "cnh-539",
-                "cnh-540",
-                "cnh-541",
-                "cnh-542",
-                "cnh-543",
-                "cnh-544",
-                "cnh-545",
-                "cnh-546",
-                "cnh-547",
-                "cnh-548",
-                "cnh-549",
-                "cnh-550",
-                "cnh-551",
-                "cnh-552",
-                "cnh-553",
-                "cnh-554",
-                "cnh-555",
-                "cnh-556",
-                "cnh-557",
-                "cnh-558",
-                "cnh-559",
-                "cnh-560",
-                "cnh-561",
-                "cnh-562",
-                "cnh-563",
-                "cnh-564",
-                "cnh-565",
-                "cnh-566",
-                "cnh-567",
-                "cnh-568",
-                "cnh-569",
-                "cnh-570",
-                "cnh-571",
-                "cnh-572"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "col-34",
-          "title": "Modern",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "col-35",
-              "title": "Early Republic",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-573",
-                "cnh-574",
-                "cnh-575",
-                "cnh-576",
-                "cnh-577",
-                "cnh-578",
-                "cnh-579",
-                "cnh-580",
-                "cnh-581",
-                "cnh-582",
-                "cnh-583",
-                "cnh-584",
-                "cnh-585",
-                "cnh-586",
-                "cnh-587",
-                "cnh-588",
-                "cnh-589",
-                "cnh-590",
-                "cnh-591",
-                "cnh-592",
-                "cnh-593",
-                "cnh-594",
-                "cnh-595",
-                "cnh-596",
-                "cnh-597",
-                "cnh-598",
-                "cnh-599",
-                "cnh-600",
-                "cnh-601",
-                "cnh-602",
-                "cnh-603",
-                "cnh-604",
-                "cnh-605"
-              ]
-            },
-            {
-              "id": "col-36",
-              "title": "Civil War",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-606",
-                "cnh-607",
-                "cnh-608",
-                "cnh-609",
-                "cnh-610",
-                "cnh-611",
-                "cnh-612",
-                "cnh-613",
-                "cnh-614",
-                "cnh-615",
-                "cnh-616",
-                "cnh-617",
-                "cnh-618",
-                "cnh-619",
-                "cnh-620",
-                "cnh-621",
-                "cnh-622",
-                "cnh-623",
-                "cnh-624",
-                "cnh-625",
-                "cnh-626",
-                "cnh-627",
-                "cnh-628",
-                "cnh-629",
-                "cnh-630"
-              ]
-            },
-            {
-              "id": "col-37",
-              "title": "World War II",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-631",
-                "cnh-632",
-                "cnh-633",
-                "cnh-634",
-                "cnh-635",
-                "cnh-636",
-                "cnh-637",
-                "cnh-638",
-                "cnh-639",
-                "cnh-640",
-                "cnh-641",
-                "cnh-642",
-                "cnh-643",
-                "cnh-644",
-                "cnh-645",
-                "cnh-646",
-                "cnh-647",
-                "cnh-648",
-                "cnh-649",
-                "cnh-650",
-                "cnh-651",
-                "cnh-652",
-                "cnh-653",
-                "cnh-654",
-                "cnh-655"
-              ]
-            },
-            {
-              "id": "col-38",
-              "title": "People's Republic of China",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-656",
-                "cnh-657",
-                "cnh-658",
-                "cnh-659",
-                "cnh-660",
-                "cnh-661",
-                "cnh-662",
-                "cnh-663",
-                "cnh-664",
-                "cnh-665",
-                "cnh-666",
-                "cnh-667",
-                "cnh-668",
-                "cnh-669",
-                "cnh-670",
-                "cnh-671",
-                "cnh-672",
-                "cnh-673",
-                "cnh-674",
-                "cnh-675",
-                "cnh-676",
-                "cnh-677",
-                "cnh-678",
-                "cnh-679",
-                "cnh-680",
-                "cnh-681",
-                "cnh-682",
-                "cnh-683",
-                "cnh-684",
-                "cnh-685",
-                "cnh-686",
-                "cnh-687",
-                "cnh-688",
-                "cnh-689",
-                "cnh-690"
-              ]
-            },
-            {
-              "id": "col-39",
-              "title": "Republic of China (Taiwan)",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-691",
-                "cnh-692",
-                "cnh-693",
-                "cnh-694",
-                "cnh-695",
-                "cnh-696",
-                "cnh-697",
-                "cnh-698",
-                "cnh-699",
-                "cnh-700"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "cn-state",
-          "title": "State, Society and Economy",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "cn-government",
-              "title": "The imperial state",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-701",
-                "cnh-702",
-                "cnh-703",
-                "cnh-704",
-                "cnh-705",
-                "cnh-706",
-                "cnh-707",
-                "cnh-708",
-                "cnh-709",
-                "cnh-710",
-                "cnh-711",
-                "cnh-712",
-                "cnh-713",
-                "cnh-714",
-                "cnh-715",
-                "cnh-716",
-                "cnh-717",
-                "cnh-718",
-                "cnh-719",
-                "cnh-720",
-                "cnh-721",
-                "cnh-722",
-                "cnh-723",
-                "cnh-724",
-                "cnh-725",
-                "cnh-726",
-                "cnh-727",
-                "cnh-728",
-                "cnh-729",
-                "cnh-730",
-                "cnh-731",
-                "cnh-732",
-                "cnh-733",
-                "cnh-734",
-                "cnh-735",
-                "cnh-736",
-                "cnh-737",
-                "cnh-738",
-                "cnh-739",
-                "cnh-740"
-              ]
-            },
-            {
-              "id": "cn-society",
-              "title": "Society and everyday life",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-741",
-                "cnh-742",
-                "cnh-743",
-                "cnh-744",
-                "cnh-745",
-                "cnh-746",
-                "cnh-747",
-                "cnh-748",
-                "cnh-749",
-                "cnh-750",
-                "cnh-751",
-                "cnh-752",
-                "cnh-753",
-                "cnh-754",
-                "cnh-755",
-                "cnh-756",
-                "cnh-757",
-                "cnh-758",
-                "cnh-759",
-                "cnh-760",
-                "cnh-761",
-                "cnh-762",
-                "cnh-763",
-                "cnh-764",
-                "cnh-765",
-                "cnh-766",
-                "cnh-767",
-                "cnh-768",
-                "cnh-769",
-                "cnh-770",
-                "cnh-771",
-                "cnh-772"
-              ]
-            },
-            {
-              "id": "cn-peoples",
-              "title": "The peoples and frontiers of China",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-773",
-                "cnh-774",
-                "cnh-775",
-                "cnh-776",
-                "cnh-777",
-                "cnh-778",
-                "cnh-779",
-                "cnh-780",
-                "cnh-781",
-                "cnh-782",
-                "cnh-783",
-                "cnh-784",
-                "cnh-785",
-                "cnh-786",
-                "cnh-787",
-                "cnh-788",
-                "cnh-789",
-                "cnh-790",
-                "cnh-791",
-                "cnh-792",
-                "cnh-793",
-                "cnh-794",
-                "cnh-795",
-                "cnh-796",
-                "cnh-797",
-                "cnh-798",
-                "cnh-799",
-                "cnh-800"
-              ]
-            },
-            {
-              "id": "cn-economy",
-              "title": "Land, trade and money",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-801",
-                "cnh-802",
-                "cnh-803",
-                "cnh-804",
-                "cnh-805",
-                "cnh-806",
-                "cnh-807",
-                "cnh-808",
-                "cnh-809",
-                "cnh-810",
-                "cnh-811",
-                "cnh-812",
-                "cnh-813",
-                "cnh-814",
-                "cnh-815",
-                "cnh-816",
-                "cnh-817",
-                "cnh-818",
-                "cnh-819",
-                "cnh-820",
-                "cnh-821",
-                "cnh-822",
-                "cnh-823",
-                "cnh-824",
-                "cnh-825"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "cn-belief",
-          "title": "Thought and Religion",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "cn-thought",
-              "title": "Chinese philosophy",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-826",
-                "cnh-827",
-                "cnh-828",
-                "cnh-829",
-                "cnh-830",
-                "cnh-831",
-                "cnh-832",
-                "cnh-833",
-                "cnh-834",
-                "cnh-835",
-                "cnh-836",
-                "cnh-837",
-                "cnh-838",
-                "cnh-839",
-                "cnh-840",
-                "cnh-841",
-                "cnh-842",
-                "cnh-843",
-                "cnh-844",
-                "cnh-845",
-                "cnh-846",
-                "cnh-847",
-                "cnh-848",
-                "cnh-849",
-                "cnh-850",
-                "cnh-851",
-                "cnh-852",
-                "cnh-853",
-                "cnh-854",
-                "cnh-855",
-                "cnh-856",
-                "cnh-857",
-                "cnh-858",
-                "cnh-859",
-                "cnh-860",
-                "cnh-861",
-                "cnh-862",
-                "cnh-863",
-                "cnh-864",
-                "cnh-865",
-                "cnh-866",
-                "cnh-867"
-              ]
-            },
-            {
-              "id": "cn-religion",
-              "title": "Religion and ritual",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-868",
-                "cnh-869",
-                "cnh-870",
-                "cnh-871",
-                "cnh-872",
-                "cnh-873",
-                "cnh-874",
-                "cnh-875",
-                "cnh-876",
-                "cnh-877",
-                "cnh-878",
-                "cnh-879",
-                "cnh-880",
-                "cnh-881",
-                "cnh-882",
-                "cnh-883",
-                "cnh-884",
-                "cnh-885",
-                "cnh-886",
-                "cnh-887",
-                "cnh-888",
-                "cnh-889",
-                "cnh-890",
-                "cnh-891",
-                "cnh-892",
-                "cnh-893",
-                "cnh-894",
-                "cnh-895",
-                "cnh-896",
-                "cnh-897",
-                "cnh-898",
-                "cnh-899",
-                "cnh-900",
-                "cnh-901",
-                "cnh-902"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "cn-culture",
-          "title": "Learning, Arts and Invention",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "cn-language",
-              "title": "Language and literature",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-903",
-                "cnh-904",
-                "cnh-905",
-                "cnh-906",
-                "cnh-907",
-                "cnh-908",
-                "cnh-909",
-                "cnh-910",
-                "cnh-911",
-                "cnh-912",
-                "cnh-913",
-                "cnh-914",
-                "cnh-915",
-                "cnh-916",
-                "cnh-917",
-                "cnh-918",
-                "cnh-919",
-                "cnh-920",
-                "cnh-921",
-                "cnh-922",
-                "cnh-923",
-                "cnh-924",
-                "cnh-925",
-                "cnh-926",
-                "cnh-927",
-                "cnh-928",
-                "cnh-929",
-                "cnh-930",
-                "cnh-931",
-                "cnh-932",
-                "cnh-933",
-                "cnh-934",
-                "cnh-935",
-                "cnh-936",
-                "cnh-937",
-                "cnh-938",
-                "cnh-939",
-                "cnh-940",
-                "cnh-941",
-                "cnh-942"
-              ]
-            },
-            {
-              "id": "cn-arts",
-              "title": "Art, architecture and music",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-943",
-                "cnh-944",
-                "cnh-945",
-                "cnh-946",
-                "cnh-947",
-                "cnh-948",
-                "cnh-949",
-                "cnh-950",
-                "cnh-951",
-                "cnh-952",
-                "cnh-953",
-                "cnh-954",
-                "cnh-955",
-                "cnh-956",
-                "cnh-957",
-                "cnh-958",
-                "cnh-959",
-                "cnh-960",
-                "cnh-961",
-                "cnh-962",
-                "cnh-963",
-                "cnh-964",
-                "cnh-965",
-                "cnh-966",
-                "cnh-967",
-                "cnh-968",
-                "cnh-969",
-                "cnh-970",
-                "cnh-971",
-                "cnh-972"
-              ]
-            },
-            {
-              "id": "cn-science",
-              "title": "Science, technology and medicine",
-              "placeholder": false,
-              "cardIds": [
-                "cnh-973",
-                "cnh-974",
-                "cnh-975",
-                "cnh-976",
-                "cnh-977",
-                "cnh-978",
-                "cnh-979",
-                "cnh-980",
-                "cnh-981",
-                "cnh-982",
-                "cnh-983",
-                "cnh-984",
-                "cnh-985",
-                "cnh-986",
-                "cnh-987",
-                "cnh-988",
-                "cnh-989",
-                "cnh-990",
-                "cnh-991",
-                "cnh-992",
-                "cnh-993",
-                "cnh-994",
-                "cnh-995",
-                "cnh-996",
-                "cnh-997",
-                "cnh-998",
-                "cnh-999",
-                "cnh-1000"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "col-8",
       "title": "World History",
       "total": 1000,
@@ -11645,6 +10293,439 @@ window.COLLECTION_TREE = {
                 "wh-999",
                 "wh-1000"
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "egypt",
+      "title": "Ancient Egypt",
+      "total": 200,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "eg-early",
+          "title": "Before the Pharaohs",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-prehistory",
+              "title": "The Nile before the pharaohs",
+              "placeholder": false,
+              "cardIds": [
+                "eg-001",
+                "eg-002",
+                "eg-003",
+                "eg-004",
+                "eg-005",
+                "eg-006",
+                "eg-007",
+                "eg-008",
+                "eg-009",
+                "eg-010",
+                "eg-011",
+                "eg-012",
+                "eg-013",
+                "eg-014",
+                "eg-015",
+                "eg-016",
+                "eg-017",
+                "eg-018",
+                "eg-019",
+                "eg-020",
+                "eg-021",
+                "eg-022",
+                "eg-023",
+                "eg-024",
+                "eg-025"
+              ]
+            },
+            {
+              "id": "eg-predynastic",
+              "title": "Predynastic Egypt",
+              "placeholder": false,
+              "cardIds": [
+                "eg-026",
+                "eg-027",
+                "eg-028",
+                "eg-029",
+                "eg-030",
+                "eg-031",
+                "eg-032",
+                "eg-033",
+                "eg-034",
+                "eg-035",
+                "eg-036",
+                "eg-037",
+                "eg-038",
+                "eg-039",
+                "eg-040",
+                "eg-041",
+                "eg-042",
+                "eg-043",
+                "eg-044",
+                "eg-045",
+                "eg-046",
+                "eg-047",
+                "eg-048",
+                "eg-049",
+                "eg-050",
+                "eg-051",
+                "eg-052",
+                "eg-053",
+                "eg-054",
+                "eg-055"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "eg-ok",
+          "title": "The Old Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-early-dynastic",
+              "title": "Early Dynastic Egypt",
+              "placeholder": false,
+              "cardIds": [
+                "eg-056",
+                "eg-057",
+                "eg-058",
+                "eg-059",
+                "eg-060",
+                "eg-061",
+                "eg-062",
+                "eg-063",
+                "eg-064",
+                "eg-065",
+                "eg-066",
+                "eg-067",
+                "eg-068",
+                "eg-069",
+                "eg-070",
+                "eg-071",
+                "eg-072",
+                "eg-073",
+                "eg-074",
+                "eg-075",
+                "eg-076",
+                "eg-077",
+                "eg-078",
+                "eg-079",
+                "eg-080",
+                "eg-081",
+                "eg-082",
+                "eg-083",
+                "eg-084",
+                "eg-085",
+                "eg-086",
+                "eg-087",
+                "eg-088",
+                "eg-089",
+                "eg-090"
+              ]
+            },
+            {
+              "id": "eg-old-kingdom",
+              "title": "The Old Kingdom",
+              "placeholder": false,
+              "cardIds": [
+                "eg-091",
+                "eg-092",
+                "eg-093",
+                "eg-094",
+                "eg-095",
+                "eg-096",
+                "eg-097",
+                "eg-098",
+                "eg-099",
+                "eg-100",
+                "eg-101",
+                "eg-102",
+                "eg-103",
+                "eg-104",
+                "eg-105",
+                "eg-106",
+                "eg-107",
+                "eg-108",
+                "eg-109",
+                "eg-110",
+                "eg-111",
+                "eg-112",
+                "eg-113",
+                "eg-114",
+                "eg-115",
+                "eg-116",
+                "eg-117",
+                "eg-118",
+                "eg-119",
+                "eg-120",
+                "eg-121",
+                "eg-122",
+                "eg-123",
+                "eg-124",
+                "eg-125",
+                "eg-126",
+                "eg-127",
+                "eg-128",
+                "eg-129",
+                "eg-130",
+                "eg-131",
+                "eg-132",
+                "eg-133",
+                "eg-134",
+                "eg-135",
+                "eg-136",
+                "eg-137",
+                "eg-138",
+                "eg-139",
+                "eg-140"
+              ]
+            },
+            {
+              "id": "eg-first-intermediate",
+              "title": "The First Intermediate Period",
+              "placeholder": false,
+              "cardIds": [
+                "eg-141",
+                "eg-142",
+                "eg-143",
+                "eg-144",
+                "eg-145",
+                "eg-146",
+                "eg-147",
+                "eg-148",
+                "eg-149",
+                "eg-150",
+                "eg-151",
+                "eg-152",
+                "eg-153",
+                "eg-154",
+                "eg-155",
+                "eg-156",
+                "eg-157",
+                "eg-158",
+                "eg-159",
+                "eg-160",
+                "eg-161",
+                "eg-162",
+                "eg-163",
+                "eg-164",
+                "eg-165",
+                "eg-166",
+                "eg-167",
+                "eg-168",
+                "eg-169",
+                "eg-170"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "eg-mk",
+          "title": "The Middle Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-middle-kingdom",
+              "title": "The Middle Kingdom",
+              "placeholder": false,
+              "cardIds": [
+                "eg-171",
+                "eg-172",
+                "eg-173",
+                "eg-174",
+                "eg-175",
+                "eg-176",
+                "eg-177",
+                "eg-178",
+                "eg-179",
+                "eg-180",
+                "eg-181",
+                "eg-182",
+                "eg-183",
+                "eg-184",
+                "eg-185",
+                "eg-186",
+                "eg-187",
+                "eg-188",
+                "eg-189",
+                "eg-190",
+                "eg-191",
+                "eg-192",
+                "eg-193",
+                "eg-194",
+                "eg-195",
+                "eg-196",
+                "eg-197",
+                "eg-198",
+                "eg-199",
+                "eg-200"
+              ]
+            },
+            {
+              "id": "eg-second-intermediate",
+              "title": "The Second Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-nk",
+          "title": "The New Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-early-18th",
+              "title": "The early Eighteenth Dynasty",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-amarna",
+              "title": "Akhenaten and Amarna",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-ramesside",
+              "title": "The Ramesside age",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-thebes",
+              "title": "Thebes, Karnak and the royal tombs",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-later",
+          "title": "The Later Periods",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-third-intermediate",
+              "title": "The Third Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-kush",
+              "title": "Kush and the Twenty-fifth Dynasty",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-late-period",
+              "title": "The Late Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-greco-roman",
+          "title": "Greco-Roman Egypt",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-ptolemaic",
+              "title": "Ptolemaic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-roman",
+              "title": "Roman Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-late-antique",
+              "title": "Christian Egypt and the end",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-belief",
+          "title": "Gods and the Dead",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-religion",
+              "title": "Gods and religion",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-myth",
+              "title": "Myth and cosmology",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-death",
+              "title": "Death, burial and the afterlife",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-state",
+          "title": "Kingship, State and Society",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-kingship",
+              "title": "Kingship and the state",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-economy",
+              "title": "Land, trade and the economy",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-culture",
+          "title": "Writing, Art and Knowledge",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-writing",
+              "title": "Writing and literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-art",
+              "title": "Art and architecture",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-science",
+              "title": "Science, medicine and technology",
+              "placeholder": false,
+              "cardIds": []
             }
           ]
         }
@@ -14059,1824 +13140,6 @@ window.COLLECTION_TREE = {
       ]
     },
     {
-      "id": "col-41",
-      "title": "United States",
-      "total": 300,
-      "placeholder": false,
-      "children": [
-        {
-          "id": "us-native",
-          "title": "Native America",
-          "total": 100,
-          "children": [
-            {
-              "id": "us-native-before",
-              "title": "Native America before contact",
-              "total": 40,
-              "cardIds": [
-                "us-001",
-                "us-002",
-                "us-003",
-                "us-004",
-                "us-005",
-                "us-006",
-                "us-007",
-                "us-008",
-                "us-009",
-                "us-010",
-                "us-011",
-                "us-012",
-                "us-013",
-                "us-014",
-                "us-015",
-                "us-016",
-                "us-017",
-                "us-018",
-                "us-019",
-                "us-020",
-                "us-021",
-                "us-022",
-                "us-023",
-                "us-024",
-                "us-025",
-                "us-026",
-                "us-027",
-                "us-028",
-                "us-029",
-                "us-030",
-                "us-031",
-                "us-032",
-                "us-033",
-                "us-034",
-                "us-035",
-                "us-036",
-                "us-037",
-                "us-038",
-                "us-039",
-                "us-040"
-              ]
-            },
-            {
-              "id": "us-native-contact",
-              "title": "Contact, disease and the colonial encounter",
-              "total": 35,
-              "cardIds": [
-                "us-041",
-                "us-042",
-                "us-043",
-                "us-044",
-                "us-045",
-                "us-046",
-                "us-047",
-                "us-048",
-                "us-049",
-                "us-050",
-                "us-051",
-                "us-052",
-                "us-053",
-                "us-054",
-                "us-055",
-                "us-056",
-                "us-057",
-                "us-058",
-                "us-060",
-                "us-059",
-                "us-061",
-                "us-062",
-                "us-063",
-                "us-064",
-                "us-065",
-                "us-066",
-                "us-067",
-                "us-068",
-                "us-069",
-                "us-070",
-                "us-071",
-                "us-072",
-                "us-073",
-                "us-074",
-                "us-075"
-              ]
-            },
-            {
-              "id": "us-native-modern",
-              "title": "Removal, the reservations and sovereignty",
-              "total": 25,
-              "cardIds": [
-                "us-076",
-                "us-077",
-                "us-078",
-                "us-079",
-                "us-080",
-                "us-081",
-                "us-082",
-                "us-083",
-                "us-084",
-                "us-085",
-                "us-086",
-                "us-087",
-                "us-089",
-                "us-090",
-                "us-088",
-                "us-091",
-                "us-092",
-                "us-093",
-                "us-094",
-                "us-095",
-                "us-096",
-                "us-097",
-                "us-098",
-                "us-099",
-                "us-100"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "us-colonial",
-          "title": "Colonies and Empire, 1565–1763",
-          "total": 105,
-          "children": [
-            {
-              "id": "us-borderlands",
-              "title": "Spanish, French and Dutch North America",
-              "total": 25,
-              "cardIds": [
-                "us-101",
-                "us-102",
-                "us-103",
-                "us-104",
-                "us-105",
-                "us-106",
-                "us-107",
-                "us-108",
-                "us-109",
-                "us-110",
-                "us-111",
-                "us-112",
-                "us-113",
-                "us-114",
-                "us-115",
-                "us-116",
-                "us-117",
-                "us-118",
-                "us-119",
-                "us-120",
-                "us-121",
-                "us-122",
-                "us-123",
-                "us-124",
-                "us-125"
-              ]
-            },
-            {
-              "id": "us-colonies",
-              "title": "The English colonies",
-              "total": 45,
-              "cardIds": [
-                "us-126",
-                "us-127",
-                "us-128",
-                "us-129",
-                "us-130",
-                "us-131",
-                "us-132",
-                "us-133",
-                "us-134",
-                "us-135",
-                "us-136",
-                "us-137",
-                "us-138",
-                "us-139",
-                "us-140",
-                "us-141",
-                "us-142",
-                "us-143",
-                "us-144",
-                "us-145",
-                "us-146",
-                "us-147",
-                "us-148",
-                "us-149",
-                "us-150",
-                "us-151",
-                "us-152",
-                "us-153",
-                "us-154",
-                "us-155",
-                "us-156",
-                "us-157",
-                "us-158",
-                "us-159",
-                "us-160",
-                "us-161",
-                "us-162",
-                "us-163",
-                "us-164",
-                "us-165",
-                "us-166",
-                "us-167",
-                "us-168",
-                "us-169",
-                "us-170"
-              ]
-            },
-            {
-              "id": "us-colonial-society",
-              "title": "Colonial society and the imperial wars",
-              "total": 35,
-              "cardIds": [
-                "us-171",
-                "us-172",
-                "us-173",
-                "us-174",
-                "us-175",
-                "us-176",
-                "us-177",
-                "us-178",
-                "us-179",
-                "us-180",
-                "us-181",
-                "us-182",
-                "us-183",
-                "us-184",
-                "us-185",
-                "us-186",
-                "us-187",
-                "us-188",
-                "us-189",
-                "us-190",
-                "us-191",
-                "us-192",
-                "us-193",
-                "us-194",
-                "us-195",
-                "us-196",
-                "us-197",
-                "us-198",
-                "us-199",
-                "us-200",
-                "us-201",
-                "us-202",
-                "us-203",
-                "us-204",
-                "us-205"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "us-founding",
-          "title": "Revolution and Founding, 1763–1800",
-          "total": 130,
-          "children": [
-            {
-              "id": "us-imperial-crisis",
-              "title": "The imperial crisis",
-              "total": 30,
-              "cardIds": [
-                "us-206",
-                "us-207",
-                "us-208",
-                "us-209",
-                "us-210",
-                "us-211",
-                "us-212",
-                "us-213",
-                "us-214",
-                "us-215",
-                "us-216",
-                "us-217",
-                "us-218",
-                "us-219",
-                "us-220",
-                "us-221",
-                "us-222",
-                "us-223",
-                "us-224",
-                "us-225",
-                "us-226",
-                "us-227",
-                "us-228",
-                "us-229",
-                "us-230",
-                "us-231",
-                "us-232",
-                "us-233",
-                "us-234",
-                "us-235"
-              ]
-            },
-            {
-              "id": "us-revolution",
-              "title": "The War of Independence",
-              "total": 40,
-              "cardIds": [
-                "us-236",
-                "us-237",
-                "us-238",
-                "us-239",
-                "us-240",
-                "us-241",
-                "us-242",
-                "us-243",
-                "us-244",
-                "us-245",
-                "us-246",
-                "us-247",
-                "us-248",
-                "us-249",
-                "us-250",
-                "us-251",
-                "us-252",
-                "us-253",
-                "us-254",
-                "us-255",
-                "us-256",
-                "us-257",
-                "us-258",
-                "us-259",
-                "us-260",
-                "us-261",
-                "us-262",
-                "us-263",
-                "us-264",
-                "us-265",
-                "us-266",
-                "us-267",
-                "us-268",
-                "us-269",
-                "us-270",
-                "us-271",
-                "us-272",
-                "us-273",
-                "us-274",
-                "us-275"
-              ]
-            },
-            {
-              "id": "us-constitution",
-              "title": "The Constitution",
-              "total": 35,
-              "cardIds": [
-                "us-276",
-                "us-277",
-                "us-278",
-                "us-279",
-                "us-280",
-                "us-281",
-                "us-282",
-                "us-283",
-                "us-284",
-                "us-285",
-                "us-286",
-                "us-287",
-                "us-288",
-                "us-289",
-                "us-290",
-                "us-291",
-                "us-292",
-                "us-293",
-                "us-294",
-                "us-295",
-                "us-296",
-                "us-297",
-                "us-298",
-                "us-299",
-                "us-300"
-              ]
-            },
-            {
-              "id": "us-early-republic",
-              "title": "The early republic",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "us-antebellum-era",
-          "title": "Expansion and Division, 1800–1860",
-          "total": 105,
-          "children": [
-            {
-              "id": "us-jefferson",
-              "title": "Jefferson, Madison and the War of 1812",
-              "total": 28,
-              "cardIds": []
-            },
-            {
-              "id": "us-jackson",
-              "title": "The Jacksonian era",
-              "total": 27,
-              "cardIds": []
-            },
-            {
-              "id": "us-expansion",
-              "title": "Expansion and Manifest Destiny",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "us-antebellum",
-              "title": "Antebellum society and reform",
-              "total": 20,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "us-slavery",
-          "title": "Slavery",
-          "total": 90,
-          "children": [
-            {
-              "id": "us-slave-system",
-              "title": "The slave trade and the slave economy",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "us-enslaved-life",
-              "title": "Enslaved life, family and resistance",
-              "total": 35,
-              "cardIds": []
-            },
-            {
-              "id": "us-abolition",
-              "title": "Abolition and the antislavery movement",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "us-civilwar",
-          "title": "Civil War and Reconstruction, 1848–1877",
-          "total": 120,
-          "children": [
-            {
-              "id": "us-sectional-crisis",
-              "title": "The sectional crisis",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "us-civil-war",
-              "title": "The Civil War",
-              "total": 45,
-              "cardIds": []
-            },
-            {
-              "id": "us-emancipation",
-              "title": "Emancipation and Black freedom",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "us-reconstruction",
-              "title": "Reconstruction and its overthrow",
-              "total": 30,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "us-industrial",
-          "title": "The Industrial Nation, 1865–1917",
-          "total": 110,
-          "children": [
-            {
-              "id": "us-west",
-              "title": "The West",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "us-industry",
-              "title": "Industry, labour and the corporation",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "us-immigration-city",
-              "title": "Immigration and the city",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "us-progressive",
-              "title": "Populism, Progressivism and empire",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "us-midcentury",
-          "title": "Depression, War and Cold War, 1917–1963",
-          "total": 130,
-          "children": [
-            {
-              "id": "us-ww1-twenties",
-              "title": "The First World War and the twenties",
-              "total": 32,
-              "cardIds": []
-            },
-            {
-              "id": "us-depression",
-              "title": "Depression and the New Deal",
-              "total": 33,
-              "cardIds": []
-            },
-            {
-              "id": "us-ww2",
-              "title": "World War II",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "us-cold-war",
-              "title": "The Cold War",
-              "total": 35,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "us-modern",
-          "title": "Modern America",
-          "total": 110,
-          "children": [
-            {
-              "id": "us-civil-rights",
-              "title": "Jim Crow and the Black freedom struggle",
-              "total": 35,
-              "cardIds": []
-            },
-            {
-              "id": "us-sixties",
-              "title": "The sixties and Vietnam",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "us-rights",
-              "title": "Rights movements and the new politics",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "us-since-1974",
-              "title": "America since 1974",
-              "total": 30,
-              "cardIds": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "col-42",
-      "title": "Russia",
-      "total": 300,
-      "placeholder": false,
-      "children": [
-        {
-          "id": "ru-rus",
-          "title": "Rus'",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-before",
-              "title": "Before Rus'",
-              "placeholder": false,
-              "cardIds": [
-                "ru-001",
-                "ru-002",
-                "ru-003",
-                "ru-004",
-                "ru-005",
-                "ru-006",
-                "ru-007",
-                "ru-008",
-                "ru-009",
-                "ru-010",
-                "ru-011",
-                "ru-012",
-                "ru-013",
-                "ru-014",
-                "ru-015",
-                "ru-016",
-                "ru-017",
-                "ru-018",
-                "ru-019",
-                "ru-020",
-                "ru-021",
-                "ru-022",
-                "ru-023",
-                "ru-024",
-                "ru-025",
-                "ru-026",
-                "ru-027",
-                "ru-028",
-                "ru-029",
-                "ru-030",
-                "ru-031",
-                "ru-032",
-                "ru-033",
-                "ru-034",
-                "ru-035"
-              ]
-            },
-            {
-              "id": "ru-kievan",
-              "title": "Kievan Rus'",
-              "placeholder": false,
-              "cardIds": [
-                "ru-036",
-                "ru-037",
-                "ru-038",
-                "ru-039",
-                "ru-040",
-                "ru-041",
-                "ru-042",
-                "ru-043",
-                "ru-044",
-                "ru-045",
-                "ru-046",
-                "ru-047",
-                "ru-048",
-                "ru-049",
-                "ru-050",
-                "ru-051",
-                "ru-052",
-                "ru-053",
-                "ru-054",
-                "ru-055",
-                "ru-056",
-                "ru-057",
-                "ru-058",
-                "ru-059",
-                "ru-060",
-                "ru-061",
-                "ru-062",
-                "ru-063",
-                "ru-064",
-                "ru-065",
-                "ru-066",
-                "ru-067",
-                "ru-068",
-                "ru-069",
-                "ru-070",
-                "ru-071",
-                "ru-072",
-                "ru-073",
-                "ru-074",
-                "ru-075",
-                "ru-076",
-                "ru-077",
-                "ru-078",
-                "ru-079",
-                "ru-080",
-                "ru-081",
-                "ru-082",
-                "ru-083",
-                "ru-084",
-                "ru-085",
-                "ru-086",
-                "ru-087",
-                "ru-088",
-                "ru-089",
-                "ru-090"
-              ]
-            },
-            {
-              "id": "ru-horde",
-              "title": "The Mongol conquest and the Golden Horde",
-              "placeholder": false,
-              "cardIds": [
-                "ru-091",
-                "ru-092",
-                "ru-093",
-                "ru-094",
-                "ru-095",
-                "ru-096",
-                "ru-097",
-                "ru-098",
-                "ru-099",
-                "ru-100",
-                "ru-101",
-                "ru-102",
-                "ru-103",
-                "ru-104",
-                "ru-105",
-                "ru-106",
-                "ru-107",
-                "ru-108",
-                "ru-109",
-                "ru-110",
-                "ru-111",
-                "ru-112",
-                "ru-113",
-                "ru-114",
-                "ru-115",
-                "ru-116",
-                "ru-117",
-                "ru-118",
-                "ru-119",
-                "ru-120",
-                "ru-121",
-                "ru-122",
-                "ru-123",
-                "ru-124",
-                "ru-125"
-              ]
-            },
-            {
-              "id": "ru-moscow-rise",
-              "title": "The rise of Moscow",
-              "placeholder": false,
-              "cardIds": [
-                "ru-126",
-                "ru-127",
-                "ru-128",
-                "ru-129",
-                "ru-130",
-                "ru-131",
-                "ru-132",
-                "ru-133",
-                "ru-134",
-                "ru-135",
-                "ru-136",
-                "ru-137",
-                "ru-138",
-                "ru-139",
-                "ru-140",
-                "ru-141",
-                "ru-142",
-                "ru-143",
-                "ru-144",
-                "ru-145",
-                "ru-146",
-                "ru-147",
-                "ru-148",
-                "ru-149",
-                "ru-150",
-                "ru-151",
-                "ru-152",
-                "ru-153",
-                "ru-154",
-                "ru-155",
-                "ru-156",
-                "ru-157",
-                "ru-158",
-                "ru-159",
-                "ru-160"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ru-muscovy",
-          "title": "Muscovy",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-ivan-iii",
-              "title": "Ivan III and Vasily III",
-              "placeholder": false,
-              "cardIds": [
-                "ru-161",
-                "ru-162",
-                "ru-163",
-                "ru-164",
-                "ru-165",
-                "ru-166",
-                "ru-167",
-                "ru-168",
-                "ru-169",
-                "ru-170",
-                "ru-171",
-                "ru-172",
-                "ru-173",
-                "ru-174",
-                "ru-175",
-                "ru-176",
-                "ru-177",
-                "ru-178",
-                "ru-179",
-                "ru-180",
-                "ru-181",
-                "ru-182",
-                "ru-183",
-                "ru-184",
-                "ru-185",
-                "ru-186",
-                "ru-187",
-                "ru-188",
-                "ru-189",
-                "ru-190"
-              ]
-            },
-            {
-              "id": "ru-ivan-iv",
-              "title": "Ivan the Terrible",
-              "placeholder": false,
-              "cardIds": [
-                "ru-191",
-                "ru-192",
-                "ru-193",
-                "ru-194",
-                "ru-195",
-                "ru-196",
-                "ru-197",
-                "ru-198",
-                "ru-199",
-                "ru-200",
-                "ru-211",
-                "ru-212",
-                "ru-213",
-                "ru-214",
-                "ru-215",
-                "ru-216",
-                "ru-217",
-                "ru-218",
-                "ru-219",
-                "ru-220",
-                "ru-221",
-                "ru-222",
-                "ru-223",
-                "ru-224",
-                "ru-225",
-                "ru-201",
-                "ru-202",
-                "ru-203",
-                "ru-204",
-                "ru-205",
-                "ru-206",
-                "ru-207",
-                "ru-208",
-                "ru-209",
-                "ru-210"
-              ]
-            },
-            {
-              "id": "ru-troubles",
-              "title": "The Time of Troubles",
-              "placeholder": false,
-              "cardIds": [
-                "ru-241",
-                "ru-242",
-                "ru-243",
-                "ru-244",
-                "ru-245",
-                "ru-246",
-                "ru-247",
-                "ru-248",
-                "ru-249",
-                "ru-250",
-                "ru-226",
-                "ru-227",
-                "ru-228",
-                "ru-229",
-                "ru-230",
-                "ru-231",
-                "ru-232",
-                "ru-233",
-                "ru-234",
-                "ru-235",
-                "ru-236",
-                "ru-237",
-                "ru-238",
-                "ru-239",
-                "ru-240"
-              ]
-            },
-            {
-              "id": "ru-first-romanovs",
-              "title": "The first Romanovs",
-              "placeholder": false,
-              "cardIds": [
-                "ru-271",
-                "ru-272",
-                "ru-273",
-                "ru-274",
-                "ru-275",
-                "ru-251",
-                "ru-252",
-                "ru-253",
-                "ru-254",
-                "ru-255",
-                "ru-256",
-                "ru-257",
-                "ru-258",
-                "ru-259",
-                "ru-260",
-                "ru-261",
-                "ru-262",
-                "ru-263",
-                "ru-264",
-                "ru-265",
-                "ru-266",
-                "ru-267",
-                "ru-268",
-                "ru-269",
-                "ru-270"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ru-empire",
-          "title": "The Russian Empire",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-peter",
-              "title": "Peter the Great",
-              "placeholder": false,
-              "cardIds": [
-                "ru-276",
-                "ru-277",
-                "ru-278",
-                "ru-279",
-                "ru-280",
-                "ru-281",
-                "ru-282",
-                "ru-283",
-                "ru-284",
-                "ru-285",
-                "ru-286",
-                "ru-287",
-                "ru-288",
-                "ru-289",
-                "ru-290",
-                "ru-291",
-                "ru-292",
-                "ru-293",
-                "ru-294",
-                "ru-295",
-                "ru-296",
-                "ru-297",
-                "ru-298",
-                "ru-299",
-                "ru-300"
-              ]
-            },
-            {
-              "id": "ru-empresses",
-              "title": "From Peter to Catherine",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-catherine",
-              "title": "Catherine the Great",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ru-nineteenth",
-          "title": "The Nineteenth Century",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-alexander-i",
-              "title": "Alexander I and the war with Napoleon",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-nicholas-i",
-              "title": "Nicholas I",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-reforms",
-              "title": "The Great Reforms",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ru-end-empire",
-          "title": "The End of the Empire",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-late-empire",
-              "title": "Late imperial Russia",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-last-years",
-              "title": "1905 and the fall of the monarchy",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ru-soviet",
-          "title": "Revolution and the Soviet Union",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-revolution",
-              "title": "1917",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-civil-war",
-              "title": "The Civil War and the making of the USSR",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-stalin",
-              "title": "Stalin",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-great-patriotic-war",
-              "title": "The Great Patriotic War",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-after-stalin",
-              "title": "The Soviet Union after Stalin",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ru-federation",
-          "title": "Russia since 1985",
-          "placeholder": false,
-          "cardIds": []
-        },
-        {
-          "id": "ru-land-peoples",
-          "title": "Land, Peoples and Faith",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-land",
-              "title": "The Russian land",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-peoples",
-              "title": "The peoples of Russia",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-church",
-              "title": "The Orthodox Church",
-              "placeholder": false,
-              "cardIds": [
-                "ru-156",
-                "ru-157"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ru-culture",
-          "title": "Society, Ideas and Culture",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "ru-society",
-              "title": "Society and everyday life",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-thought",
-              "title": "Russian thought",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-literature",
-              "title": "Russian literature",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "ru-arts",
-              "title": "Art, architecture and music",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "col-43",
-      "title": "India",
-      "total": 0,
-      "placeholder": false,
-      "children": [
-        {
-          "id": "in-ancient",
-          "title": "Ancient India",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-prehistory",
-              "title": "Prehistory and the Indus cities",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-vedic",
-              "title": "The Vedic period",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-mahajanapadas",
-              "title": "The Mahajanapadas and the new religions",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-mauryas",
-              "title": "The Mauryan Empire",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-after-mauryas",
-              "title": "After the Mauryas",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-guptas",
-              "title": "The Gupta age",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-early-medieval",
-          "title": "Early Medieval India",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-north-kingdoms",
-              "title": "The northern kingdoms",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-deccan-early",
-              "title": "The Deccan: Chalukyas and Rashtrakutas",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-south-early",
-              "title": "The Tamil south and the Cholas",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-sultanates",
-          "title": "Sultanates and Successor States",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-delhi-sultanate",
-              "title": "The Delhi Sultanate",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-vijayanagara",
-              "title": "Vijayanagara",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-deccan-sultanates",
-              "title": "The Deccan sultanates and the regional kingdoms",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-mughals",
-          "title": "The Mughals",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-early-mughals",
-              "title": "Babur to Akbar",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-high-mughal",
-              "title": "Jahangir to Aurangzeb",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-mughal-successors",
-              "title": "The successor states",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-colonial",
-          "title": "Company and Crown",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-company",
-              "title": "The East India Company",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-raj",
-              "title": "The Raj",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-colonial-impact",
-              "title": "Colonial rule and its consequences",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-freedom",
-          "title": "Nationalism and Independence",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-nationalism",
-              "title": "The rise of nationalism",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-gandhi",
-              "title": "Gandhi and mass politics",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-partition",
-              "title": "Independence and Partition",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-republic",
-          "title": "India since 1947",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-nehru",
-              "title": "The Nehru years",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-modern",
-              "title": "India since 1964",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-religion",
-          "title": "Religion and Philosophy",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-hinduism",
-              "title": "Hindu traditions",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-buddhism-jainism",
-              "title": "Buddhism and Jainism",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-other-faiths",
-              "title": "Islam, Sikhism and India's other faiths",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "in-culture",
-          "title": "Society, Economy and Culture",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "in-society",
-              "title": "Caste, family and society",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-economy",
-              "title": "Land, trade and the economy",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-languages",
-              "title": "Languages and literatures",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-arts",
-              "title": "Art, architecture and music",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "in-science",
-              "title": "Science, mathematics and medicine",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "egypt",
-      "title": "Ancient Egypt",
-      "total": 200,
-      "placeholder": false,
-      "children": [
-        {
-          "id": "eg-early",
-          "title": "Before the Pharaohs",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-prehistory",
-              "title": "The Nile before the pharaohs",
-              "placeholder": false,
-              "cardIds": [
-                "eg-001",
-                "eg-002",
-                "eg-003",
-                "eg-004",
-                "eg-005",
-                "eg-006",
-                "eg-007",
-                "eg-008",
-                "eg-009",
-                "eg-010",
-                "eg-011",
-                "eg-012",
-                "eg-013",
-                "eg-014",
-                "eg-015",
-                "eg-016",
-                "eg-017",
-                "eg-018",
-                "eg-019",
-                "eg-020",
-                "eg-021",
-                "eg-022",
-                "eg-023",
-                "eg-024",
-                "eg-025"
-              ]
-            },
-            {
-              "id": "eg-predynastic",
-              "title": "Predynastic Egypt",
-              "placeholder": false,
-              "cardIds": [
-                "eg-026",
-                "eg-027",
-                "eg-028",
-                "eg-029",
-                "eg-030",
-                "eg-031",
-                "eg-032",
-                "eg-033",
-                "eg-034",
-                "eg-035",
-                "eg-036",
-                "eg-037",
-                "eg-038",
-                "eg-039",
-                "eg-040",
-                "eg-041",
-                "eg-042",
-                "eg-043",
-                "eg-044",
-                "eg-045",
-                "eg-046",
-                "eg-047",
-                "eg-048",
-                "eg-049",
-                "eg-050",
-                "eg-051",
-                "eg-052",
-                "eg-053",
-                "eg-054",
-                "eg-055"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "eg-ok",
-          "title": "The Old Kingdom",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-early-dynastic",
-              "title": "Early Dynastic Egypt",
-              "placeholder": false,
-              "cardIds": [
-                "eg-056",
-                "eg-057",
-                "eg-058",
-                "eg-059",
-                "eg-060",
-                "eg-061",
-                "eg-062",
-                "eg-063",
-                "eg-064",
-                "eg-065",
-                "eg-066",
-                "eg-067",
-                "eg-068",
-                "eg-069",
-                "eg-070",
-                "eg-071",
-                "eg-072",
-                "eg-073",
-                "eg-074",
-                "eg-075",
-                "eg-076",
-                "eg-077",
-                "eg-078",
-                "eg-079",
-                "eg-080",
-                "eg-081",
-                "eg-082",
-                "eg-083",
-                "eg-084",
-                "eg-085",
-                "eg-086",
-                "eg-087",
-                "eg-088",
-                "eg-089",
-                "eg-090"
-              ]
-            },
-            {
-              "id": "eg-old-kingdom",
-              "title": "The Old Kingdom",
-              "placeholder": false,
-              "cardIds": [
-                "eg-091",
-                "eg-092",
-                "eg-093",
-                "eg-094",
-                "eg-095",
-                "eg-096",
-                "eg-097",
-                "eg-098",
-                "eg-099",
-                "eg-100",
-                "eg-101",
-                "eg-102",
-                "eg-103",
-                "eg-104",
-                "eg-105",
-                "eg-106",
-                "eg-107",
-                "eg-108",
-                "eg-109",
-                "eg-110",
-                "eg-111",
-                "eg-112",
-                "eg-113",
-                "eg-114",
-                "eg-115",
-                "eg-116",
-                "eg-117",
-                "eg-118",
-                "eg-119",
-                "eg-120",
-                "eg-121",
-                "eg-122",
-                "eg-123",
-                "eg-124",
-                "eg-125",
-                "eg-126",
-                "eg-127",
-                "eg-128",
-                "eg-129",
-                "eg-130",
-                "eg-131",
-                "eg-132",
-                "eg-133",
-                "eg-134",
-                "eg-135",
-                "eg-136",
-                "eg-137",
-                "eg-138",
-                "eg-139",
-                "eg-140"
-              ]
-            },
-            {
-              "id": "eg-first-intermediate",
-              "title": "The First Intermediate Period",
-              "placeholder": false,
-              "cardIds": [
-                "eg-141",
-                "eg-142",
-                "eg-143",
-                "eg-144",
-                "eg-145",
-                "eg-146",
-                "eg-147",
-                "eg-148",
-                "eg-149",
-                "eg-150",
-                "eg-151",
-                "eg-152",
-                "eg-153",
-                "eg-154",
-                "eg-155",
-                "eg-156",
-                "eg-157",
-                "eg-158",
-                "eg-159",
-                "eg-160",
-                "eg-161",
-                "eg-162",
-                "eg-163",
-                "eg-164",
-                "eg-165",
-                "eg-166",
-                "eg-167",
-                "eg-168",
-                "eg-169",
-                "eg-170"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "eg-mk",
-          "title": "The Middle Kingdom",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-middle-kingdom",
-              "title": "The Middle Kingdom",
-              "placeholder": false,
-              "cardIds": [
-                "eg-171",
-                "eg-172",
-                "eg-173",
-                "eg-174",
-                "eg-175",
-                "eg-176",
-                "eg-177",
-                "eg-178",
-                "eg-179",
-                "eg-180",
-                "eg-181",
-                "eg-182",
-                "eg-183",
-                "eg-184",
-                "eg-185",
-                "eg-186",
-                "eg-187",
-                "eg-188",
-                "eg-189",
-                "eg-190",
-                "eg-191",
-                "eg-192",
-                "eg-193",
-                "eg-194",
-                "eg-195",
-                "eg-196",
-                "eg-197",
-                "eg-198",
-                "eg-199",
-                "eg-200"
-              ]
-            },
-            {
-              "id": "eg-second-intermediate",
-              "title": "The Second Intermediate Period",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "eg-nk",
-          "title": "The New Kingdom",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-early-18th",
-              "title": "The early Eighteenth Dynasty",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-amarna",
-              "title": "Akhenaten and Amarna",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-ramesside",
-              "title": "The Ramesside age",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-thebes",
-              "title": "Thebes, Karnak and the royal tombs",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "eg-later",
-          "title": "The Later Periods",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-third-intermediate",
-              "title": "The Third Intermediate Period",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-kush",
-              "title": "Kush and the Twenty-fifth Dynasty",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-late-period",
-              "title": "The Late Period",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "eg-greco-roman",
-          "title": "Greco-Roman Egypt",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-ptolemaic",
-              "title": "Ptolemaic Egypt",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-roman",
-              "title": "Roman Egypt",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-late-antique",
-              "title": "Christian Egypt and the end",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "eg-belief",
-          "title": "Gods and the Dead",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-religion",
-              "title": "Gods and religion",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-myth",
-              "title": "Myth and cosmology",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-death",
-              "title": "Death, burial and the afterlife",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "eg-state",
-          "title": "Kingship, State and Society",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-kingship",
-              "title": "Kingship and the state",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-society",
-              "title": "Society and everyday life",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-economy",
-              "title": "Land, trade and the economy",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "eg-culture",
-          "title": "Writing, Art and Knowledge",
-          "placeholder": false,
-          "children": [
-            {
-              "id": "eg-writing",
-              "title": "Writing and literature",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-art",
-              "title": "Art and architecture",
-              "placeholder": false,
-              "cardIds": []
-            },
-            {
-              "id": "eg-science",
-              "title": "Science, medicine and technology",
-              "placeholder": false,
-              "cardIds": []
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "ww2",
       "title": "World War II",
       "total": 1000,
@@ -17153,6 +14416,2486 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "col-41",
+      "title": "United States",
+      "total": 300,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "us-native",
+          "title": "Native America",
+          "total": 100,
+          "children": [
+            {
+              "id": "us-native-before",
+              "title": "Native America before contact",
+              "total": 40,
+              "cardIds": [
+                "us-001",
+                "us-002",
+                "us-003",
+                "us-004",
+                "us-005",
+                "us-006",
+                "us-007",
+                "us-008",
+                "us-009",
+                "us-010",
+                "us-011",
+                "us-012",
+                "us-013",
+                "us-014",
+                "us-015",
+                "us-016",
+                "us-017",
+                "us-018",
+                "us-019",
+                "us-020",
+                "us-021",
+                "us-022",
+                "us-023",
+                "us-024",
+                "us-025",
+                "us-026",
+                "us-027",
+                "us-028",
+                "us-029",
+                "us-030",
+                "us-031",
+                "us-032",
+                "us-033",
+                "us-034",
+                "us-035",
+                "us-036",
+                "us-037",
+                "us-038",
+                "us-039",
+                "us-040"
+              ]
+            },
+            {
+              "id": "us-native-contact",
+              "title": "Contact, disease and the colonial encounter",
+              "total": 35,
+              "cardIds": [
+                "us-041",
+                "us-042",
+                "us-043",
+                "us-044",
+                "us-045",
+                "us-046",
+                "us-047",
+                "us-048",
+                "us-049",
+                "us-050",
+                "us-051",
+                "us-052",
+                "us-053",
+                "us-054",
+                "us-055",
+                "us-056",
+                "us-057",
+                "us-058",
+                "us-060",
+                "us-059",
+                "us-061",
+                "us-062",
+                "us-063",
+                "us-064",
+                "us-065",
+                "us-066",
+                "us-067",
+                "us-068",
+                "us-069",
+                "us-070",
+                "us-071",
+                "us-072",
+                "us-073",
+                "us-074",
+                "us-075"
+              ]
+            },
+            {
+              "id": "us-native-modern",
+              "title": "Removal, the reservations and sovereignty",
+              "total": 25,
+              "cardIds": [
+                "us-076",
+                "us-077",
+                "us-078",
+                "us-079",
+                "us-080",
+                "us-081",
+                "us-082",
+                "us-083",
+                "us-084",
+                "us-085",
+                "us-086",
+                "us-087",
+                "us-089",
+                "us-090",
+                "us-088",
+                "us-091",
+                "us-092",
+                "us-093",
+                "us-094",
+                "us-095",
+                "us-096",
+                "us-097",
+                "us-098",
+                "us-099",
+                "us-100"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "us-colonial",
+          "title": "Colonies and Empire, 1565–1763",
+          "total": 105,
+          "children": [
+            {
+              "id": "us-borderlands",
+              "title": "Spanish, French and Dutch North America",
+              "total": 25,
+              "cardIds": [
+                "us-101",
+                "us-102",
+                "us-103",
+                "us-104",
+                "us-105",
+                "us-106",
+                "us-107",
+                "us-108",
+                "us-109",
+                "us-110",
+                "us-111",
+                "us-112",
+                "us-113",
+                "us-114",
+                "us-115",
+                "us-116",
+                "us-117",
+                "us-118",
+                "us-119",
+                "us-120",
+                "us-121",
+                "us-122",
+                "us-123",
+                "us-124",
+                "us-125"
+              ]
+            },
+            {
+              "id": "us-colonies",
+              "title": "The English colonies",
+              "total": 45,
+              "cardIds": [
+                "us-126",
+                "us-127",
+                "us-128",
+                "us-129",
+                "us-130",
+                "us-131",
+                "us-132",
+                "us-133",
+                "us-134",
+                "us-135",
+                "us-136",
+                "us-137",
+                "us-138",
+                "us-139",
+                "us-140",
+                "us-141",
+                "us-142",
+                "us-143",
+                "us-144",
+                "us-145",
+                "us-146",
+                "us-147",
+                "us-148",
+                "us-149",
+                "us-150",
+                "us-151",
+                "us-152",
+                "us-153",
+                "us-154",
+                "us-155",
+                "us-156",
+                "us-157",
+                "us-158",
+                "us-159",
+                "us-160",
+                "us-161",
+                "us-162",
+                "us-163",
+                "us-164",
+                "us-165",
+                "us-166",
+                "us-167",
+                "us-168",
+                "us-169",
+                "us-170"
+              ]
+            },
+            {
+              "id": "us-colonial-society",
+              "title": "Colonial society and the imperial wars",
+              "total": 35,
+              "cardIds": [
+                "us-171",
+                "us-172",
+                "us-173",
+                "us-174",
+                "us-175",
+                "us-176",
+                "us-177",
+                "us-178",
+                "us-179",
+                "us-180",
+                "us-181",
+                "us-182",
+                "us-183",
+                "us-184",
+                "us-185",
+                "us-186",
+                "us-187",
+                "us-188",
+                "us-189",
+                "us-190",
+                "us-191",
+                "us-192",
+                "us-193",
+                "us-194",
+                "us-195",
+                "us-196",
+                "us-197",
+                "us-198",
+                "us-199",
+                "us-200",
+                "us-201",
+                "us-202",
+                "us-203",
+                "us-204",
+                "us-205"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "us-founding",
+          "title": "Revolution and Founding, 1763–1800",
+          "total": 130,
+          "children": [
+            {
+              "id": "us-imperial-crisis",
+              "title": "The imperial crisis",
+              "total": 30,
+              "cardIds": [
+                "us-206",
+                "us-207",
+                "us-208",
+                "us-209",
+                "us-210",
+                "us-211",
+                "us-212",
+                "us-213",
+                "us-214",
+                "us-215",
+                "us-216",
+                "us-217",
+                "us-218",
+                "us-219",
+                "us-220",
+                "us-221",
+                "us-222",
+                "us-223",
+                "us-224",
+                "us-225",
+                "us-226",
+                "us-227",
+                "us-228",
+                "us-229",
+                "us-230",
+                "us-231",
+                "us-232",
+                "us-233",
+                "us-234",
+                "us-235"
+              ]
+            },
+            {
+              "id": "us-revolution",
+              "title": "The War of Independence",
+              "total": 40,
+              "cardIds": [
+                "us-236",
+                "us-237",
+                "us-238",
+                "us-239",
+                "us-240",
+                "us-241",
+                "us-242",
+                "us-243",
+                "us-244",
+                "us-245",
+                "us-246",
+                "us-247",
+                "us-248",
+                "us-249",
+                "us-250",
+                "us-251",
+                "us-252",
+                "us-253",
+                "us-254",
+                "us-255",
+                "us-256",
+                "us-257",
+                "us-258",
+                "us-259",
+                "us-260",
+                "us-261",
+                "us-262",
+                "us-263",
+                "us-264",
+                "us-265",
+                "us-266",
+                "us-267",
+                "us-268",
+                "us-269",
+                "us-270",
+                "us-271",
+                "us-272",
+                "us-273",
+                "us-274",
+                "us-275"
+              ]
+            },
+            {
+              "id": "us-constitution",
+              "title": "The Constitution",
+              "total": 35,
+              "cardIds": [
+                "us-276",
+                "us-277",
+                "us-278",
+                "us-279",
+                "us-280",
+                "us-281",
+                "us-282",
+                "us-283",
+                "us-284",
+                "us-285",
+                "us-286",
+                "us-287",
+                "us-288",
+                "us-289",
+                "us-290",
+                "us-291",
+                "us-292",
+                "us-293",
+                "us-294",
+                "us-295",
+                "us-296",
+                "us-297",
+                "us-298",
+                "us-299",
+                "us-300"
+              ]
+            },
+            {
+              "id": "us-early-republic",
+              "title": "The early republic",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-antebellum-era",
+          "title": "Expansion and Division, 1800–1860",
+          "total": 105,
+          "children": [
+            {
+              "id": "us-jefferson",
+              "title": "Jefferson, Madison and the War of 1812",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "us-jackson",
+              "title": "The Jacksonian era",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "us-expansion",
+              "title": "Expansion and Manifest Destiny",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-antebellum",
+              "title": "Antebellum society and reform",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-slavery",
+          "title": "Slavery",
+          "total": 90,
+          "children": [
+            {
+              "id": "us-slave-system",
+              "title": "The slave trade and the slave economy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-enslaved-life",
+              "title": "Enslaved life, family and resistance",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-abolition",
+              "title": "Abolition and the antislavery movement",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-civilwar",
+          "title": "Civil War and Reconstruction, 1848–1877",
+          "total": 120,
+          "children": [
+            {
+              "id": "us-sectional-crisis",
+              "title": "The sectional crisis",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-civil-war",
+              "title": "The Civil War",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "us-emancipation",
+              "title": "Emancipation and Black freedom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "us-reconstruction",
+              "title": "Reconstruction and its overthrow",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-industrial",
+          "title": "The Industrial Nation, 1865–1917",
+          "total": 110,
+          "children": [
+            {
+              "id": "us-west",
+              "title": "The West",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-industry",
+              "title": "Industry, labour and the corporation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-immigration-city",
+              "title": "Immigration and the city",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-progressive",
+              "title": "Populism, Progressivism and empire",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-midcentury",
+          "title": "Depression, War and Cold War, 1917–1963",
+          "total": 130,
+          "children": [
+            {
+              "id": "us-ww1-twenties",
+              "title": "The First World War and the twenties",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "us-depression",
+              "title": "Depression and the New Deal",
+              "total": 33,
+              "cardIds": []
+            },
+            {
+              "id": "us-ww2",
+              "title": "World War II",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-cold-war",
+              "title": "The Cold War",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-modern",
+          "title": "Modern America",
+          "total": 110,
+          "children": [
+            {
+              "id": "us-civil-rights",
+              "title": "Jim Crow and the Black freedom struggle",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-sixties",
+              "title": "The sixties and Vietnam",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-rights",
+              "title": "Rights movements and the new politics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "us-since-1974",
+              "title": "America since 1974",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "col-42",
+      "title": "Russia",
+      "total": 200,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "ru-rus",
+          "title": "Rus'",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-before",
+              "title": "Before Rus'",
+              "placeholder": false,
+              "cardIds": [
+                "ru-001",
+                "ru-002",
+                "ru-003",
+                "ru-004",
+                "ru-005",
+                "ru-006",
+                "ru-007",
+                "ru-008",
+                "ru-009",
+                "ru-010",
+                "ru-011",
+                "ru-012",
+                "ru-013",
+                "ru-014",
+                "ru-015",
+                "ru-016",
+                "ru-017",
+                "ru-018",
+                "ru-019",
+                "ru-020",
+                "ru-021",
+                "ru-022",
+                "ru-023",
+                "ru-024",
+                "ru-025",
+                "ru-026",
+                "ru-027",
+                "ru-028",
+                "ru-029",
+                "ru-030",
+                "ru-031",
+                "ru-032",
+                "ru-033",
+                "ru-034",
+                "ru-035"
+              ]
+            },
+            {
+              "id": "ru-kievan",
+              "title": "Kievan Rus'",
+              "placeholder": false,
+              "cardIds": [
+                "ru-036",
+                "ru-037",
+                "ru-038",
+                "ru-039",
+                "ru-040",
+                "ru-041",
+                "ru-042",
+                "ru-043",
+                "ru-044",
+                "ru-045",
+                "ru-046",
+                "ru-047",
+                "ru-048",
+                "ru-049",
+                "ru-050",
+                "ru-051",
+                "ru-052",
+                "ru-053",
+                "ru-054",
+                "ru-055",
+                "ru-056",
+                "ru-057",
+                "ru-058",
+                "ru-059",
+                "ru-060",
+                "ru-061",
+                "ru-062",
+                "ru-063",
+                "ru-064",
+                "ru-065",
+                "ru-066",
+                "ru-067",
+                "ru-068",
+                "ru-069",
+                "ru-070",
+                "ru-071",
+                "ru-072",
+                "ru-073",
+                "ru-074",
+                "ru-075",
+                "ru-076",
+                "ru-077",
+                "ru-078",
+                "ru-079",
+                "ru-080",
+                "ru-081",
+                "ru-082",
+                "ru-083",
+                "ru-084",
+                "ru-085",
+                "ru-086",
+                "ru-087",
+                "ru-088",
+                "ru-089",
+                "ru-090"
+              ]
+            },
+            {
+              "id": "ru-horde",
+              "title": "The Mongol conquest and the Golden Horde",
+              "placeholder": false,
+              "cardIds": [
+                "ru-091",
+                "ru-092",
+                "ru-093",
+                "ru-094",
+                "ru-095",
+                "ru-096",
+                "ru-097",
+                "ru-098",
+                "ru-099",
+                "ru-100",
+                "ru-101",
+                "ru-102",
+                "ru-103",
+                "ru-104",
+                "ru-105",
+                "ru-106",
+                "ru-107",
+                "ru-108",
+                "ru-109",
+                "ru-110",
+                "ru-111",
+                "ru-112",
+                "ru-113",
+                "ru-114",
+                "ru-115",
+                "ru-116",
+                "ru-117",
+                "ru-118",
+                "ru-119",
+                "ru-120",
+                "ru-121",
+                "ru-122",
+                "ru-123",
+                "ru-124",
+                "ru-125"
+              ]
+            },
+            {
+              "id": "ru-moscow-rise",
+              "title": "The rise of Moscow",
+              "placeholder": false,
+              "cardIds": [
+                "ru-126",
+                "ru-127",
+                "ru-128",
+                "ru-129",
+                "ru-130",
+                "ru-131",
+                "ru-132",
+                "ru-133",
+                "ru-134",
+                "ru-135",
+                "ru-136",
+                "ru-137",
+                "ru-138",
+                "ru-139",
+                "ru-140",
+                "ru-141",
+                "ru-142",
+                "ru-143",
+                "ru-144",
+                "ru-145",
+                "ru-146",
+                "ru-147",
+                "ru-148",
+                "ru-149",
+                "ru-150",
+                "ru-151",
+                "ru-152",
+                "ru-153",
+                "ru-154",
+                "ru-155",
+                "ru-156",
+                "ru-157",
+                "ru-158",
+                "ru-159",
+                "ru-160"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ru-muscovy",
+          "title": "Muscovy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-ivan-iii",
+              "title": "Ivan III and Vasily III",
+              "placeholder": false,
+              "cardIds": [
+                "ru-161",
+                "ru-162",
+                "ru-163",
+                "ru-164",
+                "ru-165",
+                "ru-166",
+                "ru-167",
+                "ru-168",
+                "ru-169",
+                "ru-170",
+                "ru-171",
+                "ru-172",
+                "ru-173",
+                "ru-174",
+                "ru-175",
+                "ru-176",
+                "ru-177",
+                "ru-178",
+                "ru-179",
+                "ru-180",
+                "ru-181",
+                "ru-182",
+                "ru-183",
+                "ru-184",
+                "ru-185",
+                "ru-186",
+                "ru-187",
+                "ru-188",
+                "ru-189",
+                "ru-190"
+              ]
+            },
+            {
+              "id": "ru-ivan-iv",
+              "title": "Ivan the Terrible",
+              "placeholder": false,
+              "cardIds": [
+                "ru-191",
+                "ru-192",
+                "ru-193",
+                "ru-194",
+                "ru-195",
+                "ru-196",
+                "ru-197",
+                "ru-198",
+                "ru-199",
+                "ru-200",
+                "ru-211",
+                "ru-212",
+                "ru-213",
+                "ru-214",
+                "ru-215",
+                "ru-216",
+                "ru-217",
+                "ru-218",
+                "ru-219",
+                "ru-220",
+                "ru-221",
+                "ru-222",
+                "ru-223",
+                "ru-224",
+                "ru-225",
+                "ru-201",
+                "ru-202",
+                "ru-203",
+                "ru-204",
+                "ru-205",
+                "ru-206",
+                "ru-207",
+                "ru-208",
+                "ru-209",
+                "ru-210"
+              ]
+            },
+            {
+              "id": "ru-troubles",
+              "title": "The Time of Troubles",
+              "placeholder": false,
+              "cardIds": [
+                "ru-241",
+                "ru-242",
+                "ru-243",
+                "ru-244",
+                "ru-245",
+                "ru-246",
+                "ru-247",
+                "ru-248",
+                "ru-249",
+                "ru-250",
+                "ru-226",
+                "ru-227",
+                "ru-228",
+                "ru-229",
+                "ru-230",
+                "ru-231",
+                "ru-232",
+                "ru-233",
+                "ru-234",
+                "ru-235",
+                "ru-236",
+                "ru-237",
+                "ru-238",
+                "ru-239",
+                "ru-240"
+              ]
+            },
+            {
+              "id": "ru-first-romanovs",
+              "title": "The first Romanovs",
+              "placeholder": false,
+              "cardIds": [
+                "ru-271",
+                "ru-272",
+                "ru-273",
+                "ru-274",
+                "ru-275",
+                "ru-251",
+                "ru-252",
+                "ru-253",
+                "ru-254",
+                "ru-255",
+                "ru-256",
+                "ru-257",
+                "ru-258",
+                "ru-259",
+                "ru-260",
+                "ru-261",
+                "ru-262",
+                "ru-263",
+                "ru-264",
+                "ru-265",
+                "ru-266",
+                "ru-267",
+                "ru-268",
+                "ru-269",
+                "ru-270"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ru-empire",
+          "title": "The Russian Empire",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-peter",
+              "title": "Peter the Great",
+              "placeholder": false,
+              "cardIds": [
+                "ru-276",
+                "ru-277",
+                "ru-278",
+                "ru-279",
+                "ru-280",
+                "ru-281",
+                "ru-282",
+                "ru-283",
+                "ru-284",
+                "ru-285",
+                "ru-286",
+                "ru-287",
+                "ru-288",
+                "ru-289",
+                "ru-290",
+                "ru-291",
+                "ru-292",
+                "ru-293",
+                "ru-294",
+                "ru-295",
+                "ru-296",
+                "ru-297",
+                "ru-298",
+                "ru-299",
+                "ru-300"
+              ]
+            },
+            {
+              "id": "ru-empresses",
+              "title": "From Peter to Catherine",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-catherine",
+              "title": "Catherine the Great",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-nineteenth",
+          "title": "The Nineteenth Century",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-alexander-i",
+              "title": "Alexander I and the war with Napoleon",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-nicholas-i",
+              "title": "Nicholas I",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-reforms",
+              "title": "The Great Reforms",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-end-empire",
+          "title": "The End of the Empire",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-late-empire",
+              "title": "Late imperial Russia",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-last-years",
+              "title": "1905 and the fall of the monarchy",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-soviet",
+          "title": "Revolution and the Soviet Union",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-revolution",
+              "title": "1917",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-civil-war",
+              "title": "The Civil War and the making of the USSR",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-stalin",
+              "title": "Stalin",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-great-patriotic-war",
+              "title": "The Great Patriotic War",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-after-stalin",
+              "title": "The Soviet Union after Stalin",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-federation",
+          "title": "Russia since 1985",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "ru-land-peoples",
+          "title": "Land, Peoples and Faith",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-land",
+              "title": "The Russian land",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-peoples",
+              "title": "The peoples of Russia",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-church",
+              "title": "The Orthodox Church",
+              "placeholder": false,
+              "cardIds": [
+                "ru-156",
+                "ru-157"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ru-culture",
+          "title": "Society, Ideas and Culture",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-thought",
+              "title": "Russian thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-literature",
+              "title": "Russian literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "china",
+      "title": "China",
+      "hanzi": "中国",
+      "blurb": "Template deck — one example card. Generate more with Claude.",
+      "total": 1000,
+      "children": [
+        {
+          "id": "cn-myth",
+          "title": "Mythology",
+          "placeholder": false,
+          "cardIds": [
+            "cnh-001",
+            "cnh-002",
+            "cnh-003",
+            "cnh-004",
+            "cnh-005",
+            "cnh-006",
+            "cnh-007",
+            "cnh-008",
+            "cnh-009",
+            "cnh-010",
+            "cnh-011",
+            "cnh-012",
+            "cnh-013",
+            "cnh-014",
+            "cnh-015",
+            "cnh-016",
+            "cnh-017",
+            "cnh-018",
+            "cnh-019",
+            "cnh-020",
+            "cnh-021",
+            "cnh-022",
+            "cnh-023",
+            "cnh-024",
+            "cnh-025",
+            "cnh-026",
+            "cnh-027",
+            "cnh-028",
+            "cnh-029",
+            "cnh-030",
+            "cnh-031",
+            "cnh-032",
+            "cnh-033",
+            "cnh-034",
+            "cnh-035",
+            "cnh-036",
+            "cnh-037",
+            "cnh-038",
+            "cnh-039",
+            "cnh-040"
+          ]
+        },
+        {
+          "id": "col-1",
+          "title": "Ancient",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "col-2",
+              "title": "Neolithic China and the Xia",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-041",
+                "cnh-043",
+                "cnh-044",
+                "cnh-045",
+                "cnh-046",
+                "cnh-047",
+                "cnh-048",
+                "cnh-049",
+                "cnh-050",
+                "cnh-051",
+                "cnh-052",
+                "cnh-053",
+                "cnh-054",
+                "cnh-055",
+                "cnh-056",
+                "cnh-057",
+                "cnh-058",
+                "cnh-059",
+                "cnh-060",
+                "cnh-061",
+                "cnh-062",
+                "cnh-063",
+                "cnh-064",
+                "cnh-065",
+                "cnh-042"
+              ]
+            },
+            {
+              "id": "col-3",
+              "title": "Shang",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-066",
+                "cnh-067",
+                "cnh-068",
+                "cnh-069",
+                "cnh-071",
+                "cnh-072",
+                "cnh-073",
+                "cnh-074",
+                "cnh-075",
+                "cnh-076",
+                "cnh-077",
+                "cnh-078",
+                "cnh-079",
+                "cnh-080",
+                "cnh-081",
+                "cnh-082",
+                "cnh-083",
+                "cnh-084",
+                "cnh-085",
+                "cnh-086",
+                "cnh-087",
+                "cnh-088",
+                "cnh-089",
+                "cnh-090",
+                "cnh-091",
+                "cnh-092",
+                "cnh-093",
+                "cnh-094",
+                "cnh-095",
+                "cnh-096",
+                "cnh-097",
+                "cnh-098",
+                "cnh-099",
+                "cnh-100",
+                "cnh-101",
+                "cnh-102",
+                "cnh-103",
+                "cnh-104",
+                "cnh-105",
+                "cnh-106",
+                "cnh-107",
+                "cnh-108",
+                "cnh-109",
+                "cnh-110",
+                "cnh-070"
+              ]
+            },
+            {
+              "id": "col-14",
+              "title": "Zhou",
+              "placeholder": false,
+              "children": [
+                {
+                  "id": "col-4",
+                  "title": "Western Zhou",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-111",
+                    "cnh-112",
+                    "cnh-113",
+                    "cnh-114",
+                    "cnh-115",
+                    "cnh-116",
+                    "cnh-117",
+                    "cnh-118",
+                    "cnh-119",
+                    "cnh-120",
+                    "cnh-121",
+                    "cnh-122",
+                    "cnh-123",
+                    "cnh-124",
+                    "cnh-125",
+                    "cnh-126",
+                    "cnh-127",
+                    "cnh-128",
+                    "cnh-129",
+                    "cnh-130",
+                    "cnh-131",
+                    "cnh-132",
+                    "cnh-133",
+                    "cnh-134",
+                    "cnh-135",
+                    "cnh-136",
+                    "cnh-137",
+                    "cnh-138",
+                    "cnh-139",
+                    "cnh-140"
+                  ]
+                },
+                {
+                  "id": "col-5",
+                  "title": "Eastern Zhou",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-141",
+                    "cnh-142",
+                    "cnh-143",
+                    "cnh-144",
+                    "cnh-145",
+                    "cnh-146",
+                    "cnh-147",
+                    "cnh-148",
+                    "cnh-149",
+                    "cnh-150",
+                    "cnh-151",
+                    "cnh-152",
+                    "cnh-153",
+                    "cnh-154",
+                    "cnh-155",
+                    "cnh-156",
+                    "cnh-157",
+                    "cnh-158",
+                    "cnh-159",
+                    "cnh-160",
+                    "cnh-161",
+                    "cnh-162",
+                    "cnh-163",
+                    "cnh-164",
+                    "cnh-165",
+                    "cnh-166",
+                    "cnh-167",
+                    "cnh-168",
+                    "cnh-169",
+                    "cnh-170",
+                    "cnh-171",
+                    "cnh-172",
+                    "cnh-173",
+                    "cnh-174",
+                    "cnh-175",
+                    "cnh-176",
+                    "cnh-177",
+                    "cnh-178",
+                    "cnh-179",
+                    "cnh-180",
+                    "cnh-181",
+                    "cnh-182",
+                    "cnh-183",
+                    "cnh-184",
+                    "cnh-185",
+                    "cnh-186",
+                    "cnh-187",
+                    "cnh-188",
+                    "cnh-189",
+                    "cnh-190"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col-6",
+          "title": "Imperial",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "col-7",
+              "title": "Qin",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-191",
+                "cnh-192",
+                "cnh-193",
+                "cnh-194",
+                "cnh-195",
+                "cnh-196",
+                "cnh-197",
+                "cnh-198",
+                "cnh-199",
+                "cnh-200",
+                "cnh-201",
+                "cnh-202",
+                "cnh-203",
+                "cnh-204",
+                "cnh-205",
+                "cnh-206",
+                "cnh-207",
+                "cnh-208",
+                "cnh-209",
+                "cnh-210",
+                "cnh-211",
+                "cnh-212"
+              ]
+            },
+            {
+              "id": "col-15",
+              "title": "Han",
+              "placeholder": false,
+              "children": [
+                {
+                  "id": "col-10",
+                  "title": "Western Han",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-213",
+                    "cnh-214",
+                    "cnh-215",
+                    "cnh-216",
+                    "cnh-217",
+                    "cnh-218",
+                    "cnh-219",
+                    "cnh-220",
+                    "cnh-221",
+                    "cnh-222",
+                    "cnh-223",
+                    "cnh-224",
+                    "cnh-225",
+                    "cnh-226",
+                    "cnh-227",
+                    "cnh-228",
+                    "cnh-229",
+                    "cnh-230",
+                    "cnh-231",
+                    "cnh-232",
+                    "cnh-233",
+                    "cnh-234",
+                    "cnh-235",
+                    "cnh-236",
+                    "cnh-237",
+                    "cnh-238",
+                    "cnh-239",
+                    "cnh-240",
+                    "cnh-241",
+                    "cnh-242",
+                    "cnh-243",
+                    "cnh-244"
+                  ]
+                },
+                {
+                  "id": "col-11",
+                  "title": "Xin",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-245",
+                    "cnh-246",
+                    "cnh-247",
+                    "cnh-248",
+                    "cnh-249",
+                    "cnh-250",
+                    "cnh-251",
+                    "cnh-252"
+                  ]
+                },
+                {
+                  "id": "col-12",
+                  "title": "Eastern Han",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-253",
+                    "cnh-254",
+                    "cnh-255",
+                    "cnh-256",
+                    "cnh-257",
+                    "cnh-259",
+                    "cnh-260",
+                    "cnh-258",
+                    "cnh-261",
+                    "cnh-262",
+                    "cnh-263",
+                    "cnh-264",
+                    "cnh-265",
+                    "cnh-266",
+                    "cnh-267",
+                    "cnh-268",
+                    "cnh-269",
+                    "cnh-270",
+                    "cnh-271",
+                    "cnh-272"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "col-16",
+              "title": "Three Kingdoms",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-273",
+                "cnh-274",
+                "cnh-275",
+                "cnh-276",
+                "cnh-277",
+                "cnh-278",
+                "cnh-279",
+                "cnh-280",
+                "cnh-281",
+                "cnh-282",
+                "cnh-283",
+                "cnh-284",
+                "cnh-285",
+                "cnh-286",
+                "cnh-287",
+                "cnh-288",
+                "cnh-289",
+                "cnh-290",
+                "cnh-291",
+                "cnh-292"
+              ]
+            },
+            {
+              "id": "col-17",
+              "title": "Jin",
+              "placeholder": false,
+              "children": [
+                {
+                  "id": "col-18",
+                  "title": "Western Jin",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-293",
+                    "cnh-294",
+                    "cnh-295",
+                    "cnh-296",
+                    "cnh-297",
+                    "cnh-298",
+                    "cnh-299",
+                    "cnh-300",
+                    "cnh-301",
+                    "cnh-302"
+                  ]
+                },
+                {
+                  "id": "col-19",
+                  "title": "Sixteen Kingdoms",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-303",
+                    "cnh-304",
+                    "cnh-305",
+                    "cnh-306",
+                    "cnh-307",
+                    "cnh-308",
+                    "cnh-309",
+                    "cnh-310",
+                    "cnh-311",
+                    "cnh-312"
+                  ]
+                },
+                {
+                  "id": "col-20",
+                  "title": "Eastern Jin",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-313",
+                    "cnh-314",
+                    "cnh-315",
+                    "cnh-316",
+                    "cnh-317",
+                    "cnh-318",
+                    "cnh-319",
+                    "cnh-320",
+                    "cnh-321",
+                    "cnh-322"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "col-21",
+              "title": "Northern and Southern dynasties",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-323",
+                "cnh-324",
+                "cnh-325",
+                "cnh-326",
+                "cnh-327",
+                "cnh-328",
+                "cnh-329",
+                "cnh-330",
+                "cnh-331",
+                "cnh-332",
+                "cnh-333",
+                "cnh-334",
+                "cnh-335",
+                "cnh-336",
+                "cnh-337",
+                "cnh-338",
+                "cnh-339",
+                "cnh-340",
+                "cnh-341",
+                "cnh-342"
+              ]
+            },
+            {
+              "id": "col-22",
+              "title": "Sui",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-343",
+                "cnh-344",
+                "cnh-345",
+                "cnh-346",
+                "cnh-347",
+                "cnh-348",
+                "cnh-349",
+                "cnh-350",
+                "cnh-351",
+                "cnh-352",
+                "cnh-353",
+                "cnh-354"
+              ]
+            },
+            {
+              "id": "col-23",
+              "title": "Tang",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-355",
+                "cnh-356",
+                "cnh-357",
+                "cnh-358",
+                "cnh-359",
+                "cnh-360",
+                "cnh-361",
+                "cnh-362",
+                "cnh-363",
+                "cnh-364",
+                "cnh-365",
+                "cnh-366",
+                "cnh-367",
+                "cnh-368",
+                "cnh-369",
+                "cnh-370",
+                "cnh-371",
+                "cnh-372",
+                "cnh-373",
+                "cnh-374",
+                "cnh-375",
+                "cnh-376",
+                "cnh-377",
+                "cnh-378",
+                "cnh-379",
+                "cnh-380",
+                "cnh-381",
+                "cnh-382",
+                "cnh-383",
+                "cnh-384",
+                "cnh-385",
+                "cnh-386",
+                "cnh-387",
+                "cnh-388",
+                "cnh-389",
+                "cnh-390",
+                "cnh-391",
+                "cnh-392",
+                "cnh-393",
+                "cnh-394",
+                "cnh-395",
+                "cnh-396"
+              ]
+            },
+            {
+              "id": "col-24",
+              "title": "Five Dynasties and Ten Kingdoms",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-397",
+                "cnh-398",
+                "cnh-399",
+                "cnh-400",
+                "cnh-401",
+                "cnh-402",
+                "cnh-403",
+                "cnh-404",
+                "cnh-405",
+                "cnh-406",
+                "cnh-407",
+                "cnh-408",
+                "cnh-409",
+                "cnh-410"
+              ]
+            },
+            {
+              "id": "col-25",
+              "title": "Liao",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-411",
+                "cnh-412",
+                "cnh-413",
+                "cnh-414",
+                "cnh-415",
+                "cnh-416",
+                "cnh-417",
+                "cnh-418",
+                "cnh-419",
+                "cnh-420"
+              ]
+            },
+            {
+              "id": "col-26",
+              "title": "Song",
+              "placeholder": false,
+              "children": [
+                {
+                  "id": "col-27",
+                  "title": "Northern Song",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-421",
+                    "cnh-422",
+                    "cnh-423",
+                    "cnh-424",
+                    "cnh-425",
+                    "cnh-426",
+                    "cnh-427",
+                    "cnh-428",
+                    "cnh-429",
+                    "cnh-430",
+                    "cnh-431",
+                    "cnh-432",
+                    "cnh-433",
+                    "cnh-434",
+                    "cnh-435",
+                    "cnh-436",
+                    "cnh-437",
+                    "cnh-438",
+                    "cnh-439",
+                    "cnh-440",
+                    "cnh-441",
+                    "cnh-442",
+                    "cnh-443",
+                    "cnh-444",
+                    "cnh-445",
+                    "cnh-446"
+                  ]
+                },
+                {
+                  "id": "col-28",
+                  "title": "Southern Song",
+                  "placeholder": false,
+                  "cardIds": [
+                    "cnh-447",
+                    "cnh-448",
+                    "cnh-449",
+                    "cnh-450",
+                    "cnh-451",
+                    "cnh-452",
+                    "cnh-453",
+                    "cnh-454",
+                    "cnh-455",
+                    "cnh-456",
+                    "cnh-457",
+                    "cnh-458",
+                    "cnh-459",
+                    "cnh-460",
+                    "cnh-461",
+                    "cnh-462",
+                    "cnh-463",
+                    "cnh-464"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "col-29",
+              "title": "Western Xia",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-465",
+                "cnh-466",
+                "cnh-467",
+                "cnh-468",
+                "cnh-469",
+                "cnh-470",
+                "cnh-471",
+                "cnh-472"
+              ]
+            },
+            {
+              "id": "col-30",
+              "title": "Jurchen Jin",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-473",
+                "cnh-474",
+                "cnh-475",
+                "cnh-476",
+                "cnh-477",
+                "cnh-478",
+                "cnh-479",
+                "cnh-480",
+                "cnh-481",
+                "cnh-482"
+              ]
+            },
+            {
+              "id": "col-31",
+              "title": "Yuan",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-483",
+                "cnh-484",
+                "cnh-485",
+                "cnh-486",
+                "cnh-487",
+                "cnh-488",
+                "cnh-489",
+                "cnh-490",
+                "cnh-491",
+                "cnh-492",
+                "cnh-493",
+                "cnh-494",
+                "cnh-495",
+                "cnh-496",
+                "cnh-497",
+                "cnh-498",
+                "cnh-499",
+                "cnh-500",
+                "cnh-501",
+                "cnh-502"
+              ]
+            },
+            {
+              "id": "col-32",
+              "title": "Ming",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-503",
+                "cnh-504",
+                "cnh-505",
+                "cnh-506",
+                "cnh-507",
+                "cnh-508",
+                "cnh-509",
+                "cnh-510",
+                "cnh-511",
+                "cnh-512",
+                "cnh-513",
+                "cnh-514",
+                "cnh-515",
+                "cnh-516",
+                "cnh-517",
+                "cnh-518",
+                "cnh-519",
+                "cnh-520",
+                "cnh-521",
+                "cnh-522",
+                "cnh-523",
+                "cnh-524",
+                "cnh-525",
+                "cnh-526",
+                "cnh-527",
+                "cnh-528",
+                "cnh-529",
+                "cnh-530",
+                "cnh-531",
+                "cnh-532",
+                "cnh-533",
+                "cnh-534"
+              ]
+            },
+            {
+              "id": "col-33",
+              "title": "Qing",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-535",
+                "cnh-536",
+                "cnh-537",
+                "cnh-538",
+                "cnh-539",
+                "cnh-540",
+                "cnh-541",
+                "cnh-542",
+                "cnh-543",
+                "cnh-544",
+                "cnh-545",
+                "cnh-546",
+                "cnh-547",
+                "cnh-548",
+                "cnh-549",
+                "cnh-550",
+                "cnh-551",
+                "cnh-552",
+                "cnh-553",
+                "cnh-554",
+                "cnh-555",
+                "cnh-556",
+                "cnh-557",
+                "cnh-558",
+                "cnh-559",
+                "cnh-560",
+                "cnh-561",
+                "cnh-562",
+                "cnh-563",
+                "cnh-564",
+                "cnh-565",
+                "cnh-566",
+                "cnh-567",
+                "cnh-568",
+                "cnh-569",
+                "cnh-570",
+                "cnh-571",
+                "cnh-572"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col-34",
+          "title": "Modern",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "col-35",
+              "title": "Early Republic",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-573",
+                "cnh-574",
+                "cnh-575",
+                "cnh-576",
+                "cnh-577",
+                "cnh-578",
+                "cnh-579",
+                "cnh-580",
+                "cnh-581",
+                "cnh-582",
+                "cnh-583",
+                "cnh-584",
+                "cnh-585",
+                "cnh-586",
+                "cnh-587",
+                "cnh-588",
+                "cnh-589",
+                "cnh-590",
+                "cnh-591",
+                "cnh-592",
+                "cnh-593",
+                "cnh-594",
+                "cnh-595",
+                "cnh-596",
+                "cnh-597",
+                "cnh-598",
+                "cnh-599",
+                "cnh-600",
+                "cnh-601",
+                "cnh-602",
+                "cnh-603",
+                "cnh-604",
+                "cnh-605"
+              ]
+            },
+            {
+              "id": "col-36",
+              "title": "Civil War",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-606",
+                "cnh-607",
+                "cnh-608",
+                "cnh-609",
+                "cnh-610",
+                "cnh-611",
+                "cnh-612",
+                "cnh-613",
+                "cnh-614",
+                "cnh-615",
+                "cnh-616",
+                "cnh-617",
+                "cnh-618",
+                "cnh-619",
+                "cnh-620",
+                "cnh-621",
+                "cnh-622",
+                "cnh-623",
+                "cnh-624",
+                "cnh-625",
+                "cnh-626",
+                "cnh-627",
+                "cnh-628",
+                "cnh-629",
+                "cnh-630"
+              ]
+            },
+            {
+              "id": "col-37",
+              "title": "World War II",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-631",
+                "cnh-632",
+                "cnh-633",
+                "cnh-634",
+                "cnh-635",
+                "cnh-636",
+                "cnh-637",
+                "cnh-638",
+                "cnh-639",
+                "cnh-640",
+                "cnh-641",
+                "cnh-642",
+                "cnh-643",
+                "cnh-644",
+                "cnh-645",
+                "cnh-646",
+                "cnh-647",
+                "cnh-648",
+                "cnh-649",
+                "cnh-650",
+                "cnh-651",
+                "cnh-652",
+                "cnh-653",
+                "cnh-654",
+                "cnh-655"
+              ]
+            },
+            {
+              "id": "col-38",
+              "title": "People's Republic of China",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-656",
+                "cnh-657",
+                "cnh-658",
+                "cnh-659",
+                "cnh-660",
+                "cnh-661",
+                "cnh-662",
+                "cnh-663",
+                "cnh-664",
+                "cnh-665",
+                "cnh-666",
+                "cnh-667",
+                "cnh-668",
+                "cnh-669",
+                "cnh-670",
+                "cnh-671",
+                "cnh-672",
+                "cnh-673",
+                "cnh-674",
+                "cnh-675",
+                "cnh-676",
+                "cnh-677",
+                "cnh-678",
+                "cnh-679",
+                "cnh-680",
+                "cnh-681",
+                "cnh-682",
+                "cnh-683",
+                "cnh-684",
+                "cnh-685",
+                "cnh-686",
+                "cnh-687",
+                "cnh-688",
+                "cnh-689",
+                "cnh-690"
+              ]
+            },
+            {
+              "id": "col-39",
+              "title": "Republic of China (Taiwan)",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-691",
+                "cnh-692",
+                "cnh-693",
+                "cnh-694",
+                "cnh-695",
+                "cnh-696",
+                "cnh-697",
+                "cnh-698",
+                "cnh-699",
+                "cnh-700"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cn-state",
+          "title": "State, Society and Economy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-government",
+              "title": "The imperial state",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-701",
+                "cnh-702",
+                "cnh-703",
+                "cnh-704",
+                "cnh-705",
+                "cnh-706",
+                "cnh-707",
+                "cnh-708",
+                "cnh-709",
+                "cnh-710",
+                "cnh-711",
+                "cnh-712",
+                "cnh-713",
+                "cnh-714",
+                "cnh-715",
+                "cnh-716",
+                "cnh-717",
+                "cnh-718",
+                "cnh-719",
+                "cnh-720",
+                "cnh-721",
+                "cnh-722",
+                "cnh-723",
+                "cnh-724",
+                "cnh-725",
+                "cnh-726",
+                "cnh-727",
+                "cnh-728",
+                "cnh-729",
+                "cnh-730",
+                "cnh-731",
+                "cnh-732",
+                "cnh-733",
+                "cnh-734",
+                "cnh-735",
+                "cnh-736",
+                "cnh-737",
+                "cnh-738",
+                "cnh-739",
+                "cnh-740"
+              ]
+            },
+            {
+              "id": "cn-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-741",
+                "cnh-742",
+                "cnh-743",
+                "cnh-744",
+                "cnh-745",
+                "cnh-746",
+                "cnh-747",
+                "cnh-748",
+                "cnh-749",
+                "cnh-750",
+                "cnh-751",
+                "cnh-752",
+                "cnh-753",
+                "cnh-754",
+                "cnh-755",
+                "cnh-756",
+                "cnh-757",
+                "cnh-758",
+                "cnh-759",
+                "cnh-760",
+                "cnh-761",
+                "cnh-762",
+                "cnh-763",
+                "cnh-764",
+                "cnh-765",
+                "cnh-766",
+                "cnh-767",
+                "cnh-768",
+                "cnh-769",
+                "cnh-770",
+                "cnh-771",
+                "cnh-772"
+              ]
+            },
+            {
+              "id": "cn-peoples",
+              "title": "The peoples and frontiers of China",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-773",
+                "cnh-774",
+                "cnh-775",
+                "cnh-776",
+                "cnh-777",
+                "cnh-778",
+                "cnh-779",
+                "cnh-780",
+                "cnh-781",
+                "cnh-782",
+                "cnh-783",
+                "cnh-784",
+                "cnh-785",
+                "cnh-786",
+                "cnh-787",
+                "cnh-788",
+                "cnh-789",
+                "cnh-790",
+                "cnh-791",
+                "cnh-792",
+                "cnh-793",
+                "cnh-794",
+                "cnh-795",
+                "cnh-796",
+                "cnh-797",
+                "cnh-798",
+                "cnh-799",
+                "cnh-800"
+              ]
+            },
+            {
+              "id": "cn-economy",
+              "title": "Land, trade and money",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-801",
+                "cnh-802",
+                "cnh-803",
+                "cnh-804",
+                "cnh-805",
+                "cnh-806",
+                "cnh-807",
+                "cnh-808",
+                "cnh-809",
+                "cnh-810",
+                "cnh-811",
+                "cnh-812",
+                "cnh-813",
+                "cnh-814",
+                "cnh-815",
+                "cnh-816",
+                "cnh-817",
+                "cnh-818",
+                "cnh-819",
+                "cnh-820",
+                "cnh-821",
+                "cnh-822",
+                "cnh-823",
+                "cnh-824",
+                "cnh-825"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cn-belief",
+          "title": "Thought and Religion",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-thought",
+              "title": "Chinese philosophy",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-826",
+                "cnh-827",
+                "cnh-828",
+                "cnh-829",
+                "cnh-830",
+                "cnh-831",
+                "cnh-832",
+                "cnh-833",
+                "cnh-834",
+                "cnh-835",
+                "cnh-836",
+                "cnh-837",
+                "cnh-838",
+                "cnh-839",
+                "cnh-840",
+                "cnh-841",
+                "cnh-842",
+                "cnh-843",
+                "cnh-844",
+                "cnh-845",
+                "cnh-846",
+                "cnh-847",
+                "cnh-848",
+                "cnh-849",
+                "cnh-850",
+                "cnh-851",
+                "cnh-852",
+                "cnh-853",
+                "cnh-854",
+                "cnh-855",
+                "cnh-856",
+                "cnh-857",
+                "cnh-858",
+                "cnh-859",
+                "cnh-860",
+                "cnh-861",
+                "cnh-862",
+                "cnh-863",
+                "cnh-864",
+                "cnh-865",
+                "cnh-866",
+                "cnh-867"
+              ]
+            },
+            {
+              "id": "cn-religion",
+              "title": "Religion and ritual",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-868",
+                "cnh-869",
+                "cnh-870",
+                "cnh-871",
+                "cnh-872",
+                "cnh-873",
+                "cnh-874",
+                "cnh-875",
+                "cnh-876",
+                "cnh-877",
+                "cnh-878",
+                "cnh-879",
+                "cnh-880",
+                "cnh-881",
+                "cnh-882",
+                "cnh-883",
+                "cnh-884",
+                "cnh-885",
+                "cnh-886",
+                "cnh-887",
+                "cnh-888",
+                "cnh-889",
+                "cnh-890",
+                "cnh-891",
+                "cnh-892",
+                "cnh-893",
+                "cnh-894",
+                "cnh-895",
+                "cnh-896",
+                "cnh-897",
+                "cnh-898",
+                "cnh-899",
+                "cnh-900",
+                "cnh-901",
+                "cnh-902"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cn-culture",
+          "title": "Learning, Arts and Invention",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-language",
+              "title": "Language and literature",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-903",
+                "cnh-904",
+                "cnh-905",
+                "cnh-906",
+                "cnh-907",
+                "cnh-908",
+                "cnh-909",
+                "cnh-910",
+                "cnh-911",
+                "cnh-912",
+                "cnh-913",
+                "cnh-914",
+                "cnh-915",
+                "cnh-916",
+                "cnh-917",
+                "cnh-918",
+                "cnh-919",
+                "cnh-920",
+                "cnh-921",
+                "cnh-922",
+                "cnh-923",
+                "cnh-924",
+                "cnh-925",
+                "cnh-926",
+                "cnh-927",
+                "cnh-928",
+                "cnh-929",
+                "cnh-930",
+                "cnh-931",
+                "cnh-932",
+                "cnh-933",
+                "cnh-934",
+                "cnh-935",
+                "cnh-936",
+                "cnh-937",
+                "cnh-938",
+                "cnh-939",
+                "cnh-940",
+                "cnh-941",
+                "cnh-942"
+              ]
+            },
+            {
+              "id": "cn-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-943",
+                "cnh-944",
+                "cnh-945",
+                "cnh-946",
+                "cnh-947",
+                "cnh-948",
+                "cnh-949",
+                "cnh-950",
+                "cnh-951",
+                "cnh-952",
+                "cnh-953",
+                "cnh-954",
+                "cnh-955",
+                "cnh-956",
+                "cnh-957",
+                "cnh-958",
+                "cnh-959",
+                "cnh-960",
+                "cnh-961",
+                "cnh-962",
+                "cnh-963",
+                "cnh-964",
+                "cnh-965",
+                "cnh-966",
+                "cnh-967",
+                "cnh-968",
+                "cnh-969",
+                "cnh-970",
+                "cnh-971",
+                "cnh-972"
+              ]
+            },
+            {
+              "id": "cn-science",
+              "title": "Science, technology and medicine",
+              "placeholder": false,
+              "cardIds": [
+                "cnh-973",
+                "cnh-974",
+                "cnh-975",
+                "cnh-976",
+                "cnh-977",
+                "cnh-978",
+                "cnh-979",
+                "cnh-980",
+                "cnh-981",
+                "cnh-982",
+                "cnh-983",
+                "cnh-984",
+                "cnh-985",
+                "cnh-986",
+                "cnh-987",
+                "cnh-988",
+                "cnh-989",
+                "cnh-990",
+                "cnh-991",
+                "cnh-992",
+                "cnh-993",
+                "cnh-994",
+                "cnh-995",
+                "cnh-996",
+                "cnh-997",
+                "cnh-998",
+                "cnh-999",
+                "cnh-1000"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "japan",
       "title": "Japan",
       "total": 100,
@@ -17524,6 +17267,696 @@ window.COLLECTION_TREE = {
               "id": "jp-arts",
               "title": "Language, letters and the arts",
               "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "korea",
+      "title": "Korea",
+      "total": 100,
+      "children": [
+        {
+          "id": "ko-early",
+          "title": "Early Korea",
+          "total": 90,
+          "children": [
+            {
+              "id": "ko-land",
+              "title": "The land and its people",
+              "total": 20,
+              "cardIds": [
+                "ko-001",
+                "ko-002",
+                "ko-003",
+                "ko-004",
+                "ko-005",
+                "ko-006",
+                "ko-007",
+                "ko-008",
+                "ko-009",
+                "ko-010",
+                "ko-011",
+                "ko-012",
+                "ko-013",
+                "ko-014",
+                "ko-015",
+                "ko-016",
+                "ko-017",
+                "ko-018",
+                "ko-019",
+                "ko-020"
+              ]
+            },
+            {
+              "id": "ko-prehistory",
+              "title": "Prehistoric Korea",
+              "total": 25,
+              "cardIds": [
+                "ko-021",
+                "ko-022",
+                "ko-023",
+                "ko-024",
+                "ko-025",
+                "ko-026",
+                "ko-027",
+                "ko-028",
+                "ko-029",
+                "ko-030",
+                "ko-031",
+                "ko-033",
+                "ko-034",
+                "ko-035",
+                "ko-036",
+                "ko-037",
+                "ko-038",
+                "ko-040",
+                "ko-032",
+                "ko-039",
+                "ko-041",
+                "ko-042",
+                "ko-043",
+                "ko-044",
+                "ko-045"
+              ]
+            },
+            {
+              "id": "ko-gojoseon",
+              "title": "Gojoseon",
+              "total": 25,
+              "cardIds": [
+                "ko-046",
+                "ko-048",
+                "ko-049",
+                "ko-050",
+                "ko-051",
+                "ko-052",
+                "ko-053",
+                "ko-054",
+                "ko-055",
+                "ko-056",
+                "ko-057",
+                "ko-058",
+                "ko-059",
+                "ko-060",
+                "ko-061",
+                "ko-062",
+                "ko-063",
+                "ko-064",
+                "ko-065",
+                "ko-066",
+                "ko-067",
+                "ko-068",
+                "ko-069",
+                "ko-070",
+                "ko-047"
+              ]
+            },
+            {
+              "id": "ko-commanderies",
+              "title": "The commanderies and the proto-Three Kingdoms",
+              "total": 20,
+              "cardIds": [
+                "ko-071",
+                "ko-072",
+                "ko-073",
+                "ko-074",
+                "ko-075",
+                "ko-077",
+                "ko-078",
+                "ko-079",
+                "ko-080",
+                "ko-076",
+                "ko-081",
+                "ko-082",
+                "ko-083",
+                "ko-084",
+                "ko-085",
+                "ko-086",
+                "ko-087",
+                "ko-088",
+                "ko-089",
+                "ko-090"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ko-threekingdoms",
+          "title": "The Three Kingdoms",
+          "total": 125,
+          "children": [
+            {
+              "id": "ko-tk",
+              "title": "The Three Kingdoms period",
+              "total": 15,
+              "cardIds": [
+                "ko-091",
+                "ko-093",
+                "ko-094",
+                "ko-095",
+                "ko-097",
+                "ko-099",
+                "ko-100",
+                "ko-096",
+                "ko-098",
+                "ko-092"
+              ]
+            },
+            {
+              "id": "ko-goguryeo",
+              "title": "Goguryeo",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-baekje",
+              "title": "Baekje",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-silla",
+              "title": "Silla",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-gaya",
+              "title": "Gaya",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ko-tk-culture",
+              "title": "Religion, art and society",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-unified",
+          "title": "Unified Silla and Balhae",
+          "total": 75,
+          "children": [
+            {
+              "id": "ko-unification",
+              "title": "The unification wars",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-unifiedsilla",
+              "title": "Unified Silla",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-balhae",
+              "title": "Balhae",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ko-latertk",
+              "title": "The fall of Silla and the Later Three Kingdoms",
+              "total": 10,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-goryeo",
+          "title": "Goryeo",
+          "total": 110,
+          "children": [
+            {
+              "id": "ko-goryeo-found",
+              "title": "The founding of Goryeo",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-state",
+              "title": "Goryeo government and society",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-culture",
+              "title": "Goryeo Buddhism and culture",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-mongol",
+              "title": "The military regimes and the Mongol invasions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-late",
+              "title": "Late Goryeo",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-joseon-early",
+          "title": "Early Joseon",
+          "total": 120,
+          "children": [
+            {
+              "id": "ko-joseon-found",
+              "title": "The founding of Joseon",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-sejong",
+              "title": "Sejong and the fifteenth century",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-confucian",
+              "title": "The Confucian state",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-joseon-science",
+              "title": "Science, technology and learning",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-imjin",
+              "title": "The Imjin War",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-joseon-late",
+          "title": "Later Joseon",
+          "total": 110,
+          "children": [
+            {
+              "id": "ko-manchu",
+              "title": "Recovery and the Manchu invasions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-factions",
+              "title": "Factional politics and the late Joseon court",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-silhak",
+              "title": "Silhak and new learning",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-lateeconomy",
+              "title": "Society and economy in later Joseon",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-opening",
+              "title": "Crisis and opening",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-colonial",
+          "title": "Empire, Colony and Division",
+          "total": 120,
+          "children": [
+            {
+              "id": "ko-empire",
+              "title": "The Korean Empire and annexation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-colonialrule",
+              "title": "Colonial rule",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-resistance",
+              "title": "Resistance and the independence movement",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-colonialsociety",
+              "title": "Colonial society and its legacies",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-division",
+              "title": "Liberation and division",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-modern",
+          "title": "The Korean War and the Two Koreas",
+          "total": 130,
+          "children": [
+            {
+              "id": "ko-war",
+              "title": "The Korean War",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ko-dprk",
+              "title": "North Korea",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ko-rok",
+              "title": "South Korea",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ko-reunification",
+              "title": "Division, diplomacy and reunification",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-culture",
+          "title": "Korean Culture and Society",
+          "total": 120,
+          "children": [
+            {
+              "id": "ko-language",
+              "title": "The Korean language and Hangul",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-religion",
+              "title": "Religion and belief",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-art",
+              "title": "Art, architecture and craft",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-literature",
+              "title": "Literature, music and performance",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-daily",
+              "title": "Food, family and daily life",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "col-43",
+      "title": "India",
+      "total": 0,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "in-ancient",
+          "title": "Ancient India",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-prehistory",
+              "title": "Prehistory and the Indus cities",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-vedic",
+              "title": "The Vedic period",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mahajanapadas",
+              "title": "The Mahajanapadas and the new religions",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mauryas",
+              "title": "The Mauryan Empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-after-mauryas",
+              "title": "After the Mauryas",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-guptas",
+              "title": "The Gupta age",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-early-medieval",
+          "title": "Early Medieval India",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-north-kingdoms",
+              "title": "The northern kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-deccan-early",
+              "title": "The Deccan: Chalukyas and Rashtrakutas",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-south-early",
+              "title": "The Tamil south and the Cholas",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-sultanates",
+          "title": "Sultanates and Successor States",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-delhi-sultanate",
+              "title": "The Delhi Sultanate",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-vijayanagara",
+              "title": "Vijayanagara",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-deccan-sultanates",
+              "title": "The Deccan sultanates and the regional kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-mughals",
+          "title": "The Mughals",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-early-mughals",
+              "title": "Babur to Akbar",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-high-mughal",
+              "title": "Jahangir to Aurangzeb",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mughal-successors",
+              "title": "The successor states",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-colonial",
+          "title": "Company and Crown",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-company",
+              "title": "The East India Company",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-raj",
+              "title": "The Raj",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-colonial-impact",
+              "title": "Colonial rule and its consequences",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-freedom",
+          "title": "Nationalism and Independence",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-nationalism",
+              "title": "The rise of nationalism",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-gandhi",
+              "title": "Gandhi and mass politics",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-partition",
+              "title": "Independence and Partition",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-republic",
+          "title": "India since 1947",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-nehru",
+              "title": "The Nehru years",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-modern",
+              "title": "India since 1964",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-religion",
+          "title": "Religion and Philosophy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-hinduism",
+              "title": "Hindu traditions",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-buddhism-jainism",
+              "title": "Buddhism and Jainism",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-other-faiths",
+              "title": "Islam, Sikhism and India's other faiths",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-culture",
+          "title": "Society, Economy and Culture",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-society",
+              "title": "Caste, family and society",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-economy",
+              "title": "Land, trade and the economy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-languages",
+              "title": "Languages and literatures",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-science",
+              "title": "Science, mathematics and medicine",
+              "placeholder": false,
               "cardIds": []
             }
           ]
@@ -19965,439 +20398,6 @@ window.COLLECTION_TREE = {
             {
               "id": "ec-discipline",
               "title": "The discipline and its critics",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "korea",
-      "title": "Korea",
-      "total": 100,
-      "children": [
-        {
-          "id": "ko-early",
-          "title": "Early Korea",
-          "total": 90,
-          "children": [
-            {
-              "id": "ko-land",
-              "title": "The land and its people",
-              "total": 20,
-              "cardIds": [
-                "ko-001",
-                "ko-002",
-                "ko-003",
-                "ko-004",
-                "ko-005",
-                "ko-006",
-                "ko-007",
-                "ko-008",
-                "ko-009",
-                "ko-010",
-                "ko-011",
-                "ko-012",
-                "ko-013",
-                "ko-014",
-                "ko-015",
-                "ko-016",
-                "ko-017",
-                "ko-018",
-                "ko-019",
-                "ko-020"
-              ]
-            },
-            {
-              "id": "ko-prehistory",
-              "title": "Prehistoric Korea",
-              "total": 25,
-              "cardIds": [
-                "ko-021",
-                "ko-022",
-                "ko-023",
-                "ko-024",
-                "ko-025",
-                "ko-026",
-                "ko-027",
-                "ko-028",
-                "ko-029",
-                "ko-030",
-                "ko-031",
-                "ko-033",
-                "ko-034",
-                "ko-035",
-                "ko-036",
-                "ko-037",
-                "ko-038",
-                "ko-040",
-                "ko-032",
-                "ko-039",
-                "ko-041",
-                "ko-042",
-                "ko-043",
-                "ko-044",
-                "ko-045"
-              ]
-            },
-            {
-              "id": "ko-gojoseon",
-              "title": "Gojoseon",
-              "total": 25,
-              "cardIds": [
-                "ko-046",
-                "ko-048",
-                "ko-049",
-                "ko-050",
-                "ko-051",
-                "ko-052",
-                "ko-053",
-                "ko-054",
-                "ko-055",
-                "ko-056",
-                "ko-057",
-                "ko-058",
-                "ko-059",
-                "ko-060",
-                "ko-061",
-                "ko-062",
-                "ko-063",
-                "ko-064",
-                "ko-065",
-                "ko-066",
-                "ko-067",
-                "ko-068",
-                "ko-069",
-                "ko-070",
-                "ko-047"
-              ]
-            },
-            {
-              "id": "ko-commanderies",
-              "title": "The commanderies and the proto-Three Kingdoms",
-              "total": 20,
-              "cardIds": [
-                "ko-071",
-                "ko-072",
-                "ko-073",
-                "ko-074",
-                "ko-075",
-                "ko-077",
-                "ko-078",
-                "ko-079",
-                "ko-080",
-                "ko-076",
-                "ko-081",
-                "ko-082",
-                "ko-083",
-                "ko-084",
-                "ko-085",
-                "ko-086",
-                "ko-087",
-                "ko-088",
-                "ko-089",
-                "ko-090"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "ko-threekingdoms",
-          "title": "The Three Kingdoms",
-          "total": 125,
-          "children": [
-            {
-              "id": "ko-tk",
-              "title": "The Three Kingdoms period",
-              "total": 15,
-              "cardIds": [
-                "ko-091",
-                "ko-093",
-                "ko-094",
-                "ko-095",
-                "ko-097",
-                "ko-099",
-                "ko-100",
-                "ko-096",
-                "ko-098",
-                "ko-092"
-              ]
-            },
-            {
-              "id": "ko-goguryeo",
-              "title": "Goguryeo",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "ko-baekje",
-              "title": "Baekje",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-silla",
-              "title": "Silla",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-gaya",
-              "title": "Gaya",
-              "total": 15,
-              "cardIds": []
-            },
-            {
-              "id": "ko-tk-culture",
-              "title": "Religion, art and society",
-              "total": 15,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-unified",
-          "title": "Unified Silla and Balhae",
-          "total": 75,
-          "children": [
-            {
-              "id": "ko-unification",
-              "title": "The unification wars",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-unifiedsilla",
-              "title": "Unified Silla",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "ko-balhae",
-              "title": "Balhae",
-              "total": 15,
-              "cardIds": []
-            },
-            {
-              "id": "ko-latertk",
-              "title": "The fall of Silla and the Later Three Kingdoms",
-              "total": 10,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-goryeo",
-          "title": "Goryeo",
-          "total": 110,
-          "children": [
-            {
-              "id": "ko-goryeo-found",
-              "title": "The founding of Goryeo",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-goryeo-state",
-              "title": "Goryeo government and society",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-goryeo-culture",
-              "title": "Goryeo Buddhism and culture",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "ko-goryeo-mongol",
-              "title": "The military regimes and the Mongol invasions",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-goryeo-late",
-              "title": "Late Goryeo",
-              "total": 15,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-joseon-early",
-          "title": "Early Joseon",
-          "total": 120,
-          "children": [
-            {
-              "id": "ko-joseon-found",
-              "title": "The founding of Joseon",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-sejong",
-              "title": "Sejong and the fifteenth century",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "ko-confucian",
-              "title": "The Confucian state",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-joseon-science",
-              "title": "Science, technology and learning",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-imjin",
-              "title": "The Imjin War",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-joseon-late",
-          "title": "Later Joseon",
-          "total": 110,
-          "children": [
-            {
-              "id": "ko-manchu",
-              "title": "Recovery and the Manchu invasions",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-factions",
-              "title": "Factional politics and the late Joseon court",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-silhak",
-              "title": "Silhak and new learning",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-lateeconomy",
-              "title": "Society and economy in later Joseon",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-opening",
-              "title": "Crisis and opening",
-              "total": 20,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-colonial",
-          "title": "Empire, Colony and Division",
-          "total": 120,
-          "children": [
-            {
-              "id": "ko-empire",
-              "title": "The Korean Empire and annexation",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-colonialrule",
-              "title": "Colonial rule",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "ko-resistance",
-              "title": "Resistance and the independence movement",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-colonialsociety",
-              "title": "Colonial society and its legacies",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-division",
-              "title": "Liberation and division",
-              "total": 20,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-modern",
-          "title": "The Korean War and the Two Koreas",
-          "total": 130,
-          "children": [
-            {
-              "id": "ko-war",
-              "title": "The Korean War",
-              "total": 35,
-              "cardIds": []
-            },
-            {
-              "id": "ko-dprk",
-              "title": "North Korea",
-              "total": 35,
-              "cardIds": []
-            },
-            {
-              "id": "ko-rok",
-              "title": "South Korea",
-              "total": 35,
-              "cardIds": []
-            },
-            {
-              "id": "ko-reunification",
-              "title": "Division, diplomacy and reunification",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "ko-culture",
-          "title": "Korean Culture and Society",
-          "total": 120,
-          "children": [
-            {
-              "id": "ko-language",
-              "title": "The Korean language and Hangul",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-religion",
-              "title": "Religion and belief",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "ko-art",
-              "title": "Art, architecture and craft",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-literature",
-              "title": "Literature, music and performance",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "ko-daily",
-              "title": "Food, family and daily life",
               "total": 25,
               "cardIds": []
             }
