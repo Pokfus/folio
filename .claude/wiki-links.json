@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-08T12:22Z",
+ "generated": "2026-11-08T19:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6450,
-  "redirect-broader": 612,
-  "redirect-variant": 386,
-  "section-redirect": 131,
-  "disambiguation": 147,
-  "none": 1006,
-  "disambig-resolved": 86,
+  "ok": 6519,
+  "redirect-broader": 621,
+  "redirect-variant": 397,
+  "section-redirect": 132,
+  "disambiguation": 150,
+  "none": 1012,
+  "disambig-resolved": 87,
   "list-page": 6,
   "search-match": 9,
   "no-article": 17
@@ -70881,6 +70881,747 @@
    "answer": "K-ration",
    "title": "K-ration",
    "url": "https://en.wikipedia.org/wiki/K-ration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-211": {
+   "answer": "oprichnina",
+   "title": "Oprichnina",
+   "url": "https://en.wikipedia.org/wiki/Oprichnina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-212": {
+   "answer": "oprichnik",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Oprichnik",
+   "target": "Oprichnina#Organization"
+  },
+  "ru-213": {
+   "answer": "massacre of Novgorod",
+   "title": "Massacre of Novgorod",
+   "url": "https://en.wikipedia.org/wiki/Massacre_of_Novgorod",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-214": {
+   "answer": "Metropolitan Philip",
+   "title": "Philip II, Metropolitan of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Philip_II,_Metropolitan_of_Moscow",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Metropolitan Philip"
+  },
+  "ru-215": {
+   "answer": "Moscow fire of 1571",
+   "title": "Fire of Moscow (1571)",
+   "url": "https://en.wikipedia.org/wiki/Fire_of_Moscow_(1571)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-216": {
+   "answer": "Devlet I Giray",
+   "title": "Devlet I Giray",
+   "url": "https://en.wikipedia.org/wiki/Devlet_I_Giray",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-217": {
+   "answer": "Battle of Molodi",
+   "title": "Battle of Molodi",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Molodi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-218": {
+   "answer": "zemshchina",
+   "title": "Zemshchina",
+   "url": "https://en.wikipedia.org/wiki/Zemshchina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-219": {
+   "answer": "Ivan Ivanovich",
+   "title": "Tsarevich Ivan Ivanovich of Russia",
+   "url": "https://en.wikipedia.org/wiki/Tsarevich_Ivan_Ivanovich_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Ivan Ivanovich"
+  },
+  "ru-220": {
+   "answer": "Andrey Kurbsky",
+   "title": "Andrey Kurbsky",
+   "url": "https://en.wikipedia.org/wiki/Andrey_Kurbsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-241": {
+   "answer": "Seven Boyars",
+   "title": "Seven Boyars",
+   "url": "https://en.wikipedia.org/wiki/Seven_Boyars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-242": {
+   "answer": "Władysław IV Vasa",
+   "title": "Władysław IV Vasa",
+   "url": "https://en.wikipedia.org/wiki/W%C5%82adys%C5%82aw_IV_Vasa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-243": {
+   "answer": "Patriarch Hermogenes",
+   "title": "Patriarch Hermogenes of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_Hermogenes_of_Moscow",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Patriarch Hermogenes"
+  },
+  "ru-244": {
+   "answer": "Prokopy Lyapunov",
+   "title": "Prokopy Petrovich Lyapunov",
+   "url": "https://en.wikipedia.org/wiki/Prokopy_Petrovich_Lyapunov",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Prokopy Lyapunov"
+  },
+  "ru-245": {
+   "answer": "Kuzma Minin",
+   "title": "Kuzma Minin",
+   "url": "https://en.wikipedia.org/wiki/Kuzma_Minin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-246": {
+   "answer": "Dmitry Pozharsky",
+   "title": "Dmitry Pozharsky",
+   "url": "https://en.wikipedia.org/wiki/Dmitry_Pozharsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-247": {
+   "answer": "Zemsky Sobor",
+   "title": "Zemsky Sobor",
+   "url": "https://en.wikipedia.org/wiki/Zemsky_Sobor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-248": {
+   "answer": "Ipatiev Monastery",
+   "title": "Ipatiev Monastery",
+   "url": "https://en.wikipedia.org/wiki/Ipatiev_Monastery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-249": {
+   "answer": "Truce of Deulino",
+   "title": "Truce of Deulino",
+   "url": "https://en.wikipedia.org/wiki/Truce_of_Deulino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-250": {
+   "answer": "pustosh",
+   "title": "Pustosh",
+   "url": "https://en.wikipedia.org/wiki/Pustosh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-221": {
+   "answer": "Richard Chancellor",
+   "title": "Richard Chancellor",
+   "url": "https://en.wikipedia.org/wiki/Richard_Chancellor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-222": {
+   "answer": "Muscovy Company",
+   "title": "Muscovy Company",
+   "url": "https://en.wikipedia.org/wiki/Muscovy_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-223": {
+   "answer": "Yermak",
+   "title": "Yermak Timofeyevich",
+   "url": "https://en.wikipedia.org/wiki/Yermak_Timofeyevich",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-224": {
+   "answer": "Khanate of Sibir",
+   "title": "Khanate of Sibir",
+   "url": "https://en.wikipedia.org/wiki/Khanate_of_Sibir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-225": {
+   "answer": "Illustrated Chronicle of Ivan the Terrible",
+   "title": "Illustrated Chronicle of Ivan the Terrible",
+   "url": "https://en.wikipedia.org/wiki/Illustrated_Chronicle_of_Ivan_the_Terrible",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-226": {
+   "answer": "Time of Troubles",
+   "title": "Time of Troubles",
+   "url": "https://en.wikipedia.org/wiki/Time_of_Troubles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-227": {
+   "answer": "Feodor I",
+   "title": "Feodor I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Feodor_I_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Feodor I"
+  },
+  "ru-228": {
+   "answer": "Boris Godunov",
+   "title": "Boris Godunov",
+   "url": "https://en.wikipedia.org/wiki/Boris_Godunov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-229": {
+   "answer": "Patriarch Job",
+   "title": "Patriarch Job of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_Job_of_Moscow",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Patriarch Job"
+  },
+  "ru-230": {
+   "answer": "Dmitry of Uglich",
+   "title": "Dmitry of Uglich",
+   "url": "https://en.wikipedia.org/wiki/Dmitry_of_Uglich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-231": {
+   "answer": "St George's Day",
+   "title": "Yuri's Day",
+   "url": "https://en.wikipedia.org/wiki/Yuri's_Day",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-232": {
+   "answer": "Russian famine of 1601–1603",
+   "title": "Russian famine of 1601–1603",
+   "url": "https://en.wikipedia.org/wiki/Russian_famine_of_1601%E2%80%931603",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-233": {
+   "answer": "False Dmitry I",
+   "title": "False Dmitry I",
+   "url": "https://en.wikipedia.org/wiki/False_Dmitry_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-234": {
+   "answer": "Polish–Muscovite War",
+   "title": "Polish–Russian War (1609–1618)",
+   "url": "https://en.wikipedia.org/wiki/Polish%E2%80%93Russian_War_(1609%E2%80%931618)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-235": {
+   "answer": "Vasily IV",
+   "title": "Vasili IV of Russia",
+   "url": "https://en.wikipedia.org/wiki/Vasili_IV_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Vasily IV"
+  },
+  "ru-236": {
+   "answer": "Bolotnikov rebellion",
+   "title": "Ivan Bolotnikov",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Bolotnikov",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Bolotnikov rebellion"
+  },
+  "ru-237": {
+   "answer": "False Dmitry II",
+   "title": "False Dmitry II",
+   "url": "https://en.wikipedia.org/wiki/False_Dmitry_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-238": {
+   "answer": "Tushino camp",
+   "title": "Tushino Camp",
+   "url": "https://en.wikipedia.org/wiki/Tushino_Camp",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-239": {
+   "answer": "Ingrian War",
+   "title": "Ingrian War",
+   "url": "https://en.wikipedia.org/wiki/Ingrian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-240": {
+   "answer": "Battle of Klushino",
+   "title": "Battle of Klushino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Klushino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-271": {
+   "answer": "Zaporozhian Sich",
+   "title": "Zaporozhian Sich",
+   "url": "https://en.wikipedia.org/wiki/Zaporozhian_Sich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-272": {
+   "answer": "Stepan Razin",
+   "title": "Stenka Razin",
+   "url": "https://en.wikipedia.org/wiki/Stenka_Razin",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Stepan Razin"
+  },
+  "ru-273": {
+   "answer": "Ivan Moskvitin",
+   "title": "Ivan Moskvitin",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Moskvitin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-274": {
+   "answer": "Treaty of Nerchinsk",
+   "title": "Treaty of Nerchinsk",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Nerchinsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-275": {
+   "answer": "Feodor III",
+   "title": "Feodor III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Feodor_III_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Feodor III"
+  },
+  "ru-276": {
+   "answer": "Peter the Great",
+   "title": "Peter the Great",
+   "url": "https://en.wikipedia.org/wiki/Peter_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-277": {
+   "answer": "Sophia Alekseyevna",
+   "title": "Sophia Alekseyevna of Russia",
+   "url": "https://en.wikipedia.org/wiki/Sophia_Alekseyevna_of_Russia",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Sophia Alekseyevna"
+  },
+  "ru-278": {
+   "answer": "Moscow uprising of 1682",
+   "title": "Moscow uprising of 1682",
+   "url": "https://en.wikipedia.org/wiki/Moscow_uprising_of_1682",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-279": {
+   "answer": "Crimean campaigns",
+   "title": "Crimean campaign",
+   "url": "https://en.wikipedia.org/wiki/Crimean_campaign",
+   "via": "variant",
+   "status": "ok"
+  },
+  "ru-280": {
+   "answer": "Fyodor Shaklovity",
+   "title": "Fyodor Shaklovity",
+   "url": "https://en.wikipedia.org/wiki/Fyodor_Shaklovity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-201": {
+   "answer": "Decree on Service",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Orders, decorations, and medals of Russia",
+    "FSB Border Service of Russia",
+    "Federal Security Service",
+    "Decree",
+    "Special Communications Service of Russia"
+   ]
+  },
+  "ru-202": {
+   "answer": "siege of Kazan",
+   "title": "Siege of Kazan",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Kazan",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Siege of Kazan (1552)"
+  },
+  "ru-203": {
+   "answer": "Sviyazhsk",
+   "title": "Sviyazhsk",
+   "url": "https://en.wikipedia.org/wiki/Sviyazhsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-204": {
+   "answer": "Astrakhan Khanate",
+   "title": "Astrakhan Khanate",
+   "url": "https://en.wikipedia.org/wiki/Astrakhan_Khanate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-205": {
+   "answer": "Anthony Jenkinson",
+   "title": "Anthony Jenkinson",
+   "url": "https://en.wikipedia.org/wiki/Anthony_Jenkinson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-206": {
+   "answer": "Saint Basil's Cathedral",
+   "title": "Saint Basil's Cathedral",
+   "url": "https://en.wikipedia.org/wiki/Saint_Basil's_Cathedral",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-207": {
+   "answer": "Livonian War",
+   "title": "Livonian War",
+   "url": "https://en.wikipedia.org/wiki/Livonian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-208": {
+   "answer": "Duchy of Courland and Semigallia",
+   "title": "Duchy of Courland and Semigallia",
+   "url": "https://en.wikipedia.org/wiki/Duchy_of_Courland_and_Semigallia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-209": {
+   "answer": "Truce of Yam-Zapolsky",
+   "title": "Truce of Yam-Zapolsky",
+   "url": "https://en.wikipedia.org/wiki/Truce_of_Yam-Zapolsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-210": {
+   "answer": "Union of Lublin",
+   "title": "Union of Lublin",
+   "url": "https://en.wikipedia.org/wiki/Union_of_Lublin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-251": {
+   "answer": "House of Romanov",
+   "title": "House of Romanov",
+   "url": "https://en.wikipedia.org/wiki/House_of_Romanov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-252": {
+   "answer": "Michael Romanov",
+   "title": "Michael of Russia",
+   "url": "https://en.wikipedia.org/wiki/Michael_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Michael Romanov"
+  },
+  "ru-253": {
+   "answer": "Patriarch Filaret",
+   "title": "Patriarch Filaret of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_Filaret_of_Moscow",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-254": {
+   "answer": "Smolensk War",
+   "title": "Smolensk War",
+   "url": "https://en.wikipedia.org/wiki/Smolensk_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-255": {
+   "answer": "Alexis Mikhailovich",
+   "title": "Alexis of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexis_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Alexis Mikhailovich"
+  },
+  "ru-256": {
+   "answer": "Salt Riot",
+   "title": "Moscow uprising of 1648",
+   "url": "https://en.wikipedia.org/wiki/Moscow_uprising_of_1648",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Salt Riot"
+  },
+  "ru-257": {
+   "answer": "Sobornoye Ulozheniye",
+   "title": "Sobornoye Ulozheniye",
+   "url": "https://en.wikipedia.org/wiki/Sobornoye_Ulozheniye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-258": {
+   "answer": "urochnye leta",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fixed years",
+    "Forbidden years"
+   ]
+  },
+  "ru-259": {
+   "answer": "Copper Riot",
+   "title": "Copper Riot",
+   "url": "https://en.wikipedia.org/wiki/Copper_Riot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-260": {
+   "answer": "Patriarch Nikon",
+   "title": "Patriarch Nikon of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_Nikon_of_Moscow",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Patriarch Nikon"
+  },
+  "ru-261": {
+   "answer": "Great Moscow Synod",
+   "title": "Great Moscow Synod",
+   "url": "https://en.wikipedia.org/wiki/Great_Moscow_Synod",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-262": {
+   "answer": "Raskol",
+   "title": "Schism of the Russian Church",
+   "url": "https://en.wikipedia.org/wiki/Schism_of_the_Russian_Church",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Raskol"
+  },
+  "ru-263": {
+   "answer": "Old Believers",
+   "title": "Old Believers",
+   "url": "https://en.wikipedia.org/wiki/Old_Believers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-264": {
+   "answer": "Avvakum",
+   "title": "Avvakum",
+   "url": "https://en.wikipedia.org/wiki/Avvakum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-265": {
+   "answer": "Solovetsky Monastery uprising",
+   "title": "Solovetsky Monastery uprising",
+   "url": "https://en.wikipedia.org/wiki/Solovetsky_Monastery_uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-266": {
+   "answer": "Khmelnytsky Uprising",
+   "title": "Khmelnytsky Uprising",
+   "url": "https://en.wikipedia.org/wiki/Khmelnytsky_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-267": {
+   "answer": "Pereiaslav Agreement",
+   "title": "Pereiaslav Agreement",
+   "url": "https://en.wikipedia.org/wiki/Pereiaslav_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-268": {
+   "answer": "Russo-Polish War of 1654–1667",
+   "title": "Polish–Russian War (1654–1667)",
+   "url": "https://en.wikipedia.org/wiki/Polish%E2%80%93Russian_War_(1654%E2%80%931667)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-269": {
+   "answer": "Truce of Andrusovo",
+   "title": "Truce of Andrusovo",
+   "url": "https://en.wikipedia.org/wiki/Truce_of_Andrusovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-270": {
+   "answer": "Cossacks",
+   "title": "Cossacks",
+   "url": "https://en.wikipedia.org/wiki/Cossacks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-281": {
+   "answer": "German Quarter",
+   "title": "German Quarter",
+   "url": "https://en.wikipedia.org/wiki/German_Quarter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-282": {
+   "answer": "Azov campaigns",
+   "title": "Azov campaigns (1695–1696)",
+   "url": "https://en.wikipedia.org/wiki/Azov_campaigns_(1695%E2%80%931696)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-283": {
+   "answer": "Grand Embassy",
+   "title": "Grand Embassy of Peter the Great",
+   "url": "https://en.wikipedia.org/wiki/Grand_Embassy_of_Peter_the_Great",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Grand Embassy"
+  },
+  "ru-284": {
+   "answer": "Streltsy uprising of 1698",
+   "title": "Streltsy uprising",
+   "url": "https://en.wikipedia.org/wiki/Streltsy_uprising",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-285": {
+   "answer": "beard tax",
+   "title": "Beard tax",
+   "url": "https://en.wikipedia.org/wiki/Beard_tax",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-286": {
+   "answer": "Great Northern War",
+   "title": "Great Northern War",
+   "url": "https://en.wikipedia.org/wiki/Great_Northern_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-287": {
+   "answer": "Charles XII",
+   "title": "Charles XII of Sweden",
+   "url": "https://en.wikipedia.org/wiki/Charles_XII_of_Sweden",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Charles XII"
+  },
+  "ru-288": {
+   "answer": "Battle of Narva",
+   "title": "Battle of Narva (1700)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Narva_(1700)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-289": {
+   "answer": "Peter and Paul Fortress",
+   "title": "Peter and Paul Fortress",
+   "url": "https://en.wikipedia.org/wiki/Peter_and_Paul_Fortress",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-290": {
+   "answer": "Vasilyevsky Island",
+   "title": "Vasilyevsky Island",
+   "url": "https://en.wikipedia.org/wiki/Vasilyevsky_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-291": {
+   "answer": "Imperial Russian Navy",
+   "title": "Imperial Russian Navy",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Russian_Navy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-292": {
+   "answer": "Battle of Poltava",
+   "title": "Battle of Poltava",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Poltava",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-293": {
+   "answer": "Ivan Mazepa",
+   "title": "Ivan Mazepa",
+   "url": "https://en.wikipedia.org/wiki/Ivan_Mazepa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-294": {
+   "answer": "Pruth River Campaign",
+   "title": "Russo-Turkish War (1710–1713)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1710%E2%80%931713)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Pruth River Campaign"
+  },
+  "ru-295": {
+   "answer": "Treaty of Nystad",
+   "title": "Treaty of Nystad",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Nystad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-296": {
+   "answer": "Russian Empire",
+   "title": "Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-297": {
+   "answer": "Table of Ranks",
+   "title": "Table of Ranks",
+   "url": "https://en.wikipedia.org/wiki/Table_of_Ranks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-298": {
+   "answer": "Petrine collegia",
+   "title": "Collegium (ministry)",
+   "url": "https://en.wikipedia.org/wiki/Collegium_(ministry)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-299": {
+   "answer": "Governing Senate",
+   "title": "Governing Senate",
+   "url": "https://en.wikipedia.org/wiki/Governing_Senate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-300": {
+   "answer": "Most Holy Synod",
+   "title": "Most Holy Synod",
+   "url": "https://en.wikipedia.org/wiki/Most_Holy_Synod",
    "via": "glossary",
    "status": "ok"
   }

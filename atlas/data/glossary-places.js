@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":{"terms":935,"points":698,"countries":237,"windows":1455,"faces":376,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2e825c69f0238fce","counts":{"terms":935,"points":698,"countries":237,"windows":1458,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -391,7 +391,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":
 "Katahdin":"pl:q1858056",
 "Kawagarbo":"pl:q621247",
 "Kazakhstan":"adm0:kaz",
-"Kazan":"adm1:rus:ru-ta",
+"Kazan":"city:1159150705",
 "Kemerovo":"adm1:rus:ru-kem",
 "Kentucky":"adm1:usa:us-ky",
 "Kenya":"adm0:ken",
@@ -1526,7 +1526,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":
 "Katahdin":[-68.921,45.904,"mountain",0,0,0],
 "Kawagarbo":[98.683,28.438,"mountain",0,0,0],
 "Kazakhstan":[68.69,49.05,"country","adm0:kaz",0,2.51],
-"Kazan":[50.736,55.374,"admin1","adm1:rus:ru-ta",0,17.23],
+"Kazan":[49.124,55.752,"city",0,0,0],
 "Kemerovo":[87.168,54.646,"admin1","adm1:rus:ru-kem",0,14.69],
 "Kentucky":[-85.573,37.399,"admin1","adm1:usa:us-ky",0,11.39],
 "Kenya":[37.91,0.55,"country","adm0:ken",0,7.06],
@@ -1937,6 +1937,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":
 "Persian_Corridor":[48.678,31.305,"coord",0,0,0],
 "Persian_Gulf":[52,26,"coord",0,0,0],
 "Peru":[-72.9,-12.98,"country","adm0:per",0,3.74],
+"Peter_and_Paul_Fortress":[30.317,59.95,"coord",0,0,0],
 "Petras":[26.115,35.197,"site",0,0,0],
 "Phaistos":[24.814,35.051,"site",0,0,0],
 "Pharos_(island)":[29.885,31.214,"island",0,0,0],
@@ -2037,6 +2038,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":
 "Sahul":[142.5,-9.833,"coord",0,0,0],
 "Saint-Acheul":[2.164,50.191,"town",0,0,0],
 "Saint_Barthélemy":[-62.83,17.9,"country","adm0:blm",0,40],
+"Saint_Basil's_Cathedral":[37.623,55.753,"coord",0,0,0],
 "Saint_Helena":[-5.71,-15.95,"country","adm0:shn",0,2.11],
 "Saint_Kitts_and_Nevis":[-62.76,17.34,"country","adm0:kna",0,40],
 "Saint_Lucia":[-60.98,13.89,"country","adm0:lca",0,40],
@@ -2163,6 +2165,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"f4a7062096337f6f","counts":
 "Sungir":[40.509,56.176,"site",0,0,0],
 "Suriname":[-55.91,4.14,"country","adm0:sur",0,16.39],
 "Susa":[48.256,32.189,"site",0,0,0],
+"Sviyazhsk":[48.653,55.77,"coord",0,0,0],
 "Swabian_Jura":[9.35,48.3,"range",0,0,0],
 "Swahili_coast":[39.667,-4.05,"coord",0,0,0],
 "Sweden":[19.02,65.86,"country","adm0:swe",0,5],

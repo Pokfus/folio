@@ -1304,6 +1304,64 @@ others) and changed a Greek card; the drift was reverted, the new cards' derived
 `card-places.js` and `glossary-places.js` rebuilt with `--install`. Read `git status` after a migration.
 
 
+### What carried this batch — `ru-201` to `ru-300`
+
+A hundred cards in one session (2026-11-08): the rest of `ru-ivan-iv`, all of `ru-troubles`, all of
+`ru-first-romanovs` and the first 25 of `ru-peter`, written the same way as the last hundred (ten
+parallel passes of ten, each validated by a trial import in its own worktree, then imported serially).
+**Every line's SUBJECT stands, so the list below is unchanged**; where the answer term is not the
+line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-201 | Decree on Service | ru-245 | Kuzma Minin |
+| ru-203 | Sviyazhsk | ru-246 | Dmitry Pozharsky |
+| ru-204 | Astrakhan Khanate | ru-247 | Zemsky Sobor |
+| ru-205 | Anthony Jenkinson | ru-248 | Ipatiev Monastery |
+| ru-208 | Duchy of Courland and Semigallia | ru-250 | pustosh |
+| ru-209 | Truce of Yam-Zapolsky | ru-252 | Michael Romanov |
+| ru-215 | Moscow fire of 1571 | ru-255 | Alexis Mikhailovich |
+| ru-218 | zemshchina | ru-258 | urochnye leta |
+| ru-219 | Ivan Ivanovich | ru-261 | Great Moscow Synod |
+| ru-220 | Andrey Kurbsky | ru-265 | Solovetsky Monastery uprising |
+| ru-221 | Richard Chancellor | ru-273 | Ivan Moskvitin |
+| ru-224 | Khanate of Sibir | ru-275 | Feodor III |
+| ru-225 | Illustrated Chronicle of Ivan the Terrible | ru-277 | Sophia Alekseyevna |
+| ru-229 | Patriarch Job | ru-278 | Moscow uprising of 1682 |
+| ru-230 | Dmitry of Uglich | ru-279 | Crimean campaigns |
+| ru-231 | St George's Day | ru-280 | Fyodor Shaklovity |
+| ru-232 | Russian famine of 1601–1603 | ru-284 | Streltsy uprising of 1698 |
+| ru-234 | Polish–Muscovite War | ru-289 | Peter and Paul Fortress |
+| ru-239 | Ingrian War | ru-290 | Vasilyevsky Island |
+| ru-241 | Seven Boyars | ru-291 | Imperial Russian Navy |
+| ru-242 | Władysław IV Vasa | ru-296 | Russian Empire |
+| ru-244 | Prokopy Lyapunov | | |
+
+**THE CLASHES WERE STEERED BEFORE THE PASSES STARTED**, from the answers already taken: *Khanate of
+Kazan* (`ru-125`), *streltsy* (`ru-200`), *Livonian Order* (`ru-110`), *mestnichestvo* (`ru-160`),
+*Ivan the Terrible* (`ru-191`), *Saint Petersburg* (`gru-004`), *Battle of Moscow* (`ww2-280`) and
+*collegium* (`rm-813`) are all owned elsewhere, which is why several lines above answer a neighbour of
+their subject. **`ru-274` Treaty of Nerchinsk deliberately shares its answer with `cnh-546`**, as the
+pairing table above asks. Three glossary terms already existed and were not rewritten
+(`Anthony_Jenkinson`, `Treaty_of_Nerchinsk`, `Peter_the_Great`), so 97 are new.
+
+**NON-ARTICLE GLOSSARY KEYS**: `Decree_on_Service` and `Urochnye_leta` have no English article.
+**Eight Wikipedia links were set by hand** (`"manual": true` in `wiki-links.json`: ru-215, 223, 231,
+234, 253, 268, 284, 298) because the resolver found a disambiguation page, nothing, or — for
+St George's Day — the wrong saint's day.
+
+**THE SOURCE BAR IS TIERED BY DIFFICULTY FOR THIS COLLECTION TOO** (`srcTargetFor`: difficulty 1 needs
+9 sources … 5 needs 5), which the spec's "5 to 8" does not say; most cards carry 6–8. The spine is the
+same as before — Kluchevsky (Hogarth), Fletcher and Horsey (Bond), Bain, Schuyler, Waliszewski,
+Platonov, Olearius, Korb, Perry — plus cyberleninka articles `[in Russian]`. Sources that disagree on a
+date (Avvakum's burning, Andrusovo's signing, Mazepa's death, Yermak's death) are named in each card's
+`notes` and the card says what it follows.
+
+**`migrate-places.js` DROPPED UNRELATED REGISTRY ROWS AGAIN** (Tarsus and others, and a Greek card):
+reverted as before, the new cards' derived ids kept, and `card-places.js` and `glossary-places.js`
+rebuilt with `--install`. **Make this the standing order after any batch**: run the migration, then
+`git checkout` everything it touched outside the new cards before rebuilding the two indexes.
+
 ---
 
 # The list
