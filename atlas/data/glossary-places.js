@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ef22c04ac9255491","counts":{"terms":934,"points":697,"countries":237,"windows":1451,"faces":376,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3de0d9999ade286e","counts":{"terms":935,"points":698,"countries":237,"windows":1454,"faces":376,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -204,6 +204,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ef22c04ac9255491","counts":
 "Dendera":"pl:q29019",
 "Denisova_Cave":"pl:q1029322",
 "Denmark":"adm0:dnk",
+"Detroit":"city:1159151245",
 "Devils_Tower":"pl:q306201",
 "Dholavira":"pl:q9468",
 "Djibouti":"adm0:dji",
@@ -1093,6 +1094,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ef22c04ac9255491","counts":
 "Bir_Kiseiba":[29.917,22.683,"site",0,0,0],
 "Bithynia_and_Pontus":[29.918,40.763,"coord",0,0,0],
 "Black_Hills":[-103.875,44.153,"range",0,0,0],
+"Bletchley_Park":[-0.741,51.998,"coord",0,0,0],
 "Blombos_Cave":[21.223,-34.414,"site",0,0,0],
 "Blue_Ridge_Mountains":[-83.452,35.392,"range",0,0,0],
 "Bohai_Sea":[119.913,38.603,"sea",0,0,0],
@@ -1241,6 +1243,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ef22c04ac9255491","counts":
 "Denisova_Cave":[84.676,51.398,"site",0,0,0],
 "Denmark":[9.02,55.97,"country","adm0:dnk",0,17.45],
 "Detinets":[31.276,58.521,"coord",0,0,0],
+"Detroit":[-83.082,42.332,"city",0,0,0],
 "Devils_Tower":[-104.715,44.59,"mountain",0,0,0],
 "Dholavira":[70.217,23.886,"site",0,0,0],
 "Dian_Lake":[102.671,24.801,"coord",0,0,0],
@@ -1923,6 +1926,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ef22c04ac9255491","counts":
 "Pearl_Harbor":[-157.977,21.368,"coord",0,0,0],
 "Pearl_River":[113.633,22.767,"coord",0,0,0],
 "Pechora_(river)":[54.417,68.3,"coord",0,0,0],
+"Peenemünde_Army_Research_Center":[13.8,54.15,"coord",0,0,0],
 "Pennsylvania":[-77.609,40.86,"admin1","adm1:usa:us-pa",0,15.59],
 "Penza":[44.816,53.056,"admin1","adm1:rus:ru-pnz",0,23.34],
 "Perachora":[22.949,38.031,"town",0,0,0],

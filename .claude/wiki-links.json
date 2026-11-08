@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-07T23:38Z",
+ "generated": "2026-11-08T04:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6275,
-  "redirect-broader": 601,
-  "redirect-variant": 380,
-  "section-redirect": 127,
+  "ok": 6364,
+  "redirect-broader": 605,
+  "redirect-variant": 385,
+  "section-redirect": 128,
   "disambiguation": 147,
   "none": 1004,
-  "disambig-resolved": 84,
+  "disambig-resolved": 85,
   "list-page": 6,
   "search-match": 9,
   "no-article": 17
@@ -69434,6 +69434,720 @@
    "answer": "Kempeitai",
    "title": "Kempeitai",
    "url": "https://en.wikipedia.org/wiki/Kempeitai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-821": {
+   "answer": "war economy",
+   "title": "War economy",
+   "url": "https://en.wikipedia.org/wiki/War_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-822": {
+   "answer": "total war",
+   "title": "Total war",
+   "url": "https://en.wikipedia.org/wiki/Total_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-823": {
+   "answer": "Home Guard",
+   "title": "Home Guard (United Kingdom)",
+   "url": "https://en.wikipedia.org/wiki/Home_Guard_(United_Kingdom)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-824": {
+   "answer": "rationing in the United Kingdom",
+   "title": "Rationing in the United Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Rationing_in_the_United_Kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-825": {
+   "answer": "Women's Land Army",
+   "title": "Women's Land Army",
+   "url": "https://en.wikipedia.org/wiki/Women's_Land_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-826": {
+   "answer": "Office of Price Administration",
+   "title": "Office of Price Administration",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Price_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-827": {
+   "answer": "War Production Board",
+   "title": "War Production Board",
+   "url": "https://en.wikipedia.org/wiki/War_Production_Board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-828": {
+   "answer": "Rosie the Riveter",
+   "title": "Rosie the Riveter",
+   "url": "https://en.wikipedia.org/wiki/Rosie_the_Riveter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-829": {
+   "answer": "Executive Order 8802",
+   "title": "Executive Order 8802",
+   "url": "https://en.wikipedia.org/wiki/Executive_Order_8802",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-830": {
+   "answer": "Double V campaign",
+   "title": "Double V campaign",
+   "url": "https://en.wikipedia.org/wiki/Double_V_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-811": {
+   "answer": "population transfer",
+   "title": "Population transfer",
+   "url": "https://en.wikipedia.org/wiki/Population_transfer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-812": {
+   "answer": "starvation of civilians",
+   "title": "Starvation (crime)",
+   "url": "https://en.wikipedia.org/wiki/Starvation_(crime)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-813": {
+   "answer": "wartime sexual violence",
+   "title": "Wartime sexual violence",
+   "url": "https://en.wikipedia.org/wiki/Wartime_sexual_violence",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-814": {
+   "answer": "Einsatzstab Reichsleiter Rosenberg",
+   "title": "Reichsleiter Rosenberg Taskforce",
+   "url": "https://en.wikipedia.org/wiki/Reichsleiter_Rosenberg_Taskforce",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Einsatzstab Reichsleiter Rosenberg"
+  },
+  "ww2-815": {
+   "answer": "Baedeker Blitz",
+   "title": "Baedeker Blitz",
+   "url": "https://en.wikipedia.org/wiki/Baedeker_Blitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-816": {
+   "answer": "United Nations Relief and Rehabilitation Administration",
+   "title": "United Nations Relief and Rehabilitation Administration",
+   "url": "https://en.wikipedia.org/wiki/United_Nations_Relief_and_Rehabilitation_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-817": {
+   "answer": "civilian casualties",
+   "title": "Civilian casualty",
+   "url": "https://en.wikipedia.org/wiki/Civilian_casualty",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Civilian casualties"
+  },
+  "ww2-818": {
+   "answer": "excess mortality",
+   "title": "Excess mortality",
+   "url": "https://en.wikipedia.org/wiki/Excess_mortality",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-819": {
+   "answer": "crimes against humanity",
+   "title": "Crimes against humanity",
+   "url": "https://en.wikipedia.org/wiki/Crimes_against_humanity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-820": {
+   "answer": "genocide",
+   "title": "Genocide",
+   "url": "https://en.wikipedia.org/wiki/Genocide",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-861": {
+   "answer": "Reich Ministry of Armaments and War Production",
+   "title": "Reich Ministry of Armaments and War Production",
+   "url": "https://en.wikipedia.org/wiki/Reich_Ministry_of_Armaments_and_War_Production",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-862": {
+   "answer": "Sportpalast speech",
+   "title": "Sportpalast speech",
+   "url": "https://en.wikipedia.org/wiki/Sportpalast_speech",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-863": {
+   "answer": "Nikolai Voznesensky",
+   "title": "Nikolai Voznesensky",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Voznesensky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-864": {
+   "answer": "evacuation of Soviet industry",
+   "title": "Evacuation in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Evacuation_in_the_Soviet_Union",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-865": {
+   "answer": "Ministry of Supply",
+   "title": "Ministry of Supply",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_Supply",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-866": {
+   "answer": "National Mobilization Law",
+   "title": "State General Mobilization Law",
+   "url": "https://en.wikipedia.org/wiki/State_General_Mobilization_Law",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "National Mobilization Law"
+  },
+  "ww2-867": {
+   "answer": "preclusive purchasing",
+   "title": "Preclusive purchasing",
+   "url": "https://en.wikipedia.org/wiki/Preclusive_purchasing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-868": {
+   "answer": "Big Inch",
+   "title": "Big Inch",
+   "url": "https://en.wikipedia.org/wiki/Big_Inch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-869": {
+   "answer": "Operation Tidal Wave",
+   "title": "Operation Tidal Wave",
+   "url": "https://en.wikipedia.org/wiki/Operation_Tidal_Wave",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-870": {
+   "answer": "Bergius process",
+   "title": "Bergius process",
+   "url": "https://en.wikipedia.org/wiki/Bergius_process",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-841": {
+   "answer": "War Artists' Advisory Committee",
+   "title": "War Artists' Advisory Committee",
+   "url": "https://en.wikipedia.org/wiki/War_Artists'_Advisory_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-842": {
+   "answer": "war correspondent",
+   "title": "War correspondent",
+   "url": "https://en.wikipedia.org/wiki/War_correspondent",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-843": {
+   "answer": "Selective Training and Service Act of 1940",
+   "title": "Selective Training and Service Act of 1940",
+   "url": "https://en.wikipedia.org/wiki/Selective_Training_and_Service_Act_of_1940",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-844": {
+   "answer": "Civilian Public Service",
+   "title": "Civilian Public Service",
+   "url": "https://en.wikipedia.org/wiki/Civilian_Public_Service",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-845": {
+   "answer": "Kinderlandverschickung",
+   "title": "Evacuations of children in Germany during World War II",
+   "url": "https://en.wikipedia.org/wiki/Evacuations_of_children_in_Germany_during_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kinderlandverschickung"
+  },
+  "ww2-846": {
+   "answer": "Education Act 1944",
+   "title": "Education Act 1944",
+   "url": "https://en.wikipedia.org/wiki/Education_Act_1944",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-847": {
+   "answer": "Emergency Medical Service",
+   "title": "Emergency medical services",
+   "url": "https://en.wikipedia.org/wiki/Emergency_medical_services",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Emergency Medical Service"
+  },
+  "ww2-848": {
+   "answer": "prefab",
+   "title": "Prefabs in the United Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Prefabs_in_the_United_Kingdom",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-849": {
+   "answer": "1943 Detroit race riot",
+   "title": "1943 Detroit race riot",
+   "url": "https://en.wikipedia.org/wiki/1943_Detroit_race_riot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-850": {
+   "answer": "Clemens August von Galen",
+   "title": "Clemens August Graf von Galen",
+   "url": "https://en.wikipedia.org/wiki/Clemens_August_Graf_von_Galen",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Clemens August von Galen"
+  },
+  "ww2-851": {
+   "answer": "war bride",
+   "title": "War bride",
+   "url": "https://en.wikipedia.org/wiki/War_bride",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-852": {
+   "answer": "enemy alien",
+   "title": "Enemy alien",
+   "url": "https://en.wikipedia.org/wiki/Enemy_alien",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-853": {
+   "answer": "Bermuda Conference",
+   "title": "Bermuda Conference",
+   "url": "https://en.wikipedia.org/wiki/Bermuda_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-854": {
+   "answer": "Kindertransport",
+   "title": "Kindertransport",
+   "url": "https://en.wikipedia.org/wiki/Kindertransport",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-855": {
+   "answer": "Beveridge Report",
+   "title": "Beveridge Report",
+   "url": "https://en.wikipedia.org/wiki/Beveridge_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-856": {
+   "answer": "economic warfare",
+   "title": "Economic warfare",
+   "url": "https://en.wikipedia.org/wiki/Economic_warfare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-857": {
+   "answer": "shadow factory",
+   "title": "British shadow factories",
+   "url": "https://en.wikipedia.org/wiki/British_shadow_factories",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Shadow factory"
+  },
+  "ww2-858": {
+   "answer": "Victory Program",
+   "title": "Victory Program",
+   "url": "https://en.wikipedia.org/wiki/Victory_Program",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-859": {
+   "answer": "Willow Run",
+   "title": "Willow Run",
+   "url": "https://en.wikipedia.org/wiki/Willow_Run",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-860": {
+   "answer": "Arsenal of Democracy",
+   "title": "Arsenal of Democracy",
+   "url": "https://en.wikipedia.org/wiki/Arsenal_of_Democracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-871": {
+   "answer": "rationing",
+   "title": "Rationing",
+   "url": "https://en.wikipedia.org/wiki/Rationing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-872": {
+   "answer": "war bond",
+   "title": "War bond",
+   "url": "https://en.wikipedia.org/wiki/War_bond",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-873": {
+   "answer": "Combined Munitions Assignments Board",
+   "title": "Combined Munitions Assignments Board",
+   "url": "https://en.wikipedia.org/wiki/Combined_Munitions_Assignments_Board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-874": {
+   "answer": "War Shipping Administration",
+   "title": "War Shipping Administration",
+   "url": "https://en.wikipedia.org/wiki/War_Shipping_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-875": {
+   "answer": "War Manpower Commission",
+   "title": "War Manpower Commission",
+   "url": "https://en.wikipedia.org/wiki/War_Manpower_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-876": {
+   "answer": "Organisation Todt",
+   "title": "Organisation Todt",
+   "url": "https://en.wikipedia.org/wiki/Organisation_Todt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-877": {
+   "answer": "Reichswerke Hermann Göring",
+   "title": "Reichswerke Hermann Göring",
+   "url": "https://en.wikipedia.org/wiki/Reichswerke_Hermann_G%C3%B6ring",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-878": {
+   "answer": "mass production",
+   "title": "Mass production",
+   "url": "https://en.wikipedia.org/wiki/Mass_production",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-879": {
+   "answer": "gross domestic product",
+   "title": "Gross domestic product",
+   "url": "https://en.wikipedia.org/wiki/Gross_domestic_product",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-880": {
+   "answer": "attrition warfare",
+   "title": "Attrition warfare",
+   "url": "https://en.wikipedia.org/wiki/Attrition_warfare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-881": {
+   "answer": "Office of Scientific Research and Development",
+   "title": "Office of Scientific Research and Development",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Scientific_Research_and_Development",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-882": {
+   "answer": "radar",
+   "title": "Radar",
+   "url": "https://en.wikipedia.org/wiki/Radar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-883": {
+   "answer": "cavity magnetron",
+   "title": "Cavity magnetron",
+   "url": "https://en.wikipedia.org/wiki/Cavity_magnetron",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-884": {
+   "answer": "Hedgehog",
+   "title": "Hedgehog (weapon)",
+   "url": "https://en.wikipedia.org/wiki/Hedgehog_(weapon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-885": {
+   "answer": "B-29 Superfortress",
+   "title": "Boeing B-29 Superfortress",
+   "url": "https://en.wikipedia.org/wiki/Boeing_B-29_Superfortress",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "B-29 Superfortress"
+  },
+  "ww2-886": {
+   "answer": "Messerschmitt Me 262",
+   "title": "Messerschmitt Me 262",
+   "url": "https://en.wikipedia.org/wiki/Messerschmitt_Me_262",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-887": {
+   "answer": "M4 Sherman",
+   "title": "M4 Sherman",
+   "url": "https://en.wikipedia.org/wiki/M4_Sherman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-888": {
+   "answer": "M1 Garand",
+   "title": "M1 Garand",
+   "url": "https://en.wikipedia.org/wiki/M1_Garand",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-889": {
+   "answer": "proximity fuze",
+   "title": "Proximity fuze",
+   "url": "https://en.wikipedia.org/wiki/Proximity_fuze",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-890": {
+   "answer": "Wernher von Braun",
+   "title": "Wernher von Braun",
+   "url": "https://en.wikipedia.org/wiki/Wernher_von_Braun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-891": {
+   "answer": "Peenemünde",
+   "title": "Peenemünde",
+   "url": "https://en.wikipedia.org/wiki/Peenem%C3%BCnde",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ww2-892": {
+   "answer": "military medicine",
+   "title": "Military medicine",
+   "url": "https://en.wikipedia.org/wiki/Military_medicine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-893": {
+   "answer": "penicillin",
+   "title": "Penicillin",
+   "url": "https://en.wikipedia.org/wiki/Penicillin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-894": {
+   "answer": "blood transfusion",
+   "title": "Blood transfusion",
+   "url": "https://en.wikipedia.org/wiki/Blood_transfusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-895": {
+   "answer": "operations research",
+   "title": "Operations research",
+   "url": "https://en.wikipedia.org/wiki/Operations_research",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-896": {
+   "answer": "cryptanalysis",
+   "title": "Cryptanalysis",
+   "url": "https://en.wikipedia.org/wiki/Cryptanalysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-897": {
+   "answer": "Enigma machine",
+   "title": "Enigma machine",
+   "url": "https://en.wikipedia.org/wiki/Enigma_machine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-898": {
+   "answer": "Bletchley Park",
+   "title": "Bletchley Park",
+   "url": "https://en.wikipedia.org/wiki/Bletchley_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-899": {
+   "answer": "Alan Turing",
+   "title": "Alan Turing",
+   "url": "https://en.wikipedia.org/wiki/Alan_Turing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-900": {
+   "answer": "Ultra",
+   "title": "Ultra (cryptography)",
+   "url": "https://en.wikipedia.org/wiki/Ultra_(cryptography)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-801": {
+   "answer": "Manila massacre",
+   "title": "Manila massacre",
+   "url": "https://en.wikipedia.org/wiki/Manila_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-802": {
+   "answer": "Sandakan death marches",
+   "title": "Sandakan death marches",
+   "url": "https://en.wikipedia.org/wiki/Sandakan_death_marches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-803": {
+   "answer": "Hostages Trial",
+   "title": "Hostages Trial",
+   "url": "https://en.wikipedia.org/wiki/Hostages_Trial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-804": {
+   "answer": "dehousing",
+   "title": "Dehousing",
+   "url": "https://en.wikipedia.org/wiki/Dehousing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-805": {
+   "answer": "Hague Conventions",
+   "title": "Hague Conventions of 1899 and 1907",
+   "url": "https://en.wikipedia.org/wiki/Hague_Conventions_of_1899_and_1907",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Hague Convention"
+  },
+  "ww2-806": {
+   "answer": "Geneva Convention on Prisoners of War",
+   "title": "Geneva Convention on Prisoners of War",
+   "url": "https://en.wikipedia.org/wiki/Geneva_Convention_on_Prisoners_of_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-807": {
+   "answer": "Deportation of the Crimean Tatars",
+   "title": "Deportation of the Crimean Tatars",
+   "url": "https://en.wikipedia.org/wiki/Deportation_of_the_Crimean_Tatars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-808": {
+   "answer": "NKVD prisoner massacres",
+   "title": "NKVD prisoner massacres",
+   "url": "https://en.wikipedia.org/wiki/NKVD_prisoner_massacres",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-809": {
+   "answer": "ethnic cleansing",
+   "title": "Ethnic cleansing",
+   "url": "https://en.wikipedia.org/wiki/Ethnic_cleansing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-810": {
+   "answer": "Massacres of Poles in Volhynia and Eastern Galicia",
+   "title": "Massacres of Poles in Volhynia and Eastern Galicia",
+   "url": "https://en.wikipedia.org/wiki/Massacres_of_Poles_in_Volhynia_and_Eastern_Galicia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-831": {
+   "answer": "Fremdarbeiter",
+   "title": "Forced labour under German rule during World War II",
+   "url": "https://en.wikipedia.org/wiki/Forced_labour_under_German_rule_during_World_War_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fremdarbeiter"
+  },
+  "ww2-832": {
+   "answer": "Cross of Honour of the German Mother",
+   "title": "Cross of Honour of the German Mother",
+   "url": "https://en.wikipedia.org/wiki/Cross_of_Honour_of_the_German_Mother",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-833": {
+   "answer": "ration card",
+   "title": "Rationing",
+   "url": "https://en.wikipedia.org/wiki/Rationing",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ww2-834": {
+   "answer": "Luftwaffenhelfer",
+   "title": "Luftwaffenhelfer",
+   "url": "https://en.wikipedia.org/wiki/Luftwaffenhelfer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-835": {
+   "answer": "Mother Heroine",
+   "title": "Mother Heroine",
+   "url": "https://en.wikipedia.org/wiki/Mother_Heroine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-836": {
+   "answer": "Imperial Rule Assistance Association",
+   "title": "Imperial Rule Assistance Association",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Rule_Assistance_Association",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-837": {
+   "answer": "Ministry of Information",
+   "title": "Ministry of Information (United Kingdom)",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_Information_(United_Kingdom)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-838": {
+   "answer": "Office of Censorship",
+   "title": "Office of Censorship",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Censorship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-839": {
+   "answer": "Volksempfänger",
+   "title": "Volksempfänger",
+   "url": "https://en.wikipedia.org/wiki/Volksempf%C3%A4nger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ww2-840": {
+   "answer": "Why We Fight",
+   "title": "Why We Fight",
+   "url": "https://en.wikipedia.org/wiki/Why_We_Fight",
    "via": "glossary",
    "status": "ok"
   }
