@@ -53,6 +53,7 @@ const CFG = Object.assign({
   extraQDate: null,        // a further pattern a question may not carry (deep time: "million years ago")
   extraPlaceKinds: [],     // further tag-1 kinds that ought to carry a locator
   extraChecks: null,       // (card, finding, out) => void, for a collection's own mechanical rules
+  filter: null,            // (card, findings) => findings, to set a card's findings aside (China's protected date lines)
 }, global.AUDIT_CFG || {});
 const ID_RE = new RegExp("^" + CFG.prefix + "-\\d+$");
 
@@ -283,7 +284,7 @@ function audit(c) {
   const kind = (c.tags || [])[0];
   if (PLACE_KINDS.has(kind) && !c.locator && !c.war) finding(out, "L.missing", "a " + kind + " card with no locator");
   if (CFG.extraChecks) CFG.extraChecks(c, (rule, msg) => finding(out, rule, msg), byId);
-  return out;
+  return CFG.filter ? CFG.filter(c, out) : out;
 }
 
 /* ---------- run ---------- */
@@ -299,5 +300,5 @@ if (!SUMMARY) {
 console.log(CFG.name + ": " + scope.length + " card(s), " + results.filter((r) => !r.f.length).length + " with no finding");
 Object.keys(RULES).sort().forEach((k) => {
   const n = results.filter((r) => r.f.some(([x]) => x === k)).length;
-  console.log("  " + k.padEnd(18) + n + " card(s)");
+  if (n) console.log("  " + k.padEnd(18) + n + " card(s)");
 });
