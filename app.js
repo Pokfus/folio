@@ -29195,6 +29195,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbours (The Second World War and Korea), against a tightest existing pair of 4.0; 5.8:1 against white.
        Not a flag colour. */
     "lang-swahili":    { bg: "#746163" }, // measured rose-taupe
+    /* THAI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep (a green, #0B791D) was left 5.1 from Arabic's green, measured in parallel, so at the
+       merge it was RE-SWEPT against all 56 other hues: this deep blue is the farthest point, 16.0 from its
+       nearest neighbours (Ancient Greece and The Cold War), against a tightest existing pair of 4.0; 10.1:1
+       against white. Not a flag colour. */
+    "lang-thai":       { bg: "#014764" }, // measured deep blue
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two

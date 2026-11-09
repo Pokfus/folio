@@ -3541,6 +3541,16 @@ changed was the one that had been wrong all along.
   subtitles, and spoken in an Italian voice (`it-IT`). The macron decides homographs; the plan, the sources and
   every finding are 📖 `docs/latin-decks-plan.md`. The `l1` row is 0 (no native speakers; sorts last); the hue
   is measured, `#75543F` (re-swept at the merge: Greek had taken the first sweep's `#6F69D2`).
+- `.claude/thai/` — the generator behind the Thai decks (Nov 2026, on request: "Add a Thai language
+  collection"; Hindi's three answers taken as the defaults). **Built: the alphabet, `decks/Thai-Alphabet.folio-deck.json`**
+  (92 notes) **and A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/thai/run.py
+  [--level a1]`, `python3 .claude/thai/alphabet.py`, `node .claude/thai/check-thai.js`; a re-run is
+  byte-identical. Hindi's shape (an assembled CEFR list, both directions, romanisation — Paiboon, which writes the
+  tone), plus what Thai alone needs: a word cut for an unspaced script (`th.Segmenter`, maximal matching), a
+  frequency from two hand-segmented corpora (PyThaiNLP's TNC and TTC, geometric mean — hermitdave has no Thai), the
+  noun's classifier in place of a forms table, and hand tables for Wiktionary's historical sense order. All in
+  📖 `docs/thai-decks-plan.md`. The `l1` row is Ethnologue's 27 million (via Wikipedia); the hue is measured,
+  `#014764` (re-swept at the merge: Arabic's green sat 5.1 from the first sweep's `#0B791D`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
