@@ -3450,6 +3450,16 @@ changed was the one that had been wrong all along.
   frequency lists averaged (subtitles and wordfreq's written Urdu), a Perso-Arabic fold, and three shapes of
   Wiktionary verb table. 📖 `docs/urdu-decks-plan.md`. The `l1` row is Ethnologue's 78 million (via
   Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
+- `.claude/hungarian/` — the generator behind the Hungarian decks (Nov 2026, on request: "Add a Hungarian language
+  collection"; levels and the alphabet deck follow the Greek and Hindi precedent, the owner not asked). **Built: the
+  alphabet, `decks/Hungarian-Alphabet.folio-deck.json`** (46 notes: the 44 letters' sounds, the stress, doubled
+  consonants) **and A1, `decks/Hungarian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3
+  .claude/hungarian/run.py [--level a1]`, `python3 .claude/hungarian/alphabet.py`, `node
+  .claude/hungarian/check-hungarian.js`; a re-run is byte-identical. Greek's pipeline adapted, no romanisation,
+  verbs by their third person singular. The findings (the verb tables' person tags shifted by a row and read by
+  position with shape checks, the subtitles' õ/û, one headword holding two words, examples chosen against
+  ambiguity and swearing) are 📖 `docs/hungarian-decks-plan.md`. The `l1` row is Wikipedia's 12 million; the hue
+  is measured, `#14659F`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

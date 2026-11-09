@@ -79,6 +79,7 @@ const LANGS = [
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
   { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
+  { word: "Hungarian", name: "Hungarian", l1: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

@@ -29154,6 +29154,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        from Rome's purple and 18.3 from Japanese's plum, and 21.8 from Hindi's violet — a resemblance left rather
        than avoided, the two being one spoken language in two scripts. 10.1:1 against white. */
     "lang-urdu":       { bg: "#58288A" }, // measured indigo-violet
+    /* HUNGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 51 hues on the page. The winner, this
+       steel blue, is 16.9 from its nearest neighbours (Ancient Greece's Aegean blue and French's blue), against a
+       tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green). */
+    "lang-hungarian":  { bg: "#14659F" }, // measured steel blue
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
