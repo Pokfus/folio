@@ -75,6 +75,7 @@ const LANGS = [
   { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
   { word: "Telugu", name: "Telugu", l1: 83 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
   { word: "Korean", name: "Korean", l1: 81 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
+  { word: "Tamil", name: "Tamil", l1: 79 },          // Ethnologue 28th ed., via Wikipedia's infobox (78.7 million, 2011–2019), read 2026-11-09
   { word: "Urdu", name: "Urdu", l1: 78 },            // Ethnologue 28th ed., via Wikipedia's infobox (77.7), read 2026-11-09
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },

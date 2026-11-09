@@ -29209,6 +29209,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        nearest neighbours (Ancient Greece and The Cold War), against a tightest existing pair of 4.0; 10.1:1
        against white. Not a flag colour. */
     "lang-thai":       { bg: "#014764" }, // measured deep blue
+    /* TAMIL (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep (greens left out, the shelf then holding two) gave a periwinkle, #6F69D2 — which Greek's,
+       measured in parallel, also took — so at the merge it was RE-SWEPT against all 58 other hues: this crimson
+       is the farthest point, with or without greens, 15.8 from its nearest neighbour (Westeros), against a
+       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour. */
+    "lang-tamil":      { bg: "#CF3F57" }, // measured crimson
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two
