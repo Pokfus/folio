@@ -7840,6 +7840,27 @@
   const UDECK_FMT = 2;
   let _communityLS = false;                     // true once we know IndexedDB is unusable here
   let _communityReady = false;
+  /* THE HOME PAGE WAITS FOR BOOT TO SETTLE (Nov 2026, on request: "it shows the language collections as
+     undownloaded, and then after a few seconds the entire home page refreshes … No random unpredictable
+     refreshes"). Home used to paint at once from what was in memory, before `communityBoot` had mounted the
+     downloaded decks from IndexedDB and before `supaBoot` had pulled the account's progress — so every
+     downloaded language deck drew as a pending Download row, and the page was then repainted under the
+     reader when the store landed. Now `PAGES.home` draws a loading placard until BOTH have finished (and
+     the published content overrides after them), then paints once (`homeBootSettle`). A cap means a hung
+     request can delay the page by at most HOME_BOOT_CAP_MS, never strand it on the placard. */
+  let _homeBootSettled = false;
+  const HOME_BOOT_CAP_MS = 8000;
+  function homeBootSettle(promises) {
+    let done = false;
+    const settle = () => {
+      if (done) return;
+      done = true;
+      _homeBootSettled = true;
+      if (current && current.name === "home") render();
+    };
+    Promise.all(promises.map((p) => Promise.resolve(p).catch(() => {}))).then(settle);
+    setTimeout(settle, HOME_BOOT_CAP_MS);
+  }
 
   function uid(n) {
     let s = "";
@@ -25717,6 +25738,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     </div>`;
   }
   PAGES.home = function (root) {
+    // boot has not settled yet: a placard, not a page that will be repainted under the reader (see homeBootSettle)
+    if (!_homeBootSettled) {
+      root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading your decks…</strong></div>';
+      return;
+    }
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
        used to differ by three swiped panes, then by the discovery row, then by the lip to the collections,
        and finally by the About line alone — each of which was brought into line on request, always in the
@@ -48986,8 +49012,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   wirePageSwipe();   // a phone moves between the ordinary pages with a horizontal swipe
   scheduleDayRoll();   // …and a page left open across the day boundary picks the new day up on its own
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
-  communityBoot();   // async: the user's own decks load from IndexedDB, then the deck pages re-render
-  supaBoot().then(cloudBootOverrides).then(() => collStatsSync());   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
+  const _communityBootP = communityBoot();   // async: the user's own decks load from IndexedDB, then the deck pages re-render
+  const _supaBootP = supaBoot().then(cloudBootOverrides);
+  _supaBootP.then(() => collStatsSync());
+  homeBootSettle([_communityBootP, _supaBootP]);   // the home page shows a placard until both have landed, then paints once   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
   // …and the pooled card counters behind the community difficulty rating, at idle: nothing on the first
   // paint depends on them, and a card without them simply shows the editorial rating it always did
   whenIdle(() => { cardStatsLoad(); });
