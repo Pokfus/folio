@@ -29147,6 +29147,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        page — a violet, 21.2 from its nearest neighbours (Flags, Rome and Japanese), against a tightest
        existing pair of 4.0. Not a flag colour. */
     "lang-hindi":      { bg: "#9F51B4" }, // measured violet
+    /* URDU (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep, against 46 hues, chose #7066D0 —
+       and Greek, measured the same day in a parallel session, chose #6F69D2, so on merging Urdu was re-swept
+       against all 50 hues on the page, greens left out as Pakistan's flag colour: a deep indigo-violet, 18.1
+       from Rome's purple and 18.3 from Japanese's plum, and 21.8 from Hindi's violet — a resemblance left rather
+       than avoided, the two being one spoken language in two scripts. 10.1:1 against white. */
+    "lang-urdu":       { bg: "#58288A" }, // measured indigo-violet
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the

@@ -3440,6 +3440,16 @@ changed was the one that had been wrong all along.
   capitalised days and months, a noun's headword against an adjective's cell, the article's forms filed as
   pronouns, alternative spellings with full entries) are 📖 `docs/greek-decks-plan.md`. The `l1` row is
   Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
+- `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
+  collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
+  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes) **and A1,
+  `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/urdu/run.py [--level a1]`
+  (the first fetch needs `wordfreq` on `PYTHONPATH`), `python3 .claude/urdu/alphabet.py`,
+  `node .claude/urdu/check-urdu.js`; a re-run is byte-identical. Adapted from `.claude/hindi/`: the shelf's
+  FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two
+  frequency lists averaged (subtitles and wordfreq's written Urdu), a Perso-Arabic fold, and three shapes of
+  Wiktionary verb table. 📖 `docs/urdu-decks-plan.md`. The `l1` row is Ethnologue's 78 million (via
+  Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
