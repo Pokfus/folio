@@ -29193,6 +29193,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        farthest from all 61 hues on the page — a teal green, 15.7 from its nearest neighbour. Its first sweep,
        on a shelf of 46, found #2A8424, which a parallel session's language took first; re-swept at the merge. */
     "lang-persian-farsi": { bg: "#008763" }, // measured teal green
+    /* OLD ENGLISH (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep, on a shelf of 46, found #2A8424, which Arabic reached main with first; re-swept at
+       the merge against all 63: a deep green, 15.4 from its nearest neighbour (Korean), against a tightest
+       existing pair of 4.0. 9.8:1 against white. No flag: nobody's language now. */
+    "lang-old-english": { bg: "#004E30" }, // measured deep green
     "lang-portuguese": { bg: "#009657" }, // green
     /* ROMANIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep found #2A8424 — and so did

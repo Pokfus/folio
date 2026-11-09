@@ -93,6 +93,10 @@ const LANGS = [
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0 },
+  /* OLD ENGLISH (Nov 2026) has no native speakers — it was last spoken about nine hundred years ago — so its
+     figure is 0 and it sorts after every living language, which is also where a reader looks for it. The
+     word is "Old-English" with the hyphen, so no future deck with "English" in its name is filed under it. */
+  { word: "Old-English", name: "Old English", l1: 0 },
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

@@ -238,3 +238,8 @@ countries-info.json
 # the Zulu Wikipedia dump and the Tatoeba exports (~180 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/zulu-cache/
+
+# the sources .claude/oldenglish/run.py builds the Old English decks from — the Wiktionary
+# extract, Thorpe's Ælfric and Sweet's Primer (Project Gutenberg), the Tatoeba exports
+# (~250 MB) — plus the intermediates between its stages. The decks it writes ARE committed.
+.claude/oldenglish-cache/
