@@ -49,6 +49,7 @@ const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", 
   "crossword", "whatyear",   // the picture round is dormant (2026-10-30): #picture lands on home
   "howfar",   // How far? (2026-10-30): the engine board, as findit
   "pie",      // What share? (2026-10-31): an inline SVG slider and a lazily injected pool
+  "whatlang", // What language? (2026-11-09): a lazily injected pool of passages
   "mission", "studio", "community", "deck/does-not-exist",
   // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
   // exactly the kind of thing script-src 'self' is there to police) and a book that does not exist

@@ -3012,6 +3012,14 @@ body.grading .stage{padding-bottom:150px;}
 .pie-guess{font-weight:700;}
 .pie-guess.ok{color:var(--good);}
 .pie-guess.no{color:var(--zh);}
+/* WHAT LANGUAGE? (2026-11-09): the passage is set upright (italic would distort scripts that have none, and every script appears here), in the
+   serif, with a rule at its leading edge; a right-to-left passage puts the rule on its right. Long unbroken scripts (Chinese, Japanese, Thai) wrap anywhere. */
+.wl-passage{font-family:var(--serif); font-size:calc(20px * var(--fs)); line-height:1.6; color:var(--ink); margin:0 0 22px; padding:2px 0 2px 18px; border-left:3px solid var(--indigo); overflow-wrap:anywhere;}
+.wl-passage[dir="rtl"]{border-left:0; border-right:3px solid var(--indigo); padding:2px 18px 2px 0; text-align:right;}
+.wl-family{font-size:calc(14px * var(--fs)); color:var(--ink-soft); margin:6px 0 0;}
+.wl-sum-passage{overflow-wrap:anywhere;}
+.wl-sum-passage[dir="rtl"]{text-align:right;}
+.wl-guess{font-weight:700; color:var(--zh);}
 .wy-step:hover:not(:disabled){border-color:var(--indigo); color:var(--indigo);}
 .wy-step:disabled{opacity:.35; cursor:default;}
 .wy-step:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
