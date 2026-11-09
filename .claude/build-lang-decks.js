@@ -79,6 +79,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  { word: "Tagalog", name: "Tagalog", l1: 33 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09
   { word: "Romanian", name: "Romanian", l1: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
   { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
 ];

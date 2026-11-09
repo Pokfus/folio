@@ -190,3 +190,8 @@ countries-info.json
 # extract, the OpenSubtitles text and the Tatoeba exports (~270 MB) — plus the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/vietnamese-cache/
+
+# the corpora .claude/tagalog/run.py builds the Tagalog decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~270 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/tagalog-cache/

@@ -29197,6 +29197,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        52: a steel blue, 16.9 from its nearest neighbours (Greece, French and the United States), against a
        tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour. */
     "lang-vietnamese": { bg: "#14659F" }, // measured steel blue
+    /* TAGALOG (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 53 hues on the page.
+       The raw winner was neither a green nor in the magenta band, so no standing rejection applied: a muted taupe,
+       16.5 from its nearest neighbours (France's slate and the Cold War's), against a tightest existing pair of
+       4.0; 5.6:1 against white. Not a flag colour. */
+    "lang-tagalog":    { bg: "#756366" }, // measured taupe
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
