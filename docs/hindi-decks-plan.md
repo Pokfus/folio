@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 to C1 are built** (`.claude/hindi/`, §6–§10); C1 is ranked
-by a second frequency source (§10). The phrases deck is not built.
+**STATUS (2026-11-09): the whole collection is built** — the alphabet deck, A1 to C1 and the phrases deck
+(`.claude/hindi/`, §6–§11). C1 is ranked by a second frequency source (§10). Phase 4 (a combined file) is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -31,7 +31,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate — built | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced — built | `Hindi-C1.folio-deck.json` | 1,500 |
-| Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Hindi Phrases and Expressions — built | `Hindi-Phrases-and-Expressions.folio-deck.json` | 354 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -89,7 +89,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
-**Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
+**Phase 3 (done)** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
@@ -302,4 +302,45 @@ politics, religion, cricket (`बल्लेबाज़`, `शतक`), admini
 Wikipedia and Twitter write about; it suits C1's scope better than the subtitles' crime drama, but it is a
 different everyday from A1's. Some English loans the source counts are kept as Hindi uses them (`गेम`,
 `लिस्ट`, `रिज़ल्ट`).
+
+## 11. As built (2026-11-09): the phrases deck
+
+`python3 .claude/hindi/run.py --level phr --no-fetch` — `phrases.py` takes `select.py`'s place, then
+`examples.py` and `build_deck.py` as for a level. **354 expressions in three subdecks: 159 phrases, 162 idioms,
+33 proverbs**; 109 occur in Tatoeba, and 97 carry an example sentence (three for 49). A1 to C1 and the
+alphabet still rebuild byte-identical; a re-run is byte-identical. No changelog line, no version bump.
+
+**THE SHAPE is the Turkish phrases deck's** (`.claude/turkish/phrases.py`): Phrases / Idioms / Proverbs as
+each card's `sub`, which the shelf shows as three rows; a description of its own (`desc_phrases`) with every
+number read off the built deck.
+- **Proverbs**: Wiktionary's part of speech `proverb` (it also files a few idioms there — `आग बबूला होना`).
+- **Idioms**: an expression of more than one word with a sense TAGGED `idiomatic` (`मक्खन लगाना`, `दाल में
+  कुछ काला होना`, `खट्टे अंगूर`); a proverb outranks an idiom outranks a phrase.
+- **Phrases**: Wiktionary's phrases and interjections not tagged idiomatic (`कैसे हो`, `ख़ुदा हाफ़िज़`, `बाप
+  रे`) **and the fixed multi-word adverbs, conjunctions, postpositions and pronouns** (`आराम से`, `जब तक`,
+  `के मुताबिक`, `सब कुछ`) — the level decks' fill never takes a multi-word lemma (`select.py`), so these are
+  exactly what the levels leave. A multi-word noun or verb that is not idiomatic (`अनुवाद करना`) is a compound
+  the learner builds, and is not taken.
+- **The order**: how often the expression occurs in Tatoeba's Hindi sentences, an expression that IS a verb
+  with its last word in any form of that verb; ties by spelling. The same verb matching went into
+  `examples.py` for every deck, and changed no level deck (no level card is a multi-word verb).
+
+**The findings, each a rule:**
+- **Wiktionary's Hindi phrasebook** files "I love you" in eighteen persons, genders and registers, "I'm
+  Hindu", "I'm a girl" and "where do you live?" six ways. **A non-idiomatic phrase of three or more words
+  with a personal pronoun in it is a phrasebook sentence** and is not taken (`PRONOUNS`) — 58 entries. It
+  also takes `मुझे पता नहीं` and `मुझे माफ़ कीजिए`, which a learner builds from A1's words (`माफ़ कीजिए`
+  itself stays); one set expression is kept by name (`आपका हुक्म सर आँखों पर`, `PHRASEBOOK_KEEP`).
+- **The junk drawer**, as Turkish found: political and religious slogans (`इंक़िलाब ज़िंदाबाद`, `जय श्री राम`),
+  national mottos, Arabic formulas, an inscription against witches, two oaths (A1 excluded `भाड़` the same
+  way), four entries with no romanisation, a fragment (`के बारे`), two rewordings of `दूर के ढोल सुहावने` —
+  `phrases.EXCLUDE`, every line with its reason.
+- `POINTS` takes a three-word target (`घड़ियाल के आँसू`: "synonym of मगरमच्छ के आँसू"); a gloss that opens
+  with "; " is cleaned (`चिराग़ तले अँधेरा`); `निकल जाना` loses its slang sense. No level deck changed.
+
+**Known, left.** 257 of the 354 have no Tatoeba sentence, and the order beyond the first 109 is by spelling.
+Some sayings are filed as plain phrases and some idioms as proverbs, as Wiktionary files them; the
+description calls the subdecks by Wiktionary's labels rather than claiming more. Variants Wiktionary keeps
+as separate entries (`आम तौर पर` / `आम तौर से`, `दम भर` / `दम के दम`) are both taught, the shelf-wide pass
+labelling each "not …".
 

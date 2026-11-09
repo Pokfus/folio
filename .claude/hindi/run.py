@@ -4,6 +4,7 @@
     python3 .claude/hindi/run.py                 # A1
     python3 .claude/hindi/run.py --level a2      # another level (inventory first: inventory.py)
     python3 .claude/hindi/run.py --level c1      # C1 ranks by wordfreq's list (the wheel)
+    python3 .claude/hindi/run.py --level phr     # the phrases deck (phrases.py)
     python3 .claude/hindi/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/hindi/alphabet.py            # the alphabet deck (reads lex.json)
 
@@ -86,7 +87,8 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    # the phrases deck has its own word stage (`phrases.py`) in select.py's place
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     # C1 ranks by `wf`, which a lex.json built before the wheel was fetched lacks
     stale = level == 'c1' and os.path.exists('lex.json') and '"wf":' not in open('lex.json').read(4000)
     if not os.path.exists('lex.json') or stale or '--re-extract' in sys.argv:

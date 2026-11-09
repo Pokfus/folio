@@ -77,11 +77,19 @@ def main():
         words = fold(row['word']).split()
         cands = []
         if len(words) > 1:
+            # an expression that IS a verb (मक्खन लगाना) matches with its last word in any
+            # form of that verb (मक्खन लगाते हैं); any other, its words exactly
+            last = {words[-1]}
+            if row['pos'] == 'verb' and words[-1].endswith('ना'):
+                L = lex[row['via']] if row.get('via') else lex[row['key']]
+                last |= {fold(t['f']).split()[-1] for e in L.get('entries', []) if e['pos'] == 'verb'
+                         for t in e['table'] if t['f'].strip()}
+            n = len(words)
             for i in index.get(words[0], []):
                 ft = toks[i][3]
-                for j in range(len(ft) - len(words) + 1):
-                    if ft[j:j + len(words)] == words:
-                        cands.append((i, 0, words))
+                for j in range(len(ft) - n + 1):
+                    if ft[j:j + n - 1] == words[:-1] and ft[j + n - 1] in last:
+                        cands.append((i, 0, words[:-1] + [ft[j + n - 1]]))
                         break
         else:
             forms = forms_of(row, lex)

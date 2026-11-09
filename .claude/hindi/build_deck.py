@@ -65,9 +65,12 @@ E = html.escape
 TRAIL = re.compile(r'\s*[:;,]\s*$')
 
 
+LEADING = re.compile(r'^[;:,]\s*')       # "; the cobbler's children go barefoot" (चिराग़ तले अँधेरा)
+
+
 def gloss_text(g):
     g = TRAIL.sub('', g)
-    return g
+    return LEADING.sub('', g)
 
 
 # ONE ETYMOLOGY PER CARD, the first Wiktionary lists, unless named here.  Hindi is
@@ -182,11 +185,12 @@ CUT = {
     'इजाज़त': ('hyperforeignism of Hindi इजाज़त (ijāzat)',),
     'औज़ार': ('penis',),
     'लिंग': ('penis',),
+    'निकल जाना': ('to ejaculate',),
 }
 
 # A POINTER GLOSS -- "synonym of जल्दी (jaldī)", "a alternative form of मुहल्ला" -- is
 # replaced by the glosses of the word it points to, for the same part of speech.
-POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form|hyperforeign form) of (\S+(?: [^\s(]\S*)?)(?: \([^)]*\))?$')
+POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form|hyperforeign form) of (\S+(?: [^\s(]\S*){0,2})(?: \([^)]*\))?$')
 LEX = {}
 
 
@@ -428,7 +432,7 @@ def build(rows, lex, exs):
         roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
         roman = roman or ROMAN_BY_HAND.get(word, '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Hindi': f'<div class="uc-word">{E(word)}</div>',
             'Roman': E(roman),
             'Word': word,
@@ -437,7 +441,7 @@ def build(rows, lex, exs):
             'Table': table_html(main),
             'Examples': examples_html(ex, ' ' in word),
         }})
-        entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
+        entries.append({'word': word, 'pos': main['pos'], 'source': r['source'], 'sub': r.get('sub', ''),
                         'examples': len(ex), 'roman': bool(roman)})
     return cards, entries
 
@@ -502,6 +506,39 @@ def desc(entries, n):
     )
 
 
+def desc_phrases(entries, n):
+    """The phrases deck: not a level, so none of `SCOPE`; every number read off the built deck."""
+    from collections import Counter
+    c = Counter(e['sub'] for e in entries)
+    eg = {sub: [e['word'] for e in entries if e['sub'] == sub][:3] for sub in c}
+    have = sum(1 for e in entries if e['examples'])
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    return (
+        f"{n} Hindi set phrases, idioms and proverbs, in three subdecks: {c['Phrases']} phrases, "
+        f"{c['Idioms']} idioms and {c['Proverbs']} proverbs. Both study directions come as two cards of "
+        "one expression — Hindi → English (see the Hindi, recall the meaning) and English → Hindi (see an "
+        "English meaning, recall the Hindi) — each with a schedule of its own. This is a companion to the "
+        "five level decks, Hindi A1 to C1, and not one of them: a level is an inventory of words, and an "
+        "expression is a unit a list of words cannot see. Nothing here is taught by any of the five, so "
+        "the two can be studied together without repeating an entry. "
+        "The PHRASES are the expressions Wiktionary does not mark as idiomatic — the everyday formulas a "
+        "Hindi speaker uses as one piece and the fixed expressions of more than one word "
+        f"({', '.join(eg.get('Phrases', []))} …). The IDIOMS are expressions whose meaning is not their "
+        f"words' ({', '.join(eg.get('Idioms', []))} …), and the PROVERBS complete sayings "
+        f"({', '.join(eg.get('Proverbs', []))} …). Within each subdeck the expressions are ordered by how "
+        "often they occur in Tatoeba's Hindi sentences, an expression that is a verb being counted in any "
+        "form of that verb, so the ones met most often come first. Every expression is printed in "
+        "Devanagari with Wiktionary's romanisation beneath it. "
+        + (f"Real example sentences come with {have} of the {n} expressions"
+           + (f", three apiece for {ex3}" if ex3 else "")
+           + ", with the expression picked out in colour and a speaker beside the sentence and the "
+             "headword. " if have else "")
+        + "Sources. Expressions, meanings, romanisation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Example sentences and the order: "
+        "Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -513,11 +550,20 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        from collections import Counter
+        c = Counter(e['sub'] for e in entries)
+        sub_line = (f"{n} expressions · {c['Phrases']} phrases, {c['Idioms']} idioms, "
+                    f"{c['Proverbs']} proverbs · both directions")
+        about, tags = desc_phrases(entries, n), ['hindi', 'phrases', 'idioms', 'proverbs', 'expressions']
+    else:
+        sub_line = f'{n} words · both directions, as two cards per word'
+        about, tags = desc(entries, n), ['hindi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['hindi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': sub_line,
+        'desc': about, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Hindi vocabulary', 'speechLang': 'hi-IN',

@@ -3397,8 +3397,10 @@ changed was the one that had been wrong all along.
   (1,500 notes / 3,000 cards), each built on the shipped levels below it, no word taught twice under either
   spelling. B2 exhausted the subtitle frequency list, so **C1 is ranked by a second source**, wordfreq 3.1.1's
   Hindi list (Wikipedia, web, Twitter, Reddit; CC BY-SA 4.0), read from the pinned, sha256-checked PyPI wheel
-  by `wordfreq_hi.py` — and its fill skips any spelling Wiktionary also files as a proper noun.
-  `python3 .claude/hindi/run.py [--level a1|a2|b1|b2|c1]`,
+  by `wordfreq_hi.py` — and its fill skips any spelling Wiktionary also files as a proper noun. **And the
+  phrases deck, `decks/Hindi-Phrases-and-Expressions.folio-deck.json`** (354: phrases / idioms / proverbs,
+  the Turkish arrangement, `phrases.py`; Wiktionary's phrasebook sentences are left out by rule).
+  `python3 .claude/hindi/run.py [--level a1|a2|b1|b2|c1|phr]`,
   `python3 .claude/hindi/alphabet.py`, `node .claude/hindi/check-hindi.js`; a re-run is byte-identical. The
   UKBI / TORFL shape: no exam board publishes a Hindi list, so a level is a topic inventory plus lemma
   frequency, and the description says so. The plan, the sources and every finding (the nukta / chandrabindu
