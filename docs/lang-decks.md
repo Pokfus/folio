@@ -3399,6 +3399,14 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
+  collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
+  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/swahili/run.py [--level a1]`,
+  `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
+  corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
+  verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
+  with their class. The sources, the parser's two rules and every finding are 📖 `docs/swahili-decks-plan.md`.
+  The `l1` row is Wikipedia's 5.3 million (Ethnologue 27th ed.); the hue is measured, `#6D67D1`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

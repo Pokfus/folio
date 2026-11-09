@@ -29132,6 +29132,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* SWAHILI (Nov 2026) was not named a colour, so it was MEASURED as French and Hindi were: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
+       page. The farthest was a green (19.3), refused because this section already has two (Portuguese, Italian) —
+       India's geography note refused a third green for the same reason; the next, a magenta (18.7), falls in the
+       band the shelf keeps rejecting. This blue-violet is the third, 18.6 from its nearest neighbours (Rome and
+       Geography: China), against a tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour. */
+    "lang-swahili":    { bg: "#6D67D1" }, // measured blue-violet
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two

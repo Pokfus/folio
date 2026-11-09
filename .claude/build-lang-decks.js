@@ -71,6 +71,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  { word: "Swahili", name: "Swahili", l1: 5 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

@@ -157,3 +157,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~280 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hindi-cache/
+
+# the corpora .claude/swahili/run.py builds the Swahili decks from — the Wiktionary
+# extract, the OpenSubtitles and Global Voices corpora (counts only) and the Tatoeba
+# exports (~200 MB) — plus the intermediate files between its stages. The decks it writes ARE committed.
+.claude/swahili-cache/
