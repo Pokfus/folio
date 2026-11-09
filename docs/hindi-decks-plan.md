@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/hindi/`, §6). A2 to C1 and the
-phrases deck are not.
+**STATUS (2026-11-09): the alphabet deck, A1 and A2 are built** (`.claude/hindi/`, §6, §7). B1 to C1
+and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -27,7 +27,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 |---|---|---|
 | Hindi Alphabet (Devanagari) — built | `Hindi-Alphabet.folio-deck.json` | 59 |
 | Hindi A1 Beginner — built | `Hindi-A1.folio-deck.json` | 500 |
-| Hindi A2 Elementary | `Hindi-A2.folio-deck.json` | 750 |
+| Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
 | Hindi B1 Intermediate | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
@@ -86,7 +86,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -101,3 +101,55 @@ is byte-identical** (verified for both decks). A1: 500 notes, 281 from the inven
 three sentences for 471, none for 7. The alphabet: 59 notes — 11 vowels (each shown alone and as its sign
 on क), 4 signs, 33 consonants, the 2 flaps, 4 conjuncts, 5 nukta letters; every sound side unique (asserted).
 The shelf's hue is measured: `#9F51B4`, 21.2 from its nearest of 45.
+
+## 7. As built (2026-11-09): A2
+
+`python3 .claude/hindi/run.py --level a2 --no-fetch`. 750 notes, **317 from the inventory and 433 by
+frequency**; three sentences for 441, none for 128 (the inventory's household words — `घी`, `साबुन`,
+`तौलिया` — have no Tatoeba sentence). The sources were re-fetched first and A1 came out byte-identical;
+after every A2 rule below, A1 and the alphabet were rebuilt and are still byte-identical, and an A2 re-run
+is too. `SCOPE['a2']` quotes the CEFR A2 global descriptor (the TORFL deck's wording); the description's
+"for a beginner" became `WHO[LEVEL]`.
+
+**The inventory** (`inventory.A2`, 19 topics, 326 words written). Not Wiktionary headwords, reported and
+dropped: `पोती` (only a "female equivalent of पोता" form entry; `पोता` is taught), `ड्राइवर`, `दफ़्तरी`,
+`कप`, `आजकल`, `बाद में`, `भरा` (a form of `भरना`), `की वजह से` (taught as `वजह`). Written in Wiktionary's
+spelling instead: `कापी` (not कॉपी), `कालिज` (not कॉलेज), `कुरता` (not कुर्ता), and `कभी कभी` / `धीरे धीरे`
+spaced, not hyphenated. Words the A1 deck already teaches (`मौसम`, `गरम` …) are skipped by
+`words_below`. The months are common nouns in Wiktionary and resolve.
+
+**The findings, each a rule:**
+- **A word taught under one spelling is taught under every spelling.** A1's `गरम` is Wiktionary's
+  alternative spelling of `गर्म`, and A2's fill dealt `गर्म` — the same word twice across two decks, which
+  `check-hindi.js` cannot see (two spellings). `select.py` now adds each lower-level word's `alt_of`
+  target to the "below" set, and an inventory word that resolves through a pointer (`साइकिल` → `साइकल`)
+  marks its target seen, so the fill does not deal `साइकल` beside it.
+- **THE FOLD'S COLLISIONS.** Dropping the nukta merges unrelated words, and the frequency follows the
+  commoner: `जरा` "senility" carried the count of `ज़रा` "a little", `ज़ाती` "inherent" that of `जाती`
+  (`जाना`'s feminine), `गलना` "to melt" that of `ग़लती` "mistake", `कोड़ी` that of the name Cody, `गुड़`
+  "jaggery" that of the English "good". Where the everyday word is under the key, the card takes its
+  spelling and its entries (`HEADWORD`: `ज़रा`, `तेज़`; `ETYMS`, `GLOSS` dropping तेज "lustre");
+  otherwise the lemma is excluded with its reason.
+- **Names in the subtitles**: `सिकंदर`, `इंदु`, `जगदीश`, `समीर`, `प्रिया`, `दिव्या`, `ख़ान`, `हाँकना`
+  (Hank), `बेलना` — each a dictionary word whose count is a person. **Sound captions**: `कराहना`,
+  `हाँफना` ([कराहता है], [हांफते हुए]). **A lemma whose count is another's forms**: `सो` (the stem of
+  `सोना`), `करनी` (`करना`'s feminine infinitive), `दुखना`, `रंगना`, `सीना`, `छाना`, `धरना`, `जन्मना`.
+  All in `select.EXCLUDE` (30 lines for A2), each with its reason; `कुतिया` joins `SWEARS`.
+- **A POINTER GLOSS is resolved, not shown**: "synonym of जल्दी (jaldī)", "synonym of निज (nij)", "a
+  alternative form of मुहल्ला (muhallā)" are replaced by the target's own glosses for the same part of
+  speech (`POINTS`, `resolve` in `build_deck.py`). A1 has none, so it is unchanged.
+- **A part of speech to lead with** (`POS_FIRST`): `तुलना` "comparison" (not "to be weighed"), `रक्त`
+  "blood" (not "red"), `गुरु`, `जल्द`, `असल`, `तेज़`; and `पूर्व:noun` / `दक्षिण:noun` in the inventory.
+  More `ETYMS` (`पीठ` "back", not "seat"; `हल` "solution" before "plough"; `गाना` "song" and "to sing")
+  and `LEAD` (`कक्षा` "class", `जबकि` "whereas", `दौरान`, `दक्षिण` "south").
+- **Slang senses are cut by hand, not by tag** (`CUT`: `बकरी` "smartphone", `भैंस` "laptop computer",
+  `टोपी` "glans", `हथियार` "the penis", `गुरु` "a smartass"). Cutting every gloss tagged `slang` or
+  `colloquial` was tried and rejected: it changed eight A1 cards, among them `हम` "I" and `यार` "bro".
+- `फ़िल्म` has no romanisation in Wiktionary except its plural's: `ROMAN_BY_HAND` (the alphabet deck's
+  precedent). `माता-पिता` "parents" is hyphenated: `check-hindi.js` allows a hyphen in `Word`.
+
+**Known, left.** The fill carries the subtitles' register — `हत्या`, `हथियार`, `सबूत`, `लेफ्टिनेंट`,
+`राक्षस`, and forms of address (`साहिब`, `श्रीमान`, `मैडम`) beside A1's `सर`, `महोदय` — on frequency, as
+A1's does. `सामना` "confrontation" shares `सामने` with A1's `के सामने`; it is a word in its own right
+(`सामना करना`) and is kept. Wiktionary's tables still give uncountables and months a plural (`मइयाँ`).
+

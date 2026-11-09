@@ -35,12 +35,43 @@ EXCLUDE = {
     'भाड़': 'counted from भाड़ में जाओ, an oath',
     'की': 'taught on the card of का, whose feminine it is',
     'बारा': 'its count is बारे, the oblique, which is the बारे of के बारे में "about"',
+    # read off the A2 ranking (2026-11-09)
+    'सो': 'its count is सो, the stem of सोना "to sleep" (सो जाओ); the pronoun is literary',
+    'करनी': 'its count is करनी, the feminine infinitive of करना (बात करनी है), not the noun "deed"',
+    'ज़ाती': 'its count is जाती, जाना\'s feminine habitual: the fold drops the nukta',
+    'गलना': 'its count is ग़लती "mistake" (the fold drops the nukta) and गले / गली, not the verb',
+    'दुखना': 'its count is दुख "sorrow" and दुखी "sad", whose forms it shares',
+    'रंगना': 'its count is रंग "colour", taught in A1, whose forms it shares',
+    'सीना': 'its count is सी and सीता (the name Sita); its own forms are rare',
+    'छाना': 'its count is छाया "shadow", whose spelling its past shares',
+    'धरना': 'its count is the forms of an archaic verb "to hold" (धरा, धरे), not the noun "sit-in"',
+    'कराहना': 'counted from the subtitles\' sound captions ([कराहता है])',
+    'हाँफना': 'counted from the subtitles\' sound captions ([हांफते हुए])',
+    'हाँकना': 'its count is हांक, the name Hank',
+    'बेलना': 'its count is बेला / बेल, names and other words, not "to roll out dough"',
+    'कोड़ी': 'its count is कोडी, the name Cody (the fold drops the nukta)',
+    'गुड़': 'its count is गुड, the English "good" (गुड मॉर्निंग), not "jaggery"',
+    'मिस': 'its count is the English "Miss", not "pretext"',
+    'हाउस': 'the English "house", counted from names (White House)',
+    'डी': 'the letter D, counted from names and initials',
+    'हा': 'laughter, counted from subtitles',
+    '-वाला': 'a suffix, and taught as the word वाला in A1',
+    'सिकंदर': 'counted as the name Sikandar (Alexander), not "king, ruler"',
+    'इंदु': 'counted as the name Indu, not "the moon"',
+    'जगदीश': 'counted as the name Jagdish',
+    'समीर': 'counted as the name Sameer, not "breeze"',
+    'प्रिया': 'counted as the name Priya',
+    'दिव्या': 'counted as the name Divya',
+    'ख़ान': 'counted as the surname Khan',
+    'ख़्याल': 'a second spelling of ख़याल, which carries the card',
+    'जन्मना': 'its count is जन्म "birth", its stem, whose forms it shares',
+    'रे': 'counted from song lyrics and a clipped अरे, which A1 teaches',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'साला', 'कमीना', 'हरामी', 'कुत्ती', 'चूतिया', 'भड़वा', 'गांडू', 'बकवास', 'हरामज़ादा',
-          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू'}
+          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू', 'कुतिया'}
 
 
 def usable(L):
@@ -51,6 +82,9 @@ def usable(L):
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
     below = words_below()
+    # a word a lower level taught under one spelling is taught under every spelling:
+    # A1's गरम is Wiktionary's alternative spelling of गर्म, which A2's fill would deal
+    below |= {lex[k]['alt_of'] for k in below if k in lex and 'alt_of' in lex[k]}
     rows, seen, missing = [], set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
         for item in words.split():
@@ -72,6 +106,8 @@ def main():
                 missing.append(item)
                 continue
             seen.add(k)
+            if via:
+                seen.add(via)     # साइकिल is साइकल's: the fill must not deal साइकल again
             rows.append({'key': k, 'via': via, 'word': L['word'], 'freq': L['freq'], 'pos': pos or '',
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)

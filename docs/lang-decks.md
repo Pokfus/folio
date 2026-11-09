@@ -3390,14 +3390,18 @@ changed was the one that had been wrong all along.
   (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
-  **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
-  `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hindi/run.py [--level a1]`,
+  **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes), **A1,
+  `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hindi-A2.folio-deck.json`**
+  (750 notes / 1,500 cards; built on the shipped A1, no word taught twice under either spelling).
+  `python3 .claude/hindi/run.py [--level a1|a2]`,
   `python3 .claude/hindi/alphabet.py`, `node .claude/hindi/check-hindi.js`; a re-run is byte-identical. The
   UKBI / TORFL shape: no exam board publishes a Hindi list, so a level is a topic inventory plus lemma
   frequency, and the description says so. The plan, the sources and every finding (the nukta / chandrabindu
   fold, the three frequency rules — an indeclinable word keeps its own spelling, a verb's feminine infinitive
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
-  "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
+  "nuqtaless form of" senses; and A2's: an alternative spelling counts as taught, the fold's collisions
+  (`ज़रा` / `जरा`, `जाती` / `ज़ाती`), names and sound captions in the subtitles, pointer glosses resolved to
+  their target's) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on

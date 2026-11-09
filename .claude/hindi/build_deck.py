@@ -87,18 +87,84 @@ ETYMS = {
     'आम': ['1', '2'],         # "mango" AND "common"
     'सर': ['4', '1'],
     'हिंदी': [None, ''],      # the language (a proper noun, no etymology number) leads         # "sir" (the subtitles' count) AND "head"
+    # A2 (2026-11-09)
+    'पीठ': ['2'],             # "back (of the body)"; 1 is "seat, altar"
+    'हल': ['2', '1'],         # "solution" (हल करना) AND "plough"
+    'गाना': ['1', '2'],       # "song" AND "to sing"
+    'जरा': [''],              # ज़रा "a little", which the fold files with जरा "senility"
+}
+
+# THE CARD'S SPELLING, where the fold put two headwords under one key and the card
+# teaches the one Wiktionary does not list first: ज़रा "a little" (not जरा "senility"),
+# तेज़ "fast" (not तेज "lustre").
+HEADWORD = {
+    'जरा': 'ज़रा',
+    'तेज': 'तेज़',
+}
+
+# THE PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday one.
+POS_FIRST = {
+    'तुलना': 'noun',          # "comparison"; the verb "to be weighed" is listed first
+    'रक्त': 'noun',           # "blood"; the adjective "red" is listed first
+    'गुरु': 'noun',           # "teacher"; the adjective "heavy" is listed first
+    'जल्द': 'adv',            # "soon"; the noun "haste" is listed first
+    'असल': 'noun',            # "reality"
+    'तेज': 'adj',             # तेज़ "fast"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech: its entry for
 # the language is three encyclopaedia sentences on dialect zones.
 GLOSS = {
     'हिंदी': {'name': ['Hindi (the language)']},
+    # An EMPTY list drops a block that is not the everyday word:
+    'खाली': {'noun': []},     # "an empty matra in a tala"
+    'तेज': {'noun': []},      # तेज "lustre, vigour", another headword the fold files with तेज़
+    # Wiktionary's noun says only "ground"; "Earth" is its proper-noun entry's gloss
+    'पृथ्वी': {'noun': ['the Earth', 'ground']},
+    # its first gloss is "paramanu, atoms composing the classical elements"; this is its own last
+    'परमाणु': {'noun': ['atom']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'चीनी': 'sugar',          # first listed is "Chinese person"
+    'कक्षा': 'class',         # first listed is "category"
+    'जबकि': 'whereas',        # first listed is "whenever"
+    'दौरान': 'duration',      # first listed is "revolving, turning"
+    'दक्षिण': 'south',        # first listed is "right (side)"
 }
+
+# A ROMANISATION BY HAND, where Wiktionary gives the headword none (the alphabet deck's
+# precedent): फ़िल्म's entry romanises only its plural, फ़िल्में filmẽ.
+ROMAN_BY_HAND = {
+    'फ़िल्म': 'film',
+}
+
+# A GLOSS CUT, each a slang sense a level card should not teach beside the plain one.
+# (Cutting every gloss tagged slang or colloquial is too broad: it takes A1's हम "I"
+# and परसों "any time in the recent past or near future".)
+CUT = {
+    'बकरी': ('smartphone',),
+    'भैंस': ('laptop computer',),
+    'टोपी': ('glans',),
+    'हथियार': ('the penis',),
+    'गुरु': ('a smartass',),
+}
+
+# A POINTER GLOSS -- "synonym of जल्दी (jaldī)", "a alternative form of मुहल्ला" -- is
+# replaced by the glosses of the word it points to, for the same part of speech.
+POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form) of (\S+)(?: \([^)]*\))?$')
+LEX = {}
+
+
+def resolve(g, pos):
+    m = POINTS.match(g['g'])
+    if not m:
+        return [g]
+    T = LEX.get(fold(m.group(1)))
+    ents = [e for e in (T or {}).get('entries', []) if e['pos'] == pos]
+    out = [x for e in ents for x in e['glosses'] if x['g'] and not POINTS.match(x['g'])]
+    return out or [g]
 
 
 def entries_for(row, lex):
@@ -115,8 +181,9 @@ def entries_for(row, lex):
         keep = [e.get('etym', '') for e in ents]
     ents = sorted([e for e in ents if e.get('etym', '') in keep],
                   key=lambda e: keep.index(e.get('etym', '')))
-    if row['pos']:
-        ents = sorted(ents, key=lambda e: e['pos'] != row['pos'])
+    want = row['pos'] or POS_FIRST.get(L['word'], '')
+    if want:
+        ents = sorted(ents, key=lambda e: e['pos'] != want)
     # one block per part of speech, in the order the entries come
     out, seen = [], {}
     for e in ents:
@@ -141,8 +208,10 @@ def english(ents, word=''):
             elif 'intransitive' in tv and 'transitive' not in tv:
                 label += ', intransitive'
         gl, seen = [], set()
-        for g in e['glosses']:
+        for g in [x for g0 in e['glosses'] for x in resolve(g0, e['pos'])]:
             if g['weak'] and gl:
+                continue
+            if g['g'] in CUT.get(word, ()):
                 continue
             t = gloss_text(g['g'])
             if not t:
@@ -315,14 +384,15 @@ def build(rows, lex, exs):
         if not ents:
             continue
         main = ents[0]
-        word = r['word']
+        word = HEADWORD.get(r['word'], r['word'])
         roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
+        roman = roman or ROMAN_BY_HAND.get(word, '')
         ex = exs.get(r['key'], [])
         cards.append({'sub': '', 'fields': {
             'Hindi': f'<div class="uc-word">{E(word)}</div>',
             'Roman': E(roman),
             'Word': word,
-            'English': english(ents, word),
+            'English': english(ents, r['word']),
             'Forms': forms_line(main, word),
             'Table': table_html(main),
             'Examples': examples_html(ex, ' ' in word),
@@ -330,6 +400,10 @@ def build(rows, lex, exs):
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
                         'examples': len(ex), 'roman': bool(roman)})
     return cards, entries
+
+
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
 def desc(entries, n):
@@ -346,7 +420,7 @@ def desc(entries, n):
         "Both study directions in one deck: Hindi → English (see the Hindi, recall the meaning) "
         "and English → Hindi (see an English meaning, recall the Hindi). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -378,6 +452,7 @@ def desc(entries, n):
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
+    LEX.update(lex)
     exs = json.load(open(f('examples.json'), encoding='utf-8'))
     cards, entries = build(rows, lex, exs)
     DECK = DECK_IDS[LEVEL]

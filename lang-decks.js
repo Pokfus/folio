@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 197 MB of decks. The file itself is fetched on Add. */
+   section without fetching 199 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -22,6 +22,7 @@ window.LANG_DECKS = [
   { lang: "Spanish", file: "Spanish-Phrases.folio-deck.json", id: "esphrases", title: "Spanish — Common phrases and expressions", sub: "400 expressions · both directions, as two cards each", notes: 400, cards: 800, ex: 100, bytes: 452429, rev: "87ef54542a88" },
   { lang: "Hindi", file: "Hindi-Alphabet.folio-deck.json", id: "hiabc", title: "Hindi Alphabet (Devanagari)", sub: "59 letters and signs · both directions, as two cards per letter", notes: 59, cards: 118, ex: 0, bytes: 25772, rev: "4ea40487bf15" },
   { lang: "Hindi", file: "Hindi-A1.folio-deck.json", id: "hindia1", title: "Hindi A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, bytes: 1258544, rev: "8365d31f4298" },
+  { lang: "Hindi", file: "Hindi-A2.folio-deck.json", id: "hindia2", title: "Hindi A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 83, bytes: 1766905, rev: "10a196e66517" },
   { lang: "Portuguese", file: "CAPLE-A1-Portuguese.folio-deck.json", id: "caplea1", title: "CAPLE A1 — Portuguese", sub: "500 words · European Portuguese · both directions", notes: 491, cards: 982, ex: 100, bytes: 1881028, rev: "cea4703e5da1" },
   { lang: "Portuguese", file: "CAPLE-A2-Portuguese.folio-deck.json", id: "caplea2", title: "CAPLE A2 — Portuguese", sub: "498 words · European Portuguese · both directions", notes: 498, cards: 996, ex: 98, bytes: 2118368, rev: "454a4a24e2b5" },
   { lang: "Portuguese", file: "CAPLE-B1-Portuguese.folio-deck.json", id: "capleb1", title: "CAPLE B1 — Portuguese", sub: "1,000 words · European Portuguese · both directions", notes: 998, cards: 1996, ex: 96, bytes: 3515538, rev: "a2e4ce3cd623" },
