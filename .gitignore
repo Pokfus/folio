@@ -60,6 +60,10 @@ __pycache__/
 # inventory off -- all rights reserved, so it is never committed -- and the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/turkish-cache/
+# the corpora .claude/arabic/run.py builds the Arabic decks from (~1.4 GB, the Wiktionary
+# extract being most of it) and the intermediate files between its stages. The decks it
+# writes ARE committed.
+.claude/arabic-cache/
 
 # The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by

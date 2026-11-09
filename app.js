@@ -29109,6 +29109,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Nothing here is a flag: Mandarin is a muted rose-red rather than the PRC's, and the resemblance to
        the CHINA collection's vermilion is left rather than avoided, those two genuinely being about one
        place — the kinship test forbids a false claim, not a true one. */
+    /* ARABIC (Nov 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the shelf's band
+       (L 28–55, chroma 7–62, now also at least 4.5:1 against white) for the point farthest from all 45 hues on the page — a
+       violet, 21.2 from its nearest neighbour (#9C5A96), against a tightest existing pair of 4.0; 4.9:1 against white.
+       Not a flag colour: Arabic is the language of twenty-odd states, and none of them is its colour. */
+    "lang-arabic":     { bg: "#9F51B4" }, // measured violet
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
