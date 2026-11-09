@@ -3258,6 +3258,17 @@ changed was the one that had been wrong all along.
   stress is printed on every headword and form and stripped from everything spoken or compared, ё is folded for
   matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
   decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
+- `.claude/arabic/` — the generator behind the **Arabic** decks (Nov 2026, on request: "Add an Arabic language
+  collection."): `decks/Arabic-Alphabet.folio-deck.json` (31 notes — the 28 letters with their four shapes, then
+  ء ة ى — `alphabet.py`, hand-written, no sources) and `decks/Arabic-A1.folio-deck.json` (500 notes / 1,000 cards,
+  Modern Standard Arabic). `python3 .claude/arabic/run.py [--no-fetch]`, cache `.claude/arabic-cache/` (gitignored,
+  ~1.4 GB), checks `node .claude/arabic/check-arabic.js` and `node .claude/arabic/render-arabic.js a1|alphabet`
+  (imports through the Studio and asserts the rendered direction is `rtl`); a re-run is byte-identical. ASSEMBLED:
+  no Arabic exam publishes a word list, so the inventory is written for the A1 topics (`inventory.py`, with
+  hand-written English glosses) and dealt by subtitle frequency. Headwords fully vowelled, sentences as written,
+  romanisation on the back, every Arabic run `dir="rtl"` — and the deck CSS hooks on `[dir="rtl"]`, never
+  `[lang="ar"]`, because the card wrapper carries `lang` from `speechLang`. **📖 `docs/arabic-decks-plan.md` — READ
+  BEFORE TOUCHING ANY ARABIC DECK**: the fold, the clitic-aware count, the sentence rules and their faults.
 - `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
@@ -3388,6 +3399,61 @@ changed was the one that had been wrong all along.
   gloss "that place" and are told apart only by the shared "not …" label; `misafir` opens on Wiktionary's
   first sense, "leucoma", before "guest"; and A2's fill carries the subtitles' crime-drama vocabulary
   (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
+- `.claude/korean/` — the generator behind the **Korean decks** (Nov 2026, on request: "And a Korean language
+  collection."). **Built, five files**: `Korean-Alphabet-Hangul` (40 letters), `Korean-Stage-A` (922 notes),
+  `Korean-Stage-B` (2,063), `Korean-Stage-C` (2,806) and `Korean-Phrases-and-Expressions` (517: 41 phrases, 316
+  idioms, 160 proverbs, three subdecks). `PYTHONPATH=<xlrd + kiwipiepy> python3 .claude/korean/run.py [--no-extract]`
+  (its header lists every download), cache in `.claude/korean-cache/` (~1 GB, gitignored);
+  `node .claude/korean/check-korean.js` is its check; a re-run is byte-identical. The note type is `korean`
+  (one note, two templates, `ko-KR`), the hue `lang-korean` (`#365442`, measured and re-swept on merging after Hindi took the same first answer — see its COLL_THEME comment).
+  **THE LIST IS THE STATE'S, NOT AN EXAM'S.** TOPIK publishes no vocabulary list. The National Institute of the
+  Korean Language's `한국어 학습용 어휘 목록` (2003, KOGL Type 1 — free use with the source named) grades 5,965
+  words in three stages, A 982 / B 2,111 / C 2,872, each row with a part of speech, a NOTE and a corpus rank. The
+  decks are its stages, titled "Korean — Stage A/B/C" (`levelRank` ranks `Stage [ABC]`); the order within a deck
+  is the list's own rank, commonest first. A headword listed twice (가까이 adverb and noun) is one note at its
+  lower stage, so the stages partition the list and `check-korean.js` asserts no NIKL headword is carded twice.
+  **THE JOIN TO A DICTIONARY IS THE WHOLE JOB** (`resolve.py`). The list numbers homographs as the Standard
+  Dictionary does (눈01 "eye", 눈04 "snow") and Wiktionary files them by etymology, so a row is joined by part of
+  speech, then HANJA (the note's hanja against the entry's, a Unihan variant counting — 强調 is 強調, 秘 is 祕;
+  the list writes KS X 1001 compatibility ideographs, folded by NFC in `extract.py`), then the note's PHRASE in
+  the entry's examples (~이 내리다), then `picks.json` — **375 rows decided by hand (337 picks, 38 refusals), reading both sides**, some
+  down to the sense (쪽02 "page", 쪽03 "piece" are two senses of one Wiktionary entry). Anything still
+  ambiguous is REFUSED, never guessed. A note in hanja that NO candidate's hanja match is refused too (관리
+  官吏 "official" is not Wiktionary's 管理 "management"): checking every hanja note against its join found 20
+  wrong joins. Two list
+  homographs Wiktionary files as one entry are one note (뛰다01/02).
+  **THE FALLBACK IS KRDICT** (`한국어기초사전`, NIKL, CC BY-SA 2.0 KR; its full JSON is a public download, no
+  key). 423 rows had no Wiktionary entry — mostly transparent derivatives, 가까워지다, -되다, -적 — and KRDict,
+  built on this very list, takes them by the same steps (part of speech, its `origin` hanja, a single
+  candidate): refusals went from 468 to 67. Only KRDict's English equivalents are read; its Korean examples
+  have no English and are not used. **A KRDICT WORD'S ROMANIZATION IS COMPUTED from its standard pronunciation**
+  (`rr_from_pron` in `ko.py`): RR spells the sound changes the pronunciation shows, except tensification
+  (학교 [학꾜] hakgyo) and ㅢ, which come from the spelling; ㅎ after a final is written h, as Wiktionary does
+  (착하다 chakhada). Measured against Wiktionary's own romanization on the 4,888 words both have: **4,874
+  agree**; the 14 that do not are RR's own exceptions (가져 jyeo against Wiktionary's jeo, ㄴ-insertion in 별일).
+  A Wiktionary pointer gloss that carries its own English is a meaning ("contraction of 이야기: talk; story" is
+  얘기's whole entry — refusing it lost 뭐, 얘기 and 드리다 from Stage A); one without English is not.
+  **THE CARD**: the front is hangul alone, plus a CUE where the list has two words spelled alike — the hanja,
+  else the list's phrase with the word put in (눈이 내리다), else its hint (463 cards). The back: Revised
+  Romanization, the pronunciation in hangul where it differs ("said [학꾜]"), the hanja, the meanings, a verb's
+  or adjective's polite / past / formal forms read from Wiktionary's table, one row per hanja (Unihan's English,
+  Wiktionary's eumhun, up to three other list words written with it, lower stages first), and sentences.
+  **SENTENCES**: Tatoeba's (10,701 Korean sentences with English), found with Kiwi — a verb by its lemma (듣 for
+  들어요), a verb Kiwi splits (가까워지다) by a whole word that is a cell of its Wiktionary table, anything else
+  as a token or a run of tokens inside one word, never a substring. **A WORD WITH A HOMOGRAPH IN THE LIST, or
+  with senses picked by hand, takes only Wiktionary's examples**, which sit under the sense they illustrate — a
+  corpus sentence cannot say which 눈 it means. Coverage is what Tatoeba's small Korean corpus allows and the
+  descriptions say so: Stage A 87%, B 65%, C 41%.
+  **THE PHRASES DECK**: everyday formulas picked by hand from Wiktionary's phrases (`PHRASES`; slang, dialect,
+  profanity, forum jargon out), Wiktionary's idioms and proverbs (`SKIP` drops dialect and pointer entries),
+  then KRDict's 관용구 and 속담 whose every content word is a stage word (by Kiwi), commonest first, capped at 260
+  and 120; an expression with optional or alternative parts ("안면(을) 바꾸다") has no one form and is left out.
+  A KRDict expression's English is its definition, with its English rendering in italics beneath (`.uc-lit`) —
+  KRDict gives no romanization for these, so those cards have none. A corpus sentence is sought for a PHRASE
+  only: an idiom's words also occur literally (말이 있다 found "The boy has a horse").
+  Known, left: some first senses are Wiktionary's order rather than the commonest (교수 opens on "instruction"
+  before "professor"); 6 KRDict renderings run several English proverbs together; the alphabet's tense
+  consonants are described phonetically in one line, not taught.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
@@ -3399,6 +3465,82 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
+  collection"; the Hindi set's decisions taken for its sister). **Built: the alphabet,
+  `decks/Bengali-Alphabet.folio-deck.json`** (56 notes) **and A1, `decks/Bengali-A1.folio-deck.json`** (500
+  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes). `python3 .claude/bengali/run.py [--level a1|a2]`, `python3 .claude/bengali/alphabet.py`,
+  `node .claude/bengali/check-bengali.js`; a re-run is byte-identical. `.claude/hindi/` adapted: no gender, the
+  sadhu conjugations skipped, kaikki's garbled noun-table cells cleaned and romanised by ending, the y-stem
+  template's doubled য় dropped, form-of pointers of any part of speech kept for the inventory (`আছে`). Every
+  finding is 📖 `docs/bengali-decks-plan.md`. The `l1` row is 242 million (Wikipedia's infobox); the hue is
+  measured, `#574518` (re-swept at the merge, Arabic and Greek having taken its first two).
+- `.claude/telugu/` — the generator behind the Telugu decks (Nov 2026, on request: "Add a Telugu language
+  collection"), the Hindi pipeline adapted, with the Hindi collection's decisions carried over.
+  **Built: the alphabet, `decks/Telugu-Alphabet.folio-deck.json`** (52 notes) **and A1,
+  `decks/Telugu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/telugu/run.py [--level a1]`,
+  `python3 .claude/telugu/alphabet.py`, `node .claude/telugu/check-telugu.js`; a re-run is byte-identical.
+  The sources are thinner than Hindi's — Wiktionary lacks many everyday modern words, the subtitle list is
+  machine-translated English, Tatoeba has 314 pairs — and the description says so. The findings (the -ము / -ం
+  fold and the spelling a card prints with its own romanisation, the pronoun-case homographs `నాకు` / `మాకు` /
+  `వారి`, the tenseless verb tables) are 📖 `docs/telugu-decks-plan.md`. The `l1` row is the 2011 census's 83
+  million (via Wikipedia); the hue is measured, `#9D0D6C` (re-swept at the merge, Arabic having taken the green).
+- `.claude/greek/` — the generator behind the Greek decks (Nov 2026, on request: "Add a Greek language
+  collection"; the levels, the alphabet deck and the romanisation follow the Hindi owner's answers, the owner
+  not asked again). **Built: the alphabet, `decks/Greek-Alphabet.folio-deck.json`** (39 notes) **and A1,
+  `decks/Greek-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/greek/run.py [--level a1]`,
+  `python3 .claude/greek/alphabet.py`, `node .claude/greek/check-greek.js`; a re-run is byte-identical. Hindi's
+  pipeline adapted: no graded list for the Certificate of Attainment in Greek was found published, so a level
+  is a topic inventory plus lemma frequency, and the description says so. Nouns carry their article. The plan
+  and every finding (the accent-keeping fold, the verb-table romaniser measured at 0.26 % disagreement, the
+  capitalised days and months, a noun's headword against an adjective's cell, the article's forms filed as
+  pronouns, alternative spellings with full entries) are 📖 `docs/greek-decks-plan.md`. The `l1` row is
+  Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
+- `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
+  collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
+  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes) **and A1,
+  `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/urdu/run.py [--level a1]`
+  (the first fetch needs `wordfreq` on `PYTHONPATH`), `python3 .claude/urdu/alphabet.py`,
+  `node .claude/urdu/check-urdu.js`; a re-run is byte-identical. Adapted from `.claude/hindi/`: the shelf's
+  FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two
+  frequency lists averaged (subtitles and wordfreq's written Urdu), a Perso-Arabic fold, and three shapes of
+  Wiktionary verb table. 📖 `docs/urdu-decks-plan.md`. The `l1` row is Ethnologue's 78 million (via
+  Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
+- `.claude/romanian/` — the generator behind the Romanian decks (Nov 2026, on request: "Add a Romanian language
+  collection"; the decisions copy Hindi's). **Built: A1, `decks/Romanian-A1.folio-deck.json`** (500 notes /
+  1,000 cards) **and A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
+  re-run is byte-identical. Hindi's pipeline with IPA in place of romanisation and no script deck; a level is a
+  topic inventory plus lemma frequency, and the description says so. The plan, the sources and every finding
+  (the cedilla fold, the bare spelling that yields to its accented twin, closed-class headwords that are a
+  verb's form, grammar notes as glosses) are 📖 `docs/romanian-decks-plan.md`. The `l1` row is Wikipedia's
+  22.2 million (Ethnologue 2020); the hue is measured, `#757839` (re-swept at the merge: Arabic had taken `#2A8424`).
+- `.claude/vietnamese/` — the generator behind the Vietnamese decks (Nov 2026, on request: "Add a Vietnamese
+  language collection"; the Hindi set's decisions taken as the default). **Built: the alphabet and tones,
+  `decks/Vietnamese-Alphabet-and-Tones.folio-deck.json`** (35 notes) **and A1, `decks/Vietnamese-A1.folio-deck.json`**
+  (500 notes / 1,000 cards). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
+  `node .claude/vietnamese/check-vietnamese.js`; a re-run is byte-identical. The UKBI / Hindi shape (no published
+  list: a topic inventory plus frequency). **What is new: Vietnamese spaces syllables, not words**, so the frequency
+  is counted by segmenting the OPUS subtitles against Wiktionary's headwords rather than read off hermitdave's list
+  of syllables; the card names each syllable's tone and shows a noun's classifier and a Sino-Vietnamese word's
+  characters. The plan and every finding (the tone fold, decomposed subtitles, one etymology per card) are
+  📖 `docs/vietnamese-decks-plan.md`. The `l1` row is Ethnologue's 86 million (via Wikipedia); the hue is measured,
+  `#14659F` (re-swept at the merge: Greek had taken the first sweep's periwinkle).
+- `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
+  collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
+  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swahili-A2.folio-deck.json`**
+  (750 / 1,500). `python3 .claude/swahili/run.py [--level a1]`,
+  `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
+  corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
+  verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
+  with their class. The sources, the parser's two rules and every finding are 📖 `docs/swahili-decks-plan.md`.
+  The `l1` row is Wikipedia's 5.3 million (Ethnologue 27th ed.); the hue is measured, `#746163` (re-swept at the merge, Greek having taken its first).
+- `.claude/latin/` — the generator behind the Latin decks (Nov 2026, on request: "Add a Latin language
+  collection", then the owner's answers: CEFR A1–C1 assembled, a phrases and mottos deck, principal parts,
+  macrons, full tables and sentences on every card). **Built: A1, `decks/Latin-A1.folio-deck.json`** (500 notes
+  / 1,000 cards). `python3 .claude/latin/run.py [--level a1]`, `node .claude/latin/check-latin.js`; a re-run is
+  byte-identical. The Hindi shape, but ordered by the DCC Latin Core Vocabulary (CC BY-SA 3.0) rather than
+  subtitles, and spoken in an Italian voice (`it-IT`). The macron decides homographs; the plan, the sources and
+  every finding are 📖 `docs/latin-decks-plan.md`. The `l1` row is 0 (no native speakers; sorts last); the hue
+  is measured, `#75543F` (re-swept at the merge: Greek had taken the first sweep's `#6F69D2`).
 - `.claude/thai/` — the generator behind the Thai decks (Nov 2026, on request: "Add a Thai language
   collection"; Hindi's three answers taken as the defaults). **Built: the alphabet, `decks/Thai-Alphabet.folio-deck.json`**
   (92 notes) **and A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/thai/run.py
@@ -3408,7 +3550,7 @@ changed was the one that had been wrong all along.
   frequency from two hand-segmented corpora (PyThaiNLP's TNC and TTC, geometric mean — hermitdave has no Thai), the
   noun's classifier in place of a forms table, and hand tables for Wiktionary's historical sense order. All in
   📖 `docs/thai-decks-plan.md`. The `l1` row is Ethnologue's 27 million (via Wikipedia); the hue is measured,
-  `#0B791D`.
+  `#014764` (re-swept at the merge: Arabic's green sat 5.1 from the first sweep's `#0B791D`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

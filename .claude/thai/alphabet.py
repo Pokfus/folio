@@ -47,7 +47,7 @@ from th import fold
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'th-abc'
-COLOR = '#0B791D'
+COLOR = '#014764'
 
 M, H, L = 'mid', 'high', 'low'
 # (letter, class, onset, initial sound, final sound, name word, its meaning)

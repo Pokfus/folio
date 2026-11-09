@@ -113,4 +113,5 @@ A1). A1: 500 notes, 341 from the inventory and 159 by frequency; 76 show a class
 for 430. The alphabet: 92 notes — 44 consonants (class, name word, initial and final sound; the name is on the
 sound side, since five letters say k and six say t), 28 vowels and vowel signs on ◌, 4 tone marks and 3 other
 signs, the 3 class rules, 10 digits; every sound side unique (asserted). The shelf's hue is measured:
-`#0B791D`, 19.3 from its nearest of 46.
+`#014764`, 16.0 from its nearest of 56 (re-swept at the merge: Arabic had taken a green 5.1 from the first
+sweep's `#0B791D`).

@@ -29,7 +29,7 @@ from thai_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'thai'
-COLOR = '#0B791D'
+COLOR = '#014764'
 FIELDS = ['Thai', 'Roman', 'Word', 'English', 'Forms', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
