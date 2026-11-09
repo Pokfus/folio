@@ -84,6 +84,7 @@ const LANGS = [
   { word: "Hausa", name: "Hausa", l1: 58 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Indonesian", name: "Indonesian", l1: 43 },
   { word: "Polish", name: "Polish", l1: 40 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
+  { word: "Tagalog", name: "Tagalog", l1: 33 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09
   { word: "Ukrainian", name: "Ukrainian", l1: 32 },    // Ethnologue 28th ed. (2023 figure), via Wikipedia's infobox, read 2026-11-09
   { word: "Dutch", name: "Dutch", l1: 25 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
   { word: "Thai", name: "Thai", l1: 27 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09

@@ -29289,6 +29289,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        course), against a tightest existing pair of 4.0; 6.0:1 against white. Not a flag colour, and not
        orange, which Spanish and Ukrainian have. */
     "lang-dutch":      { bg: "#934F5A" }, // measured brick-rose
+    /* TAGALOG (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep found a taupe, #756366 — and Swahili's, run in a parallel session, found a hue 1.1 from it,
+       so the two arrived wearing one colour; re-swept at the merge against all 67, with the magenta band's
+       standing rejection kept (the raw winner, 15.4, was an orchid there) and the greens left out: an azure, 15.2
+       from its nearest neighbours (Greek's periwinkle and French's blue), against a tightest existing pair of
+       4.0; 4.6:1 against white. Not a flag colour. */
+    "lang-tagalog":    { bg: "#2A72DB" }, // measured azure
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

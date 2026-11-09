@@ -3653,6 +3653,17 @@ changed was the one that had been wrong all along.
   position with shape checks, the subtitles' õ/û, one headword holding two words, examples chosen against
   ambiguity and swearing) are 📖 `docs/hungarian-decks-plan.md`. The `l1` row is Wikipedia's 12 million; the hue
   is measured, `#14659F`.
+- `.claude/tagalog/` — the generator behind the Tagalog decks (Nov 2026, on request: "Add a Tagalog language
+  collection"; the Romanian set's decisions taken as the default). **Built: A1, `decks/Tagalog-A1.folio-deck.json`**
+  (500 notes / 1,000 cards). `python3 .claude/tagalog/run.py [--level a1]`, `node .claude/tagalog/check-tagalog.js`;
+  a re-run is byte-identical. The Romanian shape (no published list: a topic inventory plus lemma frequency, said in
+  the description), no script deck. **What is new**: the headword is the plain spelling with Wiktionary's MARKED
+  spelling beneath it (stress and glottal stop, `magandá`, `batà`); a verb is the affixed verb and shows its three
+  aspects and its root (`kumain` · `kumakain` · `kakain`, `kain + -um-`); there is no forms table (the extraction
+  leaves the conjugation cells untagged); the frequency averages two thin corpora per million (OpenSubtitles and
+  Tatoeba's Tagalog). The plan and every finding (pointers written as prose, a lemma's own spelling, the -ng linker,
+  capitalised days) are 📖 `docs/tagalog-decks-plan.md`. The `l1` row is Ethnologue's 32.8 million (via
+  Wikipedia); the hue is measured, `#2A72DB` (re-swept at the merge: Swahili had taken a hue 1.1 from `#756366`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
