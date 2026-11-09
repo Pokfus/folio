@@ -52,6 +52,18 @@ EXCLUDE = {
     'আয়': '"income"; its count is আয় "come!", an imperative of আসা',
     'তা': '"oblique base of সে" in Wiktionary\'s one sense; the card would teach a pointer',
     'দায়িত্ব': '"responsibility" -- but Wiktionary\'s entry carries চেষ্টা\'s senses ("attempt, endeavour")',
+    'মাই': '"breast"; its count is the subtitles\' English "my"',
+    'থাম': '"pillar"; its count is থাম "stop!", an imperative of থামা',
+    'করোনা': '"corona"; the subtitles\' pandemic news, not a learner\'s word',
+    'জুতো': 'the other spelling of জুতা "shoe", which the inventory teaches',
+    'লাজ': 'the shorter, poetic form of লজ্জা "shame", dealt on its own',
+    'দক্ষ': 'Wiktionary\'s entry parses to its own headword line, with no meaning',
+    'মাল': '"a wood near a village"; its count is মাল "goods, stuff", a sense the entry lacks',
+    'সেখান': 'the bare stem of সেখানে "there", taught in A1',
+    'ওখান': 'the bare stem of ওখানে "there", taught in A1',
+    'জো': '"synonym of যা", a pointer, not a meaning',
+    'জ্বী': 'the other spelling of জী "yes (polite)", dealt on its own',
+    'দিয়া': 'the sadhu (literary) form of দিয়ে and of দেওয়া',
     'মিস': '"Miss"; its count is the subtitles\' English "miss"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
@@ -66,9 +78,24 @@ SWEARS = {'শালা', 'শালী', 'হারামি', 'হারাম
 CASEFORM = re.compile(r'^(objective|genitive|possessive|locative|oblique)[^;]* of \S+( \([^)]*\))?$')
 
 
+# A VERB FORM OR A SPELLING POINTER THAT WIKTIONARY LEFT UNTAGGED is not a lemma either:
+# `গিয়েছিল` "চলিত past perfect second/third-person polite of যাওয়া" and `পুরনো`
+# "Umlauted form of পুরানো" reached A2's fill as words of their own.
+FORMGLOSS = re.compile(r'(\b(person|perfect|past|present|future|imperative|participle|'
+                       r'umlauted|alternative)\b[^;]*|\bform) of [\u0980-\u09ff]', re.I)
+
+
 def caseform(L):
     gl = [g['g'] for e in L['entries'] for g in e['glosses']]
-    return bool(gl) and all(CASEFORM.match(g) for g in gl)
+    return bool(gl) and all(CASEFORM.match(g) or FORMGLOSS.search(g) for g in gl)
+
+
+# A SPELLING VARIANT OF A WORD ALREADY DEALT: Bengali spelling wavers between ী and ি,
+# ূ and ু, ণ and ন (`চাকরি` / `চাকরী`, `রানি` / `রাণী`, `গরিব` / `গরীব`), and
+# Wiktionary keeps both as entries.  The fill takes the first it meets, at this level or
+# below, and leaves the other.
+def vkey(k):
+    return k.replace('ী', 'ি').replace('ূ', 'ু').replace('ণ', 'ন')
 
 
 def usable(L):
@@ -106,6 +133,7 @@ def main():
                          'roman': roman, 'freq': L['freq'], 'pos': pos or '',
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
+    vseen = {vkey(k) for k in seen | below}
     swears = {fold(s) for s in SWEARS}
     excl = {fold(s) for s in EXCLUDE}
     fill = []
@@ -121,7 +149,7 @@ def main():
         # a STEM (আছ-) or an affix is not a word a learner meets bare
         if k.endswith('-') or k.startswith('-'):
             continue
-        if caseform(L):
+        if caseform(L) or vkey(k) in vseen:
             continue
         # a MULTI-WORD lemma (কথা বলা, মনে করা) is the inventory's to choose; the
         # fill's ranking of one is only an estimate (`extract.py`)
@@ -133,6 +161,7 @@ def main():
         if all(e['pos'] in ('phrase', 'proverb') for e in L['entries']):
             continue
         seen.add(k)
+        vseen.add(vkey(k))
         fill.append({'key': k, 'via': '', 'word': L['word'], 'roman': '', 'freq': L['freq'], 'pos': '',
                      'source': 'frequency', 'topic': ''})
     rows += fill

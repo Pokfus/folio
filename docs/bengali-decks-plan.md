@@ -5,8 +5,8 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/bengali/`, §6). A2 to C1 and the
-phrases deck are not.
+**STATUS (2026-11-09): the alphabet deck, A1 and A2 are built** (`.claude/bengali/`, §6–7). B1 to C1 and
+the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (merged into the day's Hindi
@@ -33,7 +33,7 @@ otherwise:
 |---|---|---|
 | Bengali Alphabet (Bangla script) — built | `Bengali-Alphabet.folio-deck.json` | 56 |
 | Bengali A1 Beginner — built | `Bengali-A1.folio-deck.json` | 500 |
-| Bengali A2 Elementary | `Bengali-A2.folio-deck.json` | 750 |
+| Bengali A2 Elementary — built | `Bengali-A2.folio-deck.json` | 750 |
 | Bengali B1 Intermediate | `Bengali-B1.folio-deck.json` | 1,000 |
 | Bengali B2 Upper Intermediate | `Bengali-B2.folio-deck.json` | 1,500 |
 | Bengali C1 Advanced | `Bengali-C1.folio-deck.json` | 1,500 |
@@ -93,7 +93,7 @@ A1's 500 words have no Tatoeba sentence. The fill carries subtitle vocabulary (`
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `bengali_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -108,3 +108,24 @@ sentences for 481, three for 434. The alphabet: 56 notes — 11 vowels (each alo
 signs (ং ঃ ঁ ্ ৎ), 32 consonants, the 3 dotted letters, 2 conjuncts and the 3 phola signs; every sound side
 unique (asserted). The shelf's hue is measured: `#6F69D2`, 18.6 from its nearest of 46 (the green peak was
 refused, §`app.js`'s note).
+
+## 7. As built (2026-11-09): A2
+
+`python3 .claude/bengali/run.py --level a2`. 750 notes, 252 from the inventory and 498 by frequency; sentences
+for 523, three for 283 (Tatoeba's Bengali is small: 228 words have none). Wiktionary's Bengali is thin at this
+level — 61 of the first inventory draft's words had no entry (চাচি, বেতন, পেন্সিল, ক্লান্ত …) and were dropped
+or swapped for a spelling that has one (নাতনী, গরীব, একলা), never given a meaning by hand. The inventory takes
+Wiktionary's multi-word verbs (`মনে করা`, `সাহায্য করা`, `অপেক্ষা করা` …), which the fill never deals.
+
+**Found on reading the ranking, and fixed in `select.py`:**
+- **Untagged form and pointer entries.** `গিয়েছিল` ("চলিত past perfect … of যাওয়া") and `পুরনো` ("Umlauted
+  form of পুরানো") were dealt as words: a lemma whose every gloss is a form of another Bengali word is now
+  skipped (`FORMGLOSS`). The rule also took `নিজে` ("instrumental/locative form of নিজ") out of A1, where `নিজ`
+  is taught; `মান` "respect" took its place. A1 was rebuilt — the only change.
+- **Spelling variants** dealt twice (`চাকরি` / `চাকরী`): the fill skips a word whose ী/ি, ূ/ু or ণ/ন variant
+  is already dealt at this level or below (`vkey`).
+- A pointer that QUOTES its meaning ("umlauted form of ভিজা (bhija, “wet”)") is cut to the quoted meaning in
+  `build_deck.gloss_text` (`ভেজা` "wet").
+- New hand exclusions, each with its reason: `মাই`, `থাম`, `মাল` (counted from commoner words), `দক্ষ`
+  (Wiktionary's entry parses to its headword line), `দিয়া` (sadhu), `জো` (a bare "synonym of"), the bare stems
+  `সেখান` / `ওখান`, and the second spellings `জুতো`, `জ্বী`, `লাজ`.

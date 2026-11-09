@@ -77,7 +77,15 @@ GRAMMAR = re.compile(r'^\s*(\d(st|nd|rd|th) person\b|near reference$|far referen
                      r'alternative (form|spelling) of\b)')
 
 
+# A POINTER THAT QUOTES ITS MEANING ("umlauted form of ভিজা (bhija, “wet”)") is cut to
+# the meaning it quotes: the colloquial spelling is the one a learner meets.
+QUOTED = re.compile(r'^\s*(?:umlauted|alternative) form of \S+ \([^,()]+, “([^”]+)”\)\s*$', re.I)
+
+
 def gloss_text(g):
+    m = QUOTED.match(g)
+    if m:
+        g = m.group(1)
     parts = [p for p in g.split(';')]
     kept = [p for p in parts if not GRAMMAR.match(p)]
     if kept and len(kept) < len(parts):
@@ -126,6 +134,7 @@ GLOSS = {
     'তুই': {'pron': ['you (intimate: to a close friend, a child)']},
     'তোমরা': {'pron': ['you (plural, familiar)']},
     'আপনারা': {'pron': ['you (plural, polite)']},
+    'আব্বা': {'noun': ['father, dad (Wiktionary: a synonym of বাবা)', 'saint, holy man']},
     'তোমার': {'pron': ['your, yours (to someone you call তুমি)']},
     'আপনার': {'pron': ['your, yours (polite: to someone you call আপনি)']},
 }
@@ -397,6 +406,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -411,7 +424,7 @@ def desc(entries, n):
         "Both study directions in one deck: Bengali → English (see the Bengali, recall the meaning) "
         "and English → Bengali (see an English meaning, recall the Bengali). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
