@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1260", released: "2026-11-09T05:06Z" };
+window.FOLIO_VERSION = { v: "1.1261", released: "2026-11-09T05:10Z" };
 
 window.CHANGELOG = [
   {
@@ -48,7 +48,7 @@ window.CHANGELOG = [
       "<b>Hindi</b>, <b>Arabic</b>, <b>Telugu</b>, <b>Greek</b>, <b>Bengali</b>, <b>Urdu</b>, <b>Romanian</b>, <b>Vietnamese</b>, <b>Swahili</b>, <b>Thai</b>, <b>Polish</b>, <b>Latin</b>, <b>Tamil</b>, <b>Ukrainian</b>, <b>Hausa</b> and <b>Persian (Farsi)</b> join the Languages section with A1 decks of 500 words (Polish 600), most with an alphabet deck.",
       "A new daily minigame, <b>What language?</b>: read a short passage and pick its language from four close relations, drawn from 200 languages.",
       "<b>21 new glossary terms</b> for the East Slav tribes, their neighbours and rivers, and a shaded region on the map of 1 Russia card.",
-      "Languages in your <b>active decks</b> are now always listed by number of speakers, the same order as the Library."
+      "Languages in the Library and in your <b>active decks</b> are now always listed by total speakers worldwide, second-language speakers included."
     ]
   },
   {

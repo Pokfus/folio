@@ -690,7 +690,8 @@ changed was the one that had been wrong all along.
   — so a dragged order would be thrown away by the next rebuild unless it were given a store of its own.
   That is a decision about where a language deck's order lives, so it is left for whoever wants it.
 - `.claude/build-lang-decks.js` — the generator above: `node .claude/build-lang-decks.js`. Zero deps, reads
-  `decks/*.folio-deck.json` and writes `lang-decks.js`. It sorts by language and then by the level the exam
+  `decks/*.folio-deck.json` and writes `lang-decks.js`. It sorts by language — **by total speakers, L1 + L2**
+  (each row's `total`, Nov 2026, on request; `l1` is kept and is the fallback) — and then by the level the exam
   itself names (A1…C2, UKBI 1–7, HSK 1–6), with anything that is not a level — a phrase book, a core
   vocabulary — sorting last within its language, that being where a learner reaches it. **Re-run it after
   adding, rebuilding or removing a deck in `decks/`**, or the Languages section goes on offering the figures
