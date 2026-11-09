@@ -101,8 +101,8 @@ inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read
 → `examples.py` → `build_deck.py`, caching in `.claude/swahili-cache/` (gitignored, ~200 MB).
 `node .claude/swahili/check-swahili.js` is the check. **A re-run is byte-identical** (verified). A1: 500
 notes, 277 from the inventory and 223 by frequency; sentences for 482, three apiece for 459.
-The shelf's hue is measured: `#6D67D1`, 18.6 from its nearest of 46 (the farthest point, a green at 19.3, was
-refused — the section has two greens already — and the next, a magenta at 18.7, is in the band the shelf rejects).
+The shelf's hue is measured: first `#6D67D1` (18.6 from its nearest of 46), which Greek's parallel sweep also
+chose (`#6F69D2`), so at the merge it was re-swept against all 53 other hues: `#746163`, 16.7 from its nearest.
 
 ## 7. As built (2026-11-09): A2
 

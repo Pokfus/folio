@@ -60,7 +60,14 @@ before changing the thing it names.
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
 | `russian-decks-plan.md` | The plan for the Russian language decks (TORFL A1–C2 + phrases): word source, lemma order, stress, aspect pairs, the as-built findings per level. Alphabet, A1–C2 and phrases are built. |
 | `turkish-decks-plan.md` | The plan for the Turkish language decks (A1–C1 + phrases): sources checked, the card, the pitfalls, the build order, open decisions. |
+| `arabic-decks-plan.md` | The Arabic language decks (Modern Standard Arabic): the alphabet and A1 are built; word source, the vowelled card, right-to-left markup, the fold, the count and sentence rules, next levels. |
 | `hindi-decks-plan.md` | The plan for the Hindi language decks (Devanagari alphabet, A1–C1 assembled to CEFR, phrases): the owner's decisions, sources, the card, the findings. Alphabet and A1 are built. |
+| `bengali-decks-plan.md` | The plan for the Bengali language decks (Bangla-script alphabet, A1–C1 assembled to CEFR, phrases), the Hindi set's sister: decisions, sources, the card, the findings. Alphabet, A1 and A2 are built. |
+| `telugu-decks-plan.md` | The plan for the Telugu language decks (alphabet, A1–C1 assembled to CEFR, phrases): the decisions carried over from Hindi, sources, the card, the findings. Alphabet and A1 are built. |
+| `greek-decks-plan.md` | The plan for the Greek language decks (alphabet, A1–C1 assembled to CEFR): the decisions taken from the Hindi precedent, sources, the card, the findings. Alphabet and A1 are built. |
+| `urdu-decks-plan.md` | The plan for the Urdu language decks (alphabet, A1–C1 assembled to CEFR, phrases), adapted from Hindi's: the decisions, sources, the right-to-left card, the findings. Alphabet and A1 are built. |
+| `romanian-decks-plan.md` | The plan for the Romanian language decks (A1–C1 assembled to CEFR, phrases): decisions, sources, the card, the findings (the cedilla fold, bare spellings). A1 and A2 are built. |
+| `vietnamese-decks-plan.md` | The plan for the Vietnamese language decks (alphabet and tones, A1–C1 assembled to CEFR, phrases): the decisions, sources, the card, the findings (syllable segmentation, the tone fold). Alphabet-and-tones and A1 are built. |
 | `swahili-decks-plan.md` | The plan for the Swahili language decks (A1–C1 assembled to CEFR): decisions, sources (two corpora counted, a verb parser), the card, the findings. A1 and A2 are built. |
 | `japanese-decks-plan.md` | The PLAN for the Japanese (JLPT N5–N1) language decks — nothing built yet: sources, deck design, app changes, phases, owner's questions. |
 | `tests.md` | What each of the regression suites guards, and the silence it was written for. |

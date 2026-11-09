@@ -28,7 +28,7 @@ from swahili_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'swahili'
-COLOR = '#6D67D1'          # the shelf's measured hue (app.js `lang-swahili`)
+COLOR = '#746163'          # the shelf's measured hue (app.js `lang-swahili`)
 FIELDS = ['Swahili', 'Word', 'English', 'Forms', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
