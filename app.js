@@ -29213,6 +29213,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        it was re-measured against all twenty hues at the merge: a muted mauve, 33.6 from its nearest
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
+    /* SWEDISH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep, against 51 hues, chose the olive
+       #757839 — and Romanian, measured the same day in a parallel session, chose it too, so on merging Swedish was
+       re-swept against all 64 hues on the page: this raspberry rose is the outright winner, 15.4 from its nearest
+       neighbour (The EU as an External Power), 15.8 from Westeros and 16.2 from Japan, against a tightest existing
+       pair of 4.0. 4.7:1 against white. Not the flag's blue or yellow. */
+    "lang-swedish":    { bg: "#BD4B7B" }, // measured raspberry rose
     "lang-spanish":    { bg: "#AE5A33" }, // orange
     /* SWAHILI (Nov 2026) was not named a colour, so it was MEASURED as French and Hindi were: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.

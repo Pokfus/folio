@@ -89,6 +89,7 @@ const LANGS = [
   { word: "Romanian", name: "Romanian", l1: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
   { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
   { word: "Zulu", name: "Zulu", l1: 12 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
+  { word: "Swedish", name: "Swedish", l1: 9.9 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
   { word: "Swahili", name: "Swahili", l1: 5 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */

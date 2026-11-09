@@ -3625,6 +3625,15 @@ changed was the one that had been wrong all along.
   mis-tagged verb tables read by position, the shared pronoun table, the six frequency rules, `FORCE`,
   the descendant picker) are 📖 `docs/oldenglish-decks-plan.md`. The `l1` row is 0, so it sorts last; the hue
   is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
+- `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
+  collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
+  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/swedish/run.py [--level a1]`,
+  `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
+  deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
+  Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.
+  The findings (a personal pronoun's shared table, the -s verbs, the closed-class rule against a common verb,
+  the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
+  (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
