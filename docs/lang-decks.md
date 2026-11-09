@@ -3399,6 +3399,61 @@ changed was the one that had been wrong all along.
   gloss "that place" and are told apart only by the shared "not …" label; `misafir` opens on Wiktionary's
   first sense, "leucoma", before "guest"; and A2's fill carries the subtitles' crime-drama vocabulary
   (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
+- `.claude/korean/` — the generator behind the **Korean decks** (Nov 2026, on request: "And a Korean language
+  collection."). **Built, five files**: `Korean-Alphabet-Hangul` (40 letters), `Korean-Stage-A` (922 notes),
+  `Korean-Stage-B` (2,063), `Korean-Stage-C` (2,806) and `Korean-Phrases-and-Expressions` (517: 41 phrases, 316
+  idioms, 160 proverbs, three subdecks). `PYTHONPATH=<xlrd + kiwipiepy> python3 .claude/korean/run.py [--no-extract]`
+  (its header lists every download), cache in `.claude/korean-cache/` (~1 GB, gitignored);
+  `node .claude/korean/check-korean.js` is its check; a re-run is byte-identical. The note type is `korean`
+  (one note, two templates, `ko-KR`), the hue `lang-korean` (`#365442`, measured and re-swept on merging after Hindi took the same first answer — see its COLL_THEME comment).
+  **THE LIST IS THE STATE'S, NOT AN EXAM'S.** TOPIK publishes no vocabulary list. The National Institute of the
+  Korean Language's `한국어 학습용 어휘 목록` (2003, KOGL Type 1 — free use with the source named) grades 5,965
+  words in three stages, A 982 / B 2,111 / C 2,872, each row with a part of speech, a NOTE and a corpus rank. The
+  decks are its stages, titled "Korean — Stage A/B/C" (`levelRank` ranks `Stage [ABC]`); the order within a deck
+  is the list's own rank, commonest first. A headword listed twice (가까이 adverb and noun) is one note at its
+  lower stage, so the stages partition the list and `check-korean.js` asserts no NIKL headword is carded twice.
+  **THE JOIN TO A DICTIONARY IS THE WHOLE JOB** (`resolve.py`). The list numbers homographs as the Standard
+  Dictionary does (눈01 "eye", 눈04 "snow") and Wiktionary files them by etymology, so a row is joined by part of
+  speech, then HANJA (the note's hanja against the entry's, a Unihan variant counting — 强調 is 強調, 秘 is 祕;
+  the list writes KS X 1001 compatibility ideographs, folded by NFC in `extract.py`), then the note's PHRASE in
+  the entry's examples (~이 내리다), then `picks.json` — **375 rows decided by hand (337 picks, 38 refusals), reading both sides**, some
+  down to the sense (쪽02 "page", 쪽03 "piece" are two senses of one Wiktionary entry). Anything still
+  ambiguous is REFUSED, never guessed. A note in hanja that NO candidate's hanja match is refused too (관리
+  官吏 "official" is not Wiktionary's 管理 "management"): checking every hanja note against its join found 20
+  wrong joins. Two list
+  homographs Wiktionary files as one entry are one note (뛰다01/02).
+  **THE FALLBACK IS KRDICT** (`한국어기초사전`, NIKL, CC BY-SA 2.0 KR; its full JSON is a public download, no
+  key). 423 rows had no Wiktionary entry — mostly transparent derivatives, 가까워지다, -되다, -적 — and KRDict,
+  built on this very list, takes them by the same steps (part of speech, its `origin` hanja, a single
+  candidate): refusals went from 468 to 67. Only KRDict's English equivalents are read; its Korean examples
+  have no English and are not used. **A KRDICT WORD'S ROMANIZATION IS COMPUTED from its standard pronunciation**
+  (`rr_from_pron` in `ko.py`): RR spells the sound changes the pronunciation shows, except tensification
+  (학교 [학꾜] hakgyo) and ㅢ, which come from the spelling; ㅎ after a final is written h, as Wiktionary does
+  (착하다 chakhada). Measured against Wiktionary's own romanization on the 4,888 words both have: **4,874
+  agree**; the 14 that do not are RR's own exceptions (가져 jyeo against Wiktionary's jeo, ㄴ-insertion in 별일).
+  A Wiktionary pointer gloss that carries its own English is a meaning ("contraction of 이야기: talk; story" is
+  얘기's whole entry — refusing it lost 뭐, 얘기 and 드리다 from Stage A); one without English is not.
+  **THE CARD**: the front is hangul alone, plus a CUE where the list has two words spelled alike — the hanja,
+  else the list's phrase with the word put in (눈이 내리다), else its hint (463 cards). The back: Revised
+  Romanization, the pronunciation in hangul where it differs ("said [학꾜]"), the hanja, the meanings, a verb's
+  or adjective's polite / past / formal forms read from Wiktionary's table, one row per hanja (Unihan's English,
+  Wiktionary's eumhun, up to three other list words written with it, lower stages first), and sentences.
+  **SENTENCES**: Tatoeba's (10,701 Korean sentences with English), found with Kiwi — a verb by its lemma (듣 for
+  들어요), a verb Kiwi splits (가까워지다) by a whole word that is a cell of its Wiktionary table, anything else
+  as a token or a run of tokens inside one word, never a substring. **A WORD WITH A HOMOGRAPH IN THE LIST, or
+  with senses picked by hand, takes only Wiktionary's examples**, which sit under the sense they illustrate — a
+  corpus sentence cannot say which 눈 it means. Coverage is what Tatoeba's small Korean corpus allows and the
+  descriptions say so: Stage A 87%, B 65%, C 41%.
+  **THE PHRASES DECK**: everyday formulas picked by hand from Wiktionary's phrases (`PHRASES`; slang, dialect,
+  profanity, forum jargon out), Wiktionary's idioms and proverbs (`SKIP` drops dialect and pointer entries),
+  then KRDict's 관용구 and 속담 whose every content word is a stage word (by Kiwi), commonest first, capped at 260
+  and 120; an expression with optional or alternative parts ("안면(을) 바꾸다") has no one form and is left out.
+  A KRDict expression's English is its definition, with its English rendering in italics beneath (`.uc-lit`) —
+  KRDict gives no romanization for these, so those cards have none. A corpus sentence is sought for a PHRASE
+  only: an idiom's words also occur literally (말이 있다 found "The boy has a horse").
+  Known, left: some first senses are Wiktionary's order rather than the commonest (교수 opens on "instruction"
+  before "professor"); 6 KRDict renderings run several English proverbs together; the alphabet's tense
+  consonants are described phonetically in one line, not taught.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
