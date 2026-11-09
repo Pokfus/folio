@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 196 MB of decks. The file itself is fetched on Add. */
+   section without fetching 202 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -50,6 +50,11 @@ window.LANG_DECKS = [
   { lang: "Turkish", file: "Turkish-B2.folio-deck.json", id: "turkishb2", title: "Turkish B2", sub: "1,197 words · both directions, as two cards per word", notes: 1197, cards: 2394, ex: 99, say: false, bytes: 1649241, rev: "f219332787cc" },
   { lang: "Turkish", file: "Turkish-C1.folio-deck.json", id: "turkishc1", title: "Turkish C1", sub: "997 words · both directions, as two cards per word", notes: 997, cards: 1994, ex: 98, say: false, bytes: 1370437, rev: "1777e5e08258" },
   { lang: "Turkish", file: "Turkish-Phrases-and-Expressions.folio-deck.json", id: "trphrase", title: "Turkish Phrases and Expressions", sub: "483 expressions · 118 everyday, 304 idioms, 61 proverbs · both directions", notes: 483, cards: 966, subs: 3, tree: [{"n":"Phrases","c":236,"x":66},{"n":"Idioms","c":608,"x":56},{"n":"Proverbs","c":122,"x":54}], flat: true, ex: 58, say: false, bytes: 353426, rev: "1e2fecf0b8ef" },
+  { lang: "Korean", file: "Korean-Alphabet-Hangul.folio-deck.json", id: "korhangul", title: "Korean Alphabet (Hangul)", sub: "The 40 letters of hangul — start here, before any word", notes: 40, cards: 80, ex: 100, bytes: 17792, rev: "d31da871f6b7" },
+  { lang: "Korean", file: "Korean-Stage-A.folio-deck.json", id: "koreana", title: "Korean — Stage A", sub: "The first 922 words — start here once you can read hangul", notes: 922, cards: 1844, ex: 87, bytes: 1090119, rev: "2025107e0a94" },
+  { lang: "Korean", file: "Korean-Stage-B.folio-deck.json", id: "koreanb", title: "Korean — Stage B", sub: "2,063 more words, taking you to about 2,985 — study after Stage A", notes: 2063, cards: 4126, ex: 65, bytes: 2286698, rev: "a711fb91ff36" },
+  { lang: "Korean", file: "Korean-Stage-C.folio-deck.json", id: "koreanc", title: "Korean — Stage C", sub: "2,806 more words, taking you to about 5,791 — study after Stage B", notes: 2806, cards: 5612, ex: 41, bytes: 2945750, rev: "000aeb3387df" },
+  { lang: "Korean", file: "Korean-Phrases-and-Expressions.folio-deck.json", id: "korphr", title: "Korean Phrases and Expressions", sub: "517 expressions · 41 everyday, 316 idioms, 160 proverbs · both directions", notes: 517, cards: 1034, subs: 3, tree: [{"n":"Phrases","c":82,"x":63},{"n":"Idioms","c":632,"x":6},{"n":"Proverbs","c":320,"x":0}], flat: true, ex: 9, bytes: 245145, rev: "90eec6431106" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },

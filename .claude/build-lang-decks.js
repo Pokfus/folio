@@ -66,6 +66,7 @@ const LANGS = [
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
   { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
+  { word: "Korean", name: "Korean", l1: 81 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
@@ -92,6 +93,9 @@ function levelRank(title) {
      alphabetically: N1 first, upside down, with nothing to say so. */
   const j = /\bJLPT N([1-5])\b/.exec(title);
   if (j) return 5 - Number(j[1]);
+  /* KOREAN'S STAGES ARE LETTERED — the NIKL list's A, B and C — and "Stage A" matches no rule below it. */
+  const k = /\bStage ([ABC])\b/.exec(title);
+  if (k) return "ABC".indexOf(k[1]);
   const u = /\bUKBI (\d)\b/.exec(title);          // Indonesian's own seven predicates, numbered from the bottom
   if (u) return Number(u[1]) - 1;
   /* THE LEVEL IS TESTED BEFORE THE STANDARD, and the order is load-bearing: every Mandarin title reads

@@ -60,6 +60,10 @@ __pycache__/
 # inventory off -- all rights reserved, so it is never committed -- and the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/turkish-cache/
+# the corpora .claude/korean/run.py builds the Korean decks from (~600 MB: the Wiktionary
+# extract, Tatoeba, Unihan, the NIKL list) and the intermediate files between its stages.
+# The decks it writes ARE committed.
+.claude/korean-cache/
 
 # The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by

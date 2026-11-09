@@ -29117,6 +29117,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
        27.2 from its nearest neighbour. 9.9:1 against white. */
     "lang-japanese":   { bg: "#780F75" },
+    /* KOREAN (Nov 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB (ΔE76) inside
+       the shelf's band (L 28–55, chroma 7–62, at least 4.5:1 against white) for the point farthest from all 45 hues
+       on the page — a violet, 21.2 from its nearest neighbour (Flags), against a tightest existing pair of 4.0.
+       4.9:1 against white. Not a flag colour, and well clear of the History shelf's `korea`. */
+    "lang-korean":     { bg: "#9F51B4" }, // measured violet
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
     /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
