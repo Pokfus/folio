@@ -57,4 +57,71 @@ A1 = [
                        'pleca ajunge aștepta căuta găsi iubi plăcea dori chema numi'),
 ]
 
-INVENTORY = {'a1': A1}
+A2 = [
+    ('people and relatives', 'nepot nepoată văr verișoară socru soacră ginere noră logodnic '
+                             'logodnică bebeluș adolescent tânăr bătrân pensionar coleg '
+                             'șef client musafir străin cetățean'),
+    ('jobs and study', 'meserie inginer avocat polițist vânzător bucătar șofer asistent '
+                       'funcționar muncitor fermier director secretar programator salariu '
+                       'firmă fabrică angajat liceu facultate universitate clasă lecție temă '
+                       'examen notă caiet dicționar curs diplomă'),
+    ('clothes', 'haină rochie fustă pantalon cămașă bluză tricou pulover geacă palton pantof '
+                'cizmă șosetă pălărie căciulă mănușă fular costum curea buzunar mărime '
+                'îmbrăca dezbrăca purta'),
+    ('food and cooking', 'pui porc vită ceapă usturoi morcov varză castravete salată ardei '
+                         'fasole mazăre ciupercă portocală lămâie strugure pară căpșună cireașă '
+                         'prăjitură tort ciocolată înghețată biscuit unt ulei miere smântână '
+                         'iaurt făină piper sos ciorbă gustare desert farfurie pahar ceașcă '
+                         'lingură furculiță cuțit oală tigaie găti fierbe prăji tăia gust '
+                         'foame sete delicios gustos dulce sărat acru amar proaspăt'),
+    ('the home', 'etaj parter scară balcon grădină perete podea tavan acoperiș hol sufragerie '
+                 'mobilă dulap raft canapea fotoliu covor perdea oglindă lampă frigider '
+                 'aragaz cuptor mașină_de_spălat duș chiuvetă prosop săpun pernă pătură '
+                 'chirie muta curăța spăla'),
+    ('the town and its services', 'centru cartier parc muzeu teatru cinema '
+                                  'bibliotecă biserică poștă primărie poliție pod colț '
+                                  'semafor intersecție trotuar parcare benzinărie supermarket '
+                                  'librărie brutărie cafenea bar club hartă'),
+    ('travel and holidays', 'călătorie vacanță concediu excursie bagaj valiză pașaport viză '
+                            'vamă graniță rezervare cazare turist ghid plajă '
+                            'munte mare:noun lac râu insulă pădure câmp deal vale peisaj '
+                            'metrou tramvai taxi bicicletă motocicletă vapor port peron '
+                            'stație orar întârziere sosire plecare zbor călători rezerva '
+                            'vizita'),
+    ('nature, seasons and the compass', 'primăvară vară toamnă iarnă anotimp nord sud est vest '
+                                        'cer nor stea lună:noun natură copac floare iarbă '
+                                        'frunză pământ mediu temperatură grad furtună ceață '
+                                        'gheață însorit noros umed uscat'),
+    ('animals', 'animal câine pisică cal vacă oaie porc pasăre găină rață urs lup vulpe iepure '
+                'șoarece șarpe insectă albină muscă'),
+    ('health and the body', 'corp față păr gât umăr braț deget genunchi spate inimă sânge os '
+                            'piele sănătate boală răceală tuse gripă rană alergie pastilă '
+                            'rețetă consultație programare dentist farmacist urgență ambulanță '
+                            'sănătos obosit răni durea tuși vindeca'),
+    ('feelings and character', 'bucurie tristețe frică furie dragoste speranță surpriză '
+                               'supărat nervos calm liniștit vesel timid curajos leneș '
+                               'harnic deștept amabil politicos sincer generos răbdător '
+                               'gelos mândru plictisit îngrijorat speria enerva supăra'),
+    ('free time and sport', 'timp_liber hobby sport fotbal tenis baschet înot meci echipă '
+                            'jucător minge concert muzică cântec film spectacol expoziție '
+                            'fotografie desen joc petrecere invitație cadou aniversare '
+                            'zi_de_naștere sărbătoare paște nuntă dansa cânta înota '
+                            'alerga picta desena invita sărbători distra'),
+    ('time and sequence', 'trecut viitor prezent secol deceniu dată calendar ceas alaltăieri '
+                          'poimâine curând recent imediat odată între_timp '
+                          'în_sfârșit în_curând de_obicei des rar zilnic '
+                          'săptămânal lunar anual'),
+    ('numbers and quantity', 'patruzeci cincizeci șaizeci șaptezeci optzeci nouăzeci '
+                             'treisprezece cincisprezece miliard sfert dublu kilogram '
+                             'gram litru metru kilometru centimetru bucată pachet sticlă cutie '
+                             'pereche grup număr'),
+    ('everyday verbs', 'aprinde stinge urca coborî intra ieși traversa întoarce porni opri '
+                       'conduce parca pierde câștiga împrumuta trimite primi suna răspunde '
+                       'explica repeta traduce alege decide hotărî promite uita aminti '
+                       'gândi visa spera crește naște muri mulțumi saluta întâlni cunoaște '
+                       'arăta împărți schimba repara construi strica păstra ascunde arunca '
+                       'pregăti comanda servi gusta ajuta lucra odihni plimba relaxa '
+                       'grăbi întârzia'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

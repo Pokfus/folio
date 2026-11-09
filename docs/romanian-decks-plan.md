@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/romanian/`, §6). A2 to C1 and the phrases deck are not.
+**STATUS (2026-11-09): A1 and A2 are built** (`.claude/romanian/`, §6–§7). B1 to C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -30,7 +30,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | deck | file | notes |
 |---|---|---|
 | Romanian A1 Beginner — built | `Romanian-A1.folio-deck.json` | 500 |
-| Romanian A2 Elementary | `Romanian-A2.folio-deck.json` | 750 |
+| Romanian A2 Elementary — built | `Romanian-A2.folio-deck.json` | 750 |
 | Romanian B1 Intermediate | `Romanian-B1.folio-deck.json` | 1,000 |
 | Romanian B2 Upper Intermediate | `Romanian-B2.folio-deck.json` | 1,500 |
 | Romanian C1 Advanced | `Romanian-C1.folio-deck.json` | 1,500 |
@@ -96,7 +96,7 @@ subtitle-ordered deck on the shelf does. 2 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read every card, extend `EXCLUDE` /
 `ETYMS` / `DROP_POS` with reasons. **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored
 (and a `PARTS` row in `.claude/combine-decks.py`).
@@ -108,3 +108,26 @@ inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read ever
 `node .claude/romanian/check-romanian.js` is the check. **A re-run is byte-identical** (verified). A1: 500
 notes, 354 from the inventory and 146 by frequency; IPA on 451, forms on 310, sentences for 498 (three for
 495). The shelf's hue is measured: `#2A8424`, 19.5 from its nearest of 46.
+
+## 7. As built (2026-11-09): A2
+
+`python3 .claude/romanian/run.py --level a2`. 750 notes, none taught in A1 (read off the shipped A1 file):
+455 from the A2 inventory (fifteen topics — relatives, jobs and study, clothes, food and cooking, the home,
+the town, travel, nature and the seasons, animals, health, feelings, free time, time words, quantities,
+everyday verbs) and 295 by frequency; IPA on 514, forms on 647, sentences for 736 (three for 684, none for
+14). The subtitle says "750 more words, none of them in A1". A re-run is byte-identical, and A1 rebuilt
+under the A2 rules is byte-identical to the shipped file. What A2 added:
+
+- **More forms counted as words** (`select.EXCLUDE`): a noun whose generated table claims a commoner noun's
+  forms (`geac` "jack (flag)" from `geacă` "jacket", `hain` from `haină`, `secund` from `secundă`), a
+  definite form with an entry of its own (`dimineața`, `gura`, `cina`), participles (`făcut`, `fost`), `Tom`
+  (every other Tatoeba-and-subtitle line), and `adaptare`, counted from the subtitle files' credit line.
+- **Two entries of one etymology that are different words** (`DROP_ENTRY`): `membru` is a neuter "limb"
+  (pl. `membre`) and a masculine "member" (pl. `membri`); merged, the card had the limb's gender and plural.
+- **A noun cell that is only an ending**: Wiktionary's table prints `avocat`'s definite as "ul". A noun's
+  cell under three letters is dropped (nouns only: a verb's imperative may be `fă`, `du`, `zi`).
+- More `ETYMS` / `DROP_POS` / `LEAD` rows, each with its reason (`dura` "to last", `pacient` the noun,
+  `slujbă` "job" before "divine service").
+
+Feminine agent nouns written in the inventory (`colegă`, `asistentă`, `vecină`) are Wiktionary form-of
+entries, so the masculine is taught and its card names no feminine — known, left.

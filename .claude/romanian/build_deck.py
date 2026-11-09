@@ -69,6 +69,7 @@ ETYMS = {
     'mai': ['2', '1'],       # "more" AND "May"
     'mare': ['1', '2'],      # "big" AND "sea", both A1
     'bancă': ['2', '1'],     # "bank"; etymology 1 is "bench"
+    'dura': ['2'],           # "to last"; etymology 1 is "to build", regional
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -84,12 +85,26 @@ DROP_POS = {
     # A COLOUR'S NOUN READING is the colour's name or, for white and black, a person
     # so described; the card is the adjective.  Likewise the small-boy noun of `mic`.
     'alb': {'noun'}, 'negru': {'noun'}, 'verde': {'noun'}, 'mic': {'noun'},
+    # A2
+    'pacient': {'adj'},       # "patient (forbearing)", the loanword's rare reading; the card is the noun
+    'animal': {'adj', 'adv'}, # "animalistic, brutal" beside the noun "animal"
+    'drăguț': {'noun'},       # "lover", a colloquial reading of the adjective "cute, nice"
+    'curând': {'adj'},        # "short", a dated reading; the card is the adverb "soon"
+    'atâta': {'adv'},         # the adverb's one sense is a note ("Paragogic form of atât")
+}
+
+# ONE ENTRY LEFT OFF A CARD, named by its first gloss: two entries of one etymology
+# and one part of speech that are different words in all but spelling.
+DROP_ENTRY = {
+    'membru': 'limb',         # the neuter "limb" (pl. membre) beside the masculine "member" (pl. membri)
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'urât': 'ugly',           # first listed is "hated", the participle's sense
     'ceai': 'tea',            # first listed is "tea bush"
+    'slujbă': 'job, employment, post, service',   # first listed is "divine service"
+    'descoperi': 'to discover',                   # first listed is "to take off one's headgear"
 }
 
 
@@ -98,6 +113,7 @@ def entries_for(row, lex):
     ents = [e for e in L['entries'] if any(not g['weak'] and g['g'] for g in e['glosses'])] \
         or L['entries']
     ents = [e for e in ents if e['pos'] not in DROP_POS.get(L['word'], ())] or ents
+    ents = [e for e in ents if (e['glosses'] or [{'g': ''}])[0]['g'] != DROP_ENTRY.get(L['word'])] or ents
     groups = []
     for e in ents:
         if e.get('etym', '') not in groups:
@@ -107,6 +123,11 @@ def entries_for(row, lex):
                   key=lambda e: keep.index(e.get('etym', '')))
     if row['pos']:
         ents = sorted(ents, key=lambda e: e['pos'] != row['pos'])
+    # A NOUN CELL THAT IS ONLY AN ENDING (`avocat`'s definite printed as "ul") is a fault
+    # in the source's table: no form of a noun longer than three letters is two.  Nouns
+    # only -- a verb's imperative may be two letters (`fă`, `du`, `zi`).
+    ents = [dict(e, table=[t for t in e['table'] if len(t['f']) > 2 or len(L['word']) <= 3])
+            if e['pos'] == 'noun' else e for e in ents]
     out, seen = [], {}
     for e in ents:
         if e['pos'] in seen:
@@ -124,7 +145,7 @@ def entries_for(row, lex):
     return out[:3]
 
 
-NOTE = re.compile(r'^(Used|Indicates|Introduces|Expresses|Forms|Connects|Optionally|Placed|synonym of)\b')
+NOTE = re.compile(r'^(Used|Indicates|Introduces|Expresses|Forms|Connects|Optionally|Placed|Paragogic|synonym of)\b')
 
 
 def is_note(t):
@@ -351,6 +372,11 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+FOR = {'a1': 'for a beginner', 'a2': 'for an elementary learner', 'b1': 'for an intermediate learner',
+       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner'}
+BELOW_NAMES = {'a1': '', 'a2': 'A1', 'b1': 'A1 or A2', 'b2': 'A1, A2 or B1', 'c1': 'A1 to B2'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -365,7 +391,7 @@ def desc(entries, n):
         "Both study directions in one deck: Romanian → English (see the Romanian, recall the meaning) "
         "and English → Romanian (see an English meaning, recall the Romanian). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words {FOR[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -407,7 +433,9 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
+        'subtitle': (f'{n} words · both directions, as two cards per word' if LEVEL == 'a1' else
+                     f'{n:,} more words, none of them in {BELOW_NAMES[LEVEL]} · both directions, '
+                     'as two cards per word'),
         'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
         'tags': ['romanian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
         'glossMode': 'site',

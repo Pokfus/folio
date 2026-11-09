@@ -44,6 +44,23 @@ EXCLUDE = {
     'k': "a letter, counted from text messages",
     'hei': "an interjection, counted from subtitles",
     'naiba': "the devil, in an oath (la naiba)",
+    # read off the A2 ranking (2026-11-09)
+    'geac': "its count is geacă 'jacket', whose forms it shares; the noun is a flag",
+    'hain': "its count is haină 'coat', whose forms it shares",
+    'tom': "its count is Tom, the name in every other subtitle line",
+    'secund': "its count is secundă 'second (of time)', whose forms it shares",
+    'mor': "its count is mor 'I die', a form of muri; the entry is a bear's growl",
+    'cina': "its count is cină 'dinner', whose definite form it is",
+    'câte': "a form of cât, taught in A1",
+    'făcut': "the past participle of face, shown on its card",
+    'revedere': "counted from la revedere, taught in A1",
+    'gura': "its count is gura 'the mouth', a form of gură",
+    'dimineața': "taught as dimineață 'morning', whose definite form it is",
+    'uf': "an interjection, counted from subtitles",
+    'ah': "an interjection, counted from subtitles",
+    'adaptare': "counted from the subtitle files' own credit line (Adaptare: ...)",
+    'fost': "the past participle of fi, shown on its card",
+    'cui': "the dative of cine, shown on its card",
 }
 
 # Swearing and insults are never in a level deck.
