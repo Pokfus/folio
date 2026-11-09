@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 221 MB of decks. The file itself is fetched on Add. */
+   section without fetching 222 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -51,6 +51,8 @@ window.LANG_DECKS = [
   { lang: "Japanese", file: "JLPT-N1-Japanese.folio-deck.json", id: "jlptn1", title: "Japanese — JLPT N1", sub: "3,055 more words, taking you to about 7,740 — study after N2", notes: 3055, cards: 6110, ex: 88, bytes: 6307850, rev: "a1f578de2226" },
   { lang: "Japanese", file: "Japanese-Idioms.folio-deck.json", id: "jaidiom", title: "Japanese — Idioms and Proverbs", sub: "206 four-character idioms and proverbs — after the levels", notes: 206, cards: 412, ex: 100, bytes: 550049, rev: "7607b21b3be7" },
   { lang: "Japanese", file: "Japanese-Phrases-and-Expressions.folio-deck.json", id: "japhr", title: "Japanese — Phrases and Expressions", sub: "292 set phrases and grammatical chunks — alongside any level", notes: 292, cards: 584, ex: 100, bytes: 450618, rev: "22a95d9c0774" },
+  { lang: "Persian (Farsi)", file: "Persian-Alphabet.folio-deck.json", id: "faabc", title: "Persian Alphabet", sub: "39 letters and signs · both directions, as two cards per letter", notes: 39, cards: 78, ex: 0, bytes: 38060, rev: "4538fad1c0b5" },
+  { lang: "Persian (Farsi)", file: "Persian-A1.folio-deck.json", id: "persiana1", title: "Persian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 97, bytes: 1210042, rev: "9447245d27d4" },
   { lang: "Vietnamese", file: "Vietnamese-Alphabet-and-Tones.folio-deck.json", id: "viabc", title: "Vietnamese Alphabet and Tones", sub: "35 tones, letters and letter pairs · both directions, as two cards each", notes: 35, cards: 70, ex: 0, bytes: 18382, rev: "332890367335" },
   { lang: "Vietnamese", file: "Vietnamese-A1.folio-deck.json", id: "vieta1", title: "Vietnamese A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 601642, rev: "1beb2a48a31e" },
   { lang: "Turkish", file: "Turkish-A1.folio-deck.json", id: "turkisha1", title: "Turkish A1", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, say: false, bytes: 680115, rev: "b3805cd5a9f2" },

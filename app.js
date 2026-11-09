@@ -29188,6 +29188,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        slate blue, 15.7 from its nearest neighbour (#2E6E8E), against a tightest existing pair of 4.0. Not a
        flag colour: Poland's are white and red. */
     "lang-polish":     { bg: "#6B7493" }, // measured slate
+    /* PERSIAN (Nov 2026; the reader asked for "Farsi") was not named a colour, so it was MEASURED as French was:
+       swept in CIELAB inside the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point
+       farthest from all 61 hues on the page — a teal green, 15.7 from its nearest neighbour. Its first sweep,
+       on a shelf of 46, found #2A8424, which a parallel session's language took first; re-swept at the merge. */
+    "lang-persian-farsi": { bg: "#008763" }, // measured teal green
     "lang-portuguese": { bg: "#009657" }, // green
     /* ROMANIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep found #2A8424 — and so did

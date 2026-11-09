@@ -3591,6 +3591,16 @@ changed was the one that had been wrong all along.
   has a Hausa voice; `speechLang: 'ha-NG'` stays for `spellTree`). The folds, the suffix stems, the homographs
   whose count is another word's and the tone-line rule are 📖 `docs/hausa-decks-plan.md`. The `l1` row is
   Ethnologue's 58 million (via Wikipedia); the hue is measured, `#665487` (re-swept at each merge; 60 hues on the shelf at the last).
+- `.claude/persian/` — the generator behind the Persian (Farsi) decks (Nov 2026, on request: "Add a Farsi language
+  collection"). Hindi's pipeline and decisions carried over: CEFR A1–C1 assembled, an alphabet deck first,
+  romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes) **and
+  `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/persian/run.py [--level a1]`,
+  `python3 .claude/persian/alphabet.py`, `node .claude/persian/check-persian.js`; a re-run is byte-identical. What
+  Persian needed that Hindi did not — the fold (Arabic ي ك, marks and the joiner ignored, the madda kept), the
+  joiner put back into Wiktionary's tables, the SPOKEN forms counted for the written word, right to left, the
+  Classical / Dari tables withheld — is 📖 `docs/persian-decks-plan.md`. The collection is named "Persian
+  (Farsi)" (`lang-persian-farsi`); the `l1` row is 91 million, Farsi + Dari + Tajik (Ethnologue 28, via
+  Wikipedia's infobox); the hue is measured, `#008763` (re-swept at the merge). Not in `combine-decks.py`'s `PARTS`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
