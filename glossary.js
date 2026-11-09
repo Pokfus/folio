@@ -9187,7 +9187,28 @@ window.GLOSSARY = {
 "Table_of_Ranks": "",
 "Collegium_(ministry)": "",
 "Governing_Senate": "",
-"Most_Holy_Synod": ""
+"Most_Holy_Synod": "",
+"Baltic_languages": "",
+"Buzhans": "",
+"Central_Europe": "",
+"Chud": "",
+"Daugava": "",
+"Dnieper": "",
+"Dregovichs": "",
+"Drevlians": "",
+"Ilmen_Slavs": "",
+"Krivichs": "",
+"Mari_people": "",
+"Mordvins": "",
+"Muroma": "",
+"Polans_(eastern)": "",
+"Polochans": "",
+"Polota": "",
+"Severians": "",
+"Slavic_languages": "",
+"Veps": "",
+"West_Baltic_languages": "",
+"Western_Bug": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13667,7 +13688,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Russo-Turkish_War_(1710–1713)": "1710–1713",
 "Treaty_of_Nystad": "1721",
 "Table_of_Ranks": "1722–1917",
-"Governing_Senate": "1711"
+"Governing_Senate": "1711",
+"Chud": "9th – 12th centuries CE",
+"Drevlians": "6th – 12th centuries CE",
+"Krivichs": "6th – 9th centuries CE",
+"Muroma": "9th – 12th centuries CE",
+"Severians": "8th – 11th centuries CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19481,7 +19507,28 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ivan_Mazepa": ["Mazepa","Mazeppa"],
 "Russo-Turkish_War_(1710–1713)": ["Pruth River Campaign","Pruth campaign","Prut campaign"],
 "Collegium_(ministry)": ["Petrine collegia"],
-"Most_Holy_Synod": ["Holy Governing Synod"]
+"Most_Holy_Synod": ["Holy Governing Synod"],
+"Baltic_languages": ["Baltic language"],
+"Buzhans": ["Buzhane","Buzhanians"],
+"Central_Europe": ["central Europe"],
+"Chud": ["Chud’","Chud'","Chudes"],
+"Daugava": ["Western Dvina","Daugava River"],
+"Dnieper": ["Dnipro","Dnieper River","Dniepr"],
+"Dregovichs": ["Dregovichi","Dregovichians"],
+"Drevlians": ["Drevlyane","Derevlianians","Drevlianians"],
+"Ilmen_Slavs": ["Ilmen Slovenes","Novgorod Slovenes"],
+"Krivichs": ["Krivichi","Krivichians"],
+"Mari_people": ["Cheremis","Mari"],
+"Mordvins": ["Mordva","Mordvinians"],
+"Muroma": ["Muroma people"],
+"Polans_(eastern)": ["Polyane","Polianians","Polianians of the Dnieper"],
+"Polochans": ["Polochane","Polochanians"],
+"Polota": ["Polota River"],
+"Severians": ["Severyane","Siverianians"],
+"Slavic_languages": ["Slavonic languages","Slavic language"],
+"Veps": ["Ves’","Ves'","Vepsians"],
+"West_Baltic_languages": ["West Baltic"],
+"Western_Bug": ["Western Buh","Bug River"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -28826,7 +28873,28 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Table_of_Ranks": ["institution","politics","society","history","russia"],
 "Collegium_(ministry)": ["institution","politics","government","history"],
 "Governing_Senate": ["institution","politics","government","history","russia"],
-"Most_Holy_Synod": ["institution","religion","church","history","russia"]
+"Most_Holy_Synod": ["institution","religion","church","history","russia"],
+"Baltic_languages": ["language","history","linguistics","culture","europe","lithuania","latvia"],
+"Buzhans": ["people","history","kievan rus","ukraine","europe"],
+"Central_Europe": ["place","region","geography","history","europe"],
+"Chud": ["people","history","language","russia","europe"],
+"Daugava": ["place","geography","river","russia","latvia","belarus","europe"],
+"Dnieper": ["place","geography","river","russia","ukraine","belarus","europe"],
+"Dregovichs": ["people","history","kievan rus","belarus","europe"],
+"Drevlians": ["people","history","kievan rus","ukraine","europe"],
+"Ilmen_Slavs": ["people","history","kievan rus","russia","europe"],
+"Krivichs": ["people","history","kievan rus","russia","belarus","europe"],
+"Mari_people": ["people","history","language","russia","europe"],
+"Mordvins": ["people","history","language","russia","europe"],
+"Muroma": ["people","history","language","archaeology","russia","europe"],
+"Polans_(eastern)": ["people","history","kievan rus","ukraine","russia","europe"],
+"Polochans": ["people","history","kievan rus","belarus","europe"],
+"Polota": ["place","geography","river","belarus","history","europe"],
+"Severians": ["people","history","kievan rus","ukraine","russia","europe"],
+"Slavic_languages": ["language","history","linguistics","culture","europe","russia"],
+"Veps": ["people","history","language","russia","europe"],
+"West_Baltic_languages": ["language","history","linguistics","europe","russia"],
+"Western_Bug": ["place","geography","river","ukraine","poland","belarus","europe"]
 });
 
 /* ============================================================================

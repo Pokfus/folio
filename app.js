@@ -26058,7 +26058,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       };
       const isColl = (id) => TREE.collections.some((d) => d.id === id);
       const collsInPageOrder = run.filter(isColl).sort((x, y) => pageRank(x) - pageRank(y));
-      let ci = 0;
+      /* …AND THE LANGUAGES ARE IN ORDER OF SPEAKERS, ALWAYS (Nov 2026, on request: "all active language
+         collections are always sorted by the amount of speakers in the world"). LANG_DECKS is already sorted
+         that way by build-lang-decks.js (its `l1` figures), so a language's rank is where it first appears
+         there — the Library shelf's own order. As with the collections, it is the languages' SLOTS in the run
+         that are refilled, so a dragged or stale arrangement cannot reorder them. */
+      const langOrder = [];
+      (window.LANG_DECKS || []).forEach((r) => { const c = r && r.lang ? langCtxId(r.lang) : ""; if (c && langOrder.indexOf(c) < 0) langOrder.push(c); });
+      const langRank = (id) => { const i = langOrder.indexOf(id); return i < 0 ? langOrder.length : i; };
+      const langsInOrder = run.filter(isLangCtxId).sort((x, y) => langRank(x) - langRank(y));
+      let ci = 0, li = 0;
       /* THE KINDS OF COLLECTION EACH HAVE A HEADED SECTION (Nov 2026, on request: "in the active collections
          list, the different types of collections have section dividers and headers"). The top level is
          grouped by kind — the Collections page's sections in its order, then the courses, the languages,
@@ -26070,7 +26079,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         : uDeckIdOf(id) ? "Shared decks" : "Other");
       const secOrder = adSectionOrder();
       const secRank = (sec) => { const i = secOrder.indexOf(sec); return i < 0 ? secOrder.length : i; };
-      run.map((id) => (isColl(id) ? collsInPageOrder[ci++] : id))
+      run.map((id) => (isColl(id) ? collsInPageOrder[ci++] : isLangCtxId(id) ? langsInOrder[li++] : id))
         .map((id, i) => ({ id, i, r: secRank(secOf(id)) }))
         .sort((a, b) => a.r - b.r || a.i - b.i)
         .forEach(({ id }) => { const at = rows.length; emit(id, 0, "", ""); if (rows[at]) rows[at].sec = secOf(id); });

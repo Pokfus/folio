@@ -37,7 +37,7 @@
   and a row that says "update available" when nothing has changed is one a reader learns to ignore.
   The site compares it against the copy it holds; see `langDeckStale` in app.js.
 
-  THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by NATIVE SPEAKERS and then by the level the
+  THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by TOTAL SPEAKERS (see `total` below) and then by the level the
   exam itself names, because a learner reads a ladder from the bottom.  A deck that is not a level
   (phrases, a core vocabulary) sorts last within its language, that being where a learner reaches it.
 */
@@ -58,52 +58,67 @@ const OUT = path.join(ROOT, "lang-decks.js");
    difference, since all it decides is which banner is drawn above which. NATIVE speakers, deliberately:
    counting second-language speakers would put Indonesian, which perhaps forty million people grow up
    with and two hundred million use, above four of the languages above it, and a shelf ordered on a
-   figure nobody can check reads as no order at all. */
+   figure nobody can check reads as no order at all.
+
+   `total` IS FIRST- PLUS SECOND-LANGUAGE SPEAKERS IN MILLIONS, and since Nov 2026 IT is what orders the
+   languages (on request: "all active language collections are always sorted by the amount of speakers in
+   the world", then "I meant speakers in the world for both lists" — this shelf and the Active decks list,
+   which follows LANG_DECKS' order). The figures are Ethnologue's 2026 totals as tabled in Wikipedia's "List
+   of languages by total number of speakers", read 2026-11-09, except where that table splits a language
+   the shelf treats as one: Arabic is all varieties (Ethnologue 28th ed., 411 L1 + 70 L2, Wikipedia's infobox),
+   Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
+   totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
+   (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13);
+   Hungarian, with no second-language figure, is its L1 (12). Latin and Old English stay 0. `l1` is kept beside it, and a language
+   added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
-  { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
-  { word: "Spanish", name: "Spanish", l1: 486 },
+  { word: "Mandarin", name: "Mandarin Chinese", l1: 941, total: 1183 },
+  { word: "Spanish", name: "Spanish", l1: 486, total: 561 },
   // Ethnologue 28th ed. (2020–2024 figures), via Wikipedia's infobox, read 2026-11-09: native speakers of ALL
   // varieties. The decks teach Modern Standard Arabic, which almost nobody speaks as a first language, but the
   // figure is what orders a language on this shelf and every other row counts a language's speakers too.
-  { word: "Arabic", name: "Arabic", l1: 411 },
-  { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
-  { word: "Bengali", name: "Bengali", l1: 242 },      // Wikipedia's infobox (Ethnologue 28th ed. and the 2011 census, 2011–2023), read 2026-11-09
-  { word: "Portuguese", name: "Portuguese", l1: 236 },
-  { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
-  { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
-  { word: "Persian", name: "Persian (Farsi)", l1: 91 }, // Farsi + Dari + Tajik, Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
-  { word: "Vietnamese", name: "Vietnamese", l1: 86 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
-  { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
-  { word: "Telugu", name: "Telugu", l1: 83 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
-  { word: "Korean", name: "Korean", l1: 81 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
-  { word: "Tamil", name: "Tamil", l1: 79 },          // Ethnologue 28th ed., via Wikipedia's infobox (78.7 million, 2011–2019), read 2026-11-09
-  { word: "Urdu", name: "Urdu", l1: 78 },            // Ethnologue 28th ed., via Wikipedia's infobox (77.7), read 2026-11-09
-  { word: "German", name: "German", l1: 76 },
-  { word: "French", name: "French", l1: 74 },
-  { word: "Italian", name: "Italian", l1: 65 },
-  { word: "Hausa", name: "Hausa", l1: 58 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
-  { word: "Indonesian", name: "Indonesian", l1: 43 },
-  { word: "Polish", name: "Polish", l1: 40 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
-  { word: "Tagalog", name: "Tagalog", l1: 33 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09
-  { word: "Ukrainian", name: "Ukrainian", l1: 32 },    // Ethnologue 28th ed. (2023 figure), via Wikipedia's infobox, read 2026-11-09
-  { word: "Dutch", name: "Dutch", l1: 25 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
-  { word: "Thai", name: "Thai", l1: 27 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
-  { word: "Romanian", name: "Romanian", l1: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
-  { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
-  { word: "Zulu", name: "Zulu", l1: 12 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
-  { word: "Hungarian", name: "Hungarian", l1: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
-  { word: "Swedish", name: "Swedish", l1: 9.9 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
-  { word: "Swahili", name: "Swahili", l1: 5 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
+  { word: "Arabic", name: "Arabic", l1: 411, total: 481 },
+  { word: "Hindi", name: "Hindi", l1: 345, total: 611 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
+  { word: "Bengali", name: "Bengali", l1: 242, total: 274 },      // Wikipedia's infobox (Ethnologue 28th ed. and the 2011 census, 2011–2023), read 2026-11-09
+  { word: "Portuguese", name: "Portuguese", l1: 236, total: 269 },
+  { word: "Russian", name: "Russian", l1: 145, total: 210 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
+  { word: "Japanese", name: "Japanese", l1: 124, total: 126 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
+  { word: "Persian", name: "Persian (Farsi)", l1: 91, total: 127 }, // Farsi + Dari + Tajik, Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Vietnamese", name: "Vietnamese", l1: 86, total: 97 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Turkish", name: "Turkish", l1: 85, total: 94 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
+  { word: "Telugu", name: "Telugu", l1: 83, total: 96 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
+  { word: "Korean", name: "Korean", l1: 81, total: 82 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
+  { word: "Tamil", name: "Tamil", l1: 79, total: 86 },          // Ethnologue 28th ed., via Wikipedia's infobox (78.7 million, 2011–2019), read 2026-11-09
+  { word: "Urdu", name: "Urdu", l1: 78, total: 246 },            // Ethnologue 28th ed., via Wikipedia's infobox (77.7), read 2026-11-09
+  { word: "German", name: "German", l1: 76, total: 133 },
+  { word: "French", name: "French", l1: 74, total: 334 },
+  { word: "Italian", name: "Italian", l1: 65, total: 66 },
+  { word: "Hausa", name: "Hausa", l1: 58, total: 94 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Indonesian", name: "Indonesian", l1: 43, total: 255 },
+  { word: "Polish", name: "Polish", l1: 40, total: 43 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
+  { word: "Tagalog", name: "Tagalog", l1: 33, total: 87 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09
+  { word: "Ukrainian", name: "Ukrainian", l1: 32, total: 39 },    // Ethnologue 28th ed. (2023 figure), via Wikipedia's infobox, read 2026-11-09
+  { word: "Dutch", name: "Dutch", l1: 25, total: 30 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
+  { word: "Thai", name: "Thai", l1: 27, total: 71 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Romanian", name: "Romanian", l1: 22, total: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Greek", name: "Greek", l1: 13.5, total: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
+  { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
+  { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
+  { word: "Swedish", name: "Swedish", l1: 9.9, total: 13 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
+  { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
-  { word: "Latin", name: "Latin", l1: 0 },
+  { word: "Latin", name: "Latin", l1: 0, total: 0 },
   /* OLD ENGLISH (Nov 2026) has no native speakers — it was last spoken about nine hundred years ago — so its
      figure is 0 and it sorts after every living language, which is also where a reader looks for it. The
      word is "Old-English" with the hyphen, so no future deck with "English" in its name is filed under it. */
-  { word: "Old-English", name: "Old English", l1: 0 },
+  { word: "Old-English", name: "Old English", l1: 0, total: 0 },
 ];
 const L1 = {};
-LANGS.forEach((L) => { L1[L.name] = L.l1; });
+LANGS.forEach((L) => {
+  if (typeof L.total !== "number") console.warn("build-lang-decks: " + L.name + " has no `total` speakers figure; ordering it by its l1");
+  L1[L.name] = typeof L.total === "number" ? L.total : L.l1;
+});
 
 /* A level inside a language, lowest first. Anything unmatched sorts after every level — a phrase book is
    not a rung on the ladder and a learner meets it once the words are in hand. */
@@ -258,7 +273,7 @@ for (const f of files) {
   });
 }
 
-/* Languages by native speakers, most first; a language's own decks by the level the exam itself
+/* Languages by total speakers (L1 + L2), most first; a language's own decks by the level the exam itself
    names, because a learner reads a ladder from the bottom. */
 rows.sort((a, b) => (a.lang === b.lang ? (a.rank - b.rank || a.title.localeCompare(b.title))
                                        : (L1[b.lang] - L1[a.lang] || a.lang.localeCompare(b.lang))));
