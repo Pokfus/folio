@@ -71,6 +71,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  { word: "Zulu", name: "Zulu", l1: 12 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });
@@ -82,6 +83,9 @@ function levelRank(title) {
   /* AN ALPHABET COMES BEFORE EVERY LEVEL (Oct 2026, Russian): its level decks carry no
      transliteration, so the alphabet is the first thing a learner opens, not a phrase book after them. */
   if (/\bAlphabet\b/.test(title)) return -1;
+  /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
+     first deck is the classes and clicks every word card names, Hindi's alphabet's counterpart. */
+  if (/\bNoun Classes\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
   /* THE KANA COME BEFORE EVERY LEVEL: Japanese cannot be read at all until hiragana and katakana are learnt, so

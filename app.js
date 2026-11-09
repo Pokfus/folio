@@ -29148,6 +29148,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        arrived wearing one colour; Turkish was re-swept with Japanese's plum on the shelf. The rose below
        clears its nearest neighbour by 25.0. */
     "lang-turkish":    { bg: "#D5519F" }, // measured rose
+    /* ZULU (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
+       page — a blue-violet, 18.6 from its nearest neighbours (Rome's purple and the blue beside it), against a
+       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour. */
+    "lang-zulu":       { bg: "#6D67D1" }, // measured blue-violet
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
