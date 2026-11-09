@@ -157,3 +157,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~280 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hindi-cache/
+
+# the corpora .claude/romanian/run.py builds the Romanian decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~470 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/romanian-cache/

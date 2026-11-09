@@ -29134,6 +29134,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-japanese":   { bg: "#780F75" },
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
+    /* ROMANIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
+       page — a green, 19.5 from its nearest neighbours (Portuguese's green and an olive), against a tightest
+       existing pair of 4.0. Not a flag colour (the flag is blue, yellow and red). */
+    "lang-romanian":   { bg: "#2A8424" }, // measured green
     /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
        shelf's band (L 28–55, chroma 7–62) and taken as far as possible from every hue already placed. It was
        first a magenta, measured before Japanese and Turkish reached the shelf; both of those were measured
