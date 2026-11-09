@@ -40,7 +40,7 @@ from ur import fold
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'ur-abc'
-COLOR = '#7066D0'
+COLOR = '#58288A'
 ZWJ = '‍'
 
 J, R, N, F = 'join', 'right', 'none', 'final'     # how a letter joins its neighbours

@@ -116,5 +116,5 @@ level's inventory into `inventory.py` and its `SCOPE` into `urdu_level.py`, run,
 is byte-identical** (verified for both decks). A1: 500 notes, 265 from the inventory and 235 by frequency.
 The alphabet: 56 notes — the 40 letters (each in its joined shapes), the 5 marks on ب, the 11 aspirated
 pairs; every sound side names its letter, so the three s's, four z's, two t's and two h's are told apart
-(asserted unique). The shelf's hue is measured: `#7066D0`, 18.3 from its nearest of 46 (the sweep's green
-refused as Pakistan's flag colour, its magenta on the standing rejection).
+(asserted unique). The shelf's hue is measured: `#58288A`, 18.1 from its nearest of 50 (first `#7066D0`, re-swept on
+merging because Greek had measured `#6F69D2` the same day; greens refused as Pakistan's flag colour).

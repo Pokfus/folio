@@ -3258,6 +3258,17 @@ changed was the one that had been wrong all along.
   stress is printed on every headword and form and stripped from everything spoken or compared, ё is folded for
   matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
   decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
+- `.claude/arabic/` — the generator behind the **Arabic** decks (Nov 2026, on request: "Add an Arabic language
+  collection."): `decks/Arabic-Alphabet.folio-deck.json` (31 notes — the 28 letters with their four shapes, then
+  ء ة ى — `alphabet.py`, hand-written, no sources) and `decks/Arabic-A1.folio-deck.json` (500 notes / 1,000 cards,
+  Modern Standard Arabic). `python3 .claude/arabic/run.py [--no-fetch]`, cache `.claude/arabic-cache/` (gitignored,
+  ~1.4 GB), checks `node .claude/arabic/check-arabic.js` and `node .claude/arabic/render-arabic.js a1|alphabet`
+  (imports through the Studio and asserts the rendered direction is `rtl`); a re-run is byte-identical. ASSEMBLED:
+  no Arabic exam publishes a word list, so the inventory is written for the A1 topics (`inventory.py`, with
+  hand-written English glosses) and dealt by subtitle frequency. Headwords fully vowelled, sentences as written,
+  romanisation on the back, every Arabic run `dir="rtl"` — and the deck CSS hooks on `[dir="rtl"]`, never
+  `[lang="ar"]`, because the card wrapper carries `lang` from `speechLang`. **📖 `docs/arabic-decks-plan.md` — READ
+  BEFORE TOUCHING ANY ARABIC DECK**: the fold, the clitic-aware count, the sentence rules and their faults.
 - `.claude/turkish/` — the generator behind the Turkish decks (Oct 2026, on request: "Use the program's
   vocabulary. Fold B1 plus into B1. Use English names for the collections and decks. Proceed with the first
   deck." then "proceed with A2."). **Built: A1, `decks/Turkish-A1.folio-deck.json`** (500 notes /
@@ -3399,6 +3410,36 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
+  collection"; the Hindi set's decisions taken for its sister). **Built: the alphabet,
+  `decks/Bengali-Alphabet.folio-deck.json`** (56 notes) **and A1, `decks/Bengali-A1.folio-deck.json`** (500
+  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes). `python3 .claude/bengali/run.py [--level a1|a2]`, `python3 .claude/bengali/alphabet.py`,
+  `node .claude/bengali/check-bengali.js`; a re-run is byte-identical. `.claude/hindi/` adapted: no gender, the
+  sadhu conjugations skipped, kaikki's garbled noun-table cells cleaned and romanised by ending, the y-stem
+  template's doubled য় dropped, form-of pointers of any part of speech kept for the inventory (`আছে`). Every
+  finding is 📖 `docs/bengali-decks-plan.md`. The `l1` row is 242 million (Wikipedia's infobox); the hue is
+  measured, `#574518` (re-swept at the merge, Arabic and Greek having taken its first two).
+- `.claude/telugu/` — the generator behind the Telugu decks (Nov 2026, on request: "Add a Telugu language
+  collection"), the Hindi pipeline adapted, with the Hindi collection's decisions carried over.
+  **Built: the alphabet, `decks/Telugu-Alphabet.folio-deck.json`** (52 notes) **and A1,
+  `decks/Telugu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/telugu/run.py [--level a1]`,
+  `python3 .claude/telugu/alphabet.py`, `node .claude/telugu/check-telugu.js`; a re-run is byte-identical.
+  The sources are thinner than Hindi's — Wiktionary lacks many everyday modern words, the subtitle list is
+  machine-translated English, Tatoeba has 314 pairs — and the description says so. The findings (the -ము / -ం
+  fold and the spelling a card prints with its own romanisation, the pronoun-case homographs `నాకు` / `మాకు` /
+  `వారి`, the tenseless verb tables) are 📖 `docs/telugu-decks-plan.md`. The `l1` row is the 2011 census's 83
+  million (via Wikipedia); the hue is measured, `#9D0D6C` (re-swept at the merge, Arabic having taken the green).
+- `.claude/greek/` — the generator behind the Greek decks (Nov 2026, on request: "Add a Greek language
+  collection"; the levels, the alphabet deck and the romanisation follow the Hindi owner's answers, the owner
+  not asked again). **Built: the alphabet, `decks/Greek-Alphabet.folio-deck.json`** (39 notes) **and A1,
+  `decks/Greek-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/greek/run.py [--level a1]`,
+  `python3 .claude/greek/alphabet.py`, `node .claude/greek/check-greek.js`; a re-run is byte-identical. Hindi's
+  pipeline adapted: no graded list for the Certificate of Attainment in Greek was found published, so a level
+  is a topic inventory plus lemma frequency, and the description says so. Nouns carry their article. The plan
+  and every finding (the accent-keeping fold, the verb-table romaniser measured at 0.26 % disagreement, the
+  capitalised days and months, a noun's headword against an adjective's cell, the article's forms filed as
+  pronouns, alternative spellings with full entries) are 📖 `docs/greek-decks-plan.md`. The `l1` row is
+  Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
 - `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
   collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
   every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes) **and A1,
@@ -3408,7 +3449,7 @@ changed was the one that had been wrong all along.
   FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two
   frequency lists averaged (subtitles and wordfreq's written Urdu), a Perso-Arabic fold, and three shapes of
   Wiktionary verb table. 📖 `docs/urdu-decks-plan.md`. The `l1` row is Ethnologue's 78 million (via
-  Wikipedia); the hue is measured, `#7066D0`.
+  Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
