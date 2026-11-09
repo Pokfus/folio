@@ -3399,6 +3399,16 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/tamil/` — the generator behind the Tamil decks (Nov 2026, on request: "Add a Tamil language
+  collection"), adapted from `.claude/hindi/` and following the owner's Hindi decisions (CEFR A1–C1 assembled,
+  a script deck, romanisation on every card). **Built: the alphabet, `decks/Tamil-Alphabet.folio-deck.json`**
+  (38 notes) **and A1, `decks/Tamil-A1.folio-deck.json`** (500 notes / 1,000 cards).
+  `python3 .claude/tamil/run.py [--level a1]`, `python3 .claude/tamil/alphabet.py`,
+  `node .claude/tamil/check-tamil.js`; a re-run is byte-identical. The written standard, not colloquial Tamil,
+  and the description says so. The findings (the sandhi consonant, the case cells Wiktionary cannot name, a
+  part-of-speech filter for the homographs, verb forms filed as words, the thin Tatoeba — 321 of 500 words
+  without a sentence) are 📖 `docs/tamil-decks-plan.md`. The `l1` row is Ethnologue's 78.7 million (via
+  Wikipedia); the hue is measured, `#6F69D2` (greens left out of the sweep: the shelf has two).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

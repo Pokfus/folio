@@ -29142,6 +29142,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* TAMIL (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
+       page. The first answer was a leaf green 19.5 from Portuguese's, and the shelf already carries two greens
+       (Portuguese, Italian) — the third green geo-india's note refused — so greens (CIELAB hue 100–175°) were
+       left out of the second sweep: a periwinkle, 18.6 from its nearest neighbour (Rome's imperial purple), against a
+       tightest existing pair of 4.0. 4.5:1 against white. Not a flag colour. */
+    "lang-tamil":      { bg: "#6F69D2" }, // measured periwinkle
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two
