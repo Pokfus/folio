@@ -238,6 +238,9 @@ have not this session.
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 1000 cards (`cnh-070` retired in Sep 2026, rewritten as *Shang bronze inscriptions* in Oct 2026 on request) |
+
+📖 `docs/china-refinement-audit.md` — READ BEFORE TOUCHING ANY `cnh-` CARD (the Nov 2026 refinement: Greece's rules plus legend against history, the PROTECTED date lines of the individuals, the Chinese name, house spellings, the myth register, batches, ledger; `node .claude/cnh-audit.js`, `node .claude/check-cnh-spellings.js`; the harness is `.claude/wh-refine/` with `REFINE_PREFIX=cnh-`). 📖 `docs/china-chronology.md` — READ BEFORE WRITING A DATE OR A NAME ON A `cnh-` CARD.
+
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | live |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | live |
 | The First World War | `ww1` | `ww1-` | `docs/ww1-card-plan.md` | 9 / 37 | empty |
