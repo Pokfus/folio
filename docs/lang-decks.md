@@ -3399,6 +3399,17 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/greek/` — the generator behind the Greek decks (Nov 2026, on request: "Add a Greek language
+  collection"; the levels, the alphabet deck and the romanisation follow the Hindi owner's answers, the owner
+  not asked again). **Built: the alphabet, `decks/Greek-Alphabet.folio-deck.json`** (39 notes) **and A1,
+  `decks/Greek-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/greek/run.py [--level a1]`,
+  `python3 .claude/greek/alphabet.py`, `node .claude/greek/check-greek.js`; a re-run is byte-identical. Hindi's
+  pipeline adapted: no graded list for the Certificate of Attainment in Greek was found published, so a level
+  is a topic inventory plus lemma frequency, and the description says so. Nouns carry their article. The plan
+  and every finding (the accent-keeping fold, the verb-table romaniser measured at 0.26 % disagreement, the
+  capitalised days and months, a noun's headword against an adjective's cell, the article's forms filed as
+  pronouns, alternative spellings with full entries) are 📖 `docs/greek-decks-plan.md`. The `l1` row is
+  Wikipedia's 13.5 million; the hue is measured, `#6F69D2`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
