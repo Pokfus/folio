@@ -695,6 +695,9 @@ changed was the one that had been wrong all along.
   vocabulary — sorting last within its language, that being where a learner reaches it. **Re-run it after
   adding, rebuilding or removing a deck in `decks/`**, or the Languages section goes on offering the figures
   the deck used to have. Not part of the site.
+  **The Active decks list follows the same order** (Nov 2026, on request): its languages' slots are refilled in
+  `LANG_DECKS` order, as the curated collections' are in the Collections page's (`langsInOrder` in app.js), so a
+  dragged or stale arrangement cannot reorder them.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
