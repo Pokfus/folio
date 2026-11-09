@@ -199,3 +199,8 @@ countries-info.json
 # extract, the OpenSubtitles and Global Voices corpora (counts only) and the Tatoeba
 # exports (~200 MB) — plus the intermediate files between its stages. The decks it writes ARE committed.
 .claude/swahili-cache/
+
+# the corpora .claude/latin/run.py builds the Latin decks from — the Wiktionary
+# extract (1.25 GB), the DCC Latin Core list and the Tatoeba exports — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/latin-cache/

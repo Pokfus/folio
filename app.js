@@ -29156,6 +29156,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-urdu":       { bg: "#58288A" }, // measured indigo-violet
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
+    /* LATIN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB (ΔE76) inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 55 hues on the page.
+       Its first sweep found the periwinkle Greek's parallel sweep also found, so it was re-swept at the merge with
+       the nine new languages on the shelf: a walnut brown, 16.2 from its nearest neighbour (World History's sepia),
+       against a tightest existing pair of 4.0. 6.8:1 against white. Not a flag colour. */
+    "lang-latin":      { bg: "#75543F" }, // measured walnut
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
        27.2 from its nearest neighbour. 9.9:1 against white. */
