@@ -185,6 +185,17 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 
 | event | the collection says | source |
 |---|---|---|
+| the Neolithic: domestication / the Late Neolithic | c. 8000 – 6000 BCE / c. 2500 – 2000 BCE | Lee et al. 2007; Stevens et al. 2024 (`cnh-041`) |
+| the earliest pottery (Xianrendong, Upper Palaeolithic) | 20,000 – 12,000 BP | `cnh-041`, `cnh-051` |
+| Peiligang culture / also dated | c. 9000 – 7000 BP / c. 9000 – 7500 BP | the cal BP of `cnh-042`'s sources 2 and 3 |
+| rice grown (Shangshan) / millet grown / the first fields | c. 9400 BP / c. 5800 BCE / c. 6000 BP | `cnh-043` |
+| Jiahu lived in / excavated / re-excavated | c. 7000 – 5500 BCE / 1984 – 1987 / 2001 | `cnh-044` |
+| Yangshao culture / also dated | c. 5000 – 3000 BCE / c. 5000 – 2700 BCE | Li et al.; Xiong et al. (`cnh-045`) |
+| Banpo first settled / excavated | c. 4800 BCE / 1954 – 1957 | the Banpo Museum (`cnh-046`) |
+| Hongshan culture / its ritual peak | c. 4500 – 3000 BCE / c. 5800 – 5300 BP | Ning; Drennan et al.; Xu (`cnh-047`) |
+| Liangzhu culture | c. 3300 – 2300 BCE | `cnh-048` |
+| Liangzhu jade / also dated | c. 3300 – 2200 BCE / c. 3200 – 2000 BCE | the Cleveland Museum; Liu 2003 (`cnh-049`) |
+| Longshan culture / also dated | c. 3000 – 1900 BCE / c. 2600 – 1900 BCE | Yang 2019; Underhill 1994 (`cnh-050`) |
 
 ## Shang
 
@@ -239,6 +250,16 @@ cnh-037: 1200; 1400; 1624; 1738
 cnh-038: 960; 987; 1122; 1281; 2009
 cnh-039: 219; 1594; 1856
 cnh-040: 2852; 841
+cnh-041: 8000; 6000; 2500; 2000
+cnh-042: 9000; 7000; 7500
+cnh-043: 9400; 5800; 6000
+cnh-044: 7000; 5500; 1984; 1987; 2001
+cnh-045: 5000; 3000; 2700
+cnh-046: 4800; 1954; 1957
+cnh-047: 4500; 3000; 5800; 5300
+cnh-048: 3300; 2300
+cnh-049: 3300; 2200; 3200; 2000
+cnh-050: 3000; 2600; 1900
 cnh-055: 2070; 1600
 cnh-057: 2070; 1600
 cnh-058: 2070; 1600

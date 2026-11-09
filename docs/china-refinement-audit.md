@@ -263,7 +263,7 @@ otherwise.
 | B2 | Mythology (`cn-myth`) | `cnh-011`–`cnh-020` | 10 | 102 | **done 2026-11-08** |
 | B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | **done 2026-11-08** |
 | B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | **done 2026-11-08** |
-| B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | to do |
+| B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | **done 2026-11-09** |
 | B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | to do |
 | B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | to do |
 | B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | to do |
@@ -441,6 +441,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-038` | a Qing figure of the goddess | not re-checked (Commons 429): ok; the glossary copy's credit is a bare address — fix |
 | `cnh-039` | the god on a Qing scroll | not re-checked (Commons 429): ok |
 | `cnh-040` | Chavannes's plate of a Wu Liang shrine stone | not re-checked (Commons 429): ok |
+| `cnh-041` | a painted Yangshao basin from Dahecun | not re-checked (Commons 429): wrong: one culture's basin for the whole Neolithic, and the description stops at "Photograph by" (`I.caption-source`) — replace |
+| `cnh-042` | a Peiligang grinding slab with its roller | not re-checked (Commons 429): ok; the credit is not in the house form — fix |
+| `cnh-043` | a panicle of broomcorn millet | not re-checked (Commons 429): ok |
+| `cnh-044` | a bone flute from Jiahu | not re-checked (Commons 429): ok, but the description stops at "Photograph by" (`I.caption-source`) — rewrite |
+| `cnh-045` | model of the Yangshao village at Jiangzhai | not re-checked (Commons 429): ok |
+| `cnh-046` | the excavated village under the Banpo hall | not re-checked (Commons 429): ok |
+| `cnh-047` | a Hongshan jade pig-dragon | not re-checked (Commons 429): ok |
+| `cnh-048` | a section through the Liangzhu city wall | not re-checked (Commons 429): ok |
+| `cnh-049` | the Fanshan M12 cong | not re-checked (Commons 429): ok, but the description makes an unsourced superlative and names the museum — trim |
+| `cnh-050` | a labelled plan of Taosi | not re-checked (Commons 429): wrong: a line plan of one site, not the culture — replace (the glossary's eggshell cup would do) |
 
 ## Glossary candidates
 
@@ -629,3 +639,41 @@ after Laing); two rows added, the White Snake and Mazu. **Protected lines: uncha
 row "Made a god 1594, by the Wanli emperor" — Zavidovskaya (2023) dates the Wanli title to 1614; the row "Named a sage
 1856" rests only on Doré (1920); both are left. `cnh-040`'s citation of Chen Minzhen keeps his name in Chinese order
 (Crossref's "Minzhen Chen"). The zodiac on `jp-`/`ko-` cards is untouched; no `wh-` card read disagrees.
+
+### B5 — `cnh-041`–`cnh-050`, Neolithic China: the period to Longshan (2026-11-09)
+
+Run as before; all 70 cited URLs answered (the Banpo Museum's page on a second try). **Two new walls**: PMC's full
+text now sits behind a reCAPTCHA and Europe PMC's full text returns 500 for many papers, and ScholarSpace (Hawaiʻi)
+shows a bot check — so every claim resting only on a paper that could not be re-read was dropped (Liu et al. 2017's
+Liangzhu dam figures among them). Owner's fixes before applying: two agents had converted their sources' cal BP into
+BCE years (`cnh-042`, `cnh-047`); both lines now print the BP the sources print (`c. 9000 – 7000 BP`, `c. 5800 –
+5300 BP`), and every later agent was told never to convert. After applying, `cnh-041`'s timeline moved with its new
+line (`set-timeline.js`: `{from:-9000}` → `{from:-8000}`; the three failures of `test-card-timeline.js` are on main
+before and after). **The old cards put unsourced spans on the lines ("c. 9000 – 2000 BCE", "by c. 2000 BCE", "from c.
+7000 BCE"), turned "6 ka" into 4000 BCE, carried site areas, counts and another culture's dates as rows ("Erlitou
+follows from c. 1900 BCE"), gave one site's dates to a whole culture, read the Zhouli's heaven-and-earth meaning back
+onto Liangzhu jade, and stated figures from papers they had not read (Liangzhu's 3,000 workers, a fired floor taken
+from an Amur-basin paper, a brewing sentence from northwest Sichuan).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-041` Neolithic China | 8 | 7 → 8 | **An unsourced "c. 9000 – 2000 BCE" replaced by `Domestication c. 8000 – 6000 BCE` and `Late Neolithic c. 2500 – 2000 BCE`; the earliest pottery said to be Upper Palaeolithic, made by foragers (Xianrendong 20,000–12,000 BP)**; questions that were `cnh-043`'s, `cnh-048`'s and `cnh-051`'s replaced; the timeline's start moved to 8000 BCE. |
+| `cnh-042` Peiligang culture | 6 | 5 → 6 | **The site count and Tanghu's area off the line; `Dated c. 9000 – 7000 BP` / `Also dated c. 9000 – 7500 BP` as the sources print them; Jiahu's place in or outside the culture said to be disputed**; a sickle study that would not open dropped with its question. |
+| `cnh-043` millet and rice farming | 8 | 5 → 8 | **"From"/"by" values and a "6 ka" turned into 4000 BCE replaced by `Rice grown c. 9400 BP` (Shangshan), `Millet grown c. 5800 BCE`, `First fields c. 6000 BP`, each in its source's own form; the Cishan 10,300-year claim attributed and marked disputed**; "bunded paddies by c. 2000 BCE" dropped. |
+| `cnh-044` Jiahu | 6 | 5 → 6 | **A converted "Silk c. 6500 BCE" and "Drink from c. 7000 BCE" off the line, now `Lived in c. 7000 – 5500 BCE`, `Excavated 1984 – 1987`, `Re-excavated 2001`; silk protein in two of three tombs, not three; "more than 30" flutes and only the best-kept one playable**; the signs kept hedged, not writing. |
+| `cnh-045` Yangshao culture | 7 | 5 → 8 | **The name a modern label from the village Andersson dug in 1921 (prose, not the line); his Western-origin theory, later given up; the phases and the Majiayao offshoot; the 3,000 Henan sites attributed**; a brewing sentence that belongs to migrants in northwest Sichuan dropped. |
+| `cnh-046` Banpo | 6 | 9 → 8 | **A place value and an end year resting on an image-only table off the line, now `First settled c. 4800 BCE` and `Excavated 1954 – 1957`; the museum (opened 1958) from its own page; a fired-floor claim taken from an Amur-basin paper dropped**; the fish-face basin and the urn burials left out for want of an open text. |
+| `cnh-047` Hongshan culture | 6 | 5 → 6 | **The 4500 – 3000 BCE span credited to its authors; `Ritual peak c. 5800 – 5300 BP` as printed; a 200,000 km² extent, house sizes, village counts and a "ritual specialists" reading dropped (their sources unreadable)**; the end told as an elite's, not a people's. |
+| `cnh-048` Liangzhu culture | 6 | 5 → 6 | **Every figure from the 2017 dam paper (300 ha, 3,000 workers, 2.88 million m³, 30 km of canals) and "China's earliest waterworks" dropped, the paper unreadable; two converted rows off the line, now `Flourished c. 3300 – 2300 BCE`; "a metre of clay" corrected to a silt layer**. |
+| `cnh-049` Liangzhu jade | 6 | 5 → 7 | **The cong and bi told as the *Zhouli*'s much later heaven-and-earth reading, which the makers may not have shared; `Dated c. 3300 – 2200 BCE` / `Also dated c. 3200 – 2000 BCE` for an unsourced end; a tomb's date off the line**; Lopes's title corrected. |
+| `cnh-050` Longshan culture | 7 | 5 → 7 | **Another culture's row and an unsourced split off the line, now `Dated c. 3000 – 1900 BCE` / `Also dated c. 2600 – 1900 BCE`; the name a modern label; seven regional types and the view that Longshan is a period, not one culture**; the glossary's genetic-paper dates replaced. |
+
+Read by eye. **Confusability**: pottery `cnh-051`'s, farming `cnh-043`'s and Liangzhu's works `cnh-048`'s (all out of
+`cnh-041`); Jiahu's flutes `cnh-044`'s; the Banpo museum and pens `cnh-046`'s, Andersson and the phases `cnh-045`'s;
+the cong and bi `cnh-049`'s, the dams `cnh-048`'s. **Modern labels**: Yangshao, Longshan, Liangzhu and Hongshan now
+each said to be named after the first site dug. **Chinese names corrected**: none; `粟作与稻作` matched no open Chinese
+page (no Chinese host answered) and stays, with the note that 粟 is foxtail millet only. **Spellings fixed**: none;
+0 hits. **Myth register**: no rows (no myth in the batch). **Protected lines: unchanged** (none here). **Disagreements
+for the owner**: `cnh-048` (the culture, 3300 – 2300 BCE) and `cnh-049` (its jade, 3300 – 2200 / 3200 – 2000 BCE) rest
+on different sources and say so; `wh-148` dates Longshan 3000 – 2000 BCE where `cnh-050` now gives 3000 – 1900. Locator
+notes are for the end of the hundred: `cnh-047`'s point is Chifeng city and `cnh-048`'s lies about 40 km from the site.
