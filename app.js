@@ -29162,6 +29162,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-japanese":   { bg: "#780F75" },
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
     "lang-portuguese": { bg: "#009657" }, // green
+    /* ROMANIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep found #2A8424 — and so did
+       Arabic's, run in a parallel session, so it was re-swept at the merge against all 51 other hues on the page:
+       an olive, 16.7 from its nearest neighbours (Geography's olive, then a brown and Italian's green), against a
+       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (the flag is blue, yellow and red). */
+    "lang-romanian":   { bg: "#757839" }, // measured olive
     /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
        shelf's band (L 28–55, chroma 7–62) and taken as far as possible from every hue already placed. It was
        first a magenta, measured before Japanese and Turkish reached the shelf; both of those were measured

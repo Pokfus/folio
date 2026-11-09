@@ -3450,6 +3450,14 @@ changed was the one that had been wrong all along.
   frequency lists averaged (subtitles and wordfreq's written Urdu), a Perso-Arabic fold, and three shapes of
   Wiktionary verb table. 📖 `docs/urdu-decks-plan.md`. The `l1` row is Ethnologue's 78 million (via
   Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
+- `.claude/romanian/` — the generator behind the Romanian decks (Nov 2026, on request: "Add a Romanian language
+  collection"; the decisions copy Hindi's). **Built: A1, `decks/Romanian-A1.folio-deck.json`** (500 notes /
+  1,000 cards) **and A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
+  re-run is byte-identical. Hindi's pipeline with IPA in place of romanisation and no script deck; a level is a
+  topic inventory plus lemma frequency, and the description says so. The plan, the sources and every finding
+  (the cedilla fold, the bare spelling that yields to its accented twin, closed-class headwords that are a
+  verb's form, grammar notes as glosses) are 📖 `docs/romanian-decks-plan.md`. The `l1` row is Wikipedia's
+  22.2 million (Ethnologue 2020); the hue is measured, `#757839` (re-swept at the merge: Arabic had taken `#2A8424`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
