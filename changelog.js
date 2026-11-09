@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1261", released: "2026-11-09T05:10Z" };
+window.FOLIO_VERSION = { v: "1.1265", released: "2026-11-09T15:10Z" };
 
 window.CHANGELOG = [
   {
@@ -45,7 +45,7 @@ window.CHANGELOG = [
       "A new <b>Korean</b> language collection: the hangul alphabet, three graded vocabulary decks, and phrases, idioms and proverbs, all in both directions.",
       "<b>100 China cards are rewritten</b>, from Chinese mythology to Shang burial, with more sources, corrected dates and legend told as legend.",
       "A <b>new date line for wars, battles and cities</b> — start, end and length, place, casualties, result, founding, peak and population — on 654 cards.",
-      "<b>Hindi</b>, <b>Arabic</b>, <b>Telugu</b>, <b>Greek</b>, <b>Bengali</b>, <b>Urdu</b>, <b>Romanian</b>, <b>Vietnamese</b>, <b>Swahili</b>, <b>Thai</b>, <b>Polish</b>, <b>Latin</b>, <b>Tamil</b>, <b>Ukrainian</b>, <b>Hausa</b> and <b>Persian (Farsi)</b> join the Languages section with A1 decks of 500 words (Polish 600), most with an alphabet deck.",
+      "<b>Hindi</b>, <b>Arabic</b>, <b>Telugu</b>, <b>Greek</b>, <b>Bengali</b>, <b>Urdu</b>, <b>Romanian</b>, <b>Vietnamese</b>, <b>Swahili</b>, <b>Thai</b>, <b>Polish</b>, <b>Latin</b>, <b>Tamil</b>, <b>Ukrainian</b>, <b>Hausa</b>, <b>Zulu</b>, <b>Persian (Farsi)</b>, <b>Old English</b>, <b>Swedish</b>, <b>Dutch</b>, <b>Hungarian</b> and <b>Tagalog</b> join the Languages section with first decks of 500 words (Polish 600), most with an alphabet deck.",
       "A new daily minigame, <b>What language?</b>: read a short passage and pick its language from four close relations, drawn from 200 languages.",
       "<b>21 new glossary terms</b> for the East Slav tribes, their neighbours and rivers, and a shaded region on the map of 1 Russia card.",
       "Languages in the Library and in your <b>active decks</b> are now always listed by total speakers worldwide, second-language speakers included."

@@ -3605,6 +3605,69 @@ changed was the one that had been wrong all along.
   Classical / Dari tables withheld — is 📖 `docs/persian-decks-plan.md`. The collection is named "Persian
   (Farsi)" (`lang-persian-farsi`); the `l1` row is 91 million, Farsi + Dari + Tajik (Ethnologue 28, via
   Wikipedia's infobox); the hue is measured, `#008763` (re-swept at the merge). Not in `combine-decks.py`'s `PARTS`.
+- `.claude/zulu/` — the generator behind the Zulu decks (Nov 2026, on request: "Add a Zulu language
+  collection", then the owner's answers: CEFR A1–B1 assembled, a noun classes and clicks deck first, A1 this
+  session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds) **and A1,
+  `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/zulu/run.py [--level a1]`,
+  `python3 .claude/zulu/classes.py`, `node .claude/zulu/check-zulu.js`; a re-run is byte-identical. The
+  sources are thin — about 2,700 Wiktionary lemmas, about 110 Tatoeba sentences, no subtitle list — so the
+  frequency is the Zulu Wikipedia's, counted per lemma over Zulu's conjunctive forms, and there is no B2 or C1.
+  Verbs, adjectives and relatives are printed as stems (-hamba), nouns whole with their class; Wiktionary's
+  tones under the headword. The plan, the sources and every finding (the positional verb table, a page's table
+  carried onto its second noun, the stub formulae, glosses that are not the counted word) are
+  📖 `docs/zulu-decks-plan.md`. The `l1` row is 12 million (Ethnologue via Wikipedia); the hue is measured,
+  `#9A012F` (re-swept at the merge: Greek had taken `#6D67D1`'s neighbour). `levelRank` sorts "Noun Classes" before A1.
+- `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
+  English language collection"). **Built: the alphabet and pronunciation deck,
+  `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
+  `decks/Old-English-Level-1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/oldenglish/run.py
+  [--level l1]`, `python3 .claude/oldenglish/alphabet.py`, `node .claude/oldenglish/check-oldenglish.js`; a
+  re-run is byte-identical. A language nobody speaks: no exam and no CEFR, so a level is a BAND OF FREQUENCY
+  (1–500, 501–1,000, 1,001–2,000, 2,001–3,000) counted by lemma over Thorpe's Ælfric, Sweet's Primer and
+  Tatoeba; no speaker (no voice reads Old English), Wiktionary's IPA under every headword instead, and the
+  Modern English descendant on the card. The plan, the sources and every finding (the spelling fold, the
+  mis-tagged verb tables read by position, the shared pronoun table, the six frequency rules, `FORCE`,
+  the descendant picker) are 📖 `docs/oldenglish-decks-plan.md`. The `l1` row is 0, so it sorts last; the hue
+  is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
+- `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
+  collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
+  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/swedish/run.py [--level a1]`,
+  `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
+  deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
+  Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.
+  The findings (a personal pronoun's shared table, the -s verbs, the closed-class rule against a common verb,
+  the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
+  (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
+- `.claude/dutch/` — the generator behind the Dutch decks (Nov 2026, on request: "Create a Dutch language
+  collection"; the Hindi and Greek answers taken, the owner not asked). **Built: A1,
+  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards). **No alphabet deck** — Dutch is in the Latin
+  alphabet — and Wiktionary's IPA in place of a romanisation. `python3 .claude/dutch/run.py [--level a1]`,
+  `node .claude/dutch/check-dutch.js`; a re-run is byte-identical. Greek's pipeline adapted: nouns carry de or
+  het, verbs their past and participle and a by-person table. The findings (the accent-keeping fold and
+  `één`, the noun-against-verb rule refused again, abbreviations and shadowed capitals) are
+  📖 `docs/dutch-decks-plan.md`. The `l1` row is Wikipedia's 25 million (2021); the hue is measured, `#934F5A`
+  (re-swept at the merge: Vietnamese had taken the first sweep's steel blue).
+- `.claude/hungarian/` — the generator behind the Hungarian decks (Nov 2026, on request: "Add a Hungarian language
+  collection"; levels and the alphabet deck follow the Greek and Hindi precedent, the owner not asked). **Built: the
+  alphabet, `decks/Hungarian-Alphabet.folio-deck.json`** (46 notes: the 44 letters' sounds, the stress, doubled
+  consonants) **and A1, `decks/Hungarian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3
+  .claude/hungarian/run.py [--level a1]`, `python3 .claude/hungarian/alphabet.py`, `node
+  .claude/hungarian/check-hungarian.js`; a re-run is byte-identical. Greek's pipeline adapted, no romanisation,
+  verbs by their third person singular. The findings (the verb tables' person tags shifted by a row and read by
+  position with shape checks, the subtitles' õ/û, one headword holding two words, examples chosen against
+  ambiguity and swearing) are 📖 `docs/hungarian-decks-plan.md`. The `l1` row is Wikipedia's 12 million; the hue
+  is measured, `#14659F`.
+- `.claude/tagalog/` — the generator behind the Tagalog decks (Nov 2026, on request: "Add a Tagalog language
+  collection"; the Romanian set's decisions taken as the default). **Built: A1, `decks/Tagalog-A1.folio-deck.json`**
+  (500 notes / 1,000 cards). `python3 .claude/tagalog/run.py [--level a1]`, `node .claude/tagalog/check-tagalog.js`;
+  a re-run is byte-identical. The Romanian shape (no published list: a topic inventory plus lemma frequency, said in
+  the description), no script deck. **What is new**: the headword is the plain spelling with Wiktionary's MARKED
+  spelling beneath it (stress and glottal stop, `magandá`, `batà`); a verb is the affixed verb and shows its three
+  aspects and its root (`kumain` · `kumakain` · `kakain`, `kain + -um-`); there is no forms table (the extraction
+  leaves the conjugation cells untagged); the frequency averages two thin corpora per million (OpenSubtitles and
+  Tatoeba's Tagalog). The plan and every finding (pointers written as prose, a lemma's own spelling, the -ng linker,
+  capitalised days) are 📖 `docs/tagalog-decks-plan.md`. The `l1` row is Ethnologue's 32.8 million (via
+  Wikipedia); the hue is measured, `#2A72DB` (re-swept at the merge: Swahili had taken a hue 1.1 from `#756366`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
