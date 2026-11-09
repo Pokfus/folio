@@ -60,6 +60,14 @@ __pycache__/
 # inventory off -- all rights reserved, so it is never committed -- and the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/turkish-cache/
+# the corpora .claude/korean/run.py builds the Korean decks from (~600 MB: the Wiktionary
+# extract, Tatoeba, Unihan, the NIKL list) and the intermediate files between its stages.
+# The decks it writes ARE committed.
+.claude/korean-cache/
+# the corpora .claude/arabic/run.py builds the Arabic decks from (~1.4 GB, the Wiktionary
+# extract being most of it) and the intermediate files between its stages. The decks it
+# writes ARE committed.
+.claude/arabic-cache/
 
 # The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by
@@ -157,6 +165,69 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~280 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hindi-cache/
+
+# the corpora .claude/polish/run.py builds the Polish decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~1 GB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/polish-cache/
+
+# the corpora .claude/bengali/run.py builds the Bengali decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~160 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/bengali-cache/
+
+# the corpora .claude/telugu/run.py builds the Telugu decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/telugu-cache/
+
+# the corpora .claude/greek/run.py builds the Greek decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~370 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/greek-cache/
+# the corpora .claude/urdu/run.py builds the Urdu decks from — the Wiktionary
+# extract, the two frequency lists and the Tatoeba exports — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/urdu-cache/
+
+# the corpora .claude/romanian/run.py builds the Romanian decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~470 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/romanian-cache/
+
+# the corpora .claude/vietnamese/run.py builds the Vietnamese decks from — the Wiktionary
+# extract, the OpenSubtitles text and the Tatoeba exports (~270 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/vietnamese-cache/
+
+# the corpora .claude/swahili/run.py builds the Swahili decks from — the Wiktionary
+# extract, the OpenSubtitles and Global Voices corpora (counts only) and the Tatoeba
+# exports (~200 MB) — plus the intermediate files between its stages. The decks it writes ARE committed.
+.claude/swahili-cache/
+
+# the corpora .claude/latin/run.py builds the Latin decks from — the Wiktionary
+# extract (1.25 GB), the DCC Latin Core list and the Tatoeba exports — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/latin-cache/
+
+# the corpora .claude/thai/run.py builds the Thai decks from — the Wiktionary extract,
+# the two PyThaiNLP corpus frequency lists and the Tatoeba exports (~165 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/thai-cache/
+
+# the corpora .claude/tamil/run.py builds the Tamil decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~200 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/tamil-cache/
+
+# the corpora .claude/ukrainian/run.py builds the Ukrainian decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~450 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/ukrainian-cache/
+# the corpora .claude/hausa/run.py builds the Hausa decks from — the Wiktionary
+# extract and the Tatoeba exports (~200 MB, the English half of Tatoeba being most of
+# it) — and the intermediate files between its stages. The decks it writes ARE committed.
+.claude/hausa-cache/
 
 # the corpora .claude/persian/run.py builds the Persian decks from — the Wiktionary
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~230 MB) — plus

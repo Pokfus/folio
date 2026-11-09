@@ -36,7 +36,7 @@ from persian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'persian'
-COLOR = '#2A8424'
+COLOR = '#008763'
 FIELDS = ['Persian', 'Roman', 'Word', 'English', 'Forms', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

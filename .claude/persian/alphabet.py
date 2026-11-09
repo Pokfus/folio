@@ -34,7 +34,7 @@ from fa import fold
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'fa-abc'
-COLOR = '#2A8424'
+COLOR = '#008763'
 ZWJ = '\u200d'
 
 # (letter, its Persian name (what the speaker says), romanisation, joins forward?,

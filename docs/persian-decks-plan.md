@@ -102,5 +102,6 @@ the check. **A re-run is byte-identical** (verified for both decks). A1: 500 not
 217 by frequency; three sentences for 461, none for 14. The alphabet: 39 notes — the 32 letters, each in its four
 shapes (two for the seven that never join forward), آ, the three short-vowel marks, tašdid, hamze and tanvin;
 letters that share a sound (s: س ث ص, z: ز ذ ض ظ, t: ت ط, h: ه ح, ġ: غ ق) are told apart on the sound side by
-the word they ask for, and every sound side is unique (asserted). The hue is measured: `#2A8424`, 19.5 from its
-nearest of 46.
+the word they ask for, and every sound side is unique (asserted). The hue is measured: first `#2A8424`, which a
+parallel session's language also took before this merged, so it was re-swept against the 61 hues on main:
+`#008763`, 15.7 from its nearest.
