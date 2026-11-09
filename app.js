@@ -29121,6 +29121,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        place — the kinship test forbids a false claim, not a true one. */
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
+    /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 45 hues on the
+       page — a violet, 21.2 from its nearest neighbours (Flags, Rome and Japanese), against a tightest
+       existing pair of 4.0. Not a flag colour. */
+    "lang-hindi":      { bg: "#9F51B4" }, // measured violet
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the

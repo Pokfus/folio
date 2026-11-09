@@ -152,3 +152,8 @@ countries-info.json
 
 # Working cache for .claude/jlpt/ (JMdict, KANJIDIC2, Tatoeba, KanjiVG, the JLPT lists). The decks it writes ARE committed.
 .claude/jlpt-cache/
+
+# the corpora .claude/hindi/run.py builds the Hindi decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~280 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/hindi-cache/

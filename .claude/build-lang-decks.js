@@ -62,6 +62,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
   { word: "Spanish", name: "Spanish", l1: 486 },
+  { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
