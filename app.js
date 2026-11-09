@@ -29142,6 +29142,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        outright winner: 18.6 from its nearest neighbours (Rome, then China's Geography cobalt), 23.4 from
        Hindi's violet, against a tightest existing pair of 4.0. 4.5:1 against white. Not the flag's blue. */
     "lang-greek":      { bg: "#6F69D2" }, // measured periwinkle
+    /* HAUSA (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), and RE-SWEPT AT EACH MERGE: its first three
+       sweeps found the green Arabic now wears, the periwinkle Greek does and a deep indigo beside Urdu's,
+       each language measured in a parallel session the same day. Against all 60 hues on the merged shelf
+       the two best points are a crimson and a teal-green (15.7, in the shelf's crowded red and green bands);
+       this dusky indigo is next, 15.5 from Psychology and 15.6 from Astronomy, against a tightest existing
+       pair of 4.0. Indigo is the subject's own argument: the dye pits of Kano. Not a flag colour. 6.6:1. */
+    "lang-hausa":      { bg: "#665487" }, // measured dusky indigo
     /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 45 hues on the
        page — a violet, 21.2 from its nearest neighbours (Flags, Rome and Japanese), against a tightest

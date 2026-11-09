@@ -3579,6 +3579,18 @@ changed was the one that had been wrong all along.
   findings — the Russian in the Ukrainian subtitle list, the apostrophe, the pronouns' shared table, a table without
   its headword, diminutives as form-of entries, reciprocal aspect pairs — are 📖 `docs/ukrainian-decks-plan.md`. The
   `l1` row is Ethnologue's 32 million (via Wikipedia); the hue is measured, `#9F4500` (re-swept at the merge, Arabic having taken its first, `#2A8424`).
+- `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
+  collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
+  an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
+  (36 notes) **and A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hausa/run.py
+  [--level a1] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
+  is byte-identical. The thinnest sources on the shelf: Wiktionary has about 2,000 Hausa words and lacks core
+  ones (`yi`, `tafi`, `da`), so 137 of A1's cards carry Folio's own gloss (`hand.py`, no tone line — a tone
+  typed from memory has no source); there is no published frequency list, so frequency is counted from
+  Tatoeba's 21,850 Hausa sentences. **The only language deck with no speaker button** (no device it would help
+  has a Hausa voice; `speechLang: 'ha-NG'` stays for `spellTree`). The folds, the suffix stems, the homographs
+  whose count is another word's and the tone-line rule are 📖 `docs/hausa-decks-plan.md`. The `l1` row is
+  Ethnologue's 58 million (via Wikipedia); the hue is measured, `#665487` (re-swept at each merge; 60 hues on the shelf at the last).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

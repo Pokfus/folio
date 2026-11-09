@@ -61,6 +61,7 @@ before changing the thing it names.
 | `russian-decks-plan.md` | The plan for the Russian language decks (TORFL A1–C2 + phrases): word source, lemma order, stress, aspect pairs, the as-built findings per level. Alphabet, A1–C2 and phrases are built. |
 | `turkish-decks-plan.md` | The plan for the Turkish language decks (A1–C1 + phrases): sources checked, the card, the pitfalls, the build order, open decisions. |
 | `arabic-decks-plan.md` | The Arabic language decks (Modern Standard Arabic): the alphabet and A1 are built; word source, the vowelled card, right-to-left markup, the fold, the count and sentence rules, next levels. |
+| `hausa-decks-plan.md` | The plan for the Hausa language decks (Boko alphabet, A1–B1 assembled to CEFR from thin sources, phrases): the owner's decisions, what Wiktionary lacks and the hand glosses, the card, the findings. Alphabet and A1 are built. |
 | `hindi-decks-plan.md` | The plan for the Hindi language decks (Devanagari alphabet, A1–C1 assembled to CEFR, phrases): the owner's decisions, sources, the card, the findings. Alphabet and A1 are built. |
 | `polish-decks-plan.md` | The plan for the Polish language decks (CEFR A1–C2 assembled, phrases): the defaults taken, sources, the card, the findings. A1 is built. |
 | `bengali-decks-plan.md` | The plan for the Bengali language decks (Bangla-script alphabet, A1–C1 assembled to CEFR, phrases), the Hindi set's sister: decisions, sources, the card, the findings. Alphabet, A1 and A2 are built. |
