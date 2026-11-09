@@ -19,7 +19,7 @@ import json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hi import fold
-from hindi_level import LEVEL, TARGET, f, words_below
+from hindi_level import LEVEL, TARGET, RANK_KEY, f, words_below
 from inventory import INVENTORY
 
 POS_ORDER = ['verb', 'noun', 'adj', 'adv', 'pron', 'det', 'postp', 'conj', 'particle',
@@ -148,12 +148,51 @@ EXCLUDE = {
     'सुबूत': 'a second spelling of सबूत, taught in A2',
     'हिरन': 'a second spelling of हिरण, taught in A2',
     'गुना': 'a second spelling of गुणा, which carries the card',
+    # read off the C1 ranking (2026-11-09), wordfreq's list (news, web, Twitter): the
+    # people and places a proper-noun entry does not catch, and the same faults as before
+    'बंगाल': 'a region', 'हिमाचल': 'a state', 'शाह': 'counted as the surname Shah',
+    'ठाकुर': 'counted as the surname Thakur', 'कौर': 'counted as the name Kaur',
+    'करण': 'counted as the name Karan', 'गोस्वामी': 'counted as the surname Goswami',
+    'शमशेर': 'counted as the name Shamsher', 'सुमन': 'counted as the name Suman',
+    'दुर्योधन': 'a character of the Mahabharata', 'मीर': 'counted as the name Mir',
+    'लाला': 'counted as लाला, the title for a merchant, not "tulip"',
+    'रंजन': 'counted as the name Ranjan', 'जगन्नाथ': 'a deity\'s name',
+    'उद्धव': 'counted as the name Uddhav', 'ईशा': 'counted as the name Isha',
+    'देशमुख': 'counted as the surname Deshmukh', 'ज़ार': 'counted as "tsar", not "lament"',
+    'पोल': 'its count is the English "poll"', 'लोन': 'its count is the English "loan", not "salt"',
+    'सील': 'its count is the English "seal" (a stamp), not the animal',
+    'बेल': 'its count is the English "bail" and "bell", not the bael tree',
+    'आयत': 'its count is the Quranic verse, which the entry ("rectangle") lacks',
+    'राग': 'its count is the musical raga, which the entry ("colour, passion") lacks',
+    'रूपक': 'Wiktionary\'s only sense is "nickel"; "metaphor" is not on file',
+    'कुंडली': 'Wiktionary gives it no romanisation, and none is invented',
+    'रू': 'its count is रू., the abbreviation of रुपये',
+    'जिनसे': 'जिन + से, a pronoun and a postposition, not a lemma',
+    'खेला': 'its count is खेला, खेलना\'s past (A1)', 'करी': 'its count is करी, करना\'s feminine past',
+    'लाई': 'its count is लाई, लाना\'s feminine past', 'छाई': 'its count is छाई, छाना\'s feminine past',
+    'गाव': 'its count is गाँव "village" (A1): the fold drops the chandrabindu',
+    'बाला': 'its count is बाला in names and in -वाला, not "a bracelet"',
+    'भगवाना': 'its count is भगवा "saffron", a noun of its own',
+    'लीलना': 'its count is लीला, a noun of its own', 'मसलना': 'its count is मसला "issue", a noun of its own',
+    'लहरा': 'its count is लहर "wave" (B1), whose forms it shares',
+    'अंतर्राष्ट्रीय': 'a second spelling of अंतरराष्ट्रीय, taught in B2',
+    'त्यौहार': 'a second spelling of त्योहार, taught in A2', 'नहि': 'a spelling of नहीं, taught in A1',
+    'चिन्ह': 'a second spelling of चिह्न, taught in B2', 'एड़': 'a second form of एड़ी, taught in B1',
+    'मुहल्ला': 'the headword behind A2\'s मोहल्ला, which teaches it', 'जोगी': 'a second form of योगी',
+    'पगली': 'the feminine of पगला, which carries the card',
+    'सन': 'its count is सन / सन् "year (AD)", which has its own card, not "flax"',
+    'ठरकी': 'crude', 'पादना': 'crude', 'लौंडा': 'crude',
+    'ओला': 'its count is Ola, the cab company, not "hailstone"',
+    'फ़ील': 'its count is the English "feel", not "elephant"',
+    'नेम': 'its count is the English "name", not "rule, rite"',
+    'हेलीकॉप्टर': 'a second spelling of हेलिकॉप्टर, taught in B1',
+    'अमेरिकन': 'a second form of अमेरिकी, taught in A2', 'ख़र्चा': 'a second form of ख़र्च, taught in A2',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'साला', 'कमीना', 'हरामी', 'कुत्ती', 'चूतिया', 'भड़वा', 'गांडू', 'बकवास', 'हरामज़ादा',
-          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू', 'कुतिया'}
+          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू', 'कुतिया', 'लौड़ा'}
 
 
 def usable(L):
@@ -182,7 +221,7 @@ def main():
                 # the card prints the spelling written here and the target's meanings
                 via = L['alt_of']
                 tgt = lex.get(via)
-                L = dict(tgt, word=L['word'], freq=max(L['freq'], tgt['freq'])) \
+                L = dict(tgt, word=L['word'], **{RANK_KEY: max(L.get(RANK_KEY, 0), tgt.get(RANK_KEY, 0))}) \
                     if tgt and 'entries' in tgt else None
             if not L or (pos and not any(e['pos'] == pos for e in L['entries'])):
                 missing.append(item)
@@ -190,13 +229,13 @@ def main():
             seen.add(k)
             if via:
                 seen.add(via)     # साइकिल is साइकल's: the fill must not deal साइकल again
-            rows.append({'key': k, 'via': via, 'word': L['word'], 'freq': L['freq'], 'pos': pos or '',
+            rows.append({'key': k, 'via': via, 'word': L['word'], 'freq': L.get(RANK_KEY, 0), 'pos': pos or '',
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
     swears = {fold(s) for s in SWEARS}
     excl = {fold(s) for s in EXCLUDE}
     fill = []
-    for k, L in sorted(lex.items(), key=lambda kv: -kv[1]['freq']):
+    for k, L in sorted(lex.items(), key=lambda kv: -kv[1].get(RANK_KEY, 0)):
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
         if 'entries' not in L or L.get('formonly'):
@@ -209,13 +248,19 @@ def main():
         # fill's ranking of one is only an estimate (`extract.py`)
         if ' ' in k:
             continue
-        if not usable(L) or L['freq'] < 1:
+        if not usable(L) or L.get(RANK_KEY, 0) < 1:
+            continue
+        # C1's list (wordfreq: Wikipedia, web, Twitter, Reddit) is news-heavy: a spelling
+        # Wiktionary also files as a proper noun is dealt for the person or the place
+        # (मोदी "grocer", अखिलेश "God", असम "uneven").  Its fill takes none; this costs it
+        # some real words that are also given names (एकता, नारा), which the inventory may name.
+        if RANK_KEY == 'wf' and L.get('named'):
             continue
         # a lemma whose ONLY entries are phrases or proverbs belongs to the phrases deck
         if all(e['pos'] in ('phrase', 'proverb') for e in L['entries']):
             continue
         seen.add(k)
-        fill.append({'key': k, 'via': '', 'word': L['word'], 'freq': L['freq'], 'pos': '',
+        fill.append({'key': k, 'via': '', 'word': L['word'], 'freq': L[RANK_KEY], 'pos': '',
                      'source': 'frequency', 'topic': ''})
     rows += fill
     rows.sort(key=lambda r: (-r['freq'], r['key']))

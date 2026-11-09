@@ -3,6 +3,7 @@
 
     python3 .claude/hindi/run.py                 # A1
     python3 .claude/hindi/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/hindi/run.py --level c1      # C1 ranks by wordfreq's list (the wheel)
     python3 .claude/hindi/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/hindi/alphabet.py            # the alphabet deck (reads lex.json)
 
@@ -24,9 +25,11 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
 SOURCES AND LICENCES, which the deck's own description also states:
   · English Wiktionary via the kaikki.org extraction -- CC BY-SA 4.0
   · A frequency list built from OpenSubtitles (hermitdave/FrequencyWords) -- CC BY-SA 4.0
+  · C1's frequency: wordfreq 3.1.1's Hindi list (Wikipedia, ParaCrawl, Twitter, Reddit)
+    -- data CC BY-SA 4.0; read from the pinned wheel by `wordfreq_hi.py`, never installed
   · Tatoeba sentence pairs -- CC BY 2.0 FR
 """
-import os, runpy, shutil, subprocess, sys, urllib.request
+import hashlib, os, runpy, shutil, subprocess, sys, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.abspath(os.path.join(HERE, '..', 'hindi-cache'))
@@ -41,7 +44,14 @@ SOURCES = [
     ('hin_sentences_detailed.tsv', TATOEBA + 'hin/hin_sentences_detailed.tsv.bz2', True),
     ('eng_sentences.tsv', TATOEBA + 'eng/eng_sentences.tsv.bz2', True),
     ('hin-eng_links.tsv', TATOEBA + 'hin/hin-eng_links.tsv.bz2', True),
+    ('wordfreq-3.1.1-py3-none-any.whl', 'https://files.pythonhosted.org/packages/24/61/'
+     '62835c475d69872d30689f284497853fe33fe1d6dd18f57346d13305861d/wordfreq-3.1.1-py3-none-any.whl',
+     False),
 ]
+# A PINNED FILE is checked against its hash: the wheel's data ranks C1, and a different
+# wordfreq release would silently re-rank it.
+SHA256 = {'wordfreq-3.1.1-py3-none-any.whl':
+          '4b1c6ecffc6198be3396d5cf871c4423ca71c907c231348d352dd54d62b97473'}
 
 
 def fetch():
@@ -59,6 +69,10 @@ def fetch():
             subprocess.run(['bunzip2', '-f', tmp], check=True)
         else:
             os.replace(tmp, out)
+    for name, want in SHA256.items():
+        got = hashlib.sha256(open(os.path.join(CACHE, name), 'rb').read()).hexdigest()
+        if got != want:
+            raise SystemExit(f'{name}: sha256 {got}, expected {want}')
 
 
 def main():
@@ -73,7 +87,9 @@ def main():
         fetch()
     os.chdir(CACHE)
     stages = ['select.py', 'examples.py', 'build_deck.py']
-    if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
+    # C1 ranks by `wf`, which a lex.json built before the wheel was fetched lacks
+    stale = level == 'c1' and os.path.exists('lex.json') and '"wf":' not in open('lex.json').read(4000)
+    if not os.path.exists('lex.json') or stale or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:
         print(stage.split('.')[0] + ':')

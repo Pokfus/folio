@@ -92,7 +92,25 @@ SCOPE = {
                   'the arts, the media, education and expertise, medicine, character and the '
                   'mind, and the verbs, adjectives and adverbs of analysis and judgement',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for social, '
+                 'academic and professional purposes, and to produce clear, well-structured, '
+                 'detailed text on complex subjects',
+        'topics': 'academic work and method, law and the state, politics and administration, '
+                  'business and finance, science and medicine, the environment and geography, '
+                  'literature, religion and philosophy, history, the finer emotions, and the '
+                  'verbs, adjectives and discourse markers of complex argument',
+    },
 }
+
+# WHICH FREQUENCY RANKS A LEVEL'S FILL.  A1 to B2: the subtitle list (`freq`).  C1:
+# wordfreq's Hindi list (`wf`, `wordfreq_hi.py`), because the subtitle list has run out
+# by then -- its next 1,500 lemmas are counted 2 to 5 times each (plan §9, §10).
+RANK = {'c1': 'wf'}
+RANK_KEY = RANK.get(LEVEL, 'freq')
 
 
 def f(name):

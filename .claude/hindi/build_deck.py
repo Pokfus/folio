@@ -27,7 +27,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hi import fold, nfc
-from hindi_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from hindi_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, RANK_KEY
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'hindi'
@@ -103,6 +103,9 @@ ETYMS = {
     # B2 (2026-11-09)
     'तीर': ['3', '1'],        # "arrow" before "shore"
     'गौर': [''],              # ग़ौर "attention" (ग़ौर करना), which the fold files with गौर "white"
+    # C1 (2026-11-09)
+    'चंदा': ['2', '1'],       # "donation" before "the Moon"
+    'बाई': ['2'],             # "housemaid"; 1 is "left"
 }
 
 # THE CARD'S SPELLING, where the fold put two headwords under one key and the card
@@ -137,6 +140,7 @@ GLOSS = {
     'पृथ्वी': {'noun': ['the Earth', 'ground']},
     # its first gloss is "paramanu, atoms composing the classical elements"; this is its own last
     'परमाणु': {'noun': ['atom']},
+    'निर्मल': {'noun': []},   # "a female given name"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -149,6 +153,7 @@ LEAD = {
     'ताली': 'clapping',       # first listed is "key", which A1's चाबी teaches
     'त्रुटि': 'error',         # first listed is "truti (Hindu unit of time …)"
     'तालिका': 'list',          # first listed is "key"
+    'देशांतर': 'longitude',    # first listed is "foreign land"
 }
 
 # A ROMANISATION BY HAND, where Wiktionary gives the headword none (the alphabet deck's
@@ -441,6 +446,19 @@ WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
+# WHERE THE FILL'S FREQUENCY COMES FROM, by `hindi_level.RANK_KEY` (C1 has its own).
+FREQ_FROM = {
+    'freq': "frequency list built from film and television subtitles",
+    'wf': ("frequency list built from Hindi Wikipedia, web pages, Twitter and Reddit (the film "
+           "and television subtitles that rank the lower levels have no ranking left at this depth)"),
+}
+FREQ_SRC = {
+    'freq': "a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA 4.0)",
+    'wf': ("the Hindi list of wordfreq 3.1.1 by Robyn Speer, built from Wikipedia, ParaCrawl, "
+           "Twitter and Reddit (CC BY-SA 4.0)"),
+}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -465,7 +483,7 @@ def desc(entries, n):
         f"is assembled from two things that can be stated. {from_inv} of the {n} come from a "
         f"vocabulary written for the level's scope — {SC['topics']} — and the other "
         f"{n - from_inv} are the commonest remaining words of everyday Hindi, taken from a "
-        "frequency list built from film and television subtitles and counted by the WHOLE word, "
+        + FREQ_FROM[RANK_KEY] + " and counted by the WHOLE word, "
         "every form of a noun or a verb added together. The cards are dealt by that frequency, so "
         "the words you meet most often come first. "
         "Every headword is printed in Devanagari with a romanisation beneath it, Wiktionary's own "
@@ -478,8 +496,8 @@ def desc(entries, n):
         + EX_NOTE + ", with the word picked out in colour and a speaker beside the sentence and the "
         "headword. Sources. Level: the Common European Framework of Reference (Council of Europe), "
         "global scale. Meanings, gender, forms and romanisation: English Wiktionary, via the "
-        "kaikki.org extraction (CC BY-SA 4.0). Frequency: a word list built from OpenSubtitles "
-        "(hermitdave/FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), "
+        "kaikki.org extraction (CC BY-SA 4.0). Frequency: " + FREQ_SRC[RANK_KEY] + ". "
+        "Example sentences: Tatoeba (tatoeba.org), "
         "CC BY 2.0 FR."
     )
 

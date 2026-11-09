@@ -34,6 +34,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hi import fold, nfc, is_hindi
 
 DUMP, FREQ, OUT = 'kaikki-hi.jsonl', 'hi_full.txt', 'lex.json'
+# THE SECOND SOURCE (C1's ranking): wordfreq's Hindi list, read from the pinned wheel
+# by `wordfreq_hi.py`.  Its lemma frequency is computed by the SAME rules as the
+# subtitles' and stored beside it as `wf` (per billion words); `freq` is untouched.
+WHEEL = 'wordfreq-3.1.1-py3-none-any.whl'
 
 KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'num', 'prep', 'pron',
             'conj', 'particle', 'det', 'proverb', 'prep_phrase', 'postp'}
@@ -95,6 +99,7 @@ def main():
             k = fold(p[0])
             counts[k] = counts.get(k, 0) + int(p[1])
 
+    named = set()            # spellings Wiktionary also files as a proper noun (C1's rule)
     lemmas = {}              # fold(word) -> {word, entries:[...]}
     pointers = []            # (surface fold, target fold) from form-of entries
     formonly = {}            # pointers kept for the inventory (see below)
@@ -102,6 +107,8 @@ def main():
         e = json.loads(line)
         pos = e.get('pos')
         w = nfc(e.get('word', ''))
+        if pos == 'name':
+            named.add(fold(w))
         # A LANGUAGE'S NAME is a proper noun in Wiktionary, and the fill never takes one;
         # `हिंदी` without it is "an Indian; Indian", which is not what an A1 card means.
         if pos == 'name' and w in NAME_OK and e.get('etymology_number') in (None, '1'):
@@ -152,12 +159,6 @@ def main():
                'formal_alt': [nfc(f['form']) for f in e.get('forms') or []
                               if 'alternative' in (f.get('tags') or []) and is_hindi(f.get('form', ''))]}
         lemmas.setdefault(fold(w), {'word': w, 'entries': []})['entries'].append(ent)
-    for k, L in lemmas.items():
-        # a MULTI-WORD lemma (के लिए, के साथ) is not in a list of single words; it is
-        # dealt by its rarest word's count, halved, so it sits near its words.
-        if ' ' in k:
-            parts = [counts.get(p, 0) for p in k.split()]
-            L['multi'] = min(parts) / 2 if parts else 0
 
     # which lemmas claim which surface
     claims = collections.defaultdict(set)
@@ -197,34 +198,63 @@ def main():
                 and (any(e['pos'] in CLOSED for e in lemmas[surf]['entries'])
                      or all(e['pos'] == 'adj' and not e['table'] for e in lemmas[surf]['entries'])):
             claims[surf] = {surf}
-    alone = collections.Counter()
-    for surf, who in claims.items():
-        if len(who) == 1:
-            alone[next(iter(who))] += counts.get(surf, 0)
-    freq = collections.Counter(alone)
-    for _ in range(2):
-        nxt = collections.Counter(alone)
+    def lemma_freq(counts):
+        """A surface-form count list -> {lemma: frequency}, by the rules above."""
+        alone = collections.Counter()
         for surf, who in claims.items():
-            if len(who) < 2:
-                continue
-            c = counts.get(surf, 0)
-            if not c:
-                continue
-            wts = {k: freq[k] + 1 for k in who}
-            tot = sum(wts.values())
-            for k in who:
-                nxt[k] += c * wts[k] / tot
-        freq = nxt
+            if len(who) == 1:
+                alone[next(iter(who))] += counts.get(surf, 0)
+        freq = collections.Counter(alone)
+        for _ in range(2):
+            nxt = collections.Counter(alone)
+            for surf, who in claims.items():
+                if len(who) < 2:
+                    continue
+                c = counts.get(surf, 0)
+                if not c:
+                    continue
+                wts = {k: freq[k] + 1 for k in who}
+                tot = sum(wts.values())
+                for k in who:
+                    nxt[k] += c * wts[k] / tot
+            freq = nxt
+        # a MULTI-WORD lemma (के लिए, के साथ) is not in a list of single words; it is
+        # dealt by its rarest word's count, halved, so it sits near its words.  Kept
+        # apart from `freq`: an alternative spelling pointing at one reads `freq` (0).
+        multi = {}
+        for k in lemmas:
+            if ' ' in k:
+                parts = [counts.get(p, 0) for p in k.split()]
+                multi[k] = min(parts) / 2 if parts else 0
+        return freq, multi
+
+    freq, multi = lemma_freq(counts)
+    wf = None
+    if os.path.exists(WHEEL):
+        import wordfreq_hi
+        wcounts = {}
+        for w, c in wordfreq_hi.load(WHEEL).items():
+            if is_hindi(w):
+                wcounts[fold(w)] = wcounts.get(fold(w), 0) + c
+        wf, wmulti = lemma_freq(wcounts)
 
     out = {}
     for k, L in formonly.items():
         if k not in lemmas:
             L['freq'] = round(freq.get(L.get('alt_of', k), 0) if 'alt_of' in L else counts.get(k, 0), 2)
+            if wf is not None:
+                L['wf'] = round(wf.get(L.get('alt_of', k), 0) if 'alt_of' in L else wcounts.get(k, 0), 2)
             L['own'] = counts.get(k, 0)
             L['formonly'] = True
             out[k] = L
     for k, L in lemmas.items():
-        L['freq'] = round(L.pop('multi', 0) or freq.get(k, 0), 2)
+        L['freq'] = round(multi.get(k, 0) or freq.get(k, 0), 2)
+        if wf is not None:
+            L['wf'] = round(wmulti.get(k, 0) or wf.get(k, 0), 2)
+        # A SPELLING THAT IS ALSO A PROPER NOUN (मोदी, अखिलेश, इंदिरा, असम): wordfreq's news
+        # and Twitter count it as the name.  Marked, and only C1's fill reads the mark.
+        if k in named:
+            L['named'] = True
         L['own'] = counts.get(k, 0)
         out[k] = L
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False)

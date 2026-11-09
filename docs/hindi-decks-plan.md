@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-09): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/hindi/`, §6–§9). C1
-and the phrases deck are not — and C1 needs a decision first (§9, "C1").
+**STATUS (2026-11-09): the alphabet deck and A1 to C1 are built** (`.claude/hindi/`, §6–§10); C1 is ranked
+by a second frequency source (§10). The phrases deck is not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -30,7 +30,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
 | Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate — built | `Hindi-B2.folio-deck.json` | 1,500 |
-| Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
+| Hindi C1 Advanced — built | `Hindi-C1.folio-deck.json` | 1,500 |
 | Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
@@ -41,6 +41,7 @@ The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alp
 |---|---|---|
 | meanings, gender, forms, romanisation | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Hindi.jsonl`, 170 MB) | CC BY-SA 4.0 |
 | frequency | hermitdave/FrequencyWords, OpenSubtitles 2018, `hi_full.txt` (21,309 forms — small) | CC BY-SA 4.0 |
+| C1's frequency | wordfreq 3.1.1's Hindi list (Wikipedia, ParaCrawl, Twitter, Reddit; 26,653 forms), read from the pinned PyPI wheel (sha256 `4b1c6ecf…`) | data CC BY-SA 4.0 (code Apache-2.0, not used) |
 | example sentences | Tatoeba `hin` exports (≈13,300 Hindi–English pairs) | CC BY 2.0 FR |
 | level scope | CEFR global scale (Council of Europe), quoted | — |
 | L1 speakers (`LANGS`) | 345 million, Census of India 2011, via Wikipedia's infobox, read 2026-11-09 | — |
@@ -86,7 +87,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -236,10 +237,69 @@ The subtitles' register (`गोलीबारी`, `बलात्कार�
 ordered deck; only crude words are excluded (`मूतना`). Some synonyms of lower-level words are loans the
 subtitles use (`टाइम`, `बुक`, `टीचर`, `इंटरव्यू`), kept as Hindi speakers use them.
 
-**C1 — a decision for the owner before it is built.** C1 is planned at 1,500 notes. After B2 the subtitle
+**C1 — the decision (2026-11-09, the owner: "Try find another source for C1. If there isn't one, make
+C1 smaller"): a second source was found, so C1 keeps its 1,500 notes (§10).** The question as it was put: C1 is planned at 1,500 notes. After B2 the subtitle
 list has nothing left to rank: its next 1,500 lemmas are counted 2 to 5 times each, which is not a
 frequency at all. Building C1 the same way would make it an arbitrary sample. The choices: (a) C1 almost
 wholly from a hand-written inventory, which is a large piece of writing; (b) a second frequency source — a
 larger corpus with a licence that allows it (e.g. a news or Wikipedia word list); (c) a smaller C1. None is
 chosen here.
+
+## 10. As built (2026-11-09): C1, on a second frequency source
+
+`python3 .claude/hindi/run.py --level c1` (it re-extracts once if `lex.json` predates the wheel).
+1,500 notes, **121 from the inventory and 1,379 by frequency**; three sentences for 65, none for 1,212.
+A1 to B2 and the alphabet still rebuild byte-identical; a C1 re-run is byte-identical.
+
+**THE SOURCE SEARCH.** Asked for "another source for C1; if there isn't one, make C1 smaller":
+- **wordfreq** (Robyn Speer) — taken. Its Hindi list is built from Wikipedia, ParaCrawl web text, Twitter
+  and Reddit, no subtitles; 26,653 forms, each at least once per million words. Data CC BY-SA 4.0 (the
+  decks' other sources' licence). Fetched as the pinned PyPI wheel, `wordfreq-3.1.1-py3-none-any.whl`,
+  sha256-checked by `run.py`; `wordfreq_hi.py` reads its `small_hi.msgpack.gz` with a few lines of
+  standard-library msgpack, so nothing is installed — checked equal, form for form, to the library's own
+  `get_frequency_dict('hi')`. (The GitHub tag path 404'd; the wheel is the stable address.)
+- **The Leipzig Corpora Collection** — not used: its download pages sit behind an anti-bot challenge,
+  which was not bypassed, and its licence could not be read to confirm commercial use is allowed.
+- **A Hindi Wikipedia dump** (CC BY-SA, 242 MB, reachable) — not needed: wordfreq already includes it.
+
+**THE DEPTH IT GIVES.** Of the lemmas A1 to B2 do not teach, 4,840 occur at least once per million words in
+wordfreq's list; C1's fill runs from about 180 down to **5.9 per million** (the subtitle list was down to
+2 to 5 occurrences in all). So C1 was **not** made smaller.
+
+**HOW IT IS WIRED, without touching A1 to B2.** `extract.py`'s splitting of shared forms is now one
+function, `lemma_freq`, run once for the subtitle counts (`freq`, unchanged — `lex.json` was checked
+identical apart from the new keys) and once for wordfreq's (`wf`). The refactor first put the multi-word
+estimate into the shared table, which handed it to 27 alternative spellings and moved B1; caught by the
+byte-identical check, and the estimate kept apart again. `hindi_level.RANK = {'c1': 'wf'}` picks the
+ranking; `select.py` reads `RANK_KEY`; the description names the source by `FREQ_FROM` / `FREQ_SRC`.
+
+**The findings, each a rule:**
+- **A news-and-Twitter list is full of people and places**: its top words beyond B2 were मोदी, कुमार, यादव,
+  नरेंद्र, अखिलेश, इंदिरा, असम. `extract.py` marks a lemma whose spelling Wiktionary also files as a
+  proper noun (`named`, 1,066 lemmas) and **C1's fill takes none of them** (`select.py`). It costs some real
+  words that are also given names (एकता, नारा, सृष्टि) — the pool is deep enough to afford it, and the
+  inventory can still name them. The people and places it does not catch, and the usual faults, are
+  **56 lines** of `select.EXCLUDE`: surnames (शाह, ठाकुर, देशमुख …), English words and a brand (`पोल` "poll",
+  `लोन` "loan", `ओला` the cab company), other words' forms (`खेला`, `करी`, `लाई`, `छाई` — past forms of A1
+  verbs; `गाव` is `गाँव` through the fold), entries missing the sense the count is for (`राग`, `आयत`,
+  `रूपक` "nickel"), and second spellings (`त्यौहार`, `मुहल्ला`, `अंतर्राष्ट्रीय`, `हेलीकॉप्टर` …).
+- `चंदा` leads with "donation", `बाई` with "housemaid", `देशांतर` with "longitude"; `निर्मल` loses its "a
+  female given name" block.
+- `कुंडली` has no romanisation anywhere in Wiktionary's data and is excluded rather than given an invented one.
+- The cross-deck gloss comparison finds many shared glosses, nearly all **register pairs a C1 learner
+  should have** — Sanskrit, Persian and English-loan synonyms of everyday words (नेत्र / आँख, सियासत /
+  राजनीति, यूनिवर्सिटी / विश्वविद्यालय) — and they are kept.
+
+**The inventory** (10 topics, 121 words). Not Wiktionary headwords, reported and dropped: `शोधपत्र`,
+`अनुप्रयोग`, `संश्लेषण`, `नौकरशाह`, `बहुपक्षीय`, `अनुसमर्थन`, `विकेंद्रीकरण`, `संघवाद`, `देनदारी`,
+`उदारीकरण`, `वैश्वीकरण`, `राजकोषीय`, `प्रतिरक्षा`, `शल्यक्रिया`, `प्रतिजैविक`, `अपरदन`, `मैदानी`,
+`मरुस्थलीकरण`, `जैवविविधता`, `पद्य`, `नीतिशास्त्र`, `अध्यात्म`, `कर्मकांड`, `कालखंड`, `सामंत`, `सामंतवाद`,
+`विह्वल`, `क्षोभ`, `प्रतिपादित`, `तदनुसार`, `निहितार्थ`, `विश्लेषणात्मक`, `खंडित`, `उद्धृत`, `इंगित`,
+`समाहित`, `सर्वमान्य`; and `रूपक` was taken out (above).
+
+**Known, left.** 1,212 of 1,500 words have no Tatoeba sentence. The register is news and public life —
+politics, religion, cricket (`बल्लेबाज़`, `शतक`), administration (`तहसील`, `जनपद`) — because that is what
+Wikipedia and Twitter write about; it suits C1's scope better than the subtitles' crime drama, but it is a
+different everyday from A1's. Some English loans the source counts are kept as Hindi uses them (`गेम`,
+`लिस्ट`, `रिज़ल्ट`).
 

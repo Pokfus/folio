@@ -3392,11 +3392,13 @@ changed was the one that had been wrong all along.
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes), **A1,
   `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Hindi-A2.folio-deck.json`**
-  (750 notes / 1,500 cards) **B1, `decks/Hindi-B1.folio-deck.json`** (1,000 notes / 2,000 cards) **and B2,
-  `decks/Hindi-B2.folio-deck.json`** (1,500 notes / 3,000 cards), each built on the shipped levels below it,
-  no word taught twice under either spelling. B2 exhausted the subtitle frequency list (its fill words are
-  counted 5 to 14 times); C1 waits for the owner's choice of source.
-  `python3 .claude/hindi/run.py [--level a1|a2|b1|b2]`,
+  (750 notes / 1,500 cards) **B1, `decks/Hindi-B1.folio-deck.json`** (1,000 notes / 2,000 cards), **B2,
+  `decks/Hindi-B2.folio-deck.json`** (1,500 notes / 3,000 cards) **and C1, `decks/Hindi-C1.folio-deck.json`**
+  (1,500 notes / 3,000 cards), each built on the shipped levels below it, no word taught twice under either
+  spelling. B2 exhausted the subtitle frequency list, so **C1 is ranked by a second source**, wordfreq 3.1.1's
+  Hindi list (Wikipedia, web, Twitter, Reddit; CC BY-SA 4.0), read from the pinned, sha256-checked PyPI wheel
+  by `wordfreq_hi.py` — and its fill skips any spelling Wiktionary also files as a proper noun.
+  `python3 .claude/hindi/run.py [--level a1|a2|b1|b2|c1]`,
   `python3 .claude/hindi/alphabet.py`, `node .claude/hindi/check-hindi.js`; a re-run is byte-identical. The
   UKBI / TORFL shape: no exam board publishes a Hindi list, so a level is a topic inventory plus lemma
   frequency, and the description says so. The plan, the sources and every finding (the nukta / chandrabindu
