@@ -54,17 +54,22 @@ const MDAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 /* A date as written on a date line -> { lo, hi, circa }, where lo / hi are [astronomicalYear, month, day]
    bounds. "8 July 1851", "July 1851", "1851", "c. 271 – 273 CE", "95 BCE", "15 March 44 BCE". */
 function parseDate(id, what, s) {
-  // a qualifier after a comma is kept on the line and not read ("390 BCE, by tradition")
-  let t = String(s || "").trim().replace(/\s*\(age[^)]*\)$/i, "").split(",")[0].trim().replace(/[‐-―−]/g, "-");
+  // a qualifier after a comma and a space is kept on the line and not read ("390 BCE, by tradition");
+  // a comma inside a number is grouping ("c. 10,500 BCE")
+  let t = String(s || "").trim().replace(/\s*\(age[^)]*\)$/i, "").split(/,\s+/)[0].trim().replace(/[‐-―−]/g, "-");
   // a range whose first half borrows the second's month and year: "1 July - 18 November 1916", "1 - 3 July 1863"
-  const half = t.match(/^(c\.\s*)?(\d{1,2})(?:\s+([A-Za-z]+))?\s*-\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{1,4})(\s*(?:BCE|CE))?$/);
+  const half = t.match(/^(c\.\s*)?(\d{1,2})(?:\s+(?!(?:BCE|CE)\b)([A-Za-z]+))?\s*-\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{1,4})(\s*(?:BCE|CE))?$/);
   if (half) t = (half[1] || "") + half[2] + " " + (half[3] || half[5]) + " " + half[6] + (half[7] || "") + " - " + half[4] + " " + half[5] + " " + half[6] + (half[7] || "");
-  const m = t.match(/^(c\.\s*)?(?:(\d{1,2})\s+)?(?:([A-Za-z]+)\s+)?(\d{1,4})(?:\s*(BCE|CE))?(?:\s*-\s*(?:(\d{1,2})\s+)?(?:([A-Za-z]+)\s+)?(\d{1,4})(?:\s*(BCE|CE))?)?$/);
+  // a month range sharing one year: "January - July 332 BCE"
+  const mr = t.match(/^(c\.\s*)?([A-Za-z]+)\s*-\s*([A-Za-z]+)\s+(\d{1,4})(\s*(?:BCE|CE))?$/);
+  if (mr && MONTHS.includes(mr[2].toLowerCase()) && MONTHS.includes(mr[3].toLowerCase())) t = (mr[1] || "") + mr[2] + " " + mr[4] + (mr[5] || "") + " - " + mr[3] + " " + mr[4] + (mr[5] || "");
+  // (?!BCE|CE): an era is never a month, so "87 BCE - 1 March 86 BCE" reads as two dates
+  const m = t.match(/^(c\.\s*)?(?:(\d{1,2})\s+(?!(?:BCE|CE)\b))?(?:(?!(?:BCE|CE)\b)([A-Za-z]+)\s+)?(\d{1,2},\d{3}|\d{1,4})(?:\s*(BCE|CE))?(?:\s*-\s*(?:(\d{1,2})\s+(?!(?:BCE|CE)\b))?(?:(?!(?:BCE|CE)\b)([A-Za-z]+)\s+)?(\d{1,2},\d{3}|\d{1,4})(?:\s*(BCE|CE))?)?$/);
   if (!m) die(id + " " + what + ": cannot read the date \"" + s + "\" — write \"8 July 1851\", \"1851\", \"c. 271 – 273 CE\" or \"95 BCE\"");
   const [, circa, d1, mo1, y1, e1, d2, mo2, y2, e2] = m;
   const era2 = e2 || e1, era1 = e1 || (y2 ? e2 : null);
   const part = (d, mo, y, era) => {
-    const yr = Number(y);
+    const yr = Number(String(y).replace(/,/g, ""));
     if (yr < 1000 && !era) die(id + " " + what + ": \"" + s + "\" — a year before 1000 carries BCE or CE");
     let mi = null;
     if (mo) { mi = MONTHS.indexOf(mo.toLowerCase()); if (mi < 0) die(id + " " + what + ": \"" + mo + "\" is not a month"); }
