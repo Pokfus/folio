@@ -37,7 +37,7 @@ from hausa_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'hausa'
-COLOR = '#6F69D2'          # measured (app.js "lang-hausa"; docs/hausa-decks-plan.md)
+COLOR = '#5D2A8A'          # measured (app.js "lang-hausa"; docs/hausa-decks-plan.md)
 FIELDS = ['Hausa', 'Tone', 'Word', 'English', 'Forms', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

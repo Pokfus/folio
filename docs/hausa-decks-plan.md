@@ -125,5 +125,9 @@ tones). `node .claude/hausa/check-hausa.js` is the check. **A re-run is byte-ide
 decks). A1: 500 notes, 294 from the inventory and 206 by frequency; three sentences for 493, none for 5.
 The alphabet: 36 notes — the 28 letters of the Nigerian order (with 'y / ƴ as one), the glottal stop, the
 rolled r̃, the diphthongs ai and au, and the digraphs kw, gw, ƙw, ky; every sound side unique (asserted).
-The shelf's hue is measured: `#6F69D2`, 18.6 from its nearest of 46 (the sweep's best point, a green at
-19.5, was refused: the Languages section already has two greens).
+The shelf's hue is measured: `#5D2A8A`, a deep indigo, 16.9 from its nearest of 49 (Rome; Japanese 17.0).
+**Re-swept at the merge**: the first sweep's best point was a green (19.5) and the second's a periwinkle
+(`#6F69D2`, 18.6) — and Arabic and Greek, built in parallel sessions the same day, took exactly those two.
+On the merged shelf the best point is a dark olive-brass (17.7, beside German's brown), the band the
+curated notes in `app.js` have refused before; the indigo is the next, and the subject's own colour (the
+dye pits of Kano).

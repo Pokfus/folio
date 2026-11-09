@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 198 MB of decks. The file itself is fetched on Add. */
+   section without fetching 200 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -20,6 +20,8 @@ window.LANG_DECKS = [
   { lang: "Spanish", file: "DELE-C1-Spanish.folio-deck.json", id: "delec1", title: "DELE C1 — Spanish", sub: "1,998 more words, none of them in A1, A2, B1 or B2 · both directions, as two cards per word", notes: 1998, cards: 3996, ex: 85, bytes: 5738288, rev: "c931bbf9a835" },
   { lang: "Spanish", file: "DELE-C2-Spanish.folio-deck.json", id: "delec2", title: "DELE C2 — Spanish", sub: "2,000 more words, none of them in A1 to C1 · both directions, as two cards per word", notes: 2000, cards: 4000, ex: 70, bytes: 6658863, rev: "785e83714707" },
   { lang: "Spanish", file: "Spanish-Phrases.folio-deck.json", id: "esphrases", title: "Spanish — Common phrases and expressions", sub: "400 expressions · both directions, as two cards each", notes: 400, cards: 800, ex: 100, bytes: 452429, rev: "87ef54542a88" },
+  { lang: "Arabic", file: "Arabic-Alphabet.folio-deck.json", id: "arabc", title: "Arabic Alphabet", sub: "31 letters and signs · both directions, as two cards per letter", notes: 31, cards: 62, ex: 0, bytes: 31388, rev: "721c47e1222e" },
+  { lang: "Arabic", file: "Arabic-A1.folio-deck.json", id: "arabica1", title: "Arabic A1", sub: "500 words · Modern Standard Arabic · both directions", notes: 500, cards: 1000, ex: 98, bytes: 901059, rev: "68995070eb08" },
   { lang: "Hindi", file: "Hindi-Alphabet.folio-deck.json", id: "hiabc", title: "Hindi Alphabet (Devanagari)", sub: "59 letters and signs · both directions, as two cards per letter", notes: 59, cards: 118, ex: 0, bytes: 25772, rev: "4ea40487bf15" },
   { lang: "Hindi", file: "Hindi-A1.folio-deck.json", id: "hindia1", title: "Hindi A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, bytes: 1258544, rev: "8365d31f4298" },
   { lang: "Portuguese", file: "CAPLE-A1-Portuguese.folio-deck.json", id: "caplea1", title: "CAPLE A1 — Portuguese", sub: "500 words · European Portuguese · both directions", notes: 491, cards: 982, ex: 100, bytes: 1881028, rev: "cea4703e5da1" },
@@ -52,6 +54,8 @@ window.LANG_DECKS = [
   { lang: "Turkish", file: "Turkish-B2.folio-deck.json", id: "turkishb2", title: "Turkish B2", sub: "1,197 words · both directions, as two cards per word", notes: 1197, cards: 2394, ex: 99, say: false, bytes: 1649241, rev: "f219332787cc" },
   { lang: "Turkish", file: "Turkish-C1.folio-deck.json", id: "turkishc1", title: "Turkish C1", sub: "997 words · both directions, as two cards per word", notes: 997, cards: 1994, ex: 98, say: false, bytes: 1370437, rev: "1777e5e08258" },
   { lang: "Turkish", file: "Turkish-Phrases-and-Expressions.folio-deck.json", id: "trphrase", title: "Turkish Phrases and Expressions", sub: "483 expressions · 118 everyday, 304 idioms, 61 proverbs · both directions", notes: 483, cards: 966, subs: 3, tree: [{"n":"Phrases","c":236,"x":66},{"n":"Idioms","c":608,"x":56},{"n":"Proverbs","c":122,"x":54}], flat: true, ex: 58, say: false, bytes: 353426, rev: "1e2fecf0b8ef" },
+  { lang: "Telugu", file: "Telugu-Alphabet.folio-deck.json", id: "teabc", title: "Telugu Alphabet", sub: "52 letters and signs · both directions, as two cards per letter", notes: 52, cards: 104, ex: 0, bytes: 23413, rev: "c4be61ce6314" },
+  { lang: "Telugu", file: "Telugu-A1.folio-deck.json", id: "telugua1", title: "Telugu A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 19, bytes: 336893, rev: "df05a909b180" },
   { lang: "German", file: "Goethe-A1-German.folio-deck.json", id: "goethea1", title: "Goethe A1 — German", sub: "785 words · both directions, as two cards per word", notes: 785, cards: 1570, ex: 99, bytes: 2384244, rev: "d7219703ca3b" },
   { lang: "German", file: "Goethe-B1-German.folio-deck.json", id: "goetheb1", title: "Goethe B1 — German", sub: "1786 words · both directions, as two cards per word", notes: 1786, cards: 3572, ex: 94, bytes: 6400301, rev: "0bb68dbcb8e5" },
   { lang: "German", file: "German-B2-Vocabulary.folio-deck.json", id: "germanb2", title: "German B2 — Vocabulary", sub: "3000 words · both directions, as two cards per word", notes: 3000, cards: 6000, ex: 92, bytes: 9687953, rev: "e03079cc7ff6" },
@@ -83,4 +87,6 @@ window.LANG_DECKS = [
   { lang: "Indonesian", file: "UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json", id: "ukbi6", title: "UKBI 6 Sangat Unggul — Indonesian", sub: "2500 words · both directions, as two cards per word", notes: 2500, cards: 5000, ex: 34, say: false, bytes: 1389616, rev: "f7e12039e0ac" },
   { lang: "Indonesian", file: "UKBI-7-Istimewa-Indonesian.folio-deck.json", id: "ukbi7", title: "UKBI 7 Istimewa — Indonesian", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 16, say: false, bytes: 665895, rev: "b8494fddb502" },
   { lang: "Indonesian", file: "Indonesian-Phrases-and-Expressions.folio-deck.json", id: "idphrase", title: "Indonesian Phrases and Expressions", sub: "228 expressions · 84 everyday, 111 idioms, 33 proverbs · both directions", notes: 228, cards: 456, subs: 3, tree: [{"n":"Phrases","c":168,"x":54},{"n":"Idioms","c":222,"x":14},{"n":"Proverbs","c":66,"x":18}], flat: true, ex: 29, say: false, bytes: 128897, rev: "d37db8b51350" },
+  { lang: "Greek", file: "Greek-Alphabet.folio-deck.json", id: "elabc", title: "Greek Alphabet", sub: "39 letters, letter pairs and signs · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 20633, rev: "bd6c036d16e7" },
+  { lang: "Greek", file: "Greek-A1.folio-deck.json", id: "greeka1", title: "Greek A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1495976, rev: "b4aa63c726e2" },
 ];
