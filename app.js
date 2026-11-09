@@ -29119,21 +29119,87 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Nothing here is a flag: Mandarin is a muted rose-red rather than the PRC's, and the resemblance to
        the CHINA collection's vermilion is left rather than avoided, those two genuinely being about one
        place — the kinship test forbids a false claim, not a true one. */
+    /* BENGALI (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep's peak was the green Arabic took,
+       and its second (outside green) the periwinkle Greek took, each measured in a parallel session. Re-swept at
+       the merge against all 49 other hues on the page: this dark olive is the outright winner, 17.7 from its
+       nearest neighbour (German's brown), against a tightest existing pair of 4.0; 9.3:1 against white. Not a
+       flag colour. */
+    "lang-bengali":    { bg: "#574518" }, // measured dark olive
+    /* ARABIC (Nov 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the shelf's band
+       (L 28–55, chroma 7–62, now also at least 4.5:1 against white) for the point farthest from every hue on the page. Its
+       first sweep found #9F51B4 — and so did Hindi's, run on the same shelf in a parallel session, so the two arrived wearing
+       one colour (Turkish and Japanese did the same in Oct 2026). Re-swept at the merge against all 46 with Hindi's violet on
+       the shelf: a leaf green, 19.5 from its nearest neighbour (Portuguese's #009657); 4.7:1 against white. Not a flag
+       colour: Arabic is the language of twenty-odd states, and none of them is its colour. */
+    "lang-arabic":     { bg: "#2A8424" }, // measured green
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
+    /* GREEK (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep's winner was a green
+       (#2A8424), refused as a third green in the section — and Arabic, measured in a parallel session, took
+       that same green. Re-swept at the merge against all 48 other hues on the page, this periwinkle is the
+       outright winner: 18.6 from its nearest neighbours (Rome, then China's Geography cobalt), 23.4 from
+       Hindi's violet, against a tightest existing pair of 4.0. 4.5:1 against white. Not the flag's blue. */
+    "lang-greek":      { bg: "#6F69D2" }, // measured periwinkle
+    /* HAUSA (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), and RE-SWEPT AT EACH MERGE: its first three
+       sweeps found the green Arabic now wears, the periwinkle Greek does and a deep indigo beside Urdu's,
+       each language measured in a parallel session the same day. Against all 60 hues on the merged shelf
+       the two best points are a crimson and a teal-green (15.7, in the shelf's crowded red and green bands);
+       this dusky indigo is next, 15.5 from Psychology and 15.6 from Astronomy, against a tightest existing
+       pair of 4.0. Indigo is the subject's own argument: the dye pits of Kano. Not a flag colour. 6.6:1. */
+    "lang-hausa":      { bg: "#665487" }, // measured dusky indigo
     /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 45 hues on the
        page — a violet, 21.2 from its nearest neighbours (Flags, Rome and Japanese), against a tightest
        existing pair of 4.0. Not a flag colour. */
     "lang-hindi":      { bg: "#9F51B4" }, // measured violet
+    /* URDU (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep, against 46 hues, chose #7066D0 —
+       and Greek, measured the same day in a parallel session, chose #6F69D2, so on merging Urdu was re-swept
+       against all 50 hues on the page, greens left out as Pakistan's flag colour: a deep indigo-violet, 18.1
+       from Rome's purple and 18.3 from Japanese's plum, and 21.8 from Hindi's violet — a resemblance left rather
+       than avoided, the two being one spoken language in two scripts. 10.1:1 against white. */
+    "lang-urdu":       { bg: "#58288A" }, // measured indigo-violet
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
+    /* LATIN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB (ΔE76) inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 55 hues on the page.
+       Its first sweep found the periwinkle Greek's parallel sweep also found, so it was re-swept at the merge with
+       the nine new languages on the shelf: a walnut brown, 16.2 from its nearest neighbour (World History's sepia),
+       against a tightest existing pair of 4.0. 6.8:1 against white. Not a flag colour. */
+    "lang-latin":      { bg: "#75543F" }, // measured walnut
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
        27.2 from its nearest neighbour. 9.9:1 against white. */
     "lang-japanese":   { bg: "#780F75" },
+    /* KOREAN (Nov 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB (ΔE76) inside
+       the shelf's band (L 28–55, chroma 7–62, at least 4.5:1 against white) for the point farthest from every other
+       hue on the page. Its first sweep found #9F51B4 — and so did Hindi's, run in a parallel session — so on merging
+       it was re-swept against all 54: a dark green, 16.3 from its nearest neighbour (Egypt), against a tightest
+       existing pair of 4.0. 8.4:1 against white. Not a flag colour, and well clear of the History shelf's `korea`. */
+    "lang-korean":     { bg: "#365442" }, // measured dark green
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
+    /* POLISH (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a green, #318526; at the merge with the nine languages that reached main
+       meanwhile that green sat 1.6 from another collection's (#2A8424), so it was re-swept against all 57: a
+       slate blue, 15.7 from its nearest neighbour (#2E6E8E), against a tightest existing pair of 4.0. Not a
+       flag colour: Poland's are white and red. */
+    "lang-polish":     { bg: "#6B7493" }, // measured slate
+    /* PERSIAN (Nov 2026; the reader asked for "Farsi") was not named a colour, so it was MEASURED as French was:
+       swept in CIELAB inside the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point
+       farthest from all 61 hues on the page — a teal green, 15.7 from its nearest neighbour. Its first sweep,
+       on a shelf of 46, found #2A8424, which a parallel session's language took first; re-swept at the merge. */
+    "lang-persian-farsi": { bg: "#008763" }, // measured teal green
     "lang-portuguese": { bg: "#009657" }, // green
+    /* ROMANIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep found #2A8424 — and so did
+       Arabic's, run in a parallel session, so it was re-swept at the merge against all 51 other hues on the page:
+       an olive, 16.7 from its nearest neighbours (Geography's olive, then a brown and Italian's green), against a
+       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (the flag is blue, yellow and red). */
+    "lang-romanian":   { bg: "#757839" }, // measured olive
     /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
        shelf's band (L 28–55, chroma 7–62) and taken as far as possible from every hue already placed. It was
        first a magenta, measured before Japanese and Turkish reached the shelf; both of those were measured
@@ -29142,17 +29208,62 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* SWAHILI (Nov 2026) was not named a colour, so it was MEASURED as French and Hindi were: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep (a blue-violet, #6D67D1) was taken in parallel by Greek's (#6F69D2), so at the merge it was
+       RE-SWEPT against all 53 other hues: this muted rose-taupe is the farthest point, 16.7 from its nearest
+       neighbours (The Second World War and Korea), against a tightest existing pair of 4.0; 5.8:1 against white.
+       Not a flag colour. */
+    "lang-swahili":    { bg: "#746163" }, // measured rose-taupe
+    /* THAI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep (a green, #0B791D) was left 5.1 from Arabic's green, measured in parallel, so at the
+       merge it was RE-SWEPT against all 56 other hues: this deep blue is the farthest point, 16.0 from its
+       nearest neighbours (Ancient Greece and The Cold War), against a tightest existing pair of 4.0; 10.1:1
+       against white. Not a flag colour. */
+    "lang-thai":       { bg: "#014764" }, // measured deep blue
+    /* TAMIL (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep (greens left out, the shelf then holding two) gave a periwinkle, #6F69D2 — which Greek's,
+       measured in parallel, also took — so at the merge it was RE-SWEPT against all 58 other hues: this crimson
+       is the farthest point, with or without greens, 15.8 from its nearest neighbour (Westeros), against a
+       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour. */
+    "lang-tamil":      { bg: "#CF3F57" }, // measured crimson
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two
        arrived wearing one colour; Turkish was re-swept with Japanese's plum on the shelf. The rose below
        clears its nearest neighbour by 25.0. */
     "lang-turkish":    { bg: "#D5519F" }, // measured rose
+    /* TELUGU (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a green, #228122 — and Arabic's, run in a parallel session, found #2A8424,
+       so the two arrived wearing one colour; re-swept at the merge against all 47 with Arabic's green on the
+       shelf: a deep magenta, 18.7 from its nearest neighbours (Japan, Japanese, Turkish), against a tightest
+       existing pair of 4.0. Not a flag colour. */
+    "lang-telugu":     { bg: "#9D0D6C" }, // measured magenta
+    /* VIETNAMESE (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page,
+       with the greens left out (the shelf has six; a raw winner there would be one more) and the magenta band's
+       standing rejection kept. Its first sweep found a periwinkle, #6D67D1 — and Greek's, run in a parallel
+       session, found a hue 1.0 from it, so the two arrived wearing one colour; re-swept at the merge against all
+       52: a steel blue, 16.9 from its nearest neighbours (Greece, French and the United States), against a
+       tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour. */
+    "lang-vietnamese": { bg: "#14659F" }, // measured steel blue
+    /* UKRAINIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep found a green, #2A8424 — and Arabic's, run in a parallel session, found the same, so the
+       two arrived wearing one colour; re-swept at the merge against all 58: a burnt orange, 15.8 from its nearest
+       neighbour (Spanish's orange), against a tightest existing pair of 4.0; 6.3:1 against white. It was the best
+       point outright, not only outside the greens. Not a flag colour. */
+    "lang-ukrainian":  { bg: "#9F4500" }, // measured burnt orange
     /* ZULU (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
-       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
-       page — a blue-violet, 18.6 from its nearest neighbours (Rome's purple and the blue beside it), against a
-       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour. */
-    "lang-zulu":       { bg: "#6D67D1" }, // measured blue-violet
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a blue-violet, #6D67D1 — and Greek's, run in a parallel session, found
+       #6F69D2, 1.0 from it, so the two arrived wearing one colour; re-swept at the merge against all 62: a deep
+       crimson, 15.3 from its nearest neighbours (Russia's lacquer and Indonesian's red), against a tightest
+       existing pair of 4.0; 8.7:1 against white. It was the best point outright. Not a flag colour. */
+    "lang-zulu":       { bg: "#9A012F" }, // measured crimson
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

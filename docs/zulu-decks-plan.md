@@ -118,5 +118,5 @@ card. A phrases deck is not planned: Wiktionary has 15 Zulu phrase entries.
 is the check. **A re-run is byte-identical** (verified for both decks, from a clean extract). A1: 500 notes,
 236 from the inventory and 264 by frequency; 414 with forms, 161 with tenses, 57 with sentences. The first
 deck: 39 notes — 16 noun classes (1, 2, 1a, 2a, 3–11, 14, 15, 17) and 23 sounds (the three clicks in five
-kinds each, hl, dl, b, bh, hh, kl, ph th kh, p t k). The shelf's hue is measured: `#6D67D1`, 18.6 from its
-nearest of 46.
+kinds each, hl, dl, b, bh, hh, kl, ph th kh, p t k). The shelf's hue is measured: first `#6D67D1` (18.6 from its
+nearest of 46), which Greek's parallel sweep also found, so re-swept at the merge against all 62: `#9A012F`, 15.3 from its nearest.

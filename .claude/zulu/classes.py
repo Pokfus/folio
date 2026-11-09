@@ -38,7 +38,7 @@ from zu import fold
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'zu-classes'
-COLOR = '#6D67D1'
+COLOR = '#9A012F'
 OUT = 'Zulu-Noun-Classes.folio-deck.json'
 
 # (class, full prefix, usual content, plural class or singular class, subject concord,
