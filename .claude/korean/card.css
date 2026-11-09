@@ -1,0 +1,184 @@
+.card {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.uc-ask {
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-word {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.uc-front {
+  font-size: 46px;
+}
+.uc-back {
+  display: none;
+}
+/* THE CUE that tells two words spelled alike apart (눈 "eye" and 눈 "snow"): quiet, but on the question */
+.uc-cue {
+  margin-top: 6px;
+  font-size: 15px;
+  opacity: 0.62;
+}
+.uc-say {
+  margin-left: 14px;
+  vertical-align: middle;
+  font-size: 15px;
+}
+.uc-romaji {
+  margin-top: 2px;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  font-style: italic;
+  opacity: 0.7;
+}
+.uc-also {
+  margin-top: 4px;
+  font-size: 13px;
+  opacity: 0.62;
+}
+.uc-field {
+  display: block;
+  width: fit-content;
+  min-width: min(300px, 100%);
+  max-width: 100%;
+  margin: 14px auto 0;
+  padding: 11px 15px;
+  border: 1px solid var(--rule, rgba(0,0,0,0.12));
+  border-radius: 11px;
+  text-align: left;
+  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));
+}
+.uc-sense + .uc-sense {
+  margin-top: 9px;
+}
+.uc-pos {
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint, #6C6A63);
+}
+.uc-gl {
+  line-height: 1.5;
+}
+.uc-gls {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.5;
+}
+/* THE FORMS ROW: a verb's or adjective's polite present, polite past and formal present, labelled words in
+   a line that wraps on a narrow screen -- the stem changes a learner cannot guess (듣다 -> 들어요) are here. */
+.uc-forms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  margin-top: 10px;
+  font-size: 15px;
+}
+.uc-fi b {
+  font-weight: 500;
+}
+.uc-fl {
+  margin-right: 5px;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+/* ONE ROW PER HANJA: the character, its meaning, its eumhun (the Korean gloss and sound a Korean reader names
+   it by) and other words of the list written with it. */
+.uc-kanji {
+  margin-top: 14px;
+  text-align: left;
+}
+.uc-kj {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 7px 0;
+}
+.uc-kj + .uc-kj {
+  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));
+}
+.uc-kjc {
+  font-size: 30px;
+  line-height: 1.15;
+  min-width: 1.15em;
+  text-align: center;
+}
+.uc-kjm {
+  font-size: 14px;
+  line-height: 1.45;
+}
+.uc-kjr {
+  font-size: 13px;
+  opacity: 0.75;
+}
+.uc-kjl {
+  margin-right: 4px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-kjp {
+  font-size: 12.5px;
+  opacity: 0.7;
+}
+.uc-kjp b {
+  font-weight: 500;
+}
+.uc-fold {
+  margin-top: 14px;
+  text-align: left;
+}
+.uc-fold summary {
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  text-align: center;
+}
+.uc-exs {
+  margin-top: 10px;
+}
+.uc-exi {
+  padding: 9px 0;
+  text-align: center;
+}
+.uc-exi + .uc-exi {
+  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));
+}
+.uc-exz {
+  font-size: 17px;
+  line-height: 1.55;
+}
+.uc-exz b {
+  font-weight: 600;
+  color: var(--zh, #C8453C);
+}
+.uc-exe {
+  margin-top: 3px;
+  font-size: 13px;
+  opacity: 0.62;
+}
+.uc-exsay {
+  margin-right: 7px;
+}
+/* an idiom's or proverb's words rendered into English, under its meaning (the phrases deck) */
+.uc-lit {
+  margin-top: 3px;
+  font-size: 13.5px;
+  font-style: italic;
+  opacity: 0.7;
+}

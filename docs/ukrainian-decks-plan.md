@@ -97,4 +97,4 @@ level's inventory into `inventory.py` and its `SCOPE` into `ukrainian_level.py`,
 `node .claude/ukrainian/check-ukrainian.js` is the check (a word on two levels, a pointer gloss, a Russian-only
 letter, a missing or doubled stress mark, a stressed speaker field, unbalanced HTML, a shared English side). **A
 re-run is byte-identical** (verified). A1: 500 notes, 377 from the inventory and 123 by frequency; three sentences
-for all 500. The shelf's hue is measured: `#2A8424`, 19.5 from its nearest of 46.
+for all 500. The shelf's hue is measured: `#9F4500`, 15.8 from its nearest of 58 (re-swept at the merge: its first sweep's `#2A8424` was Arabic's too).

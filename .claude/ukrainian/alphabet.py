@@ -185,7 +185,7 @@ def main():
     meta = {
         'id': 'ukabc', 'title': 'Ukrainian Alphabet',
         'subtitle': '33 letters and the apostrophe · both directions, as two cards per letter',
-        'desc': desc, 'author': '', 'language': 'en', 'color': '#2A8424',
+        'desc': desc, 'author': '', 'language': 'en', 'color': '#9F4500',
         'tags': ['ukrainian', 'alphabet', 'cyrillic'], 'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Ukrainian letter', 'speechLang': 'uk-UA',
