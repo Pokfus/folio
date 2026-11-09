@@ -122,5 +122,5 @@ romanisations; one by hand, `ROMAN_BY_HAND`). `node .claude/tamil/check-tamil.js
 is byte-identical** (verified for both decks). A1: 500 notes, 264 from the inventory and 236 by frequency;
 346 with a forms line, 179 with at least one sentence. The alphabet: 38 notes — 12 vowels (each alone and
 as its sign on க), the āytam and the puḷḷi, 18 consonants, 6 Grantha letters (ஜ ஷ ஸ ஹ க்ஷ ஸ்ரீ); every sound
-side unique (asserted). The shelf's hue is measured: `#6F69D2`, a periwinkle, 18.6 from its nearest of 46
-(greens left out of the sweep — the shelf has two).
+side unique (asserted). The shelf's hue is measured: `#CF3F57`, a crimson, 15.8 from its nearest of 58 (re-swept at the merge:
+the first sweep's periwinkle, `#6F69D2`, had been taken by Greek in parallel).
