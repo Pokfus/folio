@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1258", released: "2026-11-09T04:37Z" };
+window.FOLIO_VERSION = { v: "1.1259", released: "2026-11-09T04:58Z" };
 
 window.CHANGELOG = [
   {
@@ -46,7 +46,8 @@ window.CHANGELOG = [
       "<b>100 China cards are rewritten</b>, from Chinese mythology to Shang burial, with more sources, corrected dates and legend told as legend.",
       "A <b>new date line for wars, battles and cities</b> — start, end and length, place, casualties, result, founding, peak and population — on 654 cards.",
       "<b>Hindi</b>, <b>Arabic</b>, <b>Telugu</b>, <b>Greek</b>, <b>Bengali</b>, <b>Urdu</b>, <b>Romanian</b>, <b>Vietnamese</b>, <b>Swahili</b>, <b>Thai</b>, <b>Polish</b>, <b>Latin</b>, <b>Tamil</b>, <b>Ukrainian</b>, <b>Hausa</b> and <b>Persian (Farsi)</b> join the Languages section with A1 decks of 500 words (Polish 600), most with an alphabet deck.",
-      "A new daily minigame, <b>What language?</b>: read a short passage and pick its language from four close relations, drawn from 200 languages."
+      "A new daily minigame, <b>What language?</b>: read a short passage and pick its language from four close relations, drawn from 200 languages.",
+      "<b>21 new glossary terms</b> for the East Slav tribes, their neighbours and rivers, and a shaded region on the map of 1 Russia card."
     ]
   },
   {
