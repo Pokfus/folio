@@ -29121,6 +29121,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        place — the kinship test forbids a false claim, not a true one. */
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
+    /* HAUSA (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 46 hues on the page. The sweep's
+       best point is a green (19.5, beside Portuguese and Geography), refused because the Languages section
+       already carries two greens; the next is this indigo-violet, 18.6 from Rome and 19.0 from Geography's
+       China, against a tightest existing pair of 4.0. Indigo is the subject's own argument: the dye pits of
+       Kano. Not a flag colour. */
+    "lang-hausa":      { bg: "#6F69D2" }, // measured indigo-violet
     /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 45 hues on the
        page — a violet, 21.2 from its nearest neighbours (Flags, Rome and Japanese), against a tightest

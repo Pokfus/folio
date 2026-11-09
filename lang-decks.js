@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 197 MB of decks. The file itself is fetched on Add. */
+   section without fetching 198 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -73,6 +73,8 @@ window.LANG_DECKS = [
   { lang: "Italian", file: "CILS-C2-Italian.folio-deck.json", id: "cilsc2", title: "CILS C2 — Italian", sub: "417 words · both directions, as two cards per word", notes: 417, cards: 834, ex: 56, bytes: 696484, rev: "42d858153868" },
   { lang: "Italian", file: "Italian-Core-Vocabulary.folio-deck.json", id: "itcore", title: "Italian core vocabulary — De Mauro", sub: "3035 words · both directions, as two cards per word", notes: 3035, cards: 6070, ex: 80, bytes: 6168901, rev: "7865bdb9c9f2" },
   { lang: "Italian", file: "Italian-Phrases-Expressions.folio-deck.json", id: "itphrase", title: "Italian phrases and expressions", sub: "1376 words · both directions, as two cards per word", notes: 1376, cards: 2752, ex: 79, bytes: 1503534, rev: "56938011faba" },
+  { lang: "Hausa", file: "Hausa-Alphabet.folio-deck.json", id: "haabc", title: "Hausa Alphabet (Boko)", sub: "36 letters and sounds · both directions, as two cards per letter", notes: 36, cards: 72, ex: 0, say: false, bytes: 14898, rev: "c30a1583b7b4" },
+  { lang: "Hausa", file: "Hausa-A1.folio-deck.json", id: "hausaa1", title: "Hausa A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, say: false, bytes: 412980, rev: "1ffbefe40bf2" },
   { lang: "Indonesian", file: "UKBI-1-Terbatas-Indonesian.folio-deck.json", id: "ukbi1", title: "UKBI 1 Terbatas — Indonesian", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, say: false, bytes: 515195, rev: "23a95abfb34c" },
   { lang: "Indonesian", file: "UKBI-2-Marginal-Indonesian.folio-deck.json", id: "ukbi2", title: "UKBI 2 Marginal — Indonesian", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 99, say: false, bytes: 796654, rev: "8153f5519fb9" },
   { lang: "Indonesian", file: "UKBI-3-Semenjana-Indonesian.folio-deck.json", id: "ukbi3", title: "UKBI 3 Semenjana — Indonesian", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 95, say: false, bytes: 1099870, rev: "50cf3ee318bf" },

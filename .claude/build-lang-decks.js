@@ -70,6 +70,7 @@ const LANGS = [
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
+  { word: "Hausa", name: "Hausa", l1: 58 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Indonesian", name: "Indonesian", l1: 43 },
 ];
 const L1 = {};
