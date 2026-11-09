@@ -29173,6 +29173,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        existing pair of 4.0. 8.4:1 against white. Not a flag colour, and well clear of the History shelf's `korea`. */
     "lang-korean":     { bg: "#365442" }, // measured dark green
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
+    /* POLISH (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a green, #318526; at the merge with the nine languages that reached main
+       meanwhile that green sat 1.6 from another collection's (#2A8424), so it was re-swept against all 57: a
+       slate blue, 15.7 from its nearest neighbour (#2E6E8E), against a tightest existing pair of 4.0. Not a
+       flag colour: Poland's are white and red. */
+    "lang-polish":     { bg: "#6B7493" }, // measured slate
     "lang-portuguese": { bg: "#009657" }, // green
     /* ROMANIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep found #2A8424 — and so did

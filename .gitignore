@@ -166,6 +166,11 @@ countries-info.json
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hindi-cache/
 
+# the corpora .claude/polish/run.py builds the Polish decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~1 GB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/polish-cache/
+
 # the corpora .claude/bengali/run.py builds the Bengali decks from — the Wiktionary
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~160 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
