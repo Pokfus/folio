@@ -29277,6 +29277,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        crimson, 15.3 from its nearest neighbours (Russia's lacquer and Indonesian's red), against a tightest
        existing pair of 4.0; 8.7:1 against white. It was the best point outright. Not a flag colour. */
     "lang-zulu":       { bg: "#9A012F" }, // measured crimson
+    /* DUTCH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep's peak was a steel blue that
+       Vietnamese took in a parallel session (#14659F); re-swept at the merge against all 65 hues on the page,
+       this dusty brick-rose is the outright winner, 15.2 from its nearest neighbours (Visual Art, then the EU
+       course), against a tightest existing pair of 4.0; 6.0:1 against white. Not a flag colour, and not
+       orange, which Spanish and Ukrainian have. */
+    "lang-dutch":      { bg: "#934F5A" }, // measured brick-rose
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
