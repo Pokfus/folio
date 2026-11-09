@@ -185,3 +185,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~470 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/romanian-cache/
+
+# the corpora .claude/vietnamese/run.py builds the Vietnamese decks from — the Wiktionary
+# extract, the OpenSubtitles text and the Tatoeba exports (~270 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/vietnamese-cache/

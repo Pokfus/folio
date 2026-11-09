@@ -29189,6 +29189,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        shelf: a deep magenta, 18.7 from its nearest neighbours (Japan, Japanese, Turkish), against a tightest
        existing pair of 4.0. Not a flag colour. */
     "lang-telugu":     { bg: "#9D0D6C" }, // measured magenta
+    /* VIETNAMESE (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page,
+       with the greens left out (the shelf has six; a raw winner there would be one more) and the magenta band's
+       standing rejection kept. Its first sweep found a periwinkle, #6D67D1 — and Greek's, run in a parallel
+       session, found a hue 1.0 from it, so the two arrived wearing one colour; re-swept at the merge against all
+       52: a steel blue, 16.9 from its nearest neighbours (Greece, French and the United States), against a
+       tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour. */
+    "lang-vietnamese": { bg: "#14659F" }, // measured steel blue
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
