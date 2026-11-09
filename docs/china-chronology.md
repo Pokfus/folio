@@ -196,6 +196,12 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Liangzhu culture | c. 3300 – 2300 BCE | `cnh-048` |
 | Liangzhu jade / also dated | c. 3300 – 2200 BCE / c. 3200 – 2000 BCE | the Cleveland Museum; Liu 2003 (`cnh-049`) |
 | Longshan culture / also dated | c. 3000 – 1900 BCE / c. 2600 – 1900 BCE | Yang 2019; Underhill 1994 (`cnh-050`) |
+| the earliest pottery / diverse forms / painted wares | c. 20,000 – 19,000 BP / c. 9000 – 7000 BP / c. 5000 – 3000 BCE | `cnh-051` |
+| Sanxingdui in use / pits filled / pits found | c. 1700 – 1000 BCE / c. 1200 – 1000 BCE / 1986 | PNAS 2026; Bagley (`cnh-053`) |
+| the Xia: traditional opening / the *Bamboo Annals*' / reconstructed (the Chronology Project) | 2205 BCE / 1989 BCE / c. 2070 – 1600 BCE | `cnh-054`; protected lines `cnh-012`, `cnh-055`, `cnh-057`, `cnh-058` |
+| the *Tribute of Yu* written | c. 500 – 200 BCE | Dorofeeva-Lichtmann 2021 (`cnh-056`) |
+| the Songs of the Five Sons first attested (Mei Ze's copy) | 317 – 322 CE | `cnh-059` |
+| the *Bamboo Annals* compiled / found | c. 299 BCE / 279 CE | `cnh-060` |
 
 ## Shang
 
@@ -260,9 +266,15 @@ cnh-047: 4500; 3000; 5800; 5300
 cnh-048: 3300; 2300
 cnh-049: 3300; 2200; 3200; 2000
 cnh-050: 3000; 2600; 1900
+cnh-051: 20,000; 19,000; 9000; 7000; 5000; 3000
+cnh-053: 1700; 1000; 1200; 1986
+cnh-054: 2205; 1989; 2070; 1600
 cnh-055: 2070; 1600
+cnh-056: 500; 200
 cnh-057: 2070; 1600
 cnh-058: 2070; 1600
+cnh-059: 317; 322
+cnh-060: 299; 279
 cnh-068: 1600
 cnh-073: 1250; 1192; 1201; 1181
 cnh-074: 1200

@@ -40,9 +40,9 @@ window.FOLIO_VERSION = { v: "1.1236", released: "2026-11-08T20:22Z" };
 window.CHANGELOG = [
   {
     d: "2026-11-09",
-    t: "China cards rewritten, from the myths to the Neolithic",
+    t: "China cards rewritten, from the myths to the Xia",
     items: [
-      "<b>50 China cards are rewritten</b>, from Chinese mythology to the Neolithic cultures, with more sources, corrected dates and legend told as legend."
+      "<b>60 China cards are rewritten</b>, from Chinese mythology to the Xia, with more sources, corrected dates and legend told as legend."
     ]
   },
   {

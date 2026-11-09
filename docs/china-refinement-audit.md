@@ -264,7 +264,7 @@ otherwise.
 | B3 | Mythology (`cn-myth`) | `cnh-021`–`cnh-030` | 10 | 108 | **done 2026-11-08** |
 | B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | **done 2026-11-08** |
 | B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | **done 2026-11-09** |
-| B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | to do |
+| B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | **done 2026-11-09** |
 | B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | to do |
 | B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | to do |
 | B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | to do |
@@ -451,6 +451,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-048` | a section through the Liangzhu city wall | not re-checked (Commons 429): ok |
 | `cnh-049` | the Fanshan M12 cong | not re-checked (Commons 429): ok, but the description makes an unsourced superlative and names the museum — trim |
 | `cnh-050` | a labelled plan of Taosi | not re-checked (Commons 429): wrong: a line plan of one site, not the culture — replace (the glossary's eggshell cup would do) |
+| `cnh-051` | the restored Yuchanyan pot | not re-checked (Commons 429): ok: one early vessel |
+| `cnh-052` | a map of late Neolithic cultures | not re-checked (Commons 429): wrong: a drawn map with burned-in numbers on a German base map — replace |
+| `cnh-053` | a Sanxingdui bronze mask | not re-checked (Commons 429): ok |
+| `cnh-054` | a jade yue axe a museum labels Xia | not re-checked (Commons 429): doubtful: a museum's "Xia" label on an Erlitou-period object — the label itself is the debate |
+| `cnh-055` | Shaokang in a Qing woodblock | not re-checked (Commons 429): ok: an imagined portrait, as its description says |
+| `cnh-056` | the Map of the Tracks of Yu (1136) | not re-checked (Commons 429): ok |
+| `cnh-057` | Qi of Xia, painted under the Qing | not re-checked (Commons 429): ok |
+| `cnh-058` | the banishment of Jie (1905 plate) | not re-checked (Commons 429): ok |
+| `cnh-059` | Zhongkang's accession (1905 plate) | not re-checked (Commons 429): the next chapter's scene, labelled as such — acceptable |
+| `cnh-060` | Eastern Zhou bamboo slips | not re-checked (Commons 429): ok as a stand-in, captioned as not the annals |
 
 ## Glossary candidates
 
@@ -677,3 +687,40 @@ page (no Chinese host answered) and stays, with the note that 粟 is foxtail mil
 for the owner**: `cnh-048` (the culture, 3300 – 2300 BCE) and `cnh-049` (its jade, 3300 – 2200 / 3200 – 2000 BCE) rest
 on different sources and say so; `wh-148` dates Longshan 3000 – 2000 BCE where `cnh-050` now gives 3000 – 1900. Locator
 notes are for the end of the hundred: `cnh-047`'s point is Chifeng city and `cnh-048`'s lies about 40 km from the site.
+
+### B6 — `cnh-051`–`cnh-060`, Neolithic China and the Xia: pottery to the Bamboo Annals (2026-11-09)
+
+Run as before; all 64 cited URLs answered (a Sino-Platonic Papers PDF on a second try, after a 429). ScholarSpace and
+Project MUSE showed challenge pages, so two sources were read from copies of the same page saved earlier in the run
+(`cnh-055`, `cnh-057`, `cnh-058`), and claims resting only on unreadable copies were dropped (Taosi on `cnh-054`, the
+899 BCE eclipse on `cnh-060`). The citation checker's six mismatches are Chinese names kept in Chinese order (Chen
+Minzhen, Jia Hongbo; Crossref reverses them). **The old cards put the Xia's traditional dates on cards about a region,
+a text and a forged chapter, carried counts and areas as rows, merged the *Zuo Zhuan*'s two tellings of Shaokang,
+dated the *Bamboo Annals*' burial by King Xiang's death (295 BCE, Legge's), treated the Songs of the Five Sons as a Xia
+document, called the *Tribute of Yu* "the oldest geographical treatise", and gave Sanxingdui an end date (1150 BCE)
+no page prints.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-051` Chinese Neolithic pottery | 7 | 5 → 8 | **One scholar's definition of early southern pottery and a BP/BCE muddle off the line, now `Earliest sherds c. 20,000 – 19,000 BP` (Xianrendong), `Diverse forms c. 9000 – 7000 BP`, `Painted wares c. 5000 – 3000 BCE`; the term said to cover late Palaeolithic wares made by foragers (Yuchanyan 18,300–15,430 cal BP)**; an unsourced wheel row dropped. |
+| `cnh-052` Central Plain | 7 | 5 → 7 | **The Xia's and Erlitou's dates off a region's line (now empty); rebuilt as the argument over Central Plain centrism, each side attributed (Han Jianye [in Chinese], Shelach, Lee); the Hongshan "five hundred people" corrected to Peterson's "fewer than 1,000"**; the *Shijing* ode where the name first stands. `L.missing` deliberate: a region. |
+| `cnh-053` Sanxingdui | 7 | 5 → 7 | **An unsourced end (1150 BCE) replaced by `In use c. 1700 – 1000 BCE` (PNAS 2026), `Pits filled c. 1200 – 1000 BCE`, `Pits found 1986`; "capital of Shu" made the archaeologists' identification; no writing; the site's 12 km² for wall areas from unreadable sources**. |
+| `cnh-054` Xia dynasty | 7 | 5 → 7 | **The count of kings and an "Or" row off the line, now `Traditional 2205 BCE` / `Also dated 1989 BCE` / `Reconstructed c. 2070 – 1600 BCE` (the Chronology Project's, said to be contested); Legge's note that the *Annals*' own years give 431, not 471**; Taosi and a "Zhou invention" claim dropped (sources unreadable). |
+| `cnh-055` Shaokang | 5 | 5 → 6 | **The *Zuo Zhuan*'s two tellings told apart — in Duke Xiang 4 the minister Mi raises Shaokang and his son Zhu kills Yi; the line's 2070 and 1600, "30 to 40 years" and "10 li square and 500 men" carried and attributed**. Protected: the line stays. |
+| `cnh-056` Tribute of Yu | 6 | 5 → 6 | **Another term's dates and counts off the line, now `Written c. 500 – 200 BCE` (Dorofeeva-Lichtmann); most modern scholars date the chapter to the Warring States; "the oldest geographical treatise" dropped; Yu named only in its first and last sentences (Biot, via Chavannes)**. |
+| `cnh-057` Qi of Xia | 5 | 5 → 7 | **The succession told in three versions with their sources — Mencius, the *Rongchengshi* manuscript, the *Bamboo Annals*' Qi killing Yi; Gan, "spelt Kan in older translations", so the protected line still reads**; Erlitou stated apart. Protected: the line stays. |
+| `cnh-058` Jie of Xia | 6 | 5 → 7 | **2070, 1600 and the seventeen kings sourced; the "bad last ruler" pattern credited to Lewis; modern doubt added; the wine pool left off (no open source tells it of Jie)**. Protected: the line stays. |
+| `cnh-059` Songs of the Five Sons | 5 | 5 → 5 | **Not a Xia document, said in the card's voice: one of the extra old-script chapters, first in Mei Ze's copy presented in 317 – 322 CE, now usually labelled a forgery built around older quotations; `Attested 317 – 322 CE` for the Xia's dates and counts**. |
+| `cnh-060` Bamboo Annals | 6 | 5 → 6 | **A Xia row, place and count values and a "buried 295" that was King Xiang's death year replaced by `Compiled c. 299 BCE` and `Found 279 CE`; years out of the questions; the ancient-text and current-text story**; the 899 BCE eclipse dropped (source walled). |
+
+Read by eye. **Confusability**: Erlitou's palaces on `cnh-054` and its road grid on `cnh-063` differ by angle; the
+succession `cnh-057`'s and the sun boast `cnh-058`'s; Taikang's hunt `cnh-059`'s (kept off `cnh-014`); the *Annals*'
+tomb robbery `cnh-060`'s. **Legend**: the Xia's kings told as the *Shiji*, the *Shangshu*, the *Zuo Zhuan* and the
+*Bamboo Annals* tell them, with archaeology stated apart. **Chinese names corrected**: none; `cnh-055`'s `Z.reading?`
+is the polyphone 少 (shào in the name). **Pinyin, for the owner**: the official orthography would join 夏朝 (Xiàcháo)
+and 禹贡 (Yǔgòng); the collection writes Xià cháo and Yǔ gòng, kept for consistency with the dynasty cards.
+**Spellings fixed**: none; 0 hits. **Myth register: rows suggested** — the succession from Yu to Qi (Mencius, the
+*Rongchengshi*, the *Bamboo Annals*) and Jie as the bad last king (Lewis); held for the hundred's summary. **Protected
+lines: unchanged**. **For the owner**: `cnh-058`'s row "Defections from Kong Jia, 4 reigns earlier" looks off by one
+(Kong Jia, Gao, Fa, Jie: three reigns before Jie); left. `cnh-056` counts a 2023 *Guangming Ribao* piece by Li Xiaojie
+as modern scholarship.
