@@ -3399,6 +3399,18 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
+  English language collection"). **Built: the alphabet and pronunciation deck,
+  `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
+  `decks/Old-English-Level-1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/oldenglish/run.py
+  [--level l1]`, `python3 .claude/oldenglish/alphabet.py`, `node .claude/oldenglish/check-oldenglish.js`; a
+  re-run is byte-identical. A language nobody speaks: no exam and no CEFR, so a level is a BAND OF FREQUENCY
+  (1–500, 501–1,000, 1,001–2,000, 2,001–3,000) counted by lemma over Thorpe's Ælfric, Sweet's Primer and
+  Tatoeba; no speaker (no voice reads Old English), Wiktionary's IPA under every headword instead, and the
+  Modern English descendant on the card. The plan, the sources and every finding (the spelling fold, the
+  mis-tagged verb tables read by position, the shared pronoun table, the six frequency rules, `FORCE`,
+  the descendant picker) are 📖 `docs/oldenglish-decks-plan.md`. The `l1` row is 0, so it sorts last; the hue
+  is measured, `#2A8424`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

@@ -71,6 +71,10 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  /* OLD ENGLISH (Nov 2026) has no native speakers — it was last spoken about nine hundred years ago — so its
+     figure is 0 and it sorts after every living language, which is also where a reader looks for it. The
+     word is "Old-English" with the hyphen, so no future deck with "English" in its name is filed under it. */
+  { word: "Old-English", name: "Old English", l1: 0 },
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

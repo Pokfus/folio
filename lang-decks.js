@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 197 MB of decks. The file itself is fetched on Add. */
+   section without fetching 198 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -81,4 +81,6 @@ window.LANG_DECKS = [
   { lang: "Indonesian", file: "UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json", id: "ukbi6", title: "UKBI 6 Sangat Unggul — Indonesian", sub: "2500 words · both directions, as two cards per word", notes: 2500, cards: 5000, ex: 34, say: false, bytes: 1389616, rev: "f7e12039e0ac" },
   { lang: "Indonesian", file: "UKBI-7-Istimewa-Indonesian.folio-deck.json", id: "ukbi7", title: "UKBI 7 Istimewa — Indonesian", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 16, say: false, bytes: 665895, rev: "b8494fddb502" },
   { lang: "Indonesian", file: "Indonesian-Phrases-and-Expressions.folio-deck.json", id: "idphrase", title: "Indonesian Phrases and Expressions", sub: "228 expressions · 84 everyday, 111 idioms, 33 proverbs · both directions", notes: 228, cards: 456, subs: 3, tree: [{"n":"Phrases","c":168,"x":54},{"n":"Idioms","c":222,"x":14},{"n":"Proverbs","c":66,"x":18}], flat: true, ex: 29, say: false, bytes: 128897, rev: "d37db8b51350" },
+  { lang: "Old English", file: "Old-English-Alphabet.folio-deck.json", id: "oeabc", title: "Old English Alphabet and Pronunciation", sub: "41 letters, sounds and spelling rules · both directions, as two cards per note", notes: 41, cards: 82, ex: 0, say: false, bytes: 20791, rev: "3d1c53cc27f9" },
+  { lang: "Old English", file: "Old-English-Level-1.folio-deck.json", id: "oel1", title: "Old English Level 1", sub: "The 500 commonest words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 39, say: false, bytes: 994161, rev: "942d7ada836a" },
 ];
