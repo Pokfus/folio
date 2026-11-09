@@ -3399,6 +3399,16 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/telugu/` — the generator behind the Telugu decks (Nov 2026, on request: "Add a Telugu language
+  collection"), the Hindi pipeline adapted, with the Hindi collection's decisions carried over.
+  **Built: the alphabet, `decks/Telugu-Alphabet.folio-deck.json`** (52 notes) **and A1,
+  `decks/Telugu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/telugu/run.py [--level a1]`,
+  `python3 .claude/telugu/alphabet.py`, `node .claude/telugu/check-telugu.js`; a re-run is byte-identical.
+  The sources are thinner than Hindi's — Wiktionary lacks many everyday modern words, the subtitle list is
+  machine-translated English, Tatoeba has 314 pairs — and the description says so. The findings (the -ము / -ం
+  fold and the spelling a card prints with its own romanisation, the pronoun-case homographs `నాకు` / `మాకు` /
+  `వారి`, the tenseless verb tables) are 📖 `docs/telugu-decks-plan.md`. The `l1` row is the 2011 census's 83
+  million (via Wikipedia); the hue is measured, `#228122`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
