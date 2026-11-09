@@ -9835,7 +9835,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Oracle_bone_script": "c. 1250 – 1046 BCE",
 "Yinxu": "c. 1250 – 1046 BCE",
 "Chinese_ritual_bronzes": "c. 1600 – 221 BCE",
-"Fu_Hao": "c. 1250 – 1192 BCE",
+"Fu_Hao": "c. 1200 BCE",
 "Sanxingdui": "c. 1700 – 1000 BCE",
 "Immanuel_Kant": "1724–1804",
 "Hermann_von_Helmholtz": "1821–1894",

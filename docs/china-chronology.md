@@ -217,6 +217,12 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Tang of Shang (protected line) | c. 1600 BCE, in tradition | `cnh-068` |
 | Yinxu occupied / the first seasons / World Heritage | c. 1250 – 1046 BCE / 1928 – 1937 / 2006 | Niu 2018; Chang 1986 (`cnh-069`) |
 | Shang bronze inscriptions cast | c. 1300 – 1046 BCE | `cnh-070` |
+| oracle bone script in use / identified | c. 1250 – 1046 BCE / 1899 | Liu et al. 2021 (`cnh-071`) |
+| Shang divination inscribed | c. 1250 – 1046 BCE | `cnh-072` |
+| Wu Ding (protected line) / the eclipses | c. 1250 – 1192 BCE / 1201 – 1181 BCE | the Chronology Project (`cnh-073`) |
+| Fu Hao's death (protected line) / her tomb buried / excavated | c. 1200 BCE / c. 1250 – 1192 BCE / 1976 | `cnh-074`, `cnh-075` |
+| Shang kingship / Shangdi first attested / ancestor worship recorded | c. 1600 – 1046 BCE / c. 1250 BCE / c. 1250 – 1046 BCE | `cnh-076`, `cnh-077`, `cnh-078` |
+| human sacrifice in the late Shang record / Xibeigang in use | c. 1250 – 1046 BCE | `cnh-079`, `cnh-080` |
 
 ## Later periods
 
@@ -295,6 +301,14 @@ cnh-067: 100
 cnh-068: 1600
 cnh-069: 1250; 1046; 1928; 1937; 2006
 cnh-070: 1300; 1046
+cnh-071: 1250; 1046; 1899
+cnh-072: 1250; 1046
 cnh-073: 1250; 1192; 1201; 1181
 cnh-074: 1200
+cnh-075: 1250; 1192; 1976
+cnh-076: 1600; 1046
+cnh-077: 1250
+cnh-078: 1250; 1046
+cnh-079: 1250; 1046
+cnh-080: 1250; 1046
 ```

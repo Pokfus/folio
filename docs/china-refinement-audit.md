@@ -266,7 +266,7 @@ otherwise.
 | B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | **done 2026-11-09** |
 | B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | **done 2026-11-09** |
 | B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | **done 2026-11-09** |
-| B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | to do |
+| B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | **done 2026-11-09** |
 | B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | to do |
 | B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | to do |
 | B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | to do |
@@ -471,6 +471,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-068` | Tang of Shang imagined (album leaf) | not re-checked (Commons 429): ok, captioned as late |
 | `cnh-069` | pit YH127 at Yinxu | not re-checked (Commons 429): ok: one find-spot of the site |
 | `cnh-070` | none | not re-checked (Commons 429): the card has no picture — an inscribed vessel's interior or rubbing wanted |
+| `cnh-071` | an ink rubbing of an inscribed scapula | not re-checked (Commons 429): ok; the credit is not in the house form — fix |
+| `cnh-072` | an inscribed plastron with its cracks | not re-checked (Commons 429): ok |
+| `cnh-073` | album leaf of Wu Ding dreaming of a helper | not re-checked (Commons 429): ok |
+| `cnh-074` | the owl zun made for Fu Hao | not re-checked (Commons 429): ok |
+| `cnh-075` | the reconstructed tomb at the Yinxu museum | not re-checked (Commons 429): ok |
+| `cnh-076` | a Shang vessel with its owner's mark | not re-checked (Commons 429): ok as an illustration, not of kingship itself |
+| `cnh-077` | the graph di in oracle-bone script | not re-checked (Commons 429): ok |
+| `cnh-078` | a Shang libation jue | not re-checked (Commons 429): ok: one vessel of the cult |
+| `cnh-079` | a sacrificial pit at Yinxu | not re-checked (Commons 429): ok |
+| `cnh-080` | the plan of royal grave M1400 | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -769,3 +779,37 @@ Chunqiu* "Shun min": five years of drought, the mulberry grove, his hair cut (he
 lines: unchanged**. **For the owner**: `cnh-101` (outside the hundred) gives the Hou Mu Wu ding as 875 kg in a
 question; the National Museum of China gives 832.84 kg. `cnh-068`'s point is the Shang dynasty's region near
 Zhengzhou on a card about one man (locator note at the end).
+
+### B8 — `cnh-071`–`cnh-080`, Shang: oracle bone script to Xibeigang (2026-11-09)
+
+Run as before; all 70 cited URLs answered (four on a second try; a Europe PMC full-text address that returned 500
+answered on retry and stays). ScholarSpace pages were read through its open DSpace REST interface where the web pages
+showed a bot check, and claims resting on papers no agent could read were dropped. The citation checker's one mismatch
+is Tang Jigen's name in Chinese order. **The old cards put counts on every line (4,000 signs, 22,000 sentences, 400
+outcomes, 25 diviners, 70 offices, 1,500 objects, 9 kings, 4 ramps, a 133 cm bronze, an ox of 200 kilograms), put a
+Neolithic site (Shimao) and an unsupported ratio on a Shang card, told the 1899 "prescription" story as fact, told Fu
+Hao's card as her tomb's, gave Wu Ding the beginning of Shang writing without the Huanbei caveat, stated a "10 people to
+1 animal" ratio and "13,000 men against the Qiang" that no readable page gives, credited M1004 to Fu Ji (it is Zu
+Geng's on the reading followed), and dated Shangdi's attestation as ending at the conquest.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-071` oracle bone script | 7 | 6 → 7 | **Counts off the line, now `In use c. 1250 – 1046 BCE` / `Identified 1899`; the "prescription" story dropped (on no page read), the identification told after Liu et al. 2021 (dragon bones in medicine, compared with Zhou bronze characters); the figures made ranges with their sources (4,000 to 4,600+ signs, about 1,000 to 1,200 read, 150,000 to 160,000 pieces)**; the UNESCO listing left off (no reachable page). |
+| `cnh-072` Shang divination | 7 | 5 → 7 | **Every old source walled; re-sourced whole: the preparation, the charge in paired forms, the king's prognostication, the record carved later, the verification; three counts off the line, now `Inscribed c. 1250 – 1046 BCE`**. |
+| `cnh-073` Wu Ding | 6 | 5 → 6 | **"The dynasty's own written record begins" with him hedged (bones of the three earlier kings may lie at Huanbei); the Duke of Zhou's speech (59 years, the silence, Gaozong), the *Yijing*'s march on the demon regions, the consorts and the Small King**; questions that were `cnh-069`'s and `cnh-093`'s replaced. Protected: the background carries 1250, 1192, 1201 and 1181. |
+| `cnh-074` Fu Hao | 7 | 5 → 7 | **Rebuilt around her, not her tomb (`cnh-075`, `cnh-096`): her domain, troops and hunting, Fu Jing, the Small King, the divination whether she might be married to Shangdi after death, her temple name Mu Xin; "13,000 men against the Qiang" dropped (on no readable page)**; the glossary's date aligned to c. 1200 BCE. Protected: the person template stays. |
+| `cnh-075` tomb of Fu Hao | 7 | 5 → 7 | **Counts off the line, now `Buried c. 1250 – 1192 BCE` (within Wu Ding's reign, consistent with `cnh-074`'s c. 1200 BCE) / `Excavated 1976`; "one of only two named occupants" and "about five unlooted burials" dropped; the find (May 1976), the 190 inscribed vessels, the Hou Mu Xin ding, the heated jade parrot and the dissent dating the tomb later**. |
+| `cnh-076` Shang kingship | 7 | 5 → 7 | **`Dated c. 1600 – 1046 BCE` (the Chronology Project's table) with the counts in prose; "rather than an officer over subjects" and an alloy sentence dropped; the Shang/Yin names, brother succession as a war need (Lin Yun [in Chinese]), the oracle-bone officials, the *Zuo Zhuan*'s great affairs**. |
+| `cnh-077` Shangdi | 6 | 5 → 7 | **`First attested c. 1250 BCE` for a span that ended at the conquest (the Zhou went on sacrificing to him); Eno's view stated as he states it; the missionaries' term question set right (Medhurst and Legge together for Shangdi, against Boone's *shen*)**; the king-as-surrogate paragraph left to `cnh-076`. |
+| `cnh-078` Shang ancestor worship | 7 | 5 → 7 | **An ox's weight off the line, now `Recorded c. 1250 – 1046 BCE`; the five-rite cycle of 36 or 37 ten-day weeks, the day-names and the ancestors' place below the gods**; cattle and burial cost left to `cnh-079` and `cnh-100`. |
+| `cnh-079` human sacrifice | 8 | 5 → 9 | **A Neolithic site and an unsupported ratio off the line, now `Late Shang c. 1250 – 1046 BCE`; rebuilt on Tang Jigen and Niu Hairu's study of the 191 pits at Xibeigang [in Chinese] (the Qiang victims, the numbers the inscriptions ask for); Shimao one sentence, marked Neolithic; every phrasing carries "under the Shang"**. |
+| `cnh-080` Xibeigang | 5 | 5 → 5 | **All five sources new (the old ones walled); counts off the line, now `In use c. 1250 – 1046 BCE`; M1004 given to Zu Geng, not Fu Ji (Mizoguchi and Uchida); the "133 cm bronze" replaced by the Hou Mu Wu ding (832.84 kg) from M260; the unfinished tomb M1576**. |
+
+Read by eye. **Confusability**: the script (`cnh-071`) and the rite (`cnh-072`) split cleanly; Fu Hao the woman (`cnh-074`)
+and her tomb (`cnh-075`) no longer share a clue; Di's powers (`cnh-077`) against the rite calendar (`cnh-078`); the
+pits (`cnh-079`) against the tombs' order and robbers (`cnh-080`). **Chinese names**: none corrected in this batch;
+`商代占卜` (`cnh-072`) and `商代祖先崇拜` (`cnh-078`) are descriptive phrases no open page carries whole — 甲骨占卜 is an
+option for the first. **Spellings fixed**: none; 0 hits. **Myth register**: no rows. **Protected lines: unchanged**
+(`cnh-073`, `cnh-074`). **For the owner**: the Hou Mu Wu ding — 875 kg on `cnh-101`'s question against the museum's
+832.84 kg, as noted at B7. Locator notes for the end: `cnh-075` (the Tomb of Fu Hao article, at Xiaotun) and
+`cnh-080` (Xibeigang) have no point.
