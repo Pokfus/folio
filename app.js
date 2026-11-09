@@ -29142,6 +29142,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* THAI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
+       page — a deep green, 19.3 from its nearest neighbours (Geography's olive and Portuguese's green),
+       against a tightest existing pair of 4.0; 5.6:1 against white. Not a flag colour. */
+    "lang-thai":       { bg: "#0B791D" }, // measured green
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two

@@ -1,0 +1,116 @@
+# The Thai language decks — the plan (Nov 2026)
+
+**Read this before building, or changing the plan for, any Thai deck in `decks/`.** It is the plan for a
+twelfth language set in the shape of the ones already shipped, Hindi's above all (`docs/hindi-decks-plan.md`);
+`docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
+file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
+
+**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/thai/`, §6). A2 to C1 and the phrases
+deck are not.
+
+A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
+for any deck this plan produces. The collection's first commit carried one (merged into the day's Hindi line)
+because it also changed the APP — the shelf's hue in `app.js`.
+
+## 1. The decisions (2026-11-09)
+
+The request named no word source, script deck or romanisation. Hindi's owner had answered all three for the
+same request earlier the same day, and the session took the same answers rather than ask again — **they are
+the owner's to overturn**:
+
+1. **Word source: CEFR A1–C1, assembled** (the Hindi / UKBI / TORFL arrangement). Thailand's proficiency test
+   for foreigners (CU-TFL, Chulalongkorn University) publishes no graded word list, so each level is a
+   hand-written topic inventory (`inventory.py`) scoped to the CEFR global descriptor for its band, topped up
+   with the commonest remaining words. Each deck's description says so. Sizes as Hindi's: **A1 500 · A2 750 ·
+   B1 1,000 · B2 1,500 · C1 1,500 notes**, then a phrases deck.
+2. **A Thai script deck, first in the collection.**
+3. **Romanisation on every word card, in Paiboon** — the system that writes the TONE (à low, â falling, á high,
+   ǎ rising, no mark mid). The Royal Institute system Thailand uses on road signs leaves tones out, and a word
+   said on the wrong tone is another word (ใกล้ glâi "near", ไกล glai "far").
+4. **This session: plan + alphabet + A1**; later levels one per session.
+
+| deck | file | notes |
+|---|---|---|
+| Thai Alphabet — built | `Thai-Alphabet.folio-deck.json` | 92 |
+| Thai A1 Beginner — built | `Thai-A1.folio-deck.json` | 500 |
+| Thai A2 Elementary | `Thai-A2.folio-deck.json` | 750 |
+| Thai B1 Intermediate | `Thai-B1.folio-deck.json` | 1,000 |
+| Thai B2 Upper Intermediate | `Thai-B2.folio-deck.json` | 1,500 |
+| Thai C1 Advanced | `Thai-C1.folio-deck.json` | 1,500 |
+| Thai Phrases and Expressions | `Thai-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+
+## 2. Sources and licences
+
+| what | source | licence |
+|---|---|---|
+| meanings, romanisation (Paiboon), classifiers, some examples | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Thai.jsonl`, 51 MB, 21,085 entries) | CC BY-SA 4.0 |
+| frequency | PyThaiNLP's `tnc_freq.txt` (Thai National Corpus) and `ttc_freq.txt` (Thai Textbook Corpus), pinned to commit `dac9ca80` | CC0 (PyThaiNLP's corpus licence) |
+| example sentences | Tatoeba `tha` exports (≈4,800 Thai–English pairs) | CC BY 2.0 FR |
+| level scope | CEFR global scale (Council of Europe), quoted | — |
+| L1 speakers (`LANGS`) | 27 million, Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09 | — |
+
+**hermitdave/FrequencyWords, every other deck's frequency source, has no Thai list** — a subtitle list counts
+space-separated tokens and Thai writes none — which is why the counts come from two hand-segmented corpora.
+
+## 3. The card
+
+One note, two templates (Thai → English, English → Thai), `speechLang: 'th-TH'`. Fields: `Thai` (the
+headword), `Roman` (Paiboon), `Word` (what the speaker reads), `English` (meanings by part of speech),
+`Forms` (a noun's CLASSIFIER, the word it is counted with — บ้าน: หลัง lǎng — where Wiktionary names one, in
+the head template or inside a gloss), `Examples` (up to three; a Wiktionary example also shows its
+romanisation). **No forms table: Thai does not inflect.** The CSS is `.claude/thai/card.css` (Hindi's minus
+the paradigm grid, with taller line-heights: Thai stacks a vowel and a tone mark above a letter).
+
+## 4. What Thai needs that no earlier set did — the findings
+
+- **NO SPACES BETWEEN WORDS** (`th.Segmenter`). A Tatoeba sentence is cut into words by maximal matching
+  against every Wiktionary headword and every corpus word, and a word matches only where it starts and ends
+  on a cut — a plain substring search finds มา "come" in หมา "dog". A compound the dictionary holds whole
+  (กินข้าว "to have a meal") is cut once more so ข้าว is still found, ranked second — but **only a true
+  compound**, every part a dictionary word of two letters or more: re-cut, ตาย "to die" is ตา "eye" + a stray
+  ย, and "Did Tom die?" had become the example for "eye". No library: the generator needs none.
+- **TWO CORPORA, THE GEOMETRIC MEAN** (`extract.py`). Ranked by the Thai National Corpus alone (written Thai:
+  news, law, academic prose) the first 170 words of A1 held มาตรา "section of a law", กฎหมาย "law", สังคม
+  "society", พัฒนา "to develop". The Textbook Corpus reads like a primer but keeps its texts' literary register
+  (ข้าพเจ้า, a formal "I"). The geometric mean of the two rates per million ranks a word high only where both
+  agree. No lemma arithmetic: Thai words have one form.
+- **THE FIRST DAY'S WORDS LEAD** (`select.LEAD_TOPICS`). Both corpora are written, where สวัสดี "hello" and
+  ขอบคุณ "thank you" are rare: by frequency they were dealt about 450th of 500. The inventory's greetings and
+  particles are dealt first, then everything by frequency.
+- **WIKTIONARY LISTS SENSES AND ETYMOLOGIES IN HISTORICAL ORDER**, so the everyday one is often not first:
+  กับ opened on "trap", จาก on "nipa palm", คำ on "gold", ต่อ on "wasp", หนังสือ on "letter; script" (book is
+  sixth), ต้อง on a literary "to touch". Three hand tables in `build_deck.py`, each line with its reason:
+  `ETYMS` (which etymology, in what order), `LEAD` (which gloss leads), `PREFER` (which part of speech leads);
+  and a weak (rare, archaic, slang …) sense shows only when nothing else does.
+- **COMPOUNDS WIKTIONARY LACKS** (`select.COMPOSE`): the days (วันจันทร์ = วัน "day" + จันทร์), ภาษาไทย,
+  ภาษาอังกฤษ, คนไทย, ฝนตก. Each is romanised from its parts' own Paiboon readings; only the English is written
+  by hand. The months are proper nouns in Wiktionary and are asked for with `:name`.
+- **POINTERS KEEP THEIR OWN SOUND**: ล่ะ is filed as a form of เล่า; the card prints ล่ะ's reading (lâ), not
+  เล่า's (lâo). A pointer with no reading of its own is not carded.
+- **EXTRACTION ARTEFACTS**: a "sense" whose gloss is an example sentence (สี) is dropped (a line break, or
+  mostly Thai letters); "⇒ all nouns using this classifier" and "Abbreviation: …" tails are cut.
+
+**Known, left.** Some first glosses are Wiktionary's definitional wording rather than the plain word (ไข่ is
+"roundish reproductive body", เมือง "any polity, as district, town, city …"). 34 of A1's 500 words have no
+example sentence (Tatoeba's Thai is a fifth of Hindi's). The fill carries written-Thai vocabulary
+(ลักษณะ "characteristic", พิจารณา "to consider") the two corpora agree on. The Tatoeba sentences carry no
+romanisation.
+
+## 5. Phases
+
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
+level's inventory into `inventory.py` and its `SCOPE` into `thai_level.py`, run, read every card, extend the
+three tables. **Phase 3** — the phrases deck (`phrase` / `proverb` entries). **Phase 4** — a combined file,
+gitignored.
+
+## 6. As built (2026-11-09): the alphabet and A1
+
+`python3 .claude/thai/run.py [--level a1] [--no-fetch] [--re-extract]`; stages `extract.py` → `select.py` →
+`examples.py` → `build_deck.py`, caching in `.claude/thai-cache/` (gitignored, ~165 MB);
+`python3 .claude/thai/alphabet.py` writes the alphabet deck (reads `lex.json` for the example words'
+romanisations). `node .claude/thai/check-thai.js` is the check. **A re-run is byte-identical** (verified for
+A1). A1: 500 notes, 341 from the inventory and 159 by frequency; 76 show a classifier; sentences for 466, three
+for 430. The alphabet: 92 notes — 44 consonants (class, name word, initial and final sound; the name is on the
+sound side, since five letters say k and six say t), 28 vowels and vowel signs on ◌, 4 tone marks and 3 other
+signs, the 3 class rules, 10 digits; every sound side unique (asserted). The shelf's hue is measured:
+`#0B791D`, 19.3 from its nearest of 46.

@@ -157,3 +157,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~280 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hindi-cache/
+
+# the corpora .claude/thai/run.py builds the Thai decks from — the Wiktionary extract,
+# the two PyThaiNLP corpus frequency lists and the Tatoeba exports (~165 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/thai-cache/

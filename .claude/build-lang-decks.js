@@ -71,6 +71,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  { word: "Thai", name: "Thai", l1: 27 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });
