@@ -267,7 +267,7 @@ otherwise.
 | B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | **done 2026-11-09** |
 | B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | **done 2026-11-09** |
 | B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | **done 2026-11-09** |
-| B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | to do |
+| B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | **done 2026-11-09** |
 | B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | to do |
 | B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | to do |
 | B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | to do |
@@ -481,6 +481,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-078` | a Shang libation jue | not re-checked (Commons 429): ok: one vessel of the cult |
 | `cnh-079` | a sacrificial pit at Yinxu | not re-checked (Commons 429): ok |
 | `cnh-080` | the plan of royal grave M1400 | not re-checked (Commons 429): ok |
+| `cnh-081` | five ding and four gui from the Guo state tombs | not re-checked (Commons 429): ok |
+| `cnh-082` | clay moulds, an ingot and carving tools | not re-checked (Commons 429): ok |
+| `cnh-083` | the Hou Mu Wu ding | not re-checked (Commons 429): ok; the credit lacks the Commons link — fix |
+| `cnh-084` | a late Shang jia with its mask bands | not re-checked (Commons 429): ok |
+| `cnh-085` | a jade ge from Yinxu | not re-checked (Commons 429): ok |
+| `cnh-086` | a chariot pit at Yinxu | not re-checked (Commons 429): ok |
+| `cnh-087` | bronze dagger-axes from Yinxu | not re-checked (Commons 429): ok |
+| `cnh-088` | a museum text panel of the capital moves | not re-checked (Commons 429): wrong: burned-in text — replace |
+| `cnh-089` | the inner wall in the modern city | not re-checked (Commons 429): ok |
+| `cnh-090` | an excavated palace foundation | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -813,3 +823,36 @@ option for the first. **Spellings fixed**: none; 0 hits. **Myth register**: no r
 (`cnh-073`, `cnh-074`). **For the owner**: the Hou Mu Wu ding — 875 kg on `cnh-101`'s question against the museum's
 832.84 kg, as noted at B7. Locator notes for the end: `cnh-075` (the Tomb of Fu Hao article, at Xiaotun) and
 `cnh-080` (Xibeigang) have no point.
+
+### B9 — `cnh-081`–`cnh-090`, Shang: ritual bronzes to Panlongcheng (2026-11-09)
+
+Run as before; 73 cited URLs, all answering at least once this session (two National Museum of China pages, which
+answered earlier in the run, were unreachable on the last retries, the host flaky all session; a ScholarSpace handle
+answered on retry). `cnh-089`'s Europe PMC full-text address, returning 500, was replaced by the article's DOI.
+`cnh-086` cites a *Science Advances* paper by its DOI, which answers 403 here; the agent read its Europe PMC full text,
+saved as the evidence. **The old cards carried counts and measures as rows (nine ding for a king, a gu and a jue as a
+set, 19 mould pieces and 5 cores, a 22.9 cm fangding, Fu Hao's 1.6 tonnes, 13,000 men, two walled cities, 24 km² for
+Zhengzhou, 7.5 and 64–110 hectares for Panlongcheng), told the Zhou "nine ding" rule as a Shang fact, set Zhou chariot
+pits and Muye's 300 chariots on a Shang card, named Hetian as one of three equal guesses, and said Panlongcheng cast no
+vessels.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-081` Chinese ritual bronzes | 7 | 5 → 8 | **Counts off the line, now `Made c. 1600 – 221 BCE`; the nine-ding rule left to `cnh-124` (its Han attestation unreadable here); the card runs from Erlitou to the Han: the vessel sets, each type's name and use, rank, inscriptions, the Qin–Han turn to everyday wares**; the skulls-in-a-yan point and a Gansu inventory dropped. |
+| `cnh-082` piece-mould casting | 6 | 5 → 7 | **The Erligang ding's mould count, the potter's ancestor and a mould-reuse dispute dropped (their sources unreadable); `Main use c. 1600 – 256 BCE`; the full casting sequence, the Houma pattern blocks, the lost-wax debate with no start date asserted; pinyin joined, kuàifànfǎ**. |
+| `cnh-083` ding | 6 | 5 → 7 | **A measurement, a dateless row and a span matching no event replaced by `First in bronze c. 1700 – 1600 BCE` and `First tetrapods c. 1640 – 1400 BCE`; the nine-ding legend told from the *Zuo Zhuan* and the *Shiji* (the Si River search)**; the Hou Mu Wu given no weight, only the museum's "heaviest", attributed. |
+| `cnh-084` Shang bronze decoration | 7 | 5 → 8 | **Counts off the line, now `Dense patterns c. 1500 – 1300 BCE` and `High relief c. 1200 BCE`; patterns cut into the mould sections, the ground spirals and flanges, Loehr's five styles and their confirmation by excavation, the meaning debate; "taotie" kept out of every question (`cnh-027`'s)**. |
+| `cnh-085` Shang jade | 7 | 5 → 8 | **Hetian the usual guess but untested, and the "Hetian rind" on Fu Hao's jades shown by the Palace Museum's tests to be burial staining (Xu Lin 2020 [in Chinese]); the "commonest forms" given in Lopes's own words; counts off the line**; Fu Hao's 755 jades left to `cnh-075`. |
+| `cnh-086` Shang chariot | 7 | 6 → 7 | **Every Zhou pit and Muye's 300 chariots removed; the vehicle from beyond the Urals by way of Mongolia, drivers buried face down with rein holders and repair kits (Rawson et al. 2020); `In use c. 1200 – 1046 BCE`; Chinese name 商代战车 ("war chariot") → 商代马车 / 商代馬車, Shāngdài mǎchē (the Yinxu Museum's term)**. |
+| `cnh-087` Shang warfare | 7 | 5 → 8 | **Troop counts and a weapon count off the line, now `Recorded c. 1250 – 1046 BCE`; the shifting fang label, the Gongfang, Tufang and Renfang campaigns, the dagger-axe, Di Xin's Renfang campaign in day-by-day inscriptions**; the 13,000 against the Qiang kept in prose, credited to a modern tally. |
+| `cnh-088` Shang capitals | 7 | 5 → 7 | **Places and a count off the line, now `Seats c. 1600 – 1046 BCE` / `Last seat c. 1250 – 1046 BCE`; the moves as each text gives them (the *Shiji* returning Pan Geng to Bo, the *Bamboo Annals* taking him to Yin, the 273 years after Niu); Zhengzhou's identification as Bo or Ao left open**; Huanbei mentioned, not used as a clue (`cnh-069`'s). |
+| `cnh-089` Zhengzhou Shang City | 6 | 5 → 6 | **"24 km²" corrected to the museum's c. 13 km² walled within c. 25 km² of Shang remains, and the inner wall at 6,960 m (An Jinhuai); `In use c. 1509 – 1315 BCE` (radiocarbon) / `Found 1950`; unsourced foundation sizes, an "only piece-mould site" claim and "ten million residents" dropped**. |
+| `cnh-090` Panlongcheng | 6 | 5 → 6 | **"Cast no vessels" corrected: the Xiaozui moulds, crucibles and bronze grains show local casting; the unsourced 7.5 ha and 64–110 ha dropped; `Early Shang c. 1500 – 1300 BCE` / `Found 1954`; the stray `translations` field emptied**. |
+
+Read by eye. **Confusability**: the vessel sets (`cnh-081`), the casting (`cnh-082`), the ding (`cnh-083`) and the
+decoration (`cnh-084`) each keep their own clues; the Hou Mu Wu stays `cnh-083`'s and `cnh-089`'s largest early Shang
+cauldron is the Duling fangding, a different vessel. **Chinese names corrected**: `cnh-086` 商代战车 → 商代马车; `cnh-082`
+pinyin kuàifàn fǎ → kuàifànfǎ. **Spellings fixed**: none; 0 hits. **Myth register**: the nine ding passing from Xia to
+Shang to Zhou — the *Zuo Zhuan* (Duke Xuan 3) and the *Mozi*; the Qin capture and the Si River search in the *Shiji*;
+the search carved on Eastern Han shrines (held for the summary). **Protected lines: unchanged** (none here). Locator
+notes for the end: `cnh-089` and `cnh-090` have no point (each has its own article); `cnh-088` covers several sites.

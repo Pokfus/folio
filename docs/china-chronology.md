@@ -223,6 +223,14 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Fu Hao's death (protected line) / her tomb buried / excavated | c. 1200 BCE / c. 1250 – 1192 BCE / 1976 | `cnh-074`, `cnh-075` |
 | Shang kingship / Shangdi first attested / ancestor worship recorded | c. 1600 – 1046 BCE / c. 1250 BCE / c. 1250 – 1046 BCE | `cnh-076`, `cnh-077`, `cnh-078` |
 | human sacrifice in the late Shang record / Xibeigang in use | c. 1250 – 1046 BCE | `cnh-079`, `cnh-080` |
+| Chinese ritual bronzes made / piece-mould casting's main use | c. 1600 – 221 BCE / c. 1600 – 256 BCE | `cnh-081`, `cnh-082` |
+| the ding first in bronze / the first four-legged ding | c. 1700 – 1600 BCE / c. 1640 – 1400 BCE | `cnh-083` |
+| Shang bronze decoration: dense patterns / high relief | c. 1500 – 1300 BCE / c. 1200 BCE | `cnh-084` |
+| Shang jade made / the late Shang | c. 1600 – 1046 BCE / c. 1250 – 1046 BCE | `cnh-085` |
+| the chariot in Shang China | c. 1200 – 1046 BCE | Rawson et al. 2020 (`cnh-086`) |
+| Shang warfare recorded / the Shang seats / the last seat | c. 1250 – 1046 BCE / c. 1600 – 1046 BCE / c. 1250 – 1046 BCE | `cnh-087`, `cnh-088` |
+| Zhengzhou Shang City in use (radiocarbon) / found | c. 1509 – 1315 BCE / 1950 | `cnh-089` |
+| Panlongcheng / found | c. 1500 – 1300 BCE / 1954 | `cnh-090` |
 
 ## Later periods
 
@@ -311,4 +319,14 @@ cnh-077: 1250
 cnh-078: 1250; 1046
 cnh-079: 1250; 1046
 cnh-080: 1250; 1046
+cnh-081: 1600; 221
+cnh-082: 1600; 256
+cnh-083: 1700; 1600; 1640; 1400
+cnh-084: 1500; 1300; 1200
+cnh-085: 1600; 1046; 1250
+cnh-086: 1200; 1046
+cnh-087: 1250; 1046
+cnh-088: 1600; 1250; 1046
+cnh-089: 1509; 1315; 1950
+cnh-090: 1500; 1300; 1954
 ```

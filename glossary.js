@@ -9865,7 +9865,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Discovery_of_the_oracle_bones": "1899",
 "Shang_divination": "c. 1250 – 1046 BCE",
 "Wu_Ding": "c. 1250 – 1192 BCE",
-"Zhengzhou_Shang_City": "c. 1600 – 1400 BCE",
+"Zhengzhou_Shang_City": "c. 1509 – 1315 BCE",
 "Panlongcheng": "c. 1500 – 1300 BCE",
 "Shang_agriculture": "c. 1600 – 1046 BCE",
 "Shang_countryside": "c. 1600 – 1046 BCE",
