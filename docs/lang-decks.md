@@ -3399,6 +3399,15 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/polish/` — the generator behind the Polish decks (Nov 2026, on request: "Add a Polish language
+  collection"). **Built: A1, `decks/Polish-A1.folio-deck.json`** (600 notes / 1,200 cards: 476 from a
+  hand-written topic inventory, 124 by frequency). `python3 .claude/polish/run.py [--level a1]`,
+  `node .claude/polish/check-polish.js`; a re-run is byte-identical. The UKBI / Hindi shape: the State
+  Commission examines at all six levels but no word list of its own was found, so a level is a topic
+  inventory plus lemma frequency, and the description says so. The plan, the sources and every finding (the
+  Middle Polish table and the parent glosses it hides, `i` missing from the dump, `sie` counted as August,
+  the three shadowing owners, examples found only through unshared cells) are 📖 `docs/polish-decks-plan.md`.
+  The `l1` row is 40 million (Ethnologue 2021, via Wikipedia); the hue is measured, `#318526`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
