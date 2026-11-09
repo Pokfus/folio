@@ -14,7 +14,7 @@ DECKS = os.path.join(ROOT, 'decks')
 
 # A FIXED TIMESTAMP, so a rebuild on unchanged inputs writes the same bytes (the UKBI rule).
 STAMP = 1794182400000      # 2026-11-09T00:00:00Z
-COLOR = '#9F51B4'          # the Korean collection's hue, `lang-korean` in app.js COLL_THEME
+COLOR = '#365442'          # the Korean collection's hue, `lang-korean` in app.js COLL_THEME
 
 
 def c(name):
