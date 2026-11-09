@@ -71,6 +71,9 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
+     nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
+  { word: "Latin", name: "Latin", l1: 0 },
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

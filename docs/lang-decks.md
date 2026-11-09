@@ -3399,6 +3399,14 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/latin/` — the generator behind the Latin decks (Nov 2026, on request: "Add a Latin language
+  collection", then the owner's answers: CEFR A1–C1 assembled, a phrases and mottos deck, principal parts,
+  macrons, full tables and sentences on every card). **Built: A1, `decks/Latin-A1.folio-deck.json`** (500 notes
+  / 1,000 cards). `python3 .claude/latin/run.py [--level a1]`, `node .claude/latin/check-latin.js`; a re-run is
+  byte-identical. The Hindi shape, but ordered by the DCC Latin Core Vocabulary (CC BY-SA 3.0) rather than
+  subtitles, and spoken in an Italian voice (`it-IT`). The macron decides homographs; the plan, the sources and
+  every finding are 📖 `docs/latin-decks-plan.md`. The `l1` row is 0 (no native speakers; sorts last); the hue
+  is measured, `#6F69D2`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

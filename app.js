@@ -29118,6 +29118,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-hindi":      { bg: "#9F51B4" }, // measured violet
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
+    /* LATIN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB (ΔE76) inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the page.
+       The farthest point was a green (#2A8424, 19.5 from Portuguese), and a third green on the Languages shelf is
+       what India's and Russia's notes refuse, so the greens (hue 100–170°) were left out: a periwinkle, 18.6 from
+       its nearest neighbour (#664C9A), against a tightest existing pair of 4.0. Not a flag colour. */
+    "lang-latin":      { bg: "#6F69D2" }, // measured periwinkle
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
        27.2 from its nearest neighbour. 9.9:1 against white. */
