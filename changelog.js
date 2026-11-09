@@ -35,16 +35,18 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1242", released: "2026-11-09T03:55Z" };
+window.FOLIO_VERSION = { v: "1.1252", released: "2026-11-09T04:16Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-09",
-    t: "China cards rewritten, and date lines for wars, battles and cities",
+    t: "China rewrites, Hindi, Arabic and Telugu, and What language?",
     items: [
+      "A new <b>Korean</b> language collection: the hangul alphabet, three graded vocabulary decks, and phrases, idioms and proverbs, all in both directions.",
       "<b>100 China cards are rewritten</b>, from Chinese mythology to Shang burial, with more sources, corrected dates and legend told as legend.",
       "A <b>new date line for wars, battles and cities</b> — start, end and length, place, casualties, result, founding, peak and population — on 654 cards.",
-      "<b>Hindi</b> and <b>Latin</b> collections join the Languages section: Hindi with an alphabet deck and A1, Latin with an A1 deck of 500 words with macrons and principal parts."
+      "<b>Hindi</b>, <b>Arabic</b>, <b>Telugu</b>, <b>Greek</b>, <b>Bengali</b>, <b>Urdu</b>, <b>Romanian</b>, <b>Vietnamese</b>, <b>Swahili</b> and <b>Latin</b> join the Languages section, each with a 500-word A1 deck, most with an alphabet deck.",
+      "A new daily minigame, <b>What language?</b>: read a short passage and pick its language from four close relations, drawn from 200 languages."
     ]
   },
   {

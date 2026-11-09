@@ -111,5 +111,5 @@ file, gitignored.
 `examples.py` → `build_deck.py`, caching in `.claude/latin-cache/` (gitignored, ~1.4 GB). `node
 .claude/latin/check-latin.js` is the check. **A re-run is byte-identical** (verified). A1: 500 notes, 322 from
 the inventory and 178 from the DCC list; 392 with a dictionary entry, 399 with a table, three sentences for
-499. The shelf's hue is measured: `#6F69D2`, 18.6 from its nearest of 46 (greens excluded — the unrestricted
-best, `#2A8424`, would have been a third green 19.5 from Portuguese).
+499. The shelf's hue is measured: `#75543F`, 16.2 from its nearest of 55. The first sweep (46 hues) found `#6F69D2`,
+which Greek's parallel session also found and merged first, so Latin was re-swept at the merge.

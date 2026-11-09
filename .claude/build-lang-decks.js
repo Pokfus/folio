@@ -62,15 +62,27 @@ const OUT = path.join(ROOT, "lang-decks.js");
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
   { word: "Spanish", name: "Spanish", l1: 486 },
+  // Ethnologue 28th ed. (2020–2024 figures), via Wikipedia's infobox, read 2026-11-09: native speakers of ALL
+  // varieties. The decks teach Modern Standard Arabic, which almost nobody speaks as a first language, but the
+  // figure is what orders a language on this shelf and every other row counts a language's speakers too.
+  { word: "Arabic", name: "Arabic", l1: 411 },
   { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
+  { word: "Bengali", name: "Bengali", l1: 242 },      // Wikipedia's infobox (Ethnologue 28th ed. and the 2011 census, 2011–2023), read 2026-11-09
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
+  { word: "Vietnamese", name: "Vietnamese", l1: 86 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
+  { word: "Telugu", name: "Telugu", l1: 83 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
+  { word: "Korean", name: "Korean", l1: 81 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
+  { word: "Urdu", name: "Urdu", l1: 78 },            // Ethnologue 28th ed., via Wikipedia's infobox (77.7), read 2026-11-09
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  { word: "Romanian", name: "Romanian", l1: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
+  { word: "Swahili", name: "Swahili", l1: 5 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0 },
@@ -96,6 +108,9 @@ function levelRank(title) {
      alphabetically: N1 first, upside down, with nothing to say so. */
   const j = /\bJLPT N([1-5])\b/.exec(title);
   if (j) return 5 - Number(j[1]);
+  /* KOREAN'S STAGES ARE LETTERED — the NIKL list's A, B and C — and "Stage A" matches no rule below it. */
+  const k = /\bStage ([ABC])\b/.exec(title);
+  if (k) return "ABC".indexOf(k[1]);
   const u = /\bUKBI (\d)\b/.exec(title);          // Indonesian's own seven predicates, numbered from the bottom
   if (u) return Number(u[1]) - 1;
   /* THE LEVEL IS TESTED BEFORE THE STANDARD, and the order is load-bearing: every Mandarin title reads
