@@ -29155,6 +29155,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        arrived wearing one colour; Turkish was re-swept with Japanese's plum on the shelf. The rose below
        clears its nearest neighbour by 25.0. */
     "lang-turkish":    { bg: "#D5519F" }, // measured rose
+    /* TELUGU (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a green, #228122 — and Arabic's, run in a parallel session, found #2A8424,
+       so the two arrived wearing one colour; re-swept at the merge against all 47 with Arabic's green on the
+       shelf: a deep magenta, 18.7 from its nearest neighbours (Japan, Japanese, Turkish), against a tightest
+       existing pair of 4.0. Not a flag colour. */
+    "lang-telugu":     { bg: "#9D0D6C" }, // measured magenta
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
