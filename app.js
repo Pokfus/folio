@@ -29119,6 +29119,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Nothing here is a flag: Mandarin is a muted rose-red rather than the PRC's, and the resemblance to
        the CHINA collection's vermilion is left rather than avoided, those two genuinely being about one
        place — the kinship test forbids a false claim, not a true one. */
+    /* BENGALI (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep's peak was the green Arabic took,
+       and its second (outside green) the periwinkle Greek took, each measured in a parallel session. Re-swept at
+       the merge against all 49 other hues on the page: this dark olive is the outright winner, 17.7 from its
+       nearest neighbour (German's brown), against a tightest existing pair of 4.0; 9.3:1 against white. Not a
+       flag colour. */
+    "lang-bengali":    { bg: "#574518" }, // measured dark olive
     /* ARABIC (Nov 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the shelf's band
        (L 28–55, chroma 7–62, now also at least 4.5:1 against white) for the point farthest from every hue on the page. Its
        first sweep found #9F51B4 — and so did Hindi's, run on the same shelf in a parallel session, so the two arrived wearing

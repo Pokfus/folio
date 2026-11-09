@@ -67,6 +67,7 @@ const LANGS = [
   // figure is what orders a language on this shelf and every other row counts a language's speakers too.
   { word: "Arabic", name: "Arabic", l1: 411 },
   { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
+  { word: "Bengali", name: "Bengali", l1: 242 },      // Wikipedia's infobox (Ethnologue 28th ed. and the 2011 census, 2011–2023), read 2026-11-09
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30

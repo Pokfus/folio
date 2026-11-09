@@ -3410,6 +3410,15 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
+  collection"; the Hindi set's decisions taken for its sister). **Built: the alphabet,
+  `decks/Bengali-Alphabet.folio-deck.json`** (56 notes) **and A1, `decks/Bengali-A1.folio-deck.json`** (500
+  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes). `python3 .claude/bengali/run.py [--level a1|a2]`, `python3 .claude/bengali/alphabet.py`,
+  `node .claude/bengali/check-bengali.js`; a re-run is byte-identical. `.claude/hindi/` adapted: no gender, the
+  sadhu conjugations skipped, kaikki's garbled noun-table cells cleaned and romanised by ending, the y-stem
+  template's doubled য় dropped, form-of pointers of any part of speech kept for the inventory (`আছে`). Every
+  finding is 📖 `docs/bengali-decks-plan.md`. The `l1` row is 242 million (Wikipedia's infobox); the hue is
+  measured, `#574518` (re-swept at the merge, Arabic and Greek having taken its first two).
 - `.claude/telugu/` — the generator behind the Telugu decks (Nov 2026, on request: "Add a Telugu language
   collection"), the Hindi pipeline adapted, with the Hindi collection's decisions carried over.
   **Built: the alphabet, `decks/Telugu-Alphabet.folio-deck.json`** (52 notes) **and A1,
