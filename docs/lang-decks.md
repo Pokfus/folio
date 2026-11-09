@@ -3570,6 +3570,15 @@ changed was the one that had been wrong all along.
   part-of-speech filter for the homographs, verb forms filed as words, the thin Tatoeba — 321 of 500 words
   without a sentence) are 📖 `docs/tamil-decks-plan.md`. The `l1` row is Ethnologue's 78.7 million (via
   Wikipedia); the hue is measured, `#CF3F57` (re-swept at the merge: Greek had taken `#6F69D2`).
+- `.claude/ukrainian/` — the generator behind the Ukrainian decks (Nov 2026, on request: "Add a Ukrainian language
+  collection"; the word source, sizes and card follow the Hindi and Russian sets, and the owner may overrule them).
+  **Built: the alphabet, `decks/Ukrainian-Alphabet.folio-deck.json`** (33 letters and the apostrophe) **and A1,
+  `decks/Ukrainian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/ukrainian/run.py [--level a1]`,
+  `python3 .claude/ukrainian/alphabet.py`, `node .claude/ukrainian/check-ukrainian.js`; a re-run is byte-identical.
+  Assembled to CEFR like Hindi; the card is Russian's (stress marked, no transliteration, the aspect partner). The
+  findings — the Russian in the Ukrainian subtitle list, the apostrophe, the pronouns' shared table, a table without
+  its headword, diminutives as form-of entries, reciprocal aspect pairs — are 📖 `docs/ukrainian-decks-plan.md`. The
+  `l1` row is Ethnologue's 32 million (via Wikipedia); the hue is measured, `#9F4500` (re-swept at the merge, Arabic having taken its first, `#2A8424`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

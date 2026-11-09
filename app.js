@@ -29237,6 +29237,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        52: a steel blue, 16.9 from its nearest neighbours (Greece, French and the United States), against a
        tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour. */
     "lang-vietnamese": { bg: "#14659F" }, // measured steel blue
+    /* UKRAINIAN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep found a green, #2A8424 — and Arabic's, run in a parallel session, found the same, so the
+       two arrived wearing one colour; re-swept at the merge against all 58: a burnt orange, 15.8 from its nearest
+       neighbour (Spanish's orange), against a tightest existing pair of 4.0; 6.3:1 against white. It was the best
+       point outright, not only outside the greens. Not a flag colour. */
+    "lang-ukrainian":  { bg: "#9F4500" }, // measured burnt orange
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

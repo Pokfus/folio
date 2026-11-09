@@ -219,3 +219,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~200 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/tamil-cache/
+
+# the corpora .claude/ukrainian/run.py builds the Ukrainian decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~450 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/ukrainian-cache/
