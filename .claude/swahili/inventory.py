@@ -50,4 +50,43 @@ A1 = [
                        'anza maliza kumbuka sahau tembea subiri ishi fungua funga wa_na'),
 ]
 
-INVENTORY = {'a1': A1}
+# A2: the immediate surroundings -- the CEFR's "very basic personal and family information,
+# shopping, local geography, employment" -- built on A1 (`select.py` drops any word A1 teaches).
+A2 = [
+    ('months', 'januari februari machi aprili mei juni julai agosti septemba oktoba novemba desemba'),
+    ('seasons, the land and the weather', 'masika kiangazi msimu bahari ziwa mto mlima msitu mti '
+                                          'jani jiwe mchanga nyota kisiwa pwani jangwa bonde nyasi '
+                                          'wingu radi'),
+    ('animals', 'mnyama mbwa paka ng\'ombe mbuzi kondoo kuku farasi punda simba tembo twiga '
+                'punda_milia kiboko nyoka nyani mdudu mbu nzi chui fisi'),
+    ('clothes', 'nguo shati suruali gauni sketi koti kofia kiatu soksi mkanda kanzu kanga kitenge '
+                'mfuko'),
+    ('the home and the kitchen', 'sebule bafu ukuta paa sakafu ngazi kabati friji taa kioo sahani '
+                                 'kikombe kijiko uma kisu sufuria bakuli birika mswaki sabuni '
+                                 'taulo blanketi bustani uwanja'),
+    ('food', 'kiazi nyanya kitunguu kabichi karoti haragwe mahindi mchele tambi siagi asali '
+             'jibini mafuta pilipili tangawizi chapati andazi supu juisi soda nanasi papai '
+             'parachichi limau tikiti zabibu nazi'),
+    ('work and jobs', 'mfanyakazi mkulima mvuvi dereva mpishi muuguzi askari fundi mhandisi '
+                      'mwanasheria mfanyabiashara katibu meneja mshahara kampuni kiwanda shamba'),
+    ('school', 'darasa somo mtihani karatasi daftari ubao chuo chuo_kikuu elimu hesabu historia '
+               'sayansi jiografia kompyuta'),
+    ('travel and transport', 'safari uwanja_wa_ndege bandari meli mashua baiskeli pikipiki teksi '
+                             'daladala matatu abiria mzigo pasipoti ramani kituo nauli'),
+    ('the town', 'mtaa kanisa msikiti posta maktaba daraja jengo kona'),
+    ('health', 'afya kliniki sindano kidonge jeraha damu kikohozi mafua malaria tapika pumzika'),
+    ('feelings and character', 'huzuni hasira woga upendo uchovu njaa kiu mchangamfu mkarimu '
+                               'mvivu mwerevu'),
+    ('free time', 'mpira wimbo ngoma filamu sinema televisheni redio gazeti hadithi likizo '
+                  'siku_kuu'),
+    ('verbs', 'imba ruka ogelea endesha shuka vua oga fundisha badili badilika chelewa '
+              'panga:verb safisha fua changanya onja nusa gusa beba vuta sukuma cheka tabasamu '
+              'ota sali hudhuria hamia zaliwa oa olewa husu'),
+    ('describing', 'moto tamu chungu laini zito epesi pana embamba polepole tajiri maskini chafu '
+                   'kavu bivu'),
+    ('time', 'sekunde karne juzi kesho_kutwa daima mara_nyingi kamwe'),
+    ('connectors', 'kwa_sababu ingawa halafu ama yaani kwa_hiyo endapo badala_ya juu_ya '
+                   'mbele_ya ndani_ya'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

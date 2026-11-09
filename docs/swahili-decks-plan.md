@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/swahili/`, §6). A2 to C1 and a phrases deck are not.
+**STATUS (2026-11-09): A1 and A2 are built** (`.claude/swahili/`, §6, §7). B1 to C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -26,7 +26,7 @@ for a language with no exam list — **open to the owner's correction**:
 | deck | file | notes |
 |---|---|---|
 | Swahili A1 Beginner — built | `Swahili-A1.folio-deck.json` | 500 |
-| Swahili A2 Elementary | `Swahili-A2.folio-deck.json` | 750 |
+| Swahili A2 Elementary — built | `Swahili-A2.folio-deck.json` | 750 |
 | Swahili B1 Intermediate | `Swahili-B1.folio-deck.json` | 1,000 |
 | Swahili B2 Upper Intermediate | `Swahili-B2.folio-deck.json` | 1,500 |
 | Swahili C1 Advanced | `Swahili-C1.folio-deck.json` | 1,500 |
@@ -91,7 +91,7 @@ Wiktionary senses are odd for a beginner (`-weza` "to be unwell"), shown as the 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
 
@@ -103,3 +103,29 @@ inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read
 notes, 277 from the inventory and 223 by frequency; sentences for 482, three apiece for 459.
 The shelf's hue is measured: `#6D67D1`, 18.6 from its nearest of 46 (the farthest point, a green at 19.3, was
 refused — the section has two greens already — and the next, a magenta at 18.7, is in the band the shelf rejects).
+
+## 7. As built (2026-11-09): A2
+
+`python3 .claude/swahili/run.py --level a2`. 750 notes, 269 from the inventory (17 topics: months, the land
+and weather, animals, clothes, the home and kitchen, food, jobs, school, transport, the town, health,
+feelings, free time, verbs, describing, time, connectors) and 481 by frequency; sentences for 633, three apiece
+for 436, none for 117 (Tatoeba's Swahili is small). A re-run is byte-identical, and **A1 is byte-identical
+after every change below** (its card ids are positional: re-dealing it would remap readers' progress).
+
+- **A LOWER LEVEL TAUGHT THE LEMMA, NOT JUST THE HEADWORD** (`select.says_all`). A1 printed `jua` as `kujua`
+  and `nani` as `nani`; A2's fill, reading their other entries first, dealt them again as `jua` "sun" and
+  `-a nani` "whose" (and `toka`, `jibu`). A lemma is now below if ANY headword it could be printed as is in a
+  lower deck's `Word`.
+- **A MULTI-WORD LEMMA HAS ITS OWN COUNT** (`seq` in `lex.json`): the geometric mean of how often its words
+  occur in sequence. The parts rule gave `kwa sababu`, `juu ya`, `chuo kikuu` a 0 (`ya`, `kikuu` are not
+  lemmas), so they were dealt last. Used from A2 up only (`select.rank`); A1 stays on `freq`.
+- **THE MONTHS** are proper nouns in Wiktionary, admitted like the days; `Machi` replaces the common noun
+  `machi` "a march (walk)" it shares a key with.
+- More homographs whose count is a verb form, excluded with reasons: `tuna` "to swell" (`tuna` "we have"),
+  `kina` "depth" (`kina` "it has"), `ukiwa` "solitude" (`ukiwa` "when you are"), `kiko` "pipe", and `-hidi`
+  "to convert" (the parser splitting `-ahidi` "to promise" at the wrong letter). More etymology choices
+  (`paa` roof, `tupa` throw, `chungu` bitter, `panga` arrange) and lead glosses (`mpira` ball, `kiwanda` factory).
+  `kuhusu` leads with "about, involving", Wiktionary's own gloss on its `kuhusu` entry.
+- **Known, left**: the fill leans on news and drama vocabulary (`mahakama`, `gereza`, `silaha`, `mtukufu`),
+  as every corpus-ordered deck on the shelf does; several applicative and passive verbs (`kuletea`,
+  `kuchukuliwa`) are lemmas of their own in Wiktionary and come in on their counts.

@@ -48,6 +48,18 @@ SCOPE = {
                   'weather, colours, and the pronouns, question words and little words '
                   'every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas of '
+                 'most immediate relevance',
+        'gloss': 'able to communicate in simple and routine tasks requiring a simple and direct '
+                 'exchange of information on familiar and routine matters, and to describe in '
+                 'simple terms aspects of their background, immediate environment and matters '
+                 'in areas of immediate need',
+        'topics': 'the months and seasons, the land, the weather and animals, clothes, the home '
+                  'and the kitchen, food and cooking, work and jobs, school, travel and transport, '
+                  'the town, health, feelings, free time, the everyday verbs of these, describing '
+                  'things and people, time words, and the words that join one clause to the next',
+    },
 }
 
 

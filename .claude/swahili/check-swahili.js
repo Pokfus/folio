@@ -16,7 +16,7 @@ const POINTER = /\[\[|Appendix:|inflected form of|^(?:infinitive|alternative for
 const SW = /^-?[A-Za-z' -]+$/;
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
-const text = (h) => h.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const text = (h) => h.replace(/<[^>]+>/g, " ").replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
 const files = fs.readdirSync(DIR).filter((f) => /^Swahili-.*\.folio-deck\.json$/.test(f)).sort();
 if (!files.length) bad("no Swahili deck in decks/");
 const seen = new Map();
@@ -34,7 +34,7 @@ for (const f of files) {
     if (!F.English) bad(f + ": " + h + " has no English");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + h + " is defined by a pointer: " + g.trim());
-    for (const [, cl] of F.English.matchAll(/class ([^,<]*\))/g)) if (!CLASSES.has(cl)) bad(f + ": " + h + " class label " + cl);
+    for (const [, cl] of F.English.matchAll(/class="uc-pos">[^<]*?class ([^,<]*\))/g)) if (!CLASSES.has(cl)) bad(f + ": " + h + " class label " + cl);
     const pos = (F.English.match(/class="uc-pos">([^<,]*)/) || [])[1];
     if (pos === "verb" && !/^(ku|kw)/.test(h))   // ku- + a vowel stem is kw-: kwenda, kwanza bad(f + ": verb " + h + " is not shown as its infinitive");
     for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + h + " forms label " + l);

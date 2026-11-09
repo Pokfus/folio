@@ -68,18 +68,29 @@ ETYMS = {
     'kaa': ['2'],             # "to sit, stay"; 1 is "charcoal", 3 "crab"
     'kadhaa': ['2'],          # "several"; 1 is "requirement"
     'fahamu': ['2', '1'],     # "to understand" AND "understanding"
+    'paa': ['2'],             # "roof" (A2's home); 1 is "duiker", 3 and 4 verbs
+    'tupa': ['2'],            # "to throw"; 1 is "rasp"
+    'chungu': ['3', '1'],     # "bitter" AND "cooking pot"; 2 is "ant", 4 "heap"
+    'panga': ['2', '1'],      # "to arrange" AND "machete"
+    'mhanga': ['2'],          # "sacrifice, casualty"; 1 is "aardvark"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
 GLOSS = {
     # Wiktionary's sense is the grammarian's "focus marker"; a learner meets it as the copula
     'ni': {'particle': ['is, are, am (the same for every person)', 'it is']},
+    # the infinitive is met as a preposition far more than the verb; the gloss is Wiktionary's
+    # own, from its `kuhusu` entry ("infinitive of -husu: involving, about"), ahead of the stem's
+    'husu': {'verb': ['about, involving', 'to relate (to connect one topic with another)',
+                      'to involve, to affect']},
 }
 
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'simu': 'telephone',      # first listed is "telegram"
+    'mpira': 'ball',          # first listed is "a kind of creeper plant"
+    'kiwanda': 'factory',     # first listed is "forge"
 }
 
 
@@ -222,6 +233,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -236,7 +251,7 @@ def desc(entries, n):
         "Both study directions in one deck: Swahili → English (see the Swahili, recall the "
         "meaning) and English → Swahili (see an English meaning, recall the Swahili). Each "
         "direction is a card of its own with its own schedule, so recognising a word and "
-        f"producing it are learnt separately. {n} words for a beginner, aligned to "
+        f"producing it are learnt separately. {n} words for {WHO[LEVEL]}, aligned to "
         f"{LEVEL.upper()} of the Common European Framework of Reference, whose global "
         f"descriptor begins '{SC['quote']}' — a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

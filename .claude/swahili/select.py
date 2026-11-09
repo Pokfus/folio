@@ -38,10 +38,28 @@ EXCLUDE = {
     'sivyo': 'a negative copula form ("that is not so"), not a verb lemma',
     'ndio': 'a variant spelling of ndiyo, which A1 teaches',
     'mwanaume': 'a variant spelling of mwanamume, which A1 teaches',
+    # read off the A2 ranking (2026-11-09)
+    'peke': 'Wiktionary\'s only sense is a usage note (peke yangu "alone"), not a meaning',
+    'ndivyo': 'a copula form ("that is how"), not a verb lemma',
+    'hidi': '"to convert": its count is -ahidi "to promise", split at the wrong letter',
+    'tuna': '"to swell": its count is tuna "we have"',
+    'kina': '"depth": its count is kina "it has" (class 7)',
+    'ukiwa': '"solitude": its count is ukiwa "when you are"',
+    'kiko': '"pipe": its count is kiko "it is there" (class 7)',
+    'mpiga': 'a word-forming element (mpiga picha "photographer"), not a word',
+    'ngono': 'its count is the sexual sense; a level deck leaves that out, as it does swearing',
 }
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala'}
+
+
+def rank(L):
+    """The frequency a lemma is dealt by.  From A2 up a multi-word lemma's own sequence
+    count (`seq`, see `extract.py`); A1 was shipped on `freq` and stays on it."""
+    if LEVEL != 'a1' and 'seq' in L:
+        return L['seq']
+    return L['freq']
 
 
 def usable(L):
@@ -62,6 +80,14 @@ def say_of(L, pos=''):
     return L['word']
 
 
+def says_all(L):
+    """Every headword a lemma could be printed as -- one per part of speech, and its bare
+    spelling.  A LOWER LEVEL TAUGHT THE LEMMA if it taught any of them: A1 printed `jua`
+    as `kujua` and `nani` as `nani`, and A2's fill, reading their other entries first, would
+    have dealt them again as `jua` "sun" and `-a nani` "whose"."""
+    return {say_of(L, e['pos']) for e in L['entries']} | {L['word'].lower()}
+
+
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
     below = words_below()
@@ -75,16 +101,16 @@ def main():
                 missing.append(item)
                 continue
             say = say_of(L, pos)
-            if k in seen or say in below:
+            if k in seen or says_all(L) & below:
                 continue
             seen.add(k)
             said.add(say)
-            rows.append({'key': k, 'word': L['word'], 'say': say, 'freq': L['freq'],
+            rows.append({'key': k, 'word': L['word'], 'say': say, 'freq': rank(L),
                          'pos': pos or '', 'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
     swears = {norm(s) for s in SWEARS}
     fill = []
-    for k, L in sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0])):
+    for k, L in sorted(lex.items(), key=lambda kv: (-rank(kv[1]), kv[0])):
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
         if k in seen or k in swears or k in EXCLUDE or ' ' in k or '-' in k:
@@ -94,11 +120,11 @@ def main():
         if all(e['pos'] in ('phrase', 'proverb') for e in L['entries']):
             continue
         say = say_of(L)
-        if say in below or say in said:
+        if says_all(L) & below or say in said:
             continue
         seen.add(k)
         said.add(say)
-        fill.append({'key': k, 'word': L['word'], 'say': say, 'freq': L['freq'], 'pos': '',
+        fill.append({'key': k, 'word': L['word'], 'say': say, 'freq': rank(L), 'pos': '',
                      'source': 'frequency', 'topic': ''})
     rows += fill
     rows.sort(key=lambda r: (-r['freq'], r['key']))

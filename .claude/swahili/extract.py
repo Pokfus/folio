@@ -43,7 +43,10 @@ WEAK = {'rare', 'obsolete', 'archaic', 'dated', 'dialectal', 'regional', 'uncomm
         'Kimvita', 'Kiunguja', 'Kiamu', 'slang'}
 
 # THE DAYS OF THE WEEK are proper nouns in Wiktionary (`Jumatatu`), and A1 teaches them.
-NAME_OK = {'jumatatu', 'jumanne', 'jumatano', 'alhamisi', 'ijumaa', 'jumamosi', 'jumapili'}
+NAME_OK = {'jumatatu', 'jumanne', 'jumatano', 'alhamisi', 'ijumaa', 'jumamosi', 'jumapili',
+           # and the months (A2); `Machi` shares its key with `machi` "a march", which it replaces
+           'januari', 'februari', 'machi', 'aprili', 'mei', 'juni', 'julai', 'agosti', 'septemba',
+           'oktoba', 'novemba', 'desemba'}
 
 # A DERIVED VERB'S MEANING is written after its pointer: "Passive form of -elea: to
 # understand" -- the colon's right side is the meaning (`-elewa` is the everyday word).
@@ -66,7 +69,7 @@ ROMAN = {'I': '1/2', 'III': '3/4', 'V': '5/6', 'VII': '7/8', 'IX': '9/10', 'XI':
 POINTER = re.compile(r'\[\[Appendix|\binflected form of\b|^(?:infinitive|stative form|'
                      r'passive form|applicative form|causative form|reciprocal form|'
                      r'alternative form|alternative spelling|plural|augmentative|'
-                     r'diminutive) of\b|\bsubject inflected\b|\bclass form of\b|^class [ivx]+\b|^only used in\b|^(?:positive|negative)[^;]* of -', re.I)
+                     r'diminutive) of\b|\bsubject inflected\b|^used other than figuratively\b|\bclass form of\b|^class [ivx]+\b|^only used in\b|^(?:positive|negative)[^;]* of -', re.I)
 
 
 def clean_gloss(g):
@@ -130,7 +133,8 @@ def main():
         e = json.loads(line)
         pos = e.get('pos')
         w = norm(e.get('word', ''))
-        if pos == 'name' and w in NAME_OK:
+        proper = pos == 'name' and w in NAME_OK
+        if proper:
             pos = 'noun'
         if pos not in KEEP_POS or not is_sw(w) or w.startswith('-') or w.endswith('-'):
             continue
@@ -158,14 +162,23 @@ def main():
         ent = {'pos': pos, 'etym': e.get('etymology_number') or '', 'glosses': gl,
                'cls': cls, 'anim': anim, 'plonly': pl_only, 'plural': fo['plural'],
                'inf': fo['inf'], 'neginf': fo['neginf'], 'canon': fo['canon'],
-               'agree': fo['agree']}
+               'agree': fo['agree'], 'proper': proper}
         # THE CASE IS WIKTIONARY'S: `Kiswahili`, `Mungu`, `Jumatatu` are written with a
         # capital; a lower-case entry of the same spelling wins (`mungu` "a god").
         word = e['word'].strip()
         L = lemmas.setdefault(w, {'word': word, 'entries': []})
-        if word == w:
+        if proper:
+            L['proper_word'] = word
+        elif word == w:
             L['word'] = w
         L['entries'].append(ent)
+
+    # A PROPER NOUN THE LEVELS TEACH REPLACES A COMMON NOUN OF ITS SPELLING: `machi` "a march
+    # (rhythmic walk)" is not what a learner looking for the month needs to meet first.
+    for k, L in lemmas.items():
+        if any(e['proper'] for e in L['entries']):
+            L['entries'] = [e for e in L['entries'] if e['proper']]
+            L['word'] = L['proper_word']
 
     # which lemmas claim which surface
     claims = collections.defaultdict(set)
@@ -234,8 +247,38 @@ def main():
         r = [per[i].get(k, 0) * 1e6 / tot[i] for i in range(len(per))]
         freq[k] = (r[0] * r[1]) ** 0.5
 
+    # A MULTI-WORD LEMMA'S OWN COUNT (`seq`): the geometric mean, per million, of how often
+    # its words occur IN SEQUENCE in each corpus.  The parts rule below (its rarest word's
+    # count, halved) gave `kwa sababu` "because", `chuo kikuu` "university" and `juu ya`
+    # "about" a 0 -- `ya` and `kikuu` are not lemmas -- so they were dealt last.  `seq` is a
+    # field of its own because A1 was SHIPPED on `freq`, and a deck's card ids are
+    # positional: re-dealing A1 would remap its readers' progress.  `select.py` ranks
+    # levels from A2 up on `seq` where a multi-word lemma has one.  A verb (`wa na`, "to
+    # have") is never written in sequence (`nina`, `ana`), so it has none.
+    multi = {tuple(k.split()) for k, L in lemmas.items()
+             if ' ' in k and not any(e['pos'] == 'verb' for e in L['entries'])}
+    firsts = {m[0] for m in multi}
+    seq_counts = []
+    for c in CORPORA:
+        sc = collections.Counter()
+        for line in gzip.open(c, 'rt', encoding='utf-8'):
+            t = tokens(line)
+            for i, w0 in enumerate(t):
+                if w0 in firsts:
+                    for m in multi:
+                        if m[0] == w0 and tuple(t[i:i + len(m)]) == m:
+                            sc[m] += 1
+        seq_counts.append(sc)
+
     out = {}
     for k, L in lemmas.items():
+        L.pop('proper_word', None)
+        for e in L['entries']:
+            e.pop('proper', None)
+        m = tuple(k.split())
+        if m in multi:
+            r = [seq_counts[i][m] * 1e6 / tot[i] for i in range(len(tot))]
+            L['seq'] = round((r[0] * r[1]) ** 0.5, 2)
         if ' ' in k:
             parts = [freq.get(p, 0) for p in k.split()]
             L['freq'] = round(min(parts) / 2, 2) if parts else 0
