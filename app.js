@@ -29133,6 +29133,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        27.2 from its nearest neighbour. 9.9:1 against white. */
     "lang-japanese":   { bg: "#780F75" },
     "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
+    /* PERSIAN (Nov 2026; the reader asked for "Farsi") was not named a colour, so it was MEASURED as French was:
+       swept in CIELAB inside the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point
+       farthest from all 46 hues on the page — a green, 19.5 from its nearest neighbour. */
+    "lang-persian-farsi": { bg: "#2A8424" }, // measured green
     "lang-portuguese": { bg: "#009657" }, // green
     /* RUSSIAN (Oct 2026) was not named in any request, so it was MEASURED as French was: swept inside the
        shelf's band (L 28–55, chroma 7–62) and taken as far as possible from every hue already placed. It was
