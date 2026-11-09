@@ -106,8 +106,9 @@ romanisations, and stops if one is missing). `node .claude/bengali/check-bengali
 is byte-identical** (verified for both decks). A1: 500 notes, 272 from the inventory and 228 by frequency;
 sentences for 481, three for 434. The alphabet: 56 notes — 11 vowels (each alone and as its sign on ক), 5
 signs (ং ঃ ঁ ্ ৎ), 32 consonants, the 3 dotted letters, 2 conjuncts and the 3 phola signs; every sound side
-unique (asserted). The shelf's hue is measured: `#6F69D2`, 18.6 from its nearest of 46 (the green peak was
-refused, §`app.js`'s note).
+unique (asserted). The shelf's hue is measured: `#574518`, a dark olive, 17.7 from its nearest of 49 — re-swept at the
+merge, its first two winners (a green, then `#6F69D2`) having been taken by Arabic and Greek in parallel
+sessions (`app.js`'s note).
 
 ## 7. As built (2026-11-09): A2
 

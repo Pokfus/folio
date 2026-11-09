@@ -36,7 +36,7 @@ from bengali_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'bengali'
-COLOR = '#6F69D2'
+COLOR = '#574518'
 FIELDS = ['Bengali', 'Roman', 'Word', 'English', 'Forms', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
