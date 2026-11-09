@@ -3601,6 +3601,18 @@ changed was the one that had been wrong all along.
   Classical / Dari tables withheld — is 📖 `docs/persian-decks-plan.md`. The collection is named "Persian
   (Farsi)" (`lang-persian-farsi`); the `l1` row is 91 million, Farsi + Dari + Tajik (Ethnologue 28, via
   Wikipedia's infobox); the hue is measured, `#008763` (re-swept at the merge). Not in `combine-decks.py`'s `PARTS`.
+- `.claude/zulu/` — the generator behind the Zulu decks (Nov 2026, on request: "Add a Zulu language
+  collection", then the owner's answers: CEFR A1–B1 assembled, a noun classes and clicks deck first, A1 this
+  session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds) **and A1,
+  `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/zulu/run.py [--level a1]`,
+  `python3 .claude/zulu/classes.py`, `node .claude/zulu/check-zulu.js`; a re-run is byte-identical. The
+  sources are thin — about 2,700 Wiktionary lemmas, about 110 Tatoeba sentences, no subtitle list — so the
+  frequency is the Zulu Wikipedia's, counted per lemma over Zulu's conjunctive forms, and there is no B2 or C1.
+  Verbs, adjectives and relatives are printed as stems (-hamba), nouns whole with their class; Wiktionary's
+  tones under the headword. The plan, the sources and every finding (the positional verb table, a page's table
+  carried onto its second noun, the stub formulae, glosses that are not the counted word) are
+  📖 `docs/zulu-decks-plan.md`. The `l1` row is 12 million (Ethnologue via Wikipedia); the hue is measured,
+  `#9A012F` (re-swept at the merge: Greek had taken `#6D67D1`'s neighbour). `levelRank` sorts "Noun Classes" before A1.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

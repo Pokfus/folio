@@ -233,3 +233,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~230 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/persian-cache/
+
+# the corpora .claude/zulu/run.py builds the Zulu decks from — the Wiktionary extract,
+# the Zulu Wikipedia dump and the Tatoeba exports (~180 MB) — plus the intermediate
+# files between its stages. The decks it writes ARE committed.
+.claude/zulu-cache/

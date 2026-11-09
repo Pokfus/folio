@@ -29257,6 +29257,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbour (Spanish's orange), against a tightest existing pair of 4.0; 6.3:1 against white. It was the best
        point outright, not only outside the greens. Not a flag colour. */
     "lang-ukrainian":  { bg: "#9F4500" }, // measured burnt orange
+    /* ZULU (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a blue-violet, #6D67D1 — and Greek's, run in a parallel session, found
+       #6F69D2, 1.0 from it, so the two arrived wearing one colour; re-swept at the merge against all 62: a deep
+       crimson, 15.3 from its nearest neighbours (Russia's lacquer and Indonesian's red), against a tightest
+       existing pair of 4.0; 8.7:1 against white. It was the best point outright. Not a flag colour. */
+    "lang-zulu":       { bg: "#9A012F" }, // measured crimson
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
