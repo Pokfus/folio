@@ -6,7 +6,8 @@
       WAR                                   BATTLE                          CITY
       Start       28 July 1914              Date        2 August 216 BCE    Founding    c. 753 BCE, by tradition
                   Austria-Hungary on Serbia Location    Cannae, Apulia      Peak        c. 100 – 200 CE
-      End         11 November 1918          Casualties  c. 55,000 – 75,000  Population  c. 1,000,000
+      End         11 November 1918 (4 years, 3 months)
+                                            Casualties  c. 55,000 – 75,000  Population  c. 1,000,000
                   Armistice of Compiègne    Result      Carthaginian victory
       Casualties  c. 40,000,000
       Result      Allied victory
@@ -25,7 +26,8 @@
   every other part may be left out where the sources give nothing — a missing figure is a missing row,
   never a guess. `results` in place of `result` labels the row "Results" (more than one outcome). A
   war's opening event and peace treaty are the dimmed continuation lines under its two dates: give
-  ["date"] alone where there is none.
+  ["date"] alone where there is none. The war's DURATION is computed and put in brackets after the End
+  date — never write it yourself (see `duration` below).
 
   WHAT IT CHECKS, and why each check is here:
   - every date parses (the same reader as the person writer: "8 July 1851", "c. 271 – 273 CE",
@@ -44,6 +46,39 @@ const { spawnSync } = require("child_process");
 const { parseDate } = require("./set-person-dates.js");
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
 const cmp = (a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2];
+
+const MDAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+// how precisely a parsed date is known: "day", "month" or "year" (a range of years counts as a year, and as circa)
+const precision = (d) => {
+  if (d.lo[0] !== d.hi[0]) return "year";
+  if (d.lo[1] === d.hi[1] && d.lo[2] === d.hi[2]) return "day";
+  if (d.lo[1] === d.hi[1] && d.lo[2] === 1 && d.hi[2] >= MDAYS[d.lo[1]]) return "month";
+  return "year";
+};
+const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+/* A war's DURATION, shown in brackets after its End date (Nov 2026, on request): to the precision of the
+   less precise of the two dates — years and months when both carry a day ("4 years, 3 months"; months
+   and days under a year, days under a month), years and months when both carry a month, whole years
+   otherwise (BCE counted with no year 0, as the ages are). "c." when either date is circa or a range. */
+function duration(S, E) {
+  const p = [precision(S), precision(E)];
+  const c = S.circa || E.circa || S.lo[0] !== S.hi[0] || E.lo[0] !== E.hi[0] ? "c. " : "";
+  const a = S.lo, b = E.lo;
+  if (p.includes("year")) { const n = b[0] - a[0]; return n < 1 ? (c ? "c. " : "") + "under a year" : c + plural(n, "year"); }
+  let months = (b[0] - a[0]) * 12 + (b[1] - a[1]), days = 0;
+  if (!p.includes("month")) {
+    // add whole months to the start (a day past the month's end is clipped to it, as 30 November + 3
+    // months = 29 February 1940), then count the days left — real calendar lengths, leap years included
+    const at = (y, m, d) => { const t = new Date(0); t.setUTCFullYear(y, m, 1); const last = new Date(0); last.setUTCFullYear(y, m + 1, 0); t.setUTCDate(Math.min(d, last.getUTCDate())); return t; };
+    const end = at(b[0], b[1], b[2]);
+    if (at(a[0], a[1] + months, a[2]) > end) months--;
+    days = Math.round((end - at(a[0], a[1] + months, a[2])) / 864e5);
+  }
+  const y = Math.floor(months / 12), m = months % 12;
+  if (y) return c + plural(y, "year") + (m ? ", " + plural(m, "month") : "");
+  if (m) return c + plural(m, "month") + (days ? ", " + plural(days, "day") : "");
+  return c + (p.includes("month") ? "under a month" : plural(days + 1, "day"));
+}
 
 const KINDS = {
   war: { first: "start", keys: ["start", "end", "casualties", "result", "results"] },
@@ -71,7 +106,7 @@ function rowsFor(id, spec) {
     if (E && cmp(E.hi, S.lo) < 0) die(id + ": the war ends (" + e[0] + ") before it starts (" + s[0] + ")");
     for (const v of [s, e]) if (v && v[1] && /[()]/.test(v[1])) die(id + ": no brackets in \"" + v[1] + "\"");
     rows.push(["Start", s[0]]); if (s[1]) rows.push(["", s[1]]);
-    if (e) { rows.push(["End", e[0]]); if (e[1]) rows.push(["", e[1]]); }
+    if (e) { rows.push(["End", e[0] + " (" + duration(S, E) + ")"]); if (e[1]) rows.push(["", e[1]]); }
     if (spec.casualties != null) { figure(id, "casualties", str(spec.casualties)); rows.push(["Casualties", str(spec.casualties)]); }
     if (res) rows.push([resLabel, res]);
   } else if (kind === "battle") {
