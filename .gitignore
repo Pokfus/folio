@@ -190,3 +190,8 @@ countries-info.json
 # extract, the OpenSubtitles text and the Tatoeba exports (~270 MB) — plus the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/vietnamese-cache/
+
+# the corpora .claude/swahili/run.py builds the Swahili decks from — the Wiktionary
+# extract, the OpenSubtitles and Global Voices corpora (counts only) and the Tatoeba
+# exports (~200 MB) — plus the intermediate files between its stages. The decks it writes ARE committed.
+.claude/swahili-cache/

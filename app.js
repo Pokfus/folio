@@ -29176,6 +29176,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
     "lang-spanish":    { bg: "#AE5A33" }, // orange
+    /* SWAHILI (Nov 2026) was not named a colour, so it was MEASURED as French and Hindi were: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page.
+       Its first sweep (a blue-violet, #6D67D1) was taken in parallel by Greek's (#6F69D2), so at the merge it was
+       RE-SWEPT against all 53 other hues: this muted rose-taupe is the farthest point, 16.7 from its nearest
+       neighbours (The Second World War and Korea), against a tightest existing pair of 4.0; 5.8:1 against white.
+       Not a flag colour. */
+    "lang-swahili":    { bg: "#746163" }, // measured rose-taupe
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
        sweep found #780F75 — and so did Japanese's, run on the same shelf in a parallel session, so the two
