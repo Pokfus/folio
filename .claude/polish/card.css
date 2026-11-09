@@ -1,0 +1,121 @@
+.card {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.uc-ask {
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-word {
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.uc-say {
+  margin-left: 14px;
+  vertical-align: middle;
+  font-size: 15px;
+}
+.uc-field {
+  display: block;
+  width: fit-content;
+  /* A FLOOR, because Turkish's commonest words gloss in one word.  The box
+     hugs its contents, which is right for a list of three senses, and on
+     `ve` -> `and` that would otherwise leave a narrow stamp adrift in the
+     middle of a 680px card under a rule spanning the whole of it. */
+  min-width: min(300px, 100%);
+  max-width: 100%;
+  margin: 14px auto 0;
+  padding: 11px 15px;
+  border: 1px solid var(--rule, rgba(0,0,0,0.12));
+  border-radius: 11px;
+  text-align: left;
+  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));
+}
+.uc-sense + .uc-sense {
+  margin-top: 9px;
+}
+.uc-pos {
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint, #6C6A63);
+}
+.uc-gl {
+  line-height: 1.5;
+}
+.uc-gls {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.5;
+}
+/* THE FORMS ROW.  A row rather than a table: a noun's plural and five cases, or a
+   verb's four third-person tenses, read better as labelled words in a line than
+   as a grid, and the line wraps on a narrow screen. */
+.uc-forms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  margin-top: 12px;
+  font-size: 15px;
+}
+.uc-fi b {
+  font-weight: 500;
+}
+.uc-fl {
+  margin-right: 5px;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+/* the form the card is actually asking for, so a reader can see at a glance
+   which of the family is the headword */
+.uc-fhead b {
+  font-weight: 700;
+  color: var(--zh, #C8453C);
+}
+.uc-fold {
+  margin-top: 14px;
+  text-align: left;
+}
+.uc-fold summary {
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  text-align: center;
+}
+.uc-exs {
+  margin-top: 10px;
+}
+.uc-exi {
+  padding: 9px 0;
+  text-align: center;
+}
+.uc-exi + .uc-exi {
+  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));
+}
+.uc-exz {
+  font-size: 16px;
+  line-height: 1.55;
+}
+.uc-exz b {
+  font-weight: 600;
+  color: var(--zh, #C8453C);
+}
+.uc-exe {
+  margin-top: 3px;
+  font-size: 13px;
+  opacity: 0.62;
+}
+.uc-exsay {
+  margin-right: 7px;
+}

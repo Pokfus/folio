@@ -108,5 +108,5 @@ level's inventory into `inventory.py` and its `SCOPE` into `hungarian_level.py`,
 with `--re-extract`). A1: 500 notes, 328 from the inventory and 172 by frequency; three sentences for all 500.
 The alphabet: 46 notes — the 44 letters in Hungarian order with their names (nine of them written with two or
 three characters), then the stress and the doubled consonant; every sound side unique (asserted). The shelf's hue
-is measured: `#14659F`, a steel blue, 16.9 from its nearest neighbours (Ancient Greece and French) against all 51
-hues on the page.
+is measured: `#14659F`, a steel blue, 16.9 from its nearest neighbours (Ancient Greece and French) against all 65
+other hues on the page (re-swept at the merge with seventeen new languages on the shelf).
