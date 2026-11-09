@@ -253,3 +253,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~400 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/dutch-cache/
+
+# the corpora .claude/hungarian/run.py builds the Hungarian decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~800 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/hungarian-cache/
