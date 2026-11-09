@@ -62,15 +62,37 @@ const OUT = path.join(ROOT, "lang-decks.js");
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
   { word: "Spanish", name: "Spanish", l1: 486 },
+  // Ethnologue 28th ed. (2020–2024 figures), via Wikipedia's infobox, read 2026-11-09: native speakers of ALL
+  // varieties. The decks teach Modern Standard Arabic, which almost nobody speaks as a first language, but the
+  // figure is what orders a language on this shelf and every other row counts a language's speakers too.
+  { word: "Arabic", name: "Arabic", l1: 411 },
   { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
+  { word: "Bengali", name: "Bengali", l1: 242 },      // Wikipedia's infobox (Ethnologue 28th ed. and the 2011 census, 2011–2023), read 2026-11-09
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
+  { word: "Persian", name: "Persian (Farsi)", l1: 91 }, // Farsi + Dari + Tajik, Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Vietnamese", name: "Vietnamese", l1: 86 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
+  { word: "Telugu", name: "Telugu", l1: 83 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
+  { word: "Korean", name: "Korean", l1: 81 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
+  { word: "Tamil", name: "Tamil", l1: 79 },          // Ethnologue 28th ed., via Wikipedia's infobox (78.7 million, 2011–2019), read 2026-11-09
+  { word: "Urdu", name: "Urdu", l1: 78 },            // Ethnologue 28th ed., via Wikipedia's infobox (77.7), read 2026-11-09
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
+  { word: "Hausa", name: "Hausa", l1: 58 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  { word: "Polish", name: "Polish", l1: 40 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
+  { word: "Ukrainian", name: "Ukrainian", l1: 32 },    // Ethnologue 28th ed. (2023 figure), via Wikipedia's infobox, read 2026-11-09
+  { word: "Thai", name: "Thai", l1: 27 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Romanian", name: "Romanian", l1: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
+  { word: "Zulu", name: "Zulu", l1: 12 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
+  { word: "Swahili", name: "Swahili", l1: 5 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
+  /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
+     nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
+  { word: "Latin", name: "Latin", l1: 0 },
   /* OLD ENGLISH (Nov 2026) has no native speakers — it was last spoken about nine hundred years ago — so its
      figure is 0 and it sorts after every living language, which is also where a reader looks for it. The
      word is "Old-English" with the hyphen, so no future deck with "English" in its name is filed under it. */
@@ -86,6 +108,9 @@ function levelRank(title) {
   /* AN ALPHABET COMES BEFORE EVERY LEVEL (Oct 2026, Russian): its level decks carry no
      transliteration, so the alphabet is the first thing a learner opens, not a phrase book after them. */
   if (/\bAlphabet\b/.test(title)) return -1;
+  /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
+     first deck is the classes and clicks every word card names, Hindi's alphabet's counterpart. */
+  if (/\bNoun Classes\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
   /* THE KANA COME BEFORE EVERY LEVEL: Japanese cannot be read at all until hiragana and katakana are learnt, so
@@ -97,6 +122,9 @@ function levelRank(title) {
      alphabetically: N1 first, upside down, with nothing to say so. */
   const j = /\bJLPT N([1-5])\b/.exec(title);
   if (j) return 5 - Number(j[1]);
+  /* KOREAN'S STAGES ARE LETTERED — the NIKL list's A, B and C — and "Stage A" matches no rule below it. */
+  const k = /\bStage ([ABC])\b/.exec(title);
+  if (k) return "ABC".indexOf(k[1]);
   const u = /\bUKBI (\d)\b/.exec(title);          // Indonesian's own seven predicates, numbered from the bottom
   if (u) return Number(u[1]) - 1;
   /* THE LEVEL IS TESTED BEFORE THE STANDARD, and the order is load-bearing: every Mandarin title reads

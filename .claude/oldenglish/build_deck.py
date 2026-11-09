@@ -30,7 +30,7 @@ from oe_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, BANDS
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'oldenglish'
-COLOR = '#2A8424'
+COLOR = '#004E30'
 FIELDS = ['OE', 'IPA', 'Word', 'English', 'Forms', 'Modern', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

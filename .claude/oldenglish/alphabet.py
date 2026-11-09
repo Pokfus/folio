@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'oe-abc'
-COLOR = '#2A8424'
+COLOR = '#004E30'
 FIELDS = ['Letter', 'Name', 'Sound', 'Example', 'Word']
 
 # (letter(s) shown, its name or what it is, the sound, [example words])

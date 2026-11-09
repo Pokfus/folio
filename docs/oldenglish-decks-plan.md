@@ -137,4 +137,4 @@ one sentence (115 with three); 2 notes labelled by the shelf-wide unique-English
 14 vowels, 6 diphthongs, 14 consonants and spellings that differ from modern English, 3 rules (no silent
 letters, long double consonants, unstressed ġe-), 1 for the letters said as today, 3 manuscript letters
 (wynn, insular g, ꝥ); every sound side and every letter side unique (asserted). The shelf's hue is measured:
-`#2A8424`, 19.5 from its nearest of 46.
+`#004E30`, 15.4 from its nearest of 63 (re-swept at the merge: Arabic had taken the first sweep's `#2A8424`).
