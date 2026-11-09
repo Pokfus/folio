@@ -62,6 +62,10 @@ const OUT = path.join(ROOT, "lang-decks.js");
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
   { word: "Spanish", name: "Spanish", l1: 486 },
+  // Ethnologue 28th ed. (2020–2024 figures), via Wikipedia's infobox, read 2026-11-09: native speakers of ALL
+  // varieties. The decks teach Modern Standard Arabic, which almost nobody speaks as a first language, but the
+  // figure is what orders a language on this shelf and every other row counts a language's speakers too.
+  { word: "Arabic", name: "Arabic", l1: 411 },
   { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
