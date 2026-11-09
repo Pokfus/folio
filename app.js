@@ -29148,6 +29148,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        arrived wearing one colour; Turkish was re-swept with Japanese's plum on the shelf. The rose below
        clears its nearest neighbour by 25.0. */
     "lang-turkish":    { bg: "#D5519F" }, // measured rose
+    /* VIETNAMESE (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the page,
+       with the greens left out (the raw winner, 19.3 away, was a sixth green wedged between Portuguese and the two
+       Geography greens — the third-green refusal Russia's note records) and the magenta band's standing rejection
+       kept. A periwinkle, 18.6 from its nearest neighbours (Rome's violet and China's cobalt), against a tightest
+       existing pair of 4.0; 4.7:1 against white. Not a flag colour. */
+    "lang-vietnamese": { bg: "#6D67D1" }, // measured periwinkle
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

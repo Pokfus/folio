@@ -3399,6 +3399,17 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/vietnamese/` — the generator behind the Vietnamese decks (Nov 2026, on request: "Add a Vietnamese
+  language collection"; the Hindi set's decisions taken as the default). **Built: the alphabet and tones,
+  `decks/Vietnamese-Alphabet-and-Tones.folio-deck.json`** (35 notes) **and A1, `decks/Vietnamese-A1.folio-deck.json`**
+  (500 notes / 1,000 cards). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
+  `node .claude/vietnamese/check-vietnamese.js`; a re-run is byte-identical. The UKBI / Hindi shape (no published
+  list: a topic inventory plus frequency). **What is new: Vietnamese spaces syllables, not words**, so the frequency
+  is counted by segmenting the OPUS subtitles against Wiktionary's headwords rather than read off hermitdave's list
+  of syllables; the card names each syllable's tone and shows a noun's classifier and a Sino-Vietnamese word's
+  characters. The plan and every finding (the tone fold, decomposed subtitles, one etymology per card) are
+  📖 `docs/vietnamese-decks-plan.md`. The `l1` row is Ethnologue's 86 million (via Wikipedia); the hue is measured,
+  `#6D67D1`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
