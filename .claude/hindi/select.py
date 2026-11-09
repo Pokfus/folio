@@ -66,6 +66,35 @@ EXCLUDE = {
     'ख़्याल': 'a second spelling of ख़याल, which carries the card',
     'जन्मना': 'its count is जन्म "birth", its stem, whose forms it shares',
     'रे': 'counted from song lyrics and a clipped अरे, which A1 teaches',
+    # read off the B1 ranking (2026-11-09)
+    'हाँक': 'its count is हांक, the name Hank (as हाँकना\'s was)',
+    'दिया': 'its count is दिया, देना\'s past, not the noun "lamp"',
+    'बी': 'its count is the letter B, not "wife"',
+    'डील': 'its count is the English "deal", not "bulk, stature"',
+    'लव': 'its count is the English "love", not "a particle"',
+    'गूगल': 'its count is Google, not the resin bdellium',
+    'धत': 'its count is the oath धत् ("damn!"), not "bad habit"',
+    'अल्फ़ा': 'the Greek letter, counted from names (Alpha team)',
+    'रोलना': 'its count is रोल, the English "role" / "roll"',
+    'लेसना': 'its count is लेसे, not the verb "to plaster with dung"',
+    'जनना': 'its count is जनता "the public" and जन "people", whose spelling its forms share',
+    'हनना': 'its count is हनी, the English "honey"',
+    'चालना': 'its count is चाल "gait, trick", a noun of its own',
+    'संजय': 'counted as the name Sanjay',
+    'शेखर': 'counted as the name Shekhar',
+    'शास्त्री': 'counted as the surname Shastri',
+    'सीज़र': 'counted as the name Caesar',
+    'विक्टोरिया': 'counted as the name Victoria',
+    'दुर्गा': 'counted as the goddess and given name Durga',
+    # a second spelling of a word a lower level teaches, which Wiktionary files as a
+    # lemma of its own (so the alt_of rule cannot see it)
+    'अमरीकी': 'a second spelling of अमेरिकी, taught in A2',
+    'छुपाना': 'a second spelling of छिपाना, taught in A2',
+    'छुपना': 'a second spelling of छिपना, taught in A2',
+    'दवाई': 'a second form of दवा, taught in A1',
+    'बाएँ': 'the oblique of बायाँ, taught in A1',
+    'महाराज': 'a second form of महाराजा, which carries the card',
+    'कोर': 'its one sense is "blind", which the subtitles do not mean: the count is the English "core"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 

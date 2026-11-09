@@ -92,6 +92,14 @@ ETYMS = {
     'हल': ['2', '1'],         # "solution" (हल करना) AND "plough"
     'गाना': ['1', '2'],       # "song" AND "to sing"
     'जरा': [''],              # ज़रा "a little", which the fold files with जरा "senility"
+    # B1 (2026-11-09): etymology 1 is in each case the rare or literary homograph
+    'मर्द': ['2'],            # "man"; 1 is "rubbing, crushing"
+    'शुक्र': ['2'],           # "gratitude" (शुक्र है); 1 is "resplendent; semen"
+    'चेक': ['2'],             # "cheque"; 1 is "Czech"
+    'बिल': ['2'],             # "bill"; 1 is "hole"
+    'राय': ['2'],             # "opinion"; 1 is "king"
+    'कोट': ['2'],             # "coat"; 1 is "fort"
+    'कुल': ['2', '1'],        # "total, in total" AND "family, lineage"
 }
 
 # THE CARD'S SPELLING, where the fold put two headwords under one key and the card
@@ -100,6 +108,7 @@ ETYMS = {
 HEADWORD = {
     'जरा': 'ज़रा',
     'तेज': 'तेज़',
+    'रिवाज़': 'रिवाज',         # Wiktionary calls the nukta spelling hyperforeign
 }
 
 # THE PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -132,12 +141,16 @@ LEAD = {
     'जबकि': 'whereas',        # first listed is "whenever"
     'दौरान': 'duration',      # first listed is "revolving, turning"
     'दक्षिण': 'south',        # first listed is "right (side)"
+    'ताली': 'clapping',       # first listed is "key", which A1's चाबी teaches
 }
 
 # A ROMANISATION BY HAND, where Wiktionary gives the headword none (the alphabet deck's
 # precedent): फ़िल्म's entry romanises only its plural, फ़िल्में filmẽ.
 ROMAN_BY_HAND = {
     'फ़िल्म': 'film',
+    # Wiktionary's own romanisations of these, read where another entry links them:
+    'उपग्रह': 'upagrah',      # कृत्रिम उपग्रह, kŕtrim upagrah
+    'गर्भवती': 'garbhavtī',   # a link to the entry, garbhavtī
 }
 
 # A GLOSS CUT, each a slang sense a level card should not teach beside the plain one.
@@ -149,11 +162,17 @@ CUT = {
     'टोपी': ('glans',),
     'हथियार': ('the penis',),
     'गुरु': ('a smartass',),
+    'चालू': ('smartass',),
+    'तोप': ('cool person, badass',),
+    'हिलाना': ('to masturbate',),
+    'संयोग': ('sexual intercourse',),
+    'कविता': ('a female given name, Kavita, from Sanskrit',),
+    'इजाज़त': ('hyperforeignism of Hindi इजाज़त (ijāzat)',),
 }
 
 # A POINTER GLOSS -- "synonym of जल्दी (jaldī)", "a alternative form of मुहल्ला" -- is
 # replaced by the glosses of the word it points to, for the same part of speech.
-POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form) of (\S+)(?: \([^)]*\))?$')
+POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form|hyperforeign form) of (\S+)(?: \([^)]*\))?$')
 LEX = {}
 
 
@@ -181,6 +200,12 @@ def entries_for(row, lex):
         keep = [e.get('etym', '') for e in ents]
     ents = sorted([e for e in ents if e.get('etym', '') in keep],
                   key=lambda e: keep.index(e.get('etym', '')))
+    # an entry that only points at its own key's other entry (रिवाज़, "hyperforeign form of
+    # रिवाज") is dropped: the entry it points at is on the card already
+    own = [e for e in ents if not all((POINTS.match(g['g']) and fold(POINTS.match(g['g']).group(1))
+                                       == fold(L['word'])) for g in e['glosses'] if g['g'])
+           or not any(g['g'] for g in e['glosses'])]
+    ents = own or ents
     want = row['pos'] or POS_FIRST.get(L['word'], '')
     if want:
         ents = sorted(ents, key=lambda e: e['pos'] != want)

@@ -67,6 +67,18 @@ SCOPE = {
                   'telling what happened and when, the numbers to a crore, and the everyday '
                   'verbs of moving, dressing, cooking and doing',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences, events, '
+                 'dreams, hopes and ambitions and briefly give reasons for opinions and plans',
+        'topics': 'jobs and the workplace, education, the media and the internet, travel and '
+                  'what goes wrong on it, the stages of a life, plans and ambitions, the words '
+                  'that give reasons and weigh opinions, society, politics and the environment, '
+                  'money and the bank, renting a home, relationships, health and treatment, '
+                  'feelings, character, and the verbs that describe change',
+    },
 }
 
 

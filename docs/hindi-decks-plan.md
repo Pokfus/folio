@@ -5,7 +5,7 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-09): the alphabet deck, A1 and A2 are built** (`.claude/hindi/`, §6, §7). B1 to C1
+**STATUS (2026-11-09): the alphabet deck, A1, A2 and B1 are built** (`.claude/hindi/`, §6–§8). B2, C1
 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -28,7 +28,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi Alphabet (Devanagari) — built | `Hindi-Alphabet.folio-deck.json` | 59 |
 | Hindi A1 Beginner — built | `Hindi-A1.folio-deck.json` | 500 |
 | Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
-| Hindi B1 Intermediate | `Hindi-B1.folio-deck.json` | 1,000 |
+| Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
 | Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -86,7 +86,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -152,4 +152,44 @@ spaced, not hyphenated. Words the A1 deck already teaches (`मौसम`, `ग�
 `राक्षस`, and forms of address (`साहिब`, `श्रीमान`, `मैडम`) beside A1's `सर`, `महोदय` — on frequency, as
 A1's does. `सामना` "confrontation" shares `सामने` with A1's `के सामने`; it is a word in its own right
 (`सामना करना`) and is kept. Wiktionary's tables still give uncountables and months a plural (`मइयाँ`).
+
+## 8. As built (2026-11-09): B1
+
+`python3 .claude/hindi/run.py --level b1 --no-fetch`. 1,000 notes, **229 from the inventory and 771 by
+frequency**; three sentences for 283, none for 412 — Tatoeba's 13,300 Hindi sentences thin out fast past
+the commonest words, and the frequency list does too (a B1 fill word is counted 20 to 150 times in
+21,309 forms). A1, A2 and the alphabet still rebuild byte-identical after every B1 rule; a B1 re-run is
+byte-identical. `SCOPE['b1']` quotes the CEFR B1 global descriptor (the TORFL deck's wording).
+
+**The inventory** (`inventory.B1`, 15 topics, 230 words written; the rest are already in A1 or A2, the
+reason the inventory share is smaller than A2's). Not Wiktionary headwords, reported and dropped:
+`डिग्री`, `प्रोफ़ेसर`, `प्रमाणपत्र`, `चैनल`, `पासवर्ड`, `सवारी`, `बेरोज़गारी`, `ऑपरेशन`, `शर्मिंदा` (replaced by
+Wiktionary's `शर्मसार` "ashamed"), `बिगाड़ना`, `शरारती`.
+
+**The findings, each a rule:**
+- **More homographs whose first etymology is the rare one** (`ETYMS`): `मर्द` "man" (not "rubbing"),
+  `शुक्र` "gratitude" (not "semen"), `चेक` "cheque" (not "Czech"), `बिल` "bill" (not "hole"), `राय`
+  "opinion" (not "king"), `कोट` "coat" (not "fort"), `कुल` "total" before "lineage". `ताली` leads with
+  "clapping" (`LEAD`): its "key" is A1's `चाबी`.
+- **A second spelling Wiktionary files as a lemma of its own** is invisible to the `alt_of` rule of §7:
+  `अमरीकी` (A2 has `अमेरिकी`), `छुपाना` / `छुपना` (`छिपाना` / `छिपना`), `दवाई` (`दवा`), `बाएँ` (the oblique of
+  `बायाँ`), `महाराज` beside `महाराजा`. Found by comparing every B1 card's first gloss with A1's and A2's;
+  excluded by hand. The other shared glosses are true synonyms — `जल` / `पानी`, `विवाह` / `शादी`, `आवश्यक` /
+  `ज़रूरी` — which a B1 learner should meet, and are kept.
+- **A hyperforeign spelling**: `रिवाज़` is "hyperforeign form of रिवाज" in Wiktionary. An entry that only
+  points at its own key's other entry is dropped (`entries_for`), `POINTS` reads "hyperforeign form of",
+  and `HEADWORD` prints `रिवाज`.
+- **Names, English words and other words' forms** in the fill, each in `select.EXCLUDE` with its reason
+  (27 lines for B1): `संजय`, `शेखर`, `शास्त्री`, `सीज़र`, `विक्टोरिया`, `दुर्गा`; `डील`, `लव`, `गूगल`, `कोर`;
+  `दिया` (देना's past — A1's finding, met again as a noun), `जनना` (`जनता`), `चालना` (`चाल`), `हनना`
+  (`हनी` "honey"), `रोलना` (`रोल` "role").
+- **More slang cuts** (`CUT`): `चालू` "smartass", `तोप` "badass", `हिलाना`, `संयोग`; and `कविता`'s "a
+  female given name".
+- `उपग्रह` and `गर्भवती` have no romanisation of their own; `ROMAN_BY_HAND` takes Wiktionary's, read where
+  another entry links them (`कृत्रिम उपग्रह` kŕtrim upagrah; garbhavtī).
+
+**Known, left.** The fill is thicker with the subtitles' register than A2's (`हत्यारा`, `बंधक`, `मिसाइल`,
+`गिरोह`) and with formal Sanskrit words the subtitles' translators favour (`आत्मसमर्पण`, `गुरुत्वाकर्षण`,
+`परिधि`); both are frequency, as on every subtitle-ordered deck. A few low counts could not be traced to
+another word and were kept (`काई`, `पुताई`, `चक़मक़`, `मलेशियाई`): at this depth one film can make a word.
 
