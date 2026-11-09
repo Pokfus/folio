@@ -33,8 +33,12 @@ process.argv = [process.argv[0], AUDIT, "--card=" + id];
 require(path.join(REPO, ".claude", AUDIT));
 console.log = log;
 lines.filter((l) => /^\s{4}\S/.test(l)).forEach((l) => {
-  if (/W\.not-why|Q\.sibling/.test(l)) console.log("  note " + l.trim()); else fail("audit " + l.trim());
+  if (/W\.not-why|Q\.sibling|P\.protected|Z\.reading\?/.test(l)) console.log("  note " + l.trim()); else fail("audit " + l.trim());
 });
+/* 2a. a PROTECTED card (China: the individuals whose date lines another thread refines; the audit sets
+   global.AUDIT_PROTECTED) — its patch may not carry the date line, its undatable flag or its timeline */
+if (global.AUDIT_PROTECTED && global.AUDIT_PROTECTED.has(id))
+  ["answerDate", "undatable", "timeline"].forEach((k) => { if (k in P) fail("PROTECTED card: the patch may not carry " + k + " (drop it; the line stays as it stands)"); });
 
 /* 2b. check-questions.js's pronoun-opening rule (not in the audit) */
 { const CAT = /^(Its|It|He|She|They|Their|His|Her|There|Here|Such|This|These|Those)\b/, DUM = /^It (?:was|is|has been|had been|had|would|will|may|might|seems|appears)\b/;
