@@ -3399,6 +3399,15 @@ changed was the one that had been wrong all along.
   claims nothing (`पानी` had been dealt last), multi-word lemmas — one etymology per card, the untagged
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
+- `.claude/irish/` — the generator behind the Irish decks (Nov 2026, on request: "Add an Irish language
+  collection"; the Hindi set's decisions copied: CEFR A1–C1 assembled, both directions). **Built: A1,
+  `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/irish/run.py [--level a1]`,
+  `node .claude/irish/check-irish.js`; a re-run is byte-identical. TEG publishes no word list, so a level is a
+  topic inventory plus lemma frequency — over the UD Irish treebank and Tatoeba, there being no subtitle list
+  for Irish — and the description says so. The plan and every finding (undoing the mutations, the two
+  corpora and the proportional split, the irregular verbs' garbled tables and their pasts from Wiktionary's own
+  entries, IPA labelled by dialect, the missing `i`) are 📖 `docs/irish-decks-plan.md`. The hue is measured,
+  `#2A8424`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

@@ -71,6 +71,11 @@ const LANGS = [
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
+  /* IRISH: Wikipedia's infobox gives its L1 count as "unknown" (read 2026-11-09); what the 2022 Irish
+     census counts is DAILY speakers outside the education system, 71,968 in the Republic, and that is
+     the figure here, 0.07 million. It is not a native-speaker count and is not shown to readers; all it
+     decides is that Irish sorts last, which any defensible figure would. */
+  { word: "Irish", name: "Irish", l1: 0.07 },
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

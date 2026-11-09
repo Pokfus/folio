@@ -29127,6 +29127,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        existing pair of 4.0. Not a flag colour. */
     "lang-hindi":      { bg: "#9F51B4" }, // measured violet
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
+    /* IRISH (Nov 2026) was not named a colour, so it was MEASURED as French and Hindi were: swept in CIELAB inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 46 hues on the
+       page — a leaf green, ΔE 19.5 from its nearest neighbour (Portuguese), against a tightest existing pair of
+       4.0. That the sweep landed on a green is the sweep's answer, not the subject's; 4.7:1 against white. */
+    "lang-irish":      { bg: "#2A8424" }, // measured green
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
     /* JAPANESE (Oct 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62) for the point farthest from all 41 hues on the page — a deep plum,
