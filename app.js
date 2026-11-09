@@ -29183,6 +29183,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        shelf: a deep magenta, 18.7 from its nearest neighbours (Japan, Japanese, Turkish), against a tightest
        existing pair of 4.0. Not a flag colour. */
     "lang-telugu":     { bg: "#9D0D6C" }, // measured magenta
+    /* DUTCH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 51 hues on the page. The outright
+       winner is this steel blue, 16.8 from its nearest neighbours (Ancient Greece's Aegean and Architecture),
+       17.1 from French's azure, against a tightest existing pair of 4.0; 6.2:1 against white. Delft blue is
+       the subject's own argument for it; it is not the flag's blue (#21468B), nor orange, which Spanish has. */
+    "lang-dutch":      { bg: "#08659F" }, // measured steel blue
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

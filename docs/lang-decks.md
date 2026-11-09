@@ -3450,6 +3450,14 @@ changed was the one that had been wrong all along.
   frequency lists averaged (subtitles and wordfreq's written Urdu), a Perso-Arabic fold, and three shapes of
   Wiktionary verb table. 📖 `docs/urdu-decks-plan.md`. The `l1` row is Ethnologue's 78 million (via
   Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
+- `.claude/dutch/` — the generator behind the Dutch decks (Nov 2026, on request: "Create a Dutch language
+  collection"; the Hindi and Greek answers taken, the owner not asked). **Built: A1,
+  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards). **No alphabet deck** — Dutch is in the Latin
+  alphabet — and Wiktionary's IPA in place of a romanisation. `python3 .claude/dutch/run.py [--level a1]`,
+  `node .claude/dutch/check-dutch.js`; a re-run is byte-identical. Greek's pipeline adapted: nouns carry de or
+  het, verbs their past and participle and a by-person table. The findings (the accent-keeping fold and
+  `één`, the noun-against-verb rule refused again, abbreviations and shadowed capitals) are
+  📖 `docs/dutch-decks-plan.md`. The `l1` row is Wikipedia's 25 million (2021); the hue is measured, `#08659F`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
