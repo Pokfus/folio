@@ -202,11 +202,21 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | the *Tribute of Yu* written | c. 500 – 200 BCE | Dorofeeva-Lichtmann 2021 (`cnh-056`) |
 | the Songs of the Five Sons first attested (Mei Ze's copy) | 317 – 322 CE | `cnh-059` |
 | the *Bamboo Annals* compiled / found | c. 299 BCE / 279 CE | `cnh-060` |
+| the Doubting Antiquity School: Gu Jiegang's letter / the first *Gushi bian* volume | 1923 / 1926 | Chen Minzhen 2019; Hummel (`cnh-061`) |
+| Erlitou culture / also dated | c. 1800 – 1530 BCE / c. 1900 – 1500 BCE | Xie 2020; Liu 2003 (`cnh-062`) |
+| the Erlitou site occupied / found | c. 1750 – 1530 BCE / 1959 | Xie et al.; Lee (`cnh-063`) |
+| Erlitou's foundry / its first bronze vessels | c. 1800 – 1700 BCE / c. 1700 – 1600 BCE | Liu 2003 (`cnh-064`) |
+| the Chronology Project: ran / results / full report | 1996 – 2000 / 9 November 2000 / 2022 | Shaughnessy 2023; Lee (`cnh-065`) |
 
 ## Shang
 
 | event | the collection says | source |
 |---|---|---|
+| the Shang (the Chronology Project's) and its phases | c. 1600 – 1046 BCE; early c. 1600 – 1400, middle c. 1400 – 1250, late c. 1250 – 1050 BCE | `cnh-066` |
+| the Basic Annals of Yin written | c. 100 BCE | `cnh-067` |
+| Tang of Shang (protected line) | c. 1600 BCE, in tradition | `cnh-068` |
+| Yinxu occupied / the first seasons / World Heritage | c. 1250 – 1046 BCE / 1928 – 1937 / 2006 | Niu 2018; Chang 1986 (`cnh-069`) |
+| Shang bronze inscriptions cast | c. 1300 – 1046 BCE | `cnh-070` |
 
 ## Later periods
 
@@ -275,7 +285,16 @@ cnh-057: 2070; 1600
 cnh-058: 2070; 1600
 cnh-059: 317; 322
 cnh-060: 299; 279
+cnh-061: 1923; 1926
+cnh-062: 1800; 1530; 1900; 1500
+cnh-063: 1750; 1530; 1959
+cnh-064: 1800; 1700; 1600
+cnh-065: 1996; 2000; 2022
+cnh-066: 1600; 1046; 1400; 1250; 1050
+cnh-067: 100
 cnh-068: 1600
+cnh-069: 1250; 1046; 1928; 1937; 2006
+cnh-070: 1300; 1046
 cnh-073: 1250; 1192; 1201; 1181
 cnh-074: 1200
 ```

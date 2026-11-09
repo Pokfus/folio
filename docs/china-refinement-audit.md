@@ -265,7 +265,7 @@ otherwise.
 | B4 | Mythology (`cn-myth`) | `cnh-031`–`cnh-040` | 10 | 94 | **done 2026-11-08** |
 | B5 | Neolithic China and the Xia (`col-2`) | `cnh-041`–`cnh-050` | 10 | 101 | **done 2026-11-09** |
 | B6 | Neolithic China and the Xia (`col-2`) | `cnh-051`–`cnh-060` | 10 | 117 | **done 2026-11-09** |
-| B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | to do |
+| B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | **done 2026-11-09** |
 | B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | to do |
 | B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | to do |
 | B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | to do |
@@ -461,6 +461,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-058` | the banishment of Jie (1905 plate) | not re-checked (Commons 429): ok |
 | `cnh-059` | Zhongkang's accession (1905 plate) | not re-checked (Commons 429): the next chapter's scene, labelled as such — acceptable |
 | `cnh-060` | Eastern Zhou bamboo slips | not re-checked (Commons 429): ok as a stand-in, captioned as not the annals |
+| `cnh-061` | a 1920s portrait of Gu Jiegang | not re-checked (Commons 429): ok as a stand-in for the school; the credit gives no licence basis — check |
+| `cnh-062` | a white pottery he from Erlitou | not re-checked (Commons 429): ok |
+| `cnh-063` | a drain pipe from Erlitou | not re-checked (Commons 429): weak: one object; a site view or the turquoise dragon would show the term |
+| `cnh-064` | a bronze jue from Erlitou | not re-checked (Commons 429): ok |
+| `cnh-065` | a rubbing of the Li gui inscription | not re-checked (Commons 429): ok in kind; the credit names an uploader, not the maker — fix |
+| `cnh-066` | a Shang ceremonial axe | not re-checked (Commons 429): ok |
+| `cnh-067` | none | not re-checked (Commons 429): the card has no picture (the old one showed chapter 29, not chapter 3) — a page of chapter 3 wanted |
+| `cnh-068` | Tang of Shang imagined (album leaf) | not re-checked (Commons 429): ok, captioned as late |
+| `cnh-069` | pit YH127 at Yinxu | not re-checked (Commons 429): ok: one find-spot of the site |
+| `cnh-070` | none | not re-checked (Commons 429): the card has no picture — an inscribed vessel's interior or rubbing wanted |
 
 ## Glossary candidates
 
@@ -724,3 +734,38 @@ and 禹贡 (Yǔgòng); the collection writes Xià cháo and Yǔ gòng, kept for 
 lines: unchanged**. **For the owner**: `cnh-058`'s row "Defections from Kong Jia, 4 reigns earlier" looks off by one
 (Kong Jia, Gao, Fa, Jie: three reigns before Jie); left. `cnh-056` counts a 2023 *Guangming Ribao* piece by Li Xiaojie
 as modern scholarship.
+
+### B7 — `cnh-061`–`cnh-070`, the Xia question and the first of the Shang: Doubting Antiquity to Shang bronze inscriptions (2026-11-09)
+
+Run as before; all 67 cited URLs answered (the National Museum of China and nature.com on a second try). Where
+ScholarSpace and Project MUSE showed challenge pages, agents read the same page from a copy saved earlier in the run or
+through ScholarSpace's open REST interface, and cited the handle; claims resting only on unreadable sources were
+dropped. The citation checker's three mismatches are Chen Minzhen's name in Chinese order. **The old cards said the
+Doubting Antiquity School asked whether the Xia existed (Gu Jiegang wrote that its existence "cannot be doubted"),
+dated the school by a decade and another event (the 1959 Erlitou find), carried hectares and counts as rows, gave the
+Erlitou culture an older radiocarbon range, called the Chronology Project's "112 years" a narrowing (it was the
+spread of 44 earlier guesses), and gave the Hou Mu Wu ding a weight (875 kg) the museum does not print.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-061` Doubting Antiquity School | 5 | 5 → 6 | **Gu Jiegang did not doubt the Xia existed, only most of what was told of it (Chen Minzhen 2019); `Begun 1923` (his letter to Qian Xuantong) and `First volume 1926` for a decade, the Erlitou find and a count; pinyin joined, Yígǔpài**; an "evenly split" 1990 seminar dropped (reported otherwise). |
+| `cnh-062` Erlitou culture | 6 | 5 → 7 | **`Dated c. 1800 – 1530 BCE` (Xie 2020, on the Chronology Project) / `Also dated c. 1900 – 1500 BCE` (Liu 2003) for an older range; a phases count and 400 ha off the line; "Xia culture" attributed to Chinese archaeologists**; Dongxiafeng and the kaolin vessels added. |
+| `cnh-063` Erlitou site | 6 | 5 → 7 | **Three rows of hectares off the line, now `Occupied c. 1750 – 1530 BCE` and `Found 1959`; "about 400 ha" made a range of estimates; the Zhenxun identification set against the advice to keep legend apart from the dig; the first author's name corrected (Liya Xie, not "Liye")**; the tomb number and "the earliest road grid" dropped (unsourced). |
+| `cnh-064` Erlitou bronze | 6 | 5 → 7 | **The foundry's area and a mould size off the line; `Foundry c. 1800 – 1700 BCE` / `First vessels c. 1700 – 1600 BCE`; the first vessel forms copying white pottery, the alloy, the absence of radiogenic lead, the turquoise plaques**. |
+| `cnh-065` Xia–Shang–Zhou Chronology Project | 5 | 5 → 5 | **"112 years cut to 30" corrected (112 years was the spread of earlier guesses); the radiocarbon window and the astronomical day for the conquest; the 2022 full report keeping a reign table new bronzes contradict (Shaughnessy 2023); criticism and defence both given, the card taking no side**; `Ran 1996 – 2000` / `Results 9 November 2000` / `Full report 2022`. |
+| `cnh-066` Shang dynasty | 8 | 5 → 8 | **Whose dates 1600 – 1046 BCE are (the Chronology Project's, which also printed 1044 and 1027); the early, middle and late phases with Huanbei; the oracle bones the dynasty's own records "on present evidence"**; dates out of the questions; the glossary's unsourced oracle-bone count dropped. |
+| `cnh-067` Basic Annals of Yin | 6 | 5 → 6 | **`Written c. 100 BCE` for counts and a "none before 841" row; the king list checked against the oracle bones (via Chen 2019), with one sourced difference (Tai Wu before Yong Ji, Nivison)**; Chavannes's 1895 introduction and an unsourced "thousand years" dropped. |
+| `cnh-068` Tang of Shang | 6 | 6 → 7 | **Five of six old sources ancient; now the battle-axe and Mingtiao, the Speech of Tang, the drought of five years (not seven) and the mulberry grove from the *Lüshi Chunqiu*, Yi Yin as Tang's cook in a Warring States manuscript, the day-name Tai Yi**. Protected: the background carries 1600. |
+| `cnh-069` Yinxu | 6 | 5 → 6 | **A count and a king off the line, now `Occupied c. 1250 – 1046 BCE` / `First seasons 1928 – 1937` / `World Heritage 2006`; Pan Geng's move told as tradition with the *Bamboo Annals*' 273 years attributed; Huanbei (found 1999) and Niu's view that Xiao Yi founded Yinxu**; the glossary's end year aligned to 1046. |
+| `cnh-070` Shang bronze inscriptions | 6 | 6 → 8 | **`Cast c. 1300 – 1046 BCE`; the Hou Mu Wu ding's weight corrected in prose to the National Museum of China's 832.84 kg (not 875); claims resting only on Childs-Johnson dropped; the office-title reading cited to Cao Dazhi's own paper [in Chinese]**. |
+
+Read by eye. **Confusability**: Huanbei appears in a phrasing of `cnh-066` (the three-phase division) and of `cnh-069`
+(the walled city across the river) — different angles, kept; Erlitou's palaces, dragon and road grid `cnh-063`'s,
+its bronzes `cnh-064`'s, its phases and kaolin `cnh-062`'s; Mingtiao `cnh-068`'s (free after `cnh-058`). **Legend**:
+Tang's drought and net told as the *Lüshi Chunqiu*'s and the Han historian's. **Chinese names corrected**: `cnh-061`
+pinyin Yígǔ pài → Yígǔpài (both sources write Yigupai); the three Erlitou `Z.reading?` leads are the place name's tóu,
+false alarms. **Spellings fixed**: none; 0 hits. **Myth register**: Tang's self-offering for rain — the *Lüshi
+Chunqiu* "Shun min": five years of drought, the mulberry grove, his hair cut (held for the summary). **Protected
+lines: unchanged**. **For the owner**: `cnh-101` (outside the hundred) gives the Hou Mu Wu ding as 875 kg in a
+question; the National Museum of China gives 832.84 kg. `cnh-068`'s point is the Shang dynasty's region near
+Zhengzhou on a card about one man (locator note at the end).
