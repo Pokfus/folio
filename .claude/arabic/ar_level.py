@@ -5,7 +5,7 @@ never typed, so a rebuilt deck cannot come to disagree with what it says.
 """
 
 FILE = "Arabic-%s.folio-deck.json"
-COLOR = "#9F51B4"   # the Arabic collection's hue, `lang-arabic` in app.js COLL_THEME
+COLOR = "#2A8424"   # the Arabic collection's hue, `lang-arabic` in app.js COLL_THEME
 C = lambda x: "{:,}".format(x)
 FIELDS = ["Arabic", "Word", "Roman", "English", "Forms", "Table", "Examples"]
 SAY = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>'

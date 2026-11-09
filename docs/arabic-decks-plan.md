@@ -90,8 +90,9 @@ is `rtl`, the table and the speaker; writes a screenshot).
   short hand list refuses named sentences (`REFUSE`, `REFUSE_ANY`: a name read as a word, a political or
   violent line). **What bare text cannot show is not caught** — a homograph with a word outside the deck that
   nobody has read yet; reading the deck is the check.
-- **The banner hue** was measured (`lang-arabic` in `COLL_THEME`, #9F51B4), the sweep now also requiring
-  4.5:1 against white — the farthest point without it was a violet at 3.8:1.
+- **The banner hue** was measured (`lang-arabic` in `COLL_THEME`), the sweep now also requiring 4.5:1 against
+  white. It first came out #9F51B4 — the same violet Hindi's parallel session measured — and was re-swept at the
+  merge with Hindi on the shelf: #2A8424, 19.5 from Portuguese's green. Re-sweep whenever two languages land together.
 
 ## 6. Next levels
 
