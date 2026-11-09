@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-09): the alphabet deck, A1, A2 and B1 are built** (`.claude/hindi/`, §6–§8). B2, C1
-and the phrases deck are not.
+**STATUS (2026-11-09): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/hindi/`, §6–§9). C1
+and the phrases deck are not — and C1 needs a decision first (§9, "C1").
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -29,7 +29,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi A1 Beginner — built | `Hindi-A1.folio-deck.json` | 500 |
 | Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
 | Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
-| Hindi B2 Upper Intermediate | `Hindi-B2.folio-deck.json` | 1,500 |
+| Hindi B2 Upper Intermediate — built | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
 | Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -86,7 +86,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -192,4 +192,54 @@ Wiktionary's `शर्मसार` "ashamed"), `बिगाड़ना`, `�
 `गिरोह`) and with formal Sanskrit words the subtitles' translators favour (`आत्मसमर्पण`, `गुरुत्वाकर्षण`,
 `परिधि`); both are frequency, as on every subtitle-ordered deck. A few low counts could not be traced to
 another word and were kept (`काई`, `पुताई`, `चक़मक़`, `मलेशियाई`): at this depth one film can make a word.
+
+## 9. As built (2026-11-09): B2
+
+`python3 .claude/hindi/run.py --level b2 --no-fetch`. 1,500 notes, **334 from the inventory and 1,166 by
+frequency**; three sentences for 147, none for 992. A1, A2, B1 and the alphabet still rebuild
+byte-identical after every B2 rule; a B2 re-run is byte-identical. `SCOPE['b2']` quotes the CEFR B2
+global descriptor (the TORFL deck's wording).
+
+**THE FREQUENCY LIST HAS RUN OUT.** B2's fill words are each counted **5 to 14 times** in the whole
+subtitle list (21,309 forms), so their order is close to noise and one film or one name is enough to put
+a word in. The inventory was widened twice to lean on it instead (12 topics, 334 words written; the rest
+are in the levels below or not in Wiktionary), and most of the fill still reads as sound B2 vocabulary —
+the subtitles' translators write formal, Sanskrit-derived Hindi (`अत्यधिक`, `अस्थायी`, `निष्क्रिय`) — but the
+exclusions are many: **63 lines** in `select.EXCLUDE` for B2, against 30 for A2 and 27 for B1.
+
+**The inventory.** Not Wiktionary headwords, reported and dropped: `बहरहाल`, `बशर्ते`, `शेयर`, `प्रजाति`,
+`विलुप्त`, `हिमनद`, `नवीकरणीय`, `प्रदूषित`, `जैविक`, `मूर्तिकला`, `लोककथा`, `सर्जरी`, `ईमानदारी`, `चिड़चिड़ा`,
+`निराशावादी`, `एकाग्रता`, `नकारना`, `वस्तुतः`, `तात्पर्य`, `लोकसभा`, `राज्यसभा`, `साक्षरता`, `भुखमरी`,
+`सब्सिडी`, `आनुवंशिक`, `हस्तकला`, `मध्यकालीन`, `महाकाव्य`, `मंचन`, `पटकथा`, `पत्रकारिता`, `ऑनलाइन`,
+`प्रशिक्षु`, `वायरस`, `बुद्धिमानी`, `सूक्ष्म`, `न्यायसंगत`, `विश्वसनीय`, `आलोचनात्मक`. `राग` was taken out:
+Wiktionary's entry is "colour, emotion, passion", not the raga the arts topic meant.
+
+**The findings, each a rule:**
+- **Names**: two dozen — `मोहन`, `माया`, `गीता`, `सिंह` (Singh), `पटेल`, `गब्बर` (the film villain), `कर्ण`
+  … — each a dictionary word whose count is a person. **English words**: `होम`, `कुक`, `जूस`, `सील`, `चिक`.
+  **Another word's forms**, the commonest fault at this depth: `कर` and `सकता` (A1's findings, met again),
+  `दोना` (`दोनों`), `पोतना` (`पोते`), `मिलनी` (`मिलना`'s feminine infinitive), `सारना` (`सारा`), `खेना`
+  (`खेती`), and six verbs whose count is a noun or adjective of their own (`रेतना` → `रेत` …).
+- **Second spellings** of words a level teaches, found by the cross-deck gloss comparison of §8:
+  `बीयर`, `डाटा`, `दाएँ`, `सुबूत`, `हिरन`, `गुना`. Every other shared gloss is a true synonym.
+- **The fold again**: `गौर` "white" carried `ग़ौर` "attention" (`ग़ौर करना`); `HEADWORD` and `ETYMS` give the
+  card `ग़ौर`. `तीर` leads with "arrow", not "shore"; `त्रुटि` with "error", not a unit of time; `तालिका`
+  with "list"; `उर्दू` with the language, not "camp".
+- **Pointer glosses**: `POINTS` now reads a two-word target (`त्यागना`: "synonym of त्याग देना" → "to abandon,
+  forsake"), and a pointer to a word not on file (`मध्यम`: "synonym of मध्यदेश") is dropped rather than shown.
+  The first try at the two-word pattern swallowed the "(jaldī)" after a one-word target and changed A2 and
+  B1 — caught by the byte-identical rebuild, and fixed.
+- More slang cuts (`CUT`): `लिंग`, `औज़ार`.
+
+**Known, left.** 992 of 1,500 words have no example sentence: Tatoeba's Hindi does not reach this far.
+The subtitles' register (`गोलीबारी`, `बलात्कारी`, `हस्तमैथुन`, `संभोग`) is frequency, as on every subtitle-
+ordered deck; only crude words are excluded (`मूतना`). Some synonyms of lower-level words are loans the
+subtitles use (`टाइम`, `बुक`, `टीचर`, `इंटरव्यू`), kept as Hindi speakers use them.
+
+**C1 — a decision for the owner before it is built.** C1 is planned at 1,500 notes. After B2 the subtitle
+list has nothing left to rank: its next 1,500 lemmas are counted 2 to 5 times each, which is not a
+frequency at all. Building C1 the same way would make it an arbitrary sample. The choices: (a) C1 almost
+wholly from a hand-written inventory, which is a large piece of writing; (b) a second frequency source — a
+larger corpus with a licence that allows it (e.g. a news or Wikipedia word list); (c) a smaller C1. None is
+chosen here.
 

@@ -100,6 +100,9 @@ ETYMS = {
     'राय': ['2'],             # "opinion"; 1 is "king"
     'कोट': ['2'],             # "coat"; 1 is "fort"
     'कुल': ['2', '1'],        # "total, in total" AND "family, lineage"
+    # B2 (2026-11-09)
+    'तीर': ['3', '1'],        # "arrow" before "shore"
+    'गौर': [''],              # ग़ौर "attention" (ग़ौर करना), which the fold files with गौर "white"
 }
 
 # THE CARD'S SPELLING, where the fold put two headwords under one key and the card
@@ -109,6 +112,7 @@ HEADWORD = {
     'जरा': 'ज़रा',
     'तेज': 'तेज़',
     'रिवाज़': 'रिवाज',         # Wiktionary calls the nukta spelling hyperforeign
+    'गौर': 'ग़ौर',
 }
 
 # THE PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -119,6 +123,7 @@ POS_FIRST = {
     'जल्द': 'adv',            # "soon"; the noun "haste" is listed first
     'असल': 'noun',            # "reality"
     'तेज': 'adj',             # तेज़ "fast"
+    'उर्दू': 'adj',            # "Urdu (language)"; the noun "camp" is listed first
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech: its entry for
@@ -142,6 +147,8 @@ LEAD = {
     'दौरान': 'duration',      # first listed is "revolving, turning"
     'दक्षिण': 'south',        # first listed is "right (side)"
     'ताली': 'clapping',       # first listed is "key", which A1's चाबी teaches
+    'त्रुटि': 'error',         # first listed is "truti (Hindu unit of time …)"
+    'तालिका': 'list',          # first listed is "key"
 }
 
 # A ROMANISATION BY HAND, where Wiktionary gives the headword none (the alphabet deck's
@@ -168,11 +175,13 @@ CUT = {
     'संयोग': ('sexual intercourse',),
     'कविता': ('a female given name, Kavita, from Sanskrit',),
     'इजाज़त': ('hyperforeignism of Hindi इजाज़त (ijāzat)',),
+    'औज़ार': ('penis',),
+    'लिंग': ('penis',),
 }
 
 # A POINTER GLOSS -- "synonym of जल्दी (jaldī)", "a alternative form of मुहल्ला" -- is
 # replaced by the glosses of the word it points to, for the same part of speech.
-POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form|hyperforeign form) of (\S+)(?: \([^)]*\))?$')
+POINTS = re.compile(r'^(?:an? )?(?:synonym|alternative form|hyperforeign form) of (\S+(?: [^\s(]\S*)?)(?: \([^)]*\))?$')
 LEX = {}
 
 
@@ -183,7 +192,8 @@ def resolve(g, pos):
     T = LEX.get(fold(m.group(1)))
     ents = [e for e in (T or {}).get('entries', []) if e['pos'] == pos]
     out = [x for e in ents for x in e['glosses'] if x['g'] and not POINTS.match(x['g'])]
-    return out or [g]
+    # a pointer to nothing on file (मध्यम: "synonym of मध्यदेश") says nothing: dropped
+    return out
 
 
 def entries_for(row, lex):
