@@ -37,7 +37,7 @@ from tl_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'tagalog'
-COLOR = '#756366'
+COLOR = '#2A72DB'
 FIELDS = ['Tagalog', 'Marked', 'IPA', 'Word', 'English', 'Forms', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

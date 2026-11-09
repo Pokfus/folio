@@ -122,4 +122,4 @@ file, gitignored (and a `PARTS` row in `.claude/combine-decks.py`).
 `node .claude/tagalog/check-tagalog.js` is the check. **A re-run is byte-identical** (verified, with and
 without `--re-extract`). A1: 500 notes, 360 from the inventory (twenty-one topics) and 140 by frequency; IPA on
 496, a marked spelling on 283, aspects on 91 of the 95 verbs, sentences for 492 (three for 479). The shelf's hue is
-measured: `#756366`, a muted taupe 16.5 from its nearest of 53 (France's slate and the Cold War's).
+measured: first `#756366`, a muted taupe 16.5 from its nearest of 53 — which Swahili, measured in a parallel session, all but took (1.1 from it); re-swept at the merge against 67, outside the magenta band and the greens: `#2A72DB`, an azure 15.2 from its nearest (Greek, French).
