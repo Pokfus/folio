@@ -17,7 +17,21 @@ const MAX_ROWS = 4;        // including continuation lines
    Write it with `set-person-dates.js`, which computes the ages and puts the rows in date order. */
 const PERSON_MAX_ROWS = 6;
 const PERSON_FIRST = "Birth";
-const maxRowsFor = (firstLabel) => (String(firstLabel || "").trim() === PERSON_FIRST ? PERSON_MAX_ROWS : MAX_ROWS);
+/* THE OTHER TEMPLATES (Nov 2026, on request), each keyed the same way by its opening label:
+     WAR     Start <date> / <opening event>   End <date> / <peace treaty>   Casualties <total>   Result(s) <…>
+     BATTLE  Date <date>   Location <place>   Casualties <total>   Result(s) <…>
+     CITY    Founding <date>   Peak <year or period>   Population <historical estimate>
+   A template may carry rows that state no date (a result, a place, a period's name): `text` lists the
+   labels allowed to, and every other labelled row still needs its number. Written by
+   `set-template-dates.js`; inventoried by `template-cards.js`. */
+const TEMPLATES = {
+  Birth: { max: PERSON_MAX_ROWS, text: [] },
+  Start: { max: 6, text: ["Result", "Results"] },
+  Date: { max: 4, text: ["Location", "Result", "Results"] },
+  Founding: { max: 3, text: ["Peak"] },
+};
+const templateOf = (firstLabel) => TEMPLATES[String(firstLabel || "").trim()] || null;
+const maxRowsFor = (firstLabel) => { const t = templateOf(firstLabel); return t ? t.max : MAX_ROWS; };
 const LABEL_MAX = 16;      // "Way of life" was a category label; "Born" / "Named" / "In use" are date labels
 const VALUE_MAX = 64;
 const VALUE_MAX_WORDS = 10;
@@ -48,7 +62,8 @@ function buildDateLine(id, rows, fail) {
     if (/;/.test(value)) fail(id + " row " + (i + 1) + ": semicolons chain clauses — give each date its own row instead.");
     if (label) {
       if (label.length > LABEL_MAX) fail(id + " row " + (i + 1) + ": the label “" + label + "” is " + label.length + " characters — at most " + LABEL_MAX + ". It names WHAT the date is (Era, Lived, Found, Named), in a word or two.");
-      if (!/\d/.test(value)) fail(id + " row " + (i + 1) + ": “" + value + "” has no number in it. A labelled row states a date; leave the label empty for a continuation line (a place under a date).");
+      const tpl = templateOf(Array.isArray(rows[0]) ? rows[0][0] : "");
+      if (!/\d/.test(value) && !(tpl && tpl.text.includes(label))) fail(id + " row " + (i + 1) + ": “" + value + "” has no number in it. A labelled row states a date; leave the label empty for a continuation line (a place under a date).");
       html += '<span class="dt-k">' + esc(label) + '</span><span class="dt-v">' + esc(value) + "</span>";
     } else {
       if (!i) fail(id + " row 1: the first row needs a label — a continuation line has nothing to continue.");
@@ -70,4 +85,4 @@ function isDateList(html) {
   return vals.length <= maxRowsFor(first) && vals.every((v) => v.length <= VALUE_MAX && v.split(/\s+/).length <= VALUE_MAX_WORDS);
 }
 
-module.exports = { MAX_ROWS, PERSON_MAX_ROWS, PERSON_FIRST, maxRowsFor, LABEL_MAX, VALUE_MAX, VALUE_MAX_WORDS, buildDateLine, isDateList };
+module.exports = { MAX_ROWS, PERSON_MAX_ROWS, PERSON_FIRST, TEMPLATES, templateOf, maxRowsFor, LABEL_MAX, VALUE_MAX, VALUE_MAX_WORDS, buildDateLine, isDateList };

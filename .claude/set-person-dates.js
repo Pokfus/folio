@@ -55,7 +55,10 @@ const MDAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
    bounds. "8 July 1851", "July 1851", "1851", "c. 271 – 273 CE", "95 BCE", "15 March 44 BCE". */
 function parseDate(id, what, s) {
   // a qualifier after a comma is kept on the line and not read ("390 BCE, by tradition")
-  const t = String(s || "").trim().replace(/\s*\(age[^)]*\)$/i, "").split(",")[0].trim().replace(/[‐-―−]/g, "-");
+  let t = String(s || "").trim().replace(/\s*\(age[^)]*\)$/i, "").split(",")[0].trim().replace(/[‐-―−]/g, "-");
+  // a range whose first half borrows the second's month and year: "1 July - 18 November 1916", "1 - 3 July 1863"
+  const half = t.match(/^(c\.\s*)?(\d{1,2})(?:\s+([A-Za-z]+))?\s*-\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{1,4})(\s*(?:BCE|CE))?$/);
+  if (half) t = (half[1] || "") + half[2] + " " + (half[3] || half[5]) + " " + half[6] + (half[7] || "") + " - " + half[4] + " " + half[5] + " " + half[6] + (half[7] || "");
   const m = t.match(/^(c\.\s*)?(?:(\d{1,2})\s+)?(?:([A-Za-z]+)\s+)?(\d{1,4})(?:\s*(BCE|CE))?(?:\s*-\s*(?:(\d{1,2})\s+)?(?:([A-Za-z]+)\s+)?(\d{1,4})(?:\s*(BCE|CE))?)?$/);
   if (!m) die(id + " " + what + ": cannot read the date \"" + s + "\" — write \"8 July 1851\", \"1851\", \"c. 271 – 273 CE\" or \"95 BCE\"");
   const [, circa, d1, mo1, y1, e1, d2, mo2, y2, e2] = m;

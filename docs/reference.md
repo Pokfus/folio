@@ -8342,7 +8342,11 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   `add-card.js` hold the field to `.claude/date-line.js`: at most 4 rows (6 for the **person template**, a
   line whose first label is `Birth` — Birth/place, term, biggest moment with age, Death with age/place,
   in date order; written by `.claude/set-person-dates.js`, which computes the ages with no year 0 and
-  refuses a line that runs backwards; `.claude/person-cards.js` inventories the individuals, Nov 2026), a label of at most 16
+  refuses a line that runs backwards; `.claude/person-cards.js` inventories the individuals, Nov 2026),
+  and the WAR / BATTLE / CITY templates keyed by their first label (`Start`, `Date`, `Founding`: `TEMPLATES` in
+  `date-line.js`, which also names the labels that may hold text — Result, Location, Peak), written by
+  `.claude/set-template-dates.js`, inventoried by `.claude/template-cards.js`; a casualty or population
+  figure groups its thousands with commas because `cardYears` would read a bare "1500" as a year, a label of at most 16
   characters, a value of at most 64 characters and 10 words, a number in every labelled row, and no
   sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
   `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in

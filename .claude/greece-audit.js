@@ -81,7 +81,7 @@ const authorLib = new Function(
   sliceLine(CHECK, /^const surnameKey = .*$/m, "surnameKey in check-cards.js") + "\n" +
   "return { authorOf, surnameKey, ANCIENT };")();
 const { cardYears } = { cardYears: require("./card-links.js").loadCardYears(APP) };
-const { isDateList, maxRowsFor, LABEL_MAX } = require("./date-line.js");
+const { isDateList, maxRowsFor, templateOf, LABEL_MAX } = require("./date-line.js");
 const { srcTargetFor } = require("./src-target.js");
 const { count: shapeOf } = require("./split-abstract.js");
 const { declaredLang } = require("./src-langs.js");
@@ -171,7 +171,13 @@ function audit(c) {
     const maxRows = maxRowsFor((rows.find((r) => r.k === "k") || {}).t);
     if (nRows > maxRows) finding(out, "D.rows", nRows + " rows (≤" + maxRows + ")");
     rows.filter((r) => r.k === "k").forEach((r) => { if (r.t.length > LABEL_MAX) finding(out, "D.label", "label \"" + r.t + "\" is " + r.t.length + " characters"); });
-    rows.filter((r) => r.k === "v").forEach((r) => {
+    // a template's rows that are not dates (Nov 2026): a result, a place or a period may state no year,
+    // and a casualty or population figure is a count, not a date — neither is held to the date rules
+    const tpl = templateOf((rows.find((r) => r.k === "k") || {}).t);
+    let lab = "";
+    rows.forEach((r) => { if (r.k === "k") lab = r.t; else r.label = r.sub ? "" : lab; });
+    const COUNT = ["Casualties", "Population"];
+    rows.filter((r) => r.k === "v" && !(tpl && (tpl.text.includes(r.label) || COUNT.includes(r.label)))).forEach((r) => {
       const v = r.t;
       // a day of the month is not a year: "8 July 1851"
       const vy = v.replace(/\b\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/g, "");
@@ -188,7 +194,8 @@ function audit(c) {
     const ys = cardYears(c);
     if (!ys.length) finding(out, "D.sort", "the date line yields no sort year");
     // every year printed on the line is in the background too
-    const lineYears = [...plain(ad).matchAll(/\b(\d{3,4})\b/g)].map((m) => m[1]);
+    const dated = tpl ? ad.replace(/<span class="dt-k">(?:Casualties|Population|Location|Results?)<\/span><span class="dt-v">[^<]*<\/span>/g, "") : ad;
+    const lineYears = [...plain(dated).matchAll(/\b(\d{3,4})\b/g)].map((m) => m[1]);
     const abs = plain(c.abstract).replace(/,(\d{3})/g, "$1");
     lineYears.forEach((y) => { if (abs.indexOf(y) < 0) finding(out, "D.not-in-prose", "the date line's " + y + " is not in the background"); });
   }

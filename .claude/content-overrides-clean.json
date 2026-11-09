@@ -1,20 +1,914 @@
 {
-  "glossOff": {
-    "wh-002": [
-      "Paleolithic"
-    ],
-    "wh-007": [
-      "Iron_Age"
-    ],
-    "wh-012": [
-      "Ice_Age"
-    ],
-    "wh-014": [
-      "Australopithecus"
-    ],
-    "Jens_Jacob_Worsaae": [
-      "Bronze",
-      "Iron"
-    ]
+ "meta": {
+  "eg-002": {
+   "created": 3954,
+   "modified": 1793314157041
+  },
+  "eg-003": {
+   "created": 3955,
+   "modified": 1793232893441
+  },
+  "eg-057": {
+   "created": 5373,
+   "modified": 1793987993542
+  },
+  "eg-091": {
+   "created": 5408,
+   "modified": 1793215540681
+  },
+  "gr-002": {
+   "created": 90,
+   "modified": 1794166268956
+  },
+  "gr-063": {
+   "created": 151,
+   "modified": 1786961631990
+  },
+  "gr-130": {
+   "created": 218,
+   "modified": 1792935128587
+  },
+  "gr-522": {
+   "created": 2705,
+   "modified": 1793314654639
+  },
+  "gr-591": {
+   "created": 2774,
+   "modified": 1793188050348
+  },
+  "gr-595": {
+   "created": 2777,
+   "modified": 1793666381432
+  },
+  "gr-881": {
+   "created": 4524,
+   "modified": 1793665621133
+  },
+  "gr-921": {
+   "created": 4564,
+   "modified": 1793316658270
+  },
+  "gr-923": {
+   "created": 4565,
+   "modified": 1793750711280
+  },
+  "gr-968": {
+   "created": 4610,
+   "modified": 1793755485992
+  },
+  "jp-001": {
+   "created": 2383,
+   "modified": 1792939294529
+  },
+  "jp-002": {
+   "created": 2384,
+   "modified": 1793314340907
+  },
+  "ko-001": {
+   "created": 2284,
+   "modified": 1792980724062
+  },
+  "ko-002": {
+   "created": 2285,
+   "modified": 1793332060293
+  },
+  "ko-010": {
+   "created": 2293,
+   "modified": 1792938896748
+  },
+  "ko-011": {
+   "created": 2294,
+   "modified": 1792980879179
+  },
+  "ko-013": {
+   "created": 2296,
+   "modified": 1793216040595
+  },
+  "ko-047": {
+   "created": 2330,
+   "modified": 1790296438887
+  },
+  "ko-091": {
+   "created": 2373,
+   "modified": 1793233523682
+  },
+  "ps-024": {
+   "created": 768,
+   "modified": 1793367192456
+  },
+  "ps-028": {
+   "created": 772,
+   "modified": 1793366765576
+  },
+  "ps-038": {
+   "created": 782,
+   "modified": 1793586279995
+  },
+  "rm-053": {
+   "created": 669,
+   "modified": 1792976800744
+  },
+  "rm-091": {
+   "created": 707,
+   "modified": 1793188167059
+  },
+  "rm-325": {
+   "created": 3028,
+   "modified": 1793316916059
+  },
+  "rm-327": {
+   "created": 3030,
+   "modified": 1793236479305
+  },
+  "rm-336": {
+   "created": 3038,
+   "modified": 1793834828156
+  },
+  "rm-371": {
+   "created": 3234,
+   "modified": 1793317166997
+  },
+  "rm-383": {
+   "created": 3246,
+   "modified": 1793583691685
+  },
+  "rm-384": {
+   "created": 3246,
+   "modified": 1793755773314
+  },
+  "rm-427": {
+   "created": 3878,
+   "modified": 1793666953907
+  },
+  "rm-430": {
+   "created": 3881,
+   "modified": 1793987271362
+  },
+  "ru-001": {
+   "created": 2173,
+   "modified": 1794023636235
+  },
+  "ru-005": {
+   "created": 2178,
+   "modified": 1793319534892
+  },
+  "ru-023": {
+   "created": 3974,
+   "modified": 1793893269481
+  },
+  "ru-040": {
+   "created": 3992,
+   "modified": 1793404640488
+  },
+  "ru-051": {
+   "created": 4002,
+   "modified": 1793757836483
+  },
+  "ru-057": {
+   "created": 4008,
+   "modified": 1794023356701
+  },
+  "ru-100": {
+   "created": 4051,
+   "modified": 1793711160821
+  },
+  "us-010": {
+   "created": 2593,
+   "modified": 1793214758326
+  },
+  "us-031": {
+   "created": 2613,
+   "modified": 1793750689198
+  },
+  "us-060": {
+   "created": 2642,
+   "modified": 1793332326320
+  },
+  "us-074": {
+   "created": 2657,
+   "modified": 1793404044713
+  },
+  "us-076": {
+   "created": 2658,
+   "modified": 1793668012910
+  },
+  "us-084": {
+   "created": 2666,
+   "modified": 1794021400698
+  },
+  "us-093": {
+   "created": 2676,
+   "modified": 1793233284790
+  },
+  "wh-001": {
+   "created": 0,
+   "modified": 1792844581970
+  },
+  "wh-017": {
+   "created": 7,
+   "modified": 1786982341345
+  },
+  "wh-018": {
+   "created": 8,
+   "modified": 1786982864674
+  },
+  "wh-051": {
+   "created": 39,
+   "modified": 1792842240532
+  },
+  "wh-171": {
+   "created": 515,
+   "modified": 1792845634889
+  },
+  "wh-201": {
+   "created": 644,
+   "modified": 1792842855089
+  },
+  "wh-206": {
+   "created": 649,
+   "modified": 1793051513498
+  },
+  "wh-207": {
+   "created": 650,
+   "modified": 1793051763707
+  },
+  "wh-256": {
+   "created": 1266,
+   "modified": 1792843819994
+  },
+  "wh-261": {
+   "created": 1271,
+   "modified": 1793237220711
+  },
+  "wh-281": {
+   "created": 1291,
+   "modified": 1793050494768
+  },
+  "wh-311": {
+   "created": 1321,
+   "modified": 1793051275635
+  },
+  "art-001": {
+   "created": 3264,
+   "modified": 1793010035729
+  },
+  "cnh-191": {
+   "created": 2574,
+   "modified": 1793102686744
+  },
+  "cnh-192": {
+   "created": 2575,
+   "modified": 1793102854464
+  },
+  "cnh-213": {
+   "created": 2896,
+   "modified": 1793214638799
+  },
+  "cnh-273": {
+   "created": 4676,
+   "modified": 1793235201635
+  },
+  "cnh-274": {
+   "created": 4677,
+   "modified": 1793563240318
+  },
+  "cnh-276": {
+   "created": 4679,
+   "modified": 1793563298843
+  },
+  "cnh-280": {
+   "created": 4683,
+   "modified": 1793584121780
+  },
+  "cnh-608": {
+   "created": 5924,
+   "modified": 1793563206229
+  },
+  "geo-506": {
+   "created": 998,
+   "modified": 1793234049626
+  },
+  "gru-030": {
+   "created": 4311,
+   "modified": 1793009342642
+  },
+  "gru-902": {
+   "created": 7228,
+   "modified": 1793713319332
+  },
+  "ww2-012": {
+   "created": 2195,
+   "modified": 1792937693979
+  },
+  "ww2-037": {
+   "created": 2220,
+   "modified": 1792937374985
+  },
+  "ww2-043": {
+   "created": 2226,
+   "modified": 1792847296173
+  },
+  "ww2-044": {
+   "created": 2227,
+   "modified": 1792979633724
+  },
+  "ww2-047": {
+   "created": 2230,
+   "modified": 1792938371548
+  },
+  "ww2-065": {
+   "created": 2248,
+   "modified": 1792979941070
+  },
+  "ww2-069": {
+   "created": 2252,
+   "modified": 1793319277888
+  },
+  "ww2-168": {
+   "created": 7387,
+   "modified": 1793873891838
+  },
+  "ww2-187": {
+   "created": 7376,
+   "modified": 1793669014565
+  },
+  "ww2-197": {
+   "created": 7366,
+   "modified": 1793988592787
+  },
+  "ww2-441": {
+   "created": 7640,
+   "modified": 1793668896734
   }
+ },
+ "tree": {
+  "soon": {},
+  "dates": {},
+  "moved": {},
+  "order": {
+   "": [
+    "col-8",
+    "col-13",
+    "col-40",
+    "china",
+    "geo-us",
+    "col-41",
+    "egypt",
+    "ww2",
+    "japan",
+    "psych",
+    "bio",
+    "korea",
+    "geo-world",
+    "geo-china",
+    "geo-russia",
+    "art",
+    "pea",
+    "col-42",
+    "col-43",
+    "phil",
+    "dino",
+    "astro",
+    "econ",
+    "france",
+    "mesopotamia",
+    "ww1",
+    "arch",
+    "middleearth",
+    "westeros",
+    "coldwar",
+    "vikingage"
+   ]
+  },
+  "created": {},
+  "deleted": {},
+  "renames": {},
+  "cardOrder": {}
+ },
+ "cards": {
+  "eg-002": {
+   "abstract": "The <b>Nile</b> is the river of north-east Africa, and the one Egypt is built on: the White Nile out of the East African lakes and the Blue Nile out of the Ethiopian highlands meet at Khartoum, and the Atbara joins below them as the last tributary of all.<sup class=\"fn\" data-fn=\"1\"></sup> More than 97% of Egypt's fresh water is Nile water, and over 85% of that originates in the Ethiopian highlands and is carried down by the Blue Nile, the Sobat and the Atbara.<sup class=\"fn\" data-fn=\"2\"></sup> Below the Atbara the river crosses the eastern Sahara alone, cutting a trench through limestone that runs 16 to 50 kilometres from cliff to cliff and flowing at about 5 kilometres an hour.<sup class=\"fn\" data-fn=\"3\"></sup> Strabo saw what that meant for the country beside it, writing that above the Delta the river runs some 4,000 stadia in a single channel and the habitable ground is scarcely anywhere 300 stadia broad.<sup class=\"fn\" data-fn=\"4\"></sup> The basin behind it covers about 2,900,000 square kilometres between 4° south and 32° north, though the deserts north of <span class=\"ttip\" data-k=\"Berber,_Sudan\">Berber</span> contribute nothing.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> About 160 kilometres from the sea the stream opens into the triangle the Greeks named the Delta, where antiquity counted seven mouths and only two main branches now reach the coast, the <span class=\"ttip\" data-k=\"Rashid\">Rosetta</span> and the Damietta.<sup class=\"fn\" data-fn=\"3\"></sup> Between Khartoum and Aswan the water runs through a series of granite cataracts, and the first of these was Egypt's own southern frontier for most of its history.<sup class=\"fn\" data-fn=\"3\"></sup> The channels have never been fixed: radar imaging and soil coring beside the <span class=\"ttip\" data-k=\"Egyptian_pyramids\">pyramid</span> field have traced a major branch running along the foot of the Western Desert plateau that is now buried and dry.<sup class=\"fn\" data-fn=\"5\"></sup> Neither has the volume, and an 8,000-year sediment budget from the delta shows accretion falling away through the Holocene with erosion first recorded about 4,000 years ago.<sup class=\"fn\" data-fn=\"6\"></sup> A country with almost no rain and one river takes its whole arrangement from what that river is doing.<sup class=\"fn\" data-fn=\"2\"></sup>"
+  },
+  "eg-057": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Aha succeeds</span><span class=\"dt-v\">c. 3111 – 3045 BCE</span><span class=\"dt-k\">Qaa succeeds</span><span class=\"dt-v\">c. 2906 – 2886 BCE</span><span class=\"dt-k\">Traditional</span><span class=\"dt-v\">c. 3100 – 2900 BCE</span></div>"
+  },
+  "gr-002": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Period</span><span class=\"dt-v\">c. 3100 – 1000 BCE</span></div>"
+  },
+  "gr-595": {
+   "abstract": "<b>Sophocles</b> was the second of the three great Athenian tragic poets, from the deme of Colonus, born in about 497 BCE, who lived to around 90.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> He first won in 468 BCE, at a contest the archon made the 10 generals judge, and the beaten Aeschylus is said to have left for Sicily soon after.<sup class=\"fn\" data-fn=\"6\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is credited with introducing a third actor and with raising the chorus from 12 to 15, and of his 123 plays, or 118 by another count, only 7 survive.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> Unusually for a poet he also held high office, as a treasurer of the <span class=\"ttip\" data-k=\"Delian_League\">allies' tribute</span> in 443/442 BCE and as a general in 441/440 BCE, serving with Pericles against Samos.<sup class=\"fn\" data-fn=\"7\"></sup><sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> After the <span class=\"ttip\" data-k=\"Sicilian_Expedition\">defeat in Sicily</span> he was made a proboulos in 413 BCE, one of the men given special powers to lead Athens out of the crisis.<sup class=\"fn\" data-fn=\"10\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> <br><br> Later tradition said he had helped bring the cult of the healing god Asclepius to Athens and was honoured as a hero after his death for his piety.<sup class=\"fn\" data-fn=\"7\"></sup><sup class=\"fn\" data-fn=\"10\"></sup> He died in 406 or 405 BCE, outliving Euripides, and his grandson, also named Sophocles, staged his last play <span class=\"ans-term\"><i>Oedipus</i> at Colonus</span> after his death.<sup class=\"fn\" data-fn=\"9\"></sup><sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> In Aristophanes' <i>Frogs</i> the god Dionysus calls him easy-going in life and easy-going among the dead, and wonders what his son Iophon can write without him.<sup class=\"fn\" data-fn=\"4\"></sup> Ion of Chios, a contemporary, pictured him at a banquet as a cultivated man of about 40, as skilled a general as he was a guest.<sup class=\"fn\" data-fn=\"7\"></sup> Most of what is told of him comes from an anonymous ancient <i>Life</i> and the Byzantine Suda, and scholars are divided over how far to trust even his public offices.<sup class=\"fn\" data-fn=\"7\"></sup><sup class=\"fn\" data-fn=\"10\"></sup>"
+  },
+  "gr-881": {
+   "abstract": "<b>Greek mythology</b> is the body of traditional stories the ancient Greeks told about their <span class=\"ttip\" data-k=\"Greek_gods\">gods</span>, heroes and the beginnings of the world, and no single authorised version exists.<sup class=\"fn\" data-fn=\"1\"></sup> The stories lived first in performance, and the retelling went on long before anything was written down, so even the earliest written versions are already reworkings.<sup class=\"fn\" data-fn=\"2\"></sup> In Homeric Greek <i>muthos</i> meant simply something said in epic and was much the same as <i>logos</i>, so the word mythology was once very nearly a tautology.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> By the time of Herodotus <i>muthos</i> could mean an idle and unbelievable tale, yet Plato used it for fables and for serious truths, so the line between myth and reasoned account kept shifting.<sup class=\"fn\" data-fn=\"1\"></sup> No one definition of myth covers every use of the word, and one approach treats the stories as a system in which each tale answers the others.<sup class=\"fn\" data-fn=\"3\"></sup> <br><br> Hesiod matters greatly for the Greek mythical cosmos, and his poem on the gods asks the Muses how gods, earth, rivers and the boundless sea first came to be.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"8\"></sup> Each kind of performance told the stories its own way: lyric and epic belonged to ritual, tragedy staged each playwright’s own version, and comedy mocked the gods and reversed tragedy’s messages.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Pictures told them too, and a modern viewer identifies the story from an inscription, an attribute, a fight with a unique monster, or the context.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"7\"></sup> From the Hellenistic period a passion for collecting set in, and prose handbooks now called mythography, such as the <span class=\"ttip\" data-k=\"Bibliotheca_(Pseudo-Apollodorus)\">Library</span> ascribed to <span class=\"ttip\" data-k=\"Apollodorus_of_Athens\">Apollodorus</span>, preserve older traditions otherwise lost.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"6\"></sup> That handbook opens with <span class=\"ttip\" data-k=\"Uranus_(mythology)\">Sky</span> as first ruler of the whole world, and one view holds that Greek mythology as a single subject begins only with such handbooks.<sup class=\"fn\" data-fn=\"9\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
+  },
+  "gr-921": {
+   "abstract": "A <b>hero</b> in Greek religion was a mortal of the remote past with superhuman powers through descent from an immortal god, and was worshipped with cult like the gods.<sup class=\"fn\" data-fn=\"4\"></sup> Hesiod, who was writing about 700 BCE, says that after the <span class=\"ans-term\">bronze</span> race Zeus made a fourth, a god-like race of hero-men who are called demi-gods.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"9\"></sup> Some were destroyed by war at Thebes and at Troy, he says, while Zeus gave the others a life apart from men at the ends of the earth.<sup class=\"fn\" data-fn=\"1\"></sup> In the <i><span class=\"ttip\" data-k=\"Iliad\">Iliad</span></i> the shields and helmets that fell in the dust beside the river Scamander belong to the race of men half-divine.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus says that the Greeks most in the right sacrifice to one Heracles as to an immortal, the Olympian, but bring offerings to the other as to a dead hero.<sup class=\"fn\" data-fn=\"3\"></sup> <br><br> The usual rite was a sacrifice followed by a shared meal, which one study finds was the common sacrifice for gods and heroes alike, often offered at shrines that were small.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"7\"></sup> One reviewer notes that Greek heroes are by definition local, tied to the place where their body lies, which helps explain the political stakes of moving a hero's bones.<sup class=\"fn\" data-fn=\"8\"></sup> Modern study has moved away from older explanations that heroes were ancestors or downgraded local gods, and towards ritual, particular poets and particular regions.<sup class=\"fn\" data-fn=\"6\"></sup> Their origin is disputed: one study denies that hero cult grew from the cult of the dead, while a study of Sparta finds cults that seem to grow from grave ritual.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"7\"></sup> The class stayed open, since later Greeks made heroes of historical people such as fallen warriors, founders and statesmen, and one study argues that this was no sign of decline.<sup class=\"fn\" data-fn=\"6\"></sup>"
+  },
+  "gr-923": {
+   "undatable": true
+  },
+  "gr-968": {
+   "abstract": "The <b>Greek temple</b> was the house of a god, and its Greek name, <i>naos</i>, means a dwelling place, from the belief that the god dwelt there or visited during rituals.<sup class=\"fn\" data-fn=\"6\"></sup> The rites were carried out at an altar in the open air outside the temple, where the crowd gathered, within an inner precinct that held altar, temple and offerings.<sup class=\"fn\" data-fn=\"9\"></sup><sup class=\"fn\" data-fn=\"6\"></sup> Inside stood the image of the god, and Pausanias describes the statue of Athena in the Parthenon as made of ivory and <span class=\"ans-term\"><span class=\"ttip\" data-k=\"Gold\">gold</span></span>.<sup class=\"fn\" data-fn=\"1\"></sup> Sanctuaries also worked as reserve banks, and Pericles, in Thucydides, counts among the reserves of Athens the <span class=\"ans-term\">gold</span> and <span class=\"ans-term\">silver</span> of offerings and the spoils from the Persians, adding that other temples could supply money.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He says the image of the goddess carried 40 talents of pure <span class=\"ans-term\">gold</span> which might all be taken off and repaid, and the Parthenon's smaller room served as the city's treasury.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"7\"></sup> <br><br> Pausanias reports that the front pediment of the Parthenon showed the birth of Athena and the rear her contest with Poseidon for the land.<sup class=\"fn\" data-fn=\"1\"></sup> No earlier temple had been so richly decorated, and the Parthenon had 92 metopes, a frieze round all four sides and both pediments filled with figures.<sup class=\"fn\" data-fn=\"7\"></sup> Temples developed from the 8th century BCE and architectural orders came in around 600 BCE, long after the first sacred sites, which were merely an altar.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"6\"></sup> Holiness did not follow grandeur, since Pausanias calls the most holy symbol of Athena the old image on the Acropolis, which a legend says fell from heaven.<sup class=\"fn\" data-fn=\"2\"></sup> Many sanctuaries never had a temple, since only the altar and boundary markers were necessary, and some temples remained roofless; at Stymphalos a house-like temple may have been added to an already sacred spot.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"8\"></sup>"
+  },
+  "jp-002": {
+   "abstract": "The <b>Japanese archipelago</b> is the chain of islands lying off the eastern seaboard of Eurasia, a crescent running from north-east to south-west roughly parallel to the continental coast with the Sea of Japan between.<sup class=\"fn\" data-fn=\"1\"></sup> It stretches between about 20 and 45 degrees north and 123 and 154 degrees east, and its five main islands — Hokkaido, Honshu, Shikoku, Kyushu and Okinawa — sit among more than 14,000 smaller ones.<sup class=\"fn\" data-fn=\"1\"></sup> Honshu alone accounts for 231,240 square kilometres of a total of 377,976.<sup class=\"fn\" data-fn=\"1\"></sup> The chain lies on the world’s newest mobile belt, one of the most active seismic and volcanic zones anywhere, so earthquakes are frequent and the share of active volcanoes high.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> The national weather service catalogues 110 of those volcanoes one by one, from Hokkaido south through the Izu and Bonin chains to the Ryukyus.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> Mountains and hills, generally steep and cut by ravines, take about three quarters of the land, with hilly ground between the ranges and the plains.<sup class=\"fn\" data-fn=\"1\"></sup> The climate is temperate and maritime, but it differs sharply by region: the winter monsoon dumps heavy snow on the Sea of Japan coast while leaving the Pacific side comparatively dry.<sup class=\"fn\" data-fn=\"1\"></sup> There are two rainy seasons, one in early summer and one in autumn, and tropical cyclones from the Pacific reach the islands as typhoons between summer and autumn.<sup class=\"fn\" data-fn=\"1\"></sup> It has not always been so cut off: during the last glacial maximum the strait between the Korean peninsula and Kyushu narrowed to a channel about 20 kilometres wide, and the first people crossed it.<sup class=\"fn\" data-fn=\"3\"></sup> The seas rose between 20 and 15 thousand years ago, and the isolation that followed left a hunter-gatherer population inside the islands whose genetic separation from the mainland is still measurable.<sup class=\"fn\" data-fn=\"4\"></sup>"
+  },
+  "ko-002": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Size</span><span class=\"dt-v\">221,000 km2</span><span class=\"dt-k\">Coastline</span><span class=\"dt-v\">8,640 km<br></span><span class=\"dt-k\">Islands</span><span class=\"dt-v\">3,579</span></div>"
+  },
+  "ps-024": {
+   "abstract": "<b><i>Tabula rasa</i></b>, Latin for <b>blank slate</b>, is the doctrine that the mind brings no ideas or principles into the world with it and is furnished entirely by experience.<sup class=\"fn\" data-fn=\"2\"></sup> Locke's own figure is not a slate but white paper: he asks us to suppose the mind void of all characters and without any ideas, then answers in one word how it comes to be furnished, from experience.<sup class=\"fn\" data-fn=\"1\"></sup> Experience has two fountains for him, sensation and the mind's reflection on its own operations, and the Latin tag now attached to his name appears nowhere in the Essay.<sup class=\"fn\" data-fn=\"1\"></sup> His first book attacks innate principles directly: universal consent would prove nothing even if it existed, since agreement can be reached another way, and children cannot make sense of the maxims they are supposed to have been born knowing.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The dilemma he presses is that innateness is either a real alternative to his account and plainly false, or trivially true and no threat to it at all.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> The polemic is nearly a sideshow, since the prize is won only by a positive account of knowledge built from experience, and that account gives the mind faculties to work on its ideas, so the slate is blank of ideas rather than of powers.<sup class=\"fn\" data-fn=\"2\"></sup> Leibniz replied with an exception to the axiom: nothing is in the intellect that was not first in the senses, except the intellect itself, which supplies being, substance, unity, identity and cause.<sup class=\"fn\" data-fn=\"3\"></sup> He added that the exception partly agreed with the Essay itself, which already made the mind's reflection on its own nature a source of ideas.<sup class=\"fn\" data-fn=\"3\"></sup> Locke put the doctrine to work on children, holding that nine parts in ten of the men we meet are what they are by their education, and that the almost insensible impressions of infancy have lasting consequences.<sup class=\"fn\" data-fn=\"4\"></sup> The intuition reaches well beyond philosophy, since American adults, adults from a culture believing in reincarnation, children and professional scientists alike explain basic perceptual and cognitive abilities by learning rather than innateness.<sup class=\"fn\" data-fn=\"5\"></sup>"
+  },
+  "rm-371": {
+   "abstract": "<b>Augustus</b> was born <b>Gaius Octavius</b> on 23 September 63 BCE, son of a senator from Velitrae and of Atia, a niece of Julius Caesar, and lost his father at four.<sup class=\"fn\" data-fn=\"1\"></sup> Suetonius counts five civil wars in his rise, named <span class=\"ttip\" data-k=\"War_of_Mutina\">Mutina</span>, Philippi, <span class=\"ttip\" data-k=\"Perusine_War\">Perusia</span>, Sicily and <span class=\"ttip\" data-k=\"Battle_of_Actium\">Actium</span>, the first and the last of them against Mark Antony.<sup class=\"fn\" data-fn=\"1\"></sup> He ruled first with Antony and <span class=\"ttip\" data-k=\"Marcus_Aemilius_Lepidus_(triumvir)\">Lepidus</span> together, then with Antony alone for nearly 12 years, and finally by himself for 44.<sup class=\"fn\" data-fn=\"1\"></sup> The offices came early and out of order: he took the consulship in his 20th year by marching his legions on the city, and a centurion told the hesitating senate that his sword would serve instead.<sup class=\"fn\" data-fn=\"2\"></sup> He was <span class=\"ttip\" data-k=\"Second_Triumvirate\">triumvir</span> for 10 years, held 13 consulships, took the tribunician power for life, and made three <span class=\"ttip\" data-k=\"Roman_census\">censuses</span> without ever holding the title of <span class=\"ttip\" data-k=\"Roman_censor\">censor</span>.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> In his own record he says that he handed the republic back to the senate and people in his 6th and 7th consulships, and afterwards had no more power than his colleagues.<sup class=\"fn\" data-fn=\"5\"></sup> Tacitus describes the method rather than the titles: he conciliated the army with gratuities, the populace with cheap <span class=\"ttip\" data-k=\"Frumentatio\">corn</span> and the world with peace, then gathered the senate, the magistracy and the law into himself.<sup class=\"fn\" data-fn=\"3\"></sup> There was no opposition, he adds, because the boldest had fallen on stricken fields or on the proscription lists, and the rest of the nobility found servitude the smoothest road to wealth and office.<sup class=\"fn\" data-fn=\"3\"></sup> At his funeral his contemporaries argued the reign two ways and Tacitus sets down both, one holding that duty to a murdered father forced the civil war, the other that duty was a cloak for ambition.<sup class=\"fn\" data-fn=\"4\"></sup> He died on 19 August 14 CE at Nola, in the same room as his father, having held the tribunician power for 37 unbroken years and the salutation of imperator 21 times.<sup class=\"fn\" data-fn=\"4\"></sup>"
+  },
+  "rm-427": {
+   "abstract": "<b>Caligula</b> is the name history gives to <b>Gaius Caesar</b>, Roman emperor from 37 to 41 CE and a son of the general Germanicus and of Agrippina.<sup class=\"fn\" data-fn=\"5\"></sup> Suetonius gives his birthday as the day before the Kalends of September, 31 August 12 CE in a modern chronology, and takes Antium as his birthplace from the public gazette.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> As a small child he lived among the Rhine legions, whose joke about his little soldier’s boots (<i>caligulae</i> in Latin) gave him the nickname that stuck.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> He became princeps on 18 March 37 CE, after the Senate set aside the will of Tiberius that had made his young cousin Gemellus co-heir.<sup class=\"fn\" data-fn=\"6\"></sup> Later in 37 CE he fell gravely ill, in the eighth month of the reign by the reckoning of Philo of Alexandria, a contemporary witness.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"8\"></sup> <br><br> Philo, Seneca, Suetonius and Dio describe what followed as cruelty and madness, and Suetonius announces that, having told of the emperor, he must now tell of the monster.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"7\"></sup><sup class=\"fn\" data-fn=\"9\"></sup> Suetonius says he joined Baiae to the mole at Puteoli with a double line of merchant ships and rode over this bridge for two days, while Dio starts it at Bauli.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> On the shore of the Ocean, both writers say, he ordered his soldiers to gather shells as spoils, which one modern reading takes as mockery of troops who had refused to cross to Britain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"8\"></sup> Philo and Josephus report his order to put his statue in the Temple at Jerusalem, a threat ended by his murder on 24 January 41 CE, Suetonius’s ninth day before the Kalends of February.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"6\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Modern historians read the same record differently: one biography treats him as sane and intelligent, another as an autocrat who stopped pretending that the Republic still stood.<sup class=\"fn\" data-fn=\"7\"></sup><sup class=\"fn\" data-fn=\"8\"></sup>"
+  },
+  "ru-001": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Length</span><span class=\"dt-v\">8,000 km</span></div>"
+  },
+  "ru-005": {
+   "abstract": "The <b>Scythians</b> are the Iron Age people who held the steppe from the Altai to the Carpathians between about 700 and 300 BCE, and who gave the Greek world its idea of the nomad.<sup class=\"fn\" data-fn=\"1\"></sup> The name is a Greek one: Herodotus says they called themselves <b>Skoloti</b> after a king, and that their own account of their origin had a plough, a yoke, a sword and a flask, all of gold, fall burning from the sky.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient genomes have taken the single people apart, showing eastern and western groups of independent origin, each a mixture of Bronze Age steppe herders and an eastern Asian component, with movement between them afterwards.<sup class=\"fn\" data-fn=\"3\"></sup> That is why the weapons, harness and animal ornament look so alike over such distances while the populations beneath them do not, and why the eastern half of the steppe looks like the source of the western groups.<sup class=\"fn\" data-fn=\"1\"></sup> They were not all on the move either, since isotopes from cemeteries in Iron Age Ukraine show most people living and dying near one place, in large settlements, on millet grown close by.<sup class=\"fn\" data-fn=\"4\"></sup> <br><br> Their kings were another matter, and were buried out on the grass in a deep pit under a raised mound, with strangled servants, horses, golden cups and first-fruits of everything else.<sup class=\"fn\" data-fn=\"5\"></sup> A year later, Herodotus says, fifty of the best young men and fifty horses were killed, set upright on stakes and stood in a ring about the tomb.<sup class=\"fn\" data-fn=\"5\"></sup> He also says that a warrior flayed the enemies he killed and covered his quiver with the skin taken from their right hands.<sup class=\"fn\" data-fn=\"6\"></sup> That was long read as travellers' slander, until protein analysis of 45 leather objects from graves in southern Ukraine turned up two samples of human skin.<sup class=\"fn\" data-fn=\"7\"></sup> Their hold on the western steppe broke around 300 BCE, under pressure from the Macedonians on one side and the arriving Sarmatians on the other.<sup class=\"fn\" data-fn=\"1\"></sup>"
+  },
+  "ru-023": {
+   "abstract": "The <b>East Slavs</b> are the Slavic-speaking peoples of the East European Plain whose tribal names the Rus' chronicle lists and out of whose lands <span class=\"ttip\" data-k=\"Kievan_Rus'\">Kievan Rus'</span> was afterwards built.<sup class=\"fn\" data-fn=\"1\"></sup> That list gives the Polyane, the Drevlyane, the Dregovichi, the Polochane on the Polota, the Slovene about Novgorod, the Severyane, the Krivichi at the headwaters of the Volga, the Dvina and the Dnieper, and the Buzhane on the Bug.<sup class=\"fn\" data-fn=\"1\"></sup> The chronicler is careful to set them apart from the neighbours who paid tribute to Rus' and spoke other tongues, among them the Chud’, the Merya, the Ves’, the Muroma, the Cheremis and the Mordva.<sup class=\"fn\" data-fn=\"1\"></sup> He also has the Slavs sitting on the Danube before they scattered, which is a memory of movement rather than a record of one.<sup class=\"fn\" data-fn=\"1\"></sup> Setting that list beside a 4th-century catalogue of northern peoples shows how far the ethnic and linguistic map of eastern Europe had shifted in the intervening six centuries.<sup class=\"fn\" data-fn=\"4\"></sup> <br><br> The country they spread into was not empty of language, for substrate river names of Baltic type run across the upper Dnieper and the middle Oka.<sup class=\"fn\" data-fn=\"5\"></sup> Those names correlate with the distribution of Early Iron Age cultures rather than with anything Slavic, and whether a distinct West Baltic layer stands among them is argued.<sup class=\"fn\" data-fn=\"5\"></sup> Archaeology still divides over whether the Slavs of central Europe came from outside or were formed where they are found, and the same argument bears on the eastern branch.<sup class=\"fn\" data-fn=\"3\"></sup> Genome-wide data from 555 ancient individuals show a large movement out of eastern Europe between the 6th and 8th centuries, with a Polish site of 600 to 900 as the closest surrogate for its source.<sup class=\"fn\" data-fn=\"2\"></sup> That work fixes no eastern homeland, because the source population itself has not been sampled, so the east is inferred from the direction of travel rather than observed in a grave.<sup class=\"fn\" data-fn=\"2\"></sup>"
+  },
+  "ru-040": {
+   "abstract": "<b>Novgorod</b> stands where the Volkhov leaves Lake Ilmen, and writers in Old Norse of every kind called it <i><b>Hólmgarðr</b></i>.<sup class=\"fn\" data-fn=\"1\"></sup> The name is a rendering of a Slavonic compound meaning the town on the holm, the low flat bank of a river.<sup class=\"fn\" data-fn=\"2\"></sup> The likeliest account of it is that both the Slavonic form and its Norse equivalent belonged first to the large political centre of the 9th and 10th centuries now known as Rurik's Hillfort, and were carried over to the city that grew up beside it.<sup class=\"fn\" data-fn=\"1\"></sup> The fortified core of that predecessor, at the mouth of the Volkhov on Lake Ilmen, measured no more than six or seven hectares in the middle of the 9th century.<sup class=\"fn\" data-fn=\"3\"></sup> There is a close parallel for such a transfer in the name of the ruined emporium of Hedeby passing to the neighbouring centre at Schleswig.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> The chronicle has the invited Varangian prince move to Lake Ilmen after his brothers died and fortify a small town there which he called Novgorod, then share out Polotsk, Rostov and Beloozero among his men.<sup class=\"fn\" data-fn=\"4\"></sup> It adds that the Novgorodians came to be called Rus' after those Varangians, having been Slavs before, and that the first inhabitants of the town were Slavs.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Another recension of the same work seats the prince at Novgorod from the start rather than at Ladoga, so the two texts disagree about the place's first role.<sup class=\"fn\" data-fn=\"2\"></sup> The material record is later than either: pottery imported from the west Slavic lands appears here from the 930s, on a chronology built from tree-ring dates at Ladoga together with the finds from the city and the hillfort.<sup class=\"fn\" data-fn=\"5\"></sup> Old Rus' memory does place the town in the 10th century, along with Ladoga, Pskov, Chernigov, Polotsk and Lyubech, but what relation it then stood in to the princes at Kyiv is not clear from any source.<sup class=\"fn\" data-fn=\"1\"></sup>"
+  },
+  "ru-100": {
+   "abstract": "The <b>Golden Horde</b> was the western part of the Mongol Empire, the <span class=\"ttip\" data-k=\"Ulus\">ulus</span> of Jochi, and the power to which the princes of Rus' answered for the next two and a half centuries.<sup class=\"fn\" data-fn=\"1\"></sup> Its hold was fixed in the winter of 1242 and 1243, when Batu came back from the campaign in central Europe and ordered the three strongest princes of Rus' to his camp.<sup class=\"fn\" data-fn=\"2\"></sup> Direct Mongol administration was still possible at that point, and what was settled on instead was rule through the existing princes, one of whom was given a seniority over the rest.<sup class=\"fn\" data-fn=\"2\"></sup> That made the journey to the khan the way to hold a seat, and the two princes who found reasons not to go gained nothing by staying away.<sup class=\"fn\" data-fn=\"2\"></sup> It could also kill: the prince who first held that seniority died in 1246 coming back from the imperial court, in circumstances that are still argued over.<sup class=\"fn\" data-fn=\"4\"></sup> <br><br> The church was handled differently from the princes, exempted from the Horde's tribute and left in possession of its property, so that its weight in the politics of Rus' grew rather than shrank.<sup class=\"fn\" data-fn=\"3\"></sup> Some recent work in English has come close to describing the relationship as a partnership, which understates a rule founded on destructive conquest and often destructively exercised.<sup class=\"fn\" data-fn=\"1\"></sup> Much Russian-language scholarship has made the opposite mistake, overstating how much Rus' mattered inside the ulus, where the Kipchaks of the steppe counted for a great deal more.<sup class=\"fn\" data-fn=\"1\"></sup> Archaeology offers a way past both, though it has been slow, because for many years the nomad burials of the Horde's steppe could only be compared with Kipchak ones.<sup class=\"fn\" data-fn=\"5\"></sup> Enough material from the eastern steppe has now been excavated to pick out burials of Mongols proper among them and to map where in the ulus they lie.<sup class=\"fn\" data-fn=\"5\"></sup>"
+  },
+  "us-031": {
+   "undatable": true
+  },
+  "us-060": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Fought</span><span class=\"dt-v\">20 June 1675 – 12 April 1678</span></div>"
+  },
+  "us-074": {
+   "abstract": "<b>Tecumseh</b> was the Shawnee chief who built the last confederacy of the Ohio Country and died in British service in the War of 1812.<sup class=\"fn\" data-fn=\"1\"></sup> He was born about 1768, probably near what is now Springfield, Ohio, the son of a Shawnee chief; his name has been read as 'shooting star' and as 'panther crouching in wait'.<sup class=\"fn\" data-fn=\"1\"></sup> He grew up through the years in which the boundary Britain had drawn was swept away by the <span class=\"ttip\" data-k=\"American_Revolution\">Revolution</span> and the Americans pressed settlement north of the Ohio, and in which the confederacies of Little Turtle and others failed because the United States dealt with single nations or parts of nations and absorbed their land piece by piece.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The argument he took up from that failure was that the country was held in common, so that no nation could sell a part of it alone.<sup class=\"fn\" data-fn=\"1\"></sup> Asked in 1807 to come to Fort Wayne for talks, he answered that the Great Spirit had appointed that place for his people to light their fires and that as to boundaries the Great Spirit knew none.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> The movement he led was his brother’s as much as his own: Tenskwatawa preached the religious revival that gathered the followers, and Tecumseh carried the political case from nation to nation.<sup class=\"fn\" data-fn=\"2\"></sup> Americans read British agents behind it, and the governor of Indiana Territory called the Prophet a fool speaking the words of the British; there was some ground for the suspicion, since the brothers did ask the Indian Department at Amherstburg for arms and provisions.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> When war came in 1812 Tecumseh fought alongside the British on the Detroit frontier, where one British officer wrote that he had kept the nations faithful.<sup class=\"fn\" data-fn=\"1\"></sup> How far his authority ran is disputed even by sympathetic writers, and other leaders were as prominent on that frontier.<sup class=\"fn\" data-fn=\"1\"></sup> He was killed on 5 October 1813 at Moraviantown, in what is now Ontario, and the confederacy did not survive him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
+  },
+  "us-076": {
+   "abstract": "The <b>Indian Removal Act</b> was the statute President Andrew Jackson signed on 28 May 1830, authorising the president to exchange land west of the Mississippi for the land of Native nations living within the eastern states.<sup class=\"fn\" data-fn=\"1\"></sup> Its full title describes an exchange rather than a removal by force, and its operative words are permissive: it made it lawful for the president to have territory west of the river divided into districts and offered to nations willing to trade their homes for them.<sup class=\"fn\" data-fn=\"1\"></sup> It provided $500,000 to lay out those districts, to compensate for improvements left behind, to pay the cost of the journey and to supply one year’s subsistence in the west.<sup class=\"fn\" data-fn=\"2\"></sup> The pressure behind it was older than the act: Georgia had ceded its western claims in 1802 in return for a federal promise to extinguish Native title within the state, and gold found in Georgia in the 1820s turned that promise into a demand.<sup class=\"fn\" data-fn=\"2\"></sup> Jefferson had pressed the same exchange after the Louisiana Purchase and few nations had accepted it.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> What the act did was give the removals a legal shape, since with its authority Jackson could appoint agents to negotiate and then enforce treaties.<sup class=\"fn\" data-fn=\"2\"></sup> The Cherokee treaty was made in 1835 at New Echota with a minority party acting against the expressed wishes of the nation, and the Senate ratified it in 1836.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The Choctaw went west in 1831 and 1832, the Creek in 1836, the Chickasaw in 1837 and 1838, and the Cherokee in 1838 and 1839 under armed guard.<sup class=\"fn\" data-fn=\"2\"></sup> By one account roughly 70,000 people were moved out of the American South in the first four decades of the century, a process that began before the act and used it once it existed.<sup class=\"fn\" data-fn=\"2\"></sup> The land they were sent to became Indian Territory, in what is now Oklahoma.<sup class=\"fn\" data-fn=\"5\"></sup>"
+  },
+  "us-084": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Policy era</span><span class=\"dt-v\">1850s – 1887</span><span class=\"dt-k\">Held in trust</span><span class=\"dt-v\">c. 226,000 km2<br></span><span class=\"dt-k\">Number</span><span class=\"dt-v\">325</span></div>"
+  },
+  "cnh-274": {
+   "abstract": "<b>Cao Cao</b> was the warlord who rebuilt a working government in northern China after the collapse of the <span class=\"ttip\" data-k=\"Han_dynasty\">Han</span>, and the founder in all but name of the state of <span class=\"ttip\" data-k=\"Cao_Wei\">Wei</span>.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Born in 155 in the region of Pei, he was the son of Cao Song, who had been adopted by a powerful palace eunuch and rose to be Grand Commandant, the highest post in the imperial service.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He first held military command against the Yellow Turbans in 184, and in 190, at the age of 35, he raised a private army to join the rising against the dictator Dong Zhuo.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> In 196 he took the fugitive Emperor Xian under his protection at Xu and governed in his name, and about the same time he began settling refugee farmers on abandoned land as state tenants.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> These agricultural colonies paid the government half their harvest, or six-tenths if they used state oxen, and gave his armies a steady supply of grain that none of his rivals could match.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> <br><br> In 200 he broke the far larger army of Yuan Shao at Guandu, and by 207 he held the whole North China plain and about half the population of the empire.<sup class=\"fn\" data-fn=\"1\"></sup> His advance south was halted at the Red Cliffs in 208, but he was made Chancellor that year, Duke of Wei in 214 and King of Wei in 217.<sup class=\"fn\" data-fn=\"1\"></sup> He recruited officials for their ability rather than their family or conduct, a policy his Confucian critics condemned, and he was a poet and the first known commentator on the military classic <i>Art of War</i>.<sup class=\"fn\" data-fn=\"2\"></sup> He died at Luoyang early in 220, still formally a subject of the Han, and his son Cao Pi took the throne a few months later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"6\"></sup> Later tradition, and above all the popular novel of the Three Kingdoms, cast him as a cruel and cunning usurper and the foil to the virtuous Liu Bei, while an old dictionary calls him the type of the bold bad minister.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "cnh-276": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Fought</span><span class=\"dt-v\">Winter, 208 CE</span></div>"
+  },
+  "gru-902": {
+   "abstract": "<b>Mount Elbrus</b> is a dormant volcano in the Greater Caucasus whose two snow-covered cones carry the highest summit in Russia and, by the usual reckoning, in Europe.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It does not stand on the main watershed of the range but on a spur to the north, about 11 kilometres from the crest by the Russian survey Douglas Freshfield quoted.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"6\"></sup> An ice cap covers the summit plateau and feeds about two dozen valley glaciers, and in 2009 a 182-metre core drilled to bedrock on the western plateau gave the region its first climate record undisturbed by seasonal melting.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"7\"></sup> The villagers of Urusbieh in the Baksan valley knew the mountain only as <b><i>Minghi-Tau</i></b>, and the English climber Craufurd Grove, believing <i>Elbruz</i> to be a Persian word for 'snow-mountain', held the local name to be its true one.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> Their princes told Freshfield's party in 1868 that no one had ever reached the top, and repeated a local tradition that Noah's Ark had grazed on the summit before coming to rest on Ararat.<sup class=\"fn\" data-fn=\"4\"></sup> <br><br> In 1829 a Russian general led a small army towards the mountain, but Freshfield and other Alpine Club writers rejected the reported ascent by a member of that expedition named Killar.<sup class=\"fn\" data-fn=\"3\"></sup> Freshfield's party climbed the eastern cone in 1868, and in 1874 Grove, Horace Walker, Frederick Gardiner and the Zermatt guide Peter Knubel reached the western one, which proved slightly the higher.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> Russian rule over the valleys west of the Georgian Military Road met far less resistance than in Chechnya and Dagestan, for the Ossetes, the Kabardians and the Turkic communities Russians called Tatars mostly accepted it.<sup class=\"fn\" data-fn=\"9\"></sup> In August 1942 German mountain troops took the Priut-11 hostel and the meteorological station on its slopes, and on 21 August a party under Captain Groth climbed to the summit and planted their flags.<sup class=\"fn\" data-fn=\"8\"></sup> Since 1980 the glaciers of Elbrus have retreated ever faster, a loss that several studies have linked to a significant rise in summer temperatures.<sup class=\"fn\" data-fn=\"2\"></sup>"
+  },
+  "ww2-069": {
+   "abstract": "<b>Kristallnacht</b>, the <b>Night of Broken Glass</b>, was the anti-Jewish riot that ran through Germany, Austria and the annexed Sudetenland on 9 and 10 November 1938.<sup class=\"fn\" data-fn=\"1\"></sup> More than 1,400 synagogues were burnt, thousands of Jewish businesses and homes were wrecked and looted, and Jews were humiliated, assaulted and killed.<sup class=\"fn\" data-fn=\"1\"></sup> The riot was meant to look like a spontaneous outburst of popular anger, and was in fact coordinated by the propaganda minister with Hitler’s approval.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its pretext was the shooting of a German diplomat in Paris on 7 November by a 17-year-old whose parents were among 17,000 Polish Jews the police had expelled 10 days before.<sup class=\"fn\" data-fn=\"2\"></sup> The expelled had been left stranded in the strip of land between the two frontiers, where they lived in wretched conditions for weeks, and news of their plight is what moved him.<sup class=\"fn\" data-fn=\"2\"></sup> <br><br> The perpetrators were party officials, the militia, the elite guard and the youth organisation, joined by ordinary Germans who stole from the wrecked houses and made a public show of humiliating their Jewish neighbours.<sup class=\"fn\" data-fn=\"1\"></sup> The police then imprisoned about 26,000 Jewish men in concentration camps for no reason but that they were Jews.<sup class=\"fn\" data-fn=\"1\"></sup> Almost 11,000 of them were sent to Dachau, and most were released within weeks or months, many after proving they had arranged to emigrate.<sup class=\"fn\" data-fn=\"4\"></sup> The regime then fined the Jewish community a billion marks in what it called an atonement payment, and followed it with a barrage of laws.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup> German officials called it an action; Jews called it a pogrom, the Russian word for the anti-Jewish violence of the previous century, and the fiction of spontaneity did not survive contact with the world.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Riot</span><span class=\"dt-v\">9 – 10 November 1938</span><span class=\"dt-k\">Synagogues burnt</span><span class=\"dt-v\">more than 1,400</span><span class=\"dt-k\">Men imprisoned</span><span class=\"dt-v\">about 26,000</span><span class=\"dt-k\">Fine</span><span class=\"dt-v\">1 billion Reichsmark</span></div>"
+  },
+  "ww2-187": {
+   "abstract": "The <b>Dunkirk evacuation</b>, code-named <b>Operation Dynamo</b>, took British and Allied troops off the port and beaches of Dunkirk between 26 May and 4 June 1940, the last port left to the armies trapped in the north.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"6\"></sup> The Admiralty ordered Dynamo to begin at 6.57 in the evening of 26 May, hoping to lift up to 45,000 men of the British Expeditionary Force in two days before enemy action ended it.<sup class=\"fn\" data-fn=\"1\"></sup> Churchill had told the Commons to prepare for hard and heavy tidings, and later admitted he had feared announcing the greatest military disaster in British history, with perhaps 20,000 or 30,000 men saved.<sup class=\"fn\" data-fn=\"7\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> German leaders, like the British Admiralty, thought no large evacuation from open beaches possible, and only on 26 May did Hitler allow the advance on Dunkirk to stop it.<sup class=\"fn\" data-fn=\"8\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Warships and civilian craft worked from the harbour and from ten miles of beach to the east, and about a quarter of the troops were carried in ships manned by the Merchant Navy.<sup class=\"fn\" data-fn=\"1\"></sup> <br><br> When the operation ended on 4 June, the British official history counts 338,226 men evacuated, nearly 100,000 of them from the beaches and almost 140,000 of them French and other Allied soldiers.<sup class=\"fn\" data-fn=\"2\"></sup> Churchill gave the figure of over 335,000 men carried by nearly 1,000 ships of all kinds, and warned that wars are not won by evacuations.<sup class=\"fn\" data-fn=\"3\"></sup> The price was heavy, with 228 ships lost, 177 RAF aircraft destroyed or damaged and nearly all the army's guns and transport left in France, while Kesselring later said bad weather had grounded his aircraft for about two days.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"9\"></sup> French troops held the western part of the bridgehead almost to the end and covered the last two days of embarkation, and to Frenchmen, the official history notes, Dunkirk meant something different.<sup class=\"fn\" data-fn=\"2\"></sup> On 4 June Marshal Pétain told the American ambassador that the British had insisted on taking their own army off first while French divisions held the line.<sup class=\"fn\" data-fn=\"5\"></sup>"
+  },
+  "ww2-441": {
+   "answerDate": "<div class=\"dt\"><span class=\"dt-k\">Fleet sailed</span><span class=\"dt-v\">26 November 1941</span><span class=\"dt-k\">Attacked</span><span class=\"dt-v\">7 December 1941</span><span class=\"dt-k\">Casualties</span><span class=\"dt-v\">US: 2,403 dead, 188 aircraft, 8 battleships<br>JP: 129 dead, 29 aircraft, 5 midget submarines</span></div>"
+  }
+ },
+ "chrono": {},
+ "quotes": {
+  "Hearsay does not equal eye-witness.": null,
+  "There is no royal road to geometry.": null,
+  "Yoga is the stilling of the movements of the mind.": null,
+  "The life of the dead is set in the memory of the living.": null,
+  "You have a right to your actions, but never to the fruits of your actions.": null,
+  "In the happiness of his subjects lies the king's happiness; in their welfare, his welfare.": null,
+  "If you know the enemy and know yourself, you need not fear the result of a hundred battles.": null,
+  "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.": null,
+  "From the unreal lead me to the real; from darkness lead me to light; from death lead me to immortality.": null,
+  "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.": null,
+  "Untruth naturally afflicts historical information, and there are various reasons that make this unavoidable.": null,
+  "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.": null,
+  "All that we are is the result of what we have thought: it is founded on our thoughts, it is made up of our thoughts.": null,
+  "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.": null,
+  "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.": null
+ },
+ "created": {},
+ "deleted": {},
+ "mission": null,
+ "whosaid": {},
+ "glossOff": {
+  "eg-002": [
+   "Africa"
+  ],
+  "ko-013": [
+   "Republic"
+  ],
+  "rm-427": [
+   "Julius_Caesar"
+  ],
+  "ru-100": [
+   "Ulus"
+  ],
+  "wh-002": [
+   "Paleolithic"
+  ],
+  "wh-007": [
+   "Iron_Age"
+  ],
+  "wh-012": [
+   "Ice_Age"
+  ],
+  "wh-014": [
+   "Australopithecus"
+  ],
+  "wh-261": [
+   "Chariot_racing"
+  ],
+  "cnh-273": [
+   "China"
+  ],
+  "Jens_Jacob_Worsaae": [
+   "Bronze",
+   "Iron"
+  ]
+ },
+ "glossary": {},
+ "artefacts": {},
+ "cardColor": {},
+ "truefalse": {
+  "Bats are blind.": {
+   "a": false,
+   "q": "Bats are blind and use sound to navigate their way around.",
+   "cat": "Biology",
+   "src": [
+    "National Park Service, “Myth Busters — Bats,” https://www.nps.gov/subjects/bats/myth-busters.htm. [Open access]",
+    "Bruno F. Simões, Nicole M. Foley, Graham M. Hughes, Huabin Zhao, Shuyi Zhang, Stephen J. Rossiter, and Emma C. Teeling, “As Blind as a Bat? Opsin Phylogenetics Illuminates the Evolution of Color Vision in Bats,” <i>Molecular Biology and Evolution</i> 36, no. 1 (2019): 54–68, https://doi.org/10.1093/molbev/msy192. [Open access]",
+    "S. Danilovich and Y. Yovel, “Integrating Vision and Echolocation for Navigation and Perception in Bats,” <i>Science Advances</i> 5, no. 6 (2019): eaaw6503, https://doi.org/10.1126/sciadv.aaw6503. [Open access]"
+   ],
+   "why": "The National Park Service answers it as a myth in terms: bats “can see just fine and actually have pretty good eyesight”, and some of the larger fruit-eating bats see three times better than we do.<sup class=\"fn\" data-fn=\"1\"></sup> Echolocation is how some of them find obstacles and prey in low light, at dawn and dusk — sound used alongside sight rather than instead of it.<sup class=\"fn\" data-fn=\"1\"></sup> Geneticists tracing bats’ visual pigments conclude that earlier expectations of blindness were simply incorrect,<sup class=\"fn\" data-fn=\"2\"></sup> and Egyptian fruit bats tested on navigation give vision more weight than echolocation when deciding where to fly.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "Sugar makes children hyperactive.": null,
+  "People use only 10% of their brains.": {
+   "a": false,
+   "q": "Most people use only 10% of their brains.",
+   "cat": "Biology",
+   "src": [
+    "Rachel C. Vreeman and Aaron E. Carroll, “Medical myths,” <i>BMJ</i> 335, no. 7633 (2007): 1288–89, https://pmc.ncbi.nlm.nih.gov/articles/PMC2151163/. [Open access]",
+    "Sanne Dekker, Nikki C. Lee, Paul Howard-Jones, and Jelle Jolles, “Neuromyths in Education: Prevalence and Predictors of Misconceptions among Teachers,” <i>Frontiers in Psychology</i> 3 (2012): 429, https://pmc.ncbi.nlm.nih.gov/articles/PMC3475349/. [Open access]",
+    "Kelly Macdonald, Laura Germine, Alida Anderson, Joanna Christodoulou, and Lauren M. McGrath, “Dispelling the Myth: Training in Education or Neuroscience Decreases but Does Not Eliminate Beliefs in Neuromyths,” <i>Frontiers in Psychology</i> 8 (2017): 1314, https://pmc.ncbi.nlm.nih.gov/articles/PMC5554523/. [Open access]"
+   ],
+   "why": "The claim is older than the brain imaging usually quoted against it — a BMJ review traces it to 1907 and to self-improvement writing about untapped latent ability, and finds the attribution to Einstein has no recorded source.<sup class=\"fn\" data-fn=\"1\"></sup> Against it stand studies of brain damage, brain imaging, localisation of function, microstructural analysis and metabolism: damage to almost any area has specific and lasting effects, and no area of the brain is completely silent.<sup class=\"fn\" data-fn=\"1\"></sup> It is nonetheless among the most widely held “neuromyths”: nearly half of the British and Dutch teachers surveyed in 2012 agreed with it,<sup class=\"fn\" data-fn=\"2\"></sup> as did about a third of the public and of educators in a 2017 American survey.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "Human beings have exactly five senses.": {
+   "a": true,
+   "q": "Human beings have more than five senses.",
+   "cat": "Biology",
+   "src": [
+    "Thomas Brandt, Marianne Dieterich, and Doreen Huppert, “Human senses and sensors from Aristotle to the present,” <i>Frontiers in Neurology</i> 15 (2024): 1404720, https://doi.org/10.3389/fneur.2024.1404720. [Open access]",
+    "OpenStax, “14.1 Sensory Perception,” <i>Anatomy and Physiology 2e</i> (Houston: OpenStax), https://openstax.org/books/anatomy-and-physiology-2e/pages/14-1-sensory-perception. [Open access]",
+    "OpenStax, “5.1 Sensation versus Perception,” <i>Psychology 2e</i> (Houston: OpenStax), https://openstax.org/books/psychology-2e/pages/5-1-sensation-versus-perception. [Open access]"
+   ],
+   "why": "Aristotle’s list — sight, hearing, touch, taste and smell — is still what most people outside the sciences mean by the senses, and it leaves out the vestibular system that gives us balance and the musculotendinous proprioception that tells us where our limbs are in space.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It also treats touch as a single sensor, where what is now called the somatosensory system is defined far more broadly than that, taking in pressure, vibration, tickle, itch, temperature and pain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Introductory textbooks now say outright that the notion of five senses is oversimplified, adding balance, body position and movement, pain and temperature to the list.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "Cracking your knuckles causes arthritis.": {
+   "a": false,
+   "q": "Frequently cracking your knuckles can cause arthritis.",
+   "cat": "Medicine",
+   "src": [
+    "Gregory N. Kawchuk, Jerome Fryer, Jacob L. Jaremko, Hongbo Zeng, Lindsay Rowe, and Richard Thompson, “Real-Time Visualization of Joint Cavitation,” <i>PLOS ONE</i> 10, no. 4 (2015): e0119470, https://doi.org/10.1371/journal.pone.0119470. [Open access]",
+    "Kevin deWeber, Mariusz Olszewski, and Rebecca Ortolano, “Knuckle Cracking and Hand Osteoarthritis,” <i>Journal of the American Board of Family Medicine</i> 24, no. 2 (2011): 169–74, https://doi.org/10.3122/jabfm.2011.02.100156. [Open access]",
+    "J. Castellanos and D. Axelrod, “Effect of Habitual Knuckle Cracking on Hand Function,” <i>Annals of the Rheumatic Diseases</i> 49, no. 5 (1990): 308–9, https://doi.org/10.1136/ard.49.5.308. [Open access]",
+    "R. L. Swezey and S. E. Swezey, “The Consequences of Habitual Knuckle Cracking,” <i>Western Journal of Medicine</i> 122, no. 5 (1975): 377–79, https://pmc.ncbi.nlm.nih.gov/articles/PMC1129752/. [Open access]"
+   ],
+   "why": "Real-time magnetic resonance imaging of ten finger joints pulled apart shows the sound comes from a cavity forming in the joint fluid at the moment the surfaces separate, rather than from a bubble collapsing.<sup class=\"fn\" data-fn=\"1\"></sup> A case-control study of 215 people aged 50 to 89 found hand osteoarthritis about as common among habitual knuckle-crackers as among everyone else — 18.1% against 21.5 — with no association at any joint however long or often they had done it.<sup class=\"fn\" data-fn=\"2\"></sup> Two earlier surveys had found the same: 300 patients aged 45 and over showed no more hand arthritis among the 74 habitual crackers than among the rest,<sup class=\"fn\" data-fn=\"3\"></sup> and a geriatric sample showed no link between the habit and degenerative change in the knuckle joints.<sup class=\"fn\" data-fn=\"4\"></sup>"
+  },
+  "Absolute zero is −273.15 degrees Celsius.": null,
+  "The tomb of Fu Hao held about 1,500 objects.": null,
+  "A Möbius strip has only one side and one edge.": null,
+  "Absolute zero has been reached in the laboratory.": {
+   "a": true,
+   "q": "The absolute zero temperature has never been reached in a laboratory.",
+   "cat": "Physics",
+   "src": [
+    "Lluís Masanes and Jonathan Oppenheim, “A General Derivation and Quantification of the Third Law of Thermodynamics,” <i>Nature Communications</i> 8 (2017): 14538, https://doi.org/10.1038/ncomms14538. [Open access]",
+    "OpenStax, “4.7 Entropy on a Microscopic Scale,” <i>University Physics Volume 2</i> (Houston: OpenStax), https://openstax.org/books/university-physics-volume-2/pages/4-7-entropy-on-a-microscopic-scale. [Open access]",
+    "A. E. Leanhardt, T. A. Pasquini, M. Saba, A. Schirotzek, Y. Shin, D. Kielpinski, D. E. Pritchard, and W. Ketterle, “Cooling Bose-Einstein Condensates Below 500 Picokelvin,” <i>Science</i> 301, no. 5639 (2003): 1513–15, https://doi.org/10.1126/science.1088827. [Paywalled]"
+   ],
+   "why": "Cooling experiments now reach billionths and even trillionths of a degree above zero — a Bose–Einstein condensate at MIT was brought to about 450 trillionths of a degree in 2003 — but never zero itself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The third law of thermodynamics is the reason: no process can bring a system to absolute zero in a finite number of steps or in a finite time, and each stage of cooling carries away only a fraction of the energy that is left.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+  },
+  "Sunlight takes about eight minutes to reach Earth.": null,
+  "The exact value of pi has been calculated in full.": {
+   "a": true,
+   "q": "The exact value of pi has never been calculated in full.",
+   "cat": "Mathematics",
+   "src": [
+    "J. J. O'Connor and E. F. Robertson, “Carl Louis Ferdinand von Lindemann,” MacTutor History of Mathematics Archive, University of St Andrews, https://mathshistory.st-andrews.ac.uk/Biographies/Lindemann/. [Open access]",
+    "J. J. O'Connor and E. F. Robertson, “Johann Heinrich Lambert,” MacTutor History of Mathematics Archive, University of St Andrews, https://mathshistory.st-andrews.ac.uk/Biographies/Lambert/. [Open access]",
+    "Petr Beckmann, <i>A History of π (Pi)</i> (Boulder, CO: Golem Press, 1970), https://archive.org/details/historyofpipi0000beck. [Open access]"
+   ],
+   "why": "Lambert proved in 1761 that π is irrational, so its decimal expansion neither ends nor repeats and no finite calculation can complete it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Lindemann went further in 1882 and proved it transcendental — not the root of any algebraic equation with rational coefficients.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "Halley's Comet was first recorded by Edmond Halley.": null,
+  "The Capitoline is the largest of Rome's seven hills.": null,
+  "Seen from space, the Sun is white rather than yellow.": null,
+  "Thomas Edison invented the first electric light bulb.": {
+   "a": false,
+   "q": "The first electric light bulb was invented by Thomas Edison.",
+   "cat": "Science & invention",
+   "src": [
+    "U.S. Department of Energy, “The History of the Light Bulb,” https://www.energy.gov/articles/history-light-bulb. [Open access]",
+    "<i>Consolidated Electric Light Co. v. McKeesport Light Co.</i>, 159 U.S. 465 (1895), Legal Information Institute, Cornell Law School, https://www.law.cornell.edu/supremecourt/text/159/465. [Open access]",
+    "Thomas A. Edison, “Electric Lamp,” U.S. Patent 223,898, issued 27 January 1880, https://patents.google.com/patent/US223898A/en. [Open access]"
+   ],
+   "why": "British inventors had been demonstrating electric light with the arc lamp long before Edison, the first constant electric light was shown in 1835, and scientists worked on the incandescent lamp for the forty years after that.<sup class=\"fn\" data-fn=\"1\"></sup> Edison patented his bulb in 1879 and again in 1880<sup class=\"fn\" data-fn=\"3\"></sup> and made it commercially practical, but Joseph Swan patented one in England and Sawyer and Man held a United States patent of their own — the Edison and Sawyer–Man systems fought over it all the way to the Supreme Court in 1895<sup class=\"fn\" data-fn=\"2\"></sup> — so the lamp cannot be credited to a single inventor.<sup class=\"fn\" data-fn=\"1\"></sup>"
+  },
+  "Human sacrifice in China begins with the Shang dynasty.": null,
+  "The traditional list of Shang kings runs to thirty-one.": null,
+  "Julius Caesar was assassinated in the Senate House of Rome.": {
+   "a": false,
+   "q": "Julius Caesar was assassinated in the Senate House of Rome because he wished to make himself emperor.",
+   "cat": "Ancient & classical",
+   "src": [
+    "Appian, <i>The Civil Wars</i> 2.117, trans. Horace White, Loeb Classical Library (Cambridge, MA: Harvard University Press, 1913), https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Appian/Civil_Wars/2*.html. [Open access]",
+    "Plutarch, <i>Caesar</i> 66, trans. Bernadotte Perrin, Loeb Classical Library, vol. 7 (Cambridge, MA: Harvard University Press, 1919), https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Plutarch/Lives/Caesar*.html. [Open access]",
+    "Suetonius, <i>The Lives of the Caesars</i>, “The Deified Julius” 80, trans. J. C. Rolfe, Loeb Classical Library (Cambridge, MA: Harvard University Press, 1913), https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Julius*.html. [Open access]"
+   ],
+   "why": "The senate was not in the Curia that day: it met in the hall attached to Pompey's theatre, and Suetonius says the conspirators settled on the Ides of March because a meeting had been called there.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Appian has Caesar turn on one man after another until the blow from Brutus, when he veiled himself and fell at the foot of Pompey's statue — the rival he had beaten — and says several of the assassins wounded each other in the press.<sup class=\"fn\" data-fn=\"1\"></sup>"
+  },
+  "The shore of the Dead Sea is the lowest exposed land on Earth.": null,
+  "Polaris, the North Star, is the brightest star in the night sky.": {
+   "a": false,
+   "q": "The brightest star in the night sky is Polaris, also known as the North Star.",
+   "cat": "Astronomy",
+   "src": [
+    "OpenStax, “17.1 The Brightness of Stars,” <i>Astronomy 2e</i> (Houston: OpenStax), https://openstax.org/books/astronomy-2e/pages/17-1-the-brightness-of-stars. [Open access]",
+    "OpenStax, “2.1 The Sky Above,” <i>Astronomy 2e</i> (Houston: OpenStax), https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above. [Open access]",
+    "Robert Nemiroff and Jerry Bonnell, “Sirius: The Brightest Star in the Night,” Astronomy Picture of the Day, NASA, 11 June 2000, https://apod.nasa.gov/apod/ap000611.html. [Open access]",
+    "Robert Nemiroff and Jerry Bonnell, “North Star: Polaris and Surrounding Dust,” Astronomy Picture of the Day, NASA, 28 April 2021, https://apod.nasa.gov/apod/ap210428.html. [Open access]"
+   ],
+   "why": "Sirius is the brightest star in the sky, at magnitude −1.5, where Polaris is magnitude 2.0 — taking Polaris for the brightest is a common misconception.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> What Polaris has instead is its position: it is the pole star, the one that moves least as the northern sky turns each day, and though not the brightest it is easily found from the two stars in the cup of the Big Dipper.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+  },
+  "A giraffe has the same number of neck vertebrae as a human being.": null,
+  "Tardigrades have survived direct exposure to the vacuum of space.": null,
+  "The League of Nations began with fewer than a dozen member states.": null,
+  "The Sahara has been green only once in the recent geological past.": null,
+  "Mycenae has a single tholos tomb, the so-called Treasury of Atreus.": null,
+  "Gunpowder was written about in China before it was used as a weapon.": null,
+  "Pottery in Jōmon Japan was used chiefly for storing nuts and seeds.": null,
+  "The Acheulean hand-axe tradition begins about 1.4 million years ago.": null,
+  "Chameleons change colour chiefly to blend in with their surroundings.": null,
+  "The Moon keeps the same face towards Earth because it does not rotate.": null,
+  "Skulls from a royal grave circle at Mycenae have been rebuilt as faces.": null,
+  "Cattle herding reached the Sahara with herders arriving from outside it.": null,
+  "Mycenae was still a functioning town when Athens and Sparta went to war.": null,
+  "A protein cannot find its folded shape by trying conformations at random.": null,
+  "The electron was identified before anyone knew that atoms have a nucleus.": null,
+  "The tallest and heaviest bronze the Shang ever cast is over a metre high.": null,
+  "Opposites attract: people tend to pair up with partners unlike themselves.": {
+   "a": false,
+   "q": "Opposites attract: people are more likely to pair up with partners unlike themselves.",
+   "cat": "Psychology",
+   "src": [
+    "Kaitlyn T. Harper and Brendan P. Zietsch, “Assortative Mating Is a Natural Consequence of Heritable Variation in Preferences and Preferred Traits,” <i>Psychological Science</i> 36, no. 10 (2025): 771–79, https://doi.org/10.1177/09567976251365900. [Open access]",
+    "OpenStax, “12.7 Prosocial Behavior,” <i>Psychology 2e</i> (Houston: OpenStax), https://openstax.org/books/psychology-2e/pages/12-7-prosocial-behavior. [Open access]",
+    "Tanya B. Horwitz et al., “Evidence of Correlations between Human Partners Based on Systematic Reviews and Meta-Analyses of 22 Traits and UK Biobank Analysis of 133 Traits,” <i>Nature Human Behaviour</i> 7, no. 9 (2023): 1568–83, https://doi.org/10.1038/s41562-023-01672-z. [Paywalled]"
+   ],
+   "why": "The consistent finding is the reverse. Assortative mating — the tendency to choose a partner similar to oneself — is described as a ubiquitous pattern in mate choice, well documented in humans across physical, personality and demographic characteristics, and in other species besides.<sup class=\"fn\" data-fn=\"1\"></sup> An introductory textbook puts it flatly: there is no evidence that opposites attract, and we are drawn to the people most like us.<sup class=\"fn\" data-fn=\"2\"></sup> A 2023 meta-analysis of 22 traits, with a UK Biobank analysis of 133 more, found widespread similarity between partners, strongest for social attitudes, education and substance use.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "The great earthworks at Poverty Point in Louisiana were raised by farmers.": null,
+  "A fatty acid written as 18:1 has eighteen carbon atoms and one double bond.": null,
+  "The Mongol Empire was the largest contiguous land empire in all of history.": null,
+  "A whole new genus of human was once named on the evidence of a single tooth.": null,
+  "The Upper Cave at Zhoukoudian, near Beijing, held more remains of Peking Man.": null,
+  "The first person to see bacteria did so through lenses he had ground himself.": null,
+  "The oldest soybean finds in Japan are older than the oldest azuki bean finds.": null,
+  "Confucius founded a religion that worshipped him as a god during his lifetime.": null,
+  "Cumae, on the Bay of Naples, is the oldest Greek city on the Italian mainland.": null,
+  "Pottery in Jōmon-period Kyushu was carried across open water between islands.": null,
+  "One Saharan massif alone holds more than seven hundred recorded rock-art sites.": null,
+  "The Han River, which runs through Seoul, drains the largest watershed in Korea.": null,
+  "It has been proved that a circle cannot be squared with compass and straightedge.": null,
+  "The accused in the Salem witch trials were executed by being burned at the stake.": {
+   "a": false,
+   "q": "Most of the accused in the Salem witch trials were executed by being burned at the stake.",
+   "cat": "Medieval & early modern",
+   "src": [
+    "“Warrant for the Execution of Bridget Bishop, and Officer’s Return,” 8–10 June 1692, SWP no. 013, in <i>Salem Witchcraft Papers</i>, University of Virginia, https://salem.lib.virginia.edu/n13.html. [Open access]",
+    "“SWP No. 037: Giles Corey Pressed to Death, September 16, 1692,” in <i>Salem Witchcraft Papers</i>, University of Virginia, https://salem.lib.virginia.edu/n37.html. [Open access]",
+    "Robert Calef, <i>More Wonders of the Invisible World</i> (1700; Salem: Cushing and Appleton, 1823), https://archive.org/details/morewondersofinv00cale. [Open access]"
+   ],
+   "why": "Bridget Bishop’s death warrant of June 1692 orders the sheriff to “cause her to be hanged by the neck untill she be dead”, and his return on the same sheet records that he did.<sup class=\"fn\" data-fn=\"1\"></sup> The one execution at Salem that was not a hanging was Giles Corey’s: he refused to plead and was pressed to death under stones that September.<sup class=\"fn\" data-fn=\"2\"></sup> Nobody there was burned at all: Robert Calef’s contemporary account of the trials has Bishop “executed June 10” and Corey “prest to death” on 16 September, and no fire for anyone.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "The oldest known copper smelting comes from the Balkans rather than the Near East.": {
+   "a": false,
+   "q": "The oldest known copper smelting comes from the Near East.",
+   "cat": "Prehistory",
+   "src": [
+    "Miljana Radivojević and Benjamin W. Roberts, “Early Balkan Metallurgy: Origins, Evolution and Society, 6200–3700 BC,” <i>Journal of World Prehistory</i> 34 (2021): 195–278, https://doi.org/10.1007/s10963-021-09155-7. [Open access]",
+    "Jan Piet Brozio, Zofia Stos-Gale, Johannes Müller, et al., “The Origin of Neolithic Copper on the Central Northern European Plain and in Southern Scandinavia: Connectivities on a European Scale,” <i>PLOS ONE</i> 18, no. 5 (2023): e0283007, https://doi.org/10.1371/journal.pone.0283007. [Open access]",
+    "Jack Longman, Daniel Veres, Walter Finsinger and Vasile Ersek, “Exceptionally High Levels of Lead Pollution in the Balkans from the Early Bronze Age to the Industrial Revolution,” <i>Proceedings of the National Academy of Sciences</i> 115, no. 25 (2018): E5661, https://doi.org/10.1073/pnas.1721546115. [Open access]"
+   ],
+   "why": "The oldest known copper smelting is slag from Belovode in eastern Serbia, dated to about 5000 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Copper ores were being mined in the Balkans from about 6200 BCE, but the earliest evidence of smelting them comes only around 5000 BCE,<sup class=\"fn\" data-fn=\"2\"></sup> and the Belovode and Pločnik workshops stand at the head of a Serbian tradition that ran on through the fifth millennium BCE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "The most complete early human skeleton ever found is more than a million years old.": {
+   "a": false,
+   "q": "The most complete early human skeleton ever found is more than 2 million years old.",
+   "cat": "Prehistory",
+   "src": [
+    "Smithsonian National Museum of Natural History, Human Origins Program, “KNM-WT 15000,” accessed 1 August 2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/knm-wt-15000. [Open access]",
+    "Frank Brown, John Harris, Richard Leakey and Alan Walker, “Early <i>Homo erectus</i> Skeleton from West Lake Turkana, Kenya,” <i>Nature</i> 316 (1985): 788–92, https://doi.org/10.1038/316788a0. [Paywalled]",
+    "Natural History Museum, London, “<i>Homo erectus</i>, Our Ancient Ancestor,” accessed 17 October 2026, https://www.nhm.ac.uk/discover/homo-erectus-our-ancient-ancestor.html. [Open access]"
+   ],
+   "why": "The Turkana Boy, the skeleton of a boy who died beside a lake in northern Kenya about 1.6 million years ago, is the most complete early human ever recovered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His discoverers reported in 1985 that he was already 1.68 metres (5 feet 6 inches) tall at death.<sup class=\"fn\" data-fn=\"2\"></sup>"
+  },
+  "Fire became routine human equipment as soon as the first hominins learned to use it.": null,
+  "Making prisoners 'walk the plank' was a routine execution method among real pirates.": {
+   "a": false,
+   "q": "Making prisoners 'walk the plank' was a routine execution method among pirates, where the prisoner was expected to throw themselves into the open sea to drown.",
+   "cat": "Medieval & early modern",
+   "src": [
+    "Charles Johnson, <i>A General History of the Pyrates</i>, 2nd ed. (London: T. Warner, 1724), https://www.gutenberg.org/ebooks/40580. [Open access]",
+    "Francis Grose, <i>A Classical Dictionary of the Vulgar Tongue</i>, 2nd ed. (London: S. Hooper, 1788), s.v. “Walking the Plank,” https://archive.org/details/aclassicaldicti00grosgoog. [Open access]",
+    "Robert Louis Stevenson, <i>Treasure Island</i> (1883), ch. 1, Project Gutenberg ebook 120, https://www.gutenberg.org/cache/epub/120/pg120.txt. [Open access]"
+   ],
+   "why": "The fullest contemporary account of the great age of piracy is Captain Charles Johnson's <i>General History of the Pyrates</i>, published in London in 1724 while several of the men in it were still being hanged. It is not squeamish: it has marooning, it calls its subjects barbarous more than twenty times, and it has a captured master “cruelly whipp'd naked about the Deck, making his Torture their Sport; after which they cut of his Ears, and last of all shot him through the Head”. The word “plank” does not appear in it once.<sup class=\"fn\" data-fn=\"1\"></sup> The phrase is first recorded in Grose's slang dictionary of 1788, as a trick of mutineers for dodging a charge of murder,<sup class=\"fn\" data-fn=\"2\"></sup> and the pirate image belongs to the next century — Jim Hawkins hears tales “about hanging, and walking the plank” on the first page of <i>Treasure Island</i> — and after that to the cinema.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "The official records of the 1666 Great Fire of London list only a handful of deaths.": null,
+  "There are more real numbers between 0 and 1 than there are whole numbers altogether.": null,
+  "Universities such as Bologna, Oxford, and Paris were founded during the Middle Ages.": null,
+  "People used copper minerals as ornament long before anyone smelted metal out of them.": null,
+  "Every even number greater than two has been proved to be the sum of two prime numbers.": null,
+  "Charles Darwin coined the phrase \"survival of the fittest\" in On the Origin of Species.": {
+   "a": false,
+   "q": "Charles Darwin coined the phrase \"survival of the fittest\" in his book On the Origin of Species.",
+   "cat": "Science & invention",
+   "src": [
+    "Charles Darwin, <i>The Origin of Species by Means of Natural Selection</i>, 6th ed. (1872), ch. 3, Project Gutenberg eBook 2009, https://www.gutenberg.org/cache/epub/2009/pg2009.txt. [Open access]",
+    "Charles Darwin, <i>On the Origin of Species by Means of Natural Selection</i>, 1st ed. (1859), Project Gutenberg eBook 1228, https://www.gutenberg.org/cache/epub/1228/pg1228.txt. [Open access]",
+    "Herbert Spencer, <i>The Principles of Biology</i>, vol. 1 (New York: D. Appleton, 1898), §165, 444–45, https://archive.org/details/principlesofbiol01spen. [Open access]",
+    "Alfred Russel Wallace to Charles Darwin, 2 July 1866, <i>Darwin Correspondence Project</i>, letter DCP-LETT-5140, https://www.darwinproject.ac.uk/letter/DCP-LETT-5140.xml. [Open access]"
+   ],
+   "why": "Darwin credits the expression to somebody else in his own text: “the expression often used by Mr. Herbert Spencer, of the Survival of the Fittest, is more accurate, and is sometimes equally convenient.”<sup class=\"fn\" data-fn=\"1\"></sup> The phrase does not appear anywhere in the first edition of 1859 at all, and Darwin took it up only in the later ones.<sup class=\"fn\" data-fn=\"2\"></sup> Spencer had introduced the phrase in his <i>Principles of Biology</i> as his own mechanical name for what “Mr Darwin has called ‘natural selection’”,<sup class=\"fn\" data-fn=\"3\"></sup> and it was Wallace who, in a letter of July 1866, urged Darwin to adopt it in future editions of the <i>Origin</i>.<sup class=\"fn\" data-fn=\"4\"></sup>"
+  },
+  "Confucius was a celebrated and influential figure across China during his own lifetime.": null,
+  "The Earth's magnetic field has reversed its polarity many times in the geological past.": null,
+  "The Sahara has been green grassland with lakes and rivers within the span of human history.": {
+   "a": true,
+   "q": "The Sahara was a green grassland with lakes and rivers within the last 10,000 years.",
+   "cat": "Earth science",
+   "src": [
+    "Martin H. Trauth, Asfawossen Asrat, Nadine Berner, Faysal Bibi, Verena Foerster et al., “Early Warning Signals of the Termination of the African Humid Period(s),” <i>Nature Communications</i> 15 (2024): 3697, https://doi.org/10.1038/s41467-024-47921-1. [Open access]",
+    "Nick A. Drake, Roger M. Blench, Simon J. Armitage, Charlie S. Bristow, and Kevin H. White, “Ancient Watercourses and Biogeography of the Sahara Explain the Peopling of the Desert,” <i>Proceedings of the National Academy of Sciences</i> 108, no. 2 (2011): 458–62, https://doi.org/10.1073/pnas.1012231108. [Open access]",
+    "Jessica E. Tierney, Francesco S. R. Pausata, and Peter B. deMenocal, “Rainfall Regimes of the Green Sahara,” <i>Science Advances</i> 3, no. 1 (2017): e1601503, https://doi.org/10.1126/sciadv.1601503. [Open access]"
+   ],
+   "why": "A strengthened summer monsoon watered the Sahara, turning the world's largest hot desert into grassland, lakes and rivers.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It began about 15,000 years ago and had closed by roughly 5,500, driven by precession, the slow wobble that brings northern summers nearer the Sun<sup class=\"fn\" data-fn=\"1\"></sup> — and Lake Megachad alone covered some 361,000 square kilometres (139,000 square miles), carrying fish and hippopotamus across ground that is now sand.<sup class=\"fn\" data-fn=\"2\"></sup> Leaf-wax records from sea-floor cores off West Africa show the monsoon rains reaching 31 degrees north, deep into the present desert, in one of a succession of wet phases paced by orbital precession.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "Fermat's Last Theorem went unproved for more than three centuries after it was written down.": null,
+  "Once a memory has been stored, recalling it leaves it unchanged, like replaying a recording.": null,
+  "The earliest datable Chinese account of the magnetic compass is not about navigation at all.": null,
+  "The Yangshao culture of the middle Yellow River flourished roughly between 5000 and 3000 BCE.": null,
+  "Stainless steel resists rust because chromium in the alloy forms an invisible protective film.": null,
+  "Korea built a long defensive wall across the northern neck of the peninsula in the 11th century.": null,
+  "Betsy Ross is the woman who is historically documented to have sewn the very first American flag.": null,
+  "The gold-rich Copper Age cemetery at Varna in Bulgaria was in use for well over a thousand years.": null,
+  "Astronauts float aboard the International Space Station because there is no gravity at that altitude.": null,
+  "By the late phases at Anyang, cattle had passed pigs in dietary importance even in ordinary quarters.": null,
+  "The alpha helix and the beta sheet were first described after the structure of DNA was solved in 1953.": null,
+  "New dating has made the earliest farming settlement at Mehrgarh younger than it was long thought to be.": null,
+  "The Stanford prison experiment is trusted because its results have been reproduced by other researchers.": null,
+  "The famous gunfight associated with Tombstone, Arizona did not actually take place inside the O.K. Corral.": null,
+  "The smallest braincase found at Dmanisi in Georgia is closer in size to Homo habilis than to Homo erectus.": null,
+  "A hut on the Palatine said to be Romulus's own was still on record a thousand years after Rome was founded.": null,
+  "Testing yourself on material produces better long-term retention than spending the same time re-reading it.": null,
+  "The Spartans famously inscribed the words \"Molon labe\" onto their shields as their standard military emblem.": null,
+  "The chemical symbols for iron, lead and gold are taken from their Latin names rather than their English ones.": null,
+  "Mendeleev left gaps in his periodic table for elements nobody had found, and predicted what they would be like.": null,
+  "The Jōmon people of Japan are read as descendants of people who reached the islands in the Upper Palaeolithic.": null,
+  "The guillotine was still being used to carry out executions in France within living memory of the moon landings.": {
+   "a": true,
+   "q": "The guillotine was last used to carry out executions in France in the same year the first Star Wars movie was released.",
+   "cat": "Modern history",
+   "src": [
+    "Nicolas Picard, “1981年の死刑廃止以降のフランスにおける死刑の法的・政治的問題,” trans. Maki Fukuda, <i>神戸法學雜誌</i> 74, no. 1 (2024): 43–106, https://doi.org/10.24546/0100490365. [in Japanese] [Open access]",
+    "“Apollo 11,” NASA, https://www.nasa.gov/mission/apollo-11/. [Open access]",
+    "Assemblée nationale, “Peine de mort: 18 septembre 1981, l’abolition de la peine de mort est votée à l’Assemblée nationale,” https://www.assemblee-nationale.fr/histoire/peinedemort/. [Open access]"
+   ],
+   "why": "France kept the guillotine to the very end: the last execution was carried out at Marseille in 1977, on a machine of a pattern already in use at the close of the nineteenth century.<sup class=\"fn\" data-fn=\"1\"></sup> A proposal by several deputies in 1970 to replace it with lethal injection, on the American model, went nowhere — by then the argument had moved on to abolishing the penalty itself, which France did in 1981.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Apollo 11 had put men on the Moon eight years before that last execution, in July 1969.<sup class=\"fn\" data-fn=\"2\"></sup>"
+  },
+  "The ancient Olympic Games in Greece were held in honour of Zeus and barred married women from attending as spectators.": {
+   "a": true,
+   "q": "The ancient Olympic Games in Greece barred married women from attending as spectators.",
+   "cat": "Ancient & classical",
+   "src": [
+    "Paul Christesen, review of <i>Games and Sanctuaries in Ancient Greece: Olympia, Delphi, Isthmia, Nemea, Athens</i>, by Panos Valavanis, Bryn Mawr Classical Review 2005.01.20, https://bmcr.brynmawr.edu/2005/2005.01.20. [Open access]",
+    "Pausanias, <i>Description of Greece</i> 5.6.7, trans. W. H. S. Jones and H. A. Ormerod, Perseus Digital Library, https://www.perseus.tufts.edu/hopper/text?doc=Paus.%205.6.7. [Open access]",
+    "Pausanias, <i>Description of Greece</i> 6.20.9, trans. W. H. S. Jones and H. A. Ormerod, Perseus Digital Library, https://www.perseus.tufts.edu/hopper/text?doc=Paus.%206.20.9. [Open access]"
+   ],
+   "why": "The games were the athletic festival of the sanctuary of Zeus at Olympia.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias says it was a law of Elis to throw from Mount Typaeum any woman caught at the games on the days forbidden to women, and that only one ever was — Callipateira, let go unpunished because her father, her brothers and her son had all won there.<sup class=\"fn\" data-fn=\"2\"></sup> Girls were another matter: he says maidens were not debarred from looking on, and that the priestess of Demeter Chamyne watched from a marble altar opposite the umpires.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "The Great Library of Alexandria was destroyed in a single catastrophic fire that wiped out ancient knowledge overnight.": {
+   "a": false,
+   "q": "The Great Library of Alexandria was destroyed in a single catastrophic fire that wiped out centuries of ancient knowledge overnight.",
+   "cat": "Ancient & classical",
+   "src": [
+    "Aulus Gellius, <i>Attic Nights</i> 7.17, trans. John C. Rolfe, Loeb Classical Library (Cambridge, MA: Harvard University Press, 1927), https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Gellius/7*.html#17. [Open access]",
+    "Ammianus Marcellinus, <i>Res Gestae</i> 22.16.13, trans. John C. Rolfe, Loeb Classical Library (Cambridge, MA: Harvard University Press, 1940), https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Ammian/22*.html#16. [Open access]",
+    "Plutarch, <i>Lives: Caesar</i> 49, trans. Bernadotte Perrin, Perseus Digital Library, https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0244:chapter=49. [Open access]"
+   ],
+   "why": "The ancient record describes nothing so tidy. Aulus Gellius says nearly 700,000 volumes were burned during the sack of the city in the first war with Alexandria, and that it was done neither deliberately nor by anyone's order but accidentally, by auxiliary soldiers.<sup class=\"fn\" data-fn=\"1\"></sup> Ammianus repeats the figure but puts the libraries in the Serapeum rather than the palace quarter, and Plutarch says only that Caesar, forced to use fire against the enemy fleet, watched it spread from the dockyards.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The three do not agree about where the books stood or how they came to be lost."
+  },
+  "Alfred Wegener's proposal that the continents had drifted was accepted by geologists soon after he published it in 1912.": null,
+  "Four of the five plants first domesticated in eastern North America appear within a narrow window around 3800 years ago.": null,
+  "A famous 1957 experiment proved that split-second messages spliced into a cinema film made the audience buy more popcorn.": {
+   "a": false,
+   "q": "A famous 1957 experiment proved that split-second frames with messages spliced into a cinema film made the audience buy more popcorn.",
+   "cat": "Psychology",
+   "src": [
+    "Marcia Holmes, “Brainwashing the Cybernetic Spectator: <i>The Ipcress File</i>, 1960s Cinematic Spectacle and the Sciences of Mind,” <i>History of the Human Sciences</i> 30, no. 3 (2017): 3–24, https://doi.org/10.1177/0952695117703295. [Open access]",
+    "Gaëlle M. Bustin, Daniel N. Jones, Michel Hansenne, and Jordi Quoidbach, “Who Does Red Bull Give Wings To? Sensation Seeking Moderates Sensitivity to Subliminal Advertisement,” <i>Frontiers in Psychology</i> 6 (2015): 825, https://doi.org/10.3389/fpsyg.2015.00825. [Open access]",
+    "Samuil Pavlevchev, Minah Chang, Alessandra Natascha Flöck, and Peter Walla, “Subliminal Word Processing: EEG Detects Word Processing below Conscious Awareness,” <i>Brain Sciences</i> 12, no. 4 (2022): 464, https://doi.org/10.3390/brainsci12040464. [Open access]"
+   ],
+   "why": "The claim did not survive its own public test: the market researcher James Vicary, who in 1957 announced that flashed “Eat popcorn” and “Drink Coca-Cola” messages had lifted a cinema's sales,<sup class=\"fn\" data-fn=\"3\"></sup> tried the technique on cinema audiences and failed to prove that it worked, later admitting that his figures had been made up,<sup class=\"fn\" data-fn=\"2\"></sup> and subliminal influence had been largely debunked by the end of the 1950s.<sup class=\"fn\" data-fn=\"1\"></sup> The trade kept trying it anyway — in 1962 the producer Harry Saltzman helped organise a London experiment on whether subliminal messages could heighten a cinema audience’s emotional response, a short-lived trend called “psychorama”.<sup class=\"fn\" data-fn=\"1\"></sup> Saltzman’s own conclusion was that subliminal messaging would not increase box-office takings.<sup class=\"fn\" data-fn=\"1\"></sup>"
+  },
+  "In his final hours George Washington was bled four times by his doctors, and he himself asked for more blood to be taken.": null,
+  "China was recruiting its officials by written competitive examination for centuries before any European state tried the method.": null,
+  "Teaching pupils in their own 'learning style' — visual, auditory or kinaesthetic — measurably improves how much they learn.": null,
+  "Fortune cookies, served in American Chinese restaurants, actually originated in China and were brought over by early immigrants.": {
+   "a": false,
+   "q": "Fortune cookies, served in American Chinese restaurants, originated in Taiwan and were brought over by early immigrants in the early 20th century.",
+   "cat": "Chinese history",
+   "src": [
+    "Haiming Liu, “Chop Suey as Imagined Authentic Chinese Food: The Culinary Identity of Chinese Restaurants in the United States,” <i>Journal of Transnational American Studies</i> 1, no. 1 (2009), https://doi.org/10.5070/T811006946. [Open access]",
+    "Gary Ono, “Japanese American Fortune Cookie: A Taste of Fame or Fortune – Part 1,” <i>Discover Nikkei</i>, Japanese American National Museum, 31 October 2007, https://discovernikkei.org/en/journal/2007/10/31/fortune-cookie/. [Open access]",
+    "Gary Ono, “Japanese American Fortune Cookie: A Taste of Fame or Fortune – Part 2,” <i>Discover Nikkei</i>, Japanese American National Museum, 1 November 2007, https://discovernikkei.org/en/journal/2007/11/01/fortune-cookie/. [Open access]"
+   ],
+   "why": "The standard account of how American Chinese food was made says it plainly: there were no such things as fortune cookies in China, and hardly any American customer knew it.<sup class=\"fn\" data-fn=\"1\"></sup> The cookie descends from the Japanese <i>tsujiura senbei</i>, sold in California by Japanese immigrants in the early 20th century, among them the Hagiwara family of San Francisco's Japanese Tea Garden and the Benkyodo confectionery that baked for them;<sup class=\"fn\" data-fn=\"2\"></sup> production passed to Chinese American businesses during the Second World War, when the Japanese confectioners were interned and their shops closed, which is how it came to end every meal in a Chinese restaurant and no meal in China.<sup class=\"fn\" data-fn=\"3\"></sup>"
+  },
+  "The murder that gave psychology the 'bystander effect' was reported with details that later turned out to be substantially wrong.": null,
+  "Growing maize, beans and squash together — the Three Sisters — is thousands of years old in the American Midwest and north-east.": null,
+  "Surgeons were using ether to put patients to sleep for operations before they understood the need for antiseptic, germ-free surgery.": null,
+  "Dishes like chop suey and General Tso's chicken that anchor American Chinese menus are traditional recipes brought directly from China.": null,
+  "The Babylonians understood the relationship later called the Pythagorean theorem more than a thousand years before Pythagoras was born.": null,
+  "The mathematician who wrote the first published algorithm intended for a machine, often called the first computer programmer, was a woman.": null,
+  "The Mauryan emperor Ashoka renounced war and embraced Buddhism after being horrified by the slaughter he caused in his conquest of Kalinga.": null,
+  "The world's first government-issued paper money was printed in China during the Song dynasty, centuries before banknotes appeared in Europe.": null,
+  "Bi Sheng invented movable-type printing in China around the 1040s, roughly four centuries before Johannes Gutenberg built his press in Europe.": null,
+  "Ignaz Semmelweis's evidence that handwashing cut deaths in a maternity ward was accepted by the medical profession as soon as he presented it.": null,
+  "Observations of a total solar eclipse in 1919 measured the sun bending starlight by about the amount Einstein’s general relativity predicted.": null,
+  "Nikola Tesla's alternating-current system won the \"War of the Currents\" over Edison's direct-current system as the standard for power distribution.": null,
+  "The active ingredient in aspirin has a natural relative in willow bark, which was used as a medicine for thousands of years before the drug existed.": null,
+  "The Wright brothers’ first powered flight in 1903 lasted twelve seconds, and the best flight of that same morning lasted nearly five times as long.": null,
+  "In the early 1400s Admiral Zheng He commanded a Ming fleet whose largest ships and sheer numbers dwarfed anything Christopher Columbus would later sail.": null,
+  "In Stanley Milgram's obedience experiments most volunteers went on delivering what they believed were dangerous electric shocks when an experimenter told them to.": null,
+  "Wu Zetian, who declared her own Zhou dynasty in 690 CE, was the only woman in Chinese history to rule as emperor in her own right rather than as a regent or consort.": null,
+  "The Great Wall as a single continuous barrier was mostly built by Qin Shi Huang in the 3rd century BCE and the brick wall tourists visit today is that original structure.": null,
+  "Measurements above the still-sealed tomb of China's first emperor have found mercury far above the local background, matching an ancient text that describes rivers of mercury inside.": null
+ },
+ "bookIntros": {
+  "ptahhotep": "<p>The Maxims of Ptahhotep is a book of advice from an old man to his son, and it is very probably the oldest book of its kind that anyone can still read. It opens with a vizier asking his king for leave to retire and to teach his successor, and it closes with the same man counting up a hundred and ten years of royal favour. Between those two moments come thirty-seven maxims on how to conduct yourself: how to argue with a man wiser than you and with a man who is not, how to behave at another man's table, how to treat a wife, a friend, a servant, a superior and a petitioner, and when to keep silent.</p>\n<p>It is not a religious text and it is barely a philosophical one. Its subject is <b>conduct</b> — what a man at court should do, and why doing it will go well for him — and its argument is that good behaviour is repaid in this life, in office, in property and in a quiet old age. That is what makes it strange and familiar at once: a reader four thousand years later recognises the advice about not interrupting people and finds the reasoning behind it completely foreign.</p>\n<p>The dating is genuinely disputed. The poem presents itself as the work of <b>Ptahhotep</b>, vizier to King Isesi of the Fifth Dynasty, which would put it around 2400 BCE; the four surviving copies are all several centuries younger, the fullest of them the Papyrus Prisse in Paris, and the language they preserve is Middle Egyptian. Scholars have argued the case both ways for a century and it is not settled. Gunn, writing in 1906, took the Old Kingdom date at face value, which is why his volume was called <i>The Oldest Books in the World</i>.</p>\n<p>The text is divided into short sections, and that division is the poem's own: the Egyptian scribe marked each new section by writing its first sentence in red ink. Those marks are the tabs here — <b>forty-seven of them</b>, running A and B for the petition to the king and the title of the maxims proper, then 1 to 37 for the maxims themselves, then C and 38 to 43 and D for the epilogue on obedience and the son who listens. A passage is cited by that number, so the tab is the citation, and there is nothing above the section in this text and nothing below it.</p>\n<p>The translation is <b>Battiscombe Gunn's</b>, made when he was twenty-two and published in 1906. It is deliberately biblical in its English — thou and thine, <i>hearken</i> and <i>gainsayer</i> — which was the convention for rendering an ancient wisdom text into English at the time, and which makes it read as far more remote than the Egyptian is. It is also very readable, and it was a real advance on what came before it. Gunn himself later called it premature, and he became one of the great Egyptian philologists of his generation, so that verdict is worth knowing before you take a difficult line on trust.</p>\n<p><b>Section 32 is missing, and Gunn is the one who removed it.</b> Where the other forty-six sections carry the poem, that one carries four words in square brackets — <i>[Concerning continence]</i> — because the maxim it stands for was not something a London series of 1906 would print in English. It is the only place in the book where this happens, and it is left exactly as he left it rather than quietly closed up, so the shape of what is absent is visible from inside the poem.</p>\n<p>Two more things are worth knowing. There is <b>no Egyptian column</b> beside this one, and the reason is not that the Egyptian is lost: it survives, it is edited, and it is online. It is that this translation prints no reference to the papyrus anywhere — no column, no line, no verse number — so there is no number the two texts share, and pairing them would mean several hundred judgements made by eye with nothing to check them against. And the volume this comes from also holds the Instruction of Ke'gemni and the Instruction of Amenemhe'et, which are separate works by other hands; only Ptahhotep is here.</p>"
+ },
+ "glossColor": {},
+ "membership": {},
+ "whosaidOff": {
+  "Carthage must be destroyed.": true,
+  "Oh, what times! Oh, what customs!": true,
+  "Abandon all hope, ye who enter here.": true,
+  "These are the times that try men's souls": true,
+  "And gladly would he learn, and gladly teach.": true,
+  "Grace does not destroy nature, but perfects it.": true,
+  "I die the King's good servant, and God's first.": true,
+  "No, the only tired I was, was tired of giving in": true,
+  "A foolish consistency is the hobgoblin of little minds": true,
+  "Alone we can do so little; together we can do so much.": true,
+  "Look again at that dot. That's here. That's home. That's us.": true,
+  "The problem of the twentieth century is the problem of the color line.": true,
+  "All my life through, the new sights of Nature made me rejoice like a child.": true,
+  "Government of the people, by the people, for the people, shall not perish from the earth.": true,
+  "At the stroke of the midnight hour, when the world sleeps, India will awake to life and freedom.": true,
+  "The sad truth is that most evil is done by people who never make up their minds to be good or evil.": true,
+  "I went to the woods because I wished to live deliberately, to front only the essential facts of life": true,
+  "Peace is not the absence of war; it is a virtue, a state of mind, a disposition for benevolence, confidence and justice.": true,
+  "Argument concludes a question, but it does not make us feel certain, unless the truth is discovered by way of experience.": true,
+  "The Moving Finger writes; and, having writ, moves on: nor all thy Piety nor Wit shall lure it back to cancel half a Line.": true,
+  "Without courage we cannot practice any other virtue with consistency. We can't be kind, true, merciful, generous, or honest": true,
+  "I know I have the body of a weak and feeble woman, but I have the heart and stomach of a king, and of a king of England too.": true,
+  "The Analytical Engine has no pretensions whatever to originate anything. It can do whatever we know how to order it to perform.": true,
+  "It is not from the benevolence of the butcher, the brewer, or the baker that we expect our dinner, but from their regard to their own interest": true,
+  "I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character.": true,
+  "In the middle of all sits the Sun enthroned. In this most beautiful temple could we place this luminary in any better position from which he can illuminate the whole at once?": true,
+  "The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, and comes short again and again, because there is no effort without error and shortcoming.": true,
+  "I have cherished the ideal of a democratic and free society in which all persons live together in harmony and with equal opportunities. It is an ideal which I hope to live for and to achieve. But if needs be, it is an ideal for which I am prepared to die.": true,
+  "There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved.": true
+ },
+ "cardTimeline": {},
+ "glossaryI18n": {},
+ "glossaryTags": {},
+ "glossaryDates": {},
+ "glossaryImages": {},
+ "glossaryTitles": {},
+ "glossaryVideos": {},
+ "glossaryAliases": {},
+ "glossaryDeleted": {},
+ "glossarySources": {}
 }

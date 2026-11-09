@@ -159,6 +159,12 @@ value ≤64 characters and ≤10 words; every labelled row contains a number. Fo
   `Death` date `(age N)`, its place beneath. Take the dates from the person's Wikipedia page. Write it
   with `node .claude/set-person-dates.js <batch.json>`, which computes the ages and the order;
   `node .claude/person-cards.js` lists which cards are individuals. Legendary figures keep their line.
+- **Wars, battles and history-collection cities have templates too** (Nov 2026). War: `Start` date with
+  the opening event beneath, `End` date with the peace treaty beneath, `Casualties` (total), `Result`.
+  Battle: `Date`, `Location`, `Casualties`, `Result`. City: `Founding`, `Peak` (year or period),
+  `Population` (historical estimate). Group every number of four digits or more with commas ("1,500"),
+  or the site reads it as a year. Write them with `node .claude/set-template-dates.js <batch.json>`;
+  `node .claude/template-cards.js` lists the cards of each kind.
 
 ### Sources
 
