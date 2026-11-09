@@ -185,6 +185,10 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Eight Immortals as a group | the eight together first in Yuan drama and birthday pieces (Hu Yinglin's late Ming dating), at most the end of the Southern Song; members' own cults older — set B3 (`cnh-022`) | `cnh-022` | — | — |
 | The Legend of the White Snake | Tang snake-woman tales; a West Lake tale of three pagodas (13th–14th century, printed in the mid-16th); the settled form in Feng Menglong's collection (1624), with the umbrella and Leifeng Pagoda; the sympathetic heroine of the 18th-century plays — set B4 (`cnh-037`) | `cnh-037` | — | — |
 | Mazu | Lin Moniang's traditional life (960–987); the first court honour (1122) and the title Tianfei (1281), from the Qing *Tianfei xiansheng lu*; the loom legend in two versions — set B4 (`cnh-038`) | `cnh-038` | — | — |
+| The succession from Yu to Qi | the lords turning from Yu's minister Yi to his son Qi (the *Mencius*); a third telling in the excavated *Rongchengshi* manuscript; Qi killing Yi (the *Bamboo Annals*) — set B6 (`cnh-057`) | `cnh-057` | `cnh-012`, `cnh-054` | — |
+| Jie as the bad last king | the last Xia king's cruelty and fall as the *Shiji* and the *Shangshu* tell it; the bad-last-ruler pattern shared with Di Xin, a reading after Lewis — set B6 (`cnh-058`) | `cnh-058` | `cnh-068` | `cnh-102` (Di Xin) |
+| Tang's self-offering for rain | five years of drought, the mulberry grove, his hair cut, rain (the *Lüshi Chunqiu*, "Shun min") — set B7 (`cnh-068`) | `cnh-068` | — | — |
+| The nine ding | passed from Xia to Shang to Zhou (the *Zuo Zhuan*, Duke Xuan 3; the *Mozi*); the Qin capture and the Si River search (the *Shiji*), carved on Eastern Han shrines — set B9 (`cnh-083`) | `cnh-083` | `cnh-012`, `cnh-028` | `cnh-124` |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
@@ -268,7 +272,7 @@ otherwise.
 | B7 | Neolithic China and the Xia (`col-2`) / Shang (`col-3`) | `cnh-061`–`cnh-070` | 10 | 116 | **done 2026-11-09** |
 | B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | **done 2026-11-09** |
 | B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | **done 2026-11-09** |
-| B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | to do |
+| B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | **done 2026-11-09** |
 | B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | to do |
 | B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | to do |
 | B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | to do |
@@ -491,6 +495,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-088` | a museum text panel of the capital moves | not re-checked (Commons 429): wrong: burned-in text — replace |
 | `cnh-089` | the inner wall in the modern city | not re-checked (Commons 429): ok |
 | `cnh-090` | an excavated palace foundation | not re-checked (Commons 429): ok |
+| `cnh-091` | stone sickle blades from Zhengzhou Shang City | not re-checked (Commons 429): ok |
+| `cnh-092` | a 1973 satellite photograph of fields near Guandimiao | not re-checked (Commons 429): weak: nothing Shang visible, and the description names its photographer (`I.caption-source`) — replace |
+| `cnh-093` | the sixty-day table on a scapula | not re-checked (Commons 429): ok |
+| `cnh-094` | none | not re-checked (Commons 429): the card has no picture — an inscribed bone beside its modern characters wanted |
+| `cnh-095` | the Tonglüshan copper mine | not re-checked (Commons 429): weak: one copper working, not the neighbours |
+| `cnh-096` | a late Shang bronze gui | not re-checked (Commons 429): ok |
+| `cnh-097` | cowries from Yinxu | not re-checked (Commons 429): ok; the credit is not in the house form — fix |
+| `cnh-098` | two late Shang nao | not re-checked (Commons 429): ok; the credit is not in the house form — fix |
+| `cnh-099` | bone hairpins from the workshops | not re-checked (Commons 429): ok as a stand-in: the products, not a workshop |
+| `cnh-100` | attendants on a tomb ledge (the reconstructed Fu Hao tomb) | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -856,3 +870,109 @@ pinyin kuàifàn fǎ → kuàifànfǎ. **Spellings fixed**: none; 0 hits. **Myth
 Shang to Zhou — the *Zuo Zhuan* (Duke Xuan 3) and the *Mozi*; the Qin capture and the Si River search in the *Shiji*;
 the search carved on Eastern Han shrines (held for the summary). **Protected lines: unchanged** (none here). Locator
 notes for the end: `cnh-089` and `cnh-090` have no point (each has its own article); `cnh-088` covers several sites.
+
+### B10 — `cnh-091`–`cnh-100`, Shang: agriculture to burial practice (2026-11-09)
+
+Run as before; 69 cited URLs, all answering at least once this session (three Europe PMC full-text addresses, whose
+DOIs answer 403 here, returned 500 on the last retries; their papers were read and saved when they answered; one was
+moved to its DOI, which opens). `cnh-092`'s third phrasing named the Huan River and tripped `check-cards`' scholar
+rule (two capitalised words read as a name); it was reworded and the card re-applied. **The old cards' date lines
+were counts almost to a row (two millets, 60+ wheat grains, 80.9%, 22 houses, 23 kilns, 269 tombs, a 60-day cycle, a
+10-day week, 5 eclipses, 5 script stages, 50% radiogenic lead, 1,000 km, 1.6 tonnes, shell values of 250 and 100,
+nao in threes, 167 skeletons, 61 thin sections, 20,000 graves, 200 unlooted), a Zhou bronze rule stood on the music
+card, an 852 BCE "Chu supply" row on the cowries, one species' range was given to the whole cowrie family, and the
+music card cited no source about Shang music.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-091` Shang agriculture | 7 | 5 → 7 | **Counts off the line, now `Practised c. 1600 – 1046 BCE`; foxtail millet the main crop, broomcorn minor, with rice and legumes; the isotope logic and the Zhengzhou diet; the king's harvest divinations and the *zhongren* field order (Zhu Yanmin [in Chinese]), their status an open question**; claims on walled papers dropped. |
+| `cnh-092` Shang countryside | 7 | 5 → 7 | **A site's counts off the line, now `Dated c. 1600 – 1046 BCE`; the Huan valley survey's three settlement levels, Daxinzhuang and the Shandong salt camps added; "arrowheads" narrowed to hairpins**; the Guandimiao sources read from earlier saved copies. |
+| `cnh-093` Shang calendar | 7 | 5 → 7 | **Counts off the line, now `Attested c. 1250 – 1046 BCE` / `Eclipses seen 1201 – 1181 BCE` (as on `cnh-073`'s protected line); the week formula, the lunar months and the ritual year *si* as one reconstruction**; a "13th month" left off (no open source states it). |
+| `cnh-094` Shang writing | 7 | 5 → 7 | **Stages off the line, now `Written c. 1250 – 1046 BCE` / `Modern shapes c. 200 BCE`; "the only primary script still in use" credited; the script's sphere across Korea, Japan and Vietnam from a French report, the Paekche row dropped (its source walled)**. |
+| `cnh-095` Shang neighbours | 7 | 5 → 7 | **Percentages, distances and counts off the line, now `Exchange sphere c. 1500 – 1000 BCE` / `Chariots arrive c. 1200 BCE`; who the neighbours were — the fang label, the Zhou, the north (horses, face-down burials with northern knives), the south (Panlongcheng, Xin'gan, Wucheng)**; the glossary's 1,000 km converted as 620 miles. |
+| `cnh-096` Shang bronze | 7 | 5 → 7 | **The recipe, tonnage and distance off the line, now `Dated c. 1600 – 1046 BCE` / `Lead arrives c. 1400 BCE`; a percentage out of the questions; the elite's pure copper against remelted metal, the Tonglüshan mine, the radiogenic-lead debate**; Fu Hao's 1.6 tonnes kept in prose, attributed. |
+| `cnh-097` cowrie shell | 8 | 5 → 8 | **Counts and an 852 BCE row off the line, now `In use c. 3300 BCE – 220 CE` / `Peak c. 1600 – 650 BCE` (Peng and Zhu 1995); one species' range no longer given to the whole family; "the first money" credited to later writers; `undatable` now false**. |
+| `cnh-098` Shang music | 7 | 5 → 7 | **Rebuilt (the old card cited nothing on Shang music) on *Music in the Age of Confucius*, Gao Zhixi and the National Palace Museum; the Zhou rank rule and the Dasikong percentages gone; `Attested c. 1300 – 1050 BCE`, the end Feng's figure, said so**; a "Zhuolu" that came from an Eastern Zhou site paper is gone. |
+| `cnh-099` Shang craft workshops | 7 | 5 → 7 | **Counts off the line, now `In use c. 1250 – 1046 BCE`; the workshops themselves (Niu 2018 [in Chinese]): the foundries, the Tiesanlu bone industry, mould firing, vessel casting kept at the capital**; Guandimiao and the thin sections dropped (walled). |
+| `cnh-100` Shang burial practice | 7 | 5 → 7 | **Counts off the line, now `In use c. 1250 – 1046 BCE`, with the 20,000 and 200 credited to Wang 2025 in prose; the waist pit sourced anew (most held a dog, usually a puppy); lineage cemeteries, weapons made for the grave, the Xisima DNA result; Wang's page range corrected**. |
+
+Read by eye. **Confusability**: face-down burials appear in phrasings of `cnh-086` (drivers with rein holders),
+`cnh-095` (northern knives) and `cnh-100` (east–west graves against the north–south norm) — three different details,
+kept; crops (`cnh-091`) against villages (`cnh-092`); the calendar's cycles (`cnh-093`) against the eclipses on
+`cnh-073`'s protected line. **Chinese names**: none corrected; the descriptive phrases 商代历法, 商代文字, 商代音乐 and
+商代葬俗 match no open page whole, and `cnh-092`'s 商代农村 might be better as 商代乡村 — for the owner. **Spellings
+fixed**: none; 0 hits. **Myth register**: no rows. **Protected lines: unchanged**.
+
+### The first hundred, in sum
+
+`cnh-001`–`cnh-100` (the whole of the Mythology deck, Neolithic China and the Xia, and the first sixty of the Shang)
+are done: 534 sources became 699 and 83 glossary entries were rewritten. `cnh-audit.js --range=cnh-001:cnh-100` reads
+53 of 100 cards clean; what remains is 21 cards with an advisory `W.not-why` (a Think-it-through question opening "How"
+or "Did"), 11 `L.missing` (below), 5 `Z.reading?` leads that are polyphones or the place-name *tóu* (Erlitou, Shaokang,
+the White Snake), 4 picture captions naming their source, 3 cards without a picture and one false duplicate (a Commons
+thumbnail name). The `check-cnh-spellings.js` baseline of 5 cards and 13 hits is now 2 and 6: the two card hits are on
+protected lines (`cnh-012`'s "Shû King", `cnh-014`'s "Tai Kang"), the four glossary hits on entries outside the hundred
+(`Liezi`, `Liu_Xin_(scholar)`, `Lü_Buwei`, `Wuxing_(Chinese_philosophy)`). Commons answered 429 to the session's one
+test call, so no picture pass was run and "Pictures to redo" holds a line for each of the hundred. Fifty agents worked
+two cards each, never more than ten at once (for one short stretch eleven ran, one launched before a slot freed;
+nothing was relaunched). Each batch was applied alone and committed with its docs.
+
+What the hundred found, again and again:
+- **Myth told as history, and dated by legendary kings.** "Placed under Ku from 2436 BCE", Fuxi's 2852 BCE on the
+  dragon, Huangdi's 2697 BCE on the fenghuang, the qilin and Zhuolu, Yao's 2357 BCE on the Three Sovereigns, the Xia's
+  2070 BCE on a region, a text and a forged chapter. Every story is now told as its text's, and dated by the text.
+- **A transmitted text read as a record.** The Songs of the Five Sons as a Xia document (it is a 4th-century-CE
+  forgery), the *Shanhaijing* as a Zhou text of 1122 BCE, Zhang Heng as the oldest telling of Chang'e, the *Bamboo
+  Annals*' burial dated by a king's death, the Canon of Yao as a record of Yao.
+- **A modern label as ancient fact.** "The Chinese dragon" as one creature, the taotie's name as the Shang's own, the
+  type-site names as peoples, "Xia culture" for Erlitou, the Three Sovereigns as one list, the Zhouli's heaven and earth
+  read back onto Liangzhu jade.
+- **Counts on the date line.** Nearly every Neolithic and Shang card carried areas, counts, weights and percentages as
+  rows; all are now in prose, attributed, or gone.
+- **A figure no source gives.** Liangzhu's 3,000 workers, 24 km² for Zhengzhou, 875 kg for the Hou Mu Wu, 13,000 men
+  against the Qiang, a "10 people to 1 animal" ratio, the 1899 "prescription" story, Sanxingdui's end in 1150 BCE.
+- **Converted dates.** Agents twice turned a source's cal BP into BCE themselves (`cnh-042`, `cnh-047`); both were put
+  back to the printed form and every later agent was told never to convert.
+- **The one-language cap.** `cnh-001` and `cnh-002` cited five French articles each; every card now has at most one
+  source per non-English language.
+
+**The Chinese name.** All hundred carry `hanzi`, `traditional` and `pinyin`; corrected were `cnh-032` (十殿阎罗 →
+十殿阎王), `cnh-086` (商代战车 → 商代马车) and five pinyin forms (Hòuyì, Shānhǎijīng, sìxiàng, Yígǔpài, kuàifànfǎ). Descriptive
+phrases matching no open page whole are listed above for the owner. **Pinyin, for the owner**: the official
+orthography would join 夏朝, 商朝 and 禹贡; the collection keeps Xià cháo, Shāng cháo and Yǔ gòng.
+
+**The myth register** was confirmed or corrected on every row it opened with but one (the *Fengsu tongyi* as the source
+of Nüwa moulding people, unreachable with ctext shut), and gained rows for Penglai, the Eight Immortals, the White Snake
+and Mazu. Held for it from the Xia and Shang batches: the succession from Yu to Qi in three versions (Mencius, the
+*Rongchengshi*, the *Bamboo Annals*), Jie as the bad last king (a pattern, after Lewis), Tang's self-offering for rain
+(the *Lüshi Chunqiu*, five years of drought) and the nine ding passing from Xia to Shang to Zhou (the *Zuo Zhuan*, the
+*Mozi*, the *Shiji*'s Si River search).
+
+**The protected cards** (`cnh-007`, `008`, `010`, `011`, `012`, `014`, `016`, `039`, `055`, `057`, `058`, `068`,
+`073`, `074`) kept their `answerDate`, `undatable` and `timeline` byte for byte through every apply (diffed after each).
+Every background now carries the years on its card's line. Rows flagged for the owner, left as they stand: `cnh-014`
+"Confucius names 2 men" (in *Analects* 14.5 Nangong Kuo names them and Confucius does not reply); `cnh-039` "Made a god
+1594" (one study dates the Wanli title 1614) and "Named a sage 1856" (resting on Doré alone); `cnh-058` "Defections from
+Kong Jia, 4 reigns earlier" (three reigns, on the king list).
+
+**Hosts.** ctext.org, which answered at the session's start, refused every agent from the first batch on; ScholarSpace
+(Hawaiʻi) and Project MUSE began showing bot checks mid-run, and PMC's full text a reCAPTCHA, with Europe PMC's full
+text intermittently returning 500. Claims that rested only on what could no longer be read were dropped, not kept on
+trust; several well-known figures left the cards for that reason alone (Liangzhu's dam volumes, the 899 BCE eclipse,
+the Erligang ding's mould count).
+
+**For the owner, outside the hundred**: `cnh-101` gives the Hou Mu Wu ding as 875 kg in a question (the National Museum
+of China: 832.84 kg); `wh-148` dates Longshan 3000 – 2000 BCE (now 3000 – 1900 on `cnh-050`).
+
+### Locators (2026-11-09, the first hundred)
+
+None was added or moved, so `migrate-places.js` was not run. Wikipedia's API answered 429 to every call at the end of
+the run, and `add-locators.js` fetches every coordinate (none is ever typed), so the six sites the hundred lacks points
+for wait for a later pass, each with its article: `cnh-053` Sanxingdui ("Sanxingdui"), `cnh-063` Erlitou site
+("Erlitou", labelled "Erlitou site"), `cnh-075` tomb of Fu Hao ("Tomb of Fu Hao", at Xiaotun), `cnh-080` Xibeigang
+("Xibeigang", the cemetery about 800 m north of Wuguan), `cnh-089` Zhengzhou Shang City ("Zhengzhou Shang City") and
+`cnh-090` Panlongcheng ("Panlongcheng"). `L.missing` is deliberate on five: the mythic `cnh-019` Kunlun, `cnh-021`
+Penglai and `cnh-031` Diyu, the region `cnh-052` Central Plain and the many-site `cnh-088` Shang capitals. Points to
+review: `cnh-012` (Yu the Great) and `cnh-068` (Tang of Shang) carry the Xia's and the Shang's region on a card about
+one figure; `cnh-049` Liangzhu jade carries the culture's region; `cnh-047`'s point is Chifeng city, not a Hongshan
+site; `cnh-048`'s lies about 40 km south-west of the Liangzhu site.

@@ -42,7 +42,7 @@ window.CHANGELOG = [
     d: "2026-11-09",
     t: "China cards rewritten, from the myths to the Shang",
     items: [
-      "<b>90 China cards are rewritten</b>, from Chinese mythology to the Shang cities, with more sources, corrected dates and legend told as legend."
+      "<b>100 China cards are rewritten</b>, from Chinese mythology to Shang burial, with more sources, corrected dates and legend told as legend."
     ]
   },
   {

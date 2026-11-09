@@ -231,6 +231,14 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Shang warfare recorded / the Shang seats / the last seat | c. 1250 – 1046 BCE / c. 1600 – 1046 BCE / c. 1250 – 1046 BCE | `cnh-087`, `cnh-088` |
 | Zhengzhou Shang City in use (radiocarbon) / found | c. 1509 – 1315 BCE / 1950 | `cnh-089` |
 | Panlongcheng / found | c. 1500 – 1300 BCE / 1954 | `cnh-090` |
+| Shang agriculture / the countryside | c. 1600 – 1046 BCE | `cnh-091`, `cnh-092` |
+| the Shang calendar attested / eclipses seen | c. 1250 – 1046 BCE / 1201 – 1181 BCE | `cnh-093` |
+| Shang writing / the first modern shapes (clerical script) | c. 1250 – 1046 BCE / c. 200 BCE | `cnh-094` |
+| the Shang exchange sphere / chariots arrive | c. 1500 – 1000 BCE / c. 1200 BCE | `cnh-095` |
+| Shang bronze / radiogenic lead arrives | c. 1600 – 1046 BCE / c. 1400 BCE | `cnh-096` |
+| cowries in use / their peak | c. 3300 BCE – 220 CE / c. 1600 – 650 BCE | Peng and Zhu 1995 (`cnh-097`) |
+| Shang music attested (Feng's end date) | c. 1300 – 1050 BCE | `cnh-098` |
+| the Anyang workshops / Shang burial practice | c. 1250 – 1046 BCE | `cnh-099`, `cnh-100` |
 
 ## Later periods
 
@@ -329,4 +337,14 @@ cnh-087: 1250; 1046
 cnh-088: 1600; 1250; 1046
 cnh-089: 1509; 1315; 1950
 cnh-090: 1500; 1300; 1954
+cnh-091: 1600; 1046
+cnh-092: 1600; 1046
+cnh-093: 1250; 1046; 1201; 1181
+cnh-094: 1250; 1046; 200
+cnh-095: 1500; 1000; 1200
+cnh-096: 1600; 1046; 1400
+cnh-097: 3300; 220; 1600; 650
+cnh-098: 1300; 1050
+cnh-099: 1250; 1046
+cnh-100: 1250; 1046
 ```
