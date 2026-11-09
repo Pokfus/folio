@@ -98,4 +98,4 @@ phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas: `tot
 `examples.py` → `build_deck.py`, caching in `.claude/dutch-cache/` (gitignored, ~400 MB).
 `node .claude/dutch/check-dutch.js` is the check. **A re-run is byte-identical** (verified). A1: 500 notes,
 380 from the inventory and 120 by frequency; three sentences for 499, one or two for the last; 493 with IPA.
-The shelf's hue is measured: `#08659F`, 16.8 from its nearest of 51 (Ancient Greece and Architecture).
+The shelf's hue is measured: `#934F5A`, 15.2 from its nearest of 65 (Visual Art); the first sweep's steel blue went to Vietnamese in a parallel session, so it was re-swept at the merge.

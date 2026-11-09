@@ -1,0 +1,149 @@
+.card {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.uc-ask {
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-word {
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.uc-say {
+  margin-left: 14px;
+  vertical-align: middle;
+  font-size: 15px;
+}
+.uc-field {
+  display: block;
+  width: fit-content;
+  /* A FLOOR, because Italian's commonest words gloss in one word.  The box hugs
+     its contents, and on `я` -> `I` that leaves a narrow stamp adrift in the
+     middle of a 680px card under a rule spanning the whole of it, which reads
+     as a fault rather than a design.  min() so a narrow phone still gets the
+     full width. */
+  min-width: min(300px, 100%);
+  max-width: 100%;
+  margin: 14px auto 0;
+  padding: 11px 15px;
+  border: 1px solid var(--rule, rgba(0,0,0,0.12));
+  border-radius: 11px;
+  text-align: left;
+  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));
+}
+.uc-pos {
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint, #6C6A63);
+}
+.uc-gl {
+  line-height: 1.5;
+}
+.uc-gls {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  line-height: 1.5;
+}
+.uc-forms {
+  margin-top: 8px;
+  font-size: 15px;
+}
+.uc-fi + .uc-fi {
+  margin-left: 14px;
+}
+.uc-fl {
+  margin-right: 6px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.uc-fold {
+  margin-top: 14px;
+  text-align: left;
+}
+.uc-fold > summary {
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.uc-conj {
+  margin-top: 10px;
+}
+/* THE PARADIGM IS A GRID OF BLOCKS, not one long column.  An aspect pair is
+   six blocks (present, past and imperative of one verb; future, past and
+   imperative of the other) and an adjective four, which stacked is a card
+   several screens tall; two-up it is half that.  `minmax(0,1fr)` so a long cell
+   cannot push the grid wider than the card. */
+.uc-cjg {
+  display: grid;
+  gap: 12px 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+}
+.uc-cj {
+  min-width: 0;
+}
+.uc-cjh {
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--rule, rgba(0,0,0,0.10));
+  font-size: 9.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.uc-cjr {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 1.5px 0;
+  font-size: 14px;
+}
+.uc-cj-p {
+  flex: 0 0 auto;
+  opacity: 0.55;
+}
+.uc-cj-f {
+  flex: 1 1 auto;
+  text-align: right;
+  font-weight: 500;
+}
+.uc-exs {
+  margin-top: 10px;
+}
+.uc-exi {
+  padding: 9px 0;
+  text-align: center;
+}
+.uc-exi + .uc-exi {
+  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));
+}
+.uc-exz {
+  font-size: 16px;
+  line-height: 1.55;
+}
+.uc-exz b {
+  font-weight: 600;
+  color: var(--zh, #C8453C);
+}
+.uc-exe {
+  margin-top: 3px;
+  font-size: 13px;
+  opacity: 0.62;
+}
+.uc-exsay {
+  margin-right: 7px;
+}
+.uc-sense + .uc-sense {
+  margin-top: 9px;
+}

@@ -1,0 +1,360 @@
+#!/usr/bin/env python3
+"""Build the cards and write the .folio-deck.json file.
+
+    python3 build_deck.py      (from the cache directory, by run.py)
+
+ONE NOTE, TWO CARDS -- the Goethe / CAPLE / TORFL / Hindi shape.  The word is a
+single record and the two directions are card TEMPLATES, so a corrected gloss
+is corrected both ways at once and each direction keeps its own schedule.
+Card 1 is VIETNAMESE -> ENGLISH, the easier direction and the one met first.
+
+WHAT A CARD CARRIES -- and what it does not, since Vietnamese does not inflect:
+no plural, no gender, no conjugation, so no forms line and no tables.  In their
+place, the three things a Vietnamese word does carry:
+  · its TONES, one name per syllable (ngang, huyền, sắc, hỏi, ngã, nặng), read
+    off the spelling's own marks (`vi.tone`) -- a fact of the spelling, so it
+    cannot disagree with the headword above it;
+  · a noun's CLASSIFIERS, the words that stand between a number and the noun
+    (`hai CON mèo`, `một CÁI bàn`), as Wiktionary lists them;
+  · for a Sino-Vietnamese word, the CHARACTERS it was borrowed from (học sinh,
+    學生), from Wiktionary's etymology -- never guessed for a word it does not
+    trace;
+  · the pronunciation in IPA, Hanoi and Saigon side by side where Wiktionary
+    gives both, because the two standards differ audibly (`nhà` is alike in
+    both, `không` is [xəwŋ͡m] and [kʰəwŋ͡m]);
+  · up to three Tatoeba sentences, the word picked out, with a speaker.
+
+The speaker reads the `Word` field, the bare headword (`vi-VN`).
+"""
+import html, json, os, re, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from vi import fold, nfc, tokens, tone, TONE_NAMES
+from vietnamese_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+
+STAMP = '2026-11-09T00:00:00.000Z'
+TYPE_ID = 'vietnamese'
+COLOR = '#14659F'          # the measured hue (`app.js`, `lang-vietnamese`)
+FIELDS = ['Vietnamese', 'Word', 'Tones', 'English', 'Notes', 'Sound', 'Examples']
+
+POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
+            'pron': 'pronoun', 'det': 'determiner', 'conj': 'conjunction',
+            'particle': 'particle', 'intj': 'interjection', 'num': 'number',
+            'phrase': 'phrase', 'prep': 'preposition', 'proverb': 'proverb',
+            'classifier': 'classifier'}
+TAG_NAME = {'Northern': 'Northern', 'Southern': 'Southern', 'colloquial': 'colloquial',
+            'formal': 'formal', 'informal': 'informal', 'familiar': 'familiar',
+            'polite': 'polite', 'honorific': 'honorific', 'slang': 'slang'}
+
+SAY = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>'
+WORD = ('<div class="uc-word">{{Vietnamese}}' + SAY + '</div>'
+        '{{#Tones}}<div class="uc-tone">{{Tones}}</div>{{/Tones}}')
+ASK = '<div class="uc-ask">Say it in Vietnamese</div><div class="uc-field">{{English}}</div>'
+NOTES = '{{#Notes}}{{Notes}}{{/Notes}}'
+TAIL = ('{{#Sound}}<div class="uc-ipa">{{Sound}}</div>{{/Sound}}'
+        '{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
+        '<div class="uc-exs">{{Examples}}</div></details>{{/Examples}}')
+FRONT_VI = WORD
+BACK_VI = '{{FrontSide}}' + NOTES + '<hr><div class="uc-field">{{English}}</div>' + TAIL
+FRONT_EN = ASK
+BACK_EN = '{{FrontSide}}<hr>' + WORD + NOTES + TAIL
+
+CSS = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'card.css'),
+           encoding='utf-8').read()
+
+E = html.escape
+
+TRAIL = re.compile(r'\s*[:;,]\s*$')
+
+# ONE ETYMOLOGY PER CARD.  Vietnamese is full of homographs from unrelated sources,
+# which Wiktionary files as numbered etymologies -- `là` "to be" and "fine silk" and
+# "to iron", `cần` "to need" and "water parsnip", `thích` "to like" and "maple", `bố`
+# "father" and "burlap" -- and a beginner's card that offers all of them teaches the
+# noise (and shows the wrong one's classifier and characters).  The etymology kept is
+# the one holding the part of speech the inventory names, else the first with a
+# meaning that is not weak, unless it is named here:
+ETYMS = {
+    'là': ['2'],        # "to be"; 1 is "fine silk"
+    'kẻ': ['1'],        # "person, (pejorative) guy"; 2 is "to draw a line"
+    'chỉ': ['2', '3'],  # "only" and "to point"; 1 is "thread"
+    'ba': ['2', '1'],   # "three" and (Southern) "father", both everyday
+    'má': ['2'],        # (Southern) "mother"; 1 is "cheek"
+    'trà': ['2'],       # "tea"; 1 is "one's spectrum of age"
+    'súng': ['2'],      # "gun"; 1 is "water lily"
+    'đồng': ['3'],      # "dong (the currency); copper"; 1 is "field"
+    'ôi': ['2'],        # "oh, alas"; 1 is "tainted (meat)"
+}
+
+# A PART OF SPEECH TO LEAD WITH, where Wiktionary's first entry is not the everyday word.
+LEAD_POS = {
+    'bị': 'verb',       # the passive of misfortune; the noun is "sack"
+    'của': 'prep',      # "of"; the noun is "property"
+    'ồ': 'intj',        # "oh, wow"; the verb is "to rush"
+}
+
+# A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
+LEAD = {}
+
+# A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
+GLOSS = {}
+
+# Entries of these parts of speech are left off a card whose word has others, each with its reason.
+DROP_POS = {
+    'có': {'noun'},     # "the left side of the balance sheet", an accountant's term
+    'ba': {'adj', 'det'},   # "secondborn", "some": they crowded "father" off the card
+}
+
+# Glosses left off a card, by a piece of their text, each with its reason.
+CUT = {
+    'của': ['given kind of food', 'such trash'],   # colloquial uses that mislead on a card for "of"
+    'xe': ['chariot', 'rook'],                     # the xiangqi piece, not the vehicle
+    'em': ['described by the noun em above'],      # refers to Wiktionary's own layout
+}
+
+
+def entries_for(row, lex):
+    L = lex[row['via']] if row.get('via') else lex[row['key']]
+    word = row['word']
+    allents = L['entries']
+    good = lambda e: any(not g['weak'] for g in e['glosses'])
+    groups = []
+    for e in allents:
+        if e['etym'] not in groups:
+            groups.append(e['etym'])
+    keep = ETYMS.get(word)
+    want = row['pos'] or LEAD_POS.get(word, '')
+    if not keep and want and any(e['pos'] == want for e in allents):
+        keep = [next((e['etym'] for e in allents if e['pos'] == want and good(e)),
+                     next(e['etym'] for e in allents if e['pos'] == want))]
+    if not keep:
+        keep = [next((e['etym'] for e in allents if good(e)), groups[0])]
+    ents = [e for e in allents if e['etym'] in keep]
+    # an entry is dropped when every meaning is weak -- unless it is the part of speech
+    # the inventory asked for (`họ` "they" is tagged formal and dialectal, `anh trai`
+    # "elder brother" literary, and each is still the word the card is for)
+    ents = [e for e in ents if good(e) or (row['pos'] and e['pos'] == row['pos'])] or ents
+    ents.sort(key=lambda e: keep.index(e['etym']))
+    if word in DROP_POS:
+        ents = [e for e in ents if e['pos'] not in DROP_POS[word]] or ents
+    lead = row['pos'] or LEAD_POS.get(word, '')
+    if lead:
+        ents = sorted(ents, key=lambda e: e['pos'] != lead)
+    out, seen = [], {}
+    for e in ents:
+        if e['pos'] in seen:
+            out[seen[e['pos']]]['glosses'] += e['glosses']
+            continue
+        seen[e['pos']] = len(out)
+        out.append(dict(e, glosses=list(e['glosses'])))
+    return out[:3]
+
+
+def gloss_line(g):
+    t = TRAIL.sub('', g['g'])
+    tags = [TAG_NAME[x] for x in g['tags'] if x in TAG_NAME]
+    if 'Northern' in tags and 'Southern' in tags:      # both is neither (`trà` "tea")
+        tags = [x for x in tags if x not in ('Northern', 'Southern')]
+    if tags and t:
+        t += ' (' + ', '.join(tags) + ')'
+    return t
+
+
+def english(ents, word=''):
+    parts, shown = [], set()
+    for e in ents:
+        label = POS_NAME.get(e['pos'], e['pos'])
+        tv = {t for g in e['glosses'] for t in g['tags']}
+        gl, seen = [], set()
+        for g in e['glosses']:
+            if g['weak'] and gl:
+                continue
+            if any(c in g['g'] for c in CUT.get(word, ())):
+                continue
+            t = gloss_line(g)
+            if t and t not in seen:
+                seen.add(t)
+                gl.append(t)
+        if e['pos'] in GLOSS.get(word, {}):
+            gl = list(GLOSS[word][e['pos']])
+        lead = LEAD.get(word)
+        if lead:
+            gl.sort(key=lambda x: lead not in x)
+        gl = gl[:3]
+        if not gl or all(x in shown for x in gl):
+            continue
+        shown.update(gl)
+        body = (f'<div class="uc-gl">{E(gl[0])}</div>' if len(gl) == 1 else
+                '<ol class="uc-gls">' + ''.join(f'<li>{E(x)}</li>' for x in gl) + '</ol>')
+        parts.append(f'<div class="uc-sense"><div class="uc-pos">{E(label)}</div>{body}</div>')
+    return ''.join(parts)
+
+
+def tones_line(word):
+    return ' · '.join(TONE_NAMES[tone(s)] for s in tokens(word))
+
+
+def notes_line(ents):
+    bits = []
+    # THE LEAD ENTRY'S OWN classifier and characters, never another part of speech's
+    cls = ents[0]['cls'] if ents[0]['pos'] == 'noun' else []
+    if cls:
+        bits.append(f'<span class="uc-ni"><span class="uc-fl">classifier</span>{E(", ".join(cls[:4]))}</span>')
+    sino = ents[0]['sino']
+    if sino:
+        bits.append(f'<span class="uc-ni"><span class="uc-fl">Sino-Vietnamese</span>'
+                    f'<span class="uc-han" lang="zh-Hant">{E(sino)}</span></span>')
+    return f'<div class="uc-notes">{"".join(bits)}</div>' if bits else ''
+
+
+def sound_line(ents):
+    e = next((e for e in ents if e['hn'] or e['sg']), None)
+    if not e:
+        return ''
+    out = []
+    if e['hn']:
+        out.append(f'<span>Hanoi {E(e["hn"])}</span>')
+    if e['sg'] and e['sg'] != e['hn']:
+        out.append(f'<span>Saigon {E(e["sg"])}</span>')
+    elif e['sg'] and not e['hn']:
+        out.append(f'<span>Saigon {E(e["sg"])}</span>')
+    return ''.join(out)
+
+
+def mark(sentence, start, n):
+    """The sentence with syllables [start, start+n) in bold, its own text kept."""
+    out, k, pos = [], 0, 0
+    from vi import WORD as W
+    spans = [m.span() for m in W.finditer(sentence)]
+    if start + n > len(spans):
+        return E(sentence)
+    a, b = spans[start][0], spans[start + n - 1][1]
+    return E(sentence[:a]) + '<b>' + E(sentence[a:b]) + '</b>' + E(sentence[b:])
+
+
+def examples_html(exs):
+    out = []
+    for vs, en, (start, n) in exs:
+        out.append(f'<div class="uc-exi"><div class="uc-exz"><span class="uc-tts uc-exsay" '
+                   f'data-say="{E(vs)}"></span>{mark(vs, start, n)}</div>'
+                   f'<div class="uc-exe">{E(en)}</div></div>')
+    return ''.join(out)
+
+
+def build(rows, lex, exs):
+    cards, entries = [], []
+    for r in rows:
+        ents = entries_for(r, lex)
+        if not ents:
+            continue
+        word = r['word']
+        ex = exs.get(r['key'], [])
+        cards.append({'sub': '', 'fields': {
+            'Vietnamese': f'<div class="uc-word">{E(word)}</div>',
+            'Word': word,
+            'Tones': tones_line(word),
+            'English': english(ents, word),
+            'Notes': notes_line(ents),
+            'Sound': sound_line(ents),
+            'Examples': examples_html(ex),
+        }})
+        entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'],
+                        'examples': len(ex), 'cls': '>classifier<' in cards[-1]['fields']['Notes'],
+                        'sino': 'Sino-Vietnamese' in cards[-1]['fields']['Notes']})
+    return cards, entries
+
+
+def desc(entries, n):
+    from_inv = sum(1 for e in entries if e['source'] == 'inventory')
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    ncls = sum(1 for e in entries if e['cls'])
+    nsino = sum(1 for e in entries if e['sino'])
+    SC = SCOPE[LEVEL]
+    EX_NOTE = ('Every word carries three real example sentences' if ex3 == n else
+               f'Real example sentences come with {n - ex0} of the {n} words, three apiece for '
+               f'{ex3} of them')
+    return (
+        "Both study directions in one deck: Vietnamese → English (see the Vietnamese, recall the "
+        "meaning) and English → Vietnamese (see an English meaning, recall the Vietnamese). Each "
+        "direction is a card of its own with its own schedule, so recognising a word and producing "
+        f"it are learnt separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the "
+        f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
+        f"a learner here is {SC['gloss']}. " +
+        ("The words already taught by the levels below this one are left out. "
+         if LEVEL != 'a1' else "") +
+        "WHERE THESE WORDS COME FROM, since it matters: Vietnam's own framework for learners of "
+        "Vietnamese publishes no graded word list, and neither does any exam board, so this deck is "
+        "not any examination's vocabulary and does not claim to be. It is assembled from two things "
+        f"that can be stated. {from_inv} of the {n} come from a vocabulary written for the level's "
+        f"scope — {SC['topics']} — and the other {n - from_inv} are the commonest remaining words of "
+        "everyday Vietnamese, counted in film and television subtitles. Vietnamese writes a space "
+        "between syllables rather than between words, so the subtitles were divided into words "
+        "against the dictionary first, and a two-syllable word such as học sinh (pupil) is counted "
+        "as one word. The cards are dealt by that frequency, so the words you meet most often come "
+        "first. Beneath every headword its tones are named, one per syllable — ngang (no mark), "
+        "huyền (à), sắc (á), hỏi (ả), ngã (ã) and nặng (ạ) — read off the marks the word is spelt "
+        f"with. {ncls} nouns show their classifier, the word that stands between a number and the "
+        f"noun (hai con mèo, two cats), and {nsino} words borrowed from Chinese show the characters "
+        "they come from. The pronunciation is given in IPA for Hanoi and, where it differs, for "
+        "Saigon. " + EX_NOTE + ", with the word picked out in colour and a speaker beside the "
+        "sentence and the headword. Spellings are Wiktionary's, which often puts the tone mark in "
+        "the older place (hoà, khoẻ); the newer (hòa, khỏe) is equally correct. Sources. Level: the "
+        "Common European Framework of Reference (Council of Europe), global scale. Meanings, "
+        "classifiers, characters and pronunciation: English Wiktionary, via the kaikki.org "
+        "extraction (CC BY-SA 4.0). Frequency: the OpenSubtitles 2018 Vietnamese text "
+        "(opensubtitles.org, via the OPUS corpus collection), counted here. Example sentences: "
+        "Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+
+
+def main():
+    rows = json.load(open(f('selected.json'), encoding='utf-8'))
+    lex = json.load(open('lex.json', encoding='utf-8'))
+    exs = json.load(open(f('examples.json'), encoding='utf-8'))
+    cards, entries = build(rows, lex, exs)
+    DECK = DECK_IDS[LEVEL]
+    for i, c in enumerate(cards, 1):
+        c['id'] = f'u_{DECK}_{i}'
+        c['type'] = TYPE_ID
+    n = len(cards)
+    meta = {
+        'id': DECK, 'title': TITLES[LEVEL],
+        'subtitle': f'{n} words · both directions, as two cards per word',
+        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': ['vietnamese', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'glossMode': 'site',
+        'types': {TYPE_ID: {
+            'id': TYPE_ID, 'name': 'Vietnamese vocabulary', 'speechLang': 'vi-VN',
+            'fields': FIELDS,
+            'cards': [
+                {'name': 'Vietnamese → English', 'front': FRONT_VI, 'back': BACK_VI},
+                {'name': 'English → Vietnamese', 'front': FRONT_EN, 'back': BACK_EN},
+            ],
+            'css': CSS,
+        }},
+        'version': 1, 'createdAt': STAMP, 'updatedAt': STAMP, 'forkedFrom': None,
+    }
+    deck = {'folioDeck': 1, 'exportedAt': STAMP, 'meta': meta, 'cards': cards, 'gloss': {}}
+
+    # EVERY ENGLISH SIDE UNIQUE, LAST OF ALL -- the shelf-wide pass (`.claude/dedupe-glosses.py`).
+    import importlib.util as ilu
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'dedupe-glosses.py')
+    spec = ilu.spec_from_file_location('dedupe_glosses', p)
+    dg = ilu.module_from_spec(spec)
+    spec.loader.exec_module(dg)
+    st = dg.dedupe(deck, 'Vietnamese')
+    if st['groups']:
+        print('  labelled %d notes in %d groups that shared an English side'
+              % (st['labelled'], st['groups']))
+
+    out = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                       '..', '..', 'decks', DECK_FILES[LEVEL]))
+    with open(out, 'w', encoding='utf-8') as fh:
+        json.dump(deck, fh, ensure_ascii=False)
+    print('  wrote', out)
+    print(f'  notes {n} = cards {n * 2} | bytes {os.path.getsize(out)}')
+    json.dump(entries, open(f('entries.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+
+
+if __name__ == '__main__':
+    main()
