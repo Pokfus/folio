@@ -35,7 +35,7 @@ from te import fold
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'te-abc'
-COLOR = '#228122'
+COLOR = '#9D0D6C'
 
 # (letter shown, what the speaker says, romanisation, sound, example word, its meaning)
 LETTERS = [

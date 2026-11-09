@@ -111,6 +111,7 @@ Tatoeba's English sentences); `python3 .claude/telugu/alphabet.py` writes the al
 `node .claude/telugu/check-telugu.js` is the check. **A re-run is byte-identical** (verified for both
 decks). A1: 500 notes, 276 from the inventory and 224 by frequency; 304 nouns, 46 verbs; sentences for 96
 (three for 35). The alphabet: 52 notes — 13 vowels (each alone and as its sign on క), 3 signs, 33
-consonants, ళ, క్ష and ఱ; every sound side unique (asserted). The shelf's hue is measured: `#228122`, 19.3
-from its nearest of 46 (Portuguese and Geography); the same sweep run without Hindi lands next to Hindi's
-`#9F51B4`, which is how the method was checked.
+consonants, ళ, క్ష and ఱ; every sound side unique (asserted). The shelf's hue is measured: first `#228122`,
+19.3 from its nearest of 46 — but Arabic, merged meanwhile, had been measured into `#2A8424`, so it was
+re-swept against all 47: `#9D0D6C`, 18.7 from its nearest (Japan). The same sweep run without Hindi lands
+next to Hindi's `#9F51B4`, which is how the method was checked. **Re-sweep after merging** (Turkish's lesson).
