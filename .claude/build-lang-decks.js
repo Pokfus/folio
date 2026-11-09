@@ -62,16 +62,24 @@ const OUT = path.join(ROOT, "lang-decks.js");
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
   { word: "Spanish", name: "Spanish", l1: 486 },
+  // Ethnologue 28th ed. (2020–2024 figures), via Wikipedia's infobox, read 2026-11-09: native speakers of ALL
+  // varieties. The decks teach Modern Standard Arabic, which almost nobody speaks as a first language, but the
+  // figure is what orders a language on this shelf and every other row counts a language's speakers too.
+  { word: "Arabic", name: "Arabic", l1: 411 },
   { word: "Hindi", name: "Hindi", l1: 345 },          // Census of India 2011, via Wikipedia's infobox, read 2026-11-09
+  { word: "Bengali", name: "Bengali", l1: 242 },      // Wikipedia's infobox (Ethnologue 28th ed. and the 2011 census, 2011–2023), read 2026-11-09
   { word: "Portuguese", name: "Portuguese", l1: 236 },
   { word: "Russian", name: "Russian", l1: 145 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
   { word: "Turkish", name: "Turkish", l1: 85 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
+  { word: "Telugu", name: "Telugu", l1: 83 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
+  { word: "Urdu", name: "Urdu", l1: 78 },            // Ethnologue 28th ed., via Wikipedia's infobox (77.7), read 2026-11-09
   { word: "German", name: "German", l1: 76 },
   { word: "French", name: "French", l1: 74 },
   { word: "Italian", name: "Italian", l1: 65 },
   { word: "Indonesian", name: "Indonesian", l1: 43 },
   { word: "Romanian", name: "Romanian", l1: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Greek", name: "Greek", l1: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
 ];
 const L1 = {};
 LANGS.forEach((L) => { L1[L.name] = L.l1; });

@@ -107,7 +107,7 @@ inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read ever
 `select.py` → `examples.py` → `build_deck.py`, caching in `.claude/romanian-cache/` (gitignored, ~470 MB).
 `node .claude/romanian/check-romanian.js` is the check. **A re-run is byte-identical** (verified). A1: 500
 notes, 354 from the inventory and 146 by frequency; IPA on 451, forms on 310, sentences for 498 (three for
-495). The shelf's hue is measured: `#2A8424`, 19.5 from its nearest of 46.
+495). The shelf's hue is measured: first `#2A8424`, 19.5 from its nearest of 46 — which Arabic, measured in a parallel session, also took; re-swept at the merge against 51: `#757839`, 16.7 from its nearest.
 
 ## 7. As built (2026-11-09): A2
 

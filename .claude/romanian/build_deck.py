@@ -34,7 +34,7 @@ from ro_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'romanian'
-COLOR = '#2A8424'
+COLOR = '#757839'
 FIELDS = ['Romanian', 'IPA', 'Word', 'English', 'Forms', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
