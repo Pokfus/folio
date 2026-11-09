@@ -29128,6 +29128,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-arabic":     { bg: "#2A8424" }, // measured green
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
+    /* GREEK (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep's winner was a green
+       (#2A8424), refused as a third green in the section — and Arabic, measured in a parallel session, took
+       that same green. Re-swept at the merge against all 48 other hues on the page, this periwinkle is the
+       outright winner: 18.6 from its nearest neighbours (Rome, then China's Geography cobalt), 23.4 from
+       Hindi's violet, against a tightest existing pair of 4.0. 4.5:1 against white. Not the flag's blue. */
+    "lang-greek":      { bg: "#6F69D2" }, // measured periwinkle
     /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 45 hues on the
        page — a violet, 21.2 from its nearest neighbours (Flags, Rome and Japanese), against a tightest
