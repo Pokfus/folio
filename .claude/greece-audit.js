@@ -180,7 +180,8 @@ function audit(c) {
     rows.filter((r) => r.k === "v" && !(tpl && (tpl.text.includes(r.label) || COUNT.includes(r.label)))).forEach((r) => {
       const v = r.t;
       // a day of the month is not a year: "8 July 1851"
-      const vy = v.replace(/\b\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/g, "");
+      // nor is an age or a war's duration in brackets: "(age 63)", "(116 years, 4 months)"
+      const vy = v.replace(/\((?:age [^)]*|[^)]*\b(?:years?|months?|days?)\b[^)]*)\)/g, "").replace(/\b\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/g, "");
       // a bare year under 1000 must carry its era somewhere in the same value
       const small = [...vy.matchAll(/(?<![\d,.])(\d{3})(?![\d,.])/g)].map((m) => +m[1]);
       if (small.length && !/\b(BCE|CE|BP|Mya|kya)\b/.test(vy)) finding(out, "D.era", "\"" + v + "\" has a year under 1000 with no era");
