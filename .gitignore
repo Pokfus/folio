@@ -157,3 +157,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~280 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hindi-cache/
+
+# the corpora .claude/urdu/run.py builds the Urdu decks from — the Wiktionary
+# extract, the two frequency lists and the Tatoeba exports — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/urdu-cache/
