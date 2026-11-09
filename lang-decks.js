@@ -92,4 +92,5 @@ window.LANG_DECKS = [
   { lang: "Indonesian", file: "Indonesian-Phrases-and-Expressions.folio-deck.json", id: "idphrase", title: "Indonesian Phrases and Expressions", sub: "228 expressions · 84 everyday, 111 idioms, 33 proverbs · both directions", notes: 228, cards: 456, subs: 3, tree: [{"n":"Phrases","c":168,"x":54},{"n":"Idioms","c":222,"x":14},{"n":"Proverbs","c":66,"x":18}], flat: true, ex: 29, say: false, bytes: 128897, rev: "d37db8b51350" },
   { lang: "Greek", file: "Greek-Alphabet.folio-deck.json", id: "elabc", title: "Greek Alphabet", sub: "39 letters, letter pairs and signs · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 20633, rev: "bd6c036d16e7" },
   { lang: "Greek", file: "Greek-A1.folio-deck.json", id: "greeka1", title: "Greek A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1495976, rev: "b4aa63c726e2" },
+  { lang: "Swedish", file: "Swedish-A1.folio-deck.json", id: "swedisha1", title: "Swedish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 838220, rev: "9163b06a486f" },
 ];

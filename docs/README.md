@@ -65,6 +65,7 @@ before changing the thing it names.
 | `bengali-decks-plan.md` | The plan for the Bengali language decks (Bangla-script alphabet, A1–C1 assembled to CEFR, phrases), the Hindi set's sister: decisions, sources, the card, the findings. Alphabet, A1 and A2 are built. |
 | `telugu-decks-plan.md` | The plan for the Telugu language decks (alphabet, A1–C1 assembled to CEFR, phrases): the decisions carried over from Hindi, sources, the card, the findings. Alphabet and A1 are built. |
 | `greek-decks-plan.md` | The plan for the Greek language decks (alphabet, A1–C1 assembled to CEFR): the decisions taken from the Hindi precedent, sources, the card, the findings. Alphabet and A1 are built. |
+| `swedish-decks-plan.md` | The plan for the Swedish language decks (A1–C1 assembled to CEFR): the decisions taken from the Hindi and Greek precedent, sources, the card, the findings. A1 is built. |
 | `urdu-decks-plan.md` | The plan for the Urdu language decks (alphabet, A1–C1 assembled to CEFR, phrases), adapted from Hindi's: the decisions, sources, the right-to-left card, the findings. Alphabet and A1 are built. |
 | `japanese-decks-plan.md` | The PLAN for the Japanese (JLPT N5–N1) language decks — nothing built yet: sources, deck design, app changes, phases, owner's questions. |
 | `tests.md` | What each of the regression suites guards, and the silence it was written for. |

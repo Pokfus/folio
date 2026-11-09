@@ -29169,6 +29169,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        it was re-measured against all twenty hues at the merge: a muted mauve, 33.6 from its nearest
        neighbour (Greece), against a tightest existing pair of 17.0. Not a flag colour. */
     "lang-russian":    { bg: "#9C7894" }, // measured mauve
+    /* SWEDISH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 51 hues on the
+       page — an olive, 16.7 from its nearest neighbour (Gateway to Global Affairs), 16.8 from World History's
+       sepia and 17.3 from Italian's green, against a tightest existing pair of 4.0. 4.7:1 against white. Not
+       the flag's blue or yellow. Re-sweep at the merge if another language reached the shelf meanwhile. */
+    "lang-swedish":    { bg: "#757839" }, // measured olive
     "lang-spanish":    { bg: "#AE5A33" }, // orange
     /* Turkish (Oct 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside
        the shelf's band (L 28–55, chroma 7–62) for the hue farthest from all 43 already on the page. Its first
