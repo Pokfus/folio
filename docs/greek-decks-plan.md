@@ -9,8 +9,8 @@ applies here unless this file says otherwise. Asked for on 2026-11-09: "Add a Gr
 deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
-for any deck this plan produces. The collection's first commit carried one (raising the day's Hindi line to
-"Hindi and Greek collections") because it also changed the APP — the shelf's hue in `app.js`.
+for any deck this plan produces. The collection's first commit carried one (adding Greek to the day's
+"collections join the Languages section" line) because it also changed the APP — the shelf's hue in `app.js`.
 
 ## 1. The decisions (2026-11-09, taken from the Hindi precedent — the owner was not asked)
 
@@ -108,4 +108,5 @@ both decks). A1: 500 notes, 313 from the inventory and 187 by frequency; three s
 The alphabet: 39 notes — the 24 letters with their Greek names, the 13 two-letter spellings (ου αι ει οι υι αυ
 ευ μπ ντ γκ γγ τσ τζ), the accent and the diaeresis; every sound side unique (asserted: "ee" is written six
 ways, so each note says where its spelling is used). The shelf's hue is measured: `#6F69D2`, 18.6 from its
-nearest of 46 (the sweep's green winner, 19.5, refused as a third green in the section).
+nearest; re-swept at the merge against all 48 other hues it is the outright winner (Arabic took the green
+the first sweep had refused).

@@ -2083,7 +2083,7 @@
   /* MULTIPLE CHOICE IS DORMANT (2026-10-31, on request: "Make the multiple choice minigame dormant"), exactly as the Picture round is:
      out of DAILY_GAMES (the sweep needs nine again), off the home grid and refused by `route`; PAGES.challenge, its name, icon and meta
      stay, so reviving it is putting "challenge" back here, in `valid`, and its tile back on the home grid. */
-  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie"];
+  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang"];   // What language? (2026-11-09) is the tenth in play again
   const DORMANT_GAMES = ["picture", "challenge"];
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
@@ -10950,7 +10950,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* TIMELINE'S CLUES (Nov 2026, on request: "every answer term should have a 1 to 5 word description below it"):
        one short line per datable card saying what the term IS, read by the Timeline game alone, so never eager. */
     chronoClues: { files: ["timeline-clues.js"] },
-    pie: { files: ["pie.js"] },   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
+    pie: { files: ["pie.js"] },
+    whatlang: { files: ["whatlang.js"] },   // What language?'s 200 passages (2026-11-09): read by that game alone, never on the eager path   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
@@ -16041,6 +16042,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     whatyear:  ["What year? — Folio", "Five rounds of five things from one year — place each year on the timeline."],
     howfar:    ["How far? — Folio", "Guess the distance between two places on the globe."],
     pie:       ["What share? — Folio", "Drag out a slice of the pie: what share of the whole is it?"],
+    whatlang:  ["What language? — Folio", "Read a short passage and name the language it is written in."],
     admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
@@ -19278,7 +19280,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       body: "A chest holds a real object from the past, with its story and its sources, and now and then a new " +
         "look for the whole site instead. Some objects are far rarer than others, and the colour says which.<p>" +
         "Chests come with every badge and every new Folio level, every seventh day of a study streak (the " +
-        "ribbon on the home page shows that one filling up), and for finishing all nine minigames in a day. " +
+        "ribbon on the home page shows that one filling up), and for finishing all ten minigames in a day. " +
         "Everything you find is kept in your <b>Reliquary</b>, on the account page.</p>",
       demo: () => tourRarityDemo(),
       noBack: true,
@@ -25436,6 +25438,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // What year? — a question mark standing over a ruled rail, so it is read as "which point on this
     // scale" rather than as Timeline's line of three dots
     // How far? — two places and the dashed line between them, which is the round in one mark; diagonal, so it is not read as Timeline's row of dots
+    // What language? — two speech bubbles, one behind the other: the same words said twice, in two tongues
+    whatlang:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h11v8H8l-3 3v-3H3z"/><path d="M17 8h4v8h-2v3l-3-3h-5v-2"/></svg>',
     // What share? — a pie with one slice drawn out of it, which is the answer the reader gives
     pie:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 4.6A8 8 0 1 0 19.4 13.5H10.5z"/><path d="M13.5 2.6a8 8 0 0 1 7.9 7.9h-7.9z" fill="currentColor"/></svg>',
@@ -26349,8 +26354,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const playedWhatYearToday = gamePlayedToday("whatyear");
     const playedHowFarToday = gamePlayedToday("howfar");
     const playedPieToday = gamePlayedToday("pie");
+    const playedWhatLangToday = gamePlayedToday("whatlang");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar"), pie: gameWonToday("pie") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear"), howfar: gameWonToday("howfar"), pie: gameWonToday("pie"), whatlang: gameWonToday("whatlang") };
     /* The day's completion mark is at module scope, beside ICON — see `doneMarkHTML`. */
     /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
        page, the tile should flip around and reveal the user's general stats and site-wide average
@@ -26410,7 +26416,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE NINE TILE HUES, IN ONE PLACE (Oct 2026): the grid below reads them for its tiles and the
        tablet's rail (sweepRowHTML) reads them for its glyph discs, so a re-coloured game changes in both. The
        values and the reasoning for each are unchanged — see the tile calls in gameGrid. */
-    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E", pie: "#A0186C" };
+    const GAME_HUE = { challenge: "#D9544C", chrono: "#4F74C2", truefalse: "#4F9D67", whosaid: "#8257C2", findit: "#2BA6A0", thread: "#DB8B3A", crossword: "#00A4D6", picture: "#CE80A8", whatyear: "#5E8802", howfar: "#AE6C4E", pie: "#A0186C", whatlang: "#206878" };
     const sweepRowHTML = () => {
       const done = DAILY_GAMES.map(gamePlayedToday);
       /* …AND A PERFECT RUN LIGHTS ITS CHIP GOLD (Sep 2026, on request: "if the minigame is completed
@@ -26457,11 +26463,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<button type="button" class="sweep-chest' + (ready ? " ready" : "") + (claimed ? " claimed" : "") + '"' +
           ' id="sweepChest" data-sweepchest="1"' + (ready ? "" : " disabled") +
           ' title="' + (claimed ? "Today's chest is opened — it is in your account"
-            : ready ? "Open the chest for finishing all nine today"
-            : "Finish all nine of today's minigames to unlock a chest") + '"' +
+            : ready ? "Open the chest for finishing all ten today"
+            : "Finish all ten of today's minigames to unlock a chest") + '"' +
           ' aria-label="' + (claimed ? "Today's minigame chest, already opened"
             : ready ? "Open today's minigame chest"
-            : "Locked: finish all nine minigames to unlock today's chest") + '">' +
+            : "Locked: finish all ten minigames to unlock today's chest") + '">' +
           CHEST_SVG + (ready || claimed ? "" : '<span class="sw-lock" aria-hidden="true">' + LOCK_SVG + "</span>") +
         "</button></div>";
     };
@@ -26516,6 +26522,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${/* WHAT SHARE? (2026-10-31) is the eleventh tile, the tenth in play. Its berry is the sweep's farthest colour from all ten hues (Lab 37 from its nearest, against the
             palette's tightest pair at 27.8) inside the palette's own lightness and chroma, and white reads above 7:1 on it. */""}
       ${tile({ id: "g-pie", key: "pie", cls: "g-pie", color: GAME_HUE.pie, glyph: ICON.pie, title: "What share?", sub: gameSub("pie"), done: playedPieToday, won: wonToday.pie })}
+      ${/* WHAT LANGUAGE? (2026-11-09) is the twelfth tile, the tenth in play, alone on the desktop's fourth row. Its deep petrol came out of the sweep
+            with the yellows and the cerise left out (both rejected on the page, see What year? above): 28.7 from Find it, its nearest, against the palette's tightest pair
+            at 27.8, and far darker than Find it's teal (L 41 against 61), which sits two rows up; white reads 6.3:1 on the fill. */""}
+      ${tile({ id: "g-whatlang", key: "whatlang", cls: "g-whatlang", color: GAME_HUE.whatlang, glyph: ICON.whatlang, title: "What language?", sub: gameSub("whatlang"), done: playedWhatLangToday, won: wonToday.whatlang })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -29109,15 +29119,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Nothing here is a flag: Mandarin is a muted rose-red rather than the PRC's, and the resemblance to
        the CHINA collection's vermilion is left rather than avoided, those two genuinely being about one
        place — the kinship test forbids a false claim, not a true one. */
+    /* ARABIC (Nov 2026), no colour named in the request, so MEASURED as French was: swept in CIELAB inside the shelf's band
+       (L 28–55, chroma 7–62, now also at least 4.5:1 against white) for the point farthest from every hue on the page. Its
+       first sweep found #9F51B4 — and so did Hindi's, run on the same shelf in a parallel session, so the two arrived wearing
+       one colour (Turkish and Japanese did the same in Oct 2026). Re-swept at the merge against all 46 with Hindi's violet on
+       the shelf: a leaf green, 19.5 from its nearest neighbour (Portuguese's #009657); 4.7:1 against white. Not a flag
+       colour: Arabic is the language of twenty-odd states, and none of them is its colour. */
+    "lang-arabic":     { bg: "#2A8424" }, // measured green
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
     /* GREEK (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
-       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 46 hues on the page. The sweep's
-       arithmetic winner was a green (#2A8424, 19.5 from its nearest), REFUSED for the reason Russia's
-       Geography note gives: it sits between Portuguese's and Geography's greens and would make a third green
-       in the Languages section. This periwinkle is 18.6 from its nearest neighbours (Rome, then China's
-       Geography cobalt), 23.4 from Hindi's violet, against a tightest existing pair of 4.0. 4.5:1 against
-       white. Not the flag's blue (#0D5EAF). */
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white). Its first sweep's winner was a green
+       (#2A8424), refused as a third green in the section — and Arabic, measured in a parallel session, took
+       that same green. Re-swept at the merge against all 48 other hues on the page, this periwinkle is the
+       outright winner: 18.6 from its nearest neighbours (Rome, then China's Geography cobalt), 23.4 from
+       Hindi's violet, against a tightest existing pair of 4.0. 4.5:1 against white. Not the flag's blue. */
     "lang-greek":      { bg: "#6F69D2" }, // measured periwinkle
     /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 45 hues on the
@@ -29146,6 +29162,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        arrived wearing one colour; Turkish was re-swept with Japanese's plum on the shelf. The rose below
        clears its nearest neighbour by 25.0. */
     "lang-turkish":    { bg: "#D5519F" }, // measured rose
+    /* TELUGU (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the
+       page. Its first sweep found a green, #228122 — and Arabic's, run in a parallel session, found #2A8424,
+       so the two arrived wearing one colour; re-swept at the merge against all 47 with Arabic's green on the
+       shelf: a deep magenta, 18.7 from its nearest neighbours (Japan, Japanese, Turkish), against a tightest
+       existing pair of 4.0. Not a flag colour. */
+    "lang-telugu":     { bg: "#9D0D6C" }, // measured magenta
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -38783,9 +38806,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     challenge: ["Multiple Choice", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
     chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
     crossword: ["Crossword", ICON.crossword], picture: ["Picture round", ICON.picture], whatyear: ["What year?", ICON.whatyear],
-    howfar: ["How far?", ICON.howfar], pie: ["What share?", ICON.pie],
+    howfar: ["How far?", ICON.howfar], pie: ["What share?", ICON.pie], whatlang: ["What language?", ICON.whatlang],
   };
-  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "five years", howfar: "five distances", pie: "five questions" };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places", crossword: "grid", whatyear: "five years", howfar: "five distances", pie: "five questions", whatlang: "five passages" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
      stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
      is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
@@ -41932,6 +41955,139 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
       root.querySelector("#pie-home").addEventListener("click", () => route("home"));
+    }
+  };
+
+  /* WHAT LANGUAGE? (2026-11-09, on request: "users will be presented with a brief paragraph from a random language, and they must
+     guess what the language is by guessing from four options. Ensure those four options are all languages from the same language
+     family or at least similar languages to make it more difficult … 200 of the most spoken languages"). docs/minigames.md
+     "What language?" has the rules. The pool is `whatlang.js` (lazy, bundle `whatlang`), GENERATED by .claude/build-whatlang.js:
+     every passage is Article 1 of the Universal Declaration of Human Rights, so no text is Folio's own and the reveal can show the
+     English it means. Five passages a day (dayPick), the same for everyone; four options each. */
+  const WL_ROUNDS = 5;
+  function whatLangPool() { const W = window.WHATLANG; return (W && Array.isArray(W.langs)) ? W.langs.filter((l) => l && l.id && l.text) : []; }
+  /* THE DECOYS ARE THE LANGUAGE'S NEAREST RELATIONS. Every other language is scored — same branch 4, same family 3, named in the
+     answer's own `like` 3 (the hand-picked look-alikes of a language whose family is too small to fill a round: Korean, Basque, Georgian),
+     same script 2 (so a relation always outranks a stranger in the same script) — and the three best are taken, ties broken by a shuffle seeded on the day and the answer, so a Hindi passage is
+     set against Marathi, Bhojpuri and Maithili, all in Devanagari. A language listed in the answer's `near` (a text so close to it
+     that no reader could tell the two apart, which the builder measures) is never offered. Pure: `.claude/test-whatlang.js` calls it. */
+  function whatLangDecoys(ans, pool, seed) {
+    const near = new Set(ans.near || []), like = new Set(ans.like || []);
+    const cands = dayPick(seed, pool.filter((l) => l.id !== ans.id && !near.has(l.id) && !(l.near || []).includes(ans.id)));
+    const score = (l) => (l.branch === ans.branch && l.family === ans.family ? 4 : 0) + (l.family === ans.family ? 3 : 0) +
+      (like.has(l.id) ? 3 : 0) + (l.script === ans.script ? 2 : 0);
+    return cands.map((l, i) => ({ l, s: score(l), i })).sort((a, b) => b.s - a.s || a.i - b.i).slice(0, 3).map((x) => x.l);
+  }
+  function whatLangRounds() {
+    const POOL = whatLangPool();
+    return dayPick("whatlang", POOL.map((_, i) => i), Math.min(WL_ROUNDS, POOL.length)).map((i) => {
+      const it = POOL[i], seed = "whatlang-" + it.id;
+      return { it, options: dayPick(seed + "-o", [it].concat(whatLangDecoys(it, POOL, seed + "-d"))) };
+    });
+  }
+  function whatLangSources(it) {
+    return [
+      "United Nations General Assembly. “Universal Declaration of Human Rights.” Resolution 217 A (III), 10 December 1948, Article 1. https://www.un.org/en/about-us/universal-declaration-of-human-rights",
+      "UDHR in XML project. “Universal Declaration of Human Rights” in " + it.name + ", file udhr_" + it.src + ".xml. https://github.com/eric-muller/udhr/blob/main/data/udhr/udhr_" + it.src + ".xml",
+    ];
+  }
+  PAGES.whatlang = function (root) {
+    detachKeys();
+    if (gameLockedToday(root, "whatlang")) return;
+    if (!dataReady("whatlang")) {
+      root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five passages</strong></div>';
+      ensureData("whatlang").then((ok) => {
+        if (!root.isConnected || current.name !== "whatlang") return;
+        if (ok) { PAGES.whatlang(root); return; }
+        root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>What language? could not be set up</strong><span class="dl-note">Its passages did not load. Check your connection and try again.</span><button class="btn" type="button" id="wlReload">Reload</button></div>';
+        const b = root.querySelector("#wlReload"); if (b) b.addEventListener("click", () => location.reload());
+      });
+      return;
+    }
+    if (whatLangPool().length < 4) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatlang, "Not enough passages to play yet.", () => route("home"), "Back home"); return; }
+    const rounds = whatLangRounds(), ROUNDS = rounds.length;
+    const english = String((window.WHATLANG && window.WHATLANG.english) || "");
+    const results = gameProgress("whatlang") || [];   // a round answered stays answered: a run left half way resumes at the next round
+    const picked = [];                                // this visit's choices, for the summary
+    let r = Math.min(results.length, ROUNDS);
+    root._wlApi = {   // for .claude/test-whatlang.js: the day's answers and options, and every language's decoys as the dealer would choose them
+      answers: () => rounds.map((rd) => rd.it.id), options: () => rounds.map((rd) => rd.options.map((l) => l.id)),
+      decoysAll: () => { const P = whatLangPool(), o = {}; P.forEach((l) => { o[l.id] = whatLangDecoys(l, P, "whatlang-" + l.id + "-d").map((x) => x.id); }); return o; },
+    };
+    if (r >= ROUNDS) return finish();
+    renderRound();
+
+    function pips() { return `<div class="tf-pips">${rounds.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
+    function renderRound() {
+      const { it, options } = rounds[r];
+      /* The passage carries no `lang` attribute — a screen reader would announce the answer — and is `.verbatim` + `notranslate`, so
+         neither the spelling and units passes nor a browser's translator touch a word of it. */
+      root.innerHTML = `
+        <div class="dc-shell wl-game">
+          <div class="page-head" style="margin-bottom:14px">
+            <span class="eyebrow">What language?</span>
+            <h1 style="font-size:28px">Passage ${r + 1} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1>
+          </div>
+          ${pips()}
+          <div class="dc-q">
+            <div class="dc-meta"><span>One passage</span><span>Which language is it?</span></div>
+            <blockquote class="wl-passage verbatim notranslate" translate="no"${it.dir === "rtl" ? ' dir="rtl"' : ""}>${esc(it.text)}</blockquote>
+            <div class="opts" id="opts"></div>
+            <div class="tf-reveal" id="reveal" hidden></div>
+          </div>
+        </div>`;
+      const opts = root.querySelector("#opts");
+      options.forEach((l, i) => {
+        const b = document.createElement("button");
+        b.className = "opt"; b.type = "button"; b.dataset.lang = l.id;
+        b.innerHTML = '<span class="key">' + "ABCD"[i] + "</span><span>" + esc(l.name) + "</span>";
+        b.addEventListener("click", () => choose(i));
+        opts.appendChild(b);
+      });
+    }
+    function choose(i) {
+      const { it, options } = rounds[r];
+      if (results.length > r) return;
+      const right = options[i].id === it.id;
+      results[r] = right; picked[r] = options[i];
+      sfx(right ? "good" : "bad");
+      setGameProgress("whatlang", results.slice(0, r + 1));
+      root.querySelectorAll("#opts .opt").forEach((b, idx) => {
+        b.disabled = true;
+        if (options[idx].id === it.id) b.classList.add("correct");
+        else if (idx === i) b.classList.add("wrong");
+      });
+      const rev = root.querySelector("#reveal"); rev.hidden = false;
+      rev.innerHTML =
+        '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it's <b>" + esc(it.name) + "</b></div>" +
+        '<p class="wl-family">' + esc(it.family) + (it.branch && it.branch !== it.family ? " › " + esc(it.branch) : "") + " · written in the " + esc(it.script) + " script</p>" +
+        '<p class="tf-why">Every passage in this game is Article 1 of the Universal Declaration of Human Rights, which in English reads: <span class="verbatim">“' + esc(english) + "”</span></p>" +
+        sourcesHTML(whatLangSources(it), { shut: true }) +
+        '<button class="btn" id="wl-next" type="button">' + (r + 1 < ROUNDS ? "Next passage" : "See results") + "</button>";
+      tfWireWhy(rev);
+      rev.querySelector("#wl-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : finish(); });
+    }
+    function finish() {
+      const score = results.filter(Boolean).length;
+      markGamePlayed("whatlang", score === ROUNDS, score, ROUNDS);
+      setGameProgress("whatlang", null);
+      save(); checkAchievements();
+      const msg = score === ROUNDS ? "Five out of five — a true polyglot’s eye." : score >= ROUNDS - 1 ? "Excellent — nearly every one." : score >= Math.ceil(ROUNDS / 2) ? "Solid — close relations are hard to tell apart." : "Neighbouring languages can look almost alike.";
+      root.innerHTML = `
+        <div class="dc-shell wl-game">
+          <div class="page-head"><span class="eyebrow">What language?</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1></div>
+          <p style="color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif)">${msg}</p>
+          <div class="tf-summary">${rounds.map((rd, k) => `
+            <div class="tf-sum-row">
+              <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
+              <div><p class="tf-sum-q wl-sum-passage verbatim notranslate" translate="no"${rd.it.dir === "rtl" ? ' dir="rtl"' : ""}>${esc(rd.it.text)}</p><p class="tf-sum-a"><b>${esc(rd.it.name)}</b> — ${esc(rd.it.family)}${rd.it.branch && rd.it.branch !== rd.it.family ? " › " + esc(rd.it.branch) : ""}${picked[k] && !results[k] ? ` (you said <span class="wl-guess">${esc(picked[k].name)}</span>)` : ""}</p></div>
+            </div>`).join("")}</div>
+          ${sourcesHTML(whatLangSources(rounds[0].it).slice(0, 1).concat(["UDHR in XML project. The Universal Declaration of Human Rights in more than 500 languages. https://github.com/eric-muller/udhr"]), { compact: true })}
+          <p class="tf-tomorrow">Five fresh passages arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="wl-home" type="button">Home</button></div>
+        </div>`;
+      tfWireWhy(root.querySelector(".tf-summary"));
+      root.querySelector("#wl-home").addEventListener("click", () => route("home"));
     }
   };
 
@@ -48621,7 +48777,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
