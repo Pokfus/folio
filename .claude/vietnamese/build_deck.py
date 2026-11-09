@@ -34,7 +34,7 @@ from vietnamese_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOP
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'vietnamese'
-COLOR = '#6D67D1'          # the measured hue (`app.js`, `lang-vietnamese`)
+COLOR = '#14659F'          # the measured hue (`app.js`, `lang-vietnamese`)
 FIELDS = ['Vietnamese', 'Word', 'Tones', 'English', 'Notes', 'Sound', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

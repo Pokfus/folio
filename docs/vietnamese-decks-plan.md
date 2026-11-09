@@ -106,4 +106,5 @@ sounds of the tones and letters are written in the script, Hanoi first with the 
 `node .claude/vietnamese/check-vietnamese.js` is the check. **A re-run is byte-identical** (verified for both decks).
 A1: 500 notes, 344 from the inventory and 156 by frequency; three sentences for 496, none for 1. The alphabet-and-
 tones deck: 35 notes — 6 tones, 11 vowels, 18 consonants and pairs; every sound side unique (asserted). The shelf's
-hue is measured: `#6D67D1`, 18.6 from its nearest of 46, greens left out.
+hue is measured: `#14659F`, 16.9 from its nearest of 52, greens left out (re-swept at the merge: Greek had
+taken a hue 1.0 from the first sweep's `#6D67D1`).

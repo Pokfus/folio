@@ -37,7 +37,7 @@ OUT = os.path.join(DECKS, 'Vietnamese-Alphabet-and-Tones.folio-deck.json')
 DECK = 'viabc'
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'vietabc'
-COLOR = '#6D67D1'
+COLOR = '#14659F'
 E = html.escape
 
 # (shown, kind, sound, example word)
