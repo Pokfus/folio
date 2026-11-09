@@ -110,4 +110,4 @@ verbs: `tycka om`, `ta hand om`).
 `examples.py` → `build_deck.py`, caching in `.claude/swedish-cache/` (gitignored, ~490 MB).
 `node .claude/swedish/check-swedish.js` is the check. **A re-run is byte-identical** (verified, extract
 included). A1: 500 notes, 359 from the inventory and 141 by frequency; three sentences for 492, none for 1.
-The shelf's hue is measured: `#757839`, an olive, 16.7 from its nearest of 51 (Gateway to Global Affairs).
+The shelf's hue is measured: first `#757839`, an olive, which Romanian's parallel sweep also chose; re-swept at the merge against all 64 hues, `#BD4B7B`, a raspberry rose, 15.4 from its nearest (The EU as an External Power).

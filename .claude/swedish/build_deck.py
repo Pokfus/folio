@@ -34,7 +34,7 @@ from swedish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'swedish'
-COLOR = '#757839'          # the shelf's measured hue, kept in step with "lang-swedish" in app.js
+COLOR = '#BD4B7B'          # the shelf's measured hue, kept in step with "lang-swedish" in app.js
 FIELDS = ['Swedish', 'Word', 'Say', 'English', 'Forms', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
