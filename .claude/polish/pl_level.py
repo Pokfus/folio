@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BANDS = ("a1", "a2", "b1", "b2", "c1", "c2")
 SIZE = {"a1": 600, "a2": 750, "b1": 1000, "b2": 1200, "c1": 1200, "c2": 1200}
 FILE = "Polish-%s.folio-deck.json"
-COLOR = "#318526"   # the Polish collection's hue, `lang-polish` in app.js COLL_THEME
+COLOR = "#6B7493"   # the Polish collection's hue, `lang-polish` in app.js COLL_THEME
 
 SCOPE = {
     "a1": {

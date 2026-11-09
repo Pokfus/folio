@@ -129,5 +129,6 @@ too, since the faults above were all found that way. For A2: find the scope (§2
 `pl_level.py` and `A2` in `inventory.py`, run, read, fix, re-run.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 40`, Ethnologue 27th ed., 2021, via
-Wikipedia's infobox, read 2026-11-09) and the hue `lang-polish` `#318526` in `app.js` `COLL_THEME`
-(measured: 18.6 from its nearest neighbour among 46 hues).
+Wikipedia's infobox, read 2026-11-09) and the hue `lang-polish` `#6B7493` in `app.js` `COLL_THEME`
+(measured: first a green, `#318526`, re-swept at the merge when a sibling had taken nearly the same green;
+now 15.7 from its nearest neighbour among 57 hues).
