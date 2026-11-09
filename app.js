@@ -29109,6 +29109,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Nothing here is a flag: Mandarin is a muted rose-red rather than the PRC's, and the resemblance to
        the CHINA collection's vermilion is left rather than avoided, those two genuinely being about one
        place — the kinship test forbids a false claim, not a true one. */
+    /* BENGALI (Nov 2026) was not named a colour, so it was MEASURED as Hindi was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 46 hues on the page. The overall peak
+       was a grass green (#2A8424, 19.5 from Portuguese), refused for the reason Russia's Geography note gives:
+       this section already holds two greens (Portuguese, Italian), and Bangladesh's flag is green, which here
+       would read as a claim. The best hue outside green is this periwinkle, 18.6 from its nearest neighbour
+       (Rome's purple) and 23.4 from Hindi's violet, against a tightest existing pair of 4.0; 4.5:1 against white. */
+    "lang-bengali":    { bg: "#6F69D2" }, // measured periwinkle
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
     /* HINDI (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
