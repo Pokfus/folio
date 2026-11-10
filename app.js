@@ -36454,7 +36454,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      script here). Add a row for a new collection. `.claude/set-ja-names.js` writes the Japan data. */
   // `ko-` (Oct 2026, on request: "in the Korea history collection, add Korean translations to each answer term"): Hangul in
   // `hanzi`, the Revised Romanization in `pinyin`, written by `.claude/set-ko-names.js`; set in the reader's system font, as Japanese is
-  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }]];
+  // `ru-` (Nov 2026, on request: "add Russian translations to all the cards in the Russia History collection"): Cyrillic in
+  // `hanzi`, a Latin transliteration in `pinyin`, written by `.claude/set-ru-names.js`; set in the site's sans, as Korean is
+  const ANSWER_NAME_LANGS = [["jp-", { tag: "ja-JP", label: "Japanese", cls: "ja" }], ["ko-", { tag: "ko-KR", label: "Korean", cls: "ko" }], ["ru-", { tag: "ru-RU", label: "Russian", cls: "ru" }]];
   const ANSWER_NAME_ZH = { tag: "zh-CN", label: "Chinese", cls: "zh" };
   /* …AND A PREFIX THAT HOLDS MORE THAN ONE COUNTRY SAYS IT BY TAG (Oct 2026, on request: Politics: East Asia's
      Japan terms showed a Chinese translation). `pea-` is a course on China, Japan and the Koreas, so the

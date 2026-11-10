@@ -5499,6 +5499,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node .claude/set-ja-names.js` (`--check` reports drift; it refuses a non-`jp-` id). Names were written by
   hand and cross-checked against Wikidata's Japanese labels; a few are a judgement for a concept English
   names loosely (e.g. `jp-013` 樹木栽培, `jp-025` 縄文人系統, `jp-039` 弥生時代の首長制) — correct in the JSON and re-run.
+  **`ru-` (Nov 2026, on request)**: the Russia collection's Russian name — Cyrillic in `hanzi`, a Latin transliteration in `pinyin` (BGN/PCGN simplified, computed by the script unless the JSON gives one), `traditional` cleared; `.claude/russia-names.json`, written by `node .claude/set-ru-names.js` (`--check` reports drift); hand-written and cross-checked against Wikidata's Russian labels.
   **`placeAnswerBubble` clamps the bubble to the ANSWER BOX, not the viewport**: `.reveal` is
   `overflow:hidden`, so a bubble that fitted the screen but not the card lost its right edge and its speaker
   on a 360 px phone; and it measures from layout (`offsetWidth`), never the rect, because the opening
