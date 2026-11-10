@@ -1941,6 +1941,7 @@ body.night .crit-row.done .crit-lbl{color:#8FA2FF;}
 /* Japanese: no `--han` (Noto Sans SC would impose Chinese glyph forms); the `lang="ja"` on `.ac-chars` makes the reader's own system CJK font choose Japanese ones. */
 .ans-cn.ja .ac-s{font-family:var(--sans);}
 .ans-cn.ko .ac-s{font-family:var(--sans);}   /* Hangul in the reader's system font, as Japanese (Oct 2026) */
+.ans-cn.ru .ac-s{font-family:var(--sans);}   /* Cyrillic in the site's sans, never the --han Chinese face (Nov 2026) */
 .ans-cn .ac-row{display:flex; align-items:center; gap:8px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 /* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
