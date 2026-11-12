@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6651 | the title is the article |
+| `ok` | 6666 | the title is the article |
 | `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 632 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 636 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1018 | nothing matched; no link |
+| `none` | 1019 | nothing matched; no link |
 
-**7788 of 9110 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7807 of 9130 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (632)
+## Redirected to a differently named article — check each (636)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -524,7 +524,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-307` **Second Amendment** → [Second Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Second_Amendment_to_the_United_States_Constitution) (from `Second Amendment`)
 - `us-309` **Tenth Amendment** → [Tenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Tenth_Amendment_to_the_United_States_Constitution) (from `Tenth Amendment`)
 - `us-338` **Strict construction** → [Strict constructionism](https://en.wikipedia.org/wiki/Strict_constructionism) (from `Strict construction`)
+- `us-421` **antebellum era** → [Antebellum South](https://en.wikipedia.org/wiki/Antebellum_South) (from `Antebellum era`)
+- `us-425` **utopian communities** → [Intentional community](https://en.wikipedia.org/wiki/Intentional_community) (from `Utopian communities`)
 - `us-431` **Cult of Domesticity** → [Culture of Domesticity](https://en.wikipedia.org/wiki/Culture_of_Domesticity) (from `Cult of Domesticity`)
+- `us-444` **slavery in Virginia** → [History of slavery in Virginia](https://en.wikipedia.org/wiki/History_of_slavery_in_Virginia) (from `Slavery in Virginia`)
+- `us-446` **slavery in New York** → [History of slavery in New York (state)](https://en.wikipedia.org/wiki/History_of_slavery_in_New_York_(state)) (from `Slavery in New York`)
 - `us-453` **domestic slave trade** → [Slave trade in the United States](https://en.wikipedia.org/wiki/Slave_trade_in_the_United_States) (from `Domestic slave trade`)
 - `us-455` **slave pen** → [Slave markets and slave jails in the United States](https://en.wikipedia.org/wiki/Slave_markets_and_slave_jails_in_the_United_States) (from `Slave pen`)
 - `us-464` **industrial slavery** → [Industrial slave](https://en.wikipedia.org/wiki/Industrial_slave) (from `Industrial slavery`)
@@ -1093,7 +1097,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1018)
+## No article found (1019)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2045,6 +2049,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-086` **end of treaty-making** — search suggests `List of the United States treaties`, `End of slavery in the United States`, `United States`, `Mutual Defense Treaty (United States–South Korea)`, `Antarctic Treaty System`
 - `us-376` **New York Constitutional Convention of 1821** — search suggests `Constitutional Convention (United States)`, `1862 New York gubernatorial election`, `List of United States political families (B)`, `2026 United States Senate election in Maine`, `Founding Fathers of the United States`
 - `us-389` **Appeal of Forty Thousand Citizens**
+- `us-427` **Pennsylvania system** — search suggests `United States Numbered Highway System`, `List of United States rapid transit systems`, `University of Pennsylvania Health System`, `List of courts of the United States`, `List of United States light rail systems`
 - `us-432` **Letters on the Equality of the Sexes** — search suggests `Declaration of the Rights of Woman and of the Female Citizen`, `Slavery in the United States`, `History of same-sex marriage in the United States`, `Founding Fathers of the United States`, `Liberalism in the United States`
 - `us-451` **Cotton Kingdom** — search suggests `Cotton production in the United States`, `Cotton Belt`, `Brazil–United States cotton dispute`, `Cotton gin`, `Tom Cotton`
 - `us-463` **urban slavery** — search suggests `Slavery in the United States`, `Reparations for slavery in the United States`, `History of sexual slavery in the United States`, `United States`, `Fugitive slaves in the United States`

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:01Z",
+ "generated": "2026-11-12T04:06Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6651,
-  "redirect-broader": 632,
+  "ok": 6666,
+  "redirect-broader": 636,
   "redirect-variant": 399,
   "section-redirect": 137,
   "disambiguation": 149,
-  "none": 1018,
+  "none": 1019,
   "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
@@ -72852,6 +72852,157 @@
    "answer": "American Renaissance",
    "title": "American Renaissance (literature)",
    "url": "https://en.wikipedia.org/wiki/American_Renaissance_(literature)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-421": {
+   "answer": "antebellum era",
+   "title": "Antebellum South",
+   "url": "https://en.wikipedia.org/wiki/Antebellum_South",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Antebellum era"
+  },
+  "us-422": {
+   "answer": "Second Great Awakening",
+   "title": "Second Great Awakening",
+   "url": "https://en.wikipedia.org/wiki/Second_Great_Awakening",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-423": {
+   "answer": "Charles Grandison Finney",
+   "title": "Charles Grandison Finney",
+   "url": "https://en.wikipedia.org/wiki/Charles_Grandison_Finney",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-424": {
+   "answer": "burned-over district",
+   "title": "Burned-over district",
+   "url": "https://en.wikipedia.org/wiki/Burned-over_district",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-425": {
+   "answer": "utopian communities",
+   "title": "Intentional community",
+   "url": "https://en.wikipedia.org/wiki/Intentional_community",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Utopian communities"
+  },
+  "us-426": {
+   "answer": "temperance movement",
+   "title": "Temperance movement",
+   "url": "https://en.wikipedia.org/wiki/Temperance_movement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-427": {
+   "answer": "Pennsylvania system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States Numbered Highway System",
+    "List of United States rapid transit systems",
+    "University of Pennsylvania Health System",
+    "List of courts of the United States",
+    "List of United States light rail systems"
+   ]
+  },
+  "us-428": {
+   "answer": "Dorothea Dix",
+   "title": "Dorothea Dix",
+   "url": "https://en.wikipedia.org/wiki/Dorothea_Dix",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-429": {
+   "answer": "common school",
+   "title": "Common school",
+   "url": "https://en.wikipedia.org/wiki/Common_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-430": {
+   "answer": "Horace Mann",
+   "title": "Horace Mann",
+   "url": "https://en.wikipedia.org/wiki/Horace_Mann",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-441": {
+   "answer": "Slavery in the United States",
+   "title": "Slavery in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slavery_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-442": {
+   "answer": "Atlantic slave trade",
+   "title": "Atlantic slave trade",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_slave_trade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-443": {
+   "answer": "Middle Passage",
+   "title": "Middle Passage",
+   "url": "https://en.wikipedia.org/wiki/Middle_Passage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-444": {
+   "answer": "slavery in Virginia",
+   "title": "History of slavery in Virginia",
+   "url": "https://en.wikipedia.org/wiki/History_of_slavery_in_Virginia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Slavery in Virginia"
+  },
+  "us-445": {
+   "answer": "Slave codes",
+   "title": "Slave codes",
+   "url": "https://en.wikipedia.org/wiki/Slave_codes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-446": {
+   "answer": "slavery in New York",
+   "title": "History of slavery in New York (state)",
+   "url": "https://en.wikipedia.org/wiki/History_of_slavery_in_New_York_(state)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Slavery in New York"
+  },
+  "us-447": {
+   "answer": "African Americans in the Revolutionary War",
+   "title": "African Americans in the Revolutionary War",
+   "url": "https://en.wikipedia.org/wiki/African_Americans_in_the_Revolutionary_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-448": {
+   "answer": "gradual abolition of slavery",
+   "title": "Gradual abolition of slavery",
+   "url": "https://en.wikipedia.org/wiki/Gradual_abolition_of_slavery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-449": {
+   "answer": "Act Prohibiting Importation of Slaves",
+   "title": "Act Prohibiting Importation of Slaves",
+   "url": "https://en.wikipedia.org/wiki/Act_Prohibiting_Importation_of_Slaves",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-450": {
+   "answer": "cotton gin",
+   "title": "Cotton gin",
+   "url": "https://en.wikipedia.org/wiki/Cotton_gin",
    "via": "glossary",
    "status": "ok"
   }

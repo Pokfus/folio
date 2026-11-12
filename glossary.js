@@ -9362,7 +9362,24 @@ window.GLOSSARY = {
 "Forty-eighters": "",
 "Transcendentalism": "",
 "Henry_David_Thoreau": "",
-"American_Renaissance_(literature)": ""
+"American_Renaissance_(literature)": "",
+"Antebellum_era": "",
+"Second_Great_Awakening": "",
+"Charles_Grandison_Finney": "",
+"Burned-over_district": "",
+"Intentional_community": "",
+"Temperance_movement_in_the_United_States": "",
+"Separate_system": "",
+"Dorothea_Dix": "",
+"Common_school": "",
+"Horace_Mann": "",
+"Slavery_in_the_United_States": "",
+"History_of_slavery_in_Virginia": "",
+"History_of_slavery_in_New_York_(state)": "",
+"African_Americans_in_the_Revolutionary_War": "",
+"Gradual_abolition_of_slavery": "",
+"Act_Prohibiting_Importation_of_Slaves": "",
+"Cotton_gin": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13968,7 +13985,19 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Forty-eighters": "1848–1849",
 "Transcendentalism": "1830s–1850s",
 "Henry_David_Thoreau": "1817–1862",
-"American_Renaissance_(literature)": "c. 1830–1861"
+"American_Renaissance_(literature)": "c. 1830–1861",
+"Antebellum_era": "1815–1861",
+"Second_Great_Awakening": "c. 1790s–1830s",
+"Charles_Grandison_Finney": "1792–1875",
+"Temperance_movement_in_the_United_States": "c. 1810s–1933",
+"Dorothea_Dix": "1802–1887",
+"Horace_Mann": "1796–1859",
+"Slavery_in_the_United_States": "1619–1865",
+"History_of_slavery_in_Virginia": "1619–1865",
+"History_of_slavery_in_New_York_(state)": "1620s–1827",
+"African_Americans_in_the_Revolutionary_War": "1775–1783",
+"Act_Prohibiting_Importation_of_Slaves": "1807",
+"Cotton_gin": "1794"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19905,7 +19934,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Know_Nothing": ["Know-Nothing Party","American Party"],
 "Great_Famine_(Ireland)": ["Great Famine","Irish Famine","Great Hunger"],
 "Forty-eighters": ["Forty-Eighters","48ers"],
-"American_Renaissance_(literature)": ["American Renaissance"]
+"American_Renaissance_(literature)": ["American Renaissance"],
+"Antebellum_era": ["antebellum era","antebellum period","antebellum America"],
+"Charles_Grandison_Finney": ["Charles G. Finney","Charles Finney"],
+"Burned-over_district": ["burned-over district","burnt-over district"],
+"Intentional_community": ["utopian community","utopian communities"],
+"Temperance_movement_in_the_United_States": ["temperance movement"],
+"Separate_system": ["Pennsylvania system","separate system"],
+"Dorothea_Dix": ["Dorothea Lynde Dix"],
+"Common_school": ["common schools","common school movement"],
+"History_of_slavery_in_Virginia": ["slavery in Virginia"],
+"History_of_slavery_in_New_York_(state)": ["slavery in New York"],
+"Gradual_abolition_of_slavery": ["gradual emancipation","gradual abolition"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29425,7 +29465,24 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Forty-eighters": ["people","history","immigration","politics","germany"],
 "Transcendentalism": ["concept","history","philosophy","religion","literature"],
 "Henry_David_Thoreau": ["person","history","literature","philosophy"],
-"American_Renaissance_(literature)": ["era","history","literature","culture"]
+"American_Renaissance_(literature)": ["era","history","literature","culture"],
+"Antebellum_era": ["era","history","united states","slavery"],
+"Second_Great_Awakening": ["event","religion","history","united states"],
+"Charles_Grandison_Finney": ["person","religion","history","united states"],
+"Burned-over_district": ["place","religion","history","united states","new york"],
+"Intentional_community": ["institution","society","history","religion"],
+"Temperance_movement_in_the_United_States": ["event","history","society","united states"],
+"Separate_system": ["practice","history","law","society"],
+"Dorothea_Dix": ["person","history","medicine","society","united states"],
+"Common_school": ["institution","education","history","society"],
+"Horace_Mann": ["person","history","education","united states"],
+"Slavery_in_the_United_States": ["institution","history","slavery","united states"],
+"History_of_slavery_in_Virginia": ["institution","history","slavery","united states","virginia"],
+"History_of_slavery_in_New_York_(state)": ["institution","history","slavery","united states","new york"],
+"African_Americans_in_the_Revolutionary_War": ["event","history","warfare","slavery","united states"],
+"Gradual_abolition_of_slavery": ["concept","history","slavery","law"],
+"Act_Prohibiting_Importation_of_Slaves": ["text","history","law","slavery","united states"],
+"Cotton_gin": ["technology","history","economics","agriculture"]
 });
 
 /* ============================================================================
