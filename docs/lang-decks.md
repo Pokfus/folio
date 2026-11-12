@@ -3539,8 +3539,11 @@ changed was the one that had been wrong all along.
   `#14659F` (re-swept at the merge: Greek had taken the first sweep's periwinkle).
 - `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
   collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
-  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swahili-A2.folio-deck.json`**
-  (750 / 1,500). `python3 .claude/swahili/run.py [--level a1]`,
+  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **, A2, `decks/Swahili-A2.folio-deck.json`**
+  (750 / 1,500) **, B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000) **, B2,
+  `decks/Swahili-B2.folio-deck.json`** (1,500 / 3,000) **and C1, `decks/Swahili-C1.folio-deck.json`** (1,500 / 3,000;
+  ranked on two written corpora, CCMatrix and WikiMatrix, counted into a file of its own), **and the phrases
+  deck, `decks/Swahili-Phrases-and-Expressions.folio-deck.json`** (284 / 568, `--level phr`). `python3 .claude/swahili/run.py [--level a1]`,
   `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
   corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
@@ -3595,8 +3598,11 @@ changed was the one that had been wrong all along.
 - `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
   collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
-  (36 notes) **and A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hausa/run.py
-  [--level a1] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
+  (36 notes), **A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Hausa-A2.folio-deck.json`**
+  (750 notes, 2026-11-12; each level's hand glosses and lexicon kept apart so A1 stays byte-identical) **and B1,
+  `decks/Hausa-B1.folio-deck.json`** (1,000 notes, 2026-11-12, all from the inventory: the fill is exhausted) **and the phrases deck,
+  `decks/Hausa-Phrases-and-Expressions.folio-deck.json`** (108 expressions in three subdecks, no proverbs: no source
+  holds one; the owner chose it over a B2). `python3 .claude/hausa/run.py [--level a1|a2|b1|phr] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
   is byte-identical. The thinnest sources on the shelf: Wiktionary has about 2,000 Hausa words and lacks core
   ones (`yi`, `tafi`, `da`), so 137 of A1's cards carry Folio's own gloss (`hand.py`, no tone line — a tone
   typed from memory has no source); there is no published frequency list, so frequency is counted from

@@ -817,7 +817,7 @@ more work here than in any collection since Greece.
 
     ps-301  Behavioural genetics
     ps-302  Heritability
-    ps-303  What a heritability estimate does not mean
+    ps-303  Phenylketonuria: what a heritability estimate does not mean
     ps-304  Twin studies
     ps-305  The Minnesota Study of Twins Reared Apart
     ps-306  Adoption studies
@@ -883,7 +883,7 @@ more work here than in any collection since Greece.
 
     ps-356  Light as a visual stimulus
     ps-357  The eye
-    ps-358  The cornea and the lens
+    ps-358  The cornea
     ps-359  Accommodation
     ps-360  The retina
     ps-361  Rods and cones
@@ -894,9 +894,9 @@ more work here than in any collection since Greece.
     ps-366  The lateral geniculate nucleus
     ps-367  The primary visual cortex
     ps-368  Receptive fields
-    ps-369  Cortical feature cells
-    ps-370  The ventral and dorsal visual streams
-    ps-371  Feature detection
+    ps-369  Simple and complex cells
+    ps-370  The two-streams hypothesis
+    ps-371  Feature detectors
     ps-372  Colour vision
     ps-373  Trichromatic theory
     ps-374  Opponent-process theory of colour
@@ -913,21 +913,21 @@ more work here than in any collection since Greece.
     ps-385  The fusiform face area
     ps-386  Blindsight
     ps-387  Object recognition
-    ps-388  Theories of pattern recognition
+    ps-388  Pattern recognition
     ps-389  Visual search
     ps-390  Change blindness
 
 ### Hearing and the other senses — `ps-hearing`
 
-    ps-391  Sound as an auditory stimulus
+    ps-391  Sound
     ps-392  The ear
     ps-393  The cochlea
     ps-394  The basilar membrane
     ps-395  Place theory of pitch
-    ps-396  Frequency and volley theories of pitch
+    ps-396  Volley theory
     ps-397  The auditory cortex
     ps-398  Sound localisation
-    ps-399  Deafness and hearing loss
+    ps-399  Hearing loss
     ps-400  Auditory scene analysis
     ps-401  Speech perception
     ps-402  The McGurk effect

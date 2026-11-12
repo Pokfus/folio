@@ -148,6 +148,33 @@
     }
    ]
   },
+  "pl:q101583": {
+   "name": "Thebes, Egypt",
+   "kind": "site",
+   "sub": "site",
+   "qid": "Q101583",
+   "at": [
+    32.6103,
+    25.7206
+   ],
+   "within": "",
+   "aliases": [
+    "Thebes"
+   ],
+   "wiki": "Thebes, Egypt",
+   "by": "migration",
+   "evidence": {
+    "classes": [
+     "Q655593",
+     "Q839954",
+     "Q15661340",
+     "Q18247357"
+    ],
+    "via": "label",
+    "km": 0
+   },
+   "cards": 2
+  },
   "pl:q1025459": {
    "name": "Ruijin",
    "kind": "town",
@@ -3246,33 +3273,6 @@
    },
    "cards": 1
   },
-  "pl:q134287": {
-   "name": "Tarsus, Mersin",
-   "kind": "city",
-   "sub": "",
-   "qid": "Q134287",
-   "at": [
-    34.9,
-    36.9167
-   ],
-   "within": "",
-   "aliases": [
-    "Tarsus"
-   ],
-   "wiki": "Tarsus, Mersin",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q515",
-     "Q3957",
-     "Q15284",
-     "Q1549591"
-    ],
-    "via": "label",
-    "km": 0.4
-   },
-   "cards": 1
-  },
   "pl:q13444093": {
    "name": "Meidum Pyramid",
    "kind": "site",
@@ -5646,31 +5646,6 @@
     ],
     "via": "title",
     "km": 0
-   },
-   "cards": 1
-  },
-  "pl:q172343": {
-   "name": "Rafah",
-   "kind": "city",
-   "sub": "",
-   "qid": "Q172343",
-   "at": [
-    34.2519,
-    31.2886
-   ],
-   "within": "",
-   "aliases": [
-    "Raphia"
-   ],
-   "wiki": "Rafah",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q515",
-     "Q902814"
-    ],
-    "via": "label",
-    "km": 1.9
    },
    "cards": 1
   },

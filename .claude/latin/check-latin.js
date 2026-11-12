@@ -13,6 +13,9 @@ const DIR = path.join(__dirname, "..", "..", "decks");
 const LABELS = new Set(["comparative", "superlative", "adverb"]);
 const POINTER = /^(?:alternative|obsolete|archaic|syncopated|contracted|scribal abbreviation|abbreviation) (?:form|spelling|of)\b|^(?:inflection|form) of \S+$|name of the (?:Latin[- ]script )?letter/i;
 const LATIN = /^[a-zà-ɏ̀-ͯ ]+$/;
+// THE PHRASES DECK (Latin-Phrases-and-Mottos) spells a phrase as Wikipedia's list does: capitals for names,
+// punctuation, several words; its cards carry no dictionary entry, forms or table.
+const PHRASE = /^[A-Za-zà-ɏ̀-ͯ][A-Za-zà-ɏ̀-ͯ ,;:.!?'’&#x;0-9-]*$/;
 const bare = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").normalize("NFC");
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
@@ -25,22 +28,24 @@ for (const f of files) {
   for (const t of Object.values(d.meta.types || {}))
     if (t.speechLang !== "it-IT") bad(f + ": type " + t.id + " speaks " + t.speechLang + ", not it-IT");
   const sides = new Map();
+  const phr = /Phrases/.test(f);
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Latin;
     if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
-    if (!LATIN.test(w || "")) bad(f + ": card " + (i + 1) + " headword is not lower-case Latin: " + w);
-    if (F.Word !== bare(w)) bad(f + ": " + w + " is spoken as " + F.Word);
+    if (!(phr ? PHRASE : LATIN).test(w || "")) bad(f + ": card " + (i + 1) + " headword is not " + (phr ? "a plain Latin phrase: " : "lower-case Latin: ") + w);
+    if (phr ? F.Word !== bare(w).replace(/&#x27;/g, "'").replace(/&amp;/g, "&") : F.Word !== bare(w)) bad(f + ": " + w + " is spoken as " + F.Word);
+    if (phr && F.Key.split(" ").length < 2) bad(f + ": " + w + " is a single word, not a phrase");
     if (!F.Key) bad(f + ": " + w + " has no Key");
     if (seen.has(F.Key)) bad(f + ": " + w + " is already taught in " + seen.get(F.Key));
     seen.set(F.Key, f);
     if (!F.English) bad(f + ": " + w + " has no English");
     const lead = (/class="uc-pos">([^<,]*)/.exec(F.English) || [])[1] || "";
-    if ((lead === "noun" || lead === "verb") && !/uc-ppw/.test(F.Parts)) bad(f + ": " + w + " (" + lead + ") has no dictionary entry");
+    if ((lead === "noun" || lead === "verb") && !/uc-ppw/.test(F.Parts || "")) bad(f + ": " + w + " (" + lead + ") has no dictionary entry");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
-    for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);
-    for (const k of ["Parts", "English", "Forms", "Table", "Examples"]) {
-      const h = F[k];
+    for (const [, l] of (F.Forms || "").matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);
+    for (const k of ["Parts", "English", "Forms", "Table", "Examples", "Note"]) {
+      const h = F[k] || "";
       for (const t of ["div", "span", "b", "ol", "li"]) {
         const open = (h.match(new RegExp("<" + t + "[ >]", "g")) || []).length;
         const close = (h.match(new RegExp("</" + t + ">", "g")) || []).length;
@@ -51,8 +56,9 @@ for (const f of files) {
     sides.set(F.English, w);
   });
   console.log("ok    " + f + ": " + d.cards.length + " notes, " +
-    d.cards.filter((c) => c.fields.Parts).length + " with a dictionary entry, " +
-    d.cards.filter((c) => c.fields.Table).length + " with a table, " +
+    (/Phrases/.test(f) ? d.cards.filter((c) => c.fields.Note).length + " with a note, " :
+      d.cards.filter((c) => c.fields.Parts).length + " with a dictionary entry, " +
+      d.cards.filter((c) => c.fields.Table).length + " with a table, ") +
     d.cards.filter((c) => c.fields.Examples).length + " with sentences");
 }
 console.log(fail ? fail + " failed" : "all passed");
