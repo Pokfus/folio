@@ -21,6 +21,19 @@ SCOPE = {
         "topics": "people and the family, daily life, free time, the home, places in town, transport and "
                   "directions, work and school, food, shopping and money, health, the seasons and the weather, "
                   "and the basic names of plants and animals",
+        "with": "the numbers, days, months and colours and the pronouns, question words, prepositions and "
+                "conjunctions every sentence is built from",
+    },
+    # certyfikatpolski.uz.zgora.pl, "Poziom A2" (read 2026-11-12): no topic list as such, so the level's
+    # description is summarised -- see inventory.py's note above A2.
+    "a2": {
+        "topics": "thanking, apologising, inviting, good wishes and congratulations, feelings and opinions, place, "
+                  "direction and time, quantity and quality, describing and comparing people, table manners, Polish "
+                  "dishes and mealtimes, name days, birthdays and visits, clothes for official occasions, renting a "
+                  "flat, the telephone, the doctor, school and work, travel in Poland and Europe, and cultural and "
+                  "artistic life",
+        "with": "the modal words (trzeba, warto, należy), the verbs of motion, the feminine names for people "
+                "(studentka beside student) and the conjunctions the level's grammar names",
     },
 }
 
@@ -73,10 +86,9 @@ def describe(level, n, inv, stats, cards):
          "WHERE THESE WORDS COME FROM, since it matters: Poland's State Commission for the Certification of "
          "Proficiency in Polish as a Foreign Language examines at all six levels, but no official word list was "
          "found for any of them. So %s of the %s words were written for Folio, a topic at a time, for the "
-         "topics the %s exam is described as covering — %s — together with the numbers, days, months and "
-         "colours and the pronouns, question words, prepositions and conjunctions every sentence is built "
-         "from. They are Folio's choice, not the Commission's, and this is not an official word list."
-         % (C(inv), C(n), lv, sc["topics"])]
+         "topics the %s exam is described as covering — %s — together with %s. They are Folio's choice, not the "
+         "Commission's, and this is not an official word list."
+         % (C(inv), C(n), lv, sc["topics"], sc["with"])]
     if level != "a1":
         s.append("No word taught in the levels below is repeated.")
     if fill:
@@ -102,7 +114,8 @@ def describe(level, n, inv, stats, cards):
     if stats["adj"]:
         morph.append("%s adjectives show their comparative and superlative." % C(stats["adj"]))
     if stats["pron"]:
-        morph.append("%s personal pronouns show their cases." % C(stats["pron"]))
+        morph.append("%s personal pronouns show their cases." % C(stats["pron"]) if stats["pron"] > 1
+                     else "One pronoun shows its cases.")
     s.extend(morph)
     have = n - stats["ex0"]
     if have:

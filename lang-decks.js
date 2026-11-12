@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 240 MB of decks. The file itself is fetched on Add. */
+   section without fetching 241 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -117,7 +117,8 @@ window.LANG_DECKS = [
   { lang: "Italian", file: "CILS-C2-Italian.folio-deck.json", id: "cilsc2", title: "CILS C2 — Italian", sub: "417 words · both directions, as two cards per word", notes: 417, cards: 834, ex: 56, bytes: 696484, rev: "42d858153868" },
   { lang: "Italian", file: "Italian-Core-Vocabulary.folio-deck.json", id: "itcore", title: "Italian core vocabulary — De Mauro", sub: "3035 words · both directions, as two cards per word", notes: 3035, cards: 6070, ex: 80, bytes: 6168901, rev: "7865bdb9c9f2" },
   { lang: "Italian", file: "Italian-Phrases-Expressions.folio-deck.json", id: "itphrase", title: "Italian phrases and expressions", sub: "1376 words · both directions, as two cards per word", notes: 1376, cards: 2752, ex: 79, bytes: 1503534, rev: "56938011faba" },
-  { lang: "Polish", file: "Polish-A1.folio-deck.json", id: "polisha1", title: "Polish A1", sub: "600 words · both directions, as two cards per word", notes: 600, cards: 1200, ex: 100, say: false, bytes: 896639, rev: "f25006f48ae9" },
+  { lang: "Polish", file: "Polish-A1.folio-deck.json", id: "polisha1", title: "Polish A1", sub: "600 words · both directions, as two cards per word", notes: 600, cards: 1200, ex: 100, say: false, bytes: 896561, rev: "d111f03cadd6" },
+  { lang: "Polish", file: "Polish-A2.folio-deck.json", id: "polisha2", title: "Polish A2", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 96, say: false, bytes: 1111821, rev: "85b98c913cbf" },
   { lang: "Ukrainian", file: "Ukrainian-Alphabet.folio-deck.json", id: "ukabc", title: "Ukrainian Alphabet", sub: "33 letters and the apostrophe · both directions, as two cards per letter", notes: 34, cards: 68, ex: 0, bytes: 12759, rev: "ce3b2d4888a6" },
   { lang: "Ukrainian", file: "Ukrainian-A1.folio-deck.json", id: "ukrainiana1", title: "Ukrainian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1340902, rev: "20cd89402001" },
   { lang: "Dutch", file: "Dutch-A1.folio-deck.json", id: "dutcha1", title: "Dutch A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 693368, rev: "6422f5d62d53" },

@@ -34,6 +34,14 @@ def read_tsv(name):
             yield line.rstrip("\n").split("\t")
 
 
+# A SENTENCE THAT IS ANOTHER WORD'S, though the forms match -- each with the case that forced it (A2, 2026-11-12).
+# `należy` has no table, so its own spelling is all it is found by, and that spelling is also należeć's
+# "belongs" (`To należy do ciebie`); `piec`'s plural `piece` is the English of a manga's title.
+REJECT = {
+    "należy": lambda toks: "do" in toks,
+    "piec": lambda toks: "one" in toks,
+}
+
 OWNERS = {}
 
 
@@ -118,7 +126,7 @@ def main():
         for i in cand:
             _, _, toks, text, en = pool[i]
             h = hit_of(toks)
-            if not h:
+            if not h or (w in REJECT and REJECT[w](toks)):
                 continue
             frame = tuple(toks[:2])
             if text in seen_pl or en in seen_en or frame in seen_frame:

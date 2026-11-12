@@ -50,6 +50,9 @@ LEAD = {
     "stać": "to stand",
     "za": "prep",            # "behind, for, after"; the particle "too" (`za drogo`) is filed first
     "dość": "particle",      # "quite, enough"; the interjection "enough!, stop!" is filed first      # the first entry is `stać się` "to happen" (perfective), not "to stand"
+    "halo": "intj",          # "hello?" on the telephone; the noun "halo" (of the moon) is filed first
+    "piec": "verb",          # "to bake", taught with the cooking verbs; the noun "oven" is filed first
+    "gołąbek": "piece of gołąbki",   # the cabbage roll; "pigeon", a mushroom and an endearment are filed first
 }
 
 

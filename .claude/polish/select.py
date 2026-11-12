@@ -40,7 +40,23 @@ EXCLUDE = {
     "tato",                    # the vocative of `tata`, which the deck teaches; its own entry took the count
     "dzieje",                  # "history": its count is `dzieje się`, "is happening" (dziać się)
     "suka", "dziwka", "pieprzony", "zajebisty", "spieprzać", "spierdalać",      # swearing: dubbed-film counts
+    # Found by A2 (2026-11-12): homographs whose own entry took a commoner word's form, and an exemption
+    # (adverb, conjunction) kept them from being shadowed.
+    "dnia",                    # adv "daily": its count is dzień's genitive
+    "razy",                    # adv "times (multiplied by)": its count is raz's plural
+    "bądź",                    # conj "either, or": its count is być's imperative
+    "podoba",                  # noun "pattern": its count is podobać's `podoba mi się`
+    "ego",                     # counted above `pomoc` and `rozmowa`: subtitle noise, not the psychological term
 }
+
+
+def combined_only(entries):
+    """`żebyś`, `gdybym`, `byś`: "Combined form of żeby + -ś" -- a conjunction with a person ending fused on,
+    which the card for the conjunction already teaches.  Found by A2's fill (2026-11-12)."""
+    live = [e for e in entries if pl.live(e)]
+    fused = lambda s_: any("Combined form of" in g for g in (s_.get("g") or []))
+    return any(fused(s_) for e in live for s_ in e["senses"]) and all(fused(s_) or e["pos"] == "intj"
+                              for e in live for s_ in e["senses"])
 
 
 def read_frequency():
@@ -156,7 +172,7 @@ def main():
     for w, n in sorted(counts.items(), key=lambda x: (-x[1], x[0])):
         if len(inventory_) + len(fill) >= pl_level.SIZE[a.level]:
             break
-        if w in seen or w in EXCLUDE or (len(w) < 2 and w not in "awiozu"):
+        if w in seen or w in EXCLUDE or (len(w) < 2 and w not in "awiozu") or combined_only(D.get(w, [])):
             continue
         own_pos = {e["pos"] for e in D.get(w, []) if pl.live(e)}
         # A WORD THAT IS ONLY AN INTERJECTION OR A PARTICLE IS SHADOWED WHATEVER THE OWNER'S COUNT: a word's own

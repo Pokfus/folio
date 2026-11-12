@@ -76,7 +76,105 @@ A1 = [
                        "nazywać otwierać zamykać pomagać myśleć"),
 ]
 
-INVENTORY = {"a1": A1}
+# A2's scope: the University of Zielona Góra certification centre's page for the A2 exam
+# (certyfikatpolski.uz.zgora.pl, "Poziom A2", read 2026-11-12) gives no single topic list but describes the
+# level: the speaker's intentions (thanking, apologising, inviting, wishes, congratulations, feelings and
+# judgements); place, direction and time; quantity, quality and possession; politeness, table manners,
+# Polish dishes and mealtimes; Poland in the European Union, its regions, name days and birthdays, visits,
+# dress on official occasions, cultural and artistic life, travel in Poland and Europe; the roles of tourist,
+# guest, pupil and teacher, customer and seller, tenant, caller, doctor and patient; describing people and
+# events, telling a story, comparing; antonyms and synonyms; and in the grammar, nouns in -um (`muzeum`,
+# `liceum`), the verbs of motion (`jechać`, `jeździć`), the modals (`trzeba`, `warto`, `należy`), feminine
+# names from masculine ones (`student` - `studentka`) and the conjunctions `więc`, `dlatego`, `kiedy`, `gdy`,
+# `jeśli`, `gdyby`.  The words below are written a topic at a time for those; a word A1 teaches is skipped.
+A2 = [
+    ("intentions and feelings", "dziękować prosić zapraszać zaproszenie życzyć życzenie gratulować gratulacje "
+                                "przeprosić sto_lat smacznego na_zdrowie powodzenia uczucie radość strach złość "
+                                "wstyd nadzieja miłość cieszyć martwić bać denerwować dziwić zdziwiony zadowolony "
+                                "zmęczony zdenerwowany zakochany wesoły spokojny nerwowy samotny dumny"),
+    ("opinions and judgements", "zdanie opinia uważać sądzić zgadzać zgodzić podobać woleć oczywiście chyba "
+                                "naprawdę raczej właściwie niestety na_pewno prawda racja wspaniały świetny "
+                                "okropny straszny nudny interesujący ważny możliwy niemożliwy prawdziwy dziwny "
+                                "normalny"),
+    ("place and direction", "miejsce strona góra dół przód tył środek róg koniec początek kierunek północ "
+                            "południe wschód zachód naprzeciwko wokół wzdłuż dookoła wewnątrz zewnątrz gdzieś "
+                            "nigdzie wszędzie stąd stamtąd tędy dalej skręcać skręcić przechodzić przejść"),
+    ("time and sequence", "chwila moment sekunda wiek przyszłość przeszłość teraźniejszość pora wieczorem "
+                          "przedwczoraj pojutrze wkrótce niedawno dawno zaraz najpierw następnie wreszcie nagle "
+                          "znowu ciągle codziennie zwykle rzadko kiedyś dopiero od_razu w_końcu podczas zanim aż "
+                          "gdy odkąd"),
+    ("quantity and quality", "trochę kilka kilkanaście wiele najwięcej ilość liczba część cały pełny pusty ciężki "
+                             "lekki szeroki wąski gruby cienki głęboki ostry miękki twardy czysty brudny cichy "
+                             "głośny szybki szybko wolno powoli średni ogromny"),
+    ("comparing", "lepiej podobny inny taki_sam różnica porównywać różny identyczny niż"),
+    ("possession", "należeć własny właściciel posiadać rzecz"),
+    ("describing people", "wygląd włos twarz broda okulary szczupły przystojny brzydki blondyn brunet charakter "
+                          "cecha sympatyczny niesympatyczny inteligentny mądry głupi leniwy pracowity uprzejmy "
+                          "grzeczny niegrzeczny wysportowany odważny nieśmiały zabawny poważny"),
+    ("the body and health", "oko szyja ramię plecy palec kolano stopa skóra krew gardło żołądek pacjent "
+                            "przychodnia wizyta recepta tabletka syrop przeziębienie grypa katar kaszel ból_głowy "
+                            "alergia badanie choroba pielęgniarka dentysta karetka zachorować kaszleć czuć leczyć "
+                            "badać"),
+    ("at table: dishes and meals", "posiłek drugie_śniadanie podwieczorek danie przystawka deser pieróg bigos "
+                                   "barszcz rosół kotlet schabowy gołąbek naleśnik sałatka surówka kapusta ogórek "
+                                   "cebula czosnek marchew grzyb pieprz olej śmietana jogurt twaróg szynka "
+                                   "wołowina wieprzowina pączek sernik lód czekolada talerz kubek szklanka "
+                                   "filiżanka widelec nóż łyżka łyżeczka serwetka obrus nakrywać gotować smażyć "
+                                   "piec kroić smakować smaczny pyszny słodki słony kwaśny gorzki głodny syty"),
+    ("in the restaurant and shop", "kelner kelnerka menu rachunek napiwek zamawiać zamówić rezerwacja klient "
+                                   "klientka sprzedawczyni ekspedientka kasjer paragon reszta promocja zniżka "
+                                   "kolejka sklep_spożywczy supermarket targ piekarnia księgarnia kilogram litr "
+                                   "paczka butelka puszka kawałek opakowanie wydawać zapłacić oddać wymienić "
+                                   "przymierzać"),
+    ("clothes and official dress", "ubranie ubiór strój garnitur marynarka koszula krawat spodnie spódnica "
+                                   "sukienka bluzka sweter kurtka płaszcz czapka kapelusz szalik but skarpetka "
+                                   "koszulka dżinsy elegancki modny wygodny nosić zakładać zdejmować"),
+    ("visits, name days and holidays", "imieniny gość odwiedzać odwiedzić prezent kwiat bukiet tort świeca "
+                                       "przyjęcie święto choinka ślub wesele rocznica obchodzić świętować "
+                                       "składać całować ściskać taniec"),
+    ("the flat and renting", "wynajmować wynająć czynsz właścicielka lokator sąsiad sąsiadka umowa kaucja "
+                             "ogłoszenie przedpokój salon jadalnia piwnica strych garaż dach schód kawalerka blok "
+                             "kamienica mebel kanapa fotel półka biurko lodówka kuchenka pralka zmywarka prysznic "
+                             "wanna toaleta ogrzewanie prąd gaz sprzątać prać prasować przeprowadzać"),
+    ("the telephone and messages", "komórka rozmowa wiadomość esemes e-mail list koperta znaczek zadzwonić "
+                                   "dzwonić odebrać oddzwonić słucham halo połączenie hasło wysłać wysyłać dostać "
+                                   "dostawać"),
+    ("school and learning", "liceum przedszkole nauka przedmiot matematyka geografia fizyka chemia biologia ocena "
+                            "świadectwo dyplom studia wykład ćwiczenie słownik podręcznik tablica przerwa "
+                            "uczennica studentka nauczycielka nauczyć zdać zdawać powtarzać tłumaczyć literować "
+                            "wymawiać pamiętać zapomnieć"),
+    ("work", "urząd urzędnik dyrektor kierownik pracodawca pensja wynagrodzenie zarobić zarabiać spotkanie "
+             "zebranie kariera bezrobotny emeryt emerytura zawodowy aktorka lekarka pielęgniarz policjant strażak "
+             "fryzjer kucharz mechanik prawnik dziennikarz pisarz malarz muzyk architekt programista rolnik"),
+    ("travel in Poland and Europe", "podróż podróżować turysta turystka zwiedzać zwiedzić przewodnik mapa walizka "
+                                    "plecak bagaż paszport dowód_osobisty wiza granica zagranica zabytek zamek "
+                                    "pałac katedra pomnik nocleg rezerwować zarezerwować peron tor "
+                                    "odjazd przyjazd rozkład_jazdy przesiadka spóźnienie spóźniać lot odlot "
+                                    "przylot statek prom autostrada stacja_benzynowa parking prawo_jazdy jeździć "
+                                    "chodzić latać wyjeżdżać wyjechać przyjeżdżać wrócić zgubić"),
+    ("Poland, its regions and Europe", "Polak Polka polski europejski państwo stolica region województwo wybrzeże "
+                                       "wyspa mieszkaniec cudzoziemiec obcokrajowiec"),
+    ("cultural and artistic life", "kultura sztuka artysta artystka obraz wystawa galeria opera filharmonia balet "
+                                   "przedstawienie spektakl aktor reżyser pisarka poeta wiersz powieść dzieło "
+                                   "kompozytor utwór piosenka zespół festiwal biblioteka premiera scena widz "
+                                   "sławny znany słynny"),
+    ("the weather and nature", "klimat burza mgła mróz upał pochmurny słoneczny deszczowy wietrzny stopień niebo "
+                               "gwiazda księżyc ziemia pole łąka plaża trawa liść mysz świnia owca kura kaczka "
+                               "niedźwiedź wilk lis zając"),
+    ("modal and everyday verbs", "trzeba warto należy powinien potrzebować starać próbować spróbować zdążyć "
+                                 "zostać zostawać stać siedzieć leżeć wstać usiąść położyć postawić wisieć nieść "
+                                 "wieźć prowadzić zacząć skończyć przestać zmieniać zmienić decydować zdecydować "
+                                 "planować obiecać pozwalać pozwolić pokazywać pokazać opowiadać opowiedzieć "
+                                 "opisywać opisać wyjaśniać wyjaśnić spotkać poznać poznawać umawiać umówić "
+                                 "przygotować przygotowywać kłaść wkładać zabierać znaleźć znajdować wierzyć "
+                                 "przypominać wybierać wybrać"),
+    ("conjunctions and connectors", "dlatego dlatego_że ponieważ gdyby chociaż ani czyli natomiast jednak wtedy "
+                                    "również zamiast oprócz według dzięki mimo"),
+    ("antonyms and synonyms", "prosty nietrudny skomplikowany bezpieczny niebezpieczny otwarty zamknięty wczesny "
+                              "późny gorący zimny ciepły chłodny jasny ciemny bogaty biedny"),
+]
+
+INVENTORY = {"a1": A1, "a2": A2}
 
 
 def headwords(level):

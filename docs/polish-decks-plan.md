@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Turkish, Hindi, R
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Polish language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/polish/`, §5). A2 to C2 and a phrases deck are not.
+**STATUS (2026-11-12): A1 and A2 are built** (`.claude/polish/`, §5). B1 to C2 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump,
@@ -33,7 +33,7 @@ line to change.
 | deck | file | notes |
 |---|---|---|
 | Polish A1 — built | `Polish-A1.folio-deck.json` | 600 |
-| Polish A2 | `Polish-A2.folio-deck.json` | 750 |
+| Polish A2 — built | `Polish-A2.folio-deck.json` | 750 |
 | Polish B1 | `Polish-B1.folio-deck.json` | 1,000 |
 | Polish B2 | `Polish-B2.folio-deck.json` | 1,200 |
 | Polish C1 | `Polish-C1.folio-deck.json` | 1,200 |
@@ -57,6 +57,17 @@ plus the categories a beginner needs whole (numbers, days, months, colours) and 
 question words, prepositions, conjunctions). **A2 onwards needs its own topic list found first** — the same
 centre's pages for A2 … C2 are the place to start; if none can be found, the CEFR descriptor for the band is
 the fallback (the Hindi arrangement).
+
+**A2's scope** is the same centre's "Poziom A2" page (read 2026-11-12). It gives no topic list as A1's does,
+but describes the level: the speaker's intentions (thanking, apologising, inviting, wishes, congratulations,
+feelings and judgements), place, direction and time, quantity, quality and possession, politeness, table
+manners, Polish dishes and mealtimes, Poland in the EU and its regions, name days, birthdays and visits,
+dress on official occasions, cultural and artistic life, travel in Poland and Europe, the roles of tourist,
+guest, customer, tenant, caller and patient, describing and comparing, antonyms and synonyms; and in its
+grammar nouns in -um, the verbs of motion, the modals `trzeba`, `warto`, `należy`, feminine names from
+masculine ones and the conjunctions `więc`, `dlatego że`, `kiedy`, `gdy`, `jeśli`, `gdyby`. `inventory.py`
+`A2` is written a topic at a time from that summary (`pl_level.SCOPE["a2"]` is what the description says).
+**B1 onwards**: the centre has a page per level (`/sprawdz-swoj-poziom/poziom-b1` …), start there.
 
 | input | use | licence |
 |---|---|---|
@@ -117,6 +128,30 @@ Each is a rule in the code with the case that forced it; grep the file for the w
    tagged colloquial), `brązowy` opens on "bronzen" before "brown", and the fill carries the subtitles'
    `zabić` and `broń` on frequency, as every subtitle-ordered deck on the shelf does.
 
+## 4b. The findings (A2, 2026-11-12)
+
+1. **Most of the inventory lands; what does not is proper nouns, plurals and comparatives.** Wiktionary has
+   no live entry for `Polska`, `Europa` or any country name, for a plural (`buty`, `meble`, `schody`, `lody`,
+   `pierogi`), or for a comparative (`lepszy`, `mniej`) — the plurals were swapped for their singular
+   headwords (`but`, `mebel`, `schód`, `pieróg`, `gołąbek`), the countries dropped, and the comparatives
+   are already on their adjective's forms row. `historia`, `internet` and `stolik` are also not in the dump.
+2. **Fused clitics are not words** (`select.py` `combined_only`): `żebyś`, `żebym`, `gdybym`, `byś` are
+   "Combined form of żeby + -ś" and came into the fill on their own counts.
+3. **Homographs exempted from shadowing by a closed-class reading** (`select.py` `EXCLUDE`): `dnia`
+   (adverb "daily", counted from dzień), `razy` (raz), `bądź` (być's imperative), `podoba` (podobać), and
+   `ego`, whose count is subtitle noise.
+4. **Wiktionary's editorial notes are not glosses** (`pl.gloss`): "The meaning of this term is uncertain"
+   (`różny`, and A1's `jeśli`, whose card the fix corrected) and "Used other than figuratively or
+   idiomatically" (`taki sam`).
+5. **Which reading leads** (`build_deck.py` `LEAD`), three more: `halo` (the telephone's "hello?", not the
+   moon's halo), `piec` ("to bake", not "oven"), `gołąbek` (the cabbage roll, not "pigeon").
+6. **A sentence that is another word's** (`examples.py` `REJECT`): `należy` has no table, so it is found only
+   by its own spelling, which is also należeć's "belongs" (`To należy do ciebie`); `piec`'s plural `piece`
+   was the English of a manga title.
+7. Replaced in the inventory after reading: `marchewka` (Wiktionary's live sense is "redhead"; `marchew` is
+   "carrot"), `święta` (filed as "saint"; `święto` teaches the holiday), `stare miasto` (its sentences say
+   "an old city").
+
 ## 5. How to build, and what to run
 
     python3 .claude/polish/run.py [--level a1] [--no-fetch]
@@ -125,8 +160,9 @@ Each is a rule in the code with the case that forced it; grep the file for the w
 
 A re-run reproduces the shipped deck byte for byte (checked 2026-11-09). A level is built on the shipped
 decks below it (`pl_level.taught_below`). **Every card of A1 was read**; read every card of each new level
-too, since the faults above were all found that way. For A2: find the scope (§2), add `SCOPE["a2"]` in
-`pl_level.py` and `A2` in `inventory.py`, run, read, fix, re-run.
+too, since the faults above were all found that way; every card of A2 was read too (2026-11-12). For B1:
+find the scope (§2), add `SCOPE["b1"]` (with its `topics` and `with`) in `pl_level.py` and `B1` in
+`inventory.py`, run, read, fix, re-run — and re-run A1 and A2 to confirm they are unchanged.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 40`, Ethnologue 27th ed., 2021, via
 Wikipedia's infobox, read 2026-11-09) and the hue `lang-polish` `#6B7493` in `app.js` `COLL_THEME`
