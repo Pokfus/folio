@@ -73,6 +73,8 @@ ETYMS = {
     # B1
     'coș': ['2'],            # "basket"; etymology 1 is "pimple"
     'post': ['2'],           # "post, job"; etymology 1 is "a fast"
+    # B2
+    'bilă': ['2'],           # "ball"; etymology 1 is "bile"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -109,6 +111,7 @@ LEAD = {
     'slujbă': 'job, employment, post, service',   # first listed is "divine service"
     'descoperi': 'to discover',                   # first listed is "to take off one's headgear"
     'coș': 'basket, wastebasket',                 # first listed is "chimney"
+    'gratuit': 'free, without payment',           # Wiktionary's gloss runs to 91 characters, so `is_note` drops it
 }
 
 
@@ -180,6 +183,9 @@ def english(ents, word=''):
                 gl.append(t)
         lead = LEAD.get(word)
         if lead:
+            # a lead cut from a gloss `is_note` dropped for its length (`gratuit`)
+            if not any(lead in x for x in gl) and any(g['g'].startswith(lead) for g in e['glosses']):
+                gl.insert(0, lead)
             gl.sort(key=lambda x: (x != lead, lead not in x))
         gl = gl[:3]
         if not gl or all(x in shown for x in gl):

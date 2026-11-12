@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/romanian/`, §6–§8). B2, C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/romanian/`, §6–§9). C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -32,7 +32,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Romanian A1 Beginner — built | `Romanian-A1.folio-deck.json` | 500 |
 | Romanian A2 Elementary — built | `Romanian-A2.folio-deck.json` | 750 |
 | Romanian B1 Intermediate — built | `Romanian-B1.folio-deck.json` | 1,000 |
-| Romanian B2 Upper Intermediate | `Romanian-B2.folio-deck.json` | 1,500 |
+| Romanian B2 Upper Intermediate — built | `Romanian-B2.folio-deck.json` | 1,500 |
 | Romanian C1 Advanced | `Romanian-C1.folio-deck.json` | 1,500 |
 | Romanian Phrases and Expressions | `Romanian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -96,7 +96,7 @@ subtitle-ordered deck on the shelf does. 2 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read every card, extend `EXCLUDE` /
 `ETYMS` / `DROP_POS` with reasons. **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored
 (and a `PARTS` row in `.claude/combine-decks.py`).
@@ -157,3 +157,28 @@ sources, so the Wiktionary extract of 2026-11-12 changed nothing either level re
   "breakdown"), so both left the list; `email` leads with "enamel", so the card is `e-mail`. `coș` and `post`
   take their second etymology ("basket", "job") through `ETYMS`.
 - Two more swears for `SWEARS` (`porcărie`, `afurisit`), read off the fill.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/romanian/run.py --level b2` (asked for on 2026-11-12: "Add B2"). 1,500 notes, none taught
+in A1, A2 or B1: 531 from the B2 inventory (seventeen topics — work and the economy, science, technology and
+the internet, politics, law and justice, the environment, health and medicine, the mind and emotions, social
+issues, the media, arguing and evaluating, discourse words, culture and the arts, places and geography,
+describing people and things, abstract nouns, verbs of change) and 969 by frequency; IPA on 579, forms on
+1,318, sentences for 1,111 (none for 389 — Tatoeba's Romanian is thin at this level). A re-run is
+byte-identical, and A1, A2 and B1 rebuilt under the B2 rules are byte-identical to the shipped files.
+
+- **59 inventory items are not Wiktionary headwords** and were dropped (mostly multi-word terms:
+  `schimbări_climatice`, `sănătate_publică`, `în_concluzie`, `cu_toate_acestea` …; the run prints the list).
+- **The fill is two thirds of the deck**, so it carries more of the subtitles' register (crime, war, the
+  supernatural) than B1 does — known, as for every subtitle-ordered deck.
+- **More forms counted as words** (`select.EXCLUDE`): names (`susan`, `elenă`, `mac`, `mel` …), English words
+  from the subtitles (`miss`, `star`, `show`, `cool` …), definite forms whose entry is a verb (`panica`,
+  `lista`, `poza`, `planta` …), the subtitle files' credit lines (`sincronizare`, `subtitrare`), and 35 more
+  bare past participles. Five more swears and crude words for `SWEARS`.
+- **A gloss longer than 90 characters is dropped as a note** (`is_note`), which cost `gratuit` its first
+  meaning, "free, without payment (which costs nothing, …)". `LEAD` may now name the opening of such a gloss,
+  and the card leads with it; no existing `LEAD` changed a card.
+- From the inventory: `ales` (a participle) and `amenințat` (a stray noun) left; `pondera` is "to temper",
+  not the "ponder" its one gloss gives, and `sondaj` is glossed only "sounding", not "opinion poll" — both
+  left rather than carry a misleading card. `bilă` takes etymology 2 ("ball", not "bile").
