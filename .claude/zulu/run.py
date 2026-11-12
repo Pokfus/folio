@@ -2,9 +2,10 @@
 """Build a Zulu deck, end to end.
 
     python3 .claude/zulu/run.py                 # A1
-    python3 .claude/zulu/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/zulu/run.py --level a2      # another level: a2, b1 (inventory first: inventory.py)
     python3 .claude/zulu/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/zulu/classes.py             # the noun classes deck (reads lex.json)
+    python3 .claude/zulu/phrases.py             # the phrases deck (reads the cache; after B1)
 
 ONE LEVEL PER RUN (`zulu_level` reads the level once, at import).  Downloads its
 sources into `.claude/zulu-cache/` (gitignored, about 180 MB, Tatoeba's English
@@ -53,7 +54,9 @@ def fetch():
             continue
         print(f'  get   {name}  <- {url}')
         tmp = out + ('.bz2' if bz else '.part')
-        with urllib.request.urlopen(url) as r, open(tmp, 'wb') as f:
+        # Wikimedia answers urllib's default user agent with 403 (2026-11-12).
+        req = urllib.request.Request(url, headers={'User-Agent': 'folio-deck-builder/1.0'})
+        with urllib.request.urlopen(req) as r, open(tmp, 'wb') as f:
             shutil.copyfileobj(r, f)
         if bz:
             subprocess.run(['bunzip2', '-f', tmp], check=True)

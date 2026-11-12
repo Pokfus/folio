@@ -53,6 +53,64 @@ SCOPE = {
                   'about, the body and feeling ill, the weather, colours, and the pronouns, '
                   'question words, prepositions and conjunctions every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs, work and study, clothes and '
+                  'shopping, more food, cooking and eating out, the furniture of a home, the town '
+                  'and its buildings, travel and directions, the countryside, nature and animals, '
+                  'the seasons and the points of the compass, health and the body, feelings and '
+                  'character, free time, sport and festivals, more classifiers, telling what '
+                  'happened and when, comparing and giving an opinion, and the everyday verbs of '
+                  'moving, dressing and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'work and careers, money, banking and the economy, education, the news, media '
+                  'and technology, government, law and society, the environment, health and '
+                  'medicine, travel, transport and accommodation, the household and its chores, '
+                  'relationships and the stages of life, feelings and character, religion, '
+                  'Buddhism and Thai customs, the royal and polite registers a learner meets, '
+                  'abstract nouns for ideas, reasons and plans, the connectors that join '
+                  'sentences, and the verbs of thinking, deciding, arguing and changing',
+    },    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'politics and public administration, the law and the courts, the economy, '
+                  'business and finance, science and research, technology and the internet, '
+                  'the environment and natural resources, health, medicine and the mind, the '
+                  'arts, literature and the media, history and society, Buddhism and Thai '
+                  'institutions, argument and evaluation — the words for claims, evidence, causes '
+                  'and consequences — the formal connectors of written Thai, and the verbs of '
+                  'reporting, analysing and persuading',
+    },    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'philosophy and ethics, Buddhism and the inner life, academic and scholarly '
+                  'Thai, government, diplomacy and the constitution, the economy and '
+                  'development, medicine and the body, law and rights, language, linguistics and '
+                  'literature, the shades of feeling and judgement, the Pali- and Sanskrit-derived '
+                  'abstract nouns and adjectives of formal prose, the royal vocabulary '
+                  '(rachasap), and the literary connectors and adverbs',
+    },
 }
 
 

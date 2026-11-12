@@ -34,7 +34,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from zu import fold, nfc, tokens
-from zulu_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from zulu_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, WHO
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'zulu'
@@ -347,7 +347,7 @@ def desc(entries, n):
         "Both study directions in one deck: Zulu → English (see the Zulu, recall the meaning) "
         "and English → Zulu (see an English meaning, recall the Zulu). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
