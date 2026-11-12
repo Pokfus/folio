@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:38Z",
+ "generated": "2026-11-12T04:43Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6824,
-  "redirect-broader": 654,
-  "redirect-variant": 410,
-  "section-redirect": 141,
+  "ok": 6915,
+  "redirect-broader": 656,
+  "redirect-variant": 412,
+  "section-redirect": 142,
   "disambiguation": 149,
-  "none": 1043,
+  "none": 1047,
   "disambig-resolved": 95,
   "list-page": 6,
   "search-match": 9,
@@ -74756,6 +74756,740 @@
    "answer": "Battle of Borodino",
    "title": "Battle of Borodino",
    "url": "https://en.wikipedia.org/wiki/Battle_of_Borodino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-221": {
+   "answer": "Second Intermediate Period",
+   "title": "Second Intermediate Period of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Second_Intermediate_Period_of_Egypt",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Second Intermediate Period"
+  },
+  "eg-222": {
+   "answer": "Neferhotep I",
+   "title": "Neferhotep I",
+   "url": "https://en.wikipedia.org/wiki/Neferhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-223": {
+   "answer": "Fourteenth Dynasty of Egypt",
+   "title": "Fourteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fourteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-224": {
+   "answer": "Avaris",
+   "title": "Avaris",
+   "url": "https://en.wikipedia.org/wiki/Avaris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-225": {
+   "answer": "Tell el-Maskhuta",
+   "title": "Pithom",
+   "url": "https://en.wikipedia.org/wiki/Pithom",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tell el-Maskhuta"
+  },
+  "eg-226": {
+   "answer": "Khyan",
+   "title": "Khyan",
+   "url": "https://en.wikipedia.org/wiki/Khyan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-227": {
+   "answer": "Against Apion",
+   "title": "Against Apion",
+   "url": "https://en.wikipedia.org/wiki/Against_Apion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-228": {
+   "answer": "Fifteenth Dynasty of Egypt",
+   "title": "Fifteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fifteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-229": {
+   "answer": "Apepi",
+   "title": "Apepi",
+   "url": "https://en.wikipedia.org/wiki/Apepi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-230": {
+   "answer": "Salitis",
+   "title": "Salitis",
+   "url": "https://en.wikipedia.org/wiki/Salitis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-201": {
+   "answer": "Loyalist Teaching",
+   "title": "Loyalist Teaching",
+   "url": "https://en.wikipedia.org/wiki/Loyalist_Teaching",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-202": {
+   "answer": "Tale of the Shipwrecked Sailor",
+   "title": "Tale of the Shipwrecked Sailor",
+   "url": "https://en.wikipedia.org/wiki/Tale_of_the_Shipwrecked_Sailor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-203": {
+   "answer": "Middle Egyptian",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Middle Egyptian",
+   "target": "Egyptian language#Middle Egyptian"
+  },
+  "eg-204": {
+   "answer": "Beni Hasan",
+   "title": "Beni Hasan",
+   "url": "https://en.wikipedia.org/wiki/Beni_Hasan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-205": {
+   "answer": "Meir",
+   "title": "Meir, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Meir,_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-206": {
+   "answer": "Ushabti",
+   "title": "Ushabti",
+   "url": "https://en.wikipedia.org/wiki/Ushabti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-207": {
+   "answer": "Sithathoriunet",
+   "title": "Sithathoriunet",
+   "url": "https://en.wikipedia.org/wiki/Sithathoriunet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-208": {
+   "answer": "Sebek-khu Stele",
+   "title": "Sebek-khu Stele",
+   "url": "https://en.wikipedia.org/wiki/Sebek-khu_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-209": {
+   "answer": "Execration texts",
+   "title": "Execration texts",
+   "url": "https://en.wikipedia.org/wiki/Execration_texts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-210": {
+   "answer": "Royal necropolis of Byblos",
+   "title": "Royal necropolis of Byblos",
+   "url": "https://en.wikipedia.org/wiki/Royal_necropolis_of_Byblos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-231": {
+   "answer": "Tell el-Yahudiyeh Ware",
+   "title": "Tell el-Yahudiyeh Ware",
+   "url": "https://en.wikipedia.org/wiki/Tell_el-Yahudiyeh_Ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-232": {
+   "answer": "Egyptian chariot",
+   "title": "Chariotry in ancient Egypt",
+   "url": "https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Egyptian chariot"
+  },
+  "eg-233": {
+   "answer": "recurve bow",
+   "title": "Recurve bow",
+   "url": "https://en.wikipedia.org/wiki/Recurve_bow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-234": {
+   "answer": "khopesh",
+   "title": "Khopesh",
+   "url": "https://en.wikipedia.org/wiki/Khopesh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-235": {
+   "answer": "Sixteenth Dynasty of Egypt",
+   "title": "Sixteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Sixteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-236": {
+   "answer": "Seventeenth Dynasty of Egypt",
+   "title": "Seventeenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Seventeenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-237": {
+   "answer": "Quarrel of Apophis and Seqenenre",
+   "title": "The Quarrel of Apophis and Seqenenre",
+   "url": "https://en.wikipedia.org/wiki/The_Quarrel_of_Apophis_and_Seqenenre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-238": {
+   "answer": "Seqenenre Tao",
+   "title": "Seqenenre Tao",
+   "url": "https://en.wikipedia.org/wiki/Seqenenre_Tao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-239": {
+   "answer": "Dra' Abu el-Naga",
+   "title": "Dra' Abu el-Naga",
+   "url": "https://en.wikipedia.org/wiki/Dra'_Abu_el-Naga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-240": {
+   "answer": "Kamose",
+   "title": "Kamose",
+   "url": "https://en.wikipedia.org/wiki/Kamose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-241": {
+   "answer": "Carnarvon Tablet",
+   "title": "Carnarvon Tablet",
+   "url": "https://en.wikipedia.org/wiki/Carnarvon_Tablet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-242": {
+   "answer": "Kerma culture",
+   "title": "Kerma culture",
+   "url": "https://en.wikipedia.org/wiki/Kerma_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-243": {
+   "answer": "Tombos",
+   "title": "Tombos (Nubia)",
+   "url": "https://en.wikipedia.org/wiki/Tombos_(Nubia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-244": {
+   "answer": "Western Deffufa",
+   "title": "Western Deffufa",
+   "url": "https://en.wikipedia.org/wiki/Western_Deffufa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-245": {
+   "answer": "Cusae",
+   "title": "Cusae",
+   "url": "https://en.wikipedia.org/wiki/Cusae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-246": {
+   "answer": "Ahmose I",
+   "title": "Ahmose I",
+   "url": "https://en.wikipedia.org/wiki/Ahmose_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-247": {
+   "answer": "Tjaru",
+   "title": "Tjaru",
+   "url": "https://en.wikipedia.org/wiki/Tjaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-248": {
+   "answer": "Ahmose, son of Ebana",
+   "title": "Ahmose, son of Ebana",
+   "url": "https://en.wikipedia.org/wiki/Ahmose,_son_of_Ebana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-249": {
+   "answer": "Sharuhen",
+   "title": "Sharuhen",
+   "url": "https://en.wikipedia.org/wiki/Sharuhen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-250": {
+   "answer": "Pyramid of Ahmose",
+   "title": "Pyramid of Ahmose",
+   "url": "https://en.wikipedia.org/wiki/Pyramid_of_Ahmose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-251": {
+   "answer": "Ahhotep I",
+   "title": "Ahhotep I",
+   "url": "https://en.wikipedia.org/wiki/Ahhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-252": {
+   "answer": "Eighteenth Dynasty of Egypt",
+   "title": "Eighteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Eighteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-253": {
+   "answer": "Ahmose-Nefertari",
+   "title": "Ahmose-Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Ahmose-Nefertari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-254": {
+   "answer": "Amenhotep I",
+   "title": "Amenhotep I",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-255": {
+   "answer": "Thutmose I",
+   "title": "Thutmose I",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-256": {
+   "answer": "Autobiography of Ahmose Pen-Nekhebet",
+   "title": "Autobiography of Ahmose Pen-Nekhebet",
+   "url": "https://en.wikipedia.org/wiki/Autobiography_of_Ahmose_Pen-Nekhebet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-257": {
+   "answer": "Thutmose II",
+   "title": "Thutmose II",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-258": {
+   "answer": "Speos Artemidos",
+   "title": "Speos Artemidos",
+   "url": "https://en.wikipedia.org/wiki/Speos_Artemidos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-259": {
+   "answer": "Chapelle Rouge",
+   "title": "Chapelle Rouge",
+   "url": "https://en.wikipedia.org/wiki/Chapelle_Rouge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-260": {
+   "answer": "Mortuary temple of Hatshepsut",
+   "title": "Mortuary temple of Hatshepsut",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_temple_of_Hatshepsut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-261": {
+   "answer": "myrrh",
+   "title": "Myrrh",
+   "url": "https://en.wikipedia.org/wiki/Myrrh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-262": {
+   "answer": "Senenmut",
+   "title": "Senenmut",
+   "url": "https://en.wikipedia.org/wiki/Senenmut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-263": {
+   "answer": "obelisk ship",
+   "title": "Obelisk ship",
+   "url": "https://en.wikipedia.org/wiki/Obelisk_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-264": {
+   "answer": "Seated Statue of Hatshepsut",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mortuary temple of Hatshepsut",
+    "Merytre-Hatshepsut",
+    "Thebes, Egypt",
+    "Grand Egyptian Museum",
+    "Deir el-Bahari"
+   ]
+  },
+  "eg-265": {
+   "answer": "Festival Hall of Thutmose III",
+   "title": "Festival Hall of Thutmose III",
+   "url": "https://en.wikipedia.org/wiki/Festival_Hall_of_Thutmose_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-266": {
+   "answer": "Battle of Megiddo",
+   "title": "Battle of Megiddo (15th century BC)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Megiddo_(15th_century_BC)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-267": {
+   "answer": "Annals of Thutmose III",
+   "title": "Annals of Thutmose III",
+   "url": "https://en.wikipedia.org/wiki/Annals_of_Thutmose_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-268": {
+   "answer": "Retjenu",
+   "title": "Retjenu",
+   "url": "https://en.wikipedia.org/wiki/Retjenu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-269": {
+   "answer": "Djehuty",
+   "title": "Djehuty (general)",
+   "url": "https://en.wikipedia.org/wiki/Djehuty_(general)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-270": {
+   "answer": "Kurgus",
+   "title": "Kanisah Kurgus",
+   "url": "https://en.wikipedia.org/wiki/Kanisah_Kurgus",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kurgus"
+  },
+  "eg-271": {
+   "answer": "Viceroy of Kush",
+   "title": "Viceroy of Kush",
+   "url": "https://en.wikipedia.org/wiki/Viceroy_of_Kush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-272": {
+   "answer": "Amenhotep II",
+   "title": "Amenhotep II",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-273": {
+   "answer": "Thutmose IV",
+   "title": "Thutmose IV",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_IV",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-274": {
+   "answer": "Dream Stele",
+   "title": "Dream Stele",
+   "url": "https://en.wikipedia.org/wiki/Dream_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-275": {
+   "answer": "Amenhotep III",
+   "title": "Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-276": {
+   "answer": "Malkata",
+   "title": "Malkata",
+   "url": "https://en.wikipedia.org/wiki/Malkata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-277": {
+   "answer": "Colossi of Memnon",
+   "title": "Colossi of Memnon",
+   "url": "https://en.wikipedia.org/wiki/Colossi_of_Memnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-278": {
+   "answer": "Tiye",
+   "title": "Tiye",
+   "url": "https://en.wikipedia.org/wiki/Tiye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-279": {
+   "answer": "Amenhotep, son of Hapu",
+   "title": "Amenhotep, son of Hapu",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep,_son_of_Hapu",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-280": {
+   "answer": "Kadashman-Enlil I",
+   "title": "Kadashman-Enlil I",
+   "url": "https://en.wikipedia.org/wiki/Kadashman-Enlil_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-281": {
+   "answer": "Rib-Hadda",
+   "title": "Rib-Hadda",
+   "url": "https://en.wikipedia.org/wiki/Rib-Hadda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-282": {
+   "answer": "Tushratta",
+   "title": "Tushratta",
+   "url": "https://en.wikipedia.org/wiki/Tushratta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-283": {
+   "answer": "Suppiluliuma I",
+   "title": "Šuppiluliuma I",
+   "url": "https://en.wikipedia.org/wiki/%C5%A0uppiluliuma_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-284": {
+   "answer": "Menkheperraseneb I",
+   "title": "Menkheperraseneb I",
+   "url": "https://en.wikipedia.org/wiki/Menkheperraseneb_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-285": {
+   "answer": "Burna-Buriash II",
+   "title": "Burna-Buriash II",
+   "url": "https://en.wikipedia.org/wiki/Burna-Buriash_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-286": {
+   "answer": "Yuya",
+   "title": "Yuya",
+   "url": "https://en.wikipedia.org/wiki/Yuya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-287": {
+   "answer": "Amenemhab",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "TT44",
+    "TT25",
+    "TT85",
+    "Seti (Viceroy of Kush)",
+    "List of ancient Egyptians"
+   ]
+  },
+  "eg-288": {
+   "answer": "Temple of Amada",
+   "title": "Temple of Amada",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Amada",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-289": {
+   "answer": "Puimre",
+   "title": "Puimre",
+   "url": "https://en.wikipedia.org/wiki/Puimre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-290": {
+   "answer": "Hapuseneb",
+   "title": "Hapuseneb",
+   "url": "https://en.wikipedia.org/wiki/Hapuseneb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-291": {
+   "answer": "God's Wife of Amun",
+   "title": "God's Wife of Amun",
+   "url": "https://en.wikipedia.org/wiki/God's_Wife_of_Amun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-292": {
+   "answer": "Menhet, Menwi and Merti",
+   "title": "Menhet, Menwi and Merti",
+   "url": "https://en.wikipedia.org/wiki/Menhet,_Menwi_and_Merti",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-293": {
+   "answer": "Nine Bows",
+   "title": "Nine bows",
+   "url": "https://en.wikipedia.org/wiki/Nine_bows",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-294": {
+   "answer": "Tomb of Kheruef",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Theban tombs",
+    "TT192",
+    "Akhenaten",
+    "Amenhotep III",
+    "TT407"
+   ]
+  },
+  "eg-295": {
+   "answer": "commemorative scarabs of Amenhotep III",
+   "title": "Commemorative scarabs of Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Commemorative_scarabs_of_Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-296": {
+   "answer": "KV55",
+   "title": "KV55",
+   "url": "https://en.wikipedia.org/wiki/KV55",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-297": {
+   "answer": "Tomb of Ramose",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ramose",
+    "Southern Tomb 11",
+    "Ramesses II",
+    "Ramose and Hatnofer",
+    "Ramose (TT55)"
+   ]
+  },
+  "eg-298": {
+   "answer": "Aten",
+   "title": "Aten",
+   "url": "https://en.wikipedia.org/wiki/Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-299": {
+   "answer": "Atenism",
+   "title": "Atenism",
+   "url": "https://en.wikipedia.org/wiki/Atenism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-300": {
+   "answer": "Great Hymn to the Aten",
+   "title": "Great Hymn to the Aten",
+   "url": "https://en.wikipedia.org/wiki/Great_Hymn_to_the_Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-211": {
+   "answer": "Henenu",
+   "title": "Henenu (high steward)",
+   "url": "https://en.wikipedia.org/wiki/Henenu_(high_steward)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-212": {
+   "answer": "Serabit el-Khadim",
+   "title": "Serabit el-Khadim",
+   "url": "https://en.wikipedia.org/wiki/Serabit_el-Khadim",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-213": {
+   "answer": "Wah-Sut",
+   "title": "Wah-Sut",
+   "url": "https://en.wikipedia.org/wiki/Wah-Sut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-214": {
+   "answer": "Heliopolis",
+   "title": "Heliopolis (ancient Egypt)",
+   "url": "https://en.wikipedia.org/wiki/Heliopolis_(ancient_Egypt)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-215": {
+   "answer": "Ikhernofret",
+   "title": "Ikhernofret",
+   "url": "https://en.wikipedia.org/wiki/Ikhernofret",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-216": {
+   "answer": "Mysteries of Osiris",
+   "title": "Mysteries of Osiris",
+   "url": "https://en.wikipedia.org/wiki/Mysteries_of_Osiris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-217": {
+   "answer": "Dramatic Ramesseum Papyrus",
+   "title": "Dramatic Ramesseum Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Dramatic_Ramesseum_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-218": {
+   "answer": "Block statue",
+   "title": "Block statue",
+   "url": "https://en.wikipedia.org/wiki/Block_statue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-219": {
+   "answer": "Papyrus Brooklyn 35.1446",
+   "title": "Papyrus Brooklyn 35.1446",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Brooklyn_35.1446",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-220": {
+   "answer": "Amenemhat IV",
+   "title": "Amenemhat IV",
+   "url": "https://en.wikipedia.org/wiki/Amenemhat_IV",
    "via": "glossary",
    "status": "ok"
   }

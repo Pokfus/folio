@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6824 | the title is the article |
-| `redirect-variant` | 410 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6915 | the title is the article |
+| `redirect-variant` | 412 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 95 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 654 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 656 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 141 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 142 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1043 | nothing matched; no link |
+| `none` | 1047 | nothing matched; no link |
 
-**7999 of 9350 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8094 of 9450 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (654)
+## Redirected to a differently named article — check each (656)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -159,6 +159,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-084` **epagomenal days** → [Intercalation (timekeeping)](https://en.wikipedia.org/wiki/Intercalation_(timekeeping)) (from `Epagomenal days`)
 - `eg-160` **Admonitions of Ipuwer** → [Ipuwer Papyrus](https://en.wikipedia.org/wiki/Ipuwer_Papyrus) (from `Admonitions of Ipuwer`)
 - `eg-187` **Lahun Papyri** → [Kahun Papyri](https://en.wikipedia.org/wiki/Kahun_Papyri) (from `Lahun Papyri`)
+- `eg-225` **Tell el-Maskhuta** → [Pithom](https://en.wikipedia.org/wiki/Pithom) (from `Tell el-Maskhuta`)
+- `eg-232` **Egyptian chariot** → [Chariotry in ancient Egypt](https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt) (from `Egyptian chariot`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -978,7 +980,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (141)
+## Section redirects — no dedicated page (142)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1006,6 +1008,7 @@ Wikipedia treats these as part of another article. No link.
 - `eg-018` **Faiyum A culture** — `Faiyum A culture` only redirects into `Prehistoric Egypt#Faiyum A culture`
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
+- `eg-203` **Middle Egyptian** — `Middle Egyptian` only redirects into `Egyptian language#Middle Egyptian`
 - `gga-141` **Child mortality rate** — `Child mortality rate` only redirects into `Child mortality#Rate`
 - `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gga-232` **Premature deindustrialisation** — `Premature deindustrialization` only redirects into `Technological unemployment#Premature deindustrialization`
@@ -1124,7 +1127,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1043)
+## No article found (1047)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1472,6 +1475,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-078` **jar sealing** — search suggests `Early Dynastic Period of Egypt`, `Narmer`, `Egypt–Mesopotamia relations`, `Mausoleum at Halicarnassus`, `Baghdad Battery`
 - `eg-080` **Egyptian stone vessels** — search suggests `Stone vessels in ancient Egypt`, `First Dynasty of Egypt`, `Egyptian faience`, `Prehistoric Egypt`, `Ancient Egyptian technology`
 - `eg-113` **Heit el-Ghurab** — search suggests `Fourth Dynasty of Egypt`, `Memphite Necropolis`, `Great Pyramid of Giza`, `List of Egyptian pyramidia`, `Kanefer`
+- `eg-264` **Seated Statue of Hatshepsut** — search suggests `Mortuary temple of Hatshepsut`, `Merytre-Hatshepsut`, `Thebes, Egypt`, `Grand Egyptian Museum`, `Deir el-Bahari`
+- `eg-287` **Amenemhab** — search suggests `TT44`, `TT25`, `TT85`, `Seti (Viceroy of Kush)`, `List of ancient Egyptians`
+- `eg-294` **Tomb of Kheruef** — search suggests `List of Theban tombs`, `TT192`, `Akhenaten`, `Amenhotep III`, `TT407`
+- `eg-297` **Tomb of Ramose** — search suggests `Ramose`, `Southern Tomb 11`, `Ramesses II`, `Ramose and Hatnofer`, `Ramose (TT55)`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
