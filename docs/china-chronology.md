@@ -353,9 +353,19 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the script ordered uniform | 221 BCE | `cnh-199` |
 | Qin law: the Yuelu cases / empire-wide / the Shuihudi tomb | 246 – 222 BCE / 221 – 206 BCE / 217 BCE | `cnh-200` |
 
+## Western Han, Xin, Eastern Han and Three Kingdoms (the third hundred)
+
+Filled batch by batch from `cnh-201` (B21 on). **The protected lines** of the third hundred's individuals
+(`cnh-206`, `210`, `215`, `216`, `220`, `223`, `226`, `228`, `229`, `237`, `240`, `246`, `254`, `257`, `259`, `261`–`263`,
+`265`, `269`–`272`, `274`, `278`, `280`, `281`, `285`, `286`, `289`, `292`, `294`) are pinned below to their lines as they
+stood on main on 2026-11-12 (the years only; ages, days and months left out), and are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-201` on.
+To be filled from `cnh-301` on.
 
 ## Chronology pins
 
@@ -483,6 +493,38 @@ cnh-186: 332; 314; 295
 cnh-189: 227
 cnh-192: 259; 247; 221; 210
 cnh-195: 280; 214; 208
+cnh-206: 250; 221; 209; 215
+cnh-210: 219; 210
+cnh-215: 233; 207; 206; 202
+cnh-216: 247; 206; 202; 195
+cnh-220: 241; 195; 180
+cnh-223: 156; 141; 87; 119
+cnh-226: 209; 201
+cnh-228: 140; 121; 117
+cnh-229: 195; 138; 126; 114
+cnh-237: 179; 134; 104
+cnh-240: 145; 110; 98; 86; 74
+cnh-246: 45; 16; 9; 23
+cnh-254: 5; 25; 57
+cnh-257: 32; 73; 102
+cnh-259: 32; 92
+cnh-261: 45; 117
+cnh-262: 50; 62; 105; 121
+cnh-263: 78; 132; 139
+cnh-265: 141; 159
+cnh-269: 174; 184
+cnh-270: 140; 149; 189; 192
+cnh-271: 154; 190; 196; 202
+cnh-272: 181; 189; 220; 234
+cnh-274: 155; 208; 220; 217
+cnh-278: 187; 220; 226
+cnh-280: 161; 221; 223
+cnh-281: 181; 207; 223; 234
+cnh-285: 182; 200; 229; 252
+cnh-286: 200; 219
+cnh-289: 179; 239; 251; 249
+cnh-292: 242; 264; 280; 283
+cnh-294: 236; 266; 290; 280
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122

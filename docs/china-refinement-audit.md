@@ -87,7 +87,7 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred and on 2026-11-12 for the second (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+hundred, on 2026-11-12 for the second and on 2026-11-12 for the third (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
 and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
@@ -131,6 +131,38 @@ cnh-186 Qu Yuan               (individual; the person template)
 cnh-189 Jing Ke               (individual; the person template)
 cnh-192 Qin Shi Huang         (ruler; the person template)
 cnh-195 Li Si                 (individual; the person template)
+cnh-206 Meng Tian             (individual; the person template)
+cnh-210 Xu Fu                 (legendary)
+cnh-215 Xiang Yu              (individual; the person template)
+cnh-216 Emperor Gaozu of Han  (ruler; the person template)
+cnh-220 Empress Lü            (ruler; the person template)
+cnh-223 Emperor Wu of Han     (individual; the person template)
+cnh-226 Modu Chanyu           (ruler; person-cards misses it)
+cnh-228 Huo Qubing            (individual; the person template)
+cnh-229 Zhang Qian            (individual; the person template)
+cnh-237 Dong Zhongshu         (individual; the person template)
+cnh-240 Sima Qian             (individual; the person template)
+cnh-246 Wang Mang             (ruler; the person template)
+cnh-254 Emperor Guangwu       (ruler; the person template)
+cnh-257 Ban Chao              (individual; the person template)
+cnh-259 Ban Gu                (individual; the person template)
+cnh-261 Ban Zhao              (individual; the person template)
+cnh-262 Cai Lun               (individual; the person template)
+cnh-263 Zhang Heng            (individual; the person template)
+cnh-265 Liang Ji              (individual; the person template)
+cnh-269 Zhang Jue             (individual; the person template)
+cnh-270 Dong Zhuo             (individual; the person template)
+cnh-271 Yuan Shao             (ruler; the person template)
+cnh-272 Emperor Xian of Han   (ruler; the person template)
+cnh-274 Cao Cao               (ruler; the person template)
+cnh-278 Cao Pi                (ruler; the person template)
+cnh-280 Liu Bei               (ruler; the person template)
+cnh-281 Zhuge Liang           (individual; the person template)
+cnh-285 Sun Quan              (ruler; the person template)
+cnh-286 Guan Yu               (individual; the person template)
+cnh-289 Sima Yi               (individual; the person template)
+cnh-292 Sun Hao               (ruler; the person template)
+cnh-294 Emperor Wu of Jin     (ruler; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
