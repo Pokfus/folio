@@ -3,6 +3,7 @@
 
     python3 .claude/urdu/run.py                 # A1
     python3 .claude/urdu/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/urdu/run.py --level phr     # the phrases deck, after the levels
     python3 .claude/urdu/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/urdu/alphabet.py            # the alphabet deck (reads lex.json)
 
@@ -98,7 +99,7 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:

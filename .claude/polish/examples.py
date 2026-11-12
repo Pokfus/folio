@@ -34,6 +34,14 @@ def read_tsv(name):
             yield line.rstrip("\n").split("\t")
 
 
+# A SENTENCE THAT IS ANOTHER WORD'S, though the forms match -- each with the case that forced it (A2, 2026-11-12).
+# `należy` has no table, so its own spelling is all it is found by, and that spelling is also należeć's
+# "belongs" (`To należy do ciebie`); `piec`'s plural `piece` is the English of a manga's title.
+REJECT = {
+    "należy": lambda toks: "do" in toks,
+    "piec": lambda toks: "one" in toks,
+}
+
 OWNERS = {}
 
 
@@ -65,13 +73,8 @@ def forms_of(D, word):
     return out
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--level", default="a1")
-    a = ap.parse_args()
-    D = pl.load_dict()
-    words = [x["word"] for x in json.load(open(os.path.join(pl.CACHE, "wordlist-%s.json" % a.level)))["words"]]
-
+def load_pool():
+    """Tatoeba's Polish sentences with an English translation, filtered and ordered as the module says."""
     pol = {r[0]: r[2] for r in read_tsv("pol_sentences.tsv.bz2") if len(r) >= 3}
     links = defaultdict(list)
     for r in read_tsv("pol-eng_links.tsv.bz2"):
@@ -79,7 +82,6 @@ def main():
             links[r[0]].append(r[1])
     need = {e for v in links.values() for e in v}
     eng = {r[0]: r[2] for r in read_tsv("eng_sentences.tsv.bz2") if len(r) >= 3 and r[0] in need}
-
     pool = []
     for sid, text in pol.items():
         en = [eng[e] for e in sorted(links.get(sid, []), key=int) if e in eng]
@@ -93,23 +95,61 @@ def main():
             continue
         pool.append((len(toks), int(sid), toks, text, en[0]))
     pool.sort(key=lambda x: (x[0], x[1]))
+    return pool
+
+
+def index_of(pool):
     index = defaultdict(list)
     for i, (_, _, toks, _, _) in enumerate(pool):
         for t in set(toks):
             index[t].append(i)
+    return index
+
+
+def verb_forms(D, w):
+    """Every spelling of `w` as a verb (itself and its table), or None when it is not a verb."""
+    fs = None
+    for e in D.get(w, []):
+        if e["pos"] == "verb" and pl.live(e):
+            fs = (fs or {w}) | {pl.fold(f) for f, _ in pl.table_forms(e)}
+    return fs
+
+
+def phrase_matcher(D, w, verbforms=False):
+    """A matcher for a multi-word entry: its words as consecutive tokens.  With `verbforms` (THE PHRASES DECK
+    ONLY, so every level deck keeps its exact matching and rebuilds unchanged) an idiom that opens with a verb
+    is matched with that verb in any form: `mieć głowę na karku` in `ma głowę na karku`."""
+    parts = pl.tokens(w)
+    n = len(parts)
+    first = (verb_forms(D, parts[0]) if verbforms else None) or {parts[0]}
+
+    def hit_of(toks):
+        for i in range(len(toks) - n + 1):
+            if toks[i] in first and toks[i + 1:i + n] == parts[1:]:
+                return " ".join(toks[i:i + n])
+        return None
+    return hit_of, first
+
+
+def candidates(index, keys):
+    return sorted({i for k in keys for i in index.get(k, [])})
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--level", default="a1")
+    a = ap.parse_args()
+    D = pl.load_dict()
+    words = [x["word"] for x in json.load(open(os.path.join(pl.CACHE, "wordlist-%s.json" % a.level)))["words"]]
+    pool = load_pool()
+    index = index_of(pool)
 
     out, none = {}, []
     for w in words:
         parts = pl.tokens(w)
         if len(parts) > 1:
-            cand = sorted(set(index.get(parts[0], [])))
-            n = len(parts)
-
-            def hit_of(toks, parts=parts, n=n):
-                for i in range(len(toks) - n + 1):
-                    if toks[i:i + n] == parts:
-                        return " ".join(parts)
-                return None
+            hit_of, keys = phrase_matcher(D, w, a.level == "phr")
+            cand = candidates(index, keys)
         else:
             fs = forms_of(D, w)
             cand = sorted({i for f in fs for i in index.get(f, [])})
@@ -118,7 +158,7 @@ def main():
         for i in cand:
             _, _, toks, text, en = pool[i]
             h = hit_of(toks)
-            if not h:
+            if not h or (w in REJECT and REJECT[w](toks)):
                 continue
             frame = tuple(toks[:2])
             if text in seen_pl or en in seen_en or frame in seen_frame:

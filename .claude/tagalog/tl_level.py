@@ -55,6 +55,60 @@ SCOPE = {
                   'weather, colours, and the pronouns, markers, question words, particles '
                   'and conjunctions every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives, jobs, clothes, the kitchen and cooking, fruit, the rooms and things '
+                  'of a home, the town and its services, travel and transport, the natural world, '
+                  'animals, health and the body, feelings and character, free time and '
+                  'celebrations, school, the higher numbers and quantities, words for when and how '
+                  'often, more colours, describing things, the everyday verbs of doing, '
+                  'and the connectors and adverbs that join two sentences',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences, events, '
+                 'dreams, hopes and ambitions and briefly give reasons and explanations for '
+                 'opinions and plans',
+        'topics': 'work and careers, money and banking, study and knowledge, health and medicine, '
+                  'the media and technology, society and politics, crime and the law, nature and '
+                  'the environment, belief and culture, travel and places, people and '
+                  'relationships, feelings and the mind, opinion, reason and argument, abstract '
+                  'description, the verbs of change, thought and speech, and the connectors of '
+                  'a narrative',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible, and to produce clear, detailed '
+                 'text on a wide range of subjects, explaining a viewpoint on a topical issue and '
+                 'giving the advantages and disadvantages of various options',
+        'topics': 'the economy and business, government and politics, law and justice, science '
+                  'and research, technology, the environment, medicine and the body, education, '
+                  'culture, the arts and the media, society and social issues, thought and '
+                  'argument, advanced description, character and behaviour, and the verbs and '
+                  'connectors of a reasoned text',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'scholarship and abstract thought, history and heritage, law, rights and '
+                  'governance, economics and finance, science, medicine and the mind, ethics '
+                  'and social debate, the arts and literature with the native forms of proverb, '
+                  'riddle and figure of speech, fine description, character, and the verbs and '
+                  'connectors of argument',
+    },
 }
 
 

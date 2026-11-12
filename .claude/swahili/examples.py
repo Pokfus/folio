@@ -24,7 +24,7 @@ import csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sw import norm, tokens, VerbParser
-from swahili_level import f
+from swahili_level import f, LEVEL
 
 csv.field_size_limit(10 ** 8)
 
@@ -69,11 +69,25 @@ def main():
         words = row['key'].split()
         cands = []
         if len(words) > 1:
-            for i in index.get(words[0], []):
+            # THE PHRASES DECK'S VERB PHRASES match with the head conjugated (`alipiga simu`),
+            # as select.phrase_counts counts them; the levels keep the exact sequence.
+            head = None
+            if LEVEL == 'phr' and any(e['pos'] == 'verb' for e in lex[row['key']]['entries']):
+                head = VerbParser()
+                head.add(words[0])
+            starts = (index.get(words[0], []) if head is None else
+                      sorted({i for t, ids in index.items()
+                              if t == words[0] or words[0] in head.lemmas(t)
+                              or (t[:2] in ('ku', 'kw') and t[2:] == words[0]) for i in ids}))
+            for i in starts:
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):
-                    if ft[j:j + len(words)] == words:
-                        cands.append((i, 0, words))
+                    first = ft[j]
+                    if ft[j + 1:j + len(words)] == words[1:] and (
+                            first == words[0] or (head is not None and (
+                                words[0] in head.lemmas(first)
+                                or (first[:2] in ('ku', 'kw') and first[2:] == words[0])))):
+                        cands.append((i, 0, ft[j:j + len(words)]))
                         break
         else:
             k = row['key']

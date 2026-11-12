@@ -32,7 +32,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from la import fold, macronless, kept, ALSO
-from latin_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from latin_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, FOR, load_lex
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'latin'
@@ -42,7 +42,7 @@ FIELDS = ['Latin', 'Parts', 'Key', 'Word', 'English', 'Forms', 'Table', 'Example
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'pron': 'pronoun', 'det': 'determiner', 'prep': 'preposition',
             'conj': 'conjunction', 'particle': 'particle', 'intj': 'interjection',
-            'num': 'number', 'phrase': 'phrase', 'proverb': 'proverb'}
+            'num': 'number', 'phrase': 'phrase', 'proverb': 'proverb', 'part': 'participle'}
 GENDER = {'m': 'masculine', 'f': 'feminine', 'n': 'neuter', 'mf': 'masculine or feminine',
           'c': 'common gender'}
 GABBR = {'m': 'm.', 'f': 'f.', 'n': 'n.', 'mf': 'm./f.', 'c': 'c.'}
@@ -75,12 +75,40 @@ LEAD = {
     'exercitus': 'army',      # first listed: "exercise"
     'perīculum': 'danger',    # first listed: "trial, experiment"
     'mūtō': 'change',         # first listed: "to move, remove"
+    # read off A2 (2026-11-12)
+    'recēdō': 'withdraw',     # first listed: "to retire to one's bedroom"
+    'cohors': 'military unit',  # first listed: "a court", "a farmyard"
+    'stilus': 'stylus',       # first listed: "a stake, pale, spike"
+    # read off B1 (2026-11-12)
+    'sānctus': 'holy',        # first listed: "sacred, made inviolable, having been established"
+    'triumphus': 'Triumph',   # first listed: "a hymn in honor of Bacchus"
+    'disserō': 'discuss',     # first listed: "to scatter or sow seed" (another verb)
+    'peragō': 'execute',      # first listed: "to pierce, transfix"
+    'minor': 'threaten',      # first listed: "to jut forth"
+    'adōrō': 'worship',       # first listed: "to speak to, accost, address"
+    # read off B2 (2026-11-12)
+    'mināx': 'threatening',   # first listed: "projecting; overhanging"
+    # read off C1 (2026-11-12)
+    'mūsculus': 'muscle',     # first listed: "a companion of the whale"
 }
 
 # THE ONE PART OF SPEECH a card keeps, where Wiktionary files an unrelated sense under
 # the same spelling: `brevis` "short" is also a noun "dactyl" and "breve", `ave` "hail!"
 # also a noun "a greeting".
-ONLY_POS = {'brevis': 'adj', 'ave': 'intj'}
+ONLY_POS = {'brevis': 'adj', 'ave': 'intj',
+            # A2: `dorsum` "back" is also an adverb "down" (a form of deorsum),
+            # `ēsuriō` also a noun "a hungry man", `quattuordecim` also "the equestrian order"
+            'dorsum': 'noun', 'ēsuriō': 'verb', 'quattuordecim': 'num',
+            # B1: `sānctus` "holy" is also a noun "a saint" (Christian), `prōmptus` "ready"
+            # also a noun "visibility" and a participle "produced"
+            'sānctus': 'part', 'prōmptus': 'adj',
+            # `minor` "threaten": the adjective "smaller" is `parvus`'s comparative,
+            # on that card already
+            'minor': 'verb',
+            # B2: `prōrsus` "utterly" (adverb) is also an adjective "straightforward",
+            # `attonitus` "stunned" also a noun "exaltation", `luxus` "luxury" also an
+            # adjective "dislocated"
+            'prōrsus': 'adv', 'attonitus': 'part', 'luxus': 'noun'}
 
 # A GLOSS WRITTEN HERE for one part of speech, where Wiktionary's is a grammarian's
 # description rather than a meaning.
@@ -93,8 +121,10 @@ GLOSS = {
 
 # A gloss that is not a meaning: a sub-heading Wiktionary leaves bare ("direct",
 # "indirect" under `an`), a usage note that begins with the word itself ("nihil or nil
-# + the enclitic ..."), and on a level deck a sexual sense (`sciō` "to have slept with").
-NOT_A_MEANING = re.compile(r'^(\?|direct|indirect|in (?:in)?direct questions|used\b.*|with (?:the )?(?:indicative|subjunctive|infinitive))$|\bsex\b|\bslept with\b', re.I)
+# + the enclitic ..."), a case-and-number label filed as a sense ("nominative/accusative/
+# vocative neuter singular" under `dēbitum`'s participle), and on a level deck a sexual sense (`sciō` "to have slept with";
+# A2's `virgō` and `membrum`).
+NOT_A_MEANING = re.compile(r'^(?:nominative|genitive|dative|accusative|ablative|vocative)\b[/a-z ]*(?:singular|plural)\b|^(\?|direct|indirect|in (?:in)?direct questions|used\b.*|with (?:the )?(?:indicative|subjunctive|infinitive))$|\bsex\b|\bsexual\b|\bpenis\b|\bslept with\b', re.I)
 LONG = 100      # a gloss longer than this is cut back (`shorten`)
 
 
@@ -168,7 +198,12 @@ def parts_html(e):
         bits = [w] + ([gen] if gen else [])
         if g:
             bits[-1] += ' ' + g + (' pl.' if e['pl'] else '')
-    elif pos in ('adj', 'det', 'pron', 'num'):
+        # AN INDECLINABLE NOUN (`nefās`): a gender, but no genitive on its head line, no
+        # declension, and
+        # no genitive in its table either -- the entry says so rather than showing nothing
+        if not gen and g and not e['cls'] and not cell(e, 'genitive'):
+            bits = [w + ' ' + g, 'indeclinable']
+    elif pos in ('adj', 'det', 'pron', 'num', 'part'):
         fe, ne, gen = hd(e, 'feminine'), hd(e, 'neuter'), hd(e, 'genitive')
         if fe and fe != w:
             bits = [w, fe] + ([ne] if ne else [])
@@ -344,6 +379,14 @@ def examples_html(exs):
 def entries_for(r, lex):
     ents = kept(r, lex[r['key']])
     ents = [e for e in ents if any(not g['weak'] for g in e['glosses'])] or ents
+    # A PARTICIPLE WIKTIONARY FILES AS A WORD (`apertus` "open", `dīligēns` "careful";
+    # read off B1): a `verb` entry whose table has no person (a defective verb, `inquam`,
+    # `coepī`, has persons but no infinitive).  It is shown as a
+    # participle with an adjective's entry and table, and after any other entry of the
+    # spelling (`lūctus` the noun "grief" before the participle of `lūgeō`).
+    ents = [dict(e, pos='part') if e['pos'] == 'verb'
+            and not any('third-person' in t['t'] for t in e['table']) else e for e in ents]
+    ents = sorted(ents, key=lambda e: e['pos'] == 'part')
     if r['pos']:
         ents = sorted(ents, key=lambda e: e['pos'] != r['pos'])
     # ONE ETYMOLOGY PER CARD unless two are spelt alike AND kept (`cum` "with" / "when"):
@@ -387,8 +430,30 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+# WHERE THE WORDS BEYOND THE INVENTORY COME FROM, in the description: A1 and A2 from
+# the DCC list alone; from B1 on, the DCC list's last words and then the classical count.
+ORDER_DCC = (
+    "The other {rest} are the commonest remaining words of "
+    "classical Latin, by their rank in the Dickinson College Commentaries Latin Core Vocabulary, "
+    "and the cards are dealt by that rank, so the words a reader of Latin meets most often come "
+    "first; the few the list does not hold follow, ordered by how often they appear in the "
+    "Tatoeba corpus. ")
+ORDER_CORPUS = (
+    "Of the others, {dcc} are the last words of the Dickinson College Commentaries Latin Core "
+    "Vocabulary, the thousand commonest words of classical Latin, which the levels below have "
+    "almost used up; the other {cls} are the commonest words after them in a count made for "
+    "Folio over classical texts — Caesar, Cicero, Sallust, Livy, Nepos, Seneca, Pliny, Tacitus "
+    "and Quintilian, Plautus, Catullus, Lucretius, Virgil, Horace, Propertius, Ovid and Juvenal. "
+    "The cards are dealt in that order, the Core Vocabulary's words first, then the rest by how "
+    "often they appear in those texts. ")
+CORPUS_SOURCE = (
+    "Frequency beyond that list: a count of word forms over 149 pages of those authors in The "
+    "Latin Library (thelatinlibrary.com), each form credited to its Wiktionary headword. ")
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
+    from_cls = sum(1 for e in entries if e['source'] == 'corpus')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
     ex0 = sum(1 for e in entries if e['examples'] == 0)
     nouns = sum(1 for e in entries if e['pos'] == 'noun')
@@ -400,18 +465,16 @@ def desc(entries, n):
         "Both study directions in one deck: Latin → English (see the Latin, recall the meaning) "
         "and English → Latin (see an English meaning, recall the Latin). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner. "
+        f"separately. {n} words for {FOR[LEVEL]}. "
         + ("The words already taught by the levels below this one are left out. " if LEVEL != 'a1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no examination publishes a graded Latin word "
         "list, and the Common European Framework of Reference describes living languages, so this "
         f"deck borrows the framework's {LEVEL.upper()} band only as a SCOPE — the everyday topics whose "
         f"global descriptor begins '{SC['quote']}' — and is Folio's own list, not any examination's. "
         f"{from_inv} of the {n} words come from a vocabulary written for that scope, in the words of "
-        f"Roman life: {SC['topics']}. The other {n - from_inv} are the commonest remaining words of "
-        "classical Latin, by their rank in the Dickinson College Commentaries Latin Core Vocabulary, "
-        "and the cards are dealt by that rank, so the words a reader of Latin meets most often come "
-        "first; the few the list does not hold follow, ordered by how often they appear in the "
-        "Tatoeba corpus. "
+        f"Roman life: {SC['topics']}. "
+        + (ORDER_DCC.format(rest=n - from_inv) if not from_cls else
+           ORDER_CORPUS.format(dcc=n - from_inv - from_cls, cls=from_cls)) +
         "Every headword is printed with its macrons, the marks over a long vowel (amō, rēgīna), and "
         "with its dictionary entry beneath it: a verb's principal parts (amō, amāre, amāvī, amātum), "
         "a noun's genitive and gender (rēx, rēgis m.), an adjective's three genders (bonus, bona, "
@@ -423,7 +486,8 @@ def desc(entries, n):
         "because almost no device has a Latin voice. Sources. Level: the Common European Framework "
         "of Reference (Council of Europe), global scale, as a scope only. Frequency: the Dickinson "
         "College Commentaries Latin Core Vocabulary (Christopher Francese and others, 2012–13), "
-        "CC BY-SA 3.0. Meanings, gender, principal parts, macrons and tables: English Wiktionary, "
+        "CC BY-SA 3.0. " + (CORPUS_SOURCE if from_cls else "") +
+        "Meanings, gender, principal parts, macrons and tables: English Wiktionary, "
         "via the kaikki.org extraction (CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), "
         "CC BY 2.0 FR."
     )
@@ -431,7 +495,7 @@ def desc(entries, n):
 
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = load_lex()
     exs = json.load(open(f('examples.json'), encoding='utf-8'))
     cards, entries = build(rows, lex, exs)
     DECK = DECK_IDS[LEVEL]

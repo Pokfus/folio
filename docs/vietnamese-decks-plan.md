@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Vietnamese language collection."
 
-**STATUS (2026-11-09): the alphabet-and-tones deck and A1 are built** (`.claude/vietnamese/`, §6). A2 to C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): the whole plan is built** — the alphabet-and-tones deck, every level A1 to C1, and the
+phrases deck (`.claude/vietnamese/`, §6–§11). A combined file (Phase 4) is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it also
@@ -32,11 +32,11 @@ owner's most recent decisions for a language with no published list — and are 
 |---|---|---|
 | Vietnamese Alphabet and Tones — built | `Vietnamese-Alphabet-and-Tones.folio-deck.json` | 35 |
 | Vietnamese A1 Beginner — built | `Vietnamese-A1.folio-deck.json` | 500 |
-| Vietnamese A2 Elementary | `Vietnamese-A2.folio-deck.json` | 750 |
-| Vietnamese B1 Intermediate | `Vietnamese-B1.folio-deck.json` | 1,000 |
-| Vietnamese B2 Upper Intermediate | `Vietnamese-B2.folio-deck.json` | 1,500 |
-| Vietnamese C1 Advanced | `Vietnamese-C1.folio-deck.json` | 1,500 |
-| Vietnamese Phrases and Expressions | `Vietnamese-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Vietnamese A2 Elementary — built | `Vietnamese-A2.folio-deck.json` | 750 |
+| Vietnamese B1 Intermediate — built | `Vietnamese-B1.folio-deck.json` | 1,000 |
+| Vietnamese B2 Upper Intermediate — built | `Vietnamese-B2.folio-deck.json` | 1,500 |
+| Vietnamese C1 Advanced — built | `Vietnamese-C1.folio-deck.json` | 1,500 |
+| Vietnamese Phrases and Expressions — built | `Vietnamese-Phrases-and-Expressions.folio-deck.json` | 542 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -94,7 +94,7 @@ every subtitle-ordered deck on the shelf does. One of A1's 500 words (`bún`) ha
 
 **Phase 1 (done)** — the pipeline, the alphabet-and-tones deck, A1. **Phase 2** — A2 to C1, one level per session:
 write the level's inventory into `inventory.py` and its `SCOPE` into `vietnamese_level.py`, run, read every card.
-**Phase 3** — the phrases deck (`phrase` / `proverb` entries). **Phase 4** — a combined file, gitignored.
+**Phase 3 (done)** — the phrases deck (`phrase` / `proverb` entries and idiomatic senses, §11). **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet-and-tones deck and A1
 
@@ -108,3 +108,159 @@ A1: 500 notes, 344 from the inventory and 156 by frequency; three sentences for 
 tones deck: 35 notes — 6 tones, 11 vowels, 18 consonants and pairs; every sound side unique (asserted). The shelf's
 hue is measured: `#14659F`, 16.9 from its nearest of 52, greens left out (re-swept at the merge: Greek had
 taken a hue 1.0 from the first sweep's `#6D67D1`).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Vietnamese A2". `python3 .claude/vietnamese/run.py --level a2`. 750 notes, 269 from a
+hand-written A2 inventory (relatives, jobs, school, clothes, cooking and the market, the home, the town, the
+countryside and animals, seasons and the compass, travel, health, feelings, free time and Tết, telling when,
+giving an opinion, more classifiers, everyday verbs) and 481 by frequency; none taught in A1. Three sentences for
+703, none for 18. **A1 and the alphabet-and-tones deck rebuild byte-identical**, and an A2 re-run is byte-identical.
+The description now names the learner by level (`WHO` in `build_deck.py`, Hindi's), unchanged for A1.
+
+What reading every card found, each fixed in the generator:
+- **A word taught below under its other spelling** was dealt again: A1 teaches `cảm ơn`, which Wiktionary files under
+  `cám ơn`, and the fill dealt `cám ơn`. `select.py` now widens the words below by Wiktionary's `alt_of` pointers in
+  both directions.
+- **Twenty-five homographs led by the wrong etymology** are pinned in `ETYMS` / `LEAD_POS` / `LEAD` / `DROP_POS`, each
+  with its reason: `thắng` "to win" not "brake", `báo` "to report" not "leopard", `bài` "lesson" not "playing card",
+  `thương` "to love" not "spear", `ghét` "to hate" not "dirt", `kiếm` "to seek" not "sword", `dừng` "to stop",
+  `dù` "although", `tí` "a little bit", `chả` "not at all", `cầu` "bridge", `đông` "east" (the inventory's `:noun`
+  matched "winter" first), `công`, `lừa`, `thú`, `sang`, `may`, `mối`, `ca`, `cú`, `động`, `đàn`, `bức`, `tấm`, `máy`.
+- **Names and English counted as Vietnamese** (`the`, `ok`, `sam`, `ben`, `kim`) and words the subtitles count in a
+  sense Wiktionary does not give or a card would mislead on (`đô` "dollar", `mai` "tomorrow", `mi`, `huynh`, `y`, `u`,
+  `ô`, `ban`, `thể`) are in `select.EXCLUDE` with reasons; `chết tiệt` joins `SWEARS`; a slang sense is cut from
+  `cô bé` and a slur from `gái` (`CUT`).
+- Inventory words with no Wiktionary headword were dropped rather than glossed by hand (`thịt bò`, `kỳ thi`,
+  `tập thể dục` …); `trường đại học`, whose entry is a pointer, gave way to `đại học`; `Tết` alone resolves to the
+  verb "to plait", so the inventory has `ăn Tết`; `va-li` fails the check's headword rule and was dropped.
+
+**Known, left.** `bến xe` is glossed "a parking lot" (Wiktionary's; it is a bus station). `tưởng` carries a Pali
+gloss third. The fill keeps the subtitles' drama vocabulary (`đạn`, `bom`, `vũ khí`) as A1 did.
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1". `python3 .claude/vietnamese/run.py --level b1`. 1,000 notes, 220 from a
+hand-written B1 inventory (work and careers, money and the economy, education, the news, media and technology,
+government, law and society, the environment, health, travel, the household, relationships and the stages of life,
+feelings and character, religion and customs, ideas and reasons, connectors, and the verbs of thinking, arguing and
+changing) and 780 by frequency; none taught in A1 or A2. Three sentences for 771, none for 71 — the inventory's
+abstract and civic vocabulary is thin in Tatoeba. **A1, A2 and the alphabet-and-tones deck rebuild byte-identical**;
+a B1 re-run is byte-identical.
+
+What reading every card found, each fixed in the generator with its reason:
+- **Homographs led by the wrong etymology**, pinned in `ETYMS` / `LEAD_POS` / `LEAD` / `DROP_POS`: `hầm` "basement",
+  `tiểu`, `dần` "gradually", `sát` "very close to", `chớ` "do not" (not "four"), `tách` "to separate", `phân` "to
+  divide", `thức` "to stay awake", `thông`, `cút` "get lost!", `nguyên`, `lao`, `bớt` "to reduce", `lau` "to wipe" and
+  `toán` "mathematics" (both the inventory's, led by "reed" and "gang"), `bầu` "to vote", `kẹo` "sweets", `thẻ` "card".
+- **The first `GLOSS` entry**: `bự` "big" is Wiktionary's own gloss, tagged Southern-colloquial and placed after
+  "covered (with)", so the card led with the sense the subtitles hardly use; the override is that gloss, verbatim.
+- **Excluded with reasons** (`select.EXCLUDE`): names and English counted as Vietnamese (`hi`, `me`, `go`, `don`, `san`,
+  `vân`, `phong`, `long`, `bi`, `nga`), a letter's name (`gi`), the period-drama words (`muội`, `thiếp`, `vương`),
+  words counted in a sense Wiktionary does not give (`tiêu` "to spend", `giáng sinh` "Christmas", `sơ` "nun"), words
+  whose everyday sense is tagged weak so the card would mislead (`heo`, `ngưng`, `song`, `hoả`), `a-lô` (a hyphenated
+  spelling of `alô`), `không không`, and the crude or disparaging `cu`, `mụ`, `điếm`, `đít`. `SWEARS` gains `chúng mày`,
+  `mẹ nó`, `khốn nạn`, `cứt`, `chó chết`. `CUT` takes a slur off `trai`, the biologist's "genus" off `chi`, and a
+  pointer to Wiktionary's layout off `chủ nhà`.
+- Inventory words with no Wiktionary headword were dropped (`thăng chức`, `visa`, `việc nhà`, `Phật giáo`,
+  `Trung thu`, `miễn là`, `trừ khi` …); `vắc-xin` fails the headword rule and was dropped.
+
+**Known, left.** `bầu` merges its two etymologies' verbs ("to vote; to elect; to be pregnant"), both true. `phân`
+leads with "inch" before "to divide". The fill carries the subtitles' crime and war vocabulary (`sát nhân`,
+`con tin`, `tra tấn`) as the lower levels do.
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2". `python3 .claude/vietnamese/run.py --level b2`. 1,500 notes, 166 from a
+hand-written B2 inventory (politics and administration, the law and the courts, the economy and finance, science,
+technology, the environment, health and the mind, the arts and media, history and society, argument and evaluation,
+formal connectors, and the verbs of reporting and persuading) and 1,334 by frequency; none taught below. Three
+sentences for 692, none for 367 — at this level a third of the words are not in Tatoeba's 22,000 Vietnamese
+sentences at all. A1, A2 and the alphabet-and-tones deck rebuild byte-identical; a B2 re-run is byte-identical.
+
+**B1 changed by one card**, deliberately: Wiktionary's sum-of-parts note ("Used other than figuratively or
+idiomatically: see không, dám") is a pointer to its own layout, not a meaning, and B1's `không dám` led with it. The
+generator now never prints it (`SUM_OF_PARTS` in `build_deck.py`), and `check-vietnamese.js` fails on it as on any
+other pointer. `không dám` now reads "you're welcome; not at all (polite)".
+
+What reading every card found, each fixed in the generator with its reason:
+- **Homographs led by the wrong etymology**, pinned: `két` "safe", `chế` "to mock", `can` "to concern", `nốt`
+  "finish", `ối` (the exclamation), `kì` "strange", `tất` "all", `đăng` "to publish", `còng` "handcuffs", `ám` "to
+  haunt", `tra` "to investigate", `sướng` "very happy", `ráng` "to try hard", `vạn` "ten thousand", `căm` "to resent",
+  `dạo` "to stroll", and the parts of speech of `bấm` "to press", `chĩa` "to point at", `mớ` "a bundle"; `sân khấu`
+  leads with "stage" rather than a historical royal court.
+- **Excluded with reasons**: English and names (`be`, `gay`, `alpha`, `team`, `fan`, `chan`, `han`, `lê`, `hà`, `na`,
+  `ki`, `sô`, `hong`), a letter's name (`quy`), the Five Phases' `thổ` and `thuỷ` (like B1's `hoả`), segmentation slips
+  (`thì là`, `bắt con`), syllables counted inside compounds whose own entry is something else (`vấn`, `điệp`, `giáo`,
+  `kích`, `thiết`, `thất`, `lang`, `hắc`, `ánh`, `giời`, `hoài`, `nhá`), `trường đại học` (A2 teaches `đại học`), and the
+  disparaging or crude `con này`, `thằng này`, `chuyện ấy`, `đái`. `SWEARS` gains `con mẹ`, `con hoang`, `đĩ`. `CUT`
+  takes a slang sense off `tâm hồn` and a slur off `hôn mê` ("comatose").
+- Inventory words with no Wiktionary headword were dropped (`nhà lãnh đạo`, `nhà khoa học`, `năng lượng tái tạo`,
+  `bất bình đẳng`, `nhìn chung` …).
+
+**Known, left.** The fill is heavier with the subtitles' fantasy, war and crime vocabulary than the inventory
+(`ma cà rồng`, `lựu đạn`, `pháo đài`), as at every level; the inventory supplies the register a B2 learner reads.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1". `python3 .claude/vietnamese/run.py --level c1`. 1,500 notes, 156 from a
+hand-written C1 inventory (philosophy and ethics, religion and the inner life, scholarly Vietnamese, government and
+diplomacy, the economy and development, medicine, law and rights, language and literature, the shades of feeling,
+the Sino-Vietnamese abstract vocabulary of formal prose, literary connectors) and 1,344 by frequency; none taught
+below. Three sentences for 357, none for 676 — nearly half; Tatoeba's Vietnamese runs out at this level, and the
+cards say so in their count rather than borrowing sentences that do not hold the word. A1 to B2 and the
+alphabet-and-tones deck rebuild byte-identical; a C1 re-run is byte-identical.
+
+What reading every card found, each fixed in the generator with its reason:
+- **Homographs pinned**: `mò` "to grope", `cáu` "to be angry", `ưng` "to like", `xui` "unlucky", `bê` "to carry",
+  `phà` "ferry"; and a second `GLOSS`, `bắp` "maize, corn; muscle" (Wiktionary's own glosses, without "blossom" first).
+- **Excluded with reasons**: English and foreign words (`game`, `sex`, `hot`, `golf`, `blu`, `sun`, `bon`, `bo`, `ang`,
+  `le`), names (`tùng`, `chu`, `dung`, `giang`, `hán`, `mĩ`, `thị`), a hyphenated spelling (`mát-xa`), segmentation slips
+  (`cho tên`, `dó`), syllables counted inside compounds (`đàm`, `hữu`, `vĩ`, `dã`, `bá`, `âu`, `bội`, `nhị`, `nô`), words
+  whose everyday sense is tagged weak (`cưỡng`, `vạn tuế`), `giầy` (counted as the old spelling of A2's `giày`),
+  `giờ tối` (a muddled gloss), the archaic and condescending pronouns (`nhà ngươi`, `chú mày`), and sexual or crude
+  words and slurs (`dâm`, `mu`, `giỡn mặt`, `gái điếm`, `thủ dâm`, `dương vật`, `người da đỏ`, `nhà chứa`). `SWEARS`
+  gains `bố nó`, `bỏ mẹ`, `bố mày`. `CUT` takes a sexual sense off `nháy`.
+- **A cut that empties a card is a fault, not a fix**: cutting the slur from `nhà chứa` removed its one gloss line
+  ("a brothel; whorehouse; bordello"), leaving no English; the check caught it, and the word is excluded instead.
+- Inventory words with no Wiktionary headword were dropped (`bản thể`, `nợ công`, `kinh tế thị trường`, `Hán Việt`,
+  `tiềm tàng` …).
+
+**Known, left.** Nearly half of C1 has no sentence. The fill still leans to the subtitles' war, crime and fantasy
+words (`ngư lôi`, `thây ma`, `đầu đạn`); the inventory carries the formal register. `hiếp dâm` / `hãm hiếp` "to rape"
+are kept as the legal and news vocabulary they are.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck". `python3 .claude/vietnamese/run.py --level phr` runs `phrases.py` in
+place of `select.py`; `examples.py` is unchanged, and `build_deck.py` gains the subdeck field, `desc_phr` and the
+`phr` branch of its metadata (the Hindi set's shape). 542 expressions in three subdecks, the Hindi, Indonesian and
+Turkish arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **181 Phrases** (Wiktionary's phrases and
+interjections not tagged idiomatic — `không có gì`, `chào buổi sáng`, `hẹn gặp lại`), **313 Idioms** (any sense tagged
+idiomatic, whatever its part of speech; 231 of them are four-syllable thành ngữ — `ăn miếng trả miếng`, `nước mắt cá
+sấu`) and **48 Proverbs** (`thùng rỗng kêu to`). Nothing the five levels teach is repeated (`words_below`, widened by
+the `alt_of` pointers as the levels are). Ordered by the count of Tatoeba sentences holding the expression, syllable
+for syllable, then by the subtitle count, then spelling: only 49 are in Tatoeba at all, and 49 carry a sentence. The
+five levels and the alphabet-and-tones deck rebuild byte-identical; a re-run is byte-identical.
+
+- **A SPACE IS NOT THE TEST.** Vietnamese writes a space inside one word (`học sinh`), so "more than one word" cannot be
+  read off the spaces as the Hindi script reads it. A row is an expression only by Wiktionary's part of speech
+  (`phrase`, `intj`, `proverb`) or its idiomatic tag — `thẻ tín dụng` is multi-syllable and not here.
+- **The levels' filters apply**: no weak sense counts, the sum-of-parts pointer is never a meaning, any expression
+  holding one of `select.SWEARS` is out, and `select.EXCLUDE` is honoured as well as the deck's own `EXCLUDE`.
+- **Excluded with reasons**: phrasebook sentences built from level words (`anh yêu em`, `em yêu anh`, `tôi là người
+  Việt`, `cái này là gì` …, the Hindi rule), a political slogan (`từ sông ra biển`), swears, curses and slurs (`đụ mẹ`,
+  `chó đểu`, `quỷ tha ma bắt`, `trời đánh`, `cái búa`, `gái bán hoa`, `gái đứng đường` …), `rỗng như đít Bụt` (crude),
+  `đáng đời` / `đáng kiếp` (Wiktionary's gloss is an unexpanded template, "serves objective case pronouns right"), `a men`
+  (B2 teaches `amen`), `trầu quơ` (a regional form of B1's `trời ơi`).
+- **VARIANT SPELLINGS OF ONE INTERJECTION ARE ONE CARD**: `mèng ơi` came with `chèng ơi`, `chèng đéc ơi` and `mèng đéc
+  ơi`, and the shelf's uniqueness pass labelled each "not …, not …, not …". The commonest is kept and the rest are in
+  `EXCLUDE` (`ạ ơi`, `ái dà`, `bính bong`, `ụt ịt` …). An idiom's or proverb's alternate WORDING is kept and labelled —
+  `đứng núi này trông núi kia` / `… nọ`, `trăm trận trăm thắng` / `bách chiến bách thắng` are different sayings, not
+  spellings.
+
+**Known, left.** 493 of 542 expressions have no sentence: Tatoeba's 22,000 Vietnamese sentences hold few idioms.
+Some proverbs share a meaning and are labelled apart by the uniqueness pass (`một công đôi việc`, `nhất cử lưỡng
+tiện`, `nhất tiễn song điêu`). A few Wiktionary glosses are literal before figurative (`thuận buồm xuôi gió` "the sail
+gets smoothly carried away by the wind; smooth sailing").
+

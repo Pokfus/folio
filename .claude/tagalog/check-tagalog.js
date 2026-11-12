@@ -14,6 +14,8 @@ const LABELS = new Set(["completed", "ongoing", "contemplated", "plural", "root"
 const POINTER = /^(?:[\w,\- ]*\b)?(?:form|spelling|aspect|contraction|clipping|inflection) of \S+$/i;
 const PLAIN = /^[A-Za-zÑñ' -]+$/;
 const unmark = (s) => s.normalize("NFD").replace(/[̀́̂]/g, "").normalize("NFC");
+// the Marked field is HTML-escaped (an apostrophe in ano'ng, buto't is &#x27;); compare the text
+const unescape = (s) => s.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Tagalog-.*\.folio-deck\.json$/.test(f)).sort();
@@ -29,7 +31,7 @@ for (const f of files) {
     if (!PLAIN.test(w || "")) bad(f + ": card " + (i + 1) + " Word has a mark or a letter Tagalog does not write: " + w);
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
-    if (F.Marked && unmark(F.Marked).toLowerCase() !== w.toLowerCase()) bad(f + ": " + w + " has a marked spelling of another word: " + F.Marked);
+    if (F.Marked && unmark(unescape(F.Marked)).toLowerCase() !== w.toLowerCase()) bad(f + ": " + w + " has a marked spelling of another word: " + F.Marked);
     if (!F.English) bad(f + ": " + w + " has no English");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n")) {
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());

@@ -4,6 +4,7 @@
     python3 .claude/polish/run.py                 # A1
     python3 .claude/polish/run.py --level a2      # on top of the shipped A1
     python3 .claude/polish/run.py --no-fetch      # reuse whatever is cached
+    python3 .claude/polish/run.py --level phr     # the phrases deck, on every level deck shipped
 
 ONE LEVEL PER RUN, built on top of the SHIPPED decks below it
 (`pl_level.taught_below`).  Caches in `.claude/polish-cache/` (~1 GB,
@@ -13,6 +14,7 @@ THE STAGES, in order, each writing into the cache for the next:
 
     extract.py      the whole Polish Wiktionary, reduced
     select.py       the level's words: the inventory + frequency fill
+                    (phrases.py instead, for --level phr)
     examples.py     three Tatoeba sentences each
     build_deck.py   meanings, forms rows, sentence markup, the deck file
 """
@@ -48,7 +50,7 @@ def main():
                 subprocess.run(["curl", "-sSfL", "-o", p, url], check=True)
     if not os.path.exists(os.path.join(CACHE, "dict.json")):
         run("extract.py")
-    run("select.py", "--level", a.level)
+    run("phrases.py" if a.level == "phr" else "select.py", "--level", a.level)
     run("examples.py", "--level", a.level)
     run("build_deck.py", "--level", a.level)
 

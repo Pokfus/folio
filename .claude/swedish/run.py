@@ -3,6 +3,7 @@
 
     python3 .claude/swedish/run.py                 # A1
     python3 .claude/swedish/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/swedish/run.py --level phr     # the phrases deck, after all five levels
     python3 .claude/swedish/run.py --no-fetch      # reuse whatever is cached
 
 ONE LEVEL PER RUN (`swedish_level` reads the level once, at import).  Downloads
@@ -71,7 +72,7 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:

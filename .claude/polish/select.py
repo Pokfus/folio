@@ -40,7 +40,49 @@ EXCLUDE = {
     "tato",                    # the vocative of `tata`, which the deck teaches; its own entry took the count
     "dzieje",                  # "history": its count is `dzieje się`, "is happening" (dziać się)
     "suka", "dziwka", "pieprzony", "zajebisty", "spieprzać", "spierdalać",      # swearing: dubbed-film counts
+    # Found by A2 (2026-11-12): homographs whose own entry took a commoner word's form, and an exemption
+    # (adverb, conjunction) kept them from being shadowed.
+    "dnia",                    # adv "daily": its count is dzień's genitive
+    "razy",                    # adv "times (multiplied by)": its count is raz's plural
+    "bądź",                    # conj "either, or": its count is być's imperative
+    "podoba",                  # noun "pattern": its count is podobać's `podoba mi się`
+    "ego",                     # counted above `pomoc` and `rozmowa`: subtitle noise, not the psychological term
+    # Found by B1 (2026-11-12).
+    "pierwsza",                # noun "one o'clock": its count is pierwszy's feminine
+    "żadnego",                 # a case of żaden (A1/A2) the dump carries as a live entry
+    "człowieku",               # człowiek's vocative, entered as a particle
+    "powinno",                 # adverb "as it ought": its count is powinien's neuter
+    "działo",                  # noun "cannon": its count is `działo się` (dziać się)
+    "frank", "tom", "henr",    # the names Frank, Tom and Henry, which a lowercase list cannot tell from the franc, a volume and the unit
+    "glina",                   # "clay": its count is the slang "cop", a sense the deck does not teach
+    "korekta",                 # "correction": its count is subtitle credits ("Korekta: …")
+    "dupek",                   # "asshole": swearing, as above
+    # Found by B2 (2026-11-12).
+    "mary",                    # "bier": its count is the name Mary
+    "cie",                     # an interjection to a horse: its count is ciebie's short form `cię` without the ogonek
+    "dna",                     # "gout": its count is dno's genitive
+    "święta",                  # "saint" (fem.): its count is święto's plural "holidays", which A2 teaches as święto
+    "młoda",                   # "bride": its count is młody's feminine
+    "lewa",                    # "trick" (cards): its count is lewy's feminine
+    "forsa",                   # "crowd": its count is the slang "dough, cash", a sense the deck does not teach
+    # Found by C1 (2026-11-12).
+    "ha", "hmm",               # interjections of film dialogue, as above
+    "daniel", "graca", "de",   # "fallow deer", "mattock", "ass": their counts are the names Daniel and Grace, and `de`
+    "me",                      # "baa": its count is English and Spanish `me` in the subtitles
+    "wiec",                    # "rally": its count is `więc` typed without the ogonek (the `sie` finding)
+    "prosta",                  # "line": its count is prosty's feminine
+    "drogą", "celem",          # adverb "by way of", preposition "in order to": counted from droga's and cel's instrumental
+    "gliniarz", "laska",       # "mud dauber", "cane": their counts are the slang "cop" and "chick", not taught
 }
+
+
+def combined_only(entries):
+    """`żebyś`, `gdybym`, `byś`: "Combined form of żeby + -ś" -- a conjunction with a person ending fused on,
+    which the card for the conjunction already teaches.  Found by A2's fill (2026-11-12)."""
+    live = [e for e in entries if pl.live(e)]
+    fused = lambda s_: any("Combined form of" in g for g in (s_.get("g") or []))
+    return any(fused(s_) for e in live for s_ in e["senses"]) and all(fused(s_) or e["pos"] == "intj"
+                              for e in live for s_ in e["senses"])
 
 
 def read_frequency():
@@ -156,7 +198,7 @@ def main():
     for w, n in sorted(counts.items(), key=lambda x: (-x[1], x[0])):
         if len(inventory_) + len(fill) >= pl_level.SIZE[a.level]:
             break
-        if w in seen or w in EXCLUDE or (len(w) < 2 and w not in "awiozu"):
+        if w in seen or w in EXCLUDE or (len(w) < 2 and w not in "awiozu") or combined_only(D.get(w, [])):
             continue
         own_pos = {e["pos"] for e in D.get(w, []) if pl.live(e)}
         # A WORD THAT IS ONLY AN INTERJECTION OR A PARTICLE IS SHADOWED WHATEVER THE OWNER'S COUNT: a word's own
