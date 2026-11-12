@@ -2,16 +2,16 @@
  "generated": "2026-11-12T05:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7018,
-  "redirect-broader": 670,
-  "redirect-variant": 425,
-  "section-redirect": 150,
+  "ok": 7088,
+  "redirect-broader": 684,
+  "redirect-variant": 433,
+  "section-redirect": 151,
   "disambiguation": 149,
-  "none": 1079,
-  "disambig-resolved": 95,
+  "none": 1084,
+  "disambig-resolved": 96,
   "list-page": 6,
   "search-match": 9,
-  "no-article": 19
+  "no-article": 20
  },
  "cards": {
   "wh-001": {
@@ -76939,6 +76939,763 @@
    "answer": "Amenemhat IV",
    "title": "Amenemhat IV",
    "url": "https://en.wikipedia.org/wiki/Amenemhat_IV",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-101": {
+   "answer": "Sundo",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "ko-102": {
+   "answer": "Five Classics",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Five Classics",
+   "target": "Four Books and Five Classics#Five Classics"
+  },
+  "ko-103": {
+   "answer": "Imsin Seogiseok",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "ko-104": {
+   "answer": "corvée",
+   "title": "Corvée",
+   "url": "https://en.wikipedia.org/wiki/Corv%C3%A9e",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-105": {
+   "answer": "Sobaek Mountains",
+   "title": "Sobaek Mountains",
+   "url": "https://en.wikipedia.org/wiki/Sobaek_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-106": {
+   "answer": "Goguryeo",
+   "title": "Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-107": {
+   "answer": "Jolbon",
+   "title": "Cholbon",
+   "url": "https://en.wikipedia.org/wiki/Cholbon",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jolbon"
+  },
+  "ko-108": {
+   "answer": "Jumong",
+   "title": "Dongmyeong of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Dongmyeong_of_Goguryeo",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jumong"
+  },
+  "ko-109": {
+   "answer": "Taejo of Goguryeo",
+   "title": "Taejo of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Taejo_of_Goguryeo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-110": {
+   "answer": "Goguryeo–Wei War",
+   "title": "Goguryeo–Wei War",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo%E2%80%93Wei_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-111": {
+   "answer": "Gwanggaeto the Great",
+   "title": "Gwanggaeto the Great",
+   "url": "https://en.wikipedia.org/wiki/Gwanggaeto_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-112": {
+   "answer": "Gwanggaeto Stele",
+   "title": "Gwanggaeto Stele",
+   "url": "https://en.wikipedia.org/wiki/Gwanggaeto_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-113": {
+   "answer": "Jangsu",
+   "title": "Jangsu of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Jangsu_of_Goguryeo",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-114": {
+   "answer": "Anhak Palace",
+   "title": "Anhakkung",
+   "url": "https://en.wikipedia.org/wiki/Anhakkung",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Anhak Palace"
+  },
+  "ko-115": {
+   "answer": "Chungju Goguryeo Stele",
+   "title": "Goguryeo Monument, Chungju",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo_Monument,_Chungju",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-116": {
+   "answer": "Mohe",
+   "title": "Mohe people",
+   "url": "https://en.wikipedia.org/wiki/Mohe_people",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Mohe"
+  },
+  "ko-117": {
+   "answer": "daedaero",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "ko-118": {
+   "answer": "gyeongdang",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gyongdang",
+    "Chang Hŭnghyo"
+   ]
+  },
+  "ko-119": {
+   "answer": "cataphract",
+   "title": "Cataphract",
+   "url": "https://en.wikipedia.org/wiki/Cataphract",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-120": {
+   "answer": "Hwando",
+   "title": "Hwando",
+   "url": "https://en.wikipedia.org/wiki/Hwando",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-121": {
+   "answer": "Goguryeo tomb murals",
+   "title": "Goguryeo tombs",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo_tombs",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Goguryeo tomb murals"
+  },
+  "ko-122": {
+   "answer": "Anak Tomb No. 3",
+   "title": "Anak Tomb No. 3",
+   "url": "https://en.wikipedia.org/wiki/Anak_Tomb_No._3",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-123": {
+   "answer": "Sosurim",
+   "title": "Sosurim of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Sosurim_of_Goguryeo",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-124": {
+   "answer": "Yeongyang",
+   "title": "Yeongyang of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Yeongyang_of_Goguryeo",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-125": {
+   "answer": "Battle of Salsu",
+   "title": "Battle of Salsu",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Salsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-126": {
+   "answer": "Eulji Mundeok",
+   "title": "Ŭlchi Mundŏk",
+   "url": "https://en.wikipedia.org/wiki/%C5%AClchi_Mund%C5%8Fk",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Eulji Mundeok"
+  },
+  "ko-127": {
+   "answer": "Goguryeo–Tang War",
+   "title": "Goguryeo–Tang War",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo%E2%80%93Tang_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-128": {
+   "answer": "Yeon Gaesomun",
+   "title": "Yŏn Kaesomun",
+   "url": "https://en.wikipedia.org/wiki/Y%C5%8Fn_Kaesomun",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Yeon Gaesomun"
+  },
+  "ko-129": {
+   "answer": "Siege of Ansi",
+   "title": "Battle of Ansi",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Ansi",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Siege of Ansi"
+  },
+  "ko-130": {
+   "answer": "Siege of Pyongyang",
+   "title": "Siege of Pyongyang (668)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Pyongyang_(668)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-131": {
+   "answer": "Anseung",
+   "title": "Ansŭng",
+   "url": "https://en.wikipedia.org/wiki/Ans%C5%ADng",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Anseung"
+  },
+  "ko-132": {
+   "answer": "Tomb of King Tongmyong",
+   "title": "Tomb of King Tongmyong",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_King_Tongmyong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-133": {
+   "answer": "Northeast Project",
+   "title": "Northeast Project",
+   "url": "https://en.wikipedia.org/wiki/Northeast_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-134": {
+   "answer": "Achasan",
+   "title": "Achasan",
+   "url": "https://en.wikipedia.org/wiki/Achasan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-135": {
+   "answer": "Northern and Southern States period",
+   "title": "Northern and Southern States period",
+   "url": "https://en.wikipedia.org/wiki/Northern_and_Southern_States_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-136": {
+   "answer": "Baekje",
+   "title": "Paekche",
+   "url": "https://en.wikipedia.org/wiki/Paekche",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Baekje"
+  },
+  "ko-137": {
+   "answer": "Wiryeseong",
+   "title": "Wiryeseong",
+   "url": "https://en.wikipedia.org/wiki/Wiryeseong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-138": {
+   "answer": "Onjo",
+   "title": "Onjo of Paekche",
+   "url": "https://en.wikipedia.org/wiki/Onjo_of_Paekche",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Onjo"
+  },
+  "ko-139": {
+   "answer": "Pungnaptoseong",
+   "title": "P'ungnapt'osŏng",
+   "url": "https://en.wikipedia.org/wiki/P'ungnapt'os%C5%8Fng",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Pungnaptoseong"
+  },
+  "ko-140": {
+   "answer": "Liaoxi",
+   "title": "Liaoxi Commandery",
+   "url": "https://en.wikipedia.org/wiki/Liaoxi_Commandery",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-141": {
+   "answer": "Geunchogo",
+   "title": "Geunchogo of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Geunchogo_of_Baekje",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-142": {
+   "answer": "Liang Zhigongtu",
+   "title": "Portraits of Periodical Offering",
+   "url": "https://en.wikipedia.org/wiki/Portraits_of_Periodical_Offering",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Liang Zhigongtu"
+  },
+  "ko-143": {
+   "answer": "Gaero",
+   "title": "Gaero of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Gaero_of_Baekje",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-144": {
+   "answer": "Ungjin",
+   "title": "Ungjin",
+   "url": "https://en.wikipedia.org/wiki/Ungjin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-145": {
+   "answer": "Sabi",
+   "title": "Sabi (Korea)",
+   "url": "https://en.wikipedia.org/wiki/Sabi_(Korea)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-146": {
+   "answer": "Muryeong",
+   "title": "Muryeong of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Muryeong_of_Baekje",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-147": {
+   "answer": "Tomb of King Muryeong",
+   "title": "Tomb of King Muryeong",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_King_Muryeong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-148": {
+   "answer": "jwapyeong",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The King of Legend",
+    "Paekche",
+    "Mireuksa",
+    "Mireuksaji Stone Pagoda",
+    "Goi of Baekje"
+   ]
+  },
+  "ko-149": {
+   "answer": "Great Eight Families",
+   "title": "Great Eight Families",
+   "url": "https://en.wikipedia.org/wiki/Great_Eight_Families",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-150": {
+   "answer": "Marananta",
+   "title": "Marananta",
+   "url": "https://en.wikipedia.org/wiki/Marananta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-151": {
+   "answer": "Seosan Buddha Triad",
+   "title": "Rock-carved triad buddha in Seosan",
+   "url": "https://en.wikipedia.org/wiki/Rock-carved_triad_buddha_in_Seosan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-152": {
+   "answer": "Gilt-bronze Incense Burner of Baekje",
+   "title": "Gilt-bronze Incense Burner of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Gilt-bronze_Incense_Burner_of_Baekje",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-153": {
+   "answer": "Mireuksa",
+   "title": "Mireuksa",
+   "url": "https://en.wikipedia.org/wiki/Mireuksa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-154": {
+   "answer": "Seven-Branched Sword",
+   "title": "Seven-Branched Sword",
+   "url": "https://en.wikipedia.org/wiki/Seven-Branched_Sword",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-155": {
+   "answer": "Seong of Baekje",
+   "title": "Seong of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Seong_of_Baekje",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-156": {
+   "answer": "Wani",
+   "title": "Wani (scholar)",
+   "url": "https://en.wikipedia.org/wiki/Wani_(scholar)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-157": {
+   "answer": "Naje alliance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rosa Luxemburg"
+   ]
+  },
+  "ko-158": {
+   "answer": "Uija of Baekje",
+   "title": "Uija of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Uija_of_Baekje",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-159": {
+   "answer": "Boksin",
+   "title": "Gwisil Boksin",
+   "url": "https://en.wikipedia.org/wiki/Gwisil_Boksin",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Boksin"
+  },
+  "ko-160": {
+   "answer": "Battle of Baekgang",
+   "title": "Battle of Baekgang",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Baekgang",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ko-161": {
+   "answer": "Silla",
+   "title": "Silla",
+   "url": "https://en.wikipedia.org/wiki/Silla",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-162": {
+   "answer": "Jinhan",
+   "title": "Jinhan confederacy",
+   "url": "https://en.wikipedia.org/wiki/Jinhan_confederacy",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Jinhan"
+  },
+  "ko-163": {
+   "answer": "Bak Hyeokgeose",
+   "title": "Hyeokgeose of Silla",
+   "url": "https://en.wikipedia.org/wiki/Hyeokgeose_of_Silla",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bak Hyeokgeose"
+  },
+  "ko-164": {
+   "answer": "maripgan",
+   "title": "Silla",
+   "url": "https://en.wikipedia.org/wiki/Silla",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Maripgan"
+  },
+  "ko-165": {
+   "answer": "Kim Al-ji",
+   "title": "Kim Al-chi",
+   "url": "https://en.wikipedia.org/wiki/Kim_Al-chi",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Al-ji"
+  },
+  "ko-166": {
+   "answer": "bone-rank system",
+   "title": "Bone-rank system",
+   "url": "https://en.wikipedia.org/wiki/Bone-rank_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-167": {
+   "answer": "Beopheung",
+   "title": "Beopheung of Silla",
+   "url": "https://en.wikipedia.org/wiki/Beopheung_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-168": {
+   "answer": "Heungnyunsa",
+   "title": "Heungnyunsa",
+   "url": "https://en.wikipedia.org/wiki/Heungnyunsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-169": {
+   "answer": "Ichadon",
+   "title": "Ichadon",
+   "url": "https://en.wikipedia.org/wiki/Ichadon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-170": {
+   "answer": "Jinheung",
+   "title": "Jinheung of Silla",
+   "url": "https://en.wikipedia.org/wiki/Jinheung_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-171": {
+   "answer": "Kim Muryeok",
+   "title": "Kim Muryŏk",
+   "url": "https://en.wikipedia.org/wiki/Kim_Mury%C5%8Fk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kim Muryeok"
+  },
+  "ko-172": {
+   "answer": "Bukhansan Monument",
+   "title": "Bukhansan Monument",
+   "url": "https://en.wikipedia.org/wiki/Bukhansan_Monument",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-173": {
+   "answer": "hwarang",
+   "title": "Hwarang",
+   "url": "https://en.wikipedia.org/wiki/Hwarang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-174": {
+   "answer": "Hwabaek",
+   "title": "Hwabaek",
+   "url": "https://en.wikipedia.org/wiki/Hwabaek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-175": {
+   "answer": "nobi",
+   "title": "Nobi",
+   "url": "https://en.wikipedia.org/wiki/Nobi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-176": {
+   "answer": "Queen Seondeok",
+   "title": "Queen Seondeok of Silla",
+   "url": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Queen Seondeok"
+  },
+  "ko-177": {
+   "answer": "Cheomseongdae",
+   "title": "Cheomseongdae",
+   "url": "https://en.wikipedia.org/wiki/Cheomseongdae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-178": {
+   "answer": "Silla gold crowns",
+   "title": "Crowns of Silla",
+   "url": "https://en.wikipedia.org/wiki/Crowns_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-179": {
+   "answer": "Daereungwon",
+   "title": "Daereungwon",
+   "url": "https://en.wikipedia.org/wiki/Daereungwon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-180": {
+   "answer": "Wongwang",
+   "title": "Wŏn'gwang",
+   "url": "https://en.wikipedia.org/wiki/W%C5%8Fn'gwang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-181": {
+   "answer": "Hwangnyongsa",
+   "title": "Hwangnyongsa",
+   "url": "https://en.wikipedia.org/wiki/Hwangnyongsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-182": {
+   "answer": "Queen Jindeok",
+   "title": "Queen Jindeok of Silla",
+   "url": "https://en.wikipedia.org/wiki/Queen_Jindeok_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-183": {
+   "answer": "Kim Chunchu",
+   "title": "Muyeol of Silla",
+   "url": "https://en.wikipedia.org/wiki/Muyeol_of_Silla",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Chunchu"
+  },
+  "ko-184": {
+   "answer": "Kim Yusin",
+   "title": "Kim Yu-sin",
+   "url": "https://en.wikipedia.org/wiki/Kim_Yu-sin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-185": {
+   "answer": "Battle of Hwangsanbeol",
+   "title": "Battle of Hwangsanbeol",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Hwangsanbeol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-186": {
+   "answer": "Gaya",
+   "title": "Gaya confederacy",
+   "url": "https://en.wikipedia.org/wiki/Gaya_confederacy",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-187": {
+   "answer": "Ara Gaya",
+   "title": "Ara Gaya",
+   "url": "https://en.wikipedia.org/wiki/Ara_Gaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-188": {
+   "answer": "Geumgwan Gaya",
+   "title": "Geumgwan Gaya",
+   "url": "https://en.wikipedia.org/wiki/Geumgwan_Gaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-189": {
+   "answer": "Daegaya",
+   "title": "Daegaya",
+   "url": "https://en.wikipedia.org/wiki/Daegaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-190": {
+   "answer": "Byeonhan",
+   "title": "Byeonhan confederacy",
+   "url": "https://en.wikipedia.org/wiki/Byeonhan_confederacy",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Byeonhan"
+  },
+  "ko-191": {
+   "answer": "Nakdong River",
+   "title": "Nakdong River",
+   "url": "https://en.wikipedia.org/wiki/Nakdong_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-192": {
+   "answer": "stoneware",
+   "title": "Stoneware",
+   "url": "https://en.wikipedia.org/wiki/Stoneware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-193": {
+   "answer": "Gaya Tumuli",
+   "title": "Gaya Tumuli",
+   "url": "https://en.wikipedia.org/wiki/Gaya_Tumuli",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-194": {
+   "answer": "Sue ware",
+   "title": "Sue pottery",
+   "url": "https://en.wikipedia.org/wiki/Sue_pottery",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Sue ware"
+  },
+  "ko-195": {
+   "answer": "Mimana",
+   "title": "Mimana",
+   "url": "https://en.wikipedia.org/wiki/Mimana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-196": {
+   "answer": "Guhyeong",
+   "title": "Guhyeong of Geumgwan Gaya",
+   "url": "https://en.wikipedia.org/wiki/Guhyeong_of_Geumgwan_Gaya",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-197": {
+   "answer": "Garakguk-gi",
+   "title": "Garakguk-gi",
+   "url": "https://en.wikipedia.org/wiki/Garakguk-gi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-198": {
+   "answer": "Gimhae",
+   "title": "Gimhae",
+   "url": "https://en.wikipedia.org/wiki/Gimhae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-199": {
+   "answer": "confederation",
+   "title": "Confederation",
+   "url": "https://en.wikipedia.org/wiki/Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-200": {
+   "answer": "gayageum",
+   "title": "Gayageum",
+   "url": "https://en.wikipedia.org/wiki/Gayageum",
    "via": "glossary",
    "status": "ok"
   }
