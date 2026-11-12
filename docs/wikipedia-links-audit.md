@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7018 | the title is the article |
-| `redirect-variant` | 425 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 95 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7160 | the title is the article |
+| `redirect-variant` | 437 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 97 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 670 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 696 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 150 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 155 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1079 | nothing matched; no link |
+| `none` | 1091 | nothing matched; no link |
 
-**8224 of 9620 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8406 of 9820 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (670)
+## Redirected to a differently named article — check each (696)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -141,6 +141,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-961` **Huanghuali** → [Dalbergia odorifera](https://en.wikipedia.org/wiki/Dalbergia_odorifera) (from `Huanghuali`)
 - `cnh-966` **Wu Liang Shrine** → [Wu Family Shrines](https://en.wikipedia.org/wiki/Wu_Family_Shrines) (from `Wu Liang Shrine`)
 - `cnh-990` **Zhaozhou Bridge** → [Anji Bridge](https://en.wikipedia.org/wiki/Anji_Bridge) (from `Zhaozhou Bridge`)
+- `ec-006` **positive economics** → [Positive and normative economics](https://en.wikipedia.org/wiki/Positive_and_normative_economics) (from `Positive economics`)
+- `ec-008` **economic agent** → [Agent (economics)](https://en.wikipedia.org/wiki/Agent_(economics)) (from `Economic agent`)
+- `ec-024` **production possibility frontier** → [Production-possibility frontier](https://en.wikipedia.org/wiki/Production-possibility_frontier) (from `Production possibility frontier`)
+- `ec-027` **marginal benefit** → [Marginal utility](https://en.wikipedia.org/wiki/Marginal_utility) (from `Marginal benefit`)
+- `ec-042` **stylised fact** → [Stylized fact](https://en.wikipedia.org/wiki/Stylized_fact) (from `Stylised fact`)
+- `ec-047` **rational choice theory** → [Rational choice model](https://en.wikipedia.org/wiki/Rational_choice_model) (from `Rational choice theory`)
+- `ec-048` **instrumental rationality** → [Instrumental and value rationality](https://en.wikipedia.org/wiki/Instrumental_and_value_rationality) (from `Instrumental rationality`)
+- `ec-056` **Cowles Commission** → [Cowles Foundation](https://en.wikipedia.org/wiki/Cowles_Foundation) (from `Cowles Commission`)
+- `ec-070` **value judgement** → [Value judgment](https://en.wikipedia.org/wiki/Value_judgment) (from `Value judgement`)
+- `ec-085` **strong sustainability** → [Weak and strong sustainability](https://en.wikipedia.org/wiki/Weak_and_strong_sustainability) (from `Strong sustainability`)
+- `ec-096` **supply curve** → [Supply (economics)](https://en.wikipedia.org/wiki/Supply_(economics)) (from `Supply curve`)
+- `ec-098` **market equilibrium** → [Economic equilibrium](https://en.wikipedia.org/wiki/Economic_equilibrium) (from `Market equilibrium`)
 - `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
 - `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
 - `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)
@@ -729,7 +741,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (95)
+## Settled from a disambiguation page (97)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -744,6 +756,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
 - `cnh-948` **Huang Quan** → [Huang Quan (painter)](https://en.wikipedia.org/wiki/Huang_Quan_(painter)) (via the disambiguation page `Huang Quan`)
+- `ec-032` **specialisation** → [Division of labour](https://en.wikipedia.org/wiki/Division_of_labour) (via the disambiguation page `Specialization`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -936,7 +949,6 @@ Pick the right article by hand, or leave the card without a link.
 - `ko-053` **Gija** — `Kija` is a disambiguation page; its links: `Gija Joseon`, `Gija people`
 - `ko-060` **minjok** — `Minjok` is a disambiguation page; its links: `Minjok historiography`, `Minjok jeonggi`, `Baedal Minjok`, `Korean Minjok Leadership Academy`
 - `ko-068` **Mahan** — `Mahan` is a disambiguation page; its links: `Mahan District`, `Mahan, Iran`, `Mahan Rural District`, `Mahan, Hamadan`, `Mahan Air`, `Mahan, Missouri`
-- `ko-186` **Gaya** — `Gaya` is a disambiguation page; its links: `Gaya district`, `Bodh Gaya`, `Eiji Gaya`, `Gaya, India`, `Gaya, Niger`, `Gaya, Nigeria`
 - `pea-009` **Central Military Commission** — `Central Military Commission` is a disambiguation page; its links: `Central Military Commission of the Communist Party of Vietnam`, `Central Military Commission of the Workers' Party of Korea`, `Central Military Commission (China)`
 - `pea-031` **Article 9** — `Article Nine` is a disambiguation page; its links: `Article 9 of the Japanese Constitution`, `Article 9 of the Constitution of Singapore`, `Article 9 ECHR`
 - `pea-033` **SCAP** — `SCAP` is a disambiguation page; its links: `S.C.A.P.`
@@ -1010,7 +1022,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (150)
+## Section redirects — no dedicated page (155)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1039,6 +1051,10 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-859` **Taijitu shuo** — `Taijitu shuo` only redirects into `Wuji (philosophy)#Taijitu shuo`
 - `cnh-985` **Taichu calendar** — `Taichu calendar` only redirects into `Chinese calendar#Han-Ming dynasties and Taichu calendar`
 - `cnh-994` **Drawloom** — `Drawloom` only redirects into `Loom#Drawloom`
+- `ec-029` **sunk cost fallacy** — `Sunk cost fallacy` only redirects into `Sunk cost#Fallacy effect`
+- `ec-077` **interpersonal comparisons of utility** — `Interpersonal comparisons of utility` only redirects into `Utility#Interpersonal comparisons of utility`
+- `ec-088` **unpaid care work** — `Unpaid care work` only redirects into `Unpaid work#Unpaid care work`
+- `ec-094` **change in demand** — `Change in demand` only redirects into `Demand curve#Change in demand`
 - `eep-062` **Qualified majority voting** — `Qualified majority voting` only redirects into `Voting in the Council of the European Union#Treaty of Lisbon`
 - `eep-183` **Mixed agreement** — `Mixed agreement` only redirects into `Common Commercial Policy (EU)#Mixed agreements`
 - `eep-233` **Discursive institutionalism** — `Discursive institutionalism` only redirects into `New institutionalism#Constructivist institutionalism`
@@ -1166,7 +1182,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1079)
+## No article found (1091)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1361,6 +1377,13 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-875` **Mingtang** — search suggests `1911 Revolution`, `Wei-ming temple`, `CCTV-10`, `Wu Zetian`, `Old City of Luoyang`
 - `cnh-896` **Great Cloud Sutra** — search suggests `Mahāmegha Sūtra`, `Diamond Sutra`, `Mahayana sutras`, `Sukhavati`, `Prajnaparamita`
 - `cnh-898` **Tianzhu shiyi** — search suggests `Tianzhu (Chinese name of God)`, `Christianity in China`, `Alessandro Valignano`, `Catholic missions`, `Lotus Sutra`
+- `ec-014` **what, how and for whom** — search suggests `The Mother (How I Met Your Mother)`, `Enjoining good and forbidding wrong`, `Reproduction (economics)`, `Chief executive officer`, `Supply-side economics`
+- `ec-035` **lower opportunity cost** — search suggests `Opportunity cost`, `Profit (economics)`, `Microeconomics`, `Diminishing returns`, `Total cost`
+- `ec-039` **equity-efficiency trade-off** — search suggests `Pareto efficiency`, `Trade-off`, `Economics`, `Welfare economics`, `Tax policy`
+- `ec-069` **radical uncertainty** — search suggests `Uncertainty`, `Knightian uncertainty`, `Heterodox economics`, `Trans-exclusionary radical feminism`, `Radical centrism`
+- `ec-086` **quality adjustment** — search suggests `Quality-adjusted life year`, `Structural adjustment`, `Hedonic regression`, `Happiness economics`, `Health economics`
+- `ec-087` **production boundary** — search suggests `Economics`, `Production-possibility frontier`, `Production function`, `Thermoeconomics`, `Unpaid work`
+- `ec-097` **change in supply** — search suggests `Elasticity (economics)`, `Supply (economics)`, `Supply-side economics`, `Price elasticity of supply`, `Supply`
 - `eep-001` **Iceland referendum** — search suggests `2026 Icelandic European Union membership negotiations referendum`, `Iceland–European Union relations`, `1944 Icelandic constitutional referendum`, `Icelandic referendum`, `Referendums related to the European Union`
 - `eep-004` **External action** — search suggests `European External Action Service`, `List of ambassadors of the European Union`, `European Union Intelligence and Situation Centre`, `European Union Military Staff`, `High Representative of the Union for Foreign Affairs and Security Policy`
 - `eep-005` **Composite foreign policy** — search suggests `Franco-British Union`, `European Commissioner for External Relations`, `List of countries by exchange rate regime`, `SSE Composite Index`, `Eastern Partnership`
@@ -1967,20 +1990,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ko-099` **sumyoje** — search suggests `Timeline of Korean history`, `Silla–Goguryeo and Paekche–Kaya–Wa War`, `Gwanggaeto Stele`
 - `ko-100` **wooden tablet** — search suggests `Baekje language`, `Korea`, `Buried Memorial Tablet from the Tomb of King Muryeong`, `Dosan Seowon`, `Bamboo and wooden slips`
 - `ko-103` **Imsin Seogiseok**
-- `ko-115` **Chungju Goguryeo Stele** — search suggests `Goguryeo Monument, Chungju`, `Goguryeo language`, `Jangsu of Goguryeo`, `Korean mythology`, `Korean imperial titles`
 - `ko-117` **daedaero**
 - `ko-118` **gyeongdang** — search suggests `Gyongdang`, `Chang Hŭnghyo`
-- `ko-123` **Sosurim** — search suggests `Sosurim of Goguryeo`, `Religion in Korea`, `History of Korea`, `Korean Buddhism`, `Timeline of Korean history`
-- `ko-141` **Geunchogo** — search suggests `Geunchogo of Baekje`, `South Korea`, `Korea`, `History of Korea`, `Three Kingdoms of Korea`
-- `ko-146` **Muryeong** — search suggests `Tomb of King Muryeong`, `Muryeong of Baekje`, `National Treasure (South Korea)`, `Buried Memorial Tablet from the Tomb of King Muryeong`, `List of archaeological sites in Korea`
 - `ko-148` **jwapyeong** — search suggests `The King of Legend`, `Paekche`, `Mireuksa`, `Mireuksaji Stone Pagoda`, `Goi of Baekje`
-- `ko-151` **Seosan Buddha Triad** — search suggests `Rock-carved triad buddha in Seosan`, `Seosan`, `National Treasure (South Korea)`, `Tourism in South Korea`, `Bhaiṣajyaguru Hall`
 - `ko-157` **Naje alliance** — search suggests `Rosa Luxemburg`
-- `ko-167` **Beopheung** — search suggests `Beopheung of Silla`, `List of monarchs of Korea`, `Jinheung of Silla`, `Religion in Korea`, `Korean Buddhism`
-- `ko-170` **Jinheung** — search suggests `Jinheung of Silla`, `Seoul`, `List of monarchs of Korea`, `Kim (Korean surname)`, `Traditional music of Korea`
-- `ko-178` **Silla gold crowns** — search suggests `Crowns of Silla`, `Gold Crown from Cheonmachong`, `Silla`, `National Museum of Korea`, `Gold crown`
-- `ko-182` **Queen Jindeok** — search suggests `Jindeok of Silla`, `Tomb of Queen Jindeok`, `Queen Seondeok of Silla`, `List of monarchs of Korea`, `Queen Seondeok (TV series)`
-- `ko-196` **Guhyeong** — search suggests `Guhyeong of Geumgwan Gaya`, `List of monarchs of Korea`, `Gyeomji of Geumgwan Gaya`, `Sancheong County`, `Historic Sites (South Korea)`
 - `pea-002` **Southern Tour** — search suggests `Deng Xiaoping's southern tour`, `Xi Jinping's southern tour`, `China Open (tennis)`, `Muni He`, `Extraterrestrial World Tour`
 - `pea-007` **Patriotic Education** — search suggests `Patriotic education in China`, `Patriotic Education Law of the People's Republic of China`, `Education in China`, `United front (China)`, `English education in China`
 - `pea-014` **Civilisational state** — search suggests `Science and Civilisation in China`, `Civilization state`, `Qin (state)`, `Taiwan`, `Indus Valley Civilisation`
