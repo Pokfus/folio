@@ -29,11 +29,15 @@ NAMES = {'a1': 'Beginner', 'a2': 'Elementary', 'b1': 'Intermediate',
 TITLES = {k: f'Hebrew {k.upper()} {v}' for k, v in NAMES.items()}
 DECK_IDS = {k: f'hebrew{k}' for k in BANDS}
 DECK_FILES = {k: f'Hebrew-{k.upper()}.folio-deck.json' for k in BANDS}
+TITLES['phr'] = 'Hebrew Phrases and Expressions'
+DECK_IDS['phr'] = 'hephrase'
+DECK_FILES['phr'] = 'Hebrew-Phrases-and-Expressions.folio-deck.json'
 
 # The Hindi and Persian collections' sizes, carried over, in NOTES.
 TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
+BELOW['phr'] = list(BANDS)
 
 SCOPE = {
     'a1': {
@@ -127,6 +131,17 @@ def words_below():
         for c in json.load(open(p, encoding='utf-8'))['cards']:
             F = c.get('fields') or {}
             # `Pointed` is HTML (a right-to-left span), and empty where it would repeat the headword
-            p = html.unescape(re.sub(r'<[^>]+>', '', F.get('Pointed', ''))) or F.get('Word', '')
-            out.add(F.get('Word', '') + '|' + p)
+            p = html.unescape(re.sub(r'<[^>]+>', '', F.get('Pointed', '')))
+            # a card whose pointing is not shown (a multi-word entry's broken pointing) is known by its word
+            out.add(pkey(F.get('Word', ''), p) if p else F.get('Word', '') + '|*')
     return out
+
+
+def pkey(word, pointed):
+    """A taught word's identity: its spelling and its pointing, the pointing's spaces and maqaf ignored
+    (the card tidies `לַחַץ ־דָּם` to `לַחַץ־דָּם`; the selection still holds the source's form)."""
+    return word + '|' + re.sub('[\\s\u05BE]', '', pointed or word)
+
+
+def taught(below, word, pointed):
+    return pkey(word, pointed) in below or word + '|*' in below

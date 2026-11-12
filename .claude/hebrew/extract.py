@@ -171,6 +171,12 @@ def roman_of(e):
     if not rs:
         return ''
     w = e.get('word', '')
+    # a saying in two halves (the phrases deck, 2026-11-12): Wiktionary tags each half's reading as a
+    # romanisation of its own, and the head template's `tr` holds the whole; the whole is read
+    trs = [(h.get('args') or {}).get('tr', '') for h in e.get('head_templates') or []]
+    whole = next((t for t in trs if t and len(t) > len(rs[0]) and ' ' in w), '')
+    if whole:
+        rs = [whole] + rs
     clean = [modern(r, w) for r in rs if not SCHOLARLY.search(modern(r, w))]
     return clean[0] if clean else modern(rs[0], w)
 

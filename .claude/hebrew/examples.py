@@ -24,7 +24,7 @@ import csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from he import fold, nfc, tokens, strips
-from hebrew_level import f
+from hebrew_level import f, LEVEL
 from choose import choose, CLOSED
 
 csv.field_size_limit(10 ** 8)
@@ -95,7 +95,17 @@ def main():
         ents = choose(L, row['pos'], row['pick'])
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if len(words) > 1 and LEVEL == 'phr':
+            # the phrases deck: the expression's first word may carry a prefix chain (`ובוקר טוב`),
+            # as `phrases.py` counts it; the levels keep the exact match they were built with
+            for i in index.get(words[1], []):
+                ft = toks[i][3]
+                n = len(words)
+                for j in range(len(ft) - n + 1):
+                    if (ft[j] == words[0] or words[0] in strips(ft[j])) and ft[j + 1:j + n] == words[1:]:
+                        cands.append((i, 0 if ft[j] == words[0] else 1, ft[j:j + n]))
+                        break
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 n = len(words)

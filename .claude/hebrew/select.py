@@ -21,7 +21,7 @@ import json, os, re, sys, unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from he import fold
-from hebrew_level import LEVEL, TARGET, f, words_below
+from hebrew_level import LEVEL, TARGET, f, words_below, taught
 from inventory import INVENTORY
 from choose import choose, usable, PICK
 
@@ -586,7 +586,7 @@ def main():
                 continue
             ents = choose(L, pos, pick)
             p = ents[0]['p']
-            if (k, p) in seen or L['word'] + '|' + p in below:
+            if (k, p) in seen or taught(below, L['word'], p):
                 continue
             seen.add((k, p))
             rows.append({'key': k, 'pick': p, 'word': L['word'], 'freq': L['freq'],
@@ -618,7 +618,7 @@ def main():
         if all(e['pos'] in ('phrase', 'proverb', 'name') for e in ents):
             continue
         p = ents[0]['p']
-        if L['word'] + '|' + p in below:
+        if taught(below, L['word'], p):
             continue
         keys.add(k)
         fill.append({'key': k, 'pick': p, 'word': L['word'], 'freq': L['freq'], 'pos': pick_pos(L),

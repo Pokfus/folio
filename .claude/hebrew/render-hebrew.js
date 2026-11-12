@@ -5,7 +5,7 @@
    the sanitizer ever drops `dir`, so this asserts the COMPUTED direction of the headword and of a sentence,
    and that the POINTED form and the vowel points survive the import.
 
-     node .claude/hebrew/render-hebrew.js [a1|alphabet] [screenshot-dir]
+     node .claude/hebrew/render-hebrew.js [a1|a2|b1|b2|c1|phr|alphabet] [screenshot-dir]
 
    Screenshots go to <screenshot-dir>/hebrew-<deck>-back.png (default: the OS temp dir). */
 "use strict";
@@ -15,8 +15,8 @@ const ROOT = path.resolve(__dirname, "..", "..");
 const WHICH = (process.argv[2] || "a1").toLowerCase();
 const OUT = process.argv[3] || os.tmpdir();
 const ABC = WHICH === "alphabet";
-const PHR = false;
-const DECK = (ABC ? "Hebrew-Alphabet" : "Hebrew-" + WHICH.toUpperCase()) + ".folio-deck.json";
+const PHR = WHICH === "phr";   // the phrases deck: no verb table, its cards in three subdecks
+const DECK = (ABC ? "Hebrew-Alphabet" : PHR ? "Hebrew-Phrases-and-Expressions" : "Hebrew-" + WHICH.toUpperCase()) + ".folio-deck.json";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -83,7 +83,7 @@ const ok = (c, m, extra) => {
                ask: !!b.querySelector(".uc-ask"), shapes: b.querySelectorAll(".uc-shapes .uc-sl, .uc-shapes .uc-sf").length,
                pointed: t(".uc-pt"), verb: /binyan/.test(b.textContent) };
     });
-    if (ABC ? (back.shapes >= 2 && !back.ask) : (back.verb && back.table && back.ex && !back.ask)) break;
+    if (ABC ? (back.shapes >= 2 && !back.ask) : ((PHR || (back.verb && back.table)) && back.ex && !back.ask)) break;
     await pg.evaluate(() => document.querySelector(".grade[data-g='easy']").click());
     await pg.waitForTimeout(300);
   }

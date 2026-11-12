@@ -5,7 +5,7 @@ Hebrew set, built the way the Persian set was (`docs/persian-decks-plan.md`); `d
 of how the others were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-12: "Add a Hebrew language collection."
 
-**STATUS (2026-11-12): COMPLETE — the alphabet deck and every level A1 to C1 are built** (`.claude/hebrew/`). A phrases deck is not planned unless asked for.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, every level A1 to C1, and the phrases deck are built** (`.claude/hebrew/`).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces after the first. The first commit carried one changelog item and one bump, because it
@@ -34,6 +34,7 @@ rather than asked again:
 | Hebrew B1 Intermediate — built | `Hebrew-B1.folio-deck.json` | 1,000 |
 | Hebrew B2 Upper Intermediate — built | `Hebrew-B2.folio-deck.json` | 1,500 |
 | Hebrew C1 Advanced — built | `Hebrew-C1.folio-deck.json` | 1,500 |
+| Hebrew Phrases and Expressions — built | `Hebrew-Phrases-and-Expressions.folio-deck.json` | 161 |
 
 ## 2. Sources and licences
 
@@ -94,8 +95,8 @@ form is the guide. One A1 word (`שדה תעופה`) has no Tatoeba sentence.
 ## 5. Phases
 
 **Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2 (done 2026-11-12)** — A2 to C1, one level per session: the
-level's inventory into `inventory.py`, its `SCOPE` into `hebrew_level.py`, run, read every card. **Phase 3** — a
-phrases deck, if asked for.
+level's inventory into `inventory.py`, its `SCOPE` into `hebrew_level.py`, run, read every card. **Phase 3 (done 2026-11-12)** — the
+phrases deck.
 
 ## 6. As built (2026-11-12)
 
@@ -202,3 +203,26 @@ rebuilt on the day's code are unchanged (checked by hash). What C1 needed:
 **Known, left.** C1 is the frequency list's long tail more than a curated advanced vocabulary: Wiktionary's English
 coverage of formal Hebrew is too thin to carry a written inventory at this level, and the description says the
 level is assembled.
+
+## 11. The phrases deck as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/hebrew/run.py --level phr` (`phrases.py`, Persian's,
+carried over). **161 expressions in three subdecks: 113 phrases, 32 idioms, 16 proverbs** — every multi-word entry
+Wiktionary files as a phrase or interjection (Phrases), tags idiomatic (Idioms) or files as a proverb (Proverbs),
+less what a level teaches and `phrases.EXCLUDE`, each with its reason: phrasebook sentences built from level words
+(`אני רעב`, `איך מגיעים לתחנת הרכבת`), slogans, Aramaic and Talmudic formulas, a slur, a vulgar gloss. Ordered within
+each subdeck by how many Tatoeba sentences contain the expression (73 of the 161 occur), then by frequency;
+sentences for 73, three for 43. What it needed:
+
+- **A saying in two halves** has each half's reading tagged as a romanisation of its own; the head template's `tr`
+  holds the whole and is read (`extract.roman_of`). Lowercasing a capitalised reading was tried and refused: it
+  hit Purim and Cupid.
+- **A multi-word entry's pointing** in Wiktionary is sometimes only its first half, or writes its prefixes apart:
+  a one-letter prefix is joined back (`נוֹלַד בְּאוֹטוֹבּוּס`), the space before a maqaf is dropped (`עַל־פִּי`), and
+  a pointing whose letters are not the headword's is not shown (14 of 161). The maqaf fix also reached seven cards
+  of A2–B2 (`בֶּן־דּוֹד`, `בֵּית־מִשְׁפָּט` …), and B2's `בגדול` lost Wiktionary's "used other than figuratively"
+  note; nothing else in the shipped levels changed.
+- **"Below" compares a taught word's pointing with its spaces and maqaf ignored** (`hebrew_level.pkey`): once the
+  cards tidied it, a rebuild of C1 re-taught `לחץ דם` from B1 until it did.
+- **The phrases deck's sentences** allow a prefix chain on the expression's first word (`ובוקר טוב`), as the
+  ordering counts them; the levels keep the exact match they were built with.

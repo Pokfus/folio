@@ -144,6 +144,8 @@ GLOSS = {
     # C1: the Mishnah and the Torah, where Wiktionary's gloss opens on a sense or a paragraph
     'משנה|מִשְׁנָה': {'noun': ['the Mishnah (the first written code of Jewish oral law)', 'a paragraph of the Mishnah; doctrine']},
     'תורה|תּוֹרָה': {'noun': ['the Torah (the five books of Moses; Jewish teaching)', 'instruction, teaching, doctrine']},
+    # phrases: a gloss that is vulgar in Wiktionary's wording
+    'בוקר טוב אליהו|': {'phrase': ["no kidding, you don't say (to someone who has only now noticed the obvious)"]},
     'הבא|הַבָּא': {'noun': ['next, the next one (בשבוע הבא, next week)']},
 }
 
@@ -211,6 +213,8 @@ ROMAN_BY_HAND = {
     'יפהפה|יְפֵהפֶה': 'yefefé',
     'חריץ|חָרִיץ': 'kharíts',
     'טחול|טְחוֹל': 'tekhól',
+    'כלב שוטה|כֶּלֶב שׁוֹטֶה': 'kélev shoté',
+    'לא ראינו אינה ראיה|לֹא רָאִינוּ אֵינָהּ רְאָיָה': "lo ra'ínu ená r'ayá",   # Wiktionary capitalises it
 }
 
 # A gloss that is Wiktionary's long definition of an everyday word, shortened.
@@ -219,6 +223,8 @@ SHORT = [
     (re.compile(r'^\((?:uncountable|countable)\)\s*'), ''),
     (re.compile(r'[;,.]?\s*\(?see usage notes? below\.?\)?', re.I), ''),
     (re.compile(r'; (?:found|used to translate) .*$'), ''),
+    # (phrases) Wiktionary's pointer to the literal reading of an idiom's words
+    (re.compile(r'\s*used other than figuratively or idiomatically:.*$', re.I), ''),
 ]
 PROPER = re.compile(r'^[A-Z]{2}|^(I|English|Hebrew|Israel|God|Sabbath|Shabbat|Jewish|Jews?|Mr|Mrs|OK|'
                     r'Passover|Hanukkah|Purim|Rosh|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b')
@@ -446,9 +452,19 @@ def build(rows, lex, exs):
         key = word + '|' + main['p']
         roman = ROMAN_BY_HAND.get(key) or main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
         ex = exs.get(r['key'] + '|' + r['pick'], [])
-        cards.append({'sub': '', 'fields': {
+        # a multi-word entry's pointed form in Wiktionary is sometimes only its first half, or its prefixes
+        # written apart (`בְּ מָקוֹם שֶׁ אֵין`, the phrases deck): shown only when its letters are the headword's
+        pointed = main['p'] if main['p'] and main['p'] != word else ''
+        if ' ' in pointed:
+            # a one-letter prefix written apart (`נוֹלַד בְּ אוֹטוֹבּוּס`) is joined back to its word
+            pointed = re.sub('(^|\\s)([בהולמשכ][\u0591-\u05C7]*) (?=\\S)', '\\1\\2', pointed)
+            pointed = pointed.replace(' ־', '־')      # `עַל ־פִּי`: the maqaf joins, no space before it
+        bare = lambda x: re.sub('[וי\\s־-]', '', fold(x))
+        if ' ' in word and bare(pointed) != bare(word):
+            pointed = ''
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Hebrew': he(word),
-            'Pointed': he(main['p']) if main['p'] and main['p'] != word else '',
+            'Pointed': he(pointed) if pointed else '',
             'Roman': E(roman),
             'Word': word,
             'English': english(ents, key),
@@ -457,7 +473,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex, ' ' in word),
         }})
         entries.append({'word': word, 'p': main['p'], 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -508,6 +525,38 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    """The phrases deck's description (Persian's, for Hebrew)."""
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Hebrew set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Hebrew → English (see the Hebrew, recall the "
+        "meaning) and English → Hebrew (see an English meaning, recall the Hebrew) — each with a schedule "
+        "of its own. This is a companion to the five level decks, Hebrew A1 to C1, and not one of them: a "
+        "level is a list of words, and an expression is a unit a list of words cannot see. Nothing here is "
+        "taught by any of the five, so the two can be studied together without repeating an entry. The "
+        "PHRASES are the expressions Wiktionary files as phrases or interjections and does not mark as "
+        f"idiomatic — mostly the everyday formulas of greeting, thanks and reaction ({eg('Phrases')} …). "
+        f"The IDIOMS are expressions whose meaning is not their words' ({eg('Idioms')} …), and the "
+        f"PROVERBS the sayings Wiktionary files as proverbs ({eg('Proverbs')} …). Within each subdeck the "
+        "expressions come in the order of how many of Tatoeba's Hebrew sentences contain them; "
+        f"{found} of the {n} are found there, and the rest follow in the order of how common their words "
+        "are in film and television subtitles. Every expression is printed as Hebrew is normally written, "
+        "without vowel points, with the pointed form and Wiktionary's romanisation beneath it. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, with "
+        "the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, pointing, romanisation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -518,11 +567,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['hebrew', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['hebrew', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['hebrew', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Hebrew vocabulary', 'speechLang': 'he-IL',
