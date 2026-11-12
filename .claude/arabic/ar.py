@@ -85,3 +85,126 @@ NOT_FORMS = {
     "جَانٍ": {"جان"}, "سَارٍ": {"سار"}, "وَلِيّ": {"بولي"}, "مَعْلُومَة": {"المعلومات", "معلومات"},
     "بَلِيغ": {"ابلغ"}, "شُبْهَة": {"شبه"}, "أَبَاحَ": {"نباح"}, "وُدِّيّ": {"كودي"},
 }
+
+
+# ---- romanisation of a fully vowelled phrase, in Wiktionary's scheme (the phrases deck, Nov 2026) ----
+# Wiktionary romanises most entries but not every phrase or proverb; a card must carry one
+# (check-arabic.js).  This writes what the vowels say, the way Wiktionary's own module does for the
+# entries it covers: the article assimilated to a sun letter (aš-šams) and its alif elided after a vowel
+# (fī l-bayt, šāʔa llāhu), the clitics وَ فَ بِ لِ كَ hyphenated (wa-, bi-), ة as -a at a pause and -at
+# before a vowel, tanwin as -an/-un/-in, long vowels ā ī ū.  `phrases.py` scores it against every phrase
+# Wiktionary does romanise and prints the mismatches; it is used only where Wiktionary has no romanisation.
+CONS = {"ء": "ʔ", "أ": "ʔ", "إ": "ʔ", "ؤ": "ʔ", "ئ": "ʔ", "ب": "b", "ت": "t", "ث": "ṯ", "ج": "j", "ح": "ḥ",
+        "خ": "ḵ", "د": "d", "ذ": "ḏ", "ر": "r", "ز": "z", "س": "s", "ش": "š", "ص": "ṣ", "ض": "ḍ", "ط": "ṭ",
+        "ظ": "ẓ", "ع": "ʕ", "غ": "ḡ", "ف": "f", "ق": "q", "ك": "k", "ل": "l", "م": "m", "ن": "n", "ه": "h",
+        "و": "w", "ي": "y"}
+SUN = set("تثدذرزسشصضطظلن")
+FATHA, DAMMA, KASRA, SUKUN, SHADDA = "َ", "ُ", "ِ", "ْ", "ّ"
+TANWIN = {"ً": "an", "ٌ": "un", "ٍ": "in"}
+DAGGER = "ٰ"
+CLITICS = {"وَ": "wa", "فَ": "fa", "بِ": "bi", "لِ": "li", "كَ": "ka"}
+
+
+def _clusters(w):
+    out = []
+    for ch in unicodedata.normalize("NFC", w):
+        if MARKS.match(ch) and out:
+            out[-1][1] += ch
+        else:
+            out.append([ch, ""])
+    return out
+
+
+def _word(w, after_vowel, D=None):
+    """One word.  `after_vowel`: the phrase's previous word ended in a vowel (a wasla alif is elided)."""
+    w = w.replace("ٱ", "ا")
+    V = {FATHA: "a", DAMMA: "u", KASRA: "i"}
+    pre = ""
+    if w[:2] in ("وَ", "فَ") and w[2:].startswith("لِل"):
+        return CLITICS[w[:2]] + "-" + _word(w[2:], True, D)   # وَلِلشَّوَارِعِ: wa-li-š-šawāriʕi
+    if w.startswith("لِل") and fold(w) not in ("لله",) and not fold(w).startswith("للهم"):
+        w = "لِا" + w[2:]                         # لِلْحِيطَانِ = li- + al-ḥīṭāni: the article's alif is not written
+    # a clitic is hyphenated before the article or a hamza (wa-l-, bi-ʔiḏni), as Wiktionary mostly does
+    for c, r in CLITICS.items():
+        if w.startswith(c) and len(bare(w)) > 2:
+            rest = w[len(c):]
+            if rest.startswith(("ال", "أ", "إ", "آ")):
+                pre, w, after_vowel = r + "-", rest, True
+                break
+    # الله: allāh at the head of a phrase, llāh after a vowel (li-llāhi, ʔin šāʔa llāhu)
+    b = fold(w)
+    if b == "اللهم":
+        return pre + ("llāhumma" if after_vowel else "allāhumma")
+    if b in ("الله", "لله"):
+        end = V.get(_clusters(w)[-1][1][-1:], "") if _clusters(w)[-1][1] else ""
+        if b == "لله" and not pre:
+            return "li-llāh" + end
+        return pre + ("llāh" if after_vowel or b == "لله" else "allāh") + end
+    cl = _clusters(w)
+    out = []
+    i = 0
+    # the article: al- at the head of a phrase, l- after a vowel; a sun letter (with its shadda) assimilates it
+    if len(cl) > 2 and cl[0][0] == "ا" and cl[1][0] == "ل" and not cl[0][1].strip(SUKUN + FATHA) and not cl[1][1].strip(SUKUN):
+        nxt = cl[2][0]
+        sun = nxt in SUN and SHADDA in cl[2][1]
+        out.append(("" if after_vowel else "a") + (CONS[nxt] if sun else "l") + "-")
+        if sun:
+            cl[2][1] = cl[2][1].replace(SHADDA, "")
+        i = 2
+    elif cl and cl[0][0] == "ا":
+        # hamzat al-wasl: its vowel is said only at the head of a phrase, and never with a glottal stop
+        if not after_vowel:
+            out.append(V.get(cl[0][1][:1], "i"))
+        i = 1
+    while i < len(cl):
+        ch, mk = cl[i]
+        prev = out[-1] if out else ""
+        if ch == "آ":
+            out.append("ʔā")
+        elif ch in ("ا", "ى"):
+            if prev.endswith("an") and not mk:
+                pass                                   # the alif that carries tanwin -an
+            elif prev.endswith("a"):
+                out[-1] = prev[:-1] + "ā"
+            elif prev and prev[-1] not in "aiuāīū":
+                out[-1] = prev + "ā"                   # a long alif after a letter written without its fatha
+            elif mk:
+                out.append(V.get(mk[:1], ""))
+        elif ch == "ة":
+            v = "".join(TANWIN.get(m, "") or V.get(m, "") for m in mk)
+            if prev.endswith("ā"):
+                out.append("t" + v if v else "h")      # صَلَاة: ṣalātu, ṣalāh at a pause
+            elif prev.endswith("a"):
+                out.append("t" + v if v else "")
+            else:
+                out.append("a" + ("t" + v if v else ""))
+        elif ch in ("و", "ي") and not mk.strip(SUKUN) and prev[-1:] == {"و": "u", "ي": "i"}[ch]:
+            out[-1] = prev[:-1] + {"و": "ū", "ي": "ī"}[ch]
+        elif ch in CONS:
+            s_ = CONS[ch]
+            if ch == "أ" and not mk:
+                s_ += "a"
+            if ch == "إ" and not mk:
+                s_ += "i"
+            if SHADDA in mk:
+                s_ += s_ if ch not in "أإ" else ""
+            for m in mk:
+                if m in V:
+                    s_ += V[m]
+                elif m in TANWIN:
+                    s_ += TANWIN[m]
+                elif m == DAGGER:
+                    s_ += "ā"
+            out.append(s_)
+        i += 1
+    return (pre + "".join(out)).replace("aā", "ā").replace("āā", "ā")
+
+
+def translit(text, D=None):
+    words = [x for x in re.split(r"\s+", re.sub(r"[؟?!،.,]", "", text)) if x]
+    out, after = [], False
+    for w in words:
+        r = _word(w, after, D)
+        out.append(r)
+        after = r[-1:] in "aiuāīū"
+    return " ".join(out)

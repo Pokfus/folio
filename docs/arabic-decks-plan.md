@@ -7,7 +7,8 @@ file says otherwise).
 
 **STATUS (2026-11-12): built — the Arabic Alphabet (31 notes), Arabic A1 (500 notes / 1,000 cards), Arabic A2
 (600 notes / 1,200 cards), Arabic B1 (800 notes / 1,600 cards), Arabic B2 (900 notes / 1,800 cards) and Arabic C1
-(700 notes / 1,400 cards).** C2 and a phrases deck are not built; §6 is what they need.
+(700 notes / 1,400 cards) — and Arabic Phrases and Expressions (164 notes / 328 cards, three subdecks).** C2 is
+not built; §6 says why.
 
 ## 1. What the set is
 
@@ -19,6 +20,7 @@ file says otherwise).
 | Arabic B1 | `decks/Arabic-B1.folio-deck.json` | 800, of 1,013 lines: 824 of `inventory_b1.py` and A2's 189 left out |
 | Arabic B2 | `decks/Arabic-B2.folio-deck.json` | 900, of 992 lines: 779 of `inventory_b2.py` and the 213 B1 left out |
 | Arabic C1 | `decks/Arabic-C1.folio-deck.json` | 700, of 793 lines: 703 of `inventory_c1.py` and 90 carried from the levels below |
+| Arabic Phrases and Expressions | `decks/Arabic-Phrases-and-Expressions.folio-deck.json` | 164: 58 phrases, 68 idioms, 38 proverbs (`phrases.py`) |
 
 **Modern Standard Arabic only** — the written and formal language, not any dialect. Titles in English, as
 the Turkish and Russian sets settled. One note, two templates (Arabic → English, English → Arabic), the
@@ -153,10 +155,25 @@ is `rtl`, the table and the speaker; writes a screenshot).
   `REFUSE_ANY_EN_C1` from reading every sentence, gated `rank >= 4`; A1–B2 rebuild byte-identical. **Tatoeba
   runs thin at C1**: 270 of 700 words have a sentence, so most C1 cards are the word, its forms and the meaning.
 
+- **Phrases and Expressions (2026-11-12) — `python3 .claude/arabic/phrases.py`, after every level.** Not a
+  level: three subdecks (Phrases, Idioms, Proverbs) in the Turkish deck's shape. Wiktionary's Arabic phrases,
+  interjections, idiomatic entries and proverbs (321 candidates) were read whole and a row of `ROWS` written for
+  each expression a learner of MSA meets — the selection and the English are Folio's, and a row that is not a
+  Wiktionary entry stops the build. Left out, as the description says: formulas of worship and honorifics, Christian
+  formulas, political slogans, phrasebook sentences, dialect, Classical and archaic entries, near-duplicates, and
+  anything a level deck teaches (checked against every level's word list). Everyday sayings of religious origin that
+  any speaker uses socially are in. **ROMANISATION**: Wiktionary leaves many phrases unromanised, so `ar.translit`
+  writes one from the vowels in its scheme — scored against all 213 Arabic phrases Wiktionary does romanise, 196 the
+  same and the rest Wiktionary's own inconsistencies; Wiktionary's is used only where its vowels are the printed
+  ones (its roman for بَاطِل would say nothing of the card's بَاطِلٌ), with ʿ ʾ normalised to ʕ ʔ; 1 hand fix
+  (`ROMAN_FIX`, يَا لَلْهَوْلِ). **SENTENCES**: an expression's words in a row, the first allowed only و or ف (the article
+  had found أُفٍّ in `الاف` "thousands"); six single words take none (`NO_SENTENCES`: تُرَى is every form of
+  رَأَى …). Tatoeba has few Arabic idioms or proverbs: 26 of 164 have a sentence.
+
 ## 6. Next levels
 
 C2 would be a sixth inventory on the same pattern (gate `rank >= 5`), but at C1 the pipeline's two sources
 already run dry — Wiktionary lacks a sixth of the single words written, and Tatoeba gives a sentence to under
 two words in five. A C2 deck would need another sentence source (a licensed corpus) before it is worth
-building. A phrases deck would start from kaikki's `phrase` / `intj` entries, the Turkish `phrases.py` shape. A phrases deck would start from
+building. A phrases deck would start from
 kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.

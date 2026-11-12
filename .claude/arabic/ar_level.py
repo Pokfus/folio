@@ -125,3 +125,54 @@ def meta(level, cards, wl, stats, css, stamp):
         "updatedAt": stamp,
         "forkedFrom": None,
     }
+
+
+def meta_phrases(cards, rows, made, css, stamp):
+    """The phrases deck's metadata.  Every figure is read off the built cards."""
+    n = len(cards)
+    sub = {k: sum(c["sub"] == k for c in cards) for k in ("Phrases", "Idioms", "Proverbs")}
+    have = sum(1 for c in cards if c["fields"]["Examples"])
+    desc = " ".join([
+        "%s Arabic set phrases, idioms and proverbs of Modern Standard Arabic, in three subdecks: %s everyday "
+        "phrases, %s idioms and %s proverbs. Both study directions come as two cards of one expression — Arabic → "
+        "English and English → Arabic — each with a schedule of its own." % (C(n), C(sub["Phrases"]),
+                                                                         C(sub["Idioms"]), C(sub["Proverbs"])),
+        "This is a companion to the five level decks, Arabic A1 to C1, and not one of them: a level is an inventory "
+        "of words, and an expression is a unit a list of words cannot see. Nothing here is taught by any of the "
+        "five, so the two can be studied together without repeating an entry.",
+        "The PHRASES are the formulas a speaker uses as one piece — the reply to a greeting, thanks, wishes for a "
+        "feast or a birthday, condolences, and the everyday sayings of religious origin that any Arabic speaker uses "
+        "socially (God knows; no power but God's). The IDIOMS are expressions whose meaning is not their words' "
+        "(to save face, the tip of the iceberg), with the literal sense in brackets where it helps. The PROVERBS are "
+        "complete sayings with a moral.",
+        "WHAT IS LEFT OUT, since it matters: every expression here is an entry of the English Wiktionary, but not "
+        "every entry is here. Formulas of worship and religious honorifics are not taught, nor Christian formulas, "
+        "political slogans, phrasebook sentences a learner builds rather than learns, dialect, Classical-only and "
+        "archaic entries, or near-duplicates. The English was written for this deck.",
+        "Within each subdeck the expressions are ordered by how many of Tatoeba's Arabic sentences contain them, so "
+        "the ones met most often come first. Real example sentences come with %s of the %s, with the expression "
+        "picked out in colour and a speaker beside it." % (C(have), C(n)),
+        "Every headword is printed with its short vowels, and the romanisation beneath it is in Wiktionary's scheme "
+        "(ā ī ū for the long vowels, ʔ for hamza, ʕ for ʿayn, a dot under the emphatic letters); %s expressions "
+        "Wiktionary does not romanise were romanised in the same scheme from their vowels." % C(len(made)),
+        "Vowelled forms and romanisations: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). The "
+        "English meanings were written for this deck. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.",
+    ])
+    return {
+        "id": "arabicphrase",
+        "title": "Arabic Phrases and Expressions",
+        "subtitle": "%s expressions · %s everyday, %s idioms, %s proverbs · both directions" % (
+            C(n), C(sub["Phrases"]), C(sub["Idioms"]), C(sub["Proverbs"])),
+        "desc": desc,
+        "author": "",
+        "language": "en",
+        "color": COLOR,
+        "tags": ["arabic", "العربية", "msa", "phrases", "idioms", "proverbs", "expressions"],
+        "glossMode": "site",
+        "types": {"arabic": {"id": "arabic", "name": "Arabic vocabulary", "speechLang": "ar",
+                             "fields": FIELDS, "cards": CARDS, "css": css}},
+        "version": 1,
+        "createdAt": stamp,
+        "updatedAt": stamp,
+        "forkedFrom": None,
+    }

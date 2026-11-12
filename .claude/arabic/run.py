@@ -5,6 +5,7 @@
     python3 .claude/arabic/run.py --level a2      # Arabic A2, on top of A1 (builds A1's word list if missing)
     python3 .claude/arabic/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/arabic/alphabet.py            # the Arabic Alphabet deck (hand-written, no cache)
+    python3 .claude/arabic/phrases.py             # Arabic Phrases and Expressions (after every level)
 
 Caches in `.claude/arabic-cache/` (~1.4 GB, gitignored).  See
 `docs/arabic-decks-plan.md` for the plan and the findings.
