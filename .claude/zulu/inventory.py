@@ -13,6 +13,28 @@ and the source does NOT, so the deck cannot teach it (2026-11-09): kodwa "but",
 namuhla "today", ukuthi "that", nini "when", kuphi "where", kungani "why",
 kancane "slowly", eduze "near", ekuseni "in the morning", iviki "week" (isonto
 serves), uthisha "teacher" (umfundisi serves).
+
+A2 IS SCOPED TO THE CEFR A2 DESCRIPTOR, looked up the same way (2026-11-12).
+The months English Wiktionary has not got: u-Ephreli, u-Agasti, u-Okthoba (the
+deck teaches nine of the twelve).  Nor these, which A2 would have: izicathulo
+(isicathulo serves), isiketi "skirt", ibhande "belt", uthisha "teacher",
+umshayeli "driver", isiguli "patient", ibhange "bank", imakethe "market",
+isiteshi "station", itekisi "taxi", iwashi "watch", umbuzo "question",
+iyunivesithi "university", ikhofi "coffee", isipuni "spoon", ingilazi "glass",
+inkomishi "cup", ekuseni "in the morning", kusihlwa "in the evening", bonke /
+wonke "all", kodwa "but".  `impela` (filed as "truth", not "really") and `jika`
+(filed as "to hang", not "to turn") are left out for their glosses.
+
+B1 (2026-11-12) IS MOSTLY WHAT IS LEFT.  After A1 and A2 about 740 usable lemmas
+remain that the Zulu Wikipedia uses at all, so the fill takes nearly every one;
+this inventory picks the everyday words English Wiktionary has but the corpus
+never uses (spoon, dress, to phone), since
+the fill cannot find a word with no count.  Not in Wiktionary, so not here: the
+court, a lawyer, the president, history, science, the economy, a newspaper, the
+radio, television, the internet, cancer, HIV, and the connectors (nokho
+"however", ngakho-ke "therefore", ngokwesibonelo "for example").  The set
+phrases and interjections (ngiyabonga, unjani, angiqondi, hawu ...) are taught
+whole by the phrases deck, `phrases.py`, not here.
 """
 
 INVENTORY = {
@@ -64,5 +86,65 @@ INVENTORY = {
          'linda vuma enza ba:verb thi'),
         ('joining words and place words',
          'futhi noma ngoba uma kanye kakhulu kahle kude phezulu phansi phambili ngaphandle'),
+    ],
+    'a2': [
+        ('the months and the seasons',
+         'ujanuwari ufebruwari umashi umeyi ujuni ujulayi usepthemba unovemba udisemba '
+         'ihlobo ubusika intwasahlobo ikwindla'),
+        ('the points of the compass, languages and peoples',
+         'inyakatho iningizimu impumalanga intshonalanga isingisi isibhunu isixhosa umzulu ingisi'),
+        ('clothes',
+         'ihembe ibhulukwe isicathulo isigqoko ijazi'),
+        ('work and jobs',
+         'isisebenzi umlimi umakhi unesi umhleli iholide ikhefu isikweletu'),
+        ('relatives and neighbours',
+         'umzukulu umalume ubabekazi umkhwenyana umfelokazi umakhelwane'),
+        ('feelings',
+         'jabula dabuka thukuthela esaba khathala ithemba'),
+        ('travel and the address',
+         'uhambo ihhotela ithikithi ibhanoyi isikebhe ipulazi ikheli vakashela shayela gibela ndiza'),
+        ('the weather and the countryside',
+         'iqhwa ifu isiphepho ihlathi utshani imbali'),
+        ('the body and health',
+         'umlenze umunwe unwele intamo idolo khwehlela phola'),
+        ('more food and the kitchen',
+         'isidlo ikhekhe ushizi ibhotela utamatisi iklabishi ithanga ummbila iwayini ubhiya '
+         'ummese imfologo ibhodwe mnandi'),
+        ('the home and things',
+         'udonga ingadi isikhwama ibhokisi isipho ikhompyutha umakhalekhukhwini iselula'),
+        ('talking and telling',
+         'tshela xoxa bingelela xolisa impendulo amanga'),
+        ('telling when',
+         'namhlanje ngomuso'),
+        ('plans, problems and opinions',
+         'injongo icebo isixazululo ngcono ubuhle'),
+        ('everyday verbs of doing',
+         'bhukuda hlanza thumela lahla lungisa vimba nqaba dula guga fa'),
+        ('big numbers',
+         'isigidigidi'),
+    ],
+    'b1': [
+        ('joining words',
+         'konje'),
+        ('the phone, the office and work',
+         'fowuna fowunela bhukha idesiki ifotho inkampane teleka isiqhebezakude'),
+        ('dressing',
+         'ambatha ambathisa ilokwe'),
+        ('food and the table',
+         'ihhabhula ilantshi isapha isendwishi isipunu isosa ujeke uletisi uphepha deka'),
+        ('the household and its chores',
+         'ikhaphethe ikilogo ubheseni ifosholo inalithi impempe phucuza hlakula'),
+        ('health',
+         'imfuluwenza ikhemese umkhemese uqhaqho'),
+        ('the town',
+         'paka izu iwodi'),
+        ('feelings and character',
+         'jabha jabhisa delisa dinisa uhleko isilima ubuvaka izinhloni ubuxwaya swaca qinisela'),
+        ('talking',
+         'nyenyeza halalisela xhawulisana bonisisa'),
+        ('time, cost and how much',
+         'phezolo mahhala ngeke nke'),
+        ('the weather',
+         'iqhwana iqhwabazi swakama'),
     ],
 }

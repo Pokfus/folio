@@ -333,12 +333,12 @@ description that must not be written from one tradition's usage alone.
 ### Prehistory and the Indus cities — `in-prehistory`
 
     in-001  The Indian subcontinent
-    in-002  The prehistory of South Asia
+    in-002  South Asian Stone Age
     in-003  Bhimbetka rock shelters
-    in-004  The South Asian Neolithic
+    in-004  Neolithic (in South Asia)
     in-005  Mehrgarh
     in-006  Indus Valley Civilisation
-    in-007  The discovery of the Indus cities
+    in-007  Archaeological Survey of India and the discovery of the Indus cities
     in-008  Harappa
     in-009  Mohenjo-daro
     in-010  The Great Bath
@@ -359,13 +359,13 @@ description that must not be written from one tradition's usage alone.
     in-025  Indus trade with Mesopotamia
     in-026  Meluhha
     in-027  Indus religion
-    in-028  The absence of palaces and temples in the Indus cities
+    in-028  Indus political organisation
     in-029  The Ghaggar-Hakra and the Sarasvati question
     in-030  The decline of the Indus cities
     in-031  The Late Harappan period
     in-032  Ochre Coloured Pottery culture
-    in-033  The Aryan migration debate
-    in-034  Ancient DNA and South Asian ancestry
+    in-033  Indo-Aryan migrations (the debate over them)
+    in-034  Ancestral North Indians
     in-035  Indo-Aryan languages
     in-036  Dravidian languages
     in-037  Munda languages
@@ -379,10 +379,10 @@ description that must not be written from one tradition's usage alone.
     in-042  Vedas
     in-043  Rigveda
     in-044  Vedic Sanskrit
-    in-045  The oral transmission of the Vedas
-    in-046  The dating of the Vedas
-    in-047  The Vedic pastoral economy
-    in-048  The Vedic tribes
+    in-045  Vedic chant, the recitation that carried the Vedas
+    in-046  Mitanni and the dating of the Vedas
+    in-047  Pastoralism in the Rigvedic economy
+    in-048  Jana, the Vedic tribe
     in-049  Battle of the Ten Kings
     in-050  Sapta Sindhu
     in-051  Historical Vedic religion
@@ -390,31 +390,31 @@ description that must not be written from one tradition's usage alone.
     in-053  Agni
     in-054  Varuna
     in-055  Soma
-    in-056  The Vedic sacrifice
+    in-056  Shrauta, the solemn Vedic sacrifices
     in-057  Yajna
     in-058  Ashvamedha
-    in-059  The Vedic priesthood
+    in-059  Brahmin, the Vedic priesthood
     in-060  Purusha Sukta
     in-061  Varna
     in-062  The later Vedic period
-    in-063  The eastward movement into the Ganges plain
-    in-064  Iron and the clearing of the Ganges forests
+    in-063  Videgha Mathava, the legend of the eastward movement
+    in-064  Shyama ayas, the Vedic 'dusky metal', and the forest-clearing debate
     in-065  Painted Grey Ware culture
     in-066  Kuru kingdom
     in-067  Panchala
     in-068  Videha
-    in-069  Vedic kingship
+    in-069  Rajasuya, the royal consecration
     in-070  The sabha and the samiti
-    in-071  Yajurveda and Samaveda
+    in-071  Yajurveda, with the Samaveda
     in-072  Atharvaveda
     in-073  Brahmanas
     in-074  Aranyakas
     in-075  Upanishads
-    in-076  Brahman and atman
+    in-076  Atman, the self identified with brahman
     in-077  Karma
     in-078  Samsara
     in-079  Moksha
-    in-080  The Vedic legacy
+    in-080  Shruti, the Vedas as revealed scripture
 
 ### The Mahajanapadas and the new religions — `in-mahajanapadas`
 
@@ -423,19 +423,19 @@ description that must not be written from one tradition's usage alone.
     in-083  Magadha
     in-084  Rajagriha
     in-085  Kosala
-    in-086  Vatsa and Avanti
+    in-086  Avanti
     in-087  Vajji
     in-088  The gana-sangha republics
     in-089  Bimbisara
     in-090  Ajatashatru
     in-091  The rise of Pataliputra
-    in-092  The Shishunaga and Nanda dynasties
+    in-092  The Nanda dynasty and the Shishunagas before it
     in-093  Northern Black Polished Ware
     in-094  Punch-marked coins
     in-095  Shreni
     in-096  The sramana movement
     in-097  The Buddha
-    in-098  The life of the Buddha
+    in-098  The Great Renunciation: the life as the traditions tell it
     in-099  Four Noble Truths
     in-100  Noble Eightfold Path
     in-101  The first sermon at Sarnath

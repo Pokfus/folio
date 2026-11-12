@@ -63,3 +63,302 @@ A1 = [
 ]
 
 INVENTORY = {'a1': A1}
+
+# A2 (2026-11-12): the CEFR A2 descriptor's "areas of most immediate relevance"
+# -- family and relatives, work, shopping and clothes, the home and the kitchen,
+# the town, travel, the natural world, health, feelings, free time and school --
+# plus the connectors, adverbs and quantities a learner needs to string two
+# sentences together.  A word A1 teaches is skipped by `select.py`, so this list
+# need not avoid them.
+A2 = [
+    ('relatives', 'apo biyenan manugang bayaw hipag pamangkin tiyo kamag-anak kambal '
+                  'sanggol binata dalaga matanda mag-asawa nobyo nobya kasintahan ninong '
+                  'ninang kasal'),
+    ('work', 'magsasaka mangingisda nars pulis sundalo abogado inhinyero tindero drayber '
+             'kusinero manggagawa empleyado amo sahod suweldo kompanya pabrika negosyo karpintero '
+             'kalihim manunulat artista hanapbuhay pulong'),
+    ('clothes and things you carry', 'kamiseta pantalon palda bestida sumbrero medyas tsinelas sinturon '
+                                     'salamin payong bag bulsa dyaket relo singsing kuwintas hikaw '
+                                     'pitaka sapatos'),
+    ('the kitchen and cooking', 'kaldero kawali plato baso tasa kutsara tinidor kutsilyo mangkok kalan '
+                                'mantika toyo suka paminta bawang sibuyas kamatis patatas mais niyog '
+                                'gata harina keso mantikilya lasa matamis maasim maalat mapait '
+                                'maanghang pansit adobo sinigang lumpiya litson keyk sorbetes'),
+    ('fruit', 'pinya papaya bayabas mansanas ubas dalandan kalamansi pakwan buko'),
+    ('the home', 'sala silid hagdan bubong sahig dingding pader hardin bakuran garahe ilaw kurtina '
+                 'unan kumot aparador sopa telebisyon radyo kompyuter bentilador sabon tuwalya '
+                 'sipilyo walis basura kuryente gripo'),
+    ('the town', 'munisipyo barangay plasa parke museo aklatan bangko restawran karinderya botika '
+                 'panaderya kanto tulay gusali paliparan sinehan pulisya kalsada'),
+    ('travel and transport', 'biyahe maglakbay bakasyon pasaporte maleta bagahe mapa turista traysikel '
+                             'bangka taksi motorsiklo bisikleta sumakay bumaba magmaneho trapiko '
+                             'pamasahe sakayan'),
+    ('the natural world', 'dagat ilog bundok bulkan isla pulo gubat dalampasigan baybayin lawa bukid '
+                          'palayan puno:noun bulaklak damo dahon bato buhangin langit bituin ulap kidlat '
+                          'kulog lindol baha tag-araw tag-ulan mundo lupa apoy hayop'),
+    ('animals', 'aso pusa ibon kalabaw kabayo kambing daga ahas lamok langgam ipis langaw unggoy '
+                'buwaya pagong kalapati hipon alimango pusit insekto paruparo gagamba palaka tandang '
+                'sisiw tuta'),
+    ('health and the body', 'braso binti daliri leeg balikat likod dibdib puso dugo balat mukha labi '
+                            'dila tuhod siko ubo sipon trangkaso sugat klinika pahinga magpahinga '
+                            'gumaling magkasakit hilo bitamina'),
+    ('feelings and character', 'galit takot saya lungkot inggit selos hiya gulat tuwa pag-ibig '
+                               'pag-asa masipag tamad matalino masungit mayabang mahiyain matapang '
+                               'duwag tapat totoo sinungaling nerbiyos magalit matakot mag-alala '
+                               'mainipin magulat'),
+    ('free time and celebrations', 'laro basketbol musika kanta sayaw pelikula sine palabas programa '
+                                   'laruan piyesta pista kaarawan regalo handaan binyag '
+                                   'litrato larawan kamera balita dyaryo'),
+    ('school', 'klase leksiyon aralin takdang-aralin pagsusulit papel lapis bolpen kuwaderno pisara '
+               'mag-aaral unibersidad kolehiyo marka tanong sagot aklat diksiyonaryo '
+               'matematika agham kasaysayan'),
+    ('numbers and quantities', 'labing-isa labindalawa tatlumpu apatnapu limampu sandaan milyon '
+                               'lahat bawat iba sobra kulang buo dosena metro kilo litro beses '
+                               'pares'),
+    ('time words', 'segundo madalas bihira agad kaagad noon dati susunod nakaraan '
+                   'katapusan simula tuwing araw-araw gabi-gabi hatinggabi madaling-araw siglo '
+                   'dekada kalendaryo'),
+    ('colours', 'kahel rosas lila kayumanggi abo ginto pilak luntian'),
+    ('describing', 'mataas mababa malalim mababaw malapad makitid makapal manipis mabigat magaan '
+                   'matigas malambot basa:adj tuyo malinaw madilim maliwanag tahimik maingay mayaman '
+                   'sariwa bulok malakas mahina payat mataba matangkad pandak guwapo kulot mahalaga '
+                   'sikat:adj delikado ligtas mali tama pareho handa abala libre buhay malusog '
+                   'masikip maluwag'),
+    ('everyday verbs', 'magsuot maglinis maghugas bumisita dumalaw ipadala tumanggap magbenta magtinda '
+                       'humiram pahiram magbago maghanda magdasal magsimba mag-usap magkuwento '
+                       'tumawa umiyak ngumiti maniwala mag-isip isipin makalimutan kalimutan '
+                       'matuto magturo ipaliwanag subukan pumili manalo matalo maglagay ilagay kunin '
+                       'ibigay tingnan hanapin gumamit dalhin ayusin linisin hugasan lutuin bilhin '
+                       'ipakita huminto magpatuloy sumunod mamili magtanim mangisda lumangoy '
+                       'umakyat mahulog kumita gumastos mag-ipon palitan sumama '
+                       'maglaba pasyal magpakasal mabuhay mamatay lumaki '
+                       'magtapos'),
+    ('connectors and adverbs', 'saka tapos samantala kahit bagaman sapagkat upang maliban kasama tungkol '
+                               'mula hanggang papunta galing laban ayon gaya katulad halos medyo '
+                               'masyado bigla dahan-dahan mag-isa sabay muli ulit lamang lalo '
+                               'pati marahil tiyak sigurado yata pala mismo ganito ganyan ganoon kanino '
+                               'gaano'),
+]
+
+INVENTORY['a2'] = A2
+
+# B1 (2026-11-12): the CEFR B1 descriptor's "familiar matters regularly
+# encountered in work, school, leisure" plus "experiences and events, dreams,
+# hopes and ambitions" and giving "reasons and explanations for opinions and
+# plans" -- so work and money, study, health, the media, society and the law,
+# nature and the environment, belief and culture, and the verbs and connectors of
+# opinion, reason and narrative.  Words A1 and A2 teach are skipped by `select.py`.
+#
+# MANY B1 VERBS ARE NOT IN WIKTIONARY under their affixed spelling (`magplano`,
+# `magpasya`, `iwasan`, `tanggihan`, `magpasalamat` ... about sixty of the first
+# draft), so this level leans on nouns; where Wiktionary files another affix of
+# the same root it is written instead (`umiwas`, `itanggi`, `isali`,
+# `magpaopera`, `maglarawan`), and the rest were dropped, never guessed.
+B1 = [
+    ('work and career', 'karera propesyon posisyon aplikasyon panayam karanasan '
+                        'kasamahan pinuno tagapamahala direktor kawani ahensiya serbisyo produkto '
+                        'kostumer kliyente kita gastos puhunan buwis kontrata pulong '
+                        'mamuhunan'),
+    ('money and banking', 'bangko deposito interes resibo kuwenta badyet ipon presyo singil '
+                          'barya salapi tseke kard halaga mamahalin bayarin utang '
+                          'humiram magpautang magtipid'),
+    ('study and knowledge', 'edukasyon kurso asignatura propesor estudyante pag-aaral '
+                            'kaalaman karunungan aral impormasyon datos sanaysay ulat paksa pahina '
+                            'kabanata talata salita iskolarsip '
+                            'magsaliksik mag-aral bumagsak'),
+    ('health and medicine', 'kalusugan sakit sintomas impeksiyon alerdyi presyon '
+                            'diyabetes kanser operasyon pasyente siruhano dentista parmasya reseta '
+                            'gamot iniksiyon bakuna ehersisyo diyeta timbang '
+                            'mag-ehersisyo gamutin magpaopera huminga '
+                            'magpapayat tumaba'),
+    ('the media and technology', 'balita pahayagan magasin artikulo mamamahayag '
+                                 'patalastas brodkast estasyon programa teknolohiya aplikasyon '
+                                 'mensahe password selpon baterya kable '
+                                 'makina siyentipiko eksperimento'),
+    ('society and politics', 'lipunan pamahalaan gobyerno bansa mamamayan pangulo senador '
+                             'kongreso eleksiyon halalan botante bumoto partido kandidato batas '
+                             'karapatan kalayaan demokrasya rebolusyon digmaan kapayapaan hukbo '
+                             'protesta organisasyon komunidad kultura tradisyon '
+                             'kahirapan kayamanan problema solusyon isyu patakaran'),
+    ('crime and the law', 'krimen magnanakaw pulis korte hukom abogado kaso:noun ebidensiya '
+                          'saksi bilanggo kulungan multa parusa hustisya inosente '
+                          'magnakaw pumatay magsumbong'),
+    ('nature and the environment', 'kalikasan polusyon basura klima temperatura tagtuyot '
+                                   'kagubatan karagatan bukal talon kuweba lambak '
+                                   'hayop halaman puno ugat sanga binhi ani pananim enerhiya '
+                                   'kuryente gasolina usok hangin alikabok '
+                                   'magtapon protektahan sirain'),
+    ('belief and culture', 'relihiyon diyos simbahan pari madre dasal panalangin kaluluwa '
+                           'pananampalataya paniniwala anghel diyablo langit impiyerno kasalanan '
+                           'sining musika pintor iskultor tula makata nobela awit konsiyerto '
+                           'pagdiriwang selebrasyon alamat kuwento'),
+    ('travel and places', 'destinasyon reserbasyon pasahero bagahe hangganan kontinente '
+                          'rehiyon lalawigan kabisera nayon siyudad lungsod bayan '
+                          'tanawin dalampasigan embahada bisa'),
+    ('people and relationships', 'relasyon pagkakaibigan kapitbahay kakilala bisita panauhin '
+                                 'kasal diborsiyo hiwalay biyudo biyuda ulila henerasyon '
+                                 'kabataan mag-anak angkan '
+                                 'lahi tiwala respeto galang'),
+    ('feelings and the mind', 'damdamin emosyon pakiramdam alaala isip ideya opinyon pananaw '
+                              'desisyon pasya layunin pangarap ambisyon pag-asa takot kaba '
+                              'kalungkutan kasiyahan kaligayahan galit inis pagod '
+                              'lungkot pagmamahal pagkabigo pagsisisi'),
+    ('opinion, reason and speech', 'sang-ayon tutol tama mali posible imposible malamang '
+                                   'siguro talaga totoo dahilan resulta epekto sanhi paliwanag '
+                                   'katwiran argumento mungkahi payo reklamo paumanhin '
+                                   'sumang-ayon magpayo magreklamo humingi '
+                                   'ipaliwanag patunayan ipagtanggol talakayan '
+                                   'banggitin maglarawan'),
+    ('describing (abstract)', 'mahalaga importante kailangan karaniwan pambihira kakaiba '
+                              'kilala tanyag moderno tradisyonal makabago luma sinauna pribado '
+                              'pampubliko pangkalahatan personal opisyal ilegal legal '
+                              'seryoso simple kumplikado malaya ligtas mapanganib '
+                              'matagumpay bigo masuwerte malas tapat matapat responsable '
+                              'maayos magulo patas makatarungan'),
+    ('verbs of doing and change', 'maghanda magtatag bumuo lumikha '
+                                  'pumili magbago umunlad '
+                                  'bumaba lumawak '
+                                  'tulungan suportahan isali '
+                                  'makibahagi magdiwang '
+                                  'umiwas harapin mabigo magtagumpay subukan '
+                                  'abutin itanggi'),
+    ('verbs of the mind and talk', 'maniwala alalahanin isipin '
+                                   'intindihin mapagtanto magduda '
+                                   'umasa magtiwala pagkatiwalaan sabihin magsinungaling '
+                                   'mangako '
+                                   'magsisi magselos'),
+    ('connectors and sequence', 'samakatuwid gayunman gayunpaman subalit ngunit datapwat bukod '
+                                'bilang kaysa kundi sakali '
+                                'sa_wakas una_sa_lahat pagkaraan '
+                                'kalaunan habang '
+                                'tulad halimbawa kahit_na upang para'),
+]
+
+INVENTORY['b1'] = B1
+
+# B2 (2026-11-12): the CEFR B2 descriptor's "main ideas of complex text on both
+# concrete and abstract topics" and "a viewpoint on a topical issue giving the
+# advantages and disadvantages of various options" -- the economy, government,
+# the law, science, the environment, medicine, education, the arts and media,
+# social issues, argument, character, and the verbs and connectors of a reasoned
+# text.  WRITTEN FROM A PROBED DRAFT: of 557 words drafted, 171 are not filed in
+# Wiktionary under that spelling (most of the affixed verbs -- `suriin`,
+# `pigilan`, `ipagbawal`, `tanggihan` --, English loans such as `software`,
+# `online`, and phrases such as `kawalan ng trabaho`) and were dropped, never
+# given a meaning; 112 were already taught by A1 to B1.  What is left is below,
+# less `pandaigdigan` (Wiktionary's entry is only "synonym of pandaigdig").
+B2 = [
+    ('the economy and business',
+        'ekonomiya merkado kalakalan kalakal negosyante korporasyon produksiyon implasyon '
+        'resesyon taripa subsidiya kumpetisyon monopolyo bangkarote transaksiyon empleyo welga '
+        'unyon'),
+    ('government and politics',
+        'konstitusyon lehislatura ehekutibo hudikatura senado kamara ministro gabinete embahador '
+        'diplomasya soberanya kasarinlan kolonya kolonyalismo imperyo diktador diktadura '
+        'batas_militar kudeta oposisyon administrasyon katiwalian korapsiyon reporma '
+        'panukalang-batas ideolohiya nasyonalismo komunismo sosyalismo kapitalismo pederalismo '
+        'awtoridad'),
+    ('law and justice',
+        'hukuman paglilitis sakdal akusado abugado testigo sentensiya hatol apela piyansa parol '
+        'kriminalidad karahasan panggagahasa suhol kidnap terorismo terorista biktima suspek '
+        'imbestigador detektib lisensiya regulasyon'),
+    ('science and research',
+        'biyolohiya kimika pisika heolohiya estadistika obserbasyon laboratoryo mikroskopyo '
+        'molekula atomo selula organismo ebolusyon henetika bakterya mikrobyo grabidad '
+        'elektrisidad radyasyon'),
+    ('technology and the internet',
+        'dokumento folder inobasyon makinarya awtomasyon'),
+    ('the environment',
+        'ekolohiya deporestasyon tsunami daluyong pagbabago_ng_klima mina pagmimina basurahan '
+        'dumi kemikal'),
+    ('health and the body (advanced)',
+        'medisina terapiya rehabilitasyon emerhensiya depresyon pagkabalisa sikolohiya sikologo '
+        'protina nutrisyon atake_sa_puso tumor epidemya pandemya atay kalamnan'),
+    ('education and learning',
+        'kurikulum pedagohiya tesis sanggunian akademiko iskolar dekano rektor kwalipikasyon '
+        'katalinuhan'),
+    ('culture, arts and media',
+        'panitikan literatura maikling_kuwento dula dulaan prodyuser iskrip banghay simbolismo '
+        'metapora retorika estilo kritiko eksibisyon eskultura arkitektura pamamahayag editoryal '
+        'kolum kolumnista sensura propaganda'),
+    ('society and social issues',
+        'demograpiya imigrante imigrasyon diskriminasyon rasismo kasarian peminismo '
+        'karapatang_pantao pensiyon seguro kapakanan boluntaryo kawanggawa donasyon kilusan '
+        'aktibista aktibismo rali globalisasyon modernisasyon industriyalisasyon'),
+    ('thought and argument',
+        'prinsipyo pilosopiya lohika implikasyon interpretasyon perspektiba paninindigan '
+        'kritisismo paghahambing pagkakaiba kaugnayan bunga kahihinatnan benepisyo oportunidad '
+        'alternatibo priyoridad estratehiya taktika'),
+    ('describing (advanced)',
+        'makabuluhan kritikal pangunahin sekundarya komprehensibo detalyado eksakto malabo '
+        'kontrobersiyal kumbensiyonal radikal konserbatibo liberal obhetibo epektibo mabisa '
+        'episyente praktikal abstrakto kongkreto pansamantala permanente pangmatagalan '
+        'panandalian pambansa pandaigdig internasyonal etniko mapagkakatiwalaan '
+        'nakakainis nakakatakot'),
+    ('character and behaviour',
+        'asal kalupitan kabutihan katapatan pagtataksil traydor kayabangan kababaang-loob tiyaga '
+        'sipag katamaran disiplina determinasyon kumpiyansa mapagmahal maalalahanin madamot '
+        'masinop pabaya makasarili mapagmataas matiyaga'),
+    ('verbs (advanced)',
+        'bigyang-diin ipahiwatig pangunahan pamunuan kalabanin magkaisa pahabain pagandahin '
+        'wasakin itatag buwagin talikuran'),
+    ('connectors (advanced)',
+        'samakatwid gayundin sa_kabilang_banda sa_katunayan sa_madaling_salita palibhasa dahil_sa '
+        'sa_kabila_ng alinsunod ayon_sa hinggil tungkol_sa'),
+]
+
+INVENTORY['b2'] = B2
+
+# C1 (2026-11-12): the CEFR C1 descriptor's "a wide range of demanding, longer
+# texts", "implicit meaning" and "clear, well-structured, detailed text on
+# complex subjects" -- scholarship and abstraction, history and heritage, law and
+# governance, economics, science and the mind, ethics and debate, the arts and
+# literature (with the native forms: `salawikain`, `bugtong`, `talinghaga`),
+# fine description and character, and the verbs and connectors of argument.
+# PROBED BEFORE IT WAS WRITTEN, as B2's was: of 455 words drafted, 178 are not
+# filed in Wiktionary under that spelling (most affixed verbs again -- `suriin`,
+# `pigilan`, `pagnilayan`, `ipagtanggol` -- and many compounds and loans) and were
+# dropped, never given a meaning; 105 were already taught by A1 to B2.  `timawa`
+# was dropped on reading (its first sense is "glutton", not the freeman class).
+C1 = [
+    ('scholarship and abstraction',
+        'metodolohiya epistemolohiya ontolohiya etika moralidad antitesis analisis paradoks '
+        'kategorya klasipikasyon taksonomiya depinisyon konteksto diskurso semantika morpolohiya '
+        'ponolohiya lingguwistika dalubwika dalubhasa pantas'),
+    ('history and heritage',
+        'historyador arkeolohiya arkeologo antropolohiya antropologo dinastiya monarkiya '
+        'aristokrasya maharlika mananakop himagsikan rebelde kabayanihan kamanahan tribo '
+        'salinlahi mitolohiya epiko'),
+    ('law, rights and governance',
+        'hurisdiksiyon lehitimo ratipikasyon amyenda susog probisyon ordinansa dekreto '
+        'proklamasyon kautusan atas mandato konsultasyon desentralisasyon awtonomiya rehimen '
+        'awtoritaryanismo demokratiko republikano parlamento mambabatas delegado komisyon '
+        'komisyoner pananagutan integridad kredibilidad impunidad'),
+    ('economy and finance',
+        'piskal pananalapi mamumuhunan pribatisasyon deregulasyon liberalisasyon proteksiyonismo '
+        'kontratista'),
+    ('science, medicine and the mind',
+        'saykolohiya sikoterapiya persepsiyon intuwisyon patolohiya birus antibiyotiko '
+        'resistensiya adaptasyon seleksiyon'),
+    ('society, ethics and debate',
+        'eksklusyon ekwalidad pribilehiyo prehuwisyo pluralismo sekularismo ekstremismo pasipismo '
+        'rekonsilyasyon reparasyon pilantropiya altruismo makatao'),
+    ('arts and literature',
+        'masining sining_biswal iskultura obra_maestra kontemporaneo realismo ekspresyonismo '
+        'awtor akda nobelista salin alegorya ironiya satira trahedya komedya taludtod saknong '
+        'talinghaga salawikain kasabihan bugtong'),
+    ('describing (C1)',
+        'masalimuot sopistikado elegante pino magaspang mapanlikha malikhain walang-kabuluhan '
+        'kaduda-duda malawakan masaklaw literal neutral walang_kinikilingan kakatwa '
+        'kagila-gilalas'),
+    ('character (C1)',
+        'mapagkunwari tuso mapagkawanggawa maawain mapaghiganti mainggitin mapusok padalos-dalos '
+        'matimpi masigasig masikap mapilit matigas_ang_ulo sutil suwail taksil mapagmalasakit '
+        'malasakit pakikiramay damay'),
+    ('verbs (C1)',
+        'pasinungalingan pabulaanan isakatuparan ilantad tuligsain batikusin kondenahin'),
+    ('connectors (C1)',
+        "bagkus manapa bagama't hinggil_sa sa_madaling_sabi sa_kabuuan ikatlo"),
+]
+
+INVENTORY['c1'] = C1
