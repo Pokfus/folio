@@ -82,6 +82,7 @@ ETYMS = {
     'patas': ['2'],          # "even, fair"; 1 is "heap, pile"
     'malas': ['2'],          # "bad luck, unlucky"; 1 is "intent look"
     'bisa': ['2', '1'],      # "visa" before "efficacy"
+    'pila': ['2'],           # C1: "line, queue"; 1 is "clay for earthenware"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.

@@ -96,6 +96,19 @@ SCOPE = {
                   'argument, advanced description, character and behaviour, and the verbs and '
                   'connectors of a reasoned text',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'scholarship and abstract thought, history and heritage, law, rights and '
+                  'governance, economics and finance, science, medicine and the mind, ethics '
+                  'and social debate, the arts and literature with the native forms of proverb, '
+                  'riddle and figure of speech, fine description, character, and the verbs and '
+                  'connectors of argument',
+    },
 }
 
 

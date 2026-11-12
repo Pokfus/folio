@@ -308,3 +308,57 @@ B2 = [
 ]
 
 INVENTORY['b2'] = B2
+
+# C1 (2026-11-12): the CEFR C1 descriptor's "a wide range of demanding, longer
+# texts", "implicit meaning" and "clear, well-structured, detailed text on
+# complex subjects" -- scholarship and abstraction, history and heritage, law and
+# governance, economics, science and the mind, ethics and debate, the arts and
+# literature (with the native forms: `salawikain`, `bugtong`, `talinghaga`),
+# fine description and character, and the verbs and connectors of argument.
+# PROBED BEFORE IT WAS WRITTEN, as B2's was: of 455 words drafted, 178 are not
+# filed in Wiktionary under that spelling (most affixed verbs again -- `suriin`,
+# `pigilan`, `pagnilayan`, `ipagtanggol` -- and many compounds and loans) and were
+# dropped, never given a meaning; 105 were already taught by A1 to B2.  `timawa`
+# was dropped on reading (its first sense is "glutton", not the freeman class).
+C1 = [
+    ('scholarship and abstraction',
+        'metodolohiya epistemolohiya ontolohiya etika moralidad antitesis analisis paradoks '
+        'kategorya klasipikasyon taksonomiya depinisyon konteksto diskurso semantika morpolohiya '
+        'ponolohiya lingguwistika dalubwika dalubhasa pantas'),
+    ('history and heritage',
+        'historyador arkeolohiya arkeologo antropolohiya antropologo dinastiya monarkiya '
+        'aristokrasya maharlika mananakop himagsikan rebelde kabayanihan kamanahan tribo '
+        'salinlahi mitolohiya epiko'),
+    ('law, rights and governance',
+        'hurisdiksiyon lehitimo ratipikasyon amyenda susog probisyon ordinansa dekreto '
+        'proklamasyon kautusan atas mandato konsultasyon desentralisasyon awtonomiya rehimen '
+        'awtoritaryanismo demokratiko republikano parlamento mambabatas delegado komisyon '
+        'komisyoner pananagutan integridad kredibilidad impunidad'),
+    ('economy and finance',
+        'piskal pananalapi mamumuhunan pribatisasyon deregulasyon liberalisasyon proteksiyonismo '
+        'kontratista'),
+    ('science, medicine and the mind',
+        'saykolohiya sikoterapiya persepsiyon intuwisyon patolohiya birus antibiyotiko '
+        'resistensiya adaptasyon seleksiyon'),
+    ('society, ethics and debate',
+        'eksklusyon ekwalidad pribilehiyo prehuwisyo pluralismo sekularismo ekstremismo pasipismo '
+        'rekonsilyasyon reparasyon pilantropiya altruismo makatao'),
+    ('arts and literature',
+        'masining sining_biswal iskultura obra_maestra kontemporaneo realismo ekspresyonismo '
+        'awtor akda nobelista salin alegorya ironiya satira trahedya komedya taludtod saknong '
+        'talinghaga salawikain kasabihan bugtong'),
+    ('describing (C1)',
+        'masalimuot sopistikado elegante pino magaspang mapanlikha malikhain walang-kabuluhan '
+        'kaduda-duda malawakan masaklaw literal neutral walang_kinikilingan kakatwa '
+        'kagila-gilalas'),
+    ('character (C1)',
+        'mapagkunwari tuso mapagkawanggawa maawain mapaghiganti mainggitin mapusok padalos-dalos '
+        'matimpi masigasig masikap mapilit matigas_ang_ulo sutil suwail taksil mapagmalasakit '
+        'malasakit pakikiramay damay'),
+    ('verbs (C1)',
+        'pasinungalingan pabulaanan isakatuparan ilantad tuligsain batikusin kondenahin'),
+    ('connectors (C1)',
+        "bagkus manapa bagama't hinggil_sa sa_madaling_sabi sa_kabuuan ikatlo"),
+]
+
+INVENTORY['c1'] = C1

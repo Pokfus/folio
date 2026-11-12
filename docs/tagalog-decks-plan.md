@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Romanian, Hindi, Russian 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Tagalog language collection."
 
-**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/tagalog/`, §6–§9). C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1 to C1 are built** (`.claude/tagalog/`, §6–§10). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's existing
@@ -34,7 +34,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Tagalog A2 Elementary — built | `Tagalog-A2.folio-deck.json` | 750 |
 | Tagalog B1 Intermediate — built | `Tagalog-B1.folio-deck.json` | 1,000 |
 | Tagalog B2 Upper Intermediate — built | `Tagalog-B2.folio-deck.json` | 1,500 |
-| Tagalog C1 Advanced | `Tagalog-C1.folio-deck.json` | 1,500 |
+| Tagalog C1 Advanced — built | `Tagalog-C1.folio-deck.json` | 1,500 |
 | Tagalog Phrases and Expressions | `Tagalog-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
@@ -205,4 +205,26 @@ IPA on 1,484, a marked spelling on 831, forms on 448 (283 verbs), sentences for 
 
 **Known, left.** The fill carries much food vocabulary (`tapsilog`, `longsilog`, `siyopaw`, `polboron`) from
 Tatoeba's contributors, and the subtitles' crime vocabulary, on frequency.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1". `python3 .claude/tagalog/run.py --level c1`; A1 to B2 rebuild byte-identical
+and a C1 re-run is byte-identical. **1,500 notes, 170 from the inventory (eleven topics: scholarship, history and
+heritage, law and governance, economics, science and the mind, ethics and debate, the arts and literature with
+the native forms — `salawikain`, `bugtong`, `talinghaga` —, description, character, verbs, connectors) and 1,330
+by frequency**, none taught below. IPA on 1,489, a marked spelling on 821, forms on 418 (241 verbs); **sentences for
+only 630 (three for 262) — 870 have none**, Tatoeba's Tagalog having little at this depth.
+
+- **Probed as B2's was**: of 455 words drafted, 178 are not filed in Wiktionary (affixed verbs again — `suriin`,
+  `pagnilayan`, `ipagtanggol` — and compounds), 105 were taught; `timawa` dropped on reading (its first sense is
+  "glutton").
+- **The frequency floor is low now** (the last word dealt has 1.6 per million averaged over the two corpora), so
+  the fill is less a ranking than a sample of what the two corpora hold: Spanish loans, food, everyday objects,
+  some slang (`epal`, `bagets`, `charing`). That is stated honestly by the description's wording ("the commonest
+  remaining words"); no C1 list exists to do better from.
+- **Exclusions** (`EXCLUDE`): more pointers (`tado`, `sahing`, `pinapaitan`, `nagbaon`, `nagbabaon`,
+  `pinagtalunan`), grammar terms (`magaganap`), English (`element`, `real`, `award`, `warden`, `testing`, `limit`,
+  `kamping`, `taping`), linker and verb-form counts under a homograph (`sapang`, `takdang`, `gagapang`, `mate`,
+  `lingo`), vulgar words (`aa`, `umaa`), `suliranin` (only a flax sense; "problem" is not filed) and `menudo`.
+  `pila` takes its second etymology, "line, queue".
 
