@@ -48,7 +48,33 @@ SCOPE = {
                   'animals, school and work, the everyday verbs, and the pronouns, question '
                   'words and joining words every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'the months and the seasons, the points of the compass, languages and peoples, '
+                  'clothes, work and jobs, relatives and neighbours, feelings, travel and the '
+                  'address, the weather and the countryside, the body and health, more food and '
+                  'the kitchen, the things of a home, talking and telling, telling when, plans '
+                  'and problems, and the everyday verbs of doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'the everyday phrases and exclamations, the phone, the office and work, '
+                  'dressing, food and the table, the household and its chores, health, the town, '
+                  'feelings and character, talking, time and cost, and the weather',
+    },
 }
+
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner'}
 
 
 def f(name):

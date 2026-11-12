@@ -33,7 +33,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ha import norm, loose, untone
-from hausa_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from hausa_level import LEVEL, LEX, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, LEARNER
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'hausa'
@@ -91,6 +91,32 @@ ETYMS = {
     'ka': ['hand'],           # "you (completive)"; Wiktionary's only entry is an adverb "in or on"
     'wanka': ['1', '2'],      # "bathing" AND "to wash"
     'kofi': ['1', '2'],       # "cup" AND "coffee"
+    # A2 (2026-11-12): verbs whose spelling Wiktionary has only as a rarer noun
+    'goge': ['hand'],         # "to rub, to polish"; Wiktionary has only the fiddle
+    'maye': ['hand'],         # "to replace"; Wiktionary has only "drunkenness"
+    'fashe': ['hand'],        # "to burst"; Wiktionary has only a children's game
+    'kori': ['hand'],         # "to chase away"; Wiktionary has only "curry"
+    'makara': ['hand'],       # "to be late"; Wiktionary has only "bier"
+    'taru': ['hand'],         # "to gather"; Wiktionary has only "large fishing net"
+    'komo': ['hand'],         # "to come back"; Wiktionary has only "misshapen calabash"
+    'sara': ['hand'],         # "to chop"; Wiktionary has only "habit, custom"
+    'dage': ['hand'],         # "to persevere"; Wiktionary has only "honey badger"
+    'rama': ['hand'],         # "to retaliate"; Wiktionary has hemp and emaciation
+    'tofa': ['hand'],         # "to spit"; Wiktionary has only elephant grass
+    'ishe': ['hand'],         # "to suffice, to reach"; Wiktionary has only "to overtake"
+    'laima': ['hand'],        # "umbrella"; Wiktionary has "tent" and "dampness"
+    'baƙo': ['hand'],         # "guest, stranger"; Wiktionary has only the given name
+    'ango': ['hand'],         # "bridegroom"; Wiktionary has only the given name
+    'maraya': ['3'],          # "orphan"; 1 is "city", 2 the kob antelope
+    'lalle': ['2', '1'],      # "certainly" first, then "henna"
+    'safa': ['2', '1'],       # "socks" (the clothes topic) first, then the intercity bus
+    'riba': ['2', '1'],       # "profit" first, then "bank interest"
+    'tsaka': ['2'],           # "in the middle" (da rana tsaka); 1 is a gecko
+    'illa': ['2', '1'],       # "harm, fault" (its count) first, then "except"
+    'dawa': ['1', '2'],       # "sorghum" AND "the bush" (namun dawa, wild animals)
+    # B1 (2026-11-12)
+    'banda': ['hand'],        # "apart from, except"; Wiktionary has only dried meat
+    'boko': ['hand'],         # "Western education" (ilimin boko); Wiktionary has only "fraud"
 }
 
 # WHICH PARTS OF SPEECH A CARD SHOWS, where Wiktionary adds a reading that is noise on a
@@ -112,8 +138,16 @@ GENDER_FIX = {
                               # dictionary (littafi m., pl. littattafai) make it masculine
 }
 
+# A TONE LINE WITHHELD, where Wiktionary's toned head is another spelling of the word
+# (the line must untone to the headword; `check-hausa.js` asserts it).
+TONE_OFF = {
+    'tsintsiya': 'tsintsinyā',    # the head spells the variant tsintsinya
+}
+
 # A WORD PRINTED OTHERWISE THAN ITS KEY: the language's name is written with a capital.
-WORD_AS = {'hausa': 'Hausa'}
+WORD_AS = {'hausa': 'Hausa',
+           # Wiktionary has these only as given names, so its spelling is capitalised
+           'Baƙo': 'baƙo', 'Ango': 'ango', 'Isa': 'isa', 'Yalwa': 'yalwa', 'Lahira': 'lahira'}
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech -- where its
 # first senses are not the everyday ones, or a second one would mislead a beginner.
@@ -135,6 +169,10 @@ GLOSS = {
     'baba': {'noun': ['father', "a term of address for a man of one's father's age"]},
     'aboki': {'noun': ['friend', 'companion']},
     'yaro': {'noun': ['boy, child', 'servant, follower']},
+    "fi'ili": {'noun': ['verb (in grammar)']},
+    'malam': {'noun': ['teacher, a learned man', 'Mr (a title of respect)']},
+    'ganye': {'noun': ['leaf', 'leafy vegetables']},
+    'igiya': {'noun': ['rope, string', 'cable']},
     'ɗan': {'noun': ['son of; a native of, one who does (ɗan Kano, a man from Kano)',
                      'little, small (before a noun: ɗan yaro, a little boy)']},
 }
@@ -258,18 +296,22 @@ def build(rows, lex, exs):
         # under a hand-glossed `suna` "they are …-ing" the toned sūnā of "name" would be a
         # wrong pronunciation of the word the card opens on.
         toned = ents[0]['toned'] if ents[0]['src'] == 'wiktionary' else ''
+        if word in TONE_OFF:
+            toned = ''
         if word in WORD_AS.values() and toned:
-            toned = toned[:1].upper() + toned[1:]
+            # the tone line takes the printed word's case: Hausa, but lahira
+            toned = (toned[:1].upper() if word[:1].isupper() else toned[:1].lower()) + toned[1:]
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
-            'Hausa': E(word),
+        cards.append({'sub': r.get('sub', ''), 'fields': {
+            # the phrases deck shows an expression as written (`Ina kwana?`); Word stays plain
+            'Hausa': E(r.get('show') or word),
             'Tone': E(toned),
             'Word': word,
             'English': english(ents, word, ents[0]['toned'] if ents[0]['src'] == 'wiktionary' else ''),
             'Forms': forms_line(ents, word),
             'Examples': examples_html(ex),
         }})
-        entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'],
+        entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'], 'sub': r.get('sub', ''),
                         'examples': len(ex), 'toned': bool(toned),
                         'hand': any(e['src'] == 'hand' for e in ents)})
     return cards, entries
@@ -289,18 +331,26 @@ def desc(entries, n):
         "Both study directions in one deck: Hausa → English (see the Hausa, recall the meaning) "
         "and English → Hausa (see an English meaning, recall the Hausa). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {LEARNER[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for Hausa, so this deck is not any examination's vocabulary and does not claim to be. It "
-        f"is assembled from two things that can be stated. {from_inv} of the {n} come from a "
-        f"vocabulary written for the level's scope — {SC['topics']} — and the other "
-        f"{n - from_inv} are the commonest remaining words in the Tatoeba collection of Hausa "
-        "sentences, counted by the WHOLE word (a noun's plural and its forms with the linker and "
-        "the possessive endings added together). The cards are dealt by that frequency, so the "
+        + (f"is assembled from two things that can be stated. {from_inv} of the {n} come from a "
+           f"vocabulary written for the level's scope — {SC['topics']} — and the other "
+           f"{n - from_inv} are the commonest remaining words in the Tatoeba collection of Hausa "
+           "sentences, counted by the WHOLE word (a noun's plural and its forms with the linker and "
+           "the possessive endings added together). " if from_inv < n else
+           # B1: the levels below took every Wiktionary word the corpus uses, so all of it is
+           # the written vocabulary, and the corpus only orders it
+           f"is assembled from a vocabulary written for the level's scope — {SC['topics']} — all "
+           f"{n} words of it, since the levels below already teach every word that both English "
+           "Wiktionary and the Tatoeba collection of Hausa sentences contain. Each word is counted "
+           "in that collection by the WHOLE word (a noun's plural and its forms with the linker and "
+           "the possessive endings added together). ") +
+        "The cards are dealt by that frequency, so the "
         "words you meet most often come first. "
         "Every headword is printed as Hausa is ordinarily written, in the Latin alphabet with its "
         "hooked letters (ɓ ɗ ƙ and 'y); beneath it, where English Wiktionary gives one, is the "
@@ -323,9 +373,41 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Greetings and wishes', 'Everyday phrases', 'Exclamations and formulas')
+
+
+def desc_phr(entries, n):
+    """The phrases deck's description: no CEFR band, the three subdecks, what is sourced how."""
+    by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+    toned = sum(1 for e in entries if e['toned'])
+    ex = sum(1 for e in entries if e['examples'])
+    return (
+        f"{n} Hausa expressions in three subdecks: {by[PHR_SUBS[0]]} greetings and wishes, "
+        f"{by[PHR_SUBS[1]]} everyday phrases and {by[PHR_SUBS[2]]} exclamations and set formulas. "
+        "Both study directions come as cards of their own: Hausa → English (see the expression, "
+        "recall its meaning) and English → Hausa (see the meaning, recall the expression). This is "
+        "not a CEFR level; it is the set phrases a learner needs whole, which a word list cannot "
+        "teach, and nothing here is taught by any of the level decks. The greetings are the long "
+        "exchange Hausa speakers open with (ina kwana? — lafiya lau; ina gajiya? — ba gajiya), the "
+        "wishes for a journey, an illness, a birth and a death, and the leave-takings; the everyday "
+        "phrases are the phrasebook sentences, and those for a man and for a woman are both given "
+        "where Hausa tells them apart (kana lafiya? / kina lafiya?). WHERE THEY COME FROM: "
+        f"{toned} of the {n}, the Arabic religious formulas every Hausa speaker uses (salamu "
+        "alaikum, in sha Allahu, alhamdulillahi), are English Wiktionary's entries and carry their "
+        "tones and vowel length on a second line; the rest are glossed by Folio and carry no tone "
+        "line, since a tone that no source states is not printed. A literal translation follows "
+        "the meaning wherever it helps. THERE ARE NO PROVERBS: neither English Wiktionary nor the "
+        "Tatoeba collection holds a Hausa proverb, and one written from memory would have no source. "
+        f"{ex} of the expressions come with real example sentences from Tatoeba. There is no "
+        "read-aloud button: few devices carry a Hausa voice. Sources. English Wiktionary, via the "
+        "kaikki.org extraction (CC BY-SA 4.0), and Folio's own glosses. Example sentences: Tatoeba "
+        "(tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = json.load(open(LEX, encoding='utf-8'))
     exs = json.load(open(f('examples.json'), encoding='utf-8'))
     cards, entries = build(rows, lex, exs)
     DECK = DECK_IDS[LEVEL]
@@ -335,9 +417,15 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['hausa', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': (f'{n} words · both directions, as two cards per word' if LEVEL != 'phr' else
+                     f'{n} expressions · ' + ', '.join(
+                         f"{sum(1 for e in entries if e['sub'] == k)} {w}" for k, w in zip(
+                             PHR_SUBS, ('greetings', 'everyday', 'exclamations'))) +
+                     ' · both directions'),
+        'desc': desc(entries, n) if LEVEL != 'phr' else desc_phr(entries, n),
+        'author': '', 'language': 'en', 'color': COLOR,
+        'tags': (['hausa', 'vocabulary', LEVEL, NAMES[LEVEL].lower()] if LEVEL != 'phr' else
+                 ['hausa', 'phrases', 'greetings', 'expressions']),
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Hausa vocabulary', 'speechLang': 'ha-NG',

@@ -5,8 +5,8 @@ twelfth language set, built the way the Hindi set was (`docs/hindi-decks-plan.md
 record of how the others were built, and every rule there applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Farsi language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/persian/`). A2 to C1 and the phrases deck
-are not.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, every level A1 to C1, and the phrases deck are built**
+(`.claude/persian/`).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The first commit carried one changelog item (folded into Hindi's line of the same
@@ -32,11 +32,11 @@ over rather than asked again:
 |---|---|---|
 | Persian Alphabet — built | `Persian-Alphabet.folio-deck.json` | 39 |
 | Persian A1 Beginner — built | `Persian-A1.folio-deck.json` | 500 |
-| Persian A2 Elementary | `Persian-A2.folio-deck.json` | 750 |
-| Persian B1 Intermediate | `Persian-B1.folio-deck.json` | 1,000 |
-| Persian B2 Upper Intermediate | `Persian-B2.folio-deck.json` | 1,500 |
-| Persian C1 Advanced | `Persian-C1.folio-deck.json` | 1,500 |
-| Persian Phrases and Expressions | `Persian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Persian A2 Elementary — built | `Persian-A2.folio-deck.json` | 750 |
+| Persian B1 Intermediate — built | `Persian-B1.folio-deck.json` | 1,000 |
+| Persian B2 Upper Intermediate — built | `Persian-B2.folio-deck.json` | 1,500 |
+| Persian C1 Advanced — built | `Persian-C1.folio-deck.json` | 1,500 |
+| Persian Phrases and Expressions — built | `Persian-Phrases-and-Expressions.folio-deck.json` | 106 |
 
 ## 2. Sources and licences
 
@@ -90,8 +90,8 @@ carries the subtitles' crime-drama words (`سلاح`, `شلیک`) on frequency, 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: the level's
-inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3** — phrases.
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done 2026-11-12)** — A2 to C1, one level per session: the level's
+inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3 (done 2026-11-12)** — phrases.
 
 ## 6. As built (2026-11-09)
 
@@ -105,3 +105,136 @@ letters that share a sound (s: س ث ص, z: ز ذ ض ظ, t: ت ط, h: ه ح, ġ:
 the word they ask for, and every sound side is unique (asserted). The hue is measured: first `#2A8424`, which a
 parallel session's language also took before this merged, so it was re-swept against the 61 hues on main:
 `#008763`, 15.7 from its nearest.
+
+## 7. A2 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add Persian A2." `python3 .claude/persian/run.py --level a2`. **750 notes / 1,500
+cards: 255 from the inventory (`inventory.A2`, Hindi's A2 topics rewritten for Iran), 495 by frequency**; three
+sentences for 501, none for 73. A re-run is byte-identical, and A1 rebuilt on the day's sources is unchanged.
+What A2 needed:
+
+- **THE MONTHS.** Wiktionary files the twelve solar months as proper names (`pos: name`), which the extraction
+  dropped, beside OTHER name entries of the same spelling that gloss them as Gregorian months (`فروردین`
+  "January" — wrong for Iran, where Farvardin begins on 21 March). `extract.MONTH` keeps only the sense "X (the
+  Nth solar month of the Persian calendar)", as a noun. Five month names are homographs (`تیر` arrow, `مهر`
+  kindness / seal / dowry, `دی` yester, `آذر` fire, `بهمن` avalanche): `ETYMS` / `LEAD` put the month on the card.
+  Consequence: `تیر` "arrow, bullet" is now taught as the month only, and a later level will not teach it again.
+- **Seven inventory words are not in Wiktionary** and were dropped, not glossed by hand: خواهرزاده, برادرزاده,
+  ساعت مچی, پستخانه (اداره پست taught instead), دوجین, سرماخوردگی (سرما instead), هر روز; `گوجه` is "plum" there,
+  so the inventory asks for `گوجه‌فرنگی` "tomato".
+- **More homographs** (`ETYMS`): ماده mâdde "matter" not mâde "female", چک "cheque", موزه "museum" not "boot",
+  شانه "shoulder" not "comb", سیر "garlic", کمی "a little", روزی "someday", پست "post", علیه "against".
+- **Romanisations the extraction misses** (`ROMAN_BY_HAND`), each read off Wiktionary's own headword line:
+  نوع now', دی dey, پست post, آرزو ârezu. Two pointer glosses overridden from the entry's own first glosses
+  (`دردسر`, `موش`).
+- **The fill's exclusions grew** (`select.EXCLUDE`, 55 more, each with its reason): at A2's depth the subtitles'
+  ranking is full of English names and letters spelt in Persian (جک, مری, بن, اس, اف), a word's count belonging
+  to a form of another (`پای` پا + ی, `توش`, `کارا`), literary verbs whose stems are shared (`یارستن`, `تنیدن`),
+  and two vulgar words. The description now names the learner by level (`WHO`, Hindi's wording).
+
+## 8. B1 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/persian/run.py --level b1`. **1,000 notes / 2,000 cards:
+177 from the inventory (`inventory.B1`, Hindi's B1 topics rewritten for Iran — many of its words A1 and A2
+already teach), 823 by frequency**; three sentences for 357, none for 267 (Tatoeba's 8,265 pairs thin out at
+this depth). A re-run is byte-identical; A1 and A2 rebuilt after the changes below are unchanged.
+
+- **THE HEADWORD LINE'S ROMANISATION** (`extract.HEAD_ROMAN`). Some entries tag no romanisation and have no
+  plural to borrow one from (`گرد`, `تله`, `اینترنت`, `مدرن`); their reading stands only on the headword line
+  (`گرد • (gird / gerd)`). The extraction now reads it there, the Iranian one after the slash, the first of
+  several. A hand romanisation (`ROMAN_BY_HAND`) now WINS over Wiktionary's, so A2's `آرزو` stays ârezu rather
+  than the line's `âr(e)zu`; six B1 words whose only reading was Classical or Dari got the Iranian one by hand.
+- **نوروز** is let through as a name (`NAME_OK`), for the festivals topic.
+- **19 inventory words are not in Wiktionary as written**; 12 were replaced by the form Wiktionary has
+  (عمل جراحی → جراحی, رزرو → رزرو کردن, گردشگر → توریست, نظافت → تمیز کردن, لباسشویی → ماشین لباسشویی, ناامیدی
+  → ناامید, شرایط → شرط, درنتیجه → سرانجام, تغییر دادن → عوض کردن, بهتر شدن → بهبود, کاهش یافتن → کاهش, قرض
+  گرفتن → قرض), 7 dropped (برنامه درسی, علوم and تبلیغات — plurals Wiktionary gives only as pointers —,
+  همسایگی, تا اینکه, درآمد داشتن, کم شدن).
+- **Homographs** (`ETYMS`): رویا "dream", رز "rose", فوت "death", صفر "zero", عام "general", ساک "bag", تور
+  "tour". **Glosses** (`GLOSS`): موزیک and انتخابات (Wiktionary gives pointers), مرا (Wiktionary's gloss calls it
+  second person).
+- **61 more fill exclusions**, each with its reason: 27 English names and words spelt in Persian letters (جیک,
+  وین, راک, کلر), the rest spoken forms, forms of lower-level words and literary verbs whose stems the subtitles
+  count for something else.
+
+**Known, left.** Eight cards that share an English side with another are labelled "not X" on their part of
+speech (`کامپیوتر` / `رایانه`, `سبب` / `علت`) — the generator's disambiguation, as on every set. The fill keeps
+the subtitles' crime-drama register (`بازجویی`, `گروگان`, `جاسوس`), as A1's and A2's do.
+
+## 9. B2 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/persian/run.py --level b2`. **1,500 notes / 3,000 cards:
+106 from the inventory (`inventory.B2`, Hindi's B2 topics rewritten for Iran, with calligraphy and sanctions
+added), 1,394 by frequency**; three sentences for 201, none for 758 — half the deck has no Tatoeba sentence, the
+plain limit of 8,265 pairs. A re-run is byte-identical; A1, A2 and B1 rebuilt after the changes are unchanged.
+
+- **WIKTIONARY RUNS OUT at this level's formal vocabulary.** 60 of the inventory's words were not there as
+  written; 17 were replaced by a form it has (مصرف‌کننده → مصرف, نتیجه‌گیری → نتیجه گرفتن, تغییرات اقلیمی →
+  تغییر اقلیم, گرمایش جهانی → گرمایش زمین, …) and 43 dropped rather than glossed by hand — among them words a
+  B2 learner needs (ادعا, دادستان, تغذیه, علی‌رغم, به‌ویژه, درحالی‌که). That is why only 106 come from the
+  inventory: the frequency fill carries the level. Adding them would need a gloss source beyond Wiktionary.
+- **Homographs** (`ETYMS`): ذکر zekr "mention", فر fer "oven", جلد jeld "volume". `خامه` leads with "cream".
+  `کچل` shows only "bald" (Wiktionary's other noun is a different, anatomical word spelt alike — a `GLOSS` of
+  `[]` hides a part of speech). `ترن` is glossed from its pointer.
+- **74 more fill exclusions**, each with its reason: 32 names and English words in Persian letters (بوش, دبی,
+  رضا, پوتین), suffixes the subtitles write apart (-بان, -خور, -خوار), spoken forms (چسبوندن, فهموندن, چل),
+  entries whose only gloss is not the counted word (خنگ "horse", گوجه "plum", آواره), and the vulgar words the
+  ranking reaches at this depth.
+
+**Known, left.** The fill's register is the subtitles' (military ranks, crime, the supernatural). Fourteen notes
+in seven pairs share an English side and are labelled "not X".
+
+## 10. C1 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/persian/run.py --level c1`. **1,500 notes / 3,000 cards:
+63 from the inventory, 1,437 by frequency**; three sentences for 69, **none for 1,077** — at this depth almost
+nothing has a Tatoeba sentence. A re-run is byte-identical; A1 to B2 rebuilt after the changes are unchanged.
+
+- **THE INVENTORY WAS CHECKED BEFORE IT WAS WRITTEN.** B2 lost 43 words to Wiktionary's gaps, so every C1
+  candidate (Hindi's C1 topics rewritten for Iran: philosophy, mysticism, scholarly Persian, the constitution,
+  the economy, medicine, law, the forms of Persian poetry — غزل, قصیده, رباعی, مثنوی, دیوان — feeling, formal
+  prose) was looked up first. 106 of the candidates the lower levels already teach; **these 33 Wiktionary does
+  not have and are not in the deck**: اخلاقیات عدالت فضیلت عقلانیت معنویت عبادت رساله پانویس فرضیه یافته
+  دانشیار مشروطه مشروطیت قوه قیمومیت مشروعیت نقدینگی بیهوشی هورمون مالکیت وراثت زبان‌شناسی تشبیه تحقیر
+  بیزاری دلسردی چشم‌انداز غیرمستقیم علاوه بر وانگهی اصولاً قطعاً نهایتاً. The 63 that are new go in.
+- **Romanisations by hand** (`ROMAN_BY_HAND`), from a scan of every card: کینه kine (the card had printed
+  "kin"), آشکار âškâr (it had taken آشکارا's reading), پایداری pâydâri (Wiktionary's "pâydanâri" does not match
+  the spelling), راکتور râktor (an empty headword line).
+- **Glosses for three pointer-only entries** (`GLOSS`): دریغ "alas" (its interjection), مومیایی, موزیکال.
+- **90 more fill exclusions**, each with its reason — the most at any level: 37 names and English words in
+  Persian letters (موس "mouse", مسی "Messi", انتر "Enter", ثور "Thor"), spoken forms (گرون, مسلمون, مالوندن,
+  خوروندن, جوشوندن), entries whose gloss is not the counted word (کتبی "bookseller", منجی the Munji language),
+  and vulgar words.
+
+**Known, left.** The fill at this depth is broad rather than formal: everyday nouns a reader meets late
+(طاووس, زرافه, خاویار) sit beside the formal words, because the subtitles rank them alike. Without a published
+Persian C1 list or a fuller dictionary, that is what an honest assembly gives. 18 notes in nine pairs share an
+English side and are labelled "not X".
+
+## 11. The phrases deck as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/persian/run.py --level phr` runs
+`phrases.py` (Hindi's, carried over) in place of `select.py`. **106 expressions in three subdecks: 47 Phrases**
+(Wiktionary's multi-word phrases and interjections not tagged idiomatic — `زنده باد`, `خدا را شکر`, `نوش جان`,
+`دمت گرم`), **39 Idioms** (a sense tagged idiomatic — `دل به دریا زدن`, `کلاه سر کسی گذاشتن`) **and 20
+Proverbs** (`خواستن توانستن است`, `از ماست که بر ماست`). Ordered by how many Tatoeba sentences contain them (20
+do), then frequency. Sentences for 20; **none for 86**. A re-run is byte-identical; the five levels rebuilt after
+the extractor change are unchanged.
+
+- **Nothing a level teaches is taught again**, and a weak sense does not qualify an expression — which is why
+  `قربانت بروم` itself is absent (Wiktionary tags its only sense) and its spoken `قربونت برم` carries its gloss
+  (`GLOSS`, from the pointer's target).
+- **`phrases.EXCLUDE`, 41 entries, each with its reason**, Hindi's rules applied: 25 phrasebook sentences and
+  personal statements built from level words ("I need your help" in four spellings, "I'm deaf", "I'm a
+  Muslim"); political slogans (`مرگ بر`, `زن، زندگی، آزادی`); Arabic religious formulas (`علیه السلام`, a Quranic
+  verse) — the everyday ones a Persian speaker uses as Persian (`سلام علیکم`, `بسم الله`, `الحمد لله`) are kept;
+  a Zoroastrian motto, one poem's line, vulgar slang, and two pointer variants of `قربونت برم`.
+- **A saying in two halves** (`چی بودیم، چی شدیم`) had only its last half's romanisation: Wiktionary tags each
+  half as a romanisation of its own. `extract.roman_of` now joins them when the count matches the commas.
+  Two hand romanisations (`ROMAN_BY_HAND`): the Classical `tuwânâ buwad` made Iranian, and an ezafe hyphen.
+- `examples.py` needed no change: it already matches a multi-word entry with its last word in any verb form.
+
+**Known, left.** Wiktionary's Persian phrase list is small and uneven — the deck is half the size of Hindi's
+(288), and the everyday Tehran formulas it lacks (`خسته نباشید`, `دستت درد نکنه` in its spoken form) are not
+in it, since nothing here is written without a source. Two pairs share an English side (`موفق باشی` /
+`موفق باشید`, the two "good luck"s) and are labelled "not X".

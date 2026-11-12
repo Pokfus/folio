@@ -70,6 +70,18 @@ ETYMS = {
     'mare': ['1', '2'],      # "big" AND "sea", both A1
     'bancă': ['2', '1'],     # "bank"; etymology 1 is "bench"
     'dura': ['2'],           # "to last"; etymology 1 is "to build", regional
+    # B1
+    'coș': ['2'],            # "basket"; etymology 1 is "pimple"
+    'post': ['2'],           # "post, job"; etymology 1 is "a fast"
+    # B2
+    'bilă': ['2'],           # "ball"; etymology 1 is "bile"
+    # C1
+    'pluton': ['2'],         # "platoon"; etymology 1 is the rock
+    'franc': ['3', '2'],     # "frank, sincere" and the currency; etymology 1 is "a Frank"
+    # C2
+    'vioară': ['2'],         # "violin"; etymology 1 is "a violet"
+    'elan': ['2'],           # "élan"; etymology 1 is the elk
+    'uric': ['2'],           # the old charter ("hereditary privilege"); etymology 1 is the chemist's "uric"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -105,6 +117,8 @@ LEAD = {
     'ceai': 'tea',            # first listed is "tea bush"
     'slujbă': 'job, employment, post, service',   # first listed is "divine service"
     'descoperi': 'to discover',                   # first listed is "to take off one's headgear"
+    'coș': 'basket, wastebasket',                 # first listed is "chimney"
+    'gratuit': 'free, without payment',           # Wiktionary's gloss runs to 91 characters, so `is_note` drops it
 }
 
 
@@ -176,6 +190,9 @@ def english(ents, word=''):
                 gl.append(t)
         lead = LEAD.get(word)
         if lead:
+            # a lead cut from a gloss `is_note` dropped for its length (`gratuit`)
+            if not any(lead in x for x in gl) and any(g['g'].startswith(lead) for g in e['glosses']):
+                gl.insert(0, lead)
             gl.sort(key=lambda x: (x != lead, lead not in x))
         gl = gl[:3]
         if not gl or all(x in shown for x in gl):
@@ -342,8 +359,18 @@ def examples_html(exs):
     return ''.join(out)
 
 
+# A VERB EXPRESSION THAT OPENS WITH A CLITIC joins it to the infinitive's a, as Romanian
+# writes it (`a-și lua lumea în cap`, `a-i da lumea peste cap`); the phrases deck only --
+# no level headword opens with one.
+CLITIC_A = {'își': '-și', 'îi': '-i', 'îl': '-l'}
+
+
 def headword(word, pos):
     if pos == 'verb':
+        first, _, rest = word.partition(' ')
+        if rest and first in CLITIC_A:
+            return (f'<div class="uc-word"><span class="uc-a">a{CLITIC_A[first]}</span> '
+                    f'{E(rest)}</div>')
         return f'<div class="uc-word"><span class="uc-a">a</span> {E(word)}</div>'
     return f'<div class="uc-word">{E(word)}</div>'
 
@@ -358,7 +385,7 @@ def build(rows, lex, exs):
         word = r['word']
         ipa = main['ipa'] or next((e['ipa'] for e in ents if e['ipa']), '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Romanian': headword(word, main['pos']),
             'IPA': E(ipa),
             'Word': word,
@@ -368,13 +395,15 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'ipa': bool(ipa)})
+                        'examples': len(ex), 'ipa': bool(ipa), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
 FOR = {'a1': 'for a beginner', 'a2': 'for an elementary learner', 'b1': 'for an intermediate learner',
-       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner'}
-BELOW_NAMES = {'a1': '', 'a2': 'A1', 'b1': 'A1 or A2', 'b2': 'A1, A2 or B1', 'c1': 'A1 to B2'}
+       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner',
+       'c2': 'for a proficient learner'}
+BELOW_NAMES = {'a1': '', 'a2': 'A1', 'b1': 'A1 or A2', 'b2': 'A1, A2 or B1', 'c1': 'A1 to B2', 'c2': 'A1 to C1'}
 
 
 def desc(entries, n):
@@ -421,6 +450,41 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    ipa = sum(1 for e in entries if e['ipa'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Romanian set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Romanian → English (see the Romanian, recall "
+        "the meaning) and English → Romanian (see an English meaning, recall the Romanian) — each with a "
+        "schedule of its own. This is a companion to the six level decks, Romanian A1 to C2, and not one "
+        "of them: a level is a list of words, and an expression is a unit a list of words cannot see. "
+        "Nothing here is taught by any of the six, so the two can be studied together without repeating "
+        "an entry. The PHRASES are the expressions Wiktionary files as phrases or interjections and does "
+        f"not mark as idiomatic — mostly the everyday formulas a Romanian speaker uses as one piece "
+        f"({eg('Phrases')} …). The IDIOMS are expressions whose meaning is not their words' "
+        f"({eg('Idioms')} …), most of them verbs, given like every verb on the shelf with the "
+        f"infinitive's a; and the PROVERBS the sayings Wiktionary files as proverbs ({eg('Proverbs')} …), "
+        "each glossed with the English proverb that says the same where there is one. Within each "
+        "subdeck the expressions come in the order of how many of Tatoeba's Romanian sentences contain "
+        "them, an expression that is a verb being counted with its verb in any form; only "
+        f"{found} of the {n} are found there at all, and the rest follow in the order of how common "
+        "their rarest word is in film and television subtitles. "
+        f"{ipa} of the {n} carry Wiktionary's pronunciation in the International Phonetic Alphabet. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, pronunciation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -431,13 +495,23 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['romanian', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = (f'{n} words · both directions, as two cards per word' if LEVEL == 'a1' else
+                    f'{n:,} more words, none of them in {BELOW_NAMES[LEVEL]} · both directions, '
+                    'as two cards per word')
+        description = desc(entries, n)
+        tags = ['romanian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': (f'{n} words · both directions, as two cards per word' if LEVEL == 'a1' else
-                     f'{n:,} more words, none of them in {BELOW_NAMES[LEVEL]} · both directions, '
-                     'as two cards per word'),
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['romanian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Romanian vocabulary', 'speechLang': 'ro-RO',

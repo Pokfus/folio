@@ -25,7 +25,7 @@ import collections, csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from la import fold, nfc, tokens, kept
-from latin_level import f
+from latin_level import f, load_lex
 
 csv.field_size_limit(10 ** 8)
 
@@ -67,7 +67,7 @@ def forms_of(row, lex):
 
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = load_lex()
     pairs = load()
     toks = [(pid, la, en, [fold(t) for t in tokens(la)]) for pid, la, en in pairs]
     index = {}

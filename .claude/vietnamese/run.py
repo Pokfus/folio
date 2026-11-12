@@ -3,6 +3,7 @@
 
     python3 .claude/vietnamese/run.py                 # A1
     python3 .claude/vietnamese/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/vietnamese/run.py --level phr     # the phrases deck, after all five levels
     python3 .claude/vietnamese/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/vietnamese/tones.py               # the alphabet-and-tones deck
 
@@ -18,6 +19,7 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
                     counted by segmenting the subtitles (built once: lex.json,
                     the segmentation cached in seg-counts.json)
     select.py       the inventory, then the commonest remaining words
+                    (phrases.py instead, for --level phr)
     examples.py     three Tatoeba sentences each, matched as a whole word
     build_deck.py   headword, tones, glosses, classifier, characters, IPA, sentences,
                     and the .folio-deck.json in decks/
@@ -73,7 +75,7 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:
