@@ -263,3 +263,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~270 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/tagalog-cache/
+
+# the corpora .claude/irish/run.py builds the Irish decks from — the Wiktionary
+# extract, the Irish Wikipedia dump and the Tatoeba exports (~270 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/irish-cache/

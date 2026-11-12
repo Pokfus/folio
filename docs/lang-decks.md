@@ -3680,6 +3680,16 @@ changed was the one that had been wrong all along.
   The findings (a personal pronoun's shared table, the -s verbs, the closed-class rule against a common verb,
   the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
+- `.claude/irish/` — the generator behind the Irish decks (Nov 2026, on request: "Add an Irish language
+  collection"; the Hindi and Swedish owners' decisions taken, the owner not asked). **Built: A1,
+  `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/irish/run.py [--level a1]`,
+  `node .claude/irish/check-irish.js`; a re-run is byte-identical. Swedish's pipeline adapted, with the frequency
+  counted from the Irish Wikipedia (no subtitle list exists) and every form gathered with its INITIAL MUTATIONS
+  (`ga.variants`: bean, bhean, mbean). TEG publishes syllabuses but no licensed word list, so a level is a topic
+  inventory plus lemma frequency, and the description says so. The findings (phrase-shaped table cells, the
+  irregular verbs' unreliable tables, the capitalised months, the `i` missing from kaikki's extract) are
+  📖 `docs/irish-decks-plan.md`. The `LANGS` row is 2.1 million (census figures via Wikipedia); the hue is
+  measured, `#A84293`.
 - `.claude/dutch/` — the generator behind the Dutch decks (Nov 2026, on request: "Create a Dutch language
   collection"; the Hindi and Greek answers taken, the owner not asked). **Built: A1,
   `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Dutch-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request: "Add Dutch A2") **and B1, `decks/Dutch-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-12, on request: "Add B1") **and B2, `decks/Dutch-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request: "Add B2") **and C1, `decks/Dutch-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request: "Add C1") **and the phrases deck, `decks/Dutch-Phrases-and-Expressions.folio-deck.json`** (918 expressions in Phrases, Idioms and Proverbs subdecks, `--level phr`, 2026-11-12, on request: "Add the phrases deck"). **No alphabet deck** — Dutch is in the Latin
