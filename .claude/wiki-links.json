@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-12T08:14Z",
+ "generated": "2026-11-12T08:16Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7696,
+  "ok": 7706,
   "redirect-broader": 749,
   "redirect-variant": 464,
   "section-redirect": 175,
@@ -83744,6 +83744,76 @@
    "answer": "John Muir",
    "title": "John Muir",
    "url": "https://en.wikipedia.org/wiki/John_Muir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-691": {
+   "answer": "Rural Electrification Act",
+   "title": "Rural Electrification Act",
+   "url": "https://en.wikipedia.org/wiki/Rural_Electrification_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-692": {
+   "answer": "Western Union",
+   "title": "Western Union",
+   "url": "https://en.wikipedia.org/wiki/Western_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-693": {
+   "answer": "Assembly line",
+   "title": "Assembly line",
+   "url": "https://en.wikipedia.org/wiki/Assembly_line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-694": {
+   "answer": "Scientific management",
+   "title": "Scientific management",
+   "url": "https://en.wikipedia.org/wiki/Scientific_management",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-695": {
+   "answer": "Sears",
+   "title": "Sears",
+   "url": "https://en.wikipedia.org/wiki/Sears",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-696": {
+   "answer": "Advertising agency",
+   "title": "Advertising agency",
+   "url": "https://en.wikipedia.org/wiki/Advertising_agency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-697": {
+   "answer": "Eight-hour day movement",
+   "title": "Eight-hour day movement",
+   "url": "https://en.wikipedia.org/wiki/Eight-hour_day_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-698": {
+   "answer": "National Child Labor Committee",
+   "title": "National Child Labor Committee",
+   "url": "https://en.wikipedia.org/wiki/National_Child_Labor_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-699": {
+   "answer": "Triangle Shirtwaist Factory fire",
+   "title": "Triangle Shirtwaist Factory fire",
+   "url": "https://en.wikipedia.org/wiki/Triangle_Shirtwaist_Factory_fire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-700": {
+   "answer": "Knights of Labor",
+   "title": "Knights of Labor",
+   "url": "https://en.wikipedia.org/wiki/Knights_of_Labor",
    "via": "glossary",
    "status": "ok"
   }

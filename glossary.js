@@ -10666,7 +10666,17 @@ window.GLOSSARY = {
 "Overthrow_of_the_Hawaiian_Kingdom": "",
 "Land_Rush_of_1889": "",
 "Yellowstone_National_Park": "",
-"John_Muir": ""
+"John_Muir": "",
+"Rural_Electrification_Act": "",
+"Western_Union": "",
+"Assembly_line": "",
+"Scientific_management": "",
+"Sears": "",
+"Advertising_agency": "",
+"Eight-hour_day_movement": "",
+"National_Child_Labor_Committee": "",
+"Triangle_Shirtwaist_Factory_fire": "",
+"Knights_of_Labor": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15751,7 +15761,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Overthrow_of_the_Hawaiian_Kingdom": "1893",
 "Land_Rush_of_1889": "1889",
 "Yellowstone_National_Park": "1872",
-"John_Muir": "1838–1914"
+"John_Muir": "1838–1914",
+"Rural_Electrification_Act": "1936",
+"Western_Union": "from 1851",
+"Sears": "from 1886",
+"National_Child_Labor_Committee": "from 1904",
+"Triangle_Shirtwaist_Factory_fire": "25 March 1911",
+"Knights_of_Labor": "from 1869"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22621,7 +22637,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Andersonville_Prison": ["Camp Sumter"],
 "Buffalo_Soldier": ["Buffalo Soldiers"],
 "Newlands_Reclamation_Act": ["Reclamation Act","Reclamation Act of 1902"],
-"Land_Rush_of_1889": ["Land Run of 1889","Oklahoma land rush"]
+"Land_Rush_of_1889": ["Land Run of 1889","Oklahoma land rush"],
+"Rural_Electrification_Act": ["Rural Electrification Administration","REA"],
+"Assembly_line": ["assembly lines","moving assembly line"],
+"Scientific_management": ["Taylorism"],
+"Sears": ["Sears, Roebuck and Co.","Sears, Roebuck and Company","Sears Roebuck"],
+"Advertising_agency": ["advertising agencies","ad agency"],
+"Eight-hour_day_movement": ["eight-hour day","Eight-hour day","eight-hour workday"],
+"National_Child_Labor_Committee": ["NCLC"],
+"Triangle_Shirtwaist_Factory_fire": ["Triangle fire","Triangle Shirtwaist fire"],
+"Knights_of_Labor": ["Noble and Holy Order of the Knights of Labor"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33449,7 +33474,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Overthrow_of_the_Hawaiian_Kingdom": ["event","politics","hawaii","imperialism","united states"],
 "Land_Rush_of_1889": ["event","settlement","oklahoma","united states"],
 "Yellowstone_National_Park": ["place","conservation","national parks","wyoming","united states"],
-"John_Muir": ["person","conservation","national parks","united states"]
+"John_Muir": ["person","conservation","national parks","united states"],
+"Rural_Electrification_Act": ["text","history","politics","technology","united states"],
+"Western_Union": ["institution","history","technology","industry","united states"],
+"Assembly_line": ["technology","industry","economics","history"],
+"Scientific_management": ["theory","economics","industry","history"],
+"Sears": ["institution","history","economics","industry","united states"],
+"Advertising_agency": ["institution","economics","industry","history"],
+"Eight-hour_day_movement": ["event","history","politics","labour"],
+"National_Child_Labor_Committee": ["institution","history","politics","reform","united states"],
+"Triangle_Shirtwaist_Factory_fire": ["event","history","labour","disaster","united states","new york"],
+"Knights_of_Labor": ["institution","history","politics","labour","united states"]
 });
 
 /* ============================================================================
