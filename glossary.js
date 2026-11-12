@@ -9321,7 +9321,16 @@ window.GLOSSARY = {
 "Kritios": "",
 "Berlin_Foundry_Cup": "",
 "Foundry_Painter": "",
-"Nesiotes": ""
+"Nesiotes": "",
+"Vaphio_cups": "",
+"Nebamun_Hunting_in_the_Marshes": "",
+"Akhenaten,_Nefertiti_and_Three_Daughters": "",
+"Nefertiti_Bust": "",
+"Mask_of_Tutankhamun": "",
+"Hunefer": "",
+"Abu_Simbel": "",
+"Houmuwu_ding": "",
+"Thutmose_(sculptor)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13913,7 +13922,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kritios": "active c. 480 – 470 BCE",
 "Berlin_Foundry_Cup": "c. 490 – 480 BCE",
 "Foundry_Painter": "active c. 490 – 470 BCE",
-"Nesiotes": "active c. 480 – 470 BCE"
+"Nesiotes": "active c. 480 – 470 BCE",
+"Nebamun_Hunting_in_the_Marshes": "c. 1350 BCE",
+"Akhenaten,_Nefertiti_and_Three_Daughters": "c. 1351 – 1334 BCE",
+"Nefertiti_Bust": "c. 1351 – 1334 BCE",
+"Mask_of_Tutankhamun": "c. 1327 – 1323 BCE",
+"Hunefer": "c. 1300 – 1275 BCE",
+"Abu_Simbel": "c. 1264 BCE",
+"Houmuwu_ding": "c. 1250 – 1046 BCE",
+"Thutmose_(sculptor)": "fl. c. 1350 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19818,7 +19835,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Apadana_tribute-bearers_relief": ["Apadana reliefs","Apadana staircase reliefs"],
 "Tomb_of_the_Diver": ["Tomba del Tuffatore"],
 "Kritios": ["Critius","Kritios and Nesiotes"],
-"Berlin_Foundry_Cup": ["Foundry Cup"]
+"Berlin_Foundry_Cup": ["Foundry Cup"],
+"Vaphio_cups": ["Vaphio Cups","Vapheio cups"],
+"Nebamun_Hunting_in_the_Marshes": ["Nebamun hunting in the marshes","Nebamun fowling in the marshes"],
+"Akhenaten,_Nefertiti_and_Three_Daughters": ["House Altar of Akhenaten and Nefertiti","Berlin house altar"],
+"Nefertiti_Bust": ["Bust of Nefertiti"],
+"Mask_of_Tutankhamun": ["Tutankhamun's mask","Tutankhamun mask"],
+"Hunefer": ["Book of the Dead of Hunefer","Papyrus of Hunefer"],
+"Abu_Simbel": ["Abu Simbel colossi","Great Temple of Abu Simbel","Abu Simbel temples"],
+"Houmuwu_ding": ["Simuwu ding","Hou Mu Wu ding","Si Mu Wu ding"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29297,7 +29322,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kritios": ["person","art","greece","classical","athens"],
 "Berlin_Foundry_Cup": ["object","art","greece","classical","pottery"],
 "Foundry_Painter": ["person","art","greece","classical","pottery"],
-"Nesiotes": ["person","art","greece","classical","athens"]
+"Nesiotes": ["person","art","greece","classical","athens"],
+"Vaphio_cups": ["object","art","bronze age","mycenaean","greece"],
+"Nebamun_Hunting_in_the_Marshes": ["painting","art","egypt","new kingdom"],
+"Akhenaten,_Nefertiti_and_Three_Daughters": ["sculpture","art","egypt","amarna"],
+"Nefertiti_Bust": ["sculpture","art","egypt","amarna"],
+"Mask_of_Tutankhamun": ["object","art","egypt","new kingdom"],
+"Hunefer": ["manuscript","art","egypt","religion"],
+"Abu_Simbel": ["building","art","egypt","new kingdom","nubia"],
+"Houmuwu_ding": ["object","art","china","bronze","bronze age"],
+"Thutmose_(sculptor)": ["person","art","egypt","amarna"]
 });
 
 /* ============================================================================

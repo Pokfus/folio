@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:21Z",
+ "generated": "2026-11-12T04:24Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6627,
-  "redirect-broader": 625,
+  "ok": 6631,
+  "redirect-broader": 627,
   "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1016,
+  "none": 1020,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72530,6 +72530,106 @@
    "via": "glossary",
    "status": "redirect-variant",
    "from": "Tyrannicides"
+  },
+  "art-061": {
+   "answer": "Bull-Leaping Fresco",
+   "title": "Bull-Leaping Fresco",
+   "url": "https://en.wikipedia.org/wiki/Bull-Leaping_Fresco",
+   "via": "answer",
+   "status": "ok"
+  },
+  "art-062": {
+   "answer": "Vaphio Cups",
+   "title": "Vaphio",
+   "url": "https://en.wikipedia.org/wiki/Vaphio",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Vaphio cups"
+  },
+  "art-063": {
+   "answer": "Nebamun Hunting in the Marshes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nebamun",
+    "Tomb of Nebamun",
+    "Hierarchical proportion",
+    "Art of ancient Egypt",
+    "History of art"
+   ]
+  },
+  "art-064": {
+   "answer": "Akhenaten, Nefertiti and Three Daughters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nefertiti",
+    "Akhenaten",
+    "Amarna art",
+    "Nefertiti Bust",
+    "Royal Tomb of Akhenaten"
+   ]
+  },
+  "art-065": {
+   "answer": "Bust of Nefertiti",
+   "title": "Nefertiti Bust",
+   "url": "https://en.wikipedia.org/wiki/Nefertiti_Bust",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bust of Nefertiti"
+  },
+  "art-066": {
+   "answer": "Mask of Tutankhamun",
+   "title": "Mask of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Tutankhamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-067": {
+   "answer": "Book of the Dead of Hunefer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Book of the Dead",
+    "Ancient Egyptian afterlife beliefs",
+    "Ammit",
+    "Book",
+    "Papyrus"
+   ]
+  },
+  "art-068": {
+   "answer": "Abu Simbel colossi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abu Simbel",
+    "Death on the Nile (1978 film)",
+    "Art of ancient Egypt",
+    "Nebettawy",
+    "Ramesseum"
+   ]
+  },
+  "art-069": {
+   "answer": "Lion Gate",
+   "title": "Lion Gate",
+   "url": "https://en.wikipedia.org/wiki/Lion_Gate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-070": {
+   "answer": "Houmuwu ding",
+   "title": "Houmuwu ding",
+   "url": "https://en.wikipedia.org/wiki/Houmuwu_ding",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
