@@ -131,4 +131,123 @@ A2 = [
                  'licet oportet necesse placeō dēsīderō cupiō'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+# B1 (2026-11-12): the CEFR's "familiar matters regularly encountered in work, school,
+# leisure" -- for a reader of Latin, the matters of the texts one reads first: the state
+# and its offices, the courts, the army, the gods, the sea, learning and speaking.
+# `sānctus:verb` asks for Wiktionary's participle entry ("holy"), which the DCC's
+# "adjective" would otherwise drop in favour of the noun "a saint".
+B1 = [
+    ('the state and its offices', 'cōnsul senātor magistrātus quaestor aedīlis '
+                                  'praetor cēnsor dictātor tribūnus līctor imperium potestās '
+                                  'cōnsulātus comitia suffrāgium candidātus factiō '
+                                  'patricius plēbēius nōbilitās lēx rogātiō '
+                                  'dēcrētum ēdictum colōnia mūnicipium prōvincia tribūtum '
+                                  'vectīgal aerārium'),
+    ('law and the courts', 'iūs iūdicium iūdex reus accūsātor accūsō dēfendō damnō '
+                           'absolvō condemnō testis testimōnium crīmen poena supplicium '
+                           'carcer fraus fūrtum fūr latrō caedēs venēnum '
+                           'iniūria arbitrium sententia causa quaestiō'),
+    ('the army and war', 'exercitus legiō cohors centuriō:noun manipulus ēques pedes '
+                         'equitātus peditātus imperātor lēgātus mīles tīrō signum '
+                         'aquila castra vallum fossa mūnītiō agger turris obsidiō '
+                         'oppugnō expugnō obsideō circumdō aciēs proelium pugna '
+                         'victōria clādēs fuga triumphus praeda captīvus obses '
+                         'indūtiae pāx foedus socius hostis arma scūtum gladius hasta '
+                         'pīlum sagitta arcus galea lōrīca tuba stīpendium '
+                         'impedīmentum agmen iter'),
+    ('the gods and religion', 'deus dea dīvus nūmen templum āra sacrificium victima '
+                              'sacerdōs pontifex augur auspicium ōmen ōrāculum vātēs '
+                              'vōtum religiō pietās superstitiō fēstus '
+                              'immortālis dīvīnus sacer sānctus:verb profānus '
+                              'sacrificō immolō veneror adōrō'),
+    ('the sea and ships', 'mare pontus pelagus ōceanus unda flūctus aestus lītus ōra '
+                          'portus nāvis ratis puppis prōra carīna mālus:noun gubernāculum '
+                          'nauta classis nāvigātiō naufragium tempestās scopulus '
+                          'nāvigō appellō solvō'),
+    ('land and geography', 'regiō terra orbis continēns īnsula paenīnsula fīnis '
+                           'fīnitimus mōns iugum saltus silva lūcus campus palūs '
+                           'harēna dēsertum vallis rīpa fōns ōstium cursus '
+                           'septentriōnēs merīdiēs oriēns occidēns'),
+    ('learning, speaking and writing', 'disciplīna doctrīna scientia ars studium '
+                                       'philosophia philosophus rhētor ēloquentia '
+                                       'ōrātiō ōrātor dīcō disserō disputō '
+                                       'loquor ēloquor persuādeō suādeō moneō '
+                                       'liber volūmen historia poēma carmen '
+                                       'versus fābula auctor scrīptor lēctor '
+                                       'sermō verbum vōx sententia argūmentum ratiō'),
+    ('building and the arts', 'aedificō exstruō mūniō monumentum sepulcrum '
+                              'columna arcus marmor lapis saxum later '
+                              'imāgō statua signum pictūra sculpō pingō '
+                              'mūsica cantus tībia lyra cithara chorus saltātiō '
+                              'scaena histriō spectātor'),
+    ('trade, wealth and work', 'mercātūra commercium negōtior mercor quaestus '
+                               'dīvitiae inopia egestās paupertās cōpia '
+                               'pretium cārus vīlis faenus ūsūra '
+                               'possideō possessiō hērēs hērēditās testāmentum '
+                               'fundus praedium colōnus vīlicus agricultūra'),
+    ('society and the household', 'gēns familia patrōnus cliēns lībertīnus servitūs '
+                                  'lībertās dominus ancilla verna nūtrīx '
+                                  'mātrōna coniugium nūbō dūcō dīvortium '
+                                  'cognātus propinquus affīnis hospes hospitium '
+                                  'amīcitia inimīcus aemulus'),
+    ('nature and the elements', 'nātūra elementum āēr aethēr ignis flamma '
+                                'fulmen tonitrus imber grandō glaciēs pruīna '
+                                'frīgus calor aestus lūx tenebrae umbra '
+                                'metallum ferrum aurum argentum aes plumbum '
+                                'gemma lignum'),
+    ('time and history', 'aetās aevum saeculum memoria posteritās orīgō initium '
+                         'senectūs exitus ēventus cāsus fortūna fātum antīquitās '
+                         'vetustās nūper ōlim quondam anteā posteā '
+                         'interim intereā tandem dēmum dēnique cotīdiē '
+                         'quotannīs perpetuō'),
+    ('mind, feeling and character', 'mēns animus ingenium memoria cōnsilium '
+                                    'cōgitātiō opīniō spēs metus pavor formīdō:noun '
+                                    'terror audācia cōnstantia prūdentia '
+                                    'temperantia fortitūdō iūstitia clēmentia '
+                                    'fidēs perfidia avāritia ambitiō superbia '
+                                    'modestia verēcundia pudor dignitās '
+                                    'glōria laus fāma īnfāmia invidia odium '
+                                    'amor cupiditās libīdō voluptās dolor '
+                                    'lūctus maeror misericordia'),
+    ('describing', 'ingēns immēnsus exiguus angustus amplus '
+                   'clārus obscūrus illūstris īnsignis nōbilis ignōbilis '
+                   'dīligēns neglegēns industrius iners '
+                   'prūdēns imprūdēns sapiēns īnsipiēns '
+                   'cupidus avidus contentus '
+                   'pius impius probus improbus honestus turpis '
+                   'certus incertus dubius manifestus apertus occultus '
+                   'necessārius ūtilis inūtilis idōneus aptus '
+                   'praecipuus singulāris commūnis prīvātus pūblicus '
+                   'perpetuus aeternus subitus repentīnus'),
+    ('connecting and relating', 'postquam priusquam antequam quamquam etsī etiamsī '
+                                'quamvīs cum:conj ubi dōnec quoad '
+                                'quoniam quandoquidem proptereā ideō itaque '
+                                'proinde quārē quōcircā praetereā dēnique '
+                                'tamen attamen nihilōminus vērum quidem equidem '
+                                'scīlicet nempe vidēlicet immō'),
+    ('verbs of the mind and of speech', 'arbitror exīstimō cēnseō iūdicō '
+                                        'cōnsīderō dēlīberō dubitō cōnfīdō '
+                                        'spērō dēspērō meminī recordor '
+                                        'oblīvīscor ignōrō cognōscō comperiō '
+                                        'intellegō percipiō sentiō '
+                                        'affirmō negō nūntiō referō narrō '
+                                        'polliceor prōmittō iūrō minor:verb '
+                                        'hortor cohortor moneō admoneō '
+                                        'postulō flāgitō ōrō obsecrō '
+                                        'concēdō permittō vetō prohibeō '
+                                        'laudō vituperō reprehendō accūsō'),
+    ('verbs of doing', 'cōnor cūrō efficiō perficiō cōnficiō '
+                       'parō comparō īnstruō ōrnō '
+                       'servō cōnservō tueor dēfendō prōtegō '
+                       'augeō minuō crēscō mūtō '
+                       'trādō dēdō reddō restituō tribuō '
+                       'regō gubernō administrō '
+                       'vincō superō opprimō dēleō '
+                       'ēdūcō indūcō redūcō trādūcō '
+                       'ēmittō dīmittō remittō '
+                       'cōgō compellō impellō '
+                       'iungō coniungō sēiungō '
+                       'ūtor fruor fungor potior'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

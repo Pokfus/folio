@@ -37,6 +37,10 @@ DECK_FILES['phr'] = 'Latin-Phrases-and-Mottos.folio-deck.json'
 # Sizes in NOTES -- the Hindi set's, which the plan proposes and the owner may change.
 TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
+# THE LEVELS THE DCC LIST CANNOT FILL (A1 and A2 take it to rank 891 of 996): their
+# words beyond it are ordered by the classical-corpus count (`corpus.py`).
+CORPUS_LEVELS = {'b1', 'b2', 'c1', 'phr'}
+
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 BELOW['phr'] = list(BANDS)
 
@@ -61,11 +65,30 @@ SCOPE = {
                   'and character, more describing words, words of place and manner, and the '
                   'verbs of an ordinary day',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'topics': 'the state and its offices, law and the courts, the army and war, the gods '
+                  'and religion, the sea and ships, land and geography, learning, speaking and '
+                  'writing, building and the arts, trade, wealth and work, society and the '
+                  'household, nature and the elements, time and history, mind, feeling and '
+                  'character, more describing words, the words that join clauses, and the '
+                  'verbs of thinking, speaking and doing',
+    },
 }
 
 # Who a level is for, in the description's "N words for …".
 FOR = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
+def load_lex():
+    """`lex.json`, and from B1 on the lemmas only the classical count reaches
+    (`classical.json`'s `lex`, `corpus.py`).  Run from the cache directory."""
+    lex = json.load(open('lex.json', encoding='utf-8'))
+    if LEVEL in CORPUS_LEVELS:
+        lex.update(json.load(open('classical.json', encoding='utf-8'))['lex'])
+    return lex
 
 
 def f(name):

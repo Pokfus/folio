@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Latin language collection."
 
-**STATUS (2026-11-12): A1 and A2 are built** (`.claude/latin/`, §6, §7). B1 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/latin/`, §6–§8). B2, C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -28,7 +28,7 @@ it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
 |---|---|---|
 | Latin A1 Beginner — built | `Latin-A1.folio-deck.json` | 500 |
 | Latin A2 Elementary — built | `Latin-A2.folio-deck.json` | 750 |
-| Latin B1 Intermediate | `Latin-B1.folio-deck.json` | 1,000 |
+| Latin B1 Intermediate — built | `Latin-B1.folio-deck.json` | 1,000 |
 | Latin B2 Upper Intermediate | `Latin-B2.folio-deck.json` | 1,500 |
 | Latin C1 Advanced | `Latin-C1.folio-deck.json` | 1,500 |
 | Latin Phrases and Mottos | `Latin-Phrases-and-Mottos.folio-deck.json` | what the levels leave |
@@ -40,6 +40,7 @@ it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
 | meanings, gender, principal parts, macrons, tables | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Latin.jsonl`, 1.25 GB) | CC BY-SA 4.0 |
 | frequency (primary) | Dickinson College Commentaries Latin Core Vocabulary, CSV export (996 rows; Francese et al., 2012–13) | CC BY-SA 3.0 |
 | frequency (words outside the DCC list) | a lemma count over Tatoeba's 57,000 Latin sentences | CC BY 2.0 FR |
+| frequency (B1 on, beyond the DCC list) | a lemma count over 149 pinned pages of classical authors from The Latin Library (`corpus.py`, §8); only the counts are used | public-domain texts |
 | example sentences | Tatoeba `lat` exports (≈40,800 Latin–English pairs) | CC BY 2.0 FR |
 | level scope | CEFR global scale (Council of Europe), quoted | — |
 | `LANGS` row | `l1: 0` — Latin has no native speakers, so it sorts last | — |
@@ -100,7 +101,7 @@ as long-winded as Wiktionary's (`num`).
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `latin_level.py`, run, read every card; decide the corpus
 count (§2) before the DCC list runs out. **Phase 3** — the phrases and mottos deck. **Phase 4** — a combined
 file, gitignored.
@@ -138,3 +139,47 @@ What A2 added to the pipeline, each read off its cards:
   `epistula`, `litterae`, `tussis` …, printed by `select.py`), `sāpō` (only "an ancient hair product") and
   `allium` (a pointer, "late form of ālium"). The months are not taught: their headwords are capitalised
   adjectives, and `check-latin.js` wants a lower-case headword.
+
+## 8. As built (2026-11-12): B1, and the classical count
+
+**THE CORPUS COUNT (decided here, §2).** `corpus.py` counts word forms over a PINNED list of 149 pages
+of The Latin Library (thelatinlibrary.com; Perseus is not listable from a cloud session): Caesar (*Gallic*
+and *Civil War*), Cicero (Catilinarians, *De officiis*, *De amicitia*, *De senectute*, *Pro Archia*, *Pro
+Milone*, *De finibus* 1, *Tusculans* 1), Sallust, Livy 1–10, Nepos, Seneca *Letters* 1–10, Pliny *Letters*
+1–10, Tacitus (*Annals* 1–6, *Histories* 1, *Agricola*, *Germania*), Quintilian 1, Plautus *Amphitruo*,
+Catullus, Lucretius, Virgil, Horace (*Odes*, *Satires* 1, *Epistles* 1), Propertius 1, Ovid *Metamorphoses*,
+Juvenal 1 — 806,872 lower-case tokens. Pages are cached in `latin-cache/classical/`; `classical.json` is
+built once (`run.py` runs the stage for `CORPUS_LEVELS`, again on `--re-extract`) and is byte-identical on
+a re-run. The count is `extract.lemma_counts` (refactored out of `extract.py`, whose `lex.json` is
+unchanged, md5 checked) with three guards, each read off the first count, where `bellus` had `bellum`'s
+count, `magus` `magis`'s and `aeneus` Aeneas's:
+- **only lower-case tokens count** (a capital is a name; a sentence's first word is lost evenly);
+- **a form a DCC lemma claims goes to the DCC lemmas alone** (`first`);
+- **a lemma spelt as a form of a DCC lemma is not offered** (`quod`, `factus`, `maximus`), and in
+  `select.py` nor one spelt as a form of a word taught below or chosen for the level (`oblītus` is
+  `oblīvīscor`'s, `omissus` `omittō`'s; `shadow_of`, repeated until stable).
+
+**B1**: `python3 .claude/latin/run.py --level b1`. 1,000 notes: 335 from the B1 inventory (17 topics: the
+state, the courts, the army, religion, the sea, geography, learning and speaking, the arts, trade, society,
+nature, history, mind and character, describing words, connectives, verbs of thinking and doing), the DCC
+list's last 52, and 613 from the classical count; 919 with a dictionary entry, 922 with a table, sentences
+for 874 (three for 691). **Tatoeba runs thin at this level: 126 words have no example sentence.** A re-run is
+byte-identical; A1 still rebuilds byte-identical.
+
+What B1 added to the pipeline:
+- **A participle Wiktionary files as a word** (`apertus`, `dīligēns`, `contentus`: a `verb` entry whose
+  table has no person) is shown as a *participle* with an adjective's entry and table, after any other entry
+  of the spelling (`lūctus` the noun first). This relabelled five secondary senses on A2 ("verb" →
+  "participle": `serpēns`, `advocātus`, `versus`, `mercātus`, `dēbitum`) — A2 was rebuilt with it.
+- `NOT_A_MEANING` drops a case-and-number label filed as a sense (`dēbitum`'s participle).
+- `LEAD` +6 (`sānctus`, `triumphus`, `disserō`, `peragō`, `minor`, `adōrō`), `ONLY_POS` +3 (`sānctus`,
+  `prōmptus`, `minor`), `EXCLUDE` (in `select.py`) +8 doublets and fragments (`utque`, `sīquis`, `ulter`,
+  `īnsidia`, `tueō`, `spōns`, `quantusque`, `pennus`), each with its reason. The inventory asks for
+  `sānctus:verb` (the participle "holy"; the DCC's "adjective" would drop it for the noun "a saint").
+- The description names the classical count and its authors when a level uses it (`ORDER_CORPUS`,
+  `CORPUS_SOURCE`); A1's and A2's are unchanged.
+
+**Known, left.** Some corpus words are participles of verbs no level teaches yet (`adeptus`, `nactus`,
+`dēfūnctus`, `intermissus`) — real words, shown as participles; B2 may teach the verbs. The count folds
+macrons, so homographs share it (`mālum`/`malum` were settled by the inventory at A1). B2 and C1 fill
+almost wholly from the count, so read their rankings for more collisions before building.

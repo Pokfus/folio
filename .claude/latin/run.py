@@ -17,6 +17,9 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
     extract.py      every Latin lemma a deck could want, compacted, with its DCC
                     rank and a Tatoeba lemma count (built once: lex.json)
     select.py       the inventory, then the commonest remaining DCC words
+    corpus.py       (B1 and above) a lemma count over a pinned list of classical
+                    texts, for the words beyond the DCC list (built once:
+                    classical.json)
     examples.py     three Tatoeba sentences each, matched on the word's forms
     build_deck.py   headword, dictionary entry, glosses, forms, tables,
                     sentences, and the .folio-deck.json in decks/
@@ -71,6 +74,9 @@ def main():
         fetch()
     os.chdir(CACHE)
     stages = ['select.py', 'examples.py', 'build_deck.py']
+    from latin_level import CORPUS_LEVELS
+    if level in CORPUS_LEVELS and (not os.path.exists('classical.json') or '--re-extract' in sys.argv):
+        stages.insert(0, 'corpus.py')
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:

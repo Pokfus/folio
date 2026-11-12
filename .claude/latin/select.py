@@ -9,7 +9,9 @@ note, each marked with where it came from (`inventory` or `frequency`).
 THE ORDER the cards are dealt in: the word's rank in the DCC Latin Core
 Vocabulary first (the commonest classical words first), then -- for the
 inventory words the DCC list does not hold (`fēlēs`, `ientāculum`, `caeruleus`)
--- their lemma count over the Tatoeba corpus.
+-- their lemma count over the Tatoeba corpus.  FROM B1 ON (`CORPUS_LEVELS`) the DCC
+list runs out, and the words beyond it come, and are dealt, by their lemma count
+over classical texts (`corpus.py`, `classical.json`), before the Tatoeba count.
 
 A WORD THE LEVELS BELOW TEACH IS NOT TAUGHT AGAIN (`latin_level.words_below`).
 
@@ -23,12 +25,35 @@ import json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from la import fold, tidy, nfc
-from latin_level import LEVEL, TARGET, f, words_below
+from latin_level import LEVEL, TARGET, CORPUS_LEVELS, f, words_below, load_lex
 from inventory import INVENTORY
 
-# Read off the A1 ranking (2026-11-09).  Each with its reason.
+# Read off the rankings.  Each with its reason.
 EXCLUDE = {
+    # B1 (2026-11-12), the classical count
+    'utque': 'ut + -que, not a word of its own',
+    'sīquis': 'sī quis written as one word',
+    'ulter': 'only the positive behind ulterior and ultimus; "that is beyond"',
+    'īnsidia': 'the singular of īnsidiae, which the count also offers',
+    'tueō': 'the active of tueor, which the count also offers',
+    'spōns': 'used in the ablative sponte, which the count also offers',
+    'quantusque': 'quantus + -que, not a word of its own',
+    'pennus': 'a rare adjective "sharp", counted off the forms of penna',
 }
+
+
+def shadow_of(L):
+    """The folds of every form a lemma's tables and head lines print -- a corpus word
+    spelt as one is that lemma's form (`oblītus`: `oblīvīscor`), not a word to teach."""
+    out = set()
+    for e in L['entries']:
+        for row in e['table'] + e['head']:
+            for w in row['f'].split():
+                k = fold(w.strip(',;'))
+                out.add(k)
+                if k.endswith('um'):
+                    out.add(k[:-2] + 'us')
+    return out
 
 
 def usable(L, canon=None):
@@ -41,7 +66,10 @@ def usable(L, canon=None):
 
 
 def main():
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = load_lex()
+    cls = {}
+    if LEVEL in CORPUS_LEVELS:
+        cls = json.load(open('classical.json', encoding='utf-8'))['counts']
     below = words_below()
     rows, seen, missing, loose = [], set(), [], []
     for topic, words in INVENTORY.get(LEVEL, []):
@@ -65,7 +93,7 @@ def main():
             rows.append({'key': k, 'word': exact[0] if exact else L['word'], 'canon': exact[:1],
                          'pos': pos or '', 'dccpos': sorted({p for _, _, p in L['dcc_rows'] if p}),
                          'source': 'inventory', 'topic': topic,
-                         'dcc': L['dcc'], 'tat': L['tat']})
+                         'dcc': L['dcc'], 'tat': L['tat'], **({'cls': cls.get(k, 0)} if cls else {})})
     n_inv = len(rows)
     excl = {fold(s) for s in EXCLUDE}
     fill = []
@@ -86,11 +114,44 @@ def main():
         seen.add(k)
         fill.append({'key': k, 'word': canon[0] if canon else L['word'], 'canon': canon,
                      'pos': '', 'dccpos': dpos, 'source': 'frequency', 'topic': '',
-                     'dcc': L['dcc'], 'tat': L['tat']})
+                     'dcc': L['dcc'], 'tat': L['tat'], **({'cls': cls.get(k, 0)} if cls else {})})
+    n_dcc = len(fill)
+    # BEYOND THE DCC LIST: the commonest remaining lemmas of the classical count.  A
+    # candidate spelt as a form of a word taught below or chosen here is that word's
+    # form; the forms of each chosen word join the shadow as it is chosen, and the
+    # whole pass is repeated until no chosen word is another's form.
+    if cls:
+        base = set()
+        for k in below | seen:
+            if k in lex:
+                base |= shadow_of(lex[k])
+        drop = set()
+        while True:
+            shadow, extra = set(base), []
+            for k, c in sorted(cls.items(), key=lambda kv: (-kv[1], kv[0])):
+                if len(rows) + len(fill) + len(extra) >= TARGET[LEVEL]:
+                    break
+                L = lex.get(k)
+                if (not L or L['dcc'] or k in seen or k in below or k in excl or k in drop
+                        or ' ' in k or k in shadow or not usable(L)):
+                    continue
+                extra.append({'key': k, 'word': L['word'], 'canon': [], 'pos': '', 'dccpos': [],
+                              'source': 'corpus', 'topic': '', 'dcc': 0, 'tat': L['tat'], 'cls': c})
+                shadow |= shadow_of(L) - {k}
+            late = {r['key'] for r in extra} & shadow
+            if not late:
+                break
+            drop |= late
+        fill += extra
+        seen |= {r['key'] for r in extra}
     rows += fill
-    rows.sort(key=lambda r: (r['dcc'] or 10 ** 6, -r['tat'], r['key']))
+    if cls:
+        rows.sort(key=lambda r: (r['dcc'] or 10 ** 6, -r['cls'], -r['tat'], r['key']))
+    else:
+        rows.sort(key=lambda r: (r['dcc'] or 10 ** 6, -r['tat'], r['key']))
     json.dump(rows, open(f('selected.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
-    print(f'  {len(rows)} words: {n_inv} from the inventory, {len(fill)} from the DCC list')
+    print(f'  {len(rows)} words: {n_inv} from the inventory, {n_dcc} from the DCC list'
+          + (f', {len(fill) - n_dcc} from the classical count' if cls else ''))
     if missing:
         print('  NOT IN WIKTIONARY (dropped):', ' '.join(missing))
     if loose:
