@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Turkish, Hindi, R
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Polish language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/polish/`, §5). A2 to C2 and a phrases deck are not.
+**STATUS (2026-11-12): A1 to C1 and the phrases deck are built** (`.claude/polish/`, §5, §4e). C2 is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump,
@@ -33,12 +33,12 @@ line to change.
 | deck | file | notes |
 |---|---|---|
 | Polish A1 — built | `Polish-A1.folio-deck.json` | 600 |
-| Polish A2 | `Polish-A2.folio-deck.json` | 750 |
-| Polish B1 | `Polish-B1.folio-deck.json` | 1,000 |
-| Polish B2 | `Polish-B2.folio-deck.json` | 1,200 |
-| Polish C1 | `Polish-C1.folio-deck.json` | 1,200 |
+| Polish A2 — built | `Polish-A2.folio-deck.json` | 750 |
+| Polish B1 — built | `Polish-B1.folio-deck.json` | 1,000 |
+| Polish B2 — built | `Polish-B2.folio-deck.json` | 1,200 |
+| Polish C1 — built | `Polish-C1.folio-deck.json` | 1,200 |
 | Polish C2 | `Polish-C2.folio-deck.json` | 1,200 |
-| Polish Phrases and Expressions | `Polish-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Polish Phrases and Expressions — built | `Polish-Phrases-and-Expressions.folio-deck.json` | 802 (what the levels leave) |
 
 ## 2. Where the words come from — checked before anything was built
 
@@ -57,6 +57,33 @@ plus the categories a beginner needs whole (numbers, days, months, colours) and 
 question words, prepositions, conjunctions). **A2 onwards needs its own topic list found first** — the same
 centre's pages for A2 … C2 are the place to start; if none can be found, the CEFR descriptor for the band is
 the fallback (the Hindi arrangement).
+
+**A2's scope** is the same centre's "Poziom A2" page (read 2026-11-12). It gives no topic list as A1's does,
+but describes the level: the speaker's intentions (thanking, apologising, inviting, wishes, congratulations,
+feelings and judgements), place, direction and time, quantity, quality and possession, politeness, table
+manners, Polish dishes and mealtimes, Poland in the EU and its regions, name days, birthdays and visits,
+dress on official occasions, cultural and artistic life, travel in Poland and Europe, the roles of tourist,
+guest, customer, tenant, caller and patient, describing and comparing, antonyms and synonyms; and in its
+grammar nouns in -um, the verbs of motion, the modals `trzeba`, `warto`, `należy`, feminine names from
+masculine ones and the conjunctions `więc`, `dlatego że`, `kiedy`, `gdy`, `jeśli`, `gdyby`. `inventory.py`
+`A2` is written a topic at a time from that summary (`pl_level.SCOPE["a2"]` is what the description says).
+**B1's scope** is that centre's "Poziom B1" page (read 2026-11-12), which does list topics: tastes, the family
+and its occasions, social life, sport, town and country and public institutions, travel, work and the labour
+market, education, recipes, shopping and paying, health and way of life, the environment, the state and
+society (politics, the economy, crime), science and technology, the media, culture and stereotypes, plus the
+functions (surprise, doubt, sympathy, disappointment, criticism, advice, a toast). **B2's** page (read the
+same day) has no topic list: it names roles (sport and its fans, reader, listener, driver, witness, victim of
+a crime or an accident), text intents (warning, protest, complaint, recommendation), discussion and formal
+writing, and grammar (country adjectives, `lekarski` from `lekarz`, `dojrzałość` from `dojrzały`,
+diminutives, `żaden` / `każdy` / `wszyscy`). B2's inventory covers those and takes B1's topics a level
+further (work, housing, the media, law, health, relationships, nature, the arts, travel); its comment in
+`inventory.py` and its description both say so. **C1's** page (read 2026-11-12) lists topics beyond the earlier levels' — extreme sports, the housing market
+and repairs, the modern workplace, the history of education, GM food, auctions, the health system and
+insurance, natural disasters, corruption and money laundering, the army and international relations, science
+and ethics, the Church, regional diversity and Polish history — plus styles, rhetoric and phraseology, and a
+grammar list (habituals, augmentatives, collective numerals, pluralia tantum, compounds). C1's inventory
+covers those and adds the vocabulary of the economy, law, politics, the media, psychology, literature and
+philosophy. **C2**: start at `/sprawdz-swoj-poziom/poziom-c2`.
 
 | input | use | licence |
 |---|---|---|
@@ -117,6 +144,89 @@ Each is a rule in the code with the case that forced it; grep the file for the w
    tagged colloquial), `brązowy` opens on "bronzen" before "brown", and the fill carries the subtitles'
    `zabić` and `broń` on frequency, as every subtitle-ordered deck on the shelf does.
 
+## 4b. The findings (A2, 2026-11-12)
+
+1. **Most of the inventory lands; what does not is proper nouns, plurals and comparatives.** Wiktionary has
+   no live entry for `Polska`, `Europa` or any country name, for a plural (`buty`, `meble`, `schody`, `lody`,
+   `pierogi`), or for a comparative (`lepszy`, `mniej`) — the plurals were swapped for their singular
+   headwords (`but`, `mebel`, `schód`, `pieróg`, `gołąbek`), the countries dropped, and the comparatives
+   are already on their adjective's forms row. `historia`, `internet` and `stolik` are also not in the dump.
+2. **Fused clitics are not words** (`select.py` `combined_only`): `żebyś`, `żebym`, `gdybym`, `byś` are
+   "Combined form of żeby + -ś" and came into the fill on their own counts.
+3. **Homographs exempted from shadowing by a closed-class reading** (`select.py` `EXCLUDE`): `dnia`
+   (adverb "daily", counted from dzień), `razy` (raz), `bądź` (być's imperative), `podoba` (podobać), and
+   `ego`, whose count is subtitle noise.
+4. **Wiktionary's editorial notes are not glosses** (`pl.gloss`): "The meaning of this term is uncertain"
+   (`różny`, and A1's `jeśli`, whose card the fix corrected) and "Used other than figuratively or
+   idiomatically" (`taki sam`).
+5. **Which reading leads** (`build_deck.py` `LEAD`), three more: `halo` (the telephone's "hello?", not the
+   moon's halo), `piec` ("to bake", not "oven"), `gołąbek` (the cabbage roll, not "pigeon").
+6. **A sentence that is another word's** (`examples.py` `REJECT`): `należy` has no table, so it is found only
+   by its own spelling, which is also należeć's "belongs" (`To należy do ciebie`); `piec`'s plural `piece`
+   was the English of a manga title.
+7. Replaced in the inventory after reading: `marchewka` (Wiktionary's live sense is "redhead"; `marchew` is
+   "carrot"), `święta` (filed as "saint"; `święto` teaches the holiday), `stare miasto` (its sentences say
+   "an old city").
+
+## 4c. The findings (B1 and B2, 2026-11-12)
+
+1. **More subtitle names and forms in the fill** (`select.py` `EXCLUDE`): `frank`, `tom`, `henr` (names);
+   `pierwsza`, `młoda`, `lewa` (an adjective's feminine), `żadnego`, `człowieku`, `powinno`, `cie`, `dna`
+   (a case of another word), `działo` (`dziać się`), `święta` (święto's plural), `korekta` (subtitle
+   credits), `glina` and `forsa` (counted for slang senses the deck does not teach), `mary` (the name), and
+   `dupek` (swearing).
+2. **A bare diminutive pointer is a meaning — for a word taught as a diminutive** (`build_deck.py`
+   `diminutive`): `kotek`, `domek`, `synek`, `ptaszek` came out as "sweetie", "cabin for animals", a weaving
+   term and "checkmark". Read as the target's first gloss ("house (diminutive)"), or the gloss after the
+   semicolon (`kotek`: "kitty"), and an entry that is only the pointer (`synek`) is read too. Only for B2's
+   "diminutives" topic: applied everywhere, it led A2's `sałatka` with "lettuce" before "salad".
+3. **A sense dropped though untagged** (`build_deck.py` `DROP_SENSE`): `ojczyzna`'s joke sense.
+4. **Which reading leads**, three more: `tchórz` ("coward", not the polecat), `wart` ("worth"), `dosyć`.
+5. **Not in the dump**: most two-word phrases written for an inventory (they are dropped and reported), and
+   every plural headword (`zawody`, `wybory`, `śmieci` — the singular was used where it means the same).
+   `niczego` resolves only as an adjective ("decent") and `krzak` leads with "mojibake"; both were removed.
+6. Every card of B1 and B2 was read. The subtitle fill carries crime-drama words (`detektyw`, `porucznik`,
+   `zabójca`) on frequency, as every subtitle-ordered deck on the shelf does.
+
+## 4d. The findings (C1, 2026-11-12)
+
+1. **Fill**: `ha`, `hmm` (interjections); `daniel`, `graca`, `de`, `me` (names and foreign words);
+   `wiec` (`więc` without the ogonek, the `sie` finding again); `prosta` (prosty's feminine); `drogą`,
+   `celem` (instrumentals entered as an adverb and a preposition); `gliniarz`, `laska` (slang counts).
+2. **What the level names but Wiktionary will not teach**: archaisms and dialect words (`gród`, `baca`) are
+   tagged so; `rad` "glad" is tagged dated (only radium is live); `żak`'s live sense is a fish trap;
+   `bywać`, `miewać`, `pisywać`, `szlachta`, `nauczanie` and `Kościół` are not in the dump at all.
+3. `stop` leads with the interjection, which is what its count is (the noun "alloy" is filed first).
+4. Example sentences thin out: 512 of C1's 1,200 words have none, Tatoeba's Polish being mostly everyday.
+
+## 4e. The phrases deck (2026-11-12)
+
+`python3 .claude/polish/run.py --level phr` runs `phrases.py` in place of `select.py`, then the same
+`examples.py` and `build_deck.py`. 802 expressions in three subdecks, the Indonesian, Turkish and Hindi
+arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **15 Phrases** (Wiktionary's multi-word phrases and
+interjections not tagged idiomatic), **711 Idioms** (any multi-word entry with a taught sense tagged
+idiomatic, of any part of speech — Wiktionary tags as idiomatic most Polish set phrases, `nie ma`, `w ogóle`,
+`od czasu do czasu`, as well as images, `robić z igły widły`) and **76 Proverbs** (Wiktionary's part of
+speech). It is built on EVERY level deck shipped (`pl_level.taught_below("phr")`), and nothing they teach is
+repeated. **If C2 is built later, rebuild this deck after it**, and check-polish will say if C2 took one.
+
+- **WHICH ONES**: Wiktionary has 3,366 such expressions no level teaches — far more than a deck — so one is
+  taken when it occurs in at least one of Tatoeba's Polish sentences with an English translation (`MIN_HITS`),
+  the test of use a word deck gets from its frequency list. Ordered within each subdeck by that count.
+- **A verb idiom is matched with its verb in any form** (`examples.phrase_matcher`, `verbforms`):
+  `mieć nadzieję` in `mam nadzieję`. For the phrases deck ONLY, so every level deck rebuilds unchanged
+  (checked: A1–C1 byte-identical after the refactor).
+- **Left out, each in `phrases.EXCLUDE` with its reason**: phrasebook sentences built from level words
+  (`nie jem mięsa`, `jestem Kanadyjczykiem` — the Turkish and Hindi rule; the questions and formulas stay,
+  `która godzina`, `nazywam się`, `jak masz na imię`); `czy go`, a call to geese counted from the words "czy
+  go"; `tym samym`, whose senses are pointers; an oath; and **expressions whose Tatoeba sentences are their
+  literal reading, not the idiom the card teaches** — `to jest` ("this is", not "namely"), `do tego`,
+  `za to`, `w tym`, `dlaczego nie`, `nie mów`, `coś takiego`, `z Bogiem`, `tak jest`, `być w domu`, `z domu`.
+  That last class was found by reading the top hundred idioms' sentences; the long tail (one or two
+  sentences each) was read for its meanings, and a literal sentence there is possible.
+- `build_deck.py` writes a card's `sub`, and Wiktionary's `phrase` and `proverb` parts of speech are taught
+  only when the level is `phr` (`pl.TEACH_POS`), so no level card changes.
+
 ## 5. How to build, and what to run
 
     python3 .claude/polish/run.py [--level a1] [--no-fetch]
@@ -125,8 +235,9 @@ Each is a rule in the code with the case that forced it; grep the file for the w
 
 A re-run reproduces the shipped deck byte for byte (checked 2026-11-09). A level is built on the shipped
 decks below it (`pl_level.taught_below`). **Every card of A1 was read**; read every card of each new level
-too, since the faults above were all found that way. For A2: find the scope (§2), add `SCOPE["a2"]` in
-`pl_level.py` and `A2` in `inventory.py`, run, read, fix, re-run.
+too, since the faults above were all found that way; every card of A2, B1, B2 and C1 was read too (2026-11-12).
+For C2: find the scope (§2), add `SCOPE["c2"]` (with its `topics` and `with`) in `pl_level.py` and `C2` in
+`inventory.py`, run, read, fix, re-run — and re-run every level below to confirm it is unchanged.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 40`, Ethnologue 27th ed., 2021, via
 Wikipedia's infobox, read 2026-11-09) and the hue `lang-polish` `#6B7493` in `app.js` `COLL_THEME`
