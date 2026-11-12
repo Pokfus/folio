@@ -22552,7 +22552,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ku_Klux_Klan": ["KKK","Klan"],
 "Enforcement_Acts": ["Force Acts"],
 "Slaughter-House_Cases": ["Slaughterhouse Cases"],
-"Redeemers": ["Redeemer Democrats","Redemption"],
+"Redeemers": ["Redeemer Democrats"],
 "Lost_Cause_of_the_Confederacy": ["Lost Cause"],
 "Reconstruction_Era_National_Historical_Park": ["Reconstruction Era National Monument"],
 "Technological_and_industrial_history_of_the_United_States": ["Industrialisation of the United States","industrialization of the United States","American industrialisation"],
