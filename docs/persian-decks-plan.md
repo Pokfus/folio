@@ -5,8 +5,8 @@ twelfth language set, built the way the Hindi set was (`docs/hindi-decks-plan.md
 record of how the others were built, and every rule there applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Farsi language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/persian/`). B1 to C1 and the phrases
-deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/persian/`). B2, C1 and the
+phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The first commit carried one changelog item (folded into Hindi's line of the same
@@ -33,7 +33,7 @@ over rather than asked again:
 | Persian Alphabet — built | `Persian-Alphabet.folio-deck.json` | 39 |
 | Persian A1 Beginner — built | `Persian-A1.folio-deck.json` | 500 |
 | Persian A2 Elementary — built | `Persian-A2.folio-deck.json` | 750 |
-| Persian B1 Intermediate | `Persian-B1.folio-deck.json` | 1,000 |
+| Persian B1 Intermediate — built | `Persian-B1.folio-deck.json` | 1,000 |
 | Persian B2 Upper Intermediate | `Persian-B2.folio-deck.json` | 1,500 |
 | Persian C1 Advanced | `Persian-C1.folio-deck.json` | 1,500 |
 | Persian Phrases and Expressions | `Persian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -90,7 +90,7 @@ carries the subtitles' crime-drama words (`سلاح`, `شلیک`) on frequency, 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done 2026-11-12) to C1, one level per session: the level's
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done 2026-11-12) to C1, one level per session: the level's
 inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3** — phrases.
 
 ## 6. As built (2026-11-09)
@@ -131,3 +131,32 @@ What A2 needed:
   ranking is full of English names and letters spelt in Persian (جک, مری, بن, اس, اف), a word's count belonging
   to a form of another (`پای` پا + ی, `توش`, `کارا`), literary verbs whose stems are shared (`یارستن`, `تنیدن`),
   and two vulgar words. The description now names the learner by level (`WHO`, Hindi's wording).
+
+## 8. B1 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/persian/run.py --level b1`. **1,000 notes / 2,000 cards:
+177 from the inventory (`inventory.B1`, Hindi's B1 topics rewritten for Iran — many of its words A1 and A2
+already teach), 823 by frequency**; three sentences for 357, none for 267 (Tatoeba's 8,265 pairs thin out at
+this depth). A re-run is byte-identical; A1 and A2 rebuilt after the changes below are unchanged.
+
+- **THE HEADWORD LINE'S ROMANISATION** (`extract.HEAD_ROMAN`). Some entries tag no romanisation and have no
+  plural to borrow one from (`گرد`, `تله`, `اینترنت`, `مدرن`); their reading stands only on the headword line
+  (`گرد • (gird / gerd)`). The extraction now reads it there, the Iranian one after the slash, the first of
+  several. A hand romanisation (`ROMAN_BY_HAND`) now WINS over Wiktionary's, so A2's `آرزو` stays ârezu rather
+  than the line's `âr(e)zu`; six B1 words whose only reading was Classical or Dari got the Iranian one by hand.
+- **نوروز** is let through as a name (`NAME_OK`), for the festivals topic.
+- **19 inventory words are not in Wiktionary as written**; 12 were replaced by the form Wiktionary has
+  (عمل جراحی → جراحی, رزرو → رزرو کردن, گردشگر → توریست, نظافت → تمیز کردن, لباسشویی → ماشین لباسشویی, ناامیدی
+  → ناامید, شرایط → شرط, درنتیجه → سرانجام, تغییر دادن → عوض کردن, بهتر شدن → بهبود, کاهش یافتن → کاهش, قرض
+  گرفتن → قرض), 7 dropped (برنامه درسی, علوم and تبلیغات — plurals Wiktionary gives only as pointers —,
+  همسایگی, تا اینکه, درآمد داشتن, کم شدن).
+- **Homographs** (`ETYMS`): رویا "dream", رز "rose", فوت "death", صفر "zero", عام "general", ساک "bag", تور
+  "tour". **Glosses** (`GLOSS`): موزیک and انتخابات (Wiktionary gives pointers), مرا (Wiktionary's gloss calls it
+  second person).
+- **61 more fill exclusions**, each with its reason: 27 English names and words spelt in Persian letters (جیک,
+  وین, راک, کلر), the rest spoken forms, forms of lower-level words and literary verbs whose stems the subtitles
+  count for something else.
+
+**Known, left.** Eight cards that share an English side with another are labelled "not X" on their part of
+speech (`کامپیوتر` / `رایانه`, `سبب` / `علت`) — the generator's disambiguation, as on every set. The fill keeps
+the subtitles' crime-drama register (`بازجویی`, `گروگان`, `جاسوس`), as A1's and A2's do.

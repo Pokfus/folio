@@ -97,6 +97,14 @@ ETYMS = {
     'سیر': ['2'],             # "garlic" (the inventory's food word); etymology 1 is "full, satiated"
     'کمی': ['2'],             # "a little bit"; etymology 1 is "fewness"
     'روزی': ['2'],            # "someday"; etymology 1 is "sustenance"
+    # B1 (2026-11-12)
+    'رویا': [''],             # ro'yâ "dream"; etymology 1 is ruyâ "growing"
+    'رز': ['2'],              # roz "rose"; etymology 1 is raz "vine"
+    'فوت': ['3'],             # fowt "death, passing away"; etymology 1 is "foot (unit)"
+    'صفر': ['2'],             # sefr "zero"; etymology 1 is the month Safar
+    'عام': ['2'],             # âmm "general, common"; etymology 1 is 'âm "year"
+    'ساک': ['2'],             # "bag, holdall"; etymology 1 is a soup
+    'تور': ['3'],             # "tour"; etymology 1 is "net"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where its
@@ -113,6 +121,12 @@ GLOSS = {
     'دردسر': {'noun': ['headache; hassle; bother; nuisance']},
     # its third gloss is a pointer ("synonym of ماوس"); the first two, kept
     'موش': {'noun': ['mouse; rat', 'cutie; someone cute']},
+    # B1: Wiktionary's gloss is "synonym of موسیقی"; its meaning, the music card's
+    'موزیک': {'noun': ['music (everyday, from the French; the formal word is موسیقی)']},
+    # Wiktionary's gloss misdescribes it ("a second-person pronoun"); it is من + را
+    'مرا': {'pron': ['me (as the object: من + را)']},
+    # Wiktionary's only gloss is "broken plural of انتخاب"; the plural's everyday meaning
+    'انتخابات': {'noun': ['elections (the plural of انتخاب, “choice”)']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -192,11 +206,17 @@ def english(ents, word=''):
     return ''.join(parts)
 
 
-# A ROMANISATION BY HAND, where Wiktionary's entry gives none.
+# A ROMANISATION BY HAND, where Wiktionary's entry gives none -- or (since B1) where its
+# headword line's reading is not the one to print; a hand entry wins.
 # A2's are Wiktionary's own Iranian reading, from the entry's headword line
 # (`نوع • (naw' / now')`, `دی • (day /dey)`, `پست • (post)`, `آرزو • (âr(e)zu …)`
 # with its plural `ârezu-hâ`), which the extraction does not tag.
-ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu'}
+ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu',
+                 # B1: the extraction took a Classical or Dari reading (čiguna, tillâ'i,
+                 # kôbidan, jârub) or the headword line's optional vowel (pir(e)-mard);
+                 # the Iranian reading, as A1's cards print these words' relatives
+                 'چگونه': 'čegune', 'طلایی': 'talâyi', 'خواهشا': 'xâhešan', 'کوبیدن': 'kubidan',
+                 'جارو': 'jâru', 'پیرمرد': 'pir-mard'}
 
 
 # ---- forms -----------------------------------------------------------------------------
@@ -403,8 +423,8 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = r['word']
-        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '') \
-            or ROMAN_BY_HAND.get(word, '')
+        roman = ROMAN_BY_HAND.get(word) or main['roman'] \
+            or next((e['roman'] for e in ents if e['roman']), '')
         ex = exs.get(r['key'], [])
         cards.append({'sub': '', 'fields': {
             'Persian': fa(word),

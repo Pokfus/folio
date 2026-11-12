@@ -46,7 +46,7 @@ DUMP, FREQ, OUT = 'kaikki-fa.jsonl', 'fa_full.txt', 'lex.json'
 KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'num', 'prep', 'pron',
             'conj', 'particle', 'det', 'proverb', 'prep_phrase', 'postp'}
 
-NAME_OK = {'فارسی', 'ایران'}
+NAME_OK = {'فارسی', 'ایران', 'نوروز'}   # نوروز: B1's festivals (2026-11-12)
 
 # THE MONTHS (A2, 2026-11-12).  Wiktionary files the twelve solar months as proper
 # names, beside other `name` entries of the same spelling that gloss them as
@@ -67,6 +67,9 @@ WEAK = {'rare', 'obsolete', 'archaic', 'dated', 'dialectal', 'regional', 'uncomm
 MACRON = str.maketrans({'ā': 'â', 'ī': 'i', 'ū': 'u', 'ē': 'i', 'ō': 'u', 'ê': 'i'})
 
 
+HEAD_ROMAN = re.compile(r'• \(((?:[^()]|\([^()]*\))*)\)')
+
+
 def roman_of(e):
     rs = [f.get('form', '') for f in e.get('forms') or [] if 'romanization' in (f.get('tags') or [])]
     rs = [r.split(' /')[0].strip() for r in rs if r and r not in ('-',)]
@@ -75,6 +78,16 @@ def roman_of(e):
         for f in e.get('forms') or []:
             if set(f.get('tags') or []) == {'plural'} and (f.get('roman') or '').endswith('-hâ'):
                 return f['roman'].split(' / ')[-1][:-3]
+        # nor a plural's: the headword line's own reading (B1, 2026-11-12), which the
+        # extraction does not tag -- `گرد • (gird / gerd)`, `تله • (tale or talle)`,
+        # `پیرمرد • (pir(e)-mard)`: the Iranian one (after the slash), the first of
+        # several, its long vowels the Iranian way
+        for h in e.get('head_templates') or []:
+            m = HEAD_ROMAN.search(h.get('expansion') or '')
+            if m:
+                r = m.group(1).split('/')[-1].split(' or ')[0].split(', ')[0].strip()
+                if r and not is_persian(r):
+                    return r.translate(MACRON)
         return ''
     # Only a Classical reading given (īn for این): its long vowels written the Iranian way,
     # which for the long vowels is exact (ī -> i, ū -> u, ē -> i, ō -> u, ā -> â).
