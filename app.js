@@ -1717,7 +1717,79 @@
       friendCount: 0,
     };
   }
+  /* DINOSAURS IS DORMANT AND ITS CARDS ARE PALAEONTOLOGY'S (2026-11-12, on request: "Make the collection on
+     Dinosaurs dormant. Instead, plan a 1000 card collection on Paleontology … reuse most of the cards from the
+     current dinosaurs collection in their correct places"). All 100 `dino-NNN` cards were renumbered into the
+     `paleo` plan, so every register that names a card or a deck by id — the schedule, suspended, buried,
+     flags, notes, the review log window, deck options, the active list, the handoff queue — would otherwise
+     have orphaned a reader's history on cards they can still see under a new number.
+     THE TABLE IS THE APPENDIX OF docs/palaeontology-card-plan.md, pair for pair; it must never drift from it.
+     The deck ids: the four leaves that held cards go to the leaf most of their cards went to, and the
+     collection and its two branches that held cards go to `paleo` — which holds exactly the same 100 written
+     cards, so an active Dinosaurs entry deals the same cards it did. The other `dino-*` decks were empty.
+     IT REWRITES EXACT VALUES AND KEYS ONLY, never substrings, and defers to a new id already present (a
+     record synced from a device that migrated first), so it is idempotent and needs no flag of its own. It
+     runs here at boot and again in `applyProgress`, which is how an old record adopted from the cloud is
+     caught; `revFetchAll` maps the archive's rows the same way. */
+  const DINO_TO_PAL = {
+    "dino-001": "pal-636", "dino-002": "pal-034", "dino-003": "pal-637", "dino-004": "pal-638", "dino-005": "pal-639", "dino-006": "pal-640",
+    "dino-007": "pal-641", "dino-008": "pal-642", "dino-009": "pal-643", "dino-010": "pal-644", "dino-011": "pal-625", "dino-012": "pal-579",
+    "dino-013": "pal-628", "dino-014": "pal-622", "dino-015": "pal-731", "dino-016": "pal-645", "dino-017": "pal-646", "dino-018": "pal-019",
+    "dino-019": "pal-647", "dino-020": "pal-648", "dino-021": "pal-656", "dino-022": "pal-657", "dino-023": "pal-599", "dino-024": "pal-601",
+    "dino-025": "pal-658", "dino-026": "pal-659", "dino-027": "pal-660", "dino-028": "pal-661", "dino-029": "pal-662", "dino-030": "pal-663",
+    "dino-031": "pal-664", "dino-032": "pal-665", "dino-033": "pal-666", "dino-034": "pal-667", "dino-035": "pal-668", "dino-036": "pal-669",
+    "dino-037": "pal-670", "dino-038": "pal-671", "dino-039": "pal-672", "dino-040": "pal-202", "dino-041": "pal-673", "dino-042": "pal-674",
+    "dino-043": "pal-195", "dino-044": "pal-675", "dino-045": "pal-676", "dino-046": "pal-677", "dino-047": "pal-207", "dino-048": "pal-678",
+    "dino-049": "pal-679", "dino-050": "pal-680", "dino-051": "pal-681", "dino-052": "pal-682", "dino-053": "pal-683", "dino-054": "pal-684",
+    "dino-055": "pal-685", "dino-056": "pal-021", "dino-057": "pal-031", "dino-058": "pal-032", "dino-059": "pal-033", "dino-060": "pal-035",
+    "dino-061": "pal-043", "dino-062": "pal-022", "dino-063": "pal-025", "dino-064": "pal-027", "dino-065": "pal-028", "dino-066": "pal-029",
+    "dino-067": "pal-030", "dino-068": "pal-044", "dino-069": "pal-045", "dino-070": "pal-046", "dino-071": "pal-047", "dino-072": "pal-048",
+    "dino-073": "pal-049", "dino-074": "pal-017", "dino-075": "pal-126", "dino-076": "pal-135", "dino-077": "pal-145", "dino-078": "pal-146",
+    "dino-079": "pal-147", "dino-080": "pal-086", "dino-081": "pal-082", "dino-082": "pal-649", "dino-083": "pal-948", "dino-084": "pal-949",
+    "dino-085": "pal-023", "dino-086": "pal-062", "dino-087": "pal-051", "dino-088": "pal-052", "dino-089": "pal-053", "dino-090": "pal-070",
+    "dino-091": "pal-071", "dino-092": "pal-072", "dino-093": "pal-061", "dino-094": "pal-063", "dino-095": "pal-598", "dino-096": "pal-087",
+    "dino-097": "pal-088", "dino-098": "pal-089", "dino-099": "pal-091", "dino-100": "pal-076",
+    dino: "paleo", "dino-are": "paleo", "dino-world": "paleo",
+    "dino-def": "pal-dinodef", "dino-anatomy": "pal-dinoanat", "dino-classify": "pal-classify", "dino-deeptime": "pal-deeptime",
+  };
+  /* A KEY or a LIST ENTRY is always an id, so either is mapped whenever the table names it. A string VALUE in
+     an object is mapped only when it is shaped like a card id (`handoff.id`, a card-of-the-day record), because
+     a value may be free text — a note, a name — and a reader called "dino" is not a collection. */
+  function dinoRemap(v, inObject) {
+    if (typeof v === "string") return (!inObject || /^dino-\d{3}$/.test(v)) ? (DINO_TO_PAL[v] || v) : v;
+    if (Array.isArray(v)) {
+      const out = [];
+      v.forEach((x) => {
+        const y = dinoRemap(x, false);
+        if (typeof y === "string" && y !== x && (v.indexOf(y) >= 0 || out.indexOf(y) >= 0)) return;   // the new id is already listed
+        out.push(y);
+      });
+      return out;
+    }
+    if (v && typeof v === "object") {
+      const o = {};
+      Object.keys(v).forEach((k) => {
+        const nk = DINO_TO_PAL[k] || k;
+        if (nk !== k && (nk in v || nk in o)) return;   // the new id is already there: it is the newer record
+        o[nk] = dinoRemap(v[k], true);
+      });
+      return o;
+    }
+    return v;
+  }
+  function migrateDinoIds(st) {
+    if (!st || typeof st !== "object") return;
+    Object.keys(st).forEach((k) => {
+      const v = st[k];
+      if (!v || typeof v !== "object" || k === "user") return;   // `user` is the reader's name and join date
+      const was = JSON.stringify(v);
+      if (was.indexOf('"dino') < 0) return;
+      const now = dinoRemap(v, false);
+      if (JSON.stringify(now) !== was) st[k] = now;
+    });
+  }
   let S = load();
+  migrateDinoIds(S);
   if (S.settings && !S.settings.home) S.settings.home = { name: "Netherlands", lon: 5.32, lat: 52.1 };   // back-fill for saves made before Home location existed (settings are shallow-merged, so an older save's settings object lacks it)
   if (S.settings && S.settings.tts === undefined) S.settings.tts = false;         // back-fill: TTS is OFF by default (an explicit stored choice is kept)
   if (S.settings && S.settings.ttsMuted === undefined) S.settings.ttsMuted = false;
@@ -2308,6 +2380,7 @@
        the theme they are wearing pulled out from under them: grandfather again on the new set, exactly as
        boot does. `themeGrandfather` only ever unlocks, so this can never take one away. */
     themeGrandfather();
+    migrateDinoIds(S);   // an old record from another device may still name the Dinosaurs ids (see DINO_TO_PAL)
     if (keepLog) { if (!Array.isArray(S.revlog)) S.revlog = []; return; }
     S.revlog = Array.isArray(p && p.revlog) ? JSON.parse(JSON.stringify(p.revlog)) : [];
     try { localStorage.removeItem(REV_SYNC_KEY); } catch (e) {}
@@ -2940,7 +3013,7 @@
       if (revTableMissing(r)) { _revTableMissing = true; return null; }
       if (!r.ok || !Array.isArray(r.data)) return from ? out : null;   // a half-read archive is still a truthful prefix
       r.data.forEach((row) => out.push([
-        row.card_id, Date.parse(row.reviewed_at), row.grade, row.state,
+        DINO_TO_PAL[row.card_id] || row.card_id, Date.parse(row.reviewed_at), row.grade, row.state,
         row.prev_min, row.next_min, row.ease100, row.ds,
       ]));
       if (onPage) onPage(out.length);
@@ -22540,7 +22613,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     psych: "head",
     phil: "owl",
     bio: "helix",
-    dino: "sauropod",
+    paleo: "sauropod",   // the mark Dinosaurs had, inherited when Dinosaurs went dormant (2026-11-12)
     astro: "ringed",
     france: "eiffel",
     econ: "cross",
@@ -25647,8 +25720,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
   const adIconKey = (entryId, parentKey) => {
     const n = NODE_BY_ID[entryId];
-    // …and the mark is the SECTION's rather than the collection's own subject symbol — see SECTION_ICON
-    if (n) return n.parentId ? "" : (SECTION_ICON[sectionOf(entryId)] || "cards");
+    /* …and the mark is the collection's OWN subject symbol, the one its banner wears on the Collections
+       page (Nov 2026, on request: "the collections in the active collections list should have the same
+       icons as they do on the Collections page"). From Sep 2026 it was the SECTION's mark (SECTION_ICON),
+       one hourglass for every history collection; that table stays defined and unread. The row keeps its
+       collection-colour ink (`.active-deck .coll-ic.dk-ic`) — only the shape was asked for. */
+    if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
     // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
     // banner wears on the Collections page — the one place seven collections share a mark
     if (isLangCtxId(entryId)) return "speech";
@@ -28026,7 +28103,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        below, which is what keeps them out of History and gives the daily-study list its mark for them, and
        the Collections page draws them at the head of the Shared decks section (`specialCollections`). */
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", psych: "Science", bio: "Science", dino: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", psych: "Science", bio: "Science", paleo: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -28110,7 +28187,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const COLLECTION_TARGET = {
     "col-8": 1000, "col-13": 1000, "col-40": 1000, "col-41": 1000, "col-42": 1000, "col-43": 1000,
     china: 1000, egypt: 1000, ww2: 1000, japan: 1000, psych: 1000, phil: 1000, bio: 1000,
-    dino: 1000, korea: 1000, art: 1000,
+    paleo: 1000, korea: 1000, art: 1000,
     /* World Geography's 471 is 233 countries + 238 capitals. Flags' 466 is the 233 FLAGS and the 233
        DRAW cards — two decks that were World Geography's for a week and are a collection of their own
        again (Sep 2026, on request). See docs/flags-card-plan.md and docs/flags-draw-card-plan.md. */
@@ -28794,7 +28871,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        olive-brass beside it has been rejected three times as a fourth or fifth member of the
        yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
        to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
-    dino:     { bg: "#967B00" },
+    /* …and since 2026-11-12 it is PALAEONTOLOGY's: Dinosaurs went dormant and the collection that replaced it
+       took its hue, which suits the wider subject (amber, prepared bone) at least as well. */
+    paleo:    { bg: "#967B00" },
     /* deep violet (Astronomy) — MEASURED, like every hue above it, and the one where the OBVIOUS colour
        was measured and REFUSED. An astronomy collection wants a midnight blue and cannot have one: swept
        in CIELAB against all 27 hues on the shelf, the best night-sky candidate stands 12.6 from the

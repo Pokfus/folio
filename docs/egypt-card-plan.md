@@ -153,6 +153,27 @@ el-Maskhuta; the Nine Bows stay at `eg-293`, so `eg-233` took the recurve bow; t
 of Ahmose Pen-Nekhebet and the Speos Artemidos, stay at `eg-256` and `eg-258`, so `eg-287` took Amenemhab
 and `eg-288` the Temple of Amada.
 
+**`eg-301`–`eg-400` (written together, in ten parallel batches) retitled 65 lines**, and the list below
+shows the term each card answers. The same kinds again:
+
+- **Already taken**: Tutankhamun (`wh-224`) → Ankhesenamun; the mask (`art-066`) → his meteoric iron
+  dagger; Ramesses II (`wh-225`) → Ozymandias; the Battle of Kadesh (`wh-226`) → Muwatalli II; Karnak
+  (`wh-228`) → the Temple of Khonsu; the Nefertiti Bust (`art-065`) → Thutmose, the sculptor in whose
+  workshop it stood; the Sea Peoples (`wh-278`, `gr-108`) → the Peleset; the Late Bronze Age collapse
+  (`wh-279`) → Alashiya.
+- **The line named an area**: `eg-301`, `eg-304`, `eg-308`, `eg-310`–`eg-314`, `eg-316`, `eg-322`–`eg-324`,
+  `eg-326`, `eg-328`, `eg-330`, `eg-333`–`eg-335`, `eg-341`, `eg-342`, `eg-347`, `eg-352`, `eg-353`,
+  `eg-355`, `eg-356`, `eg-359`, `eg-360`, `eg-367`, `eg-370`–`eg-375`, `eg-378`, `eg-379`, `eg-381`–`eg-386`,
+  `eg-388`, `eg-390`, `eg-395`–`eg-397`. Two are loose fits and say so in their notes: Maya for the return
+  to Thebes, and Henotheism for the question whether Atenism was monotheism.
+- **Wikipedia's head word differs**: the boundary stelae, the workmen's village, the royal tomb, the
+  Deir el-Medina strikes, the harem conspiracy, the Great Hypostyle Hall, the Avenue of Sphinxes; Thebes
+  keys as `Thebes,_Egypt` with no bare alias, so it cannot link Greek Thebes.
+
+Two answer terms collided before import and were moved: Gempaaten (`eg-310`, keyed at
+`Temple_of_Amenhotep_IV`) stays, so `eg-312` took Meryre, the high priest of the Aten; and the Wilbour
+Papyrus is `eg-810`'s, so `eg-374` took the Mayer Papyri.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -773,41 +794,41 @@ safe.
     eg-298  Aten
     eg-299  Atenism
     eg-300  Great Hymn to the Aten
-    eg-301  The founding of Akhetaten
+    eg-301  Akhetaten
     eg-302  Amarna
-    eg-303  The boundary stelae of Akhetaten
-    eg-304  The city of Akhetaten
-    eg-305  The Great Temple of the Aten
+    eg-303  Boundary Stelae of Akhenaten
+    eg-304  North Riverside Palace
+    eg-305  Great Temple of the Aten
     eg-306  Nefertiti
-    eg-307  Nefertiti Bust
-    eg-308  The Amarna royal family
+    eg-307  Thutmose
+    eg-308  Meritaten
     eg-309  Amarna art
-    eg-310  The Amarna body
-    eg-311  Amarna and the older gods
-    eg-312  The closing of the temples under Akhenaten
-    eg-313  Was Atenism monotheism?
-    eg-314  The empire under Akhenaten
-    eg-315  The Amarna workmen's village
-    eg-316  The health of Amarna's people
-    eg-317  The royal tomb at Amarna
+    eg-310  Gempaaten
+    eg-311  Mnevis
+    eg-312  Meryre
+    eg-313  Henotheism
+    eg-314  Aziru
+    eg-315  Amarna Workmen's Village
+    eg-316  South Tombs Cemetery
+    eg-317  Royal Tomb of Akhenaten
     eg-318  Kiya
     eg-319  Smenkhkare
     eg-320  Neferneferuaten
-    eg-321  Tutankhamun
-    eg-322  The restoration under Tutankhamun
-    eg-323  The return to Thebes
-    eg-324  The death of Tutankhamun
+    eg-321  Ankhesenamun
+    eg-322  Restoration Stela
+    eg-323  Maya
+    eg-324  KV54
     eg-325  KV62
-    eg-326  The contents of Tutankhamun's tomb
-    eg-327  Mask of Tutankhamun
-    eg-328  What an intact royal burial shows
+    eg-326  Anubis Shrine
+    eg-327  Tutankhamun's meteoric iron dagger
+    eg-328  Chariots of Tutankhamun
     eg-329  Ay
-    eg-330  The Hittite prince affair
+    eg-330  Zannanza
     eg-331  Horemheb
-    eg-332  The Edict of Horemheb
-    eg-333  The dismantling of Akhetaten
-    eg-334  The erasure of Akhenaten
-    eg-335  The Amarna period in Egyptian memory
+    eg-332  Edict of Horemheb
+    eg-333  talatat
+    eg-334  Inscription of Mes
+    eg-335  Osarseph
 
 ### The Ramesside age — `eg-ramesside`
 
@@ -816,69 +837,69 @@ safe.
     eg-338  Seti I
     eg-339  Temple of Seti I at Abydos
     eg-340  Abydos King List
-    eg-341  The tomb of Seti I
-    eg-342  The campaigns of Seti I
-    eg-343  Ramesses II
-    eg-344  Battle of Kadesh
-    eg-345  The Kadesh inscriptions
+    eg-341  KV17
+    eg-342  Shasu
+    eg-343  Ozymandias
+    eg-344  Muwatalli II
+    eg-345  Kadesh inscriptions
     eg-346  Egyptian–Hittite peace treaty
-    eg-347  The Hittite marriage of Ramesses II
+    eg-347  Maathorneferure
     eg-348  Pi-Ramesses
     eg-349  Abu Simbel
     eg-350  Ramesseum
     eg-351  Nefertari
-    eg-352  The tomb of Nefertari
-    eg-353  The children of Ramesses II
+    eg-352  QV66
+    eg-353  Khaemweset
     eg-354  KV5
-    eg-355  The building programme of Ramesses II
-    eg-356  Usurped monuments and the reuse of stone
+    eg-355  Statue of Ramesses II
+    eg-356  Mortuary Temple of Merneptah
     eg-357  Merneptah
     eg-358  Merneptah Stele
-    eg-359  The Libyan wars of Merneptah
-    eg-360  The end of the Nineteenth Dynasty
+    eg-359  Battle of Perire
+    eg-360  Siptah
     eg-361  Twosret
     eg-362  Twentieth Dynasty of Egypt
     eg-363  Setnakhte
     eg-364  Ramesses III
     eg-365  Medinet Habu
-    eg-366  The Sea Peoples in Egyptian records
-    eg-367  The Libyan invasions under Ramesses III
-    eg-368  The Deir el-Medina strike
-    eg-369  The harem conspiracy
-    eg-370  The later Ramesside kings
-    eg-371  Egypt and the Late Bronze Age collapse
-    eg-372  The loss of the Asiatic empire
-    eg-373  The tomb robbery papyri
-    eg-374  The Ramesside economy and rising prices
-    eg-375  The rise of the Amun priesthood
+    eg-366  Peleset
+    eg-367  Libu
+    eg-368  Deir el-Medina strikes
+    eg-369  Harem conspiracy
+    eg-370  Ramesses VI
+    eg-371  Alashiya
+    eg-372  Beth Shean
+    eg-373  Abbott Papyrus
+    eg-374  Mayer Papyri
+    eg-375  Ramessesnakht
     eg-376  Herihor
     eg-377  Story of Wenamun
-    eg-378  The end of the New Kingdom
-    eg-379  Ramesside literature
+    eg-378  Piankh
+    eg-379  Papyrus Anastasi I
     eg-380  Tale of Two Brothers
-    eg-381  Egyptian love poetry
-    eg-382  Ramesside letters
-    eg-383  Ostraca as historical sources
-    eg-384  Ramesside art
-    eg-385  Ramesside temples
-    eg-386  The Egyptian temple as an economic institution
+    eg-381  Papyrus Harris 500
+    eg-382  Late Ramesside Letters
+    eg-383  Ostracon BM EA 5634
+    eg-384  Younger Memnon
+    eg-385  Wadi es-Sebua
+    eg-386  Nauri Decree
     eg-387  Papyrus Harris I
-    eg-388  Ramesside Nubia
+    eg-388  Beit el-Wali
     eg-389  Turin Papyrus Map
-    eg-390  The Ramesside legacy
+    eg-390  Bentresh Stela
 
 ### Thebes, Karnak and the royal tombs — `eg-thebes`
 
-    eg-391  Thebes, Egypt
-    eg-392  Karnak
+    eg-391  Thebes
+    eg-392  Temple of Khonsu
     eg-393  Precinct of Amun-Re
-    eg-394  The Great Hypostyle Hall
-    eg-395  The obelisks of Karnak
-    eg-396  The sacred lake and the temple economy at Karnak
-    eg-397  The temple wall as historical record
+    eg-394  Great Hypostyle Hall
+    eg-395  Lateran Obelisk
+    eg-396  Sacred lake
+    eg-397  Karnak King List
     eg-398  Luxor Temple
     eg-399  Opet Festival
-    eg-400  The avenue of sphinxes
+    eg-400  Avenue of Sphinxes
     eg-401  Precinct of Mut
     eg-402  Montu and the Theban gods
     eg-403  Theban Necropolis
