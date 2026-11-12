@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Ukrainian language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/ukrainian/`, §6–§9). C1 and a phrases
-deck are not.
+**STATUS (2026-11-12): the alphabet deck and all five levels, A1 to C1, are built** (`.claude/ukrainian/`, §6–§10).
+A phrases deck (Phase 3) is not.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -33,7 +33,7 @@ already use, and the owner may overrule any of it:
 | Ukrainian A2 Elementary — built | `Ukrainian-A2.folio-deck.json` | 750 |
 | Ukrainian B1 Intermediate — built | `Ukrainian-B1.folio-deck.json` | 1,000 |
 | Ukrainian B2 Upper Intermediate — built | `Ukrainian-B2.folio-deck.json` | 1,500 |
-| Ukrainian C1 Advanced | `Ukrainian-C1.folio-deck.json` | 1,500 |
+| Ukrainian C1 Advanced — built | `Ukrainian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -156,3 +156,23 @@ from Russian, the subtitles' own credits), Russian words (`старик`, `во�
 (`розлучення`), an old spelling (`барбар`) and a letter name (`мю`). `ETYMS` takes `ген` "gene", not a dialectal
 "far away". **A1, A2, B1 and B2 rebuild byte-identical.** Known, left: the fill carries the subtitles' genre
 vocabulary (`ельф`, `орк`, `вампір`, `шпигун`) and some slang (`кайф`, `фігня`, `бакс`), as the levels below do.
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/ukrainian/run.py --level c1`. 1,500 notes: 274 from the C1 inventory (politics, power and the
+state, law and justice, the economy and finance, science and research, philosophy and belief, language, literature
+and style, the arts and taste, the mind, emotion and behaviour, society and change, the land and the planet, the
+small words of nuance, the verbs of arguing and shading a meaning) and 1,226 by frequency, none taught below;
+sentences for 1,216, three apiece for 920 — the thinnest level, as Tatoeba's Ukrainian is everyday speech. The C1
+`SCOPE` quotes the CEFR C1 global descriptor. 52 inventory words have no lemma in Wiktionary (`консерватизм`,
+`монополія`, `аудит`, `строфа`, `бароко`, `консенсус`, `ерозія` …, printed by `select.py`); `обурюватися` is a
+pointer entry and was taken out. **At C1 the fill's counts are small (40–70 per lemma), so a lemma that takes its
+count from another word's forms is the commonest fault**: `select.EXCLUDE` grew by forty-two — lemmas whose own forms
+barely count (`ладо`, `бона`, `верзти`, `низати`, `висок` (the count is виски), `бердо`, `сура`, `нити`, `тета`,
+`карат`, `гуда`, `гар`, `хала`, `сич`, `вал`, `дан`, `кар`), counts that are another word (`паша` the name, `бла` from
+бла-бла, `індій` from Індії, `каліфорній` from Каліфорнії, `соль` from Russian "salt"), Russian words (`май`,
+`важний`, `ловушка`, `напиток`, `дядя`, `упоминати`, `повторяти`), у- and в-spellings of a word shipped (`уміти`,
+`убивця`, `уночі`, `ввійти`), a variant (`цукерок`), a form (`англійською`), pointers (`догадатися`, `пігулка`),
+old spellings (`біл`, `туалета`), dialect (`се`, `нє`) and a letter name (`хі`). **All five levels rebuild
+byte-identical.** Known, left: `учинок` and `укусити` are Wiktionary's own у-lemmas (their в-spellings are only
+alternative forms there), and the fill carries the subtitles' slang and genre words as every level does.
