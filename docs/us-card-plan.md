@@ -1197,18 +1197,18 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-498  Nat Turner's Rebellion
     us-499  Virginia slavery debate
     us-500  United States v. The Amistad
-    us-501  Free Black communities in the South
-    us-502  Free Black communities in the North
-    us-503  Black abolitionists
+    us-501  Free people of color
+    us-502  Free African Society
+    us-503  Colored Conventions Movement
     us-504  Slave narrative
-    us-505  How American slavery has been written about
+    us-505  Plantation tradition
 
 ### Abolition and the antislavery movement — `us-abolition`
 
     us-506  Abolitionism in the United States
-    us-507  Quakers and early antislavery
+    us-507  Pennsylvania Abolition Society
     us-508  American Colonization Society
-    us-509  Liberia and the colonisation argument
+    us-509  Americo-Liberians
     us-510  William Lloyd Garrison
     us-511  The Liberator
     us-512  American Anti-Slavery Society
@@ -1219,15 +1219,15 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-517  Sojourner Truth
     us-518  Harriet Tubman
     us-519  Underground Railroad
-    us-520  The Underground Railroad and what is actually known about it
+    us-520  Quilt code
     us-521  Fugitive Slave Act of 1850
-    us-522  Resistance to the fugitive slave law
+    us-522  Anthony Burns
     us-523  Uncle Tom's Cabin
     us-524  Harriet Beecher Stowe
-    us-525  Political antislavery
-    us-526  Liberty Party and Free Soil Party
-    us-527  Abolitionists and women's rights
-    us-528  Violence and the antislavery movement
+    us-525  Liberty Party
+    us-526  Free Soil Party
+    us-527  World Anti-Slavery Convention
+    us-528  Elijah Parish Lovejoy
     us-529  John Brown
     us-530  John Brown's raid on Harpers Ferry
 
@@ -1235,39 +1235,39 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
 
 ### The sectional crisis — `us-sectional-crisis`
 
-    us-531  Sectionalism in the United States
+    us-531  Sectionalism
     us-532  Wilmot Proviso
     us-533  Popular sovereignty
     us-534  Compromise of 1850
-    us-535  The debate over the Compromise of 1850
-    us-536  Daniel Webster and the Seventh of March speech
+    us-535  Higher law speech
+    us-536  Seventh of March speech
     us-537  Kansas–Nebraska Act
     us-538  Stephen A. Douglas
     us-539  Bleeding Kansas
-    us-540  The caning of Charles Sumner
-    us-541  The founding of the Republican Party
-    us-542  The Republican coalition of the 1850s
+    us-540  Caning of Charles Sumner
+    us-541  Republican Party
+    us-542  Slave Power
     us-543  Dred Scott v. Sandford
-    us-544  The reaction to Dred Scott
+    us-544  Freeport Doctrine
     us-545  Lincoln–Douglas debates
-    us-546  The rise of Abraham Lincoln
+    us-546  Cooper Union speech
     us-547  House Divided Speech
-    us-548  The Democratic split of 1860
+    us-548  1860 Democratic National Convention
     us-549  1860 United States presidential election
-    us-550  Secession in the United States
-    us-551  The secession winter
+    us-550  Ordinance of Secession
+    us-551  Crittenden Compromise
     us-552  Confederate States of America
-    us-553  The Confederate constitution
+    us-553  Constitution of the Confederate States
     us-554  Cornerstone Speech
-    us-555  What caused the American Civil War
+    us-555  Origins of the American Civil War
 
 ### The Civil War — `us-civil-war`
 
     us-556  American Civil War
     us-557  Battle of Fort Sumter
-    us-558  The secession of the upper South
-    us-559  Border states in the American Civil War
-    us-560  The resources of North and South
+    us-558  Virginia Secession Convention
+    us-559  Border states
+    us-560  Tredegar Iron Works
     us-561  First Battle of Bull Run
     us-562  Anaconda Plan
     us-563  Union blockade
@@ -1278,36 +1278,36 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-568  Robert E. Lee
     us-569  Second Battle of Bull Run
     us-570  Battle of Antietam
-    us-571  The bloodiest day in American history
+    us-571  Bloody Lane
     us-572  Battle of Fredericksburg
     us-573  Battle of Chancellorsville
-    us-574  The death of Stonewall Jackson
+    us-574  Stonewall Jackson
     us-575  Battle of Gettysburg
     us-576  Pickett's Charge
     us-577  Gettysburg Address
-    us-578  The Civil War in the West
+    us-578  Battle of Fort Donelson
     us-579  Ulysses S. Grant
     us-580  Battle of Shiloh
-    us-581  The capture of New Orleans
+    us-581  Capture of New Orleans
     us-582  Siege of Vicksburg
-    us-583  Battles for Chattanooga
-    us-584  Grant takes command of the Union armies
+    us-583  Chattanooga campaign
+    us-584  Lieutenant general
     us-585  Overland Campaign
     us-586  Battle of Cold Harbor
     us-587  Siege of Petersburg
     us-588  William Tecumseh Sherman
     us-589  Atlanta campaign
     us-590  Sherman's March to the Sea
-    us-591  Hard war and its limits
+    us-591  Lieber Code
     us-592  Battle of Mobile Bay
-    us-593  The ironclads and the naval war
+    us-593  USS Monitor
     us-594  Battle of Hampton Roads
-    us-595  Confederate commerce raiders
-    us-596  Appomattox Court House
-    us-597  The surrender at Appomattox
+    us-595  CSS Alabama
+    us-596  Battle of Appomattox Court House
+    us-597  Appomattox Court House National Historical Park
     us-598  Assassination of Abraham Lincoln
-    us-599  Counting the Civil War dead
-    us-600  Why the Union won
+    us-599  United States National Cemetery System
+    us-600  Union Army
 
 ### Emancipation and Black freedom — `us-emancipation`
 

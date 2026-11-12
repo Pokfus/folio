@@ -21,7 +21,7 @@ WHAT A CARD CARRIES:
 There is no forms table: Thai does not inflect.  The speaker reads the `Word`
 field, the bare Thai.
 """
-import html, json, os, sys
+import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from th import fold
@@ -95,6 +95,65 @@ ETYMS = {
     'ล้าน': ['2'],              # "million"; 1 is "bald"
     'บ่าย': ['2'],              # "afternoon"; 1 is "to turn"
     'เท้า': ['2'],              # "foot"; 1 is "to lean on"
+    # A2
+    'เบื่อ': ['2'],             # "to be bored"; 1 is "to poison"
+    'ไอ': ['2'],                # "to cough"; 1 is "vapour", 3 the letter I
+    'ซัก': ['2'],               # "to wash (clothes)"; 1 is "to interrogate"
+    'ลา': ['3'],                # "to take leave"; 1 is "donkey"
+    'กล้า': ['2'],              # "to be brave"; 1 is "rice seedling"
+    'จุด': ['2', '1'],          # "dot, point" AND "to light"
+    'ชน': ['2', '1'],           # "to collide" AND "person, people"
+    'ซอย': ['2'],               # "soi, lane"; 1 is "to mince"
+    'หวัด': ['2'],              # "a cold"; 1 is "carelessly"
+    'สลัด': ['2'],              # "salad"; 1 is "pirate"
+    'ห้าง': ['3', '2'],         # "department store" AND "shop"; 1 is "hut"
+    'โทร': ['2'],               # "to phone"; 1 is the prefix "tele-"
+    # B1
+    'ปรับ': ['2'],              # "to adjust; to fine"; 1 is "to tell"
+    'ลับ': ['2'],               # "secret"; 1 is "to whet"
+    'ลาน': ['2'],               # "yard, open area"; 1 is a watch's spring
+    'รัง': ['2'],               # "nest"; 1 is a timber tree
+    'สงสาร': ['2'],             # "to pity"; 1 is the Buddhist samsara
+    'คาด': ['2'],               # "to expect"; 1 is "to tie around"
+    'จด': ['2'],                # "to write down"; 1 is "to adjoin"
+    'จ้าง': ['2'],              # "to hire"; 1 is a plain rice dumpling
+    'คม': ['2'],                # "sharp; edge"; 1 is a royal "to wai"
+    'เสี่ยง': ['2'],            # "to risk"; 1 is "section, part"
+    'ทับ': ['2'],               # "to put on top; to run over"; 1 is "hut"
+    'หัด': ['2'],               # "to practise"; 1 is "measles"
+    'ชิน': ['2'],               # "to be used to"; 1 is an amulet alloy
+    'พึ่ง': ['2'],              # "to depend on"; 1 is a spelling of เพิ่ง "just"
+    'กลอน': ['2'],              # "poem, verse"; 1 is "rafter; bolt"
+    'อ้อ': ['2'],               # the interjection "oh, I see"; 1 is "reed"
+    'เชื้อ': ['2', '1'],        # "germ; yeast" AND "family line"
+    'ล้อ': ['2', '1'],          # "wheel" AND "to tease"
+    'สบู่': ['2'],              # "soap"; 1 is the Jatropha plant
+    'มือถือ': ['2'],            # "mobile phone"; 1 is the adjective "handheld"
+    'กู้': ['2', '1'],          # "to borrow (a loan)" AND "to rescue, restore"
+    # B2
+    'นายก': ['2', '1'],         # "prime minister" (short for นายกรัฐมนตรี) AND "chief"
+    'กบ': ['2'],                # "frog"; 1 is a phonetics term (syllables ending in -p)
+    'ชมพู': ['2', '1'],         # "pink" AND the Java plum
+    'จอ': ['2'],                # "screen"; 1 is the Year of the Dog
+    'สละ': ['4'],               # "to give up, sacrifice"; 1-3 are a quill, a palm, a fish
+    'ล่อ': ['2', '1'],          # "to lure" AND "mule"
+    'ลอบ': ['2'],               # "secretly"; 1 is a fishing basket
+    'ซ้อม': ['2'],              # "to rehearse, practise"; 1 is "to pound (rice)"
+    'ฟาก': ['2'],               # "side, bank"; 1 is split bamboo flooring
+    'บุก': ['2'],               # "to invade; to push forward"; 1 is konjac
+    'พาล': ['2'],               # "bully; cruel"; 1 is "body hair"
+    'มเหสี': ['2'],             # "queen consort"; 1 is "great sage"
+    'ทวน': ['2'],               # "to repeat; to go against"; 1 is "lance"
+    'ไข': ['2', '1'],           # "to unlock" AND "fat, grease"
+    'เหลือบ': ['2'],            # "to glance"; 1 is "horsefly"
+    'มูล': ['2'],               # "base, origin"; 1 is "feces"
+    'ค่อน': ['2'],              # "fairly; more than half"; 1 is "to criticise"
+    'มน': ['2'],                # "roundish"; 1 is "to be fixed"
+    # C1
+    'สาง': ['3', '2'],          # "to clear up; dawn" AND "to comb out"; 1 is "corpse; ghost"
+    'กำพร้า': ['2'],            # "orphaned; orphan"; 1 is "epidermis"
+    'อับ': ['2', '1'],          # "stuffy, stale" AND "small lidded box"
+    'เจียม': ['2'],             # "to be humble"; 1 is a woollen carpet
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one -- its
@@ -121,6 +180,64 @@ LEAD = {
     'ไทย': 'Thai person',
     'เงิน': 'money',            # first is "silver (metal)"
     'ดิฉัน': 'by a female',     # the woman's "I"; Wiktionary lists a rare man's use first
+    # A2
+    'แจ้ง': 'to inform',        # the adjective "free from darkness" comes first
+    'แต่ง': 'to adorn',         # first is an extraction artefact (DROP)
+    'ภาค': 'region',            # first is royal "luck"
+    'สัญญา': 'promise',         # first are "sign" and the Buddhist "perception"
+    'นาฬิกา': 'timepiece',      # first is "hour" (the abbreviation น.)
+    'เจ้านาย': 'boss',          # first is "royal person"
+    'สมัคร': 'to subscribe',    # "to sign up, apply"; first is "to want"
+    'ผีเสื้อ': 'butterfly',     # first is "tutelar spirit"
+    'กล้อง': 'camera',          # first is "pipe"
+    # B1
+    'ปรับ': 'to adjust',        # "to fine" comes first
+    'โปรด': 'to favour',        # first is "to free from suffering" (royal, Buddhist)
+    'เฝ้า': 'to guard',         # first is "to have an audience (with a king)"
+    'พิมพ์': 'to print',        # first is "to press; to impress"
+    'ค่ำ': 'dusk',              # first is "day" (of the lunar month)
+    'ปริญญา': 'degree',         # first is "thorough knowledge"
+    'เกษียณ': 'to retire',      # first is "to come to an end"
+    'จีบ': 'to hit on',         # "to court" is tagged slang; first is "to fold, pleat"
+    'วิจัย': 'research',        # first is "collection; compilation"
+    # B2
+    'ประสาท': 'nerve',          # first is "faith; trust"
+    'ขวัญ': 'morale',           # first is "cowlick"
+    'คิ้ว': 'eyebrow',          # first is "molding, edging"
+    'เห็นใจ': 'to have a heart',  # "to sympathise"; first is "to visit a dying person"
+    'ราศี': 'zodiac',           # first is "sum; mass"
+    'จักร': 'wheel',            # first is a fictitious circular weapon
+    'วลี': 'phrase',            # first is "fold of the skin"
+    'ปฏิวัติ': 'overthrow',     # "revolution"; first is "rolling back"
+    'อธิบดี': 'director-general',  # first is "overlord"
+    'นิพพาน': 'nirvana',        # tagged weak, yet the word's own sense; first shown was "death"
+    'รณรงค์': 'to campaign',    # first is "theatre of war"
+    'อุโบสถ': 'hall',           # the ordination hall; first is the observance day
+    # C1
+    'นัยยะ': 'meaning',         # first is "way; manner"
+    'อากร': 'duty',             # "duty (tax)"; first is "body; mass"
+    'ระเหย': 'to evaporate',    # first is "to feel cool"
+    'ทราม': 'base',             # first is "overpouring"
+    'พิภพ': 'world',            # first is "nonexistence"
+    'กฐิน': 'Kathina: annual',  # the robe-offering festival; first is an embroidery hoop
+    'แฟ้ม': 'folder',           # first is a dried-food container
+    'กระทู้': 'thread',         # (forum) thread; first is a bamboo fence post
+    'นิรโทษกรรม': 'amnesty',    # first is "justifiable act"
+    'สินบน': 'bribe',           # the first two are tagged or rarer
+    'เบา': 'not heavy',         # "light (in weight)" is fourth of the adjective's senses
+}
+
+ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\): (.+)$)')
+BARE = re.compile(r'^(?:abstract noun of [^\s(]+ \([^(),]*\)|Used other than figuratively or idiomatically.*)$')
+LISTITEM = re.compile(r'^[\u0e00-\u0e7f]+ \(“[^”]*”\)(?:,? and)?[.,;]?$')
+SYN = re.compile(r'^synonym of [^\s(]+ \((?:[^,()]+, )?“([^”]+)”\)$')
+
+# A GLOSS NEVER SHOWN: a vulgar sense Wiktionary leaves untagged (so it is not
+# weak), or an extraction artefact.  (word, substring of the gloss.)
+DROP = {
+    ('ยิ้ม', 'to fuck'),        # untagged vulgar slang under "to smile"
+    ('งู', 'penis'),            # untagged slang under "snake"
+    ('แต่ง', 'ตั้ง to appoint'),  # a Thai cross-reference fused onto the gloss
 }
 
 # A PART OF SPEECH TO LEAD WITH, for a frequency word (an inventory word says
@@ -128,7 +245,10 @@ LEAD = {
 # noun "attribute" before the pronoun "you".
 PREFER = {'กว่า': 'prep', 'หาก': 'conj', 'จน': 'conj', 'แต่': 'conj', 'คุณ': 'pron',
           'เพื่อน': 'noun', 'เมื่อ': 'conj', 'ใต้': 'prep', 'ข้าง': 'noun', 'มัก': 'adv',
-          'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv'}
+          'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv',
+          'แจ้ง': 'verb', 'สุนัข': 'noun', 'สมาคม': 'noun',
+          'ฉาย': 'verb', 'ยุติ': 'verb', 'โกหก': 'verb', 'รณรงค์': 'verb',
+          'แยะ': 'adv', 'นมัสการ': 'verb', 'ดำรัส': 'verb', 'ทราม': 'adj'}
 
 
 def entries_for(row, lex):
@@ -143,6 +263,8 @@ def entries_for(row, lex):
         if e.get('etym', '') not in groups:
             groups.append(e.get('etym', ''))
     keep = [k for k in ETYMS.get(row['word'], groups[:1]) if k in groups] or groups[:1]
+    if 'etym' in row and row['etym'] in groups:      # the phrases deck: the entry it chose
+        keep = [row['etym']]
     ents = sorted([e for e in ents if e.get('etym', '') in keep],
                   key=lambda e: keep.index(e.get('etym', '')))
     lead_pos = row.get('pos') or PREFER.get(row['word'])
@@ -172,8 +294,21 @@ def english(ents, word=''):
         # a WEAK sense (rare, archaic, slang ...) only when there is nothing else --
         # ต้อง's first sense, "to touch", is literary; its everyday "must" is fourth
         lead = LEAD.get(word)
-        strong = [g for g in e['glosses'] if not g['weak'] or (lead and lead in g['g'])]
-        for g in strong or e['glosses'][:1]:
+        glosses = [g for g in e['glosses'] if not any(w == word and d in g['g'] for w, d in DROP)]
+        # "synonym of หมา (mǎa, “dog”)" shows Wiktionary's own quoted meaning, "dog":
+        # สุนัข is the formal word for a dog, and the pointer alone teaches nothing.
+        glosses = [dict(g, g=ABS.sub(lambda m: m.group(1) or m.group(2), SYN.sub(r'\1', g['g']))) for g in glosses]
+        # "abstract noun of ดัน (dan)" with no meaning of its own, and Wiktionary's
+        # "Used other than figuratively or idiomatically" (a pointer to the parts),
+        # teach nothing: dropped where the entry has anything else (B1: ความดัน, ผ่าตัด)
+        glosses = [g for g in glosses if not BARE.match(g['g'])] or glosses
+        # a list item Wiktionary set as a sense -- มาร's "the five māras": "กิเลสมาร
+        # (“passion”)", "มัจจุมาร (“death”), and" -- is a Thai word, not a meaning (B2)
+        glosses = [g for g in glosses if not LISTITEM.match(g['g'])] or glosses
+        strong = [g for g in glosses if not g['weak'] or (lead and lead in g['g'])]
+        if LEVEL == 'phr':      # an idiom leads with its idiomatic sense (ดาวรุ่ง, หัวกะทิ)
+            strong.sort(key=lambda g: 'idiomatic' not in g['tags'])
+        for g in strong or glosses[:1]:
             t = g['g'].rstrip(' :;,')
             if t and t not in seen:
                 seen.add(t)
@@ -255,7 +390,7 @@ def build(rows, lex, exs):
             continue
         roman = r.get('roman') or next((e['roman'][0] for e in ents if e['roman']), '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Thai': E(word),               # the template wraps it in .uc-word, beside the speaker
             'Roman': E(roman),
             'Word': word,
@@ -265,8 +400,13 @@ def build(rows, lex, exs):
         }})
         entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'],
                         'examples': len(ex), 'tatoeba': sum(1 for x in ex if not x[2]),
-                        'roman': bool(roman), 'clf': bool(cards[-1]['fields']['Forms'])})
+                        'roman': bool(roman), 'clf': bool(cards[-1]['fields']['Forms']),
+                        'sub': r.get('sub', ''), 'count': r.get('count', 0)})
     return cards, entries
+
+
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
 def desc(entries, n):
@@ -282,7 +422,7 @@ def desc(entries, n):
         "Both study directions in one deck: Thai → English (see the Thai, recall the meaning) "
         "and English → Thai (see an English meaning, recall the Thai). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -309,6 +449,41 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Thai set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Thai → English (see the Thai, recall the "
+        "meaning) and English → Thai (see an English meaning, recall the Thai) — each with a schedule "
+        "of its own. This is a companion to the five level decks, Thai A1 to C1, and not one of them: "
+        "a level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the five, so the two can be studied together without repeating an "
+        "entry. The PHRASES are the expressions Wiktionary files as phrases or interjections and does "
+        f"not mark as idiomatic — the everyday formulas a Thai speaker uses as one piece ({eg('Phrases')} "
+        "…), greetings for the day and the festivals, and the words on signs. The IDIOMS are "
+        f"expressions whose meaning is not their words' ({eg('Idioms')} …) — Thai is rich in them, many "
+        "built from four words in two rhyming pairs — and the PROVERBS the sayings Wiktionary files as "
+        f"proverbs ({eg('Proverbs')} …). Thai writes no spaces between words, so an expression here is a "
+        "headword that divides into two or more dictionary words. Within each subdeck the expressions "
+        "come in the order of how many of Tatoeba's Thai sentences contain them; Tatoeba's Thai is "
+        f"small, so only {found} of the {n} are found there at all, and the rest follow in the order of "
+        "their count in the Thai National Corpus and the Thai Textbook Corpus. Every expression is "
+        "printed in Thai script with a romanisation beneath it in the Paiboon system, which marks the "
+        f"tone of every syllable. Real example sentences come with {n - ex0} of the {n} expressions, "
+        f"three apiece for {ex3}, with the expression picked out in colour and a speaker beside the "
+        "sentence and the headword. Sources. Expressions, meanings, romanisation and the idiom and "
+        "proverb labels: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: "
+        "Tatoeba (tatoeba.org), CC BY 2.0 FR, then the word counts of the Thai National Corpus and the "
+        "Thai Textbook Corpus as distributed by PyThaiNLP (CC0). Example sentences: Tatoeba, CC BY 2.0 "
+        "FR, and Wiktionary."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -319,11 +494,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['thai', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['thai', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['thai', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Thai vocabulary', 'speechLang': 'th-TH',
