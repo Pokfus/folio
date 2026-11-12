@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T04:48Z",
+ "generated": "2026-11-12T04:51Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6651,
-  "redirect-broader": 630,
-  "redirect-variant": 398,
-  "section-redirect": 134,
-  "disambiguation": 147,
-  "none": 1037,
-  "disambig-resolved": 89,
+  "ok": 6952,
+  "redirect-broader": 661,
+  "redirect-variant": 413,
+  "section-redirect": 142,
+  "disambiguation": 149,
+  "none": 1074,
+  "disambig-resolved": 95,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -73025,6 +73025,3150 @@
     "List of God of War characters",
     "List of characters in mythology novels by Rick Riordan"
    ]
+  },
+  "us-451": {
+   "answer": "Cotton Kingdom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cotton production in the United States",
+    "Cotton Belt",
+    "Brazil–United States cotton dispute",
+    "Cotton gin",
+    "Tom Cotton"
+   ]
+  },
+  "us-452": {
+   "answer": "King Cotton",
+   "title": "King Cotton",
+   "url": "https://en.wikipedia.org/wiki/King_Cotton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-453": {
+   "answer": "domestic slave trade",
+   "title": "Slave trade in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_trade_in_the_United_States",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Domestic slave trade"
+  },
+  "us-454": {
+   "answer": "coffle",
+   "title": "Coffle",
+   "url": "https://en.wikipedia.org/wiki/Coffle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-455": {
+   "answer": "slave pen",
+   "title": "Slave markets and slave jails in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_markets_and_slave_jails_in_the_United_States",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Slave pen"
+  },
+  "us-456": {
+   "answer": "chattel slavery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Chattel slavery",
+   "target": "Slavery#Chattel slavery"
+  },
+  "us-457": {
+   "answer": "Impending Crisis of the South",
+   "title": "The Impending Crisis of the South",
+   "url": "https://en.wikipedia.org/wiki/The_Impending_Crisis_of_the_South",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-458": {
+   "answer": "Cotton Whigs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Cotton Whigs",
+   "target": "Whig Party (United States)#Factions"
+  },
+  "us-459": {
+   "answer": "Lancashire Cotton Famine",
+   "title": "Lancashire Cotton Famine",
+   "url": "https://en.wikipedia.org/wiki/Lancashire_Cotton_Famine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-460": {
+   "answer": "planter class",
+   "title": "Planter class",
+   "url": "https://en.wikipedia.org/wiki/Planter_class",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-401": {
+   "answer": "Presidency of James K. Polk",
+   "title": "Presidency of James K. Polk",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_James_K._Polk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-402": {
+   "answer": "Oregon boundary dispute",
+   "title": "Oregon boundary dispute",
+   "url": "https://en.wikipedia.org/wiki/Oregon_boundary_dispute",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-403": {
+   "answer": "Mexican–American War",
+   "title": "Mexican–American War",
+   "url": "https://en.wikipedia.org/wiki/Mexican%E2%80%93American_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-404": {
+   "answer": "Battle for Mexico City",
+   "title": "Battle for Mexico City",
+   "url": "https://en.wikipedia.org/wiki/Battle_for_Mexico_City",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-405": {
+   "answer": "Spot Resolutions",
+   "title": "Spot Resolutions",
+   "url": "https://en.wikipedia.org/wiki/Spot_Resolutions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-406": {
+   "answer": "Treaty of Guadalupe Hidalgo",
+   "title": "Treaty of Guadalupe Hidalgo",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Guadalupe_Hidalgo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-407": {
+   "answer": "Mexican Cession",
+   "title": "Mexican Cession",
+   "url": "https://en.wikipedia.org/wiki/Mexican_Cession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-408": {
+   "answer": "Mexican Americans",
+   "title": "Mexican Americans",
+   "url": "https://en.wikipedia.org/wiki/Mexican_Americans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-409": {
+   "answer": "California gold rush",
+   "title": "California gold rush",
+   "url": "https://en.wikipedia.org/wiki/California_gold_rush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-410": {
+   "answer": "forty-niners",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "49er",
+   "suggestions": [
+    "Forty-Niner (passenger train)",
+    "The Forty-Niners (1932 film)",
+    "The Forty-Niners (1954 film)",
+    "Top 10: The Forty-Niners"
+   ]
+  },
+  "us-471": {
+   "answer": "Slave community",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in the United States",
+    "Atlantic slave trade",
+    "Torture of slaves in the United States",
+    "Slave rebellion and resistance in the United States",
+    "Slave quarters in the United States"
+   ]
+  },
+  "us-472": {
+   "answer": "Slave quarters",
+   "title": "Slave quarters in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_quarters_in_the_United_States",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Slave quarters"
+  },
+  "us-473": {
+   "answer": "Gang system",
+   "title": "Gang system",
+   "url": "https://en.wikipedia.org/wiki/Gang_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-474": {
+   "answer": "Task system",
+   "title": "Task system",
+   "url": "https://en.wikipedia.org/wiki/Task_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-475": {
+   "answer": "Incidents in the Life of a Slave Girl",
+   "title": "Incidents in the Life of a Slave Girl",
+   "url": "https://en.wikipedia.org/wiki/Incidents_in_the_Life_of_a_Slave_Girl",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-476": {
+   "answer": "Partus sequitur ventrem",
+   "title": "Partus sequitur ventrem",
+   "url": "https://en.wikipedia.org/wiki/Partus_sequitur_ventrem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-477": {
+   "answer": "Abroad marriage",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cousin marriage law in the United States",
+    "Same-sex marriage in the United States",
+    "Democrats Abroad",
+    "Same-sex marriage law in the United States by state",
+    "Civil marriage"
+   ]
+  },
+  "us-478": {
+   "answer": "Weeping Time",
+   "title": "Great Slave Auction",
+   "url": "https://en.wikipedia.org/wiki/Great_Slave_Auction",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Weeping Time"
+  },
+  "us-479": {
+   "answer": "Enslaved children",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Female slavery in the United States",
+    "Treatment of slaves in the United States",
+    "List of children of presidents of the United States",
+    "Slave breeding in the United States",
+    "List of presidents of the United States who owned slaves"
+   ]
+  },
+  "us-480": {
+   "answer": "Osnaburg",
+   "title": "Osnaburg",
+   "url": "https://en.wikipedia.org/wiki/Osnaburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-461": {
+   "answer": "plantation",
+   "title": "Plantation",
+   "url": "https://en.wikipedia.org/wiki/Plantation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-462": {
+   "answer": "overseer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Overseer",
+   "suggestions": [
+    "Overseer (rank)",
+    "Overseer of the poor",
+    "Rob Overseer",
+    "Aerojet SD-2 Overseer"
+   ]
+  },
+  "us-463": {
+   "answer": "urban slavery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in the United States",
+    "Reparations for slavery in the United States",
+    "History of sexual slavery in the United States",
+    "United States",
+    "Fugitive slaves in the United States"
+   ]
+  },
+  "us-464": {
+   "answer": "industrial slavery",
+   "title": "Industrial slave",
+   "url": "https://en.wikipedia.org/wiki/Industrial_slave",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Industrial slavery"
+  },
+  "us-465": {
+   "answer": "State v. Mann",
+   "title": "North Carolina v. Mann",
+   "url": "https://en.wikipedia.org/wiki/North_Carolina_v._Mann",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "State v. Mann"
+  },
+  "us-466": {
+   "answer": "slave patrol",
+   "title": "Slave patrol",
+   "url": "https://en.wikipedia.org/wiki/Slave_patrol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-467": {
+   "answer": "proslavery thought",
+   "title": "Proslavery thought",
+   "url": "https://en.wikipedia.org/wiki/Proslavery_thought",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-468": {
+   "answer": "George Fitzhugh",
+   "title": "George Fitzhugh",
+   "url": "https://en.wikipedia.org/wiki/George_Fitzhugh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-469": {
+   "answer": "slave schedule",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Slave schedule",
+   "target": "United States census#History"
+  },
+  "us-470": {
+   "answer": "WPA Slave Narrative Collection",
+   "title": "WPA Slave Narrative Collection",
+   "url": "https://en.wikipedia.org/wiki/WPA_Slave_Narrative_Collection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-481": {
+   "answer": "sick house",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sick leave in the United States",
+    "Democratic Party (United States)",
+    "Economy of the United States",
+    "2012 United States elections",
+    "Sick man of Europe"
+   ]
+  },
+  "us-482": {
+   "answer": "whipping",
+   "title": "Flagellation",
+   "url": "https://en.wikipedia.org/wiki/Flagellation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Whipping"
+  },
+  "us-483": {
+   "answer": "State of Missouri v. Celia, a Slave",
+   "title": "State of Missouri v. Celia, a Slave",
+   "url": "https://en.wikipedia.org/wiki/State_of_Missouri_v._Celia,_a_Slave",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-484": {
+   "answer": "invisible church",
+   "title": "Church invisible",
+   "url": "https://en.wikipedia.org/wiki/Church_invisible",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Invisible church"
+  },
+  "us-485": {
+   "answer": "Black church",
+   "title": "Black church",
+   "url": "https://en.wikipedia.org/wiki/Black_church",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-486": {
+   "answer": "spirituals",
+   "title": "Spirituals",
+   "url": "https://en.wikipedia.org/wiki/Spirituals",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-487": {
+   "answer": "ring shout",
+   "title": "Ring shout",
+   "url": "https://en.wikipedia.org/wiki/Ring_shout",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-488": {
+   "answer": "Gullah",
+   "title": "Gullah",
+   "url": "https://en.wikipedia.org/wiki/Gullah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-489": {
+   "answer": "self-hire",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Car rental",
+    "Supreme Court of the United States",
+    "United States Congress",
+    "Lists of wars involving the United States",
+    "Pro se legal representation in the United States"
+   ]
+  },
+  "us-490": {
+   "answer": "anti-literacy laws",
+   "title": "Anti-literacy laws in the United States",
+   "url": "https://en.wikipedia.org/wiki/Anti-literacy_laws_in_the_United_States",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Anti-literacy laws"
+  },
+  "us-431": {
+   "answer": "Cult of Domesticity",
+   "title": "Culture of Domesticity",
+   "url": "https://en.wikipedia.org/wiki/Culture_of_Domesticity",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cult of Domesticity"
+  },
+  "us-432": {
+   "answer": "Letters on the Equality of the Sexes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Declaration of the Rights of Woman and of the Female Citizen",
+    "Slavery in the United States",
+    "History of same-sex marriage in the United States",
+    "Founding Fathers of the United States",
+    "Liberalism in the United States"
+   ]
+  },
+  "us-433": {
+   "answer": "Seneca Falls Convention",
+   "title": "Seneca Falls Convention",
+   "url": "https://en.wikipedia.org/wiki/Seneca_Falls_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-434": {
+   "answer": "Elizabeth Cady Stanton",
+   "title": "Elizabeth Cady Stanton",
+   "url": "https://en.wikipedia.org/wiki/Elizabeth_Cady_Stanton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-435": {
+   "answer": "Know Nothing",
+   "title": "Know Nothing",
+   "url": "https://en.wikipedia.org/wiki/Know_Nothing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-436": {
+   "answer": "Great Famine",
+   "title": "Great Famine (Ireland)",
+   "url": "https://en.wikipedia.org/wiki/Great_Famine_(Ireland)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-437": {
+   "answer": "Forty-Eighters",
+   "title": "Forty-eighters",
+   "url": "https://en.wikipedia.org/wiki/Forty-eighters",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-438": {
+   "answer": "Transcendentalism",
+   "title": "Transcendentalism",
+   "url": "https://en.wikipedia.org/wiki/Transcendentalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-439": {
+   "answer": "Henry David Thoreau",
+   "title": "Henry David Thoreau",
+   "url": "https://en.wikipedia.org/wiki/Henry_David_Thoreau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-440": {
+   "answer": "American Renaissance",
+   "title": "American Renaissance (literature)",
+   "url": "https://en.wikipedia.org/wiki/American_Renaissance_(literature)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-421": {
+   "answer": "antebellum era",
+   "title": "Antebellum South",
+   "url": "https://en.wikipedia.org/wiki/Antebellum_South",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Antebellum era"
+  },
+  "us-422": {
+   "answer": "Second Great Awakening",
+   "title": "Second Great Awakening",
+   "url": "https://en.wikipedia.org/wiki/Second_Great_Awakening",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-423": {
+   "answer": "Charles Grandison Finney",
+   "title": "Charles Grandison Finney",
+   "url": "https://en.wikipedia.org/wiki/Charles_Grandison_Finney",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-424": {
+   "answer": "burned-over district",
+   "title": "Burned-over district",
+   "url": "https://en.wikipedia.org/wiki/Burned-over_district",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-425": {
+   "answer": "utopian communities",
+   "title": "Intentional community",
+   "url": "https://en.wikipedia.org/wiki/Intentional_community",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Utopian communities"
+  },
+  "us-426": {
+   "answer": "temperance movement",
+   "title": "Temperance movement",
+   "url": "https://en.wikipedia.org/wiki/Temperance_movement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-427": {
+   "answer": "Pennsylvania system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States Numbered Highway System",
+    "List of United States rapid transit systems",
+    "University of Pennsylvania Health System",
+    "List of courts of the United States",
+    "List of United States light rail systems"
+   ]
+  },
+  "us-428": {
+   "answer": "Dorothea Dix",
+   "title": "Dorothea Dix",
+   "url": "https://en.wikipedia.org/wiki/Dorothea_Dix",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-429": {
+   "answer": "common school",
+   "title": "Common school",
+   "url": "https://en.wikipedia.org/wiki/Common_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-430": {
+   "answer": "Horace Mann",
+   "title": "Horace Mann",
+   "url": "https://en.wikipedia.org/wiki/Horace_Mann",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-441": {
+   "answer": "Slavery in the United States",
+   "title": "Slavery in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slavery_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-442": {
+   "answer": "Atlantic slave trade",
+   "title": "Atlantic slave trade",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_slave_trade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-443": {
+   "answer": "Middle Passage",
+   "title": "Middle Passage",
+   "url": "https://en.wikipedia.org/wiki/Middle_Passage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-444": {
+   "answer": "slavery in Virginia",
+   "title": "History of slavery in Virginia",
+   "url": "https://en.wikipedia.org/wiki/History_of_slavery_in_Virginia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Slavery in Virginia"
+  },
+  "us-445": {
+   "answer": "Slave codes",
+   "title": "Slave codes",
+   "url": "https://en.wikipedia.org/wiki/Slave_codes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-446": {
+   "answer": "slavery in New York",
+   "title": "History of slavery in New York (state)",
+   "url": "https://en.wikipedia.org/wiki/History_of_slavery_in_New_York_(state)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Slavery in New York"
+  },
+  "us-447": {
+   "answer": "African Americans in the Revolutionary War",
+   "title": "African Americans in the Revolutionary War",
+   "url": "https://en.wikipedia.org/wiki/African_Americans_in_the_Revolutionary_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-448": {
+   "answer": "gradual abolition of slavery",
+   "title": "Gradual abolition of slavery",
+   "url": "https://en.wikipedia.org/wiki/Gradual_abolition_of_slavery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-449": {
+   "answer": "Act Prohibiting Importation of Slaves",
+   "title": "Act Prohibiting Importation of Slaves",
+   "url": "https://en.wikipedia.org/wiki/Act_Prohibiting_Importation_of_Slaves",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-450": {
+   "answer": "cotton gin",
+   "title": "Cotton gin",
+   "url": "https://en.wikipedia.org/wiki/Cotton_gin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-411": {
+   "answer": "boomtown",
+   "title": "Boomtown",
+   "url": "https://en.wikipedia.org/wiki/Boomtown",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-412": {
+   "answer": "Chinese immigration to the United States",
+   "title": "History of Chinese Americans",
+   "url": "https://en.wikipedia.org/wiki/History_of_Chinese_Americans",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese immigration to the United States"
+  },
+  "us-413": {
+   "answer": "Californios",
+   "title": "Californios",
+   "url": "https://en.wikipedia.org/wiki/Californios",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-414": {
+   "answer": "Santa Fe Trail",
+   "title": "Santa Fe Trail",
+   "url": "https://en.wikipedia.org/wiki/Santa_Fe_Trail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-415": {
+   "answer": "Gadsden Purchase",
+   "title": "Gadsden Purchase",
+   "url": "https://en.wikipedia.org/wiki/Gadsden_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-416": {
+   "answer": "filibuster",
+   "title": "Filibuster (military)",
+   "url": "https://en.wikipedia.org/wiki/Filibuster_(military)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-417": {
+   "answer": "Perry Expedition",
+   "title": "Perry Expedition",
+   "url": "https://en.wikipedia.org/wiki/Perry_Expedition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-418": {
+   "answer": "Pacific Railroad Surveys",
+   "title": "Pacific Railroad Surveys",
+   "url": "https://en.wikipedia.org/wiki/Pacific_Railroad_Surveys",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-419": {
+   "answer": "Great American Desert",
+   "title": "Great American Desert",
+   "url": "https://en.wikipedia.org/wiki/Great_American_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-420": {
+   "answer": "Fort Laramie Treaty of 1851",
+   "title": "Treaty of Fort Laramie (1851)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Fort_Laramie_(1851)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fort Laramie Treaty of 1851"
+  },
+  "us-491": {
+   "answer": "Everyday resistance",
+   "title": "Everyday resistance",
+   "url": "https://en.wikipedia.org/wiki/Everyday_resistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-492": {
+   "answer": "Fugitive slaves in the United States",
+   "title": "Fugitive slaves in the United States",
+   "url": "https://en.wikipedia.org/wiki/Fugitive_slaves_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-493": {
+   "answer": "Great Dismal Swamp maroons",
+   "title": "Great Dismal Swamp maroons",
+   "url": "https://en.wikipedia.org/wiki/Great_Dismal_Swamp_maroons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-494": {
+   "answer": "Slave rebellion and resistance in the United States",
+   "title": "Slave rebellion and resistance in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_rebellion_and_resistance_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-495": {
+   "answer": "Stono Rebellion",
+   "title": "Stono Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Stono_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-496": {
+   "answer": "Gabriel's Rebellion",
+   "title": "Gabriel's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Gabriel's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-497": {
+   "answer": "Denmark Vesey",
+   "title": "Denmark Vesey",
+   "url": "https://en.wikipedia.org/wiki/Denmark_Vesey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-498": {
+   "answer": "Nat Turner's Rebellion",
+   "title": "Nat Turner's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Nat_Turner's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-499": {
+   "answer": "Virginia slavery debate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Thirteenth Amendment to the United States Constitution",
+    "United States",
+    "Slave states and free states",
+    "Slavery in the United States",
+    "Slavery and the United States Constitution"
+   ]
+  },
+  "us-500": {
+   "answer": "United States v. The Amistad",
+   "title": "United States v. The Amistad",
+   "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-221": {
+   "answer": "neuron",
+   "title": "Neuron",
+   "url": "https://en.wikipedia.org/wiki/Neuron",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-222": {
+   "answer": "glial cells",
+   "title": "Glia",
+   "url": "https://en.wikipedia.org/wiki/Glia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Glial cells"
+  },
+  "ps-223": {
+   "answer": "axon",
+   "title": "Axon",
+   "url": "https://en.wikipedia.org/wiki/Axon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-224": {
+   "answer": "dendrite",
+   "title": "Dendrite",
+   "url": "https://en.wikipedia.org/wiki/Dendrite",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-225": {
+   "answer": "myelin sheath",
+   "title": "Myelin",
+   "url": "https://en.wikipedia.org/wiki/Myelin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Myelin sheath"
+  },
+  "ps-226": {
+   "answer": "resting potential",
+   "title": "Resting potential",
+   "url": "https://en.wikipedia.org/wiki/Resting_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-227": {
+   "answer": "action potential",
+   "title": "Action potential",
+   "url": "https://en.wikipedia.org/wiki/Action_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-228": {
+   "answer": "saltatory conduction",
+   "title": "Saltatory conduction",
+   "url": "https://en.wikipedia.org/wiki/Saltatory_conduction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-229": {
+   "answer": "synapse",
+   "title": "Synapse",
+   "url": "https://en.wikipedia.org/wiki/Synapse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-230": {
+   "answer": "neurotransmitter",
+   "title": "Neurotransmitter",
+   "url": "https://en.wikipedia.org/wiki/Neurotransmitter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-231": {
+   "answer": "neurotransmitter receptor",
+   "title": "Neurotransmitter receptor",
+   "url": "https://en.wikipedia.org/wiki/Neurotransmitter_receptor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-232": {
+   "answer": "reuptake",
+   "title": "Reuptake",
+   "url": "https://en.wikipedia.org/wiki/Reuptake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-233": {
+   "answer": "postsynaptic potential",
+   "title": "Postsynaptic potential",
+   "url": "https://en.wikipedia.org/wiki/Postsynaptic_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-234": {
+   "answer": "acetylcholine",
+   "title": "Acetylcholine",
+   "url": "https://en.wikipedia.org/wiki/Acetylcholine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-235": {
+   "answer": "dopamine",
+   "title": "Dopamine",
+   "url": "https://en.wikipedia.org/wiki/Dopamine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-236": {
+   "answer": "serotonin",
+   "title": "Serotonin",
+   "url": "https://en.wikipedia.org/wiki/Serotonin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-237": {
+   "answer": "noradrenaline",
+   "title": "Norepinephrine",
+   "url": "https://en.wikipedia.org/wiki/Norepinephrine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Noradrenaline"
+  },
+  "ps-238": {
+   "answer": "GABA",
+   "title": "GABA",
+   "url": "https://en.wikipedia.org/wiki/GABA",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-239": {
+   "answer": "glutamate",
+   "title": "Glutamate (neurotransmitter)",
+   "url": "https://en.wikipedia.org/wiki/Glutamate_(neurotransmitter)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-240": {
+   "answer": "endorphins",
+   "title": "Endorphins",
+   "url": "https://en.wikipedia.org/wiki/Endorphins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-261": {
+   "answer": "limbic system",
+   "title": "Limbic system",
+   "url": "https://en.wikipedia.org/wiki/Limbic_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-262": {
+   "answer": "amygdala",
+   "title": "Amygdala",
+   "url": "https://en.wikipedia.org/wiki/Amygdala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-263": {
+   "answer": "hippocampus",
+   "title": "Hippocampus",
+   "url": "https://en.wikipedia.org/wiki/Hippocampus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-264": {
+   "answer": "basal ganglia",
+   "title": "Basal ganglia",
+   "url": "https://en.wikipedia.org/wiki/Basal_ganglia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-265": {
+   "answer": "cerebral cortex",
+   "title": "Cerebral cortex",
+   "url": "https://en.wikipedia.org/wiki/Cerebral_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-266": {
+   "answer": "frontal lobe",
+   "title": "Frontal lobe",
+   "url": "https://en.wikipedia.org/wiki/Frontal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-267": {
+   "answer": "prefrontal cortex",
+   "title": "Prefrontal cortex",
+   "url": "https://en.wikipedia.org/wiki/Prefrontal_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-268": {
+   "answer": "motor cortex",
+   "title": "Motor cortex",
+   "url": "https://en.wikipedia.org/wiki/Motor_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-269": {
+   "answer": "parietal lobe",
+   "title": "Parietal lobe",
+   "url": "https://en.wikipedia.org/wiki/Parietal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-270": {
+   "answer": "somatosensory cortex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Somatosensory cortex",
+   "target": "Somatosensory system#Somatosensory cortex"
+  },
+  "ps-271": {
+   "answer": "temporal lobe",
+   "title": "Temporal lobe",
+   "url": "https://en.wikipedia.org/wiki/Temporal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-272": {
+   "answer": "occipital lobe",
+   "title": "Occipital lobe",
+   "url": "https://en.wikipedia.org/wiki/Occipital_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-273": {
+   "answer": "corpus callosum",
+   "title": "Corpus callosum",
+   "url": "https://en.wikipedia.org/wiki/Corpus_callosum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-274": {
+   "answer": "cerebral lateralisation",
+   "title": "Lateralization of brain function",
+   "url": "https://en.wikipedia.org/wiki/Lateralization_of_brain_function",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cerebral lateralisation"
+  },
+  "ps-275": {
+   "answer": "split-brain research",
+   "title": "Split-brain",
+   "url": "https://en.wikipedia.org/wiki/Split-brain",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Split-brain research"
+  },
+  "ps-276": {
+   "answer": "left-brain right-brain myth",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lateralization of brain function",
+    "Neuroscience of sex differences",
+    "Brain injury",
+    "Handedness",
+    "List of common misconceptions about science, technology, and mathematics"
+   ]
+  },
+  "ps-277": {
+   "answer": "Phineas Gage",
+   "title": "Phineas Gage",
+   "url": "https://en.wikipedia.org/wiki/Phineas_Gage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-278": {
+   "answer": "Henry Molaison",
+   "title": "Henry Molaison",
+   "url": "https://en.wikipedia.org/wiki/Henry_Molaison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-279": {
+   "answer": "aphasia",
+   "title": "Aphasia",
+   "url": "https://en.wikipedia.org/wiki/Aphasia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-280": {
+   "answer": "brain injury",
+   "title": "Brain injury",
+   "url": "https://en.wikipedia.org/wiki/Brain_injury",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-201": {
+   "answer": "confidentiality",
+   "title": "Confidentiality",
+   "url": "https://en.wikipedia.org/wiki/Confidentiality",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-202": {
+   "answer": "institutional review board",
+   "title": "Institutional review board",
+   "url": "https://en.wikipedia.org/wiki/Institutional_review_board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-203": {
+   "answer": "Belmont Report",
+   "title": "Belmont Report",
+   "url": "https://en.wikipedia.org/wiki/Belmont_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-204": {
+   "answer": "APA Ethics Code",
+   "title": "APA Ethics Code",
+   "url": "https://en.wikipedia.org/wiki/APA_Ethics_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-205": {
+   "answer": "Three Rs",
+   "title": "Three Rs (animal research)",
+   "url": "https://en.wikipedia.org/wiki/Three_Rs_(animal_research)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-206": {
+   "answer": "Monster Study",
+   "title": "Monster Study",
+   "url": "https://en.wikipedia.org/wiki/Monster_Study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-207": {
+   "answer": "Stanford prison experiment",
+   "title": "Stanford prison experiment",
+   "url": "https://en.wikipedia.org/wiki/Stanford_prison_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-208": {
+   "answer": "demand characteristics",
+   "title": "Demand characteristics",
+   "url": "https://en.wikipedia.org/wiki/Demand_characteristics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-209": {
+   "answer": "Milgram experiment",
+   "title": "Milgram experiment",
+   "url": "https://en.wikipedia.org/wiki/Milgram_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-210": {
+   "answer": "Diana Baumrind",
+   "title": "Diana Baumrind",
+   "url": "https://en.wikipedia.org/wiki/Diana_Baumrind",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-211": {
+   "answer": "replication crisis",
+   "title": "Replication crisis",
+   "url": "https://en.wikipedia.org/wiki/Replication_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-212": {
+   "answer": "Reproducibility Project",
+   "title": "Reproducibility Project",
+   "url": "https://en.wikipedia.org/wiki/Reproducibility_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-213": {
+   "answer": "questionable research practices",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Questionable research practices",
+   "target": "Research#Research ethics"
+  },
+  "ps-214": {
+   "answer": "p-hacking",
+   "title": "Data dredging",
+   "url": "https://en.wikipedia.org/wiki/Data_dredging",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "P-hacking"
+  },
+  "ps-215": {
+   "answer": "garden of forking paths",
+   "title": "The Garden of Forking Paths",
+   "url": "https://en.wikipedia.org/wiki/The_Garden_of_Forking_Paths",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Garden of forking paths"
+  },
+  "ps-216": {
+   "answer": "HARKing",
+   "title": "HARKing",
+   "url": "https://en.wikipedia.org/wiki/HARKing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-217": {
+   "answer": "publication bias",
+   "title": "Publication bias",
+   "url": "https://en.wikipedia.org/wiki/Publication_bias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-218": {
+   "answer": "file drawer problem",
+   "title": "Publication bias",
+   "url": "https://en.wikipedia.org/wiki/Publication_bias",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "File drawer problem"
+  },
+  "ps-219": {
+   "answer": "registered report",
+   "title": "Registered report",
+   "url": "https://en.wikipedia.org/wiki/Registered_report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-220": {
+   "answer": "open science",
+   "title": "Open science",
+   "url": "https://en.wikipedia.org/wiki/Open_science",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-281": {
+   "answer": "lesion method",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Visual pathway lesions",
+    "Cognitive psychology",
+    "Behavioral neuroscience",
+    "Developmental psychology",
+    "Ablative brain surgery"
+   ]
+  },
+  "ps-282": {
+   "answer": "electroencephalography",
+   "title": "Electroencephalography",
+   "url": "https://en.wikipedia.org/wiki/Electroencephalography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-283": {
+   "answer": "event-related potential",
+   "title": "Event-related potential",
+   "url": "https://en.wikipedia.org/wiki/Event-related_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-284": {
+   "answer": "single-unit recording",
+   "title": "Single-unit recording",
+   "url": "https://en.wikipedia.org/wiki/Single-unit_recording",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-285": {
+   "answer": "positron emission tomography",
+   "title": "Positron emission tomography",
+   "url": "https://en.wikipedia.org/wiki/Positron_emission_tomography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-286": {
+   "answer": "magnetic resonance imaging",
+   "title": "Magnetic resonance imaging",
+   "url": "https://en.wikipedia.org/wiki/Magnetic_resonance_imaging",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-287": {
+   "answer": "functional magnetic resonance imaging",
+   "title": "Functional magnetic resonance imaging",
+   "url": "https://en.wikipedia.org/wiki/Functional_magnetic_resonance_imaging",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-288": {
+   "answer": "BOLD signal",
+   "title": "Blood-oxygenation-level–dependent imaging",
+   "url": "https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "BOLD signal"
+  },
+  "ps-289": {
+   "answer": "diffusion tensor imaging",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Diffusion tensor imaging",
+   "target": "Diffusion-weighted magnetic resonance imaging#Diffusion tensor imaging"
+  },
+  "ps-290": {
+   "answer": "magnetoencephalography",
+   "title": "Magnetoencephalography",
+   "url": "https://en.wikipedia.org/wiki/Magnetoencephalography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-291": {
+   "answer": "transcranial magnetic stimulation",
+   "title": "Transcranial magnetic stimulation",
+   "url": "https://en.wikipedia.org/wiki/Transcranial_magnetic_stimulation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-292": {
+   "answer": "optogenetics",
+   "title": "Optogenetics",
+   "url": "https://en.wikipedia.org/wiki/Optogenetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-293": {
+   "answer": "functional near-infrared spectroscopy",
+   "title": "Functional near-infrared spectroscopy",
+   "url": "https://en.wikipedia.org/wiki/Functional_near-infrared_spectroscopy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-294": {
+   "answer": "reverse inference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bayesian inference",
+    "Correlation does not imply causation",
+    "Rule of inference",
+    "Fundamental attribution error",
+    "Structure-mapping theory"
+   ]
+  },
+  "ps-295": {
+   "answer": "dead salmon study",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Darwinian literary studies",
+    "Salmon conservation",
+    "Southern resident orcas",
+    "Ribot's law",
+    "Phyllis Bottome"
+   ]
+  },
+  "ps-296": {
+   "answer": "family-wise error rate",
+   "title": "Family-wise error rate",
+   "url": "https://en.wikipedia.org/wiki/Family-wise_error_rate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-297": {
+   "answer": "connectomics",
+   "title": "Connectomics",
+   "url": "https://en.wikipedia.org/wiki/Connectomics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-298": {
+   "answer": "animal model",
+   "title": "Animal disease model",
+   "url": "https://en.wikipedia.org/wiki/Animal_disease_model",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Animal model"
+  },
+  "ps-299": {
+   "answer": "neuropsychological assessment",
+   "title": "Neuropsychological assessment",
+   "url": "https://en.wikipedia.org/wiki/Neuropsychological_assessment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-300": {
+   "answer": "double dissociation",
+   "title": "Dissociation (neuropsychology)",
+   "url": "https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Double dissociation"
+  },
+  "ps-241": {
+   "answer": "neuromodulation",
+   "title": "Neuromodulation",
+   "url": "https://en.wikipedia.org/wiki/Neuromodulation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-242": {
+   "answer": "agonist",
+   "title": "Agonist",
+   "url": "https://en.wikipedia.org/wiki/Agonist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-243": {
+   "answer": "blood–brain barrier",
+   "title": "Blood–brain barrier",
+   "url": "https://en.wikipedia.org/wiki/Blood%E2%80%93brain_barrier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-244": {
+   "answer": "neuroplasticity",
+   "title": "Neuroplasticity",
+   "url": "https://en.wikipedia.org/wiki/Neuroplasticity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-245": {
+   "answer": "neurogenesis",
+   "title": "Neurogenesis",
+   "url": "https://en.wikipedia.org/wiki/Neurogenesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-246": {
+   "answer": "nervous system",
+   "title": "Nervous system",
+   "url": "https://en.wikipedia.org/wiki/Nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-247": {
+   "answer": "central nervous system",
+   "title": "Central nervous system",
+   "url": "https://en.wikipedia.org/wiki/Central_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-248": {
+   "answer": "peripheral nervous system",
+   "title": "Peripheral nervous system",
+   "url": "https://en.wikipedia.org/wiki/Peripheral_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-249": {
+   "answer": "autonomic nervous system",
+   "title": "Autonomic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Autonomic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-250": {
+   "answer": "sympathetic nervous system",
+   "title": "Sympathetic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Sympathetic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-251": {
+   "answer": "parasympathetic nervous system",
+   "title": "Parasympathetic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Parasympathetic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-252": {
+   "answer": "spinal cord",
+   "title": "Spinal cord",
+   "url": "https://en.wikipedia.org/wiki/Spinal_cord",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-253": {
+   "answer": "reflex arc",
+   "title": "Reflex arc",
+   "url": "https://en.wikipedia.org/wiki/Reflex_arc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-254": {
+   "answer": "brainstem",
+   "title": "Brainstem",
+   "url": "https://en.wikipedia.org/wiki/Brainstem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-255": {
+   "answer": "medulla oblongata",
+   "title": "Medulla oblongata",
+   "url": "https://en.wikipedia.org/wiki/Medulla_oblongata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-256": {
+   "answer": "pons",
+   "title": "Pons",
+   "url": "https://en.wikipedia.org/wiki/Pons",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-257": {
+   "answer": "reticular formation",
+   "title": "Reticular formation",
+   "url": "https://en.wikipedia.org/wiki/Reticular_formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-258": {
+   "answer": "cerebellum",
+   "title": "Cerebellum",
+   "url": "https://en.wikipedia.org/wiki/Cerebellum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-259": {
+   "answer": "thalamus",
+   "title": "Thalamus",
+   "url": "https://en.wikipedia.org/wiki/Thalamus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-260": {
+   "answer": "hypothalamus",
+   "title": "Hypothalamus",
+   "url": "https://en.wikipedia.org/wiki/Hypothalamus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-341": {
+   "answer": "Catherine the Great",
+   "title": "Catherine the Great",
+   "url": "https://en.wikipedia.org/wiki/Catherine_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-342": {
+   "answer": "coronation of Catherine II",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Catherine the Great",
+    "Coronation of the Russian monarch",
+    "Peter II of Russia",
+    "Imperial Crown of Russia",
+    "Coronation of Bokassa I and Catherine"
+   ]
+  },
+  "ru-343": {
+   "answer": "Nakaz",
+   "title": "Nakaz",
+   "url": "https://en.wikipedia.org/wiki/Nakaz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-344": {
+   "answer": "Legislative Commission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Russian legislative election",
+    "Russian legislative elections",
+    "1912 Russian legislative election",
+    "Nakaz",
+    "1990 Russian Supreme Soviet election"
+   ]
+  },
+  "ru-345": {
+   "answer": "Free Economic Society",
+   "title": "Free Economic Society",
+   "url": "https://en.wikipedia.org/wiki/Free_Economic_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-346": {
+   "answer": "secularisation of church lands",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter III of Russia",
+    "Catherine the Great",
+    "Metropolis of Moscow and all Rus'",
+    "Secularization",
+    "Palmarian Catholic Church"
+   ]
+  },
+  "ru-347": {
+   "answer": "Denis Diderot",
+   "title": "Denis Diderot",
+   "url": "https://en.wikipedia.org/wiki/Denis_Diderot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-348": {
+   "answer": "Grigory Orlov",
+   "title": "Grigory Orlov",
+   "url": "https://en.wikipedia.org/wiki/Grigory_Orlov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-349": {
+   "answer": "Grigory Potemkin",
+   "title": "Grigory Potemkin",
+   "url": "https://en.wikipedia.org/wiki/Grigory_Potemkin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-350": {
+   "answer": "Russo-Turkish War of 1768–1774",
+   "title": "Russo-Turkish War (1768–1774)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1768%E2%80%931774)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1768–1774"
+  },
+  "ru-301": {
+   "answer": "Spiritual Regulation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Central Spiritual Board of Buddhists of the USSR",
+    "Russian Empire",
+    "United Russia",
+    "Catherine the Great",
+    "French invasion of Russia"
+   ]
+  },
+  "ru-302": {
+   "answer": "soul tax",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Russian Tax Debate of 1870–1871",
+    "Dead Souls",
+    "Poll tax",
+    "Matryoshka doll",
+    "Russian Empire"
+   ]
+  },
+  "ru-303": {
+   "answer": "recruit levy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Levy",
+    "Iraq Levies",
+    "Clifford J. Levy",
+    "Russian Empire",
+    "Tsarist Russia"
+   ]
+  },
+  "ru-304": {
+   "answer": "Decree on Single Inheritance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pomeshchik",
+    "Inheritance tax",
+    "Majorat",
+    "Tsarist Russia",
+    "Votchina"
+   ]
+  },
+  "ru-305": {
+   "answer": "possessional peasants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Serfdom in Russia",
+    "Tambov Rebellion",
+    "Russian Empire",
+    "State peasant",
+    "Economy of Tsarist Russia"
+   ]
+  },
+  "ru-306": {
+   "answer": "Nikita Demidov",
+   "title": "Nikita Demidov",
+   "url": "https://en.wikipedia.org/wiki/Nikita_Demidov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-307": {
+   "answer": "Petrine assemblies",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tsarist Russia",
+    "Russian Empire",
+    "Peter the Great",
+    "Primacy of Peter",
+    "Saint Petersburg"
+   ]
+  },
+  "ru-308": {
+   "answer": "civil script",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Civil script",
+   "target": "Reforms of Russian orthography#18th-century changes"
+  },
+  "ru-309": {
+   "answer": "Russian Academy of Sciences",
+   "title": "Russian Academy of Sciences",
+   "url": "https://en.wikipedia.org/wiki/Russian_Academy_of_Sciences",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-310": {
+   "answer": "Kunstkamera",
+   "title": "Kunstkamera",
+   "url": "https://en.wikipedia.org/wiki/Kunstkamera",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-311": {
+   "answer": "Tsarevich Alexei",
+   "title": "Alexei Petrovich, Tsarevich of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexei_Petrovich,_Tsarevich_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tsarevich Alexei"
+  },
+  "ru-312": {
+   "answer": "law of succession of 1722",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter Petrovich, Tsarevich of Russia",
+    "1722",
+    "List of heirs to the Russian throne",
+    "Emperor of Russia",
+    "Peter the Great: His Law on the Imperial Succession"
+   ]
+  },
+  "ru-313": {
+   "answer": "Russo-Persian War of 1722–1723",
+   "title": "Russo-Persian War (1722–1723)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1722%E2%80%931723)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Persian War of 1722–1723"
+  },
+  "ru-314": {
+   "answer": "household census of 1710",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in Russia",
+    "Abatsky District",
+    "Corrales, New Mexico",
+    "Pushkin, Saint Petersburg",
+    "Staraya Russa"
+   ]
+  },
+  "ru-315": {
+   "answer": "Bronze Horseman",
+   "title": "Bronze Horseman",
+   "url": "https://en.wikipedia.org/wiki/Bronze_Horseman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-316": {
+   "answer": "era of palace revolutions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of Russia (1721–1796)",
+    "Winter Palace",
+    "Russian Revolution",
+    "Great Gatchina Palace",
+    "Outline of the Russian Revolution"
+   ]
+  },
+  "ru-317": {
+   "answer": "Catherine I",
+   "title": "Catherine I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Catherine_I_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Catherine I"
+  },
+  "ru-318": {
+   "answer": "Supreme Privy Council",
+   "title": "Supreme Privy Council",
+   "url": "https://en.wikipedia.org/wiki/Supreme_Privy_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-319": {
+   "answer": "Peter II",
+   "title": "Peter II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Peter_II_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Peter II"
+  },
+  "ru-320": {
+   "answer": "Anna of Russia",
+   "title": "Anna of Russia",
+   "url": "https://en.wikipedia.org/wiki/Anna_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-321": {
+   "answer": "konditsii",
+   "title": "Conditions (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Conditions_(Russia)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-322": {
+   "answer": "Bironovshchina",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of Russia (1721–1796)",
+    "Ernst Johann von Biron"
+   ]
+  },
+  "ru-323": {
+   "answer": "War of the Polish Succession",
+   "title": "War of the Polish Succession",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Polish_Succession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-324": {
+   "answer": "Russo-Turkish War of 1735–1739",
+   "title": "Russo-Turkish War (1735–1739)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1735%E2%80%931739)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1735–1739"
+  },
+  "ru-325": {
+   "answer": "Ivan VI",
+   "title": "Ivan VI of Russia",
+   "url": "https://en.wikipedia.org/wiki/Ivan_VI_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Ivan VI"
+  },
+  "ru-326": {
+   "answer": "Elizabeth of Russia",
+   "title": "Elizabeth of Russia",
+   "url": "https://en.wikipedia.org/wiki/Elizabeth_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-327": {
+   "answer": "coup of 1741",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ivan VI of Russia",
+    "1741 in Russia",
+    "Catherine Antonovna of Brunswick",
+    "Russo-Swedish War (1741–1743)",
+    "1741"
+   ]
+  },
+  "ru-328": {
+   "answer": "moratorium on the death penalty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Capital punishment in Russia",
+    "Resolutions concerning death penalty at the United Nations",
+    "Capital punishment by country",
+    "Capital punishment",
+    "Capital punishment in Europe"
+   ]
+  },
+  "ru-329": {
+   "answer": "Mikhail Lomonosov",
+   "title": "Mikhail Lomonosov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Lomonosov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-330": {
+   "answer": "Moscow University",
+   "title": "Moscow State University",
+   "url": "https://en.wikipedia.org/wiki/Moscow_State_University",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Moscow University"
+  },
+  "ru-371": {
+   "answer": "Treaty of Georgievsk",
+   "title": "Treaty of Georgievsk",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Georgievsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-372": {
+   "answer": "Russian America",
+   "title": "Russian colonization of North America",
+   "url": "https://en.wikipedia.org/wiki/Russian_colonization_of_North_America",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian America"
+  },
+  "ru-373": {
+   "answer": "Russian-American Company",
+   "title": "Russian-American Company",
+   "url": "https://en.wikipedia.org/wiki/Russian-American_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-374": {
+   "answer": "Alexander Radishchev",
+   "title": "Alexander Radishchev",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Radishchev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-375": {
+   "answer": "Nikolay Novikov",
+   "title": "Nikolay Novikov",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Novikov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-376": {
+   "answer": "Freemasonry in Russia",
+   "title": "History of Freemasonry in Russia",
+   "url": "https://en.wikipedia.org/wiki/History_of_Freemasonry_in_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Freemasonry in Russia"
+  },
+  "ru-377": {
+   "answer": "Second Partition of Poland",
+   "title": "Second Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/Second_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-378": {
+   "answer": "Paul I",
+   "title": "Paul I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Paul_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Paul I"
+  },
+  "ru-379": {
+   "answer": "Pauline Laws",
+   "title": "Pauline Laws",
+   "url": "https://en.wikipedia.org/wiki/Pauline_Laws",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-380": {
+   "answer": "Mikhailovsky Castle",
+   "title": "Saint Michael's Castle",
+   "url": "https://en.wikipedia.org/wiki/Saint_Michael's_Castle",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mikhailovsky Castle"
+  },
+  "ru-381": {
+   "answer": "Alexander I",
+   "title": "Alexander I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander I"
+  },
+  "ru-382": {
+   "answer": "Unofficial Committee",
+   "title": "Private Committee",
+   "url": "https://en.wikipedia.org/wiki/Private_Committee",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-383": {
+   "answer": "Mikhail Speransky",
+   "title": "Mikhail Speransky",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Speransky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-384": {
+   "answer": "ministerial reform of 1802",
+   "title": "Ministerial reform in the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Ministerial_reform_in_the_Russian_Empire",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-385": {
+   "answer": "War of the Third Coalition",
+   "title": "War of the Third Coalition",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Third_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-386": {
+   "answer": "Battle of Austerlitz",
+   "title": "Battle of Austerlitz",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Austerlitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-387": {
+   "answer": "Battle of Eylau",
+   "title": "Battle of Eylau",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Eylau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-388": {
+   "answer": "Battle of Friedland",
+   "title": "Battle of Friedland",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Friedland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-389": {
+   "answer": "Treaties of Tilsit",
+   "title": "Treaties of Tilsit",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Tilsit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-390": {
+   "answer": "Continental System",
+   "title": "Continental System",
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-331": {
+   "answer": "Imperial Academy of Arts",
+   "title": "Imperial Academy of Arts",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Academy_of_Arts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-332": {
+   "answer": "Bartolomeo Rastrelli",
+   "title": "Francesco Bartolomeo Rastrelli",
+   "url": "https://en.wikipedia.org/wiki/Francesco_Bartolomeo_Rastrelli",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Bartolomeo Rastrelli"
+  },
+  "ru-333": {
+   "answer": "Winter Palace",
+   "title": "Winter Palace",
+   "url": "https://en.wikipedia.org/wiki/Winter_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-334": {
+   "answer": "Russian Baroque",
+   "title": "Russian Baroque",
+   "url": "https://en.wikipedia.org/wiki/Russian_Baroque",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-335": {
+   "answer": "Seven Years' War",
+   "title": "Seven Years' War",
+   "url": "https://en.wikipedia.org/wiki/Seven_Years'_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-336": {
+   "answer": "Battle of Kunersdorf",
+   "title": "Battle of Kunersdorf",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kunersdorf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-337": {
+   "answer": "raid on Berlin",
+   "title": "1760 raid on Berlin",
+   "url": "https://en.wikipedia.org/wiki/1760_raid_on_Berlin",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Raid on Berlin"
+  },
+  "ru-338": {
+   "answer": "Peter III",
+   "title": "Peter III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Peter_III_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Peter III"
+  },
+  "ru-339": {
+   "answer": "Manifesto on the Freedom of the Nobility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emancipation reform of 1861",
+    "Tsarist Russia",
+    "Catherine the Great",
+    "Russian Revolution of 1905",
+    "Serfdom in Russia"
+   ]
+  },
+  "ru-340": {
+   "answer": "coup of 1762",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter III of Russia",
+    "Ivan VI of Russia",
+    "Elizabeth of Russia",
+    "Catherine the Great",
+    "Russia"
+   ]
+  },
+  "ru-351": {
+   "answer": "Battle of Chesma",
+   "title": "Battle of Chesma",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Chesma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-352": {
+   "answer": "Treaty of Küçük Kaynarca",
+   "title": "Treaty of Küçük Kaynarca",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_K%C3%BC%C3%A7%C3%BCk_Kaynarca",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-353": {
+   "answer": "annexation of the Crimean Khanate",
+   "title": "1783 Russian annexation of Crimea",
+   "url": "https://en.wikipedia.org/wiki/1783_Russian_annexation_of_Crimea",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Annexation of the Crimean Khanate"
+  },
+  "ru-354": {
+   "answer": "New Russia",
+   "title": "Novorossiya",
+   "url": "https://en.wikipedia.org/wiki/Novorossiya",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "New Russia"
+  },
+  "ru-355": {
+   "answer": "Potemkin village",
+   "title": "Potemkin village",
+   "url": "https://en.wikipedia.org/wiki/Potemkin_village",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-356": {
+   "answer": "Sevastopol",
+   "title": "Sevastopol",
+   "url": "https://en.wikipedia.org/wiki/Sevastopol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-357": {
+   "answer": "Russo-Turkish War of 1787–1792",
+   "title": "Russo-Turkish War (1787–1792)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1787%E2%80%931792)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1787–1792"
+  },
+  "ru-358": {
+   "answer": "Alexander Suvorov",
+   "title": "Alexander Suvorov",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Suvorov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-359": {
+   "answer": "Fyodor Ushakov",
+   "title": "Fyodor Ushakov",
+   "url": "https://en.wikipedia.org/wiki/Fyodor_Ushakov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-360": {
+   "answer": "Partitions of Poland",
+   "title": "Partitions of Poland",
+   "url": "https://en.wikipedia.org/wiki/Partitions_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-361": {
+   "answer": "First Partition of Poland",
+   "title": "First Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/First_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-362": {
+   "answer": "Kościuszko Uprising",
+   "title": "Kościuszko Uprising",
+   "url": "https://en.wikipedia.org/wiki/Ko%C5%9Bciuszko_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-363": {
+   "answer": "Third Partition of Poland",
+   "title": "Third Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/Third_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-364": {
+   "answer": "Pugachev's Rebellion",
+   "title": "Pugachev's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Pugachev's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-365": {
+   "answer": "Yemelyan Pugachev",
+   "title": "Yemelyan Pugachev",
+   "url": "https://en.wikipedia.org/wiki/Yemelyan_Pugachev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-366": {
+   "answer": "destruction of the Zaporozhian Sich",
+   "title": "Liquidation of the Zaporozhian Sich",
+   "url": "https://en.wikipedia.org/wiki/Liquidation_of_the_Zaporozhian_Sich",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-367": {
+   "answer": "provincial reform of 1775",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Governorate (Russia)",
+    "1775",
+    "Catherine the Great",
+    "Yemelyan Pugachev",
+    "Baltic Governorates"
+   ]
+  },
+  "ru-368": {
+   "answer": "Charter to the Nobility",
+   "title": "Charter to the Gentry",
+   "url": "https://en.wikipedia.org/wiki/Charter_to_the_Gentry",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Charter to the Nobility"
+  },
+  "ru-369": {
+   "answer": "Charter to the Towns",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Magadan",
+    "Federal subjects of Russia",
+    "Russo-Ukrainian war",
+    "Anadyr (town)"
+   ]
+  },
+  "ru-370": {
+   "answer": "Pale of Settlement",
+   "title": "Pale of Settlement",
+   "url": "https://en.wikipedia.org/wiki/Pale_of_Settlement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-391": {
+   "answer": "Finnish War",
+   "title": "Finnish War",
+   "url": "https://en.wikipedia.org/wiki/Finnish_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-392": {
+   "answer": "Grand Duchy of Finland",
+   "title": "Grand Duchy of Finland",
+   "url": "https://en.wikipedia.org/wiki/Grand_Duchy_of_Finland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-393": {
+   "answer": "Russo-Turkish War of 1806–1812",
+   "title": "Russo-Turkish War (1806–1812)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1806%E2%80%931812)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1806–1812"
+  },
+  "ru-394": {
+   "answer": "Bessarabia Governorate",
+   "title": "Bessarabia Governorate",
+   "url": "https://en.wikipedia.org/wiki/Bessarabia_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-395": {
+   "answer": "Russo-Persian War of 1804–1813",
+   "title": "Russo-Persian War (1804–1813)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1804%E2%80%931813)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-396": {
+   "answer": "Treaty of Gulistan",
+   "title": "Treaty of Gulistan",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Gulistan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-397": {
+   "answer": "French invasion of Russia",
+   "title": "French invasion of Russia",
+   "url": "https://en.wikipedia.org/wiki/French_invasion_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-398": {
+   "answer": "Mikhail Kutuzov",
+   "title": "Mikhail Kutuzov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Kutuzov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-399": {
+   "answer": "1812 Battle of Smolensk",
+   "title": "Battle of Smolensk (1812)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Smolensk_(1812)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-400": {
+   "answer": "Battle of Borodino",
+   "title": "Battle of Borodino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Borodino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-221": {
+   "answer": "Second Intermediate Period",
+   "title": "Second Intermediate Period of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Second_Intermediate_Period_of_Egypt",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Second Intermediate Period"
+  },
+  "eg-222": {
+   "answer": "Neferhotep I",
+   "title": "Neferhotep I",
+   "url": "https://en.wikipedia.org/wiki/Neferhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-223": {
+   "answer": "Fourteenth Dynasty of Egypt",
+   "title": "Fourteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fourteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-224": {
+   "answer": "Avaris",
+   "title": "Avaris",
+   "url": "https://en.wikipedia.org/wiki/Avaris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-225": {
+   "answer": "Tell el-Maskhuta",
+   "title": "Pithom",
+   "url": "https://en.wikipedia.org/wiki/Pithom",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tell el-Maskhuta"
+  },
+  "eg-226": {
+   "answer": "Khyan",
+   "title": "Khyan",
+   "url": "https://en.wikipedia.org/wiki/Khyan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-227": {
+   "answer": "Against Apion",
+   "title": "Against Apion",
+   "url": "https://en.wikipedia.org/wiki/Against_Apion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-228": {
+   "answer": "Fifteenth Dynasty of Egypt",
+   "title": "Fifteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fifteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-229": {
+   "answer": "Apepi",
+   "title": "Apepi",
+   "url": "https://en.wikipedia.org/wiki/Apepi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-230": {
+   "answer": "Salitis",
+   "title": "Salitis",
+   "url": "https://en.wikipedia.org/wiki/Salitis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-201": {
+   "answer": "Loyalist Teaching",
+   "title": "Loyalist Teaching",
+   "url": "https://en.wikipedia.org/wiki/Loyalist_Teaching",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-202": {
+   "answer": "Tale of the Shipwrecked Sailor",
+   "title": "Tale of the Shipwrecked Sailor",
+   "url": "https://en.wikipedia.org/wiki/Tale_of_the_Shipwrecked_Sailor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-203": {
+   "answer": "Middle Egyptian",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Middle Egyptian",
+   "target": "Egyptian language#Middle Egyptian"
+  },
+  "eg-204": {
+   "answer": "Beni Hasan",
+   "title": "Beni Hasan",
+   "url": "https://en.wikipedia.org/wiki/Beni_Hasan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-205": {
+   "answer": "Meir",
+   "title": "Meir, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Meir,_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-206": {
+   "answer": "Ushabti",
+   "title": "Ushabti",
+   "url": "https://en.wikipedia.org/wiki/Ushabti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-207": {
+   "answer": "Sithathoriunet",
+   "title": "Sithathoriunet",
+   "url": "https://en.wikipedia.org/wiki/Sithathoriunet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-208": {
+   "answer": "Sebek-khu Stele",
+   "title": "Sebek-khu Stele",
+   "url": "https://en.wikipedia.org/wiki/Sebek-khu_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-209": {
+   "answer": "Execration texts",
+   "title": "Execration texts",
+   "url": "https://en.wikipedia.org/wiki/Execration_texts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-210": {
+   "answer": "Royal necropolis of Byblos",
+   "title": "Royal necropolis of Byblos",
+   "url": "https://en.wikipedia.org/wiki/Royal_necropolis_of_Byblos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-231": {
+   "answer": "Tell el-Yahudiyeh Ware",
+   "title": "Tell el-Yahudiyeh Ware",
+   "url": "https://en.wikipedia.org/wiki/Tell_el-Yahudiyeh_Ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-232": {
+   "answer": "Egyptian chariot",
+   "title": "Chariotry in ancient Egypt",
+   "url": "https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Egyptian chariot"
+  },
+  "eg-233": {
+   "answer": "recurve bow",
+   "title": "Recurve bow",
+   "url": "https://en.wikipedia.org/wiki/Recurve_bow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-234": {
+   "answer": "khopesh",
+   "title": "Khopesh",
+   "url": "https://en.wikipedia.org/wiki/Khopesh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-235": {
+   "answer": "Sixteenth Dynasty of Egypt",
+   "title": "Sixteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Sixteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-236": {
+   "answer": "Seventeenth Dynasty of Egypt",
+   "title": "Seventeenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Seventeenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-237": {
+   "answer": "Quarrel of Apophis and Seqenenre",
+   "title": "The Quarrel of Apophis and Seqenenre",
+   "url": "https://en.wikipedia.org/wiki/The_Quarrel_of_Apophis_and_Seqenenre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-238": {
+   "answer": "Seqenenre Tao",
+   "title": "Seqenenre Tao",
+   "url": "https://en.wikipedia.org/wiki/Seqenenre_Tao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-239": {
+   "answer": "Dra' Abu el-Naga",
+   "title": "Dra' Abu el-Naga",
+   "url": "https://en.wikipedia.org/wiki/Dra'_Abu_el-Naga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-240": {
+   "answer": "Kamose",
+   "title": "Kamose",
+   "url": "https://en.wikipedia.org/wiki/Kamose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-241": {
+   "answer": "Carnarvon Tablet",
+   "title": "Carnarvon Tablet",
+   "url": "https://en.wikipedia.org/wiki/Carnarvon_Tablet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-242": {
+   "answer": "Kerma culture",
+   "title": "Kerma culture",
+   "url": "https://en.wikipedia.org/wiki/Kerma_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-243": {
+   "answer": "Tombos",
+   "title": "Tombos (Nubia)",
+   "url": "https://en.wikipedia.org/wiki/Tombos_(Nubia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-244": {
+   "answer": "Western Deffufa",
+   "title": "Western Deffufa",
+   "url": "https://en.wikipedia.org/wiki/Western_Deffufa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-245": {
+   "answer": "Cusae",
+   "title": "Cusae",
+   "url": "https://en.wikipedia.org/wiki/Cusae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-246": {
+   "answer": "Ahmose I",
+   "title": "Ahmose I",
+   "url": "https://en.wikipedia.org/wiki/Ahmose_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-247": {
+   "answer": "Tjaru",
+   "title": "Tjaru",
+   "url": "https://en.wikipedia.org/wiki/Tjaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-248": {
+   "answer": "Ahmose, son of Ebana",
+   "title": "Ahmose, son of Ebana",
+   "url": "https://en.wikipedia.org/wiki/Ahmose,_son_of_Ebana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-249": {
+   "answer": "Sharuhen",
+   "title": "Sharuhen",
+   "url": "https://en.wikipedia.org/wiki/Sharuhen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-250": {
+   "answer": "Pyramid of Ahmose",
+   "title": "Pyramid of Ahmose",
+   "url": "https://en.wikipedia.org/wiki/Pyramid_of_Ahmose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-251": {
+   "answer": "Ahhotep I",
+   "title": "Ahhotep I",
+   "url": "https://en.wikipedia.org/wiki/Ahhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-252": {
+   "answer": "Eighteenth Dynasty of Egypt",
+   "title": "Eighteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Eighteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-253": {
+   "answer": "Ahmose-Nefertari",
+   "title": "Ahmose-Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Ahmose-Nefertari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-254": {
+   "answer": "Amenhotep I",
+   "title": "Amenhotep I",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-255": {
+   "answer": "Thutmose I",
+   "title": "Thutmose I",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-256": {
+   "answer": "Autobiography of Ahmose Pen-Nekhebet",
+   "title": "Autobiography of Ahmose Pen-Nekhebet",
+   "url": "https://en.wikipedia.org/wiki/Autobiography_of_Ahmose_Pen-Nekhebet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-257": {
+   "answer": "Thutmose II",
+   "title": "Thutmose II",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-258": {
+   "answer": "Speos Artemidos",
+   "title": "Speos Artemidos",
+   "url": "https://en.wikipedia.org/wiki/Speos_Artemidos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-259": {
+   "answer": "Chapelle Rouge",
+   "title": "Chapelle Rouge",
+   "url": "https://en.wikipedia.org/wiki/Chapelle_Rouge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-260": {
+   "answer": "Mortuary temple of Hatshepsut",
+   "title": "Mortuary temple of Hatshepsut",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_temple_of_Hatshepsut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-261": {
+   "answer": "myrrh",
+   "title": "Myrrh",
+   "url": "https://en.wikipedia.org/wiki/Myrrh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-262": {
+   "answer": "Senenmut",
+   "title": "Senenmut",
+   "url": "https://en.wikipedia.org/wiki/Senenmut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-263": {
+   "answer": "obelisk ship",
+   "title": "Obelisk ship",
+   "url": "https://en.wikipedia.org/wiki/Obelisk_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-264": {
+   "answer": "Seated Statue of Hatshepsut",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mortuary temple of Hatshepsut",
+    "Merytre-Hatshepsut",
+    "Thebes, Egypt",
+    "Grand Egyptian Museum",
+    "Deir el-Bahari"
+   ]
+  },
+  "eg-265": {
+   "answer": "Festival Hall of Thutmose III",
+   "title": "Festival Hall of Thutmose III",
+   "url": "https://en.wikipedia.org/wiki/Festival_Hall_of_Thutmose_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-266": {
+   "answer": "Battle of Megiddo",
+   "title": "Battle of Megiddo (15th century BC)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Megiddo_(15th_century_BC)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-267": {
+   "answer": "Annals of Thutmose III",
+   "title": "Annals of Thutmose III",
+   "url": "https://en.wikipedia.org/wiki/Annals_of_Thutmose_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-268": {
+   "answer": "Retjenu",
+   "title": "Retjenu",
+   "url": "https://en.wikipedia.org/wiki/Retjenu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-269": {
+   "answer": "Djehuty",
+   "title": "Djehuty (general)",
+   "url": "https://en.wikipedia.org/wiki/Djehuty_(general)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-270": {
+   "answer": "Kurgus",
+   "title": "Kanisah Kurgus",
+   "url": "https://en.wikipedia.org/wiki/Kanisah_Kurgus",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kurgus"
+  },
+  "eg-271": {
+   "answer": "Viceroy of Kush",
+   "title": "Viceroy of Kush",
+   "url": "https://en.wikipedia.org/wiki/Viceroy_of_Kush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-272": {
+   "answer": "Amenhotep II",
+   "title": "Amenhotep II",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-273": {
+   "answer": "Thutmose IV",
+   "title": "Thutmose IV",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_IV",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-274": {
+   "answer": "Dream Stele",
+   "title": "Dream Stele",
+   "url": "https://en.wikipedia.org/wiki/Dream_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-275": {
+   "answer": "Amenhotep III",
+   "title": "Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-276": {
+   "answer": "Malkata",
+   "title": "Malkata",
+   "url": "https://en.wikipedia.org/wiki/Malkata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-277": {
+   "answer": "Colossi of Memnon",
+   "title": "Colossi of Memnon",
+   "url": "https://en.wikipedia.org/wiki/Colossi_of_Memnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-278": {
+   "answer": "Tiye",
+   "title": "Tiye",
+   "url": "https://en.wikipedia.org/wiki/Tiye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-279": {
+   "answer": "Amenhotep, son of Hapu",
+   "title": "Amenhotep, son of Hapu",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep,_son_of_Hapu",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-280": {
+   "answer": "Kadashman-Enlil I",
+   "title": "Kadashman-Enlil I",
+   "url": "https://en.wikipedia.org/wiki/Kadashman-Enlil_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-281": {
+   "answer": "Rib-Hadda",
+   "title": "Rib-Hadda",
+   "url": "https://en.wikipedia.org/wiki/Rib-Hadda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-282": {
+   "answer": "Tushratta",
+   "title": "Tushratta",
+   "url": "https://en.wikipedia.org/wiki/Tushratta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-283": {
+   "answer": "Suppiluliuma I",
+   "title": "Šuppiluliuma I",
+   "url": "https://en.wikipedia.org/wiki/%C5%A0uppiluliuma_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-284": {
+   "answer": "Menkheperraseneb I",
+   "title": "Menkheperraseneb I",
+   "url": "https://en.wikipedia.org/wiki/Menkheperraseneb_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-285": {
+   "answer": "Burna-Buriash II",
+   "title": "Burna-Buriash II",
+   "url": "https://en.wikipedia.org/wiki/Burna-Buriash_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-286": {
+   "answer": "Yuya",
+   "title": "Yuya",
+   "url": "https://en.wikipedia.org/wiki/Yuya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-287": {
+   "answer": "Amenemhab",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "TT44",
+    "TT25",
+    "TT85",
+    "Seti (Viceroy of Kush)",
+    "List of ancient Egyptians"
+   ]
+  },
+  "eg-288": {
+   "answer": "Temple of Amada",
+   "title": "Temple of Amada",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Amada",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-289": {
+   "answer": "Puimre",
+   "title": "Puimre",
+   "url": "https://en.wikipedia.org/wiki/Puimre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-290": {
+   "answer": "Hapuseneb",
+   "title": "Hapuseneb",
+   "url": "https://en.wikipedia.org/wiki/Hapuseneb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-291": {
+   "answer": "God's Wife of Amun",
+   "title": "God's Wife of Amun",
+   "url": "https://en.wikipedia.org/wiki/God's_Wife_of_Amun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-292": {
+   "answer": "Menhet, Menwi and Merti",
+   "title": "Menhet, Menwi and Merti",
+   "url": "https://en.wikipedia.org/wiki/Menhet,_Menwi_and_Merti",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-293": {
+   "answer": "Nine Bows",
+   "title": "Nine bows",
+   "url": "https://en.wikipedia.org/wiki/Nine_bows",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-294": {
+   "answer": "Tomb of Kheruef",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Theban tombs",
+    "TT192",
+    "Akhenaten",
+    "Amenhotep III",
+    "TT407"
+   ]
+  },
+  "eg-295": {
+   "answer": "commemorative scarabs of Amenhotep III",
+   "title": "Commemorative scarabs of Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Commemorative_scarabs_of_Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-296": {
+   "answer": "KV55",
+   "title": "KV55",
+   "url": "https://en.wikipedia.org/wiki/KV55",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-297": {
+   "answer": "Tomb of Ramose",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ramose",
+    "Southern Tomb 11",
+    "Ramesses II",
+    "Ramose and Hatnofer",
+    "Ramose (TT55)"
+   ]
+  },
+  "eg-298": {
+   "answer": "Aten",
+   "title": "Aten",
+   "url": "https://en.wikipedia.org/wiki/Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-299": {
+   "answer": "Atenism",
+   "title": "Atenism",
+   "url": "https://en.wikipedia.org/wiki/Atenism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-300": {
+   "answer": "Great Hymn to the Aten",
+   "title": "Great Hymn to the Aten",
+   "url": "https://en.wikipedia.org/wiki/Great_Hymn_to_the_Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-211": {
+   "answer": "Henenu",
+   "title": "Henenu (high steward)",
+   "url": "https://en.wikipedia.org/wiki/Henenu_(high_steward)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-212": {
+   "answer": "Serabit el-Khadim",
+   "title": "Serabit el-Khadim",
+   "url": "https://en.wikipedia.org/wiki/Serabit_el-Khadim",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-213": {
+   "answer": "Wah-Sut",
+   "title": "Wah-Sut",
+   "url": "https://en.wikipedia.org/wiki/Wah-Sut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-214": {
+   "answer": "Heliopolis",
+   "title": "Heliopolis (ancient Egypt)",
+   "url": "https://en.wikipedia.org/wiki/Heliopolis_(ancient_Egypt)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-215": {
+   "answer": "Ikhernofret",
+   "title": "Ikhernofret",
+   "url": "https://en.wikipedia.org/wiki/Ikhernofret",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-216": {
+   "answer": "Mysteries of Osiris",
+   "title": "Mysteries of Osiris",
+   "url": "https://en.wikipedia.org/wiki/Mysteries_of_Osiris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-217": {
+   "answer": "Dramatic Ramesseum Papyrus",
+   "title": "Dramatic Ramesseum Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Dramatic_Ramesseum_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-218": {
+   "answer": "Block statue",
+   "title": "Block statue",
+   "url": "https://en.wikipedia.org/wiki/Block_statue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-219": {
+   "answer": "Papyrus Brooklyn 35.1446",
+   "title": "Papyrus Brooklyn 35.1446",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Brooklyn_35.1446",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-220": {
+   "answer": "Amenemhat IV",
+   "title": "Amenemhat IV",
+   "url": "https://en.wikipedia.org/wiki/Amenemhat_IV",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
