@@ -9330,7 +9330,15 @@ window.GLOSSARY = {
 "Hunefer": "",
 "Abu_Simbel": "",
 "Houmuwu_ding": "",
-"Thutmose_(sculptor)": ""
+"Thutmose_(sculptor)": "",
+"Banpo_human-face_fish_basin": "",
+"Varna_Grave_43_sceptre": "",
+"Newgrange_entrance_stone": "",
+"Warka_Vase": "",
+"Mask_of_Warka": "",
+"Battlefield_Palette": "",
+"Kneeling_Bull_with_Vessel": "",
+"Umataka_flame_pot": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13930,7 +13938,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hunefer": "c. 1300 – 1275 BCE",
 "Abu_Simbel": "c. 1264 BCE",
 "Houmuwu_ding": "c. 1250 – 1046 BCE",
-"Thutmose_(sculptor)": "fl. c. 1350 BCE"
+"Thutmose_(sculptor)": "fl. c. 1350 BCE",
+"Banpo_human-face_fish_basin": "c. 4800 – 4000 BCE",
+"Varna_Grave_43_sceptre": "c. 4600 – 4300 BCE",
+"Newgrange_entrance_stone": "c. 3200 BCE",
+"Warka_Vase": "c. 3500 – 3000 BCE",
+"Mask_of_Warka": "c. 3500 – 3000 BCE",
+"Battlefield_Palette": "c. 3150 – 3100 BCE",
+"Kneeling_Bull_with_Vessel": "c. 3100 – 2900 BCE",
+"Umataka_flame_pot": "c. 3500 – 2500 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19843,7 +19859,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mask_of_Tutankhamun": ["Tutankhamun's mask","Tutankhamun mask"],
 "Hunefer": ["Book of the Dead of Hunefer","Papyrus of Hunefer"],
 "Abu_Simbel": ["Abu Simbel colossi","Great Temple of Abu Simbel","Abu Simbel temples"],
-"Houmuwu_ding": ["Simuwu ding","Hou Mu Wu ding","Si Mu Wu ding"]
+"Houmuwu_ding": ["Simuwu ding","Hou Mu Wu ding","Si Mu Wu ding"],
+"Banpo_human-face_fish_basin": ["Banpo human-face fish basin","Painted pottery basin with fish and human face design"],
+"Varna_Grave_43_sceptre": ["Varna Grave 43 sceptre","Varna sceptre"],
+"Newgrange_entrance_stone": ["Newgrange entrance stone","Kerbstone K1"],
+"Warka_Vase": ["Uruk Vase","Warka Vase"],
+"Mask_of_Warka": ["Mask of Warka","Lady of Warka","Lady of Uruk"],
+"Battlefield_Palette": ["Battlefield Palette"],
+"Kneeling_Bull_with_Vessel": ["Kneeling bull holding a spouted vessel","Kneeling Bull with Vessel"],
+"Umataka_flame_pot": ["Umataka flame pot"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29331,7 +29355,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hunefer": ["manuscript","art","egypt","religion"],
 "Abu_Simbel": ["building","art","egypt","new kingdom","nubia"],
 "Houmuwu_ding": ["object","art","china","bronze","bronze age"],
-"Thutmose_(sculptor)": ["person","art","egypt","amarna"]
+"Thutmose_(sculptor)": ["person","art","egypt","amarna"],
+"Banpo_human-face_fish_basin": ["object","art","prehistory","china","neolithic"],
+"Varna_Grave_43_sceptre": ["object","art","prehistory","bulgaria","europe"],
+"Newgrange_entrance_stone": ["sculpture","art","prehistory","ireland","neolithic"],
+"Warka_Vase": ["object","art","religion","mesopotamia","iraq"],
+"Mask_of_Warka": ["object","art","religion","mesopotamia","iraq"],
+"Battlefield_Palette": ["object","art","history","egypt","predynastic"],
+"Kneeling_Bull_with_Vessel": ["object","art","religion","iran","asia"],
+"Umataka_flame_pot": ["object","art","prehistory","japan","jomon"]
 });
 
 /* ============================================================================

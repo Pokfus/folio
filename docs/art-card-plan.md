@@ -856,7 +856,7 @@ keeps the question mark.
 ### The Bronze Age, 3000–1500 BCE — `art-bronze`
 
     art-038  The Narmer Palette — Egypt, c. 3100 BCE
-    art-039  The Guennol Lioness — Mesopotamia, c. 3000 BCE
+    art-039  The Met silver kneeling bull holding a spouted vessel — Proto-Elamite Iran, c. 3000 BCE
     art-040  The Umataka flame pot — Japan, c. 3000 BCE
     art-041  The Harp Player of Keros — the Cyclades, c. 2800 BCE
     art-042  The Tell Asmar worshipper statue — Mesopotamia, c. 2750 BCE
