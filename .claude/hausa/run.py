@@ -3,6 +3,7 @@
 
     python3 .claude/hausa/run.py                 # A1
     python3 .claude/hausa/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/hausa/run.py --level phr     # the phrases deck (its list: phrases.py)
     python3 .claude/hausa/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/hausa/run.py --re-extract    # rebuild the level's lexicon (after editing hand.py!)
     python3 .claude/hausa/alphabet.py            # the alphabet deck (reads lex.json)
@@ -71,7 +72,8 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    # the phrases deck deals a hand-chosen list (phrases.py) in place of the level's selection
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     from hausa_level import LEX
     if not os.path.exists(LEX) or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')

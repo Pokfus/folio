@@ -5,8 +5,9 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hausa language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hausa/`, §6–§8). The phrases
-deck is not.
+**STATUS (2026-11-12): the collection is complete**: the alphabet deck, A1, A2, B1 and the phrases deck
+(`.claude/hausa/`, §6–§9). Asked for a B2 on 2026-11-12, the owner chose the phrases deck instead, since a B2
+would have been nearly all hand-glossed (§9).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -32,7 +33,7 @@ Asked after a survey of the sources (§2), which are far thinner than for any la
 | Hausa A1 Beginner — built | `Hausa-A1.folio-deck.json` | 500 |
 | Hausa A2 Elementary — built | `Hausa-A2.folio-deck.json` | 750 |
 | Hausa B1 Intermediate — built | `Hausa-B1.folio-deck.json` | 1,000 |
-| Hausa Phrases and Expressions | `Hausa-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Hausa Phrases and Expressions — built | `Hausa-Phrases-and-Expressions.folio-deck.json` | 108 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -202,3 +203,30 @@ below).
 **Known, left.** The tone line covers only a sixth of B1, because the hand glosses carry none. A third of
 the words have no sentence (mostly multi-word terms, and Wiktionary words the corpus never uses). Some
 sentences carry idioms that are hard to read at B1 (`gajeren wando` "a bull in shorts").
+
+## 9. As built (2026-11-12): the phrases deck, and no B2
+
+**No B2.** Asked for "Add B2", Folio pointed out that the owner had chosen A1–B1 (§1) and that after B1 no
+source word was left: B2 would have been almost entirely Folio's glosses, with no tone lines and few
+sentences. The owner chose the phrases deck instead.
+
+`python3 .claude/hausa/run.py --level phr [--re-extract]` runs `phrases.py` in place of `select.py`. 108
+expressions / 216 cards, in three subdecks (the card's `sub`): 38 greetings and wishes, 51 everyday phrases,
+19 exclamations and formulas. Only 8 have a tone line: the Arabic religious formulas that are Wiktionary's
+own entries (`salamu alaikum`, `alaikum salam`, `in sha Allahu`, `ma sha Allahu`, `alhamdulillahi`,
+`bisimillahi`, `bisimilla`, `tubarkalla`). The other 100 are hand-glossed (`hand.HAND_PHR`). 47 have sentences.
+A re-run is byte-identical, and the levels are unchanged.
+
+- **NO PROVERBS AND NO IDIOMS**, unlike the Bengali and Turkish phrases decks. English Wiktionary has no
+  Hausa `proverb` entry, and Tatoeba's 21,850 Hausa sentences hold none either (searched 2026-11-12), so a
+  proverb from memory would be a claim with no source. Wiktionary's other multi-word entries are place names,
+  given names, Islamic months and compound nouns (`jirgin ruwa`, `ruwan inabi`): vocabulary, not expressions.
+- **SHOWN WITH ITS PUNCTUATION, KEYED WITHOUT IT**: a row carries `show` (`Ina kwana?`), which the card's
+  `Hausa` field prints, while `Word` stays plain (`ina kwana`) for `check-hausa.js`'s Boko test and the
+  sentence matching. A phrase for a man and one for a woman are both given where Hausa tells them apart.
+- **A MULTI-WORD PHRASE IS FOUND INSIDE SENTENCES THAT MEAN SOMETHING ELSE** (`nawa ne` "it is mine",
+  `ina son ka` "I want you to …", `ina zuwa` "where to", `haka ne` inside a longer clause), so 13 phrases must
+  have their meaning in the sentence's English (`examples.EX_NEED`, the phrases block).
+
+**Known, left.** Most greetings have no sentence: Tatoeba's Hausa is translated from English sentences,
+which rarely hold `ina gajiya?`. The order is the list's own (an expression's corpus count is not measured).

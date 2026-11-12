@@ -49,6 +49,20 @@ EX_NEED = {
     'mayu': r'\bMay\b',
     'raƙumi': r'(?i)\bcamels?\b',
     'bana': r'(?i)\bthis year\b',            # B1: mostly "ba na", I do not
+    # the phrases deck (2026-11-12): a phrase found inside a sentence that means something else
+    'ina kwana': r"(?i)\bgood morning\b",
+    'allah ya kiyaye hanya': r"(?i)\b(?:journey|trip|travel\w*|safe)\b",
+    'nawa ne': r"(?i)\bhow (?:much|many)\b",
+    'da sauƙi': r"(?i)\bbetter\b",
+    'babu damuwa': r"(?i)\b(?:worr\w*|problem|trouble)\b",
+    'ba ni da lafiya': r"(?i)\b(?:ill|unwell|not well)\b",
+    'ina son ka': r"(?i)\b(?:love|like)\b",
+    'ina zuwa': r"(?i)\b(?:coming|be right back|be back)\b",
+    'ga shi': r"(?i)\b(?:here it is|here you are|look)\b",
+    'haka ne': r"(?i)\b(?:right|true|correct)\b",
+    'ba haka ba': r"(?i)\b(?:not so|otherwise|not true|wrong)\b",
+    'shi ke nan': r"(?i)\b(?:that's (?:it|all|that)|that is (?:it|all))\b",
+    'allah ya sa': r"(?i)\b(?:may God|amen)\b",
     # B1 (2026-11-12): read off the cards, each a homograph or a joined spelling
     'tace': r'(?i)\b(?:filter\w*|strain\w*|sieve\w*)\b',
     'huce': r'(?i)\b(?:cool\w*|calm\w*)\b',

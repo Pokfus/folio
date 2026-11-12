@@ -3592,8 +3592,9 @@ changed was the one that had been wrong all along.
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
   (36 notes), **A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Hausa-A2.folio-deck.json`**
   (750 notes, 2026-11-12; each level's hand glosses and lexicon kept apart so A1 stays byte-identical) **and B1,
-  `decks/Hausa-B1.folio-deck.json`** (1,000 notes, 2026-11-12, all from the inventory: the fill is exhausted). `python3 .claude/hausa/run.py
-  [--level a1|a2|b1] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
+  `decks/Hausa-B1.folio-deck.json`** (1,000 notes, 2026-11-12, all from the inventory: the fill is exhausted) **and the phrases deck,
+  `decks/Hausa-Phrases-and-Expressions.folio-deck.json`** (108 expressions in three subdecks, no proverbs: no source
+  holds one; the owner chose it over a B2). `python3 .claude/hausa/run.py [--level a1|a2|b1|phr] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
   is byte-identical. The thinnest sources on the shelf: Wiktionary has about 2,000 Hausa words and lacks core
   ones (`yi`, `tafi`, `da`), so 137 of A1's cards carry Folio's own gloss (`hand.py`, no tone line — a tone
   typed from memory has no source); there is no published frequency list, so frequency is counted from

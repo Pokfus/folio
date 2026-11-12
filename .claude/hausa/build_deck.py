@@ -302,15 +302,16 @@ def build(rows, lex, exs):
             # the tone line takes the printed word's case: Hausa, but lahira
             toned = (toned[:1].upper() if word[:1].isupper() else toned[:1].lower()) + toned[1:]
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
-            'Hausa': E(word),
+        cards.append({'sub': r.get('sub', ''), 'fields': {
+            # the phrases deck shows an expression as written (`Ina kwana?`); Word stays plain
+            'Hausa': E(r.get('show') or word),
             'Tone': E(toned),
             'Word': word,
             'English': english(ents, word, ents[0]['toned'] if ents[0]['src'] == 'wiktionary' else ''),
             'Forms': forms_line(ents, word),
             'Examples': examples_html(ex),
         }})
-        entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'],
+        entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'], 'sub': r.get('sub', ''),
                         'examples': len(ex), 'toned': bool(toned),
                         'hand': any(e['src'] == 'hand' for e in ents)})
     return cards, entries
@@ -372,6 +373,38 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Greetings and wishes', 'Everyday phrases', 'Exclamations and formulas')
+
+
+def desc_phr(entries, n):
+    """The phrases deck's description: no CEFR band, the three subdecks, what is sourced how."""
+    by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+    toned = sum(1 for e in entries if e['toned'])
+    ex = sum(1 for e in entries if e['examples'])
+    return (
+        f"{n} Hausa expressions in three subdecks: {by[PHR_SUBS[0]]} greetings and wishes, "
+        f"{by[PHR_SUBS[1]]} everyday phrases and {by[PHR_SUBS[2]]} exclamations and set formulas. "
+        "Both study directions come as cards of their own: Hausa → English (see the expression, "
+        "recall its meaning) and English → Hausa (see the meaning, recall the expression). This is "
+        "not a CEFR level; it is the set phrases a learner needs whole, which a word list cannot "
+        "teach, and nothing here is taught by any of the level decks. The greetings are the long "
+        "exchange Hausa speakers open with (ina kwana? — lafiya lau; ina gajiya? — ba gajiya), the "
+        "wishes for a journey, an illness, a birth and a death, and the leave-takings; the everyday "
+        "phrases are the phrasebook sentences, and those for a man and for a woman are both given "
+        "where Hausa tells them apart (kana lafiya? / kina lafiya?). WHERE THEY COME FROM: "
+        f"{toned} of the {n}, the Arabic religious formulas every Hausa speaker uses (salamu "
+        "alaikum, in sha Allahu, alhamdulillahi), are English Wiktionary's entries and carry their "
+        "tones and vowel length on a second line; the rest are glossed by Folio and carry no tone "
+        "line, since a tone that no source states is not printed. A literal translation follows "
+        "the meaning wherever it helps. THERE ARE NO PROVERBS: neither English Wiktionary nor the "
+        "Tatoeba collection holds a Hausa proverb, and one written from memory would have no source. "
+        f"{ex} of the expressions come with real example sentences from Tatoeba. There is no "
+        "read-aloud button: few devices carry a Hausa voice. Sources. English Wiktionary, via the "
+        "kaikki.org extraction (CC BY-SA 4.0), and Folio's own glosses. Example sentences: Tatoeba "
+        "(tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open(LEX, encoding='utf-8'))
@@ -384,9 +417,15 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['hausa', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': (f'{n} words · both directions, as two cards per word' if LEVEL != 'phr' else
+                     f'{n} expressions · ' + ', '.join(
+                         f"{sum(1 for e in entries if e['sub'] == k)} {w}" for k, w in zip(
+                             PHR_SUBS, ('greetings', 'everyday', 'exclamations'))) +
+                     ' · both directions'),
+        'desc': desc(entries, n) if LEVEL != 'phr' else desc_phr(entries, n),
+        'author': '', 'language': 'en', 'color': COLOR,
+        'tags': (['hausa', 'vocabulary', LEVEL, NAMES[LEVEL].lower()] if LEVEL != 'phr' else
+                 ['hausa', 'phrases', 'greetings', 'expressions']),
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Hausa vocabulary', 'speechLang': 'ha-NG',

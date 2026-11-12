@@ -92,7 +92,7 @@ LEARNER = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermed
 # WHICH HAND GLOSSES THE LEXICON IS BUILT WITH, and where it goes: this level's and every
 # level's below it (`hand.HANDS`).  A1's lexicon keeps its old name, `lex.json`, which
 # `alphabet.py` also reads; a higher level's is `lex-<level>.json`.
-HAND_LEVELS = BELOW.get(LEVEL, []) + ([LEVEL] if LEVEL in BANDS else [])
+HAND_LEVELS = BELOW.get(LEVEL, []) + [LEVEL]
 LEX = 'lex.json' if LEVEL == 'a1' else f'lex-{LEVEL}.json'
 
 
