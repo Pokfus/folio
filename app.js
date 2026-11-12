@@ -29417,6 +29417,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        from its nearest neighbours (Greek's periwinkle and French's blue), against a tightest existing pair of
        4.0; 4.6:1 against white. Not a flag colour. */
     "lang-tagalog":    { bg: "#2A72DB" }, // measured azure
+    /* HEBREW (Nov 2026) was not named a colour, so it was MEASURED as Tagalog was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from every hue on the page,
+       the magenta band's standing rejection kept (the raw winner, 15.4, was an orchid there) and the greens left
+       out: a cornflower blue, 15.0 from its nearest neighbours (French's blue and Tagalog's azure), against a
+       tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (Israel's blue is far deeper). */
+    "lang-hebrew":     { bg: "#5E6EC0" }, // measured cornflower
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

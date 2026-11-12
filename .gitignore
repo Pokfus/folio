@@ -268,3 +268,8 @@ countries-info.json
 # extract, the Irish Wikipedia dump and the Tatoeba exports (~270 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/irish-cache/
+
+# the corpora .claude/hebrew/run.py builds the Hebrew decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/hebrew-cache/
