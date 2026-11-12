@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"493637e253bbcfe0","counts":{"terms":940,"points":703,"countries":237,"windows":1521,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":{"terms":940,"points":703,"countries":237,"windows":1522,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1009,6 +1009,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"493637e253bbcfe0","counts":
 "Apennines":[13.566,42.469,"range",0,0,0],
 "Appalachian_Mountains":[-85.213,35.882,"range",0,0,0],
 "Appian_Way":[12.533,41.841,"site",0,0,0],
+"Appomattox_Court_House_National_Historical_Park":[-78.796,37.378,"coord",0,0,0],
 "Aqua_Appia":[12.489,41.883,"coord",0,0,0],
 "Aqua_Claudia":[12.515,41.892,"coord",0,0,0],
 "Aqua_Marcia":[12.563,41.847,"site",0,0,0],
