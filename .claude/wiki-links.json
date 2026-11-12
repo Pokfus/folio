@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T08:02Z",
+ "generated": "2026-11-12T08:04Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7646,
+  "ok": 7653,
   "redirect-broader": 747,
   "redirect-variant": 463,
-  "section-redirect": 174,
+  "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1131,
-  "disambig-resolved": 101,
+  "none": 1132,
+  "disambig-resolved": 102,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -83283,6 +83283,86 @@
    "answer": "Nez Perce War",
    "title": "Nez Perce War",
    "url": "https://en.wikipedia.org/wiki/Nez_Perce_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-631": {
+   "answer": "Radical Reconstruction",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Radical Reconstruction",
+   "target": "Reconstruction era#Congressional Reconstruction"
+  },
+  "us-632": {
+   "answer": "Thaddeus Stevens",
+   "title": "Thaddeus Stevens",
+   "url": "https://en.wikipedia.org/wiki/Thaddeus_Stevens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-633": {
+   "answer": "Reconstruction Acts",
+   "title": "Reconstruction Acts",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-634": {
+   "answer": "Impeachment of Andrew Johnson",
+   "title": "Impeachment of Andrew Johnson",
+   "url": "https://en.wikipedia.org/wiki/Impeachment_of_Andrew_Johnson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-635": {
+   "answer": "Fifteenth Amendment",
+   "title": "Fifteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Fifteenth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Fifteenth Amendment"
+  },
+  "us-636": {
+   "answer": "Black officeholders during Reconstruction",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of African-American United States senators",
+    "African American officeholders from the end of the Civil War until before 1900",
+    "African-American officeholders in the United States, 1789–1866",
+    "Reconstruction era",
+    "African Americans in the United States Congress"
+   ]
+  },
+  "us-637": {
+   "answer": "Hiram R. Revels",
+   "title": "Hiram R. Revels",
+   "url": "https://en.wikipedia.org/wiki/Hiram_R._Revels",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-638": {
+   "answer": "Freedmen's schools",
+   "title": "Freedmen's schools",
+   "url": "https://en.wikipedia.org/wiki/Freedmen's_schools",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-639": {
+   "answer": "Carpetbagger",
+   "title": "Carpetbagger",
+   "url": "https://en.wikipedia.org/wiki/Carpetbagger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-640": {
+   "answer": "Ku Klux Klan",
+   "title": "Ku Klux Klan",
+   "url": "https://en.wikipedia.org/wiki/Ku_Klux_Klan",
    "via": "glossary",
    "status": "ok"
   }

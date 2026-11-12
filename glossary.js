@@ -10607,7 +10607,17 @@ window.GLOSSARY = {
 "Sand_Creek_massacre": "",
 "Battle_of_the_Little_Bighorn": "",
 "Sitting_Bull": "",
-"Nez_Perce_War": ""
+"Nez_Perce_War": "",
+"Radical_Reconstruction": "",
+"Thaddeus_Stevens": "",
+"Reconstruction_Acts": "",
+"Impeachment_of_Andrew_Johnson": "",
+"Fifteenth_Amendment_to_the_United_States_Constitution": "",
+"African_American_officeholders_from_the_end_of_the_Civil_War_until_before_1900": "",
+"Hiram_R._Revels": "",
+"Freedmen's_schools": "",
+"Carpetbagger": "",
+"Ku_Klux_Klan": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15648,7 +15658,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sand_Creek_massacre": "1864",
 "Battle_of_the_Little_Bighorn": "1876",
 "Sitting_Bull": "c. 1831–1890",
-"Nez_Perce_War": "1877"
+"Nez_Perce_War": "1877",
+"Radical_Reconstruction": "1867–1877",
+"Thaddeus_Stevens": "1792–1868",
+"Reconstruction_Acts": "1867",
+"Impeachment_of_Andrew_Johnson": "1868",
+"Fifteenth_Amendment_to_the_United_States_Constitution": "1870",
+"African_American_officeholders_from_the_end_of_the_Civil_War_until_before_1900": "1867–1877",
+"Hiram_R._Revels": "1827–1901",
+"Freedmen's_schools": "1861–1870s",
+"Carpetbagger": "1865–1877",
+"Ku_Klux_Klan": "1866–present"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22488,7 +22508,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sand_Creek_massacre": ["Sand Creek Massacre"],
 "Battle_of_the_Little_Bighorn": ["Battle of Little Bighorn","Battle of the Greasy Grass","Custer's Last Stand"],
 "Sitting_Bull": ["Tatanka Iyotanka"],
-"Nez_Perce_War": ["Flight of 1877","Nez Perce Flight of 1877"]
+"Nez_Perce_War": ["Flight of 1877","Nez Perce Flight of 1877"],
+"Radical_Reconstruction": ["Radical Reconstruction","Congressional Reconstruction"],
+"Reconstruction_Acts": ["Military Reconstruction Acts","Reconstruction Act of 1867"],
+"Impeachment_of_Andrew_Johnson": ["Impeachment of Andrew Johnson"],
+"Fifteenth_Amendment_to_the_United_States_Constitution": ["Fifteenth Amendment","15th Amendment"],
+"African_American_officeholders_from_the_end_of_the_Civil_War_until_before_1900": ["Black officeholders during Reconstruction"],
+"Hiram_R._Revels": ["Hiram Revels","Hiram Rhodes Revels"],
+"Freedmen's_schools": ["Freedmen's schools","freedmen's school"],
+"Carpetbagger": ["carpetbaggers"],
+"Ku_Klux_Klan": ["KKK","Klan"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33256,7 +33285,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sand_Creek_massacre": ["event","history","warfare","united states"],
 "Battle_of_the_Little_Bighorn": ["battle","history","warfare","united states"],
 "Sitting_Bull": ["person","history","warfare","united states"],
-"Nez_Perce_War": ["war","history","warfare","united states"]
+"Nez_Perce_War": ["war","history","warfare","united states"],
+"Radical_Reconstruction": ["era","history","politics","united states"],
+"Thaddeus_Stevens": ["person","history","politics","united states"],
+"Reconstruction_Acts": ["text","history","politics","united states"],
+"Impeachment_of_Andrew_Johnson": ["event","history","politics","united states"],
+"Fifteenth_Amendment_to_the_United_States_Constitution": ["text","history","law","united states"],
+"African_American_officeholders_from_the_end_of_the_Civil_War_until_before_1900": ["people","history","politics","united states"],
+"Hiram_R._Revels": ["person","history","politics","united states"],
+"Freedmen's_schools": ["institution","history","education","united states"],
+"Carpetbagger": ["people","history","politics","united states"],
+"Ku_Klux_Klan": ["institution","history","politics","united states"]
 });
 
 /* ============================================================================
