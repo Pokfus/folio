@@ -5,7 +5,7 @@
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-12: "Add an Irish language collection."
 
-**STATUS (2026-11-12): A1 is built** (`.claude/irish/`, §6). A2 to C1 and a phrases deck are planned (§5).
+**STATUS (2026-11-12): A1 and A2 are built** (`.claude/irish/`, §6–§7). B1 to C1 and a phrases deck are planned (§5).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -32,7 +32,7 @@ the owner's to overrule.**
 | deck | file | notes |
 |---|---|---|
 | Irish A1 Beginner — built | `Irish-A1.folio-deck.json` | 500 |
-| Irish A2 Elementary | `Irish-A2.folio-deck.json` | 750 |
+| Irish A2 Elementary — built | `Irish-A2.folio-deck.json` | 750 |
 | Irish B1 Intermediate | `Irish-B1.folio-deck.json` | 1,000 |
 | Irish B2 Upper Intermediate | `Irish-B2.folio-deck.json` | 1,500 |
 | Irish C1 Advanced | `Irish-C1.folio-deck.json` | 1,500 |
@@ -106,7 +106,7 @@ as the adverb "also" (its own entry), not as `le`'s "with him", which `le`'s tab
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's inventory
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's inventory
 into `inventory.py` and its `SCOPE` into `irish_level.py`, add its `STAMP` in `build_deck.py`, run, read every card.
 **Phase 3** — a phrases deck (Wiktionary's `phrase` / `proverb` entries and the idioms built on `bí` and a
 preposition: `tá ocras orm`, `is maith liom`), on Swedish's `phrases.py`.
@@ -118,3 +118,42 @@ preposition: `tá ocras orm`, `is maith liom`), on Swedish's `phrases.py`.
 `node .claude/irish/check-irish.js` is the check. **A re-run is byte-identical** (verified from `wikitext.py` on).
 A1: 500 notes, 366 from a 23-topic inventory and 134 by frequency; three sentences for 285, none for 111. Every card
 was read. The shelf's hue is measured: `#A84293`, an orchid, 15.4 from its nearest (Turkish's rose).
+
+**The shipped A1 carried the placeholder colour `#000000`** in its `meta.color` until the A2 session: the hue was
+set in `build_deck.py` after the last A1 build and the file was not rebuilt. Rebuilt on 2026-11-12 with
+`#A84293`; nothing else in it changed. The lesson for every level: re-run the level after the last edit to
+`build_deck.py`, and compare against the file about to be committed.
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add A2." `python3 .claude/irish/run.py --level a2`; the same stages, no new source.
+**750 notes: 378 from a 30-topic inventory** (`inventory.py` `A2`: seasons and dates, numbers and the personal
+numbers — `triúr`, `ceathrar` —, the land and nature, weather, animals, clothes, the home and kitchen, food and
+cooking, work, school, travel, the town, health and the body, feelings, people, letters and the phone, shopping,
+free time and sport, verbs, describing, time words, connectors — `SCOPE['a2']`) **and 372 by frequency**; three
+sentences for 107, **none for 450** (Tatoeba's 2,451 Irish pairs are mostly A1 sentences). Every card was read; A1
+re-runs byte-identical after every change below (each A2 table entry names no A1 word).
+
+**What the A2 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- **Place and personal names' pieces** (`tiobraid`, `doire`, `corcach`, `eo`, `ros`, `cluain`, `ráth`, `rinn`,
+  `gall`, `ára`, `art`), and names whose spelling a common word takes: `franc` ← an Fhrainc "France", `rúise` ← na
+  Rúise, `fine` ← Fine Gael.
+- **A rare word whose table or mutations take a common word's count**: `bail` ← `baile`, `at` ← `atá`, `cál` ←
+  `cáil`, `ríog` ← `ríoga`, `dligh` ← `dlí`, `gair` ← `gairm`, `cinn` ← the plural of `ceann`, `clóigh` ← `cló`,
+  `airm` ← `arm`'s plural. The shape to look for: a fill word whose gloss is rare and whose count is high.
+- **Verbal nouns of taught verbs** (`fáil`, `rá`, `teacht`, `imeacht`, `tarlú`, `gabháil`, `coinneáil`, `athrú`) and
+  the dependent past `dearna`; **phrase-only words** (`aice`, `son`, `ais`, `dheas`, `chóir`, `méad`, `éigean`,
+  `ionas`); the copula's relative forms (`dar`, `darb`, `gurb`, `inar` …).
+- **The wrong sense first**: `ETYMS` takes `staid` "state", `ord` "order", `iris` "magazine", `trácht` "traffic",
+  `líon` "number; to fill", `ré` "era", `úd` "yon"; `GLOSS` writes `fadhb` "problem" (Wiktionary's fifth), `altra`
+  "nurse", and cuts "testicle" from `cloch` and "marijuana" from `féar`; `LEAD` puts `leagan` "version", `cuairt`
+  "visit", `rang` "class" first; the inventory names `seol:verb`, `cas:verb`, `caoin:verb`, `comhair:verb`,
+  `láithreach:adv`, `toisc:prep`; `FILL_POS` reads `inis` as "to tell", not "island".
+- `check-irish.js` read `uimhir` "number" as a card of labels only (its gloss is a part-of-speech word); it now reads
+  the glosses themselves.
+
+**Known, left.** The fill is the encyclopaedia's register even more than A1's (`parlaimint`, `toghchán`,
+`príomhchathair`, `miotaseolaíocht`, `fisiceoir`) — the honest result of the only corpus there is, and stated in the
+description; a larger inventory is the lever. Fourteen inventory words are not Wiktionary headwords and were dropped
+(`cuairteoir`, `idirlíon`, `sóinseáil`, `sceallóg`, `contúirteach`, `tóstaer`, `naipcín`, `folcadán`, `blaincéad`,
+`príomhoide`, `cóipleabhar`, `galf`, `dúnta`, `muince`).

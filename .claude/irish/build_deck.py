@@ -36,7 +36,7 @@ from ga import fold, nfc, variants, WORD as GAWORD
 from irish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-12T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-12T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'irish'
@@ -104,6 +104,14 @@ def gloss_text(g, pos):
 # of speech, the first that has it), unless named here.  Read off the A1 build (2026-11-12).
 ETYMS = {
     'do': ['3', '4'],           # the preposition "to, for" and "your"; etymologies 1-2 are verbal particles
+    # A2 (2026-11-12)
+    'staid': ['2'],             # "state, condition"; etymology 1 is "stadium"
+    'ord': ['2'],               # "order"; etymology 1 is "sledgehammer"
+    'iris': ['3'],              # "magazine, journal"; etymology 1 is "strap"
+    'trácht': ['3', '4'],       # "traffic" and "mention"; etymology 1 is "strand", 2 "sole of the foot"
+    'líon': ['2', '3'],         # "number" and "to fill"; etymology 1 is "flax"
+    'ré': ['2'],                # "era, period; moon"; etymology 1 is "level ground"
+    'úd': ['2'],                # "yon, that over there"; etymology 1 is "readiness"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -117,6 +125,12 @@ GLOSS = {
     'a': {'det': ['his, its (lenites: a bhean, "his wife")', 'her, its (no lenition; h before a vowel: a hathair, "her father")', 'their (eclipses: a mbád, "their boat")']},
     'do': {'det': ['your (of one person; lenites: do bhean, "your wife")']},
     'féidir': {'noun': ['possibility (is féidir liom, "I can")']},
+    'fios': {'noun': ['knowledge, information (tá a fhios agam, "I know")']},   # A2: its second is "carnal knowledge"
+    'fadhb': {'noun': ['problem (a knotty problem, a poser)', 'knot (in timber)']},  # the everyday sense is Wiktionary's fifth
+    'cloch': {'noun': ['stone', 'stone (unit of weight, 6.35 kg)']},   # its third is "testicle"
+    'ré': {'noun': ['era, age, period (of time)', 'moon']},
+    'altra': {'noun': ['nurse', 'foster father']},   # Wiktionary lists the old sense first
+    'féar': {'noun': ['grass']},                      # its second is the slang "marijuana"
     'an': {'article': ['the (singular; an bhean, "the woman"; plural na)']},
 }
 
@@ -125,14 +139,18 @@ LEAD = {
     'leath': 'half; part, portion',     # first listed is "side; part, direction"
     'post': 'post, job (of employment)',  # first listed is "timber post"
     'airgead': 'money, sum of money',   # first listed is "silver"
-    'deas': 'nice',                     # first listed is "right, right-hand"
+    'deas': 'nice',
+    'leagan': 'version, reading, form, phrase (of text)',   # A2: first listed is "laying"
+    'cuairt': 'visit',                  # first listed is "circuit; round"
+    'rang': 'class',                    # first listed is "rank"                     # first listed is "right, right-hand"
 }
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
-DROP_POS = {('nó', 'particle'), ('nua', 'noun'), ('bean', 'pron')}
+DROP_POS = {('nó', 'particle'), ('nua', 'noun'), ('bean', 'pron'),
+            ('ainneoin', 'noun'), ('úd', 'noun')}   # A2
 
 # THE PAST OF THE IRREGULAR VERBS, as the Official Standard writes it (third person singular).
 # kaikki.org's tables for these lose the independent past (`téigh` gives only the dependent

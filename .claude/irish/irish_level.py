@@ -65,11 +65,12 @@ SCOPE = {
                  'exchange of information on familiar and routine matters, and to describe in '
                  'simple terms aspects of their background, immediate environment and matters '
                  'in areas of immediate need',
-        'topics': 'the seasons and dates, more numbers, the land and nature, the weather, animals, '
-                  'clothes, the home and the kitchen, food and cooking, work and jobs, school, '
-                  'travel and transport, the town, health, feelings, free time, the everyday verbs '
-                  'of these, describing things and people, time words, and the words that join '
-                  'one clause to the next',
+        'topics': 'the seasons and dates, more numbers and the numbers for counting people, the '
+                  'land and nature, the weather, animals, clothes, the home and the kitchen, food '
+                  'and cooking, work and jobs, school, travel and transport, the town, health and '
+                  'the body, feelings, people and neighbours, letters, the phone and the news, '
+                  'shopping, free time and sport, the everyday verbs of these, describing things '
+                  'and people, time words, and the words that join one clause to the next',
     },
     'b1': {
         'quote': 'Can understand the main points of clear standard input on familiar matters '

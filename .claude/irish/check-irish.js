@@ -32,7 +32,8 @@ for (const f of files) {
     if (!F.English) bad(f + ": " + w + " has no English");
     const firstPos = (F.English.match(/class="uc-pos">([^<]*)</) || [])[1] || "";
     if (/^noun/.test(firstPos) && /genitive/.test(F.Forms) && !/ /.test(w) && !/masculine|feminine|plural only/.test(firstPos)) bad(f + ": " + w + " is a noun with no gender");
-    if (!F.English.replace(/<[^>]+>/g, " ").replace(/\(not [^)]*\)|, not \S+/g, "").replace(/noun|verb|adjective|adverb|pronoun|preposition|determiner|conjunction|particle|interjection|number|phrase|article|masculine|feminine|transitive|intransitive|,/g, "").trim()) bad(f + ": " + w + " has an English side of labels only");
+    const glosses = [...F.English.matchAll(/class="uc-gl">([^<]*)<|<li>([^<]*)</g)].map((m) => (m[1] || m[2] || "").replace(/\(not [^)]*\)/g, "").trim()).filter(Boolean);
+    if (!glosses.length) bad(f + ": " + w + " has an English side of labels only");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
     for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);

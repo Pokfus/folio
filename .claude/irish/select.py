@@ -46,6 +46,40 @@ EXCLUDE = {
     'maidir': 'met only in maidir le "as regards"', 'déanaí': 'met only in le déanaí "recently"',
     # A VERBAL NOUN, shown on its verb's card
     'déanamh': 'the verbal noun of déan', 'dul': 'the verbal noun of téigh',
+    # Read off the A2 ranking (2026-11-12).
+    # PLACE NAMES' AND PERSONAL NAMES' PIECES, counted from the encyclopaedia's places and people
+    'tiobraid': 'counted from Tiobraid Árann "Tipperary"', 'doire': 'counted from Doire "Derry"',
+    'corcach': 'counted from Corcaigh "Cork"', 'ros': 'counted from place names (Ros Comáin ...)',
+    'cluain': 'counted from place names (Cluain Meala ...)', 'ráth': 'counted from place names (Ráth Luirc ...)',
+    'eo': 'counted from Maigh Eo "Mayo"', 'ára': 'counted from Árainn, Oileáin Árann',
+    'franc': 'its count is an Fhrainc "France"', 'rúise': 'its count is na Rúise "of Russia"',
+    'fine': 'counted from Fine Gael, the party', 'art': 'counted from the name Art',
+    'gall': 'counted from place names (Dún na nGall ...)',
+    # A RARE WORD WHOSE COUNT IS ANOTHER'S
+    'bail': 'its table shares baile "town"', 'at': '"to swell", whose count is atá, the relative of bí',
+    'cál': 'kale, whose genitive is the spelling of cáil "fame"', 'ríog': 'its count is ríoga "royal"',
+    'dligh': 'its count is dlí "law"', 'coim': 'a waist; no count of its own',
+    'gair': 'its count is gairm "vocation" and gairid "short"',
+    # MET ONLY IN A PHRASE
+    'aice': 'met only in in aice le "beside"', 'son': 'met only in ar son "for the sake of"',
+    'dheas': 'met only in ó dheas "southwards"', 'ais': 'met only in ar ais, le hais',
+    'chóir': 'met only in ar chóir', 'annáil': 'met only in its plural annála "annals"',
+    # THE COPULA'S RELATIVE FORMS: grammar, not a word to learn at this level
+    'dar': 'a copula form', 'darb': 'a copula form', 'darbh': 'a copula form',
+    'gurb': 'a copula form', 'gurbh': 'a copula form', 'inar': 'a copula form',
+    # A VERBAL NOUN of a verb A1 or A2 teaches, shown on the verb's card
+    'fáil': 'the verbal noun of faigh (A1)', 'rá': 'the verbal noun of abair (A1)',
+    'teacht': 'the verbal noun of tar (A1)', 'imeacht': 'the verbal noun of imigh (A1)',
+    'tarlú': 'the verbal noun of tarlaigh (A1)', 'coinneáil': 'the verbal noun of coinnigh, taught in A2',
+    'athrú': 'the verbal noun of athraigh, taught in A2', 'dearna': 'the dependent past of déan (A1)',
+    'cinn': 'a rare verb whose count is cinn, the plural of ceann (A1)',
+    'ionas': 'met only in ionas go, taught whole in A2', 'éigean': 'met in ar éigean; its count shares éigin',
+    'tom': 'counted from the name Tom', 'géineas': 'a genus, counted from the encyclopaedia\'s taxonomy stubs',
+    'airm': 'its count is airm, the genitive and plural of arm "army, weapon"',
+    'clóigh': '"to tame"; its count is cló "print"', 'méad': 'met only in phrases (dá mhéad, cé mhéad)',
+    'gabháil': 'the verbal noun of gabh, which this level teaches',
+    'alt': 'a joint; its count is alt "an article", a sense Wiktionary does not list',
+    'rinn': 'a point, a star; counted from place names (Rinn Mhic Gormáin ...)', 'fód': 'a sod; rare',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -53,7 +87,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'cac', 'striapach', 'bastard', 'damnú', 'focáil', 'raicleach'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists another first.
-FILL_POS = {}
+FILL_POS = {'inis': 'verb'}   # A2: "to tell", not "island", which place names count
 
 SAME_AS = {}
 
