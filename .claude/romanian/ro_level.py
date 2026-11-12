@@ -97,6 +97,19 @@ SCOPE = {
                   'culture and the arts, places and geography, describing people and things, '
                   'abstract nouns, and the verbs of change and action',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious searching '
+                 'for expressions, to use language flexibly and effectively for social, academic '
+                 'and professional purposes, and to produce clear, well-structured, detailed text '
+                 'on complex subjects',
+        'topics': 'economics and finance, politics and the state, law and rights, science and '
+                  'knowledge, philosophy, language and rhetoric, society and culture, character and '
+                  'conduct, the finer shades of feeling, the arts and literature, the planet, '
+                  'medicine, the adjectives, adverbs and connectors of a formal register, nuanced '
+                  'verbs, and abstract nouns',
+    },
 }
 
 

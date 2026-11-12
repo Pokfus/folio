@@ -75,6 +75,9 @@ ETYMS = {
     'post': ['2'],           # "post, job"; etymology 1 is "a fast"
     # B2
     'bilă': ['2'],           # "ball"; etymology 1 is "bile"
+    # C1
+    'pluton': ['2'],         # "platoon"; etymology 1 is the rock
+    'franc': ['3', '2'],     # "frank, sincere" and the currency; etymology 1 is "a Frank"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.

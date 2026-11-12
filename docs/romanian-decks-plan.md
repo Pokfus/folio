@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/romanian/`, §6–§9). C1 and the phrases deck are not.
+**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/romanian/`, §6–§10). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -33,7 +33,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Romanian A2 Elementary — built | `Romanian-A2.folio-deck.json` | 750 |
 | Romanian B1 Intermediate — built | `Romanian-B1.folio-deck.json` | 1,000 |
 | Romanian B2 Upper Intermediate — built | `Romanian-B2.folio-deck.json` | 1,500 |
-| Romanian C1 Advanced | `Romanian-C1.folio-deck.json` | 1,500 |
+| Romanian C1 Advanced — built | `Romanian-C1.folio-deck.json` | 1,500 |
 | Romanian Phrases and Expressions | `Romanian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
@@ -96,7 +96,7 @@ subtitle-ordered deck on the shelf does. 2 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline, A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read every card, extend `EXCLUDE` /
 `ETYMS` / `DROP_POS` with reasons. **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored
 (and a `PARTS` row in `.claude/combine-decks.py`).
@@ -182,3 +182,24 @@ byte-identical, and A1, A2 and B1 rebuilt under the B2 rules are byte-identical 
 - From the inventory: `ales` (a participle) and `amenințat` (a stray noun) left; `pondera` is "to temper",
   not the "ponder" its one gloss gives, and `sondaj` is glossed only "sounding", not "opinion poll" — both
   left rather than carry a misleading card. `bilă` takes etymology 2 ("ball", not "bile").
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/romanian/run.py --level c1` (asked for on 2026-11-12: "Add C1"). 1,500 notes, none taught
+in A1 to B2: 544 from the C1 inventory (sixteen topics — economics and finance, politics and the state, law
+and rights, science, philosophy, language and rhetoric, society and culture, character and conduct, the
+finer shades of feeling, the arts and literature, the planet, medicine, formal-register adjectives,
+adverbs and connectors, nuanced verbs, abstract nouns) and 956 by frequency; IPA on 438, forms on 1,319,
+sentences for 771 (none for 729 — Tatoeba has little Romanian at this register). A re-run is
+byte-identical, and A1 to B2 rebuilt under the C1 rules are byte-identical to the shipped files.
+
+- **28 inventory items are not Wiktionary headwords** and were dropped — chiefly the formal connectors
+  (`de_altfel`, `în_fond`, `pe_măsură_ce`, `ceea_ce` …) and `antreprenoriat`, `decarbonizare`.
+- **The inventory is where C1 differs from the subtitles**: its words are formal and academic, the fill is
+  still the commonest spoken words not yet taught, so the deck is two registers side by side. Known.
+- **Inventory words left because their only gloss would mislead**: `or` (resolves to a verb form, not the
+  conjunction "whereas"), `raționa` ("to ration", not "to reason"), `consecvență` (glossed "consequence";
+  it is consistency), `monetar` (a noun "coin inventory", not the adjective), `concurent` ("concurrent",
+  not "competitor"), `citat` (an adjective "quote"). `pluton` and `franc` take the right etymologies.
+- More `select.EXCLUDE` rows of the same kinds as B2 (names, film characters, English words, forms counted
+  as other words, 42 more bare participles) and four more for `SWEARS`.
