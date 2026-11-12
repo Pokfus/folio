@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T04:20Z",
+ "generated": "2026-11-12T04:26Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6696,
-  "redirect-broader": 634,
-  "redirect-variant": 399,
-  "section-redirect": 137,
-  "disambiguation": 147,
-  "none": 1014,
-  "disambig-resolved": 89,
+  "ok": 6765,
+  "redirect-broader": 647,
+  "redirect-variant": 401,
+  "section-redirect": 140,
+  "disambiguation": 149,
+  "none": 1024,
+  "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -72346,6 +72346,812 @@
    "answer": "Texas annexation",
    "title": "Texas annexation",
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-451": {
+   "answer": "Cotton Kingdom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cotton production in the United States",
+    "Cotton Belt",
+    "Brazil–United States cotton dispute",
+    "Cotton gin",
+    "Tom Cotton"
+   ]
+  },
+  "us-452": {
+   "answer": "King Cotton",
+   "title": "King Cotton",
+   "url": "https://en.wikipedia.org/wiki/King_Cotton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-453": {
+   "answer": "domestic slave trade",
+   "title": "Slave trade in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_trade_in_the_United_States",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Domestic slave trade"
+  },
+  "us-454": {
+   "answer": "coffle",
+   "title": "Coffle",
+   "url": "https://en.wikipedia.org/wiki/Coffle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-455": {
+   "answer": "slave pen",
+   "title": "Slave markets and slave jails in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_markets_and_slave_jails_in_the_United_States",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Slave pen"
+  },
+  "us-456": {
+   "answer": "chattel slavery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Chattel slavery",
+   "target": "Slavery#Chattel slavery"
+  },
+  "us-457": {
+   "answer": "Impending Crisis of the South",
+   "title": "The Impending Crisis of the South",
+   "url": "https://en.wikipedia.org/wiki/The_Impending_Crisis_of_the_South",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-458": {
+   "answer": "Cotton Whigs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Cotton Whigs",
+   "target": "Whig Party (United States)#Factions"
+  },
+  "us-459": {
+   "answer": "Lancashire Cotton Famine",
+   "title": "Lancashire Cotton Famine",
+   "url": "https://en.wikipedia.org/wiki/Lancashire_Cotton_Famine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-460": {
+   "answer": "planter class",
+   "title": "Planter class",
+   "url": "https://en.wikipedia.org/wiki/Planter_class",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-401": {
+   "answer": "Presidency of James K. Polk",
+   "title": "Presidency of James K. Polk",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_James_K._Polk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-402": {
+   "answer": "Oregon boundary dispute",
+   "title": "Oregon boundary dispute",
+   "url": "https://en.wikipedia.org/wiki/Oregon_boundary_dispute",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-403": {
+   "answer": "Mexican–American War",
+   "title": "Mexican–American War",
+   "url": "https://en.wikipedia.org/wiki/Mexican%E2%80%93American_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-404": {
+   "answer": "Battle for Mexico City",
+   "title": "Battle for Mexico City",
+   "url": "https://en.wikipedia.org/wiki/Battle_for_Mexico_City",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-405": {
+   "answer": "Spot Resolutions",
+   "title": "Spot Resolutions",
+   "url": "https://en.wikipedia.org/wiki/Spot_Resolutions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-406": {
+   "answer": "Treaty of Guadalupe Hidalgo",
+   "title": "Treaty of Guadalupe Hidalgo",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Guadalupe_Hidalgo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-407": {
+   "answer": "Mexican Cession",
+   "title": "Mexican Cession",
+   "url": "https://en.wikipedia.org/wiki/Mexican_Cession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-408": {
+   "answer": "Mexican Americans",
+   "title": "Mexican Americans",
+   "url": "https://en.wikipedia.org/wiki/Mexican_Americans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-409": {
+   "answer": "California gold rush",
+   "title": "California gold rush",
+   "url": "https://en.wikipedia.org/wiki/California_gold_rush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-410": {
+   "answer": "forty-niners",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "49er",
+   "suggestions": [
+    "Forty-Niner (passenger train)",
+    "The Forty-Niners (1932 film)",
+    "The Forty-Niners (1954 film)",
+    "Top 10: The Forty-Niners"
+   ]
+  },
+  "us-471": {
+   "answer": "Slave community",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in the United States",
+    "Atlantic slave trade",
+    "Torture of slaves in the United States",
+    "Slave rebellion and resistance in the United States",
+    "Slave quarters in the United States"
+   ]
+  },
+  "us-472": {
+   "answer": "Slave quarters",
+   "title": "Slave quarters in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_quarters_in_the_United_States",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Slave quarters"
+  },
+  "us-473": {
+   "answer": "Gang system",
+   "title": "Gang system",
+   "url": "https://en.wikipedia.org/wiki/Gang_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-474": {
+   "answer": "Task system",
+   "title": "Task system",
+   "url": "https://en.wikipedia.org/wiki/Task_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-475": {
+   "answer": "Incidents in the Life of a Slave Girl",
+   "title": "Incidents in the Life of a Slave Girl",
+   "url": "https://en.wikipedia.org/wiki/Incidents_in_the_Life_of_a_Slave_Girl",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-476": {
+   "answer": "Partus sequitur ventrem",
+   "title": "Partus sequitur ventrem",
+   "url": "https://en.wikipedia.org/wiki/Partus_sequitur_ventrem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-477": {
+   "answer": "Abroad marriage",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cousin marriage law in the United States",
+    "Same-sex marriage in the United States",
+    "Democrats Abroad",
+    "Same-sex marriage law in the United States by state",
+    "Civil marriage"
+   ]
+  },
+  "us-478": {
+   "answer": "Weeping Time",
+   "title": "Great Slave Auction",
+   "url": "https://en.wikipedia.org/wiki/Great_Slave_Auction",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Weeping Time"
+  },
+  "us-479": {
+   "answer": "Enslaved children",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Female slavery in the United States",
+    "Treatment of slaves in the United States",
+    "List of children of presidents of the United States",
+    "Slave breeding in the United States",
+    "List of presidents of the United States who owned slaves"
+   ]
+  },
+  "us-480": {
+   "answer": "Osnaburg",
+   "title": "Osnaburg",
+   "url": "https://en.wikipedia.org/wiki/Osnaburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-461": {
+   "answer": "plantation",
+   "title": "Plantation",
+   "url": "https://en.wikipedia.org/wiki/Plantation",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-462": {
+   "answer": "overseer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Overseer",
+   "suggestions": [
+    "Overseer (rank)",
+    "Overseer of the poor",
+    "Rob Overseer",
+    "Aerojet SD-2 Overseer"
+   ]
+  },
+  "us-463": {
+   "answer": "urban slavery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in the United States",
+    "Reparations for slavery in the United States",
+    "History of sexual slavery in the United States",
+    "United States",
+    "Fugitive slaves in the United States"
+   ]
+  },
+  "us-464": {
+   "answer": "industrial slavery",
+   "title": "Industrial slave",
+   "url": "https://en.wikipedia.org/wiki/Industrial_slave",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Industrial slavery"
+  },
+  "us-465": {
+   "answer": "State v. Mann",
+   "title": "North Carolina v. Mann",
+   "url": "https://en.wikipedia.org/wiki/North_Carolina_v._Mann",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "State v. Mann"
+  },
+  "us-466": {
+   "answer": "slave patrol",
+   "title": "Slave patrol",
+   "url": "https://en.wikipedia.org/wiki/Slave_patrol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-467": {
+   "answer": "proslavery thought",
+   "title": "Proslavery thought",
+   "url": "https://en.wikipedia.org/wiki/Proslavery_thought",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-468": {
+   "answer": "George Fitzhugh",
+   "title": "George Fitzhugh",
+   "url": "https://en.wikipedia.org/wiki/George_Fitzhugh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-469": {
+   "answer": "slave schedule",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Slave schedule",
+   "target": "United States census#History"
+  },
+  "us-470": {
+   "answer": "WPA Slave Narrative Collection",
+   "title": "WPA Slave Narrative Collection",
+   "url": "https://en.wikipedia.org/wiki/WPA_Slave_Narrative_Collection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-481": {
+   "answer": "sick house",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sick leave in the United States",
+    "Democratic Party (United States)",
+    "Economy of the United States",
+    "2012 United States elections",
+    "Sick man of Europe"
+   ]
+  },
+  "us-482": {
+   "answer": "whipping",
+   "title": "Flagellation",
+   "url": "https://en.wikipedia.org/wiki/Flagellation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Whipping"
+  },
+  "us-483": {
+   "answer": "State of Missouri v. Celia, a Slave",
+   "title": "State of Missouri v. Celia, a Slave",
+   "url": "https://en.wikipedia.org/wiki/State_of_Missouri_v._Celia,_a_Slave",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-484": {
+   "answer": "invisible church",
+   "title": "Church invisible",
+   "url": "https://en.wikipedia.org/wiki/Church_invisible",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Invisible church"
+  },
+  "us-485": {
+   "answer": "Black church",
+   "title": "Black church",
+   "url": "https://en.wikipedia.org/wiki/Black_church",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-486": {
+   "answer": "spirituals",
+   "title": "Spirituals",
+   "url": "https://en.wikipedia.org/wiki/Spirituals",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-487": {
+   "answer": "ring shout",
+   "title": "Ring shout",
+   "url": "https://en.wikipedia.org/wiki/Ring_shout",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-488": {
+   "answer": "Gullah",
+   "title": "Gullah",
+   "url": "https://en.wikipedia.org/wiki/Gullah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-489": {
+   "answer": "self-hire",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Car rental",
+    "Supreme Court of the United States",
+    "United States Congress",
+    "Lists of wars involving the United States",
+    "Pro se legal representation in the United States"
+   ]
+  },
+  "us-490": {
+   "answer": "anti-literacy laws",
+   "title": "Anti-literacy laws in the United States",
+   "url": "https://en.wikipedia.org/wiki/Anti-literacy_laws_in_the_United_States",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Anti-literacy laws"
+  },
+  "us-431": {
+   "answer": "Cult of Domesticity",
+   "title": "Culture of Domesticity",
+   "url": "https://en.wikipedia.org/wiki/Culture_of_Domesticity",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cult of Domesticity"
+  },
+  "us-432": {
+   "answer": "Letters on the Equality of the Sexes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Declaration of the Rights of Woman and of the Female Citizen",
+    "Slavery in the United States",
+    "History of same-sex marriage in the United States",
+    "Founding Fathers of the United States",
+    "Liberalism in the United States"
+   ]
+  },
+  "us-433": {
+   "answer": "Seneca Falls Convention",
+   "title": "Seneca Falls Convention",
+   "url": "https://en.wikipedia.org/wiki/Seneca_Falls_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-434": {
+   "answer": "Elizabeth Cady Stanton",
+   "title": "Elizabeth Cady Stanton",
+   "url": "https://en.wikipedia.org/wiki/Elizabeth_Cady_Stanton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-435": {
+   "answer": "Know Nothing",
+   "title": "Know Nothing",
+   "url": "https://en.wikipedia.org/wiki/Know_Nothing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-436": {
+   "answer": "Great Famine",
+   "title": "Great Famine (Ireland)",
+   "url": "https://en.wikipedia.org/wiki/Great_Famine_(Ireland)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-437": {
+   "answer": "Forty-Eighters",
+   "title": "Forty-eighters",
+   "url": "https://en.wikipedia.org/wiki/Forty-eighters",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-438": {
+   "answer": "Transcendentalism",
+   "title": "Transcendentalism",
+   "url": "https://en.wikipedia.org/wiki/Transcendentalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-439": {
+   "answer": "Henry David Thoreau",
+   "title": "Henry David Thoreau",
+   "url": "https://en.wikipedia.org/wiki/Henry_David_Thoreau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-440": {
+   "answer": "American Renaissance",
+   "title": "American Renaissance (literature)",
+   "url": "https://en.wikipedia.org/wiki/American_Renaissance_(literature)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-421": {
+   "answer": "antebellum era",
+   "title": "Antebellum South",
+   "url": "https://en.wikipedia.org/wiki/Antebellum_South",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Antebellum era"
+  },
+  "us-422": {
+   "answer": "Second Great Awakening",
+   "title": "Second Great Awakening",
+   "url": "https://en.wikipedia.org/wiki/Second_Great_Awakening",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-423": {
+   "answer": "Charles Grandison Finney",
+   "title": "Charles Grandison Finney",
+   "url": "https://en.wikipedia.org/wiki/Charles_Grandison_Finney",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-424": {
+   "answer": "burned-over district",
+   "title": "Burned-over district",
+   "url": "https://en.wikipedia.org/wiki/Burned-over_district",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-425": {
+   "answer": "utopian communities",
+   "title": "Intentional community",
+   "url": "https://en.wikipedia.org/wiki/Intentional_community",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Utopian communities"
+  },
+  "us-426": {
+   "answer": "temperance movement",
+   "title": "Temperance movement",
+   "url": "https://en.wikipedia.org/wiki/Temperance_movement",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-427": {
+   "answer": "Pennsylvania system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States Numbered Highway System",
+    "List of United States rapid transit systems",
+    "University of Pennsylvania Health System",
+    "List of courts of the United States",
+    "List of United States light rail systems"
+   ]
+  },
+  "us-428": {
+   "answer": "Dorothea Dix",
+   "title": "Dorothea Dix",
+   "url": "https://en.wikipedia.org/wiki/Dorothea_Dix",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-429": {
+   "answer": "common school",
+   "title": "Common school",
+   "url": "https://en.wikipedia.org/wiki/Common_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-430": {
+   "answer": "Horace Mann",
+   "title": "Horace Mann",
+   "url": "https://en.wikipedia.org/wiki/Horace_Mann",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-441": {
+   "answer": "Slavery in the United States",
+   "title": "Slavery in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slavery_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-442": {
+   "answer": "Atlantic slave trade",
+   "title": "Atlantic slave trade",
+   "url": "https://en.wikipedia.org/wiki/Atlantic_slave_trade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-443": {
+   "answer": "Middle Passage",
+   "title": "Middle Passage",
+   "url": "https://en.wikipedia.org/wiki/Middle_Passage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-444": {
+   "answer": "slavery in Virginia",
+   "title": "History of slavery in Virginia",
+   "url": "https://en.wikipedia.org/wiki/History_of_slavery_in_Virginia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Slavery in Virginia"
+  },
+  "us-445": {
+   "answer": "Slave codes",
+   "title": "Slave codes",
+   "url": "https://en.wikipedia.org/wiki/Slave_codes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-446": {
+   "answer": "slavery in New York",
+   "title": "History of slavery in New York (state)",
+   "url": "https://en.wikipedia.org/wiki/History_of_slavery_in_New_York_(state)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Slavery in New York"
+  },
+  "us-447": {
+   "answer": "African Americans in the Revolutionary War",
+   "title": "African Americans in the Revolutionary War",
+   "url": "https://en.wikipedia.org/wiki/African_Americans_in_the_Revolutionary_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-448": {
+   "answer": "gradual abolition of slavery",
+   "title": "Gradual abolition of slavery",
+   "url": "https://en.wikipedia.org/wiki/Gradual_abolition_of_slavery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-449": {
+   "answer": "Act Prohibiting Importation of Slaves",
+   "title": "Act Prohibiting Importation of Slaves",
+   "url": "https://en.wikipedia.org/wiki/Act_Prohibiting_Importation_of_Slaves",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-450": {
+   "answer": "cotton gin",
+   "title": "Cotton gin",
+   "url": "https://en.wikipedia.org/wiki/Cotton_gin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-411": {
+   "answer": "boomtown",
+   "title": "Boomtown",
+   "url": "https://en.wikipedia.org/wiki/Boomtown",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-412": {
+   "answer": "Chinese immigration to the United States",
+   "title": "History of Chinese Americans",
+   "url": "https://en.wikipedia.org/wiki/History_of_Chinese_Americans",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese immigration to the United States"
+  },
+  "us-413": {
+   "answer": "Californios",
+   "title": "Californios",
+   "url": "https://en.wikipedia.org/wiki/Californios",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-414": {
+   "answer": "Santa Fe Trail",
+   "title": "Santa Fe Trail",
+   "url": "https://en.wikipedia.org/wiki/Santa_Fe_Trail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-415": {
+   "answer": "Gadsden Purchase",
+   "title": "Gadsden Purchase",
+   "url": "https://en.wikipedia.org/wiki/Gadsden_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-416": {
+   "answer": "filibuster",
+   "title": "Filibuster (military)",
+   "url": "https://en.wikipedia.org/wiki/Filibuster_(military)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-417": {
+   "answer": "Perry Expedition",
+   "title": "Perry Expedition",
+   "url": "https://en.wikipedia.org/wiki/Perry_Expedition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-418": {
+   "answer": "Pacific Railroad Surveys",
+   "title": "Pacific Railroad Surveys",
+   "url": "https://en.wikipedia.org/wiki/Pacific_Railroad_Surveys",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-419": {
+   "answer": "Great American Desert",
+   "title": "Great American Desert",
+   "url": "https://en.wikipedia.org/wiki/Great_American_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-420": {
+   "answer": "Fort Laramie Treaty of 1851",
+   "title": "Treaty of Fort Laramie (1851)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Fort_Laramie_(1851)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fort Laramie Treaty of 1851"
+  },
+  "us-491": {
+   "answer": "Everyday resistance",
+   "title": "Everyday resistance",
+   "url": "https://en.wikipedia.org/wiki/Everyday_resistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-492": {
+   "answer": "Fugitive slaves in the United States",
+   "title": "Fugitive slaves in the United States",
+   "url": "https://en.wikipedia.org/wiki/Fugitive_slaves_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-493": {
+   "answer": "Great Dismal Swamp maroons",
+   "title": "Great Dismal Swamp maroons",
+   "url": "https://en.wikipedia.org/wiki/Great_Dismal_Swamp_maroons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-494": {
+   "answer": "Slave rebellion and resistance in the United States",
+   "title": "Slave rebellion and resistance in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_rebellion_and_resistance_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-495": {
+   "answer": "Stono Rebellion",
+   "title": "Stono Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Stono_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-496": {
+   "answer": "Gabriel's Rebellion",
+   "title": "Gabriel's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Gabriel's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-497": {
+   "answer": "Denmark Vesey",
+   "title": "Denmark Vesey",
+   "url": "https://en.wikipedia.org/wiki/Denmark_Vesey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-498": {
+   "answer": "Nat Turner's Rebellion",
+   "title": "Nat Turner's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Nat_Turner's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-499": {
+   "answer": "Virginia slavery debate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Thirteenth Amendment to the United States Constitution",
+    "United States",
+    "Slave states and free states",
+    "Slavery in the United States",
+    "Slavery and the United States Constitution"
+   ]
+  },
+  "us-500": {
+   "answer": "United States v. The Amistad",
+   "title": "United States v. The Amistad",
+   "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
    "via": "glossary",
    "status": "ok"
   },
