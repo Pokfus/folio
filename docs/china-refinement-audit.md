@@ -86,8 +86,9 @@ an English review of the same work, and say in the ledger where a card had to ch
 
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
-plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 (the
-snapshot of each line is the run's `protected.json`). `cnh-audit.js` reads the block below: on these cards it
+plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
+hundred and on 2026-11-12 for the second (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
 patch carries `answerDate`, `undatable` or `timeline` for one of them.
@@ -107,6 +108,29 @@ cnh-058 Jie of Xia            (ruler)
 cnh-068 Tang of Shang         (ruler)
 cnh-073 Wu Ding               (ruler)
 cnh-074 Fu Hao                (individual; carries the person template)
+cnh-102 Di Xin                 (ruler; the person template)
+cnh-113 King Wen              (ruler; the person template)
+cnh-114 King Wu               (ruler; the person template)
+cnh-115 Duke of Zhou          (individual; regent)
+cnh-132 King Mu               (ruler; the person template)
+cnh-133 King Li               (ruler; the person template)
+cnh-135 King Xuan             (ruler; the person template)
+cnh-136 King You              (ruler; the person template)
+cnh-137 Baosi                 (legendary)
+cnh-147 Duke Huan of Qi       (ruler; the person template)
+cnh-148 Guan Zhong            (individual; the person template)
+cnh-149 Duke Wen of Jin       (ruler; the person template)
+cnh-151 King Zhuang of Chu    (ruler; the person template)
+cnh-159 Goujian               (ruler)
+cnh-166 Li Kui                (individual; the person template)
+cnh-167 Marquis Wen of Wei    (ruler)
+cnh-168 Shang Yang            (individual; the person template)
+cnh-174 King Wuling of Zhao   (ruler; the person template)
+cnh-182 Bai Qi                (individual; the person template)
+cnh-186 Qu Yuan               (individual; the person template)
+cnh-189 Jing Ke               (individual; the person template)
+cnh-192 Qin Shi Huang         (ruler; the person template)
+cnh-195 Li Si                 (individual; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -189,6 +213,14 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Jie as the bad last king | the last Xia king's cruelty and fall as the *Shiji* and the *Shangshu* tell it; the bad-last-ruler pattern shared with Di Xin, a reading after Lewis — set B6 (`cnh-058`) | `cnh-058` | `cnh-068` | `cnh-102` (Di Xin) |
 | Tang's self-offering for rain | five years of drought, the mulberry grove, his hair cut, rain (the *Lüshi Chunqiu*, "Shun min") — set B7 (`cnh-068`) | `cnh-068` | — | — |
 | The nine ding | passed from Xia to Shang to Zhou (the *Zuo Zhuan*, Duke Xuan 3; the *Mozi*); the Qin capture and the Si River search (the *Shiji*), carved on Eastern Han shrines — set B9 (`cnh-083`) | `cnh-083` | `cnh-012`, `cnh-028` | `cnh-124` |
+| Di Xin as the bad last king | the wine pool and the forest of meat, Daji, Bigan's heart cut out, the burning on the Deer Terrace (the *Shiji*, c. 100 BCE, after Warring States tellings); doubted already in the *Analects* (Zigong: "not as bad as that"); the pattern shared with Jie — PROVISIONAL (second hundred, set at its opening) | `cnh-102` | `cnh-103`, `cnh-105`, `cnh-106` | `cnh-058` (Jie) |
+| Houji and the birth of the Zhou | Jiang Yuan treading in the god's footprint, the child thrice abandoned and saved, the founder of millet farming; the *Shijing* "Sheng min" (a Western Zhou court ode), retold in the *Shiji*'s Zhou annals — PROVISIONAL | — | `cnh-111`, `cnh-127` | — |
+| The Mandate of Heaven | Heaven taking its charge from the Shang for misrule and giving it to the Zhou; in Western Zhou bronzes (the He zun, the Da Yu ding) and the *Shangshu* "Zhou" chapters held early ("Kang gao", "Shao gao", "Duo shi"); the right to remove a bad ruler as Mencius later reads it — PROVISIONAL | `cnh-117` | `cnh-103`, `cnh-105`, `cnh-111`, `cnh-113`, `cnh-114`, `cnh-118` | — |
+| King Wen and King Wu and the conquest | King Wen held at Youli and the *Yijing*'s hexagrams credited to him (Han tradition); the gathering of lords at Mengjin (the *Shiji*'s 800); the oath before battle (the *Shangshu* "Mu shi"); Muye on a *jiazi* morning (the Li gui, a contemporary bronze, names the *jiazi* day); the "Wu cheng" pestles floating in blood, which Mencius refused to believe — PROVISIONAL | `cnh-113`, `cnh-114`, `cnh-104` | `cnh-103`, `cnh-105`, `cnh-111` | — |
+| The Duke of Zhou's regency | regent for the young King Cheng, crushing the Three Guards and the Shang prince Wugeng, building the eastern capital, and handing power back after seven years (the *Shangshu* chapters and the *Shiji*); some Warring States texts (the *Xunzi*) say he held the throne itself; the maker of the Zhou rites, a later tradition (the *Zhouli* credited to him) — PROVISIONAL | `cnh-115` | `cnh-116`, `cnh-121`, `cnh-122`, `cnh-124` | — |
+| The Gonghe regency | two readings: the dukes of Zhou and Shao ruling together (the *Shiji*) or He, the Earl of Gong, ruling (the *Bamboo Annals*, the excavated *Xinian*); 841 BCE the first year of the continuous count either way — PROVISIONAL | `cnh-134` | `cnh-133`, `cnh-135` | — |
+| Baosi and the beacon fires | Baosi born of the dragons' foam kept since the Xia; King You lighting the beacons to make her laugh until the lords stopped coming (the *Shiji*, c. 100 BCE; a drum version in the *Lüshi Chunqiu*); the excavated *Xinian* (Warring States) tells the fall with no beacons — PROVISIONAL | `cnh-137` | `cnh-136`, `cnh-138` | — |
+| The end of the Western Zhou and the two kings | the Marquis of Shen and the Quanrong kill King You; King Ping raised in the east while a rival, King Xie (Yuchen) of Hui, ruled for some years (the *Bamboo Annals* and the *Xinian*; the *Shiji* gives only Ping) — PROVISIONAL | `cnh-138`, `cnh-139` | `cnh-136`, `cnh-140`, `cnh-141` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card

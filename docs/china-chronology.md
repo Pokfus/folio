@@ -134,6 +134,35 @@ the form English-language scholarship and the reference works use; the decision 
 | Shijing | Shi jing, Shih ching, Shih Ching | Classic of Poetry, Book of Songs | English title first |
 | Yu gong | Yugong, Yü Kung | Tribute of Yu | English title first |
 | Gu Jiegang | Ku Chieh-kang | | |
+| Zhou | Chou | | the dynasty; Wade–Giles *Chou* only in a cited title (added for the second hundred, Nov 2026) |
+| King Wen, King Wu, King Cheng, King Kang, King Zhao, King Mu, King Li, King Xuan, King You, King Ping | Wen Wang, Wu Wang, King Ch'eng, King Chao, King Hsüan, King Yu of Zhou | Ji Chang, Ji Fa | the Zhou kings: "King" and the posthumous name, English order; Ji Chang and Ji Fa as their own names may follow |
+| Duke of Zhou | Duke of Chou, Chou Kung | Zhou Gong, Ji Dan | English title first |
+| Houji | Hou Ji, Hou Chi, Hou-chi | Lord Millet | joined |
+| Mandate of Heaven | T'ien-ming | Tianming | English name first |
+| Tian | | T'ien | the god or heaven; lower case "heaven" in ordinary prose; T'ien unreported, a common Wade–Giles surname (田) in cited authors |
+| fengjian | feng-chien, Feng-chien | | lower case in prose as a noun, capitalised as a card's answer |
+| zongfa | tsung-fa, Tsung-fa | | lower case in prose |
+| Haojing | Hao Jing, Hao-ching | Zongzhou, Hao | joined |
+| Chengzhou | Cheng Zhou, Ch'eng-chou | Luoyi, Wangcheng | joined |
+| Muye | Mu Ye, Mu-yeh | | |
+| Gonghe | Gong He, Kung-ho | | the regency; He, the Earl of Gong, the man |
+| Xianyun | Xian Yun, Hsien-yün | | |
+| Baosi | Bao Si, Pao Ssu, Pao-ssu | | joined: the live answer and the slug; the `pinyin` field reads Bāosì, as Hòuyì |
+| Quanrong | Quan Rong, Ch'üan Jung | Dog Rong | joined |
+| Spring and Autumn Annals | Ch'un-ch'iu, Chun Qiu | Chunqiu | English title first; Spring and Autumn period for the age |
+| Qi, Jin, Chu, Qin, Lu, Song, Wu, Yue, Wei, Han, Zhao, Yan, Zheng | Ch'i, Ch'in, Ch'u, Chin state, Chao state, Cheng state | | the states: name alone in prose ("the state of Qi" where it could be misread); *Jin* is disambiguated from the later dynasties in the card's own words (`docs/china-card-plan.md`) |
+| Wey | | | the small state 衛, written Wey to keep it apart from Wei 魏, as the collection's sources do; say so the first time |
+| Guan Zhong | Kuan Chung | Guanzi | never "Guanzhong" (the Wei valley region) |
+| Chengpu, Kuiqiu, Maling, Changping | Ch'eng-p'u, Cheng Pu, K'uei-ch'iu, Ma Ling, Chang Ping, Ch'ang-p'ing | | the battles and the covenant |
+| Goujian | Gou Jian, Kou-chien | | joined: the live answer and the slug; the `pinyin` field reads Gōujiàn |
+| Shang Yang | Shang-yang | Wei Yang, Gongsun Yang, Lord Shang | |
+| Li Kui, Wu Qi, Sun Bin, Pang Juan, Bai Qi, Su Qin, Zhang Yi, Li Si, Jing Ke, Han Fei | Li K'uei, Wu Ch'i, Sun Pin, P'ang Chüan, Pai Ch'i, Su Ch'in, Chang I, Li Ssu, Ching K'o, Han Fei-tzu | | the Warring States men, surname and name split |
+| King Wuling of Zhao | Wu Ling, Wu-ling | | |
+| Jixia Academy | Chi-hsia, Ji Xia | Jixia | |
+| Zhanguo Ce | Zhanguoce, Zhan Guo Ce, Zhanguo ce, Chan-kuo ts'e, Chan-kuo Ts'e | Strategies of the Warring States | the glossary slug's form |
+| Li Sao | Lisao, Li-sao, Li sao | Encountering Sorrow | |
+| Qin Shi Huang | Qin Shihuang, Ch'in Shih-huang, Shih Huang-ti | First Emperor, Shi Huangdi, Ying Zheng | the slug's form; "the First Emperor" in prose is fine |
+| Laozi, Zhuangzi, Mozi, Xunzi, Han Feizi, Sunzi | Lao Tzu, Lao-tzu, Lao Zi, Chuang Tzu, Chuang-tzu, Mo Tzu, Mo-tzu, Mo Zi, Hsün Tzu, Hsün-tzu, Xun Zi, Han Fei Zi, Sun Zi | Sun Tzu | the thinkers and their books joined; Confucius and Mencius keep their English names (Kongzi, Mengzi as aliases); *Sun Tzu* is left unreported, the English name of the book's title in many editions |
 
 ## Mythology and legend
 
@@ -240,9 +269,18 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Shang music attested (Feng's end date) | c. 1300 – 1050 BCE | `cnh-098` |
 | the Anyang workshops / Shang burial practice | c. 1250 – 1046 BCE | `cnh-099`, `cnh-100` |
 
+## Western Zhou, Eastern Zhou and Qin (the second hundred)
+
+Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the second hundred's individuals
+(`cnh-102`, `113`–`115`, `132`, `133`, `135`–`137`, `147`–`149`, `151`, `159`, `166`–`168`, `174`, `182`, `186`, `189`,
+`192`, `195`) are pinned below to their lines as they stood on main on 2026-11-12, and are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-101` on.
+To be filled from `cnh-201` on.
 
 ## Chronology pins
 
@@ -347,4 +385,27 @@ cnh-097: 3300; 220; 1600; 650
 cnh-098: 1300; 1050
 cnh-099: 1250; 1046
 cnh-100: 1250; 1046
+cnh-102: 1105; 1075; 1046
+cnh-113: 1112; 1100; 1050
+cnh-114: 1097; 1046; 1043
+cnh-115: 1042; 1035
+cnh-132: 992; 976; 922
+cnh-133: 877; 841; 828
+cnh-135: 827; 782
+cnh-136: 795; 781; 780; 771
+cnh-137: 781; 779; 771
+cnh-147: 685; 643; 650
+cnh-148: 720; 685; 645; 656
+cnh-149: 696; 654; 636; 632; 628
+cnh-151: 613; 591; 606
+cnh-159: 496; 465; 473; 472
+cnh-166: 455; 407; 395
+cnh-167: 424; 387; 403
+cnh-168: 390; 340; 338
+cnh-174: 325; 299; 307; 295
+cnh-182: 332; 280; 258
+cnh-186: 332; 314; 295
+cnh-189: 227
+cnh-192: 259; 247; 221; 210
+cnh-195: 280; 214; 208
 ```
