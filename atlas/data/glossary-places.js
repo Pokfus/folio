@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"644dd2dd9d87cb49","counts":{"terms":937,"points":700,"countries":237,"windows":1460,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"66417792feadbabb","counts":{"terms":937,"points":700,"countries":237,"windows":1461,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -2065,6 +2065,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"644dd2dd9d87cb49","counts":
 "San_Marino":[12.44,43.93,"country","adm0:smr",0,40],
 "San_Marino_(city)":[12.44,43.93,"country","adm0:smr",0,40],
 "Santa_Fe":[-105.937,35.688,"coord",0,0,0],
+"Santa_Fe_Trail":[-105.939,35.688,"coord",0,0,0],
 "Santo_Domingo":[-69.902,18.472,"capital",0,0,0],
 "Sanxingdui":[104.2,30.993,"coord",0,0,0],
 "Saqqara":[31.233,29.85,"site",0,0,0],
