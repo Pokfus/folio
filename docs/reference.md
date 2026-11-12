@@ -838,7 +838,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   COLLECTIONS" is the lookup. **Its first cards have shipped**, so the collection is live — `isComingSoon`
   is false for a node holding a card — and its 45 empty decks are coming-soon automatically, on the same
   rule. Not part of the site.
-- `docs/dinosaurs-card-plan.md` — the **1000-card running order for the Dinosaurs collection**
+- **`docs/palaeontology-card-plan.md` — THE PALAEONTOLOGY COLLECTION (`paleo`, `pal-`), which REPLACED
+  DINOSAURS on 2026-11-12** (on request: "Make the collection on Dinosaurs dormant. Instead, plan a 1000
+  card collection on Paleontology … reuse most of the cards"). 10 decks, 46 leaves, the method decks first.
+  All 100 `dino-` cards were renumbered into it (none retired); its appendix is the old→new table, and
+  `DINO_TO_PAL` in `app.js` is the same table, used by `migrateDinoIds` (at boot and in `applyProgress`)
+  to carry every progress register across — exact ids and keys only, deferring to a new id already present.
+  The `dino` node left the tree; its hue, icon, section and target rows became `paleo`'s. Not part of the site.
+- `docs/dinosaurs-card-plan.md` — **DORMANT since 2026-11-12** (see the bullet above); kept as the
+  reading list for Palaeontology's dinosaur decks. It was the **1000-card running order for the Dinosaurs collection**
   (`dino`): every card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The
   fifteenth of the planned collections and the fourth that is not history; it joins Psychology and
   Biology in the **`Science` section**. **Read "Is there a thousand cards in this?" before writing
@@ -8192,7 +8200,7 @@ keyed by PLAN SLUG for the same reason; keyed by collection the two could not bo
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | 100 cards — not a history collection |
-| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
+| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | DORMANT (2026-11-12) — replaced by Palaeontology (`paleo`, `pal-`, `docs/palaeontology-card-plan.md`) |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | empty — not a history collection |
 | Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | 100 cards, contiguous — next is `ko-101` |
