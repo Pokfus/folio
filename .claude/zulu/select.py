@@ -14,6 +14,12 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · a lemma of two letters or fewer: a one- or two-letter verb stem (-ma, -za, -ya,
     -sa) takes its count from the corpus's prefixes and particles, not its use;
   · a proper noun's spelling (`iAfrika`), a borrowed month or place;
+  · a verbal noun (`ukugula` "illness", `ukupheka` "cooking") whose verb has its
+    own entry: its count is the verb's infinitive, and the verb teaches it (from
+    A2 on; A1 shipped with four, ukuqala ukuphela ukulwa ukukhanya, kept so its
+    card ids stand);
+  · from B1 on, a lemma that is only an interjection or a phrase: the phrases
+    deck (`phrases.py`) teaches those whole;
   · the hand list `EXCLUDE`, each line with its reason.
 """
 import json, os, sys
@@ -66,11 +72,57 @@ EXCLUDE = {
     'ingaphandle': 'its count is ngaphandle "outside", the adverb',
     'ilisho': 'its count is the forms of -sho "to say", not "rickshaw"',
     'isine': 'its count is the number four\'s forms, not the noun',
+    # Read off the A2 ranking (2026-11-12).
+    'impela': 'Wiktionary files it as the noun "truth"; its count is the adverb impela "really, indeed"',
+    'jika': 'Wiktionary glosses only "to hang"; the everyday -jika is "to turn"',
+    'ungqo': 'its count is ngqo "straight, directly", not "policeman"',
+    'inzima': 'its count is the forms of -nzima "difficult", not "black ox"',
+    'isihlanu': 'its count is the number five\'s forms, not the noun',
+    'isondo': 'Wiktionary glosses "hoof"; its count is isondo "wheel"',
+    'uve': 'a bird whose three letters take their count from other words',
+    'umhlophe': 'its count is the colour -mhlophe (A1), not "white beast"',
+    'fishane': 'a variant of -fushane, taught at A1',
+    'dlwengula': 'its count is crime reports; not a word the level needs',
+    'ingquza': 'anatomical vocabulary the level does not need',
+    'isende': 'anatomical vocabulary the level does not need',
+    'okujwayelekile': 'a whole relative form ("which is usual") filed as an adjective, not a stem',
+    # Read off the B1 ranking (2026-11-12).
+    'fisha': 'a synonym of -fuphi, which B1 also teaches',
+    'umese': 'a variant spelling of ummese "knife", taught at A2',
+    'ukwindla': 'a variant of ikwindla "autumn", taught at A2',
+    'makhaza': 'a variant of amakhaza "cold", taught at A1',
+    'izitha': 'the plural of isitha "enemy", taught at A2',
+    'izipho': 'its count is the plural of isipho "gift" (A2), not "claw"',
+    'iphahla': 'its count is uphahla "roof", not "twin"',
+    'yini': 'glossed only as "copulative of -ni", a form, not a word to learn',
+    'ubomvu': 'its count is the colour -bomvu (A1), not "red soil"',
+    'umnyama': 'its count is the colour -mnyama (A1), not "darkness"',
+    'insundu': 'its count is the colour -nsundu (A1), not "dark-brown beast"',
+    'isinzima': 'its count is the forms of -nzima "difficult" (A1), not "weight"',
+    'hlobonga': 'sexual vocabulary the level does not need',
+    'umdlwenguli': 'crime vocabulary the level does not need',
+    'umqwayizi': 'sexual vocabulary the level does not need',
+    'umdidi': 'anatomical vocabulary the level does not need',
+    'isibunu': 'anatomical vocabulary the level does not need',
+    'qimba': 'not a word the level needs',
 }
 
 
 def usable(L):
     return any(not g['weak'] for e in L['entries'] for g in e['glosses'])
+
+
+def verbal_noun_of(k, L, lex):
+    """The verb an uku-/ukw- noun is the infinitive of, where the verb has its own entry."""
+    if not (k.startswith('uku') or k.startswith('ukw')) or len(k) < 6:
+        return None
+    if not all(e['pos'] == 'noun' for e in L['entries']):
+        return None
+    stem = k[3:]
+    V = lex.get(stem)
+    if V and any(e['pos'] == 'verb' for e in V['entries']):
+        return stem
+    return None
 
 
 def main():
@@ -107,6 +159,10 @@ def main():
         if not usable(L) or L['freq'] < 1:
             continue
         if all(e['pos'] == 'phrase' for e in L['entries']):
+            continue
+        if LEVEL not in ('a1', 'a2') and all(e['pos'] in ('phrase', 'intj') for e in L['entries']):
+            continue                  # from B1 on, the phrases deck teaches them (phrases.py)
+        if LEVEL != 'a1' and verbal_noun_of(k, L, lex):
             continue
         seen.add(k)
         fill.append({'key': k, 'word': L['word'], 'freq': L['freq'], 'pos': '',

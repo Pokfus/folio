@@ -1,5 +1,5 @@
 {
- "retrieved": "2026-10-30",
+ "retrieved": "2026-11-12",
  "titles": {
   "Lomekwi 3": null,
   "Olduvai Gorge": {
@@ -92347,6 +92347,20 @@
    ],
    "label": "Wounded Knee National Historic Landmark",
    "title": "Wounded Knee Battlefield"
+  },
+  "Q101583": {
+   "coord": [
+    32.6103,
+    25.7206
+   ],
+   "classes": [
+    "Q655593",
+    "Q839954",
+    "Q15661340",
+    "Q18247357"
+   ],
+   "label": "",
+   "title": "Thebes, Egypt"
   }
  },
  "links": {
