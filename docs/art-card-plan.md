@@ -806,6 +806,40 @@ Vulture Stone's no size row: no dimension for Pillar 43 appeared in anything ope
 Archaeological Survey saying only "to the Mediaeval"; its start is Wakankar's own "8000(?)", and the prose
 keeps the question mark.
 
+**BATCH A6 — `art-031` TO `art-100`, Nov 2026: the rest of Before History and the Greek awakening.** Seventy cards
+in one session, written by seven parallel research drafts and imported in id order, with 58 new glossary terms
+(the rest reused: `Narmer_Palette`, `Code_of_Hammurabi`, `Mask_of_Agamemnon`, `Peplos_Kore`, `Exekias` and others
+already existed). Six findings.
+
+**THREE LINES HAD NO FREE PHOTOGRAPH OR NAMED NO SINGLE OBJECT, AND WERE REPLANNED IN THEIR OWN SLOTS.** `art-039`
+the Guennol Lioness (private since 2007, no free picture) became the Met's silver kneeling bull holding a spouted
+vessel, of the same horizon; `art-080` the Mona Lisa of Nimrud (no free picture) became the British Museum's
+*Lioness Devouring a Boy* ivory, carded under the museum's own title with "Lioness Attacking a Nubian" as an alias;
+and `art-042` and `art-044` were narrowed to the one object carded (the Met's Tell Asmar worshipper 40.156, the
+British Museum's Ram in a Thicket). `check-art-order.js`: 0 backward steps.
+
+**THE SOURCE BAR IS TIERED BY DIFFICULTY** (`srcTargetFor`: 1 → 9 … 5 → 5), and several cards sit at 5 because
+that is what could be opened: the British Museum, Penn, the MFA Boston, Smarthistory and the Italian ministry's
+hosts are 403 from here and metmuseum.org rate-limits. The Met's open catalogues on archive.org (*Art of the First
+Cities*, *Egyptian Art in the Age of the Pyramids*, *Assyrian Reliefs and Ivories*) and Google Arts & Culture's
+copies of British Museum records carried much of the batch. **Raise a 5 to a 4 when a sixth source is reachable.**
+
+**ONE PICTURE CARRIES A LABEL.** The only free photograph of the Umataka flame pot (`art-040`) shows the museum card
+reading 火焔土器, "flame pot", in Japanese — the generic half of the answer, in a script most readers cannot read;
+the alt text discloses it. **Replace the picture when a clean one exists.** Gudea's Statue B (`art-054`) is shown
+by de Sarzec's 19th-century plate because every colour photograph shows the legible Louvre label.
+
+**WEAKEST FACTS, STATED SO THEY ARE NOT LOST.** The Mask of Sargon (`art-052`) is gridded at the Iraq Museum on the
+2003 and 2021 catalogues, but whether it survived the 2003 looting could not be settled from an openable source;
+the prose says only that it is catalogued as the museum's. The Vaphio Cups' date and place rest on the National
+Archaeological Museum's own collection page, added at import. The Lady of Auxerre's 1907 rediscovery and the
+Chigi Vase's name are left out for want of a source. The Mask of Tutankhamun is gridded at the Grand Egyptian
+Museum (since November 2025).
+
+**`check-cards.js` CAUGHT ONE AUTHOR OVER THE LIMIT** (`art-066`, Howard Carter in three of nine), fixed by replacing
+his book with an EBSCO reference entry; `art-079` is noted for three sources from the French ministry's Khorsabad
+site, which the checker reports but does not fail.
+
 # The list
 
 ## Before History, to 700 BCE — `art-early`
@@ -856,12 +890,12 @@ keeps the question mark.
 ### The Bronze Age, 3000–1500 BCE — `art-bronze`
 
     art-038  The Narmer Palette — Egypt, c. 3100 BCE
-    art-039  The Guennol Lioness — Mesopotamia, c. 3000 BCE
+    art-039  The Met silver kneeling bull holding a spouted vessel — Proto-Elamite Iran, c. 3000 BCE
     art-040  The Umataka flame pot — Japan, c. 3000 BCE
     art-041  The Harp Player of Keros — the Cyclades, c. 2800 BCE
-    art-042  The Tell Asmar worshipper statue — Mesopotamia, c. 2750 BCE
+    art-042  The Tell Asmar standing worshipper in the Met — Mesopotamia, c. 2750 BCE
     art-043  The Standard of Ur — Sumer, c. 2600 BCE
-    art-044  The Ram in a Thicket — Ur, c. 2600 BCE
+    art-044  The Ram in a Thicket in the British Museum — Ur, c. 2600 BCE
     art-045  The Khafre Enthroned statue — Egypt, c. 2570 BCE
     art-046  The Bull-Headed Lyre of Ur — Sumer, c. 2550 BCE
     art-047  The Great Sphinx of Giza — Egypt, c. 2500 BCE
@@ -900,7 +934,7 @@ keeps the question mark.
     art-077  The Black Obelisk of Shalmaneser III — Assyria, c. 825 BCE
     art-078  The Dipylon Amphora — Athens, c. 750 BCE
     art-079  The Khorsabad lamassu — Assyria, c. 715 BCE
-    art-080  The Mona Lisa of Nimrud ivory head — Assyria, c. 715 BCE
+    art-080  The Lioness Devouring a Boy ivory — Nimrud, Assyria, c. 715 BCE
 
 ## The Classical World, 700 BCE–500 CE — `art-classic`
 
