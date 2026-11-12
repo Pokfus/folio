@@ -47,6 +47,24 @@ EXCLUDE = {
     "bądź",                    # conj "either, or": its count is być's imperative
     "podoba",                  # noun "pattern": its count is podobać's `podoba mi się`
     "ego",                     # counted above `pomoc` and `rozmowa`: subtitle noise, not the psychological term
+    # Found by B1 (2026-11-12).
+    "pierwsza",                # noun "one o'clock": its count is pierwszy's feminine
+    "żadnego",                 # a case of żaden (A1/A2) the dump carries as a live entry
+    "człowieku",               # człowiek's vocative, entered as a particle
+    "powinno",                 # adverb "as it ought": its count is powinien's neuter
+    "działo",                  # noun "cannon": its count is `działo się` (dziać się)
+    "frank", "tom", "henr",    # the names Frank, Tom and Henry, which a lowercase list cannot tell from the franc, a volume and the unit
+    "glina",                   # "clay": its count is the slang "cop", a sense the deck does not teach
+    "korekta",                 # "correction": its count is subtitle credits ("Korekta: …")
+    "dupek",                   # "asshole": swearing, as above
+    # Found by B2 (2026-11-12).
+    "mary",                    # "bier": its count is the name Mary
+    "cie",                     # an interjection to a horse: its count is ciebie's short form `cię` without the ogonek
+    "dna",                     # "gout": its count is dno's genitive
+    "święta",                  # "saint" (fem.): its count is święto's plural "holidays", which A2 teaches as święto
+    "młoda",                   # "bride": its count is młody's feminine
+    "lewa",                    # "trick" (cards): its count is lewy's feminine
+    "forsa",                   # "crowd": its count is the slang "dough, cash", a sense the deck does not teach
 }
 
 

@@ -35,6 +35,25 @@ SCOPE = {
         "with": "the modal words (trzeba, warto, należy), the verbs of motion, the feminine names for people "
                 "(studentka beside student) and the conjunctions the level's grammar names",
     },
+    # certyfikatpolski.uz.zgora.pl, "Poziom B1" (read 2026-11-12): a topic list, summarised.
+    "b1": {
+        "topics": "tastes and character, the family and its occasions, social life, sport, town and country and "
+                  "public institutions, travel, work and the labour market, education, recipes and cooking, "
+                  "shopping and ways of paying, health and way of life, the environment, the state and society "
+                  "(politics, the economy, crime), science and technology, the media, culture and stereotypes",
+        "with": "the words for expressing surprise, doubt, sympathy, disappointment, criticism and advice, and "
+                "the connectives of an argument",
+    },
+    # certyfikatpolski.uz.zgora.pl, "Poziom B2" (read 2026-11-12): roles, text types and grammar, no topic list.
+    "b2": {
+        "topics": "sport and its fans, reading and reviews, driving, accidents, crime and witnesses, complaints, "
+                  "warnings and protests, the telephone, discussion and argument, interviews and formal writing, "
+                  "spelling and language, and the B1 topics taken further (work, housing, the media, law, health, "
+                  "relationships, nature, the arts and travel)",
+        "with": "the adjectives of countries, adjectives made from nouns (lekarski from lekarz), abstract nouns made "
+                "from adjectives (dojrzałość from dojrzały), diminutives, żaden, każdy and wszyscy, and the "
+                "connectives of a formal text",
+    },
 }
 
 

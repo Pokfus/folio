@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Turkish, Hindi, R
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Polish language collection."
 
-**STATUS (2026-11-12): A1 and A2 are built** (`.claude/polish/`, §5). B1 to C2 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/polish/`, §5). C1, C2 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump,
@@ -34,8 +34,8 @@ line to change.
 |---|---|---|
 | Polish A1 — built | `Polish-A1.folio-deck.json` | 600 |
 | Polish A2 — built | `Polish-A2.folio-deck.json` | 750 |
-| Polish B1 | `Polish-B1.folio-deck.json` | 1,000 |
-| Polish B2 | `Polish-B2.folio-deck.json` | 1,200 |
+| Polish B1 — built | `Polish-B1.folio-deck.json` | 1,000 |
+| Polish B2 — built | `Polish-B2.folio-deck.json` | 1,200 |
 | Polish C1 | `Polish-C1.folio-deck.json` | 1,200 |
 | Polish C2 | `Polish-C2.folio-deck.json` | 1,200 |
 | Polish Phrases and Expressions | `Polish-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -67,7 +67,17 @@ guest, customer, tenant, caller and patient, describing and comparing, antonyms 
 grammar nouns in -um, the verbs of motion, the modals `trzeba`, `warto`, `należy`, feminine names from
 masculine ones and the conjunctions `więc`, `dlatego że`, `kiedy`, `gdy`, `jeśli`, `gdyby`. `inventory.py`
 `A2` is written a topic at a time from that summary (`pl_level.SCOPE["a2"]` is what the description says).
-**B1 onwards**: the centre has a page per level (`/sprawdz-swoj-poziom/poziom-b1` …), start there.
+**B1's scope** is that centre's "Poziom B1" page (read 2026-11-12), which does list topics: tastes, the family
+and its occasions, social life, sport, town and country and public institutions, travel, work and the labour
+market, education, recipes, shopping and paying, health and way of life, the environment, the state and
+society (politics, the economy, crime), science and technology, the media, culture and stereotypes, plus the
+functions (surprise, doubt, sympathy, disappointment, criticism, advice, a toast). **B2's** page (read the
+same day) has no topic list: it names roles (sport and its fans, reader, listener, driver, witness, victim of
+a crime or an accident), text intents (warning, protest, complaint, recommendation), discussion and formal
+writing, and grammar (country adjectives, `lekarski` from `lekarz`, `dojrzałość` from `dojrzały`,
+diminutives, `żaden` / `każdy` / `wszyscy`). B2's inventory covers those and takes B1's topics a level
+further (work, housing, the media, law, health, relationships, nature, the arts, travel); its comment in
+`inventory.py` and its description both say so. **C1 and C2**: start at `/sprawdz-swoj-poziom/poziom-c1`.
 
 | input | use | licence |
 |---|---|---|
@@ -152,6 +162,26 @@ Each is a rule in the code with the case that forced it; grep the file for the w
    "carrot"), `święta` (filed as "saint"; `święto` teaches the holiday), `stare miasto` (its sentences say
    "an old city").
 
+## 4c. The findings (B1 and B2, 2026-11-12)
+
+1. **More subtitle names and forms in the fill** (`select.py` `EXCLUDE`): `frank`, `tom`, `henr` (names);
+   `pierwsza`, `młoda`, `lewa` (an adjective's feminine), `żadnego`, `człowieku`, `powinno`, `cie`, `dna`
+   (a case of another word), `działo` (`dziać się`), `święta` (święto's plural), `korekta` (subtitle
+   credits), `glina` and `forsa` (counted for slang senses the deck does not teach), `mary` (the name), and
+   `dupek` (swearing).
+2. **A bare diminutive pointer is a meaning — for a word taught as a diminutive** (`build_deck.py`
+   `diminutive`): `kotek`, `domek`, `synek`, `ptaszek` came out as "sweetie", "cabin for animals", a weaving
+   term and "checkmark". Read as the target's first gloss ("house (diminutive)"), or the gloss after the
+   semicolon (`kotek`: "kitty"), and an entry that is only the pointer (`synek`) is read too. Only for B2's
+   "diminutives" topic: applied everywhere, it led A2's `sałatka` with "lettuce" before "salad".
+3. **A sense dropped though untagged** (`build_deck.py` `DROP_SENSE`): `ojczyzna`'s joke sense.
+4. **Which reading leads**, three more: `tchórz` ("coward", not the polecat), `wart` ("worth"), `dosyć`.
+5. **Not in the dump**: most two-word phrases written for an inventory (they are dropped and reported), and
+   every plural headword (`zawody`, `wybory`, `śmieci` — the singular was used where it means the same).
+   `niczego` resolves only as an adjective ("decent") and `krzak` leads with "mojibake"; both were removed.
+6. Every card of B1 and B2 was read. The subtitle fill carries crime-drama words (`detektyw`, `porucznik`,
+   `zabójca`) on frequency, as every subtitle-ordered deck on the shelf does.
+
 ## 5. How to build, and what to run
 
     python3 .claude/polish/run.py [--level a1] [--no-fetch]
@@ -160,9 +190,9 @@ Each is a rule in the code with the case that forced it; grep the file for the w
 
 A re-run reproduces the shipped deck byte for byte (checked 2026-11-09). A level is built on the shipped
 decks below it (`pl_level.taught_below`). **Every card of A1 was read**; read every card of each new level
-too, since the faults above were all found that way; every card of A2 was read too (2026-11-12). For B1:
-find the scope (§2), add `SCOPE["b1"]` (with its `topics` and `with`) in `pl_level.py` and `B1` in
-`inventory.py`, run, read, fix, re-run — and re-run A1 and A2 to confirm they are unchanged.
+too, since the faults above were all found that way; every card of A2, B1 and B2 was read too (2026-11-12).
+For C1: find the scope (§2), add `SCOPE["c1"]` (with its `topics` and `with`) in `pl_level.py` and `C1` in
+`inventory.py`, run, read, fix, re-run — and re-run every level below to confirm it is unchanged.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 40`, Ethnologue 27th ed., 2021, via
 Wikipedia's infobox, read 2026-11-09) and the hue `lang-polish` `#6B7493` in `app.js` `COLL_THEME`

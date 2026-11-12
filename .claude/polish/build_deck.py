@@ -53,6 +53,14 @@ LEAD = {
     "halo": "intj",          # "hello?" on the telephone; the noun "halo" (of the moon) is filed first
     "piec": "verb",          # "to bake", taught with the cooking verbs; the noun "oven" is filed first
     "gołąbek": "piece of gołąbki",   # the cabbage roll; "pigeon", a mushroom and an endearment are filed first
+    "tchórz": "coward",      # B1: "coward"; the polecat is filed first
+    "wart": "adj",           # B1: "worth"; the noun "main current of a river" is filed first
+    "dosyć": "particle",     # B2: "quite, enough", as for dość; the interjection is filed first
+}
+
+# A SENSE NOT TAUGHT though Wiktionary carries it untagged -- each with its reason (B1, 2026-11-12).
+DROP_SENSE = {
+    ("ojczyzna", "male genitalia"),   # a joke sense with no register tag, beside "homeland"
 }
 
 
@@ -67,13 +75,40 @@ def entries(word, D):
     return L
 
 
-def senses_of(word, D):
+DIMINUTIVE = re.compile(r"^diminutive of (\w+)(?:; (.+))?$")
+
+
+def diminutive(s, D):
+    """A BARE DIMINUTIVE POINTER IS A MEANING (B2, 2026-11-12): `kotek` is "diminutive of kot", which
+    `pl.gloss` drops as a pointer, so its card taught only "sweetie", `synek` a weaving term and `ptaszek`
+    "checkmark".  The pointer is read as its target's first gloss, marked "(diminutive)": "cat (diminutive)".
+    ONLY FOR A WORD THE INVENTORY TEACHES AS A DIMINUTIVE (B2's "diminutives" topic): applied everywhere it
+    led `sałatka` with "lettuce (diminutive)" before "salad", and `walizka` with "trunk"."""
+    t = set(s.get("t") or [])
+    m = DIMINUTIVE.match((s.get("g") or [""])[-1].strip())
+    if not m or (t & pl.NONSTANDARD) or pl.regional(t):
+        return None
+    if m.group(2):                       # `kotek`: "diminutive of kot; kitty (small or young cat)"
+        return m.group(2)
+    for e in D.get(m.group(1), []):
+        if pl.live(e) and e["pos"] == "noun":
+            for s2 in e["senses"]:
+                g = pl.gloss(s2)
+                if g:
+                    return re.sub(r"\s*\([^)]*\)", "", g).strip() + " (diminutive)"
+    return None
+
+
+def senses_of(word, D, dim=False):
     out = []
-    for e in entries(word, D):
+    L = entries(word, D)
+    if dim:     # `synek`'s "diminutive of syn" is an entry of its own, which `pl.live` does not count as live
+        L = [e for e in D.get(word, []) if e not in L and any(diminutive(s, D) for s in e["senses"])] + L
+    for e in L:
         gl = []
         for s in e["senses"]:
-            for g in (pl.parent(s), pl.gloss(s)):
-                if g and g not in gl:
+            for g in (pl.parent(s), pl.gloss(s) or (diminutive(s, D) if dim else None)):
+                if g and g not in gl and (word, g) not in DROP_SENSE:
                     gl.append(g)
         if gl:
             pos = POS_NAME[e["pos"]]
@@ -249,7 +284,7 @@ def main():
     stats = {"noun": 0, "verb": 0, "adj": 0, "pron": 0, "ex3": 0, "ex0": 0, "phrases": 0}
     for x in wl["words"]:
         w = x["word"]
-        senses = senses_of(w, D)
+        senses = senses_of(w, D, x.get("topic") == "diminutives")
         if not senses:
             refused.append(w)
             continue
