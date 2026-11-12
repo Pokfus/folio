@@ -164,6 +164,37 @@ the form English-language scholarship and the reference works use; the decision 
 | Li Sao | Lisao, Li-sao, Li sao | Encountering Sorrow | |
 | Qin Shi Huang | Qin Shihuang, Ch'in Shih-huang, Shih Huang-ti | First Emperor, Shi Huangdi, Ying Zheng | the slug's form; "the First Emperor" in prose is fine |
 | Laozi, Zhuangzi, Mozi, Xunzi, Han Feizi, Sunzi | Lao Tzu, Lao-tzu, Lao Zi, Chuang Tzu, Chuang-tzu, Mo Tzu, Mo-tzu, Mo Zi, Hsün Tzu, Hsün-tzu, Xun Zi, Han Fei Zi, Sun Zi | Sun Tzu | the thinkers and their books joined; Confucius and Mencius keep their English names (Kongzi, Mengzi as aliases); *Sun Tzu* is left unreported, the English name of the book's title in many editions |
+| Shuihudi, Liye, Zhangjiashan, Juyan, Mawangdui | Shui-hu-ti, Shuihu Di, Li Ye, Chang-chia-shan, Chü-yen, Ma Wang Dui, Ma-wang-tui | | the excavated archives and tombs, joined (added for the third hundred, Nov 2026) |
+| Meng Tian, Xu Fu, Zhao Gao, Huhai, Fusu, Chen Sheng, Wu Guang, Ziying | Meng T'ien, Hsü Fu, Chao Kao, Hu Hai, Fu Su, Ch'en Sheng, Tzu-ying, Zi Ying | Xu Shi, Qin Er Shi, the Second Emperor | the Qin's end; *Xu Shi* is the *Shiji*'s own other writing of Xu Fu, legitimate in a quotation |
+| Lingqu | Ling Qu, Ling-ch'ü | Xing'an Canal | joined, as the slug |
+| Xiang Yu, Liu Bang, Fan Zeng, Zhang Liang, Han Xin, Xiao He, Xiang Zhuang | Hsiang Yü, Liu Pang, Fan Tseng, Chang Liang, Han Hsin, Hsiao Ho | | the Chu–Han contention |
+| Hong Gate, Gaixia | Hongmen (as a name in English prose), Hung-men, Kai-hsia, Gai Xia | Hongmen | English name first for the feast (the slug `Feast_at_Hong_Gate`); *Hongmen* may follow as its Chinese name |
+| Emperor Gaozu, Emperor Hui, Emperor Wen, Emperor Jing, Emperor Wu, Emperor Zhao, Emperor Xuan, Emperor Yuan, Emperor Cheng, Emperor Ai, Emperor Ping, Emperor Guangwu, Emperor Ming, Emperor Zhang, Emperor He, Emperor Ling, Emperor Xian | Kao-tsu, Kao-ti, Wu-ti, Wen-ti, Ching-ti, Kuang-wu, Hsien-ti, Ling-ti | Han Gaozu, Gaodi, Han Wudi, Wudi, Liu Bang, Liu Che, Liu Xiu, Liu Xie | the Han emperors: "Emperor" and the posthumous name, English order; the joined Chinese forms (Han Wudi) are legitimate where a cited title or the `pinyin` field uses them |
+| Empress Lü | Empress Lu, Lü Hou, Lu Hou | Lü Zhi, Empress Dowager Lü | with ü in prose |
+| Xiongnu | Hsiung-nu, Hiung-nu, Xiong Nu, Xiong-nu | Huns (only where a source makes the comparison) | joined, as the slug |
+| chanyu | Ch'an-yü, Shan-yü, Shan-yu | shanyu | the Xiongnu ruler's title, lower case in prose; *shanyu* is a common reading of 單于 in English scholarship and is not reported |
+| Modu | Mao-tun, Mo-tun | Maodun, Modun | the slug's form (`Modu_Chanyu`) |
+| heqin | ho-ch'in, He Qin, Heqin (mid-sentence) | | lower case in prose |
+| Huo Qubing, Wei Qing, Zhang Qian, Li Guangli, Ban Chao, Ban Gu, Ban Zhao, Ban Biao, Dong Zhongshu, Sang Hongyang, Cai Lun, Zhang Heng, Liang Ji | Huo Ch'ü-ping, Wei Ch'ing, Chang Ch'ien, Li Kuang-li, Pan Ch'ao, Pan Ku, Pan Chao, Tung Chung-shu, Sang Hung-yang, Ts'ai Lun, Chang Heng, Liang Chi | | the Han men and women, surname and name split |
+| Chang'an, Luoyang | Changan, Ch'ang-an, Chang-an, Lo-yang, Loyang, Luo Yang | | the two capitals; the apostrophe in Chang'an |
+| Western Regions | Hsi-yü | Xiyu | English name first |
+| Silk Road | | Silk Roads, Seidenstrasse | the modern label (Richthofen, 1877) said so where it matters |
+| Hexi Corridor, Nanyue, Dunhuang, Jiuquan, Zhangye, Wuwei | Ho-hsi, Nan-yüeh, Nam Viet, Tun-huang, Chiu-ch'üan | Nam Việt | |
+| Shiji, Hanshu, Hou Hanshu, Sanguozhi | Han-shu, Hou Han Shu, Hou-Han-shu, San guo zhi, Sanguo zhi, Sanguo Zhi, San-kuo chih | Hou Han shu | English title first (Book of Han, Book of the Later Han, Records of the Three Kingdoms); the Chinese title joined; *Hou Han shu* is the slug's title and not reported |
+| Pei Songzhi | P'ei Sung-chih, Pei Song Zhi | | his notes to the *Sanguozhi* (429 CE) |
+| Wang Mang, Liu Xiu, Liu Xin | Liu Hsiu, Liu Hsin | | |
+| Red Eyebrows, Lülin, Kunyang | Ch'ih-mei, Chimei, Lu Lin, Lulin, K'un-yang | | English name first for the Red Eyebrows |
+| Taixue | T'ai-hsüeh, Tai Xue | Imperial University | English name first where the card says so |
+| Yellow Turbans, Zhang Jue, Dong Zhuo, Yuan Shao, Lü Bu | Huang-chin, Chang Chüeh, Zhang Jiao, Tung Cho, Yüan Shao, Lu Bu | Zhang Jiao | *Zhang Jiao* is a common reading of 張角 and is an alias, not reported |
+| Cao Cao, Cao Pi, Liu Bei, Zhuge Liang, Sun Quan, Sun Jian, Sun Ce, Sun Hao, Sima Yi, Sima Yan, Guan Yu, Zhang Fei, Zhou Yu, Lu Su, Lu Xun (Wu general) | Ts'ao Ts'ao, Tsao Tsao, Caocao, Ts'ao P'i, Liu Pei, Chu-ko Liang, Zhuge-Liang, Sun Ch'üan, Ssu-ma I, Ssu-ma Yen, Chang Fei, Chou Yü, Lu Hsün | Kongming, Mengde, Yunchang, Xuande | the Three Kingdoms men, surname and name split; Zhuge is one surname |
+| Cao Wei, Shu Han, Eastern Wu | Ts'ao Wei, Shu-Han, Shuhan, Dong Wu | Wei, Shu, Wu | the slugs' forms; Wei, Shu and Wu alone where the sentence is plainly about the three states |
+| Guandu, Red Cliffs, Wuzhang Plains, Yiling | Kuan-tu, Chibi (in English prose), Ch'ih-pi, Wu-chang | Chibi | English name first for Red Cliffs; *Chibi* may follow |
+| tuntian, zhantian | t'un-t'ien, Tun Tian, chan-t'ien | | lower case in prose |
+| nine-rank system | Jiupin Zhongzheng (in English prose) | jiupin zhongzheng | English name first |
+| Romance of the Three Kingdoms | San-kuo yen-i, Sanguo yanyi (in English prose) | Sanguo yanyi | English title first; *Sanguo yanyi* may follow |
+| Jin (the dynasty of 266 – 420) | Chin dynasty | Western Jin, Eastern Jin | disambiguated from the state of Jin and the Jurchen Jin in the card's own words (`docs/china-card-plan.md`) |
+| qingtan, menfa | ch'ing-t'an, men-fa | | lower case in prose |
+| Seven Sages of the Bamboo Grove, Ji Kang, Ruan Ji, Shan Tao, Xiang Xiu, Liu Ling, Ruan Xian, Wang Rong | Chi K'ang, Juan Chi, Xi Kang | Xi Kang | *Xi Kang* is a common reading of 嵇康 and is an alias |
 
 ## Mythology and legend
 
