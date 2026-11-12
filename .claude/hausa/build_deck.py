@@ -114,6 +114,9 @@ ETYMS = {
     'tsaka': ['2'],           # "in the middle" (da rana tsaka); 1 is a gecko
     'illa': ['2', '1'],       # "harm, fault" (its count) first, then "except"
     'dawa': ['1', '2'],       # "sorghum" AND "the bush" (namun dawa, wild animals)
+    # B1 (2026-11-12)
+    'banda': ['hand'],        # "apart from, except"; Wiktionary has only dried meat
+    'boko': ['hand'],         # "Western education" (ilimin boko); Wiktionary has only "fraud"
 }
 
 # WHICH PARTS OF SPEECH A CARD SHOWS, where Wiktionary adds a reading that is noise on a
@@ -144,7 +147,7 @@ TONE_OFF = {
 # A WORD PRINTED OTHERWISE THAN ITS KEY: the language's name is written with a capital.
 WORD_AS = {'hausa': 'Hausa',
            # Wiktionary has these only as given names, so its spelling is capitalised
-           'Baƙo': 'baƙo', 'Ango': 'ango'}
+           'Baƙo': 'baƙo', 'Ango': 'ango', 'Isa': 'isa', 'Yalwa': 'yalwa', 'Lahira': 'lahira'}
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech -- where its
 # first senses are not the everyday ones, or a second one would mislead a beginner.
@@ -166,6 +169,7 @@ GLOSS = {
     'baba': {'noun': ['father', "a term of address for a man of one's father's age"]},
     'aboki': {'noun': ['friend', 'companion']},
     'yaro': {'noun': ['boy, child', 'servant, follower']},
+    "fi'ili": {'noun': ['verb (in grammar)']},
     'malam': {'noun': ['teacher, a learned man', 'Mr (a title of respect)']},
     'ganye': {'noun': ['leaf', 'leafy vegetables']},
     'igiya': {'noun': ['rope, string', 'cable']},
@@ -295,7 +299,8 @@ def build(rows, lex, exs):
         if word in TONE_OFF:
             toned = ''
         if word in WORD_AS.values() and toned:
-            toned = toned[:1].upper() + toned[1:]
+            # the tone line takes the printed word's case: Hausa, but lahira
+            toned = (toned[:1].upper() if word[:1].isupper() else toned[:1].lower()) + toned[1:]
         ex = exs.get(r['key'], [])
         cards.append({'sub': '', 'fields': {
             'Hausa': E(word),
@@ -332,11 +337,19 @@ def desc(entries, n):
          if LEVEL != 'a1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for Hausa, so this deck is not any examination's vocabulary and does not claim to be. It "
-        f"is assembled from two things that can be stated. {from_inv} of the {n} come from a "
-        f"vocabulary written for the level's scope — {SC['topics']} — and the other "
-        f"{n - from_inv} are the commonest remaining words in the Tatoeba collection of Hausa "
-        "sentences, counted by the WHOLE word (a noun's plural and its forms with the linker and "
-        "the possessive endings added together). The cards are dealt by that frequency, so the "
+        + (f"is assembled from two things that can be stated. {from_inv} of the {n} come from a "
+           f"vocabulary written for the level's scope — {SC['topics']} — and the other "
+           f"{n - from_inv} are the commonest remaining words in the Tatoeba collection of Hausa "
+           "sentences, counted by the WHOLE word (a noun's plural and its forms with the linker and "
+           "the possessive endings added together). " if from_inv < n else
+           # B1: the levels below took every Wiktionary word the corpus uses, so all of it is
+           # the written vocabulary, and the corpus only orders it
+           f"is assembled from a vocabulary written for the level's scope — {SC['topics']} — all "
+           f"{n} words of it, since the levels below already teach every word that both English "
+           "Wiktionary and the Tatoeba collection of Hausa sentences contain. Each word is counted "
+           "in that collection by the WHOLE word (a noun's plural and its forms with the linker and "
+           "the possessive endings added together). ") +
+        "The cards are dealt by that frequency, so the "
         "words you meet most often come first. "
         "Every headword is printed as Hausa is ordinarily written, in the Latin alphabet with its "
         "hooked letters (ɓ ɗ ƙ and 'y); beneath it, where English Wiktionary gives one, is the "

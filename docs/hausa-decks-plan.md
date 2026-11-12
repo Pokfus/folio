@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hausa language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hausa/`, §6, §7). B1 and the
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hausa/`, §6–§8). The phrases
+deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -31,7 +31,7 @@ Asked after a survey of the sources (§2), which are far thinner than for any la
 | Hausa Alphabet (Boko) — built | `Hausa-Alphabet.folio-deck.json` | 36 |
 | Hausa A1 Beginner — built | `Hausa-A1.folio-deck.json` | 500 |
 | Hausa A2 Elementary — built | `Hausa-A2.folio-deck.json` | 750 |
-| Hausa B1 Intermediate | `Hausa-B1.folio-deck.json` | 1,000 |
+| Hausa B1 Intermediate — built | `Hausa-B1.folio-deck.json` | 1,000 |
 | Hausa Phrases and Expressions | `Hausa-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
@@ -169,3 +169,36 @@ words the corpus never uses. **A re-run is byte-identical, and A1 still rebuilds
 **Known, left.** As at A1, the sentences keep Tatoeba's spellings, and some translations are loose (`rani`
 is given as "autumn"). The fill carries Tatoeba's topics (military ranks, `ta'adda`). `malam` takes
 the butterfly sentences of `malam buɗe mana`, which has none of its own.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/hausa/run.py --level b1 [--re-extract]`. 1,000 notes / 2,000 cards, **all from the inventory**
+(`inventory.B1`). Of these, 833 are hand-glossed (`hand.HAND_B1`) and 166 have a tone line. 665 have sentences
+(three for about 530). A re-run is byte-identical, and A1 and A2 still rebuild unchanged (except the A2 fix
+below).
+
+- **THE FILL IS EMPTY AT B1.** A2 took every Wiktionary word the corpus uses (a count of 1 or more), so the
+  frequency top-up has nothing left to add. The level is the written vocabulary, and the corpus only orders
+  it. The description says so (`build_deck.desc`, the `from_inv == n` wording). About 180 of the
+  inventory's words are Wiktionary entries the corpus never uses, kept for their tone lines: Islamic
+  practice (`alwala`, `zakka`, `huɗuba`, the prayer times), traditional titles (`hakimi`, `galadima`,
+  `waziri`), crafts and food (`marini`, `masaƙi`, `ƙosai`, `kuɓewa`), animals, and grammar words (`nahawu`,
+  `fi'ili`, `wasali`, `ƙamus`). The rest are hand-glossed: government and elections, law, conflict, money,
+  health, the environment, work, character, feelings, the home, the verbs of connected speech, and many
+  multi-word terms (`zaman lafiya`, `kundin tsarin mulki`, `ko da yake`, `duk da haka`).
+- **HAND GLOSSES ARE SPLIT AT `;`**, so a semicolon inside brackets broke a card in two ("a draw (in a game"
+  / "literally, a horse's ear)"). Two A2 cards had the same fault (`ƙarfi`, `ruwan lemo`). They are reworded,
+  and that is A2's only change (their English side; no id moves).
+- **Homographs and joined spellings, read off the cards** (`examples.EX_NEED`, the B1 block): `tace` (ta ce),
+  `suma` (su ma), `ladan` (lada + -n), `kunsa` / `kunshi` (ƙunsa, to contain), `ƙuna` (kuna, you are),
+  `ɗauri` (a tie), `fulawa` (flowers), `jemage` (a baseball bat), `leshi` (lipstick), `akanta`, `gogewa`
+  (goge), `saƙa` (saka), and others. Their sentences must say the meaning in English, and most are left with none.
+- **Senses added where the sentences showed them**: `taya` "tyre", `shafi` "to affect", `tsara` "peer", `makulli`
+  "key", `kokawa` "struggling", `yadi` "yard". `banda` and `boko` show only the hand entry (`ETYMS`;
+  Wiktionary has dried meat and "fraud"). `isa`, `yalwa` and `lahira` are printed in lower case (`WORD_AS`;
+  Wiktionary has them capitalised, as names), and a tone line now takes the printed word's case.
+  `filin jirgin sama` and `ɗan Adam` use Wiktionary's own entries.
+
+**Known, left.** The tone line covers only a sixth of B1, because the hand glosses carry none. A third of
+the words have no sentence (mostly multi-word terms, and Wiktionary words the corpus never uses). Some
+sentences carry idioms that are hard to read at B1 (`gajeren wando` "a bull in shorts").

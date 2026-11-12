@@ -70,6 +70,19 @@ SCOPE = {
                   'and the everyday verbs, describing words and adverbs a simple account of '
                   'one\'s day needs',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to '
+                 'produce simple connected text on topics that are familiar or of personal '
+                 'interest, and to describe experiences and events, dreams, hopes and '
+                 'ambitions and briefly give reasons and explanations for opinions and plans',
+        'topics': 'opinions and arguing a point, news, government and society, the law, money '
+                  'and the economy, work and business, education, health and the body, the '
+                  'environment, travel and its troubles, technology, the arts and media, '
+                  'religion and custom, character and relationships, and the verbs, linking '
+                  'words and abstract nouns connected speech is built out of',
+    },
 }
 
 # Who the deck's description says it is for.
