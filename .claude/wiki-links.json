@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:26Z",
+ "generated": "2026-11-12T04:35Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6635,
+  "ok": 6640,
   "redirect-broader": 628,
   "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1025,
+  "none": 1029,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72728,6 +72728,97 @@
    "status": "none",
    "suggestions": [
     "Japanese pottery and porcelain"
+   ]
+  },
+  "art-071": {
+   "answer": "San Lorenzo Colossal Head 1",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Olmec colossal heads",
+    "San Lorenzo Tenochtitlán",
+    "La Venta",
+    "Olmecs",
+    "Olmec Head, Number 8"
+   ]
+  },
+  "art-072": {
+   "answer": "Sanxingdui Bronze Standing Figure",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sanxingdui",
+    "Bronze Age",
+    "Chinese art",
+    "Chinese sculpture",
+    "Shang dynasty"
+   ]
+  },
+  "art-073": {
+   "answer": "Las Limas Monument 1",
+   "title": "Las Limas Monument 1",
+   "url": "https://en.wikipedia.org/wiki/Las_Limas_Monument_1",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-074": {
+   "answer": "Lanzón",
+   "title": "Lanzón",
+   "url": "https://en.wikipedia.org/wiki/Lanz%C3%B3n",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-075": {
+   "answer": "Tello Obelisk",
+   "title": "Tello Obelisk",
+   "url": "https://en.wikipedia.org/wiki/Tello_Obelisk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-076": {
+   "answer": "Ashurnasirpal II Winged Genius Relief",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ashurnasirpal II",
+    "Winged genie",
+    "Art & History Museum",
+    "Nimrud",
+    "Ninurta"
+   ]
+  },
+  "art-077": {
+   "answer": "Black Obelisk of Shalmaneser III",
+   "title": "Black Obelisk of Shalmaneser III",
+   "url": "https://en.wikipedia.org/wiki/Black_Obelisk_of_Shalmaneser_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-078": {
+   "answer": "Dipylon Amphora",
+   "title": "Dipylon Amphora",
+   "url": "https://en.wikipedia.org/wiki/Dipylon_Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-079": {
+   "answer": "Khorsabad Lamassu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lamassu",
+    "Dur-Sharrukin",
+    "Assyrian sculpture",
+    "Art of Mesopotamia",
+    "British Museum Department of the Middle East"
    ]
   }
  }

@@ -9338,7 +9338,15 @@ window.GLOSSARY = {
 "Mask_of_Warka": "",
 "Battlefield_Palette": "",
 "Kneeling_Bull_with_Vessel": "",
-"Umataka_flame_pot": ""
+"Umataka_flame_pot": "",
+"San_Lorenzo_Colossal_Head_1": "",
+"Sanxingdui_Bronze_Standing_Figure": "",
+"Las_Limas_Monument_1": "",
+"Lanzón": "",
+"Tello_Obelisk": "",
+"Ashurnasirpal_II_Winged_Genius_Relief": "",
+"Black_Obelisk_of_Shalmaneser_III": "",
+"Khorsabad_Lamassu": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13946,7 +13954,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mask_of_Warka": "c. 3500 – 3000 BCE",
 "Battlefield_Palette": "c. 3150 – 3100 BCE",
 "Kneeling_Bull_with_Vessel": "c. 3100 – 2900 BCE",
-"Umataka_flame_pot": "c. 3500 – 2500 BCE"
+"Umataka_flame_pot": "c. 3500 – 2500 BCE",
+"San_Lorenzo_Colossal_Head_1": "c. 1200 – 900 BCE",
+"Sanxingdui_Bronze_Standing_Figure": "c. 1300 – 1000 BCE",
+"Las_Limas_Monument_1": "c. 1000 – 400 BCE",
+"Lanzón": "c. 1000 – 500 BCE",
+"Tello_Obelisk": "c. 850 – 500 BCE",
+"Ashurnasirpal_II_Winged_Genius_Relief": "c. 883 – 859 BCE",
+"Black_Obelisk_of_Shalmaneser_III": "c. 828 – 827 BCE",
+"Khorsabad_Lamassu": "c. 713 – 706 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19867,7 +19883,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mask_of_Warka": ["Mask of Warka","Lady of Warka","Lady of Uruk"],
 "Battlefield_Palette": ["Battlefield Palette"],
 "Kneeling_Bull_with_Vessel": ["Kneeling bull holding a spouted vessel","Kneeling Bull with Vessel"],
-"Umataka_flame_pot": ["Umataka flame pot"]
+"Umataka_flame_pot": ["Umataka flame pot"],
+"San_Lorenzo_Colossal_Head_1": ["El Rey","San Lorenzo Monument 1"],
+"Sanxingdui_Bronze_Standing_Figure": ["Sanxingdui bronze standing figure","Bronze Standing Figure"],
+"Las_Limas_Monument_1": ["Señor de Las Limas","Lord of Las Limas"],
+"Lanzón": ["Lanzon","Great Image"],
+"Tello_Obelisk": ["Obelisco Tello"],
+"Ashurnasirpal_II_Winged_Genius_Relief": ["Winged genius relief"],
+"Black_Obelisk_of_Shalmaneser_III": ["Black Obelisk"],
+"Khorsabad_Lamassu": ["Khorsabad lamassu"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29363,7 +29387,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mask_of_Warka": ["object","art","religion","mesopotamia","iraq"],
 "Battlefield_Palette": ["object","art","history","egypt","predynastic"],
 "Kneeling_Bull_with_Vessel": ["object","art","religion","iran","asia"],
-"Umataka_flame_pot": ["object","art","prehistory","japan","jomon"]
+"Umataka_flame_pot": ["object","art","prehistory","japan","jomon"],
+"San_Lorenzo_Colossal_Head_1": ["sculpture","art","archaeology","mexico","americas"],
+"Sanxingdui_Bronze_Standing_Figure": ["sculpture","art","archaeology","china","bronze age"],
+"Las_Limas_Monument_1": ["sculpture","art","religion","mexico","americas"],
+"Lanzón": ["sculpture","religion","art","peru","south america"],
+"Tello_Obelisk": ["sculpture","religion","art","peru","south america"],
+"Ashurnasirpal_II_Winged_Genius_Relief": ["sculpture","art","religion","assyria","mesopotamia"],
+"Black_Obelisk_of_Shalmaneser_III": ["sculpture","art","history","assyria","mesopotamia"],
+"Khorsabad_Lamassu": ["sculpture","art","religion","assyria","mesopotamia"]
 });
 
 /* ============================================================================

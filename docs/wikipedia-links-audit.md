@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6635 | the title is the article |
+| `ok` | 6640 | the title is the article |
 | `redirect-variant` | 398 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1025 | nothing matched; no link |
+| `none` | 1029 | nothing matched; no link |
 
-**7766 of 9090 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7771 of 9099 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1083,7 +1083,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1025)
+## No article found (1029)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1112,6 +1112,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-064` **Akhenaten, Nefertiti and Three Daughters** — search suggests `Nefertiti`, `Akhenaten`, `Amarna art`, `Nefertiti Bust`, `Royal Tomb of Akhenaten`
 - `art-067` **Book of the Dead of Hunefer** — search suggests `Book of the Dead`, `Ancient Egyptian afterlife beliefs`, `Ammit`, `Book`, `Papyrus`
 - `art-068` **Abu Simbel colossi** — search suggests `Abu Simbel`, `Death on the Nile (1978 film)`, `Art of ancient Egypt`, `Nebettawy`, `Ramesseum`
+- `art-071` **San Lorenzo Colossal Head 1** — search suggests `Olmec colossal heads`, `San Lorenzo Tenochtitlán`, `La Venta`, `Olmecs`, `Olmec Head, Number 8`
+- `art-072` **Sanxingdui Bronze Standing Figure** — search suggests `Sanxingdui`, `Bronze Age`, `Chinese art`, `Chinese sculpture`, `Shang dynasty`
+- `art-076` **Ashurnasirpal II Winged Genius Relief** — search suggests `Ashurnasirpal II`, `Winged genie`, `Art & History Museum`, `Nimrud`, `Ninurta`
+- `art-079` **Khorsabad Lamassu** — search suggests `Lamassu`, `Dur-Sharrukin`, `Assyrian sculpture`, `Art of Mesopotamia`, `British Museum Department of the Middle East`
 - `art-087` **Sophilos Dinos** — search suggests `Dinos`, `Dinos of the Gorgon Painter`, `Dionysus`, `Tethys (mythology)`, `Oceanus`
 - `art-089` **Achilles and Ajax Playing a Game** — search suggests `Ajax the Great`, `Exekias`, `Achilles`, `Five Lines`, `Trojan War`
 - `art-090` **Anavysos Kouros** — search suggests `Kouros`, `Kroisos Kouros`, `AP Art History`, `530 BC`
