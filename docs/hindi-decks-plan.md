@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-12): the alphabet deck and every level, A1 to C1, are built** (`.claude/hindi/`, §6–10).
-The phrases deck is not.
+**STATUS (2026-11-12): the collection is complete** — the alphabet deck, every level A1 to C1 and the
+phrases deck are built (`.claude/hindi/`, §6–11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -31,7 +31,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate — built | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced — built | `Hindi-C1.folio-deck.json` | 1,500 |
-| Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Hindi Phrases and Expressions — built | `Hindi-Phrases-and-Expressions.folio-deck.json` | 288 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -88,7 +88,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
-**Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
+**Phase 3 (done)** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
@@ -105,7 +105,7 @@ The shelf's hue is measured: `#9F51B4`, 21.2 from its nearest of 45.
 ## 7. As built (2026-11-12): A2
 
 `python3 .claude/hindi/run.py --level a2`. 750 notes, 241 from the inventory and 509 by frequency; sentences
-for 614, three for 426, none for 136 (Tatoeba's Hindi is small). A re-run is byte-identical, and A1 rebuilt
+for 614, three for 427, none for 136 (Tatoeba's Hindi is small). A re-run is byte-identical, and A1 rebuilt
 by the changed code is byte-identical to the shipped file. The inventory (`inventory.py` `A2`) covers
 relatives, work, jobs, clothes, cooking, the home, the town, the countryside and animals, seasons and
 directions, the months, the numbers to a crore, travel, health, feelings, free time and festivals, time words,
@@ -218,4 +218,42 @@ repeats a lower level.
   `ललित`, `विक्रम`, `हरि`, `रजनी`, `रीता`, `जोशी`, `जुगल`).
 
 **Known, left.** The weak fill above; a few low-count verbs whose counts may belong to commoner words were not
-proven either way. The phrases deck (Phase 3) is next.
+proven either way. The phrases deck (Phase 3) is §11.
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/hindi/run.py --level phr` runs `phrases.py` in place of `select.py`. 288 expressions in three
+subdecks, the Indonesian and Turkish arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **97 Phrases**
+(Wiktionary's multi-word phrases and interjections not tagged idiomatic — `कम से कम`, `कैसे हो`, `कोई बात
+नहीं`, festival greetings, three national mottos), **157 Idioms** (a multi-word entry with a sense tagged
+idiomatic — `पता चलना`, `नाक कटना`, `मगरमच्छ के आँसू`) and **34 Proverbs** (Wiktionary's part of speech; some are
+idioms Wiktionary files there, `आग बबूला होना`, and the description says so). Nothing a level teaches is
+repeated. A re-run is byte-identical, and every level rebuilt by the changed code is byte-identical too.
+
+**THE ORDER, and how little Tatoeba gives.** Within a subdeck: how many Tatoeba sentences contain the
+expression, then its frequency estimate (its rarest word's subtitle count, halved — `extract.py`), then its
+spelling. Only 53 of the 288 occur in any Tatoeba sentence, so the second key orders most of the deck; 53 have
+sentences, 11 have three. The description states both.
+
+**Findings:**
+- **An expression that IS a verb is matched with its last word in any form of that verb** (`पता चलना` → `पता
+  चला`, `निकल जाना` → `निकल गए`) — the Turkish finding, in `examples.phrase_parts` / `seq_hit`. It applies to the
+  phrases deck ONLY, so the level decks keep their exact matching and rebuild unchanged; the levels' own
+  multi-word verbs (`मदद करना` …) would gain sentences from it, which no session has asked for.
+- **Wiktionary's Hindi phrases are a phrasebook**: sixteen spellings of "I love you" (person × gender × प्यार /
+  प्रेम), and personal statements (`मैं हिंदू हूँ`, `क्या आप शादीशुदा हैं`). They go by the Turkish rule — a
+  sentence a learner builds from level words is not a set phrase — each listed in `phrases.EXCLUDE` with its
+  reason; the questions and formulas (`आपका नाम क्या है`, `मुझे भूख लगी है`, `मुझे पता नहीं`) stay.
+- Also excluded, each with its reason: political slogans (`दिल्ली चलो`, `इंक़िलाब ज़िंदाबाद`, two of "workers of
+  the world, unite"), religious invocations and Arabic formulas (`जय श्री राम`, `हर हर महादेव`, `अल्लाहो अकबर`
+  …), the oath `भाड़ में जाओ`, the same expression twice (`दूर के ढोल सुहावने` with a verb added, a reordered
+  question, a third spelling of crocodile tears), and `कहते हैं`, whose 42 Tatoeba sentences are all the
+  literal "they say" and none the attention-getter its card teaches.
+- `SYNONYM` now resolves a synonym of any length (`घड़ियाली आँसू` "synonym of मगरमच्छ के आँसू"); a gloss that
+  opens with a stray "; " is cleaned (`चिराग़ तले अँधेरा`); `निकल जाना`'s sexual third sense is left out
+  (`GLOSS`); four romanisations the extract lost are Wiktionary's Hindi headwords (`ROMAN`).
+
+**Known, left.** Wiktionary tags as idiomatic some expressions a learner would call plain (`फिर से` "once again",
+`साथ गाना` "to sing along") — its labels are the source's, stated as such. Synonymous idioms are kept side by
+side (`छाती चौड़ी होना`, `सीना चौड़ा होना`, `छाती फूलना`), the shelf's duplicate pass labelling their shared
+English. `दफ़ा हो जा` ("get lost!") is rude and kept, as an expression a learner hears.
