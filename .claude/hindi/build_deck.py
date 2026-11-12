@@ -71,12 +71,19 @@ TRAIL = re.compile(r'\s*[:;,]\s*$')
 SYNONYM = re.compile(r'^synonym of (\S+) \(([^()]+)\)$')
 LEX = {}
 
-# A ROMANISATION Wiktionary's entry carries on its page but the extract lost (A2).
-ROMAN = {'फ़िल्म': 'film'}
+# A ROMANISATION Wiktionary's page carries in its Hindi headword but the extract lost.
+ROMAN = {'फ़िल्म': 'film', 'गर्भवती': 'garbhvatī', 'उपग्रह': 'upgrah'}  # A2, B1
+
+
+# "hyperforeign form of रिवाज" (the nukta added where it does not belong) is a note on
+# spelling, not a meaning; the entry's other sense carries the meaning (B1).
+HYPER = re.compile(r'^hyperforeign form of ', re.I)
 
 
 def gloss_text(g):
     g = TRAIL.sub('', g)
+    if HYPER.match(g):
+        return ''
     m = SYNONYM.match(g)
     if m:
         tgt = LEX.get(fold(m.group(1))) or {}
@@ -108,6 +115,8 @@ ETYMS = {
     'सीना': ['2', '1'],       # "chest" AND "to sew"
     'जरा': [''],              # "a little" (ज़रा); 1 is "infirmity"
     'धरना': ['1', '2'],       # "to hold" AND "sit-in"
+    'शुक्र': ['2'],           # "gratitude" (शुक्र है); 1 is "resplendent; semen" (B1)
+    'बिल': ['2', '1'],        # "bill" AND "hole"
     'हिंदी': [None, ''],      # the language (a proper noun, no etymology number) leads         # "sir" (the subtitles' count) AND "head"
 }
 

@@ -5,7 +5,7 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hindi/`, §6–7). B1 to C1 and
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hindi/`, §6–8). B2, C1 and
 the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -28,7 +28,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi Alphabet (Devanagari) — built | `Hindi-Alphabet.folio-deck.json` | 59 |
 | Hindi A1 Beginner — built | `Hindi-A1.folio-deck.json` | 500 |
 | Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
-| Hindi B1 Intermediate | `Hindi-B1.folio-deck.json` | 1,000 |
+| Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
 | Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -86,7 +86,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -131,3 +131,31 @@ given a meaning by hand. The deck's description now names the learner by level (
 
 **Known, left.** The fill carries the subtitles' register (`हत्या`, `बम`, `आतंकवादी`, `लेफ्टिनेंट`, `परमाणु`)
 on frequency, as A1 does; `तुलना` leads with Wiktionary's verb "to be weighed" before the noun "comparison".
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/hindi/run.py --level b1`. 1,000 notes, 177 from the inventory and 823 by frequency; sentences
+for 578, three for 285, none for 422 — Tatoeba's 13,300 Hindi pairs thin out fast past A2. A re-run is
+byte-identical, and A1 and A2 rebuilt by the changed code are byte-identical to the shipped files. The
+inventory (`inventory.py` `B1`) covers work and the economy, education, the news and technology, government
+and law, the environment, health, travel, the household, relationships and the stages of life, feelings,
+religion, ideas and plans, the connectors (`यानी`, `चूँकि`, `अर्थात`, `किंतु`, `परंतु` …), describing words and
+the verbs of thinking and changing; most of what it names that A2's fill had not already dealt. 19 first-draft
+words or multi-word verbs had no Wiktionary entry (`डिग्री`, `प्रोफ़ेसर`, `वोट`, `ऑपरेशन`, `पासवर्ड`, `तय करना`,
+`फ़ैसला करना` …) and were dropped, or swapped for one that has an entry (`बेरोज़गार`, `उपाधि`, `प्रमाण`).
+
+**Found on reading every card, and fixed:**
+- `ETYMS`: `शुक्र` "gratitude" (not "resplendent; semen"), `बिल` "bill" and "hole".
+- A "hyperforeign form of रिवाज" gloss (the nukta where it does not belong) is a spelling note, not a
+  meaning, and is dropped (`build_deck.HYPER`); `रिवाज़` shows "custom, tradition".
+- Two romanisations the extract lost are read off Wiktionary's Hindi headwords (`ROMAN`): `गर्भवती`
+  garbhvatī, `उपग्रह` upgrah.
+- New hand exclusions in `select.EXCLUDE`: `दिया` (its count is "gave", the past of देना), names (`संजय`,
+  `शेखर`, `विक्टोरिया`, `सीज़र`, `दुर्गा`, `शास्त्री`), English counted under a Hindi spelling (`गूगल`, `बी`,
+  `चेक`, `डील`, `लव`, `रोलना`, `लेसना`, `कोर`), the captions' `हाँक`, and counts belonging to another word
+  (`हनना`, `चालना`, `बंधा`, `धत`).
+
+**Known, left.** The fill's subtitle register is stronger here than at A2: crime, war and adult vocabulary
+(`बलात्कार`, `वेश्या`, `अपहरण`, `मिसाइल`) is dealt on frequency, as the other subtitle-ordered decks deal it — none
+of it is swearing, which `SWEARS` keeps out. Some first senses are the rarer ones Wiktionary lists first
+(`पद` "foot" before "post", `दस्त` "hand (in compounds)").

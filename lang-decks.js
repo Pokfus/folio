@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 229 MB of decks. The file itself is fetched on Add. */
+   section without fetching 231 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -16,6 +16,7 @@ window.LANG_DECKS = [
   { lang: "Hindi", file: "Hindi-Alphabet.folio-deck.json", id: "hiabc", title: "Hindi Alphabet (Devanagari)", sub: "59 letters and signs · both directions, as two cards per letter", notes: 59, cards: 118, ex: 0, bytes: 25772, rev: "4ea40487bf15" },
   { lang: "Hindi", file: "Hindi-A1.folio-deck.json", id: "hindia1", title: "Hindi A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, bytes: 1258544, rev: "8365d31f4298" },
   { lang: "Hindi", file: "Hindi-A2.folio-deck.json", id: "hindia2", title: "Hindi A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 82, bytes: 1791089, rev: "738979b668f0" },
+  { lang: "Hindi", file: "Hindi-B1.folio-deck.json", id: "hindib1", title: "Hindi B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 58, bytes: 2042094, rev: "6bea8f9d564f" },
   { lang: "Spanish", file: "DELE-A1-Spanish.folio-deck.json", id: "delea1", title: "DELE A1 — Spanish", sub: "492 words · both directions, as two cards per word", notes: 492, cards: 984, ex: 100, bytes: 1580557, rev: "ab1a4019c05c" },
   { lang: "Spanish", file: "DELE-A2-Spanish.folio-deck.json", id: "delea2", title: "DELE A2 — Spanish", sub: "495 more words, none of them in A1 · both directions, as two cards per word", notes: 495, cards: 990, ex: 100, bytes: 1768642, rev: "68e353356af5" },
   { lang: "Spanish", file: "DELE-B1-Spanish.folio-deck.json", id: "deleb1", title: "DELE B1 — Spanish", sub: "998 more words, none of them in A1 or A2 · both directions, as two cards per word", notes: 998, cards: 1996, ex: 100, bytes: 4088772, rev: "ffe60d4c100a" },

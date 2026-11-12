@@ -56,6 +56,27 @@ EXCLUDE = {
     'प्रिया': '"darling"; its count is the given name Priya',
     'दिव्या': '"divine"; its count is the given name Divya',
     'ख़ान': '"khan"; its count is the surname Khan',
+    # Read off the B1 ranking (2026-11-12).
+    'दिया': '"lamp"; its count is दिया "gave", the past of देना (the A1 note on दी)',
+    'हाँक': 'its count is the captions\' हांक- / हांफ- ("[panting]"), as हाँकना\'s',
+    'संजय': '"victorious"; its count is the given name Sanjay',
+    'शेखर': '"crest"; its count is the given name Shekhar',
+    'विक्टोरिया': 'a given name',
+    'सीज़र': 'the name Caesar',
+    'दुर्गा': 'the goddess\'s name, counted as a word',
+    'शास्त्री': '"scientist"; its count is the surname Shastri',
+    'गूगल': '"the guggul tree"; its count is the subtitles\' "Google"',
+    'बी': '"synonym of बीवी"; its count is the letter B',
+    'चेक': '"Czech"; its count is the subtitles\' English "check"',
+    'डील': '"bulk, stature"; its count is the subtitles\' English "deal"',
+    'लव': '"a particle"; its count is the subtitles\' English "love"',
+    'रोलना': '"to roll out"; its count is रोल, the subtitles\' English "role"',
+    'लेसना': '"to plaster with dung"; its count is लेस-, from English',
+    'कोर': '"blind" in Wiktionary\'s one sense; its count is the subtitles\' English "core", "corps"',
+    'हनना': '"to slay", archaic; its count is the shapes it shares with commoner words',
+    'चालना': '"to impel"; its count is चाल "gait" and चलना, whose forms it shares',
+    'बंधा': '"levee"; its count is बंधा "tied", of बँधना',
+    'धत': '"vice" in Wiktionary\'s one sense; its count is धत "get away!", the interjection',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
