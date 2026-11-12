@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"95e86867264a4ffa","counts":{"terms":941,"points":704,"countries":237,"windows":1567,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4986f5c7c6fb3b23","counts":{"terms":941,"points":704,"countries":237,"windows":1568,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1681,6 +1681,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"95e86867264a4ffa","counts":
 "Leptis_Magna":[14.291,32.638,"site",0,0,0],
 "Lesbos":[26.036,39.199,"island",0,0,0],
 "Lesotho":[28.25,-29.48,"country","adm0:lso",0,32.29],
+"Levittown,_New_York":[-73.511,40.724,"coord",0,0,0],
 "Lhasa":[91.1,29.645,"town",0,0,0],
 "Li_River":[110.633,24.633,"river",0,0,0],
 "Liang_dynasty":[110.181,26.988,"polity","pol:liang",510,3.56],

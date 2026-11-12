@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8000 | the title is the article |
-| `redirect-variant` | 480 | spelling / plural / qualifier differed; same subject |
+| `ok` | 8094 | the title is the article |
+| `redirect-variant` | 485 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 109 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 777 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 782 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 188 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 157 | only a disambiguation page; no link could be chosen |
-| `none` | 1174 | nothing matched; no link |
+| `disambiguation` | 156 | only a disambiguation page; no link could be chosen |
+| `none` | 1171 | nothing matched; no link |
 
-**9382 of 10920 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9486 of 11020 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (777)
+## Redirected to a differently named article — check each (782)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -676,6 +676,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-750` **Federal Reserve System** → [Federal Reserve](https://en.wikipedia.org/wiki/Federal_Reserve) (from `Federal Reserve System`)
 - `us-768` **Harlem Hellfighters** → [369th Infantry Regiment (United States)](https://en.wikipedia.org/wiki/369th_Infantry_Regiment_(United_States)) (from `Harlem Hellfighters`)
 - `us-777` **1918 influenza pandemic** → [Spanish flu](https://en.wikipedia.org/wiki/Spanish_flu) (from `1918 influenza pandemic`)
+- `us-819` **Schechter v. United States** → [A.L.A. Schechter Poultry Corp. v. United States](https://en.wikipedia.org/wiki/A.L.A._Schechter_Poultry_Corp._v._United_States) (from `Schechter v. United States`)
+- `us-838` **Office of War Information** → [United States Office of War Information](https://en.wikipedia.org/wiki/United_States_Office_of_War_Information) (from `Office of War Information`)
+- `us-842` **Trinity test** → [Trinity (nuclear test)](https://en.wikipedia.org/wiki/Trinity_(nuclear_test)) (from `Trinity test`)
+- `us-844` **Island hopping** → [Leapfrogging (strategy)](https://en.wikipedia.org/wiki/Leapfrogging_(strategy)) (from `Island hopping`)
+- `us-884` **Kennedy–Nixon debates** → [1960 United States presidential debates](https://en.wikipedia.org/wiki/1960_United_States_presidential_debates) (from `Kennedy–Nixon debates`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -950,7 +955,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (157)
+## Disambiguation pages that could not be settled (156)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1097,9 +1102,8 @@ Pick the right article by hand, or leave the card without a link.
 - `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
 - `us-410` **forty-niners** — `49er` is a disambiguation page; its links: `Forty-Niner (passenger train)`, `The Forty-Niners (1932 film)`, `The Forty-Niners (1954 film)`, `Top 10: The Forty-Niners`
 - `us-462` **overseer** — `Overseer` is a disambiguation page; its links: `Overseer (rank)`, `Overseer of the poor`, `Rob Overseer`, `Aerojet SD-2 Overseer`
-- `us-738` **People's Party** — `People's Party` is a disambiguation page; its links: `People's Party (United States)`, `People's party (politics)`, `People's Party (United States, 1971)`, `People's Party (United States, 2017)`, `PEOPLE Party`, `People Party`
-- `us-749` **New Freedom** — `New Freedom` is a disambiguation page; its links: `The New Freedom`, `New Freedom, New Jersey`, `New Freedom, Pennsylvania`, `New Freedom (SAFETEA-LU)`, `New Freedom Commission on Mental Health`, `New Freedom Railroad Station, Northern Central Railway`
-- `us-796` **Breadline** — `Breadline` is a disambiguation page; its links: `Breadline Africa`, `Breadline (song)`
+- `us-826` **Neutrality Acts** — `Neutrality Act` is a disambiguation page; its links: `Neutrality Act of 1794`, `Neutrality Act of 1818`, `Neutrality Acts of the 1930s`
+- `us-875` **Covert action** — `Covert action` is a disambiguation page; its links: `Clandestine HUMINT and covert action`, `Sid Meier's Covert Action`, `Covert Action (album)`, `Covert Action (film)`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
 - `wh-298` **coinage** — `Coinage` is a disambiguation page; its links: `COINage`, `Tin coinage`
@@ -1293,7 +1297,7 @@ Wikipedia treats these as part of another article. No link.
 - `us-513` **immediatism** — `Immediatism` only redirects into `Peter Lamborn Wilson#Ontological anarchy`
 - `us-536` **Seventh of March speech** — `Seventh of March speech` only redirects into `Daniel Webster#Seventh of March Speech`
 - `us-631` **Radical Reconstruction** — `Radical Reconstruction` only redirects into `Reconstruction era#Congressional Reconstruction`
-- `us-785` **Second Ku Klux Klan** — `Second Ku Klux Klan` only redirects into `Ku Klux Klan#Second Klan`
+- `us-858` **Long Telegram** — `Long Telegram` only redirects into `X Article#The "long telegram"`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1316,7 +1320,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1174)
+## No article found (1171)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2429,9 +2433,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-661` **destruction of the bison** — search suggests `American bison hunting`, `Bison`, `American bison`, `History of the United States`, `Great bison belt`
 - `us-662` **cattle kingdom** — search suggests `List of cattle terminology`, `Highland cattle`, `United States`, `Aberdeen Angus`, `American Brahman`
 - `us-682` **Industrialisation of the United States** — search suggests `Japan–United States relations`, `History of industrialisation`, `Singapore–United States relations`, `Industrialisation`, `International development`
-- `us-717` **Eastern European Jewish immigration** — search suggests `History of immigration to the United States`, `United States immigration statistics`, `History of the Jews in the United States`, `Immigration to Europe`, `Race and ethnicity in the United States`
-- `us-735` **Americanization movement** — search suggests `Americanization`, `Americanization (immigration)`, `United States`, `Joe Biden`, `Vigilantism in the United States`
-- `us-773` **African American Great Migration** — search suggests `Great Migration (African American)`, `Second Great Migration (African American)`, `List of African-American United States representatives`, `Demographics of the United States`, `African Americans in the United States Congress`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`
