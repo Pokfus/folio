@@ -139,6 +139,8 @@ GLOSS = {
     'دریغ': {'intj': ['alas']},
     'مومیایی': {'adj': ['mummified'], 'noun': ['mummy (an embalmed body)']},
     'موزیکال': {'adj': ['musical']},
+    # phrases: Wiktionary defines the spoken form by a pointer to قربانت بروم, whose gloss this is
+    'قربونت برم': {'phrase': ['may I be sacrificed for you (a spoken endearment)']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -233,7 +235,10 @@ ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'pos
                  # C1: کینه printed "kin" (the line has kine); آشکار took آشکارا's reading;
                  # Wiktionary's "pâydanâri" for پایداری does not match its spelling (pâydâri,
                  # as پایدار pâydâr); راکتور has an empty headword line
-                 'کینه': 'kine', 'آشکار': 'âškâr', 'پایداری': 'pâydâri', 'راکتور': 'râktor'}
+                 'کینه': 'kine', 'آشکار': 'âškâr', 'پایداری': 'pâydâri', 'راکتور': 'râktor',
+                 # phrases: a Classical reading (tuwânâ buwad); an ezafe written without its hyphen
+                 'توانا بود هر که دانا بود': 'tavânâ bovad har ke dânâ bovad',
+                 'به ساز کسی رقصیدن': 'be sâz-e kasi raqsidan'}
 
 
 # ---- forms -----------------------------------------------------------------------------
@@ -443,7 +448,7 @@ def build(rows, lex, exs):
         roman = ROMAN_BY_HAND.get(word) or main['roman'] \
             or next((e['roman'] for e in ents if e['roman']), '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Persian': fa(word),
             'Roman': E(roman),
             'Word': word,
@@ -453,7 +458,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -502,6 +508,41 @@ def desc(entries, n):
     )
 
 
+
+def desc_phr(entries, n):
+    """The phrases deck's description (Hindi's, 2026-11-12, for Persian)."""
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Persian set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Persian → English (see the Persian, recall "
+        "the meaning) and English → Persian (see an English meaning, recall the Persian) — each with a "
+        "schedule of its own. This is a companion to the five level decks, Persian A1 to C1, and not "
+        "one of them: a level is a list of words, and an expression is a unit a list of words cannot "
+        "see. Nothing here is taught by any of the five, so the two can be studied together without "
+        "repeating an entry. The PHRASES are the expressions Wiktionary files as phrases and does not "
+        "mark as idiomatic — mostly the everyday formulas a Persian speaker uses as one piece "
+        f"({eg('Phrases')} …). The IDIOMS are expressions whose meaning is not their words' "
+        f"({eg('Idioms')} …), and the PROVERBS the sayings Wiktionary files as proverbs "
+        f"({eg('Proverbs')} …). Within each subdeck the expressions come in the order of how many of "
+        "Tatoeba's Persian sentences contain them, an expression ending in a verb being counted in any "
+        f"form of that verb; Tatoeba's Persian is small, so only {found} of the {n} are found there at "
+        "all, and the rest follow in the order of how common their words are in film and television "
+        "subtitles. Every expression is printed in the Persian script with Wiktionary's Iranian "
+        "romanisation beneath it. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, romanisation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -512,11 +553,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['persian', 'farsi', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['persian', 'farsi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['persian', 'farsi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Persian vocabulary', 'speechLang': 'fa-IR',

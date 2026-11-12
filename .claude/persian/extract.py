@@ -89,6 +89,10 @@ def roman_of(e):
                 if r and not is_persian(r):
                     return r.translate(MACRON)
         return ''
+    # A saying in two halves (`چی بودیم، چی شدیم`): Wiktionary tags each half's reading as a
+    # romanisation of its own; the card prints both (the phrases deck, 2026-11-12)
+    if '،' in e.get('word', '') and len(rs) == e['word'].count('،') + 1:
+        return ', '.join(r.translate(MACRON) for r in rs)
     # Only a Classical reading given (īn for این): its long vowels written the Iranian way,
     # which for the long vowels is exact (ī -> i, ū -> u, ē -> i, ō -> u, ā -> â).
     return rs[-1].translate(MACRON)

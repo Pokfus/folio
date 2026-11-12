@@ -5,8 +5,8 @@ twelfth language set, built the way the Hindi set was (`docs/hindi-decks-plan.md
 record of how the others were built, and every rule there applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Farsi language collection."
 
-**STATUS (2026-11-12): the alphabet deck and every level, A1 to C1, are built** (`.claude/persian/`). The
-phrases deck is not.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, every level A1 to C1, and the phrases deck are built**
+(`.claude/persian/`).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The first commit carried one changelog item (folded into Hindi's line of the same
@@ -36,7 +36,7 @@ over rather than asked again:
 | Persian B1 Intermediate — built | `Persian-B1.folio-deck.json` | 1,000 |
 | Persian B2 Upper Intermediate — built | `Persian-B2.folio-deck.json` | 1,500 |
 | Persian C1 Advanced — built | `Persian-C1.folio-deck.json` | 1,500 |
-| Persian Phrases and Expressions | `Persian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Persian Phrases and Expressions — built | `Persian-Phrases-and-Expressions.folio-deck.json` | 106 |
 
 ## 2. Sources and licences
 
@@ -91,7 +91,7 @@ carries the subtitles' crime-drama words (`سلاح`, `شلیک`) on frequency, 
 ## 5. Phases
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done 2026-11-12)** — A2 to C1, one level per session: the level's
-inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3** — phrases.
+inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3 (done 2026-11-12)** — phrases.
 
 ## 6. As built (2026-11-09)
 
@@ -210,3 +210,31 @@ nothing has a Tatoeba sentence. A re-run is byte-identical; A1 to B2 rebuilt aft
 (طاووس, زرافه, خاویار) sit beside the formal words, because the subtitles rank them alike. Without a published
 Persian C1 list or a fuller dictionary, that is what an honest assembly gives. 18 notes in nine pairs share an
 English side and are labelled "not X".
+
+## 11. The phrases deck as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/persian/run.py --level phr` runs
+`phrases.py` (Hindi's, carried over) in place of `select.py`. **106 expressions in three subdecks: 47 Phrases**
+(Wiktionary's multi-word phrases and interjections not tagged idiomatic — `زنده باد`, `خدا را شکر`, `نوش جان`,
+`دمت گرم`), **39 Idioms** (a sense tagged idiomatic — `دل به دریا زدن`, `کلاه سر کسی گذاشتن`) **and 20
+Proverbs** (`خواستن توانستن است`, `از ماست که بر ماست`). Ordered by how many Tatoeba sentences contain them (20
+do), then frequency. Sentences for 20; **none for 86**. A re-run is byte-identical; the five levels rebuilt after
+the extractor change are unchanged.
+
+- **Nothing a level teaches is taught again**, and a weak sense does not qualify an expression — which is why
+  `قربانت بروم` itself is absent (Wiktionary tags its only sense) and its spoken `قربونت برم` carries its gloss
+  (`GLOSS`, from the pointer's target).
+- **`phrases.EXCLUDE`, 41 entries, each with its reason**, Hindi's rules applied: 25 phrasebook sentences and
+  personal statements built from level words ("I need your help" in four spellings, "I'm deaf", "I'm a
+  Muslim"); political slogans (`مرگ بر`, `زن، زندگی، آزادی`); Arabic religious formulas (`علیه السلام`, a Quranic
+  verse) — the everyday ones a Persian speaker uses as Persian (`سلام علیکم`, `بسم الله`, `الحمد لله`) are kept;
+  a Zoroastrian motto, one poem's line, vulgar slang, and two pointer variants of `قربونت برم`.
+- **A saying in two halves** (`چی بودیم، چی شدیم`) had only its last half's romanisation: Wiktionary tags each
+  half as a romanisation of its own. `extract.roman_of` now joins them when the count matches the commas.
+  Two hand romanisations (`ROMAN_BY_HAND`): the Classical `tuwânâ buwad` made Iranian, and an ezafe hyphen.
+- `examples.py` needed no change: it already matches a multi-word entry with its last word in any verb form.
+
+**Known, left.** Wiktionary's Persian phrase list is small and uneven — the deck is half the size of Hindi's
+(288), and the everyday Tehran formulas it lacks (`خسته نباشید`, `دستت درد نکنه` in its spoken form) are not
+in it, since nothing here is written without a source. Two pairs share an English side (`موفق باشی` /
+`موفق باشید`, the two "good luck"s) and are labelled "not X".
