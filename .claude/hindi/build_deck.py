@@ -68,7 +68,7 @@ TRAIL = re.compile(r'\s*[:;,]\s*$')
 # A GLOSS THAT ONLY NAMES A SYNONYM ("synonym of जल्दी (jaldī)") is given the synonym's
 # own first meaning, the synonym named after it: a card defined by a pointer teaches
 # nothing (A2: जल्द, असल, निजी).
-SYNONYM = re.compile(r'^synonym of (\S+) \(([^()]+)\)$')
+SYNONYM = re.compile(r'^synonym of (\S+(?: \S+)?) \(([^()]+)\)$')
 LEX = {}
 
 # A ROMANISATION Wiktionary's page carries in its Hindi headword but the extract lost.
@@ -89,8 +89,8 @@ def gloss_text(g):
         tgt = LEX.get(fold(m.group(1))) or {}
         mean = next((x['g'] for e in tgt.get('entries', []) for x in e['glosses']
                      if x['g'] and not x['weak'] and not SYNONYM.match(x['g'])), '')
-        if mean:
-            g = f'{TRAIL.sub("", mean)} (= {m.group(1)}, {m.group(2)})'
+        # a synonym Wiktionary has no entry for teaches nothing: dropped (मध्यम, B2)
+        g = f'{TRAIL.sub("", mean)} (= {m.group(1)}, {m.group(2)})' if mean else ''
     return g
 
 
@@ -117,6 +117,8 @@ ETYMS = {
     'धरना': ['1', '2'],       # "to hold" AND "sit-in"
     'शुक्र': ['2'],           # "gratitude" (शुक्र है); 1 is "resplendent; semen" (B1)
     'बिल': ['2', '1'],        # "bill" AND "hole"
+    'जूस': ['2'],             # "juice"; 1 is "pea broth" (B2)
+    'गौर': ['', '1'],         # "attention" (ग़ौर करना) AND "fair, pale"
     'हिंदी': [None, ''],      # the language (a proper noun, no etymology number) leads         # "sir" (the subtitles' count) AND "head"
 }
 

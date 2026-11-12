@@ -77,6 +77,32 @@ EXCLUDE = {
     'चालना': '"to impel"; its count is चाल "gait" and चलना, whose forms it shares',
     'बंधा': '"levee"; its count is बंधा "tied", of बँधना',
     'धत': '"vice" in Wiktionary\'s one sense; its count is धत "get away!", the interjection',
+    # Read off the B2 ranking (2026-11-12).
+    'सकता': '"apoplexy"; its count is सकता, of सकना (the A1 note)',
+    'उपशीर्षक': '"subtitle"; its count is the subtitle files\' own credit lines',
+    'बेन': '"flute"; its count is the name Ben',
+    'होम': '"homa"; its count is the subtitles\' English "home"',
+    'कुक': '"a cry"; its count is the subtitles\' English "cook"',
+    'चिक': '"bamboo blind"; its count is the subtitles\' English "chick"',
+    'बे': 'the letter be; its count is बे "hey, you", a rude call',
+    'रसना': '"tongue"; its count is रस "juice", whose forms it shares',
+    'बीजना': '"hand fan"; its count is बीज "seed", whose forms it shares',
+    'जुंग': '"emotion"; its count is the name Jung',
+    'बोबा': '"breast"; counted from a name, not a learner\'s word',
+    'पंगा': '"lame" in Wiktionary; its count is the slang पंगा "trouble", a sense the entry lacks',
+    'गब्बर': '"haughty"; its count is Gabbar, the film villain',
+    'क़ैसर': 'the name Caesar (Kaiser)',
+    'पटेल': '"village headman"; its count is the surname Patel',
+    'मीरा': '"murva fibre"; its count is the given name Meera',
+    'मोहिनी': 'the given name Mohini',
+    'मोहन': 'the given name Mohan',
+    'माधव': 'the given name Madhav',
+    'जया': 'the given name Jaya',
+    'गीता': '"song"; its count is the given name Geeta (and the Gita)',
+    'रहीम': 'the given name Rahim',
+    'रहमान': 'the given name Rahman',
+    'सविता': 'the given name Savita',
+    'शंकर': 'the given name Shankar',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -87,7 +113,10 @@ SWEARS = {'साला', 'कमीना', 'हरामी', 'कुत्त
 
 def usable(L):
     gl = [g for e in L['entries'] for g in e['glosses']]
-    return any(not g['weak'] for g in gl)
+    # a lemma whose every sense is a "hyperforeign form of" note has no meaning to
+    # teach (`पटाख़ा`, B2)
+    return any(not g['weak'] and not g['g'].lower().startswith('hyperforeign form of')
+               for g in gl)
 
 
 def main():
