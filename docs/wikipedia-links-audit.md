@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6619 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6651 | the title is the article |
+| `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 627 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 632 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 136 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1011 | nothing matched; no link |
+| `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
+| `none` | 1018 | nothing matched; no link |
 
-**7748 of 9060 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7788 of 9110 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (627)
+## Redirected to a differently named article — check each (632)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -524,8 +524,13 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-307` **Second Amendment** → [Second Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Second_Amendment_to_the_United_States_Constitution) (from `Second Amendment`)
 - `us-309` **Tenth Amendment** → [Tenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Tenth_Amendment_to_the_United_States_Constitution) (from `Tenth Amendment`)
 - `us-338` **Strict construction** → [Strict constructionism](https://en.wikipedia.org/wiki/Strict_constructionism) (from `Strict construction`)
+- `us-431` **Cult of Domesticity** → [Culture of Domesticity](https://en.wikipedia.org/wiki/Culture_of_Domesticity) (from `Cult of Domesticity`)
 - `us-453` **domestic slave trade** → [Slave trade in the United States](https://en.wikipedia.org/wiki/Slave_trade_in_the_United_States) (from `Domestic slave trade`)
 - `us-455` **slave pen** → [Slave markets and slave jails in the United States](https://en.wikipedia.org/wiki/Slave_markets_and_slave_jails_in_the_United_States) (from `Slave pen`)
+- `us-464` **industrial slavery** → [Industrial slave](https://en.wikipedia.org/wiki/Industrial_slave) (from `Industrial slavery`)
+- `us-465` **State v. Mann** → [North Carolina v. Mann](https://en.wikipedia.org/wiki/North_Carolina_v._Mann) (from `State v. Mann`)
+- `us-478` **Weeping Time** → [Great Slave Auction](https://en.wikipedia.org/wiki/Great_Slave_Auction) (from `Weeping Time`)
+- `us-482` **whipping** → [Flagellation](https://en.wikipedia.org/wiki/Flagellation) (from `Whipping`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -672,7 +677,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (89)
+## Settled from a disambiguation page (90)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -752,6 +757,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `us-308` **Fifth Amendment** → [Fifth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fifth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Fifth Amendment`)
 - `us-310` **Ninth Amendment** → [Ninth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Ninth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Ninth Amendment`)
 - `us-330` **Twelfth Amendment** → [Twelfth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Twelfth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Twelfth Amendment`)
+- `us-472` **Slave quarters** → [Slave quarters in the United States](https://en.wikipedia.org/wiki/Slave_quarters_in_the_United_States) (via the disambiguation page `Slave quarters`)
 - `wh-218` **Middle Kingdom** → [Middle Kingdom of Egypt](https://en.wikipedia.org/wiki/Middle_Kingdom_of_Egypt) (via the disambiguation page `Middle Kingdom`)
 - `wh-458` **Hijra** → [Hijra (South Asia)](https://en.wikipedia.org/wiki/Hijra_(South_Asia)) (via the disambiguation page `Hijra`)
 - `wh-522` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -780,7 +786,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (147)
+## Disambiguation pages that could not be settled (149)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -920,6 +926,8 @@ Pick the right article by hand, or leave the card without a link.
 - `us-080` **Five Tribes** — `Five Tribes` is a disambiguation page; its links: `Five Civilized Tribes`, `Five Tribes (board game)`
 - `us-088` **allotment** — `Allotment` is a disambiguation page; its links: `Allotment (finance)`, `Allotment (gardening)`, `Allotment (Dawes Act)`, `Allotment (travel industry)`
 - `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
+- `us-410` **forty-niners** — `49er` is a disambiguation page; its links: `Forty-Niner (passenger train)`, `The Forty-Niners (1932 film)`, `The Forty-Niners (1954 film)`, `Top 10: The Forty-Niners`
+- `us-462` **overseer** — `Overseer` is a disambiguation page; its links: `Overseer (rank)`, `Overseer of the poor`, `Rob Overseer`, `Aerojet SD-2 Overseer`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
 - `wh-298` **coinage** — `Coinage` is a disambiguation page; its links: `COINage`, `Tin coinage`
@@ -943,7 +951,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (136)
+## Section redirects — no dedicated page (137)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1062,6 +1070,7 @@ Wikipedia treats these as part of another article. No link.
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`
 - `us-456` **chattel slavery** — `Chattel slavery` only redirects into `Slavery#Chattel slavery`
 - `us-458` **Cotton Whigs** — `Cotton Whigs` only redirects into `Whig Party (United States)#Factions`
+- `us-469` **slave schedule** — `Slave schedule` only redirects into `United States census#History`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1084,7 +1093,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1011)
+## No article found (1018)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2036,7 +2045,14 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-086` **end of treaty-making** — search suggests `List of the United States treaties`, `End of slavery in the United States`, `United States`, `Mutual Defense Treaty (United States–South Korea)`, `Antarctic Treaty System`
 - `us-376` **New York Constitutional Convention of 1821** — search suggests `Constitutional Convention (United States)`, `1862 New York gubernatorial election`, `List of United States political families (B)`, `2026 United States Senate election in Maine`, `Founding Fathers of the United States`
 - `us-389` **Appeal of Forty Thousand Citizens**
+- `us-432` **Letters on the Equality of the Sexes** — search suggests `Declaration of the Rights of Woman and of the Female Citizen`, `Slavery in the United States`, `History of same-sex marriage in the United States`, `Founding Fathers of the United States`, `Liberalism in the United States`
 - `us-451` **Cotton Kingdom** — search suggests `Cotton production in the United States`, `Cotton Belt`, `Brazil–United States cotton dispute`, `Cotton gin`, `Tom Cotton`
+- `us-463` **urban slavery** — search suggests `Slavery in the United States`, `Reparations for slavery in the United States`, `History of sexual slavery in the United States`, `United States`, `Fugitive slaves in the United States`
+- `us-471` **Slave community** — search suggests `Slavery in the United States`, `Atlantic slave trade`, `Torture of slaves in the United States`, `Slave rebellion and resistance in the United States`, `Slave quarters in the United States`
+- `us-477` **Abroad marriage** — search suggests `Cousin marriage law in the United States`, `Same-sex marriage in the United States`, `Democrats Abroad`, `Same-sex marriage law in the United States by state`, `Civil marriage`
+- `us-479` **Enslaved children** — search suggests `Female slavery in the United States`, `Treatment of slaves in the United States`, `List of children of presidents of the United States`, `Slave breeding in the United States`, `List of presidents of the United States who owned slaves`
+- `us-481` **sick house** — search suggests `Sick leave in the United States`, `Democratic Party (United States)`, `Economy of the United States`, `2012 United States elections`, `Sick man of Europe`
+- `us-489` **self-hire** — search suggests `Car rental`, `Supreme Court of the United States`, `United States Congress`, `Lists of wars involving the United States`, `Pro se legal representation in the United States`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`
