@@ -3656,8 +3656,9 @@ changed was the one that had been wrong all along.
   alphabet, `decks/Hungarian-Alphabet.folio-deck.json`** (46 notes: the 44 letters' sounds, the stress, doubled
   consonants), **A1, `decks/Hungarian-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2,
   `decks/Hungarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request), **B1,
-  `decks/Hungarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-12, on request) **and B2,
-  `decks/Hungarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request). `python3
+  `decks/Hungarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-12, on request), **B2,
+  `decks/Hungarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request) **and C1,
+  `decks/Hungarian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request). `python3
   .claude/hungarian/run.py [--level a1]`, `python3 .claude/hungarian/alphabet.py`, `node
   .claude/hungarian/check-hungarian.js`; a re-run is byte-identical. Greek's pipeline adapted, no romanisation,
   verbs by their third person singular. The findings (the verb tables' person tags shifted by a row and read by

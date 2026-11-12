@@ -287,4 +287,100 @@ B2 = [
                                                      'eredményez hozzájárul'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+C1 = [
+    ('philosophy and ethics', 'filozófia filozófus erkölcs erkölcsi etika erény bűn:noun '
+                              'lelkiismeret létezés lényeg:noun igazság:noun '
+                              'valóság:noun látszat tudat:noun tapasztalat:noun értelem:noun ész:noun '
+                              'logika logikus paradoxon kétely eszme eszmény ideál '
+                              'világnézet értékrend méltóság becsület tisztesség felelősség:noun '
+                              'igazságosság önzetlen elv elvi'),
+    ('religion and the inner life', 'hívő vallásos istenség teremtő teremtés '
+                                    'üdvösség megváltás túlvilág halhatatlan '
+                                    'lélek:noun szellemi spirituális elmélkedés '
+                                    'meditáció böjtöl gyón bűnbánat kegyelem:noun '
+                                    'szentség szertartás:noun zarándok zarándoklat kolostor '
+                                    'szerzetes apáca püspök érsek prédikáció próféta '
+                                    'jóslat babona'),
+    ('scholarly Hungarian', 'tanulmány:noun disszertáció szakirodalom '
+                            'idézet hivatkozás lábjegyzet bibliográfia kézirat '
+                            'kivonat fogalom:noun meghatározás definíció kategória '
+                            'rendszerez módszertan elemzés:noun szintézis '
+                            'érvelés:noun bizonyítás:noun cáfolat feltevés:noun '
+                            'következtetés:noun általánosít értelmezés '
+                            'kutatási tudományos:adj empirikus elméleti:adj kísérleti '
+                            'szakmai szakértelem'),
+    ('government, diplomacy and the constitution', ' alkotmányos alkotmánybíróság '
+                                                   'törvényhozás végrehajtó '
+                                                   'parlamenti országgyűlés szenátus '
+                                                   'képviselőház mandátum ciklus kormányfő '
+                                                   'államfő uralkodó trón trónörökös '
+                                                   'monarchia abszolutizmus totalitárius '
+                                                   'diplomata külügy külpolitika '
+                                                   'tárgyalás:noun egyezmény '
+                                                   'szerződő megállapodás:noun szankció '
+                                                   'embargó ultimátum fegyverszünet '
+                                                   'békeszerződés nemzetközi:adj '
+                                                   'hatályos érvénytelen'),
+    ('the economy and development', 'fejlett fejletlen fejlődő infrastruktúra iparosodás ipar '
+                                    'mezőgazdaság gazdálkodás termelés termelékenység hatékonyság '
+                                    'versenyképes versenyképesség munkaerő munkaerőpiac '
+                                    'foglalkoztatás jólét '
+                                    'egyenlőtlenség:noun támogatás:noun '
+                                    'segély adókedvezmény hitelező adós csőd '
+                                    'kötvény osztalék árfolyam:noun deviza '
+                                    'vállalkozó nyereséges veszteséges'),
+    ('medicine and the body', 'orvostudomány anatómia élettan szervezet:noun idegrendszer '
+                              'keringés vérkeringés emésztés légzés anyagcsere hormon '
+                              'immunrendszer daganat rákos tüdő máj vese gyomor:noun bél agy:noun '
+                              'gerinc izom ideg:noun ér:noun vérrög stroke szívbetegség '
+                              'cukorbetegség kór kórház:noun '
+                              'diagnosztizál kezelőorvos szakorvos sebészet '
+                              'gyógyulás lábadozik'),
+    ('law and rights', ' jogállam jogszabály rendelkezés jogosult jogosultság '
+                       'kötelezettség szólásszabadság sajtószabadság egyenjogúság '
+                       'állampolgár állampolgárság menedékjog ártatlanság '
+                       'vélelem bizonyíték:noun tanúvallomás:noun ítélet:noun kegyelem '
+                       'jogász közjegyző végrehajt végrehajtás '
+                       'szabálysértés'),
+    ('language and literature', 'nyelvészet nyelvész anyanyelv idegen_nyelv nyelvjárás tájszólás '
+                                'szókincs kiejtés hangsúly:noun helyesírás nyelvtani '
+                                'jelentéstan szófaj ige főnév melléknév határozószó névmás '
+                                'névutó toldalék rag képző jel:noun irodalmi próza költemény '
+                                'líra dráma:noun elbeszélés elbeszélő hős:noun metafora '
+                                'hasonlat jelkép szimbólum irónia paródia műfaj '
+                                'mű:noun alkotás remekmű'),
+    ('the shades of feeling and judgement', 'elragadtatás sóvárog vágyakozik nosztalgia '
+                                            'búskomor kedvetlen '
+                                            'kétségbeesett kétségbeesés '
+                                            'lenéz undor '
+                                            'felháborító '
+                                            'harag:noun düh:noun irigység féltékenység '
+                                            'rokonszenv ellenszenv együttérzés megértés '
+                                            'csodálat tisztelet:noun hála:noun elismerés '
+                                            'gúny gúnyos kaján'),
+    ('abstract nouns of formal prose', 'jelentőség fontosság sajátosság tulajdonság jellegzetesség '
+                                       'bonyolultság sokféleség '
+                                       'egység:noun egységesség folytonosság változatosság '
+                                       'átláthatóság hitelesség megbízhatóság szükségesség '
+                                       'lehetőség:noun képesség:noun hajlam törekvés igyekezet '
+                                       'szándék:noun indíték:noun körülmény:noun tényező '
+                                       'szempont:noun vonatkozás összefüggés:noun '
+                                       'ellentét ellentmondás:noun egyensúly '
+                                       'mérték:noun határ:noun korlát kivétel'),
+    ('adjectives of formal prose', 'alapos megalapozott megalapozatlan nyilvánvaló:adj '
+                                   'kézenfekvő vitathatatlan kétségtelen feltűnő szembetűnő '
+                                   'számottevő:adj elenyésző jelentéktelen irányadó '
+                                   'meghatározó döntő sorsdöntő végleges átmeneti kölcsönös '
+                                   'egyoldalú sokoldalú átfogó:adj hiánytalan '
+                                   'hiányos következetes indokolatlan '
+                                   'jogos jogtalan időszerű elavult korszerű'),
+    ('literary connectors and adverbs', 'mindazonáltal ámde ellenben:conj jóllehet holott '
+                                        'minthogy:conj mivelhogy miszerint '
+                                        'tekintve netán netalán ugyancsak '
+                                        'hasonlóképpen egyidejűleg utólag előzetesen '
+                                        'kizárólag kifejezetten kiváltképp elsősorban:adv '
+                                        'viszonylag aránylag lényegében tulajdonképpen:adv '
+                                        'nyilvánvalóan:adv mindenekelőtt végezetül'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

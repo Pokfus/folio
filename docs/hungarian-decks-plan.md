@@ -5,8 +5,8 @@ Hungarian set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-09: "Add a Hungarian language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/hungarian/`, §6–§9). C1 and a phrases
-deck are not.
+**STATUS (2026-11-12): the alphabet deck and every level, A1 to C1, are built** (`.claude/hungarian/`, §6–§10). A
+phrases deck (Phase 3) is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Hungarian to the day's
@@ -35,7 +35,7 @@ these is the owner's to overrule.**
 | Hungarian A2 Elementary — built | `Hungarian-A2.folio-deck.json` | 750 |
 | Hungarian B1 Intermediate — built | `Hungarian-B1.folio-deck.json` | 1,000 |
 | Hungarian B2 Upper Intermediate — built | `Hungarian-B2.folio-deck.json` | 1,500 |
-| Hungarian C1 Advanced | `Hungarian-C1.folio-deck.json` | 1,500 |
+| Hungarian C1 Advanced — built | `Hungarian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -186,3 +186,28 @@ its words are taught lower, so only 400 are new) and 1,100 by frequency; sentenc
 resistance" and `írás` "script; tails" — Wiktionary's own senses. The fill carries more crime, war and fantasy
 vocabulary (`túsz`, `boszorkány`, `sárkány`) and a few sexual words (`szexel`, `szeretkezik`) from the subtitles;
 their sentences pass both swear filters.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/hungarian/run.py --level c1`: 1,500 notes, 313 from the
+inventory (`inventory.C1`, twelve topics after the Hindi C1's, the Sanskrit-derived register read as Hungarian's
+formal and Latinate one: philosophy and ethics, religion, scholarly Hungarian, government and diplomacy, the
+economy, medicine, law and rights, language and literature, the shades of feeling, the abstract nouns and
+adjectives of formal prose, the literary connectors) and 1,187 by frequency; sentences for 1,350, three apiece for
+1,102. A re-run is byte-identical; A1 to B2 rebuild unchanged. What the level needed:
+
+- **ENGLISH WIKTIONARY RUNS OUT.** 71 of the inventory's words have no entry at all (`dilemma`, `ateista`,
+  `megvetés`, `rettegés`, `felháborodás`, `elkeseredett`, `mérvadó` …, checked against the extract's headwords, not
+  only `lex.json`); they were removed from the inventory, never given a gloss of Folio's own. `osztályozás` (only
+  "verbal noun of osztályoz") was removed too.
+- **TWO MORE POINTER SHAPES** in `select.POINTER`: "only used in X" (`elégedik`, `lábad`, `kellős`) and a bare
+  "verbal noun of X" (`forgatás`, `egyezés`). A1 to B2 do not change.
+- **COUNTS THAT BELONG TO ANOTHER WORD** (`select.EXCLUDE`): letter names (`enn`, `vé`), English (`here`, `ring`),
+  forms of words taught lower (`hetek` "weeks", `felkelt`, `tettet`, `lásd`, `üdvözöljük`, `tiszteletem`), a colloquial
+  spelling (`hun` "where") and pointer glosses (`egykor`, `legtöbben`). Three vulgar words (`szopik`, `cici`, `szuka`).
+- **THE HUNGARIAN SWEAR FILTER READ ONLY TOKENS**, and a capitalised word is not a token: `erkölcs` had been
+  dealt "A Faszbuk lesz hamarosan …". `examples.clean` now reads every word. A1 to B2 do not change.
+
+**Known, left.** The fill at this depth is the subtitles' vocabulary more than formal prose — crime, the
+military, the body, and a few sexual words that are not slang (`pénisz`, `pornó`, `óvszer`, `prostituált`) with
+plain sentences; the formal register is carried by the inventory. 150 words have no Tatoeba sentence.

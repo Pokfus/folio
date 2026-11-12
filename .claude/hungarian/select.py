@@ -84,6 +84,24 @@ EXCLUDE = {
     'juttat': 'glossed only "causative of jut"',
     'valamiért': 'glossed only "causal-final singular of valami" (A1)',
     'edzés': 'glossed only "tempering", not "training"',
+    'tiszteletem': 'tisztelet\'s "my respect" (B1); the interjection is glossed only by a usage note',
+    # Read off the C1 ranking (2026-11-12).
+    'enn': 'the letter N\'s name', 'vé': 'the letter V\'s name',
+    'hun': 'the colloquial spelling of hol "where" (A1), glossed only "Hunnic"',
+    'kur': 'glossed only "Curonian"; the count is other words\'',
+    'here': 'the English "here" in the subtitles, glossed only "testicle"',
+    'ring': 'the English "ring" in the subtitles, glossed only "to swing, to rock"',
+    'hetek': 'hét\'s plural "weeks" (A1), glossed only "a group of seven"',
+    'felkelt': 'felkel\'s past (A1), glossed only "to arouse"',
+    'tettet': 'tett\'s accusative (B2), glossed only "to pretend"',
+    'kellet': 'a misspelling of kellett, kell\'s past (A1), glossed only "to show off"',
+    'egykor': 'glossed only "temporal-suffixed form of egy"',
+    'legtöbben': 'glossed only "superlative degree of sokan" (B1)',
+    'lásd': 'the imperative of lát (A1)',
+    'üdvözöljük': 'a form of üdvözöl (A2)',
+    'szopik': 'vulgar in the subtitles and in its sentences ("Suck me!")',
+    'cici': 'slang ("boobs")',
+    'szuka': 'an insult ("bitch") in the subtitles',
     'bob': 'the subtitles\' name Bob, glossed only "bobsleigh"',
     'frank': 'the subtitles\' name Frank, but Wiktionary glosses only "Frankish"',
     # Swearing:
@@ -108,7 +126,9 @@ def gloss_sig(L):
 # out with no English (B1's fill had 49): a personal form glossed by its grammar ("first-person
 # singular single-possession possessive of anya", "... possessive of fiú ("boy, son"): one's
 # son", "... second-person-object form of lát") and a "synonym of X" (`bennünket`, `repülő`).
-POINTER = re.compile(r'^(?:(?:first|second|third)-person\b.*?|synonym) of \S+')
+POINTER = re.compile(r'^(?:(?:first|second|third)-person\b.*?|synonym) of \S+'
+                     # C1 (2026-11-12): "only used in megelégedik", "verbal noun of forgat" bare
+                     r'|^only used in\b|^verbal noun of \S+$')
 
 
 def usable(L):

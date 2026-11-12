@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 253 MB of decks. The file itself is fetched on Add. */
+   section without fetching 259 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -133,6 +133,7 @@ window.LANG_DECKS = [
   { lang: "Hungarian", file: "Hungarian-A2.folio-deck.json", id: "hungariana2", title: "Hungarian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 3204436, rev: "3374ee09e6ca" },
   { lang: "Hungarian", file: "Hungarian-B1.folio-deck.json", id: "hungarianb1", title: "Hungarian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 98, bytes: 4177817, rev: "78634941f21f" },
   { lang: "Hungarian", file: "Hungarian-B2.folio-deck.json", id: "hungarianb2", title: "Hungarian B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 96, bytes: 6311025, rev: "399867675fd1" },
+  { lang: "Hungarian", file: "Hungarian-C1.folio-deck.json", id: "hungarianc1", title: "Hungarian C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 90, bytes: 6188166, rev: "ba88b014a857" },
   { lang: "Latin", file: "Latin-A1.folio-deck.json", id: "latina1", title: "Latin A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1543585, rev: "045168bec457" },
   { lang: "Old English", file: "Old-English-Alphabet.folio-deck.json", id: "oeabc", title: "Old English Alphabet and Pronunciation", sub: "41 letters, sounds and spelling rules · both directions, as two cards per note", notes: 41, cards: 82, ex: 0, say: false, bytes: 20791, rev: "3d1c53cc27f9" },
   { lang: "Old English", file: "Old-English-Level-1.folio-deck.json", id: "oel1", title: "Old English Level 1", sub: "The 500 commonest words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 39, say: false, bytes: 994161, rev: "942d7ada836a" },

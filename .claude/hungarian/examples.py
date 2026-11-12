@@ -40,8 +40,10 @@ SWEAR_EN = re.compile(r'\b(fuck|shit|bitch|asshole|cunt|motherf|cock\b|dick\b|pu
 
 
 def clean(text, en=''):
-    return not any(t.startswith(SWEAR) for t in (fold(x) for x in tokens(text))) \
-        and not SWEAR_EN.search(en)
+    # every word, a capitalised one included (`tokens` skips those, for matching): C1 had
+    # been dealt "A Faszbuk lesz hamarosan ..." for `erkölcs`
+    words = re.findall(r'\w+', nfc(text).lower())
+    return not any(fold(w).startswith(SWEAR) for w in words) and not SWEAR_EN.search(en)
 
 
 def load():
