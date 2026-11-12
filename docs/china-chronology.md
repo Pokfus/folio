@@ -277,6 +277,15 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 
 | event | the collection says | source |
 |---|---|---|
+| Shang royal women attested (Wu Ding to the conquest) | c. 1250 – 1046 BCE | Lee 2002 (`cnh-101`) |
+| the fall of the Shang: the Project / Nivison / Liu Xin | 1046 BCE / 1040 BCE / 1122 BCE | `cnh-103` |
+| Muye: the Project / one reading of the Li gui / traditional | 1046 BCE / 1044 BCE / 1122 BCE | Lee 2002 (`cnh-104`) |
+| the Zhou account composed (the Western Zhou chapters) | c. 1046 – 771 BCE | Schaberg; Lee (`cnh-105`) |
+| the Shang in later memory: the Shiji / the bones identified | c. 100 BCE / 1899 | `cnh-106` |
+| the oracle-bone archives inscribed | c. 1250 – 1046 BCE | `cnh-107` |
+| Shang chronology: conventional / Liu Xin's end / the eclipses | c. 1600 – 1046 BCE / 1122 BCE / 1201 – 1181 BCE | Pankenier (`cnh-108`) |
+| first chariots beyond the Urals / wheat in central China / the chariot in China | c. 2000 – 1800 BCE / c. 1500 BCE / c. 1200 BCE | `cnh-109` |
+| the first securely dated year | 841 BCE | `cnh-110` |
 
 ## Later periods
 
@@ -408,4 +417,13 @@ cnh-186: 332; 314; 295
 cnh-189: 227
 cnh-192: 259; 247; 221; 210
 cnh-195: 280; 214; 208
+cnh-101: 1250; 1046
+cnh-103: 1046; 1040; 1122
+cnh-104: 1046; 1044; 1122
+cnh-105: 1046; 771
+cnh-106: 1046; 100; 1899
+cnh-107: 1250; 1046
+cnh-108: 1600; 1046; 1122; 1201; 1181
+cnh-109: 1250; 1046; 2000; 1800; 1500; 1200
+cnh-110: 1250; 1046; 100; 841
 ```

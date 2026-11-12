@@ -10484,8 +10484,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Peiligang_culture": "c. 7000 – 5000 BCE",
 "Shang_royal_women": "c. 1250 – 1046 BCE",
 "Di_Xin": "reigned to c. 1046 BCE",
-"Fall_of_the_Shang": "c. 1046 BCE",
-"Battle_of_Muye": "c. 1046 BCE",
+"Fall_of_the_Shang": "1046 BCE",
+"Battle_of_Muye": "1046 BCE",
 "Oracle_bone_archives": "c. 1250 – 1046 BCE",
 "Shang_chronology": "c. 1600 – 1046 BCE",
 "Shang_in_the_Bronze_Age_world": "c. 1250 – 1046 BCE",
@@ -10494,7 +10494,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "King_Wen": "11th century BCE",
 "King_Wu": "11th century BCE",
 "Rebellion_of_the_Three_Guards": "c. 1042 – 1039 BCE",
-"Shang_record": "c. 1250 BCE – 1st century BCE",
+"Shang_record": "c. 1250 – 1046 BCE",
 "Zhou_dynasty": "c. 1046 – 256 BCE",
 "Tian_(Chinese_religion)": "from c. 1046 BCE",
 "Book_of_Documents": "compiled from the 11th century BCE",
@@ -13878,7 +13878,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Joseph_Smith": "1805–1844",
 "Brigham_Young": "1801–1877",
 "Texas_Revolution": "1835–1836",
-"Texas_annexation": "1845"
+"Texas_annexation": "1845",
+"Zhou_account_of_the_Shang": "c. 1046 – 771 BCE",
+"Shang_in_later_memory": "1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

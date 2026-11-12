@@ -305,7 +305,7 @@ otherwise.
 | B8 | Shang (`col-3`) | `cnh-071`–`cnh-080` | 10 | 108 | **done 2026-11-09** |
 | B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | **done 2026-11-09** |
 | B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | **done 2026-11-09** |
-| B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | to do |
+| B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | **done 2026-11-12** |
 | B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | to do |
 | B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | to do |
 | B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | to do |
@@ -537,6 +537,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-098` | two late Shang nao | not re-checked (Commons 429): ok; the credit is not in the house form — fix |
 | `cnh-099` | bone hairpins from the workshops | not re-checked (Commons 429): ok as a stand-in: the products, not a workshop |
 | `cnh-100` | attendants on a tomb ledge (the reconstructed Fu Hao tomb) | not re-checked (Commons 429): ok |
+| `cnh-101` | rubbing of the Hou Mu Wu ding | not re-checked (Commons 429): ok as a stand-in, one object for a group |
+| `cnh-102` | 18th-century album leaf of the king | not re-checked (Commons 429): ok |
+| `cnh-103` | the Li gui | not re-checked (Commons 429): ok; the description's "made in King Wu's reign" is the majority view (a minority say early King Cheng) — soften |
+| `cnh-104` | a Shang bronze axe | not re-checked (Commons 429): weak: a generic axe, not the battle |
+| `cnh-105` | rubbing of the Da Yu ding | not re-checked (Commons 429): ok, but the description's claim that it blames Yin's fall on wine was not confirmed — check or soften |
+| `cnh-106` | rubbing of a Confucius engraving | not re-checked (Commons 429): partial: one strand (the Song descent) |
+| `cnh-107` | a joined pair of fragments | not re-checked (Commons 429): ok, but annotated with burned-in text — a plain rubbing preferred |
+| `cnh-108` | an eclipse-recording bone | not re-checked (Commons 429): ok; alt identical to the description |
+| `cnh-109` | an ibex-headed knife | not re-checked (Commons 429): retitle (the title is the old card's angle) or replace |
+| `cnh-110` | a bone beside its transcription | not re-checked (Commons 429): wrong: burned-in transcription and English — replace |
 
 ## Glossary candidates
 
@@ -1008,3 +1018,42 @@ Penglai and `cnh-031` Diyu, the region `cnh-052` Central Plain and the many-site
 review: `cnh-012` (Yu the Great) and `cnh-068` (Tang of Shang) carry the Xia's and the Shang's region on a card about
 one figure; `cnh-049` Liangzhu jade carries the culture's region; `cnh-047`'s point is Chifeng city, not a Hongshan
 site; `cnh-048`'s lies about 40 km south-west of the Liangzhu site.
+
+### B11 — `cnh-101`–`cnh-110`, Shang: royal women to what the record says (2026-11-12)
+
+The second hundred's first batch, run as the first hundred's were (`AGENT.md`, the notes file, two cards an agent, at
+most ten at once); every draft read by eye, fixed by hand where needed and prechecked again before `batch.sh` applied
+it. All cited URLs answered this session; the National Museum of China page (`cnh-101`) resets intermittently and was
+read and saved when it answered. **Pictures were not touched** (Commons and the Wikipedia API answered 429 to the
+session's one test call). **The old cards put counts on nearly every line (875 kg, 81 and 68 graves, "800 lords",
+"28 of 38", "7 families", 90% and 240,000 records, 7,083 radiocarbon dates, 1,000 km), dated the Zhou account "from"
+1046 BCE, gave a Location and a Result row to Muye, read a Zhou ode's "beacon of Yin" as the Shang's own words, and
+credited 1122 BCE to 19th-century reference books.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-101` Shang royal women | 6 | 5 → 6 | **The 875 kg row and the question's weight gone; the Hou Mu Wu ding now 832.84 kg (National Museum of China) in prose; the Dasikong grave counts dropped (a lineage cemetery, not royal women); the line `Attested c. 1250 – 1046 BCE`**; the fu and hou titles, marriages out, the childbirth divinations; a moved Columbia URL fixed. |
+| `cnh-102` Di Xin | 7 | 5 → 7 | **The cruelties told as the *Shiji*'s and the "Mu shi" charge as the oldest; the oracle bones' Renfang campaign added; the bad-last-ruler pattern and the view that Daji was invented; Zigong's doubt from the *Analects***; the "greased" beam (a later gloss) dropped. Protected: the line stays (1105 flagged below). |
+| `cnh-103` fall of the Shang | 7 | 6 → 7 | **The "800 lords" count off the line, now `Dated 1046 BCE` / `Also dated 1040 BCE` / `Traditional 1122 BCE`, each said whose (the Project, Nivison, Liu Xin); the *Shiji*'s story told as its; the radiocarbon range from Feng**; the "music masters" are the two chief preceptors; the Stag Terrace treasury (only in the received "Wu cheng") dropped. Pinyin Shāng cháo mièwáng. |
+| `cnh-104` Battle of Muye | 7 | 5 → 7 | **Location and Result rows off, now `Fought 1046 BCE` / `Also dated 1044 BCE` (one reading of the Li gui) / `Traditional 1122 BCE`; the army sizes all the *Shiji*'s (300 chariots, 3,000 "tiger" warriors, 45,000, the lords' 4,000, Di Xin's 700,000), the old card's 4,000 against Mencius's 300 corrected; the Li gui's *jiazi* morning; the pestles as the "Wu cheng" Mencius doubted**. |
+| `cnh-105` Zhou account of the Shang | 6 | 5 → 6 | **Counts and a "from" value off, now `Composed c. 1046 – 771 BCE`; rebuilt on the "Numerous Officers" and the "Announcement about Drunkenness", the "Yin let fall its command" formula (and the Da Yu ding), the Mandate read as legitimation, the oracle bones against the account**; the Muye material left to `cnh-104`. |
+| `cnh-106` Shang in later memory | 6 | 5 → 6 | **The "beacon of Yin" is a Zhou ode put in King Wen's mouth, not the Shang's own warning; the family count off, now `Dynasty fell 1046 BCE` / `Shiji written c. 100 BCE` / `Bones identified 1899`; Song and its hymns, Confucius's Song forebears, the *Fengshen yanyi* (no year on any open page, so no row)**. |
+| `cnh-107` oracle bone archives | 6 | 5 → 7 | **Counts off, now `Inscribed c. 1250 – 1046 BCE`; rebuilt as evidence: written at the time and never edited, but the king's concerns; the record starts with Wu Ding; fragments and the *Jiaguwen heji*; diviner groups; writing on perishable materials lost**; a compendium row (1978 – 1982) cut as dating the book, not the archive. Pinyin lower-cased (jiǎgǔ dàng'àn). |
+| `cnh-108` Shang chronology | 6 | 5 → 6 | **1122 BCE now Liu Xin's traditional reckoning (Pankenier), not Giles's and Mayers's; the radiocarbon count off; `Conventional c. 1600 – 1046 BCE` / `Traditional end 1122 BCE` / `Eclipses 1201 – 1181 BCE`; 841 BCE as the first secure year; the *Bamboo Annals*' 1027 BCE**. |
+| `cnh-109` Shang in the Bronze Age world | 6 | 5 → 6 | **Rebuilt as a comparison, claiming no contact with the west: the chariot beyond the Urals and its arrival, one horse lineage, Seima-Turbino tools, a Hittite horse text beside an oracle-bone search for a paired horse, wheat; the carnelian distance and the exchange row (`cnh-095`'s) off the line**; an uncited closing claim dropped. |
+| `cnh-110` Shang record | 6 | 5 → 8 | **"Dated years none before 841" (not a date) now `First firm year 841 BCE`; `Inscribed bones c. 1250 – 1046 BCE` / `Shiji compiled c. 100 BCE`; unsupported claims dropped (no laws or accounts, women only as consorts, a "Zhou invention" cited to Lee who does not say it)**; the small pit graves, the *Shiji*'s own word that the Three Dynasties' years cannot be examined. |
+
+Read by eye. **Confusability**: three drafts gave a phrasing to Song keeping the Shang sacrifices (`cnh-103`, `cnh-106`,
+`cnh-116`); `cnh-103`'s was rewritten (the court emptying from within); "Yin let fall its command" stayed `cnh-105`'s
+and `cnh-117`'s phrasing went to Dong Zhongshu's omens; answer words in phrasings cleared on `cnh-105` ("Zhou"),
+`cnh-107` ("bone"), `cnh-108` ("Shang"), `cnh-109` ("bronze"). **Legend**: every Zhou-conquest story is now the
+*Shiji*'s, the "Mu shi"'s or the "Wu cheng"'s; whether the "Mu shi" is a genuine early Zhou text no open source said, so
+the cards say nothing either way. **Chinese names corrected**: `cnh-103` pinyin (Shāng cháo, the house split), `cnh-107`
+pinyin case; `商代王室女性`, `周人对商的叙述`, `后世记忆中的商`, `甲骨档案` and `青铜时代世界中的商` are descriptive with no
+standard term (for the owner). **Spellings fixed**: none needed; 0 hits. **Myth register**: Di Xin as the bad last king
+confirmed (the *Shiji*, the "Mu shi" charge the oldest, Zigong's doubt; the excavated *Rongchengshi* already tells of
+evil last rulers, Lewis 2016); King Wen and King Wu: the 800 lords in both the *Shiji*'s Yin and Zhou annals, the
+*jiazi* morning on the Li gui and in the *Hanshu*'s "Wu cheng" excerpt, the pestles Mencius's quotation; the Mandate:
+the formula in the oldest *Shangshu* chapters and on the Da Yu ding. **Protected lines: unchanged** (diffed after the
+apply). For the owner: `cnh-102`'s `Birth 1105 BCE` is in no scholarly source read — in Nivison 1999 1105 is the first
+year of Di Yi's oracle-bone calendar, likely where it came from; the background says so, and the age rests on it.
