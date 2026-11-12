@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-12T08:12Z",
+ "generated": "2026-11-12T08:14Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7687,
+  "ok": 7696,
   "redirect-broader": 749,
-  "redirect-variant": 463,
+  "redirect-variant": 464,
   "section-redirect": 175,
   "disambiguation": 153,
   "none": 1136,
@@ -83673,6 +83673,77 @@
    "answer": "Andersonville Prison",
    "title": "Andersonville Prison",
    "url": "https://en.wikipedia.org/wiki/Andersonville_Prison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-671": {
+   "answer": "Barbed wire",
+   "title": "Barbed wire",
+   "url": "https://en.wikipedia.org/wiki/Barbed_wire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-672": {
+   "answer": "Women's suffrage in Wyoming",
+   "title": "Women's suffrage in Wyoming",
+   "url": "https://en.wikipedia.org/wiki/Women's_suffrage_in_Wyoming",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-673": {
+   "answer": "Exodusters",
+   "title": "Exodusters",
+   "url": "https://en.wikipedia.org/wiki/Exodusters",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-674": {
+   "answer": "Buffalo Soldiers",
+   "title": "Buffalo Soldier",
+   "url": "https://en.wikipedia.org/wiki/Buffalo_Soldier",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Buffalo Soldiers"
+  },
+  "us-675": {
+   "answer": "Newlands Reclamation Act",
+   "title": "Newlands Reclamation Act",
+   "url": "https://en.wikipedia.org/wiki/Newlands_Reclamation_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-676": {
+   "answer": "Alaska Purchase",
+   "title": "Alaska Purchase",
+   "url": "https://en.wikipedia.org/wiki/Alaska_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-677": {
+   "answer": "Overthrow of the Hawaiian Kingdom",
+   "title": "Overthrow of the Hawaiian Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Overthrow_of_the_Hawaiian_Kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-678": {
+   "answer": "Land Rush of 1889",
+   "title": "Land Rush of 1889",
+   "url": "https://en.wikipedia.org/wiki/Land_Rush_of_1889",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-679": {
+   "answer": "Yellowstone National Park",
+   "title": "Yellowstone National Park",
+   "url": "https://en.wikipedia.org/wiki/Yellowstone_National_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-680": {
+   "answer": "John Muir",
+   "title": "John Muir",
+   "url": "https://en.wikipedia.org/wiki/John_Muir",
    "via": "glossary",
    "status": "ok"
   }

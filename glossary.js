@@ -10656,7 +10656,17 @@ window.GLOSSARY = {
 "New_York_City_draft_riots": "",
 "United_States_Sanitary_Commission": "",
 "Medicine_in_the_American_Civil_War": "",
-"Andersonville_Prison": ""
+"Andersonville_Prison": "",
+"Barbed_wire": "",
+"Women's_suffrage_in_Wyoming": "",
+"Exodusters": "",
+"Buffalo_Soldier": "",
+"Newlands_Reclamation_Act": "",
+"Alaska_Purchase": "",
+"Overthrow_of_the_Hawaiian_Kingdom": "",
+"Land_Rush_of_1889": "",
+"Yellowstone_National_Park": "",
+"John_Muir": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15731,7 +15741,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "New_York_City_draft_riots": "1863",
 "United_States_Sanitary_Commission": "1861–1865",
 "Medicine_in_the_American_Civil_War": "1861–1865",
-"Andersonville_Prison": "1864–1865"
+"Andersonville_Prison": "1864–1865",
+"Barbed_wire": "1874",
+"Women's_suffrage_in_Wyoming": "1869–1890",
+"Exodusters": "1879–1881",
+"Buffalo_Soldier": "1866–1951",
+"Newlands_Reclamation_Act": "1902",
+"Alaska_Purchase": "1867",
+"Overthrow_of_the_Hawaiian_Kingdom": "1893",
+"Land_Rush_of_1889": "1889",
+"Yellowstone_National_Park": "1872",
+"John_Muir": "1838–1914"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22598,7 +22618,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Thirteenth_Amendment_to_the_United_States_Constitution": ["Thirteenth Amendment","13th Amendment"],
 "Southern_bread_riots": ["Richmond Bread Riot"],
 "Greenback_(1860s_money)": ["Greenback","greenbacks"],
-"Andersonville_Prison": ["Camp Sumter"]
+"Andersonville_Prison": ["Camp Sumter"],
+"Buffalo_Soldier": ["Buffalo Soldiers"],
+"Newlands_Reclamation_Act": ["Reclamation Act","Reclamation Act of 1902"],
+"Land_Rush_of_1889": ["Land Run of 1889","Oklahoma land rush"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33416,7 +33439,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "New_York_City_draft_riots": ["event","history","race","civil war","united states"],
 "United_States_Sanitary_Commission": ["institution","history","medicine","civil war","united states"],
 "Medicine_in_the_American_Civil_War": ["practice","medicine","history","civil war","united states"],
-"Andersonville_Prison": ["building","history","warfare","civil war","united states"]
+"Andersonville_Prison": ["building","history","warfare","civil war","united states"],
+"Barbed_wire": ["technology","agriculture","history"],
+"Women's_suffrage_in_Wyoming": ["event","politics","women","wyoming","united states"],
+"Exodusters": ["event","migration","african american history","kansas","united states"],
+"Buffalo_Soldier": ["institution","warfare","african american history","united states"],
+"Newlands_Reclamation_Act": ["text","law","agriculture","water","united states"],
+"Alaska_Purchase": ["event","diplomacy","alaska","russia","united states"],
+"Overthrow_of_the_Hawaiian_Kingdom": ["event","politics","hawaii","imperialism","united states"],
+"Land_Rush_of_1889": ["event","settlement","oklahoma","united states"],
+"Yellowstone_National_Park": ["place","conservation","national parks","wyoming","united states"],
+"John_Muir": ["person","conservation","national parks","united states"]
 });
 
 /* ============================================================================
