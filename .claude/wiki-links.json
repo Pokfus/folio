@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:11Z",
+ "generated": "2026-11-12T04:45Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6683,
+  "ok": 6766,
   "redirect-broader": 638,
-  "redirect-variant": 399,
-  "section-redirect": 137,
+  "redirect-variant": 402,
+  "section-redirect": 139,
   "disambiguation": 149,
-  "none": 1020,
+  "none": 1022,
   "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
@@ -73154,6 +73154,657 @@
    "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
    "via": "glossary",
    "status": "ok"
+  },
+  "us-531": {
+   "answer": "Sectionalism",
+   "title": "Sectionalism",
+   "url": "https://en.wikipedia.org/wiki/Sectionalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-532": {
+   "answer": "Wilmot Proviso",
+   "title": "Wilmot Proviso",
+   "url": "https://en.wikipedia.org/wiki/Wilmot_Proviso",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-533": {
+   "answer": "Popular sovereignty",
+   "title": "Popular sovereignty",
+   "url": "https://en.wikipedia.org/wiki/Popular_sovereignty",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-534": {
+   "answer": "Compromise of 1850",
+   "title": "Compromise of 1850",
+   "url": "https://en.wikipedia.org/wiki/Compromise_of_1850",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-535": {
+   "answer": "Higher law speech",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Freedom of speech in the United States",
+    "United States",
+    "United States labor law",
+    "Child pornography laws in the United States",
+    "Law school in the United States"
+   ]
+  },
+  "us-536": {
+   "answer": "Seventh of March speech",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Seventh of March speech",
+   "target": "Daniel Webster#Seventh of March Speech"
+  },
+  "us-537": {
+   "answer": "Kansas–Nebraska Act",
+   "title": "Kansas–Nebraska Act",
+   "url": "https://en.wikipedia.org/wiki/Kansas%E2%80%93Nebraska_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-538": {
+   "answer": "Stephen A. Douglas",
+   "title": "Stephen A. Douglas",
+   "url": "https://en.wikipedia.org/wiki/Stephen_A._Douglas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-539": {
+   "answer": "Bleeding Kansas",
+   "title": "Bleeding Kansas",
+   "url": "https://en.wikipedia.org/wiki/Bleeding_Kansas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-540": {
+   "answer": "Caning of Charles Sumner",
+   "title": "Caning of Charles Sumner",
+   "url": "https://en.wikipedia.org/wiki/Caning_of_Charles_Sumner",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-501": {
+   "answer": "Free people of color",
+   "title": "Free people of color",
+   "url": "https://en.wikipedia.org/wiki/Free_people_of_color",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-502": {
+   "answer": "Free African Society",
+   "title": "Free African Society",
+   "url": "https://en.wikipedia.org/wiki/Free_African_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-503": {
+   "answer": "Colored Conventions Movement",
+   "title": "Colored Conventions Movement",
+   "url": "https://en.wikipedia.org/wiki/Colored_Conventions_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-504": {
+   "answer": "Slave narrative",
+   "title": "Slave narrative",
+   "url": "https://en.wikipedia.org/wiki/Slave_narrative",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-505": {
+   "answer": "Plantation tradition",
+   "title": "Plantation tradition",
+   "url": "https://en.wikipedia.org/wiki/Plantation_tradition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-506": {
+   "answer": "Abolitionism in the United States",
+   "title": "Abolitionism in the United States",
+   "url": "https://en.wikipedia.org/wiki/Abolitionism_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-507": {
+   "answer": "Pennsylvania Abolition Society",
+   "title": "Pennsylvania Abolition Society",
+   "url": "https://en.wikipedia.org/wiki/Pennsylvania_Abolition_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-508": {
+   "answer": "American Colonization Society",
+   "title": "American Colonization Society",
+   "url": "https://en.wikipedia.org/wiki/American_Colonization_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-509": {
+   "answer": "Americo-Liberians",
+   "title": "Americo-Liberian people",
+   "url": "https://en.wikipedia.org/wiki/Americo-Liberian_people",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Americo-Liberians"
+  },
+  "us-510": {
+   "answer": "William Lloyd Garrison",
+   "title": "William Lloyd Garrison",
+   "url": "https://en.wikipedia.org/wiki/William_Lloyd_Garrison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-551": {
+   "answer": "Crittenden Compromise",
+   "title": "Crittenden Compromise",
+   "url": "https://en.wikipedia.org/wiki/Crittenden_Compromise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-552": {
+   "answer": "Confederate States of America",
+   "title": "Confederate States of America",
+   "url": "https://en.wikipedia.org/wiki/Confederate_States_of_America",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-553": {
+   "answer": "Constitution of the Confederate States",
+   "title": "Constitution of the Confederate States",
+   "url": "https://en.wikipedia.org/wiki/Constitution_of_the_Confederate_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-554": {
+   "answer": "Cornerstone Speech",
+   "title": "Cornerstone Speech",
+   "url": "https://en.wikipedia.org/wiki/Cornerstone_Speech",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-555": {
+   "answer": "Origins of the American Civil War",
+   "title": "Origins of the American Civil War",
+   "url": "https://en.wikipedia.org/wiki/Origins_of_the_American_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-556": {
+   "answer": "American Civil War",
+   "title": "American Civil War",
+   "url": "https://en.wikipedia.org/wiki/American_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-557": {
+   "answer": "Battle of Fort Sumter",
+   "title": "Battle of Fort Sumter",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Fort_Sumter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-558": {
+   "answer": "Virginia Secession Convention",
+   "title": "Virginia Secession Convention of 1861",
+   "url": "https://en.wikipedia.org/wiki/Virginia_Secession_Convention_of_1861",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Virginia Secession Convention"
+  },
+  "us-559": {
+   "answer": "Border states",
+   "title": "Border states (American Civil War)",
+   "url": "https://en.wikipedia.org/wiki/Border_states_(American_Civil_War)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-560": {
+   "answer": "Tredegar Iron Works",
+   "title": "Tredegar Iron Works",
+   "url": "https://en.wikipedia.org/wiki/Tredegar_Iron_Works",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-561": {
+   "answer": "First Battle of Bull Run",
+   "title": "First Battle of Bull Run",
+   "url": "https://en.wikipedia.org/wiki/First_Battle_of_Bull_Run",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-562": {
+   "answer": "Anaconda Plan",
+   "title": "Anaconda Plan",
+   "url": "https://en.wikipedia.org/wiki/Anaconda_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-563": {
+   "answer": "Union blockade",
+   "title": "Union blockade",
+   "url": "https://en.wikipedia.org/wiki/Union_blockade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-564": {
+   "answer": "George B. McClellan",
+   "title": "George B. McClellan",
+   "url": "https://en.wikipedia.org/wiki/George_B._McClellan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-565": {
+   "answer": "Army of the Potomac",
+   "title": "Army of the Potomac",
+   "url": "https://en.wikipedia.org/wiki/Army_of_the_Potomac",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-566": {
+   "answer": "Peninsula campaign",
+   "title": "Peninsula campaign",
+   "url": "https://en.wikipedia.org/wiki/Peninsula_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-567": {
+   "answer": "Seven Days Battles",
+   "title": "Seven Days Battles",
+   "url": "https://en.wikipedia.org/wiki/Seven_Days_Battles",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-568": {
+   "answer": "Robert E. Lee",
+   "title": "Robert E. Lee",
+   "url": "https://en.wikipedia.org/wiki/Robert_E._Lee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-569": {
+   "answer": "Second Battle of Bull Run",
+   "title": "Second Battle of Bull Run",
+   "url": "https://en.wikipedia.org/wiki/Second_Battle_of_Bull_Run",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-570": {
+   "answer": "Battle of Antietam",
+   "title": "Battle of Antietam",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Antietam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-571": {
+   "answer": "Bloody Lane",
+   "title": "Bloody Lane",
+   "url": "https://en.wikipedia.org/wiki/Bloody_Lane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-572": {
+   "answer": "Battle of Fredericksburg",
+   "title": "Battle of Fredericksburg",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Fredericksburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-573": {
+   "answer": "Battle of Chancellorsville",
+   "title": "Battle of Chancellorsville",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Chancellorsville",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-574": {
+   "answer": "Stonewall Jackson",
+   "title": "Stonewall Jackson",
+   "url": "https://en.wikipedia.org/wiki/Stonewall_Jackson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-575": {
+   "answer": "Battle of Gettysburg",
+   "title": "Battle of Gettysburg",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gettysburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-576": {
+   "answer": "Pickett's Charge",
+   "title": "Pickett's Charge",
+   "url": "https://en.wikipedia.org/wiki/Pickett's_Charge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-577": {
+   "answer": "Gettysburg Address",
+   "title": "Gettysburg Address",
+   "url": "https://en.wikipedia.org/wiki/Gettysburg_Address",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-578": {
+   "answer": "Battle of Fort Donelson",
+   "title": "Battle of Fort Donelson",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Fort_Donelson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-579": {
+   "answer": "Ulysses S. Grant",
+   "title": "Ulysses S. Grant",
+   "url": "https://en.wikipedia.org/wiki/Ulysses_S._Grant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-580": {
+   "answer": "Battle of Shiloh",
+   "title": "Battle of Shiloh",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Shiloh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-511": {
+   "answer": "Liberator",
+   "title": "The Liberator (newspaper)",
+   "url": "https://en.wikipedia.org/wiki/The_Liberator_(newspaper)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-512": {
+   "answer": "American Anti-Slavery Society",
+   "title": "American Anti-Slavery Society",
+   "url": "https://en.wikipedia.org/wiki/American_Anti-Slavery_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-513": {
+   "answer": "immediatism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Immediatism",
+   "target": "Peter Lamborn Wilson#Ontological anarchy"
+  },
+  "us-514": {
+   "answer": "gag rule",
+   "title": "Gag rule (United States)",
+   "url": "https://en.wikipedia.org/wiki/Gag_rule_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-515": {
+   "answer": "Frederick Douglass",
+   "title": "Frederick Douglass",
+   "url": "https://en.wikipedia.org/wiki/Frederick_Douglass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-516": {
+   "answer": "Narrative of the Life of Frederick Douglass",
+   "title": "Narrative of the Life of Frederick Douglass",
+   "url": "https://en.wikipedia.org/wiki/Narrative_of_the_Life_of_Frederick_Douglass",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-517": {
+   "answer": "Sojourner Truth",
+   "title": "Sojourner Truth",
+   "url": "https://en.wikipedia.org/wiki/Sojourner_Truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-518": {
+   "answer": "Harriet Tubman",
+   "title": "Harriet Tubman",
+   "url": "https://en.wikipedia.org/wiki/Harriet_Tubman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-519": {
+   "answer": "Underground Railroad",
+   "title": "Underground Railroad",
+   "url": "https://en.wikipedia.org/wiki/Underground_Railroad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-520": {
+   "answer": "quilt code",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Quilting",
+    "Quilts of the Underground Railroad",
+    "Houston",
+    "Boykin, Alabama",
+    "Social class in the United States"
+   ]
+  },
+  "us-521": {
+   "answer": "Fugitive Slave Act of 1850",
+   "title": "Fugitive Slave Act of 1850",
+   "url": "https://en.wikipedia.org/wiki/Fugitive_Slave_Act_of_1850",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-522": {
+   "answer": "Anthony Burns",
+   "title": "Anthony Burns",
+   "url": "https://en.wikipedia.org/wiki/Anthony_Burns",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-523": {
+   "answer": "Uncle Tom's Cabin",
+   "title": "Uncle Tom's Cabin",
+   "url": "https://en.wikipedia.org/wiki/Uncle_Tom's_Cabin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-524": {
+   "answer": "Harriet Beecher Stowe",
+   "title": "Harriet Beecher Stowe",
+   "url": "https://en.wikipedia.org/wiki/Harriet_Beecher_Stowe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-525": {
+   "answer": "Liberty Party",
+   "title": "Liberty Party (United States, 1840)",
+   "url": "https://en.wikipedia.org/wiki/Liberty_Party_(United_States,_1840)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-526": {
+   "answer": "Free Soil Party",
+   "title": "Free Soil Party",
+   "url": "https://en.wikipedia.org/wiki/Free_Soil_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-527": {
+   "answer": "World Anti-Slavery Convention",
+   "title": "World Anti-Slavery Convention",
+   "url": "https://en.wikipedia.org/wiki/World_Anti-Slavery_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-528": {
+   "answer": "Elijah Parish Lovejoy",
+   "title": "Elijah Parish Lovejoy",
+   "url": "https://en.wikipedia.org/wiki/Elijah_Parish_Lovejoy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-529": {
+   "answer": "John Brown",
+   "title": "John Brown (abolitionist)",
+   "url": "https://en.wikipedia.org/wiki/John_Brown_(abolitionist)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-530": {
+   "answer": "John Brown's raid on Harpers Ferry",
+   "title": "John Brown's raid on Harpers Ferry",
+   "url": "https://en.wikipedia.org/wiki/John_Brown's_raid_on_Harpers_Ferry",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-581": {
+   "answer": "Capture of New Orleans",
+   "title": "Capture of New Orleans",
+   "url": "https://en.wikipedia.org/wiki/Capture_of_New_Orleans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-582": {
+   "answer": "Siege of Vicksburg",
+   "title": "Siege of Vicksburg",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Vicksburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-583": {
+   "answer": "Chattanooga campaign",
+   "title": "Chattanooga campaign",
+   "url": "https://en.wikipedia.org/wiki/Chattanooga_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-584": {
+   "answer": "Lieutenant general",
+   "title": "Lieutenant general (United States)",
+   "url": "https://en.wikipedia.org/wiki/Lieutenant_general_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-585": {
+   "answer": "Overland Campaign",
+   "title": "Overland Campaign",
+   "url": "https://en.wikipedia.org/wiki/Overland_Campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-586": {
+   "answer": "Battle of Cold Harbor",
+   "title": "Battle of Cold Harbor",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Cold_Harbor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-587": {
+   "answer": "Siege of Petersburg",
+   "title": "Siege of Petersburg",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Petersburg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-588": {
+   "answer": "William Tecumseh Sherman",
+   "title": "William Tecumseh Sherman",
+   "url": "https://en.wikipedia.org/wiki/William_Tecumseh_Sherman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-589": {
+   "answer": "Atlanta campaign",
+   "title": "Atlanta campaign",
+   "url": "https://en.wikipedia.org/wiki/Atlanta_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-590": {
+   "answer": "Sherman's March to the Sea",
+   "title": "Sherman's March to the Sea",
+   "url": "https://en.wikipedia.org/wiki/Sherman's_March_to_the_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-591": {
+   "answer": "Lieber Code",
+   "title": "Lieber Code",
+   "url": "https://en.wikipedia.org/wiki/Lieber_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-592": {
+   "answer": "Battle of Mobile Bay",
+   "title": "Battle of Mobile Bay",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Mobile_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-593": {
+   "answer": "USS Monitor",
+   "title": "USS Monitor",
+   "url": "https://en.wikipedia.org/wiki/USS_Monitor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-594": {
+   "answer": "Battle of Hampton Roads",
+   "title": "Battle of Hampton Roads",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Hampton_Roads",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-595": {
+   "answer": "CSS Alabama",
+   "title": "CSS Alabama",
+   "url": "https://en.wikipedia.org/wiki/CSS_Alabama",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-596": {
+   "answer": "Battle of Appomattox Court House",
+   "title": "Battle of Appomattox Court House",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Appomattox_Court_House",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-597": {
+   "answer": "Appomattox Court House National Historical Park",
+   "title": "Appomattox Court House National Historical Park",
+   "url": "https://en.wikipedia.org/wiki/Appomattox_Court_House_National_Historical_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-598": {
+   "answer": "Assassination of Abraham Lincoln",
+   "title": "Assassination of Abraham Lincoln",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_Abraham_Lincoln",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-599": {
+   "answer": "United States National Cemetery System",
+   "title": "United States National Cemetery System",
+   "url": "https://en.wikipedia.org/wiki/United_States_National_Cemetery_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-600": {
+   "answer": "Union Army",
+   "title": "Union army",
+   "url": "https://en.wikipedia.org/wiki/Union_army",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Union Army"
   }
  }
 }

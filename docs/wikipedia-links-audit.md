@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6683 | the title is the article |
-| `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6766 | the title is the article |
+| `redirect-variant` | 402 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 638 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 139 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1020 | nothing matched; no link |
+| `none` | 1022 | nothing matched; no link |
 
-**7826 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7912 of 9240 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -957,7 +957,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (137)
+## Section redirects — no dedicated page (139)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1077,6 +1077,8 @@ Wikipedia treats these as part of another article. No link.
 - `us-456` **chattel slavery** — `Chattel slavery` only redirects into `Slavery#Chattel slavery`
 - `us-458` **Cotton Whigs** — `Cotton Whigs` only redirects into `Whig Party (United States)#Factions`
 - `us-469` **slave schedule** — `Slave schedule` only redirects into `United States census#History`
+- `us-513` **immediatism** — `Immediatism` only redirects into `Peter Lamborn Wilson#Ontological anarchy`
+- `us-536` **Seventh of March speech** — `Seventh of March speech` only redirects into `Daniel Webster#Seventh of March Speech`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1099,7 +1101,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1020)
+## No article found (1022)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2061,6 +2063,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-481` **sick house** — search suggests `Sick leave in the United States`, `Democratic Party (United States)`, `Economy of the United States`, `2012 United States elections`, `Sick man of Europe`
 - `us-489` **self-hire** — search suggests `Car rental`, `Supreme Court of the United States`, `United States Congress`, `Lists of wars involving the United States`, `Pro se legal representation in the United States`
 - `us-499` **Virginia slavery debate** — search suggests `Thirteenth Amendment to the United States Constitution`, `United States`, `Slave states and free states`, `Slavery in the United States`, `Slavery and the United States Constitution`
+- `us-520` **quilt code** — search suggests `Quilting`, `Quilts of the Underground Railroad`, `Houston`, `Boykin, Alabama`, `Social class in the United States`
+- `us-535` **Higher law speech** — search suggests `Freedom of speech in the United States`, `United States`, `United States labor law`, `Child pornography laws in the United States`, `Law school in the United States`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`
