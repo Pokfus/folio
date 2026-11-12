@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7621 | the title is the article |
+| `ok` | 7673 | the title is the article |
 | `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 744 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 749 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 174 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1129 | nothing matched; no link |
+| `none` | 1131 | nothing matched; no link |
 
-**8945 of 10420 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9002 of 10480 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (744)
+## Redirected to a differently named article — check each (749)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -212,6 +212,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-187` **Lahun Papyri** → [Kahun Papyri](https://en.wikipedia.org/wiki/Kahun_Papyri) (from `Lahun Papyri`)
 - `eg-225` **Tell el-Maskhuta** → [Pithom](https://en.wikipedia.org/wiki/Pithom) (from `Tell el-Maskhuta`)
 - `eg-232` **Egyptian chariot** → [Chariotry in ancient Egypt](https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt) (from `Egyptian chariot`)
+- `eg-301` **Akhetaten** → [Amarna](https://en.wikipedia.org/wiki/Amarna) (from `Akhetaten`)
+- `eg-310` **Gempaaten** → [Temple of Amenhotep IV](https://en.wikipedia.org/wiki/Temple_of_Amenhotep_IV) (from `Gempaaten`)
+- `eg-325` **KV62** → [Tomb of Tutankhamun](https://en.wikipedia.org/wiki/Tomb_of_Tutankhamun) (from `KV62`)
+- `eg-341` **KV17** → [Tomb of Seti I](https://en.wikipedia.org/wiki/Tomb_of_Seti_I) (from `KV17`)
+- `eg-352` **QV66** → [Tomb of Nefertari](https://en.wikipedia.org/wiki/Tomb_of_Nefertari) (from `QV66`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -1078,7 +1083,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (174)
+## Section redirects — no dedicated page (175)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1127,6 +1132,7 @@ Wikipedia treats these as part of another article. No link.
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
 - `eg-203` **Middle Egyptian** — `Middle Egyptian` only redirects into `Egyptian language#Middle Egyptian`
+- `eg-396` **Sacred lake** — `Sacred lake` only redirects into `Sacred waters#Lakes and underground water`
 - `gga-141` **Child mortality rate** — `Child mortality rate` only redirects into `Child mortality#Rate`
 - `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gga-232` **Premature deindustrialisation** — `Premature deindustrialization` only redirects into `Technological unemployment#Premature deindustrialization`
@@ -1257,7 +1263,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1129)
+## No article found (1131)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1652,6 +1658,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-287` **Amenemhab** — search suggests `TT44`, `TT25`, `TT85`, `Seti (Viceroy of Kush)`, `List of ancient Egyptians`
 - `eg-294` **Tomb of Kheruef** — search suggests `List of Theban tombs`, `TT192`, `Akhenaten`, `Amenhotep III`, `TT407`
 - `eg-297` **Tomb of Ramose** — search suggests `Ramose`, `Southern Tomb 11`, `Ramesses II`, `Ramose and Hatnofer`, `Ramose (TT55)`
+- `eg-334` **Inscription of Mes** — search suggests `Graffito of Esmet-Akhom`, `Merneptah Stele`, `Behistun inscription`, `Proto-Sinaitic script`, `Darius the Great`
+- `eg-339` **Temple of Seti I at Abydos** — search suggests `Abydos, Egypt`, `Temple of Seti I (Abydos)`, `Seti I`, `Abydos King List`, `Osireion`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**

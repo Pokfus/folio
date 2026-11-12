@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T07:13Z",
+ "generated": "2026-11-12T08:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7621,
-  "redirect-broader": 744,
+  "ok": 7673,
+  "redirect-broader": 749,
   "redirect-variant": 463,
-  "section-redirect": 174,
+  "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1129,
+  "none": 1131,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83056,6 +83056,447 @@
    "answer": "autotroph",
    "title": "Autotroph",
    "url": "https://en.wikipedia.org/wiki/Autotroph",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-301": {
+   "answer": "Akhetaten",
+   "title": "Amarna",
+   "url": "https://en.wikipedia.org/wiki/Amarna",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Akhetaten"
+  },
+  "eg-302": {
+   "answer": "Amarna",
+   "title": "Amarna",
+   "url": "https://en.wikipedia.org/wiki/Amarna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-303": {
+   "answer": "Boundary Stelae of Akhenaten",
+   "title": "Boundary Stelae of Akhenaten",
+   "url": "https://en.wikipedia.org/wiki/Boundary_Stelae_of_Akhenaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-304": {
+   "answer": "North Riverside Palace",
+   "title": "North Riverside Palace",
+   "url": "https://en.wikipedia.org/wiki/North_Riverside_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-305": {
+   "answer": "Great Temple of the Aten",
+   "title": "Great Temple of the Aten",
+   "url": "https://en.wikipedia.org/wiki/Great_Temple_of_the_Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-306": {
+   "answer": "Nefertiti",
+   "title": "Nefertiti",
+   "url": "https://en.wikipedia.org/wiki/Nefertiti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-307": {
+   "answer": "Thutmose",
+   "title": "Thutmose (sculptor)",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_(sculptor)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-308": {
+   "answer": "Meritaten",
+   "title": "Meritaten",
+   "url": "https://en.wikipedia.org/wiki/Meritaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-309": {
+   "answer": "Amarna art",
+   "title": "Amarna art",
+   "url": "https://en.wikipedia.org/wiki/Amarna_art",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-310": {
+   "answer": "Gempaaten",
+   "title": "Temple of Amenhotep IV",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Amenhotep_IV",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Gempaaten"
+  },
+  "eg-321": {
+   "answer": "Ankhesenamun",
+   "title": "Ankhesenamun",
+   "url": "https://en.wikipedia.org/wiki/Ankhesenamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-322": {
+   "answer": "Restoration Stela",
+   "title": "Restoration Stela",
+   "url": "https://en.wikipedia.org/wiki/Restoration_Stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-323": {
+   "answer": "Maya",
+   "title": "Maya (treasurer)",
+   "url": "https://en.wikipedia.org/wiki/Maya_(treasurer)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-324": {
+   "answer": "KV54",
+   "title": "KV54",
+   "url": "https://en.wikipedia.org/wiki/KV54",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-325": {
+   "answer": "KV62",
+   "title": "Tomb of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Tutankhamun",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "KV62"
+  },
+  "eg-326": {
+   "answer": "Anubis Shrine",
+   "title": "Anubis Shrine",
+   "url": "https://en.wikipedia.org/wiki/Anubis_Shrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-327": {
+   "answer": "Tutankhamun's meteoric iron dagger",
+   "title": "Tutankhamun's meteoric iron dagger",
+   "url": "https://en.wikipedia.org/wiki/Tutankhamun's_meteoric_iron_dagger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-328": {
+   "answer": "Chariots of Tutankhamun",
+   "title": "Chariots of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Chariots_of_Tutankhamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-329": {
+   "answer": "Ay",
+   "title": "Ay (pharaoh)",
+   "url": "https://en.wikipedia.org/wiki/Ay_(pharaoh)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-330": {
+   "answer": "Zannanza",
+   "title": "Zannanza",
+   "url": "https://en.wikipedia.org/wiki/Zannanza",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-341": {
+   "answer": "KV17",
+   "title": "Tomb of Seti I",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Seti_I",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "KV17"
+  },
+  "eg-342": {
+   "answer": "Shasu",
+   "title": "Shasu",
+   "url": "https://en.wikipedia.org/wiki/Shasu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-343": {
+   "answer": "Ozymandias",
+   "title": "Ozymandias",
+   "url": "https://en.wikipedia.org/wiki/Ozymandias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-344": {
+   "answer": "Muwatalli II",
+   "title": "Muwatalli II",
+   "url": "https://en.wikipedia.org/wiki/Muwatalli_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-345": {
+   "answer": "Kadesh inscriptions",
+   "title": "Kadesh inscriptions",
+   "url": "https://en.wikipedia.org/wiki/Kadesh_inscriptions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-346": {
+   "answer": "Egyptian–Hittite peace treaty",
+   "title": "Egyptian–Hittite peace treaty",
+   "url": "https://en.wikipedia.org/wiki/Egyptian%E2%80%93Hittite_peace_treaty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-347": {
+   "answer": "Maathorneferure",
+   "title": "Maathorneferure",
+   "url": "https://en.wikipedia.org/wiki/Maathorneferure",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-348": {
+   "answer": "Pi-Ramesses",
+   "title": "Pi-Ramesses",
+   "url": "https://en.wikipedia.org/wiki/Pi-Ramesses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-349": {
+   "answer": "Abu Simbel",
+   "title": "Abu Simbel",
+   "url": "https://en.wikipedia.org/wiki/Abu_Simbel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-350": {
+   "answer": "Ramesseum",
+   "title": "Ramesseum",
+   "url": "https://en.wikipedia.org/wiki/Ramesseum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-331": {
+   "answer": "Horemheb",
+   "title": "Horemheb",
+   "url": "https://en.wikipedia.org/wiki/Horemheb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-332": {
+   "answer": "Edict of Horemheb",
+   "title": "Edict of Horemheb",
+   "url": "https://en.wikipedia.org/wiki/Edict_of_Horemheb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-333": {
+   "answer": "talatat",
+   "title": "Talatat",
+   "url": "https://en.wikipedia.org/wiki/Talatat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-334": {
+   "answer": "Inscription of Mes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Graffito of Esmet-Akhom",
+    "Merneptah Stele",
+    "Behistun inscription",
+    "Proto-Sinaitic script",
+    "Darius the Great"
+   ]
+  },
+  "eg-335": {
+   "answer": "Osarseph",
+   "title": "Osarseph",
+   "url": "https://en.wikipedia.org/wiki/Osarseph",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-336": {
+   "answer": "Nineteenth Dynasty of Egypt",
+   "title": "Nineteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Nineteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-337": {
+   "answer": "Ramesses I",
+   "title": "Ramesses I",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-338": {
+   "answer": "Seti I",
+   "title": "Seti I",
+   "url": "https://en.wikipedia.org/wiki/Seti_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-339": {
+   "answer": "Temple of Seti I at Abydos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abydos, Egypt",
+    "Temple of Seti I (Abydos)",
+    "Seti I",
+    "Abydos King List",
+    "Osireion"
+   ]
+  },
+  "eg-340": {
+   "answer": "Abydos King List",
+   "title": "Abydos King List",
+   "url": "https://en.wikipedia.org/wiki/Abydos_King_List",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-391": {
+   "answer": "Thebes",
+   "title": "Thebes, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Thebes,_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-392": {
+   "answer": "Temple of Khonsu",
+   "title": "Temple of Khonsu",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Khonsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-393": {
+   "answer": "Precinct of Amun-Re",
+   "title": "Precinct of Amun-Re",
+   "url": "https://en.wikipedia.org/wiki/Precinct_of_Amun-Re",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-394": {
+   "answer": "Great Hypostyle Hall",
+   "title": "Great Hypostyle Hall",
+   "url": "https://en.wikipedia.org/wiki/Great_Hypostyle_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-395": {
+   "answer": "Lateran Obelisk",
+   "title": "Lateran Obelisk",
+   "url": "https://en.wikipedia.org/wiki/Lateran_Obelisk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-396": {
+   "answer": "Sacred lake",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Sacred lake",
+   "target": "Sacred waters#Lakes and underground water"
+  },
+  "eg-397": {
+   "answer": "Karnak King List",
+   "title": "Karnak King List",
+   "url": "https://en.wikipedia.org/wiki/Karnak_King_List",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-398": {
+   "answer": "Luxor Temple",
+   "title": "Luxor Temple",
+   "url": "https://en.wikipedia.org/wiki/Luxor_Temple",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-399": {
+   "answer": "Opet Festival",
+   "title": "Opet Festival",
+   "url": "https://en.wikipedia.org/wiki/Opet_Festival",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-400": {
+   "answer": "Avenue of Sphinxes",
+   "title": "Avenue of Sphinxes",
+   "url": "https://en.wikipedia.org/wiki/Avenue_of_Sphinxes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-351": {
+   "answer": "Nefertari",
+   "title": "Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Nefertari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-352": {
+   "answer": "QV66",
+   "title": "Tomb of Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Nefertari",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "QV66"
+  },
+  "eg-353": {
+   "answer": "Khaemweset",
+   "title": "Khaemweset",
+   "url": "https://en.wikipedia.org/wiki/Khaemweset",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-354": {
+   "answer": "KV5",
+   "title": "KV5",
+   "url": "https://en.wikipedia.org/wiki/KV5",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-355": {
+   "answer": "Statue of Ramesses II",
+   "title": "Statue of Ramesses II",
+   "url": "https://en.wikipedia.org/wiki/Statue_of_Ramesses_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-356": {
+   "answer": "Mortuary Temple of Merneptah",
+   "title": "Mortuary Temple of Merneptah",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_Temple_of_Merneptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-357": {
+   "answer": "Merneptah",
+   "title": "Merneptah",
+   "url": "https://en.wikipedia.org/wiki/Merneptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-358": {
+   "answer": "Merneptah Stele",
+   "title": "Merneptah Stele",
+   "url": "https://en.wikipedia.org/wiki/Merneptah_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-359": {
+   "answer": "Battle of Perire",
+   "title": "Battle of Perire",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Perire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-360": {
+   "answer": "Siptah",
+   "title": "Siptah",
+   "url": "https://en.wikipedia.org/wiki/Siptah",
    "via": "glossary",
    "status": "ok"
   }
