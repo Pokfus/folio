@@ -408,6 +408,12 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | the Feast at Hong Gate | 206 BCE | Chavannes (`cnh-217`) |
 | Gaixia | 202 BCE | Chavannes (`cnh-218`) |
 | the founding settlement | 202 BCE | `cnh-219` |
+| the Rule of Wen and Jing / Wen / Jing | 180 – 141 BCE / 180 – 157 BCE / 157 – 141 BCE | Chavannes (`cnh-221`) |
+| the Rebellion of the Seven States | 154 BCE | `cnh-222` |
+| the Han–Xiongnu wars (the first round) | 133 – 119 BCE | `cnh-224` |
+| the Xiongnu empire / the split | c. 209 BCE – 100 CE / 48 CE | Lee 2023; de Crespigny (`cnh-225`) |
+| heqin begun / abandoned | c. 200 BCE / 133 BCE | Psarras (`cnh-227`) |
+| the Silk Road: the first mission / regular contact / named | c. 138 – 126 BCE / 115 BCE / 1877 | Yang; Giles; Waugh (`cnh-230`) |
 
 ## Later periods
 
@@ -663,4 +669,10 @@ cnh-214: 206; 202; 203
 cnh-217: 206
 cnh-218: 202
 cnh-219: 202
+cnh-221: 180; 141; 157
+cnh-222: 154
+cnh-224: 133; 119
+cnh-225: 209; 100; 48
+cnh-227: 200; 133
+cnh-230: 138; 126; 115; 1877
 ```

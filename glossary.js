@@ -11575,7 +11575,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Gijun": "reigned to c. 195 BCE",
 "Yan_(state)": "Warring States period, to the late 3rd century BCE",
 "Knife_money": "c. 400 – 100 BCE",
-"Emperor_Wu_of_Han": "conquered Chosŏn 109 – 108 BCE",
+"Emperor_Wu_of_Han": "141 – 87 BCE",
 "Wanggeom-seong": "capital c. 195 – 108 BCE",
 "Taejonggyo": "founded 1909",
 "Tomb_of_Dangun": "excavated 1993 – 1994",

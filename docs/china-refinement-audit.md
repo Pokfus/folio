@@ -360,7 +360,7 @@ otherwise.
 | B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | **done 2026-11-12** |
 | B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | **done 2026-11-12** |
 | B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | **done 2026-11-12** |
-| B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | to do |
+| B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | **done 2026-11-12** |
 | B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | to do |
 | B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | to do |
 | B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | to do |
@@ -700,6 +700,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-218` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-219` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-220` | the empress's jade seal | not re-checked (Commons 429): ok |
+| `cnh-221` | a silk painting of Emperor Wen | not re-checked (Commons 429): weak: one reign of the two |
+| `cnh-222` | a map with printed labels | not re-checked (Commons 429): weak: burned-in labels — replace |
+| `cnh-223` | Maoling | not re-checked (Commons 429): ok |
+| `cnh-224` | the Han wall at Yumen | not re-checked (Commons 429): weak: the later frontier, not these wars |
+| `cnh-225` | a Noin-Ula hanging | not re-checked (Commons 429): ok |
+| `cnh-226` | a modern bronze in Ulaanbaatar | not re-checked (Commons 429): ok; the card and glossary describe it differently — check |
+| `cnh-227` | Mawangdui silk | not re-checked (Commons 429): weak: Han silk, not the treaty |
+| `cnh-228` | the horse trampling a Xiongnu | not re-checked (Commons 429): ok |
+| `cnh-229` | the Mogao send-off painting | not re-checked (Commons 429): ok |
+| `cnh-230` | the Yumen fort | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1676,3 +1686,42 @@ the rising" only in full years (by *sui*, 232 BCE); `cnh-216`'s 247 BCE is Giles
 256 BCE could not be opened) and its two days are Chavannes's conversions (pp. 381, 401); `cnh-220`'s 241 BCE is in no
 source read, Shanfu is her father's home, not a recorded birthplace, and 18 August 180 BCE is Chavannes's conversion
 (p. 427). `cnh-245`'s first phrasing says the Xin was proclaimed in 8 CE against its own line's 9 CE (B25 will see it).
+
+### B23 — `cnh-221`–`cnh-230`, Western Han: the Rule of Wen and Jing to the Silk Road (2026-11-12)
+
+Run as B21. Every cited URL answered (the eco-vector journal page on a second try). **Pictures were not touched**
+(Commons 429). **The old cards put battle templates on wars (Start, End, Result, "(14 years)", "(under a year)"), named
+men in labels ("Wen reigned", "under Modu, north of the Han frontier"), gave the Xiongnu card a battle's date, dated the
+Silk Road by Zhang Qian's return with no word that the name is Richthofen's of 1877, said nothing like the route existed
+before, had the heqin's breaches always on the Xiongnu side, and gave Huo Qubing and Emperor Wu the clues of their
+siblings' cards.** Two cards already applied were corrected from what this batch read and re-applied with it:
+`cnh-204` (the Han armies only set out against Nanyue in 112 BCE; it fell in 111) and `cnh-213` (the four north-western
+commanderies are no longer dated "about 111 and 60 BCE", which `cnh-231`'s 121/115 BCE contradicts).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-221` Rule of Wen and Jing | 6 | 5 → 6 | **The man-naming labels off, now `Spanned 180 – 141 BCE` / `First reign 180 – 157 BCE` / `Second reign 157 – 141 BCE`; the land tax halved (168 BCE) and abolished (167 BCE), Tiying's petition and the end of mutilation (the *Hanshu* adds that the floggings killed), Huang-Lao, the *Hanshu*'s comparison with Cheng and Kang**; Chao Cuo left to `cnh-222`. |
+| `cnh-222` Rebellion of the Seven States | 6 | 5 → 6 | **The battle template off, now `Fought 154 BCE`; "three months" the *Shiji*'s, with Zhao holding out longer; Chao Cuo's father's poison, the king of Wu "already an emperor of the east", Zhou Yafu cutting Wu's supply road**; Giles's dates (Chao Cuo 155 BCE, Zhou Yafu "A.D. 152") not used. |
+| `cnh-223` Emperor Wu of Han | 8 | 5 → 8 | **The crown prince was not "wrongly put to death": Liu Ju rose in arms in the 91 BCE witchcraft affair and killed himself, and so did the empress; the 119 BCE silver-and-tin coins and deerskin money (Cordier), out of use within a year; the lost annals and Sima Qian's possible grudge (Eno)**; the glossary's date "conquered Chosŏn 109 – 108 BCE" now 141 – 87 BCE (the slug is shared with `ko-058`). Protected: the line stays (flagged below). |
+| `cnh-224` Han–Xiongnu wars | 7 | 5 → 7 | **The battle template off, now `Fought 133 – 119 BCE`, with the fighting resumed in 99 BCE; the raids as the result of Wu's war, not its cause (Psarras); the *Shiji*'s 140,000 horses out and fewer than 30,000 back; Li Guang's suicide**; Mayi, the golden image and Shuofang kept to their own cards. |
+| `cnh-225` Xiongnu | 7 | 5 → 7 | **The man and place in the first value and the battle row off, now `Empire c. 209 BCE – 100 CE` / `Split in two 48 CE`; ancient DNA (Lee 2023), the Huns question (the 2025 genomes, replacing Parker's 1895 judgement), the split of 48/49 CE (de Crespigny), Noin-Ula and Ivolga**. |
+| `cnh-226` Modu Chanyu | 6 | 5 → 6 | **Rebuilt on the *Shiji* and Wylie's *Hanshu* 94: the whistling arrows, the seven-day siege of the Han founder broken through his consort, the letter to Empress Lü; Giles's wooden-puppet story labelled as one version; the death month (no source saved) dropped**. Protected: the line stays (flagged below). |
+| `cnh-227` heqin | 6 | 5 → 6 | **`Begun c. 200 BCE` / `Abandoned 133 BCE` (Psarras), 162 and 135 BCE in prose; "always broken by the Xiongnu" now the traditional view, against five ruptures between 200 and 133 BCE, the last by the Han; Liu Jing's grandson argument; the commoner's girl sent for the empress's daughter**; 198 BCE (no source prints it) not used. |
+| `cnh-228` Huo Qubing | 6 | 5 → 6 | **The Hexi, golden-image and 119 BCE clues (`cnh-231`'s and `cnh-224`'s) replaced: "no use for a house", the offering on Langjuxu, the tomb shaped like the mountains and its horse**. Protected: the line stays (flagged below). |
+| `cnh-229` Zhang Qian | 7 | 5 → 7 | **"About 138 BCE" was cited to Hirth, whose translation prints no year: now Yang ("139 or 138 to 126") and Chavannes (138); the year and "thirteen years later" out of the questions; the Wusun mission; 195 and 114 carried as the line gives them**. Protected: the line stays (flagged below). |
+| `cnh-230` Silk Road | 9 | 5 → 9 | **The name said to be Richthofen's of 1877 (`Named 1877`); "nothing like it before 126 BCE" replaced by older exchange (Chinese goods at Pazyryk) and the route west of the Pamirs already open; `First mission c. 138 – 126 BCE` / `Regular contact 115 BCE`; the man and the Jiuquan commandery off the line**. |
+
+Read by eye. **Confusability**: the Hexi conquest stays `cnh-231`'s and Mobei `cnh-224`'s (Huo Qubing took neither);
+Mayi stays `cnh-227`'s endpoint; the letter to Empress Lü is `cnh-226`'s and not `cnh-220`'s; the Ferghana horses are
+`cnh-223`'s naming of the "heavenly horses" and `cnh-230`'s envoys in sight of each other; the Yuezhi, Shu cloth and
+Wusun are `cnh-229`'s, the name, Pazyryk and the seeds `cnh-230`'s; `cnh-227`'s background trimmed to 284 words.
+**Legend**: Modu's whistling arrows and the Pingcheng siege are the *Shiji*'s. **Chinese names corrected**: none needed
+(冒顿 read Mòdú, the reading precheck flags as a polyphone). **Spellings fixed**: none needed; 0 hits. **Myth register**:
+no row opened. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-223`'s line puts his death at
+Chang'an where the *Hanshu* has the Wuzha palace in Zhouzhi, and its days and months are in no source read;
+`cnh-226`'s "Took Mayi autumn 201 BCE" follows the *Hanshu* (the *Shiji*'s Gaozu annals put it in his 7th year, 200 BCE
+in Chavannes); `cnh-228`'s 140 BCE is in no source read, its "First command 121" sits against the *Shiji*'s first
+campaign at eighteen in 123 BCE, and Cordier gives his age at death as 24; `cnh-229`'s 195 and 114 BCE are in no source
+read (the age c. 80–81 rests on 195), and Chavannes dates the Wusun mission's departure to 115 BCE, which would push his
+death later; `cnh-230`'s 115 BCE rests on Giles alone. The `Xiongnu` glossary's Huns sentence still rests on Parker 1895;
+`cnh-226`'s picture is described as robed on the card and armoured in its glossary.
