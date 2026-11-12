@@ -5,6 +5,8 @@
     python3 .claude/swahili/run.py --level a2      # another level (inventory first: inventory.py)
     python3 .claude/swahili/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/swahili/run.py --re-extract    # rebuild lex.json (after changing extract.py)
+    python3 .claude/swahili/run.py --level c1      # also fetches CCMatrix (134 MB) and WikiMatrix
+                                                   # and counts them into lex-web.json (~15 min)
 
 ONE LEVEL PER RUN (`swahili_level` reads the level once, at import).  Downloads
 its sources into `.claude/swahili-cache/` (gitignored, about 200 MB, most of it
@@ -43,11 +45,16 @@ SOURCES = [
     ('eng_sentences.tsv', TATOEBA + 'eng/eng_sentences.tsv.bz2', True),
     ('swh-eng_links.tsv', TATOEBA + 'swh/swh-eng_links.tsv.bz2', True),
 ]
+# C1 only: two written corpora, counted on their own into lex-web.json (`extract.py --web`).
+WEB_SOURCES = [
+    ('ccmatrix-sw.txt.gz', OPUS + 'OPUS-CCMatrix/v1/mono/sw.txt.gz', False),
+    ('wikimatrix-sw.txt.gz', OPUS + 'OPUS-WikiMatrix/v1/mono/sw.txt.gz', False),
+]
 
 
-def fetch():
+def fetch(sources=SOURCES):
     os.makedirs(CACHE, exist_ok=True)
-    for name, url, bz in SOURCES:
+    for name, url, bz in sources:
         out = os.path.join(CACHE, name)
         if os.path.exists(out) and os.path.getsize(out) > 0:
             print(f'  have  {name}')
@@ -71,14 +78,16 @@ def main():
     sys.path.insert(0, HERE)
     if '--no-fetch' not in sys.argv:
         print('sources:')
-        fetch()
+        fetch(SOURCES + (WEB_SOURCES if level == 'c1' else []))
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    stages = [('select.py',), ('examples.py',), ('build_deck.py',)]
+    if level == 'c1' and (not os.path.exists('lex-web.json') or '--re-extract' in sys.argv):
+        stages.insert(0, ('extract.py', '--web'))
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
-        stages.insert(0, 'extract.py')
-    for stage in stages:
-        print(stage.split('.')[0] + ':')
-        sys.argv = [stage]
+        stages.insert(0, ('extract.py',))
+    for stage, *args in stages:
+        print(stage.split('.')[0] + (' ' + ' '.join(args) if args else '') + ':')
+        sys.argv = [stage] + args
         runpy.run_path(os.path.join(HERE, stage), run_name='__main__')
 
 

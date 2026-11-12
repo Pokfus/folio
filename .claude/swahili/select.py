@@ -48,18 +48,108 @@ EXCLUDE = {
     'kiko': '"pipe": its count is kiko "it is there" (class 7)',
     'mpiga': 'a word-forming element (mpiga picha "photographer"), not a word',
     'ngono': 'its count is the sexual sense; a level deck leaves that out, as it does swearing',
+    # read off the B1 ranking (2026-11-12)
+    'do': 'the interjection "oh! damn!": its count is mostly the English "do" in the subtitles',
+    'hindi': '"maize": its count is Hindi "India" (Bahari ya Hindi), and A2 teaches mahindi',
+    'papa': 'its count is three words at once ("shark", "pope", "to tremble"), none of them a B1 word on that evidence',
+    'lisilo': 'a negative relative form (li-si-lo, class 5), a grammar point, not a word',
+    'nakupenda': '"I love you": a conjugated form of -penda (A1) that Wiktionary lists as a lemma',
+    'jira': '"cumin": its count is its plural majira "season", taught on its own card',
+    'kumba': '"to shove": its count is kumbe "so, behold!", read by the parser as its subjunctive',
+    'endeleza': 'Wiktionary\'s only sense is "to spell", where the word is met as "to develop, to carry on"; left out rather than taught wrong',
+    'mfanya': 'a word-forming element (mfanyabiashara, mfanyakazi), not a word',
+    # read off the B2 ranking (2026-11-12)
+    'pepe': '"astray": its count is barua pepe "email", which B1 teaches',
+    'abu': '"father": its count is the Arabic name element Abu',
+    'haram': '"pyramid": its count is haram "forbidden" and Boko Haram',
+    'yaliyomo': 'a relative form of -wamo ("what is in it"), a grammar point, not a word',
+    'li': 'a stem of -wa used only inside relative forms (kuli, alipo), a grammar point, not a word',
+    'siwe': 'a negative subjunctive form ("it is not you"), not a lemma',
+    'ka': 'the narrative tense marker -ka-, a grammar point, not a word',
+    'koloni': '"colon" (the punctuation mark): its count is koloni "colony"',
+    'ono': '"thought": its count is its plural maono "vision", taught on its own card',
+    'nukato': '"scent": its count is its plural manukato "perfume", taught on its own card',
+    'wia': '"to warm up": its count is -wia, the applicative of -wa ("to be for": inaniwia vigumu)',
+    'pea': 'its count mixes five homographs ("to ripen", "to give to", "pair", "pear", "to sweep")',
+    'aka': '"to build": a handful of tokens, credited by the parser from forms of other words',
+    'sua': '"to spit": a handful of tokens, credited by the parser from forms of other words',
+    'asa': '"to forbid": a handful of tokens, credited by the parser from forms of other words',
+    'ree': '"ace": a single token as written',
+    'umbile': 'Wiktionary\'s only sense is queried ("the nature of something?")',
+    'jamiiana': '"to have sex with one another": left out, as ngono is',
+    'hara': '"to defecate" (Wiktionary\'s first sense of "to have diarrhoea"): a crude word',
+    'shoga': 'its count is mostly the slur sense, not "a woman\'s close friend"',
+    'kilema': '"cripple": a pejorative; B1 teaches mlemavu "a person with a disability"',
+    'mpigaji': 'Wiktionary\'s only sense is "synonym of mpiga", a word-forming element',
+    'kifungua': 'a word-forming element (kifungua kinywa "breakfast"), not a word',
+    'mshika': 'a word-forming element (mshika dau, mshika bunduki), not a word',
+    'mtunza': 'a word-forming element (mtunza fedha "treasurer"), not a word',
+    'mlipa': 'a word-forming element (mlipa kodi "taxpayer"), not a word',
+    'mlinda': 'a word-forming element (mlinda mlango "goalkeeper"), not a word',
+    'mbao': 'Wiktionary\'s lemma is the slang "twenty shillings"; planks are the plural of ubao, which A2 teaches',
+    # read off the C1 ranking (2026-11-12), counted on the written corpora
+    'mbeya': '"gossip": its count is the place name Mbeya, which the written corpora are full of',
+    'pemba': '"to trick": its count is the place name Pemba, which the written corpora are full of',
+    'tanga': '"sail; to wander": its count is the place name Tanga, which the written corpora are full of',
+    'juba': '"jubbah": its count is the place name Juba, which the written corpora are full of',
+    'kwale': '"francolin": its count is the place name Kwale, which the written corpora are full of',
+    'manga': '"to eat" (and "Oman"): its count is the place name Manga, which the written corpora are full of',
+    'kanu': '"genet": its count is KANU, the Kenyan party',
+    'liga': '"poison": its count is the football liga ("league")',
+    'mwinyi': '"lord": its count is the surname Mwinyi',
+    'bakari': '"cow": its count is the name Bakari',
+    'saidi': '"ruler": its count is the name Saidi',
+    'bin': '"son of": the Arabic name element, like abu',
+    'kaini': '"cruel": its count is Kaini "Cain"',
+    'dia': '"bloodwite": its count is other languages\' "dia" in the web corpus',
+    'dei': '"day" (slang): its count is other languages\' "dei" in the web corpus',
+    'jo': 'an emphatic interjection: its count is the name and English "Jo"',
+    'anti': '"auntie": its count is the English prefix anti-',
+    'ndiwe': 'a copula form ("it is you"), not a lemma',
+    'download': 'an English loan (kudownload); B1 teaches kupakua',
+    'mcha': 'a word-forming element (mcha Mungu "God-fearing person"), not a word',
+    'mwenda': 'a word-forming element (mwenda wazimu "madman"), not a word',
+    'ushoga': 'its count is mostly the derogatory sense, not "close friendship between women" (see shoga)',
+    'msagaji': '"a lesbian": a derogatory slang word',
+    'chotara': '"half-caste": a pejorative',
+    'mavi': '"dung, excrement": a crude word',
+    'punyeto': '"masturbation": left out, as kujamiiana is',
+    'mfanyi': 'a word-forming element, like mfanya',
+    # read off the phrases deck (2026-11-12)
+    'kwa mujibu': 'a fragment of kwa mujibu wa "according to", which C1 teaches',
+    'mujibu wa': 'a fragment of kwa mujibu wa "according to", which C1 teaches',
+    'fanya mapenzi': '"to have sex": left out, as kujamiiana is',
+    'lala pamoja': '"to sleep together": left out, as kujamiiana is',
+    'shiriki ngono': '"to have sex": left out, as kujamiiana is',
+    'kutana kimwili': '"to have sex": left out, as kujamiiana is',
+    'shiriki kitanda': '"to engage in sexual intercourse": left out, as kujamiiana is',
+    'piga punyeto': '"to masturbate": left out, as punyeto is',
+    'umbwa hii': 'Wiktionary\'s only sense is "an insult"',
+    'pambana na hali yako': "Wiktionary's gloss is vulgar",
+    'huko chini': "Wiktionary's only sense is a genital euphemism; huko and chini are A1",
+    'kula mate': 'Wiktionary queries its only sense ("can this sense be confirmed?")',
 }
 
 # Swearing and insults are never in a level deck.
-SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala'}
+SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala',
+          'pumbavu', 'shenzi',   # the adjectives of mpumbavu, mshenzi (B1)
+          'mwanaharamu', 'mpuuzi', 'zuzu', 'bwege', 'mbumbumbu', 'umalaya'}   # B2
+
+
+WEB = {}       # C1's written corpora (`lex-web.json`, see `extract.py --web`), loaded by main()
 
 
 def rank(L):
     """The frequency a lemma is dealt by.  From A2 up a multi-word lemma's own sequence
-    count (`seq`, see `extract.py`); A1 was shipped on `freq` and stays on it."""
+    count (`seq`, see `extract.py`); A1 was shipped on `freq` and stays on it.  C1 is
+    dealt on its two WRITTEN corpora alone (`lex-web.json`; A1-B2 never read it)."""
     if LEVEL != 'a1' and 'seq' in L:
-        return L['seq']
-    return L['freq']
+        base, key = L['seq'], 'seq'
+    else:
+        base, key = L['freq'], 'freq'
+    if LEVEL == 'c1':
+        return WEB.get(norm(L['word']), {}).get(key, 0)
+    return base
 
 
 def usable(L):
@@ -88,8 +178,93 @@ def says_all(L):
     return {say_of(L, e['pos']) for e in L['entries']} | {L['word'].lower()}
 
 
+# THE PHRASES DECK'S POOL (`--level phr`).  Russian's two tests -- a part of speech only a
+# phrase has, OR a multi-word entry with a sense Wiktionary tags `idiomatic` -- and, because
+# Swahili builds so much from a light verb and a noun (`piga simu` "to phone", `fanya kazi`
+# "to work"), every multi-word VERB, INTERJECTION, ADVERB, PREPOSITION and DETERMINER too.
+# Not a compound NOUN (`mpira wa miguu` is a word, not a phrase) nor a spelled-out NUMBER
+# (`arobaini na mbili`).  A lemma whose every sense is weak (rare, slang ...) is left out.
+PHRASE_POS = {'phrase', 'proverb', 'prep_phrase'}
+MULTI_POS = {'verb', 'intj', 'adv', 'prep', 'det'}
+# Obscenities and insults, refused on the spelling (Russian's `OATH`).
+OATH = {'kuma ya mamako', 'mkundu wako', 'mavi ya mbuzi'}
+
+
+def phrase_kind(L):
+    pos = {e['pos'] for e in L['entries']}
+    if pos & PHRASE_POS:
+        return 'proverb' if 'proverb' in pos else 'phrase'
+    if any('idiomatic' in g['tags'] for e in L['entries'] for g in e['glosses']):
+        return 'idiom'
+    if pos & MULTI_POS:
+        return 'expression'
+    return ''
+
+
+def phrase_counts(keys, lex):
+    """How often each phrase occurs in the subtitles and Global Voices TOGETHER, per million
+    words: a phrase is too rare for the levels' geometric mean, which needs it in both.  A
+    multi-word VERB is counted with its head conjugated (`alipiga simu`, `tunafanya kazi`) by
+    the verb parser, or as its stem or infinitive; everything else as its words in sequence."""
+    import gzip
+    from sw import tokens, VerbParser
+    parser, heads, want = VerbParser(), {}, {}
+    for k in keys:
+        w = k.split()
+        if any(e['pos'] == 'verb' for e in lex[k]['entries']):
+            parser.add(w[0])
+            heads.setdefault(w[0], []).append(tuple(w[1:]))
+        want.setdefault(w[0], []).append(tuple(w[1:]))
+    count, total = {k: 0 for k in keys}, 0
+    for c in ('os-sw.txt.gz', 'gv-sw.txt.gz'):
+        for line in gzip.open(c, 'rt', encoding='utf-8'):
+            t = tokens(line)
+            total += len(t)
+            for i, tok in enumerate(t):
+                for rest in want.get(tok, ()):
+                    if tuple(t[i + 1:i + 1 + len(rest)]) == rest:
+                        count[' '.join((tok,) + rest)] += 1
+                bare = {x for x in (tok, tok[2:] if tok[:2] in ('ku', 'kw') else '') if x in heads}
+                for h in (parser.lemmas(tok) if len(tok) > 3 else set()) | bare:
+                    for rest in heads.get(h, ()):
+                        if tuple(t[i + 1:i + 1 + len(rest)]) == rest:
+                            count[' '.join((h,) + rest)] += 1
+    return {k: round(v * 1e6 / total, 2) for k, v in count.items()}
+
+
+def phrases(lex, below):
+    """Every phrase of the pool the levels do not teach, the commonest first; those the
+    corpora never use are KEPT and dealt last, alphabetically (the corpus must not set the
+    syllabus: a proverb is rarely in a subtitle)."""
+    swears = {norm(s) for s in SWEARS} | OATH
+    pool = []
+    for k, L in sorted(lex.items()):
+        if ' ' not in k or k in swears or k in EXCLUDE or not usable(L):
+            continue
+        kind = phrase_kind(L)
+        if not kind or says_all(L) & below or ('ku' + k) in below:
+            continue
+        pool.append((k, kind))
+    freq = phrase_counts([k for k, _ in pool], lex)
+    rows = [{'key': k, 'word': lex[k]['word'], 'say': say_of(lex[k]), 'freq': freq[k], 'pos': '',
+             'source': kind, 'topic': ''} for k, kind in pool]
+    rows.sort(key=lambda r: (-r['freq'], r['key']))
+    return rows
+
+
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
+    if LEVEL == 'phr':
+        rows = phrases(lex, words_below())
+        json.dump(rows, open(f('selected.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+        kinds = {}
+        for r in rows:
+            kinds[r['source']] = kinds.get(r['source'], 0) + 1
+        print(f'  {len(rows)} phrases:', ', '.join(f'{v} {k}' for k, v in sorted(kinds.items())),
+              f'; {sum(1 for r in rows if r["freq"] == 0)} never in the corpora (dealt last)')
+        return
+    if LEVEL == 'c1':
+        WEB.update(json.load(open('lex-web.json', encoding='utf-8')))
     below = words_below()
     rows, seen, said, missing = [], set(), set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
@@ -115,7 +290,7 @@ def main():
             break
         if k in seen or k in swears or k in EXCLUDE or ' ' in k or '-' in k:
             continue
-        if not usable(L) or L['freq'] <= 0:
+        if not usable(L) or rank(L) <= 0:
             continue
         if all(e['pos'] in ('phrase', 'proverb') for e in L['entries']):
             continue

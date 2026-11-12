@@ -35,17 +35,115 @@ EXCLUDE = {
     'भाड़': 'counted from भाड़ में जाओ, an oath',
     'की': 'taught on the card of का, whose feminine it is',
     'बारा': 'its count is बारे, the oblique, which is the बारे of के बारे में "about"',
+    # Read off the A2 ranking (2026-11-12).
+    'सिकंदर': '"king, ruler"; its count is the name Sikandar (Alexander)',
+    'कराहना': 'its count is the subtitles\' sound captions ("[groans]"), not speech',
+    'हाँफना': 'its count is the subtitles\' sound captions ("[pants]"), not speech',
+    'हाँकना': 'its count is the captions\' हांक- / हांफ- ("[panting]"), not "to drive (an animal)"',
+    'गलना': '"to melt"; its count is गले / गला "neck, throat" and गली "lane", whose forms it shares',
+    'सो': '"used with जो" in Wiktionary\'s one sense; its count is सो "sleep!", of सोना',
+    'करनी': '"deed"; its count is करनी, the feminine infinitive of करना',
+    'कोड़ी': '"a score (twenty)"; its count is कोडी, the subtitles\' "code"',
+    'ज़ाती': '"innate"; its count is जाती, a form of जाना (the nukta folded)',
+    'डी': 'the letter D, counted from spelt-out English',
+    'हा': 'laughter, counted from subtitles',
+    'हाउस': '"house" in English names (White House), not a Hindi word',
+    'गुड़': '"jaggery"; its count is गुड, the subtitles\' English "good"',
+    'मिस': '"pretext"; its count is the subtitles\' English "miss"',
+    'इंदु': '"the moon"; its count is the given name Indu',
+    'जगदीश': '"god"; its count is the given name Jagdish',
+    'समीर': '"breeze"; its count is the given name Sameer',
+    'प्रिया': '"darling"; its count is the given name Priya',
+    'दिव्या': '"divine"; its count is the given name Divya',
+    'ख़ान': '"khan"; its count is the surname Khan',
+    # Read off the B1 ranking (2026-11-12).
+    'दिया': '"lamp"; its count is दिया "gave", the past of देना (the A1 note on दी)',
+    'हाँक': 'its count is the captions\' हांक- / हांफ- ("[panting]"), as हाँकना\'s',
+    'संजय': '"victorious"; its count is the given name Sanjay',
+    'शेखर': '"crest"; its count is the given name Shekhar',
+    'विक्टोरिया': 'a given name',
+    'सीज़र': 'the name Caesar',
+    'दुर्गा': 'the goddess\'s name, counted as a word',
+    'शास्त्री': '"scientist"; its count is the surname Shastri',
+    'गूगल': '"the guggul tree"; its count is the subtitles\' "Google"',
+    'बी': '"synonym of बीवी"; its count is the letter B',
+    'चेक': '"Czech"; its count is the subtitles\' English "check"',
+    'डील': '"bulk, stature"; its count is the subtitles\' English "deal"',
+    'लव': '"a particle"; its count is the subtitles\' English "love"',
+    'रोलना': '"to roll out"; its count is रोल, the subtitles\' English "role"',
+    'लेसना': '"to plaster with dung"; its count is लेस-, from English',
+    'कोर': '"blind" in Wiktionary\'s one sense; its count is the subtitles\' English "core", "corps"',
+    'हनना': '"to slay", archaic; its count is the shapes it shares with commoner words',
+    'चालना': '"to impel"; its count is चाल "gait" and चलना, whose forms it shares',
+    'बंधा': '"levee"; its count is बंधा "tied", of बँधना',
+    'धत': '"vice" in Wiktionary\'s one sense; its count is धत "get away!", the interjection',
+    # Read off the B2 ranking (2026-11-12).
+    'सकता': '"apoplexy"; its count is सकता, of सकना (the A1 note)',
+    'उपशीर्षक': '"subtitle"; its count is the subtitle files\' own credit lines',
+    'बेन': '"flute"; its count is the name Ben',
+    'होम': '"homa"; its count is the subtitles\' English "home"',
+    'कुक': '"a cry"; its count is the subtitles\' English "cook"',
+    'चिक': '"bamboo blind"; its count is the subtitles\' English "chick"',
+    'बे': 'the letter be; its count is बे "hey, you", a rude call',
+    'रसना': '"tongue"; its count is रस "juice", whose forms it shares',
+    'बीजना': '"hand fan"; its count is बीज "seed", whose forms it shares',
+    'जुंग': '"emotion"; its count is the name Jung',
+    'बोबा': '"breast"; counted from a name, not a learner\'s word',
+    'पंगा': '"lame" in Wiktionary; its count is the slang पंगा "trouble", a sense the entry lacks',
+    'गब्बर': '"haughty"; its count is Gabbar, the film villain',
+    'क़ैसर': 'the name Caesar (Kaiser)',
+    'पटेल': '"village headman"; its count is the surname Patel',
+    'मीरा': '"murva fibre"; its count is the given name Meera',
+    'मोहिनी': 'the given name Mohini',
+    'मोहन': 'the given name Mohan',
+    'माधव': 'the given name Madhav',
+    'जया': 'the given name Jaya',
+    'गीता': '"song"; its count is the given name Geeta (and the Gita)',
+    'रहीम': 'the given name Rahim',
+    'रहमान': 'the given name Rahman',
+    'सविता': 'the given name Savita',
+    'शंकर': 'the given name Shankar',
+    # Read off the C1 ranking (2026-11-12).
+    'चंद': '"moon" in Wiktionary\'s one sense; its count is चंद "a few", a sense the entry lacks',
+    'चल': '"moving"; its count is चल "go!", of चलना',
+    'फेंक': '"a throw"; its count is फेंक "throw!", of फेंकना',
+    'कहनी': '"utterance"; its count is कहनी, the feminine infinitive of कहना',
+    'मूझना': '"to be enchanted"; its count is not the verb\'s (मुझे, folded)',
+    'ओक': '"vomit"; its count is the subtitles\' English "OK"',
+    'पिक': '"Indian cuckoo"; its count is the subtitles\' English "pick"',
+    'सेम': '"bean"; its count is the subtitles\' English "same", "Sam"',
+    'सन': '"flax"; its count is सन् "the year (AD)" and the English "son"',
+    'कोला': '"jackal"; its count is the subtitles\' "cola"',
+    'लावा': '"bringer"; its count is the subtitles\' "lava"',
+    'लोन': '"salt"; its count is the subtitles\' English "loan"',
+    'पिंग': '"a buffalo"; its count is the subtitles\' English "ping"',
+    'ज़ार': '"lament"; its count is the Tsar',
+    'इला': 'the given name Ila',
+    'मित्रा': 'the surname Mitra',
+    'शांता': 'the given name Shanta',
+    'केतकी': 'the given name Ketki',
+    'अरुण': 'the given name Arun',
+    'ललित': 'the given name Lalit',
+    'विक्रम': 'the given name Vikram',
+    'हरि': 'the given name Hari',
+    'रजनी': 'the given name Rajni',
+    'रीता': 'the given name Rita',
+    'जोशी': 'the surname Joshi',
+    'जुगल': 'the given name Jugal',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'साला', 'कमीना', 'हरामी', 'कुत्ती', 'चूतिया', 'भड़वा', 'गांडू', 'बकवास', 'हरामज़ादा',
-          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू'}
+          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू', 'कुतिया'}
 
 
 def usable(L):
     gl = [g for e in L['entries'] for g in e['glosses']]
-    return any(not g['weak'] for g in gl)
+    # a lemma whose every sense is a "hyperforeign form of" note has no meaning to
+    # teach (`पटाख़ा`, B2)
+    return any(not g['weak'] and not g['g'].lower().startswith('hyperforeign form of')
+               for g in gl)
 
 
 def main():
@@ -86,6 +184,9 @@ def main():
         if k in seen or k in below or k in swears or k in excl:
             continue
         if len(k) < 2 and k not in ('न',):
+            continue
+        # a SUFFIX (-वाला) is not a word a learner meets bare (A2)
+        if k.startswith('-') or k.endswith('-'):
             continue
         # a MULTI-WORD lemma (बात करना, के बारे में) is the inventory's to choose; the
         # fill's ranking of one is only an estimate (`extract.py`)
