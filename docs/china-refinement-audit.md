@@ -1459,3 +1459,80 @@ Sovereigns as `cnh-002` and the row. **Protected lines: unchanged** (diffed afte
 the *Shiji*'s day cannot fall in it (`wh-404` carries the same date) — and "February" 259 BCE is a conversion (the
 *Shiji* says the first month); `cnh-195`'s `Birth c. 280 BCE` is in no source read, 214 BCE is Giles's alone, and the
 *Shiji*'s annals put his death a year later (Chavannes: 207 BCE).
+
+### The second hundred, in sum
+
+`cnh-101`–`cnh-200` (the end of the Shang, the whole of the Western and Eastern Zhou decks and the first ten of the Qin)
+are done: 506 sources became 694 and 91 glossary entries were rewritten, one of them new (`Su_Qin_and_Zhang_Yi`; the card
+had none). `cnh-audit.js --range=cnh-101:cnh-200` reads 74 of 100 cards clean, against none at the baseline; what remains
+is 13 advisory `W.not-why`, 8 cards with no picture (`cnh-111`, `125`, `128`, `129`, `134`, `136`, `166`, `167`), 4
+`L.missing` (below), one `Z.reading?` that is a polyphone (`cnh-144`'s 传 read zhuàn) and one false `G.date`
+(`cnh-152`, read against `Da_Qi`). `check-cnh-spellings.js` reads 0 card hits over the hundred (the baseline's 7 cards
+and 9 hits are fixed: "Quan Rong", "Gong He"; the "T'ien" hits were cited authors, and the row was made alias-only); the
+4 glossary hits left are entries outside the hundred. Commons and the Wikipedia API answered 429 at the start and again
+at the end, so no picture pass was run and no locator added. Fifty agents worked two cards each, never more than ten at
+once; when a draft returned, its clues went into `AGENT.md` and running agents were told of any shared clue (Jin's
+partition years, the Warring States' start, Maling's tree, Su Qin's death). Each batch was applied alone, verified field
+by field against its drafts, diffed for the protected lines and committed with its docs; `origin/main` was merged once
+mid-run (B14) and the protected lines diffed again.
+
+What the hundred found, again and again:
+- **Counts and places on the date line.** Nearly every card: 875 kg, "800 lords", Muye's Location and Result, "28 of 38",
+  the ding allowance, the 2,500-man *shi*, the 900-mu well-field, 700 chariots, 102,100 killed at Maling, 700,000 at
+  Changping, 36 commanderies, "800 years". All are now in prose, attributed and hedged, or gone.
+- **The Han's and the ritual books' schemes as Western Zhou fact.** The ding rule, the five ranks, zongfa's arithmetic,
+  the well-field, the Zhou rites made by the Duke of Zhou, the Han picture of a cruel Qin. Each is now a later text's
+  scheme, set against the bronzes and the excavated statutes (Shuihudi, Liye, Yuelu).
+- **Legend told as history.** King Wen's prison and the hexagrams, the Duke of Zhou's coffer, Baosi's beacons, Goujian's
+  gall and brushwood, Xi Shi, Jie Zitui's burning, Su Qin's league, Jing Ke's wounding blow, Qu Yuan's life. Each is now
+  the *Shiji*'s, the Zuo Zhuan's or a later tale's, dated by its text.
+- **A year a source does not print.** Regnal years converted by the old cards (Xuge, Kuiqiu, the crossbow's 599, iron's
+  513, Chu's 684, Qin's 908), and years that were simply wrong (Qi's fall in 220, Tian He in 385, 1039 for the Three
+  Guards, 468 for the Zuo Zhuan). Dropped, or replaced by the year a source prints with whose it is.
+- **A modern label as ancient fact.** "Feudalism", "Spring and Autumn" and "Warring States" as the ages' own names, the
+  "hegemon system", the "Jixia Academy", the "Ritual Reform". Each is now said to be a later or modern name.
+- **Sources that did not say it.** A dissertation on 6th–7th-century CE north China cited for Duke Wen, Goujian and the
+  covenants; a kiln study for Hao; Giles's entry on a 3rd-century CE officer for Jin; a Late Shang paper for the Rong and
+  Di. All dropped.
+
+**The Chinese name.** Corrected: `cnh-145` (周王室衰微 → 周室衰微), `cnh-175` (铁 → 战国铁器), `cnh-196` (废分封 → 废封建), `cnh-199`
+(书同文 → 书同文字), and the pinyin of fourteen cards (the house split of cháo on `cnh-103`, `cnh-190`, `cnh-191`; lower case
+on `cnh-107`, `cnh-119`, `cnh-125`, `cnh-129`; joined Bāosì, Gōujiàn, huìméng; zhī zhàn on `cnh-150`; capital Hóu and Wáng
+on `cnh-167`, `cnh-174`; Wèiguó, Qín lǜ). Descriptive phrases matching no open page whole are listed batch by batch for
+the owner. **Spellings**: rows added for the Zhou kings, the Spring and Autumn and Warring States states (with Wey for
+衛), the battles, the Warring States men, the thinkers and Fan Ju.
+
+**The myth register** gained eight Zhou rows at the start (Di Xin, Houji, the Mandate, King Wen and King Wu, the Duke of
+Zhou's regency, the Gonghe regency, Baosi and the beacons, the two kings) and one for Jie Zitui; every one was confirmed
+or corrected by the batch that drafted its card (the two kings' row had King Hui of Xie inverted). The four rows held
+from the first hundred (the Yu-to-Qi succession, Jie, Tang's rain, the nine ding) were already in the register; the
+nine ding were confirmed again (the *Mozi*, the Zuo Zhuan, the *Shiji*).
+
+**The protected cards** (`cnh-102`, `113`, `114`, `115`, `132`, `133`, `135`, `136`, `137`, `147`, `148`, `149`, `151`,
+`159`, `166`, `167`, `168`, `174`, `182`, `186`, `189`, `192`, `195`) kept their `answerDate`, `undatable` and `timeline`
+byte for byte through every apply and the merge of main. Every background now carries the years on its card's line.
+Rows flagged for the owner, left as they stand (details in each batch): birth years in no source read on `cnh-102`
+(1105 — Di Yi's first calendar year in Nivison), `113` (1112), `114` (1097), `132` (992, whose age also contradicts the
+*Shiji*), `136` (795), `148` (720), `149` (696, Giles and Mayers only), `166` (455 and 395), `182` (332), `195` (280);
+`cnh-115`'s 1035 (Shaughnessy's second start, not the Project's); `cnh-147`'s Kuiqiu 650 (Legge; the *Shiji* 651);
+`cnh-167`'s reign (the *Shiji*'s; "usually 446 – 396"); `cnh-168`'s death place; `cnh-182`'s ennoblement (278 in the
+*Shiji*) and death (257 in the Qin annals); `cnh-186`'s 332 – 295 (Giles; c. 314 Mayers); `cnh-189`'s Xianyang; `cnh-192`'s
+12 July 210 (Chavannes: impossible in that month) and "February" 259 (a conversion); `cnh-195`'s 214 (Giles alone) and
+208 (the annals: 207). Ages on the person template rest on these birth years.
+
+**For the owner, outside the hundred**: the `Su_Qin` and `Zhang_Yi` glossary entries still give 333 / 318 / 310 BCE as
+fact; `cnh-234` dates the Han iron monopoly 120 BCE (Wagner: 117); `cnh-433` and Hirth disagree on the *Zizhi tongjian*
+(1084 against 1066 for its submission); `cnh-477`'s `Da_Qi` alias "Qi (Liu Yu)" can catch the plain "Qi"; `wh-404`
+carries the First Emperor's 12 July 210 BCE.
+
+### Locators (2026-11-12, the second hundred)
+
+None was added or moved, so `migrate-places.js` was not run: Wikipedia's API answered 429 at the session's start and at
+its end, and `add-locators.js` fetches every coordinate. **The sites the second hundred lacks points for**, each with
+the article the agents proposed: `cnh-121` Chengzhou ("Luoyi", labelled "Chengzhou"), `cnh-150` Battle of Chengpu
+("Battle of Chengpu", labelled "Chengpu", if the article carries coordinates), `cnh-180` Battle of Maling (the site is
+disputed — Maspero puts it near Daming; none proposed), `cnh-181` Battle of Changping ("Battle of Changping", at
+Gaoping). **The six first-hundred sites still waiting**: `cnh-053` Sanxingdui, `cnh-063` Erlitou site, `cnh-075` tomb of Fu
+Hao, `cnh-080` Xibeigang, `cnh-089` Zhengzhou Shang City, `cnh-090` Panlongcheng (articles in the first hundred's note).
+`L.missing` is deliberate on `cnh-177` Warring States cities (a class of cities, no one point). Points to review:
+`cnh-170`'s polygon looks like the empire of 221 BCE, not Qin before it; `cnh-164`'s polygon of the seven states can stay.
