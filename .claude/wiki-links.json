@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T04:05Z",
+ "generated": "2026-11-12T04:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6620,
-  "redirect-broader": 625,
-  "redirect-variant": 398,
-  "section-redirect": 134,
+  "ok": 6642,
+  "redirect-broader": 629,
+  "redirect-variant": 403,
+  "section-redirect": 135,
   "disambiguation": 147,
-  "none": 1013,
-  "disambig-resolved": 89,
+  "none": 1028,
+  "disambig-resolved": 92,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -72440,6 +72440,469 @@
    "via": "answer",
    "status": "redirect-variant",
    "from": "Russo-Turkish War of 1768–1774"
+  },
+  "ru-301": {
+   "answer": "Spiritual Regulation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Central Spiritual Board of Buddhists of the USSR",
+    "Russian Empire",
+    "United Russia",
+    "Catherine the Great",
+    "French invasion of Russia"
+   ]
+  },
+  "ru-302": {
+   "answer": "soul tax",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Russian Tax Debate of 1870–1871",
+    "Dead Souls",
+    "Poll tax",
+    "Matryoshka doll",
+    "Russian Empire"
+   ]
+  },
+  "ru-303": {
+   "answer": "recruit levy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Levy",
+    "Iraq Levies",
+    "Clifford J. Levy",
+    "Russian Empire",
+    "Tsarist Russia"
+   ]
+  },
+  "ru-304": {
+   "answer": "Decree on Single Inheritance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pomeshchik",
+    "Inheritance tax",
+    "Majorat",
+    "Tsarist Russia",
+    "Votchina"
+   ]
+  },
+  "ru-305": {
+   "answer": "possessional peasants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Serfdom in Russia",
+    "Tambov Rebellion",
+    "Russian Empire",
+    "State peasant",
+    "Economy of Tsarist Russia"
+   ]
+  },
+  "ru-306": {
+   "answer": "Nikita Demidov",
+   "title": "Nikita Demidov",
+   "url": "https://en.wikipedia.org/wiki/Nikita_Demidov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-307": {
+   "answer": "Petrine assemblies",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tsarist Russia",
+    "Russian Empire",
+    "Peter the Great",
+    "Primacy of Peter",
+    "Saint Petersburg"
+   ]
+  },
+  "ru-308": {
+   "answer": "civil script",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Civil script",
+   "target": "Reforms of Russian orthography#18th-century changes"
+  },
+  "ru-309": {
+   "answer": "Russian Academy of Sciences",
+   "title": "Russian Academy of Sciences",
+   "url": "https://en.wikipedia.org/wiki/Russian_Academy_of_Sciences",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-310": {
+   "answer": "Kunstkamera",
+   "title": "Kunstkamera",
+   "url": "https://en.wikipedia.org/wiki/Kunstkamera",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-311": {
+   "answer": "Tsarevich Alexei",
+   "title": "Alexei Petrovich, Tsarevich of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexei_Petrovich,_Tsarevich_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tsarevich Alexei"
+  },
+  "ru-312": {
+   "answer": "law of succession of 1722",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter Petrovich, Tsarevich of Russia",
+    "1722",
+    "List of heirs to the Russian throne",
+    "Emperor of Russia",
+    "Peter the Great: His Law on the Imperial Succession"
+   ]
+  },
+  "ru-313": {
+   "answer": "Russo-Persian War of 1722–1723",
+   "title": "Russo-Persian War (1722–1723)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1722%E2%80%931723)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Persian War of 1722–1723"
+  },
+  "ru-314": {
+   "answer": "household census of 1710",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in Russia",
+    "Abatsky District",
+    "Corrales, New Mexico",
+    "Pushkin, Saint Petersburg",
+    "Staraya Russa"
+   ]
+  },
+  "ru-315": {
+   "answer": "Bronze Horseman",
+   "title": "Bronze Horseman",
+   "url": "https://en.wikipedia.org/wiki/Bronze_Horseman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-316": {
+   "answer": "era of palace revolutions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of Russia (1721–1796)",
+    "Winter Palace",
+    "Russian Revolution",
+    "Great Gatchina Palace",
+    "Outline of the Russian Revolution"
+   ]
+  },
+  "ru-317": {
+   "answer": "Catherine I",
+   "title": "Catherine I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Catherine_I_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Catherine I"
+  },
+  "ru-318": {
+   "answer": "Supreme Privy Council",
+   "title": "Supreme Privy Council",
+   "url": "https://en.wikipedia.org/wiki/Supreme_Privy_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-319": {
+   "answer": "Peter II",
+   "title": "Peter II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Peter_II_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Peter II"
+  },
+  "ru-320": {
+   "answer": "Anna of Russia",
+   "title": "Anna of Russia",
+   "url": "https://en.wikipedia.org/wiki/Anna_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-321": {
+   "answer": "konditsii",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Conditions (Russia)",
+    "History of Russia (1721–1796)"
+   ]
+  },
+  "ru-322": {
+   "answer": "Bironovshchina",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of Russia (1721–1796)",
+    "Ernst Johann von Biron"
+   ]
+  },
+  "ru-323": {
+   "answer": "War of the Polish Succession",
+   "title": "War of the Polish Succession",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Polish_Succession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-324": {
+   "answer": "Russo-Turkish War of 1735–1739",
+   "title": "Russo-Turkish War (1735–1739)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1735%E2%80%931739)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1735–1739"
+  },
+  "ru-325": {
+   "answer": "Ivan VI",
+   "title": "Ivan VI of Russia",
+   "url": "https://en.wikipedia.org/wiki/Ivan_VI_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Ivan VI"
+  },
+  "ru-326": {
+   "answer": "Elizabeth of Russia",
+   "title": "Elizabeth of Russia",
+   "url": "https://en.wikipedia.org/wiki/Elizabeth_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-327": {
+   "answer": "coup of 1741",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ivan VI of Russia",
+    "1741 in Russia",
+    "Catherine Antonovna of Brunswick",
+    "Russo-Swedish War (1741–1743)",
+    "1741"
+   ]
+  },
+  "ru-328": {
+   "answer": "moratorium on the death penalty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Capital punishment in Russia",
+    "Resolutions concerning death penalty at the United Nations",
+    "Capital punishment by country",
+    "Capital punishment",
+    "Capital punishment in Europe"
+   ]
+  },
+  "ru-329": {
+   "answer": "Mikhail Lomonosov",
+   "title": "Mikhail Lomonosov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Lomonosov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-330": {
+   "answer": "Moscow University",
+   "title": "Moscow State University",
+   "url": "https://en.wikipedia.org/wiki/Moscow_State_University",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Moscow University"
+  },
+  "ru-371": {
+   "answer": "Treaty of Georgievsk",
+   "title": "Treaty of Georgievsk",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Georgievsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-372": {
+   "answer": "Russian America",
+   "title": "Russian colonization of North America",
+   "url": "https://en.wikipedia.org/wiki/Russian_colonization_of_North_America",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian America"
+  },
+  "ru-373": {
+   "answer": "Russian-American Company",
+   "title": "Russian-American Company",
+   "url": "https://en.wikipedia.org/wiki/Russian-American_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-374": {
+   "answer": "Alexander Radishchev",
+   "title": "Alexander Radishchev",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Radishchev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-375": {
+   "answer": "Nikolay Novikov",
+   "title": "Nikolay Novikov",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Novikov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-376": {
+   "answer": "Freemasonry in Russia",
+   "title": "History of Freemasonry in Russia",
+   "url": "https://en.wikipedia.org/wiki/History_of_Freemasonry_in_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Freemasonry in Russia"
+  },
+  "ru-377": {
+   "answer": "Second Partition of Poland",
+   "title": "Second Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/Second_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-378": {
+   "answer": "Paul I",
+   "title": "Paul I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Paul_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Paul I"
+  },
+  "ru-379": {
+   "answer": "Pauline Laws",
+   "title": "Pauline Laws",
+   "url": "https://en.wikipedia.org/wiki/Pauline_Laws",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-380": {
+   "answer": "Mikhailovsky Castle",
+   "title": "Saint Michael's Castle",
+   "url": "https://en.wikipedia.org/wiki/Saint_Michael's_Castle",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mikhailovsky Castle"
+  },
+  "ru-381": {
+   "answer": "Alexander I",
+   "title": "Alexander I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander I"
+  },
+  "ru-382": {
+   "answer": "Unofficial Committee",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Federal Security Service",
+    "Russian Soviet Federative Socialist Republic",
+    "Private Committee",
+    "List of heads of government of Russia",
+    "Flag of Russia"
+   ]
+  },
+  "ru-383": {
+   "answer": "Mikhail Speransky",
+   "title": "Mikhail Speransky",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Speransky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-384": {
+   "answer": "ministerial reform of 1802",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ministerial reform in the Russian Empire",
+    "List of heads of government of Russia",
+    "Government reform of Alexander I",
+    "Manifesto on the Establishment of Ministries",
+    "Alexander I of Russia"
+   ]
+  },
+  "ru-385": {
+   "answer": "War of the Third Coalition",
+   "title": "War of the Third Coalition",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Third_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-386": {
+   "answer": "Battle of Austerlitz",
+   "title": "Battle of Austerlitz",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Austerlitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-387": {
+   "answer": "Battle of Eylau",
+   "title": "Battle of Eylau",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Eylau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-388": {
+   "answer": "Battle of Friedland",
+   "title": "Battle of Friedland",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Friedland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-389": {
+   "answer": "Treaties of Tilsit",
+   "title": "Treaties of Tilsit",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Tilsit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-390": {
+   "answer": "Continental System",
+   "title": "Continental System",
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
