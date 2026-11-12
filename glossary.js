@@ -9478,7 +9478,26 @@ window.GLOSSARY = {
 "Interpersonal_comparisons_of_utility": "",
 "Cost–benefit_analysis": "",
 "Value_of_a_statistical_life": "",
-"Social_discount_rate": ""
+"Social_discount_rate": "",
+"Economic_ethics": "",
+"Bargaining_power": "",
+"Consumer_sovereignty": "",
+"Performativity": "",
+"Weak_and_strong_sustainability": "",
+"Quality_adjustment": "",
+"Production_boundary": "",
+"Unpaid_work": "",
+"Economics_imperialism": "",
+"Fan_chart_(time_series)": "",
+"Demand_(economics)": "",
+"Demand_curve": "",
+"Law_of_demand": "",
+"Change_in_demand": "",
+"Supply_(economics)": "",
+"Supply_curve": "",
+"Change_in_supply": "",
+"Price_mechanism": "",
+"Excess_supply": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20130,7 +20149,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Interpersonal_comparisons_of_utility": ["interpersonal comparison of utility","interpersonal utility comparisons"],
 "Cost–benefit_analysis": ["cost-benefit analysis","benefit-cost analysis","benefit–cost analysis"],
 "Value_of_a_statistical_life": ["value of statistical life","value of a prevented fatality"],
-"Social_discount_rate": ["social time preference rate"]
+"Social_discount_rate": ["social time preference rate"],
+"Weak_and_strong_sustainability": ["strong sustainability","weak sustainability"],
+"Unpaid_work": ["unpaid care work"],
+"Fan_chart_(time_series)": ["fan chart"],
+"Demand_(economics)": ["economic demand","market demand"],
+"Demand_curve": ["demand curves","demand schedule"],
+"Change_in_demand": ["shift in demand","demand shifter"],
+"Supply_(economics)": ["economic supply","market supply"],
+"Supply_curve": ["supply curves","supply schedule"],
+"Change_in_supply": ["shift in supply","supply shifter"],
+"Price_mechanism": ["price system"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29766,7 +29795,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Interpersonal_comparisons_of_utility": ["concept","economics","welfare economics","utility"],
 "Cost–benefit_analysis": ["practice","economics","welfare economics","public policy"],
 "Value_of_a_statistical_life": ["concept","economics","cost-benefit analysis","public policy"],
-"Social_discount_rate": ["concept","economics","cost-benefit analysis","climate change"]
+"Social_discount_rate": ["concept","economics","cost-benefit analysis","climate change"],
+"Economic_ethics": ["concept","economics","philosophy","ethics"],
+"Bargaining_power": ["concept","economics","microeconomics","power"],
+"Consumer_sovereignty": ["concept","economics","welfare economics","consumer choice"],
+"Performativity": ["concept","philosophy","sociology","economics"],
+"Weak_and_strong_sustainability": ["concept","economics","environment","sustainability"],
+"Quality_adjustment": ["practice","economics","measurement","inflation"],
+"Production_boundary": ["concept","economics","national accounts","measurement"],
+"Unpaid_work": ["concept","economics","labour","gender"],
+"Economics_imperialism": ["concept","economics","methodology","social science"],
+"Fan_chart_(time_series)": ["practice","economics","forecasting","uncertainty"],
+"Demand_(economics)": ["concept","economics","microeconomics"],
+"Demand_curve": ["concept","economics","microeconomics"],
+"Law_of_demand": ["concept","economics","microeconomics"],
+"Change_in_demand": ["concept","economics","microeconomics"],
+"Supply_(economics)": ["concept","economics","microeconomics"],
+"Supply_curve": ["concept","economics","microeconomics"],
+"Change_in_supply": ["concept","economics","microeconomics"],
+"Price_mechanism": ["concept","economics","microeconomics"],
+"Excess_supply": ["concept","economics","microeconomics"]
 });
 
 /* ============================================================================

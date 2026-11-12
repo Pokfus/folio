@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6744 | the title is the article |
-| `redirect-variant` | 402 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6755 | the title is the article |
+| `redirect-variant` | 403 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 91 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 647 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 650 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 139 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 141 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1024 | nothing matched; no link |
+| `none` | 1027 | nothing matched; no link |
 
-**7900 of 9230 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7915 of 9250 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (647)
+## Redirected to a differently named article — check each (650)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -136,6 +136,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ec-048` **instrumental rationality** → [Instrumental and value rationality](https://en.wikipedia.org/wiki/Instrumental_and_value_rationality) (from `Instrumental rationality`)
 - `ec-056` **Cowles Commission** → [Cowles Foundation](https://en.wikipedia.org/wiki/Cowles_Foundation) (from `Cowles Commission`)
 - `ec-070` **value judgement** → [Value judgment](https://en.wikipedia.org/wiki/Value_judgment) (from `Value judgement`)
+- `ec-085` **strong sustainability** → [Weak and strong sustainability](https://en.wikipedia.org/wiki/Weak_and_strong_sustainability) (from `Strong sustainability`)
+- `ec-096` **supply curve** → [Supply (economics)](https://en.wikipedia.org/wiki/Supply_(economics)) (from `Supply curve`)
+- `ec-098` **market equilibrium** → [Economic equilibrium](https://en.wikipedia.org/wiki/Economic_equilibrium) (from `Market equilibrium`)
 - `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
 - `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
 - `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)
@@ -967,7 +970,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (139)
+## Section redirects — no dedicated page (141)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -990,6 +993,8 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-994` **Drawloom** — `Drawloom` only redirects into `Loom#Drawloom`
 - `ec-029` **sunk cost fallacy** — `Sunk cost fallacy` only redirects into `Sunk cost#Fallacy effect`
 - `ec-077` **interpersonal comparisons of utility** — `Interpersonal comparisons of utility` only redirects into `Utility#Interpersonal comparisons of utility`
+- `ec-088` **unpaid care work** — `Unpaid care work` only redirects into `Unpaid work#Unpaid care work`
+- `ec-094` **change in demand** — `Change in demand` only redirects into `Demand curve#Change in demand`
 - `eep-062` **Qualified majority voting** — `Qualified majority voting` only redirects into `Voting in the Council of the European Union#Treaty of Lisbon`
 - `eep-183` **Mixed agreement** — `Mixed agreement` only redirects into `Common Commercial Policy (EU)#Mixed agreements`
 - `eep-233` **Discursive institutionalism** — `Discursive institutionalism` only redirects into `New institutionalism#Constructivist institutionalism`
@@ -1111,7 +1116,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1024)
+## No article found (1027)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1278,6 +1283,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ec-035` **lower opportunity cost** — search suggests `Opportunity cost`, `Profit (economics)`, `Microeconomics`, `Diminishing returns`, `Total cost`
 - `ec-039` **equity-efficiency trade-off** — search suggests `Pareto efficiency`, `Trade-off`, `Economics`, `Welfare economics`, `Tax policy`
 - `ec-069` **radical uncertainty** — search suggests `Uncertainty`, `Knightian uncertainty`, `Heterodox economics`, `Trans-exclusionary radical feminism`, `Radical centrism`
+- `ec-086` **quality adjustment** — search suggests `Quality-adjusted life year`, `Structural adjustment`, `Hedonic regression`, `Happiness economics`, `Health economics`
+- `ec-087` **production boundary** — search suggests `Economics`, `Production-possibility frontier`, `Production function`, `Thermoeconomics`, `Unpaid work`
+- `ec-097` **change in supply** — search suggests `Elasticity (economics)`, `Supply (economics)`, `Supply-side economics`, `Price elasticity of supply`, `Supply`
 - `eep-001` **Iceland referendum** — search suggests `2026 Icelandic European Union membership negotiations referendum`, `Iceland–European Union relations`, `1944 Icelandic constitutional referendum`, `Icelandic referendum`, `Referendums related to the European Union`
 - `eep-004` **External action** — search suggests `European External Action Service`, `List of ambassadors of the European Union`, `European Union Intelligence and Situation Centre`, `European Union Military Staff`, `High Representative of the Union for Foreign Affairs and Security Policy`
 - `eep-005` **Composite foreign policy** — search suggests `Franco-British Union`, `European Commissioner for External Relations`, `List of countries by exchange rate regime`, `SSE Composite Index`, `Eastern Partnership`

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T05:04Z",
+ "generated": "2026-11-12T05:06Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6744,
-  "redirect-broader": 647,
-  "redirect-variant": 402,
-  "section-redirect": 139,
+  "ok": 6755,
+  "redirect-broader": 650,
+  "redirect-variant": 403,
+  "section-redirect": 141,
   "disambiguation": 149,
-  "none": 1024,
+  "none": 1027,
   "disambig-resolved": 91,
   "list-page": 6,
   "search-match": 9,
@@ -73757,6 +73757,175 @@
    "answer": "social discount rate",
    "title": "Social discount rate",
    "url": "https://en.wikipedia.org/wiki/Social_discount_rate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-081": {
+   "answer": "economic ethics",
+   "title": "Economic ethics",
+   "url": "https://en.wikipedia.org/wiki/Economic_ethics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-082": {
+   "answer": "bargaining power",
+   "title": "Bargaining power",
+   "url": "https://en.wikipedia.org/wiki/Bargaining_power",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-083": {
+   "answer": "consumer sovereignty",
+   "title": "Consumer sovereignty",
+   "url": "https://en.wikipedia.org/wiki/Consumer_sovereignty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-084": {
+   "answer": "performativity",
+   "title": "Performativity",
+   "url": "https://en.wikipedia.org/wiki/Performativity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-085": {
+   "answer": "strong sustainability",
+   "title": "Weak and strong sustainability",
+   "url": "https://en.wikipedia.org/wiki/Weak_and_strong_sustainability",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Strong sustainability"
+  },
+  "ec-086": {
+   "answer": "quality adjustment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Quality-adjusted life year",
+    "Structural adjustment",
+    "Hedonic regression",
+    "Happiness economics",
+    "Health economics"
+   ]
+  },
+  "ec-087": {
+   "answer": "production boundary",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Economics",
+    "Production-possibility frontier",
+    "Production function",
+    "Thermoeconomics",
+    "Unpaid work"
+   ]
+  },
+  "ec-088": {
+   "answer": "unpaid care work",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Unpaid care work",
+   "target": "Unpaid work#Unpaid care work"
+  },
+  "ec-089": {
+   "answer": "economics imperialism",
+   "title": "Economics imperialism",
+   "url": "https://en.wikipedia.org/wiki/Economics_imperialism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-090": {
+   "answer": "fan chart",
+   "title": "Fan chart (time series)",
+   "url": "https://en.wikipedia.org/wiki/Fan_chart_(time_series)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-091": {
+   "answer": "demand",
+   "title": "Demand",
+   "url": "https://en.wikipedia.org/wiki/Demand",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Demand (economics)"
+  },
+  "ec-092": {
+   "answer": "demand curve",
+   "title": "Demand curve",
+   "url": "https://en.wikipedia.org/wiki/Demand_curve",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-093": {
+   "answer": "law of demand",
+   "title": "Law of demand",
+   "url": "https://en.wikipedia.org/wiki/Law_of_demand",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-094": {
+   "answer": "change in demand",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Change in demand",
+   "target": "Demand curve#Change in demand"
+  },
+  "ec-095": {
+   "answer": "supply",
+   "title": "Supply (economics)",
+   "url": "https://en.wikipedia.org/wiki/Supply_(economics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-096": {
+   "answer": "supply curve",
+   "title": "Supply (economics)",
+   "url": "https://en.wikipedia.org/wiki/Supply_(economics)",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Supply curve"
+  },
+  "ec-097": {
+   "answer": "change in supply",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Elasticity (economics)",
+    "Supply (economics)",
+    "Supply-side economics",
+    "Price elasticity of supply",
+    "Supply"
+   ]
+  },
+  "ec-098": {
+   "answer": "market equilibrium",
+   "title": "Economic equilibrium",
+   "url": "https://en.wikipedia.org/wiki/Economic_equilibrium",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Market equilibrium"
+  },
+  "ec-099": {
+   "answer": "price mechanism",
+   "title": "Price mechanism",
+   "url": "https://en.wikipedia.org/wiki/Price_mechanism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-100": {
+   "answer": "excess supply",
+   "title": "Excess supply",
+   "url": "https://en.wikipedia.org/wiki/Excess_supply",
    "via": "glossary",
    "status": "ok"
   }

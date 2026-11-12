@@ -9236,7 +9236,27 @@ window.CARD_DATA = [
 {"id":"ec-077","num":"077","category":"Economics","question":"Judging that a poor person gains more satisfaction from an extra pound than a rich person does requires <span class=\"blank\">_____</span>, which an influential essay of 1932 placed outside positive economic science.","answer":"interpersonal comparisons of utility","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"interpersonal comparisons of utility","tags":["concept","economics","welfare economics","utility"],"difficulty":4,"undatable":true},
 {"id":"ec-078","num":"078","category":"Economics","question":"Expressing a project's gains and losses in money, often through willingness to pay, <span class=\"blank\">_____</span> approves it when total benefits exceed total costs, even though the losers may never be compensated.","answer":"cost-benefit analysis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cost-benefit analysis","tags":["practice","economics","welfare economics","public policy"],"difficulty":3,"undatable":true},
 {"id":"ec-079","num":"079","category":"Economics","question":"Adding up what many people would pay for small cuts in their risk of dying, until one death is expected to be prevented, gives the <span class=\"blank\">_____</span> that regulators set against costs.","answer":"value of a statistical life","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"value of a statistical life","tags":["concept","economics","cost-benefit analysis","public policy"],"difficulty":4,"undatable":true},
-{"id":"ec-080","num":"080","category":"Economics","question":"Applied to every future cost and benefit in a public appraisal, the <span class=\"blank\">_____</span> shrinks values the further away they fall, and UK guidance cut it to 3 per cent in 2026.","answer":"social discount rate","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"social discount rate","tags":["concept","economics","cost-benefit analysis","climate change"],"difficulty":4,"undatable":true}
+{"id":"ec-080","num":"080","category":"Economics","question":"Applied to every future cost and benefit in a public appraisal, the <span class=\"blank\">_____</span> shrinks values the further away they fall, and UK guidance cut it to 3 per cent in 2026.","answer":"social discount rate","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"social discount rate","tags":["concept","economics","cost-benefit analysis","climate change"],"difficulty":4,"undatable":true},
+{"id":"ec-081","num":"81","category":"Economics","question":"Asking whether a price can be just, whether usury is wrong or whether a kidney should be for sale, <span class=\"blank\">_____</span> takes up the moral questions that economic life raises.","answer":"economic ethics","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"economic ethics","tags":["concept","economics","philosophy","ethics","welfare economics"],"difficulty":3,"undatable":true},
+{"id":"ec-082","num":"82","category":"Economics","question":"Whoever can make a take-it-or-leave-it offer, or threaten heavy costs, holds the <span class=\"blank\">_____</span> that decides how the gains from a deal are split between the two sides' walk-away limits.","answer":"bargaining power","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bargaining power","tags":["concept","economics","microeconomics","labour","power"],"difficulty":3,"undatable":true},
+{"id":"ec-083","num":"83","category":"Economics","question":"The claim that buyers' spending decides what firms make, and that each buyer is the best judge of their own good, is <span class=\"blank\">_____</span>, an assumption at the heart of market economics.","answer":"consumer sovereignty","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"consumer sovereignty","tags":["concept","economics","welfare economics","consumer choice"],"difficulty":4,"undatable":true},
+{"id":"ec-084","num":"84","category":"Economics","question":"When option prices came to fit a pricing formula because traders used it and markets changed to suit it, sociologists described the <span class=\"blank\">_____</span> of economics at work in finance.","answer":"performativity","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"performativity","tags":["concept","economics","sociology","finance","methodology"],"difficulty":4,"undatable":true},
+{"id":"ec-085","num":"85","category":"Economics","question":"Insisting that a critical stock of forests, rivers and biodiverse systems be kept intact, because no factory can stand in for them, is the position of <span class=\"blank\">_____</span> in environmental economics.","answer":"strong sustainability","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"strong sustainability","tags":["concept","economics","environment","sustainability"],"difficulty":4,"undatable":true},
+{"id":"ec-086","num":"86","category":"Economics","question":"When a new laptop costs more but runs far faster, statisticians must use <span class=\"blank\">_____</span> to decide how much of the higher price is inflation and how much is a better product.","answer":"quality adjustment","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"quality adjustment","tags":["practice","economics","measurement","inflation","national accounts"],"difficulty":4},
+{"id":"ec-087","num":"87","category":"Economics","question":"Home-grown vegetables count as output in the national accounts while a parent's cooking and childcare do not, because those services fall outside the <span class=\"blank\">_____</span> drawn around production.","answer":"production boundary","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"production boundary","tags":["concept","economics","national accounts","measurement","macroeconomics"],"difficulty":4,"undatable":true},
+{"id":"ec-088","num":"88","category":"Economics","question":"Cooking, cleaning and caring for children or sick relatives without pay together make up <span class=\"blank\">_____</span>, which time-use surveys put at 16.4 billion hours a day across 64 countries.","answer":"unpaid care work","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"unpaid care work","tags":["concept","economics","labour","gender","national accounts"],"difficulty":3,"undatable":true},
+{"id":"ec-089","num":"89","category":"Economics","question":"Treating marriage, crime and discrimination as the outcomes of rational, maximising choices, ground once held by sociology and criminology, is the expansion known as <span class=\"blank\">_____</span> across the social sciences.","answer":"economics imperialism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"economics imperialism","tags":["concept","economics","methodology","social science"],"difficulty":4,"undatable":true},
+{"id":"ec-090","num":"90","category":"Economics","question":"Instead of a single line, the Bank of England from 1996 drew a <span class=\"blank\">_____</span>, whose coloured bands widen and fade with the horizon to show how uncertain its inflation forecast was.","answer":"fan chart","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Introduced</span><span class=\"dt-v\">1996</span><span class=\"dt-k\">Reviewed</span><span class=\"dt-v\">2024</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fan chart","tags":["practice","economics","forecasting","monetary policy","uncertainty"],"difficulty":4},
+{"id":"ec-091","num":"091","category":"Economics","question":"An economist who says that the <span class=\"blank\">_____</span> for petrol has risen means not one bigger number but a whole list: the amount buyers would take at every possible price.","answer":"demand","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"demand","tags":["concept","economics","microeconomics","markets"],"difficulty":2,"undatable":true},
+{"id":"ec-092","num":"092","category":"Economics","question":"Although price is the cause and quantity the effect, the <span class=\"blank\">_____</span> is drawn by long convention with price on the vertical axis and quantity along the horizontal one.","answer":"demand curve","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"demand curve","tags":["concept","economics","microeconomics","markets"],"difficulty":2,"undatable":true},
+{"id":"ec-093","num":"093","category":"Economics","question":"Shops with unsold stock cut their prices rather than raise them, an everyday reliance on the <span class=\"blank\">_____</span>, which says a lower price brings a larger quantity bought, other things equal.","answer":"law of demand","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"law of demand","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true},
+{"id":"ec-094","num":"094","category":"Economics","question":"A rise in incomes that makes buyers want more cars at every price is a <span class=\"blank\">_____</span>, drawn as the whole demand curve moving right rather than a slide along it.","answer":"change in demand","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"change in demand","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true},
+{"id":"ec-095","num":"095","category":"Economics","question":"When economists speak of <span class=\"blank\">_____</span> they mean the whole schedule of amounts producers would offer at every price, not the stock that happens to sit in the shops today.","answer":"supply","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"supply","tags":["concept","economics","microeconomics","markets"],"difficulty":2,"undatable":true},
+{"id":"ec-096","num":"096","category":"Economics","question":"Because a price-taking firm produces until the cost of one more unit equals the market price, its <span class=\"blank\">_____</span> in a competitive market follows its rising marginal cost.","answer":"supply curve","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"supply curve","tags":["concept","economics","microeconomics","markets"],"difficulty":2,"undatable":true},
+{"id":"ec-097","num":"097","category":"Economics","question":"A new baking technique that lowers the cost of every loaf brings a <span class=\"blank\">_____</span>, drawn as the whole supply curve moving right, with more bread sold at a lower price.","answer":"change in supply","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"change in supply","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true},
+{"id":"ec-098","num":"098","category":"Economics","question":"At the price where buyers want exactly as much as sellers offer, a competitive market reaches <span class=\"blank\">_____</span>, with no excess demand or supply pushing the price either way.","answer":"market equilibrium","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"market equilibrium","tags":["concept","economics","microeconomics","markets"],"difficulty":2,"undatable":true},
+{"id":"ec-099","num":"099","category":"Economics","question":"When a raw material grows scarcer, the <span class=\"blank\">_____</span> tells thousands of users to economise through a higher price alone, without any of them needing to know why.","answer":"price mechanism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"price mechanism","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true},
+{"id":"ec-100","num":"100","category":"Economics","question":"At any price above the market-clearing level sellers offer more than buyers want, and the resulting <span class=\"blank\">_____</span> piles up as unsold stock until prices are cut.","answer":"excess supply","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"excess supply","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -20585,7 +20605,7 @@ window.COLLECTION_TREE = {
     {
       "id": "econ",
       "title": "Economics",
-      "total": 80,
+      "total": 100,
       "children": [
         {
           "id": "ec-what",
@@ -20697,7 +20717,17 @@ window.COLLECTION_TREE = {
                 "ec-077",
                 "ec-078",
                 "ec-079",
-                "ec-080"
+                "ec-080",
+                "ec-081",
+                "ec-082",
+                "ec-083",
+                "ec-084",
+                "ec-085",
+                "ec-086",
+                "ec-087",
+                "ec-088",
+                "ec-089",
+                "ec-090"
               ]
             }
           ]
@@ -20711,7 +20741,18 @@ window.COLLECTION_TREE = {
               "id": "ec-demand",
               "title": "Demand, supply and price",
               "total": 25,
-              "cardIds": []
+              "cardIds": [
+                "ec-091",
+                "ec-092",
+                "ec-093",
+                "ec-094",
+                "ec-095",
+                "ec-096",
+                "ec-097",
+                "ec-098",
+                "ec-099",
+                "ec-100"
+              ]
             },
             {
               "id": "ec-consumer",
