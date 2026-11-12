@@ -221,6 +221,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Gonghe regency | two readings: the dukes of Zhou and Shao ruling together (the *Shiji*) or He, the Earl of Gong, ruling (the *Bamboo Annals*, and the *Zhuangzi* as Chavannes notes); the excavated *Xinian* gives the regency fourteen years, whether it names He not confirmed; 841 BCE the first year of the continuous count (one study, Zhang 2023, moves it to 850 – 837 BCE) — confirmed B14 (`cnh-134`) | `cnh-134` | `cnh-133`, `cnh-135` | — |
 | Baosi and the beacon fires | Baosi born of the dragons' foam kept since the Xia; King You lighting the beacons to make her laugh until the lords stopped coming (the *Shiji*, c. 100 BCE; a drum version in the *Lüshi Chunqiu*); the excavated *Xinian* (Warring States) tells the fall with no beacons; the "Zheng yue" ode of the *Shijing* names her first — confirmed B14 (`cnh-136`, `cnh-137`), the drum version not checked | `cnh-137` | `cnh-136`, `cnh-138` | — |
 | The end of the Western Zhou and the two kings | the Marquis of Shen and the Quanrong kill King You; King Ping raised in the east while a rival, Yuchen, King Hui of Xie, ruled for 21 years until the Marquis of Jin killed him (the *Bamboo Annals*, where the duke of Guo raises him and he is a son of King You, and the *Xinian*, where he is the dead king's younger brother; the *Shiji* gives only Ping) — confirmed B14 (`cnh-138`, `cnh-139`: Zhang 2023, Legge) | `cnh-138`, `cnh-139` | `cnh-136`, `cnh-140`, `cnh-141` | — |
+| Jie Zitui and the cold food | the follower passed over after Chong'er's exile, withdrawing with his mother, Mianshang set aside for offerings to him (the Zuo Zhuan, Duke Xi 24, and the *Shiji*); the forest burned to bring him out and the cold-food custom, a later legend — set B15 (`cnh-149`) | — | `cnh-149` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
@@ -309,7 +310,7 @@ otherwise.
 | B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | **done 2026-11-12** |
 | B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | **done 2026-11-12** |
 | B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | **done 2026-11-12** |
-| B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | to do |
+| B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | **done 2026-11-12** |
 | B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | to do |
 | B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | to do |
 | B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | to do |
@@ -577,6 +578,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-138` | a map of the Zhou realm under King Xuan | not re-checked (Commons 429): weak: the kingdom, not the sack |
 | `cnh-139` | the Luoyang six-horse chariot pit | not re-checked (Commons 429): weak: an Eastern Zhou burial, not the move |
 | `cnh-140` | the Shi Qiang pan | not re-checked (Commons 429): ok; the credit names no licence — check |
+| `cnh-141` | a rammed-earth wall at Xinzheng | not re-checked (Commons 429): wrong: one site for an era; no licence in the credit |
+| `cnh-142` | a Zheng ruler's tomb bronzes | not re-checked (Commons 429): wrong: one tomb for an era; no licence in the credit |
+| `cnh-143` | an 1876 Russian title page | not re-checked (Commons 429): wrong: a translation's title page — the chronicle wanted |
+| `cnh-144` | a 1777 printing | not re-checked (Commons 429): ok |
+| `cnh-145` | a woodblock of Duke Zhuang of Zheng | not re-checked (Commons 429): wrong: one man for a process |
+| `cnh-146` | a lettered modern map | not re-checked (Commons 429): weak: burned-in lettering |
+| `cnh-147` | a romance woodblock of Kuiqiu | not re-checked (Commons 429): ok; the credit names no author or licence |
+| `cnh-148` | the Wu shrine rubbing of the duke and Guan Zhong | not re-checked (Commons 429): ok; no licence in the credit |
+| `cnh-149` | Li Tang's handscroll of the return | not re-checked (Commons 429): ok; no licence in the credit |
+| `cnh-150` | a museum diorama | not re-checked (Commons 429): weak: a modern diorama; no licence in the credit |
 
 ## Glossary candidates
 
@@ -1194,3 +1205,40 @@ lines: unchanged** (diffed after the apply). For the owner: `cnh-132`'s `Birth 9
 age (69–70) contradicts the *Shiji* (fifty at accession, 55 years) and the "Lü xing" (a hundred); `cnh-136`'s `Birth
 795 BCE` and both ages are in no source read; `cnh-137`'s 781 – 771 BCE is the conventional reign, which Zhang 2023
 moves to 790 – 780 BCE. `cnh-133`'s and `cnh-135`'s rows agree with the sources.
+
+### B15 — `cnh-141`–`cnh-150`, Eastern Zhou: the Eastern Zhou to Chengpu (2026-11-12)
+
+Run as B11. Every cited URL answered this session (Eno's two Indiana ScholarWorks handles, on `cnh-147` and `cnh-148`,
+returned 500 at the last check after answering earlier; their pages were saved, and the handles are kept). **Pictures
+were not touched** (Commons 429). **The old cards called both halves of the Eastern Zhou "named after books", read
+Mencius's "no righteous wars in the Spring and Autumn" as about the age (he meant the book), put the Zuo Zhuan's
+speeches down as a record and gave it a 468 BCE end on no open page, had the Earl of Zheng send "to condole" with the
+king he had wounded (the text says "to comfort"), put the hegemon system on a line of counts, called Guan Zhong "a
+native of Qi" (the *Shiji*: of Yingshang), gave Duke Wen nineteen years among the Di (twelve; nineteen is the whole
+exile), cited a dissertation about 6th–7th-century CE north China for him, and turned Chengpu's spoils presented to the
+king into "casualties".**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-141` Eastern Zhou | 7 | 5 → 7 | **The count and a note off, now `Dated 770 – 256 BCE` / `Also dated 770 – 249 BCE`; the Warring States name given in retrospect, the Spring and Autumn sharing the Lu chronicle's name**; "one voice out of fifteen", "longer half by two centuries" and "longest dynasty" dropped as unsourced. |
+| `cnh-142` Spring and Autumn period | 7 | 5 → 7 | **The count off, now `Dated c. 770 – 475 BCE` / `Also dated 770 – 453 BCE` / `Chronicle covers 722 – 481 BCE` (403 BCE in prose), the timeline moved to `{from:-0770,to:-0475}`; the name from the chronicle's title (it just means "annals"); the Mencius phrasing dropped (he meant the book)**; a Rong/Di/Man paragraph cited to a Late Shang paper dropped. |
+| `cnh-143` Spring and Autumn Annals | 7 | 5 → 7 | **Confucius as author is Mencius's claim, and Mencius its earliest witness; written year by year by court scribes, not one author (Van Auken); two endings, 481 BCE (Gongyang, Guliang) and 479 BCE (Zuo); the counts off, now `Covers 722 – 481 BCE` / `One version ends 479 BCE`**. |
+| `cnh-144` Zuo Zhuan | 6 | 5 → 7 | **The speeches one study's argument for their substance (Pines), set against the compilers' shaping; Zuo Qiuming as Sima Qian's story; `Chronicle years 722 – 479 BCE` / `Completed c. 300 BCE`; the 468 BCE end (on no open page) off the line and the glossary**. |
+| `cnh-145` decline of Zhou royal authority | 6 | 5 → 6 | **`Began 771 BCE` / `King wounded 707 BCE` / `Also dated 706 BCE` (the *Shiji* as Chavannes converts it; Legge) / `Ended 256 BCE`; the regnal-year row and Chu's "c. 880 BCE" (Legge's estimate; the *Shiji* says only "in King Yi's time") off; the Xuge scene told as the Zuo Zhuan's ("to comfort the king")**. **Name corrected: 周室衰微 (Zhōu shì shuāiwēi), the *Shiji*'s phrase.** |
+| `cnh-146` hegemon system | 6 | 5 → 6 | **The counts off, now `Dated 680 BCE` (the Juan meeting) / `Also dated 679 BCE` / `Royal grant 667 BCE`; the "system" the historians' name, the title unofficial, *ba* explained; the five hegemons one list of several (only Qi and Jin on both traditional lists)**; a dissertation cited for claims it does not make cut to its own pages. |
+| `cnh-147` Duke Huan of Qi | 7 | 5 → 7 | **Kuiqiu: the *Shiji* dates the assembly 651 BCE, the line's 650 is Legge's — both in prose; the belt-buckle arrow, the land given to Yan, the bow for the king's meat told as the texts'**; a Song minister's speech (on no page) dropped. Protected: the line stays (Kuiqiu flagged below). |
+| `cnh-148` Guan Zhong | 7 | 5 → 7 | **"A native of Qi" corrected (the *Shiji*: of Yingshang, which backs the line's birthplace); 720 BCE called a later reckoning; Bao Shuya's forgiven share, Confucius's answer to Zigong, the refused top rank; the *Guanzi* a later compilation**. Protected: the line stays (720 flagged below). |
+| `cnh-149` Duke Wen of Jin | 6 | 5 → 7 | **Twelve years among the Di, nineteen in all; the exile tale a lost romance of about the 4th century BCE summarised in the Zuo Zhuan and excerpted in the *Guoyu*; the *Shiji*'s ages (43 at flight, 62 on return); Jie Zitui and Mianshang as the Zuo Zhuan tells it, the burning and the cold-food custom later legend**; an unrelated dissertation dropped. Protected: the line stays. |
+| `cnh-150` Battle of Chengpu | 6 | 5 → 6 | **Location, Casualties (the spoils given to the king) and Result off, now `Fought 632 BCE`; every detail credited to the Zuo Zhuan or the *Shiji*, the 700 chariots hedged, 52,000 men an estimate**. Pinyin Chéngpú zhī zhàn. |
+
+Read by eye. **Confusability**: the Lu chronicle is `cnh-143`'s; `cnh-142`'s phrasing takes only its name, and the
+Heyang "hunt" stayed `cnh-149`'s; the Kuiqiu covenant is `cnh-147`'s and `cnh-160`'s, told the same way (651 BCE the
+*Shiji*'s, 650 Legge's). **Legend**: the exile romance and Jie Zitui's burning are now later tales; the hegemons' list
+is one list. **Chinese names corrected**: `cnh-145` (周王室衰微 → 周室衰微, the *Shiji*'s phrase), `cnh-150` pinyin; `霸主制度`
+descriptive. **Spellings fixed**: none needed; 0 hits. **Myth register**: no Zhou row touched but the two kings (Eno
+agrees); a row added for Jie Zitui. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-147`'s
+`Kuiqiu covenant 650 BCE` is Legge's figure — the *Shiji* gives 651 BCE; `cnh-148`'s `Birth 720 BCE` is in no source
+read (a reference entry titles him c. 723 – 645 BCE) and the ages rest on it; `cnh-149`'s `Birth 696 BCE` is Giles's and
+Mayers's only — the *Shiji*'s two ages are a year apart and Maspero makes him 71 at about 630 – 628 BCE. Audit note:
+`cnh-152`'s `G.date` reads the wrong entry (`Da_Qi`, whose alias "Qi (Liu Yu)" loses its bracket) — `cnh-477`'s alias
+may also catch glossary links for "Qi".

@@ -306,6 +306,14 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the sack of Haojing | 771 BCE | `cnh-138` |
 | the move east: the received date / Legge's conversion / King Ping's reign | 770 BCE / 769 BCE / 770 – 720 BCE | `cnh-139` |
 | the Western Zhou / the hoards buried | c. 1046 – 771 BCE / c. 771 BCE | `cnh-140` |
+| the Eastern Zhou: the king's end / the last lord's | 770 – 256 BCE / 770 – 249 BCE | `cnh-141` |
+| the Spring and Autumn period: two ends / the chronicle | c. 770 – 475 BCE / 770 – 453 BCE / 722 – 481 BCE | `cnh-142` |
+| the Spring and Autumn Annals: the Gongyang and Guliang end / the Zuo end | 481 BCE / 479 BCE | `cnh-143` |
+| the Zuo Zhuan completed | c. 300 BCE | `cnh-144` |
+| the king wounded at Xuge: the Shiji (Chavannes) / Legge | 707 BCE / 706 BCE | `cnh-145` |
+| the first hegemony: the Juan meeting / the Shiji / the royal grant | 680 BCE / 679 BCE / 667 BCE | `cnh-146` |
+| Kuiqiu: the Shiji / Legge (cnh-147's protected line) | 651 BCE / 650 BCE | `cnh-147` |
+| Chengpu | 632 BCE | `cnh-150` |
 
 ## Later periods
 
@@ -468,4 +476,11 @@ cnh-134: 841; 828; 850; 837
 cnh-138: 771
 cnh-139: 770; 769; 720
 cnh-140: 1046; 771
+cnh-141: 770; 256; 249
+cnh-142: 770; 475; 453; 722; 481
+cnh-143: 722; 481; 479
+cnh-144: 722; 479; 300
+cnh-145: 771; 707; 706; 256
+cnh-146: 680; 679; 667
+cnh-150: 632
 ```
