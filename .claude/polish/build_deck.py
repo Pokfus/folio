@@ -56,6 +56,7 @@ LEAD = {
     "tchórz": "coward",      # B1: "coward"; the polecat is filed first
     "wart": "adj",           # B1: "worth"; the noun "main current of a river" is filed first
     "dosyć": "particle",     # B2: "quite, enough", as for dość; the interjection is filed first
+    "stop": "intj",          # C1: "stop!", which is what its count is; the noun "alloy" is filed first
 }
 
 # A SENSE NOT TAUGHT though Wiktionary carries it untagged -- each with its reason (B1, 2026-11-12).

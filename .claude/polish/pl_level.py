@@ -54,6 +54,17 @@ SCOPE = {
                 "from adjectives (dojrzałość from dojrzały), diminutives, żaden, każdy and wszyscy, and the "
                 "connectives of a formal text",
     },
+    # certyfikatpolski.uz.zgora.pl, "Poziom C1" (read 2026-11-12): a topic list beyond the earlier levels', summarised.
+    "c1": {
+        "topics": "extreme sports, the housing market and household repairs, the modern workplace, education and its "
+                  "history, genetically modified food, auctions, the health-care system and insurance, natural "
+                  "disasters, corruption and money laundering, the army and international relations, science and "
+                  "ethics, the Church, the regions and Polish history, and the official, scientific and "
+                  "journalistic styles",
+        "with": "the vocabulary of the economy, the law, politics, the media, the mind, literature and philosophy, "
+                "the words of irony, rhetoric and argument, and the forms the level's grammar names (habitual "
+                "verbs, augmentatives, collective numerals, compounds)",
+    },
 }
 
 

@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Turkish, Hindi, R
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Polish language collection."
 
-**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/polish/`, §5). C1, C2 and a phrases deck are not.
+**STATUS (2026-11-12): A1 to C1 are built** (`.claude/polish/`, §5). C2 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump,
@@ -36,7 +36,7 @@ line to change.
 | Polish A2 — built | `Polish-A2.folio-deck.json` | 750 |
 | Polish B1 — built | `Polish-B1.folio-deck.json` | 1,000 |
 | Polish B2 — built | `Polish-B2.folio-deck.json` | 1,200 |
-| Polish C1 | `Polish-C1.folio-deck.json` | 1,200 |
+| Polish C1 — built | `Polish-C1.folio-deck.json` | 1,200 |
 | Polish C2 | `Polish-C2.folio-deck.json` | 1,200 |
 | Polish Phrases and Expressions | `Polish-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -77,7 +77,13 @@ a crime or an accident), text intents (warning, protest, complaint, recommendati
 writing, and grammar (country adjectives, `lekarski` from `lekarz`, `dojrzałość` from `dojrzały`,
 diminutives, `żaden` / `każdy` / `wszyscy`). B2's inventory covers those and takes B1's topics a level
 further (work, housing, the media, law, health, relationships, nature, the arts, travel); its comment in
-`inventory.py` and its description both say so. **C1 and C2**: start at `/sprawdz-swoj-poziom/poziom-c1`.
+`inventory.py` and its description both say so. **C1's** page (read 2026-11-12) lists topics beyond the earlier levels' — extreme sports, the housing market
+and repairs, the modern workplace, the history of education, GM food, auctions, the health system and
+insurance, natural disasters, corruption and money laundering, the army and international relations, science
+and ethics, the Church, regional diversity and Polish history — plus styles, rhetoric and phraseology, and a
+grammar list (habituals, augmentatives, collective numerals, pluralia tantum, compounds). C1's inventory
+covers those and adds the vocabulary of the economy, law, politics, the media, psychology, literature and
+philosophy. **C2**: start at `/sprawdz-swoj-poziom/poziom-c2`.
 
 | input | use | licence |
 |---|---|---|
@@ -182,6 +188,17 @@ Each is a rule in the code with the case that forced it; grep the file for the w
 6. Every card of B1 and B2 was read. The subtitle fill carries crime-drama words (`detektyw`, `porucznik`,
    `zabójca`) on frequency, as every subtitle-ordered deck on the shelf does.
 
+## 4d. The findings (C1, 2026-11-12)
+
+1. **Fill**: `ha`, `hmm` (interjections); `daniel`, `graca`, `de`, `me` (names and foreign words);
+   `wiec` (`więc` without the ogonek, the `sie` finding again); `prosta` (prosty's feminine); `drogą`,
+   `celem` (instrumentals entered as an adverb and a preposition); `gliniarz`, `laska` (slang counts).
+2. **What the level names but Wiktionary will not teach**: archaisms and dialect words (`gród`, `baca`) are
+   tagged so; `rad` "glad" is tagged dated (only radium is live); `żak`'s live sense is a fish trap;
+   `bywać`, `miewać`, `pisywać`, `szlachta`, `nauczanie` and `Kościół` are not in the dump at all.
+3. `stop` leads with the interjection, which is what its count is (the noun "alloy" is filed first).
+4. Example sentences thin out: 512 of C1's 1,200 words have none, Tatoeba's Polish being mostly everyday.
+
 ## 5. How to build, and what to run
 
     python3 .claude/polish/run.py [--level a1] [--no-fetch]
@@ -190,8 +207,8 @@ Each is a rule in the code with the case that forced it; grep the file for the w
 
 A re-run reproduces the shipped deck byte for byte (checked 2026-11-09). A level is built on the shipped
 decks below it (`pl_level.taught_below`). **Every card of A1 was read**; read every card of each new level
-too, since the faults above were all found that way; every card of A2, B1 and B2 was read too (2026-11-12).
-For C1: find the scope (§2), add `SCOPE["c1"]` (with its `topics` and `with`) in `pl_level.py` and `C1` in
+too, since the faults above were all found that way; every card of A2, B1, B2 and C1 was read too (2026-11-12).
+For C2: find the scope (§2), add `SCOPE["c2"]` (with its `topics` and `with`) in `pl_level.py` and `C2` in
 `inventory.py`, run, read, fix, re-run — and re-run every level below to confirm it is unchanged.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 40`, Ethnologue 27th ed., 2021, via

@@ -65,6 +65,14 @@ EXCLUDE = {
     "młoda",                   # "bride": its count is młody's feminine
     "lewa",                    # "trick" (cards): its count is lewy's feminine
     "forsa",                   # "crowd": its count is the slang "dough, cash", a sense the deck does not teach
+    # Found by C1 (2026-11-12).
+    "ha", "hmm",               # interjections of film dialogue, as above
+    "daniel", "graca", "de",   # "fallow deer", "mattock", "ass": their counts are the names Daniel and Grace, and `de`
+    "me",                      # "baa": its count is English and Spanish `me` in the subtitles
+    "wiec",                    # "rally": its count is `więc` typed without the ogonek (the `sie` finding)
+    "prosta",                  # "line": its count is prosty's feminine
+    "drogą", "celem",          # adverb "by way of", preposition "in order to": counted from droga's and cel's instrumental
+    "gliniarz", "laska",       # "mud dauber", "cane": their counts are the slang "cop" and "chick", not taught
 }
 
 

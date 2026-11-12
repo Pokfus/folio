@@ -455,7 +455,165 @@ B2 = [
                            "reakcja"),
 ]
 
-INVENTORY = {"a1": A1, "a2": A2, "b1": B1, "b2": B2}
+
+# C1's scope: the same centre's "Poziom C1" page (read 2026-11-12) names, beyond the earlier topics: extreme
+# sports; the housing market, the cost of keeping a home, breakdowns and small repairs; the modern workplace;
+# the history of education; genetically modified food; auctions; the health-care system and insurance;
+# natural disasters; corruption, money laundering, the army, international organisations, relations and
+# conflicts; science and ethics; the Catholic Church in Poland, regional diversity and Polish history; the
+# official, scientific, artistic and journalistic styles, a speech, a talk and a presentation; irony and
+# idiom, phrases drawn from nature, plants, the body, colours, myth and the Bible; and in its grammar
+# nouns like `szczenię`, pluralia tantum (`nożyce`), the old adjective forms `pełen`, `gotów`, `zdrów`,
+# collective numerals and `półtora`, verbs like `drzeć` and `kląć`, the habituals `miewać`, `bywać`,
+# `czytywać`, adverbs like `po królewsku`, abstract nouns (`pycha`), augmentatives (`chłopisko`, `babsko`),
+# expressive forms (`straszydło`), compounds (`korkociąg`, `jasnoniebieski`), prefixed verbs and verbs made
+# from nouns (`zaśnieżyć`).  Archaisms and dialect words (`gród`, `baca`) the page also names are tagged so in
+# Wiktionary and are not taught; nor is `rad` "glad", which it tags dated, nor `żak` (its live sense is a fish
+# trap), nor `bywać`, `miewać` and `pisywać`, which the dump does not carry.  A word an earlier level teaches is skipped.
+C1 = [
+    ("extreme sports", "wspinaczka wspinać alpinista alpinizm skok spadochron spadochroniarz paralotnia "
+                       "skoki_narciarskie snowboard surfing nurek nurkować bungee adrenalina ryzyko ryzykowny "
+                       "ryzykować kask uprząż lina asekuracja śmiałek brawura wyczyn wyczynowy kaskader rajd "
+                       "wyścig maraton maratończyk triathlon"),
+    ("the housing market and repairs", "deweloper metraż najem najemca pośrednik wycena licznik wodomierz awaria "
+                                       "majsterkować śrubokręt młotek gwóźdź śruba wiertarka klucz_francuski "
+                                       "taśma klej kabel gniazdko żarówka bezpiecznik zatkany odpływ hydraulika "
+                                       "uszczelka pleśń wilgoć izolacja ocieplać"),
+    ("the modern workplace", "zdalnie freelancer samozatrudnienie przedsiębiorczość korporacja korporacyjny "
+                             "menedżer zarządzanie kadra mobbing równouprawnienie parytet awansować degradacja "
+                             "hierarchia hierarchiczny delegować motywacja premia wydajny outsourcing "
+                             "automatyzacja"),
+    ("education and its history", "oświata akademia analfabetyzm alfabetyzacja piśmienność egzaminator "
+                                  "wykształcony erudycja autodydakta pedagog pedagogika dydaktyka wychowawca "
+                                  "wychowanie korepetytor"),
+    ("food and genetics", "żywność genetycznie organizm konserwant barwnik uprawa hodowla hodowca nawóz pestycyd "
+                          "plon zbiór spożycie spożywać etykieta przeterminowany"),
+    ("auctions and trade", "aukcja licytacja licytować cena_wywoławcza przebić kolekcjoner kolekcja antyk "
+                           "antykwariat rzeczoznawca wartościowy bezcenny podróbka oryginał pchli_targ"),
+    ("health care and insurance", "służba_zdrowia opieka_zdrowotna świadczenie refundacja refundować składka "
+                                  "poradnia ordynator rezydent hospicjum ratownik transplantacja przeszczep dawca "
+                                  "biorca diagnoza diagnozować rokowanie nowotwór rak przerzut chemioterapia udar "
+                                  "zawał cukrzyca nadciśnienie"),
+    ("natural disasters", "klęska klęska_żywiołowa żywioł kataklizm katastrofa powodziowy wylew lawina osuwisko "
+                          "trąba_powietrzna nawałnica sztorm zamieć zawieja śnieżyca ewakuacja ewakuować "
+                          "zniszczenie odbudowa odbudować alarm alarmować straż_pożarna"),
+    ("corruption and money laundering", "przekupić łapownictwo pranie defraudacja malwersacja wyłudzenie wyłudzić "
+                                        "przemyt przemytnik szantaż szantażować haracz mafia mafijny gangster "
+                                        "nepotyzm lobbing raj_podatkowy prokuratura śledczy aresztowanie "
+                                        "ława_przysięgłych uniewinnić uniewinnienie skazany apelacja odwołanie"),
+    ("the army and international relations", "wojsko służba_wojskowa pobór rekrut dowódca szeregowy kapral major "
+                                             "admirał lotnictwo piechota czołg karabin amunicja broń_jądrowa "
+                                             "uzbrojenie zbrojenie obronność sojusznik sojuszniczy pakt mocarstwo "
+                                             "supermocarstwo dyplomata konsul mediacja mediator rozejm "
+                                             "zawieszenie_broni okupacja okupant inwazja agresja agresor "
+                                             "wojna_domowa ludobójstwo zbrodnia_wojenna uchodźstwo emigrant "
+                                             "wygnanie"),
+    ("science and ethics", "etyka etyczny nieetyczny moralność moralny niemoralny bioetyka klon eutanazja "
+                           "in_vitro embrion komórka_macierzysta eksperymentować dylemat sumienie naukowość "
+                           "metodologia empiryczny doświadczalny weryfikacja falsyfikacja paradygmat publikacja "
+                           "grant"),
+    ("the Church, regions and history", "duchowny duchowieństwo kapłan biskup arcybiskup kardynał papież parafia "
+                                        "parafianin proboszcz zakonnica zakonnik klasztor pielgrzymka pielgrzym "
+                                        "sanktuarium odpust procesja świecki laicki katolicyzm katolik protestant "
+                                        "prawosławny ateista ateizm regionalizm regionalny góral góralski śląski "
+                                        "kaszubski mazurski wielkopolski małopolski tożsamość mentalność "
+                                        "odrębność zaborca rozbiór powstanie powstaniec szlachecki chłop magnat "
+                                        "dynastia królestwo sejmik konfederacja niewola niepodległy komunizm "
+                                        "komunistyczny socjalizm transformacja solidarność opozycjonista "
+                                        "stan_wojenny cenzor"),
+    ("styles, speeches and rhetoric", "publicystyczny referat przemówienie przemawiać mówca retoryka retoryczny "
+                                      "pytanie_retoryczne wystąpienie wystąpić prelekcja odczyt slajd ironia "
+                                      "ironiczny ironizować żartobliwy sarkazm sarkastyczny dowcip dowcipny "
+                                      "aluzja metafora przenośnia onomatopeja epitet hiperbola eufemizm archaizm "
+                                      "dialektyzm neologizm zapożyczenie skrótowiec skrót zgrubienie tabu"),
+    ("phraseology: nature, body, colours, myth", "frazeologia związek_frazeologiczny szeleścić szumieć wyć wycie "
+                                                 "skrzypieć trzeszczeć dudnić bulgotać syczeć brzęczeć mruczeć "
+                                                 "chlupać koń_trojański puszka_Pandory syzyfowa_praca "
+                                                 "pięta_achillesowa nić_Ariadny niewierny_Tomasz manna_z_nieba "
+                                                 "czarna_owca biały_kruk szara_strefa zielone_światło"),
+    ("grammar of C1", "szczenię kocię źrebię cielę prosię niemowlę niemowa gaduła nożyce nożyczki sanie pełen "
+                      "gotów zdrów półtora troje czworo pięcioro kilkoro drzeć kląć czytywać jadać sypiać "
+                      "widywać chadzać po_cichu po_polsku pycha próżność chciwość zawiść duma chłopisko "
+                      "straszydło korkociąg jasnoniebieski ciemnozielony biało-czerwony zachmurzyć napracować "
+                      "dopchać rozbiegać zbiegać przebierać wyprzedawać"),
+    ("abstract nouns and ideas", "istota sedno zjawisko tendencja trend zmienność przemiana przełom wartość ideał "
+                                 "idea ideologia doktryna światopogląd przesąd mit stereotypowy relatywizm "
+                                 "nihilizm humanizm cywilizacja barbarzyństwo postępowy konserwatywny liberalny "
+                                 "radykalny skrajny umiarkowany populista nacjonalizm nacjonalista ksenofobia "
+                                 "rasizm antysemityzm emancypacja feminizm prawo_wyborcze suwerenność autonomia "
+                                 "federacja"),
+    ("verbs of argument and nuance", "formułować sformułować precyzować uściślić skomentować polemizować oponować "
+                                     "kwestionować zakwestionować podważać podważyć obalić obalać dowieść wykazać "
+                                     "wykazywać ukazywać ukazać uwypuklić bagatelizować zbagatelizować "
+                                     "wyolbrzymiać przeceniać relatywizować zrelatywizować insynuować aprobować "
+                                     "potępiać potępić piętnować chwalić pochwalić ganić zganić wtrącać wtrącić "
+                                     "przerywać nawiązywać nawiązać odnosić"),
+    ("adjectives of nuance", "dwuznaczny wieloznaczny niejednoznaczny dosłowny przenośny metaforyczny subtelny "
+                             "wyrafinowany prymitywny pretensjonalny wyniosły protekcjonalny pobłażliwy cyniczny "
+                             "naiwny łatwowierny podejrzliwy nieufny ufny dociekliwy wnikliwy przenikliwy "
+                             "błyskotliwy inteligencja bystry tępy roztargniony nieuważny skrupulatny drobiazgowy "
+                             "pedantyczny niechlujny zaniedbany wymowny zwięzły rozwlekły lakoniczny gadatliwy "
+                             "małomówny zrównoważony porywczy impulsywny wybuchowy opanowany stanowczy ugodowy "
+                             "nieugięty"),
+    ("the economy and finance", "ekonomia ekonomista makroekonomia koniunktura recesja stagnacja deflacja kapitał "
+                                "kapitalizm kapitalista monopol konkurencyjny rentowny deficyt nadwyżka zadłużać "
+                                "spłata spłacać spłacić odsetek lokata akcjonariusz dywidenda obligacja fundusz "
+                                "upadłość bankructwo zbankrutować wierzyciel dłużnik windykacja egzekucja "
+                                "komornik podatkowy opodatkowanie fiskus księgowy audyt biznesplan przychód koszt "
+                                "kosztorys finansować sfinansować dotacja subwencja"),
+    ("law and the courts", "jurysdykcja prawomocny niekonstytucyjny trybunał sąd_najwyższy pozwany pozew pozwać "
+                           "wyrokować orzeczenie orzekać uzasadnienie przysięga krzywoprzysięstwo notariusz "
+                           "testament spadkobierca dziedziczyć klauzula paragraf nowelizacja nowelizować uchwalić "
+                           "uchwała rozporządzenie dekret weto zawetować immunitet"),
+    ("politics and the state", "frakcja elektorat kampania_wyborcza wyborczy frekwencja głosowanie kandydatura "
+                               "premierostwo prezydentura gabinet resort ustrój monarchia republika dyktatura "
+                               "dyktator totalitaryzm autorytarny reżim rewolucja przewrót zamach zamach_stanu "
+                               "opozycjonistka dysydent represja represjonować inwigilacja propagandowy "
+                               "manipulacja manipulować demagogia"),
+    ("the media and journalism", "mass_media opinia_publiczna rzecznik konferencja_prasowa oświadczenie komunikat "
+                                 "sprostowanie dementi przeciek autocenzura nagonka plotkarski oglądalność "
+                                 "redaktor naczelny korespondent komentator publicysta prasowy telewizyjny "
+                                 "radiowy internetowy influencer algorytm"),
+    ("mind and psychology", "psychika psychiczny umysłowy świadomość podświadomość nieświadomy instynkt intuicja "
+                            "popęd samoocena kompleks trauma traumatyczny lęk lękowy fobia nerwica obsesja "
+                            "obsesyjny natręctwo apatia melancholia euforia empatia empatyczny temperament "
+                            "manipulant wypalenie relaksować odprężyć"),
+    ("literature and the arts, C1", "liryka epika dramat dramaturg dramaturgia tragedia komedia satyra satyryczny "
+                                    "groteskowy parodia pastisz alegoria symbol symbolika motyw kompozycja "
+                                    "narracja pierwszoosobowy fikcja fikcyjny autobiografia biografia pamiętnik "
+                                    "esej eseista wiersz_biały rym rytm strofa zwrotka refren sonet ballada "
+                                    "epopeja przekład interpretacja interpretować kontekst przesłanie wydźwięk"),
+    ("philosophy and belief", "filozof filozofia filozoficzny myśliciel rozum rozumowanie racjonalny irracjonalny "
+                              "logika dedukcja indukcja przesłanka paradoks absurd absurdalny egzystencja "
+                              "egzystencjalny byt przeznaczenie fatum wolna_wola determinizm sumienność cnota "
+                              "grzech grzeszny zbawienie wieczność nieśmiertelność duchowość duchowy materializm "
+                              "idealizm pragmatyczny utopia utopijny"),
+    ("nature and the environment, C1", "ekosystem bioróżnorodność wymarły wyginąć siedlisko fauna flora "
+                                       "roślinność erozja smog pył spaliny emitować toksyczny skażenie skażony "
+                                       "radioaktywny promieniowanie ozon efekt_cieplarniany gaz_cieplarniany "
+                                       "fotowoltaika biomasa"),
+    ("technology, C1", "informatyka informatyk algorytmiczny cyberatak haker hakerski szyfrowanie szyfrować "
+                       "prywatność inwigilować nośnik serwer przeglądarka aktualizacja aktualizować kompatybilny "
+                       "interfejs nanotechnologia biotechnologia robotyka automatyczny zautomatyzować cyfryzacja "
+                       "digitalizacja wirtualny"),
+    ("the body and senses, C1", "narząd tkanka mięsień ścięgno staw kręgosłup czaszka żebro płuco wątroba nerka "
+                                "jelito trzustka tarczyca hormon układ_nerwowy nerw zmysł węch dotyk słuch wzrok "
+                                "odruch metabolizm przemiana_materii"),
+    ("everyday C1 verbs", "zaniedbać zaniedbywać zlekceważyć niepokoić zaniepokoić pogłębiać pogłębić uwzględniać "
+                          "uwzględnić rozstrzygać rozstrzygnąć przesądzać przesądzić zaważyć skłaniać skłonić "
+                          "nakłaniać nakłonić odwodzić zmuszać przymus nalegać naciskać nacisk ustępować ustąpić "
+                          "zrzec zrzekać rezygnować zaniechać przystać przystawać odstąpić wycofać wycofywać "
+                          "zabiegać ubiegać pretendować dorównać przewyższać przewyższyć górować odznaczać "
+                          "wyróżniać wyróżnić cechować charakteryzować świadczyć odzwierciedlać odzwierciedlić "
+                          "ilustrować zobrazować przybliżać przybliżyć naświetlić uprzedzić uprzedzać przewidywać "
+                          "przewidzieć prognozować spekulować domniemywać"),
+    ("everyday C1 nouns", "aspekt czynnik element kryterium wskaźnik miernik próg zakres skala proporcja wymiar "
+                          "obszar sfera płaszczyzna tło podłoże geneza następstwo implikacja efekt_uboczny "
+                          "korzyść pożytek zaleta mankament przeszkoda bariera wyzwanie perspektywa priorytet "
+                          "konsensus spór sporny"),
+]
+
+INVENTORY = {"a1": A1, "a2": A2, "b1": B1, "b2": B2, "c1": C1}
 
 
 def headwords(level):
