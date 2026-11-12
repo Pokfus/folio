@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7310 | the title is the article |
-| `redirect-variant` | 446 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 99 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7384 | the title is the article |
+| `redirect-variant` | 449 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 98 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 712 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 720 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 160 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1109 | nothing matched; no link |
+| `section-redirect` | 163 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 150 | only a disambiguation page; no link could be chosen |
+| `none` | 1121 | nothing matched; no link |
 
-**8583 of 10020 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8667 of 10120 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (712)
+## Redirected to a differently named article — check each (720)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -333,6 +333,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gw-850` **Amur River** → [Amur](https://en.wikipedia.org/wiki/Amur) (from `Amur River`)
 - `gw-938` **Son Doong Cave** → [Hang Sơn Đoòng](https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng) (from `Son Doong Cave`)
 - `gw-950` **Mammoth Cave** → [Mammoth Cave National Park](https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park) (from `Mammoth Cave`)
+- `in-025` **Indus–Mesopotamia relations** → [Indo-Mesopotamia relations](https://en.wikipedia.org/wiki/Indo-Mesopotamia_relations) (from `Indus–Mesopotamia relations`)
+- `in-034` **Ancestral North Indians** → [Genetics and archaeogenetics of South Asia](https://en.wikipedia.org/wiki/Genetics_and_archaeogenetics_of_South_Asia) (from `Ancestral North Indians`)
+- `in-050` **Sapta Sindhu** → [Rigvedic rivers](https://en.wikipedia.org/wiki/Rigvedic_rivers) (from `Sapta Sindhu`)
+- `in-056` **Shrauta** → [Śrauta](https://en.wikipedia.org/wiki/%C5%9Arauta) (from `Shrauta`)
+- `in-080` **Shruti** → [Śruti](https://en.wikipedia.org/wiki/%C5%9Aruti) (from `Shruti`)
+- `in-084` **Rajagriha** → [Rajgir](https://en.wikipedia.org/wiki/Rajgir) (from `Rajagriha`)
+- `in-087` **Vajji** → [Vajjika League](https://en.wikipedia.org/wiki/Vajjika_League) (from `Vajji`)
+- `in-092` **Nanda dynasty** → [Nanda Empire](https://en.wikipedia.org/wiki/Nanda_Empire) (from `Nanda dynasty`)
+- `in-097` **Gautama Buddha** → [The Buddha](https://en.wikipedia.org/wiki/The_Buddha) (from `Gautama Buddha`)
 - `jp-009` **pit dwelling** → [Pit-house](https://en.wikipedia.org/wiki/Pit-house) (from `Pit dwelling`)
 - `jp-014` **azuki bean** → [Adzuki bean](https://en.wikipedia.org/wiki/Adzuki_bean) (from `Azuki bean`)
 - `jp-020` **Late Jōmon** → [Jōmon period](https://en.wikipedia.org/wiki/J%C5%8Dmon_period) (from `Late Jōmon`)
@@ -347,7 +356,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `jp-084` **Kuratsukuri no Tori** → [Tori Busshi](https://en.wikipedia.org/wiki/Tori_Busshi) (from `Kuratsukuri no Tori`)
 - `jp-085` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
 - `jp-095` **Ganjin** → [Jianzhen](https://en.wikipedia.org/wiki/Jianzhen) (from `Ganjin`)
-- `jp-119` **insei** → [Go apprentice](https://en.wikipedia.org/wiki/Go_apprentice) (from `Insei`)
 - `jp-131` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
 - `jp-151` **nikki bungaku** → [Poetic diary](https://en.wikipedia.org/wiki/Poetic_diary) (from `Nikki bungaku`)
 - `jp-187` **Later Three-Year War** → [Gosannen War](https://en.wikipedia.org/wiki/Gosannen_War) (from `Later Three-Year War`)
@@ -757,7 +765,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (99)
+## Settled from a disambiguation page (98)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -814,7 +822,6 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `gw-690` **Saint George's** → [St. George's, Grenada](https://en.wikipedia.org/wiki/St._George's,_Grenada) (via the disambiguation page `Saint George (disambiguation)`)
 - `gw-710` **Philipsburg** → [Philipsburg, Sint Maarten](https://en.wikipedia.org/wiki/Philipsburg,_Sint_Maarten) (via the disambiguation page `Philipsburg`)
 - `jp-038` **Yoshinogari** → [Yoshinogari, Saga](https://en.wikipedia.org/wiki/Yoshinogari,_Saga) (via the disambiguation page `Yoshinogari`)
-- `jp-120` **Shirakawa** → [Shirakawa River](https://en.wikipedia.org/wiki/Shirakawa_River) (via the disambiguation page `Shirakawa`)
 - `ko-116` **Mohe** → [Mohe people](https://en.wikipedia.org/wiki/Mohe_people) (via the disambiguation page `Mohe`)
 - `pea-015` **Zhang Weiwei** → [Zhang Weiwei (professor)](https://en.wikipedia.org/wiki/Zhang_Weiwei_(professor)) (via the disambiguation page `Zhang Weiwei`)
 - `pea-032` **1947 Constitution** → [Constitution of the Republic of China](https://en.wikipedia.org/wiki/Constitution_of_the_Republic_of_China) (via the disambiguation page `Constitution of 1947`)
@@ -875,7 +882,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (149)
+## Disambiguation pages that could not be settled (150)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -960,6 +967,7 @@ Pick the right article by hand, or leave the card without a link.
 - `gw-635` **San Juan** — `San Juan` is a disambiguation page; its links: `San Juan, Puerto Rico`, `San Juan, Puerto Rico`, `San Juan del Puerto, Florida`, `San Juan, Argentina`, `San Juan, Argentina`, `San Juan, Salta`
 - `gw-693` **Charlotte Amalie** — `Charlotte Amalie` is a disambiguation page; its links: `Charlotte Amalie of Hesse-Kassel`, `Princess Charlotte Amalie of Denmark`, `Charlotte Amalie, U.S. Virgin Islands`, `Charlotte Amalie High School`
 - `gw-697` **Saint John's** — `Saint John's` is a disambiguation page; its links: `St. John's, Antigua and Barbuda`, `Saint John, Antigua and Barbuda`, `St. Johns, Ontario`, `St. Johns, County Kildare`, `St. Johns, County Roscommon`, `St Johns Bush`
+- `in-048` **Jana** — `Jana` is a disambiguation page; its links: `Jana (Vedic period)`, `Jana of the Jungle`, `Bharatiya Jana Sangh`, `Jana Gana Mana (disambiguation)`, `Jana (brand)`, `Jana (film)`
 - `jp-072` **Tenji** — `Tenji` is a disambiguation page; its links: `Emperor Tenji`
 - `jp-093` **kokubunji** — `Kokubunji` is a disambiguation page; its links: `Kokubunji, Tokyo`, `Kokubunji, Kagawa`, `Kokubunji, Tochigi`, `87271 Kokubunji`, `Seibu Kokubunji Line`, `Kokubunji Station`
 - `jp-100` **Jinmu** — `Jinmu` is a disambiguation page; its links: `Jinmu Cape`
@@ -1040,7 +1048,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (160)
+## Section redirects — no dedicated page (163)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1118,6 +1126,9 @@ Wikipedia treats these as part of another article. No link.
 - `gr-864` **sack of Corinth** — `Sack of Corinth` only redirects into `Achaean War#Sack of Corinth`
 - `gr-913` **Gigantomachy** — `Gigantomachy` only redirects into `Giants (Greek mythology)#The Gigantomachy`
 - `gru-934` **Mashuk** — `Mashuk` only redirects into `Pyatigorsk#Geography`
+- `in-018` **Indus seals** — `Indus seal` only redirects into `Indus Valley Civilisation#Seals`
+- `in-031` **Late Harappan** — `Late Harappan` only redirects into `Indus Valley Civilisation#Collapse and Late Harappan`
+- `in-082` **second urbanisation** — `Second urbanisation` only redirects into `History of India#Second urbanisation (c. 600 – 200 BCE)`
 - `jp-012` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `jp-092` **Kegon** — `Kegon` only redirects into `Huayan#Japanese Kegon`
 - `jp-106` **Thirty-Eight Years' War** — `Thirty-Eight Years' War` only redirects into `Emishi#Thirty-Eight Years' War`
@@ -1205,7 +1216,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1109)
+## No article found (1121)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1976,6 +1987,18 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-994` **Dionysiac mysteries** — search suggests `Villa of the Mysteries`, `Dionysus`, `Cult of Dionysus`, `Arion`, `List of Greek deities`
 - `gr-999` **Greek funerary practice** — search suggests `Ancient Greek funeral and burial practices`, `Ancient Egyptian funerary practices`, `Roman funerary practices`, `Pre-Greek substrate`, `Archaic Greece`
 - `gw-730` **Kingston (Norfolk Island)** — search suggests `Kingston, Norfolk Island`, `Norfolk Island`, `Outline of Norfolk Island`, `List of places called Kingston`, `Norfolk Islanders`
+- `in-015` **Indus town planning** — search suggests `Indus Valley Civilisation`, `Sanitation of the Indus Valley Civilisation`, `India`, `Achaemenid conquest of the Indus Valley`, `Planned community`
+- `in-016` **Indus drainage system** — search suggests `Sanitation of the Indus Valley Civilisation`, `Indus Valley Civilisation`, `Indus River`, `Indus Basin`, `List of rivers of India by discharge`
+- `in-017` **Indus craft production** — search suggests `Indus Valley Civilisation`, `Crafts of India`, `India`, `Jute production in India`, `Periodisation of the Indus Valley Civilisation`
+- `in-023` **Indus weights** — search suggests `Indus Valley Civilisation`, `Indus script`, `History of measurement systems in India`, `Achaemenid conquest of the Indus Valley`, `India`
+- `in-024` **Indus agriculture** — search suggests `Indus Valley Civilisation`, `Indus River`, `Indo-Gangetic Plain`, `List of major rivers of India`, `Indus river dolphin`
+- `in-027` **Indus religion** — search suggests `Indus Valley Civilisation`, `Religion of the Indus Valley Civilisation`, `Religion in India`, `Indus River`, `Indian religions`
+- `in-028` **Indus political organisation** — search suggests `Indus Valley Civilisation`, `List of Indus Valley Civilisation sites`, `India`, `History of Pakistan`, `Indus worm`
+- `in-030` **decline of the Indus civilisation** — search suggests `Indus Valley Civilisation`, `Indus River`, `Religion of the Indus Valley Civilisation`, `Periodisation of the Indus Valley Civilisation`, `History of India`
+- `in-038` **South Indian megaliths** — search suggests `Archaeology of India`, `Megalith`, `Megaliths in Ethiopia`, `Nagpuria people`, `Hirapur dolmen`
+- `in-062` **Later Vedic period** — search suggests `Vedic period`, `Vedic Sanskrit`, `Historical Vedic religion`, `Vedas`, `Salva (India)`
+- `in-064` **shyama ayas** — search suggests `Vedic period`, `Tamils`, `Suraiya`, `Usha Uthup`, `David Abraham Cheulkar`
+- `in-070` **sabha and samiti** — search suggests `Maharashtra Ekikaran Samiti`, `2026 Rajya Sabha elections`, `Belgaum Lok Sabha constituency`, `Panchayat samiti`, `2024 Indian general election in Telangana`
 - `jp-004` **dual structure model** — search suggests `Tesla Cybertruck`, `Phoenix Wright: Ace Attorney – Dual Destinies`, `PlayStation 2 models`, `Toyota Corolla (E140)`, `Large language model`
 - `jp-007` **Odai Yamamoto I** — search suggests `Ōdai Yamamoto I Site`, `List of Japanese actors`, `Japanese Paleolithic`, `Jōmon pottery`, `Index of Japan-related articles (Y–Z)`
 - `jp-008` **Incipient Jōmon** — search suggests `Jōmon pottery`, `Jōmon period`, `Jōmon people`, `Japanese lacquerware`, `Japanese Paleolithic`

@@ -236,7 +236,7 @@ have not this session.
 
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | live |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
-| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
+| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | live: `in-001`–`100` written, next is `in-101` |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 1000 cards (`cnh-070` retired in Sep 2026, rewritten as *Shang bronze inscriptions* in Oct 2026 on request) |
 
 📖 `docs/china-refinement-audit.md` — READ BEFORE TOUCHING ANY `cnh-` CARD (the Nov 2026 refinement: Greece's rules plus legend against history, the PROTECTED date lines of the individuals, the Chinese name, house spellings, the myth register, batches, ledger; `node .claude/cnh-audit.js`, `node .claude/check-cnh-spellings.js`; the harness is `.claude/wh-refine/` with `REFINE_PREFIX=cnh-`). 📖 `docs/china-chronology.md` — READ BEFORE WRITING A DATE OR A NAME ON A `cnh-` CARD.
