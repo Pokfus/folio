@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-08T19:34Z",
+ "generated": "2026-11-12T02:02Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6527,
-  "redirect-broader": 620,
-  "redirect-variant": 396,
-  "section-redirect": 132,
+  "ok": 6614,
+  "redirect-broader": 625,
+  "redirect-variant": 397,
+  "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1008,
-  "disambig-resolved": 86,
+  "none": 1010,
+  "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -71626,6 +71626,726 @@
    "answer": "Most Holy Synod",
    "title": "Most Holy Synod",
    "url": "https://en.wikipedia.org/wiki/Most_Holy_Synod",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-301": {
+   "answer": "Federalist No. 10",
+   "title": "Federalist No. 10",
+   "url": "https://en.wikipedia.org/wiki/Federalist_No._10",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-302": {
+   "answer": "Anti-Federalism",
+   "title": "Anti-Federalists",
+   "url": "https://en.wikipedia.org/wiki/Anti-Federalists",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Anti-Federalism"
+  },
+  "us-303": {
+   "answer": "Massachusetts Compromise",
+   "title": "Massachusetts Compromise",
+   "url": "https://en.wikipedia.org/wiki/Massachusetts_Compromise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-304": {
+   "answer": "Virginia Ratifying Convention",
+   "title": "Virginia Ratifying Convention",
+   "url": "https://en.wikipedia.org/wiki/Virginia_Ratifying_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-305": {
+   "answer": "United States Bill of Rights",
+   "title": "United States Bill of Rights",
+   "url": "https://en.wikipedia.org/wiki/United_States_Bill_of_Rights",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-306": {
+   "answer": "First Amendment",
+   "title": "First Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/First_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First Amendment"
+  },
+  "us-307": {
+   "answer": "Second Amendment",
+   "title": "Second Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Second_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Second Amendment"
+  },
+  "us-308": {
+   "answer": "Fifth Amendment",
+   "title": "Fifth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Fifth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Fifth Amendment"
+  },
+  "us-309": {
+   "answer": "Tenth Amendment",
+   "title": "Tenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Tenth_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tenth Amendment"
+  },
+  "us-310": {
+   "answer": "Ninth Amendment",
+   "title": "Ninth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Ninth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Ninth Amendment"
+  },
+  "us-311": {
+   "answer": "Presidency of George Washington",
+   "title": "Presidency of George Washington",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_George_Washington",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-312": {
+   "answer": "Cabinet of the United States",
+   "title": "Cabinet of the United States",
+   "url": "https://en.wikipedia.org/wiki/Cabinet_of_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-313": {
+   "answer": "Judiciary Act of 1789",
+   "title": "Judiciary Act of 1789",
+   "url": "https://en.wikipedia.org/wiki/Judiciary_Act_of_1789",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-314": {
+   "answer": "First Report on the Public Credit",
+   "title": "First Report on the Public Credit",
+   "url": "https://en.wikipedia.org/wiki/First_Report_on_the_Public_Credit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-315": {
+   "answer": "Compromise of 1790",
+   "title": "Compromise of 1790",
+   "url": "https://en.wikipedia.org/wiki/Compromise_of_1790",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-316": {
+   "answer": "First Bank of the United States",
+   "title": "First Bank of the United States",
+   "url": "https://en.wikipedia.org/wiki/First_Bank_of_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-317": {
+   "answer": "Whiskey Rebellion",
+   "title": "Whiskey Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Whiskey_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-318": {
+   "answer": "First Party System",
+   "title": "First Party System",
+   "url": "https://en.wikipedia.org/wiki/First_Party_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-319": {
+   "answer": "Federalist Party",
+   "title": "Federalist Party",
+   "url": "https://en.wikipedia.org/wiki/Federalist_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-320": {
+   "answer": "Democratic-Republican Party",
+   "title": "Democratic-Republican Party",
+   "url": "https://en.wikipedia.org/wiki/Democratic-Republican_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-321": {
+   "answer": "Jay Treaty",
+   "title": "Jay Treaty",
+   "url": "https://en.wikipedia.org/wiki/Jay_Treaty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-322": {
+   "answer": "Pinckney's Treaty",
+   "title": "Pinckney's Treaty",
+   "url": "https://en.wikipedia.org/wiki/Pinckney's_Treaty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-323": {
+   "answer": "Washington's Farewell Address",
+   "title": "George Washington's Farewell Address",
+   "url": "https://en.wikipedia.org/wiki/George_Washington's_Farewell_Address",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Washington's Farewell Address"
+  },
+  "us-324": {
+   "answer": "Presidency of John Adams",
+   "title": "Presidency of John Adams",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_John_Adams",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-325": {
+   "answer": "Quasi-War",
+   "title": "Quasi-War",
+   "url": "https://en.wikipedia.org/wiki/Quasi-War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-326": {
+   "answer": "XYZ Affair",
+   "title": "XYZ Affair",
+   "url": "https://en.wikipedia.org/wiki/XYZ_Affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-327": {
+   "answer": "Alien and Sedition Acts",
+   "title": "Alien and Sedition Acts",
+   "url": "https://en.wikipedia.org/wiki/Alien_and_Sedition_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-328": {
+   "answer": "Kentucky and Virginia Resolutions",
+   "title": "Kentucky and Virginia Resolutions",
+   "url": "https://en.wikipedia.org/wiki/Kentucky_and_Virginia_Resolutions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-329": {
+   "answer": "1800 United States presidential election",
+   "title": "1800 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1800_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-330": {
+   "answer": "Twelfth Amendment",
+   "title": "Twelfth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Twelfth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Twelfth Amendment"
+  },
+  "us-331": {
+   "answer": "Marbury v. Madison",
+   "title": "Marbury v. Madison",
+   "url": "https://en.wikipedia.org/wiki/Marbury_v._Madison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-332": {
+   "answer": "Judicial review",
+   "title": "Judicial review",
+   "url": "https://en.wikipedia.org/wiki/Judicial_review",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-333": {
+   "answer": "John Marshall",
+   "title": "John Marshall",
+   "url": "https://en.wikipedia.org/wiki/John_Marshall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-334": {
+   "answer": "First inauguration of Thomas Jefferson",
+   "title": "First inauguration of Thomas Jefferson",
+   "url": "https://en.wikipedia.org/wiki/First_inauguration_of_Thomas_Jefferson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-335": {
+   "answer": "1800 United States census",
+   "title": "1800 United States census",
+   "url": "https://en.wikipedia.org/wiki/1800_United_States_census",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-336": {
+   "answer": "Presidency of Thomas Jefferson",
+   "title": "Presidency of Thomas Jefferson",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Thomas_Jefferson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-337": {
+   "answer": "Louisiana Purchase",
+   "title": "Louisiana Purchase",
+   "url": "https://en.wikipedia.org/wiki/Louisiana_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-338": {
+   "answer": "Strict construction",
+   "title": "Strict constructionism",
+   "url": "https://en.wikipedia.org/wiki/Strict_constructionism",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Strict construction"
+  },
+  "us-339": {
+   "answer": "Lewis and Clark Expedition",
+   "title": "Lewis and Clark Expedition",
+   "url": "https://en.wikipedia.org/wiki/Lewis_and_Clark_Expedition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-340": {
+   "answer": "Sacagawea",
+   "title": "Sacagawea",
+   "url": "https://en.wikipedia.org/wiki/Sacagawea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-341": {
+   "answer": "Barbary Wars",
+   "title": "Barbary Wars",
+   "url": "https://en.wikipedia.org/wiki/Barbary_Wars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-342": {
+   "answer": "Aaron Burr",
+   "title": "Aaron Burr",
+   "url": "https://en.wikipedia.org/wiki/Aaron_Burr",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-343": {
+   "answer": "Burr conspiracy",
+   "title": "Burr conspiracy",
+   "url": "https://en.wikipedia.org/wiki/Burr_conspiracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-344": {
+   "answer": "Embargo Act of 1807",
+   "title": "Embargo Act of 1807",
+   "url": "https://en.wikipedia.org/wiki/Embargo_Act_of_1807",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-345": {
+   "answer": "Presidency of James Madison",
+   "title": "Presidency of James Madison",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_James_Madison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-346": {
+   "answer": "Orders in Council",
+   "title": "Orders in Council (1807)",
+   "url": "https://en.wikipedia.org/wiki/Orders_in_Council_(1807)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-347": {
+   "answer": "Impressment",
+   "title": "Impressment",
+   "url": "https://en.wikipedia.org/wiki/Impressment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-348": {
+   "answer": "War Hawks",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "War Hawks",
+   "target": "War hawk#Historical group"
+  },
+  "us-349": {
+   "answer": "War of 1812",
+   "title": "War of 1812",
+   "url": "https://en.wikipedia.org/wiki/War_of_1812",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-350": {
+   "answer": "Siege of Detroit",
+   "title": "Siege of Detroit",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Detroit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-351": {
+   "answer": "Battle of Lake Erie",
+   "title": "Battle of Lake Erie",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Lake_Erie",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-352": {
+   "answer": "Burning of Washington",
+   "title": "Burning of Washington",
+   "url": "https://en.wikipedia.org/wiki/Burning_of_Washington",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-353": {
+   "answer": "Battle of Baltimore",
+   "title": "Battle of Baltimore",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Baltimore",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-354": {
+   "answer": "Battle of New Orleans",
+   "title": "Battle of New Orleans",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_New_Orleans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-355": {
+   "answer": "Creek War",
+   "title": "Creek War",
+   "url": "https://en.wikipedia.org/wiki/Creek_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-356": {
+   "answer": "Treaty of Ghent",
+   "title": "Treaty of Ghent",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Ghent",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-357": {
+   "answer": "Hartford Convention",
+   "title": "Hartford Convention",
+   "url": "https://en.wikipedia.org/wiki/Hartford_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-358": {
+   "answer": "1816 United States presidential election",
+   "title": "1816 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1816_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-359": {
+   "answer": "Era of Good Feelings",
+   "title": "Era of Good Feelings",
+   "url": "https://en.wikipedia.org/wiki/Era_of_Good_Feelings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-360": {
+   "answer": "Presidency of James Monroe",
+   "title": "Presidency of James Monroe",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_James_Monroe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-361": {
+   "answer": "Monroe Doctrine",
+   "title": "Monroe Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Monroe_Doctrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-362": {
+   "answer": "Panic of 1819",
+   "title": "Panic of 1819",
+   "url": "https://en.wikipedia.org/wiki/Panic_of_1819",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-363": {
+   "answer": "Missouri Compromise",
+   "title": "Missouri Compromise",
+   "url": "https://en.wikipedia.org/wiki/Missouri_Compromise",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-364": {
+   "answer": "Market Revolution",
+   "title": "Market Revolution",
+   "url": "https://en.wikipedia.org/wiki/Market_Revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-365": {
+   "answer": "Erie Canal",
+   "title": "Erie Canal",
+   "url": "https://en.wikipedia.org/wiki/Erie_Canal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-366": {
+   "answer": "New Orleans",
+   "title": "New Orleans (steamboat)",
+   "url": "https://en.wikipedia.org/wiki/New_Orleans_(steamboat)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-367": {
+   "answer": "Baltimore and Ohio Railroad",
+   "title": "Baltimore and Ohio Railroad",
+   "url": "https://en.wikipedia.org/wiki/Baltimore_and_Ohio_Railroad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-368": {
+   "answer": "Lowell mill girls",
+   "title": "Lowell mill girls",
+   "url": "https://en.wikipedia.org/wiki/Lowell_mill_girls",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-369": {
+   "answer": "American System",
+   "title": "American System (economic plan)",
+   "url": "https://en.wikipedia.org/wiki/American_System_(economic_plan)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-370": {
+   "answer": "Henry Clay",
+   "title": "Henry Clay",
+   "url": "https://en.wikipedia.org/wiki/Henry_Clay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-371": {
+   "answer": "Tariff of Abominations",
+   "title": "Tariff of Abominations",
+   "url": "https://en.wikipedia.org/wiki/Tariff_of_Abominations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-372": {
+   "answer": "1824 United States presidential election",
+   "title": "1824 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1824_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-373": {
+   "answer": "Corrupt bargain",
+   "title": "Corrupt bargain",
+   "url": "https://en.wikipedia.org/wiki/Corrupt_bargain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-374": {
+   "answer": "Presidency of John Quincy Adams",
+   "title": "Presidency of John Quincy Adams",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_John_Quincy_Adams",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-375": {
+   "answer": "Anti-Masonic Party",
+   "title": "Anti-Masonic Party",
+   "url": "https://en.wikipedia.org/wiki/Anti-Masonic_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-376": {
+   "answer": "New York Constitutional Convention of 1821",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Constitutional Convention (United States)",
+    "1862 New York gubernatorial election",
+    "List of United States political families (B)",
+    "2026 United States Senate election in Maine",
+    "Founding Fathers of the United States"
+   ]
+  },
+  "us-377": {
+   "answer": "Second Party System",
+   "title": "Second Party System",
+   "url": "https://en.wikipedia.org/wiki/Second_Party_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-378": {
+   "answer": "Democratic Party",
+   "title": "Democratic Party (United States)",
+   "url": "https://en.wikipedia.org/wiki/Democratic_Party_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-379": {
+   "answer": "Whig Party",
+   "title": "Whig Party (United States)",
+   "url": "https://en.wikipedia.org/wiki/Whig_Party_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-380": {
+   "answer": "Presidency of Andrew Jackson",
+   "title": "Presidency of Andrew Jackson",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Andrew_Jackson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-381": {
+   "answer": "spoils system",
+   "title": "Spoils system",
+   "url": "https://en.wikipedia.org/wiki/Spoils_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-382": {
+   "answer": "Nullification crisis",
+   "title": "Nullification crisis",
+   "url": "https://en.wikipedia.org/wiki/Nullification_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-383": {
+   "answer": "John C. Calhoun",
+   "title": "John C. Calhoun",
+   "url": "https://en.wikipedia.org/wiki/John_C._Calhoun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-384": {
+   "answer": "Bank War",
+   "title": "Bank War",
+   "url": "https://en.wikipedia.org/wiki/Bank_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-385": {
+   "answer": "Second Bank of the United States",
+   "title": "Second Bank of the United States",
+   "url": "https://en.wikipedia.org/wiki/Second_Bank_of_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-386": {
+   "answer": "Panic of 1837",
+   "title": "Panic of 1837",
+   "url": "https://en.wikipedia.org/wiki/Panic_of_1837",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-387": {
+   "answer": "Presidency of Martin Van Buren",
+   "title": "Presidency of Martin Van Buren",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Martin_Van_Buren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-388": {
+   "answer": "log cabin campaign",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Log cabin campaign",
+   "target": "1840 United States presidential election#Campaign"
+  },
+  "us-389": {
+   "answer": "Appeal of Forty Thousand Citizens",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none"
+  },
+  "us-390": {
+   "answer": "Jacksonian democracy",
+   "title": "Jacksonian democracy",
+   "url": "https://en.wikipedia.org/wiki/Jacksonian_democracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-391": {
+   "answer": "manifest destiny",
+   "title": "Manifest destiny",
+   "url": "https://en.wikipedia.org/wiki/Manifest_destiny",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-392": {
+   "answer": "Oregon Trail",
+   "title": "Oregon Trail",
+   "url": "https://en.wikipedia.org/wiki/Oregon_Trail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-393": {
+   "answer": "California Trail",
+   "title": "California Trail",
+   "url": "https://en.wikipedia.org/wiki/California_Trail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-394": {
+   "answer": "Mormon pioneers",
+   "title": "Mormon pioneers",
+   "url": "https://en.wikipedia.org/wiki/Mormon_pioneers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-395": {
+   "answer": "Joseph Smith",
+   "title": "Joseph Smith",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Smith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-396": {
+   "answer": "Brigham Young",
+   "title": "Brigham Young",
+   "url": "https://en.wikipedia.org/wiki/Brigham_Young",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-397": {
+   "answer": "Texas Revolution",
+   "title": "Texas Revolution",
+   "url": "https://en.wikipedia.org/wiki/Texas_Revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-398": {
+   "answer": "Battle of the Alamo",
+   "title": "Battle of the Alamo",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Alamo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-399": {
+   "answer": "Republic of Texas",
+   "title": "Republic of Texas",
+   "url": "https://en.wikipedia.org/wiki/Republic_of_Texas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-400": {
+   "answer": "Texas annexation",
+   "title": "Texas annexation",
+   "url": "https://en.wikipedia.org/wiki/Texas_annexation",
    "via": "glossary",
    "status": "ok"
   }
