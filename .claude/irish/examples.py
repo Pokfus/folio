@@ -65,22 +65,25 @@ def forms_of(row, lex):
 
 
 def phrase_parts(row, lex):
-    """The phrases deck's match: an expression's words in sequence, its FIRST word in any
-    form of its verb where the expression is a verb (`tar hand om`, `tog hand om`).
-    Returns (the forms the first word may take, the rest of the words)."""
+    """The phrases deck's match: an expression's words in sequence, each in any of its
+    MUTATED spellings (`ar bhealach`, `i mbaol`), and its FIRST word in any form of its
+    verb where the expression is a verb (`bain amach`, `bhain sé amach`).
+    Returns (the forms the first word may take, a set of spellings per remaining word)."""
     words = fold(row['word']).split()
-    first = {words[0]}
+    first = set(variants(words[0]))
     if row.get('pos') == 'verb':
         for e in lex.get(words[0], {}).get('entries', []):
             if e['pos'] == 'verb':
-                first |= {fold(t['f']) for t in e['table'] if ' ' not in t['f']}
-    return first, words[1:]
+                for t in e['table']:
+                    if t.get('k'):
+                        first |= set(variants(t['k']))
+    return first, [set(variants(w)) for w in words[1:]]
 
 
 def seq_hit(ft, first, rest):
     n = len(rest) + 1
     for j in range(len(ft) - n + 1):
-        if ft[j] in first and ft[j + 1:j + n] == rest:
+        if ft[j] in first and all(ft[j + 1 + i] in rest[i] for i in range(n - 1)):
             return ft[j:j + n]
     return None
 

@@ -38,7 +38,7 @@ from irish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-12T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
          'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z',
-         'c1': '2026-11-12T00:00:00.000Z'}[LEVEL]
+         'c1': '2026-11-12T00:00:00.000Z', 'phr': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'irish'
@@ -137,6 +137,8 @@ GLOSS = {
     'ré': {'noun': ['era, age, period (of time)', 'moon']},
     'altra': {'noun': ['nurse', 'foster father']},   # Wiktionary lists the old sense first
     'féar': {'noun': ['grass']},                      # its second is the slang "marijuana"
+    # PHRASES DECK (2026-11-12): Wiktionary's opens on a pointer
+    'ba mhaith le': {'verb': ['would like (the past and conditional of is maith le)']},
     'an': {'article': ['the (singular; an bhean, "the woman"; plural na)']},
 }
 
@@ -500,6 +502,44 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Phrases', 'Expressions', 'Verb phrases', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in PHR_SUBS}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Irish set phrases, expressions, verb phrases, idioms and proverbs, in five subdecks: "
+        f"{len(by['Phrases'])} everyday phrases, {len(by['Expressions'])} expressions, "
+        f"{len(by['Verb phrases'])} verb phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} "
+        "proverbs. Both study directions come as two cards of one expression — Irish → English (see the "
+        "Irish, recall the meaning) and English → Irish (see an English meaning, recall the Irish) — each "
+        "with a schedule of its own. This is a companion to the five level decks, Irish A1 to C1, and not "
+        "one of them: a level is a list of words, and an expression is a unit a list of words cannot see. "
+        "Nothing here is taught by any of the five, so the two can be studied together without repeating "
+        "an entry. The PHRASES are the expressions Wiktionary files as phrases or interjections — mostly "
+        f"the everyday formulas an Irish speaker uses as one piece ({eg('Phrases')} …). The EXPRESSIONS "
+        "are the adverbial, prepositional and joining expressions Irish builds out of a preposition and a "
+        f"noun ({eg('Expressions')} …), which a learner meets on every page. The VERB PHRASES are a verb "
+        "with a preposition or an adverb that together mean something the verb alone does not "
+        f"({eg('Verb phrases')} …). The IDIOMS are the expressions Wiktionary marks as idiomatic "
+        f"({eg('Idioms')} …) — few, because few Irish idioms are marked — and the PROVERBS the sayings it "
+        f"files as proverbs ({eg('Proverbs')} …). Within each subdeck the expressions come in the order of "
+        "how many of Tatoeba's Irish sentences contain them, every word in any of its mutated spellings; "
+        f"{found} of the {n} are found there, and the rest follow in the order of how common their words "
+        "are in the Irish Wikipedia. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, with "
+        "the expression picked out in colour and a speaker beside the sentence and the headword; few "
+        "devices have an Irish voice, so the speaker may be silent. Sources. Expressions, meanings and the "
+        "idiom and proverb labels: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: "
+        "Tatoeba (tatoeba.org), CC BY 2.0 FR, then the Irish Wikipedia (ga.wikipedia.org), its articles as "
+        "of 1 November 2026, counted for this deck (CC BY-SA 4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -510,9 +550,17 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
-    subtitle = f'{n} words · both directions, as two cards per word'
-    description = desc(entries, n)
-    tags = ['irish', 'gaeilge', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Expressions']} expressions, "
+                    f"{by['Verb phrases']} verb phrases, {by['Idioms']} idioms, {by['Proverbs']} proverbs "
+                    "· both directions")
+        description = desc_phr(entries, n)
+        tags = ['irish', 'gaeilge', 'phrases', 'expressions', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['irish', 'gaeilge', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
         'subtitle': subtitle,

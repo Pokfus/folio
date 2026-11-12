@@ -5,7 +5,7 @@
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-12: "Add an Irish language collection."
 
-**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/irish/`, §6–§10). A phrases deck is planned (§5).
+**STATUS (2026-11-12): the plan is complete** — all five levels, A1 to C1, and the phrases deck (`.claude/irish/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -36,7 +36,7 @@ the owner's to overrule.**
 | Irish B1 Intermediate — built | `Irish-B1.folio-deck.json` | 1,000 |
 | Irish B2 Upper Intermediate — built | `Irish-B2.folio-deck.json` | 1,500 |
 | Irish C1 Advanced — built | `Irish-C1.folio-deck.json` | 1,500 |
-| Irish Phrases and Expressions | `Irish-Phrases-and-Expressions.folio-deck.json` | — |
+| Irish Phrases and Expressions — built | `Irish-Phrases-and-Expressions.folio-deck.json` | 613 |
 
 ## 2. Sources and licences
 
@@ -108,7 +108,7 @@ as the adverb "also" (its own entry), not as `le`'s "with him", which `le`'s tab
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's inventory
 into `inventory.py` and its `SCOPE` into `irish_level.py`, add its `STAMP` in `build_deck.py`, run, read every card.
-**Phase 3** — a phrases deck (Wiktionary's `phrase` / `proverb` entries and the idioms built on `bí` and a
+**Phase 3 (done)** — a phrases deck (Wiktionary's `phrase` / `proverb` entries and the idioms built on `bí` and a
 preposition: `tá ocras orm`, `is maith liom`), on Swedish's `phrases.py`.
 
 ## 6. As built (2026-11-12): A1
@@ -247,3 +247,32 @@ that are not the everyday word (`faic` "a whack", not "nothing"; `éirim` "ridin
 **Known, left.** Some sexual and anatomical vocabulary stands on frequency as plain words (`collaíocht`,
 `pornagrafaíocht`, `adhaltranas`), as Swedish's B2 noted for its own; the owner may want a rule. Tatoeba has almost
 nothing at this level: 1,424 of the 1,500 carry no sentence, and the description says so.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases and expressions deck." `python3 .claude/irish/run.py --level phr` (after all
+five levels); the selection stage is `phrases.py`, Swedish's arrangement with the subdecks Irish needs. **613
+expressions in five subdecks**: 117 Phrases (`tá brón orm`, `go raibh maith agaibh`, `is féidir`), 294 Expressions
+(`ar bith`, `ar siúl`, `de bhrí go`, `os comhair`), 149 Verb phrases (of 150 kept of 151: `bain amach`, `buail le`, `is
+maith le`, `cuir isteach ar`), 23 Idioms and 30 Proverbs. Nothing a level teaches is taught again.
+
+- **EXPRESSIONS IS IRISH'S OWN SUBDECK.** Irish builds its adverbs, prepositions and conjunctions out of a preposition
+  and a noun, and Wiktionary files them as adverbs, adjectives, prepositions, prepositional phrases, conjunctions,
+  determiners and pronouns of more than one word; together they are the largest class (294), and a learner meets them on
+  every page. Compound NOUNS (1,978) are vocabulary, not expressions, and are left out, as are multi-word numbers.
+- **FEW IDIOMS, BECAUSE FEW ARE TAGGED.** English Wiktionary marks only 23 Irish multi-word entries idiomatic, so the
+  Idioms subdeck is small; many expressions that are idiomatic in fact (`ar bís`, `ar buile`) are filed under it only
+  when the tag is there, the rest under Phrases or Expressions.
+- **Order**: Tatoeba sentences containing the expression, **every word in any of its mutated spellings** and a verb
+  phrase's verb in any of its forms (`examples.phrase_parts` / `seq_hit`, rewritten for this deck: `bhain sé amach`,
+  `ar bhealach`), then the frequency estimate. The mutation-aware match is used for this deck only, so the levels'
+  sentences, and the levels, stay byte-identical (verified).
+- **`EXCLUDE`** (each with its reason): pointer-only entries (`cá mhéad`, `ba dhóigh`, `níorbh fholáir`, the second
+  spelling of a proverb), `Dia dhuit` (the older spelling of A1's `Dia duit`), personal sentences (`tá grá agam ort`, `is
+  Búdaí mé` — the Hindi, Turkish and Swedish rule; formulas asked and answered whole, `tá brón orm`, `cá as thú`, stay),
+  rude expressions and a curse, a political slogan (`tiocfaidh ár lá`), a term of prosody. `GLOSS` writes `ba mhaith le`
+  "would like", whose Wiktionary gloss opens on a pointer.
+
+**Known, left.** Wiktionary lists many variants of one formula (four ways to say "you're welcome", three for "how are
+you?"); each is a card, told apart by the dedupe pass's "not …" labels (81 notes in 35 groups). A few verb phrases are
+craft terms (`cuir lúb suas`, "cast on a stitch"). 516 of the 613 carry no sentence.
