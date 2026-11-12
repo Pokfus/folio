@@ -2042,3 +2042,109 @@ and the *Wei shi chunqiu* title on no page read); the Romance and the Records co
 **`cnh-293`'s glossary**: the card was never paired with the wrong entry on the site — the audit's lookup normalises the
 Jurchen entry's alias "Jin dynasty (1115–1234)" to "jin dynasty" and so reads `Jin_dynasty_(1115–1234)`; its `G.date`
 on `cnh-293` is that false lead, and the right entry, `Jin_dynasty_(266–420)`, was the one rewritten.
+
+### The third hundred, in sum
+
+`cnh-201`–`cnh-300` (the end of the Qin, the whole of the Western Han, Xin, Eastern Han and Three Kingdoms decks, and the
+first eight of the Western Jin) are done: 520 sources became 676 and 53 glossary entries were rewritten. `cnh-audit.js
+--range=cnh-201:cnh-300` reads 54 of 100 cards clean, against none at the baseline; what remains is 34 cards with no
+picture (Commons answered 429 all session), 18 advisory `W.not-why`, 3 `L.missing` (`cnh-203` and `cnh-207`, a road and
+a wall with no point to fetch, and `cnh-276` Red Cliffs, whose site is disputed — none by design), 2 `Z.reading?` that
+are polyphones read as the house reads them (冒顿 Mòdú, 角 Jué), one `Z.trad` that is the *Jinshu*'s own form (占田) and
+one false `G.date` (`cnh-293`, below). `check-cnh-spellings.js` reads 0 card hits over the hundred (the baseline's 9
+cards with a variant are fixed: Hu Hai, Lü Hou, Lulin, Shu-Han; `cnh-204`'s "Cheng Zhou" is a cited author); the 5 glossary hits left are entries outside the hundred.
+Fifty agents worked two cards each, never more than ten at once; as each draft came back its clues went into `AGENT.md`
+and running agents were told of any shared clue (the forged order, the Gaixia songs, the Hexi conquest, the deathbed
+charge, the *Chu shi biao*, Liu Yi's saying) or new route to a source. Each batch was applied alone, verified field by
+field against its drafts, diffed for the protected lines and committed with its docs (B29 and B30 were applied back to
+back and share their data in the B29 commit); `origin/main` was merged once mid-run (after B23) and the protected lines
+diffed again.
+
+What the hundred found, again and again:
+- **The *Shiji*, the *Hanshu*, the *Hou Hanshu* and the *Sanguozhi* read as records.** Hong Gate's staging, the Chu songs
+  at Gaixia, the dragon birth, the human pig, the Kunyang portents, Liang Ji's poisoned cakes: each is now its text's,
+  dated and named, and where a modern reader doubts it (de Crespigny's "rumoured", Bielenstein on Wang Mang, Fukui on
+  Ban Gu's "victory of Confucianism"), the card says so.
+- **The *Romance of the Three Kingdoms* told as the *Sanguozhi*.** The Peach Garden, the borrowed arrows, the east wind,
+  the chained ships, Huarong, the empty city, the Green Dragon blade, Diaochan: all are now the novel's, and the empty
+  city is traced to a *Weilüe* story of a Wei commander.
+- **Battle templates and people on the date line.** Gaixia, Kunyang, Guandu, Red Cliffs, the Seven States, the Xiongnu
+  wars, the Yellow Turbans and the Eight Princes carried Location, Casualties and Result rows ("c. 88,000", "80,000 Chu
+  killed, 20,000 captured", "Lulin victory"); labels named men ("Wen reigned", "Er Shi died", "Chen Shou lived"); values
+  carried places ("north of the Si river") and counts ("Workforce over 700,000", "Provinces 13", "Ziying reigned 46
+  days"). All are now in prose, attributed, or gone.
+- **A date belonging to another event.** The iron monopoly dated by its officials' appointment (120 BCE; Wagner's 117),
+  the Lingqu canal by an official's posting, the Weiyang Palace by its founder's death, the Shiji by its coverage, the
+  wuzhu's abolition and restoration by the wrong reigns (7 and 26 CE; the *Hanshu* and *Hou Hanshu*: 9 and 40 CE).
+- **Sources that did not say it.** Wylie's "four thousand" where the *Hanshu* has 四萬餘人; a register read the opposite
+  way from its own source (Lelang, 45 BCE); a Ming-wall study for the Qin wall's crust; a climate paper for the consort
+  clans; "thirty years on the history" in Hirth; Gaozu's labourers "died" where the *Shiji* has them run away (徒多道亡);
+  Sang Hongyang "built" the monopolies; Kong Jin "complained" (it was Bu Shi). All corrected or dropped.
+- **Two French or two Chinese sources on one card, and one author three or four times** (Cordier and Chavannes together,
+  de Crespigny four times on Shu Han). Every card now has one source per language and a modern author at most twice.
+
+**The Chinese name.** Corrected: `cnh-211` (沙丘之变 → 沙丘之谋, the *Shiji*'s phrase), `cnh-219` (汉初建国安排 → 郡国制),
+`cnh-234` (盐铁专卖 → 盐铁官营), `cnh-268` (黃巾之亂 in the simplified field → 黄巾起义); six simplified fields that held
+traditional forms (`cnh-262`, `263`, `266`, `267`, `268`, `269`) and seven `traditional` fields that held simplified ones
+(`cnh-271`, `272`, `273`, `275`, `276`, `279`, `280`); pinyin on `cnh-212` (Qín cháo), `cnh-254` (Hàn Guāngwǔdì) and
+`cnh-300` (Zhúlín Qīxián). Descriptive names kept for want of a standard term, for the owner: 秦平百越, 秦朝灭亡, 新朝 (the
+*Hanshu* names the dynasty 新), 河流改道. **Spellings**: rows added for the excavated archives, the Qin's end, the Chu–Han
+men, the Han emperors (English order; the joined Chinese forms as aliases), Empress Lü, the Xiongnu and chanyu, Modu,
+heqin, the Han men and women, the two capitals, the Western Regions, the four histories, Pei Songzhi, the Red Eyebrows
+and Lülin, the Yellow Turbans, the Three Kingdoms men and states, the battles, tuntian and zhantian, the nine-rank
+system, the Romance, the Jin, qingtan, menfa and the Seven Sages.
+
+**The myth register** gained ten rows at the start (the burning of the books, Xu Fu, the Shaqiu plot, Hong Gate,
+Gaixia, Liu Bang's dragon birth, Wang Mang as usurper, the Peach Garden, the Romance against the Records, the Seven
+Sages); every one was confirmed or corrected by the batch that drafted its card. Corrections: the Confucian reading of
+the burned scholars is already the *Shiji*'s own (Fusu's protest); Xu Fu's Japan landing is first written in 955; the
+*Zhao Zheng shu* could not be confirmed from an open source; Consort Yu's suicide is the opera's; the empty city began as
+a Wei story; Diaochan is the novel's; the Nanjing reliefs of the Seven Sages are late 4th or early 5th century and the
+*Wei shi chunqiu* title and Chen Yinke's Buddhist grove are on no page read.
+
+**The protected cards** (`cnh-206`, `210`, `215`, `216`, `220`, `223`, `226`, `228`, `229`, `237`, `240`, `246`, `254`,
+`257`, `259`, `261`, `262`, `263`, `265`, `269`, `270`, `271`, `272`, `274`, `278`, `280`, `281`, `285`, `286`, `289`,
+`292`, `294`) kept their `answerDate`, `undatable` and `timeline` byte for byte through every apply and the merge of main.
+Every background now carries the years on its card's line. Rows flagged for the owner, left as they stand (details in
+each batch): birth years in no source read on `cnh-206` (250), `220` (241), `228` (140), `229` (195), `237` (179, and
+104 for the death), `262` (50 – 62), `269` (174), `271` (154); a birth year given otherwise elsewhere on `cnh-215` (233
+fits "24" only in full years), `216` (247 Giles's; 256 unread), `246` (Giles 33), `254` (Giles 4 BCE), `280` (Giles 162),
+`289` (Giles 178), `292` (de Crespigny 241); rows that look wrong — `cnh-228`'s "First command 121" (the *Shiji*: 123,
+at eighteen), `cnh-240`'s "Grand Astrologer 110" (his father's death; the office three years later), `cnh-270`'s "Grand
+Preceptor 189" (191 in the *Sanguozhi*'s order), `cnh-274`'s "King of Wei 217" (216 in the chronicle, Cordier and Giles),
+`cnh-285`'s "23 May 229" (de Crespigny: 23 June), `cnh-271`'s "General-in-Chief 196" (197); places — `cnh-206`'s Yulin
+(the *Shiji*: Yangzhou), `cnh-223`'s Chang'an (the *Hanshu*: Wuzha palace), `cnh-286`'s "Linju, Xiangyang" (Linju lay in
+Nan commandery), `cnh-220`'s Shanfu (her father's home); and the days on the person template, nearly all conversions
+or unprinted (`cnh-216`, `220`, `246`, `254`, `272`, `278`, `280`, `281`, `289`, `292`, `294`). Ages rest on these years.
+
+**The open decision on `cnh-234`** is resolved from the sources read: 120 BCE is the year Dongguo Xianyang and Kong Jin were appointed; the monopoly itself is `Set up 117 BCE` (Wagner, and Liu and Wood) / `Also dated 119 BCE` (Chavannes).
+
+**For the owner, outside the hundred**: `cnh-245` and `cnh-213` now agree on 9 CE for the Xin; `wh-407` gives 34
+prefectures in 214 BCE (the texts disagree); `cnh-192` and `wh-404` make the First Emperor king in 247 BCE while two
+studies start his tomb in 246 BCE; the audit's glossary lookup reads `Jin_dynasty_(1115–1234)` for "Jin dynasty"
+because that entry's alias "Jin dynasty (1115–1234)" normalises to the same surface — `cnh-293` was never mispaired on
+the site, and its right entry, `Jin_dynasty_(266–420)`, was rewritten; the `Xiongnu` glossary's Huns sentence still rests
+on Parker 1895; the Su_Qin and Zhang_Yi entries still state 333 / 318 / 310 BCE as fact (not opened this run).
+
+### Locators (2026-11-12, the third hundred)
+
+Wikipedia's API answered at the end of the run (Commons still 429, so no picture pass), and `add-locators.js` wrote nine
+points, each fetched: the six first-hundred sites — `cnh-053` Sanxingdui, `cnh-063` Erlitou site, `cnh-075` the tomb of Fu
+Hao (labelled Xiaotun), `cnh-089` Zhengzhou Shang City, `cnh-090` Panlongcheng (from its Wikidata item Q217684; the
+article carries no primary coordinate) — and three of the second hundred's: `cnh-121` Chengzhou (the article "Luoyi"
+resolves to Luoyang's own point; the Zhou city lies inside the modern one — review), `cnh-150` Chengpu, `cnh-180` Maling
+(the article's point; the site is disputed — Maspero puts it near Daming) and `cnh-181` Changping. `cnh-080` Xibeigang has
+no article and no Wikidata item with a coordinate, and is still waiting. In the third hundred, `cnh-203` (the Qin roads)
+found no article for the Straight Road with a coordinate, `cnh-207` (the Qin walls) has no single point, and `cnh-276`
+Red Cliffs has none by design (the site is disputed). `glossary-places.js` was rebuilt (`build-glossary-places.js
+--install`), as `check-places.js` asked once the new points were in.
+
+**`migrate-places.js` was NOT re-run.** The new points' toponyms were not in its Wikidata cache, and `--fetch` ran into
+the query service's rate limit and stopped at its time cap after the title pass; the partly filled cache would have
+re-derived `places` for some 500 cards across the site (1,609 toponyms resolved against 1,161), a change far outside this
+audit, so the cache was put back and no card's `places` changed. The nine cards therefore carry a locator but no
+`places` id yet; a later session should run `migrate-places.js --fetch` to completion and then the migration, reviewing
+its diff. `migrate-places.js --check` reports the same six failures on this branch as on `origin/main` (five `in-` cards
+whose derived places they do not carry, and `atlas/data/wars.js` out of step) — none from this audit. Points to review in
+the hundred: `cnh-228` Huo Qubing's point is Jiuquan, a Hexi town, not his tomb; `cnh-256` Luoyang's is the modern city,
+not the Han–Wei walled site; `cnh-260` (a text) and `cnh-287` (an institution) carry points they need not.

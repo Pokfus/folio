@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":{"terms":940,"points":703,"countries":237,"windows":1522,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"44d9bf83ced1d10f","counts":{"terms":940,"points":703,"countries":237,"windows":1527,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1185,6 +1185,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Chen_Clan_Ancestral_Hall":[113.241,23.13,"coord",0,0,0],
 "Chen_dynasty":[114.975,26.981,"polity","pol:chen",587,4.59],
 "Chengdu":[104.068,30.672,"city",0,0,0],
+"Chengzhou":[112.454,34.62,"coord",0,0,0],
 "Cheomseongdae":[129.219,35.835,"coord",0,0,0],
 "Chesapeake_Bay":[-76.092,38.028,"gulf",0,0,0],
 "Chełmno_extermination_camp":[18.723,52.154,"coord",0,0,0],
@@ -1311,6 +1312,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Erhai_Lake":[100.188,25.763,"lake",0,0,0],
 "Eridu":[45.996,30.816,"coord",0,0,0],
 "Eritrea":[38.29,15.79,"country","adm0:eri",0,10.61],
+"Erlitou_site":[112.69,34.693,"coord",0,0,0],
 "Estonia":[25.87,58.72,"country","adm0:est",0,20.67],
 "Eswatini":[31.47,-26.53,"country","adm0:swz",0,40],
 "Ethiopia":[39.09,8.03,"country","adm0:eth",0,4.63],
@@ -1958,6 +1960,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Palmyrene_Empire":[36.636,36.587,"polity","pol:palmyra",263,3.97],
 "Panama":[-80.35,8.72,"country","adm0:pan",0,11.76],
 "Panama_Canal_Zone":[-79.72,9.118,"region",0,0,0],
+"Panlongcheng":[114.266,30.694,"coord",0,0,0],
 "Pannonia":[19.611,44.966,"coord",0,0,0],
 "Pannonian_Avars":[24.877,47.493,"people","pol:avars",617,3.91],
 "Pantheon,_Rome":[12.477,41.899,"site",0,0,0],
@@ -2307,6 +2310,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Tomb_100":[32.779,25.097,"coord",0,0,0],
 "Tomb_U-j":[31.908,26.175,"coord",0,0,0],
 "Tomb_of_Eurysaces_the_Baker":[12.515,41.891,"coord",0,0,0],
+"Tomb_of_Fu_Hao":[114.316,36.121,"coord",0,0,0],
 "Tomb_of_King_Muryeong":[127.117,36.45,"coord",0,0,0],
 "Tomb_of_King_Tongmyong":[125.923,38.895,"coord",0,0,0],
 "Tombos_(Nubia)":[30.389,19.712,"coord",0,0,0],
@@ -2461,6 +2465,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Zhaozhou_Bridge":[114.763,37.72,"coord",0,0,0],
 "Zhejiang":[119.97,29.108,"admin1","adm1:chn:cn-zj",0,17.14],
 "Zhengguo_Canal":[108.843,34.527,"coord",0,0,0],
+"Zhengzhou_Shang_City":[113.69,34.752,"coord",0,0,0],
 "Zhiguli_Mountains":[49.5,53.417,"coord",0,0,0],
 "Zhoukoudian":[115.946,39.68,"town",0,0,0],
 "Ziggurat":[46.103,30.963,"coord",0,0,0],
