@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T05:01Z",
+ "generated": "2026-11-12T05:04Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6791,
+  "ok": 6810,
   "redirect-broader": 649,
   "redirect-variant": 405,
   "section-redirect": 143,
   "disambiguation": 152,
   "none": 1026,
-  "disambig-resolved": 90,
+  "disambig-resolved": 91,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -74216,6 +74216,147 @@
    "answer": "auditory scene analysis",
    "title": "Auditory scene analysis",
    "url": "https://en.wikipedia.org/wiki/Auditory_scene_analysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-321": {
+   "answer": "endocrine system",
+   "title": "Endocrine system",
+   "url": "https://en.wikipedia.org/wiki/Endocrine_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-322": {
+   "answer": "pituitary gland",
+   "title": "Pituitary gland",
+   "url": "https://en.wikipedia.org/wiki/Pituitary_gland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-323": {
+   "answer": "cortisol",
+   "title": "Cortisol",
+   "url": "https://en.wikipedia.org/wiki/Cortisol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-324": {
+   "answer": "hypothalamic–pituitary–adrenal axis",
+   "title": "Hypothalamic–pituitary–adrenal axis",
+   "url": "https://en.wikipedia.org/wiki/Hypothalamic%E2%80%93pituitary%E2%80%93adrenal_axis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-325": {
+   "answer": "testosterone",
+   "title": "Testosterone",
+   "url": "https://en.wikipedia.org/wiki/Testosterone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-326": {
+   "answer": "oxytocin",
+   "title": "Oxytocin",
+   "url": "https://en.wikipedia.org/wiki/Oxytocin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-327": {
+   "answer": "psychoactive drug",
+   "title": "Psychoactive drug",
+   "url": "https://en.wikipedia.org/wiki/Psychoactive_drug",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-328": {
+   "answer": "drug tolerance",
+   "title": "Drug tolerance",
+   "url": "https://en.wikipedia.org/wiki/Drug_tolerance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-329": {
+   "answer": "stimulant",
+   "title": "Stimulant",
+   "url": "https://en.wikipedia.org/wiki/Stimulant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-330": {
+   "answer": "depressant",
+   "title": "Depressant",
+   "url": "https://en.wikipedia.org/wiki/Depressant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-331": {
+   "answer": "alcohol",
+   "title": "Alcohol (drug)",
+   "url": "https://en.wikipedia.org/wiki/Alcohol_(drug)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-332": {
+   "answer": "opioid",
+   "title": "Opioid",
+   "url": "https://en.wikipedia.org/wiki/Opioid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-333": {
+   "answer": "hallucinogen",
+   "title": "Hallucinogen",
+   "url": "https://en.wikipedia.org/wiki/Hallucinogen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-334": {
+   "answer": "cannabis",
+   "title": "Cannabis (drug)",
+   "url": "https://en.wikipedia.org/wiki/Cannabis_(drug)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-335": {
+   "answer": "reward system",
+   "title": "Reward system",
+   "url": "https://en.wikipedia.org/wiki/Reward_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-336": {
+   "answer": "sensation",
+   "title": "Sense",
+   "url": "https://en.wikipedia.org/wiki/Sense",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Sensation"
+  },
+  "ps-337": {
+   "answer": "perception",
+   "title": "Perception",
+   "url": "https://en.wikipedia.org/wiki/Perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-338": {
+   "answer": "transduction",
+   "title": "Transduction (physiology)",
+   "url": "https://en.wikipedia.org/wiki/Transduction_(physiology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-339": {
+   "answer": "psychophysics",
+   "title": "Psychophysics",
+   "url": "https://en.wikipedia.org/wiki/Psychophysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-340": {
+   "answer": "absolute threshold",
+   "title": "Absolute threshold",
+   "url": "https://en.wikipedia.org/wiki/Absolute_threshold",
    "via": "glossary",
    "status": "ok"
   }

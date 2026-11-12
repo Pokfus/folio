@@ -9296,7 +9296,27 @@ window.CARD_DATA = [
 {"id":"ps-397","num":"397","category":"Psychology","question":"Two mirror-image maps of sound frequency, sharing a low-frequency border, were traced in 2003 by 7-tesla scanning of the primary <span class=\"blank\">_____</span> in the human temporal lobe.","answer":"auditory cortex","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"auditory cortex","tags":["concept","psychology","neuroscience","hearing","anatomy"],"difficulty":3,"undatable":true},
 {"id":"ps-398","num":"398","category":"Psychology","question":"A delay of only about 10 millionths of a second between the two ears can be detected, the finest of the binaural timing cues behind <span class=\"blank\">_____</span> in the horizontal plane.","answer":"sound localisation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sound localisation","tags":["concept","psychology","hearing","perception","neuroscience"],"difficulty":3,"undatable":true},
 {"id":"ps-399","num":"399","category":"Psychology","question":"The 2020 Lancet Commission named midlife <span class=\"blank\">_____</span> the largest potentially modifiable risk factor for dementia, though a 2023 trial of hearing aids found no overall slowing of decline.","answer":"hearing loss","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"hearing loss","tags":["concept","psychology","hearing","health","medicine"],"difficulty":1,"undatable":true},
-{"id":"ps-400","num":"400","category":"Psychology","question":"Rapid tones alternating between high and low split into two separate streams, the best-studied example of <span class=\"blank\">_____</span>, the sorting of a mixture of sound into its sources.","answer":"auditory scene analysis","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Streaming paper</span><span class=\"dt-v\">1971</span><span class=\"dt-k\">Book named it</span><span class=\"dt-v\">1990</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"auditory scene analysis","tags":["concept","psychology","hearing","perception","attention"],"difficulty":4}
+{"id":"ps-400","num":"400","category":"Psychology","question":"Rapid tones alternating between high and low split into two separate streams, the best-studied example of <span class=\"blank\">_____</span>, the sorting of a mixture of sound into its sources.","answer":"auditory scene analysis","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Streaming paper</span><span class=\"dt-v\">1971</span><span class=\"dt-k\">Book named it</span><span class=\"dt-v\">1990</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"auditory scene analysis","tags":["concept","psychology","hearing","perception","attention"],"difficulty":4},
+{"id":"ps-321","num":"321","category":"Psychology","question":"Glands such as the pituitary, the thyroid and the adrenals together make up the <span class=\"blank\">_____</span>, which sends hormones through the blood to any cell that carries a matching receptor.","answer":"endocrine system","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"endocrine system","tags":["concept","psychology","neuroscience","biology","hormones"],"difficulty":2,"undatable":true},
+{"id":"ps-322","num":"322","category":"Psychology","question":"Often called the master gland, the <span class=\"blank\">_____</span> hangs beneath the hypothalamus and releases hormones that drive the adrenal glands, the thyroid and the ovaries or testes.","answer":"pituitary gland","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pituitary gland","tags":["concept","psychology","neuroscience","biology","hormones","anatomy"],"difficulty":2,"undatable":true},
+{"id":"ps-323","num":"323","category":"Psychology","question":"Made in the adrenal cortex and released through the hypothalamic-pituitary-adrenal axis, <span class=\"blank\">_____</span> raises blood glucose and climbs sharply after injury, infection, pain or emotional stress.","answer":"cortisol","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cortisol","tags":["concept","psychology","neuroscience","biology","hormones","stress"],"difficulty":2,"undatable":true},
+{"id":"ps-324","num":"324","category":"Psychology","question":"Corticotropin-releasing hormone from the hypothalamus, ACTH from the pituitary and cortisol from the adrenal cortex are the three stages of the <span class=\"blank\">_____</span>, the chain through which the brain answers stress.","answer":"hypothalamic–pituitary–adrenal axis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"hypothalamic–pituitary–adrenal axis","tags":["concept","psychology","neuroscience","biology","hormones","stress"],"difficulty":3,"undatable":true},
+{"id":"ps-325","num":"325","category":"Psychology","question":"A 2020 meta-analysis found that baseline levels of <span class=\"blank\">_____</span> correlated only weakly with aggression in men, and not at all in women, despite the popular belief in a strong link.","answer":"testosterone","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"testosterone","tags":["concept","psychology","neuroscience","biology","hormones","aggression"],"difficulty":2,"undatable":true},
+{"id":"ps-326","num":"326","category":"Psychology","question":"Released from the posterior pituitary, <span class=\"blank\">_____</span> stimulates the contractions of the uterus during labour and the release of milk when an infant suckles at the breast.","answer":"oxytocin","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"oxytocin","tags":["concept","psychology","neuroscience","biology","hormones","social psychology"],"difficulty":2,"undatable":true},
+{"id":"ps-327","num":"327","category":"Psychology","question":"Caffeine, alcohol, cocaine and LSD each count as a <span class=\"blank\">_____</span> because each alters mood, perception or thought by acting on the brain's own neurotransmitter systems.","answer":"psychoactive drug","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"psychoactive drug","tags":["concept","psychology","neuroscience","pharmacology","addiction"],"difficulty":2,"undatable":true},
+{"id":"ps-328","num":"328","category":"Psychology","question":"Needing ever larger doses of a drug to feel the effect once produced by a smaller one is the defining sign of <span class=\"blank\">_____</span>, a state closely linked to physical dependence and withdrawal.","answer":"drug tolerance","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"drug tolerance","tags":["concept","psychology","pharmacology","addiction","learning"],"difficulty":3,"undatable":true},
+{"id":"ps-329","num":"329","category":"Psychology","question":"Cocaine blocks the reuptake of dopamine, while amphetamine both blocks reuptake and triggers release, two routes by which a <span class=\"blank\">_____</span> raises activity across the nervous system.","answer":"stimulant","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"stimulant","tags":["concept","psychology","neuroscience","pharmacology","addiction"],"difficulty":2,"undatable":true},
+{"id":"ps-330","num":"330","category":"Psychology","question":"Alcohol, barbiturates and benzodiazepines are each classed as a <span class=\"blank\">_____</span> because they suppress central nervous system activity, mostly by boosting the inhibitory transmitter GABA.","answer":"depressant","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"depressant","tags":["concept","psychology","neuroscience","pharmacology","addiction"],"difficulty":2,"undatable":true},
+{"id":"ps-331","num":"331","category":"Psychology","question":"A 2022 UK Biobank study of 36,678 adults linked <span class=\"blank\">_____</span> to smaller brain volumes even at one to two units a day, with the association strengthening as intake rose.","answer":"alcohol","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"alcohol","tags":["concept","psychology","neuroscience","pharmacology","addiction"],"difficulty":2,"undatable":true},
+{"id":"ps-332","num":"332","category":"Psychology","question":"Morphine, heroin, oxycodone and fentanyl each count as an <span class=\"blank\">_____</span> because they act on receptors that the body's own enkephalins and endorphins normally use.","answer":"opioid","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"opioid","tags":["concept","psychology","neuroscience","pharmacology","addiction"],"difficulty":2,"undatable":true},
+{"id":"ps-333","num":"333","category":"Psychology","question":"LSD, psilocybin and mescaline are each classed as a <span class=\"blank\">_____</span> because they profoundly change perception, mainly by stimulating serotonin 2A receptors in the cortex.","answer":"hallucinogen","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"hallucinogen","tags":["concept","psychology","neuroscience","pharmacology","perception"],"difficulty":2,"undatable":true},
+{"id":"ps-334","num":"334","category":"Psychology","question":"Delta-9-tetrahydrocannabinol is the main intoxicating compound among more than a hundred cannabinoids in <span class=\"blank\">_____</span>, whose potency in seized products quadrupled between 1995 and 2022.","answer":"cannabis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cannabis","tags":["concept","psychology","neuroscience","pharmacology","cognition"],"difficulty":2,"undatable":true},
+{"id":"ps-335","num":"335","category":"Psychology","question":"Rats with electrodes in the septal area worked to stimulate it in a 1954 experiment that opened research on the brain's <span class=\"blank\">_____</span>, centred on dopamine pathways to the nucleus accumbens.","answer":"reward system","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"reward system","tags":["concept","psychology","neuroscience","addiction","motivation"],"difficulty":3,"undatable":true},
+{"id":"ps-336","num":"336","category":"Psychology","question":"The detection of light, sound, pressure or chemicals by specialised receptor cells, and their conversion into nerve signals, is what psychologists call <span class=\"blank\">_____</span>, as distinct from interpreting those signals.","answer":"sensation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sensation","tags":["concept","psychology","perception","neuroscience","senses"],"difficulty":2,"undatable":true},
+{"id":"ps-337","num":"337","category":"Psychology","question":"Helmholtz's idea that seeing involves unconscious inference from sensory data and past knowledge treats <span class=\"blank\">_____</span> as something like a scientific hypothesis about the outside world.","answer":"perception","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"perception","tags":["concept","psychology","perception","cognition","philosophy"],"difficulty":2,"undatable":true},
+{"id":"ps-338","num":"338","category":"Psychology","question":"Converting light, pressure, heat or odour molecules into the electrical signals of nerve cells is called <span class=\"blank\">_____</span>, the step by which each sense organ hands information to the nervous system.","answer":"transduction","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"transduction","tags":["concept","psychology","perception","neuroscience","senses"],"difficulty":3,"undatable":true},
+{"id":"ps-339","num":"339","category":"Psychology","question":"Gustav Fechner introduced the name <span class=\"blank\">_____</span> in 1860 for an exact science of the relations between bodily stimuli and the sensations they produce in the mind.","answer":"psychophysics","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1860</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"psychophysics","tags":["concept","psychology","perception","research methods","history"],"difficulty":3},
+{"id":"ps-340","num":"340","category":"Psychology","question":"Defined as the weakest stimulus that a person detects on half of all trials, the <span class=\"blank\">_____</span> describes how dim a light or how soft a sound can be and still be noticed.","answer":"absolute threshold","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"absolute threshold","tags":["concept","psychology","perception","research methods","vision"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -18513,7 +18533,7 @@ window.COLLECTION_TREE = {
     {
       "id": "psych",
       "title": "Psychology",
-      "total": 340,
+      "total": 360,
       "children": [
         {
           "id": "ps-found",
@@ -18921,7 +18941,23 @@ window.COLLECTION_TREE = {
               "id": "ps-hormones",
               "title": "Hormones, drugs and altered states",
               "total": 15,
-              "cardIds": []
+              "cardIds": [
+                "ps-321",
+                "ps-322",
+                "ps-323",
+                "ps-324",
+                "ps-325",
+                "ps-326",
+                "ps-327",
+                "ps-328",
+                "ps-329",
+                "ps-330",
+                "ps-331",
+                "ps-332",
+                "ps-333",
+                "ps-334",
+                "ps-335"
+              ]
             }
           ]
         },
@@ -18934,7 +18970,13 @@ window.COLLECTION_TREE = {
               "id": "ps-sensation",
               "title": "Sensation and psychophysics",
               "total": 20,
-              "cardIds": []
+              "cardIds": [
+                "ps-336",
+                "ps-337",
+                "ps-338",
+                "ps-339",
+                "ps-340"
+              ]
             },
             {
               "id": "ps-vision",

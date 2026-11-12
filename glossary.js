@@ -9532,7 +9532,27 @@ window.GLOSSARY = {
 "Auditory_cortex": "",
 "Sound_localization": "",
 "Hearing_loss": "",
-"Auditory_scene_analysis": ""
+"Auditory_scene_analysis": "",
+"Endocrine_system": "",
+"Pituitary_gland": "",
+"Cortisol": "",
+"Hypothalamic–pituitary–adrenal_axis": "",
+"Testosterone": "",
+"Oxytocin": "",
+"Psychoactive_drug": "",
+"Drug_tolerance": "",
+"Stimulant": "",
+"Depressant": "",
+"Alcohol_(drug)": "",
+"Opioid": "",
+"Hallucinogen": "",
+"Cannabis_(drug)": "",
+"Reward_system": "",
+"Sense": "",
+"Perception": "",
+"Transduction_(physiology)": "",
+"Psychophysics": "",
+"Absolute_threshold": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20233,7 +20253,27 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Place_theory": ["place theory of pitch","place theory of hearing"],
 "Volley_theory": ["volley principle"],
 "Sound_localization": ["sound localisation"],
-"Hearing_loss": ["deafness"]
+"Hearing_loss": ["deafness"],
+"Endocrine_system": ["endocrine system","hormonal system"],
+"Pituitary_gland": ["pituitary gland","pituitary","hypophysis"],
+"Cortisol": ["cortisol","hydrocortisone"],
+"Hypothalamic–pituitary–adrenal_axis": ["hypothalamic–pituitary–adrenal axis","HPA axis","hypothalamic-pituitary-adrenal axis"],
+"Testosterone": ["testosterone"],
+"Oxytocin": ["oxytocin"],
+"Psychoactive_drug": ["psychoactive drug","psychoactive drugs","psychoactive substance"],
+"Drug_tolerance": ["drug tolerance","tolerance"],
+"Stimulant": ["stimulant","stimulants","psychostimulant"],
+"Depressant": ["depressant","depressants","CNS depressant"],
+"Alcohol_(drug)": ["alcohol","ethanol","drinking alcohol"],
+"Opioid": ["opioid","opioids","opiate"],
+"Hallucinogen": ["hallucinogen","hallucinogens","psychedelic drug"],
+"Cannabis_(drug)": ["cannabis","marijuana","marihuana"],
+"Reward_system": ["reward system","reward circuit","reward pathway"],
+"Sense": ["sensation","senses","sensory system"],
+"Perception": ["perception","perceive"],
+"Transduction_(physiology)": ["transduction","sensory transduction"],
+"Psychophysics": ["psychophysics","psychophysical"],
+"Absolute_threshold": ["absolute threshold","threshold of detection","stimulus threshold"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29924,7 +29964,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Auditory_cortex": ["concept","neuroscience","hearing","anatomy"],
 "Sound_localization": ["concept","psychology","hearing","perception"],
 "Hearing_loss": ["concept","health","hearing","medicine"],
-"Auditory_scene_analysis": ["concept","psychology","hearing","perception"]
+"Auditory_scene_analysis": ["concept","psychology","hearing","perception"],
+"Endocrine_system": ["concept","biology","neuroscience","medicine"],
+"Pituitary_gland": ["concept","biology","neuroscience","anatomy"],
+"Cortisol": ["concept","biology","medicine","hormones"],
+"Hypothalamic–pituitary–adrenal_axis": ["concept","biology","neuroscience","stress"],
+"Testosterone": ["concept","biology","medicine","hormones"],
+"Oxytocin": ["concept","biology","neuroscience","hormones"],
+"Psychoactive_drug": ["concept","pharmacology","neuroscience","medicine"],
+"Drug_tolerance": ["concept","pharmacology","medicine","addiction"],
+"Stimulant": ["concept","pharmacology","neuroscience","medicine"],
+"Depressant": ["concept","pharmacology","neuroscience","medicine"],
+"Alcohol_(drug)": ["concept","pharmacology","medicine","addiction"],
+"Opioid": ["concept","pharmacology","medicine","addiction"],
+"Hallucinogen": ["concept","pharmacology","neuroscience","perception"],
+"Cannabis_(drug)": ["concept","pharmacology","medicine","cognition"],
+"Reward_system": ["concept","neuroscience","psychology","addiction"],
+"Sense": ["concept","biology","neuroscience","perception"],
+"Perception": ["concept","psychology","philosophy","perception"],
+"Transduction_(physiology)": ["concept","biology","neuroscience","perception"],
+"Psychophysics": ["concept","psychology","perception","history"],
+"Absolute_threshold": ["concept","psychology","perception","research methods"]
 });
 
 /* ============================================================================
