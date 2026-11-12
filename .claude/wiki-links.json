@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T06:33Z",
+ "generated": "2026-11-12T06:54Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7475,
-  "redirect-broader": 720,
-  "redirect-variant": 454,
-  "section-redirect": 165,
-  "disambiguation": 150,
-  "none": 1123,
-  "disambig-resolved": 98,
+  "ok": 7545,
+  "redirect-broader": 731,
+  "redirect-variant": 459,
+  "section-redirect": 170,
+  "disambiguation": 153,
+  "none": 1128,
+  "disambig-resolved": 99,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -81547,6 +81547,781 @@
    "answer": "Ordinance of Secession",
    "title": "Ordinance of Secession",
    "url": "https://en.wikipedia.org/wiki/Ordinance_of_Secession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-364": {
+   "answer": "blind spot",
+   "title": "Blind spot (vision)",
+   "url": "https://en.wikipedia.org/wiki/Blind_spot_(vision)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-375": {
+   "answer": "colour blindness",
+   "title": "Color blindness",
+   "url": "https://en.wikipedia.org/wiki/Color_blindness",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Colour blindness"
+  },
+  "ps-301": {
+   "answer": "behavioural genetics",
+   "title": "Behavioural genetics",
+   "url": "https://en.wikipedia.org/wiki/Behavioural_genetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-302": {
+   "answer": "heritability",
+   "title": "Heritability",
+   "url": "https://en.wikipedia.org/wiki/Heritability",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-303": {
+   "answer": "phenylketonuria",
+   "title": "Phenylketonuria",
+   "url": "https://en.wikipedia.org/wiki/Phenylketonuria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-304": {
+   "answer": "twin study",
+   "title": "Twin study",
+   "url": "https://en.wikipedia.org/wiki/Twin_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-305": {
+   "answer": "Minnesota Study of Twins Reared Apart",
+   "title": "Minnesota Center for Twin and Family Research",
+   "url": "https://en.wikipedia.org/wiki/Minnesota_Center_for_Twin_and_Family_Research",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Minnesota Study of Twins Reared Apart"
+  },
+  "ps-306": {
+   "answer": "adoption study",
+   "title": "Adoption study",
+   "url": "https://en.wikipedia.org/wiki/Adoption_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-307": {
+   "answer": "gene–environment interaction",
+   "title": "Gene–environment interaction",
+   "url": "https://en.wikipedia.org/wiki/Gene%E2%80%93environment_interaction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-308": {
+   "answer": "gene–environment correlation",
+   "title": "Gene–environment correlation",
+   "url": "https://en.wikipedia.org/wiki/Gene%E2%80%93environment_correlation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-309": {
+   "answer": "epigenetics",
+   "title": "Epigenetics",
+   "url": "https://en.wikipedia.org/wiki/Epigenetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-310": {
+   "answer": "candidate gene study",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psychology",
+    "Avshalom Caspi",
+    "Sport psychology",
+    "Terrie E. Moffitt",
+    "Heritability of autism"
+   ]
+  },
+  "ps-311": {
+   "answer": "genome-wide association study",
+   "title": "Genome-wide association study",
+   "url": "https://en.wikipedia.org/wiki/Genome-wide_association_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-312": {
+   "answer": "polygenic score",
+   "title": "Polygenic score",
+   "url": "https://en.wikipedia.org/wiki/Polygenic_score",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-313": {
+   "answer": "natural selection",
+   "title": "Natural selection",
+   "url": "https://en.wikipedia.org/wiki/Natural_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-314": {
+   "answer": "sexual selection",
+   "title": "Sexual selection",
+   "url": "https://en.wikipedia.org/wiki/Sexual_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-315": {
+   "answer": "inclusive fitness",
+   "title": "Inclusive fitness",
+   "url": "https://en.wikipedia.org/wiki/Inclusive_fitness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-316": {
+   "answer": "kin selection",
+   "title": "Kin selection",
+   "url": "https://en.wikipedia.org/wiki/Kin_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-317": {
+   "answer": "reciprocal altruism",
+   "title": "Reciprocal altruism",
+   "url": "https://en.wikipedia.org/wiki/Reciprocal_altruism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-318": {
+   "answer": "just-so story",
+   "title": "Just-so story",
+   "url": "https://en.wikipedia.org/wiki/Just-so_story",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-319": {
+   "answer": "comparative psychology",
+   "title": "Comparative psychology",
+   "url": "https://en.wikipedia.org/wiki/Comparative_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-320": {
+   "answer": "ethology",
+   "title": "Ethology",
+   "url": "https://en.wikipedia.org/wiki/Ethology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-321": {
+   "answer": "endocrine system",
+   "title": "Endocrine system",
+   "url": "https://en.wikipedia.org/wiki/Endocrine_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-322": {
+   "answer": "pituitary gland",
+   "title": "Pituitary gland",
+   "url": "https://en.wikipedia.org/wiki/Pituitary_gland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-323": {
+   "answer": "cortisol",
+   "title": "Cortisol",
+   "url": "https://en.wikipedia.org/wiki/Cortisol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-324": {
+   "answer": "hypothalamic–pituitary–adrenal axis",
+   "title": "Hypothalamic–pituitary–adrenal axis",
+   "url": "https://en.wikipedia.org/wiki/Hypothalamic%E2%80%93pituitary%E2%80%93adrenal_axis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-325": {
+   "answer": "testosterone",
+   "title": "Testosterone",
+   "url": "https://en.wikipedia.org/wiki/Testosterone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-326": {
+   "answer": "oxytocin",
+   "title": "Oxytocin",
+   "url": "https://en.wikipedia.org/wiki/Oxytocin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-327": {
+   "answer": "psychoactive drug",
+   "title": "Psychoactive drug",
+   "url": "https://en.wikipedia.org/wiki/Psychoactive_drug",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-328": {
+   "answer": "drug tolerance",
+   "title": "Drug tolerance",
+   "url": "https://en.wikipedia.org/wiki/Drug_tolerance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-329": {
+   "answer": "stimulant",
+   "title": "Stimulant",
+   "url": "https://en.wikipedia.org/wiki/Stimulant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-330": {
+   "answer": "depressant",
+   "title": "Depressant",
+   "url": "https://en.wikipedia.org/wiki/Depressant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-331": {
+   "answer": "alcohol",
+   "title": "Alcohol (drug)",
+   "url": "https://en.wikipedia.org/wiki/Alcohol_(drug)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-332": {
+   "answer": "opioid",
+   "title": "Opioid",
+   "url": "https://en.wikipedia.org/wiki/Opioid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-333": {
+   "answer": "hallucinogen",
+   "title": "Hallucinogen",
+   "url": "https://en.wikipedia.org/wiki/Hallucinogen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-334": {
+   "answer": "cannabis",
+   "title": "Cannabis (drug)",
+   "url": "https://en.wikipedia.org/wiki/Cannabis_(drug)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-335": {
+   "answer": "reward system",
+   "title": "Reward system",
+   "url": "https://en.wikipedia.org/wiki/Reward_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-336": {
+   "answer": "sensation",
+   "title": "Sense",
+   "url": "https://en.wikipedia.org/wiki/Sense",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Sensation"
+  },
+  "ps-337": {
+   "answer": "perception",
+   "title": "Perception",
+   "url": "https://en.wikipedia.org/wiki/Perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-338": {
+   "answer": "transduction",
+   "title": "Transduction (physiology)",
+   "url": "https://en.wikipedia.org/wiki/Transduction_(physiology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-339": {
+   "answer": "psychophysics",
+   "title": "Psychophysics",
+   "url": "https://en.wikipedia.org/wiki/Psychophysics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-340": {
+   "answer": "absolute threshold",
+   "title": "Absolute threshold",
+   "url": "https://en.wikipedia.org/wiki/Absolute_threshold",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-341": {
+   "answer": "difference threshold",
+   "title": "Just-noticeable difference",
+   "url": "https://en.wikipedia.org/wiki/Just-noticeable_difference",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Difference threshold"
+  },
+  "ps-342": {
+   "answer": "Weber's law",
+   "title": "Weber–Fechner law",
+   "url": "https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Weber's law"
+  },
+  "ps-343": {
+   "answer": "Fechner's law",
+   "title": "Weber–Fechner law",
+   "url": "https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fechner's law"
+  },
+  "ps-344": {
+   "answer": "Stevens's power law",
+   "title": "Stevens's power law",
+   "url": "https://en.wikipedia.org/wiki/Stevens's_power_law",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-345": {
+   "answer": "signal detection theory",
+   "title": "Detection theory",
+   "url": "https://en.wikipedia.org/wiki/Detection_theory",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Signal detection theory"
+  },
+  "ps-346": {
+   "answer": "sensory adaptation",
+   "title": "Neural adaptation",
+   "url": "https://en.wikipedia.org/wiki/Neural_adaptation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sensory adaptation"
+  },
+  "ps-347": {
+   "answer": "sensory receptor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Sensory receptor",
+   "target": "Sensory neuron#Types and function"
+  },
+  "ps-348": {
+   "answer": "subliminal perception",
+   "title": "Subliminal stimuli",
+   "url": "https://en.wikipedia.org/wiki/Subliminal_stimuli",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Subliminal perception"
+  },
+  "ps-349": {
+   "answer": "top-down processing",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Top-down processing",
+   "target": "Pattern recognition (psychology)#Top-down processing"
+  },
+  "ps-350": {
+   "answer": "perceptual set",
+   "title": "Set (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Set_(psychology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Perceptual set"
+  },
+  "ps-351": {
+   "answer": "sensory coding",
+   "title": "Sensory nervous system",
+   "url": "https://en.wikipedia.org/wiki/Sensory_nervous_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sensory coding"
+  },
+  "ps-352": {
+   "answer": "labelled-line coding",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Picture superiority effect",
+    "Ensemble coding",
+    "Military psychology",
+    "John L. Holland",
+    "Moral disengagement"
+   ]
+  },
+  "ps-353": {
+   "answer": "cross-modal perception",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Perception",
+    "Bouba/kiki effect",
+    "Gestalt psychology",
+    "Time perception",
+    "Amodal perception"
+   ]
+  },
+  "ps-354": {
+   "answer": "synaesthesia",
+   "title": "Synesthesia",
+   "url": "https://en.wikipedia.org/wiki/Synesthesia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Synaesthesia"
+  },
+  "ps-355": {
+   "answer": "sensory deprivation",
+   "title": "Sensory deprivation",
+   "url": "https://en.wikipedia.org/wiki/Sensory_deprivation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-356": {
+   "answer": "visible spectrum",
+   "title": "Visible spectrum",
+   "url": "https://en.wikipedia.org/wiki/Visible_spectrum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-357": {
+   "answer": "eye",
+   "title": "Eye",
+   "url": "https://en.wikipedia.org/wiki/Eye",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-358": {
+   "answer": "cornea",
+   "title": "Cornea",
+   "url": "https://en.wikipedia.org/wiki/Cornea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-359": {
+   "answer": "accommodation",
+   "title": "Accommodation (vertebrate eye)",
+   "url": "https://en.wikipedia.org/wiki/Accommodation_(vertebrate_eye)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-360": {
+   "answer": "retina",
+   "title": "Retina",
+   "url": "https://en.wikipedia.org/wiki/Retina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-361": {
+   "answer": "rods and cones",
+   "title": "Photoreceptor cell",
+   "url": "https://en.wikipedia.org/wiki/Photoreceptor_cell",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rods and cones"
+  },
+  "ps-362": {
+   "answer": "fovea",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Fovea",
+   "suggestions": [
+    "Fovea (femur)",
+    "Fovea cardiaca",
+    "Fovea centralis",
+    "Fovea ethmoidalis",
+    "Pterygoid fovea",
+    "Trochlear fovea"
+   ]
+  },
+  "ps-363": {
+   "answer": "dark adaptation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Dark adaptation",
+   "target": "Adaptation (eye)#Dark adaptation"
+  },
+  "ps-365": {
+   "answer": "optic chiasm",
+   "title": "Optic chiasm",
+   "url": "https://en.wikipedia.org/wiki/Optic_chiasm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-366": {
+   "answer": "lateral geniculate nucleus",
+   "title": "Lateral geniculate nucleus",
+   "url": "https://en.wikipedia.org/wiki/Lateral_geniculate_nucleus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-367": {
+   "answer": "primary visual cortex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Primary visual cortex",
+   "target": "Visual cortex#Primary visual cortex (V1)"
+  },
+  "ps-368": {
+   "answer": "receptive field",
+   "title": "Receptive field",
+   "url": "https://en.wikipedia.org/wiki/Receptive_field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-369": {
+   "answer": "simple and complex cells",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Neural network",
+    "Tissue (biology)",
+    "The Ghost in the Machine",
+    "Receptive field",
+    "Eye"
+   ]
+  },
+  "ps-370": {
+   "answer": "two-streams hypothesis",
+   "title": "Two-streams hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Two-streams_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-371": {
+   "answer": "feature detectors",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Feature detection",
+   "suggestions": []
+  },
+  "ps-372": {
+   "answer": "colour vision",
+   "title": "Color vision",
+   "url": "https://en.wikipedia.org/wiki/Color_vision",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Colour vision"
+  },
+  "ps-373": {
+   "answer": "trichromatic theory",
+   "title": "Young–Helmholtz theory",
+   "url": "https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trichromatic theory"
+  },
+  "ps-374": {
+   "answer": "opponent-process theory",
+   "title": "Opponent-process theory",
+   "url": "https://en.wikipedia.org/wiki/Opponent-process_theory",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-376": {
+   "answer": "colour constancy",
+   "title": "Color constancy",
+   "url": "https://en.wikipedia.org/wiki/Color_constancy",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Colour constancy"
+  },
+  "ps-377": {
+   "answer": "lightness constancy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Subjective constancy",
+    "Color constancy",
+    "Lists of colors",
+    "Hans Wallach",
+    "Optical illusion"
+   ]
+  },
+  "ps-378": {
+   "answer": "depth perception",
+   "title": "Depth perception",
+   "url": "https://en.wikipedia.org/wiki/Depth_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-379": {
+   "answer": "binocular disparity",
+   "title": "Binocular disparity",
+   "url": "https://en.wikipedia.org/wiki/Binocular_disparity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-380": {
+   "answer": "monocular depth cues",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Monocular depth cues",
+   "target": "Depth perception#Monocular cues"
+  },
+  "ps-381": {
+   "answer": "motion perception",
+   "title": "Motion perception",
+   "url": "https://en.wikipedia.org/wiki/Motion_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-382": {
+   "answer": "apparent motion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Apparent motion",
+   "suggestions": []
+  },
+  "ps-383": {
+   "answer": "visual agnosia",
+   "title": "Visual agnosia",
+   "url": "https://en.wikipedia.org/wiki/Visual_agnosia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-384": {
+   "answer": "prosopagnosia",
+   "title": "Prosopagnosia",
+   "url": "https://en.wikipedia.org/wiki/Prosopagnosia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-385": {
+   "answer": "fusiform face area",
+   "title": "Fusiform face area",
+   "url": "https://en.wikipedia.org/wiki/Fusiform_face_area",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-386": {
+   "answer": "blindsight",
+   "title": "Blindsight",
+   "url": "https://en.wikipedia.org/wiki/Blindsight",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-387": {
+   "answer": "object recognition",
+   "title": "Object recognition (cognitive science)",
+   "url": "https://en.wikipedia.org/wiki/Object_recognition_(cognitive_science)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-388": {
+   "answer": "pattern recognition",
+   "title": "Pattern recognition (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Pattern_recognition_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-389": {
+   "answer": "visual search",
+   "title": "Visual search",
+   "url": "https://en.wikipedia.org/wiki/Visual_search",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-390": {
+   "answer": "change blindness",
+   "title": "Change blindness",
+   "url": "https://en.wikipedia.org/wiki/Change_blindness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-391": {
+   "answer": "sound",
+   "title": "Sound",
+   "url": "https://en.wikipedia.org/wiki/Sound",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-392": {
+   "answer": "ear",
+   "title": "Ear",
+   "url": "https://en.wikipedia.org/wiki/Ear",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-393": {
+   "answer": "cochlea",
+   "title": "Cochlea",
+   "url": "https://en.wikipedia.org/wiki/Cochlea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-394": {
+   "answer": "basilar membrane",
+   "title": "Basilar membrane",
+   "url": "https://en.wikipedia.org/wiki/Basilar_membrane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-395": {
+   "answer": "place theory",
+   "title": "Place theory",
+   "url": "https://en.wikipedia.org/wiki/Place_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-396": {
+   "answer": "volley theory",
+   "title": "Volley theory",
+   "url": "https://en.wikipedia.org/wiki/Volley_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-397": {
+   "answer": "auditory cortex",
+   "title": "Auditory cortex",
+   "url": "https://en.wikipedia.org/wiki/Auditory_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-398": {
+   "answer": "sound localisation",
+   "title": "Sound localization",
+   "url": "https://en.wikipedia.org/wiki/Sound_localization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sound localisation"
+  },
+  "ps-399": {
+   "answer": "hearing loss",
+   "title": "Hearing loss",
+   "url": "https://en.wikipedia.org/wiki/Hearing_loss",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-400": {
+   "answer": "auditory scene analysis",
+   "title": "Auditory scene analysis",
+   "url": "https://en.wikipedia.org/wiki/Auditory_scene_analysis",
    "via": "glossary",
    "status": "ok"
   }
