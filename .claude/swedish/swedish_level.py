@@ -75,6 +75,20 @@ SCOPE = {
                   'words of explaining and arguing, the verbs and adjectives of judging, time and '
                   'frequency, and the connectors that build an argument',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, '
+                 'and to produce clear, detailed text on a wide range of subjects and explain a '
+                 'viewpoint on a topical issue giving the advantages and disadvantages of various '
+                 'options',
+        'topics': 'the economy and work, politics and the state, law and justice, science and '
+                  'technology, the environment and resources, health and society, media and '
+                  'communication, culture and society, the abstract nouns of discussion, the verbs '
+                  'of arguing and reasoning, describing and evaluating, and the connectors of '
+                  'formal Swedish',
+    },
 }
 
 

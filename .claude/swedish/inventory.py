@@ -164,4 +164,55 @@ B1 = [
                                 'slutligen hursomhelst'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+# B2 (2026-11-12): the CEFR B2 descriptor's "complex text on both concrete and abstract
+# topics", technical discussion in one's field, and arguing a viewpoint.
+B2 = [
+    ('the economy and work', 'konjunktur inflation ränta lån:noun investering aktie budget '
+                             'tillväxt arbetslöshet näringsliv bransch konkurrens export import '
+                             'handel:noun företagare entreprenör ledning styrelse anställning '
+                             'arbetsmarknad fackförening förhandling lönsam'),
+    ('politics and the state', 'regering opposition minister statsminister riksdagsledamot '
+                               'lagstiftning reform förordning beslut:noun valrörelse '
+                               'majoritet minoritet ideologi propaganda korruption '
+                               'yttrandefrihet integration diskriminering '
+                               'jämställdhet välfärd bistånd'),
+    ('law and justice', 'rättssystem advokat:noun dom:noun åtal rättegång:noun vittnesmål bevisning '
+                        'skyldig:adj oskyldig:adj fängelsestraff böter brottslighet utredning'),
+    ('science and technology', 'vetenskap forskning forskare teori:noun hypotes metod analys '
+                               'undersökning:noun upptäckt:noun uppfinning teknologi utveckling '
+                               'digital programvara algoritm data:noun artificiell intelligens'),
+    ('the environment and resources', 'klimatförändring växthuseffekt koldioxid fossil förnybar '
+                                      'hållbar hållbarhet resurs naturresurs utrotning mångfald '
+                                      'ekosystem kärnkraft vindkraft solenergi'),
+    ('health and society', 'folkhälsa vårdnad sjukvård psykisk depression ångest beroende '
+                           'missbruk rehabilitering livsstil förebygga'),
+    ('media and communication', 'journalistik källa:noun censur opinion '
+                                'debatt:noun kommunikation budskap tolkning publicera '
+                                'kommentera granska'),
+    ('culture and society', 'identitet mångkultur generation:noun värdering norm fördom '
+                            'religion tro:noun sekulär globalisering migration '
+                            'befolkning klass:noun jämlikhet'),
+    ('abstract nouns', 'aspekt faktor villkor:noun förutsättning konsekvens innebörd sammanhang '
+                       'perspektiv tendens utmaning hinder möjlighet:noun begränsning '
+                       'påverkan inflytande:noun ansvar:noun avsikt:noun strategi prioritet '
+                       'kvalitet kvantitet process struktur funktion'),
+    ('arguing and reasoning', 'hävda betona understryka ifrågasätta motivera '
+                              'anta:verb förutsätta konstatera bedöma utvärdera analysera '
+                              'tolka sammanfatta argumentera motsäga invända medge '
+                              'tydliggöra belysa'),
+    ('verbs of B2', 'åstadkomma genomföra:verb tillämpa etablera upprätthålla bidra '
+                    'främja motverka förhindra:verb begränsa anpassa omfatta medföra '
+                    'framhålla förespråka avstå underlätta försvåra förorsaka '
+                    'utnyttja:verb förstärka försvaga'),
+    ('describing and evaluating', 'omfattande betydande avgörande väsentlig grundläggande '
+                                  'komplex invecklad tvetydig entydig hållbar:adj effektiv '
+                                  'kontroversiell objektiv subjektiv rimlig orimlig '
+                                  'tillförlitlig relevant aktuell befintlig främst '
+                                  'uppenbar sannolik osannolik'),
+    ('connectors and discourse', 'emellertid således följaktligen dock oavsett:prep '
+                                 'beträffande angående gällande i_synnerhet trots_allt '
+                                 'å_ena_sidan '
+                                 'enligt:prep huruvida dessförinnan därmed'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

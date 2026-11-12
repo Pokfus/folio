@@ -120,6 +120,35 @@ EXCLUDE = {
     'sistone': 'met only in på sistone',
     'verkligt': 'the neuter of verklig, taught in B1',
     'toa': 'the clipped toalett (A1); Wiktionary gives it no meaning of its own', 'king': 'English slang',
+    # Read off the B2 ranking (2026-11-12).
+    # A FORM TAUGHT ON ANOTHER CARD
+    'fritt': 'the neuter of fri (A2)', 'dyrt': 'the neuter of dyr (A1)', 'billigt': 'the neuter of billig (A1)',
+    'dubbelt': 'the neuter of dubbel (A2)', 'sött': 'the neuter of söt (A2)', 'halvt': 'the neuter of halv (A1)',
+    'grönt': 'the neuter of grön (A1)', 'blått': 'the neuter of blå (A1)', 'klokt': 'the neuter of klok (B1)',
+    'bekvämt': 'the neuter of bekväm (B1)', 'sexigt': 'the neuter of sexig (B1)', 'fett': 'the neuter of fet (B1)',
+    'uppenbart': 'the neuter of uppenbar, taught in B2', 'sexuellt': 'the neuter of sexuell, taught in B2',
+    'frivilligt': 'the neuter of frivillig, taught in B2',
+    'feta': 'the plural of fet (B1); its noun is the cheese', 'blöta': 'the plural of blöt (A2)',
+    'tunna': 'the plural of tunn (A2)', 'halva': 'the definite of halv (A1)', 'allas': 'the genitive of alla (A1)',
+    'giva': 'the old infinitive of ge (A1)', 'småningom': 'met only in så småningom (B1)',
+    'moder': 'the formal mother, mor being taught (A1)', 'konung': 'the formal king, kung being taught (A2)',
+    'godmorgon': 'the one-word spelling of god morgon (A1)',
+    # NAMES, FOREIGN WORDS, PIECES OF PHRASES, WORDS WITH NO MEANING ON THE CARD
+    'lex': 'used only before a name', 'black': 'English', 'house': 'English', 'love': 'English',
+    'green': 'English', 'angel': 'English', 'grand': 'English', 'back': 'English', 'best': 'English',
+    'lake': 'English', 'kid': 'English', 'israel': 'the country', 'gloria': 'the name', 'tina': 'the name',
+    'mick': 'the name', 'lana': 'the name', 'mors': 'the genitive of mor; its greeting is rare',
+    'my': 'a Greek letter', 'von': 'only in surnames', 'id': 'its count is not "an ide (fish)"',
+    'ide': 'a bear\'s den, its count idé\'s', 'or': 'a mite, its count a misspelling', 'gen': 'dialect',
+    'madame': 'Wiktionary gives it no meaning', 'bea': 'Wiktionary gives it no meaning',
+    'utav': 'Wiktionary gives it no meaning (the long form of av, A1)',
+    'vaka': 'its gloss is cut to nothing', 'fatt': 'met only in komma fatt, få fatt i',
+    'förväg': 'met only in i förväg', 'sid': 'an abbreviation', 'nr': 'an abbreviation',
+    'ty': 'archaic', 'gala': 'its count is the gala, not "to crow"', 'halt': 'its count is "stop!"',
+    'vak': 'a hole in the ice; rare', 'mes': 'slang "wimp"; its entry is a bird', 'matte': '"maths"; its entry is "a pet\'s mistress"',
+    'smörja': 'slang "crap"', 'tutte': 'vulgar', 'stake': 'vulgar', 'missfoster': 'an insult',
+    'medans': 'the colloquial spelling of medan (A2)', 'mo': 'its count is not "a heath"',
+    'jon': 'the name; its entry is "an ion"',
     'våldta': 'not taught in a level deck, though common in the subtitles\' crime drama',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
@@ -127,7 +156,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 # Swearing and insults are never in a level deck.
 SWEARS = {'fan', 'jävla', 'jävel', 'helvete', 'skit', 'fitta', 'kuk', 'hora', 'idiot', 'satan',
           'jävlas', 'skita', 'knulla', 'röv', 'arsle', 'fittig', 'bög', 'skitstövel', 'fanskap',
-          'djävul', 'djävla', 'jävlar', 'jävligt', 'skitsnack'}
+          'djävul', 'djävla', 'jävlar', 'jävligt', 'skitsnack', 'herrejävlar', 'kärring'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first (read off the A1 build, 2026-11-09) -- `tro` is dealt for "to believe",
@@ -142,7 +171,10 @@ FILL_POS = {'tro': 'verb', 'ringa': 'verb', 'mot': 'prep', 'det': 'pron', 'visa'
             'tuff': 'adj', 'egen': 'pron', 'grund': 'noun', 'öde': 'noun',
             # B1 (2026-11-12)
             'strid': 'noun', 'knapp': 'noun', 'ström': 'noun', 'rulla': 'verb', 'vars': 'pron',
-            'ro': 'noun', 'kram': 'noun', 'sörja': 'verb'}
+            'ro': 'noun', 'kram': 'noun', 'sörja': 'verb',
+            # B2 (2026-11-12)
+            'luta': 'verb', 'skälla': 'verb', 'snurra': 'verb', 'smälla': 'verb', 'detektiv': 'noun',
+            'höjd': 'noun', 'träda': 'verb', 'grilla': 'verb', 'klappa': 'verb', 'trilla': 'verb'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  `ska` is the spoken form of the verb whose
 # infinitive Wiktionary heads `skola`, and that table claims `ska` and `skulle`,

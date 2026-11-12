@@ -5,7 +5,7 @@ Swedish set, built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose 
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Swedish language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/swedish/`, §6–§8). B2, C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/swedish/`, §6–§9). C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Swedish to the day's
@@ -34,7 +34,7 @@ is the owner's to overrule.**
 | Swedish A1 Beginner — built | `Swedish-A1.folio-deck.json` | 500 |
 | Swedish A2 Elementary — built | `Swedish-A2.folio-deck.json` | 750 |
 | Swedish B1 Intermediate — built | `Swedish-B1.folio-deck.json` | 1,000 |
-| Swedish B2 Upper Intermediate | `Swedish-B2.folio-deck.json` | 1,500 |
+| Swedish B2 Upper Intermediate — built | `Swedish-B2.folio-deck.json` | 1,500 |
 | Swedish C1 Advanced | `Swedish-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -99,7 +99,7 @@ mina), which is the paradigm it belongs to. One of A1's 500 words has no Tatoeba
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swedish_level.py` (or, if the owner chooses, read a graded
 lexicon — §1), run, read every card. **Phase 3** — a phrases deck (`phrase` / `proverb` entries and particle
 verbs: `tycka om`, `ta hand om`).
@@ -164,3 +164,31 @@ although the subtitles rank it.
 B1 adds `gisslan`, `vampyr`, `häxa`, `demon`, `åklagare`) — it is frequency, and labelled as such in the
 description. Two pairs share an English side and are told apart by the dedupe pass's label (`ansvarig` /
 `ansvarsfull`, `slutligen` / `så småningom`).
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/swedish/run.py --level b2`. **1,500 notes: 206 from a
+13-topic inventory** (`inventory.py` `B2`: the economy, politics, law, science and technology, the
+environment, health and society, media, culture and society, the abstract nouns of discussion, arguing and
+reasoning, B2 verbs, evaluating adjectives, formal connectors — `SCOPE['b2']`) **and 1,294 by frequency**;
+three sentences for 615, **none for 370** — a quarter of the deck, Tatoeba having few sentences for formal
+vocabulary (`lagstiftning`, `växthuseffekt`, `förordning`). Every card was read; A1, A2 and B1 re-run
+byte-identical. Six inventory words are not Wiktionary headwords and were removed (`koalition`, `medier`,
+`rapportering`, `urbanisering`, and three multi-word phrases).
+
+**What the B2 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- **Three empty English sides** (`madame`, `bea`, `utav`): Wiktionary gives them no gloss the extract keeps,
+  and the dedupe pass then "told them apart" with each other's names — so `check-swedish.js`'s empty-side test
+  did not fire. Excluded; the shape to look for is an English side made only of a dedupe label.
+- **Truncated glosses** (`bekämpa` "to fight and thus", `vaka` "to", `fatt` "in the expression") — `GLOSS` or
+  excluded.
+- The kinds of A2 and B1 again: adjective neuters (`fritt`, `dyrt`, `blått`), plurals (`feta`, `tunna`),
+  English words and names (`house`, `love`, `green`, `Gloria`, `Mick`, `Jon`), noun-over-verb (`luta`,
+  `skälla`, `snurra`, `grilla`, `klappa`, `trilla`), formal doublets of taught words (`moder`, `konung`).
+- **Languages** (`ryska`, `spanska`, `japanska`, `italienska`, `kinesiska`) join `NO_ART` and the check;
+  plural-only nouns (`kontanter`, `stålar`, `underkläder`) join `GENDER_FIX`.
+- `herrejävlar` and the insult `kärring` to `SWEARS`; `tutte`, `stake` and `missfoster` excluded.
+
+**Known, left.** The fill is heavier still with the subtitles' crime and fantasy vocabulary (`avrätta`,
+`knivhugga`, `seriemördare`, `zombie`, `varulv`) and carries some sexual vocabulary (`penis`, `vagina`,
+`pornografi`, `hångla`) on frequency — plain words, not slang, so left; the owner may want a rule.

@@ -34,7 +34,7 @@ from swedish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-09T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
-         'b1': '2026-11-12T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'swedish'
@@ -161,6 +161,12 @@ GLOSS = {
     'lust': {'noun': ['desire (to do something)']},
     'villig': {'adj': ['willing']},
     'oskuld': {'noun': ['innocence', 'virgin']},
+    # B2 (2026-11-12)
+    'bekämpa': {'verb': ['to fight, to combat']},     # Wiktionary's is cut: "to fight and thus"
+    'uppfattning': {'noun': ['opinion, a standpoint']},
+    'puss': {'noun': ['peck (a quick kiss)']},
+    'läcker': {'adj': ['delicious']},
+    'ränta': {'noun': ['interest, interest rate']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -172,17 +178,19 @@ LEAD = {
     'middag': 'dinner',           # first listed is "midday"
     'krona': 'krona',             # first listed is "crown (headwear)"
     'skoja': 'to joke',           # first listed is "to travel around without a plan"
+    'jätte': 'giant',             # first listed is "jotun"
+    'faktor': 'factor (an integral part)',   # first listed is "printer"
     'räcka': 'to be sufficient, to suffice',   # det räcker "that's enough"; first is "to stretch out"
 }
 
 # NO ARTICLE for a language's name, which Swedish uses without one (jag talar svenska)
-NO_ART = {'svenska', 'engelska', 'franska'}
+NO_ART = {'svenska', 'engelska', 'franska', 'ryska', 'spanska', 'japanska', 'italienska', 'kinesiska'}
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {'pengar': 'p',
               # A2: the everyday gender where Wiktionary lists both (blod, finger, värme) or none
               'blod': 'n', 'finger': 'n', 'värme': 'c', 'chans': 'c', 'kläder': 'p', 'glasögon': 'p',
-              'kram': 'c', 'likhet': 'c'}
+              'kram': 'c', 'likhet': 'c', 'kontanter': 'p', 'stålar': 'p', 'underkläder': 'p'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), ('en', 'adv'),
@@ -195,7 +203,10 @@ DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), 
             ('gömma', 'noun'), ('blåsa', 'noun'),
             # B1
             ('bråka', 'noun'), ('bak', 'noun'), ('apa', 'verb'), ('japp', 'verb'), ('app', 'intj'),
-            ('kram', 'adj'), ('ström', 'adj')}
+            ('kram', 'adj'), ('ström', 'adj'),
+            # B2
+            ('grotta', 'verb'), ('icke', 'noun'), ('godmorgon', 'noun'), ('upptäckt', 'adj'),
+            ('inflytande', 'adj'), ('detektiv', 'adj'), ('snurra', 'noun')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(
