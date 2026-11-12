@@ -338,7 +338,10 @@ def block(head, rows):
 
 def table_html(e, word, roman):
     tb = e['table']
-    if not tb:
+    # A MULTI-WORD VERB (মনে করা, অনুভব করা) has no table: kaikki's is garbled to one
+    # "habitual past" row (তুই করতি, তুই প্রমাণকরতিস), and the verb's whole table is on its
+    # own card (করা, A1).  Found on reading B1; A2's ten such cards lost the same row.
+    if not tb or ' ' in word:
         return ''
     if e['pos'] == 'verb':
         blocks = [block('key forms', [
@@ -392,7 +395,7 @@ def build(rows, lex, exs):
         word = r['word']
         roman = r.get('roman') or main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Bengali': f'<div class="uc-word">{E(word)}</div>',
             'Roman': E(roman),
             'Word': word,
@@ -401,7 +404,7 @@ def build(rows, lex, exs):
             'Table': table_html(main, word, main['roman']),
             'Examples': examples_html(ex, ' ' in word),
         }})
-        entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
+        entries.append({'word': word, 'pos': main['pos'], 'source': r['source'], 'sub': r.get('sub', ''),
                         'examples': len(ex), 'roman': bool(roman)})
     return cards, entries
 
@@ -418,20 +421,21 @@ def desc(entries, n):
     verbs = sum(1 for e in entries if e['pos'] == 'verb')
     SC = SCOPE[LEVEL]
     EX_NOTE = ('Every word carries three real example sentences' if ex3 == n else
-               f'Real example sentences come with {n - ex0} of the {n} words, three apiece for '
+               f'Real example sentences come with {n - ex0:,} of the {n:,} words, three apiece for '
                f'{ex3} of them')
     return (
         "Both study directions in one deck: Bengali → English (see the Bengali, recall the meaning) "
         "and English → Bengali (see an English meaning, recall the Bengali). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n:,} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
+        SC.get('note', '') +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for learners of Bengali, so this deck is not any examination's vocabulary and does not "
-        f"claim to be. It is assembled from two things that can be stated. {from_inv} of the {n} "
+        f"claim to be. It is assembled from two things that can be stated. {from_inv} of the {n:,} "
         f"come from a vocabulary written for the level's scope — {SC['topics']} — and the other "
         f"{n - from_inv} are the commonest remaining words of everyday Bengali, taken from a "
         "frequency list built from film and television subtitles and counted by the WHOLE word, "
@@ -458,6 +462,37 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    """The phrases deck's description: no CEFR band, the three subdecks, and what was left out."""
+    by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+    ex = sum(1 for e in entries if e['examples'])
+    return (
+        f"{n} Bengali set phrases, idioms and proverbs, in three subdecks: {by['Phrases']} everyday "
+        f"phrases, {by['Idioms']} idioms and {by['Proverbs']} proverbs. Both study directions come as "
+        "two cards of one expression — Bengali → English (see the Bengali, recall the meaning) and "
+        "English → Bengali (see an English meaning, recall the Bengali) — each with a schedule of its "
+        "own. This is a companion to the five level decks, Bengali A1 to C1, and not one of them: a "
+        "level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the levels. The Phrases subdeck holds greetings and wishes of both "
+        "communities (শুভ সকাল, ঈদ মোবারক, শুভ বিজয়া), the phrasebook sentences a learner needs whole "
+        "(আপনি কেমন আছেন, আমি বুঝি না, আমার সাহায্য লাগবে), with তুই, তুমি and আপনি where the "
+        "dictionary gives them, and the set everyday expressions (কিছু না, বার বার, দেখতে পাওয়া); "
+        "the Idioms are expressions whose meaning is not their words' (ঘোড়ার ডিম, 'a horse's egg', "
+        "means nothing at all); the Proverbs are complete sayings. WHERE THESE COME FROM: every "
+        "expression of English Wiktionary's Bengali that no level teaches was read, and these were "
+        "chosen by hand; compound nouns (bird and plant names, 'laptop computer'), second spellings, "
+        "personal sentences about one's faith or nationality, partisan slogans, religious formulas "
+        "in Arabic, and vulgarities were left out. The dictionary's Bengali is small, so this deck is "
+        "too. Within each subdeck the commonest expressions come first, by a frequency list built "
+        "from film and television subtitles. Every expression is printed in the Bengali script with "
+        "Wiktionary's romanisation beneath it. "
+        + (f"Real example sentences come with {ex} of the {n} expressions. " if ex else "")
+        + "Sources. Meanings and romanisation: English Wiktionary, via the kaikki.org extraction "
+        "(CC BY-SA 4.0). Frequency: a word list built from OpenSubtitles (hermitdave/FrequencyWords, "
+        "CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -470,9 +505,15 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['bengali', 'bangla', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': (f'{n:,} words · both directions, as two cards per word' if LEVEL != 'phr' else
+                     f'{n} expressions · ' + ', '.join(
+                         f"{sum(1 for e in entries if e['sub'] == k)} {w}"
+                         for k, w in (('Phrases', 'everyday'), ('Idioms', 'idioms'),
+                                      ('Proverbs', 'proverbs'))) + ' · both directions'),
+        'desc': desc(entries, n) if LEVEL != 'phr' else desc_phr(entries, n),
+        'author': '', 'language': 'en', 'color': COLOR,
+        'tags': (['bengali', 'bangla', 'vocabulary', LEVEL, NAMES[LEVEL].lower()] if LEVEL != 'phr'
+                 else ['bengali', 'bangla', 'phrases', 'idioms', 'proverbs']),
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Bengali vocabulary', 'speechLang': 'bn-IN',

@@ -19,7 +19,9 @@ sentence is attached to one of them only if the token carries vowels that agree
 with that word's own vowelled forms; a bare token is left to neither.  A word
 that loses every sentence to this has none, which is better than a wrong one.
 Surfaces shared with a word OUTSIDE the deck cannot be seen and are not caught;
-reading the deck is the check for those.
+reading the deck is the check for those.  From A2 the LOWER LEVELS' words count as
+words of the deck here (they are matched, never given sentences), so A2's آخَر
+"other" takes a bare `آخر` only if A1's آخِر "last" does not share it.
 
 WHICH THREE.  3–12 tokens; shortest first, then by Tatoeba id so a re-run is
 identical; one sentence per Arabic text, none sharing an English text, none
@@ -30,7 +32,7 @@ import argparse, bz2, json, os, sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import ar
+import ar, inventory
 PREFIXES = ar.PREFIXES
 
 MIN_W, MAX_W, PER = 3, 12, 3
@@ -61,6 +63,125 @@ REFUSE = {
 # Sentences refused everywhere: political or violent, or a garbled pairing.
 REFUSE_ANY = ["إسرائيل فوق القانون", "هَاجَمَ اْلإرْهَابِيُّونَ", "علاقات جنسيّة", "رد ديما", "صفّ كليتيّ"]
 
+# ---- found reading the A2 deck (Nov 2026); applied from A2 up, so the shipped A1 deck is not re-dealt ----
+# More words with a common homograph the deck cannot see: `قدم` "came, gave", `حيّا` "greeted, alive",
+# `أعد` "repeat", `بني` "my son, built", `سلطة` "power", `ضعف` "weakness", `طرد` "expelled", `فرق` "teams".
+VOWELLED_ONLY_A2 = {"قَدَم", "حَيّ", "أَعَدَّ", "بُنِّيّ", "سَلَطَة", "ضِعْف", "طَرْد", "فَرْق"}
+# Arabic substrings a word's sentence may not contain: the matched token is another word.
+REFUSE_A2 = {
+    "دَعَا": ["دعينا", "دعنا", "دعني", "دعوني", "دعيني", "دعه", "دعها", "دعونا"],   # دَعْ "let", of وَدَعَ
+    "قَادِم": ["القدوم"], "صَدَّقَ": ["الصدق"], "سَابِق": ["السباق"], "بَنَى": ["تبنوا", "تبنى", "تبني"],
+    "وَظِيفَة": ["وظف"], "دِين": ["بدين"], "بَرِيد": ["برد"], "عَامِل": ["العملة"],
+    "جَزِيرَة": ["جزائر"], "أَعَدَّ": ["أعِد"], "عَرَضَ": ["تعرض", "عارض"], "قِدْر": ["بقدر"], "عَدَّ": ["عُد"], "سَلَّمَ": ["مسلم"], "شَبَكَة": ["الشباك"],
+    "كَرِيم": ["الكريمة"], "دَقِيق": ["دقائق"], "حَرْف": ["حرفي"], "دُبّ": ["دبي"],
+    "سَاكِن": ["ساكنا", "ساكناً"], "حِزَام": ["حزم"], "عَرُوس": ["العرس"],
+    # NO SENTENCE AT ALL, every candidate being the homograph: بُنِّيّ "brown" (`بُني` "was built" carries
+    # the same marks), سَلَطَة "salad" (`السّلطات` "the authorities", the sun-letter shadda agreeing),
+    # خَاصَّةً (`خاصّة` is A1's خَاصّ), حَيّ "district" (`حيّا` "alive", "greeted")
+    "بُنِّيّ": ["بن"], "سَلَطَة": ["سلط"], "خَاصَّةً": ["خاص"], "حَيّ": ["حي"],
+}
+# English substrings, for the same fault where the Arabic is easier to name by its translation.
+REFUSE_EN_A2 = {
+    "ثَانِيَة": ["second chance", "again"], "دَرَجَة": ["stairs"], "قِدْر": ["God forbid", "as much as", "fate", "according to", "as neat", "Destiny", "great deal", "destination", "opportunity", "easy"],
+    "رُوح": ["Taro"], "عَدَّ": ["back", "home", "Go ", "go ", "Come", "come"], "تَقَدَّمَ": ["serve food", "lecture"], "كُلِّيَّة": ["recovery", "kidney"],
+    "كَرِيم": ["sunscreen", "cream"], "رِيف": ["The Rif"], "سَابِق": ["former Muslim"],
+    "خِدْمَة": ["served two terms"], "دِين": ["Islam"], "حَقّ": ["Islam"], "جَمَال": ["Jamal"], "سَلِيم": ["Salima"], "مَخْرَج": ["director"],
+}
+# Refused everywhere from A2 up: drugs, suicide, violence, a political or a religious claim, vulgarity.
+REFUSE_ANY_EN_A2 = ["drug", "suicide", "explosive", "carnage", "Palestinian", "Kaddafi", "Christmas", "opiate",
+                    "pills", "crap", "oldest profession", "whip", "slapped", "sexual", "opium", "unite!",
+                    "pussy", "fuck", "shit", "bitch", "dick"]
+
+# ---- found reading the B1 deck (Nov 2026); applied from B1 up, so A1 and A2 are not re-dealt ----
+REFUSE_B1 = {
+    "حِينَ": ["الحين"], "أَصَابَ": ["مصيب"], "أَجَّلَ": ["لأجل"], "وَفِيّ": ["الوفيات"], "عَرَّفَ": ["التعرف"],
+    "حَذَّرَ": ["حذرا"], "مَالِك": ["ملاك"], "مَثَّلَ": ["مثلنا"], "قَبَّلَ": ["مقبل"], "شَاهِد": ["شهد", "شاهدة"],
+    "حَمَّلَ": ["حملي"], "رِيَاضِيّ": ["رياضيات"], "لَيْلِيّ": ["ليلي"], "دِيك": ["والديك", "لديك"],
+    "حَكَم": ["حكمين"], "رَبَّى": ["المربى", "رب "], "سَرَطَان": ["السلطعون"], "مَزْرَعَة": ["المزارع"],
+    "آلِيّ": ["الي"], "طَرَدَ": ["طارد"], "أَصَرَّ": ["مصر"], "سَئِمَ": ["سام"], "رَكَّبَ": ["الركبي"],
+    "ثَرْوَة": ["الثراء"], "مُطَلَّق": ["مطلق"], "ذُرَة": ["الذرات"], "خَزَّنَ": ["المخزن"], "تُرَاب": ["التربة"],
+    "لَبَن": ["كلبنا", "لبنان"], "عَدَس": ["عدسات"], "لَوْز": ["بلوز"], "وَزَنَ": ["الزنا"], "طَبْع": ["الطبعي"],
+    "جَذْر": ["جذري"],
+    "لَمَّا": ["لما"],   # every candidate is لِمَا "for what" or dialect "why": no sentence
+}
+REFUSE_EN_B1 = {
+    "أَيُّهَا": ["Which", "fool", "Dirty", "coward"], "حِينَ": ["eyes"], "فُطْر": ["natural born", "Ramadan"], "أَطْلَقَ": ["shot", "fired"], "لَمَّا": ["Why", "why", "what happened"],
+    "مَلِك": ["belongs", "owns"], "تَحَمَّلَ": ["carry", "easy"], "شَخْصِيَّة": ["diary"], "قَاعِدَة": ["baseball"],
+    "مُسَاعِد": ["helpless"], "مُهِمَّة": ["important", "necessary", "matter"], "أَثَّرَ": ["high"], "قَطُّ": ["cat"],
+    "مَحْكَمَة": ["airtight"], "نَفَّذَ": ["short of", "rock bottom", "run out", "ran out", "out of"], "تَرَاجَعَ": ["revised"],
+    "كَبُرَ": ["exaggerating"], "تُهْمَة": ["matter", "devoured"], "غَاز": ["school"], "هَدَّدَ": ["life"],
+    "شَرْعِيّ": ["forensic", "affair"], "سِيَاسِيّ": ["lie all"], "دَوْرَة": ["period", "cycle"],
+    "جَدْوَل": ["creek"], "مُنْتَج": ["producer"], "جَسَدِيّ": ["temperature"], "حَسَّاس": ["Wokeism"],
+    "سِبَاق": ["sports car", "Hatoyama"], "مَصْلَحَة": ["firefighters"], "خَيْط": ["clinging"],
+    "يَوْمِيّ": ["My day", "Yumi"], "إِقَامَة": ["meeting", "charges"], "وِعَاء": ["wisdom"], "مَعْدِن": ["bottled"],
+    "تَوَصَّلَ": ["convince", "picture"], "صِفَة": ["masculine"], "مُبَاشِر": ["masculine"],
+    "مُصَوِّر": ["comic", "vlogging"], "إِعْلَام": ["noticed", "club"], "مِنْحَة": ["granted"],
+    "تَسْلِيم": ["extradited"], "ثَبَتَ": ["froze", "pitched"], "تِنِس": ["forget"], "صِينِيَّة": ["Chinese"],
+    "عُشّ": ["Live peacefully"], "مَوْرِد": ["HR"], "مُسْتَخْدِم": ["used car"], "رَقْمِيّ": ["number"],
+    "قُطْب": ["frowned"], "تُرَاب": ["laid to rest"], "مُرَاسِل": ["writing to", "write to"],
+    "نَسَخَ": ["sold out"], "عَنِيد": ["arrogant"], "بِيئَة": ["grew up"], "عَرَق": ["licorice"],
+    "حَمْلَة": ["manhunt", "China is leading"], "جَزَر": ["islands"], "قُطْن": ["lives"],
+    "فُرْشَاة": ["fork"], "جَوْز": ["coconut"], "قِسْط": ["sleep", "break"], "خَيْمَة": ["camped"],
+    "صَارِم": ["Homer"], "رِيشَة": ["paint"], "مِطْرَقَة": ["sickle", "millstone"],
+    "إِيصَال": ["clinic", "take Skura"], "عُود": ["lit matches"], "لَهْجَة": ["Kabyle", "All languages"],
+    "سَطْر": ["Period"], "ظُلْم": ["Like father"], "لَوْز": ["sweatshirt"],
+}
+REFUSE_ANY_EN_B1 = ["Taliban", "Zelenskyy", "Putin", "Hitler", "Israel", "West Bank", "Islamophob", "Bouteflika", "terrorist",
+                    "fascist", "bastard", "shahada", "assaulted", "Uyghur", "Morocco", "Gay marriage", "Islam",
+                    "sentenced to death", "condemned him to death", "Yidir", "your ass", "Christianity",
+                    "evangelical", "sexy", "guillotined", "communism", "Muslims should", "biblical", "Ukraine"]
+
+# ---- found reading the B2 deck (Nov 2026); applied from B2 up, so A1–B1 are not re-dealt ----
+REFUSE_B2 = {
+    "قَائِد": ["قواد"], "نَجَا": ["كنجي"], "جِين": ["جيني", "الجين"], "أَبْدَى": ["الأبد", "للأبد"],
+    "أَدَانَ": ["مدين", "تدين"], "كُلِّيّ": ["كلي"], "سَعَى": ["لسع"], "أَقَرَّ": ["نقر", "مقر"], "لَامَ": ["كلم"],
+    "شَكَّلَ": ["مشكل"], "أَيَّدَ": ["بايدن"], "وَقَى": ["تقيا"], "تَآكَلَ": ["تاكل", "تأكل"], "مَيَّزَ": ["مميز"],
+    "خَرَقَ": ["خارق"], "مَأْسَاة": ["ماس"], "وَقَّعَ": ["أوقع"], "أَفَادَ": ["نفد"], "شِعْرِيّ": ["شعري"],
+    "نَقْد": ["نقدا"], "خَلَفَ": ["الخلف", "أخلف"], "سَادَ": ["يسد", "كساد"], "صَاغَ": ["صغ"], "حِجَاب": ["حجب"],
+    "أَشَادَ": ["نشيد"], "حَرَمَ": ["الحرم"], "يَسَّرَ": ["الأيسر"], "جَوْهَر": ["الجواهر"], "مُؤْمِن": ["المؤمن"],
+    "فَرَضَ": ["المفروض"], "تَاجَرَ": ["المتاجر"], "مُلْحُوظ": ["ملحوظة"], "بِيُولُوجِيّ": ["البيولوجيا"],
+    "إِيمَان": ["الإيمان"],
+}
+REFUSE_EN_B2 = {
+    "تَضَمَّنَ": ["guarantees"], "هَاوٍ": ["YouTuber", "rock bottom"], "مُسَكِّن": ["moving", "place"],
+    "سَدّ": ["blocked", "waste"], "عُزْلَة": ["isolated himself"], "عَقِبَ": ["ran after", "Seeing"],
+    "عَمُود": ["intentionally"], "عَائِد": ["coming home", "drove back", "came"], "تَصَوُّر": ["photos"],
+    "اِسْتِعَارَة": ["borrow"], "عَارِض": ["against"], "مَدَار": ["throughout", "worked"], "عَيِّنَة": ["dipped"],
+    "حَدّ": ["upset"], "أَجْرَى": ["run"], "عَمَلِيّ": ["job", "work"], "سِرِّيّ": ["stole"],
+    "أَقْدَمَ": ["old", "present"], "بِنَاءً": ["construction", "build", "constructive"], "تَدَخَّلَ": ["enter"],
+    "مَالِيّ": ["money"], "عَار": ["picture"], "صَدَّرَ": ["comes out"], "أَوْلَى": ["Charity"],
+    "فِعْلِيّ": ["body"], "جُرْعَة": ["injected"], "تَحَدَّى": ["borders"], "مُقَدَّس": ["Ramadan"],
+    "أَحْدَثَ": ["latest", "noise"], "نَظَرِيّ": ["eyes"], "بَطَلَة": ["eyes"], "تَغْطِيَة": ["cover"],
+    "مُنَظَّم": ["pacemaker"], "حَظَرَ": ["blocked"], "تَحْرِير": ["released"], "ظَاهِرَة": ["appearances"],
+    "مَحْمِيَّة": ["protector"], "مَكَانَة": ["religio"], "بَرَّأَ": ["only ones"], "غَزَا": ["swamping"],
+    "بَيْدَ": ["Democracy"], "وَاجِهَة": ["resurfaced"], "بَاحِث": ["in search"], "فَسَاد": ["refrigerator"],
+    "أَلْزَمَ": ["stay in bed", "whatever it"], "مُسْتَقِيم": ["straight pa"],
+}
+REFUSE_ANY_EN_B2 = ["Gaza", "Palestin", "Biden", "Bush", "Iraq", "Afghanistan", "Western Sahara", "Allah", "racist",
+                    "raped", "pimp", "overdose", "no gods", "Tebboune", "meth", "abortion", "killed for", "Haya'",
+                    "believer", "Bible", "holy book", "united against", "Zionis", "Haftar"]
+
+# ---- found reading the C1 deck (Nov 2026); applied from C1 up, so A1–B2 are not re-dealt ----
+REFUSE_C1 = {
+    "وَاسِطَة": ["بواسطة"], "عَدْل": ["عدول"], "اِسْتَقَالَ": ["استقلت"], "جَسَّدَ": ["جسد"], "فَاتِن": ["فاتنا"],
+    "سِيرَة": ["سيرا", "سيرت"], "يَسِير": ["يسير"], "وُدِّيّ": ["بودي"], "بَالٍ": ["البال", "بالون"],
+    "قَبِيلَة": ["القبائل"], "دَوَّنَ": ["الدونت"], "ظَالِم": ["ظلمة"], "خَاطِر": ["خاطر "], "نَحْوِيّ": ["نحوي"],
+    "قَاضَى": ["القاض"], "دَسَّ": ["داس"], "فَنِيَ": ["الفناء"], "نَوَاة": ["نوى"], "سِمَة": ["بسمة"],
+    "شَيَّدَ": ["نشيد"], "أَبَاحَ": ["نبح"], "مُسَلَّمَة": ["مسلمة"], "اِسْتَقْرَأَ": ["مستقر"], "وَقْف": ["وقفين"],
+}
+REFUSE_EN_C1 = {
+    "قَضَاء": ["spend", "Spending"], "رَغْبَة": ["resentful"], "وَشَى": ["Is this all"], "وَحْشِيّ": ["murder"],
+    "بُغْض": ["Whether", "take part", "Aside"], "أَرْضِيّ": ["land", "governments"], "أَسِير": ["marching"],
+    "لَمَّحَ": ["spotted", "saw"], "دَمَوِيّ": ["beat"], "رُسُوم": ["anime", "cartoon"], "تَشْكِيل": ["dial"],
+    "تَرَفَّعَ": ["raise"], "خَلَّدَ": ["sleep", "bed"], "شَرْعِيَّة": ["forensic", "affair"],
+    "نُخْبَة": ["political elite"], "تَحَرُّش": ["father"], "خَاطِر": ["risked"], "شُبْهَة": ["Country"],
+    "زَعَمَ": ["killed"], "حَسَمَ": ["scratch"], "مُدَوَّنَة": ["vlogging", "time table"], "تَقَدُّمِيّ": ["fear"],
+    "إِثْم": ["turn away"], "نَدَبَ": ["scar"], "كَتُوم": ["pillow", "French"], "مَهْر": ["colt"],
+    "وَاسَى": ["confronted"], "حِمَّص": ["Homs"], "نَسَب": ["Apostles", "Who amongst"], "ذَرَّة": ["Abu Dhar"],
+    "عُمْرَان": ["Amram"], "شَبْعَان": ["angry"],
+}
+REFUSE_ANY_EN_C1 = ["Polisario", "Russia", "Muslims don't", "Observant Muslims", "Sahrawi", "smothered"]
+
 
 def read_tsv(name):
     with bz2.open(os.path.join(ar.CACHE, name), "rt", encoding="utf-8") as fh:
@@ -78,7 +199,27 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--level", default="a1")
     a = ap.parse_args()
+    strict = a.level != "a1"
+    b1 = inventory.LEVELS.index(a.level) >= 2
+    b2 = inventory.LEVELS.index(a.level) >= 3
+    c1 = inventory.LEVELS.index(a.level) >= 4
+    vowelled_only = VOWELLED_ONLY | (VOWELLED_ONLY_A2 if strict else set())
+    refuse = dict(REFUSE)
+    refuse_en = dict(REFUSE_EN_A2) if strict else {}
+    refuse_any_en = REFUSE_ANY_EN_A2 + (REFUSE_ANY_EN_B1 if b1 else []) + (REFUSE_ANY_EN_B2 if b2 else []) + (REFUSE_ANY_EN_C1 if c1 else [])
+    for on, extra, into in ((strict, REFUSE_A2, refuse), (b1, REFUSE_B1, refuse), (b1, REFUSE_EN_B1, refuse_en),
+                            (b2, REFUSE_B2, refuse), (b2, REFUSE_EN_B2, refuse_en),
+                            (c1, REFUSE_C1, refuse), (c1, REFUSE_EN_C1, refuse_en)):
+        if on:
+            for k, v in extra.items():
+                into[k] = into.get(k, []) + v
     words = json.load(open(os.path.join(ar.CACHE, "wordlist-%s.json" % a.level), encoding="utf-8"))["words"]
+    nw = len(words)
+    for lv in inventory.LEVELS[:inventory.LEVELS.index(a.level)]:
+        p_ = os.path.join(ar.CACHE, "wordlist-%s.json" % lv)
+        if not os.path.exists(p_):
+            raise SystemExit("build %s first: its words are this level's competitors" % lv)
+        words = words + json.load(open(p_, encoding="utf-8"))["words"]
 
     ara = {r[0]: r[2] for r in read_tsv("ara_sentences.tsv.bz2") if len(r) >= 3}
     links = defaultdict(list)
@@ -100,6 +241,8 @@ def main():
         if r > 3 or r < 1 / 3:
             continue
         if any(r_ in text for r_ in REFUSE_ANY):
+            continue
+        if strict and any(r_ in en[0] for r_ in refuse_any_en):
             continue
         pool.append((len(toks), int(sid), toks, [ar.fold(t) for t in toks], text, en[0], set()))
     pool.sort(key=lambda x: (x[0], x[1]))
@@ -135,9 +278,15 @@ def main():
             for p in ([""] if clitic else PREFIXES):
                 if p.endswith("ال") and f.startswith("ال"):
                     continue
+                # an adverb takes no article: `الخاصّة` is the feminine of A1's خَاصّ, not خَاصَّةً (A2 up)
+                if strict and e["pos"] == "adv" and ("ال" in p or p.endswith("لل")):
+                    continue
                 # a prefix on a form of one or two letters finds other words: ب + ضع is بضع "a few",
                 # ك + فا is كفا, ك + لنا is كلنا
                 if p and len(f) < 3:
+                    continue
+                # from B1 a surface the count refuses for the word is no sentence's either (ar.NOT_FORMS)
+                if b1 and p + f in ar.NOT_FORMS.get(w["head"], ()):
                     continue
                 s.add(p + f)
                 b.add(p + ar.bare(v))
@@ -192,7 +341,7 @@ def main():
 
     out = {}
     none = 0
-    for i, w in enumerate(words):
+    for i, w in enumerate(words[:nw]):
         if " " in w["head"]:
             parts = [ar.fold(x) for x in ar.tokens(w["head"])]
             cand = sorted(set(index.get(parts[0], [])))
@@ -220,7 +369,7 @@ def main():
                                 c in v for v in full[i] for c in "\u064B\u064C\u064D") and not any(
                                 c in w_["head"] for w_ in [words[i]] for c in "\u064B\u064C\u064D"):
                             continue
-                        if words[i]["head"] in VOWELLED_ONLY and not ar.MARKS.search(tok[:-1]):
+                        if words[i]["head"] in vowelled_only and not ar.MARKS.search(tok[:-1]):
                             continue
                         # a VOWELLED token must agree with the word whoever else shares its surface:
                         # `مدرّسة` is a teacher, never مَدْرَسَة "school"
@@ -228,12 +377,20 @@ def main():
                             continue
                         if len(owners[f]) > 1 and not ar.MARKS.search(tok[:-1]):
                             continue
+                        # A VOWELLED TOKEN THAT AGREES WITH TWO WORDS SAYS NEITHER (A2 up): `مرّتين` carries
+                        # only a shadda, which A1's مَرَّة "time" and مُرّ "bitter" both have; `عامًا` is A1's
+                        # عَام "year" as well as عَامّ "general"
+                        if strict and any(j != i and agrees(j, tok) for j in owners[f]):
+                            continue
                         return tok
                 return None
         got, seen_ar, seen_en, seen_open = [], set(), set(), set()
         for j in cand:
             p = pool[j]
-            if any(r_ in p[4] for r_ in REFUSE.get(w["head"], ())):
+            # from A2 a refused string is also looked for in the sentence without its marks: `بن` in `بُني`
+            if any(r_ in p[4] or (strict and r_ in ar.bare(p[4])) for r_ in refuse.get(w["head"], ())):
+                continue
+            if any(r_ in p[5] for r_ in refuse_en.get(w["head"], ())):
                 continue
             h = hit_of(p)
             if not h or p[4] in seen_ar or p[5] in seen_en or tuple(p[3][:2]) in seen_open:
@@ -248,7 +405,7 @@ def main():
     json.dump(out, open(os.path.join(ar.CACHE, "examples-%s.json" % a.level), "w", encoding="utf-8"),
               ensure_ascii=False, indent=0)
     print("examples-%s.json: %d of %d words have a sentence (%d sentences in the pool)" % (
-        a.level, len(words) - none, len(words), len(pool)))
+        a.level, nw - none, nw, len(pool)))
 
 
 if __name__ == "__main__":

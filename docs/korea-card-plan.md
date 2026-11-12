@@ -874,6 +874,34 @@ tablets, with Junkyu Kim on Baekje's expansion, Dongmin Lim on the Ye family epi
 Ueda on Koguryŏ diaspora genealogies. **The journal is now carrying the collection**, and the two
 routes into it are DOAJ by subject and `api.crossref.org/journals/1598-2041/works`.
 
+## What the eleventh to twentieth tens found (Nov 2026)
+
+`ko-101`–`ko-200` were written in one session as ten parallel batches of ten, finishing `ko-tk` and filling
+`ko-goguryeo`, `ko-baekje`, `ko-silla` and `ko-gaya`, with 92 glossary terms. Four findings.
+
+**THE PRIMARY TEXTS ARE OPEN, ON WIKISOURCE.** `db.history.go.kr` still answers 400, but the literary Chinese
+of the *Samguk sagi*, the *Samguk yusa*, the Chinese dynastic histories and the *Nihon shoki* is on
+`zh.wikisource.org` (and the *Samguk sagi* on `ko.wikisource.org`), and Aston's *Nihongi* is on archive.org.
+**The validator has no chip for Classical Chinese**, so these are tagged `[in Chinese]`, as earlier cards were.
+The Encyclopedia of Korean Culture (`encykorea.aks.ac.kr`, searched through `/autocomplete?query=`) answers
+with signed articles; its authors' names are Revised Romanization of the Hangul, not a form they chose.
+
+**SCHOLARSPACE IS NOW BEHIND A BROWSER CHALLENGE.** Every `hdl.handle.net/10125/…` link (*Asian
+Perspectives*) returns a 200 "Checking your browser" page, so no new citation was taken from it. **The
+IJKH back run now carries the collection alone**; its tables of contents are at `/current/?vol=N&no=M`.
+
+**FIVE PLANNED SUBJECTS WERE ALREADY ANSWERS ELSEWHERE, AND EACH CARD TOOK A NARROWER TERM.** `Goguryeo–Sui
+War` is `cnh-351`, `Hakusukinoe` is `jp-081` (the Korean card answers *Battle of Baekgang*), `toraijin` is
+`jp-055`, `retainer sacrifice` is `eg-064`, and the Gwansan battle was claimed by one batch and given up by
+the other. **Two answers repeat across collections by design** — `ko-136 Baekje` beside `jp-054`, and
+`ko-104 corvée` beside `cnh-717` — because each is the deck's own subject.
+
+**LIVES WITH TRADITIONAL AGES.** The *Samguk sagi*'s reign counts run a year off the Gwanggaeto Stele's, Taejo
+of Goguryeo is given 119 years, and the epitaph of King Muryeong counts his age the Korean way; the person
+template computes Western ages from the dates, so where the two disagree the card's text names the source's
+figure and the date line keeps the computed one. **The Atlas `places` ids were not derived for these cards**:
+`migrate-places.js` needs `--fetch` for new Korean toponyms, and that run regenerates unrelated global files.
+
 ## Living beside the other collections
 
 **Six card titles are shared with collections already planned, and every one of them is deliberate.**
@@ -1035,118 +1063,118 @@ where its findings go.
     ko-098  Aristocratic society in the Three Kingdoms — genealogy
     ko-099  Kingship and the royal tomb — sumyoje
     ko-100  Administration and the written record — the wooden tablet
-    ko-101  The introduction of Buddhism to Korea
-    ko-102  The introduction of Confucian learning to Korea
-    ko-103  Writing and Chinese characters in Korea
-    ko-104  The Three Kingdoms economy
-    ko-105  Why there were three kingdoms
+    ko-101  The introduction of Buddhism to Korea — Sundo
+    ko-102  The introduction of Confucian learning to Korea — the Five Classics
+    ko-103  Writing and Chinese characters in Korea — the Imsin Seogiseok
+    ko-104  The Three Kingdoms economy — corvée
+    ko-105  Why there were three kingdoms — the Sobaek Mountains
 
 ### Goguryeo — `ko-goguryeo`
 
     ko-106  Goguryeo
-    ko-107  The founding of Goguryeo
+    ko-107  The founding of Goguryeo — Jolbon
     ko-108  Jumong and the Goguryeo foundation myth
-    ko-109  Early Goguryeo expansion
-    ko-110  Goguryeo and the Han commanderies
+    ko-109  Early Goguryeo expansion — Taejo of Goguryeo
+    ko-110  Goguryeo and the Han commanderies — the Goguryeo–Wei War
     ko-111  King Gwanggaeto
     ko-112  The Gwanggaeto Stele
     ko-113  King Jangsu
-    ko-114  The move to Pyongyang
+    ko-114  Anhak Palace and the move to Pyongyang
     ko-115  Goguryeo at its height
-    ko-116  Goguryeo's northern frontier
-    ko-117  Goguryeo government
-    ko-118  Goguryeo society
-    ko-119  Goguryeo's military
+    ko-116  Goguryeo's northern frontier — the Mohe
+    ko-117  Goguryeo government — the daedaero
+    ko-118  Goguryeo society — the gyeongdang
+    ko-119  Goguryeo's military — the cataphract
     ko-120  Goguryeo fortresses
     ko-121  Goguryeo tomb murals
     ko-122  What the tomb murals show
-    ko-123  Goguryeo Buddhism
-    ko-124  Goguryeo and the Sui invasions
+    ko-123  King Sosurim and the coming of Buddhism
+    ko-124  King Yeongyang and the Sui invasions
     ko-125  The Battle of Salsu
     ko-126  Eulji Mundeok
     ko-127  The Tang invasions of Goguryeo
     ko-128  Yeon Gaesomun
     ko-129  The siege of Ansi Fortress
-    ko-130  The fall of Goguryeo
-    ko-131  Goguryeo refugees and successor movements
-    ko-132  Goguryeo's legacy in Korea
+    ko-130  The siege of Pyongyang and the fall of Goguryeo
+    ko-131  Anseung and the Goguryeo restoration movement
+    ko-132  The Tomb of King Tongmyong and Goguryeo's legacy
     ko-133  The Northeast Project and the Goguryeo dispute
-    ko-134  Goguryeo archaeology today
-    ko-135  Goguryeo's place in Korean identity
+    ko-134  Achasan and Goguryeo's forts on the Han
+    ko-135  The Northern and Southern States period and Goguryeo in Korean identity
 
 ### Baekje — `ko-baekje`
 
     ko-136  Baekje
-    ko-137  The founding of Baekje
+    ko-137  Wiryeseong and the founding of Baekje
     ko-138  Onjo and the Baekje foundation myth
-    ko-139  Hanseong Baekje
-    ko-140  Baekje's fourth-century expansion
+    ko-139  Pungnaptoseong and Hanseong Baekje
+    ko-140  The Liaoxi claim and Baekje's fourth-century expansion
     ko-141  King Geunchogo
-    ko-142  Baekje and the Chinese southern dynasties
-    ko-143  Baekje's loss of the Han River
+    ko-142  Baekje and the Chinese southern dynasties — the Liang Zhigongtu
+    ko-143  King Gaero and the fall of Hanseong
     ko-144  The move to Ungjin
     ko-145  The move to Sabi
     ko-146  King Muryeong
     ko-147  The Tomb of King Muryeong
-    ko-148  Baekje government
-    ko-149  Baekje society
+    ko-148  Baekje government — the jwapyeong
+    ko-149  Baekje society — the Great Eight Families
     ko-150  Baekje Buddhism
-    ko-151  Baekje art
+    ko-151  The Seosan Buddha Triad
     ko-152  The Baekje Gilt-bronze Incense Burner
     ko-153  Baekje architecture
     ko-154  Baekje and Japan
     ko-155  Baekje's transmission of Buddhism to Japan
     ko-156  Wani and the transmission of writing to Japan
-    ko-157  Baekje's alliance politics
+    ko-157  Baekje's alliance politics — the Naje alliance
     ko-158  The fall of Baekje
-    ko-159  The Baekje restoration movement
+    ko-159  Boksin and the Baekje restoration movement
     ko-160  The Battle of Baekgang
 
 ### Silla — `ko-silla`
 
     ko-161  Silla
-    ko-162  The founding of Silla
+    ko-162  Jinhan and the founding of Silla
     ko-163  Bak Hyeokgeose and the Silla foundation myth
-    ko-164  Early Silla kingship
-    ko-165  The Silla royal houses
+    ko-164  Early Silla kingship: the maripgan
+    ko-165  Kim Al-ji and the Silla royal houses
     ko-166  The bone-rank system
     ko-167  King Beopheung
-    ko-168  The adoption of Buddhism in Silla
+    ko-168  Heungnyunsa and the adoption of Buddhism in Silla
     ko-169  Ichadon's martyrdom
     ko-170  King Jinheung
-    ko-171  Silla's expansion into the Han River basin
+    ko-171  Kim Muryeok and the Han River basin
     ko-172  The Jinheung stelae
     ko-173  The hwarang
-    ko-174  Silla government
-    ko-175  Silla society
+    ko-174  Silla government — the Hwabaek
+    ko-175  Silla society — the nobi
     ko-176  Queen Seondeok
     ko-177  Cheomseongdae
     ko-178  Silla gold crowns
-    ko-179  Silla tombs
-    ko-180  Silla Buddhism
+    ko-179  Silla tombs — Daereungwon
+    ko-180  Silla Buddhism — Wongwang
     ko-181  Hwangnyongsa
-    ko-182  Silla and the Tang alliance
+    ko-182  Queen Jindeok and the Tang alliance
     ko-183  Kim Chunchu
     ko-184  Kim Yusin
-    ko-185  Why Silla unified the peninsula
+    ko-185  The Battle of Hwangsanbeol and why Silla won
 
 ### Gaya — `ko-gaya`
 
     ko-186  Gaya
-    ko-187  The Gaya confederacy
+    ko-187  The Gaya confederacy — Ara Gaya
     ko-188  Geumgwan Gaya
     ko-189  Daegaya
-    ko-190  Gaya iron
-    ko-191  Gaya's trade networks
-    ko-192  Gaya pottery
+    ko-190  Gaya iron — Byeonhan
+    ko-191  Gaya's trade networks — the Nakdong River
+    ko-192  Gaya pottery — stoneware
     ko-193  Gaya tombs
-    ko-194  Gaya and Japan
+    ko-194  Gaya and Japan — Sue ware
     ko-195  The Mimana controversy
-    ko-196  Gaya's absorption by Silla
-    ko-197  Gaya in the sources
-    ko-198  Gaya archaeology
-    ko-199  Why Gaya did not become a kingdom
-    ko-200  Gaya's legacy
+    ko-196  Gaya's absorption by Silla — Guhyeong
+    ko-197  Gaya in the sources — the Garakguk-gi
+    ko-198  Gimhae and Gaya archaeology
+    ko-199  Why Gaya did not become a kingdom — confederation
+    ko-200  Gaya's legacy — the gayageum
 
 ### Religion, art and society — `ko-tk-culture`
 
