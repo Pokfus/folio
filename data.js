@@ -10515,7 +10515,8 @@ window.CARD_DATA = [
 {"id":"eg-378","num":"378","category":"Ancient Egypt","question":"Writing from Nubia, the general and High Priest <span class=\"blank\">_____</span> asked how Pharaoh could ever reach this land, and whose superior Pharaoh still was, as the New Kingdom ran out.","answer":"Piankh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Nubian campaign</span><span class=\"dt-v\">Year 10 of the Renaissance, c. 1072 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Piankh","tags":["person","warfare","politics","history","egypt","thebes","nubia","new kingdom"],"difficulty":5},
 {"id":"eg-379","num":"379","category":"Ancient Egypt","question":"Set problems about building a ramp and raising a colossus, the army scribe Amenemope is made a fool of in <span class=\"blank\">_____</span>, a Ramesside satirical letter copied in the schools.","answer":"Papyrus Anastasi I","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Composed</span><span class=\"dt-v\">c. 1279 – 1213 BCE</span><span class=\"dt-k\">Copied</span><span class=\"dt-v\">c. 1200 – 1194 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Papyrus Anastasi I","tags":["text","literature","history","egypt","new kingdom"],"difficulty":5},
 {"id":"eg-380","num":"380","category":"Ancient Egypt","question":"Warned by his cows that his elder brother waits behind the door with a knife, the young Bata flees in the <span class=\"blank\">_____</span>, a story copied for the future king Seti II.","answer":"Tale of Two Brothers","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Copied</span><span class=\"dt-v\">c. 1200 – 1194 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tale of Two Brothers","tags":["text","literature","religion","egypt","new kingdom"],"difficulty":4},
-{"id":"eg-312","num":"312","category":"Ancient Egypt","question":"From the window of his palace Akhenaten made <span class=\"blank\">_____</span> high priest of the Aten in the temple at Akhetaten, praising him as a servant who hearkened to the king's Teaching.","answer":"Meryre","answerDate":"<div class=\"dt\"><span class=\"dt-k\">High priest</span><span class=\"dt-v\">c. 1348 – 1336 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Meryre","tags":["person","religion","history","egypt","new kingdom","amarna"],"difficulty":5}
+{"id":"eg-312","num":"312","category":"Ancient Egypt","question":"From the window of his palace Akhenaten made <span class=\"blank\">_____</span> high priest of the Aten in the temple at Akhetaten, praising him as a servant who hearkened to the king's Teaching.","answer":"Meryre","answerDate":"<div class=\"dt\"><span class=\"dt-k\">High priest</span><span class=\"dt-v\">c. 1348 – 1336 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Meryre","tags":["person","religion","history","egypt","new kingdom","amarna"],"difficulty":5},
+{"id":"eg-374","num":"374","category":"Ancient Egypt","question":"Dated to Year 1 of the Repeating of Births, the <span class=\"blank\">_____</span> in Liverpool record thieves who traded stolen copper for spelt in a hungry Thebes.","answer":"Mayer Papyri","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Trials held</span><span class=\"dt-v\">c. 1080 BCE, Renaissance era</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mayer Papyri","tags":["text","history","law","economics","egypt","thebes","new kingdom"],"difficulty":5}
 ];
 
 window.COLLECTION_TREE = {
@@ -11860,7 +11861,7 @@ window.COLLECTION_TREE = {
     {
       "id": "egypt",
       "title": "Ancient Egypt",
-      "total": 389,
+      "total": 390,
       "placeholder": false,
       "children": [
         {
@@ -12335,7 +12336,8 @@ window.COLLECTION_TREE = {
                 "eg-377",
                 "eg-378",
                 "eg-379",
-                "eg-380"
+                "eg-380",
+                "eg-374"
               ]
             },
             {

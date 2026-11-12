@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-12T08:28Z",
+ "generated": "2026-11-12T08:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7699,
+  "ok": 7700,
   "redirect-broader": 750,
   "redirect-variant": 464,
   "section-redirect": 175,
@@ -83709,6 +83709,13 @@
    "answer": "Meryre",
    "title": "Meryre",
    "url": "https://en.wikipedia.org/wiki/Meryre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-374": {
+   "answer": "Mayer Papyri",
+   "title": "Mayer Papyri",
+   "url": "https://en.wikipedia.org/wiki/Mayer_Papyri",
    "via": "glossary",
    "status": "ok"
   }

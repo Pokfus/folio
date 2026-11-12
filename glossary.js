@@ -10661,7 +10661,8 @@ window.GLOSSARY = {
 "Piankh": "",
 "Papyrus_Anastasi_I": "",
 "Tale_of_Two_Brothers": "",
-"Meryre": ""
+"Meryre": "",
+"Mayer_Papyri": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15716,7 +15717,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Abbott_Papyrus": "c. 1110 BCE",
 "Herihor": "c. 1080–1074 BCE",
 "Story_of_Wenamun": "c. 1077 BCE",
-"Tale_of_Two_Brothers": "c. 1200–1194 BCE"
+"Tale_of_Two_Brothers": "c. 1200–1194 BCE",
+"Mayer_Papyri": "c. 1080 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22611,7 +22613,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Piankh": ["Paiankh","Payankh","Payonekh"],
 "Papyrus_Anastasi_I": ["Anastasi I","Pap. Anastasi I","Papyrus BM 10247"],
 "Tale_of_Two_Brothers": ["Tale of the Two Brothers","Story of the Two Brothers","Papyrus d'Orbiney","Papyrus D'Orbiney","Anpu and Bata"],
-"Meryre": ["Meryra","Merire","Meryre I"]
+"Meryre": ["Meryra","Merire","Meryre I"],
+"Mayer_Papyri": ["Papyrus Mayer A","Papyrus Mayer B","Mayer A","Mayer B","Mayer papyri"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33432,7 +33435,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Piankh": ["person","warfare","politics","egypt","thebes"],
 "Papyrus_Anastasi_I": ["text","literature","egypt","education"],
 "Tale_of_Two_Brothers": ["text","literature","religion","egypt"],
-"Meryre": ["person","religion","history","egypt"]
+"Meryre": ["person","religion","history","egypt"],
+"Mayer_Papyri": ["text","history","law","egypt","thebes"]
 });
 
 /* ============================================================================
