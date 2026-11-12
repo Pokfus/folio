@@ -111,6 +111,15 @@ ETYMS = {
     'بتی': ['2'],             # battī "lamp, light"; 1 is batī "word, speech"
     'شکر': ['3', '1'],        # śukr "thanks" AND śakar "sugar"; 2 is "bright"
     'مبنی': ['2'],            # mabnī "based (on)"; 1 is the rare noun mabnā
+    # B1 (2026-11-12)
+    'بت': ['3'],              # but "idol"; 1 is "shipworm", 2 "line"
+    'گل': ['4'],              # gul "flower"; 1 is gal "throat"
+    'مہر': ['6', '5', '3'],   # mohar "seal", mehar "kindness", mahr "dowry"; 1 is "chief"
+    'سرد': ['2'],             # sard "cold"; 1 is sarad "autumn"
+    'چھٹا': ['2'],            # chaṭā "sixth"; 1 is chuṭṭā "untethered"
+    'سکھ': ['1', '2'],        # sukh "peace" AND "Sikh"
+    'تیر': ['3'],             # "arrow"; 1 is "shore", 2 a Persian month
+    'مادہ': ['2', '1'],       # mādda "matter" AND māda "female"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech.

@@ -6,7 +6,7 @@ twelfth language set, built in the shape of the Hindi one (`docs/hindi-decks-pla
 rule there and in the Hindi plan applies here unless this file says otherwise. Asked for on 2026-11-09:
 "Add an Urdu language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/urdu/`, §6, §7). B1 to C1 and
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/urdu/`, §6–§8). B2, C1 and
 the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -34,7 +34,7 @@ If the owner wants any of these otherwise for Urdu, change them here first.
 | Urdu Alphabet — built | `Urdu-Alphabet.folio-deck.json` | 56 |
 | Urdu A1 Beginner — built | `Urdu-A1.folio-deck.json` | 500 |
 | Urdu A2 Elementary — built | `Urdu-A2.folio-deck.json` | 750 |
-| Urdu B1 Intermediate | `Urdu-B1.folio-deck.json` | 1,000 |
+| Urdu B1 Intermediate — built | `Urdu-B1.folio-deck.json` | 1,000 |
 | Urdu B2 Upper Intermediate | `Urdu-B2.folio-deck.json` | 1,500 |
 | Urdu C1 Advanced | `Urdu-C1.folio-deck.json` | 1,500 |
 | Urdu Phrases and Expressions | `Urdu-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -103,7 +103,7 @@ as Wiktionary files it. `گانا` "song; to sing" is dealt early: its count inc
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 done 2026-11-12) — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 and B1 done 2026-11-12) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `urdu_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -146,3 +146,32 @@ gives 340 of the 750 at least one sentence, 118 three. Read card by card; what t
 **Known, left.** `اسی` "eighty" is dealt first: its count includes the emphatic "this very". The written half of
 the frequency puts the news's words (`الزام`, `اجلاس`, `دھماکہ`, `قبضہ`) well inside A2, as A1's description
 already warns.
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/urdu/run.py --level b1`; 1,000 notes / 2,000 cards.
+**Only 86 come from the inventory and 914 by frequency**: the frequency fill of A2 had already taken much of
+the B1 topic list (`ترقی`, `منصوبہ`, `مذہب`, `حکومت`…), so `words_below` skipped it, and Wiktionary lacks
+much of the rest. Tatoeba gives 254 of the 1,000 a sentence, 48 three: by B1 the sentences have run out,
+and the description says so in numbers. **A re-run is byte-identical**; A1 and A2 rebuilt after it are
+unchanged. Read card by card; what that found:
+
+- **WIKTIONARY LACKS THE MODERN WORDS.** No Urdu entry for `کمپنی`, `ٹیکس`, `بجٹ`, `پالیسی`, `ویزا`,
+  `ٹریفک`, `ٹیکنالوجی`, `انٹرویو`, `ڈگری`, `منافع`, `غربت`, `مایوسی`, `ناکامی`, `تبدیلی`, `سماجی`,
+  `معاشی`, `مفید`, the connectors `چونکہ`, `تاکہ`, `جب تک`, `پھر بھی`, `جیسے`, and more (the run prints
+  them). The list uses what it defines: `بے روزگاری`, `افلاس`, `اعتماد`, `اضطراب`, `استدلال`, `تبدیل`,
+  `تاہم`, `کی طرح`, `اقتصادی`, `جستجو`, `سیاست`, `بیجا`, `ملاقات`. `بل` "bill" came out of the inventory:
+  its only entry is "power".
+- **MORE HOMOGRAPHS** (`ETYMS`): `بت` "idol", `گل` "flower", `مہر` "seal; kindness; dowry", `سرد` "cold",
+  `چھٹا` "sixth", `سکھ` "peace; Sikh", `تیر` "arrow", `مادہ` "matter; female".
+- **THE FILL'S NOISE GREW WITH ITS DEPTH** — about 70 more `select.EXCLUDE` rows, each with its reason:
+  names (`جناح`, `گاندھی`, `ناصر`, `اختر`, `ظفر`…, often under a common noun's entry), suffixes (`-ساز`,
+  `-کشی`, `-گیر`, `-پذیر`, `-آباد`, `-نوشی`), English loans under a native homograph (`پیج`, `کیش`, `گرڈ`,
+  `کلو`, `گن`, `سوری`), forms (`کرا`, `کھیلا`, `بنتی`), other spellings of a word taught (`قمیض`,
+  `سوموار`), and entries whose only gloss is not the word's meaning (`بچی` "girlfriend", `تذکرہ`
+  "substantial", `بیل`, `نیم`). `پٹھان`, an ethnic name glossed first as "militant", is left out. `گدھے` is
+  in `SWEARS`.
+
+**Known, left.** Wiktionary tags `باندھنا` and `لہرانا` as nouns, and the cards print that. Religious vocabulary
+(`نماز`, `آیت`, `حدیث`, `جہاد`, `شریعت`) runs heavier than in a phrase book, as the written half of the count is
+partly religious text.
