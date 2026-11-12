@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6683 | the title is the article |
-| `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6758 | the title is the article |
+| `redirect-variant` | 404 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 91 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 638 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 650 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 141 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1020 | nothing matched; no link |
+| `none` | 1023 | nothing matched; no link |
 
-**7826 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7919 of 9250 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (638)
+## Redirected to a differently named article — check each (650)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -127,6 +127,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-961` **Huanghuali** → [Dalbergia odorifera](https://en.wikipedia.org/wiki/Dalbergia_odorifera) (from `Huanghuali`)
 - `cnh-966` **Wu Liang Shrine** → [Wu Family Shrines](https://en.wikipedia.org/wiki/Wu_Family_Shrines) (from `Wu Liang Shrine`)
 - `cnh-990` **Zhaozhou Bridge** → [Anji Bridge](https://en.wikipedia.org/wiki/Anji_Bridge) (from `Zhaozhou Bridge`)
+- `dino-002` **synapomorphy** → [Apomorphy and synapomorphy](https://en.wikipedia.org/wiki/Apomorphy_and_synapomorphy) (from `Synapomorphy`)
+- `dino-003` **Dinosauria** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Dinosauria`)
+- `dino-016` **non-avian dinosaur** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Non-avian dinosaur`)
+- `dino-028` **vertebral column** → [Spinal column](https://en.wikipedia.org/wiki/Spinal_column) (from `Vertebral column`)
+- `dino-030` **dorsal vertebrae** → [Thoracic vertebrae](https://en.wikipedia.org/wiki/Thoracic_vertebrae) (from `Dorsal vertebrae`)
+- `dino-041` **metatarsus** → [Metatarsal bones](https://en.wikipedia.org/wiki/Metatarsal_bones) (from `Metatarsus`)
+- `dino-046` **braincase** → [Neurocranium](https://en.wikipedia.org/wiki/Neurocranium) (from `Braincase`)
+- `dino-066` **principle of priority** → [Priority (biology)](https://en.wikipedia.org/wiki/Priority_(biology)) (from `Principle of priority`)
+- `dino-072` **intraspecific variation** → [Polymorphism (biology)](https://en.wikipedia.org/wiki/Polymorphism_(biology)) (from `Intraspecific variation`)
+- `dino-074` **fossil record** → [Fossil](https://en.wikipedia.org/wiki/Fossil) (from `Fossil record`)
+- `dino-083` **vicariance** → [Allopatric speciation](https://en.wikipedia.org/wiki/Allopatric_speciation) (from `Vicariance`)
+- `dino-088` **geological timescale** → [Geologic time scale](https://en.wikipedia.org/wiki/Geologic_time_scale) (from `Geological timescale`)
 - `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
 - `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
 - `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)
@@ -683,7 +695,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (90)
+## Settled from a disambiguation page (91)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -698,6 +710,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
 - `cnh-948` **Huang Quan** → [Huang Quan (painter)](https://en.wikipedia.org/wiki/Huang_Quan_(painter)) (via the disambiguation page `Huang Quan`)
+- `dino-052` **scales** → [Scale (social sciences)](https://en.wikipedia.org/wiki/Scale_(social_sciences)) (via the disambiguation page `Scale`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -957,7 +970,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (137)
+## Section redirects — no dedicated page (141)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -978,6 +991,10 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-859` **Taijitu shuo** — `Taijitu shuo` only redirects into `Wuji (philosophy)#Taijitu shuo`
 - `cnh-985` **Taichu calendar** — `Taichu calendar` only redirects into `Chinese calendar#Han-Ming dynasties and Taichu calendar`
 - `cnh-994` **Drawloom** — `Drawloom` only redirects into `Loom#Drawloom`
+- `dino-025` **dental battery** — `Dental battery` only redirects into `Dinosaur tooth#Dental batteries`
+- `dino-027` **rhamphotheca** — `Rhamphotheca` only redirects into `Beak#Rhamphotheca`
+- `dino-033` **ossified tendons** — `Ossified tendons` only redirects into `Tendon#Ossified tendons`
+- `dino-065` **junior synonym** — `Junior synonym` only redirects into `Synonym (taxonomy)#Zoology`
 - `eep-062` **Qualified majority voting** — `Qualified majority voting` only redirects into `Voting in the Council of the European Union#Treaty of Lisbon`
 - `eep-183` **Mixed agreement** — `Mixed agreement` only redirects into `Common Commercial Policy (EU)#Mixed agreements`
 - `eep-233` **Discursive institutionalism** — `Discursive institutionalism` only redirects into `New institutionalism#Constructivist institutionalism`
@@ -1099,7 +1116,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1020)
+## No article found (1023)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1262,6 +1279,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-875` **Mingtang** — search suggests `1911 Revolution`, `Wei-ming temple`, `CCTV-10`, `Wu Zetian`, `Old City of Luoyang`
 - `cnh-896` **Great Cloud Sutra** — search suggests `Mahāmegha Sūtra`, `Diamond Sutra`, `Mahayana sutras`, `Sukhavati`, `Prajnaparamita`
 - `cnh-898` **Tianzhu shiyi** — search suggests `Tianzhu (Chinese name of God)`, `Christianity in China`, `Alessandro Valignano`, `Catholic missions`, `Lotus Sutra`
+- `dino-004` **erect stance** — search suggests `Dinosaur`, `Tripod stance`, `Dinosaur classification`, `Theropoda`, `Stegosauria`
+- `dino-043` **bone histology** — search suggests `Glossary of dinosaur anatomy`, `Dinosaur`, `Dinosaur tooth`, `2026 in archosaur paleontology`, `Sue (dinosaur)`
+- `dino-060` **character matrix** — search suggests `Laurence Fishburne`, `Matrix (typeface)`, `Dinosaur`, `Dinosaur Game`, `Sue (dinosaur)`
 - `eep-001` **Iceland referendum** — search suggests `2026 Icelandic European Union membership negotiations referendum`, `Iceland–European Union relations`, `1944 Icelandic constitutional referendum`, `Icelandic referendum`, `Referendums related to the European Union`
 - `eep-004` **External action** — search suggests `European External Action Service`, `List of ambassadors of the European Union`, `European Union Intelligence and Situation Centre`, `European Union Military Staff`, `High Representative of the Union for Foreign Affairs and Security Policy`
 - `eep-005` **Composite foreign policy** — search suggests `Franco-British Union`, `European Commissioner for External Relations`, `List of countries by exchange rate regime`, `SSE Composite Index`, `Eastern Partnership`
