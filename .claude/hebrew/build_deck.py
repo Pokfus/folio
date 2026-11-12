@@ -123,6 +123,16 @@ GLOSS = {
     'חנוכה|חֲנֻכָּה': {'name': ['Hanukkah (the winter festival of lights)']},
     'ראש השנה|רֹאשׁ הַשָּׁנָה': {'name': ['Rosh Hashanah, the Jewish New Year']},
     'פורים|פּוּרִים': {'name': ['Purim (the spring festival of Esther)']},
+    # B1: Wiktionary's gloss of חשמל is a note on its Biblical sense; the modern word is "electricity"
+    'חשמל|חַשְׁמַל': {'noun': ['electricity']},
+    # two words of one pointing, from two origins: the card teaches the one the inventory named
+    'מכונה|מְכוֹנָה': {'noun': ['machine']},
+    'חוזה|חוֹזֶה': {'noun': ['contract (agreement)']},
+    'אות|אוֹת': {'noun': ['a letter (of the alphabet)', 'a sign, a signal']},
+    # Wiktionary gives only "mound, heap"; the everyday word is "wave"
+    'גל|גַּל': {'noun': ['wave', 'mound, heap']},
+    # Wiktionary's first gloss is "belt", an error; its second, "promise", is the word
+    'הבטחה|הַבְטָחָה': {'noun': ['promise']},
     'הבא|הַבָּא': {'noun': ['next, the next one (בשבוע הבא, next week)']},
 }
 
@@ -152,6 +162,17 @@ LEAD = {
     'כיס|כִּיס': 'pocket',
     'מזוודה|מִזְוָדָה': 'suitcase',
     'מלפפון|מְלָפְפוֹן': 'cucumber',
+    'אחוז|אָחוּז': 'percent',
+    'התעלם|הִתְעַלֵּם': 'ignore',
+    'התחמק|הִתְחַמֵּק': 'evade',
+    'גאון|גָּאוֹן': 'genius',
+    'הקריב|הִקְרִיב': 'sacrifice',
+    'רמה|רָמָה': 'level',
+    'דף|דַּף': 'sheet',
+    'בור|בּוֹר': 'pit',
+    'זיהום|זִהוּם': 'pollution',
+    'מחקר|מֶחְקָר': 'research',
+    'עורר|עוֹרֵר': 'arouse',
     'טבח|טַבָּח': 'cook',
     'הנחה|הֲנָחָה': 'discount',
 }
@@ -162,6 +183,7 @@ ROMAN_BY_HAND = {
     'עלה|עָלָה': 'alá',
     'ענה|עָנָה': 'aná',
     'רעיון|רַעֲיוֹן': 'ra\'ayón',
+    'יפהפה|יְפֵהפֶה': 'yefefé',
 }
 
 # A gloss that is Wiktionary's long definition of an everyday word, shortened.

@@ -5,7 +5,7 @@ Hebrew set, built the way the Persian set was (`docs/persian-decks-plan.md`); `d
 of how the others were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-12: "Add a Hebrew language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hebrew/`). B1 to C1 are planned, not built.
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hebrew/`). B2 and C1 are planned, not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces after the first. The first commit carried one changelog item and one bump, because it
@@ -31,7 +31,7 @@ rather than asked again:
 | Hebrew Alphabet — built | `Hebrew-Alphabet.folio-deck.json` | 45 |
 | Hebrew A1 Beginner — built | `Hebrew-A1.folio-deck.json` | 500 |
 | Hebrew A2 Elementary — built | `Hebrew-A2.folio-deck.json` | 750 |
-| Hebrew B1 Intermediate | `Hebrew-B1.folio-deck.json` | 1,000 |
+| Hebrew B1 Intermediate — built | `Hebrew-B1.folio-deck.json` | 1,000 |
 | Hebrew B2 Upper Intermediate | `Hebrew-B2.folio-deck.json` | 1,500 |
 | Hebrew C1 Advanced | `Hebrew-C1.folio-deck.json` | 1,500 |
 
@@ -93,7 +93,7 @@ form is the guide. One A1 word (`שדה תעופה`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done 2026-11-12) to C1, one level per session: the
+**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done 2026-11-12) to C1, one level per session: the
 level's inventory into `inventory.py`, its `SCOPE` into `hebrew_level.py`, run, read every card. **Phase 3** — a
 phrases deck, if asked for.
 
@@ -136,3 +136,24 @@ for 744, none for 2. A re-run is byte-identical, and **A1 and the alphabet rebui
 - The A2 exclusions and hand picks are in `select.EXCLUDE` and `choose.PICK`, each with its reason: mostly counts
   that belong to a commoner word sharing the spelling (`בליל` is `בלילה`, `סיווג` is `סוג`, `הולדת` is `יום הולדת`),
   and nouns over the verb of their spelling (`נעל` shoe, `שכן` neighbour, `פחד` fear, `טבח` cook).
+
+## 8. B1 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/hebrew/run.py --level b1`. **1,000 notes / 2,000 cards: 186
+from the inventory (`inventory.B1`, Persian's B1 topics rewritten for Israel: the economy, education, the news,
+government and law, the environment, health, transport, the household, relationships, religion, ideas and
+connectors), 814 by frequency** — the inventory's share is small because A1 and A2 already teach many of its
+words. Three sentences for 983, none for 3. A re-run is byte-identical, and A1, A2 and the alphabet rebuilt on the
+day's code are unchanged (checked by hash). What B1 needed:
+
+- **No change to the extraction**, so nothing below could move: B1's fixes are all in the selection and the card.
+- **About ninety exclusions** (`select.EXCLUDE`, "Read off the B1 ranking"), nearly all counts that belong to
+  another word sharing the spelling (`בלילה` is "at night", `חימש` is "five", `פיתה` is the pita, `שלה` is
+  "hers"), names (`דניס`, `אוון`), forms of taught words (`הלכנו`, `והיה`), and the subtitles' killing and vulgar
+  register, as at A1. A construct-only entry (`בעיני־`, `לצער־`) is never a fill headword.
+- **The noun over the verb of its spelling** (`choose.PICK`): `מנה` portion, `קרן` ray, `רעש` noise, `קצב`
+  rhythm, `גז` gas, `סופר` writer, `סחר` trade, `סרטן` cancer, `תואר` degree, `פיצה` pizza, among others; and
+  three inventory words named by their pointing (`ספק=סַפָּק` supplier, `זקנה=זִקְנָה` old age, `חוזה=חוֹזֶה`).
+- **Glosses by hand where Wiktionary's are wrong or a note** (`build_deck.GLOSS`): `חשמל` electricity (its entry
+  glosses a Biblical sense), `הבטחה` promise (its first gloss, "belt", is an error), `גל` wave (Wiktionary gives
+  only "mound"), and `מכונה`, `חוזה`, `אות`, two words of one pointing where the other leads in Wiktionary.

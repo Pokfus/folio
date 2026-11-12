@@ -69,6 +69,23 @@ PICK = {
     'שלם': 'שָׁלֵם',       # "whole, complete"
     'מרכז': 'מֶרְכָּז',     # "centre", not "to centralise"
     'צמא': 'צָמֵא:adj',    # "thirsty"
+    # B1 (2026-11-12), read off the B1 ranking: the noun (or adjective) over the verb of its spelling
+    'מנה': 'מָנָה:noun',   # "portion, course", not "to count"
+    'קרן': 'קֶרֶן:noun',   # "ray, horn; fund"
+    'נאמן': 'נֶאֱמָן:adj', # "loyal"
+    'פיצה': 'פִּיצָה',     # "pizza", not "to compensate"
+    'הלם': 'הֶלֶם',        # "shock"
+    'רעש': 'רַעַשׁ',       # "noise"
+    'קצב': 'קֶצֶב',        # "rhythm, pace", not the butcher
+    'גז': 'גָּז:noun',     # "gas", not the fleece
+    'חד': 'חַד',           # "sharp"
+    'סופר': 'סוֹפֵר:noun', # "writer"
+    'כמות': 'כַּמּוּת',    # "quantity", not "like"
+    'סחר': 'סַחַר',        # "trade"
+    'הוראה': 'הוֹרָאָה',   # "instruction, teaching"
+    'סרטן': 'סַרְטָן',     # "cancer; crab"
+    'תואר': 'תֹּאַר:noun', # "title, degree"
+    'סקרן': 'סַקְרָן',     # "curious (person)"
     'כיוון': 'כִּוּוּן',    # "direction"; the verb's count is מכיוון "since", which its table holds
     'סתם': 'סְתָם',       # "just, merely, for no reason", not the verb "to stop up"
 }
