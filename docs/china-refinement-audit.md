@@ -366,7 +366,7 @@ otherwise.
 | B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | **done 2026-11-12** |
 | B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | **done 2026-11-12** |
 | B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | **done 2026-11-12** |
-| B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | to do |
+| B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | **done 2026-11-12** |
 | B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | to do |
 | B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | to do |
 | B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | to do |
@@ -760,6 +760,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-278` | Cao Pi in the Thirteen Emperors Scroll | not re-checked (Commons 429): ok |
 | `cnh-279` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-280` | Liu Bei in the Thirteen Emperors Scroll | not re-checked (Commons 429): ok |
+| `cnh-281` | a Ming portrait | not re-checked (Commons 429): ok |
+| `cnh-282` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-283` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-284` | none | not re-checked (Commons 429): the card has no picture; a Zoumalou slip would suit |
+| `cnh-285` | Sun Quan in the Thirteen Emperors Scroll | not re-checked (Commons 429): ok |
+| `cnh-286` | Guan Yu captures Pang De | not re-checked (Commons 429): ok |
+| `cnh-287` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-288` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-289` | a Ming woodblock portrait | not re-checked (Commons 429): ok |
+| `cnh-290` | none | not re-checked (Commons 429): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -1948,3 +1958,41 @@ the abdication 25 November 220 against the line's 11 December; `cnh-274`'s "King
 61; `cnh-278`'s 11 December 220 sits against de Crespigny's 25 November and 29 June 226 is on no page read; `cnh-280`'s
 10 June 223 is on no page read, Theobald gives 6 April 221 for the enthronement against the line's 15 May, and Giles
 gives 162 for the birth. `cnh-294`'s 8 February 266 sits against de Crespigny's 4 February.
+
+### B29 — `cnh-281`–`cnh-290`, Three Kingdoms: Zhuge Liang to the Records of the Three Kingdoms (2026-11-12)
+
+Run as B21. Every cited URL answered. **Pictures were not touched** (Commons 429). **The old cards put years and their
+siblings' clues in their questions (the three visits and the deathbed charge on Zhuge Liang, the refugee colonies on
+tuntian, Cao Cao's clue on the Northern Expeditions), told the Romance's Zhuge Liang (the borrowed arrows, the east wind,
+the empty city) as his, had Sun Quan proclaim himself at Jianye (he did so at Wuchang), Guan Yu die "at Zhangxiang", the
+231 campaign end in defeat, Chen Qun not credited with the nine ranks (the *Sanguozhi* credits him), "a million bushels"
+as fact, and a date line whose label named Chen Shou.** The Shu and Wu books of the *Sanguozhi* were read on zggdwx.com
+(the Kanseki Repository and Gutenberg copies carry only the Wei books). `cnh-273`'s line was corrected in the same run
+(its "from 229 CE" value is now `229 CE`).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-281` Zhuge Liang | 7 | 6 → 7 | **Years, the three visits and the deathbed charge out of the questions; the *Chu shi biao* (quoted from the Chinese text), the wooden oxen and running horses and the multi-arrow bow, the "sleeping dragon"; the borrowed arrows and east wind sourced as fiction (Sun Quan's ship at Ruxu in 213 the parallel), the empty city first told of Wen Ping; de Crespigny cut to two**; Chen Shou's verdict on his generalship not carried (no page opened). Protected: the line stays (flagged below). |
+| `cnh-282` Longzhong Plan | 6 | 6 → 6 | **"Two bases" softened to what the sources print; Sun Quan's seizure of Jing in 219 sourced (*To Establish Peace*); the 215 crisis in a why; the Nanyang question from Zhuge Liang's memorial; the three calls, the "treasury of Heaven", the plan undone behind Guan Yu**; the Xiangyang – Nanyang dispute left out (no open source). |
+| `cnh-283` Northern Expeditions | 6 | 7 → 6 | **"took Wudu" → Wudu and Yinping; the 231 campaign a withdrawal for want of grain (Zhang He shot as it fell back), not a defeat; five campaigns, two given up for want of porters; Ma Su executed and Zhuge Liang demoted three grades; Chencang, the Wuzhang farms, the dead Zhuge and the living Zhongda; the last campaign 234 (de Crespigny 1991: 233)**; the headdress story and the Meng Da sentence dropped; the glossary's "won only Wudu" corrected. |
+| `cnh-284` Eastern Wu | 7 | 5 → 7 | **The capital moved to Jianye in autumn 229; the naval bases and the 5,000 ships at the surrender, the Funan envoys, the hostage system and the great families; the Zoumalou slips (found 1996, about 140,000; Xu Chang 2022); "Yangzi" → Yangtze**; the Taiwan clue moved off (`cnh-285`'s), the answer word "eastern" cleared. |
+| `cnh-285` Sun Quan | 7 | 6 → 7 | **Emperor at Wuchang in 229, the court back to Jianye that year; King of Wu 221; the Yizhou (Taiwan) expedition of 230, the Liaodong alliance, Cao Cao's remark at Ruxu (hearsay from the *Wu li* in Pei's notes), the 250 succession crisis, Chen Shou's verdict; Giles used only where he agrees with the line**. Protected: the line stays (flagged below). |
+| `cnh-286` Guan Yu | 7 | 5 → 7 | **He died near Linju (juan 36; juan 47 and the *Tongjian* say Zhangxiang), not flatly "at Zhangxiang"; the Peach Garden and the Huarong road the novel's and the plays'; Yan Liang's parasol, the bone-scraping (in Chen Shou's text), the Fan floods; the deification cut to a clause (`cnh-039`'s)**; the Green Dragon blade and the five passes not told (no source read). Protected: the line stays (flagged below). |
+| `cnh-287` tuntian | 6 | 5 → 6 | **"Set up at Xu" (a place) off, now `Revived 196 CE` / `Abolished 264 CE` / `Again abolished 266 CE`; Zao Zhi and Han Hao, the share rates, "a million hu" as a report, the mulberries and clams credited to a lost history in Pei's notes; Zhao Chongguo's Huangshui precedent (61 BCE); the duplicate de Crespigny entry merged**; Giles (Zhao Chongguo as originator) out. |
+| `cnh-288` nine-rank system | 6 | 5 → 6 | **The *Sanguozhi*'s biography of Chen Qun does credit him (制九品官人之法羣所建也), against the note the old card followed; the hedge kept that it may have formed earlier (Lu Su's "graded for name and rank", 208); Liu Yi's memorial taken here (off `cnh-298`)**; no Sui abolition year (no source read gives one). |
+| `cnh-289` Sima Yi | 7 | 5 → 7 | **The years out of the questions; the Gaoping coup, the sickbed ruse and the clogs over the caltrops (the *Jinshu*); the headdress a story, the empty city the novel's (its oldest form a *Weilüe* fragment about Wen Ping); the line's years each sourced (179 Theobald; Giles 178; 239 Cordier; de Crespigny 238)**. Protected: the line stays (flagged below). |
+| `cnh-290` Records of the Three Kingdoms | 7 | 5 → 7 | **"Chen Shou lived 233 CE – c. 300 CE" (a life, a man in the label) off, now `Compiled c. 280 – 297 CE` / `Commentary 429 CE`; the *Huayang guozhi*'s compilation after Wu fell; death c. 297 (the *Jinshu*) or c. 300; Wei as the legitimate line; the Wo chapter kept off the questions (`jp-043`'s)**; the duplicate *Generals of the South* entry merged. |
+
+Read by eye. **Confusability**: the Yizhou fleet was a phrasing on both `cnh-284` and `cnh-285`; it stays `cnh-285`'s and
+`cnh-284` takes the Funan envoys; the *Chu shi biao*, the oxen and the sleeping dragon are `cnh-281`'s, the three calls
+`cnh-282`'s, Jieting and the dead Zhuge `cnh-283`'s (both agents were told); the deathbed charge `cnh-280`'s; Liu Yi's
+saying `cnh-288`'s; `cnh-290`'s background trimmed to 285 words. **Legend**: the borrowed arrows, the east wind and the
+empty city are the novel's, the last first told of Wen Ping in the *Weilüe*; the Peach Garden, the Green Dragon blade
+and the five passes the novel's. **Chinese names corrected**: none needed. **Spellings fixed**: "Yangzi" → Yangtze;
+0 hits. **Myth register**: the Romance and the Records confirmed and extended (the empty city's *Weilüe* origin);
+Guan Yu's deification left to `cnh-039`. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-281`'s 23 July 181 and the Wuzhang Plains are on no page read (the year 181 in Giles, Theobald and Cordier);
+`cnh-285`'s "Emperor 23 May 229" looks a month off — de Crespigny gives 23 June 229, the *Sanguozhi*'s day; `cnh-286`'s
+"Linju, Xiangyang" is wrong (Linju lay in Nan commandery), and the twelfth month of Jian'an 24 may fall in early 220;
+`cnh-289`'s 13 March 239 and 7 September 251 are on no page read, Giles prints 178 for the birth and de Crespigny puts Cao
+Rui's death in 238.

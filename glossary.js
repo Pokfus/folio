@@ -13022,7 +13022,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Conquest_of_Wu_by_Jin": "279 – 280 CE",
 "Emperor_Wu_of_Jin": "236 – 290 CE",
 "Jin_dynasty_(266–420)": "266 – 420 CE",
-"Romance_of_the_Three_Kingdoms": "1522 CE",
+"Romance_of_the_Three_Kingdoms": "1522",
 "Seven_Sages_of_the_Bamboo_Grove": "3rd century CE",
 "Sun_Hao": "d. 283 CE",
 "War_of_the_Eight_Princes": "291 – 306 CE",

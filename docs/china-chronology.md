@@ -447,6 +447,12 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | Red Cliffs | 208 CE | `cnh-276` |
 | Cao Wei founded / ended (de Crespigny) / also dated | 220 CE / 266 CE / 265 CE | `cnh-277` |
 | Shu Han founded / surrendered | 221 CE / 263 CE | `cnh-279` |
+| the Longzhong plan | 207 CE | `cnh-282` |
+| the Northern Expeditions (de Crespigny 1991 ends them in 233) | 228 – 234 CE | `cnh-283` |
+| Eastern Wu independent / imperial / surrendered | 222 CE / 229 CE / 280 CE | `cnh-284` |
+| tuntian revived / abolished by Wei / again by Jin | 196 CE / 264 CE / 266 CE | `cnh-287` |
+| the nine-rank system introduced | c. 220 CE | `cnh-288` |
+| the Records compiled / Pei Songzhi's commentary | c. 280 – 297 CE / 429 CE | `cnh-290` |
 
 ## Later periods
 
@@ -741,4 +747,10 @@ cnh-275: 200
 cnh-276: 208
 cnh-277: 220; 266; 265
 cnh-279: 221; 263
+cnh-282: 207
+cnh-283: 228; 234
+cnh-284: 222; 229; 280
+cnh-287: 196; 264; 266
+cnh-288: 220
+cnh-290: 280; 297; 429
 ```
