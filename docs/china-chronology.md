@@ -158,6 +158,7 @@ the form English-language scholarship and the reference works use; the decision 
 | Shang Yang | Shang-yang | Wei Yang, Gongsun Yang, Lord Shang | |
 | Li Kui, Wu Qi, Sun Bin, Pang Juan, Bai Qi, Su Qin, Zhang Yi, Li Si, Jing Ke, Han Fei | Li K'uei, Wu Ch'i, Sun Pin, P'ang Chüan, Pai Ch'i, Su Ch'in, Chang I, Li Ssu, Ching K'o, Han Fei-tzu | | the Warring States men, surname and name split |
 | King Wuling of Zhao | Wu Ling, Wu-ling | | |
+| Fan Ju | Fan Chü | Fan Sui | the Qin minister of "befriend the distant, attack the near"; the *Shiji* writes 範睢, read Fan Sui by some (added B17) |
 | Jixia Academy | Chi-hsia, Ji Xia | Jixia | |
 | Zhanguo Ce | Zhanguoce, Zhan Guo Ce, Zhanguo ce, Chan-kuo ts'e, Chan-kuo Ts'e | Strategies of the Warring States | the glossary slug's form |
 | Li Sao | Lisao, Li-sao, Li sao | Encountering Sorrow | |
@@ -322,6 +323,13 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | Song: the bid to lead / the peace meeting / destroyed | 641 – 637 BCE / 546 BCE / 286 BCE | `cnh-157` |
 | Yue: at war with Wu / overthrown by Chu | 510 – 473 BCE / 333 BCE | `cnh-158` |
 | covenants: Kuiqiu (Legge) / the Houma and Wenxian tablets | 650 BCE / c. 442 – 424 BCE | `cnh-160` |
+| Spring and Autumn warfare | c. 770 – 475 BCE | `cnh-161` |
+| the partition of Jin: divided / recognised / dissolved | 453 BCE / 403 BCE / 376 BCE | `cnh-162` |
+| the Warring States: three openings | c. 475 / 453 / 403 – 221 BCE | `cnh-163` |
+| the seven states formed / conquered | 403 – 386 BCE / 230 – 221 BCE | `cnh-164` |
+| Wei: ascendancy / recognised / destroyed | 424 – 340 BCE / 403 BCE / 225 BCE | `cnh-165` |
+| Shang Yang's reforms: first / second decrees | 356 BCE / 350 BCE | `cnh-169` |
+| Qin after Shang Yang / royal title / Shu taken | 338 – 221 BCE / 325 BCE / 316 BCE | `cnh-170` |
 
 ## Later periods
 
@@ -499,4 +507,11 @@ cnh-156: 722; 481; 517; 249
 cnh-157: 641; 637; 546; 286
 cnh-158: 510; 473; 333
 cnh-160: 650; 442; 424
+cnh-161: 770; 475
+cnh-162: 453; 403; 376
+cnh-163: 475; 453; 403; 221
+cnh-164: 403; 386; 230; 221
+cnh-165: 424; 340; 403; 225
+cnh-169: 356; 350
+cnh-170: 338; 221; 325; 316
 ```

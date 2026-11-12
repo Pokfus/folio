@@ -312,7 +312,7 @@ otherwise.
 | B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | **done 2026-11-12** |
 | B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | **done 2026-11-12** |
 | B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | **done 2026-11-12** |
-| B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | to do |
+| B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | **done 2026-11-12** |
 | B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | to do |
 | B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | to do |
 | B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | to do |
@@ -598,6 +598,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-158` | Yuyue bronze fittings | not re-checked (Commons 429): ok; no licence in the credit |
 | `cnh-159` | the sword of Goujian | not re-checked (Commons 429): ok; no licence in the credit |
 | `cnh-160` | the Houma covenant tablets | not re-checked (Commons 429): ok; the credit is not in the house form |
+| `cnh-161` | Zhao Meng's bronze dagger-axe | not re-checked (Commons 429): ok |
+| `cnh-162` | a Jin bronze jian | not re-checked (Commons 429): ok as a period object; not the partition |
+| `cnh-163` | the Marquis Yi of Zeng bells | not re-checked (Commons 429): wrong: one tomb for an era |
+| `cnh-164` | a map of the seven states | not re-checked (Commons 429): ok |
+| `cnh-165` | Wei spade coins | not re-checked (Commons 429): ok |
+| `cnh-166` | none | not re-checked (Commons 429): the card has no picture; the glossary's statue would do |
+| `cnh-167` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-168` | the Shang Yang measure | not re-checked (Commons 429): ok as his object |
+| `cnh-169` | Qin statutes on bamboo | not re-checked (Commons 429): ok |
+| `cnh-170` | a Qin bronze weight | not re-checked (Commons 429): weak: of the empire after 221 BCE |
 
 ## Glossary candidates
 
@@ -1285,3 +1295,35 @@ Count of Wei over Song with a written charge. **Protected lines: unchanged** (di
 BCE on `cnh-160`, as on `cnh-147`'s protected line (Legge); the conventional 651 BCE (the *Shiji*, Chavannes) is
 in `cnh-147`'s prose — for the owner, who may want 651 on both. `cnh-159`'s rows agree with the sources (496 is
 Mayers's, 465 the *Bamboo Annals*'). Audit note: `cnh-152`'s `G.date` stays as a false lead (it reads `Da_Qi`).
+
+### B17 — `cnh-161`–`cnh-170`, Eastern Zhou: Spring and Autumn warfare to Qin after Shang Yang (2026-11-12)
+
+Run as B11. Every cited URL answered this session. **Pictures were not touched** (Commons 429). **The old cards put
+"700 chariots, the largest force named" on a line (on no page read; the Zuo Zhuan's count at one battle), gave Legge's
+402 BCE and a "BC" to the partition of Jin, read the "nine tripods struck by lightning" into the *Shiji*'s "the nine ding
+shook", dated the Warring States "from 480, 403 or 376" with a count, put Su Qin and Zhang Yi's league on the seven
+states' line, named men in Wei's rows, told the immigrant offer of the *Book of Lord Shang* chapter 15 (written after
+Changping, 260 BCE) as Shang Yang's own reform, called Qin a "backward country" (a late image, Pines), put Shang Yang
+in the Wei ruling house (it was Wey), and gave Li Kui's ever-normal granary "two thousand years".**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-161` Spring and Autumn warfare | 6 | 5 → 7 | **Counts and places off, now `Fought c. 770 – 475 BCE`; 700 kept only as the Zuo Zhuan's count at one battle; army sizes, battle lengths and noble command; the Jin crews dismounting in a pass and Wu's infantry armies**; Rawson (late Shang) and an unrelated Petersen dropped; the tiger skins and the Hong left to `cnh-150` and `cnh-157`. |
+| `cnh-162` partition of Jin | 6 | 5 → 6 | **`Divided 453 BCE` / `Recognised 403 BCE` / `Dissolved 376 BCE`, Legge's 402 dropped, the timeline moved to `{from:-0453,to:-0376}`; the siege of Jinyang and the dukes keeping Jiang and Quwo from the Chinese *Shiji*; the lightning gloss dropped**; the years out of the phrasings. |
+| `cnh-163` Warring States period | 8 | 5 → 8 | **The name given looking back (the *Shiji* already calls the kingdoms *zhanguo*; the *Zhanguo Ce* later); `Dated c. 475 – 221 BCE` / `Also dated 453 – 221 BCE` / `Also dated 403 – 221 BCE`, the timeline moved to `{from:-0475,to:-0221}` to meet `cnh-142`**; the silkworm simile, a Mencius anecdote and "one book because the rest were burnt" dropped; the glossary's "Zhanguo ce" fixed. |
+| `cnh-164` seven warring states | 7 | 5 → 7 | **The Su Qin and Zhang Yi line (`cnh-178`'s and `cnh-179`'s) replaced by `Formed 403 – 386 BCE` / `Conquered 230 – 221 BCE`; the *Shiji*'s own count of seven ("caps and sashes"), the three Jin houses and the Tian, Qin and Chu as outsiders, the conquest state by state**. |
+| `cnh-165` rise of Wei | 6 | 5 → 6 | **Rows naming men off, now `Ascendancy 424 – 340 BCE` / `Recognised 403 BCE` / `Destroyed 225 BCE`, a timeline set `{from:-0424,to:-0340}`; Guiling and Maling, the *Bamboo Annals*' 365 BCE for the move against the *Shiji*'s 340, King Hui before Mencius, Daliang flooded**; "the strongest state in China" dropped; the glossary's Zhongshan date corrected (408 BCE). Pinyin Wèiguó juéqǐ. |
+| `cnh-166` Li Kui | 6 | 5 → 6 | **455, 407 and 395 BCE carried as a modern reckoning, 407 as one dating of a later tradition about the code; Li Ke and Li Kui as one man only on one modern view (the *Hanshu* lists two); the granary claim cut to what the source says (the principle in the Han granary proposed in 54 BCE)**. No picture. Protected: the line stays (flagged below). |
+| `cnh-167` Marquis Wen of Wei | 6 | 5 → 6 | **The years out of the question; sibling angles (Qin's attack, Li Kui's five tests) replaced; his call for talent, Zixia as tutor, Duangan Mu leaping a wall (the *Mencius*), Zhongshan in 408 BCE; four unsourced claims dropped ("the dukes of Jin were puppets")**. Pinyin Wèi Wén Hóu. No picture. Protected: the line stays (flagged below). |
+| `cnh-168` Shang Yang | 7 | 5 → 7 | **Born in Wey (衛), not the Wei ruling house; "about 350 BCE" dropped (in office from 359); the *Book of Lord Shang* a compilation (Pines; Duyvendak); the pole at the market gate, the dying minister's advice, the innkeeper and his own law, the body torn apart**. Protected: the line stays. |
+| `cnh-169` Shang Yang's reforms | 7 | 6 → 7 | **The immigrant offer moved out (chapter 15, written a century later); `First decrees 356 BCE` / `Second decrees 350 BCE`; the 31 counties the biography's (the annals say 41); "Legalist" a later label; the Shuihudi statutes as the legacy**; Giles's "tithing" and Chen's "equality" dropped. |
+| `cnh-170` Qin state after Shang Yang | 6 | 5 → 6 | **`Period 338 – 221 BCE` / `Royal title 325 BCE` / `Expanded south 316 BCE`, the 364 BCE row and counts off; "backward country" replaced by Pines 2012 (Qin within the Zhou world, its outsider image late); Sima Cuo and Shu, Fan Ju's advice, Lü Buwei, Ying in 278 BCE**. |
+
+Read by eye. **Confusability**: the Su Qin league left `cnh-164` for `cnh-178`/`cnh-179`; the five tests stayed
+`cnh-166`'s and the Qin attack `cnh-165`'s; Changping's figures go to `cnh-173` (the *Shiji*'s 400,000) and
+`cnh-181`. **Legend**: the court speeches and the immigrant offer are now texts dated by their writing. **Chinese
+names corrected**: `cnh-165` and `cnh-167` pinyin; `春秋战争`, `魏国崛起` and `商鞅变法后的秦国` descriptive. **Spellings**:
+0 hits; a Fan Ju row added (the *Shiji*'s 範睢). **Myth register**: no rows. **Protected lines: unchanged** (diffed after
+the apply). For the owner: `cnh-166`'s 455 and 395 BCE (and the ages) are in no source read, and the *Jin shu*'s credit
+of the code to him could not be checked; `cnh-167`'s `Reigned 424 – 387 BCE` is the *Shiji*'s — Eno says "usually given
+as 446 – 396", Legge 426 – 386; `cnh-168`'s death place "Qin" is loose (the *Shiji*: Mianchi in Zheng, by Qin's troops).
