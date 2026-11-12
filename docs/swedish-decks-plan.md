@@ -5,7 +5,7 @@ Swedish set, built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose 
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Swedish language collection."
 
-**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/swedish/`, §6–§9). C1 and a phrases deck are not.
+**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/swedish/`, §6–§10). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Swedish to the day's
@@ -35,7 +35,7 @@ is the owner's to overrule.**
 | Swedish A2 Elementary — built | `Swedish-A2.folio-deck.json` | 750 |
 | Swedish B1 Intermediate — built | `Swedish-B1.folio-deck.json` | 1,000 |
 | Swedish B2 Upper Intermediate — built | `Swedish-B2.folio-deck.json` | 1,500 |
-| Swedish C1 Advanced | `Swedish-C1.folio-deck.json` | 1,500 |
+| Swedish C1 Advanced — built | `Swedish-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -99,7 +99,7 @@ mina), which is the paradigm it belongs to. One of A1's 500 words has no Tatoeba
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swedish_level.py` (or, if the owner chooses, read a graded
 lexicon — §1), run, read every card. **Phase 3** — a phrases deck (`phrase` / `proverb` entries and particle
 verbs: `tycka om`, `ta hand om`).
@@ -192,3 +192,26 @@ byte-identical. Six inventory words are not Wiktionary headwords and were remove
 **Known, left.** The fill is heavier still with the subtitles' crime and fantasy vocabulary (`avrätta`,
 `knivhugga`, `seriemördare`, `zombie`, `varulv`) and carries some sexual vocabulary (`penis`, `vagina`,
 `pornografi`, `hångla`) on frequency — plain words, not slang, so left; the owner may want a rule.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/swedish/run.py --level c1`. **1,500 notes: 128 from a
+10-topic inventory** (`inventory.py` `C1`: academic and intellectual, society and governance, economy, law and
+ethics, mind and behaviour, language and rhetoric, abstract nouns of analysis, verbs and adjectives of formal
+argument, formal connectors — `SCOPE['c1']`) **and 1,372 by frequency**; three sentences for 336, **none for
+665** — Tatoeba has little at this level, and the description says how many carry sentences. Eleven inventory
+words are not Wiktionary headwords and were removed (`premiss`, `paradigm`, `nyanserad`, `förhärskande` …), and
+`utmynna`, which Wiktionary has but the extract keeps no gloss for. Every card was read; A1 to B2 re-run
+byte-identical.
+
+**The fill at this depth is the subtitles' long tail**: a quarter of the frequency words are everyday nouns a
+C1 learner may well know from B-level life (`tandborste`, `ketchup`, `kattunge`) rather than formal vocabulary —
+the honest result of ranking by frequency once the commonest 3,750 lemmas are taught. A graded lexicon (§1's
+choice for the owner) would change this level most.
+
+**What the C1 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+adjective neuters and plurals again (`mjukt`, `tätt`, `sura`, `rena`); `skulle` dealt as "an attic"; phrase-only
+words (`i fjol`, `till salu`, `i gengäld`, `i onödan`); names and English (`Lotta`, `Beck`, `game`, `kiss`,
+`bang`); `fyr` "a lighthouse" by etymology; drug, vulgar or sexual senses cut from `räka`, `syra`, `pung`,
+`buske`, `doppa`, `kön`, `italienare`; `latin` and `grekiska` to `NO_ART`; four nouns to `GENDER_FIX`; `shit`,
+`jävlig`, `balle` and the slurs `fjolla` and `slinka` to `SWEARS`, `avsugning` and `snopp` excluded.

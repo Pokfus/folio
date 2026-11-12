@@ -89,6 +89,18 @@ SCOPE = {
                   'of arguing and reasoning, describing and evaluating, and the connectors of '
                   'formal Swedish',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for social, '
+                 'academic and professional purposes, and to produce clear, well-structured, '
+                 'detailed text on complex subjects',
+        'topics': 'academic and intellectual life, society and governance, the economy and '
+                  'business, law and ethics, mind and behaviour, language and rhetoric, the '
+                  'abstract nouns of analysis, the verbs and adjectives of formal argument, and '
+                  'formal connectors',
+    },
 }
 
 

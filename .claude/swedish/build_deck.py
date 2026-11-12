@@ -34,7 +34,8 @@ from swedish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-09T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
-         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z',
+         'c1': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'swedish'
@@ -111,6 +112,7 @@ ETYMS = {
     # B1 (2026-11-12)
     'mask': ['2'],              # "a mask"; etymology 1 is "a worm"
     'kram': ['2'],              # en kram "a hug"; etymology 1 is "merchandise"
+    'fyr': ['2'],               # C1: "a lighthouse"; etymology 1 is "a chap"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -167,6 +169,14 @@ GLOSS = {
     'puss': {'noun': ['peck (a quick kiss)']},
     'läcker': {'adj': ['delicious']},
     'ränta': {'noun': ['interest, interest rate']},
+    # C1 (2026-11-12): a sexual, vulgar or drug sense cut, or a gloss cut short
+    'buske': {'noun': ['bush']}, 'pung': {'noun': ['pouch, a purse']},
+    'italienare': {'noun': ['Italian (a man from Italy)']}, 'volym': {'noun': ['volume']},
+    'fladdermus': {'noun': ['bat']}, 'förnamn': {'noun': ['first name, given name']},
+    'växla': {'verb': ['to change (money), to exchange', 'to switch']},
+    'räka': {'noun': ['shrimp, prawn']}, 'kön': {'noun': ['sex, gender']},
+    'doppa': {'verb': ['to dip, to dunk']},
+    'syra': {'noun': ['acid', 'sourness']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -184,13 +194,14 @@ LEAD = {
 }
 
 # NO ARTICLE for a language's name, which Swedish uses without one (jag talar svenska)
-NO_ART = {'svenska', 'engelska', 'franska', 'ryska', 'spanska', 'japanska', 'italienska', 'kinesiska'}
+NO_ART = {'svenska', 'engelska', 'franska', 'ryska', 'spanska', 'japanska', 'italienska', 'kinesiska', 'latin', 'grekiska'}
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {'pengar': 'p',
               # A2: the everyday gender where Wiktionary lists both (blod, finger, värme) or none
               'blod': 'n', 'finger': 'n', 'värme': 'c', 'chans': 'c', 'kläder': 'p', 'glasögon': 'p',
-              'kram': 'c', 'likhet': 'c', 'kontanter': 'p', 'stålar': 'p', 'underkläder': 'p'}
+              'kram': 'c', 'likhet': 'c', 'kontanter': 'p', 'stålar': 'p', 'underkläder': 'p',
+              'kick': 'c', 'vana': 'c', 'solglasögon': 'p', 'slutledning': 'c'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), ('en', 'adv'),
@@ -206,7 +217,9 @@ DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), 
             ('kram', 'adj'), ('ström', 'adj'),
             # B2
             ('grotta', 'verb'), ('icke', 'noun'), ('godmorgon', 'noun'), ('upptäckt', 'adj'),
-            ('inflytande', 'adj'), ('detektiv', 'adj'), ('snurra', 'noun')}
+            ('inflytande', 'adj'), ('detektiv', 'adj'), ('snurra', 'noun'),
+            # C1
+            ('omelett', 'intj'), ('jämte', 'noun'), ('kapital', 'adj')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(

@@ -215,4 +215,42 @@ B2 = [
                                  'enligt:prep huruvida dessförinnan därmed'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+# C1 (2026-11-12): the CEFR C1 descriptor's "wide range of demanding, longer texts",
+# implicit meaning, and flexible use for social, academic and professional purposes.
+C1 = [
+    ('academic and intellectual', 'avhandling empiri empirisk teoretisk begrepp '
+                                  'definition slutledning kriterium fenomen '
+                                  'mekanism variabel korrelation urval metodik källkritik '
+                                  'abstrakt konkret:adj principiell'),
+    ('society and governance', 'förvaltning myndighetsutövning offentlighet medborgarskap '
+                               'samhällsdebatt folkomröstning mandatperiod regeringsform '
+                               'grundlag maktdelning rättsstat yttrande:noun sanktion '
+                               'tillsyn befogenhet'),
+    ('economy and business', 'omsättning kapital:noun skuldsättning '
+                             'lågkonjunktur högkonjunktur nedskärning effektivisering '
+                             'upphandling avkastning intressent'),
+    ('law and ethics', 'etik moralisk:adj integritet rättssäkerhet '
+                       'överträdelse påföljd preskription prejudikat ändamål'),
+    ('mind and behaviour', 'medvetenhet drivkraft motivation:noun '
+                           'självkänsla självförtroende sårbarhet tillit:noun ambivalens '
+                           'förnekelse förträngning'),
+    ('language and rhetoric', 'retorik nyans ironi metafor underton formulering '
+                              'framställning resonemang ståndpunkt invändning '
+                              'medgivande uttryck:noun'),
+    ('abstract nouns', 'innebörd:noun förhållningssätt omständighet:noun företeelse '
+                       'skeende förlopp avvägning helhet beståndsdel särdrag '
+                       'mångtydighet motsättning förutsägbarhet'),
+    ('verbs of C1', 'åskådliggöra problematisera nyansera precisera kartlägga '
+                    'påvisa belägga förutspå åberopa vidhålla bestrida '
+                    'tillgodose åtgärda prioritera tillskriva frångå åsidosätta '
+                    'ifrågasätta:verb härleda'),
+    ('adjectives of C1', 'påtaglig ingående övergripande otvetydig '
+                         'motstridig ensidig välgrundad ohållbar '
+                         'genomgripande avsevärd marginell försumbar oumbärlig '
+                         'oförutsägbar tvivelaktig'),
+    ('formal connectors', 'därtill därjämte varvid varigenom härvid sålunda icke_desto_mindre '
+                          'i_synnerhet:adv förvisso visserligen huruvida:conj '
+                          'oaktat jämte'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}
