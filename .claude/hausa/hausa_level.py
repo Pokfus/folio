@@ -57,7 +57,43 @@ SCOPE = {
                   'weather, colours, and the pronouns, question words, prepositions and '
                   'particles every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to communicate in simple and routine tasks requiring a simple and '
+                 'direct exchange of information on familiar and routine matters, and to '
+                 'describe in simple terms their background, their immediate surroundings '
+                 'and matters of immediate need',
+        'topics': 'work and jobs, school, the months and the seasons, travel, the home and '
+                  'the kitchen, food and cooking, clothes, nature and animals, the body and '
+                  'health, feelings, free time, religion and festivals, the neighbourhood, '
+                  'and the everyday verbs, describing words and adverbs a simple account of '
+                  'one\'s day needs',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to '
+                 'produce simple connected text on topics that are familiar or of personal '
+                 'interest, and to describe experiences and events, dreams, hopes and '
+                 'ambitions and briefly give reasons and explanations for opinions and plans',
+        'topics': 'opinions and arguing a point, news, government and society, the law, money '
+                  'and the economy, work and business, education, health and the body, the '
+                  'environment, travel and its troubles, technology, the arts and media, '
+                  'religion and custom, character and relationships, and the verbs, linking '
+                  'words and abstract nouns connected speech is built out of',
+    },
 }
+
+# Who the deck's description says it is for.
+LEARNER = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner'}
+
+
+# WHICH HAND GLOSSES THE LEXICON IS BUILT WITH, and where it goes: this level's and every
+# level's below it (`hand.HANDS`).  A1's lexicon keeps its old name, `lex.json`, which
+# `alphabet.py` also reads; a higher level's is `lex-<level>.json`.
+HAND_LEVELS = BELOW.get(LEVEL, []) + [LEVEL]
+LEX = 'lex.json' if LEVEL == 'a1' else f'lex-{LEVEL}.json'
 
 
 def f(name):
