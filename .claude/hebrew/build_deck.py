@@ -141,6 +141,9 @@ GLOSS = {
     'שונה|שׁוֹנֶה': {'adj': ['different (from: מ־)', 'various']},
     # Wiktionary's "in addition, furthermore" is not its sense; it concedes
     'עם זאת|עִם זֹאת': {'adv': ['nevertheless, even so, however']},
+    # C1: the Mishnah and the Torah, where Wiktionary's gloss opens on a sense or a paragraph
+    'משנה|מִשְׁנָה': {'noun': ['the Mishnah (the first written code of Jewish oral law)', 'a paragraph of the Mishnah; doctrine']},
+    'תורה|תּוֹרָה': {'noun': ['the Torah (the five books of Moses; Jewish teaching)', 'instruction, teaching, doctrine']},
     'הבא|הַבָּא': {'noun': ['next, the next one (בשבוע הבא, next week)']},
 }
 
@@ -193,6 +196,8 @@ LEAD = {
     'תקנה|תַּקָּנָה': 'regulation',
     'עשור|עָשׂוֹר': 'decade',
     'כינור|כִּנּוֹר': 'violin',
+    'מלאכה|מְלָאכָה': 'work',
+    'השקיה|הַשְׁקָיָה': 'irrigation',
     'טבח|טַבָּח': 'cook',
     'הנחה|הֲנָחָה': 'discount',
 }
@@ -205,6 +210,7 @@ ROMAN_BY_HAND = {
     'רעיון|רַעֲיוֹן': 'ra\'ayón',
     'יפהפה|יְפֵהפֶה': 'yefefé',
     'חריץ|חָרִיץ': 'kharíts',
+    'טחול|טְחוֹל': 'tekhól',
 }
 
 # A gloss that is Wiktionary's long definition of an everyday word, shortened.

@@ -5,7 +5,7 @@ Hebrew set, built the way the Persian set was (`docs/persian-decks-plan.md`); `d
 of how the others were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-12: "Add a Hebrew language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/hebrew/`). C1 is planned, not built.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck and every level A1 to C1 are built** (`.claude/hebrew/`). A phrases deck is not planned unless asked for.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces after the first. The first commit carried one changelog item and one bump, because it
@@ -33,7 +33,7 @@ rather than asked again:
 | Hebrew A2 Elementary — built | `Hebrew-A2.folio-deck.json` | 750 |
 | Hebrew B1 Intermediate — built | `Hebrew-B1.folio-deck.json` | 1,000 |
 | Hebrew B2 Upper Intermediate — built | `Hebrew-B2.folio-deck.json` | 1,500 |
-| Hebrew C1 Advanced | `Hebrew-C1.folio-deck.json` | 1,500 |
+| Hebrew C1 Advanced — built | `Hebrew-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -93,7 +93,7 @@ form is the guide. One A1 word (`שדה תעופה`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done 2026-11-12) to C1, one level per session: the
+**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2 (done 2026-11-12)** — A2 to C1, one level per session: the
 level's inventory into `inventory.py`, its `SCOPE` into `hebrew_level.py`, run, read every card. **Phase 3** — a
 phrases deck, if asked for.
 
@@ -179,3 +179,26 @@ and A1, B1 and the alphabet rebuilt on the day's code are unchanged (checked by 
   sand, `שוחד` bribe, `כיף` fun, `קעקע` tattoo), and hand glosses where Wiktionary's entry is a note or wrong:
   `פלדה` steel, `קיבוץ` kibbutz, `חלוץ` pioneer, `שואה`, `שונה`, and `עם זאת` "nevertheless" (Wiktionary has "in
   addition, furthermore", which is not its sense).
+
+## 10. C1 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/hebrew/run.py --level c1`. **1,500 notes / 3,000 cards: 60
+from the inventory, 1,440 by frequency.** Three sentences for 1,034, none for 170 (the fill reaches far down the
+frequency list, where Tatoeba has little). A re-run is byte-identical, and every level below and the alphabet
+rebuilt on the day's code are unchanged (checked by hash). What C1 needed:
+
+- **THE INVENTORY WAS CHECKED AGAINST WIKTIONARY BEFORE IT WAS KEPT** (Persian's C1 rule). Of the words written for
+  the level's topics (philosophy, Jewish tradition, scholarly Hebrew, the constitution, medicine, law, grammar and
+  poetry, feeling and judgement, formal prose), 53 have no Hebrew entry in English Wiktionary (`השקפה`, `מופשט`,
+  `מכריע`, `תשתית`, `ענווה`, `בעקבות` …) and were left out of `inventory.C1` rather than reported missing on every
+  run. Most of the rest are already taught below, so the inventory adds only 60 and the frequency fill is the level.
+- **A letter's name (`חי״ת`) or an entry titled with its points (`שַׁפִּיר`) is never a fill headword.**
+- **About 190 exclusions** ("Read off the C1 ranking"): counts that belong to another word spelt alike, Biblical
+  forms with ו (`ותאמר`, `ויצא`), names (`רחל`, `אדר`, `גד`), entries whose only romanisation is scholarly or absent
+  (`סיג`, `אקווריום`, `סמס`), and the subtitles' insults and sexual words.
+- **`משנה` is the Mishnah** (`משנה=מִשְׁנָה`, not the deputy), and `תורה` and `משנה` are glossed by hand; `עדר` is
+  the herd, not the verb "to hoe".
+
+**Known, left.** C1 is the frequency list's long tail more than a curated advanced vocabulary: Wiktionary's English
+coverage of formal Hebrew is too thin to carry a written inventory at this level, and the description says the
+level is assembled.

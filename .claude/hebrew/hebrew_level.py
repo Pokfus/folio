@@ -92,6 +92,19 @@ SCOPE = {
                   'and consequences — the formal connectors of written Hebrew, and the verbs of '
                   'reporting, analysing and persuading',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'philosophy and ethics, religion and Jewish tradition, scholarly Hebrew, '
+                  'government and the constitution, the economy and development, medicine and '
+                  'the body, law and rights, language and the forms of Hebrew poetry, the shades '
+                  'of feeling and judgement, the abstract nouns and adjectives of formal prose, and '
+                  'the literary connectors',
+    },
 }
 
 

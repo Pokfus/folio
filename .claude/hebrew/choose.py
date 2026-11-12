@@ -97,6 +97,8 @@ PICK = {
     'שוטה': 'שׁוֹטֶה:noun', # "fool"; the adjective "weed" is Wiktionary's slip
     'כיף': 'כֵּיף',        # "fun", not "a high five"
     'קעקע': 'קַעֲקַע',     # "tattoo", the noun; the verb's entry gives no romanisation
+    # C1 (2026-11-12)
+    'עדר': 'עֵדֶר',        # "herd, flock", not "to hoe"
     'כיוון': 'כִּוּוּן',    # "direction"; the verb's count is מכיוון "since", which its table holds
     'סתם': 'סְתָם',       # "just, merely, for no reason", not the verb "to stop up"
 }
