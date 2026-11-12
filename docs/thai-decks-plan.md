@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped, Hindi's above all
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/thai/`, §6–§8). B2, C1 and the
+**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/thai/`, §6–§9). C1 and the
 phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -35,7 +35,7 @@ the owner's to overturn**:
 | Thai A1 Beginner — built | `Thai-A1.folio-deck.json` | 500 |
 | Thai A2 Elementary — built | `Thai-A2.folio-deck.json` | 750 |
 | Thai B1 Intermediate — built | `Thai-B1.folio-deck.json` | 1,000 |
-| Thai B2 Upper Intermediate | `Thai-B2.folio-deck.json` | 1,500 |
+| Thai B2 Upper Intermediate — built | `Thai-B2.folio-deck.json` | 1,500 |
 | Thai C1 Advanced | `Thai-C1.folio-deck.json` | 1,500 |
 | Thai Phrases and Expressions | `Thai-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -167,3 +167,28 @@ for the better, through the generic rules below (ความคิด loses a b
   the card taught only "female"), พลัง (shares "energy" with พลังงาน). โทรศัพท์มือถือ left out beside มือถือ.
 - **Known, left**: more of the fill is written or royal register (ถวาย, ตรัส, ทูล, พระราชทาน, รัชกาล) — the two
   corpora agree on it, and a reader of Thai meets it; some glosses stay long and definitional.
+
+## 9. As built (2026-11-12): B2
+
+On request ("Add B2"). `python3 .claude/thai/run.py --level b2`. 1,500 notes: 346 from the B2 inventory
+(14 topics, `inventory.py` `B2`), 1,154 by frequency; sentences for 492, three for 175 — **1,008 words have no
+example sentence**: Tatoeba's ≈4,800 Thai sentences are spent by B2. A re-run is byte-identical; A1, A2 and B1
+are unchanged by every rule added here.
+
+- **The inventory resolves thinly at this level**: much of it is already taught below (อาชีพ, สังคม, ประชาธิปไตย …)
+  and about 110 of its words are compounds Wiktionary lacks. 38 are now `COMPOSE` rows (ลงคะแนน, อัตราแลกเปลี่ยน,
+  ธนาคารกลาง, ต้นทุน, ข้อสรุป, หมอกควัน, อุทยานแห่งชาติ, ใกล้สูญพันธุ์, โรคซึมเศร้า, ข่าวปลอม, จุดอ่อน, ภาพรวม,
+  องค์ประกอบ, ขอบเขต …), and 9 more override an entry that is "abstract noun of X" alone (การปกครอง, ความเสมอภาค,
+  ความเหลื่อมล้ำ …).
+- **A new generic rule** (`build_deck.LISTITEM`): a "sense" that is a Thai word with a quoted gloss — มาร's list
+  of the five māras, "กิเลสมาร (“passion”)" — is a list item Wiktionary set as a sense, and is dropped.
+- **Seventeen more ETYMS, twelve more LEAD, four more PREFER**, read off every card (กบ opened on a phonetics
+  term before "frog", จอ on "Year of the Dog" before "screen", มูล on "feces" before "base, origin", สละ on a
+  porcupine's quill, บุก on konjac, ซ้อม on "to pound rice", ขวัญ on "cowlick", วลี on "fold of the skin"); the
+  inventory's อุทธรณ์ and ปฏิรูป say `:verb`.
+- **Fifteen more `EXCLUDE` rows**: syllable counts and Latin letters (โม, จัน, กัง, เส, ชะ, กง, ยอ, คุ, ยู, โด, พี),
+  โขง (the count is the Mekong; the entry is "rancid"), ท้าว and สิริ (every usable sense weak or a pointer),
+  ผู้จัดการ (an estate's administrator only); วนเวียน, สมมุติ, อินทร์ beside a word with the same English side.
+- **Known, left**: by B2 the frequency fill is largely literary, royal and Buddhist register (เสวย, ทอดพระเนตร,
+  มหาราช, ภิกษุ, ภพ, ชาดก) — the corpora's agreement, and what a reader of Thai prose meets — and the deck's
+  description says the fill is by frequency. Some glosses stay definitional.

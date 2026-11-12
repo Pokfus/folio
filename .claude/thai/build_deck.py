@@ -130,6 +130,25 @@ ETYMS = {
     'สบู่': ['2'],              # "soap"; 1 is the Jatropha plant
     'มือถือ': ['2'],            # "mobile phone"; 1 is the adjective "handheld"
     'กู้': ['2', '1'],          # "to borrow (a loan)" AND "to rescue, restore"
+    # B2
+    'นายก': ['2', '1'],         # "prime minister" (short for นายกรัฐมนตรี) AND "chief"
+    'กบ': ['2'],                # "frog"; 1 is a phonetics term (syllables ending in -p)
+    'ชมพู': ['2', '1'],         # "pink" AND the Java plum
+    'จอ': ['2'],                # "screen"; 1 is the Year of the Dog
+    'สละ': ['4'],               # "to give up, sacrifice"; 1-3 are a quill, a palm, a fish
+    'ล่อ': ['2', '1'],          # "to lure" AND "mule"
+    'ลอบ': ['2'],               # "secretly"; 1 is a fishing basket
+    'ซ้อม': ['2'],              # "to rehearse, practise"; 1 is "to pound (rice)"
+    'ฟาก': ['2'],               # "side, bank"; 1 is split bamboo flooring
+    'บุก': ['2'],               # "to invade; to push forward"; 1 is konjac
+    'พาล': ['2'],               # "bully; cruel"; 1 is "body hair"
+    'มเหสี': ['2'],             # "queen consort"; 1 is "great sage"
+    'ทวน': ['2'],               # "to repeat; to go against"; 1 is "lance"
+    'ไข': ['2', '1'],           # "to unlock" AND "fat, grease"
+    'เหลือบ': ['2'],            # "to glance"; 1 is "horsefly"
+    'มูล': ['2'],               # "base, origin"; 1 is "feces"
+    'ค่อน': ['2'],              # "fairly; more than half"; 1 is "to criticise"
+    'มน': ['2'],                # "roundish"; 1 is "to be fixed"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one -- its
@@ -176,11 +195,25 @@ LEAD = {
     'เกษียณ': 'to retire',      # first is "to come to an end"
     'จีบ': 'to hit on',         # "to court" is tagged slang; first is "to fold, pleat"
     'วิจัย': 'research',        # first is "collection; compilation"
+    # B2
+    'ประสาท': 'nerve',          # first is "faith; trust"
+    'ขวัญ': 'morale',           # first is "cowlick"
+    'คิ้ว': 'eyebrow',          # first is "molding, edging"
+    'เห็นใจ': 'to have a heart',  # "to sympathise"; first is "to visit a dying person"
+    'ราศี': 'zodiac',           # first is "sum; mass"
+    'จักร': 'wheel',            # first is a fictitious circular weapon
+    'วลี': 'phrase',            # first is "fold of the skin"
+    'ปฏิวัติ': 'overthrow',     # "revolution"; first is "rolling back"
+    'อธิบดี': 'director-general',  # first is "overlord"
+    'นิพพาน': 'nirvana',        # tagged weak, yet the word's own sense; first shown was "death"
+    'รณรงค์': 'to campaign',    # first is "theatre of war"
+    'อุโบสถ': 'hall',           # the ordination hall; first is the observance day
     'เบา': 'not heavy',         # "light (in weight)" is fourth of the adjective's senses
 }
 
 ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\): (.+)$)')
 BARE = re.compile(r'^(?:abstract noun of [^\s(]+ \([^(),]*\)|Used other than figuratively or idiomatically.*)$')
+LISTITEM = re.compile(r'^[\u0e00-\u0e7f]+ \(“[^”]*”\)(?:,? and)?[.,;]?$')
 SYN = re.compile(r'^synonym of [^\s(]+ \([^,()]+, “([^”]+)”\)$')
 
 # A GLOSS NEVER SHOWN: a vulgar sense Wiktionary leaves untagged (so it is not
@@ -197,7 +230,8 @@ DROP = {
 PREFER = {'กว่า': 'prep', 'หาก': 'conj', 'จน': 'conj', 'แต่': 'conj', 'คุณ': 'pron',
           'เพื่อน': 'noun', 'เมื่อ': 'conj', 'ใต้': 'prep', 'ข้าง': 'noun', 'มัก': 'adv',
           'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv',
-          'แจ้ง': 'verb', 'สุนัข': 'noun', 'สมาคม': 'noun'}
+          'แจ้ง': 'verb', 'สุนัข': 'noun', 'สมาคม': 'noun',
+          'ฉาย': 'verb', 'ยุติ': 'verb', 'โกหก': 'verb', 'รณรงค์': 'verb'}
 
 
 def entries_for(row, lex):
@@ -249,6 +283,9 @@ def english(ents, word=''):
         # "Used other than figuratively or idiomatically" (a pointer to the parts),
         # teach nothing: dropped where the entry has anything else (B1: ความดัน, ผ่าตัด)
         glosses = [g for g in glosses if not BARE.match(g['g'])] or glosses
+        # a list item Wiktionary set as a sense -- มาร's "the five māras": "กิเลสมาร
+        # (“passion”)", "มัจจุมาร (“death”), and" -- is a Thai word, not a meaning (B2)
+        glosses = [g for g in glosses if not LISTITEM.match(g['g'])] or glosses
         strong = [g for g in glosses if not g['weak'] or (lead and lead in g['g'])]
         for g in strong or glosses[:1]:
             t = g['g'].rstrip(' :;,')
