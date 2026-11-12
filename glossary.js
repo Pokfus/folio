@@ -9360,7 +9360,8 @@ window.GLOSSARY = {
 "Victory_Stele_of_Naram-Sin": "",
 "Gudea_statue_B": "",
 "Priest-King_(sculpture)": "",
-"Spring_Fresco": ""
+"Spring_Fresco": "",
+"Lioness_Devouring_a_Boy": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13990,7 +13991,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Victory_Stele_of_Naram-Sin": "c. 2254 – 2218 BCE",
 "Gudea_statue_B": "c. 2130 – 2090 BCE",
 "Priest-King_(sculpture)": "c. 2000 – 1900 BCE",
-"Spring_Fresco": "c. 1600 – 1500 BCE"
+"Spring_Fresco": "c. 1600 – 1500 BCE",
+"Lioness_Devouring_a_Boy": "c. 900–700 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19930,7 +19932,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mask_of_Sargon": ["Head of an Akkadian ruler","Bronze head of an Akkadian ruler"],
 "Victory_Stele_of_Naram-Sin": ["Stele of Naram-Sin","Naram-Sin stele"],
 "Gudea_statue_B": ["Gudea, Seated Statue B","Architect with Plan","Statue B of Gudea"],
-"Priest-King_(sculpture)": ["Priest-King","Priest-King of Mohenjo-daro","Priest King"]
+"Priest-King_(sculpture)": ["Priest-King","Priest-King of Mohenjo-daro","Priest King"],
+"Lioness_Devouring_a_Boy": ["Lioness Attacking a Nubian","Lioness Mauling an African","Lioness and Nubian ivory"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29448,7 +29451,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Victory_Stele_of_Naram-Sin": ["object","art","history","bronze age","mesopotamia","iran"],
 "Gudea_statue_B": ["object","art","history","bronze age","mesopotamia","iraq"],
 "Priest-King_(sculpture)": ["object","art","archaeology","bronze age","pakistan","asia"],
-"Spring_Fresco": ["object","art","archaeology","bronze age","greece","europe"]
+"Spring_Fresco": ["object","art","archaeology","bronze age","greece","europe"],
+"Lioness_Devouring_a_Boy": ["ivory","art","assyria","mesopotamia","iraq"]
 });
 
 /* ============================================================================

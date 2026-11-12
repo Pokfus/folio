@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T04:39Z",
+ "generated": "2026-11-12T04:48Z",
  "source": "en.wikipedia.org",
  "counts": {
   "ok": 6651,
@@ -7,7 +7,7 @@
   "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1036,
+  "none": 1037,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -73011,6 +73011,20 @@
    "url": "https://en.wikipedia.org/wiki/Mask_of_Agamemnon",
    "via": "glossary",
    "status": "ok"
+  },
+  "art-080": {
+   "answer": "Lioness Devouring a Boy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Liō",
+    "Cultural depictions of lions",
+    "Artemis",
+    "List of God of War characters",
+    "List of characters in mythology novels by Rick Riordan"
+   ]
   }
  }
 }

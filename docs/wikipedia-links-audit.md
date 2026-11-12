@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1036 | nothing matched; no link |
+| `none` | 1037 | nothing matched; no link |
 
-**7784 of 9119 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7784 of 9120 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1085,7 +1085,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1036)
+## No article found (1037)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1125,6 +1125,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-072` **Sanxingdui Bronze Standing Figure** — search suggests `Sanxingdui`, `Bronze Age`, `Chinese art`, `Chinese sculpture`, `Shang dynasty`
 - `art-076` **Ashurnasirpal II Winged Genius Relief** — search suggests `Ashurnasirpal II`, `Winged genie`, `Art & History Museum`, `Nimrud`, `Ninurta`
 - `art-079` **Khorsabad Lamassu** — search suggests `Lamassu`, `Dur-Sharrukin`, `Assyrian sculpture`, `Art of Mesopotamia`, `British Museum Department of the Middle East`
+- `art-080` **Lioness Devouring a Boy** — search suggests `Liō`, `Cultural depictions of lions`, `Artemis`, `List of God of War characters`, `List of characters in mythology novels by Rick Riordan`
 - `art-087` **Sophilos Dinos** — search suggests `Dinos`, `Dinos of the Gorgon Painter`, `Dionysus`, `Tethys (mythology)`, `Oceanus`
 - `art-089` **Achilles and Ajax Playing a Game** — search suggests `Ajax the Great`, `Exekias`, `Achilles`, `Five Lines`, `Trojan War`
 - `art-090` **Anavysos Kouros** — search suggests `Kouros`, `Kroisos Kouros`, `AP Art History`, `530 BC`
