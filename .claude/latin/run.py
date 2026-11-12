@@ -24,6 +24,10 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
     build_deck.py   headword, dictionary entry, glosses, forms, tables,
                     sentences, and the .folio-deck.json in decks/
 
+THE PHRASES DECK (`--level phr`) is one stage of its own, `phrases.py`: the
+well-known rows of Wikipedia's List of Latin phrases (pinned revisions),
+ordered by their articles' 2025 pageviews, with Tatoeba sentences.
+
 SOURCES AND LICENCES, which the deck's own description also states:
   · English Wiktionary via the kaikki.org extraction -- CC BY-SA 4.0
   · The Dickinson College Commentaries Latin Core Vocabulary -- CC BY-SA 3.0
@@ -73,6 +77,13 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
+    if level == 'phr':                   # the phrases deck is its own stage (phrases.py)
+        if not os.path.exists('classical.json'):
+            runpy.run_path(os.path.join(HERE, 'corpus.py'), run_name='__main__')
+        print('phrases:')
+        sys.argv = ['phrases.py']
+        runpy.run_path(os.path.join(HERE, 'phrases.py'), run_name='__main__')
+        return
     stages = ['select.py', 'examples.py', 'build_deck.py']
     from latin_level import CORPUS_LEVELS
     if level in CORPUS_LEVELS and (not os.path.exists('classical.json') or '--re-extract' in sys.argv):
