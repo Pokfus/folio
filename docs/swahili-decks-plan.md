@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
-**STATUS (2026-11-09): A1 and A2 are built** (`.claude/swahili/`, §6, §7). B1 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): the set is complete — A1 to C1 and the phrases deck are built** (`.claude/swahili/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -27,9 +27,10 @@ for a language with no exam list — **open to the owner's correction**:
 |---|---|---|
 | Swahili A1 Beginner — built | `Swahili-A1.folio-deck.json` | 500 |
 | Swahili A2 Elementary — built | `Swahili-A2.folio-deck.json` | 750 |
-| Swahili B1 Intermediate | `Swahili-B1.folio-deck.json` | 1,000 |
-| Swahili B2 Upper Intermediate | `Swahili-B2.folio-deck.json` | 1,500 |
-| Swahili C1 Advanced | `Swahili-C1.folio-deck.json` | 1,500 |
+| Swahili B1 Intermediate — built | `Swahili-B1.folio-deck.json` | 1,000 |
+| Swahili B2 Upper Intermediate — built | `Swahili-B2.folio-deck.json` | 1,500 |
+| Swahili C1 Advanced — built | `Swahili-C1.folio-deck.json` | 1,500 |
+| Swahili Phrases and Expressions — built | `Swahili-Phrases-and-Expressions.folio-deck.json` | 284 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -39,6 +40,7 @@ The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 |---|---|---|
 | meanings, noun class, forms | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Swahili.jsonl`, 86 MB, 21,700 entries) | CC BY-SA 4.0 |
 | frequency (counts only; no text ships) | OPUS: OpenSubtitles v2024 Swahili (112,000 lines, 540,000 words) and Global Voices v2018q4 Swahili (37,000 lines, 660,000 words) | Global Voices CC BY 3.0; OpenSubtitles as distributed by OPUS |
+| frequency for C1 only (counts only; no text ships) | OPUS: CCMatrix v1 Swahili (4.3 million lines, 61.6 million words, mined web text) and WikiMatrix v1 Swahili (206,000 lines, 3.9 million words, Wikipedia sentences) | WikiMatrix CC BY-SA (Wikipedia); CCMatrix as distributed by OPUS |
 | example sentences | Tatoeba `swh` exports (≈4,350 Swahili–English pairs) | CC BY 2.0 FR |
 | level scope | CEFR global scale (Council of Europe), quoted | — |
 | L1 speakers (`LANGS`) | 5.3 million, Wikipedia's infobox (Ethnologue 27th ed.; 92 million L2), read 2026-11-09 | — |
@@ -91,9 +93,9 @@ Wiktionary senses are odd for a beginner (`-weza` "to be unwell"), shown as the 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read every card.
-**Phase 3** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
+**Phase 3 (done)** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
 
 ## 6. As built (2026-11-09): A1
 
@@ -129,3 +131,134 @@ after every change below** (its card ids are positional: re-dealing it would rem
 - **Known, left**: the fill leans on news and drama vocabulary (`mahakama`, `gereza`, `silaha`, `mtukufu`),
   as every corpus-ordered deck on the shelf does; several applicative and passive verbs (`kuletea`,
   `kuchukuliwa`) are lemmas of their own in Wiktionary and come in on their counts.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/swahili/run.py --level b1`. 1,000 notes, 225 from the inventory (20 topics: work and the office,
+study, news and the media, travel, nature and the environment, society and the state, relationships and life
+events, feelings and opinions, talking and arguing, verbs, abstract nouns, health and emergencies, sport and the
+arts, crime and the law, housing and money, character and values, size and measure, describing, time,
+connectors) and 775 by frequency; sentences for 641, three apiece for 248, none for 359 (Tatoeba's Swahili is
+small). A re-run is byte-identical, and **A1 and A2 are byte-identical after every change below** (verified).
+
+- **THE LOWER LEVELS' FILL HAD ALREADY TAKEN B1'S OBVIOUS TOPIC WORDS.** A first inventory of the commonest
+  words for each topic kept only 81: A2's 481-word frequency fill had dealt `serikali`, `uchaguzi`, `hisia`,
+  `jaribu`, `tatizo` and most of their kind. The inventory was widened a tier down (`mhasibu`, `pensheni`,
+  `mbunge`, `katiba`, `mkimbizi`, `chanjo`, `riwaya`, `mpangaji` …), which is where a B1 inventory has to live
+  on this shelf; a word listed but already taught is skipped by `select.py` as before. The inventory names only
+  headwords Wiktionary has (`elezo`, `tokeo`, `badiliko`, `mwananchi` — not their plurals).
+- More exclusions from the fill, each with its reason in `select.EXCLUDE`: `do` (the English "do" in the
+  subtitles), `hindi` "maize" (its count is Hindi "India"), `papa` (shark, pope and "to tremble" counted as
+  one), `lisilo` (a negative relative form), `nakupenda` (a conjugated form listed as a lemma), `jira` "cumin"
+  (its count is its plural `majira` "season"), `kumba` "to shove" (its count is `kumbe` read as a subjunctive),
+  `mfanya` (a word-forming element, like `mpiga`), and `endeleza`, whose only Wiktionary sense is "to spell"
+  where the word is met as "to develop" — left out rather than taught wrong. `-pumbavu` and `-shenzi` join
+  `SWEARS` beside A1's `mpumbavu` and `mshenzi`.
+- More etymology choices (`buni` "to invent", `bodi` "board", `hariri` "to edit", `nya` "to rain") and a lead
+  gloss (`wito` "calling"). `buni` is listed in the inventory as `buni:verb` so the card speaks `kubuni`, not the
+  noun's spelling it would otherwise be dealt under.
+- **Known, left**: the fill carries more news and courtroom vocabulary than the A levels (`ugaidi`, `mtuhumiwa`,
+  `upelelezi`, `mswada`), as every corpus-ordered deck on the shelf does at this size; several passive and
+  applicative verbs (`kusemwa`, `kulipwa`, `kununulia`) are lemmas of their own in Wiktionary and come in on their
+  counts; a few Wiktionary first senses are odd for a learner (`kidokezo` "trailer", `fadhili` "benignant") and
+  are shown as the source has them.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/swahili/run.py --level b2`. 1,500 notes, 261 from the inventory (16 topics: the economy and
+business, government and politics, the law, rights and conflict, science and research, technology, the
+environment and geography, health and the body, education, literature, the arts and the media, home and family,
+character and feelings, arguing and analysing, verbs of change and cause, describing, qualifying and time) and
+1,239 by frequency; sentences for 497, three apiece for 110, none for 1,003 — at this depth Tatoeba's Swahili has
+little to offer. A re-run is byte-identical, and **A1, A2 and B1 are byte-identical after every change below**.
+
+- **B1's lesson held**: the inventory was built from four rounds of candidates checked against the lower decks
+  (`ubinafsishaji`, `mfumuko wa bei`, `mwanaharakati`, `kipindupindu`, `uzamivu` …); about half of each round
+  was already taught. Many inventory words have a count of 0 in both corpora (`biolojia`, `ruzuku`, `nenosiri`)
+  and are dealt last; a multi-word topic term (`mahakama kuu`, `afya ya akili`, `akili bandia`) is listed as one.
+- **THE FILL REACHES THE CORPORA'S FLOOR.** Its last few hundred words have a rate of about 3 per million in
+  each corpus — one or two tokens — and tie, so their order among themselves is alphabetical. The tail was read
+  and the faults it threw up excluded with reasons in `select.EXCLUDE`: verbs the parser credited from a handful
+  of other words' forms (`-aka`, `-sua`, `-asa`), a single token (`ree` "ace"), Wiktionary's queried sense
+  (`umbile`), and a lemma that is slang (`mbao` "twenty shillings"; planks are the plural of A2's `ubao`).
+- More exclusions, each with its reason: counts that are another word (`pepe` is `barua pepe`, `abu` the name
+  element, `haram` Boko Haram, `koloni` "colony", `-wia` the applicative of `-wa`, `ono` and `nukato` their own
+  plurals `maono`, `manukato`); grammar forms (`yaliyomo`, `kuli`, `kusiwe`, the tense marker `ka`); six
+  word-forming elements like A2's `mpiga` (`mpigaji`, `kifungua`, `mshika`, `mtunza`, `mlipa`, `mlinda`); and the
+  sexual, crude and pejorative (`kujamiiana`, `kuhara`, `shoga` — its count is the slur —, `kilema`). Six
+  insults join `SWEARS` (`mwanaharamu`, `mpuuzi`, `zuzu`, `bwege`, `mbumbumbu`, `umalaya`).
+- Etymology choices `kopa` "to borrow", `saruji` "cement", `tembe` "pill"; `fasihi:noun` and `kopa:verb` in the
+  inventory so the cards lead with "literature" and speak `kukopa`.
+- The "not X" label on a sense ("verb, not kudhamiria") is the existing tie-breaker for two words that share an
+  English side (`kukusudi` / `kudhamiria`, `-nene` / `-nono`), 11 pairs here, as A2's two.
+- **Known, left**: the fill's floor is noisy for a corpus of 1.2 million words. (C1 was therefore ranked on
+  larger written corpora, §10.) Some Wiktionary senses at this depth are
+  rare or regional (`kwasi` "rich", `kukoa` "to be sharp") and are shown as the source has them.
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/swahili/run.py --level c1` (it also fetches CCMatrix, 134 MB, and WikiMatrix and counts them into
+`lex-web.json`, about 12 minutes once). 1,500 notes, 99 from the inventory (8 topics: scholarship and language,
+belief, the political economy, history and the sea, the land and its life, the body and medicine, crafts and
+rites, reasoning) and 1,401 by frequency; sentences for 195, three apiece for 16, none for 1,305 — Tatoeba's
+Swahili has almost nothing at this level. A re-run is byte-identical, `lex.json` is byte-identical to before
+(verified by its hash), and **A1 to B2 are byte-identical after every change below**.
+
+- **THE SMALL CORPORA RAN OUT.** With C1 ranked on the subtitles and Global Voices, the fill found 42 words:
+  fewer than fifty usable lemmas attested in both are left once A1-B2's 4,000 are taken. Adding CCMatrix as a
+  third corpus did not help, because the rule "common in every corpus" still needs both small ones.
+- **SO C1 IS RANKED ON WRITTEN SWAHILI ALONE** (`extract.py --web`): CCMatrix (61.6 million words) and WikiMatrix
+  (3.9 million), counted by the same claims and verb parser and ranked by the same geometric mean of two rates,
+  into `lex-web.json` — never into `lex.json`. `select.rank` reads it for C1 only, and the fill's "has a count"
+  test is the C1 rank (for A1-B2's single words it is the same number as before). The deck's description says
+  which corpora ranked it. Ranking on writing suits the level: the C1 descriptor is about "demanding, longer
+  texts", and the fill is scholarly and technical (`utekelezaji` "implementation", `muundombinu`
+  "infrastructure", `ukuaji` "growth", the sciences' `molekuli`, `homoni`, `protini`).
+- **The inventory is small (99)** because four rounds of candidates found three in four already taught; it holds
+  what the fill would not reach — linguistics, the political economy, the coast's seafaring, the land's ecology,
+  medicine, crafts and rites — most of it with a count of 0 in the small corpora.
+- **WHAT THE WRITTEN CORPORA BROUGHT IN**, excluded with reasons in `select.EXCLUDE`: East African PLACE NAMES and
+  names that are also dictionary words (`mbeya` "gossip" is Mbeya, `-pemba` "to trick" Pemba, `tanga`, `juba`,
+  `kwale`, `-manga`; `kanu` is KANU; `mwinyi`, `bakari`, `saidi`; `bin` like B2's `abu`; `kaini` is Cain), other
+  languages' words in the web text (`dia`, `dei`, `jo`, `anti`, `liga`), forms and loans (`ndiwe`,
+  `kudownload`), word-forming elements (`mcha`, `mwenda`, `mfanyi`), and the crude, sexual and pejorative
+  (`mavi`, `punyeto`, `ushoga` and `msagaji` — both slurs in use —, `chotara`). `jini` is "genie" not "gin"
+  (`ETYMS`), and `kombe` leads with "cup" (`LEAD`: Kombe la Dunia), not "oyster".
+- **Known, left**: CCMatrix carries a great deal of church text, so the fill has more Christian vocabulary than a
+  general C1 list would (`sakramenti`, `liturjia`, `sinodi`, `dayosisi`, `katekisimu`, `shemasi`), and some
+  Islamic (`zakati`, `madrasa`, `mimbari`); every one is a real word with its Wiktionary sense, so they are
+  left in rather than hand-picked out. Many fill words are internationalisms (`atomi`, `oksijeni`, `galaksi`),
+  which is what written C1 Swahili looks like. Two spellings of one word appear as two cards where Wiktionary
+  has two entries (`teolojia` / `theolojia`, `seneti` / `senati`), each labelled "not X" as the shared-English
+  rule does.
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/swahili/run.py --level phr` (`select.phrases`; `phr` in `swahili_level.py` is a seventh "level",
+not a CEFR band). 284 phrases: 35 set phrases and greetings, 29 proverbs, 34 idioms and 186 other multi-word
+expressions; sentences for 62, three apiece for 22. A re-run is byte-identical, and **A1 to C1 are byte-identical
+after every change below**.
+
+- **THE POOL.** Russian's two tests — a part of speech only a phrase has (`phrase`, `proverb`, `prep_phrase`), OR
+  a multi-word entry with a sense tagged `idiomatic` (`kutia chumvi` "to exaggerate"; its card says "idiom,
+  verb") — and, because Swahili builds so much from a light verb and a noun, every multi-word VERB, INTERJECTION,
+  ADVERB, PREPOSITION and DETERMINER as well (`kupiga simu` "to phone", `asante sana`, `kwa kweli`, `kwa niaba
+  ya`). Not a compound noun (`mpira wa miguu` is a word: 1,052 of them) nor a spelled-out number (93). Whatever a
+  level deck teaches is left out, as is a lemma whose every sense is weak (rare, slang).
+- **THE ORDER** is how often each phrase occurs in the subtitles and Global Voices TOGETHER, per million words
+  (`phrase_counts`): summed, not the levels' geometric mean, which would need a phrase in both and leaves almost
+  every phrase at 0. A multi-word verb is counted with its head conjugated by the verb parser (`alipiga simu`,
+  `tunafanya kazi`), or as its stem or infinitive; everything else as its words in sequence. **The 121 phrases the
+  corpora never use are kept and dealt last, alphabetically** — most of the proverbs among them (the Russian
+  finding: the corpus must not set the syllabus). `examples.py` matches a verb phrase the same way, for this deck
+  only (A1's `-wa na` keeps the exact match it shipped with).
+- **Left out, with reasons in `select.EXCLUDE` / `OATH`**: `kwa mujibu` and `mujibu wa`, fragments of C1's `kwa
+  mujibu wa`; the verbs for sex (`kufanya mapenzi`, `kulala pamoja`, `kushiriki ngono`, `kukutana kimwili`,
+  `kushiriki kitanda`, `kupiga punyeto`), as B2 left out `kujamiiana`; an insult (`umbwa hii`), a vulgar gloss
+  (`pambana na hali yako`), Wiktionary's genital euphemism `huko chini` and its queried `kula mate`; and three
+  obscenities refused on the spelling. The deck's description says a few were left out and why.
+- **Known, left**: most proverbs carry Wiktionary's explanation rather than a gloss ("This proverb emphasizes the
+  importance of keeping one's word"), shown as the source has it; several near-synonyms are separate cards where
+  Wiktionary has separate entries (`kupiga busu` / `kupiga kisi` / `kupiga kimunju` "to kiss", the three ways of
+  asking a price), each labelled "not X" by the shared-English rule; a few are Kenyan youth slang (`niko kadi`,
+  `kupiga luku`) and are labelled so in their glosses.

@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 240 MB of decks. The file itself is fetched on Add. */
+   section without fetching 248 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -29,6 +29,11 @@ window.LANG_DECKS = [
   { lang: "Spanish", file: "Spanish-Phrases.folio-deck.json", id: "esphrases", title: "Spanish — Common phrases and expressions", sub: "400 expressions · both directions, as two cards each", notes: 400, cards: 800, ex: 100, bytes: 452429, rev: "87ef54542a88" },
   { lang: "Arabic", file: "Arabic-Alphabet.folio-deck.json", id: "arabc", title: "Arabic Alphabet", sub: "31 letters and signs · both directions, as two cards per letter", notes: 31, cards: 62, ex: 0, bytes: 31388, rev: "721c47e1222e" },
   { lang: "Arabic", file: "Arabic-A1.folio-deck.json", id: "arabica1", title: "Arabic A1", sub: "500 words · Modern Standard Arabic · both directions", notes: 500, cards: 1000, ex: 98, bytes: 901059, rev: "68995070eb08" },
+  { lang: "Arabic", file: "Arabic-A2.folio-deck.json", id: "arabica2", title: "Arabic A2", sub: "600 words · Modern Standard Arabic · both directions", notes: 600, cards: 1200, ex: 96, bytes: 1206920, rev: "97976ecaccfc" },
+  { lang: "Arabic", file: "Arabic-B1.folio-deck.json", id: "arabicb1", title: "Arabic B1", sub: "800 words · Modern Standard Arabic · both directions", notes: 800, cards: 1600, ex: 90, bytes: 1693727, rev: "170ed028bcad" },
+  { lang: "Arabic", file: "Arabic-B2.folio-deck.json", id: "arabicb2", title: "Arabic B2", sub: "900 words · Modern Standard Arabic · both directions", notes: 900, cards: 1800, ex: 69, bytes: 1531327, rev: "56e9480d2f9a" },
+  { lang: "Arabic", file: "Arabic-C1.folio-deck.json", id: "arabicc1", title: "Arabic C1", sub: "700 words · Modern Standard Arabic · both directions", notes: 700, cards: 1400, ex: 39, bytes: 1114440, rev: "308440682af8" },
+  { lang: "Arabic", file: "Arabic-Phrases-and-Expressions.folio-deck.json", id: "arabicphrase", title: "Arabic Phrases and Expressions", sub: "164 expressions · 58 everyday, 68 idioms, 38 proverbs · both directions", notes: 164, cards: 328, subs: 3, tree: [{"n":"Phrases","c":116,"x":21},{"n":"Idioms","c":136,"x":10},{"n":"Proverbs","c":76,"x":18}], flat: true, ex: 16, bytes: 93917, rev: "e376760a6bea" },
   { lang: "French", file: "DELF-A1-French.folio-deck.json", id: "delfa1", title: "DELF A1 — French", sub: "433 words · both directions, as two cards per word", notes: 433, cards: 866, ex: 100, bytes: 785436, rev: "af549d5277f3" },
   { lang: "French", file: "DELF-A2-French.folio-deck.json", id: "delfa2", title: "DELF A2 — French", sub: "589 words · both directions, as two cards per word", notes: 589, cards: 1178, ex: 100, bytes: 1407308, rev: "dfc0348c3bea" },
   { lang: "French", file: "DELF-B1-French.folio-deck.json", id: "delfb1", title: "DELF B1 — French", sub: "895 words · both directions, as two cards per word", notes: 895, cards: 1790, ex: 99, bytes: 2408439, rev: "b99e20dba008" },
@@ -91,6 +96,10 @@ window.LANG_DECKS = [
   { lang: "Telugu", file: "Telugu-A1.folio-deck.json", id: "telugua1", title: "Telugu A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 19, bytes: 336893, rev: "df05a909b180" },
   { lang: "Swahili", file: "Swahili-A1.folio-deck.json", id: "swahilia1", title: "Swahili A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 96, bytes: 599461, rev: "56ff9c38660c" },
   { lang: "Swahili", file: "Swahili-A2.folio-deck.json", id: "swahilia2", title: "Swahili A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 84, bytes: 819775, rev: "cff4874f8497" },
+  { lang: "Swahili", file: "Swahili-B1.folio-deck.json", id: "swahilib1", title: "Swahili B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 64, bytes: 840363, rev: "8a46122d3781" },
+  { lang: "Swahili", file: "Swahili-B2.folio-deck.json", id: "swahilib2", title: "Swahili B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 33, bytes: 864119, rev: "5bedc472fe8b" },
+  { lang: "Swahili", file: "Swahili-C1.folio-deck.json", id: "swahilic1", title: "Swahili C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 13, bytes: 651095, rev: "0b513b3feee1" },
+  { lang: "Swahili", file: "Swahili-Phrases-and-Expressions.folio-deck.json", id: "swahiliphr", title: "Swahili Phrases and Expressions", sub: "284 phrases · both directions, as two cards per phrase", notes: 284, cards: 568, ex: 22, bytes: 132444, rev: "fe66451238c5" },
   { lang: "Hausa", file: "Hausa-Alphabet.folio-deck.json", id: "haabc", title: "Hausa Alphabet (Boko)", sub: "36 letters and sounds · both directions, as two cards per letter", notes: 36, cards: 72, ex: 0, say: false, bytes: 14898, rev: "c30a1583b7b4" },
   { lang: "Hausa", file: "Hausa-A1.folio-deck.json", id: "hausaa1", title: "Hausa A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, say: false, bytes: 412980, rev: "1ffbefe40bf2" },
   { lang: "Turkish", file: "Turkish-A1.folio-deck.json", id: "turkisha1", title: "Turkish A1", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, say: false, bytes: 680115, rev: "b3805cd5a9f2" },
