@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6614 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6669 | the title is the article |
+| `redirect-variant` | 406 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 632 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 138 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1010 | nothing matched; no link |
+| `none` | 1015 | nothing matched; no link |
 
-**7741 of 9050 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7812 of 9130 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (625)
+## Redirected to a differently named article — check each (632)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -55,6 +55,13 @@ The answer redirects to an article with another name. Most are the same subject 
 - `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
 - `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
 - `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)
+- `astro-104` **prograde motion** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Prograde motion`)
+- `astro-119` **retrograde rotation** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Retrograde rotation`)
+- `astro-121` **Earth's interior** → [Internal structure of Earth](https://en.wikipedia.org/wiki/Internal_structure_of_Earth) (from `Earth's interior`)
+- `astro-139` **comparative planetology** → [Comparative planetary science](https://en.wikipedia.org/wiki/Comparative_planetary_science) (from `Comparative planetology`)
+- `astro-150` **planetary ring** → [Ring system](https://en.wikipedia.org/wiki/Ring_system) (from `Planetary ring`)
+- `astro-174` **lakes of Titan** → [Lakes and rivers of Titan](https://en.wikipedia.org/wiki/Lakes_and_rivers_of_Titan) (from `Lakes of Titan`)
+- `astro-180` **irregular satellites** → [Irregular moon](https://en.wikipedia.org/wiki/Irregular_moon) (from `Irregular satellites`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -941,13 +948,17 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (134)
+## Section redirects — no dedicated page (138)
 
 Wikipedia treats these as part of another article. No link.
 
 - `astro-049` **synodic month** — `Synodic month` only redirects into `Lunar month#Synodic month`
 - `astro-058` **constellation boundaries** — `Constellation boundaries` only redirects into `Constellation#Boundaries`
 - `astro-083` **spring tide** — `Spring tide` only redirects into `Tide#Spring`
+- `astro-114` **spin–orbit resonance** — `Spin–orbit resonance` only redirects into `Tidal locking#Eccentric orbits`
+- `astro-137` **dust storms on Mars** — `Dust storms on Mars` only redirects into `Climate of Mars#Dust storms`
+- `astro-155` **tilt of Uranus** — `Tilt of Uranus` only redirects into `Uranus#Axial tilt`
+- `astro-159` **superionic water** — `Superionic water` only redirects into `Phases of ice#Ice XVIII (superionic water)`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`
@@ -1080,7 +1091,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1010)
+## No article found (1015)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1102,6 +1113,11 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
 - `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `First-magnitude star`
 - `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Earth's outer core`, `Black hole`, `Nebular hypothesis`
+- `astro-106` **refractory elements** — search suggests `Chemical element`, `Cosmic dust`, `Refractory (planetary science)`, `Chondrite`, `Volatile (astrogeology)`
+- `astro-146` **Jupiter's interior** — search suggests `Jupiter`, `Moons of Jupiter`, `Jupiter mass`, `Saturn`, `Galilean moons`
+- `astro-157` **winds of Neptune** — search suggests `Neptune`, `Exploration of Neptune`, `Triton (moon)`, `Green star (astronomy)`, `Uranus`
+- `astro-161` **helium rain** — search suggests `History of astronomy`, `Jupiter`, `Saturn`, `Wolf–Rayet star`, `Zeta Puppis`
+- `astro-176` **plumes of Enceladus** — search suggests `Enceladus`, `Saturn`, `Enceladus Orbilander`, `Enceladus Life Finder`, `Europa (moon)`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`
