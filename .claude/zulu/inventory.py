@@ -13,6 +13,17 @@ and the source does NOT, so the deck cannot teach it (2026-11-09): kodwa "but",
 namuhla "today", ukuthi "that", nini "when", kuphi "where", kungani "why",
 kancane "slowly", eduze "near", ekuseni "in the morning", iviki "week" (isonto
 serves), uthisha "teacher" (umfundisi serves).
+
+A2 IS SCOPED TO THE CEFR A2 DESCRIPTOR, looked up the same way (2026-11-12).
+The months English Wiktionary has not got: u-Ephreli, u-Agasti, u-Okthoba (the
+deck teaches nine of the twelve).  Nor these, which A2 would have: izicathulo
+(isicathulo serves), isiketi "skirt", ibhande "belt", uthisha "teacher",
+umshayeli "driver", isiguli "patient", ibhange "bank", imakethe "market",
+isiteshi "station", itekisi "taxi", iwashi "watch", umbuzo "question",
+iyunivesithi "university", ikhofi "coffee", isipuni "spoon", ingilazi "glass",
+inkomishi "cup", ekuseni "in the morning", kusihlwa "in the evening", bonke /
+wonke "all", kodwa "but".  `impela` (filed as "truth", not "really") and `jika`
+(filed as "to hang", not "to turn") are left out for their glosses.
 """
 
 INVENTORY = {
@@ -64,5 +75,41 @@ INVENTORY = {
          'linda vuma enza ba:verb thi'),
         ('joining words and place words',
          'futhi noma ngoba uma kanye kakhulu kahle kude phezulu phansi phambili ngaphandle'),
+    ],
+    'a2': [
+        ('the months and the seasons',
+         'ujanuwari ufebruwari umashi umeyi ujuni ujulayi usepthemba unovemba udisemba '
+         'ihlobo ubusika intwasahlobo ikwindla'),
+        ('the points of the compass, languages and peoples',
+         'inyakatho iningizimu impumalanga intshonalanga isingisi isibhunu isixhosa umzulu ingisi'),
+        ('clothes',
+         'ihembe ibhulukwe isicathulo isigqoko ijazi'),
+        ('work and jobs',
+         'isisebenzi umlimi umakhi unesi umhleli iholide ikhefu isikweletu'),
+        ('relatives and neighbours',
+         'umzukulu umalume ubabekazi umkhwenyana umfelokazi umakhelwane'),
+        ('feelings',
+         'jabula dabuka thukuthela esaba khathala ithemba'),
+        ('travel and the address',
+         'uhambo ihhotela ithikithi ibhanoyi isikebhe ipulazi ikheli vakashela shayela gibela ndiza'),
+        ('the weather and the countryside',
+         'iqhwa ifu isiphepho ihlathi utshani imbali'),
+        ('the body and health',
+         'umlenze umunwe unwele intamo idolo khwehlela phola'),
+        ('more food and the kitchen',
+         'isidlo ikhekhe ushizi ibhotela utamatisi iklabishi ithanga ummbila iwayini ubhiya '
+         'ummese imfologo ibhodwe mnandi'),
+        ('the home and things',
+         'udonga ingadi isikhwama ibhokisi isipho ikhompyutha umakhalekhukhwini iselula'),
+        ('talking and telling',
+         'tshela xoxa bingelela xolisa impendulo amanga'),
+        ('telling when',
+         'namhlanje ngomuso'),
+        ('plans, problems and opinions',
+         'injongo icebo isixazululo ngcono ubuhle'),
+        ('everyday verbs of doing',
+         'bhukuda hlanza thumela lahla lungisa vimba nqaba dula guga fa'),
+        ('big numbers',
+         'isigidigidi'),
     ],
 }

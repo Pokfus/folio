@@ -53,7 +53,9 @@ def fetch():
             continue
         print(f'  get   {name}  <- {url}')
         tmp = out + ('.bz2' if bz else '.part')
-        with urllib.request.urlopen(url) as r, open(tmp, 'wb') as f:
+        # Wikimedia answers urllib's default user agent with 403 (2026-11-12).
+        req = urllib.request.Request(url, headers={'User-Agent': 'folio-deck-builder/1.0'})
+        with urllib.request.urlopen(req) as r, open(tmp, 'wb') as f:
             shutil.copyfileobj(r, f)
         if bz:
             subprocess.run(['bunzip2', '-f', tmp], check=True)

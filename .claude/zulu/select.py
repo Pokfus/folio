@@ -14,6 +14,10 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · a lemma of two letters or fewer: a one- or two-letter verb stem (-ma, -za, -ya,
     -sa) takes its count from the corpus's prefixes and particles, not its use;
   · a proper noun's spelling (`iAfrika`), a borrowed month or place;
+  · a verbal noun (`ukugula` "illness", `ukupheka` "cooking") whose verb has its
+    own entry: its count is the verb's infinitive, and the verb teaches it (from
+    A2 on; A1 shipped with four, ukuqala ukuphela ukulwa ukukhanya, kept so its
+    card ids stand);
   · the hand list `EXCLUDE`, each line with its reason.
 """
 import json, os, sys
@@ -66,11 +70,38 @@ EXCLUDE = {
     'ingaphandle': 'its count is ngaphandle "outside", the adverb',
     'ilisho': 'its count is the forms of -sho "to say", not "rickshaw"',
     'isine': 'its count is the number four\'s forms, not the noun',
+    # Read off the A2 ranking (2026-11-12).
+    'impela': 'Wiktionary files it as the noun "truth"; its count is the adverb impela "really, indeed"',
+    'jika': 'Wiktionary glosses only "to hang"; the everyday -jika is "to turn"',
+    'ungqo': 'its count is ngqo "straight, directly", not "policeman"',
+    'inzima': 'its count is the forms of -nzima "difficult", not "black ox"',
+    'isihlanu': 'its count is the number five\'s forms, not the noun',
+    'isondo': 'Wiktionary glosses "hoof"; its count is isondo "wheel"',
+    'uve': 'a bird whose three letters take their count from other words',
+    'umhlophe': 'its count is the colour -mhlophe (A1), not "white beast"',
+    'fishane': 'a variant of -fushane, taught at A1',
+    'dlwengula': 'its count is crime reports; not a word the level needs',
+    'ingquza': 'anatomical vocabulary the level does not need',
+    'isende': 'anatomical vocabulary the level does not need',
+    'okujwayelekile': 'a whole relative form ("which is usual") filed as an adjective, not a stem',
 }
 
 
 def usable(L):
     return any(not g['weak'] for e in L['entries'] for g in e['glosses'])
+
+
+def verbal_noun_of(k, L, lex):
+    """The verb an uku-/ukw- noun is the infinitive of, where the verb has its own entry."""
+    if not (k.startswith('uku') or k.startswith('ukw')) or len(k) < 6:
+        return None
+    if not all(e['pos'] == 'noun' for e in L['entries']):
+        return None
+    stem = k[3:]
+    V = lex.get(stem)
+    if V and any(e['pos'] == 'verb' for e in V['entries']):
+        return stem
+    return None
 
 
 def main():
@@ -107,6 +138,8 @@ def main():
         if not usable(L) or L['freq'] < 1:
             continue
         if all(e['pos'] == 'phrase' for e in L['entries']):
+            continue
+        if LEVEL != 'a1' and verbal_noun_of(k, L, lex):
             continue
         seen.add(k)
         fill.append({'key': k, 'word': L['word'], 'freq': L['freq'], 'pos': '',
