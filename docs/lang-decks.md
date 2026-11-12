@@ -3613,8 +3613,9 @@ changed was the one that had been wrong all along.
   collection", then the owner's answers: CEFR A1–B1 assembled, a noun classes and clicks deck first, A1 this
   session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds), **A1,
   `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Zulu-A2.folio-deck.json`** (750 notes /
-  1,500 cards) **and B1, `decks/Zulu-B1.folio-deck.json`** (792 notes, short of 1,000: the source is used up;
-  both 2026-11-12). `python3 .claude/zulu/run.py [--level a1|a2|b1]`,
+  1,500 cards) **B1, `decks/Zulu-B1.folio-deck.json`** (778 notes, short of 1,000: the source is used up)
+  **and the phrases deck, `decks/Zulu-Phrases.folio-deck.json`** (99 notes: 33 Wiktionary phrases, 66 Tatoeba
+  sentences; all 2026-11-12; `python3 .claude/zulu/phrases.py`). `python3 .claude/zulu/run.py [--level a1|a2|b1]`,
   `python3 .claude/zulu/classes.py`, `node .claude/zulu/check-zulu.js`; a re-run is byte-identical. The
   sources are thin — about 2,700 Wiktionary lemmas, about 110 Tatoeba sentences, no subtitle list — so the
   frequency is the Zulu Wikipedia's, counted per lemma over Zulu's conjunctive forms, and there is no B2 or C1.

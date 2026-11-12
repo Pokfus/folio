@@ -6,7 +6,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 file says otherwise. Asked for on 2026-11-09: "Add a Zulu language collection."
 
 **STATUS (2026-11-12): all four planned decks are built** — noun classes and sounds, A1, A2 and B1
-(`.claude/zulu/`, §6). B1 holds 792 notes, not 1,000: what the source has left (§6).
+(`.claude/zulu/`, §6) — **and a phrases deck asked for afterwards** (99 notes, §6). B1 holds 778 notes, not
+1,000: what the source has left (§6).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -32,7 +33,8 @@ sentences with an English translation, and no subtitle frequency list exists for
 | Zulu Noun Classes and Sounds — built | `Zulu-Noun-Classes.folio-deck.json` | 39 |
 | Zulu A1 Beginner — built | `Zulu-A1.folio-deck.json` | 500 |
 | Zulu A2 Elementary — built | `Zulu-A2.folio-deck.json` | 750 |
-| Zulu B1 Intermediate — built | `Zulu-B1.folio-deck.json` | 792 (planned 1,000) |
+| Zulu B1 Intermediate — built | `Zulu-B1.folio-deck.json` | 778 (planned 1,000) |
+| Zulu Phrases — built, asked for 2026-11-12 | `Zulu-Phrases.folio-deck.json` | 99 |
 
 The titles carry the CEFR band, so `levelRank` sorts them; "Noun Classes" sorts first by a rule added for it
 (`.claude/build-lang-decks.js`).
@@ -108,7 +110,7 @@ le, lesi …) all reach A1 by frequency.
 
 **Phase 1 (done)** — the pipeline, the noun classes and sounds deck, A1. **Phase 2 (done)** — A2, then B1, one per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `zulu_level.py`, run, read every
-card. A phrases deck is not planned: Wiktionary has 15 Zulu phrase entries.
+card. A phrases deck was not planned (Wiktionary has 15 Zulu phrase entries); it was asked for on 2026-11-12 and built from those, the interjections and Tatoeba (§6).
 
 ## 6. As built (2026-11-09)
 
@@ -134,14 +136,15 @@ word's, `impela`, `ungqo`, `inzima`; a gloss that is not the everyday word, `jik
 form filed as an adjective, `okujwayelekile`, which the check's hyphen rule caught). The description names the
 learner per level (`zulu_level.WHO`). `run.py`'s fetch now sends a user agent: Wikimedia refuses urllib's.
 
-**B1 (2026-11-12): 792 notes, not the planned 1,000, because that is what is left.** After A1 and A2 only
+**B1 (2026-11-12): 778 notes, not the planned 1,000, because that is what is left.** After A1 and A2 only
 about 740 lemmas remain that pass the fill's rules and appear in the corpus at all. The rest of English
 Wiktionary's Zulu has no count and is mostly rare (cattle by horn shape, birds, "simple singular of …"
 entries). Padding with those to reach 1,000 would teach the noise, so B1 is everything usable that is left,
-plus a 70-word inventory of everyday words that have an entry but no count (isipunu "spoon", ilokwe "dress",
--fowuna "to phone", the set phrases ngiyabonga, ngiyaphila, angiqondi …). Those come last in the deal, since
-the deck is dealt by frequency. 722 words by frequency (counts 10 down to 1), 748 with forms, 268 with
-tenses, 16 with sentences; re-run byte-identical, with A1 and A2 rebuilt byte-identical alongside. Eighteen
+plus a 59-word inventory of everyday words that have an entry but no count (isipunu "spoon", ilokwe "dress",
+-fowuna "to phone"; B1's first build also took the set phrases ngiyabonga, angiqondi …, which moved to the
+phrases deck before it shipped). Those come last in the deal, since
+the deck is dealt by frequency. 719 words by frequency (counts 10 down to 1), 733 with forms, 266 with
+tenses, 14 with sentences; re-run byte-identical, with A1 and A2 rebuilt byte-identical alongside. Eighteen
 more `EXCLUDE` lines, each with its reason: variant spellings of words a lower level teaches (`umese`,
 `ukwindla`, `makhaza`), counts that are a colour's or another word's (`ubomvu`, `insundu`, `iphahla`), and
 sexual or crime vocabulary. Wiktionary has none of B1's institutional words: no court, lawyer, president,
@@ -156,3 +159,18 @@ already taught. Wiktionary has none of B2's own vocabulary (law, the economy, th
 connectors). The owner was offered three options: no B2, a "Zulu Further Vocabulary" deck of the leftovers
 not labelled with a CEFR level, or a deck titled B2 anyway. They chose no B2. Revisit only if a new source
 appears: a graded Zulu word list, a subtitle frequency list, or a Zulu dictionary under an open licence.
+
+**The phrases deck (2026-11-12, on request).** `python3 .claude/zulu/phrases.py` writes
+`decks/Zulu-Phrases.folio-deck.json` (99 notes in two subdecks), with the level decks' card type. **Phrases (33)**
+are English Wiktionary's own Zulu phrase and interjection entries, in a hand order (greetings and their
+answers, the goodbyes, the phrasebook formulas, apologies, exclamations, a sign, the proverb), each with
+Wiktionary's gloss and its addressee (to one person or to several) from the sense's tags. **Sentences (66)**
+are Tatoeba's Zulu–English pairs of at most nine words, shortest first, each card giving its Tatoeba number
+for the CC BY attribution. Nothing a level teaches is repeated. To make that work, **from B1 on the fill takes
+no lemma that is only an interjection or a phrase** (`select.py`), and B1's inventory gave up its
+set-phrases topic, so B1 dropped from 792 to 778 before it shipped; A1 and A2 are unchanged.
+What is left out, each with its reason: `LEFT_OUT`, the entries (taught at A1, a pointer, or the "may you…"
+goodbyes Wiktionary glosses exactly like the imperative, which would give the English side two answers),
+and `DROP`, nine sentences (Tatoeba's stock names, a Pinocchio line, a dated fact, idioms rendered word for
+word, two textbook instructions). `check-zulu.js` checks the deck for what applies to a phrase. A re-run is
+byte-identical.

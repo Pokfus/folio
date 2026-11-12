@@ -5,6 +5,7 @@
     python3 .claude/zulu/run.py --level a2      # another level: a2, b1 (inventory first: inventory.py)
     python3 .claude/zulu/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/zulu/classes.py             # the noun classes deck (reads lex.json)
+    python3 .claude/zulu/phrases.py             # the phrases deck (reads the cache; after B1)
 
 ONE LEVEL PER RUN (`zulu_level` reads the level once, at import).  Downloads its
 sources into `.claude/zulu-cache/` (gitignored, about 180 MB, Tatoeba's English

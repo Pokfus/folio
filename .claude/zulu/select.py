@@ -18,6 +18,8 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
     own entry: its count is the verb's infinitive, and the verb teaches it (from
     A2 on; A1 shipped with four, ukuqala ukuphela ukulwa ukukhanya, kept so its
     card ids stand);
+  · from B1 on, a lemma that is only an interjection or a phrase: the phrases
+    deck (`phrases.py`) teaches those whole;
   · the hand list `EXCLUDE`, each line with its reason.
 """
 import json, os, sys
@@ -158,6 +160,8 @@ def main():
             continue
         if all(e['pos'] == 'phrase' for e in L['entries']):
             continue
+        if LEVEL not in ('a1', 'a2') and all(e['pos'] in ('phrase', 'intj') for e in L['entries']):
+            continue                  # from B1 on, the phrases deck teaches them (phrases.py)
         if LEVEL != 'a1' and verbal_noun_of(k, L, lex):
             continue
         seen.add(k)

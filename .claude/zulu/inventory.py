@@ -28,11 +28,13 @@ wonke "all", kodwa "but".  `impela` (filed as "truth", not "really") and `jika`
 B1 (2026-11-12) IS MOSTLY WHAT IS LEFT.  After A1 and A2 about 740 usable lemmas
 remain that the Zulu Wikipedia uses at all, so the fill takes nearly every one;
 this inventory picks the everyday words English Wiktionary has but the corpus
-never uses (spoon, dress, to phone, the set phrases A1 could not reach), since
+never uses (spoon, dress, to phone), since
 the fill cannot find a word with no count.  Not in Wiktionary, so not here: the
 court, a lawyer, the president, history, science, the economy, a newspaper, the
 radio, television, the internet, cancer, HIV, and the connectors (nokho
-"however", ngakho-ke "therefore", ngokwesibonelo "for example").
+"however", ngakho-ke "therefore", ngokwesibonelo "for example").  The set
+phrases and interjections (ngiyabonga, unjani, angiqondi, hawu ...) are taught
+whole by the phrases deck, `phrases.py`, not here.
 """
 
 INVENTORY = {
@@ -122,9 +124,8 @@ INVENTORY = {
          'isigidigidi'),
     ],
     'b1': [
-        ('everyday phrases and exclamations',
-         'ngiyabonga ngiyaphila ngikhona unjani ninjani angiqondi ngiyaxolisa hawu maye '
-         'nxephepha musa konje'),
+        ('joining words',
+         'konje'),
         ('the phone, the office and work',
          'fowuna fowunela bhukha idesiki ifotho inkampane teleka isiqhebezakude'),
         ('dressing',
