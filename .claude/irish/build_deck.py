@@ -37,7 +37,8 @@ from irish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-12T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
-         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z',
+         'c1': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'irish'

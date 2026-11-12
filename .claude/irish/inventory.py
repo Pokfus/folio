@@ -196,4 +196,19 @@ B2 = [
                           'ar_mhaithe_le in_ainneoin'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+# C1 (2026-11-12), scoped to the CEFR C1 descriptor (`irish_level.SCOPE['c1']`).  Of about 230 candidates
+# tested against the extract, these are the ones English Wiktionary has and no lower level teaches
+# (`docs/irish-decks-plan.md` §10): the level is almost wholly the frequency tail.
+C1 = [
+    ('academic and intellectual', 'léann modheolaíocht téis tagairt oideolaíocht'),
+    ('society and governance', 'breithiúnacht coimeádachas tíorántacht frithbheart'),
+    ('the economy', 'gnóthachan cáilmheas luamhán cúlú'),
+    ('law and ethics', 'ciontacht ionracas dlisteanacht'),
+    ('mind and behaviour', 'comhfhios fo-chomhfhios aireachtáil réasúnaíocht iompar spreagadh féinmhuinín'),
+    ('language and rhetoric', 'reitric beachtas'),
+    ('the abstract nouns of analysis', 'nasc contrárthacht castacht'),
+    ('verbs and adjectives of formal argument', 'cuir_in_iúl aonchineálach críonna stuama grinn'),
+    ('formal connectors', 'ar_a_laghad'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

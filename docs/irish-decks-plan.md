@@ -5,7 +5,7 @@
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-12: "Add an Irish language collection."
 
-**STATUS (2026-11-12): A1 to B2 are built** (`.claude/irish/`, §6–§9). C1 and a phrases deck are planned (§5).
+**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/irish/`, §6–§10). A phrases deck is planned (§5).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -35,7 +35,7 @@ the owner's to overrule.**
 | Irish A2 Elementary — built | `Irish-A2.folio-deck.json` | 750 |
 | Irish B1 Intermediate — built | `Irish-B1.folio-deck.json` | 1,000 |
 | Irish B2 Upper Intermediate — built | `Irish-B2.folio-deck.json` | 1,500 |
-| Irish C1 Advanced | `Irish-C1.folio-deck.json` | 1,500 |
+| Irish C1 Advanced — built | `Irish-C1.folio-deck.json` | 1,500 |
 | Irish Phrases and Expressions | `Irish-Phrases-and-Expressions.folio-deck.json` | — |
 
 ## 2. Sources and licences
@@ -106,7 +106,7 @@ as the adverb "also" (its own entry), not as `le`'s "with him", which `le`'s tab
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write the level's inventory
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's inventory
 into `inventory.py` and its `SCOPE` into `irish_level.py`, add its `STAMP` in `build_deck.py`, run, read every card.
 **Phase 3** — a phrases deck (Wiktionary's `phrase` / `proverb` entries and the idioms built on `bí` and a
 preposition: `tá ocras orm`, `is maith liom`), on Swedish's `phrases.py`.
@@ -220,3 +220,30 @@ encyclopaedia's specialist nouns (`hidreacarbón`, `crómasóm`, `leictreamaighn
 
 **Known, left.** Tatoeba has no Irish sentences at this level to speak of: nine in ten cards carry none, and the
 description says so. C1 will be almost wholly the frequency tail.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/irish/run.py --level c1`. **1,500 notes: 34 from a 9-topic
+inventory** (`inventory.py` `C1`: academic and intellectual, society and governance, the economy, law and ethics, mind
+and behaviour, language and rhetoric, the abstract nouns of analysis, verbs and adjectives of formal argument, formal
+connectors — `SCOPE['c1']`) **and 1,466 by frequency**; sentences for 76, three apiece for 12. Every card was read;
+A1 to B2 re-run byte-identical.
+
+**The level is the frequency tail, almost entirely.** Of about 230 C1 candidates tested against the extract, 41 were
+present and untaught (`modheolaíocht`, `comhfhios`, `reitric`, `coimeádachas`, `cáilmheas` …); the rest were missing
+from English Wiktionary (`dioscúrsa`, `paraidím`, `séimeantaic`, `débhríocht`, `liobrálachas`, `idirbheartaíocht` …) or
+already dealt below. So C1 is the 3,750 commonest lemmas onward of the Irish Wikipedia, which at this depth is a mix of
+learned vocabulary, nature words (`fuiseog`, `dobhrán`, `seamróg`), science terms and everyday objects a learner may know
+from lower levels' life (`bréagán`, `leoraí`, `cairpéad`) — the honest result of ranking by frequency once the commonest
+lemmas are taught, as Swedish's C1 found. A graded or larger open dictionary would change this level most.
+
+**What the C1 ranking turned up**, each in `select.EXCLUDE` with its reason: six more pointer-only entries (`vótóir`,
+`ceathracha`, `milse` …) and genitives filed as words (`cúnaimh`, `seasaimh`, `feidhmiúcháin`, `tí` ← `teach`);
+phrase-only words (`márach`, `brách`, `buaille`, `diomaite`, `ala`); relative and copula forms (`ónar`, `faoinar`,
+`trínar`, `cérbh`, `murar`); verbal nouns of taught verbs (`fágáil`, `marú`, `tarraingt`, `iarraidh`, `gealladh`); senses
+that are not the everyday word (`faic` "a whack", not "nothing"; `éirim` "riding", not "intelligence"); the prefix
+`ró-`; two vulgar words.
+
+**Known, left.** Some sexual and anatomical vocabulary stands on frequency as plain words (`collaíocht`,
+`pornagrafaíocht`, `adhaltranas`), as Swedish's B2 noted for its own; the owner may want a rule. Tatoeba has almost
+nothing at this level: 1,424 of the 1,500 carry no sentence, and the description says so.

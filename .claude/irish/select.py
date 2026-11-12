@@ -127,6 +127,22 @@ EXCLUDE = {
     'leachtach': 'rare', 'gríofa': 'rare', 'dos': 'its count is not "a tuft"', 'hap': 'rare',
     'seanóir': 'its first sense is slang', 'doimhne': 'glossed only as a pointer (to doimhneacht)',
     'foláir': 'met only in ní foláir "must"',
+    # Read off the C1 ranking (2026-11-12)
+    'vótóir': 'glossed only as a pointer (to vótálaí)', 'ceathracha': 'glossed only as a pointer (to daichead, A1)',
+    'cúnaimh': 'the genitive of cúnamh (B1)', 'milse': 'glossed only as a pointer',
+    'bolcánachas': 'glossed only as a pointer', 'sagartóireacht': 'glossed only as a pointer',
+    'gearánaí': 'glossed only as a pointer', 'seasaimh': 'the genitive of seasamh (B2)',
+    'feidhmiúcháin': 'the genitive of feidhmiúchán (B1)', 'tí': 'its count is tí, the genitive of teach (A1)',
+    'márach': 'met only in arna mhárach', 'ala': 'met only in phrases', 'brách': 'met only in go brách',
+    'buaille': 'met only in ruaille buaille', 'diomaite': 'met only in diomaite de',
+    'ónar': 'a relative form', 'cérbh': 'a copula form', 'murar': 'a copula form',
+    'faoinar': 'a relative form', 'trínar': 'a relative form', 'ein': 'a letter name',
+    'ró': 'its count is the prefix ró- "too"', 'mál': 'rare; its count is mála (A2)',
+    'faic': 'its gloss "a whack" is not the everyday "nothing"', 'éirim': 'its senses lead with "riding", not "intelligence"',
+    'fágáil': 'the verbal noun of fág (A1)', 'marú': 'the verbal noun of maraigh (A1)',
+    'tarraingt': 'the verbal noun of tarraing (A2)', 'iarraidh': 'the verbal noun of iarr (A2)',
+    'gealladh': 'the verbal noun of geall (A2)', 'atha': 'rare', 'arg': 'rare',
+    'bod': 'vulgar', 'pit': 'vulgar',
     'rinn': 'a point, a star; counted from place names (Rinn Mhic Gormáin ...)', 'fód': 'a sod; rare',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
