@@ -36,6 +36,100 @@ EXCLUDE = {
     'igik': "a pig's grunt, counted from one run of Tatoeba sentences",
     'ika': "its count is the ordinal prefix ika- before a figure (ika-10), not the noun 'limp'",
     'maari': "the common misspelling of maaari 'may, can', whose count it shares",
+    # read off the A2 ranking (2026-11-12)
+    'duke': "a duke, counted from one run of Tatoeba sentences",
+    'tiyera': "'earth, soil', a rare loan counted from one run of Tatoeba sentences",
+    'ganiyan': "the 2007 spelling of ganyan 'like that', which the A2 inventory teaches",
+    'retrato': "the older spelling of litrato 'photograph', which the A2 inventory teaches",
+    'yaon': "an archaic form of iyon, taught in A1",
+    'ya': "a cattle-driver's 'yah'; its count is the English and Spanish 'ya' in subtitles",
+    'me': "a goat's bleat; its count is the English 'me' in subtitles",
+    'so': "the English 'so', counted where subtitles mix English in",
+    'on': "the English 'on' ('in a relationship'), counted where subtitles mix English in",
+    'nones': "'odd (of a number)', none of whose count is its own",
+    'pitsa': "a gambling chip, whose count is mostly another word's passed to it",
+    'aling': "its count is alin 'which' with its linker; the entry is 'term of address of an elder woman'",
+    'naglalakad': "the ongoing aspect of maglakad, taught in A1, filed as a noun 'pedestrian'",
+    'bayag': "a vulgar word for a body part",
+    # read off the B1 ranking (2026-11-12)
+    'tita': "only a slang sense in Wiktionary (left out of the A2 inventory for it)",
+    'daungan': "only 'place for making a big ship' (left out of the A2 inventory for it)",
+    'tsaka': "its count is the colloquial spelling of saka 'and then'; the entry is 'ugly'",
+    'palang': "its count is pa lang 'only, just'; the entry is a bolo knife",
+    'kalang': "its count is ka lang 'you only'; the entry is 'wedge'",
+    'balang': "its count is balang araw 'some day' and bala + -ng; the entry is 'locust'",
+    'satin': "its count is satin, the contraction of sa atin 'to us'; the entry is the cloth",
+    'tong': "its count is 'tong, the clipping of itong 'this'; the entry is 'bribe'",
+    'kana': "its count is not 'deception'",
+    'taga': "its count is the prefix taga- 'from, native of'; the entry is 'a big cut'",
+    'aya': "its count is not 'pleasantness of the weather'",
+    'kamo': "dialectal 'you (plural)'; its count is kamo 'you said'",
+    'la': "a call to stop an animal; its count is the Spanish and English 'la'",
+    'elf': "a delivery truck by brand name; its count is the English 'elf'",
+    'korea': "its count is the country's name; the entry is a machine belt",
+    'itik': "a duck, shown by a gloss 'Indian person' that is not the word's meaning",
+    'hangal': "an insult ('a fool'), dealt under a homograph 'gasp'",
+    'luko-luko': "its count is loko-loko 'crazy'; the entry is holy basil",
+    'letse': "a swear (leche)",
+    'gunggong': "an insult ('a fool')",
+    'utot': "vulgar",
+    'bala': "'bullet' is a weak sense in the extraction, so the card would read 'threat'",
+    # read off the B2 ranking (2026-11-12)
+    'boy': "the English 'boy', counted where subtitles mix English in",
+    'am': "its count is the English 'am'; the entry is 'rice water'",
+    'was': "its count is the English 'was'; the entry is 'nothing'",
+    'look': "its count is the English 'look'; the entry is 'bay'",
+    'park': "the English 'park', counted where subtitles mix English in",
+    'pan': "its count is the English 'pan' as much as 'bread'",
+    'asap': "its count is the English 'ASAP'; the entry is an eye irritation",
+    'haha': "its count is laughter written 'haha'; the entry is 'a big rip'",
+    'sharon': "its count is the name Sharon",
+    'washington': "its count is the name Washington; the entry is a children's game",
+    'teksas': "its count is Texas; the entry is a breed of fighting cock",
+    'lisa': "its count is the name Lisa; the entry is 'nit'",
+    'kristo': "its count is Kristo 'Christ'; the entry is a cockfight bet collector",
+    'postmaster': "an English loan counted from one run of Tatoeba sentences",
+    'sigay': "a cowrie shell, counted from one run of Tatoeba sentences",
+    'yari': "its only entry is a note on a root, not a word's meaning",
+    'paki': "its only entry is 'synonym of pakialam', a pointer",
+    'isinama': "its only entry is 'complete aspect of isama', a pointer",
+    'naganap': "its count is the verb 'happened'; the entry is the grammar term 'perfective'",
+    'nagaganap': "its count is the verb 'happening'; the entry is the grammar term 'progressive'",
+    'sinama': "its count is the verb 'brought along'; the entry is 'unlucky'",
+    'iniba': "its count is the verb 'changed'; the entry is a banana",
+    'masa': "its count is nasa and maaari passed to it (the A1 finding); the entry is 'dough'",
+    'basang-basa': "'soaking wet' to a reader; the entry says 'very readable'",
+    'lilang': "its count is not the entry's",
+    'matae': "its count is not 'to cause to defecate'",
+    'tae': "vulgar", 'tumae': "vulgar", 'umutot': "vulgar",
+    'ogag': "an insult ('a fool')", 'engot': "an insult ('a moron')",
+    'hunghang': "an insult ('a fool')", 'ungas': "an insult ('an ignoramus')",
+    'pagkalalaki': "its entry's first sense is a vulgar one", 'magtae': "vulgar, like tae",
+    # read off the C1 ranking (2026-11-12)
+    'aa': "vulgar ('filth, faeces')", 'umaa': "vulgar ('to defecate')",
+    'tado': "its entry is 'synonym of tarantado', a pointer to a swear",
+    'sahing': "its entry is 'synonym of pili', a pointer",
+    'pinapaitan': "its entry is 'synonym of papaitan', a pointer",
+    'nagbaon': "its entry is 'complete aspect of magbaon', a pointer",
+    'nagbabaon': "its entry is 'progressive aspect of magbaon', a pointer",
+    'pinagtalunan': "its entry is 'complete aspect of pagtalunan', a pointer",
+    'magaganap': "its count is the verb 'will happen'; the entry is the grammar term",
+    'dela': "a particle of Spanish surnames",
+    'element': "the English 'element' (elemento is taught in B2)",
+    'real': "the English 'real', counted where subtitles mix English in",
+    'award': "the English 'award', counted where subtitles mix English in",
+    'warden': "the English 'warden', counted where subtitles mix English in",
+    'testing': "the English 'testing', counted where subtitles mix English in",
+    'limit': "its count is the English 'limit'; the entry is 'frequency'",
+    'kamping': "its count is the English 'camping'; the entry is 'physical weakness'",
+    'taping': "its count is the English 'taping'; the entry is an animal pest",
+    'mate': "its count is not 'checkmate'",
+    'lingo': "its count is not 'assassination'",
+    'sapang': "its count is sapa 'stream' with its linker; the entry is a tree",
+    'takdang': "its count is takda with its linker (takdang-aralin, taught in A2)",
+    'gagapang': "its count is gagapang 'will crawl'; the entry is a mullet",
+    'suliranin': "its only entry is flax waiting to be spun; 'problem' is not filed",
+    'menudo': "the stew's gloss is a note, so the card would read 'selling goods directly'",
 }
 
 # Swearing and insults are never in a level deck.
@@ -76,6 +170,18 @@ def main():
             rows.append({'key': k, 'via': via, 'word': L['word'], 'freq': L['freq'], 'pos': pos or '',
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
+    # From B1 up (so A1 and A2 rebuild unchanged): a lemma that a word already
+    # taught, or this level's inventory, is filed under (`sumbrero` -> `sombrero`,
+    # `marumi` -> `madumi`, `gayunpaman` -> `gayumpaman`) is that word again in
+    # another spelling, and is not dealt by the fill.
+    if LEVEL not in ('a1', 'a2'):
+        for k in list(below) + [r['key'] for r in rows]:
+            t = lex.get(k, {}).get('alt_of')
+            if t and t != k:
+                seen.add(t)
+        for r in rows:
+            if r['via']:
+                seen.add(r['via'])
     swears = {fold(s) for s in SWEARS}
     excl = {fold(s) for s in EXCLUDE}
     fill, linked = [], []
