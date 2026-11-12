@@ -108,6 +108,10 @@ ETYMS = {
     'hát': ['2', '1'],         # "well, …" (the conversational word) and "back"
     'mi': ['1', '2'],          # "we" AND "what?" -- two etymologies, both A1
     'jobb': ['2'],             # "right; better", not the adverb "rather" (`jobban`)
+    'sír': ['2', '1'],         # "to cry" (A2's everyday verbs) before "grave"
+    'fogoly': ['2', '1'],      # "prisoner" before "partridge" (B2)
+    'szán': ['2', '1'],        # "to intend, to pity" (the subtitles' count) before "sleigh"
+    'bejárat': ['2', '1'],     # "entrance" before "to run in" (a machine)
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech: the prefixes'
@@ -139,7 +143,7 @@ LEAD = {
 DROP_POS = {('én', 'noun'), ('a', 'pron'), ('el', 'intj')}
 
 NOT_A_MEANING = re.compile(
-    r'^\*?\s*see:|^See |^Used in expressions|Usage notes|^synonym of |senses\.?$|^(?:first|second|third)-person .* of \S+$|'
+    r'^\*?\s*see:|^See |^Used in expressions|^Used other than figuratively|Usage notes|^synonym of |senses\.?$|^(?:first|second|third)-person .* of \S+$|'
     r'^(?:nominative|accusative|dative|plural|singular)[^;]* of \S+(?: \([^)]*\))?$', re.I)
 
 
@@ -351,7 +355,7 @@ def build(rows, lex, exs):
         main = ents[0]
         word = r['word']
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Hungarian': E(word),
             'Word': word,
             'Say': word,
@@ -363,8 +367,12 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex)})
+                        'examples': len(ex), 'sub': r.get('sub', ''), 'count': r.get('count', 0)})
     return cards, entries
+
+
+FOR = {'a1': 'for a beginner', 'a2': 'for an elementary learner', 'b1': 'for an intermediate learner',
+       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner'}
 
 
 def desc(entries, n):
@@ -381,7 +389,7 @@ def desc(entries, n):
         "Both study directions in one deck: Hungarian → English (see the Hungarian, recall the "
         "meaning) and English → Hungarian (see an English meaning, recall the Hungarian). Each "
         "direction is a card of its own with its own schedule, so recognising a word and producing "
-        f"it are learnt separately. {n} words of Hungarian for a beginner, aligned to "
+        f"it are learnt separately. {n} words of Hungarian {FOR[LEVEL]}, aligned to "
         f"{LEVEL.upper()} of the Common European Framework of Reference, whose global descriptor "
         f"begins '{SC['quote']}' — a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -412,6 +420,43 @@ def desc(entries, n):
     )
 
 
+PHR_ORDER = ('Phrases', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    """The phrases deck's description (Romanian's, `.claude/romanian/build_deck.py`)."""
+    by = {s: [e for e in entries if e['sub'] == s] for s in PHR_ORDER}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Hungarian set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Hungarian → English (see the Hungarian, "
+        "recall the meaning) and English → Hungarian (see an English meaning, recall the Hungarian) — "
+        "each with a schedule of its own. This is a companion to the five level decks, Hungarian A1 "
+        "to C1, and not one of them: a level is a list of words, and an expression is a unit a list "
+        "of words cannot see. Nothing here is taught by any of the five, so the two can be studied "
+        "together without repeating an entry. The PHRASES are the expressions Wiktionary files as "
+        "phrases or interjections and does not mark as idiomatic — mostly the everyday formulas a "
+        f"Hungarian speaker uses as one piece ({eg('Phrases')} …). The IDIOMS are expressions whose "
+        f"meaning is not their words' ({eg('Idioms')} …), most of them verbs, given like every verb "
+        "on the shelf in the third person singular; and the PROVERBS the sayings Wiktionary files as "
+        f"proverbs ({eg('Proverbs')} …), each glossed with the English proverb that says the same "
+        "where there is one. Within each subdeck the expressions come in the order of how many of "
+        "Tatoeba's Hungarian sentences contain them, an idiom that is a verb being counted with its "
+        f"verb in any form and in either order; only {found} of the {n} are found there at all, and "
+        "the rest follow in the order of how common their rarest word is in film and television "
+        f"subtitles. Real example sentences come with {n - ex0} of the {n} expressions, three apiece "
+        f"for {ex3}, with the expression picked out in colour and a speaker beside the sentence and "
+        "the headword. Sources. Expressions, meanings and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -422,11 +467,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_ORDER}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['hungarian', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['hungarian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['hungarian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Hungarian vocabulary', 'speechLang': 'hu-HU',
