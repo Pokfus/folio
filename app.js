@@ -29282,6 +29282,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and French's blue), against a tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green). */
     "lang-hungarian":  { bg: "#14659F" }, // measured steel blue
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
+    /* IRISH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 67 hues on the
+       page — an orchid, 15.4 from its nearest neighbour (Turkish's rose), 15.7 from Hindi's violet and 15.8
+       from Telugu's magenta, against a tightest existing pair of 4.0; 5.4:1 against white. Not the flag's
+       green or orange. Re-sweep at the merge if another language reached the shelf meanwhile. */
+    "lang-irish":      { bg: "#A84293" }, // measured orchid
     "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
     /* LATIN (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB (ΔE76) inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 55 hues on the page.

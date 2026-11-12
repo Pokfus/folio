@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 359 MB of decks. The file itself is fetched on Add. */
+   section without fetching 369 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -199,6 +199,12 @@ window.LANG_DECKS = [
   { lang: "Hungarian", file: "Hungarian-B2.folio-deck.json", id: "hungarianb2", title: "Hungarian B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 96, bytes: 6311025, rev: "399867675fd1" },
   { lang: "Hungarian", file: "Hungarian-C1.folio-deck.json", id: "hungarianc1", title: "Hungarian C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 90, bytes: 6188166, rev: "ba88b014a857" },
   { lang: "Hungarian", file: "Hungarian-Phrases-and-Expressions.folio-deck.json", id: "huphrase", title: "Hungarian Phrases and Expressions", sub: "542 expressions · 87 everyday, 387 idioms, 68 proverbs · both directions", notes: 542, cards: 1084, subs: 3, tree: [{"n":"Phrases","c":174,"x":72},{"n":"Idioms","c":774,"x":45},{"n":"Proverbs","c":136,"x":46}], flat: true, ex: 50, bytes: 352173, rev: "b2576d3cfd07" },
+  { lang: "Irish", file: "Irish-A1.folio-deck.json", id: "irisha1", title: "Irish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 78, bytes: 1130122, rev: "91e7e5eddfac" },
+  { lang: "Irish", file: "Irish-A2.folio-deck.json", id: "irisha2", title: "Irish A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 40, bytes: 1736532, rev: "cedde2c6b937" },
+  { lang: "Irish", file: "Irish-B1.folio-deck.json", id: "irishb1", title: "Irish B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 19, bytes: 2180214, rev: "e5721e6493f9" },
+  { lang: "Irish", file: "Irish-B2.folio-deck.json", id: "irishb2", title: "Irish B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 9, bytes: 3074427, rev: "47b8b1d196c0" },
+  { lang: "Irish", file: "Irish-C1.folio-deck.json", id: "irishc1", title: "Irish C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 5, bytes: 2807200, rev: "c39fe7a6e914" },
+  { lang: "Irish", file: "Irish-Phrases-and-Expressions.folio-deck.json", id: "irishphrase", title: "Irish Phrases and Expressions", sub: "613 expressions · 117 everyday, 294 expressions, 149 verb phrases, 23 idioms, 30 proverbs · both directions", notes: 613, cards: 1226, subs: 5, tree: [{"n":"Phrases","c":234,"x":17},{"n":"Expressions","c":588,"x":19},{"n":"Verb phrases","c":298,"x":9},{"n":"Idioms","c":46,"x":4},{"n":"Proverbs","c":60,"x":20}], flat: true, ex: 16, bytes: 339029, rev: "d1634a037f81" },
   { lang: "Latin", file: "Latin-A1.folio-deck.json", id: "latina1", title: "Latin A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1543585, rev: "045168bec457" },
   { lang: "Latin", file: "Latin-A2.folio-deck.json", id: "latina2", title: "Latin A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 99, bytes: 2770552, rev: "25d02e6b01c9" },
   { lang: "Latin", file: "Latin-B1.folio-deck.json", id: "latinb1", title: "Latin B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 87, bytes: 3947339, rev: "ad6ee9f32980" },
