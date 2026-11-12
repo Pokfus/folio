@@ -9377,7 +9377,27 @@ window.GLOSSARY = {
 "Connectomics": "",
 "Animal_disease_model": "",
 "Neuropsychological_assessment": "",
-"Dissociation_(neuropsychology)": ""
+"Dissociation_(neuropsychology)": "",
+"Neuromodulation": "",
+"Agonist": "",
+"Blood–brain_barrier": "",
+"Neuroplasticity": "",
+"Neurogenesis": "",
+"Nervous_system": "",
+"Central_nervous_system": "",
+"Peripheral_nervous_system": "",
+"Autonomic_nervous_system": "",
+"Sympathetic_nervous_system": "",
+"Parasympathetic_nervous_system": "",
+"Spinal_cord": "",
+"Reflex_arc": "",
+"Brainstem": "",
+"Medulla_oblongata": "",
+"Pons_(neuroanatomy)": "",
+"Reticular_formation": "",
+"Cerebellum": "",
+"Thalamus": "",
+"Hypothalamus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19910,7 +19930,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Connectomics": ["connectome"],
 "Animal_disease_model": ["animal model","animal models"],
 "Neuropsychological_assessment": ["neuropsychological testing"],
-"Dissociation_(neuropsychology)": ["double dissociation"]
+"Dissociation_(neuropsychology)": ["double dissociation"],
+"Blood–brain_barrier": ["blood-brain barrier"],
+"Neuroplasticity": ["neural plasticity","brain plasticity"],
+"Central_nervous_system": ["CNS"],
+"Peripheral_nervous_system": ["PNS"],
+"Brainstem": ["brain stem"],
+"Pons_(neuroanatomy)": ["pons"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -20064,7 +20090,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Hedgehog_(weapon)": true,
 "Enigma_machine": true,
 "Ultra_(cryptography)": true,
-"Magic_(cryptography)": true
+"Magic_(cryptography)": true,
+"Pons_(neuroanatomy)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -29445,7 +29472,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Connectomics": ["concept","neuroscience","anatomy","research methods"],
 "Animal_disease_model": ["concept","medicine","neuroscience","research methods"],
 "Neuropsychological_assessment": ["practice","psychology","neuroscience","medicine"],
-"Dissociation_(neuropsychology)": ["concept","psychology","neuroscience","research methods"]
+"Dissociation_(neuropsychology)": ["concept","psychology","neuroscience","research methods"],
+"Neuromodulation": ["concept","psychology","science","neuroscience","biology"],
+"Agonist": ["concept","psychology","science","neuroscience","medicine"],
+"Blood–brain_barrier": ["concept","psychology","science","neuroscience","biology","medicine"],
+"Neuroplasticity": ["concept","psychology","science","neuroscience","learning"],
+"Neurogenesis": ["concept","psychology","science","neuroscience","biology"],
+"Nervous_system": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Central_nervous_system": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Peripheral_nervous_system": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Autonomic_nervous_system": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Sympathetic_nervous_system": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Parasympathetic_nervous_system": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Spinal_cord": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Reflex_arc": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Brainstem": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Medulla_oblongata": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Pons_(neuroanatomy)": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Reticular_formation": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Cerebellum": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Thalamus": ["concept","psychology","science","neuroscience","biology","anatomy"],
+"Hypothalamus": ["concept","psychology","science","neuroscience","biology","anatomy"]
 });
 
 /* ============================================================================

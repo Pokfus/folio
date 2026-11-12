@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-12T04:17Z",
+ "generated": "2026-11-12T04:20Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6676,
+  "ok": 6696,
   "redirect-broader": 634,
   "redirect-variant": 399,
   "section-redirect": 137,
@@ -72953,6 +72953,146 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Double dissociation"
+  },
+  "ps-241": {
+   "answer": "neuromodulation",
+   "title": "Neuromodulation",
+   "url": "https://en.wikipedia.org/wiki/Neuromodulation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-242": {
+   "answer": "agonist",
+   "title": "Agonist",
+   "url": "https://en.wikipedia.org/wiki/Agonist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-243": {
+   "answer": "blood–brain barrier",
+   "title": "Blood–brain barrier",
+   "url": "https://en.wikipedia.org/wiki/Blood%E2%80%93brain_barrier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-244": {
+   "answer": "neuroplasticity",
+   "title": "Neuroplasticity",
+   "url": "https://en.wikipedia.org/wiki/Neuroplasticity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-245": {
+   "answer": "neurogenesis",
+   "title": "Neurogenesis",
+   "url": "https://en.wikipedia.org/wiki/Neurogenesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-246": {
+   "answer": "nervous system",
+   "title": "Nervous system",
+   "url": "https://en.wikipedia.org/wiki/Nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-247": {
+   "answer": "central nervous system",
+   "title": "Central nervous system",
+   "url": "https://en.wikipedia.org/wiki/Central_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-248": {
+   "answer": "peripheral nervous system",
+   "title": "Peripheral nervous system",
+   "url": "https://en.wikipedia.org/wiki/Peripheral_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-249": {
+   "answer": "autonomic nervous system",
+   "title": "Autonomic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Autonomic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-250": {
+   "answer": "sympathetic nervous system",
+   "title": "Sympathetic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Sympathetic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-251": {
+   "answer": "parasympathetic nervous system",
+   "title": "Parasympathetic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Parasympathetic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-252": {
+   "answer": "spinal cord",
+   "title": "Spinal cord",
+   "url": "https://en.wikipedia.org/wiki/Spinal_cord",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-253": {
+   "answer": "reflex arc",
+   "title": "Reflex arc",
+   "url": "https://en.wikipedia.org/wiki/Reflex_arc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-254": {
+   "answer": "brainstem",
+   "title": "Brainstem",
+   "url": "https://en.wikipedia.org/wiki/Brainstem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-255": {
+   "answer": "medulla oblongata",
+   "title": "Medulla oblongata",
+   "url": "https://en.wikipedia.org/wiki/Medulla_oblongata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-256": {
+   "answer": "pons",
+   "title": "Pons",
+   "url": "https://en.wikipedia.org/wiki/Pons",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-257": {
+   "answer": "reticular formation",
+   "title": "Reticular formation",
+   "url": "https://en.wikipedia.org/wiki/Reticular_formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-258": {
+   "answer": "cerebellum",
+   "title": "Cerebellum",
+   "url": "https://en.wikipedia.org/wiki/Cerebellum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-259": {
+   "answer": "thalamus",
+   "title": "Thalamus",
+   "url": "https://en.wikipedia.org/wiki/Thalamus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-260": {
+   "answer": "hypothalamus",
+   "title": "Hypothalamus",
+   "url": "https://en.wikipedia.org/wiki/Hypothalamus",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

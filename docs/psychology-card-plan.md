@@ -705,12 +705,12 @@ more work here than in any collection since Greece.
     ps-202  Ethical review boards
     ps-203  The Belmont Report
     ps-204  The APA ethics code
-    ps-205  Animal research in psychology
+    ps-205  The Three Rs of animal research
     ps-206  The Monster Study
     ps-207  The Stanford prison experiment
     ps-208  What the Stanford prison experiment is now thought to show
     ps-209  The Milgram obedience experiments
-    ps-210  The ethics of the Milgram experiments
+    ps-210  Diana Baumrind and the ethics of the Milgram experiments
     ps-211  The replication crisis
     ps-212  The Reproducibility Project: Psychology
     ps-213  Questionable research practices
@@ -747,7 +747,7 @@ more work here than in any collection since Greece.
     ps-239  Glutamate
     ps-240  Endorphins
     ps-241  Neuromodulation
-    ps-242  Agonists and antagonists
+    ps-242  Agonist
     ps-243  The blood–brain barrier
     ps-244  Neural plasticity
     ps-245  Neurogenesis
@@ -795,7 +795,7 @@ more work here than in any collection since Greece.
     ps-281  The lesion method
     ps-282  Electroencephalography
     ps-283  Event-related potentials
-    ps-284  Single-cell recording
+    ps-284  Single-unit recording
     ps-285  Positron emission tomography
     ps-286  Magnetic resonance imaging
     ps-287  Functional magnetic resonance imaging
@@ -807,7 +807,7 @@ more work here than in any collection since Greece.
     ps-293  Functional near-infrared spectroscopy
     ps-294  The reverse inference problem
     ps-295  The dead salmon study
-    ps-296  Thresholding and false positives in neuroimaging
+    ps-296  The family-wise error rate in neuroimaging
     ps-297  Connectomics
     ps-298  Animal models in neuroscience
     ps-299  Neuropsychological assessment
