@@ -78,6 +78,10 @@ ETYMS = {
     # C1
     'pluton': ['2'],         # "platoon"; etymology 1 is the rock
     'franc': ['3', '2'],     # "frank, sincere" and the currency; etymology 1 is "a Frank"
+    # C2
+    'vioară': ['2'],         # "violin"; etymology 1 is "a violet"
+    'elan': ['2'],           # "élan"; etymology 1 is the elk
+    'uric': ['2'],           # the old charter ("hereditary privilege"); etymology 1 is the chemist's "uric"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -386,8 +390,9 @@ def build(rows, lex, exs):
 
 
 FOR = {'a1': 'for a beginner', 'a2': 'for an elementary learner', 'b1': 'for an intermediate learner',
-       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner'}
-BELOW_NAMES = {'a1': '', 'a2': 'A1', 'b1': 'A1 or A2', 'b2': 'A1, A2 or B1', 'c1': 'A1 to B2'}
+       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner',
+       'c2': 'for a proficient learner'}
+BELOW_NAMES = {'a1': '', 'a2': 'A1', 'b1': 'A1 or A2', 'b2': 'A1, A2 or B1', 'c1': 'A1 to B2', 'c2': 'A1 to C1'}
 
 
 def desc(entries, n):

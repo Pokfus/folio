@@ -23,9 +23,9 @@ import json, os, re
 
 LEVEL = os.environ.get('ROMANIAN_LEVEL', 'a1').lower()
 
-BANDS = ('a1', 'a2', 'b1', 'b2', 'c1')
+BANDS = ('a1', 'a2', 'b1', 'b2', 'c1', 'c2')
 NAMES = {'a1': 'Beginner', 'a2': 'Elementary', 'b1': 'Intermediate',
-         'b2': 'Upper Intermediate', 'c1': 'Advanced'}
+         'b2': 'Upper Intermediate', 'c1': 'Advanced', 'c2': 'Proficiency'}
 
 TITLES = {k: f'Romanian {k.upper()} {v}' for k, v in NAMES.items()}
 DECK_IDS = {k: f'romanian{k}' for k in BANDS}
@@ -34,8 +34,9 @@ TITLES['phr'] = 'Romanian Phrases and Expressions'
 DECK_IDS['phr'] = 'rophrase'
 DECK_FILES['phr'] = 'Romanian-Phrases-and-Expressions.folio-deck.json'
 
-# The sizes, in NOTES -- Hindi's, the shelf's most recent assembled set.
-TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
+# The sizes, in NOTES -- Hindi's, the shelf's most recent assembled set; C2 (added on
+# request, 2026-11-12) the size of C1.
+TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500, 'c2': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 BELOW['phr'] = list(BANDS)
@@ -109,6 +110,19 @@ SCOPE = {
                   'conduct, the finer shades of feeling, the arts and literature, the planet, '
                   'medicine, the adjectives, adverbs and connectors of a formal register, nuanced '
                   'verbs, and abstract nouns',
+    },
+    'c2': {
+        'quote': 'Can understand with ease virtually everything heard or read',
+        'gloss': 'able to summarise information from different spoken and written sources, '
+                 'reconstructing arguments and accounts in a coherent presentation, and to express '
+                 'themselves spontaneously, very fluently and precisely, differentiating finer shades '
+                 'of meaning even in more complex situations',
+        'topics': 'the literary and elevated vocabulary of written Romanian, the older words still '
+                  'alive in its literature, rhetoric and style, history, faith and tradition, '
+                  'the countryside and its crafts, law, administration and scholarship at their most '
+                  'formal, the finest shades of character, feeling and judgement, precise verbs of '
+                  'speech, sight, movement and manner, and the rarer adjectives and adverbs that '
+                  'separate a fluent speaker from a precise one',
     },
 }
 

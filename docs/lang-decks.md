@@ -3515,7 +3515,7 @@ changed was the one that had been wrong all along.
   Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
 - `.claude/romanian/` — the generator behind the Romanian decks (Nov 2026, on request: "Add a Romanian language
   collection"; the decisions copy Hindi's). **Built: A1, `decks/Romanian-A1.folio-deck.json`** (500 notes /
-  1,000 cards) **A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Romanian-B1.folio-deck.json`** (1,000 / 2,000), **B2** (1,500 / 3,000) **and C1** (1,500 / 3,000; all three 2026-11-12). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
+  1,000 cards) **A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Romanian-B1.folio-deck.json`** (1,000 / 2,000), **B2** (1,500 / 3,000), **C1** (1,500 / 3,000) **and C2** (1,500 / 3,000; all four 2026-11-12). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
   re-run is byte-identical. Hindi's pipeline with IPA in place of romanisation and no script deck; a level is a
   topic inventory plus lemma frequency, and the description says so. The plan, the sources and every finding
   (the cedilla fold, the bare spelling that yields to its accented twin, closed-class headwords that are a

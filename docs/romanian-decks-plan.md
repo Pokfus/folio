@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/romanian/`, §6–§10). The phrases deck is not.
+**STATUS (2026-11-12): all six CEFR levels, A1 to C2, are built** (`.claude/romanian/`, §6–§11). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -20,7 +20,7 @@ The request named no level, source or size, so each decision copies the shelf's 
    from, so each level is a hand-written topic inventory (`inventory.py`) scoped to the CEFR global
    descriptor for its band, topped up with the commonest remaining lemmas. Each deck's description says so
    in plain words and claims no examination. Sizes: **A1 500 · A2 750 · B1 1,000 · B2 1,500 · C1 1,500
-   notes**, then a phrases deck. (C2 can be added on request: the CEFR has it, the plan stops where Hindi's does.)
+   notes**, then a phrases deck. (C2 was added on request on 2026-11-12, §11.)
 2. **No alphabet deck.** Romanian is written in the Latin alphabet; its five extra letters (ă â î ș ț) are
    learnt on the words.
 3. **IPA on every card that Wiktionary gives one** (451 of A1's 500), in place of Hindi's romanisation:
@@ -34,6 +34,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Romanian B1 Intermediate — built | `Romanian-B1.folio-deck.json` | 1,000 |
 | Romanian B2 Upper Intermediate — built | `Romanian-B2.folio-deck.json` | 1,500 |
 | Romanian C1 Advanced — built | `Romanian-C1.folio-deck.json` | 1,500 |
+| Romanian C2 Proficiency — built (added on request, §11) | `Romanian-C2.folio-deck.json` | 1,500 |
 | Romanian Phrases and Expressions | `Romanian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
@@ -203,3 +204,26 @@ byte-identical, and A1 to B2 rebuilt under the C1 rules are byte-identical to th
   not "competitor"), `citat` (an adjective "quote"). `pluton` and `franc` take the right etymologies.
 - More `select.EXCLUDE` rows of the same kinds as B2 (names, film characters, English words, forms counted
   as other words, 42 more bare participles) and four more for `SWEARS`.
+
+## 11. As built (2026-11-12): C2
+
+`python3 .claude/romanian/run.py --level c2` (asked for on 2026-11-12: "Add C2"; §1 left C2 to a request).
+The band is new in `ro_level.py` (`BANDS`, `NAMES` "Proficiency", `TARGET` 1,500, its `SCOPE`) and in
+`build_deck.py`'s `FOR` / `BELOW_NAMES`; nothing below it changed (A1 to C1 rebuild byte-identical). 1,500
+notes, none taught in A1 to C1: 538 from the C2 inventory (thirteen topics — literary and elevated nouns,
+the older words alive in literature, faith, rite and tradition, the countryside and its crafts, rhetoric,
+style and scholarship, law and administration at their most formal, the finest shades of character, of
+feeling and judgement, precise verbs of speech, of sight, movement and manner, rarer adjectives, rarer
+adverbs and connectors, abstract and scholarly nouns) and 962 by frequency; IPA on 428, forms on 1,336,
+sentences for 617 (none for 883 — Tatoeba barely reaches this register). A re-run is byte-identical.
+
+- **38 inventory items are not Wiktionary headwords** and were dropped (`sorcova`, `plugușor`, `dor_de_ducă`,
+  `lua_peste_picior`, `pe_furiș`, `cel_mult` …). Multi-word items the session had composed rather than
+  found (`tăcere_adâncă`, `legăna_ușor` …) were removed from the list before the build, not left to drop.
+- **Many C2 synonyms share an English gloss** (`pururea` / `pururi`, `abis` / `hău`, `pizmă` / `zavistie`):
+  43 notes in 21 groups, each labelled "not …" so the reverse card has one answer, as on every level.
+- `elan` and `uric` take their second etymology (élan; the old charter); `primat` gives only "primate" and
+  left the list. The same `select.EXCLUDE` kinds as C1 (names, English words, definite forms read as verbs,
+  forms counted as words, about 60 bare participles), five more for `SWEARS`, and `țigan` as a slur.
+- **The fill is the commonest spoken words not yet taught**, deep in the subtitle list by now, so it sits
+  beside a literary inventory: the deck is two registers, as C1 is. Known.
