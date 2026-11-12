@@ -12,7 +12,7 @@ const DIR = path.join(__dirname, "..", "..", "decks");
 const LABELS = new Set(["plural", "oblique plural", "feminine", "past"]);
 // a gloss that IS a pointer, anchored at its start: "genitive of मैं (ma͠i); my, mine" carries its meaning
 const POINTER = /^(?:nuqtaless|alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of [^;]*$|^(?:direct|oblique|dative|genitive|ergative)[^;]* of \S+(?: \([^)]*\))?$/i;
-const DEVA = /^[ऀ-ॿ‌‍ ]+$/;
+const DEVA = /^[ऀ-ॿ‌‍ ]+(?:-[ऀ-ॿ‌‍ ]+)*$/;  // माता-पिता "parents" is one headword
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Hindi-.*\.folio-deck\.json$/.test(f)).sort();
