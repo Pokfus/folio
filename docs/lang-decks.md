@@ -3472,7 +3472,7 @@ changed was the one that had been wrong all along.
 - `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
   collection"; the Hindi set's decisions taken for its sister). **Built: the alphabet,
   `decks/Bengali-Alphabet.folio-deck.json`** (56 notes) **and A1, `decks/Bengali-A1.folio-deck.json`** (500
-  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes) **and B1, `decks/Bengali-B1.folio-deck.json`** (1,000 notes) **and B2, `decks/Bengali-B2.folio-deck.json`** (1,500 notes) **and C1, `decks/Bengali-C1.folio-deck.json`** (622 notes — the sources ran out, the owner chose small over padded). `python3 .claude/bengali/run.py [--level a1|a2|b1|b2|c1]`, `python3 .claude/bengali/alphabet.py`,
+  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes) **and B1, `decks/Bengali-B1.folio-deck.json`** (1,000 notes) **and B2, `decks/Bengali-B2.folio-deck.json`** (1,500 notes) **and C1, `decks/Bengali-C1.folio-deck.json`** (622 notes — the sources ran out, the owner chose small over padded) **and the phrases deck, `decks/Bengali-Phrases-and-Expressions.folio-deck.json`** (107 expressions in three subdecks, a hand-chosen list in `phrases.py`). `python3 .claude/bengali/run.py [--level a1|a2|b1|b2|c1|phr]`, `python3 .claude/bengali/alphabet.py`,
   `node .claude/bengali/check-bengali.js`; a re-run is byte-identical. `.claude/hindi/` adapted: no gender, the
   sadhu conjugations skipped, kaikki's garbled noun-table cells cleaned and romanised by ending, the y-stem
   template's doubled য় dropped, form-of pointers of any part of speech kept for the inventory (`আছে`). Every

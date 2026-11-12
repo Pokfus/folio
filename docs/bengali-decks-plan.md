@@ -5,8 +5,8 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 to C1 are built** (`.claude/bengali/`, §6–10); C1 is 622
-words, not 1,500, by the owner's choice (§10). The phrases deck is not built.
+**STATUS (2026-11-12): all seven decks are built** — the alphabet, A1 to C1 and the phrases deck
+(`.claude/bengali/`, §6–11); C1 is 622 words, not 1,500, by the owner's choice (§10).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (merged into the day's Hindi
@@ -37,7 +37,7 @@ otherwise:
 | Bengali B1 Intermediate — built | `Bengali-B1.folio-deck.json` | 1,000 |
 | Bengali B2 Upper Intermediate — built | `Bengali-B2.folio-deck.json` | 1,500 |
 | Bengali C1 Advanced — built | `Bengali-C1.folio-deck.json` | 622 (planned 1,500; §10) |
-| Bengali Phrases and Expressions | `Bengali-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Bengali Phrases and Expressions — built | `Bengali-Phrases-and-Expressions.folio-deck.json` | 107 (§11) |
 
 ## 2. Sources and licences
 
@@ -95,7 +95,7 @@ A1's 500 words have no Tatoeba sentence. The fill carries subtitle vocabulary (`
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1 (done), one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `bengali_level.py`, run, read every card.
-**Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
+**Phase 3** — the phrases deck (done, §11). **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
 
@@ -211,3 +211,31 @@ each with its reason; a vulgar intensifier, a slur and "piss" (বাঁড়�
 মহব্বত, অওরত), and some is poetic or archaic (তব, যেথা, আঁখ, প্রাত) — real entries with real meanings, but
 the register a C1 reader meets in literature rather than in the news. Some senses are Wiktionary's narrower
 ones (`গণভোট` "mass-election" for "referendum", `প্রজাতন্ত্রী` "republic" for "republican").
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/bengali/run.py --level phr` runs `phrases.py` in place of `select.py`. **107 expressions
+in three subdecks, as the Turkish and Indonesian decks have** (the card's `sub`): 57 Phrases (greetings
+and wishes of both communities — শুভ সকাল, ঈদ মোবারক, খোদা হাফেজ, শুভ বিজয়া; the phrasebook sentences a
+learner needs whole, with তুই / তুমি / আপনি where Wiktionary gives them; the national slogans of both
+countries; and set everyday expressions — কিছু না, বার বার, দেখতে পাওয়া), 38 Idioms (ঘোড়ার ডিম, চোখের
+বালি, মীর জাফর, অকূল পাথার …) and 12 Proverbs. Ordered within each subdeck by subtitle frequency; 22
+carry Tatoeba sentences. A re-run is byte-identical; the five levels do not change.
+
+**The list is chosen by hand** (`phrases.SUBS`) from all 361 multi-word, phrase and proverb entries no level
+teaches. Most of those are compound NOUNS (bird, fish and plant names, "laptop computer", "black hole"),
+which are vocabulary, not expressions. `phrases.LEFT_OUT` records the rest by kind with its reason: second
+spellings, personal sentences about one's faith or nationality ("I'm a Muslim", "are you religious?" —
+Turkish left out the same kind), partisan slogans and news memes (জয় শ্রী রাম, লাভ জিহাদ, তৌহিদী জনতা),
+religious formulas in Arabic (the everyday greetings stay), sadhu and dialect, and smut, curses and one
+demeaning saying.
+
+**Romanisation from the parts.** Where Wiktionary gives an expression no romanisation, `composed_roman`
+joins its words' own (বার বার → bar bar; কালো পতাকা, কাছা আলগা) — a concatenation, the rule
+`SUFFIX_ROMAN` already follows. Where a part has none the expression is dropped, never romanised by hand:
+**আসসালামু আলাইকুম**, খয়ের খাঁ and the proverb দুর্ভাগ্য অনেক স্থলে সৌভাগ্যের কারণ হয় (the greeting's loss
+is the one worth fixing upstream, on Wiktionary).
+
+**Known, left.** The deck is small because the dictionary's Bengali is; a larger one needs a new source,
+as C1 does. Some glosses are Wiktionary's wording ("A person who think very much of others" for দয়ার
+সাগর), and a few phrases are ones a learner could build (আমার ডাক্তার লাগবে) — kept, as a phrasebook keeps them.
