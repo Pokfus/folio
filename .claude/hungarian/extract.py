@@ -82,6 +82,29 @@ def sense_gloss(s, shown):
     return clean_gloss(gl[-1])
 
 
+VN = re.compile(r'^verbal noun of [^\s,:(]+\s*(.*)$')
+
+
+def verbal_noun_gloss(g):
+    """The meaning in a "verbal noun of X" sense, which Wiktionary writes three ways:
+    "verbal noun of lop: stealing, theft", "verbal noun of utazik ("travelling,
+    travel"), the act of travelling", "verbal noun of ír, the act of writing".
+    None when the sense names only its verb."""
+    m = VN.match(g or '')
+    if not m:
+        return None
+    rest = m.group(1).strip()
+    if rest.startswith(':'):
+        rest = rest[1:].strip()
+    elif rest.startswith('(\u201c'):
+        rest = rest[2:].split('\u201d')[0].strip()
+    elif rest.startswith(','):
+        rest = rest[1:].strip()
+    else:
+        return None
+    return clean_gloss(rest) or None
+
+
 def decl_table(e):
     """A noun's, adjective's, pronoun's or numeral's declension cells: [{f, t}]."""
     out = []
@@ -107,6 +130,7 @@ def main():
     lemmas = {}              # fold(word) -> {word, entries:[...]}
     pointers = []            # (surface fold, target fold) from form-of entries
     formonly = {}
+    vnouns = {}              # fold(word) -> a verbal noun Wiktionary files only as a form (`lopás`)
     nverb, badverb = 0, collections.Counter()
     for line in open(DUMP, encoding='utf-8'):
         e = json.loads(line)
@@ -126,6 +150,13 @@ def main():
                     if is_hu(tw):
                         pointers.append((fold(w), fold(tw)))
         if not real:
+            vn = [verbal_noun_gloss(g) for sn in senses for g in (sn.get('glosses') or [])[:1]]
+            vn = [g for g in vn if g]
+            if vn and pos == 'noun':
+                vnouns.setdefault(fold(w), {'word': w, 'entries': []})['entries'].append(
+                    {'pos': 'noun', 'etym': e.get('etymology_number', '') or '',
+                     'glosses': [{'g': g, 'weak': False, 'tags': []} for g in vn],
+                     'table': decl_table(e), 'head': {}})
             alts = [nfc(t.get('word', '')) for s in senses for t in s.get('alt_of') or []]
             if alts and all('alt_of' in s for s in senses) and is_hu(alts[0]):
                 formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(alts[0])})
@@ -220,6 +251,17 @@ def main():
     for k, L in lemmas.items():
         L['freq'] = round(L.pop('multi', 0) or freq.get(k, 0), 2)
         L['own'] = counts.get(k, 0)
+        out[k] = L
+    # THE VERBAL NOUNS, added AFTER the count so no other lemma's frequency moves (the
+    # shipped A1 and A2 decks rebuild byte-identical): each is counted by its own
+    # declension's forms, and flagged `vn` -- `select.py` deals them from B1 up.
+    for k, L in vnouns.items():
+        if k in out:
+            continue
+        fs = {k} | {fold(r['f']) for ent in L['entries'] for r in ent['table']}
+        L['freq'] = sum(counts.get(x, 0) for x in fs)
+        L['own'] = counts.get(k, 0)
+        L['vn'] = True
         out[k] = L
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False)
     top = sorted((L for L in out.values() if 'entries' in L), key=lambda L: -L['freq'])[:80]

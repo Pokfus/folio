@@ -4,6 +4,7 @@
     python3 .claude/hungarian/run.py                 # A1
     python3 .claude/hungarian/run.py --level a2      # another level (inventory first: inventory.py)
     python3 .claude/hungarian/run.py --no-fetch      # reuse whatever is cached
+    python3 .claude/hungarian/run.py --level phr     # the phrases deck, after all five levels
     python3 .claude/hungarian/alphabet.py            # the alphabet deck (reads lex.json)
 
 ONE LEVEL PER RUN (`hungarian_level` reads the level once, at import).  Downloads
@@ -17,6 +18,7 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
     extract.py      every Hungarian lemma, compacted, with a LEMMA frequency
                     (built once for all levels: lex.json)
     select.py       the inventory, then the commonest remaining words
+                    (phrases.py instead, for --level phr)
     examples.py     three Tatoeba sentences each, matched on the word's forms
     build_deck.py   headword, glosses, forms, tables, sentences, and the
                     .folio-deck.json in decks/
@@ -72,7 +74,7 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:
