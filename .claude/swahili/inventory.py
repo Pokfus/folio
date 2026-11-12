@@ -152,4 +152,52 @@ B1 = [
                    'labda pengine hasa kabisa'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+# B2: the CEFR's "complex text on both concrete and abstract topics" -- built on A1, A2 and B1.
+# B1's lesson holds: the lower levels' frequency fill has taken the obvious topic words, so these
+# are the next tier down (the economy, the state, the law, science, the environment, health ...).
+B2 = [
+    ('the economy and business', 'mfumuko mfumuko_wa_bei pato_la_taifa uwekezaji mtaji soko_la_hisa '
+                                 'hisa riba mapato ruzuku ukiritimba ubinafsishaji uagizaji mauzo '
+                                 'benki_kuu mkandarasi zabuni mnada ukaguzi mkaguzi ankara stakabadhi '
+                                 'mjasiriamali ujasiriamali mzalishaji uzalishaji mlaji ugavi kopa:verb '
+                                 'kopesha toza dhamini'),
+    ('government and politics', 'halmashauri katibu_mkuu spika uwajibikaji mageuzi ukoloni mkoloni '
+                                'ukombozi balozi diplomasia kidiplomasia mazungumzo_ya_amani diwani '
+                                'tarafa manispaa uraia utaifa uzalendo mzalendo asasi'),
+    ('the law', 'mahakama_kuu mshtakiwa mshtaki mlalamikaji ukiukaji halali hati_miliki umiliki'),
+    ('rights, conflict and society', 'ukabila ubaguzi_wa_rangi unyanyasaji mnyanyasaji unyonyaji '
+                                     'mnyonyaji mwanaharakati uanaharakati mzozo mpatanishi patanisha '
+                                     'usitishaji_mapigano mateka utekaji uhasama'),
+    ('science and research', 'mwanasayansi mtafiti mchambuzi ugunduzi uvumbuzi mvumbuzi kemikali '
+                             'kemia fizikia biolojia hisabati seli jeni maabara sayari anga_za_juu '
+                             'roketi akiolojia mwanahistoria'),
+    ('technology', 'data kidijitali akili_bandia roboti mbunifu nenosiri udukuzi mdukuzi kiteknolojia'),
+    ('the environment and geography', 'kaboni mmomonyoko kiumbe spishi uhifadhi nishati_mbadala '
+                                      'kimbunga tufani ukataji jangili ujangili mbuga_ya_wanyama '
+                                      'kimazingira endelevu mwambao rasi ghuba mteremko tambarare '
+                                      'uwanda nyanda tropiki ikweta dira'),
+    ('health and the body', 'afya_ya_akili msongo_wa_mawazo mfadhaiko mfumo_wa_kinga unene kitambi '
+                            'kiharusi shinikizo_la_damu wodi zahanati tabibu mkunga mfamasia famasia '
+                            'duka_la_dawa ganzi utoaji_mimba uzazi uzazi_wa_mpango kondomu '
+                            'kifua_kikuu kipindupindu surua homa_ya_manjano utapiamlo ulemavu kiziwi '
+                            'kipofu bubu'),
+    ('education', 'mtaala ufundishaji shahada_ya_uzamili uzamivu udaktari tafiti utaalamu'),
+    ('literature, the arts and the media', 'fasihi:noun mtunzi hadithi_fupi uchoraji uchongaji mchongaji '
+                                           'taarab mapokeo jadi tahariri uhuru_wa_habari upotoshaji '
+                                           'propaganda kampeni mtandao_wa_kijamii blogu uzinduzi '
+                                           'mnara makaburi kitamaduni'),
+    ('home, family and possessions', 'upangaji dalali udalali saruji bati mtoto_yatima ulezi '
+                                     'mlezi mahari posa uchumba rika fasheni manukato almasi shaba'),
+    ('character and feelings', 'ubinadamu unafiki mnafiki uchoyo mchoyo wema upole uzembe uvivu '
+                               'ustahimilivu unyenyekevu majivuno kijicho mkanganyiko ukaribu mapenzi '
+                               'mahaba stahi kimaadili'),
+    ('arguing and analysing', 'hitimisho ukosoaji mkosoaji uchambuzi chambua changanua fasiri hakiki '
+                              'dadisi unga_mkono hamasisha hamasa himiza karipia kemea uwiano kimkakati'),
+    ('verbs of change and cause', 'dhoofisha ainisha gawanya fufua tegemeana dhihirika zuka bashiri '
+                                  'nuia dhamiria'),
+    ('describing', 'kiuchumi kisayansi kidemokrasia kikatiba tata nyeti adimu haba tele maridadi '
+                   'kamilifu madhubuti mahiri'),
+    ('qualifying and time', 'hususan aghalabu mara_kwa_mara'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

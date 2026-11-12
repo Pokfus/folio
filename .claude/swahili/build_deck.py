@@ -77,6 +77,9 @@ ETYMS = {
     'bodi': ['2'],            # "board (managing committee)"; 1 is "a body"
     'hariri': ['2'],          # "to edit" (B1's media); 1 is "silk"
     'nya': ['2'],             # "to rain, drop like rain"; 1 is "to defecate"
+    'kopa': ['2'],            # "to borrow" (B2's money); 1 is "heart" (the card suit)
+    'saruji': ['2'],          # "concrete, cement" (B2's home); 1 is "saddle"
+    'tembe': ['2'],           # "pill, tablet"; 1 is "hen"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.

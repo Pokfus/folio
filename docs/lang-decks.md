@@ -3531,7 +3531,8 @@ changed was the one that had been wrong all along.
 - `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
   collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
   `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **, A2, `decks/Swahili-A2.folio-deck.json`**
-  (750 / 1,500) **and B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000). `python3 .claude/swahili/run.py [--level a1]`,
+  (750 / 1,500) **, B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
+  `decks/Swahili-B2.folio-deck.json`** (1,500 / 3,000). `python3 .claude/swahili/run.py [--level a1]`,
   `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
   corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns

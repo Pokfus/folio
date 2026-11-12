@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/swahili/`, §6, §7, §8). B2, C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/swahili/`, §6–§9). C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -28,7 +28,7 @@ for a language with no exam list — **open to the owner's correction**:
 | Swahili A1 Beginner — built | `Swahili-A1.folio-deck.json` | 500 |
 | Swahili A2 Elementary — built | `Swahili-A2.folio-deck.json` | 750 |
 | Swahili B1 Intermediate — built | `Swahili-B1.folio-deck.json` | 1,000 |
-| Swahili B2 Upper Intermediate | `Swahili-B2.folio-deck.json` | 1,500 |
+| Swahili B2 Upper Intermediate — built | `Swahili-B2.folio-deck.json` | 1,500 |
 | Swahili C1 Advanced | `Swahili-C1.folio-deck.json` | 1,500 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
@@ -91,7 +91,7 @@ Wiktionary senses are odd for a beginner (`-weza` "to be unwell"), shown as the 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
 
@@ -160,3 +160,35 @@ small). A re-run is byte-identical, and **A1 and A2 are byte-identical after eve
   applicative verbs (`kusemwa`, `kulipwa`, `kununulia`) are lemmas of their own in Wiktionary and come in on their
   counts; a few Wiktionary first senses are odd for a learner (`kidokezo` "trailer", `fadhili` "benignant") and
   are shown as the source has them.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/swahili/run.py --level b2`. 1,500 notes, 261 from the inventory (16 topics: the economy and
+business, government and politics, the law, rights and conflict, science and research, technology, the
+environment and geography, health and the body, education, literature, the arts and the media, home and family,
+character and feelings, arguing and analysing, verbs of change and cause, describing, qualifying and time) and
+1,239 by frequency; sentences for 497, three apiece for 110, none for 1,003 — at this depth Tatoeba's Swahili has
+little to offer. A re-run is byte-identical, and **A1, A2 and B1 are byte-identical after every change below**.
+
+- **B1's lesson held**: the inventory was built from four rounds of candidates checked against the lower decks
+  (`ubinafsishaji`, `mfumuko wa bei`, `mwanaharakati`, `kipindupindu`, `uzamivu` …); about half of each round
+  was already taught. Many inventory words have a count of 0 in both corpora (`biolojia`, `ruzuku`, `nenosiri`)
+  and are dealt last; a multi-word topic term (`mahakama kuu`, `afya ya akili`, `akili bandia`) is listed as one.
+- **THE FILL REACHES THE CORPORA'S FLOOR.** Its last few hundred words have a rate of about 3 per million in
+  each corpus — one or two tokens — and tie, so their order among themselves is alphabetical. The tail was read
+  and the faults it threw up excluded with reasons in `select.EXCLUDE`: verbs the parser credited from a handful
+  of other words' forms (`-aka`, `-sua`, `-asa`), a single token (`ree` "ace"), Wiktionary's queried sense
+  (`umbile`), and a lemma that is slang (`mbao` "twenty shillings"; planks are the plural of A2's `ubao`).
+- More exclusions, each with its reason: counts that are another word (`pepe` is `barua pepe`, `abu` the name
+  element, `haram` Boko Haram, `koloni` "colony", `-wia` the applicative of `-wa`, `ono` and `nukato` their own
+  plurals `maono`, `manukato`); grammar forms (`yaliyomo`, `kuli`, `kusiwe`, the tense marker `ka`); six
+  word-forming elements like A2's `mpiga` (`mpigaji`, `kifungua`, `mshika`, `mtunza`, `mlipa`, `mlinda`); and the
+  sexual, crude and pejorative (`kujamiiana`, `kuhara`, `shoga` — its count is the slur —, `kilema`). Six
+  insults join `SWEARS` (`mwanaharamu`, `mpuuzi`, `zuzu`, `bwege`, `mbumbumbu`, `umalaya`).
+- Etymology choices `kopa` "to borrow", `saruji` "cement", `tembe` "pill"; `fasihi:noun` and `kopa:verb` in the
+  inventory so the cards lead with "literature" and speak `kukopa`.
+- The "not X" label on a sense ("verb, not kudhamiria") is the existing tie-breaker for two words that share an
+  English side (`kukusudi` / `kudhamiria`, `-nene` / `-nono`), 11 pairs here, as A2's two.
+- **Known, left**: the fill's floor is noisy for a corpus of 1.2 million words, and C1 will sit wholly in it —
+  C1 needs a larger corpus, or a larger inventory, before it is built. Some Wiktionary senses at this depth are
+  rare or regional (`kwasi` "rich", `kukoa` "to be sharp") and are shown as the source has them.

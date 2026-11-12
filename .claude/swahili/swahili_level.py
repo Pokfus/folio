@@ -75,6 +75,19 @@ SCOPE = {
                   'size and measure, describing, time and sequence, and the words that join an '
                   'argument together',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract topics, '
+                 'including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, and '
+                 'to produce clear, detailed text on a wide range of subjects and explain a viewpoint on '
+                 'a topical issue giving the advantages and disadvantages of various options',
+        'topics': 'the economy and business, government and politics, the law, rights, conflict and '
+                  'society, science and research, technology, the environment and geography, health and '
+                  'the body, education, literature, the arts and the media, home, family and '
+                  'possessions, character and feelings, arguing and analysing, the verbs of change and '
+                  'cause, describing, and the words that qualify and place a statement in time',
+    },
 }
 
 

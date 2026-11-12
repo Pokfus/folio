@@ -58,11 +58,41 @@ EXCLUDE = {
     'kumba': '"to shove": its count is kumbe "so, behold!", read by the parser as its subjunctive',
     'endeleza': 'Wiktionary\'s only sense is "to spell", where the word is met as "to develop, to carry on"; left out rather than taught wrong',
     'mfanya': 'a word-forming element (mfanyabiashara, mfanyakazi), not a word',
+    # read off the B2 ranking (2026-11-12)
+    'pepe': '"astray": its count is barua pepe "email", which B1 teaches',
+    'abu': '"father": its count is the Arabic name element Abu',
+    'haram': '"pyramid": its count is haram "forbidden" and Boko Haram',
+    'yaliyomo': 'a relative form of -wamo ("what is in it"), a grammar point, not a word',
+    'li': 'a stem of -wa used only inside relative forms (kuli, alipo), a grammar point, not a word',
+    'siwe': 'a negative subjunctive form ("it is not you"), not a lemma',
+    'ka': 'the narrative tense marker -ka-, a grammar point, not a word',
+    'koloni': '"colon" (the punctuation mark): its count is koloni "colony"',
+    'ono': '"thought": its count is its plural maono "vision", taught on its own card',
+    'nukato': '"scent": its count is its plural manukato "perfume", taught on its own card',
+    'wia': '"to warm up": its count is -wia, the applicative of -wa ("to be for": inaniwia vigumu)',
+    'pea': 'its count mixes five homographs ("to ripen", "to give to", "pair", "pear", "to sweep")',
+    'aka': '"to build": a handful of tokens, credited by the parser from forms of other words',
+    'sua': '"to spit": a handful of tokens, credited by the parser from forms of other words',
+    'asa': '"to forbid": a handful of tokens, credited by the parser from forms of other words',
+    'ree': '"ace": a single token as written',
+    'umbile': 'Wiktionary\'s only sense is queried ("the nature of something?")',
+    'jamiiana': '"to have sex with one another": left out, as ngono is',
+    'hara': '"to defecate" (Wiktionary\'s first sense of "to have diarrhoea"): a crude word',
+    'shoga': 'its count is mostly the slur sense, not "a woman\'s close friend"',
+    'kilema': '"cripple": a pejorative; B1 teaches mlemavu "a person with a disability"',
+    'mpigaji': 'Wiktionary\'s only sense is "synonym of mpiga", a word-forming element',
+    'kifungua': 'a word-forming element (kifungua kinywa "breakfast"), not a word',
+    'mshika': 'a word-forming element (mshika dau, mshika bunduki), not a word',
+    'mtunza': 'a word-forming element (mtunza fedha "treasurer"), not a word',
+    'mlipa': 'a word-forming element (mlipa kodi "taxpayer"), not a word',
+    'mlinda': 'a word-forming element (mlinda mlango "goalkeeper"), not a word',
+    'mbao': 'Wiktionary\'s lemma is the slang "twenty shillings"; planks are the plural of ubao, which A2 teaches',
 }
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala',
-          'pumbavu', 'shenzi'}   # the adjectives of mpumbavu, mshenzi (B1)
+          'pumbavu', 'shenzi',   # the adjectives of mpumbavu, mshenzi (B1)
+          'mwanaharamu', 'mpuuzi', 'zuzu', 'bwege', 'mbumbumbu', 'umalaya'}   # B2
 
 
 def rank(L):
