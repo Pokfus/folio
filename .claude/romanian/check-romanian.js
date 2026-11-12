@@ -12,7 +12,8 @@ const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
 const LABELS = new Set(["plural", "the …", "feminine", "fem. plural", "I", "participle", "subjunctive"]);
 const POINTER = /^(?:alternative|obsolete|dated|rare|archaic) (?:form|spelling) of |^(?:inflection|synonym|plural|feminine|definite)[^;]* of \S+$/i;
-const LATIN = /^[a-zăâîșț' -]+$/;
+// capitals are a phrase's own (slavă Domnului, de la A la Z); a level's headwords are lowercase
+const LATIN = /^[a-zăâîșțA-ZĂÂÎȘȚ' -]+$/;
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Romanian-.*\.folio-deck\.json$/.test(f)).sort();

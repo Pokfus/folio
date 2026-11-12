@@ -585,28 +585,28 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-098  Migration of the giant planets
     astro-099  The late heavy bombardment
     astro-100  The age of the Solar System
-    astro-101  Dating the Solar System with meteorites
+    astro-101  Calcium–aluminium-rich inclusions
     astro-102  Angular momentum in the Solar System
     astro-103  The invariable plane
     astro-104  Why the planets orbit the same way
-    astro-105  What the Solar System is made of
-    astro-106  Condensation and the chemistry of the disc
+    astro-105  CI chondrites
+    astro-106  Refractory elements and the chemistry of the disc
     astro-107  Isotopic clues to the Sun's birthplace
-    astro-108  Was the Sun born in a cluster
-    astro-109  The Solar System's place in the Galaxy
-    astro-110  Is the Solar System typical
+    astro-108  Solar siblings: was the Sun born in a cluster
+    astro-109  The Local Interstellar Cloud
+    astro-110  Jupiter analogues: is the Solar System typical
 
 ### The rocky planets — `astro-inner`
 
     astro-111  Terrestrial planet
     astro-112  Mercury
-    astro-113  The surface of Mercury
+    astro-113  The geology of Mercury
     astro-114  Mercury's spin–orbit resonance
     astro-115  Venus
     astro-116  The atmosphere of Venus
-    astro-117  The runaway greenhouse on Venus
-    astro-118  The surface of Venus
-    astro-119  Venus's rotation
+    astro-117  The runaway greenhouse effect
+    astro-118  The geology of Venus
+    astro-119  Venus's retrograde rotation
     astro-120  Earth as a planet
     astro-121  The Earth's interior
     astro-122  Plate tectonics
@@ -614,7 +614,7 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-124  The Earth's magnetic field
     astro-125  The Moon
     astro-126  The origin of the Moon
-    astro-127  The lunar surface
+    astro-127  The lunar regolith
     astro-128  Lunar maria and highlands
     astro-129  Impact craters
     astro-130  Mars
@@ -625,8 +625,8 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-135  Valles Marineris
     astro-136  The moons of Mars
     astro-137  Dust storms on Mars
-    astro-138  The loss of Mars's atmosphere
-    astro-139  Why the terrestrial planets differ
+    astro-138  Atmospheric escape
+    astro-139  Comparative planetology
     astro-140  Planetary differentiation
 
 ### The giant planets — `astro-giants`
@@ -649,13 +649,13 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-156  Neptune
     astro-157  Neptune's winds
     astro-158  The discovery of Neptune
-    astro-159  Interiors of the ice giants
+    astro-159  Superionic water in the ice giants
     astro-160  Metallic hydrogen
     astro-161  Helium rain
-    astro-162  Why the giants have so many moons
-    astro-163  Ring systems of the outer planets
-    astro-164  Heat from within
-    astro-165  Weather on the giant planets
+    astro-162  Regular moons: why the giants have so many
+    astro-163  The rings of Uranus
+    astro-164  The Kelvin–Helmholtz mechanism
+    astro-165  Saturn's Great White Spots
 
 ### Moons — `astro-moons`
 
@@ -663,25 +663,25 @@ political spectrum and of autism, so check the corpus before claiming the bare n
     astro-167  The Galilean moons
     astro-168  Io and its volcanoes
     astro-169  Europa
-    astro-170  The ocean beneath Europa's ice
+    astro-170  Chaos terrain and the ocean beneath Europa's ice
     astro-171  Ganymede
     astro-172  Callisto
     astro-173  Titan
-    astro-174  Titan's lakes and weather
+    astro-174  The lakes of Titan
     astro-175  Enceladus
     astro-176  The plumes of Enceladus
     astro-177  Tidal heating
-    astro-178  Subsurface oceans in the outer Solar System
+    astro-178  Ocean worlds of the outer Solar System
     astro-179  Triton
     astro-180  Irregular satellites
-    astro-181  Captured moons
-    astro-182  The mid-sized moons of Saturn
+    astro-181  Gravitational capture
+    astro-182  Rhea and the mid-sized moons of Saturn
     astro-183  Iapetus
-    astro-184  The moons of Uranus
+    astro-184  Miranda and the moons of Uranus
     astro-185  Charon and the Pluto system
-    astro-186  How moons form
-    astro-187  Orbital resonance among moons
-    astro-188  Why the outer moons matter to astrobiology
+    astro-186  Circumplanetary discs
+    astro-187  The Laplace resonance
+    astro-188  Europa Clipper and why the outer moons matter
     astro-189  Cryovolcanism
     astro-190  Moonquakes and lunar interiors
 
@@ -689,14 +689,14 @@ political spectrum and of autism, so check the corpus before claiming the bare n
 
     astro-191  Asteroid
     astro-192  The asteroid belt
-    astro-193  Why the asteroid belt is not a planet
+    astro-193  The exploded-planet hypothesis
     astro-194  Kirkwood gaps
     astro-195  Ceres
     astro-196  Vesta
     astro-197  Asteroid families
     astro-198  Near-Earth asteroids
     astro-199  Trojan asteroids
-    astro-200  Asteroid composition and spectral classes
+    astro-200  Asteroid spectral types
     astro-201  Rubble-pile asteroids
     astro-202  Comet
     astro-203  The nucleus of a comet

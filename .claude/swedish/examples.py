@@ -21,7 +21,7 @@ import csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sv import fold, nfc, tokens
-from swedish_level import f
+from swedish_level import f, LEVEL
 
 csv.field_size_limit(10 ** 8)
 
@@ -63,6 +63,27 @@ def forms_of(row, lex):
     return out
 
 
+def phrase_parts(row, lex):
+    """The phrases deck's match: an expression's words in sequence, its FIRST word in any
+    form of its verb where the expression is a verb (`tar hand om`, `tog hand om`).
+    Returns (the forms the first word may take, the rest of the words)."""
+    words = fold(row['word']).split()
+    first = {words[0]}
+    if row.get('pos') == 'verb':
+        for e in lex.get(words[0], {}).get('entries', []):
+            if e['pos'] == 'verb':
+                first |= {fold(t['f']) for t in e['table'] if ' ' not in t['f']}
+    return first, words[1:]
+
+
+def seq_hit(ft, first, rest):
+    n = len(rest) + 1
+    for j in range(len(ft) - n + 1):
+        if ft[j] in first and ft[j + 1:j + n] == rest:
+            return ft[j:j + n]
+    return None
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -76,7 +97,19 @@ def main():
     for row in rows:
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if LEVEL == 'phr' and len(words) > 1:
+            # the phrases deck only, so the level decks' sentences stay byte-identical
+            first, rest = phrase_parts(row, lex)
+            seen = set()
+            for fm in sorted(first):
+                for i in index.get(fm, []):
+                    if i in seen:
+                        continue
+                    seen.add(i)
+                    hit = seq_hit(toks[i][3], first, rest)
+                    if hit:
+                        cands.append((i, 0 if hit[0] == words[0] else 1, hit))
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):

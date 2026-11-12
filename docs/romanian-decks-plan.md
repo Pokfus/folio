@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-09): A1 and A2 are built** (`.claude/romanian/`, §6–§7). B1 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): the collection is complete** — all six CEFR levels, A1 to C2, and the phrases deck (`.claude/romanian/`, §6–§12). Only Phase 4, a combined file, is not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -20,7 +20,7 @@ The request named no level, source or size, so each decision copies the shelf's 
    from, so each level is a hand-written topic inventory (`inventory.py`) scoped to the CEFR global
    descriptor for its band, topped up with the commonest remaining lemmas. Each deck's description says so
    in plain words and claims no examination. Sizes: **A1 500 · A2 750 · B1 1,000 · B2 1,500 · C1 1,500
-   notes**, then a phrases deck. (C2 can be added on request: the CEFR has it, the plan stops where Hindi's does.)
+   notes**, then a phrases deck. (C2 was added on request on 2026-11-12, §11.)
 2. **No alphabet deck.** Romanian is written in the Latin alphabet; its five extra letters (ă â î ș ț) are
    learnt on the words.
 3. **IPA on every card that Wiktionary gives one** (451 of A1's 500), in place of Hindi's romanisation:
@@ -31,10 +31,11 @@ The request named no level, source or size, so each decision copies the shelf's 
 |---|---|---|
 | Romanian A1 Beginner — built | `Romanian-A1.folio-deck.json` | 500 |
 | Romanian A2 Elementary — built | `Romanian-A2.folio-deck.json` | 750 |
-| Romanian B1 Intermediate | `Romanian-B1.folio-deck.json` | 1,000 |
-| Romanian B2 Upper Intermediate | `Romanian-B2.folio-deck.json` | 1,500 |
-| Romanian C1 Advanced | `Romanian-C1.folio-deck.json` | 1,500 |
-| Romanian Phrases and Expressions | `Romanian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Romanian B1 Intermediate — built | `Romanian-B1.folio-deck.json` | 1,000 |
+| Romanian B2 Upper Intermediate — built | `Romanian-B2.folio-deck.json` | 1,500 |
+| Romanian C1 Advanced — built | `Romanian-C1.folio-deck.json` | 1,500 |
+| Romanian C2 Proficiency — built (added on request, §11) | `Romanian-C2.folio-deck.json` | 1,500 |
+| Romanian Phrases and Expressions — built | `Romanian-Phrases-and-Expressions.folio-deck.json` | 372 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -96,9 +97,9 @@ subtitle-ordered deck on the shelf does. 2 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline, A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read every card, extend `EXCLUDE` /
-`ETYMS` / `DROP_POS` with reasons. **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored
+`ETYMS` / `DROP_POS` with reasons. **Phase 3 (done)** — the phrases deck. **Phase 4** — a combined file, gitignored
 (and a `PARTS` row in `.claude/combine-decks.py`).
 
 ## 6. As built (2026-11-09): A1
@@ -131,3 +132,135 @@ under the A2 rules is byte-identical to the shipped file. What A2 added:
 
 Feminine agent nouns written in the inventory (`colegă`, `asistentă`, `vecină`) are Wiktionary form-of
 entries, so the masculine is taught and its card names no feminine — known, left.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/romanian/run.py --level b1` (asked for on 2026-11-12: "Add Romanian B1"). 1,000 notes, none
+taught in A1 or A2: 513 from the B1 inventory (eighteen topics — work and career, education, media and
+technology, the environment, society and public life, law and crime, health and lifestyle, relationships and
+feelings, character, opinions and argument, linking words, travel and its problems, services and money,
+housing, culture and the arts, abstract ideas, thinking and communicating, everyday verbs) and 487 by
+frequency; IPA on 522, forms on 878, sentences for 928 (none for 72). A re-run is byte-identical, and A1 and
+A2 rebuilt under the B1 rules are byte-identical to the shipped files — on a fresh download of all five
+sources, so the Wiktionary extract of 2026-11-12 changed nothing either level reads.
+
+- **Thirty multi-word or newer items are not Wiktionary headwords** and were dropped, as the pipeline does
+  (`în_general`, `după_ce`, `sală_de_sport`, `internet`, `online`, `economii` …; the run prints the list).
+  Several linking phrases a B1 learner needs are therefore missing — the phrases deck is their place.
+- **More forms counted as words** (`select.EXCLUDE`, each with its reason): definite forms whose entry is a
+  verb (`masa` "to massage" from *masa* "the table", `data`, `lumina`, `regula`, `forma`, `ancheta`), names
+  and English words from the subtitles (`henry`, `martin`, `sir`, `team`), and **bare past participles**
+  whose card is only the participle's sense (`găsit`, `luat`, `pierdut`, `speriat` … eighteen). A participle
+  that is an adjective in its own right (`obișnuit` "usual", `căsătorit` "married", `cunoscut` "well-known")
+  is kept.
+- **The inventory's own slips, caught on reading**: `ura` is "to wish" — "to hate" is `urî`; `fie` resolves
+  only to a noun "daughter" (the conjunction is filed as a form of `fi`) and `pană` only to "feather" (no
+  "breakdown"), so both left the list; `email` leads with "enamel", so the card is `e-mail`. `coș` and `post`
+  take their second etymology ("basket", "job") through `ETYMS`.
+- Two more swears for `SWEARS` (`porcărie`, `afurisit`), read off the fill.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/romanian/run.py --level b2` (asked for on 2026-11-12: "Add B2"). 1,500 notes, none taught
+in A1, A2 or B1: 531 from the B2 inventory (seventeen topics — work and the economy, science, technology and
+the internet, politics, law and justice, the environment, health and medicine, the mind and emotions, social
+issues, the media, arguing and evaluating, discourse words, culture and the arts, places and geography,
+describing people and things, abstract nouns, verbs of change) and 969 by frequency; IPA on 579, forms on
+1,318, sentences for 1,111 (none for 389 — Tatoeba's Romanian is thin at this level). A re-run is
+byte-identical, and A1, A2 and B1 rebuilt under the B2 rules are byte-identical to the shipped files.
+
+- **59 inventory items are not Wiktionary headwords** and were dropped (mostly multi-word terms:
+  `schimbări_climatice`, `sănătate_publică`, `în_concluzie`, `cu_toate_acestea` …; the run prints the list).
+- **The fill is two thirds of the deck**, so it carries more of the subtitles' register (crime, war, the
+  supernatural) than B1 does — known, as for every subtitle-ordered deck.
+- **More forms counted as words** (`select.EXCLUDE`): names (`susan`, `elenă`, `mac`, `mel` …), English words
+  from the subtitles (`miss`, `star`, `show`, `cool` …), definite forms whose entry is a verb (`panica`,
+  `lista`, `poza`, `planta` …), the subtitle files' credit lines (`sincronizare`, `subtitrare`), and 35 more
+  bare past participles. Five more swears and crude words for `SWEARS`.
+- **A gloss longer than 90 characters is dropped as a note** (`is_note`), which cost `gratuit` its first
+  meaning, "free, without payment (which costs nothing, …)". `LEAD` may now name the opening of such a gloss,
+  and the card leads with it; no existing `LEAD` changed a card.
+- From the inventory: `ales` (a participle) and `amenințat` (a stray noun) left; `pondera` is "to temper",
+  not the "ponder" its one gloss gives, and `sondaj` is glossed only "sounding", not "opinion poll" — both
+  left rather than carry a misleading card. `bilă` takes etymology 2 ("ball", not "bile").
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/romanian/run.py --level c1` (asked for on 2026-11-12: "Add C1"). 1,500 notes, none taught
+in A1 to B2: 544 from the C1 inventory (sixteen topics — economics and finance, politics and the state, law
+and rights, science, philosophy, language and rhetoric, society and culture, character and conduct, the
+finer shades of feeling, the arts and literature, the planet, medicine, formal-register adjectives,
+adverbs and connectors, nuanced verbs, abstract nouns) and 956 by frequency; IPA on 438, forms on 1,319,
+sentences for 771 (none for 729 — Tatoeba has little Romanian at this register). A re-run is
+byte-identical, and A1 to B2 rebuilt under the C1 rules are byte-identical to the shipped files.
+
+- **28 inventory items are not Wiktionary headwords** and were dropped — chiefly the formal connectors
+  (`de_altfel`, `în_fond`, `pe_măsură_ce`, `ceea_ce` …) and `antreprenoriat`, `decarbonizare`.
+- **The inventory is where C1 differs from the subtitles**: its words are formal and academic, the fill is
+  still the commonest spoken words not yet taught, so the deck is two registers side by side. Known.
+- **Inventory words left because their only gloss would mislead**: `or` (resolves to a verb form, not the
+  conjunction "whereas"), `raționa` ("to ration", not "to reason"), `consecvență` (glossed "consequence";
+  it is consistency), `monetar` (a noun "coin inventory", not the adjective), `concurent` ("concurrent",
+  not "competitor"), `citat` (an adjective "quote"). `pluton` and `franc` take the right etymologies.
+- More `select.EXCLUDE` rows of the same kinds as B2 (names, film characters, English words, forms counted
+  as other words, 42 more bare participles) and four more for `SWEARS`.
+
+## 11. As built (2026-11-12): C2
+
+`python3 .claude/romanian/run.py --level c2` (asked for on 2026-11-12: "Add C2"; §1 left C2 to a request).
+The band is new in `ro_level.py` (`BANDS`, `NAMES` "Proficiency", `TARGET` 1,500, its `SCOPE`) and in
+`build_deck.py`'s `FOR` / `BELOW_NAMES`; nothing below it changed (A1 to C1 rebuild byte-identical). 1,500
+notes, none taught in A1 to C1: 538 from the C2 inventory (thirteen topics — literary and elevated nouns,
+the older words alive in literature, faith, rite and tradition, the countryside and its crafts, rhetoric,
+style and scholarship, law and administration at their most formal, the finest shades of character, of
+feeling and judgement, precise verbs of speech, of sight, movement and manner, rarer adjectives, rarer
+adverbs and connectors, abstract and scholarly nouns) and 962 by frequency; IPA on 428, forms on 1,336,
+sentences for 617 (none for 883 — Tatoeba barely reaches this register). A re-run is byte-identical.
+
+- **38 inventory items are not Wiktionary headwords** and were dropped (`sorcova`, `plugușor`, `dor_de_ducă`,
+  `lua_peste_picior`, `pe_furiș`, `cel_mult` …). Multi-word items the session had composed rather than
+  found (`tăcere_adâncă`, `legăna_ușor` …) were removed from the list before the build, not left to drop.
+- **Many C2 synonyms share an English gloss** (`pururea` / `pururi`, `abis` / `hău`, `pizmă` / `zavistie`):
+  43 notes in 21 groups, each labelled "not …" so the reverse card has one answer, as on every level.
+- `elan` and `uric` take their second etymology (élan; the old charter); `primat` gives only "primate" and
+  left the list. The same `select.EXCLUDE` kinds as C1 (names, English words, definite forms read as verbs,
+  forms counted as words, about 60 bare participles), five more for `SWEARS`, and `țigan` as a slur.
+- **The fill is the commonest spoken words not yet taught**, deep in the subtitle list by now, so it sits
+  beside a literary inventory: the deck is two registers, as C1 is. Known.
+
+## 12. As built (2026-11-12): the phrases deck
+
+`python3 .claude/romanian/run.py --level phr` runs `phrases.py` in place of `select.py` (asked for on
+2026-11-12: "Add the phrases deck"). Ported from Hindi's (📖 `docs/hindi-decks-plan.md` §11): 372 expressions in
+three subdecks — **95 Phrases** (Wiktionary's multi-word phrases, prepositional phrases and interjections not
+tagged idiomatic: `nu știu`, `îmi pare rău`, `în regulă`, `la mulți ani`), **233 Idioms** (a multi-word entry
+with a sense tagged idiomatic, most of them verbs: `a face față`, `a da de urmă`, `a-și ține gura`) and **44
+Proverbs** (`cine râde la urmă râde mai bine`, `calul de dar nu se caută la dinți`). Nothing a level teaches is
+repeated. Order within a subdeck: Tatoeba sentences containing the expression, then frequency, then spelling;
+88 of the 372 occur in Tatoeba, 87 have sentences, 33 have three. IPA on 54 (Wiktionary gives few for an
+expression). A re-run is byte-identical, and all six levels rebuilt by the changed code are byte-identical.
+
+**What Romanian needed that Hindi did not:**
+- **The verb comes FIRST** (`face față`, `da drumul`; Hindi and Turkish put it last), often after a reflexive
+  clitic (`își ține gura`). `examples.phrase_parts` matches the verb in any form of its table and the clitic in
+  any person (`pot face față`, `a pierdut trenul`, `îmi țin gura`); the phrases deck only, so the levels keep
+  their exact matching.
+- **A verb expression that opens with a clitic joins it to the infinitive's a** (`a-și lua lumea în cap`,
+  `a-i da lumea peste cap`; `build_deck.CLITIC_A`) — no level headword opens with one.
+- **Capitals are a phrase's own** (`slavă Domnului`, `de la A la Z`), so `check-romanian.js`'s alphabet test
+  now accepts them; it still fails a cedilla or a foreign letter.
+- **The swear list missed a family of oaths**: `select.SWEARS` lists headwords (`pulă`, `pizdă`), the oaths
+  write definite and clipped forms (`du-te-n pula mea`, `dă-o-n pizda mă-sii`). `phrases.OATH` names those
+  forms; twelve oaths left. A first version listed `morții` and also took `a se da de ceasul morții` ("to make
+  desperate efforts"); the oath it was for is caught by `mă-tii`, so it was removed.
+
+**Excluded with reasons** (`phrases.EXCLUDE`): phrasebook sentences built from level words (`te iubesc`,
+`sunt gay`, `crezi în Dumnezeu`, `pot să folosesc telefonul Dumneavoastră` …) — the questions and formulas a
+phrasebook teaches whole stay (`nu știu`, `cum vă numiți`, `vorbiți engleză`); two oaths; a duplicate idiom; two
+cards whose one gloss is a pointer to an expression not in the deck; and a proverb whose subject is the ethnic
+slur the C2 deck excludes.
+
+**Known, left.** `a pierde trenul` teaches the idiom "to miss the boat" but its Tatoeba sentences are the literal
+"miss the train". A few of Wiktionary's English glosses are crude (`a o face de oaie` "to fuck up") — the
+expressions are a learner's to know and the glosses the source's. Wiktionary's labels decide the subdeck:
+some idioms are close to literal (`a termina școala` "to graduate").

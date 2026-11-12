@@ -35,6 +35,10 @@ from fa import fold, nfc, WORD as WORD_RE
 from persian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
+
+# who a level is for, in the description (Hindi's wording)
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'persian'
 COLOR = '#008763'
 FIELDS = ['Persian', 'Roman', 'Word', 'English', 'Forms', 'Table', 'Examples']
@@ -80,6 +84,31 @@ TRAIL = re.compile(r'\s*[:;,]\s*$')
 ETYMS = {
     'شیر': ['1'],
     'زنگ': ['2'],             # "bell, ring, call"; etymology 1 is "rust"
+    # A2's months (2026-11-12): the etymology that holds the month, not "arrow", "dowry", "yester"
+    'تیر': ['2'],
+    'مهر': ['2'],             # mehr "kindness" and the month; etymology 1 is mahr "dowry"
+    'دی': ['2'],
+    'علیه': ['2'],            # "against"; etymology 1 is the Arabic "upon him"
+    'پست': ['3'],             # "post, mail"; etymology 1 is past "low, abject"
+    'ماده': ['2'],            # mâdde "matter, material"; etymology 1 is mâde "female"
+    'چک': ['5'],              # ček "cheque"; etymology 1 is čak "document"
+    'موزه': ['2'],            # "museum"; etymology 1 is "boot"
+    'شانه': ['2'],            # "shoulder" (the inventory's body word); etymology 1 is "comb"
+    'سیر': ['2'],             # "garlic" (the inventory's food word); etymology 1 is "full, satiated"
+    'کمی': ['2'],             # "a little bit"; etymology 1 is "fewness"
+    'روزی': ['2'],            # "someday"; etymology 1 is "sustenance"
+    # B1 (2026-11-12)
+    'رویا': [''],             # ro'yâ "dream"; etymology 1 is ruyâ "growing"
+    'رز': ['2'],              # roz "rose"; etymology 1 is raz "vine"
+    'فوت': ['3'],             # fowt "death, passing away"; etymology 1 is "foot (unit)"
+    'صفر': ['2'],             # sefr "zero"; etymology 1 is the month Safar
+    'عام': ['2'],             # âmm "general, common"; etymology 1 is 'âm "year"
+    'ساک': ['2'],             # "bag, holdall"; etymology 1 is a soup
+    'تور': ['3'],             # "tour"; etymology 1 is "net"
+    # B2 (2026-11-12)
+    'ذکر': ['2'],             # zekr "mention"; etymology 1 is zakar, an anatomical word
+    'فر': ['2'],              # fer "oven; curly"; etymology 1 is the literary farr "splendour"
+    'جلد': ['2'],             # jeld "binding, volume"; etymology 1 is jald "nimble"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where its
@@ -92,6 +121,26 @@ GLOSS = {
     'کی': {'pron': ['who? (spoken)'], 'adv': ['when?']},
     # Wiktionary's noun is "soldier; guy"; the word's everyday use is as the counter of people
     'نفر': {'noun': ['person (counting people: سه نفر, three people)', 'guy, fellow']},
+    # Wiktionary's second gloss is a pointer ("synonym of سردرد"); its first, kept
+    'دردسر': {'noun': ['headache; hassle; bother; nuisance']},
+    # its third gloss is a pointer ("synonym of ماوس"); the first two, kept
+    'موش': {'noun': ['mouse; rat', 'cutie; someone cute']},
+    # B1: Wiktionary's gloss is "synonym of موسیقی"; its meaning, the music card's
+    'موزیک': {'noun': ['music (everyday, from the French; the formal word is موسیقی)']},
+    # Wiktionary's gloss misdescribes it ("a second-person pronoun"); it is من + را
+    'مرا': {'pron': ['me (as the object: من + را)']},
+    # Wiktionary's only gloss is "broken plural of انتخاب"; the plural's everyday meaning
+    'انتخابات': {'noun': ['elections (the plural of انتخاب, “choice”)']},
+    # B2: Wiktionary's other noun is kečol, a different (anatomical) word spelt alike: not shown
+    'کچل': {'noun': []},
+    # Wiktionary's gloss is "synonym of قطار"; its meaning
+    'ترن': {'noun': ['train (dated; the everyday word is قطار)']},
+    # C1: three glossed by a pointer only; the pointed-at word's meaning
+    'دریغ': {'intj': ['alas']},
+    'مومیایی': {'adj': ['mummified'], 'noun': ['mummy (an embalmed body)']},
+    'موزیکال': {'adj': ['musical']},
+    # phrases: Wiktionary defines the spoken form by a pointer to قربانت بروم, whose gloss this is
+    'قربونت برم': {'phrase': ['may I be sacrificed for you (a spoken endearment)']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -102,6 +151,11 @@ LEAD = {
     'نظر': 'opinion',
     'قرار': 'appointment',
     'قرمز': 'red',
+    'آذر': 'Azar',            # the month; "fire" is literary
+    'مهر': 'Mehr',            # the month, then "kindness"
+    'خسته': 'tired',          # Wiktionary's first is the literary "wounded"
+    'مزخرف': 'silly',         # "nonsense"; Wiktionary's first is the etymological "golden"
+    'خامه': 'cream',          # the everyday word; Wiktionary's first is the literary "reed pen"
 }
 
 
@@ -167,8 +221,24 @@ def english(ents, word=''):
     return ''.join(parts)
 
 
-# A ROMANISATION BY HAND, where Wiktionary's entry gives none.
-ROMAN_BY_HAND = {'حس': 'hess'}
+# A ROMANISATION BY HAND, where Wiktionary's entry gives none -- or (since B1) where its
+# headword line's reading is not the one to print; a hand entry wins.
+# A2's are Wiktionary's own Iranian reading, from the entry's headword line
+# (`نوع • (naw' / now')`, `دی • (day /dey)`, `پست • (post)`, `آرزو • (âr(e)zu …)`
+# with its plural `ârezu-hâ`), which the extraction does not tag.
+ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu',
+                 # B1: the extraction took a Classical or Dari reading (čiguna, tillâ'i,
+                 # kôbidan, jârub) or the headword line's optional vowel (pir(e)-mard);
+                 # the Iranian reading, as A1's cards print these words' relatives
+                 'چگونه': 'čegune', 'طلایی': 'talâyi', 'خواهشا': 'xâhešan', 'کوبیدن': 'kubidan',
+                 'جارو': 'jâru', 'پیرمرد': 'pir-mard',
+                 # C1: کینه printed "kin" (the line has kine); آشکار took آشکارا's reading;
+                 # Wiktionary's "pâydanâri" for پایداری does not match its spelling (pâydâri,
+                 # as پایدار pâydâr); راکتور has an empty headword line
+                 'کینه': 'kine', 'آشکار': 'âškâr', 'پایداری': 'pâydâri', 'راکتور': 'râktor',
+                 # phrases: a Classical reading (tuwânâ buwad); an ezafe written without its hyphen
+                 'توانا بود هر که دانا بود': 'tavânâ bovad har ke dânâ bovad',
+                 'به ساز کسی رقصیدن': 'be sâz-e kasi raqsidan'}
 
 
 # ---- forms -----------------------------------------------------------------------------
@@ -375,10 +445,10 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = r['word']
-        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '') \
-            or ROMAN_BY_HAND.get(word, '')
+        roman = ROMAN_BY_HAND.get(word) or main['roman'] \
+            or next((e['roman'] for e in ents if e['roman']), '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Persian': fa(word),
             'Roman': E(roman),
             'Word': word,
@@ -388,7 +458,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -406,7 +477,7 @@ def desc(entries, n):
         "Both study directions in one deck: Persian → English (see the Persian, recall the meaning) "
         "and English → Persian (see an English meaning, recall the Persian). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -437,6 +508,41 @@ def desc(entries, n):
     )
 
 
+
+def desc_phr(entries, n):
+    """The phrases deck's description (Hindi's, 2026-11-12, for Persian)."""
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Persian set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Persian → English (see the Persian, recall "
+        "the meaning) and English → Persian (see an English meaning, recall the Persian) — each with a "
+        "schedule of its own. This is a companion to the five level decks, Persian A1 to C1, and not "
+        "one of them: a level is a list of words, and an expression is a unit a list of words cannot "
+        "see. Nothing here is taught by any of the five, so the two can be studied together without "
+        "repeating an entry. The PHRASES are the expressions Wiktionary files as phrases and does not "
+        "mark as idiomatic — mostly the everyday formulas a Persian speaker uses as one piece "
+        f"({eg('Phrases')} …). The IDIOMS are expressions whose meaning is not their words' "
+        f"({eg('Idioms')} …), and the PROVERBS the sayings Wiktionary files as proverbs "
+        f"({eg('Proverbs')} …). Within each subdeck the expressions come in the order of how many of "
+        "Tatoeba's Persian sentences contain them, an expression ending in a verb being counted in any "
+        f"form of that verb; Tatoeba's Persian is small, so only {found} of the {n} are found there at "
+        "all, and the rest follow in the order of how common their words are in film and television "
+        "subtitles. Every expression is printed in the Persian script with Wiktionary's Iranian "
+        "romanisation beneath it. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, romanisation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -447,11 +553,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['persian', 'farsi', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['persian', 'farsi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['persian', 'farsi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Persian vocabulary', 'speechLang': 'fa-IR',

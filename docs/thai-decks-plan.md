@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped, Hindi's above all
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/thai/`, §6). A2 to C1 and the phrases
-deck are not.
+**STATUS (2026-11-12): the collection is complete** — the alphabet deck, the five levels A1 to C1 and the
+phrases deck are built (`.claude/thai/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (merged into the day's Hindi line)
@@ -33,11 +33,11 @@ the owner's to overturn**:
 |---|---|---|
 | Thai Alphabet — built | `Thai-Alphabet.folio-deck.json` | 92 |
 | Thai A1 Beginner — built | `Thai-A1.folio-deck.json` | 500 |
-| Thai A2 Elementary | `Thai-A2.folio-deck.json` | 750 |
-| Thai B1 Intermediate | `Thai-B1.folio-deck.json` | 1,000 |
-| Thai B2 Upper Intermediate | `Thai-B2.folio-deck.json` | 1,500 |
-| Thai C1 Advanced | `Thai-C1.folio-deck.json` | 1,500 |
-| Thai Phrases and Expressions | `Thai-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Thai A2 Elementary — built | `Thai-A2.folio-deck.json` | 750 |
+| Thai B1 Intermediate — built | `Thai-B1.folio-deck.json` | 1,000 |
+| Thai B2 Upper Intermediate — built | `Thai-B2.folio-deck.json` | 1,500 |
+| Thai C1 Advanced — built | `Thai-C1.folio-deck.json` | 1,500 |
+| Thai Phrases and Expressions — built | `Thai-Phrases-and-Expressions.folio-deck.json` | 415 |
 
 ## 2. Sources and licences
 
@@ -100,7 +100,7 @@ romanisation.
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `thai_level.py`, run, read every card, extend the
-three tables. **Phase 3** — the phrases deck (`phrase` / `proverb` entries). **Phase 4** — a combined file,
+three tables. **Phase 3 (done)** — the phrases deck (§11). **Phase 4** — a combined file,
 gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
@@ -115,3 +115,137 @@ sound side, since five letters say k and six say t), 28 vowels and vowel signs o
 signs, the 3 class rules, 10 digits; every sound side unique (asserted). The shelf's hue is measured:
 `#014764`, 16.0 from its nearest of 56 (re-swept at the merge: Arabic had taken a green 5.1 from the first
 sweep's `#0B791D`).
+
+## 7. As built (2026-11-12): A2
+
+On request ("Add Thai A2"). `python3 .claude/thai/run.py --level a2`. 750 notes: 508 from the A2 inventory
+(22 topics, `inventory.py` `A2`), 242 by frequency; A1's 500 words are not repeated. 124 show a classifier;
+sentences for 599, three for 375. The A1 deck re-runs byte-identical after these changes (verified).
+
+- **Twelve more ETYMS, ten more LEAD, one PREFER**, read off every A2 card: เบื่อ had opened on "to poison",
+  ไอ on "vapour", ซัก on "to interrogate", ลา on "donkey", กล้า on "rice seedling", ซอย on "to mince", หวัด on
+  "carelessly", สลัด on "pirate", โทร on "tele-"; ผีเสื้อ on "tutelar spirit", กล้อง on "pipe", เจ้านาย on
+  "royal person", สมัคร on "to want", and เบา's "light (in weight)" was its fourth sense, cut off.
+- **`DROP`, new** (`build_deck.py`): a gloss never shown — two vulgar senses Wiktionary leaves untagged (so
+  they were not weak, and showed under ยิ้ม "to smile" and งู "snake") and แต่ง's gloss with a Thai
+  cross-reference fused onto it.
+- **Inventory parts of speech**: เบา:adj, ช้อน:noun, เกม:noun, ชั่ง:verb, สงกรานต์:name (its noun entries are
+  "sea worms" and an astronomical sense; the festival is the proper noun).
+- **Nine more COMPOSE rows**: ปีหน้า, ปีที่แล้ว, อาทิตย์หน้า, เนื้อวัว, คนอื่น, ขับรถ, จ่ายเงิน, แปรงฟัน,
+  มีความสุข.
+- **Left out, with the reason**: ผู้จัดการ (Wiktionary's only sense is an estate's administrator, not
+  "manager"); ตักบาตร and มอเตอร์ไซค์ (defined only as synonyms of ใส่บาตร and จักรยานยนต์); หน้าร้อน, หน้าฝน,
+  หน้าหนาว (the colloquial doublets of ฤดูร้อน etc., which share their English side). Not in Wiktionary and
+  dropped by `select.py`: ใครๆ คนรู้จัก ปู่ย่าตายาย คนแก่ ต่อราคา เก็บเงิน คอนโด วีซ่า ดวงจันทร์ ฟ้าใส ก่อนที่
+  มะรืนนี้ เมื่อวานซืน น้อยกว่า จริงๆ ถึงแม้ หรือว่า ถ้าหาก เสียงดัง ใกล้ๆ ไกลๆ ร่ำรวย อยู่อาศัย หวีผม.
+- **Known, left**: the fill again carries written-Thai words (มาตรา, กฎหมาย, รัฐบาล, ราชการ, สมเด็จ) the two
+  corpora agree on; some glosses stay definitional (หมา "canine: any animal of the family Canidae, as dog …").
+
+## 8. As built (2026-11-12): B1
+
+On request ("Add B1"). `python3 .claude/thai/run.py --level b1`. 1,000 notes: 436 from the B1 inventory
+(18 topics, `inventory.py` `B1`), 564 by frequency; sentences for 548, three for 228 (Tatoeba's Thai thins out
+at this level: 452 words have none). A re-run is byte-identical; A1 is unchanged; **A2 changed in two cards**,
+for the better, through the generic rules below (ความคิด loses a bare "abstract noun of คิด", ความรู้สึก shows
+"feeling; emotion" without the pointer in front).
+
+- **The inventory gave only 386 at first**: 95 of its words are compounds Wiktionary has no entry for. 50 were
+  worth a card and are now `COMPOSE` rows (ตกงาน, ค่าใช้จ่าย, ผิดกฎหมาย, โลกร้อน, ล้างจาน, ส่วนใหญ่, เพิ่มขึ้น,
+  อย่างไรก็ตาม, นอกจากนี้ …); the rest were dropped (the list is printed by `select.py`).
+- **`COMPOSE` now also overrides an entry Wiktionary HAS** but defines with no meaning: การค้า, การรักษา,
+  ความตั้งใจ, ความรัก ("abstract noun of X" alone), กลับบ้าน ("to go" plus a pointer), ผู้ใช้ (only "abettor").
+- **Generic gloss rules** (`build_deck.english`): "synonym of หมา (mǎa, “dog”)" shows the quoted meaning, so
+  สุนัข, the formal word for a dog, is carded as "dog"; "abstract noun of X (…): meaning" shows the meaning;
+  a bare "abstract noun of X (…)" and "Used other than figuratively or idiomatically" are dropped where the
+  entry has anything else.
+- **The fill skips a word defined only by pointer** (`select.pointer_only`: ปรกติ, an old spelling of ปกติ).
+- **Twenty-one more ETYMS, nine more LEAD, two more PREFER** (ปรับ had opened on "to tell", ลับ on "to whet",
+  จ้าง on "plain zongzi", หัด on "measles", ชิน on an amulet alloy, สบู่ on the Jatropha plant, คม on a royal
+  "to wai", เสี่ยง on "section", กลอน on "rafter", มือถือ on "handheld"); parts of speech on ten inventory words.
+- **`EXCLUDE` grew**, each with its reason: syllable counts that carded a rare homograph (กระ "hawksbill turtle",
+  ระ, ตะ, ดา, กร, ริ), the letter เอ, อ้าย (only "used in อุ้ยอ้าย"), เมีย (its "wife" sense is tagged weak, so
+  the card taught only "female"), พลัง (shares "energy" with พลังงาน). โทรศัพท์มือถือ left out beside มือถือ.
+- **Known, left**: more of the fill is written or royal register (ถวาย, ตรัส, ทูล, พระราชทาน, รัชกาล) — the two
+  corpora agree on it, and a reader of Thai meets it; some glosses stay long and definitional.
+
+## 9. As built (2026-11-12): B2
+
+On request ("Add B2"). `python3 .claude/thai/run.py --level b2`. 1,500 notes: 346 from the B2 inventory
+(14 topics, `inventory.py` `B2`), 1,154 by frequency; sentences for 492, three for 175 — **1,008 words have no
+example sentence**: Tatoeba's ≈4,800 Thai sentences are spent by B2. A re-run is byte-identical; A1, A2 and B1
+are unchanged by every rule added here.
+
+- **The inventory resolves thinly at this level**: much of it is already taught below (อาชีพ, สังคม, ประชาธิปไตย …)
+  and about 110 of its words are compounds Wiktionary lacks. 38 are now `COMPOSE` rows (ลงคะแนน, อัตราแลกเปลี่ยน,
+  ธนาคารกลาง, ต้นทุน, ข้อสรุป, หมอกควัน, อุทยานแห่งชาติ, ใกล้สูญพันธุ์, โรคซึมเศร้า, ข่าวปลอม, จุดอ่อน, ภาพรวม,
+  องค์ประกอบ, ขอบเขต …), and 9 more override an entry that is "abstract noun of X" alone (การปกครอง, ความเสมอภาค,
+  ความเหลื่อมล้ำ …).
+- **A new generic rule** (`build_deck.LISTITEM`): a "sense" that is a Thai word with a quoted gloss — มาร's list
+  of the five māras, "กิเลสมาร (“passion”)" — is a list item Wiktionary set as a sense, and is dropped.
+- **Seventeen more ETYMS, twelve more LEAD, four more PREFER**, read off every card (กบ opened on a phonetics
+  term before "frog", จอ on "Year of the Dog" before "screen", มูล on "feces" before "base, origin", สละ on a
+  porcupine's quill, บุก on konjac, ซ้อม on "to pound rice", ขวัญ on "cowlick", วลี on "fold of the skin"); the
+  inventory's อุทธรณ์ and ปฏิรูป say `:verb`.
+- **Fifteen more `EXCLUDE` rows**: syllable counts and Latin letters (โม, จัน, กัง, เส, ชะ, กง, ยอ, คุ, ยู, โด, พี),
+  โขง (the count is the Mekong; the entry is "rancid"), ท้าว and สิริ (every usable sense weak or a pointer),
+  ผู้จัดการ (an estate's administrator only); วนเวียน, สมมุติ, อินทร์ beside a word with the same English side.
+- **Known, left**: by B2 the frequency fill is largely literary, royal and Buddhist register (เสวย, ทอดพระเนตร,
+  มหาราช, ภิกษุ, ภพ, ชาดก) — the corpora's agreement, and what a reader of Thai prose meets — and the deck's
+  description says the fill is by frequency. Some glosses stay definitional.
+
+## 10. As built (2026-11-12): C1
+
+On request ("Add C1"). `python3 .claude/thai/run.py --level c1`. 1,500 notes: 340 from the C1 inventory
+(12 topics, `inventory.py` `C1`), 1,160 by frequency; sentences for 315, three for 100 — **1,185 words have no
+example sentence**. A re-run is byte-identical; A1 to B2 are unchanged.
+
+- **Wiktionary is thinnest exactly where C1 lives**: about 265 inventory words — the Pali and Sanskrit
+  vocabulary of philosophy, Buddhism, scholarship and law (อภิปรัชญา, อรหันต์, บูรณาการ, ปริทัศน์ …) — have no
+  entry. A maximal-matching pass over `lex.json` split each into known words; **the 151 kept as `COMPOSE` rows
+  are only those whose parts join with no linking vowel**, so the parts' Paiboon readings ARE the compound's
+  (ปัจเจกบุคคล bpàt-jèek-bùk-kon, ทวิภาคี tá-wí-paa-kii). Left out on purpose: compounds that insert one
+  (จิตเวช jìt-dtà-wêet, กรรมพันธุ์, วรรณศิลป์, every พระราช- word, ภูมิรัฐศาสตร์), splits that are not word
+  boundaries (โคลง as โค + ลง, สมถะ, โวหาร, ประหนึ่ง), and pairs whose English would collide (โดยนัย beside
+  โดยปริยาย). The English of each is written by hand, as every `COMPOSE` row's is.
+- **`SYN` now also reads a pointer with no romanisation** ("synonym of เทปกาว (“adhesive tape”)").
+- **Four more ETYMS, ten more LEAD, four more PREFER** (กำพร้า had opened on "epidermis" before "orphaned",
+  พิภพ on "nonexistence" before "world", อากร on "body; mass" before "duty (tax)", แฟ้ม on a dried-food
+  container before "folder", กฐิน on an embroidery hoop before the Kathina festival); บรรทม left the inventory
+  (Wiktionary has only "alternative form of ผทม").
+- **`EXCLUDE` grew by about thirty**: syllable, letter and name counts (มาน, จี, ยี่, นนท์, บ, กน, วดี …);
+  เน็ต, แป๊ะ, เชย, คอม (the everyday sense is a name-pointer, tagged weak or missing); ยวน; ปิดบัง, ขาดใจ,
+  เส้นเลือด beside a word with the same English; คงคา and มหาธาตุ (their only gloss opens on a Thai form list).
+  ฉิบหาย, used mostly as a curse, joined `SWEARS`.
+- **Known, left**: at C1 the frequency fill is mostly literary, royal and Buddhist register and the names of
+  plants and animals (เถาวัลย์, ไคล, ปิศาจ), which is what the two corpora agree on next; the topic inventory
+  carries the academic and civic words. Most cards have no sentence: Tatoeba has nothing more to give, and a
+  sentence is never invented.
+
+## 11. As built (2026-11-12): the phrases deck
+
+On request ("Add the phrases deck"). `python3 .claude/thai/run.py --level phr` runs `phrases.py` in place of
+`select.py`. **415 expressions in three subdecks**, the Hindi arrangement (`docs/hindi-decks-plan.md` §11):
+**48 Phrases** (filed as phrase or interjection, not tagged idiomatic — สบายดีไหม, ยินดีต้อนรับ, สุขสันต์วันเกิด,
+the greetings of the day, the signs ห้ามสูบบุหรี่ / ห้ามจอด / ห้ามเข้า), **340 Idioms** (a sense tagged idiomatic —
+หักหลัง, แพะรับบาป, วัวหายล้อมคอก, many of the four-word rhyming kind: บ้านเกิดเมืองนอน, ข้าวยากหมากแพง) and **27
+Proverbs**. Nothing a level teaches is repeated. A re-run is byte-identical; all five levels rebuild unchanged.
+18 of the 415 occur in a Tatoeba sentence; 84 have an example (mostly Wiktionary's), 33 three.
+
+- **"More than one word" without spaces.** Hindi asks for a space; Thai writes none. An expression here is a
+  headword that CUTS into two or more dictionary words (each of two letters or more, never the headword
+  itself), or holds a space (a two-clause proverb, a repetition mark: ลม ๆ แล้ง ๆ). That keeps out the
+  one-word interjections — nearly all sounds (โฮ่ง a bark, อู๊ด an oink) — and `INCLUDE` brings back the three
+  formal greetings the cut cannot see (อรุณสวัสดิ์, ราตรีสวัสดิ์, สายัณห์สวัสดิ์).
+- **An idiom leads with its idiomatic sense** (`build_deck.english`, the phrases deck only): Wiktionary often
+  lists the literal sense first (ดาวรุ่ง "morning star" before "rising star", หัวกะทิ "coconut cream" before
+  "cream of the crop", ขุดทอง "to dig for gold"). **The chosen entry leads** (a row's `pos` and `etym`, read by
+  `entries_for` only when present): เจอกัน opens on "see you", not "to meet".
+- **Left out, each with its reason in `phrases.EXCLUDE`**: entries that are only "abstract noun of X" (the
+  การ- / ความ- doubles of an idiom, `phrases.BARE`) or only a pointer (ตักบาตร, ดูก่อน); the phrasebook sentences
+  ผมรักคุณ / ฉันรักคุณ / รับบัตรเครดิตไหม (the Hindi rule); the royal slogan เรารักในหลวง; loanwords the cut splits
+  by accident (โอเค as โอ + เค, แหวะ); ห้าร้อย (slang "criminal" on "five hundred"); two sexual idioms; and the
+  same expression twice — the commonest form kept, e.g. one of five spellings of "misfortunes never come singly"
+  (เคราะห์ซ้ำกรรมซัด), กินให้อร่อย over its polite forms, สบายดีไหม over สบายดีหรือ.
+- **Known, left.** Wiktionary tags as idiomatic some compounds a learner would call plain words (ท้องร่วง
+  "diarrhoea", ครูบาอาจารย์ "teachers", กุ้งหอยปูปลา "seafood") — its labels are the source's. Two euphemisms
+  are kept (ยิงกระต่าย "to urinate"), as is หุบปาก "shut up", an expression a learner hears.
