@@ -5,7 +5,7 @@ Dutch set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose pip
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Create a Dutch language collection."
 
-**STATUS (2026-11-12): A1 and A2 are built** (`.claude/dutch/`, §6, §7). B1 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/dutch/`, §6–§8). B2, C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Dutch to the day's
@@ -29,7 +29,7 @@ for any deck this plan produces. The collection's first commit carried one (addi
 |---|---|---|
 | Dutch A1 Beginner — built | `Dutch-A1.folio-deck.json` | 500 |
 | Dutch A2 Elementary — built | `Dutch-A2.folio-deck.json` | 750 |
-| Dutch B1 Intermediate | `Dutch-B1.folio-deck.json` | 1,000 |
+| Dutch B1 Intermediate — built | `Dutch-B1.folio-deck.json` | 1,000 |
 | Dutch B2 Upper Intermediate | `Dutch-B2.folio-deck.json` | 1,500 |
 | Dutch C1 Advanced | `Dutch-C1.folio-deck.json` | 1,500 |
 
@@ -123,3 +123,23 @@ noun is not extracted; the lower-case `pasen` is a slang verb).
 - Glosses written in `build_deck.py`: `intussen` (Wiktionary: "synonym of ondertussen", which printed
   nothing), `kopje` (Wiktionary's only sense is a cat's head-rub), `sommige` (an "inflection of" pointer);
   `zeer` leads with "very" (`ETYMS`).
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/dutch/run.py --level b1`. 1,000 notes, 340 from the B1 inventory (work and careers,
+education, media, society and politics, the environment, housing, health, travel, money, relationships and
+feelings, opinion and argument with its connectives, describing things, culture, the verbs of change) and 660
+by frequency; A1 and A2 are left out. Three sentences for 949, none for 10; 886 with IPA. A re-run is
+byte-identical; A1 and A2 rebuild byte for byte. Five inventory compounds are not Wiktionary lemmas and were
+dropped (`kantoorbaan`, `nieuwsbericht`, `verhuurder`, `nutsvoorzieningen`, `gewond`).
+
+**What the B1 ranking found** — §7's faults again, at a larger scale, since the fill is two thirds of the
+deck: some thirty verbs or adjectives counted on a noun's plural (`bergen`, `huizen`, `ogen`, `benen`,
+`banen` …), forms in another word's table (`hongeren` ← honger, `lassen` ← las, `kies` ← kiezen), names
+(`bob`, `helen`, `kim`), English (`big`, `high`, `wow`), nominalised forms (`vreemde`, `Franse`, `oudere`),
+participles, and hesitation sounds — every one in `select.EXCLUDE` with its reason. **A POINTER GLOSS PRINTS
+AN EMPTY SIDE** and the shelf-wide dedupe pass then labels four empty sides "not …" against one another
+(`vanmorgen`, `zulke`, `vele`, `gelukken`): `zulke` is glossed in `build_deck.py`, the other three are
+excluded. `pesten` drops its noun (`DROP_POS`: the card game Mau Mau led over "to bully"); `klote` joins
+`SWEARS`. Known, left: the fill's crime-drama and fantasy share is larger than A2's (`rechercheur`,
+`vingerafdruk`, `vampier`, `heks`), as on every subtitle-ordered deck.

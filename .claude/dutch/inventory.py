@@ -122,4 +122,73 @@ A2 = [
                        'ontspannen haasten afspreken invullen gebruiken proberen'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+B1 = [
+    ('work and career', 'werkgever werknemer werkloosheid werkloos vacature ervaring opleiding '
+                        'carrière contract ontslag pensioen loon belasting kantoorbaan stage '
+                        'functie afdeling ondernemer organisatie overleg rapport verslag project '
+                        'doel resultaat succesvol solliciteren ontslaan verdienen samenwerken '
+                        'leiden regelen plannen:verb'),
+    ('education', 'onderwijs basisschool middelbare_school hogeschool opleiding vak onderwerp '
+                  'docent professor scriptie onderzoek kennis vaardigheid niveau inschrijving '
+                  'beurs aanwezig afwezig zakken:verb inschrijven oefenen'),
+    ('media and communication', 'krant tijdschrift artikel journalist nieuwsbericht programma '
+                                'omroep zender reclame advertentie internet website e-mail '
+                                'wachtwoord account bericht scherm apparaat toetsenbord '
+                                'downloaden uploaden printen opslaan versturen verbinding '
+                                'mening discussie gesprek interview'),
+    ('society and politics', 'maatschappij samenleving regering overheid minister politiek '
+                             'partij verkiezing burger wet regel recht:noun rechter rechtbank '
+                             'misdaad dief boete demonstratie vrijheid gelijkheid armoede '
+                             'rijkdom werkloosheid economie inwoner bevolking cultuur traditie '
+                             'godsdienst geloof stemmen:verb kiezen verbieden toestaan'),
+    ('environment and the natural world', 'klimaat milieu vervuiling afval energie zonne-energie '
+                                          'recyclen landschap kust woestijn oerwoud vulkaan '
+                                          'aardbeving overstroming droogte dijk polder kanaal '
+                                          'plant zaad oogst beschermen vervuilen verspillen'),
+    ('housing and living', 'woning huurder verhuurder eigenaar hypotheek buurt omgeving '
+                           'voorstad platteland nutsvoorzieningen verwarming elektriciteit '
+                           'gas:noun rekening stopcontact lekkage onderhoud inrichten '
+                           'opruimen stofzuigen strijken'),
+    ('health and wellbeing', 'arts specialist operatie behandeling onderzoek:noun bloeddruk '
+                             'verzekering zorgverzekering ziekenhuisopname ongeval letsel '
+                             'stress depressie dieet gewicht beweging conditie slaapgebrek '
+                             'herstellen verzorgen ontspannen afvallen aankomen roken '
+                             'vermoeid gewond zwanger'),
+    ('travel and transport', 'reisbureau accommodatie camping jeugdherberg excursie '
+                             'bezienswaardigheid route snelweg file verkeer ongeluk:noun '
+                             'rijbewijs benzine tank:noun spits overstappen instappen uitstappen '
+                             'ophalen wegbrengen omleiding'),
+    ('money and shopping', 'bankrekening pinpas creditcard contant korting aanbieding bon '
+                           'garantie ruilen terugbetalen besparen sparen uitgeven lenen schuld:noun '
+                           'budget kosten:noun winst verlies'),
+    ('relationships and feelings', 'relatie vriendschap verhouding ruzie scheiding '
+                                   'jaloezie medelijden schaamte schuldgevoel teleurstelling '
+                                   'opluchting nieuwsgierig teleurgesteld opgelucht eenzaam '
+                                   'verveeld geïnteresseerd onzeker zelfverzekerd gevoelig '
+                                   'vertrouwen:noun respect steun ruziemaken scheiden '
+                                   'kennismaken missen waarderen'),
+    ('opinions and argument', 'mening standpunt argument reden gevolg oorzaak voordeel nadeel '
+                              'probleem oplossing mogelijkheid voorstel kritiek conclusie '
+                              'eens oneens volgens bovendien echter daarom dus toch namelijk '
+                              'hoewel ondanks zowel noch ofwel enerzijds anderzijds '
+                              'eigenlijk blijkbaar natuurlijk zeker vermoedelijk '
+                              'beweren overtuigen vergelijken bespreken toegeven twijfelen '
+                              'aanraden adviseren'),
+    ('describing things and people', 'eigenschap karakter uiterlijk lengte breedte gewicht:noun '
+                                     'vorm materiaal hout metaal plastic papier stof:noun '
+                                     'zacht hard:adj glad ruw smal breed ondiep zwaar licht:adj '
+                                     'ouderwets modern handig nuttig nutteloos noodzakelijk '
+                                     'geschikt ideaal gewoon bijzonder typisch'),
+    ('culture and free time', 'kunst kunstenaar schilderij beeld tentoonstelling roman '
+                              'schrijver gedicht toneel acteur regisseur publiek orkest '
+                              'instrument gitaar piano vereniging lid:noun clubhuis wandeling '
+                              'fietstocht festival optreden uitgaan optreden:verb'),
+    ('verbs of change and process', 'ontwikkelen verbeteren verminderen vermeerderen toenemen '
+                                    'afnemen stijgen dalen ontstaan voorkomen vermijden '
+                                    'veroorzaken bereiken bepalen beïnvloeden ondersteunen '
+                                    'organiseren voorbereiden afronden doorgaan ophouden '
+                                    'opgeven aanpassen vervangen voorzien zorgen omgaan '
+                                    'deelnemen meedoen bijdragen'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

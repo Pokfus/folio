@@ -64,6 +64,19 @@ SCOPE = {
                   'when, the higher numbers and quantities, and the everyday verbs of moving, '
                   'dressing, cooking and doing',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling where the '
+                 'language is spoken, to produce simple connected text on familiar topics, and '
+                 'to describe experiences, events, hopes and ambitions and briefly give reasons '
+                 'and explanations for opinions and plans',
+        'topics': 'work and careers, education, the media and communication, society and '
+                  'politics, the environment, housing, health and wellbeing, travel and '
+                  'transport, money, relationships and feelings, giving an opinion and arguing '
+                  'a point, describing things and people, culture and free time, and the verbs '
+                  'of change and process',
+    },
 }
 
 

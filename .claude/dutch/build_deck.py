@@ -115,6 +115,8 @@ GLOSS = {
     'kopje': {'noun': ['cup (for coffee or tea)', 'small head']},
     # A2: Wiktionary files sommige as "inflection of sommig", the form every learner meets
     'sommige': {'det': ['some (sommige mensen, "some people")']},
+    # B1: Wiktionary files zulke as "inflection of zulk"
+    'zulke': {'det': ['such (zulke mensen, "such people")']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -125,7 +127,8 @@ LEAD = {
 
 # A PART OF SPEECH NOT SHOWN for one word.
 DROP_POS = {('de', 'prep'), ('hij', 'noun'), ('zij', 'noun'), ('van', 'noun'),
-            ('een', 'num'), ('een', 'noun'), ('één', 'article'), ('één', 'noun')}
+            ('een', 'num'), ('een', 'noun'), ('één', 'article'), ('één', 'noun'),
+            ('pesten', 'noun')}   # B1: the card game Mau Mau led over "to bully"
 
 # A NUMBER'S NOUN BLOCK ("a four, the digit 4") is noise beside the number: dropped
 # wherever the word is also a numeral.
@@ -372,7 +375,7 @@ def desc(entries, n):
         "Both study directions in one deck: Dutch → English (see the Dutch, recall the meaning) "
         "and English → Dutch (see an English meaning, recall the Dutch). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'a learner'}, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'an intermediate learner' if LEVEL == 'b1' else 'a learner'}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
