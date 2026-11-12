@@ -9303,7 +9303,15 @@ window.GLOSSARY = {
 "Joseph_Smith": "",
 "Brigham_Young": "",
 "Texas_Revolution": "",
-"Texas_annexation": ""
+"Texas_annexation": "",
+"Eleusis_Amphora": "",
+"Lady_of_Auxerre": "",
+"New_York_Kouros": "",
+"Kleobis_and_Biton": "",
+"Sophilos_Dinos": "",
+"Achilles_and_Ajax_Playing_a_Game": "",
+"Sophilos": "",
+"Ergotimos": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13878,7 +13886,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Joseph_Smith": "1805–1844",
 "Brigham_Young": "1801–1877",
 "Texas_Revolution": "1835–1836",
-"Texas_annexation": "1845"
+"Texas_annexation": "1845",
+"Eleusis_Amphora": "c. 670–650 BCE",
+"Lady_of_Auxerre": "c. 640–620 BCE",
+"New_York_Kouros": "c. 610–580 BCE",
+"Kleobis_and_Biton": "c. 580 BCE",
+"Sophilos_Dinos": "c. 580 BCE",
+"Achilles_and_Ajax_Playing_a_Game": "c. 540–530 BCE",
+"Ergotimos": "active c. 570 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19770,7 +19785,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Joseph_Smith": ["Joseph Smith Jr.","Joseph Smith, Jr."],
 "Brigham_Young": ["Brigham Young"],
 "Texas_Revolution": ["Texas War of Independence","Texan Revolution"],
-"Texas_annexation": ["annexation of Texas","Annexation of Texas"]
+"Texas_annexation": ["annexation of Texas","Annexation of Texas"],
+"Eleusis_Amphora": ["Eleusis amphora","Polyphemus Amphora","Polyphemos Amphora"],
+"Lady_of_Auxerre": ["Dame d'Auxerre","Auxerre kore"],
+"Kleobis_and_Biton": ["Cleobis and Biton"],
+"Sophilos_Dinos": ["Sophilos dinos"],
+"Achilles_and_Ajax_Playing_a_Game": ["Achilles and Ajax playing dice","Achilles and Ajax playing a board game","Ajax and Achilles playing a game"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29231,7 +29251,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Joseph_Smith": ["person","religion","history","united states"],
 "Brigham_Young": ["person","religion","history","united states"],
 "Texas_Revolution": ["war","history","united states","texas","mexico"],
-"Texas_annexation": ["event","history","politics","united states"]
+"Texas_annexation": ["event","history","politics","united states"],
+"Eleusis_Amphora": ["object","art","greece","archaic","pottery","mythology"],
+"Lady_of_Auxerre": ["object","art","greece","archaic","sculpture","crete"],
+"New_York_Kouros": ["object","art","greece","archaic","sculpture","united states"],
+"Kleobis_and_Biton": ["object","art","greece","archaic","sculpture","mythology"],
+"Sophilos_Dinos": ["object","art","greece","archaic","pottery","mythology"],
+"Achilles_and_Ajax_Playing_a_Game": ["object","art","greece","archaic","pottery","mythology"],
+"Sophilos": ["person","art","greece","archaic","pottery"],
+"Ergotimos": ["person","art","greece","archaic","pottery"]
 });
 
 /* ============================================================================

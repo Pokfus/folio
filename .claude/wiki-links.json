@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T02:02Z",
+ "generated": "2026-11-12T04:12Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6614,
+  "ok": 6621,
   "redirect-broader": 625,
   "redirect-variant": 397,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1010,
+  "none": 1013,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72348,6 +72348,96 @@
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
    "via": "glossary",
    "status": "ok"
+  },
+  "art-081": {
+   "answer": "Eleusis Amphora",
+   "title": "Eleusis Amphora",
+   "url": "https://en.wikipedia.org/wiki/Eleusis_Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-082": {
+   "answer": "Lady of Auxerre",
+   "title": "Lady of Auxerre",
+   "url": "https://en.wikipedia.org/wiki/Lady_of_Auxerre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-083": {
+   "answer": "Chigi vase",
+   "title": "Chigi vase",
+   "url": "https://en.wikipedia.org/wiki/Chigi_vase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-084": {
+   "answer": "New York Kouros",
+   "title": "New York Kouros",
+   "url": "https://en.wikipedia.org/wiki/New_York_Kouros",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-085": {
+   "answer": "Kleobis and Biton",
+   "title": "Kleobis and Biton",
+   "url": "https://en.wikipedia.org/wiki/Kleobis_and_Biton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-086": {
+   "answer": "François Vase",
+   "title": "François Vase",
+   "url": "https://en.wikipedia.org/wiki/Fran%C3%A7ois_Vase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-087": {
+   "answer": "Sophilos Dinos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dinos",
+    "Dinos of the Gorgon Painter",
+    "Dionysus",
+    "Tethys (mythology)",
+    "Oceanus"
+   ]
+  },
+  "art-088": {
+   "answer": "Peplos Kore",
+   "title": "Peplos Kore",
+   "url": "https://en.wikipedia.org/wiki/Peplos_Kore",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-089": {
+   "answer": "Achilles and Ajax Playing a Game",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ajax the Great",
+    "Exekias",
+    "Achilles",
+    "Five Lines",
+    "Trojan War"
+   ]
+  },
+  "art-090": {
+   "answer": "Anavysos Kouros",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Kouros",
+    "Kroisos Kouros",
+    "AP Art History",
+    "530 BC"
+   ]
   }
  }
 }
