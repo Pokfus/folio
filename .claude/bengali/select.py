@@ -100,13 +100,61 @@ EXCLUDE = {
     'ডগ': '"six"; its count is the subtitles\' English "dog"',
     'আদম': '"man"; its count is the name Adam',
     'ভালা': 'a dialect form of ভালো "good", taught in A1',
+    # Read off the B2 ranking (2026-11-12).
+    'আপনা': '"oblique base of আপনে" leads its entry; the card would teach a pointer',
+    'রহমান': '"merciful", a name of God; its count is the name Rahman',
+    'রহিম': '"merciful", a name of God; its count is the name Rahim',
+    'বিস্তৃত': 'Wiktionary\'s entry carries বিস্তারহীন\'s romanisation and senses ("limited, narrow")',
+    'সংকীর্ণ': 'Wiktionary\'s entry carries হীন\'s romanisation ("hin") and senses',
+    'আইচ্ছা': '"Vanga form of আচ্ছা", a dialect pointer to a word taught in A1',
+    'খাই': '"act of eating"; its count is খাই "(I) eat", a form of খাওয়া',
+    'লাগ': '"angry in a cute way"; its count is the forms of লাগা "to be needed"',
+    'কিল': '"pounce"; its count is the subtitles\' English "kill"',
+    'চিল': '"hawk"; its count is the subtitles\' English "chill"',
+    'মাইনাস': '"remove"; the English "minus" in Bengali letters',
+    'বল্টু': '"penis" (slang); its count is the name Boltu and "bolt"',
+    'আইজ': 'a dialect form of আজ "today", taught in A1',
+    'এইখান': 'the bare stem of এইখানে "here"; A1 teaches এখানে',
+    'বিন': '"son of", met in Arabic names, not a word of running Bengali',
+    'যাহা': 'the sadhu (literary) "that, which"; colloquial Bengali says যা',
+    'করিয়া': 'the sadhu (literary) form of করে "by means of"',
+    'থিকা': 'a dialect form of থেকে "from", taught in A1',
+    'দো': '"two" as in compounds (দোতলা); colloquial Bengali says দুই, taught in A1',
+    'রাসেল': 'a given name',
+    'সাবরিনা': 'a given name',
+    'আকবর': '"great"; its count is the name Akbar',
+    'আজম': '"greatest"; its count is the name Azam',
+    'করিম': '"kind"; its count is the name Karim',
+    'আখতার': '"star"; its count is the name Akhtar',
+    'হরি': '"yellow"; its count is the name Hari',
+    'মিনেসোটা': 'a place name (Minnesota)',
+    'রম': '"read-only memory"; its count is "rum" and "Rome"',
+    'অক্কা': '"lord, God"; its count is অক্কা in অক্কা পাওয়া "to kick the bucket", a sense the entry lacks',
+    'উরি': '"lablab bean"; its count is the interjection উরি "oh!"',
+    'বাগ': '"garden"; its count is the subtitles\' English "bag" and "bug"',
+    'অম': '"body heat"; its count is the subtitles\' "um"',
+    'পাড়': 'Wiktionary\'s one sense, "hill", is not the word\'s common meaning, "bank (of a river)"',
+    'পৌত্তলিক': 'Wiktionary\'s one sense, "ethnic", is not the word\'s meaning, "idolatrous"',
+    'পসরা': 'Wiktionary\'s one sense, "light ray", is not the word\'s common meaning, "wares"',
+    'সেব': 'a dialect form of আপেল "apple", taught in A1',
+    'রাইত': 'a dialect form of রাত "night", taught in A1',
+    'সোলো': 'a dialect form of ষোলো "sixteen", taught in A2',
+    'হাপ': 'a dialect form of সাপ "snake", taught in B1',
+    'ক্যা': 'a dialect form of কেন "why", taught in A1',
+    'ধনবাদ': 'a misspelling of ধন্যবাদ "thank you", taught in A1',
+    'আফতাব': '"the sun"; its count is the name Aftab',
+    'সৈয়দ': '"sir, master"; its count is the surname Syed',
+    'নিকটবর্তী': 'Wiktionary\'s entry has no romanisation',
+    'পাইথন': '"synonym of অজগর" leads its entry; অজগর "python" is dealt on its own',
     'হসপিটাল': 'the English "hospital" in Bengali letters; A1 teaches হাসপাতাল',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'শালা', 'শালী', 'হারামি', 'হারামজাদা', 'কুত্তা', 'কুত্তার বাচ্চা', 'বাল', 'চুদা',
-          'মাগী', 'বেজন্মা', 'শুয়োর', 'গাধা'}
+          'মাগী', 'বেজন্মা', 'শুয়োর', 'গাধা',
+          # slang and smut the B2 ranking dealt (2026-11-12): not a level deck's words
+          'নুনু', 'পর্ন', 'পর্নো', 'পাদ', 'পাদা', 'হস্তমৈথুন'}
 
 # A PRONOUN'S CASE FORM IS ON THE PRONOUN'S CARD: Wiktionary gives `আমাদের`, `তোমাকে`,
 # `তাদের` entries of their own whose one sense is "objective of আমরা", and the fill
@@ -191,6 +239,10 @@ def main():
         # a MULTI-WORD lemma (কথা বলা, মনে করা) is the inventory's to choose; the
         # fill's ranking of one is only an estimate (`extract.py`)
         if ' ' in k:
+            continue
+        # nor a HYPHENATED one (টি-শার্ট, হাত-পা, সাদা-সিধা): a compound whose parts the
+        # levels teach, and a headword `check-bengali.js` refuses (B2, 2026-11-12)
+        if '-' in k:
             continue
         if not usable(L) or L['freq'] < 1:
             continue

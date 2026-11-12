@@ -5,7 +5,7 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/bengali/`, §6–8). B2, C1 and
+**STATUS (2026-11-12): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/bengali/`, §6–9). C1 and
 the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -35,7 +35,7 @@ otherwise:
 | Bengali A1 Beginner — built | `Bengali-A1.folio-deck.json` | 500 |
 | Bengali A2 Elementary — built | `Bengali-A2.folio-deck.json` | 750 |
 | Bengali B1 Intermediate — built | `Bengali-B1.folio-deck.json` | 1,000 |
-| Bengali B2 Upper Intermediate | `Bengali-B2.folio-deck.json` | 1,500 |
+| Bengali B2 Upper Intermediate — built | `Bengali-B2.folio-deck.json` | 1,500 |
 | Bengali C1 Advanced | `Bengali-C1.folio-deck.json` | 1,500 |
 | Bengali Phrases and Expressions | `Bengali-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -93,7 +93,7 @@ A1's 500 words have no Tatoeba sentence. The fill carries subtitle vocabulary (`
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `bengali_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -157,3 +157,28 @@ level's topics were refilled from the remaining lemmas that have an entry. Nothi
 
 **Known, left.** The fill still carries some dialect and Perso-Arabic register (পোলা, পুত, কেডা, আপনে, দুশমন)
 and some subtitle vocabulary (ধর্ষণ, ভূত, প্রেতাত্মা); each has a real entry and a real meaning, so it stays.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/bengali/run.py --level b2`. 1,500 notes, 253 from the inventory and 1,247 by frequency;
+sentences for only 174, three for 38 — Tatoeba's Bengali is spent by this level, and the description gives
+the counts. The inventory (business and the economy, politics and the law, science, language and the arts,
+the mind, argument and evaluation, the land, health, precise description, adverbs of manner and time, verbs
+of action) was again written from the remaining lemmas that have an entry; a word in a spelling variant of
+one already taught (`পেশি` / B1's `পেশী`) was taken out by hand, since `vkey` guards only the fill.
+
+**Found on reading the ranking, and fixed in `select.py`:**
+- **Hyphenated lemmas** (`টি-শার্ট`, `হাত-পা`, `সাদা-সিধা`) were dealt; the fill now skips them as it skips
+  multi-word ones, and `check-bengali.js` refuses the hyphen anyway. A1 to B1 do not change.
+- **Hand exclusions, each with its reason** — the same faults as B1's, deeper: names (রহমান, রহিম, আকবর,
+  আজম, করিম, রাসেল …), English in Bengali letters (কিল, চিল, মাইনাস, বাগ, রম), forms of common verbs (খাই,
+  লাগ), sadhu and dialect forms of words already taught (যাহা, করিয়া, থিকা, আইজ, রাইত, সেব, সোলো, হাপ, ক্যা),
+  a misspelling (ধনবাদ), and **entries whose sense is wrong or another word's**: `বিস্তৃত` and `সংকীর্ণ` carry
+  বিস্তারহীন's and হীন's romanisations and senses; `পাড়` "hill", `পৌত্তলিক` "ethnic" and `পসরা` "light ray"
+  are not those words' meanings.
+- **Slang and smut** (নুনু, পর্ন, পর্নো, পাদ, পাদা, হস্তমৈথুন) joined `SWEARS`; anatomical and medical
+  terms stay.
+
+**Known, left.** Dialect words that are not a form of a taught word stay (হেতে, লাহান, কেঠা, আণ্ডা), as do
+many religious and Perso-Arabic terms of both communities (নামাজ, পূজারী, ফতোয়া, যজ্ঞ) — real entries with
+real meanings. Some senses are Wiktionary's narrower or older ones (`তৎপর` "thereafter", `মাড়ি` "paste").

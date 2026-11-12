@@ -80,6 +80,19 @@ SCOPE = {
                   'words that connect an argument, describing, and the verbs of doing, including '
                   'the common multi-word verbs',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, '
+                 'and to produce clear, detailed text on a wide range of subjects and explain a '
+                 'viewpoint on a topical issue, giving the advantages and disadvantages of various '
+                 'options',
+        'topics': 'business and the economy, politics, the law and society, science and '
+                  'technology, language and the arts, the mind and character, the words of argument '
+                  'and evaluation, the land and the environment, health and the body, more precise '
+                  'description, how and when things happen, and verbs of action',
+    },
 }
 
 
