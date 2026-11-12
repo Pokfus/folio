@@ -83,6 +83,71 @@ ETYMS = {
     'súng': ['2'],      # "gun"; 1 is "water lily"
     'đồng': ['3'],      # "dong (the currency); copper"; 1 is "field"
     'ôi': ['2'],        # "oh, alas"; 1 is "tainted (meat)"
+    # read off the A2 deck (2026-11-12)
+    'thắng': ['2'],     # "to win; victory"; 1 is "brake"
+    'dù': ['2'],        # "even if, although"; 1 is "umbrella"
+    'báo': ['2'],       # "to report; newspaper"; 1 is "leopard"
+    'bài': ['2'],       # "lesson; exercise"; 1 is "playing card"
+    'thương': ['2'],    # "to love, to feel sorry for"; 1 is "spear"
+    'ghét': ['2'],      # "to hate"; 1 is "dirt"
+    'dừng': ['2'],      # "to stop"; 1 is a bamboo wall material
+    'kiếm': ['2'],      # "to seek, to find"; 1 is "sword"
+    'bức': ['2'],       # the classifier for walls, letters, pictures; 1 is "to coerce"
+    'tí': ['2'],        # "a little bit"; 1 is "breast"
+    'công': ['3', '2'], # "work, accomplishment" and "labour"; 1 is "peafowl"
+    'cầu': ['2'],       # "bridge"; 1 is "shuttlecock"
+    'đông': ['2'],      # "east" (the inventory's sense); 1 is "winter", which mùa đông teaches
+    'chả': ['2'],       # "not at all", the subtitles' word; 1 is "patty"
+    'lừa': ['3', '1'],  # "to trick" and "donkey"; 2 is "to pick out"
+    'thú': ['2'],       # "animal"; 1 is "a hobby"
+    'sang': ['2'],      # "to go over, to cross"; 1 is "luxurious"
+    'may': ['2'],       # "lucky"; 1 is "to sew"
+    'mối': ['3'],       # the classifier for relationships; 1 is "termite"
+    'ca': ['4', '3'],   # "shift" and "case"; 1 is "mug"
+    'cú': ['3', '1'],   # the classifier for a blow or a shot, and "owl"
+    'động': ['2'],      # "to touch" (đừng động vào); 1 is "cave"
+    'đàn': ['1', '2'],  # "flock, herd" and "a string instrument; to play one"
+    # read off the B1 deck (2026-11-12)
+    'hầm': ['2', '1'],  # "basement, cellar" (the subtitles' bunker) and "to stew"
+    'tiểu': ['2'],      # "to urinate"; 1 is a terracotta sarcophagus
+    'dần': ['2'],       # "gradually"; 1 is "to tenderize (meat)"
+    'sát': ['2'],       # "very close to"; 1 is a fortune-telling term
+    'chớ': ['1'],       # "do not"; 2 is "four"
+    'tách': ['2'],      # "to separate"; 1 is "cup"
+    'phân': ['2'],      # "to divide; a centimetre"; 1 is "faeces"
+    'thức': ['2'],      # "to stay awake"; 1 is "food"
+    'thông': ['2'],     # "to go through; to understand"; 1 is "pine"
+    'cút': ['3'],       # "get lost!"; 1 is "quail"
+    'nguyên': ['2'],    # "intact, whole"; 1 is "yuan"
+    'lao': ['2'],       # "to dash, to plunge; javelin"; 1 is "tuberculosis"
+    'bớt': ['2'],       # "to reduce"; 1 is "birthmark"
+    'lau': ['2'],       # "to wipe" (the inventory's chores); 1 is "reed"
+    'toán': ['2'],      # "mathematics" (the inventory's); 1 is "gang"
+    'bầu': ['2', '1'],  # "to vote, to elect" and "gourd; pregnant"
+    # read off the B2 deck (2026-11-12)
+    'két': ['2'],       # "safe, strongbox"; 1 is "parrot"
+    'chế': ['2'],       # "to mock, to parody"; 1 is "to pour"
+    'can': ['2', '3'],  # "to concern; to be involved" and "to intervene"; 1 is "liver"
+    'nốt': ['3'],       # "finish (doing something)"; 1 is "(musical) note"
+    'ối': ['3'],        # the exclamation; 1 is "amniotic fluid"
+    'kì': ['3', '2'],   # "strange" and "period, term"; 1 is "to rub off"
+    'tất': ['2'],       # "all, the whole of"; 1 is "then surely"
+    'đăng': ['2'],      # "to publish, to post"; 1 is "fixed gillnet"
+    'còng': ['2'],      # "handcuffs"; 1 is a fiddler crab
+    'ám': ['2'],        # "to haunt; clandestine"; 1 is a fish dish
+    'tra': ['2'],       # "to investigate"; 1 is "to haft"
+    'sướng': ['2'],     # "very happy"; 1 is a rice-seedling field
+    'ráng': ['2'],      # "to try hard"; 1 is "evening glow"
+    'vạn': ['1'],       # "ten thousand"; 2 is a temple for whale worship
+    'căm': ['1'],       # "to resent"; 2 is "spoke (of a wheel)"
+    'dạo': ['2', '3'],  # "to stroll" and "lately"; 1 is a musician's prelude
+    # read off the C1 deck (2026-11-12)
+    'mò': ['2'],        # "to grope"; 1 is a herbaceous plant
+    'cáu': ['2'],       # "to be angry"; 1 is "dirt"
+    'ưng': ['2'],       # "to like and accept"; 1 is "hawk"
+    'xui': ['1'],       # "unlucky"; 2 is "to induce"
+    'bê': ['2', '1'],   # "to carry with both hands" and "calf"
+    'phà': ['2'],       # "ferry"; 1 is "to blow air out"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first entry is not the everyday word.
@@ -90,18 +155,39 @@ LEAD_POS = {
     'bị': 'verb',       # the passive of misfortune; the noun is "sack"
     'của': 'prep',      # "of"; the noun is "property"
     'ồ': 'intj',        # "oh, wow"; the verb is "to rush"
+    'bài': 'noun',      # "lesson; exercise"; the verb is "to oppose"
+    'máy': 'noun',      # "machine"; the verb is "to move around"
+    'tấm': 'classifier',
+    'kẹo': 'noun',
+    'bấm': 'verb',      # "to press, to click"; the noun is "nail clipper"
+    'chĩa': 'verb',     # "to point (a weapon) at"; the noun is "pitchfork"
+    'mớ': 'noun',       # "a whole lot, a bundle"; the verb is "to talk in one's sleep"      # "sweets, candy"; the adjective is "thickened by boiling"    # for flat things; the noun is "broken rice"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
-LEAD = {}
+LEAD = {
+    'máy': 'machine',   # Wiktionary's first noun gloss is "effect; mechanism", tagged rare
+    'thú': 'animal',    # its first is "non-avian beast"
+    'thẻ': 'card',      # its first is a stick in the game of pitch-pot
+    'sân khấu': 'stage',    # its first is a royal court, tagged historical
+}
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
-GLOSS = {}
+GLOSS = {
+    # Wiktionary's own "big" gloss, which it tags Southern-colloquial (weak here) and puts after
+    # "covered (with)", a sense the subtitles hardly use
+    'bự': {'adj': ['big (in size or importance); great; influential']},
+    # Wiktionary's own "maize, corn" (tagged Southern) and "muscle", without "blossom, inflorescence" first
+    'bắp': {'noun': ['maize, corn', 'muscle']},
+}
 
 # Entries of these parts of speech are left off a card whose word has others, each with its reason.
 DROP_POS = {
     'có': {'noun'},     # "the left side of the balance sheet", an accountant's term
     'ba': {'adj', 'det'},   # "secondborn", "some": they crowded "father" off the card
+    'máy': {'verb'},    # "to move around; to touch", which crowded "machine" down the card
+    'tấm': {'noun'},    # "broken rice grains", a different word from the classifier
+    'kẹo': {'adj', 'num'},  # "thickened by boiling" and a dialect "five"
 }
 
 # Glosses left off a card, by a piece of their text, each with its reason.
@@ -109,7 +195,19 @@ CUT = {
     'của': ['given kind of food', 'such trash'],   # colloquial uses that mislead on a card for "of"
     'xe': ['chariot', 'rook'],                     # the xiangqi piece, not the vehicle
     'em': ['described by the noun em above'],      # refers to Wiktionary's own layout
+    'cô bé': ['vulva'],                            # a slang sense, on a card for "little girl"
+    'gái': ['whores'],                             # a slur, on a card for "girls and women"
+    'trai': ['gigolos'],                           # likewise, on a card for "boys and men"
+    'chủ nhà': ['Used other than'],                # refers to Wiktionary's own layout
+    'chi': ['genus'],                              # the biologist's term, ahead of "to spend"
+    'tâm hồn': ['breasts'],                        # a slang sense, on a card for "soul"
+    'hôn mê': ['retarded', 'mentally challenged'], # a slur ahead of "comatose", the word's meaning
+    'nháy': ['sex'],                               # a slang sense, on a card for "to flash, to wink"
 }
+
+# Wiktionary's note on a sum-of-parts entry ("Used other than figuratively or idiomatically: see
+# không, dám") points at its own layout rather than giving a meaning: never a gloss on a card.
+SUM_OF_PARTS = 'Used other than figuratively or idiomatically'
 
 
 def entries_for(row, lex):
@@ -168,7 +266,7 @@ def english(ents, word=''):
         for g in e['glosses']:
             if g['weak'] and gl:
                 continue
-            if any(c in g['g'] for c in CUT.get(word, ())):
+            if any(c in g['g'] for c in CUT.get(word, ())) or g['g'].startswith(SUM_OF_PARTS):
                 continue
             t = gloss_line(g)
             if t and t not in seen:
@@ -248,7 +346,7 @@ def build(rows, lex, exs):
             continue
         word = r['word']
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Vietnamese': f'<div class="uc-word">{E(word)}</div>',
             'Word': word,
             'Tones': tones_line(word),
@@ -259,8 +357,13 @@ def build(rows, lex, exs):
         }})
         entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'],
                         'examples': len(ex), 'cls': '>classifier<' in cards[-1]['fields']['Notes'],
-                        'sino': 'Sino-Vietnamese' in cards[-1]['fields']['Notes']})
+                        'sino': 'Sino-Vietnamese' in cards[-1]['fields']['Notes'],
+                        'sub': r.get('sub', ''), 'count': r.get('count', 0)})
     return cards, entries
+
+
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
 def desc(entries, n):
@@ -277,7 +380,7 @@ def desc(entries, n):
         "Both study directions in one deck: Vietnamese → English (see the Vietnamese, recall the "
         "meaning) and English → Vietnamese (see an English meaning, recall the Vietnamese). Each "
         "direction is a card of its own with its own schedule, so recognising a word and producing "
-        f"it are learnt separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the "
+        f"it are learnt separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -307,6 +410,41 @@ def desc(entries, n):
     )
 
 
+SUBS = ('Phrases', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in SUBS}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Vietnamese set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Vietnamese → English (see the Vietnamese, "
+        "recall the meaning) and English → Vietnamese (see an English meaning, recall the Vietnamese) — "
+        "each with a schedule of its own. This is a companion to the five level decks, Vietnamese A1 to "
+        "C1, and not one of them: a level is a list of words, and an expression is a unit a list of words "
+        "cannot see. Nothing here is taught by any of the five, so the two can be studied together "
+        "without repeating an entry. The PHRASES are the expressions Wiktionary files as phrases or "
+        f"interjections and does not mark as idiomatic — mostly the everyday formulas ({eg('Phrases')} …). "
+        "The IDIOMS are expressions whose meaning is not their words', most of them the four-syllable "
+        f"set phrases (thành ngữ) Vietnamese is rich in ({eg('Idioms')} …), and the PROVERBS the sayings "
+        f"Wiktionary files as proverbs ({eg('Proverbs')} …), a few of which are idioms by another name. "
+        "Within each subdeck the expressions come in the order of how many of Tatoeba's Vietnamese "
+        f"sentences contain them; only {found} of the {n} are found there at all, and the rest follow in "
+        "the order of how often they occur in film and television subtitles, divided into words against "
+        "the dictionary. Beneath every expression its tones are named, one per syllable. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, pronunciation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then the OpenSubtitles 2018 Vietnamese text (opensubtitles.org, via the OPUS "
+        "corpus collection), counted here. Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -317,11 +455,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in SUBS}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['vietnamese', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['vietnamese', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['vietnamese', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Vietnamese vocabulary', 'speechLang': 'vi-VN',
