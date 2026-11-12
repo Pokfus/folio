@@ -955,7 +955,7 @@ more work here than in any collection since Greece.
     ps-421  What illusions reveal about perception
     ps-422  Culture and perception
     ps-423  Perceptual learning
-    ps-424  Perceptual development in infancy
+    ps-424  Perceptual narrowing
     ps-425  The visual cliff
 
 ## Learning, Memory and Cognition
@@ -965,7 +965,7 @@ more work here than in any collection since Greece.
     ps-426  Learning
     ps-427  Habituation
     ps-428  Sensitisation
-    ps-429  Classical conditioning procedures
+    ps-429  Trace conditioning
     ps-430  Unconditioned and conditioned stimuli
     ps-431  Acquisition
     ps-432  Extinction
@@ -1015,7 +1015,7 @@ more work here than in any collection since Greece.
     ps-473  The central executive
     ps-474  The episodic buffer
     ps-475  Long-term memory
-    ps-476  Declarative and non-declarative memory
+    ps-476  Declarative memory
     ps-477  Episodic memory
     ps-478  Semantic memory
     ps-479  Procedural memory
@@ -1035,8 +1035,8 @@ more work here than in any collection since Greece.
     ps-493  Anterograde and retrograde amnesia
     ps-494  Memory consolidation
     ps-495  Reconsolidation
-    ps-496  Memory as reconstruction
-    ps-497  Schemas and remembering
+    ps-496  Reconstructive memory
+    ps-497  Schemas
     ps-498  Eyewitness testimony
     ps-499  The misinformation effect
     ps-500  The recovered memory controversy
