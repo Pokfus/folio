@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"66417792feadbabb","counts":{"terms":937,"points":700,"countries":237,"windows":1461,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"eecc95117f58881c","counts":{"terms":937,"points":700,"countries":237,"windows":1466,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1517,6 +1517,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"66417792feadbabb","counts":
 "Kaifeng":[114.345,34.795,"city",0,0,0],
 "Kalahari_Desert":[22,-23,"coord",0,0,0],
 "Kalchyk_(river)":[37.496,47.251,"coord",0,0,0],
+"Kalibangan":[74.13,29.474,"coord",0,0,0],
 "Kaliningrad":[21.229,54.664,"admin1","adm1:rus:ru-kgd",0,36.72],
 "Kaluga":[35.342,54.242,"admin1","adm1:rus:ru-klu",0,30.61],
 "Kama_(river)":[49.998,55.364,"coord",0,0,0],
@@ -1927,6 +1928,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"66417792feadbabb","counts":
 "Paraguay":[-60.15,-21.67,"country","adm0:pry",0,8.25],
 "Paris":[2.331,48.869,"capital",0,0,0],
 "Parthenon":[23.727,37.972,"site",0,0,0],
+"Pataliputra":[85.128,25.613,"coord",0,0,0],
 "Pearl_Harbor":[-157.977,21.368,"coord",0,0,0],
 "Pearl_River":[113.633,22.767,"coord",0,0,0],
 "Pechora_(river)":[54.417,68.3,"coord",0,0,0],
@@ -2007,6 +2009,8 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"66417792feadbabb","counts":
 "Qinghai_Lake":[100.133,37,"coord",0,0,0],
 "Qinling":[110.863,33.759,"range",0,0,0],
 "Quebec_City":[-71.246,46.84,"town",0,0,0],
+"Rajgir":[85.42,25.03,"coord",0,0,0],
+"Rakhigarhi":[76.114,29.293,"coord",0,0,0],
 "Rashid":[30.419,31.401,"town",0,0,0],
 "Rashidun_Caliphate":[48.14,25.961,"polity","pol:rashidun",647,1.3],
 "Red_Pyramid":[31.206,29.808,"coord",0,0,0],
@@ -2137,6 +2141,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"66417792feadbabb","counts":
 "South_China_Karst":[110.296,25.275,"coord",0,0,0],
 "South_China_Sea":[114.712,13.884,"sea",0,0,0],
 "South_Dakota":[-100.255,44.471,"admin1","adm1:usa:us-sd",0,12.57],
+"South_Indian_megaliths":[76.65,15.96,"coord",0,0,0],
 "South_Korea":[128.13,36.38,"country","adm0:kor",0,12.64],
 "South_Sudan":[30.39,7.23,"country","adm0:sds",0,5.86],
 "Southern_Ocean":[90,-65,"coord",0,0,0],

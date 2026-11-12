@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:11Z",
+ "generated": "2026-11-12T05:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6683,
-  "redirect-broader": 638,
-  "redirect-variant": 399,
-  "section-redirect": 137,
-  "disambiguation": 149,
-  "none": 1020,
+  "ok": 6754,
+  "redirect-broader": 647,
+  "redirect-variant": 402,
+  "section-redirect": 140,
+  "disambiguation": 151,
+  "none": 1032,
   "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
@@ -73152,6 +73152,826 @@
    "answer": "United States v. The Amistad",
    "title": "United States v. The Amistad",
    "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-001": {
+   "answer": "Indian subcontinent",
+   "title": "Indian subcontinent",
+   "url": "https://en.wikipedia.org/wiki/Indian_subcontinent",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-002": {
+   "answer": "South Asian Stone Age",
+   "title": "South Asian Stone Age",
+   "url": "https://en.wikipedia.org/wiki/South_Asian_Stone_Age",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-003": {
+   "answer": "Bhimbetka rock shelters",
+   "title": "Bhimbetka rock shelters",
+   "url": "https://en.wikipedia.org/wiki/Bhimbetka_rock_shelters",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-004": {
+   "answer": "Neolithic",
+   "title": "Neolithic",
+   "url": "https://en.wikipedia.org/wiki/Neolithic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-005": {
+   "answer": "Mehrgarh",
+   "title": "Mehrgarh",
+   "url": "https://en.wikipedia.org/wiki/Mehrgarh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-006": {
+   "answer": "Indus Valley Civilisation",
+   "title": "Indus Valley Civilisation",
+   "url": "https://en.wikipedia.org/wiki/Indus_Valley_Civilisation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-007": {
+   "answer": "Archaeological Survey of India",
+   "title": "Archaeological Survey of India",
+   "url": "https://en.wikipedia.org/wiki/Archaeological_Survey_of_India",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-008": {
+   "answer": "Harappa",
+   "title": "Harappa",
+   "url": "https://en.wikipedia.org/wiki/Harappa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-009": {
+   "answer": "Mohenjo-daro",
+   "title": "Mohenjo-daro",
+   "url": "https://en.wikipedia.org/wiki/Mohenjo-daro",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-010": {
+   "answer": "Great Bath",
+   "title": "Great Bath",
+   "url": "https://en.wikipedia.org/wiki/Great_Bath",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Great Bath, Mohenjo-daro"
+  },
+  "in-011": {
+   "answer": "Dholavira",
+   "title": "Dholavira",
+   "url": "https://en.wikipedia.org/wiki/Dholavira",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-012": {
+   "answer": "Rakhigarhi",
+   "title": "Rakhigarhi",
+   "url": "https://en.wikipedia.org/wiki/Rakhigarhi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-013": {
+   "answer": "Lothal",
+   "title": "Lothal",
+   "url": "https://en.wikipedia.org/wiki/Lothal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-014": {
+   "answer": "Kalibangan",
+   "title": "Kalibangan",
+   "url": "https://en.wikipedia.org/wiki/Kalibangan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-015": {
+   "answer": "Indus town planning",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "Sanitation of the Indus Valley Civilisation",
+    "India",
+    "Achaemenid conquest of the Indus Valley",
+    "Planned community"
+   ]
+  },
+  "in-016": {
+   "answer": "Indus drainage system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sanitation of the Indus Valley Civilisation",
+    "Indus Valley Civilisation",
+    "Indus River",
+    "Indus Basin",
+    "List of rivers of India by discharge"
+   ]
+  },
+  "in-017": {
+   "answer": "Indus craft production",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "Crafts of India",
+    "India",
+    "Jute production in India",
+    "Periodisation of the Indus Valley Civilisation"
+   ]
+  },
+  "in-018": {
+   "answer": "Indus seals",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Indus seal",
+   "target": "Indus Valley Civilisation#Seals"
+  },
+  "in-019": {
+   "answer": "Pashupati seal",
+   "title": "Pashupati seal",
+   "url": "https://en.wikipedia.org/wiki/Pashupati_seal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-020": {
+   "answer": "Indus script",
+   "title": "Indus script",
+   "url": "https://en.wikipedia.org/wiki/Indus_script",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-021": {
+   "answer": "Dancing Girl",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Dancing Girl",
+   "suggestions": [
+    "Dancing Girl (Maihime)",
+    "Dancing Girls (disambiguation)",
+    "Dancing Girl (Rabindranath Tagore)",
+    "Dancing Girl (Singapore sculpture)",
+    "Dancing Girl (prehistoric sculpture)",
+    "The Dancing Girl (sculpture in Warsaw)"
+   ]
+  },
+  "in-022": {
+   "answer": "Priest-King",
+   "title": "Priest-King (sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Priest-King_(sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-023": {
+   "answer": "Indus weights",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "Indus script",
+    "History of measurement systems in India",
+    "Achaemenid conquest of the Indus Valley",
+    "India"
+   ]
+  },
+  "in-024": {
+   "answer": "Indus agriculture",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "Indus River",
+    "Indo-Gangetic Plain",
+    "Indus river dolphin",
+    "List of major rivers of India"
+   ]
+  },
+  "in-025": {
+   "answer": "Indus–Mesopotamia relations",
+   "title": "Indo-Mesopotamia relations",
+   "url": "https://en.wikipedia.org/wiki/Indo-Mesopotamia_relations",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Indus–Mesopotamia relations"
+  },
+  "in-026": {
+   "answer": "Meluhha",
+   "title": "Meluhha",
+   "url": "https://en.wikipedia.org/wiki/Meluhha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-027": {
+   "answer": "Indus religion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "Religion of the Indus Valley Civilisation",
+    "Religion in India",
+    "Indus River",
+    "Indus script"
+   ]
+  },
+  "in-028": {
+   "answer": "Indus political organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "List of Indus Valley Civilisation sites",
+    "India",
+    "History of Pakistan",
+    "Indus worm"
+   ]
+  },
+  "in-029": {
+   "answer": "Ghaggar-Hakra River",
+   "title": "Ghaggar-Hakra River",
+   "url": "https://en.wikipedia.org/wiki/Ghaggar-Hakra_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-030": {
+   "answer": "decline of the Indus civilisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Indus Valley Civilisation",
+    "Indus River",
+    "History of India",
+    "Religion of the Indus Valley Civilisation",
+    "Periodisation of the Indus Valley Civilisation"
+   ]
+  },
+  "in-031": {
+   "answer": "Late Harappan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Late Harappan",
+   "target": "Indus Valley Civilisation#Collapse and Late Harappan"
+  },
+  "in-032": {
+   "answer": "Ochre Coloured Pottery culture",
+   "title": "Ochre Coloured Pottery culture",
+   "url": "https://en.wikipedia.org/wiki/Ochre_Coloured_Pottery_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-033": {
+   "answer": "Indo-Aryan migrations",
+   "title": "Indo-Aryan migrations",
+   "url": "https://en.wikipedia.org/wiki/Indo-Aryan_migrations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-034": {
+   "answer": "Ancestral North Indians",
+   "title": "Genetics and archaeogenetics of South Asia",
+   "url": "https://en.wikipedia.org/wiki/Genetics_and_archaeogenetics_of_South_Asia",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Ancestral North Indians"
+  },
+  "in-035": {
+   "answer": "Indo-Aryan languages",
+   "title": "Indo-Aryan languages",
+   "url": "https://en.wikipedia.org/wiki/Indo-Aryan_languages",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-036": {
+   "answer": "Dravidian languages",
+   "title": "Dravidian languages",
+   "url": "https://en.wikipedia.org/wiki/Dravidian_languages",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-037": {
+   "answer": "Munda languages",
+   "title": "Munda languages",
+   "url": "https://en.wikipedia.org/wiki/Munda_languages",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-038": {
+   "answer": "South Indian megaliths",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Archaeology of India",
+    "Megalith",
+    "Megaliths in Ethiopia",
+    "Nagpuria people",
+    "Hirapur dolmen"
+   ]
+  },
+  "in-039": {
+   "answer": "Chalcolithic",
+   "title": "Chalcolithic",
+   "url": "https://en.wikipedia.org/wiki/Chalcolithic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-040": {
+   "answer": "Iron Age in India",
+   "title": "Iron Age in India",
+   "url": "https://en.wikipedia.org/wiki/Iron_Age_in_India",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-041": {
+   "answer": "Vedic period",
+   "title": "Vedic period",
+   "url": "https://en.wikipedia.org/wiki/Vedic_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-042": {
+   "answer": "Vedas",
+   "title": "Vedas",
+   "url": "https://en.wikipedia.org/wiki/Vedas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-043": {
+   "answer": "Rigveda",
+   "title": "Rigveda",
+   "url": "https://en.wikipedia.org/wiki/Rigveda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-044": {
+   "answer": "Vedic Sanskrit",
+   "title": "Vedic Sanskrit",
+   "url": "https://en.wikipedia.org/wiki/Vedic_Sanskrit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-045": {
+   "answer": "Vedic chant",
+   "title": "Vedic chant",
+   "url": "https://en.wikipedia.org/wiki/Vedic_chant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-046": {
+   "answer": "Mitanni",
+   "title": "Mitanni",
+   "url": "https://en.wikipedia.org/wiki/Mitanni",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-047": {
+   "answer": "Pastoralism",
+   "title": "Pastoralism",
+   "url": "https://en.wikipedia.org/wiki/Pastoralism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-048": {
+   "answer": "Jana",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Jana",
+   "suggestions": [
+    "Jana (Vedic period)",
+    "Jana of the Jungle",
+    "Bharatiya Jana Sangh",
+    "Jana Gana Mana (disambiguation)",
+    "Jana (brand)",
+    "Jana (film)"
+   ]
+  },
+  "in-049": {
+   "answer": "Battle of the Ten Kings",
+   "title": "Battle of the Ten Kings",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Ten_Kings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-050": {
+   "answer": "Sapta Sindhu",
+   "title": "Rigvedic rivers",
+   "url": "https://en.wikipedia.org/wiki/Rigvedic_rivers",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Sapta Sindhu"
+  },
+  "in-051": {
+   "answer": "Historical Vedic religion",
+   "title": "Historical Vedic religion",
+   "url": "https://en.wikipedia.org/wiki/Historical_Vedic_religion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-052": {
+   "answer": "Indra",
+   "title": "Indra",
+   "url": "https://en.wikipedia.org/wiki/Indra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-053": {
+   "answer": "Agni",
+   "title": "Agni",
+   "url": "https://en.wikipedia.org/wiki/Agni",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-054": {
+   "answer": "Varuna",
+   "title": "Varuna",
+   "url": "https://en.wikipedia.org/wiki/Varuna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-055": {
+   "answer": "Soma",
+   "title": "Soma (drink)",
+   "url": "https://en.wikipedia.org/wiki/Soma_(drink)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-056": {
+   "answer": "Shrauta",
+   "title": "Śrauta",
+   "url": "https://en.wikipedia.org/wiki/%C5%9Arauta",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Shrauta"
+  },
+  "in-057": {
+   "answer": "Yajna",
+   "title": "Yajna",
+   "url": "https://en.wikipedia.org/wiki/Yajna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-058": {
+   "answer": "Ashvamedha",
+   "title": "Ashvamedha",
+   "url": "https://en.wikipedia.org/wiki/Ashvamedha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-059": {
+   "answer": "Brahmin",
+   "title": "Brahmin",
+   "url": "https://en.wikipedia.org/wiki/Brahmin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-060": {
+   "answer": "Purusha Sukta",
+   "title": "Purusha Sukta",
+   "url": "https://en.wikipedia.org/wiki/Purusha_Sukta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-061": {
+   "answer": "Varna",
+   "title": "Varna (Hinduism)",
+   "url": "https://en.wikipedia.org/wiki/Varna_(Hinduism)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-062": {
+   "answer": "Later Vedic period",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Vedic period",
+    "Vedic Sanskrit",
+    "Historical Vedic religion",
+    "Vedas",
+    "Salva (India)"
+   ]
+  },
+  "in-063": {
+   "answer": "Videgha Mathava",
+   "title": "Videgha Mathava",
+   "url": "https://en.wikipedia.org/wiki/Videgha_Mathava",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-064": {
+   "answer": "shyama ayas",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Vedic period",
+    "Tamils",
+    "Suraiya",
+    "Usha Uthup",
+    "David Abraham Cheulkar"
+   ]
+  },
+  "in-065": {
+   "answer": "Painted Grey Ware culture",
+   "title": "Painted Grey Ware culture",
+   "url": "https://en.wikipedia.org/wiki/Painted_Grey_Ware_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-066": {
+   "answer": "Kuru kingdom",
+   "title": "Kuru kingdom",
+   "url": "https://en.wikipedia.org/wiki/Kuru_kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-067": {
+   "answer": "Panchala",
+   "title": "Panchala",
+   "url": "https://en.wikipedia.org/wiki/Panchala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-068": {
+   "answer": "Videha",
+   "title": "Videha",
+   "url": "https://en.wikipedia.org/wiki/Videha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-069": {
+   "answer": "Rajasuya",
+   "title": "Rajasuya",
+   "url": "https://en.wikipedia.org/wiki/Rajasuya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-070": {
+   "answer": "sabha and samiti",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Maharashtra Ekikaran Samiti",
+    "2026 Rajya Sabha elections",
+    "Belgaum Lok Sabha constituency",
+    "Panchayat samiti",
+    "Nalanda Lok Sabha constituency"
+   ]
+  },
+  "in-071": {
+   "answer": "Yajurveda",
+   "title": "Yajurveda",
+   "url": "https://en.wikipedia.org/wiki/Yajurveda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-072": {
+   "answer": "Atharvaveda",
+   "title": "Atharvaveda",
+   "url": "https://en.wikipedia.org/wiki/Atharvaveda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-073": {
+   "answer": "Brahmanas",
+   "title": "Brahmana",
+   "url": "https://en.wikipedia.org/wiki/Brahmana",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Brahmanas"
+  },
+  "in-074": {
+   "answer": "Aranyakas",
+   "title": "Aranyaka",
+   "url": "https://en.wikipedia.org/wiki/Aranyaka",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Aranyakas"
+  },
+  "in-075": {
+   "answer": "Upanishads",
+   "title": "Upanishads",
+   "url": "https://en.wikipedia.org/wiki/Upanishads",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-076": {
+   "answer": "Atman",
+   "title": "Ātman (Hinduism)",
+   "url": "https://en.wikipedia.org/wiki/%C4%80tman_(Hinduism)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-077": {
+   "answer": "Karma",
+   "title": "Karma",
+   "url": "https://en.wikipedia.org/wiki/Karma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-078": {
+   "answer": "Samsara",
+   "title": "Saṃsāra",
+   "url": "https://en.wikipedia.org/wiki/Sa%E1%B9%83s%C4%81ra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-079": {
+   "answer": "Moksha",
+   "title": "Moksha",
+   "url": "https://en.wikipedia.org/wiki/Moksha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-080": {
+   "answer": "Shruti",
+   "title": "Śruti",
+   "url": "https://en.wikipedia.org/wiki/%C5%9Aruti",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Shruti"
+  },
+  "in-081": {
+   "answer": "Mahajanapadas",
+   "title": "Mahajanapadas",
+   "url": "https://en.wikipedia.org/wiki/Mahajanapadas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-082": {
+   "answer": "second urbanisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Second urbanisation",
+   "target": "History of India#Second urbanisation (c. 600 – 200 BCE)"
+  },
+  "in-083": {
+   "answer": "Magadha",
+   "title": "Magadha",
+   "url": "https://en.wikipedia.org/wiki/Magadha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-084": {
+   "answer": "Rajagriha",
+   "title": "Rajgir",
+   "url": "https://en.wikipedia.org/wiki/Rajgir",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rajagriha"
+  },
+  "in-085": {
+   "answer": "Kosala",
+   "title": "Kosala",
+   "url": "https://en.wikipedia.org/wiki/Kosala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-086": {
+   "answer": "Avanti",
+   "title": "Avanti (region)",
+   "url": "https://en.wikipedia.org/wiki/Avanti_(region)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-087": {
+   "answer": "Vajji",
+   "title": "Vajjika League",
+   "url": "https://en.wikipedia.org/wiki/Vajjika_League",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Vajji"
+  },
+  "in-088": {
+   "answer": "gana-sangha",
+   "title": "Gaṇasaṅgha",
+   "url": "https://en.wikipedia.org/wiki/Ga%E1%B9%87asa%E1%B9%85gha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-089": {
+   "answer": "Bimbisara",
+   "title": "Bimbisara",
+   "url": "https://en.wikipedia.org/wiki/Bimbisara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-090": {
+   "answer": "Ajatashatru",
+   "title": "Ajatashatru",
+   "url": "https://en.wikipedia.org/wiki/Ajatashatru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-091": {
+   "answer": "Pataliputra",
+   "title": "Pataliputra",
+   "url": "https://en.wikipedia.org/wiki/Pataliputra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-092": {
+   "answer": "Nanda dynasty",
+   "title": "Nanda Empire",
+   "url": "https://en.wikipedia.org/wiki/Nanda_Empire",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Nanda dynasty"
+  },
+  "in-093": {
+   "answer": "Northern Black Polished Ware",
+   "title": "Northern Black Polished Ware",
+   "url": "https://en.wikipedia.org/wiki/Northern_Black_Polished_Ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-094": {
+   "answer": "Punch-marked coins",
+   "title": "Punch-marked coins",
+   "url": "https://en.wikipedia.org/wiki/Punch-marked_coins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-095": {
+   "answer": "Shreni",
+   "title": "Shreni",
+   "url": "https://en.wikipedia.org/wiki/Shreni",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-096": {
+   "answer": "Sramana",
+   "title": "Śramaṇa",
+   "url": "https://en.wikipedia.org/wiki/%C5%9Arama%E1%B9%87a",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-097": {
+   "answer": "Gautama Buddha",
+   "title": "The Buddha",
+   "url": "https://en.wikipedia.org/wiki/The_Buddha",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Gautama Buddha"
+  },
+  "in-098": {
+   "answer": "Great Renunciation",
+   "title": "Great Renunciation",
+   "url": "https://en.wikipedia.org/wiki/Great_Renunciation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-099": {
+   "answer": "Four Noble Truths",
+   "title": "Four Noble Truths",
+   "url": "https://en.wikipedia.org/wiki/Four_Noble_Truths",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "in-100": {
+   "answer": "Noble Eightfold Path",
+   "title": "Noble Eightfold Path",
+   "url": "https://en.wikipedia.org/wiki/Noble_Eightfold_Path",
    "via": "glossary",
    "status": "ok"
   }
