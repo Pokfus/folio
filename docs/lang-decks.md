@@ -3716,7 +3716,7 @@ changed was the one that had been wrong all along.
 - `.claude/hebrew/` — the generator behind the Hebrew decks (Nov 2026, on request: "Add a Hebrew language
   collection"; the Hindi and Persian answers taken, the owner not asked). **Built: the alphabet,
   `decks/Hebrew-Alphabet.folio-deck.json`** (45 notes: the letters, the final forms, ג׳ ז׳ צ׳, the vowel points and
-  the dagesh) **and A1, `decks/Hebrew-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hebrew/run.py
+  the dagesh) **and A1, `decks/Hebrew-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hebrew-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request: "Add A2"; `--level a2`; the months, festivals and feminine numbers taught without moving A1 by a byte). `python3 .claude/hebrew/run.py
   [--level a1]`, `python3 .claude/hebrew/alphabet.py`, `node .claude/hebrew/check-hebrew.js`, `node
   .claude/hebrew/render-hebrew.js a1|alphabet`; a re-run is byte-identical. Persian's pipeline adapted, right to
   left. **What is new**: every word and form in two spellings, the unpointed full spelling a reader meets and the

@@ -17,7 +17,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · a lemma of several words, which is the inventory's to choose;
   · the hand list `EXCLUDE`, each line with its reason, and swearing.
 """
-import json, os, sys
+import json, os, sys, unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from he import fold
@@ -57,6 +57,59 @@ EXCLUDE = {
     'רצח': 'to murder: the subtitles\' crime drama',
     'ירה': 'to shoot: the subtitles\' crime drama',
     'דן': 'its count is the name Dan, not "to discuss"',
+    # Read off the A2 ranking (2026-11-12).
+    'האדים': 'its count is האדם "the man", not "to redden"',
+    'שכל': 'its count is שכל "intellect" and ש + כל "that all", not "to be bereaved"',
+    'נשה': 'its count is נשים "women", whose shapes it shares, not "to forget"',
+    'זן': 'its count is shapes of זה and זאת, not "to nourish"',
+    'שבע': 'Wiktionary has no number "seven" under this spelling, only "sated"',
+    'מכל': 'its count is מ + כל "from all", not "container"',
+    'אמה': 'its count is shapes of אמא, not "handmaid"',
+    'דר': 'its count is shapes of other words, not "to dwell"',
+    'בליל': 'its count is בלילה "at night", not "a mixture"',
+    'עול': 'its count is shapes of other words, not "yoke"',
+    'סיווג': 'its count is סוג "kind", whose shapes it shares, not "to classify"',
+    'שיער': 'its count is "hair", which Wiktionary files under the defective spelling, not "to assume"',
+    'שיהיה': 'its count is "that (it) will be", a form of היה',
+    'עשר': 'the only entry is the "-teen" element; the count is "ten"',
+    'גבירה': 'its count is גבירותיי "ladies", in a set phrase',
+    'ליבן': 'its count is לבן "white", whose shapes it shares',
+    'יישר': 'its count is ישר "straight", whose shapes it shares',
+    'לן': 'its count is shapes of other words (לנו), not "to lodge"',
+    'איווה': 'its count is shapes of other words, not "to desire"',
+    'גיבה': 'its count is גבה "eyebrow, height", whose shapes it shares',
+    'קס': 'its count is English names, not "inkwell"',
+    'השים': 'its count is shapes of other words',
+    'שימר': 'its count is שמר "kept", whose shapes it shares',
+    'פול': 'its count is the English name Paul, not "broad bean"',
+    'פי': 'a construct form of פה, written as one word in set phrases',
+    'תייק': 'its count is תיק "bag", whose shapes it shares, not "to file"',
+    'הוד': 'its count is הודו "India" and shapes of other words',
+    'נמס': 'its count is shapes of other words, not "to melt"',
+    'האט': 'its count is the English word "hat" and shapes of other words',
+    'מולד': 'its count is מולדת "homeland" and shapes of other words',
+    'כוון': 'its count is כיוון "direction" written short',
+    'מיפה': 'its count is מפה "from here" written as one word',
+    'ריס': 'its count is shapes of other words',
+    'שיבט': 'its count is שבט "tribe", whose shapes it shares',
+    'בעיר': 'ב + עיר "in the city"',
+    'קדם': 'its count is קודם "before", whose shapes it shares',
+    'הולדת': 'its count is יום הולדת "birthday", a set phrase the inventory teaches',
+    'רוצח': 'a murderer: the subtitles crime drama, as רצח',
+    'כינה': 'its count is the verb "called, nicknamed", which shares the spelling, not "louse"',
+    'סרק': 'its count is shapes of other words',
+    'סנט': 'its count is the English "cent" and saint names',
+    'מן': 'the only Wiktionary entry is "manna"; the count is the preposition "from"',
+    'בתר': 'its count is בתור "as", whose shapes it shares',
+    'רבה': 'its count is הרבה "much", not "female rabbi"',
+    'סנכרן': 'its count is shapes of other words',
+    'הווריד': 'its count is הוריד "took down", spelt alike',
+    'איתר': 'its count is איתו "with him", whose shapes it shares',
+    'במה': 'its count is ב + מה "in what"',
+    'אנס': 'its count is a verb of sexual violence spelt alike; not a level word',
+    'השיר': 'its count is shapes of שיר "song"',
+    'קלה': 'its count is the feminine of קל "easy", not "to toast"',
+    'נעם': 'its count is shapes of נעים "pleasant"',
     'כלך': 'its count is כ + לך and כלכך written short, not the plant "ferula"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
@@ -73,6 +126,7 @@ def main():
     for topic, words in INVENTORY.get(LEVEL, []):
         for item in words.split():
             w, _, pick = item.partition('=')
+            pick = unicodedata.normalize('NFC', pick)
             w, _, pos = w.partition(':')
             w = w.replace('_', ' ')
             k = fold(w)
@@ -94,13 +148,17 @@ def main():
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
     keys = {k for k, _ in seen}
+    # A SPELLING A LEVEL BELOW TEACHES IS NOT DEALT AGAIN BY THE FILL (A2, 2026-11-12): its count belongs
+    # to the word already taught (גֶּבֶר "man"), not to another word spelt alike (גָּבַר "prevail").  The
+    # inventory may still name one (`ספר=סַפָּר`, the barber).
+    keys |= {fold(b.split('|')[0]) for b in below}
     swears = {fold(s) for s in SWEARS}
     excl = {fold(s) for s in EXCLUDE}
     fill = []
     for k, L in sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0])):
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
-        if 'entries' not in L or L.get('formonly'):
+        if 'entries' not in L or L.get('formonly') or L.get('inv_only'):
             continue
         if k in keys or k in swears or k in excl or len(k) < 2 or ' ' in k:
             continue

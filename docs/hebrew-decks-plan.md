@@ -5,7 +5,7 @@ Hebrew set, built the way the Persian set was (`docs/persian-decks-plan.md`); `d
 of how the others were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-12: "Add a Hebrew language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 are built** (`.claude/hebrew/`). A2 to C1 are planned, not built.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hebrew/`). B1 to C1 are planned, not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces after the first. The first commit carried one changelog item and one bump, because it
@@ -30,7 +30,7 @@ rather than asked again:
 |---|---|---|
 | Hebrew Alphabet — built | `Hebrew-Alphabet.folio-deck.json` | 45 |
 | Hebrew A1 Beginner — built | `Hebrew-A1.folio-deck.json` | 500 |
-| Hebrew A2 Elementary | `Hebrew-A2.folio-deck.json` | 750 |
+| Hebrew A2 Elementary — built | `Hebrew-A2.folio-deck.json` | 750 |
 | Hebrew B1 Intermediate | `Hebrew-B1.folio-deck.json` | 1,000 |
 | Hebrew B2 Upper Intermediate | `Hebrew-B2.folio-deck.json` | 1,500 |
 | Hebrew C1 Advanced | `Hebrew-C1.folio-deck.json` | 1,500 |
@@ -93,7 +93,7 @@ form is the guide. One A1 word (`שדה תעופה`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: the
+**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done 2026-11-12) to C1, one level per session: the
 level's inventory into `inventory.py`, its `SCOPE` into `hebrew_level.py`, run, read every card. **Phase 3** — a
 phrases deck, if asked for.
 
@@ -109,3 +109,30 @@ The alphabet: 45 notes — the 22 letters with בּ/ב, כּ/כ, פּ/פ and ש�
 forms, ג׳ ז׳ צ׳, ten vowel points and the dagesh; letters said alike (t: ט ת, k: כּ ק, v: ב ו, kh: ח כ, s: ס שׂ,
 silent: א ע) are told apart on the sound side by the word they ask for, and every sound side is unique (asserted).
 The hue is measured, `#5E6EC0` (see the `lang-hebrew` comment in `app.js`).
+
+## 7. A2 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add A2." `python3 .claude/hebrew/run.py --level a2`. **750 notes / 1,500 cards: 266
+from the inventory (`inventory.A2`, Persian's A2 topics rewritten for Israel), 484 by frequency**; three sentences
+for 744, none for 2. A re-run is byte-identical, and **A1 and the alphabet rebuilt on the day's code are unchanged**
+(checked by hash). What A2 needed:
+
+- **WORDS ONLY AN INVENTORY TEACHES** (`extract.INVENTORY_ONLY`). The Gregorian months (`extract.MONTH`, filed by
+  Wiktionary as proper names), the festivals (פסח, חנוכה, פורים, ראש השנה) and the feminine numbers Israelis count
+  with (אחת, שתיים … — filed as "feminine of …", so glossed by hand) were let in. Letting them in as ordinary
+  lemmas moved A1: they took a share of the subtitle counts of forms they share (`אחת` had been counted for `אחד`),
+  and A1's order, one word and a dozen sentences changed. So such a word claims nothing in the count — its own
+  spelling's count is its frequency — and the fill never deals one.
+- **THE FILL SKIPS A SPELLING A LEVEL BELOW TEACHES.** A1 teaches גֶּבֶר "man"; the fill dealt גָּבַר "prevail" on the
+  same spelling's count, which is the man's. The inventory may still name another word of the spelling (ספר=סַפָּר
+  the barber, עלה=עָלֶה a leaf).
+- **"Below" reads the pointed field's TEXT** (`hebrew_level.words_below`): it had read its HTML, matched nothing, and
+  the first build repeated all of A1.
+- **A POINTED FORM IS COMPARED IN NFC** (`choose.PICK`, the inventory's `=` picks): a dagesh and a vowel under one
+  letter typed in the other order did not equal the extraction's form, and `גן` silently became the gene.
+- **A part of speech whose senses are all tagged weak** (a festival's `Judaism`) is still found when the inventory
+  names it (`חנוכה:name`).
+- **More scholarly romanisations** (`ʿatíd`, `šākal`, `tsaváʾ`) are written the modern way (`extract.PLAIN`).
+- The A2 exclusions and hand picks are in `select.EXCLUDE` and `choose.PICK`, each with its reason: mostly counts
+  that belong to a commoner word sharing the spelling (`בליל` is `בלילה`, `סיווג` is `סוג`, `הולדת` is `יום הולדת`),
+  and nouns over the verb of their spelling (`נעל` shoe, `שכן` neighbour, `פחד` fear, `טבח` cook).

@@ -18,7 +18,7 @@ THE TITLES ARE ENGLISH and carry the CEFR band, so `levelRank` in
 `.claude/build-lang-decks.js` sorts them with no new rule; the script deck's
 title carries "Alphabet" and sorts before A1.
 """
-import json, os
+import html, json, os, re
 
 LEVEL = os.environ.get('HEBREW_LEVEL', 'a1').lower()
 
@@ -49,6 +49,20 @@ SCOPE = {
                   'weather, colours, and the pronouns, question words, prepositions and '
                   'conjunctions every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, work and study, jobs, clothes and '
+                  'shopping, more food and cooking, the furniture of a home, the town, the '
+                  'countryside and animals, the seasons and the points of the compass, the months, '
+                  'the numbers to a million, travel, health and the body, feelings and character, '
+                  'free time and the festivals of the Israeli year, telling what happened and when, '
+                  'giving an opinion, and the everyday verbs of moving, dressing and doing',
+    },
 }
 
 
@@ -70,5 +84,7 @@ def words_below():
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         for c in json.load(open(p, encoding='utf-8'))['cards']:
             F = c.get('fields') or {}
-            out.add(F.get('Word', '') + '|' + F.get('Pointed', ''))
+            # `Pointed` is HTML (a right-to-left span), and empty where it would repeat the headword
+            p = html.unescape(re.sub(r'<[^>]+>', '', F.get('Pointed', ''))) or F.get('Word', '')
+            out.add(F.get('Word', '') + '|' + p)
     return out

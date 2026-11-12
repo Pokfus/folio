@@ -48,12 +48,27 @@ KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'num', 'prep', 'pron
             'conj', 'particle', 'det', 'proverb', 'prep_phrase', 'contraction', 'adv_phrase'}
 CLOSED = {'adv', 'prep', 'conj', 'particle', 'pron', 'det', 'num', 'intj', 'contraction'}
 
-NAME_OK = {'ישראל', 'עברית', 'אנגלית', 'ירושלים', 'תל אביב'}
+NAME_OK = {'ישראל', 'עברית', 'אנגלית', 'ירושלים', 'תל אביב',
+           'ראש השנה', 'פורים', 'פסח', 'חנוכה', 'יום כיפור', 'סוכות'}   # A2's festivals (2026-11-12)
+
+# THE MONTHS (A2, 2026-11-12).  Wiktionary files the twelve Gregorian months, which Israel uses day to day,
+# as proper names; the sense "January (the first month of the Gregorian calendar …)" is kept, as a noun,
+# and every other `name` entry of the spelling (יוני the given name Yoni) stays out.
+MONTH = re.compile(r'^(January|February|March|April|May|June|July|August|September|October|November|December)\b')
+
+# WORDS ONLY AN INVENTORY TEACHES (A2, 2026-11-12): the months, the festivals and the feminine numbers
+# were let in for A2, and each claims nothing in the count -- its own spelling's count is its frequency,
+# and the forms it shares go where they went before -- and the fill never deals one (`select.py`), so
+# adding them changed no word, no order and no sentence of the shipped A1.
+INVENTORY_ONLY = {'ראש השנה', 'פורים', 'פסח', 'חנוכה', 'יום כיפור', 'סוכות',
+                  'אחת', 'שתיים', 'שלוש', 'ארבע', 'חמש', 'תשע'}
 
 # Words every sense of which Wiktionary writes as a form of another, but which a beginner
 # learns as words of their own (`זאת` "this", filed as the feminine of `זה`); kept, and
 # glossed by hand (`build_deck.GLOSS`).
-FORM_OK = {'זאת', 'אלה'}
+FORM_OK = {'זאת', 'אלה',
+           # A2: the feminine numbers, which are also the numbers Israelis COUNT with
+           'אחת', 'שתיים', 'שלוש', 'ארבע', 'חמש', 'תשע'}
 
 # A sense carrying one of these is not a meaning a learner's card should open on.
 WEAK = {'rare', 'obsolete', 'archaic', 'dated', 'dialectal', 'regional', 'uncommon',
@@ -132,7 +147,14 @@ def pairs(forms):
 SCHOLARLY = re.compile('[ʕʿʾāēīōūăĕŏəɔḥṭṣšḇḡḏḵp̄ṯ]')
 
 
+# (A2) Biblical and scholarly letters with a plain modern equivalent: the ayin and alef signs as an
+# apostrophe, š as sh, a long-vowel mark dropped.
+PLAIN = str.maketrans({'ʿ': "'", 'ʾ': "'", 'ʕ': "'", 'ā': 'a', 'ă': 'a', 'ē': 'e', 'ĕ': 'e',
+                       'ī': 'i', 'ō': 'o', 'ŏ': 'o', 'ū': 'u'})
+
+
 def modern(r, w=''):
+    r = r.translate(PLAIN).replace('š', 'sh')
     if re.search("צ['׳]", w):
         r = r.replace('kh', 'ch')       # the extraction of `צ׳` -- ch as in church -- is kept
         return r.replace('ḥ', 'kh').replace('ɔ', 'a').replace('q', 'k').replace('tz', 'ts')
@@ -182,7 +204,12 @@ def main():
         e = json.loads(line)
         pos = e.get('pos')
         w = nfc(e.get('word', ''))
-        if pos == 'name' and w in NAME_OK:
+        month = pos == 'name' and any(MONTH.match((x.get('glosses') or [''])[0])
+                                      for x in e.get('senses') or [])
+        if month:
+            pos = 'noun'
+            e = dict(e, senses=[x for x in e['senses'] if MONTH.match((x.get('glosses') or [''])[0])])
+        elif pos == 'name' and w in NAME_OK:
             pass
         elif pos not in KEEP_POS or not is_hebrew(w):
             continue
@@ -235,11 +262,16 @@ def main():
             'p': canon(e, w), 'g': GENDER.get(g, ''), 'binyan': binyan,
             'glosses': gl, 'table': table, 'head': head,
         }
+        if month or w in INVENTORY_ONLY:
+            ent['inv_only'] = True
         lemmas.setdefault(fold(w), {'word': w, 'entries': []})['entries'].append(ent)
 
     # every surface (folded full spelling) a lemma claims: its own, its table's, its head forms'
+    late = {k for k, L in lemmas.items() if all(e.get('inv_only') for e in L['entries'])}
     own = collections.defaultdict(set)
     for k, L in lemmas.items():
+        if k in late:
+            continue
         own[k].add(k)
         for ent in L['entries']:
             for row in ent['table'] + ent['head']:
@@ -247,13 +279,13 @@ def main():
                     continue
                 own[fold(row['w'])].add(k)
     for surf, tgt in pointers:
-        if tgt in lemmas and surf not in lemmas:
+        if tgt in lemmas and (surf not in lemmas or surf in late):
             own[surf].add(tgt)
     for k, L in formonly.items():
-        if L['alt_of'] in lemmas and k not in lemmas:
+        if L['alt_of'] in lemmas and (k not in lemmas or k in late):
             own[k].add(L['alt_of'])
     for surf in list(own):
-        if surf in lemmas and len(own[surf]) > 1 \
+        if surf in lemmas and surf not in late and len(own[surf]) > 1 \
                 and any(e['pos'] in CLOSED for e in lemmas[surf]['entries']):
             own[surf] = {surf}
 
@@ -310,7 +342,12 @@ def main():
             L['formonly'] = True
             out[k] = L
     for k, L in lemmas.items():
-        L['freq'] = round(L.pop('multi', 0) or freq.get(k, 0), 2)
+        if k in late:
+            L['freq'] = counts.get(k, 0)
+            L['inv_only'] = True
+            L.pop('multi', None)
+        else:
+            L['freq'] = round(L.pop('multi', 0) or freq.get(k, 0), 2)
         L['own'] = counts.get(k, 0)
         out[k] = L
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False)

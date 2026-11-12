@@ -104,7 +104,26 @@ GLOSS = {
     'ימין|יָמִין': {'noun': ['right (the side or direction)', 'the right hand', 'the political right']},
     'ישראל|יִשְׂרָאֵל': {'name': ['Israel (the country)', 'the Jewish people, the children of Israel']},
     'מורה|מוֹרֶה': {'adj': []},
+    # A2: Wiktionary files the feminine numbers as "feminine of …", a pointer; they are also the forms
+    # used for counting, telling the time and saying a number aloud
+    'אחת|אַחַת': {'num': ['one (feminine; the form for counting and the time: בשעה אחת, at one o\'clock)'],
+                  'pron': []},
+    'שתיים|שְׁתַּיִם': {'num': ['two (feminine; the form for counting)']},
+    'שלוש|שָׁלוֹשׁ': {'num': ['three (feminine; the form for counting)']},
+    'ארבע|אַרְבַּע': {'num': ['four (feminine; the form for counting)']},
+    'חמש|חָמֵשׁ': {'num': ['five (feminine; the form for counting)']},
+    'תשע|תֵּשַׁע': {'num': ['nine (feminine; the form for counting)']},
     'להתראות|לְהִתְרָאוֹת': {'verb': []},
+    # A2: Wiktionary's adjective is "will, shall"; the word a learner meets first is the noun "the future"
+    'עתיד|עָתִיד': {'adj': ['future (as an adjective); will, shall (עתיד ל־, is going to)']},
+    # two words of one pointing: the fortress leads in Wiktionary, the beer in a learner's day
+    'בירה|בִּירָה': {'noun': ['beer']},
+    'תיכון|תִּיכוֹן': {'adj': ['middle, central', 'as a noun: high school (בית ספר תיכון)']},
+    'פסח|פֶּסַח': {'name': ['Passover (the spring festival)']},
+    'חנוכה|חֲנֻכָּה': {'name': ['Hanukkah (the winter festival of lights)']},
+    'ראש השנה|רֹאשׁ הַשָּׁנָה': {'name': ['Rosh Hashanah, the Jewish New Year']},
+    'פורים|פּוּרִים': {'name': ['Purim (the spring festival of Esther)']},
+    'הבא|הַבָּא': {'noun': ['next, the next one (בשבוע הבא, next week)']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -118,6 +137,23 @@ LEAD = {
     'סרט|סֶרֶט': 'film',
     'מזל|מַזָּל': 'luck',
     'הציע|הִצִּיעַ': 'suggest',
+    'גיבור|גִּבּוֹר': 'hero',
+    'אזור|אֵזוֹר': 'area',
+    'הוכיח|הוֹכִיחַ': 'prove',
+    'חשבון|חֶשְׁבּוֹן': 'bill',
+    'חומר|חֹמֶר': 'material',
+    'נער|נַעַר': 'boy',
+    'מנע|מָנַע': 'prevent',
+    'פנה|פָּנָה': 'turn',
+    'טען|טָעַן': 'claim',
+    'שיעור|שִׁעוּר': 'lesson',
+    'עצב|עֶצֶב': 'sorrow',
+    'כף|כַּף': 'spoon',
+    'כיס|כִּיס': 'pocket',
+    'מזוודה|מִזְוָדָה': 'suitcase',
+    'מלפפון|מְלָפְפוֹן': 'cucumber',
+    'טבח|טַבָּח': 'cook',
+    'הנחה|הֲנָחָה': 'discount',
 }
 
 # A ROMANISATION BY HAND, where Wiktionary's entry gives only a Biblical or scholarly reading;
@@ -136,8 +172,8 @@ SHORT = [
     (re.compile(r'; (?:found|used to translate) .*$'), ''),
 ]
 PROPER = re.compile(r'^[A-Z]{2}|^(I|English|Hebrew|Israel|God|Sabbath|Shabbat|Jewish|Jews?|Mr|Mrs|OK|'
-                    r'Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b')
-DAY = re.compile(r'^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b')
+                    r'Passover|Hanukkah|Purim|Rosh|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b')
+DAY = re.compile(r'^(passover|hanukkah|purim|rosh|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b')
 
 
 def tidy(g):
