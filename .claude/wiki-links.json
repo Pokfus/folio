@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T08:32Z",
+ "generated": "2026-11-12T08:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7630,
-  "redirect-broader": 749,
-  "redirect-variant": 463,
-  "section-redirect": 175,
+  "ok": 7641,
+  "redirect-broader": 750,
+  "redirect-variant": 466,
+  "section-redirect": 178,
   "disambiguation": 154,
-  "none": 1133,
+  "none": 1135,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83242,6 +83242,171 @@
    "via": "variant",
    "status": "redirect-broader",
    "from": "Impossible figure"
+  },
+  "ps-441": {
+   "answer": "reinforcement",
+   "title": "Reinforcement",
+   "url": "https://en.wikipedia.org/wiki/Reinforcement",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Reinforcement (psychology)"
+  },
+  "ps-442": {
+   "answer": "negative reinforcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Negative reinforcement",
+   "target": "Reinforcement#Negative reinforcement"
+  },
+  "ps-443": {
+   "answer": "punishment",
+   "title": "Punishment (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Punishment_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-444": {
+   "answer": "shaping",
+   "title": "Shaping (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Shaping_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-445": {
+   "answer": "schedules of reinforcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Schedules of reinforcement",
+   "target": "Reinforcement#Intermittent reinforcement schedules"
+  },
+  "ps-446": {
+   "answer": "partial reinforcement extinction effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Reinforcement",
+    "Extinction (psychology)",
+    "Punishment (psychology)",
+    "Self-administration",
+    "Rescorla–Wagner model"
+   ]
+  },
+  "ps-447": {
+   "answer": "secondary reinforcer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Secondary reinforcer",
+   "target": "Reinforcement#Primary and secondary reinforcers"
+  },
+  "ps-448": {
+   "answer": "token economy",
+   "title": "Token economy",
+   "url": "https://en.wikipedia.org/wiki/Token_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-449": {
+   "answer": "avoidance learning",
+   "title": "Avoidance learning",
+   "url": "https://en.wikipedia.org/wiki/Avoidance_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-450": {
+   "answer": "learned helplessness",
+   "title": "Learned helplessness",
+   "url": "https://en.wikipedia.org/wiki/Learned_helplessness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-451": {
+   "answer": "stressor controllability",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psychological stress",
+    "Occupational stress",
+    "Psychology",
+    "Locus of control",
+    "Stress management"
+   ]
+  },
+  "ps-452": {
+   "answer": "instinctive drift",
+   "title": "Instinctive drift",
+   "url": "https://en.wikipedia.org/wiki/Instinctive_drift",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-453": {
+   "answer": "latent learning",
+   "title": "Latent learning",
+   "url": "https://en.wikipedia.org/wiki/Latent_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-454": {
+   "answer": "cognitive map",
+   "title": "Cognitive map",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_map",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-455": {
+   "answer": "observational learning",
+   "title": "Observational learning",
+   "url": "https://en.wikipedia.org/wiki/Observational_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-456": {
+   "answer": "Albert Bandura",
+   "title": "Albert Bandura",
+   "url": "https://en.wikipedia.org/wiki/Albert_Bandura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-457": {
+   "answer": "Bobo doll experiment",
+   "title": "Bobo doll experiment",
+   "url": "https://en.wikipedia.org/wiki/Bobo_doll_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-458": {
+   "answer": "insight learning",
+   "title": "Insight",
+   "url": "https://en.wikipedia.org/wiki/Insight",
+   "via": "glossary",
+   "status": "ok",
+   "from": "Insight learning",
+   "manual": true
+  },
+  "ps-459": {
+   "answer": "behaviour modification",
+   "title": "Behavior modification",
+   "url": "https://en.wikipedia.org/wiki/Behavior_modification",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Behaviour modification"
+  },
+  "ps-460": {
+   "answer": "applied behaviour analysis",
+   "title": "Applied behavior analysis",
+   "url": "https://en.wikipedia.org/wiki/Applied_behavior_analysis",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Applied behaviour analysis"
   }
  }
 }

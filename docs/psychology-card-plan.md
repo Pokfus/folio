@@ -983,9 +983,9 @@ more work here than in any collection since Greece.
     ps-444  Shaping
     ps-445  Schedules of reinforcement
     ps-446  The partial reinforcement extinction effect
-    ps-447  Primary and secondary reinforcers
+    ps-447  Secondary reinforcers
     ps-448  Token economies
-    ps-449  Avoidance and escape learning
+    ps-449  Avoidance learning
     ps-450  Learned helplessness
     ps-451  What learned helplessness turned out to be
     ps-452  Instinctive drift

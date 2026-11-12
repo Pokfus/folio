@@ -10599,7 +10599,27 @@ window.GLOSSARY = {
 "Ames_room": "",
 "Moon_illusion": "",
 "Ambiguous_image": "",
-"Impossible_object": ""
+"Impossible_object": "",
+"Reinforcement_(psychology)": "",
+"Negative_reinforcement": "",
+"Punishment_(psychology)": "",
+"Shaping_(psychology)": "",
+"Schedules_of_reinforcement": "",
+"Partial_reinforcement_extinction_effect": "",
+"Secondary_reinforcer": "",
+"Token_economy": "",
+"Avoidance_learning": "",
+"Learned_helplessness": "",
+"Stressor_controllability": "",
+"Instinctive_drift": "",
+"Latent_learning": "",
+"Cognitive_map": "",
+"Observational_learning": "",
+"Albert_Bandura": "",
+"Bobo_doll_experiment": "",
+"Insight_learning": "",
+"Behavior_modification": "",
+"Applied_behavior_analysis": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15625,7 +15645,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Golgi_apparatus": "1898",
 "Gate_control_theory": "1965",
 "Ponzo_illusion": "1911",
-"Müller-Lyer_illusion": "1889"
+"Müller-Lyer_illusion": "1889",
+"Learned_helplessness": "1967",
+"Instinctive_drift": "1961",
+"Latent_learning": "1929",
+"Cognitive_map": "1948",
+"Albert_Bandura": "1925–2021",
+"Bobo_doll_experiment": "1961"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22455,7 +22481,19 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Figure–ground_(perception)": ["figure–ground organisation","figure and ground"],
 "Subjective_constancy": ["perceptual constancy"],
 "Ambiguous_image": ["ambiguous figures","ambiguous figure"],
-"Impossible_object": ["impossible figures","impossible figure"]
+"Impossible_object": ["impossible figures","impossible figure"],
+"Reinforcement_(psychology)": ["positive reinforcement"],
+"Punishment_(psychology)": ["positive punishment","negative punishment"],
+"Shaping_(psychology)": ["successive approximation","successive approximations"],
+"Schedules_of_reinforcement": ["schedule of reinforcement","reinforcement schedule"],
+"Partial_reinforcement_extinction_effect": ["partial reinforcement effect"],
+"Secondary_reinforcer": ["conditioned reinforcer","secondary reinforcement","conditioned reinforcement"],
+"Avoidance_learning": ["avoidance conditioning"],
+"Observational_learning": ["learning by observation"],
+"Albert_Bandura": ["Bandura"],
+"Bobo_doll_experiment": ["Bobo doll experiments","Bobo doll studies"],
+"Behavior_modification": ["behaviour modification"],
+"Applied_behavior_analysis": ["applied behaviour analysis"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33214,7 +33252,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ames_room": ["object","psychology","perception","vision","illusion"],
 "Moon_illusion": ["concept","psychology","perception","vision","illusion"],
 "Ambiguous_image": ["concept","psychology","perception","vision","illusion"],
-"Impossible_object": ["concept","psychology","perception","vision","illusion"]
+"Impossible_object": ["concept","psychology","perception","vision","illusion"],
+"Reinforcement_(psychology)": ["concept","psychology","science","learning","behaviourism"],
+"Negative_reinforcement": ["concept","psychology","science","learning","behaviourism"],
+"Punishment_(psychology)": ["concept","psychology","science","learning","behaviourism"],
+"Shaping_(psychology)": ["concept","psychology","science","learning","behaviourism"],
+"Schedules_of_reinforcement": ["concept","psychology","science","learning","behaviourism"],
+"Partial_reinforcement_extinction_effect": ["concept","psychology","science","learning","behaviourism"],
+"Secondary_reinforcer": ["concept","psychology","science","learning","behaviourism"],
+"Token_economy": ["practice","psychology","science","learning","behaviourism","mental health"],
+"Avoidance_learning": ["concept","psychology","science","learning","anxiety"],
+"Learned_helplessness": ["concept","psychology","science","learning","depression"],
+"Stressor_controllability": ["concept","psychology","science","learning","neuroscience"],
+"Instinctive_drift": ["concept","psychology","science","learning","behaviourism","evolution"],
+"Latent_learning": ["concept","psychology","science","learning","cognition"],
+"Cognitive_map": ["concept","psychology","science","learning","neuroscience","cognition"],
+"Observational_learning": ["concept","psychology","science","learning","social psychology"],
+"Albert_Bandura": ["person","psychology","science","history","united states","learning"],
+"Bobo_doll_experiment": ["event","psychology","science","history","learning","aggression"],
+"Insight_learning": ["concept","psychology","science","learning","cognition"],
+"Behavior_modification": ["practice","psychology","science","behaviourism","mental health"],
+"Applied_behavior_analysis": ["practice","psychology","science","behaviourism","autism"]
 });
 
 /* ============================================================================

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7630 | the title is the article |
-| `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
+| `ok` | 7641 | the title is the article |
+| `redirect-variant` | 466 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 749 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 750 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 178 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
-| `none` | 1133 | nothing matched; no link |
+| `none` | 1135 | nothing matched; no link |
 
-**8959 of 10440 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8974 of 10460 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (749)
+## Redirected to a differently named article — check each (750)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -1084,7 +1084,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (175)
+## Section redirects — no dedicated page (178)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1198,6 +1198,9 @@ Wikipedia treats these as part of another article. No link.
 - `ps-367` **primary visual cortex** — `Primary visual cortex` only redirects into `Visual cortex#Primary visual cortex (V1)`
 - `ps-380` **monocular depth cues** — `Monocular depth cues` only redirects into `Depth perception#Monocular cues`
 - `ps-411` **perceptual organisation** — `Perceptual organization` only redirects into `Optical illusion#Perceptual organization`
+- `ps-442` **negative reinforcement** — `Negative reinforcement` only redirects into `Reinforcement#Negative reinforcement`
+- `ps-445` **schedules of reinforcement** — `Schedules of reinforcement` only redirects into `Reinforcement#Intermittent reinforcement schedules`
+- `ps-447` **secondary reinforcer** — `Secondary reinforcer` only redirects into `Reinforcement#Primary and secondary reinforcers`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -1264,7 +1267,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1133)
+## No article found (1135)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2150,6 +2153,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-410` **vestibular and proprioceptive senses** — search suggests `Proprioception`, `Perception`, `Somatosensory system`, `Acrophobia`, `Sensory processing disorder`
 - `ps-412` **Gestalt principles of grouping** — search suggests `Principles of grouping`, `Gestalt psychology`, `Figure–ground (perception)`, `Kurt Koffka`, `Michael Kubovy`
 - `ps-413` **figure–ground organisation** — search suggests `Gestalt psychology`, `Johan Wagemans`, `Carl Jung`, `Theory of indispensable attributes`, `Islamic State`
+- `ps-446` **partial reinforcement extinction effect** — search suggests `Reinforcement`, `Extinction (psychology)`, `Punishment (psychology)`, `Self-administration`, `Rescorla–Wagner model`
+- `ps-451` **stressor controllability** — search suggests `Psychological stress`, `Occupational stress`, `Psychology`, `Locus of control`, `Stress management`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`
