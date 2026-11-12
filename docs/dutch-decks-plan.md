@@ -5,7 +5,7 @@ Dutch set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose pip
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Create a Dutch language collection."
 
-**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/dutch/`, §6–§10). The phrases deck (Phase 3) is not.
+**STATUS (2026-11-12): the plan is complete** — all five levels, A1 to C1, and the phrases deck (`.claude/dutch/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Dutch to the day's
@@ -32,6 +32,7 @@ for any deck this plan produces. The collection's first commit carried one (addi
 | Dutch B1 Intermediate — built | `Dutch-B1.folio-deck.json` | 1,000 |
 | Dutch B2 Upper Intermediate — built | `Dutch-B2.folio-deck.json` | 1,500 |
 | Dutch C1 Advanced — built | `Dutch-C1.folio-deck.json` | 1,500 |
+| Dutch Phrases and Expressions — built | `Dutch-Phrases-and-Expressions.folio-deck.json` | 918 |
 
 ## 2. Sources and licences
 
@@ -89,7 +90,7 @@ card does not show one.
 ## 5. Phases
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
-inventory into `inventory.py` and its `SCOPE` into `dutch_level.py`, run, read every card. **Phase 3** — a
+inventory into `inventory.py` and its `SCOPE` into `dutch_level.py`, run, read every card. **Phase 3 (done, §11)** — a
 phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas: `tot ziens`, `eet smakelijk`).
 
 ## 6. As built (2026-11-09): A1
@@ -187,3 +188,44 @@ plurals (`ramen`, `tranen`, `gebaren`, `ploegen` …), nominalised forms (`Ierse
 names, English, interjections, two insults and two crude words — and **four more pointer-only entries
 that printed an empty English side** (`inmiddels`, `esthetiek`, `luidens`, glossed in `build_deck.py`;
 `hemeltje`, excluded) plus `dergelijke` (excluded). `koolstofdioxide` had "nc" (`GENDER_FIX`: het).
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/dutch/run.py --level phr` runs `phrases.py` in place of `select.py` (adapted from
+`.claude/hindi/phrases.py`). **918 expressions in three subdecks**, the Indonesian, Turkish and Hindi
+arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **306 Phrases** (Wiktionary's multi-word phrases,
+prepositional phrases and interjections not tagged idiomatic — `weet je`, `het spijt me`, `tot nu toe`,
+`graag gedaan`), **543 Idioms** (a multi-word entry with a sense tagged idiomatic — `van plan zijn`, `in de
+steek laten`, `pijpenstelen regenen`) and **69 Proverbs** (Wiktionary's part of speech). Nothing a level
+teaches is repeated. 344 occur in a Tatoeba sentence; 344 have sentences, 167 three. A re-run is
+byte-identical, and every level rebuilt by the changed code is byte-identical too.
+
+**Findings:**
+- **THE VERB MOVES, so an expression that is a verb is matched with its verb anywhere near** — the Dutch
+  form of the Turkish and Hindi finding. A main clause puts the finite verb second, away from the rest of
+  its expression (`in de steek laten` → "Ze LIETEN Tom in de steek"; `om het leven komen` → "Tom KWAM bij
+  een auto-ongeluk om het leven"), so `examples.phrase_parts` / `phrase_hit` match the other words in
+  sequence and any form of the verb within eight words, before or after. The phrases deck ONLY: the level
+  decks keep their exact matching and rebuild unchanged.
+- **DUTCH WORDS ONLY.** Wiktionary's Dutch section files the Latin and French tags Dutch writing borrows
+  (`in vitro`, `al dente`, `s'il vous plaît`, `mea culpa`): an expression is kept only when every word is a
+  Dutch headword or a form in one (`_dutch`), which left out 140; two that pass the test because each word
+  is also a Dutch spelling are excluded by hand (`crème de la crème`, `nota bene`).
+- **A POINTER-ONLY ENTRY IS THE SAME EXPRESSION TWICE.** Twelve entries were only "synonym of …" (`in elk
+  geval` → in ieder geval, `gelukkige feestdagen` → fijne feestdagen); printed, each was an empty English
+  side, which the shelf's dedupe pass then labelled "not …" against the others. `phrases.POINTER` drops such
+  a sense, and with it Wiktionary's literal-sense note "Used other than figuratively or idiomatically: see
+  …", which `build_deck.NOT_A_MEANING` also keeps off every card.
+- **Wiktionary's Dutch phrases include a phrasebook** (`ik heb een taxi nodig`, `ik eet geen vis`, `hoe kom
+  ik bij het station`, `ik ben vegetariër`): 70 such sentences go by the Turkish and Hindi rule, listed in
+  `phrases.EXCLUDE`; the questions and formulas stay (`hoe gaat het`, `hoe laat is het`, `waar kom je
+  vandaan`, `wat kan ik voor u doen`, `ik heb slaap`). Also excluded, each with its reason: proverb variants
+  (one form kept), three exclamations the level decks keep out (`in godsnaam` …), sexual or crude idioms,
+  two eggcorns and a spoonerism, two whose Tatoeba sentences are all literal (`het gaat`, `mijn voeten`),
+  and one built on a racial image.
+- The check does not ask an article of a multi-word expression filed as a noun (`schering en inslag`).
+
+**Known, left.** 574 expressions have no sentence: idioms are literary where Tatoeba is conversational, as
+every phrases deck on the shelf records. Synonymous expressions are kept side by side (`buiten westen`,
+`buiten bewustzijn`, `buiten kennis`), the dedupe pass labelling their shared English. Some regional and
+dated expressions are kept as Wiktionary gives them (`beneden de Moerdijk`, `in dezer voege`).

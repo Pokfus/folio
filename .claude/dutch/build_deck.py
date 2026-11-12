@@ -166,7 +166,10 @@ MONTHS = set('januari februari maart april mei juni juli augustus september okto
 NO_FORMS = MONTHS | {'alleen', 'oké', 'oranje', 'Nederlands', 'Engels'}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
-NOT_A_MEANING = re.compile(r'^\*?\s*see:|^synonym of |^(?:inflection|plural|diminutive) of \S+$', re.I)
+# (the phrases deck) Wiktionary's note on an expression's literal sense, "Used other than
+# figuratively or idiomatically: see op, die, fiets.", is a pointer too.
+NOT_A_MEANING = re.compile(r'^\*?\s*see:|^synonym of |^(?:inflection|plural|diminutive) of \S+$'
+                           r'|^used other than figuratively', re.I)
 
 
 def entries_for(row, lex):
@@ -361,7 +364,7 @@ def build(rows, lex, exs):
         art = ARTICLE.get(main['gender'], '') if main['pos'] == 'noun' else ''
         head = (f'<span class="uc-art">{E(art)}</span> ' if art else '') + E(word)
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Dutch': head,
             'IPA': E(ipa),
             'Word': word,
@@ -372,7 +375,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'ipa': bool(ipa)})
+                        'examples': len(ex), 'ipa': bool(ipa), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -418,6 +422,41 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Dutch set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Dutch → English (see the Dutch, recall the "
+        "meaning) and English → Dutch (see an English meaning, recall the Dutch) — each with a schedule "
+        "of its own. This is a companion to the five level decks, Dutch A1 to C1, and not one of them: "
+        "a level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the five, so the two can be studied together without repeating an "
+        "entry. The PHRASES are the expressions Wiktionary files as phrases and does not mark as "
+        f"idiomatic — mostly the everyday formulas a Dutch speaker uses as one piece ({eg('Phrases')} …), "
+        "with the greetings for the holidays and some sayings Wiktionary files the same way. The IDIOMS "
+        f"are expressions whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS the "
+        f"sayings Wiktionary files as proverbs ({eg('Proverbs')} …). Only expressions made of Dutch words "
+        "are here: the Latin and French tags Dutch writing borrows (in vitro, mea culpa) are left out. "
+        "Within each subdeck the expressions come in the order of how many of Tatoeba's Dutch sentences "
+        "contain them — an expression that is a verb being counted with its verb in any form and in "
+        "either place, since a Dutch main clause moves the verb away from the rest (in de war zijn: "
+        f"ik ben helemaal in de war) — and only {found} of the {n} are found there at all; the rest "
+        "follow in the order of how common their words are in film and television subtitles. Every "
+        "expression has Wiktionary's pronunciation beneath it where Wiktionary gives one. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, pronunciation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -428,11 +467,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['dutch', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['dutch', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['dutch', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Dutch vocabulary', 'speechLang': 'nl-NL',
