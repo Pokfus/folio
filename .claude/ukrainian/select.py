@@ -60,6 +60,21 @@ EXCLUDE = {
     'вбити': "Wiktionary's entry is only 'to drive in'; the subtitles' count is 'to kill', which it files under убити",
     'паня': "a dated 'lady' whose table holds пані and пане, which have cards of their own",
     'піт': "'sweat', whose table holds по́том, the spelling of Russian потом 'later'",
+    # Read off the A2 ranking (2026-11-12).
+    'варта': "'guard', whose count is its vocative ва́рто, the spelling of варто 'it is worth'",
+    'жалити': "'to sting', whose own forms count 2 of its 858: the rest are forms it shares with others",
+    'ту': "a dialectal 'here', whose count is ту, the feminine accusative of той (on A1)",
+    'папа': "'pope', whose count is папа 'dad'",
+    'нико': "a dialectal 'nobody' whose table holds нико́го, the spelling of Russian никого",
+    'боб': "'bobsled', whose count is the name Bob",
+    'муж': "Russian 'husband'; Ukrainian чоловік, on A1",
+    'мужчина': "Russian 'man'; Ukrainian чоловік, on A1",
+    'дальше': "Russian 'further'; Ukrainian далі, which the fill takes",
+    'готовити': "counted from Russian готовить; Ukrainian готувати, on A1",
+    'явитися': "Russian явиться, glossed only 'to show'; Ukrainian з'явитися",
+    'зрозумів': "the past tense of зрозуміти, which the fill takes",
+    'вітаю': "the я-form of вітати, which the inventory takes",
+    'побачення': "'date, meeting', counted from до побачення, which is on a card of its own",
 }
 
 SWEARS = {'блядь', 'бля', 'хуй', 'пизда', 'сука', 'срака', 'дупа', 'гівно', 'лайно', 'курва',

@@ -75,6 +75,8 @@ ETYMS = {
 POS_FIRST = {'так': 'intj', 'гаразд': 'intj', 'привіт': 'intj'}
 # A PART OF SPEECH LEFT OFF, where it is a different, rarer word spelt the same.
 DROP_POS = {'під': {'noun'}}         # "pit, cavity" beside the preposition "under"
+# ONE ENTRY BY ITS GLOSS, where two etymologies share Wiktionary's blank etymology number.
+ENTRY_WITH = {'дружина': 'wife'}     # not the prince's "band, troop" of Rus
 # Wiktionary files these impersonal predicatives as adjectives; the card says what they are.
 PREDICATIVE = {'треба', 'можна', 'потрібно', 'ніколи', 'досить', 'чудово', 'шкода', 'варто'}
 
@@ -100,6 +102,9 @@ def entries_for(row, lex):
     if row['pos']:
         ents = [e for e in ents if e['pos'] == row['pos']] or ents
     ents = [e for e in ents if e['pos'] not in DROP_POS.get(L['word'], ())] or ents
+    if L['word'] in ENTRY_WITH:
+        ents = [e for e in ents if any(g['g'] == ENTRY_WITH[L['word']] for g in e['glosses'])] \
+            or ents
     groups = []
     for e in ents:
         if e.get('etym', '') not in groups:
@@ -354,7 +359,7 @@ def desc(entries, n):
         "Both study directions in one deck: Ukrainian → English (see the Ukrainian, recall the "
         "meaning) and English → Ukrainian (see an English meaning, recall the Ukrainian). Each "
         "direction is a card of its own with its own schedule, so recognising a word and producing "
-        f"it are learnt separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the "
+        f"it are learnt separately. {n} words for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'a learner'}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

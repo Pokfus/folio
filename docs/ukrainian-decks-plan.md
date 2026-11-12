@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Ukrainian language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/ukrainian/`, §6). A2 to C1 and a phrases
-deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/ukrainian/`, §6, §7). B1 to C1 and a
+phrases deck are not.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -30,7 +30,7 @@ already use, and the owner may overrule any of it:
 |---|---|---|
 | Ukrainian Alphabet — built | `Ukrainian-Alphabet.folio-deck.json` | 34 (33 letters and the apostrophe) |
 | Ukrainian A1 Beginner — built | `Ukrainian-A1.folio-deck.json` | 500 |
-| Ukrainian A2 Elementary | `Ukrainian-A2.folio-deck.json` | 750 |
+| Ukrainian A2 Elementary — built | `Ukrainian-A2.folio-deck.json` | 750 |
 | Ukrainian B1 Intermediate | `Ukrainian-B1.folio-deck.json` | 1,000 |
 | Ukrainian B2 Upper Intermediate | `Ukrainian-B2.folio-deck.json` | 1,500 |
 | Ukrainian C1 Advanced | `Ukrainian-C1.folio-deck.json` | 1,500 |
@@ -98,3 +98,18 @@ level's inventory into `inventory.py` and its `SCOPE` into `ukrainian_level.py`,
 letter, a missing or doubled stress mark, a stressed speaker field, unbalanced HTML, a shared English side). **A
 re-run is byte-identical** (verified). A1: 500 notes, 377 from the inventory and 123 by frequency; three sentences
 for all 500. The shelf's hue is measured: `#9F4500`, 15.8 from its nearest of 58 (re-swept at the merge: its first sweep's `#2A8424` was Arabic's too).
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/ukrainian/run.py --level a2`. 750 notes: 442 from the A2 inventory (`inventory.py`: relatives,
+jobs and study, clothes, food and cooking, the home, the town, travel, nature and the compass, animals, health,
+feelings, free time, time words, the higher numbers and measures, everyday verbs) and 308 by frequency, none taught
+in A1; sentences for 745, three apiece for 730. The A2 `SCOPE` quotes the CEFR A2 global descriptor. Seven inventory
+words Wiktionary lacks as lemmas were dropped (`ліцей`, `студентка`, `вчителька`, `перон`, `Великдень`, `Різдво`,
+`пізніше`); `сором'язливий` is a pointer entry, so the inventory takes `соромливий`. New from reading the ranking:
+`select.EXCLUDE` grew by fourteen (a vocative or a name taking a count — `варта`/`варто`, `боб`/Bob, `папа`; Russian
+words — `муж`, `мужчина`, `дальше`, `готовити`, `явитися`, `нико`; forms with cards of their own — `зрозумів`,
+`вітаю`, `побачення`), and `ENTRY_WITH` in `build_deck.py` picks one entry by its gloss where two etymologies share
+a blank etymology number (`дружина` "wife", not the prince's band). **A1 rebuilds byte-identical and so does A2.**
+Known, left: the fill keeps the subtitles' `чувак`, `біс`, `коп`, `наркотик`, as A1 kept `чорт`; `дружина` is
+labelled "masculine or feminine", Wiktionary's own.
