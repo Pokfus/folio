@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Vietnamese language collection."
 
-**STATUS (2026-11-12): the alphabet-and-tones deck and every level, A1 to C1, are built** (`.claude/vietnamese/`,
-§6–§10). The phrases deck is not.
+**STATUS (2026-11-12): the whole plan is built** — the alphabet-and-tones deck, every level A1 to C1, and the
+phrases deck (`.claude/vietnamese/`, §6–§11). A combined file (Phase 4) is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it also
@@ -36,7 +36,7 @@ owner's most recent decisions for a language with no published list — and are 
 | Vietnamese B1 Intermediate — built | `Vietnamese-B1.folio-deck.json` | 1,000 |
 | Vietnamese B2 Upper Intermediate — built | `Vietnamese-B2.folio-deck.json` | 1,500 |
 | Vietnamese C1 Advanced — built | `Vietnamese-C1.folio-deck.json` | 1,500 |
-| Vietnamese Phrases and Expressions | `Vietnamese-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Vietnamese Phrases and Expressions — built | `Vietnamese-Phrases-and-Expressions.folio-deck.json` | 542 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -94,7 +94,7 @@ every subtitle-ordered deck on the shelf does. One of A1's 500 words (`bún`) ha
 
 **Phase 1 (done)** — the pipeline, the alphabet-and-tones deck, A1. **Phase 2** — A2 to C1, one level per session:
 write the level's inventory into `inventory.py` and its `SCOPE` into `vietnamese_level.py`, run, read every card.
-**Phase 3** — the phrases deck (`phrase` / `proverb` entries). **Phase 4** — a combined file, gitignored.
+**Phase 3 (done)** — the phrases deck (`phrase` / `proverb` entries and idiomatic senses, §11). **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet-and-tones deck and A1
 
@@ -229,4 +229,38 @@ What reading every card found, each fixed in the generator with its reason:
 **Known, left.** Nearly half of C1 has no sentence. The fill still leans to the subtitles' war, crime and fantasy
 words (`ngư lôi`, `thây ma`, `đầu đạn`); the inventory carries the formal register. `hiếp dâm` / `hãm hiếp` "to rape"
 are kept as the legal and news vocabulary they are.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck". `python3 .claude/vietnamese/run.py --level phr` runs `phrases.py` in
+place of `select.py`; `examples.py` is unchanged, and `build_deck.py` gains the subdeck field, `desc_phr` and the
+`phr` branch of its metadata (the Hindi set's shape). 542 expressions in three subdecks, the Hindi, Indonesian and
+Turkish arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **181 Phrases** (Wiktionary's phrases and
+interjections not tagged idiomatic — `không có gì`, `chào buổi sáng`, `hẹn gặp lại`), **313 Idioms** (any sense tagged
+idiomatic, whatever its part of speech; 231 of them are four-syllable thành ngữ — `ăn miếng trả miếng`, `nước mắt cá
+sấu`) and **48 Proverbs** (`thùng rỗng kêu to`). Nothing the five levels teach is repeated (`words_below`, widened by
+the `alt_of` pointers as the levels are). Ordered by the count of Tatoeba sentences holding the expression, syllable
+for syllable, then by the subtitle count, then spelling: only 49 are in Tatoeba at all, and 49 carry a sentence. The
+five levels and the alphabet-and-tones deck rebuild byte-identical; a re-run is byte-identical.
+
+- **A SPACE IS NOT THE TEST.** Vietnamese writes a space inside one word (`học sinh`), so "more than one word" cannot be
+  read off the spaces as the Hindi script reads it. A row is an expression only by Wiktionary's part of speech
+  (`phrase`, `intj`, `proverb`) or its idiomatic tag — `thẻ tín dụng` is multi-syllable and not here.
+- **The levels' filters apply**: no weak sense counts, the sum-of-parts pointer is never a meaning, any expression
+  holding one of `select.SWEARS` is out, and `select.EXCLUDE` is honoured as well as the deck's own `EXCLUDE`.
+- **Excluded with reasons**: phrasebook sentences built from level words (`anh yêu em`, `em yêu anh`, `tôi là người
+  Việt`, `cái này là gì` …, the Hindi rule), a political slogan (`từ sông ra biển`), swears, curses and slurs (`đụ mẹ`,
+  `chó đểu`, `quỷ tha ma bắt`, `trời đánh`, `cái búa`, `gái bán hoa`, `gái đứng đường` …), `rỗng như đít Bụt` (crude),
+  `đáng đời` / `đáng kiếp` (Wiktionary's gloss is an unexpanded template, "serves objective case pronouns right"), `a men`
+  (B2 teaches `amen`), `trầu quơ` (a regional form of B1's `trời ơi`).
+- **VARIANT SPELLINGS OF ONE INTERJECTION ARE ONE CARD**: `mèng ơi` came with `chèng ơi`, `chèng đéc ơi` and `mèng đéc
+  ơi`, and the shelf's uniqueness pass labelled each "not …, not …, not …". The commonest is kept and the rest are in
+  `EXCLUDE` (`ạ ơi`, `ái dà`, `bính bong`, `ụt ịt` …). An idiom's or proverb's alternate WORDING is kept and labelled —
+  `đứng núi này trông núi kia` / `… nọ`, `trăm trận trăm thắng` / `bách chiến bách thắng` are different sayings, not
+  spellings.
+
+**Known, left.** 493 of 542 expressions have no sentence: Tatoeba's 22,000 Vietnamese sentences hold few idioms.
+Some proverbs share a meaning and are labelled apart by the uniqueness pass (`một công đôi việc`, `nhất cử lưỡng
+tiện`, `nhất tiễn song điêu`). A few Wiktionary glosses are literal before figurative (`thuận buồm xuôi gió` "the sail
+gets smoothly carried away by the wind; smooth sailing").
 

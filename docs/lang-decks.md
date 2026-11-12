@@ -3525,8 +3525,9 @@ changed was the one that had been wrong all along.
   language collection"; the Hindi set's decisions taken as the default). **Built: the alphabet and tones,
   `decks/Vietnamese-Alphabet-and-Tones.folio-deck.json`** (35 notes) **and A1, `decks/Vietnamese-A1.folio-deck.json`**
   (500 notes / 1,000 cards) **and A2, `decks/Vietnamese-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Vietnamese-B1.folio-deck.json`** (1,000 / 2,000)
-  **B2, `decks/Vietnamese-B2.folio-deck.json`** (1,500 / 3,000) **and C1, `decks/Vietnamese-C1.folio-deck.json`** (1,500 / 3,000;
-  all 2026-11-12, findings in the plan's §7–§10). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
+  **B2, `decks/Vietnamese-B2.folio-deck.json`** (1,500 / 3,000) **C1, `decks/Vietnamese-C1.folio-deck.json`** (1,500 / 3,000)
+  **and the phrases deck, `decks/Vietnamese-Phrases-and-Expressions.folio-deck.json`** (542 / 1,084, three subdecks; `--level phr`,
+  `phrases.py`; all 2026-11-12, findings in the plan's §7–§11). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
   `node .claude/vietnamese/check-vietnamese.js`; a re-run is byte-identical. The UKBI / Hindi shape (no published
   list: a topic inventory plus frequency). **What is new: Vietnamese spaces syllables, not words**, so the frequency
   is counted by segmenting the OPUS subtitles against Wiktionary's headwords rather than read off hermitdave's list
