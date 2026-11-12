@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2e825c69f0238fce","counts":{"terms":935,"points":698,"countries":237,"windows":1458,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"644dd2dd9d87cb49","counts":{"terms":937,"points":700,"countries":237,"windows":1460,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -106,6 +106,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2e825c69f0238fce","counts":
 "Bolivia":"adm0:bol",
 "Borobudur":"pl:q42798",
 "Bosnia_and_Herzegovina":"adm0:bih",
+"Boston":"city:1159151239",
 "Botswana":"adm0:bwa",
 "Braunau_am_Inn":"pl:q131128",
 "Brazil":"adm0:bra",
@@ -689,6 +690,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2e825c69f0238fce","counts":
 "Republic_of_Karelia":"adm1:rus:ru-kr",
 "Republic_of_the_Congo":"adm0:cog",
 "Rhode_Island":"adm1:usa:us-ri",
+"Richmond":"city:1159149295",
 "Rio_Grande":"river:1159111317",
 "Rocky_Mountains":"reg:1159104311",
 "Romania":"adm0:rou",
@@ -1104,6 +1106,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2e825c69f0238fce","counts":
 "Bosporan_Kingdom":[38.364,45.94,"polity","pol:bosporus",371,14.47],
 "Bosporus":[29.08,41.12,"coord",0,0,0],
 "Bosten_Lake":[87,42,"coord",0,0,0],
+"Boston":[-71.072,42.332,"city",0,0,0],
 "Botswana":[24.18,-22.1,"country","adm0:bwa",0,7.52],
 "Braunau_am_Inn":[13.033,48.258,"city",0,0,0],
 "Brazil":[-49.56,-12.1,"country","adm0:bra",0,1.58],
@@ -2014,6 +2017,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2e825c69f0238fce","counts":
 "Republic_of_the_Congo":[15.9,0.14,"country","adm0:cog",0,7.85],
 "Rhine":[4.093,51.981,"coord",0,0,0],
 "Rhode_Island":[-71.508,41.624,"admin1","adm1:usa:us-ri",0,40],
+"Richmond":[-77.452,37.552,"town",0,0,0],
 "Rio_Grande":[-104.681,30.134,"river",0,0,0],
 "Road_of_Life":[31.5,61,"coord",0,0,0],
 "Roanoke_Colony":[-75.661,35.889,"coord",0,0,0],

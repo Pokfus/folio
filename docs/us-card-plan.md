@@ -974,22 +974,22 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-300  Federalist Papers
     us-301  Federalist No. 10
     us-302  Anti-Federalism
-    us-303  The ratification debate
-    us-304  The state ratifying conventions
+    us-303  Massachusetts Compromise
+    us-304  Virginia Ratifying Convention
     us-305  United States Bill of Rights
     us-306  First Amendment
     us-307  Second Amendment
-    us-308  The rights of the accused
-    us-309  What the Constitution left unsettled
-    us-310  The silences of the Constitution
+    us-308  Fifth Amendment
+    us-309  Tenth Amendment
+    us-310  Ninth Amendment
 
 ### The early republic — `us-early-republic`
 
-    us-311  The presidency of George Washington
-    us-312  The first cabinet
+    us-311  Presidency of George Washington
+    us-312  Cabinet of the United States
     us-313  Judiciary Act of 1789
-    us-314  Hamilton's financial programme
-    us-315  The assumption of the state debts
+    us-314  First Report on the Public Credit
+    us-315  Compromise of 1790
     us-316  First Bank of the United States
     us-317  Whiskey Rebellion
     us-318  First Party System
@@ -998,48 +998,48 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-321  Jay Treaty
     us-322  Pinckney's Treaty
     us-323  Washington's Farewell Address
-    us-324  The presidency of John Adams
+    us-324  Presidency of John Adams
     us-325  Quasi-War
     us-326  XYZ Affair
     us-327  Alien and Sedition Acts
     us-328  Kentucky and Virginia Resolutions
     us-329  1800 United States presidential election
-    us-330  The revolution of 1800
+    us-330  Twelfth Amendment
     us-331  Marbury v. Madison
     us-332  Judicial review in the United States
     us-333  John Marshall
-    us-334  The peaceful transfer of power
-    us-335  The republic in 1800
+    us-334  First inauguration of Thomas Jefferson
+    us-335  1800 United States census
 
 ## Expansion and Division, 1800–1860
 
 ### Jefferson, Madison and the War of 1812 — `us-jefferson`
 
-    us-336  The presidency of Thomas Jefferson
+    us-336  Presidency of Thomas Jefferson
     us-337  Louisiana Purchase
-    us-338  The constitutional problem of the Purchase
+    us-338  Strict construction
     us-339  Lewis and Clark Expedition
     us-340  Sacagawea
     us-341  Barbary Wars
     us-342  Aaron Burr
     us-343  Burr conspiracy
     us-344  Embargo Act of 1807
-    us-345  The presidency of James Madison
-    us-346  The causes of the War of 1812
+    us-345  Presidency of James Madison
+    us-346  Orders in Council
     us-347  Impressment
     us-348  War Hawks
     us-349  War of 1812
-    us-350  The invasion of Canada, 1812
+    us-350  Siege of Detroit
     us-351  Battle of Lake Erie
     us-352  Burning of Washington
-    us-353  Battle of Baltimore and the national anthem
+    us-353  Battle of Baltimore
     us-354  Battle of New Orleans
-    us-355  The rise of Andrew Jackson
+    us-355  Creek War
     us-356  Treaty of Ghent
     us-357  Hartford Convention
-    us-358  The end of the Federalist Party
+    us-358  1816 United States presidential election
     us-359  Era of Good Feelings
-    us-360  The presidency of James Monroe
+    us-360  Presidency of James Monroe
     us-361  Monroe Doctrine
     us-362  Panic of 1819
     us-363  Missouri Compromise
@@ -1048,40 +1048,40 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
 
     us-364  Market Revolution
     us-365  Erie Canal
-    us-366  Steamboats and the western rivers
-    us-367  The first American railroads
+    us-366  New Orleans (steamboat)
+    us-367  Baltimore and Ohio Railroad
     us-368  Lowell mill girls
     us-369  American System
     us-370  Henry Clay
     us-371  Tariff of Abominations
     us-372  1824 United States presidential election
     us-373  Corrupt bargain
-    us-374  The presidency of John Quincy Adams
-    us-375  The rise of mass democracy
-    us-376  The expansion of the franchise
+    us-374  Presidency of John Quincy Adams
+    us-375  Anti-Masonic Party
+    us-376  New York Constitutional Convention of 1821
     us-377  Second Party System
     us-378  Democratic Party (United States)
     us-379  Whig Party (United States)
-    us-380  The presidency of Andrew Jackson
+    us-380  Presidency of Andrew Jackson
     us-381  Spoils system
     us-382  Nullification crisis
     us-383  John C. Calhoun
     us-384  Bank War
     us-385  Second Bank of the United States
     us-386  Panic of 1837
-    us-387  The presidency of Martin Van Buren
-    us-388  The log cabin campaign of 1840
-    us-389  The limits of Jacksonian democracy
-    us-390  What Jacksonian democracy is argued to have been
+    us-387  Presidency of Martin Van Buren
+    us-388  Log cabin campaign
+    us-389  Appeal of Forty Thousand Citizens
+    us-390  Jacksonian democracy
 
 ### Expansion and Manifest Destiny — `us-expansion`
 
     us-391  Manifest destiny
     us-392  Oregon Trail
-    us-393  The overland migrations
+    us-393  California Trail
     us-394  Mormon pioneers
-    us-395  Joseph Smith and the Latter Day Saint movement
-    us-396  Brigham Young and the settlement of Utah
+    us-395  Joseph Smith
+    us-396  Brigham Young
     us-397  Texas Revolution
     us-398  Battle of the Alamo
     us-399  Republic of Texas
