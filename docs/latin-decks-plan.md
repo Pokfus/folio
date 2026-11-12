@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Latin language collection."
 
-**STATUS (2026-11-12): A1 to B2 are built** (`.claude/latin/`, §6–§9). C1 and the phrases deck are not.
+**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/latin/`, §6–§10). The phrases and mottos deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -30,7 +30,7 @@ it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
 | Latin A2 Elementary — built | `Latin-A2.folio-deck.json` | 750 |
 | Latin B1 Intermediate — built | `Latin-B1.folio-deck.json` | 1,000 |
 | Latin B2 Upper Intermediate — built | `Latin-B2.folio-deck.json` | 1,500 |
-| Latin C1 Advanced | `Latin-C1.folio-deck.json` | 1,500 |
+| Latin C1 Advanced — built | `Latin-C1.folio-deck.json` | 1,500 |
 | Latin Phrases and Mottos | `Latin-Phrases-and-Mottos.folio-deck.json` | what the levels leave |
 
 ## 2. Sources and licences
@@ -101,7 +101,7 @@ as long-winded as Wiktionary's (`num`).
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `latin_level.py`, run, read every card; decide the corpus
 count (§2) before the DCC list runs out. **Phase 3** — the phrases and mottos deck. **Phase 4** — a combined
 file, gitignored.
@@ -212,3 +212,33 @@ adverb, `attonitus` participle, `luxus` noun), `LEAD` +1 (`mināx` "threatening"
 
 **For C1**: it fills wholly from the count's next 1,500 (below rank ~3,000), where collisions and late or
 rare senses grow; read the ranking before building, and expect Tatoeba to cover barely half the words.
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/latin/run.py --level c1`. 1,500 notes: 150 from the C1 inventory (9 topics, the poets and
+the antiquarians: myth and the poets, ritual and the calendar, the figures of speech, natural history, the
+crafts and their tools, dress, toilet and dining, the vices and virtues of style, the frequentative and
+inchoative verbs, the finer connectives) and 1,350 from the classical count. 1,446 with a dictionary entry
+and a table; **sentences for only 714 (three for 280): Tatoeba has none for 786.** A re-run is
+byte-identical.
+
+**Two general rules in `select.py`, read off C1's ranking**, where Wiktionary's forms-filed-as-lemmas and
+variant spellings had begun to crowd in. They apply to every corpus level:
+- **`meaningful` / `FORM_GLOSS`**: a lemma whose every classical sense is a form's label ("nominative/
+  vocative feminine singular" under `conlāta`, `mandāta`, `inlātum`; "comparative degree" under `acerbius`)
+  is not offered. **`gerundive`**: nor a participle-only lemma in -ndus (`līberandus`, `vāstandus`).
+- **`twin` / `ASSIMILATE`**: an unassimilated spelling is not offered where its assimilated twin is a lemma
+  (`inruō` / `irruō`, `conlāpsus`, `adfīnitās` / `affīnitās`). This changed ONE word of B2, which was
+  rebuilt: `adfīnitās` out (its usual spelling `affīnitās` is now taught at C1), `seorsus` in. A1, A2 and B1
+  are unchanged.
+
+Dropped from the inventory as not in Wiktionary as a lemma (or capitalised): `faunus`, `lemurēs`,
+`Tartarus`, `styx`, `fāstī`, `vestālis`, `tūs`, `allēgoria`, `hyperbolē`, `antithesis`, `periphrasis`,
+`hippopotamus`, `balaena`, `fullō`, `garum`, `facētiae` and others (printed by `select.py`). `EXCLUDE` +12
+(`pedō`, `cinaedus`, `īdos`, `fabella`, `quālisque`, `quotiēnsque`, `satin`, `cōnfit`, `relicuum`, `vitula`,
+`dēducta`), `LEAD` +1 (`mūsculus` "muscle").
+
+**Known, left.** Present participles of verbs no level teaches stand as participles (`comāns`, `flāvēns`,
+`radiāns`) — poetic words in their own right. Many C1 words are rare enough that Tatoeba has no sentence;
+classical sentences would need translations Folio does not have under an open licence. Next: Phase 3, the
+phrases and mottos deck.

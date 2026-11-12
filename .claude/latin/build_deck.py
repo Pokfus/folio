@@ -88,6 +88,8 @@ LEAD = {
     'adōrō': 'worship',       # first listed: "to speak to, accost, address"
     # read off B2 (2026-11-12)
     'mināx': 'threatening',   # first listed: "projecting; overhanging"
+    # read off C1 (2026-11-12)
+    'mūsculus': 'muscle',     # first listed: "a companion of the whale"
 }
 
 # THE ONE PART OF SPEECH a card keeps, where Wiktionary files an unrelated sense under

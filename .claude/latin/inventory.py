@@ -362,4 +362,72 @@ B2 = [
                                'repudiō respuō āspernor'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+# C1 (2026-11-12): the CEFR's "a wide range of demanding, longer texts" and their
+# "implicit meaning" -- for a reader of Latin, the poets and the antiquarians: the
+# words of myth and verse, ritual and the calendar, the figures of speech, natural
+# history, the crafts, dress and dining, and the frequentative and inchoative verbs
+# that colour a style.
+C1 = [
+    ('myth and the poets', 'nympha satyrus centaurus monstrum prodigium '
+                           'vātēs mūsa lyra plēctrum laurus thyrsus '
+                           'mānēs umbra lārva īnferiae '
+                           'heros sēmideus dīvus caelicola superī'),
+    ('ritual and the calendar', 'kalendae nōnae īdūs nūndinae nefāstus '
+                                'lūstrum saeculāris lectisternium supplicātiō '
+                                'flāmen haruspex augur pontifex '
+                                'auspicium piāculum expiātiō '
+                                'mola acerra lībāmen lībō immolō '
+                                'fēriae fēstum sacrārium sacellum '
+                                'penātēs'),
+    ('the figures of speech', 'metaphora īrōnīa '
+                              'tropus figūra ōrnātus color '
+                              'sententia exemplum similitūdō '
+                              'barbarismus soloecismus vitium '
+                              'numerus clausula periodus '
+                              'ēlocūtiō prōnūntiātiō memoria inventiō dispositiō'),
+    ('natural history', 'crocodīlus camēlus elephantus '
+                        'pardus panthēra leaena tigris lynx '
+                        'vultur accipiter mīlvus noctua būbō pāvō '
+                        'grūs cicōnia hirundō luscinia cornīx '
+                        'delphīnus ostrea mūrex '
+                        'lacerta vīpera colubra rāna '
+                        'formīca arānea cicāda locusta '
+                        'papāver crocus amāracus thymum '
+                        'cupressus abiēs fraxinus fāgus ornus '
+                        'sulphur nitrum ēlectrum'),
+    ('the crafts and their tools', 'faber ferrārius aerārius figulus textor '
+                                   'sūtor caelātor '
+                                   'incūs malleus forceps līma serra '
+                                   'dolābra tornus '
+                                   'fornāx follis '
+                                   'tēla radius pecten colus fūsus '
+                                   'aēnum lebēs fictilis'),
+    ('dress, toilet and dining', 'lacerna paenula sagum chlamys '
+                                 'stola tunica fascia cingulum '
+                                 'fībula armilla monīle inauris '
+                                 'unguentum fūcus pecten speculum '
+                                 'convīvium cōmissātiō symposium '
+                                 'patina catīnus cyathus crātēr '
+                                 'amphora cadus dōlium '
+                                 'mulsum pōsca'),
+    ('vices and virtues of style', 'urbānitās lepōs venustās '
+                                   'gravitās suāvitās brevitās cōpia '
+                                   'obscūritās perspicuitās '
+                                   'garrulitās loquācitās taciturnitās'),
+    ('colouring verbs', 'dictitō factitō ventitō cursitō volitō '
+                        'clāmitō rogitō lēctitō '
+                        'albēscō rubēscō pallēscō nigrēscō '
+                        'calēscō frīgēscō dūrēscō mollēscō '
+                        'irāscor horrēscō '
+                        'obdormīscō expergīscor'),
+    ('connecting and qualifying', 'quāpropter quōcircā proinde '
+                                  'nihilōminus quamquam quamlibet '
+                                  'utpote quippe nempe scīlicet '
+                                  'praesertim potissimum adeō '
+                                  'ferē paene propemodum ferme '
+                                  'aliquotiēns plērumque nōnnumquam '
+                                  'subinde identidem '
+                                  'utrimque undique usquequāque'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

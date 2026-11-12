@@ -21,7 +21,7 @@ word keeps the entries matching its DCC headword's spelling and part of speech.
 So `mālum` is the apple and never the evil, and the fill's `cum` is the
 preposition AND the conjunction, as the DCC list has both.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from la import fold, tidy, nfc
@@ -64,7 +64,59 @@ EXCLUDE = {
     'dēlicia': 'a builder\'s beam; the word is the plural dēliciae',
     'sexus': 'on a level deck its one sense is dropped, leaving "division"',
     'ocellus': 'only "darling" here',
+    # C1 (2026-11-12)
+    'pedō': '"to furnish with feet", beside pēdō "to fart"',
+    'cinaedus': 'on a level deck',
+    'īdos': 'a Greek word, eidos',
+    'fabella': 'filed with no genitive or gender, so no dictionary entry; fābula (A2) is the word',
+    'quālisque': 'quālis + -que, not a word of its own',
+    'quotiēnsque': 'quotiēns + -que, not a word of its own',
+    'satin': 'satisne, a contraction',
+    'cōnfit': 'the passive of cōnficiō, a form',
+    'relicuum': 'an old spelling of reliquum (reliquus, A2)',
+    'vitula': 'only the goddess here; vitulus (A2) is the calf',
+    'dēducta': 'a participle filed as a noun ("the part deducted")',
 }
+
+
+# A GLOSS THAT IS A FORM'S LABEL, not a meaning (read off C1's ranking): Wiktionary files
+# some inflected forms as lemmas of their own -- `conlāta` "nominative/vocative feminine
+# singular", `acerbius` "more stridently etc.; comparative degree".
+FORM_GLOSS = re.compile(r'^(?:nominative|genitive|dative|accusative|ablative|vocative)\b'
+                        r'|\b(?:comparative|superlative) degree\b', re.I)
+
+# AN UNASSIMILATED SPELLING (C1): `inruō` beside `irruō`, `conlāpsus` beside `collāpsus`,
+# `adfīgō` beside `affīgō` -- the same word, which the count offers in its usual spelling.
+ASSIMILATE = [('inl', 'ill'), ('inr', 'irr'), ('inm', 'imm'), ('inp', 'imp'), ('inb', 'imb'),
+              ('conl', 'coll'), ('conr', 'corr'), ('conm', 'comm'), ('conp', 'comp'),
+              ('conb', 'comb'), ('adf', 'aff'), ('adl', 'all'), ('adr', 'arr'), ('ads', 'ass'),
+              ('adc', 'acc'), ('adg', 'agg'), ('adp', 'app'), ('adt', 'att'), ('adn', 'ann'),
+              ('subm', 'summ'), ('subf', 'suff'), ('subc', 'succ'), ('subg', 'sugg'),
+              ('subp', 'supp'), ('obp', 'opp'), ('obc', 'occ'), ('obf', 'off')]
+
+
+def meaningful(L):
+    """Has a classical sense that is not a form's label."""
+    return any(not g['weak'] and not FORM_GLOSS.search(g['g'].strip(' ;:,'))
+               for e in L['entries'] for g in e['glosses'])
+
+
+def gerundive(k, L):
+    """A gerundive filed as a word (`līberandus` "which is to be freed", `vāstandus`; C1):
+    a participle-only lemma in -ndus -- the verb's own card is the word to teach."""
+    return k.endswith('ndus') and all(
+        e['pos'] == 'verb' and not any('third-person' in t['t'] for t in e['table'])
+        for e in L['entries'])
+
+
+def twin(k, lex, below):
+    """The usual spelling of an unassimilated one, where that spelling is a lemma too."""
+    for a, b in ASSIMILATE:
+        if k.startswith(a):
+            t = b + k[len(a):]
+            if t in lex or t in below:
+                return t
+    return ''
 
 
 def shadow_of(L):
@@ -158,7 +210,8 @@ def main():
                     break
                 L = lex.get(k)
                 if (not L or L['dcc'] or k in seen or k in below or k in excl or k in drop
-                        or ' ' in k or k in shadow or not usable(L)):
+                        or ' ' in k or k in shadow or not usable(L) or not meaningful(L)
+                        or twin(k, lex, below) or gerundive(k, L)):
                     continue
                 extra.append({'key': k, 'word': L['word'], 'canon': [], 'pos': '', 'dccpos': [],
                               'source': 'corpus', 'topic': '', 'dcc': 0, 'tat': L['tat'], 'cls': c})

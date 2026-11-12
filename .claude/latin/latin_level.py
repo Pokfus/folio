@@ -83,6 +83,14 @@ SCOPE = {
                   'heavens and nature, the theatre and music, siege and fleet, abstract qualities, '
                   'emotions and attitudes, and the verbs of the treatises',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'topics': 'myth and the poets, ritual and the calendar, the figures of speech, natural '
+                  'history, the crafts and their tools, dress, toilet and dining, the vices and '
+                  'virtues of style, the frequentative and inchoative verbs that colour a style, '
+                  'and the finer words of connecting and qualifying',
+    },
 }
 
 # Who a level is for, in the description's "N words for …".
