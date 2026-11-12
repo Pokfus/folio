@@ -9493,7 +9493,26 @@ window.GLOSSARY = {
 "Denmark_Vesey": "",
 "Nat_Turner's_Rebellion": "",
 "Virginia_slavery_debate": "",
-"United_States_v._The_Amistad": ""
+"United_States_v._The_Amistad": "",
+"Photoreceptor_cell": "",
+"Fovea_centralis": "",
+"Adaptation_(eye)": "",
+"Blind_spot_(vision)": "",
+"Optic_chiasm": "",
+"Lateral_geniculate_nucleus": "",
+"Visual_cortex": "",
+"Receptive_field": "",
+"Simple_cell": "",
+"Feature_detection_(nervous_system)": "",
+"Two-streams_hypothesis": "",
+"Color_vision": "",
+"Young–Helmholtz_theory": "",
+"Opponent_process": "",
+"Color_blindness": "",
+"Color_constancy": "",
+"Lightness": "",
+"Depth_perception": "",
+"Binocular_disparity": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14146,7 +14165,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Denmark_Vesey": "c. 1767–1822",
 "Nat_Turner's_Rebellion": "1831",
 "Virginia_slavery_debate": "1831–1832",
-"United_States_v._The_Amistad": "1839–1841"
+"United_States_v._The_Amistad": "1839–1841",
+"Two-streams_hypothesis": "1983–1992"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -20165,7 +20185,26 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Denmark_Vesey": ["Telemaque"],
 "Nat_Turner's_Rebellion": ["Nat Turner's slave rebellion","Southampton Insurrection"],
 "Virginia_slavery_debate": ["Virginia slavery debate of 1831–1832"],
-"United_States_v._The_Amistad": ["Amistad case","The Amistad"]
+"United_States_v._The_Amistad": ["Amistad case","The Amistad"],
+"Photoreceptor_cell": ["rods and cones","photoreceptor","photoreceptors"],
+"Fovea_centralis": ["fovea"],
+"Adaptation_(eye)": ["dark adaptation","light adaptation"],
+"Blind_spot_(vision)": ["blind spot","physiological blind spot"],
+"Optic_chiasm": ["optic chiasma"],
+"Lateral_geniculate_nucleus": ["LGN","lateral geniculate body"],
+"Visual_cortex": ["primary visual cortex","V1","striate cortex"],
+"Receptive_field": ["receptive fields"],
+"Simple_cell": ["simple and complex cells","simple cells"],
+"Feature_detection_(nervous_system)": ["feature detectors","feature detector"],
+"Two-streams_hypothesis": ["two-streams hypothesis","ventral and dorsal streams"],
+"Color_vision": ["colour vision"],
+"Young–Helmholtz_theory": ["trichromatic theory","trichromatic theory of colour vision"],
+"Opponent_process": ["opponent-process theory of colour vision","opponent-process theory of colour","colour opponency"],
+"Color_blindness": ["colour blindness","colour vision deficiency","color vision deficiency"],
+"Color_constancy": ["colour constancy"],
+"Lightness": ["lightness constancy"],
+"Depth_perception": ["monocular depth cues","depth cues","monocular cues"],
+"Binocular_disparity": ["retinal disparity"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29817,7 +29856,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Denmark_Vesey": ["person","history","slavery","resistance","united states","south carolina"],
 "Nat_Turner's_Rebellion": ["event","history","slavery","resistance","united states","virginia"],
 "Virginia_slavery_debate": ["event","history","politics","slavery","united states","virginia"],
-"United_States_v._The_Amistad": ["event","history","law","slavery","united states"]
+"United_States_v._The_Amistad": ["event","history","law","slavery","united states"],
+"Photoreceptor_cell": ["concept","biology","neuroscience","vision"],
+"Fovea_centralis": ["concept","anatomy","neuroscience","vision"],
+"Adaptation_(eye)": ["concept","biology","neuroscience","vision"],
+"Blind_spot_(vision)": ["concept","anatomy","neuroscience","vision"],
+"Optic_chiasm": ["concept","anatomy","neuroscience","vision"],
+"Lateral_geniculate_nucleus": ["concept","anatomy","neuroscience","vision"],
+"Visual_cortex": ["concept","anatomy","neuroscience","vision"],
+"Receptive_field": ["concept","neuroscience","vision","perception"],
+"Simple_cell": ["concept","neuroscience","vision","perception"],
+"Feature_detection_(nervous_system)": ["concept","neuroscience","vision","perception"],
+"Two-streams_hypothesis": ["theory","neuroscience","vision","perception"],
+"Color_vision": ["concept","biology","neuroscience","vision"],
+"Young–Helmholtz_theory": ["theory","science","neuroscience","vision"],
+"Opponent_process": ["theory","neuroscience","vision","perception"],
+"Color_blindness": ["concept","medicine","genetics","vision"],
+"Color_constancy": ["concept","neuroscience","vision","perception"],
+"Lightness": ["concept","vision","perception","psychology"],
+"Depth_perception": ["concept","vision","perception","psychology"],
+"Binocular_disparity": ["concept","vision","perception","neuroscience"]
 });
 
 /* ============================================================================

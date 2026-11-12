@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:26Z",
+ "generated": "2026-11-12T04:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6765,
-  "redirect-broader": 647,
-  "redirect-variant": 401,
-  "section-redirect": 140,
-  "disambiguation": 149,
-  "none": 1024,
+  "ok": 6773,
+  "redirect-broader": 649,
+  "redirect-variant": 404,
+  "section-redirect": 143,
+  "disambiguation": 151,
+  "none": 1026,
   "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
@@ -73899,6 +73899,182 @@
    "url": "https://en.wikipedia.org/wiki/Hypothalamus",
    "via": "glossary",
    "status": "ok"
+  },
+  "ps-361": {
+   "answer": "rods and cones",
+   "title": "Photoreceptor cell",
+   "url": "https://en.wikipedia.org/wiki/Photoreceptor_cell",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rods and cones"
+  },
+  "ps-362": {
+   "answer": "fovea",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Fovea",
+   "suggestions": [
+    "Fovea (femur)",
+    "Fovea cardiaca",
+    "Fovea centralis",
+    "Fovea ethmoidalis",
+    "Pterygoid fovea",
+    "Trochlear fovea"
+   ]
+  },
+  "ps-363": {
+   "answer": "dark adaptation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Dark adaptation",
+   "target": "Adaptation (eye)#Dark adaptation"
+  },
+  "ps-364": {
+   "answer": "blind spot",
+   "title": "Blind spot (vision)",
+   "url": "https://en.wikipedia.org/wiki/Blind_spot_(vision)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-365": {
+   "answer": "optic chiasm",
+   "title": "Optic chiasm",
+   "url": "https://en.wikipedia.org/wiki/Optic_chiasm",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-366": {
+   "answer": "lateral geniculate nucleus",
+   "title": "Lateral geniculate nucleus",
+   "url": "https://en.wikipedia.org/wiki/Lateral_geniculate_nucleus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-367": {
+   "answer": "primary visual cortex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Primary visual cortex",
+   "target": "Visual cortex#Primary visual cortex (V1)"
+  },
+  "ps-368": {
+   "answer": "receptive field",
+   "title": "Receptive field",
+   "url": "https://en.wikipedia.org/wiki/Receptive_field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-369": {
+   "answer": "simple and complex cells",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Neural network",
+    "Tissue (biology)",
+    "The Ghost in the Machine",
+    "Receptive field",
+    "Eye"
+   ]
+  },
+  "ps-370": {
+   "answer": "two-streams hypothesis",
+   "title": "Two-streams hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Two-streams_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-371": {
+   "answer": "feature detectors",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Feature detection",
+   "suggestions": []
+  },
+  "ps-372": {
+   "answer": "colour vision",
+   "title": "Color vision",
+   "url": "https://en.wikipedia.org/wiki/Color_vision",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Colour vision"
+  },
+  "ps-373": {
+   "answer": "trichromatic theory",
+   "title": "Young–Helmholtz theory",
+   "url": "https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trichromatic theory"
+  },
+  "ps-374": {
+   "answer": "opponent-process theory",
+   "title": "Opponent-process theory",
+   "url": "https://en.wikipedia.org/wiki/Opponent-process_theory",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-375": {
+   "answer": "colour blindness",
+   "title": "Color blindness",
+   "url": "https://en.wikipedia.org/wiki/Color_blindness",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Colour blindness"
+  },
+  "ps-376": {
+   "answer": "colour constancy",
+   "title": "Color constancy",
+   "url": "https://en.wikipedia.org/wiki/Color_constancy",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Colour constancy"
+  },
+  "ps-377": {
+   "answer": "lightness constancy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Subjective constancy",
+    "Color constancy",
+    "Lists of colors",
+    "Hans Wallach",
+    "Anya Hurlbert"
+   ]
+  },
+  "ps-378": {
+   "answer": "depth perception",
+   "title": "Depth perception",
+   "url": "https://en.wikipedia.org/wiki/Depth_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-379": {
+   "answer": "binocular disparity",
+   "title": "Binocular disparity",
+   "url": "https://en.wikipedia.org/wiki/Binocular_disparity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-380": {
+   "answer": "monocular depth cues",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Monocular depth cues",
+   "target": "Depth perception#Monocular cues"
   }
  }
 }

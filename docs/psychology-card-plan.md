@@ -894,9 +894,9 @@ more work here than in any collection since Greece.
     ps-366  The lateral geniculate nucleus
     ps-367  The primary visual cortex
     ps-368  Receptive fields
-    ps-369  Cortical feature cells
-    ps-370  The ventral and dorsal visual streams
-    ps-371  Feature detection
+    ps-369  Simple and complex cells
+    ps-370  The two-streams hypothesis
+    ps-371  Feature detectors
     ps-372  Colour vision
     ps-373  Trichromatic theory
     ps-374  Opponent-process theory of colour

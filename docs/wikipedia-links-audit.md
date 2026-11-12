@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6765 | the title is the article |
-| `redirect-variant` | 401 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6773 | the title is the article |
+| `redirect-variant` | 404 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 647 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 649 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 140 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1024 | nothing matched; no link |
+| `section-redirect` | 143 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 151 | only a disambiguation page; no link could be chosen |
+| `none` | 1026 | nothing matched; no link |
 
-**7919 of 9250 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7932 of 9270 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (647)
+## Redirected to a differently named article — check each (649)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -392,6 +392,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-275` **split-brain research** → [Split-brain](https://en.wikipedia.org/wiki/Split-brain) (from `Split-brain research`)
 - `ps-288` **BOLD signal** → [Blood-oxygenation-level–dependent imaging](https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging) (from `BOLD signal`)
 - `ps-300` **double dissociation** → [Dissociation (neuropsychology)](https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)) (from `Double dissociation`)
+- `ps-361` **rods and cones** → [Photoreceptor cell](https://en.wikipedia.org/wiki/Photoreceptor_cell) (from `Rods and cones`)
+- `ps-373` **trichromatic theory** → [Young–Helmholtz theory](https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory) (from `Trichromatic theory`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -801,7 +803,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (149)
+## Disambiguation pages that could not be settled (151)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -903,6 +905,8 @@ Pick the right article by hand, or leave the card without a link.
 - `pea-129` **Great Leader** — `Great Leader` is a disambiguation page; its links: `Great Leader (concept)`
 - `pea-146` **Guoyu** — `Guoyu` is a disambiguation page; its links: `Guoyu (book)`, `Guoyu (name)`
 - `ps-041` **mental test** — `Mental test` is a disambiguation page
+- `ps-362` **fovea** — `Fovea` is a disambiguation page; its links: `Fovea (femur)`, `Fovea cardiaca`, `Fovea centralis`, `Fovea ethmoidalis`, `Pterygoid fovea`, `Trochlear fovea`
+- `ps-371` **feature detectors** — `Feature detection` is a disambiguation page
 - `rm-019` **Veneti** — `Veneti` is a disambiguation page; its links: `Adriatic Veneti`, `Veneti (Gaul)`, `Vistula Veneti`
 - `rm-163` **Tarentum** — `Tarentum` is a disambiguation page; its links: `Tarentum, Pennsylvania`, `Tarentum Bridge`, `Tarentum (Campus Martius)`
 - `rm-197` **siege of Lilybaeum** — `Siege of Lilybaeum` is a disambiguation page; its links: `Siege of Lilybaeum (250–241 BC)`, `Siege of Lilybaeum (278 BC)`, `Siege of Lilybaeum (368 BC)`
@@ -966,7 +970,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (140)
+## Section redirects — no dedicated page (143)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1048,6 +1052,9 @@ Wikipedia treats these as part of another article. No link.
 - `ps-213` **questionable research practices** — `Questionable research practices` only redirects into `Research#Research ethics`
 - `ps-270` **somatosensory cortex** — `Somatosensory cortex` only redirects into `Somatosensory system#Somatosensory cortex`
 - `ps-289` **diffusion tensor imaging** — `Diffusion tensor imaging` only redirects into `Diffusion-weighted magnetic resonance imaging#Diffusion tensor imaging`
+- `ps-363` **dark adaptation** — `Dark adaptation` only redirects into `Adaptation (eye)#Dark adaptation`
+- `ps-367` **primary visual cortex** — `Primary visual cortex` only redirects into `Visual cortex#Primary visual cortex (V1)`
+- `ps-380` **monocular depth cues** — `Monocular depth cues` only redirects into `Depth perception#Monocular cues`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -1111,7 +1118,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1024)
+## No article found (1026)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1909,6 +1916,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-281` **lesion method** — search suggests `Visual pathway lesions`, `Cognitive psychology`, `Behavioral neuroscience`, `Developmental psychology`, `Ablative brain surgery`
 - `ps-294` **reverse inference** — search suggests `Bayesian inference`, `Correlation does not imply causation`, `Rule of inference`, `Fundamental attribution error`, `Structure-mapping theory`
 - `ps-295` **dead salmon study** — search suggests `Darwinian literary studies`, `Salmon conservation`, `Southern resident orcas`, `Ribot's law`, `Phyllis Bottome`
+- `ps-369` **simple and complex cells** — search suggests `Neural network`, `Tissue (biology)`, `The Ghost in the Machine`, `Receptive field`, `Eye`
+- `ps-377` **lightness constancy** — search suggests `Subjective constancy`, `Color constancy`, `Lists of colors`, `Hans Wallach`, `Anya Hurlbert`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`
