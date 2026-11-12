@@ -9570,7 +9570,25 @@ window.GLOSSARY = {
 "Kin_selection": "",
 "Reciprocal_altruism": "",
 "Just-so_story": "",
-"Ethology": ""
+"Ethology": "",
+"Just-noticeable_difference": "",
+"Weber–Fechner_law": "",
+"Stevens's_power_law": "",
+"Detection_theory": "",
+"Neural_adaptation": "",
+"Sensory_neuron": "",
+"Subliminal_stimuli": "",
+"Bottom-up_and_top-down_approaches": "",
+"Set_(psychology)": "",
+"Neural_coding": "",
+"Crossmodal": "",
+"Synesthesia": "",
+"Sensory_deprivation": "",
+"Visible_spectrum": "",
+"Human_eye": "",
+"Cornea": "",
+"Accommodation_(vertebrate_eye)": "",
+"Retina": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20302,7 +20320,22 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Candidate_gene": ["candidate gene study","candidate gene studies"],
 "Genome-wide_association_study": ["GWAS","genome-wide association studies"],
 "Polygenic_score": ["polygenic risk score","polygenic scores"],
-"Just-so_story": ["just-so stories"]
+"Just-so_story": ["just-so stories"],
+"Just-noticeable_difference": ["difference threshold","JND"],
+"Weber–Fechner_law": ["Weber's law","Fechner's law"],
+"Stevens's_power_law": ["Stevens' power law","power law of psychophysics"],
+"Detection_theory": ["signal detection theory"],
+"Neural_adaptation": ["sensory adaptation"],
+"Sensory_neuron": ["sensory receptor","sensory receptors"],
+"Subliminal_stimuli": ["subliminal perception","subliminal stimulus"],
+"Bottom-up_and_top-down_approaches": ["top-down processing","bottom-up processing"],
+"Set_(psychology)": ["perceptual set"],
+"Neural_coding": ["sensory coding"],
+"Crossmodal": ["cross-modal perception","crossmodal perception"],
+"Synesthesia": ["synaesthesia","synesthesia"],
+"Visible_spectrum": ["visible light"],
+"Human_eye": ["eye"],
+"Accommodation_(vertebrate_eye)": ["accommodation"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -30031,7 +30064,25 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kin_selection": ["theory","biology","evolution","altruism"],
 "Reciprocal_altruism": ["theory","biology","evolution","cooperation"],
 "Just-so_story": ["concept","evolution","philosophy","science"],
-"Ethology": ["concept","biology","animals","psychology"]
+"Ethology": ["concept","biology","animals","psychology"],
+"Just-noticeable_difference": ["concept","psychology","perception","psychophysics"],
+"Weber–Fechner_law": ["theory","psychology","perception","psychophysics"],
+"Stevens's_power_law": ["theory","psychology","perception","psychophysics"],
+"Detection_theory": ["theory","psychology","perception","psychophysics"],
+"Neural_adaptation": ["concept","psychology","perception","neuroscience"],
+"Sensory_neuron": ["concept","biology","neuroscience","perception"],
+"Subliminal_stimuli": ["concept","psychology","perception","consciousness"],
+"Bottom-up_and_top-down_approaches": ["concept","psychology","perception","cognition"],
+"Set_(psychology)": ["concept","psychology","perception","cognition"],
+"Neural_coding": ["concept","psychology","neuroscience","perception"],
+"Crossmodal": ["concept","psychology","perception"],
+"Synesthesia": ["concept","psychology","perception"],
+"Sensory_deprivation": ["practice","psychology","perception","consciousness"],
+"Visible_spectrum": ["concept","physics","perception","vision"],
+"Human_eye": ["concept","anatomy","biology","vision"],
+"Cornea": ["concept","anatomy","biology","vision"],
+"Accommodation_(vertebrate_eye)": ["concept","anatomy","biology","vision"],
+"Retina": ["concept","anatomy","neuroscience","vision"]
 });
 
 /* ============================================================================

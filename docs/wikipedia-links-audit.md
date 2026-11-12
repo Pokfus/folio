@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6828 | the title is the article |
-| `redirect-variant` | 405 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6835 | the title is the article |
+| `redirect-variant` | 406 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 91 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 650 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 658 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 143 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 145 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 152 | only a disambiguation page; no link could be chosen |
-| `none` | 1027 | nothing matched; no link |
+| `none` | 1029 | nothing matched; no link |
 
-**7990 of 9330 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8006 of 9350 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (650)
+## Redirected to a differently named article — check each (658)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -393,6 +393,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-288` **BOLD signal** → [Blood-oxygenation-level–dependent imaging](https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging) (from `BOLD signal`)
 - `ps-300` **double dissociation** → [Dissociation (neuropsychology)](https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)) (from `Double dissociation`)
 - `ps-305` **Minnesota Study of Twins Reared Apart** → [Minnesota Center for Twin and Family Research](https://en.wikipedia.org/wiki/Minnesota_Center_for_Twin_and_Family_Research) (from `Minnesota Study of Twins Reared Apart`)
+- `ps-341` **difference threshold** → [Just-noticeable difference](https://en.wikipedia.org/wiki/Just-noticeable_difference) (from `Difference threshold`)
+- `ps-342` **Weber's law** → [Weber–Fechner law](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law) (from `Weber's law`)
+- `ps-343` **Fechner's law** → [Weber–Fechner law](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law) (from `Fechner's law`)
+- `ps-345` **signal detection theory** → [Detection theory](https://en.wikipedia.org/wiki/Detection_theory) (from `Signal detection theory`)
+- `ps-346` **sensory adaptation** → [Neural adaptation](https://en.wikipedia.org/wiki/Neural_adaptation) (from `Sensory adaptation`)
+- `ps-348` **subliminal perception** → [Subliminal stimuli](https://en.wikipedia.org/wiki/Subliminal_stimuli) (from `Subliminal perception`)
+- `ps-350` **perceptual set** → [Set (psychology)](https://en.wikipedia.org/wiki/Set_(psychology)) (from `Perceptual set`)
+- `ps-351` **sensory coding** → [Sensory nervous system](https://en.wikipedia.org/wiki/Sensory_nervous_system) (from `Sensory coding`)
 - `ps-361` **rods and cones** → [Photoreceptor cell](https://en.wikipedia.org/wiki/Photoreceptor_cell) (from `Rods and cones`)
 - `ps-373` **trichromatic theory** → [Young–Helmholtz theory](https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory) (from `Trichromatic theory`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
@@ -973,7 +981,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (143)
+## Section redirects — no dedicated page (145)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1055,6 +1063,8 @@ Wikipedia treats these as part of another article. No link.
 - `ps-213` **questionable research practices** — `Questionable research practices` only redirects into `Research#Research ethics`
 - `ps-270` **somatosensory cortex** — `Somatosensory cortex` only redirects into `Somatosensory system#Somatosensory cortex`
 - `ps-289` **diffusion tensor imaging** — `Diffusion tensor imaging` only redirects into `Diffusion-weighted magnetic resonance imaging#Diffusion tensor imaging`
+- `ps-347` **sensory receptor** — `Sensory receptor` only redirects into `Sensory neuron#Types and function`
+- `ps-349` **top-down processing** — `Top-down processing` only redirects into `Pattern recognition (psychology)#Top-down processing`
 - `ps-363` **dark adaptation** — `Dark adaptation` only redirects into `Adaptation (eye)#Dark adaptation`
 - `ps-367` **primary visual cortex** — `Primary visual cortex` only redirects into `Visual cortex#Primary visual cortex (V1)`
 - `ps-380` **monocular depth cues** — `Monocular depth cues` only redirects into `Depth perception#Monocular cues`
@@ -1121,7 +1131,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1027)
+## No article found (1029)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1920,6 +1930,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-294` **reverse inference** — search suggests `Bayesian inference`, `Correlation does not imply causation`, `Rule of inference`, `Fundamental attribution error`, `Structure-mapping theory`
 - `ps-295` **dead salmon study** — search suggests `Darwinian literary studies`, `Salmon conservation`, `Southern resident orcas`, `Ribot's law`, `Phyllis Bottome`
 - `ps-310` **candidate gene study** — search suggests `Psychology`, `Avshalom Caspi`, `Sport psychology`, `Terrie E. Moffitt`, `Heritability of autism`
+- `ps-352` **labelled-line coding** — search suggests `Picture superiority effect`, `Ensemble coding`, `Military psychology`, `Moral disengagement`, `Grounded theory`
+- `ps-353` **cross-modal perception** — search suggests `Perception`, `Bouba/kiki effect`, `Gestalt psychology`, `Time perception`, `Amodal perception`
 - `ps-369` **simple and complex cells** — search suggests `Neural network`, `Tissue (biology)`, `The Ghost in the Machine`, `Receptive field`, `Eye`
 - `ps-377` **lightness constancy** — search suggests `Subjective constancy`, `Color constancy`, `Lists of colors`, `Hans Wallach`, `Anya Hurlbert`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`

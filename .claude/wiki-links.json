@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T05:08Z",
+ "generated": "2026-11-12T05:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6828,
-  "redirect-broader": 650,
-  "redirect-variant": 405,
-  "section-redirect": 143,
+  "ok": 6835,
+  "redirect-broader": 658,
+  "redirect-variant": 406,
+  "section-redirect": 145,
   "disambiguation": 152,
-  "none": 1027,
+  "none": 1029,
   "disambig-resolved": 91,
   "list-page": 6,
   "search-match": 9,
@@ -74505,6 +74505,173 @@
    "answer": "ethology",
    "title": "Ethology",
    "url": "https://en.wikipedia.org/wiki/Ethology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-341": {
+   "answer": "difference threshold",
+   "title": "Just-noticeable difference",
+   "url": "https://en.wikipedia.org/wiki/Just-noticeable_difference",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Difference threshold"
+  },
+  "ps-342": {
+   "answer": "Weber's law",
+   "title": "Weber–Fechner law",
+   "url": "https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Weber's law"
+  },
+  "ps-343": {
+   "answer": "Fechner's law",
+   "title": "Weber–Fechner law",
+   "url": "https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fechner's law"
+  },
+  "ps-344": {
+   "answer": "Stevens's power law",
+   "title": "Stevens's power law",
+   "url": "https://en.wikipedia.org/wiki/Stevens's_power_law",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-345": {
+   "answer": "signal detection theory",
+   "title": "Detection theory",
+   "url": "https://en.wikipedia.org/wiki/Detection_theory",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Signal detection theory"
+  },
+  "ps-346": {
+   "answer": "sensory adaptation",
+   "title": "Neural adaptation",
+   "url": "https://en.wikipedia.org/wiki/Neural_adaptation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sensory adaptation"
+  },
+  "ps-347": {
+   "answer": "sensory receptor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Sensory receptor",
+   "target": "Sensory neuron#Types and function"
+  },
+  "ps-348": {
+   "answer": "subliminal perception",
+   "title": "Subliminal stimuli",
+   "url": "https://en.wikipedia.org/wiki/Subliminal_stimuli",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Subliminal perception"
+  },
+  "ps-349": {
+   "answer": "top-down processing",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Top-down processing",
+   "target": "Pattern recognition (psychology)#Top-down processing"
+  },
+  "ps-350": {
+   "answer": "perceptual set",
+   "title": "Set (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Set_(psychology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Perceptual set"
+  },
+  "ps-351": {
+   "answer": "sensory coding",
+   "title": "Sensory nervous system",
+   "url": "https://en.wikipedia.org/wiki/Sensory_nervous_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sensory coding"
+  },
+  "ps-352": {
+   "answer": "labelled-line coding",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Picture superiority effect",
+    "Ensemble coding",
+    "Military psychology",
+    "Moral disengagement",
+    "Grounded theory"
+   ]
+  },
+  "ps-353": {
+   "answer": "cross-modal perception",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Perception",
+    "Bouba/kiki effect",
+    "Gestalt psychology",
+    "Time perception",
+    "Amodal perception"
+   ]
+  },
+  "ps-354": {
+   "answer": "synaesthesia",
+   "title": "Synesthesia",
+   "url": "https://en.wikipedia.org/wiki/Synesthesia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Synaesthesia"
+  },
+  "ps-355": {
+   "answer": "sensory deprivation",
+   "title": "Sensory deprivation",
+   "url": "https://en.wikipedia.org/wiki/Sensory_deprivation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-356": {
+   "answer": "visible spectrum",
+   "title": "Visible spectrum",
+   "url": "https://en.wikipedia.org/wiki/Visible_spectrum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-357": {
+   "answer": "eye",
+   "title": "Eye",
+   "url": "https://en.wikipedia.org/wiki/Eye",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-358": {
+   "answer": "cornea",
+   "title": "Cornea",
+   "url": "https://en.wikipedia.org/wiki/Cornea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-359": {
+   "answer": "accommodation",
+   "title": "Accommodation (vertebrate eye)",
+   "url": "https://en.wikipedia.org/wiki/Accommodation_(vertebrate_eye)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-360": {
+   "answer": "retina",
+   "title": "Retina",
+   "url": "https://en.wikipedia.org/wiki/Retina",
    "via": "glossary",
    "status": "ok"
   }

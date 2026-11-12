@@ -883,7 +883,7 @@ more work here than in any collection since Greece.
 
     ps-356  Light as a visual stimulus
     ps-357  The eye
-    ps-358  The cornea and the lens
+    ps-358  The cornea
     ps-359  Accommodation
     ps-360  The retina
     ps-361  Rods and cones
