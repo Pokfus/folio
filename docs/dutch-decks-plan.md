@@ -5,7 +5,7 @@ Dutch set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose pip
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Create a Dutch language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/dutch/`, §6–§8). B2, C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/dutch/`, §6–§9). C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Dutch to the day's
@@ -30,7 +30,7 @@ for any deck this plan produces. The collection's first commit carried one (addi
 | Dutch A1 Beginner — built | `Dutch-A1.folio-deck.json` | 500 |
 | Dutch A2 Elementary — built | `Dutch-A2.folio-deck.json` | 750 |
 | Dutch B1 Intermediate — built | `Dutch-B1.folio-deck.json` | 1,000 |
-| Dutch B2 Upper Intermediate | `Dutch-B2.folio-deck.json` | 1,500 |
+| Dutch B2 Upper Intermediate — built | `Dutch-B2.folio-deck.json` | 1,500 |
 | Dutch C1 Advanced | `Dutch-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -143,3 +143,25 @@ AN EMPTY SIDE** and the shelf-wide dedupe pass then labels four empty sides "not
 excluded. `pesten` drops its noun (`DROP_POS`: the card game Mau Mau led over "to bully"); `klote` joins
 `SWEARS`. Known, left: the fill's crime-drama and fantasy share is larger than A2's (`rechercheur`,
 `vingerafdruk`, `vampier`, `heks`), as on every subtitle-ordered deck.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/dutch/run.py --level b2`. 1,500 notes, 354 from the B2 inventory (business and the economy,
+politics and law, science and technology, climate, medicine, higher education, media and the arts, abstract
+ideas and argument, the connectives of formal writing, character, states of mind, city planning, the verbs
+of getting things done) and 1,146 by frequency; A1 to B1 are left out. Three sentences for 1,251, none for
+78; 1,209 with IPA. A re-run is byte-identical; A1, A2 and B1 rebuild byte for byte. Sixteen inventory
+words are not Wiktionary lemmas and were dropped (among them `cao`, `branche`, `reportage`, `overtuigend`
+and five participle adjectives such as `gemotiveerd`, which Wiktionary files only under their verbs).
+
+**Reading 1,146 fill words** was made tractable by a throwaway pass that flagged every fill lemma that is
+also a form in another lemma's table or a noun's plural (219 of them); the flagged ones were read first,
+most were real words (`groeten`, `glimlachen`, `straffen`), and the rest were read by eye. What it found
+is §7–§8 again — plurals (`dagen`, `wegen`, `golven`, `neuzen` …), names (`steven`, `rob`, `pat`), English
+(`house`, `girl`, `loser`), nominalised forms, participles of lower levels — plus, new at this level:
+- **CRUDE WORDS THAT ARE NOT OATHS** (`pijpen`, `geil`, `poepen`, `pissen`, `zeiken`) and insults
+  (`wijf`, `kreng`, `rotzak`, `schoft`) — `SWEARS` now holds both.
+- **TWO PLURAL-ONLY NOUNS WITH NO GENDER** (`chips`, `gegevens`) and `kapitaal`'s "nc", which the check
+  caught as nouns with no article: `GENDER_FIX`. `chips` also drops its minced-oath interjection.
+- Glosses: `laken` (the bedsheet before the broadcloth), `kapitaal` (Wiktionary's senses end in stray
+  gender letters); `LEAD`: `inflatie` (not "stomach bloat"), `kijker` (not "telescope").

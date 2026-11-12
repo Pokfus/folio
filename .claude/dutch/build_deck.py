@@ -117,18 +117,24 @@ GLOSS = {
     'sommige': {'det': ['some (sommige mensen, "some people")']},
     # B1: Wiktionary files zulke as "inflection of zulk"
     'zulke': {'det': ['such (zulke mensen, "such people")']},
+    # B2: Wiktionary leads with the cloth; the count is the bedsheet
+    'laken': {'noun': ['sheet (on a bed)', 'woollen broadcloth']},
+    # B2: Wiktionary's senses end in stray gender letters ("fortune n")
+    'kapitaal': {'noun': ['capital (money)', 'fortune', 'capital letter']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'pen': 'pen (writing utensil)',      # first listed is "a long feather of a bird"
     'net': 'just, nearly, barely',       # first listed is "clean, tidy"
+    'inflatie': 'inflation, increase',   # B2: first listed is "stomach bloat"
+    'kijker': 'viewer',                  # B2: first listed is "telescope"
 }
 
 # A PART OF SPEECH NOT SHOWN for one word.
 DROP_POS = {('de', 'prep'), ('hij', 'noun'), ('zij', 'noun'), ('van', 'noun'),
             ('een', 'num'), ('een', 'noun'), ('één', 'article'), ('één', 'noun'),
-            ('pesten', 'noun')}   # B1: the card game Mau Mau led over "to bully"
+            ('pesten', 'noun'), ('chips', 'intj')}   # B1: the card game Mau Mau led over "to bully"
 
 # A NUMBER'S NOUN BLOCK ("a four, the digit 4") is noise beside the number: dropped
 # wherever the word is also a numeral.
@@ -138,6 +144,9 @@ GENDER_FIX = {
     # Wiktionary's head line gives "n, f" for the whole entry; the feminine belongs to the
     # "frame" sense, and the window is het raam
     'raam': 'n',
+    # B2 (2026-11-12): Wiktionary gives no gender to the two plural-only nouns, and "nc" to
+    # kapitaal, whose senses are each marked n
+    'chips': 'p', 'gegevens': 'p', 'kapitaal': 'n',
 }
 
 # AN IPA CORRECTED: `één` is printed from the entry of `een`, whose transcription is the
@@ -375,7 +384,7 @@ def desc(entries, n):
         "Both study directions in one deck: Dutch → English (see the Dutch, recall the meaning) "
         "and English → Dutch (see an English meaning, recall the Dutch). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'an intermediate learner' if LEVEL == 'b1' else 'a learner'}, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'an intermediate learner' if LEVEL == 'b1' else 'an upper-intermediate learner' if LEVEL == 'b2' else 'a learner'}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

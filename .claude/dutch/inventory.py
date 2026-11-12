@@ -191,4 +191,93 @@ B1 = [
                                     'deelnemen meedoen bijdragen'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+B2 = [
+    ('work, business and the economy', 'arbeidsmarkt sector branche concurrentie concurrent markt '
+                                       'handel export import investering investeerder aandeel '
+                                       'aandeelhouder omzet kapitaal inflatie rente subsidie '
+                                       'vakbond staking cao werkdruk productiviteit '
+                                       'onderhandeling onderhandelen leidinggevende personeel '
+                                       'ontslaan:verb aanstellen benoemen investeren exporteren '
+                                       'importeren financieel economisch commercieel winstgevend'),
+    ('politics, law and society', 'democratie dictatuur grondwet parlement kamerlid coalitie '
+                                  'oppositie wetgeving beleid maatregel hervorming referendum '
+                                  'kiezer campagne debat corruptie schandaal integratie '
+                                  'immigratie immigrant vluchteling asiel discriminatie '
+                                  'racisme gelijkwaardig tolerantie emancipatie privacy '
+                                  'rechtszaak advocaat:noun verdachte veroordeling vonnis '
+                                  'gevangenisstraf getuigenis bewijs veroordelen vervolgen '
+                                  'handhaven afschaffen invoeren goedkeuren protesteren '
+                                  'demonstreren politiek:adj sociaal maatschappelijk'),
+    ('science, technology and research', 'wetenschap onderzoeker experiment hypothese theorie '
+                                         'methode analyse gegevens statistiek steekproef '
+                                         'uitvinding ontdekking innovatie technologie software '
+                                         'algoritme kunstmatig digitaal automatisch apparatuur '
+                                         'laboratorium microscoop molecuul atoom cel:noun '
+                                         'evolutie genetisch analyseren meten berekenen '
+                                         'onderzoeken:verb uitvinden toepassen wetenschappelijk '
+                                         'betrouwbaar nauwkeurig'),
+    ('environment and climate', 'duurzaamheid duurzaam broeikaseffect uitstoot opwarming '
+                                'klimaatverandering zeespiegel fossiel brandstof kernenergie '
+                                'windmolen ecosysteem soort:noun biodiversiteit uitsterven '
+                                'ontbossing natuurgebied grondstof hergebruik verspilling '
+                                'milieuvriendelijk schadelijk uitputten'),
+    ('health and medicine', 'diagnose symptoom aandoening infectie ontsteking chronisch '
+                            'besmettelijk vaccin vaccinatie immuunsysteem therapie psycholoog '
+                            'verslaving bijwerking voorschrift preventie levensverwachting '
+                            'handicap gehandicapt ingreep revalidatie zorg:noun mantelzorg '
+                            'voorschrijven onderzoeken herstellen:verb verergeren verzachten'),
+    ('education and learning', 'studierichting studiepunt colleges college hoorcollege '
+                               'werkgroep tentamen promotie proefschrift beoordeling '
+                               'motivatie concentratie talent prestatie leerproces '
+                               'zelfstandig theoretisch praktisch academisch afstuderen '
+                               'beoordelen evalueren'),
+    ('media, culture and the arts', 'pers persbericht redactie redacteur nieuwsgierigheid '
+                                    'publicatie uitgever recensie criticus documentaire '
+                                    'reportage aflevering serie publiek:noun kijker lezer '
+                                    'luisteraar sociale_media influencer censuur propaganda '
+                                    'literatuur poëzie beeldhouwer architectuur erfgoed '
+                                    'voorstelling uitzending uitzenden publiceren recenseren'),
+    ('thinking, arguing and abstract ideas', 'standpunt visie opvatting overtuiging principe '
+                                             'waarde norm ethiek moraal dilemma tegenstelling '
+                                             'samenhang verband:noun aspect factor kenmerk '
+                                             'criterium uitgangspunt aanname bewering stelling '
+                                             'nuance uitzondering voorwaarde gevolg:noun '
+                                             'consequentie invloed:noun perspectief '
+                                             'beschouwen benadrukken nuanceren concluderen '
+                                             'veronderstellen weerleggen rechtvaardigen '
+                                             'onderbouwen afwegen relativeren generaliseren '
+                                             'objectief subjectief relevant overtuigend '
+                                             'aannemelijk tegenstrijdig vanzelfsprekend '
+                                             'controversieel'),
+    ('connectives and attitude words', 'desondanks daarentegen nochtans immers derhalve '
+                                       'zodoende kortom aldus althans overigens weliswaar '
+                                       'enigszins uiteraard grotendeels voornamelijk '
+                                       'uitsluitend nauwelijks hoogstwaarschijnlijk '
+                                       'vermoedelijk:adv blijkbaar kennelijk ogenschijnlijk '
+                                       'tenzij mits zolang:conj zodra naarmate doordat '
+                                       'opdat alsof ongeacht betreffende inzake omtrent '
+                                       'jegens middels gedurende'),
+    ('character and behaviour', 'persoonlijkheid temperament karaktertrek ambitie '
+                                'zelfvertrouwen verantwoordelijkheidsgevoel eerlijkheid '
+                                'betrouwbaarheid ambitieus arrogant bescheiden egoïstisch '
+                                'koppig flexibel creatief gemotiveerd zorgzaam tactvol '
+                                'impulsief kritisch optimistisch pessimistisch sceptisch '
+                                'spontaan gierig vrijgevig hypocriet'),
+    ('feelings and states of mind', 'frustratie spijt wrok heimwee ontroering voldoening '
+                                    'bewondering minachting walging onrust spanning:noun '
+                                    'ontroerd geïrriteerd gefrustreerd overweldigd '
+                                    'gedemotiveerd terneergeslagen opgetogen wanhopig '
+                                    'radeloos bewonderen verafschuwen betreuren'),
+    ('the city and planning', 'infrastructuur openbaar_vervoer woningnood nieuwbouw '
+                              'stadsdeel gemeenteraad wethouder vergunning bestemmingsplan '
+                              'renovatie bouwproject voorziening voetgangerszone '
+                              'bereikbaarheid renoveren slopen'),
+    ('process verbs', 'aanpakken aantonen bevorderen belemmeren bijstellen doorvoeren '
+                      'functioneren handhaven:verb implementeren initiëren ondernemen '
+                      'omzetten realiseren reduceren signaleren stimuleren '
+                      'tegengaan uitbreiden uitvoeren verwezenlijken vaststellen '
+                      'verduidelijken voortzetten waarborgen afleiden aanvullen '
+                      'benutten inzetten opstellen overwegen voorspellen'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

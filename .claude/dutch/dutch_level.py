@@ -77,6 +77,20 @@ SCOPE = {
                   'a point, describing things and people, culture and free time, and the verbs '
                   'of change and process',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and '
+                 'disadvantages of various options',
+        'topics': 'work, business and the economy, politics, law and society, science and '
+                  'technology, the environment and climate, health and medicine, higher '
+                  'education, the media and the arts, abstract ideas and argument, the '
+                  'connectives of formal writing, character and behaviour, feelings and states '
+                  'of mind, the city and planning, and the verbs of getting things done',
+    },
 }
 
 
