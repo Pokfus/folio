@@ -133,6 +133,14 @@ GLOSS = {
     'גל|גַּל': {'noun': ['wave', 'mound, heap']},
     # Wiktionary's first gloss is "belt", an error; its second, "promise", is the word
     'הבטחה|הַבְטָחָה': {'noun': ['promise']},
+    # B2: glossed by a note on the word's meaning ("The meaning of this term …") or wrongly
+    'פלדה|פְּלָדָה': {'noun': ['steel']},
+    'קיבוץ|קִבּוּץ': {'noun': ['kibbutz (a collective community)', 'a gathering, a collection']},
+    'חלוץ|חָלוּץ': {'noun': ['pioneer', 'forward (in football)']},
+    'שואה|שׁוֹאָה': {'noun': ['catastrophe, disaster; (השואה) the Holocaust']},
+    'שונה|שׁוֹנֶה': {'adj': ['different (from: מ־)', 'various']},
+    # Wiktionary's "in addition, furthermore" is not its sense; it concedes
+    'עם זאת|עִם זֹאת': {'adv': ['nevertheless, even so, however']},
     'הבא|הַבָּא': {'noun': ['next, the next one (בשבוע הבא, next week)']},
 }
 
@@ -173,6 +181,18 @@ LEAD = {
     'זיהום|זִהוּם': 'pollution',
     'מחקר|מֶחְקָר': 'research',
     'עורר|עוֹרֵר': 'arouse',
+    'אליל|אֱלִיל': 'idol',
+    'אביר|אַבִּיר': 'knight',
+    'נזיר|נָזִיר': 'monk',
+    'דוכן|דּוּכָן': 'stall',
+    'במה|בָּמָה': 'stage',
+    'תרומה|תְּרוּמָה': 'contribution',
+    'מחסום|מַחְסוֹם': 'barrier',
+    'סולם|סֻלָּם': 'ladder',
+    'שבץ|שָׁבָץ': 'stroke',
+    'תקנה|תַּקָּנָה': 'regulation',
+    'עשור|עָשׂוֹר': 'decade',
+    'כינור|כִּנּוֹר': 'violin',
     'טבח|טַבָּח': 'cook',
     'הנחה|הֲנָחָה': 'discount',
 }
@@ -184,6 +204,7 @@ ROMAN_BY_HAND = {
     'ענה|עָנָה': 'aná',
     'רעיון|רַעֲיוֹן': 'ra\'ayón',
     'יפהפה|יְפֵהפֶה': 'yefefé',
+    'חריץ|חָרִיץ': 'kharíts',
 }
 
 # A gloss that is Wiktionary's long definition of an everyday word, shortened.

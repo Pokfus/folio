@@ -5,7 +5,7 @@ Hebrew set, built the way the Persian set was (`docs/persian-decks-plan.md`); `d
 of how the others were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-12: "Add a Hebrew language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hebrew/`). B2 and C1 are planned, not built.
+**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/hebrew/`). C1 is planned, not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces after the first. The first commit carried one changelog item and one bump, because it
@@ -32,7 +32,7 @@ rather than asked again:
 | Hebrew A1 Beginner — built | `Hebrew-A1.folio-deck.json` | 500 |
 | Hebrew A2 Elementary — built | `Hebrew-A2.folio-deck.json` | 750 |
 | Hebrew B1 Intermediate — built | `Hebrew-B1.folio-deck.json` | 1,000 |
-| Hebrew B2 Upper Intermediate | `Hebrew-B2.folio-deck.json` | 1,500 |
+| Hebrew B2 Upper Intermediate — built | `Hebrew-B2.folio-deck.json` | 1,500 |
 | Hebrew C1 Advanced | `Hebrew-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -93,7 +93,7 @@ form is the guide. One A1 word (`שדה תעופה`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done 2026-11-12) to C1, one level per session: the
+**Phase 1 (done 2026-11-12)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done 2026-11-12) to C1, one level per session: the
 level's inventory into `inventory.py`, its `SCOPE` into `hebrew_level.py`, run, read every card. **Phase 3** — a
 phrases deck, if asked for.
 
@@ -157,3 +157,25 @@ day's code are unchanged (checked by hash). What B1 needed:
 - **Glosses by hand where Wiktionary's are wrong or a note** (`build_deck.GLOSS`): `חשמל` electricity (its entry
   glosses a Biblical sense), `הבטחה` promise (its first gloss, "belt", is an error), `גל` wave (Wiktionary gives
   only "mound"), and `מכונה`, `חוזה`, `אות`, two words of one pointing where the other leads in Wiktionary.
+
+## 9. B2 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/hebrew/run.py --level b2`. **1,500 notes / 3,000 cards: 110
+from the inventory (`inventory.B2`, Persian's B2 topics rewritten for Israel: politics, the courts, finance,
+science, technology, the environment, health and the mind, the arts and media, history and society, argument and
+the formal connectors), 1,390 by frequency.** Three sentences for 1,403, none for 21. A re-run is byte-identical,
+and A1, B1 and the alphabet rebuilt on the day's code are unchanged (checked by hash). What B2 needed:
+
+- **WIKTIONARY IS THIN AT THIS LEVEL.** Of the inventory's academic and public-life words, about fifty have no
+  Hebrew entry in English Wiktionary (`ממצא`, `השערה`, `צמיחה`, `מגמה`, `היבט`, `קיימות`, `בהתאם`, `בניגוד` …) and
+  were dropped rather than given a meaning the source does not carry; a few resolved under another spelling
+  (`בירוקרטיה`, `תאטרון`, `עיתונאות`, `שכנוע`). The fill carries the level, as the description says.
+- **No change to the extraction**, so nothing below could move.
+- **About 230 exclusions** ("Read off the B2 ranking"): as before, mostly counts that belong to another word
+  spelt alike — `שלך` is "yours", not the osprey, `דקות` is "minutes", `יודע` "knows", `בעלה` "her husband" —
+  names (`גיא`, `עומר`, `רות`), Biblical forms with ו, and the slurs, sexual and drug words and killing the
+  subtitles count.
+- **The noun over the verb** (`זרוע` arm, `זמר` singer, `חסה` lettuce, `רקע` background, `נורה` light bulb, `חול`
+  sand, `שוחד` bribe, `כיף` fun, `קעקע` tattoo), and hand glosses where Wiktionary's entry is a note or wrong:
+  `פלדה` steel, `קיבוץ` kibbutz, `חלוץ` pioneer, `שואה`, `שונה`, and `עם זאת` "nevertheless" (Wiktionary has "in
+  addition, furthermore", which is not its sense).

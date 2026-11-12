@@ -86,6 +86,17 @@ PICK = {
     'סרטן': 'סַרְטָן',     # "cancer; crab"
     'תואר': 'תֹּאַר:noun', # "title, degree"
     'סקרן': 'סַקְרָן',     # "curious (person)"
+    # B2 (2026-11-12), read off the B2 ranking
+    'זרוע': 'זְרוֹעַ',     # "arm", not "sown"
+    'זמר': 'זַמָּר',       # "singer", not "to prune"
+    'חסה': 'חַסָּה',       # "lettuce", not "to shelter"
+    'רקע': 'רֶקַע',        # "background", not "to stomp"
+    'נורה': 'נוּרָה',      # "light bulb", not "to be shot"
+    'חול': 'חוֹל',         # "sand", not "the secular"
+    'שוחד': 'שֹׁחַד',      # "a bribe"
+    'שוטה': 'שׁוֹטֶה:noun', # "fool"; the adjective "weed" is Wiktionary's slip
+    'כיף': 'כֵּיף',        # "fun", not "a high five"
+    'קעקע': 'קַעֲקַע',     # "tattoo", the noun; the verb's entry gives no romanisation
     'כיוון': 'כִּוּוּן',    # "direction"; the verb's count is מכיוון "since", which its table holds
     'סתם': 'סְתָם',       # "just, merely, for no reason", not the verb "to stop up"
 }
