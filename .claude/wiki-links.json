@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T08:30Z",
+ "generated": "2026-11-12T08:32Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7700,
-  "redirect-broader": 750,
+  "ok": 7705,
+  "redirect-broader": 752,
   "redirect-variant": 464,
   "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1132,
+  "none": 1135,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83716,6 +83716,89 @@
    "answer": "Mayer Papyri",
    "title": "Mayer Papyri",
    "url": "https://en.wikipedia.org/wiki/Mayer_Papyri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-381": {
+   "answer": "Papyrus Harris 500",
+   "title": "Papyrus Harris 500",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Harris_500",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-382": {
+   "answer": "Late Ramesside Letters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian language",
+    "Ancient Egyptian literature",
+    "List of pharaohs",
+    "Bronze Age",
+    "Art of ancient Egypt"
+   ]
+  },
+  "eg-383": {
+   "answer": "Ostracon BM EA 5634",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-384": {
+   "answer": "Younger Memnon",
+   "title": "Younger Memnon",
+   "url": "https://en.wikipedia.org/wiki/Younger_Memnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-385": {
+   "answer": "Wadi es-Sebua",
+   "title": "Temples of Wadi es-Sebua",
+   "url": "https://en.wikipedia.org/wiki/Temples_of_Wadi_es-Sebua",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Wadi es-Sebua"
+  },
+  "eg-386": {
+   "answer": "Nauri Decree",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Temple of Seti I (Abydos)"
+   ]
+  },
+  "eg-387": {
+   "answer": "Papyrus Harris I",
+   "title": "Papyrus Harris I",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Harris_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-388": {
+   "answer": "Beit el-Wali",
+   "title": "Temple of Beit el-Wali",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Beit_el-Wali",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Beit el-Wali"
+  },
+  "eg-389": {
+   "answer": "Turin Papyrus Map",
+   "title": "Turin Papyrus Map",
+   "url": "https://en.wikipedia.org/wiki/Turin_Papyrus_Map",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-390": {
+   "answer": "Bentresh Stela",
+   "title": "Bentresh stela",
+   "url": "https://en.wikipedia.org/wiki/Bentresh_stela",
    "via": "glossary",
    "status": "ok"
   }

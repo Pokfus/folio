@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7700 | the title is the article |
+| `ok` | 7705 | the title is the article |
 | `redirect-variant` | 464 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 750 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 752 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1132 | nothing matched; no link |
+| `none` | 1135 | nothing matched; no link |
 
-**9031 of 10510 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9038 of 10520 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (750)
+## Redirected to a differently named article — check each (752)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -218,6 +218,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-341` **KV17** → [Tomb of Seti I](https://en.wikipedia.org/wiki/Tomb_of_Seti_I) (from `KV17`)
 - `eg-352` **QV66** → [Tomb of Nefertari](https://en.wikipedia.org/wiki/Tomb_of_Nefertari) (from `QV66`)
 - `eg-361` **Twosret** → [Tausret](https://en.wikipedia.org/wiki/Tausret) (from `Twosret`)
+- `eg-385` **Wadi es-Sebua** → [Temples of Wadi es-Sebua](https://en.wikipedia.org/wiki/Temples_of_Wadi_es-Sebua) (from `Wadi es-Sebua`)
+- `eg-388` **Beit el-Wali** → [Temple of Beit el-Wali](https://en.wikipedia.org/wiki/Temple_of_Beit_el-Wali) (from `Beit el-Wali`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -1264,7 +1266,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1132)
+## No article found (1135)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1662,6 +1664,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-315` **Amarna Workmen's Village** — search suggests `Workmen's village`, `Amarna`, `Workmen's Village, Amarna`, `Eighteenth Dynasty of Egypt`, `Art of ancient Egypt`
 - `eg-334` **Inscription of Mes** — search suggests `Graffito of Esmet-Akhom`, `Merneptah Stele`, `Behistun inscription`, `Proto-Sinaitic script`, `Darius the Great`
 - `eg-339` **Temple of Seti I at Abydos** — search suggests `Abydos, Egypt`, `Temple of Seti I (Abydos)`, `Seti I`, `Abydos King List`, `Osireion`
+- `eg-382` **Late Ramesside Letters** — search suggests `Egyptian language`, `Ancient Egyptian literature`, `List of pharaohs`, `Bronze Age`, `Art of ancient Egypt`
+- `eg-383` **Ostracon BM EA 5634**
+- `eg-386` **Nauri Decree** — search suggests `Temple of Seti I (Abydos)`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**

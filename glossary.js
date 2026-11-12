@@ -10662,7 +10662,17 @@ window.GLOSSARY = {
 "Papyrus_Anastasi_I": "",
 "Tale_of_Two_Brothers": "",
 "Meryre": "",
-"Mayer_Papyri": ""
+"Mayer_Papyri": "",
+"Papyrus_Harris_500": "",
+"Late_Ramesside_Letters": "",
+"Ostracon_BM_EA_5634": "",
+"Younger_Memnon": "",
+"Temples_of_Wadi_es-Sebua": "",
+"Nauri_Decree": "",
+"Papyrus_Harris_I": "",
+"Temple_of_Beit_el-Wali": "",
+"Turin_Papyrus_Map": "",
+"Bentresh_stela": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -22614,7 +22624,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Papyrus_Anastasi_I": ["Anastasi I","Pap. Anastasi I","Papyrus BM 10247"],
 "Tale_of_Two_Brothers": ["Tale of the Two Brothers","Story of the Two Brothers","Papyrus d'Orbiney","Papyrus D'Orbiney","Anpu and Bata"],
 "Meryre": ["Meryra","Merire","Meryre I"],
-"Mayer_Papyri": ["Papyrus Mayer A","Papyrus Mayer B","Mayer A","Mayer B","Mayer papyri"]
+"Mayer_Papyri": ["Papyrus Mayer A","Papyrus Mayer B","Mayer A","Mayer B","Mayer papyri"],
+"Papyrus_Harris_500": ["Harris 500","Harris Papyrus 500","Harris Papyrus No. 500"],
+"Late_Ramesside_Letters": ["Late Ramesside letters","LRL"],
+"Ostracon_BM_EA_5634": ["O. BM 5634","BM EA 5634","Ostracon BM 5634"],
+"Younger_Memnon": ["Young Memnon"],
+"Temples_of_Wadi_es-Sebua": ["Wadi es-Sebua","Wadi el-Sebua","Wadi es-Sebua temple"],
+"Nauri_Decree": ["Nauri decree","Nauri Stela","Decree of Nauri"],
+"Papyrus_Harris_I": ["Great Harris Papyrus","Harris Papyrus","Papyrus Harris","Harris I"],
+"Temple_of_Beit_el-Wali": ["Beit el-Wali","Beit el Wali","Bet el-Walli"],
+"Turin_Papyrus_Map": ["Turin Mine Map","Goldmine Papyrus","Turin papyrus map","Papyrus Turin 1879"],
+"Bentresh_stela": ["Bentresh Stela","Bakhtan Stela","Stela of Bakhtan","Bentresh"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33436,7 +33456,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Papyrus_Anastasi_I": ["text","literature","egypt","education"],
 "Tale_of_Two_Brothers": ["text","literature","religion","egypt"],
 "Meryre": ["person","religion","history","egypt"],
-"Mayer_Papyri": ["text","history","law","egypt","thebes"]
+"Mayer_Papyri": ["text","history","law","egypt","thebes"],
+"Papyrus_Harris_500": ["text","literature","history","egypt","new kingdom"],
+"Late_Ramesside_Letters": ["text","history","egypt","thebes","new kingdom"],
+"Ostracon_BM_EA_5634": ["object","history","egypt","deir el-medina","new kingdom"],
+"Younger_Memnon": ["object","art","egypt","thebes","new kingdom"],
+"Temples_of_Wadi_es-Sebua": ["building","religion","egypt","nubia","new kingdom"],
+"Nauri_Decree": ["text","law","egypt","nubia","new kingdom"],
+"Papyrus_Harris_I": ["text","economy","history","egypt","new kingdom"],
+"Temple_of_Beit_el-Wali": ["building","art","egypt","nubia","new kingdom"],
+"Turin_Papyrus_Map": ["object","geography","science","egypt","new kingdom"],
+"Bentresh_stela": ["text","religion","literature","egypt","thebes"]
 });
 
 /* ============================================================================
