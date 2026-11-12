@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6683 | the title is the article |
-| `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6690 | the title is the article |
+| `redirect-variant` | 400 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 638 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 640 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
 | `none` | 1020 | nothing matched; no link |
 
-**7826 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7836 of 9160 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (638)
+## Redirected to a differently named article — check each (640)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -127,6 +127,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-961` **Huanghuali** → [Dalbergia odorifera](https://en.wikipedia.org/wiki/Dalbergia_odorifera) (from `Huanghuali`)
 - `cnh-966` **Wu Liang Shrine** → [Wu Family Shrines](https://en.wikipedia.org/wiki/Wu_Family_Shrines) (from `Wu Liang Shrine`)
 - `cnh-990` **Zhaozhou Bridge** → [Anji Bridge](https://en.wikipedia.org/wiki/Anji_Bridge) (from `Zhaozhou Bridge`)
+- `ec-006` **positive economics** → [Positive and normative economics](https://en.wikipedia.org/wiki/Positive_and_normative_economics) (from `Positive economics`)
+- `ec-008` **economic agent** → [Agent (economics)](https://en.wikipedia.org/wiki/Agent_(economics)) (from `Economic agent`)
 - `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
 - `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
 - `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)

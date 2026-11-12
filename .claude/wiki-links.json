@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-12T04:11Z",
+ "generated": "2026-11-12T04:51Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6683,
-  "redirect-broader": 638,
-  "redirect-variant": 399,
+  "ok": 6690,
+  "redirect-broader": 640,
+  "redirect-variant": 400,
   "section-redirect": 137,
   "disambiguation": 149,
   "none": 1020,
@@ -73152,6 +73152,79 @@
    "answer": "United States v. The Amistad",
    "title": "United States v. The Amistad",
    "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-001": {
+   "answer": "economics",
+   "title": "Economics",
+   "url": "https://en.wikipedia.org/wiki/Economics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-002": {
+   "answer": "definition of economics",
+   "title": "Definitions of economics",
+   "url": "https://en.wikipedia.org/wiki/Definitions_of_economics",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Definition of economics"
+  },
+  "ec-003": {
+   "answer": "microeconomics",
+   "title": "Microeconomics",
+   "url": "https://en.wikipedia.org/wiki/Microeconomics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-004": {
+   "answer": "economic problem",
+   "title": "Economic problem",
+   "url": "https://en.wikipedia.org/wiki/Economic_problem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-005": {
+   "answer": "social science",
+   "title": "Social science",
+   "url": "https://en.wikipedia.org/wiki/Social_science",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-006": {
+   "answer": "positive economics",
+   "title": "Positive and normative economics",
+   "url": "https://en.wikipedia.org/wiki/Positive_and_normative_economics",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Positive economics"
+  },
+  "ec-007": {
+   "answer": "is-ought problem",
+   "title": "Is–ought problem",
+   "url": "https://en.wikipedia.org/wiki/Is%E2%80%93ought_problem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-008": {
+   "answer": "economic agent",
+   "title": "Agent (economics)",
+   "url": "https://en.wikipedia.org/wiki/Agent_(economics)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Economic agent"
+  },
+  "ec-009": {
+   "answer": "public sector",
+   "title": "Public sector",
+   "url": "https://en.wikipedia.org/wiki/Public_sector",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-010": {
+   "answer": "circular flow of income",
+   "title": "Circular flow of income",
+   "url": "https://en.wikipedia.org/wiki/Circular_flow_of_income",
    "via": "glossary",
    "status": "ok"
   }

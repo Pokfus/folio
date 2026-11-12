@@ -9399,7 +9399,17 @@ window.GLOSSARY = {
 "Denmark_Vesey": "",
 "Nat_Turner's_Rebellion": "",
 "Virginia_slavery_debate": "",
-"United_States_v._The_Amistad": ""
+"United_States_v._The_Amistad": "",
+"Economics": "",
+"Definitions_of_economics": "",
+"Microeconomics": "",
+"Economic_problem": "",
+"Social_science": "",
+"Positive_economics": "",
+"Is–ought_problem": "",
+"Agent_(economics)": "",
+"Public_sector": "",
+"Circular_flow_of_income": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19999,7 +20009,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Denmark_Vesey": ["Telemaque"],
 "Nat_Turner's_Rebellion": ["Nat Turner's slave rebellion","Southampton Insurrection"],
 "Virginia_slavery_debate": ["Virginia slavery debate of 1831–1832"],
-"United_States_v._The_Amistad": ["Amistad case","The Amistad"]
+"United_States_v._The_Amistad": ["Amistad case","The Amistad"],
+"Definitions_of_economics": ["definition of economics"],
+"Is–ought_problem": ["is-ought problem","Hume's Law"],
+"Agent_(economics)": ["economic agent"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29556,7 +29569,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Denmark_Vesey": ["person","history","slavery","resistance","united states","south carolina"],
 "Nat_Turner's_Rebellion": ["event","history","slavery","resistance","united states","virginia"],
 "Virginia_slavery_debate": ["event","history","politics","slavery","united states","virginia"],
-"United_States_v._The_Amistad": ["event","history","law","slavery","united states"]
+"United_States_v._The_Amistad": ["event","history","law","slavery","united states"],
+"Economics": ["concept","economics","social science"],
+"Definitions_of_economics": ["concept","economics","methodology"],
+"Microeconomics": ["concept","economics","microeconomics"],
+"Economic_problem": ["concept","economics","scarcity"],
+"Social_science": ["concept","social science","economics"],
+"Positive_economics": ["concept","economics","methodology"],
+"Is–ought_problem": ["concept","philosophy","economics"],
+"Agent_(economics)": ["concept","economics","microeconomics"],
+"Public_sector": ["institution","economics","government"],
+"Circular_flow_of_income": ["concept","economics","macroeconomics"]
 });
 
 /* ============================================================================
