@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7705 | the title is the article |
-| `redirect-variant` | 465 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 102 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7918 | the title is the article |
+| `redirect-variant` | 479 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 107 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 749 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 769 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1136 | nothing matched; no link |
+| `section-redirect` | 187 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
+| `none` | 1171 | nothing matched; no link |
 
-**9037 of 10520 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9289 of 10820 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (749)
+## Redirected to a differently named article — check each (769)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -212,6 +212,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-187` **Lahun Papyri** → [Kahun Papyri](https://en.wikipedia.org/wiki/Kahun_Papyri) (from `Lahun Papyri`)
 - `eg-225` **Tell el-Maskhuta** → [Pithom](https://en.wikipedia.org/wiki/Pithom) (from `Tell el-Maskhuta`)
 - `eg-232` **Egyptian chariot** → [Chariotry in ancient Egypt](https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt) (from `Egyptian chariot`)
+- `eg-301` **Akhetaten** → [Amarna](https://en.wikipedia.org/wiki/Amarna) (from `Akhetaten`)
+- `eg-310` **Gempaaten** → [Temple of Amenhotep IV](https://en.wikipedia.org/wiki/Temple_of_Amenhotep_IV) (from `Gempaaten`)
+- `eg-325` **KV62** → [Tomb of Tutankhamun](https://en.wikipedia.org/wiki/Tomb_of_Tutankhamun) (from `KV62`)
+- `eg-341` **KV17** → [Tomb of Seti I](https://en.wikipedia.org/wiki/Tomb_of_Seti_I) (from `KV17`)
+- `eg-352` **QV66** → [Tomb of Nefertari](https://en.wikipedia.org/wiki/Tomb_of_Nefertari) (from `QV66`)
+- `eg-361` **Twosret** → [Tausret](https://en.wikipedia.org/wiki/Tausret) (from `Twosret`)
+- `eg-385` **Wadi es-Sebua** → [Temples of Wadi es-Sebua](https://en.wikipedia.org/wiki/Temples_of_Wadi_es-Sebua) (from `Wadi es-Sebua`)
+- `eg-388` **Beit el-Wali** → [Temple of Beit el-Wali](https://en.wikipedia.org/wiki/Temple_of_Beit_el-Wali) (from `Beit el-Wali`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -482,6 +490,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-351` **sensory coding** → [Sensory nervous system](https://en.wikipedia.org/wiki/Sensory_nervous_system) (from `Sensory coding`)
 - `ps-361` **rods and cones** → [Photoreceptor cell](https://en.wikipedia.org/wiki/Photoreceptor_cell) (from `Rods and cones`)
 - `ps-373` **trichromatic theory** → [Young–Helmholtz theory](https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory) (from `Trichromatic theory`)
+- `ps-404` **olfaction** → [Sense of smell](https://en.wikipedia.org/wiki/Sense_of_smell) (from `Olfaction`)
+- `ps-407` **touch** → [Somatosensory system](https://en.wikipedia.org/wiki/Somatosensory_system) (from `Touch`)
+- `ps-414` **perceptual constancy** → [Subjective constancy](https://en.wikipedia.org/wiki/Subjective_constancy) (from `Perceptual constancy`)
+- `ps-419` **ambiguous figures** → [Ambiguous image](https://en.wikipedia.org/wiki/Ambiguous_image) (from `Ambiguous figure`)
+- `ps-420` **impossible figures** → [Impossible object](https://en.wikipedia.org/wiki/Impossible_object) (from `Impossible figure`)
+- `ps-430` **conditioned stimulus** → [Classical conditioning](https://en.wikipedia.org/wiki/Classical_conditioning) (from `Conditioned stimulus`)
+- `ps-469` **serial position effect** → [Serial-position effect](https://en.wikipedia.org/wiki/Serial-position_effect) (from `Serial position effect`)
+- `ps-476` **declarative memory** → [Explicit memory](https://en.wikipedia.org/wiki/Explicit_memory) (from `Declarative memory`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -609,6 +625,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-372` **Russian America** → [Russian colonization of North America](https://en.wikipedia.org/wiki/Russian_colonization_of_North_America) (from `Russian America`)
 - `ru-376` **Freemasonry in Russia** → [History of Freemasonry in Russia](https://en.wikipedia.org/wiki/History_of_Freemasonry_in_Russia) (from `Freemasonry in Russia`)
 - `ru-380` **Mikhailovsky Castle** → [Saint Michael's Castle](https://en.wikipedia.org/wiki/Saint_Michael's_Castle) (from `Mikhailovsky Castle`)
+- `ru-414` **Alexey Arakcheyev** → [Aleksey Arakcheyev](https://en.wikipedia.org/wiki/Aleksey_Arakcheyev) (from `Alexey Arakcheyev`)
+- `ru-422` **Official Nationality** → [Orthodoxy, Autocracy, and Nationality](https://en.wikipedia.org/wiki/Orthodoxy,_Autocracy,_and_Nationality) (from `Official Nationality`)
+- `ru-442` **Great Reforms** → [Government reforms of Alexander II of Russia](https://en.wikipedia.org/wiki/Government_reforms_of_Alexander_II_of_Russia) (from `Great Reforms`)
+- `ru-444` **Emancipation Manifesto** → [Emancipation reform of 1861](https://en.wikipedia.org/wiki/Emancipation_reform_of_1861) (from `Emancipation Manifesto`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -794,7 +814,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (102)
+## Settled from a disambiguation page (107)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -864,6 +884,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `pea-203` **Referendum Act** → [Referendums in Taiwan](https://en.wikipedia.org/wiki/Referendums_in_Taiwan) (via the disambiguation page `Referendum Act`)
 - `ps-027` **nativism** → [Psychological nativism](https://en.wikipedia.org/wiki/Psychological_nativism) (via the disambiguation page `Nativism`)
 - `ps-336` **sensation** → [Sense](https://en.wikipedia.org/wiki/Sense) (via the disambiguation page `Sensation`)
+- `ps-431` **acquisition** → [Learning](https://en.wikipedia.org/wiki/Learning) (via the disambiguation page `Acquisition`)
+- `ps-497` **schemas** → [Schema (psychology)](https://en.wikipedia.org/wiki/Schema_(psychology)) (via the disambiguation page `Schema`)
 - `rm-119` **legion** → [Roman legion](https://en.wikipedia.org/wiki/Roman_legion) (via the disambiguation page `Legion`)
 - `rm-144` **praefectura** → [Praefectura (Roman settlement)](https://en.wikipedia.org/wiki/Praefectura_(Roman_settlement)) (via the disambiguation page `Praefectura`)
 - `rm-434` **Pallas** → [Pallas (freedman)](https://en.wikipedia.org/wiki/Pallas_(freedman)) (via the disambiguation page `Pallas`)
@@ -876,6 +898,9 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ru-338` **Peter III** → [Peter III of Russia](https://en.wikipedia.org/wiki/Peter_III_of_Russia) (via the disambiguation page `Peter III`)
 - `ru-378` **Paul I** → [Paul I of Russia](https://en.wikipedia.org/wiki/Paul_I_of_Russia) (via the disambiguation page `Paul I`)
 - `ru-381` **Alexander I** → [Alexander I of Russia](https://en.wikipedia.org/wiki/Alexander_I_of_Russia) (via the disambiguation page `Alexander I`)
+- `ru-416` **Nicholas I** → [Nicholas I of Russia](https://en.wikipedia.org/wiki/Nicholas_I_of_Russia) (via the disambiguation page `Nicholas I`)
+- `ru-441` **Alexander II** → [Alexander II of Russia](https://en.wikipedia.org/wiki/Alexander_II_of_Russia) (via the disambiguation page `Alexander II`)
+- `ru-477` **Alexander III** → [Alexander III of Russia](https://en.wikipedia.org/wiki/Alexander_III_of_Russia) (via the disambiguation page `Alexander III`)
 - `us-021` **Moundville** → [Moundville, Alabama](https://en.wikipedia.org/wiki/Moundville,_Alabama) (via the disambiguation page `Moundville`)
 - `us-028` **Mogollon** → [Mogollon, New Mexico](https://en.wikipedia.org/wiki/Mogollon,_New_Mexico) (via the disambiguation page `Mogollon`)
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
@@ -915,7 +940,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (153)
+## Disambiguation pages that could not be settled (154)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1021,6 +1046,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ps-362` **fovea** — `Fovea` is a disambiguation page; its links: `Fovea (femur)`, `Fovea cardiaca`, `Fovea centralis`, `Fovea ethmoidalis`, `Pterygoid fovea`, `Trochlear fovea`
 - `ps-371` **feature detectors** — `Feature detection` is a disambiguation page
 - `ps-382` **apparent motion** — `Apparent motion` is a disambiguation page
+- `ps-406` **flavour** — `Flavor` is a disambiguation page; its links: `The Flavor`, `Flavor Flav`, `Flavour N'abania`, `Flavour Network`, `Flavour (particle physics)`, `Flavor (band)`
 - `rm-019` **Veneti** — `Veneti` is a disambiguation page; its links: `Adriatic Veneti`, `Veneti (Gaul)`, `Vistula Veneti`
 - `rm-163` **Tarentum** — `Tarentum` is a disambiguation page; its links: `Tarentum, Pennsylvania`, `Tarentum Bridge`, `Tarentum (Campus Martius)`
 - `rm-197` **siege of Lilybaeum** — `Siege of Lilybaeum` is a disambiguation page; its links: `Siege of Lilybaeum (250–241 BC)`, `Siege of Lilybaeum (278 BC)`, `Siege of Lilybaeum (368 BC)`
@@ -1084,7 +1110,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (175)
+## Section redirects — no dedicated page (187)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1133,6 +1159,7 @@ Wikipedia treats these as part of another article. No link.
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
 - `eg-203` **Middle Egyptian** — `Middle Egyptian` only redirects into `Egyptian language#Middle Egyptian`
+- `eg-396` **Sacred lake** — `Sacred lake` only redirects into `Sacred waters#Lakes and underground water`
 - `gga-141` **Child mortality rate** — `Child mortality rate` only redirects into `Child mortality#Rate`
 - `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gga-232` **Premature deindustrialisation** — `Premature deindustrialization` only redirects into `Technological unemployment#Premature deindustrialization`
@@ -1197,6 +1224,16 @@ Wikipedia treats these as part of another article. No link.
 - `ps-363` **dark adaptation** — `Dark adaptation` only redirects into `Adaptation (eye)#Dark adaptation`
 - `ps-367` **primary visual cortex** — `Primary visual cortex` only redirects into `Visual cortex#Primary visual cortex (V1)`
 - `ps-380` **monocular depth cues** — `Monocular depth cues` only redirects into `Depth perception#Monocular cues`
+- `ps-411` **perceptual organisation** — `Perceptual organization` only redirects into `Optical illusion#Perceptual organization`
+- `ps-442` **negative reinforcement** — `Negative reinforcement` only redirects into `Reinforcement#Negative reinforcement`
+- `ps-445` **schedules of reinforcement** — `Schedules of reinforcement` only redirects into `Reinforcement#Intermittent reinforcement schedules`
+- `ps-447` **secondary reinforcer** — `Secondary reinforcer` only redirects into `Reinforcement#Primary and secondary reinforcers`
+- `ps-471` **phonological loop** — `Phonological loop` only redirects into `Baddeley's model of working memory#Phonological loop`
+- `ps-472` **visuospatial sketchpad** — `Visuospatial sketchpad` only redirects into `Baddeley's model of working memory#Visuo-spatial working memory`
+- `ps-473` **central executive** — `Central executive` only redirects into `Baddeley's model of working memory#Central executive`
+- `ps-474` **episodic buffer** — `Episodic buffer` only redirects into `Baddeley's model of working memory#Episodic buffer`
+- `ps-483` **retrieval cues** — `Retrieval cue` only redirects into `Recall (memory)#Cued recall`
+- `ps-495` **reconsolidation** — `Reconsolidation` only redirects into `Memory consolidation#Reconsolidation`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -1233,6 +1270,7 @@ Wikipedia treats these as part of another article. No link.
 - `ru-158` **Boyar Duma** — `Boyar Duma` only redirects into `Duma#Boyar duma`
 - `ru-212` **oprichnik** — `Oprichnik` only redirects into `Oprichnina#Organization`
 - `ru-308` **civil script** — `Civil script` only redirects into `Reforms of Russian orthography#18th-century changes`
+- `ru-409` **Polish–Saxon crisis** — `Polish–Saxon crisis` only redirects into `Congress of Vienna#Polish-Saxon crisis`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`
@@ -1264,7 +1302,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1136)
+## No article found (1171)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1659,6 +1697,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-287` **Amenemhab** — search suggests `TT44`, `TT25`, `TT85`, `Seti (Viceroy of Kush)`, `List of ancient Egyptians`
 - `eg-294` **Tomb of Kheruef** — search suggests `List of Theban tombs`, `TT192`, `Akhenaten`, `Amenhotep III`, `TT407`
 - `eg-297` **Tomb of Ramose** — search suggests `Ramose`, `Southern Tomb 11`, `Ramesses II`, `Ramose and Hatnofer`, `Ramose (TT55)`
+- `eg-315` **Amarna Workmen's Village** — search suggests `Workmen's village`, `Amarna`, `Workmen's Village, Amarna`, `Eighteenth Dynasty of Egypt`, `Art of ancient Egypt`
+- `eg-334` **Inscription of Mes** — search suggests `Graffito of Esmet-Akhom`, `Merneptah Stele`, `Behistun inscription`, `Proto-Sinaitic script`, `Darius the Great`
+- `eg-339` **Temple of Seti I at Abydos** — search suggests `Abydos, Egypt`, `Temple of Seti I (Abydos)`, `Seti I`, `Abydos King List`, `Osireion`
+- `eg-382` **Late Ramesside Letters** — search suggests `Egyptian language`, `Ancient Egyptian literature`, `List of pharaohs`, `Bronze Age`, `Art of ancient Egypt`
+- `eg-383` **Ostracon BM EA 5634**
+- `eg-386` **Nauri Decree** — search suggests `Temple of Seti I (Abydos)`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
@@ -2146,6 +2190,21 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-353` **cross-modal perception** — search suggests `Perception`, `Bouba/kiki effect`, `Gestalt psychology`, `Time perception`, `Amodal perception`
 - `ps-369` **simple and complex cells** — search suggests `Neural network`, `Tissue (biology)`, `The Ghost in the Machine`, `Receptive field`, `Eye`
 - `ps-377` **lightness constancy** — search suggests `Subjective constancy`, `Color constancy`, `Lists of colors`, `Hans Wallach`, `Optical illusion`
+- `ps-403` **chemical senses** — search suggests `Sense`, `Monell Chemical Senses Center`, `Sport psychology`, `Special senses`, `Richard L. Doty`
+- `ps-410` **vestibular and proprioceptive senses** — search suggests `Proprioception`, `Perception`, `Somatosensory system`, `Acrophobia`, `Sensory processing disorder`
+- `ps-412` **Gestalt principles of grouping** — search suggests `Principles of grouping`, `Gestalt psychology`, `Figure–ground (perception)`, `Kurt Koffka`, `Michael Kubovy`
+- `ps-413` **figure–ground organisation** — search suggests `Gestalt psychology`, `Johan Wagemans`, `Carl Jung`, `Theory of indispensable attributes`, `Islamic State`
+- `ps-422` **holistic perception** — search suggests `Perception`, `Face perception`, `Field theory (psychology)`, `Sport psychology`, `Accent perception`
+- `ps-429` **trace conditioning** — search suggests `Classical conditioning`, `Psychology`, `Behaviorism`, `Air conditioning`, `Memory`
+- `ps-446` **partial reinforcement extinction effect** — search suggests `Reinforcement`, `Extinction (psychology)`, `Punishment (psychology)`, `Self-administration`, `Rescorla–Wagner model`
+- `ps-451` **stressor controllability** — search suggests `Psychological stress`, `Occupational stress`, `Psychology`, `Locus of control`, `Stress management`
+- `ps-462` **encoding, storage and retrieval** — search suggests `Encoding (memory)`, `Storage (memory)`, `Elaborative encoding`, `LC4MP`, `Flashback (psychology)`
+- `ps-467` **multi-store model** — search suggests `Atkinson–Shiffrin memory model`, `Baddeley's model of working memory`, `Storage (memory)`, `Information processing (psychology)`, `Chunking (psychology)`
+- `ps-482` **elaborative rehearsal** — search suggests `Rehearsal (educational psychology)`, `Memory rehearsal`, `Elaborative encoding`, `Brown–Peterson task`, `Encoding (memory)`
+- `ps-487` **recall and recognition** — search suggests `Pattern recognition (psychology)`, `Spacing effect`, `Recall (memory)`, `Recognition failure of recallable words`, `False memory`
+- `ps-489` **decay and interference** — search suggests `Forgetting`, `Interference theory`, `Decay theory`, `Cognitive psychology`, `Mental block`
+- `ps-493` **anterograde and retrograde amnesia** — search suggests `Anterograde amnesia`, `Retrograde amnesia`, `Amnesia`, `Post-traumatic amnesia`, `Dissociative amnesia`
+- `ps-500` **recovered memory controversy** — search suggests `Recovered-memory therapy`, `False memory`, `False memory syndrome`, `Baddeley's model of working memory`, `Cognitive psychology`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`
@@ -2309,6 +2368,20 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-346` **secularisation of church lands** — search suggests `Peter III of Russia`, `Catherine the Great`, `Metropolis of Moscow and all Rus'`, `Secularization`, `Palmarian Catholic Church`
 - `ru-367` **provincial reform of 1775** — search suggests `Governorate (Russia)`, `1775`, `Catherine the Great`, `Yemelyan Pugachev`, `Baltic Governorates`
 - `ru-369` **Charter to the Towns** — search suggests `Russia`, `Magadan`, `Federal subjects of Russia`, `Russo-Ukrainian war`, `Anadyr (town)`
+- `ru-412` **Semyonovsky Regiment mutiny** — search suggests `Semyonovsky Life Guards Regiment`, `Preobrazhensky Life Guards Regiment`, `Russian Naval Infantry`, `Russian Imperial Guard`, `Russian Revolution of 1905`
+- `ru-424` **cast-iron statute** — search suggests `Russia`, `Brass knuckles`, `History of metallurgy in the Urals`, `Royal Mail`, `Russia under Vladimir Putin`
+- `ru-443` **Editing Commissions** — search suggests `2026 Russian plague scare`, `Conflict-of-interest editing on Wikipedia`, `He Jiankui affair`, `2026 Russian legislative election`, `United Russia`
+- `ru-445` **redemption payments** — search suggests `Emancipation reform of 1861`, `Economy of Tsarist Russia`, `Russian Empire`, `Bond (finance)`, `Redemptioner`
+- `ru-446` **krugovaya poruka** — search suggests `Obshchina`
+- `ru-450` **Municipal Statute of 1870** — search suggests `Russian Empire`, `Moscow`, `Statute Law Revision Act 1875`, `Nicholas II`, `Statute Law Revision Act 1950`
+- `ru-452` **University Statute of 1863** — search suggests `Imperial Moscow University`, `Odesa National University`, `1899 Russian student strike`, `Tsarist Russia`, `Mile`
+- `ru-453` **Temporary Rules on the Press** — search suggests `Russian occupation of Ukraine`, `Russo-Ukrainian war`, `Tsarist Russia`, `Russian Soviet Federative Socialist Republic`, `2022 Russian invasion of Ukraine`
+- `ru-474` **Russian revolutionary terrorism** — search suggests `Terrorism in Russia`, `Russian Revolution`, `Socialist Revolutionary Party`, `Andrei Argunov`, `Russian nihilist movement`
+- `ru-478` **counter-reforms** — search suggests `Alexander III of Russia`, `Alexander II of Russia`, `Russia`, `Countering America's Adversaries Through Sanctions Act`, `Triple Alliance`
+- `ru-480` **pogroms of 1881–1884** — search suggests `Pogrom`, `Pogroms in the Russian Empire`, `Warsaw pogrom (1881)`, `Odessa pogroms`, `Kiev pogrom (1881)`
+- `ru-482` **Russian tariff of 1891** — search suggests `Russian Railways`, `Nicholas II`, `Timeline of Russian history`, `Russian Revolution of 1905`, `Emancipation reform of 1861`
+- `ru-486` **St Petersburg textile strike of 1896** — search suggests `League of Struggle for the Emancipation of the Working Class`, `Labor history of the United States`, `Fyodor Dan`, `Alexander Mantashev`, `African People's Socialist Party`
+- `ru-499` **Statute of 14 August 1881** — search suggests `Russia`, `Statute Law Revision Act 1875`, `Nicholas II`, `House of Romanov`, `Russian Empire`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`

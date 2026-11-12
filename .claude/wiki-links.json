@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T08:20Z",
+ "generated": "2026-11-12T12:33Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7705,
-  "redirect-broader": 749,
-  "redirect-variant": 465,
-  "section-redirect": 175,
-  "disambiguation": 153,
-  "none": 1136,
-  "disambig-resolved": 102,
+  "ok": 7918,
+  "redirect-broader": 769,
+  "redirect-variant": 479,
+  "section-redirect": 187,
+  "disambiguation": 154,
+  "none": 1171,
+  "disambig-resolved": 107,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -83059,6 +83059,2442 @@
    "via": "glossary",
    "status": "ok"
   },
+  "ru-401": {
+   "answer": "Council at Fili",
+   "title": "Council at Fili",
+   "url": "https://en.wikipedia.org/wiki/Council_at_Fili",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-402": {
+   "answer": "Moscow fire of 1812",
+   "title": "Fire of Moscow (1812)",
+   "url": "https://en.wikipedia.org/wiki/Fire_of_Moscow_(1812)",
+   "via": "manual",
+   "status": "ok",
+   "suggestions": [
+    "Fire of Moscow (1812)",
+    "French invasion of Russia",
+    "French occupation of Moscow",
+    "1812 Overture",
+    "Moscow"
+   ],
+   "manual": true
+  },
+  "ru-403": {
+   "answer": "Battle of Maloyaroslavets",
+   "title": "Battle of Maloyaroslavets",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Maloyaroslavets",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-404": {
+   "answer": "Battle of Berezina",
+   "title": "Battle of Berezina",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Berezina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-405": {
+   "answer": "Military Gallery of the Winter Palace",
+   "title": "Military Gallery of the Winter Palace",
+   "url": "https://en.wikipedia.org/wiki/Military_Gallery_of_the_Winter_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-406": {
+   "answer": "War of the Sixth Coalition",
+   "title": "War of the Sixth Coalition",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Sixth_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-407": {
+   "answer": "Battle of Leipzig",
+   "title": "Battle of Leipzig",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leipzig",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-408": {
+   "answer": "Battle of Paris (1814)",
+   "title": "Battle of Paris (1814)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Paris_(1814)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-409": {
+   "answer": "Polish–Saxon crisis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Polish–Saxon crisis",
+   "target": "Congress of Vienna#Polish-Saxon crisis"
+  },
+  "ru-410": {
+   "answer": "Congress Poland",
+   "title": "Congress Poland",
+   "url": "https://en.wikipedia.org/wiki/Congress_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-411": {
+   "answer": "Holy Alliance",
+   "title": "Holy Alliance",
+   "url": "https://en.wikipedia.org/wiki/Holy_Alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-412": {
+   "answer": "Semyonovsky Regiment mutiny",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Semyonovsky Life Guards Regiment",
+    "Preobrazhensky Life Guards Regiment",
+    "Russian Naval Infantry",
+    "Russian Imperial Guard",
+    "Russian Revolution of 1905"
+   ]
+  },
+  "ru-413": {
+   "answer": "military settlements",
+   "title": "Military settlement",
+   "url": "https://en.wikipedia.org/wiki/Military_settlement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Military settlements"
+  },
+  "ru-414": {
+   "answer": "Alexey Arakcheyev",
+   "title": "Aleksey Arakcheyev",
+   "url": "https://en.wikipedia.org/wiki/Aleksey_Arakcheyev",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Alexey Arakcheyev"
+  },
+  "ru-415": {
+   "answer": "Fyodor Kuzmich",
+   "title": "Feodor Kuzmich",
+   "url": "https://en.wikipedia.org/wiki/Feodor_Kuzmich",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Fyodor Kuzmich"
+  },
+  "ru-416": {
+   "answer": "Nicholas I",
+   "title": "Nicholas I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Nicholas_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Nicholas I"
+  },
+  "ru-417": {
+   "answer": "Decembrist revolt",
+   "title": "Decembrist revolt",
+   "url": "https://en.wikipedia.org/wiki/Decembrist_revolt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-418": {
+   "answer": "Decembrists",
+   "title": "Decembrist revolt",
+   "url": "https://en.wikipedia.org/wiki/Decembrist_revolt",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Decembrists"
+  },
+  "ru-419": {
+   "answer": "Southern Society",
+   "title": "Southern Society of the Decembrists",
+   "url": "https://en.wikipedia.org/wiki/Southern_Society_of_the_Decembrists",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-420": {
+   "answer": "Nerchinsk katorga",
+   "title": "Nerchinsk katorga",
+   "url": "https://en.wikipedia.org/wiki/Nerchinsk_katorga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-421": {
+   "answer": "Third Section",
+   "title": "Third Section of His Imperial Majesty's Own Chancellery",
+   "url": "https://en.wikipedia.org/wiki/Third_Section_of_His_Imperial_Majesty's_Own_Chancellery",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Third Section"
+  },
+  "ru-422": {
+   "answer": "Official Nationality",
+   "title": "Orthodoxy, Autocracy, and Nationality",
+   "url": "https://en.wikipedia.org/wiki/Orthodoxy,_Autocracy,_and_Nationality",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Official Nationality"
+  },
+  "ru-423": {
+   "answer": "Sergey Uvarov",
+   "title": "Sergey Uvarov",
+   "url": "https://en.wikipedia.org/wiki/Sergey_Uvarov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-424": {
+   "answer": "cast-iron statute",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Brass knuckles",
+    "History of metallurgy in the Urals",
+    "Royal Mail",
+    "Russia under Vladimir Putin"
+   ]
+  },
+  "ru-425": {
+   "answer": "Digest of Laws of the Russian Empire",
+   "title": "Digest of Laws of the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Digest_of_Laws_of_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-426": {
+   "answer": "November Uprising",
+   "title": "November Uprising",
+   "url": "https://en.wikipedia.org/wiki/November_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-427": {
+   "answer": "Organic Statute of the Kingdom of Poland",
+   "title": "Organic Statute of the Kingdom of Poland",
+   "url": "https://en.wikipedia.org/wiki/Organic_Statute_of_the_Kingdom_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-428": {
+   "answer": "Caucasian War",
+   "title": "Caucasian War",
+   "url": "https://en.wikipedia.org/wiki/Caucasian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-429": {
+   "answer": "Imam Shamil",
+   "title": "Imam Shamil",
+   "url": "https://en.wikipedia.org/wiki/Imam_Shamil",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-430": {
+   "answer": "Circassian expulsions",
+   "title": "Circassian genocide",
+   "url": "https://en.wikipedia.org/wiki/Circassian_genocide",
+   "via": "manual",
+   "status": "ok",
+   "suggestions": [
+    "Circassian genocide",
+    "Circassians",
+    "Circassia",
+    "Russo–Circassian War",
+    "Alexander II of Russia"
+   ],
+   "manual": true
+  },
+  "ru-431": {
+   "answer": "Russo-Persian War of 1826–1828",
+   "title": "Russo-Persian War (1826–1828)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1826–1828)",
+   "via": "manual",
+   "status": "ok",
+   "suggestions": [
+    "Russo-Persian War (1826–1828)",
+    "Russo-Persian Wars",
+    "Russo-Turkish War (1828–1829)",
+    "Russo-Turkish wars",
+    "Battle of Ganja (1826)"
+   ],
+   "manual": true
+  },
+  "ru-432": {
+   "answer": "Russo-Turkish War of 1828–1829",
+   "title": "Russo-Turkish War (1828–1829)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1828%E2%80%931829)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1828–1829"
+  },
+  "ru-433": {
+   "answer": "Convention of Balta Liman",
+   "title": "Convention of Balta Liman",
+   "url": "https://en.wikipedia.org/wiki/Convention_of_Balta_Liman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-434": {
+   "answer": "Surrender at Világos",
+   "title": "Surrender at Világos",
+   "url": "https://en.wikipedia.org/wiki/Surrender_at_Vil%C3%A1gos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-435": {
+   "answer": "Petrashevsky Circle",
+   "title": "Petrashevsky Circle",
+   "url": "https://en.wikipedia.org/wiki/Petrashevsky_Circle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-436": {
+   "answer": "Crimean War",
+   "title": "Crimean War",
+   "url": "https://en.wikipedia.org/wiki/Crimean_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-437": {
+   "answer": "Siege of Sevastopol",
+   "title": "Siege of Sevastopol (1854–1855)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Sevastopol_(1854%E2%80%931855)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-438": {
+   "answer": "Battle of Sinop",
+   "title": "Battle of Sinop",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Sinop",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-439": {
+   "answer": "Treaty of Paris (1856)",
+   "title": "Treaty of Paris (1856)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1856)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-440": {
+   "answer": "Sevastopol Sketches",
+   "title": "Sevastopol Sketches",
+   "url": "https://en.wikipedia.org/wiki/Sevastopol_Sketches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-441": {
+   "answer": "Alexander II",
+   "title": "Alexander II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_II_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander II"
+  },
+  "ru-442": {
+   "answer": "Great Reforms",
+   "title": "Government reforms of Alexander II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Government_reforms_of_Alexander_II_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Reforms"
+  },
+  "ru-443": {
+   "answer": "Editing Commissions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Russian plague scare",
+    "Conflict-of-interest editing on Wikipedia",
+    "He Jiankui affair",
+    "2026 Russian legislative election",
+    "United Russia"
+   ]
+  },
+  "ru-444": {
+   "answer": "Emancipation Manifesto",
+   "title": "Emancipation reform of 1861",
+   "url": "https://en.wikipedia.org/wiki/Emancipation_reform_of_1861",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Emancipation Manifesto"
+  },
+  "ru-445": {
+   "answer": "redemption payments",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emancipation reform of 1861",
+    "Economy of Tsarist Russia",
+    "Russian Empire",
+    "Bond (finance)",
+    "Redemptioner"
+   ]
+  },
+  "ru-446": {
+   "answer": "krugovaya poruka",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Obshchina"
+   ]
+  },
+  "ru-447": {
+   "answer": "zemstvo",
+   "title": "Zemstvo",
+   "url": "https://en.wikipedia.org/wiki/Zemstvo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-448": {
+   "answer": "Judicial reform of Alexander II",
+   "title": "Judicial reform of Alexander II",
+   "url": "https://en.wikipedia.org/wiki/Judicial_reform_of_Alexander_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-449": {
+   "answer": "jury trial",
+   "title": "Jury trial",
+   "url": "https://en.wikipedia.org/wiki/Jury_trial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-450": {
+   "answer": "Municipal Statute of 1870",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian Empire",
+    "Moscow",
+    "Statute Law Revision Act 1875",
+    "Nicholas II",
+    "Statute Law Revision Act 1950"
+   ]
+  },
+  "ru-451": {
+   "answer": "Conscription in the Russian Empire",
+   "title": "Conscription in the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Conscription_in_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-452": {
+   "answer": "University Statute of 1863",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Imperial Moscow University",
+    "Odesa National University",
+    "1899 Russian student strike",
+    "Tsarist Russia",
+    "Mile"
+   ]
+  },
+  "ru-453": {
+   "answer": "Temporary Rules on the Press",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian occupation of Ukraine",
+    "Russo-Ukrainian war",
+    "Tsarist Russia",
+    "Russian Soviet Federative Socialist Republic",
+    "2022 Russian invasion of Ukraine"
+   ]
+  },
+  "ru-454": {
+   "answer": "January Uprising",
+   "title": "January Uprising",
+   "url": "https://en.wikipedia.org/wiki/January_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-455": {
+   "answer": "Russification",
+   "title": "Russification",
+   "url": "https://en.wikipedia.org/wiki/Russification",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-456": {
+   "answer": "Ems Ukaz",
+   "title": "Ems Ukaz",
+   "url": "https://en.wikipedia.org/wiki/Ems_Ukaz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-457": {
+   "answer": "Russian conquest of Central Asia",
+   "title": "Russian conquest of Central Asia",
+   "url": "https://en.wikipedia.org/wiki/Russian_conquest_of_Central_Asia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-458": {
+   "answer": "Emirate of Bukhara",
+   "title": "Emirate of Bukhara",
+   "url": "https://en.wikipedia.org/wiki/Emirate_of_Bukhara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-459": {
+   "answer": "Great Game",
+   "title": "Great Game",
+   "url": "https://en.wikipedia.org/wiki/Great_Game",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-460": {
+   "answer": "Alaska Purchase",
+   "title": "Alaska Purchase",
+   "url": "https://en.wikipedia.org/wiki/Alaska_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-461": {
+   "answer": "Treaty of Aigun",
+   "title": "Treaty of Aigun",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Aigun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-462": {
+   "answer": "Convention of Peking",
+   "title": "Convention of Peking",
+   "url": "https://en.wikipedia.org/wiki/Convention_of_Peking",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-463": {
+   "answer": "Russo-Turkish War of 1877–1878",
+   "title": "Russo-Turkish War (1877–1878)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1877%E2%80%931878)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1877–1878"
+  },
+  "ru-464": {
+   "answer": "Siege of Plevna",
+   "title": "Siege of Plevna",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Plevna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-465": {
+   "answer": "Treaty of San Stefano",
+   "title": "Treaty of San Stefano",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_San_Stefano",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-466": {
+   "answer": "Congress of Berlin",
+   "title": "Congress of Berlin",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Berlin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-467": {
+   "answer": "intelligentsia",
+   "title": "Intelligentsia",
+   "url": "https://en.wikipedia.org/wiki/Intelligentsia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-468": {
+   "answer": "Russian nihilist movement",
+   "title": "Russian nihilist movement",
+   "url": "https://en.wikipedia.org/wiki/Russian_nihilist_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-469": {
+   "answer": "Nikolay Chernyshevsky",
+   "title": "Nikolay Chernyshevsky",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Chernyshevsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-470": {
+   "answer": "Narodniks",
+   "title": "Narodniks",
+   "url": "https://en.wikipedia.org/wiki/Narodniks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-471": {
+   "answer": "going to the people",
+   "title": "Going to the People",
+   "url": "https://en.wikipedia.org/wiki/Going_to_the_People",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-472": {
+   "answer": "Land and Liberty",
+   "title": "Land and Liberty (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Land_and_Liberty_(Russia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-473": {
+   "answer": "Narodnaya Volya",
+   "title": "Narodnaya Volya",
+   "url": "https://en.wikipedia.org/wiki/Narodnaya_Volya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-474": {
+   "answer": "Russian revolutionary terrorism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Terrorism in Russia",
+    "Russian Revolution",
+    "Socialist Revolutionary Party",
+    "Andrei Argunov",
+    "Russian nihilist movement"
+   ]
+  },
+  "ru-475": {
+   "answer": "Vera Zasulich",
+   "title": "Vera Zasulich",
+   "url": "https://en.wikipedia.org/wiki/Vera_Zasulich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-476": {
+   "answer": "assassination of Alexander II",
+   "title": "Assassination of Alexander II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_Alexander_II_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Assassination of Alexander II"
+  },
+  "ru-477": {
+   "answer": "Alexander III",
+   "title": "Alexander III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_III_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander III"
+  },
+  "ru-478": {
+   "answer": "counter-reforms",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Alexander III of Russia",
+    "Alexander II of Russia",
+    "Russia",
+    "Countering America's Adversaries Through Sanctions Act",
+    "Triple Alliance"
+   ]
+  },
+  "ru-479": {
+   "answer": "Konstantin Pobedonostsev",
+   "title": "Konstantin Pobedonostsev",
+   "url": "https://en.wikipedia.org/wiki/Konstantin_Pobedonostsev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-480": {
+   "answer": "pogroms of 1881–1884",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pogrom",
+    "Pogroms in the Russian Empire",
+    "Warsaw pogrom (1881)",
+    "Odessa pogroms",
+    "Kiev pogrom (1881)"
+   ]
+  },
+  "ru-481": {
+   "answer": "1897 Russian census",
+   "title": "1897 Russian census",
+   "url": "https://en.wikipedia.org/wiki/1897_Russian_census",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-482": {
+   "answer": "Russian tariff of 1891",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian Railways",
+    "Nicholas II",
+    "Timeline of Russian history",
+    "Russian Revolution of 1905",
+    "Emancipation reform of 1861"
+   ]
+  },
+  "ru-483": {
+   "answer": "Sergei Witte",
+   "title": "Sergei Witte",
+   "url": "https://en.wikipedia.org/wiki/Sergei_Witte",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-484": {
+   "answer": "Trans-Siberian Railway",
+   "title": "Trans-Siberian Railway",
+   "url": "https://en.wikipedia.org/wiki/Trans-Siberian_Railway",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-485": {
+   "answer": "Branobel",
+   "title": "Branobel",
+   "url": "https://en.wikipedia.org/wiki/Branobel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-486": {
+   "answer": "St Petersburg textile strike of 1896",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "League of Struggle for the Emancipation of the Working Class",
+    "Labor history of the United States",
+    "Fyodor Dan",
+    "Alexander Mantashev",
+    "African People's Socialist Party"
+   ]
+  },
+  "ru-487": {
+   "answer": "Peasants' Land Bank",
+   "title": "Peasants' Land Bank",
+   "url": "https://en.wikipedia.org/wiki/Peasants'_Land_Bank",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-488": {
+   "answer": "Russian famine of 1891–1892",
+   "title": "Russian famine of 1891–1892",
+   "url": "https://en.wikipedia.org/wiki/Russian_famine_of_1891%E2%80%931892",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-489": {
+   "answer": "Franco-Russian Alliance",
+   "title": "Franco-Russian Alliance",
+   "url": "https://en.wikipedia.org/wiki/Franco-Russian_Alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-490": {
+   "answer": "Russian invasion of Manchuria",
+   "title": "Russian invasion of Manchuria",
+   "url": "https://en.wikipedia.org/wiki/Russian_invasion_of_Manchuria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-491": {
+   "answer": "Chinese Eastern Railway",
+   "title": "Chinese Eastern Railway",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Eastern_Railway",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-492": {
+   "answer": "Port Arthur",
+   "title": "Lüshunkou District",
+   "url": "https://en.wikipedia.org/wiki/Lüshunkou_District",
+   "via": "manual",
+   "status": "ok",
+   "from": "Port Arthur",
+   "manual": true
+  },
+  "ru-493": {
+   "answer": "Russo-Japanese War",
+   "title": "Russo-Japanese War",
+   "url": "https://en.wikipedia.org/wiki/Russo-Japanese_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-494": {
+   "answer": "Siege of Port Arthur",
+   "title": "Siege of Port Arthur",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Port_Arthur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-495": {
+   "answer": "Battle of Mukden",
+   "title": "Battle of Mukden",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Mukden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-496": {
+   "answer": "Battle of Tsushima",
+   "title": "Battle of Tsushima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Tsushima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-497": {
+   "answer": "Treaty of Portsmouth",
+   "title": "Treaty of Portsmouth",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Portsmouth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-498": {
+   "answer": "Nicholas II",
+   "title": "Nicholas II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Nicholas_II_of_Russia",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-499": {
+   "answer": "Statute of 14 August 1881",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Statute Law Revision Act 1875",
+    "Nicholas II",
+    "House of Romanov",
+    "Russian Empire"
+   ]
+  },
+  "ru-500": {
+   "answer": "Okhrana",
+   "title": "Okhrana",
+   "url": "https://en.wikipedia.org/wiki/Okhrana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-301": {
+   "answer": "Akhetaten",
+   "title": "Amarna",
+   "url": "https://en.wikipedia.org/wiki/Amarna",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Akhetaten"
+  },
+  "eg-302": {
+   "answer": "Amarna",
+   "title": "Amarna",
+   "url": "https://en.wikipedia.org/wiki/Amarna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-303": {
+   "answer": "Boundary Stelae of Akhenaten",
+   "title": "Boundary Stelae of Akhenaten",
+   "url": "https://en.wikipedia.org/wiki/Boundary_Stelae_of_Akhenaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-304": {
+   "answer": "North Riverside Palace",
+   "title": "North Riverside Palace",
+   "url": "https://en.wikipedia.org/wiki/North_Riverside_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-305": {
+   "answer": "Great Temple of the Aten",
+   "title": "Great Temple of the Aten",
+   "url": "https://en.wikipedia.org/wiki/Great_Temple_of_the_Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-306": {
+   "answer": "Nefertiti",
+   "title": "Nefertiti",
+   "url": "https://en.wikipedia.org/wiki/Nefertiti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-307": {
+   "answer": "Thutmose",
+   "title": "Thutmose (sculptor)",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_(sculptor)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-308": {
+   "answer": "Meritaten",
+   "title": "Meritaten",
+   "url": "https://en.wikipedia.org/wiki/Meritaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-309": {
+   "answer": "Amarna art",
+   "title": "Amarna art",
+   "url": "https://en.wikipedia.org/wiki/Amarna_art",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-310": {
+   "answer": "Gempaaten",
+   "title": "Temple of Amenhotep IV",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Amenhotep_IV",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Gempaaten"
+  },
+  "eg-321": {
+   "answer": "Ankhesenamun",
+   "title": "Ankhesenamun",
+   "url": "https://en.wikipedia.org/wiki/Ankhesenamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-322": {
+   "answer": "Restoration Stela",
+   "title": "Restoration Stela",
+   "url": "https://en.wikipedia.org/wiki/Restoration_Stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-323": {
+   "answer": "Maya",
+   "title": "Maya (treasurer)",
+   "url": "https://en.wikipedia.org/wiki/Maya_(treasurer)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-324": {
+   "answer": "KV54",
+   "title": "KV54",
+   "url": "https://en.wikipedia.org/wiki/KV54",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-325": {
+   "answer": "KV62",
+   "title": "Tomb of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Tutankhamun",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "KV62"
+  },
+  "eg-326": {
+   "answer": "Anubis Shrine",
+   "title": "Anubis Shrine",
+   "url": "https://en.wikipedia.org/wiki/Anubis_Shrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-327": {
+   "answer": "Tutankhamun's meteoric iron dagger",
+   "title": "Tutankhamun's meteoric iron dagger",
+   "url": "https://en.wikipedia.org/wiki/Tutankhamun's_meteoric_iron_dagger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-328": {
+   "answer": "Chariots of Tutankhamun",
+   "title": "Chariots of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Chariots_of_Tutankhamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-329": {
+   "answer": "Ay",
+   "title": "Ay (pharaoh)",
+   "url": "https://en.wikipedia.org/wiki/Ay_(pharaoh)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-330": {
+   "answer": "Zannanza",
+   "title": "Zannanza",
+   "url": "https://en.wikipedia.org/wiki/Zannanza",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-341": {
+   "answer": "KV17",
+   "title": "Tomb of Seti I",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Seti_I",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "KV17"
+  },
+  "eg-342": {
+   "answer": "Shasu",
+   "title": "Shasu",
+   "url": "https://en.wikipedia.org/wiki/Shasu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-343": {
+   "answer": "Ozymandias",
+   "title": "Ozymandias",
+   "url": "https://en.wikipedia.org/wiki/Ozymandias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-344": {
+   "answer": "Muwatalli II",
+   "title": "Muwatalli II",
+   "url": "https://en.wikipedia.org/wiki/Muwatalli_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-345": {
+   "answer": "Kadesh inscriptions",
+   "title": "Kadesh inscriptions",
+   "url": "https://en.wikipedia.org/wiki/Kadesh_inscriptions",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-346": {
+   "answer": "Egyptian–Hittite peace treaty",
+   "title": "Egyptian–Hittite peace treaty",
+   "url": "https://en.wikipedia.org/wiki/Egyptian%E2%80%93Hittite_peace_treaty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-347": {
+   "answer": "Maathorneferure",
+   "title": "Maathorneferure",
+   "url": "https://en.wikipedia.org/wiki/Maathorneferure",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-348": {
+   "answer": "Pi-Ramesses",
+   "title": "Pi-Ramesses",
+   "url": "https://en.wikipedia.org/wiki/Pi-Ramesses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-349": {
+   "answer": "Abu Simbel",
+   "title": "Abu Simbel",
+   "url": "https://en.wikipedia.org/wiki/Abu_Simbel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-350": {
+   "answer": "Ramesseum",
+   "title": "Ramesseum",
+   "url": "https://en.wikipedia.org/wiki/Ramesseum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-331": {
+   "answer": "Horemheb",
+   "title": "Horemheb",
+   "url": "https://en.wikipedia.org/wiki/Horemheb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-332": {
+   "answer": "Edict of Horemheb",
+   "title": "Edict of Horemheb",
+   "url": "https://en.wikipedia.org/wiki/Edict_of_Horemheb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-333": {
+   "answer": "talatat",
+   "title": "Talatat",
+   "url": "https://en.wikipedia.org/wiki/Talatat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-334": {
+   "answer": "Inscription of Mes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Graffito of Esmet-Akhom",
+    "Merneptah Stele",
+    "Behistun inscription",
+    "Proto-Sinaitic script",
+    "Darius the Great"
+   ]
+  },
+  "eg-335": {
+   "answer": "Osarseph",
+   "title": "Osarseph",
+   "url": "https://en.wikipedia.org/wiki/Osarseph",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-336": {
+   "answer": "Nineteenth Dynasty of Egypt",
+   "title": "Nineteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Nineteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-337": {
+   "answer": "Ramesses I",
+   "title": "Ramesses I",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-338": {
+   "answer": "Seti I",
+   "title": "Seti I",
+   "url": "https://en.wikipedia.org/wiki/Seti_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-339": {
+   "answer": "Temple of Seti I at Abydos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abydos, Egypt",
+    "Temple of Seti I (Abydos)",
+    "Seti I",
+    "Abydos King List",
+    "Osireion"
+   ]
+  },
+  "eg-340": {
+   "answer": "Abydos King List",
+   "title": "Abydos King List",
+   "url": "https://en.wikipedia.org/wiki/Abydos_King_List",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-391": {
+   "answer": "Thebes",
+   "title": "Thebes, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Thebes,_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-392": {
+   "answer": "Temple of Khonsu",
+   "title": "Temple of Khonsu",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Khonsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-393": {
+   "answer": "Precinct of Amun-Re",
+   "title": "Precinct of Amun-Re",
+   "url": "https://en.wikipedia.org/wiki/Precinct_of_Amun-Re",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-394": {
+   "answer": "Great Hypostyle Hall",
+   "title": "Great Hypostyle Hall",
+   "url": "https://en.wikipedia.org/wiki/Great_Hypostyle_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-395": {
+   "answer": "Lateran Obelisk",
+   "title": "Lateran Obelisk",
+   "url": "https://en.wikipedia.org/wiki/Lateran_Obelisk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-396": {
+   "answer": "Sacred lake",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Sacred lake",
+   "target": "Sacred waters#Lakes and underground water"
+  },
+  "eg-397": {
+   "answer": "Karnak King List",
+   "title": "Karnak King List",
+   "url": "https://en.wikipedia.org/wiki/Karnak_King_List",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-398": {
+   "answer": "Luxor Temple",
+   "title": "Luxor Temple",
+   "url": "https://en.wikipedia.org/wiki/Luxor_Temple",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-399": {
+   "answer": "Opet Festival",
+   "title": "Opet Festival",
+   "url": "https://en.wikipedia.org/wiki/Opet_Festival",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-400": {
+   "answer": "Avenue of Sphinxes",
+   "title": "Avenue of Sphinxes",
+   "url": "https://en.wikipedia.org/wiki/Avenue_of_Sphinxes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-351": {
+   "answer": "Nefertari",
+   "title": "Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Nefertari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-352": {
+   "answer": "QV66",
+   "title": "Tomb of Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Nefertari",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "QV66"
+  },
+  "eg-353": {
+   "answer": "Khaemweset",
+   "title": "Khaemweset",
+   "url": "https://en.wikipedia.org/wiki/Khaemweset",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-354": {
+   "answer": "KV5",
+   "title": "KV5",
+   "url": "https://en.wikipedia.org/wiki/KV5",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-355": {
+   "answer": "Statue of Ramesses II",
+   "title": "Statue of Ramesses II",
+   "url": "https://en.wikipedia.org/wiki/Statue_of_Ramesses_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-356": {
+   "answer": "Mortuary Temple of Merneptah",
+   "title": "Mortuary Temple of Merneptah",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_Temple_of_Merneptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-357": {
+   "answer": "Merneptah",
+   "title": "Merneptah",
+   "url": "https://en.wikipedia.org/wiki/Merneptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-358": {
+   "answer": "Merneptah Stele",
+   "title": "Merneptah Stele",
+   "url": "https://en.wikipedia.org/wiki/Merneptah_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-359": {
+   "answer": "Battle of Perire",
+   "title": "Battle of Perire",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Perire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-360": {
+   "answer": "Siptah",
+   "title": "Siptah",
+   "url": "https://en.wikipedia.org/wiki/Siptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-361": {
+   "answer": "Twosret",
+   "title": "Tausret",
+   "url": "https://en.wikipedia.org/wiki/Tausret",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Twosret"
+  },
+  "eg-362": {
+   "answer": "Twentieth Dynasty of Egypt",
+   "title": "Twentieth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twentieth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-363": {
+   "answer": "Setnakhte",
+   "title": "Setnakhte",
+   "url": "https://en.wikipedia.org/wiki/Setnakhte",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-364": {
+   "answer": "Ramesses III",
+   "title": "Ramesses III",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-365": {
+   "answer": "Medinet Habu",
+   "title": "Medinet Habu",
+   "url": "https://en.wikipedia.org/wiki/Medinet_Habu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-366": {
+   "answer": "Peleset",
+   "title": "Peleset",
+   "url": "https://en.wikipedia.org/wiki/Peleset",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-367": {
+   "answer": "Libu",
+   "title": "Libu",
+   "url": "https://en.wikipedia.org/wiki/Libu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-368": {
+   "answer": "Deir el-Medina strikes",
+   "title": "Deir el-Medina strikes",
+   "url": "https://en.wikipedia.org/wiki/Deir_el-Medina_strikes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-369": {
+   "answer": "Harem conspiracy",
+   "title": "Harem conspiracy",
+   "url": "https://en.wikipedia.org/wiki/Harem_conspiracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-370": {
+   "answer": "Ramesses VI",
+   "title": "Ramesses VI",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_VI",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-311": {
+   "answer": "Mnevis",
+   "title": "Mnevis",
+   "url": "https://en.wikipedia.org/wiki/Mnevis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-313": {
+   "answer": "Henotheism",
+   "title": "Henotheism",
+   "url": "https://en.wikipedia.org/wiki/Henotheism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-314": {
+   "answer": "Aziru",
+   "title": "Aziru",
+   "url": "https://en.wikipedia.org/wiki/Aziru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-315": {
+   "answer": "Amarna Workmen's Village",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Workmen's village",
+    "Amarna",
+    "Workmen's Village, Amarna",
+    "Eighteenth Dynasty of Egypt",
+    "Art of ancient Egypt"
+   ]
+  },
+  "eg-316": {
+   "answer": "South Tombs Cemetery",
+   "title": "South Tombs Cemetery, Amarna",
+   "url": "https://en.wikipedia.org/wiki/South_Tombs_Cemetery,_Amarna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-317": {
+   "answer": "Royal Tomb of Akhenaten",
+   "title": "Royal Tomb of Akhenaten",
+   "url": "https://en.wikipedia.org/wiki/Royal_Tomb_of_Akhenaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-318": {
+   "answer": "Kiya",
+   "title": "Kiya",
+   "url": "https://en.wikipedia.org/wiki/Kiya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-319": {
+   "answer": "Smenkhkare",
+   "title": "Smenkhkare",
+   "url": "https://en.wikipedia.org/wiki/Smenkhkare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-320": {
+   "answer": "Neferneferuaten",
+   "title": "Neferneferuaten",
+   "url": "https://en.wikipedia.org/wiki/Neferneferuaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-371": {
+   "answer": "Alashiya",
+   "title": "Alashiya",
+   "url": "https://en.wikipedia.org/wiki/Alashiya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-372": {
+   "answer": "Beth Shean",
+   "title": "Beit She'an",
+   "url": "https://en.wikipedia.org/wiki/Beit_She'an",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Beth Shean"
+  },
+  "eg-373": {
+   "answer": "Abbott Papyrus",
+   "title": "Abbott Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Abbott_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-375": {
+   "answer": "Ramessesnakht",
+   "title": "Ramessesnakht",
+   "url": "https://en.wikipedia.org/wiki/Ramessesnakht",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-376": {
+   "answer": "Herihor",
+   "title": "Herihor",
+   "url": "https://en.wikipedia.org/wiki/Herihor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-377": {
+   "answer": "Story of Wenamun",
+   "title": "Story of Wenamun",
+   "url": "https://en.wikipedia.org/wiki/Story_of_Wenamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-378": {
+   "answer": "Piankh",
+   "title": "Piankh",
+   "url": "https://en.wikipedia.org/wiki/Piankh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-379": {
+   "answer": "Papyrus Anastasi I",
+   "title": "Papyrus Anastasi I",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Anastasi_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-380": {
+   "answer": "Tale of Two Brothers",
+   "title": "Tale of Two Brothers",
+   "url": "https://en.wikipedia.org/wiki/Tale_of_Two_Brothers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-312": {
+   "answer": "Meryre",
+   "title": "Meryre",
+   "url": "https://en.wikipedia.org/wiki/Meryre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-374": {
+   "answer": "Mayer Papyri",
+   "title": "Mayer Papyri",
+   "url": "https://en.wikipedia.org/wiki/Mayer_Papyri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-381": {
+   "answer": "Papyrus Harris 500",
+   "title": "Papyrus Harris 500",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Harris_500",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-382": {
+   "answer": "Late Ramesside Letters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian language",
+    "Ancient Egyptian literature",
+    "List of pharaohs",
+    "Bronze Age",
+    "Art of ancient Egypt"
+   ]
+  },
+  "eg-383": {
+   "answer": "Ostracon BM EA 5634",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-384": {
+   "answer": "Younger Memnon",
+   "title": "Younger Memnon",
+   "url": "https://en.wikipedia.org/wiki/Younger_Memnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-385": {
+   "answer": "Wadi es-Sebua",
+   "title": "Temples of Wadi es-Sebua",
+   "url": "https://en.wikipedia.org/wiki/Temples_of_Wadi_es-Sebua",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Wadi es-Sebua"
+  },
+  "eg-386": {
+   "answer": "Nauri Decree",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Temple of Seti I (Abydos)"
+   ]
+  },
+  "eg-387": {
+   "answer": "Papyrus Harris I",
+   "title": "Papyrus Harris I",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Harris_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-388": {
+   "answer": "Beit el-Wali",
+   "title": "Temple of Beit el-Wali",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Beit_el-Wali",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Beit el-Wali"
+  },
+  "eg-389": {
+   "answer": "Turin Papyrus Map",
+   "title": "Turin Papyrus Map",
+   "url": "https://en.wikipedia.org/wiki/Turin_Papyrus_Map",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-390": {
+   "answer": "Bentresh Stela",
+   "title": "Bentresh stela",
+   "url": "https://en.wikipedia.org/wiki/Bentresh_stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-401": {
+   "answer": "speech perception",
+   "title": "Speech perception",
+   "url": "https://en.wikipedia.org/wiki/Speech_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-402": {
+   "answer": "McGurk effect",
+   "title": "McGurk effect",
+   "url": "https://en.wikipedia.org/wiki/McGurk_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-403": {
+   "answer": "chemical senses",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sense",
+    "Monell Chemical Senses Center",
+    "Sport psychology",
+    "Special senses",
+    "Richard L. Doty"
+   ]
+  },
+  "ps-404": {
+   "answer": "olfaction",
+   "title": "Sense of smell",
+   "url": "https://en.wikipedia.org/wiki/Sense_of_smell",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Olfaction"
+  },
+  "ps-405": {
+   "answer": "taste",
+   "title": "Taste",
+   "url": "https://en.wikipedia.org/wiki/Taste",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-406": {
+   "answer": "flavour",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Flavor",
+   "suggestions": [
+    "The Flavor",
+    "Flavor Flav",
+    "Flavour N'abania",
+    "Flavour Network",
+    "Flavour (particle physics)",
+    "Flavor (band)"
+   ]
+  },
+  "ps-407": {
+   "answer": "touch",
+   "title": "Somatosensory system",
+   "url": "https://en.wikipedia.org/wiki/Somatosensory_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Touch"
+  },
+  "ps-408": {
+   "answer": "pain",
+   "title": "Pain",
+   "url": "https://en.wikipedia.org/wiki/Pain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-409": {
+   "answer": "gate control theory",
+   "title": "Gate control theory",
+   "url": "https://en.wikipedia.org/wiki/Gate_control_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-410": {
+   "answer": "vestibular and proprioceptive senses",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Proprioception",
+    "Perception",
+    "Somatosensory system",
+    "Acrophobia",
+    "Sensory processing disorder"
+   ]
+  },
+  "ps-411": {
+   "answer": "perceptual organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Perceptual organization",
+   "target": "Optical illusion#Perceptual organization"
+  },
+  "ps-412": {
+   "answer": "Gestalt principles of grouping",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Principles of grouping",
+    "Gestalt psychology",
+    "Figure–ground (perception)",
+    "Kurt Koffka",
+    "Michael Kubovy"
+   ]
+  },
+  "ps-413": {
+   "answer": "figure–ground organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gestalt psychology",
+    "Johan Wagemans",
+    "Carl Jung",
+    "Theory of indispensable attributes",
+    "Islamic State"
+   ]
+  },
+  "ps-414": {
+   "answer": "perceptual constancy",
+   "title": "Subjective constancy",
+   "url": "https://en.wikipedia.org/wiki/Subjective_constancy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Perceptual constancy"
+  },
+  "ps-415": {
+   "answer": "Ponzo illusion",
+   "title": "Ponzo illusion",
+   "url": "https://en.wikipedia.org/wiki/Ponzo_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-416": {
+   "answer": "Müller-Lyer illusion",
+   "title": "Müller-Lyer illusion",
+   "url": "https://en.wikipedia.org/wiki/M%C3%BCller-Lyer_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-417": {
+   "answer": "Ames room",
+   "title": "Ames room",
+   "url": "https://en.wikipedia.org/wiki/Ames_room",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-418": {
+   "answer": "moon illusion",
+   "title": "Moon illusion",
+   "url": "https://en.wikipedia.org/wiki/Moon_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-419": {
+   "answer": "ambiguous figures",
+   "title": "Ambiguous image",
+   "url": "https://en.wikipedia.org/wiki/Ambiguous_image",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Ambiguous figure"
+  },
+  "ps-420": {
+   "answer": "impossible figures",
+   "title": "Impossible object",
+   "url": "https://en.wikipedia.org/wiki/Impossible_object",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Impossible figure"
+  },
+  "ps-441": {
+   "answer": "reinforcement",
+   "title": "Reinforcement",
+   "url": "https://en.wikipedia.org/wiki/Reinforcement",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Reinforcement (psychology)"
+  },
+  "ps-442": {
+   "answer": "negative reinforcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Negative reinforcement",
+   "target": "Reinforcement#Negative reinforcement"
+  },
+  "ps-443": {
+   "answer": "punishment",
+   "title": "Punishment (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Punishment_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-444": {
+   "answer": "shaping",
+   "title": "Shaping (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Shaping_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-445": {
+   "answer": "schedules of reinforcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Schedules of reinforcement",
+   "target": "Reinforcement#Intermittent reinforcement schedules"
+  },
+  "ps-446": {
+   "answer": "partial reinforcement extinction effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Reinforcement",
+    "Extinction (psychology)",
+    "Punishment (psychology)",
+    "Self-administration",
+    "Rescorla–Wagner model"
+   ]
+  },
+  "ps-447": {
+   "answer": "secondary reinforcer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Secondary reinforcer",
+   "target": "Reinforcement#Primary and secondary reinforcers"
+  },
+  "ps-448": {
+   "answer": "token economy",
+   "title": "Token economy",
+   "url": "https://en.wikipedia.org/wiki/Token_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-449": {
+   "answer": "avoidance learning",
+   "title": "Avoidance learning",
+   "url": "https://en.wikipedia.org/wiki/Avoidance_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-450": {
+   "answer": "learned helplessness",
+   "title": "Learned helplessness",
+   "url": "https://en.wikipedia.org/wiki/Learned_helplessness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-451": {
+   "answer": "stressor controllability",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psychological stress",
+    "Occupational stress",
+    "Psychology",
+    "Locus of control",
+    "Stress management"
+   ]
+  },
+  "ps-452": {
+   "answer": "instinctive drift",
+   "title": "Instinctive drift",
+   "url": "https://en.wikipedia.org/wiki/Instinctive_drift",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-453": {
+   "answer": "latent learning",
+   "title": "Latent learning",
+   "url": "https://en.wikipedia.org/wiki/Latent_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-454": {
+   "answer": "cognitive map",
+   "title": "Cognitive map",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_map",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-455": {
+   "answer": "observational learning",
+   "title": "Observational learning",
+   "url": "https://en.wikipedia.org/wiki/Observational_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-456": {
+   "answer": "Albert Bandura",
+   "title": "Albert Bandura",
+   "url": "https://en.wikipedia.org/wiki/Albert_Bandura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-457": {
+   "answer": "Bobo doll experiment",
+   "title": "Bobo doll experiment",
+   "url": "https://en.wikipedia.org/wiki/Bobo_doll_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-458": {
+   "answer": "insight learning",
+   "title": "Insight",
+   "url": "https://en.wikipedia.org/wiki/Insight",
+   "via": "glossary",
+   "status": "ok",
+   "from": "Insight learning",
+   "manual": true
+  },
+  "ps-459": {
+   "answer": "behaviour modification",
+   "title": "Behavior modification",
+   "url": "https://en.wikipedia.org/wiki/Behavior_modification",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Behaviour modification"
+  },
+  "ps-460": {
+   "answer": "applied behaviour analysis",
+   "title": "Applied behavior analysis",
+   "url": "https://en.wikipedia.org/wiki/Applied_behavior_analysis",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Applied behaviour analysis"
+  },
+  "ps-421": {
+   "answer": "optical illusion",
+   "title": "Optical illusion",
+   "url": "https://en.wikipedia.org/wiki/Optical_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-422": {
+   "answer": "holistic perception",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Perception",
+    "Face perception",
+    "Field theory (psychology)",
+    "Sport psychology",
+    "Accent perception"
+   ]
+  },
+  "ps-423": {
+   "answer": "perceptual learning",
+   "title": "Perceptual learning",
+   "url": "https://en.wikipedia.org/wiki/Perceptual_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-424": {
+   "answer": "perceptual narrowing",
+   "title": "Perceptual narrowing",
+   "url": "https://en.wikipedia.org/wiki/Perceptual_narrowing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-425": {
+   "answer": "visual cliff",
+   "title": "Visual cliff",
+   "url": "https://en.wikipedia.org/wiki/Visual_cliff",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-426": {
+   "answer": "learning",
+   "title": "Learning",
+   "url": "https://en.wikipedia.org/wiki/Learning",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-427": {
+   "answer": "habituation",
+   "title": "Habituation",
+   "url": "https://en.wikipedia.org/wiki/Habituation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-428": {
+   "answer": "sensitisation",
+   "title": "Sensitization",
+   "url": "https://en.wikipedia.org/wiki/Sensitization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sensitisation"
+  },
+  "ps-429": {
+   "answer": "trace conditioning",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Classical conditioning",
+    "Psychology",
+    "Behaviorism",
+    "Air conditioning",
+    "Memory"
+   ]
+  },
+  "ps-430": {
+   "answer": "conditioned stimulus",
+   "title": "Classical conditioning",
+   "url": "https://en.wikipedia.org/wiki/Classical_conditioning",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Conditioned stimulus"
+  },
+  "ps-431": {
+   "answer": "acquisition",
+   "title": "Learning",
+   "url": "https://en.wikipedia.org/wiki/Learning",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Acquisition"
+  },
+  "ps-432": {
+   "answer": "extinction",
+   "title": "Extinction (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Extinction_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-433": {
+   "answer": "spontaneous recovery",
+   "title": "Spontaneous recovery",
+   "url": "https://en.wikipedia.org/wiki/Spontaneous_recovery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-434": {
+   "answer": "stimulus generalisation",
+   "title": "Generalization (learning)",
+   "url": "https://en.wikipedia.org/wiki/Generalization_(learning)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-435": {
+   "answer": "second-order conditioning",
+   "title": "Second-order conditioning",
+   "url": "https://en.wikipedia.org/wiki/Second-order_conditioning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-436": {
+   "answer": "conditioned taste aversion",
+   "title": "Conditioned taste aversion",
+   "url": "https://en.wikipedia.org/wiki/Conditioned_taste_aversion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-437": {
+   "answer": "biological preparedness",
+   "title": "Preparedness (learning)",
+   "url": "https://en.wikipedia.org/wiki/Preparedness_(learning)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-438": {
+   "answer": "Rescorla–Wagner model",
+   "title": "Rescorla–Wagner model",
+   "url": "https://en.wikipedia.org/wiki/Rescorla%E2%80%93Wagner_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-439": {
+   "answer": "contingency",
+   "title": "Contingency (evolutionary biology)",
+   "url": "https://en.wikipedia.org/wiki/Contingency_(evolutionary_biology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-440": {
+   "answer": "operant conditioning",
+   "title": "Operant conditioning",
+   "url": "https://en.wikipedia.org/wiki/Operant_conditioning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-461": {
+   "answer": "memory",
+   "title": "Memory",
+   "url": "https://en.wikipedia.org/wiki/Memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-462": {
+   "answer": "encoding, storage and retrieval",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Encoding (memory)",
+    "Storage (memory)",
+    "Elaborative encoding",
+    "LC4MP",
+    "Flashback (psychology)"
+   ]
+  },
+  "ps-463": {
+   "answer": "sensory memory",
+   "title": "Sensory memory",
+   "url": "https://en.wikipedia.org/wiki/Sensory_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-464": {
+   "answer": "iconic memory",
+   "title": "Iconic memory",
+   "url": "https://en.wikipedia.org/wiki/Iconic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-465": {
+   "answer": "echoic memory",
+   "title": "Echoic memory",
+   "url": "https://en.wikipedia.org/wiki/Echoic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-466": {
+   "answer": "short-term memory",
+   "title": "Short-term memory",
+   "url": "https://en.wikipedia.org/wiki/Short-term_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-467": {
+   "answer": "multi-store model",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Atkinson–Shiffrin memory model",
+    "Baddeley's model of working memory",
+    "Storage (memory)",
+    "Information processing (psychology)",
+    "Chunking (psychology)"
+   ]
+  },
+  "ps-468": {
+   "answer": "chunking",
+   "title": "Chunking (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Chunking_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-469": {
+   "answer": "serial position effect",
+   "title": "Serial-position effect",
+   "url": "https://en.wikipedia.org/wiki/Serial-position_effect",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Serial position effect"
+  },
+  "ps-470": {
+   "answer": "working memory",
+   "title": "Working memory",
+   "url": "https://en.wikipedia.org/wiki/Working_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-471": {
+   "answer": "phonological loop",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Phonological loop",
+   "target": "Baddeley's model of working memory#Phonological loop"
+  },
+  "ps-472": {
+   "answer": "visuospatial sketchpad",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Visuospatial sketchpad",
+   "target": "Baddeley's model of working memory#Visuo-spatial working memory"
+  },
+  "ps-473": {
+   "answer": "central executive",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Central executive",
+   "target": "Baddeley's model of working memory#Central executive"
+  },
+  "ps-474": {
+   "answer": "episodic buffer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Episodic buffer",
+   "target": "Baddeley's model of working memory#Episodic buffer"
+  },
+  "ps-475": {
+   "answer": "long-term memory",
+   "title": "Long-term memory",
+   "url": "https://en.wikipedia.org/wiki/Long-term_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-476": {
+   "answer": "declarative memory",
+   "title": "Explicit memory",
+   "url": "https://en.wikipedia.org/wiki/Explicit_memory",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Declarative memory"
+  },
+  "ps-477": {
+   "answer": "episodic memory",
+   "title": "Episodic memory",
+   "url": "https://en.wikipedia.org/wiki/Episodic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-478": {
+   "answer": "semantic memory",
+   "title": "Semantic memory",
+   "url": "https://en.wikipedia.org/wiki/Semantic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-479": {
+   "answer": "procedural memory",
+   "title": "Procedural memory",
+   "url": "https://en.wikipedia.org/wiki/Procedural_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-480": {
+   "answer": "priming",
+   "title": "Priming (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Priming_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-481": {
+   "answer": "levels of processing",
+   "title": "Levels of processing model",
+   "url": "https://en.wikipedia.org/wiki/Levels_of_processing_model",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Levels of processing"
+  },
+  "ps-482": {
+   "answer": "elaborative rehearsal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rehearsal (educational psychology)",
+    "Memory rehearsal",
+    "Elaborative encoding",
+    "Brown–Peterson task",
+    "Encoding (memory)"
+   ]
+  },
+  "ps-483": {
+   "answer": "retrieval cues",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Retrieval cue",
+   "target": "Recall (memory)#Cued recall"
+  },
+  "ps-484": {
+   "answer": "encoding specificity",
+   "title": "Encoding specificity principle",
+   "url": "https://en.wikipedia.org/wiki/Encoding_specificity_principle",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Encoding specificity"
+  },
+  "ps-485": {
+   "answer": "context-dependent memory",
+   "title": "Context-dependent memory",
+   "url": "https://en.wikipedia.org/wiki/Context-dependent_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-486": {
+   "answer": "state-dependent memory",
+   "title": "State-dependent memory",
+   "url": "https://en.wikipedia.org/wiki/State-dependent_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-487": {
+   "answer": "recall and recognition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pattern recognition (psychology)",
+    "Spacing effect",
+    "Recall (memory)",
+    "Recognition failure of recallable words",
+    "False memory"
+   ]
+  },
+  "ps-488": {
+   "answer": "forgetting",
+   "title": "Forgetting",
+   "url": "https://en.wikipedia.org/wiki/Forgetting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-489": {
+   "answer": "decay and interference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Forgetting",
+    "Interference theory",
+    "Decay theory",
+    "Cognitive psychology",
+    "Mental block"
+   ]
+  },
+  "ps-490": {
+   "answer": "proactive and retroactive interference",
+   "title": "Interference theory",
+   "url": "https://en.wikipedia.org/wiki/Interference_theory",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-491": {
+   "answer": "motivated forgetting",
+   "title": "Motivated forgetting",
+   "url": "https://en.wikipedia.org/wiki/Motivated_forgetting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-492": {
+   "answer": "amnesia",
+   "title": "Amnesia",
+   "url": "https://en.wikipedia.org/wiki/Amnesia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-493": {
+   "answer": "anterograde and retrograde amnesia",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Anterograde amnesia",
+    "Retrograde amnesia",
+    "Amnesia",
+    "Post-traumatic amnesia",
+    "Dissociative amnesia"
+   ]
+  },
+  "ps-494": {
+   "answer": "memory consolidation",
+   "title": "Memory consolidation",
+   "url": "https://en.wikipedia.org/wiki/Memory_consolidation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-495": {
+   "answer": "reconsolidation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Reconsolidation",
+   "target": "Memory consolidation#Reconsolidation"
+  },
+  "ps-496": {
+   "answer": "reconstructive memory",
+   "title": "Reconstructive memory",
+   "url": "https://en.wikipedia.org/wiki/Reconstructive_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-497": {
+   "answer": "schemas",
+   "title": "Schema (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Schema_(psychology)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Schema"
+  },
+  "ps-498": {
+   "answer": "eyewitness testimony",
+   "title": "Eyewitness testimony",
+   "url": "https://en.wikipedia.org/wiki/Eyewitness_testimony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-499": {
+   "answer": "misinformation effect",
+   "title": "Misinformation effect",
+   "url": "https://en.wikipedia.org/wiki/Misinformation_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-500": {
+   "answer": "recovered memory controversy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Recovered-memory therapy",
+    "False memory",
+    "False memory syndrome",
+    "Baddeley's model of working memory",
+    "Cognitive psychology"
+   ]
+  },
   "us-601": {
    "answer": "Slavery during the American Civil War",
    "title": "Slavery during the American Civil War",
@@ -83574,7 +86010,7 @@
    "answer": "Black Hills Gold Rush",
    "title": "Black Hills gold rush",
    "url": "https://en.wikipedia.org/wiki/Black_Hills_gold_rush",
-   "via": "answer",
+   "via": "glossary",
    "status": "redirect-variant",
    "from": "Black Hills Gold Rush"
   },

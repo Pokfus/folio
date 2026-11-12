@@ -164,6 +164,37 @@ the form English-language scholarship and the reference works use; the decision 
 | Li Sao | Lisao, Li-sao, Li sao | Encountering Sorrow | |
 | Qin Shi Huang | Qin Shihuang, Ch'in Shih-huang, Shih Huang-ti | First Emperor, Shi Huangdi, Ying Zheng | the slug's form; "the First Emperor" in prose is fine |
 | Laozi, Zhuangzi, Mozi, Xunzi, Han Feizi, Sunzi | Lao Tzu, Lao-tzu, Lao Zi, Chuang Tzu, Chuang-tzu, Mo Tzu, Mo-tzu, Mo Zi, Hsün Tzu, Hsün-tzu, Xun Zi, Han Fei Zi, Sun Zi | Sun Tzu | the thinkers and their books joined; Confucius and Mencius keep their English names (Kongzi, Mengzi as aliases); *Sun Tzu* is left unreported, the English name of the book's title in many editions |
+| Shuihudi, Liye, Zhangjiashan, Juyan, Mawangdui | Shui-hu-ti, Shuihu Di, Li Ye, Chang-chia-shan, Chü-yen, Ma Wang Dui, Ma-wang-tui | | the excavated archives and tombs, joined (added for the third hundred, Nov 2026) |
+| Meng Tian, Xu Fu, Zhao Gao, Huhai, Fusu, Chen Sheng, Wu Guang, Ziying | Meng T'ien, Hsü Fu, Chao Kao, Hu Hai, Fu Su, Ch'en Sheng, Tzu-ying, Zi Ying | Xu Shi, Qin Er Shi, the Second Emperor | the Qin's end; *Xu Shi* is the *Shiji*'s own other writing of Xu Fu, legitimate in a quotation |
+| Lingqu | Ling Qu, Ling-ch'ü | Xing'an Canal | joined, as the slug |
+| Xiang Yu, Liu Bang, Fan Zeng, Zhang Liang, Han Xin, Xiao He, Xiang Zhuang | Hsiang Yü, Liu Pang, Fan Tseng, Chang Liang, Han Hsin, Hsiao Ho | | the Chu–Han contention |
+| Hong Gate, Gaixia | Hongmen (as a name in English prose), Hung-men, Kai-hsia, Gai Xia | Hongmen | English name first for the feast (the slug `Feast_at_Hong_Gate`); *Hongmen* may follow as its Chinese name |
+| Emperor Gaozu, Emperor Hui, Emperor Wen, Emperor Jing, Emperor Wu, Emperor Zhao, Emperor Xuan, Emperor Yuan, Emperor Cheng, Emperor Ai, Emperor Ping, Emperor Guangwu, Emperor Ming, Emperor Zhang, Emperor He, Emperor Ling, Emperor Xian | Kao-tsu, Kao-ti, Wu-ti, Wen-ti, Ching-ti, Kuang-wu, Hsien-ti, Ling-ti | Han Gaozu, Gaodi, Han Wudi, Wudi, Liu Bang, Liu Che, Liu Xiu, Liu Xie | the Han emperors: "Emperor" and the posthumous name, English order; the joined Chinese forms (Han Wudi) are legitimate where a cited title or the `pinyin` field uses them |
+| Empress Lü | Empress Lu, Lü Hou, Lu Hou | Lü Zhi, Empress Dowager Lü | with ü in prose |
+| Xiongnu | Hsiung-nu, Hiung-nu, Xiong Nu, Xiong-nu | Huns (only where a source makes the comparison) | joined, as the slug |
+| chanyu | Ch'an-yü, Shan-yü, Shan-yu | shanyu | the Xiongnu ruler's title, lower case in prose; *shanyu* is a common reading of 單于 in English scholarship and is not reported |
+| Modu | Mao-tun, Mo-tun | Maodun, Modun | the slug's form (`Modu_Chanyu`) |
+| heqin | ho-ch'in, He Qin, Heqin (mid-sentence) | | lower case in prose |
+| Huo Qubing, Wei Qing, Zhang Qian, Li Guangli, Ban Chao, Ban Gu, Ban Zhao, Ban Biao, Dong Zhongshu, Sang Hongyang, Cai Lun, Zhang Heng, Liang Ji | Huo Ch'ü-ping, Wei Ch'ing, Chang Ch'ien, Li Kuang-li, Pan Ch'ao, Pan Ku, Pan Chao, Tung Chung-shu, Sang Hung-yang, Ts'ai Lun, Chang Heng, Liang Chi | | the Han men and women, surname and name split |
+| Chang'an, Luoyang | Changan, Ch'ang-an, Chang-an, Lo-yang, Loyang, Luo Yang | | the two capitals; the apostrophe in Chang'an |
+| Western Regions | Hsi-yü | Xiyu | English name first |
+| Silk Road | | Silk Roads, Seidenstrasse | the modern label (Richthofen, 1877) said so where it matters |
+| Hexi Corridor, Nanyue, Dunhuang, Jiuquan, Zhangye, Wuwei | Ho-hsi, Nan-yüeh, Nam Viet, Tun-huang, Chiu-ch'üan | Nam Việt | |
+| Shiji, Hanshu, Hou Hanshu, Sanguozhi | Han-shu, Hou Han Shu, Hou-Han-shu, San guo zhi, Sanguo zhi, Sanguo Zhi, San-kuo chih | Hou Han shu | English title first (Book of Han, Book of the Later Han, Records of the Three Kingdoms); the Chinese title joined; *Hou Han shu* is the slug's title and not reported |
+| Pei Songzhi | P'ei Sung-chih, Pei Song Zhi | | his notes to the *Sanguozhi* (429 CE) |
+| Wang Mang, Liu Xiu, Liu Xin | Liu Hsiu, Liu Hsin | | |
+| Red Eyebrows, Lülin, Kunyang | Ch'ih-mei, Chimei, Lu Lin, Lulin, K'un-yang | | English name first for the Red Eyebrows |
+| Taixue | T'ai-hsüeh, Tai Xue | Imperial University | English name first where the card says so |
+| Yellow Turbans, Zhang Jue, Dong Zhuo, Yuan Shao, Lü Bu | Huang-chin, Chang Chüeh, Zhang Jiao, Tung Cho, Yüan Shao, Lu Bu | Zhang Jiao | *Zhang Jiao* is a common reading of 張角 and is an alias, not reported |
+| Cao Cao, Cao Pi, Liu Bei, Zhuge Liang, Sun Quan, Sun Jian, Sun Ce, Sun Hao, Sima Yi, Sima Yan, Guan Yu, Zhang Fei, Zhou Yu, Lu Su, Lu Xun (Wu general) | Ts'ao Ts'ao, Tsao Tsao, Caocao, Ts'ao P'i, Liu Pei, Chu-ko Liang, Zhuge-Liang, Sun Ch'üan, Ssu-ma I, Ssu-ma Yen, Chang Fei, Chou Yü, Lu Hsün | Kongming, Mengde, Yunchang, Xuande | the Three Kingdoms men, surname and name split; Zhuge is one surname |
+| Cao Wei, Shu Han, Eastern Wu | Ts'ao Wei, Shu-Han, Shuhan, Dong Wu | Wei, Shu, Wu | the slugs' forms; Wei, Shu and Wu alone where the sentence is plainly about the three states |
+| Guandu, Red Cliffs, Wuzhang Plains, Yiling | Kuan-tu, Chibi (in English prose), Ch'ih-pi, Wu-chang | Chibi | English name first for Red Cliffs; *Chibi* may follow |
+| tuntian, zhantian | t'un-t'ien, Tun Tian, chan-t'ien | | lower case in prose |
+| nine-rank system | Jiupin Zhongzheng (in English prose) | jiupin zhongzheng | English name first |
+| Romance of the Three Kingdoms | San-kuo yen-i, Sanguo yanyi (in English prose) | Sanguo yanyi | English title first; *Sanguo yanyi* may follow |
+| Jin (the dynasty of 266 – 420) | Chin dynasty | Western Jin, Eastern Jin | disambiguated from the state of Jin and the Jurchen Jin in the card's own words (`docs/china-card-plan.md`) |
+| qingtan, menfa | ch'ing-t'an, men-fa | | lower case in prose |
+| Seven Sages of the Bamboo Grove, Ji Kang, Ruan Ji, Shan Tao, Xiang Xiu, Liu Ling, Ruan Xian, Wang Rong | Chi K'ang, Juan Chi, Xi Kang | Xi Kang | *Xi Kang* is a common reading of 嵇康 and is an alias |
 
 ## Mythology and legend
 
@@ -353,9 +384,87 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the script ordered uniform | 221 BCE | `cnh-199` |
 | Qin law: the Yuelu cases / empire-wide / the Shuihudi tomb | 246 – 222 BCE / 221 – 206 BCE / 217 BCE | `cnh-200` |
 
+## Western Han, Xin, Eastern Han and Three Kingdoms (the third hundred)
+
+Filled batch by batch from `cnh-201` (B21 on). **The protected lines** of the third hundred's individuals
+(`cnh-206`, `210`, `215`, `216`, `220`, `223`, `226`, `228`, `229`, `237`, `240`, `246`, `254`, `257`, `259`, `261`–`263`,
+`265`, `269`–`272`, `274`, `278`, `280`, `281`, `285`, `286`, `289`, `292`, `294`) are pinned below to their lines as they
+stood on main on 2026-11-12 (the years only; ages, days and months left out), and are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+| the Shuihudi texts: copied (Chen Wei) / buried / found | c. 244 – 217 BCE / c. 217 BCE / 1975 | Wang Xiao; Harkness (`cnh-201`) |
+| the burning of the books / the killing of the scholars | 213 BCE / 212 BCE | the *Shiji* (`cnh-202`) |
+| the imperial highways / the Straight Road | 220 BCE / 212 BCE | the *Shiji* (`cnh-203`) |
+| the Lingqu canal: Aurousseau / completed | c. 219 BCE / 214 BCE | `cnh-204` |
+| the conquest of the south / the commanderies | c. 221 – 214 BCE / 214 BCE | `cnh-205` |
+| Qin's state wall / Meng Tian's campaign / the imperial wall | 306 – 251 BCE / 215 BCE / 214 BCE | Li et al. 2025; Chavannes (`cnh-207`) |
+| the mausoleum begun / the burial / works ended | 246 BCE / 210 BCE / 208 BCE | Zhao et al. 2020; Ma et al. 2016 (`cnh-208`) |
+| the Terracotta Army made / found | c. 247 – 210 BCE / 1974 | Quinn et al. (`cnh-209`) |
+| the Shaqiu plot | 210 BCE | the *Shiji* (`cnh-211`) |
+| the fall of the Qin: the revolt / the surrender / also dated | 209 BCE / 206 BCE / 207 BCE | `cnh-212`, as `cnh-191` |
+| the Han dynasty / the throne taken / the Xin interregnum | 206 BCE – 220 CE / 202 BCE / 9 – 23 CE | `cnh-213` |
+| the Chu–Han Contention / the Hong Canal treaty | 206 – 202 BCE / 203 BCE | Chavannes (`cnh-214`) |
+| the Feast at Hong Gate | 206 BCE | Chavannes (`cnh-217`) |
+| Gaixia | 202 BCE | Chavannes (`cnh-218`) |
+| the founding settlement | 202 BCE | `cnh-219` |
+| the Rule of Wen and Jing / Wen / Jing | 180 – 141 BCE / 180 – 157 BCE / 157 – 141 BCE | Chavannes (`cnh-221`) |
+| the Rebellion of the Seven States | 154 BCE | `cnh-222` |
+| the Han–Xiongnu wars (the first round) | 133 – 119 BCE | `cnh-224` |
+| the Xiongnu empire / the split | c. 209 BCE – 100 CE / 48 CE | Lee 2023; de Crespigny (`cnh-225`) |
+| heqin begun / abandoned | c. 200 BCE / 133 BCE | Psarras (`cnh-227`) |
+| the Silk Road: the first mission / regular contact / named | c. 138 – 126 BCE / 115 BCE / 1877 | Yang; Giles; Waugh (`cnh-230`) |
+| the Hexi Corridor conquered / the first commandery: the annals / the geography treatise | 121 BCE / 121 BCE / 115 BCE | Yu Taishan (`cnh-231`) |
+| Nanyue founded / a vassal / annexed | 203 BCE / 196 BCE / 111 BCE | the *Shiji* (`cnh-232`) |
+| the Four Commanderies / reduced / the Lelang register / the last lost | 108 BCE / 82 BCE / 45 BCE / 314 CE | `cnh-233` |
+| the salt and iron monopoly: Wagner / Chavannes / liquor / suspended | 117 BCE / 119 BCE / 98 BCE / 44 – 41 BCE | `cnh-234` |
+| the salt and iron debate / the Discourses compiled | 81 BCE / 74 – 49 BCE | `cnh-235` |
+| equable transport: first offices / empire-wide | 115 BCE / 110 BCE | Chavannes (`cnh-236`) |
+| the Five Classics posts | 136 BCE | the *Hanshu* (`cnh-238`) |
+| the Taixue founded / refounded | 124 BCE / 29 CE | `cnh-239` |
+| the Shiji written / Chu Shaosun's additions | c. 100 BCE / 48 – 7 BCE | Chavannes (`cnh-241`) |
+| Weiyang Palace built / stormed / World Heritage | 199 – 198 BCE / 23 CE / 2014 | the *Shiji*; Gao et al. (`cnh-242`) |
+| regional inspectors / governors / inspectors again / governors again | 106 BCE / 7 BCE / 42 CE / 188 CE | de Crespigny (`cnh-243`) |
+| the consort clans: the earliest case / the last Han case | 188 – 180 BCE / 189 CE | Theobald (`cnh-244`) |
+| the Xin dynasty (Theobald: 8 CE) | 9 – 23 CE | Petersen; Giles (`cnh-245`) |
+| Wang Mang as acting emperor / the throne taken | 6 – 8 CE / 9 CE | the *Hanshu* (`cnh-247`) |
+| wangtian decreed | 9 CE | the *Hanshu* (`cnh-248`) |
+| the wuzhu struck / abolished / restored / superseded | 118 BCE / 9 CE / 40 CE / 621 CE | Thierry; Lacouperie (`cnh-249`) |
+| the Yellow River's course change / river works | 11 CE / 69 CE | Ma et al. (`cnh-250`) |
+| the Red Eyebrows rise / surrender | 18 CE / 27 CE | Theobald (`cnh-251`) |
+| Kunyang | 23 CE | `cnh-252` |
+| the Eastern Han | 25 – 220 CE | Theobald (`cnh-253`) |
+| Chengjia proclaimed / fell | 25 CE / 36 CE | the *Hou Hanshu* (`cnh-255`) |
+| Luoyang the Han capital | 25 – 190 CE | Bielenstein (`cnh-256`) |
+| the Protectorate: Cordier / Yu / revived / abandoned | 60 BCE / 59 BCE / 74 CE / 107 CE | `cnh-258` |
+| the Book of Han compiled | c. 54 – 80 CE | Theobald (`cnh-260`) |
+| the Filial and Incorrupt instituted / the quota reformed / tests added | 134 BCE / 92 CE / 132 CE | the *Hanshu*; de Crespigny (`cnh-264`) |
+| the Partisan Prohibitions: the first arrests / revived / lifted | 166 – 167 CE / 169 CE / 184 CE | `cnh-266` |
+| the White Horse Temple (traditional) | 68 CE | `cnh-267` |
+| the Yellow Turbans rise / remnants active | 184 CE / 184 – 207 CE | Theobald (`cnh-268`) |
+| the Three Kingdoms / three emperors at once | 220 – 280 CE / 229 CE | `cnh-273` |
+| Guandu | 200 CE | `cnh-275` |
+| Red Cliffs | 208 CE | `cnh-276` |
+| Cao Wei founded / ended (de Crespigny) / also dated | 220 CE / 266 CE / 265 CE | `cnh-277` |
+| Shu Han founded / surrendered | 221 CE / 263 CE | `cnh-279` |
+| the Longzhong plan | 207 CE | `cnh-282` |
+| the Northern Expeditions (de Crespigny 1991 ends them in 233) | 228 – 234 CE | `cnh-283` |
+| Eastern Wu independent / imperial / surrendered | 222 CE / 229 CE / 280 CE | `cnh-284` |
+| tuntian revived / abolished by Wei / again by Jin | 196 CE / 264 CE / 266 CE | `cnh-287` |
+| the nine-rank system introduced | c. 220 CE | `cnh-288` |
+| the Records compiled / Pei Songzhi's commentary | c. 280 – 297 CE / 429 CE | `cnh-290` |
+| the Romance: the oldest preface / first printed / the Mao revision | 1494 / 1522 / c. 1679 | West; Theobald (`cnh-291`) |
+| the Jin dynasty / also dated / Western / Eastern | 266 – 420 CE / 265 – 420 CE / 266 – 316 CE / 317 – 420 CE | `cnh-293` |
+| the conquest of Wu / the surrender | 279 – 280 CE / 1 May 280 CE | de Crespigny (`cnh-295`) |
+| zhantian proclaimed | 280 CE | the *Jinshu* (`cnh-296`) |
+| the War of the Eight Princes / Zhao Qi's span | 291 – 306 CE / 300 – 306 CE | de Crespigny (`cnh-297`) |
+| the great families dominant | c. 220 – 589 CE | `cnh-298` |
+| qingtan flourished | c. 240 – 420 CE | Spiro (`cnh-299`) |
+| the Seven Sages lived / Ji Kang executed / also dated | 205 – 305 CE / 262 CE / 263 CE | `cnh-300` |
+
 ## Later periods
 
-To be filled from `cnh-201` on.
+To be filled from `cnh-301` on.
 
 ## Chronology pins
 
@@ -483,6 +592,38 @@ cnh-186: 332; 314; 295
 cnh-189: 227
 cnh-192: 259; 247; 221; 210
 cnh-195: 280; 214; 208
+cnh-206: 250; 221; 209; 215
+cnh-210: 219; 210
+cnh-215: 233; 207; 206; 202
+cnh-216: 247; 206; 202; 195
+cnh-220: 241; 195; 180
+cnh-223: 156; 141; 87; 119
+cnh-226: 209; 201
+cnh-228: 140; 121; 117
+cnh-229: 195; 138; 126; 114
+cnh-237: 179; 134; 104
+cnh-240: 145; 110; 98; 86; 74
+cnh-246: 45; 16; 9; 23
+cnh-254: 5; 25; 57
+cnh-257: 32; 73; 102
+cnh-259: 32; 92
+cnh-261: 45; 117
+cnh-262: 50; 62; 105; 121
+cnh-263: 78; 132; 139
+cnh-265: 141; 159
+cnh-269: 174; 184
+cnh-270: 140; 149; 189; 192
+cnh-271: 154; 190; 196; 202
+cnh-272: 181; 189; 220; 234
+cnh-274: 155; 208; 220; 217
+cnh-278: 187; 220; 226
+cnh-280: 161; 221; 223
+cnh-281: 181; 207; 223; 234
+cnh-285: 182; 200; 229; 252
+cnh-286: 200; 219
+cnh-289: 179; 239; 251; 249
+cnh-292: 242; 264; 280; 283
+cnh-294: 236; 266; 290; 280
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -560,4 +701,72 @@ cnh-197: 350; 221
 cnh-198: 221; 209
 cnh-199: 221
 cnh-200: 246; 222; 221; 206
+cnh-201: 244; 217; 1975
+cnh-202: 213; 212
+cnh-203: 220; 212
+cnh-204: 219; 214
+cnh-205: 221; 214
+cnh-207: 306; 251; 215; 214
+cnh-208: 246; 210; 208
+cnh-209: 247; 210; 1974
+cnh-211: 210
+cnh-212: 209; 206; 207
+cnh-213: 206; 220; 202; 9; 23
+cnh-214: 206; 202; 203
+cnh-217: 206
+cnh-218: 202
+cnh-219: 202
+cnh-221: 180; 141; 157
+cnh-222: 154
+cnh-224: 133; 119
+cnh-225: 209; 100; 48
+cnh-227: 200; 133
+cnh-230: 138; 126; 115; 1877
+cnh-231: 121; 115
+cnh-232: 203; 196; 111
+cnh-233: 108; 82; 45; 314
+cnh-234: 117; 119; 98; 44; 41
+cnh-235: 81; 74; 49
+cnh-236: 115; 110
+cnh-238: 136
+cnh-239: 124; 29
+cnh-241: 100; 48; 7
+cnh-242: 199; 198; 23; 2014
+cnh-243: 106; 7; 42; 188
+cnh-244: 188; 180; 189
+cnh-245: 9; 23
+cnh-247: 6; 8; 9
+cnh-248: 9
+cnh-249: 118; 9; 40; 621
+cnh-250: 11; 69
+cnh-251: 18; 27
+cnh-252: 23
+cnh-253: 25; 220
+cnh-255: 25; 36
+cnh-256: 25; 190
+cnh-258: 60; 59; 74; 107
+cnh-260: 54; 80
+cnh-264: 134; 92; 132
+cnh-266: 166; 167; 169; 184
+cnh-267: 68
+cnh-268: 184; 207
+cnh-273: 220; 280; 229
+cnh-275: 200
+cnh-276: 208
+cnh-277: 220; 266; 265
+cnh-279: 221; 263
+cnh-282: 207
+cnh-283: 228; 234
+cnh-284: 222; 229; 280
+cnh-287: 196; 264; 266
+cnh-288: 220
+cnh-290: 280; 297; 429
+cnh-291: 1494; 1522; 1679
+cnh-293: 266; 420; 265; 316; 317
+cnh-295: 279; 280
+cnh-296: 280
+cnh-297: 291; 306; 300
+cnh-298: 220; 589
+cnh-299: 240; 420
+cnh-300: 205; 305; 262; 263
 ```
