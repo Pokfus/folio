@@ -10597,7 +10597,17 @@ window.GLOSSARY = {
 "Forty_acres_and_a_mule": "",
 "Sharecropping": "",
 "Civil_Rights_Act_of_1866": "",
-"Fourteenth_Amendment_to_the_United_States_Constitution": ""
+"Fourteenth_Amendment_to_the_United_States_Constitution": "",
+"American_frontier": "",
+"Homestead_Acts": "",
+"First_transcontinental_railroad": "",
+"Railroad_land_grants_in_the_United_States": "",
+"1867_Chinese_Labor_Strike": "",
+"Plains_Wars": "",
+"Sand_Creek_massacre": "",
+"Battle_of_the_Little_Bighorn": "",
+"Sitting_Bull": "",
+"Nez_Perce_War": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15628,7 +15638,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Abraham_Lincoln_and_slavery": "1837–1865",
 "United_States_Colored_Troops": "1863–1865",
 "54th_Massachusetts_Infantry_Regiment": "1863–1865",
-"Battle_of_Fort_Pillow": "1864"
+"Battle_of_Fort_Pillow": "1864",
+"American_frontier": "1790–1890",
+"Homestead_Acts": "1862–1986",
+"First_transcontinental_railroad": "1863–1869",
+"Railroad_land_grants_in_the_United_States": "1850–1871",
+"1867_Chinese_Labor_Strike": "1867",
+"Plains_Wars": "1862–1890",
+"Sand_Creek_massacre": "1864",
+"Battle_of_the_Little_Bighorn": "1876",
+"Sitting_Bull": "c. 1831–1890",
+"Nez_Perce_War": "1877"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22460,7 +22480,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Black_Codes_(United_States)": ["Black Codes","Black codes"],
 "Freedmen's_Bureau": ["Freedmen’s Bureau","Bureau of Refugees, Freedmen, and Abandoned Lands"],
 "Forty_acres_and_a_mule": ["40 acres and a mule"],
-"Fourteenth_Amendment_to_the_United_States_Constitution": ["Fourteenth Amendment","14th Amendment"]
+"Fourteenth_Amendment_to_the_United_States_Constitution": ["Fourteenth Amendment","14th Amendment"],
+"Homestead_Acts": ["Homestead Act"],
+"Railroad_land_grants_in_the_United_States": ["Railroad land grants","railroad land grant"],
+"1867_Chinese_Labor_Strike": ["Chinese Labor Strike of 1867","Chinese railroad strike of 1867"],
+"Plains_Wars": ["Plains Indian Wars"],
+"Sand_Creek_massacre": ["Sand Creek Massacre"],
+"Battle_of_the_Little_Bighorn": ["Battle of Little Bighorn","Battle of the Greasy Grass","Custer's Last Stand"],
+"Sitting_Bull": ["Tatanka Iyotanka"],
+"Nez_Perce_War": ["Flight of 1877","Nez Perce Flight of 1877"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33218,7 +33246,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Forty_acres_and_a_mule": ["event","history","politics","united states","reconstruction"],
 "Sharecropping": ["practice","history","economics","agriculture"],
 "Civil_Rights_Act_of_1866": ["text","law","history","united states","reconstruction"],
-"Fourteenth_Amendment_to_the_United_States_Constitution": ["text","law","history","united states","reconstruction"]
+"Fourteenth_Amendment_to_the_United_States_Constitution": ["text","law","history","united states","reconstruction"],
+"American_frontier": ["concept","history","geography","united states"],
+"Homestead_Acts": ["text","history","law","united states"],
+"First_transcontinental_railroad": ["technology","history","industry","united states"],
+"Railroad_land_grants_in_the_United_States": ["concept","history","law","united states"],
+"1867_Chinese_Labor_Strike": ["event","history","labour","united states"],
+"Plains_Wars": ["war","history","warfare","united states"],
+"Sand_Creek_massacre": ["event","history","warfare","united states"],
+"Battle_of_the_Little_Bighorn": ["battle","history","warfare","united states"],
+"Sitting_Bull": ["person","history","warfare","united states"],
+"Nez_Perce_War": ["war","history","warfare","united states"]
 });
 
 /* ============================================================================

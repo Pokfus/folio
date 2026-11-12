@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T07:59Z",
+ "generated": "2026-11-12T08:02Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7638,
-  "redirect-broader": 746,
+  "ok": 7646,
+  "redirect-broader": 747,
   "redirect-variant": 463,
   "section-redirect": 174,
   "disambiguation": 153,
-  "none": 1130,
+  "none": 1131,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83207,6 +83207,84 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Fourteenth Amendment"
+  },
+  "us-651": {
+   "answer": "American frontier",
+   "title": "American frontier",
+   "url": "https://en.wikipedia.org/wiki/American_frontier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-652": {
+   "answer": "Homestead Acts",
+   "title": "Homestead Acts",
+   "url": "https://en.wikipedia.org/wiki/Homestead_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-653": {
+   "answer": "First transcontinental railroad",
+   "title": "First transcontinental railroad",
+   "url": "https://en.wikipedia.org/wiki/First_transcontinental_railroad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-654": {
+   "answer": "Railroad land grants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Railroad land grants in the United States",
+    "Land grant",
+    "History of rail transportation in the United States",
+    "Checkerboarding (land)",
+    "Pacific Railroad Acts"
+   ]
+  },
+  "us-655": {
+   "answer": "1867 Chinese Labor Strike",
+   "title": "1867 Chinese Labor Strike",
+   "url": "https://en.wikipedia.org/wiki/1867_Chinese_Labor_Strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-656": {
+   "answer": "Plains Wars",
+   "title": "American Indian Wars",
+   "url": "https://en.wikipedia.org/wiki/American_Indian_Wars",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Plains Wars"
+  },
+  "us-657": {
+   "answer": "Sand Creek massacre",
+   "title": "Sand Creek massacre",
+   "url": "https://en.wikipedia.org/wiki/Sand_Creek_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-658": {
+   "answer": "Battle of the Little Bighorn",
+   "title": "Battle of the Little Bighorn",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Little_Bighorn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-659": {
+   "answer": "Sitting Bull",
+   "title": "Sitting Bull",
+   "url": "https://en.wikipedia.org/wiki/Sitting_Bull",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-660": {
+   "answer": "Nez Perce War",
+   "title": "Nez Perce War",
+   "url": "https://en.wikipedia.org/wiki/Nez_Perce_War",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

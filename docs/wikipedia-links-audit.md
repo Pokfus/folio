@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7638 | the title is the article |
+| `ok` | 7646 | the title is the article |
 | `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 746 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 747 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 174 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1130 | nothing matched; no link |
+| `none` | 1131 | nothing matched; no link |
 
-**8964 of 10440 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8973 of 10450 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (746)
+## Redirected to a differently named article — check each (747)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -645,6 +645,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-482` **whipping** → [Flagellation](https://en.wikipedia.org/wiki/Flagellation) (from `Whipping`)
 - `us-622` **Presidential Reconstruction** → [Reconstruction era](https://en.wikipedia.org/wiki/Reconstruction_era) (from `Presidential Reconstruction`)
 - `us-630` **Fourteenth Amendment** → [Fourteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution) (from `Fourteenth Amendment`)
+- `us-656` **Plains Wars** → [American Indian Wars](https://en.wikipedia.org/wiki/American_Indian_Wars) (from `Plains Wars`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -1259,7 +1260,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1130)
+## No article found (1131)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2331,6 +2332,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-520` **quilt code** — search suggests `Quilting`, `Quilts of the Underground Railroad`, `Houston`, `Boykin, Alabama`, `Social class in the United States`
 - `us-535` **Higher law speech** — search suggests `Freedom of speech in the United States`, `United States`, `United States labor law`, `Child pornography laws in the United States`, `Law school in the United States`
 - `us-607` **Self-emancipation** — search suggests `United States`, `Emancipation of minors`, `Emancipation Proclamation`, `Emancipation`, `Slavery in the United States`
+- `us-654` **Railroad land grants** — search suggests `Railroad land grants in the United States`, `Land grant`, `History of rail transportation in the United States`, `Checkerboarding (land)`, `Pacific Railroad Acts`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`
