@@ -66,6 +66,54 @@ SCOPE = {
                   'opinion, the months and the numbers to a crore, and the everyday verbs of '
                   'moving, dressing and doing',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences, events, '
+                 'dreams, hopes and ambitions and briefly give reasons and explanations for '
+                 'opinions and plans',
+        'topics': 'work and careers, education and learning, the news, the media and the arts, '
+                  'computers and the internet, nature, the weather and the environment, society, '
+                  'politics and the law, money and services, health and lifestyle, travel and '
+                  'getting about, feelings and relationships, ideas, opinions and reasons, the '
+                  'words that connect an argument, describing, and the verbs of doing, including '
+                  'the common multi-word verbs',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, '
+                 'and to produce clear, detailed text on a wide range of subjects and explain a '
+                 'viewpoint on a topical issue, giving the advantages and disadvantages of various '
+                 'options',
+        'topics': 'business and the economy, politics, the law and society, science and '
+                  'technology, language and the arts, the mind and character, the words of argument '
+                  'and evaluation, the land and the environment, health and the body, more precise '
+                  'description, how and when things happen, and verbs of action',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for social, '
+                 'academic and professional purposes, and to produce clear, well-structured, '
+                 'detailed text on complex subjects',
+        'topics': 'scholarship and the study of language and mind, the state, the law and public '
+                  'life, ideas and political movements, administration, society and the workplace, '
+                  'character and judgement, argument and degree, the land, the weather and the '
+                  'measure of the world, health and the body, feeling, everyday things, and the '
+                  'formal register of written Bengali',
+        # WHY C1 IS SMALLER THAN THE PLAN'S 1,500 (the owner's choice, 2026-11-12): the subtitle
+        # list runs out of words the levels below have not taught, and what Wiktionary has left
+        # is mostly plant names, dialect and archaic literary words.  Nothing was padded in.
+        'note': 'This level is smaller than the 1,500 words first planned for it, on purpose. By '
+                'this point the subtitle frequency list has no more everyday words that the levels '
+                'below have not taught, and most of what the dictionary has left is plant names, '
+                'regional dialect and archaic literary words; those were left out rather than used '
+                'to reach the number. ',
+    },
 }
 
 
