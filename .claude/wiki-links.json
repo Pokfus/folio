@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T07:13Z",
+ "generated": "2026-11-12T08:38Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7621,
-  "redirect-broader": 744,
-  "redirect-variant": 463,
-  "section-redirect": 174,
+  "ok": 7688,
+  "redirect-broader": 748,
+  "redirect-variant": 470,
+  "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1129,
-  "disambig-resolved": 101,
+  "none": 1146,
+  "disambig-resolved": 105,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -83056,6 +83056,838 @@
    "answer": "autotroph",
    "title": "Autotroph",
    "url": "https://en.wikipedia.org/wiki/Autotroph",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-401": {
+   "answer": "Council at Fili",
+   "title": "Council at Fili",
+   "url": "https://en.wikipedia.org/wiki/Council_at_Fili",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-402": {
+   "answer": "Moscow fire of 1812",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fire of Moscow (1812)",
+    "French invasion of Russia",
+    "French occupation of Moscow",
+    "1812 Overture",
+    "Moscow"
+   ]
+  },
+  "ru-403": {
+   "answer": "Battle of Maloyaroslavets",
+   "title": "Battle of Maloyaroslavets",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Maloyaroslavets",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-404": {
+   "answer": "Battle of Berezina",
+   "title": "Battle of Berezina",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Berezina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-405": {
+   "answer": "Military Gallery of the Winter Palace",
+   "title": "Military Gallery of the Winter Palace",
+   "url": "https://en.wikipedia.org/wiki/Military_Gallery_of_the_Winter_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-406": {
+   "answer": "War of the Sixth Coalition",
+   "title": "War of the Sixth Coalition",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Sixth_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-407": {
+   "answer": "Battle of Leipzig",
+   "title": "Battle of Leipzig",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leipzig",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-408": {
+   "answer": "Battle of Paris (1814)",
+   "title": "Battle of Paris (1814)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Paris_(1814)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-409": {
+   "answer": "Polish–Saxon crisis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Polish–Saxon crisis",
+   "target": "Congress of Vienna#Polish-Saxon crisis"
+  },
+  "ru-410": {
+   "answer": "Congress Poland",
+   "title": "Congress Poland",
+   "url": "https://en.wikipedia.org/wiki/Congress_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-411": {
+   "answer": "Holy Alliance",
+   "title": "Holy Alliance",
+   "url": "https://en.wikipedia.org/wiki/Holy_Alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-412": {
+   "answer": "Semyonovsky Regiment mutiny",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Semyonovsky Life Guards Regiment",
+    "Preobrazhensky Life Guards Regiment",
+    "Russian Naval Infantry",
+    "Russian Imperial Guard",
+    "Russian Revolution of 1905"
+   ]
+  },
+  "ru-413": {
+   "answer": "military settlements",
+   "title": "Military settlement",
+   "url": "https://en.wikipedia.org/wiki/Military_settlement",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Military settlements"
+  },
+  "ru-414": {
+   "answer": "Alexey Arakcheyev",
+   "title": "Aleksey Arakcheyev",
+   "url": "https://en.wikipedia.org/wiki/Aleksey_Arakcheyev",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Alexey Arakcheyev"
+  },
+  "ru-415": {
+   "answer": "Fyodor Kuzmich",
+   "title": "Feodor Kuzmich",
+   "url": "https://en.wikipedia.org/wiki/Feodor_Kuzmich",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Fyodor Kuzmich"
+  },
+  "ru-416": {
+   "answer": "Nicholas I",
+   "title": "Nicholas I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Nicholas_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Nicholas I"
+  },
+  "ru-417": {
+   "answer": "Decembrist revolt",
+   "title": "Decembrist revolt",
+   "url": "https://en.wikipedia.org/wiki/Decembrist_revolt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-418": {
+   "answer": "Decembrists",
+   "title": "Decembrist revolt",
+   "url": "https://en.wikipedia.org/wiki/Decembrist_revolt",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Decembrists"
+  },
+  "ru-419": {
+   "answer": "Southern Society",
+   "title": "Southern Society",
+   "url": "https://en.wikipedia.org/wiki/Southern_Society",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-420": {
+   "answer": "Nerchinsk katorga",
+   "title": "Nerchinsk katorga",
+   "url": "https://en.wikipedia.org/wiki/Nerchinsk_katorga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-421": {
+   "answer": "Third Section",
+   "title": "Third Section of His Imperial Majesty's Own Chancellery",
+   "url": "https://en.wikipedia.org/wiki/Third_Section_of_His_Imperial_Majesty's_Own_Chancellery",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Third Section"
+  },
+  "ru-422": {
+   "answer": "Official Nationality",
+   "title": "Orthodoxy, Autocracy, and Nationality",
+   "url": "https://en.wikipedia.org/wiki/Orthodoxy,_Autocracy,_and_Nationality",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Official Nationality"
+  },
+  "ru-423": {
+   "answer": "Sergey Uvarov",
+   "title": "Sergey Uvarov",
+   "url": "https://en.wikipedia.org/wiki/Sergey_Uvarov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-424": {
+   "answer": "cast-iron statute",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Brass knuckles",
+    "History of metallurgy in the Urals",
+    "Royal Mail",
+    "Russia under Vladimir Putin"
+   ]
+  },
+  "ru-425": {
+   "answer": "Digest of Laws of the Russian Empire",
+   "title": "Digest of Laws of the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Digest_of_Laws_of_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-426": {
+   "answer": "November Uprising",
+   "title": "November Uprising",
+   "url": "https://en.wikipedia.org/wiki/November_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-427": {
+   "answer": "Organic Statute of the Kingdom of Poland",
+   "title": "Organic Statute of the Kingdom of Poland",
+   "url": "https://en.wikipedia.org/wiki/Organic_Statute_of_the_Kingdom_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-428": {
+   "answer": "Caucasian War",
+   "title": "Caucasian War",
+   "url": "https://en.wikipedia.org/wiki/Caucasian_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-429": {
+   "answer": "Imam Shamil",
+   "title": "Imam Shamil",
+   "url": "https://en.wikipedia.org/wiki/Imam_Shamil",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-430": {
+   "answer": "Circassian expulsions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Circassian genocide",
+    "Circassians",
+    "Circassia",
+    "Russo–Circassian War",
+    "Alexander II of Russia"
+   ]
+  },
+  "ru-431": {
+   "answer": "Russo-Persian War of 1826–1828",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russo-Persian War (1826–1828)",
+    "Russo-Persian Wars",
+    "Russo-Turkish War (1828–1829)",
+    "Russo-Turkish wars",
+    "Battle of Ganja (1826)"
+   ]
+  },
+  "ru-432": {
+   "answer": "Russo-Turkish War of 1828–1829",
+   "title": "Russo-Turkish War (1828–1829)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1828%E2%80%931829)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1828–1829"
+  },
+  "ru-433": {
+   "answer": "Convention of Balta Liman",
+   "title": "Convention of Balta Liman",
+   "url": "https://en.wikipedia.org/wiki/Convention_of_Balta_Liman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-434": {
+   "answer": "Surrender at Világos",
+   "title": "Surrender at Világos",
+   "url": "https://en.wikipedia.org/wiki/Surrender_at_Vil%C3%A1gos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-435": {
+   "answer": "Petrashevsky Circle",
+   "title": "Petrashevsky Circle",
+   "url": "https://en.wikipedia.org/wiki/Petrashevsky_Circle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-436": {
+   "answer": "Crimean War",
+   "title": "Crimean War",
+   "url": "https://en.wikipedia.org/wiki/Crimean_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-437": {
+   "answer": "Siege of Sevastopol",
+   "title": "Siege of Sevastopol (1854–1855)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Sevastopol_(1854%E2%80%931855)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-438": {
+   "answer": "Battle of Sinop",
+   "title": "Battle of Sinop",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Sinop",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-439": {
+   "answer": "Treaty of Paris (1856)",
+   "title": "Treaty of Paris (1856)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1856)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-440": {
+   "answer": "Sevastopol Sketches",
+   "title": "Sevastopol Sketches",
+   "url": "https://en.wikipedia.org/wiki/Sevastopol_Sketches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-441": {
+   "answer": "Alexander II",
+   "title": "Alexander II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_II_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander II"
+  },
+  "ru-442": {
+   "answer": "Great Reforms",
+   "title": "Government reforms of Alexander II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Government_reforms_of_Alexander_II_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Reforms"
+  },
+  "ru-443": {
+   "answer": "Editing Commissions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Russian plague scare",
+    "Conflict-of-interest editing on Wikipedia",
+    "He Jiankui affair",
+    "2026 Russian legislative election",
+    "United Russia"
+   ]
+  },
+  "ru-444": {
+   "answer": "Emancipation Manifesto",
+   "title": "Emancipation reform of 1861",
+   "url": "https://en.wikipedia.org/wiki/Emancipation_reform_of_1861",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Emancipation Manifesto"
+  },
+  "ru-445": {
+   "answer": "redemption payments",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emancipation reform of 1861",
+    "Economy of Tsarist Russia",
+    "Russian Empire",
+    "Bond (finance)",
+    "Redemptioner"
+   ]
+  },
+  "ru-446": {
+   "answer": "krugovaya poruka",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Obshchina"
+   ]
+  },
+  "ru-447": {
+   "answer": "zemstvo",
+   "title": "Zemstvo",
+   "url": "https://en.wikipedia.org/wiki/Zemstvo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-448": {
+   "answer": "Judicial reform of Alexander II",
+   "title": "Judicial reform of Alexander II",
+   "url": "https://en.wikipedia.org/wiki/Judicial_reform_of_Alexander_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-449": {
+   "answer": "jury trial",
+   "title": "Jury trial",
+   "url": "https://en.wikipedia.org/wiki/Jury_trial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-450": {
+   "answer": "Municipal Statute of 1870",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian Empire",
+    "Moscow",
+    "Statute Law Revision Act 1875",
+    "Nicholas II",
+    "Statute Law Revision Act 1950"
+   ]
+  },
+  "ru-451": {
+   "answer": "Conscription in the Russian Empire",
+   "title": "Conscription in the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Conscription_in_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-452": {
+   "answer": "University Statute of 1863",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Imperial Moscow University",
+    "Odesa National University",
+    "1899 Russian student strike",
+    "Tsarist Russia",
+    "Mile"
+   ]
+  },
+  "ru-453": {
+   "answer": "Temporary Rules on the Press",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian occupation of Ukraine",
+    "Russo-Ukrainian war",
+    "Tsarist Russia",
+    "Russian Soviet Federative Socialist Republic",
+    "2022 Russian invasion of Ukraine"
+   ]
+  },
+  "ru-454": {
+   "answer": "January Uprising",
+   "title": "January Uprising",
+   "url": "https://en.wikipedia.org/wiki/January_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-455": {
+   "answer": "Russification",
+   "title": "Russification",
+   "url": "https://en.wikipedia.org/wiki/Russification",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-456": {
+   "answer": "Ems Ukaz",
+   "title": "Ems Ukaz",
+   "url": "https://en.wikipedia.org/wiki/Ems_Ukaz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-457": {
+   "answer": "Russian conquest of Central Asia",
+   "title": "Russian conquest of Central Asia",
+   "url": "https://en.wikipedia.org/wiki/Russian_conquest_of_Central_Asia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-458": {
+   "answer": "Emirate of Bukhara",
+   "title": "Emirate of Bukhara",
+   "url": "https://en.wikipedia.org/wiki/Emirate_of_Bukhara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-459": {
+   "answer": "Great Game",
+   "title": "Great Game",
+   "url": "https://en.wikipedia.org/wiki/Great_Game",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-460": {
+   "answer": "Alaska Purchase",
+   "title": "Alaska Purchase",
+   "url": "https://en.wikipedia.org/wiki/Alaska_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-461": {
+   "answer": "Treaty of Aigun",
+   "title": "Treaty of Aigun",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Aigun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-462": {
+   "answer": "Convention of Peking",
+   "title": "Convention of Peking",
+   "url": "https://en.wikipedia.org/wiki/Convention_of_Peking",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-463": {
+   "answer": "Russo-Turkish War of 1877–1878",
+   "title": "Russo-Turkish War (1877–1878)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1877%E2%80%931878)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1877–1878"
+  },
+  "ru-464": {
+   "answer": "Siege of Plevna",
+   "title": "Siege of Plevna",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Plevna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-465": {
+   "answer": "Treaty of San Stefano",
+   "title": "Treaty of San Stefano",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_San_Stefano",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-466": {
+   "answer": "Congress of Berlin",
+   "title": "Congress of Berlin",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Berlin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-467": {
+   "answer": "intelligentsia",
+   "title": "Intelligentsia",
+   "url": "https://en.wikipedia.org/wiki/Intelligentsia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-468": {
+   "answer": "Russian nihilist movement",
+   "title": "Russian nihilist movement",
+   "url": "https://en.wikipedia.org/wiki/Russian_nihilist_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-469": {
+   "answer": "Nikolay Chernyshevsky",
+   "title": "Nikolay Chernyshevsky",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Chernyshevsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-470": {
+   "answer": "Narodniks",
+   "title": "Narodniks",
+   "url": "https://en.wikipedia.org/wiki/Narodniks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-471": {
+   "answer": "going to the people",
+   "title": "Going to the People",
+   "url": "https://en.wikipedia.org/wiki/Going_to_the_People",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-472": {
+   "answer": "Land and Liberty",
+   "title": "Land and Liberty (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Land_and_Liberty_(Russia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-473": {
+   "answer": "Narodnaya Volya",
+   "title": "Narodnaya Volya",
+   "url": "https://en.wikipedia.org/wiki/Narodnaya_Volya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-474": {
+   "answer": "Russian revolutionary terrorism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Terrorism in Russia",
+    "Russian Revolution",
+    "Socialist Revolutionary Party",
+    "Andrei Argunov",
+    "Russian nihilist movement"
+   ]
+  },
+  "ru-475": {
+   "answer": "Vera Zasulich",
+   "title": "Vera Zasulich",
+   "url": "https://en.wikipedia.org/wiki/Vera_Zasulich",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-476": {
+   "answer": "assassination of Alexander II",
+   "title": "Assassination of Alexander II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_Alexander_II_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Assassination of Alexander II"
+  },
+  "ru-477": {
+   "answer": "Alexander III",
+   "title": "Alexander III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_III_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander III"
+  },
+  "ru-478": {
+   "answer": "counter-reforms",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Alexander III of Russia",
+    "Alexander II of Russia",
+    "Russia",
+    "Countering America's Adversaries Through Sanctions Act",
+    "Triple Alliance"
+   ]
+  },
+  "ru-479": {
+   "answer": "Konstantin Pobedonostsev",
+   "title": "Konstantin Pobedonostsev",
+   "url": "https://en.wikipedia.org/wiki/Konstantin_Pobedonostsev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-480": {
+   "answer": "pogroms of 1881–1884",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pogrom",
+    "Pogroms in the Russian Empire",
+    "Warsaw pogrom (1881)",
+    "Odessa pogroms",
+    "Kiev pogrom (1881)"
+   ]
+  },
+  "ru-481": {
+   "answer": "1897 Russian census",
+   "title": "1897 Russian census",
+   "url": "https://en.wikipedia.org/wiki/1897_Russian_census",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-482": {
+   "answer": "Russian tariff of 1891",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian Railways",
+    "Nicholas II",
+    "Timeline of Russian history",
+    "Russian Revolution of 1905",
+    "Emancipation reform of 1861"
+   ]
+  },
+  "ru-483": {
+   "answer": "Sergei Witte",
+   "title": "Sergei Witte",
+   "url": "https://en.wikipedia.org/wiki/Sergei_Witte",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-484": {
+   "answer": "Trans-Siberian Railway",
+   "title": "Trans-Siberian Railway",
+   "url": "https://en.wikipedia.org/wiki/Trans-Siberian_Railway",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-485": {
+   "answer": "Branobel",
+   "title": "Branobel",
+   "url": "https://en.wikipedia.org/wiki/Branobel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-486": {
+   "answer": "St Petersburg textile strike of 1896",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "League of Struggle for the Emancipation of the Working Class",
+    "Labor history of the United States",
+    "Fyodor Dan",
+    "Alexander Mantashev",
+    "African People's Socialist Party"
+   ]
+  },
+  "ru-487": {
+   "answer": "Peasants' Land Bank",
+   "title": "Peasants' Land Bank",
+   "url": "https://en.wikipedia.org/wiki/Peasants'_Land_Bank",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-488": {
+   "answer": "Russian famine of 1891–1892",
+   "title": "Russian famine of 1891–1892",
+   "url": "https://en.wikipedia.org/wiki/Russian_famine_of_1891%E2%80%931892",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-489": {
+   "answer": "Franco-Russian Alliance",
+   "title": "Franco-Russian Alliance",
+   "url": "https://en.wikipedia.org/wiki/Franco-Russian_Alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-490": {
+   "answer": "Russian invasion of Manchuria",
+   "title": "Russian invasion of Manchuria",
+   "url": "https://en.wikipedia.org/wiki/Russian_invasion_of_Manchuria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-491": {
+   "answer": "Chinese Eastern Railway",
+   "title": "Chinese Eastern Railway",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Eastern_Railway",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-492": {
+   "answer": "Port Arthur",
+   "title": "Lüshunkou",
+   "url": "https://en.wikipedia.org/wiki/L%C3%BCshunkou",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Port Arthur"
+  },
+  "ru-493": {
+   "answer": "Russo-Japanese War",
+   "title": "Russo-Japanese War",
+   "url": "https://en.wikipedia.org/wiki/Russo-Japanese_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-494": {
+   "answer": "Siege of Port Arthur",
+   "title": "Siege of Port Arthur",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Port_Arthur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-495": {
+   "answer": "Battle of Mukden",
+   "title": "Battle of Mukden",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Mukden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-496": {
+   "answer": "Battle of Tsushima",
+   "title": "Battle of Tsushima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Tsushima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-497": {
+   "answer": "Treaty of Portsmouth",
+   "title": "Treaty of Portsmouth",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Portsmouth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-498": {
+   "answer": "Nicholas II",
+   "title": "Nicholas II",
+   "url": "https://en.wikipedia.org/wiki/Nicholas_II",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-499": {
+   "answer": "Statute of 14 August 1881",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Statute Law Revision Act 1875",
+    "Nicholas II",
+    "House of Romanov",
+    "Russian Empire"
+   ]
+  },
+  "ru-500": {
+   "answer": "Okhrana",
+   "title": "Okhrana",
+   "url": "https://en.wikipedia.org/wiki/Okhrana",
    "via": "glossary",
    "status": "ok"
   }
