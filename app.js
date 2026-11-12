@@ -25720,8 +25720,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
   const adIconKey = (entryId, parentKey) => {
     const n = NODE_BY_ID[entryId];
-    // …and the mark is the SECTION's rather than the collection's own subject symbol — see SECTION_ICON
-    if (n) return n.parentId ? "" : (SECTION_ICON[sectionOf(entryId)] || "cards");
+    /* …and the mark is the collection's OWN subject symbol, the one its banner wears on the Collections
+       page (Nov 2026, on request: "the collections in the active collections list should have the same
+       icons as they do on the Collections page"). From Sep 2026 it was the SECTION's mark (SECTION_ICON),
+       one hourglass for every history collection; that table stays defined and unread. The row keeps its
+       collection-colour ink (`.active-deck .coll-ic.dk-ic`) — only the shape was asked for. */
+    if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
     // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
     // banner wears on the Collections page — the one place seven collections share a mark
     if (isLangCtxId(entryId)) return "speech";
