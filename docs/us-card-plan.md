@@ -1086,49 +1086,49 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-398  Battle of the Alamo
     us-399  Republic of Texas
     us-400  Texas annexation
-    us-401  The presidency of James K. Polk
+    us-401  Presidency of James K. Polk
     us-402  Oregon boundary dispute
     us-403  Mexican–American War
-    us-404  The march on Mexico City
-    us-405  Opposition to the Mexican War
+    us-404  Battle for Mexico City
+    us-405  Spot Resolutions
     us-406  Treaty of Guadalupe Hidalgo
     us-407  Mexican Cession
-    us-408  Mexican Americans after 1848
-    us-409  California Gold Rush
-    us-410  The forty-niners
-    us-411  San Francisco and the boom towns
-    us-412  Chinese immigration to California
-    us-413  The Californios and the loss of the ranchos
+    us-408  Mexican Americans
+    us-409  California gold rush
+    us-410  Forty-niners
+    us-411  Boomtown
+    us-412  Chinese immigration to the United States
+    us-413  Californios
     us-414  Santa Fe Trail
     us-415  Gadsden Purchase
-    us-416  Filibuster (military)
-    us-417  The Perry expedition to Japan
-    us-418  The Pacific Railroad Surveys
-    us-419  The West as an idea before 1860
-    us-420  What expansion cost
+    us-416  Filibuster
+    us-417  Perry Expedition
+    us-418  Pacific Railroad Surveys
+    us-419  Great American Desert
+    us-420  Fort Laramie Treaty of 1851
 
 ### Antebellum society and reform — `us-antebellum`
 
-    us-421  Antebellum America
+    us-421  Antebellum era
     us-422  Second Great Awakening
     us-423  Charles Grandison Finney
     us-424  Burned-over district
-    us-425  Utopian communities in America
-    us-426  The temperance movement
-    us-427  Asylum and prison reform
+    us-425  Utopian communities
+    us-426  Temperance movement
+    us-427  Pennsylvania system
     us-428  Dorothea Dix
-    us-429  The common school movement
+    us-429  Common school
     us-430  Horace Mann
     us-431  Cult of Domesticity
-    us-432  Women's rights before Seneca Falls
+    us-432  Letters on the Equality of the Sexes
     us-433  Seneca Falls Convention
     us-434  Elizabeth Cady Stanton
     us-435  Know Nothing
-    us-436  Irish immigration and the Great Famine
-    us-437  German immigration in the 1840s and 1850s
+    us-436  Great Famine
+    us-437  Forty-Eighters
     us-438  Transcendentalism
-    us-439  Ralph Waldo Emerson and Henry David Thoreau
-    us-440  The American Renaissance in letters
+    us-439  Henry David Thoreau
+    us-440  American Renaissance
 
 ## Slavery
 
@@ -1137,65 +1137,65 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-441  Slavery in the United States
     us-442  Atlantic slave trade
     us-443  Middle Passage
-    us-444  The origins of slavery in Virginia
+    us-444  Slavery in Virginia
     us-445  Slave codes
-    us-446  Slavery in the colonial North
-    us-447  Slavery and the American Revolution
-    us-448  Abolition of slavery in the northern states
+    us-446  Slavery in New York
+    us-447  African Americans in the Revolutionary War
+    us-448  Gradual abolition of slavery
     us-449  Act Prohibiting Importation of Slaves
     us-450  Cotton gin
-    us-451  The cotton boom
+    us-451  Cotton Kingdom
     us-452  King Cotton
-    us-453  Slave trade in the United States
-    us-454  The coffle and the journey south
-    us-455  The slave market and the slave pen
-    us-456  The economics of American slavery
-    us-457  The debate over the profitability of slavery
-    us-458  Slavery and northern capital
-    us-459  American slavery and the world economy
-    us-460  The planter class
-    us-461  The plantation
-    us-462  Overseers and drivers
+    us-453  Domestic slave trade
+    us-454  Coffle
+    us-455  Slave pen
+    us-456  Chattel slavery
+    us-457  Impending Crisis of the South
+    us-458  Cotton Whigs
+    us-459  Lancashire Cotton Famine
+    us-460  Planter class
+    us-461  Plantation
+    us-462  Overseer
     us-463  Urban slavery
     us-464  Industrial slavery
-    us-465  The law of slavery in the United States
+    us-465  State v. Mann
     us-466  Slave patrol
-    us-467  Proslavery
-    us-468  George Fitzhugh and the defence of slavery
-    us-469  Counting the enslaved population
-    us-470  The sources for American slavery
+    us-467  Proslavery thought
+    us-468  George Fitzhugh
+    us-469  Slave schedule
+    us-470  WPA Slave Narrative Collection
 
 ### Enslaved life, family and resistance — `us-enslaved-life`
 
-    us-471  The lives of the enslaved
-    us-472  The slave quarters
-    us-473  Enslaved labour in the fields
-    us-474  The task system and the gang system
-    us-475  Enslaved women in the United States
-    us-476  Childbirth and motherhood under slavery
-    us-477  Enslaved families
-    us-478  The sale and separation of families
+    us-471  Slave community
+    us-472  Slave quarters
+    us-473  Gang system
+    us-474  Task system
+    us-475  Incidents in the Life of a Slave Girl
+    us-476  Partus sequitur ventrem
+    us-477  Abroad marriage
+    us-478  Weeping Time
     us-479  Enslaved children
-    us-480  Food, clothing and material life under slavery
-    us-481  Health and mortality among the enslaved
-    us-482  Violence and punishment under slavery
-    us-483  Sexual violence under slavery
-    us-484  African American religion under slavery
-    us-485  The Black church before emancipation
+    us-480  Osnaburg
+    us-481  Sick house
+    us-482  Whipping
+    us-483  State of Missouri v. Celia, a Slave
+    us-484  Invisible church
+    us-485  Black church
     us-486  Spirituals
-    us-487  African survivals in African American culture
+    us-487  Ring shout
     us-488  Gullah
-    us-489  Enslaved craftsmen and skilled labour
-    us-490  Literacy and the laws against teaching the enslaved
-    us-491  Everyday resistance to slavery
-    us-492  Running away from slavery
-    us-493  Maroon communities in North America
-    us-494  Slave rebellions in the United States
+    us-489  Self-hire
+    us-490  Anti-literacy laws
+    us-491  Everyday resistance
+    us-492  Fugitive slaves in the United States
+    us-493  Great Dismal Swamp maroons
+    us-494  Slave rebellion and resistance in the United States
     us-495  Stono Rebellion
-    us-496  Gabriel's conspiracy
+    us-496  Gabriel's Rebellion
     us-497  Denmark Vesey
-    us-498  Nat Turner's slave rebellion
-    us-499  The response to Nat Turner
+    us-498  Nat Turner's Rebellion
+    us-499  Virginia slavery debate
     us-500  United States v. The Amistad
     us-501  Free Black communities in the South
     us-502  Free Black communities in the North
