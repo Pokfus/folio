@@ -1431,39 +1431,39 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-707  Eugene V. Debs
     us-708  Industrial Workers of the World
     us-709  Socialism in the United States
-    us-710  Why American labour took the shape it did
+    us-710  Business unionism
 
 ### Immigration and the city — `us-immigration-city`
 
     us-711  Immigration to the United States
-    us-712  The old immigration and the new
+    us-712  Dillingham Commission
     us-713  Ellis Island
     us-714  Angel Island Immigration Station
-    us-715  The immigrant crossing
+    us-715  Steerage
     us-716  Italian immigration to the United States
     us-717  Eastern European Jewish immigration
     us-718  The Lower East Side
-    us-719  Immigrant neighbourhoods and mutual aid societies
-    us-720  Immigrant labour in the industrial city
-    us-721  The urban political machine
+    us-719  Mutual aid society
+    us-720  Padrone system
+    us-721  Political machine
     us-722  Tammany Hall
-    us-723  The American city in 1900
+    us-723  City Beautiful movement
     us-724  Tenement
     us-725  How the Other Half Lives
     us-726  Jacob Riis and the photograph as argument
-    us-727  Urban sanitation and public health
-    us-728  The skyscraper
-    us-729  The streetcar and the first suburbs
+    us-727  Metropolitan Board of Health
+    us-728  Home Insurance Building
+    us-729  Streetcar suburb
     us-730  Chinese Exclusion Act
-    us-731  Anti-Chinese violence in the American West
-    us-732  Nativism in the Gilded Age
-    us-733  The immigrant press and immigrant politics
-    us-734  The melting pot and its critics
-    us-735  What assimilation demanded
+    us-731  Chinese massacre of 1871
+    us-732  American Protective Association
+    us-733  Jewish Daily Forward
+    us-734  Melting pot
+    us-735  Americanization movement
 
 ### Populism, Progressivism and empire — `us-progressive`
 
-    us-736  Populism in the United States
+    us-736  Populism
     us-737  Farmers' Alliance
     us-738  People's Party (United States)
     us-739  Free silver
@@ -1471,69 +1471,69 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-741  1896 United States presidential election
     us-742  Progressive Era
     us-743  Muckraker
-    us-744  Upton Sinclair and The Jungle
-    us-745  Pure Food and Drug Act of 1906
+    us-744  The Jungle
+    us-745  Pure Food and Drug Act
     us-746  Theodore Roosevelt
-    us-747  Trust-busting and the Square Deal
-    us-748  Progressive reform in the cities and the states
-    us-749  Woodrow Wilson and the New Freedom
+    us-747  Square Deal
+    us-748  Wisconsin Idea
+    us-749  New Freedom
     us-750  Federal Reserve System
-    us-751  The Progressive Era amendments
+    us-751  Sixteenth Amendment
     us-752  American imperialism
     us-753  Spanish–American War
-    us-754  The sinking of the Maine and the yellow press
+    us-754  Yellow journalism
     us-755  Battle of Manila Bay
-    us-756  The annexation of the Philippines
+    us-756  Treaty of Paris (1898)
     us-757  Philippine–American War
     us-758  American Anti-Imperialist League
     us-759  Panama Canal
-    us-760  Roosevelt Corollary and the Caribbean interventions
+    us-760  Roosevelt Corollary
 
 ## Depression, War and Cold War, 1917–1963
 
 ### The First World War and the twenties — `us-ww1-twenties`
 
-    us-761  The United States in World War I
-    us-762  American neutrality, 1914–1917
-    us-763  Sinking of the RMS Lusitania
+    us-761  Selective Service Act of 1917
+    us-762  Sussex pledge
+    us-763  RMS Lusitania
     us-764  Zimmermann Telegram
-    us-765  The decision for war in 1917
+    us-765  United States declaration of war on Germany
     us-766  American Expeditionary Forces
     us-767  John J. Pershing
-    us-768  The American army in France
+    us-768  Harlem Hellfighters
     us-769  Meuse–Argonne offensive
-    us-770  The American home front in the First World War
-    us-771  Espionage Act of 1917 and the Sedition Act of 1918
-    us-772  Wartime repression and dissent
-    us-773  Great Migration
+    us-770  Committee on Public Information
+    us-771  Espionage Act of 1917
+    us-772  Schenck v. United States
+    us-773  African American Great Migration
     us-774  Women's suffrage in the United States
     us-775  Nineteenth Amendment
-    us-776  Alice Paul and the militant suffragists
-    us-777  The 1918 influenza pandemic in the United States
+    us-776  Alice Paul
+    us-777  1918 influenza pandemic
     us-778  Fourteen Points
-    us-779  Wilson at the Paris Peace Conference
-    us-780  The Senate and the League of Nations
+    us-779  Paris Peace Conference
+    us-780  Lodge Reservations
     us-781  First Red Scare
     us-782  Palmer Raids
     us-783  Red Summer
     us-784  Tulsa race massacre
-    us-785  The Ku Klux Klan in the 1920s
+    us-785  Second Ku Klux Klan
     us-786  Immigration Act of 1924
-    us-787  Prohibition in the United States
-    us-788  Organised crime and bootlegging
+    us-787  Prohibition
+    us-788  Al Capone
     us-789  The Roaring Twenties
     us-790  Harlem Renaissance
     us-791  Scopes trial
-    us-792  The weaknesses of the 1920s economy
+    us-792  McNary–Haugen Farm Relief Bill
 
 ### Depression and the New Deal — `us-depression`
 
     us-793  Wall Street Crash of 1929
-    us-794  The causes of the Great Depression
-    us-795  The banking crisis of 1930–1933
-    us-796  Unemployment in the Great Depression
+    us-794  Smoot–Hawley Tariff Act
+    us-795  Bank run
+    us-796  Breadline
     us-797  Hooverville
-    us-798  The presidency of Herbert Hoover
+    us-798  Reconstruction Finance Corporation
     us-799  Bonus Army
     us-800  Dust Bowl
     us-801  The Dust Bowl migration

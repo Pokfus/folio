@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4155de4b1647a812","counts":{"terms":941,"points":704,"countries":237,"windows":1562,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"95e86867264a4ffa","counts":{"terms":941,"points":704,"countries":237,"windows":1567,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -998,6 +998,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4155de4b1647a812","counts":
 "Andorra":[1.54,42.55,"country","adm0:and",0,40],
 "Angara":[92.991,58.102,"coord",0,0,0],
 "Angel_Falls":[-62.536,5.97,"coord",0,0,0],
+"Angel_Island_Immigration_Station":[-122.426,37.87,"coord",0,0,0],
 "Angkor_Wat":[103.867,13.413,"site",0,0,0],
 "Angola":[17.98,-12.18,"country","adm0:ago",0,5.02],
 "Anguilla":[-63.03,18.24,"country","adm0:aia",0,40],
@@ -1309,6 +1310,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4155de4b1647a812","counts":
 "Elam":[47.279,31.591,"polity","pol:elam",-1150,9.08],
 "Eleusis":[23.533,38.033,"site",0,0,0],
 "Elis":[21.5,37.667,"region",0,0,0],
+"Ellis_Island":[-74.04,40.699,"coord",0,0,0],
 "Empire_of_Japan":[122.053,42.352,"polity","pol:japan",1943,1],
 "Emporion":[3.121,42.135,"site",0,0,0],
 "England":[-1.38,53.13,"coord",0,0,0],
@@ -1478,6 +1480,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4155de4b1647a812","counts":
 "Hindu_Kush":[73.702,35.864,"range",0,0,0],
 "Hiraizumi":[141.114,38.987,"coord",0,0,0],
 "Hohlenstein-Stadel":[10.173,48.549,"coord",0,0,0],
+"Home_Insurance_Building":[-87.632,41.88,"coord",0,0,0],
 "Honduras":[-86.89,14.79,"country","adm0:hnd",0,11.37],
 "Hong_Kong":[114.1,22.45,"country","adm0:hkg",0,40],
 "Hongze_Lake":[118.585,33.286,"lake",0,0,0],
@@ -1709,6 +1712,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4155de4b1647a812","counts":
 "Lothal":[72.249,22.521,"site",0,0,0],
 "Louisiana":[-91.999,30.527,"admin1","adm1:usa:us-la",0,15.27],
 "Louisiana_(New_France)":[-91.999,30.527,"admin1","adm1:usa:us-la",0,15.27],
+"Lower_East_Side":[-73.985,40.715,"coord",0,0,0],
 "Lower_Germanic_Limes":[5.863,51.848,"coord",0,0,0],
 "Lower_city_of_Troy":[26.239,39.958,"coord",0,0,0],
 "Lu_(state)":[116.983,35.6,"coord",0,0,0],
@@ -1977,6 +1981,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4155de4b1647a812","counts":
 "Palmyra":[38.27,34.55,"site",0,0,0],
 "Palmyrene_Empire":[36.636,36.587,"polity","pol:palmyra",263,3.97],
 "Panama":[-80.35,8.72,"country","adm0:pan",0,11.76],
+"Panama_Canal":[-79.75,9.12,"coord",0,0,0],
 "Panama_Canal_Zone":[-79.72,9.118,"region",0,0,0],
 "Panlongcheng":[114.266,30.694,"coord",0,0,0],
 "Pannonia":[19.611,44.966,"coord",0,0,0],

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7918 | the title is the article |
-| `redirect-variant` | 479 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 107 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 8000 | the title is the article |
+| `redirect-variant` | 480 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 109 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 769 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 777 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 187 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
-| `none` | 1171 | nothing matched; no link |
+| `section-redirect` | 188 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 157 | only a disambiguation page; no link could be chosen |
+| `none` | 1174 | nothing matched; no link |
 
-**9289 of 10820 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9382 of 10920 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (769)
+## Redirected to a differently named article — check each (777)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -154,18 +154,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-961` **Huanghuali** → [Dalbergia odorifera](https://en.wikipedia.org/wiki/Dalbergia_odorifera) (from `Huanghuali`)
 - `cnh-966` **Wu Liang Shrine** → [Wu Family Shrines](https://en.wikipedia.org/wiki/Wu_Family_Shrines) (from `Wu Liang Shrine`)
 - `cnh-990` **Zhaozhou Bridge** → [Anji Bridge](https://en.wikipedia.org/wiki/Anji_Bridge) (from `Zhaozhou Bridge`)
-- `dino-002` **synapomorphy** → [Apomorphy and synapomorphy](https://en.wikipedia.org/wiki/Apomorphy_and_synapomorphy) (from `Synapomorphy`)
-- `dino-003` **Dinosauria** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Dinosauria`)
-- `dino-016` **non-avian dinosaur** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Non-avian dinosaur`)
-- `dino-028` **vertebral column** → [Spinal column](https://en.wikipedia.org/wiki/Spinal_column) (from `Vertebral column`)
-- `dino-030` **dorsal vertebrae** → [Thoracic vertebrae](https://en.wikipedia.org/wiki/Thoracic_vertebrae) (from `Dorsal vertebrae`)
-- `dino-041` **metatarsus** → [Metatarsal bones](https://en.wikipedia.org/wiki/Metatarsal_bones) (from `Metatarsus`)
-- `dino-046` **braincase** → [Neurocranium](https://en.wikipedia.org/wiki/Neurocranium) (from `Braincase`)
-- `dino-066` **principle of priority** → [Priority (biology)](https://en.wikipedia.org/wiki/Priority_(biology)) (from `Principle of priority`)
-- `dino-072` **intraspecific variation** → [Polymorphism (biology)](https://en.wikipedia.org/wiki/Polymorphism_(biology)) (from `Intraspecific variation`)
-- `dino-074` **fossil record** → [Fossil](https://en.wikipedia.org/wiki/Fossil) (from `Fossil record`)
-- `dino-083` **vicariance** → [Allopatric speciation](https://en.wikipedia.org/wiki/Allopatric_speciation) (from `Vicariance`)
-- `dino-088` **geological timescale** → [Geologic time scale](https://en.wikipedia.org/wiki/Geologic_time_scale) (from `Geological timescale`)
 - `ec-006` **positive economics** → [Positive and normative economics](https://en.wikipedia.org/wiki/Positive_and_normative_economics) (from `Positive economics`)
 - `ec-008` **economic agent** → [Agent (economics)](https://en.wikipedia.org/wiki/Agent_(economics)) (from `Economic agent`)
 - `ec-024` **production possibility frontier** → [Production-possibility frontier](https://en.wikipedia.org/wiki/Production-possibility_frontier) (from `Production possibility frontier`)
@@ -412,6 +400,18 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ko-165` **Kim Al-ji** → [Kim Al-chi](https://en.wikipedia.org/wiki/Kim_Al-chi) (from `Kim Al-ji`)
 - `ko-183` **Kim Chunchu** → [Muyeol of Silla](https://en.wikipedia.org/wiki/Muyeol_of_Silla) (from `Kim Chunchu`)
 - `ko-194` **Sue ware** → [Sue pottery](https://en.wikipedia.org/wiki/Sue_pottery) (from `Sue ware`)
+- `pal-017` **fossil record** → [Fossil](https://en.wikipedia.org/wiki/Fossil) (from `Fossil record`)
+- `pal-029` **principle of priority** → [Priority (biology)](https://en.wikipedia.org/wiki/Priority_(biology)) (from `Principle of priority`)
+- `pal-034` **synapomorphy** → [Apomorphy and synapomorphy](https://en.wikipedia.org/wiki/Apomorphy_and_synapomorphy) (from `Synapomorphy`)
+- `pal-048` **intraspecific variation** → [Polymorphism (biology)](https://en.wikipedia.org/wiki/Polymorphism_(biology)) (from `Intraspecific variation`)
+- `pal-052` **geological timescale** → [Geologic time scale](https://en.wikipedia.org/wiki/Geologic_time_scale) (from `Geological timescale`)
+- `pal-637` **Dinosauria** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Dinosauria`)
+- `pal-645` **non-avian dinosaur** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Non-avian dinosaur`)
+- `pal-661` **vertebral column** → [Spinal column](https://en.wikipedia.org/wiki/Spinal_column) (from `Vertebral column`)
+- `pal-663` **dorsal vertebrae** → [Thoracic vertebrae](https://en.wikipedia.org/wiki/Thoracic_vertebrae) (from `Dorsal vertebrae`)
+- `pal-673` **metatarsus** → [Metatarsal bones](https://en.wikipedia.org/wiki/Metatarsal_bones) (from `Metatarsus`)
+- `pal-677` **braincase** → [Neurocranium](https://en.wikipedia.org/wiki/Neurocranium) (from `Braincase`)
+- `pal-948` **vicariance** → [Allopatric speciation](https://en.wikipedia.org/wiki/Allopatric_speciation) (from `Vicariance`)
 - `pea-001` **Tiananmen Massacre** → [1989 Tiananmen Square protests and massacre](https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre) (from `Tiananmen Massacre`)
 - `pea-011` **Anti-corruption campaign** → [Anti-corruption](https://en.wikipedia.org/wiki/Anti-corruption) (from `Anti-corruption campaign`)
 - `pea-019` **Harmonious Socialist Society** → [Harmonious Society](https://en.wikipedia.org/wiki/Harmonious_Society) (from `Harmonious Socialist Society`)
@@ -668,6 +668,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-630` **Fourteenth Amendment** → [Fourteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution) (from `Fourteenth Amendment`)
 - `us-656` **Plains Wars** → [American Indian Wars](https://en.wikipedia.org/wiki/American_Indian_Wars) (from `Plains Wars`)
 - `us-663` **cattle drive** → [Droving](https://en.wikipedia.org/wiki/Droving) (from `Cattle drive`)
+- `us-712` **Dillingham Commission** → [United States Congressional Joint Immigration Commission](https://en.wikipedia.org/wiki/United_States_Congressional_Joint_Immigration_Commission) (from `Dillingham Commission`)
+- `us-716` **Italian immigration to the United States** → [Italian Americans](https://en.wikipedia.org/wiki/Italian_Americans) (from `Italian immigration to the United States`)
+- `us-719` **Mutual aid society** → [Benefit society](https://en.wikipedia.org/wiki/Benefit_society) (from `Mutual aid society`)
+- `us-731` **Chinese massacre of 1871** → [Los Angeles Chinese massacre of 1871](https://en.wikipedia.org/wiki/Los_Angeles_Chinese_massacre_of_1871) (from `Chinese massacre of 1871`)
+- `us-733` **Jewish Daily Forward** → [The Forward](https://en.wikipedia.org/wiki/The_Forward) (from `Jewish Daily Forward`)
+- `us-750` **Federal Reserve System** → [Federal Reserve](https://en.wikipedia.org/wiki/Federal_Reserve) (from `Federal Reserve System`)
+- `us-768` **Harlem Hellfighters** → [369th Infantry Regiment (United States)](https://en.wikipedia.org/wiki/369th_Infantry_Regiment_(United_States)) (from `Harlem Hellfighters`)
+- `us-777` **1918 influenza pandemic** → [Spanish flu](https://en.wikipedia.org/wiki/Spanish_flu) (from `1918 influenza pandemic`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -814,7 +822,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (107)
+## Settled from a disambiguation page (109)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -831,7 +839,6 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
 - `cnh-948` **Huang Quan** → [Huang Quan (painter)](https://en.wikipedia.org/wiki/Huang_Quan_(painter)) (via the disambiguation page `Huang Quan`)
-- `dino-052` **scales** → [Scale (social sciences)](https://en.wikipedia.org/wiki/Scale_(social_sciences)) (via the disambiguation page `Scale`)
 - `ec-032` **specialisation** → [Division of labour](https://en.wikipedia.org/wiki/Division_of_labour) (via the disambiguation page `Specialization`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
@@ -874,6 +881,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `gw-710` **Philipsburg** → [Philipsburg, Sint Maarten](https://en.wikipedia.org/wiki/Philipsburg,_Sint_Maarten) (via the disambiguation page `Philipsburg`)
 - `jp-038` **Yoshinogari** → [Yoshinogari, Saga](https://en.wikipedia.org/wiki/Yoshinogari,_Saga) (via the disambiguation page `Yoshinogari`)
 - `ko-116` **Mohe** → [Mohe people](https://en.wikipedia.org/wiki/Mohe_people) (via the disambiguation page `Mohe`)
+- `pal-682` **scales** → [Scale (social sciences)](https://en.wikipedia.org/wiki/Scale_(social_sciences)) (via the disambiguation page `Scale`)
 - `pea-015` **Zhang Weiwei** → [Zhang Weiwei (professor)](https://en.wikipedia.org/wiki/Zhang_Weiwei_(professor)) (via the disambiguation page `Zhang Weiwei`)
 - `pea-032` **1947 Constitution** → [Constitution of the Republic of China](https://en.wikipedia.org/wiki/Constitution_of_the_Republic_of_China) (via the disambiguation page `Constitution of 1947`)
 - `pea-043` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
@@ -912,6 +920,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `us-330` **Twelfth Amendment** → [Twelfth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Twelfth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Twelfth Amendment`)
 - `us-472` **Slave quarters** → [Slave quarters in the United States](https://en.wikipedia.org/wiki/Slave_quarters_in_the_United_States) (via the disambiguation page `Slave quarters`)
 - `us-635` **Fifteenth Amendment** → [Fifteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fifteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Fifteenth Amendment`)
+- `us-751` **Sixteenth Amendment** → [Sixteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Sixteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Sixteenth Amendment`)
+- `us-775` **Nineteenth Amendment** → [Nineteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Nineteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Nineteenth Amendment`)
 - `wh-218` **Middle Kingdom** → [Middle Kingdom of Egypt](https://en.wikipedia.org/wiki/Middle_Kingdom_of_Egypt) (via the disambiguation page `Middle Kingdom`)
 - `wh-458` **Hijra** → [Hijra (South Asia)](https://en.wikipedia.org/wiki/Hijra_(South_Asia)) (via the disambiguation page `Hijra`)
 - `wh-522` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -940,7 +950,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (154)
+## Disambiguation pages that could not be settled (157)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1087,6 +1097,9 @@ Pick the right article by hand, or leave the card without a link.
 - `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
 - `us-410` **forty-niners** — `49er` is a disambiguation page; its links: `Forty-Niner (passenger train)`, `The Forty-Niners (1932 film)`, `The Forty-Niners (1954 film)`, `Top 10: The Forty-Niners`
 - `us-462` **overseer** — `Overseer` is a disambiguation page; its links: `Overseer (rank)`, `Overseer of the poor`, `Rob Overseer`, `Aerojet SD-2 Overseer`
+- `us-738` **People's Party** — `People's Party` is a disambiguation page; its links: `People's Party (United States)`, `People's party (politics)`, `People's Party (United States, 1971)`, `People's Party (United States, 2017)`, `PEOPLE Party`, `People Party`
+- `us-749` **New Freedom** — `New Freedom` is a disambiguation page; its links: `The New Freedom`, `New Freedom, New Jersey`, `New Freedom, Pennsylvania`, `New Freedom (SAFETEA-LU)`, `New Freedom Commission on Mental Health`, `New Freedom Railroad Station, Northern Central Railway`
+- `us-796` **Breadline** — `Breadline` is a disambiguation page; its links: `Breadline Africa`, `Breadline (song)`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
 - `wh-298` **coinage** — `Coinage` is a disambiguation page; its links: `COINage`, `Tin coinage`
@@ -1110,7 +1123,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (187)
+## Section redirects — no dedicated page (188)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1143,10 +1156,6 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-859` **Taijitu shuo** — `Taijitu shuo` only redirects into `Wuji (philosophy)#Taijitu shuo`
 - `cnh-985` **Taichu calendar** — `Taichu calendar` only redirects into `Chinese calendar#Han-Ming dynasties and Taichu calendar`
 - `cnh-994` **Drawloom** — `Drawloom` only redirects into `Loom#Drawloom`
-- `dino-025` **dental battery** — `Dental battery` only redirects into `Dinosaur tooth#Dental batteries`
-- `dino-027` **rhamphotheca** — `Rhamphotheca` only redirects into `Beak#Rhamphotheca`
-- `dino-033` **ossified tendons** — `Ossified tendons` only redirects into `Tendon#Ossified tendons`
-- `dino-065` **junior synonym** — `Junior synonym` only redirects into `Synonym (taxonomy)#Zoology`
 - `ec-029` **sunk cost fallacy** — `Sunk cost fallacy` only redirects into `Sunk cost#Fallacy effect`
 - `ec-077` **interpersonal comparisons of utility** — `Interpersonal comparisons of utility` only redirects into `Utility#Interpersonal comparisons of utility`
 - `ec-088` **unpaid care work** — `Unpaid care work` only redirects into `Unpaid work#Unpaid care work`
@@ -1203,6 +1212,10 @@ Wikipedia treats these as part of another article. No link.
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `ko-102` **Five Classics** — `Five Classics` only redirects into `Four Books and Five Classics#Five Classics`
+- `pal-028` **junior synonym** — `Junior synonym` only redirects into `Synonym (taxonomy)#Zoology`
+- `pal-658` **dental battery** — `Dental battery` only redirects into `Dinosaur tooth#Dental batteries`
+- `pal-660` **rhamphotheca** — `Rhamphotheca` only redirects into `Beak#Rhamphotheca`
+- `pal-666` **ossified tendons** — `Ossified tendons` only redirects into `Tendon#Ossified tendons`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
 - `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
 - `ph-020` **philosophical progress** — `Philosophical progress` only redirects into `Metaphilosophy#Progress`
@@ -1280,6 +1293,7 @@ Wikipedia treats these as part of another article. No link.
 - `us-513` **immediatism** — `Immediatism` only redirects into `Peter Lamborn Wilson#Ontological anarchy`
 - `us-536` **Seventh of March speech** — `Seventh of March speech` only redirects into `Daniel Webster#Seventh of March Speech`
 - `us-631` **Radical Reconstruction** — `Radical Reconstruction` only redirects into `Reconstruction era#Congressional Reconstruction`
+- `us-785` **Second Ku Klux Klan** — `Second Ku Klux Klan` only redirects into `Ku Klux Klan#Second Klan`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1302,7 +1316,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1171)
+## No article found (1174)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1498,9 +1512,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-875` **Mingtang** — search suggests `1911 Revolution`, `Wei-ming temple`, `CCTV-10`, `Wu Zetian`, `Old City of Luoyang`
 - `cnh-896` **Great Cloud Sutra** — search suggests `Mahāmegha Sūtra`, `Diamond Sutra`, `Mahayana sutras`, `Sukhavati`, `Prajnaparamita`
 - `cnh-898` **Tianzhu shiyi** — search suggests `Tianzhu (Chinese name of God)`, `Christianity in China`, `Alessandro Valignano`, `Catholic missions`, `Lotus Sutra`
-- `dino-004` **erect stance** — search suggests `Dinosaur`, `Tripod stance`, `Dinosaur classification`, `Theropoda`, `Stegosauria`
-- `dino-043` **bone histology** — search suggests `Glossary of dinosaur anatomy`, `Dinosaur`, `Dinosaur tooth`, `2026 in archosaur paleontology`, `Sue (dinosaur)`
-- `dino-060` **character matrix** — search suggests `Laurence Fishburne`, `Matrix (typeface)`, `Dinosaur`, `Dinosaur Game`, `Sue (dinosaur)`
 - `ec-014` **what, how and for whom** — search suggests `The Mother (How I Met Your Mother)`, `Enjoining good and forbidding wrong`, `Reproduction (economics)`, `Chief executive officer`, `Supply-side economics`
 - `ec-035` **lower opportunity cost** — search suggests `Opportunity cost`, `Profit (economics)`, `Microeconomics`, `Diminishing returns`, `Total cost`
 - `ec-039` **equity-efficiency trade-off** — search suggests `Pareto efficiency`, `Trade-off`, `Economics`, `Welfare economics`, `Tax policy`
@@ -2151,6 +2162,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ko-118` **gyeongdang** — search suggests `Gyongdang`, `Chang Hŭnghyo`
 - `ko-148` **jwapyeong** — search suggests `The King of Legend`, `Paekche`, `Mireuksa`, `Mireuksaji Stone Pagoda`, `Goi of Baekje`
 - `ko-157` **Naje alliance** — search suggests `Rosa Luxemburg`
+- `pal-035` **character matrix** — search suggests `Laurence Fishburne`, `Matrix (typeface)`, `Dinosaur`, `Dinosaur Game`, `Sue (dinosaur)`
+- `pal-195` **bone histology** — search suggests `Glossary of dinosaur anatomy`, `Dinosaur`, `Dinosaur tooth`, `2026 in archosaur paleontology`, `Sue (dinosaur)`
+- `pal-638` **erect stance** — search suggests `Dinosaur`, `Tripod stance`, `Dinosaur classification`, `Theropoda`, `Stegosauria`
 - `pea-002` **Southern Tour** — search suggests `Deng Xiaoping's southern tour`, `Xi Jinping's southern tour`, `China Open (tennis)`, `Muni He`, `Extraterrestrial World Tour`
 - `pea-007` **Patriotic Education** — search suggests `Patriotic education in China`, `Patriotic Education Law of the People's Republic of China`, `Education in China`, `United front (China)`, `English education in China`
 - `pea-014` **Civilisational state** — search suggests `Science and Civilisation in China`, `Civilization state`, `Qin (state)`, `Taiwan`, `Indus Valley Civilisation`
@@ -2415,6 +2429,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-661` **destruction of the bison** — search suggests `American bison hunting`, `Bison`, `American bison`, `History of the United States`, `Great bison belt`
 - `us-662` **cattle kingdom** — search suggests `List of cattle terminology`, `Highland cattle`, `United States`, `Aberdeen Angus`, `American Brahman`
 - `us-682` **Industrialisation of the United States** — search suggests `Japan–United States relations`, `History of industrialisation`, `Singapore–United States relations`, `Industrialisation`, `International development`
+- `us-717` **Eastern European Jewish immigration** — search suggests `History of immigration to the United States`, `United States immigration statistics`, `History of the Jews in the United States`, `Immigration to Europe`, `Race and ethnicity in the United States`
+- `us-735` **Americanization movement** — search suggests `Americanization`, `Americanization (immigration)`, `United States`, `Joe Biden`, `Vigilantism in the United States`
+- `us-773` **African American Great Migration** — search suggests `Great Migration (African American)`, `Second Great Migration (African American)`, `List of African-American United States representatives`, `Demographics of the United States`, `African Americans in the United States Congress`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`

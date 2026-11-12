@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T12:33Z",
+ "generated": "2026-11-12T18:17Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7918,
-  "redirect-broader": 769,
-  "redirect-variant": 479,
-  "section-redirect": 187,
-  "disambiguation": 154,
-  "none": 1171,
-  "disambig-resolved": 107,
+  "ok": 8000,
+  "redirect-broader": 777,
+  "redirect-variant": 480,
+  "section-redirect": 188,
+  "disambiguation": 157,
+  "none": 1174,
+  "disambig-resolved": 109,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -86251,6 +86251,724 @@
    "answer": "Knights of Labor",
    "title": "Knights of Labor",
    "url": "https://en.wikipedia.org/wiki/Knights_of_Labor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-701": {
+   "answer": "American Federation of Labor",
+   "title": "American Federation of Labor",
+   "url": "https://en.wikipedia.org/wiki/American_Federation_of_Labor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-702": {
+   "answer": "Samuel Gompers",
+   "title": "Samuel Gompers",
+   "url": "https://en.wikipedia.org/wiki/Samuel_Gompers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-703": {
+   "answer": "Great Railroad Strike of 1877",
+   "title": "Great Railroad Strike of 1877",
+   "url": "https://en.wikipedia.org/wiki/Great_Railroad_Strike_of_1877",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-704": {
+   "answer": "Haymarket affair",
+   "title": "Haymarket affair",
+   "url": "https://en.wikipedia.org/wiki/Haymarket_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-705": {
+   "answer": "Homestead strike",
+   "title": "Homestead strike",
+   "url": "https://en.wikipedia.org/wiki/Homestead_strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-706": {
+   "answer": "Pullman Strike",
+   "title": "Pullman Strike",
+   "url": "https://en.wikipedia.org/wiki/Pullman_Strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-707": {
+   "answer": "Eugene V. Debs",
+   "title": "Eugene V. Debs",
+   "url": "https://en.wikipedia.org/wiki/Eugene_V._Debs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-708": {
+   "answer": "Industrial Workers of the World",
+   "title": "Industrial Workers of the World",
+   "url": "https://en.wikipedia.org/wiki/Industrial_Workers_of_the_World",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-709": {
+   "answer": "Socialism in the United States",
+   "title": "Socialism in the United States",
+   "url": "https://en.wikipedia.org/wiki/Socialism_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-710": {
+   "answer": "Business unionism",
+   "title": "Business unionism",
+   "url": "https://en.wikipedia.org/wiki/Business_unionism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-761": {
+   "answer": "Selective Service Act of 1917",
+   "title": "Selective Service Act of 1917",
+   "url": "https://en.wikipedia.org/wiki/Selective_Service_Act_of_1917",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-762": {
+   "answer": "Sussex pledge",
+   "title": "Sussex pledge",
+   "url": "https://en.wikipedia.org/wiki/Sussex_pledge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-763": {
+   "answer": "RMS Lusitania",
+   "title": "RMS Lusitania",
+   "url": "https://en.wikipedia.org/wiki/RMS_Lusitania",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-764": {
+   "answer": "Zimmermann telegram",
+   "title": "Zimmermann telegram",
+   "url": "https://en.wikipedia.org/wiki/Zimmermann_telegram",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-765": {
+   "answer": "United States declaration of war on Germany",
+   "title": "United States declaration of war on Germany (1917)",
+   "url": "https://en.wikipedia.org/wiki/United_States_declaration_of_war_on_Germany_(1917)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-766": {
+   "answer": "American Expeditionary Forces",
+   "title": "American Expeditionary Forces",
+   "url": "https://en.wikipedia.org/wiki/American_Expeditionary_Forces",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-767": {
+   "answer": "John J. Pershing",
+   "title": "John J. Pershing",
+   "url": "https://en.wikipedia.org/wiki/John_J._Pershing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-768": {
+   "answer": "Harlem Hellfighters",
+   "title": "369th Infantry Regiment (United States)",
+   "url": "https://en.wikipedia.org/wiki/369th_Infantry_Regiment_(United_States)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Harlem Hellfighters"
+  },
+  "us-769": {
+   "answer": "Meuse–Argonne offensive",
+   "title": "Meuse–Argonne offensive",
+   "url": "https://en.wikipedia.org/wiki/Meuse%E2%80%93Argonne_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-770": {
+   "answer": "Committee on Public Information",
+   "title": "Committee on Public Information",
+   "url": "https://en.wikipedia.org/wiki/Committee_on_Public_Information",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-771": {
+   "answer": "Espionage Act of 1917",
+   "title": "Espionage Act of 1917",
+   "url": "https://en.wikipedia.org/wiki/Espionage_Act_of_1917",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-772": {
+   "answer": "Schenck v. United States",
+   "title": "Schenck v. United States",
+   "url": "https://en.wikipedia.org/wiki/Schenck_v._United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-773": {
+   "answer": "African American Great Migration",
+   "title": "Great Migration (African American)",
+   "url": "https://en.wikipedia.org/wiki/Great_Migration_(African_American)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-774": {
+   "answer": "Women's suffrage in the United States",
+   "title": "Women's suffrage in the United States",
+   "url": "https://en.wikipedia.org/wiki/Women's_suffrage_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-775": {
+   "answer": "Nineteenth Amendment",
+   "title": "Nineteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Nineteenth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Nineteenth Amendment"
+  },
+  "us-776": {
+   "answer": "Alice Paul",
+   "title": "Alice Paul",
+   "url": "https://en.wikipedia.org/wiki/Alice_Paul",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-777": {
+   "answer": "1918 influenza pandemic",
+   "title": "Spanish flu",
+   "url": "https://en.wikipedia.org/wiki/Spanish_flu",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "1918 influenza pandemic"
+  },
+  "us-778": {
+   "answer": "Fourteen Points",
+   "title": "Fourteen Points",
+   "url": "https://en.wikipedia.org/wiki/Fourteen_Points",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-779": {
+   "answer": "Paris Peace Conference",
+   "title": "Paris Peace Conference (1919–1920)",
+   "url": "https://en.wikipedia.org/wiki/Paris_Peace_Conference_(1919%E2%80%931920)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-780": {
+   "answer": "Lodge Reservations",
+   "title": "Lodge Reservations",
+   "url": "https://en.wikipedia.org/wiki/Lodge_Reservations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-781": {
+   "answer": "First Red Scare",
+   "title": "First Red Scare",
+   "url": "https://en.wikipedia.org/wiki/First_Red_Scare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-782": {
+   "answer": "Palmer Raids",
+   "title": "Palmer raids",
+   "url": "https://en.wikipedia.org/wiki/Palmer_raids",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-783": {
+   "answer": "Red Summer",
+   "title": "Red Summer",
+   "url": "https://en.wikipedia.org/wiki/Red_Summer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-784": {
+   "answer": "Tulsa race massacre",
+   "title": "Tulsa race massacre",
+   "url": "https://en.wikipedia.org/wiki/Tulsa_race_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-785": {
+   "answer": "Second Ku Klux Klan",
+   "title": "Ku Klux Klan",
+   "url": "https://en.wikipedia.org/wiki/Ku_Klux_Klan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-786": {
+   "answer": "Immigration Act of 1924",
+   "title": "Immigration Act of 1924",
+   "url": "https://en.wikipedia.org/wiki/Immigration_Act_of_1924",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-787": {
+   "answer": "Prohibition",
+   "title": "Prohibition",
+   "url": "https://en.wikipedia.org/wiki/Prohibition",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-788": {
+   "answer": "Al Capone",
+   "title": "Al Capone",
+   "url": "https://en.wikipedia.org/wiki/Al_Capone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-789": {
+   "answer": "Roaring Twenties",
+   "title": "Roaring Twenties",
+   "url": "https://en.wikipedia.org/wiki/Roaring_Twenties",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-790": {
+   "answer": "Harlem Renaissance",
+   "title": "Harlem Renaissance",
+   "url": "https://en.wikipedia.org/wiki/Harlem_Renaissance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-791": {
+   "answer": "Scopes trial",
+   "title": "Scopes trial",
+   "url": "https://en.wikipedia.org/wiki/Scopes_trial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-792": {
+   "answer": "McNary–Haugen Farm Relief Bill",
+   "title": "McNary–Haugen Farm Relief Bill",
+   "url": "https://en.wikipedia.org/wiki/McNary%E2%80%93Haugen_Farm_Relief_Bill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-793": {
+   "answer": "Wall Street Crash of 1929",
+   "title": "Wall Street crash of 1929",
+   "url": "https://en.wikipedia.org/wiki/Wall_Street_crash_of_1929",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Wall Street Crash of 1929"
+  },
+  "us-794": {
+   "answer": "Smoot–Hawley Tariff Act",
+   "title": "Smoot–Hawley Tariff Act",
+   "url": "https://en.wikipedia.org/wiki/Smoot%E2%80%93Hawley_Tariff_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-795": {
+   "answer": "Bank run",
+   "title": "Bank run",
+   "url": "https://en.wikipedia.org/wiki/Bank_run",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-796": {
+   "answer": "Breadline",
+   "title": "Breadline",
+   "url": "https://en.wikipedia.org/wiki/Breadline",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-797": {
+   "answer": "Hooverville",
+   "title": "Hooverville",
+   "url": "https://en.wikipedia.org/wiki/Hooverville",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-798": {
+   "answer": "Reconstruction Finance Corporation",
+   "title": "Reconstruction Finance Corporation",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_Finance_Corporation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-799": {
+   "answer": "Bonus Army",
+   "title": "Bonus Army",
+   "url": "https://en.wikipedia.org/wiki/Bonus_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-800": {
+   "answer": "Dust Bowl",
+   "title": "Dust Bowl",
+   "url": "https://en.wikipedia.org/wiki/Dust_Bowl",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-711": {
+   "answer": "Immigration to the United States",
+   "title": "Immigration to the United States",
+   "url": "https://en.wikipedia.org/wiki/Immigration_to_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-712": {
+   "answer": "Dillingham Commission",
+   "title": "United States Congressional Joint Immigration Commission",
+   "url": "https://en.wikipedia.org/wiki/United_States_Congressional_Joint_Immigration_Commission",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Dillingham Commission"
+  },
+  "us-713": {
+   "answer": "Ellis Island",
+   "title": "Ellis Island",
+   "url": "https://en.wikipedia.org/wiki/Ellis_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-714": {
+   "answer": "Angel Island Immigration Station",
+   "title": "Angel Island Immigration Station",
+   "url": "https://en.wikipedia.org/wiki/Angel_Island_Immigration_Station",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-715": {
+   "answer": "Steerage",
+   "title": "Steerage",
+   "url": "https://en.wikipedia.org/wiki/Steerage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-716": {
+   "answer": "Italian immigration to the United States",
+   "title": "Italian Americans",
+   "url": "https://en.wikipedia.org/wiki/Italian_Americans",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Italian immigration to the United States"
+  },
+  "us-717": {
+   "answer": "Eastern European Jewish immigration",
+   "title": "History of the Jews in the United States",
+   "url": "https://en.wikipedia.org/wiki/History_of_the_Jews_in_the_United_States",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-718": {
+   "answer": "Lower East Side",
+   "title": "Lower East Side",
+   "url": "https://en.wikipedia.org/wiki/Lower_East_Side",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-719": {
+   "answer": "Mutual aid society",
+   "title": "Benefit society",
+   "url": "https://en.wikipedia.org/wiki/Benefit_society",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mutual aid society"
+  },
+  "us-720": {
+   "answer": "Padrone system",
+   "title": "Padrone system",
+   "url": "https://en.wikipedia.org/wiki/Padrone_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-721": {
+   "answer": "political machine",
+   "title": "Political machine",
+   "url": "https://en.wikipedia.org/wiki/Political_machine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-722": {
+   "answer": "Tammany Hall",
+   "title": "Tammany Hall",
+   "url": "https://en.wikipedia.org/wiki/Tammany_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-723": {
+   "answer": "City Beautiful movement",
+   "title": "City Beautiful movement",
+   "url": "https://en.wikipedia.org/wiki/City_Beautiful_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-724": {
+   "answer": "tenement",
+   "title": "Tenement",
+   "url": "https://en.wikipedia.org/wiki/Tenement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-725": {
+   "answer": "How the Other Half Lives",
+   "title": "How the Other Half Lives",
+   "url": "https://en.wikipedia.org/wiki/How_the_Other_Half_Lives",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-726": {
+   "answer": "Jacob Riis",
+   "title": "Jacob Riis",
+   "url": "https://en.wikipedia.org/wiki/Jacob_Riis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-727": {
+   "answer": "Metropolitan Board of Health",
+   "title": "Metropolitan Board of Health",
+   "url": "https://en.wikipedia.org/wiki/Metropolitan_Board_of_Health",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-728": {
+   "answer": "Home Insurance Building",
+   "title": "Home Insurance Building",
+   "url": "https://en.wikipedia.org/wiki/Home_Insurance_Building",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-729": {
+   "answer": "streetcar suburb",
+   "title": "Streetcar suburb",
+   "url": "https://en.wikipedia.org/wiki/Streetcar_suburb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-730": {
+   "answer": "Chinese Exclusion Act",
+   "title": "Chinese Exclusion Act",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Exclusion_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-731": {
+   "answer": "Chinese massacre of 1871",
+   "title": "Los Angeles Chinese massacre of 1871",
+   "url": "https://en.wikipedia.org/wiki/Los_Angeles_Chinese_massacre_of_1871",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese massacre of 1871"
+  },
+  "us-732": {
+   "answer": "American Protective Association",
+   "title": "American Protective Association",
+   "url": "https://en.wikipedia.org/wiki/American_Protective_Association",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-733": {
+   "answer": "Jewish Daily Forward",
+   "title": "The Forward",
+   "url": "https://en.wikipedia.org/wiki/The_Forward",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jewish Daily Forward"
+  },
+  "us-734": {
+   "answer": "melting pot",
+   "title": "Melting pot",
+   "url": "https://en.wikipedia.org/wiki/Melting_pot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-735": {
+   "answer": "Americanization movement",
+   "title": "Americanization (immigration)",
+   "url": "https://en.wikipedia.org/wiki/Americanization_(immigration)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-736": {
+   "answer": "Populism",
+   "title": "Populism",
+   "url": "https://en.wikipedia.org/wiki/Populism",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-737": {
+   "answer": "Farmers' Alliance",
+   "title": "Farmers' Alliance",
+   "url": "https://en.wikipedia.org/wiki/Farmers'_Alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-738": {
+   "answer": "People's Party",
+   "title": "Populist Party (United States)",
+   "url": "https://en.wikipedia.org/wiki/Populist_Party_(United_States)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-739": {
+   "answer": "Free silver",
+   "title": "Free silver",
+   "url": "https://en.wikipedia.org/wiki/Free_silver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-740": {
+   "answer": "William Jennings Bryan",
+   "title": "William Jennings Bryan",
+   "url": "https://en.wikipedia.org/wiki/William_Jennings_Bryan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-741": {
+   "answer": "1896 United States presidential election",
+   "title": "1896 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1896_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-742": {
+   "answer": "Progressive Era",
+   "title": "Progressive Era",
+   "url": "https://en.wikipedia.org/wiki/Progressive_Era",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-743": {
+   "answer": "muckraker",
+   "title": "Muckraker",
+   "url": "https://en.wikipedia.org/wiki/Muckraker",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-744": {
+   "answer": "Jungle",
+   "title": "The Jungle",
+   "url": "https://en.wikipedia.org/wiki/The_Jungle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-745": {
+   "answer": "Pure Food and Drug Act",
+   "title": "Pure Food and Drug Act",
+   "url": "https://en.wikipedia.org/wiki/Pure_Food_and_Drug_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-746": {
+   "answer": "Theodore Roosevelt",
+   "title": "Theodore Roosevelt",
+   "url": "https://en.wikipedia.org/wiki/Theodore_Roosevelt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-747": {
+   "answer": "Square Deal",
+   "title": "Square Deal",
+   "url": "https://en.wikipedia.org/wiki/Square_Deal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-748": {
+   "answer": "Wisconsin Idea",
+   "title": "Wisconsin Idea",
+   "url": "https://en.wikipedia.org/wiki/Wisconsin_Idea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-749": {
+   "answer": "New Freedom",
+   "title": "The New Freedom",
+   "url": "https://en.wikipedia.org/wiki/The_New_Freedom",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-750": {
+   "answer": "Federal Reserve System",
+   "title": "Federal Reserve",
+   "url": "https://en.wikipedia.org/wiki/Federal_Reserve",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Federal Reserve System"
+  },
+  "us-751": {
+   "answer": "Sixteenth Amendment",
+   "title": "Sixteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Sixteenth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Sixteenth Amendment"
+  },
+  "us-752": {
+   "answer": "American imperialism",
+   "title": "American imperialism",
+   "url": "https://en.wikipedia.org/wiki/American_imperialism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-753": {
+   "answer": "Spanish–American War",
+   "title": "Spanish–American War",
+   "url": "https://en.wikipedia.org/wiki/Spanish%E2%80%93American_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-754": {
+   "answer": "Yellow journalism",
+   "title": "Yellow journalism",
+   "url": "https://en.wikipedia.org/wiki/Yellow_journalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-755": {
+   "answer": "Battle of Manila Bay",
+   "title": "Battle of Manila Bay",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Manila_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-756": {
+   "answer": "Treaty of Paris (1898)",
+   "title": "Treaty of Paris (1898)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1898)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-757": {
+   "answer": "Philippine–American War",
+   "title": "Philippine–American War",
+   "url": "https://en.wikipedia.org/wiki/Philippine%E2%80%93American_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-758": {
+   "answer": "American Anti-Imperialist League",
+   "title": "American Anti-Imperialist League",
+   "url": "https://en.wikipedia.org/wiki/American_Anti-Imperialist_League",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-759": {
+   "answer": "Panama Canal",
+   "title": "Panama Canal",
+   "url": "https://en.wikipedia.org/wiki/Panama_Canal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-760": {
+   "answer": "Roosevelt Corollary",
+   "title": "Roosevelt Corollary",
+   "url": "https://en.wikipedia.org/wiki/Roosevelt_Corollary",
    "via": "glossary",
    "status": "ok"
   }
