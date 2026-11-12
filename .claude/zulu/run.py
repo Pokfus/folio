@@ -2,7 +2,7 @@
 """Build a Zulu deck, end to end.
 
     python3 .claude/zulu/run.py                 # A1
-    python3 .claude/zulu/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/zulu/run.py --level a2      # another level: a2, b1 (inventory first: inventory.py)
     python3 .claude/zulu/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/zulu/classes.py             # the noun classes deck (reads lex.json)
 

@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Zulu language collection."
 
-**STATUS (2026-11-12): the noun classes and sounds deck, A1 and A2 are built** (`.claude/zulu/`, §6). B1
-is not.
+**STATUS (2026-11-12): all four planned decks are built** — noun classes and sounds, A1, A2 and B1
+(`.claude/zulu/`, §6). B1 holds 792 notes, not 1,000: what the source has left (§6).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -32,7 +32,7 @@ sentences with an English translation, and no subtitle frequency list exists for
 | Zulu Noun Classes and Sounds — built | `Zulu-Noun-Classes.folio-deck.json` | 39 |
 | Zulu A1 Beginner — built | `Zulu-A1.folio-deck.json` | 500 |
 | Zulu A2 Elementary — built | `Zulu-A2.folio-deck.json` | 750 |
-| Zulu B1 Intermediate | `Zulu-B1.folio-deck.json` | 1,000 |
+| Zulu B1 Intermediate — built | `Zulu-B1.folio-deck.json` | 792 (planned 1,000) |
 
 The titles carry the CEFR band, so `levelRank` sorts them; "Noun Classes" sorts first by a rule added for it
 (`.claude/build-lang-decks.js`).
@@ -106,7 +106,7 @@ le, lesi …) all reach A1 by frequency.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the noun classes and sounds deck, A1. **Phase 2** — A2 (done), then B1, one per
+**Phase 1 (done)** — the pipeline, the noun classes and sounds deck, A1. **Phase 2 (done)** — A2, then B1, one per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `zulu_level.py`, run, read every
 card. A phrases deck is not planned: Wiktionary has 15 Zulu phrase entries.
 
@@ -133,3 +133,18 @@ and its card ids are positional); twelve more `EXCLUDE` lines, each with its rea
 word's, `impela`, `ungqo`, `inzima`; a gloss that is not the everyday word, `jika`, `isondo`; a whole relative
 form filed as an adjective, `okujwayelekile`, which the check's hyphen rule caught). The description names the
 learner per level (`zulu_level.WHO`). `run.py`'s fetch now sends a user agent: Wikimedia refuses urllib's.
+
+**B1 (2026-11-12): 792 notes, not the planned 1,000, because that is what is left.** After A1 and A2 only
+about 740 lemmas remain that pass the fill's rules and appear in the corpus at all. The rest of English
+Wiktionary's Zulu has no count and is mostly rare (cattle by horn shape, birds, "simple singular of …"
+entries). Padding with those to reach 1,000 would teach the noise, so B1 is everything usable that is left,
+plus a 70-word inventory of everyday words that have an entry but no count (isipunu "spoon", ilokwe "dress",
+-fowuna "to phone", the set phrases ngiyabonga, ngiyaphila, angiqondi …). Those come last in the deal, since
+the deck is dealt by frequency. 722 words by frequency (counts 10 down to 1), 748 with forms, 268 with
+tenses, 16 with sentences; re-run byte-identical, with A1 and A2 rebuilt byte-identical alongside. Eighteen
+more `EXCLUDE` lines, each with its reason: variant spellings of words a lower level teaches (`umese`,
+`ukwindla`, `makhaza`), counts that are a colour's or another word's (`ubomvu`, `insundu`, `iphahla`), and
+sexual or crime vocabulary. Wiktionary has none of B1's institutional words: no court, lawyer, president,
+history, science, economy, newspaper, radio, television, internet, cancer or HIV, and none of the connectors
+(nokho, ngakho-ke, ngokwesibonelo). The deck's description says it is assembled; this file and
+`inventory.py` say what is missing. No set is planned after B1.

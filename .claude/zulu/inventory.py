@@ -24,6 +24,15 @@ iyunivesithi "university", ikhofi "coffee", isipuni "spoon", ingilazi "glass",
 inkomishi "cup", ekuseni "in the morning", kusihlwa "in the evening", bonke /
 wonke "all", kodwa "but".  `impela` (filed as "truth", not "really") and `jika`
 (filed as "to hang", not "to turn") are left out for their glosses.
+
+B1 (2026-11-12) IS MOSTLY WHAT IS LEFT.  After A1 and A2 about 740 usable lemmas
+remain that the Zulu Wikipedia uses at all, so the fill takes nearly every one;
+this inventory picks the everyday words English Wiktionary has but the corpus
+never uses (spoon, dress, to phone, the set phrases A1 could not reach), since
+the fill cannot find a word with no count.  Not in Wiktionary, so not here: the
+court, a lawyer, the president, history, science, the economy, a newspaper, the
+radio, television, the internet, cancer, HIV, and the connectors (nokho
+"however", ngakho-ke "therefore", ngokwesibonelo "for example").
 """
 
 INVENTORY = {
@@ -111,5 +120,30 @@ INVENTORY = {
          'bhukuda hlanza thumela lahla lungisa vimba nqaba dula guga fa'),
         ('big numbers',
          'isigidigidi'),
+    ],
+    'b1': [
+        ('everyday phrases and exclamations',
+         'ngiyabonga ngiyaphila ngikhona unjani ninjani angiqondi ngiyaxolisa hawu maye '
+         'nxephepha musa konje'),
+        ('the phone, the office and work',
+         'fowuna fowunela bhukha idesiki ifotho inkampane teleka isiqhebezakude'),
+        ('dressing',
+         'ambatha ambathisa ilokwe'),
+        ('food and the table',
+         'ihhabhula ilantshi isapha isendwishi isipunu isosa ujeke uletisi uphepha deka'),
+        ('the household and its chores',
+         'ikhaphethe ikilogo ubheseni ifosholo inalithi impempe phucuza hlakula'),
+        ('health',
+         'imfuluwenza ikhemese umkhemese uqhaqho'),
+        ('the town',
+         'paka izu iwodi'),
+        ('feelings and character',
+         'jabha jabhisa delisa dinisa uhleko isilima ubuvaka izinhloni ubuxwaya swaca qinisela'),
+        ('talking',
+         'nyenyeza halalisela xhawulisana bonisisa'),
+        ('time, cost and how much',
+         'phezolo mahhala ngeke nke'),
+        ('the weather',
+         'iqhwana iqhwabazi swakama'),
     ],
 }

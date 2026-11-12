@@ -84,6 +84,25 @@ EXCLUDE = {
     'ingquza': 'anatomical vocabulary the level does not need',
     'isende': 'anatomical vocabulary the level does not need',
     'okujwayelekile': 'a whole relative form ("which is usual") filed as an adjective, not a stem',
+    # Read off the B1 ranking (2026-11-12).
+    'fisha': 'a synonym of -fuphi, which B1 also teaches',
+    'umese': 'a variant spelling of ummese "knife", taught at A2',
+    'ukwindla': 'a variant of ikwindla "autumn", taught at A2',
+    'makhaza': 'a variant of amakhaza "cold", taught at A1',
+    'izitha': 'the plural of isitha "enemy", taught at A2',
+    'izipho': 'its count is the plural of isipho "gift" (A2), not "claw"',
+    'iphahla': 'its count is uphahla "roof", not "twin"',
+    'yini': 'glossed only as "copulative of -ni", a form, not a word to learn',
+    'ubomvu': 'its count is the colour -bomvu (A1), not "red soil"',
+    'umnyama': 'its count is the colour -mnyama (A1), not "darkness"',
+    'insundu': 'its count is the colour -nsundu (A1), not "dark-brown beast"',
+    'isinzima': 'its count is the forms of -nzima "difficult" (A1), not "weight"',
+    'hlobonga': 'sexual vocabulary the level does not need',
+    'umdlwenguli': 'crime vocabulary the level does not need',
+    'umqwayizi': 'sexual vocabulary the level does not need',
+    'umdidi': 'anatomical vocabulary the level does not need',
+    'isibunu': 'anatomical vocabulary the level does not need',
+    'qimba': 'not a word the level needs',
 }
 
 
