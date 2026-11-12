@@ -261,7 +261,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Xiang Yu at Gaixia | Xiang Yu surrounded in 202 BCE, hearing Chu songs from the Han lines (四面楚歌), his song to Consort Yu and the horse Zhui, the break-out and death at the Wu River (the *Shiji*, Xiang Yu's annals); the *Shiji*'s two accounts differ on when the songs come and name no author for them (a Ming–Qing tale credits Zhang Liang); in the annals Consort Yu only sings with him, her suicide a scene of the later opera *Bawang bie ji* — confirmed B22 (`cnh-218`) | `cnh-218` | `cnh-214`, `cnh-215` | — |
 | Liu Bang's dragon birth | his mother dreaming of a god by a great marsh and a dragon over her, the dragon seen over him drunk, the white snake he killed (the *Shiji*, Gaozu's annals); signs of Heaven's choice for a commoner founder — confirmed B22 (`cnh-216`) | — | `cnh-216` | — |
 | Wang Mang as usurper | the *Hanshu*'s verdict (Ban Gu, completed after 92 CE): a hypocrite who seized the throne and whose reforms brought chaos; modern readings of him as a reformer (Hu Shi's "socialist emperor", 1928) and as a capable statesman whose record the Eastern Han's historians wrote against (Bielenstein) — confirmed B25 (`cnh-245`–`cnh-248`: the zan's 篡盜之禍 and its Qin comparison, 紫色蛙聲) | `cnh-246` | `cnh-245`, `cnh-247`, `cnh-248`, `cnh-249` | — |
-| The Peach Garden oath | Liu Bei, Guan Yu and Zhang Fei swearing brotherhood in a peach garden (the *Romance of the Three Kingdoms*, 14th-century novel, first printed 1522); the *Sanguozhi* says only that the three slept in one bed and were as close as brothers — provisional | — | `cnh-280`, `cnh-286`, `cnh-291` | — |
+| The Peach Garden oath | Liu Bei, Guan Yu and Zhang Fei swearing brotherhood in a peach garden (the *Romance of the Three Kingdoms*, 14th-century novel, first printed 1522); the *Sanguozhi* says only that the three slept in one bed and were as close as brothers — confirmed B28 (`cnh-280`, de Crespigny) | — | `cnh-280`, `cnh-286`, `cnh-291` | — |
 | The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong, first printed 1522, Mao Zonggang's edition c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it; Diaochan the novel's (the chronicle names only an unnamed maidservant, B27 `cnh-270`) — provisional | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
 | The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Chen Yinke took the grove for a Buddhist name); the Nanjing brick reliefs of the sages, dated by their tombs — provisional | `cnh-300` | `cnh-299` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
@@ -365,7 +365,7 @@ otherwise.
 | B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | **done 2026-11-12** |
 | B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | **done 2026-11-12** |
 | B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | **done 2026-11-12** |
-| B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | to do |
+| B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | **done 2026-11-12** |
 | B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | to do |
 | B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | to do |
 | B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | to do |
@@ -750,6 +750,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-268` | a map of the rebellion | not re-checked (Commons 429): ok |
 | `cnh-269` | none | not re-checked (Commons 429): the card has no picture; its glossary's line drawing has text beside it |
 | `cnh-270` | none | not re-checked (Commons 429): the card has no picture; the glossary's would do |
+| `cnh-271` | none | not re-checked (Commons 429): the card has no picture; the glossary's would do |
+| `cnh-272` | none | not re-checked (Commons 429): the card has no picture; the glossary's would do |
+| `cnh-273` | a map of the three states in 262 | not re-checked (Commons 429): ok |
+| `cnh-274` | none | not re-checked (Commons 429): the card has no picture; the glossary's Ming portrait would do |
+| `cnh-275` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-276` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-277` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-278` | Cao Pi in the Thirteen Emperors Scroll | not re-checked (Commons 429): ok |
+| `cnh-279` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-280` | Liu Bei in the Thirteen Emperors Scroll | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1899,3 +1909,42 @@ White Horse founding, the Kunyang-style portents and the Book of Great Peace are
 Preceptor 189 – 192" looks wrong — the *Sanguozhi* gives him the title on reaching Chang'an and Theobald and de
 Crespigny put it in 191 (in 189 he was Grand Commandant, then Chancellor of State) — and its c. 140 – 149 birth is a
 modern estimate.
+
+### B28 — `cnh-271`–`cnh-280`, Eastern Han and Three Kingdoms: Yuan Shao to Liu Bei (2026-11-12)
+
+Run as B21. Every cited URL answered. **Pictures were not touched** (Commons 429). **Five cards carried the simplified
+form in `traditional` (三国, 袁绍, 汉献帝, 官渡之战, 赤壁之战, 蜀汉, 刘备); the old battle cards had Location, Casualties and
+Result rows ("c. 88,000 casualties", "Yangtze River, China"), the old person cards put years and their siblings' clues in
+their questions, Red Cliffs and Cao Cao were told through the *Romance*, the south's population "roughly doubled" (it was
+the counties), and de Crespigny was cited three or four times on a card.** The Shu and Wu books of the *Sanguozhi* are on
+neither Gutenberg nor the Kanseki Repository; they were read on zggdwx.com or through de Crespigny's translations.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-271` Yuan Shao | 7 | 6 → 7 | **The years out of the questions; the clan's four generations among the Three Excellencies (the *Sanguozhi*, 四世居三公位), the insignia hung on a Luoyang gate, the forged will that set his sons at war; Guandu kept off the questions**. **`traditional` corrected: 袁绍 → 袁紹.** Protected: the line stays (flagged below). |
+| `cnh-272` Emperor Xian of Han | 7 | 7 → 7 | **The duplicate *To Establish Peace* entry merged, the Chinese *Sanguozhi* added; the flight down the river bank on silk, Dong Cheng's secret edict and the pregnant consort, the duke's terms; the deposition and abdication left to `cnh-270` and `cnh-278`; "girdle" not used (no source read)**. **`traditional` corrected: 汉献帝 → 漢獻帝.** Protected: the line stays (flagged below). |
+| `cnh-273` Three Kingdoms | 9 | 5 → 9 | **"Shu-Han" → Shu Han; the south's population under two million to over three million (the counties doubled); the tripod a commentators' image (the line given to Zhuge Liang in 208 probably added later); the *Records* against the *Romance*, as the register row tells it; the Zoumalou slips in a why**. **`traditional` corrected: 三国 → 三國.** |
+| `cnh-274` Cao Cao | 9 | 6 → 9 | **The tuntian and Guandu clues (`cnh-287`'s and `cnh-275`'s) replaced: the Lü Boshe killing as Pei Songzhi's notes tell it (the "rather I wrong the world" line Sun Sheng's, one of three versions), the order seeking men of talent, the plain burial at Gaoling; the Chinese *Sanguozhi* juan 1; the Xigaoxue tomb left out (no open source)**. Protected: the line stays (flagged below). |
+| `cnh-275` Battle of Guandu | 7 | 6 → 7 | **Location, Casualties ("c. 88,000", no source) and Result off, and the September – November span (a conversion); `Fought 200 CE`; the armies' sizes said whose (the *Records*' figures, Pei Songzhi's objection); the 70,000 and 80,000 dead attributed in a why; Xu You and the month's food, the thunder carts, the burned letters**. **`traditional` corrected: 官渡之战 → 官渡之戰.** |
+| `cnh-276` Battle of Red Cliffs | 9 | 5 → 9 | **Location and Result off, `Fought 208 CE`; the register applied: Huang Gai's fire ships are the *Records*' ("several dozen"; ten in the *Jiangbiao zhuan*), the borrowed arrows, the east wind, the chained ships and Huarong the *Romance*'s; the 800,000 Cao Cao's boast against Zhou Yu's estimate; the site disputed (no locator by design); "one historian wondered whether any fighting took place" (not what de Crespigny says) dropped**. **`traditional` corrected: 赤壁之战 → 赤壁之戰.** |
+| `cnh-277` Cao Wei | 8 | 5 → 8 | **`Founded 220 CE` / `Ended 266 CE` (de Crespigny: 4 February 266) / `Also dated 265 CE` (Theobald, Giles, Cordier); the heartland and seventy per cent of the registered people, the surname added to tell it from other Weis, Cao Mao's death (one later account); the Himiko clue (`jp-045`'s) and the nine-rank and tuntian content (`cnh-288`'s, `cnh-287`'s) off; the Zhengshi *xuanxue***. |
+| `cnh-278` Cao Pi | 8 | 6 → 8 | **"Died at forty" (the Chinese count, against the line's c. 38 – 39) off card and glossary; the altar at Fanyang and "Shun and Yu" (the *Weishi chunqiu* in Pei's notes), the water sign in Luoyang's name (the *Weilüe*), the *Dianlun*'s one surviving chapter; the seven-step poem a later story (the *Shishuo xinyu*)**. Protected: the line stays (flagged below). |
+| `cnh-279` Shu Han | 8 | 6 → 8 | **The year and the Liu Bei, Zhuge Liang and Northern Expeditions clues out of the questions; the two names (Han to itself, Shu to its rivals), Liu Shan's surrender beside an empty coffin ("is said to"), no official historians; Wu's relief armies turning back; "smallest of the Three Kingdoms" (no source) dropped; de Crespigny cut to two**. **`traditional` corrected: 蜀汉 → 蜀漢.** |
+| `cnh-280` Liu Bei | 9 | 6 → 9 | **The Peach Garden oath told as the register row says (the *Sanguozhi*: one bed, like brothers; the oath the novel's); the shoe-and-mat seller, the night flight to Baidi, the deathbed charge; the glossary's 184 re-pointed to de Crespigny 1991 (Giles gives 185) and an unreferenced Giles source dropped from it**. **`traditional` corrected: 刘备 → 劉備.** Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: Guandu stays `cnh-275`'s (off `cnh-271`'s and `cnh-274`'s questions), the abdication
+`cnh-278`'s, the borrowed arrows `cnh-276`'s (off `cnh-291`), the deathbed charge `cnh-280`'s (the Zhuge Liang agent was
+told); answer words cleared on `cnh-272` ("emperor") and `cnh-273` ("three"); `cnh-278`'s background trimmed to 285
+words. **Legend**: the Peach Garden, the borrowed arrows, the east wind, the chained ships and Huarong are the novel's.
+**Chinese names corrected**: seven `traditional` fields. **Spellings fixed**: "Shu-Han", "Yangzi" → house forms; 0
+hits. **Myth register**: the Peach Garden oath and the Romance against the Records confirmed (`cnh-273`, `276`, `280`);
+the "rather I wrong the world" line traced to Sun Sheng in Pei Songzhi's notes. **Protected lines: unchanged** (diffed
+after the apply). For the owner: `cnh-271`'s 154 CE is unrecorded (de Crespigny: "no record of Yuan Shao's age"), he
+refused the Grand Commandancy in late 196 and became General-in-Chief in spring 197, and Shangshui and Handan are in no
+source read (the *Sanguozhi* says Ruyang in Runan); `cnh-272`'s 2 April 181 is on no page read, and de Crespigny dates
+the abdication 25 November 220 against the line's 11 December; `cnh-274`'s "King of Wei 217" looks wrong — the
+*Sanguozhi* dates the edict to the fifth month of Jian'an 21, which de Crespigny's chronicle, Cordier and Giles give as
+216 (only one modern summary says 217, and it also says duke 214 where the chronicle has 213), so the age would be c. 60 –
+61; `cnh-278`'s 11 December 220 sits against de Crespigny's 25 November and 29 June 226 is on no page read; `cnh-280`'s
+10 June 223 is on no page read, Theobald gives 6 April 221 for the enthronement against the line's 15 May, and Giles
+gives 162 for the birth. `cnh-294`'s 8 February 266 sits against de Crespigny's 4 February.

@@ -442,6 +442,11 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | the Partisan Prohibitions: the first arrests / revived / lifted | 166 – 167 CE / 169 CE / 184 CE | `cnh-266` |
 | the White Horse Temple (traditional) | 68 CE | `cnh-267` |
 | the Yellow Turbans rise / remnants active | 184 CE / 184 – 207 CE | Theobald (`cnh-268`) |
+| the Three Kingdoms / three emperors at once | 220 – 280 CE / 229 CE | `cnh-273` |
+| Guandu | 200 CE | `cnh-275` |
+| Red Cliffs | 208 CE | `cnh-276` |
+| Cao Wei founded / ended (de Crespigny) / also dated | 220 CE / 266 CE / 265 CE | `cnh-277` |
+| Shu Han founded / surrendered | 221 CE / 263 CE | `cnh-279` |
 
 ## Later periods
 
@@ -731,4 +736,9 @@ cnh-264: 134; 92; 132
 cnh-266: 166; 167; 169; 184
 cnh-267: 68
 cnh-268: 184; 207
+cnh-273: 220; 280; 229
+cnh-275: 200
+cnh-276: 208
+cnh-277: 220; 266; 265
+cnh-279: 221; 263
 ```
