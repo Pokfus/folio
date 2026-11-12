@@ -3659,7 +3659,12 @@ changed was the one that had been wrong all along.
   is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
 - `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
   collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
-  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/swedish/run.py [--level a1]`,
+  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swedish-A2.folio-deck.json`**
+  (750 / 1,500; 2026-11-12, on request: "Add Swedish A2") **and B1, `decks/Swedish-B1.folio-deck.json`**
+  (1,000 / 2,000; 2026-11-12, "Add B1") **and B2, `decks/Swedish-B2.folio-deck.json`** (1,500 / 3,000;
+  2026-11-12, "Add B2") **and C1, `decks/Swedish-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-12, "Add
+  C1") — all five levels — **and the phrases deck, `decks/Swedish-Phrases-and-Expressions.folio-deck.json`**
+  (830 expressions in Phrases / Particle verbs / Idioms / Proverbs, 2026-11-12; `--level phr`, `phrases.py`). `python3 .claude/swedish/run.py [--level a1]`,
   `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
   deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
   Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.
