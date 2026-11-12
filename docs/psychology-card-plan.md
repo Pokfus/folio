@@ -736,9 +736,9 @@ more work here than in any collection since Greece.
     ps-228  Saltatory conduction
     ps-229  The synapse
     ps-230  Neurotransmitters
-    ps-231  Receptors and ligands
+    ps-231  Neurotransmitter receptors and ligands
     ps-232  Reuptake
-    ps-233  Excitatory and inhibitory postsynaptic potentials
+    ps-233  Postsynaptic potentials, excitatory and inhibitory
     ps-234  Acetylcholine
     ps-235  Dopamine
     ps-236  Serotonin

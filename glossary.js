@@ -9303,7 +9303,27 @@ window.GLOSSARY = {
 "Joseph_Smith": "",
 "Brigham_Young": "",
 "Texas_Revolution": "",
-"Texas_annexation": ""
+"Texas_annexation": "",
+"Neuron": "",
+"Glia": "",
+"Axon": "",
+"Dendrite": "",
+"Myelin": "",
+"Resting_potential": "",
+"Action_potential": "",
+"Saltatory_conduction": "",
+"Synapse": "",
+"Neurotransmitter": "",
+"Neurotransmitter_receptor": "",
+"Reuptake": "",
+"Postsynaptic_potential": "",
+"Acetylcholine": "",
+"Dopamine": "",
+"Serotonin": "",
+"Norepinephrine": "",
+"GABA": "",
+"Glutamate_(neurotransmitter)": "",
+"Endorphins": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19770,7 +19790,25 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Joseph_Smith": ["Joseph Smith Jr.","Joseph Smith, Jr."],
 "Brigham_Young": ["Brigham Young"],
 "Texas_Revolution": ["Texas War of Independence","Texan Revolution"],
-"Texas_annexation": ["annexation of Texas","Annexation of Texas"]
+"Texas_annexation": ["annexation of Texas","Annexation of Texas"],
+"Neuron": ["neurons","nerve cell","nerve cells"],
+"Glia": ["glial cell","glial cells","neuroglia"],
+"Axon": ["axons"],
+"Dendrite": ["dendrites","dendritic spine","dendritic spines"],
+"Myelin": ["myelin sheath","myelin sheaths","myelination"],
+"Resting_potential": ["resting membrane potential"],
+"Action_potential": ["action potentials","nerve impulse","nerve impulses"],
+"Synapse": ["synapses","synaptic cleft"],
+"Neurotransmitter": ["neurotransmitters"],
+"Neurotransmitter_receptor": ["neurotransmitter receptors"],
+"Reuptake": ["neurotransmitter reuptake"],
+"Postsynaptic_potential": ["postsynaptic potentials","excitatory postsynaptic potential","inhibitory postsynaptic potential","EPSP","IPSP"],
+"Acetylcholine": ["ACh"],
+"Serotonin": ["5-hydroxytryptamine","5-HT"],
+"Norepinephrine": ["noradrenaline"],
+"GABA": ["gamma-aminobutyric acid","γ-aminobutyric acid"],
+"Glutamate_(neurotransmitter)": ["glutamate"],
+"Endorphins": ["endorphin","beta-endorphin","β-endorphin"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29231,7 +29269,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Joseph_Smith": ["person","religion","history","united states"],
 "Brigham_Young": ["person","religion","history","united states"],
 "Texas_Revolution": ["war","history","united states","texas","mexico"],
-"Texas_annexation": ["event","history","politics","united states"]
+"Texas_annexation": ["event","history","politics","united states"],
+"Neuron": ["concept","psychology","neuroscience","anatomy","biology"],
+"Glia": ["concept","psychology","science","neuroscience","biology"],
+"Axon": ["concept","psychology","science","neuroscience","biology"],
+"Dendrite": ["concept","psychology","science","neuroscience","biology"],
+"Myelin": ["concept","psychology","science","neuroscience","biology"],
+"Resting_potential": ["concept","psychology","science","neuroscience","biology"],
+"Action_potential": ["concept","psychology","science","neuroscience","biology"],
+"Saltatory_conduction": ["concept","psychology","science","neuroscience","biology"],
+"Synapse": ["concept","psychology","science","neuroscience","biology"],
+"Neurotransmitter": ["concept","psychology","science","neuroscience","biology"],
+"Neurotransmitter_receptor": ["concept","psychology","science","neuroscience","biology"],
+"Reuptake": ["concept","psychology","science","neuroscience","biology"],
+"Postsynaptic_potential": ["concept","psychology","science","neuroscience","biology"],
+"Acetylcholine": ["concept","psychology","science","neuroscience","biology"],
+"Dopamine": ["concept","psychology","science","neuroscience","biology"],
+"Serotonin": ["concept","psychology","science","neuroscience","biology"],
+"Norepinephrine": ["concept","psychology","science","neuroscience","biology"],
+"GABA": ["concept","psychology","science","neuroscience","biology"],
+"Glutamate_(neurotransmitter)": ["concept","psychology","science","neuroscience","biology"],
+"Endorphins": ["concept","psychology","science","neuroscience","biology"]
 });
 
 /* ============================================================================

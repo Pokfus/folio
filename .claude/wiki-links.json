@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-12T02:02Z",
+ "generated": "2026-11-12T04:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6614,
-  "redirect-broader": 625,
+  "ok": 6631,
+  "redirect-broader": 628,
   "redirect-variant": 397,
   "section-redirect": 134,
   "disambiguation": 147,
@@ -72346,6 +72346,149 @@
    "answer": "Texas annexation",
    "title": "Texas annexation",
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-221": {
+   "answer": "neuron",
+   "title": "Neuron",
+   "url": "https://en.wikipedia.org/wiki/Neuron",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-222": {
+   "answer": "glial cells",
+   "title": "Glia",
+   "url": "https://en.wikipedia.org/wiki/Glia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Glial cells"
+  },
+  "ps-223": {
+   "answer": "axon",
+   "title": "Axon",
+   "url": "https://en.wikipedia.org/wiki/Axon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-224": {
+   "answer": "dendrite",
+   "title": "Dendrite",
+   "url": "https://en.wikipedia.org/wiki/Dendrite",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-225": {
+   "answer": "myelin sheath",
+   "title": "Myelin",
+   "url": "https://en.wikipedia.org/wiki/Myelin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Myelin sheath"
+  },
+  "ps-226": {
+   "answer": "resting potential",
+   "title": "Resting potential",
+   "url": "https://en.wikipedia.org/wiki/Resting_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-227": {
+   "answer": "action potential",
+   "title": "Action potential",
+   "url": "https://en.wikipedia.org/wiki/Action_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-228": {
+   "answer": "saltatory conduction",
+   "title": "Saltatory conduction",
+   "url": "https://en.wikipedia.org/wiki/Saltatory_conduction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-229": {
+   "answer": "synapse",
+   "title": "Synapse",
+   "url": "https://en.wikipedia.org/wiki/Synapse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-230": {
+   "answer": "neurotransmitter",
+   "title": "Neurotransmitter",
+   "url": "https://en.wikipedia.org/wiki/Neurotransmitter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-231": {
+   "answer": "neurotransmitter receptor",
+   "title": "Neurotransmitter receptor",
+   "url": "https://en.wikipedia.org/wiki/Neurotransmitter_receptor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-232": {
+   "answer": "reuptake",
+   "title": "Reuptake",
+   "url": "https://en.wikipedia.org/wiki/Reuptake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-233": {
+   "answer": "postsynaptic potential",
+   "title": "Postsynaptic potential",
+   "url": "https://en.wikipedia.org/wiki/Postsynaptic_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-234": {
+   "answer": "acetylcholine",
+   "title": "Acetylcholine",
+   "url": "https://en.wikipedia.org/wiki/Acetylcholine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-235": {
+   "answer": "dopamine",
+   "title": "Dopamine",
+   "url": "https://en.wikipedia.org/wiki/Dopamine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-236": {
+   "answer": "serotonin",
+   "title": "Serotonin",
+   "url": "https://en.wikipedia.org/wiki/Serotonin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-237": {
+   "answer": "noradrenaline",
+   "title": "Norepinephrine",
+   "url": "https://en.wikipedia.org/wiki/Norepinephrine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Noradrenaline"
+  },
+  "ps-238": {
+   "answer": "GABA",
+   "title": "GABA",
+   "url": "https://en.wikipedia.org/wiki/GABA",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-239": {
+   "answer": "glutamate",
+   "title": "Glutamate (neurotransmitter)",
+   "url": "https://en.wikipedia.org/wiki/Glutamate_(neurotransmitter)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-240": {
+   "answer": "endorphins",
+   "title": "Endorphins",
+   "url": "https://en.wikipedia.org/wiki/Endorphins",
    "via": "glossary",
    "status": "ok"
   }

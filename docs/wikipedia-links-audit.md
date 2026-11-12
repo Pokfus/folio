@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6614 | the title is the article |
+| `ok` | 6631 | the title is the article |
 | `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 628 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1010 | nothing matched; no link |
 
-**7741 of 9050 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7761 of 9070 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (625)
+## Redirected to a differently named article — check each (628)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -383,6 +383,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-182` **statistical power** → [Power (statistics)](https://en.wikipedia.org/wiki/Power_(statistics)) (from `Statistical power`)
 - `ps-189` **non-parametric test** → [Nonparametric statistics](https://en.wikipedia.org/wiki/Nonparametric_statistics) (from `Non-parametric test`)
 - `ps-194` **mediator variable** → [Mediation (statistics)](https://en.wikipedia.org/wiki/Mediation_(statistics)) (from `Mediator variable`)
+- `ps-222` **glial cells** → [Glia](https://en.wikipedia.org/wiki/Glia) (from `Glial cells`)
+- `ps-225` **myelin sheath** → [Myelin](https://en.wikipedia.org/wiki/Myelin) (from `Myelin sheath`)
+- `ps-237` **noradrenaline** → [Norepinephrine](https://en.wikipedia.org/wiki/Norepinephrine) (from `Noradrenaline`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
