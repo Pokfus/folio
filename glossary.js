@@ -10660,7 +10660,8 @@ window.GLOSSARY = {
 "Story_of_Wenamun": "",
 "Piankh": "",
 "Papyrus_Anastasi_I": "",
-"Tale_of_Two_Brothers": ""
+"Tale_of_Two_Brothers": "",
+"Meryre": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -22609,7 +22610,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Story_of_Wenamun": ["Report of Wenamun","Wenamun","Voyage of Unamun","Wenamon","Unamun","Journey of Wenamun"],
 "Piankh": ["Paiankh","Payankh","Payonekh"],
 "Papyrus_Anastasi_I": ["Anastasi I","Pap. Anastasi I","Papyrus BM 10247"],
-"Tale_of_Two_Brothers": ["Tale of the Two Brothers","Story of the Two Brothers","Papyrus d'Orbiney","Papyrus D'Orbiney","Anpu and Bata"]
+"Tale_of_Two_Brothers": ["Tale of the Two Brothers","Story of the Two Brothers","Papyrus d'Orbiney","Papyrus D'Orbiney","Anpu and Bata"],
+"Meryre": ["Meryra","Merire","Meryre I"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33429,7 +33431,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Story_of_Wenamun": ["text","literature","history","egypt","byblos"],
 "Piankh": ["person","warfare","politics","egypt","thebes"],
 "Papyrus_Anastasi_I": ["text","literature","egypt","education"],
-"Tale_of_Two_Brothers": ["text","literature","religion","egypt"]
+"Tale_of_Two_Brothers": ["text","literature","religion","egypt"],
+"Meryre": ["person","religion","history","egypt"]
 });
 
 /* ============================================================================

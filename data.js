@@ -10514,7 +10514,8 @@ window.CARD_DATA = [
 {"id":"eg-377","num":"377","category":"Ancient Egypt","question":"Robbed at Dor and kept waiting twenty-nine days at Byblos, the envoy in the <span class=\"blank\">_____</span> found that Egypt's name no longer opened the cedar forests of Lebanon.","answer":"Story of Wenamun","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Journey</span><span class=\"dt-v\">Year 5 of the Renaissance, c. 1077 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Story of Wenamun","tags":["text","literature","history","egypt","byblos","new kingdom"],"difficulty":4},
 {"id":"eg-378","num":"378","category":"Ancient Egypt","question":"Writing from Nubia, the general and High Priest <span class=\"blank\">_____</span> asked how Pharaoh could ever reach this land, and whose superior Pharaoh still was, as the New Kingdom ran out.","answer":"Piankh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Nubian campaign</span><span class=\"dt-v\">Year 10 of the Renaissance, c. 1072 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Piankh","tags":["person","warfare","politics","history","egypt","thebes","nubia","new kingdom"],"difficulty":5},
 {"id":"eg-379","num":"379","category":"Ancient Egypt","question":"Set problems about building a ramp and raising a colossus, the army scribe Amenemope is made a fool of in <span class=\"blank\">_____</span>, a Ramesside satirical letter copied in the schools.","answer":"Papyrus Anastasi I","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Composed</span><span class=\"dt-v\">c. 1279 – 1213 BCE</span><span class=\"dt-k\">Copied</span><span class=\"dt-v\">c. 1200 – 1194 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Papyrus Anastasi I","tags":["text","literature","history","egypt","new kingdom"],"difficulty":5},
-{"id":"eg-380","num":"380","category":"Ancient Egypt","question":"Warned by his cows that his elder brother waits behind the door with a knife, the young Bata flees in the <span class=\"blank\">_____</span>, a story copied for the future king Seti II.","answer":"Tale of Two Brothers","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Copied</span><span class=\"dt-v\">c. 1200 – 1194 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tale of Two Brothers","tags":["text","literature","religion","egypt","new kingdom"],"difficulty":4}
+{"id":"eg-380","num":"380","category":"Ancient Egypt","question":"Warned by his cows that his elder brother waits behind the door with a knife, the young Bata flees in the <span class=\"blank\">_____</span>, a story copied for the future king Seti II.","answer":"Tale of Two Brothers","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Copied</span><span class=\"dt-v\">c. 1200 – 1194 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tale of Two Brothers","tags":["text","literature","religion","egypt","new kingdom"],"difficulty":4},
+{"id":"eg-312","num":"312","category":"Ancient Egypt","question":"From the window of his palace Akhenaten made <span class=\"blank\">_____</span> high priest of the Aten in the temple at Akhetaten, praising him as a servant who hearkened to the king's Teaching.","answer":"Meryre","answerDate":"<div class=\"dt\"><span class=\"dt-k\">High priest</span><span class=\"dt-v\">c. 1348 – 1336 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Meryre","tags":["person","religion","history","egypt","new kingdom","amarna"],"difficulty":5}
 ];
 
 window.COLLECTION_TREE = {
@@ -11859,7 +11860,7 @@ window.COLLECTION_TREE = {
     {
       "id": "egypt",
       "title": "Ancient Egypt",
-      "total": 388,
+      "total": 389,
       "placeholder": false,
       "children": [
         {
@@ -12282,7 +12283,8 @@ window.COLLECTION_TREE = {
                 "eg-317",
                 "eg-318",
                 "eg-319",
-                "eg-320"
+                "eg-320",
+                "eg-312"
               ]
             },
             {

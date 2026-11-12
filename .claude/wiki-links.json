@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-12T08:26Z",
+ "generated": "2026-11-12T08:28Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7698,
+  "ok": 7699,
   "redirect-broader": 750,
   "redirect-variant": 464,
   "section-redirect": 175,
@@ -83702,6 +83702,13 @@
    "answer": "Tale of Two Brothers",
    "title": "Tale of Two Brothers",
    "url": "https://en.wikipedia.org/wiki/Tale_of_Two_Brothers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-312": {
+   "answer": "Meryre",
+   "title": "Meryre",
+   "url": "https://en.wikipedia.org/wiki/Meryre",
    "via": "glossary",
    "status": "ok"
   }
