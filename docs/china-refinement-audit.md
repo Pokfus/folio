@@ -262,7 +262,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Liu Bang's dragon birth | his mother dreaming of a god by a great marsh and a dragon over her, the dragon seen over him drunk, the white snake he killed (the *Shiji*, Gaozu's annals); signs of Heaven's choice for a commoner founder — confirmed B22 (`cnh-216`) | — | `cnh-216` | — |
 | Wang Mang as usurper | the *Hanshu*'s verdict (Ban Gu, completed after 92 CE): a hypocrite who seized the throne and whose reforms brought chaos; modern readings of him as a reformer (Hu Shi's "socialist emperor", 1928) and as a capable statesman whose record the Eastern Han's historians wrote against (Bielenstein) — confirmed B25 (`cnh-245`–`cnh-248`: the zan's 篡盜之禍 and its Qin comparison, 紫色蛙聲) | `cnh-246` | `cnh-245`, `cnh-247`, `cnh-248`, `cnh-249` | — |
 | The Peach Garden oath | Liu Bei, Guan Yu and Zhang Fei swearing brotherhood in a peach garden (the *Romance of the Three Kingdoms*, 14th-century novel, first printed 1522); the *Sanguozhi* says only that the three slept in one bed and were as close as brothers — provisional | — | `cnh-280`, `cnh-286`, `cnh-291` | — |
-| The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong, first printed 1522, Mao Zonggang's edition c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it — provisional | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
+| The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong, first printed 1522, Mao Zonggang's edition c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it; Diaochan the novel's (the chronicle names only an unnamed maidservant, B27 `cnh-270`) — provisional | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
 | The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Chen Yinke took the grove for a Buddhist name); the Nanjing brick reliefs of the sages, dated by their tombs — provisional | `cnh-300` | `cnh-299` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
@@ -364,7 +364,7 @@ otherwise.
 | B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | **done 2026-11-12** |
 | B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | **done 2026-11-12** |
 | B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | **done 2026-11-12** |
-| B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | to do |
+| B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | **done 2026-11-12** |
 | B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | to do |
 | B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | to do |
 | B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | to do |
@@ -740,6 +740,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-258` | a Han granary on the road west | not re-checked (Commons 429): ok |
 | `cnh-259` | a woodblock portrait | not re-checked (Commons 429): ok |
 | `cnh-260` | a Song printing | not re-checked (Commons 429): ok |
+| `cnh-261` | Ban Zhao at her books | not re-checked (Commons 429): ok |
+| `cnh-262` | the tomb of Cai Lun | not re-checked (Commons 429): ok |
+| `cnh-263` | a statue of Zhang Heng | not re-checked (Commons 429): ok |
+| `cnh-264` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-265` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-266` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-267` | the White Horse Temple | not re-checked (Commons 429): ok |
+| `cnh-268` | a map of the rebellion | not re-checked (Commons 429): ok |
+| `cnh-269` | none | not re-checked (Commons 429): the card has no picture; its glossary's line drawing has text beside it |
+| `cnh-270` | none | not re-checked (Commons 429): the card has no picture; the glossary's would do |
 
 ## Glossary candidates
 
@@ -1854,3 +1864,38 @@ nine-grade table and Emperor He's coup `cnh-260`'s (the Ban Zhao agent was told)
 unchanged** (diffed after the apply). For the owner: `cnh-254`'s 15 January 5 BCE is on no page read (Giles prints 4 BCE)
 and Cordier gives his age at death as 63 against the line's 61; `cnh-257`'s line is consistent with the *Hou Hanshu*'s 71
 *sui*, but Giles dates him 31 – 101.
+
+### B27 — `cnh-261`–`cnh-270`, Eastern Han: Ban Zhao to Dong Zhuo (2026-11-12)
+
+Run as B21. Every cited URL answered. **Pictures were not touched** (Commons 429). **Half the batch carried traditional
+characters in the simplified field (蔡倫, 張衡, 黨錮, 白馬寺, 黃巾之亂, 張角); the old cards put Liang Ji's poisoning of
+Emperor Zhi as fact (de Crespigny: a rumour), had the plot against Lady Song the Dowager Deng's (it was the Dowager
+Dou's), told Zhang Heng's quake detection and the Book of Great Peace in their own voice, gave the Yellow Turbans a 205
+end and a "March" no source prints, and leaned on Cordier, Boulger and an Espesset paper now behind a bot wall.** The
+*Hou Hanshu* was read in Chinese from the Kanseki Repository's GitHub texts.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-261` Ban Zhao | 7 | 5 → 7 | **The Nüjie has seven sections, not five (the Columbia translation); Chavannes's 1906 translation of the *Hou Hanshu* biography; Ma Xu named as Theobald and Rošker print him; the tutoring and the tables, the case for teaching girls from eight, the petition for Ban Chao's recall**. Protected: the line stays (flagged below). |
+| `cnh-262` Cai Lun | 7 | 6 → 7 | **Western Han hemp paper (Baqiao, Xuanquan) as contemporary evidence that paper is older than him (Ma et al. 2025); the plot was the Dowager Dou's, the inquiry after the Dowager Deng's death in 121; the 114 / 118 disagreement in a why answer; the years out of the questions; duplicate Chavannes entries merged**. **Name corrected: hanzi 蔡倫 → 蔡伦.** Protected: the line stays (flagged below). |
+| `cnh-263` Zhang Heng | 8 | 6 → 8 | **"6.5 feet" → 6 ft 7 in; "Longxi, far to the west" (no distance in any source) → Longxi; the inside of the seismoscope from the *Hou Hanshu* (pillar, rods, trigger); one study dates the detected quake to 134 CE; the Lingxian, the rhapsodies, the machine lost at the Han's end; two Science Museum Group records**; the π values and the Lingxian's Chang'e passage (no source to hand) dropped. **Name corrected: hanzi 張衡 → 张衡.** Protected: the line stays. |
+| `cnh-264` Filial and Incorrupt | 6 | 5 → 6 | **Recommendation, not examination; `Instituted 134 BCE` (agreeing with `cnh-237`; de Crespigny prints 130 BC for the same *Hanshu* passage) / `Quota reformed 92 CE` / `Tests added 132 CE` (the man-naming label off); the edict against governors who named no one, the probation, the mocking rhyme; Zuo Xiong's age rule as de Crespigny gives it (at least forty; Theobald inverts it)**; Li Ying left to `cnh-266`. |
+| `cnh-265` Liang Ji | 6 | 5 → 6 | **The poisoning of Emperor Zhi told as the *Hou Hanshu*'s (Fan Ye, 5th century), with de Crespigny's "rumoured"; the "domineering general", the poisoned cakes, the rabbit park, the bitten-arm oath; the *Hou Hanshu* in Chinese**. Protected: the line stays. |
+| `cnh-266` Partisan Prohibitions | 7 | 5 → 7 | **The students' slogans as the sources give them; the hollow pillar attributed to the *Hou Hanshu* and Giles (Sima Guang has a secret chamber); the *Hou Hanshu* named for the 30,000 students, the hundred dead and the six or seven hundred punished; the official beaten to death in 176; Cordier's thousand killed after 172 (de Crespigny: arrests, no recorded executions) not carried**. **Name corrected: hanzi 黨錮 → 党锢.** |
+| `cnh-267` White Horse Temple | 7 | 5 → 7 | **The "Legend recorded" row off (Maspero dates the preface late 2nd century, Shmushko the dream story 4th — both in prose), now `Traditional 68 CE`; the legend's growth in stages (Maspero), Xiang Kai's memorial of 166, the modern temple; phrasings off the white horses and the golden dream (`wh-415`, `cnh-882`)**. **Name corrected: hanzi 白馬寺 → 白马寺.** |
+| `cnh-268` Yellow Turban Rebellion | 8 | 6 → 8 | **The battle template, "March" and the 205 end (no source) off, now `Rose 184 CE` / `Remnants active 184 – 207 CE` (Theobald's 207); the timeline set to 184 – 207 CE; Ma Yuanyi's betrayal, Lü Qiang's advice, the reign renamed "Peace Achieved", Cao Cao and the Qingzhou surrender (192); the Taiping jing caution on de Crespigny and the Stanford Encyclopedia**. **Name corrected: 黃巾之亂 (traditional, in the hanzi field) → 黄巾起义 (Huángjīn qǐyì), the standard modern term.** |
+| `cnh-269` Zhang Jue | 8 | 5 → 8 | **The Book of Great Peace told as a later legend (Theobald), the Espesset claim dropped (the paper is behind a bot wall); confession and charm water, the thirty-six divisions and the azure-sky prophecy, Huangfu Song at Guangzong, the broken coffin; how we know (Sima Guang from Fan Ye)**. **Name corrected: hanzi 張角 → 张角** (read Jué, the house form; Zhang Jiao an alias). Protected: the line stays (flagged below). |
+| `cnh-270` Dong Zhuo | 7 | 5 → 7 | **His youth among the Qiang, the two refusals to give up his army, the failure against the Yellow Turbans; the flames over the capital, the march west and the burning of Luoyang, the navel wick; how we know (Fan Ye, Chen Shou); Diaochan left out (the chronicle names only a maidservant)**. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the confession, the thirty-six divisions and the broken coffin are `cnh-269`'s, Ma Yuanyi
+and the "Peace Achieved" reign `cnh-268`'s (its agent was told); the burning of Luoyang `cnh-270`'s (off `cnh-256`); Ban
+Gu's and the Book of Han's clues kept off `cnh-261`; the answer word on `cnh-264` ("filial") cleared. **Legend**: the
+White Horse founding, the Kunyang-style portents and the Book of Great Peace are later tellings; Diaochan is the novel's.
+**Chinese names corrected**: six simplified fields (`cnh-262`, `263`, `266`, `267`, `268`, `269`) and `cnh-268`'s term.
+**Spellings fixed**: none needed; 0 hits. **Myth register**: the Romance row gains a note that Diaochan is the novel's (the
+*Sanguozhi* has an unnamed maidservant). **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-261`'s age 71 – 72 is worked out from 45 and 117, which no source states; `cnh-262`'s 50 – 62 CE is on no page read
+(one dictionary: c. 61 – 121); `cnh-269`'s 174 CE is on no page read (ten active years before 184); `cnh-270`'s "Grand
+Preceptor 189 – 192" looks wrong — the *Sanguozhi* gives him the title on reaching Chang'an and Theobald and de
+Crespigny put it in 191 (in 189 he was Grand Commandant, then Chancellor of State) — and its c. 140 – 149 birth is a
+modern estimate.

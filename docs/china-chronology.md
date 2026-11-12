@@ -438,6 +438,10 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | Luoyang the Han capital | 25 – 190 CE | Bielenstein (`cnh-256`) |
 | the Protectorate: Cordier / Yu / revived / abandoned | 60 BCE / 59 BCE / 74 CE / 107 CE | `cnh-258` |
 | the Book of Han compiled | c. 54 – 80 CE | Theobald (`cnh-260`) |
+| the Filial and Incorrupt instituted / the quota reformed / tests added | 134 BCE / 92 CE / 132 CE | the *Hanshu*; de Crespigny (`cnh-264`) |
+| the Partisan Prohibitions: the first arrests / revived / lifted | 166 – 167 CE / 169 CE / 184 CE | `cnh-266` |
+| the White Horse Temple (traditional) | 68 CE | `cnh-267` |
+| the Yellow Turbans rise / remnants active | 184 CE / 184 – 207 CE | Theobald (`cnh-268`) |
 
 ## Later periods
 
@@ -723,4 +727,8 @@ cnh-255: 25; 36
 cnh-256: 25; 190
 cnh-258: 60; 59; 74; 107
 cnh-260: 54; 80
+cnh-264: 134; 92; 132
+cnh-266: 166; 167; 169; 184
+cnh-267: 68
+cnh-268: 184; 207
 ```
