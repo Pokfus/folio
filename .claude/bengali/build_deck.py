@@ -432,6 +432,7 @@ def desc(entries, n):
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
+        SC.get('note', '') +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for learners of Bengali, so this deck is not any examination's vocabulary and does not "
         f"claim to be. It is assembled from two things that can be stated. {from_inv} of the {n:,} "

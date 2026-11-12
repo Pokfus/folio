@@ -5,8 +5,8 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/bengali/`, §6–9). C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and A1 to C1 are built** (`.claude/bengali/`, §6–10); C1 is 622
+words, not 1,500, by the owner's choice (§10). The phrases deck is not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (merged into the day's Hindi
@@ -36,7 +36,7 @@ otherwise:
 | Bengali A2 Elementary — built | `Bengali-A2.folio-deck.json` | 750 |
 | Bengali B1 Intermediate — built | `Bengali-B1.folio-deck.json` | 1,000 |
 | Bengali B2 Upper Intermediate — built | `Bengali-B2.folio-deck.json` | 1,500 |
-| Bengali C1 Advanced | `Bengali-C1.folio-deck.json` | 1,500 |
+| Bengali C1 Advanced — built | `Bengali-C1.folio-deck.json` | 622 (planned 1,500; §10) |
 | Bengali Phrases and Expressions | `Bengali-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 ## 2. Sources and licences
@@ -93,7 +93,7 @@ A1's 500 words have no Tatoeba sentence. The fill carries subtitle vocabulary (`
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1 (done), one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `bengali_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -182,3 +182,32 @@ one already taught (`পেশি` / B1's `পেশী`) was taken out by hand,
 **Known, left.** Dialect words that are not a form of a taught word stay (হেতে, লাহান, কেঠা, আণ্ডা), as do
 many religious and Perso-Arabic terms of both communities (নামাজ, পূজারী, ফতোয়া, যজ্ঞ) — real entries with
 real meanings. Some senses are Wiktionary's narrower or older ones (`তৎপর` "thereafter", `মাড়ি` "paste").
+
+## 10. As built (2026-11-12): C1, and why it is 622 words
+
+`python3 .claude/bengali/run.py --level c1`. **622 notes, 287 from the inventory and 335 by frequency**;
+sentences for 33. **The sources ran out.** After B2, only about 760 unused lemmas had a subtitle count at all
+(the fill deals none below 1), and what Wiktionary's Bengali holds beyond them is mostly a dictionary sweep
+of Sanskrit অ- compounds, botanical synonyms (eleven names for the bael tree), regional dialect (Sylheti,
+Noakhali), number words and anatomy. A list of ~400 standard advanced words (economics, law, argument,
+literature, the environment, psychology) was tried against it: **four** had an entry and were not already
+taught. The owner was asked and chose a smaller, honest C1 over padding it to 1,500
+(2026-11-12); `SCOPE['c1']['note']` puts the reason in the deck's description, and `TARGET['c1']` stays
+1,500 as the plan's cap — the fill simply runs dry before it. **A future C1 needs a new source** (a larger
+Bengali dictionary under an open licence, or a frequency list from news text), not more of this one.
+
+The inventory (287) was picked by hand from the zero- and low-count entries: scholarship and the study of
+language, the state and public life, ideas and political movements, administration, character and
+judgement, argument and degree, the land and its measure, health, feeling, everyday things and the formal
+written register. Every card was read.
+
+**Found on reading, and fixed in `select.py`:** names again (রুস্তম, মীর, আমীর, হাবীব, এরশাদ, ইয়াসমিন,
+অরুণ, স্বপন, অনামিকা, মল্লিকা, আশিষ, সিয়াম, পৃথ্বী), a place (টেমস), English in Bengali letters (প্রব্লেম),
+dialect forms of taught words (অখন, তয়, মানষি), wrong senses (শাল, হাড়ি, মাস্তানি) and a coinage (তুমিহীন),
+each with its reason; a vulgar intensifier, a slur and "piss" (বাঁড়া, পায়ুকামী, মুত, পেচ্ছাপ) joined
+`SWEARS`. A1 to B2 do not change.
+
+**Known, left.** Much of the fill is religious, Perso-Arabic or regional (আযান, সেজদা, ওয়াজ, পীর, ভজন,
+মহব্বত, অওরত), and some is poetic or archaic (তব, যেথা, আঁখ, প্রাত) — real entries with real meanings, but
+the register a C1 reader meets in literature rather than in the news. Some senses are Wiktionary's narrower
+ones (`গণভোট` "mass-election" for "referendum", `প্রজাতন্ত্রী` "republic" for "republican").

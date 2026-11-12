@@ -142,6 +142,29 @@ EXCLUDE = {
     'হাপ': 'a dialect form of সাপ "snake", taught in B1',
     'ক্যা': 'a dialect form of কেন "why", taught in A1',
     'ধনবাদ': 'a misspelling of ধন্যবাদ "thank you", taught in A1',
+    # Read off the C1 ranking (2026-11-12).
+    'রুস্তম': 'the hero Rostam of Persian epic, a name',
+    'টেমস': 'a place name (the Thames)',
+    'মীর': '"prince, emir"; its count is the name Mir',
+    'আমীর': '"leader, noble"; its count is the name Amir',
+    'হাবীব': '"friend"; its count is the name Habib',
+    'এরশাদ': '"command"; its count is the name Ershad',
+    'ইয়াসমিন': '"jasmine"; its count is the name Yasmin',
+    'অরুণ': '"red; the sun"; its count is the name Arun',
+    'স্বপন': '"dream"; its count is the name Swapan',
+    'অনামিকা': '"ring finger"; its count is the name Anamika',
+    'মল্লিকা': '"Arabian jasmine"; its count is the name and surname Mallika / Mallik',
+    'আশিষ': '"blessing"; its count is the name Ashish',
+    'সিয়াম': '"fasting"; its count is the name Siam',
+    'পৃথ্বী': '"Mother Earth"; its count is the name Prithvi',
+    'প্রব্লেম': 'the English "problem" in Bengali letters; A1\'s fill teaches সমস্যা',
+    'অখন': 'a dialect form of তখন "then", taught in A1',
+    'তয়': 'a dialect form of তবে "but", taught in A1',
+    'মানষি': 'a dialect form of মানুষ "person", taught in A1',
+    'শাল': '"sal tree"; its count is শাল "shawl", a sense the entry lacks',
+    'হাড়ি': 'Wiktionary\'s sense is not the word\'s common meaning, "cooking pot"',
+    'মাস্তানি': 'Wiktionary\'s sense, "drunkardry", is not the word\'s meaning, "hooliganism"',
+    'তুমিহীন': 'a poetic coinage ("literally \'you-less\'"), not a word of the language',
     'আফতাব': '"the sun"; its count is the name Aftab',
     'সৈয়দ': '"sir, master"; its count is the surname Syed',
     'নিকটবর্তী': 'Wiktionary\'s entry has no romanisation',
@@ -154,7 +177,9 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'শালা', 'শালী', 'হারামি', 'হারামজাদা', 'কুত্তা', 'কুত্তার বাচ্চা', 'বাল', 'চুদা',
           'মাগী', 'বেজন্মা', 'শুয়োর', 'গাধা',
           # slang and smut the B2 ranking dealt (2026-11-12): not a level deck's words
-          'নুনু', 'পর্ন', 'পর্নো', 'পাদ', 'পাদা', 'হস্তমৈথুন'}
+          'নুনু', 'পর্ন', 'পর্নো', 'পাদ', 'পাদা', 'হস্তমৈথুন',
+          # and C1's (2026-11-12): a vulgar intensifier, a slur, and "piss"
+          'বাঁড়া', 'পায়ুকামী', 'মুত', 'পেচ্ছাপ'}
 
 # A PRONOUN'S CASE FORM IS ON THE PRONOUN'S CARD: Wiktionary gives `আমাদের`, `তোমাকে`,
 # `তাদের` entries of their own whose one sense is "objective of আমরা", and the fill
