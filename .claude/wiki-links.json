@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T18:10Z",
+ "generated": "2026-11-12T18:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7961,
-  "redirect-broader": 771,
+  "ok": 7977,
+  "redirect-broader": 774,
   "redirect-variant": 480,
   "section-redirect": 188,
   "disambiguation": 155,
-  "none": 1172,
+  "none": 1173,
   "disambig-resolved": 108,
   "list-page": 6,
   "search-match": 9,
@@ -86619,6 +86619,156 @@
    "answer": "Dust Bowl",
    "title": "Dust Bowl",
    "url": "https://en.wikipedia.org/wiki/Dust_Bowl",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-711": {
+   "answer": "Immigration to the United States",
+   "title": "Immigration to the United States",
+   "url": "https://en.wikipedia.org/wiki/Immigration_to_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-712": {
+   "answer": "Dillingham Commission",
+   "title": "United States Congressional Joint Immigration Commission",
+   "url": "https://en.wikipedia.org/wiki/United_States_Congressional_Joint_Immigration_Commission",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Dillingham Commission"
+  },
+  "us-713": {
+   "answer": "Ellis Island",
+   "title": "Ellis Island",
+   "url": "https://en.wikipedia.org/wiki/Ellis_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-714": {
+   "answer": "Angel Island Immigration Station",
+   "title": "Angel Island Immigration Station",
+   "url": "https://en.wikipedia.org/wiki/Angel_Island_Immigration_Station",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-715": {
+   "answer": "Steerage",
+   "title": "Steerage",
+   "url": "https://en.wikipedia.org/wiki/Steerage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-716": {
+   "answer": "Italian immigration to the United States",
+   "title": "Italian Americans",
+   "url": "https://en.wikipedia.org/wiki/Italian_Americans",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Italian immigration to the United States"
+  },
+  "us-717": {
+   "answer": "Eastern European Jewish immigration",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of immigration to the United States",
+    "United States immigration statistics",
+    "History of the Jews in the United States",
+    "Immigration to Europe",
+    "Race and ethnicity in the United States"
+   ]
+  },
+  "us-718": {
+   "answer": "Lower East Side",
+   "title": "Lower East Side",
+   "url": "https://en.wikipedia.org/wiki/Lower_East_Side",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-719": {
+   "answer": "Mutual aid society",
+   "title": "Benefit society",
+   "url": "https://en.wikipedia.org/wiki/Benefit_society",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mutual aid society"
+  },
+  "us-720": {
+   "answer": "Padrone system",
+   "title": "Padrone system",
+   "url": "https://en.wikipedia.org/wiki/Padrone_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-721": {
+   "answer": "political machine",
+   "title": "Political machine",
+   "url": "https://en.wikipedia.org/wiki/Political_machine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-722": {
+   "answer": "Tammany Hall",
+   "title": "Tammany Hall",
+   "url": "https://en.wikipedia.org/wiki/Tammany_Hall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-723": {
+   "answer": "City Beautiful movement",
+   "title": "City Beautiful movement",
+   "url": "https://en.wikipedia.org/wiki/City_Beautiful_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-724": {
+   "answer": "tenement",
+   "title": "Tenement",
+   "url": "https://en.wikipedia.org/wiki/Tenement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-725": {
+   "answer": "How the Other Half Lives",
+   "title": "How the Other Half Lives",
+   "url": "https://en.wikipedia.org/wiki/How_the_Other_Half_Lives",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-726": {
+   "answer": "Jacob Riis",
+   "title": "Jacob Riis",
+   "url": "https://en.wikipedia.org/wiki/Jacob_Riis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-727": {
+   "answer": "Metropolitan Board of Health",
+   "title": "Metropolitan Board of Health",
+   "url": "https://en.wikipedia.org/wiki/Metropolitan_Board_of_Health",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-728": {
+   "answer": "Home Insurance Building",
+   "title": "Home Insurance Building",
+   "url": "https://en.wikipedia.org/wiki/Home_Insurance_Building",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-729": {
+   "answer": "streetcar suburb",
+   "title": "Streetcar suburb",
+   "url": "https://en.wikipedia.org/wiki/Streetcar_suburb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-730": {
+   "answer": "Chinese Exclusion Act",
+   "title": "Chinese Exclusion Act",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Exclusion_Act",
    "via": "glossary",
    "status": "ok"
   }

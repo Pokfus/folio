@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7961 | the title is the article |
+| `ok` | 7977 | the title is the article |
 | `redirect-variant` | 480 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 108 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 771 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 774 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 188 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 155 | only a disambiguation page; no link could be chosen |
-| `none` | 1172 | nothing matched; no link |
+| `none` | 1173 | nothing matched; no link |
 
-**9336 of 10870 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9355 of 10890 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (771)
+## Redirected to a differently named article — check each (774)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -668,6 +668,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-630` **Fourteenth Amendment** → [Fourteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution) (from `Fourteenth Amendment`)
 - `us-656` **Plains Wars** → [American Indian Wars](https://en.wikipedia.org/wiki/American_Indian_Wars) (from `Plains Wars`)
 - `us-663` **cattle drive** → [Droving](https://en.wikipedia.org/wiki/Droving) (from `Cattle drive`)
+- `us-712` **Dillingham Commission** → [United States Congressional Joint Immigration Commission](https://en.wikipedia.org/wiki/United_States_Congressional_Joint_Immigration_Commission) (from `Dillingham Commission`)
+- `us-716` **Italian immigration to the United States** → [Italian Americans](https://en.wikipedia.org/wiki/Italian_Americans) (from `Italian immigration to the United States`)
+- `us-719` **Mutual aid society** → [Benefit society](https://en.wikipedia.org/wiki/Benefit_society) (from `Mutual aid society`)
 - `us-768` **Harlem Hellfighters** → [369th Infantry Regiment (United States)](https://en.wikipedia.org/wiki/369th_Infantry_Regiment_(United_States)) (from `Harlem Hellfighters`)
 - `us-777` **1918 influenza pandemic** → [Spanish flu](https://en.wikipedia.org/wiki/Spanish_flu) (from `1918 influenza pandemic`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
@@ -1307,7 +1310,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1172)
+## No article found (1173)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2420,6 +2423,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-661` **destruction of the bison** — search suggests `American bison hunting`, `Bison`, `American bison`, `History of the United States`, `Great bison belt`
 - `us-662` **cattle kingdom** — search suggests `List of cattle terminology`, `Highland cattle`, `United States`, `Aberdeen Angus`, `American Brahman`
 - `us-682` **Industrialisation of the United States** — search suggests `Japan–United States relations`, `History of industrialisation`, `Singapore–United States relations`, `Industrialisation`, `International development`
+- `us-717` **Eastern European Jewish immigration** — search suggests `History of immigration to the United States`, `United States immigration statistics`, `History of the Jews in the United States`, `Immigration to Europe`, `Race and ethnicity in the United States`
 - `us-773` **African American Great Migration** — search suggests `Great Migration (African American)`, `Second Great Migration (African American)`, `List of African-American United States representatives`, `Demographics of the United States`, `African Americans in the United States Congress`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`

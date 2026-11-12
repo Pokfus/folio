@@ -10996,7 +10996,27 @@ window.GLOSSARY = {
 "Hooverville": "",
 "Reconstruction_Finance_Corporation": "",
 "Bonus_Army": "",
-"Dust_Bowl": ""
+"Dust_Bowl": "",
+"Immigration_to_the_United_States": "",
+"Dillingham_Commission": "",
+"Ellis_Island": "",
+"Angel_Island_Immigration_Station": "",
+"Steerage": "",
+"Italian_Americans": "",
+"History_of_the_Jews_in_the_United_States": "",
+"Lower_East_Side": "",
+"Benefit_society": "",
+"Padrone_system": "",
+"Political_machine": "",
+"Tammany_Hall": "",
+"City_Beautiful_movement": "",
+"Tenement": "",
+"How_the_Other_Half_Lives": "",
+"Jacob_Riis": "",
+"Metropolitan_Board_of_Health": "",
+"Home_Insurance_Building": "",
+"Streetcar_suburb": "",
+"Chinese_Exclusion_Act": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16262,7 +16282,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "McNary–Haugen_Farm_Relief_Bill": "1924 – 1928",
 "Reconstruction_Finance_Corporation": "1932 – 1957",
 "Bonus_Army": "1932",
-"Dust_Bowl": "1930 – 1940"
+"Dust_Bowl": "1930 – 1940",
+"Dillingham_Commission": "1907–1911",
+"Ellis_Island": "1892–1954",
+"Angel_Island_Immigration_Station": "1910–1940",
+"City_Beautiful_movement": "1890s–1920s",
+"How_the_Other_Half_Lives": "1890",
+"Jacob_Riis": "1849–1914",
+"Metropolitan_Board_of_Health": "1866",
+"Home_Insurance_Building": "1885–1931",
+"Chinese_Exclusion_Act": "1882–1943"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -23396,7 +23425,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Breadline": ["breadlines","bread line","bread lines"],
 "Hooverville": ["Hoovervilles"],
 "Reconstruction_Finance_Corporation": ["RFC"],
-"Bonus_Army": ["Bonus Expeditionary Force","Bonus March","bonus marchers"]
+"Bonus_Army": ["Bonus Expeditionary Force","Bonus March","bonus marchers"],
+"Dillingham_Commission": ["United States Immigration Commission"],
+"Italian_Americans": ["Italian immigration to the United States"],
+"History_of_the_Jews_in_the_United_States": ["Eastern European Jewish immigration"],
+"Benefit_society": ["Mutual aid society","Friendly society"],
+"Political_machine": ["political machines","machine politics"],
+"Tammany_Hall": ["Tammany","Society of St. Tammany"],
+"City_Beautiful_movement": ["City Beautiful"],
+"Tenement": ["tenements","tenement house","tenement houses"],
+"Jacob_Riis": ["Jacob A. Riis"],
+"Metropolitan_Board_of_Health": ["New York Metropolitan Board of Health"],
+"Streetcar_suburb": ["streetcar suburbs"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -34555,7 +34595,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hooverville": ["place","history","society","united states"],
 "Reconstruction_Finance_Corporation": ["institution","history","economics","banking","united states"],
 "Bonus_Army": ["event","history","politics","united states"],
-"Dust_Bowl": ["event","history","environment","agriculture","united states"]
+"Dust_Bowl": ["event","history","environment","agriculture","united states"],
+"Immigration_to_the_United_States": ["event","history","migration","immigration","united states"],
+"Dillingham_Commission": ["institution","history","politics","immigration","united states"],
+"Ellis_Island": ["place","history","immigration","united states","new york"],
+"Angel_Island_Immigration_Station": ["building","history","immigration","united states","california"],
+"Steerage": ["practice","history","immigration","transport"],
+"Italian_Americans": ["people","history","immigration","italy","united states"],
+"History_of_the_Jews_in_the_United_States": ["people","history","religion","immigration","united states"],
+"Lower_East_Side": ["place","history","immigration","united states","new york"],
+"Benefit_society": ["institution","history","economics","labour"],
+"Padrone_system": ["practice","history","labour","immigration"],
+"Political_machine": ["institution","politics","history","cities","united states"],
+"Tammany_Hall": ["institution","politics","history","new york","united states"],
+"City_Beautiful_movement": ["concept","architecture","history","cities","united states"],
+"Tenement": ["building","history","cities","housing"],
+"How_the_Other_Half_Lives": ["text","history","journalism","cities","united states"],
+"Jacob_Riis": ["person","journalism","photography","history","united states"],
+"Metropolitan_Board_of_Health": ["institution","medicine","history","new york","united states"],
+"Home_Insurance_Building": ["building","architecture","history","chicago","united states"],
+"Streetcar_suburb": ["place","history","cities","transport","united states"],
+"Chinese_Exclusion_Act": ["text","law","history","immigration","united states"]
 });
 
 /* ============================================================================
