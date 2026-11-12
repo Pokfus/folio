@@ -72497,19 +72497,19 @@
   },
   "jp-119": {
    "answer": "insei",
-   "title": "Go apprentice",
-   "url": "https://en.wikipedia.org/wiki/Go_apprentice",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Insei"
+   "title": "Cloistered rule",
+   "url": "https://en.wikipedia.org/wiki/Cloistered_rule",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "jp-120": {
    "answer": "Shirakawa",
-   "title": "Shirakawa River",
-   "url": "https://en.wikipedia.org/wiki/Shirakawa_River",
-   "via": "disambiguation",
-   "status": "disambig-resolved",
-   "from": "Shirakawa"
+   "title": "Emperor Shirakawa",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Shirakawa",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "jp-121": {
    "answer": "Daijokan",
