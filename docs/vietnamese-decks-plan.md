@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Vietnamese language collection."
 
-**STATUS (2026-11-12): the alphabet-and-tones deck, A1 and A2 are built** (`.claude/vietnamese/`, §6, §7). B1 to
+**STATUS (2026-11-12): the alphabet-and-tones deck, A1, A2 and B1 are built** (`.claude/vietnamese/`, §6–§8). B2,
 C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -33,7 +33,7 @@ owner's most recent decisions for a language with no published list — and are 
 | Vietnamese Alphabet and Tones — built | `Vietnamese-Alphabet-and-Tones.folio-deck.json` | 35 |
 | Vietnamese A1 Beginner — built | `Vietnamese-A1.folio-deck.json` | 500 |
 | Vietnamese A2 Elementary — built | `Vietnamese-A2.folio-deck.json` | 750 |
-| Vietnamese B1 Intermediate | `Vietnamese-B1.folio-deck.json` | 1,000 |
+| Vietnamese B1 Intermediate — built | `Vietnamese-B1.folio-deck.json` | 1,000 |
 | Vietnamese B2 Upper Intermediate | `Vietnamese-B2.folio-deck.json` | 1,500 |
 | Vietnamese C1 Advanced | `Vietnamese-C1.folio-deck.json` | 1,500 |
 | Vietnamese Phrases and Expressions | `Vietnamese-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -137,4 +137,35 @@ What reading every card found, each fixed in the generator:
 
 **Known, left.** `bến xe` is glossed "a parking lot" (Wiktionary's; it is a bus station). `tưởng` carries a Pali
 gloss third. The fill keeps the subtitles' drama vocabulary (`đạn`, `bom`, `vũ khí`) as A1 did.
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1". `python3 .claude/vietnamese/run.py --level b1`. 1,000 notes, 220 from a
+hand-written B1 inventory (work and careers, money and the economy, education, the news, media and technology,
+government, law and society, the environment, health, travel, the household, relationships and the stages of life,
+feelings and character, religion and customs, ideas and reasons, connectors, and the verbs of thinking, arguing and
+changing) and 780 by frequency; none taught in A1 or A2. Three sentences for 771, none for 71 — the inventory's
+abstract and civic vocabulary is thin in Tatoeba. **A1, A2 and the alphabet-and-tones deck rebuild byte-identical**;
+a B1 re-run is byte-identical.
+
+What reading every card found, each fixed in the generator with its reason:
+- **Homographs led by the wrong etymology**, pinned in `ETYMS` / `LEAD_POS` / `LEAD` / `DROP_POS`: `hầm` "basement",
+  `tiểu`, `dần` "gradually", `sát` "very close to", `chớ` "do not" (not "four"), `tách` "to separate", `phân` "to
+  divide", `thức` "to stay awake", `thông`, `cút` "get lost!", `nguyên`, `lao`, `bớt` "to reduce", `lau` "to wipe" and
+  `toán` "mathematics" (both the inventory's, led by "reed" and "gang"), `bầu` "to vote", `kẹo` "sweets", `thẻ` "card".
+- **The first `GLOSS` entry**: `bự` "big" is Wiktionary's own gloss, tagged Southern-colloquial and placed after
+  "covered (with)", so the card led with the sense the subtitles hardly use; the override is that gloss, verbatim.
+- **Excluded with reasons** (`select.EXCLUDE`): names and English counted as Vietnamese (`hi`, `me`, `go`, `don`, `san`,
+  `vân`, `phong`, `long`, `bi`, `nga`), a letter's name (`gi`), the period-drama words (`muội`, `thiếp`, `vương`),
+  words counted in a sense Wiktionary does not give (`tiêu` "to spend", `giáng sinh` "Christmas", `sơ` "nun"), words
+  whose everyday sense is tagged weak so the card would mislead (`heo`, `ngưng`, `song`, `hoả`), `a-lô` (a hyphenated
+  spelling of `alô`), `không không`, and the crude or disparaging `cu`, `mụ`, `điếm`, `đít`. `SWEARS` gains `chúng mày`,
+  `mẹ nó`, `khốn nạn`, `cứt`, `chó chết`. `CUT` takes a slur off `trai`, the biologist's "genus" off `chi`, and a
+  pointer to Wiktionary's layout off `chủ nhà`.
+- Inventory words with no Wiktionary headword were dropped (`thăng chức`, `visa`, `việc nhà`, `Phật giáo`,
+  `Trung thu`, `miễn là`, `trừ khi` …); `vắc-xin` fails the headword rule and was dropped.
+
+**Known, left.** `bầu` merges its two etymologies' verbs ("to vote; to elect; to be pregnant"), both true. `phân`
+leads with "inch" before "to divide". The fill carries the subtitles' crime and war vocabulary (`sát nhân`,
+`con tin`, `tra tấn`) as the lower levels do.
 

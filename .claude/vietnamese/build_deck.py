@@ -107,6 +107,23 @@ ETYMS = {
     'cú': ['3', '1'],   # the classifier for a blow or a shot, and "owl"
     'động': ['2'],      # "to touch" (đừng động vào); 1 is "cave"
     'đàn': ['1', '2'],  # "flock, herd" and "a string instrument; to play one"
+    # read off the B1 deck (2026-11-12)
+    'hầm': ['2', '1'],  # "basement, cellar" (the subtitles' bunker) and "to stew"
+    'tiểu': ['2'],      # "to urinate"; 1 is a terracotta sarcophagus
+    'dần': ['2'],       # "gradually"; 1 is "to tenderize (meat)"
+    'sát': ['2'],       # "very close to"; 1 is a fortune-telling term
+    'chớ': ['1'],       # "do not"; 2 is "four"
+    'tách': ['2'],      # "to separate"; 1 is "cup"
+    'phân': ['2'],      # "to divide; a centimetre"; 1 is "faeces"
+    'thức': ['2'],      # "to stay awake"; 1 is "food"
+    'thông': ['2'],     # "to go through; to understand"; 1 is "pine"
+    'cút': ['3'],       # "get lost!"; 1 is "quail"
+    'nguyên': ['2'],    # "intact, whole"; 1 is "yuan"
+    'lao': ['2'],       # "to dash, to plunge; javelin"; 1 is "tuberculosis"
+    'bớt': ['2'],       # "to reduce"; 1 is "birthmark"
+    'lau': ['2'],       # "to wipe" (the inventory's chores); 1 is "reed"
+    'toán': ['2'],      # "mathematics" (the inventory's); 1 is "gang"
+    'bầu': ['2', '1'],  # "to vote, to elect" and "gourd; pregnant"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first entry is not the everyday word.
@@ -116,17 +133,23 @@ LEAD_POS = {
     'ồ': 'intj',        # "oh, wow"; the verb is "to rush"
     'bài': 'noun',      # "lesson; exercise"; the verb is "to oppose"
     'máy': 'noun',      # "machine"; the verb is "to move around"
-    'tấm': 'classifier',    # for flat things; the noun is "broken rice"
+    'tấm': 'classifier',
+    'kẹo': 'noun',      # "sweets, candy"; the adjective is "thickened by boiling"    # for flat things; the noun is "broken rice"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'máy': 'machine',   # Wiktionary's first noun gloss is "effect; mechanism", tagged rare
     'thú': 'animal',    # its first is "non-avian beast"
+    'thẻ': 'card',      # its first is a stick in the game of pitch-pot
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
-GLOSS = {}
+GLOSS = {
+    # Wiktionary's own "big" gloss, which it tags Southern-colloquial (weak here) and puts after
+    # "covered (with)", a sense the subtitles hardly use
+    'bự': {'adj': ['big (in size or importance); great; influential']},
+}
 
 # Entries of these parts of speech are left off a card whose word has others, each with its reason.
 DROP_POS = {
@@ -134,6 +157,7 @@ DROP_POS = {
     'ba': {'adj', 'det'},   # "secondborn", "some": they crowded "father" off the card
     'máy': {'verb'},    # "to move around; to touch", which crowded "machine" down the card
     'tấm': {'noun'},    # "broken rice grains", a different word from the classifier
+    'kẹo': {'adj', 'num'},  # "thickened by boiling" and a dialect "five"
 }
 
 # Glosses left off a card, by a piece of their text, each with its reason.
@@ -143,6 +167,9 @@ CUT = {
     'em': ['described by the noun em above'],      # refers to Wiktionary's own layout
     'cô bé': ['vulva'],                            # a slang sense, on a card for "little girl"
     'gái': ['whores'],                             # a slur, on a card for "girls and women"
+    'trai': ['gigolos'],                           # likewise, on a card for "boys and men"
+    'chủ nhà': ['Used other than'],                # refers to Wiktionary's own layout
+    'chi': ['genus'],                              # the biologist's term, ahead of "to spend"
 }
 
 

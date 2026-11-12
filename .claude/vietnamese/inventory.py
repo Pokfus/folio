@@ -85,4 +85,43 @@ A2 = [
      'thua bật tắt dùng sửa trả lại chuẩn_bị kết_hôn sinh chết đổi'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+B1 = [
+    ('work and careers', 'sự_nghiệp kinh_nghiệm phỏng_vấn ứng_viên tuyển_dụng hợp_đồng nghỉ_hưu thất_nghiệp '
+     'chuyên_môn đào_tạo năng_lực thăng_chức doanh_nghiệp khách_hàng sản_phẩm dịch_vụ dự_án đối_tác '
+     'quản_lý lãnh_đạo nhiệm_vụ trách_nhiệm'),
+    ('money and the economy', 'kinh_tế tài_chính thu_nhập chi_phí ngân_sách thuế giá_cả lạm_phát đầu_tư '
+     'tiết_kiệm vay nợ lãi thị_trường xuất_khẩu nhập_khẩu thương_mại giàu nghèo nghèo_đói phát_triển '
+     'tăng_trưởng tiền_mặt thẻ'),
+    ('education', 'giáo_dục học_bổng bằng chứng_chỉ môn chương_trình học_kỳ luận_văn kiến_thức kỹ_năng '
+     'trình_độ tốt_nghiệp du_học nghiên_cứu thí_nghiệm khoa_học toán văn_học lịch_sử địa_lý'),
+    ('the news, media and technology', 'tin_tức báo_chí truyền_hình đài phóng_viên quảng_cáo mạng_xã_hội '
+     'internet trang_web công_nghệ phần_mềm thiết_bị tải email mật_khẩu dữ_liệu kỹ_thuật_số điện_thoại_di_động'),
+    ('government, law and society', 'chính_phủ nhà_nước chính_trị chính_sách bầu_cử quốc_hội luật pháp_luật '
+     'toà_án công_dân quyền xã_hội cộng_đồng dân_số văn_hoá truyền_thống tôn_giáo tình_nguyện '
+     'tham_nhũng biểu_tình hoà_bình'),
+    ('the environment and nature', 'môi_trường ô_nhiễm rác tái_chế khí_hậu thiên_nhiên tài_nguyên '
+     'năng_lượng lũ_lụt hạn_hán động_đất thảm_hoạ bảo_vệ bảo_tồn sa_mạc đại_dương'),
+    ('health and medicine', 'sức_khoẻ chữa điều_trị phẫu_thuật triệu_chứng dị_ứng tiêm '
+     'chế_độ_ăn béo gầy căng_thẳng trầm_cảm hút_thuốc phòng_khám cấp_cứu hồi_phục'),
+    ('travel and transport', 'giao_thông tắc_đường phương_tiện hành_khách chuyến_bay đường_sắt cảng '
+     'biên_giới visa khách_du_lịch điểm_đến lịch_trình đặt_phòng hải_quan'),
+    ('the household and chores', 'việc_nhà giặt lau quét nấu_ăn đồ_đạc sửa_chữa hoá_đơn tiền_điện '
+     'chủ_nhà người_thuê'),
+    ('relationships and the stages of life', 'tình_bạn hôn_nhân ly_hôn đám_cưới đám_tang tuổi_thơ '
+     'tuổi_trẻ tuổi_già thế_hệ nuôi_dạy hẹn_hò chia_tay tôn_trọng tin_cậy'),
+    ('feelings and character', 'cảm_xúc tính_cách tự_tin xấu_hổ ghen ngại kiên_nhẫn ích_kỷ tốt_bụng '
+     'trung_thực lịch_sự thô_lỗ nhút_nhát tò_mò biết_ơn cô_đơn hối_hận'),
+    ('religion, customs and festivals', 'Phật_giáo đạo thờ cúng tổ_tiên phong_tục lễ tục_lệ '
+     'Trung_thu lì_xì'),
+    ('ideas, reasons and plans', 'vấn_đề nguyên_nhân kết_quả lý_do mục_đích ảnh_hưởng tác_động lợi_ích '
+     'khả_năng điều_kiện kinh_nghiệm quan_điểm thái_độ giải_pháp kế_hoạch mục_tiêu sự_kiện '
+     'tình_hình hiện_tượng'),
+    ('connectors', 'tuy tuy_nhiên mặc_dù do_đó vì_vậy ngoài_ra bên_cạnh_đó thay_vì trong_khi '
+     'cho_nên chẳng_hạn ví_dụ nói_chung nói_cách_khác cuối_cùng trước_hết thứ_nhất miễn_là '
+     'trừ_khi kẻo'),
+    ('thinking, deciding, arguing and changing', 'cân_nhắc so_sánh phân_tích đánh_giá thảo_luận '
+     'tranh_luận thuyết_phục phản_đối ủng_hộ đồng_tình bày_tỏ đề_xuất từ_chối chấp_nhận '
+     'cải_thiện giảm phát_triển ảnh_hưởng thích_nghi'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

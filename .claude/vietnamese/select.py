@@ -42,6 +42,34 @@ EXCLUDE = {
     'mai': 'counted as "tomorrow" (short for ngày mai, taught in A1); the card would lead with "early morning"',
     'ban': 'its everyday senses (committee, daytime) sit under a feudal-court gloss that leads the card',
     'thể': 'counted inside có thể (A1) and không thể; alone it is a grammar word with no gloss to learn',
+    # read off the B1 ranking (2026-11-12)
+    'muội': 'the "younger sister" of martial-arts dramas; the card would lead with "soot"',
+    'thiếp': 'the archaic "I" of a wife or concubine in period dramas',
+    'nga': 'counted as Nga, Russia; alone the word is only part of thiên nga "swan"',
+    'hi': 'counted as the English greeting',
+    'me': 'counted as the English pronoun; the Vietnamese word is "tamarind"',
+    'go': 'counted as English; the Vietnamese word is "weft"',
+    'don': 'counted as the name Don; the Vietnamese word is a porcupine',
+    'san': 'counted as the name San',
+    'vân': 'counted as the name Vân; the word is "grain, vein"',
+    'phong': 'counted as the name Phong; the card would lead with "maple"',
+    'long': 'counted as "dragon" and the name Long; Wiktionary gives only "loose"',
+    'bi': 'counted as names and English; the card would lead with "a marble"',
+    'gi': 'the name of a letter',
+    'cu': 'slang for a penis, or "a little boy"; the card would lead with "dove"',
+    'a-lô': 'a hyphenated spelling of alô, which the deck already teaches',
+    'không không': '"không" said twice, "no, no"; Wiktionary\'s entry is a rare adverb',
+    'tiêu': 'counted mostly as "to spend" (tiêu tiền), which Wiktionary\'s entry does not give',
+    'vương': 'the "king, prince" of period dramas, tagged archaic; the card would lead with "to cling to"',
+    'mụ': 'a disparaging word for an old woman',
+    'sơ': 'counted as "nun" and in sơ cứu; the card would lead with "negligent"',
+    'giáng sinh': 'counted as Christmas (Giáng Sinh), which Wiktionary files only as "to be born"',
+    'song': 'counted mostly as English; the Vietnamese senses are rare or literary',
+    'heo': 'Wiktionary tags "pig" dialectal, so the card would lead with a slang "two"; lợn is in A2',
+    'hoả': 'its one gloss is "Fire, one of the Five Phases"',
+    'ngưng': 'its everyday "to stop" is tagged rare, so the card would lead with "to condense"; ngừng is in A2',
+    'điếm': 'counted as "prostitute", a slur in the subtitles\' use',
+    'đít': 'crude, "arse"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -49,7 +77,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 # insults outside close friendship (`mày` "you", `tao` "I", as one says them to a
 # child, an intimate or someone being abused): a beginner's pronouns are the kinship
 # words, and the subtitles' count of these two is mostly quarrels.
-SWEARS = {'mày', 'tao', 'chết tiệt'}
+SWEARS = {'mày', 'tao', 'chết tiệt', 'chúng mày', 'mẹ nó', 'khốn nạn', 'cứt', 'chó chết'}
 
 
 def usable(L):
