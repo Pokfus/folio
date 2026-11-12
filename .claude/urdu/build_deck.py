@@ -144,6 +144,17 @@ ROMAN_BY_HAND = {
     'حد': 'had',              # A2: "boundary, limit"
 }
 
+# A ROMANISATION FROM THE ENTRY'S OWN HEADWORD LINE, where the extract cut it short: Wiktionary
+# splits a romanisation at its comma into two forms ("rāt gaī", "bāt gaī"), and `extract.py` keeps
+# the first.  The text is the headword line's, verbatim (phrases deck, 2026-11-12).
+ROMAN_HEAD = {
+    'رات گئی بات گئی': 'rāt gaī, bāt gaī',
+    'گانتھ کا پورا عقل کا اندھا': "gānṭh kā pūrā, 'aqal kā andhā",
+    'نظر سے دور، دل کے قریب': 'nazar se dūr, dil ke qarīb',
+    'ہاں جی': 'hā̃ jī',
+    'رحمۃ اللہ علیہ': 'rahmatu llāhi alaih',
+}
+
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'وجہ': 'reason',          # first listed is "face, visage"
@@ -448,10 +459,10 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = plain(r['word'])
-        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '') \
-            or ROMAN_BY_HAND.get(r['word'], '')
+        roman = ROMAN_HEAD.get(word) or main['roman'] \
+            or next((e['roman'] for e in ents if e['roman']), '') or ROMAN_BY_HAND.get(r['word'], '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Urdu': ur(word),
             'Roman': E(roman),
             'Word': word,
@@ -461,7 +472,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -516,6 +528,40 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    return (
+        f"{n} Urdu set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Urdu → English (see the Urdu, recall the "
+        "meaning) and English → Urdu (see an English meaning, recall the Urdu) — each with a schedule "
+        "of its own. This is a companion to the level decks, Urdu A1 to B2, and not one of them: a "
+        "level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the four, so they can be studied together without repeating an "
+        "entry. IT IS SMALL, AND THAT IS THE SOURCE'S SIZE: these are every Urdu expression English "
+        "Wiktionary defines that passes the deck's filters, and Wiktionary's Urdu is a fraction of its "
+        "Hindi. The PHRASES are the expressions Wiktionary files as phrases and does not mark as "
+        "idiomatic — mostly greetings and everyday formulas used as one piece. The IDIOMS are "
+        "expressions whose meaning is not their words', and the PROVERBS the sayings Wiktionary files "
+        "as proverbs. Within each subdeck the expressions come in the order of how many of Tatoeba's "
+        "Urdu sentences contain them, an expression that is a verb being counted in any form of that "
+        f"verb; Tatoeba's Urdu is small, so only {found} of the {n} are found there at all, and the rest "
+        "follow in the order of how common their rarest word is. Every expression is printed in the "
+        "Urdu script, right to left, with Wiktionary's romanisation beneath it. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword "
+        "(whether it speaks depends on an Urdu voice being installed on your device). "
+        "Sources. Expressions, meanings, romanisation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0) and the wordfreq project's Urdu list (CC BY-SA 4.0). Example sentences: Tatoeba, "
+        "CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -526,11 +572,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['urdu', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['urdu', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['urdu', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Urdu vocabulary', 'speechLang': 'ur-PK',

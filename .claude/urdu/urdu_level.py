@@ -37,7 +37,8 @@ DECK_FILES['phr'] = 'Urdu-Phrases-and-Expressions.folio-deck.json'
 TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
-BELOW['phr'] = list(BANDS)
+# no C1 deck exists: Wiktionary's Urdu ran dry at B2 (docs/urdu-decks-plan.md §9-§10)
+BELOW['phr'] = ['a1', 'a2', 'b1', 'b2']
 
 SCOPE = {
     'a1': {

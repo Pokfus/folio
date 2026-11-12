@@ -6,8 +6,8 @@ twelfth language set, built in the shape of the Hindi one (`docs/hindi-decks-pla
 rule there and in the Hindi plan applies here unless this file says otherwise. Asked for on 2026-11-09:
 "Add an Urdu language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/urdu/`, §6–§9). C1 and the
-phrases deck are not — and §9 says why C1 should be decided before it is built.
+**STATUS (2026-11-12): the alphabet deck, A1 to B2 and the phrases deck are built** (`.claude/urdu/`,
+§6–§10). **C1 is not, by the owner's decision**: the source ran dry (§9, §10).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's Hindi
@@ -36,8 +36,8 @@ If the owner wants any of these otherwise for Urdu, change them here first.
 | Urdu A2 Elementary — built | `Urdu-A2.folio-deck.json` | 750 |
 | Urdu B1 Intermediate — built | `Urdu-B1.folio-deck.json` | 1,000 |
 | Urdu B2 Upper Intermediate — built | `Urdu-B2.folio-deck.json` | 1,500 |
-| Urdu C1 Advanced | `Urdu-C1.folio-deck.json` | 1,500 |
-| Urdu Phrases and Expressions | `Urdu-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Urdu C1 Advanced — NOT BUILT (§10) | `Urdu-C1.folio-deck.json` | — |
+| Urdu Phrases and Expressions — built | `Urdu-Phrases-and-Expressions.folio-deck.json` | 49 |
 
 ## 2. Sources and licences
 
@@ -105,7 +105,7 @@ as Wiktionary files it. `گانا` "song; to sing" is dealt early: its count inc
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done 2026-11-12) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `urdu_level.py`, run, read every card.
-**Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
+**Phase 3 (done 2026-11-12)** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
 
@@ -201,3 +201,32 @@ re-run is byte-identical**; A1, A2 and B1 rebuilt after it are unchanged.
 excluded some 400. A C1 of 1,500 would be drawn from what is left, nearly all of it under 1 per million,
 with almost no inventory and no sentences. The honest options: a smaller C1, a C1 built from another
 dictionary, or no C1 and the phrases deck next.
+
+## 10. C1 not built; the phrases deck (2026-11-12)
+
+**C1.** Asked for ("Add C1") after §9's warning, and attempted: of the 130 words of a C1 inventory written
+for the scope (philosophy, scholarship, the constitution, law, literature, formal prose), **2** have an
+entry in Wiktionary's Urdu — the whole extract is 10,507 entries, and `صوفی`, `عقیدہ`, `محاورہ`, `تصنیف` are
+not among them — and the frequency fill had **123** words left above its floor (numbers to ninety-eight,
+cucumber, scissors, squirrel). That deck was built, read, and deleted unshipped; the owner, asked, chose
+the phrases deck instead. **A C1 needs a second dictionary** (Platts' 1884 Urdu–English dictionary is
+public domain and digitised at the University of Chicago — a new extractor and a licence check of the
+digitisation, a session of its own). `BELOW['phr']` is A1–B2 accordingly.
+
+**The phrases deck.** `python3 .claude/urdu/run.py --level phr`; **49 expressions — 33 phrases, 10 idioms,
+6 proverbs** — two cards each. `phrases.py` is Hindi's stage ported (the same three subdecks and ordering;
+`examples.py` gained Hindi's verb-final matching for this deck only, `build_deck.py` the deck's
+description and subtitle; the level decks rebuild byte-identical). **It is small because the source is**:
+English Wiktionary defines about sixty Urdu expressions in all, against Hindi's 288 shipped. Tatoeba holds
+6 of the 49. Read card by card:
+
+- **WHAT HINDI'S RULES EXCLUDE** (`phrases.EXCLUDE`): a personal sentence (`میں پاکستانی ہوں`), two oaths,
+  a political salute and a one-campaign slogan, a religious-political invocation, a Quranic form of
+  address, a Punjabi entry, and one of two spellings of a blessing.
+- **WHAT HINDI'S RULES DO NOT REACH**: the everyday Arabic formulas of Urdu speech (`ان شاء اللہ`, `الحمد للہ`,
+  `سبحان اللہ`, `جزاک اللہ`, `خدا نخواستہ`) and the honorifics written after a holy name (`علیہ السلام`) are
+  part of the language in Urdu, and are taught; Hindi left its few out as Arabic rather than Hindi.
+- **A ROMANISATION CUT AT ITS COMMA.** Wiktionary splits "rāt gaī, bāt gaī" into two romanisation forms and
+  `extract.py` keeps the first, so a proverb's card showed half of it. `build_deck.ROMAN_HEAD` restores the
+  headword line's text, verbatim, for the five affected (two of them had no romanisation form at all);
+  `extract.py` is untouched so the levels do not move.

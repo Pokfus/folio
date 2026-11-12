@@ -3509,7 +3509,9 @@ changed was the one that had been wrong all along.
   `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Urdu-A2.folio-deck.json`**
   (750 / 1,500), **B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
   `decks/Urdu-B2.folio-deck.json`** (1,500 / 3,000; all three 2026-11-12, on request — B2 reaches the end of
-  what Wiktionary's Urdu supports, the plan's §9). `python3 .claude/urdu/run.py [--level a1]`
+  what Wiktionary's Urdu supports, the plan's §9) **and the phrases deck,
+  `decks/Urdu-Phrases-and-Expressions.folio-deck.json`** (49 expressions, `--level phr`). **No C1**: the
+  source has nothing left for one (§10), and the owner chose the phrases deck instead. `python3 .claude/urdu/run.py [--level a1]`
   (the first fetch needs `wordfreq` on `PYTHONPATH`), `python3 .claude/urdu/alphabet.py`,
   `node .claude/urdu/check-urdu.js`; a re-run is byte-identical. Adapted from `.claude/hindi/`: the shelf's
   FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two
