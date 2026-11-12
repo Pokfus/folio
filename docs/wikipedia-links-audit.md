@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6614 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6620 | the title is the article |
+| `redirect-variant` | 398 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1010 | nothing matched; no link |
+| `none` | 1013 | nothing matched; no link |
 
-**7741 of 9050 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7748 of 9060 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1080,7 +1080,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1010)
+## No article found (1013)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2018,6 +2018,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-196` **Moscow uprising of 1547** — search suggests `Moscow Uprising`, `Moscow`, `Fire of Moscow (1547)`, `Tsardom of Russia`, `List of Russian monarchs`
 - `ru-201` **Decree on Service** — search suggests `Orders, decorations, and medals of Russia`, `FSB Border Service of Russia`, `Federal Security Service`, `Decree`, `Special Communications Service of Russia`
 - `ru-258` **urochnye leta** — search suggests `Fixed years`, `Forbidden years`
+- `ru-342` **coronation of Catherine II** — search suggests `Catherine the Great`, `Coronation of the Russian monarch`, `Peter II of Russia`, `Imperial Crown of Russia`, `Coronation of Bokassa I and Catherine`
+- `ru-344` **Legislative Commission** — search suggests `2026 Russian legislative election`, `Russian legislative elections`, `1912 Russian legislative election`, `Nakaz`, `1990 Russian Supreme Soviet election`
+- `ru-346` **secularisation of church lands** — search suggests `Peter III of Russia`, `Catherine the Great`, `Metropolis of Moscow and all Rus'`, `Secularization`, `Palmarian Catholic Church`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`

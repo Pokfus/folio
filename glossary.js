@@ -9303,7 +9303,17 @@ window.GLOSSARY = {
 "Joseph_Smith": "",
 "Brigham_Young": "",
 "Texas_Revolution": "",
-"Texas_annexation": ""
+"Texas_annexation": "",
+"Catherine_the_Great": "",
+"Coronation_of_Catherine_II": "",
+"Nakaz": "",
+"Legislative_Commission": "",
+"Free_Economic_Society": "",
+"Secularisation_of_church_lands_in_Russia": "",
+"Denis_Diderot": "",
+"Grigory_Orlov": "",
+"Grigory_Potemkin": "",
+"Russo-Turkish_War_(1768–1774)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13878,7 +13888,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Joseph_Smith": "1805–1844",
 "Brigham_Young": "1801–1877",
 "Texas_Revolution": "1835–1836",
-"Texas_annexation": "1845"
+"Texas_annexation": "1845",
+"Catherine_the_Great": "1729–1796",
+"Coronation_of_Catherine_II": "1762",
+"Nakaz": "1767",
+"Legislative_Commission": "1767–1768",
+"Free_Economic_Society": "1765",
+"Secularisation_of_church_lands_in_Russia": "1764",
+"Denis_Diderot": "1713–1784",
+"Grigory_Orlov": "1734–1783",
+"Grigory_Potemkin": "1739–1791",
+"Russo-Turkish_War_(1768–1774)": "1768–1774"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19770,7 +19790,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Joseph_Smith": ["Joseph Smith Jr.","Joseph Smith, Jr."],
 "Brigham_Young": ["Brigham Young"],
 "Texas_Revolution": ["Texas War of Independence","Texan Revolution"],
-"Texas_annexation": ["annexation of Texas","Annexation of Texas"]
+"Texas_annexation": ["annexation of Texas","Annexation of Texas"],
+"Catherine_the_Great": ["Catherine II","Catherine II of Russia"],
+"Coronation_of_Catherine_II": ["coronation of Catherine II","coronation of Catherine the Great"],
+"Nakaz": ["Instruction of Catherine II","Great Instruction"],
+"Legislative_Commission": ["Legislative Commission of 1767","Commission for the Composition of a New Code"],
+"Secularisation_of_church_lands_in_Russia": ["secularisation of church lands","secularization of church lands"],
+"Denis_Diderot": ["Diderot"],
+"Grigory_Potemkin": ["Potemkin","Grigory Potemkin-Tavrichesky"],
+"Russo-Turkish_War_(1768–1774)": ["Russo-Turkish War of 1768–1774"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -19924,7 +19952,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Hedgehog_(weapon)": true,
 "Enigma_machine": true,
 "Ultra_(cryptography)": true,
-"Magic_(cryptography)": true
+"Magic_(cryptography)": true,
+"Legislative_Commission": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -29231,7 +29260,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Joseph_Smith": ["person","religion","history","united states"],
 "Brigham_Young": ["person","religion","history","united states"],
 "Texas_Revolution": ["war","history","united states","texas","mexico"],
-"Texas_annexation": ["event","history","politics","united states"]
+"Texas_annexation": ["event","history","politics","united states"],
+"Catherine_the_Great": ["ruler","history","politics","russia","enlightenment"],
+"Coronation_of_Catherine_II": ["event","history","politics","russia","religion"],
+"Nakaz": ["text","law","politics","history","russia"],
+"Legislative_Commission": ["institution","law","politics","history","russia"],
+"Free_Economic_Society": ["institution","economics","agriculture","history","russia"],
+"Secularisation_of_church_lands_in_Russia": ["event","religion","law","history","russia"],
+"Denis_Diderot": ["person","philosophy","literature","history","france"],
+"Grigory_Orlov": ["person","politics","history","russia"],
+"Grigory_Potemkin": ["person","politics","warfare","history","russia"],
+"Russo-Turkish_War_(1768–1774)": ["war","warfare","history","russia","ottoman empire"]
 });
 
 /* ============================================================================

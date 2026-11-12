@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T02:02Z",
+ "generated": "2026-11-12T04:05Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6614,
+  "ok": 6620,
   "redirect-broader": 625,
-  "redirect-variant": 397,
+  "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1010,
+  "none": 1013,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72348,6 +72348,98 @@
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
    "via": "glossary",
    "status": "ok"
+  },
+  "ru-341": {
+   "answer": "Catherine the Great",
+   "title": "Catherine the Great",
+   "url": "https://en.wikipedia.org/wiki/Catherine_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-342": {
+   "answer": "coronation of Catherine II",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Catherine the Great",
+    "Coronation of the Russian monarch",
+    "Peter II of Russia",
+    "Imperial Crown of Russia",
+    "Coronation of Bokassa I and Catherine"
+   ]
+  },
+  "ru-343": {
+   "answer": "Nakaz",
+   "title": "Nakaz",
+   "url": "https://en.wikipedia.org/wiki/Nakaz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-344": {
+   "answer": "Legislative Commission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Russian legislative election",
+    "Russian legislative elections",
+    "1912 Russian legislative election",
+    "Nakaz",
+    "1990 Russian Supreme Soviet election"
+   ]
+  },
+  "ru-345": {
+   "answer": "Free Economic Society",
+   "title": "Free Economic Society",
+   "url": "https://en.wikipedia.org/wiki/Free_Economic_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-346": {
+   "answer": "secularisation of church lands",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter III of Russia",
+    "Catherine the Great",
+    "Metropolis of Moscow and all Rus'",
+    "Secularization",
+    "Palmarian Catholic Church"
+   ]
+  },
+  "ru-347": {
+   "answer": "Denis Diderot",
+   "title": "Denis Diderot",
+   "url": "https://en.wikipedia.org/wiki/Denis_Diderot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-348": {
+   "answer": "Grigory Orlov",
+   "title": "Grigory Orlov",
+   "url": "https://en.wikipedia.org/wiki/Grigory_Orlov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-349": {
+   "answer": "Grigory Potemkin",
+   "title": "Grigory Potemkin",
+   "url": "https://en.wikipedia.org/wiki/Grigory_Potemkin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-350": {
+   "answer": "Russo-Turkish War of 1768–1774",
+   "title": "Russo-Turkish War (1768–1774)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1768%E2%80%931774)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1768–1774"
   }
  }
 }
