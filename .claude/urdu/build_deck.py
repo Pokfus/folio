@@ -99,6 +99,18 @@ ETYMS = {
     'بس': ['1', '2'],         # "enough, only" AND "bus"
     'آم': ['1', '2'],         # "mango" AND "common"
     'اردو': [None, ''],       # the language (a proper noun, no etymology number) leads
+    # A2 (2026-11-12)
+    'ذکر': ['2'],             # zikr "mention"; 1 is zakar "penis"
+    'رائے': ['2'],            # "opinion"; 1 is "king"
+    'دین': ['3'],             # dīn "religion, faith"; 1 is "poor", 2 "daily", 4-5 "debt, poverty"
+    'دم': ['2', '5'],         # dam "breath" AND dum "tail"; 1 is "taming"
+    'قوت': ['2'],             # quvvat "strength, power"; 1 is qūt "food"
+    'گھٹنا': ['3'],           # ghuṭnā "knee"; 1 is "incident", 2 "to decrease"
+    'سکھانا': ['2'],          # sikhānā "to teach"; 1 is sukhānā "to dry"
+    'دھونا': ['2'],           # dhonā "to wash"; 1 is dhūnā "gum, resin"
+    'بتی': ['2'],             # battī "lamp, light"; 1 is batī "word, speech"
+    'شکر': ['3', '1'],        # śukr "thanks" AND śakar "sugar"; 2 is "bright"
+    'مبنی': ['2'],            # mabnī "based (on)"; 1 is the rare noun mabnā
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech.
@@ -114,12 +126,13 @@ GLOSS = {
 # meets: `اور` is "and" before it is "more", `بند` "closed" before it is "dam".
 POS_LEAD = {
     'اور': 'conj', 'بند': 'adj', 'بعد': 'prep', 'کیا': 'pron', 'ہمیشہ': 'adv',
-    'بغیر': 'prep', 'چینی': 'noun', 'بدھ': 'name',
+    'بغیر': 'prep', 'چینی': 'noun', 'بدھ': 'name', 'گھٹنا': 'noun',
 }
 
 # A ROMANISATION BY HAND, where Wiktionary's entry gives none (in its own system).
 ROMAN_BY_HAND = {
     'فلم': 'film',
+    'حد': 'had',              # A2: "boundary, limit"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -443,6 +456,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -457,7 +474,7 @@ def desc(entries, n):
         "Both study directions in one deck: Urdu → English (see the Urdu, recall the meaning) "
         "and English → Urdu (see an English meaning, recall the Urdu). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

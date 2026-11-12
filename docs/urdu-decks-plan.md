@@ -6,8 +6,8 @@ twelfth language set, built in the shape of the Hindi one (`docs/hindi-decks-pla
 rule there and in the Hindi plan applies here unless this file says otherwise. Asked for on 2026-11-09:
 "Add an Urdu language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/urdu/`, §6). A2 to C1 and the
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/urdu/`, §6, §7). B1 to C1 and
+the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's Hindi
@@ -33,7 +33,7 @@ If the owner wants any of these otherwise for Urdu, change them here first.
 |---|---|---|
 | Urdu Alphabet — built | `Urdu-Alphabet.folio-deck.json` | 56 |
 | Urdu A1 Beginner — built | `Urdu-A1.folio-deck.json` | 500 |
-| Urdu A2 Elementary | `Urdu-A2.folio-deck.json` | 750 |
+| Urdu A2 Elementary — built | `Urdu-A2.folio-deck.json` | 750 |
 | Urdu B1 Intermediate | `Urdu-B1.folio-deck.json` | 1,000 |
 | Urdu B2 Upper Intermediate | `Urdu-B2.folio-deck.json` | 1,500 |
 | Urdu C1 Advanced | `Urdu-C1.folio-deck.json` | 1,500 |
@@ -103,7 +103,7 @@ as Wiktionary files it. `گانا` "song; to sing" is dealt early: its count inc
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 done 2026-11-12) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `urdu_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -118,3 +118,31 @@ The alphabet: 56 notes — the 40 letters (each in its joined shapes), the 5 mar
 pairs; every sound side names its letter, so the three s's, four z's, two t's and two h's are told apart
 (asserted unique). The shelf's hue is measured: `#58288A`, 18.1 from its nearest of 50 (first `#7066D0`, re-swept on
 merging because Greek had measured `#6F69D2` the same day; greens refused as Pakistan's flag colour).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Urdu A2." `python3 .claude/urdu/run.py --level a2`; 750 notes / 1,500 cards,
+220 from the inventory (Hindi's A2 topics in Urdu spellings) and 530 by frequency; no word of A1 repeated
+(`words_below`). **A re-run is byte-identical**, and A1 rebuilt after the A2 changes is unchanged. Tatoeba
+gives 340 of the 750 at least one sentence, 118 three. Read card by card; what that found:
+
+- **WIKTIONARY LACKS MORE OF A2 THAN OF A1.** No Urdu entry for `پھوپھی`, `ملازم`, `یونیورسٹی`, `طالبہ`,
+  `پولیس`, `تاجر`, `وکیل`, `ڈرائیور`, `نرس`, `انجینئر`, `شلوار`, `کرتا`, `کرایہ`, `پارک`, `کھانسی`, `شرمیلا`,
+  `پھر`, `پچھلا`, `جیتنا`, `ہارنا`, or the compound verbs `مدد کرنا`, `کوشش کرنا`, `پسند کرنا`. The list uses
+  what it does define: `جامعہ`, `شاگرد`, `پولس`, `سوداگر`, `دکان دار`, `رکشا`, `گندہ`, `کبھی کبھار`, `گزشتہ`,
+  `دوبارہ`, `کھانسنا`, `فوٹ بال`, the nouns `جیت`, `ہار`, `مدد`, `کوشش`. Five jobs went with no stand-in.
+- **THE MONTHS ARE NOT A TOPIC.** Wiktionary defines four of the twelve (February, April, August, October);
+  four of twelve is not a lesson, so the topic was dropped and the scope sentence no longer names it.
+- **MORE HOMOGRAPHS** (`ETYMS`, each with its reason): `ذکر` zikr "mention" (1 is a body part), `رائے`
+  "opinion" (1 is "king"), `دین` "religion", `دم` "breath; tail", `قوت` "strength", `گھٹنا` "knee",
+  `سکھانا` "to teach" (1 is "to dry"), `دھونا` "to wash", `بتی` "lamp", `شکر` "thanks; sugar", `مبنی`
+  "based on". `حد` has no romanisation in the source (`ROMAN_BY_HAND`: had).
+- **THE FILL'S NOISE IS NAMES, SUFFIXES AND FORMS** — 38 more `select.EXCLUDE` rows, each with its reason:
+  names (`سید`, `سنگھ`, `شاہد`, `رضا`, `مریم`…), suffixes (`-بندی`, `-بازی`, `-پور`, `-گاہ`), English loans
+  counted under a native homograph (`سپر`, `بیگ`, `موتر`, `ہیک`), a verb's form under a rare noun (`سنا`,
+  `سکا`, `ملی`, `پا`), plurals of a word taught (`روپے`, `انتخابات`, `حدود`), and two entries that lack
+  the common meaning (`ماہ` "month", `گزر` "passage").
+
+**Known, left.** `اسی` "eighty" is dealt first: its count includes the emphatic "this very". The written half of
+the frequency puts the news's words (`الزام`, `اجلاس`, `دھماکہ`, `قبضہ`) well inside A2, as A1's description
+already warns.
