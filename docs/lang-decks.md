@@ -3551,8 +3551,9 @@ changed was the one that had been wrong all along.
   is measured, `#75543F` (re-swept at the merge: Greek had taken the first sweep's `#6F69D2`).
 - `.claude/thai/` — the generator behind the Thai decks (Nov 2026, on request: "Add a Thai language
   collection"; Hindi's three answers taken as the defaults). **Built: the alphabet, `decks/Thai-Alphabet.folio-deck.json`**
-  (92 notes), **A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2,
-  `decks/Thai-A2.folio-deck.json`** (750 notes / 1,500 cards; 2026-11-12, "Add Thai A2"). `python3 .claude/thai/run.py
+  (92 notes), **A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2,
+  `decks/Thai-A2.folio-deck.json`** (750 notes / 1,500 cards; 2026-11-12, "Add Thai A2") **and B1,
+  `decks/Thai-B1.folio-deck.json`** (1,000 notes / 2,000 cards; 2026-11-12, "Add B1"). `python3 .claude/thai/run.py
   [--level a1]`, `python3 .claude/thai/alphabet.py`, `node .claude/thai/check-thai.js`; a re-run is
   byte-identical. Hindi's shape (an assembled CEFR list, both directions, romanisation — Paiboon, which writes the
   tone), plus what Thai alone needs: a word cut for an unspaced script (`th.Segmenter`, maximal matching), a

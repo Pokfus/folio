@@ -21,7 +21,7 @@ WHAT A CARD CARRIES:
 There is no forms table: Thai does not inflect.  The speaker reads the `Word`
 field, the bare Thai.
 """
-import html, json, os, sys
+import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from th import fold
@@ -108,6 +108,28 @@ ETYMS = {
     'สลัด': ['2'],              # "salad"; 1 is "pirate"
     'ห้าง': ['3', '2'],         # "department store" AND "shop"; 1 is "hut"
     'โทร': ['2'],               # "to phone"; 1 is the prefix "tele-"
+    # B1
+    'ปรับ': ['2'],              # "to adjust; to fine"; 1 is "to tell"
+    'ลับ': ['2'],               # "secret"; 1 is "to whet"
+    'ลาน': ['2'],               # "yard, open area"; 1 is a watch's spring
+    'รัง': ['2'],               # "nest"; 1 is a timber tree
+    'สงสาร': ['2'],             # "to pity"; 1 is the Buddhist samsara
+    'คาด': ['2'],               # "to expect"; 1 is "to tie around"
+    'จด': ['2'],                # "to write down"; 1 is "to adjoin"
+    'จ้าง': ['2'],              # "to hire"; 1 is a plain rice dumpling
+    'คม': ['2'],                # "sharp; edge"; 1 is a royal "to wai"
+    'เสี่ยง': ['2'],            # "to risk"; 1 is "section, part"
+    'ทับ': ['2'],               # "to put on top; to run over"; 1 is "hut"
+    'หัด': ['2'],               # "to practise"; 1 is "measles"
+    'ชิน': ['2'],               # "to be used to"; 1 is an amulet alloy
+    'พึ่ง': ['2'],              # "to depend on"; 1 is a spelling of เพิ่ง "just"
+    'กลอน': ['2'],              # "poem, verse"; 1 is "rafter; bolt"
+    'อ้อ': ['2'],               # the interjection "oh, I see"; 1 is "reed"
+    'เชื้อ': ['2', '1'],        # "germ; yeast" AND "family line"
+    'ล้อ': ['2', '1'],          # "wheel" AND "to tease"
+    'สบู่': ['2'],              # "soap"; 1 is the Jatropha plant
+    'มือถือ': ['2'],            # "mobile phone"; 1 is the adjective "handheld"
+    'กู้': ['2', '1'],          # "to borrow (a loan)" AND "to rescue, restore"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one -- its
@@ -144,8 +166,22 @@ LEAD = {
     'สมัคร': 'to subscribe',    # "to sign up, apply"; first is "to want"
     'ผีเสื้อ': 'butterfly',     # first is "tutelar spirit"
     'กล้อง': 'camera',          # first is "pipe"
+    # B1
+    'ปรับ': 'to adjust',        # "to fine" comes first
+    'โปรด': 'to favour',        # first is "to free from suffering" (royal, Buddhist)
+    'เฝ้า': 'to guard',         # first is "to have an audience (with a king)"
+    'พิมพ์': 'to print',        # first is "to press; to impress"
+    'ค่ำ': 'dusk',              # first is "day" (of the lunar month)
+    'ปริญญา': 'degree',         # first is "thorough knowledge"
+    'เกษียณ': 'to retire',      # first is "to come to an end"
+    'จีบ': 'to hit on',         # "to court" is tagged slang; first is "to fold, pleat"
+    'วิจัย': 'research',        # first is "collection; compilation"
     'เบา': 'not heavy',         # "light (in weight)" is fourth of the adjective's senses
 }
+
+ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\): (.+)$)')
+BARE = re.compile(r'^(?:abstract noun of [^\s(]+ \([^(),]*\)|Used other than figuratively or idiomatically.*)$')
+SYN = re.compile(r'^synonym of [^\s(]+ \([^,()]+, “([^”]+)”\)$')
 
 # A GLOSS NEVER SHOWN: a vulgar sense Wiktionary leaves untagged (so it is not
 # weak), or an extraction artefact.  (word, substring of the gloss.)
@@ -161,7 +197,7 @@ DROP = {
 PREFER = {'กว่า': 'prep', 'หาก': 'conj', 'จน': 'conj', 'แต่': 'conj', 'คุณ': 'pron',
           'เพื่อน': 'noun', 'เมื่อ': 'conj', 'ใต้': 'prep', 'ข้าง': 'noun', 'มัก': 'adv',
           'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv',
-          'แจ้ง': 'verb'}
+          'แจ้ง': 'verb', 'สุนัข': 'noun', 'สมาคม': 'noun'}
 
 
 def entries_for(row, lex):
@@ -206,6 +242,13 @@ def english(ents, word=''):
         # ต้อง's first sense, "to touch", is literary; its everyday "must" is fourth
         lead = LEAD.get(word)
         glosses = [g for g in e['glosses'] if not any(w == word and d in g['g'] for w, d in DROP)]
+        # "synonym of หมา (mǎa, “dog”)" shows Wiktionary's own quoted meaning, "dog":
+        # สุนัข is the formal word for a dog, and the pointer alone teaches nothing.
+        glosses = [dict(g, g=ABS.sub(lambda m: m.group(1) or m.group(2), SYN.sub(r'\1', g['g']))) for g in glosses]
+        # "abstract noun of ดัน (dan)" with no meaning of its own, and Wiktionary's
+        # "Used other than figuratively or idiomatically" (a pointer to the parts),
+        # teach nothing: dropped where the entry has anything else (B1: ความดัน, ผ่าตัด)
+        glosses = [g for g in glosses if not BARE.match(g['g'])] or glosses
         strong = [g for g in glosses if not g['weak'] or (lead and lead in g['g'])]
         for g in strong or glosses[:1]:
             t = g['g'].rstrip(' :;,')

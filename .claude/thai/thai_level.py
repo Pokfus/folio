@@ -68,6 +68,21 @@ SCOPE = {
                   'happened and when, comparing and giving an opinion, and the everyday verbs of '
                   'moving, dressing and doing',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'work and careers, money, banking and the economy, education, the news, media '
+                  'and technology, government, law and society, the environment, health and '
+                  'medicine, travel, transport and accommodation, the household and its chores, '
+                  'relationships and the stages of life, feelings and character, religion, '
+                  'Buddhism and Thai customs, the royal and polite registers a learner meets, '
+                  'abstract nouns for ideas, reasons and plans, the connectors that join '
+                  'sentences, and the verbs of thinking, deciding, arguing and changing',
+    },
 }
 
 

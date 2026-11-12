@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped, Hindi's above all
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/thai/`, §6, §7). B1 to C1 and the
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/thai/`, §6–§8). B2, C1 and the
 phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -34,7 +34,7 @@ the owner's to overturn**:
 | Thai Alphabet — built | `Thai-Alphabet.folio-deck.json` | 92 |
 | Thai A1 Beginner — built | `Thai-A1.folio-deck.json` | 500 |
 | Thai A2 Elementary — built | `Thai-A2.folio-deck.json` | 750 |
-| Thai B1 Intermediate | `Thai-B1.folio-deck.json` | 1,000 |
+| Thai B1 Intermediate — built | `Thai-B1.folio-deck.json` | 1,000 |
 | Thai B2 Upper Intermediate | `Thai-B2.folio-deck.json` | 1,500 |
 | Thai C1 Advanced | `Thai-C1.folio-deck.json` | 1,500 |
 | Thai Phrases and Expressions | `Thai-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -140,3 +140,30 @@ sentences for 599, three for 375. The A1 deck re-runs byte-identical after these
   มะรืนนี้ เมื่อวานซืน น้อยกว่า จริงๆ ถึงแม้ หรือว่า ถ้าหาก เสียงดัง ใกล้ๆ ไกลๆ ร่ำรวย อยู่อาศัย หวีผม.
 - **Known, left**: the fill again carries written-Thai words (มาตรา, กฎหมาย, รัฐบาล, ราชการ, สมเด็จ) the two
   corpora agree on; some glosses stay definitional (หมา "canine: any animal of the family Canidae, as dog …").
+
+## 8. As built (2026-11-12): B1
+
+On request ("Add B1"). `python3 .claude/thai/run.py --level b1`. 1,000 notes: 436 from the B1 inventory
+(18 topics, `inventory.py` `B1`), 564 by frequency; sentences for 548, three for 228 (Tatoeba's Thai thins out
+at this level: 452 words have none). A re-run is byte-identical; A1 is unchanged; **A2 changed in two cards**,
+for the better, through the generic rules below (ความคิด loses a bare "abstract noun of คิด", ความรู้สึก shows
+"feeling; emotion" without the pointer in front).
+
+- **The inventory gave only 386 at first**: 95 of its words are compounds Wiktionary has no entry for. 50 were
+  worth a card and are now `COMPOSE` rows (ตกงาน, ค่าใช้จ่าย, ผิดกฎหมาย, โลกร้อน, ล้างจาน, ส่วนใหญ่, เพิ่มขึ้น,
+  อย่างไรก็ตาม, นอกจากนี้ …); the rest were dropped (the list is printed by `select.py`).
+- **`COMPOSE` now also overrides an entry Wiktionary HAS** but defines with no meaning: การค้า, การรักษา,
+  ความตั้งใจ, ความรัก ("abstract noun of X" alone), กลับบ้าน ("to go" plus a pointer), ผู้ใช้ (only "abettor").
+- **Generic gloss rules** (`build_deck.english`): "synonym of หมา (mǎa, “dog”)" shows the quoted meaning, so
+  สุนัข, the formal word for a dog, is carded as "dog"; "abstract noun of X (…): meaning" shows the meaning;
+  a bare "abstract noun of X (…)" and "Used other than figuratively or idiomatically" are dropped where the
+  entry has anything else.
+- **The fill skips a word defined only by pointer** (`select.pointer_only`: ปรกติ, an old spelling of ปกติ).
+- **Twenty-one more ETYMS, nine more LEAD, two more PREFER** (ปรับ had opened on "to tell", ลับ on "to whet",
+  จ้าง on "plain zongzi", หัด on "measles", ชิน on an amulet alloy, สบู่ on the Jatropha plant, คม on a royal
+  "to wai", เสี่ยง on "section", กลอน on "rafter", มือถือ on "handheld"); parts of speech on ten inventory words.
+- **`EXCLUDE` grew**, each with its reason: syllable counts that carded a rare homograph (กระ "hawksbill turtle",
+  ระ, ตะ, ดา, กร, ริ), the letter เอ, อ้าย (only "used in อุ้ยอ้าย"), เมีย (its "wife" sense is tagged weak, so
+  the card taught only "female"), พลัง (shares "energy" with พลังงาน). โทรศัพท์มือถือ left out beside มือถือ.
+- **Known, left**: more of the fill is written or royal register (ถวาย, ตรัส, ทูล, พระราชทาน, รัชกาล) — the two
+  corpora agree on it, and a reader of Thai meets it; some glosses stay long and definitional.

@@ -18,7 +18,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · the repetition mark ๆ, which the corpus counts as a word;
   · the hand list `EXCLUDE`, each line with its reason.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from th import fold
@@ -29,6 +29,19 @@ from inventory import INVENTORY
 EXCLUDE = {
     'ฯ': 'the abbreviation mark, not a word',
     'ๆ': 'the repetition mark, not a word',
+    'สา': 'rare ("a kind of tree", "dog", archaic); its count is most likely the syllable of อาสา, ศาสนา and the like',
+    'กระ': 'its count is the prefix syllable of กระ- words (กระดาษ, กระเป๋า); the card was "hawksbill turtle"',
+    'ระ': 'a syllable count (ระวัง, ระหว่าง); the card was "to scrape"',
+    'ตะ': 'a syllable count (ตะวัน, ตะโกน); the card was "to encrust"',
+    'ดา': 'a syllable count; the card was "bugs of the family Belostomatidae"',
+    'กร': 'a syllable count, mostly from names; the card was "doer; (royal) hand"',
+    'เอ': 'the Latin letter A, counted from loanwords and labels',
+    'อ้าย': 'Wiktionary has only "used in อุ้ยอ้าย"',
+    'เมีย': '"wife" is tagged as a register Wiktionary marks weak, so the card taught only "female"',
+    'กลับบ้าน': 'Wiktionary\'s entry is "to go" plus a pointer; B1\'s inventory composes it instead',
+    'ริ': 'a syllable count (ริม, ริเริ่ม); the card was "to initiate"',
+    'ผู้ใช้': 'Wiktionary\'s only sense is "abettor"; B1\'s inventory composes "user" instead',
+    'พลัง': 'shares "energy" with พลังงาน, B1\'s inventory word, and the shelf-wide label is Thai',
 }
 
 # A COMPOUND THE INVENTORY NEEDS AND WIKTIONARY HAS NO ENTRY FOR.  The days of
@@ -60,12 +73,82 @@ COMPOSE = {
     'จ่ายเงิน': ('จ่าย เงิน', 'verb', 'to pay (money)'),
     'แปรงฟัน': ('แปรง ฟัน', 'verb', 'to brush one\'s teeth'),
     'มีความสุข': ('มี ความสุข', 'verb', 'to be happy (literally "to have happiness")'),
+    # B1
+    'ตกงาน': ('ตก งาน', 'verb', "to lose one's job; to be out of work"),
+    'ขาดทุน': ('ขาด ทุน', 'verb', 'to make a loss'),
+    'ค่าใช้จ่าย': ('ค่า ใช้ จ่าย', 'noun', 'expenses; costs'),
+    'ค่าครองชีพ': ('ค่า ครอง ชีพ', 'noun', 'the cost of living'),
+    'ภาคเรียน': ('ภาค เรียน', 'noun', 'semester; school term'),
+    'สอบผ่าน': ('สอบ ผ่าน', 'verb', 'to pass an exam'),
+    'ติดคุก': ('ติด คุก', 'verb', 'to be in prison; to be jailed'),
+    'ผิดกฎหมาย': ('ผิด กฎหมาย', 'adj', 'illegal; against the law'),
+    'ถูกกฎหมาย': ('ถูก กฎหมาย', 'adj', 'legal; lawful'),
+    'แก้ปัญหา': ('แก้ ปัญหา', 'verb', 'to solve a problem'),
+    'โลกร้อน': ('โลก ร้อน', 'noun', 'global warming (literally "the world is hot")'),
+    'ห้องฉุกเฉิน': ('ห้อง ฉุกเฉิน', 'noun', 'emergency room'),
+    'เวียนหัว': ('เวียน หัว', 'verb', 'to feel dizzy'),
+    'นอนไม่หลับ': ('นอน ไม่ หลับ', 'verb', 'to be unable to sleep; to have insomnia'),
+    'อาหารเป็นพิษ': ('อาหาร เป็น พิษ', 'noun', 'food poisoning'),
+    'ลดน้ำหนัก': ('ลด น้ำหนัก', 'verb', 'to lose weight; to go on a diet'),
+    'สถานีขนส่ง': ('สถานี ขนส่ง', 'noun', 'bus terminal; bus station'),
+    'ล้างจาน': ('ล้าง จาน', 'verb', 'to wash the dishes'),
+    'ซักผ้า': ('ซัก ผ้า', 'verb', 'to do the laundry; to wash clothes'),
+    'รีดผ้า': ('รีด ผ้า', 'verb', 'to iron clothes'),
+    'ค่าไฟ': ('ค่า ไฟ', 'noun', 'the electricity bill'),
+    'ค่าน้ำ': ('ค่า น้ำ', 'noun', 'the water bill'),
+    'เครื่องใช้ไฟฟ้า': ('เครื่อง ใช้ ไฟฟ้า', 'noun', 'electrical appliance'),
+    'เลี้ยงลูก': ('เลี้ยง ลูก', 'verb', 'to bring up children'),
+    'ไหว้พระ': ('ไหว้ พระ', 'verb', 'to pay respects to the Buddha or to monks (as at a temple)'),
+    'ขอพร': ('ขอ พร', 'verb', 'to ask for a blessing; to make a wish'),
+    'ความแตกต่าง': ('ความ แตกต่าง', 'noun', 'difference'),
+    'ส่วนใหญ่': ('ส่วน ใหญ่', 'noun', 'the majority; most; mostly'),
+    'ส่วนน้อย': ('ส่วน น้อย', 'noun', 'the minority; a small part'),
+    'เพิ่มขึ้น': ('เพิ่ม ขึ้น', 'verb', 'to increase; to rise'),
+    'ลดลง': ('ลด ลง', 'verb', 'to decrease; to fall'),
+    'มีชื่อเสียง': ('มี ชื่อเสียง', 'adj', 'famous; well known'),
+    'มีประโยชน์': ('มี ประโยชน์', 'adj', 'useful'),
+    'ไร้ประโยชน์': ('ไร้ ประโยชน์', 'adj', 'useless'),
+    'หายาก': ('หา ยาก', 'adj', 'rare; hard to find'),
+    'น่าตื่นเต้น': ('น่า ตื่นเต้น', 'adj', 'exciting'),
+    'ยอดนิยม': ('ยอด นิยม', 'adj', 'most popular; best-selling'),
+    'ไม่ยุติธรรม': ('ไม่ ยุติธรรม', 'adj', 'unfair; unjust'),
+    'คาดว่า': ('คาด ว่า', 'verb', 'to expect that; to estimate that'),
+    'เป็นเจ้าของ': ('เป็น เจ้าของ', 'verb', 'to own'),
+    'แสดงความคิดเห็น': ('แสดง ความคิดเห็น', 'verb', 'to give an opinion; to comment'),
+    'อย่างไรก็ตาม': ('อย่างไร ก็ ตาม', 'conj', 'however; nevertheless'),
+    'นอกจากนี้': ('นอกจาก นี้', 'conj', 'besides; moreover; in addition'),
+    'จนกระทั่ง': ('จน กระทั่ง', 'conj', 'until'),
+    'ตัวอย่างเช่น': ('ตัวอย่าง เช่น', 'conj', 'for example'),
+    'ยังไงก็ตาม': ('ยังไง ก็ ตาม', 'conj', 'anyway; however (colloquial)'),
+    'ทันทีที่': ('ทันที ที่', 'conj', 'as soon as'),
+    'อาหารเสริม': ('อาหาร เสริม', 'noun', 'dietary supplement'),
+    'ประสบความสำเร็จ': ('ประสบ ความสำเร็จ', 'verb', 'to succeed; to be successful'),
+    # B1: Wiktionary HAS these, but only as "abstract noun of X" with no meaning,
+    # or (กลับบ้าน) as "to go" plus a pointer to the parts
+    'การค้า': ('การ ค้า', 'noun', 'trade; commerce'),
+    'การรักษา': ('การ รักษา', 'noun', 'treatment (medical); care; preservation'),
+    'ความตั้งใจ': ('ความ ตั้งใจ', 'noun', 'intention; determination'),
+    'ความรัก': ('ความ รัก', 'noun', 'love'),
+    'กลับบ้าน': ('กลับ บ้าน', 'verb', 'to go home; to come home'),
+    'ผู้ใช้': ('ผู้ ใช้', 'noun', 'user (of a service, a computer, a product)'),
 }
 
 LEAD_TOPICS = {'greetings and politeness', 'particles'}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'เหี้ย', 'ควาย', 'สัตว์', 'มึง', 'กู', 'ไอ้', 'อี', 'ส้นตีน', 'เย็ด', 'ห่า'}
+
+
+# A word Wiktionary defines ONLY by pointing at another (synonym of หมา, an
+# old spelling of ปกติ) is not a card -- `check-thai.js` refuses its gloss.  The
+# fill skips it; read off the B1 ranking (สุนัข, ปรกติ, สา).
+POINTER = re.compile(r'^(?:alternative|obsolete|dated|rare|archaic) (?:form|spelling) of '
+                     r'|^(?:synonym|abbreviation) of [^;]*$', re.I)
+
+
+def pointer_only(L):
+    gl = [g['g'] for e in L['entries'] if e['pos'] != 'name' for g in e['glosses'] if not g['weak']]
+    return bool(gl) and all(POINTER.match(g.rstrip(' .')) for g in gl)
 
 
 def usable(L):
@@ -86,7 +169,7 @@ def main():
                 continue
             L = lex.get(k)
             via = ''
-            if not L and w in COMPOSE:
+            if w in COMPOSE:     # also overrides an entry that defines it only by pointer
                 parts, cpos, gloss = COMPOSE[w]
                 if all(fold(p) in lex and 'entries' in lex[fold(p)] for p in parts.split()):
                     seen.add(k)
@@ -122,7 +205,7 @@ def main():
             continue
         if k in seen or k in below or k in swears or k in excl:
             continue
-        if ' ' in k or not usable(L) or L['freq'] <= 0:
+        if ' ' in k or not usable(L) or L['freq'] <= 0 or pointer_only(L):
             continue
         if all(e['pos'] in ('phrase', 'proverb', 'name') for e in L['entries']):
             continue
