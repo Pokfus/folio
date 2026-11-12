@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T06:54Z",
+ "generated": "2026-11-12T07:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7545,
-  "redirect-broader": 731,
-  "redirect-variant": 459,
-  "section-redirect": 170,
+  "ok": 7621,
+  "redirect-broader": 744,
+  "redirect-variant": 463,
+  "section-redirect": 174,
   "disambiguation": 153,
-  "none": 1128,
-  "disambig-resolved": 99,
+  "none": 1129,
+  "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -82322,6 +82322,740 @@
    "answer": "auditory scene analysis",
    "title": "Auditory scene analysis",
    "url": "https://en.wikipedia.org/wiki/Auditory_scene_analysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-101": {
+   "answer": "staining",
+   "title": "Staining",
+   "url": "https://en.wikipedia.org/wiki/Staining",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-102": {
+   "answer": "multicellularity",
+   "title": "Multicellular organism",
+   "url": "https://en.wikipedia.org/wiki/Multicellular_organism",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Multicellularity"
+  },
+  "bio-103": {
+   "answer": "cell type",
+   "title": "Cell type",
+   "url": "https://en.wikipedia.org/wiki/Cell_type",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-104": {
+   "answer": "stem cell",
+   "title": "Stem cell",
+   "url": "https://en.wikipedia.org/wiki/Stem_cell",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-105": {
+   "answer": "tissue",
+   "title": "Tissue (biology)",
+   "url": "https://en.wikipedia.org/wiki/Tissue_(biology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-106": {
+   "answer": "organ",
+   "title": "Organ (biology)",
+   "url": "https://en.wikipedia.org/wiki/Organ_(biology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-107": {
+   "answer": "eukaryogenesis",
+   "title": "Eukaryogenesis",
+   "url": "https://en.wikipedia.org/wiki/Eukaryogenesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-108": {
+   "answer": "endosymbiotic theory",
+   "title": "Symbiogenesis",
+   "url": "https://en.wikipedia.org/wiki/Symbiogenesis",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Endosymbiotic theory"
+  },
+  "bio-109": {
+   "answer": "cell culture",
+   "title": "Cell culture",
+   "url": "https://en.wikipedia.org/wiki/Cell_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-110": {
+   "answer": "fluorescence microscopy",
+   "title": "Fluorescence microscope",
+   "url": "https://en.wikipedia.org/wiki/Fluorescence_microscope",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Fluorescence microscopy"
+  },
+  "bio-111": {
+   "answer": "organelle",
+   "title": "Organelle",
+   "url": "https://en.wikipedia.org/wiki/Organelle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-112": {
+   "answer": "nucleus",
+   "title": "Cell nucleus",
+   "url": "https://en.wikipedia.org/wiki/Cell_nucleus",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Nucleus"
+  },
+  "bio-113": {
+   "answer": "nucleolus",
+   "title": "Nucleolus",
+   "url": "https://en.wikipedia.org/wiki/Nucleolus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-114": {
+   "answer": "chromatin",
+   "title": "Chromatin",
+   "url": "https://en.wikipedia.org/wiki/Chromatin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-115": {
+   "answer": "nuclear envelope",
+   "title": "Nuclear envelope",
+   "url": "https://en.wikipedia.org/wiki/Nuclear_envelope",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-116": {
+   "answer": "ribosome",
+   "title": "Ribosome",
+   "url": "https://en.wikipedia.org/wiki/Ribosome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-117": {
+   "answer": "rough endoplasmic reticulum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Rough endoplasmic reticulum",
+   "target": "Endoplasmic reticulum#Rough endoplasmic reticulum"
+  },
+  "bio-118": {
+   "answer": "smooth endoplasmic reticulum",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Smooth endoplasmic reticulum",
+   "target": "Endoplasmic reticulum#Smooth endoplasmic reticulum"
+  },
+  "bio-119": {
+   "answer": "Golgi apparatus",
+   "title": "Golgi apparatus",
+   "url": "https://en.wikipedia.org/wiki/Golgi_apparatus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-120": {
+   "answer": "lysosome",
+   "title": "Lysosome",
+   "url": "https://en.wikipedia.org/wiki/Lysosome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-121": {
+   "answer": "secretory pathway",
+   "title": "Secretion",
+   "url": "https://en.wikipedia.org/wiki/Secretion",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Secretory pathway"
+  },
+  "bio-122": {
+   "answer": "mitochondrion",
+   "title": "Mitochondria",
+   "url": "https://en.wikipedia.org/wiki/Mitochondria",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Mitochondrion"
+  },
+  "bio-123": {
+   "answer": "chloroplast",
+   "title": "Chloroplast",
+   "url": "https://en.wikipedia.org/wiki/Chloroplast",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-124": {
+   "answer": "vacuole",
+   "title": "Vacuole",
+   "url": "https://en.wikipedia.org/wiki/Vacuole",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-125": {
+   "answer": "peroxisome",
+   "title": "Peroxisome",
+   "url": "https://en.wikipedia.org/wiki/Peroxisome",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-126": {
+   "answer": "cytoskeleton",
+   "title": "Cytoskeleton",
+   "url": "https://en.wikipedia.org/wiki/Cytoskeleton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-127": {
+   "answer": "microtubule",
+   "title": "Microtubule",
+   "url": "https://en.wikipedia.org/wiki/Microtubule",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-128": {
+   "answer": "centriole",
+   "title": "Centriole",
+   "url": "https://en.wikipedia.org/wiki/Centriole",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-129": {
+   "answer": "cilium",
+   "title": "Cilium",
+   "url": "https://en.wikipedia.org/wiki/Cilium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-130": {
+   "answer": "cell wall",
+   "title": "Cell wall",
+   "url": "https://en.wikipedia.org/wiki/Cell_wall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-131": {
+   "answer": "plasmodesmata",
+   "title": "Plasmodesma",
+   "url": "https://en.wikipedia.org/wiki/Plasmodesma",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Plasmodesmata"
+  },
+  "bio-132": {
+   "answer": "cell junction",
+   "title": "Cell junction",
+   "url": "https://en.wikipedia.org/wiki/Cell_junction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-133": {
+   "answer": "extracellular matrix",
+   "title": "Extracellular matrix",
+   "url": "https://en.wikipedia.org/wiki/Extracellular_matrix",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-134": {
+   "answer": "plant cell",
+   "title": "Plant cell",
+   "url": "https://en.wikipedia.org/wiki/Plant_cell",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-135": {
+   "answer": "compartmentalisation",
+   "title": "Cellular compartment",
+   "url": "https://en.wikipedia.org/wiki/Cellular_compartment",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Compartmentalization"
+  },
+  "bio-136": {
+   "answer": "cell membrane",
+   "title": "Cell membrane",
+   "url": "https://en.wikipedia.org/wiki/Cell_membrane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-137": {
+   "answer": "lipid bilayer",
+   "title": "Lipid bilayer",
+   "url": "https://en.wikipedia.org/wiki/Lipid_bilayer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-138": {
+   "answer": "fluid mosaic model",
+   "title": "Fluid mosaic model",
+   "url": "https://en.wikipedia.org/wiki/Fluid_mosaic_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-139": {
+   "answer": "membrane protein",
+   "title": "Membrane protein",
+   "url": "https://en.wikipedia.org/wiki/Membrane_protein",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-140": {
+   "answer": "cholesterol",
+   "title": "Cholesterol",
+   "url": "https://en.wikipedia.org/wiki/Cholesterol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-141": {
+   "answer": "semipermeable membrane",
+   "title": "Semipermeable membrane",
+   "url": "https://en.wikipedia.org/wiki/Semipermeable_membrane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-142": {
+   "answer": "diffusion",
+   "title": "Diffusion",
+   "url": "https://en.wikipedia.org/wiki/Diffusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-143": {
+   "answer": "facilitated diffusion",
+   "title": "Facilitated diffusion",
+   "url": "https://en.wikipedia.org/wiki/Facilitated_diffusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-144": {
+   "answer": "osmosis",
+   "title": "Osmosis",
+   "url": "https://en.wikipedia.org/wiki/Osmosis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-145": {
+   "answer": "water potential",
+   "title": "Water potential",
+   "url": "https://en.wikipedia.org/wiki/Water_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-146": {
+   "answer": "tonicity",
+   "title": "Tonicity",
+   "url": "https://en.wikipedia.org/wiki/Tonicity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-147": {
+   "answer": "active transport",
+   "title": "Active transport",
+   "url": "https://en.wikipedia.org/wiki/Active_transport",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-148": {
+   "answer": "sodium-potassium pump",
+   "title": "Sodium–potassium pump",
+   "url": "https://en.wikipedia.org/wiki/Sodium%E2%80%93potassium_pump",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-149": {
+   "answer": "co-transport",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Co-transport",
+   "target": "Active transport#Secondary active transport"
+  },
+  "bio-150": {
+   "answer": "endocytosis",
+   "title": "Endocytosis",
+   "url": "https://en.wikipedia.org/wiki/Endocytosis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-151": {
+   "answer": "exocytosis",
+   "title": "Exocytosis",
+   "url": "https://en.wikipedia.org/wiki/Exocytosis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-152": {
+   "answer": "membrane potential",
+   "title": "Membrane potential",
+   "url": "https://en.wikipedia.org/wiki/Membrane_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-153": {
+   "answer": "cell signalling",
+   "title": "Cell signaling",
+   "url": "https://en.wikipedia.org/wiki/Cell_signaling",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Cell signalling"
+  },
+  "bio-154": {
+   "answer": "signal transduction",
+   "title": "Signal transduction",
+   "url": "https://en.wikipedia.org/wiki/Signal_transduction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-155": {
+   "answer": "biological target",
+   "title": "Biological target",
+   "url": "https://en.wikipedia.org/wiki/Biological_target",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-156": {
+   "answer": "cellular respiration",
+   "title": "Cellular respiration",
+   "url": "https://en.wikipedia.org/wiki/Cellular_respiration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-157": {
+   "answer": "anaerobic respiration",
+   "title": "Anaerobic respiration",
+   "url": "https://en.wikipedia.org/wiki/Anaerobic_respiration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-158": {
+   "answer": "glycolysis",
+   "title": "Glycolysis",
+   "url": "https://en.wikipedia.org/wiki/Glycolysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-159": {
+   "answer": "link reaction",
+   "title": "Pyruvate dehydrogenase",
+   "url": "https://en.wikipedia.org/wiki/Pyruvate_dehydrogenase",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Link reaction"
+  },
+  "bio-160": {
+   "answer": "Krebs cycle",
+   "title": "Citric acid cycle",
+   "url": "https://en.wikipedia.org/wiki/Citric_acid_cycle",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Krebs cycle"
+  },
+  "bio-161": {
+   "answer": "electron transport chain",
+   "title": "Electron transport chain",
+   "url": "https://en.wikipedia.org/wiki/Electron_transport_chain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-162": {
+   "answer": "oxidative phosphorylation",
+   "title": "Oxidative phosphorylation",
+   "url": "https://en.wikipedia.org/wiki/Oxidative_phosphorylation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-163": {
+   "answer": "chemiosmosis",
+   "title": "Chemiosmosis",
+   "url": "https://en.wikipedia.org/wiki/Chemiosmosis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-164": {
+   "answer": "ATP synthase",
+   "title": "ATP synthase",
+   "url": "https://en.wikipedia.org/wiki/ATP_synthase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-165": {
+   "answer": "cristae",
+   "title": "Crista",
+   "url": "https://en.wikipedia.org/wiki/Crista",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Cristae"
+  },
+  "bio-166": {
+   "answer": "NADH",
+   "title": "Nicotinamide adenine dinucleotide",
+   "url": "https://en.wikipedia.org/wiki/Nicotinamide_adenine_dinucleotide",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "NADH"
+  },
+  "bio-167": {
+   "answer": "lactic acid fermentation",
+   "title": "Lactic acid fermentation",
+   "url": "https://en.wikipedia.org/wiki/Lactic_acid_fermentation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-168": {
+   "answer": "fermentation",
+   "title": "Fermentation",
+   "url": "https://en.wikipedia.org/wiki/Fermentation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-169": {
+   "answer": "respiratory substrate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Respiratory burst",
+    "Cellular respiration",
+    "Respiratory complex I",
+    "Outline of biology",
+    "Oxidative phosphorylation"
+   ]
+  },
+  "bio-170": {
+   "answer": "respiratory quotient",
+   "title": "Respiratory quotient",
+   "url": "https://en.wikipedia.org/wiki/Respiratory_quotient",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-171": {
+   "answer": "respirometer",
+   "title": "Respirometer",
+   "url": "https://en.wikipedia.org/wiki/Respirometer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-172": {
+   "answer": "basal metabolic rate",
+   "title": "Basal metabolic rate",
+   "url": "https://en.wikipedia.org/wiki/Basal_metabolic_rate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-173": {
+   "answer": "excess post-exercise oxygen consumption",
+   "title": "Excess post-exercise oxygen consumption",
+   "url": "https://en.wikipedia.org/wiki/Excess_post-exercise_oxygen_consumption",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-174": {
+   "answer": "cyanide",
+   "title": "Cyanide",
+   "url": "https://en.wikipedia.org/wiki/Cyanide",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-175": {
+   "answer": "obligate anaerobe",
+   "title": "Obligate anaerobe",
+   "url": "https://en.wikipedia.org/wiki/Obligate_anaerobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-176": {
+   "answer": "photosynthesis",
+   "title": "Photosynthesis",
+   "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-177": {
+   "answer": "mesophyll",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Mesophyll",
+   "target": "Leaf#Mesophyll"
+  },
+  "bio-178": {
+   "answer": "thylakoid",
+   "title": "Thylakoid",
+   "url": "https://en.wikipedia.org/wiki/Thylakoid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-179": {
+   "answer": "carotenoid",
+   "title": "Carotenoid",
+   "url": "https://en.wikipedia.org/wiki/Carotenoid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-180": {
+   "answer": "chlorophyll",
+   "title": "Chlorophyll",
+   "url": "https://en.wikipedia.org/wiki/Chlorophyll",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-181": {
+   "answer": "action spectrum",
+   "title": "Action spectrum",
+   "url": "https://en.wikipedia.org/wiki/Action_spectrum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-182": {
+   "answer": "light-dependent reactions",
+   "title": "Photosystem",
+   "url": "https://en.wikipedia.org/wiki/Photosystem",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Light-dependent reactions"
+  },
+  "bio-183": {
+   "answer": "photosystem",
+   "title": "Photosystem",
+   "url": "https://en.wikipedia.org/wiki/Photosystem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-184": {
+   "answer": "photolysis",
+   "title": "Photodissociation",
+   "url": "https://en.wikipedia.org/wiki/Photodissociation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Photolysis"
+  },
+  "bio-185": {
+   "answer": "photophosphorylation",
+   "title": "Photophosphorylation",
+   "url": "https://en.wikipedia.org/wiki/Photophosphorylation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-186": {
+   "answer": "cyclic electron flow",
+   "title": "Photochemistry",
+   "url": "https://en.wikipedia.org/wiki/Photochemistry",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Cyclic electron flow"
+  },
+  "bio-187": {
+   "answer": "carbon fixation",
+   "title": "Biological carbon fixation",
+   "url": "https://en.wikipedia.org/wiki/Biological_carbon_fixation",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Carbon fixation"
+  },
+  "bio-188": {
+   "answer": "Calvin cycle",
+   "title": "Calvin cycle",
+   "url": "https://en.wikipedia.org/wiki/Calvin_cycle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-189": {
+   "answer": "RuBisCO",
+   "title": "RuBisCO",
+   "url": "https://en.wikipedia.org/wiki/RuBisCO",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-190": {
+   "answer": "photorespiration",
+   "title": "Photorespiration",
+   "url": "https://en.wikipedia.org/wiki/Photorespiration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-191": {
+   "answer": "C4 photosynthesis",
+   "title": "C4 carbon fixation",
+   "url": "https://en.wikipedia.org/wiki/C4_carbon_fixation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "C4 photosynthesis"
+  },
+  "bio-192": {
+   "answer": "crassulacean acid metabolism",
+   "title": "Crassulacean acid metabolism",
+   "url": "https://en.wikipedia.org/wiki/Crassulacean_acid_metabolism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-193": {
+   "answer": "limiting factor",
+   "title": "Limiting factor",
+   "url": "https://en.wikipedia.org/wiki/Limiting_factor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-194": {
+   "answer": "infrared gas analyser",
+   "title": "Infrared gas analyzer",
+   "url": "https://en.wikipedia.org/wiki/Infrared_gas_analyzer",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Infrared gas analyser"
+  },
+  "bio-195": {
+   "answer": "cyanobacteria",
+   "title": "Cyanobacteria",
+   "url": "https://en.wikipedia.org/wiki/Cyanobacteria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-196": {
+   "answer": "Great Oxidation Event",
+   "title": "Great Oxidation Event",
+   "url": "https://en.wikipedia.org/wiki/Great_Oxidation_Event",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-197": {
+   "answer": "chemosynthesis",
+   "title": "Chemosynthesis",
+   "url": "https://en.wikipedia.org/wiki/Chemosynthesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-198": {
+   "answer": "photosynthetic efficiency",
+   "title": "Photosynthetic efficiency",
+   "url": "https://en.wikipedia.org/wiki/Photosynthetic_efficiency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-199": {
+   "answer": "compensation point",
+   "title": "Compensation point",
+   "url": "https://en.wikipedia.org/wiki/Compensation_point",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "bio-200": {
+   "answer": "autotroph",
+   "title": "Autotroph",
+   "url": "https://en.wikipedia.org/wiki/Autotroph",
    "via": "glossary",
    "status": "ok"
   }
