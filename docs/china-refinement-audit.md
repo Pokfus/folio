@@ -313,7 +313,7 @@ otherwise.
 | B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | **done 2026-11-12** |
 | B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | **done 2026-11-12** |
 | B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | **done 2026-11-12** |
-| B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | to do |
+| B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | **done 2026-11-12** |
 | B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | to do |
 | B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | to do |
 | B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | to do |
@@ -608,6 +608,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-168` | the Shang Yang measure | not re-checked (Commons 429): ok as his object |
 | `cnh-169` | Qin statutes on bamboo | not re-checked (Commons 429): ok |
 | `cnh-170` | a Qin bronze weight | not re-checked (Commons 429): weak: of the empire after 221 BCE |
+| `cnh-171` | the blades of a halberd | not re-checked (Commons 429): weak: one weapon |
+| `cnh-172` | a crossbow lock | not re-checked (Commons 429): ok; the trigger only |
+| `cnh-173` | an army in ranks | not re-checked (Commons 429): ok |
+| `cnh-174` | riding bits | not re-checked (Commons 429): ok as a stand-in; not the man |
+| `cnh-175` | iron tools | not re-checked (Commons 429): ok |
+| `cnh-176` | a knife coin | not re-checked (Commons 429): ok |
+| `cnh-177` | a model of Linzi | not re-checked (Commons 429): ok as a stand-in |
+| `cnh-178` | a woodblock of Zhang Yi | not re-checked (Commons 429): wrong for this card (one man) — better on `cnh-179` |
+| `cnh-179` | a page of the Zhanguo Ce | not re-checked (Commons 429): weak; the credit names no author |
+| `cnh-180` | the Sun Bin slips | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1327,3 +1337,36 @@ names corrected**: `cnh-165` and `cnh-167` pinyin; `春秋战争`, `魏国崛起
 the apply). For the owner: `cnh-166`'s 455 and 395 BCE (and the ages) are in no source read, and the *Jin shu*'s credit
 of the code to him could not be checked; `cnh-167`'s `Reigned 424 – 387 BCE` is the *Shiji*'s — Eno says "usually given
 as 446 – 396", Legge 426 – 386; `cnh-168`'s death place "Qin" is loose (the *Shiji*: Mianchi in Zheng, by Qin's troops).
+
+### B18 — `cnh-171`–`cnh-180`, Eastern Zhou: Warring States warfare to Maling (2026-11-12)
+
+Run as B11. Every cited URL answered this session (one Sino-Platonic PDF returned 429 once; Eno's Indiana ScholarWorks handles on `cnh-171` returned 500 at the last check, as on `cnh-147`, after answering; the 5 MB Gutenberg *Shiji* timed out once). **Pictures
+were not touched** (Commons 429). **The old cards' lines were counts almost throughout (a head bounty, 240,000 lost at
+Yique, "over 400,000" at Shangdang, 480 catties of iron, 30 coppers a picul, 31 districts, "c. 102,100 killed" at
+Maling — a figure no source gives), dated a crossbow killing to 599 BCE from the *Shiji*'s story (the Zuo Zhuan says
+only that he "shot, and killed him"), gave Chengpu-era chariot counts as the largest force, put the Han's armour on the
+iron card, said King Wuling "took Zhongshan in 305 BCE" (the *Shiji*: a peace for four towns, the state destroyed in
+296), told the *Shiji*'s Su Qin as fact, had Zhang Yi die as Qin's minister in 310 (he died in Wei), counted Maling's
+third-night fires at Giles's 20,000 (the *Shiji*: 30,000), and the card on Su Qin and Zhang Yi had no glossary entry.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-171` Warring States warfare | 6 | 6 → 8 | **Counts off, now `Dated c. 475 – 221 BCE` / `Also dated 453 – 221 BCE` / `Cavalry adopted 307 BCE`; peasant infantry under professional generals, iron, the crossbow, cavalry, wall-defence manuals, the *Sunzi*'s dating and the Yinqueshan *Sun Bin***; the head bounty and Zhongshan left to `cnh-169`, `cnh-173`, `cnh-174`. |
+| `cnh-172` Chinese crossbow | 8 | 5 → 8 | **599 BCE dropped (the *Shiji*'s story set beside the Zuo Zhuan's, no year); `First known c. 500 – 400 BCE` / `Common c. 400 – 300 BCE` (one view, from the texts) / `Massed in battle 341 BCE`; how the trigger was cast and assembled; Maling's ten thousand crossbows from the *Shiji***; no open account of the earliest excavated triggers, so no find dates. |
+| `cnh-173` mass infantry armies | 6 | 6 → 7 | **The counts off, now `Early use 506 – 476 BCE` / `In use 453 – 221 BCE` / `Battles 293 BCE, 260 BCE`; the army sizes the *Shiji*'s claims (240,000 heads at Yique; 400,000 surrendered at Changping), one recent study arguing the other side; Changping 260 BCE, not Chavannes's 259 for Shangdang**; the Shang Yang material left to its cards. |
+| `cnh-174` King Wuling of Zhao | 6 | 5 → 7 | **Zhongshan corrected (a 305 BCE peace; destroyed 296 BCE); the court debate as the *Shiji*'s speeches taken from the *Zhanguo Ce* and read as rhetoric; one study's view of the reform as hiring Hu mercenaries; the refused royal title, the abdication, Shaqiu**. Pinyin Zhào Wǔlíng Wáng. Protected: the line stays (its rows agree with the *Shiji*). |
+| `cnh-175` iron in the Warring States | 7 | 6 → 8 | **Rebuilt on the metallurgy (Wagner, Gilmour, Wayman and Michaelson, Lam) instead of texts; 513 BCE dropped (a regnal year no source converts); `Oldest casting c. 500 BCE` / `In wide use c. 400 – 300 BCE`**; the Later Han armour claim off. **Name corrected: 铁 → 战国铁器 (Zhànguó tiěqì).** |
+| `cnh-176` Warring States coinage | 6 | 5 → 6 | **Lacouperie's dating, the 228 BCE and "30 coppers" rows off; `Earliest mint c. 640 – 550 BCE` (the radiocarbon-dated Guanzhuang foundry) / `Unified 221 BCE`; the regional types, Qi's knives and the Yan-occupation issue, the ban liang**; Li Kui's budget kept in prose, credited and hedged. |
+| `cnh-177` Warring States cities | 6 | 5 → 6 | **`Period 453 – 221 BCE` / `Capital moved 386 BCE` / `Sacked 284 BCE`; the *Zhouli*'s market rules no longer fact; the *Kaogongji* city as prescription; Linzi's coin workshops; the 70,000 households the persuader's claim in the *Shiji*; sacks and capitals moving**; a why answer contradicting the background dropped. No single point (`L.missing`, deliberate). |
+| `cnh-178` vertical and horizontal alliances | 5 | 5 → 6 | **The row naming Su Qin off, now `League formed 333 BCE` / `Joint attack 318 BCE` / `Unification 221 BCE`; the strategy from Eno; the 318 campaign's failure; the Su Qin league credited to the *Shiji*; the *Zhanguo Ce* largely fiction (Goldin on Maspero); Mencius's "thief of the people"**. |
+| `cnh-179` Su Qin and Zhang Yi | 6 | 5 → 6 | **The *Shiji*'s story told as its, with Sima Qian's own admission that deeds were pinned on Su Qin; Su Qin's story a mid-3rd-century romance (Maspero), Zhang Yi real (minister in Qin 328 – 312 BCE, named by Mencius); the tomb manuscripts tie Su Qin to spying in Qi for Yan; `In office 328 – 312 BCE`; 333, 318 and 310 off**. **A new glossary entry, `Su_Qin_and_Zhang_Yi`** (the old card had none). |
+| `cnh-180` Battle of Maling | 6 | 5 → 6 | **Location, Casualties (102,100, in no source) and Result off, now `Dated 341 BCE` / `Also dated 343 BCE` (the *Bamboo Annals*, from Maspero); the fires 30,000, as the *Shiji* says; Maspero's two-battles suggestion; Sun Bin's book recovered in 1972 and compiled early in the 3rd century BCE**. |
+
+Read by eye. **Confusability**: Maling's tree and ten thousand crossbows stay `cnh-172`'s phrasing (out of `cnh-180`'s);
+the Yinqueshan treatise `cnh-171`'s; Changping's royal levy at Henei was a phrasing on `cnh-173` and `cnh-181` —
+`cnh-181`'s now takes the bought rumour; Li Kui's budget was on `cnh-166` and `cnh-176` — `cnh-176`'s now takes the
+Guanzhuang mint. **Legend**: Su Qin's league and the Wuling debate are now texts' tellings. **Chinese names corrected**:
+`cnh-175` (铁 → 战国铁器), `cnh-174` pinyin. **Spellings fixed**: none needed; 0 hits. **Myth register**: no rows.
+**Protected lines: unchanged** (diffed after the apply); `cnh-174`'s rows agree with the *Shiji* as Chavannes converts
+it. For the owner: the `Su_Qin` and `Zhang_Yi` glossary entries still give 333 / 318 / 310 BCE as fact; `cnh-234`'s
+line gives 120 BCE for the Han iron monopoly, where Wagner gives 117 BCE.

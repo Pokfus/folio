@@ -9592,7 +9592,8 @@ window.GLOSSARY = {
 "Denmark_Vesey": "",
 "Nat_Turner's_Rebellion": "",
 "Virginia_slavery_debate": "",
-"United_States_v._The_Amistad": ""
+"United_States_v._The_Amistad": "",
+"Su_Qin_and_Zhang_Yi": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -10836,16 +10837,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shang_Yang": "d. 338 BCE",
 "Spring_and_Autumn_warfare": "c. 770 – 475 BCE",
 "Warring_States_period": "c. 475 – 221 BCE",
-"Chinese_crossbow": "from the 6th century BCE",
-"Iron_in_the_Warring_States": "c. 513 – 221 BCE",
+"Chinese_crossbow": "c. 500 – 400 BCE",
+"Iron_in_the_Warring_States": "c. 500 – 300 BCE",
 "King_Wuling_of_Zhao": "r. 325 – 299 BCE",
-"Mass_infantry_armies": "c. 400 – 221 BCE",
+"Mass_infantry_armies": "506 – 221 BCE",
 "Qin_after_Shang_Yang": "338 – 221 BCE",
 "Su_Qin": "d. 318 BCE",
-"Vertical_and_horizontal_alliances": "c. 400 – 221 BCE",
-"Warring_States_cities": "c. 480 – 221 BCE",
-"Warring_States_coinage": "c. 600 – 221 BCE",
-"Warring_States_warfare": "c. 480 – 221 BCE",
+"Vertical_and_horizontal_alliances": "333 – 221 BCE",
+"Warring_States_cities": "453 – 221 BCE",
+"Warring_States_coinage": "c. 640 – 221 BCE",
+"Warring_States_warfare": "c. 475 – 221 BCE",
 "Zhang_Yi": "d. 310 BCE",
 "Bai_Qi": "d. 258 BCE",
 "Battle_of_Changping": "c. 260 BCE",
@@ -14323,7 +14324,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Denmark_Vesey": "c. 1767–1822",
 "Nat_Turner's_Rebellion": "1831",
 "Virginia_slavery_debate": "1831–1832",
-"United_States_v._The_Amistad": "1839–1841"
+"United_States_v._The_Amistad": "1839–1841",
+"Su_Qin_and_Zhang_Yi": "328 – 312 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -20405,7 +20407,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nat_Turner's_Rebellion": ["Nat Turner's slave rebellion","Southampton Insurrection"],
 "Virginia_slavery_debate": ["Virginia slavery debate of 1831–1832"],
 "United_States_v._The_Amistad": ["Amistad case","The Amistad"],
-"Qi_(state)": ["State of Qi","Ch'i"]
+"Qi_(state)": ["State of Qi","Ch'i"],
+"Su_Qin_and_Zhang_Yi": ["Su Ch'in and Chang I"],
+"Battle_of_Maling": ["Maling","Battle of Ma-ling","Battle of Ma Ling"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -30157,7 +30161,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Denmark_Vesey": ["person","history","slavery","resistance","united states","south carolina"],
 "Nat_Turner's_Rebellion": ["event","history","slavery","resistance","united states","virginia"],
 "Virginia_slavery_debate": ["event","history","politics","slavery","united states","virginia"],
-"United_States_v._The_Amistad": ["event","history","law","slavery","united states"]
+"United_States_v._The_Amistad": ["event","history","law","slavery","united states"],
+"Su_Qin_and_Zhang_Yi": ["person","politics","history","china"]
 });
 
 /* ============================================================================

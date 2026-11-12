@@ -330,6 +330,15 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | Wei: ascendancy / recognised / destroyed | 424 – 340 BCE / 403 BCE / 225 BCE | `cnh-165` |
 | Shang Yang's reforms: first / second decrees | 356 BCE / 350 BCE | `cnh-169` |
 | Qin after Shang Yang / royal title / Shu taken | 338 – 221 BCE / 325 BCE / 316 BCE | `cnh-170` |
+| Warring States warfare / cavalry adopted in Zhao | c. 475 – 221 BCE / 307 BCE | `cnh-171` |
+| the crossbow: first known / common / massed at Maling | c. 500 – 400 BCE / c. 400 – 300 BCE / 341 BCE | `cnh-172` |
+| mass infantry: Wu and Yue / in use / Yique and Changping | 506 – 476 BCE / 453 – 221 BCE / 293 BCE, 260 BCE | `cnh-173` |
+| iron: oldest casting / wide use | c. 500 BCE / c. 400 – 300 BCE | `cnh-175` |
+| coinage: the Guanzhuang mint / unified | c. 640 – 550 BCE / 221 BCE | Zhao et al. 2021 (`cnh-176`) |
+| cities: the period / Zhao's capital moved / Linzi sacked | 453 – 221 BCE / 386 BCE / 284 BCE | `cnh-177` |
+| the alliances: the league / the joint attack / unification | 333 BCE / 318 BCE / 221 BCE | `cnh-178` |
+| Zhang Yi in office in Qin | 328 – 312 BCE | Maspero (`cnh-179`) |
+| Maling: the Shiji / the Bamboo Annals | 341 BCE / 343 BCE | `cnh-180` |
 
 ## Later periods
 
@@ -514,4 +523,13 @@ cnh-164: 403; 386; 230; 221
 cnh-165: 424; 340; 403; 225
 cnh-169: 356; 350
 cnh-170: 338; 221; 325; 316
+cnh-171: 475; 221; 453; 307
+cnh-172: 500; 400; 300; 341
+cnh-173: 506; 476; 453; 221; 293; 260
+cnh-175: 500; 400; 300
+cnh-176: 640; 550; 221
+cnh-177: 453; 221; 386; 284
+cnh-178: 333; 318; 221
+cnh-179: 328; 312
+cnh-180: 341; 343
 ```
