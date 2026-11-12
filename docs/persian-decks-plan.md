@@ -5,8 +5,8 @@ twelfth language set, built the way the Hindi set was (`docs/hindi-decks-plan.md
 record of how the others were built, and every rule there applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Farsi language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/persian/`). A2 to C1 and the phrases deck
-are not.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/persian/`). B1 to C1 and the phrases
+deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The first commit carried one changelog item (folded into Hindi's line of the same
@@ -32,7 +32,7 @@ over rather than asked again:
 |---|---|---|
 | Persian Alphabet — built | `Persian-Alphabet.folio-deck.json` | 39 |
 | Persian A1 Beginner — built | `Persian-A1.folio-deck.json` | 500 |
-| Persian A2 Elementary | `Persian-A2.folio-deck.json` | 750 |
+| Persian A2 Elementary — built | `Persian-A2.folio-deck.json` | 750 |
 | Persian B1 Intermediate | `Persian-B1.folio-deck.json` | 1,000 |
 | Persian B2 Upper Intermediate | `Persian-B2.folio-deck.json` | 1,500 |
 | Persian C1 Advanced | `Persian-C1.folio-deck.json` | 1,500 |
@@ -90,7 +90,7 @@ carries the subtitles' crime-drama words (`سلاح`, `شلیک`) on frequency, 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: the level's
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done 2026-11-12) to C1, one level per session: the level's
 inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3** — phrases.
 
 ## 6. As built (2026-11-09)
@@ -105,3 +105,29 @@ letters that share a sound (s: س ث ص, z: ز ذ ض ظ, t: ت ط, h: ه ح, ġ:
 the word they ask for, and every sound side is unique (asserted). The hue is measured: first `#2A8424`, which a
 parallel session's language also took before this merged, so it was re-swept against the 61 hues on main:
 `#008763`, 15.7 from its nearest.
+
+## 7. A2 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add Persian A2." `python3 .claude/persian/run.py --level a2`. **750 notes / 1,500
+cards: 255 from the inventory (`inventory.A2`, Hindi's A2 topics rewritten for Iran), 495 by frequency**; three
+sentences for 501, none for 73. A re-run is byte-identical, and A1 rebuilt on the day's sources is unchanged.
+What A2 needed:
+
+- **THE MONTHS.** Wiktionary files the twelve solar months as proper names (`pos: name`), which the extraction
+  dropped, beside OTHER name entries of the same spelling that gloss them as Gregorian months (`فروردین`
+  "January" — wrong for Iran, where Farvardin begins on 21 March). `extract.MONTH` keeps only the sense "X (the
+  Nth solar month of the Persian calendar)", as a noun. Five month names are homographs (`تیر` arrow, `مهر`
+  kindness / seal / dowry, `دی` yester, `آذر` fire, `بهمن` avalanche): `ETYMS` / `LEAD` put the month on the card.
+  Consequence: `تیر` "arrow, bullet" is now taught as the month only, and a later level will not teach it again.
+- **Seven inventory words are not in Wiktionary** and were dropped, not glossed by hand: خواهرزاده, برادرزاده,
+  ساعت مچی, پستخانه (اداره پست taught instead), دوجین, سرماخوردگی (سرما instead), هر روز; `گوجه` is "plum" there,
+  so the inventory asks for `گوجه‌فرنگی` "tomato".
+- **More homographs** (`ETYMS`): ماده mâdde "matter" not mâde "female", چک "cheque", موزه "museum" not "boot",
+  شانه "shoulder" not "comb", سیر "garlic", کمی "a little", روزی "someday", پست "post", علیه "against".
+- **Romanisations the extraction misses** (`ROMAN_BY_HAND`), each read off Wiktionary's own headword line:
+  نوع now', دی dey, پست post, آرزو ârezu. Two pointer glosses overridden from the entry's own first glosses
+  (`دردسر`, `موش`).
+- **The fill's exclusions grew** (`select.EXCLUDE`, 55 more, each with its reason): at A2's depth the subtitles'
+  ranking is full of English names and letters spelt in Persian (جک, مری, بن, اس, اف), a word's count belonging
+  to a form of another (`پای` پا + ی, `توش`, `کارا`), literary verbs whose stems are shared (`یارستن`, `تنیدن`),
+  and two vulgar words. The description now names the learner by level (`WHO`, Hindi's wording).

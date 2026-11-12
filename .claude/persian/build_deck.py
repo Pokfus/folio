@@ -35,6 +35,10 @@ from fa import fold, nfc, WORD as WORD_RE
 from persian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
+
+# who a level is for, in the description (Hindi's wording)
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'persian'
 COLOR = '#008763'
 FIELDS = ['Persian', 'Roman', 'Word', 'English', 'Forms', 'Table', 'Examples']
@@ -80,6 +84,19 @@ TRAIL = re.compile(r'\s*[:;,]\s*$')
 ETYMS = {
     'شیر': ['1'],
     'زنگ': ['2'],             # "bell, ring, call"; etymology 1 is "rust"
+    # A2's months (2026-11-12): the etymology that holds the month, not "arrow", "dowry", "yester"
+    'تیر': ['2'],
+    'مهر': ['2'],             # mehr "kindness" and the month; etymology 1 is mahr "dowry"
+    'دی': ['2'],
+    'علیه': ['2'],            # "against"; etymology 1 is the Arabic "upon him"
+    'پست': ['3'],             # "post, mail"; etymology 1 is past "low, abject"
+    'ماده': ['2'],            # mâdde "matter, material"; etymology 1 is mâde "female"
+    'چک': ['5'],              # ček "cheque"; etymology 1 is čak "document"
+    'موزه': ['2'],            # "museum"; etymology 1 is "boot"
+    'شانه': ['2'],            # "shoulder" (the inventory's body word); etymology 1 is "comb"
+    'سیر': ['2'],             # "garlic" (the inventory's food word); etymology 1 is "full, satiated"
+    'کمی': ['2'],             # "a little bit"; etymology 1 is "fewness"
+    'روزی': ['2'],            # "someday"; etymology 1 is "sustenance"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where its
@@ -92,6 +109,10 @@ GLOSS = {
     'کی': {'pron': ['who? (spoken)'], 'adv': ['when?']},
     # Wiktionary's noun is "soldier; guy"; the word's everyday use is as the counter of people
     'نفر': {'noun': ['person (counting people: سه نفر, three people)', 'guy, fellow']},
+    # Wiktionary's second gloss is a pointer ("synonym of سردرد"); its first, kept
+    'دردسر': {'noun': ['headache; hassle; bother; nuisance']},
+    # its third gloss is a pointer ("synonym of ماوس"); the first two, kept
+    'موش': {'noun': ['mouse; rat', 'cutie; someone cute']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -102,6 +123,10 @@ LEAD = {
     'نظر': 'opinion',
     'قرار': 'appointment',
     'قرمز': 'red',
+    'آذر': 'Azar',            # the month; "fire" is literary
+    'مهر': 'Mehr',            # the month, then "kindness"
+    'خسته': 'tired',          # Wiktionary's first is the literary "wounded"
+    'مزخرف': 'silly',         # "nonsense"; Wiktionary's first is the etymological "golden"
 }
 
 
@@ -168,7 +193,10 @@ def english(ents, word=''):
 
 
 # A ROMANISATION BY HAND, where Wiktionary's entry gives none.
-ROMAN_BY_HAND = {'حس': 'hess'}
+# A2's are Wiktionary's own Iranian reading, from the entry's headword line
+# (`نوع • (naw' / now')`, `دی • (day /dey)`, `پست • (post)`, `آرزو • (âr(e)zu …)`
+# with its plural `ârezu-hâ`), which the extraction does not tag.
+ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu'}
 
 
 # ---- forms -----------------------------------------------------------------------------
@@ -406,7 +434,7 @@ def desc(entries, n):
         "Both study directions in one deck: Persian → English (see the Persian, recall the meaning) "
         "and English → Persian (see an English meaning, recall the Persian). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

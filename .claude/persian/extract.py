@@ -48,6 +48,13 @@ KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'num', 'prep', 'pron
 
 NAME_OK = {'فارسی', 'ایران'}
 
+# THE MONTHS (A2, 2026-11-12).  Wiktionary files the twelve solar months as proper
+# names, beside other `name` entries of the same spelling that gloss them as
+# Gregorian months (فروردین "January") -- wrong for Iran, where Farvardin begins on
+# 21 March.  Only the sense "X (the Nth solar month of the Persian calendar)" is
+# kept, as a noun; every other `name` entry of the word stays out.
+MONTH = re.compile(r'^\S+ \(the \w+ solar month of the Persian calendar\)$')
+
 # A sense carrying one of these is not a meaning a learner's card should open on.
 WEAK = {'rare', 'obsolete', 'archaic', 'dated', 'dialectal', 'regional', 'uncommon',
         'poetic', 'historical', 'vulgar', 'derogatory', 'nonstandard', 'misspelling',
@@ -165,7 +172,12 @@ def main():
         e = json.loads(line)
         pos = e.get('pos')
         w = nfc(e.get('word', ''))
-        if pos == 'name' and w in NAME_OK:
+        month = pos == 'name' and any(MONTH.match((x.get('glosses') or [''])[-1])
+                                      for x in e.get('senses') or [])
+        if month:
+            pos = 'noun'
+            e = dict(e, senses=[x for x in e['senses'] if MONTH.match((x.get('glosses') or [''])[-1])])
+        elif pos == 'name' and w in NAME_OK:
             pass
         elif pos not in KEEP_POS or not is_persian(w):
             continue
