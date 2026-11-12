@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T02:02Z",
+ "generated": "2026-11-12T03:52Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6614,
-  "redirect-broader": 625,
+  "ok": 6619,
+  "redirect-broader": 627,
   "redirect-variant": 397,
-  "section-redirect": 134,
+  "section-redirect": 136,
   "disambiguation": 147,
-  "none": 1010,
+  "none": 1011,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72346,6 +72346,89 @@
    "answer": "Texas annexation",
    "title": "Texas annexation",
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-451": {
+   "answer": "Cotton Kingdom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Cotton production in the United States",
+    "Cotton Belt",
+    "Brazil–United States cotton dispute",
+    "Cotton gin",
+    "Tom Cotton"
+   ]
+  },
+  "us-452": {
+   "answer": "King Cotton",
+   "title": "King Cotton",
+   "url": "https://en.wikipedia.org/wiki/King_Cotton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-453": {
+   "answer": "domestic slave trade",
+   "title": "Slave trade in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_trade_in_the_United_States",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Domestic slave trade"
+  },
+  "us-454": {
+   "answer": "coffle",
+   "title": "Coffle",
+   "url": "https://en.wikipedia.org/wiki/Coffle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-455": {
+   "answer": "slave pen",
+   "title": "Slave markets and slave jails in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_markets_and_slave_jails_in_the_United_States",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Slave pen"
+  },
+  "us-456": {
+   "answer": "chattel slavery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Chattel slavery",
+   "target": "Slavery#Chattel slavery"
+  },
+  "us-457": {
+   "answer": "Impending Crisis of the South",
+   "title": "The Impending Crisis of the South",
+   "url": "https://en.wikipedia.org/wiki/The_Impending_Crisis_of_the_South",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-458": {
+   "answer": "Cotton Whigs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Cotton Whigs",
+   "target": "Whig Party (United States)#Factions"
+  },
+  "us-459": {
+   "answer": "Lancashire Cotton Famine",
+   "title": "Lancashire Cotton Famine",
+   "url": "https://en.wikipedia.org/wiki/Lancashire_Cotton_Famine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-460": {
+   "answer": "planter class",
+   "title": "Planter class",
+   "url": "https://en.wikipedia.org/wiki/Planter_class",
    "via": "glossary",
    "status": "ok"
   }

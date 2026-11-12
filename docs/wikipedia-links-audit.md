@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6614 | the title is the article |
+| `ok` | 6619 | the title is the article |
 | `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 627 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 136 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1010 | nothing matched; no link |
+| `none` | 1011 | nothing matched; no link |
 
-**7741 of 9050 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7748 of 9060 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (625)
+## Redirected to a differently named article — check each (627)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -524,6 +524,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-307` **Second Amendment** → [Second Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Second_Amendment_to_the_United_States_Constitution) (from `Second Amendment`)
 - `us-309` **Tenth Amendment** → [Tenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Tenth_Amendment_to_the_United_States_Constitution) (from `Tenth Amendment`)
 - `us-338` **Strict construction** → [Strict constructionism](https://en.wikipedia.org/wiki/Strict_constructionism) (from `Strict construction`)
+- `us-453` **domestic slave trade** → [Slave trade in the United States](https://en.wikipedia.org/wiki/Slave_trade_in_the_United_States) (from `Domestic slave trade`)
+- `us-455` **slave pen** → [Slave markets and slave jails in the United States](https://en.wikipedia.org/wiki/Slave_markets_and_slave_jails_in_the_United_States) (from `Slave pen`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -941,7 +943,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (134)
+## Section redirects — no dedicated page (136)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1058,6 +1060,8 @@ Wikipedia treats these as part of another article. No link.
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`
+- `us-456` **chattel slavery** — `Chattel slavery` only redirects into `Slavery#Chattel slavery`
+- `us-458` **Cotton Whigs** — `Cotton Whigs` only redirects into `Whig Party (United States)#Factions`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1080,7 +1084,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1010)
+## No article found (1011)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2032,6 +2036,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-086` **end of treaty-making** — search suggests `List of the United States treaties`, `End of slavery in the United States`, `United States`, `Mutual Defense Treaty (United States–South Korea)`, `Antarctic Treaty System`
 - `us-376` **New York Constitutional Convention of 1821** — search suggests `Constitutional Convention (United States)`, `1862 New York gubernatorial election`, `List of United States political families (B)`, `2026 United States Senate election in Maine`, `Founding Fathers of the United States`
 - `us-389` **Appeal of Forty Thousand Citizens**
+- `us-451` **Cotton Kingdom** — search suggests `Cotton production in the United States`, `Cotton Belt`, `Brazil–United States cotton dispute`, `Cotton gin`, `Tom Cotton`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`

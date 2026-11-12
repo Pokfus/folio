@@ -9303,7 +9303,16 @@ window.GLOSSARY = {
 "Joseph_Smith": "",
 "Brigham_Young": "",
 "Texas_Revolution": "",
-"Texas_annexation": ""
+"Texas_annexation": "",
+"Cotton_Kingdom": "",
+"King_Cotton": "",
+"Slave_trade_in_the_United_States": "",
+"Coffle": "",
+"Slave_pen": "",
+"The_Impending_Crisis_of_the_South": "",
+"Cotton_Whigs": "",
+"Lancashire_Cotton_Famine": "",
+"Planter_class": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13878,7 +13887,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Joseph_Smith": "1805–1844",
 "Brigham_Young": "1801–1877",
 "Texas_Revolution": "1835–1836",
-"Texas_annexation": "1845"
+"Texas_annexation": "1845",
+"Cotton_Kingdom": "c. 1800–1861",
+"Slave_trade_in_the_United_States": "1808–1865",
+"The_Impending_Crisis_of_the_South": "1857",
+"Cotton_Whigs": "c. 1840–1860",
+"Lancashire_Cotton_Famine": "1861–1865"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19770,7 +19784,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Joseph_Smith": ["Joseph Smith Jr.","Joseph Smith, Jr."],
 "Brigham_Young": ["Brigham Young"],
 "Texas_Revolution": ["Texas War of Independence","Texan Revolution"],
-"Texas_annexation": ["annexation of Texas","Annexation of Texas"]
+"Texas_annexation": ["annexation of Texas","Annexation of Texas"],
+"Slave_trade_in_the_United_States": ["domestic slave trade","internal slave trade","interstate slave trade"],
+"Slave_pen": ["slave jail"],
+"The_Impending_Crisis_of_the_South": ["Impending Crisis of the South"],
+"Lancashire_Cotton_Famine": ["Cotton Famine","Lancashire cotton famine"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29231,7 +29249,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Joseph_Smith": ["person","religion","history","united states"],
 "Brigham_Young": ["person","religion","history","united states"],
 "Texas_Revolution": ["war","history","united states","texas","mexico"],
-"Texas_annexation": ["event","history","politics","united states"]
+"Texas_annexation": ["event","history","politics","united states"],
+"Cotton_Kingdom": ["era","history","economics","slavery","united states"],
+"King_Cotton": ["concept","history","economics","politics","united states"],
+"Slave_trade_in_the_United_States": ["practice","history","slavery","economics","united states"],
+"Coffle": ["practice","history","slavery","united states"],
+"Slave_pen": ["building","history","slavery","united states"],
+"The_Impending_Crisis_of_the_South": ["text","history","slavery","politics","united states"],
+"Cotton_Whigs": ["party","history","politics","united states"],
+"Lancashire_Cotton_Famine": ["event","history","economics","britain"],
+"Planter_class": ["people","history","slavery","politics","united states"]
 });
 
 /* ============================================================================
