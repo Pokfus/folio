@@ -4564,6 +4564,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     washed behind a title and is not a legible ink at 28px; `body.hc` takes the ink outright.
     `SECTION_ICON` is a table beside `sectionOf` for `COLLECTION_ICON`'s own reason — it is how ONE page
     is arranged — and anything the section table does not name falls through to the card stack.
+    **Superseded Nov 2026, on request:** the row now wears the collection's own `COLLECTION_ICON` mark (the
+    Collections page's), still in its collection colour; `SECTION_ICON` stays defined and unread.
   · **THE THREE-DAY DOTS AND THE STARS ARE ONE GRID, AND AN EMPTY CELL MOVED THE STARS TO THE MIDDLE OF
     THE CARD** (`--crit-slot`, `.study-card .q-head .card-stars`). `.q-head` is `1fr auto 1fr`, and
     `critPipsHTML` returns `""` for a card with no record — so on a card the reader has never answered
