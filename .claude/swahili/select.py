@@ -48,10 +48,21 @@ EXCLUDE = {
     'kiko': '"pipe": its count is kiko "it is there" (class 7)',
     'mpiga': 'a word-forming element (mpiga picha "photographer"), not a word',
     'ngono': 'its count is the sexual sense; a level deck leaves that out, as it does swearing',
+    # read off the B1 ranking (2026-11-12)
+    'do': 'the interjection "oh! damn!": its count is mostly the English "do" in the subtitles',
+    'hindi': '"maize": its count is Hindi "India" (Bahari ya Hindi), and A2 teaches mahindi',
+    'papa': 'its count is three words at once ("shark", "pope", "to tremble"), none of them a B1 word on that evidence',
+    'lisilo': 'a negative relative form (li-si-lo, class 5), a grammar point, not a word',
+    'nakupenda': '"I love you": a conjugated form of -penda (A1) that Wiktionary lists as a lemma',
+    'jira': '"cumin": its count is its plural majira "season", taught on its own card',
+    'kumba': '"to shove": its count is kumbe "so, behold!", read by the parser as its subjunctive',
+    'endeleza': 'Wiktionary\'s only sense is "to spell", where the word is met as "to develop, to carry on"; left out rather than taught wrong',
+    'mfanya': 'a word-forming element (mfanyabiashara, mfanyakazi), not a word',
 }
 
 # Swearing and insults are never in a level deck.
-SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala'}
+SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala',
+          'pumbavu', 'shenzi'}   # the adjectives of mpumbavu, mshenzi (B1)
 
 
 def rank(L):

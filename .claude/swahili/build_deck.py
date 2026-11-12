@@ -73,6 +73,10 @@ ETYMS = {
     'chungu': ['3', '1'],     # "bitter" AND "cooking pot"; 2 is "ant", 4 "heap"
     'panga': ['2', '1'],      # "to arrange" AND "machete"
     'mhanga': ['2'],          # "sacrifice, casualty"; 1 is "aardvark"
+    'buni': ['2'],            # "to construct; invent" (B1); 1 is "coffee berry"
+    'bodi': ['2'],            # "board (managing committee)"; 1 is "a body"
+    'hariri': ['2'],          # "to edit" (B1's media); 1 is "silk"
+    'nya': ['2'],             # "to rain, drop like rain"; 1 is "to defecate"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
@@ -91,6 +95,7 @@ LEAD = {
     'simu': 'telephone',      # first listed is "telegram"
     'mpira': 'ball',          # first listed is "a kind of creeper plant"
     'kiwanda': 'factory',     # first listed is "forge"
+    'wito': 'calling',        # first listed is "infection, contagion"
 }
 
 

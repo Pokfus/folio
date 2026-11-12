@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
-**STATUS (2026-11-09): A1 and A2 are built** (`.claude/swahili/`, §6, §7). B1 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/swahili/`, §6, §7, §8). B2, C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -27,7 +27,7 @@ for a language with no exam list — **open to the owner's correction**:
 |---|---|---|
 | Swahili A1 Beginner — built | `Swahili-A1.folio-deck.json` | 500 |
 | Swahili A2 Elementary — built | `Swahili-A2.folio-deck.json` | 750 |
-| Swahili B1 Intermediate | `Swahili-B1.folio-deck.json` | 1,000 |
+| Swahili B1 Intermediate — built | `Swahili-B1.folio-deck.json` | 1,000 |
 | Swahili B2 Upper Intermediate | `Swahili-B2.folio-deck.json` | 1,500 |
 | Swahili C1 Advanced | `Swahili-C1.folio-deck.json` | 1,500 |
 
@@ -91,7 +91,7 @@ Wiktionary senses are odd for a beginner (`-weza` "to be unwell"), shown as the 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
 
@@ -129,3 +129,34 @@ after every change below** (its card ids are positional: re-dealing it would rem
 - **Known, left**: the fill leans on news and drama vocabulary (`mahakama`, `gereza`, `silaha`, `mtukufu`),
   as every corpus-ordered deck on the shelf does; several applicative and passive verbs (`kuletea`,
   `kuchukuliwa`) are lemmas of their own in Wiktionary and come in on their counts.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/swahili/run.py --level b1`. 1,000 notes, 225 from the inventory (20 topics: work and the office,
+study, news and the media, travel, nature and the environment, society and the state, relationships and life
+events, feelings and opinions, talking and arguing, verbs, abstract nouns, health and emergencies, sport and the
+arts, crime and the law, housing and money, character and values, size and measure, describing, time,
+connectors) and 775 by frequency; sentences for 641, three apiece for 248, none for 359 (Tatoeba's Swahili is
+small). A re-run is byte-identical, and **A1 and A2 are byte-identical after every change below** (verified).
+
+- **THE LOWER LEVELS' FILL HAD ALREADY TAKEN B1'S OBVIOUS TOPIC WORDS.** A first inventory of the commonest
+  words for each topic kept only 81: A2's 481-word frequency fill had dealt `serikali`, `uchaguzi`, `hisia`,
+  `jaribu`, `tatizo` and most of their kind. The inventory was widened a tier down (`mhasibu`, `pensheni`,
+  `mbunge`, `katiba`, `mkimbizi`, `chanjo`, `riwaya`, `mpangaji` …), which is where a B1 inventory has to live
+  on this shelf; a word listed but already taught is skipped by `select.py` as before. The inventory names only
+  headwords Wiktionary has (`elezo`, `tokeo`, `badiliko`, `mwananchi` — not their plurals).
+- More exclusions from the fill, each with its reason in `select.EXCLUDE`: `do` (the English "do" in the
+  subtitles), `hindi` "maize" (its count is Hindi "India"), `papa` (shark, pope and "to tremble" counted as
+  one), `lisilo` (a negative relative form), `nakupenda` (a conjugated form listed as a lemma), `jira` "cumin"
+  (its count is its plural `majira` "season"), `kumba` "to shove" (its count is `kumbe` read as a subjunctive),
+  `mfanya` (a word-forming element, like `mpiga`), and `endeleza`, whose only Wiktionary sense is "to spell"
+  where the word is met as "to develop" — left out rather than taught wrong. `-pumbavu` and `-shenzi` join
+  `SWEARS` beside A1's `mpumbavu` and `mshenzi`.
+- More etymology choices (`buni` "to invent", `bodi` "board", `hariri` "to edit", `nya` "to rain") and a lead
+  gloss (`wito` "calling"). `buni` is listed in the inventory as `buni:verb` so the card speaks `kubuni`, not the
+  noun's spelling it would otherwise be dealt under.
+- **Known, left**: the fill carries more news and courtroom vocabulary than the A levels (`ugaidi`, `mtuhumiwa`,
+  `upelelezi`, `mswada`), as every corpus-ordered deck on the shelf does at this size; several passive and
+  applicative verbs (`kusemwa`, `kulipwa`, `kununulia`) are lemmas of their own in Wiktionary and come in on their
+  counts; a few Wiktionary first senses are odd for a learner (`kidokezo` "trailer", `fadhili` "benignant") and
+  are shown as the source has them.

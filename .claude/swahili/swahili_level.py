@@ -60,6 +60,21 @@ SCOPE = {
                   'the town, health, feelings, free time, the everyday verbs of these, describing '
                   'things and people, time words, and the words that join one clause to the next',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise whilst travelling, to produce '
+                 'simple connected text on topics which are familiar or of personal interest, and '
+                 'to describe experiences and events, dreams, hopes and ambitions and briefly give '
+                 'reasons and explanations for opinions and plans',
+        'topics': 'work and the office, study and learning, news and the media, travel and '
+                  'accommodation, nature and the environment, society and the state, relationships '
+                  'and life events, feelings and opinions, talking and arguing, the everyday verbs '
+                  'of these, the abstract nouns opinions are built from, health and emergencies, '
+                  'sport and the arts, crime and the law, housing and money, character and values, '
+                  'size and measure, describing, time and sequence, and the words that join an '
+                  'argument together',
+    },
 }
 
 
