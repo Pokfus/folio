@@ -33,7 +33,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ha import norm, loose, untone
-from hausa_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from hausa_level import LEVEL, LEX, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, LEARNER
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'hausa'
@@ -91,6 +91,29 @@ ETYMS = {
     'ka': ['hand'],           # "you (completive)"; Wiktionary's only entry is an adverb "in or on"
     'wanka': ['1', '2'],      # "bathing" AND "to wash"
     'kofi': ['1', '2'],       # "cup" AND "coffee"
+    # A2 (2026-11-12): verbs whose spelling Wiktionary has only as a rarer noun
+    'goge': ['hand'],         # "to rub, to polish"; Wiktionary has only the fiddle
+    'maye': ['hand'],         # "to replace"; Wiktionary has only "drunkenness"
+    'fashe': ['hand'],        # "to burst"; Wiktionary has only a children's game
+    'kori': ['hand'],         # "to chase away"; Wiktionary has only "curry"
+    'makara': ['hand'],       # "to be late"; Wiktionary has only "bier"
+    'taru': ['hand'],         # "to gather"; Wiktionary has only "large fishing net"
+    'komo': ['hand'],         # "to come back"; Wiktionary has only "misshapen calabash"
+    'sara': ['hand'],         # "to chop"; Wiktionary has only "habit, custom"
+    'dage': ['hand'],         # "to persevere"; Wiktionary has only "honey badger"
+    'rama': ['hand'],         # "to retaliate"; Wiktionary has hemp and emaciation
+    'tofa': ['hand'],         # "to spit"; Wiktionary has only elephant grass
+    'ishe': ['hand'],         # "to suffice, to reach"; Wiktionary has only "to overtake"
+    'laima': ['hand'],        # "umbrella"; Wiktionary has "tent" and "dampness"
+    'baƙo': ['hand'],         # "guest, stranger"; Wiktionary has only the given name
+    'ango': ['hand'],         # "bridegroom"; Wiktionary has only the given name
+    'maraya': ['3'],          # "orphan"; 1 is "city", 2 the kob antelope
+    'lalle': ['2', '1'],      # "certainly" first, then "henna"
+    'safa': ['2', '1'],       # "socks" (the clothes topic) first, then the intercity bus
+    'riba': ['2', '1'],       # "profit" first, then "bank interest"
+    'tsaka': ['2'],           # "in the middle" (da rana tsaka); 1 is a gecko
+    'illa': ['2', '1'],       # "harm, fault" (its count) first, then "except"
+    'dawa': ['1', '2'],       # "sorghum" AND "the bush" (namun dawa, wild animals)
 }
 
 # WHICH PARTS OF SPEECH A CARD SHOWS, where Wiktionary adds a reading that is noise on a
@@ -112,8 +135,16 @@ GENDER_FIX = {
                               # dictionary (littafi m., pl. littattafai) make it masculine
 }
 
+# A TONE LINE WITHHELD, where Wiktionary's toned head is another spelling of the word
+# (the line must untone to the headword; `check-hausa.js` asserts it).
+TONE_OFF = {
+    'tsintsiya': 'tsintsinyā',    # the head spells the variant tsintsinya
+}
+
 # A WORD PRINTED OTHERWISE THAN ITS KEY: the language's name is written with a capital.
-WORD_AS = {'hausa': 'Hausa'}
+WORD_AS = {'hausa': 'Hausa',
+           # Wiktionary has these only as given names, so its spelling is capitalised
+           'Baƙo': 'baƙo', 'Ango': 'ango'}
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech -- where its
 # first senses are not the everyday ones, or a second one would mislead a beginner.
@@ -135,6 +166,9 @@ GLOSS = {
     'baba': {'noun': ['father', "a term of address for a man of one's father's age"]},
     'aboki': {'noun': ['friend', 'companion']},
     'yaro': {'noun': ['boy, child', 'servant, follower']},
+    'malam': {'noun': ['teacher, a learned man', 'Mr (a title of respect)']},
+    'ganye': {'noun': ['leaf', 'leafy vegetables']},
+    'igiya': {'noun': ['rope, string', 'cable']},
     'ɗan': {'noun': ['son of; a native of, one who does (ɗan Kano, a man from Kano)',
                      'little, small (before a noun: ɗan yaro, a little boy)']},
 }
@@ -258,6 +292,8 @@ def build(rows, lex, exs):
         # under a hand-glossed `suna` "they are …-ing" the toned sūnā of "name" would be a
         # wrong pronunciation of the word the card opens on.
         toned = ents[0]['toned'] if ents[0]['src'] == 'wiktionary' else ''
+        if word in TONE_OFF:
+            toned = ''
         if word in WORD_AS.values() and toned:
             toned = toned[:1].upper() + toned[1:]
         ex = exs.get(r['key'], [])
@@ -289,7 +325,7 @@ def desc(entries, n):
         "Both study directions in one deck: Hausa → English (see the Hausa, recall the meaning) "
         "and English → Hausa (see an English meaning, recall the Hausa). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {LEARNER[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -325,7 +361,7 @@ def desc(entries, n):
 
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = json.load(open(LEX, encoding='utf-8'))
     exs = json.load(open(f('examples.json'), encoding='utf-8'))
     cards, entries = build(rows, lex, exs)
     DECK = DECK_IDS[LEVEL]

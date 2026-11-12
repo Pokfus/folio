@@ -22,13 +22,33 @@ four to ten words, then the shorter, then the lower sentence id.  A Hausa
 sentence with several English translations takes the shortest.  Each sentence is
 used at most once per deck.
 """
-import csv, json, os, sys
+import csv, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ha import nfc, norm, loose, tokens, stems
-from hausa_level import f
+from hausa_level import LEVEL, LEX, f
 
 csv.field_size_limit(10 ** 8)
+
+# A SENTENCE NEVER SHOWN (A2 on, 2026-11-12): sexual or vulgar, read off its English.
+# Tatoeba's Hausa has a few (`Ya kama nono na`, under kama "to catch").  Not applied to A1,
+# which shipped before the rule: it would change one of A1's sentences (ƙarami's).
+BLOCK_EN = re.compile(r"(?i)\b(?:breasts?|penis|sex|sexual|cocaine|fuck\w*|shit|pee|whore)\b")
+
+# A WORD WHOSE SPELLING IN THE CORPUS IS MOSTLY ANOTHER WORD'S: Tatoeba drops the hooks
+# and joins words (`bashi` is "ba shi", give him; `yaji` "ya ji", he felt; `tsani` "na
+# tsani", I hate; `ɗinka` the possessive -ɗinka; `raƙuman ruwa` waves; `mayu` witches;
+# `kura` ƙura, dust; `Sara` a name).  Its sentences must say the word's meaning in English.
+EX_NEED = {
+    'bashi': r'(?i)\b(?:debts?|loans?|owe\w*|lend\w*|borrow\w*|credit)\b',
+    'yaji': r'(?i)\b(?:spic\w*|pepper\w*)\b',
+    'tsani': r'(?i)\bladders?\b',
+    'ɗinka': r'(?i)\b(?:sew\w*|stitch\w*|tailor\w*)\b',
+    'sara': r'(?i)\b(?:chop\w*|cut\w*)\b',
+    'kura': r'(?i)\bhyenas?\b',
+    'mayu': r'\bMay\b',
+    'raƙumi': r'(?i)\bcamels?\b',
+}
 
 
 def load():
@@ -67,7 +87,7 @@ def forms_of(row, lex):
 
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = json.load(open(LEX, encoding='utf-8'))
     pairs = load()
     toks = [(pid, ha, en, [norm(t) for t in tokens(ha)]) for pid, ha, en in pairs]
     index = {}
@@ -118,8 +138,12 @@ def main():
             n = len(toks[i][3])
             return (own, 0 if 4 <= n <= 10 else 1, len(toks[i][1]), toks[i][0])
         picked = []
+        need = re.compile(EX_NEED[row['key']]) if row['key'] in EX_NEED else None
         for c in sorted(cands, key=rank):
             if c[0] in used:
+                continue
+            if (LEVEL != 'a1' and BLOCK_EN.search(toks[c[0]][2])) or \
+                    (need and not need.search(toks[c[0]][2])):
                 continue
             used.add(c[0])
             _, ha, en, _ = toks[c[0]]

@@ -3590,8 +3590,9 @@ changed was the one that had been wrong all along.
 - `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
   collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
-  (36 notes) **and A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hausa/run.py
-  [--level a1] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
+  (36 notes), **A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hausa-A2.folio-deck.json`**
+  (750 notes, 2026-11-12; each level's hand glosses and lexicon kept apart so A1 stays byte-identical). `python3 .claude/hausa/run.py
+  [--level a1|a2] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
   is byte-identical. The thinnest sources on the shelf: Wiktionary has about 2,000 Hausa words and lacks core
   ones (`yi`, `tafi`, `da`), so 137 of A1's cards carry Folio's own gloss (`hand.py`, no tone line — a tone
   typed from memory has no source); there is no published frequency list, so frequency is counted from
