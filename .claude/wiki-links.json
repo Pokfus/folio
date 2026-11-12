@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T04:13Z",
+ "generated": "2026-11-12T04:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6642,
-  "redirect-broader": 629,
-  "redirect-variant": 403,
+  "ok": 6667,
+  "redirect-broader": 632,
+  "redirect-variant": 406,
   "section-redirect": 135,
   "disambiguation": 147,
-  "none": 1028,
-  "disambig-resolved": 92,
+  "none": 1035,
+  "disambig-resolved": 94,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -72652,14 +72652,11 @@
   },
   "ru-321": {
    "answer": "konditsii",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Conditions (Russia)",
-    "History of Russia (1721–1796)"
-   ]
+   "title": "Conditions (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Conditions_(Russia)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-322": {
    "answer": "Bironovshchina",
@@ -72829,17 +72826,11 @@
   },
   "ru-382": {
    "answer": "Unofficial Committee",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Federal Security Service",
-    "Russian Soviet Federative Socialist Republic",
-    "Private Committee",
-    "List of heads of government of Russia",
-    "Flag of Russia"
-   ]
+   "title": "Private Committee",
+   "url": "https://en.wikipedia.org/wiki/Private_Committee",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-383": {
    "answer": "Mikhail Speransky",
@@ -72850,17 +72841,11 @@
   },
   "ru-384": {
    "answer": "ministerial reform of 1802",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Ministerial reform in the Russian Empire",
-    "List of heads of government of Russia",
-    "Government reform of Alexander I",
-    "Manifesto on the Establishment of Ministries",
-    "Alexander I of Russia"
-   ]
+   "title": "Ministerial reform in the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Ministerial_reform_in_the_Russian_Empire",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-385": {
    "answer": "War of the Third Coalition",
@@ -72901,6 +72886,325 @@
    "answer": "Continental System",
    "title": "Continental System",
    "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-331": {
+   "answer": "Imperial Academy of Arts",
+   "title": "Imperial Academy of Arts",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Academy_of_Arts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-332": {
+   "answer": "Bartolomeo Rastrelli",
+   "title": "Francesco Bartolomeo Rastrelli",
+   "url": "https://en.wikipedia.org/wiki/Francesco_Bartolomeo_Rastrelli",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Bartolomeo Rastrelli"
+  },
+  "ru-333": {
+   "answer": "Winter Palace",
+   "title": "Winter Palace",
+   "url": "https://en.wikipedia.org/wiki/Winter_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-334": {
+   "answer": "Russian Baroque",
+   "title": "Russian Baroque",
+   "url": "https://en.wikipedia.org/wiki/Russian_Baroque",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-335": {
+   "answer": "Seven Years' War",
+   "title": "Seven Years' War",
+   "url": "https://en.wikipedia.org/wiki/Seven_Years'_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-336": {
+   "answer": "Battle of Kunersdorf",
+   "title": "Battle of Kunersdorf",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kunersdorf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-337": {
+   "answer": "raid on Berlin",
+   "title": "1760 raid on Berlin",
+   "url": "https://en.wikipedia.org/wiki/1760_raid_on_Berlin",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Raid on Berlin"
+  },
+  "ru-338": {
+   "answer": "Peter III",
+   "title": "Peter III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Peter_III_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Peter III"
+  },
+  "ru-339": {
+   "answer": "Manifesto on the Freedom of the Nobility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emancipation reform of 1861",
+    "Tsarist Russia",
+    "Catherine the Great",
+    "Russian Revolution of 1905",
+    "Serfdom in Russia"
+   ]
+  },
+  "ru-340": {
+   "answer": "coup of 1762",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter III of Russia",
+    "Ivan VI of Russia",
+    "Elizabeth of Russia",
+    "Catherine the Great",
+    "Russia"
+   ]
+  },
+  "ru-351": {
+   "answer": "Battle of Chesma",
+   "title": "Battle of Chesma",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Chesma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-352": {
+   "answer": "Treaty of Küçük Kaynarca",
+   "title": "Treaty of Küçük Kaynarca",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_K%C3%BC%C3%A7%C3%BCk_Kaynarca",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-353": {
+   "answer": "annexation of the Crimean Khanate",
+   "title": "1783 Russian annexation of Crimea",
+   "url": "https://en.wikipedia.org/wiki/1783_Russian_annexation_of_Crimea",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Annexation of the Crimean Khanate"
+  },
+  "ru-354": {
+   "answer": "New Russia",
+   "title": "Novorossiya",
+   "url": "https://en.wikipedia.org/wiki/Novorossiya",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "New Russia"
+  },
+  "ru-355": {
+   "answer": "Potemkin village",
+   "title": "Potemkin village",
+   "url": "https://en.wikipedia.org/wiki/Potemkin_village",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-356": {
+   "answer": "Sevastopol",
+   "title": "Sevastopol",
+   "url": "https://en.wikipedia.org/wiki/Sevastopol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-357": {
+   "answer": "Russo-Turkish War of 1787–1792",
+   "title": "Russo-Turkish War (1787–1792)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1787%E2%80%931792)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1787–1792"
+  },
+  "ru-358": {
+   "answer": "Alexander Suvorov",
+   "title": "Alexander Suvorov",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Suvorov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-359": {
+   "answer": "Fyodor Ushakov",
+   "title": "Fyodor Ushakov",
+   "url": "https://en.wikipedia.org/wiki/Fyodor_Ushakov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-360": {
+   "answer": "Partitions of Poland",
+   "title": "Partitions of Poland",
+   "url": "https://en.wikipedia.org/wiki/Partitions_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-361": {
+   "answer": "First Partition of Poland",
+   "title": "First Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/First_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-362": {
+   "answer": "Kościuszko Uprising",
+   "title": "Kościuszko Uprising",
+   "url": "https://en.wikipedia.org/wiki/Ko%C5%9Bciuszko_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-363": {
+   "answer": "Third Partition of Poland",
+   "title": "Third Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/Third_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-364": {
+   "answer": "Pugachev's Rebellion",
+   "title": "Pugachev's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Pugachev's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-365": {
+   "answer": "Yemelyan Pugachev",
+   "title": "Yemelyan Pugachev",
+   "url": "https://en.wikipedia.org/wiki/Yemelyan_Pugachev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-366": {
+   "answer": "destruction of the Zaporozhian Sich",
+   "title": "Liquidation of the Zaporozhian Sich",
+   "url": "https://en.wikipedia.org/wiki/Liquidation_of_the_Zaporozhian_Sich",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-367": {
+   "answer": "provincial reform of 1775",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Governorate (Russia)",
+    "1775",
+    "Catherine the Great",
+    "Yemelyan Pugachev",
+    "Baltic Governorates"
+   ]
+  },
+  "ru-368": {
+   "answer": "Charter to the Nobility",
+   "title": "Charter to the Gentry",
+   "url": "https://en.wikipedia.org/wiki/Charter_to_the_Gentry",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Charter to the Nobility"
+  },
+  "ru-369": {
+   "answer": "Charter to the Towns",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Magadan",
+    "Federal subjects of Russia",
+    "Russo-Ukrainian war",
+    "Anadyr (town)"
+   ]
+  },
+  "ru-370": {
+   "answer": "Pale of Settlement",
+   "title": "Pale of Settlement",
+   "url": "https://en.wikipedia.org/wiki/Pale_of_Settlement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-391": {
+   "answer": "Finnish War",
+   "title": "Finnish War",
+   "url": "https://en.wikipedia.org/wiki/Finnish_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-392": {
+   "answer": "Grand Duchy of Finland",
+   "title": "Grand Duchy of Finland",
+   "url": "https://en.wikipedia.org/wiki/Grand_Duchy_of_Finland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-393": {
+   "answer": "Russo-Turkish War of 1806–1812",
+   "title": "Russo-Turkish War (1806–1812)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1806%E2%80%931812)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1806–1812"
+  },
+  "ru-394": {
+   "answer": "Bessarabia Governorate",
+   "title": "Bessarabia Governorate",
+   "url": "https://en.wikipedia.org/wiki/Bessarabia_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-395": {
+   "answer": "Russo-Persian War of 1804–1813",
+   "title": "Russo-Persian War (1804–1813)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1804%E2%80%931813)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-396": {
+   "answer": "Treaty of Gulistan",
+   "title": "Treaty of Gulistan",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Gulistan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-397": {
+   "answer": "French invasion of Russia",
+   "title": "French invasion of Russia",
+   "url": "https://en.wikipedia.org/wiki/French_invasion_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-398": {
+   "answer": "Mikhail Kutuzov",
+   "title": "Mikhail Kutuzov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Kutuzov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-399": {
+   "answer": "1812 Battle of Smolensk",
+   "title": "Battle of Smolensk (1812)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Smolensk_(1812)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-400": {
+   "answer": "Battle of Borodino",
+   "title": "Battle of Borodino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Borodino",
    "via": "glossary",
    "status": "ok"
   }

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6642 | the title is the article |
-| `redirect-variant` | 403 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 92 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6667 | the title is the article |
+| `redirect-variant` | 406 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 94 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 629 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 632 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 135 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1028 | nothing matched; no link |
+| `none` | 1035 | nothing matched; no link |
 
-**7782 of 9110 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7815 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (629)
+## Redirected to a differently named article — check each (632)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -504,6 +504,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-272` **Stepan Razin** → [Stenka Razin](https://en.wikipedia.org/wiki/Stenka_Razin) (from `Stepan Razin`)
 - `ru-294` **Pruth River Campaign** → [Russo-Turkish War (1710–1713)](https://en.wikipedia.org/wiki/Russo-Turkish_War_(1710%E2%80%931713)) (from `Pruth River Campaign`)
 - `ru-311` **Tsarevich Alexei** → [Alexei Petrovich, Tsarevich of Russia](https://en.wikipedia.org/wiki/Alexei_Petrovich,_Tsarevich_of_Russia) (from `Tsarevich Alexei`)
+- `ru-353` **annexation of the Crimean Khanate** → [1783 Russian annexation of Crimea](https://en.wikipedia.org/wiki/1783_Russian_annexation_of_Crimea) (from `Annexation of the Crimean Khanate`)
+- `ru-354` **New Russia** → [Novorossiya](https://en.wikipedia.org/wiki/Novorossiya) (from `New Russia`)
+- `ru-368` **Charter to the Nobility** → [Charter to the Gentry](https://en.wikipedia.org/wiki/Charter_to_the_Gentry) (from `Charter to the Nobility`)
 - `ru-372` **Russian America** → [Russian colonization of North America](https://en.wikipedia.org/wiki/Russian_colonization_of_North_America) (from `Russian America`)
 - `ru-376` **Freemasonry in Russia** → [History of Freemasonry in Russia](https://en.wikipedia.org/wiki/History_of_Freemasonry_in_Russia) (from `Freemasonry in Russia`)
 - `ru-380` **Mikhailovsky Castle** → [Saint Michael's Castle](https://en.wikipedia.org/wiki/Saint_Michael's_Castle) (from `Mikhailovsky Castle`)
@@ -674,7 +677,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (92)
+## Settled from a disambiguation page (94)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -746,6 +749,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `rm-865` **tegula** → [Imbrex and tegula](https://en.wikipedia.org/wiki/Imbrex_and_tegula) (via the disambiguation page `Tegula`)
 - `ru-219` **Ivan Ivanovich** → [Tsarevich Ivan Ivanovich of Russia](https://en.wikipedia.org/wiki/Tsarevich_Ivan_Ivanovich_of_Russia) (via the disambiguation page `Ivan Ivanovich`)
 - `ru-319` **Peter II** → [Peter II of Russia](https://en.wikipedia.org/wiki/Peter_II_of_Russia) (via the disambiguation page `Peter II`)
+- `ru-337` **raid on Berlin** → [1760 raid on Berlin](https://en.wikipedia.org/wiki/1760_raid_on_Berlin) (via the disambiguation page `Raid on Berlin`)
+- `ru-338` **Peter III** → [Peter III of Russia](https://en.wikipedia.org/wiki/Peter_III_of_Russia) (via the disambiguation page `Peter III`)
 - `ru-378` **Paul I** → [Paul I of Russia](https://en.wikipedia.org/wiki/Paul_I_of_Russia) (via the disambiguation page `Paul I`)
 - `ru-381` **Alexander I** → [Alexander I of Russia](https://en.wikipedia.org/wiki/Alexander_I_of_Russia) (via the disambiguation page `Alexander I`)
 - `us-021` **Moundville** → [Moundville, Alabama](https://en.wikipedia.org/wiki/Moundville,_Alabama) (via the disambiguation page `Moundville`)
@@ -1088,7 +1093,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1028)
+## No article found (1035)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2039,11 +2044,18 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-322` **Bironovshchina** — search suggests `History of Russia (1721–1796)`, `Ernst Johann von Biron`
 - `ru-327` **coup of 1741** — search suggests `Ivan VI of Russia`, `1741 in Russia`, `Catherine Antonovna of Brunswick`, `Russo-Swedish War (1741–1743)`, `1741`
 - `ru-328` **moratorium on the death penalty** — search suggests `Capital punishment in Russia`, `Resolutions concerning death penalty at the United Nations`, `Capital punishment by country`, `Capital punishment`, `Capital punishment in Europe`
+- `ru-339` **Manifesto on the Freedom of the Nobility** — search suggests `Emancipation reform of 1861`, `Tsarist Russia`, `Catherine the Great`, `Russian Revolution of 1905`, `Serfdom in Russia`
+- `ru-340` **coup of 1762** — search suggests `Peter III of Russia`, `Ivan VI of Russia`, `Elizabeth of Russia`, `Catherine the Great`, `Russia`
 - `ru-342` **coronation of Catherine II** — search suggests `Catherine the Great`, `Coronation of the Russian monarch`, `Peter II of Russia`, `Imperial Crown of Russia`, `Coronation of Bokassa I and Catherine`
 - `ru-344` **Legislative Commission** — search suggests `2026 Russian legislative election`, `Russian legislative elections`, `1912 Russian legislative election`, `Nakaz`, `1990 Russian Supreme Soviet election`
 - `ru-346` **secularisation of church lands** — search suggests `Peter III of Russia`, `Catherine the Great`, `Metropolis of Moscow and all Rus'`, `Secularization`, `Palmarian Catholic Church`
+- `ru-366` **destruction of the Zaporozhian Sich** — search suggests `Zaporozhian Sich`, `Zaporozhian Cossacks`, `Liquidation of the Zaporozhian Sich`, `Battle of the Sich (1674)`, `Cossacks`
+- `ru-367` **provincial reform of 1775** — search suggests `Governorate (Russia)`, `1775`, `Catherine the Great`, `Yemelyan Pugachev`, `Baltic Governorates`
+- `ru-369` **Charter to the Towns** — search suggests `Russia`, `Magadan`, `Federal subjects of Russia`, `Russo-Ukrainian war`, `Anadyr (town)`
 - `ru-382` **Unofficial Committee** — search suggests `Federal Security Service`, `Russian Soviet Federative Socialist Republic`, `Private Committee`, `List of heads of government of Russia`, `Flag of Russia`
 - `ru-384` **ministerial reform of 1802** — search suggests `Ministerial reform in the Russian Empire`, `List of heads of government of Russia`, `Government reform of Alexander I`, `Manifesto on the Establishment of Ministries`, `Alexander I of Russia`
+- `ru-395` **Russo-Persian War of 1804–1813** — search suggests `Russo-Persian War (1804–1813)`, `Russo-Persian Wars`, `Russo-Persian War (1826–1828)`, `Siege of Ganja (1804)`, `Battle of Echmiadzin (1804)`
+- `ru-399` **1812 Battle of Smolensk** — search suggests `Battle of Smolensk (1812)`, `Battle of Maloyaroslavets`, `Smolensk`, `The Battle of Smolensk`, `First Battle of Krasnoi`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`
