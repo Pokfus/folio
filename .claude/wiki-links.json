@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T08:10Z",
+ "generated": "2026-11-12T08:12Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7679,
-  "redirect-broader": 748,
+  "ok": 7687,
+  "redirect-broader": 749,
   "redirect-variant": 463,
   "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1135,
+  "none": 1136,
   "disambig-resolved": 102,
   "list-page": 6,
   "search-match": 9,
@@ -83595,6 +83595,84 @@
    "answer": "rain follows the plow",
    "title": "Rain follows the plow",
    "url": "https://en.wikipedia.org/wiki/Rain_follows_the_plow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-611": {
+   "answer": "Militia Act of 1862",
+   "title": "Militia Act of 1862",
+   "url": "https://en.wikipedia.org/wiki/Militia_Act_of_1862",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-612": {
+   "answer": "Thirteenth Amendment",
+   "title": "Thirteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Thirteenth_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Thirteenth Amendment"
+  },
+  "us-613": {
+   "answer": "Southern bread riots",
+   "title": "Southern bread riots",
+   "url": "https://en.wikipedia.org/wiki/Southern_bread_riots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-614": {
+   "answer": "Greenback",
+   "title": "Greenback (1860s money)",
+   "url": "https://en.wikipedia.org/wiki/Greenback_(1860s_money)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-615": {
+   "answer": "Confederate States dollar",
+   "title": "Confederate States dollar",
+   "url": "https://en.wikipedia.org/wiki/Confederate_States_dollar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-616": {
+   "answer": "Confederate conscription",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Confederate Conscription Acts 1862–1864",
+    "Confederate States of America",
+    "Conscription in the United States",
+    "Confederate States Congress",
+    "Confederate States Army"
+   ]
+  },
+  "us-617": {
+   "answer": "New York City draft riots",
+   "title": "New York City draft riots",
+   "url": "https://en.wikipedia.org/wiki/New_York_City_draft_riots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-618": {
+   "answer": "United States Sanitary Commission",
+   "title": "United States Sanitary Commission",
+   "url": "https://en.wikipedia.org/wiki/United_States_Sanitary_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-619": {
+   "answer": "Medicine in the American Civil War",
+   "title": "Medicine in the American Civil War",
+   "url": "https://en.wikipedia.org/wiki/Medicine_in_the_American_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-620": {
+   "answer": "Andersonville Prison",
+   "title": "Andersonville Prison",
+   "url": "https://en.wikipedia.org/wiki/Andersonville_Prison",
    "via": "glossary",
    "status": "ok"
   }

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7679 | the title is the article |
+| `ok` | 7687 | the title is the article |
 | `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 102 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 748 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 749 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1135 | nothing matched; no link |
+| `none` | 1136 | nothing matched; no link |
 
-**9008 of 10490 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9017 of 10500 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (748)
+## Redirected to a differently named article — check each (749)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -643,6 +643,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-465` **State v. Mann** → [North Carolina v. Mann](https://en.wikipedia.org/wiki/North_Carolina_v._Mann) (from `State v. Mann`)
 - `us-478` **Weeping Time** → [Great Slave Auction](https://en.wikipedia.org/wiki/Great_Slave_Auction) (from `Weeping Time`)
 - `us-482` **whipping** → [Flagellation](https://en.wikipedia.org/wiki/Flagellation) (from `Whipping`)
+- `us-612` **Thirteenth Amendment** → [Thirteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Thirteenth_Amendment_to_the_United_States_Constitution) (from `Thirteenth Amendment`)
 - `us-622` **Presidential Reconstruction** → [Reconstruction era](https://en.wikipedia.org/wiki/Reconstruction_era) (from `Presidential Reconstruction`)
 - `us-630` **Fourteenth Amendment** → [Fourteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution) (from `Fourteenth Amendment`)
 - `us-656` **Plains Wars** → [American Indian Wars](https://en.wikipedia.org/wiki/American_Indian_Wars) (from `Plains Wars`)
@@ -1263,7 +1264,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1135)
+## No article found (1136)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2335,6 +2336,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-520` **quilt code** — search suggests `Quilting`, `Quilts of the Underground Railroad`, `Houston`, `Boykin, Alabama`, `Social class in the United States`
 - `us-535` **Higher law speech** — search suggests `Freedom of speech in the United States`, `United States`, `United States labor law`, `Child pornography laws in the United States`, `Law school in the United States`
 - `us-607` **Self-emancipation** — search suggests `United States`, `Emancipation of minors`, `Emancipation Proclamation`, `Emancipation`, `Slavery in the United States`
+- `us-616` **Confederate conscription** — search suggests `Confederate Conscription Acts 1862–1864`, `Confederate States of America`, `Conscription in the United States`, `Confederate States Congress`, `Confederate States Army`
 - `us-636` **Black officeholders during Reconstruction** — search suggests `List of African-American United States senators`, `African American officeholders from the end of the Civil War until before 1900`, `African-American officeholders in the United States, 1789–1866`, `Reconstruction era`, `African Americans in the United States Congress`
 - `us-654` **Railroad land grants** — search suggests `Railroad land grants in the United States`, `Land grant`, `History of rail transportation in the United States`, `Checkerboarding (land)`, `Pacific Railroad Acts`
 - `us-661` **destruction of the bison** — search suggests `American bison hunting`, `Bison`, `American bison`, `History of the United States`, `Great bison belt`

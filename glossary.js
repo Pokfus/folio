@@ -10646,7 +10646,17 @@ window.GLOSSARY = {
 "Frederick_Jackson_Turner": "",
 "Comstock_Lode": "",
 "Frontier_myth": "",
-"Rain_follows_the_plow": ""
+"Rain_follows_the_plow": "",
+"Militia_Act_of_1862": "",
+"Thirteenth_Amendment_to_the_United_States_Constitution": "",
+"Southern_bread_riots": "",
+"Greenback_(1860s_money)": "",
+"Confederate_States_dollar": "",
+"Confederate_conscription": "",
+"New_York_City_draft_riots": "",
+"United_States_Sanitary_Commission": "",
+"Medicine_in_the_American_Civil_War": "",
+"Andersonville_Prison": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15711,7 +15721,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sherman_Antitrust_Act": "1890",
 "Thomas_Edison": "1847–1931",
 "Frederick_Jackson_Turner": "1861–1932",
-"Rain_follows_the_plow": "c. 1880–1890"
+"Rain_follows_the_plow": "c. 1880–1890",
+"Militia_Act_of_1862": "1862",
+"Thirteenth_Amendment_to_the_United_States_Constitution": "1865",
+"Southern_bread_riots": "1863",
+"Greenback_(1860s_money)": "1862–1879",
+"Confederate_States_dollar": "1861–1865",
+"Confederate_conscription": "1862–1865",
+"New_York_City_draft_riots": "1863",
+"United_States_Sanitary_Commission": "1861–1865",
+"Medicine_in_the_American_Civil_War": "1861–1865",
+"Andersonville_Prison": "1864–1865"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22574,7 +22594,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cattle_drives_in_the_United_States": ["cattle drive","cattle drives","long drive","trail drive"],
 "Frontier_Thesis": ["frontier thesis","Turner thesis","Turner Thesis"],
 "Frontier_myth": ["frontier myth","myth of the West","myth of the frontier","Wild West myth"],
-"Rain_follows_the_plow": ["rain follows the plough"]
+"Rain_follows_the_plow": ["rain follows the plough"],
+"Thirteenth_Amendment_to_the_United_States_Constitution": ["Thirteenth Amendment","13th Amendment"],
+"Southern_bread_riots": ["Richmond Bread Riot"],
+"Greenback_(1860s_money)": ["Greenback","greenbacks"],
+"Andersonville_Prison": ["Camp Sumter"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33382,7 +33406,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Frederick_Jackson_Turner": ["person","history","historiography","united states"],
 "Comstock_Lode": ["place","history","mining","nevada","united states"],
 "Frontier_myth": ["concept","history","culture","united states"],
-"Rain_follows_the_plow": ["theory","history","environment","great plains","united states"]
+"Rain_follows_the_plow": ["theory","history","environment","great plains","united states"],
+"Militia_Act_of_1862": ["text","law","history","slavery","civil war","united states"],
+"Thirteenth_Amendment_to_the_United_States_Constitution": ["text","law","politics","slavery","united states"],
+"Southern_bread_riots": ["event","history","society","civil war","united states"],
+"Greenback_(1860s_money)": ["object","economics","money","civil war","united states"],
+"Confederate_States_dollar": ["object","economics","money","civil war","united states"],
+"Confederate_conscription": ["practice","history","warfare","civil war","united states"],
+"New_York_City_draft_riots": ["event","history","race","civil war","united states"],
+"United_States_Sanitary_Commission": ["institution","history","medicine","civil war","united states"],
+"Medicine_in_the_American_Civil_War": ["practice","medicine","history","civil war","united states"],
+"Andersonville_Prison": ["building","history","warfare","civil war","united states"]
 });
 
 /* ============================================================================
