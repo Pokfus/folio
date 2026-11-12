@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1286", released: "2026-11-12T08:45Z" };
+window.FOLIO_VERSION = { v: "1.1287", released: "2026-11-12T12:16Z" };
 
 window.CHANGELOG = [
   {
@@ -45,8 +45,8 @@ window.CHANGELOG = [
       "100 new cards in <b>Biology</b>, from cells and organelles through membranes and respiration to photosynthesis, with 96 new glossary terms.",
       "200 new cards in <b>Psychology</b>, from research ethics and the brain to genes, hormones and drugs, sensation, vision and hearing, with 188 new glossary terms.",
       "300 new cards in <b>United States</b>, from the Constitution's ratification through slavery and abolition to the sectional crisis and the Civil War, with 288 new glossary terms.",
+      "200 new cards in <b>Ancient Egypt</b>, from the late Middle Kingdom and the Hyksos through Amarna and the Ramesside kings to Thebes and Karnak, with 186 new glossary terms.",
       "200 new cards in <b>Russia</b>, from Peter the Great through Catherine the Great and 1812 to the Great Reforms and the Russo-Japanese War, with 195 new glossary terms.",
-      "100 new cards in <b>Ancient Egypt</b>, from the late Middle Kingdom and the Hyksos to the early Eighteenth Dynasty and the first Amarna cards, with 94 new glossary terms.",
       "100 new cards in <b>Astronomy</b>, from the Solar System's formation through the planets and moons to the asteroids, with 95 new glossary terms.",
       "70 new cards in <b>Visual Art</b>, from the first farming villages through the Bronze Age to early Classical Greece, with 58 new glossary terms.",
       "100 new cards in <b>Korea</b>, covering the Three Kingdoms, Goguryeo, Baekje, Silla and Gaya, with 92 new glossary terms.",

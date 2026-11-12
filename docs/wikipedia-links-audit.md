@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7688 | the title is the article |
-| `redirect-variant` | 470 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 105 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7776 | the title is the article |
+| `redirect-variant` | 471 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 104 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 748 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 756 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 176 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1146 | nothing matched; no link |
+| `none` | 1149 | nothing matched; no link |
 
-**9027 of 10520 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9123 of 10620 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (748)
+## Redirected to a differently named article — check each (756)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -212,6 +212,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-187` **Lahun Papyri** → [Kahun Papyri](https://en.wikipedia.org/wiki/Kahun_Papyri) (from `Lahun Papyri`)
 - `eg-225` **Tell el-Maskhuta** → [Pithom](https://en.wikipedia.org/wiki/Pithom) (from `Tell el-Maskhuta`)
 - `eg-232` **Egyptian chariot** → [Chariotry in ancient Egypt](https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt) (from `Egyptian chariot`)
+- `eg-301` **Akhetaten** → [Amarna](https://en.wikipedia.org/wiki/Amarna) (from `Akhetaten`)
+- `eg-310` **Gempaaten** → [Temple of Amenhotep IV](https://en.wikipedia.org/wiki/Temple_of_Amenhotep_IV) (from `Gempaaten`)
+- `eg-325` **KV62** → [Tomb of Tutankhamun](https://en.wikipedia.org/wiki/Tomb_of_Tutankhamun) (from `KV62`)
+- `eg-341` **KV17** → [Tomb of Seti I](https://en.wikipedia.org/wiki/Tomb_of_Seti_I) (from `KV17`)
+- `eg-352` **QV66** → [Tomb of Nefertari](https://en.wikipedia.org/wiki/Tomb_of_Nefertari) (from `QV66`)
+- `eg-361` **Twosret** → [Tausret](https://en.wikipedia.org/wiki/Tausret) (from `Twosret`)
+- `eg-385` **Wadi es-Sebua** → [Temples of Wadi es-Sebua](https://en.wikipedia.org/wiki/Temples_of_Wadi_es-Sebua) (from `Wadi es-Sebua`)
+- `eg-388` **Beit el-Wali** → [Temple of Beit el-Wali](https://en.wikipedia.org/wiki/Temple_of_Beit_el-Wali) (from `Beit el-Wali`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -793,7 +801,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (105)
+## Settled from a disambiguation page (104)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -878,7 +886,6 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ru-416` **Nicholas I** → [Nicholas I of Russia](https://en.wikipedia.org/wiki/Nicholas_I_of_Russia) (via the disambiguation page `Nicholas I`)
 - `ru-441` **Alexander II** → [Alexander II of Russia](https://en.wikipedia.org/wiki/Alexander_II_of_Russia) (via the disambiguation page `Alexander II`)
 - `ru-477` **Alexander III** → [Alexander III of Russia](https://en.wikipedia.org/wiki/Alexander_III_of_Russia) (via the disambiguation page `Alexander III`)
-- `ru-492` **Port Arthur** → [Lüshunkou](https://en.wikipedia.org/wiki/L%C3%BCshunkou) (via the disambiguation page `Port Arthur`)
 - `us-021` **Moundville** → [Moundville, Alabama](https://en.wikipedia.org/wiki/Moundville,_Alabama) (via the disambiguation page `Moundville`)
 - `us-028` **Mogollon** → [Mogollon, New Mexico](https://en.wikipedia.org/wiki/Mogollon,_New_Mexico) (via the disambiguation page `Mogollon`)
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
@@ -1086,7 +1093,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (175)
+## Section redirects — no dedicated page (176)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1135,6 +1142,7 @@ Wikipedia treats these as part of another article. No link.
 - `eg-096` **Heb-sed court** — `Heb-sed court` only redirects into `Pyramid of Djoser#Heb-sed court`
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
 - `eg-203` **Middle Egyptian** — `Middle Egyptian` only redirects into `Egyptian language#Middle Egyptian`
+- `eg-396` **Sacred lake** — `Sacred lake` only redirects into `Sacred waters#Lakes and underground water`
 - `gga-141` **Child mortality rate** — `Child mortality rate` only redirects into `Child mortality#Rate`
 - `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gga-232` **Premature deindustrialisation** — `Premature deindustrialization` only redirects into `Technological unemployment#Premature deindustrialization`
@@ -1266,7 +1274,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1146)
+## No article found (1149)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1661,6 +1669,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-287` **Amenemhab** — search suggests `TT44`, `TT25`, `TT85`, `Seti (Viceroy of Kush)`, `List of ancient Egyptians`
 - `eg-294` **Tomb of Kheruef** — search suggests `List of Theban tombs`, `TT192`, `Akhenaten`, `Amenhotep III`, `TT407`
 - `eg-297` **Tomb of Ramose** — search suggests `Ramose`, `Southern Tomb 11`, `Ramesses II`, `Ramose and Hatnofer`, `Ramose (TT55)`
+- `eg-315` **Amarna Workmen's Village** — search suggests `Workmen's village`, `Amarna`, `Workmen's Village, Amarna`, `Eighteenth Dynasty of Egypt`, `Art of ancient Egypt`
+- `eg-334` **Inscription of Mes** — search suggests `Graffito of Esmet-Akhom`, `Merneptah Stele`, `Behistun inscription`, `Proto-Sinaitic script`, `Darius the Great`
+- `eg-339` **Temple of Seti I at Abydos** — search suggests `Abydos, Egypt`, `Temple of Seti I (Abydos)`, `Seti I`, `Abydos King List`, `Osireion`
+- `eg-382` **Late Ramesside Letters** — search suggests `Egyptian language`, `Ancient Egyptian literature`, `List of pharaohs`, `Bronze Age`, `Art of ancient Egypt`
+- `eg-383` **Ostracon BM EA 5634**
+- `eg-386` **Nauri Decree** — search suggests `Temple of Seti I (Abydos)`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
@@ -2311,11 +2325,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-346` **secularisation of church lands** — search suggests `Peter III of Russia`, `Catherine the Great`, `Metropolis of Moscow and all Rus'`, `Secularization`, `Palmarian Catholic Church`
 - `ru-367` **provincial reform of 1775** — search suggests `Governorate (Russia)`, `1775`, `Catherine the Great`, `Yemelyan Pugachev`, `Baltic Governorates`
 - `ru-369` **Charter to the Towns** — search suggests `Russia`, `Magadan`, `Federal subjects of Russia`, `Russo-Ukrainian war`, `Anadyr (town)`
-- `ru-402` **Moscow fire of 1812** — search suggests `Fire of Moscow (1812)`, `French invasion of Russia`, `French occupation of Moscow`, `1812 Overture`, `Moscow`
 - `ru-412` **Semyonovsky Regiment mutiny** — search suggests `Semyonovsky Life Guards Regiment`, `Preobrazhensky Life Guards Regiment`, `Russian Naval Infantry`, `Russian Imperial Guard`, `Russian Revolution of 1905`
 - `ru-424` **cast-iron statute** — search suggests `Russia`, `Brass knuckles`, `History of metallurgy in the Urals`, `Royal Mail`, `Russia under Vladimir Putin`
-- `ru-430` **Circassian expulsions** — search suggests `Circassian genocide`, `Circassians`, `Circassia`, `Russo–Circassian War`, `Alexander II of Russia`
-- `ru-431` **Russo-Persian War of 1826–1828** — search suggests `Russo-Persian War (1826–1828)`, `Russo-Persian Wars`, `Russo-Turkish War (1828–1829)`, `Russo-Turkish wars`, `Battle of Ganja (1826)`
 - `ru-443` **Editing Commissions** — search suggests `2026 Russian plague scare`, `Conflict-of-interest editing on Wikipedia`, `He Jiankui affair`, `2026 Russian legislative election`, `United Russia`
 - `ru-445` **redemption payments** — search suggests `Emancipation reform of 1861`, `Economy of Tsarist Russia`, `Russian Empire`, `Bond (finance)`, `Redemptioner`
 - `ru-446` **krugovaya poruka** — search suggests `Obshchina`
