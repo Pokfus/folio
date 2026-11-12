@@ -148,3 +148,11 @@ sexual or crime vocabulary. Wiktionary has none of B1's institutional words: no 
 history, science, economy, newspaper, radio, television, internet, cancer or HIV, and none of the connectors
 (nokho, ngakho-ke, ngokwesibonelo). The deck's description says it is assembled; this file and
 `inventory.py` say what is missing. No set is planned after B1.
+
+**B2 was asked for on 2026-11-12, and the owner chose not to build it.** After B1, about 460 lemmas are left
+in English Wiktionary's Zulu (not counting 131 pointer, stub or proper-noun entries). Nearly all of them are
+absent from the Zulu Wikipedia, and most are rare: cattle by horn shape, birds, old weapons, synonyms of words
+already taught. Wiktionary has none of B2's own vocabulary (law, the economy, the media, health, the
+connectors). The owner was offered three options: no B2, a "Zulu Further Vocabulary" deck of the leftovers
+not labelled with a CEFR level, or a deck titled B2 anyway. They chose no B2. Revisit only if a new source
+appears: a graded Zulu word list, a subtitle frequency list, or a Zulu dictionary under an open licence.
