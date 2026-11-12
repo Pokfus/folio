@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-12T04:32Z",
+ "generated": "2026-11-12T04:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6669,
-  "redirect-broader": 632,
-  "redirect-variant": 406,
-  "section-redirect": 138,
+  "ok": 6680,
+  "redirect-broader": 634,
+  "redirect-variant": 409,
+  "section-redirect": 142,
   "disambiguation": 147,
   "none": 1015,
   "disambig-resolved": 89,
@@ -72967,6 +72967,159 @@
    "via": "answer",
    "status": "redirect-broader",
    "from": "Irregular satellites"
+  },
+  "astro-181": {
+   "answer": "gravitational capture",
+   "title": "Gravitational capture",
+   "url": "https://en.wikipedia.org/wiki/Gravitational_capture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-182": {
+   "answer": "Rhea",
+   "title": "Rhea (moon)",
+   "url": "https://en.wikipedia.org/wiki/Rhea_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-183": {
+   "answer": "Iapetus",
+   "title": "Iapetus (moon)",
+   "url": "https://en.wikipedia.org/wiki/Iapetus_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-184": {
+   "answer": "Miranda",
+   "title": "Miranda (moon)",
+   "url": "https://en.wikipedia.org/wiki/Miranda_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-185": {
+   "answer": "Charon",
+   "title": "Charon (moon)",
+   "url": "https://en.wikipedia.org/wiki/Charon_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-186": {
+   "answer": "circumplanetary disc",
+   "title": "Circumplanetary disk",
+   "url": "https://en.wikipedia.org/wiki/Circumplanetary_disk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Circumplanetary disc"
+  },
+  "astro-187": {
+   "answer": "Laplace resonance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Laplace resonance",
+   "target": "Orbital resonance#Laplace resonance"
+  },
+  "astro-188": {
+   "answer": "Europa Clipper",
+   "title": "Europa Clipper",
+   "url": "https://en.wikipedia.org/wiki/Europa_Clipper",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-189": {
+   "answer": "cryovolcanism",
+   "title": "Cryovolcano",
+   "url": "https://en.wikipedia.org/wiki/Cryovolcano",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cryovolcanism"
+  },
+  "astro-190": {
+   "answer": "moonquakes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Moonquakes",
+   "target": "Quake (natural phenomenon)#Moonquake"
+  },
+  "astro-191": {
+   "answer": "asteroid",
+   "title": "Asteroid",
+   "url": "https://en.wikipedia.org/wiki/Asteroid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-192": {
+   "answer": "asteroid belt",
+   "title": "Asteroid belt",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_belt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-193": {
+   "answer": "exploded planet hypothesis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Exploded planet hypothesis",
+   "target": "Phaeton (hypothetical planet)#Other hypotheses"
+  },
+  "astro-194": {
+   "answer": "Kirkwood gaps",
+   "title": "Kirkwood gap",
+   "url": "https://en.wikipedia.org/wiki/Kirkwood_gap",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kirkwood gaps"
+  },
+  "astro-195": {
+   "answer": "Ceres",
+   "title": "Ceres (dwarf planet)",
+   "url": "https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-196": {
+   "answer": "Vesta",
+   "title": "Vesta (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Vesta_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-197": {
+   "answer": "asteroid families",
+   "title": "Asteroid family",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_family",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Asteroid families"
+  },
+  "astro-198": {
+   "answer": "near-Earth asteroids",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Near-Earth asteroids",
+   "target": "Near-Earth object#Near-Earth asteroids"
+  },
+  "astro-199": {
+   "answer": "Trojan asteroids",
+   "title": "Trojan (celestial body)",
+   "url": "https://en.wikipedia.org/wiki/Trojan_(celestial_body)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trojan asteroids"
+  },
+  "astro-200": {
+   "answer": "asteroid spectral types",
+   "title": "Asteroid spectral types",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_spectral_types",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

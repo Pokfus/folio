@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6669 | the title is the article |
-| `redirect-variant` | 406 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6680 | the title is the article |
+| `redirect-variant` | 409 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 632 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 634 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 138 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 142 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1015 | nothing matched; no link |
 
-**7812 of 9130 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7828 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (632)
+## Redirected to a differently named article — check each (634)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -62,6 +62,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `astro-150` **planetary ring** → [Ring system](https://en.wikipedia.org/wiki/Ring_system) (from `Planetary ring`)
 - `astro-174` **lakes of Titan** → [Lakes and rivers of Titan](https://en.wikipedia.org/wiki/Lakes_and_rivers_of_Titan) (from `Lakes of Titan`)
 - `astro-180` **irregular satellites** → [Irregular moon](https://en.wikipedia.org/wiki/Irregular_moon) (from `Irregular satellites`)
+- `astro-189` **cryovolcanism** → [Cryovolcano](https://en.wikipedia.org/wiki/Cryovolcano) (from `Cryovolcanism`)
+- `astro-199` **Trojan asteroids** → [Trojan (celestial body)](https://en.wikipedia.org/wiki/Trojan_(celestial_body)) (from `Trojan asteroids`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -948,7 +950,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (138)
+## Section redirects — no dedicated page (142)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -959,6 +961,10 @@ Wikipedia treats these as part of another article. No link.
 - `astro-137` **dust storms on Mars** — `Dust storms on Mars` only redirects into `Climate of Mars#Dust storms`
 - `astro-155` **tilt of Uranus** — `Tilt of Uranus` only redirects into `Uranus#Axial tilt`
 - `astro-159` **superionic water** — `Superionic water` only redirects into `Phases of ice#Ice XVIII (superionic water)`
+- `astro-187` **Laplace resonance** — `Laplace resonance` only redirects into `Orbital resonance#Laplace resonance`
+- `astro-190` **moonquakes** — `Moonquakes` only redirects into `Quake (natural phenomenon)#Moonquake`
+- `astro-193` **exploded planet hypothesis** — `Exploded planet hypothesis` only redirects into `Phaeton (hypothetical planet)#Other hypotheses`
+- `astro-198` **near-Earth asteroids** — `Near-Earth asteroids` only redirects into `Near-Earth object#Near-Earth asteroids`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`
