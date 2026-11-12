@@ -3612,8 +3612,9 @@ changed was the one that had been wrong all along.
   Ethnologue's 58 million (via Wikipedia); the hue is measured, `#665487` (re-swept at each merge; 60 hues on the shelf at the last).
 - `.claude/persian/` — the generator behind the Persian (Farsi) decks (Nov 2026, on request: "Add a Farsi language
   collection"). Hindi's pipeline and decisions carried over: CEFR A1–C1 assembled, an alphabet deck first,
-  romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes) **and
-  `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/persian/run.py [--level a1]`,
+  romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes), **A1,
+  `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Persian-A2.folio-deck.json`**
+  (750 notes / 1,500 cards, 2026-11-12: the months let through as nouns) **and B1, `decks/Persian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, the same day: romanisation read off the headword line) **and B2, `decks/Persian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: Wiktionary lacks much of the level's formal vocabulary, so the fill carries it) **and C1, `decks/Persian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: the inventory checked against Wiktionary before it was written). Every level is built, and **the phrases deck, `decks/Persian-Phrases-and-Expressions.folio-deck.json`** (106 expressions: 47 phrases, 39 idioms, 20 proverbs; `phrases.py`, Hindi's, carried over). The set is complete. `python3 .claude/persian/run.py [--level a1]`,
   `python3 .claude/persian/alphabet.py`, `node .claude/persian/check-persian.js`; a re-run is byte-identical. What
   Persian needed that Hindi did not — the fold (Arabic ي ك, marks and the joiner ignored, the madda kept), the
   joiner put back into Wiktionary's tables, the SPOKEN forms counted for the written word, right to left, the
