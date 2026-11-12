@@ -35,6 +35,12 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`phrases.py`, `run.py --level phr`): not a CEFR level, built on all five.
+TITLES['phr'] = 'Swedish Phrases and Expressions'
+DECK_IDS['phr'] = 'swedishphrase'
+DECK_FILES['phr'] = 'Swedish-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '
@@ -48,6 +54,58 @@ SCOPE = {
                   'the home, the town and getting about, the body and feeling ill, the '
                   'weather, colours, and the pronouns, question words, prepositions and '
                   'little words every sentence is built out of',
+    },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas of '
+                 'most immediate relevance',
+        'gloss': 'able to communicate in simple and routine tasks requiring a simple and direct '
+                 'exchange of information on familiar and routine matters, and to describe in '
+                 'simple terms aspects of their background, immediate environment and matters '
+                 'in areas of immediate need',
+        'topics': 'the seasons and dates, more numbers, the land and nature, the weather, animals, '
+                  'clothes, the home and the kitchen, food and cooking, work and jobs, school, '
+                  'travel and transport, the town, health, feelings, free time, the everyday verbs '
+                  'of these, describing things and people, time words, and the words that join '
+                  'one clause to the next',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise whilst travelling, to produce '
+                 'simple connected text on topics which are familiar or of personal interest, and '
+                 'to describe experiences and events, dreams, hopes and ambitions and briefly give '
+                 'reasons and explanations for opinions and plans',
+        'topics': 'work and the economy, society and politics, media and technology, the '
+                  'environment, education, relationships and family life, home and housing, '
+                  'health, travel and experiences, culture and leisure, feelings and opinions, the '
+                  'words of explaining and arguing, the verbs and adjectives of judging, time and '
+                  'frequency, and the connectors that build an argument',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, '
+                 'and to produce clear, detailed text on a wide range of subjects and explain a '
+                 'viewpoint on a topical issue giving the advantages and disadvantages of various '
+                 'options',
+        'topics': 'the economy and work, politics and the state, law and justice, science and '
+                  'technology, the environment and resources, health and society, media and '
+                  'communication, culture and society, the abstract nouns of discussion, the verbs '
+                  'of arguing and reasoning, describing and evaluating, and the connectors of '
+                  'formal Swedish',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express themselves fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for social, '
+                 'academic and professional purposes, and to produce clear, well-structured, '
+                 'detailed text on complex subjects',
+        'topics': 'academic and intellectual life, society and governance, the economy and '
+                  'business, law and ethics, mind and behaviour, language and rhetoric, the '
+                  'abstract nouns of analysis, the verbs and adjectives of formal argument, and '
+                  'formal connectors',
     },
 }
 

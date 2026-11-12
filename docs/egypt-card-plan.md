@@ -126,6 +126,33 @@ Two answer terms collided between batches before import and were moved: Wawat st
 `Naqada_culture` gave up its bare `Naqada`, `Amratian` and `Gerzean` aliases in the same commit, to the
 new `Naqada` (the site), `Naqada_I` and `Naqada_II` terms.
 
+**`eg-201`–`eg-300` (written together, in ten parallel batches) retitled 66 lines**, and the list below
+shows the term each card answers. The same kinds again:
+
+- **Already taken**: Hyksos (`wh-219`) → Khyan; New Kingdom (`wh-220`) → Ahhotep I; Hatshepsut (`wh-221`)
+  → the Speos Artemidos; Thutmose III (`wh-222`) → his Festival Hall; Akhenaten (`wh-223`) → KV55; the
+  Amarna letters (`wh-270`) → Rib-Hadda; Mitanni (`wh-200`) → Tushratta; the Hittites (`wh-266`) →
+  Suppiluliuma I; Punt (`wh-422`) → Henenu and myrrh; the composite bow (`wh-586`) → the recurve bow; the
+  chariot (`wh-261`) → the Egyptian chariot; the Thirteenth Dynasty (`eg-200`) → Neferhotep I; Sobekneferu
+  (`eg-199`) → Amenemhat IV; Byblos (a glossary term) → its royal necropolis.
+- **The line named an area**: `eg-201`, `eg-205`, `eg-207`, `eg-208`, `eg-211`–`eg-219`, `eg-225`,
+  `eg-227`, `eg-230`, `eg-231`, `eg-234`, `eg-237`, `eg-239`, `eg-241`, `eg-243`, `eg-245`, `eg-247`,
+  `eg-249`, `eg-250`, `eg-256`, `eg-259`, `eg-261`, `eg-263`, `eg-264`, `eg-268`–`eg-270`, `eg-280`,
+  `eg-284`–`eg-290`, `eg-292`–`eg-295`, `eg-297`. Two are weak fits and say so in their notes:
+  Menkheperraseneb I for the Aegean (his tomb shows the chief of Keftiu) and Yuya for the army.
+- **Two subjects on one line**: the Sixteenth and Abydos Dynasties → the Sixteenth (the Abydos Dynasty is
+  left free).
+- **Wikipedia's head word differs**: Shabti → Ushabti (so `eg-776 The duties of the shabti` needs another
+  answer); Kingdom of Kerma → Kerma culture (so `eg-480` needs a term other than Kerma culture); Ahmose son
+  of Ibana → Ahmose, son of Ebana; the siege of Sharuhen → Sharuhen.
+
+Four answer terms collided between batches before import and were moved: *Against Apion* stays at
+`eg-227`, so `eg-247` took Tjaru; Tell el-Yahudiyeh ware stays at `eg-231`, so `eg-225` took Tell
+el-Maskhuta; the Nine Bows stay at `eg-293`, so `eg-233` took the recurve bow; the Chapelle Rouge stays at
+`eg-259`, so `eg-264` took the Seated Statue of Hatshepsut. Two more in the same batch, the Autobiography
+of Ahmose Pen-Nekhebet and the Speos Artemidos, stay at `eg-256` and `eg-258`, so `eg-287` took Amenemhab
+and `eg-288` the Temple of Amada.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -635,84 +662,84 @@ safe.
     eg-198  Tanite sphinxes
     eg-199  Sobekneferu
     eg-200  Thirteenth Dynasty of Egypt
-    eg-201  Middle Kingdom literature
+    eg-201  Loyalist Teaching
     eg-202  The Tale of the Shipwrecked Sailor
     eg-203  Middle Egyptian
     eg-204  Beni Hasan
-    eg-205  Middle Kingdom coffins
-    eg-206  Shabti
-    eg-207  Middle Kingdom jewellery
-    eg-208  The Middle Kingdom in the Levant
+    eg-205  Meir
+    eg-206  Ushabti
+    eg-207  Sithathoriunet
+    eg-208  Sebek-khu Stele
     eg-209  Execration texts
-    eg-210  Byblos and Egypt
-    eg-211  Punt and the Middle Kingdom
-    eg-212  Egyptian mining expeditions of the Middle Kingdom
-    eg-213  Middle Kingdom towns
-    eg-214  Middle Kingdom temples
-    eg-215  The cult of Osiris at Abydos
-    eg-216  The Abydos pilgrimage
-    eg-217  Middle Kingdom kingship and its ideology
-    eg-218  Middle Kingdom art
-    eg-219  Egypt's population in the Middle Kingdom
-    eg-220  The end of the Twelfth Dynasty
+    eg-210  Royal necropolis of Byblos
+    eg-211  Henenu
+    eg-212  Serabit el-Khadim
+    eg-213  Wah-Sut
+    eg-214  Heliopolis
+    eg-215  Ikhernofret
+    eg-216  Mysteries of Osiris
+    eg-217  Dramatic Ramesseum Papyrus
+    eg-218  Block statue
+    eg-219  Papyrus Brooklyn 35.1446
+    eg-220  Amenemhat IV
 
 ### The Second Intermediate Period — `eg-second-intermediate`
 
-    eg-221  Second Intermediate Period of Egypt
-    eg-222  The fragmentation of the Thirteenth Dynasty
+    eg-221  Second Intermediate Period
+    eg-222  Neferhotep I
     eg-223  Fourteenth Dynasty of Egypt
     eg-224  Avaris
-    eg-225  The Asiatic settlement in the Delta
-    eg-226  Hyksos
-    eg-227  The Hyksos question
+    eg-225  Tell el-Maskhuta
+    eg-226  Khyan
+    eg-227  Against Apion
     eg-228  Fifteenth Dynasty of Egypt
     eg-229  Apepi
-    eg-230  Hyksos rule in Egypt
-    eg-231  What the Hyksos brought
-    eg-232  The chariot in Egypt
-    eg-233  The composite bow
-    eg-234  Bronze working in the Second Intermediate Period
-    eg-235  The Sixteenth and Abydos Dynasties
+    eg-230  Salitis
+    eg-231  Tell el-Yahudiyeh Ware
+    eg-232  Egyptian chariot
+    eg-233  Recurve bow
+    eg-234  Khopesh
+    eg-235  Sixteenth Dynasty of Egypt
     eg-236  Seventeenth Dynasty of Egypt
-    eg-237  Theban resistance to the Hyksos
+    eg-237  Quarrel of Apophis and Seqenenre
     eg-238  Seqenenre Tao
-    eg-239  The mummy of Seqenenre Tao
+    eg-239  Dra' Abu el-Naga
     eg-240  Kamose
-    eg-241  The Kamose stelae
-    eg-242  Kingdom of Kerma
-    eg-243  Kerma and Egypt
+    eg-241  Carnarvon Tablet
+    eg-242  Kerma culture
+    eg-243  Tombos
     eg-244  The Western Deffufa
-    eg-245  Egypt between Avaris and Kerma
+    eg-245  Cusae
     eg-246  Ahmose I
-    eg-247  The expulsion of the Hyksos
-    eg-248  Ahmose son of Ibana
-    eg-249  The siege of Sharuhen
-    eg-250  The making of the New Kingdom
+    eg-247  Tjaru
+    eg-248  Ahmose, son of Ebana
+    eg-249  Sharuhen
+    eg-250  Pyramid of Ahmose
 
 ## The New Kingdom
 
 ### The early Eighteenth Dynasty — `eg-early-18th`
 
-    eg-251  New Kingdom of Egypt
+    eg-251  Ahhotep I
     eg-252  Eighteenth Dynasty of Egypt
     eg-253  Ahmose-Nefertari
     eg-254  Amenhotep I
     eg-255  Thutmose I
-    eg-256  The first Egyptian campaigns to the Euphrates
+    eg-256  Autobiography of Ahmose Pen-Nekhebet
     eg-257  Thutmose II
-    eg-258  Hatshepsut
-    eg-259  Hatshepsut's assumption of kingship
+    eg-258  Speos Artemidos
+    eg-259  Chapelle Rouge
     eg-260  Mortuary Temple of Hatshepsut
-    eg-261  The expedition to Punt
+    eg-261  Myrrh
     eg-262  Senenmut
-    eg-263  Hatshepsut's obelisks
-    eg-264  The erasure of Hatshepsut
-    eg-265  Thutmose III
+    eg-263  Obelisk ship
+    eg-264  Seated Statue of Hatshepsut
+    eg-265  Festival Hall of Thutmose III
     eg-266  Battle of Megiddo
     eg-267  The Annals of Thutmose III
-    eg-268  The Egyptian empire in Syria and Palestine
-    eg-269  Egyptian imperial administration in the Levant
-    eg-270  The Egyptian conquest of Nubia
+    eg-268  Retjenu
+    eg-269  Djehuty
+    eg-270  Kurgus
     eg-271  Viceroy of Kush
     eg-272  Amenhotep II
     eg-273  Thutmose IV
@@ -721,28 +748,28 @@ safe.
     eg-276  Malkata
     eg-277  Colossi of Memnon
     eg-278  Tiye
-    eg-279  Amenhotep son of Hapu
-    eg-280  Egyptian diplomacy in the fourteenth century BCE
-    eg-281  Amarna letters
-    eg-282  Mitanni and Egypt
-    eg-283  The Hittites and Egypt
-    eg-284  Egypt and the Aegean in the New Kingdom
-    eg-285  Egyptian gold and international exchange
-    eg-286  The New Kingdom army
-    eg-287  The Egyptian soldier
-    eg-288  New Kingdom temple building
-    eg-289  The wealth of Amun
-    eg-290  The High Priests of Amun
+    eg-279  Amenhotep, son of Hapu
+    eg-280  Kadashman-Enlil I
+    eg-281  Rib-Hadda
+    eg-282  Tushratta
+    eg-283  Suppiluliuma I
+    eg-284  Menkheperraseneb I
+    eg-285  Burna-Buriash II
+    eg-286  Yuya
+    eg-287  Amenemhab
+    eg-288  Temple of Amada
+    eg-289  Puimre
+    eg-290  Hapuseneb
     eg-291  God's Wife of Amun
-    eg-292  The Egyptian royal harem
-    eg-293  Foreigners in Egyptian art
-    eg-294  New Kingdom art before Amarna
-    eg-295  Egypt at the height of empire
+    eg-292  Menhet, Menwi and Merti
+    eg-293  Nine Bows
+    eg-294  Tomb of Kheruef
+    eg-295  Commemorative scarabs of Amenhotep III
 
 ### Akhenaten and Amarna — `eg-amarna`
 
-    eg-296  Akhenaten
-    eg-297  The early reign of Amenhotep IV
+    eg-296  KV55
+    eg-297  Tomb of Ramose
     eg-298  Aten
     eg-299  Atenism
     eg-300  Great Hymn to the Aten

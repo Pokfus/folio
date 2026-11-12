@@ -5,7 +5,7 @@ Swedish set, built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose 
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Swedish language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/swedish/`, §6). A2 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): the plan is complete** — all five levels, A1 to C1, and the phrases deck (`.claude/swedish/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Swedish to the day's
@@ -32,10 +32,11 @@ is the owner's to overrule.**
 | deck | file | notes |
 |---|---|---|
 | Swedish A1 Beginner — built | `Swedish-A1.folio-deck.json` | 500 |
-| Swedish A2 Elementary | `Swedish-A2.folio-deck.json` | 750 |
-| Swedish B1 Intermediate | `Swedish-B1.folio-deck.json` | 1,000 |
-| Swedish B2 Upper Intermediate | `Swedish-B2.folio-deck.json` | 1,500 |
-| Swedish C1 Advanced | `Swedish-C1.folio-deck.json` | 1,500 |
+| Swedish A2 Elementary — built | `Swedish-A2.folio-deck.json` | 750 |
+| Swedish B1 Intermediate — built | `Swedish-B1.folio-deck.json` | 1,000 |
+| Swedish B2 Upper Intermediate — built | `Swedish-B2.folio-deck.json` | 1,500 |
+| Swedish C1 Advanced — built | `Swedish-C1.folio-deck.json` | 1,500 |
+| Swedish Phrases and Expressions — built | `Swedish-Phrases-and-Expressions.folio-deck.json` | 830 |
 
 ## 2. Sources and licences
 
@@ -99,9 +100,9 @@ mina), which is the paradigm it belongs to. One of A1's 500 words has no Tatoeba
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swedish_level.py` (or, if the owner chooses, read a graded
-lexicon — §1), run, read every card. **Phase 3** — a phrases deck (`phrase` / `proverb` entries and particle
+lexicon — §1), run, read every card. **Phase 3 (done)** — a phrases deck (`phrase` / `proverb` entries and particle
 verbs: `tycka om`, `ta hand om`).
 
 ## 6. As built (2026-11-09): A1
@@ -111,3 +112,139 @@ verbs: `tycka om`, `ta hand om`).
 `node .claude/swedish/check-swedish.js` is the check. **A re-run is byte-identical** (verified, extract
 included). A1: 500 notes, 359 from the inventory and 141 by frequency; three sentences for 492, none for 1.
 The shelf's hue is measured: first `#757839`, an olive, which Romanian's parallel sweep also chose; re-swept at the merge against all 64 hues, `#BD4B7B`, a raspberry rose, 15.4 from its nearest (The EU as an External Power).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Swedish A2." `python3 .claude/swedish/run.py --level a2`; the same stages, no
+new source. **750 notes: 319 from a 19-topic inventory** (`inventory.py` `A2`: seasons and dates, numbers to
+a million, the land and nature, weather, animals, clothes, the home and kitchen, food and cooking, work,
+school, travel, the town, health, feelings, free time, verbs, describing, time words, connectors — scoped to
+the CEFR A2 descriptor, `SCOPE['a2']`) **and 431 by frequency**; three sentences for 693, none for 16. Every
+card was read. A1 re-runs byte-identical after every change below (each A2 table entry names no A1 word;
+`STAMP` and the description's learner are now per level).
+
+**What the A2 ranking turned up**, each fixed with its reason beside it:
+- **An adjective's neuter dealt as an adverb** (`svårt`, `stort`, `viktigt`, `snabbt` …): Wiktionary gives
+  each an adverb entry, and the closed-class rule hands it the neuter's count. Where the adjective is
+  taught (A1, or A2 itself) it is excluded; where it is not, or the adverb's meaning is its own (`långt`
+  "far", `högt` "loudly", `gott`, `speciellt`), it stays. Plurals the same (`vilka`, `själva`, `egna`).
+- **A rare noun spelt like a common verb took the verb's count**: `räcka`, `stämma`, `gömma`, `kräva`, `föda`,
+  `fylla`, `äga`, `suga`, `driva`, `råka`, `bete` — now read as verbs (`FILL_POS`); `gift` as "married", `egen`
+  as "own", `grund` and `öde` as nouns. `ETYMS` takes `val` "choice", `mål` "goal" and `tja` "well …".
+- **Names and pieces of phrases** (`Jack`, `Henry`, `Nick`, `Max`; `ihåg`, `i morse`, `dan`, `stan` through
+  `stiftsstad`) excluded; `jävlar` added to `SWEARS`.
+- **Two genders listed** (`blod`, `finger`, `värme`) or none (`chans`, `kläder`, `glasögon`) — `GENDER_FIX`.
+- Vulgar or slang third senses cut from animal nouns (`mus`, `katt`, `björn`, `varg`, `kanin`) by `GLOSS`.
+
+**Known, left.** The fill still carries the subtitles' crime vocabulary (`vapen`, `mord`, `pistol`, `bomb`),
+as A1 does. Three inventory words are not Wiktionary headwords and were dropped or replaced (`byxor` → `byxa`,
+`utlandet` → `utland`, `tidigare` dropped).
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/swedish/run.py --level b1`. **1,000 notes: 273 from a
+16-topic inventory** (`inventory.py` `B1`: work and the economy, society and politics, media and technology,
+the environment, education, relationships, housing, health, travel, culture, feelings and opinions, explaining
+and arguing, B1 verbs, judging adjectives, time words, connectors — `SCOPE['b1']`) **and 727 by frequency**;
+three sentences for 719, none for 89 (Tatoeba is thinner at this level: `avfall`, `uppsägning`, `polisanmälan`).
+The inventory now admits multi-word lemmas (`hålla med`, `till exempel`, `å andra sidan`, `så småningom`).
+Every card was read; A1 and A2 re-run byte-identical.
+
+**What the B1 ranking turned up** — the A2 kinds again, at greater number, each in `select.EXCLUDE` or a
+`build_deck.py` table with its reason: more adjective neuters and plurals (`rent`, `lågt`, `glada`, `långa`);
+**names** (`Bill`, `Don`, `Lisa`, `Linda`, `Grace`, `Al`, `Matt`) and **foreign words** (`and`, `wow`, `king`)
+whose spellings carry a rare Swedish entry; words met only in a phrase (`sistone`, `strunta i`, `råda bot`);
+colloquial forms Wiktionary gives no meaning (`våran`, `toa` — they printed an empty English side, which the
+check catches); rare-noun-over-verb again (`sörja`, `rulla`) and verb-over-noun (`ro` "peace", `knapp`
+"button", `ström`, `strid`); `mask` "mask" and `kram` "hug" by etymology; sexual or vulgar senses cut by
+`GLOSS` (`tända`, `satsa`, `boll`, `lust`, `sabba`, `villig`); `jävligt` and `skitsnack` to `SWEARS`. `franska`
+joins `NO_ART` (and the check's list). One judgement beyond a fault: `våldta` is excluded from a level deck
+although the subtitles rank it.
+
+**Known, left.** The subtitles' crime and fantasy vocabulary is heavier here than at A2 (`mördare` was A2;
+B1 adds `gisslan`, `vampyr`, `häxa`, `demon`, `åklagare`) — it is frequency, and labelled as such in the
+description. Two pairs share an English side and are told apart by the dedupe pass's label (`ansvarig` /
+`ansvarsfull`, `slutligen` / `så småningom`).
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/swedish/run.py --level b2`. **1,500 notes: 206 from a
+13-topic inventory** (`inventory.py` `B2`: the economy, politics, law, science and technology, the
+environment, health and society, media, culture and society, the abstract nouns of discussion, arguing and
+reasoning, B2 verbs, evaluating adjectives, formal connectors — `SCOPE['b2']`) **and 1,294 by frequency**;
+three sentences for 615, **none for 370** — a quarter of the deck, Tatoeba having few sentences for formal
+vocabulary (`lagstiftning`, `växthuseffekt`, `förordning`). Every card was read; A1, A2 and B1 re-run
+byte-identical. Six inventory words are not Wiktionary headwords and were removed (`koalition`, `medier`,
+`rapportering`, `urbanisering`, and three multi-word phrases).
+
+**What the B2 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- **Three empty English sides** (`madame`, `bea`, `utav`): Wiktionary gives them no gloss the extract keeps,
+  and the dedupe pass then "told them apart" with each other's names — so `check-swedish.js`'s empty-side test
+  did not fire. Excluded; the shape to look for is an English side made only of a dedupe label.
+- **Truncated glosses** (`bekämpa` "to fight and thus", `vaka` "to", `fatt` "in the expression") — `GLOSS` or
+  excluded.
+- The kinds of A2 and B1 again: adjective neuters (`fritt`, `dyrt`, `blått`), plurals (`feta`, `tunna`),
+  English words and names (`house`, `love`, `green`, `Gloria`, `Mick`, `Jon`), noun-over-verb (`luta`,
+  `skälla`, `snurra`, `grilla`, `klappa`, `trilla`), formal doublets of taught words (`moder`, `konung`).
+- **Languages** (`ryska`, `spanska`, `japanska`, `italienska`, `kinesiska`) join `NO_ART` and the check;
+  plural-only nouns (`kontanter`, `stålar`, `underkläder`) join `GENDER_FIX`.
+- `herrejävlar` and the insult `kärring` to `SWEARS`; `tutte`, `stake` and `missfoster` excluded.
+
+**Known, left.** The fill is heavier still with the subtitles' crime and fantasy vocabulary (`avrätta`,
+`knivhugga`, `seriemördare`, `zombie`, `varulv`) and carries some sexual vocabulary (`penis`, `vagina`,
+`pornografi`, `hångla`) on frequency — plain words, not slang, so left; the owner may want a rule.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/swedish/run.py --level c1`. **1,500 notes: 128 from a
+10-topic inventory** (`inventory.py` `C1`: academic and intellectual, society and governance, economy, law and
+ethics, mind and behaviour, language and rhetoric, abstract nouns of analysis, verbs and adjectives of formal
+argument, formal connectors — `SCOPE['c1']`) **and 1,372 by frequency**; three sentences for 336, **none for
+665** — Tatoeba has little at this level, and the description says how many carry sentences. Eleven inventory
+words are not Wiktionary headwords and were removed (`premiss`, `paradigm`, `nyanserad`, `förhärskande` …), and
+`utmynna`, which Wiktionary has but the extract keeps no gloss for. Every card was read; A1 to B2 re-run
+byte-identical.
+
+**The fill at this depth is the subtitles' long tail**: a quarter of the frequency words are everyday nouns a
+C1 learner may well know from B-level life (`tandborste`, `ketchup`, `kattunge`) rather than formal vocabulary —
+the honest result of ranking by frequency once the commonest 3,750 lemmas are taught. A graded lexicon (§1's
+choice for the owner) would change this level most.
+
+**What the C1 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+adjective neuters and plurals again (`mjukt`, `tätt`, `sura`, `rena`); `skulle` dealt as "an attic"; phrase-only
+words (`i fjol`, `till salu`, `i gengäld`, `i onödan`); names and English (`Lotta`, `Beck`, `game`, `kiss`,
+`bang`); `fyr` "a lighthouse" by etymology; drug, vulgar or sexual senses cut from `räka`, `syra`, `pung`,
+`buske`, `doppa`, `kön`, `italienare`; `latin` and `grekiska` to `NO_ART`; four nouns to `GENDER_FIX`; `shit`,
+`jävlig`, `balle` and the slurs `fjolla` and `slinka` to `SWEARS`, `avsugning` and `snopp` excluded.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/swedish/run.py --level phr` (after all five
+levels); the selection stage is `phrases.py`, the Hindi arrangement (`.claude/hindi/phrases.py`) with **one
+subdeck Hindi did not need — PARTICLE VERBS**, the verb-and-particle units Swedish is built on (`ta hand om`,
+`komma överens`, `hålla på`), which §5 named. **830 expressions in four subdecks**: 200 Phrases (of 243),
+300 Particle verbs (of 832), 250 Idioms (of 634), 80 Proverbs (all). Nothing a level teaches is taught again
+(`tycka om`, `hålla med` are B1's).
+
+- **Classification**: a proverb is Wiktionary's `proverb`; an idiom has a sense tagged `idiomatic`; a particle
+  verb is a multi-word `verb` with no such tag; a phrase is a `phrase` / `intj` / `prep_phrase`. The highest wins.
+  A weak or `slang` sense is no reason to include an expression.
+- **Order**: Tatoeba sentences containing the expression — a particle verb's first word in any form of its verb
+  (`examples.phrase_parts`: `tog hand om`) — then the frequency estimate. `CAPS` keeps the commonest of the long
+  subdecks. 485 of the 830 occur in Tatoeba; 479 carry a sentence. The verb-form matching is used for this deck
+  only, so the levels' sentences, and the levels, stay byte-identical (verified after every change).
+- **The card**: a particle verb shows the present, past and supine of the whole (`tar hand om`, `tog hand om`,
+  `tagit hand om`, from Wiktionary's head forms); no expression carries an article (`kärlek vid första
+  ögonkastet`, not "en …"), and `check-swedish.js` exempts a multi-word noun from the article rule.
+- **`EXCLUDE`** (each with its reason): phrasebook sentences built from level words (`jag är hungrig`, `jag
+  älskar dig` — the Hindi and Turkish rule; the formulas asked and answered whole, `hur mår du`, `var är
+  toaletten`, `jag förstår inte`, stay); pointers ("See ta sig") and entries with no gloss the extract keeps
+  (`håll käft` came out as only a dedupe label, as `madame` did at B2); entries whose gloss says they are not
+  particle verbs (`gå till`, `köra över`); the second spelling of one expression (`sov så gott`, three spellings
+  of `kasta pärlor för svinen`, two of `många bäckar små`); rude, sexual or drug expressions; a mnemonic, a policy
+  name, a children's game, a pun. Wiktionary's "Used other than figuratively or idiomatically" pointer sense is
+  dropped from this deck's cards; five glosses are written in `GLOSS` (a vulgar or a pointer sense cut).
+
+**Known, left.** Some phrases are Wiktionary's literal-translation entries rather than set phrases a learner
+needs (`det täcka könet`, `mata inte trollet`); a few idioms are regional or dated (`möta sitt Japan`). The
+particle-verb cap of 300 leaves out 532 rarer ones; the cap is one number in `phrases.py`.

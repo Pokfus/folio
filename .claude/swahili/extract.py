@@ -35,6 +35,19 @@ from sw import norm, is_sw, tokens, VerbParser
 DUMP, OUT = 'kaikki-sw.jsonl', 'lex.json'
 CORPORA = ['os-sw.txt.gz', 'gv-sw.txt.gz']
 
+# C1'S TWO WRITTEN CORPORA (`--web`).  The subtitles and Global Voices, 1.2 million words,
+# run out by B2: the last few hundred words of its fill had one or two tokens each and tied,
+# and once A1-B2's 4,000 words are taken, fewer than fifty usable lemmas attested in BOTH are
+# left.  So C1 is ranked on written Swahili alone: CCMatrix (OPUS, 61.6 million words of mined
+# web text) and WikiMatrix (OPUS, 3.9 million words of Wikipedia sentences), counted by the
+# same claims and parser and ranked by the same geometric mean, into `lex-web.json` -- never
+# into `lex.json`, whose counts the shipped A1-B2 decks were dealt on (their card ids are
+# positional).  A word must be common in both: CCMatrix alone is heavy with Bible verses and
+# boilerplate, WikiMatrix alone with the names of places and species.
+WEB = '--web' in sys.argv
+if WEB:
+    OUT, CORPORA = 'lex-web.json', ['ccmatrix-sw.txt.gz', 'wikimatrix-sw.txt.gz']
+
 KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'num', 'prep', 'pron',
             'conj', 'particle', 'det', 'proverb', 'prep_phrase'}
 
@@ -126,7 +139,7 @@ def main():
         for line in gzip.open(c, 'rt', encoding='utf-8'):
             cc.update(tokens(line))
         per_corpus.append(cc)
-    counts = per_corpus[0] + per_corpus[1]
+    counts = sum(per_corpus[1:], per_corpus[0])
 
     lemmas, pointers = {}, []
     for line in open(DUMP, encoding='utf-8'):
@@ -286,10 +299,12 @@ def main():
             L['freq'] = round(freq.get(k, 0), 2)
         L['own'] = counts.get(k, 0)
         out[k] = L
+    if WEB:       # the rates only: the entries are lex.json's
+        out = {k: {x: L[x] for x in ('freq', 'seq') if x in L} for k, L in out.items()}
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, sort_keys=True)
-    top = sorted(out.values(), key=lambda L: (-L['freq'], L['word']))[:60]
+    top = sorted(out, key=lambda k: (-out[k]['freq'], out[k].get('word', k)))[:60]
     print(f'  {sum(counts.values())} corpus words; {len(out)} lemmas; commonest:',
-          ' '.join(L['word'] for L in top))
+          ' '.join(out[k].get('word', k) for k in top))
 
 
 if __name__ == '__main__':

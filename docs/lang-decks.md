@@ -3505,8 +3505,13 @@ changed was the one that had been wrong all along.
   Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
 - `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
   collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
-  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes) **and A1,
-  `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/urdu/run.py [--level a1]`
+  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
+  `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Urdu-A2.folio-deck.json`**
+  (750 / 1,500), **B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
+  `decks/Urdu-B2.folio-deck.json`** (1,500 / 3,000; all three 2026-11-12, on request — B2 reaches the end of
+  what Wiktionary's Urdu supports, the plan's §9) **and the phrases deck,
+  `decks/Urdu-Phrases-and-Expressions.folio-deck.json`** (49 expressions, `--level phr`). **No C1**: the
+  source has nothing left for one (§10), and the owner chose the phrases deck instead. `python3 .claude/urdu/run.py [--level a1]`
   (the first fetch needs `wordfreq` on `PYTHONPATH`), `python3 .claude/urdu/alphabet.py`,
   `node .claude/urdu/check-urdu.js`; a re-run is byte-identical. Adapted from `.claude/hindi/`: the shelf's
   FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two
@@ -3515,7 +3520,7 @@ changed was the one that had been wrong all along.
   Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
 - `.claude/romanian/` — the generator behind the Romanian decks (Nov 2026, on request: "Add a Romanian language
   collection"; the decisions copy Hindi's). **Built: A1, `decks/Romanian-A1.folio-deck.json`** (500 notes /
-  1,000 cards) **and A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
+  1,000 cards) **A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Romanian-B1.folio-deck.json`** (1,000 / 2,000), **B2** (1,500 / 3,000), **C1** (1,500 / 3,000), **C2** (1,500 / 3,000) **and the phrases deck, `decks/Romanian-Phrases-and-Expressions.folio-deck.json`** (372 / 744 in three subdecks, `run.py --level phr`; all five 2026-11-12). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
   re-run is byte-identical. Hindi's pipeline with IPA in place of romanisation and no script deck; a level is a
   topic inventory plus lemma frequency, and the description says so. The plan, the sources and every finding
   (the cedilla fold, the bare spelling that yields to its accented twin, closed-class headwords that are a
@@ -3524,7 +3529,10 @@ changed was the one that had been wrong all along.
 - `.claude/vietnamese/` — the generator behind the Vietnamese decks (Nov 2026, on request: "Add a Vietnamese
   language collection"; the Hindi set's decisions taken as the default). **Built: the alphabet and tones,
   `decks/Vietnamese-Alphabet-and-Tones.folio-deck.json`** (35 notes) **and A1, `decks/Vietnamese-A1.folio-deck.json`**
-  (500 notes / 1,000 cards). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
+  (500 notes / 1,000 cards) **and A2, `decks/Vietnamese-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Vietnamese-B1.folio-deck.json`** (1,000 / 2,000)
+  **B2, `decks/Vietnamese-B2.folio-deck.json`** (1,500 / 3,000) **C1, `decks/Vietnamese-C1.folio-deck.json`** (1,500 / 3,000)
+  **and the phrases deck, `decks/Vietnamese-Phrases-and-Expressions.folio-deck.json`** (542 / 1,084, three subdecks; `--level phr`,
+  `phrases.py`; all 2026-11-12, findings in the plan's §7–§11). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
   `node .claude/vietnamese/check-vietnamese.js`; a re-run is byte-identical. The UKBI / Hindi shape (no published
   list: a topic inventory plus frequency). **What is new: Vietnamese spaces syllables, not words**, so the frequency
   is counted by segmenting the OPUS subtitles against Wiktionary's headwords rather than read off hermitdave's list
@@ -3534,8 +3542,11 @@ changed was the one that had been wrong all along.
   `#14659F` (re-swept at the merge: Greek had taken the first sweep's periwinkle).
 - `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
   collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
-  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swahili-A2.folio-deck.json`**
-  (750 / 1,500). `python3 .claude/swahili/run.py [--level a1]`,
+  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **, A2, `decks/Swahili-A2.folio-deck.json`**
+  (750 / 1,500) **, B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000) **, B2,
+  `decks/Swahili-B2.folio-deck.json`** (1,500 / 3,000) **and C1, `decks/Swahili-C1.folio-deck.json`** (1,500 / 3,000;
+  ranked on two written corpora, CCMatrix and WikiMatrix, counted into a file of its own), **and the phrases
+  deck, `decks/Swahili-Phrases-and-Expressions.folio-deck.json`** (284 / 568, `--level phr`). `python3 .claude/swahili/run.py [--level a1]`,
   `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
   corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
@@ -3551,7 +3562,13 @@ changed was the one that had been wrong all along.
   is measured, `#75543F` (re-swept at the merge: Greek had taken the first sweep's `#6F69D2`).
 - `.claude/thai/` — the generator behind the Thai decks (Nov 2026, on request: "Add a Thai language
   collection"; Hindi's three answers taken as the defaults). **Built: the alphabet, `decks/Thai-Alphabet.folio-deck.json`**
-  (92 notes) **and A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/thai/run.py
+  (92 notes), **A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2,
+  `decks/Thai-A2.folio-deck.json`** (750 notes / 1,500 cards; 2026-11-12, "Add Thai A2") **B1,
+  `decks/Thai-B1.folio-deck.json`** (1,000 notes / 2,000 cards; 2026-11-12, "Add B1") **B2,
+  `decks/Thai-B2.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add B2") **C1,
+  `decks/Thai-C1.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add C1") **and the phrases deck,
+  `decks/Thai-Phrases-and-Expressions.folio-deck.json`** (415 notes: 48 phrases, 340 idioms, 27 proverbs;
+  `run.py --level phr` runs `phrases.py`; 2026-11-12). The collection is complete. `python3 .claude/thai/run.py
   [--level a1]`, `python3 .claude/thai/alphabet.py`, `node .claude/thai/check-thai.js`; a re-run is
   byte-identical. Hindi's shape (an assembled CEFR list, both directions, romanisation — Paiboon, which writes the
   tone), plus what Thai alone needs: a word cut for an unspaced script (`th.Segmenter`, maximal matching), a
@@ -3595,8 +3612,11 @@ changed was the one that had been wrong all along.
 - `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
   collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
-  (36 notes) **and A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hausa/run.py
-  [--level a1] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
+  (36 notes), **A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Hausa-A2.folio-deck.json`**
+  (750 notes, 2026-11-12; each level's hand glosses and lexicon kept apart so A1 stays byte-identical) **and B1,
+  `decks/Hausa-B1.folio-deck.json`** (1,000 notes, 2026-11-12, all from the inventory: the fill is exhausted) **and the phrases deck,
+  `decks/Hausa-Phrases-and-Expressions.folio-deck.json`** (108 expressions in three subdecks, no proverbs: no source
+  holds one; the owner chose it over a B2). `python3 .claude/hausa/run.py [--level a1|a2|b1|phr] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
   is byte-identical. The thinnest sources on the shelf: Wiktionary has about 2,000 Hausa words and lacks core
   ones (`yi`, `tafi`, `da`), so 137 of A1's cards carry Folio's own gloss (`hand.py`, no tone line — a tone
   typed from memory has no source); there is no published frequency list, so frequency is counted from
@@ -3606,8 +3626,9 @@ changed was the one that had been wrong all along.
   Ethnologue's 58 million (via Wikipedia); the hue is measured, `#665487` (re-swept at each merge; 60 hues on the shelf at the last).
 - `.claude/persian/` — the generator behind the Persian (Farsi) decks (Nov 2026, on request: "Add a Farsi language
   collection"). Hindi's pipeline and decisions carried over: CEFR A1–C1 assembled, an alphabet deck first,
-  romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes) **and
-  `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/persian/run.py [--level a1]`,
+  romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes), **A1,
+  `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Persian-A2.folio-deck.json`**
+  (750 notes / 1,500 cards, 2026-11-12: the months let through as nouns) **and B1, `decks/Persian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, the same day: romanisation read off the headword line) **and B2, `decks/Persian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: Wiktionary lacks much of the level's formal vocabulary, so the fill carries it) **and C1, `decks/Persian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: the inventory checked against Wiktionary before it was written). Every level is built, and **the phrases deck, `decks/Persian-Phrases-and-Expressions.folio-deck.json`** (106 expressions: 47 phrases, 39 idioms, 20 proverbs; `phrases.py`, Hindi's, carried over). The set is complete. `python3 .claude/persian/run.py [--level a1]`,
   `python3 .claude/persian/alphabet.py`, `node .claude/persian/check-persian.js`; a re-run is byte-identical. What
   Persian needed that Hindi did not — the fold (Arabic ي ك, marks and the joiner ignored, the madda kept), the
   joiner put back into Wiktionary's tables, the SPOKEN forms counted for the written word, right to left, the
@@ -3616,8 +3637,11 @@ changed was the one that had been wrong all along.
   Wikipedia's infobox); the hue is measured, `#008763` (re-swept at the merge). Not in `combine-decks.py`'s `PARTS`.
 - `.claude/zulu/` — the generator behind the Zulu decks (Nov 2026, on request: "Add a Zulu language
   collection", then the owner's answers: CEFR A1–B1 assembled, a noun classes and clicks deck first, A1 this
-  session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds) **and A1,
-  `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/zulu/run.py [--level a1]`,
+  session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds), **A1,
+  `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Zulu-A2.folio-deck.json`** (750 notes /
+  1,500 cards) **B1, `decks/Zulu-B1.folio-deck.json`** (778 notes, short of 1,000: the source is used up)
+  **and the phrases deck, `decks/Zulu-Phrases.folio-deck.json`** (99 notes: 33 Wiktionary phrases, 66 Tatoeba
+  sentences; all 2026-11-12; `python3 .claude/zulu/phrases.py`). `python3 .claude/zulu/run.py [--level a1|a2|b1]`,
   `python3 .claude/zulu/classes.py`, `node .claude/zulu/check-zulu.js`; a re-run is byte-identical. The
   sources are thin — about 2,700 Wiktionary lemmas, about 110 Tatoeba sentences, no subtitle list — so the
   frequency is the Zulu Wikipedia's, counted per lemma over Zulu's conjunctive forms, and there is no B2 or C1.
@@ -3640,7 +3664,12 @@ changed was the one that had been wrong all along.
   is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
 - `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
   collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
-  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/swedish/run.py [--level a1]`,
+  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swedish-A2.folio-deck.json`**
+  (750 / 1,500; 2026-11-12, on request: "Add Swedish A2") **and B1, `decks/Swedish-B1.folio-deck.json`**
+  (1,000 / 2,000; 2026-11-12, "Add B1") **and B2, `decks/Swedish-B2.folio-deck.json`** (1,500 / 3,000;
+  2026-11-12, "Add B2") **and C1, `decks/Swedish-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-12, "Add
+  C1") — all five levels — **and the phrases deck, `decks/Swedish-Phrases-and-Expressions.folio-deck.json`**
+  (830 expressions in Phrases / Particle verbs / Idioms / Proverbs, 2026-11-12; `--level phr`, `phrases.py`). `python3 .claude/swedish/run.py [--level a1]`,
   `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
   deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
   Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.
@@ -3668,7 +3697,10 @@ changed was the one that had been wrong all along.
   is measured, `#14659F`.
 - `.claude/tagalog/` — the generator behind the Tagalog decks (Nov 2026, on request: "Add a Tagalog language
   collection"; the Romanian set's decisions taken as the default). **Built: A1, `decks/Tagalog-A1.folio-deck.json`**
-  (500 notes / 1,000 cards). `python3 .claude/tagalog/run.py [--level a1]`, `node .claude/tagalog/check-tagalog.js`;
+  (500 notes / 1,000 cards) **and A2, `decks/Tagalog-A2.folio-deck.json`** (750 / 1,500; 2026-11-12, "Add Tagalog A2") **, B1,
+  `decks/Tagalog-B1.folio-deck.json`** (1,000 / 2,000; 2026-11-12) **, B2, `decks/Tagalog-B2.folio-deck.json`** (1,500 / 3,000;
+  2026-11-12) **, C1, `decks/Tagalog-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-12) **and the phrases deck,
+  `decks/Tagalog-Phrases-and-Expressions.folio-deck.json`** (386: 107 phrases, 267 idioms, 12 proverbs; `--level phr`, `phrases.py`). `python3 .claude/tagalog/run.py [--level a1]`, `node .claude/tagalog/check-tagalog.js`;
   a re-run is byte-identical. The Romanian shape (no published list: a topic inventory plus lemma frequency, said in
   the description), no script deck. **What is new**: the headword is the plain spelling with Wiktionary's MARKED
   spelling beneath it (stress and glottal stop, `magandá`, `batà`); a verb is the affixed verb and shows its three

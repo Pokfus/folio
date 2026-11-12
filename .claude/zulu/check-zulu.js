@@ -6,7 +6,8 @@
    Tone field, never the headword), a stem headword with no hyphen or a noun with one, a forms label the
    generator does not write, a locative whose prefix contradicts the noun's class (a person class makes it
    with ku-), unbalanced HTML, an id out of sequence, two notes sharing an English side (the reverse card
-   would have two answers). */
+   would have two answers). The phrases deck is checked for what applies to a phrase: its two subdecks, no
+   phrase a level teaches, balanced HTML, a unique English side. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -24,6 +25,7 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const classes = /Noun Classes/.test(d.meta.title);
+  const phrases = /Phrases/.test(d.meta.title);
   const sides = new Map();
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
@@ -32,6 +34,20 @@ for (const f of files) {
       if (sides.has(F.Ask)) bad(f + ": " + w + " shares its asking side with " + sides.get(F.Ask));
       sides.set(F.Ask, w);
       if (!F.Example) bad(f + ": " + w + " has no example word");
+      return;
+    }
+    if (phrases) {
+      // a phrase or a sentence: not one plain word, so only what still applies (the file sorts after the levels)
+      if (!["Phrases", "Sentences"].includes(c.sub)) bad(f + ": " + w + " is in subdeck " + c.sub);
+      if (seen.has(w.replace(/[^A-Za-z ]/g, "").trim().toLowerCase())) bad(f + ": " + w + " is already taught in " + seen.get(w.replace(/[^A-Za-z ]/g, "").trim().toLowerCase()));
+      if (!F.English || !F.Zulu) bad(f + ": " + w + " has an empty side");
+      for (const k of ["Zulu", "English"]) for (const t of ["div", "span", "ol", "li"]) {
+        const open = (F[k].match(new RegExp("<" + t + "[ >]", "g")) || []).length;
+        const close = (F[k].match(new RegExp("</" + t + ">", "g")) || []).length;
+        if (open !== close) bad(f + ": " + w + " " + k + " has " + open + " <" + t + "> and " + close + " closes");
+      }
+      if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
+      sides.set(F.English, w);
       return;
     }
     if (!PLAIN.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not plain Zulu spelling: " + w);
@@ -61,7 +77,7 @@ for (const f of files) {
     if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
     sides.set(F.English, w);
   });
-  console.log("ok    " + f + ": " + d.cards.length + " notes" + (classes ? "" : ", " +
+  console.log("ok    " + f + ": " + d.cards.length + " notes" + (classes || phrases ? "" : ", " +
     d.cards.filter((c) => c.fields.Forms).length + " with forms, " +
     d.cards.filter((c) => c.fields.Table).length + " with tenses, " +
     d.cards.filter((c) => c.fields.Examples).length + " with sentences"));
