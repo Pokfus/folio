@@ -935,7 +935,7 @@ more work here than in any collection since Greece.
     ps-404  Olfaction
     ps-405  Taste
     ps-406  Flavour
-    ps-407  Touch and the skin senses
+    ps-407  Touch
     ps-408  Pain
     ps-409  Gate control theory of pain
     ps-410  The vestibular and proprioceptive senses
@@ -944,7 +944,7 @@ more work here than in any collection since Greece.
 
     ps-411  Perceptual organisation
     ps-412  The Gestalt principles of grouping
-    ps-413  Figure and ground
+    ps-413  Figure–ground organisation
     ps-414  Perceptual constancy
     ps-415  The Ponzo illusion
     ps-416  The Müller-Lyer illusion

@@ -10580,7 +10580,26 @@ window.GLOSSARY = {
 "Chemosynthesis": "",
 "Photosynthetic_efficiency": "",
 "Compensation_point": "",
-"Autotroph": ""
+"Autotroph": "",
+"Speech_perception": "",
+"McGurk_effect": "",
+"Sense_of_smell": "",
+"Taste": "",
+"Flavor": "",
+"Somatosensory_system": "",
+"Pain": "",
+"Gate_control_theory": "",
+"Vestibular_system": "",
+"Proprioception": "",
+"Principles_of_grouping": "",
+"Figure–ground_(perception)": "",
+"Subjective_constancy": "",
+"Ponzo_illusion": "",
+"Müller-Lyer_illusion": "",
+"Ames_room": "",
+"Moon_illusion": "",
+"Ambiguous_image": "",
+"Impossible_object": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15603,7 +15622,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bimbisara": "c. 544–492 BCE",
 "Ajatashatru": "c. 492–460 BCE",
 "Two-streams_hypothesis": "1983–1992",
-"Golgi_apparatus": "1898"
+"Golgi_apparatus": "1898",
+"Gate_control_theory": "1965",
+"Ponzo_illusion": "1911",
+"Müller-Lyer_illusion": "1889"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22422,7 +22444,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cyanobacteria": ["cyanobacterium","blue-green algae"],
 "Great_Oxidation_Event": ["Great Oxygenation Event"],
 "Compensation_point": ["light compensation point"],
-"Autotroph": ["autotrophs","autotrophic"]
+"Autotroph": ["autotrophs","autotrophic"],
+"Sense_of_smell": ["olfaction"],
+"Taste": ["gustation"],
+"Flavor": ["flavour"],
+"Somatosensory_system": ["touch"],
+"Vestibular_system": ["vestibular sense"],
+"Proprioception": ["proprioceptive senses"],
+"Principles_of_grouping": ["Gestalt principles of grouping"],
+"Figure–ground_(perception)": ["figure–ground organisation","figure and ground"],
+"Subjective_constancy": ["perceptual constancy"],
+"Ambiguous_image": ["ambiguous figures","ambiguous figure"],
+"Impossible_object": ["impossible figures","impossible figure"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33162,7 +33195,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chemosynthesis": ["concept","science","biology","bacteria","energy"],
 "Photosynthetic_efficiency": ["concept","science","biology","photosynthesis","agriculture"],
 "Compensation_point": ["concept","science","biology","photosynthesis","plants"],
-"Autotroph": ["concept","science","biology","energy","ecology"]
+"Autotroph": ["concept","science","biology","energy","ecology"],
+"Speech_perception": ["concept","psychology","hearing","perception","language"],
+"McGurk_effect": ["concept","psychology","hearing","perception","language"],
+"Sense_of_smell": ["concept","psychology","smell","perception","neuroscience"],
+"Taste": ["concept","psychology","taste","perception","neuroscience"],
+"Flavor": ["concept","psychology","taste","smell","perception"],
+"Somatosensory_system": ["concept","psychology","touch","perception","neuroscience"],
+"Pain": ["concept","psychology","pain","perception","medicine"],
+"Gate_control_theory": ["theory","psychology","pain","perception","neuroscience"],
+"Vestibular_system": ["concept","psychology","perception","neuroscience","movement"],
+"Proprioception": ["concept","psychology","perception","neuroscience","movement"],
+"Principles_of_grouping": ["concept","psychology","perception","vision","gestalt"],
+"Figure–ground_(perception)": ["concept","psychology","perception","vision","gestalt"],
+"Subjective_constancy": ["concept","psychology","perception","vision"],
+"Ponzo_illusion": ["concept","psychology","perception","vision","illusion"],
+"Müller-Lyer_illusion": ["concept","psychology","perception","vision","illusion"],
+"Ames_room": ["object","psychology","perception","vision","illusion"],
+"Moon_illusion": ["concept","psychology","perception","vision","illusion"],
+"Ambiguous_image": ["concept","psychology","perception","vision","illusion"],
+"Impossible_object": ["concept","psychology","perception","vision","illusion"]
 });
 
 /* ============================================================================

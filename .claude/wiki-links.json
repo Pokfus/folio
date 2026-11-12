@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T07:13Z",
+ "generated": "2026-11-12T08:32Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7621,
-  "redirect-broader": 744,
+  "ok": 7630,
+  "redirect-broader": 749,
   "redirect-variant": 463,
-  "section-redirect": 174,
-  "disambiguation": 153,
-  "none": 1129,
+  "section-redirect": 175,
+  "disambiguation": 154,
+  "none": 1133,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83058,6 +83058,190 @@
    "url": "https://en.wikipedia.org/wiki/Autotroph",
    "via": "glossary",
    "status": "ok"
+  },
+  "ps-401": {
+   "answer": "speech perception",
+   "title": "Speech perception",
+   "url": "https://en.wikipedia.org/wiki/Speech_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-402": {
+   "answer": "McGurk effect",
+   "title": "McGurk effect",
+   "url": "https://en.wikipedia.org/wiki/McGurk_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-403": {
+   "answer": "chemical senses",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sense",
+    "Monell Chemical Senses Center",
+    "Sport psychology",
+    "Special senses",
+    "Richard L. Doty"
+   ]
+  },
+  "ps-404": {
+   "answer": "olfaction",
+   "title": "Sense of smell",
+   "url": "https://en.wikipedia.org/wiki/Sense_of_smell",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Olfaction"
+  },
+  "ps-405": {
+   "answer": "taste",
+   "title": "Taste",
+   "url": "https://en.wikipedia.org/wiki/Taste",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-406": {
+   "answer": "flavour",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Flavor",
+   "suggestions": [
+    "The Flavor",
+    "Flavor Flav",
+    "Flavour N'abania",
+    "Flavour Network",
+    "Flavour (particle physics)",
+    "Flavor (band)"
+   ]
+  },
+  "ps-407": {
+   "answer": "touch",
+   "title": "Somatosensory system",
+   "url": "https://en.wikipedia.org/wiki/Somatosensory_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Touch"
+  },
+  "ps-408": {
+   "answer": "pain",
+   "title": "Pain",
+   "url": "https://en.wikipedia.org/wiki/Pain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-409": {
+   "answer": "gate control theory",
+   "title": "Gate control theory",
+   "url": "https://en.wikipedia.org/wiki/Gate_control_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-410": {
+   "answer": "vestibular and proprioceptive senses",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Proprioception",
+    "Perception",
+    "Somatosensory system",
+    "Acrophobia",
+    "Sensory processing disorder"
+   ]
+  },
+  "ps-411": {
+   "answer": "perceptual organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Perceptual organization",
+   "target": "Optical illusion#Perceptual organization"
+  },
+  "ps-412": {
+   "answer": "Gestalt principles of grouping",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Principles of grouping",
+    "Gestalt psychology",
+    "Figure–ground (perception)",
+    "Kurt Koffka",
+    "Michael Kubovy"
+   ]
+  },
+  "ps-413": {
+   "answer": "figure–ground organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gestalt psychology",
+    "Johan Wagemans",
+    "Carl Jung",
+    "Theory of indispensable attributes",
+    "Islamic State"
+   ]
+  },
+  "ps-414": {
+   "answer": "perceptual constancy",
+   "title": "Subjective constancy",
+   "url": "https://en.wikipedia.org/wiki/Subjective_constancy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Perceptual constancy"
+  },
+  "ps-415": {
+   "answer": "Ponzo illusion",
+   "title": "Ponzo illusion",
+   "url": "https://en.wikipedia.org/wiki/Ponzo_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-416": {
+   "answer": "Müller-Lyer illusion",
+   "title": "Müller-Lyer illusion",
+   "url": "https://en.wikipedia.org/wiki/M%C3%BCller-Lyer_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-417": {
+   "answer": "Ames room",
+   "title": "Ames room",
+   "url": "https://en.wikipedia.org/wiki/Ames_room",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-418": {
+   "answer": "moon illusion",
+   "title": "Moon illusion",
+   "url": "https://en.wikipedia.org/wiki/Moon_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-419": {
+   "answer": "ambiguous figures",
+   "title": "Ambiguous image",
+   "url": "https://en.wikipedia.org/wiki/Ambiguous_image",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Ambiguous figure"
+  },
+  "ps-420": {
+   "answer": "impossible figures",
+   "title": "Impossible object",
+   "url": "https://en.wikipedia.org/wiki/Impossible_object",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Impossible figure"
   }
  }
 }

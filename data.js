@@ -10426,7 +10426,27 @@ window.CARD_DATA = [
 {"id":"bio-197","num":"197","category":"Biology","question":"At deep-sea vents where no sunlight reaches, bacteria living by <span class=\"blank\">_____</span> oxidise hydrogen sulphide for energy and fix carbon dioxide, supporting whole communities of animals.","answer":"chemosynthesis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"chemosynthesis","tags":["concept","science","biology","energy","bacteria","ocean"],"difficulty":3},
 {"id":"bio-198","num":"198","category":"Biology","question":"With a theoretical ceiling of about 4.6 per cent for C3 plants and under half that achieved in fields, <span class=\"blank\">_____</span> is the one part of crop yield still below its potential.","answer":"photosynthetic efficiency","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"photosynthetic efficiency","tags":["concept","science","biology","photosynthesis","plants","agriculture"],"difficulty":4},
 {"id":"bio-199","num":"199","category":"Biology","question":"At the light <span class=\"blank\">_____</span> a leaf's photosynthesis exactly matches its respiration, so a seedling in deep shade below that intensity loses more carbon than it fixes.","answer":"compensation point","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"compensation point","tags":["concept","science","biology","photosynthesis","respiration","plants"],"difficulty":4},
-{"id":"bio-200","num":"200","category":"Biology","question":"Whether it draws its energy from sunlight or from hydrogen sulphide, an <span class=\"blank\">_____</span> builds its own organic compounds from carbon dioxide rather than eating other organisms.","answer":"autotroph","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"autotroph","tags":["concept","science","biology","energy","photosynthesis","ecology"],"difficulty":2,"undatable":true}
+{"id":"bio-200","num":"200","category":"Biology","question":"Whether it draws its energy from sunlight or from hydrogen sulphide, an <span class=\"blank\">_____</span> builds its own organic compounds from carbon dioxide rather than eating other organisms.","answer":"autotroph","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"autotroph","tags":["concept","science","biology","energy","photosynthesis","ecology"],"difficulty":2,"undatable":true},
+{"id":"ps-401","num":"401","category":"Psychology","question":"Synthetic syllables changed in equal acoustic steps are told apart far better across a phoneme boundary than within one, a hallmark of <span class=\"blank\">_____</span> known as categorical perception.","answer":"speech perception","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"speech perception","tags":["concept","psychology","hearing","perception","language"],"difficulty":3,"undatable":true},
+{"id":"ps-402","num":"402","category":"Psychology","question":"The sound of ‘ba’ dubbed onto a face mouthing ‘ga’ is often heard as ‘da’, the classic demonstration of the <span class=\"blank\">_____</span> first reported in <i>Nature</i> in 1976.","answer":"McGurk effect","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Published</span><span class=\"dt-v\">1976</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"McGurk effect","tags":["concept","psychology","hearing","perception","language"],"difficulty":3},
+{"id":"ps-403","num":"403","category":"Psychology","question":"Taste and smell are grouped as the <span class=\"blank\">_____</span> because their receptors respond to dissolved molecules, in saliva on the tongue and in mucus high inside the nose.","answer":"chemical senses","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"chemical senses","tags":["concept","psychology","taste","smell","perception"],"difficulty":3,"undatable":true},
+{"id":"ps-404","num":"404","category":"Psychology","question":"Each receptor cell carries only one of roughly 1,000 types of odorant receptor, a discovery about <span class=\"blank\">_____</span> that won Linda Buck and Richard Axel a Nobel Prize in 2004.","answer":"olfaction","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"olfaction","tags":["concept","psychology","smell","perception","neuroscience"],"difficulty":3,"undatable":true},
+{"id":"ps-405","num":"405","category":"Psychology","question":"Distinct receptor cells tuned to sweet, sour, bitter, salty and umami, not zones of a tongue map, carry the sense of <span class=\"blank\">_____</span> from food dissolved in saliva to the brain.","answer":"taste","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"taste","tags":["concept","psychology","taste","perception","neuroscience"],"difficulty":2,"undatable":true},
+{"id":"ps-406","num":"406","category":"Psychology","question":"Odours carried up from the mouth while eating are felt as coming from the mouth itself, which is why much of what people call taste is really <span class=\"blank\">_____</span> built chiefly from smell.","answer":"flavour","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"flavour","tags":["concept","psychology","taste","smell","perception"],"difficulty":2,"undatable":true},
+{"id":"ps-407","num":"407","category":"Psychology","question":"With about 241 mechanoreceptive units per square centimetre at the fingertip and only 58 in the palm, the hand’s sense of <span class=\"blank\">_____</span> is sharpest at its tips.","answer":"touch","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"touch","tags":["concept","psychology","touch","perception","neuroscience"],"difficulty":2,"undatable":true},
+{"id":"ps-408","num":"408","category":"Psychology","question":"Revised in 2020, the international definition of <span class=\"blank\">_____</span> calls it an unpleasant sensory and emotional experience associated with, or resembling that associated with, actual or potential tissue damage.","answer":"pain","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pain","tags":["concept","psychology","pain","perception","neuroscience"],"difficulty":1,"undatable":true},
+{"id":"ps-409","num":"409","category":"Psychology","question":"Large touch fibres damping the spinal relay of small-fibre signals was the central mechanism of the <span class=\"blank\">_____</span> of pain that Ronald Melzack and Patrick Wall published in 1965.","answer":"gate control theory","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed</span><span class=\"dt-v\">1965</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"gate control theory","tags":["theory","psychology","pain","perception","neuroscience"],"difficulty":3},
+{"id":"ps-410","num":"410","category":"Psychology","question":"Hair cells in the inner ear’s semicircular canals and receptors in muscles and joints together supply the <span class=\"blank\">_____</span>, which report how the head moves and where the limbs are.","answer":"vestibular and proprioceptive senses","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"vestibular and proprioceptive senses","tags":["concept","psychology","perception","neuroscience","movement"],"difficulty":3,"undatable":true},
+{"id":"ps-411","num":"411","category":"Psychology","question":"Max Wertheimer observed that he saw a house, trees and sky rather than 327 separate brightnesses, the puzzle of <span class=\"blank\">_____</span> that the Gestalt psychologists set out to explain.","answer":"perceptual organisation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"perceptual organisation","tags":["concept","psychology","perception","vision","gestalt"],"difficulty":3,"undatable":true},
+{"id":"ps-412","num":"412","category":"Psychology","question":"Proximity, similarity, common fate, good continuation and closure are among the classic <span class=\"blank\">_____</span>, first set out by Max Wertheimer in a 1923 paper on perceptual forms.","answer":"Gestalt principles of grouping","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Proposed</span><span class=\"dt-v\">1923</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Gestalt principles of grouping","tags":["concept","psychology","perception","vision","gestalt"],"difficulty":2},
+{"id":"ps-413","num":"413","category":"Psychology","question":"Edgar Rubin’s vase of 1915 that turns into two facing profiles is the classic demonstration of <span class=\"blank\">_____</span>, in which one side of a border is seen as an object.","answer":"figure–ground organisation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"figure–ground organisation","tags":["concept","psychology","perception","vision","gestalt"],"difficulty":3,"undatable":true},
+{"id":"ps-414","num":"414","category":"Psychology","question":"A friend walking away casts an ever-smaller image on the retina yet never seems to shrink, an everyday case of <span class=\"blank\">_____</span> for size that depends on judging distance.","answer":"perceptual constancy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"perceptual constancy","tags":["concept","psychology","perception","vision"],"difficulty":3,"undatable":true},
+{"id":"ps-415","num":"415","category":"Psychology","question":"Two equal bars laid across a pair of converging lines look unequal, the one nearer the apex seeming longer, in the <span class=\"blank\">_____</span> that an Italian psychologist described in 1911.","answer":"Ponzo illusion","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Published</span><span class=\"dt-v\">1911</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ponzo illusion","tags":["concept","psychology","perception","vision","illusion"],"difficulty":3},
+{"id":"ps-416","num":"416","category":"Psychology","question":"Two equal lines look unequal when one ends in inward-pointing arrowheads and the other in outward-pointing tails, the <span class=\"blank\">_____</span> that a German scholar published in 1889.","answer":"Müller-Lyer illusion","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Published</span><span class=\"dt-v\">1889</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Müller-Lyer illusion","tags":["concept","psychology","perception","vision","illusion"],"difficulty":3},
+{"id":"ps-417","num":"417","category":"Psychology","question":"A trapezoidal chamber whose back wall slants away looks rectangular through a peephole, so a person crossing it seems to grow or shrink in the <span class=\"blank\">_____</span> devised by Adelbert Ames Jr.","answer":"Ames room","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ames room","tags":["object","psychology","perception","vision","illusion"],"difficulty":3,"undatable":true},
+{"id":"ps-418","num":"418","category":"Psychology","question":"Cleomedes, writing in about the 1st century CE, explained the swollen setting sun by its greater apparent distance, an early account of the effect now best known as the <span class=\"blank\">_____</span> in astronomy.","answer":"moon illusion","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"moon illusion","tags":["concept","psychology","perception","vision","illusion"],"difficulty":2,"undatable":true},
+{"id":"ps-419","num":"419","category":"Psychology","question":"A drawing of a crystal that seemed to flip in depth as he looked at it led Necker in 1832 to describe what became one of the most famous <span class=\"blank\">_____</span>, the Necker cube.","answer":"ambiguous figures","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ambiguous figures","tags":["concept","psychology","perception","vision","illusion"],"difficulty":3,"undatable":true},
+{"id":"ps-420","num":"420","category":"Psychology","question":"Lionel and Roger Penrose’s triangle and endless staircase, published in 1958, became the best known of the <span class=\"blank\">_____</span> that look solid yet could not exist in space.","answer":"impossible figures","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"impossible figures","tags":["concept","psychology","perception","vision","illusion"],"difficulty":3,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -20264,7 +20284,7 @@ window.COLLECTION_TREE = {
     {
       "id": "psych",
       "title": "Psychology",
-      "total": 400,
+      "total": 420,
       "children": [
         {
           "id": "ps-found",
@@ -20801,14 +20821,35 @@ window.COLLECTION_TREE = {
                 "ps-397",
                 "ps-398",
                 "ps-399",
-                "ps-400"
+                "ps-400",
+                "ps-401",
+                "ps-402",
+                "ps-403",
+                "ps-404",
+                "ps-405",
+                "ps-406",
+                "ps-407",
+                "ps-408",
+                "ps-409",
+                "ps-410"
               ]
             },
             {
               "id": "ps-perc-org",
               "title": "Perceptual organisation and illusions",
               "total": 15,
-              "cardIds": []
+              "cardIds": [
+                "ps-411",
+                "ps-412",
+                "ps-413",
+                "ps-414",
+                "ps-415",
+                "ps-416",
+                "ps-417",
+                "ps-418",
+                "ps-419",
+                "ps-420"
+              ]
             }
           ]
         },
