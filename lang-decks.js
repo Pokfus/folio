@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 248 MB of decks. The file itself is fetched on Add. */
+   section without fetching 249 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -132,6 +132,7 @@ window.LANG_DECKS = [
   { lang: "Swedish", file: "Swedish-B1.folio-deck.json", id: "swedishb1", title: "Swedish B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 91, bytes: 1856809, rev: "711244a8dc43" },
   { lang: "Swedish", file: "Swedish-B2.folio-deck.json", id: "swedishb2", title: "Swedish B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 75, bytes: 2516332, rev: "fc642ebe4323" },
   { lang: "Swedish", file: "Swedish-C1.folio-deck.json", id: "swedishc1", title: "Swedish C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 56, bytes: 2312029, rev: "d2871d437607" },
+  { lang: "Swedish", file: "Swedish-Phrases-and-Expressions.folio-deck.json", id: "swedishphrase", title: "Swedish Phrases and Expressions", sub: "830 expressions · 200 everyday, 300 particle verbs, 250 idioms, 80 proverbs · both directions", notes: 830, cards: 1660, subs: 4, tree: [{"n":"Phrases","c":400,"x":43},{"n":"Particle verbs","c":600,"x":98},{"n":"Idioms","c":500,"x":32},{"n":"Proverbs","c":160,"x":24}], flat: true, ex: 58, bytes: 905072, rev: "507b9f7bdc9c" },
   { lang: "Hungarian", file: "Hungarian-Alphabet.folio-deck.json", id: "huabc", title: "Hungarian Alphabet", sub: "The 44 letters and their sounds, then stress and doubled letters (46 notes) · both directions, as two cards each", notes: 46, cards: 92, ex: 0, bytes: 17884, rev: "fc5469bdb639" },
   { lang: "Hungarian", file: "Hungarian-A1.folio-deck.json", id: "hungariana1", title: "Hungarian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1648009, rev: "6cafc8f436d4" },
   { lang: "Latin", file: "Latin-A1.folio-deck.json", id: "latina1", title: "Latin A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1543585, rev: "045168bec457" },

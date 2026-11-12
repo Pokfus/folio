@@ -3639,7 +3639,8 @@ changed was the one that had been wrong all along.
   (750 / 1,500; 2026-11-12, on request: "Add Swedish A2") **and B1, `decks/Swedish-B1.folio-deck.json`**
   (1,000 / 2,000; 2026-11-12, "Add B1") **and B2, `decks/Swedish-B2.folio-deck.json`** (1,500 / 3,000;
   2026-11-12, "Add B2") **and C1, `decks/Swedish-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-12, "Add
-  C1") — all five levels. `python3 .claude/swedish/run.py [--level a1]`,
+  C1") — all five levels — **and the phrases deck, `decks/Swedish-Phrases-and-Expressions.folio-deck.json`**
+  (830 expressions in Phrases / Particle verbs / Idioms / Proverbs, 2026-11-12; `--level phr`, `phrases.py`). `python3 .claude/swedish/run.py [--level a1]`,
   `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
   deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
   Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.

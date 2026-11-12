@@ -5,7 +5,7 @@ Swedish set, built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose 
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Swedish language collection."
 
-**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/swedish/`, §6–§10). The phrases deck is not.
+**STATUS (2026-11-12): the plan is complete** — all five levels, A1 to C1, and the phrases deck (`.claude/swedish/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Swedish to the day's
@@ -36,6 +36,7 @@ is the owner's to overrule.**
 | Swedish B1 Intermediate — built | `Swedish-B1.folio-deck.json` | 1,000 |
 | Swedish B2 Upper Intermediate — built | `Swedish-B2.folio-deck.json` | 1,500 |
 | Swedish C1 Advanced — built | `Swedish-C1.folio-deck.json` | 1,500 |
+| Swedish Phrases and Expressions — built | `Swedish-Phrases-and-Expressions.folio-deck.json` | 830 |
 
 ## 2. Sources and licences
 
@@ -101,7 +102,7 @@ mina), which is the paradigm it belongs to. One of A1's 500 words has no Tatoeba
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swedish_level.py` (or, if the owner chooses, read a graded
-lexicon — §1), run, read every card. **Phase 3** — a phrases deck (`phrase` / `proverb` entries and particle
+lexicon — §1), run, read every card. **Phase 3 (done)** — a phrases deck (`phrase` / `proverb` entries and particle
 verbs: `tycka om`, `ta hand om`).
 
 ## 6. As built (2026-11-09): A1
@@ -215,3 +216,35 @@ words (`i fjol`, `till salu`, `i gengäld`, `i onödan`); names and English (`Lo
 `bang`); `fyr` "a lighthouse" by etymology; drug, vulgar or sexual senses cut from `räka`, `syra`, `pung`,
 `buske`, `doppa`, `kön`, `italienare`; `latin` and `grekiska` to `NO_ART`; four nouns to `GENDER_FIX`; `shit`,
 `jävlig`, `balle` and the slurs `fjolla` and `slinka` to `SWEARS`, `avsugning` and `snopp` excluded.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/swedish/run.py --level phr` (after all five
+levels); the selection stage is `phrases.py`, the Hindi arrangement (`.claude/hindi/phrases.py`) with **one
+subdeck Hindi did not need — PARTICLE VERBS**, the verb-and-particle units Swedish is built on (`ta hand om`,
+`komma överens`, `hålla på`), which §5 named. **830 expressions in four subdecks**: 200 Phrases (of 243),
+300 Particle verbs (of 832), 250 Idioms (of 634), 80 Proverbs (all). Nothing a level teaches is taught again
+(`tycka om`, `hålla med` are B1's).
+
+- **Classification**: a proverb is Wiktionary's `proverb`; an idiom has a sense tagged `idiomatic`; a particle
+  verb is a multi-word `verb` with no such tag; a phrase is a `phrase` / `intj` / `prep_phrase`. The highest wins.
+  A weak or `slang` sense is no reason to include an expression.
+- **Order**: Tatoeba sentences containing the expression — a particle verb's first word in any form of its verb
+  (`examples.phrase_parts`: `tog hand om`) — then the frequency estimate. `CAPS` keeps the commonest of the long
+  subdecks. 485 of the 830 occur in Tatoeba; 479 carry a sentence. The verb-form matching is used for this deck
+  only, so the levels' sentences, and the levels, stay byte-identical (verified after every change).
+- **The card**: a particle verb shows the present, past and supine of the whole (`tar hand om`, `tog hand om`,
+  `tagit hand om`, from Wiktionary's head forms); no expression carries an article (`kärlek vid första
+  ögonkastet`, not "en …"), and `check-swedish.js` exempts a multi-word noun from the article rule.
+- **`EXCLUDE`** (each with its reason): phrasebook sentences built from level words (`jag är hungrig`, `jag
+  älskar dig` — the Hindi and Turkish rule; the formulas asked and answered whole, `hur mår du`, `var är
+  toaletten`, `jag förstår inte`, stay); pointers ("See ta sig") and entries with no gloss the extract keeps
+  (`håll käft` came out as only a dedupe label, as `madame` did at B2); entries whose gloss says they are not
+  particle verbs (`gå till`, `köra över`); the second spelling of one expression (`sov så gott`, three spellings
+  of `kasta pärlor för svinen`, two of `många bäckar små`); rude, sexual or drug expressions; a mnemonic, a policy
+  name, a children's game, a pun. Wiktionary's "Used other than figuratively or idiomatically" pointer sense is
+  dropped from this deck's cards; five glosses are written in `GLOSS` (a vulgar or a pointer sense cut).
+
+**Known, left.** Some phrases are Wiktionary's literal-translation entries rather than set phrases a learner
+needs (`det täcka könet`, `mata inte trollet`); a few idioms are regional or dated (`möta sitt Japan`). The
+particle-verb cap of 300 leaves out 532 rarer ones; the cap is one number in `phrases.py`.

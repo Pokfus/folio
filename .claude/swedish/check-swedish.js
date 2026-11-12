@@ -31,7 +31,7 @@ for (const f of files) {
     seen.set(w, f);
     if (!F.English) bad(f + ": " + w + " has no English");
     const firstPos = (F.English.match(/class="uc-pos">([^<]*)</) || [])[1] || "";
-    if (/^noun/.test(firstPos) && F.Table && !/plural only/.test(firstPos) && !/uc-art/.test(F.Swedish) &&
+    if (/^noun/.test(firstPos) && F.Table && !/ /.test(w) && !/plural only/.test(firstPos) && !/uc-art/.test(F.Swedish) &&
         !["svenska", "engelska", "franska", "ryska", "spanska", "japanska", "italienska", "kinesiska", "latin", "grekiska"].includes(w)) bad(f + ": " + w + " is a noun with no article");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
