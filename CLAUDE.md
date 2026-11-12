@@ -236,7 +236,7 @@ have not this session.
 
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | live |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
-| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
+| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | live: `in-001`–`100` written, next is `in-101` |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 1000 cards (`cnh-070` retired in Sep 2026, rewritten as *Shang bronze inscriptions* in Oct 2026 on request) |
 
 📖 `docs/china-refinement-audit.md` — READ BEFORE TOUCHING ANY `cnh-` CARD (the Nov 2026 refinement: Greece's rules plus legend against history, the PROTECTED date lines of the individuals, the Chinese name, house spellings, the myth register, batches, ledger; `node .claude/cnh-audit.js`, `node .claude/check-cnh-spellings.js`; the harness is `.claude/wh-refine/` with `REFINE_PREFIX=cnh-`). 📖 `docs/china-chronology.md` — READ BEFORE WRITING A DATE OR A NAME ON A `cnh-` CARD.
@@ -253,9 +253,9 @@ have not this session.
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | live |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | live: 100 cards, contiguous — next is `ph-101` |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | live |
-| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty |
+| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | live: `dino-001`–`100` written, next is `dino-101` |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | live: `astro-001`–`200` written, next is `astro-201` |
-| Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | empty |
+| Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | live: `ec-001`–`100` written, next is `ec-101` |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | live |
 | France | `france` | `fr-` | `docs/france-card-plan.md` | 9 / 43 | empty |
 | Ancient Mesopotamia | `mesopotamia` | `me-` | `docs/mesopotamia-card-plan.md` | 9 / 40 | empty |

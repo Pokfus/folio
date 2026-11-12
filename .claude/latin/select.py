@@ -9,7 +9,9 @@ note, each marked with where it came from (`inventory` or `frequency`).
 THE ORDER the cards are dealt in: the word's rank in the DCC Latin Core
 Vocabulary first (the commonest classical words first), then -- for the
 inventory words the DCC list does not hold (`fēlēs`, `ientāculum`, `caeruleus`)
--- their lemma count over the Tatoeba corpus.
+-- their lemma count over the Tatoeba corpus.  FROM B1 ON (`CORPUS_LEVELS`) the DCC
+list runs out, and the words beyond it come, and are dealt, by their lemma count
+over classical texts (`corpus.py`, `classical.json`), before the Tatoeba count.
 
 A WORD THE LEVELS BELOW TEACH IS NOT TAUGHT AGAIN (`latin_level.words_below`).
 
@@ -19,16 +21,116 @@ word keeps the entries matching its DCC headword's spelling and part of speech.
 So `mālum` is the apple and never the evil, and the fill's `cum` is the
 preposition AND the conjunction, as the DCC list has both.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from la import fold, tidy, nfc
-from latin_level import LEVEL, TARGET, f, words_below
+from latin_level import LEVEL, TARGET, CORPUS_LEVELS, f, words_below, load_lex
 from inventory import INVENTORY
 
-# Read off the A1 ranking (2026-11-09).  Each with its reason.
+# Read off the rankings.  Each with its reason.
 EXCLUDE = {
+    # B1 (2026-11-12), the classical count
+    'utque': 'ut + -que, not a word of its own',
+    'sīquis': 'sī quis written as one word',
+    'ulter': 'only the positive behind ulterior and ultimus; "that is beyond"',
+    'īnsidia': 'the singular of īnsidiae, which the count also offers',
+    'tueō': 'the active of tueor, which the count also offers',
+    'spōns': 'used in the ablative sponte, which the count also offers',
+    'quantusque': 'quantus + -que, not a word of its own',
+    'pennus': 'a rare adjective "sharp", counted off the forms of penna',
+    # B2 (2026-11-12)
+    'animāns': 'a participle filed as a noun with no genitive; animal (A1) is the word',
+    'inlāta': 'a form of īnferō filed as a lemma, with no English sense left',
+    'imitō': 'the active of imitor (B1)',
+    'misereō': 'the active of misereor (A2)',
+    'quibuscum': 'quibus + cum written as one word',
+    'lātius': 'the comparative of lātē, glossed "lately"',
+    'tenus': 'only "a stretched cord" here; the preposition "as far as" is not a lemma Wiktionary files',
+    'minima': 'the medieval musical note',
+    'pēnis': 'on a level deck; "tail" is cauda',
+    'carinus': 'a rare "nut-brown", counted off the forms of carīna',
+    'adgressus': 'the participle of aggredior, which the count also offers',
+    'cora': 'a rare Greek "pupil of the eye", counted off the forms of cor',
+    'ānus': '"ring" or "anus"; the common anus "old woman" is another word',
+    'cohortō': 'the active of cohortor (B1)',
+    'mōliō': 'the active of mōlior',
+    'pessimō': 'a rare "to ruin", counted off the forms of pessimus',
+    'citer': 'only the positive behind citerior and citimus',
+    'nuo': 'a fragment of adnuō and abnuō',
+    'uo': 'a fragment of induō and exuō',
+    'bēluus': 'a rare adjective; the noun bēlua is the word',
+    'aquilus': 'a rare "dark-coloured", counted off the forms of aquila',
+    'dēlicia': 'a builder\'s beam; the word is the plural dēliciae',
+    'sexus': 'on a level deck its one sense is dropped, leaving "division"',
+    'ocellus': 'only "darling" here',
+    # C1 (2026-11-12)
+    'pedō': '"to furnish with feet", beside pēdō "to fart"',
+    'cinaedus': 'on a level deck',
+    'īdos': 'a Greek word, eidos',
+    'fabella': 'filed with no genitive or gender, so no dictionary entry; fābula (A2) is the word',
+    'quālisque': 'quālis + -que, not a word of its own',
+    'quotiēnsque': 'quotiēns + -que, not a word of its own',
+    'satin': 'satisne, a contraction',
+    'cōnfit': 'the passive of cōnficiō, a form',
+    'relicuum': 'an old spelling of reliquum (reliquus, A2)',
+    'vitula': 'only the goddess here; vitulus (A2) is the calf',
+    'dēducta': 'a participle filed as a noun ("the part deducted")',
 }
+
+
+# A GLOSS THAT IS A FORM'S LABEL, not a meaning (read off C1's ranking): Wiktionary files
+# some inflected forms as lemmas of their own -- `conlāta` "nominative/vocative feminine
+# singular", `acerbius` "more stridently etc.; comparative degree".
+FORM_GLOSS = re.compile(r'^(?:nominative|genitive|dative|accusative|ablative|vocative)\b'
+                        r'|\b(?:comparative|superlative) degree\b', re.I)
+
+# AN UNASSIMILATED SPELLING (C1): `inruō` beside `irruō`, `conlāpsus` beside `collāpsus`,
+# `adfīgō` beside `affīgō` -- the same word, which the count offers in its usual spelling.
+ASSIMILATE = [('inl', 'ill'), ('inr', 'irr'), ('inm', 'imm'), ('inp', 'imp'), ('inb', 'imb'),
+              ('conl', 'coll'), ('conr', 'corr'), ('conm', 'comm'), ('conp', 'comp'),
+              ('conb', 'comb'), ('adf', 'aff'), ('adl', 'all'), ('adr', 'arr'), ('ads', 'ass'),
+              ('adc', 'acc'), ('adg', 'agg'), ('adp', 'app'), ('adt', 'att'), ('adn', 'ann'),
+              ('subm', 'summ'), ('subf', 'suff'), ('subc', 'succ'), ('subg', 'sugg'),
+              ('subp', 'supp'), ('obp', 'opp'), ('obc', 'occ'), ('obf', 'off')]
+
+
+def meaningful(L):
+    """Has a classical sense that is not a form's label."""
+    return any(not g['weak'] and not FORM_GLOSS.search(g['g'].strip(' ;:,'))
+               for e in L['entries'] for g in e['glosses'])
+
+
+def gerundive(k, L):
+    """A gerundive filed as a word (`līberandus` "which is to be freed", `vāstandus`; C1):
+    a participle-only lemma in -ndus -- the verb's own card is the word to teach."""
+    return k.endswith('ndus') and all(
+        e['pos'] == 'verb' and not any('third-person' in t['t'] for t in e['table'])
+        for e in L['entries'])
+
+
+def twin(k, lex, below):
+    """The usual spelling of an unassimilated one, where that spelling is a lemma too."""
+    for a, b in ASSIMILATE:
+        if k.startswith(a):
+            t = b + k[len(a):]
+            if t in lex or t in below:
+                return t
+    return ''
+
+
+def shadow_of(L):
+    """The folds of every form a lemma's tables and head lines print -- a corpus word
+    spelt as one is that lemma's form (`oblītus`: `oblīvīscor`), not a word to teach."""
+    out = set()
+    for e in L['entries']:
+        for row in e['table'] + e['head']:
+            for w in row['f'].split():
+                k = fold(w.strip(',;'))
+                out.add(k)
+                if k.endswith('um'):
+                    out.add(k[:-2] + 'us')
+    return out
 
 
 def usable(L, canon=None):
@@ -41,7 +143,10 @@ def usable(L, canon=None):
 
 
 def main():
-    lex = json.load(open('lex.json', encoding='utf-8'))
+    lex = load_lex()
+    cls = {}
+    if LEVEL in CORPUS_LEVELS:
+        cls = json.load(open('classical.json', encoding='utf-8'))['counts']
     below = words_below()
     rows, seen, missing, loose = [], set(), [], []
     for topic, words in INVENTORY.get(LEVEL, []):
@@ -65,7 +170,7 @@ def main():
             rows.append({'key': k, 'word': exact[0] if exact else L['word'], 'canon': exact[:1],
                          'pos': pos or '', 'dccpos': sorted({p for _, _, p in L['dcc_rows'] if p}),
                          'source': 'inventory', 'topic': topic,
-                         'dcc': L['dcc'], 'tat': L['tat']})
+                         'dcc': L['dcc'], 'tat': L['tat'], **({'cls': cls.get(k, 0)} if cls else {})})
     n_inv = len(rows)
     excl = {fold(s) for s in EXCLUDE}
     fill = []
@@ -86,11 +191,45 @@ def main():
         seen.add(k)
         fill.append({'key': k, 'word': canon[0] if canon else L['word'], 'canon': canon,
                      'pos': '', 'dccpos': dpos, 'source': 'frequency', 'topic': '',
-                     'dcc': L['dcc'], 'tat': L['tat']})
+                     'dcc': L['dcc'], 'tat': L['tat'], **({'cls': cls.get(k, 0)} if cls else {})})
+    n_dcc = len(fill)
+    # BEYOND THE DCC LIST: the commonest remaining lemmas of the classical count.  A
+    # candidate spelt as a form of a word taught below or chosen here is that word's
+    # form; the forms of each chosen word join the shadow as it is chosen, and the
+    # whole pass is repeated until no chosen word is another's form.
+    if cls:
+        base = set()
+        for k in below | seen:
+            if k in lex:
+                base |= shadow_of(lex[k])
+        drop = set()
+        while True:
+            shadow, extra = set(base), []
+            for k, c in sorted(cls.items(), key=lambda kv: (-kv[1], kv[0])):
+                if len(rows) + len(fill) + len(extra) >= TARGET[LEVEL]:
+                    break
+                L = lex.get(k)
+                if (not L or L['dcc'] or k in seen or k in below or k in excl or k in drop
+                        or ' ' in k or k in shadow or not usable(L) or not meaningful(L)
+                        or twin(k, lex, below) or gerundive(k, L)):
+                    continue
+                extra.append({'key': k, 'word': L['word'], 'canon': [], 'pos': '', 'dccpos': [],
+                              'source': 'corpus', 'topic': '', 'dcc': 0, 'tat': L['tat'], 'cls': c})
+                shadow |= shadow_of(L) - {k}
+            late = {r['key'] for r in extra} & shadow
+            if not late:
+                break
+            drop |= late
+        fill += extra
+        seen |= {r['key'] for r in extra}
     rows += fill
-    rows.sort(key=lambda r: (r['dcc'] or 10 ** 6, -r['tat'], r['key']))
+    if cls:
+        rows.sort(key=lambda r: (r['dcc'] or 10 ** 6, -r['cls'], -r['tat'], r['key']))
+    else:
+        rows.sort(key=lambda r: (r['dcc'] or 10 ** 6, -r['tat'], r['key']))
     json.dump(rows, open(f('selected.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
-    print(f'  {len(rows)} words: {n_inv} from the inventory, {len(fill)} from the DCC list')
+    print(f'  {len(rows)} words: {n_inv} from the inventory, {n_dcc} from the DCC list'
+          + (f', {len(fill) - n_dcc} from the classical count' if cls else ''))
     if missing:
         print('  NOT IN WIKTIONARY (dropped):', ' '.join(missing))
     if loose:

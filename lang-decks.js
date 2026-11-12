@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 243 MB of decks. The file itself is fetched on Add. */
+   section without fetching 265 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -29,6 +29,11 @@ window.LANG_DECKS = [
   { lang: "Spanish", file: "Spanish-Phrases.folio-deck.json", id: "esphrases", title: "Spanish — Common phrases and expressions", sub: "400 expressions · both directions, as two cards each", notes: 400, cards: 800, ex: 100, bytes: 452429, rev: "87ef54542a88" },
   { lang: "Arabic", file: "Arabic-Alphabet.folio-deck.json", id: "arabc", title: "Arabic Alphabet", sub: "31 letters and signs · both directions, as two cards per letter", notes: 31, cards: 62, ex: 0, bytes: 31388, rev: "721c47e1222e" },
   { lang: "Arabic", file: "Arabic-A1.folio-deck.json", id: "arabica1", title: "Arabic A1", sub: "500 words · Modern Standard Arabic · both directions", notes: 500, cards: 1000, ex: 98, bytes: 901059, rev: "68995070eb08" },
+  { lang: "Arabic", file: "Arabic-A2.folio-deck.json", id: "arabica2", title: "Arabic A2", sub: "600 words · Modern Standard Arabic · both directions", notes: 600, cards: 1200, ex: 96, bytes: 1206920, rev: "97976ecaccfc" },
+  { lang: "Arabic", file: "Arabic-B1.folio-deck.json", id: "arabicb1", title: "Arabic B1", sub: "800 words · Modern Standard Arabic · both directions", notes: 800, cards: 1600, ex: 90, bytes: 1693727, rev: "170ed028bcad" },
+  { lang: "Arabic", file: "Arabic-B2.folio-deck.json", id: "arabicb2", title: "Arabic B2", sub: "900 words · Modern Standard Arabic · both directions", notes: 900, cards: 1800, ex: 69, bytes: 1531327, rev: "56e9480d2f9a" },
+  { lang: "Arabic", file: "Arabic-C1.folio-deck.json", id: "arabicc1", title: "Arabic C1", sub: "700 words · Modern Standard Arabic · both directions", notes: 700, cards: 1400, ex: 39, bytes: 1114440, rev: "308440682af8" },
+  { lang: "Arabic", file: "Arabic-Phrases-and-Expressions.folio-deck.json", id: "arabicphrase", title: "Arabic Phrases and Expressions", sub: "164 expressions · 58 everyday, 68 idioms, 38 proverbs · both directions", notes: 164, cards: 328, subs: 3, tree: [{"n":"Phrases","c":116,"x":21},{"n":"Idioms","c":136,"x":10},{"n":"Proverbs","c":76,"x":18}], flat: true, ex: 16, bytes: 93917, rev: "e376760a6bea" },
   { lang: "French", file: "DELF-A1-French.folio-deck.json", id: "delfa1", title: "DELF A1 — French", sub: "433 words · both directions, as two cards per word", notes: 433, cards: 866, ex: 100, bytes: 785436, rev: "af549d5277f3" },
   { lang: "French", file: "DELF-A2-French.folio-deck.json", id: "delfa2", title: "DELF A2 — French", sub: "589 words · both directions, as two cards per word", notes: 589, cards: 1178, ex: 100, bytes: 1407308, rev: "dfc0348c3bea" },
   { lang: "French", file: "DELF-B1-French.folio-deck.json", id: "delfb1", title: "DELF B1 — French", sub: "895 words · both directions, as two cards per word", notes: 895, cards: 1790, ex: 99, bytes: 2408439, rev: "b99e20dba008" },
@@ -135,6 +140,11 @@ window.LANG_DECKS = [
   { lang: "Hungarian", file: "Hungarian-Alphabet.folio-deck.json", id: "huabc", title: "Hungarian Alphabet", sub: "The 44 letters and their sounds, then stress and doubled letters (46 notes) · both directions, as two cards each", notes: 46, cards: 92, ex: 0, bytes: 17884, rev: "fc5469bdb639" },
   { lang: "Hungarian", file: "Hungarian-A1.folio-deck.json", id: "hungariana1", title: "Hungarian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1648009, rev: "6cafc8f436d4" },
   { lang: "Latin", file: "Latin-A1.folio-deck.json", id: "latina1", title: "Latin A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1543585, rev: "045168bec457" },
+  { lang: "Latin", file: "Latin-A2.folio-deck.json", id: "latina2", title: "Latin A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 99, bytes: 2770552, rev: "25d02e6b01c9" },
+  { lang: "Latin", file: "Latin-B1.folio-deck.json", id: "latinb1", title: "Latin B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 87, bytes: 3947339, rev: "ad6ee9f32980" },
+  { lang: "Latin", file: "Latin-B2.folio-deck.json", id: "latinb2", title: "Latin B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 68, bytes: 5628637, rev: "6e06115d4bb0" },
+  { lang: "Latin", file: "Latin-C1.folio-deck.json", id: "latinc1", title: "Latin C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 48, bytes: 5284644, rev: "3fb6318e89df" },
+  { lang: "Latin", file: "Latin-Phrases-and-Mottos.folio-deck.json", id: "laphrase", title: "Latin Phrases and Mottos", sub: "625 phrases · both directions, as two cards per phrase", notes: 625, cards: 1250, ex: 28, bytes: 267098, rev: "7a39fb3b5b82" },
   { lang: "Old English", file: "Old-English-Alphabet.folio-deck.json", id: "oeabc", title: "Old English Alphabet and Pronunciation", sub: "41 letters, sounds and spelling rules · both directions, as two cards per note", notes: 41, cards: 82, ex: 0, say: false, bytes: 20791, rev: "3d1c53cc27f9" },
   { lang: "Old English", file: "Old-English-Level-1.folio-deck.json", id: "oel1", title: "Old English Level 1", sub: "The 500 commonest words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 39, say: false, bytes: 994161, rev: "942d7ada836a" },
 ];
